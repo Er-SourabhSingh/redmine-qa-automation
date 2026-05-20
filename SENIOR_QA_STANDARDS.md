@@ -421,3 +421,41 @@ The framework must prioritize:
 - Strong evidence collection
 - Duplicate bug prevention
 - Real-world workflow testing
+
+---
+
+## 21. Screenshots Rules
+
+- Capture screenshots **only when a bug is found**. Never screenshot passing tests.
+- Save under `plugins/<plugin-name>/screenshots/<BUG-ID>/`.
+- Each bug gets its own subfolder named by Bug ID (e.g. `screenshots/BUG-TCM-001/`).
+- Screenshot must show the failure area clearly with the relevant page state visible.
+
+---
+
+## 22. Reporting Rules
+
+At the end of every test run, generate:
+
+| Report | Location | Trigger |
+|--------|----------|---------|
+| `tc-report.html` | `plugins/<plugin>/reports/` | Auto — end of every test run |
+| `defects-summary.html` | `plugins/<plugin>/reports/` | Auto — end of every test run |
+| `final-bug-report.md` | `plugins/<plugin>/reports/` | Auto — generated from all files in `bugs/open/` |
+| `final-bug-report.pdf` | `plugins/<plugin>/reports/` | **Manual only** — generated ONLY when user explicitly requests it |
+
+**Never auto-generate the PDF.** Always ask the user: "Testing is complete. Do you want me to generate the final PDF bug report?"
+
+---
+
+## 23. Plugin Memory Rules
+
+Two levels of memory are maintained:
+
+| Level | File | Scope |
+|-------|------|-------|
+| Global | `MEMORY.md` (root) | Rules applying to ALL plugins |
+| Plugin | `plugins/<plugin>/docs/memory.md` | Plugin-specific quirks, observations, recurring issues |
+
+Always update the plugin-level `memory.md` after a test run with new observations.
+Only update root `MEMORY.md` when a rule applies globally across all plugins.

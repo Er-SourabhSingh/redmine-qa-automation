@@ -6,7 +6,7 @@
 |---|---|
 | Application | Redmine |
 | Environment | Forge |
-| Base URL | `<UPDATE_FORGE_URL_BEFORE_TEST_RUN>` |
+| Base URL | `https://flux-fxm0ansqf49.forge.zehntech.com/` |
 
 ---
 

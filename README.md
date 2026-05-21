@@ -36,14 +36,17 @@ redmine-qa-automation/
     │   │   ├── _duplicates.md
     │   │   ├── open/
     │   │   └── closed/
-    │   ├── screenshots/               ← bug evidence only, per Bug ID subfolder
+    │   ├── screenshots/
+    │   │   ├── <TC-ID>/               ← one subfolder per TC — PASS/FAIL evidence
+    │   │   └── <BUG-ID>/              ← one subfolder per bug — failure + retest evidence
     │   ├── reports/
     │   │   ├── tc-report.html         ← auto-generated each test run
     │   │   ├── defects-summary.html   ← auto-generated each test run
-    │   │   ├── final-bug-report.md    ← auto-generated from bugs/open/
+    │   │   ├── final-bug-report.md    ← auto-generated from bugs/open/ and bugs/closed/
     │   │   └── final-bug-report.pdf   ← ONLY on explicit user request
     │   └── logs/
     │
+    ├── redmineflux_advanced_field/    ← 51 PASS, 0 bugs open (same structure as _template)
     └── testcase-management-plugin/    ← active plugin (same structure as _template)
 ```
 

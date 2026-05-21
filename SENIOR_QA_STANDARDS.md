@@ -347,6 +347,7 @@ When a bug is retested and confirmed **FIXED**, the bug file **must** be moved f
 8. Update `reports/tc-report.html` — change BLOCKED → PASS for every TC blocked by this bug; add a `fix-ref` note with bug ID and retest date
 9. Update `docs/changelog.md` — add a row for the fix retest session
 10. Update `docs/handoff.md` — remove the bug from the Blockers section
+11. Update `STATUS.md` — decrement Open Bugs count, update Status description
 
 ### Bug folder states
 

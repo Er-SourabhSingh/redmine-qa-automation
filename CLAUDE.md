@@ -343,12 +343,14 @@ Do not begin testing until all of the above are read.
 At the end of every test session:
 
 - [ ] All bugs saved to `bugs/open/` with correct format
-- [ ] `bugs/_index.md` updated
-- [ ] Screenshots saved under `screenshots/<BUG-ID>/`
+- [ ] Fixed bugs moved from `bugs/open/` to `bugs/closed/` and open copy deleted
+- [ ] `bugs/_index.md` updated (status + file path)
+- [ ] TC screenshots saved under `screenshots/<TC-ID>/`
+- [ ] Bug screenshots saved under `screenshots/<BUG-ID>/`
 - [ ] `tc-report.html` generated
 - [ ] `defects-summary.html` generated
-- [ ] `final-bug-report.md` generated from open bugs
+- [ ] `final-bug-report.md` updated
 - [ ] `docs/memory.md` updated with new observations
 - [ ] `docs/handoff.md` updated with next session start point
 - [ ] `docs/changelog.md` updated with this run summary
-- [ ] `STATUS.md` updated
+- [ ] `STATUS.md` updated — Open Bugs count and Status description

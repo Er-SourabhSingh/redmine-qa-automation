@@ -459,10 +459,43 @@ The framework must prioritize:
 
 ## 22. Screenshots Rules
 
-- Capture screenshots **only when a bug is found**. Never screenshot passing tests.
-- Save under `plugins/<plugin-name>/screenshots/<BUG-ID>/`.
-- Each bug gets its own subfolder named by Bug ID (e.g. `screenshots/BUG-TCM-001/`).
-- Screenshot must show the failure area clearly with the relevant page state visible.
+### Folder structure
+
+```
+screenshots/
+├── TC-RAF-001/          ← one subfolder per test case executed
+│   └── tc-raf-001-pass.png
+├── TC-RAF-002/
+│   └── tc-raf-002-pass.png
+├── BUG-RAF-001/         ← one subfolder per bug found
+│   ├── bug-raf-001-alert-fired.png
+│   └── retest-2026-05-21-fixed.png
+└── BUG-RAF-002/
+    ├── bug-raf-002-validation-error.png
+    └── retest-2026-05-21-pass.png
+```
+
+### TC screenshots
+
+- **Take one screenshot per test case** — capture the final state that confirms PASS or FAIL.
+- Save under `screenshots/<TC-ID>/` using the naming pattern `<tc-id>-<result>.png`
+  - PASS example: `screenshots/TC-RAF-001/tc-raf-001-pass.png`
+  - FAIL example: `screenshots/TC-RAF-001/tc-raf-001-fail.png`
+- Screenshot must show the relevant page state that proves the TC result.
+
+### Bug screenshots
+
+- Take a screenshot **at the exact moment the bug is observed** — show the failure area clearly.
+- Save under `screenshots/<BUG-ID>/` using a descriptive name (e.g. `bug-raf-001-alert-fired.png`).
+- For retest evidence, save under the same `screenshots/<BUG-ID>/` folder with a retest prefix (e.g. `retest-2026-05-21-fixed.png`).
+
+### Summary
+
+| Screenshot type | Folder | Naming |
+|-----------------|--------|--------|
+| TC execution (PASS/FAIL) | `screenshots/<TC-ID>/` | `<tc-id>-pass.png` / `<tc-id>-fail.png` |
+| Bug evidence | `screenshots/<BUG-ID>/` | descriptive name of the failure |
+| Bug retest | `screenshots/<BUG-ID>/` | `retest-<date>-<result>.png` |
 
 ---
 

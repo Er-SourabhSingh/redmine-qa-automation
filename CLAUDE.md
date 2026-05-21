@@ -49,7 +49,8 @@ redmine-qa-automation/
         │   ├── open/                ← one .md file per open bug
         │   └── closed/              ← one .md file per closed bug
         ├── screenshots/
-        │   └── <BUG-ID>/            ← screenshots for that bug only
+        │   ├── <TC-ID>/             ← one subfolder per TC (e.g. TC-RAF-001/) — PASS/FAIL evidence
+        │   └── <BUG-ID>/            ← one subfolder per bug (e.g. BUG-RAF-001/) — failure + retest evidence
         ├── reports/
         │   ├── tc-report.html       ← test case pass/fail report
         │   ├── defects-summary.html ← defect count and severity breakdown
@@ -77,7 +78,7 @@ plugins/<plugin-name>/
   bugs/_duplicates.md
   bugs/open/
   bugs/closed/
-  screenshots/
+  screenshots/          ← subfolders created per TC-ID and BUG-ID as testing progresses
   reports/final-bug-report.md
   logs/
 ```
@@ -258,10 +259,17 @@ Always include:
 
 ## 6. Screenshot Rules
 
-- **Take screenshots only when a bug is found.** Never screenshot passing tests.
-- Save under `plugins/<plugin-name>/screenshots/<BUG-ID>/`.
-- Filename should describe the failure (e.g. `confirm-button-missing-translation.png`).
-- Screenshot must clearly show the failure area and relevant page state.
+Take screenshots for **every test case executed** and for every bug found.
+
+| Screenshot type | Save location | Naming pattern |
+|-----------------|---------------|----------------|
+| TC execution (PASS/FAIL) | `screenshots/<TC-ID>/` | `<tc-id>-pass.png` or `<tc-id>-fail.png` |
+| Bug evidence | `screenshots/<BUG-ID>/` | descriptive name of the failure |
+| Bug retest | `screenshots/<BUG-ID>/` | `retest-<date>-<result>.png` |
+
+- TC screenshot must show the final page state that confirms the PASS or FAIL result.
+- Bug screenshot must clearly show the failure area with the relevant page state visible.
+- Retest screenshots go in the same `<BUG-ID>` folder as the original bug evidence.
 
 ---
 

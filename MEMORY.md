@@ -30,6 +30,15 @@ Persistent rules that apply to ALL plugin test runs. Plugin-specific observation
 - `final-bug-report.md` is auto-generated from `bugs/open/`.
 - `final-bug-report.pdf` is generated ONLY when user explicitly asks.
 
+## Test Case Design Rules
+
+- **Never write test cases without first reading `docs/requirements.md`, `docs/features-list.md`, and `docs/user-guide.md`.**
+- If `docs/requirements.md` is missing → stop and ask the user to provide it before continuing.
+- If `docs/features-list.md` is missing → stop and ask the user to provide it before continuing.
+- If `docs/user-guide.md` is missing → stop and ask the user to provide it before continuing.
+- If multiple files are missing → ask for all of them in one message. Do not proceed until all are supplied.
+- Never infer or guess plugin behavior from the plugin name alone.
+
 ## Structure Rules
 
 - Keep this QA repository separate from plugin source code.

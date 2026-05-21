@@ -526,3 +526,36 @@ Two levels of memory are maintained:
 
 Always update the plugin-level `memory.md` after a test run with new observations.
 Only update root `MEMORY.md` when a rule applies globally across all plugins.
+
+---
+
+## 25. Pre-Test Case Writing Requirements
+
+**Before writing any test case file (`testcases/*.md`), the following files must be read:**
+
+| File | Location | Purpose |
+|------|----------|---------|
+| `requirements.md` | `plugins/<plugin>/docs/requirements.md` | Understand what the plugin does, its features, workflows, and permission matrix |
+| `features-list.md` | `plugins/<plugin>/docs/features-list.md` | Full list of plugin features to ensure complete test coverage |
+| `user-guide.md` | `plugins/<plugin>/docs/user-guide.md` | Understand real end-user behavior, UI flows, and edge cases |
+
+### Rules
+
+- **Do not write a single test case** until both files have been read.
+- If `requirements.md` is missing, stop and ask:
+  > "The plugin requirements file (`docs/requirements.md`) is missing. Please provide it before I can write test cases."
+- If `features-list.md` is missing, stop and ask:
+  > "The plugin features list (`docs/features-list.md`) is missing. Please provide it before I can write test cases."
+- If `user-guide.md` is missing, stop and ask:
+  > "The user guide (`docs/user-guide.md`) is missing. Please provide it before I can write test cases."
+- If multiple files are missing, ask for all of them in a single message before proceeding.
+- Do not assume or guess plugin behavior from the plugin name alone.
+
+### Why
+
+Test cases written without reading requirements and user guide will:
+
+- Miss real business workflows
+- Validate wrong behavior
+- Produce incomplete permission coverage
+- Generate test cases that do not reflect how real users operate the plugin

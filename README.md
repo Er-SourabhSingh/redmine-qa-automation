@@ -24,7 +24,9 @@ redmine-qa-automation/
 └── plugins/
     ├── _template/                     ← copy this when adding a new plugin
     │   ├── docs/
-    │   │   ├── requirements.md        ← what the plugin does
+    │   │   ├── requirements.md        ← what the plugin does (required before writing test cases)
+    │   │   ├── features-list.md       ← full feature list for test coverage (required before writing test cases)
+    │   │   ├── user-guide.md          ← end-user guide — real UI flows (required before writing test cases)
     │   │   ├── scope.md               ← what is/isn't being tested
     │   │   ├── flow.md                ← key user flows
     │   │   ├── handoff.md             ← session handoff notes
@@ -53,9 +55,10 @@ redmine-qa-automation/
 ## Adding a New Plugin
 
 1. Copy `plugins/_template/` and rename it to the plugin name (kebab-case)
-2. Fill in `docs/requirements.md` and `docs/scope.md` before testing
-3. Add test cases in `testcases/` (one `.md` file per test suite)
-4. Add a row to `STATUS.md`
+2. Fill in `docs/requirements.md`, `docs/features-list.md`, and `docs/user-guide.md` — **all three are required before writing any test cases**
+3. Fill in `docs/scope.md` before testing
+4. Add test cases in `testcases/` (one `.md` file per test suite)
+5. Add a row to `STATUS.md`
 
 ## Required Files Before Testing
 
@@ -69,6 +72,16 @@ redmine-qa-automation/
 | `MEMORY.md` | Global rules |
 | `plugins/<name>/docs/memory.md` | Plugin-specific rules |
 | `plugins/<name>/docs/handoff.md` | Session continuity |
+
+## Required Files Before Writing Test Cases
+
+These three files **must exist** before any test case file is written. If any are missing, provide them first.
+
+| File | Purpose |
+|------|---------|
+| `plugins/<name>/docs/requirements.md` | Plugin features, workflows, and permissions matrix |
+| `plugins/<name>/docs/features-list.md` | Full feature list to ensure no feature is missed in test coverage |
+| `plugins/<name>/docs/user-guide.md` | Real end-user behavior, UI flows, and edge cases |
 
 ## Memory Levels
 

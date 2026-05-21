@@ -36,6 +36,8 @@ redmine-qa-automation/
     └── <plugin-name>/               ← one folder per plugin (kebab-case)
         ├── docs/
         │   ├── requirements.md      ← what the plugin does (READ BEFORE TESTING)
+        │   ├── features-list.md     ← full feature list for test coverage (READ BEFORE WRITING TEST CASES)
+        │   ├── user-guide.md        ← end-user guide — real UI flows and behavior (READ BEFORE WRITING TEST CASES)
         │   ├── scope.md             ← what is and is not being tested this cycle
         │   ├── flow.md              ← key user flows for test design
         │   ├── handoff.md           ← session handoff notes
@@ -68,6 +70,8 @@ When the user asks to add or test a new plugin, create this structure:
 ```
 plugins/<plugin-name>/
   docs/requirements.md
+  docs/features-list.md
+  docs/user-guide.md
   docs/scope.md
   docs/flow.md
   docs/handoff.md
@@ -103,6 +107,43 @@ Use this content for each new file:
 |--------|-------|---------|-----------|-----|--------|------------|
 
 ## Known Constraints
+```
+
+### docs/features-list.md
+```markdown
+# Features List — [Plugin Name]
+
+> This file must be read before writing any test case. It defines the full feature scope for test coverage.
+
+## Feature List
+
+| # | Feature | Description | Covered by TC |
+|---|---------|-------------|---------------|
+
+## Notes
+```
+
+### docs/user-guide.md
+```markdown
+# User Guide — [Plugin Name]
+
+> This file must be read before writing any test case. It describes real end-user behavior and UI flows.
+
+## Getting Started
+
+## Key Screens
+
+## Step-by-Step Workflows
+
+### Workflow 1: [Name]
+
+1.
+2.
+3.
+
+## UI Elements Reference
+
+## Notes & Known Behavior
 ```
 
 ### docs/scope.md
@@ -329,12 +370,16 @@ At the start of every test session, read in this order:
 3. `SENIOR_QA_STANDARDS.md` (testing standards)
 4. `QA_CREDENTIALS_FORGE.md` or `QA_CREDENTIALS_LOCAL.md` (target environment)
 5. `plugins/<name>/docs/requirements.md`
-6. `plugins/<name>/docs/scope.md`
-7. `plugins/<name>/docs/memory.md`
-8. `plugins/<name>/docs/handoff.md`
-9. `plugins/<name>/testcases/<suite>.md`
+6. `plugins/<name>/docs/features-list.md`
+7. `plugins/<name>/docs/user-guide.md`
+8. `plugins/<name>/docs/scope.md`
+9. `plugins/<name>/docs/memory.md`
+10. `plugins/<name>/docs/handoff.md`
+11. `plugins/<name>/testcases/<suite>.md`
 
 Do not begin testing until all of the above are read.
+
+**Before writing any test case file**, `requirements.md`, `features-list.md`, and `user-guide.md` must all be present. If any are missing, ask the user to provide them — do not proceed.
 
 ---
 

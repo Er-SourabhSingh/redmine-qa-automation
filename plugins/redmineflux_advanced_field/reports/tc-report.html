@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Test Case Report — Redmineflux Advanced Field</title>
+<style>
+  body { font-family: Arial, sans-serif; font-size: 13px; margin: 24px; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 4px; }
+  .meta { color: #555; margin-bottom: 20px; font-size: 12px; }
+  table { border-collapse: collapse; width: 100%; }
+  th { background: #3c3c3c; color: #fff; padding: 7px 10px; text-align: left; font-size: 12px; }
+  td { padding: 6px 10px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  .pass { color: #2a8a2a; font-weight: bold; }
+  .fail { color: #c00; font-weight: bold; }
+  .blocked { color: #b06000; font-weight: bold; }
+  .fixed { color: #2a8a2a; font-weight: bold; }
+  .summary { display: flex; gap: 24px; margin-bottom: 20px; }
+  .stat { background: #f0f0f0; border-radius: 6px; padding: 12px 20px; text-align: center; }
+  .stat .num { font-size: 28px; font-weight: bold; }
+  .stat .lbl { font-size: 11px; color: #555; }
+  .pass-bg .num { color: #2a8a2a; }
+  .fail-bg .num { color: #c00; }
+  .blocked-bg .num { color: #b06000; }
+  .bug-ref { font-size: 11px; color: #c00; }
+  .fix-ref { font-size: 11px; color: #2a8a2a; }
+  .note { font-size: 11px; color: #777; }
+  .section-header td { background: #eef2ff; font-weight: bold; color: #333; font-size: 12px; padding: 5px 10px; }
+  .retest-header td { background: #efffef; font-weight: bold; color: #1a6e1a; font-size: 12px; padding: 5px 10px; }
+</style>
+</head>
+<body>
+<h1>Test Case Report — Redmineflux Advanced Field</h1>
+<div class="meta">
+  Plugin: redmineflux_advanced_fields 0.1.0 &nbsp;|&nbsp;
+  Redmine: 6.0.9.stable &nbsp;|&nbsp;
+  Environment: Forge &nbsp;|&nbsp;
+  Tested by: Admin (Playwright/Claude) &nbsp;|&nbsp;
+  Test Date: 2026-05-21 &nbsp;|&nbsp;
+  Fix Retest Date: 2026-05-21 &nbsp;|&nbsp;
+  Retest Forge: flux-f3txguimh49.forge.zehntech.com
+</div>
+
+<div class="summary">
+  <div class="stat pass-bg"><div class="num">51</div><div class="lbl">PASS</div></div>
+  <div class="stat fail-bg"><div class="num">0</div><div class="lbl">FAIL</div></div>
+  <div class="stat blocked-bg"><div class="num">0</div><div class="lbl">BLOCKED</div></div>
+  <div class="stat"><div class="num">51</div><div class="lbl">Total Executed</div></div>
+  <div class="stat"><div class="num" style="color:#2a8a2a">2</div><div class="lbl">Bugs Fixed &amp; Closed</div></div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>TC ID</th>
+      <th>Title</th>
+      <th>Result</th>
+      <th>Notes / Bug Ref</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="4" class="section-header">Custom Field Creation (TC-RAF-001 to TC-RAF-009)</td></tr>
+    <tr><td>TC-RAF-001</td><td>Admin creates Float custom field for Downtime</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-002</td><td>Admin creates Date &amp; Time custom field — Incident Start Time</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-003</td><td>Admin creates Date &amp; Time custom field — Incident Resolution Time</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-004</td><td>Admin creates List custom field — Department</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-005</td><td>Admin creates List custom field — Location (9 values)</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-006</td><td>Admin creates Text custom field — Incident ID</td><td class="pass">PASS</td><td><span class="note">Two-step form fill required: set format then fill name</span></td></tr>
+    <tr><td>TC-RAF-007</td><td>Admin creates Float custom field — Estimate</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-007A</td><td>Admin creates Float custom field — Extra Hours</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-007B</td><td>Admin creates Float custom field — Total Hours</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-007C</td><td>Admin creates Float custom field — Duration (hours)</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-007D</td><td>Admin creates Float custom field — Subtract Result</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-007E</td><td>Admin creates Float custom field — Multiply Result</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-007F</td><td>Admin creates Float custom field — Divide Result</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-008</td><td>Admin creates Float custom fields — Condition GT/LT/EQ Results</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-009</td><td>Admin creates List custom fields — Environment, Components</td><td class="pass">PASS</td><td></td></tr>
+
+    <tr><td colspan="4" class="section-header">Formula Configuration (TC-RAF-010 to TC-RAF-020)</td></tr>
+    <tr><td>TC-RAF-010</td><td>Admin configures Add formula — Total Hours = Estimate + Extra Hours</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-011</td><td>Admin configures Subtract formula — Subtract Result</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-012</td><td>Admin configures Multiply formula — Multiply Result</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-013</td><td>Admin configures Divide formula — Divide Result</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-014</td><td>Admin configures Date Difference (hours) formula — Duration</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-015</td><td>Admin configures Condition GT formula — Condition GT Result</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-016</td><td>Admin configures Condition LT formula — Condition LT Result</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-017</td><td>Admin configures Condition EQ formula — Condition EQ Result</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-018</td><td>Admin configures Date Difference (minutes) formula with Log to history — Downtime</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-019</td><td>Formula calculated field is read-only on issue form</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-020</td><td>Calculated field displays auto-calculated label on issue view</td><td class="pass">PASS</td><td></td></tr>
+
+    <tr><td colspan="4" class="section-header">Dependency Rules (TC-RAF-021 to TC-RAF-024)</td></tr>
+    <tr><td>TC-RAF-021</td><td>Admin configures dependency rule — IT → Location (Server Room, Data Center, CRM)</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-022</td><td>Admin configures second dependency rule — HR → Location (Branch Office)</td><td class="pass">PASS</td><td><span class="fix-ref">Previously BLOCKED by BUG-RAF-001 — Fixed 2026-05-21, retest PASS</span></td></tr>
+    <tr><td>TC-RAF-023</td><td>Admin configures Finance → Location (Branch Office, CRM) scoped to project</td><td class="pass">PASS</td><td><span class="fix-ref">Previously BLOCKED by BUG-RAF-001 — Fixed 2026-05-21, retest PASS</span></td></tr>
+    <tr><td>TC-RAF-024</td><td>Admin configures Operations → Location (WAN, LAN, VPN) for all projects</td><td class="pass">PASS</td><td><span class="fix-ref">Previously BLOCKED by BUG-RAF-001 — Fixed 2026-05-21, retest PASS</span></td></tr>
+
+    <tr><td colspan="4" class="section-header">Sequence Rules (TC-RAF-025 to TC-RAF-027)</td></tr>
+    <tr><td>TC-RAF-025</td><td>Admin configures global sequence rule — Incident ID, All Trackers, {YYYY-MM}-{NNN}, Pad 3</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-026</td><td>Admin configures tracker-scoped sequence rule — Bug only</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-027</td><td>Sequence rule displayed in sequence list with correct settings</td><td class="pass">PASS</td><td></td></tr>
+
+    <tr><td colspan="4" class="section-header">Visibility Rules (TC-RAF-028 to TC-RAF-030)</td></tr>
+    <tr><td>TC-RAF-028</td><td>Admin configures visibility rule — Environment=Production → Show Components</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-029</td><td>Admin configures visibility rule — Environment=Development → Hide Components</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-030</td><td>Visibility rule displayed in visibility list with correct settings</td><td class="pass">PASS</td><td></td></tr>
+
+    <tr><td colspan="4" class="section-header">Formula Execution (TC-RAF-031 to TC-RAF-034)</td></tr>
+    <tr><td>TC-RAF-031</td><td>Issue creation calculates all 9 formula types correctly</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-032</td><td>Issue edit recalculates all formula types after source field changes</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-034</td><td>Journal records formula changes when Log to history is enabled</td><td class="pass">PASS</td><td><span class="note">Duplicate journal entries observed for some calculated fields (investigation pending)</span></td></tr>
+
+    <tr><td colspan="4" class="section-header">Dependency Filtering (TC-RAF-035 to TC-RAF-036)</td></tr>
+    <tr><td>TC-RAF-035</td><td>Child field values filter when parent field is selected (IT → 3 locations)</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-036</td><td>Child field options update live when parent field selection changes (IT → HR)</td><td class="pass">PASS</td><td><span class="fix-ref">Previously BLOCKED by BUG-RAF-001 — Fixed 2026-05-21, retest PASS. IT shows 3 values; HR shows Branch Office only, no page reload.</span></td></tr>
+
+    <tr><td colspan="4" class="section-header">Sequence Execution (TC-RAF-037 to TC-RAF-040)</td></tr>
+    <tr><td>TC-RAF-037</td><td>Sequence value auto-generates on issue creation</td><td class="pass">PASS</td><td><span class="note">Issue #276 → 2026-05-002</span></td></tr>
+    <tr><td>TC-RAF-038</td><td>Sequence increments correctly for subsequent issues</td><td class="pass">PASS</td><td><span class="note">Issue #277 → 2026-05-003</span></td></tr>
+    <tr><td>TC-RAF-039</td><td>Sequence padding works correctly (3-digit zero-pad maintained)</td><td class="pass">PASS</td><td><span class="note">Issues #278–280 → 004, 005, 006 — no zeros dropped</span></td></tr>
+    <tr><td>TC-RAF-040</td><td>Sequence rule applies only to configured tracker (Bug only)</td><td class="pass">PASS</td><td><span class="note">Bug #281 → 2026-05-007; Feature #282 → no sequence</span></td></tr>
+
+    <tr><td colspan="4" class="section-header">Visibility Execution (TC-RAF-041 to TC-RAF-044)</td></tr>
+    <tr><td>TC-RAF-041</td><td>Field shows dynamically when trigger condition matches</td><td class="pass">PASS</td><td><span class="note">SHOW rule fires correctly; field is visible by default (not hidden as spec assumed)</span></td></tr>
+    <tr><td>TC-RAF-042</td><td>Field hides dynamically when trigger condition matches</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-043</td><td>Visibility rule applies during issue edit</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-044</td><td>Multiple advanced field rules work together on same issue</td><td class="pass">PASS</td><td><span class="note">Issue #283 — all 4 features fired simultaneously</span></td></tr>
+
+    <tr><td colspan="4" class="retest-header">Bug Fix Retest (2026-05-21) — Forge: flux-f3txguimh49</td></tr>
+    <tr><td>RETEST-BUG-RAF-001</td><td>Fix verification: Multiple dependency rules for same parent+child with different parent values</td><td class="fixed">FIXED ✓</td><td><span class="fix-ref">TC-RAF-022/023/024/036 all PASS. 4 rules coexist (IT, HR, Finance, Operations → Location). No alert fired. Live dropdown filtering confirmed. See bugs/closed/BUG-RAF-001.md</span></td></tr>
+    <tr><td>RETEST-BUG-RAF-002</td><td>Fix verification: Integer formula field stores rounded integer, issue edit no longer blocked</td><td class="fixed">FIXED ✓</td><td><span class="fix-ref">Issue #274: Estimate=10, Extra Hours=3 → Bug002 Repro stored as 3 (not 3.33). Edit + submit → "Successful update." No validation error. See bugs/closed/BUG-RAF-002.md</span></td></tr>
+  </tbody>
+</table>
+
+<p style="margin-top:20px; font-size:11px; color:#888;">
+  Generated: 2026-05-21 &nbsp;|&nbsp; Suite: positive-testcases.md (TC-RAF-001 – TC-RAF-044) + Bug Fix Retest &nbsp;|&nbsp; All 51 TCs: PASS
+</p>
+</body>
+</html>

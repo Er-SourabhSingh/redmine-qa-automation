@@ -327,7 +327,40 @@ Even if:
 
 ---
 
-## 16. Bug Title Standards
+## 16. Bug Closure & Retest Rules
+
+### Rule: Move bug file when fix is confirmed
+
+When a bug is retested and confirmed **FIXED**, the bug file **must** be moved from `bugs/open/` to `bugs/closed/` before the session ends.
+
+**A bug file must never remain in `bugs/open/` after its retest result is PASS.**
+
+### Steps on every fix + retest
+
+1. Complete retest — confirm the fix across every TC that was BLOCKED by this bug
+2. Update the bug file: set `Status → FIXED`, add `Fix Date`, `Retest Date`, `Retest Result`
+3. **Copy the updated file to `bugs/closed/BUG-<CODE>-XXX.md`**
+4. **Delete the original file from `bugs/open/BUG-<CODE>-XXX.md`** — the open folder must never retain a fixed bug
+5. Update `bugs/_index.md` — change Status to `Closed`, update File Path to `bugs/closed/BUG-<CODE>-XXX.md`
+6. Update `reports/final-bug-report.md` — move bug entry from Open Bugs → Closed Bugs section
+7. Update `reports/defects-summary.html` — decrement Open count, increment Closed count, mark bug FIXED ✓
+8. Update `reports/tc-report.html` — change BLOCKED → PASS for every TC blocked by this bug; add a `fix-ref` note with bug ID and retest date
+9. Update `docs/changelog.md` — add a row for the fix retest session
+10. Update `docs/handoff.md` — remove the bug from the Blockers section
+
+### Bug folder states
+
+| State | Folder | Example |
+|-------|--------|---------|
+| Open — confirmed, not yet fixed | `bugs/open/` | `bugs/open/BUG-RAF-001.md` |
+| Closed — fix confirmed by retest PASS | `bugs/closed/` | `bugs/closed/BUG-RAF-001.md` |
+| Duplicate / not reproducible | `bugs/_duplicates.md` | entry in the log |
+
+**The `bugs/open/` folder must be empty when all bugs for the current cycle are fixed.**
+
+---
+
+## 17. Bug Title Standards
 
 All bug titles must use **sentence case**.
 
@@ -339,7 +372,7 @@ All bug titles must use **sentence case**.
 
 ---
 
-## 17. Failure Artifact Collection
+## 18. Failure Artifact Collection
 
 On failure automatically capture:
 
@@ -353,7 +386,7 @@ Preserve artifacts for debugging and reporting.
 
 ---
 
-## 18. Reporting Standards
+## 19. Reporting Standards
 
 Execution reports must include:
 
@@ -367,7 +400,7 @@ Execution reports must include:
 
 ---
 
-## 19. AI-Assisted Testing Standards
+## 20. AI-Assisted Testing Standards
 
 When using AI-generated automation, the framework must:
 
@@ -381,7 +414,7 @@ When using AI-generated automation, the framework must:
 
 ---
 
-## 20. Final Senior QA Rules
+## 21. Final Senior QA Rules
 
 These rules are mandatory for all future plugin testing:
 
@@ -424,7 +457,7 @@ The framework must prioritize:
 
 ---
 
-## 21. Screenshots Rules
+## 22. Screenshots Rules
 
 - Capture screenshots **only when a bug is found**. Never screenshot passing tests.
 - Save under `plugins/<plugin-name>/screenshots/<BUG-ID>/`.
@@ -433,7 +466,7 @@ The framework must prioritize:
 
 ---
 
-## 22. Reporting Rules
+## 23. Reporting Rules
 
 At the end of every test run, generate:
 
@@ -448,7 +481,7 @@ At the end of every test run, generate:
 
 ---
 
-## 23. Plugin Memory Rules
+## 24. Plugin Memory Rules
 
 Two levels of memory are maintained:
 

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Defects Summary — Redmineflux Advanced Field</title>
+<style>
+  body { font-family: Arial, sans-serif; font-size: 13px; margin: 24px; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 4px; }
+  h2 { font-size: 15px; margin-top: 28px; }
+  .meta { color: #555; margin-bottom: 20px; font-size: 12px; }
+  table { border-collapse: collapse; width: 100%; margin-bottom: 16px; }
+  th { background: #3c3c3c; color: #fff; padding: 7px 10px; text-align: left; font-size: 12px; }
+  td { padding: 7px 10px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  .high { color: #c00; font-weight: bold; }
+  .closed-row { background: #f0fff0; }
+  .fixed-badge { display: inline-block; background: #2a8a2a; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 3px; margin-left: 6px; }
+  .summary { display: flex; gap: 24px; margin-bottom: 20px; }
+  .stat { background: #f0f0f0; border-radius: 6px; padding: 12px 20px; text-align: center; min-width: 80px; }
+  .stat .num { font-size: 28px; font-weight: bold; }
+  .stat .lbl { font-size: 11px; color: #555; }
+  .critical .num { color: #7b0000; }
+  .high-s .num { color: #c00; }
+  .closed-s .num { color: #2a8a2a; }
+  .screenshot { font-size: 11px; color: #555; font-style: italic; }
+  .fix-ref { font-size: 11px; color: #2a8a2a; }
+</style>
+</head>
+<body>
+<h1>Defects Summary — Redmineflux Advanced Field</h1>
+<div class="meta">
+  Plugin: redmineflux_advanced_fields 0.1.0 &nbsp;|&nbsp;
+  Redmine: 6.0.9.stable &nbsp;|&nbsp;
+  Environment: Forge &nbsp;|&nbsp;
+  Test Date: 2026-05-21 &nbsp;|&nbsp;
+  Retest Date: 2026-05-21 &nbsp;|&nbsp;
+  Retest Forge: flux-f3txguimh49.forge.zehntech.com
+</div>
+
+<div class="summary">
+  <div class="stat"><div class="num">0</div><div class="lbl">Total Open</div></div>
+  <div class="stat critical"><div class="num">0</div><div class="lbl">Critical</div></div>
+  <div class="stat high-s"><div class="num">0</div><div class="lbl">High Open</div></div>
+  <div class="stat"><div class="num">0</div><div class="lbl">Medium</div></div>
+  <div class="stat"><div class="num">0</div><div class="lbl">Low</div></div>
+  <div class="stat closed-s"><div class="num">2</div><div class="lbl">Closed</div></div>
+  <div class="stat"><div class="num" style="color:#2a8a2a">2</div><div class="lbl">Fixed &amp; Confirmed</div></div>
+</div>
+
+<h2>Closed Bugs</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Bug ID</th>
+      <th>Title</th>
+      <th>Severity</th>
+      <th>Status</th>
+      <th>Fix Date</th>
+      <th>Retest</th>
+      <th>Blocked TCs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="closed-row">
+      <td><strong>BUG-RAF-001</strong></td>
+      <td>Plugin blocks multiple dependency rules for same parent and child field combination even with different parent values</td>
+      <td class="high">High</td>
+      <td>Closed <span class="fixed-badge">FIXED ✓</span></td>
+      <td>2026-05-21</td>
+      <td>2026-05-21 — PASS</td>
+      <td>TC-RAF-022, 023, 024, 036</td>
+    </tr>
+    <tr class="closed-row">
+      <td><strong>BUG-RAF-002</strong></td>
+      <td>Issue edit blocked by validation error on integer formula field receiving float value from server-side calculation</td>
+      <td class="high">High</td>
+      <td>Closed <span class="fixed-badge">FIXED ✓</span></td>
+      <td>2026-05-21</td>
+      <td>2026-05-21 — PASS</td>
+      <td>None (workaround was: use Float type)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Fix Evidence</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Bug ID</th>
+      <th>Root Cause</th>
+      <th>Fix Applied</th>
+      <th>Retest Evidence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>BUG-RAF-001</strong></td>
+      <td>JS duplicate check in <code>dependencies.html.erb</code> compared only <code>parent_field_id + child_field_id</code>, ignoring <code>parent_value</code>. Any second rule for the same field pair triggered the guard regardless of which parent value was selected.</td>
+      <td>Added <code>parent_value</code> to both the Ruby <code>existingDependencyPairs</code> data and the JS <code>hasDuplicate</code> check. Alert message updated to match model error.</td>
+      <td class="fix-ref">4 rules coexist (IT, HR, Finance, Operations → Location). TC-RAF-022/023/024/036 all PASS. Live dropdown filtering confirmed — no page reload. See bugs/closed/BUG-RAF-001.md</td>
+    </tr>
+    <tr>
+      <td><strong>BUG-RAF-002</strong></td>
+      <td><code>field_calculator.rb</code> stored float results (e.g. "3.33") directly into Integer-type custom fields via <code>save(validate: false)</code>. On next edit, Rails rejected "3.33" as not a valid integer.</td>
+      <td>In <code>calculate_and_store</code>, after computing the result, look up <code>target_field.field_format</code>. If <code>'int'</code>, call <code>result.to_f.round</code> before storing. <code>10 ÷ 3</code> now stores <code>3</code>.</td>
+      <td class="fix-ref">Issue #274: Estimate=10, Extra Hours=3 → Bug002 Repro = 3 (rounded). Edit + submit → "Successful update." No validation error. See bugs/closed/BUG-RAF-002.md</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Observations (Not Filed as Bugs)</h2>
+<table>
+  <thead>
+    <tr><th>Observation</th><th>Test Case</th><th>Details</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Duplicate journal entries for calculated fields</td>
+      <td>TC-RAF-034</td>
+      <td>Each formula-calculated field appears twice in the issue journal on every change. Requires further investigation to determine if intended or a double-write defect.</td>
+    </tr>
+    <tr>
+      <td>SHOW visibility rule does not hide field by default</td>
+      <td>TC-RAF-041</td>
+      <td>Fields are visible by default. SHOW rule acts as a restore-after-hide. HIDE rule (TC-RAF-042) works correctly.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="margin-top:20px; font-size:11px; color:#888;">
+  Generated: 2026-05-21 &nbsp;|&nbsp; Suite: positive-testcases.md + Bug Fix Retest (2026-05-21) &nbsp;|&nbsp; All 2 bugs: FIXED &amp; CLOSED
+</p>
+</body>
+</html>

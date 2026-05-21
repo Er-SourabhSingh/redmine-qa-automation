@@ -277,6 +277,7 @@ Format: `BUG-<PLUGIN-CODE>-<NUMBER>`
 | testcase-management-plugin | TCM |
 | gantt-plugin | GNT |
 | redmineflux_advanced_field | RAF |
+| redmineflux_devops | RDV |
 
 Examples: `BUG-TCM-001`, `BUG-GNT-001`
 

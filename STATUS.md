@@ -4,6 +4,7 @@
 |--------|-------------|-----------------|-----------|--------|
 | testcase-management-plugin | 2026-05-20 | 6.2.0 | 1 | In Progress |
 | redmineflux_advanced_field | 2026-05-21 | 6.0.9.stable | 0 | In Progress (51/51 positive TCs PASS, 2 bugs fixed & closed; workflow TCs TC-RAF-051–054 pending) |
+| redmineflux_devops | — | — | 0 | Not Started |
 
 ## How to update
 

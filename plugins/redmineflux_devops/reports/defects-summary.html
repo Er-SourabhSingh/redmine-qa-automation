@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Defects Summary — Redmineflux DevOps</title>
+<style>
+  body { font-family: Arial, sans-serif; font-size: 13px; margin: 20px; color: #222; }
+  h1 { font-size: 20px; }
+  h2 { font-size: 15px; margin-top: 24px; border-bottom: 2px solid #ccc; padding-bottom: 4px; }
+  table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+  th { background: #3c3c3c; color: #fff; padding: 7px 10px; text-align: left; font-size: 12px; }
+  td { padding: 6px 10px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  tr:nth-child(even) { background: #f7f7f7; }
+  .critical { color: #7b241c; font-weight: bold; }
+  .high     { color: #c0392b; font-weight: bold; }
+  .medium   { color: #d35400; font-weight: bold; }
+  .low      { color: #7d6608; font-weight: bold; }
+  .chart { display: flex; gap: 10px; margin: 12px 0; align-items: flex-end; }
+  .bar { display: flex; flex-direction: column; align-items: center; }
+  .bar-fill { width: 52px; border-radius: 3px 3px 0 0; }
+  .bar-label { font-size: 11px; margin-top: 4px; }
+  .bar-count { font-weight: bold; font-size: 14px; }
+  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0; }
+  .scard { border-radius: 6px; padding: 12px 16px; text-align: center; }
+  .scard .num { font-size: 28px; font-weight: bold; }
+  .scard .lbl { font-size: 12px; margin-top: 2px; }
+  .sc-crit { background: #fde8e8; color: #7b241c; }
+  .sc-high { background: #fdf0e8; color: #c0392b; }
+  .sc-med  { background: #fef9e7; color: #d35400; }
+  .sc-low  { background: #f9f9f9; color: #7d6608; }
+</style>
+</head>
+<body>
+<h1>Defects Summary — Redmineflux DevOps Plugin</h1>
+<p><strong>Test Cycle:</strong> Foundation &amp; Infrastructure (tc-01) &nbsp;|&nbsp;
+   <strong>Environment:</strong> Local Docker (http://localhost:3008) + Forge &nbsp;|&nbsp;
+   <strong>Redmine Version:</strong> 6.0.9 &nbsp;|&nbsp;
+   <strong>Plugin Version:</strong> 0.1.0 &nbsp;|&nbsp;
+   <strong>Report Date:</strong> 2026-05-23</p>
+
+<h2>Severity Breakdown</h2>
+<div class="summary-grid">
+  <div class="scard sc-crit"><div class="num">1</div><div class="lbl">Critical</div></div>
+  <div class="scard sc-high"><div class="num">7</div><div class="lbl">High</div></div>
+  <div class="scard sc-med"><div class="num">3</div><div class="lbl">Medium</div></div>
+  <div class="scard sc-low"><div class="num">2</div><div class="lbl">Low</div></div>
+</div>
+<p><strong>Total Open Bugs: 13</strong></p>
+<p><em>Re-verification (2026-05-23, Local Docker): 11 confirmed on local. BUG-RDV-008 and BUG-RDV-009 do not reproduce on local — marked Forge-only. All 13 remain open pending Forge re-verification.</em></p>
+
+<h2>All Open Bugs</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Bug ID</th>
+      <th>Title</th>
+      <th>Severity</th>
+      <th>Discovered in TC</th>
+      <th>Environment</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BUG-RDV-008</td>
+      <td>REST API returns DevOps data from all projects regardless of user's project membership (IDOR)</td>
+      <td class="critical">Critical</td>
+      <td>TC-RDV-022</td>
+      <td>Forge only*</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-002</td>
+      <td>Webhook endpoint accepts payloads over 2 MB — no size limit enforced</td>
+      <td class="high">High</td>
+      <td>TC-RDV-003</td>
+      <td>Forge + Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-003</td>
+      <td>SonarQube webhook token not configurable via Admin plugin settings UI</td>
+      <td class="high">High</td>
+      <td>TC-RDV-009</td>
+      <td>Forge + Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-004</td>
+      <td>FOSSA provider cannot be added as repository connection — missing from Add Repository form</td>
+      <td class="high">High</td>
+      <td>TC-RDV-009</td>
+      <td>Forge + Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-007</td>
+      <td>Webhook background job fails with ActiveRecord::RecordInvalid after returning 202</td>
+      <td class="high">High</td>
+      <td>TC-RDV-015</td>
+      <td>Forge + Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-009</td>
+      <td>DORA metrics REST endpoint returns 404 — route not implemented</td>
+      <td class="high">High</td>
+      <td>TC-RDV-023</td>
+      <td>Forge only*</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-010</td>
+      <td>DevOps activity events do not appear in Redmine activity stream — ActivityProvider not registered</td>
+      <td class="high">High</td>
+      <td>TC-RDV-024</td>
+      <td>Forge + Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-011</td>
+      <td>Webhook event log accessible to users with only view_devops — manage_devops_settings not enforced</td>
+      <td class="high">High</td>
+      <td>TC-RDV-040</td>
+      <td>Forge + Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-013</td>
+      <td>Five of ten documented REST API endpoints return HTTP 406 — JSON format not supported</td>
+      <td class="high">High</td>
+      <td>TC-RDV-023</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-006</td>
+      <td>Three undocumented DevOps permissions present in Roles administration panel</td>
+      <td class="medium">Medium</td>
+      <td>TC-RDV-007</td>
+      <td>Forge + Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-012</td>
+      <td>Commits REST API ignores the limit parameter — all records returned on page 1</td>
+      <td class="medium">Medium</td>
+      <td>TC-RDV-021</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-001</td>
+      <td>Webhook signature rejection returns 401 instead of 403</td>
+      <td class="low">Low</td>
+      <td>TC-RDV-002</td>
+      <td>Forge + Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-005</td>
+      <td>Webhook endpoint returns HTTP 400 instead of HTTP 404 for unknown provider</td>
+      <td class="low">Low</td>
+      <td>TC-RDV-004</td>
+      <td>Forge + Local</td>
+      <td>Open</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>* Forge only — does not reproduce on Local Docker (re-verified 2026-05-23).</em></p>
+
+<h2>Risk Areas</h2>
+<table>
+  <thead>
+    <tr><th>Area</th><th>Risk</th><th>Bugs</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Security / Authorization</strong></td>
+      <td class="critical">Critical</td>
+      <td>BUG-RDV-008 (IDOR), BUG-RDV-011 (wrong permission on webhook log)</td>
+    </tr>
+    <tr>
+      <td><strong>Webhook Processing</strong></td>
+      <td class="high">High</td>
+      <td>BUG-RDV-002 (no size limit), BUG-RDV-007 (background job fails — commits not stored)</td>
+    </tr>
+    <tr>
+      <td><strong>REST API Coverage</strong></td>
+      <td class="high">High</td>
+      <td>BUG-RDV-013 (5/10 endpoints 406), BUG-RDV-009 (DORA metrics 404), BUG-RDV-012 (limit param ignored)</td>
+    </tr>
+    <tr>
+      <td><strong>Provider Support</strong></td>
+      <td class="high">High</td>
+      <td>BUG-RDV-003 (SonarQube), BUG-RDV-004 (FOSSA)</td>
+    </tr>
+    <tr>
+      <td><strong>Activity Stream</strong></td>
+      <td class="high">High</td>
+      <td>BUG-RDV-010 (ActivityProvider missing)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Test Execution Summary</h2>
+<table style="width:auto">
+  <tr><th>Result</th><th>Count</th><th>Pct</th></tr>
+  <tr><td>PASS</td><td>26</td><td>65%</td></tr>
+  <tr><td>FAIL</td><td>10</td><td>25%</td></tr>
+  <tr><td>SKIP</td><td>1</td><td>2.5%</td></tr>
+  <tr><td>BLOCKED</td><td>3</td><td>7.5%</td></tr>
+  <tr><th>Total</th><th>40</th><th>100%</th></tr>
+</table>
+</body>
+</html>

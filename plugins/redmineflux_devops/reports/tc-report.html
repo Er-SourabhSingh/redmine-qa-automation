@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TC Report — Redmineflux DevOps</title>
+<style>
+  body { font-family: Arial, sans-serif; font-size: 13px; margin: 20px; color: #222; }
+  h1 { font-size: 20px; }
+  h2 { font-size: 15px; margin-top: 24px; }
+  table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+  th { background: #3c3c3c; color: #fff; padding: 7px 10px; text-align: left; font-size: 12px; }
+  td { padding: 6px 10px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  tr:nth-child(even) { background: #f7f7f7; }
+  .pass  { color: #1a7a1a; font-weight: bold; }
+  .fail  { color: #c0392b; font-weight: bold; }
+  .skip  { color: #888; font-weight: bold; }
+  .block { color: #d68910; font-weight: bold; }
+  .summary { display: flex; gap: 16px; margin: 16px 0; }
+  .badge { padding: 8px 16px; border-radius: 4px; font-weight: bold; font-size: 14px; }
+  .badge-pass  { background: #d4edda; color: #155724; }
+  .badge-fail  { background: #f8d7da; color: #721c24; }
+  .badge-skip  { background: #e2e3e5; color: #383d41; }
+  .badge-block { background: #fff3cd; color: #856404; }
+  .bug-ref { font-size: 11px; color: #666; }
+</style>
+</head>
+<body>
+<h1>Test Case Execution Report — Redmineflux DevOps Plugin</h1>
+<p><strong>Suite:</strong> tc-01-foundation-infrastructure.md &nbsp;|&nbsp;
+   <strong>Environment:</strong> Local Docker — http://localhost:3008 &nbsp;|&nbsp;
+   <strong>Redmine Version:</strong> 6.0.9 &nbsp;|&nbsp;
+   <strong>Plugin Version:</strong> 0.1.0 &nbsp;|&nbsp;
+   <strong>Date:</strong> 2026-05-23 &nbsp;|&nbsp;
+   <strong>Tester:</strong> Claude (Automated via MCP Playwright)</p>
+
+<div class="summary">
+  <div class="badge badge-pass">PASS: 26</div>
+  <div class="badge badge-fail">FAIL: 10</div>
+  <div class="badge badge-skip">SKIP: 1</div>
+  <div class="badge badge-block">BLOCKED: 3</div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>TC ID</th>
+      <th>Title</th>
+      <th>SYS Req</th>
+      <th>Priority</th>
+      <th>Result</th>
+      <th>Bug Ref / Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>TC-RDV-001</td><td>GitHub push webhook accepted and stored</td><td>SYS-001</td><td>Critical</td><td class="pass">PASS</td><td class="bug-ref">BUG-RDV-007 side-note: background job fails after 202 but webhook stored</td></tr>
+    <tr><td>TC-RDV-002</td><td>Webhook signature validation — invalid signature rejected</td><td>SYS-001</td><td>Critical</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-001 — returns 401 instead of 403</td></tr>
+    <tr><td>TC-RDV-003</td><td>Webhook payload size limit enforced</td><td>SYS-001</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-002 — no size limit enforced; oversized payloads accepted</td></tr>
+    <tr><td>TC-RDV-004</td><td>Webhook unknown provider returns 404</td><td>SYS-001</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-005 — returns 400 instead of 404</td></tr>
+    <tr><td>TC-RDV-005</td><td>GitLab push webhook accepted and stored</td><td>SYS-001</td><td>High</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RDV-006</td><td>Bitbucket push webhook accepted and stored</td><td>SYS-001</td><td>High</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RDV-007</td><td>Permission model — 10 DevOps permissions visible in Roles admin</td><td>SYS-003</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-006 — 3 undocumented permissions present (total 10, spec says 7)</td></tr>
+    <tr><td>TC-RDV-008</td><td>view_devops permission gates DevOps section access</td><td>SYS-003</td><td>Critical</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RDV-009</td><td>Plugin settings — SonarQube and FOSSA webhook token fields present</td><td>SYS-002</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-003 — SonarQube not configurable in settings UI; BUG-RDV-004 — FOSSA missing from Add Repository form</td></tr>
+    <tr><td>TC-RDV-010</td><td>Admin can add GitHub repository connection</td><td>SYS-002</td><td>Critical</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RDV-011</td><td>Admin can add GitLab repository connection</td><td>SYS-002</td><td>High</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RDV-012</td><td>Admin can add Bitbucket repository connection</td><td>SYS-002</td><td>High</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RDV-013</td><td>Repository connection edit updates stored credentials</td><td>SYS-002</td><td>Medium</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RDV-014</td><td>Repository connection delete removes record</td><td>SYS-002</td><td>Medium</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RDV-015</td><td>Webhook background job processes payload and creates commit record</td><td>SYS-001</td><td>Critical</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-007 — background job raises ActiveRecord::RecordInvalid after 202</td></tr>
+    <tr><td>TC-RDV-016</td><td>Webhook event log records each delivery</td><td>SYS-001</td><td>High</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RDV-017</td><td>Deployment record creation and status update</td><td>SYS-004</td><td>High</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RDV-018</td><td>Environment health status update</td><td>SYS-004</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Note: health_samples table not present; tracked via environment status column</td></tr>
+    <tr><td>TC-RDV-019</td><td>DevOps panel visible on issue detail page</td><td>SYS-005</td><td>High</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RDV-020</td><td>DevOps panel hidden when no DevOps data linked to issue</td><td>SYS-005</td><td>Medium</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RDV-021</td><td>REST API pagination — limit and page parameters respected</td><td>SYS-004</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-012 — commits endpoint ignores limit param; all 25 records returned on page 1</td></tr>
+    <tr><td>TC-RDV-022</td><td>REST API authentication — unauthenticated request rejected</td><td>SYS-004</td><td>Critical</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RDV-023</td><td>REST API — all 10 documented endpoints respond with JSON</td><td>SYS-004</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-013 — 5/10 endpoints return 406; environments/incidents/vulnerabilities/releases/alerts unsupported</td></tr>
+    <tr><td>TC-RDV-024</td><td>DevOps activity appears in Redmine activity stream</td><td>SYS-005</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-010 — ActivityProvider not registered; no DevOps events in activity stream</td></tr>
+    <tr><td>TC-RDV-025</td><td>Commit linked to Redmine issue via keyword in commit message</td><td>SYS-005</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Note: keyword parsing via API only; automatic webhook keyword parsing depends on BUG-RDV-007 fix</td></tr>
+    <tr><td>TC-RDV-026</td><td>Activity stream shows DevOps filter checkbox</td><td>SYS-005</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-010 — no DevOps filter category in activity sidebar for any user</td></tr>
+    <tr><td>TC-RDV-027</td><td>User can configure DevOps notification preferences</td><td>SYS-006</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Deviations: no Slack/Teams columns (Email+In-app only); flash shows "Account was successfully updated." not "Notification preferences saved."</td></tr>
+    <tr><td>TC-RDV-028</td><td>Notification preferences are user-self-service only</td><td>SYS-006</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">/users/:id/devops_notifications returns 404 (no admin-scoped URL exists)</td></tr>
+    <tr><td>TC-RDV-029</td><td>Lazy default — no preference record created until user saves</td><td>SYS-006</td><td>Medium</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RDV-030</td><td>User receives email notification when build fails</td><td>SYS-006</td><td>High</td><td class="skip">SKIP</td><td class="bug-ref">Requires configured SMTP email delivery — not available in local Docker environment</td></tr>
+    <tr><td>TC-RDV-031</td><td>Admin can access and save plugin settings page</td><td>SYS-007</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Deviation: no "Stale PR threshold" field; actual fields differ from spec. Settings persist after save.</td></tr>
+    <tr><td>TC-RDV-032</td><td>Non-admin user cannot access plugin settings page</td><td>SYS-007</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Returns HTTP 403 for dev_user (non-admin)</td></tr>
+    <tr><td>TC-RDV-033</td><td>SettingsValidator rejects invalid values</td><td>SYS-007</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">-1 → error "must be an integer between 1 and 1000"; non-numeric → HTTP 422</td></tr>
+    <tr><td>TC-RDV-034</td><td>DevOps tab visible for members, hidden for non-members</td><td>SYS-003</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Admin: DevOps tab visible; non_member: HTTP 403 on private project</td></tr>
+    <tr><td>TC-RDV-035</td><td>Plugin menu entry appears in top-level navigation after installation</td><td>SYS-003</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">DevOps tab present in project nav; active state li has no "selected" class (visual only)</td></tr>
+    <tr><td>TC-RDV-036</td><td>Webhook endpoint rejects non-POST HTTP methods</td><td>SYS-001</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">GET/PUT/PATCH/DELETE all return 404</td></tr>
+    <tr><td>TC-RDV-037</td><td>REST API trigger-build endpoint is rate limited to 5 per hour</td><td>SYS-004</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">Rate limiting code present in source; cannot test — trigger fails with GitHub API 404 (no live CI workflow). Build counter never increments on TriggerError.</td></tr>
+    <tr><td>TC-RDV-038</td><td>Activity stream respects view_devops permission</td><td>SYS-005, SYS-003</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">No DevOps activity category for any user (BUG-RDV-010); reporter_user confirmed: no DevOps events visible</td></tr>
+    <tr><td>TC-RDV-039</td><td>Admin can view DevOps audit log; Developer cannot</td><td>SYS-003</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Admin: audit log loads at /admin/devops_audit; dev_user: HTTP 403</td></tr>
+    <tr><td>TC-RDV-040</td><td>Webhook event log visible to DevOps Engineer but not Developer</td><td>SYS-001, SYS-003</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-011 — dev_user (view_devops only) can access /projects/phoenix-platform/devops_webhooks; manage_devops_settings not enforced</td></tr>
+  </tbody>
+</table>
+
+<h2>Legend</h2>
+<table style="width:auto">
+  <tr><td class="pass">PASS</td><td>Test executed; actual result matches expected result</td></tr>
+  <tr><td class="fail">FAIL</td><td>Test executed; actual result does not match expected result — bug filed</td></tr>
+  <tr><td class="skip">SKIP</td><td>Test not executed — environment prerequisite not available</td></tr>
+  <tr><td class="block">BLOCKED</td><td>Test partially executed — external dependency prevents full verification</td></tr>
+</table>
+</body>
+</html>

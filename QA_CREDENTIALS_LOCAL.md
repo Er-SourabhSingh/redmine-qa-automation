@@ -1,12 +1,17 @@
 # QA Credentials - Local
 
+> ACTUAL VALUES ARE IN `QA_CREDENTIALS_PRIVATE.txt` (gitignored — local only).
+> This file contains placeholders only and is safe to commit.
+
+---
+
 ## Environment
 
 | Configuration | Value |
 |---|---|
 | Application | Redmine |
 | Environment | Local Docker |
-| Base URL | http://localhost:3006 |
+| Base URL | `<see QA_CREDENTIALS_PRIVATE.txt>` |
 
 ---
 
@@ -25,8 +30,8 @@
 
 | Field | Value |
 |---|---|
-| Username | admin |
-| Password | admin123 |
+| Username | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Password | `<see QA_CREDENTIALS_PRIVATE.txt>` |
 | Role | Administrator |
 
 ---
@@ -35,8 +40,8 @@
 
 | Username | Password | Role |
 |---|---|---|
-| priya.patel | Priya@123 | QA Engineer |
-| neha.joshi | Neha@123 | QA Engineer |
+| priya.patel | `<see private file>` | QA Engineer |
+| neha.joshi | `<see private file>` | QA Engineer |
 
 ---
 
@@ -44,8 +49,8 @@
 
 | Username | Password | Role |
 |---|---|---|
-| aman.verma | Aman@123 | Developer |
-| rohit.mehta | Rohit@123 | Developer |
+| aman.verma | `<see private file>` | Developer |
+| rohit.mehta | `<see private file>` | Developer |
 
 ---
 
@@ -53,8 +58,8 @@
 
 | Username | Password | Role |
 |---|---|---|
-| rahul.sharma | Rahul@123 | Manager |
-| sneha.kapoor | Sneha@123 | Manager |
+| rahul.sharma | `<see private file>` | Manager |
+| sneha.kapoor | `<see private file>` | Manager |
 
 ---
 
@@ -62,13 +67,74 @@
 
 | Username | Password | Role |
 |---|---|---|
-| client.demo | Client@123 | Client |
+| client.demo | `<see private file>` | Client |
+
+---
+
+## GitHub Test Repository
+
+| Field | Value |
+|---|---|
+| Repository | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| GitHub username | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| PAT value | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Redmine connection ID | 1 (flux-erp-system) |
+
+---
+
+## GitLab Test Repository
+
+| Field | Value |
+|---|---|
+| Repository | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| PAT value | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Redmine connection ID | 2 (flux-erp-system) |
+
+---
+
+## Bitbucket Test Repository
+
+| Field | Value |
+|---|---|
+| Repository | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Workspace | sourabhworkspace |
+| Redmine connection ID | 3 (flux-erp-system) |
+
+---
+
+## Jenkins
+
+| Field | Value |
+|---|---|
+| Jenkins URL (local) | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Jenkins URL (tunnel) | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Credentials | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+
+---
+
+## Cloudflare Tunnel
+
+| Field | Value |
+|---|---|
+| Tunnel URL | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Restart command | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+
+---
+
+## Test Project (DevOps)
+
+| Field | Value |
+|---|---|
+| Project | Flux ERP System |
+| Project identifier | `flux-erp-system` |
+| DevOps module | Enabled |
+| GitHub connection | ID 1 — connected |
+| GitLab connection | ID 2 — connected |
+| Bitbucket connection | ID 3 — connected |
 
 ---
 
 ## Session Storage Rules
-
-Authentication sessions must be stored separately:
 
 ```
 playwright/.auth/
@@ -90,11 +156,3 @@ Before test case execution:
 - Verify credentials work successfully
 - Verify session persistence
 - Verify role permissions after login
-
-If authentication fails:
-
-- Capture screenshot
-- Capture console logs
-- Capture network logs
-- Generate authentication failure report
-- Stop test case execution

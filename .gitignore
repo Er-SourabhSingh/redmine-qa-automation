@@ -1,0 +1,14 @@
+# Private credentials — never commit
+QA_CREDENTIALS_PRIVATE.txt
+
+
+# Playwright auth sessions (contain live session tokens)
+playwright/.auth/
+
+# Logs and screenshots (large, not needed in repo)
+plugins/*/logs/
+plugins/*/screenshots/
+
+# OS files
+.DS_Store
+Thumbs.db

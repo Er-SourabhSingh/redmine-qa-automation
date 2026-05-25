@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bug Report — redmineflux_devops Suite 02</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; color: #1a1a1a; background: #fff; }
+
+  /* Cover page */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 60px 40px;
+    background: #1a1a2e;
+    color: #fff;
+    page-break-after: always;
+  }
+  .cover-logo { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #8888aa; margin-bottom: 48px; }
+  .cover-title { font-size: 36px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; }
+  .cover-subtitle { font-size: 18px; color: #b0b0cc; margin-bottom: 40px; }
+  .cover-meta { display: grid; grid-template-columns: 140px 1fr; row-gap: 8px; column-gap: 16px; font-size: 12px; }
+  .cover-meta .lbl { color: #8888aa; }
+  .cover-meta .val { color: #e0e0f0; }
+  .cover-badges { display: flex; gap: 10px; margin-top: 48px; }
+  .badge { border-radius: 4px; padding: 6px 14px; font-size: 12px; font-weight: 600; }
+  .b-critical { background: #7b241c; color: #fff; }
+  .b-high     { background: #c0392b; color: #fff; }
+  .b-medium   { background: #d35400; color: #fff; }
+  .b-low      { background: #7d6608; color: #fff; }
+  .b-total    { background: #2c3e50; color: #fff; border: 1px solid #8888aa; }
+
+  /* TOC */
+  .toc-page {
+    padding: 50px 60px;
+    page-break-after: always;
+  }
+  .toc-page h2 { font-size: 20px; margin-bottom: 24px; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px; }
+  .toc-table { width: 100%; border-collapse: collapse; }
+  .toc-table td { padding: 7px 0; border-bottom: 1px dotted #e0e0e0; font-size: 12px; }
+  .toc-table td:first-child { width: 120px; font-weight: 600; }
+  .toc-table td:last-child { width: 80px; text-align: right; color: #888; }
+  .sev-critical { color: #7b241c; font-weight: bold; }
+  .sev-high     { color: #c0392b; font-weight: bold; }
+  .sev-medium   { color: #d35400; font-weight: bold; }
+  .sev-low      { color: #7d6608; font-weight: bold; }
+
+  /* Summary page */
+  .summary-page { padding: 50px 60px; page-break-after: always; }
+  .summary-page h2 { font-size: 20px; margin-bottom: 24px; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px; }
+  .stat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 32px; }
+  .stat-card { border-radius: 6px; padding: 16px; text-align: center; }
+  .stat-card .num { font-size: 36px; font-weight: 700; }
+  .stat-card .lbl { font-size: 11px; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+  .sc-total    { background: #eaf0fb; color: #1a3a6b; }
+  .sc-critical { background: #fde8e8; color: #7b241c; }
+  .sc-high     { background: #fdf0e8; color: #c0392b; }
+  .sc-medium   { background: #fef9e7; color: #d35400; }
+  .sc-low      { background: #f7f7e8; color: #7d6608; }
+  .summary-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  .summary-table th { background: #2c3e50; color: #fff; padding: 8px 12px; text-align: left; font-size: 11px; }
+  .summary-table td { padding: 7px 12px; border-bottom: 1px solid #e8e8e8; font-size: 12px; vertical-align: top; }
+  .summary-table tr:nth-child(even) td { background: #f8f8f8; }
+
+  /* Bug pages */
+  .bug-page { padding: 50px 60px; page-break-after: always; }
+  .bug-header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2c3e50 100%);
+    color: #fff;
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+  }
+  .bug-id { font-size: 11px; letter-spacing: 2px; color: #8888aa; margin-bottom: 6px; }
+  .bug-title { font-size: 20px; font-weight: 700; line-height: 1.3; margin-bottom: 14px; }
+  .bug-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill { border-radius: 20px; padding: 4px 12px; font-size: 11px; font-weight: 600; }
+  .pill-critical { background: #7b241c; }
+  .pill-high     { background: #c0392b; }
+  .pill-medium   { background: #d35400; }
+  .pill-low      { background: #7d6608; }
+  .pill-open     { background: #27ae60; }
+  .pill-info     { background: rgba(255,255,255,0.15); color: #ddd; }
+
+  .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid #e0e0e0; border-radius: 6px; overflow: hidden; margin-bottom: 20px; }
+  .meta-row { display: contents; }
+  .meta-label { background: #f5f5f5; padding: 8px 14px; font-size: 11px; font-weight: 600; color: #555; border-bottom: 1px solid #e8e8e8; }
+  .meta-value { padding: 8px 14px; font-size: 12px; border-bottom: 1px solid #e8e8e8; }
+
+  .section-head { font-size: 13px; font-weight: 700; color: #2c3e50; border-left: 3px solid #c0392b; padding-left: 10px; margin: 20px 0 10px; }
+  .content-box { background: #f8f9fa; border: 1px solid #e8e8e8; border-radius: 5px; padding: 14px 16px; font-size: 12px; line-height: 1.7; }
+  .content-box p { margin-bottom: 6px; }
+  .step-list { list-style: none; counter-reset: steps; }
+  .step-list li { counter-increment: steps; padding: 4px 0 4px 28px; position: relative; border-bottom: 1px solid #ececec; }
+  .step-list li:last-child { border-bottom: none; }
+  .step-list li::before { content: counter(steps); position: absolute; left: 0; top: 4px; background: #2c3e50; color: #fff; width: 18px; height: 18px; border-radius: 50%; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .result-box { border-radius: 5px; padding: 12px 16px; font-size: 12px; line-height: 1.7; margin-top: 4px; }
+  .result-expected { background: #eafaf1; border: 1px solid #a9dfbf; }
+  .result-actual   { background: #fdf2f2; border: 1px solid #f1948a; }
+  .note-box { background: #fefce8; border: 1px solid #f9e79f; border-radius: 5px; padding: 12px 16px; font-size: 11px; line-height: 1.6; margin-top: 10px; }
+  code { background: #f0f0f0; border-radius: 3px; padding: 1px 5px; font-family: 'Courier New', monospace; font-size: 11px; color: #c0392b; }
+
+  /* Footer */
+  .page-footer { position: fixed; bottom: 20px; left: 60px; right: 60px; font-size: 10px; color: #aaa; display: flex; justify-content: space-between; border-top: 1px solid #e8e8e8; padding-top: 6px; }
+
+  @page { size: A4; margin: 0; }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .bug-page { page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ COVER ═══════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-logo">Zehntech Technologies &nbsp;·&nbsp; QA Division</div>
+  <div class="cover-title">Bug Report<br>Suite 02 — SCM Integration</div>
+  <div class="cover-subtitle">redmineflux_devops Plugin &nbsp;·&nbsp; Newly Discovered Defects</div>
+  <div class="cover-meta">
+    <span class="lbl">Plugin</span>       <span class="val">redmineflux_devops v0.1.0</span>
+    <span class="lbl">Redmine</span>      <span class="val">6.0.9</span>
+    <span class="lbl">Environment</span>  <span class="val">Local Docker · http://localhost:3008</span>
+    <span class="lbl">Test Suite</span>   <span class="val">tc-02-scm-integration.md (TC-RDV-041–090)</span>
+    <span class="lbl">Test Date</span>    <span class="val">2026-05-25</span>
+    <span class="lbl">Prepared By</span>  <span class="val">QA Automation (Claude AI)</span>
+    <span class="lbl">Report Date</span>  <span class="val">2026-05-25</span>
+  </div>
+  <div class="cover-badges">
+    <div class="badge b-total">9 Bugs Total</div>
+    <div class="badge b-high">7 High</div>
+    <div class="badge b-medium">2 Medium</div>
+    <div class="badge b-low">1 Low</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ TOC ═══════════════════════════════════ -->
+<div class="toc-page">
+  <h2>Table of Contents</h2>
+  <table class="toc-table">
+    <tr>
+      <td><strong>Bug ID</strong></td>
+      <td><strong>Title</strong></td>
+      <td><strong>Severity</strong></td>
+      <td><strong>TC</strong></td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-014</td>
+      <td>PR reviewer names and approval status not displayed on PR card</td>
+      <td class="sev-high">High</td>
+      <td>TC-RDV-050</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-015</td>
+      <td>Auto-transition journal text format wrong and attributed to real user</td>
+      <td class="sev-medium">Medium</td>
+      <td>TC-RDV-055, 081</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-016</td>
+      <td>PR Review Dashboard shows all statuses; wrong sort order</td>
+      <td class="sev-high">High</td>
+      <td>TC-RDV-065</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-017</td>
+      <td>PR Dashboard and Commits page return HTTP 200 without view_devops permission</td>
+      <td class="sev-high">High</td>
+      <td>TC-RDV-067, 072</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-018</td>
+      <td>Commit statistics route returns 404 — not implemented</td>
+      <td class="sev-high">High</td>
+      <td>TC-RDV-070, 071</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-019</td>
+      <td>PR linked to multiple issues only updates first referenced issue</td>
+      <td class="sev-high">High</td>
+      <td>TC-RDV-079</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-020</td>
+      <td>GitLab commit SHA links use /commit/ instead of /-/commit/</td>
+      <td class="sev-low">Low</td>
+      <td>TC-RDV-082</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-021</td>
+      <td>Auto-transition rules UI missing per-rule configuration</td>
+      <td class="sev-medium">Medium</td>
+      <td>TC-RDV-088</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-022</td>
+      <td>Multi-commit push webhook stores no commits — background job silent failure</td>
+      <td class="sev-high">High</td>
+      <td>TC-RDV-089</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════ SUMMARY ═══════════════════════════════════ -->
+<div class="summary-page">
+  <h2>Defect Summary</h2>
+  <div class="stat-grid">
+    <div class="stat-card sc-total">   <div class="num">9</div><div class="lbl">Total</div></div>
+    <div class="stat-card sc-critical"><div class="num">0</div><div class="lbl">Critical</div></div>
+    <div class="stat-card sc-high">    <div class="num">7</div><div class="lbl">High</div></div>
+    <div class="stat-card sc-medium">  <div class="num">2</div><div class="lbl">Medium</div></div>
+    <div class="stat-card sc-low">     <div class="num">1</div><div class="lbl">Low (Note: BUG-RDV-020 is Low)</div></div>
+  </div>
+
+  <table class="summary-table">
+    <thead>
+      <tr><th>Bug ID</th><th>Title</th><th>Severity</th><th>TC</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>BUG-RDV-014</td><td>PR reviewer names and approval status not displayed on PR card</td><td class="sev-high">High</td><td>TC-RDV-050</td><td>Open</td></tr>
+      <tr><td>BUG-RDV-015</td><td>Auto-transition journal text format wrong and attributed to real user</td><td class="sev-medium">Medium</td><td>TC-RDV-055, 081</td><td>Open</td></tr>
+      <tr><td>BUG-RDV-016</td><td>PR Review Dashboard shows all statuses; wrong sort order</td><td class="sev-high">High</td><td>TC-RDV-065</td><td>Open</td></tr>
+      <tr><td>BUG-RDV-017</td><td>PR Dashboard and Commits page return HTTP 200 without view_devops</td><td class="sev-high">High</td><td>TC-RDV-067, 072</td><td>Open</td></tr>
+      <tr><td>BUG-RDV-018</td><td>Commit statistics route returns 404 — not implemented</td><td class="sev-high">High</td><td>TC-RDV-070, 071</td><td>Open</td></tr>
+      <tr><td>BUG-RDV-019</td><td>PR linked to multiple issues only updates first referenced issue</td><td class="sev-high">High</td><td>TC-RDV-079</td><td>Open</td></tr>
+      <tr><td>BUG-RDV-020</td><td>GitLab commit SHA links use /commit/ instead of /-/commit/</td><td class="sev-low">Low</td><td>TC-RDV-082</td><td>Open</td></tr>
+      <tr><td>BUG-RDV-021</td><td>Auto-transition rules UI missing per-rule configuration</td><td class="sev-medium">Medium</td><td>TC-RDV-088</td><td>Open</td></tr>
+      <tr><td>BUG-RDV-022</td><td>Multi-commit push webhook stores no commits — background job silent failure</td><td class="sev-high">High</td><td>TC-RDV-089</td><td>Open</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top: 28px;">
+    <div class="section-head">Risk Areas</div>
+    <table class="summary-table">
+      <thead><tr><th>Area</th><th>Risk Level</th><th>Bugs</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Authorization / Access Control</strong></td><td class="sev-high">High</td><td>BUG-RDV-017 (PR Dashboard + Commits — missing auth guards)</td></tr>
+        <tr><td><strong>Commit Storage (systemic)</strong></td><td class="sev-high">High</td><td>BUG-RDV-022 (same root as BUG-RDV-007 — all push webhooks fail)</td></tr>
+        <tr><td><strong>PR Tracking</strong></td><td class="sev-high">High</td><td>BUG-RDV-014 (reviewer display), BUG-RDV-016 (dashboard filter/sort), BUG-RDV-019 (multi-issue linking)</td></tr>
+        <tr><td><strong>Feature Not Implemented</strong></td><td class="sev-high">High</td><td>BUG-RDV-018 (commit stats route 404)</td></tr>
+        <tr><td><strong>Auto-Transition / Audit</strong></td><td class="sev-medium">Medium</td><td>BUG-RDV-015 (journal text + author), BUG-RDV-021 (UI incomplete)</td></tr>
+        <tr><td><strong>URL Generation</strong></td><td class="sev-low">Low</td><td>BUG-RDV-020 (GitLab commit URL pattern)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ BUG-RDV-014 ══════════════════════════════ -->
+<div class="bug-page">
+  <div class="bug-header">
+    <div class="bug-id">BUG-RDV-014</div>
+    <div class="bug-title">PR reviewer names and approval status not displayed on PR card</div>
+    <div class="bug-pills">
+      <span class="pill pill-high">High</span>
+      <span class="pill pill-open">Open</span>
+      <span class="pill pill-info">TC-RDV-050</span>
+      <span class="pill pill-info">SCM-002 · rfd-007</span>
+    </div>
+  </div>
+
+  <div class="meta-grid">
+    <div class="meta-label">Redmine Version</div><div class="meta-value">6.0.9</div>
+    <div class="meta-label">Plugin Version</div><div class="meta-value">redmineflux_devops v0.1.0</div>
+    <div class="meta-label">Environment</div><div class="meta-value">Local Docker · http://localhost:3008</div>
+    <div class="meta-label">Date Found</div><div class="meta-value">2026-05-25</div>
+    <div class="meta-label">Found By</div><div class="meta-value">QA Automation</div>
+    <div class="meta-label">Affected Providers</div><div class="meta-value">GitHub, GitLab (all providers that send review events)</div>
+  </div>
+
+  <div class="section-head">Summary</div>
+  <div class="content-box">
+    After a <code>pull_request_review</code> webhook is received (HTTP 202), no reviewer names or approval status appear on the PR card in the issue DevOps panel. The card continues to show only the base PR metadata without any review data.
+  </div>
+
+  <div class="section-head">Steps to Reproduce</div>
+  <div class="content-box">
+    <ol class="step-list">
+      <li>Navigate to an issue with an open PR in the DevOps panel (e.g. issue #514, PR #45).</li>
+      <li>Send a GitHub <code>pull_request_review</code> webhook with <code>action = submitted</code>, <code>state = approved</code>, <code>reviewer = priya.sharma</code>.</li>
+      <li>Navigate back to the issue's DevOps panel and expand Pull Requests.</li>
+      <li>Inspect the PR card for reviewer information.</li>
+    </ol>
+  </div>
+
+  <div class="section-head">Expected Result</div>
+  <div class="result-box result-expected">
+    PR card shows reviewer name(s) and approval status: e.g. <code>"Reviewed by: priya.sharma ✓ Approved"</code>.<br>
+    The <code>review_status</code> and <code>reviewer_login</code> fields are stored and rendered on the card.<br>
+    Summary shows: "1 of 2 reviewers approved."
+  </div>
+
+  <div class="section-head">Actual Result</div>
+  <div class="result-box result-actual">
+    HTTP 202 returned (webhook accepted).<br>
+    No reviewer names or approval status appear on the PR card.<br>
+    The PR card DOM contains no reviewer or review-state elements.
+  </div>
+
+  <div class="note-box"><strong>Notes:</strong> The <code>pull_request_review</code> event handler processes the webhook (202) but the review data is not persisted or rendered. Affects all providers that send review events.</div>
+</div>
+
+<!-- ═══════════════════════════════ BUG-RDV-015 ══════════════════════════════ -->
+<div class="bug-page">
+  <div class="bug-header">
+    <div class="bug-id">BUG-RDV-015</div>
+    <div class="bug-title">Auto-transition journal text format wrong and attributed to real user instead of system actor</div>
+    <div class="bug-pills">
+      <span class="pill pill-medium">Medium</span>
+      <span class="pill pill-open">Open</span>
+      <span class="pill pill-info">TC-RDV-055 · TC-RDV-081</span>
+      <span class="pill pill-info">SCM-004 · rfd-009</span>
+    </div>
+  </div>
+
+  <div class="meta-grid">
+    <div class="meta-label">Redmine Version</div><div class="meta-value">6.0.9</div>
+    <div class="meta-label">Plugin Version</div><div class="meta-value">redmineflux_devops v0.1.0</div>
+    <div class="meta-label">Environment</div><div class="meta-value">Local Docker · http://localhost:3008</div>
+    <div class="meta-label">Date Found</div><div class="meta-value">2026-05-25</div>
+    <div class="meta-label">Found By</div><div class="meta-value">QA Automation</div>
+    <div class="meta-label">Defect Count</div><div class="meta-value">2 distinct issues (journal text + author attribution)</div>
+  </div>
+
+  <div class="section-head">Summary</div>
+  <div class="content-box">
+    When a PR merge triggers an auto-transition, the resulting journal entry has two defects: (1) the text format does not match the spec — no PR number is included; (2) the entry is attributed to "Redmine Admin" (a real user account) instead of a system/DevOps integration actor.
+  </div>
+
+  <div class="section-head">Steps to Reproduce</div>
+  <div class="content-box">
+    <ol class="step-list">
+      <li>Ensure auto-transition is enabled for <code>phoenix-platform</code> with target status <code>QA</code>.</li>
+      <li>Send a GitHub PR merged webhook for a PR linked to an issue (e.g. issue #525).</li>
+      <li>Navigate to the issue's History / Journal tab.</li>
+      <li>Inspect the auto-generated journal entry text and author.</li>
+    </ol>
+  </div>
+
+  <div class="section-head">Expected Result</div>
+  <div class="result-box result-expected">
+    Journal text: <code>"Status changed by DevOps integration (PR #&lt;N&gt; merged)"</code><br>
+    Journal author: displayed as a system/integration actor (e.g. "DevOps Integration"), NOT a real Redmine user account.
+  </div>
+
+  <div class="section-head">Actual Result</div>
+  <div class="result-box result-actual">
+    Journal text: <code>"[DevOps] Status changed automatically — PR merged"</code> (no PR number, wrong format).<br>
+    Journal author: <code>"Redmine Admin"</code> (user #1, the admin account used as fallback).
+  </div>
+
+  <div class="note-box"><strong>Notes:</strong> Author being a real user means the change falsely appears in that user's activity log as a manual change. No dedicated system/bot user is configured or used for DevOps-initiated changes.</div>
+</div>
+
+<!-- ═══════════════════════════════ BUG-RDV-016 ══════════════════════════════ -->
+<div class="bug-page">
+  <div class="bug-header">
+    <div class="bug-id">BUG-RDV-016</div>
+    <div class="bug-title">PR Review Dashboard shows all statuses (not just open) and sorts by updated date instead of age</div>
+    <div class="bug-pills">
+      <span class="pill pill-high">High</span>
+      <span class="pill pill-open">Open</span>
+      <span class="pill pill-info">TC-RDV-065</span>
+      <span class="pill pill-info">SCM-007 · rfd-074</span>
+    </div>
+  </div>
+
+  <div class="meta-grid">
+    <div class="meta-label">Redmine Version</div><div class="meta-value">6.0.9</div>
+    <div class="meta-label">Plugin Version</div><div class="meta-value">redmineflux_devops v0.1.0</div>
+    <div class="meta-label">Environment</div><div class="meta-value">Local Docker · http://localhost:3008</div>
+    <div class="meta-label">Date Found</div><div class="meta-value">2026-05-25</div>
+    <div class="meta-label">URL</div><div class="meta-value">/projects/phoenix-platform/devops_pull_requests</div>
+    <div class="meta-label">Found By</div><div class="meta-value">QA Automation</div>
+  </div>
+
+  <div class="section-head">Summary</div>
+  <div class="content-box">
+    The PR Review Dashboard displays all PR statuses (merged, closed, draft, open) instead of filtering to open and draft only. Rows are sorted by "Updated" timestamp descending instead of oldest-first by age. Additionally, the stale PR threshold configuration field is absent from DevOps settings.
+  </div>
+
+  <div class="section-head">Steps to Reproduce</div>
+  <div class="content-box">
+    <ol class="step-list">
+      <li>Navigate to <code>http://localhost:3008/projects/phoenix-platform/devops_pull_requests</code>.</li>
+      <li>Observe the PR rows shown and their order.</li>
+      <li>Note which statuses (open / closed / merged / draft) are present in the list.</li>
+    </ol>
+  </div>
+
+  <div class="section-head">Expected Result</div>
+  <div class="result-box result-expected">
+    Only open and draft PRs displayed. Merged and closed PRs excluded.<br>
+    Rows sorted ascending by PR age (oldest first).<br>
+    Each row shows: PR title, author, age ("N days ago"), reviewer names, CI check status badge.
+  </div>
+
+  <div class="section-head">Actual Result</div>
+  <div class="result-box result-actual">
+    All PR statuses shown: merged, closed, draft, and open with no filter.<br>
+    Sort order: "Updated" timestamp descending (most recently updated first).<br>
+    No age column — only "Updated" column. No reviewer names column visible.
+  </div>
+
+  <div class="note-box"><strong>Notes:</strong> The stale PR threshold configuration field (<code>stale_pr_threshold_days</code>) also does not exist in DevOps settings, blocking TC-RDV-066.</div>
+</div>
+
+<!-- ═══════════════════════════════ BUG-RDV-017 ══════════════════════════════ -->
+<div class="bug-page">
+  <div class="bug-header">
+    <div class="bug-id">BUG-RDV-017</div>
+    <div class="bug-title">PR Review Dashboard and Commits page return HTTP 200 to users without view_devops permission</div>
+    <div class="bug-pills">
+      <span class="pill pill-high">High</span>
+      <span class="pill pill-open">Open</span>
+      <span class="pill pill-info">TC-RDV-067 · TC-RDV-072</span>
+      <span class="pill pill-info">Security · Authorization</span>
+    </div>
+  </div>
+
+  <div class="meta-grid">
+    <div class="meta-label">Redmine Version</div><div class="meta-value">6.0.9</div>
+    <div class="meta-label">Plugin Version</div><div class="meta-value">redmineflux_devops v0.1.0</div>
+    <div class="meta-label">Environment</div><div class="meta-value">Local Docker · http://localhost:3008</div>
+    <div class="meta-label">Date Found</div><div class="meta-value">2026-05-25</div>
+    <div class="meta-label">Affected URLs</div><div class="meta-value">/devops_pull_requests, /devops_commits</div>
+    <div class="meta-label">Root Cause</div><div class="meta-value">Missing before_action permission guard (same as BUG-RDV-011)</div>
+  </div>
+
+  <div class="section-head">Summary</div>
+  <div class="content-box">
+    The PR Review Dashboard (<code>/devops_pull_requests</code>) and Commits list (<code>/devops_commits</code>) do not enforce project membership or <code>view_devops</code> permission. A non-member and a user without <code>view_devops</code> both receive HTTP 200 with full data instead of HTTP 403. This is an authorization gap affecting two controllers.
+  </div>
+
+  <div class="section-head">Steps to Reproduce</div>
+  <div class="content-box">
+    <ol class="step-list">
+      <li>Make a fetch request to <code>/projects/phoenix-platform/devops_pull_requests</code> using <code>X-Redmine-Switch-User: external_user</code> (non-member).</li>
+      <li>Observe response code — expected 403, actual 200 with full PR data.</li>
+      <li>Make a fetch request to <code>/projects/phoenix-platform/devops_commits</code> using <code>X-Redmine-Switch-User: reporter_user</code> (Reporter role, no <code>view_devops</code>).</li>
+      <li>Observe response code — expected 403, actual 200 with full commit data.</li>
+    </ol>
+  </div>
+
+  <div class="section-head">Expected Result</div>
+  <div class="result-box result-expected">
+    HTTP 403 Forbidden in both cases.<br>
+    No PR or commit data returned to unauthorized users.
+  </div>
+
+  <div class="section-head">Actual Result</div>
+  <div class="result-box result-actual">
+    HTTP 200 with full PR table data for non-member (<code>hasPRRows: true</code>).<br>
+    HTTP 200 with full commit table data for reporter without <code>view_devops</code> (<code>hasCommitTable: true</code>).
+  </div>
+
+  <div class="note-box"><strong>Notes:</strong> Same root cause as BUG-RDV-011 (webhook event log). Pattern suggests <code>:view_devops</code> before_action guard is missing from multiple DevOps controllers. Affects at minimum: <code>devops_pull_requests_controller</code>, <code>devops_commits_controller</code>.</div>
+</div>
+
+<!-- ═══════════════════════════════ BUG-RDV-018 ══════════════════════════════ -->
+<div class="bug-page">
+  <div class="bug-header">
+    <div class="bug-id">BUG-RDV-018</div>
+    <div class="bug-title">Commit statistics route returns 404 — daily/weekly aggregation and top contributors not implemented</div>
+    <div class="bug-pills">
+      <span class="pill pill-high">High</span>
+      <span class="pill pill-open">Open</span>
+      <span class="pill pill-info">TC-RDV-070 · TC-RDV-071</span>
+      <span class="pill pill-info">SCM-009 · rfd-106</span>
+    </div>
+  </div>
+
+  <div class="meta-grid">
+    <div class="meta-label">Redmine Version</div><div class="meta-value">6.0.9</div>
+    <div class="meta-label">Plugin Version</div><div class="meta-value">redmineflux_devops v0.1.0</div>
+    <div class="meta-label">Environment</div><div class="meta-value">Local Docker · http://localhost:3008</div>
+    <div class="meta-label">Date Found</div><div class="meta-value">2026-05-25</div>
+    <div class="meta-label">Route</div><div class="meta-value">GET /projects/:id/devops_commit_stats</div>
+    <div class="meta-label">Found By</div><div class="meta-value">QA Automation</div>
+  </div>
+
+  <div class="section-head">Summary</div>
+  <div class="content-box">
+    The commit statistics page at <code>/projects/&lt;id&gt;/devops_commit_stats</code> returns HTTP 404. The <code>CommitStats</code> service specified in SCM-009 / rfd-106 is not implemented at the routing level. No daily/weekly aggregation chart, time window selector, or top-10 contributors section exists.
+  </div>
+
+  <div class="section-head">Steps to Reproduce</div>
+  <div class="content-box">
+    <ol class="step-list">
+      <li>Navigate to <code>http://localhost:3008/projects/phoenix-platform/devops_commit_stats</code>.</li>
+      <li>Observe the response.</li>
+    </ol>
+  </div>
+
+  <div class="section-head">Expected Result</div>
+  <div class="result-box result-expected">
+    A commit statistics page rendering a daily/weekly aggregation chart for the selected time window.<br>
+    A "Top Contributors" section listing top-10 authors by commit count, sorted descending.<br>
+    A time window selector (e.g. "Last 7 days", "Last 4 weeks").
+  </div>
+
+  <div class="section-head">Actual Result</div>
+  <div class="result-box result-actual">
+    HTTP 404 "Page not found" — route does not exist.<br>
+    The commits list page (<code>/devops_commits</code>) shows only a flat table with no aggregation or stats.
+  </div>
+
+  <div class="note-box"><strong>Notes:</strong> TC-RDV-086 (weekly aggregation) is also blocked by this same missing route. The <code>CommitStats</code> service is referenced in the spec (SCM-009 / rfd-106) but appears not to be implemented.</div>
+</div>
+
+<!-- ═══════════════════════════════ BUG-RDV-019 ══════════════════════════════ -->
+<div class="bug-page">
+  <div class="bug-header">
+    <div class="bug-id">BUG-RDV-019</div>
+    <div class="bug-title">PR linked to multiple issues via "refs #N" in title only updates first referenced issue</div>
+    <div class="bug-pills">
+      <span class="pill pill-high">High</span>
+      <span class="pill pill-open">Open</span>
+      <span class="pill pill-info">TC-RDV-079</span>
+      <span class="pill pill-info">SCM-002 · rfd-007</span>
+    </div>
+  </div>
+
+  <div class="meta-grid">
+    <div class="meta-label">Redmine Version</div><div class="meta-value">6.0.9</div>
+    <div class="meta-label">Plugin Version</div><div class="meta-value">redmineflux_devops v0.1.0</div>
+    <div class="meta-label">Environment</div><div class="meta-value">Local Docker · http://localhost:3008</div>
+    <div class="meta-label">Date Found</div><div class="meta-value">2026-05-25</div>
+    <div class="meta-label">Provider</div><div class="meta-value">GitHub (pull_request opened event)</div>
+    <div class="meta-label">Found By</div><div class="meta-value">QA Automation</div>
+  </div>
+
+  <div class="section-head">Summary</div>
+  <div class="content-box">
+    When a PR title contains references to multiple issues (e.g. "Fixes #518 and refs #519"), only the first referenced issue (#518) gets the PR card in its DevOps panel. The second reference (#519) is silently ignored. The issue reference parser stops after the first match from the PR title/body.
+  </div>
+
+  <div class="section-head">Steps to Reproduce</div>
+  <div class="content-box">
+    <ol class="step-list">
+      <li>Send a GitHub <code>pull_request</code> opened webhook with title <code>"Fixes #518 and refs #519 — combined auth fix"</code> and matching body.</li>
+      <li>Navigate to issue #518 DevOps panel &gt; Pull Requests.</li>
+      <li>Navigate to issue #519 DevOps panel &gt; Pull Requests.</li>
+    </ol>
+  </div>
+
+  <div class="section-head">Expected Result</div>
+  <div class="result-box result-expected">
+    PR card appears on BOTH issue #518 and issue #519 DevOps panels.<br>
+    Two records created in <code>redmineflux_devops_pull_requests</code> (one per linked issue).
+  </div>
+
+  <div class="section-head">Actual Result</div>
+  <div class="result-box result-actual">
+    PR card appears on issue #518 only (<code>has518PR: true</code>).<br>
+    Issue #519 DevOps panel shows 0 PRs (<code>prRowCount: 0</code>).
+  </div>
+
+  <div class="note-box"><strong>Notes:</strong> Both the PR title and the PR body contained "Fixes #518 and refs #519" — neither was parsed for the second reference. The spec states "Supports multiple PRs per issue" and multi-issue PR linking should work bidirectionally.</div>
+</div>
+
+<!-- ═══════════════════════════════ BUG-RDV-020 ══════════════════════════════ -->
+<div class="bug-page">
+  <div class="bug-header">
+    <div class="bug-id">BUG-RDV-020</div>
+    <div class="bug-title">GitLab commit SHA links use /commit/ instead of /-/commit/ URL pattern</div>
+    <div class="bug-pills">
+      <span class="pill pill-low">Low</span>
+      <span class="pill pill-open">Open</span>
+      <span class="pill pill-info">TC-RDV-082</span>
+      <span class="pill pill-info">SCM-001 · rfd-006</span>
+    </div>
+  </div>
+
+  <div class="meta-grid">
+    <div class="meta-label">Redmine Version</div><div class="meta-value">6.0.9</div>
+    <div class="meta-label">Plugin Version</div><div class="meta-value">redmineflux_devops v0.1.0</div>
+    <div class="meta-label">Environment</div><div class="meta-value">Local Docker · http://localhost:3008</div>
+    <div class="meta-label">Date Found</div><div class="meta-value">2026-05-25</div>
+    <div class="meta-label">Affected Provider</div><div class="meta-value">GitLab only (GitHub links correct)</div>
+    <div class="meta-label">Found By</div><div class="meta-value">QA Automation</div>
+  </div>
+
+  <div class="section-head">Summary</div>
+  <div class="content-box">
+    GitLab commit links generated by the plugin use the legacy <code>/commit/&lt;sha&gt;</code> URL pattern instead of the current GitLab standard <code>/-/commit/&lt;sha&gt;</code> pattern. GitHub commit links are generated correctly.
+  </div>
+
+  <div class="section-head">Steps to Reproduce</div>
+  <div class="content-box">
+    <ol class="step-list">
+      <li>Navigate to <code>http://localhost:3008/projects/phoenix-platform/devops_commits/31</code> (a GitLab-sourced commit).</li>
+      <li>Inspect the "Open in Repository" link <code>href</code> attribute.</li>
+    </ol>
+  </div>
+
+  <div class="section-head">Expected Result</div>
+  <div class="result-box result-expected">
+    Link: <code>https://gitlab.com/{namespace}/{project}/-/commit/{full_sha}</code>
+  </div>
+
+  <div class="section-head">Actual Result</div>
+  <div class="result-box result-actual">
+    Link: <code>https://gitlab.com/test/repo/commit/b2c3d4e5f6a7b2c3d4e5f6a7b2c3d4e5f6a7b2c3</code> (missing <code>/-/</code>)
+  </div>
+
+  <div class="note-box"><strong>Notes:</strong> The old format still redirects on gitlab.com but is deprecated and may break for self-hosted GitLab instances. Fix: use <code>/-/commit/</code> instead of <code>/commit/</code> when constructing GitLab commit URLs.</div>
+</div>
+
+<!-- ═══════════════════════════════ BUG-RDV-021 ══════════════════════════════ -->
+<div class="bug-page">
+  <div class="bug-header">
+    <div class="bug-id">BUG-RDV-021</div>
+    <div class="bug-title">Auto-transition rules UI missing per-rule configuration (Add Rule, Source Status, Trigger type)</div>
+    <div class="bug-pills">
+      <span class="pill pill-medium">Medium</span>
+      <span class="pill pill-open">Open</span>
+      <span class="pill pill-info">TC-RDV-088</span>
+      <span class="pill pill-info">SCM-004 · rfd-009</span>
+    </div>
+  </div>
+
+  <div class="meta-grid">
+    <div class="meta-label">Redmine Version</div><div class="meta-value">6.0.9</div>
+    <div class="meta-label">Plugin Version</div><div class="meta-value">redmineflux_devops v0.1.0</div>
+    <div class="meta-label">Environment</div><div class="meta-value">Local Docker · http://localhost:3008</div>
+    <div class="meta-label">Date Found</div><div class="meta-value">2026-05-25</div>
+    <div class="meta-label">URL</div><div class="meta-value">/projects/phoenix-platform/devops_settings</div>
+    <div class="meta-label">Found By</div><div class="meta-value">QA Automation</div>
+  </div>
+
+  <div class="section-head">Summary</div>
+  <div class="content-box">
+    The Auto-Transition Rules section in DevOps settings only provides a single global enable/disable toggle and one "On PR Merge, Move Issue To" target status selector. The spec requires a configurable multi-rule system with "Add Rule", Source Status, Target Status, and Trigger type per rule. The basic single-rule auto-transition functions correctly — this is a UI feature gap.
+  </div>
+
+  <div class="section-head">Steps to Reproduce</div>
+  <div class="content-box">
+    <ol class="step-list">
+      <li>Navigate to <code>http://localhost:3008/projects/phoenix-platform/devops_settings</code>.</li>
+      <li>Locate the "Auto-Transition Rules" section.</li>
+      <li>Observe the available controls.</li>
+    </ol>
+  </div>
+
+  <div class="section-head">Expected Result</div>
+  <div class="result-box result-expected">
+    An "Add Rule" button to create multiple rules.<br>
+    Per rule: Source Status (e.g. "In Review"), Target Status (e.g. "Ready for QA"), Trigger (e.g. "PR Merged").<br>
+    Saved rules listed: <code>On PR Merge: In Review → Ready for QA</code>.<br>
+    Only Admin and DevOps Engineer roles can access/modify rules.
+  </div>
+
+  <div class="section-head">Actual Result</div>
+  <div class="result-box result-actual">
+    Only two controls:<br>
+    1. <code>auto_transition_enabled</code> checkbox: "Enable auto-transition on PR merge"<br>
+    2. <code>pr_merged_status_id</code> select: "On PR Merge, Move Issue To" (single global target)<br>
+    No "Add Rule" button, no source status per rule, no trigger type selection.
+  </div>
+
+  <div class="note-box"><strong>Notes:</strong> The basic auto-transition feature functions (single-rule, confirmed in TC-RDV-054–058). The missing per-rule UI is a feature gap vs the spec requirement (SCM-004 / rfd-009).</div>
+</div>
+
+<!-- ═══════════════════════════════ BUG-RDV-022 ══════════════════════════════ -->
+<div class="bug-page">
+  <div class="bug-header">
+    <div class="bug-id">BUG-RDV-022</div>
+    <div class="bug-title">Multi-commit push webhook stores no commits — background job silently fails</div>
+    <div class="bug-pills">
+      <span class="pill pill-high">High</span>
+      <span class="pill pill-open">Open</span>
+      <span class="pill pill-info">TC-RDV-089</span>
+      <span class="pill pill-info">SCM-001 · rfd-006</span>
+      <span class="pill pill-info">Root cause: BUG-RDV-007</span>
+    </div>
+  </div>
+
+  <div class="meta-grid">
+    <div class="meta-label">Redmine Version</div><div class="meta-value">6.0.9</div>
+    <div class="meta-label">Plugin Version</div><div class="meta-value">redmineflux_devops v0.1.0</div>
+    <div class="meta-label">Environment</div><div class="meta-value">Local Docker · http://localhost:3008</div>
+    <div class="meta-label">Date Found</div><div class="meta-value">2026-05-25</div>
+    <div class="meta-label">Related Bug</div><div class="meta-value">BUG-RDV-007 (same root cause — ActiveRecord::RecordInvalid)</div>
+    <div class="meta-label">Found By</div><div class="meta-value">QA Automation</div>
+  </div>
+
+  <div class="section-head">Summary</div>
+  <div class="content-box">
+    A GitHub push webhook containing 3 commits (two with issue references, one without) returns HTTP 202 but no commits are stored in <code>redmineflux_devops_commits</code>. The background job fails silently with <code>ActiveRecord::RecordInvalid</code> — same root cause as BUG-RDV-007. This is a systemic failure affecting ALL push webhooks; single and multi-commit pushes both fail identically.
+  </div>
+
+  <div class="section-head">Steps to Reproduce</div>
+  <div class="content-box">
+    <ol class="step-list">
+      <li>Send a GitHub <code>push</code> event with 3 commits: SHA <code>aaa001</code> ("Fixes #517"), SHA <code>bbb002</code> ("refs #520"), SHA <code>ccc003</code> ("chore: bump version").</li>
+      <li>Observe the HTTP response code.</li>
+      <li>Navigate to <code>/projects/phoenix-platform/devops_commits</code>.</li>
+      <li>Search for commit messages or SHAs from the payload.</li>
+    </ol>
+  </div>
+
+  <div class="section-head">Expected Result</div>
+  <div class="result-box result-expected">
+    All 3 commits stored in <code>redmineflux_devops_commits</code>.<br>
+    Issue #517 panel shows commit <code>aaa001</code>. Issue #520 panel shows commit <code>bbb002</code>.<br>
+    Commit <code>ccc003</code> stored but not linked to any issue.
+  </div>
+
+  <div class="section-head">Actual Result</div>
+  <div class="result-box result-actual">
+    HTTP 202 returned immediately (webhook accepted).<br>
+    0 of 3 commits found in the commits list after the webhook.<br>
+    Project commit count: 50 (unchanged — the visible commits are pre-seeded data, not from test webhooks).
+  </div>
+
+  <div class="note-box"><strong>Notes:</strong> Root cause is the same as BUG-RDV-007 — background job raises <code>ActiveRecord::RecordInvalid</code> and rolls back without storing commits. Multi-commit batches are not processed atomically — all fail together. This is the highest-impact systemic blocker in Suite 02, affecting 7 test cases (TC-041, 042, 044, 045, 046, 085, 089).</div>
+</div>
+
+</body>
+</html>

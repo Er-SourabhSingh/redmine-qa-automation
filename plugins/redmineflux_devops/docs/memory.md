@@ -65,12 +65,52 @@
 - Build trigger endpoint returns 422 when Jenkins is not connected — rate limit logic (60 req/min) is never reached in this state.
 - REST API pagination structure confirmed: builds.json returns total_count, limit, offset fields correctly. Data is 0 due to BUG-RDV-007 but response structure is valid.
 
+- **Suite 02 — Commit storage systemic failure (BUG-RDV-007 / BUG-RDV-022)**: ALL push webhooks (single and multi-commit) return 202 but zero commits are stored in the DB. Background job raises RecordInvalid and silently rolls back. The ~50 commits visible in `/projects/<id>/devops_commits` are pre-seeded data — NOT from test-run webhooks. Any TC that asserts a commit appeared after a push webhook will be BLOCKED until this is fixed.
+- **Suite 02 — Authorization gaps widespread (BUG-RDV-017)**: PR Dashboard (`/projects/<id>/devops_pull_requests`) and Commits page (`/projects/<id>/devops_commits`) return HTTP 200 with full data to non-members and users without `view_devops`. Both controllers are missing the before_action permission guard — same root cause as BUG-RDV-011.
+- **Suite 02 — PR Dashboard filter/sort wrong (BUG-RDV-016)**: The PR dashboard at `/devops_pull_requests` shows ALL statuses (open, merged, closed, draft) without any default filter. Sort order is Updated desc, not age asc (oldest unreviewed first) as the spec requires.
+- **Suite 02 — PR multi-issue linking broken (BUG-RDV-019)**: The PR title/body parser only extracts the FIRST issue reference. A PR titled "Fixes #518 and refs #519" updates issue #518 but leaves issue #519 untouched. The regex stops after the first match.
+- **Suite 02 — PR reviewer data not stored (BUG-RDV-014)**: After a `pull_request_review` webhook (202), reviewer names and approval status are not stored or rendered on the PR card. The reviewer data in the payload is silently discarded.
+- **Suite 02 — Commit stats route missing (BUG-RDV-018)**: GET `/devops_commit_stats` returns 404. Daily/weekly aggregation charts, top contributors, and time window filter are entirely absent at the routing level.
+- **Suite 02 — Auto-transition journal wrong (BUG-RDV-015)**: Journal text is "[DevOps] Status changed automatically — PR merged" (spec: "Status changed by DevOps integration (PR #N merged)"). Author is "Redmine Admin" (user #1 used as fallback) — spec requires a dedicated system/DevOps actor, not a real user account.
+- **Suite 02 — Auto-transition UI simplified (BUG-RDV-021)**: The auto-transition settings page only shows a global enable checkbox + a single target status select. The per-rule configuration UI (Add Rule, Source Status, Trigger type) described in the spec does not exist.
+- **Suite 02 — GitLab commit SHA links wrong (BUG-RDV-020)**: Stored GitLab commit links use `https://gitlab.com/<ns>/<repo>/commit/<sha>` — missing the `/-/` prefix required by current GitLab URL standards. Should be `/-/commit/<sha>`.
+- **Issue URL routing quirk**: Issue pages for the "Environment Request" tracker type are only accessible at `/issues/<id>` (Redmine global route) — NOT at `/projects/<identifier>/issues/<id>` (returns 404 for that tracker type). Use global `/issues/<id>` URLs when navigating directly to individual issues in test steps.
+- **Local Docker connection IDs (Session 7 state)**: GitHub ID 4 (`Er-SourabhSingh/devops-plugin-test`), GitHub ID 7 (`acme/phoenix-frontend`), GitLab ID 5 (`test/repo`). All use webhook secret `s3cr3tKey`.
+
+- **Suite 03 — Badge polling uses identifier not numeric ID (BUG-RDV-023)**: `data-project-id` on the badge element contains the project's string identifier ("phoenix-platform"). The JS polling loop calls `/devops/builds.json?project_id=phoenix-platform` which returns 403. Badge never auto-updates without page reload.
+- **Suite 03 — JUnit ingestion broken — missing rexml gem (BUG-RDV-026)**: `POST /devops/builds/<id>/test_results` returns HTTP 422 with `{"error":"XML parser dependency missing: cannot load such file -- rexml/document"}`. The `rexml` gem must be added to the plugin's Gemfile. All flaky test detection is blocked.
+- **Suite 03 — Pipeline stages not implemented (BUG-RDV-029)**: Build detail page has no "Pipeline Stages" section. `BuildStageIngestor` service not present. Affects TC-RDV-125, 126, 144, 148.
+- **Suite 03 — Build queue widget missing (BUG-RDV-027)**: `/projects/<id>/devops/dashboards` is a blank custom dashboard builder — no pre-built DevOps widgets. Queue depth and wait estimate (rfd-077) not implemented.
+- **Suite 03 — Artifact downloads missing (BUG-RDV-028)**: Build detail page shows "No artifacts available" for all builds. GitHub Actions artifact API not called.
+- **Suite 03 — Build duration not stored (BUG-RDV-031)**: Webhook `run_duration_ms` field silently ignored. All builds show "N/A" duration on detail page and "-" in the list. Stats bar shows "0s avg duration".
+- **Suite 03 — Slack/Teams notifications absent (BUG-RDV-030)**: `/my/devops_notifications` shows only Email + In-app. Slack and Teams columns not rendered.
+- **Suite 03 — Permission enforcement confirmed working**: QA role (view_devops, no trigger_builds) cannot see Rebuild button and trigger endpoint returns 403. TC-RDV-132 PASS. BUG-RDV-025 was NOT filed — original TC-RDV-108 conclusion was erroneous (admin session was likely still active).
+- **Suite 03 — Failed build auto-comment works**: When a build webhook with conclusion=failure is received, a journal entry "[DevOps] Build #N failed on BRANCH. Error: log unavailable" is posted on the linked issue. Author is admin (user #1), not a system actor. Log excerpt shows "unavailable" because GitHub API can't serve logs for fake run IDs.
+- **Suite 03 — XSS prevention confirmed**: Branch names containing `<script>` tags in webhook payloads are HTML-escaped in the builds list (hasEscapedScript=true, hasUnescapedScript=false). TC-RDV-142 PASS.
+- **Suite 03 — Build stats bar present**: Builds list shows "N builds / X% success rate / Y failed / Zs avg duration" above the table. TC-RDV-133 PASS.
+- **Suite 03 — IDOR protection for build detail pages confirmed**: Accessing a build belonging to project A via project B's URL returns HTTP 404. TC-RDV-147 PASS.
+- **Suite 03 — Local users for phoenix-platform**: `qa_user` (QA role, ID 13) has view_devops. `reporter_user` (QA Engineer role, ID 15) gets 403 on DevOps pages — QA Engineer role does not have view_devops. Passwords reset to Test1234! during Suite 03 testing.
+
+- **Suite 04 — ArgoCD not in SUPPORTED_PROVIDERS (BUG-RDV-033)**: POST with `provider=argocd` returns HTTP 400 immediately. Canary rollout, progressive deployment, and ArgoCD sync features are entirely untestable. SUPPORTED_PROVIDERS list confirmed: [github, gitlab, bitbucket, jenkins, sonarqube, fossa, prometheus, datadog, zabbix, pagerduty].
+- **Suite 04 — Issue-deployment linking not implemented (BUG-RDV-035)**: Deployment detail page has no "Issues Included" section. Redmine issue pages have no deployment badge or sidebar widget. Feature described in rfd-014 not present.
+- **Suite 04 — Deploy button not visually disabled for locked/frozen environments (BUG-RDV-032)**: Server correctly returns HTTP 423 (freeze) and flash message (lock), but the Deploy button on the environment card remains enabled. UI gives no pre-emptive visual feedback.
+- **Suite 04 — Concurrent pending_approval deployments not blocked (BUG-RDV-037)**: Pre-flight check does not detect an existing pending_approval deployment. Multiple simultaneous pending approvals accumulate for the same environment.
+- **Suite 04 — Deployment detail commit SHA not shown; URL field absent (BUG-RDV-034)**: COMMIT field shows "—" even when commit_sha is stored (confirmed via TC-RDV-195 webhook). No "Deployment URL" field on detail page.
+- **Suite 04 — Original deployment has no "Reverted by" reverse link (BUG-RDV-036)**: Rollback detail correctly shows "Rollback of #N" link. But the original deployment #N shows no "Reverted by #M" reverse link. Audit trail is uni-directional.
+- **Suite 04 — Approval gate well-implemented**: approval_required flag, HTTP 403 for wrong roles, approve/reject workflow, audit trail all work correctly. rate limit (5/hr/env) enforced. Freeze HTTP 423, lock flash message both correct.
+- **Suite 04 — Webhook deployment record creation confirmed (TC-RDV-195)**: GitHub deployment_status webhook populates all 8 fields: version (from deployment.ref), commit_sha (from deployment.sha), deployed_by (from sender.login), environment name, status, url (from target_url), finished_at. Use this event to create deployment records in tests.
+- **Suite 04 — Local user dev_user (ID 12)**: Developer role in phoenix-platform. Password reset to Test1234! during Suite 04 session 9.
+- **Suite 04 — flux-erp-system environment created**: "ERP Staging" (env ID 5) created during TC-RDV-209 IDOR test setup. No deployments were created in flux-erp-system (deploy POST silently ignored when no deploy_provider is configured).
+- **Suite 04 — Rollback reason is required**: POST to /create_rollback without rollback_reason returns HTTP 422. Always include rollback_reason in rollback test steps.
+- **Suite 04 — Rate limit**: 5 deploys/hour/environment. Resets on the hour. Test env may have hits from previous TCs — check current count before rate limit TCs.
+
 ## Recurring Issues
 
 - HTTP status code semantics are wrong in two places: 401 returned for signature failure (should be 403), and 400 returned for unsupported provider (should be 404) — BUG-RDV-001, BUG-RDV-005
 - SonarQube and FOSSA integrations are completely blocked due to missing UI configuration points — BUG-RDV-003, BUG-RDV-004
 - Access control gaps at REST API layer: project-scoped authorisation absent (BUG-RDV-008) and wrong permission check on webhook event log (BUG-RDV-011)
 - ActivityProvider not registered — all activity stream TCs fail for the same root cause (BUG-RDV-010)
+- Authorization before_action guards missing from multiple controllers: webhook event log (BUG-RDV-011), PR Dashboard, Commits page (BUG-RDV-017) — pattern suggests guards are absent from entire SCM controllers, not just individual actions
 
 ## Environment Notes
 

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Suite 04 Bug Report — Redmineflux DevOps</title>
+<style>
+  @page { size: A4; margin: 20mm 18mm 20mm 18mm; }
+  body { font-family: Arial, sans-serif; font-size: 12px; color: #1a1a1a; margin: 0; padding: 0; }
+  h1 { font-size: 20px; color: #1a2540; margin-bottom: 4px; }
+  h2 { font-size: 13px; color: #444; font-weight: normal; margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 6px; }
+  h3 { font-size: 14px; margin: 0 0 10px 0; color: #1a2540; }
+  .meta { font-size: 11px; color: #555; margin-bottom: 24px; line-height: 1.8; }
+  .meta span { margin-right: 20px; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 3px; font-size: 11px; font-weight: bold; vertical-align: middle; }
+  .badge-critical { background: #fde8e8; color: #7b241c; border: 1px solid #e8a8a8; }
+  .badge-high     { background: #fdf0e8; color: #b94000; border: 1px solid #f5c09a; }
+  .badge-medium   { background: #fef9e7; color: #7d5200; border: 1px solid #f0d898; }
+  .badge-low      { background: #f0f8e8; color: #2e5900; border: 1px solid #b8d898; }
+  .badge-open     { background: #e8f4fd; color: #1a5276; border: 1px solid #a8ccf0; }
+  .summary-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 16px 0 24px 0; }
+  .scard { border-radius: 6px; padding: 12px; text-align: center; }
+  .scard .num { font-size: 26px; font-weight: bold; }
+  .scard .lbl { font-size: 10px; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .sc-total { background: #f0f4ff; color: #1a2540; }
+  .sc-crit  { background: #fde8e8; color: #7b241c; }
+  .sc-high  { background: #fdf0e8; color: #b94000; }
+  .sc-med   { background: #fef9e7; color: #7d5200; }
+  .sc-low   { background: #f0f8e8; color: #2e5900; }
+  .bug-card { border: 1px solid #dde3ee; border-radius: 6px; padding: 14px 16px; margin-bottom: 18px; page-break-inside: avoid; }
+  .bug-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .bug-id { font-size: 13px; font-weight: bold; color: #1a2540; font-family: monospace; }
+  .bug-title { font-size: 13px; font-weight: bold; color: #1a2540; flex: 1; }
+  .field-grid { display: grid; grid-template-columns: 120px 1fr; gap: 4px 12px; font-size: 11px; margin-bottom: 10px; }
+  .field-label { color: #888; font-weight: bold; }
+  .field-value { color: #222; }
+  .section-title { font-size: 11px; font-weight: bold; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin: 10px 0 4px 0; }
+  ol.steps { margin: 0; padding-left: 18px; }
+  ol.steps li { margin-bottom: 3px; font-size: 11px; line-height: 1.5; }
+  .expected { background: #f0faf0; border-left: 3px solid #2e7d32; padding: 6px 10px; margin: 8px 0; font-size: 11px; border-radius: 0 3px 3px 0; }
+  .actual { background: #fff8f8; border-left: 3px solid #c62828; padding: 6px 10px; margin: 8px 0; font-size: 11px; border-radius: 0 3px 3px 0; }
+  .footer { margin-top: 30px; padding-top: 10px; border-top: 1px solid #ddd; font-size: 10px; color: #888; text-align: center; }
+  hr.divider { border: none; border-top: 1px dashed #ddd; margin: 6px 0 14px 0; }
+</style>
+</head>
+<body>
+
+<h1>Suite 04 Bug Report — Redmineflux DevOps Plugin</h1>
+<h2>Deployments Suite (TC-RDV-151 to TC-RDV-210) — Session 9 — 2026-05-25</h2>
+
+<div class="meta">
+  <span><strong>Plugin:</strong> redmineflux_devops v0.1.0</span>
+  <span><strong>Redmine:</strong> 6.0.9</span>
+  <span><strong>Environment:</strong> Local Docker (http://localhost:3008)</span>
+  <span><strong>Tester:</strong> Claude (AI QA via MCP Playwright)</span><br>
+  <span><strong>Suite TCs:</strong> 60 (TC-RDV-151–210) | PASS: 26 | FAIL: 19 | BLOCKED: 15</span>
+  <span><strong>New Bugs this Suite:</strong> 7 (BUG-RDV-032 to BUG-RDV-038)</span>
+</div>
+
+<div class="summary-grid">
+  <div class="scard sc-total"><div class="num">7</div><div class="lbl">Total Bugs</div></div>
+  <div class="scard sc-crit"><div class="num">0</div><div class="lbl">Critical</div></div>
+  <div class="scard sc-high"><div class="num">3</div><div class="lbl">High</div></div>
+  <div class="scard sc-med"><div class="num">3</div><div class="lbl">Medium</div></div>
+  <div class="scard sc-low"><div class="num">1</div><div class="lbl">Low</div></div>
+</div>
+
+<!-- BUG-RDV-033 -->
+<div class="bug-card">
+  <div class="bug-header">
+    <span class="bug-id">BUG-RDV-033</span>
+    <span class="badge badge-high">HIGH</span>
+    <span class="badge badge-open">OPEN</span>
+  </div>
+  <div class="bug-title">ArgoCD provider not supported — canary and progressive rollout features entirely blocked</div>
+  <hr class="divider">
+  <div class="field-grid">
+    <span class="field-label">Affected TCs</span><span class="field-value">TC-RDV-174, TC-RDV-175, TC-RDV-176, TC-RDV-193, TC-RDV-194</span>
+    <span class="field-label">Requirement</span><span class="field-value">DEP-008 — Canary/Progressive Rollout</span>
+    <span class="field-label">User Role</span><span class="field-value">Admin</span>
+    <span class="field-label">Screenshot</span><span class="field-value">screenshots/TC-RDV-193/ (BLOCKED)</span>
+  </div>
+  <div class="section-title">Steps to Reproduce</div>
+  <ol class="steps">
+    <li>POST to <code>/projects/phoenix-platform/devops_connections</code> with <code>provider=argocd</code>.</li>
+    <li>Observe the HTTP response status and body.</li>
+    <li>Alternatively, inspect the provider dropdown in the Add Repository form for an ArgoCD option.</li>
+  </ol>
+  <div class="expected"><strong>Expected:</strong> ArgoCD listed as a supported CI/CD provider. Connection creation succeeds. Canary rollout webhook events (with rollout_percent 0–100) are accepted and processed.</div>
+  <div class="actual"><strong>Actual:</strong> POST returns HTTP 400 immediately. SUPPORTED_PROVIDERS = [github, gitlab, bitbucket, jenkins, sonarqube, fossa, prometheus, datadog, zabbix, pagerduty] — ArgoCD is absent. All canary rollout, progressive deployment, and ArgoCD sync features are entirely untestable. 5 TCs blocked.</div>
+</div>
+
+<!-- BUG-RDV-035 -->
+<div class="bug-card">
+  <div class="bug-header">
+    <span class="bug-id">BUG-RDV-035</span>
+    <span class="badge badge-high">HIGH</span>
+    <span class="badge badge-open">OPEN</span>
+  </div>
+  <div class="bug-title">No issue-deployment linkage on deployment detail or issue pages</div>
+  <hr class="divider">
+  <div class="field-grid">
+    <span class="field-label">Affected TCs</span><span class="field-value">TC-RDV-155, TC-RDV-156, TC-RDV-189, TC-RDV-197, TC-RDV-207</span>
+    <span class="field-label">Requirement</span><span class="field-value">DEP-001 — Deployment History / rfd-014</span>
+    <span class="field-label">User Role</span><span class="field-value">Admin</span>
+    <span class="field-label">Screenshot</span><span class="field-value">screenshots/TC-RDV-197/ (FAIL)</span>
+  </div>
+  <div class="section-title">Steps to Reproduce</div>
+  <ol class="steps">
+    <li>Send a GitHub push webhook referencing an issue number in the commit message (e.g., "Fix #3 login error").</li>
+    <li>Navigate to the resulting deployment detail page at <code>/projects/phoenix-platform/devops_deployments/&lt;id&gt;</code>.</li>
+    <li>Navigate to the referenced Redmine issue (e.g., <code>/issues/3</code>).</li>
+    <li>Inspect both pages for issue-deployment linkage.</li>
+  </ol>
+  <div class="expected"><strong>Expected:</strong> Deployment detail shows an "Issues Included" section listing resolved/referenced issues. Issue detail shows a "Deployments" section or badge with the deployment version and environment.</div>
+  <div class="actual"><strong>Actual:</strong> No "Issues Included" section on deployment detail. Issue pages show no deployment badge, widget, or sidebar section. Feature (rfd-014) is not implemented. 5 TCs fail.</div>
+</div>
+
+<!-- BUG-RDV-037 -->
+<div class="bug-card">
+  <div class="bug-header">
+    <span class="bug-id">BUG-RDV-037</span>
+    <span class="badge badge-high">HIGH</span>
+    <span class="badge badge-open">OPEN</span>
+  </div>
+  <div class="bug-title">Multiple concurrent pending_approval deployments accepted for the same environment</div>
+  <hr class="divider">
+  <div class="field-grid">
+    <span class="field-label">Affected TCs</span><span class="field-value">TC-RDV-183</span>
+    <span class="field-label">Requirement</span><span class="field-value">DEP-004 — Deployment Approval Gate</span>
+    <span class="field-label">User Role</span><span class="field-value">Admin</span>
+    <span class="field-label">Screenshot</span><span class="field-value">screenshots/TC-RDV-183/ (FAIL)</span>
+  </div>
+  <div class="section-title">Steps to Reproduce</div>
+  <ol class="steps">
+    <li>Configure environment (e.g., staging, env_id 3) with <code>approval_required = true</code>.</li>
+    <li>POST a deploy to the environment — first deployment created with status <code>pending_approval</code>.</li>
+    <li>Immediately POST a second deploy to the same environment without approving or rejecting the first.</li>
+    <li>Check the deployments list for the environment.</li>
+  </ol>
+  <div class="expected"><strong>Expected:</strong> Second deploy attempt is blocked with an error: "A deployment is already pending approval for this environment." Only one pending_approval deployment exists per environment at a time.</div>
+  <div class="actual"><strong>Actual:</strong> Second deploy returns HTTP 302 success. Deployments list shows multiple records with <code>pending_approval</code> status for the same environment simultaneously (confirmed: deployments #17, #18, #19 all showing staging/pending). Approval queue integrity is broken.</div>
+</div>
+
+<!-- BUG-RDV-032 -->
+<div class="bug-card">
+  <div class="bug-header">
+    <span class="bug-id">BUG-RDV-032</span>
+    <span class="badge badge-medium">MEDIUM</span>
+    <span class="badge badge-open">OPEN</span>
+  </div>
+  <div class="bug-title">Deploy button not disabled when environment is locked or has an active freeze window</div>
+  <hr class="divider">
+  <div class="field-grid">
+    <span class="field-label">Affected TCs</span><span class="field-value">TC-RDV-169, TC-RDV-181</span>
+    <span class="field-label">Requirement</span><span class="field-value">DEP-006 / DEP-009 — Lock &amp; Freeze pre-flight</span>
+    <span class="field-label">User Role</span><span class="field-value">Admin</span>
+    <span class="field-label">Screenshot</span><span class="field-value">screenshots/TC-RDV-181/tc-rdv-181-pass.png</span>
+  </div>
+  <div class="section-title">Steps to Reproduce</div>
+  <ol class="steps">
+    <li>Lock an environment with a future <code>locked_until</code> date. Navigate to <code>/devops_environments</code>.</li>
+    <li>Observe the Deploy button on the locked environment card.</li>
+    <li>Alternatively, create an active freeze window for the environment and repeat.</li>
+  </ol>
+  <div class="expected"><strong>Expected:</strong> Deploy button is visually disabled (grayed out, <code>disabled</code> attribute, or hidden) with a tooltip indicating the environment is locked or frozen.</div>
+  <div class="actual"><strong>Actual:</strong> Deploy button remains fully enabled for locked and frozen environments. Server correctly enforces the block (HTTP 423 for freeze, flash "Deployment blocked — environment is locked" for lock), but the UI gives no pre-emptive indication. Users discover the block only after attempting deployment.</div>
+</div>
+
+<!-- BUG-RDV-034 -->
+<div class="bug-card">
+  <div class="bug-header">
+    <span class="bug-id">BUG-RDV-034</span>
+    <span class="badge badge-medium">MEDIUM</span>
+    <span class="badge badge-open">OPEN</span>
+  </div>
+  <div class="bug-title">Deployment detail page shows no clickable commit SHA link and no deployment URL field</div>
+  <hr class="divider">
+  <div class="field-grid">
+    <span class="field-label">Affected TCs</span><span class="field-value">TC-RDV-186</span>
+    <span class="field-label">Requirement</span><span class="field-value">DEP-001 — Deployment History detail fields</span>
+    <span class="field-label">User Role</span><span class="field-value">Admin</span>
+    <span class="field-label">Screenshot</span><span class="field-value">screenshots/TC-RDV-169/</span>
+  </div>
+  <div class="section-title">Steps to Reproduce</div>
+  <ol class="steps">
+    <li>Send a GitHub <code>deployment_status</code> webhook with a valid <code>deployment.sha</code> and <code>deployment_status.target_url</code> (e.g., TC-RDV-195 webhook payload).</li>
+    <li>Navigate to the resulting deployment detail page.</li>
+    <li>Inspect the COMMIT and URL fields.</li>
+  </ol>
+  <div class="expected"><strong>Expected:</strong> COMMIT field shows the SHA as a clickable hyperlink to the remote repository commit. A "Deployment URL" field is visible, showing the <code>target_url</code> from the webhook payload.</div>
+  <div class="actual"><strong>Actual:</strong> COMMIT field shows "—" (even when <code>commit_sha</code> is stored in the DB, confirmed via TC-RDV-195). No "Deployment URL" field on the detail page. Users cannot navigate to the remote commit or deployment environment from Redmine.</div>
+</div>
+
+<!-- BUG-RDV-036 -->
+<div class="bug-card">
+  <div class="bug-header">
+    <span class="bug-id">BUG-RDV-036</span>
+    <span class="badge badge-medium">MEDIUM</span>
+    <span class="badge badge-open">OPEN</span>
+  </div>
+  <div class="bug-title">After rollback, original deployment detail shows no "Reverted by" reverse link</div>
+  <hr class="divider">
+  <div class="field-grid">
+    <span class="field-label">Affected TCs</span><span class="field-value">TC-RDV-199</span>
+    <span class="field-label">Requirement</span><span class="field-value">DEP-005 — Rollback tracking / bi-directional audit trail</span>
+    <span class="field-label">User Role</span><span class="field-value">Admin</span>
+    <span class="field-label">Screenshot</span><span class="field-value">screenshots/TC-RDV-176/</span>
+  </div>
+  <div class="section-title">Steps to Reproduce</div>
+  <ol class="steps">
+    <li>Navigate to a successful deployment (e.g., deployment #5).</li>
+    <li>Create a rollback from that deployment via <code>/devops_deployments/5/create_rollback</code>.</li>
+    <li>Confirm the rollback deployment is created (new record visible in list).</li>
+    <li>Navigate back to the original deployment detail page (#5).</li>
+  </ol>
+  <div class="expected"><strong>Expected:</strong> Original deployment detail (#5) shows a "Reverted by deployment #N" reference with a link to the rollback record, completing the bi-directional audit trail.</div>
+  <div class="actual"><strong>Actual:</strong> Original deployment #5 shows no "Reverted by" section. The rollback detail correctly links back to the original ("Rollback of #5"), but the reverse link is absent — tracing from original to rollback is not possible via UI.</div>
+</div>
+
+<!-- BUG-RDV-038 -->
+<div class="bug-card">
+  <div class="bug-header">
+    <span class="bug-id">BUG-RDV-038</span>
+    <span class="badge badge-low">LOW</span>
+    <span class="badge badge-open">OPEN</span>
+  </div>
+  <div class="bug-title">Environment cards not ordered by environment type hierarchy (dev → staging → production)</div>
+  <hr class="divider">
+  <div class="field-grid">
+    <span class="field-label">Affected TCs</span><span class="field-value">TC-RDV-206</span>
+    <span class="field-label">Requirement</span><span class="field-value">DEP-002 — Environment Dashboard display order</span>
+    <span class="field-label">User Role</span><span class="field-value">Admin</span>
+    <span class="field-label">Screenshot</span><span class="field-value">screenshots/TC-RDV-151/</span>
+  </div>
+  <div class="section-title">Steps to Reproduce</div>
+  <ol class="steps">
+    <li>Create environments: production, uat, dev, staging (in any creation order).</li>
+    <li>Navigate to <code>/projects/phoenix-platform/devops_environments</code>.</li>
+    <li>Observe the order of environment cards on the dashboard.</li>
+  </ol>
+  <div class="expected"><strong>Expected:</strong> Environments displayed in logical pipeline order: dev → staging → uat → production (mirroring the software delivery lifecycle).</div>
+  <div class="actual"><strong>Actual:</strong> Environments displayed in creation/position-column order: production, uat, dev, staging. The deployment filter dropdown on the Deployments list follows the same incorrect order.</div>
+</div>
+
+<div class="footer">
+  Redmineflux DevOps Plugin — Suite 04 Bug Report &nbsp;|&nbsp; Generated: 2026-05-25 &nbsp;|&nbsp; Tester: Claude (AI QA via MCP Playwright) &nbsp;|&nbsp; Redmine 6.0.9 Local Docker
+</div>
+
+</body>
+</html>

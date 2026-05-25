@@ -2,84 +2,93 @@
 
 ## Last Session
 
-- Date: 2026-05-23 (Session 6 — Full local re-run TC-RDV-001 to TC-RDV-040)
+- Date: 2026-05-25 (Session 9 — Suite 04 Deployments TC-RDV-151 to TC-RDV-210)
 - Redmine Version: 6.0.9 (Local Docker — http://localhost:3008)
 - Environment: Local — container xenodochial_heisenberg
 
 ## Completed This Session
 
-- Executed TC-RDV-027 to TC-RDV-040 (completing the full 40-TC suite on local)
-- Filed BUG-RDV-012 (Medium — commits REST API ignores limit parameter)
-- Filed BUG-RDV-013 (High — 5/10 REST API endpoints return 406)
-- Updated _index.md with BUG-RDV-012, BUG-RDV-013; marked BUG-RDV-011 as Local+Forge
-- Generated tc-report.html, defects-summary.html, final-bug-report.md
+- Executed TC-RDV-151 to TC-RDV-210 (60 TCs — Suite 04 Deployments)
+- Filed BUG-RDV-032 through BUG-RDV-038 (7 new bugs)
+- Updated bugs/_index.md, tc-report.html, defects-summary.html, final-bug-report.md, handoff.md, changelog.md, STATUS.md
 
-## TC-RDV-027 to TC-RDV-040 Results (Session 6 — Local)
+## Suite 04 Results Summary (TC-RDV-151–210)
 
-| TC | Title | Result |
-|----|-------|--------|
-| TC-RDV-027 | User can configure DevOps notification preferences | PASS (deviations: no Slack/Teams; flash="Account was successfully updated.") |
-| TC-RDV-028 | Notification preferences are user-self-service only | PASS (/users/:id/devops_notifications → 404) |
-| TC-RDV-029 | Lazy default — no record until user saves | PASS (0 rows before and after page visit without save) |
-| TC-RDV-030 | User receives email notification on build fail | SKIP (no SMTP in local Docker) |
-| TC-RDV-031 | Admin can access and save plugin settings | PASS (settings save and persist; actual fields differ from spec) |
-| TC-RDV-032 | Non-admin cannot access plugin settings | PASS (HTTP 403 for dev_user) |
-| TC-RDV-033 | SettingsValidator rejects invalid values | PASS (−1 → validation error; non-numeric → HTTP 422) |
-| TC-RDV-034 | DevOps tab visible for members, hidden for non-members | PASS (admin: tab visible; non_member: 403 on private project) |
-| TC-RDV-035 | Plugin menu entry in top-level navigation | PASS (DevOps tab present, links to devops_builds) |
-| TC-RDV-036 | Webhook rejects non-POST methods | PASS (GET/PUT/PATCH/DELETE → 404) |
-| TC-RDV-037 | Rate limit on trigger-build (5/hour) | BLOCKED (GitHub API 404 prevents builds; counter never increments) |
-| TC-RDV-038 | Activity stream respects view_devops permission | PASS (no DevOps events for reporter_user; consistent with BUG-RDV-010) |
-| TC-RDV-039 | Admin sees audit log; Developer blocked | PASS (admin: audit log loads; dev_user: 403) |
-| TC-RDV-040 | Webhook log requires manage_devops_settings | FAIL (dev_user sees log — BUG-RDV-011 confirmed on local) |
+| Result | Count |
+|--------|-------|
+| PASS | 26 |
+| FAIL | 19 |
+| SKIP | 0 |
+| BLOCKED | 15 |
+| **Total** | **60** |
 
-Session 6 totals: 11 Pass | 1 Fail | 1 Skip | 1 Blocked
+## Key Findings — Suite 04
 
-## Combined Totals (Local — Session 6, all 40 TCs)
+1. **BUG-RDV-033**: ArgoCD not in SUPPORTED_PROVIDERS — entire canary/progressive rollout feature set is blocked.
+2. **BUG-RDV-035**: Issue-deployment linkage not implemented — 5 TCs fail; no "Issues Included" on deployment detail, no deployment badge on issue pages.
+3. **BUG-RDV-037**: Multiple concurrent pending_approval deployments allowed per environment — approval gate queue integrity broken.
+4. **BUG-RDV-032**: Deploy button not visually disabled for locked/frozen environments — server enforces correctly but UI misleads users.
+5. **Approval gate**: Well implemented — correct permission enforcement (HTTP 403 for wrong roles), approval/reject workflow, audit trail all PASS.
+6. **Rate limiting**: Correctly enforced at 5 deploys/hour/env (TC-RDV-185 PASS).
+7. **Freeze & lock enforcement**: HTTP 423 for freeze, flash message for lock, both correctly block deploys (TC-RDV-181, TC-RDV-182 PASS).
+8. **Recurring freeze**: Created and listed correctly as Weekly; enforces HTTP 423 (TC-RDV-208 PASS).
+9. **Permission gates**: QA Engineer view-only enforced (TC-RDV-202), Developer cannot approve (TC-RDV-196), non-member blocked (TC-RDV-160) — all PASS.
+10. **GitHub Actions workflow_dispatch**: Fails at GitHub API layer (404) for synthetic workflow IDs — TC-RDV-177 FAIL, TC-RDV-198 FAIL.
 
-- TC-RDV-001–040: 40 TCs | 26 Pass | 10 Fail | 1 Skip | 3 Blocked | 13 Open Bugs
+## New Bugs Filed (Session 9)
+
+| Bug ID | Severity | Title |
+|--------|----------|-------|
+| BUG-RDV-032 | Medium | Deploy button not disabled when environment is locked or frozen |
+| BUG-RDV-033 | High | ArgoCD provider not supported — canary rollout blocked |
+| BUG-RDV-034 | Medium | Deployment detail missing commit SHA hyperlink and URL field |
+| BUG-RDV-035 | High | No issue-deployment linkage on deployment detail or issue pages |
+| BUG-RDV-036 | Medium | Original deployment detail shows no "Reverted by" link after rollback |
+| BUG-RDV-037 | High | Multiple concurrent pending_approval deployments accepted for same environment |
+| BUG-RDV-038 | Low | Environment cards not ordered by type (dev→staging→production) |
+
+## Grand Totals (All 4 Suites)
+
+- **TCs:** 210 | **Pass:** 90 | **Fail:** 61 | **Skip:** 4 | **Blocked:** 55
+- **Open Bugs:** 37 (BUG-RDV-001–038, excluding BUG-RDV-025 not filed)
 
 ## Current State (Local Docker)
 
 - Container: xenodochial_heisenberg (http://localhost:3008)
-- Repository connections: GitHub ID 4 (connected), GitLab ID 5 (pending)
-- phoenix-platform project ID: 7
+- Admin login: admin / admin123
 - Admin API key: a0d031712f66a866cf9a5251232dc75abd27cbe2
-- dev_user API key: 1fcebf93baf850a94cec9f501d29bb5b396b7aed
-- All user passwords reset to Admin1234! (dev_user, qa_user, reporter_user, non_member, devops_engineer, new_test_user)
-- Plugin settings rate_limit_per_minute set to 15 (changed during TC-RDV-031)
-- 13 open bugs: BUG-RDV-001 to BUG-RDV-013
+- Webhook secret: `s3cr3tKey` (all local connections)
+- Repository connections: GitHub ID 4, GitHub ID 7, GitLab ID 5
+- phoenix-platform project ID: 7 | identifier: phoenix-platform
+- Environments: production (ID 1, locked + frozen), uat (ID 4), dev (ID 2, frozen), staging (ID 3, approval_required, multiple pending deployments)
+- Deployments in DB: ~20 records (phoenix-platform only; flux-erp-system has ERP Staging env but 0 deployments)
+- dev_user (Developer role): password reset to Test1234! this session
+- qa_user (QA role, ID 13): password Test1234!
+- flux-erp-system: ERP Staging env (ID 5) created this session for IDOR test setup
 
 ## Blockers
 
-- BUG-RDV-007: webhook background job fails — commits not persisted; affects TC-RDV-001/015/021/025 data assertions
-- BUG-RDV-008 (Critical IDOR): REST API has no project-scoped authorization
-- TC-RDV-030: email delivery requires SMTP configuration
-- TC-RDV-037: rate limit untestable without live CI workflow (GitHub Actions 404 for all trigger attempts)
+- **BUG-RDV-007 / BUG-RDV-022**: Commits never stored from webhooks (background job fails)
+- **BUG-RDV-008** (Critical IDOR): REST API has no project-scoped authorization (Forge)
+- **BUG-RDV-026**: JUnit ingestion broken (rexml missing) — all flaky test detection blocked
+- **BUG-RDV-033**: ArgoCD not supported — canary rollout TCs blocked
+- **BUG-RDV-035**: Issue-deployment linking not implemented
 
 ## Next Session Start Point
 
-**Start execution at TC-RDV-041** (Suite 02 — SCM Integration)
+**Suites 01–04 are COMPLETE on Local Docker.**
 
-1. Read session start checklist (CLAUDE.md §11)
-2. Read this handoff.md before doing anything else
-3. Confirm target environment (Local or Forge) and update QA_CREDENTIALS accordingly
-4. Begin at TC-RDV-041 — SCM Integration suite
+Next actions (priority order):
+1. Execute remaining suites (Suite 05+: Releases, Security Scans, Incidents, Alerts, Metrics, etc.) if test cases are authored
+2. Or run Forge re-run to cross-validate findings
+3. Or begin bug fix verification cycle:
+   - BUG-RDV-026 (easy: add `gem 'rexml'` to Gemfile)
+   - BUG-RDV-023 (badge polling: change `data-project-id` to numeric ID)
+   - BUG-RDV-033 (add ArgoCD to SUPPORTED_PROVIDERS)
+   - BUG-RDV-035 (implement issue-deployment linking)
+   - BUG-RDV-037 (add pending_approval guard in deploy pre-flight)
 
-## Open Bugs
-
-| Bug ID | Severity | Title |
-|--------|----------|-------|
-| BUG-RDV-008 | Critical | REST API returns DevOps data from all projects regardless of user's project membership (IDOR) |
-| BUG-RDV-002 | High | Webhook endpoint accepts payloads over 2 MB — no size limit enforced |
-| BUG-RDV-003 | High | SonarQube webhook token not configurable via Admin plugin settings UI |
-| BUG-RDV-004 | High | FOSSA provider cannot be added as repository connection |
-| BUG-RDV-007 | High | Webhook background job fails with ActiveRecord::RecordInvalid after returning 202 |
-| BUG-RDV-009 | High | DORA metrics REST endpoint returns 404 — route not implemented |
-| BUG-RDV-010 | High | DevOps activity events do not appear in Redmine activity stream — ActivityProvider not registered |
-| BUG-RDV-011 | High | Webhook event log accessible to users with only view_devops — manage_devops_settings not enforced |
-| BUG-RDV-013 | High | Five of ten documented REST API endpoints return HTTP 406 — JSON format not supported |
-| BUG-RDV-006 | Medium | Three undocumented DevOps permissions present in Roles administration panel |
-| BUG-RDV-012 | Medium | Commits REST API ignores the limit parameter — all records returned on page 1 |
-| BUG-RDV-001 | Low | Webhook signature rejection returns 401 instead of 403 |
-| BUG-RDV-005 | Low | Webhook endpoint returns HTTP 400 instead of HTTP 404 for unknown provider |
+To resume testing:
+- Admin login: admin / admin123
+- Webhook secret: s3cr3tKey (local), RedmineQA2026! (Forge)
+- Admin API key: a0d031712f66a866cf9a5251232dc75abd27cbe2 (local)

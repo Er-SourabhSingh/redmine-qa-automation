@@ -32,21 +32,21 @@
 </head>
 <body>
 <h1>Defects Summary — Redmineflux DevOps Plugin</h1>
-<p><strong>Test Cycle:</strong> Foundation &amp; Infrastructure (tc-01) &nbsp;|&nbsp;
+<p><strong>Test Cycle:</strong> Foundation &amp; Infrastructure (tc-01) + SCM Integration (tc-02) + CI/CD &amp; Build Management (tc-03) + Deployments (tc-04) &nbsp;|&nbsp;
    <strong>Environment:</strong> Local Docker (http://localhost:3008) + Forge &nbsp;|&nbsp;
    <strong>Redmine Version:</strong> 6.0.9 &nbsp;|&nbsp;
    <strong>Plugin Version:</strong> 0.1.0 &nbsp;|&nbsp;
-   <strong>Report Date:</strong> 2026-05-23</p>
+   <strong>Report Date:</strong> 2026-05-25</p>
 
 <h2>Severity Breakdown</h2>
 <div class="summary-grid">
   <div class="scard sc-crit"><div class="num">1</div><div class="lbl">Critical</div></div>
-  <div class="scard sc-high"><div class="num">7</div><div class="lbl">High</div></div>
-  <div class="scard sc-med"><div class="num">3</div><div class="lbl">Medium</div></div>
-  <div class="scard sc-low"><div class="num">2</div><div class="lbl">Low</div></div>
+  <div class="scard sc-high"><div class="num">20</div><div class="lbl">High</div></div>
+  <div class="scard sc-med"><div class="num">12</div><div class="lbl">Medium</div></div>
+  <div class="scard sc-low"><div class="num">4</div><div class="lbl">Low</div></div>
 </div>
-<p><strong>Total Open Bugs: 13</strong></p>
-<p><em>Re-verification (2026-05-23, Local Docker): 11 confirmed on local. BUG-RDV-008 and BUG-RDV-009 do not reproduce on local — marked Forge-only. All 13 remain open pending Forge re-verification.</em></p>
+<p><strong>Total Open Bugs: 37</strong></p>
+<p><em>Suite 01 (2026-05-23): 13 bugs (BUG-RDV-001–013). Suite 02 (2026-05-25): 9 new bugs (BUG-RDV-014–022). Suite 03 (2026-05-25): 8 new bugs (BUG-RDV-023, 024, 026–031; BUG-RDV-025 not filed). Suite 04 (2026-05-25): 7 new bugs (BUG-RDV-032–038). All 37 open.</em></p>
 
 <h2>All Open Bugs</h2>
 <table>
@@ -165,6 +165,198 @@
       <td>Forge + Local</td>
       <td>Open</td>
     </tr>
+    <tr>
+      <td>BUG-RDV-014</td>
+      <td>PR reviewer names and approval status not displayed on PR card</td>
+      <td class="high">High</td>
+      <td>TC-RDV-050</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-015</td>
+      <td>Auto-transition journal text format wrong and attributed to real user instead of system actor</td>
+      <td class="medium">Medium</td>
+      <td>TC-RDV-055, TC-RDV-081</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-016</td>
+      <td>PR Review Dashboard shows all statuses (not just open) and sorts by updated date instead of age</td>
+      <td class="high">High</td>
+      <td>TC-RDV-065</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-017</td>
+      <td>PR Review Dashboard and Commits page return HTTP 200 to users without view_devops permission</td>
+      <td class="high">High</td>
+      <td>TC-RDV-067, TC-RDV-072</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-018</td>
+      <td>Commit statistics route returns 404 — daily/weekly aggregation and top contributors not implemented</td>
+      <td class="high">High</td>
+      <td>TC-RDV-070, TC-RDV-071</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-019</td>
+      <td>PR linked to multiple issues via "refs #N" only updates first referenced issue</td>
+      <td class="high">High</td>
+      <td>TC-RDV-079</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-020</td>
+      <td>GitLab commit SHA links use /commit/ instead of /-/commit/ URL pattern</td>
+      <td class="low">Low</td>
+      <td>TC-RDV-082</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-021</td>
+      <td>Auto-transition rules UI missing per-rule configuration (Add Rule, Source Status, Trigger type)</td>
+      <td class="medium">Medium</td>
+      <td>TC-RDV-088</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-022</td>
+      <td>Multi-commit push webhook stores no commits — background job silently fails</td>
+      <td class="high">High</td>
+      <td>TC-RDV-089</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-023</td>
+      <td>Build badge JS polling uses project identifier string in API call — returns 403, badge never auto-updates</td>
+      <td class="high">High</td>
+      <td>TC-RDV-095</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-026</td>
+      <td>JUnit ingestion endpoint returns 422 — missing rexml XML parser gem dependency</td>
+      <td class="high">High</td>
+      <td>TC-RDV-122</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-027</td>
+      <td>Build queue status widget missing — dashboards page shows placeholder only</td>
+      <td class="high">High</td>
+      <td>TC-RDV-115, TC-RDV-116</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-029</td>
+      <td>Pipeline stage breakdown not implemented — no stages section on build detail page</td>
+      <td class="high">High</td>
+      <td>TC-RDV-125, TC-RDV-144, TC-RDV-148</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-024</td>
+      <td>Build history date filter has no custom date range — only preset period dropdown</td>
+      <td class="medium">Medium</td>
+      <td>TC-RDV-100</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-028</td>
+      <td>Artifact download links section shows no artifacts for completed builds</td>
+      <td class="medium">Medium</td>
+      <td>TC-RDV-117</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-030</td>
+      <td>Slack and Microsoft Teams notification channels absent from DevOps notification preferences</td>
+      <td class="medium">Medium</td>
+      <td>TC-RDV-128, TC-RDV-131</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-031</td>
+      <td>Build run duration not stored or displayed — webhook run_duration_ms field silently ignored</td>
+      <td class="medium">Medium</td>
+      <td>TC-RDV-134, TC-RDV-150</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-033</td>
+      <td>ArgoCD provider not supported — canary/progressive rollout features entirely blocked</td>
+      <td class="high">High</td>
+      <td>TC-RDV-174, TC-RDV-193, TC-RDV-194</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-035</td>
+      <td>No issue-deployment linkage on deployment detail or issue pages</td>
+      <td class="high">High</td>
+      <td>TC-RDV-155, TC-RDV-156, TC-RDV-189, TC-RDV-197, TC-RDV-207</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-037</td>
+      <td>Multiple concurrent pending_approval deployments accepted for same environment</td>
+      <td class="high">High</td>
+      <td>TC-RDV-183</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-032</td>
+      <td>Deploy button not disabled when environment is locked or frozen</td>
+      <td class="medium">Medium</td>
+      <td>TC-RDV-169, TC-RDV-181</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-034</td>
+      <td>Deployment detail missing commit SHA hyperlink and deployment URL field</td>
+      <td class="medium">Medium</td>
+      <td>TC-RDV-186</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-036</td>
+      <td>Original deployment detail shows no "Reverted by" link after rollback</td>
+      <td class="medium">Medium</td>
+      <td>TC-RDV-199</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
+    <tr>
+      <td>BUG-RDV-038</td>
+      <td>Environment cards not ordered by type (dev → staging → production)</td>
+      <td class="low">Low</td>
+      <td>TC-RDV-206</td>
+      <td>Local</td>
+      <td>Open</td>
+    </tr>
   </tbody>
 </table>
 
@@ -179,39 +371,75 @@
     <tr>
       <td><strong>Security / Authorization</strong></td>
       <td class="critical">Critical</td>
-      <td>BUG-RDV-008 (IDOR), BUG-RDV-011 (wrong permission on webhook log)</td>
+      <td>BUG-RDV-008 (IDOR), BUG-RDV-011 (webhook log), BUG-RDV-017 (PR dashboard + commits page — missing auth guards)</td>
     </tr>
     <tr>
-      <td><strong>Webhook Processing</strong></td>
+      <td><strong>Webhook Processing / Commit Storage</strong></td>
+      <td class="critical">Critical</td>
+      <td>BUG-RDV-007 &amp; BUG-RDV-022 (background job fails — commits never stored), BUG-RDV-002 (no payload size limit)</td>
+    </tr>
+    <tr>
+      <td><strong>SCM Integration — PR Tracking</strong></td>
       <td class="high">High</td>
-      <td>BUG-RDV-002 (no size limit), BUG-RDV-007 (background job fails — commits not stored)</td>
+      <td>BUG-RDV-014 (reviewer display), BUG-RDV-016 (PR dashboard filter/sort), BUG-RDV-019 (multi-issue PR linking)</td>
     </tr>
     <tr>
       <td><strong>REST API Coverage</strong></td>
       <td class="high">High</td>
-      <td>BUG-RDV-013 (5/10 endpoints 406), BUG-RDV-009 (DORA metrics 404), BUG-RDV-012 (limit param ignored)</td>
+      <td>BUG-RDV-013 (5/10 endpoints 406), BUG-RDV-009 (DORA 404), BUG-RDV-018 (commit stats 404), BUG-RDV-012 (limit ignored)</td>
     </tr>
     <tr>
       <td><strong>Provider Support</strong></td>
       <td class="high">High</td>
-      <td>BUG-RDV-003 (SonarQube), BUG-RDV-004 (FOSSA)</td>
+      <td>BUG-RDV-003 (SonarQube), BUG-RDV-004 (FOSSA), BUG-RDV-020 (GitLab URL format)</td>
+    </tr>
+    <tr>
+      <td><strong>Auto-Transition / Audit</strong></td>
+      <td class="medium">Medium</td>
+      <td>BUG-RDV-015 (journal format + wrong author), BUG-RDV-021 (missing per-rule UI)</td>
     </tr>
     <tr>
       <td><strong>Activity Stream</strong></td>
       <td class="high">High</td>
       <td>BUG-RDV-010 (ActivityProvider missing)</td>
     </tr>
+    <tr>
+      <td><strong>CI/CD &amp; Build Management</strong></td>
+      <td class="high">High</td>
+      <td>BUG-RDV-026 (rexml missing — JUnit blocked), BUG-RDV-027 (queue widget absent), BUG-RDV-029 (pipeline stages not implemented), BUG-RDV-023 (badge polling 403), BUG-RDV-031 (duration ignored), BUG-RDV-028 (artifacts absent), BUG-RDV-030 (Slack/Teams channels absent)</td>
+    </tr>
+    <tr>
+      <td><strong>Deployments — Issue Linking</strong></td>
+      <td class="high">High</td>
+      <td>BUG-RDV-035 (no issue-deployment link on detail or issue pages — 5 TCs fail)</td>
+    </tr>
+    <tr>
+      <td><strong>Deployments — Provider Support</strong></td>
+      <td class="high">High</td>
+      <td>BUG-RDV-033 (ArgoCD not in SUPPORTED_PROVIDERS — canary rollout entirely blocked)</td>
+    </tr>
+    <tr>
+      <td><strong>Deployments — Approval Gate</strong></td>
+      <td class="high">High</td>
+      <td>BUG-RDV-037 (concurrent pending_approval deployments not blocked per environment)</td>
+    </tr>
+    <tr>
+      <td><strong>Deployments — UI Consistency</strong></td>
+      <td class="medium">Medium</td>
+      <td>BUG-RDV-032 (Deploy button not disabled on locked/frozen env), BUG-RDV-034 (commit SHA/URL absent from detail), BUG-RDV-036 (no reverse rollback link), BUG-RDV-038 (environment order wrong)</td>
+    </tr>
   </tbody>
 </table>
 
 <h2>Test Execution Summary</h2>
 <table style="width:auto">
-  <tr><th>Result</th><th>Count</th><th>Pct</th></tr>
-  <tr><td>PASS</td><td>26</td><td>65%</td></tr>
-  <tr><td>FAIL</td><td>10</td><td>25%</td></tr>
-  <tr><td>SKIP</td><td>1</td><td>2.5%</td></tr>
-  <tr><td>BLOCKED</td><td>3</td><td>7.5%</td></tr>
-  <tr><th>Total</th><th>40</th><th>100%</th></tr>
+  <tr><th>Suite</th><th>PASS</th><th>FAIL</th><th>SKIP</th><th>BLOCKED</th><th>Total</th></tr>
+  <tr><td>Suite 01 (TC-001–040)</td><td>26</td><td>10</td><td>1</td><td>3</td><td>40</td></tr>
+  <tr><td>Suite 02 (TC-041–090)</td><td>18</td><td>16</td><td>3</td><td>13</td><td>50</td></tr>
+  <tr><td>Suite 03 (TC-091–150)</td><td>20</td><td>16</td><td>0</td><td>24</td><td>60</td></tr>
+  <tr><td>Suite 04 (TC-151–210)</td><td>26</td><td>19</td><td>0</td><td>15</td><td>60</td></tr>
+  <tr><th>Grand Total</th><th>90</th><th>61</th><th>4</th><th>55</th><th>210</th></tr>
+  <tr><td colspan="5">Pass rate (excl. SKIP/BLOCKED)</td><td><strong>59.6%</strong></td></tr>
 </table>
 </body>
 </html>

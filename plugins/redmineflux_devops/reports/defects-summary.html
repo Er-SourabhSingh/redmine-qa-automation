@@ -1,445 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Defects Summary — Redmineflux DevOps</title>
-<style>
-  body { font-family: Arial, sans-serif; font-size: 13px; margin: 20px; color: #222; }
-  h1 { font-size: 20px; }
-  h2 { font-size: 15px; margin-top: 24px; border-bottom: 2px solid #ccc; padding-bottom: 4px; }
-  table { border-collapse: collapse; width: 100%; margin-top: 10px; }
-  th { background: #3c3c3c; color: #fff; padding: 7px 10px; text-align: left; font-size: 12px; }
-  td { padding: 6px 10px; border-bottom: 1px solid #ddd; vertical-align: top; }
-  tr:nth-child(even) { background: #f7f7f7; }
-  .critical { color: #7b241c; font-weight: bold; }
-  .high     { color: #c0392b; font-weight: bold; }
-  .medium   { color: #d35400; font-weight: bold; }
-  .low      { color: #7d6608; font-weight: bold; }
-  .chart { display: flex; gap: 10px; margin: 12px 0; align-items: flex-end; }
-  .bar { display: flex; flex-direction: column; align-items: center; }
-  .bar-fill { width: 52px; border-radius: 3px 3px 0 0; }
-  .bar-label { font-size: 11px; margin-top: 4px; }
-  .bar-count { font-weight: bold; font-size: 14px; }
-  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0; }
-  .scard { border-radius: 6px; padding: 12px 16px; text-align: center; }
-  .scard .num { font-size: 28px; font-weight: bold; }
-  .scard .lbl { font-size: 12px; margin-top: 2px; }
-  .sc-crit { background: #fde8e8; color: #7b241c; }
-  .sc-high { background: #fdf0e8; color: #c0392b; }
-  .sc-med  { background: #fef9e7; color: #d35400; }
-  .sc-low  { background: #f9f9f9; color: #7d6608; }
-</style>
+  <meta charset="UTF-8">
+  <title>Defects Summary — redmineflux_devops</title>
+  <style>
+    body { font-family: sans-serif; font-size: 13px; color: #222; margin: 20px; }
+    h1 { font-size: 18px; margin-bottom: 4px; }
+    h2 { font-size: 14px; margin-top: 24px; margin-bottom: 8px; color: #555; }
+    .summary { display: flex; gap: 12px; margin: 12px 0 20px; }
+    .badge { padding: 6px 14px; border-radius: 4px; font-weight: bold; font-size: 13px; }
+    .critical { background: #f5c6cb; color: #491217; }
+    .high     { background: #f8d7da; color: #721c24; }
+    .medium   { background: #fff3cd; color: #856404; }
+    .low      { background: #d4edda; color: #155724; }
+    .total    { background: #e2e3e5; color: #383d41; }
+    .open     { background: #cce5ff; color: #004085; }
+    .closed   { background: #d4edda; color: #155724; }
+    table { border-collapse: collapse; width: 100%; }
+    th { background: #f0f0f0; text-align: left; padding: 6px 8px; border: 1px solid #ccc; font-size: 12px; }
+    td { padding: 5px 8px; border: 1px solid #ddd; vertical-align: top; font-size: 12px; }
+    .meta { color: #666; font-size: 12px; margin-bottom: 16px; }
+    .sev-critical { color: #721c24; font-weight: bold; }
+    .sev-high     { color: #856404; font-weight: bold; }
+    .sev-medium   { color: #0c5460; font-weight: bold; }
+    .sev-low      { color: #155724; font-weight: bold; }
+  </style>
 </head>
 <body>
-<h1>Defects Summary — Redmineflux DevOps Plugin</h1>
-<p><strong>Test Cycle:</strong> Foundation &amp; Infrastructure (tc-01) + SCM Integration (tc-02) + CI/CD &amp; Build Management (tc-03) + Deployments (tc-04) &nbsp;|&nbsp;
-   <strong>Environment:</strong> Local Docker (http://localhost:3008) + Forge &nbsp;|&nbsp;
-   <strong>Redmine Version:</strong> 6.0.9 &nbsp;|&nbsp;
-   <strong>Plugin Version:</strong> 0.1.0 &nbsp;|&nbsp;
-   <strong>Report Date:</strong> 2026-05-25</p>
 
-<h2>Severity Breakdown</h2>
-<div class="summary-grid">
-  <div class="scard sc-crit"><div class="num">1</div><div class="lbl">Critical</div></div>
-  <div class="scard sc-high"><div class="num">20</div><div class="lbl">High</div></div>
-  <div class="scard sc-med"><div class="num">12</div><div class="lbl">Medium</div></div>
-  <div class="scard sc-low"><div class="num">4</div><div class="lbl">Low</div></div>
+<h1>Defects Summary — Redmineflux DevOps</h1>
+<p class="meta">Last updated: 2026-05-28 | Suites tested: 01–13 | Environment: Local Docker + Forge</p>
+
+<div class="summary">
+  <span class="badge total">Total Filed: 79</span>
+  <span class="badge open">Open: 40</span>
+  <span class="badge closed">Closed: 39</span>
+  <span class="badge critical">Critical: 1</span>
+  <span class="badge high">High: 26</span>
+  <span class="badge medium">Medium: 12</span>
+  <span class="badge low">Low: 2</span>
 </div>
-<p><strong>Total Open Bugs: 37</strong></p>
-<p><em>Suite 01 (2026-05-23): 13 bugs (BUG-RDV-001–013). Suite 02 (2026-05-25): 9 new bugs (BUG-RDV-014–022). Suite 03 (2026-05-25): 8 new bugs (BUG-RDV-023, 024, 026–031; BUG-RDV-025 not filed). Suite 04 (2026-05-25): 7 new bugs (BUG-RDV-032–038). All 37 open.</em></p>
 
-<h2>All Open Bugs</h2>
+<h2>Open Bugs by Severity</h2>
 <table>
   <thead>
-    <tr>
-      <th>Bug ID</th>
-      <th>Title</th>
-      <th>Severity</th>
-      <th>Discovered in TC</th>
-      <th>Environment</th>
-      <th>Status</th>
-    </tr>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>Suite</th><th>Source</th></tr>
   </thead>
   <tbody>
-    <tr>
-      <td>BUG-RDV-008</td>
-      <td>REST API returns DevOps data from all projects regardless of user's project membership (IDOR)</td>
-      <td class="critical">Critical</td>
-      <td>TC-RDV-022</td>
-      <td>Forge only*</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-002</td>
-      <td>Webhook endpoint accepts payloads over 2 MB — no size limit enforced</td>
-      <td class="high">High</td>
-      <td>TC-RDV-003</td>
-      <td>Forge + Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-003</td>
-      <td>SonarQube webhook token not configurable via Admin plugin settings UI</td>
-      <td class="high">High</td>
-      <td>TC-RDV-009</td>
-      <td>Forge + Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-004</td>
-      <td>FOSSA provider cannot be added as repository connection — missing from Add Repository form</td>
-      <td class="high">High</td>
-      <td>TC-RDV-009</td>
-      <td>Forge + Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-007</td>
-      <td>Webhook background job fails with ActiveRecord::RecordInvalid after returning 202</td>
-      <td class="high">High</td>
-      <td>TC-RDV-015</td>
-      <td>Forge + Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-009</td>
-      <td>DORA metrics REST endpoint returns 404 — route not implemented</td>
-      <td class="high">High</td>
-      <td>TC-RDV-023</td>
-      <td>Forge only*</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-010</td>
-      <td>DevOps activity events do not appear in Redmine activity stream — ActivityProvider not registered</td>
-      <td class="high">High</td>
-      <td>TC-RDV-024</td>
-      <td>Forge + Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-011</td>
-      <td>Webhook event log accessible to users with only view_devops — manage_devops_settings not enforced</td>
-      <td class="high">High</td>
-      <td>TC-RDV-040</td>
-      <td>Forge + Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-013</td>
-      <td>Five of ten documented REST API endpoints return HTTP 406 — JSON format not supported</td>
-      <td class="high">High</td>
-      <td>TC-RDV-023</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-006</td>
-      <td>Three undocumented DevOps permissions present in Roles administration panel</td>
-      <td class="medium">Medium</td>
-      <td>TC-RDV-007</td>
-      <td>Forge + Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-012</td>
-      <td>Commits REST API ignores the limit parameter — all records returned on page 1</td>
-      <td class="medium">Medium</td>
-      <td>TC-RDV-021</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-001</td>
-      <td>Webhook signature rejection returns 401 instead of 403</td>
-      <td class="low">Low</td>
-      <td>TC-RDV-002</td>
-      <td>Forge + Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-005</td>
-      <td>Webhook endpoint returns HTTP 400 instead of HTTP 404 for unknown provider</td>
-      <td class="low">Low</td>
-      <td>TC-RDV-004</td>
-      <td>Forge + Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-014</td>
-      <td>PR reviewer names and approval status not displayed on PR card</td>
-      <td class="high">High</td>
-      <td>TC-RDV-050</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-015</td>
-      <td>Auto-transition journal text format wrong and attributed to real user instead of system actor</td>
-      <td class="medium">Medium</td>
-      <td>TC-RDV-055, TC-RDV-081</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-016</td>
-      <td>PR Review Dashboard shows all statuses (not just open) and sorts by updated date instead of age</td>
-      <td class="high">High</td>
-      <td>TC-RDV-065</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-017</td>
-      <td>PR Review Dashboard and Commits page return HTTP 200 to users without view_devops permission</td>
-      <td class="high">High</td>
-      <td>TC-RDV-067, TC-RDV-072</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-018</td>
-      <td>Commit statistics route returns 404 — daily/weekly aggregation and top contributors not implemented</td>
-      <td class="high">High</td>
-      <td>TC-RDV-070, TC-RDV-071</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-019</td>
-      <td>PR linked to multiple issues via "refs #N" only updates first referenced issue</td>
-      <td class="high">High</td>
-      <td>TC-RDV-079</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-020</td>
-      <td>GitLab commit SHA links use /commit/ instead of /-/commit/ URL pattern</td>
-      <td class="low">Low</td>
-      <td>TC-RDV-082</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-021</td>
-      <td>Auto-transition rules UI missing per-rule configuration (Add Rule, Source Status, Trigger type)</td>
-      <td class="medium">Medium</td>
-      <td>TC-RDV-088</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-022</td>
-      <td>Multi-commit push webhook stores no commits — background job silently fails</td>
-      <td class="high">High</td>
-      <td>TC-RDV-089</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-023</td>
-      <td>Build badge JS polling uses project identifier string in API call — returns 403, badge never auto-updates</td>
-      <td class="high">High</td>
-      <td>TC-RDV-095</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-026</td>
-      <td>JUnit ingestion endpoint returns 422 — missing rexml XML parser gem dependency</td>
-      <td class="high">High</td>
-      <td>TC-RDV-122</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-027</td>
-      <td>Build queue status widget missing — dashboards page shows placeholder only</td>
-      <td class="high">High</td>
-      <td>TC-RDV-115, TC-RDV-116</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-029</td>
-      <td>Pipeline stage breakdown not implemented — no stages section on build detail page</td>
-      <td class="high">High</td>
-      <td>TC-RDV-125, TC-RDV-144, TC-RDV-148</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-024</td>
-      <td>Build history date filter has no custom date range — only preset period dropdown</td>
-      <td class="medium">Medium</td>
-      <td>TC-RDV-100</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-028</td>
-      <td>Artifact download links section shows no artifacts for completed builds</td>
-      <td class="medium">Medium</td>
-      <td>TC-RDV-117</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-030</td>
-      <td>Slack and Microsoft Teams notification channels absent from DevOps notification preferences</td>
-      <td class="medium">Medium</td>
-      <td>TC-RDV-128, TC-RDV-131</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-031</td>
-      <td>Build run duration not stored or displayed — webhook run_duration_ms field silently ignored</td>
-      <td class="medium">Medium</td>
-      <td>TC-RDV-134, TC-RDV-150</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-033</td>
-      <td>ArgoCD provider not supported — canary/progressive rollout features entirely blocked</td>
-      <td class="high">High</td>
-      <td>TC-RDV-174, TC-RDV-193, TC-RDV-194</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-035</td>
-      <td>No issue-deployment linkage on deployment detail or issue pages</td>
-      <td class="high">High</td>
-      <td>TC-RDV-155, TC-RDV-156, TC-RDV-189, TC-RDV-197, TC-RDV-207</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-037</td>
-      <td>Multiple concurrent pending_approval deployments accepted for same environment</td>
-      <td class="high">High</td>
-      <td>TC-RDV-183</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-032</td>
-      <td>Deploy button not disabled when environment is locked or frozen</td>
-      <td class="medium">Medium</td>
-      <td>TC-RDV-169, TC-RDV-181</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-034</td>
-      <td>Deployment detail missing commit SHA hyperlink and deployment URL field</td>
-      <td class="medium">Medium</td>
-      <td>TC-RDV-186</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-036</td>
-      <td>Original deployment detail shows no "Reverted by" link after rollback</td>
-      <td class="medium">Medium</td>
-      <td>TC-RDV-199</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
-    <tr>
-      <td>BUG-RDV-038</td>
-      <td>Environment cards not ordered by type (dev → staging → production)</td>
-      <td class="low">Low</td>
-      <td>TC-RDV-206</td>
-      <td>Local</td>
-      <td>Open</td>
-    </tr>
+    <tr><td>BUG-RDV-009</td><td class="sev-high">High</td><td>DORA metrics REST endpoint returns 404 — route not implemented</td><td>Suite 04</td><td>Forge</td></tr>
+    <tr><td>BUG-RDV-011</td><td class="sev-high">High</td><td>Webhook event log accessible to users with only view_devops — manage_devops_settings not enforced</td><td>Suite 02</td><td>Local/Forge</td></tr>
+    <tr><td>BUG-RDV-017</td><td class="sev-high">High</td><td>PR Review Dashboard and Commits page return HTTP 200 to users without view_devops permission</td><td>Suite 03</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-026</td><td class="sev-high">High</td><td>JUnit ingestion endpoint returns 422 — missing rexml XML parser gem dependency</td><td>Suite 06</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-028</td><td class="sev-medium">Medium</td><td>Artifact download links section shows no artifacts for completed builds</td><td>Suite 05</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-029</td><td class="sev-high">High</td><td>Pipeline stage breakdown not implemented — no stages section on build detail page</td><td>Suite 05</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-035</td><td class="sev-high">High</td><td>No issue-deployment linkage on deployment detail or issue pages</td><td>Suite 05</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-047</td><td class="sev-high">High</td><td>Test duration monitoring REST endpoint returns 404 — route not implemented</td><td>Suite 06</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-048</td><td class="sev-high">High</td><td>Test coverage tracking feature not implemented — no coverage page, webhook, or trend widget</td><td>Suite 06</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-049</td><td class="sev-medium">Medium</td><td>DORA metric cards show classification badges and "0" instead of "N/A" when no data exists</td><td>Suite 07</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-050</td><td class="sev-high">High</td><td>QA Engineer role can access DORA Metrics page — role-based access control not enforced</td><td>Suite 07</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-051</td><td class="sev-medium">Medium</td><td>Dashboard shared flag update returns HTTP 200 instead of HTTP 403 when user lacks manage_devops_settings</td><td>Suite 07</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-052</td><td class="sev-high">High</td><td>Auto-created incidents use "Bug" tracker instead of "Incident" tracker</td><td>Suite 08</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-053</td><td class="sev-medium">Medium</td><td>Alert feed has no environment filter — only severity and status filters available</td><td>Suite 08</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-054</td><td class="sev-high">High</td><td>On-call schedule feature not implemented — no widget on any DevOps page</td><td>Suite 08</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-055</td><td class="sev-high">High</td><td>Infrastructure resource usage gauges not implemented — no CPU/Memory/Disk on environment cards</td><td>Suite 08</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-056</td><td class="sev-high">High</td><td>FOSSA license ingestion stores all licenses as "NOASSERTION" / "unknown" risk regardless of payload</td><td>Suite 09</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-057</td><td class="sev-high">High</td><td>SSRF guard not implemented — private and metadata URLs accepted in sonarqube_host_url field</td><td>Suite 09</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-058</td><td class="sev-high">High</td><td>XSS payload in release description not sanitized — script executes on release detail page</td><td>Suite 09</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-059</td><td class="sev-high">High</td><td>Developer role can access Security Vulnerabilities page — view_security_scans permission not enforced</td><td>Suite 09</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-060</td><td class="sev-high">High</td><td>Incident creation form deviates from INC-001: no standalone Title field; affected_service is sole identifier</td><td>Suite 10</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-061</td><td class="sev-high">High</td><td>No dedicated "Linked Alerts" section on incident detail page</td><td>Suite 10</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-062</td><td class="sev-high">High</td><td>No "Add Entry" button for manual timeline entries on incident detail page</td><td>Suite 10</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-063</td><td class="sev-high">High</td><td>Incident Timeline REST API returns 404 for all URL patterns</td><td>Suite 10</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-064</td><td class="sev-high">High</td><td>Incidents JSON REST API returns HTTP 406 Not Acceptable</td><td>Suite 10</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-065</td><td class="sev-high">High</td><td>Developer role can access New Incident form — manage_incidents permission not enforced</td><td>Suite 10</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-066</td><td class="sev-medium">Medium</td><td>"Assigned To" column missing from incidents list page</td><td>Suite 10</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-067</td><td class="sev-medium">Medium</td><td>Deployment correlation override creates no timeline or audit entry</td><td>Suite 10</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-068</td><td class="sev-medium">Medium</td><td>Post-mortem Root Cause section shows placeholder text, not pre-filled from incident root_cause field</td><td>Suite 10</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-069</td><td class="sev-medium">Medium</td><td>No journal or timeline entry created after sending communication template</td><td>Suite 10</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-070</td><td class="sev-medium">Medium</td><td>Blank affected_service accepted on incident creation, defaults to "Unknown Service"</td><td>Suite 10</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-071</td><td class="sev-low">Low</td><td>Incidents empty state shows blank area with no informative message</td><td>Suite 10</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-072</td><td class="sev-high">High</td><td>Environment add/edit form missing "Type" dropdown — environment_type field not rendered</td><td>Suite 11</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-073</td><td class="sev-high">High</td><td>No "Check Now" button for manual health status trigger — health check feature absent from UI</td><td>Suite 11</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-074</td><td class="sev-high">High</td><td>Admin has no "Override Freeze" option — active deployment freeze blocks Admin unconditionally</td><td>Suite 11</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-075</td><td class="sev-high">High</td><td>Environment Request submission causes 500 error; no custom fields populated; no auto-assignment</td><td>Suite 11</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-076</td><td class="sev-medium">Medium</td><td>Environment comparison endpoint returns HTTP 302 instead of 404 for non-existent/cross-project IDs</td><td>Suite 11</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-077</td><td class="sev-low">Low</td><td>REST API type filter for environments not exposed — /devops/environments.json?type= returns 404</td><td>Suite 11</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-078</td><td class="sev-medium">Medium</td><td>Notification matrix missing 7 required DevOps event types</td><td>Suite 12</td><td>Local</td></tr>
+    <tr><td>BUG-RDV-079</td><td class="sev-medium">Medium</td><td>Export Release Notes (MD/HTML) returns HTTP 403 for roles without manage_releases — export should be accessible to all view_devops members</td><td>Suite 13</td><td>Local</td></tr>
   </tbody>
 </table>
 
-<p><em>* Forge only — does not reproduce on Local Docker (re-verified 2026-05-23).</em></p>
-
-<h2>Risk Areas</h2>
+<h2>Open Bug Counts by Suite</h2>
 <table>
   <thead>
-    <tr><th>Area</th><th>Risk</th><th>Bugs</th></tr>
+    <tr><th>Suite</th><th>Total Open</th><th>High</th><th>Medium</th><th>Low</th></tr>
   </thead>
   <tbody>
-    <tr>
-      <td><strong>Security / Authorization</strong></td>
-      <td class="critical">Critical</td>
-      <td>BUG-RDV-008 (IDOR), BUG-RDV-011 (webhook log), BUG-RDV-017 (PR dashboard + commits page — missing auth guards)</td>
-    </tr>
-    <tr>
-      <td><strong>Webhook Processing / Commit Storage</strong></td>
-      <td class="critical">Critical</td>
-      <td>BUG-RDV-007 &amp; BUG-RDV-022 (background job fails — commits never stored), BUG-RDV-002 (no payload size limit)</td>
-    </tr>
-    <tr>
-      <td><strong>SCM Integration — PR Tracking</strong></td>
-      <td class="high">High</td>
-      <td>BUG-RDV-014 (reviewer display), BUG-RDV-016 (PR dashboard filter/sort), BUG-RDV-019 (multi-issue PR linking)</td>
-    </tr>
-    <tr>
-      <td><strong>REST API Coverage</strong></td>
-      <td class="high">High</td>
-      <td>BUG-RDV-013 (5/10 endpoints 406), BUG-RDV-009 (DORA 404), BUG-RDV-018 (commit stats 404), BUG-RDV-012 (limit ignored)</td>
-    </tr>
-    <tr>
-      <td><strong>Provider Support</strong></td>
-      <td class="high">High</td>
-      <td>BUG-RDV-003 (SonarQube), BUG-RDV-004 (FOSSA), BUG-RDV-020 (GitLab URL format)</td>
-    </tr>
-    <tr>
-      <td><strong>Auto-Transition / Audit</strong></td>
-      <td class="medium">Medium</td>
-      <td>BUG-RDV-015 (journal format + wrong author), BUG-RDV-021 (missing per-rule UI)</td>
-    </tr>
-    <tr>
-      <td><strong>Activity Stream</strong></td>
-      <td class="high">High</td>
-      <td>BUG-RDV-010 (ActivityProvider missing)</td>
-    </tr>
-    <tr>
-      <td><strong>CI/CD &amp; Build Management</strong></td>
-      <td class="high">High</td>
-      <td>BUG-RDV-026 (rexml missing — JUnit blocked), BUG-RDV-027 (queue widget absent), BUG-RDV-029 (pipeline stages not implemented), BUG-RDV-023 (badge polling 403), BUG-RDV-031 (duration ignored), BUG-RDV-028 (artifacts absent), BUG-RDV-030 (Slack/Teams channels absent)</td>
-    </tr>
-    <tr>
-      <td><strong>Deployments — Issue Linking</strong></td>
-      <td class="high">High</td>
-      <td>BUG-RDV-035 (no issue-deployment link on detail or issue pages — 5 TCs fail)</td>
-    </tr>
-    <tr>
-      <td><strong>Deployments — Provider Support</strong></td>
-      <td class="high">High</td>
-      <td>BUG-RDV-033 (ArgoCD not in SUPPORTED_PROVIDERS — canary rollout entirely blocked)</td>
-    </tr>
-    <tr>
-      <td><strong>Deployments — Approval Gate</strong></td>
-      <td class="high">High</td>
-      <td>BUG-RDV-037 (concurrent pending_approval deployments not blocked per environment)</td>
-    </tr>
-    <tr>
-      <td><strong>Deployments — UI Consistency</strong></td>
-      <td class="medium">Medium</td>
-      <td>BUG-RDV-032 (Deploy button not disabled on locked/frozen env), BUG-RDV-034 (commit SHA/URL absent from detail), BUG-RDV-036 (no reverse rollback link), BUG-RDV-038 (environment order wrong)</td>
-    </tr>
+    <tr><td>Suites 01–05 (carryover)</td><td>5</td><td>4</td><td>1</td><td>0</td></tr>
+    <tr><td>Suite 06 — Test Results &amp; Quality</td><td>2</td><td>2</td><td>0</td><td>0</td></tr>
+    <tr><td>Suite 07 — DORA Metrics &amp; Dashboards</td><td>3</td><td>1</td><td>2</td><td>0</td></tr>
+    <tr><td>Suite 08 — Monitoring &amp; Alerting</td><td>4</td><td>3</td><td>1</td><td>0</td></tr>
+    <tr><td>Suite 09 — Security &amp; Compliance</td><td>4</td><td>4</td><td>0</td><td>0</td></tr>
+    <tr><td>Suite 10 — Incident Management</td><td>12</td><td>6</td><td>5</td><td>1</td></tr>
+    <tr><td>Suite 11 — Environment Management</td><td>6</td><td>4</td><td>1</td><td>1</td></tr>
+    <tr><td>Suite 12 — System Settings &amp; Notifications</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+    <tr><td>Suite 13 — Permissions &amp; Roles</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+    <tr><td><strong>TOTAL</strong></td><td><strong>40</strong></td><td><strong>26</strong></td><td><strong>12</strong></td><td><strong>2</strong></td></tr>
   </tbody>
 </table>
 
-<h2>Test Execution Summary</h2>
-<table style="width:auto">
-  <tr><th>Suite</th><th>PASS</th><th>FAIL</th><th>SKIP</th><th>BLOCKED</th><th>Total</th></tr>
-  <tr><td>Suite 01 (TC-001–040)</td><td>26</td><td>10</td><td>1</td><td>3</td><td>40</td></tr>
-  <tr><td>Suite 02 (TC-041–090)</td><td>18</td><td>16</td><td>3</td><td>13</td><td>50</td></tr>
-  <tr><td>Suite 03 (TC-091–150)</td><td>20</td><td>16</td><td>0</td><td>24</td><td>60</td></tr>
-  <tr><td>Suite 04 (TC-151–210)</td><td>26</td><td>19</td><td>0</td><td>15</td><td>60</td></tr>
-  <tr><th>Grand Total</th><th>90</th><th>61</th><th>4</th><th>55</th><th>210</th></tr>
-  <tr><td colspan="5">Pass rate (excl. SKIP/BLOCKED)</td><td><strong>59.6%</strong></td></tr>
+<h2>Suite 09 — New Bugs (2026-05-28)</h2>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>TCs Failed</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>BUG-RDV-056</td><td class="sev-high">High</td><td>FOSSA license ingestion stores all licenses as "NOASSERTION" / "unknown" risk regardless of payload</td><td>TC-RDV-395, 396, 397, 398, 399</td></tr>
+    <tr><td>BUG-RDV-057</td><td class="sev-high">High</td><td>SSRF guard not implemented — private and metadata URLs accepted in sonarqube_host_url field</td><td>TC-RDV-411</td></tr>
+    <tr><td>BUG-RDV-058</td><td class="sev-high">High</td><td>XSS payload in release description not sanitized — script executes on release detail page</td><td>TC-RDV-412</td></tr>
+    <tr><td>BUG-RDV-059</td><td class="sev-high">High</td><td>Developer role can access Security Vulnerabilities page — view_security_scans permission not enforced</td><td>TC-RDV-415</td></tr>
+  </tbody>
 </table>
+
+<h2>Suite 10 — New Bugs (2026-05-28)</h2>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>TCs Failed</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>BUG-RDV-060</td><td class="sev-high">High</td><td>Incident creation form deviates from INC-001: no standalone Title field; affected_service is sole identifier</td><td>TC-RDV-421, 422, 425</td></tr>
+    <tr><td>BUG-RDV-061</td><td class="sev-high">High</td><td>No dedicated "Linked Alerts" section on incident detail page</td><td>TC-RDV-426, 442</td></tr>
+    <tr><td>BUG-RDV-062</td><td class="sev-high">High</td><td>No "Add Entry" button for manual timeline entries on incident detail page</td><td>TC-RDV-429</td></tr>
+    <tr><td>BUG-RDV-063</td><td class="sev-high">High</td><td>Incident Timeline REST API returns 404 for all URL patterns</td><td>TC-RDV-430, 441, 442, 456</td></tr>
+    <tr><td>BUG-RDV-064</td><td class="sev-high">High</td><td>Incidents JSON REST API returns HTTP 406 Not Acceptable</td><td>TC-RDV-437</td></tr>
+    <tr><td>BUG-RDV-065</td><td class="sev-high">High</td><td>Developer role can access New Incident form — manage_incidents permission not enforced</td><td>TC-RDV-452</td></tr>
+    <tr><td>BUG-RDV-066</td><td class="sev-medium">Medium</td><td>"Assigned To" column missing from incidents list page</td><td>TC-RDV-424</td></tr>
+    <tr><td>BUG-RDV-067</td><td class="sev-medium">Medium</td><td>Deployment correlation override creates no timeline or audit entry</td><td>TC-RDV-433</td></tr>
+    <tr><td>BUG-RDV-068</td><td class="sev-medium">Medium</td><td>Post-mortem Root Cause section shows placeholder text, not pre-filled from incident root_cause field</td><td>TC-RDV-435</td></tr>
+    <tr><td>BUG-RDV-069</td><td class="sev-medium">Medium</td><td>No journal or timeline entry created after sending communication template</td><td>TC-RDV-446</td></tr>
+    <tr><td>BUG-RDV-070</td><td class="sev-medium">Medium</td><td>Blank affected_service accepted on incident creation, defaults to "Unknown Service"</td><td>TC-RDV-449</td></tr>
+    <tr><td>BUG-RDV-071</td><td class="sev-low">Low</td><td>Incidents empty state shows blank area with no informative message</td><td>TC-RDV-454</td></tr>
+  </tbody>
+</table>
+
+
+<h2>Suite 11 — New Bugs (2026-05-28)</h2>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>TCs Failed</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>BUG-RDV-072</td><td class="sev-high">High</td><td>Environment add/edit form missing "Type" dropdown — environment_type field not rendered</td><td>TC-RDV-461, 464, 465</td></tr>
+    <tr><td>BUG-RDV-073</td><td class="sev-high">High</td><td>No "Check Now" button for manual health status trigger — health check feature absent from UI</td><td>TC-RDV-468 (FAIL); TC-RDV-466, 467, 469, 470, 471, 491 (BLOCKED)</td></tr>
+    <tr><td>BUG-RDV-074</td><td class="sev-high">High</td><td>Admin has no "Override Freeze" option — active deployment freeze blocks Admin unconditionally</td><td>TC-RDV-475</td></tr>
+    <tr><td>BUG-RDV-075</td><td class="sev-high">High</td><td>Environment Request submission causes 500 error; no custom fields populated; no auto-assignment</td><td>TC-RDV-482 (FAIL); TC-RDV-483 (PARTIAL); TC-RDV-484 (BLOCKED)</td></tr>
+    <tr><td>BUG-RDV-076</td><td class="sev-medium">Medium</td><td>Environment comparison endpoint returns HTTP 302 instead of 404 for non-existent/cross-project IDs</td><td>TC-RDV-487</td></tr>
+    <tr><td>BUG-RDV-077</td><td class="sev-low">Low</td><td>REST API type filter for environments not exposed — /devops/environments.json?type= returns 404</td><td>TC-RDV-494</td></tr>
+  </tbody>
+</table>
+
+
+<h2>Suite 12 — New Bugs (2026-05-28)</h2>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>TCs Failed</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>BUG-RDV-078</td><td class="sev-medium">Medium</td><td>Notification matrix missing 7 required DevOps event types</td><td>TC-RDV-501</td></tr>
+  </tbody>
+</table>
+
+<h2>Suite 13 — New Bugs (2026-05-28)</h2>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>TCs Failed</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>BUG-RDV-079</td><td class="sev-medium">Medium</td><td>Export Release Notes (MD/HTML) returns HTTP 403 for roles without manage_releases — export should be accessible to all view_devops members</td><td>TC-RDV-545</td></tr>
+  </tbody>
+</table>
+
+<h2>Suite 14 — New Bugs (2026-05-28)</h2>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>TCs Failed</th></tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="4"><em>No new bugs found in Suite 14. All failures and partials reference pre-existing open bugs (BUG-RDV-026, 054, 068, 069, 074).</em></td></tr>
+  </tbody>
+</table>
+
 </body>
 </html>

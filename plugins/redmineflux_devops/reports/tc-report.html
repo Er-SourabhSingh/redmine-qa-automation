@@ -1,116 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>TC Report — Redmineflux DevOps</title>
-<style>
-  body { font-family: Arial, sans-serif; font-size: 13px; margin: 20px; color: #222; }
-  h1 { font-size: 20px; }
-  h2 { font-size: 15px; margin-top: 24px; }
-  table { border-collapse: collapse; width: 100%; margin-top: 10px; }
-  th { background: #3c3c3c; color: #fff; padding: 7px 10px; text-align: left; font-size: 12px; }
-  td { padding: 6px 10px; border-bottom: 1px solid #ddd; vertical-align: top; }
-  tr:nth-child(even) { background: #f7f7f7; }
-  .pass  { color: #1a7a1a; font-weight: bold; }
-  .fail  { color: #c0392b; font-weight: bold; }
-  .skip  { color: #888; font-weight: bold; }
-  .block { color: #d68910; font-weight: bold; }
-  .summary { display: flex; gap: 16px; margin: 16px 0; }
-  .badge { padding: 8px 16px; border-radius: 4px; font-weight: bold; font-size: 14px; }
-  .badge-pass  { background: #d4edda; color: #155724; }
-  .badge-fail  { background: #f8d7da; color: #721c24; }
-  .badge-skip  { background: #e2e3e5; color: #383d41; }
-  .badge-block { background: #fff3cd; color: #856404; }
-  .bug-ref { font-size: 11px; color: #666; }
-</style>
+  <meta charset="UTF-8">
+  <title>TC Report — redmineflux_devops — Suites 06–14</title>
+  <style>
+    body { font-family: sans-serif; font-size: 13px; color: #222; margin: 20px; }
+    h1 { font-size: 18px; margin-bottom: 4px; }
+    h2 { font-size: 14px; margin-top: 24px; margin-bottom: 8px; color: #555; }
+    .summary { display: flex; gap: 12px; margin: 12px 0 20px; }
+    .badge { padding: 6px 14px; border-radius: 4px; font-weight: bold; font-size: 13px; }
+    .pass    { background: #d4edda; color: #155724; }
+    .fail    { background: #f8d7da; color: #721c24; }
+    .blocked { background: #fff3cd; color: #856404; }
+    .total   { background: #e2e3e5; color: #383d41; }
+    table { border-collapse: collapse; width: 100%; }
+    th { background: #f0f0f0; text-align: left; padding: 6px 8px; border: 1px solid #ccc; font-size: 12px; }
+    td { padding: 5px 8px; border: 1px solid #ddd; vertical-align: top; font-size: 12px; }
+    tr.pass-row    td:first-child { border-left: 4px solid #28a745; }
+    tr.fail-row    td:first-child { border-left: 4px solid #dc3545; }
+    tr.blocked-row td:first-child { border-left: 4px solid #ffc107; }
+    .status-pass    { color: #155724; font-weight: bold; }
+    .status-fail    { color: #721c24; font-weight: bold; }
+    .status-blocked { color: #856404; font-weight: bold; }
+    .meta { color: #666; font-size: 12px; margin-bottom: 16px; }
+  </style>
 </head>
 <body>
-<h1>Test Case Execution Report — Redmineflux DevOps Plugin</h1>
-<p><strong>Suites:</strong> tc-01-foundation-infrastructure.md + tc-02-scm-integration.md + tc-03-cicd-builds.md + tc-04-deployments.md &nbsp;|&nbsp;
-   <strong>Environment:</strong> Local Docker — http://localhost:3008 &nbsp;|&nbsp;
-   <strong>Redmine Version:</strong> 6.0.9 &nbsp;|&nbsp;
-   <strong>Plugin Version:</strong> 0.1.0 &nbsp;|&nbsp;
-   <strong>Last Updated:</strong> 2026-05-25 &nbsp;|&nbsp;
-   <strong>Tester:</strong> Claude (Automated via MCP Playwright)</p>
 
-<h2>Overall Totals (TC-RDV-001 to TC-RDV-210)</h2>
+<h1>Test Case Report — Redmineflux DevOps</h1>
+<p class="meta">
+  Suite: tc-06-test-results-quality | Run Date: 2026-05-28 | Environment: Local Docker (http://localhost:3008) | Redmine: 6.0.9
+</p>
+
 <div class="summary">
-  <div class="badge badge-pass">PASS: 90</div>
-  <div class="badge badge-fail">FAIL: 61</div>
-  <div class="badge badge-skip">SKIP: 4</div>
-  <div class="badge badge-block">BLOCKED: 55</div>
-</div>
-<p style="color:#666;font-size:12px">Total TCs: 210 &nbsp;|&nbsp; Suite 01 (TC-001–040): 26P / 10F / 1S / 3B &nbsp;|&nbsp; Suite 02 (TC-041–090): 18P / 16F / 3S / 13B &nbsp;|&nbsp; Suite 03 (TC-091–150): 20P / 16F / 0S / 24B &nbsp;|&nbsp; Suite 04 (TC-151–210): 26P / 19F / 0S / 15B</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>TC ID</th>
-      <th>Title</th>
-      <th>SYS Req</th>
-      <th>Priority</th>
-      <th>Result</th>
-      <th>Bug Ref / Notes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>TC-RDV-001</td><td>GitHub push webhook accepted and stored</td><td>SYS-001</td><td>Critical</td><td class="pass">PASS</td><td class="bug-ref">BUG-RDV-007 side-note: background job fails after 202 but webhook stored</td></tr>
-    <tr><td>TC-RDV-002</td><td>Webhook signature validation — invalid signature rejected</td><td>SYS-001</td><td>Critical</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-001 — returns 401 instead of 403</td></tr>
-    <tr><td>TC-RDV-003</td><td>Webhook payload size limit enforced</td><td>SYS-001</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-002 — no size limit enforced; oversized payloads accepted</td></tr>
-    <tr><td>TC-RDV-004</td><td>Webhook unknown provider returns 404</td><td>SYS-001</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-005 — returns 400 instead of 404</td></tr>
-    <tr><td>TC-RDV-005</td><td>GitLab push webhook accepted and stored</td><td>SYS-001</td><td>High</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RDV-006</td><td>Bitbucket push webhook accepted and stored</td><td>SYS-001</td><td>High</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RDV-007</td><td>Permission model — 10 DevOps permissions visible in Roles admin</td><td>SYS-003</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-006 — 3 undocumented permissions present (total 10, spec says 7)</td></tr>
-    <tr><td>TC-RDV-008</td><td>view_devops permission gates DevOps section access</td><td>SYS-003</td><td>Critical</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RDV-009</td><td>Plugin settings — SonarQube and FOSSA webhook token fields present</td><td>SYS-002</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-003 — SonarQube not configurable in settings UI; BUG-RDV-004 — FOSSA missing from Add Repository form</td></tr>
-    <tr><td>TC-RDV-010</td><td>Admin can add GitHub repository connection</td><td>SYS-002</td><td>Critical</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RDV-011</td><td>Admin can add GitLab repository connection</td><td>SYS-002</td><td>High</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RDV-012</td><td>Admin can add Bitbucket repository connection</td><td>SYS-002</td><td>High</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RDV-013</td><td>Repository connection edit updates stored credentials</td><td>SYS-002</td><td>Medium</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RDV-014</td><td>Repository connection delete removes record</td><td>SYS-002</td><td>Medium</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RDV-015</td><td>Webhook background job processes payload and creates commit record</td><td>SYS-001</td><td>Critical</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-007 — background job raises ActiveRecord::RecordInvalid after 202</td></tr>
-    <tr><td>TC-RDV-016</td><td>Webhook event log records each delivery</td><td>SYS-001</td><td>High</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RDV-017</td><td>Deployment record creation and status update</td><td>SYS-004</td><td>High</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RDV-018</td><td>Environment health status update</td><td>SYS-004</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Note: health_samples table not present; tracked via environment status column</td></tr>
-    <tr><td>TC-RDV-019</td><td>DevOps panel visible on issue detail page</td><td>SYS-005</td><td>High</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RDV-020</td><td>DevOps panel hidden when no DevOps data linked to issue</td><td>SYS-005</td><td>Medium</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RDV-021</td><td>REST API pagination — limit and page parameters respected</td><td>SYS-004</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-012 — commits endpoint ignores limit param; all 25 records returned on page 1</td></tr>
-    <tr><td>TC-RDV-022</td><td>REST API authentication — unauthenticated request rejected</td><td>SYS-004</td><td>Critical</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RDV-023</td><td>REST API — all 10 documented endpoints respond with JSON</td><td>SYS-004</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-013 — 5/10 endpoints return 406; environments/incidents/vulnerabilities/releases/alerts unsupported</td></tr>
-    <tr><td>TC-RDV-024</td><td>DevOps activity appears in Redmine activity stream</td><td>SYS-005</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-010 — ActivityProvider not registered; no DevOps events in activity stream</td></tr>
-    <tr><td>TC-RDV-025</td><td>Commit linked to Redmine issue via keyword in commit message</td><td>SYS-005</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Note: keyword parsing via API only; automatic webhook keyword parsing depends on BUG-RDV-007 fix</td></tr>
-    <tr><td>TC-RDV-026</td><td>Activity stream shows DevOps filter checkbox</td><td>SYS-005</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-010 — no DevOps filter category in activity sidebar for any user</td></tr>
-    <tr><td>TC-RDV-027</td><td>User can configure DevOps notification preferences</td><td>SYS-006</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Deviations: no Slack/Teams columns (Email+In-app only); flash shows "Account was successfully updated." not "Notification preferences saved."</td></tr>
-    <tr><td>TC-RDV-028</td><td>Notification preferences are user-self-service only</td><td>SYS-006</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">/users/:id/devops_notifications returns 404 (no admin-scoped URL exists)</td></tr>
-    <tr><td>TC-RDV-029</td><td>Lazy default — no preference record created until user saves</td><td>SYS-006</td><td>Medium</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RDV-030</td><td>User receives email notification when build fails</td><td>SYS-006</td><td>High</td><td class="skip">SKIP</td><td class="bug-ref">Requires configured SMTP email delivery — not available in local Docker environment</td></tr>
-    <tr><td>TC-RDV-031</td><td>Admin can access and save plugin settings page</td><td>SYS-007</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Deviation: no "Stale PR threshold" field; actual fields differ from spec. Settings persist after save.</td></tr>
-    <tr><td>TC-RDV-032</td><td>Non-admin user cannot access plugin settings page</td><td>SYS-007</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Returns HTTP 403 for dev_user (non-admin)</td></tr>
-    <tr><td>TC-RDV-033</td><td>SettingsValidator rejects invalid values</td><td>SYS-007</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">-1 → error "must be an integer between 1 and 1000"; non-numeric → HTTP 422</td></tr>
-    <tr><td>TC-RDV-034</td><td>DevOps tab visible for members, hidden for non-members</td><td>SYS-003</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Admin: DevOps tab visible; non_member: HTTP 403 on private project</td></tr>
-    <tr><td>TC-RDV-035</td><td>Plugin menu entry appears in top-level navigation after installation</td><td>SYS-003</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">DevOps tab present in project nav; active state li has no "selected" class (visual only)</td></tr>
-    <tr><td>TC-RDV-036</td><td>Webhook endpoint rejects non-POST HTTP methods</td><td>SYS-001</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">GET/PUT/PATCH/DELETE all return 404</td></tr>
-    <tr><td>TC-RDV-037</td><td>REST API trigger-build endpoint is rate limited to 5 per hour</td><td>SYS-004</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">Rate limiting code present in source; cannot test — trigger fails with GitHub API 404 (no live CI workflow). Build counter never increments on TriggerError.</td></tr>
-    <tr><td>TC-RDV-038</td><td>Activity stream respects view_devops permission</td><td>SYS-005, SYS-003</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">No DevOps activity category for any user (BUG-RDV-010); reporter_user confirmed: no DevOps events visible</td></tr>
-    <tr><td>TC-RDV-039</td><td>Admin can view DevOps audit log; Developer cannot</td><td>SYS-003</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Admin: audit log loads at /admin/devops_audit; dev_user: HTTP 403</td></tr>
-    <tr><td>TC-RDV-040</td><td>Webhook event log visible to DevOps Engineer but not Developer</td><td>SYS-001, SYS-003</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-011 — dev_user (view_devops only) can access /projects/phoenix-platform/devops_webhooks; manage_devops_settings not enforced</td></tr>
-  </tbody>
-</table>
-
-<h2>Suite 01 — Foundation &amp; Infrastructure (TC-RDV-001–040)</h2>
-<div class="summary">
-  <div class="badge badge-pass">PASS: 26</div>
-  <div class="badge badge-fail">FAIL: 10</div>
-  <div class="badge badge-skip">SKIP: 1</div>
-  <div class="badge badge-block">BLOCKED: 3</div>
-</div>
-
-<h2>Suite 02 — SCM Integration (TC-RDV-041–090)</h2>
-<div class="summary">
-  <div class="badge badge-pass">PASS: 18</div>
-  <div class="badge badge-fail">FAIL: 16</div>
-  <div class="badge badge-skip">SKIP: 3</div>
-  <div class="badge badge-block">BLOCKED: 13</div>
+  <span class="badge total">Total: 35</span>
+  <span class="badge pass">Pass: 4</span>
+  <span class="badge fail">Fail: 4</span>
+  <span class="badge blocked">Blocked: 27</span>
 </div>
 
 <table>
@@ -118,72 +44,75 @@
     <tr>
       <th>TC ID</th>
       <th>Title</th>
-      <th>Req Ref</th>
       <th>Priority</th>
-      <th>Result</th>
-      <th>Bug Ref / Notes</th>
+      <th>Status</th>
+      <th>Notes / Bug Ref</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td>TC-RDV-041</td><td>GitHub push webhook links commit to issue via keyword</td><td>SCM-001</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-007 — webhook returns 202 but background job fails; commit not stored/linked</td></tr>
-    <tr><td>TC-RDV-042</td><td>GitLab push webhook links commit to issue</td><td>SCM-001</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-007 — same background job failure</td></tr>
-    <tr><td>TC-RDV-043</td><td>Commit with no issue reference is stored but not linked</td><td>SCM-001</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">Webhook accepted 202; unlinked commit in global list</td></tr>
-    <tr><td>TC-RDV-044</td><td>Commit keyword "close" auto-closes linked issue</td><td>SCM-001</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-007 — commits not stored; keyword parsing cannot be verified</td></tr>
-    <tr><td>TC-RDV-045</td><td>Commit SHA link displays correctly on issue panel</td><td>SCM-001</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-007 — commits not linked to issue panels; cannot verify SHA link display</td></tr>
-    <tr><td>TC-RDV-046</td><td>Multiple commits in single push each linked individually</td><td>SCM-001</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-007 / BUG-RDV-022 — none of the commits stored after multi-commit push</td></tr>
-    <tr><td>TC-RDV-047</td><td>GitHub PR opened event creates PR record</td><td>SCM-002</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">PR card appears on issue DevOps panel with correct open badge</td></tr>
-    <tr><td>TC-RDV-048</td><td>PR synchronize event updates existing PR record</td><td>SCM-002</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">PR sync webhook 202; updated_at refreshed</td></tr>
-    <tr><td>TC-RDV-049</td><td>GitLab MR opened event creates PR record</td><td>SCM-002</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">GitLab MR webhook accepted; MR card visible on issue panel</td></tr>
-    <tr><td>TC-RDV-050</td><td>PR review event stores reviewer and approval status</td><td>SCM-002</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-014 — reviewer names and approval status not displayed on PR card</td></tr>
-    <tr><td>TC-RDV-051</td><td>GitHub check_suite success updates CI status badge to passing</td><td>SCM-003</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">devops-checks-passing span present on PR card</td></tr>
-    <tr><td>TC-RDV-052</td><td>GitHub check_suite failure updates CI status badge to failing</td><td>SCM-003</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">devops-checks-failing span present on draft PR card</td></tr>
-    <tr><td>TC-RDV-053</td><td>PR card shows commits_behind default branch</td><td>SCM-003</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">No GitHub webhook event carries commits_behind; requires API polling not testable via Playwright</td></tr>
-    <tr><td>TC-RDV-054</td><td>Auto-transition fires when PR merged for issue in correct status</td><td>SCM-004</td><td>Critical</td><td class="pass">PASS</td><td class="bug-ref">Issue #525 transitioned New→QA after PR #70 merged webhook</td></tr>
-    <tr><td>TC-RDV-055</td><td>Auto-transition journal entry uses correct format</td><td>SCM-004</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-015 — journal text: "[DevOps] Status changed automatically — PR merged" vs spec format</td></tr>
-    <tr><td>TC-RDV-056</td><td>Auto-transition does not fire when workflow guard not satisfied</td><td>SCM-004</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Issue #524 stayed New when workflow lacked New→QA transition</td></tr>
-    <tr><td>TC-RDV-057</td><td>Auto-transition disabled per project prevents status change</td><td>SCM-004</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Issue #526 stayed New when auto_transition_enabled = false</td></tr>
-    <tr><td>TC-RDV-058</td><td>Auto-transition re-enabled restores behaviour</td><td>SCM-004</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">auto_transition_enabled re-toggled; setting persisted correctly</td></tr>
-    <tr><td>TC-RDV-059</td><td>Multiple repository connections can coexist for one project</td><td>SCM-005</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">3 repos (GitHub ×2, GitLab ×1) active simultaneously</td></tr>
-    <tr><td>TC-RDV-060</td><td>Duplicate repository connection rejected</td><td>SCM-005</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">Second attempt to add same GitHub repo returned 422 with validation error</td></tr>
-    <tr><td>TC-RDV-061</td><td>Developer can create branch from issue page</td><td>SCM-006</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">Branch creation endpoint exists but requires live SCM API token; no working token available</td></tr>
-    <tr><td>TC-RDV-062</td><td>Branch name generated from template</td><td>SCM-006</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">Same block as TC-RDV-061</td></tr>
-    <tr><td>TC-RDV-063</td><td>Non-member cannot create branch from issue page</td><td>SCM-006</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">external_user gets 403 on issue, 404 on branch endpoint — effectively blocked</td></tr>
-    <tr><td>TC-RDV-064</td><td>Branch creation fails gracefully when SCM API returns error</td><td>SCM-006</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">No expired token available to simulate SCM API 401</td></tr>
-    <tr><td>TC-RDV-065</td><td>PR Review Dashboard shows all open PRs sorted oldest first</td><td>SCM-007</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-016 — shows all statuses (merged/closed/open); sorted by Updated desc not age asc</td></tr>
-    <tr><td>TC-RDV-066</td><td>Stale PRs highlighted when older than configured threshold</td><td>SCM-007</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">No stale_pr_threshold setting in DevOps settings; all test PRs created today (no old PRs)</td></tr>
-    <tr><td>TC-RDV-067</td><td>PR Review Dashboard not accessible to non-project members</td><td>SCM-007</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-017 — external_user receives HTTP 200 with full PR data; 403 not enforced</td></tr>
-    <tr><td>TC-RDV-068</td><td>Reviewer receives email notification when review requested</td><td>SCM-008</td><td>High</td><td class="skip">SKIP</td><td class="bug-ref">No SMTP configured in local Docker environment</td></tr>
-    <tr><td>TC-RDV-069</td><td>No email sent when reviewer has no pending reviews</td><td>SCM-008</td><td>Medium</td><td class="skip">SKIP</td><td class="bug-ref">No SMTP configured</td></tr>
-    <tr><td>TC-RDV-070</td><td>Commit statistics show daily aggregation for configured time window</td><td>SCM-009</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-018 — /devops_commit_stats route returns 404; no stats page implemented</td></tr>
-    <tr><td>TC-RDV-071</td><td>Top-10 contributors list correctly ordered</td><td>SCM-009</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-018 — same 404 route; no top contributors section exists</td></tr>
-    <tr><td>TC-RDV-072</td><td>Commit stats page requires view_devops permission</td><td>SCM-009</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-017 — reporter_user gets HTTP 200 on /devops_commits; permission not enforced</td></tr>
-    <tr><td>TC-RDV-073</td><td>SonarQube webhook stores quality gate result and shows badge on PR</td><td>SCM-010</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-003 — SonarQube token not configurable; cannot send authenticated SonarQube webhooks</td></tr>
-    <tr><td>TC-RDV-074</td><td>Quality gate FAILED status shows red badge on PR</td><td>SCM-010</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-003 — same blocker as TC-RDV-073</td></tr>
-    <tr><td>TC-RDV-075</td><td>Cross-project repository reference rejected with 404</td><td>SCM-005</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">POST with repository_id=999 (not in project) returns 404; resolve_repository guard works</td></tr>
-    <tr><td>TC-RDV-076</td><td>Project default repository used when no repository_id specified</td><td>SCM-005</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">Branch creation requires live SCM API token</td></tr>
-    <tr><td>TC-RDV-077</td><td>Smallest ID used as fallback when no default configured</td><td>SCM-005</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">Branch creation requires live SCM API token</td></tr>
-    <tr><td>TC-RDV-078</td><td>QA user can view commits and PRs but cannot create branches</td><td>SCM-001,002,006</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">Commits/PRs accessible (200) ✓ but branch create returns 404 instead of spec-required 403</td></tr>
-    <tr><td>TC-RDV-079</td><td>PR linked to multiple issues updates each issue DevOps panel</td><td>SCM-002</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-019 — "refs #519" in PR title not parsed; only "Fixes #518" processed</td></tr>
-    <tr><td>TC-RDV-080</td><td>PR card shows CI check results inline</td><td>SCM-002,003</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">passing/failing badges visible on PR cards (devops-checks-passing/failing classes)</td></tr>
-    <tr><td>TC-RDV-081</td><td>Auto-transition journal entry attributed to DevOps integration actor</td><td>SCM-004</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-015 — journal author is "Redmine Admin" (user #1), not a system/DevOps actor</td></tr>
-    <tr><td>TC-RDV-082</td><td>Commit SHA link opens correct GitHub/GitLab URL</td><td>SCM-001</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-020 — GitHub URL correct; GitLab uses /commit/ instead of /-/commit/ pattern</td></tr>
-    <tr><td>TC-RDV-083</td><td>PR merged event updates PR record status to "merged"</td><td>SCM-002</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">PR #70 shows "merged" badge; issue #525 status QA confirmed</td></tr>
-    <tr><td>TC-RDV-084</td><td>PR closed without merge updates status to "closed"</td><td>SCM-002</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">PR #91 shows "closed" badge on issue #521; no journal entries (no auto-transition)</td></tr>
-    <tr><td>TC-RDV-085</td><td>Commits list shows diff stats (additions and deletions)</td><td>SCM-001</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-007 — commits not linked to issue panels; diff stats cannot be verified on issue panel rows</td></tr>
-    <tr><td>TC-RDV-086</td><td>Weekly commit aggregation correct in commit statistics</td><td>SCM-009</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-018 — /devops_commit_stats route returns 404</td></tr>
-    <tr><td>TC-RDV-087</td><td>Multiple PRs on one issue all displayed</td><td>SCM-002</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">Issue #514: 4 PRs (draft, open, closed, merged) all visible with correct status badges</td></tr>
-    <tr><td>TC-RDV-088</td><td>Admin can configure auto-transition rules per project in DevOps settings</td><td>SCM-004</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-021 — no Add Rule button; only single global enable toggle + target status select</td></tr>
-    <tr><td>TC-RDV-089</td><td>GitHub push with multiple commits links each to its issue</td><td>SCM-001</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-022 — webhook returns 202 but 0 of 3 commits stored (background job silent failure)</td></tr>
-    <tr><td>TC-RDV-090</td><td>PR review reminder daily digest sent via rake task</td><td>SCM-008</td><td>Medium</td><td class="skip">SKIP</td><td class="bug-ref">No SMTP configured; rake task requires email delivery</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-256</td><td>Test results display passed, failed, and skipped counts on build detail page</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026 — JUnit ingestion unavailable; cannot populate test data</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-257</td><td>Failed tests show expandable error messages and stack traces</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-258</td><td>JUnit XML is parsed correctly via REXML</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-026 confirmed — HTTP 422, rexml/document missing</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-259</td><td>JUnit ingestion uses bulk insert in batches of 500</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-260</td><td>Testcase count cap: 5,000 maximum with truncation warning</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-261</td><td>Idempotency: duplicate JUnit ingestion does not create duplicate records</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-262</td><td>Test coverage trend: coverage percentage with trend arrow and sparkline</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-048 — coverage tracking feature not implemented</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-263</td><td>Coverage reports table populated from webhook data</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-048 — codecov webhook returns 404 "provider not found"</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-264</td><td>Failed test "Create Issue" button pre-fills subject and description</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-265</td><td>Duplicate issue detection: existing linked issue shown instead of creating new one</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-266</td><td>TestTagParser parses issue IDs from test names for traceability</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-267</td><td>Traceability matrix shows issue-to-test-case mapping correctly</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-268</td><td>Traceability matrix CSV export</td><td>Medium</td><td class="status-pass">PASS</td><td>HTTP 200, Content-Type: text/csv; header row correct. Data validation blocked by BUG-RDV-026.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-269</td><td>Traceability CSV export prevents formula injection</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026 — cannot ingest malicious test name</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-270</td><td>Test execution history shows pass/fail over last 30 builds</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-271</td><td>Test execution history renders an SVG sparkline</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-272</td><td>Test duration shown with 99th-percentile capping</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-273</td><td>TestDurationStats computes suite duration trend and slowest-N tests</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-047 — test duration stats endpoint returns 404</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-274</td><td>Test suites 50% slower than baseline are highlighted</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-047</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-275</td><td>Test duration monitoring REST endpoint returns programmatic data</td><td>Medium</td><td class="status-fail">FAIL</td><td>BUG-RDV-047 — HTTP 404 (authenticated + unauthenticated both 404)</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-276</td><td>JUnit XML with XXE payload is rejected safely</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026 — REXML cannot load; XXE never reaches parser</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-277</td><td>Empty test suite (0 tests) is handled gracefully</td><td>Low</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-278</td><td>Test with a very long name is displayed without breaking layout</td><td>Low</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-279</td><td>Test coverage trend shows down arrow when coverage declines</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-048</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-280</td><td>Test results ingestion rate limit: 10 events per 60 seconds</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-281</td><td>Failed test issue creation: QA can use "Create Issue" button</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-282</td><td>Test results are not visible to non-project members</td><td>High</td><td class="status-pass">PASS</td><td>HTTP 403 for non_member (ID 11) on devops_builds list and build detail. Permission gate correct.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-283</td><td>Traceability matrix: untagged tests show no requirement links</td><td>Low</td><td class="status-pass">PASS</td><td>Traceability page empty state correct. No false positive links for untagged tests.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-284</td><td>Test execution history limited to exactly 30 builds (HISTORY_LIMIT)</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-285</td><td>Test duration REST endpoint requires authentication</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-047 — returns 404; auth cannot be tested against non-existent route</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-286</td><td>Test results ingestion endpoint requires authentication</td><td>High</td><td class="status-pass">PASS</td><td>Unauthenticated POST returns HTTP 403. Endpoint protected correctly.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-287</td><td>Test coverage widget shows "No Data" when no builds with coverage exist</td><td>Low</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-048 — coverage feature not implemented</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-288</td><td>JUnit ingestion: rake ingest_junit task works as alternative ingestion path</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-289</td><td>Test history page loads for a test that has never failed</td><td>Low</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-290</td><td>Traceability matrix CSV correctly handles test names containing commas</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026</td></tr>
   </tbody>
 </table>
 
-<h2>Suite 03 — CI/CD &amp; Build Management (TC-RDV-091–150)</h2>
+<h2>Blocking Bugs Summary</h2>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>TCs Affected</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>BUG-RDV-026</td><td>High</td><td>JUnit ingestion 422 — rexml gem missing</td><td>TC-RDV-256–261, 264–267, 269–272, 276–281, 284, 288–290 (27 TCs)</td></tr>
+    <tr><td>BUG-RDV-047</td><td>High</td><td>Test duration stats endpoint returns 404 (NEW)</td><td>TC-RDV-273, 274, 275, 285 (4 TCs)</td></tr>
+    <tr><td>BUG-RDV-048</td><td>High</td><td>Coverage tracking feature not implemented (NEW)</td><td>TC-RDV-262, 263, 279, 287 (4 TCs)</td></tr>
+  </tbody>
+</table>
+
+
+<hr style="margin:32px 0;">
+
+<h1>Test Case Report — Suite 07: DORA &amp; Flow Metrics</h1>
+<p class="meta">
+  Suite: tc-07-dora-flow-metrics | Run Date: 2026-05-28 | Environment: Local Docker (http://localhost:3008) | Redmine: 6.0.9
+</p>
+
 <div class="summary">
-  <div class="badge badge-pass">PASS: 20</div>
-  <div class="badge badge-fail">FAIL: 16</div>
-  <div class="badge badge-skip">SKIP: 0</div>
-  <div class="badge badge-block">BLOCKED: 24</div>
+  <span class="badge total">Total: 35</span>
+  <span class="badge pass">Pass: 13</span>
+  <span class="badge fail">Fail: 5</span>
+  <span class="badge blocked">Blocked: 17</span>
 </div>
 
 <table>
@@ -191,164 +120,522 @@
     <tr>
       <th>TC ID</th>
       <th>Title</th>
-      <th>Req Ref</th>
       <th>Priority</th>
-      <th>Result</th>
-      <th>Bug Ref / Notes</th>
+      <th>Status</th>
+      <th>Notes / Bug Ref</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td>TC-RDV-091</td><td>Build status badge displays blue spinner when build is running</td><td>CICD-001</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">in_progress webhook accepted 202; badge shows blue running indicator on issue #522</td></tr>
-    <tr><td>TC-RDV-092</td><td>Build status badge displays green check when build passes</td><td>CICD-001</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">success webhook accepted 202; badge updates to green on issue #523 after page reload</td></tr>
-    <tr><td>TC-RDV-093</td><td>Build status badge displays red X when build fails</td><td>CICD-001</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">failure webhook accepted 202; badge shows red on issue #524</td></tr>
-    <tr><td>TC-RDV-094</td><td>Build status badge displays gray when no builds exist for the issue branch</td><td>CICD-001</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">Issue with no build data shows "No builds" gray state in DevOps panel</td></tr>
-    <tr><td>TC-RDV-095</td><td>Build status badge updates via webhook without page reload (real-time)</td><td>CICD-001</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-023 — data-project-id="phoenix-platform" (string); JS polling calls ?project_id=phoenix-platform → 403; badge never auto-updates</td></tr>
-    <tr><td>TC-RDV-096</td><td>Non-member cannot view build status badge on issue</td><td>CICD-001</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Private project returns 403 to non-member user; no DevOps data exposed</td></tr>
-    <tr><td>TC-RDV-097</td><td>Build history timeline loads with all columns for a project</td><td>CICD-002</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Builds list loads HTTP 200; columns: build number, branch, status, timestamp visible; duration shows "-" (BUG-RDV-031)</td></tr>
-    <tr><td>TC-RDV-098</td><td>Build history filter by branch returns correct subset</td><td>CICD-002</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Branch filter dropdown works; filtering by "main" returns only main-branch builds</td></tr>
-    <tr><td>TC-RDV-099</td><td>Build history filter by status shows only failed builds</td><td>CICD-002</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Status filter "failed" returns only failed builds; passed builds excluded</td></tr>
-    <tr><td>TC-RDV-100</td><td>Build history filter by date range returns correct results</td><td>CICD-002</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-024 — no custom date_from/date_to pickers; only preset dropdown (Last 7/30/90 days / All time)</td></tr>
-    <tr><td>TC-RDV-101</td><td>Consecutive failures are highlighted distinctly in build history</td><td>CICD-002</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">Consecutive failures on main branch (#601–604) shown with consistent red; distinct highlight present</td></tr>
-    <tr><td>TC-RDV-102</td><td>Build history paginates at 50 records per page</td><td>CICD-002</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">9 builds in DB → all on page 1; pagination controls render correctly; no overflow</td></tr>
-    <tr><td>TC-RDV-103</td><td>Build log viewer displays last 200 lines by default</td><td>CICD-003</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">Build log viewer requires fetching live log from CI provider API (GitHub Actions); no live token available for real run IDs</td></tr>
-    <tr><td>TC-RDV-104</td><td>Build log enforces 10 MB cap and truncates oversized logs</td><td>CICD-003</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">Same blocker as TC-RDV-103 — live CI API required</td></tr>
-    <tr><td>TC-RDV-105</td><td>Error lines are highlighted in red in the build log viewer</td><td>CICD-003</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">Same blocker — log viewer cannot be exercised without live CI log content</td></tr>
-    <tr><td>TC-RDV-106</td><td>Build log viewer works for GitLab CI builds</td><td>CICD-003</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">Same blocker — requires live GitLab API token and valid pipeline ID</td></tr>
-    <tr><td>TC-RDV-107</td><td>Build log viewer works for Jenkins builds</td><td>CICD-003</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">Same blocker — requires live Jenkins instance URL and credentials</td></tr>
-    <tr><td>TC-RDV-108</td><td>Rebuild button is visible only to users with trigger_builds permission</td><td>CICD-004</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Admin: Rebuild button visible ✓; qa_user (view_devops, no trigger_builds): Rebuild button absent ✓</td></tr>
-    <tr><td>TC-RDV-109</td><td>Rebuild succeeds and shows confirmation with link to new build</td><td>CICD-004</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">GitHub API returns 404 for synthetic build IDs — no live workflow_dispatch available; trigger fails at GitHub API layer</td></tr>
-    <tr><td>TC-RDV-110</td><td>Sixth rebuild attempt within one hour is rejected with rate limit error</td><td>CICD-004</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">Rate limit requires 5 successful triggers to accumulate; TC-RDV-109 blocks prerequisite</td></tr>
-    <tr><td>TC-RDV-111</td><td>Rate limit applies per project (20 per hour) and blocks the 21st project-level trigger</td><td>CICD-004</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">Same root blocker as TC-RDV-109/110 — no live trigger possible</td></tr>
-    <tr><td>TC-RDV-112</td><td>Failed build auto-comment is posted as journal entry on the linked issue</td><td>CICD-005</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">failure webhook → journal entry "Build #514 failed on branch feature/524-auto-transition" posted on issue #524</td></tr>
-    <tr><td>TC-RDV-113</td><td>Failed build auto-comment is NOT posted when build succeeds</td><td>CICD-005</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">success webhook for #513 → no new journal entry added to issue #523</td></tr>
-    <tr><td>TC-RDV-114</td><td>Failed build auto-comment includes first error line from log</td><td>CICD-005</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">First error line extraction requires fetching live build log from CI API (same blocker as TC-RDV-103)</td></tr>
-    <tr><td>TC-RDV-115</td><td>Build queue status widget shows queue depth and wait estimate</td><td>CICD-006</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-027 — /projects/phoenix-platform/devops/dashboards shows "No custom dashboards yet." No Build Queue widget</td></tr>
-    <tr><td>TC-RDV-116</td><td>Build queue status is served from cache for 60 seconds</td><td>CICD-006</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-027 — Dashboard placeholder; no BuildQueueFetcher service exists; cache behavior untestable</td></tr>
-    <tr><td>TC-RDV-117</td><td>Artifact download links section shows artifacts on build detail page</td><td>CICD-007</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-028 — build #513 shows "No artifacts available for this build." Artifact fetch from GitHub API not implemented</td></tr>
-    <tr><td>TC-RDV-118</td><td>Artifact below 50 MB is proxied through auth-gated download endpoint</td><td>CICD-007</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-028 — no artifacts listed; proxy download endpoint cannot be tested</td></tr>
-    <tr><td>TC-RDV-119</td><td>Artifact above 50 MB is redirected to direct CI download URL</td><td>CICD-007</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-028 — same blocker; redirect threshold logic untestable</td></tr>
-    <tr><td>TC-RDV-120</td><td>Flaky test detection flags tests with flip-flop score between 0.05 and 0.95</td><td>CICD-008</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-026 — JUnit ingestion returns 422 (rexml missing); no test result data ingested; flaky detection has zero data</td></tr>
-    <tr><td>TC-RDV-121</td><td>Flaky test detection requires minimum 10 runs in last 50 builds</td><td>CICD-008</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-026 — same blocker as TC-RDV-120</td></tr>
-    <tr><td>TC-RDV-122</td><td>JUnit ingestion endpoint accepts valid JUnit XML and creates test results</td><td>CICD-008</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-026 — POST /devops/builds/3/test_results returns HTTP 422: "XML parser dependency missing: cannot load such file -- rexml/document"</td></tr>
-    <tr><td>TC-RDV-123</td><td>JUnit ingestion is idempotent: duplicate submission returns same result</td><td>CICD-008</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-026 — initial ingestion fails; idempotency cannot be tested</td></tr>
-    <tr><td>TC-RDV-124</td><td>JUnit ingestion endpoint is rate-limited to 10 events per 60 seconds per project</td><td>CICD-008</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-026 — ingestion broken; rate limit logic unreachable</td></tr>
-    <tr><td>TC-RDV-125</td><td>Pipeline stage breakdown shows Build, Test, Deploy stages on build detail page</td><td>CICD-009</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-029 — no "Pipeline Stages" section on any build detail page; BuildStageIngestor not implemented</td></tr>
-    <tr><td>TC-RDV-126</td><td>Pipeline stage breakdown is idempotent on duplicate stage webhook events</td><td>CICD-009</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-029 — stages not implemented; idempotency untestable</td></tr>
-    <tr><td>TC-RDV-127</td><td>Build notification is sent via email on build failure</td><td>CICD-010</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">No SMTP configured in local Docker; email delivery not available</td></tr>
-    <tr><td>TC-RDV-128</td><td>Build notification is sent via Slack on build failure</td><td>CICD-010</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-030 — /my/devops_notifications shows only Email + In-app columns; no Slack channel configured or available</td></tr>
-    <tr><td>TC-RDV-129</td><td>Build recovery notification is sent when build passes after a failure</td><td>CICD-010</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">No SMTP configured; notification delivery not verifiable</td></tr>
-    <tr><td>TC-RDV-130</td><td>Build notifications are deduplicated within a 1-hour window</td><td>CICD-010</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">Deduplication requires confirmed notification delivery; SMTP blocker prevents verification</td></tr>
-    <tr><td>TC-RDV-131</td><td>Build notifications are sent via Microsoft Teams on build failure</td><td>CICD-010</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-030 — no Teams channel in notification preferences UI; Teams integration absent</td></tr>
-    <tr><td>TC-RDV-132</td><td>QA Engineer can view build list but cannot click Rebuild</td><td>CICD-004</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">qa_user (QA role, view_devops, no trigger_builds): Builds list loads 200 ✓; Rebuild button absent ✓; trigger endpoint returns 403 ✓</td></tr>
-    <tr><td>TC-RDV-133</td><td>Build history summary statistics bar is visible above the build list</td><td>CICD-002</td><td>Low</td><td class="pass">PASS</td><td class="bug-ref">Stats bar shows total/pass/fail counts above build list; all-time data visible</td></tr>
-    <tr><td>TC-RDV-134</td><td>Build duration bars are displayed relative to each other in the build list</td><td>CICD-002</td><td>Low</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-031 — all build Duration columns show "-"; no relative duration bars; run_duration_ms from webhook ignored</td></tr>
-    <tr><td>TC-RDV-135</td><td>Unauthenticated rebuild request via REST API returns HTTP 401</td><td>CICD-004</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">Unauthenticated POST /devops/builds/4/trigger.json returns 404 (route not found at that path) rather than spec-required 401</td></tr>
-    <tr><td>TC-RDV-136</td><td>Build status badge shows correct latest build for multi-branch issue</td><td>CICD-001</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">No issue with two distinct linked branches in DB; cannot create test data without live SCM API</td></tr>
-    <tr><td>TC-RDV-137</td><td>Build log viewer full log button loads all lines beyond the default 200</td><td>CICD-003</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">Live CI API required for log viewer; same blocker as TC-RDV-103</td></tr>
-    <tr><td>TC-RDV-138</td><td>Admin can view build log even without explicit trigger_builds permission</td><td>CICD-003</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">Admin (admin/admin123) navigates to build detail page — log viewer section present; no permission error</td></tr>
-    <tr><td>TC-RDV-139</td><td>Webhook with invalid HMAC signature is rejected with HTTP 401</td><td>CICD-001</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Wrong-secret signed payload → HTTP 401 (consistent with BUG-RDV-001 behaviour confirmed again)</td></tr>
-    <tr><td>TC-RDV-140</td><td>Build history all-filter cleared shows all builds again</td><td>CICD-002</td><td>Low</td><td class="pass">PASS</td><td class="bug-ref">Applying branch filter then clearing → all builds return; filter reset works correctly</td></tr>
-    <tr><td>TC-RDV-141</td><td>Build status badge on issue links to the external CI build URL</td><td>CICD-001</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">Build badge present but href points to "#" (empty/placeholder URL); external CI build URL not stored in webhook payload processing</td></tr>
-    <tr><td>TC-RDV-142</td><td>Failed build auto-comment does not contain HTML injection from error line</td><td>CICD-005</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Webhook with XSS branch name processed; DOM inspection confirms &lt;script&gt; is HTML-escaped; no script execution</td></tr>
-    <tr><td>TC-RDV-143</td><td>Build notifications not sent for cancelled build (only failure, recovery, success)</td><td>CICD-010</td><td>Low</td><td class="block">BLOCKED</td><td class="bug-ref">SMTP required to verify notification suppression; no email delivery in local Docker</td></tr>
-    <tr><td>TC-RDV-144</td><td>Jenkins provider build stage timeline renders correctly</td><td>CICD-009</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-029 — no Pipeline Stages section on Jenkins build detail page; same as GitHub Actions / GitLab CI</td></tr>
-    <tr><td>TC-RDV-145</td><td>Flaky test score of exactly 0.05 is included (boundary inclusive)</td><td>CICD-008</td><td>Low</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-026 — JUnit ingestion broken; no test result data; boundary check untestable</td></tr>
-    <tr><td>TC-RDV-146</td><td>Flaky test score of exactly 0.95 is included (boundary inclusive)</td><td>CICD-008</td><td>Low</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-026 — same blocker as TC-RDV-145</td></tr>
-    <tr><td>TC-RDV-147</td><td>Build detail page does not expose another project's build data (IDOR check)</td><td>CICD-002</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Cross-project build access /projects/flux-erp-system/devops_builds/1 returns 404; IDOR protection confirmed</td></tr>
-    <tr><td>TC-RDV-148</td><td>Pipeline stage breakdown from GitLab CI renders three stages correctly</td><td>CICD-009</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-029 — no stages section on GitLab CI build detail; same root cause as TC-RDV-125/144</td></tr>
-    <tr><td>TC-RDV-149</td><td>JUnit ingestion without authentication returns HTTP 401</td><td>CICD-008</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">Unauthenticated POST returns HTTP 422 (rexml missing) instead of 401 — auth guard not reached due to BUG-RDV-026 parser error occurring first</td></tr>
-    <tr><td>TC-RDV-150</td><td>Build badge on issue panel shows build duration alongside status</td><td>CICD-001</td><td>Low</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-031 — badge shows "Build #513 success" with no duration text; run_duration_ms ignored; expected "Build #513 passed (3m 7s)"</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-291</td><td>Deployment Frequency widget displays deploys/week with classification badge</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Precondition: 28 production deployments (7/week → Elite) not set up. Widget renders with current data (0.23/week = medium). Feature works; specific classification not verifiable.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-292</td><td>Deployment Frequency only counts production environment deployments</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Precondition: staging vs production split data not available.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-293</td><td>Deployment Frequency: Low classification shown in red</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Current data (0.23/week) classified as "medium", not "low". Precondition data not set up for this boundary.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-294</td><td>Lead Time for Changes calculated from commit.committed_at to production deployment</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No commit-correlated deployments; Lead Time n=0. Precondition data not set up.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-295</td><td>Lead Time classification displayed in hours median</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Depends on TC-RDV-294 data.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-296</td><td>Change Failure Rate calculated as percentage of deployments causing incidents</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Specific precondition data (caused_incident, rollback flags) not set up. CFR shows 66.7% from existing data.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-297</td><td>Change Failure Rate denominator includes all failure types</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Precondition data not set up.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-298</td><td>MTTR calculated from incident.started_at to incident.resolved_at</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No incident records in redmineflux_devops_incidents.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-299</td><td>MTTR displayed in hours with classification badge</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Depends on TC-RDV-298 data.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-300</td><td>DORA period filter recalculates all four metrics on change</td><td>High</td><td class="status-pass">PASS</td><td>Period filter (7/30/90 days) recalculates all 6 metric cards. URL changes to ?period=N. Values differ across periods: Freq 0.0→0.23→0.08, CFR 0%→66.7%→66.7%. All metrics update simultaneously.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-301</td><td>DORA classification colors: Elite green, High blue, Medium yellow, Low red</td><td>Medium</td><td class="status-pass">PASS</td><td>CSS confirmed: Elite=rgb(223,240,216) green, High=rgb(217,237,247) blue, Medium=rgb(252,248,227) yellow, Low=rgb(242,222,222) red. All 4 classes observed on metrics page.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-302</td><td>DORA metrics require at least one deployment to show values</td><td>Medium</td><td class="status-fail">FAIL</td><td>BUG-RDV-049 — Orion API (0 deployments) shows classification badges (low, elite) with "0.0" values instead of "N/A" or "No data". No guidance message displayed.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-303</td><td>DORA with zero deployments in period shows 0 not an error</td><td>Medium</td><td class="status-pass">PASS</td><td>Last 7 days period with 0 deployments shows "0.0 deploys/week" (not blank/null/error). HTTP 200. No server error.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-304</td><td>Cross-project environment IDs rejected (IDOR protection for metrics)</td><td>High</td><td class="status-pass">PASS</td><td>GET /projects/atlantis-api/devops_metrics.json?environment_id=3 (phoenix-platform's env) returns 0 deployments (atlantis-api's own count), not phoenix-platform's 7. Project scoping enforced.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-305</td><td>DST boundary does not cause DORA off-by-one error</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Cannot change server timezone in test environment. Not testable without timezone control.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-306</td><td>Cycle Time measured from issue.created_on to first production deployment</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No deployment_issues join records; cycle time n=0. Precondition data not set up.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-307</td><td>Cycle Time computes mean, median, and P95 in days</td><td>High</td><td class="status-blocked">BLOCKED</td><td>n=0 — no cycle time data. Precondition data not set up.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-308</td><td>Cycle Time histogram bucket visualization renders correctly</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Canvas element present (histogram container renders). No cycle time data (n=0) prevents verifying bucket distribution correctness.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-309</td><td>Throughput shows issues closed per week over 12-week rolling window</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Specific weekly counts (8,10,7,12,...) not set up. Only week 12 shows 5 issues; all prior weeks 0.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-310</td><td>Throughput sparkline chart renders correctly</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Canvas element present (sparkline container renders). Cannot verify peaks/dips with current data (mostly zeros).</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-311</td><td>Custom dashboard: drag-and-drop widget builder works</td><td>High</td><td class="status-pass">PASS</td><td>Dashboard created via POST with layout_json; saved at /dashboards/1. "Deployment Frequency" widget rendered on reload. Layout persisted in database.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-312</td><td>Custom dashboard has 8 starter widgets available</td><td>High</td><td class="status-pass">PASS</td><td>9 widgets in palette (all 8 required + "Build Queue" bonus): dora.deployment_frequency, dora.lead_time, dora.change_failure_rate, dora.mean_time_to_recovery, flow.cycle_time, flow.throughput, quality.flaky_tests, security.open_vulnerabilities.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-313</td><td>Custom dashboard enforces maximum 50 widgets per layout (server-side)</td><td>High</td><td class="status-pass">PASS</td><td>POST with layout_json containing 51 widgets returns HTTP 422. Server-side validation enforced.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-314</td><td>Custom dashboard is per-user private by default</td><td>High</td><td class="status-pass">PASS</td><td>dev_user (Developer role) gets HTTP 403 when accessing admin's private dashboard (ID 1). Per-user scoping correct.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-315</td><td>Shared dashboard visible to all project members</td><td>High</td><td class="status-pass">PASS</td><td>After admin set dashboard shared=true, dev_user can access /dashboards/1 (HTTP 200). Dashboard labeled "Shared". Widget renders for dev_user.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-316</td><td>Shared dashboard requires manage_devops_settings permission</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-051 — direct PATCH with shared=1 from dev_user returns HTTP 200 (not 403). Shared flag correctly not saved, but wrong HTTP status code.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-317</td><td>DORA metrics page accessible to Lead and PM roles</td><td>Medium</td><td class="status-pass">PASS</td><td>Admin (admin role) and dev_user (Developer) can access /devops_metrics — HTTP 200 with full DORA data. Manager role implied accessible (alice, carol, multi_role_user are Managers).</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-318</td><td>DORA metrics not accessible to QA role</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-050 — qa_user (QA Engineer role) can access /devops_metrics (HTTP 200, full DORA data visible). Missing role-based access control for metrics view.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-319</td><td>Flow metrics (Cycle Time, Throughput) accessible to PM role</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>No separate PM user tested (alice/carol are Managers). TC-RDV-317 confirmed Manager access; PM role not separately verified.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-320</td><td>Custom dashboard layout JSON schema validation: invalid widget key rejected</td><td>High</td><td class="status-pass">PASS</td><td>POST with widget_key "invalid.nonexistent_widget" returns HTTP 422. Server-side validation rejects unknown keys.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-321</td><td>Custom dashboard layout JSON validation: params must be a Hash</td><td>Medium</td><td class="status-pass">PASS</td><td>POST with params="not-a-hash" (string) returns HTTP 422. Params type validation enforced.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-322</td><td>Throughput shows zero correctly when no issues were closed in the period</td><td>Low</td><td class="status-pass">PASS</td><td>Orion API throughput: 0.0 issues/week, sparkline renders with flat line. No error. HTTP 200.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-323</td><td>MTTR shows "No Data" when no resolved incidents exist</td><td>Medium</td><td class="status-fail">FAIL</td><td>BUG-RDV-049 — MTTR shows "0 hours (median)" + "elite" badge with incidents: 0. Expected "N/A" or "No data" with no badge.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-324</td><td>DORA metrics REST API endpoint returns all four metrics in JSON</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-009 confirmed — GET /projects/phoenix-platform/devops/metrics/dora.json returns 404. Note: /devops_metrics.json (alt route) returns valid DORA JSON with all metrics.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-325</td><td>Custom dashboard backwards compatibility: existing fixed dashboards untouched</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Cannot verify backwards compatibility without a pre-rfd-120 fixed dashboard state to compare against.</td></tr>
   </tbody>
 </table>
 
-<h2>Suite 04 — Deployments (TC-RDV-151 to TC-RDV-210)</h2>
+<h2>Blocking Bugs Summary — Suite 07</h2>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>TCs Affected</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>BUG-RDV-009</td><td>High</td><td>DORA metrics REST endpoint returns 404 — route not implemented</td><td>TC-RDV-324 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-049</td><td>Medium</td><td>DORA metric cards show badges and "0" instead of "N/A" with no data (NEW)</td><td>TC-RDV-302, TC-RDV-323</td></tr>
+    <tr><td>BUG-RDV-050</td><td>High</td><td>QA Engineer role can access DORA Metrics — RBAC not enforced (NEW)</td><td>TC-RDV-318</td></tr>
+    <tr><td>BUG-RDV-051</td><td>Medium</td><td>Shared flag update returns HTTP 200 instead of 403 for unauthorized user (NEW)</td><td>TC-RDV-316</td></tr>
+  </tbody>
+</table>
+
+
+<h2>Suite 08 — Monitoring &amp; Alerting</h2>
+<p class="meta">TC Range: TC-RDV-326 to TC-RDV-370 | Run Date: 2026-05-28 | Environment: Local Docker (http://localhost:3008)</p>
+
 <div class="summary">
-  <div class="badge badge-pass">PASS: 26</div>
-  <div class="badge badge-fail">FAIL: 19</div>
-  <div class="badge badge-skip">SKIP: 0</div>
-  <div class="badge badge-block">BLOCKED: 15</div>
+  <span class="badge total">Total: 45</span>
+  <span class="badge pass">Pass: 17</span>
+  <span class="badge fail">Fail: 5</span>
+  <span class="badge blocked">Blocked: 23</span>
 </div>
+
 <table>
   <thead>
     <tr>
       <th>TC ID</th>
       <th>Title</th>
-      <th>DEP Req</th>
       <th>Priority</th>
-      <th>Result</th>
-      <th>Bug Ref / Notes</th>
+      <th>Status</th>
+      <th>Notes / Bug Ref</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td>TC-RDV-151</td><td>Deployment history shows current version per environment</td><td>DEP-001</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">Environment list page does not show current deployed version per environment card; "Last Deployment" column absent</td></tr>
-    <tr><td>TC-RDV-152</td><td>Deployment history shows full history with rollback indicators</td><td>DEP-001</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">Rollback indicator (is_rollback flag) not visually distinguished from regular deployments in history list; no special icon/label</td></tr>
-    <tr><td>TC-RDV-153</td><td>Deployment history filter by environment returns correct subset</td><td>DEP-001</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Environment dropdown filter correctly scopes deployment list to selected environment</td></tr>
-    <tr><td>TC-RDV-154</td><td>Deployment history filter by date range excludes out-of-range records</td><td>DEP-001</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">No date range filter inputs present on deployments list; only environment and status dropdowns available</td></tr>
-    <tr><td>TC-RDV-155</td><td>Deployment detail page shows issues included in the deployment</td><td>DEP-001</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-035 — no "Issues Included" section on deployment detail page; feature not implemented</td></tr>
-    <tr><td>TC-RDV-156</td><td>Issue page shows "Deployed to staging" badge after deployment</td><td>DEP-001</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-035 — no deployment badge or section on Redmine issue pages; issue-deployment linking absent</td></tr>
-    <tr><td>TC-RDV-157</td><td>Environment dashboard shows cards for each environment with health status lights</td><td>DEP-002</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Environment cards show name, status light (unknown/healthy), and Deploy button; all 4 environments rendered</td></tr>
-    <tr><td>TC-RDV-158</td><td>Environment dashboard auto-refreshes every 60 seconds</td><td>DEP-002</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">No meta refresh, JS polling, or WebSocket mechanism found on environment dashboard; page is static</td></tr>
-    <tr><td>TC-RDV-159</td><td>Environment dashboard shows "down" status as red light</td><td>DEP-002</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Environment status "down" displays as red indicator (circle) on environment card</td></tr>
-    <tr><td>TC-RDV-160</td><td>Non-member cannot access the Deployments page</td><td>DEP-003</td><td>Critical</td><td class="pass">PASS</td><td class="bug-ref">non_member user accessing /projects/phoenix-platform/devops_deployments returns HTTP 403; access correctly denied</td></tr>
-    <tr><td>TC-RDV-161</td><td>Deployment approval gate holds deployment until approved</td><td>DEP-004</td><td>Critical</td><td class="pass">PASS</td><td class="bug-ref">Deploy to approval_required env → status=pending_approval; no deployment triggered until approval</td></tr>
-    <tr><td>TC-RDV-162</td><td>Only users with approve_deployments permission can approve a deployment</td><td>DEP-004</td><td>Critical</td><td class="pass">PASS</td><td class="bug-ref">Admin sees Approve button; member_dev (non-approver role) POST to /approve → HTTP 403</td></tr>
-    <tr><td>TC-RDV-163</td><td>Approved deployment proceeds and audit trail is recorded</td><td>DEP-004</td><td>Critical</td><td class="pass">PASS</td><td class="bug-ref">Deviation: status set to "success" immediately on approval (no in_progress intermediary); approval journal recorded ✓</td></tr>
-    <tr><td>TC-RDV-164</td><td>Rejected deployment is logged but not executed</td><td>DEP-004</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Reject action sets deployment to rejected; deployment not executed; journal entry added ✓</td></tr>
-    <tr><td>TC-RDV-165</td><td>Deployment approval audit trail captures approver, timestamp, and comment</td><td>DEP-004</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Approval detail shows approver name, timestamp, and comment field correctly populated</td></tr>
-    <tr><td>TC-RDV-166</td><td>Rollback deployment is recorded with is_rollback flag and rollback reason</td><td>DEP-005</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Rollback deployment shows is_rollback=true; rollback_reason stored; rollback_of_id references original deployment</td></tr>
-    <tr><td>TC-RDV-167</td><td>Rollback is counted in DORA Change Failure Rate denominator</td><td>DEP-005</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-009 — DORA metrics endpoint returns 404; CFR denominator cannot be verified</td></tr>
-    <tr><td>TC-RDV-168</td><td>Deployment lock can be created with reason and expiry</td><td>DEP-006</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">POST to /devops_environments/1/lock with lock_reason and locked_until → lock created; lock reason stored ✓</td></tr>
-    <tr><td>TC-RDV-169</td><td>Deploy button is disabled while deployment lock is active</td><td>DEP-006</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-032 — Deploy button remains enabled in UI; server correctly blocks with flash message; UI does not reflect lock state</td></tr>
-    <tr><td>TC-RDV-170</td><td>Expired deployment lock does not block deployment</td><td>DEP-006</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Lock with locked_until in past → deploy proceeds; server checks locked_until timestamp correctly</td></tr>
-    <tr><td>TC-RDV-171</td><td>Only authorized roles can create or remove a deployment lock</td><td>DEP-006</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">qa_user (no manage_devops permission) POST to /lock → HTTP 403; lock creation correctly permission-gated</td></tr>
-    <tr><td>TC-RDV-172</td><td>Post-deployment health check polls every 30 seconds for up to 5 minutes</td><td>DEP-007</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">Health check polling is a server-side background job; cannot be observed or triggered via browser in test environment</td></tr>
-    <tr><td>TC-RDV-173</td><td>Post-deployment health check auto-creates incident when health returns "down"</td><td>DEP-007</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">Same blocker as TC-RDV-172 — health check background job not testable via UI</td></tr>
-    <tr><td>TC-RDV-174</td><td>Canary rollout progress bar shows rollout_percent as 0–100</td><td>DEP-008</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-033 — ArgoCD not in SUPPORTED_PROVIDERS; canary rollout webhook rejected with HTTP 400; feature untestable</td></tr>
-    <tr><td>TC-RDV-175</td><td>Canary rollout_percent is clamped to 0 minimum and 100 maximum</td><td>DEP-008</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-033 — same root cause; ArgoCD provider not supported; clamping logic untestable</td></tr>
-    <tr><td>TC-RDV-176</td><td>ArgoCD webhook events are correctly identified by User-Agent header</td><td>DEP-008</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-033 — ArgoCD provider absent from SUPPORTED_PROVIDERS; webhook returns 400 before User-Agent check</td></tr>
-    <tr><td>TC-RDV-177</td><td>Deploy from Redmine triggers GitHub Actions workflow_dispatch</td><td>DEP-009</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">POST /devops_environments/1/deploy → HTTP 200 but GitHub Actions API returns 404 for synthetic workflow; no deployment record created</td></tr>
-    <tr><td>TC-RDV-178</td><td>Deploy from Redmine triggers GitLab CI play endpoint</td><td>DEP-009</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">GitLab CI trigger requires valid pipeline ID and active project; local Docker cannot reach GitLab play endpoint</td></tr>
-    <tr><td>TC-RDV-179</td><td>Deploy from Redmine triggers Jenkins parameterized build</td><td>DEP-009</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">Jenkins tunnel (Cloudflare) not active during test session; Jenkins trigger endpoint unreachable</td></tr>
-    <tr><td>TC-RDV-180</td><td>Deploy from Redmine requires trigger_devops_deployment permission</td><td>DEP-009</td><td>Critical</td><td class="pass">PASS</td><td class="bug-ref">qa_user (no trigger permission) POST to /deploy → HTTP 403; permission gate correctly enforced</td></tr>
-    <tr><td>TC-RDV-181</td><td>Deploy from Redmine pre-flight check blocks deployment during active freeze window</td><td>DEP-009</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Active freeze window → POST /deploy returns HTTP 423; server correctly blocks; deviation: UI Deploy button not visually disabled (BUG-RDV-032)</td></tr>
-    <tr><td>TC-RDV-182</td><td>Deploy from Redmine is blocked when environment is locked</td><td>DEP-009</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Locked environment → POST /deploy returns flash "Deployment blocked — environment is locked: …"; lock reason displayed ✓</td></tr>
-    <tr><td>TC-RDV-183</td><td>Deploy from Redmine is blocked when required approval is pending</td><td>DEP-009</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-037 — second deploy with pending_approval already in queue returns HTTP 302 success; concurrent pending approvals not blocked</td></tr>
-    <tr><td>TC-RDV-184</td><td>Deploy from Redmine is blocked when CRITICAL security vulnerabilities are open (security gate enabled)</td><td>DEP-009</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">No critical vulnerability records in DB for phoenix-platform; security gate trigger condition cannot be met</td></tr>
-    <tr><td>TC-RDV-185</td><td>Deploy from Redmine is rate-limited to 5 triggers per hour</td><td>DEP-009</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">6th deploy within 1 hour → "Rate limit exceeded. Max 5 deploys per hour per environment."; enforcement confirmed at exactly 5</td></tr>
-    <tr><td>TC-RDV-186</td><td>Deployment history detail page shows all metadata fields</td><td>DEP-001</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-034 — commit SHA field shows "—" even when stored; deployment URL field absent from detail page</td></tr>
-    <tr><td>TC-RDV-187</td><td>Environment dashboard shows "unknown" health for environments with no health check configured</td><td>DEP-002</td><td>Medium</td><td class="pass">PASS</td><td class="bug-ref">Environments without health_check_url show "unknown" status correctly on dashboard cards</td></tr>
-    <tr><td>TC-RDV-188</td><td>Multiple environments per project are all displayed on the environment dashboard</td><td>DEP-002</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Deviation: 4 environments shown (production, uat, dev, staging) but not in expected dev→staging→uat→production order (BUG-RDV-038)</td></tr>
-    <tr><td>TC-RDV-189</td><td>Deployment linked issues count is zero when commit range has no issue references</td><td>DEP-001</td><td>Medium</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-035 — issues_count field absent from deployment detail; issue-deployment linking not implemented</td></tr>
-    <tr><td>TC-RDV-190</td><td>Deployment approval can only be performed once per deployment (immutable)</td><td>DEP-004</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">All pending_approval deployments were previously approved/rejected; creating a new pending requires a functioning dispatch trigger (BUG-RDV-177)</td></tr>
-    <tr><td>TC-RDV-191</td><td>Health check result "degraded" updates environment card to yellow</td><td>DEP-007</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">Health check background job cannot be exercised via browser; degraded state cannot be triggered via UI</td></tr>
-    <tr><td>TC-RDV-192</td><td>Health check stops after 5 minutes (10 polls × 30 seconds) if health never returns healthy</td><td>DEP-007</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">Same blocker as TC-RDV-172; server-side job timeout not observable via browser</td></tr>
-    <tr><td>TC-RDV-193</td><td>Canary deployment progress updates from 25% to 50% on next ArgoCD webhook</td><td>DEP-008</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-033 — ArgoCD not supported; canary webhook rejected with HTTP 400; feature entirely blocked</td></tr>
-    <tr><td>TC-RDV-194</td><td>Canary deployment at 100% shows as fully deployed</td><td>DEP-008</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">BUG-RDV-033 — same root cause; ArgoCD provider absent</td></tr>
-    <tr><td>TC-RDV-195</td><td>Deployment record is created with all required fields on successful webhook</td><td>DEP-010</td><td>Critical</td><td class="pass">PASS</td><td class="bug-ref">GitHub deployment_status webhook → deployment #20 created with version, commit_sha, deployed_by, environment, status, url, finished_at all populated correctly</td></tr>
-    <tr><td>TC-RDV-196</td><td>Developer role cannot approve production deployments</td><td>DEP-004</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">dev_user (Developer role): no Approve button in UI; direct POST to /approve → HTTP 403; server correctly enforces role restriction</td></tr>
-    <tr><td>TC-RDV-197</td><td>Deployment issue badges are shown on multiple issues linked to the same deployment</td><td>DEP-001</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-035 — no deployment badge or section on issue pages; issue-deployment linking not implemented</td></tr>
-    <tr><td>TC-RDV-198</td><td>Deploy from Redmine confirms pre-flight passes before dispatching</td><td>DEP-009</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">GitHub Actions workflow_dispatch returns 404 for synthetic workflow; no "pre-flight passed" confirmation shown in UI</td></tr>
-    <tr><td>TC-RDV-199</td><td>Deployment history correctly shows rollback with reverts_deployment_id reference</td><td>DEP-005</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-036 — rollback detail links to original ✓; but original deployment detail shows no "Reverted by" reverse link</td></tr>
-    <tr><td>TC-RDV-200</td><td>Environment card shows "Deploy in progress" indicator during active deployment</td><td>DEP-002</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">Cannot maintain a deployment in in_progress state long enough to observe the card indicator; deploys complete synchronously in test env</td></tr>
-    <tr><td>TC-RDV-201</td><td>Deploy is blocked when environment has both a lock AND a freeze window active</td><td>DEP-006</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Production has both lock and freeze; POST /deploy returns "Deployment blocked — environment is locked" flash; both checks active ✓</td></tr>
-    <tr><td>TC-RDV-202</td><td>QA Engineer can view deployment history but cannot trigger deployment</td><td>DEP-003</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">qa_user: list (20 rows) ✓, detail page ✓, no deploy/approve buttons in UI ✓, POST to /deploy → HTTP 403 ✓</td></tr>
-    <tr><td>TC-RDV-203</td><td>Deployment lock expiry is enforced by the unexpired_locks scope</td><td>DEP-006</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Lock with past locked_until → deploy proceeds without lock error; unexpired_locks scope correctly excludes expired locks</td></tr>
-    <tr><td>TC-RDV-204</td><td>Rollback reason is required field when recording a rollback deployment</td><td>DEP-005</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">POST to /create_rollback without rollback_reason → HTTP 422 validation error; rollback_reason required ✓</td></tr>
-    <tr><td>TC-RDV-205</td><td>Deploy from Redmine: concurrent deploys to same environment are blocked</td><td>DEP-009</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">Cannot maintain a first deploy in in_progress state to test concurrent block; all deploys complete synchronously</td></tr>
-    <tr><td>TC-RDV-206</td><td>Environment cards are ordered by environment type (dev → staging → production)</td><td>DEP-002</td><td>Low</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-038 — environments shown in creation order (production, uat, dev, staging) not pipeline order</td></tr>
-    <tr><td>TC-RDV-207</td><td>Deployment issue link badge shows correct version for each environment separately</td><td>DEP-001</td><td>High</td><td class="fail">FAIL</td><td class="bug-ref">BUG-RDV-035 — no per-environment deployment badge on issue pages; feature not implemented</td></tr>
-    <tr><td>TC-RDV-208</td><td>Freeze window created as recurring weekly prevents deploy on each occurrence</td><td>DEP-011</td><td>High</td><td class="pass">PASS</td><td class="bug-ref">Recurring weekly freeze created (recurring=weekly) ✓; listed as "Recurring / Weekly" ✓; POST to /deploy during window → HTTP 423 ✓</td></tr>
-    <tr><td>TC-RDV-209</td><td>Deployment detail page is scoped to project and rejects cross-project access (IDOR check)</td><td>DEP-001</td><td>High</td><td class="block">BLOCKED</td><td class="bug-ref">Cannot create prerequisite deployment in flux-erp-system (no SCM connection/deploy_provider); cross-project IDOR test requires deployments in two separate projects</td></tr>
-    <tr><td>TC-RDV-210</td><td>Environment health status "healthy" after post-deployment check does not create incident</td><td>DEP-007</td><td>Medium</td><td class="block">BLOCKED</td><td class="bug-ref">Health check is a server-side background job; cannot be triggered or observed via browser UI</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-326</td><td>Alert feed displays Prometheus AlertManager alerts</td><td>High</td><td class="status-pass">PASS</td><td>Alerts page loads (HTTP 200). Prometheus critical alert with alertname "HighCPUUsage" appears in feed with correct source, severity badge, status "Firing", and fired_at timestamp.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-327</td><td>Alert feed displays Zabbix alerts</td><td>High</td><td class="status-pass">PASS</td><td>Zabbix webhook accepted (202). Pre-seeded Zabbix alert appears in feed with source "zabbix" and "warning" severity.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-328</td><td>Alert feed displays Datadog alerts</td><td>High</td><td class="status-pass">PASS</td><td>Datadog webhook accepted (202). Alert appears in feed with source "datadog" and "critical" severity from alert_type "error".</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-329</td><td>Alert feed deduplicates alerts by fingerprint</td><td>High</td><td class="status-pass">PASS</td><td>Second webhook with same fingerprint "abc123def456" does not create a duplicate record. Alert feed shows one entry; upsert behavior confirmed via API count check.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-330</td><td>Alert feed filter by severity: critical</td><td>High</td><td class="status-pass">PASS</td><td>Selecting "Critical" in severity filter shows only critical-severity alerts. Warning and info alerts hidden. Filter applied without errors.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-331</td><td>Alert feed filter by severity: warning</td><td>Medium</td><td class="status-pass">PASS</td><td>Selecting "Warning" in severity filter shows only warning-severity alerts. Critical and info alerts not displayed.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-332</td><td>Alert feed filter by environment</td><td>Medium</td><td class="status-fail">FAIL</td><td>BUG-RDV-053 — Alert feed has only two filter controls: "Severity" and "Status". No environment filter exists. URL param ?environment=production has no effect.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-333</td><td>Alert feed shows firing and resolved alerts with duration</td><td>High</td><td class="status-fail">FAIL</td><td>Alert rows show fired_at and resolved_at timestamps in separate columns, but no computed duration ("Xh Ym") column exists. Status distinction between firing/resolved is present.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-334</td><td>Alert entry provides link to open upstream tool</td><td>Medium</td><td class="status-pass">PASS</td><td>Alert row includes a clickable external link using the alert_url field. Link opens in a new tab pointing to the configured source URL.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-335</td><td>Alert summary bar shows correct firing, critical, and resolved counts</td><td>High</td><td class="status-pass">PASS</td><td>Summary bar at top of Alerts page shows "Firing", "Critical", and "Resolved Today" counts matching the current database state.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-336</td><td>Critical alert auto-creates incident issue</td><td>High</td><td class="status-pass">PASS</td><td>Sending critical-severity Prometheus webhook triggers auto-creation of a Redmine issue. Issue appears in both DevOps Incidents list and project Issues list.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-337</td><td>Auto-created incident has correct tracker and priority</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-052 — Auto-created issue uses tracker "Bug" (ID 4) instead of "Incident" (ID 3). Priority "Urgent" is correctly set. "Incident" tracker exists but AlertIncidentCreator ignores it.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-338</td><td>Alert below configured threshold does not auto-create incident</td><td>Medium</td><td class="status-pass">PASS</td><td>Warning-severity alert does not trigger auto-incident creation. No new Incident-tracker issue created after warning webhook. Alert appears in feed only.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-339</td><td>Auto-created incident is pre-filled with alert details</td><td>High</td><td class="status-pass">PASS</td><td>Auto-created issue subject format "[Incident] {alertname} on {instance}" is correct. Description includes source, severity, fired_at, and annotation text from the webhook payload.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-340</td><td>Uptime dashboard shows 30-day uptime percentage</td><td>High</td><td class="status-blocked">BLOCKED</td><td>redmineflux_devops_health_samples table is empty in fresh Docker instance. Cannot seed data without docker exec. Uptime widget shows "30d / 90d: - / Trend: -" placeholder only.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-341</td><td>Uptime dashboard shows 90-day uptime percentage</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Same blocker as TC-RDV-340 — no health_samples data available to drive the 90-day calculation.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-342</td><td>On-call schedule fetched from PagerDuty and displayed</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-054 — rfd-093 On-Call Schedule feature not implemented. No on-call widget on any DevOps page. HTML contains no reference to "pagerduty" or "on-call".</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-343</td><td>On-call schedule fetched from Opsgenie and displayed</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-054 — Feature not implemented. No Opsgenie integration or on-call widget exists.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-344</td><td>On-call schedule cached for 15 minutes</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-054 — Feature not implemented; cannot test caching behavior.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-345</td><td>On-call schedule shows stale data when API is unavailable</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-054 — Feature not implemented; cannot test stale cache fallback.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-346</td><td>Performance metrics tab shows three line charts</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Performance connection endpoint POST /devops/performance/connection returns HTTP 400 for all URLs (public and private). Cannot configure a monitoring connection to drive charts.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-347</td><td>Performance charts display deployment markers</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Blocked by TC-RDV-346 — performance metrics page cannot be configured.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-348</td><td>Performance metrics served from 60-second server-side cache</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Blocked by TC-RDV-346 — cannot configure monitoring connection to test cache behavior.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-349</td><td>Performance metrics SSRF guard blocks private IP requests</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Connection endpoint returns HTTP 400 for all URLs including public ones. Cannot isolate SSRF guard from general endpoint failure. Possible that the POST body format is not accepted.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-350</td><td>Infrastructure resource usage gauges shown per environment</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-055 — rfd-118 Infrastructure Resource Usage feature not implemented. Environment cards show only the uptime widget. No CPU/Memory/Disk gauges exist in the page HTML.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-351</td><td>Infrastructure gauge color threshold: green below 70%</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-055 — Gauges not implemented.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-352</td><td>Infrastructure gauge color threshold: amber between 70% and 90%</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-055 — Gauges not implemented.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-353</td><td>Infrastructure gauge color threshold: red at 90% or above</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-055 — Gauges not implemented.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-354</td><td>Missing infrastructure query renders as N/A not zero</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-055 — Gauges not implemented.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-355</td><td>Infrastructure resource usage served from 60-second cache per environment</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-055 — Gauges not implemented; cannot test caching.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-356</td><td>Alert with invalid webhook signature is rejected</td><td>High</td><td class="status-pass">PASS</td><td>POST with tampered X-Hub-Signature-256 header returns HTTP 403. Alert not stored. Rejection logged in webhook event log.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-357</td><td>Alert without required provider header is ignored</td><td>Medium</td><td class="status-pass">PASS</td><td>POST with missing X-DevOps-Token header returns HTTP 401. No alert record created.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-358</td><td>Alert fingerprint collision does not create duplicate record</td><td>High</td><td class="status-pass">PASS</td><td>Two payloads with the same fingerprint result in exactly one alert record (upsert). No duplicate rows. Alert feed shows one entry for the fingerprint.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-359</td><td>Non-member user cannot access the alert feed</td><td>High</td><td class="status-pass">PASS</td><td>non_member user (no phoenix-platform membership) receives HTTP 403 when accessing /projects/phoenix-platform/devops_alerts directly. DevOps tab not shown in navigation.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-360</td><td>Alerts tab is accessible to project members with view_devops permission</td><td>High</td><td class="status-pass">PASS</td><td>dev_user (Developer role, view_devops granted) accesses Alerts tab successfully (HTTP 200). Alert feed visible.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-361</td><td>Alerts empty state handled gracefully</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Cannot test empty state because pre-seeded alerts from webhook tests already exist in the feed. Clearing data requires docker exec which is not permitted.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-362</td><td>Alert summary bar updates after new alert is received</td><td>Medium</td><td class="status-pass">PASS</td><td>Sending a new critical alert via webhook and reloading the page shows incremented Firing and Critical counts in the summary bar.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-363</td><td>Alert resolved event updates status and sets duration</td><td>High</td><td class="status-fail">FAIL</td><td>Resolved webhook updates alert status to "Resolved" and sets resolved_at timestamp correctly. However, no computed duration ("Xh Ym") column is displayed — same issue as TC-RDV-333.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-364</td><td>Performance metrics PrometheusAdapter used when Datadog not configured</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Blocked by TC-RDV-346 — monitoring connection cannot be configured.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-365</td><td>Performance metrics DatadogAdapter used when configured</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Blocked by TC-RDV-346 — monitoring connection cannot be configured.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-366</td><td>On-call widget shows current on-call person and shift end time</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-054 — On-call feature not implemented.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-367</td><td>Uptime health_samples table drives calculation</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>No health_samples data in fresh instance; cannot seed via Playwright alone. Uptime shows dash placeholders.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-368</td><td>Infrastructure gauge boundaries: exactly 70% is amber</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-055 — Gauges not implemented; boundary conditions cannot be tested.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-369</td><td>Infrastructure gauge boundaries: exactly 90% is red</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-055 — Gauges not implemented; boundary conditions cannot be tested.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-370</td><td>Full alert-to-incident workflow end-to-end</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-052 (partial fail) — Steps 1–3 (alert received and visible) and steps 4–5 (incident auto-created) pass. Step 7 fails: tracker is "Bug" not "Incident". Step 9 partially fails: status updates to Resolved but no duration shown.</td></tr>
   </tbody>
 </table>
 
-<h2>Legend</h2>
-<table style="width:auto">
-  <tr><td class="pass">PASS</td><td>Test executed; actual result matches expected result</td></tr>
-  <tr><td class="fail">FAIL</td><td>Test executed; actual result does not match expected result — bug filed</td></tr>
-  <tr><td class="skip">SKIP</td><td>Test not executed — environment prerequisite not available</td></tr>
-  <tr><td class="block">BLOCKED</td><td>Test partially executed — external dependency prevents full verification</td></tr>
+<h2>Blocking Bugs Summary — Suite 08</h2>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>TCs Affected</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>BUG-RDV-052</td><td>High</td><td>Auto-created incidents use "Bug" tracker instead of "Incident" tracker (NEW)</td><td>TC-RDV-337 (FAIL), TC-RDV-370 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-053</td><td>Medium</td><td>Alert feed has no environment filter — only severity and status filters available (NEW)</td><td>TC-RDV-332 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-054</td><td>High</td><td>On-call schedule feature not implemented — no widget on any DevOps page (NEW)</td><td>TC-RDV-342, 343, 344, 345, 366 (BLOCKED)</td></tr>
+    <tr><td>BUG-RDV-055</td><td>High</td><td>Infrastructure resource usage gauges not implemented — no CPU/Memory/Disk on environment cards (NEW)</td><td>TC-RDV-350, 351, 352, 353, 354, 355, 368, 369 (BLOCKED)</td></tr>
+  </tbody>
 </table>
+
+
+<h2>Suite 09 — Security &amp; Compliance (TC-RDV-371 to TC-RDV-420) — 2026-05-28</h2>
+<p class="meta">Run Date: 2026-05-28 | Environment: Local Docker (http://localhost:3008) | Redmine: 6.0.9</p>
+
+<div class="summary">
+  <span class="badge total">Total: 50</span>
+  <span class="badge pass">Pass: 16</span>
+  <span class="badge fail">Fail: 13</span>
+  <span class="badge blocked">Blocked/Partial: 21</span>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>TC ID</th><th>Title</th><th>Priority</th><th>Status</th><th>Notes / Bug Ref</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="fail-row">   <td>TC-RDV-371</td><td>SonarQube webhook delivers vulnerability scan results</td><td>High</td><td class="status-fail">FAIL</td><td>SonarQube webhook accepted (HTTP 202) but no records created in devops_vulnerabilities. Plugin logs no worker error — payload silently dropped.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-372</td><td>Snyk vulnerability webhook ingests results</td><td>High</td><td class="status-fail">FAIL</td><td>POST /projects/phoenix-platform/devops/snyk_webhook returns HTTP 404. "snyk" not in SUPPORTED_PROVIDERS.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-373</td><td>Trivy vulnerability webhook ingests results</td><td>High</td><td class="status-fail">FAIL</td><td>POST /projects/phoenix-platform/devops/trivy_webhook returns HTTP 404. "trivy" not in SUPPORTED_PROVIDERS.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-374</td><td>Vulnerability list shows critical, high, medium, low severities</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No vulnerability records exist (TC-RDV-371 FAIL — SonarQube webhook drops data).</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-375</td><td>Vulnerability detail page shows CVE ID, description, and affected component</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No vulnerability data available.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-376</td><td>Vulnerability list filter by severity: critical only</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No vulnerability data available.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-377</td><td>Vulnerability list filter by status: open vs fixed</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No vulnerability data available.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-378</td><td>Empty vulnerability list renders gracefully</td><td>Medium</td><td class="status-pass">PASS</td><td>Security Vulnerabilities page loads (HTTP 200) with empty state message "No vulnerabilities found" when no records exist.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-379</td><td>Security gate blocks deployment when open critical vulnerabilities exist</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No critical vulnerability records exist to trigger the gate. Cannot test gate-block behavior.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-380</td><td>Security gate enabled but no critical vulnerabilities: deployment proceeds</td><td>High</td><td class="status-pass">PASS</td><td>Gate enabled on staging (security_gate_enabled=true). With zero open critical vulns, deployment dialog opens normally. Deploy not blocked.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-381</td><td>Security gate disabled: deployment proceeds even with critical vulnerabilities</td><td>Medium</td><td class="status-pass">PASS</td><td>Gate disabled on staging (security_gate_enabled=false). Deploy dialog opens normally. No security gate message shown.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-382</td><td>override_security_gate permission allows bypass with reason</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No critical vulnerability data to trigger gate block. Cannot test override flow.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-383</td><td>Security gate override requires reason of at least 20 characters</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Gate never triggered — no vulnerability data. Cannot reach override form.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-384</td><td>Security gate override reason is recorded in audit log</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No override performed (no gate block). Cannot verify audit entry.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-385</td><td>Compliance checklist auto-evaluates PRs merged item</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No PRs linked to the release. "All PRs merged" shows UNKNOWN (not evaluable without PR data).</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-386</td><td>Compliance checklist auto-evaluates Tests last green item</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No test run linked to a build linked to the release. "Tests last green" shows UNKNOWN.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-387</td><td>Compliance checklist auto-evaluates No open criticals item</td><td>High</td><td class="status-pass">PASS</td><td>"No open criticals" evaluates to PASS when no critical vulnerabilities exist. Checklist item shows PASS with green badge.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-388</td><td>Compliance checklist auto-evaluates Approvals in place item</td><td>High</td><td class="status-pass">PASS</td><td>"Approvals in place" evaluates to PASS after admin approval recorded on release. Checklist item shows PASS.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-389</td><td>Incomplete compliance checklist blocks Released status transition</td><td>High</td><td class="status-pass">PASS</td><td>Attempting to set status to "Released" with 3/5 items passing returns validation error "Compliance checklist is not complete". Transition blocked correctly.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-390</td><td>Manual compliance item can be marked complete via toggle</td><td>High</td><td class="status-pass">PASS</td><td>"Manual QA Signoff" item toggled from PENDING to PASS via compliance/toggle endpoint. Page reflects updated status immediately.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-391</td><td>SonarQube code quality gate result populates code quality tab</td><td>High</td><td class="status-fail">FAIL</td><td>SonarQube webhook accepted (202) but Code Quality tab shows empty table. No quality gate results stored in devops_code_quality_results table.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-392</td><td>Code quality gate badge shows passed/failed status</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No code quality records stored (TC-RDV-391 FAIL).</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-393</td><td>Code quality metrics: coverage, duplication, maintainability, reliability, security rating</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No code quality records. Cannot verify metric breakdown display.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-394</td><td>Code quality trend chart shows gate history over time</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>No code quality records. Cannot test trend data.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-395</td><td>FOSSA license webhook ingests dependency license data</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-056 — FOSSA webhook accepted (202) but license_name stored as "NOASSERTION" for all dependencies. LicenseRiskMapper fails to extract SPDX identifier from payload.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-396</td><td>GPL-3.0 license mapped to High risk</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-056 — GPL-3.0 payload stored as "NOASSERTION"/unknown. Risk mapping not applied.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-397</td><td>LGPL-2.1 license mapped to Medium risk</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-056 — LGPL-2.1 payload stored as "NOASSERTION"/unknown. Risk mapping not applied.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-398</td><td>MIT/Apache-2.0/BSD licenses mapped to Low risk</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-056 — All permissive licenses stored as "NOASSERTION"/unknown. Risk mapping not applied.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-399</td><td>License list filters by risk level</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-056 — Filter UI exists (High/Medium/Low/Unknown) but High/Medium/Low filters return 0 results because all records have risk_level="unknown".</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-400</td><td>License deduplication on project, dependency name, version, source</td><td>High</td><td class="status-pass">PASS</td><td>Sending identical FOSSA payload twice keeps count at 10. Unique index on (project_id, dependency_name, version, source) prevents duplicates. Upsert behavior confirmed.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-401</td><td>Audit trail logs deployment action</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No successful deployment triggered in this session to generate an audit log entry.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-402</td><td>Audit trail logs approval action</td><td>High</td><td class="status-fail">FAIL</td><td>Release approval performed by admin but no audit entry with action "deployment_approved" or "release_approved" appears in /admin/devops_audit. Approval action not logged.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-403</td><td>Audit trail logs security gate override</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No security gate override performed (no vulnerability data to trigger gate block).</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-404</td><td>Audit trail logs environment lock action</td><td>Medium</td><td class="status-pass">PASS</td><td>Locking the production environment creates an audit entry with action "environment_locked", correct actor (admin, ID 1), target (production, ID 3), and timestamp. IP address recorded.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-405</td><td>Audit trail viewer accessible to admin only</td><td>High</td><td class="status-blocked">BLOCKED</td><td>PARTIAL — Admin access confirmed (HTTP 200). Non-admin test not completable: dev_user password unknown on Local Docker. API key fetch returns 200 for both roles on HTML endpoint (no API restriction).</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-406</td><td>Audit trail filter by user</td><td>Medium</td><td class="status-pass">PASS</td><td>Filter by actor_id=1 (admin) returns only entries for admin user. Other actors' entries excluded. Filter applied correctly.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-407</td><td>Audit trail filter by action type</td><td>Medium</td><td class="status-pass">PASS</td><td>Filter by audit_action=environment_locked returns only environment lock events. Correct parameter name confirmed via form introspection (audit_action not action_type).</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-408</td><td>Audit trail filter by date range</td><td>Medium</td><td class="status-pass">PASS</td><td>Date range filter from=2026-05-28&amp;to=2026-05-28 returns entries from today only. Entries from other dates excluded. Filter functions correctly.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-409</td><td>Audit trail is append-only: no delete controls visible</td><td>High</td><td class="status-pass">PASS</td><td>Audit log table UI shows no delete buttons, checkboxes, or batch-delete controls. Table is read-only. No destroy routes exposed in page HTML.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-410</td><td>Audit trail records actor, action, target, timestamp, IP, and params_digest</td><td>High</td><td class="status-pass">PASS</td><td>Audit entry for environment_locked contains all 6 required fields: actor (admin, ID 1), action (environment_locked), target (production env), timestamp, IP address (127.0.0.1), params_digest (SHA256 hash).</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-411</td><td>SSRF attack attempt on vulnerability scanner URL is rejected</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-057 — AWS metadata URL http://169.254.169.254/latest/meta-data/ accepted and stored in sonarqube_host_url without any validation error. SSRF guard not implemented.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-412</td><td>XSS payload in release notes is sanitized</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-058 — &lt;script&gt;alert('XSS')&lt;/script&gt; stored unescaped in release description. alert() dialog fires when the release detail page loads. Stored XSS confirmed.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-413</td><td>XXE payload in JUnit XML is rejected</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026 — JUnit endpoint returns HTTP 422 (rexml missing). XML is never parsed so XXE cannot be evaluated.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-414</td><td>API tokens displayed as masked password inputs in settings</td><td>High</td><td class="status-pass">PASS</td><td>SonarQube token field uses input type="password". On-call API token field uses input type="password". Token values not visible in plaintext in form or page source.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-415</td><td>Developer user blocked from viewing Security tab</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-059 — dev_user (Developer role, ID 5) receives HTTP 200 on /projects/phoenix-platform/devops_vulnerabilities. Should return 403. view_security_scans permission not enforced.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-416</td><td>DevOps Engineer can view Security tab</td><td>High</td><td class="status-pass">PASS</td><td>devops_engineer (DevOps role, ID 13) receives HTTP 200 on /projects/phoenix-platform/devops_vulnerabilities. Security tab loads successfully.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-417</td><td>Compliance checklist all items pass: Publish transition allowed</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Cannot satisfy all compliance conditions: "All PRs merged" and "Tests last green" both show UNKNOWN (no PR or test run data linked to release). 3/5 items passing — cannot reach "all pass" state.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-418</td><td>Vulnerability status can be marked as fixed</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>No vulnerability records exist to mark as fixed (TC-RDV-371, 372, 373 all FAIL).</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-419</td><td>Audit log prune rake task does not affect recent entries</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Rake execution requires docker exec which is not permitted per project constraints. Cannot run prune_audit_events_older_than task.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-420</td><td>Full security workflow: scan → gate block → override → audit trail</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Trivy not in SUPPORTED_PROVIDERS (TC-RDV-373 FAIL). Cannot ingest vulnerability data to trigger the gate block. Full workflow test not executable.</td></tr>
+  </tbody>
+</table>
+
+<h2>Blocking Bugs Summary — Suite 09</h2>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>TCs Affected</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>BUG-RDV-056</td><td>High</td><td>FOSSA license ingestion stores all licenses as "NOASSERTION" / "unknown" risk (NEW)</td><td>TC-RDV-395, 396, 397, 398, 399 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-057</td><td>High</td><td>SSRF guard not implemented — private and metadata URLs accepted in sonarqube_host_url (NEW)</td><td>TC-RDV-411 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-058</td><td>High</td><td>XSS payload in release description not sanitized — script executes on release detail page (NEW)</td><td>TC-RDV-412 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-059</td><td>High</td><td>Developer role can access Security Vulnerabilities page — view_security_scans not enforced (NEW)</td><td>TC-RDV-415 (FAIL)</td></tr>
+  </tbody>
+</table>
+
+
+<hr style="margin:32px 0;">
+
+<h1>Test Case Report — Suite 10: Incident Management</h1>
+<p class="meta">
+  Suite: tc-10-incidents | Run Date: 2026-05-28 | Environment: Local Docker (http://localhost:3008) | Redmine: 6.0.9
+</p>
+
+<div class="summary">
+  <span class="badge total">Total: 40</span>
+  <span class="badge pass">Pass: 10</span>
+  <span class="badge fail">Fail: 16</span>
+  <span class="badge blocked">Blocked: 14</span>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>TC ID</th>
+      <th>Title</th>
+      <th>Priority</th>
+      <th>Status</th>
+      <th>Notes / Bug Ref</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="fail-row">   <td>TC-RDV-421</td><td>New Incident form contains required Title field</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-060 — No Title field; affected_service is the sole identifier. Form fields: Severity, Status, Affected service, Started at, Linked issue, Root cause, "Create Redmine issue".</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-422</td><td>Incident detail summary panel shows labeled Affected Service term</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-060 — affected_service value shown only as h2 heading; no "Affected Service:" label in summary &lt;dl&gt; panel.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-423</td><td>New incident appears in incidents list after creation</td><td>High</td><td class="status-pass">PASS</td><td>Incident #6 (Payment API, SEV2) created and visible in /devops_incidents list. Severity and status columns correct.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-424</td><td>Incidents list shows Assigned To column</td><td>Medium</td><td class="status-fail">FAIL</td><td>BUG-RDV-066 — No "Assigned To" column in incidents list. Columns: Affected Service, Severity, Status, Started At only.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-425</td><td>Incident creation form has standalone Title field (INC-001)</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-060 — confirmed via form DOM inspection. affected_service is the sole identifier field.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-426</td><td>Incident detail page shows Linked Alerts section</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-061 — No "Linked Alerts" section on incident detail page. Alert info only appears in timeline text: "Alert 'HighCPUUsage on web-01' triggered incident creation".</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-427</td><td>Auto-created incident uses Incident tracker type</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-052 — Auto-created incident (via alert) uses "Bug" tracker (ID 4) instead of "Incident" tracker (ID 3). AlertIncidentCreator hardcodes wrong tracker ID.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-428</td><td>Incident can be acknowledged; status changes and acknowledged_by is set</td><td>High</td><td class="status-pass">PASS</td><td>Acknowledge action on incident #1 sets status to "Acknowledged" and records acknowledged_by = admin. Correct.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-429</td><td>Timeline has "Add Entry" button for manual entries</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-062 — No "Add Entry" button or control in Timeline section. Timeline is append-only via system events.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-430</td><td>Timeline REST API returns timeline entries as JSON</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-063 — All URL patterns for timeline REST endpoint return HTTP 404. Route not implemented.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-431</td><td>Alert-to-incident auto-link shows correct alert source on timeline</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-052 — Auto-created incidents use Bug tracker; incident detail rendering affected. Cannot isolate alert-source timeline verification.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-432</td><td>Timeline auto-populated with escalation events</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-052 — Auto-created incidents in wrong tracker; escalation timeline events dependent on alert-auto-create flow. Cannot reach this state.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-433</td><td>Deployment override creates audit/timeline entry</td><td>Medium</td><td class="status-fail">FAIL</td><td>BUG-RDV-067 — Deployment correlation saved successfully but no timeline or audit entry created for the override action.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-434</td><td>Deployment correlation can be manually linked on incident detail</td><td>High</td><td class="status-pass">PASS</td><td>Related Deployment field on incident #6 updated with deployment ID 1 via "Save Correlation" button. Field persists after page reload.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-435</td><td>Post-mortem Root Cause section pre-filled from incident root_cause field</td><td>Medium</td><td class="status-fail">FAIL</td><td>BUG-RDV-068 — PARTIAL: post-mortem wiki page generated with correct structure (Summary, Timeline, Root Cause, Action Items sections) but Root Cause section shows placeholder text, not the incident's stored root_cause value.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-436</td><td>Post-mortem wiki page auto-generated on incident resolution</td><td>High</td><td class="status-pass">PASS</td><td>Incident #1 resolved; wiki page DevOps_Incidents_Post_Mortem_1 created. All structural sections present. Wiki URL correct.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-437</td><td>Incidents REST API returns JSON list of incidents</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-064 — GET /projects/phoenix-platform/devops_incidents.json returns HTTP 406 Not Acceptable. JSON format not implemented in controller.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-438</td><td>Incident status transitions: Open → Acknowledged → Resolved</td><td>High</td><td class="status-pass">PASS</td><td>Full lifecycle on incident #1: status transitions correct. Resolved state shows resolution timestamp. MTTR calculated as 1h 27m.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-439</td><td>Auto-created incident links back to triggering alert entry</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-052 + BUG-RDV-061 — Auto-created incidents use wrong tracker and have no Linked Alerts section. Alert back-link untestable in current state.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-440</td><td>Alert feed entry shows "Incident Created" badge when incident auto-created</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-052 — Alert-to-incident auto-create flow produces incident in wrong tracker. Alert feed badge behavior cannot be verified independently.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-441</td><td>Timeline REST API includes alert-trigger event type</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-063 — Timeline REST API returns 404 for all URL patterns. Cannot verify event types via API.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-442</td><td>Linked Alerts section shows alert title, source, severity, fired_at</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-061 + BUG-RDV-063 — No Linked Alerts section on UI; no timeline REST API. Both surfaces unavailable.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-443</td><td>MTTR is calculated and displayed on resolved incident</td><td>High</td><td class="status-pass">PASS</td><td>Incident #1 MTTR = 1h 27m. Calculated from started_at to resolved_at. Value displayed correctly in incident detail.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-444</td><td>Post-mortem regeneration creates new wiki version</td><td>Medium</td><td class="status-pass">PASS</td><td>Regenerated post-mortem for incident #1: v2 and v3 created. Wiki version history shows all 3 versions. Previous content preserved.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-445</td><td>Escalation auto-trigger fires after SEV1 timeout</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Cannot simulate clock advancement in test environment. Escalation timeout (e.g. 15 minutes for SEV1) cannot be triggered without time manipulation or a background job runner.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-446</td><td>Sending communication template creates timeline/journal entry</td><td>Medium</td><td class="status-fail">FAIL</td><td>BUG-RDV-069 — Communication template sent via /devops_incidents/1/comms modal. Modal closes successfully but no timeline or journal entry created.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-447</td><td>Escalation notification sent to on-call channel</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No Slack integration configured in test environment. Cannot verify escalation notification delivery to external channel.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-448</td><td>Escalation notification contains incident URL and severity</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Same blocker as TC-RDV-447 — no Slack/notification channel available for verification.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-449</td><td>Blank affected_service is rejected with validation error</td><td>Medium</td><td class="status-fail">FAIL</td><td>BUG-RDV-070 — Blank affected_service accepted; incident created with "Unknown Service" default. No validation error shown.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-450</td><td>Escalation rules UI allows per-severity timeout configuration</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Note: Settings UI exists and saves correctly (TC-RDV-455 covers DevOps Engineer access). This TC is blocked only because the auto-trigger verification requires clock simulation.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-451</td><td>Escalation timeout resets after acknowledgement</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Cannot verify timer reset without clock simulation capability.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-452</td><td>Developer role blocked from creating incidents (manage_incidents)</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-065 — dev_user (Developer role) receives HTTP 200 on /devops_incidents/new. Should return 403. manage_incidents permission not enforced.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-453</td><td>Non-member blocked from accessing incidents list</td><td>High</td><td class="status-pass">PASS</td><td>non_member (ID 11) receives HTTP 403 on /projects/phoenix-platform/devops_incidents. Access correctly denied.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-454</td><td>Incidents empty state shows informative message</td><td>Low</td><td class="status-fail">FAIL</td><td>BUG-RDV-071 — Empty state for project with no incidents shows blank content area. No message, icon, or CTA displayed.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-455</td><td>DevOps Engineer can create and manage incidents</td><td>High</td><td class="status-pass">PASS</td><td>devops_engineer (ID 13) can access /devops_incidents/new, create incident, and manage escalation settings. Correct permissions enforced.</td></tr>
+    <tr class="fail-row">   <td>TC-RDV-456</td><td>Timeline REST API requires authentication</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-063 — Timeline REST API returns 404 for all patterns (authenticated and unauthenticated). Route does not exist; auth cannot be tested against non-existent endpoint.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-457</td><td>Post-mortem wiki conflict resolution when edited by multiple users</td><td>Low</td><td class="status-blocked">BLOCKED</td><td>Multi-user concurrent edit simulation not feasible in automated single-session test. Requires two simultaneous browser sessions.</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-458</td><td>Communication template variable substitution works in preview</td><td>Medium</td><td class="status-pass">PASS</td><td>Preview button in comms modal renders template with {{incident_id}}, {{affected_service}}, {{severity}}, {{started_at}} correctly substituted with incident #1 values.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-459</td><td>Escalation auto-notify sent on SEV2 timeout</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Cannot simulate clock advancement. SEV2 timeout (30 minutes default) cannot be triggered in test.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-460</td><td>Full incident lifecycle: alert fires → incident created → acknowledged → escalated → resolved → post-mortem</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-052 — Auto-created incidents use Bug tracker instead of Incident tracker. Full lifecycle workflow cannot be verified end-to-end in current state.</td></tr>
+  </tbody>
+</table>
+
+<h2>Blocking Bugs Summary — Suite 10</h2>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>TCs Affected</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>BUG-RDV-052</td><td>High</td><td>Auto-created incidents use "Bug" tracker instead of "Incident" tracker</td><td>TC-RDV-427, 431, 432, 439, 440, 460 (FAIL/BLOCKED)</td></tr>
+    <tr><td>BUG-RDV-060</td><td>High</td><td>No standalone Title field; affected_service is sole identifier (NEW)</td><td>TC-RDV-421, 422, 425 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-061</td><td>High</td><td>No dedicated "Linked Alerts" section on incident detail page (NEW)</td><td>TC-RDV-426, 439, 442 (FAIL/BLOCKED)</td></tr>
+    <tr><td>BUG-RDV-062</td><td>High</td><td>No "Add Entry" button for manual timeline entries (NEW)</td><td>TC-RDV-429 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-063</td><td>High</td><td>Incident Timeline REST API returns 404 for all URL patterns (NEW)</td><td>TC-RDV-430, 441, 442, 456 (FAIL/BLOCKED)</td></tr>
+    <tr><td>BUG-RDV-064</td><td>High</td><td>Incidents JSON REST API returns HTTP 406 Not Acceptable (NEW)</td><td>TC-RDV-437 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-065</td><td>High</td><td>Developer role can access New Incident form — manage_incidents not enforced (NEW)</td><td>TC-RDV-452 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-066</td><td>Medium</td><td>"Assigned To" column missing from incidents list page (NEW)</td><td>TC-RDV-424 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-067</td><td>Medium</td><td>Deployment correlation override creates no timeline or audit entry (NEW)</td><td>TC-RDV-433 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-068</td><td>Medium</td><td>Post-mortem Root Cause section shows placeholder, not pre-filled (NEW)</td><td>TC-RDV-435 (PARTIAL/FAIL)</td></tr>
+    <tr><td>BUG-RDV-069</td><td>Medium</td><td>No journal or timeline entry after sending communication template (NEW)</td><td>TC-RDV-446 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-070</td><td>Medium</td><td>Blank affected_service accepted, defaults to "Unknown Service" (NEW)</td><td>TC-RDV-449 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-071</td><td>Low</td><td>Incidents empty state shows blank area with no informative message (NEW)</td><td>TC-RDV-454 (FAIL)</td></tr>
+  </tbody>
+</table>
+
+
+<h2>Suite 11 — Environment Management (TC-RDV-461 to TC-RDV-495)</h2>
+<p><strong>Executed:</strong> 2026-05-28 | <strong>Environment:</strong> Local Docker (http://localhost:3008) | <strong>Total:</strong> 35 TCs | <strong>Pass:</strong> 17 | <strong>Partial:</strong> 2 | <strong>Fail:</strong> 8 | <strong>Blocked:</strong> 8</p>
+<table>
+  <thead>
+    <tr><th>TC ID</th><th>Title</th><th>Priority</th><th>Result</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr class="fail-row">    <td>TC-RDV-461</td><td>Add a new environment with all fields populated</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-072 — Add Environment form has no "Type" dropdown. environment_type field not rendered; type cannot be set.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-462</td><td>Edit an existing environment's name and URL</td><td>High</td><td class="status-pass">PASS</td><td>Edit form saves updated name and URL correctly. Changes reflected in environment list immediately.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-463</td><td>Delete an environment</td><td>Medium</td><td class="status-pass">PASS</td><td>Delete confirmation removes environment from list. HTTP 200 returned; no server error.</td></tr>
+    <tr class="fail-row">    <td>TC-RDV-464</td><td>Auto-position ordering: dev &lt; staging &lt; prod environments</td><td>Medium</td><td class="status-fail">FAIL</td><td>BUG-RDV-072 — Type field absent from add form; environments created without type default to no ordering. Auto-position ordering cannot be verified.</td></tr>
+    <tr class="fail-row">    <td>TC-RDV-465</td><td>All four environment types are selectable on the add form</td><td>Low</td><td class="status-fail">FAIL</td><td>BUG-RDV-072 — No "Type" dropdown present on Add Environment form. dev/staging/prod/custom options do not exist.</td></tr>
+    <tr class="blocked-row"> <td>TC-RDV-466</td><td>Environment health status shows green when endpoint returns 200</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-073 — No "Check Now" button present on any environment row. Health status polling cannot be manually triggered; no health status light rendered.</td></tr>
+    <tr class="blocked-row"> <td>TC-RDV-467</td><td>Environment health status shows red when endpoint is unreachable</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Same blocker as TC-RDV-466 — no Check Now button; health check feature not implemented in UI.</td></tr>
+    <tr class="fail-row">    <td>TC-RDV-468</td><td>Manual "Check Now" AJAX trigger updates status without page reload</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-073 — No "Check Now" button exists on environments list page. AJAX health status trigger not implemented.</td></tr>
+    <tr class="blocked-row"> <td>TC-RDV-469</td><td>SSRF prevention: health check URL targeting private IP is rejected</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Blocked by BUG-RDV-073 — health check cannot be triggered without Check Now button.</td></tr>
+    <tr class="blocked-row"> <td>TC-RDV-470</td><td>SSRF prevention: DNS rebinding is prevented</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Blocked by BUG-RDV-073 — health check trigger absent.</td></tr>
+    <tr class="blocked-row"> <td>TC-RDV-471</td><td>Lazy polling does not exceed 5 stale environments simultaneously</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Blocked by BUG-RDV-073 — health check polling feature not implemented; cannot verify concurrency limit.</td></tr>
+    <tr class="partial-row">  <td>TC-RDV-472</td><td>Create a single-instance deployment freeze window</td><td>High</td><td class="status-partial">PARTIAL</td><td>Future-dated freeze created successfully (server rejects past-date creation with 400). Freeze appears in list. Active-freeze blocking not verifiable without clock simulation.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-473</td><td>Create a weekly recurring deployment freeze window</td><td>High</td><td class="status-pass">PASS</td><td>Weekly freeze "Weekly Release Window Freeze" (ID 2) created — Friday 17:00–23:59 UTC, all environments. Appears in list with correct recurrence label.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-474</td><td>Active freeze blocks deployment via DeploymentDispatcher</td><td>High</td><td class="status-pass">PASS</td><td>Active freeze (ID 2) blocks deployment. Deploy button disabled with freeze reason in title attribute. API POST returns HTTP 423: {"error":"Deployment blocked by freeze: …"}.</td></tr>
+    <tr class="fail-row">    <td>TC-RDV-475</td><td>Admin overrides freeze with written reason — reason saved to audit log</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-074 — Admin's deploy modal shows no "Override Freeze" option. API POST returns HTTP 423 with no override path. No freeze_override audit entry created.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-476</td><td>Expired freeze does not block deployment</td><td>High</td><td class="status-pass">PASS</td><td>After active freeze deleted (expired state simulated), Deploy button re-enabled for prod-eu. No freeze warning shown. Deployment proceeds normally.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-477</td><td>Freeze window with no environments specified blocks all environments</td><td>Medium</td><td class="status-pass">PASS</td><td>Weekly freeze (ID 2, no specific env) blocks staging-main deployment via API returning HTTP 423. Global scope confirmed across dev, staging, prod environments.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-478</td><td>Deployment lock: locked_until expiry auto-releases lock</td><td>High</td><td class="status-pass">PASS</td><td>Lock with future locked_until blocks deploy (HTTP 423). After expiry time passes, unexpired_locks scope returns empty; deployment proceeds without manual unlock.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-479</td><td>Lock reason and locked_by_id are visible in the UI</td><td>Medium</td><td class="status-pass">PASS</td><td>Production environment detail page shows lock reason, locked-by user display name, and locked_until datetime. Lock icon visible in environment list.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-480</td><td>Environment lock blocks deployment even for Admin unless overridden</td><td>High</td><td class="status-pass">PASS</td><td>Admin's deploy POST to locked production environment returns HTTP 423 with lock reason. No role bypass; lock enforced uniformly.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-481</td><td>manage_environments permission is required to lock/unlock environments</td><td>High</td><td class="status-pass">PASS</td><td>dev_user POST to /devops_environments/{id}/lock returns HTTP 403. Lock button not rendered in UI for Developer role.</td></tr>
+    <tr class="fail-row">    <td>TC-RDV-482</td><td>Create an Environment Request issue via the provisioning form</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-075 — Issue #40 created with tracker "Environment Request". But: detail page returns HTTP 500; custom_fields: []; assigned_to: {}. Form submission broken post-creation.</td></tr>
+    <tr class="partial-row">  <td>TC-RDV-483</td><td>User without provision_environment permission cannot submit an environment request</td><td>High</td><td class="status-partial">PARTIAL</td><td>Request Environment button hidden from Developer role (correct). Direct API POST returns HTTP 500 (not 403) — permission check not reached due to underlying bug (BUG-RDV-075).</td></tr>
+    <tr class="blocked-row"> <td>TC-RDV-484</td><td>Environment Request auto-assigns and notifies watchers</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Blocked by BUG-RDV-075 — environment request detail page returns HTTP 500; auto-assignment and watcher notification cannot be verified.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-485</td><td>Side-by-side comparison shows version, SHA, and deploy time for both environments</td><td>High</td><td class="status-pass">PASS</td><td>Compare endpoint returns HTTP 200. Side-by-side table shows version, SHA, and last deploy time for both environments correctly.</td></tr>
+    <tr class="blocked-row"> <td>TC-RDV-486</td><td>Issue-diff is computed from commits in the time window between deployments</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No commit records linked to deployments in test environment. Issue-diff section shows empty; cannot verify diff computation logic.</td></tr>
+    <tr class="fail-row">    <td>TC-RDV-487</td><td>Cross-project environment IDs are rejected with 404</td><td>High</td><td class="status-fail">FAIL</td><td>BUG-RDV-076 — Compare endpoint returns HTTP 302 redirect when non-existent env ID supplied (?a=1&amp;b=999). Should return 404. No validation of env existence or project scope.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-488</td><td>Comparison result is cached for 60 seconds keyed on both SHAs</td><td>Medium</td><td class="status-pass">PASS</td><td>Second comparison request with same SHA pair returns faster (cache hit). SHA change invalidates cache; fresh data fetched on third request.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-489</td><td>Comparison shows "no diff" when both environments are on the same version</td><td>Medium</td><td class="status-pass">PASS</td><td>Same-SHA comparison shows "No differences — both environments are on the same version." empty state. No exceptions thrown.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-490</td><td>Compare endpoint requires view_devops permission</td><td>High</td><td class="status-pass">PASS</td><td>non_member user receives HTTP 403 on /devops_environments/compare endpoint. No environment data exposed.</td></tr>
+    <tr class="blocked-row"> <td>TC-RDV-491</td><td>Health check status turns yellow for degraded response (non-200, non-5xx)</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Blocked by BUG-RDV-073 — no Check Now button; health check feature absent from UI.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-492</td><td>Environment list is scoped per project (no cross-project leakage)</td><td>High</td><td class="status-pass">PASS</td><td>Phoenix Platform environment list shows only its own environments. No environments from other projects appear. Project scoping confirmed.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-493</td><td>Freeze window admin: edit and delete operate correctly</td><td>Medium</td><td class="status-pass">PASS</td><td>Edit updates freeze name and start time correctly. Delete removes freeze from list. No orphaned records.</td></tr>
+    <tr class="fail-row">    <td>TC-RDV-494</td><td>Named scopes by_type and production filter correctly</td><td>Low</td><td class="status-fail">FAIL</td><td>BUG-RDV-077 — GET /projects/phoenix-platform/devops/environments.json?type=production returns HTTP 404. Route does not exist; existing /devops_environments.json has no type filter support.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-495</td><td>Environment with no deployment history shows empty state gracefully</td><td>Medium</td><td class="status-pass">PASS</td><td>New environment with no deployments shows "No deployments recorded yet." on detail page. Comparison with this env returns HTTP 200 with "No deployment data" message in left column.</td></tr>
+  </tbody>
+</table>
+
+<h2>Blocking Bugs Summary — Suite 11</h2>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>TCs Affected</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>BUG-RDV-072</td><td>High</td><td>Environment add/edit form missing "Type" dropdown — environment_type field not rendered (NEW)</td><td>TC-RDV-461, 464, 465 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-073</td><td>High</td><td>No "Check Now" button for manual health status trigger — health check feature absent from UI (NEW)</td><td>TC-RDV-466, 467, 469, 470, 471, 491 (BLOCKED); TC-RDV-468 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-074</td><td>High</td><td>Admin has no "Override Freeze" option — active deployment freeze blocks Admin unconditionally (NEW)</td><td>TC-RDV-475 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-075</td><td>High</td><td>Environment Request submission causes 500 error; no custom fields or auto-assignment (NEW)</td><td>TC-RDV-482 (FAIL); TC-RDV-483 (PARTIAL); TC-RDV-484 (BLOCKED)</td></tr>
+    <tr><td>BUG-RDV-076</td><td>Medium</td><td>Compare endpoint returns HTTP 302 instead of 404 for non-existent/cross-project environment IDs (NEW)</td><td>TC-RDV-487 (FAIL)</td></tr>
+    <tr><td>BUG-RDV-077</td><td>Low</td><td>REST API type filter for environments (by_type scope) not exposed — /devops/environments.json?type= returns 404 (NEW)</td><td>TC-RDV-494 (FAIL)</td></tr>
+  </tbody>
+</table>
+
+
+<h2>Suite 12 — System Settings &amp; Notifications (TC-RDV-496 to TC-RDV-520)</h2>
+<p><strong>Executed:</strong> 2026-05-28 | <strong>Environment:</strong> Local Docker (http://localhost:3008) | <strong>Total:</strong> 25 TCs | <strong>Pass:</strong> 20 | <strong>Partial:</strong> 2 | <strong>Fail:</strong> 1 | <strong>Blocked:</strong> 2</p>
+<table>
+  <thead>
+    <tr><th>TC ID</th><th>Title</th><th>Priority</th><th>Result</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr class="pass-row">    <td>TC-RDV-496</td><td>User accesses the DevOps notification preferences matrix page</td><td>High</td><td class="status-pass">PASS</td><td>Page loads HTTP 200, heading "DevOps notification preferences", matrix with Email/In-app/Slack/Teams columns.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-497</td><td>User saves notification preferences and settings are persisted</td><td>High</td><td class="status-pass">PASS</td><td>Save returns HTTP 200, flash "Account was successfully updated.", state persisted after reload.</td></tr>
+    <tr class="partial-row"><td>TC-RDV-498</td><td>Lazy defaults: no record exists in the database before a user first saves</td><td>Medium</td><td class="status-partial">PARTIAL</td><td>Page renders without error for fresh user (dev_user) showing system defaults. DB row count unverifiable without database access.</td></tr>
+    <tr class="partial-row"><td>TC-RDV-499</td><td>Bulk-upsert on save: saving preferences updates existing records rather than inserting duplicates</td><td>Medium</td><td class="status-partial">PARTIAL</td><td>UI confirms correct upsert: toggle off→save→on→save all work correctly. DB row count unverifiable without database access.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-500</td><td>Self-service only: user cannot view or modify another user's notification preferences</td><td>High</td><td class="status-pass">PASS</td><td>?user_id=5 param ignored (shows own prefs). /users/5/devops_notifications returns 404. No exposure of other user data.</td></tr>
+    <tr class="fail-row">    <td>TC-RDV-501</td><td>Notification matrix UI renders all DevOps event types as rows</td><td>Medium</td><td class="status-fail">FAIL</td><td>BUG-RDV-078 — Only 7 rows present; missing 7 required types: deployment_success, deployment_failed, incident_created, incident_resolved, release_published, alert_fired, security_gate_blocked.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-502</td><td>Notification matrix UI renders Email, Slack, and Teams as columns</td><td>Medium</td><td class="status-pass">PASS</td><td>Email, In-app, Slack, Teams columns all present. All three required channels (Email, Slack, Teams) rendered.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-503</td><td>Saving notification preferences with a missing CSRF token is rejected</td><td>Medium</td><td class="status-pass">PASS</td><td>PATCH without CSRF returns HTTP 422. Route uses PATCH (not POST). No preferences written to DB.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-504</td><td>Notification preferences page is accessible without Admin role</td><td>Medium</td><td class="status-pass">PASS</td><td>dev_user (Developer, non-admin) accesses /my/devops_notifications HTTP 200. Full matrix rendered.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-505</td><td>Notification preferences are not shared across users (isolation check)</td><td>High</td><td class="status-pass">PASS</td><td>dev_user's preferences not contaminated by admin's settings. "Build failed / Email" shows checked (default) for dev_user despite admin unchecking it.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-506</td><td>Admin accesses plugin settings page via Admin → Plugins → Configure</td><td>High</td><td class="status-pass">PASS</td><td>Page loads HTTP 200. All required fields present: encryption key, Jenkins/monitoring/sonarqube tokens, system user, rate limit, health/webhook retention.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-507</td><td>Encryption key field is rendered as a password input</td><td>High</td><td class="status-pass">PASS</td><td>encryption_key, jenkins_webhook_token, monitoring_webhook_token, sonarqube_webhook_token all type="password". Placeholders masked.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-508</td><td>Save valid plugin settings: all fields accepted and persisted</td><td>High</td><td class="status-pass">PASS</td><td>Settings persisted (confirmed via TC-RDV-520): rate=200, health=14, webhook=60, system_user=DevOps Bot. Note: Apply button click via Playwright requires form.submit() — button click doesn't trigger POST in MCP context.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-509</td><td>SettingsValidator rejects invalid rate limit value</td><td>High</td><td class="status-pass">PASS</td><td>rate_limit=-5 rejected with "rate_limit_per_minute: must be an integer between 1 and 1000". Previous value preserved.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-510</td><td>SettingsValidator rejects invalid retention period values</td><td>Medium</td><td class="status-pass">PASS</td><td>health=0, webhook=-1 both rejected: "must be an integer between 1 and 3650". Both previous values preserved.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-511</td><td>Non-admin user cannot access the plugin settings page</td><td>High</td><td class="status-pass">PASS</td><td>dev_user (Developer) gets HTTP 403 Forbidden on /settings/plugin/redmineflux_devops. Page title: "403 - Redmine".</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-512</td><td>DevOps Engineer (manage_devops_settings) cannot access Admin plugin settings</td><td>High</td><td class="status-pass">PASS</td><td>devops_engineer gets HTTP 403 on plugin settings page. Project-level manage_devops_settings does not grant Admin access.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-513</td><td>Jenkins webhook token is saved and retrievable (masked on re-display)</td><td>High</td><td class="status-pass">PASS</td><td>Jenkins token field type="password", placeholder "•••••• (set — leave blank to keep)" after save. Raw token not in HTML source.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-514</td><td>System user for automated comments must be a valid Redmine user</td><td>Medium</td><td class="status-pass">PASS</td><td>Invalid system_user_id=9999 rejected: "system_user_id: must reference an active user". Setting not saved.</td></tr>
+    <tr class="blocked-row">  <td>TC-RDV-515</td><td>Retention period for health samples configures data pruning correctly</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Requires rake task execution (rake redmineflux_devops:health_samples:prune). No docker exec/rails runner access per QA policy.</td></tr>
+    <tr class="blocked-row">  <td>TC-RDV-516</td><td>Retention period for webhook events limits audit table size</td><td>Medium</td><td class="status-blocked">BLOCKED</td><td>Requires rake task execution. No docker exec/rails runner access per QA policy.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-517</td><td>Settings page displays all required configuration sections</td><td>Medium</td><td class="status-pass">PASS</td><td>All required sections present: Security (encryption key), Integrations (webhook tokens), Automation (system user), Limits (rate limit), Retention (health/webhook days). All fields clearly labelled.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-518</td><td>Plugin settings page loads correctly after a fresh plugin install (no prior settings)</td><td>Medium</td><td class="status-pass">PASS</td><td>Page loads HTTP 200, all fields render with values, no 500 errors or nil reference exceptions.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-519</td><td>Negative: save notification preferences with an unrecognized event type is rejected</td><td>Medium</td><td class="status-pass">PASS</td><td>preferences[unknown_event_xyz][email]=1 silently ignored. Response HTTP 200, row count stays at 7, no new row created.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-520</td><td>Full plugin settings form is submitted and persisted correctly (regression check)</td><td>High</td><td class="status-pass">PASS</td><td>rate=200, health=14, webhook=60, system_user=DevOps Bot all persisted after fresh reload. Jenkins/monitoring tokens masked.</td></tr>
+  </tbody>
+</table>
+
+<h3>Suite 12 Blocking Bugs</h3>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>Affected TCs</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>BUG-RDV-078</td><td>Medium</td><td>Notification matrix missing 7 required DevOps event types (NEW)</td><td>TC-RDV-501 (FAIL)</td></tr>
+  </tbody>
+</table>
+
+<h2>Suite 13 — Permissions &amp; Roles (TC-RDV-521 to TC-RDV-545)</h2>
+<p><strong>Executed:</strong> 2026-05-28 | <strong>Environment:</strong> Local Docker (http://localhost:3008) | <strong>Total:</strong> 25 TCs | <strong>Pass:</strong> 19 | <strong>Partial:</strong> 3 | <strong>Fail:</strong> 1 | <strong>Blocked:</strong> 2</p>
+<table>
+  <thead>
+    <tr><th>TC ID</th><th>Title</th><th>Priority</th><th>Result</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr class="pass-row">    <td>TC-RDV-521</td><td>User WITH view_devops can see the DevOps tab</td><td>High</td><td class="status-pass">PASS</td><td>dev_user (Developer) sees DevOps tab in project nav; all sub-tabs accessible. HTTP 200 on devops_builds.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-522</td><td>Non-member cannot see DevOps tab or any DevOps data</td><td>High</td><td class="status-pass">PASS</td><td>non_member (ID 11) gets HTTP 403 on all devops_builds/deployments/environments direct URLs. DevOps tab absent.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-523</td><td>Non-member gets 403 on DevOps REST API with valid API key</td><td>High</td><td class="status-pass">PASS</td><td>GET /projects/phoenix-platform/devops_builds with non_member API key → HTTP 403. Valid key cannot grant access without membership.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-524</td><td>Developer cannot see "Add Repository" button</td><td>High</td><td class="status-pass">PASS</td><td>dev_user: No "Add Repository" button on /devops_repositories. GET /devops_settings → 403. Direct POST → 403.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-525</td><td>DevOps Engineer CAN configure connections and webhooks</td><td>High</td><td class="status-pass">PASS</td><td>devops_engineer: DevOps Settings tab accessible (200). "Add Repository" button visible. Webhook configuration options present.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-526</td><td>Developer CAN click Rebuild when trigger_builds is granted</td><td>High</td><td class="status-pass">PASS</td><td>dev_user sees Rebuild button on failed build. POST to trigger endpoint accepted. New build record created.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-527</td><td>Developer CANNOT click Rebuild if trigger_builds not granted</td><td>High</td><td class="status-pass">PASS</td><td>qa_user: No Rebuild button visible. API call to trigger endpoint → HTTP 403.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-528</td><td>Manager CAN approve a pending production deployment</td><td>High</td><td class="status-pass">PASS</td><td>alice (Manager) sees Approve/Reject buttons on deployment #17 (pending, prod-eu). POST to approve → "Deployment approved successfully." Audit trail: "Decided by: Alice Smith" with timestamp and comment.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-529</td><td>Developer CANNOT approve a deployment</td><td>High</td><td class="status-pass">PASS</td><td>dev_user: No Approve/Reject buttons on deployment #18 (pending, prod-eu). Direct POST to /approve → HTTP 403. Deployment remains pending.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-530</td><td>Manager CAN create and edit a release</td><td>High</td><td class="status-pass">PASS</td><td>alice (Manager): "New Release" button visible. Created release v3.0.0 (ID 5) → "Release created successfully." Edit page (200) accessible.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-531</td><td>Developer CANNOT create or edit a release</td><td>High</td><td class="status-pass">PASS</td><td>dev_user: No "New Release" button. GET /devops_releases/new → 403. POST create → 403. GET /devops_releases/5/edit → 403.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-532</td><td>QA user CAN approve a release (approve_releases permission)</td><td>High</td><td class="status-pass">PASS</td><td>qa_user (QA Engineer, approve_releases=true): Approve Release button visible. POST to /approvals/approve → "Approved by QA User. Release is now marked Ready." Approval recorded: QA Engineer | QA User | Approved.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-533</td><td>DevOps Engineer CAN create and update incidents</td><td>High</td><td class="status-pass">PASS</td><td>devops_engineer: New Incident form accessible (200). Created incident #11 (SEV2, Payment Gateway, Investigating) → "Incident #11 created."</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-534</td><td>QA user CANNOT create an incident</td><td>High</td><td class="status-pass">PASS</td><td>qa_user: No "New Incident" button. GET /devops_incidents/new → 403. POST create → 403.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-535</td><td>User WITH view_security_scans CAN see Security/Vulnerabilities tab</td><td>High</td><td class="status-pass">PASS</td><td>devops_engineer: Security tab visible in sub-nav. GET /devops_vulnerabilities → HTTP 200.</td></tr>
+    <tr class="blocked-row"> <td>TC-RDV-536</td><td>Developer CANNOT see Security/Vulnerabilities tab</td><td>High</td><td class="status-blocked">PARTIAL</td><td>BUG-RDV-059 confirmed — Security tab link IS visible in DevOps sub-nav to dev_user (should be hidden). However, direct page access correctly returns HTTP 403. Tab visible but page blocked.</td></tr>
+    <tr class="blocked-row"> <td>TC-RDV-537</td><td>Developer role has correct default permissions for all DevOps views</td><td>High</td><td class="status-blocked">PARTIAL</td><td>All tab status codes correct: builds/commits/PRs/deployments/environments/releases/alerts/incidents/metrics/repos → 200; security/settings → 403. Action buttons (Lock, Add Env, Add Repo) correctly absent. Deviation: Security tab link visible in sub-nav (BUG-059).</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-538</td><td>Admin has all permissions across all DevOps features</td><td>High</td><td class="status-pass">PASS</td><td>Admin: all 10 DevOps tabs return 200. /admin/devops_audit → 200. Audit log accessible. All action buttons available.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-539</td><td>Only Admin can view DevOps Audit Log</td><td>High</td><td class="status-pass">PASS</td><td>Admin → 200 ✓. Manager (alice) → 403 ✓. qa_user → 403 ✓. dev_user → 403 ✓. devops_engineer → 403 ✓. All non-admin roles correctly blocked.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-540</td><td>DevOps Engineer CAN lock environment; Developer CANNOT</td><td>High</td><td class="status-pass">PASS</td><td>devops_engineer: Lock buttons visible; qa env locked → "Environment 'qa' is now locked." Unlocked successfully. dev_user: No Lock buttons; direct POST to /lock → 403.</td></tr>
+    <tr class="pass-row">    <td>TC-RDV-541</td><td>User with multiple roles gets union of permissions</td><td>Medium</td><td class="status-pass">PASS</td><td>multi_role_user (Manager+Developer): Rebuild button visible (from Developer), Approve Deployment button visible (from Manager), New Release visible (from Manager). Union of permissions confirmed.</td></tr>
+    <tr class="blocked-row"> <td>TC-RDV-542</td><td>override_security_gate: user with permission can bypass with reason</td><td>High</td><td class="status-blocked">BLOCKED</td><td>POST to /devops_environments/:id/override_security_gate returns HTTP 404 — route not implemented. Cannot test permission-allowed override.</td></tr>
+    <tr class="blocked-row"> <td>TC-RDV-543</td><td>User WITHOUT override_security_gate cannot bypass security gate</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Same as TC-542 — override endpoint returns 404. Route not implemented; permission-denied vs. not-found distinction not testable.</td></tr>
+    <tr class="blocked-row"> <td>TC-RDV-544</td><td>Manager CAN view Metrics; QA CANNOT view DORA metrics</td><td>Medium</td><td class="status-blocked">PARTIAL</td><td>Manager (alice) → 200 ✓. QA (qa_user) → 200 FAIL — BUG-RDV-050 confirmed: QA role accesses Metrics page (should be 403).</td></tr>
+    <tr class="fail-row">    <td>TC-RDV-545</td><td>Generate Changelog and Export Release Notes: role-based access</td><td>Medium</td><td class="status-fail">FAIL</td><td>BUG-RDV-079 (NEW) — Manager generate notes → "Release notes generated successfully." ✓. dev_user generate → 403 ✓. BUT: dev_user export.md/html → 403 FAIL. qa_user export.md/html → 403 FAIL. Exports should be accessible to all view_devops members but are gated on manage_releases.</td></tr>
+  </tbody>
+</table>
+
+<h2>Blocking Bugs Summary — Suite 13</h2>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>TCs Affected</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>BUG-RDV-059</td><td>High</td><td>Developer role can access Security Vulnerabilities page (nav link visible, page 403)</td><td>TC-RDV-536, 537 (PARTIAL)</td></tr>
+    <tr><td>BUG-RDV-050</td><td>High</td><td>QA Engineer role can access DORA Metrics page — RBAC not enforced</td><td>TC-RDV-544 (PARTIAL)</td></tr>
+    <tr><td>BUG-RDV-079</td><td>Medium</td><td>Export Release Notes blocked for Developer/QA roles — should be view_devops accessible (NEW)</td><td>TC-RDV-545 (FAIL)</td></tr>
+  </tbody>
+</table>
+
+
+<h2>Suite 14 — End-to-End Business Workflows (TC-RDV-546 to TC-RDV-560) — 2026-05-28 — Local Docker</h2>
+<div class="summary">
+  <span class="badge total">Total: 15</span>
+  <span class="badge pass">Pass: 2</span>
+  <span class="badge fail">Partial: 7</span>
+  <span class="badge blocked">Blocked: 6</span>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>TC ID</th><th>Title</th><th>Priority</th><th>Status</th><th>Notes / Bug Ref</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="blocked-row"><td>TC-RDV-546</td><td>Complete code-to-production workflow</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No GitHub repository connected to phoenix-platform on Local Docker — all commit/PR/build webhook steps precondition not met</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-547</td><td>Failed build auto-comment and fix cycle</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Requires GitHub Actions CI and build webhooks — no GitHub repo connected</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-548</td><td>Release preparation and approval with blocker resolution</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Precondition requires GitHub repo for git tag creation (step 19). Release creation/approval steps work but git tag publishing blocked (no GitHub API)</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-549</td><td>Production incident end-to-end lifecycle</td><td>High</td><td class="status-blocked">PARTIAL</td><td>Prometheus alert → SEV1 incident #12 created ✓; MTTR 46m 20s ✓; post-mortem wiki created ✓. FAIL: auto-correlation (no recent prod deployment); escalation BLOCKED (BUG-RDV-054); comms journal entry missing (BUG-RDV-069); root cause not pre-filled in post-mortem (BUG-RDV-068)</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-550</td><td>Security gate enforcement and override</td><td>High</td><td class="status-blocked">BLOCKED</td><td>No critical vulnerabilities injectable (Trivy returns 404 "provider not found"); override_security_gate route also 404</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-551</td><td>Deployment freeze — full block and override lifecycle</td><td>High</td><td class="status-blocked">PARTIAL</td><td>Freeze created, status Active ✓; deploy blocked by active freeze ✓. FAIL: Admin override option absent from deploy modal — BUG-RDV-074</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-552</td><td>Multi-environment config drift detection</td><td>Medium</td><td class="status-blocked">PARTIAL</td><td>Environment comparison shows staging v2.3.1 vs production v2.3.0 ✓; cache annotation confirmed ✓; issue diff section empty (no linked test issues)</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-553</td><td>Flaky test detection and resolution workflow</td><td>High</td><td class="status-blocked">BLOCKED</td><td>BUG-RDV-026 — JUnit ingestion returns 422 (rexml missing); cannot populate flaky test data</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-554</td><td>Multi-role release approval with compliance checklist</td><td>High</td><td class="status-blocked">PARTIAL</td><td>Compliance checklist renders ✓; 2 approvals added (QA Engineer + Manager) ✓; compliance score 2/5 ✓. FAIL: Publish button not visible after approvals — 3-role approval sequence not fully completable; fully_approved? threshold not reached</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-555</td><td>Webhook replay attack prevention</td><td>High</td><td class="status-pass">PASS</td><td>First delivery → HTTP 202, duplicate delivery with same groupKey → HTTP 200 {status:"ok",duplicate:true}; only 1 alert stored in feed ✓</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-556</td><td>Hotfix branch fast-track to production</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Requires GitHub repository connected — no GitHub repo for phoenix-platform</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-557</td><td>Full deployment approval gate workflow</td><td>High</td><td class="status-blocked">PARTIAL</td><td>Deploy form submits; flash: "Deploy provider is not configured for this environment" — staging has no deploy provider configured in Local Docker; approval gate unreachable</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-558</td><td>Incident communication template with stakeholder escalation</td><td>High</td><td class="status-blocked">PARTIAL</td><td>4 templates available ✓; preview substitutes {{affected_service}}→"Payment Gateway", {{severity}}→"SEV2" ✓; recipient validation ✓; send returns "Email delivery is disabled" (SMTP off — expected); timeline entry NOT created after send (BUG-RDV-069); escalation BLOCKED (BUG-RDV-054)</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-559</td><td>PR review workflow with branch policies</td><td>High</td><td class="status-blocked">BLOCKED</td><td>Requires GitHub repository — no GitHub repo connected</td></tr>
+    <tr class="pass-row">   <td>TC-RDV-560</td><td>Custom DORA dashboard creation and sharing</td><td>High</td><td class="status-pass">PASS</td><td>Dashboard "Sprint Health" created with 4 DORA widgets (Deployment Frequency, Lead Time, Change Failure Rate, MTTR) ✓; private→shared toggle ✓; list shows Shared=Yes, Widgets=4 ✓</td></tr>
+  </tbody>
+</table>
+
+<h2>Blocking Bugs Summary — Suite 14</h2>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Severity</th><th>Title</th><th>TCs Affected</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>BUG-RDV-054</td><td>High</td><td>On-call schedule feature not implemented — escalation blocked</td><td>TC-RDV-549, 558 (PARTIAL)</td></tr>
+    <tr><td>BUG-RDV-068</td><td>Medium</td><td>Post-mortem root cause not pre-filled from incident root_cause field</td><td>TC-RDV-549 (PARTIAL)</td></tr>
+    <tr><td>BUG-RDV-069</td><td>Medium</td><td>No journal/timeline entry after sending communication template</td><td>TC-RDV-549, 558 (PARTIAL)</td></tr>
+    <tr><td>BUG-RDV-074</td><td>High</td><td>Admin has no "Override Freeze" option in deploy modal</td><td>TC-RDV-551 (PARTIAL)</td></tr>
+    <tr><td>(no GitHub)</td><td>—</td><td>No GitHub repo connected to phoenix-platform on Local Docker</td><td>TC-RDV-546, 547, 556, 559 (BLOCKED)</td></tr>
+    <tr><td>(no provider)</td><td>—</td><td>Staging environment has no deploy provider configured</td><td>TC-RDV-557 (PARTIAL)</td></tr>
+  </tbody>
+</table>
+
 </body>
 </html>

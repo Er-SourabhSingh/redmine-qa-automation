@@ -2,11 +2,34 @@
 
 ## Last Session
 
-- Date: 2026-05-28 (Session 23 — Suite 14 execution on Local Docker)
+- Date: 2026-05-29 (Session 25 — Retest 2: all QA/ bugs retested)
 - Redmine Version: 6.0.9 (Local — http://localhost:3008)
 - Environment: Local Docker, project phoenix-platform (ID=1)
 
 ## Completed This Session
+
+- Retested all 27 bugs that were in QA/ folder (2nd retest cycle)
+- Results: 9 FIXED, 18 STILL OPEN
+- Newly FIXED: BUG-009, 048, 053, 054, 074, 076, 080, 082, 083
+- Moved 9 fixed bugs to bugs/closed/, 18 open bugs to bugs/open/
+- QA/ folder now empty
+- Updated _index.md, STATUS.md, defects-summary.html, changelog.md, handoff.md
+- Total closed bugs: 67 | Total open: 18
+- 4 new bugs filed: BUG-RDV-080 (High), BUG-RDV-081 (Medium), BUG-RDV-082 (Medium), BUG-RDV-083 (Medium)
+- Generated 8 per-suite bug PDFs (bugs-suite-06.pdf through bugs-suite-13.pdf) in reports/
+- Updated all end-of-session documentation
+- Total open bugs: 44 (was 40)
+
+## Session 24 Suite 15 Results (Local Docker — 2026-05-29)
+
+| Result | Count | TCs |
+|--------|-------|-----|
+| PASS | 7 | TC-561, TC-563, TC-567, TC-570, TC-571, TC-572, TC-575 |
+| PARTIAL | 5 | TC-562, TC-565, TC-566, TC-569, TC-574 |
+| FAIL | 1 | TC-564 |
+| BLOCKED | 2 | TC-568 (insufficient build data), TC-573 (BUG-RDV-070) |
+
+## Previous Session (Session 23)
 
 - Executed Suite 14 (End-to-End Business Workflows, TC-RDV-546 to TC-RDV-560, 15 TCs) on Local Docker
 - Results: 2 PASS, 7 PARTIAL, 6 BLOCKED, 0 FAIL
@@ -142,9 +165,13 @@
 
 ## Next Session Start Point
 
-**Suite 14 complete (2026-05-28, Local). Next: Suite 15 — tc-15-multilanguage-ui-validation.md**
+**Suite 15 complete (2026-05-29, Local). ALL 15 SUITES COMPLETE.**
 
-Start with Local Docker for Suite 15. Read the tc-15 test case file before executing.
+All test suites (01–15, TC-RDV-001 to TC-RDV-575) have been executed on Local Docker. Testing cycle is complete.
+
+Next actions:
+1. If the plugin is updated, run priority retests in the order listed below.
+2. If a new test cycle is requested, reset the environment and re-execute from Suite 01.
 
 If the plugin is updated before Suite 15, priority retest order:
 1. **BUG-RDV-079** — verify export.md and export.html return 200 for dev_user (Developer) and qa_user (QA Engineer) who have view_devops; confirm Manager (manage_releases) still works; confirm non_member still gets 403

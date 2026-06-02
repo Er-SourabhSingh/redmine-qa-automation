@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>TC Report — redmineflux_devops — Suites 06–14</title>
+  <title>TC Report — redmineflux_devops — Suites 06–15</title>
   <style>
     body { font-family: sans-serif; font-size: 13px; color: #222; margin: 20px; }
     h1 { font-size: 18px; margin-bottom: 4px; }
@@ -634,6 +634,45 @@
     <tr><td>BUG-RDV-074</td><td>High</td><td>Admin has no "Override Freeze" option in deploy modal</td><td>TC-RDV-551 (PARTIAL)</td></tr>
     <tr><td>(no GitHub)</td><td>—</td><td>No GitHub repo connected to phoenix-platform on Local Docker</td><td>TC-RDV-546, 547, 556, 559 (BLOCKED)</td></tr>
     <tr><td>(no provider)</td><td>—</td><td>Staging environment has no deploy provider configured</td><td>TC-RDV-557 (PARTIAL)</td></tr>
+  </tbody>
+</table>
+
+<h2>Suite 15 — Multi-Language UI Validation (TC-RDV-561 to TC-RDV-575)</h2>
+<div class="summary">
+  <span class="badge total">Total: 15</span>
+  <span class="badge pass">Pass: 7</span>
+  <span class="badge" style="background:#cce5ff;color:#004085;font-weight:bold">Partial: 5</span>
+  <span class="badge fail">Fail: 1</span>
+  <span class="badge blocked">Blocked: 2</span>
+</div>
+<table>
+  <thead><tr><th>TC ID</th><th>Title</th><th>Result</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr class="pass-row"><td>TC-RDV-561</td><td>DevOps tab visible after enabling plugin module</td><td class="status-pass">PASS</td><td>Tab absent before enabling; appears and navigates to devops_builds (HTTP 200) after enabling. No console errors.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-562</td><td>Sub-navigation bar shows all 12 tabs without overflow</td><td class="status-blocked">PARTIAL</td><td>20 tabs (not 12 per spec); carousel &lt;&gt; arrows handle overflow; "Performance" tab clips at 1280×800 right edge. No horizontal scrollbar.</td></tr>
+    <tr class="pass-row"><td>TC-RDV-563</td><td>Active tab highlighted with blue underline</td><td class="status-pass">PASS</td><td>border-bottom: 2px solid rgb(26,115,232) confirmed on Builds, Incidents, Deployments. CSS class on parent li (not inline style).</td></tr>
+    <tr class="fail-row"><td>TC-RDV-564</td><td>Empty state messages shown when no data exists</td><td class="status-fail">FAIL</td><td>Blank content area on Builds, Incidents, Alerts, Security, Deployments tabs. No empty state message on any tab. BUG-RDV-083 (extends BUG-RDV-071).</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-565</td><td>Build status labels translated in German, French, Spanish</td><td class="status-blocked">PARTIAL</td><td>Sub-nav and table headers translated ✓. Build status badge values (pending/running/success/failed) NOT translated in de/fr/es. BUG-RDV-081.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-566</td><td>Severity labels translated in Japanese</td><td class="status-blocked">PARTIAL</td><td>Column headers in Japanese (重大度/ステータス etc.) ✓. Status badge values (investigating/resolved) remain English. BUG-RDV-081.</td></tr>
+    <tr class="pass-row"><td>TC-RDV-567</td><td>No broken layout in Russian or Japanese</td><td class="status-pass">PASS</td><td>scrollWidth=clientWidth=1231 in both ru and ja. Carousel arrows handle tab overflow gracefully. No element overlap or table distortion.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-568</td><td>Pagination labels translated across key languages</td><td class="status-blocked">BLOCKED</td><td>Only 12 builds exist — pagination shows "(1-12/12)" but Previous/Next buttons not active. Insufficient data to test translated pagination labels.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-569</td><td>Action button labels translated in all 10 languages</td><td class="status-blocked">PARTIAL</td><td>Deploy/Lock/Approve/Delete buttons translated in 8/10 languages ✓. "Deploy" remains English in pt/pt-BR. "Add Rule" not translated in any language. BUG-RDV-080.</td></tr>
+    <tr class="pass-row"><td>TC-RDV-570</td><td>No layout overflow in Simplified Chinese</td><td class="status-pass">PASS</td><td>scrollWidth=clientWidth=1231 in zh. All 12 sub-nav visible pages render without layout overflow. CJK characters fit within container bounds.</td></tr>
+    <tr class="pass-row"><td>TC-RDV-571</td><td>Plugin loads in Dutch, Polish, Portuguese without console errors</td><td class="status-pass">PASS</td><td>Zero console errors across 4 DevOps pages each in nl, pl, pt. UI renders in target language. Navigation and data display function correctly.</td></tr>
+    <tr class="pass-row"><td>TC-RDV-572</td><td>Brazilian Portuguese and European Portuguese use separate locale files</td><td class="status-pass">PASS</td><td>pt uses "Apagar/Guardar/Estado/Calendário"; pt-BR uses "Excluir/Salvar/Status/Agenda". Confirmed distinct vocabulary — separate locale files.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-573</td><td>Form validation error messages translated</td><td class="status-blocked">BLOCKED</td><td>BLOCKED by BUG-RDV-070 — blank affected_service accepted without validation; incident created (IDs 13/14/15 in de/fr/es). No error messages to test translation of.</td></tr>
+    <tr class="blocked-row"><td>TC-RDV-574</td><td>Tooltip translations present on action buttons</td><td class="status-blocked">PARTIAL</td><td>Rebuild tooltip: "Erneut bauen" (de) / "Reconstruire" (fr) ✓. Lock tooltip: "Sperren" (de) / "Verrouiller" (fr) ✓. Locked-deploy tooltip "Deployment is disabled..." NOT translated in any language. Post-mortem button has no tooltip at all. BUG-RDV-082.</td></tr>
+    <tr class="pass-row"><td>TC-RDV-575</td><td>Language switching does not require page reload to take effect</td><td class="status-pass">PASS</td><td>Language change takes effect immediately after save/reload. No cache clear or browser restart required. French sub-nav (Demande de tirages, Qualité du code, Déploiements) rendered correctly after switch.</td></tr>
+  </tbody>
+</table>
+<h3>Suite 15 Defects</h3>
+<table>
+  <thead><tr><th>Bug ID</th><th>Severity</th><th>Summary</th><th>Affected TCs</th></tr></thead>
+  <tbody>
+    <tr><td>BUG-RDV-080</td><td>High</td><td>Multiple UI strings missing from locale files across all non-English locales (Settings/Dashboard/New Incident/date filters)</td><td>TC-RDV-569 (PARTIAL), TC-RDV-573 (BLOCKED)</td></tr>
+    <tr><td>BUG-RDV-081</td><td>Medium</td><td>Build/incident operational status badge values not localised — English in all 10 non-English locales</td><td>TC-RDV-565 (PARTIAL), TC-RDV-566 (PARTIAL)</td></tr>
+    <tr><td>BUG-RDV-082</td><td>Medium</td><td>"Deployment is disabled — this environment is locked." tooltip not translated; post-mortem button tooltip absent</td><td>TC-RDV-574 (PARTIAL)</td></tr>
+    <tr><td>BUG-RDV-083</td><td>Medium</td><td>Empty state messages absent on Builds, Alerts, Security, Deployments tabs (extends BUG-RDV-071)</td><td>TC-RDV-564 (FAIL)</td></tr>
   </tbody>
 </table>
 

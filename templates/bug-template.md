@@ -26,9 +26,17 @@
 
 ## Evidence
 
-- Screenshot path:
-- Log path:
-- Trace/video path:
+### Screenshot
+
+![Bug evidence](../../screenshots/BUG-XXX/descriptive-name.png)
+
+### Retest screenshot (fill after fix is verified)
+
+![Retest result](../../screenshots/BUG-XXX/retest-yyyy-mm-dd-pass.png)
+
+### Console / log
+
+- 
 
 ## Duplicate check
 

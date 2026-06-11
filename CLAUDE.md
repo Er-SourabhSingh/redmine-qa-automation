@@ -278,6 +278,7 @@ Format: `BUG-<PLUGIN-CODE>-<NUMBER>`
 | gantt-plugin | GNT |
 | redmineflux_advanced_field | RAF |
 | redmineflux_devops | RDV |
+| redmineflux_scarlet | RSC |
 
 Examples: `BUG-TCM-001`, `BUG-GNT-001`
 
@@ -295,23 +296,36 @@ Always include:
 - Expected result
 - Actual result
 - User role when bug was found
-- Screenshot path under `screenshots/<BUG-ID>/`
+- Screenshot **embedded** in the bug MD file using `![](../../screenshots/<BUG-ID>/filename.png)` — not a plain text path
 
 ---
 
 ## 6. Screenshot Rules
 
-Take screenshots for **every test case executed** and for every bug found.
+Take screenshots **only for bugs** — do NOT take screenshots during normal test case execution.
 
 | Screenshot type | Save location | Naming pattern |
 |-----------------|---------------|----------------|
-| TC execution (PASS/FAIL) | `screenshots/<TC-ID>/` | `<tc-id>-pass.png` or `<tc-id>-fail.png` |
 | Bug evidence | `screenshots/<BUG-ID>/` | descriptive name of the failure |
 | Bug retest | `screenshots/<BUG-ID>/` | `retest-<date>-<result>.png` |
 
-- TC screenshot must show the final page state that confirms the PASS or FAIL result.
 - Bug screenshot must clearly show the failure area with the relevant page state visible.
 - Retest screenshots go in the same `<BUG-ID>` folder as the original bug evidence.
+
+### Embedding screenshots in bug MD files
+
+Screenshots **must be embedded** in the bug MD file using markdown image syntax so they render visually when the file is opened — do NOT write a plain text path.
+
+```markdown
+![Bug evidence](../../screenshots/BUG-XXX/descriptive-name.png)
+```
+
+The relative path goes up two levels from `bugs/open/` to reach `screenshots/`:
+
+```
+bugs/open/BUG-XXX.md  →  ../../screenshots/BUG-XXX/filename.png
+bugs/closed/BUG-XXX.md  →  ../../screenshots/BUG-XXX/filename.png
+```
 
 ---
 

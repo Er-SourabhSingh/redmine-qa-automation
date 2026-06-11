@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Defects Summary — Redmineflux Scarlet Theme</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 24px; color: #222; }
+  h1 { color: #b22222; }
+  h2 { color: #444; border-bottom: 2px solid #b22222; padding-bottom: 4px; margin-top: 24px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px; }
+  th { background: #b22222; color: #fff; padding: 8px 10px; text-align: left; }
+  td { padding: 7px 10px; border-bottom: 1px solid #ddd; }
+  tr:nth-child(even) td { background: #f9f9f9; }
+  .high { color: #d97700; font-weight: bold; }
+  .medium { color: #1a6bc4; font-weight: bold; }
+  .low { color: #207a1f; font-weight: bold; }
+  .open { color: #b22222; font-weight: bold; }
+  .summary-box { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .stat { background: #f4f4f4; border: 1px solid #ddd; border-radius: 6px; padding: 12px 20px; text-align: center; min-width: 80px; }
+  .stat .num { font-size: 28px; font-weight: bold; }
+  .stat .label { font-size: 12px; color: #666; }
+  .meta { font-size: 12px; color: #666; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<h1>Defects Summary — Redmineflux Scarlet Theme</h1>
+<p class="meta">
+  Redmine: 6.1.2.stable.24650 &nbsp;|&nbsp; Plugin: redmineflux_scarlet 1.0.0 &nbsp;|&nbsp;
+  Sessions 1 &amp; 2 &nbsp;|&nbsp; Date: 2026-06-04
+</p>
+
+<div class="summary-box">
+  <div class="stat"><div class="num">4</div><div class="label">Total Open</div></div>
+  <div class="stat"><div class="num" style="color:#b22222">0</div><div class="label">Critical</div></div>
+  <div class="stat"><div class="num" style="color:#d97700">1</div><div class="label">High</div></div>
+  <div class="stat"><div class="num" style="color:#1a6bc4">2</div><div class="label">Medium</div></div>
+  <div class="stat"><div class="num" style="color:#207a1f">1</div><div class="label">Low</div></div>
+  <div class="stat"><div class="num" style="color:#207a1f">0</div><div class="label">Closed</div></div>
+</div>
+
+<h2>Open Defects</h2>
+<table>
+  <tr><th>Bug ID</th><th>Title</th><th>Severity</th><th>Affected Pages</th><th>Status</th></tr>
+  <tr>
+    <td>BUG-RSC-001</td>
+    <td>Theme asset activity.css returns 404 on every page</td>
+    <td class="medium">Medium</td>
+    <td>All pages</td>
+    <td class="open">Open</td>
+  </tr>
+  <tr>
+    <td>BUG-RSC-002</td>
+    <td>JavaScript error — 'lastJstPreviewed' already declared on pages with rich text editor</td>
+    <td class="medium">Medium</td>
+    <td>New Issue, Issue Detail, New Project, Wiki edit</td>
+    <td class="open">Open</td>
+  </tr>
+  <tr>
+    <td>BUG-RSC-003</td>
+    <td>Priority SVG icons missing (404) — priority indicators not displayed on issues list</td>
+    <td class="high">High</td>
+    <td>Issues list (/projects/*/issues)</td>
+    <td class="open">Open</td>
+  </tr>
+  <tr>
+    <td>BUG-RSC-004</td>
+    <td>Tribute mention library bound twice to textarea on rich text editor pages</td>
+    <td class="low">Low</td>
+    <td>Wiki edit, New Issue, Issue detail</td>
+    <td class="open">Open</td>
+  </tr>
+</table>
+
+<h2>Root Cause Categories</h2>
+<table>
+  <tr><th>Category</th><th>Count</th><th>Bug IDs</th></tr>
+  <tr><td>Missing theme asset (404)</td><td>2</td><td>BUG-RSC-001, BUG-RSC-003</td></tr>
+  <tr><td>JavaScript conflict (duplicate declaration/binding)</td><td>2</td><td>BUG-RSC-002, BUG-RSC-004</td></tr>
+</table>
+
+<h2>Test Coverage Summary</h2>
+<table>
+  <tr><th>Session</th><th>TCs Run</th><th>PASS</th><th>FAIL</th><th>INFO</th><th>New Bugs</th></tr>
+  <tr><td>Session 1 — 2026-06-04</td><td>14</td><td>12</td><td>1</td><td>1</td><td>3 (BUG-RSC-001, 002, 003)</td></tr>
+  <tr><td>Session 2 — 2026-06-04</td><td>25</td><td>25</td><td>0</td><td>0</td><td>1 (BUG-RSC-004)</td></tr>
+  <tr><td><strong>Total</strong></td><td><strong>39</strong></td><td><strong>37</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>4</strong></td></tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TC Report — Redmineflux Scarlet Theme</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 24px; color: #222; }
+  h1 { color: #b22222; }
+  h2 { color: #444; border-bottom: 2px solid #b22222; padding-bottom: 4px; margin-top: 28px; }
+  h3 { color: #666; margin-top: 18px; margin-bottom: 6px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 13px; }
+  th { background: #b22222; color: #fff; padding: 8px 10px; text-align: left; }
+  td { padding: 7px 10px; border-bottom: 1px solid #ddd; }
+  tr:nth-child(even) td { background: #f9f9f9; }
+  .pass { color: #207a1f; font-weight: bold; }
+  .fail { color: #b22222; font-weight: bold; }
+  .info { color: #777; font-weight: bold; }
+  .summary-box { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .stat { background: #f4f4f4; border: 1px solid #ddd; border-radius: 6px; padding: 12px 20px; text-align: center; min-width: 80px; }
+  .stat .num { font-size: 28px; font-weight: bold; }
+  .stat .label { font-size: 12px; color: #666; }
+  .meta { font-size: 12px; color: #666; margin-bottom: 16px; }
+  .session-header { background: #f0f0f0; padding: 6px 10px; border-left: 4px solid #b22222; margin: 18px 0 10px; font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>Test Case Execution Report — Redmineflux Scarlet Theme</h1>
+<p class="meta">
+  Redmine: 6.1.2.stable.24650 &nbsp;|&nbsp; Plugin: redmineflux_scarlet 1.0.0 &nbsp;|&nbsp;
+  Environment: Forge (https://dev-flux.zehntech.com/) &nbsp;|&nbsp; Browser: Chrome &nbsp;|&nbsp;
+  Tested by: sourabh.singh &nbsp;|&nbsp; Date: 2026-06-04 (Sessions 1 &amp; 2)
+</p>
+
+<div class="summary-box">
+  <div class="stat"><div class="num">39</div><div class="label">Total TCs</div></div>
+  <div class="stat" style="border-color:#207a1f"><div class="num" style="color:#207a1f">37</div><div class="label">PASS</div></div>
+  <div class="stat" style="border-color:#b22222"><div class="num" style="color:#b22222">1</div><div class="label">FAIL</div></div>
+  <div class="stat" style="border-color:#777"><div class="num" style="color:#777">1</div><div class="label">INFO</div></div>
+  <div class="stat" style="border-color:#b22222"><div class="num" style="color:#b22222">4</div><div class="label">Open Bugs</div></div>
+</div>
+
+<h2>Session 1 — 2026-06-04</h2>
+
+<h3>Login &amp; Navigation</h3>
+<table>
+  <tr><th>TC ID</th><th>Title</th><th>Result</th><th>Bug Ref</th></tr>
+  <tr><td>TC-RSC-001</td><td>Login page renders with scarlet theme</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-002</td><td>My Page loads — blocks, add dropdown</td><td class="pass">PASS</td><td>BUG-RSC-001 (console)</td></tr>
+</table>
+
+<h3>Projects</h3>
+<table>
+  <tr><th>TC ID</th><th>Title</th><th>Result</th><th>Bug Ref</th></tr>
+  <tr><td>TC-RSC-003</td><td>Projects list renders correctly</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-004</td><td>New Project form renders</td><td class="pass">PASS</td><td>BUG-RSC-002 (console)</td></tr>
+</table>
+
+<h3>Issues</h3>
+<table>
+  <tr><th>TC ID</th><th>Title</th><th>Result</th><th>Bug Ref</th></tr>
+  <tr><td>TC-RSC-005</td><td>Issues list — priority icons visible</td><td class="fail">FAIL</td><td>BUG-RSC-003</td></tr>
+  <tr><td>TC-RSC-006</td><td>New Issue form renders</td><td class="pass">PASS</td><td>BUG-RSC-002 (console)</td></tr>
+  <tr><td>TC-RSC-011</td><td>Issue detail — attributes, tabs, watchers</td><td class="pass">PASS</td><td>BUG-RSC-002 (console)</td></tr>
+</table>
+
+<h3>Administration</h3>
+<table>
+  <tr><th>TC ID</th><th>Title</th><th>Result</th><th>Bug Ref</th></tr>
+  <tr><td>TC-RSC-007</td><td>Administration panel renders</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-008</td><td>Settings — General tab</td><td class="pass">PASS</td><td>—</td></tr>
+</table>
+
+<h3>Calendar, Roadmap, My Account, Search</h3>
+<table>
+  <tr><th>TC ID</th><th>Title</th><th>Result</th><th>Bug Ref</th></tr>
+  <tr><td>TC-RSC-009</td><td>Core Gantt on ztflux</td><td class="info">INFO</td><td>Module disabled on ztflux — not a bug</td></tr>
+  <tr><td>TC-RSC-010</td><td>Calendar — month grid, navigation</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-012</td><td>My Account page</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-013</td><td>Roadmap — versions, progress bars</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-014</td><td>Search results page</td><td class="pass">PASS</td><td>—</td></tr>
+</table>
+
+<h2>Session 2 — 2026-06-04</h2>
+
+<h3>Time Tracking</h3>
+<table>
+  <tr><th>TC ID</th><th>Title</th><th>Result</th><th>Bug Ref</th></tr>
+  <tr><td>TC-RSC-015</td><td>Time Entries list</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-016</td><td>New Time Entry form</td><td class="pass">PASS</td><td>—</td></tr>
+</table>
+
+<h3>Files, Wiki, Forums, News, Documents</h3>
+<table>
+  <tr><th>TC ID</th><th>Title</th><th>Result</th><th>Bug Ref</th></tr>
+  <tr><td>TC-RSC-017</td><td>Files module</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-018</td><td>Wiki module — empty state</td><td class="pass">PASS</td><td>BUG-RSC-004 (warning)</td></tr>
+  <tr><td>TC-RSC-019</td><td>Wiki edit page — toolbar, textarea, preview</td><td class="pass">PASS</td><td>BUG-RSC-004 (warning)</td></tr>
+  <tr><td>TC-RSC-020</td><td>Forums list</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-021</td><td>News list</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-022</td><td>Documents module</td><td class="pass">PASS</td><td>—</td></tr>
+</table>
+
+<h3>Core Gantt</h3>
+<table>
+  <tr><th>TC ID</th><th>Title</th><th>Result</th><th>Bug Ref</th></tr>
+  <tr><td>TC-RSC-023</td><td>Core Gantt renders with scarlet theme</td><td class="pass">PASS</td><td>—</td></tr>
+</table>
+
+<h3>Administration — Users, Roles, Config</h3>
+<table>
+  <tr><th>TC ID</th><th>Title</th><th>Result</th><th>Bug Ref</th></tr>
+  <tr><td>TC-RSC-024</td><td>Admin Users list</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-025</td><td>Admin New User form</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-026</td><td>Admin Roles list</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-027</td><td>Admin Custom Fields</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-028</td><td>Admin Workflows</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-029</td><td>Admin Enumerations</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-035</td><td>Admin Trackers</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-036</td><td>Admin Issue Statuses</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-037</td><td>Admin Groups</td><td class="pass">PASS</td><td>—</td></tr>
+</table>
+
+<h3>Settings Tabs</h3>
+<table>
+  <tr><th>TC ID</th><th>Title</th><th>Result</th><th>Bug Ref</th></tr>
+  <tr><td>TC-RSC-030</td><td>Settings — Display tab (theme: Redmineflux scarlet confirmed)</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-031</td><td>Settings — Authentication tab</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-032</td><td>Settings — API tab</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-033</td><td>Settings — Issues tab</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-034</td><td>Settings — Notifications tab</td><td class="pass">PASS</td><td>—</td></tr>
+</table>
+
+<h3>Issue Bulk Edit</h3>
+<table>
+  <tr><th>TC ID</th><th>Title</th><th>Result</th><th>Bug Ref</th></tr>
+  <tr><td>TC-RSC-038</td><td>Bulk Edit — context menu on multi-select with all actions</td><td class="pass">PASS</td><td>—</td></tr>
+  <tr><td>TC-RSC-039</td><td>Bulk Edit form renders</td><td class="pass">PASS</td><td>—</td></tr>
+</table>
+
+</body>
+</html>

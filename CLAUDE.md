@@ -33,7 +33,7 @@ redmine-qa-automation/
 │       └── PLUGIN_TEST_PROMPT_TEMPLATE.md
 │
 └── plugins/
-    └── <plugin-name>/               ← one folder per plugin (kebab-case)
+    └── <plugin-name>_qa/               ← one folder per plugin (kebab-case)
         ├── docs/
         │   ├── requirements.md      ← what the plugin does (READ BEFORE TESTING)
         │   ├── features-list.md     ← full feature list for test coverage (READ BEFORE WRITING TEST CASES)

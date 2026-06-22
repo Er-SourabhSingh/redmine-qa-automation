@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Defects Summary — Redmineflux MCP Issue Template</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+  h1 { color: #333; }
+  table { border-collapse: collapse; width: 100%; background: #fff; }
+  th { background: #4a4a8a; color: #fff; padding: 10px; text-align: left; }
+  td { padding: 8px 10px; border-bottom: 1px solid #ddd; }
+  .high { color: #c62828; font-weight: bold; }
+  .medium { color: #e65100; font-weight: bold; }
+  .low { color: #f9a825; font-weight: bold; }
+  .open { color: #c62828; }
+  .summary { margin: 20px 0; padding: 15px; background: #fff; border-radius: 6px; }
+  .summary span { margin-right: 20px; font-size: 16px; }
+</style>
+</head>
+<body>
+<h1>Defects Summary — Redmineflux MCP Issue Template</h1>
+<p><strong>Environment:</strong> Forge — https://dev-flux.zehntech.com &nbsp;|&nbsp; <strong>Date:</strong> 2026-06-16</p>
+
+<div class="summary">
+  <span>Total: 2</span>
+  <span class="high">High: 2</span>
+  <span>Medium: 0</span>
+  <span>Low: 0</span>
+  <span class="open">Open: 2</span>
+  <span>Closed: 0</span>
+</div>
+
+<table>
+  <tr>
+    <th>Bug ID</th>
+    <th>Title</th>
+    <th>Severity</th>
+    <th>Status</th>
+    <th>Found In TC</th>
+    <th>Notes</th>
+  </tr>
+  <tr>
+    <td>BUG-RIT-001</td>
+    <td>list_templates returns 500 when project_id filter is applied</td>
+    <td class="high">High</td>
+    <td class="open">Open</td>
+    <td>TC-RIT-006, TC-RIT-018</td>
+    <td>All project_id values (identifier + numeric) return 500. Other filters work. Blocks project-scoped visibility testing.</td>
+  </tr>
+  <tr>
+    <td>BUG-RIT-002</td>
+    <td>Issue template operations bypass project-level permission check</td>
+    <td class="high">High</td>
+    <td class="open">Open</td>
+    <td>TC-RIT-018, TC-RIT-025</td>
+    <td>Server checks ANY-project permission, not per-target-project. test1 (no gdaplt template perms) can create/edit/delete/apply templates in gdaplt via ztflux role. All 5 template operations affected.</td>
+  </tr>
+</table>
+</body>
+</html>

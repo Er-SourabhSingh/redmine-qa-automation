@@ -279,6 +279,10 @@ Format: `BUG-<PLUGIN-CODE>-<NUMBER>`
 | redmineflux_advanced_field | RAF |
 | redmineflux_devops | RDV |
 | redmineflux_scarlet | RSC |
+| redmineflux_mcp | RFM |
+| redmineflux_mcp_issuetemplate | RIT |
+| redmineflux_mcp_checklist | RCL |
+| redmineflux_mcp_knowledgebase | RKB |
 
 Examples: `BUG-TCM-001`, `BUG-GNT-001`
 

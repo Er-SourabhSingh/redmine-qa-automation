@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TC Report — Redmine Flux MCP Knowledgebase</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f4f6f9; color: #222; }
+  .header { background: #1a1f36; color: #fff; padding: 28px 36px 24px; }
+  .header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+  .header .meta { font-size: 0.82rem; color: #9ca3c9; margin-top: 6px; }
+  .stats { display: flex; gap: 16px; padding: 20px 36px; flex-wrap: wrap; }
+  .stat { background: #fff; border-radius: 10px; padding: 16px 24px; flex: 1; min-width: 140px; box-shadow: 0 1px 4px rgba(0,0,0,.07); text-align: center; }
+  .stat .num { font-size: 2.2rem; font-weight: 800; line-height: 1; }
+  .stat .lbl { font-size: 0.75rem; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: .06em; }
+  .total .num { color: #1a1f36; }
+  .pass .num { color: #16a34a; }
+  .fail .num { color: #dc2626; }
+  .rate .num { color: #2563eb; }
+  .section { padding: 0 36px 24px; }
+  .section-title { font-size: 0.9rem; font-weight: 700; color: #444; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; padding-top: 8px; border-top: 2px solid #e5e7eb; margin-top: 20px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.07); font-size: 0.82rem; }
+  thead { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-weight: 600; color: #555; font-size: 0.75rem; text-transform: uppercase; letter-spacing: .06em; }
+  td { padding: 9px 14px; border-bottom: 1px solid #f0f1f4; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafbff; }
+  .badge { display: inline-block; border-radius: 4px; padding: 2px 8px; font-size: 0.72rem; font-weight: 700; letter-spacing: .04em; }
+  .pass-badge { background: #dcfce7; color: #15803d; }
+  .fail-badge { background: #fee2e2; color: #b91c1c; }
+  .role-admin { background: #ede9fe; color: #6d28d9; }
+  .role-manager { background: #fef3c7; color: #b45309; }
+  .role-developer { background: #dbeafe; color: #1d4ed8; }
+  .note { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 12px 16px; border-radius: 4px; font-size: 0.82rem; margin-bottom: 16px; color: #78350f; }
+  .fix-note { background: #f0fdf4; border-left: 4px solid #16a34a; padding: 12px 16px; border-radius: 4px; font-size: 0.82rem; margin-bottom: 16px; color: #14532d; }
+  .footer { padding: 20px 36px; font-size: 0.75rem; color: #888; border-top: 1px solid #e5e7eb; margin-top: 8px; }
+  code { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.78rem; background: #f3f4f6; padding: 1px 5px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Test Case Report — Redmine Flux MCP Knowledgebase</h1>
+  <div class="meta">Plugin: redmineflux_knowledgebase &nbsp;|&nbsp; Suite: api-mcp &nbsp;|&nbsp; Run Date: 2026-06-19 &nbsp;|&nbsp; Environment: Local (localhost:3006) &nbsp;|&nbsp; Redmine: 5.x</div>
+</div>
+
+<div class="stats">
+  <div class="stat total"><div class="num">39</div><div class="lbl">Total TCs</div></div>
+  <div class="stat pass"><div class="num">39</div><div class="lbl">Pass</div></div>
+  <div class="stat fail"><div class="num">0</div><div class="lbl">Fail</div></div>
+  <div class="stat rate"><div class="num">100%</div><div class="lbl">Pass Rate</div></div>
+</div>
+
+<div class="section">
+  <div class="fix-note">
+    <strong>BUG-RKB-001 FIXED &amp; CLOSED</strong> — Session 1 had 19 failing TCs due to a Python TypeError in <code>RedmineClient.post()/put()</code> (missing <code>params</code> keyword). Fix applied in Session 3: added <code>params: dict[str, Any] | None = None</code> to both methods. All 19 TCs re-run via MCP and now PASS.
+  </div>
+
+  <div class="section-title">Role Summary</div>
+  <table>
+    <thead><tr><th>Role</th><th>User</th><th>Total</th><th>Pass</th><th>Fail</th><th>Pass Rate</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge role-admin">Admin</span></td><td>admin</td><td>16</td><td>16</td><td>0</td><td>100%</td></tr>
+      <tr><td><span class="badge role-manager">Manager</span></td><td>priya.patel</td><td>15</td><td>15</td><td>0</td><td>100%</td></tr>
+      <tr><td><span class="badge role-developer">Developer</span></td><td>rahul.sharma</td><td>8</td><td>8</td><td>0</td><td>100%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Section A — Admin: Space Management</div>
+  <table>
+    <thead><tr><th>TC ID</th><th>Description</th><th>MCP Tool</th><th>Session 1</th><th>Session 3</th></tr></thead>
+    <tbody>
+      <tr><td>TC-RKB-001</td><td>Create a knowledgebase space</td><td><code>kb_create_space</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-002</td><td>List all spaces in project</td><td><code>kb_list_spaces</code></td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-003</td><td>Get a single space by ID</td><td><code>kb_get_space</code></td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-004</td><td>Update space name and description</td><td><code>kb_update_space</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Section B — Admin: Node Management</div>
+  <table>
+    <thead><tr><th>TC ID</th><th>Description</th><th>MCP Tool</th><th>Session 1</th><th>Session 3</th></tr></thead>
+    <tbody>
+      <tr><td>TC-RKB-005</td><td>Create folder node inside space</td><td><code>kb_create_node</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-006</td><td>Create page node (draft)</td><td><code>kb_create_node</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-007</td><td>List nodes in space</td><td><code>kb_list_nodes</code></td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-008</td><td>Get a single node by ID</td><td><code>kb_get_node</code></td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-009</td><td>Update node content</td><td><code>kb_update_node</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Section C — Admin: Publish Workflow</div>
+  <table>
+    <thead><tr><th>TC ID</th><th>Description</th><th>MCP Tool</th><th>Session 1</th><th>Session 3</th></tr></thead>
+    <tbody>
+      <tr><td>TC-RKB-010</td><td>Publish a draft page</td><td><code>kb_publish_node</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-011</td><td>Unpublish a published page</td><td><code>kb_unpublish_node</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-012</td><td>Re-publish to create second version</td><td><code>update_node + publish_node</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Section D — Admin: Version History</div>
+  <table>
+    <thead><tr><th>TC ID</th><th>Description</th><th>MCP Tool</th><th>Session 1</th><th>Session 3</th></tr></thead>
+    <tbody>
+      <tr><td>TC-RKB-013</td><td>List versions of a page</td><td><code>kb_list_versions</code></td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-014</td><td>Restore a previous version</td><td><code>kb_restore_version</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Section E — Admin: Cleanup</div>
+  <table>
+    <thead><tr><th>TC ID</th><th>Description</th><th>MCP Tool</th><th>Session 1</th><th>Session 3</th></tr></thead>
+    <tbody>
+      <tr><td>TC-RKB-015</td><td>Delete a node</td><td><code>kb_delete_node</code></td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-016</td><td>Delete a space</td><td><code>kb_delete_space</code></td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Section F — Manager: Space Management</div>
+  <table>
+    <thead><tr><th>TC ID</th><th>Description</th><th>MCP Tool</th><th>Session 1</th><th>Session 3</th></tr></thead>
+    <tbody>
+      <tr><td>TC-RKB-017</td><td>Create a knowledgebase space</td><td><code>kb_create_space</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-018</td><td>List spaces in project</td><td><code>kb_list_spaces</code></td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-019</td><td>Get space by ID</td><td><code>kb_get_space</code></td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-020</td><td>Update space</td><td><code>kb_update_space</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Section G — Manager: Node Management</div>
+  <table>
+    <thead><tr><th>TC ID</th><th>Description</th><th>MCP Tool</th><th>Session 1</th><th>Session 3</th></tr></thead>
+    <tbody>
+      <tr><td>TC-RKB-021</td><td>Create a folder node</td><td><code>kb_create_node</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-022</td><td>Create a page node</td><td><code>kb_create_node</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-023</td><td>List nodes in space</td><td><code>kb_list_nodes</code></td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-024</td><td>Get node by ID</td><td><code>kb_get_node</code></td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-025</td><td>Update node content</td><td><code>kb_update_node</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Section H — Manager: Publish Workflow</div>
+  <table>
+    <thead><tr><th>TC ID</th><th>Description</th><th>MCP Tool</th><th>Session 1</th><th>Session 3</th></tr></thead>
+    <tbody>
+      <tr><td>TC-RKB-026</td><td>Publish a page</td><td><code>kb_publish_node</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-027</td><td>Unpublish a page</td><td><code>kb_unpublish_node</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Section I — Manager: Version History</div>
+  <table>
+    <thead><tr><th>TC ID</th><th>Description</th><th>MCP Tool</th><th>Session 1</th><th>Session 3</th></tr></thead>
+    <tbody>
+      <tr><td>TC-RKB-028</td><td>List versions of a page</td><td><code>kb_list_versions</code></td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-029</td><td>Restore a previous version</td><td><code>kb_restore_version</code></td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Section J — Manager: Cleanup</div>
+  <table>
+    <thead><tr><th>TC ID</th><th>Description</th><th>MCP Tool</th><th>Session 1</th><th>Session 3</th></tr></thead>
+    <tbody>
+      <tr><td>TC-RKB-030</td><td>Delete a node</td><td><code>kb_delete_node</code></td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-031</td><td>Delete a space</td><td><code>kb_delete_space</code></td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Section K — Developer: Permission Enforcement</div>
+  <div class="note">
+    <strong>Note:</strong> <code>view_knowledgebase</code> is <code>public: true</code> in <code>init.rb</code>. All project members receive it automatically — Developer CAN read KB data. Only write operations return 403.
+  </div>
+  <table>
+    <thead><tr><th>TC ID</th><th>Description</th><th>MCP Tool</th><th>Expected</th><th>Session 1</th><th>Session 3</th></tr></thead>
+    <tbody>
+      <tr><td>TC-RKB-032</td><td>List spaces</td><td><code>kb_list_spaces</code></td><td>200 (public)</td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-033</td><td>Create space → denied</td><td><code>kb_create_space</code></td><td>403</td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-034</td><td>Get space by ID</td><td><code>kb_get_space</code></td><td>200 (public)</td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-035</td><td>List nodes</td><td><code>kb_list_nodes</code></td><td>200 (public)</td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-036</td><td>Create node → denied</td><td><code>kb_create_node</code></td><td>403</td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-037</td><td>Get node by ID</td><td><code>kb_get_node</code></td><td>200 (public)</td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-038</td><td>Publish node → denied</td><td><code>kb_publish_node</code></td><td>403</td><td><span class="badge fail-badge">FAIL</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+      <tr><td>TC-RKB-039</td><td>List versions</td><td><code>kb_list_versions</code></td><td>200 (public)</td><td><span class="badge pass-badge">PASS</span></td><td><span class="badge pass-badge">PASS</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="footer">
+  Generated 2026-06-19 &nbsp;|&nbsp; redmineflux_mcp_knowledgebase_qa &nbsp;|&nbsp; 39/39 PASS &nbsp;|&nbsp; 0 open bugs
+</div>
+
+</body>
+</html>

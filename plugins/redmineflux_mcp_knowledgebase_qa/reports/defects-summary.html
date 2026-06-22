@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Defects Summary — Redmine Flux MCP Knowledgebase</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f4f6f9; color: #222; }
+  .header { background: #1a1f36; color: #fff; padding: 28px 36px 24px; }
+  .header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+  .header .meta { font-size: 0.82rem; color: #9ca3c9; margin-top: 6px; }
+  .stats { display: flex; gap: 16px; padding: 20px 36px; flex-wrap: wrap; }
+  .stat { background: #fff; border-radius: 10px; padding: 16px 24px; flex: 1; min-width: 120px; box-shadow: 0 1px 4px rgba(0,0,0,.07); text-align: center; }
+  .stat .num { font-size: 2.2rem; font-weight: 800; line-height: 1; }
+  .stat .lbl { font-size: 0.75rem; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: .06em; }
+  .total-open .num { color: #16a34a; }
+  .critical .num { color: #dc2626; }
+  .high .num { color: #ea580c; }
+  .medium .num { color: #d97706; }
+  .low .num { color: #65a30d; }
+  .closed-stat .num { color: #6b7280; }
+  .section { padding: 0 36px 24px; }
+  .section-title { font-size: 0.9rem; font-weight: 700; color: #444; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; padding-top: 8px; border-top: 2px solid #e5e7eb; margin-top: 20px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.07); font-size: 0.83rem; }
+  thead { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-weight: 600; color: #555; font-size: 0.75rem; text-transform: uppercase; letter-spacing: .06em; }
+  td { padding: 10px 14px; border-bottom: 1px solid #f0f1f4; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; border-radius: 4px; padding: 2px 8px; font-size: 0.72rem; font-weight: 700; letter-spacing: .04em; }
+  .sev-critical { background: #fee2e2; color: #b91c1c; }
+  .sev-high { background: #ffedd5; color: #c2410c; }
+  .sev-medium { background: #fef3c7; color: #b45309; }
+  .sev-low { background: #f0fdf4; color: #15803d; }
+  .status-closed { background: #f3f4f6; color: #374151; }
+  .status-open { background: #fef2f2; color: #b91c1c; }
+  .success-banner { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 20px 24px; margin: 0 36px 20px; }
+  .success-banner h2 { color: #15803d; font-size: 1.1rem; margin-bottom: 8px; }
+  .success-banner p { color: #166534; font-size: 0.85rem; line-height: 1.6; }
+  .fix-detail { background: #fff; border-radius: 10px; padding: 16px 20px; box-shadow: 0 1px 4px rgba(0,0,0,.07); margin-bottom: 12px; }
+  .fix-detail h3 { font-size: 0.88rem; color: #1a1f36; margin-bottom: 8px; }
+  .fix-detail .field { display: flex; gap: 12px; margin-bottom: 6px; font-size: 0.82rem; }
+  .fix-detail .field-name { color: #888; min-width: 90px; flex-shrink: 0; }
+  .fix-detail .field-val { color: #222; }
+  code { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.78rem; background: #f3f4f6; padding: 1px 5px; border-radius: 3px; }
+  pre { background: #1e2130; color: #e2e8f0; border-radius: 6px; padding: 14px 18px; font-size: 0.78rem; font-family: 'SFMono-Regular', Consolas, monospace; overflow-x: auto; margin-top: 8px; line-height: 1.6; }
+  .footer { padding: 20px 36px; font-size: 0.75rem; color: #888; border-top: 1px solid #e5e7eb; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Defects Summary — Redmine Flux MCP Knowledgebase</h1>
+  <div class="meta">Plugin: redmineflux_knowledgebase &nbsp;|&nbsp; Run Date: 2026-06-19 &nbsp;|&nbsp; Environment: Local (localhost:3006) &nbsp;|&nbsp; Redmine: 5.x</div>
+</div>
+
+<div class="stats">
+  <div class="stat total-open"><div class="num">0</div><div class="lbl">Open Bugs</div></div>
+  <div class="stat critical"><div class="num">0</div><div class="lbl">Critical</div></div>
+  <div class="stat high"><div class="num">0</div><div class="lbl">High</div></div>
+  <div class="stat medium"><div class="num">0</div><div class="lbl">Medium</div></div>
+  <div class="stat low"><div class="num">0</div><div class="lbl">Low</div></div>
+  <div class="stat closed-stat"><div class="num">1</div><div class="lbl">Closed</div></div>
+</div>
+
+<div class="success-banner">
+  <h2>✓ All Bugs Resolved — Test Suite Complete</h2>
+  <p>
+    1 bug was found during Session 1 (BUG-RKB-001 — Critical). It was root-caused, fixed, and retested in Session 3.
+    All 39 test cases now PASS via MCP tools across Admin, Manager, and Developer roles.
+    0 open bugs remain.
+  </p>
+</div>
+
+<div class="section">
+
+  <div class="section-title">Closed Bugs</div>
+
+  <div class="fix-detail">
+    <h3>BUG-RKB-001 — All MCP write operations fail with TypeError (post/put params keyword)</h3>
+    <div class="field"><span class="field-name">Status</span><span class="field-val"><span class="badge status-closed">Closed</span></span></div>
+    <div class="field"><span class="field-name">Severity</span><span class="field-val"><span class="badge sev-critical">Critical</span></span></div>
+    <div class="field"><span class="field-name">Found</span><span class="field-val">2026-06-19 (Session 1)</span></div>
+    <div class="field"><span class="field-name">Fixed</span><span class="field-val">2026-06-19 (Session 3)</span></div>
+    <div class="field"><span class="field-name">Affected</span><span class="field-val">7 of 14 KB MCP tools: create_space, update_space, create_node, update_node, publish_node, unpublish_node, restore_version</span></div>
+    <div class="field"><span class="field-name">Root Cause</span><span class="field-val"><code>RedmineClient.post()</code> and <code>put()</code> in <code>src/redmine_client.py</code> did not accept <code>params</code> as a keyword argument. All KB write tools call <code>client.post(url, json=body, params={"project_id": ...})</code> — Python raised TypeError before any HTTP request.</span></div>
+    <div class="field"><span class="field-name">Fix File</span><span class="field-val"><code>c:\redmine\plugins\redmineflux-mcp\src\redmine_client.py</code></span></div>
+    <div class="field"><span class="field-name">Fix</span><span class="field-val">Added <code>params: dict[str, Any] | None = None</code> to both <code>post()</code> and <code>put()</code> signatures, forwarded to <code>_request_with_retry()</code>.</span></div>
+    <div class="field"><span class="field-name">Deploy</span><span class="field-val"><code>docker cp redmine_client.py redmineflux-mcp:/app/src/redmine_client.py</code> + container restart</span></div>
+    <div class="field"><span class="field-name">Retest</span><span class="field-val">All 19 previously-blocked TCs re-run via MCP — all PASS.</span></div>
+    <pre>
+# Before fix
+async def post(self, path: str, json: dict[str, Any]) -> dict:
+    response = await self._request_with_retry("post", path, json=json)
+
+# After fix
+async def post(self, path: str, json: dict[str, Any], params: dict[str, Any] | None = None) -> dict:
+    response = await self._request_with_retry("post", path, params=params, json=json)
+    </pre>
+  </div>
+
+  <div class="section-title">All Bugs Register</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Bug ID</th>
+        <th>Title</th>
+        <th>Severity</th>
+        <th>Status</th>
+        <th>Found</th>
+        <th>Fixed</th>
+        <th>TCs Affected</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>BUG-RKB-001</td>
+        <td>All MCP write operations fail with TypeError</td>
+        <td><span class="badge sev-critical">Critical</span></td>
+        <td><span class="badge status-closed">Closed</span></td>
+        <td>2026-06-19</td>
+        <td>2026-06-19</td>
+        <td>19 (TC-001, 004–006, 009–012, 014, 017, 020–022, 025–027, 029, 033, 036, 038)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">TCs Fixed by Bug Close</div>
+  <table>
+    <thead>
+      <tr><th>TC ID</th><th>Description</th><th>Role</th><th>Session 1</th><th>After Fix</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>TC-RKB-001</td><td>Create space</td><td>Admin</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-004</td><td>Update space</td><td>Admin</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-005</td><td>Create node (folder)</td><td>Admin</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-006</td><td>Create node (page)</td><td>Admin</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-009</td><td>Update node</td><td>Admin</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-010</td><td>Publish page</td><td>Admin</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-011</td><td>Unpublish page</td><td>Admin</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-012</td><td>Update + publish v2</td><td>Admin</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-014</td><td>Restore version</td><td>Admin</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-017</td><td>Create space</td><td>Manager</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-020</td><td>Update space</td><td>Manager</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-021</td><td>Create node (folder)</td><td>Manager</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-022</td><td>Create node (page)</td><td>Manager</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-025</td><td>Update node</td><td>Manager</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-026</td><td>Publish page</td><td>Manager</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-027</td><td>Unpublish page</td><td>Manager</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-029</td><td>Restore version</td><td>Manager</td><td>FAIL</td><td>PASS</td></tr>
+      <tr><td>TC-RKB-033</td><td>Create space → 403</td><td>Developer</td><td>FAIL (TypeError hid 403)</td><td>PASS (403 correctly returned)</td></tr>
+      <tr><td>TC-RKB-036</td><td>Create node → 403</td><td>Developer</td><td>FAIL (TypeError hid 403)</td><td>PASS (403 correctly returned)</td></tr>
+      <tr><td>TC-RKB-038</td><td>Publish node → 403</td><td>Developer</td><td>FAIL (TypeError hid 403)</td><td>PASS (403 correctly returned)</td></tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="footer">
+  Generated 2026-06-19 &nbsp;|&nbsp; redmineflux_mcp_knowledgebase_qa &nbsp;|&nbsp; 1 bug found, 1 fixed, 0 open &nbsp;|&nbsp; 39/39 TCs PASS
+</div>
+
+</body>
+</html>

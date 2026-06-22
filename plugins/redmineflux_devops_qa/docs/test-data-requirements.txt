@@ -1,0 +1,1061 @@
+================================================================================
+  REDMINEFLUX DEVOPS PLUGIN - COMPREHENSIVE TEST DATA REQUIREMENTS
+  Covers: TC-01 through TC-15 (TC-RDV-001 to TC-RDV-575)
+  Plugin Version: 0.1.0 | Redmine: 6.0.9
+  Prepared: 2026-05-25
+================================================================================
+
+IMPORTANT: Set up ALL items in this file BEFORE executing any test suite.
+Base URL: http://localhost:3008
+Admin credentials: admin / admin (or your configured admin password)
+
+================================================================================
+SECTION 1: REDMINE USERS
+================================================================================
+
+Create the following users in Redmine (Administration > Users):
+
+  Username          | Full Name           | Email                          | Role Notes
+  ------------------|---------------------|--------------------------------|---------------------------
+  admin             | Administrator       | admin@example.com              | Built-in admin
+  dev_user          | Dev User            | dev@example.com                | Developer role
+  qa_user           | QA User             | qa@example.com                 | QA/Reporter role
+  external_user     | External User       | external@example.com           | Limited access
+  new_user          | New User            | newuser@example.com            | Fresh account, minimal setup
+  other_user        | Other User          | other@example.com              | General member
+  member_dev        | Member Dev          | memberdev@example.com          | Project member / Developer
+  non_member        | Non Member          | nonmember@example.com          | NOT a member of test projects
+  reporter_user     | Reporter User       | reporter@example.com           | Reporter role
+  devops_engineer   | DevOps Engineer     | devops@example.com             | DevOps role
+  alice             | Alice Smith         | alice@example.com              | Dev Lead / approver
+  bob               | Bob Jones           | bob@example.com                | QA / approver
+  carol             | Carol White         | carol@example.com              | PM / approver / on-call (ID 42 if possible)
+  david             | David Brown         | david@example.com              | Developer
+  oliver            | Oliver Reed         | oliver@example.com             | On-call engineer
+  laura             | Laura Martinez      | laura@example.com              | Approver (E2E workflows)
+  quinn             | Quinn Taylor        | quinn@example.com              | Approver (E2E workflows)
+  pete              | Pete Anderson       | pete@example.com               | Approver (E2E workflows)
+  rachel            | Rachel Green        | rachel@example.com             | Approver (E2E workflows)
+  derek             | Derek Clark         | derek@example.com              | NO override_security_gate permission
+  adam              | Adam Wilson         | adam@example.com               | HAS override_security_gate permission
+  devops_user       | DevOps User         | devopsuser@example.com         | HAS override_security_gate permission
+  multi_role_user   | Multi Role User     | multirole@example.com          | BOTH Developer AND Manager roles
+  outsider          | Outsider User       | outsider@example.com           | Non-member of all test projects
+  devops-bot        | DevOps Bot          | devopsbot@example.com          | System user for plugin notifications
+  priya.s           | Priya Sharma        | priya.sharma@example.com       | Reviewer (SCM integration tests)
+
+NOTE: For carol, if possible assign Redmine user ID = 42 (used in tc-10 on-call escalation).
+NOTE: devops-bot is a system/service account used in plugin settings (tc-12).
+
+================================================================================
+SECTION 2: REDMINE ROLES
+================================================================================
+
+Ensure these roles exist (Administration > Roles and Permissions):
+
+  Role Name     | Notes
+  --------------|------------------------------------------------------
+  Administrator | Built-in
+  Manager       | Built-in or create
+  Developer     | Built-in or create
+  Reporter      | Built-in or create
+  QA Engineer   | Create if not exists
+  DevOps        | Create if not exists — needs override_security_gate permission
+  Viewer        | Create with read-only access
+
+Custom permissions to enable on relevant roles:
+  - override_security_gate   → DevOps role, devops_user, adam
+  - manage_devops_settings   → Manager/Admin
+  - view_devops_dashboard    → All roles except Viewer (read-only)
+  - manage_environments      → Manager, DevOps
+  - manage_deployments       → Developer, DevOps, Manager
+  - manage_releases          → Manager
+  - view_incidents           → All project members
+  - manage_incidents         → DevOps, Manager
+
+================================================================================
+SECTION 3: REDMINE PROJECTS
+================================================================================
+
+Create ALL of the following projects before running tests:
+
+  Identifier          | Display Name            | Notes
+  --------------------|-------------------------|----------------------------------
+  phoenix-platform    | Phoenix Platform        | PRIMARY project — tc-01, tc-07, tc-14
+  project-alpha       | Project Alpha           | tc-02 SCM integration
+  project-beta        | Project Beta            | tc-02 SCM integration
+  atlas-backend       | Atlas Backend           | tc-03 CI/CD (GitLab CI), tc-04 cross-project deploy
+  legacy-service      | Legacy Service          | tc-03 CI/CD (Jenkins)
+  backend-services    | Backend Services        | tc-11 environments
+  orion-api           | Orion API               | tc-07 DORA metrics
+  atlantis-api        | Atlantis API            | tc-07 DORA metrics
+  secret-project      | Secret Project          | tc-01 IDOR security test — do NOT add test users
+
+Project Settings for all projects:
+  - Enable module: DevOps (Redmineflux DevOps plugin)
+  - Enable module: Issue tracking
+  - Enable module: Repository
+  - Enable module: Wiki (required for tc-10 incident notes)
+  - Enable module: Roadmap / Versions
+
+Members per project:
+  phoenix-platform:
+    - admin → Manager
+    - alice → Manager (Dev Lead)
+    - bob → Developer + QA Engineer
+    - carol → Manager (PM)
+    - dev_user → Developer
+    - qa_user → Reporter
+    - devops_engineer → DevOps
+    - devops_user → DevOps
+    - adam → Developer (has override_security_gate)
+    - derek → Developer (no override_security_gate)
+    - reporter_user → Reporter
+    - member_dev → Developer
+    - multi_role_user → Developer + Manager
+
+  project-alpha + project-beta:
+    - admin, alice, bob, carol, dev_user, qa_user, priya.s → Developer/Member
+    - non_member → NOT added
+
+  atlas-backend, legacy-service, backend-services, orion-api, atlantis-api:
+    - admin, alice, bob, carol, devops_engineer → relevant roles
+
+================================================================================
+SECTION 4: REDMINE TRACKERS
+================================================================================
+
+Ensure these trackers exist (Administration > Trackers):
+
+  Tracker Name       | Notes
+  -------------------|--------------------------------------------------
+  Bug                | Built-in
+  Feature            | Built-in
+  Support            | Built-in
+  Incident           | Create — used in tc-10 for incident management
+  Environment Request| Create — used in tc-11 with 5 custom fields (see below)
+
+Custom fields for "Environment Request" tracker (tc-11):
+  1. Environment Type   (list: development/staging/production/testing)
+  2. Justification      (text field, required)
+  3. Requested By       (user field)
+  4. Target Date        (date field)
+  5. Approval Status    (list: pending/approved/rejected)
+
+================================================================================
+SECTION 5: REDMINE ISSUES
+================================================================================
+
+Create the following issues across projects. Use exact issue numbers where
+possible (Redmine auto-assigns IDs, so create in order or use API to set IDs).
+
+--- Phoenix Platform Issues ---
+
+  ID  | Subject                                    | Tracker | Status      | Priority
+  ----|--------------------------------------------|---------|--------------|---------
+  #10  | Implement password reset endpoint         | Feature | In Progress  | Normal
+  #11  | Add OAuth2 support                        | Feature | Open         | Normal
+  #12  | API rate limiting                         | Feature | Open         | Normal
+  #20  | Fix login timeout                         | Bug     | Open         | High
+  #21  | Session cookie expires too early          | Bug     | Open         | Normal
+  #30  | Database connection pool exhaustion       | Bug     | Closed       | Urgent
+  #40  | Add dark mode support                     | Feature | Open         | Low
+  #55  | Implement caching layer                   | Feature | Closed       | Normal
+  #99  | Legacy API deprecation                    | Support | Open         | Normal
+  #100 | Payment gateway blocker issue             | Bug     | Open         | High   (BLOCKER for v2.0.0)
+  #101 | Auth service dependency blocker           | Bug     | Open         | High   (BLOCKER for v2.0.0)
+  #102 | Update API documentation                  | Feature | Open         | Normal
+  #105 | Performance regression fix                | Bug     | Closed       | High
+  #107 | Refactor authentication module            | Feature | In Progress  | Normal
+  #110 | Webhook handler race condition            | Bug     | Open         | High
+  #111 | Git integration timeout fix               | Bug     | Open         | Normal
+  #123 | Implement password reset endpoint (dup)  | Feature | Open         | Normal
+  #124 | Add two-factor authentication             | Feature | Open         | Normal
+  #125 | Session management improvements           | Feature | Open         | Normal
+  #130 | Fix SQL query performance                 | Bug     | Closed       | High
+  #131 | Index missing on users table              | Bug     | Closed       | Normal
+  #135 | Add API endpoint versioning               | Feature | Open         | Normal
+  #140 | Mobile app authentication                 | Feature | Open         | Normal
+  #141 | Push notification support                 | Feature | Open         | Low
+  #150 | Upgrade Ruby dependencies                 | Support | Open         | Normal
+  #155 | Fix XSS vulnerability in comments         | Bug     | Open         | Urgent
+  #156 | CSRF token validation                     | Bug     | Open         | High
+  #195 | Deploy backend service v2.1               | Feature | Closed       | Normal (linked to deploy #10)
+  #196 | Rollback plan for payment service         | Feature | Closed       | Normal (linked to deploy #10)
+  #199 | Hotfix for authentication bypass          | Bug     | Closed       | Urgent (linked to deploy #10)
+  #201 | Implement user authentication module      | Feature | In Progress  | Normal
+  #202 | Payment gateway integration               | Feature | Open         | High
+  #203 | Database schema migration                 | Feature | Open         | Normal
+  #204 | API endpoint refactoring                  | Feature | Open         | Normal
+  #205 | Frontend component library                | Feature | Open         | Normal
+  #206 | Search functionality improvements        | Feature | Open         | Normal
+  #207 | Notification system                       | Feature | Open         | Normal
+  #208 | File upload service                       | Feature | Open         | Normal
+  #209 | Analytics dashboard                       | Feature | Open         | Normal
+  #210 | Reporting module                          | Feature | Open         | Normal
+  #211 | Performance optimization                  | Feature | Open         | Normal
+  #301 | Test results display bug                  | Bug     | Open         | Normal
+  #456 | Login page redesign                       | Feature | In Progress  | Normal (E2E tc-14)
+  #789 | Implement payment processing              | Feature | Open         | High   (E2E tc-14)
+
+NOTE: Issue #789 "Implement payment processing" is distinct from user "outsider" and
+      build #789 in tc-13. Keep them separate in context.
+
+--- Atlas Backend Issues ---
+
+  ID   | Subject                         | Status
+  -----|----------------------------------|--------
+  Any  | Linked to CI/CD build runs      | Open/Closed as needed
+
+================================================================================
+SECTION 6: REDMINE VERSIONS (MILESTONES)
+================================================================================
+
+Create these versions in phoenix-platform project:
+
+  Version Name | Status   | Due Date     | Notes
+  -------------|----------|--------------|----------------------------------
+  v1.0.0       | Closed   | 2025-01-01   | Past release
+  v1.2.0       | Closed   | 2025-06-01   | Past release
+  v1.5.2       | Closed   | 2025-09-01   | Past release
+  v2.0.0       | Open     | 2026-06-30   | CURRENT release being tested (tc-05, tc-14)
+  v2.3.7       | Open     | 2026-12-31   | Future release
+  v3.0.0       | Open     | 2027-06-30   | Future release
+
+Assign these issues to v2.0.0 version (tc-05 release tests):
+  #10, #11, #12, #20, #21, #30, #40, #55, #99, #101, #102, #105, #107
+  PLUS 12 total issues linked (for tc-14 E2E: 12 issues on v2.0.0, 2 blockers = #100 + #101)
+
+================================================================================
+SECTION 7: EXTERNAL PROVIDER CONNECTIONS
+================================================================================
+
+Configure these connections in DevOps plugin settings BEFORE test execution.
+
+--- 7A. GitHub Connection ---
+
+  Setting              | Value
+  ---------------------|----------------------------------------------
+  Provider             | GitHub
+  Connection Name      | github-main
+  Repository Owner     | <your-github-username>
+  Repository Name      | <your-repo-name>
+  Default Branch       | master
+  Personal Access Token| <your-github-pat>
+  Webhook Secret       | <your-webhook-secret>
+  Project              | phoenix-platform (primary), project-alpha, project-beta
+
+--- 7B. GitLab Connection ---
+
+  Setting              | Value
+  ---------------------|----------------------------------------------
+  Provider             | GitLab
+  Connection Name      | gitlab-main
+  GitLab Instance URL  | https://gitlab.com (or your self-hosted URL)
+  Repository           | your-gitlab-group/atlas-backend
+  Access Token         | <your GitLab personal access token>
+  Project              | atlas-backend
+
+NOTE: Replace with real GitLab credentials. The placeholder gitlab.example.com
+      from earlier setup is NOT functional.
+
+--- 7C. Jenkins Connection ---
+
+  Setting              | Value
+  ---------------------|----------------------------------------------
+  Provider             | Jenkins
+  Connection Name      | jenkins-main
+  Jenkins URL          | http://your-jenkins-server:8080
+  Username             | admin (or your Jenkins username)
+  API Token            | <your Jenkins API token>
+  Project              | legacy-service (build #77 required)
+
+--- 7D. SonarQube Connection ---
+
+  Setting              | Value
+  ---------------------|----------------------------------------------
+  Provider             | SonarQube
+  Connection Name      | sonarqube-main
+  SonarQube URL        | http://your-sonarqube-server
+  Token                | <your SonarQube token>
+  Project Key          | phoenix-platform
+  Associated Project   | phoenix-platform, project-alpha
+
+--- 7E. Prometheus Connection ---
+
+  Setting              | Value
+  ---------------------|----------------------------------------------
+  Provider             | Prometheus
+  Connection Name      | prometheus-main
+  Prometheus URL       | http://your-prometheus-server:9090
+  Project              | phoenix-platform
+
+--- 7F. Datadog Connection ---
+
+  Setting              | Value
+  ---------------------|----------------------------------------------
+  Provider             | Datadog
+  Connection Name      | datadog-main
+  API Key              | <your Datadog API key>
+  App Key              | <your Datadog app key>
+  Project              | phoenix-platform
+
+--- 7G. Zabbix Connection ---
+
+  Setting              | Value
+  ---------------------|----------------------------------------------
+  Provider             | Zabbix
+  Connection Name      | zabbix-main
+  Zabbix URL           | http://your-zabbix-server
+  Username             | Admin
+  Password             | <your Zabbix password>
+  Project              | phoenix-platform
+
+--- 7H. Snyk Connection ---
+
+  Setting              | Value
+  ---------------------|----------------------------------------------
+  Provider             | Snyk
+  Connection Name      | snyk-main
+  API Token            | <your Snyk API token>
+  Organization         | <your Snyk org>
+  Project              | phoenix-platform
+
+--- 7I. Trivy Connection ---
+
+  Setting              | Value
+  ---------------------|----------------------------------------------
+  Provider             | Trivy
+  Connection Name      | trivy-main
+  (Configure via webhook — Trivy pushes results via webhook)
+  Webhook Secret       | <your-webhook-secret>
+  Project              | phoenix-platform
+
+--- 7J. ArgoCD Connection ---
+
+  Setting              | Value
+  ---------------------|----------------------------------------------
+  Provider             | ArgoCD
+  Connection Name      | argocd-main
+  ArgoCD URL           | http://your-argocd-server
+  Token                | <your ArgoCD token>
+  Project              | phoenix-platform
+
+--- 7K. FOSSA Connection ---
+
+  Setting              | Value
+  ---------------------|----------------------------------------------
+  Provider             | FOSSA
+  Connection Name      | fossa-main
+  API Key              | <your FOSSA API key>
+  Project              | phoenix-platform
+
+================================================================================
+SECTION 8: WEBHOOK ENDPOINTS
+================================================================================
+
+The following webhook endpoints must be configured in each external provider
+to push events to the Redmine plugin:
+
+  Provider    | Webhook URL (replace localhost:3008 with your accessible URL)
+  ------------|--------------------------------------------------------------
+  GitHub      | http://localhost:3008/plugins/redmineflux_devops/webhooks/github
+  GitLab      | http://localhost:3008/plugins/redmineflux_devops/webhooks/gitlab
+  Jenkins     | http://localhost:3008/plugins/redmineflux_devops/webhooks/jenkins
+  SonarQube   | http://localhost:3008/plugins/redmineflux_devops/webhooks/sonarqube
+  Prometheus  | http://localhost:3008/plugins/redmineflux_devops/webhooks/prometheus
+  Zabbix      | http://localhost:3008/plugins/redmineflux_devops/webhooks/zabbix
+  Datadog     | http://localhost:3008/plugins/redmineflux_devops/webhooks/datadog
+  Snyk        | http://localhost:3008/plugins/redmineflux_devops/webhooks/snyk
+  Trivy       | http://localhost:3008/plugins/redmineflux_devops/webhooks/trivy
+  ArgoCD      | http://localhost:3008/plugins/redmineflux_devops/webhooks/argocd
+  FOSSA       | http://localhost:3008/plugins/redmineflux_devops/webhooks/fossa
+
+Webhook Secrets:
+  - Local testing:  <your-webhook-secret>
+  - Forge/staging:  <your-webhook-secret>
+
+NOTE: If Redmine is behind NAT/firewall, use ngrok or similar tunnel so that
+      external providers can reach your webhook endpoints.
+
+================================================================================
+SECTION 9: GITHUB REPOSITORY DATA
+================================================================================
+
+Repository: <your-github-username>/<your-repo-name> (default branch: master)
+
+--- 9A. Branches Required ---
+
+  Branch Name                    | Notes
+  -------------------------------|------------------------------------------
+  main (or master)               | Default branch
+  feature/201-user-auth          | Linked to issue #201
+  feature/202-payment-gateway    | Linked to issue #202
+  feature/203-db-migration       | Linked to issue #203
+  feature/204-api-refactor       | Linked to issue #204
+  feature/user-auth              | Used in tc-03 build tests
+  feature/payment                | Used in tc-03 build tests
+  develop                        | Integration branch
+  release/v2.0.0                 | Release branch for v2.0.0
+  hotfix/auth-bypass             | Hotfix branch
+
+--- 9B. Commits Required ---
+
+Create real commits with these properties:
+
+  Purpose                          | Branch          | Message Pattern
+  ---------------------------------|-----------------|----------------------------------
+  Closes issue #10                 | main            | "Fix #10 password reset endpoint"
+  Closes issue #20                 | main            | "Fix #20 login timeout issue"
+  Refs multiple issues #110, #111  | main            | "Refs #110 #111 webhook handler"
+  Feature work on #201             | feature/201-*   | "Implement #201 auth module"
+  Feature work on #202             | feature/202-*   | "Add #202 payment gateway"
+  Feature work on #203             | feature/203-*   | "Migrate #203 database schema"
+  26 additional commits            | various         | For tc-02 SCM analytics (28 total over 4 weeks)
+
+Real commit SHAs will be generated when you push these commits. Record the
+actual SHAs — tests reference them by value.
+
+Commit Authors (for analytics in tc-02 — need 15 distinct authors):
+  alice, bob, carol, david, devops_engineer, qa_user, dev_user,
+  priya.s, oliver, laura, quinn, pete, rachel, derek, adam
+  (approximate distribution: alice=8, bob=6, carol=5, rest=1-2 each, total=28)
+
+--- 9C. Pull Requests Required ---
+
+  PR #  | Title                              | State   | Branch                   | Notes
+  ------|-------------------------------------|---------|--------------------------|---------------------------
+  #23   | Implement user authentication       | Merged  | feature/201-user-auth    | tc-14 E2E
+  #45   | Fix password reset endpoint         | Merged  | feature/fix-reset        | tc-02 SCM
+  #46   | Add OAuth2 support                  | Open    | feature/oauth2           | tc-02
+  #47   | Rate limiting implementation         | Open    | feature/rate-limiting    | tc-02
+  #48   | Database connection pool fix        | Merged  | hotfix/db-pool           | tc-02
+  #49   | Add dark mode                       | Open    | feature/dark-mode        | tc-02
+  #50   | Caching layer                       | Merged  | feature/cache            | tc-02
+  #51   | Legacy API deprecation              | Open    | feature/api-deprecate    | tc-02
+  #52   | Blocker fix auth                    | Open    | feature/auth-blocker     | tc-02
+  #53   | Documentation update               | Merged  | docs/update              | tc-02
+  #54   | Performance regression             | Open    | fix/perf-regression      | tc-02
+  #55   | Auth module refactor               | Merged  | feature/auth-refactor    | tc-02, tc-05
+  #56   | Add 2FA                            | Open    | feature/2fa              | tc-02
+  #57   | Session management                 | Open    | feature/session-mgmt     | tc-02
+  #58   | SQL performance fix                | Merged  | fix/sql-perf             | tc-02
+  #59   | User table index                   | Merged  | fix/user-index           | tc-02
+  #60   | API versioning                     | Merged  | feature/api-version      | tc-02, tc-05
+  #61   | Mobile auth                        | Open    | feature/mobile-auth      | tc-02
+  #65   | Frontend build pipeline            | Merged  | feature/frontend-build   | tc-05
+  #67   | Database schema migration          | Merged  | feature/203-db-migration | tc-14 E2E
+
+PR reviewers: priya.s (maps to priya.sharma in reviewer_login_map)
+
+--- 9D. Git Tags Required ---
+
+  Tag    | Commit                | Notes
+  -------|----------------------|----------------------------------
+  v1.2.0 | any past commit      | Past release tag
+  v1.5.2 | any past commit      | Past release tag
+  v2.0.0 | release commit       | Current release (tc-05)
+  v2.3.7 | future commit        | Future release tag
+
+================================================================================
+SECTION 10: CI/CD BUILD DATA
+================================================================================
+
+The plugin needs build records. These are typically created via webhook events
+from CI providers. Pre-seed them by sending webhook payloads OR configure
+real CI pipelines.
+
+--- 10A. GitHub Actions / General Build Records ---
+
+  Build ID | Status  | Branch                      | Issues Linked | Duration
+  ---------|---------|------------------------------|---------------|----------
+  #89      | Success | feature/201-user-auth        | #201          | 4m 32s
+  #90      | Success | feature/202-payment-gateway  | #202          | 5m 10s
+  #91      | Failure | feature/203-db-migration     | #203          | 2m 45s
+  #100     | Success | main                         | -             | 6m 00s
+  #321     | Success | main                         | #101          | 4m 00s (tc-06 test results)
+  #322     | Failure | feature/user-auth            | #201          | 3m 00s (tc-06)
+  #323     | Success | main                         | -             | 5m 00s (tc-06)
+  #324     | Failure | main                         | -             | 1m 30s (tc-06)
+  #325     | Success | feature/payment              | #202          | 4m 30s (tc-06)
+  #326     | Success | main                         | -             | 4m 00s (tc-06)
+  #327     | Failure | feature/user-auth            | -             | 2m 00s (tc-06)
+  #328     | Success | main                         | -             | 5m 00s (tc-06)
+  #329     | Success | main                         | -             | 4m 00s (tc-06)
+  #330     | Failure | feature/payment              | -             | 1m 00s (tc-06)
+  #331     | Success | main                         | -             | 4m 00s (tc-06)
+  #456     | Failure | feature/login-redesign       | #456          | 3m 00s (tc-14 E2E)
+  #495     | Success | main                         | #201          | 3m 20s (tc-03)
+  #496     | Failure | feature/user-auth            | #201          | 1m 45s (tc-03)
+  #497     | Success | feature/user-auth            | #201          | 3m 55s (tc-03)
+  #498     | Success | feature/payment-gateway      | #202          | 4m 10s (tc-03)
+  #499     | Failure | feature/payment-gateway      | #202          | 2m 00s (tc-03)
+  #500     | Success | feature/payment-gateway      | #202          | 4m 05s (tc-03)
+  #501     | Success | feature/db-migration         | #203          | 5m 30s (tc-03)
+  #502     | Failure | feature/db-migration         | #203          | 3m 00s (tc-03)
+  #503     | Success | feature/db-migration         | #203          | 5m 25s (tc-03)
+  #504     | Success | feature/api-refactor         | #204          | 2m 45s (tc-03)
+  #505     | Success | feature/api-refactor         | #204          | 2m 50s (tc-03)
+  #506     | Failure | feature/api-refactor         | #204          | 1m 30s (tc-03)
+  #507     | Success | main                         | -             | 6m 00s (tc-03)
+  #508     | Success | main                         | -             | 5m 55s (tc-03)
+  #509     | Failure | main                         | -             | 2m 00s (tc-03)
+  #510     | Success | main                         | -             | 5m 45s (tc-03)
+  #511-#523| Mixed   | various                      | various       | (tc-03 additional builds)
+  #789     | Failure | feature/legacy-auth          | -             | 1m 00s (tc-13 failed build)
+
+IMPORTANT for TC-03 Pagination: Need 75 TOTAL builds in the project.
+IMPORTANT for TC-03 Flaky detection: Need 50 builds showing flaky test pattern.
+
+--- 10B. Jenkins Build Data ---
+
+  Project       | Build # | Status  | Notes
+  --------------|---------|---------|----------------------------------
+  legacy-service| #77     | Success | tc-03 Jenkins integration test
+
+--- 10C. Build Test Results / JUnit Data (for tc-06) ---
+
+Builds #321-#331 need associated JUnit XML test results:
+  Build #321: 150 tests passed, 0 failed, 0 skipped
+  Build #322: 145 tests passed, 5 failed, 2 skipped (linked to issue #205)
+  Build #323: 148 tests passed, 2 failed, 0 skipped
+  Build #324: 0 tests (build failed before test phase)
+  Build #325: 152 tests passed, 0 failed, 1 skipped
+
+Code coverage data for builds #310-#325:
+  Overall coverage trend showing improvement from ~65% to ~82% over time
+
+================================================================================
+SECTION 11: DEPLOYMENT DATA
+================================================================================
+
+Create deployment records for phoenix-platform project:
+
+  Deploy # | Version | Environment  | Status    | Deployed By | Notes
+  ---------|---------|--------------|-----------|-------------|---------------------------
+  #7       | v1.0.0  | staging      | Success   | alice        | tc-04 history
+  #8       | v1.0.1  | staging      | Failed    | bob          | tc-04 failure scenario
+  #9       | v1.1.0  | production   | Success   | devops_eng   | tc-04
+  #10      | v1.5.0  | production   | Success   | alice        | tc-04 — linked to #195,#196,#199
+  #11      | v1.5.1  | staging      | Success   | carol        | tc-04
+  #12      | v1.5.2  | production   | Pending   | alice        | tc-04 pending approval
+  #13      | v1.6.0  | staging      | Success   | bob          | tc-04
+  #14      | v1.6.1  | production   | Locked    | -            | tc-04 locked deploy
+  #15      | v1.7.0  | canary       | Success   | argocd-bot   | tc-04 ArgoCD canary (20% traffic)
+  #16      | v1.8.0  | staging      | Success   | alice        | tc-04
+  #17      | v1.8.1  | production   | Failed    | bob          | tc-04 failure + rollback
+  #18      | v2.0.0  | staging      | Success   | carol        | tc-04
+  #19      | v2.0.0  | production   | Pending   | alice        | tc-04 awaiting approval
+  #20      | v2.0.1  | staging      | Success   | devops_eng   | tc-04
+  #21      | v2.1.0  | staging      | Success   | alice        | tc-04
+  #22      | v2.1.0  | production   | Success   | carol        | tc-04
+
+  #50      | v1.0.0  | production   | Success   | alice        | cross-project (atlas-backend)
+
+Deployment Approvers (configured per environment):
+  production environment approvers: alice, bob, devops (require 2 approvals)
+  staging environment approvers: alice (1 approval sufficient)
+
+Deploy #19 approval workflow:
+  - Required approvers: alice + bob + devops_engineer
+  - Currently pending (no approvals yet)
+
+Deploy #14 lock reason:
+  - "Locked for maintenance window"
+  - Locked by: admin
+
+--- Production Deployment Lock/Freeze ---
+
+Configure production environment:
+  - Freeze window: "Pre-Release Freeze" (2026-06-01 to 2026-06-07)
+  - Emergency override requires: Manager role OR override_security_gate permission
+
+--- ArgoCD Canary Deploy #15 ---
+  - Application: phoenix-platform
+  - Canary weight: 20%
+  - Strategy: Canary
+  - Status: Healthy
+
+--- Security Vulnerabilities on Deployments (tc-04) ---
+
+Deploy to production must be blocked by:
+  CRITICAL: CVE-2026-1234 (lodash prototype pollution, CVSS 9.8)
+  CRITICAL: CVE-2026-5678 (openssl buffer overflow, CVSS 9.5)
+
+================================================================================
+SECTION 12: ENVIRONMENT DATA
+================================================================================
+
+Configure environments in the DevOps plugin for phoenix-platform:
+
+  Environment Name  | Type        | URL                              | Status
+  ------------------|-------------|----------------------------------|----------
+  staging-us-east   | staging     | https://staging-us.phoenix.io    | Healthy
+  prod-eu           | production  | https://prod-eu.phoenix.io       | Healthy
+  dev-local         | development | http://localhost:3001            | Healthy
+  staging-main      | staging     | https://staging.phoenix.io       | Degraded
+  perf-test         | testing     | https://perf.phoenix.io          | Healthy
+  qa-sandbox        | testing     | https://qa.phoenix.io            | Healthy
+
+For Backend Services project:
+  Environment Name  | Type        | URL
+  ------------------|-------------|--------------------------------------
+  staging-backend   | staging     | https://staging.backend.io
+  prod-backend      | production  | https://prod.backend.io
+
+--- Environment Health Check Data ---
+  - 30-day health: 716/720 samples = 99.44% uptime
+  - 90-day health: 2145/2160 samples = ~99.3% uptime
+
+--- Freeze Windows ---
+
+  Name                          | Start              | End                | Environments
+  ------------------------------|--------------------|--------------------|------------------
+  Pre-Demo Freeze               | 2026-06-08 00:00   | 2026-06-09 23:59   | prod-eu
+  Weekly Release Window Freeze  | Every Friday 18:00 | Monday 06:00       | prod-eu, staging-main
+  Global Maintenance            | 2026-07-01 02:00   | 2026-07-01 06:00   | ALL
+
+--- Deployment Locks ---
+  prod-eu:       Locked — "Pre-release stability lock" — locked by alice
+  staging-main:  Unlocked
+
+================================================================================
+SECTION 13: DORA METRICS DATA
+================================================================================
+
+For tc-07 DORA Flow Metrics — need historical deployment + incident data:
+
+--- Production Deployments (28 deployments needed) ---
+
+Create 28 production deployments spread over the last 90 days across projects:
+  Phoenix Platform: 15 production deployments
+  Orion API:         8 production deployments
+  Atlantis API:      5 production deployments
+
+Target metrics (approximate):
+  Deployment Frequency: ~1 per week per project (Elite = multiple per day)
+  Lead Time for Changes: avg 2-5 days from commit to deploy
+  Change Failure Rate:   3 of 28 deployments failed = ~10.7%
+  MTTR:                  avg 2 hours for SEV1, 4 hours for SEV2
+
+--- Resolved Incidents (5 incidents for MTTR calculation) ---
+
+  Incident # | Severity | Created At          | Resolved At         | Duration
+  -----------|----------|---------------------|---------------------|----------
+  INC-001    | SEV1     | 2026-04-01 14:00    | 2026-04-01 16:15    | 2h 15m
+  INC-002    | SEV2     | 2026-04-08 09:00    | 2026-04-08 13:00    | 4h 00m
+  INC-003    | SEV1     | 2026-04-15 22:00    | 2026-04-15 23:45    | 1h 45m
+  INC-004    | SEV2     | 2026-04-22 11:00    | 2026-04-22 15:30    | 4h 30m
+  INC-005    | SEV3     | 2026-05-01 08:00    | 2026-05-01 10:00    | 2h 00m
+
+================================================================================
+SECTION 14: MONITORING AND ALERTING DATA
+================================================================================
+
+Pre-send these webhook payloads to test monitoring integration (tc-08).
+Use the browser fetch() method during tests, NOT command-line curl.
+
+--- Alert Fingerprints for Deduplication Testing ---
+
+  Fingerprint: abc123def456
+  Alert Name:  High CPU Usage
+  Status:      firing → resolved (for deduplication test)
+
+--- Prometheus Webhook Payload (Firing) ---
+  {
+    "receiver": "redmine-devops",
+    "status": "firing",
+    "alerts": [
+      {
+        "status": "firing",
+        "labels": {"alertname": "HighCPUUsage", "severity": "critical", "instance": "prod-server-01"},
+        "annotations": {"summary": "CPU usage above 90% for 5 minutes"},
+        "fingerprint": "abc123def456"
+      },
+      {
+        "status": "firing",
+        "labels": {"alertname": "MemoryLow", "severity": "warning", "instance": "prod-server-02"},
+        "annotations": {"summary": "Available memory below 10%"},
+        "fingerprint": "def456ghi789"
+      },
+      {
+        "status": "firing",
+        "labels": {"alertname": "DiskSpaceLow", "severity": "warning", "instance": "prod-server-03"},
+        "annotations": {"summary": "Disk space below 15%"},
+        "fingerprint": "ghi789jkl012"
+      }
+    ]
+  }
+
+--- Prometheus Webhook Payload (Resolved — 4 alerts) ---
+  {
+    "receiver": "redmine-devops",
+    "status": "resolved",
+    "alerts": [
+      {"status": "resolved", "labels": {"alertname": "HighCPUUsage"}, "fingerprint": "abc123def456"},
+      {"status": "resolved", "labels": {"alertname": "NetworkLatency"}, "fingerprint": "rst012uvw345"},
+      {"status": "resolved", "labels": {"alertname": "ErrorRate"}, "fingerprint": "uvw345xyz678"},
+      {"status": "resolved", "labels": {"alertname": "ResponseTime"}, "fingerprint": "xyz678abc901"}
+    ]
+  }
+
+--- Zabbix Webhook Payload ---
+  {
+    "trigger_name": "CPU Utilization High",
+    "trigger_severity": "HIGH",
+    "trigger_status": "PROBLEM",
+    "host_name": "prod-server-04",
+    "event_id": "ZBX-EVENT-001",
+    "problem_description": "CPU utilization > 80% on prod-server-04"
+  }
+
+--- Datadog Webhook Payload ---
+  {
+    "title": "High Error Rate Alert",
+    "alert_type": "error",
+    "alert_status": "Triggered",
+    "priority": "P1",
+    "text": "Error rate exceeded 5% threshold",
+    "host": "api-service-prod",
+    "tags": ["env:production", "service:api"]
+  }
+
+--- PagerDuty / Opsgenie Integration ---
+  PagerDuty API Token: <your PagerDuty API token>
+  PagerDuty Service Key: <your PagerDuty service integration key>
+  Opsgenie API Token: <your Opsgenie API token>
+  (Required for tc-08 on-call schedule integration)
+
+================================================================================
+SECTION 15: SECURITY AND COMPLIANCE DATA
+================================================================================
+
+Pre-send these webhook payloads for security scanner results (tc-09).
+
+--- SonarQube Webhook Payload ---
+  {
+    "project": {"key": "phoenix-platform", "name": "Phoenix Platform"},
+    "qualityGate": {
+      "status": "ERROR",
+      "conditions": [
+        {"metric": "new_reliability_rating", "status": "ERROR", "value": "3"},
+        {"metric": "new_security_rating", "status": "ERROR", "value": "2"},
+        {"metric": "new_maintainability_rating", "status": "OK", "value": "1"},
+        {"metric": "new_coverage", "status": "ERROR", "value": "62.5"}
+      ]
+    },
+    "revision": "<actual-git-sha-from-repo>",
+    "issues": {
+      "critical": 2, "high": 3, "medium": 5, "low": 7
+    }
+  }
+
+NOTE: "revision" must be a REAL commit SHA from the github.com/<your-github-username>/<your-repo-name> repo.
+
+--- Snyk Webhook Payload ---
+  {
+    "project": {"name": "phoenix-platform/package.json"},
+    "newIssues": [
+      {
+        "id": "SNYK-JS-LODASH-1040724",
+        "title": "Prototype Pollution",
+        "severity": "critical",
+        "cvssScore": 9.8,
+        "cve": "CVE-2026-1234",
+        "packageName": "lodash",
+        "version": "4.17.15"
+      },
+      {
+        "id": "SNYK-JS-AXIOS-1038255",
+        "title": "Server-Side Request Forgery",
+        "severity": "high",
+        "cvssScore": 7.5,
+        "cve": "CVE-2026-2001",
+        "packageName": "axios",
+        "version": "0.21.1"
+      },
+      {
+        "id": "SNYK-JS-MOMENT-2944238",
+        "title": "Path Traversal",
+        "severity": "high",
+        "cvssScore": 7.1,
+        "cve": "CVE-2026-2002",
+        "packageName": "moment",
+        "version": "2.29.1"
+      },
+      {
+        "id": "SNYK-JS-MINIMIST-2429795",
+        "title": "Prototype Pollution",
+        "severity": "high",
+        "cvssScore": 6.5,
+        "cve": "CVE-2026-2003",
+        "packageName": "minimist",
+        "version": "1.2.5"
+      },
+      {
+        "id": "SNYK-JS-JSONSCHEMA-1908881",
+        "title": "Prototype Pollution",
+        "severity": "high",
+        "cvssScore": 6.3,
+        "cve": "CVE-2026-2004",
+        "packageName": "json-schema",
+        "version": "0.2.3"
+      }
+    ]
+  }
+
+--- Trivy Webhook Payload ---
+  {
+    "SchemaVersion": 2,
+    "ArtifactName": "phoenix-platform:v2.0.0",
+    "ArtifactType": "container_image",
+    "Results": [
+      {
+        "Target": "phoenix-platform:v2.0.0",
+        "Class": "os-pkgs",
+        "Vulnerabilities": [
+          {
+            "VulnerabilityID": "CVE-2026-1234",
+            "PkgName": "openssl",
+            "InstalledVersion": "1.1.1t",
+            "Severity": "CRITICAL",
+            "CVSS": {"nvd": {"V3Score": 9.8}},
+            "Title": "OpenSSL Buffer Overflow"
+          },
+          {
+            "VulnerabilityID": "CVE-2026-5678",
+            "PkgName": "libssl",
+            "InstalledVersion": "1.1.1t",
+            "Severity": "CRITICAL",
+            "CVSS": {"nvd": {"V3Score": 9.5}},
+            "Title": "libssl Memory Corruption"
+          }
+        ]
+      }
+    ]
+  }
+
+--- FOSSA Webhook Payload ---
+  {
+    "project": "phoenix-platform",
+    "licenses": [
+      {"package": "lodash", "version": "4.17.21", "license": "MIT", "allowed": true},
+      {"package": "mysql2", "version": "2.3.0", "license": "GPL-2.0", "allowed": false, "risk": "high"},
+      {"package": "moment", "version": "2.29.4", "license": "MIT", "allowed": true},
+      {"package": "some-lgpl-lib", "version": "1.0.0", "license": "LGPL-2.1", "allowed": false, "risk": "medium"}
+    ]
+  }
+
+--- Vulnerability Summary (for tc-09 dashboard checks) ---
+  Critical: 3 (CVE-2026-1234, CVE-2026-5678, SNYK-JS-LODASH-1040724)
+  High:     5
+  Medium:   8
+  Low:      12
+
+--- Security Gate Configuration ---
+  Production environment: Security gate ENABLED
+  Gate threshold: Block deployment if any CRITICAL vulnerabilities exist
+  Override permission: override_security_gate (granted to devops_user, adam)
+
+--- Audit Log Events (for tc-09 audit trail tests) ---
+Ensure these events are logged on different dates:
+  Date 1 (2026-05-01): Settings changed by admin
+  Date 2 (2026-05-10): Connection added (GitHub)
+  Date 3 (2026-05-15): Deployment approved (alice)
+  Date 4 (2026-05-20): Security gate overridden (devops_user)
+  Date 5 (2026-05-25): Environment locked (admin)
+
+================================================================================
+SECTION 16: INCIDENT DATA
+================================================================================
+
+Create incident records in phoenix-platform for tc-10:
+
+  Incident ID | Severity | Title                          | Status     | Reporter
+  ------------|----------|--------------------------------|------------|----------
+  INC-007     | SEV2     | Database connection timeout    | Open       | bob
+  INC-008     | SEV1     | Production API completely down | Active     | carol
+  INC-009     | SEV3     | Intermittent login failures    | Monitoring | dev_user
+  INC-010     | SEV4     | Slow dashboard load            | Open       | qa_user
+  INC-011     | SEV1     | Payment service crash          | Resolved   | alice
+  INC-012     | SEV2     | Auth service degraded          | Resolved   | bob
+  INC-013     | SEV3     | Search latency spike           | Closed     | carol
+  INC-014     | SEV1     | Data corruption detected       | Open       | devops_eng
+  INC-015     | SEV2     | SSL certificate expiry         | Open       | alice
+  ...continue through...
+  INC-034     | SEV4     | Minor UI display issue         | Closed     | qa_user
+
+INC-008 (Active SEV1) escalation details:
+  - Created at: (current time minus 15 minutes for timeout test)
+  - Assigned to: oliver
+  - Escalation target: Carol (user ID 42)
+
+--- Escalation Timeouts ---
+  SEV1: 10 minutes
+  SEV2: 30 minutes
+  SEV3: 60 minutes
+  SEV4: 240 minutes (4 hours)
+
+--- Default Communication Templates ---
+Create 4 default incident communication templates:
+  1. "SEV1 Initial Alert" — Slack/email template for SEV1 incidents
+  2. "Status Update" — Periodic update template
+  3. "Resolution Notice" — Incident resolved template
+  4. "Post-Mortem Reminder" — Post-incident review template
+
+--- On-Call Schedule ---
+Configure on-call rotation:
+  Primary: oliver (current on-call)
+  Secondary: devops_engineer
+  Escalation: carol (ID 42)
+
+================================================================================
+SECTION 17: PLUGIN SETTINGS
+================================================================================
+
+Configure in Administration > Plugins > Redmineflux DevOps > Settings:
+
+  Setting                   | Value                          | Notes
+  --------------------------|--------------------------------|---------------------------
+  Encryption Key            | (any 32-character string)      | e.g., any 32-character alphanumeric string
+  System User               | devops-bot                     | Notification sender account
+  Webhook Rate Limit        | 200 requests/minute            | tc-12
+  Health Data Retention     | 14 days                        | tc-12
+  Webhook Event Retention   | 60 days                        | tc-12
+  Default Notification Email| devopsbot@example.com          | tc-12
+  Jenkins API Token         | <your Jenkins token>           | tc-12
+  Monitoring API Token      | <your monitoring token>        | tc-12
+
+================================================================================
+SECTION 18: NOTIFICATION PREFERENCES
+================================================================================
+
+Configure notification preferences for these users (tc-12):
+
+  User      | Build Failure | Build Success | Deployment | Incident | Security Alert
+  ----------|---------------|---------------|------------|----------|----------------
+  alice     | Email + Slack | Slack only    | Email      | All      | Email
+  bob       | Email         | None          | Slack      | SEV1-SEV2| Email + Slack
+  carol     | Email + Slack | Email         | Email      | All      | All
+  dev_user  | Slack only    | None          | None       | SEV1 only| Slack
+
+Notification Channels to configure:
+  Slack webhook URL:   https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK
+  Teams webhook URL:   https://YOUR-TENANT.webhook.office.com/webhookb2/...
+  Email SMTP:          Configure Redmine's email settings (Administration > Settings > Email)
+
+================================================================================
+SECTION 19: AUTO-TRANSITION RULES
+================================================================================
+
+Configure in DevOps plugin SCM settings for phoenix-platform:
+
+  Rule Name              | Trigger Event        | From Status   | To Status
+  -----------------------|----------------------|---------------|------------------
+  PR Review Transition   | Pull Request opened  | New           | In Review
+  PR Merge Transition    | Pull Request merged  | In Review     | Ready for QA
+  Build Failure          | Build failed         | In Progress   | Needs Fix
+  Deploy Success         | Deployment success   | Ready for QA  | Closed
+
+Reviewer Login Map:
+  GitHub Login     | Redmine Username
+  -----------------|------------------
+  priya.sharma     | priya.s
+
+================================================================================
+SECTION 20: LOCALE FILES
+================================================================================
+
+For tc-15 Multi-Language testing — verify these locale files exist in the plugin:
+
+  File Path (relative to plugin root)          | Language
+  ---------------------------------------------|-------------
+  config/locales/en.yml                         | English (default)
+  config/locales/de.yml                         | German
+  config/locales/fr.yml                         | French
+  config/locales/es.yml                         | Spanish
+  config/locales/ja.yml                         | Japanese
+  config/locales/ru.yml                         | Russian
+  config/locales/nl.yml                         | Dutch
+  config/locales/pl.yml                         | Polish
+  config/locales/pt.yml                         | Portuguese
+  config/locales/pt-BR.yml                      | Portuguese (Brazil)
+  config/locales/zh-CN.yml                      | Chinese Simplified
+
+All locale files should contain translations for:
+  - Dashboard headings and labels
+  - Build status labels (Success, Failure, Running, Pending)
+  - Deployment status labels
+  - Incident severity labels (SEV1, SEV2, SEV3, SEV4)
+  - Error messages
+  - Form field labels
+  - Navigation items
+  - Date/time format strings
+
+--- Test Project for Locale Testing ---
+  Project: phoenix-platform (already created above)
+  Ensure DevOps module is enabled
+  Have 50+ builds with all 4 statuses (Success, Failure, Running, Pending)
+  Have incidents at all 4 SEV levels
+
+================================================================================
+SECTION 21: ADDITIONAL PRE-TEST CHECKS
+================================================================================
+
+Before starting test execution, verify:
+
+  [ ] All 15 users listed in Section 1 can log in successfully
+  [ ] All 8 projects listed in Section 3 exist and DevOps module is enabled
+  [ ] All 11 external connections (Section 7) are configured and show "Connected"
+  [ ] Webhook endpoints are reachable from external providers (Section 8)
+  [ ] Admin API key is valid: <your-admin-api-key>
+  [ ] GitHub repo <your-github-username>/<your-repo-name> exists and has commits
+  [ ] All git tags (v1.2.0, v1.5.2, v2.0.0, v2.3.7) are pushed to GitHub
+  [ ] Locale files (11 languages) exist in plugin config/locales/
+  [ ] Plugin settings encryption key is set (Section 17)
+  [ ] secret-project exists WITHOUT any test users as members (IDOR test)
+  [ ] multi_role_user has BOTH Developer AND Manager roles in phoenix-platform
+  [ ] derek does NOT have override_security_gate permission
+  [ ] adam DOES have override_security_gate permission
+  [ ] carol's Redmine user ID is 42 (or update tc-10 with actual ID)
+  [ ] INC-008 (SEV1) is in "Active" state for escalation timer test
+  [ ] Deploy #12 is in "Pending" state awaiting approval
+  [ ] Deploy #14 is in "Locked" state
+  [ ] Security gate is ENABLED on production environment
+  [ ] All 4 incident communication templates are created
+  [ ] On-call schedule shows oliver as primary
+
+================================================================================
+SECTION 22: DATA CREATION ORDER (RECOMMENDED SEQUENCE)
+================================================================================
+
+Create data in this order to avoid dependency issues:
+
+  Step 1:  Create all Redmine users (Section 1)
+  Step 2:  Create all Redmine roles with permissions (Section 2)
+  Step 3:  Create all projects (Section 3)
+  Step 4:  Add users as members to projects
+  Step 5:  Create trackers and custom fields (Section 4)
+  Step 6:  Create all issues in order of ID (Section 5)
+  Step 7:  Create versions/milestones and link issues (Section 6)
+  Step 8:  Configure external provider connections (Section 7)
+  Step 9:  Configure webhook endpoints in each provider (Section 8)
+  Step 10: Push GitHub branches, commits, PRs, tags (Section 9)
+  Step 11: Send CI/CD webhook payloads to create build records (Section 10)
+  Step 12: Send deployment webhook payloads (Section 11)
+  Step 13: Configure environments and freeze windows (Section 12)
+  Step 14: Configure DORA historical data (Section 13)
+  Step 15: Send monitoring webhook payloads (Section 14)
+  Step 16: Send security scanner webhook payloads (Section 15)
+  Step 17: Create incident records (Section 16)
+  Step 18: Configure plugin settings (Section 17)
+  Step 19: Set notification preferences per user (Section 18)
+  Step 20: Configure auto-transition rules (Section 19)
+  Step 21: Verify all locale files exist (Section 20)
+  Step 22: Run pre-test checklist (Section 21)
+
+================================================================================
+END OF DOCUMENT
+Test Suite Coverage: TC-01 through TC-15 (TC-RDV-001 to TC-RDV-575)
+Total Test Cases: 575
+================================================================================

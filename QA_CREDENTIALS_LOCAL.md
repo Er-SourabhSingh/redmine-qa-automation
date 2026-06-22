@@ -1,8 +1,5 @@
 # QA Credentials - Local
 
-> ACTUAL VALUES ARE IN `QA_CREDENTIALS_PRIVATE.txt` (gitignored — local only).
-> This file contains placeholders only and is safe to commit.
-
 ---
 
 ## Environment
@@ -11,7 +8,7 @@
 |---|---|
 | Application | Redmine |
 | Environment | Local Docker |
-| Base URL | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Base URL | `http://localhost:3006` |
 
 ---
 
@@ -30,8 +27,8 @@
 
 | Field | Value |
 |---|---|
-| Username | `<see QA_CREDENTIALS_PRIVATE.txt>` |
-| Password | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Username | admin |
+| Password | 12345678 |
 | Role | Administrator |
 
 ---
@@ -40,8 +37,8 @@
 
 | Username | Password | Role |
 |---|---|---|
-| priya.patel | `<see private file>` | QA Engineer |
-| neha.joshi | `<see private file>` | QA Engineer |
+| priya.patel | 12345678 | QA Engineer |
+| neha.joshi | 12345678 | QA Engineer |
 
 ---
 
@@ -49,8 +46,8 @@
 
 | Username | Password | Role |
 |---|---|---|
-| aman.verma | `<see private file>` | Developer |
-| rohit.mehta | `<see private file>` | Developer |
+| aman.verma | 12345678 | Developer |
+| rohit.mehta | 12345678 | Developer |
 
 ---
 
@@ -58,8 +55,8 @@
 
 | Username | Password | Role |
 |---|---|---|
-| rahul.sharma | `<see private file>` | Manager |
-| sneha.kapoor | `<see private file>` | Manager |
+| rahul.sharma | 12345678 | Manager |
+| sneha.kapoor | 12345678 | Manager |
 
 ---
 
@@ -67,7 +64,7 @@
 
 | Username | Password | Role |
 |---|---|---|
-| client.demo | `<see private file>` | Client |
+| client.demo | 12345678 | Client |
 
 ---
 
@@ -75,9 +72,9 @@
 
 | Field | Value |
 |---|---|
-| Repository | `<see QA_CREDENTIALS_PRIVATE.txt>` |
-| GitHub username | `<see QA_CREDENTIALS_PRIVATE.txt>` |
-| PAT value | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Repository | `<not configured>` |
+| GitHub username | `<not configured>` |
+| PAT value | `<not configured>` |
 | Redmine connection ID | 1 (flux-erp-system) |
 
 ---
@@ -86,8 +83,8 @@
 
 | Field | Value |
 |---|---|
-| Repository | `<see QA_CREDENTIALS_PRIVATE.txt>` |
-| PAT value | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Repository | `<not configured>` |
+| PAT value | `<not configured>` |
 | Redmine connection ID | 2 (flux-erp-system) |
 
 ---
@@ -96,7 +93,7 @@
 
 | Field | Value |
 |---|---|
-| Repository | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Repository | `<not configured>` |
 | Workspace | sourabhworkspace |
 | Redmine connection ID | 3 (flux-erp-system) |
 
@@ -106,9 +103,9 @@
 
 | Field | Value |
 |---|---|
-| Jenkins URL (local) | `<see QA_CREDENTIALS_PRIVATE.txt>` |
-| Jenkins URL (tunnel) | `<see QA_CREDENTIALS_PRIVATE.txt>` |
-| Credentials | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Jenkins URL (local) | `<not configured>` |
+| Jenkins URL (tunnel) | `<not configured>` |
+| Credentials | `<not configured>` |
 
 ---
 
@@ -116,8 +113,8 @@
 
 | Field | Value |
 |---|---|
-| Tunnel URL | `<see QA_CREDENTIALS_PRIVATE.txt>` |
-| Restart command | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Tunnel URL | `<not configured>` |
+| Restart command | `<not configured>` |
 
 ---
 

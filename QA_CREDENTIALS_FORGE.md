@@ -1,8 +1,5 @@
 # QA Credentials - Forge
 
-> ACTUAL VALUES ARE IN `QA_CREDENTIALS_PRIVATE.txt` (gitignored — local only).
-> This file contains placeholders only and is safe to commit.
-
 ---
 
 ## Environment
@@ -11,14 +8,14 @@
 |---|---|
 | Application | Redmine |
 | Environment | Forge |
-| Base URL | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Base URL | `https://flux-fujhcd9zj49.forge.zehntech.com/` |
 
 ---
 
 ## URL Rule
 
 1. Forge URL changes per run.
-2. Update Base URL in `QA_CREDENTIALS_PRIVATE.txt` before every test run.
+2. Update Base URL above before every test run.
 3. If Base URL is blank or placeholder, agent must ask tester for current Forge URL.
 
 ---
@@ -28,9 +25,9 @@
 | Field | Value |
 |---|---|
 | Username | admin |
-| Password | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Password | 12345678 |
 | Role | Administrator |
-| API Key | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| API Key | `<not configured>` |
 
 ---
 
@@ -38,26 +35,26 @@
 
 | Username | Password | Role |
 |---|---|---|
-| luna.blossom | `<see private file>` | Test User |
-| daisy.skye | `<see private file>` | Test User |
-| autumn.grace | `<see private file>` | Test User |
-| willow.belle | `<see private file>` | Test User |
-| harmony.rose | `<see private file>` | Test User |
-| summer.rain | `<see private file>` | Test User |
-| violet.ember | `<see private file>` | Test User |
-| celeste.dawn | `<see private file>` | Test User |
-| serenity.bloom | `<see private file>` | Test User |
-| nova.starling | `<see private file>` | Test User |
-| aurora.wren | `<see private file>` | Test User |
-| ivy.skylark | `<see private file>` | Test User |
-| luna.meadow | `<see private file>` | Test User |
-| sage.willow | `<see private file>` | Test User |
-| marigold.rayne | `<see private file>` | Test User |
-| ember.lilac | `<see private file>` | Test User |
-| opal.sparrow | `<see private file>` | Test User |
-| briar.sunset | `<see private file>` | Test User |
-| selene.frost | `<see private file>` | Test User |
-| isla.moon | `<see private file>` | Test User |
+| luna.blossom | 12345678 | Test User |
+| daisy.skye | 12345678 | Test User |
+| autumn.grace | 12345678 | Test User |
+| willow.belle | 12345678 | Test User |
+| harmony.rose | 12345678 | Test User |
+| summer.rain | 12345678 | Test User |
+| violet.ember | 12345678 | Test User |
+| celeste.dawn | 12345678 | Test User |
+| serenity.bloom | 12345678 | Test User |
+| nova.starling | 12345678 | Test User |
+| aurora.wren | 12345678 | Test User |
+| ivy.skylark | 12345678 | Test User |
+| luna.meadow | 12345678 | Test User |
+| sage.willow | 12345678 | Test User |
+| marigold.rayne | 12345678 | Test User |
+| ember.lilac | 12345678 | Test User |
+| opal.sparrow | 12345678 | Test User |
+| briar.sunset | 12345678 | Test User |
+| selene.frost | 12345678 | Test User |
+| isla.moon | 12345678 | Test User |
 
 ---
 
@@ -65,10 +62,10 @@
 
 | Field | Value |
 |---|---|
-| Repository | `<see QA_CREDENTIALS_PRIVATE.txt>` |
-| GitHub username | `<see QA_CREDENTIALS_PRIVATE.txt>` |
-| PAT value | `<see QA_CREDENTIALS_PRIVATE.txt>` |
-| Webhook secret | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Repository | `<not configured>` |
+| GitHub username | `<not configured>` |
+| PAT value | `<not configured>` |
+| Webhook secret | `<not configured>` |
 
 ---
 
@@ -76,9 +73,9 @@
 
 | Field | Value |
 |---|---|
-| Repository | `<see QA_CREDENTIALS_PRIVATE.txt>` |
-| PAT value | `<see QA_CREDENTIALS_PRIVATE.txt>` |
-| Webhook secret | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Repository | `<not configured>` |
+| PAT value | `<not configured>` |
+| Webhook secret | `<not configured>` |
 | Redmine connection ID | 20 |
 
 ---
@@ -87,9 +84,9 @@
 
 | Field | Value |
 |---|---|
-| Repository | `<see QA_CREDENTIALS_PRIVATE.txt>` |
-| Access token | `<see QA_CREDENTIALS_PRIVATE.txt>` |
-| Webhook secret | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Repository | `<not configured>` |
+| Access token | `<not configured>` |
+| Webhook secret | `<not configured>` |
 | Redmine connection ID | 21 |
 
 ---
@@ -98,10 +95,10 @@
 
 | Field | Value |
 |---|---|
-| Jenkins URL (local) | `<see QA_CREDENTIALS_PRIVATE.txt>` |
-| Jenkins URL (tunnel) | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Jenkins URL (local) | `<not configured>` |
+| Jenkins URL (tunnel) | `<not configured>` |
 | Jenkins job | devops-plugin-test |
-| Credentials | `<see QA_CREDENTIALS_PRIVATE.txt>` |
+| Credentials | `<not configured>` |
 
 ---
 

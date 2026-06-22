@@ -559,3 +559,71 @@ Test cases written without reading requirements and user guide will:
 - Validate wrong behavior
 - Produce incomplete permission coverage
 - Generate test cases that do not reflect how real users operate the plugin
+
+---
+
+## 26. Post-Fix Regression Testing Rules
+
+### When regression testing is required
+
+Regression testing is **mandatory** after a bug fix is confirmed by retest PASS. A retest only proves the specific failure is resolved — regression testing proves the fix did not break anything else.
+
+### Regression scope — what to re-run
+
+After a bug is confirmed fixed, run regression on:
+
+| Category | What to test |
+|---|---|
+| Directly affected feature | All test cases in the suite that covers the fixed feature |
+| Related features | Any feature that shares the same UI section, workflow, or data model as the bug |
+| Blocked test cases | Every TC that was previously BLOCKED by this bug — verify PASS |
+| Skipped test cases | Every TC that was SKIPPED because of this bug — execute fully for the first time |
+| Permission paths | Re-run the relevant permission test cases for all roles that interact with the fixed area |
+| Negative paths | Re-run negative test cases for the fixed area to confirm error handling still works |
+
+### BLOCKED and SKIPPED test case rule
+
+A TC marked **BLOCKED** or **SKIPPED** due to a bug is not considered tested — it has never produced a valid result. When the blocking bug is fixed:
+
+- **BLOCKED TCs** — re-execute from scratch; the previous BLOCKED result is discarded.
+- **SKIPPED TCs** — execute fully for the first time; they were never run due to the bug dependency.
+
+Both must be treated as first-time executions, not retests. Record the result (PASS / FAIL) in `tc-report.html` and replace the BLOCKED/SKIPPED status with the actual outcome.
+
+If a previously BLOCKED or SKIPPED TC fails during regression, raise a new bug — do not attribute the failure to the original fixed bug.
+
+### Regression depth rule
+
+| Bug severity | Minimum regression scope |
+|---|---|
+| Critical | Full suite re-run for the affected plugin area + all related suites |
+| High | All TCs in the affected suite + adjacent feature TCs |
+| Medium | All TCs in the affected suite |
+| Low | The directly affected TCs only |
+
+### Regression execution steps
+
+1. Read the fixed bug file to identify the affected feature, TC IDs, and user roles.
+2. Identify all test cases in scope using the table above.
+3. Re-execute each in-scope TC.
+4. For each TC result:
+   - **PASS** — update the TC status in `tc-report.html`; no further action needed.
+   - **NEW FAIL** — raise a new bug immediately; do not reuse the closed bug ID.
+5. After regression, update `docs/changelog.md` with a regression row.
+6. If all regression TCs pass, update `docs/handoff.md` to note regression complete.
+
+### What NOT to do
+
+- Do not skip regression because the bug "looks isolated" — a fix can silently break shared logic.
+- Do not reopen the original closed bug for a new regression failure — create a fresh bug with its own ID.
+- Do not mark the fix session complete until regression has run.
+
+### Regression result documentation
+
+Add a row to `docs/changelog.md`:
+
+| Date | Redmine Version | Environment | Tested By | Summary |
+|------|-----------------|-------------|-----------|---------|
+| 2026-06-22 | X.X.X | Local / Forge | QA | Regression after BUG-XXX-001 fix — 5 TCs re-run, all PASS |
+
+Update `tc-report.html` to reflect the regression pass results alongside the original run results.

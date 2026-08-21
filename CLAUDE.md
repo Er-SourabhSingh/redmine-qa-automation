@@ -45,6 +45,17 @@ redmine-qa-automation/
         │   └── changelog.md         ← test run history
         ├── testcases/
         │   └── <suite-name>.md      ← one file per test suite (e.g. language-compatibility.md)
+        ├── automation/               ← Playwright + TypeScript regression suite for THIS plugin
+        │   ├── playwright.config.ts
+        │   ├── package.json
+        │   ├── tsconfig.json
+        │   ├── pages/                ← page objects (POM) — self-contained to this plugin
+        │   │   └── <PluginName>Page.ts
+        │   ├── tests/
+        │   │   └── <suite-name>.spec.ts  ← mirrors testcases/<suite-name>.md, one spec per suite
+        │   ├── fixtures/              ← role-based login/session fixtures for this plugin
+        │   └── utils/
+        │       └── env.ts             ← reads QA_CREDENTIALS_FORGE.md / QA_CREDENTIALS_LOCAL.md
         ├── bugs/
         │   ├── _index.md            ← master bug tracker for this plugin
         │   ├── _duplicates.md       ← duplicate prevention register
@@ -78,6 +89,14 @@ plugins/<plugin-name>/
   docs/memory.md
   docs/changelog.md
   testcases/
+  automation/
+    playwright.config.ts
+    package.json
+    tsconfig.json
+    pages/
+    tests/
+    fixtures/
+    utils/env.ts
   bugs/_index.md
   bugs/_duplicates.md
   bugs/open/
@@ -86,6 +105,8 @@ plugins/<plugin-name>/
   reports/final-bug-report.md
   logs/
 ```
+
+`automation/` is created empty at plugin setup — do not scaffold Playwright specs until at least one test case in that suite has a confirmed manual PASS (see Section 13).
 
 Then add a row to `STATUS.md`.
 
@@ -283,6 +304,7 @@ Format: `BUG-<PLUGIN-CODE>-<NUMBER>`
 | redmineflux_mcp_issuetemplate | RIT |
 | redmineflux_mcp_checklist | RCL |
 | redmineflux_mcp_knowledgebase | RKB |
+| redmineflux_helpdesk | HLP |
 
 Examples: `BUG-TCM-001`, `BUG-GNT-001`
 
@@ -418,3 +440,28 @@ At the end of every test session:
 - [ ] `docs/handoff.md` updated with next session start point
 - [ ] `docs/changelog.md` updated with this run summary
 - [ ] `STATUS.md` updated — Open Bugs count and Status description
+- [ ] If any TC moved to a confirmed PASS this session and is in scope for regression, its `automation/tests/<suite>.spec.ts` is added or updated
+
+---
+
+## 13. Playwright Automation Framework (Regression)
+
+Each plugin owns its own self-contained Playwright + TypeScript suite under `plugins/<name>/automation/`. This is separate from the manual/exploratory testing done with Claude + Playwright MCP:
+
+| | Manual / MCP testing | `automation/` regression suite |
+|---|---|---|
+| Purpose | Discover bugs, explore new/changed behavior | Re-verify behavior that already passed, catch regressions |
+| Driven by | Claude + Playwright MCP, session by session | Standard Playwright TS test runner, repeatable |
+| Source of truth | `testcases/<suite>.md` | Same file — automation follows it, never leads it |
+| Output | Bug files, `tc-report.html`, screenshots | Playwright HTML report / trace, pass-fail exit code |
+
+### Rules
+
+- **Automate only test cases with a confirmed manual PASS.** Do not write a Playwright spec for a TC that hasn't been executed and passed manually first — automation locks in verified behavior, it does not discover new behavior.
+- **One spec file per test suite**, same base name as the source: `testcases/<suite-name>.md` → `automation/tests/<suite-name>.spec.ts`.
+- **Every `test()` title must carry the TC ID(s)** it covers, e.g. `test('TC-HLP-003 - agent can close ticket', async ({ page }) => { ... })`, so results stay traceable back to the testcase file.
+- **Page Object Model, self-contained per plugin.** All locators and page interactions live in `automation/pages/*.ts`. A spec file must not contain raw selectors — it calls page object methods. Before adding a new page object, check this plugin's own `automation/pages/` first; don't create a second page object for a screen this plugin's suite already models.
+- **Credentials/base URL only via `automation/utils/env.ts`**, which reads the active `QA_CREDENTIALS_FORGE.md` or `QA_CREDENTIALS_LOCAL.md`. Never hardcode a URL, username, or password inside a spec or page object.
+- **Use fixtures for login/session state** (`automation/fixtures/`) instead of repeating login steps inside every test.
+- Playwright's own HTML report and trace files are a separate artifact from `reports/tc-report.html` — they report the automated regression run, not the manual session.
+- When a bug is found *by the automation suite* (a regression), file it exactly like a manually found bug: check `bugs/_duplicates.md` / `bugs/_index.md`, use `templates/bug-template.md`, save to `bugs/open/`, and note in the bug file that it was found via the automated regression suite.

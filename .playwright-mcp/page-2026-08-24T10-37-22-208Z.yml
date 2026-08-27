@@ -1,0 +1,178 @@
+- generic [ref=f388e1]:
+  - generic [ref=f388e2]:
+    - generic [ref=f388e3]:
+      - generic [ref=f388e4]:
+        - list:
+          - listitem [ref=f388e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f388e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f388e7]:
+        - text: Logged in as
+        - link "admin" [ref=f388e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f388e9]:
+        - listitem [ref=f388e10]:
+          - link [ref=f388e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f388e12]
+        - listitem [ref=f388e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f388e14]:
+          - link "My page" [ref=f388e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f388e16]:
+          - link "Projects" [ref=f388e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f388e18]:
+          - link "Helpdesk Command Center" [ref=f388e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f388e20]:
+          - link "Administration" [ref=f388e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f388e22]:
+          - link "Help" [ref=f388e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f388e24]:
+      - generic [ref=f388e25]:
+        - generic [ref=f388e26]:
+          - generic [ref=f388e27]:
+            - link "Search" [ref=f388e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f388e29]
+        - generic [ref=f388e30]:
+          - generic [ref=f388e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f388e32]
+    - generic [ref=f388e33]:
+      - list [ref=f388e37]:
+        - listitem [ref=f388e38]:
+          - link "Helpdesk Dashboard" [ref=f388e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f388e42]:
+          - link "Helpdesk Tickets" [ref=f388e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f388e46]:
+          - link "Reports" [ref=f388e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f388e50]:
+          - link "Organization" [ref=f388e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f388e54]:
+          - link "Customers" [ref=f388e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f388e58]:
+          - link "Products" [ref=f388e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f388e62]:
+          - link "Helpdesk Settings" [ref=f388e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f388e66]:
+        - generic [ref=f388e67]:
+          - generic [ref=f388e69]:
+            - heading "Support Levels" [level=2] [ref=f388e70]
+            - paragraph [ref=f388e71]: Support levels define the escalation ladder an SLA walks up.
+          - link "New Support Level" [ref=f388e73] [cursor=pointer]:
+            - /url: /rf_support_levels/new
+        - generic [ref=f388e76]:
+          - textbox "Search support levels..." [active] [ref=f388e78]
+          - combobox "All Projects" [ref=f388e79] [cursor=pointer]:
+            - option "All Projects" [selected]
+            - option "Agile Board Project"
+            - option "Helpdesk Service Desk"
+          - combobox "All Statuses" [ref=f388e80] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f388e81]:
+            - button "Apply Filters" [ref=f388e82] [cursor=pointer]
+            - link "Clear" [ref=f388e85] [cursor=pointer]:
+              - /url: /rf_support_levels
+        - table [ref=f388e91]:
+          - rowgroup [ref=f388e92]:
+            - row [ref=f388e93]:
+              - columnheader "S.No" [ref=f388e94]
+              - columnheader "Support Level Name" [ref=f388e95]
+              - columnheader "Level Order" [ref=f388e96]
+              - columnheader "Escalation To" [ref=f388e97]
+              - columnheader "Created By" [ref=f388e98]
+              - columnheader "Created" [ref=f388e99]
+              - columnheader "Updated By" [ref=f388e100]
+              - columnheader "Updated" [ref=f388e101]
+              - columnheader "Active" [ref=f388e102]
+              - columnheader "Action" [ref=f388e103]
+          - rowgroup [ref=f388e104]:
+            - row [ref=f388e105]:
+              - cell "1" [ref=f388e106]
+              - cell [ref=f388e107]:
+                - link "AB-L1" [ref=f388e108] [cursor=pointer]:
+                  - /url: /rf_support_levels/2
+              - cell "1" [ref=f388e109]
+              - cell "None (Last Level)" [ref=f388e110]
+              - cell "Redmine Admin" [ref=f388e113]
+              - cell "08/24/2026 10:22 AM" [ref=f388e114]
+              - cell "Redmine Admin" [ref=f388e115]
+              - cell "08/24/2026 10:22 AM" [ref=f388e116]
+              - cell [ref=f388e117]:
+                - checkbox "Active" [checked] [ref=f388e118]
+              - cell [ref=f388e119]:
+                - generic [ref=f388e120]:
+                  - link "Edit" [ref=f388e121] [cursor=pointer]:
+                    - /url: /rf_support_levels/2/edit
+                  - link "Delete" [ref=f388e124] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f388e128]:
+              - cell "2" [ref=f388e129]
+              - cell [ref=f388e130]:
+                - link "L1" [ref=f388e131] [cursor=pointer]:
+                  - /url: /rf_support_levels/1
+              - cell "1" [ref=f388e132]
+              - cell "None (Last Level)" [ref=f388e133]
+              - cell "Redmine Admin" [ref=f388e136]
+              - cell "08/24/2026 10:19 AM" [ref=f388e137]
+              - cell "Redmine Admin" [ref=f388e138]
+              - cell "08/24/2026 10:19 AM" [ref=f388e139]
+              - cell [ref=f388e140]:
+                - checkbox "Active" [checked] [ref=f388e141]
+              - cell [ref=f388e142]:
+                - generic [ref=f388e143]:
+                  - link "Edit" [ref=f388e144] [cursor=pointer]:
+                    - /url: /rf_support_levels/1/edit
+                  - link "Delete" [ref=f388e147] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f388e151]:
+          - list
+          - generic [ref=f388e152]: (1-2/2)
+    - generic [ref=f388e153]:
+      - text: Powered by
+      - link "Redmine" [ref=f388e154] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f388e155]
+  - log [ref=f388e156]
+  - log [ref=f388e157]
+  - log [ref=f388e158]
+  - log [ref=f388e159]
+  - log [ref=f388e160]
+  - log [ref=f388e161]
+  - log [ref=f388e162]
+  - log [ref=f388e163]
+  - log [ref=f388e164]
+  - log [ref=f388e165]
+  - log [ref=f388e166]
+  - log [ref=f388e167]
+  - log [ref=f388e168]
+  - log [ref=f388e169]
+  - log [ref=f388e170]
+  - log [ref=f388e171]
+  - log [ref=f388e172]
+  - log [ref=f388e173]
+  - log [ref=f388e174]
+  - log [ref=f388e175]
+  - log [ref=f388e176]
+  - log [ref=f388e177]
+  - log [ref=f388e178]

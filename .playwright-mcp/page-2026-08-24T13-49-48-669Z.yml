@@ -1,0 +1,86 @@
+- generic [active] [ref=f11e1]:
+  - generic [ref=f11e2]:
+    - generic [ref=f11e3]:
+      - generic [ref=f11e4]:
+        - list:
+          - listitem [ref=f11e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f11e6]:
+            - link "Sign out":
+              - /url: /logout
+      - list [ref=f11e7]:
+        - listitem [ref=f11e8]:
+          - link "My Helpdesk" [ref=f11e9] [cursor=pointer]:
+            - /url: /helpdesk
+    - heading "Agile Board Project" [level=1] [ref=f11e11]
+    - generic [ref=f11e12]:
+      - list [ref=f11e16]:
+        - listitem [ref=f11e17]:
+          - link "Helpdesk Dashboard" [ref=f11e18] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk
+        - listitem [ref=f11e21]:
+          - link "Helpdesk Tickets" [ref=f11e22] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/tickets
+        - listitem [ref=f11e25]:
+          - link "Knowledgebase" [ref=f11e26] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/knowledgebase
+      - generic [ref=f11e29]:
+        - generic [ref=f11e30]:
+          - generic [ref=f11e32]:
+            - heading "Helpdesk Dashboard" [level=2] [ref=f11e33]
+            - paragraph [ref=f11e34]: Agile Board Project
+          - generic [ref=f11e35]:
+            - button "Date Range" [ref=f11e37] [cursor=pointer]:
+              - generic [ref=f11e40]: 26 Jul 26 - 24 Aug 26
+            - link "New issue" [ref=f11e43] [cursor=pointer]:
+              - /url: /projects/agileboard/helpdesk/new
+        - generic [ref=f11e45]:
+          - link "0 Total Tickets View all" [ref=f11e46] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/tickets?created_from=2026-07-26&created_to=2026-08-24
+            - generic [ref=f11e51]: "0"
+            - generic [ref=f11e52]: Total Tickets
+            - generic [ref=f11e53]: View all
+          - link "0 Open View all" [ref=f11e56] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/tickets?created_from=2026-07-26&created_to=2026-08-24&status_id%5B%5D=open
+            - generic [ref=f11e61]: "0"
+            - generic [ref=f11e62]: Open
+            - generic [ref=f11e63]: View all
+          - link "0 Resolved View all" [ref=f11e66] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/tickets?created_from=2026-07-26&created_to=2026-08-24&status_id%5B%5D=closed
+            - generic [ref=f11e71]: "0"
+            - generic [ref=f11e72]: Resolved
+            - generic [ref=f11e73]: View all
+        - generic [ref=f11e76]:
+          - heading "Prepaid Support Hours" [level=3] [ref=f11e78]
+          - table [ref=f11e79]:
+            - rowgroup [ref=f11e80]:
+              - row [ref=f11e81]:
+                - columnheader "Organization" [ref=f11e82]
+                - columnheader "Approved" [ref=f11e83]
+                - columnheader "Used" [ref=f11e84]
+                - columnheader "Remaining" [ref=f11e85]
+                - columnheader "Usage" [ref=f11e86]
+                - columnheader "Action" [ref=f11e87]
+            - rowgroup [ref=f11e88]:
+              - row [ref=f11e89]:
+                - cell "tes" [ref=f11e90]
+                - cell "9.00h" [ref=f11e91]
+                - cell "0.00h" [ref=f11e92]
+                - cell "9.00h" [ref=f11e93]
+                - cell "0% Used 0%" [ref=f11e94]:
+                  - generic [ref=f11e95]:
+                    - img "0% Used" [ref=f11e96]
+                    - generic [ref=f11e97]: 0%
+                - cell [ref=f11e98]:
+                  - link "Ledger" [ref=f11e99] [cursor=pointer]:
+                    - /url: /projects/agileboard/helpdesk?ledger_organization_id=1&ledger_project_id=7
+    - generic [ref=f11e103]:
+      - text: Powered by
+      - link "Redmine" [ref=f11e104] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f11e105]
+  - log [ref=f11e106]
+  - log [ref=f11e107]
+  - log [ref=f11e108]

@@ -1,0 +1,2985 @@
+- generic [active] [ref=f7e1]:
+  - generic [ref=f7e2]:
+    - generic [ref=f7e3]:
+      - generic [ref=f7e4]:
+        - list:
+          - listitem [ref=f7e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f7e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f7e7]:
+        - text: Logged in as
+        - link "admin" [ref=f7e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f7e9]:
+        - listitem [ref=f7e10]:
+          - link [ref=f7e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f7e12]
+        - listitem [ref=f7e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f7e14]:
+          - link "My page" [ref=f7e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f7e16]:
+          - link "Projects" [ref=f7e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f7e18]:
+          - link "Helpdesk Command Center" [ref=f7e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f7e20]:
+          - link "Administration" [ref=f7e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f7e22]:
+          - link "Help" [ref=f7e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f7e24]:
+      - generic [ref=f7e25]:
+        - generic [ref=f7e26]:
+          - generic [ref=f7e27]:
+            - link "Search" [ref=f7e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f7e29]
+        - generic [ref=f7e30]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f7e32]
+    - generic [ref=f7e33]:
+      - generic [ref=f7e34]:
+        - link [ref=f7e36] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f7e39]:
+          - heading "Administration" [level=3] [ref=f7e40]
+          - list [ref=f7e42]:
+            - listitem [ref=f7e43]:
+              - link "Projects" [ref=f7e44] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f7e46]:
+              - link "Users" [ref=f7e47] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f7e49]:
+              - link "Groups" [ref=f7e50] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f7e52]:
+              - link "Roles and permissions" [ref=f7e53] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f7e55]:
+              - link "Trackers" [ref=f7e56] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f7e58]:
+              - link "Issue statuses" [ref=f7e59] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f7e61]:
+              - link "Workflow" [ref=f7e62] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f7e64]:
+              - link "Custom fields" [ref=f7e65] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f7e67]:
+              - link "Enumerations" [ref=f7e68] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f7e70]:
+              - link "Settings" [ref=f7e71] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f7e73]:
+              - link "LDAP authentication" [ref=f7e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f7e76]:
+              - link "Plugins" [ref=f7e77] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f7e79]:
+              - link "Information" [ref=f7e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f7e82]:
+        - heading [level=2] [ref=f7e83]:
+          - link "Roles" [ref=f7e84] [cursor=pointer]:
+            - /url: /roles
+          - text: » Permissions report
+        - group "Filters" [ref=f7e86]
+        - generic [ref=f7e90]:
+          - table [ref=f7e92]:
+            - rowgroup [ref=f7e93]:
+              - row [ref=f7e94]:
+                - columnheader "Permissions" [ref=f7e95]
+                - columnheader [ref=f7e96]:
+                  - link "Check all / Uncheck all" [ref=f7e97] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manager
+                - columnheader [ref=f7e99]:
+                  - link "Check all / Uncheck all" [ref=f7e100] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Employee
+                - columnheader [ref=f7e102]:
+                  - link "Check all / Uncheck all" [ref=f7e103] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Client
+                - columnheader [ref=f7e105]:
+                  - link "Check all / Uncheck all" [ref=f7e106] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Project Lead
+                - columnheader [ref=f7e108]:
+                  - link "Check all / Uncheck all" [ref=f7e109] [cursor=pointer]:
+                    - /url: "#"
+                  - text: QA
+                - columnheader [ref=f7e111]:
+                  - link "Check all / Uncheck all" [ref=f7e112] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Team Lead
+                - columnheader [ref=f7e114]:
+                  - link "Check all / Uncheck all" [ref=f7e115] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Developer
+                - columnheader [ref=f7e117]:
+                  - link "Check all / Uncheck all" [ref=f7e118] [cursor=pointer]:
+                    - /url: "#"
+                  - emphasis [ref=f7e120]: Non member
+                - columnheader [ref=f7e121]:
+                  - link "Check all / Uncheck all" [ref=f7e122] [cursor=pointer]:
+                    - /url: "#"
+                  - emphasis [ref=f7e124]: Anonymous
+            - rowgroup [ref=f7e125]:
+              - row [ref=f7e126]:
+                - cell [ref=f7e127]:
+                  - link "Check all / Uncheck all" [ref=f7e128] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Create project
+                - cell "Create project (Manager)" [ref=f7e130]:
+                  - checkbox [checked] [ref=f7e131]
+                - cell "Create project (Employee)" [ref=f7e132]:
+                  - checkbox [ref=f7e133]
+                - cell "Create project (Client)" [ref=f7e134]:
+                  - checkbox [ref=f7e135]
+                - cell "Create project (Project Lead)" [ref=f7e136]:
+                  - checkbox [ref=f7e137]
+                - cell "Create project (QA)" [ref=f7e138]:
+                  - checkbox [ref=f7e139]
+                - cell "Create project (Team Lead)" [ref=f7e140]:
+                  - checkbox [ref=f7e141]
+                - cell "Create project (Developer)" [ref=f7e142]:
+                  - checkbox [ref=f7e143]
+                - cell "Create project (Non member)" [ref=f7e144]:
+                  - checkbox [ref=f7e145]
+                - cell [ref=f7e146]
+              - row [ref=f7e147]:
+                - cell [ref=f7e148]:
+                  - link "Check all / Uncheck all" [ref=f7e149] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Edit project
+                - cell "Edit project (Manager)" [ref=f7e151]:
+                  - checkbox [checked] [ref=f7e152]
+                - cell "Edit project (Employee)" [ref=f7e153]:
+                  - checkbox [ref=f7e154]
+                - cell "Edit project (Client)" [ref=f7e155]:
+                  - checkbox [ref=f7e156]
+                - cell "Edit project (Project Lead)" [ref=f7e157]:
+                  - checkbox [ref=f7e158]
+                - cell "Edit project (QA)" [ref=f7e159]:
+                  - checkbox [ref=f7e160]
+                - cell "Edit project (Team Lead)" [ref=f7e161]:
+                  - checkbox [ref=f7e162]
+                - cell "Edit project (Developer)" [ref=f7e163]:
+                  - checkbox [ref=f7e164]
+                - cell [ref=f7e165]
+                - cell [ref=f7e166]
+              - row [ref=f7e167]:
+                - cell [ref=f7e168]:
+                  - link "Check all / Uncheck all" [ref=f7e169] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Close / reopen the project
+                - cell "Close / reopen the project (Manager)" [ref=f7e171]:
+                  - checkbox [checked] [ref=f7e172]
+                - cell "Close / reopen the project (Employee)" [ref=f7e173]:
+                  - checkbox [ref=f7e174]
+                - cell "Close / reopen the project (Client)" [ref=f7e175]:
+                  - checkbox [ref=f7e176]
+                - cell "Close / reopen the project (Project Lead)" [ref=f7e177]:
+                  - checkbox [ref=f7e178]
+                - cell "Close / reopen the project (QA)" [ref=f7e179]:
+                  - checkbox [ref=f7e180]
+                - cell "Close / reopen the project (Team Lead)" [ref=f7e181]:
+                  - checkbox [ref=f7e182]
+                - cell "Close / reopen the project (Developer)" [ref=f7e183]:
+                  - checkbox [ref=f7e184]
+                - cell [ref=f7e185]
+                - cell [ref=f7e186]
+              - row [ref=f7e187]:
+                - cell [ref=f7e188]:
+                  - link "Check all / Uncheck all" [ref=f7e189] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Delete the project
+                - cell "Delete the project (Manager)" [ref=f7e191]:
+                  - checkbox [checked] [ref=f7e192]
+                - cell "Delete the project (Employee)" [ref=f7e193]:
+                  - checkbox [ref=f7e194]
+                - cell "Delete the project (Client)" [ref=f7e195]:
+                  - checkbox [ref=f7e196]
+                - cell "Delete the project (Project Lead)" [ref=f7e197]:
+                  - checkbox [ref=f7e198]
+                - cell "Delete the project (QA)" [ref=f7e199]:
+                  - checkbox [ref=f7e200]
+                - cell "Delete the project (Team Lead)" [ref=f7e201]:
+                  - checkbox [ref=f7e202]
+                - cell "Delete the project (Developer)" [ref=f7e203]:
+                  - checkbox [ref=f7e204]
+                - cell [ref=f7e205]
+                - cell [ref=f7e206]
+              - row [ref=f7e207]:
+                - cell [ref=f7e208]:
+                  - link "Check all / Uncheck all" [ref=f7e209] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Set project public or private
+                - cell "Set project public or private (Manager)" [ref=f7e211]:
+                  - checkbox [checked] [ref=f7e212]
+                - cell "Set project public or private (Employee)" [ref=f7e213]:
+                  - checkbox [ref=f7e214]
+                - cell "Set project public or private (Client)" [ref=f7e215]:
+                  - checkbox [ref=f7e216]
+                - cell "Set project public or private (Project Lead)" [ref=f7e217]:
+                  - checkbox [ref=f7e218]
+                - cell "Set project public or private (QA)" [ref=f7e219]:
+                  - checkbox [ref=f7e220]
+                - cell "Set project public or private (Team Lead)" [ref=f7e221]:
+                  - checkbox [ref=f7e222]
+                - cell "Set project public or private (Developer)" [ref=f7e223]:
+                  - checkbox [ref=f7e224]
+                - cell [ref=f7e225]
+                - cell [ref=f7e226]
+              - row [ref=f7e227]:
+                - cell [ref=f7e228]:
+                  - link "Check all / Uncheck all" [ref=f7e229] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Select project modules
+                - cell "Select project modules (Manager)" [ref=f7e231]:
+                  - checkbox [checked] [ref=f7e232]
+                - cell "Select project modules (Employee)" [ref=f7e233]:
+                  - checkbox [ref=f7e234]
+                - cell "Select project modules (Client)" [ref=f7e235]:
+                  - checkbox [ref=f7e236]
+                - cell "Select project modules (Project Lead)" [ref=f7e237]:
+                  - checkbox [ref=f7e238]
+                - cell "Select project modules (QA)" [ref=f7e239]:
+                  - checkbox [ref=f7e240]
+                - cell "Select project modules (Team Lead)" [ref=f7e241]:
+                  - checkbox [ref=f7e242]
+                - cell "Select project modules (Developer)" [ref=f7e243]:
+                  - checkbox [ref=f7e244]
+                - cell [ref=f7e245]
+                - cell [ref=f7e246]
+              - row [ref=f7e247]:
+                - cell [ref=f7e248]:
+                  - link "Check all / Uncheck all" [ref=f7e249] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manage members
+                - cell "Manage members (Manager)" [ref=f7e251]:
+                  - checkbox [checked] [ref=f7e252]
+                - cell "Manage members (Employee)" [ref=f7e253]:
+                  - checkbox [ref=f7e254]
+                - cell "Manage members (Client)" [ref=f7e255]:
+                  - checkbox [ref=f7e256]
+                - cell "Manage members (Project Lead)" [ref=f7e257]:
+                  - checkbox [checked] [ref=f7e258]
+                - cell "Manage members (QA)" [ref=f7e259]:
+                  - checkbox [ref=f7e260]
+                - cell "Manage members (Team Lead)" [ref=f7e261]:
+                  - checkbox [checked] [ref=f7e262]
+                - cell "Manage members (Developer)" [ref=f7e263]:
+                  - checkbox [ref=f7e264]
+                - cell [ref=f7e265]
+                - cell [ref=f7e266]
+              - row [ref=f7e267]:
+                - cell [ref=f7e268]:
+                  - link "Check all / Uncheck all" [ref=f7e269] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manage versions
+                - cell "Manage versions (Manager)" [ref=f7e271]:
+                  - checkbox [checked] [ref=f7e272]
+                - cell "Manage versions (Employee)" [ref=f7e273]:
+                  - checkbox [checked] [ref=f7e274]
+                - cell "Manage versions (Client)" [ref=f7e275]:
+                  - checkbox [ref=f7e276]
+                - cell "Manage versions (Project Lead)" [ref=f7e277]:
+                  - checkbox [checked] [ref=f7e278]
+                - cell "Manage versions (QA)" [ref=f7e279]:
+                  - checkbox [ref=f7e280]
+                - cell "Manage versions (Team Lead)" [ref=f7e281]:
+                  - checkbox [checked] [ref=f7e282]
+                - cell "Manage versions (Developer)" [ref=f7e283]:
+                  - checkbox [checked] [ref=f7e284]
+                - cell [ref=f7e285]
+                - cell [ref=f7e286]
+              - row [ref=f7e287]:
+                - cell [ref=f7e288]:
+                  - link "Check all / Uncheck all" [ref=f7e289] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Create subprojects
+                - cell "Create subprojects (Manager)" [ref=f7e291]:
+                  - checkbox [checked] [ref=f7e292]
+                - cell "Create subprojects (Employee)" [ref=f7e293]:
+                  - checkbox [ref=f7e294]
+                - cell "Create subprojects (Client)" [ref=f7e295]:
+                  - checkbox [ref=f7e296]
+                - cell "Create subprojects (Project Lead)" [ref=f7e297]:
+                  - checkbox [ref=f7e298]
+                - cell "Create subprojects (QA)" [ref=f7e299]:
+                  - checkbox [ref=f7e300]
+                - cell "Create subprojects (Team Lead)" [ref=f7e301]:
+                  - checkbox [ref=f7e302]
+                - cell "Create subprojects (Developer)" [ref=f7e303]:
+                  - checkbox [ref=f7e304]
+                - cell [ref=f7e305]
+                - cell [ref=f7e306]
+              - row [ref=f7e307]:
+                - cell [ref=f7e308]:
+                  - link "Check all / Uncheck all" [ref=f7e309] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manage public queries
+                - cell "Manage public queries (Manager)" [ref=f7e311]:
+                  - checkbox [checked] [ref=f7e312]
+                - cell "Manage public queries (Employee)" [ref=f7e313]:
+                  - checkbox [ref=f7e314]
+                - cell "Manage public queries (Client)" [ref=f7e315]:
+                  - checkbox [ref=f7e316]
+                - cell "Manage public queries (Project Lead)" [ref=f7e317]:
+                  - checkbox [ref=f7e318]
+                - cell "Manage public queries (QA)" [ref=f7e319]:
+                  - checkbox [ref=f7e320]
+                - cell "Manage public queries (Team Lead)" [ref=f7e321]:
+                  - checkbox [ref=f7e322]
+                - cell "Manage public queries (Developer)" [ref=f7e323]:
+                  - checkbox [ref=f7e324]
+                - cell [ref=f7e325]
+                - cell [ref=f7e326]
+              - row [ref=f7e327]:
+                - cell [ref=f7e328]:
+                  - link "Check all / Uncheck all" [ref=f7e329] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Save queries
+                - cell "Save queries (Manager)" [ref=f7e331]:
+                  - checkbox [checked] [ref=f7e332]
+                - cell "Save queries (Employee)" [ref=f7e333]:
+                  - checkbox [checked] [ref=f7e334]
+                - cell "Save queries (Client)" [ref=f7e335]:
+                  - checkbox [checked] [ref=f7e336]
+                - cell "Save queries (Project Lead)" [ref=f7e337]:
+                  - checkbox [checked] [ref=f7e338]
+                - cell "Save queries (QA)" [ref=f7e339]:
+                  - checkbox [checked] [ref=f7e340]
+                - cell "Save queries (Team Lead)" [ref=f7e341]:
+                  - checkbox [checked] [ref=f7e342]
+                - cell "Save queries (Developer)" [ref=f7e343]:
+                  - checkbox [checked] [ref=f7e344]
+                - cell "Save queries (Non member)" [ref=f7e345]:
+                  - checkbox [checked] [ref=f7e346]
+                - cell [ref=f7e347]
+              - row [ref=f7e348]:
+                - cell [ref=f7e349]:
+                  - generic [ref=f7e350] [cursor=pointer]
+                  - text: Forums
+                - cell "Manager" [ref=f7e353]
+                - cell "Employee" [ref=f7e354]
+                - cell "Client" [ref=f7e355]
+                - cell "Project Lead" [ref=f7e356]
+                - cell "QA" [ref=f7e357]
+                - cell "Team Lead" [ref=f7e358]
+                - cell "Developer" [ref=f7e359]
+                - cell "Non member" [ref=f7e360]
+                - cell "Anonymous" [ref=f7e361]
+              - row [ref=f7e362]:
+                - cell [ref=f7e363]:
+                  - link "Check all / Uncheck all" [ref=f7e364] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View messages
+                - cell "View messages (Manager)" [ref=f7e366]:
+                  - checkbox [checked] [ref=f7e367]
+                - cell "View messages (Employee)" [ref=f7e368]:
+                  - checkbox [checked] [ref=f7e369]
+                - cell "View messages (Client)" [ref=f7e370]:
+                  - checkbox [checked] [ref=f7e371]
+                - cell "View messages (Project Lead)" [ref=f7e372]:
+                  - checkbox [checked] [ref=f7e373]
+                - cell "View messages (QA)" [ref=f7e374]:
+                  - checkbox [checked] [ref=f7e375]
+                - cell "View messages (Team Lead)" [ref=f7e376]:
+                  - checkbox [checked] [ref=f7e377]
+                - cell "View messages (Developer)" [ref=f7e378]:
+                  - checkbox [checked] [ref=f7e379]
+                - cell "View messages (Non member)" [ref=f7e380]:
+                  - checkbox [checked] [ref=f7e381]
+                - cell "View messages (Anonymous)" [ref=f7e382]:
+                  - checkbox [checked] [ref=f7e383]
+              - row [ref=f7e384]:
+                - cell [ref=f7e385]:
+                  - link "Check all / Uncheck all" [ref=f7e386] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Post messages
+                - cell "Post messages (Manager)" [ref=f7e388]:
+                  - checkbox [checked] [ref=f7e389]
+                - cell "Post messages (Employee)" [ref=f7e390]:
+                  - checkbox [checked] [ref=f7e391]
+                - cell "Post messages (Client)" [ref=f7e392]:
+                  - checkbox [checked] [ref=f7e393]
+                - cell "Post messages (Project Lead)" [ref=f7e394]:
+                  - checkbox [checked] [ref=f7e395]
+                - cell "Post messages (QA)" [ref=f7e396]:
+                  - checkbox [checked] [ref=f7e397]
+                - cell "Post messages (Team Lead)" [ref=f7e398]:
+                  - checkbox [checked] [ref=f7e399]
+                - cell "Post messages (Developer)" [ref=f7e400]:
+                  - checkbox [checked] [ref=f7e401]
+                - cell "Post messages (Non member)" [ref=f7e402]:
+                  - checkbox [checked] [ref=f7e403]
+                - cell "Post messages (Anonymous)" [ref=f7e404]:
+                  - checkbox [ref=f7e405]
+              - row [ref=f7e406]:
+                - cell [ref=f7e407]:
+                  - link "Check all / Uncheck all" [ref=f7e408] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Edit messages
+                - cell "Edit messages (Manager)" [ref=f7e410]:
+                  - checkbox [checked] [ref=f7e411]
+                - cell "Edit messages (Employee)" [ref=f7e412]:
+                  - checkbox [ref=f7e413]
+                - cell "Edit messages (Client)" [ref=f7e414]:
+                  - checkbox [ref=f7e415]
+                - cell "Edit messages (Project Lead)" [ref=f7e416]:
+                  - checkbox [ref=f7e417]
+                - cell "Edit messages (QA)" [ref=f7e418]:
+                  - checkbox [ref=f7e419]
+                - cell "Edit messages (Team Lead)" [ref=f7e420]:
+                  - checkbox [ref=f7e421]
+                - cell "Edit messages (Developer)" [ref=f7e422]:
+                  - checkbox [ref=f7e423]
+                - cell [ref=f7e424]
+                - cell [ref=f7e425]
+              - row [ref=f7e426]:
+                - cell [ref=f7e427]:
+                  - link "Check all / Uncheck all" [ref=f7e428] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Edit own messages
+                - cell "Edit own messages (Manager)" [ref=f7e430]:
+                  - checkbox [checked] [ref=f7e431]
+                - cell "Edit own messages (Employee)" [ref=f7e432]:
+                  - checkbox [checked] [ref=f7e433]
+                - cell "Edit own messages (Client)" [ref=f7e434]:
+                  - checkbox [checked] [ref=f7e435]
+                - cell "Edit own messages (Project Lead)" [ref=f7e436]:
+                  - checkbox [checked] [ref=f7e437]
+                - cell "Edit own messages (QA)" [ref=f7e438]:
+                  - checkbox [checked] [ref=f7e439]
+                - cell "Edit own messages (Team Lead)" [ref=f7e440]:
+                  - checkbox [checked] [ref=f7e441]
+                - cell "Edit own messages (Developer)" [ref=f7e442]:
+                  - checkbox [checked] [ref=f7e443]
+                - cell "Edit own messages (Non member)" [ref=f7e444]:
+                  - checkbox [ref=f7e445]
+                - cell [ref=f7e446]
+              - row [ref=f7e447]:
+                - cell [ref=f7e448]:
+                  - link "Check all / Uncheck all" [ref=f7e449] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Delete messages
+                - cell "Delete messages (Manager)" [ref=f7e451]:
+                  - checkbox [checked] [ref=f7e452]
+                - cell "Delete messages (Employee)" [ref=f7e453]:
+                  - checkbox [ref=f7e454]
+                - cell "Delete messages (Client)" [ref=f7e455]:
+                  - checkbox [ref=f7e456]
+                - cell "Delete messages (Project Lead)" [ref=f7e457]:
+                  - checkbox [ref=f7e458]
+                - cell "Delete messages (QA)" [ref=f7e459]:
+                  - checkbox [ref=f7e460]
+                - cell "Delete messages (Team Lead)" [ref=f7e461]:
+                  - checkbox [ref=f7e462]
+                - cell "Delete messages (Developer)" [ref=f7e463]:
+                  - checkbox [ref=f7e464]
+                - cell [ref=f7e465]
+                - cell [ref=f7e466]
+              - row [ref=f7e467]:
+                - cell [ref=f7e468]:
+                  - link "Check all / Uncheck all" [ref=f7e469] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Delete own messages
+                - cell "Delete own messages (Manager)" [ref=f7e471]:
+                  - checkbox [checked] [ref=f7e472]
+                - cell "Delete own messages (Employee)" [ref=f7e473]:
+                  - checkbox [ref=f7e474]
+                - cell "Delete own messages (Client)" [ref=f7e475]:
+                  - checkbox [ref=f7e476]
+                - cell "Delete own messages (Project Lead)" [ref=f7e477]:
+                  - checkbox [ref=f7e478]
+                - cell "Delete own messages (QA)" [ref=f7e479]:
+                  - checkbox [ref=f7e480]
+                - cell "Delete own messages (Team Lead)" [ref=f7e481]:
+                  - checkbox [ref=f7e482]
+                - cell "Delete own messages (Developer)" [ref=f7e483]:
+                  - checkbox [ref=f7e484]
+                - cell "Delete own messages (Non member)" [ref=f7e485]:
+                  - checkbox [ref=f7e486]
+                - cell [ref=f7e487]
+              - row [ref=f7e488]:
+                - cell [ref=f7e489]:
+                  - link "Check all / Uncheck all" [ref=f7e490] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View message watchers list
+                - cell "View message watchers list (Manager)" [ref=f7e492]:
+                  - checkbox [checked] [ref=f7e493]
+                - cell "View message watchers list (Employee)" [ref=f7e494]:
+                  - checkbox [ref=f7e495]
+                - cell "View message watchers list (Client)" [ref=f7e496]:
+                  - checkbox [ref=f7e497]
+                - cell "View message watchers list (Project Lead)" [ref=f7e498]:
+                  - checkbox [ref=f7e499]
+                - cell "View message watchers list (QA)" [ref=f7e500]:
+                  - checkbox [ref=f7e501]
+                - cell "View message watchers list (Team Lead)" [ref=f7e502]:
+                  - checkbox [ref=f7e503]
+                - cell "View message watchers list (Developer)" [ref=f7e504]:
+                  - checkbox [ref=f7e505]
+                - cell "View message watchers list (Non member)" [ref=f7e506]:
+                  - checkbox [ref=f7e507]
+                - cell "View message watchers list (Anonymous)" [ref=f7e508]:
+                  - checkbox [ref=f7e509]
+              - row [ref=f7e510]:
+                - cell [ref=f7e511]:
+                  - link "Check all / Uncheck all" [ref=f7e512] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Add message watchers
+                - cell "Add message watchers (Manager)" [ref=f7e514]:
+                  - checkbox [checked] [ref=f7e515]
+                - cell "Add message watchers (Employee)" [ref=f7e516]:
+                  - checkbox [ref=f7e517]
+                - cell "Add message watchers (Client)" [ref=f7e518]:
+                  - checkbox [ref=f7e519]
+                - cell "Add message watchers (Project Lead)" [ref=f7e520]:
+                  - checkbox [ref=f7e521]
+                - cell "Add message watchers (QA)" [ref=f7e522]:
+                  - checkbox [ref=f7e523]
+                - cell "Add message watchers (Team Lead)" [ref=f7e524]:
+                  - checkbox [ref=f7e525]
+                - cell "Add message watchers (Developer)" [ref=f7e526]:
+                  - checkbox [ref=f7e527]
+                - cell "Add message watchers (Non member)" [ref=f7e528]:
+                  - checkbox [ref=f7e529]
+                - cell "Add message watchers (Anonymous)" [ref=f7e530]:
+                  - checkbox [ref=f7e531]
+              - row [ref=f7e532]:
+                - cell [ref=f7e533]:
+                  - link "Check all / Uncheck all" [ref=f7e534] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Delete message watchers
+                - cell "Delete message watchers (Manager)" [ref=f7e536]:
+                  - checkbox [checked] [ref=f7e537]
+                - cell "Delete message watchers (Employee)" [ref=f7e538]:
+                  - checkbox [ref=f7e539]
+                - cell "Delete message watchers (Client)" [ref=f7e540]:
+                  - checkbox [ref=f7e541]
+                - cell "Delete message watchers (Project Lead)" [ref=f7e542]:
+                  - checkbox [ref=f7e543]
+                - cell "Delete message watchers (QA)" [ref=f7e544]:
+                  - checkbox [ref=f7e545]
+                - cell "Delete message watchers (Team Lead)" [ref=f7e546]:
+                  - checkbox [ref=f7e547]
+                - cell "Delete message watchers (Developer)" [ref=f7e548]:
+                  - checkbox [ref=f7e549]
+                - cell "Delete message watchers (Non member)" [ref=f7e550]:
+                  - checkbox [ref=f7e551]
+                - cell "Delete message watchers (Anonymous)" [ref=f7e552]:
+                  - checkbox [ref=f7e553]
+              - row [ref=f7e554]:
+                - cell [ref=f7e555]:
+                  - link "Check all / Uncheck all" [ref=f7e556] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manage forums
+                - cell "Manage forums (Manager)" [ref=f7e558]:
+                  - checkbox [checked] [ref=f7e559]
+                - cell "Manage forums (Employee)" [ref=f7e560]:
+                  - checkbox [ref=f7e561]
+                - cell "Manage forums (Client)" [ref=f7e562]:
+                  - checkbox [ref=f7e563]
+                - cell "Manage forums (Project Lead)" [ref=f7e564]:
+                  - checkbox [ref=f7e565]
+                - cell "Manage forums (QA)" [ref=f7e566]:
+                  - checkbox [ref=f7e567]
+                - cell "Manage forums (Team Lead)" [ref=f7e568]:
+                  - checkbox [ref=f7e569]
+                - cell "Manage forums (Developer)" [ref=f7e570]:
+                  - checkbox [ref=f7e571]
+                - cell [ref=f7e572]
+                - cell [ref=f7e573]
+              - row [ref=f7e574]:
+                - cell [ref=f7e575]:
+                  - generic [ref=f7e576] [cursor=pointer]
+                  - text: Calendar
+                - cell "Manager" [ref=f7e579]
+                - cell "Employee" [ref=f7e580]
+                - cell "Client" [ref=f7e581]
+                - cell "Project Lead" [ref=f7e582]
+                - cell "QA" [ref=f7e583]
+                - cell "Team Lead" [ref=f7e584]
+                - cell "Developer" [ref=f7e585]
+                - cell "Non member" [ref=f7e586]
+                - cell "Anonymous" [ref=f7e587]
+              - row [ref=f7e588]:
+                - cell [ref=f7e589]:
+                  - link "Check all / Uncheck all" [ref=f7e590] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View calendar
+                - cell "View calendar (Manager)" [ref=f7e592]:
+                  - checkbox [checked] [ref=f7e593]
+                - cell "View calendar (Employee)" [ref=f7e594]:
+                  - checkbox [checked] [ref=f7e595]
+                - cell "View calendar (Client)" [ref=f7e596]:
+                  - checkbox [checked] [ref=f7e597]
+                - cell "View calendar (Project Lead)" [ref=f7e598]:
+                  - checkbox [checked] [ref=f7e599]
+                - cell "View calendar (QA)" [ref=f7e600]:
+                  - checkbox [checked] [ref=f7e601]
+                - cell "View calendar (Team Lead)" [ref=f7e602]:
+                  - checkbox [checked] [ref=f7e603]
+                - cell "View calendar (Developer)" [ref=f7e604]:
+                  - checkbox [checked] [ref=f7e605]
+                - cell "View calendar (Non member)" [ref=f7e606]:
+                  - checkbox [checked] [ref=f7e607]
+                - cell "View calendar (Anonymous)" [ref=f7e608]:
+                  - checkbox [checked] [ref=f7e609]
+              - row [ref=f7e610]:
+                - cell [ref=f7e611]:
+                  - generic [ref=f7e612] [cursor=pointer]
+                  - text: Documents
+                - cell "Manager" [ref=f7e615]
+                - cell "Employee" [ref=f7e616]
+                - cell "Client" [ref=f7e617]
+                - cell "Project Lead" [ref=f7e618]
+                - cell "QA" [ref=f7e619]
+                - cell "Team Lead" [ref=f7e620]
+                - cell "Developer" [ref=f7e621]
+                - cell "Non member" [ref=f7e622]
+                - cell "Anonymous" [ref=f7e623]
+              - row [ref=f7e624]:
+                - cell [ref=f7e625]:
+                  - link "Check all / Uncheck all" [ref=f7e626] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View documents
+                - cell "View documents (Manager)" [ref=f7e628]:
+                  - checkbox [checked] [ref=f7e629]
+                - cell "View documents (Employee)" [ref=f7e630]:
+                  - checkbox [checked] [ref=f7e631]
+                - cell "View documents (Client)" [ref=f7e632]:
+                  - checkbox [checked] [ref=f7e633]
+                - cell "View documents (Project Lead)" [ref=f7e634]:
+                  - checkbox [checked] [ref=f7e635]
+                - cell "View documents (QA)" [ref=f7e636]:
+                  - checkbox [checked] [ref=f7e637]
+                - cell "View documents (Team Lead)" [ref=f7e638]:
+                  - checkbox [checked] [ref=f7e639]
+                - cell "View documents (Developer)" [ref=f7e640]:
+                  - checkbox [checked] [ref=f7e641]
+                - cell "View documents (Non member)" [ref=f7e642]:
+                  - checkbox [checked] [ref=f7e643]
+                - cell "View documents (Anonymous)" [ref=f7e644]:
+                  - checkbox [checked] [ref=f7e645]
+              - row [ref=f7e646]:
+                - cell [ref=f7e647]:
+                  - link "Check all / Uncheck all" [ref=f7e648] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Add documents
+                - cell "Add documents (Manager)" [ref=f7e650]:
+                  - checkbox [checked] [ref=f7e651]
+                - cell "Add documents (Employee)" [ref=f7e652]:
+                  - checkbox [ref=f7e653]
+                - cell "Add documents (Client)" [ref=f7e654]:
+                  - checkbox [ref=f7e655]
+                - cell "Add documents (Project Lead)" [ref=f7e656]:
+                  - checkbox [ref=f7e657]
+                - cell "Add documents (QA)" [ref=f7e658]:
+                  - checkbox [ref=f7e659]
+                - cell "Add documents (Team Lead)" [ref=f7e660]:
+                  - checkbox [ref=f7e661]
+                - cell "Add documents (Developer)" [ref=f7e662]:
+                  - checkbox [ref=f7e663]
+                - cell "Add documents (Non member)" [ref=f7e664]:
+                  - checkbox [ref=f7e665]
+                - cell [ref=f7e666]
+              - row [ref=f7e667]:
+                - cell [ref=f7e668]:
+                  - link "Check all / Uncheck all" [ref=f7e669] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Edit documents
+                - cell "Edit documents (Manager)" [ref=f7e671]:
+                  - checkbox [checked] [ref=f7e672]
+                - cell "Edit documents (Employee)" [ref=f7e673]:
+                  - checkbox [ref=f7e674]
+                - cell "Edit documents (Client)" [ref=f7e675]:
+                  - checkbox [ref=f7e676]
+                - cell "Edit documents (Project Lead)" [ref=f7e677]:
+                  - checkbox [ref=f7e678]
+                - cell "Edit documents (QA)" [ref=f7e679]:
+                  - checkbox [ref=f7e680]
+                - cell "Edit documents (Team Lead)" [ref=f7e681]:
+                  - checkbox [ref=f7e682]
+                - cell "Edit documents (Developer)" [ref=f7e683]:
+                  - checkbox [ref=f7e684]
+                - cell "Edit documents (Non member)" [ref=f7e685]:
+                  - checkbox [ref=f7e686]
+                - cell [ref=f7e687]
+              - row [ref=f7e688]:
+                - cell [ref=f7e689]:
+                  - link "Check all / Uncheck all" [ref=f7e690] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Delete documents
+                - cell "Delete documents (Manager)" [ref=f7e692]:
+                  - checkbox [checked] [ref=f7e693]
+                - cell "Delete documents (Employee)" [ref=f7e694]:
+                  - checkbox [ref=f7e695]
+                - cell "Delete documents (Client)" [ref=f7e696]:
+                  - checkbox [ref=f7e697]
+                - cell "Delete documents (Project Lead)" [ref=f7e698]:
+                  - checkbox [ref=f7e699]
+                - cell "Delete documents (QA)" [ref=f7e700]:
+                  - checkbox [ref=f7e701]
+                - cell "Delete documents (Team Lead)" [ref=f7e702]:
+                  - checkbox [ref=f7e703]
+                - cell "Delete documents (Developer)" [ref=f7e704]:
+                  - checkbox [ref=f7e705]
+                - cell "Delete documents (Non member)" [ref=f7e706]:
+                  - checkbox [ref=f7e707]
+                - cell [ref=f7e708]
+              - row [ref=f7e709]:
+                - cell [ref=f7e710]:
+                  - generic [ref=f7e711] [cursor=pointer]
+                  - text: Files
+                - cell "Manager" [ref=f7e714]
+                - cell "Employee" [ref=f7e715]
+                - cell "Client" [ref=f7e716]
+                - cell "Project Lead" [ref=f7e717]
+                - cell "QA" [ref=f7e718]
+                - cell "Team Lead" [ref=f7e719]
+                - cell "Developer" [ref=f7e720]
+                - cell "Non member" [ref=f7e721]
+                - cell "Anonymous" [ref=f7e722]
+              - row [ref=f7e723]:
+                - cell [ref=f7e724]:
+                  - link "Check all / Uncheck all" [ref=f7e725] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View files
+                - cell "View files (Manager)" [ref=f7e727]:
+                  - checkbox [checked] [ref=f7e728]
+                - cell "View files (Employee)" [ref=f7e729]:
+                  - checkbox [checked] [ref=f7e730]
+                - cell "View files (Client)" [ref=f7e731]:
+                  - checkbox [checked] [ref=f7e732]
+                - cell "View files (Project Lead)" [ref=f7e733]:
+                  - checkbox [checked] [ref=f7e734]
+                - cell "View files (QA)" [ref=f7e735]:
+                  - checkbox [checked] [ref=f7e736]
+                - cell "View files (Team Lead)" [ref=f7e737]:
+                  - checkbox [checked] [ref=f7e738]
+                - cell "View files (Developer)" [ref=f7e739]:
+                  - checkbox [checked] [ref=f7e740]
+                - cell "View files (Non member)" [ref=f7e741]:
+                  - checkbox [checked] [ref=f7e742]
+                - cell "View files (Anonymous)" [ref=f7e743]:
+                  - checkbox [checked] [ref=f7e744]
+              - row [ref=f7e745]:
+                - cell [ref=f7e746]:
+                  - link "Check all / Uncheck all" [ref=f7e747] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manage files
+                - cell "Manage files (Manager)" [ref=f7e749]:
+                  - checkbox [checked] [ref=f7e750]
+                - cell "Manage files (Employee)" [ref=f7e751]:
+                  - checkbox [checked] [ref=f7e752]
+                - cell "Manage files (Client)" [ref=f7e753]:
+                  - checkbox [ref=f7e754]
+                - cell "Manage files (Project Lead)" [ref=f7e755]:
+                  - checkbox [checked] [ref=f7e756]
+                - cell "Manage files (QA)" [ref=f7e757]:
+                  - checkbox [ref=f7e758]
+                - cell "Manage files (Team Lead)" [ref=f7e759]:
+                  - checkbox [checked] [ref=f7e760]
+                - cell "Manage files (Developer)" [ref=f7e761]:
+                  - checkbox [checked] [ref=f7e762]
+                - cell "Manage files (Non member)" [ref=f7e763]:
+                  - checkbox [ref=f7e764]
+                - cell [ref=f7e765]
+              - row [ref=f7e766]:
+                - cell [ref=f7e767]:
+                  - generic [ref=f7e768] [cursor=pointer]
+                  - text: Gantt
+                - cell "Manager" [ref=f7e771]
+                - cell "Employee" [ref=f7e772]
+                - cell "Client" [ref=f7e773]
+                - cell "Project Lead" [ref=f7e774]
+                - cell "QA" [ref=f7e775]
+                - cell "Team Lead" [ref=f7e776]
+                - cell "Developer" [ref=f7e777]
+                - cell "Non member" [ref=f7e778]
+                - cell "Anonymous" [ref=f7e779]
+              - row [ref=f7e780]:
+                - cell [ref=f7e781]:
+                  - link "Check all / Uncheck all" [ref=f7e782] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View gantt chart
+                - cell "View gantt chart (Manager)" [ref=f7e784]:
+                  - checkbox [checked] [ref=f7e785]
+                - cell "View gantt chart (Employee)" [ref=f7e786]:
+                  - checkbox [checked] [ref=f7e787]
+                - cell "View gantt chart (Client)" [ref=f7e788]:
+                  - checkbox [checked] [ref=f7e789]
+                - cell "View gantt chart (Project Lead)" [ref=f7e790]:
+                  - checkbox [checked] [ref=f7e791]
+                - cell "View gantt chart (QA)" [ref=f7e792]:
+                  - checkbox [checked] [ref=f7e793]
+                - cell "View gantt chart (Team Lead)" [ref=f7e794]:
+                  - checkbox [checked] [ref=f7e795]
+                - cell "View gantt chart (Developer)" [ref=f7e796]:
+                  - checkbox [checked] [ref=f7e797]
+                - cell "View gantt chart (Non member)" [ref=f7e798]:
+                  - checkbox [checked] [ref=f7e799]
+                - cell "View gantt chart (Anonymous)" [ref=f7e800]:
+                  - checkbox [checked] [ref=f7e801]
+              - row [ref=f7e802]:
+                - cell [ref=f7e803]:
+                  - generic [ref=f7e804] [cursor=pointer]
+                  - text: Redmineflux Helpdesk
+                - cell "Manager" [ref=f7e807]
+                - cell "Employee" [ref=f7e808]
+                - cell "Client" [ref=f7e809]
+                - cell "Project Lead" [ref=f7e810]
+                - cell "QA" [ref=f7e811]
+                - cell "Team Lead" [ref=f7e812]
+                - cell "Developer" [ref=f7e813]
+                - cell "Non member" [ref=f7e814]
+                - cell "Anonymous" [ref=f7e815]
+              - row [ref=f7e816]:
+                - cell [ref=f7e817]:
+                  - link "Check all / Uncheck all" [ref=f7e818] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View helpdesk
+                - cell "View helpdesk (Manager)" [ref=f7e820]:
+                  - checkbox [checked] [ref=f7e821]
+                - cell "View helpdesk (Employee)" [ref=f7e822]:
+                  - checkbox [ref=f7e823]
+                - cell "View helpdesk (Client)" [ref=f7e824]:
+                  - checkbox [ref=f7e825]
+                - cell "View helpdesk (Project Lead)" [ref=f7e826]:
+                  - checkbox [ref=f7e827]
+                - cell "View helpdesk (QA)" [ref=f7e828]:
+                  - checkbox [ref=f7e829]
+                - cell "View helpdesk (Team Lead)" [ref=f7e830]:
+                  - checkbox [ref=f7e831]
+                - cell "View helpdesk (Developer)" [ref=f7e832]:
+                  - checkbox [ref=f7e833]
+                - cell "View helpdesk (Non member)" [ref=f7e834]:
+                  - checkbox [ref=f7e835]
+                - cell "View helpdesk (Anonymous)" [ref=f7e836]:
+                  - checkbox [ref=f7e837]
+              - row [ref=f7e838]:
+                - cell [ref=f7e839]:
+                  - link "Check all / Uncheck all" [ref=f7e840] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manage helpdesk
+                - cell "Manage helpdesk (Manager)" [ref=f7e842]:
+                  - checkbox [checked] [ref=f7e843]
+                - cell "Manage helpdesk (Employee)" [ref=f7e844]:
+                  - checkbox [ref=f7e845]
+                - cell "Manage helpdesk (Client)" [ref=f7e846]:
+                  - checkbox [ref=f7e847]
+                - cell "Manage helpdesk (Project Lead)" [ref=f7e848]:
+                  - checkbox [ref=f7e849]
+                - cell "Manage helpdesk (QA)" [ref=f7e850]:
+                  - checkbox [ref=f7e851]
+                - cell "Manage helpdesk (Team Lead)" [ref=f7e852]:
+                  - checkbox [ref=f7e853]
+                - cell "Manage helpdesk (Developer)" [ref=f7e854]:
+                  - checkbox [ref=f7e855]
+                - cell "Manage helpdesk (Non member)" [ref=f7e856]:
+                  - checkbox [ref=f7e857]
+                - cell "Manage helpdesk (Anonymous)" [ref=f7e858]:
+                  - checkbox [ref=f7e859]
+              - row [ref=f7e860]:
+                - cell [ref=f7e861]:
+                  - link "Check all / Uncheck all" [ref=f7e862] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Export helpdesk reports
+                - cell "Export helpdesk reports (Manager)" [ref=f7e864]:
+                  - checkbox [checked] [ref=f7e865]
+                - cell "Export helpdesk reports (Employee)" [ref=f7e866]:
+                  - checkbox [ref=f7e867]
+                - cell "Export helpdesk reports (Client)" [ref=f7e868]:
+                  - checkbox [ref=f7e869]
+                - cell "Export helpdesk reports (Project Lead)" [ref=f7e870]:
+                  - checkbox [ref=f7e871]
+                - cell "Export helpdesk reports (QA)" [ref=f7e872]:
+                  - checkbox [ref=f7e873]
+                - cell "Export helpdesk reports (Team Lead)" [ref=f7e874]:
+                  - checkbox [ref=f7e875]
+                - cell "Export helpdesk reports (Developer)" [ref=f7e876]:
+                  - checkbox [ref=f7e877]
+                - cell "Export helpdesk reports (Non member)" [ref=f7e878]:
+                  - checkbox [ref=f7e879]
+                - cell "Export helpdesk reports (Anonymous)" [ref=f7e880]:
+                  - checkbox [ref=f7e881]
+              - row [ref=f7e882]:
+                - cell [ref=f7e883]:
+                  - link "Check all / Uncheck all" [ref=f7e884] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manage prepaid support hours
+                - cell "Manage prepaid support hours (Manager)" [ref=f7e886]:
+                  - checkbox [checked] [ref=f7e887]
+                - cell "Manage prepaid support hours (Employee)" [ref=f7e888]:
+                  - checkbox [ref=f7e889]
+                - cell "Manage prepaid support hours (Client)" [ref=f7e890]:
+                  - checkbox [ref=f7e891]
+                - cell "Manage prepaid support hours (Project Lead)" [ref=f7e892]:
+                  - checkbox [ref=f7e893]
+                - cell "Manage prepaid support hours (QA)" [ref=f7e894]:
+                  - checkbox [ref=f7e895]
+                - cell "Manage prepaid support hours (Team Lead)" [ref=f7e896]:
+                  - checkbox [ref=f7e897]
+                - cell "Manage prepaid support hours (Developer)" [ref=f7e898]:
+                  - checkbox [ref=f7e899]
+                - cell "Manage prepaid support hours (Non member)" [ref=f7e900]:
+                  - checkbox [ref=f7e901]
+                - cell "Manage prepaid support hours (Anonymous)" [ref=f7e902]:
+                  - checkbox [ref=f7e903]
+              - row [ref=f7e904]:
+                - cell [ref=f7e905]:
+                  - link "Check all / Uncheck all" [ref=f7e906] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View email history
+                - cell "View email history (Manager)" [ref=f7e908]:
+                  - checkbox [checked] [ref=f7e909]
+                - cell "View email history (Employee)" [ref=f7e910]:
+                  - checkbox [ref=f7e911]
+                - cell "View email history (Client)" [ref=f7e912]:
+                  - checkbox [ref=f7e913]
+                - cell "View email history (Project Lead)" [ref=f7e914]:
+                  - checkbox [ref=f7e915]
+                - cell "View email history (QA)" [ref=f7e916]:
+                  - checkbox [ref=f7e917]
+                - cell "View email history (Team Lead)" [ref=f7e918]:
+                  - checkbox [ref=f7e919]
+                - cell "View email history (Developer)" [ref=f7e920]:
+                  - checkbox [ref=f7e921]
+                - cell "View email history (Non member)" [ref=f7e922]:
+                  - checkbox [ref=f7e923]
+                - cell "View email history (Anonymous)" [ref=f7e924]:
+                  - checkbox [ref=f7e925]
+              - row [ref=f7e926]:
+                - cell [ref=f7e927]:
+                  - link "Check all / Uncheck all" [ref=f7e928] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Add Knowledge Base Article
+                - cell "Add Knowledge Base Article (Manager)" [ref=f7e930]:
+                  - checkbox [checked] [ref=f7e931]
+                - cell "Add Knowledge Base Article (Employee)" [ref=f7e932]:
+                  - checkbox [ref=f7e933]
+                - cell "Add Knowledge Base Article (Client)" [ref=f7e934]:
+                  - checkbox [ref=f7e935]
+                - cell "Add Knowledge Base Article (Project Lead)" [ref=f7e936]:
+                  - checkbox [ref=f7e937]
+                - cell "Add Knowledge Base Article (QA)" [ref=f7e938]:
+                  - checkbox [ref=f7e939]
+                - cell "Add Knowledge Base Article (Team Lead)" [ref=f7e940]:
+                  - checkbox [ref=f7e941]
+                - cell "Add Knowledge Base Article (Developer)" [ref=f7e942]:
+                  - checkbox [ref=f7e943]
+                - cell "Add Knowledge Base Article (Non member)" [ref=f7e944]:
+                  - checkbox [ref=f7e945]
+                - cell "Add Knowledge Base Article (Anonymous)" [ref=f7e946]:
+                  - checkbox [ref=f7e947]
+              - row [ref=f7e948]:
+                - cell [ref=f7e949]:
+                  - link "Check all / Uncheck all" [ref=f7e950] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Edit Knowledge Base Article
+                - cell "Edit Knowledge Base Article (Manager)" [ref=f7e952]:
+                  - checkbox [checked] [ref=f7e953]
+                - cell "Edit Knowledge Base Article (Employee)" [ref=f7e954]:
+                  - checkbox [ref=f7e955]
+                - cell "Edit Knowledge Base Article (Client)" [ref=f7e956]:
+                  - checkbox [ref=f7e957]
+                - cell "Edit Knowledge Base Article (Project Lead)" [ref=f7e958]:
+                  - checkbox [ref=f7e959]
+                - cell "Edit Knowledge Base Article (QA)" [ref=f7e960]:
+                  - checkbox [ref=f7e961]
+                - cell "Edit Knowledge Base Article (Team Lead)" [ref=f7e962]:
+                  - checkbox [ref=f7e963]
+                - cell "Edit Knowledge Base Article (Developer)" [ref=f7e964]:
+                  - checkbox [ref=f7e965]
+                - cell "Edit Knowledge Base Article (Non member)" [ref=f7e966]:
+                  - checkbox [ref=f7e967]
+                - cell "Edit Knowledge Base Article (Anonymous)" [ref=f7e968]:
+                  - checkbox [ref=f7e969]
+              - row [ref=f7e970]:
+                - cell [ref=f7e971]:
+                  - link "Check all / Uncheck all" [ref=f7e972] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Delete Knowledge Base Article
+                - cell "Delete Knowledge Base Article (Manager)" [ref=f7e974]:
+                  - checkbox [checked] [ref=f7e975]
+                - cell "Delete Knowledge Base Article (Employee)" [ref=f7e976]:
+                  - checkbox [ref=f7e977]
+                - cell "Delete Knowledge Base Article (Client)" [ref=f7e978]:
+                  - checkbox [ref=f7e979]
+                - cell "Delete Knowledge Base Article (Project Lead)" [ref=f7e980]:
+                  - checkbox [ref=f7e981]
+                - cell "Delete Knowledge Base Article (QA)" [ref=f7e982]:
+                  - checkbox [ref=f7e983]
+                - cell "Delete Knowledge Base Article (Team Lead)" [ref=f7e984]:
+                  - checkbox [ref=f7e985]
+                - cell "Delete Knowledge Base Article (Developer)" [ref=f7e986]:
+                  - checkbox [ref=f7e987]
+                - cell "Delete Knowledge Base Article (Non member)" [ref=f7e988]:
+                  - checkbox [ref=f7e989]
+                - cell "Delete Knowledge Base Article (Anonymous)" [ref=f7e990]:
+                  - checkbox [ref=f7e991]
+              - row [ref=f7e992]:
+                - cell [ref=f7e993]:
+                  - generic [ref=f7e994] [cursor=pointer]
+                  - text: Issue tracking
+                - cell "Manager" [ref=f7e997]
+                - cell "Employee" [ref=f7e998]
+                - cell "Client" [ref=f7e999]
+                - cell "Project Lead" [ref=f7e1000]
+                - cell "QA" [ref=f7e1001]
+                - cell "Team Lead" [ref=f7e1002]
+                - cell "Developer" [ref=f7e1003]
+                - cell "Non member" [ref=f7e1004]
+                - cell "Anonymous" [ref=f7e1005]
+              - row [ref=f7e1006]:
+                - cell [ref=f7e1007]:
+                  - link "Check all / Uncheck all" [ref=f7e1008] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View Issues
+                - cell "View Issues (Manager)" [ref=f7e1010]:
+                  - checkbox [checked] [ref=f7e1011]
+                - cell "View Issues (Employee)" [ref=f7e1012]:
+                  - checkbox [checked] [ref=f7e1013]
+                - cell "View Issues (Client)" [ref=f7e1014]:
+                  - checkbox [checked] [ref=f7e1015]
+                - cell "View Issues (Project Lead)" [ref=f7e1016]:
+                  - checkbox [checked] [ref=f7e1017]
+                - cell "View Issues (QA)" [ref=f7e1018]:
+                  - checkbox [checked] [ref=f7e1019]
+                - cell "View Issues (Team Lead)" [ref=f7e1020]:
+                  - checkbox [checked] [ref=f7e1021]
+                - cell "View Issues (Developer)" [ref=f7e1022]:
+                  - checkbox [checked] [ref=f7e1023]
+                - cell "View Issues (Non member)" [ref=f7e1024]:
+                  - checkbox [checked] [ref=f7e1025]
+                - cell "View Issues (Anonymous)" [ref=f7e1026]:
+                  - checkbox [checked] [ref=f7e1027]
+              - row [ref=f7e1028]:
+                - cell [ref=f7e1029]:
+                  - link "Check all / Uncheck all" [ref=f7e1030] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Add issues
+                - cell "Add issues (Manager)" [ref=f7e1032]:
+                  - checkbox [checked] [ref=f7e1033]
+                - cell "Add issues (Employee)" [ref=f7e1034]:
+                  - checkbox [checked] [ref=f7e1035]
+                - cell "Add issues (Client)" [ref=f7e1036]:
+                  - checkbox [checked] [ref=f7e1037]
+                - cell "Add issues (Project Lead)" [ref=f7e1038]:
+                  - checkbox [checked] [ref=f7e1039]
+                - cell "Add issues (QA)" [ref=f7e1040]:
+                  - checkbox [checked] [ref=f7e1041]
+                - cell "Add issues (Team Lead)" [ref=f7e1042]:
+                  - checkbox [checked] [ref=f7e1043]
+                - cell "Add issues (Developer)" [ref=f7e1044]:
+                  - checkbox [checked] [ref=f7e1045]
+                - cell "Add issues (Non member)" [ref=f7e1046]:
+                  - checkbox [checked] [ref=f7e1047]
+                - cell "Add issues (Anonymous)" [ref=f7e1048]:
+                  - checkbox [ref=f7e1049]
+              - row [ref=f7e1050]:
+                - cell [ref=f7e1051]:
+                  - link "Check all / Uncheck all" [ref=f7e1052] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Edit issues
+                - cell "Edit issues (Manager)" [ref=f7e1054]:
+                  - checkbox [checked] [ref=f7e1055]
+                - cell "Edit issues (Employee)" [ref=f7e1056]:
+                  - checkbox [checked] [ref=f7e1057]
+                - cell "Edit issues (Client)" [ref=f7e1058]:
+                  - checkbox [ref=f7e1059]
+                - cell "Edit issues (Project Lead)" [ref=f7e1060]:
+                  - checkbox [checked] [ref=f7e1061]
+                - cell "Edit issues (QA)" [ref=f7e1062]:
+                  - checkbox [checked] [ref=f7e1063]
+                - cell "Edit issues (Team Lead)" [ref=f7e1064]:
+                  - checkbox [checked] [ref=f7e1065]
+                - cell "Edit issues (Developer)" [ref=f7e1066]:
+                  - checkbox [checked] [ref=f7e1067]
+                - cell "Edit issues (Non member)" [ref=f7e1068]:
+                  - checkbox [ref=f7e1069]
+                - cell "Edit issues (Anonymous)" [ref=f7e1070]:
+                  - checkbox [ref=f7e1071]
+              - row [ref=f7e1072]:
+                - cell [ref=f7e1073]:
+                  - link "Check all / Uncheck all" [ref=f7e1074] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Edit own issues
+                - cell "Edit own issues (Manager)" [ref=f7e1076]:
+                  - checkbox [checked] [ref=f7e1077]
+                - cell "Edit own issues (Employee)" [ref=f7e1078]:
+                  - checkbox [ref=f7e1079]
+                - cell "Edit own issues (Client)" [ref=f7e1080]:
+                  - checkbox [ref=f7e1081]
+                - cell "Edit own issues (Project Lead)" [ref=f7e1082]:
+                  - checkbox [ref=f7e1083]
+                - cell "Edit own issues (QA)" [ref=f7e1084]:
+                  - checkbox [ref=f7e1085]
+                - cell "Edit own issues (Team Lead)" [ref=f7e1086]:
+                  - checkbox [ref=f7e1087]
+                - cell "Edit own issues (Developer)" [ref=f7e1088]:
+                  - checkbox [ref=f7e1089]
+                - cell "Edit own issues (Non member)" [ref=f7e1090]:
+                  - checkbox [ref=f7e1091]
+                - cell "Edit own issues (Anonymous)" [ref=f7e1092]:
+                  - checkbox [ref=f7e1093]
+              - row [ref=f7e1094]:
+                - cell [ref=f7e1095]:
+                  - link "Check all / Uncheck all" [ref=f7e1096] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Copy issues
+                - cell "Copy issues (Manager)" [ref=f7e1098]:
+                  - checkbox [checked] [ref=f7e1099]
+                - cell "Copy issues (Employee)" [ref=f7e1100]:
+                  - checkbox [ref=f7e1101]
+                - cell "Copy issues (Client)" [ref=f7e1102]:
+                  - checkbox [ref=f7e1103]
+                - cell "Copy issues (Project Lead)" [ref=f7e1104]:
+                  - checkbox [ref=f7e1105]
+                - cell "Copy issues (QA)" [ref=f7e1106]:
+                  - checkbox [ref=f7e1107]
+                - cell "Copy issues (Team Lead)" [ref=f7e1108]:
+                  - checkbox [ref=f7e1109]
+                - cell "Copy issues (Developer)" [ref=f7e1110]:
+                  - checkbox [ref=f7e1111]
+                - cell "Copy issues (Non member)" [ref=f7e1112]:
+                  - checkbox [ref=f7e1113]
+                - cell "Copy issues (Anonymous)" [ref=f7e1114]:
+                  - checkbox [ref=f7e1115]
+              - row [ref=f7e1116]:
+                - cell [ref=f7e1117]:
+                  - link "Check all / Uncheck all" [ref=f7e1118] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manage issue relations
+                - cell "Manage issue relations (Manager)" [ref=f7e1120]:
+                  - checkbox [checked] [ref=f7e1121]
+                - cell "Manage issue relations (Employee)" [ref=f7e1122]:
+                  - checkbox [checked] [ref=f7e1123]
+                - cell "Manage issue relations (Client)" [ref=f7e1124]:
+                  - checkbox [ref=f7e1125]
+                - cell "Manage issue relations (Project Lead)" [ref=f7e1126]:
+                  - checkbox [checked] [ref=f7e1127]
+                - cell "Manage issue relations (QA)" [ref=f7e1128]:
+                  - checkbox [checked] [ref=f7e1129]
+                - cell "Manage issue relations (Team Lead)" [ref=f7e1130]:
+                  - checkbox [checked] [ref=f7e1131]
+                - cell "Manage issue relations (Developer)" [ref=f7e1132]:
+                  - checkbox [checked] [ref=f7e1133]
+                - cell "Manage issue relations (Non member)" [ref=f7e1134]:
+                  - checkbox [ref=f7e1135]
+                - cell "Manage issue relations (Anonymous)" [ref=f7e1136]:
+                  - checkbox [ref=f7e1137]
+              - row [ref=f7e1138]:
+                - cell [ref=f7e1139]:
+                  - link "Check all / Uncheck all" [ref=f7e1140] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manage subtasks
+                - cell "Manage subtasks (Manager)" [ref=f7e1142]:
+                  - checkbox [checked] [ref=f7e1143]
+                - cell "Manage subtasks (Employee)" [ref=f7e1144]:
+                  - checkbox [checked] [ref=f7e1145]
+                - cell "Manage subtasks (Client)" [ref=f7e1146]:
+                  - checkbox [ref=f7e1147]
+                - cell "Manage subtasks (Project Lead)" [ref=f7e1148]:
+                  - checkbox [checked] [ref=f7e1149]
+                - cell "Manage subtasks (QA)" [ref=f7e1150]:
+                  - checkbox [checked] [ref=f7e1151]
+                - cell "Manage subtasks (Team Lead)" [ref=f7e1152]:
+                  - checkbox [checked] [ref=f7e1153]
+                - cell "Manage subtasks (Developer)" [ref=f7e1154]:
+                  - checkbox [checked] [ref=f7e1155]
+                - cell "Manage subtasks (Non member)" [ref=f7e1156]:
+                  - checkbox [ref=f7e1157]
+                - cell "Manage subtasks (Anonymous)" [ref=f7e1158]:
+                  - checkbox [ref=f7e1159]
+              - row [ref=f7e1160]:
+                - cell [ref=f7e1161]:
+                  - link "Check all / Uncheck all" [ref=f7e1162] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Set issues public or private
+                - cell "Set issues public or private (Manager)" [ref=f7e1164]:
+                  - checkbox [checked] [ref=f7e1165]
+                - cell "Set issues public or private (Employee)" [ref=f7e1166]:
+                  - checkbox [ref=f7e1167]
+                - cell "Set issues public or private (Client)" [ref=f7e1168]:
+                  - checkbox [ref=f7e1169]
+                - cell "Set issues public or private (Project Lead)" [ref=f7e1170]:
+                  - checkbox [ref=f7e1171]
+                - cell "Set issues public or private (QA)" [ref=f7e1172]:
+                  - checkbox [ref=f7e1173]
+                - cell "Set issues public or private (Team Lead)" [ref=f7e1174]:
+                  - checkbox [ref=f7e1175]
+                - cell "Set issues public or private (Developer)" [ref=f7e1176]:
+                  - checkbox [ref=f7e1177]
+                - cell "Set issues public or private (Non member)" [ref=f7e1178]:
+                  - checkbox [ref=f7e1179]
+                - cell "Set issues public or private (Anonymous)" [ref=f7e1180]:
+                  - checkbox [ref=f7e1181]
+              - row [ref=f7e1182]:
+                - cell [ref=f7e1183]:
+                  - link "Check all / Uncheck all" [ref=f7e1184] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Set own issues public or private
+                - cell "Set own issues public or private (Manager)" [ref=f7e1186]:
+                  - checkbox [checked] [ref=f7e1187]
+                - cell "Set own issues public or private (Employee)" [ref=f7e1188]:
+                  - checkbox [ref=f7e1189]
+                - cell "Set own issues public or private (Client)" [ref=f7e1190]:
+                  - checkbox [ref=f7e1191]
+                - cell "Set own issues public or private (Project Lead)" [ref=f7e1192]:
+                  - checkbox [ref=f7e1193]
+                - cell "Set own issues public or private (QA)" [ref=f7e1194]:
+                  - checkbox [ref=f7e1195]
+                - cell "Set own issues public or private (Team Lead)" [ref=f7e1196]:
+                  - checkbox [ref=f7e1197]
+                - cell "Set own issues public or private (Developer)" [ref=f7e1198]:
+                  - checkbox [ref=f7e1199]
+                - cell "Set own issues public or private (Non member)" [ref=f7e1200]:
+                  - checkbox [ref=f7e1201]
+                - cell [ref=f7e1202]
+              - row [ref=f7e1203]:
+                - cell [ref=f7e1204]:
+                  - link "Check all / Uncheck all" [ref=f7e1205] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Add notes
+                - cell "Add notes (Manager)" [ref=f7e1207]:
+                  - checkbox [checked] [ref=f7e1208]
+                - cell "Add notes (Employee)" [ref=f7e1209]:
+                  - checkbox [checked] [ref=f7e1210]
+                - cell "Add notes (Client)" [ref=f7e1211]:
+                  - checkbox [checked] [ref=f7e1212]
+                - cell "Add notes (Project Lead)" [ref=f7e1213]:
+                  - checkbox [checked] [ref=f7e1214]
+                - cell "Add notes (QA)" [ref=f7e1215]:
+                  - checkbox [checked] [ref=f7e1216]
+                - cell "Add notes (Team Lead)" [ref=f7e1217]:
+                  - checkbox [checked] [ref=f7e1218]
+                - cell "Add notes (Developer)" [ref=f7e1219]:
+                  - checkbox [checked] [ref=f7e1220]
+                - cell "Add notes (Non member)" [ref=f7e1221]:
+                  - checkbox [checked] [ref=f7e1222]
+                - cell "Add notes (Anonymous)" [ref=f7e1223]:
+                  - checkbox [ref=f7e1224]
+              - row [ref=f7e1225]:
+                - cell [ref=f7e1226]:
+                  - link "Check all / Uncheck all" [ref=f7e1227] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Edit notes
+                - cell "Edit notes (Manager)" [ref=f7e1229]:
+                  - checkbox [checked] [ref=f7e1230]
+                - cell "Edit notes (Employee)" [ref=f7e1231]:
+                  - checkbox [ref=f7e1232]
+                - cell "Edit notes (Client)" [ref=f7e1233]:
+                  - checkbox [ref=f7e1234]
+                - cell "Edit notes (Project Lead)" [ref=f7e1235]:
+                  - checkbox [ref=f7e1236]
+                - cell "Edit notes (QA)" [ref=f7e1237]:
+                  - checkbox [ref=f7e1238]
+                - cell "Edit notes (Team Lead)" [ref=f7e1239]:
+                  - checkbox [ref=f7e1240]
+                - cell "Edit notes (Developer)" [ref=f7e1241]:
+                  - checkbox [ref=f7e1242]
+                - cell "Edit notes (Non member)" [ref=f7e1243]:
+                  - checkbox [ref=f7e1244]
+                - cell [ref=f7e1245]
+              - row [ref=f7e1246]:
+                - cell [ref=f7e1247]:
+                  - link "Check all / Uncheck all" [ref=f7e1248] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Edit own notes
+                - cell "Edit own notes (Manager)" [ref=f7e1250]:
+                  - checkbox [checked] [ref=f7e1251]
+                - cell "Edit own notes (Employee)" [ref=f7e1252]:
+                  - checkbox [ref=f7e1253]
+                - cell "Edit own notes (Client)" [ref=f7e1254]:
+                  - checkbox [ref=f7e1255]
+                - cell "Edit own notes (Project Lead)" [ref=f7e1256]:
+                  - checkbox [ref=f7e1257]
+                - cell "Edit own notes (QA)" [ref=f7e1258]:
+                  - checkbox [ref=f7e1259]
+                - cell "Edit own notes (Team Lead)" [ref=f7e1260]:
+                  - checkbox [ref=f7e1261]
+                - cell "Edit own notes (Developer)" [ref=f7e1262]:
+                  - checkbox [ref=f7e1263]
+                - cell "Edit own notes (Non member)" [ref=f7e1264]:
+                  - checkbox [ref=f7e1265]
+                - cell [ref=f7e1266]
+              - row [ref=f7e1267]:
+                - cell [ref=f7e1268]:
+                  - link "Check all / Uncheck all" [ref=f7e1269] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View private notes
+                - cell "View private notes (Manager)" [ref=f7e1271]:
+                  - checkbox [checked] [ref=f7e1272]
+                - cell "View private notes (Employee)" [ref=f7e1273]:
+                  - checkbox [checked] [ref=f7e1274]
+                - cell "View private notes (Client)" [ref=f7e1275]:
+                  - checkbox [ref=f7e1276]
+                - cell "View private notes (Project Lead)" [ref=f7e1277]:
+                  - checkbox [ref=f7e1278]
+                - cell "View private notes (QA)" [ref=f7e1279]:
+                  - checkbox [ref=f7e1280]
+                - cell "View private notes (Team Lead)" [ref=f7e1281]:
+                  - checkbox [checked] [ref=f7e1282]
+                - cell "View private notes (Developer)" [ref=f7e1283]:
+                  - checkbox [checked] [ref=f7e1284]
+                - cell [ref=f7e1285]
+                - cell [ref=f7e1286]
+              - row [ref=f7e1287]:
+                - cell [ref=f7e1288]:
+                  - link "Check all / Uncheck all" [ref=f7e1289] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Set notes as private
+                - cell "Set notes as private (Manager)" [ref=f7e1291]:
+                  - checkbox [checked] [ref=f7e1292]
+                - cell "Set notes as private (Employee)" [ref=f7e1293]:
+                  - checkbox [checked] [ref=f7e1294]
+                - cell "Set notes as private (Client)" [ref=f7e1295]:
+                  - checkbox [ref=f7e1296]
+                - cell "Set notes as private (Project Lead)" [ref=f7e1297]:
+                  - checkbox [ref=f7e1298]
+                - cell "Set notes as private (QA)" [ref=f7e1299]:
+                  - checkbox [ref=f7e1300]
+                - cell "Set notes as private (Team Lead)" [ref=f7e1301]:
+                  - checkbox [checked] [ref=f7e1302]
+                - cell "Set notes as private (Developer)" [ref=f7e1303]:
+                  - checkbox [checked] [ref=f7e1304]
+                - cell [ref=f7e1305]
+                - cell [ref=f7e1306]
+              - row [ref=f7e1307]:
+                - cell [ref=f7e1308]:
+                  - link "Check all / Uncheck all" [ref=f7e1309] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Delete issues
+                - cell "Delete issues (Manager)" [ref=f7e1311]:
+                  - checkbox [checked] [ref=f7e1312]
+                - cell "Delete issues (Employee)" [ref=f7e1313]:
+                  - checkbox [ref=f7e1314]
+                - cell "Delete issues (Client)" [ref=f7e1315]:
+                  - checkbox [ref=f7e1316]
+                - cell "Delete issues (Project Lead)" [ref=f7e1317]:
+                  - checkbox [ref=f7e1318]
+                - cell "Delete issues (QA)" [ref=f7e1319]:
+                  - checkbox [ref=f7e1320]
+                - cell "Delete issues (Team Lead)" [ref=f7e1321]:
+                  - checkbox [ref=f7e1322]
+                - cell "Delete issues (Developer)" [ref=f7e1323]:
+                  - checkbox [ref=f7e1324]
+                - cell [ref=f7e1325]
+                - cell [ref=f7e1326]
+              - row [ref=f7e1327]:
+                - cell [ref=f7e1328]:
+                  - link "Check all / Uncheck all" [ref=f7e1329] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View watchers list
+                - cell "View watchers list (Manager)" [ref=f7e1331]:
+                  - checkbox [checked] [ref=f7e1332]
+                - cell "View watchers list (Employee)" [ref=f7e1333]:
+                  - checkbox [ref=f7e1334]
+                - cell "View watchers list (Client)" [ref=f7e1335]:
+                  - checkbox [ref=f7e1336]
+                - cell "View watchers list (Project Lead)" [ref=f7e1337]:
+                  - checkbox [ref=f7e1338]
+                - cell "View watchers list (QA)" [ref=f7e1339]:
+                  - checkbox [ref=f7e1340]
+                - cell "View watchers list (Team Lead)" [ref=f7e1341]:
+                  - checkbox [ref=f7e1342]
+                - cell "View watchers list (Developer)" [ref=f7e1343]:
+                  - checkbox [ref=f7e1344]
+                - cell "View watchers list (Non member)" [ref=f7e1345]:
+                  - checkbox [ref=f7e1346]
+                - cell "View watchers list (Anonymous)" [ref=f7e1347]:
+                  - checkbox [ref=f7e1348]
+              - row [ref=f7e1349]:
+                - cell [ref=f7e1350]:
+                  - link "Check all / Uncheck all" [ref=f7e1351] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Add watchers
+                - cell "Add watchers (Manager)" [ref=f7e1353]:
+                  - checkbox [checked] [ref=f7e1354]
+                - cell "Add watchers (Employee)" [ref=f7e1355]:
+                  - checkbox [ref=f7e1356]
+                - cell "Add watchers (Client)" [ref=f7e1357]:
+                  - checkbox [ref=f7e1358]
+                - cell "Add watchers (Project Lead)" [ref=f7e1359]:
+                  - checkbox [ref=f7e1360]
+                - cell "Add watchers (QA)" [ref=f7e1361]:
+                  - checkbox [ref=f7e1362]
+                - cell "Add watchers (Team Lead)" [ref=f7e1363]:
+                  - checkbox [ref=f7e1364]
+                - cell "Add watchers (Developer)" [ref=f7e1365]:
+                  - checkbox [ref=f7e1366]
+                - cell "Add watchers (Non member)" [ref=f7e1367]:
+                  - checkbox [ref=f7e1368]
+                - cell "Add watchers (Anonymous)" [ref=f7e1369]:
+                  - checkbox [ref=f7e1370]
+              - row [ref=f7e1371]:
+                - cell [ref=f7e1372]:
+                  - link "Check all / Uncheck all" [ref=f7e1373] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Delete watchers
+                - cell "Delete watchers (Manager)" [ref=f7e1375]:
+                  - checkbox [checked] [ref=f7e1376]
+                - cell "Delete watchers (Employee)" [ref=f7e1377]:
+                  - checkbox [ref=f7e1378]
+                - cell "Delete watchers (Client)" [ref=f7e1379]:
+                  - checkbox [ref=f7e1380]
+                - cell "Delete watchers (Project Lead)" [ref=f7e1381]:
+                  - checkbox [ref=f7e1382]
+                - cell "Delete watchers (QA)" [ref=f7e1383]:
+                  - checkbox [ref=f7e1384]
+                - cell "Delete watchers (Team Lead)" [ref=f7e1385]:
+                  - checkbox [ref=f7e1386]
+                - cell "Delete watchers (Developer)" [ref=f7e1387]:
+                  - checkbox [ref=f7e1388]
+                - cell "Delete watchers (Non member)" [ref=f7e1389]:
+                  - checkbox [ref=f7e1390]
+                - cell "Delete watchers (Anonymous)" [ref=f7e1391]:
+                  - checkbox [ref=f7e1392]
+              - row [ref=f7e1393]:
+                - cell [ref=f7e1394]:
+                  - link "Check all / Uncheck all" [ref=f7e1395] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Import issues
+                - cell "Import issues (Manager)" [ref=f7e1397]:
+                  - checkbox [checked] [ref=f7e1398]
+                - cell "Import issues (Employee)" [ref=f7e1399]:
+                  - checkbox [ref=f7e1400]
+                - cell "Import issues (Client)" [ref=f7e1401]:
+                  - checkbox [ref=f7e1402]
+                - cell "Import issues (Project Lead)" [ref=f7e1403]:
+                  - checkbox [ref=f7e1404]
+                - cell "Import issues (QA)" [ref=f7e1405]:
+                  - checkbox [ref=f7e1406]
+                - cell "Import issues (Team Lead)" [ref=f7e1407]:
+                  - checkbox [ref=f7e1408]
+                - cell "Import issues (Developer)" [ref=f7e1409]:
+                  - checkbox [ref=f7e1410]
+                - cell "Import issues (Non member)" [ref=f7e1411]:
+                  - checkbox [ref=f7e1412]
+                - cell "Import issues (Anonymous)" [ref=f7e1413]:
+                  - checkbox [ref=f7e1414]
+              - row [ref=f7e1415]:
+                - cell [ref=f7e1416]:
+                  - link "Check all / Uncheck all" [ref=f7e1417] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manage issue categories
+                - cell "Manage issue categories (Manager)" [ref=f7e1419]:
+                  - checkbox [checked] [ref=f7e1420]
+                - cell "Manage issue categories (Employee)" [ref=f7e1421]:
+                  - checkbox [checked] [ref=f7e1422]
+                - cell "Manage issue categories (Client)" [ref=f7e1423]:
+                  - checkbox [ref=f7e1424]
+                - cell "Manage issue categories (Project Lead)" [ref=f7e1425]:
+                  - checkbox [checked] [ref=f7e1426]
+                - cell "Manage issue categories (QA)" [ref=f7e1427]:
+                  - checkbox [ref=f7e1428]
+                - cell "Manage issue categories (Team Lead)" [ref=f7e1429]:
+                  - checkbox [checked] [ref=f7e1430]
+                - cell "Manage issue categories (Developer)" [ref=f7e1431]:
+                  - checkbox [checked] [ref=f7e1432]
+                - cell [ref=f7e1433]
+                - cell [ref=f7e1434]
+              - row [ref=f7e1435]:
+                - cell [ref=f7e1436]:
+                  - generic [ref=f7e1437] [cursor=pointer]
+                  - text: News
+                - cell "Manager" [ref=f7e1440]
+                - cell "Employee" [ref=f7e1441]
+                - cell "Client" [ref=f7e1442]
+                - cell "Project Lead" [ref=f7e1443]
+                - cell "QA" [ref=f7e1444]
+                - cell "Team Lead" [ref=f7e1445]
+                - cell "Developer" [ref=f7e1446]
+                - cell "Non member" [ref=f7e1447]
+                - cell "Anonymous" [ref=f7e1448]
+              - row [ref=f7e1449]:
+                - cell [ref=f7e1450]:
+                  - link "Check all / Uncheck all" [ref=f7e1451] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View news
+                - cell "View news (Manager)" [ref=f7e1453]:
+                  - checkbox [checked] [ref=f7e1454]
+                - cell "View news (Employee)" [ref=f7e1455]:
+                  - checkbox [checked] [ref=f7e1456]
+                - cell "View news (Client)" [ref=f7e1457]:
+                  - checkbox [checked] [ref=f7e1458]
+                - cell "View news (Project Lead)" [ref=f7e1459]:
+                  - checkbox [checked] [ref=f7e1460]
+                - cell "View news (QA)" [ref=f7e1461]:
+                  - checkbox [checked] [ref=f7e1462]
+                - cell "View news (Team Lead)" [ref=f7e1463]:
+                  - checkbox [checked] [ref=f7e1464]
+                - cell "View news (Developer)" [ref=f7e1465]:
+                  - checkbox [checked] [ref=f7e1466]
+                - cell "View news (Non member)" [ref=f7e1467]:
+                  - checkbox [checked] [ref=f7e1468]
+                - cell "View news (Anonymous)" [ref=f7e1469]:
+                  - checkbox [checked] [ref=f7e1470]
+              - row [ref=f7e1471]:
+                - cell [ref=f7e1472]:
+                  - link "Check all / Uncheck all" [ref=f7e1473] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manage news
+                - cell "Manage news (Manager)" [ref=f7e1475]:
+                  - checkbox [checked] [ref=f7e1476]
+                - cell "Manage news (Employee)" [ref=f7e1477]:
+                  - checkbox [ref=f7e1478]
+                - cell "Manage news (Client)" [ref=f7e1479]:
+                  - checkbox [ref=f7e1480]
+                - cell "Manage news (Project Lead)" [ref=f7e1481]:
+                  - checkbox [ref=f7e1482]
+                - cell "Manage news (QA)" [ref=f7e1483]:
+                  - checkbox [ref=f7e1484]
+                - cell "Manage news (Team Lead)" [ref=f7e1485]:
+                  - checkbox [ref=f7e1486]
+                - cell "Manage news (Developer)" [ref=f7e1487]:
+                  - checkbox [ref=f7e1488]
+                - cell [ref=f7e1489]
+                - cell [ref=f7e1490]
+              - row [ref=f7e1491]:
+                - cell [ref=f7e1492]:
+                  - link "Check all / Uncheck all" [ref=f7e1493] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Comment news
+                - cell "Comment news (Manager)" [ref=f7e1495]:
+                  - checkbox [checked] [ref=f7e1496]
+                - cell "Comment news (Employee)" [ref=f7e1497]:
+                  - checkbox [checked] [ref=f7e1498]
+                - cell "Comment news (Client)" [ref=f7e1499]:
+                  - checkbox [checked] [ref=f7e1500]
+                - cell "Comment news (Project Lead)" [ref=f7e1501]:
+                  - checkbox [checked] [ref=f7e1502]
+                - cell "Comment news (QA)" [ref=f7e1503]:
+                  - checkbox [checked] [ref=f7e1504]
+                - cell "Comment news (Team Lead)" [ref=f7e1505]:
+                  - checkbox [checked] [ref=f7e1506]
+                - cell "Comment news (Developer)" [ref=f7e1507]:
+                  - checkbox [checked] [ref=f7e1508]
+                - cell "Comment news (Non member)" [ref=f7e1509]:
+                  - checkbox [checked] [ref=f7e1510]
+                - cell "Comment news (Anonymous)" [ref=f7e1511]:
+                  - checkbox [ref=f7e1512]
+              - row [ref=f7e1513]:
+                - cell [ref=f7e1514]:
+                  - generic [ref=f7e1515] [cursor=pointer]
+                  - text: Repository
+                - cell "Manager" [ref=f7e1518]
+                - cell "Employee" [ref=f7e1519]
+                - cell "Client" [ref=f7e1520]
+                - cell "Project Lead" [ref=f7e1521]
+                - cell "QA" [ref=f7e1522]
+                - cell "Team Lead" [ref=f7e1523]
+                - cell "Developer" [ref=f7e1524]
+                - cell "Non member" [ref=f7e1525]
+                - cell "Anonymous" [ref=f7e1526]
+              - row [ref=f7e1527]:
+                - cell [ref=f7e1528]:
+                  - link "Check all / Uncheck all" [ref=f7e1529] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View changesets
+                - cell "View changesets (Manager)" [ref=f7e1531]:
+                  - checkbox [checked] [ref=f7e1532]
+                - cell "View changesets (Employee)" [ref=f7e1533]:
+                  - checkbox [checked] [ref=f7e1534]
+                - cell "View changesets (Client)" [ref=f7e1535]:
+                  - checkbox [checked] [ref=f7e1536]
+                - cell "View changesets (Project Lead)" [ref=f7e1537]:
+                  - checkbox [checked] [ref=f7e1538]
+                - cell "View changesets (QA)" [ref=f7e1539]:
+                  - checkbox [checked] [ref=f7e1540]
+                - cell "View changesets (Team Lead)" [ref=f7e1541]:
+                  - checkbox [checked] [ref=f7e1542]
+                - cell "View changesets (Developer)" [ref=f7e1543]:
+                  - checkbox [checked] [ref=f7e1544]
+                - cell "View changesets (Non member)" [ref=f7e1545]:
+                  - checkbox [checked] [ref=f7e1546]
+                - cell "View changesets (Anonymous)" [ref=f7e1547]:
+                  - checkbox [checked] [ref=f7e1548]
+              - row [ref=f7e1549]:
+                - cell [ref=f7e1550]:
+                  - link "Check all / Uncheck all" [ref=f7e1551] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Browse repository
+                - cell "Browse repository (Manager)" [ref=f7e1553]:
+                  - checkbox [checked] [ref=f7e1554]
+                - cell "Browse repository (Employee)" [ref=f7e1555]:
+                  - checkbox [checked] [ref=f7e1556]
+                - cell "Browse repository (Client)" [ref=f7e1557]:
+                  - checkbox [checked] [ref=f7e1558]
+                - cell "Browse repository (Project Lead)" [ref=f7e1559]:
+                  - checkbox [checked] [ref=f7e1560]
+                - cell "Browse repository (QA)" [ref=f7e1561]:
+                  - checkbox [checked] [ref=f7e1562]
+                - cell "Browse repository (Team Lead)" [ref=f7e1563]:
+                  - checkbox [checked] [ref=f7e1564]
+                - cell "Browse repository (Developer)" [ref=f7e1565]:
+                  - checkbox [checked] [ref=f7e1566]
+                - cell "Browse repository (Non member)" [ref=f7e1567]:
+                  - checkbox [checked] [ref=f7e1568]
+                - cell "Browse repository (Anonymous)" [ref=f7e1569]:
+                  - checkbox [checked] [ref=f7e1570]
+              - row [ref=f7e1571]:
+                - cell [ref=f7e1572]:
+                  - link "Check all / Uncheck all" [ref=f7e1573] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Commit access
+                - cell "Commit access (Manager)" [ref=f7e1575]:
+                  - checkbox [checked] [ref=f7e1576]
+                - cell "Commit access (Employee)" [ref=f7e1577]:
+                  - checkbox [checked] [ref=f7e1578]
+                - cell "Commit access (Client)" [ref=f7e1579]:
+                  - checkbox [ref=f7e1580]
+                - cell "Commit access (Project Lead)" [ref=f7e1581]:
+                  - checkbox [checked] [ref=f7e1582]
+                - cell "Commit access (QA)" [ref=f7e1583]:
+                  - checkbox [ref=f7e1584]
+                - cell "Commit access (Team Lead)" [ref=f7e1585]:
+                  - checkbox [checked] [ref=f7e1586]
+                - cell "Commit access (Developer)" [ref=f7e1587]:
+                  - checkbox [checked] [ref=f7e1588]
+                - cell "Commit access (Non member)" [ref=f7e1589]:
+                  - checkbox [ref=f7e1590]
+                - cell "Commit access (Anonymous)" [ref=f7e1591]:
+                  - checkbox [ref=f7e1592]
+              - row [ref=f7e1593]:
+                - cell [ref=f7e1594]:
+                  - link "Check all / Uncheck all" [ref=f7e1595] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manage related issues
+                - cell "Manage related issues (Manager)" [ref=f7e1597]:
+                  - checkbox [checked] [ref=f7e1598]
+                - cell "Manage related issues (Employee)" [ref=f7e1599]:
+                  - checkbox [checked] [ref=f7e1600]
+                - cell "Manage related issues (Client)" [ref=f7e1601]:
+                  - checkbox [ref=f7e1602]
+                - cell "Manage related issues (Project Lead)" [ref=f7e1603]:
+                  - checkbox [checked] [ref=f7e1604]
+                - cell "Manage related issues (QA)" [ref=f7e1605]:
+                  - checkbox [ref=f7e1606]
+                - cell "Manage related issues (Team Lead)" [ref=f7e1607]:
+                  - checkbox [checked] [ref=f7e1608]
+                - cell "Manage related issues (Developer)" [ref=f7e1609]:
+                  - checkbox [checked] [ref=f7e1610]
+                - cell "Manage related issues (Non member)" [ref=f7e1611]:
+                  - checkbox [ref=f7e1612]
+                - cell "Manage related issues (Anonymous)" [ref=f7e1613]:
+                  - checkbox [ref=f7e1614]
+              - row [ref=f7e1615]:
+                - cell [ref=f7e1616]:
+                  - link "Check all / Uncheck all" [ref=f7e1617] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manage repository
+                - cell "Manage repository (Manager)" [ref=f7e1619]:
+                  - checkbox [checked] [ref=f7e1620]
+                - cell "Manage repository (Employee)" [ref=f7e1621]:
+                  - checkbox [ref=f7e1622]
+                - cell "Manage repository (Client)" [ref=f7e1623]:
+                  - checkbox [ref=f7e1624]
+                - cell "Manage repository (Project Lead)" [ref=f7e1625]:
+                  - checkbox [ref=f7e1626]
+                - cell "Manage repository (QA)" [ref=f7e1627]:
+                  - checkbox [ref=f7e1628]
+                - cell "Manage repository (Team Lead)" [ref=f7e1629]:
+                  - checkbox [ref=f7e1630]
+                - cell "Manage repository (Developer)" [ref=f7e1631]:
+                  - checkbox [ref=f7e1632]
+                - cell [ref=f7e1633]
+                - cell [ref=f7e1634]
+              - row [ref=f7e1635]:
+                - cell [ref=f7e1636]:
+                  - generic [ref=f7e1637] [cursor=pointer]
+                  - text: Time tracking
+                - cell "Manager" [ref=f7e1640]
+                - cell "Employee" [ref=f7e1641]
+                - cell "Client" [ref=f7e1642]
+                - cell "Project Lead" [ref=f7e1643]
+                - cell "QA" [ref=f7e1644]
+                - cell "Team Lead" [ref=f7e1645]
+                - cell "Developer" [ref=f7e1646]
+                - cell "Non member" [ref=f7e1647]
+                - cell "Anonymous" [ref=f7e1648]
+              - row [ref=f7e1649]:
+                - cell [ref=f7e1650]:
+                  - link "Check all / Uncheck all" [ref=f7e1651] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View spent time
+                - cell "View spent time (Manager)" [ref=f7e1653]:
+                  - checkbox [checked] [ref=f7e1654]
+                - cell "View spent time (Employee)" [ref=f7e1655]:
+                  - checkbox [checked] [ref=f7e1656]
+                - cell "View spent time (Client)" [ref=f7e1657]:
+                  - checkbox [checked] [ref=f7e1658]
+                - cell "View spent time (Project Lead)" [ref=f7e1659]:
+                  - checkbox [checked] [ref=f7e1660]
+                - cell "View spent time (QA)" [ref=f7e1661]:
+                  - checkbox [checked] [ref=f7e1662]
+                - cell "View spent time (Team Lead)" [ref=f7e1663]:
+                  - checkbox [checked] [ref=f7e1664]
+                - cell "View spent time (Developer)" [ref=f7e1665]:
+                  - checkbox [checked] [ref=f7e1666]
+                - cell "View spent time (Non member)" [ref=f7e1667]:
+                  - checkbox [checked] [ref=f7e1668]
+                - cell "View spent time (Anonymous)" [ref=f7e1669]:
+                  - checkbox [checked] [ref=f7e1670]
+              - row [ref=f7e1671]:
+                - cell [ref=f7e1672]:
+                  - link "Check all / Uncheck all" [ref=f7e1673] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Log spent time
+                - cell "Log spent time (Manager)" [ref=f7e1675]:
+                  - checkbox [checked] [ref=f7e1676]
+                - cell "Log spent time (Employee)" [ref=f7e1677]:
+                  - checkbox [checked] [ref=f7e1678]
+                - cell "Log spent time (Client)" [ref=f7e1679]:
+                  - checkbox [checked] [ref=f7e1680]
+                - cell "Log spent time (Project Lead)" [ref=f7e1681]:
+                  - checkbox [checked] [ref=f7e1682]
+                - cell "Log spent time (QA)" [ref=f7e1683]:
+                  - checkbox [checked] [ref=f7e1684]
+                - cell "Log spent time (Team Lead)" [ref=f7e1685]:
+                  - checkbox [checked] [ref=f7e1686]
+                - cell "Log spent time (Developer)" [ref=f7e1687]:
+                  - checkbox [checked] [ref=f7e1688]
+                - cell "Log spent time (Non member)" [ref=f7e1689]:
+                  - checkbox [ref=f7e1690]
+                - cell [ref=f7e1691]
+              - row [ref=f7e1692]:
+                - cell [ref=f7e1693]:
+                  - link "Check all / Uncheck all" [ref=f7e1694] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Edit time logs
+                - cell "Edit time logs (Manager)" [ref=f7e1696]:
+                  - checkbox [checked] [ref=f7e1697]
+                - cell "Edit time logs (Employee)" [ref=f7e1698]:
+                  - checkbox [ref=f7e1699]
+                - cell "Edit time logs (Client)" [ref=f7e1700]:
+                  - checkbox [ref=f7e1701]
+                - cell "Edit time logs (Project Lead)" [ref=f7e1702]:
+                  - checkbox [ref=f7e1703]
+                - cell "Edit time logs (QA)" [ref=f7e1704]:
+                  - checkbox [ref=f7e1705]
+                - cell "Edit time logs (Team Lead)" [ref=f7e1706]:
+                  - checkbox [ref=f7e1707]
+                - cell "Edit time logs (Developer)" [ref=f7e1708]:
+                  - checkbox [ref=f7e1709]
+                - cell [ref=f7e1710]
+                - cell [ref=f7e1711]
+              - row [ref=f7e1712]:
+                - cell [ref=f7e1713]:
+                  - link "Check all / Uncheck all" [ref=f7e1714] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Edit own time logs
+                - cell "Edit own time logs (Manager)" [ref=f7e1716]:
+                  - checkbox [checked] [ref=f7e1717]
+                - cell "Edit own time logs (Employee)" [ref=f7e1718]:
+                  - checkbox [ref=f7e1719]
+                - cell "Edit own time logs (Client)" [ref=f7e1720]:
+                  - checkbox [ref=f7e1721]
+                - cell "Edit own time logs (Project Lead)" [ref=f7e1722]:
+                  - checkbox [ref=f7e1723]
+                - cell "Edit own time logs (QA)" [ref=f7e1724]:
+                  - checkbox [ref=f7e1725]
+                - cell "Edit own time logs (Team Lead)" [ref=f7e1726]:
+                  - checkbox [ref=f7e1727]
+                - cell "Edit own time logs (Developer)" [ref=f7e1728]:
+                  - checkbox [ref=f7e1729]
+                - cell "Edit own time logs (Non member)" [ref=f7e1730]:
+                  - checkbox [ref=f7e1731]
+                - cell [ref=f7e1732]
+              - row [ref=f7e1733]:
+                - cell [ref=f7e1734]:
+                  - link "Check all / Uncheck all" [ref=f7e1735] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manage project activities
+                - cell "Manage project activities (Manager)" [ref=f7e1737]:
+                  - checkbox [checked] [ref=f7e1738]
+                - cell "Manage project activities (Employee)" [ref=f7e1739]:
+                  - checkbox [ref=f7e1740]
+                - cell "Manage project activities (Client)" [ref=f7e1741]:
+                  - checkbox [ref=f7e1742]
+                - cell "Manage project activities (Project Lead)" [ref=f7e1743]:
+                  - checkbox [checked] [ref=f7e1744]
+                - cell "Manage project activities (QA)" [ref=f7e1745]:
+                  - checkbox [ref=f7e1746]
+                - cell "Manage project activities (Team Lead)" [ref=f7e1747]:
+                  - checkbox [ref=f7e1748]
+                - cell "Manage project activities (Developer)" [ref=f7e1749]:
+                  - checkbox [ref=f7e1750]
+                - cell [ref=f7e1751]
+                - cell [ref=f7e1752]
+              - row [ref=f7e1753]:
+                - cell [ref=f7e1754]:
+                  - link "Check all / Uncheck all" [ref=f7e1755] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Log spent time for other users
+                - cell "Log spent time for other users (Manager)" [ref=f7e1757]:
+                  - checkbox [checked] [ref=f7e1758]
+                - cell "Log spent time for other users (Employee)" [ref=f7e1759]:
+                  - checkbox [ref=f7e1760]
+                - cell "Log spent time for other users (Client)" [ref=f7e1761]:
+                  - checkbox [ref=f7e1762]
+                - cell "Log spent time for other users (Project Lead)" [ref=f7e1763]:
+                  - checkbox [ref=f7e1764]
+                - cell "Log spent time for other users (QA)" [ref=f7e1765]:
+                  - checkbox [ref=f7e1766]
+                - cell "Log spent time for other users (Team Lead)" [ref=f7e1767]:
+                  - checkbox [ref=f7e1768]
+                - cell "Log spent time for other users (Developer)" [ref=f7e1769]:
+                  - checkbox [ref=f7e1770]
+                - cell "Log spent time for other users (Non member)" [ref=f7e1771]:
+                  - checkbox [ref=f7e1772]
+                - cell "Log spent time for other users (Anonymous)" [ref=f7e1773]:
+                  - checkbox [ref=f7e1774]
+              - row [ref=f7e1775]:
+                - cell [ref=f7e1776]:
+                  - link "Check all / Uncheck all" [ref=f7e1777] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Import time entries
+                - cell "Import time entries (Manager)" [ref=f7e1779]:
+                  - checkbox [checked] [ref=f7e1780]
+                - cell "Import time entries (Employee)" [ref=f7e1781]:
+                  - checkbox [ref=f7e1782]
+                - cell "Import time entries (Client)" [ref=f7e1783]:
+                  - checkbox [ref=f7e1784]
+                - cell "Import time entries (Project Lead)" [ref=f7e1785]:
+                  - checkbox [ref=f7e1786]
+                - cell "Import time entries (QA)" [ref=f7e1787]:
+                  - checkbox [ref=f7e1788]
+                - cell "Import time entries (Team Lead)" [ref=f7e1789]:
+                  - checkbox [ref=f7e1790]
+                - cell "Import time entries (Developer)" [ref=f7e1791]:
+                  - checkbox [ref=f7e1792]
+                - cell "Import time entries (Non member)" [ref=f7e1793]:
+                  - checkbox [ref=f7e1794]
+                - cell "Import time entries (Anonymous)" [ref=f7e1795]:
+                  - checkbox [ref=f7e1796]
+              - row [ref=f7e1797]:
+                - cell [ref=f7e1798]:
+                  - generic [ref=f7e1799] [cursor=pointer]
+                  - text: Wiki
+                - cell "Manager" [ref=f7e1802]
+                - cell "Employee" [ref=f7e1803]
+                - cell "Client" [ref=f7e1804]
+                - cell "Project Lead" [ref=f7e1805]
+                - cell "QA" [ref=f7e1806]
+                - cell "Team Lead" [ref=f7e1807]
+                - cell "Developer" [ref=f7e1808]
+                - cell "Non member" [ref=f7e1809]
+                - cell "Anonymous" [ref=f7e1810]
+              - row [ref=f7e1811]:
+                - cell [ref=f7e1812]:
+                  - link "Check all / Uncheck all" [ref=f7e1813] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View wiki
+                - cell "View wiki (Manager)" [ref=f7e1815]:
+                  - checkbox [checked] [ref=f7e1816]
+                - cell "View wiki (Employee)" [ref=f7e1817]:
+                  - checkbox [checked] [ref=f7e1818]
+                - cell "View wiki (Client)" [ref=f7e1819]:
+                  - checkbox [checked] [ref=f7e1820]
+                - cell "View wiki (Project Lead)" [ref=f7e1821]:
+                  - checkbox [checked] [ref=f7e1822]
+                - cell "View wiki (QA)" [ref=f7e1823]:
+                  - checkbox [checked] [ref=f7e1824]
+                - cell "View wiki (Team Lead)" [ref=f7e1825]:
+                  - checkbox [checked] [ref=f7e1826]
+                - cell "View wiki (Developer)" [ref=f7e1827]:
+                  - checkbox [checked] [ref=f7e1828]
+                - cell "View wiki (Non member)" [ref=f7e1829]:
+                  - checkbox [checked] [ref=f7e1830]
+                - cell "View wiki (Anonymous)" [ref=f7e1831]:
+                  - checkbox [checked] [ref=f7e1832]
+              - row [ref=f7e1833]:
+                - cell [ref=f7e1834]:
+                  - link "Check all / Uncheck all" [ref=f7e1835] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View wiki history
+                - cell "View wiki history (Manager)" [ref=f7e1837]:
+                  - checkbox [checked] [ref=f7e1838]
+                - cell "View wiki history (Employee)" [ref=f7e1839]:
+                  - checkbox [checked] [ref=f7e1840]
+                - cell "View wiki history (Client)" [ref=f7e1841]:
+                  - checkbox [checked] [ref=f7e1842]
+                - cell "View wiki history (Project Lead)" [ref=f7e1843]:
+                  - checkbox [checked] [ref=f7e1844]
+                - cell "View wiki history (QA)" [ref=f7e1845]:
+                  - checkbox [checked] [ref=f7e1846]
+                - cell "View wiki history (Team Lead)" [ref=f7e1847]:
+                  - checkbox [checked] [ref=f7e1848]
+                - cell "View wiki history (Developer)" [ref=f7e1849]:
+                  - checkbox [checked] [ref=f7e1850]
+                - cell "View wiki history (Non member)" [ref=f7e1851]:
+                  - checkbox [checked] [ref=f7e1852]
+                - cell "View wiki history (Anonymous)" [ref=f7e1853]:
+                  - checkbox [checked] [ref=f7e1854]
+              - row [ref=f7e1855]:
+                - cell [ref=f7e1856]:
+                  - link "Check all / Uncheck all" [ref=f7e1857] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Export wiki pages
+                - cell "Export wiki pages (Manager)" [ref=f7e1859]:
+                  - checkbox [checked] [ref=f7e1860]
+                - cell "Export wiki pages (Employee)" [ref=f7e1861]:
+                  - checkbox [ref=f7e1862]
+                - cell "Export wiki pages (Client)" [ref=f7e1863]:
+                  - checkbox [ref=f7e1864]
+                - cell "Export wiki pages (Project Lead)" [ref=f7e1865]:
+                  - checkbox [ref=f7e1866]
+                - cell "Export wiki pages (QA)" [ref=f7e1867]:
+                  - checkbox [ref=f7e1868]
+                - cell "Export wiki pages (Team Lead)" [ref=f7e1869]:
+                  - checkbox [ref=f7e1870]
+                - cell "Export wiki pages (Developer)" [ref=f7e1871]:
+                  - checkbox [ref=f7e1872]
+                - cell "Export wiki pages (Non member)" [ref=f7e1873]:
+                  - checkbox [ref=f7e1874]
+                - cell "Export wiki pages (Anonymous)" [ref=f7e1875]:
+                  - checkbox [ref=f7e1876]
+              - row [ref=f7e1877]:
+                - cell [ref=f7e1878]:
+                  - link "Check all / Uncheck all" [ref=f7e1879] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Edit wiki pages
+                - cell "Edit wiki pages (Manager)" [ref=f7e1881]:
+                  - checkbox [checked] [ref=f7e1882]
+                - cell "Edit wiki pages (Employee)" [ref=f7e1883]:
+                  - checkbox [checked] [ref=f7e1884]
+                - cell "Edit wiki pages (Client)" [ref=f7e1885]:
+                  - checkbox [ref=f7e1886]
+                - cell "Edit wiki pages (Project Lead)" [ref=f7e1887]:
+                  - checkbox [checked] [ref=f7e1888]
+                - cell "Edit wiki pages (QA)" [ref=f7e1889]:
+                  - checkbox [checked] [ref=f7e1890]
+                - cell "Edit wiki pages (Team Lead)" [ref=f7e1891]:
+                  - checkbox [checked] [ref=f7e1892]
+                - cell "Edit wiki pages (Developer)" [ref=f7e1893]:
+                  - checkbox [checked] [ref=f7e1894]
+                - cell "Edit wiki pages (Non member)" [ref=f7e1895]:
+                  - checkbox [ref=f7e1896]
+                - cell "Edit wiki pages (Anonymous)" [ref=f7e1897]:
+                  - checkbox [ref=f7e1898]
+              - row [ref=f7e1899]:
+                - cell [ref=f7e1900]:
+                  - link "Check all / Uncheck all" [ref=f7e1901] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Rename wiki pages
+                - cell "Rename wiki pages (Manager)" [ref=f7e1903]:
+                  - checkbox [checked] [ref=f7e1904]
+                - cell "Rename wiki pages (Employee)" [ref=f7e1905]:
+                  - checkbox [ref=f7e1906]
+                - cell "Rename wiki pages (Client)" [ref=f7e1907]:
+                  - checkbox [ref=f7e1908]
+                - cell "Rename wiki pages (Project Lead)" [ref=f7e1909]:
+                  - checkbox [ref=f7e1910]
+                - cell "Rename wiki pages (QA)" [ref=f7e1911]:
+                  - checkbox [ref=f7e1912]
+                - cell "Rename wiki pages (Team Lead)" [ref=f7e1913]:
+                  - checkbox [ref=f7e1914]
+                - cell "Rename wiki pages (Developer)" [ref=f7e1915]:
+                  - checkbox [ref=f7e1916]
+                - cell [ref=f7e1917]
+                - cell [ref=f7e1918]
+              - row [ref=f7e1919]:
+                - cell [ref=f7e1920]:
+                  - link "Check all / Uncheck all" [ref=f7e1921] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Delete wiki pages
+                - cell "Delete wiki pages (Manager)" [ref=f7e1923]:
+                  - checkbox [checked] [ref=f7e1924]
+                - cell "Delete wiki pages (Employee)" [ref=f7e1925]:
+                  - checkbox [checked] [ref=f7e1926]
+                - cell "Delete wiki pages (Client)" [ref=f7e1927]:
+                  - checkbox [ref=f7e1928]
+                - cell "Delete wiki pages (Project Lead)" [ref=f7e1929]:
+                  - checkbox [checked] [ref=f7e1930]
+                - cell "Delete wiki pages (QA)" [ref=f7e1931]:
+                  - checkbox [ref=f7e1932]
+                - cell "Delete wiki pages (Team Lead)" [ref=f7e1933]:
+                  - checkbox [checked] [ref=f7e1934]
+                - cell "Delete wiki pages (Developer)" [ref=f7e1935]:
+                  - checkbox [checked] [ref=f7e1936]
+                - cell [ref=f7e1937]
+                - cell [ref=f7e1938]
+              - row [ref=f7e1939]:
+                - cell [ref=f7e1940]:
+                  - link "Check all / Uncheck all" [ref=f7e1941] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Delete attachments
+                - cell "Delete attachments (Manager)" [ref=f7e1943]:
+                  - checkbox [checked] [ref=f7e1944]
+                - cell "Delete attachments (Employee)" [ref=f7e1945]:
+                  - checkbox [ref=f7e1946]
+                - cell "Delete attachments (Client)" [ref=f7e1947]:
+                  - checkbox [ref=f7e1948]
+                - cell "Delete attachments (Project Lead)" [ref=f7e1949]:
+                  - checkbox [ref=f7e1950]
+                - cell "Delete attachments (QA)" [ref=f7e1951]:
+                  - checkbox [ref=f7e1952]
+                - cell "Delete attachments (Team Lead)" [ref=f7e1953]:
+                  - checkbox [ref=f7e1954]
+                - cell "Delete attachments (Developer)" [ref=f7e1955]:
+                  - checkbox [ref=f7e1956]
+                - cell "Delete attachments (Non member)" [ref=f7e1957]:
+                  - checkbox [ref=f7e1958]
+                - cell "Delete attachments (Anonymous)" [ref=f7e1959]:
+                  - checkbox [ref=f7e1960]
+              - row [ref=f7e1961]:
+                - cell [ref=f7e1962]:
+                  - link "Check all / Uncheck all" [ref=f7e1963] [cursor=pointer]:
+                    - /url: "#"
+                  - text: View wiki page watchers list
+                - cell "View wiki page watchers list (Manager)" [ref=f7e1965]:
+                  - checkbox [checked] [ref=f7e1966]
+                - cell "View wiki page watchers list (Employee)" [ref=f7e1967]:
+                  - checkbox [ref=f7e1968]
+                - cell "View wiki page watchers list (Client)" [ref=f7e1969]:
+                  - checkbox [ref=f7e1970]
+                - cell "View wiki page watchers list (Project Lead)" [ref=f7e1971]:
+                  - checkbox [ref=f7e1972]
+                - cell "View wiki page watchers list (QA)" [ref=f7e1973]:
+                  - checkbox [ref=f7e1974]
+                - cell "View wiki page watchers list (Team Lead)" [ref=f7e1975]:
+                  - checkbox [ref=f7e1976]
+                - cell "View wiki page watchers list (Developer)" [ref=f7e1977]:
+                  - checkbox [ref=f7e1978]
+                - cell "View wiki page watchers list (Non member)" [ref=f7e1979]:
+                  - checkbox [ref=f7e1980]
+                - cell "View wiki page watchers list (Anonymous)" [ref=f7e1981]:
+                  - checkbox [ref=f7e1982]
+              - row [ref=f7e1983]:
+                - cell [ref=f7e1984]:
+                  - link "Check all / Uncheck all" [ref=f7e1985] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Add wiki page watchers
+                - cell "Add wiki page watchers (Manager)" [ref=f7e1987]:
+                  - checkbox [checked] [ref=f7e1988]
+                - cell "Add wiki page watchers (Employee)" [ref=f7e1989]:
+                  - checkbox [ref=f7e1990]
+                - cell "Add wiki page watchers (Client)" [ref=f7e1991]:
+                  - checkbox [ref=f7e1992]
+                - cell "Add wiki page watchers (Project Lead)" [ref=f7e1993]:
+                  - checkbox [ref=f7e1994]
+                - cell "Add wiki page watchers (QA)" [ref=f7e1995]:
+                  - checkbox [ref=f7e1996]
+                - cell "Add wiki page watchers (Team Lead)" [ref=f7e1997]:
+                  - checkbox [ref=f7e1998]
+                - cell "Add wiki page watchers (Developer)" [ref=f7e1999]:
+                  - checkbox [ref=f7e2000]
+                - cell "Add wiki page watchers (Non member)" [ref=f7e2001]:
+                  - checkbox [ref=f7e2002]
+                - cell "Add wiki page watchers (Anonymous)" [ref=f7e2003]:
+                  - checkbox [ref=f7e2004]
+              - row [ref=f7e2005]:
+                - cell [ref=f7e2006]:
+                  - link "Check all / Uncheck all" [ref=f7e2007] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Delete wiki page watchers
+                - cell "Delete wiki page watchers (Manager)" [ref=f7e2009]:
+                  - checkbox [checked] [ref=f7e2010]
+                - cell "Delete wiki page watchers (Employee)" [ref=f7e2011]:
+                  - checkbox [ref=f7e2012]
+                - cell "Delete wiki page watchers (Client)" [ref=f7e2013]:
+                  - checkbox [ref=f7e2014]
+                - cell "Delete wiki page watchers (Project Lead)" [ref=f7e2015]:
+                  - checkbox [ref=f7e2016]
+                - cell "Delete wiki page watchers (QA)" [ref=f7e2017]:
+                  - checkbox [ref=f7e2018]
+                - cell "Delete wiki page watchers (Team Lead)" [ref=f7e2019]:
+                  - checkbox [ref=f7e2020]
+                - cell "Delete wiki page watchers (Developer)" [ref=f7e2021]:
+                  - checkbox [ref=f7e2022]
+                - cell "Delete wiki page watchers (Non member)" [ref=f7e2023]:
+                  - checkbox [ref=f7e2024]
+                - cell "Delete wiki page watchers (Anonymous)" [ref=f7e2025]:
+                  - checkbox [ref=f7e2026]
+              - row [ref=f7e2027]:
+                - cell [ref=f7e2028]:
+                  - link "Check all / Uncheck all" [ref=f7e2029] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Protect wiki pages
+                - cell "Protect wiki pages (Manager)" [ref=f7e2031]:
+                  - checkbox [checked] [ref=f7e2032]
+                - cell "Protect wiki pages (Employee)" [ref=f7e2033]:
+                  - checkbox [ref=f7e2034]
+                - cell "Protect wiki pages (Client)" [ref=f7e2035]:
+                  - checkbox [ref=f7e2036]
+                - cell "Protect wiki pages (Project Lead)" [ref=f7e2037]:
+                  - checkbox [ref=f7e2038]
+                - cell "Protect wiki pages (QA)" [ref=f7e2039]:
+                  - checkbox [ref=f7e2040]
+                - cell "Protect wiki pages (Team Lead)" [ref=f7e2041]:
+                  - checkbox [ref=f7e2042]
+                - cell "Protect wiki pages (Developer)" [ref=f7e2043]:
+                  - checkbox [ref=f7e2044]
+                - cell [ref=f7e2045]
+                - cell [ref=f7e2046]
+              - row [ref=f7e2047]:
+                - cell [ref=f7e2048]:
+                  - link "Check all / Uncheck all" [ref=f7e2049] [cursor=pointer]:
+                    - /url: "#"
+                  - text: Manage wiki
+                - cell "Manage wiki (Manager)" [ref=f7e2051]:
+                  - checkbox [checked] [ref=f7e2052]
+                - cell "Manage wiki (Employee)" [ref=f7e2053]:
+                  - checkbox [ref=f7e2054]
+                - cell "Manage wiki (Client)" [ref=f7e2055]:
+                  - checkbox [ref=f7e2056]
+                - cell "Manage wiki (Project Lead)" [ref=f7e2057]:
+                  - checkbox [ref=f7e2058]
+                - cell "Manage wiki (QA)" [ref=f7e2059]:
+                  - checkbox [ref=f7e2060]
+                - cell "Manage wiki (Team Lead)" [ref=f7e2061]:
+                  - checkbox [ref=f7e2062]
+                - cell "Manage wiki (Developer)" [ref=f7e2063]:
+                  - checkbox [ref=f7e2064]
+                - cell [ref=f7e2065]
+                - cell [ref=f7e2066]
+          - paragraph [ref=f7e2067]:
+            - link "Check all" [ref=f7e2068] [cursor=pointer]:
+              - /url: "#"
+            - text: "|"
+            - link "Uncheck all" [ref=f7e2069] [cursor=pointer]:
+              - /url: "#"
+          - paragraph [ref=f7e2070]:
+            - button "Save" [ref=f7e2071] [cursor=pointer]
+        - paragraph [ref=f7e2072]:
+          - text: "Also available in:"
+          - link "CSV" [ref=f7e2074] [cursor=pointer]:
+            - /url: /roles/permissions.csv
+    - generic [ref=f7e2075]:
+      - text: Powered by
+      - link "Redmine" [ref=f7e2076] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f7e2077]
+  - log [ref=f7e2078]
+  - log [ref=f7e2079]
+  - log [ref=f7e2080]
+  - log [ref=f7e2081]
+  - log [ref=f7e2082]
+  - log [ref=f7e2083]
+  - log [ref=f7e2084]
+  - log [ref=f7e2085]
+  - log [ref=f7e2086]
+  - log [ref=f7e2087]
+  - log [ref=f7e2088]
+  - log [ref=f7e2089]
+  - log [ref=f7e2090]
+  - log [ref=f7e2091]
+  - log [ref=f7e2092]
+  - log [ref=f7e2093]
+  - log [ref=f7e2094]
+  - log [ref=f7e2095]
+  - log [ref=f7e2096]
+  - log [ref=f7e2097]
+  - log [ref=f7e2098]
+  - log [ref=f7e2099]
+  - log [ref=f7e2100]
+  - log [ref=f7e2101]
+  - log [ref=f7e2102]
+  - log [ref=f7e2103]
+  - log [ref=f7e2104]
+  - log [ref=f7e2105]
+  - log [ref=f7e2106]
+  - log [ref=f7e2107]
+  - log [ref=f7e2108]
+  - log [ref=f7e2109]
+  - log [ref=f7e2110]
+  - log [ref=f7e2111]
+  - log [ref=f7e2112]
+  - log [ref=f7e2113]
+  - log [ref=f7e2114]
+  - log [ref=f7e2115]
+  - log [ref=f7e2116]
+  - log [ref=f7e2117]
+  - log [ref=f7e2118]
+  - log [ref=f7e2119]
+  - log [ref=f7e2120]
+  - log [ref=f7e2121]
+  - log [ref=f7e2122]
+  - log [ref=f7e2123]
+  - log [ref=f7e2124]
+  - log [ref=f7e2125]
+  - log [ref=f7e2126]
+  - log [ref=f7e2127]
+  - log [ref=f7e2128]
+  - log [ref=f7e2129]
+  - log [ref=f7e2130]
+  - log [ref=f7e2131]
+  - log [ref=f7e2132]
+  - log [ref=f7e2133]
+  - log [ref=f7e2134]
+  - log [ref=f7e2135]
+  - log [ref=f7e2136]
+  - log [ref=f7e2137]
+  - log [ref=f7e2138]
+  - log [ref=f7e2139]
+  - log [ref=f7e2140]
+  - log [ref=f7e2141]
+  - log [ref=f7e2142]
+  - log [ref=f7e2143]
+  - log [ref=f7e2144]
+  - log [ref=f7e2145]
+  - log [ref=f7e2146]
+  - log [ref=f7e2147]
+  - log [ref=f7e2148]
+  - log [ref=f7e2149]
+  - log [ref=f7e2150]
+  - log [ref=f7e2151]
+  - log [ref=f7e2152]
+  - log [ref=f7e2153]
+  - log [ref=f7e2154]
+  - log [ref=f7e2155]
+  - log [ref=f7e2156]
+  - log [ref=f7e2157]
+  - log [ref=f7e2158]
+  - log [ref=f7e2159]
+  - log [ref=f7e2160]
+  - log [ref=f7e2161]
+  - log [ref=f7e2162]
+  - log [ref=f7e2163]
+  - log [ref=f7e2164]
+  - log [ref=f7e2165]
+  - log [ref=f7e2166]
+  - log [ref=f7e2167]
+  - log [ref=f7e2168]
+  - log [ref=f7e2169]
+  - log [ref=f7e2170]
+  - log [ref=f7e2171]
+  - log [ref=f7e2172]
+  - log [ref=f7e2173]
+  - log [ref=f7e2174]
+  - log [ref=f7e2175]
+  - log [ref=f7e2176]
+  - log [ref=f7e2177]
+  - log [ref=f7e2178]
+  - log [ref=f7e2179]
+  - log [ref=f7e2180]
+  - log [ref=f7e2181]
+  - log [ref=f7e2182]
+  - log [ref=f7e2183]
+  - log [ref=f7e2184]
+  - log [ref=f7e2185]
+  - log [ref=f7e2186]
+  - log [ref=f7e2187]
+  - log [ref=f7e2188]
+  - log [ref=f7e2189]
+  - log [ref=f7e2190]
+  - log [ref=f7e2191]
+  - log [ref=f7e2192]
+  - log [ref=f7e2193]
+  - log [ref=f7e2194]
+  - log [ref=f7e2195]
+  - log [ref=f7e2196]
+  - log [ref=f7e2197]
+  - log [ref=f7e2198]
+  - log [ref=f7e2199]
+  - log [ref=f7e2200]
+  - log [ref=f7e2201]
+  - log [ref=f7e2202]
+  - log [ref=f7e2203]
+  - log [ref=f7e2204]
+  - log [ref=f7e2205]
+  - log [ref=f7e2206]
+  - log [ref=f7e2207]
+  - log [ref=f7e2208]
+  - log [ref=f7e2209]
+  - log [ref=f7e2210]
+  - log [ref=f7e2211]
+  - log [ref=f7e2212]
+  - log [ref=f7e2213]
+  - log [ref=f7e2214]
+  - log [ref=f7e2215]
+  - log [ref=f7e2216]
+  - log [ref=f7e2217]
+  - log [ref=f7e2218]
+  - log [ref=f7e2219]
+  - log [ref=f7e2220]
+  - log [ref=f7e2221]
+  - log [ref=f7e2222]
+  - log [ref=f7e2223]
+  - log [ref=f7e2224]
+  - log [ref=f7e2225]
+  - log [ref=f7e2226]
+  - log [ref=f7e2227]
+  - log [ref=f7e2228]
+  - log [ref=f7e2229]
+  - log [ref=f7e2230]
+  - log [ref=f7e2231]
+  - log [ref=f7e2232]
+  - log [ref=f7e2233]
+  - log [ref=f7e2234]
+  - log [ref=f7e2235]
+  - log [ref=f7e2236]
+  - log [ref=f7e2237]
+  - log [ref=f7e2238]
+  - log [ref=f7e2239]
+  - log [ref=f7e2240]
+  - log [ref=f7e2241]
+  - log [ref=f7e2242]
+  - log [ref=f7e2243]
+  - log [ref=f7e2244]
+  - log [ref=f7e2245]
+  - log [ref=f7e2246]
+  - log [ref=f7e2247]
+  - log [ref=f7e2248]
+  - log [ref=f7e2249]
+  - log [ref=f7e2250]
+  - log [ref=f7e2251]
+  - log [ref=f7e2252]
+  - log [ref=f7e2253]
+  - log [ref=f7e2254]
+  - log [ref=f7e2255]
+  - log [ref=f7e2256]
+  - log [ref=f7e2257]
+  - log [ref=f7e2258]
+  - log [ref=f7e2259]
+  - log [ref=f7e2260]
+  - log [ref=f7e2261]
+  - log [ref=f7e2262]
+  - log [ref=f7e2263]
+  - log [ref=f7e2264]
+  - log [ref=f7e2265]
+  - log [ref=f7e2266]
+  - log [ref=f7e2267]
+  - log [ref=f7e2268]
+  - log [ref=f7e2269]
+  - log [ref=f7e2270]
+  - log [ref=f7e2271]
+  - log [ref=f7e2272]
+  - log [ref=f7e2273]
+  - log [ref=f7e2274]
+  - log [ref=f7e2275]
+  - log [ref=f7e2276]
+  - log [ref=f7e2277]
+  - log [ref=f7e2278]
+  - log [ref=f7e2279]
+  - log [ref=f7e2280]
+  - log [ref=f7e2281]
+  - log [ref=f7e2282]
+  - log [ref=f7e2283]
+  - log [ref=f7e2284]
+  - log [ref=f7e2285]
+  - log [ref=f7e2286]
+  - log [ref=f7e2287]
+  - log [ref=f7e2288]
+  - log [ref=f7e2289]
+  - log [ref=f7e2290]
+  - log [ref=f7e2291]
+  - log [ref=f7e2292]
+  - log [ref=f7e2293]
+  - log [ref=f7e2294]
+  - log [ref=f7e2295]
+  - log [ref=f7e2296]
+  - log [ref=f7e2297]
+  - log [ref=f7e2298]
+  - log [ref=f7e2299]
+  - log [ref=f7e2300]
+  - log [ref=f7e2301]
+  - log [ref=f7e2302]
+  - log [ref=f7e2303]
+  - log [ref=f7e2304]
+  - log [ref=f7e2305]
+  - log [ref=f7e2306]
+  - log [ref=f7e2307]
+  - log [ref=f7e2308]
+  - log [ref=f7e2309]
+  - log [ref=f7e2310]
+  - log [ref=f7e2311]
+  - log [ref=f7e2312]
+  - log [ref=f7e2313]
+  - log [ref=f7e2314]
+  - log [ref=f7e2315]
+  - log [ref=f7e2316]
+  - log [ref=f7e2317]
+  - log [ref=f7e2318]
+  - log [ref=f7e2319]
+  - log [ref=f7e2320]
+  - log [ref=f7e2321]
+  - log [ref=f7e2322]
+  - log [ref=f7e2323]
+  - log [ref=f7e2324]
+  - log [ref=f7e2325]
+  - log [ref=f7e2326]
+  - log [ref=f7e2327]
+  - log [ref=f7e2328]
+  - log [ref=f7e2329]
+  - log [ref=f7e2330]
+  - log [ref=f7e2331]
+  - log [ref=f7e2332]
+  - log [ref=f7e2333]
+  - log [ref=f7e2334]
+  - log [ref=f7e2335]
+  - log [ref=f7e2336]
+  - log [ref=f7e2337]
+  - log [ref=f7e2338]
+  - log [ref=f7e2339]
+  - log [ref=f7e2340]
+  - log [ref=f7e2341]
+  - log [ref=f7e2342]
+  - log [ref=f7e2343]
+  - log [ref=f7e2344]
+  - log [ref=f7e2345]
+  - log [ref=f7e2346]
+  - log [ref=f7e2347]
+  - log [ref=f7e2348]
+  - log [ref=f7e2349]
+  - log [ref=f7e2350]
+  - log [ref=f7e2351]
+  - log [ref=f7e2352]
+  - log [ref=f7e2353]
+  - log [ref=f7e2354]
+  - log [ref=f7e2355]
+  - log [ref=f7e2356]
+  - log [ref=f7e2357]
+  - log [ref=f7e2358]
+  - log [ref=f7e2359]
+  - log [ref=f7e2360]
+  - log [ref=f7e2361]
+  - log [ref=f7e2362]
+  - log [ref=f7e2363]
+  - log [ref=f7e2364]
+  - log [ref=f7e2365]
+  - log [ref=f7e2366]
+  - log [ref=f7e2367]
+  - log [ref=f7e2368]
+  - log [ref=f7e2369]
+  - log [ref=f7e2370]
+  - log [ref=f7e2371]
+  - log [ref=f7e2372]
+  - log [ref=f7e2373]
+  - log [ref=f7e2374]
+  - log [ref=f7e2375]
+  - log [ref=f7e2376]
+  - log [ref=f7e2377]
+  - log [ref=f7e2378]
+  - log [ref=f7e2379]
+  - log [ref=f7e2380]
+  - log [ref=f7e2381]
+  - log [ref=f7e2382]
+  - log [ref=f7e2383]
+  - log [ref=f7e2384]
+  - log [ref=f7e2385]
+  - log [ref=f7e2386]
+  - log [ref=f7e2387]
+  - log [ref=f7e2388]
+  - log [ref=f7e2389]
+  - log [ref=f7e2390]
+  - log [ref=f7e2391]
+  - log [ref=f7e2392]
+  - log [ref=f7e2393]
+  - log [ref=f7e2394]
+  - log [ref=f7e2395]
+  - log [ref=f7e2396]
+  - log [ref=f7e2397]
+  - log [ref=f7e2398]
+  - log [ref=f7e2399]
+  - log [ref=f7e2400]
+  - log [ref=f7e2401]
+  - log [ref=f7e2402]
+  - log [ref=f7e2403]
+  - log [ref=f7e2404]
+  - log [ref=f7e2405]
+  - log [ref=f7e2406]
+  - log [ref=f7e2407]
+  - log [ref=f7e2408]
+  - log [ref=f7e2409]
+  - log [ref=f7e2410]
+  - log [ref=f7e2411]
+  - log [ref=f7e2412]
+  - log [ref=f7e2413]
+  - log [ref=f7e2414]
+  - log [ref=f7e2415]
+  - log [ref=f7e2416]
+  - log [ref=f7e2417]
+  - log [ref=f7e2418]
+  - log [ref=f7e2419]
+  - log [ref=f7e2420]
+  - log [ref=f7e2421]
+  - log [ref=f7e2422]
+  - log [ref=f7e2423]
+  - log [ref=f7e2424]
+  - log [ref=f7e2425]
+  - log [ref=f7e2426]
+  - log [ref=f7e2427]
+  - log [ref=f7e2428]
+  - log [ref=f7e2429]
+  - log [ref=f7e2430]
+  - log [ref=f7e2431]
+  - log [ref=f7e2432]
+  - log [ref=f7e2433]
+  - log [ref=f7e2434]
+  - log [ref=f7e2435]
+  - log [ref=f7e2436]
+  - log [ref=f7e2437]
+  - log [ref=f7e2438]
+  - log [ref=f7e2439]
+  - log [ref=f7e2440]
+  - log [ref=f7e2441]
+  - log [ref=f7e2442]
+  - log [ref=f7e2443]
+  - log [ref=f7e2444]
+  - log [ref=f7e2445]
+  - log [ref=f7e2446]
+  - log [ref=f7e2447]
+  - log [ref=f7e2448]
+  - log [ref=f7e2449]
+  - log [ref=f7e2450]
+  - log [ref=f7e2451]
+  - log [ref=f7e2452]
+  - log [ref=f7e2453]
+  - log [ref=f7e2454]
+  - log [ref=f7e2455]
+  - log [ref=f7e2456]
+  - log [ref=f7e2457]
+  - log [ref=f7e2458]
+  - log [ref=f7e2459]
+  - log [ref=f7e2460]
+  - log [ref=f7e2461]
+  - log [ref=f7e2462]
+  - log [ref=f7e2463]
+  - log [ref=f7e2464]
+  - log [ref=f7e2465]
+  - log [ref=f7e2466]
+  - log [ref=f7e2467]
+  - log [ref=f7e2468]
+  - log [ref=f7e2469]
+  - log [ref=f7e2470]
+  - log [ref=f7e2471]
+  - log [ref=f7e2472]
+  - log [ref=f7e2473]
+  - log [ref=f7e2474]
+  - log [ref=f7e2475]
+  - log [ref=f7e2476]
+  - log [ref=f7e2477]
+  - log [ref=f7e2478]
+  - log [ref=f7e2479]
+  - log [ref=f7e2480]
+  - log [ref=f7e2481]
+  - log [ref=f7e2482]
+  - log [ref=f7e2483]
+  - log [ref=f7e2484]
+  - log [ref=f7e2485]
+  - log [ref=f7e2486]
+  - log [ref=f7e2487]
+  - log [ref=f7e2488]
+  - log [ref=f7e2489]
+  - log [ref=f7e2490]
+  - log [ref=f7e2491]
+  - log [ref=f7e2492]
+  - log [ref=f7e2493]
+  - log [ref=f7e2494]
+  - log [ref=f7e2495]
+  - log [ref=f7e2496]
+  - log [ref=f7e2497]
+  - log [ref=f7e2498]
+  - log [ref=f7e2499]
+  - log [ref=f7e2500]
+  - log [ref=f7e2501]
+  - log [ref=f7e2502]
+  - log [ref=f7e2503]
+  - log [ref=f7e2504]
+  - log [ref=f7e2505]
+  - log [ref=f7e2506]
+  - log [ref=f7e2507]
+  - log [ref=f7e2508]
+  - log [ref=f7e2509]
+  - log [ref=f7e2510]
+  - log [ref=f7e2511]
+  - log [ref=f7e2512]
+  - log [ref=f7e2513]
+  - log [ref=f7e2514]
+  - log [ref=f7e2515]
+  - log [ref=f7e2516]
+  - log [ref=f7e2517]
+  - log [ref=f7e2518]
+  - log [ref=f7e2519]
+  - log [ref=f7e2520]
+  - log [ref=f7e2521]
+  - log [ref=f7e2522]
+  - log [ref=f7e2523]
+  - log [ref=f7e2524]
+  - log [ref=f7e2525]
+  - log [ref=f7e2526]
+  - log [ref=f7e2527]
+  - log [ref=f7e2528]
+  - log [ref=f7e2529]
+  - log [ref=f7e2530]
+  - log [ref=f7e2531]
+  - log [ref=f7e2532]
+  - log [ref=f7e2533]
+  - log [ref=f7e2534]
+  - log [ref=f7e2535]
+  - log [ref=f7e2536]
+  - log [ref=f7e2537]
+  - log [ref=f7e2538]
+  - log [ref=f7e2539]
+  - log [ref=f7e2540]
+  - log [ref=f7e2541]
+  - log [ref=f7e2542]
+  - log [ref=f7e2543]
+  - log [ref=f7e2544]
+  - log [ref=f7e2545]
+  - log [ref=f7e2546]
+  - log [ref=f7e2547]
+  - log [ref=f7e2548]
+  - log [ref=f7e2549]
+  - log [ref=f7e2550]
+  - log [ref=f7e2551]
+  - log [ref=f7e2552]
+  - log [ref=f7e2553]
+  - log [ref=f7e2554]
+  - log [ref=f7e2555]
+  - log [ref=f7e2556]
+  - log [ref=f7e2557]
+  - log [ref=f7e2558]
+  - log [ref=f7e2559]
+  - log [ref=f7e2560]
+  - log [ref=f7e2561]
+  - log [ref=f7e2562]
+  - log [ref=f7e2563]
+  - log [ref=f7e2564]
+  - log [ref=f7e2565]
+  - log [ref=f7e2566]
+  - log [ref=f7e2567]
+  - log [ref=f7e2568]
+  - log [ref=f7e2569]
+  - log [ref=f7e2570]
+  - log [ref=f7e2571]
+  - log [ref=f7e2572]
+  - log [ref=f7e2573]
+  - log [ref=f7e2574]
+  - log [ref=f7e2575]
+  - log [ref=f7e2576]
+  - log [ref=f7e2577]
+  - log [ref=f7e2578]
+  - log [ref=f7e2579]
+  - log [ref=f7e2580]
+  - log [ref=f7e2581]
+  - log [ref=f7e2582]
+  - log [ref=f7e2583]
+  - log [ref=f7e2584]
+  - log [ref=f7e2585]
+  - log [ref=f7e2586]
+  - log [ref=f7e2587]
+  - log [ref=f7e2588]
+  - log [ref=f7e2589]
+  - log [ref=f7e2590]
+  - log [ref=f7e2591]
+  - log [ref=f7e2592]
+  - log [ref=f7e2593]
+  - log [ref=f7e2594]
+  - log [ref=f7e2595]
+  - log [ref=f7e2596]
+  - log [ref=f7e2597]
+  - log [ref=f7e2598]
+  - log [ref=f7e2599]
+  - log [ref=f7e2600]
+  - log [ref=f7e2601]
+  - log [ref=f7e2602]
+  - log [ref=f7e2603]
+  - log [ref=f7e2604]
+  - log [ref=f7e2605]
+  - log [ref=f7e2606]
+  - log [ref=f7e2607]
+  - log [ref=f7e2608]
+  - log [ref=f7e2609]
+  - log [ref=f7e2610]
+  - log [ref=f7e2611]
+  - log [ref=f7e2612]
+  - log [ref=f7e2613]
+  - log [ref=f7e2614]
+  - log [ref=f7e2615]
+  - log [ref=f7e2616]
+  - log [ref=f7e2617]
+  - log [ref=f7e2618]
+  - log [ref=f7e2619]
+  - log [ref=f7e2620]
+  - log [ref=f7e2621]
+  - log [ref=f7e2622]
+  - log [ref=f7e2623]
+  - log [ref=f7e2624]
+  - log [ref=f7e2625]
+  - log [ref=f7e2626]
+  - log [ref=f7e2627]
+  - log [ref=f7e2628]
+  - log [ref=f7e2629]
+  - log [ref=f7e2630]
+  - log [ref=f7e2631]
+  - log [ref=f7e2632]
+  - log [ref=f7e2633]
+  - log [ref=f7e2634]
+  - log [ref=f7e2635]
+  - log [ref=f7e2636]
+  - log [ref=f7e2637]
+  - log [ref=f7e2638]
+  - log [ref=f7e2639]
+  - log [ref=f7e2640]
+  - log [ref=f7e2641]
+  - log [ref=f7e2642]
+  - log [ref=f7e2643]
+  - log [ref=f7e2644]
+  - log [ref=f7e2645]
+  - log [ref=f7e2646]
+  - log [ref=f7e2647]
+  - log [ref=f7e2648]
+  - log [ref=f7e2649]
+  - log [ref=f7e2650]
+  - log [ref=f7e2651]
+  - log [ref=f7e2652]
+  - log [ref=f7e2653]
+  - log [ref=f7e2654]
+  - log [ref=f7e2655]
+  - log [ref=f7e2656]
+  - log [ref=f7e2657]
+  - log [ref=f7e2658]
+  - log [ref=f7e2659]
+  - log [ref=f7e2660]
+  - log [ref=f7e2661]
+  - log [ref=f7e2662]
+  - log [ref=f7e2663]
+  - log [ref=f7e2664]
+  - log [ref=f7e2665]
+  - log [ref=f7e2666]
+  - log [ref=f7e2667]
+  - log [ref=f7e2668]
+  - log [ref=f7e2669]
+  - log [ref=f7e2670]
+  - log [ref=f7e2671]
+  - log [ref=f7e2672]
+  - log [ref=f7e2673]
+  - log [ref=f7e2674]
+  - log [ref=f7e2675]
+  - log [ref=f7e2676]
+  - log [ref=f7e2677]
+  - log [ref=f7e2678]
+  - log [ref=f7e2679]
+  - log [ref=f7e2680]
+  - log [ref=f7e2681]
+  - log [ref=f7e2682]
+  - log [ref=f7e2683]
+  - log [ref=f7e2684]
+  - log [ref=f7e2685]
+  - log [ref=f7e2686]
+  - log [ref=f7e2687]
+  - log [ref=f7e2688]
+  - log [ref=f7e2689]
+  - log [ref=f7e2690]
+  - log [ref=f7e2691]
+  - log [ref=f7e2692]
+  - log [ref=f7e2693]
+  - log [ref=f7e2694]
+  - log [ref=f7e2695]
+  - log [ref=f7e2696]
+  - log [ref=f7e2697]
+  - log [ref=f7e2698]
+  - log [ref=f7e2699]
+  - log [ref=f7e2700]
+  - log [ref=f7e2701]
+  - log [ref=f7e2702]
+  - log [ref=f7e2703]
+  - log [ref=f7e2704]
+  - log [ref=f7e2705]
+  - log [ref=f7e2706]
+  - log [ref=f7e2707]
+  - log [ref=f7e2708]
+  - log [ref=f7e2709]
+  - log [ref=f7e2710]
+  - log [ref=f7e2711]
+  - log [ref=f7e2712]
+  - log [ref=f7e2713]
+  - log [ref=f7e2714]
+  - log [ref=f7e2715]
+  - log [ref=f7e2716]
+  - log [ref=f7e2717]
+  - log [ref=f7e2718]
+  - log [ref=f7e2719]
+  - log [ref=f7e2720]
+  - log [ref=f7e2721]
+  - log [ref=f7e2722]
+  - log [ref=f7e2723]
+  - log [ref=f7e2724]
+  - log [ref=f7e2725]
+  - log [ref=f7e2726]
+  - log [ref=f7e2727]
+  - log [ref=f7e2728]
+  - log [ref=f7e2729]
+  - log [ref=f7e2730]
+  - log [ref=f7e2731]
+  - log [ref=f7e2732]
+  - log [ref=f7e2733]
+  - log [ref=f7e2734]
+  - log [ref=f7e2735]
+  - log [ref=f7e2736]
+  - log [ref=f7e2737]
+  - log [ref=f7e2738]
+  - log [ref=f7e2739]
+  - log [ref=f7e2740]
+  - log [ref=f7e2741]
+  - log [ref=f7e2742]
+  - log [ref=f7e2743]
+  - log [ref=f7e2744]
+  - log [ref=f7e2745]
+  - log [ref=f7e2746]
+  - log [ref=f7e2747]
+  - log [ref=f7e2748]
+  - log [ref=f7e2749]
+  - log [ref=f7e2750]
+  - log [ref=f7e2751]
+  - log [ref=f7e2752]
+  - log [ref=f7e2753]
+  - log [ref=f7e2754]
+  - log [ref=f7e2755]
+  - log [ref=f7e2756]
+  - log [ref=f7e2757]
+  - log [ref=f7e2758]
+  - log [ref=f7e2759]
+  - log [ref=f7e2760]
+  - log [ref=f7e2761]
+  - log [ref=f7e2762]
+  - log [ref=f7e2763]
+  - log [ref=f7e2764]
+  - log [ref=f7e2765]
+  - log [ref=f7e2766]
+  - log [ref=f7e2767]
+  - log [ref=f7e2768]
+  - log [ref=f7e2769]
+  - log [ref=f7e2770]
+  - log [ref=f7e2771]
+  - log [ref=f7e2772]
+  - log [ref=f7e2773]
+  - log [ref=f7e2774]
+  - log [ref=f7e2775]
+  - log [ref=f7e2776]
+  - log [ref=f7e2777]
+  - log [ref=f7e2778]
+  - log [ref=f7e2779]
+  - log [ref=f7e2780]
+  - log [ref=f7e2781]
+  - log [ref=f7e2782]
+  - log [ref=f7e2783]
+  - log [ref=f7e2784]
+  - log [ref=f7e2785]
+  - log [ref=f7e2786]
+  - log [ref=f7e2787]
+  - log [ref=f7e2788]
+  - log [ref=f7e2789]
+  - log [ref=f7e2790]
+  - log [ref=f7e2791]
+  - log [ref=f7e2792]
+  - log [ref=f7e2793]
+  - log [ref=f7e2794]
+  - log [ref=f7e2795]
+  - log [ref=f7e2796]
+  - log [ref=f7e2797]
+  - log [ref=f7e2798]
+  - log [ref=f7e2799]
+  - log [ref=f7e2800]
+  - log [ref=f7e2801]
+  - log [ref=f7e2802]
+  - log [ref=f7e2803]
+  - log [ref=f7e2804]
+  - log [ref=f7e2805]
+  - log [ref=f7e2806]
+  - log [ref=f7e2807]
+  - log [ref=f7e2808]
+  - log [ref=f7e2809]
+  - log [ref=f7e2810]
+  - log [ref=f7e2811]
+  - log [ref=f7e2812]
+  - log [ref=f7e2813]
+  - log [ref=f7e2814]
+  - log [ref=f7e2815]
+  - log [ref=f7e2816]
+  - log [ref=f7e2817]
+  - log [ref=f7e2818]
+  - log [ref=f7e2819]
+  - log [ref=f7e2820]
+  - log [ref=f7e2821]
+  - log [ref=f7e2822]
+  - log [ref=f7e2823]
+  - log [ref=f7e2824]
+  - log [ref=f7e2825]
+  - log [ref=f7e2826]
+  - log [ref=f7e2827]
+  - log [ref=f7e2828]
+  - log [ref=f7e2829]
+  - log [ref=f7e2830]
+  - log [ref=f7e2831]
+  - log [ref=f7e2832]
+  - log [ref=f7e2833]
+  - log [ref=f7e2834]
+  - log [ref=f7e2835]
+  - log [ref=f7e2836]
+  - log [ref=f7e2837]
+  - log [ref=f7e2838]
+  - log [ref=f7e2839]
+  - log [ref=f7e2840]
+  - log [ref=f7e2841]
+  - log [ref=f7e2842]
+  - log [ref=f7e2843]
+  - log [ref=f7e2844]
+  - log [ref=f7e2845]
+  - log [ref=f7e2846]
+  - log [ref=f7e2847]
+  - log [ref=f7e2848]
+  - log [ref=f7e2849]
+  - log [ref=f7e2850]
+  - log [ref=f7e2851]
+  - log [ref=f7e2852]
+  - log [ref=f7e2853]
+  - log [ref=f7e2854]
+  - log [ref=f7e2855]
+  - log [ref=f7e2856]
+  - log [ref=f7e2857]
+  - log [ref=f7e2858]
+  - log [ref=f7e2859]
+  - log [ref=f7e2860]
+  - log [ref=f7e2861]
+  - log [ref=f7e2862]
+  - log [ref=f7e2863]
+  - log [ref=f7e2864]
+  - log [ref=f7e2865]
+  - log [ref=f7e2866]
+  - log [ref=f7e2867]
+  - log [ref=f7e2868]
+  - log [ref=f7e2869]
+  - log [ref=f7e2870]
+  - log [ref=f7e2871]
+  - log [ref=f7e2872]
+  - log [ref=f7e2873]
+  - log [ref=f7e2874]
+  - log [ref=f7e2875]
+  - log [ref=f7e2876]
+  - log [ref=f7e2877]
+  - log [ref=f7e2878]
+  - log [ref=f7e2879]
+  - log [ref=f7e2880]
+  - log [ref=f7e2881]
+  - log [ref=f7e2882]
+  - log [ref=f7e2883]
+  - log [ref=f7e2884]
+  - log [ref=f7e2885]
+  - log [ref=f7e2886]
+  - log [ref=f7e2887]
+  - log [ref=f7e2888]

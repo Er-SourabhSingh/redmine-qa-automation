@@ -13,11 +13,12 @@ Follow all rules in `SENIOR_QA_STANDARDS.md` strictly.
 ## Session Target
 
 - Plugin name: `<PLUGIN_NAME>`
-- Plugin code: `<PLUGIN_CODE>` (e.g. RAF, TCM, GNT)
+- Plugin code: `<PLUGIN_CODE>` (e.g. RAF, TCM, GNT) — bug ID code, see `CLAUDE.md` §4
+- Doc prefix: `<DOC_PREFIX>` (e.g. HELPDESK) — docs/testcases filename prefix, see `CLAUDE.md` §2b
 - Plugin path: `plugins/<plugin-folder-name>/`
 - Redmine version: `<REDMINE_VERSION>`
 - Environment: `<FORGE or LOCAL>`
-- Test suite file: `plugins/<plugin-folder-name>/testcases/<SUITE_FILE>.md`
+- Test suite file: `plugins/<plugin-folder-name>/testcases/<DOC_PREFIX>_<SUITE_FILE>.md`
 
 ---
 
@@ -27,11 +28,13 @@ Follow all rules in `SENIOR_QA_STANDARDS.md` strictly.
 2. `MEMORY.md`
 3. `SENIOR_QA_STANDARDS.md`
 4. `QA_CREDENTIALS_FORGE.md` (if FORGE) or `QA_CREDENTIALS_LOCAL.md` (if LOCAL)
-5. `plugins/<plugin-folder-name>/docs/requirements.md`
-6. `plugins/<plugin-folder-name>/docs/scope.md`
-7. `plugins/<plugin-folder-name>/docs/memory.md`
-8. `plugins/<plugin-folder-name>/docs/handoff.md`
-9. `plugins/<plugin-folder-name>/testcases/<SUITE_FILE>.md`
+5. `plugins/<plugin-folder-name>/docs/<DOC_PREFIX>_REQUIREMENTS.md`
+6. `plugins/<plugin-folder-name>/docs/<DOC_PREFIX>_SCOPE.md`
+7. `plugins/<plugin-folder-name>/docs/<DOC_PREFIX>_MEMORY.md`
+8. `plugins/<plugin-folder-name>/docs/<DOC_PREFIX>_HANDOFF.md`
+9. `plugins/<plugin-folder-name>/testcases/<DOC_PREFIX>_<SUITE_FILE>.md`
+
+(For plugins scaffolded before `CLAUDE.md` §2b, use the lowercase filenames instead: `requirements.md`, `scope.md`, `memory.md`, `handoff.md`.)
 
 Do not begin testing until all files above are read.
 
@@ -93,9 +96,8 @@ Update all of these before ending the session:
 | `plugins/<plugin-folder-name>/reports/tc-report.html` | Generate pass/fail report |
 | `plugins/<plugin-folder-name>/reports/defects-summary.html` | Generate defect count by severity |
 | `plugins/<plugin-folder-name>/reports/final-bug-report.md` | Compile from all files in `bugs/open/` |
-| `plugins/<plugin-folder-name>/docs/memory.md` | Add new observations from this run |
-| `plugins/<plugin-folder-name>/docs/handoff.md` | Record completed work, blockers, next start point |
-| `plugins/<plugin-folder-name>/docs/changelog.md` | Add this run summary row |
+| `plugins/<plugin-folder-name>/docs/<DOC_PREFIX>_MEMORY.md` | Add new observations from this run |
+| `plugins/<plugin-folder-name>/docs/<DOC_PREFIX>_HANDOFF.md` | Record completed work, blockers, next start point, and add a Run History row for this run |
 | `STATUS.md` | Update plugin row — last tested date, open bug count, status |
 
 **Never auto-generate `final-bug-report.pdf`.** Ask the user first:

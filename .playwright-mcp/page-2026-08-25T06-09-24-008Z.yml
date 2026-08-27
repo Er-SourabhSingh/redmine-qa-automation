@@ -1,0 +1,384 @@
+- generic [active] [ref=f30e1]:
+  - generic [ref=f30e2]:
+    - generic [ref=f30e3]:
+      - generic [ref=f30e4]:
+        - list:
+          - listitem [ref=f30e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f30e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f30e7]:
+        - text: Logged in as
+        - link "admin" [ref=f30e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f30e9]:
+        - listitem [ref=f30e10]:
+          - link [ref=f30e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f30e12]
+        - listitem [ref=f30e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f30e14]:
+          - link "My page" [ref=f30e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f30e16]:
+          - link "Projects" [ref=f30e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f30e18]:
+          - link "Helpdesk Command Center" [ref=f30e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f30e20]:
+          - link "Administration" [ref=f30e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f30e22]:
+          - link "Help" [ref=f30e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f30e24]:
+      - generic [ref=f30e25]:
+        - generic [ref=f30e26]:
+          - generic [ref=f30e27]:
+            - link "Search" [ref=f30e28] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f30e29]
+        - generic [ref=f30e30]:
+          - generic [ref=f30e31] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f30e32]
+      - generic [ref=f30e33]:
+        - list [ref=f30e34]:
+          - listitem [ref=f30e35]:
+            - link "+" [ref=f30e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f30e37]:
+            - link "Overview" [ref=f30e38] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f30e39]:
+            - link "Activity" [ref=f30e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f30e41]:
+            - link "Issues" [ref=f30e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f30e43]:
+            - link "Spent time" [ref=f30e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f30e45]:
+            - link "Gantt" [ref=f30e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f30e47]:
+            - link "Calendar" [ref=f30e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f30e49]:
+            - link "News" [ref=f30e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f30e51]:
+            - link "Documents" [ref=f30e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f30e53]:
+            - link "Wiki" [ref=f30e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f30e55]:
+            - link "Files" [ref=f30e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f30e57]:
+            - link "Helpdesk" [ref=f30e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk
+          - listitem [ref=f30e59]:
+            - link "Settings" [ref=f30e60] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f30e61]:
+          - button [ref=f30e62] [cursor=pointer]
+          - button [ref=f30e63] [cursor=pointer]
+    - generic [ref=f30e65]:
+      - heading "Settings" [level=2] [ref=f30e66]
+      - list [ref=f30e68]:
+        - listitem [ref=f30e69]:
+          - link "Project" [ref=f30e70] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/info
+        - listitem [ref=f30e71]:
+          - link "Members" [ref=f30e72] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/members
+        - listitem [ref=f30e73]:
+          - link "Issue tracking" [ref=f30e74] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/issues
+        - listitem [ref=f30e75]:
+          - link "Versions" [ref=f30e76] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/versions
+        - listitem [ref=f30e77]:
+          - link "Issue categories" [ref=f30e78] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/categories
+        - listitem [ref=f30e79]:
+          - link "Repositories" [ref=f30e80] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/repositories
+        - listitem [ref=f30e81]:
+          - link "Forums" [ref=f30e82] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/boards
+        - listitem [ref=f30e83]:
+          - link "Time tracking" [ref=f30e84] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/activities
+      - text: pre
+      - generic [ref=f30e85]:
+        - link "Administration" [ref=f30e87] [cursor=pointer]:
+          - /url: /users
+        - paragraph [ref=f30e89]:
+          - link "New member" [ref=f30e90] [cursor=pointer]:
+            - /url: /projects/helpdesk/memberships/new
+        - table [ref=f30e92]:
+          - rowgroup [ref=f30e93]:
+            - row [ref=f30e94]:
+              - columnheader "User / Group" [ref=f30e95]
+              - columnheader "Roles" [ref=f30e96]
+              - columnheader [ref=f30e97]
+          - rowgroup [ref=f30e98]:
+            - row [ref=f30e99]:
+              - cell [ref=f30e100]:
+                - link "Redmine Admin" [ref=f30e102] [cursor=pointer]:
+                  - /url: /users/1
+              - cell "Manager" [ref=f30e103]
+              - cell [ref=f30e104]:
+                - link "Edit" [ref=f30e105] [cursor=pointer]:
+                  - /url: /memberships/9/edit
+                - link "Delete" [ref=f30e108] [cursor=pointer]:
+                  - /url: /memberships/9
+            - row [ref=f30e110]:
+              - cell [ref=f30e111]:
+                - link "Sage Willow" [ref=f30e113] [cursor=pointer]:
+                  - /url: /users/18
+              - cell "QA" [ref=f30e114]
+              - cell [ref=f30e115]:
+                - link "Edit" [ref=f30e116] [cursor=pointer]:
+                  - /url: /memberships/135/edit
+                - link "Delete" [ref=f30e119] [cursor=pointer]:
+                  - /url: /memberships/135
+            - row [ref=f30e121]:
+              - cell [ref=f30e122]:
+                - link "Selene Frost" [ref=f30e124] [cursor=pointer]:
+                  - /url: /users/23
+              - cell "QA" [ref=f30e125]
+              - cell [ref=f30e126]:
+                - link "Edit" [ref=f30e127] [cursor=pointer]:
+                  - /url: /memberships/180/edit
+                - link "Delete" [ref=f30e130] [cursor=pointer]:
+                  - /url: /memberships/180
+            - row [ref=f30e132]:
+              - cell [ref=f30e133]:
+                - link "Autumn Grace" [ref=f30e135] [cursor=pointer]:
+                  - /url: /users/7
+              - cell "Team Lead" [ref=f30e136]
+              - cell [ref=f30e137]:
+                - link "Edit" [ref=f30e138] [cursor=pointer]:
+                  - /url: /memberships/36/edit
+                - link "Delete" [ref=f30e141] [cursor=pointer]:
+                  - /url: /memberships/36
+            - row [ref=f30e143]:
+              - cell [ref=f30e144]:
+                - link "Daisy Skye" [ref=f30e146] [cursor=pointer]:
+                  - /url: /users/6
+              - cell "Team Lead" [ref=f30e147]
+              - cell [ref=f30e148]:
+                - link "Edit" [ref=f30e149] [cursor=pointer]:
+                  - /url: /memberships/27/edit
+                - link "Delete" [ref=f30e152] [cursor=pointer]:
+                  - /url: /memberships/27
+            - row [ref=f30e154]:
+              - cell [ref=f30e155]:
+                - link "Harmony Rose" [ref=f30e157] [cursor=pointer]:
+                  - /url: /users/9
+              - cell "Team Lead" [ref=f30e158]
+              - cell [ref=f30e159]:
+                - link "Edit" [ref=f30e160] [cursor=pointer]:
+                  - /url: /memberships/54/edit
+                - link "Delete" [ref=f30e163] [cursor=pointer]:
+                  - /url: /memberships/54
+            - row [ref=f30e165]:
+              - cell [ref=f30e166]:
+                - link "Luna Blossom" [ref=f30e168] [cursor=pointer]:
+                  - /url: /users/5
+              - cell "Team Lead" [ref=f30e169]
+              - cell [ref=f30e170]:
+                - link "Edit" [ref=f30e171] [cursor=pointer]:
+                  - /url: /memberships/18/edit
+                - link "Delete" [ref=f30e174] [cursor=pointer]:
+                  - /url: /memberships/18
+            - row [ref=f30e176]:
+              - cell [ref=f30e177]:
+                - link "Willow Belle" [ref=f30e179] [cursor=pointer]:
+                  - /url: /users/8
+              - cell "Team Lead" [ref=f30e180]
+              - cell [ref=f30e181]:
+                - link "Edit" [ref=f30e182] [cursor=pointer]:
+                  - /url: /memberships/45/edit
+                - link "Delete" [ref=f30e185] [cursor=pointer]:
+                  - /url: /memberships/45
+            - row [ref=f30e187]:
+              - cell [ref=f30e188]:
+                - link "Aurora Wren" [ref=f30e190] [cursor=pointer]:
+                  - /url: /users/15
+              - cell "Developer" [ref=f30e191]
+              - cell [ref=f30e192]:
+                - link "Edit" [ref=f30e193] [cursor=pointer]:
+                  - /url: /memberships/108/edit
+                - link "Delete" [ref=f30e196] [cursor=pointer]:
+                  - /url: /memberships/108
+            - row [ref=f30e198]:
+              - cell [ref=f30e199]:
+                - link "Briar Sunset" [ref=f30e201] [cursor=pointer]:
+                  - /url: /users/22
+              - cell "Developer" [ref=f30e202]
+              - cell [ref=f30e203]:
+                - link "Edit" [ref=f30e204] [cursor=pointer]:
+                  - /url: /memberships/171/edit
+                - link "Delete" [ref=f30e207] [cursor=pointer]:
+                  - /url: /memberships/171
+            - row [ref=f30e209]:
+              - cell [ref=f30e210]:
+                - link "Celeste Dawn" [ref=f30e212] [cursor=pointer]:
+                  - /url: /users/12
+              - cell "Developer" [ref=f30e213]
+              - cell [ref=f30e214]:
+                - link "Edit" [ref=f30e215] [cursor=pointer]:
+                  - /url: /memberships/81/edit
+                - link "Delete" [ref=f30e218] [cursor=pointer]:
+                  - /url: /memberships/81
+            - row [ref=f30e220]:
+              - cell [ref=f30e221]:
+                - link "Ember Lilac" [ref=f30e223] [cursor=pointer]:
+                  - /url: /users/20
+              - cell "Developer" [ref=f30e224]
+              - cell [ref=f30e225]:
+                - link "Edit" [ref=f30e226] [cursor=pointer]:
+                  - /url: /memberships/153/edit
+                - link "Delete" [ref=f30e229] [cursor=pointer]:
+                  - /url: /memberships/153
+            - row [ref=f30e231]:
+              - cell [ref=f30e232]:
+                - link "Isla Moon" [ref=f30e234] [cursor=pointer]:
+                  - /url: /users/24
+              - cell "Developer" [ref=f30e235]
+              - cell [ref=f30e236]:
+                - link "Edit" [ref=f30e237] [cursor=pointer]:
+                  - /url: /memberships/189/edit
+                - link "Delete" [ref=f30e240] [cursor=pointer]:
+                  - /url: /memberships/189
+            - row [ref=f30e242]:
+              - cell [ref=f30e243]:
+                - link "Ivy Skylark" [ref=f30e245] [cursor=pointer]:
+                  - /url: /users/16
+              - cell "Developer" [ref=f30e246]
+              - cell [ref=f30e247]:
+                - link "Edit" [ref=f30e248] [cursor=pointer]:
+                  - /url: /memberships/117/edit
+                - link "Delete" [ref=f30e251] [cursor=pointer]:
+                  - /url: /memberships/117
+            - row [ref=f30e253]:
+              - cell [ref=f30e254]:
+                - link "Luna Meadow" [ref=f30e256] [cursor=pointer]:
+                  - /url: /users/17
+              - cell "Developer" [ref=f30e257]
+              - cell [ref=f30e258]:
+                - link "Edit" [ref=f30e259] [cursor=pointer]:
+                  - /url: /memberships/126/edit
+                - link "Delete" [ref=f30e262] [cursor=pointer]:
+                  - /url: /memberships/126
+            - row [ref=f30e264]:
+              - cell [ref=f30e265]:
+                - link "Marigold Rayne" [ref=f30e267] [cursor=pointer]:
+                  - /url: /users/19
+              - cell "Developer" [ref=f30e268]
+              - cell [ref=f30e269]:
+                - link "Edit" [ref=f30e270] [cursor=pointer]:
+                  - /url: /memberships/144/edit
+                - link "Delete" [ref=f30e273] [cursor=pointer]:
+                  - /url: /memberships/144
+            - row [ref=f30e275]:
+              - cell [ref=f30e276]:
+                - link "Nova Starling" [ref=f30e278] [cursor=pointer]:
+                  - /url: /users/14
+              - cell "Developer" [ref=f30e279]
+              - cell [ref=f30e280]:
+                - link "Edit" [ref=f30e281] [cursor=pointer]:
+                  - /url: /memberships/99/edit
+                - link "Delete" [ref=f30e284] [cursor=pointer]:
+                  - /url: /memberships/99
+            - row [ref=f30e286]:
+              - cell [ref=f30e287]:
+                - link "Opal Sparrow" [ref=f30e289] [cursor=pointer]:
+                  - /url: /users/21
+              - cell "Developer" [ref=f30e290]
+              - cell [ref=f30e291]:
+                - link "Edit" [ref=f30e292] [cursor=pointer]:
+                  - /url: /memberships/162/edit
+                - link "Delete" [ref=f30e295] [cursor=pointer]:
+                  - /url: /memberships/162
+            - row [ref=f30e297]:
+              - cell [ref=f30e298]:
+                - link "Serenity Bloom" [ref=f30e300] [cursor=pointer]:
+                  - /url: /users/13
+              - cell "Developer" [ref=f30e301]
+              - cell [ref=f30e302]:
+                - link "Edit" [ref=f30e303] [cursor=pointer]:
+                  - /url: /memberships/90/edit
+                - link "Delete" [ref=f30e306] [cursor=pointer]:
+                  - /url: /memberships/90
+            - row [ref=f30e308]:
+              - cell [ref=f30e309]:
+                - link "Summer Rain" [ref=f30e311] [cursor=pointer]:
+                  - /url: /users/10
+              - cell "Developer" [ref=f30e312]
+              - cell [ref=f30e313]:
+                - link "Edit" [ref=f30e314] [cursor=pointer]:
+                  - /url: /memberships/63/edit
+                - link "Delete" [ref=f30e317] [cursor=pointer]:
+                  - /url: /memberships/63
+            - row [ref=f30e319]:
+              - cell [ref=f30e320]:
+                - link "Violet Ember" [ref=f30e322] [cursor=pointer]:
+                  - /url: /users/11
+              - cell "Developer" [ref=f30e323]
+              - cell [ref=f30e324]:
+                - link "Edit" [ref=f30e325] [cursor=pointer]:
+                  - /url: /memberships/72/edit
+                - link "Delete" [ref=f30e328] [cursor=pointer]:
+                  - /url: /memberships/72
+    - generic [ref=f30e330]:
+      - text: Powered by
+      - link "Redmine" [ref=f30e331] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f30e332]
+  - log [ref=f30e333]
+  - log [ref=f30e334]
+  - log [ref=f30e335]
+  - log [ref=f30e336]
+  - log [ref=f30e337]
+  - log [ref=f30e338]
+  - log [ref=f30e339]
+  - log [ref=f30e340]
+  - log [ref=f30e341]
+  - log [ref=f30e342]
+  - log [ref=f30e343]
+  - log [ref=f30e344]
+  - log [ref=f30e345]
+  - log [ref=f30e346]
+  - log [ref=f30e347]
+  - log [ref=f30e348]
+  - log [ref=f30e349]
+  - log [ref=f30e350]
+  - log [ref=f30e351]
+  - log [ref=f30e352]
+  - log [ref=f30e353]
+  - log [ref=f30e354]
+  - log [ref=f30e355]
+  - log [ref=f30e356]
+  - log [ref=f30e357]
+  - log [ref=f30e358]
+  - log [ref=f30e359]
+  - log [ref=f30e360]
+  - log [ref=f30e361]
+  - log [ref=f30e362]
+  - log [ref=f30e363]
+  - log [ref=f30e364]
+  - log [ref=f30e365]

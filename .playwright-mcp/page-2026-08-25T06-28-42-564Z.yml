@@ -1,0 +1,188 @@
+- generic [active] [ref=f111e1]:
+  - generic [ref=f111e2]:
+    - generic [ref=f111e3]:
+      - generic [ref=f111e4]:
+        - list:
+          - listitem [ref=f111e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f111e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f111e7]:
+        - text: Logged in as
+        - link "admin" [ref=f111e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f111e9]:
+        - listitem [ref=f111e10]:
+          - link [ref=f111e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f111e12]
+        - listitem [ref=f111e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f111e14]:
+          - link "My page" [ref=f111e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f111e16]:
+          - link "Projects" [ref=f111e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f111e18]:
+          - link "Helpdesk Command Center" [ref=f111e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f111e20]:
+          - link "Administration" [ref=f111e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f111e22]:
+          - link "Help" [ref=f111e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f111e24]:
+      - generic [ref=f111e25]:
+        - generic [ref=f111e26]:
+          - generic [ref=f111e27]:
+            - link "Search" [ref=f111e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f111e29]
+        - generic [ref=f111e30]:
+          - generic [ref=f111e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f111e32]
+    - generic [ref=f111e33]:
+      - list [ref=f111e37]:
+        - listitem [ref=f111e38]:
+          - link "Helpdesk Dashboard" [ref=f111e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f111e42]:
+          - link "Helpdesk Tickets" [ref=f111e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f111e46]:
+          - link "Reports" [ref=f111e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f111e50]:
+          - link "Organization" [ref=f111e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f111e54]:
+          - link "Customers" [ref=f111e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f111e58]:
+          - link "Products" [ref=f111e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f111e62]:
+          - link "Helpdesk Settings" [ref=f111e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f111e66]:
+        - generic [ref=f111e67]:
+          - generic [ref=f111e69]:
+            - heading "Globex Industries Active" [level=2] [ref=f111e70]:
+              - text: Globex Industries
+              - generic [ref=f111e71]: Active
+            - paragraph [ref=f111e73]: globex-industries.example.com
+          - link "Edit" [ref=f111e75] [cursor=pointer]:
+            - /url: /rf_organizations/2/edit
+        - navigation "Globex Industries" [ref=f111e78]:
+          - link "Overview" [ref=f111e79] [cursor=pointer]:
+            - /url: /rf_organizations/2?tab=overview
+          - link "Prepaid Support Hours" [ref=f111e84] [cursor=pointer]:
+            - /url: /rf_organizations/2?tab=prepaid_support_hours
+        - generic [ref=f111e89]:
+          - generic [ref=f111e90]:
+            - generic [ref=f111e91]: 20.00h
+            - generic [ref=f111e92]: Approved
+          - generic [ref=f111e93]:
+            - generic [ref=f111e94]: 0.00h
+            - generic [ref=f111e95]: Used
+          - generic [ref=f111e96]:
+            - generic [ref=f111e97]: 20.00h
+            - generic [ref=f111e98]: Remaining
+        - generic [ref=f111e99]:
+          - generic [ref=f111e100]:
+            - heading "Budget by project" [level=3] [ref=f111e101]
+            - link "Add / top up hours" [ref=f111e102] [cursor=pointer]:
+              - /url: "#"
+          - table [ref=f111e104]:
+            - rowgroup [ref=f111e105]:
+              - row [ref=f111e106]:
+                - columnheader "Project" [ref=f111e107]
+                - columnheader "Approved" [ref=f111e108]
+                - columnheader "Used" [ref=f111e109]
+                - columnheader "Remaining" [ref=f111e110]
+                - columnheader "Usage" [ref=f111e111]
+                - columnheader "When hours run out" [ref=f111e112]
+                - columnheader "Last change" [ref=f111e113]
+                - columnheader "Action" [ref=f111e114]
+            - rowgroup [ref=f111e115]:
+              - row [ref=f111e116]:
+                - cell [ref=f111e117]:
+                  - link "Agile Board Project" [ref=f111e118] [cursor=pointer]:
+                    - /url: /projects/agileboard/helpdesk
+                - cell "20.00h" [ref=f111e119]
+                - cell "0.00h" [ref=f111e120]
+                - cell "20.00h" [ref=f111e121]
+                - cell "0% Used 0%" [ref=f111e122]:
+                  - generic [ref=f111e123]:
+                    - img "0% Used" [ref=f111e124]
+                    - generic [ref=f111e125]: 0%
+                - cell [ref=f111e126]:
+                  - combobox "When hours run out" [ref=f111e128] [cursor=pointer]:
+                    - option "No limit" [selected]
+                    - option "Hard — stop work"
+                    - option "Soft — allow overage"
+                - cell "08/25/2026" [ref=f111e129]
+                - cell [ref=f111e130]:
+                  - link "Ledger" [ref=f111e131] [cursor=pointer]:
+                    - /url: /rf_organizations/2?ledger_project_id=7&tab=prepaid_support_hours
+        - generic [ref=f111e133]:
+          - generic [ref=f111e134]:
+            - heading "Budget change history" [level=3] [ref=f111e135]
+            - generic [ref=f111e136]: "1"
+          - table [ref=f111e137]:
+            - rowgroup [ref=f111e138]:
+              - row [ref=f111e139]:
+                - columnheader "S.No" [ref=f111e140]
+                - columnheader "Updated" [ref=f111e141]
+                - columnheader "Project" [ref=f111e142]
+                - columnheader "Change" [ref=f111e143]
+                - columnheader "Support Package" [ref=f111e144]
+                - columnheader "Comment" [ref=f111e145]
+                - columnheader "Approved by" [ref=f111e146]
+            - rowgroup [ref=f111e147]:
+              - row [ref=f111e148]:
+                - cell "1" [ref=f111e149]
+                - cell "08/25/2026 06:28 AM" [ref=f111e150]
+                - cell [ref=f111e151]:
+                  - link "Agile Board Project" [ref=f111e152] [cursor=pointer]:
+                    - /url: /projects/agileboard/helpdesk
+                - cell "0.00h → 20.00h" [ref=f111e153]
+                - cell "Standard Support" [ref=f111e154]
+                - cell "Initial prepaid hours top-up for test data setup." [ref=f111e155]
+                - cell "Redmine Admin" [ref=f111e156]
+        - text: "* * *"
+        - paragraph [ref=f111e157]:
+          - link "Organization List" [ref=f111e158] [cursor=pointer]:
+            - /url: /rf_organizations
+    - generic [ref=f111e159]:
+      - text: Powered by
+      - link "Redmine" [ref=f111e160] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f111e161]
+  - log [ref=f111e162]
+  - log [ref=f111e163]
+  - log [ref=f111e164]
+  - log [ref=f111e165]
+  - log [ref=f111e166]
+  - log [ref=f111e167]
+  - log [ref=f111e168]
+  - log [ref=f111e169]
+  - log [ref=f111e170]
+  - log [ref=f111e171]
+  - log [ref=f111e172]
+  - log [ref=f111e173]
+  - log [ref=f111e174]
+  - log [ref=f111e175]
+  - log [ref=f111e176]
+  - log [ref=f111e177]
+  - log [ref=f111e178]
+  - log [ref=f111e179]
+  - log [ref=f111e180]

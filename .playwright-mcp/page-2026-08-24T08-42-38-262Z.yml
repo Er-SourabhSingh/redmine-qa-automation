@@ -1,0 +1,173 @@
+- generic [active] [ref=f286e1]:
+  - generic [ref=f286e2]:
+    - generic [ref=f286e3]:
+      - generic [ref=f286e4]:
+        - list:
+          - listitem [ref=f286e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f286e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f286e7]:
+        - text: Logged in as
+        - link "admin" [ref=f286e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f286e9]:
+        - listitem [ref=f286e10]:
+          - link [ref=f286e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f286e12]
+        - listitem [ref=f286e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f286e14]:
+          - link "My page" [ref=f286e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f286e16]:
+          - link "Projects" [ref=f286e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f286e18]:
+          - link "Helpdesk Command Center" [ref=f286e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f286e20]:
+          - link "Administration" [ref=f286e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f286e22]:
+          - link "Help" [ref=f286e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f286e24]:
+      - generic [ref=f286e25]:
+        - generic [ref=f286e26]:
+          - generic [ref=f286e27]:
+            - link "Search" [ref=f286e28] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f286e29]
+        - generic [ref=f286e30]:
+          - generic [ref=f286e31] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f286e32]
+      - generic [ref=f286e33]:
+        - list [ref=f286e34]:
+          - listitem [ref=f286e35]:
+            - link "+" [ref=f286e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f286e37]:
+            - link "Overview" [ref=f286e38] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f286e39]:
+            - link "Activity" [ref=f286e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f286e41]:
+            - link "Issues" [ref=f286e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f286e43]:
+            - link "Spent time" [ref=f286e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f286e45]:
+            - link "Gantt" [ref=f286e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f286e47]:
+            - link "Calendar" [ref=f286e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f286e49]:
+            - link "News" [ref=f286e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f286e51]:
+            - link "Documents" [ref=f286e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f286e53]:
+            - link "Wiki" [ref=f286e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f286e55]:
+            - link "Files" [ref=f286e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f286e57]:
+            - link "Helpdesk" [ref=f286e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk
+          - listitem [ref=f286e59]:
+            - link "Settings" [ref=f286e60] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f286e61]:
+          - button [ref=f286e62] [cursor=pointer]
+          - button [ref=f286e63] [cursor=pointer]
+    - generic [ref=f286e64]:
+      - list [ref=f286e68]:
+        - listitem [ref=f286e69]:
+          - link "Helpdesk Dashboard" [ref=f286e70] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk
+        - listitem [ref=f286e73]:
+          - link "Helpdesk Tickets" [ref=f286e74] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets
+        - listitem [ref=f286e77]:
+          - link "Knowledgebase" [ref=f286e78] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/knowledgebase
+        - listitem [ref=f286e81]:
+          - link "Helpdesk SLA" [ref=f286e82] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/sla
+        - listitem [ref=f286e85]:
+          - link "Organization" [ref=f286e86] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/organization
+        - listitem [ref=f286e89]:
+          - link "Settings" [ref=f286e90] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/settings
+      - generic [ref=f286e93]:
+        - generic [ref=f286e94]:
+          - generic [ref=f286e96]:
+            - heading "Helpdesk Dashboard" [level=2] [ref=f286e97]
+            - paragraph [ref=f286e98]: Helpdesk Service Desk
+          - generic [ref=f286e99]:
+            - button "Date Range" [ref=f286e101] [cursor=pointer]:
+              - generic [ref=f286e104]: 26 Jul 26 - 24 Aug 26
+            - link "New issue" [ref=f286e107] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk/new
+        - generic [ref=f286e109]:
+          - link "0 Unassigned View all" [ref=f286e110] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets?assigned_to_id%5B%5D=none&created_from=2026-07-26&created_to=2026-08-24&status_id%5B%5D=open
+            - generic [ref=f286e117]: "0"
+            - generic [ref=f286e118]: Unassigned
+            - generic [ref=f286e119]: View all
+          - link "10 Open View all" [ref=f286e122] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets?created_from=2026-07-26&created_to=2026-08-24&status_id%5B%5D=open
+            - generic [ref=f286e127]: "10"
+            - generic [ref=f286e128]: Open
+            - generic [ref=f286e129]: View all
+          - link "10 On Hold View all" [ref=f286e132] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets?created_from=2026-07-26&created_to=2026-08-24
+            - generic [ref=f286e136]: "10"
+            - generic [ref=f286e137]: On Hold
+            - generic [ref=f286e138]: View all
+          - link "0 SLA Breached View all" [ref=f286e141] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets?sla=breached
+            - generic [ref=f286e145]: "0"
+            - generic [ref=f286e146]: SLA Breached
+            - generic [ref=f286e147]: View all
+          - link "0 Resolved View all" [ref=f286e150] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets?created_from=2026-07-26&created_to=2026-08-24&status_id%5B%5D=closed
+            - generic [ref=f286e155]: "0"
+            - generic [ref=f286e156]: Resolved
+            - generic [ref=f286e157]: View all
+    - generic [ref=f286e162]:
+      - text: Powered by
+      - link "Redmine" [ref=f286e163] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f286e164]
+  - log [ref=f286e165]
+  - log [ref=f286e166]
+  - log [ref=f286e167]
+  - log [ref=f286e168]
+  - log [ref=f286e169]
+  - log [ref=f286e170]
+  - log [ref=f286e171]
+  - log [ref=f286e172]
+  - log [ref=f286e173]
+  - log [ref=f286e174]
+  - log [ref=f286e175]
+  - log [ref=f286e176]
+  - log [ref=f286e177]
+  - log [ref=f286e178]
+  - log [ref=f286e179]
+  - log [ref=f286e180]
+  - log [ref=f286e181]

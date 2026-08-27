@@ -1,0 +1,152 @@
+- generic [ref=f245e1]:
+  - generic [ref=f245e2]:
+    - generic [ref=f245e3]:
+      - generic [ref=f245e4]:
+        - list:
+          - listitem [ref=f245e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f245e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f245e7]:
+        - text: Logged in as
+        - link "admin" [ref=f245e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f245e9]:
+        - listitem [ref=f245e10]:
+          - link [ref=f245e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f245e12]
+        - listitem [ref=f245e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f245e14]:
+          - link "My page" [ref=f245e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f245e16]:
+          - link "Projects" [ref=f245e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f245e18]:
+          - link "Helpdesk Command Center" [ref=f245e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f245e20]:
+          - link "Administration" [ref=f245e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f245e22]:
+          - link "Help" [ref=f245e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f245e24]:
+      - generic [ref=f245e25]:
+        - generic [ref=f245e26]:
+          - generic [ref=f245e27]:
+            - link "Search" [ref=f245e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f245e29]
+        - generic [ref=f245e30]:
+          - generic [ref=f245e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f245e32]
+    - generic [ref=f245e33]:
+      - list [ref=f245e37]:
+        - listitem [ref=f245e38]:
+          - link "Helpdesk Dashboard" [ref=f245e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f245e42]:
+          - link "Helpdesk Tickets" [ref=f245e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f245e46]:
+          - link "Reports" [ref=f245e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f245e50]:
+          - link "Organization" [ref=f245e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f245e54]:
+          - link "Customers" [ref=f245e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f245e58]:
+          - link "Products" [ref=f245e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f245e62]:
+          - link "Helpdesk Settings" [ref=f245e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f245e66]:
+        - generic [ref=f245e67]:
+          - generic [ref=f245e69]:
+            - heading "Customers" [level=2] [ref=f245e70]
+            - paragraph [ref=f245e71]: People who raise tickets through the helpdesk
+          - link "New Customer" [ref=f245e73] [cursor=pointer]:
+            - /url: /rf_customers/new
+        - generic [ref=f245e76]:
+          - textbox "Search customers..." [active] [ref=f245e78]
+          - combobox "All Organizations" [ref=f245e79] [cursor=pointer]:
+            - option "All Organizations" [selected]
+            - option "Acme Corp"
+          - generic [ref=f245e80]:
+            - button "Apply Filters" [ref=f245e81] [cursor=pointer]
+            - link "Clear" [ref=f245e84] [cursor=pointer]:
+              - /url: /rf_customers
+        - table [ref=f245e90]:
+          - rowgroup [ref=f245e91]:
+            - row [ref=f245e92]:
+              - columnheader "S.No" [ref=f245e93]
+              - columnheader "Customer Name" [ref=f245e94]
+              - columnheader "Email" [ref=f245e95]
+              - columnheader "Organization Name" [ref=f245e96]
+              - columnheader "Support Level" [ref=f245e97]
+              - columnheader "Projects" [ref=f245e98]
+              - columnheader "Open" [ref=f245e99]
+              - columnheader "Last Login" [ref=f245e100]
+              - columnheader "Action" [ref=f245e101]
+          - rowgroup [ref=f245e102]:
+            - row [ref=f245e103]:
+              - cell "1" [ref=f245e104]
+              - cell "Acme Customer acme.customer1" [ref=f245e105]:
+                - link "Acme Customer" [ref=f245e106] [cursor=pointer]:
+                  - /url: /rf_customers/25
+                - generic [ref=f245e107]: acme.customer1
+              - cell [ref=f245e108]:
+                - link "acme.customer1@example.com" [ref=f245e109] [cursor=pointer]:
+                  - /url: mailto:acme.customer1@example.com
+              - cell "Acme Corp" [ref=f245e110]
+              - cell "L1" [ref=f245e111]
+              - cell "1" [ref=f245e114]
+              - cell "0" [ref=f245e115]
+              - cell "Never" [ref=f245e116]
+              - cell [ref=f245e117]:
+                - generic [ref=f245e118]:
+                  - link "Customer details" [ref=f245e119] [cursor=pointer]:
+                    - /url: /rf_customers/25
+                  - link "Edit" [ref=f245e123] [cursor=pointer]:
+                    - /url: /rf_customers/25/edit
+                  - link "Delete" [ref=f245e126] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f245e130]:
+          - list
+          - generic [ref=f245e131]: (1-1/1)
+    - generic [ref=f245e132]:
+      - text: Powered by
+      - link "Redmine" [ref=f245e133] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f245e134]
+  - log [ref=f245e135]
+  - log [ref=f245e136]
+  - log [ref=f245e137]
+  - log [ref=f245e138]
+  - log [ref=f245e139]
+  - log [ref=f245e140]
+  - log [ref=f245e141]
+  - log [ref=f245e142]
+  - log [ref=f245e143]
+  - log [ref=f245e144]
+  - log [ref=f245e145]
+  - log [ref=f245e146]
+  - log [ref=f245e147]
+  - log [ref=f245e148]
+  - log [ref=f245e149]
+  - log [ref=f245e150]
+  - log [ref=f245e151]
+  - log [ref=f245e152]
+  - log [ref=f245e153]

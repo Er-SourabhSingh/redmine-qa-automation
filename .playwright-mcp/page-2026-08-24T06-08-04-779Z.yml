@@ -1,0 +1,190 @@
+- generic [ref=f96e1]:
+  - generic [ref=f96e2]:
+    - generic [ref=f96e3]:
+      - generic [ref=f96e4]:
+        - list:
+          - listitem [ref=f96e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f96e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f96e7]:
+        - text: Logged in as
+        - link "admin" [ref=f96e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f96e9]:
+        - listitem [ref=f96e10]:
+          - link [ref=f96e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f96e12]
+        - listitem [ref=f96e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f96e14]:
+          - link "My page" [ref=f96e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f96e16]:
+          - link "Projects" [ref=f96e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f96e18]:
+          - link "Helpdesk Command Center" [ref=f96e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f96e20]:
+          - link "Administration" [ref=f96e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f96e22]:
+          - link "Help" [ref=f96e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f96e24]:
+      - generic [ref=f96e25]:
+        - generic [ref=f96e26]:
+          - generic [ref=f96e27]:
+            - link "Search" [ref=f96e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f96e29]
+        - generic [ref=f96e30]:
+          - generic [ref=f96e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f96e32]
+    - generic [ref=f96e33]:
+      - list [ref=f96e37]:
+        - listitem [ref=f96e38]:
+          - link "Helpdesk Dashboard" [ref=f96e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f96e42]:
+          - link "Helpdesk Tickets" [ref=f96e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f96e46]:
+          - link "Reports" [ref=f96e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f96e50]:
+          - link "Organization" [ref=f96e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f96e54]:
+          - link "Customers" [ref=f96e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f96e58]:
+          - link "Products" [ref=f96e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f96e62]:
+          - link "Helpdesk Settings" [ref=f96e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f96e66]:
+        - heading "New Support Level" [level=2] [ref=f96e67]
+        - generic [ref=f96e68]:
+          - generic [ref=f96e69]:
+            - paragraph [ref=f96e70]:
+              - generic [ref=f96e71]: Project *
+              - combobox "Project *" [ref=f96e72]:
+                - option "-- Select Project --" [selected]
+                - option "Agile Board Project"
+                - option "Education and training3"
+                - option "Flux Gantt Project"
+                - option "HR management2"
+                - option "Helpdesk Service Desk"
+                - option "MVP build for PaySheet Application"
+                - option "Marketing campaign4"
+                - option "Mobile app development1"
+                - option "Software development5"
+              - emphasis [ref=f96e73]: Select the project this support level belongs to.
+            - paragraph [ref=f96e74]:
+              - generic [ref=f96e75]: Support Level Name *
+              - textbox "Support Level Name *" [active] [ref=f96e76]
+            - paragraph [ref=f96e77]:
+              - generic [ref=f96e78]: Level Order *
+              - spinbutton "Level Order *" [ref=f96e79]
+            - paragraph [ref=f96e80]:
+              - generic [ref=f96e81]: Description
+              - generic [ref=f96e82]:
+                - list [ref=f96e84]:
+                  - listitem [ref=f96e85]:
+                    - link "Edit" [ref=f96e86] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f96e87]:
+                    - link "Preview" [ref=f96e88] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f96e89]:
+                    - generic [ref=f96e90]:
+                      - button "Strong (Ctrl+B)" [ref=f96e91] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f96e92] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f96e93] [cursor=pointer]
+                      - button "Deleted" [ref=f96e94] [cursor=pointer]
+                      - button "Inline Code" [ref=f96e95] [cursor=pointer]
+                      - button "Heading 1" [ref=f96e96] [cursor=pointer]
+                      - button "Heading 2" [ref=f96e97] [cursor=pointer]
+                      - button "Heading 3" [ref=f96e98] [cursor=pointer]
+                      - button "Unordered list" [ref=f96e99] [cursor=pointer]
+                      - button "Ordered list" [ref=f96e100] [cursor=pointer]
+                      - button "Task list" [ref=f96e101] [cursor=pointer]
+                      - button "Quote" [ref=f96e102] [cursor=pointer]
+                      - button "Remove Quote" [ref=f96e103] [cursor=pointer]
+                      - button "Table" [ref=f96e104] [cursor=pointer]
+                      - button "pre" [ref=f96e105] [cursor=pointer]
+                      - button "Highlighted code" [ref=f96e106] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f96e107] [cursor=pointer]
+                      - button "Image" [ref=f96e108] [cursor=pointer]
+                      - button "Help" [ref=f96e109] [cursor=pointer]
+                - textbox "Description" [ref=f96e111]
+            - paragraph [ref=f96e112]:
+              - generic [ref=f96e113]: Support Assignees *
+              - textbox "Select items" [ref=f96e116]
+              - emphasis [ref=f96e117]: Select one or more users to assign to this support level. Click to open dropdown and search for users.
+            - paragraph [ref=f96e118]:
+              - generic [ref=f96e119]: Escalation To
+              - combobox "Escalation To" [ref=f96e120]:
+                - option "None (Last Level)" [selected]
+                - 'option "AB-L1 (Order: 1)"'
+                - 'option "L1 (Order: 1)"'
+                - 'option "L2 (Order: 2)"'
+                - 'option "L3 (Order: 3)"'
+              - emphasis [ref=f96e121]: Escalation can only be to higher level support (based on Level Order). For example, Level Order 1 can escalate to Level Order 2 or 3.
+            - paragraph [ref=f96e122]:
+              - generic [ref=f96e123]: Active
+              - checkbox [checked] [ref=f96e124]
+          - button "Create" [ref=f96e125] [cursor=pointer]
+          - link "Cancel" [ref=f96e126] [cursor=pointer]:
+            - /url: /rf_support_levels
+    - generic [ref=f96e127]:
+      - text: Powered by
+      - link "Redmine" [ref=f96e128] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f96e129]
+  - log [ref=f96e130]
+  - log [ref=f96e131]
+  - log [ref=f96e132]
+  - log [ref=f96e133]
+  - log [ref=f96e134]
+  - log [ref=f96e135]
+  - log [ref=f96e136]
+  - log [ref=f96e137]
+  - log [ref=f96e138]
+  - log [ref=f96e139]
+  - log [ref=f96e140]
+  - log [ref=f96e141]
+  - log [ref=f96e142]
+  - log [ref=f96e143]
+  - log [ref=f96e144]
+  - log [ref=f96e145]
+  - log [ref=f96e146]
+  - log [ref=f96e147]
+  - log [ref=f96e148]
+  - log [ref=f96e149]
+  - log [ref=f96e150]
+  - log [ref=f96e151]
+  - log [ref=f96e152]
+  - log [ref=f96e153]
+  - log [ref=f96e154]
+  - log [ref=f96e155]
+  - log [ref=f96e156]
+  - log [ref=f96e157]
+  - log [ref=f96e158]
+  - log [ref=f96e159]
+  - log [ref=f96e160]
+  - log [ref=f96e161]
+  - log [ref=f96e162]
+  - log [ref=f96e163]
+  - log [ref=f96e164]
+  - log [ref=f96e165]

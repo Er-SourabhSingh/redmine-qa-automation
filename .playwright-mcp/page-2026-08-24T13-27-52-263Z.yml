@@ -1,0 +1,131 @@
+- generic [ref=f28e1]:
+  - generic [ref=f28e2]:
+    - generic [ref=f28e3]:
+      - generic [ref=f28e4]:
+        - list:
+          - listitem [ref=f28e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f28e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f28e7]:
+        - text: Logged in as
+        - link "admin" [ref=f28e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f28e9]:
+        - listitem [ref=f28e10]:
+          - link [ref=f28e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f28e12]
+        - listitem [ref=f28e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f28e14]:
+          - link "My page" [ref=f28e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f28e16]:
+          - link "Projects" [ref=f28e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f28e18]:
+          - link "Helpdesk Command Center" [ref=f28e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f28e20]:
+          - link "Administration" [ref=f28e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f28e22]:
+          - link "Help" [ref=f28e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f28e24]:
+      - generic [ref=f28e25]:
+        - generic [ref=f28e26]:
+          - generic [ref=f28e27]:
+            - link "Search" [ref=f28e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f28e29]
+        - generic [ref=f28e30]:
+          - generic [ref=f28e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f28e32]
+    - generic [ref=f28e33]:
+      - list [ref=f28e37]:
+        - listitem [ref=f28e38]:
+          - link "Helpdesk Dashboard" [ref=f28e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f28e42]:
+          - link "Helpdesk Tickets" [ref=f28e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f28e46]:
+          - link "Reports" [ref=f28e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f28e50]:
+          - link "Organization" [ref=f28e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f28e54]:
+          - link "Customers" [ref=f28e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f28e58]:
+          - link "Products" [ref=f28e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f28e62]:
+          - link "Helpdesk Settings" [ref=f28e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f28e66]:
+        - heading "New Customer" [level=2] [ref=f28e67]
+        - generic [ref=f28e68]:
+          - generic [ref=f28e69]:
+            - paragraph [ref=f28e70]:
+              - generic [ref=f28e71]: Login *
+              - textbox "Login *" [active] [ref=f28e72]
+              - emphasis [ref=f28e73]: Login must be at least 2 characters long
+            - paragraph [ref=f28e74]:
+              - generic [ref=f28e75]: First name *
+              - textbox "First name *" [ref=f28e76]
+            - paragraph [ref=f28e77]:
+              - generic [ref=f28e78]: Last name *
+              - textbox "Last name *" [ref=f28e79]
+            - paragraph [ref=f28e80]:
+              - generic [ref=f28e81]: Email *
+              - textbox "Email *" [ref=f28e82]
+            - generic [ref=f28e83]:
+              - paragraph [ref=f28e84]:
+                - generic [ref=f28e85]: Password *
+                - textbox "Password *" [ref=f28e86]
+              - paragraph [ref=f28e87]:
+                - generic [ref=f28e88]: Confirmation *
+                - textbox "Confirmation *" [ref=f28e89]
+            - paragraph [ref=f28e90]:
+              - checkbox "Generate password automatically" [ref=f28e91]
+              - generic [ref=f28e92]: Generate password automatically
+            - paragraph [ref=f28e93]:
+              - checkbox "Send account information to the user" [checked] [disabled] [ref=f28e94]
+              - generic [ref=f28e95]: Send account information to the user
+          - group "Project access" [ref=f28e96]:
+            - paragraph [ref=f28e98]: Projects this customer can raise tickets against, and the SLA, support level and organisation that apply on each. Leave empty to create the account without project access.
+            - paragraph [ref=f28e99]: You do not manage a project with the helpdesk module enabled, so there is nothing to assign yet.
+          - paragraph [ref=f28e100]:
+            - button "Create" [ref=f28e101] [cursor=pointer]
+            - link "Cancel" [ref=f28e102] [cursor=pointer]:
+              - /url: /rf_helpdesk/customers
+    - generic [ref=f28e103]:
+      - text: Powered by
+      - link "Redmine" [ref=f28e104] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f28e105]
+  - log [ref=f28e106]
+  - log [ref=f28e107]
+  - log [ref=f28e108]
+  - log [ref=f28e109]
+  - log [ref=f28e110]
+  - log [ref=f28e111]
+  - log [ref=f28e112]
+  - log [ref=f28e113]
+  - log [ref=f28e114]
+  - log [ref=f28e115]
+  - log [ref=f28e116]
+  - log [ref=f28e117]
+  - log [ref=f28e118]
+  - log [ref=f28e119]
+  - log [ref=f28e120]

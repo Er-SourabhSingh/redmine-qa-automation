@@ -34,28 +34,32 @@ redmine-qa-automation/
 │
 └── plugins/
     └── <plugin-name>_qa/               ← one folder per plugin (kebab-case)
-        ├── docs/
-        │   ├── requirements.md      ← what the plugin does (READ BEFORE TESTING)
-        │   ├── features-list.md     ← full feature list for test coverage (READ BEFORE WRITING TEST CASES)
-        │   ├── user-guide.md        ← end-user guide — real UI flows and behavior (READ BEFORE WRITING TEST CASES)
-        │   ├── scope.md             ← what is and is not being tested this cycle
-        │   ├── flow.md              ← key user flows for test design
-        │   ├── handoff.md           ← session handoff notes
-        │   ├── memory.md            ← plugin-specific observations (persist across sessions)
-        │   └── changelog.md         ← test run history
+        ├── docs/                    ← filenames are UPPER_SNAKE_CASE, prefixed with the doc-prefix (see §2b)
+        │   ├── <PREFIX>_REQUIREMENTS.md    ← what the plugin does (READ BEFORE TESTING)
+        │   ├── <PREFIX>_FEATURES_LIST.md   ← full feature list for test coverage (READ BEFORE WRITING TEST CASES)
+        │   ├── <PREFIX>_USER_GUIDE.md      ← end-user guide — real UI flows and behavior (READ BEFORE WRITING TEST CASES)
+        │   ├── <PREFIX>_SCOPE.md           ← what is and is not being tested this cycle
+        │   ├── <PREFIX>_FLOW.md            ← key user flows for test design
+        │   ├── <PREFIX>_HANDOFF.md         ← session handoff notes + Run History (test run/regression log, replaces changelog.md)
+        │   └── <PREFIX>_MEMORY.md          ← plugin-specific observations (persist across sessions)
         ├── testcases/
-        │   └── <suite-name>.md      ← one file per test suite (e.g. language-compatibility.md)
+        │   └── <PREFIX>_<SUITE-NAME>.md    ← one file per test suite (e.g. HELPDESK_SLA_WORKFLOW.md)
         ├── automation/               ← Playwright + TypeScript regression suite for THIS plugin
         │   ├── playwright.config.ts
         │   ├── package.json
         │   ├── tsconfig.json
-        │   ├── pages/                ← page objects (POM) — self-contained to this plugin
-        │   │   └── <PluginName>Page.ts
-        │   ├── tests/
-        │   │   └── <suite-name>.spec.ts  ← mirrors testcases/<suite-name>.md, one spec per suite
-        │   ├── fixtures/              ← role-based login/session fixtures for this plugin
-        │   └── utils/
-        │       └── env.ts             ← reads QA_CREDENTIALS_FORGE.md / QA_CREDENTIALS_LOCAL.md
+        │   ├── tests/                 ← specs AND page objects together, self-contained to this plugin
+        │   │   ├── <PREFIX>_<suite-name>.spec.ts  ← mirrors testcases/<PREFIX>_<suite-name>.md, one spec per suite
+        │   │   ├── <PluginName>Page.ts    ← page object (POM) — no .spec.ts suffix, not run as a test
+        │   │   └── auth.setup.ts          ← logs in per role, saves session to .auth/<role>.json
+        │   ├── utilities/             ← env/credentials loader, custom fixtures, shared helpers
+        │   │   └── env.ts             ← reads QA_CREDENTIALS_FORGE.md / QA_CREDENTIALS_LOCAL.md
+        │   ├── testdata/              ← checked-in test data fixtures (JSON/CSV/etc.) AND the
+        │   │   └── <PREFIX>_TESTDATA_<ENV>.xlsx  ← per-environment test data registry, see §13a
+        │   ├── uploads/               ← checked-in sample files used by upload test cases
+        │   ├── downloads/             ← files captured during a run (gitignored)
+        │   └── screenshots/           ← automation-run screenshots (gitignored — separate from the
+        │                                 plugin's own screenshots/<TC-ID>/ manual evidence folder)
         ├── bugs/
         │   ├── _index.md            ← master bug tracker for this plugin
         │   ├── _duplicates.md       ← duplicate prevention register
@@ -74,29 +78,50 @@ redmine-qa-automation/
 
 ---
 
+## 2b. Doc Filename Prefix
+
+Every file in `docs/` and `testcases/` is named `<PREFIX>_<NAME>.md` — UPPER_SNAKE_CASE, prefixed with a short plugin identifier. This is separate from the Bug ID Code (Section 4), which stays a 3-letter code for `BUG-<CODE>-NNN`.
+
+**Derivation:** take the plugin's descriptive name, drop a leading `redmineflux_`/`redmine_` and a trailing `_qa`/`_plugin`, uppercase the rest, hyphens become underscores.
+
+| Plugin folder | Doc prefix | Example file |
+|---|---|---|
+| `redmineflux_helpdesk_qa` | `HELPDESK` | `HELPDESK_USER_GUIDE.md` |
+| `redmineflux_advanced_field_qa` | `ADVANCED_FIELD` | `ADVANCED_FIELD_REQUIREMENTS.md` |
+| `testcase-management-plugin` | `TESTCASE_MANAGEMENT` | `TESTCASE_MANAGEMENT_SCOPE.md` |
+
+Testcase suite files follow the same rule: `testcases/<PREFIX>_<SUITE-NAME>.md`, e.g. `testcases/HELPDESK_SLA_WORKFLOW.md`.
+
+This is the standard for every plugin scaffolded **from now on**. Existing plugins created before this rule keep their current lowercase filenames (`requirements.md`, `user-guide.md`, etc.) unless someone explicitly asks to rename them too.
+
+**No standalone changelog file.** Test run history and regression-run rows go in a `## Run History` table at the bottom of `<PREFIX>_HANDOFF.md` instead of a separate `<PREFIX>_CHANGELOG.md`. Existing plugins that still have `docs/changelog.md` keep it as-is.
+
+---
+
 ## 3. Adding a New Plugin
 
 When the user asks to add or test a new plugin, create this structure:
 
 ```
-plugins/<plugin-name>/
-  docs/requirements.md
-  docs/features-list.md
-  docs/user-guide.md
-  docs/scope.md
-  docs/flow.md
-  docs/handoff.md
-  docs/memory.md
-  docs/changelog.md
+plugins/<plugin-name>/                  (<PREFIX> = doc prefix per §2b, e.g. HELPDESK)
+  docs/<PREFIX>_REQUIREMENTS.md
+  docs/<PREFIX>_FEATURES_LIST.md
+  docs/<PREFIX>_USER_GUIDE.md
+  docs/<PREFIX>_SCOPE.md
+  docs/<PREFIX>_FLOW.md
+  docs/<PREFIX>_HANDOFF.md          ← includes a Run History table (replaces changelog.md)
+  docs/<PREFIX>_MEMORY.md
   testcases/
   automation/
     playwright.config.ts
     package.json
     tsconfig.json
-    pages/
-    tests/
-    fixtures/
-    utils/env.ts
+    tests/               ← specs + page objects together; tests/auth.setup.ts for login
+    utilities/env.ts
+    testdata/
+    uploads/
+    downloads/
+    screenshots/
   bugs/_index.md
   bugs/_duplicates.md
   bugs/open/
@@ -110,9 +135,9 @@ plugins/<plugin-name>/
 
 Then add a row to `STATUS.md`.
 
-Use this content for each new file:
+Use this content for each new file (replace `<PREFIX>_` in the actual filename with the plugin's doc prefix from §2b):
 
-### docs/requirements.md
+### docs/<PREFIX>_REQUIREMENTS.md
 ```markdown
 # Plugin Requirements — [Plugin Name]
 
@@ -130,7 +155,7 @@ Use this content for each new file:
 ## Known Constraints
 ```
 
-### docs/features-list.md
+### docs/<PREFIX>_FEATURES_LIST.md
 ```markdown
 # Features List — [Plugin Name]
 
@@ -144,7 +169,7 @@ Use this content for each new file:
 ## Notes
 ```
 
-### docs/user-guide.md
+### docs/<PREFIX>_USER_GUIDE.md
 ```markdown
 # User Guide — [Plugin Name]
 
@@ -167,7 +192,7 @@ Use this content for each new file:
 ## Notes & Known Behavior
 ```
 
-### docs/scope.md
+### docs/<PREFIX>_SCOPE.md
 ```markdown
 # Test Scope — [Plugin Name]
 
@@ -189,7 +214,7 @@ Use this content for each new file:
 ## Test Cycle
 ```
 
-### docs/flow.md
+### docs/<PREFIX>_FLOW.md
 ```markdown
 # Plugin Flow — [Plugin Name]
 
@@ -200,7 +225,7 @@ Use this content for each new file:
 3.
 ```
 
-### docs/handoff.md
+### docs/<PREFIX>_HANDOFF.md
 ```markdown
 # Handoff — [Plugin Name]
 
@@ -219,9 +244,16 @@ Use this content for each new file:
 ## Next Session Start Point
 
 ## Open Bugs Found
+
+## Run History
+
+> One row per test run / regression pass. Replaces the old changelog.md.
+
+| Date | Redmine Version | Environment | Tested By | Summary |
+|------|-----------------|-------------|-----------|---------|
 ```
 
-### docs/memory.md
+### docs/<PREFIX>_MEMORY.md
 ```markdown
 # Plugin Memory — [Plugin Name]
 
@@ -234,14 +266,6 @@ Use this content for each new file:
 ## Recurring Issues
 
 ## Environment Notes
-```
-
-### docs/changelog.md
-```markdown
-# Test Run Changelog — [Plugin Name]
-
-| Date | Redmine Version | Environment | Tested By | Summary |
-|------|-----------------|-------------|-----------|---------|
 ```
 
 ### bugs/_index.md
@@ -375,9 +399,9 @@ Two levels:
 | Level | File | Contains |
 |-------|------|----------|
 | Global | `MEMORY.md` (root) | Rules applying to all plugins |
-| Plugin | `plugins/<name>/docs/memory.md` | Plugin-specific quirks and observations |
+| Plugin | `plugins/<name>/docs/<PREFIX>_MEMORY.md` (or `docs/memory.md` for plugins scaffolded before §2b) | Plugin-specific quirks and observations |
 
-- Update plugin `memory.md` after every test run.
+- Update the plugin's memory file after every test run.
 - Only update root `MEMORY.md` when something applies to all plugins.
 - Read both memory files at the start of every session for that plugin.
 
@@ -385,8 +409,8 @@ Two levels:
 
 ## 9. Handoff Rules
 
-- Update `plugins/<name>/docs/handoff.md` at the end of every session.
-- The next session must start by reading `handoff.md` before doing anything else.
+- Update the plugin's handoff file (`plugins/<name>/docs/<PREFIX>_HANDOFF.md`, or `docs/handoff.md` for plugins scaffolded before §2b) at the end of every session.
+- The next session must start by reading it before doing anything else.
 - Record exactly which test case to pick up from next session.
 
 ---
@@ -400,6 +424,12 @@ Update `STATUS.md` after every test run:
 
 Status values: `Not Started` / `In Progress` / `Complete`
 
+**`Complete` requires two things, not just zero open bugs:**
+1. `bugs/open/` is empty (all bugs fixed and moved to `bugs/closed/`).
+2. A full final cycle regression has been run and passed (see `SENIOR_QA_STANDARDS.md` §27) with a matching row in the plugin's Run History (in `<PREFIX>_HANDOFF.md`, or `docs/changelog.md` for older plugins).
+
+Until both are true, keep the status as `In Progress`.
+
 ---
 
 ## 11. Session Start Checklist
@@ -410,17 +440,19 @@ At the start of every test session, read in this order:
 2. `MEMORY.md` (global rules)
 3. `SENIOR_QA_STANDARDS.md` (testing standards)
 4. `QA_CREDENTIALS_FORGE.md` or `QA_CREDENTIALS_LOCAL.md` (target environment)
-5. `plugins/<name>/docs/requirements.md`
-6. `plugins/<name>/docs/features-list.md`
-7. `plugins/<name>/docs/user-guide.md`
-8. `plugins/<name>/docs/scope.md`
-9. `plugins/<name>/docs/memory.md`
-10. `plugins/<name>/docs/handoff.md`
-11. `plugins/<name>/testcases/<suite>.md`
+5. `plugins/<name>/docs/<PREFIX>_REQUIREMENTS.md`
+6. `plugins/<name>/docs/<PREFIX>_FEATURES_LIST.md`
+7. `plugins/<name>/docs/<PREFIX>_USER_GUIDE.md`
+8. `plugins/<name>/docs/<PREFIX>_SCOPE.md`
+9. `plugins/<name>/docs/<PREFIX>_MEMORY.md`
+10. `plugins/<name>/docs/<PREFIX>_HANDOFF.md`
+11. `plugins/<name>/testcases/<PREFIX>_<suite>.md`
+
+(For plugins scaffolded before §2b, these are the lowercase `requirements.md` / `features-list.md` / etc. instead.)
 
 Do not begin testing until all of the above are read.
 
-**Before writing any test case file**, `requirements.md`, `features-list.md`, and `user-guide.md` must all be present. If any are missing, ask the user to provide them — do not proceed.
+**Before writing any test case file**, the requirements, features-list, and user-guide files must all be present. If any are missing, ask the user to provide them — do not proceed.
 
 ---
 
@@ -436,11 +468,12 @@ At the end of every test session:
 - [ ] `tc-report.html` generated
 - [ ] `defects-summary.html` generated
 - [ ] `final-bug-report.md` updated
-- [ ] `docs/memory.md` updated with new observations
-- [ ] `docs/handoff.md` updated with next session start point
-- [ ] `docs/changelog.md` updated with this run summary
+- [ ] plugin's memory file updated with new observations
+- [ ] plugin's handoff file updated with next session start point and a new Run History row for this run (or `docs/changelog.md` for older plugins)
 - [ ] `STATUS.md` updated — Open Bugs count and Status description
 - [ ] If any TC moved to a confirmed PASS this session and is in scope for regression, its `automation/tests/<suite>.spec.ts` is added or updated
+- [ ] If a bug was retested and confirmed FIXED this session, regression has been run for its affected feature/suite (`SENIOR_QA_STANDARDS.md` §26) — not just the single TC
+- [ ] If this session closed the **last** bug in `bugs/open/`, the full final cycle regression has been run (`SENIOR_QA_STANDARDS.md` §27) before `STATUS.md` is set to `Complete`
 
 ---
 
@@ -458,10 +491,58 @@ Each plugin owns its own self-contained Playwright + TypeScript suite under `plu
 ### Rules
 
 - **Automate only test cases with a confirmed manual PASS.** Do not write a Playwright spec for a TC that hasn't been executed and passed manually first — automation locks in verified behavior, it does not discover new behavior.
-- **One spec file per test suite**, same base name as the source: `testcases/<suite-name>.md` → `automation/tests/<suite-name>.spec.ts`.
+- **One spec file per test suite**, same base name as the source: `testcases/<PREFIX>_<suite-name>.md` → `automation/tests/<PREFIX>_<suite-name>.spec.ts`.
 - **Every `test()` title must carry the TC ID(s)** it covers, e.g. `test('TC-HLP-003 - agent can close ticket', async ({ page }) => { ... })`, so results stay traceable back to the testcase file.
-- **Page Object Model, self-contained per plugin.** All locators and page interactions live in `automation/pages/*.ts`. A spec file must not contain raw selectors — it calls page object methods. Before adding a new page object, check this plugin's own `automation/pages/` first; don't create a second page object for a screen this plugin's suite already models.
-- **Credentials/base URL only via `automation/utils/env.ts`**, which reads the active `QA_CREDENTIALS_FORGE.md` or `QA_CREDENTIALS_LOCAL.md`. Never hardcode a URL, username, or password inside a spec or page object.
-- **Use fixtures for login/session state** (`automation/fixtures/`) instead of repeating login steps inside every test.
+- **Page Object Model, self-contained per plugin.** Page objects live in `automation/tests/` next to the specs — as plain classes named `<Name>Page.ts` (PascalCase, no `.spec.ts` suffix, so the runner doesn't treat them as tests). A spec file must not contain raw selectors — it calls page object methods. Before adding a new page object, check this plugin's own `automation/tests/` first; don't create a second page object for a screen this plugin's suite already models.
+- **File naming inside `automation/tests/`:** `<suite-name>.spec.ts` for specs, `<Name>Page.ts` for page objects, `<name>.setup.ts` for one-time infrastructure (e.g. `auth.setup.ts`). Only `.spec.ts` and `.setup.ts` files are runnable tests.
+- **Credentials/base URL only via `automation/utilities/env.ts`**, which reads the active `QA_CREDENTIALS_FORGE.md` or `QA_CREDENTIALS_LOCAL.md`. Never hardcode a URL, username, or password inside a spec or page object.
+- **Use fixtures for login/session state** (`automation/utilities/`, e.g. `base.fixtures.ts`) instead of repeating login steps inside every test. The standard pattern is a `tests/auth.setup.ts` that logs in once per role and saves `.auth/<role>.json`, referenced by `storageState` in `playwright.config.ts`.
+- **`testdata/` and `uploads/`** hold checked-in fixtures (sample data files, files used by upload test cases) — commit these. **`downloads/` and `screenshots/`** hold run-generated artifacts — gitignored, and distinct from the plugin's own `screenshots/<TC-ID>/` manual evidence folder.
 - Playwright's own HTML report and trace files are a separate artifact from `reports/tc-report.html` — they report the automated regression run, not the manual session.
 - When a bug is found *by the automation suite* (a regression), file it exactly like a manually found bug: check `bugs/_duplicates.md` / `bugs/_index.md`, use `templates/bug-template.md`, save to `bugs/open/`, and note in the bug file that it was found via the automated regression suite.
+
+### Two regression triggers (see `SENIOR_QA_STANDARDS.md` §26 and §27)
+
+| Trigger | Scope | Gate it feeds |
+|---|---|---|
+| A bug is retested and confirmed FIXED | The affected feature/suite, plus adjacent features per the severity table in §26 | Bug can be moved to `bugs/closed/` only after this regression passes |
+| `bugs/open/` becomes empty (all bugs fixed for the cycle) | The **entire plugin** — every suite, not just the fixed ones | `STATUS.md` can only be set to `Complete` after this passes |
+
+Run the plugin's `automation/tests/` specs first for whichever TCs they cover; manually re-run anything not yet automated.
+
+---
+
+## 13a. Test Data Registry (per environment)
+
+Test cases reference data — customer names, organization names, SLA names, ticket numbers — that is **not stable across environments or across runs**: a local Docker instance and a Forge instance have different data, ticket numbers auto-increment, and fixtures get created/deleted/deactivated as testing proceeds. Several helpdesk-style entities also refuse duplicate names outright, so knowing what already exists on a given server matters before creating more.
+
+To keep validation grounded in what is actually true on the server being tested (not what a test case assumed on a different run), maintain one **real `.xlsx` workbook per environment** in `automation/testdata/`:
+
+```
+automation/testdata/<PREFIX>_TESTDATA_<ENV>.xlsx      e.g. HELPDESK_TESTDATA_LOCAL.xlsx, HELPDESK_TESTDATA_FORGE.xlsx
+```
+
+### Structure
+
+- A `README` sheet explaining the workbook's purpose and the Status legend.
+- One sheet per entity type the plugin manages (for Helpdesk: Organizations, Customers, SLAs, Support Levels, Products, Canned Responses, Holidays, Tickets (fixtures), Prepaid Budgets — adapt the sheet list to whatever entities a different plugin actually has).
+- Each row tracks: the entity's identifying name/ID, its current **Status** (`Active` / `Deactivated` / `Deleted` / `Unknown`, via a dropdown), which TC/session created it, created date, last-verified date, and free-text notes (e.g. current field values worth remembering).
+
+### Rules
+
+- **One workbook per server.** Data in the LOCAL file says nothing about the FORGE file or vice versa — never assume a fixture on one environment exists on another.
+- **Check before creating.** Before creating a new fixture for a test case, check the relevant sheet first — reuse an existing one instead of hitting a duplicate-name refusal or silently creating clutter.
+- **Update immediately, not later.** After a test run creates, modifies, or deletes an entity, update its row in the same session — a stale registry is worse than no registry.
+- **This is the source of truth for "does X exist," not the test case file.** A test case may have been written against a different run or environment; the registry reflects the current server.
+- **Never hardcode a ticket number in an expected result.** Ticket IDs auto-increment and are the most volatile data of all — track fixture tickets by a stable description (subject/purpose) in the `Tickets (fixtures)` sheet, and re-verify the current `#` before relying on it in a session.
+
+### Generating / updating a workbook
+
+Real `.xlsx` is a binary format, generated with a small script rather than hand-written:
+
+```bash
+pip install openpyxl   # one-time
+python scripts/gen_testdata_xlsx.py <out_path.xlsx> "<env label>" "<Plugin Display Name>"
+```
+
+See `scripts/gen_testdata_xlsx.py` for the generator (adapt its `SHEETS` dict per plugin). Re-running it against the same path regenerates a blank template — it does not merge with existing data rows, so day-to-day updates to a workbook's data should be made by opening and editing the file directly, not by re-running the script (only re-run it to create a new environment's file, or to deliberately reset one).

@@ -1,0 +1,163 @@
+- generic [ref=f53e1]:
+  - generic [ref=f53e2]:
+    - generic [ref=f53e3]:
+      - generic [ref=f53e4]:
+        - list:
+          - listitem [ref=f53e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f53e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f53e7]:
+        - text: Logged in as
+        - link "daisy.skye" [ref=f53e8] [cursor=pointer]:
+          - /url: /users/6
+      - list [ref=f53e9]:
+        - listitem [ref=f53e10]:
+          - link [ref=f53e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f53e12]
+        - listitem [ref=f53e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f53e14]:
+          - link "My page" [ref=f53e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f53e16]:
+          - link "Projects" [ref=f53e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f53e18]:
+          - link "Helpdesk Command Center" [ref=f53e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f53e20]:
+          - link "Help" [ref=f53e21] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f53e22]:
+      - generic [ref=f53e23]:
+        - generic [ref=f53e24]:
+          - generic [ref=f53e25]:
+            - link "Search" [ref=f53e26] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f53e27]
+        - generic [ref=f53e28]:
+          - generic [ref=f53e29] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f53e30]
+    - generic [ref=f53e31]:
+      - list [ref=f53e35]:
+        - listitem [ref=f53e36]:
+          - link "Helpdesk Dashboard" [ref=f53e37] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f53e40]:
+          - link "Helpdesk Tickets" [ref=f53e41] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f53e44]:
+          - link "Reports" [ref=f53e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f53e48]:
+          - link "Organization" [ref=f53e49] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f53e52]:
+          - link "Customers" [ref=f53e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f53e56]:
+          - link "Products" [ref=f53e57] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f53e60]:
+          - link "Helpdesk Settings" [ref=f53e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f53e64]:
+        - generic [ref=f53e65]: Successful creation.
+        - generic [ref=f53e68]:
+          - heading "Helpdesk Settings" [level=2] [ref=f53e69]
+          - paragraph [ref=f53e70]: Holidays, products, SLA policies and canned responses
+        - list [ref=f53e72]:
+          - listitem [ref=f53e73]:
+            - link "Holiday" [ref=f53e74] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f53e75]:
+            - link "Products" [ref=f53e76] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f53e77]:
+            - link "Email Configuration" [ref=f53e78] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f53e79]:
+            - link "Canned Responses" [ref=f53e80] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+        - generic [ref=f53e81]:
+          - generic [ref=f53e83]:
+            - textbox "Search holidays..." [active] [ref=f53e85]
+            - generic [ref=f53e86]:
+              - button "Apply Filters" [ref=f53e87] [cursor=pointer]
+              - link "Clear" [ref=f53e90] [cursor=pointer]:
+                - /url: /rf_helpdesk/setting?tab=holidays
+          - generic [ref=f53e95]:
+            - generic [ref=f53e96]:
+              - heading "Holiday" [level=3] [ref=f53e97]
+              - link "New Holiday" [ref=f53e99] [cursor=pointer]:
+                - /url: /rf_helpdesk_holidays/new
+            - table [ref=f53e101]:
+              - rowgroup [ref=f53e102]:
+                - row [ref=f53e103]:
+                  - columnheader "S.No" [ref=f53e104]
+                  - columnheader "Holiday Name" [ref=f53e105]
+                  - columnheader "Start Date" [ref=f53e106]
+                  - columnheader "End Date" [ref=f53e107]
+                  - columnheader "Action" [ref=f53e108]
+              - rowgroup [ref=f53e109]:
+                - row [ref=f53e110]:
+                  - cell "1" [ref=f53e111]
+                  - cell [ref=f53e112]:
+                    - link "Winter Break 2026" [ref=f53e113] [cursor=pointer]:
+                      - /url: /rf_helpdesk_holidays/2
+                  - cell "12/24/2026" [ref=f53e114]
+                  - cell "12/31/2026" [ref=f53e115]
+                  - cell [ref=f53e116]:
+                    - generic [ref=f53e117]:
+                      - link "Edit" [ref=f53e118] [cursor=pointer]:
+                        - /url: /rf_helpdesk_holidays/2/edit
+                      - link "Delete" [ref=f53e121] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f53e125]:
+                  - cell "2" [ref=f53e126]
+                  - cell [ref=f53e127]:
+                    - link "New Year's Day 2027" [ref=f53e128] [cursor=pointer]:
+                      - /url: /rf_helpdesk_holidays/1
+                  - cell "01/01/2027" [ref=f53e129]
+                  - cell "01/01/2027" [ref=f53e130]
+                  - cell [ref=f53e131]:
+                    - generic [ref=f53e132]:
+                      - link "Edit" [ref=f53e133] [cursor=pointer]:
+                        - /url: /rf_helpdesk_holidays/1/edit
+                      - link "Delete" [ref=f53e136] [cursor=pointer]:
+                        - /url: javascript:void(0)
+          - generic [ref=f53e140]:
+            - list
+            - generic [ref=f53e141]: (1-2/2)
+    - generic [ref=f53e142]:
+      - text: Powered by
+      - link "Redmine" [ref=f53e143] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f53e144]
+  - log [ref=f53e145]
+  - log [ref=f53e146]
+  - log [ref=f53e147]
+  - log [ref=f53e148]
+  - log [ref=f53e149]
+  - log [ref=f53e150]
+  - log [ref=f53e151]
+  - log [ref=f53e152]
+  - log [ref=f53e153]
+  - log [ref=f53e154]
+  - log [ref=f53e155]
+  - log [ref=f53e156]
+  - log [ref=f53e157]
+  - log [ref=f53e158]
+  - log [ref=f53e159]
+  - log [ref=f53e160]
+  - log [ref=f53e161]
+  - log [ref=f53e162]
+  - log [ref=f53e163]

@@ -1,0 +1,118 @@
+- generic [active] [ref=f187e1]:
+  - generic [ref=f187e2]:
+    - generic [ref=f187e3]:
+      - generic [ref=f187e4]:
+        - img "Logo" [ref=f187e5]
+        - text: 
+      - navigation "Application tasks" [ref=f187e6]:
+        - button " Compose" [ref=f187e8] [cursor=pointer]
+        - button " Mail" [ref=f187e9] [cursor=pointer]
+        - button " Contacts" [ref=f187e10] [cursor=pointer]
+        - button " Settings" [ref=f187e11] [cursor=pointer]
+        - generic [ref=f187e12]:
+          - button " Dark mode" [ref=f187e13] [cursor=pointer]
+          - button " About" [ref=f187e14] [cursor=pointer]
+          - button " Logout" [ref=f187e15] [cursor=pointer]
+    - generic [ref=f187e16]:
+      - generic [ref=f187e17]:
+        - text: 
+        - generic [ref=f187e18]: Options and attachments
+      - generic [ref=f187e19]:
+        - region "Attachments" [ref=f187e20]:
+          - generic [ref=f187e21]:
+            - generic [ref=f187e22]: Maximum allowed file size is 5.0 MB
+            - button "Attach a file" [ref=f187e23] [cursor=pointer]
+          - list
+        - region "Composition options" [ref=f187e24]:
+          - generic [ref=f187e25]:
+            - generic [ref=f187e26]: Return receipt
+            - checkbox "Return receipt" [ref=f187e29]
+          - generic [ref=f187e31]:
+            - generic [ref=f187e32]: Delivery status notification
+            - checkbox "Delivery status notification" [ref=f187e35]
+          - generic [ref=f187e37]:
+            - generic [ref=f187e38]: Keep formatting
+            - checkbox "Keep formatting" [ref=f187e41]
+          - generic [ref=f187e43]:
+            - generic [ref=f187e44]: Priority
+            - combobox "Priority" [ref=f187e46]:
+              - option "Lowest"
+              - option "Low"
+              - option "Normal" [selected]
+              - option "High"
+              - option "Highest"
+          - generic [ref=f187e47]:
+            - generic [ref=f187e48]: Save sent message in
+            - combobox "Save sent message in" [ref=f187e50]:
+              - option "- don't save -"
+              - option "Inbox"
+              - option "Drafts"
+              - option "Sent" [selected]
+              - option "Junk"
+              - option "Trash"
+    - main [ref=f187e52]:
+      - generic [ref=f187e53]:
+        - text: 
+        - list [ref=f187e54]:
+          - text: 
+          - menuitem [ref=f187e55]:
+            - button " Save" [ref=f187e56] [cursor=pointer]
+          - menuitem [ref=f187e57]
+          - menuitem [ref=f187e58]:
+            - button " Attach" [ref=f187e59] [cursor=pointer]
+          - menuitem " Signature" [ref=f187e60]:
+            - button " Signature" [disabled]
+          - menuitem [ref=f187e61]:
+            - link " Responses" [ref=f187e62] [cursor=pointer]:
+              - /url: "#responses"
+              - text:  Responses  
+          - menuitem [ref=f187e63]:
+            - generic [ref=f187e64]:
+              - button " Spell" [ref=f187e65] [cursor=pointer]
+              - link "" [ref=f187e66] [cursor=pointer]:
+                - /url: "#languages"
+          - menuitem:    
+        - text: 
+      - generic [ref=f187e67]:
+        - generic [ref=f187e68]:
+          - region "Message headers" [ref=f187e69]:
+            - generic [ref=f187e70]:
+              - generic [ref=f187e71]:
+                - generic [ref=f187e72]: From
+                - generic [ref=f187e74]:
+                  - combobox "From" [ref=f187e75]:
+                    - option "beta.customer@test.local" [selected]
+                  - link "" [ref=f187e77] [cursor=pointer]:
+                    - /url: "#identities"
+              - generic [ref=f187e78]:
+                - generic [ref=f187e79]: To
+                - generic [ref=f187e81]:
+                  - combobox "To" [ref=f187e82]: beta.support@test.local, beta.support@test.local
+                  - list [ref=f187e83]:
+                    - listitem [ref=f187e84]:
+                      - generic [ref=f187e85]: beta.support@test.local
+                      - generic: ","
+                      - generic [ref=f187e86] [cursor=pointer]: 
+                    - listitem [ref=f187e87]:
+                      - combobox [ref=f187e88]
+                  - link "" [ref=f187e90] [cursor=pointer]:
+                    - /url: "#add-contact"
+                  - link "" [ref=f187e92] [cursor=pointer]:
+                    - /url: "#add-header"
+                    - text:     
+              - text:        
+              - generic [ref=f187e93]:
+                - generic [ref=f187e94]: Subject
+                - textbox "Subject" [ref=f187e96]: "Re: [Helpdesk QA Beta #67] Re: [TICKET] Ticket: Cannot access my dashboard"
+          - generic [ref=f187e97]:
+            - textbox "Message Body" [ref=f187e98]: Hi Aurora, I'm using Chrome and I don't see any error message at all - the page is just completely blank white. It started right after I logged in this morning.
+            - link "" [ref=f187e100] [cursor=pointer]:
+              - /url: "#"
+        - generic [ref=f187e101]:
+          - button "Send" [ref=f187e102] [cursor=pointer]
+          - button "Open in new window" [ref=f187e104] [cursor=pointer]
+      - text:    
+    - text:              
+  - alert [ref=f187e106]:
+    - generic [ref=f187e107]: 
+    - generic [ref=f187e108]: Message sent successfully.

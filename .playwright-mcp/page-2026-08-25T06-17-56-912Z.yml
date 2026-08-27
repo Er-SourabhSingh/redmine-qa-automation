@@ -1,0 +1,197 @@
+- generic [ref=f55e1]:
+  - generic [ref=f55e2]:
+    - generic [ref=f55e3]:
+      - generic [ref=f55e4]:
+        - list:
+          - listitem [ref=f55e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f55e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f55e7]:
+        - text: Logged in as
+        - link "admin" [ref=f55e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f55e9]:
+        - listitem [ref=f55e10]:
+          - link [ref=f55e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f55e12]
+        - listitem [ref=f55e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f55e14]:
+          - link "My page" [ref=f55e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f55e16]:
+          - link "Projects" [ref=f55e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f55e18]:
+          - link "Helpdesk Command Center" [ref=f55e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f55e20]:
+          - link "Administration" [ref=f55e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f55e22]:
+          - link "Help" [ref=f55e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f55e24]:
+      - generic [ref=f55e25]:
+        - generic [ref=f55e26]:
+          - generic [ref=f55e27]:
+            - link "Search" [ref=f55e28] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f55e29]
+        - generic [ref=f55e30]:
+          - generic [ref=f55e31] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f55e32]
+      - generic [ref=f55e33]:
+        - list [ref=f55e34]:
+          - listitem [ref=f55e35]:
+            - link "+" [ref=f55e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f55e37]:
+            - link "Overview" [ref=f55e38] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f55e39]:
+            - link "Activity" [ref=f55e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f55e41]:
+            - link "Issues" [ref=f55e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f55e43]:
+            - link "Spent time" [ref=f55e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f55e45]:
+            - link "Gantt" [ref=f55e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f55e47]:
+            - link "Calendar" [ref=f55e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f55e49]:
+            - link "News" [ref=f55e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f55e51]:
+            - link "Documents" [ref=f55e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f55e53]:
+            - link "Wiki" [ref=f55e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f55e55]:
+            - link "Files" [ref=f55e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f55e57]:
+            - link "Helpdesk" [ref=f55e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk
+          - listitem [ref=f55e59]:
+            - link "Settings" [ref=f55e60] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f55e61]:
+          - button [ref=f55e62] [cursor=pointer]
+          - button [ref=f55e63] [cursor=pointer]
+    - generic [ref=f55e64]:
+      - list [ref=f55e68]:
+        - listitem [ref=f55e69]:
+          - link "Helpdesk Dashboard" [ref=f55e70] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk
+        - listitem [ref=f55e73]:
+          - link "Helpdesk Tickets" [ref=f55e74] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets
+        - listitem [ref=f55e77]:
+          - link "Knowledgebase" [ref=f55e78] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/knowledgebase
+        - listitem [ref=f55e81]:
+          - link "Helpdesk SLA" [ref=f55e82] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/sla
+        - listitem [ref=f55e85]:
+          - link "Organization" [ref=f55e86] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/organization
+        - listitem [ref=f55e89]:
+          - link "Settings" [ref=f55e90] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/settings
+      - generic [ref=f55e93]:
+        - generic [ref=f55e94]: Successful creation.
+        - generic [ref=f55e97]:
+          - heading "Helpdesk Settings" [level=2] [ref=f55e98]
+          - paragraph [ref=f55e99]: Helpdesk Service Desk
+        - list [ref=f55e101]:
+          - listitem [ref=f55e102]:
+            - link "Holiday" [ref=f55e103] [cursor=pointer]:
+              - /url: /projects/9/helpdesk/settings?tab=holidays
+          - listitem [ref=f55e104]:
+            - link "Products" [ref=f55e105] [cursor=pointer]:
+              - /url: /projects/9/helpdesk/settings?tab=products
+          - listitem [ref=f55e106]:
+            - link "Support Level" [ref=f55e107] [cursor=pointer]:
+              - /url: /projects/9/helpdesk/settings?tab=support_levels
+        - generic [ref=f55e108]:
+          - generic [ref=f55e110]:
+            - textbox "Search support levels..." [active] [ref=f55e112]
+            - combobox "All Statuses" [ref=f55e113] [cursor=pointer]:
+              - option "All Statuses" [selected]
+              - option "Active only"
+              - option "Inactive only"
+            - generic [ref=f55e114]:
+              - button "Apply Filters" [ref=f55e115] [cursor=pointer]
+              - link "Clear" [ref=f55e118] [cursor=pointer]:
+                - /url: /projects/9/helpdesk/settings
+          - generic [ref=f55e123]:
+            - generic [ref=f55e124]:
+              - heading "Support Levels" [level=3] [ref=f55e125]
+              - link "New Support Level" [ref=f55e127] [cursor=pointer]:
+                - /url: /rf_support_levels/new?project_id=9
+            - table [ref=f55e129]:
+              - rowgroup [ref=f55e130]:
+                - row [ref=f55e131]:
+                  - columnheader "S.No" [ref=f55e132]
+                  - columnheader "Support Level Name" [ref=f55e133]
+                  - columnheader "Level Order" [ref=f55e134]
+                  - columnheader "Support Assignees" [ref=f55e135]
+                  - columnheader "Escalation To" [ref=f55e136]
+                  - columnheader "Active" [ref=f55e137]
+                  - columnheader "Action" [ref=f55e138]
+              - rowgroup [ref=f55e139]:
+                - row [ref=f55e140]:
+                  - cell "1" [ref=f55e141]
+                  - cell [ref=f55e142]:
+                    - link "L1" [ref=f55e143] [cursor=pointer]:
+                      - /url: /rf_support_levels/1?project_id=9
+                  - cell "1" [ref=f55e144]
+                  - cell "Luna Blossom, Daisy Skye" [ref=f55e145]
+                  - cell "None (Last Level)" [ref=f55e146]
+                  - cell [ref=f55e149]:
+                    - checkbox "Active" [checked] [ref=f55e150]
+                  - cell [ref=f55e151]:
+                    - generic [ref=f55e152]:
+                      - link "Edit" [ref=f55e153] [cursor=pointer]:
+                        - /url: /rf_support_levels/1/edit?project_id=9
+                      - link "Delete" [ref=f55e156] [cursor=pointer]:
+                        - /url: javascript:void(0)
+    - generic [ref=f55e160]:
+      - text: Powered by
+      - link "Redmine" [ref=f55e161] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f55e162]
+  - log [ref=f55e163]
+  - log [ref=f55e164]
+  - log [ref=f55e165]
+  - log [ref=f55e166]
+  - log [ref=f55e167]
+  - log [ref=f55e168]
+  - log [ref=f55e169]
+  - log [ref=f55e170]
+  - log [ref=f55e171]
+  - log [ref=f55e172]
+  - log [ref=f55e173]
+  - log [ref=f55e174]
+  - log [ref=f55e175]
+  - log [ref=f55e176]
+  - log [ref=f55e177]
+  - log [ref=f55e178]
+  - log [ref=f55e179]
+  - log [ref=f55e180]
+  - log [ref=f55e181]

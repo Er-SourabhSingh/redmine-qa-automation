@@ -345,8 +345,8 @@ When a bug is retested and confirmed **FIXED**, the bug file **must** be moved f
 6. Update `reports/final-bug-report.md` — move bug entry from Open Bugs → Closed Bugs section
 7. Update `reports/defects-summary.html` — decrement Open count, increment Closed count, mark bug FIXED ✓
 8. Update `reports/tc-report.html` — change BLOCKED → PASS for every TC blocked by this bug; add a `fix-ref` note with bug ID and retest date
-9. Update `docs/changelog.md` — add a row for the fix retest session
-10. Update `docs/handoff.md` — remove the bug from the Blockers section
+9. Update the plugin's changelog (`docs/changelog.md`, or the Run History table in `<PREFIX>_HANDOFF.md` — see `CLAUDE.md` §2b) — add a row for the fix retest session
+10. Update the plugin's handoff file — remove the bug from the Blockers section
 11. Update `STATUS.md` — decrement Open Bugs count, update Status description
 
 ### Bug folder states
@@ -522,7 +522,7 @@ Two levels of memory are maintained:
 | Level | File | Scope |
 |-------|------|-------|
 | Global | `MEMORY.md` (root) | Rules applying to ALL plugins |
-| Plugin | `plugins/<plugin>/docs/memory.md` | Plugin-specific quirks, observations, recurring issues |
+| Plugin | `plugins/<plugin>/docs/<PREFIX>_MEMORY.md` (or `docs/memory.md` for older plugins) | Plugin-specific quirks, observations, recurring issues |
 
 Always update the plugin-level `memory.md` after a test run with new observations.
 Only update root `MEMORY.md` when a rule applies globally across all plugins.
@@ -535,19 +535,19 @@ Only update root `MEMORY.md` when a rule applies globally across all plugins.
 
 | File | Location | Purpose |
 |------|----------|---------|
-| `requirements.md` | `plugins/<plugin>/docs/requirements.md` | Understand what the plugin does, its features, workflows, and permission matrix |
-| `features-list.md` | `plugins/<plugin>/docs/features-list.md` | Full list of plugin features to ensure complete test coverage |
-| `user-guide.md` | `plugins/<plugin>/docs/user-guide.md` | Understand real end-user behavior, UI flows, and edge cases |
+| Requirements | `docs/<PREFIX>_REQUIREMENTS.md` (or `docs/requirements.md` for plugins scaffolded before `CLAUDE.md` §2b) | Understand what the plugin does, its features, workflows, and permission matrix |
+| Features list | `docs/<PREFIX>_FEATURES_LIST.md` (or `docs/features-list.md`) | Full list of plugin features to ensure complete test coverage |
+| User guide | `docs/<PREFIX>_USER_GUIDE.md` (or `docs/user-guide.md`) | Understand real end-user behavior, UI flows, and edge cases |
 
 ### Rules
 
-- **Do not write a single test case** until both files have been read.
-- If `requirements.md` is missing, stop and ask:
-  > "The plugin requirements file (`docs/requirements.md`) is missing. Please provide it before I can write test cases."
-- If `features-list.md` is missing, stop and ask:
-  > "The plugin features list (`docs/features-list.md`) is missing. Please provide it before I can write test cases."
-- If `user-guide.md` is missing, stop and ask:
-  > "The user guide (`docs/user-guide.md`) is missing. Please provide it before I can write test cases."
+- **Do not write a single test case** until all three files have been read.
+- If the requirements file is missing, stop and ask:
+  > "The plugin requirements file is missing. Please provide it before I can write test cases."
+- If the features-list file is missing, stop and ask:
+  > "The plugin features list is missing. Please provide it before I can write test cases."
+- If the user-guide file is missing, stop and ask:
+  > "The user guide is missing. Please provide it before I can write test cases."
 - If multiple files are missing, ask for all of them in a single message before proceeding.
 - Do not assume or guess plugin behavior from the plugin name alone.
 
@@ -601,16 +601,22 @@ If a previously BLOCKED or SKIPPED TC fails during regression, raise a new bug �
 | Medium | All TCs in the affected suite |
 | Low | The directly affected TCs only |
 
+### Automation suite in regression
+
+- If the affected suite has an `automation/tests/<suite>.spec.ts` (see `CLAUDE.md` §13), run it as the fast, repeatable part of the regression before or alongside manual re-execution.
+- If the affected suite has **no** automation yet, this is exactly the trigger to create it: the TCs are about to be re-confirmed PASS, which is the precondition for automating them.
+- Automation coverage does not replace the permission/negative-path re-runs required by severity in the table above unless those specific TCs are already automated — automate what's covered, manually re-run what isn't.
+
 ### Regression execution steps
 
 1. Read the fixed bug file to identify the affected feature, TC IDs, and user roles.
 2. Identify all test cases in scope using the table above.
-3. Re-execute each in-scope TC.
+3. Run the plugin's `automation/tests/` specs that cover any in-scope TC; re-execute the rest manually.
 4. For each TC result:
    - **PASS** — update the TC status in `tc-report.html`; no further action needed.
    - **NEW FAIL** — raise a new bug immediately; do not reuse the closed bug ID.
-5. After regression, update `docs/changelog.md` with a regression row.
-6. If all regression TCs pass, update `docs/handoff.md` to note regression complete.
+5. After regression, update the plugin's changelog with a regression row (`docs/changelog.md`, or the Run History table in `<PREFIX>_HANDOFF.md`).
+6. If all regression TCs pass, update the plugin's handoff file to note regression complete.
 
 ### What NOT to do
 
@@ -620,10 +626,40 @@ If a previously BLOCKED or SKIPPED TC fails during regression, raise a new bug �
 
 ### Regression result documentation
 
-Add a row to `docs/changelog.md`:
+Add a row to the plugin's changelog (`docs/changelog.md`, or the Run History table in `<PREFIX>_HANDOFF.md`):
 
 | Date | Redmine Version | Environment | Tested By | Summary |
 |------|-----------------|-------------|-----------|---------|
 | 2026-06-22 | X.X.X | Local / Forge | QA | Regression after BUG-XXX-001 fix — 5 TCs re-run, all PASS |
 
 Update `tc-report.html` to reflect the regression pass results alongside the original run results.
+
+---
+
+## 27. Final Cycle Regression Rule
+
+Per-bug regression (Section 26) only proves that one fix didn't break its own feature area. It does **not** prove the plugin as a whole is stable. A separate, full regression pass is required at the end of the cycle, before the plugin can be marked `Complete`.
+
+### Trigger
+
+- `bugs/open/` is empty — every bug found during the cycle has been fixed, retested PASS, and moved to `bugs/closed/`.
+- This is the last gate before setting the plugin's `STATUS.md` row to `Complete`.
+
+### Scope — full plugin, not just fixed areas
+
+Unlike per-bug regression, the final cycle regression covers **every test suite** in `plugins/<name>/testcases/`, including suites that were never touched by a bug fix. A fix can have side effects outside its own feature area; only a full pass catches that.
+
+### Execution steps
+
+1. Confirm `bugs/open/` is empty. If not, stop — fix and close remaining bugs first.
+2. Run every spec in `automation/tests/` for the plugin.
+3. Manually re-execute every TC not yet covered by an automation spec.
+4. For each result:
+   - **PASS** — record in `tc-report.html`.
+   - **NEW FAIL** — raise a new bug (`bugs/open/BUG-<CODE>-XXX.md`), do not reuse a closed bug ID. The plugin is **not** ready for `Complete` — fix, retest, then re-run the final cycle regression from step 1.
+5. Add a row to the plugin's changelog (`docs/changelog.md`, or the Run History table in `<PREFIX>_HANDOFF.md`): `Final cycle regression — N suites / M TCs re-run, all PASS`.
+6. Only after a full pass with zero new failures: update `STATUS.md` to `Complete`.
+
+### Rule
+
+**`STATUS.md` must never show a plugin as `Complete` without a passed final cycle regression on record in the plugin's changelog / Run History.** `In Progress` is correct any time bugs remain open or the final regression hasn't been run yet.

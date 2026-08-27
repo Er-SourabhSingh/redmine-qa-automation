@@ -1,0 +1,288 @@
+- generic [active] [ref=f203e1]:
+  - generic [ref=f203e2]:
+    - generic [ref=f203e3]:
+      - generic [ref=f203e4]:
+        - list:
+          - listitem [ref=f203e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f203e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f203e7]:
+        - text: Logged in as
+        - link "admin" [ref=f203e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f203e9]:
+        - listitem [ref=f203e10]:
+          - link [ref=f203e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f203e12]
+        - listitem [ref=f203e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f203e14]:
+          - link "My page" [ref=f203e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f203e16]:
+          - link "Projects" [ref=f203e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f203e18]:
+          - link "Flux Gantt" [ref=f203e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f203e20]:
+          - link "Helpdesk Command Center" [ref=f203e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f203e22]:
+          - link "Time Tracker" [ref=f203e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f203e24]:
+          - link "Timesheet" [ref=f203e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f203e26]:
+          - link "Workloads" [ref=f203e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f203e28]:
+          - link "More" [ref=f203e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f203e30]:
+      - generic [ref=f203e31]:
+        - generic [ref=f203e32]:
+          - generic [ref=f203e33]:
+            - link "Search..." [ref=f203e34] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/search
+            - text: ":"
+          - textbox "Search...:" [ref=f203e35]
+        - generic [ref=f203e36]:
+          - generic [ref=f203e37] [cursor=pointer]: Helpdesk QA Beta
+          - text: ✓
+      - heading "Helpdesk QA Beta" [level=1] [ref=f203e38]
+      - generic [ref=f203e39]:
+        - list [ref=f203e40]:
+          - listitem [ref=f203e41]:
+            - link "+" [ref=f203e42] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f203e43]:
+            - link "Overview" [ref=f203e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta
+          - listitem [ref=f203e45]:
+            - link "Activity" [ref=f203e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/activity
+          - listitem [ref=f203e47]:
+            - link "Issues" [ref=f203e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues
+          - listitem [ref=f203e49]:
+            - link "Spent time" [ref=f203e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/time_entries
+          - listitem [ref=f203e51]:
+            - link "Gantt" [ref=f203e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues/gantt
+          - listitem [ref=f203e53]:
+            - link "Calendar" [ref=f203e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues/calendar
+          - listitem [ref=f203e55]:
+            - link "News" [ref=f203e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/news
+          - listitem [ref=f203e57]:
+            - link "Documents" [ref=f203e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/documents
+          - listitem [ref=f203e59]:
+            - link "Wiki" [ref=f203e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/wiki
+          - listitem [ref=f203e61]:
+            - link "Files" [ref=f203e62] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/files
+          - listitem [ref=f203e63]:
+            - link "Helpdesk" [ref=f203e64] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/helpdesk
+          - listitem [ref=f203e65]:
+            - link "Settings" [ref=f203e66] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/settings
+        - generic [ref=f203e67]:
+          - button [ref=f203e68] [cursor=pointer]
+          - button [ref=f203e71] [cursor=pointer]
+    - generic [ref=f203e74]:
+      - link [ref=f203e76] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=f203e79]:
+        - generic [ref=f203e80]:
+          - link "Start Timer" [ref=f203e81] [cursor=pointer]:
+            - /url: "#"
+          - link "Reply" [ref=f203e82] [cursor=pointer]:
+            - /url: "#"
+          - link "Edit" [ref=f203e83] [cursor=pointer]:
+            - /url: /issues/73/edit
+          - link "Log time" [ref=f203e85] [cursor=pointer]:
+            - /url: /issues/73/time_entries/new
+          - link "Watch" [ref=f203e87] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=73&object_type=issue
+          - link "Copy" [ref=f203e89] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-beta/issues/73/copy
+          - generic [ref=f203e91]:
+            - generic [ref=f203e92] [cursor=pointer]
+            - generic [ref=f203e252]:
+              - link "Copy link" [ref=f203e253] [cursor=pointer]:
+                - /url: "#"
+              - link "Delete issue" [ref=f203e255] [cursor=pointer]:
+                - /url: /issues/73
+        - 'heading "Support #73" [level=2] [ref=f203e95]'
+        - text: open
+        - generic [ref=f203e96]:
+          - 'img "Author: Ivy Sterling" [ref=f203e97]': IS
+          - heading [level=3] [ref=f203e101]:
+            - text: "[TICKET] Cross-project authorization probe - ivy.sterling attempting Beta"
+            - button "Edit" [ref=f203e102] [cursor=pointer]
+          - link [ref=f203e105] [cursor=pointer]:
+            - /url: /reactions?object_id=73&object_type=Issue
+          - paragraph [ref=f203e108]:
+            - text: Added by
+            - link "Ivy Sterling" [ref=f203e109] [cursor=pointer]:
+              - /url: /users/18
+            - link "2 minutes" [ref=f203e110] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/activity?from=2026-08-27
+            - text: ago.
+          - generic [ref=f203e111]:
+            - generic [ref=f203e112]:
+              - generic [ref=f203e113]:
+                - generic [ref=f203e114]:
+                  - generic [ref=f203e115]: "Status:"
+                  - generic [ref=f203e116]:
+                    - text: New
+                    - button "Edit" [ref=f203e117] [cursor=pointer]
+                - generic [ref=f203e118]:
+                  - generic [ref=f203e119]: "Priority:"
+                  - generic [ref=f203e120]:
+                    - text: Normal
+                    - button "Edit" [ref=f203e121] [cursor=pointer]
+                - generic [ref=f203e122]:
+                  - generic [ref=f203e123]: "Assignee:"
+                  - generic [ref=f203e124]:
+                    - text: "-"
+                    - button "Edit" [ref=f203e125] [cursor=pointer]
+              - generic [ref=f203e126]:
+                - generic [ref=f203e127]:
+                  - generic [ref=f203e128]: "Start date:"
+                  - generic [ref=f203e129]:
+                    - text: 08/27/2026
+                    - button "Edit" [ref=f203e130] [cursor=pointer]
+                - generic [ref=f203e131]:
+                  - generic [ref=f203e132]: "Due Date:"
+                  - button "Edit" [ref=f203e134] [cursor=pointer]
+                - generic [ref=f203e135]:
+                  - generic [ref=f203e136]: "Progress:"
+                  - generic [ref=f203e137]:
+                    - generic [ref=f203e138]:
+                      - table [ref=f203e139]:
+                        - rowgroup [ref=f203e140]:
+                          - row [ref=f203e141]:
+                            - cell [ref=f203e142]
+                      - paragraph [ref=f203e143]: 0%
+                    - button "Edit" [ref=f203e144] [cursor=pointer]
+                - generic [ref=f203e145]:
+                  - generic [ref=f203e146]: "Estimated time:"
+                  - button "Edit" [ref=f203e148] [cursor=pointer]
+            - generic [ref=f203e149]:
+              - generic [ref=f203e150]: "Product:"
+              - generic [ref=f203e151]: "-"
+            - generic [ref=f203e152]:
+              - generic [ref=f203e153]: "Organization:"
+              - generic [ref=f203e154]: "-"
+          - separator [ref=f203e155]
+          - generic [ref=f203e156]:
+            - paragraph [ref=f203e158]:
+              - strong [ref=f203e159]: Checklist
+            - generic [ref=f203e161] [cursor=pointer]
+            - generic:
+              - list
+          - separator [ref=f203e163]
+          - generic [ref=f203e164]:
+            - link "Add" [ref=f203e166] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues/new?back_url=%2Fissues%2F73&issue%5Bparent_issue_id%5D=73&issue%5Btracker_id%5D=3
+            - paragraph [ref=f203e167]:
+              - strong [ref=f203e168]: Subtasks
+          - separator [ref=f203e169]
+          - generic [ref=f203e170]:
+            - link "Add" [ref=f203e172] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f203e173]:
+              - strong [ref=f203e174]: Related issues
+        - generic [ref=f203e176]:
+          - link "Edit" [ref=f203e177] [cursor=pointer]:
+            - /url: /issues/73/edit
+          - link "Log time" [ref=f203e179] [cursor=pointer]:
+            - /url: /issues/73/time_entries/new
+          - link "Watch" [ref=f203e181] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=73&object_type=issue
+          - link "Copy" [ref=f203e183] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-beta/issues/73/copy
+          - generic "Actions" [ref=f203e187] [cursor=pointer]
+        - text: pre pre
+        - paragraph [ref=f203e189]:
+          - text: "Also available in:"
+          - link "PDF" [ref=f203e191] [cursor=pointer]:
+            - /url: /issues/73.pdf
+          - generic [ref=f203e192]:
+            - text: "|"
+            - link "Atom" [ref=f203e193] [cursor=pointer]:
+              - /url: /issues/73.atom?key=302d5310f6a8bc40924164e3140cb3a0d0c86e0f
+    - generic [ref=f203e194]:
+      - text: Powered by
+      - link "Redmine" [ref=f203e195] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f203e196]
+  - log [ref=f203e197]
+  - log [ref=f203e198]
+  - log [ref=f203e199]
+  - log [ref=f203e200]
+  - log [ref=f203e201]
+  - log [ref=f203e202]
+  - log [ref=f203e203]
+  - log [ref=f203e204]:
+    - generic [ref=f203e257]: Actions
+  - log [ref=f203e205]
+  - log [ref=f203e206]
+  - log [ref=f203e207]
+  - log [ref=f203e208]
+  - log [ref=f203e209]
+  - log [ref=f203e210]
+  - log [ref=f203e211]
+  - log [ref=f203e212]
+  - log [ref=f203e213]
+  - log [ref=f203e214]
+  - log [ref=f203e215]
+  - log [ref=f203e216]
+  - log [ref=f203e217]
+  - log [ref=f203e218]
+  - log [ref=f203e219]
+  - log [ref=f203e220]
+  - log [ref=f203e221]
+  - log [ref=f203e222]
+  - log [ref=f203e223]
+  - log [ref=f203e224]
+  - log [ref=f203e225]
+  - log [ref=f203e226]
+  - log [ref=f203e227]
+  - log [ref=f203e228]
+  - log [ref=f203e229]
+  - log [ref=f203e230]
+  - log [ref=f203e231]
+  - log [ref=f203e232]
+  - log [ref=f203e233]
+  - log [ref=f203e234]
+  - log [ref=f203e235]
+  - log [ref=f203e236]
+  - log [ref=f203e237]
+  - log [ref=f203e238]
+  - log [ref=f203e239]
+  - log [ref=f203e240]
+  - log [ref=f203e241]
+  - log [ref=f203e242]
+  - log [ref=f203e243]
+  - log [ref=f203e244]
+  - log [ref=f203e245]
+  - log [ref=f203e246]
+  - log [ref=f203e247]
+  - status [ref=f203e248]
+  - status [ref=f203e249]
+  - tooltip "Actions"

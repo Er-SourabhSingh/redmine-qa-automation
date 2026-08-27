@@ -1,0 +1,151 @@
+- generic [ref=f452e1]:
+  - generic [ref=f452e2]:
+    - generic [ref=f452e3]:
+      - generic [ref=f452e4]:
+        - list:
+          - listitem [ref=f452e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f452e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f452e7]:
+        - text: Logged in as
+        - link "admin" [ref=f452e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f452e9]:
+        - listitem [ref=f452e10]:
+          - link [ref=f452e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f452e12]
+        - listitem [ref=f452e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f452e14]:
+          - link "My page" [ref=f452e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f452e16]:
+          - link "Projects" [ref=f452e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f452e18]:
+          - link "Helpdesk Command Center" [ref=f452e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f452e20]:
+          - link "Administration" [ref=f452e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f452e22]:
+          - link "Help" [ref=f452e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f452e24]:
+      - generic [ref=f452e25]:
+        - generic [ref=f452e26]:
+          - generic [ref=f452e27]:
+            - link "Search" [ref=f452e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f452e29]
+        - generic [ref=f452e30]:
+          - generic [ref=f452e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f452e32]
+    - generic [ref=f452e33]:
+      - list [ref=f452e37]:
+        - listitem [ref=f452e38]:
+          - link "Helpdesk Dashboard" [ref=f452e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f452e42]:
+          - link "Helpdesk Tickets" [ref=f452e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f452e46]:
+          - link "Reports" [ref=f452e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f452e50]:
+          - link "Organization" [ref=f452e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f452e54]:
+          - link "Customers" [ref=f452e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f452e58]:
+          - link "Products" [ref=f452e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f452e62]:
+          - link "Helpdesk Settings" [ref=f452e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f452e66]:
+        - generic [ref=f452e67]: Successful update.
+        - generic [ref=f452e68]:
+          - generic [ref=f452e70]:
+            - heading "Products" [level=2] [ref=f452e71]
+            - paragraph [ref=f452e72]: Products your customers raise tickets against
+          - link "New Product" [ref=f452e74] [cursor=pointer]:
+            - /url: /rf_products/new
+        - generic [ref=f452e77]:
+          - textbox "Search products..." [active] [ref=f452e79]
+          - combobox "All Projects" [ref=f452e80] [cursor=pointer]:
+            - option "All Projects" [selected]
+            - option "Agile Board Project"
+            - option "Helpdesk Service Desk"
+          - combobox "All Statuses" [ref=f452e81] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f452e82]:
+            - button "Apply Filters" [ref=f452e83] [cursor=pointer]
+            - link "Clear" [ref=f452e86] [cursor=pointer]:
+              - /url: /rf_products
+        - table [ref=f452e92]:
+          - rowgroup [ref=f452e93]:
+            - row [ref=f452e94]:
+              - columnheader "S.No" [ref=f452e95]
+              - columnheader "Project" [ref=f452e96]
+              - columnheader "Product Name" [ref=f452e97]
+              - columnheader "Product Code" [ref=f452e98]
+              - columnheader "Category" [ref=f452e99]
+              - columnheader "Active" [ref=f452e100]
+              - columnheader "Action" [ref=f452e101]
+          - rowgroup [ref=f452e102]:
+            - row [ref=f452e103]:
+              - cell "1" [ref=f452e104]
+              - cell "Helpdesk Service Desk" [ref=f452e105]
+              - cell [ref=f452e106]:
+                - link "Reverify Test Product" [ref=f452e107] [cursor=pointer]:
+                  - /url: /rf_products/6
+              - cell "RVTP01" [ref=f452e108]
+              - cell [ref=f452e109]
+              - cell [ref=f452e110]:
+                - checkbox "Active" [ref=f452e111]
+              - cell [ref=f452e112]:
+                - generic [ref=f452e113]:
+                  - link "Edit" [ref=f452e114] [cursor=pointer]:
+                    - /url: /rf_products/6/edit
+                  - link "Delete" [ref=f452e117] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f452e121]:
+          - list
+          - generic [ref=f452e122]: (1-1/1)
+    - generic [ref=f452e123]:
+      - text: Powered by
+      - link "Redmine" [ref=f452e124] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f452e125]
+  - log [ref=f452e126]
+  - log [ref=f452e127]
+  - log [ref=f452e128]
+  - log [ref=f452e129]
+  - log [ref=f452e130]
+  - log [ref=f452e131]
+  - log [ref=f452e132]
+  - log [ref=f452e133]
+  - log [ref=f452e134]
+  - log [ref=f452e135]
+  - log [ref=f452e136]
+  - log [ref=f452e137]
+  - log [ref=f452e138]
+  - log [ref=f452e139]
+  - log [ref=f452e140]
+  - log [ref=f452e141]
+  - log [ref=f452e142]
+  - log [ref=f452e143]
+  - log [ref=f452e144]
+  - log [ref=f452e145]

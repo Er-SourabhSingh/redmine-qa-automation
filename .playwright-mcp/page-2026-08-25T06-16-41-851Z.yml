@@ -1,0 +1,196 @@
+- generic [ref=f50e1]:
+  - generic [ref=f50e2]:
+    - generic [ref=f50e3]:
+      - generic [ref=f50e4]:
+        - list:
+          - listitem [ref=f50e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f50e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f50e7]:
+        - text: Logged in as
+        - link "admin" [ref=f50e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f50e9]:
+        - listitem [ref=f50e10]:
+          - link [ref=f50e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f50e12]
+        - listitem [ref=f50e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f50e14]:
+          - link "My page" [ref=f50e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f50e16]:
+          - link "Projects" [ref=f50e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f50e18]:
+          - link "Helpdesk Command Center" [ref=f50e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f50e20]:
+          - link "Administration" [ref=f50e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f50e22]:
+          - link "Help" [ref=f50e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f50e24]:
+      - generic [ref=f50e25]:
+        - generic [ref=f50e26]:
+          - generic [ref=f50e27]:
+            - link "Search" [ref=f50e28] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Search:" [ref=f50e29]
+        - generic [ref=f50e30]:
+          - generic [ref=f50e31] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f50e32]
+      - generic [ref=f50e33]:
+        - list [ref=f50e34]:
+          - listitem [ref=f50e35]:
+            - link "+" [ref=f50e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f50e37]:
+            - link "Overview" [ref=f50e38] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f50e39]:
+            - link "Activity" [ref=f50e40] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f50e41]:
+            - link "Roadmap" [ref=f50e42] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f50e43]:
+            - link "Issues" [ref=f50e44] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f50e45]:
+            - link "Spent time" [ref=f50e46] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f50e47]:
+            - link "Gantt" [ref=f50e48] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f50e49]:
+            - link "Calendar" [ref=f50e50] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f50e51]:
+            - link "News" [ref=f50e52] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f50e53]:
+            - link "Documents" [ref=f50e54] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f50e55]:
+            - link "Wiki" [ref=f50e56] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f50e57]:
+            - link "Files" [ref=f50e58] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f50e59]:
+            - link "Helpdesk" [ref=f50e60] [cursor=pointer]:
+              - /url: /projects/agileboard/helpdesk
+          - listitem [ref=f50e61]:
+            - link "Settings" [ref=f50e62] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f50e63]:
+          - button [ref=f50e64] [cursor=pointer]
+          - button [ref=f50e65] [cursor=pointer]
+    - generic [ref=f50e66]:
+      - list [ref=f50e70]:
+        - listitem [ref=f50e71]:
+          - link "Helpdesk Dashboard" [ref=f50e72] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk
+        - listitem [ref=f50e75]:
+          - link "Helpdesk Tickets" [ref=f50e76] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/tickets
+        - listitem [ref=f50e79]:
+          - link "Knowledgebase" [ref=f50e80] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/knowledgebase
+        - listitem [ref=f50e83]:
+          - link "Helpdesk SLA" [ref=f50e84] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/sla
+        - listitem [ref=f50e87]:
+          - link "Organization" [ref=f50e88] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/organization
+        - listitem [ref=f50e91]:
+          - link "Settings" [ref=f50e92] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/settings
+      - generic [ref=f50e95]:
+        - generic [ref=f50e96]: Successful creation.
+        - generic [ref=f50e97]:
+          - generic [ref=f50e99]:
+            - heading "Helpdesk SLA" [level=2] [ref=f50e100]
+            - paragraph [ref=f50e101]: Agile Board Project
+          - link "New SLA" [ref=f50e103] [cursor=pointer]:
+            - /url: /rf_slas/new?project_id=7
+        - generic [ref=f50e106]:
+          - textbox "Search SLAs..." [active] [ref=f50e108]
+          - combobox "All Statuses" [ref=f50e109] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f50e110]:
+            - button "Apply Filters" [ref=f50e111] [cursor=pointer]
+            - link "Clear" [ref=f50e114] [cursor=pointer]:
+              - /url: /projects/7/helpdesk/sla
+        - table [ref=f50e120]:
+          - rowgroup [ref=f50e121]:
+            - row [ref=f50e122]:
+              - columnheader "S.No" [ref=f50e123]
+              - columnheader "SLA Name" [ref=f50e124]
+              - columnheader "Author" [ref=f50e125]
+              - columnheader "Updated By" [ref=f50e126]
+              - columnheader "Created" [ref=f50e127]
+              - columnheader "Updated" [ref=f50e128]
+              - columnheader "User Count" [ref=f50e129]
+              - columnheader "SLA Agreement" [ref=f50e130]
+              - columnheader "Active" [ref=f50e131]
+              - columnheader "Action" [ref=f50e132]
+          - rowgroup [ref=f50e133]:
+            - row [ref=f50e134]:
+              - cell "1" [ref=f50e135]
+              - cell [ref=f50e136]:
+                - link "Agile Standard SLA" [ref=f50e137] [cursor=pointer]:
+                  - /url: /rf_slas/3?project_id=7
+              - cell "Redmine Admin" [ref=f50e138]
+              - cell "Redmine Admin" [ref=f50e139]
+              - cell "08/25/2026 06:16 AM" [ref=f50e140]
+              - cell "08/25/2026 06:16 AM" [ref=f50e141]
+              - cell "0" [ref=f50e142]
+              - cell "—" [ref=f50e143]
+              - cell [ref=f50e144]:
+                - checkbox "Active" [checked] [ref=f50e145]
+              - cell [ref=f50e146]:
+                - generic [ref=f50e147]:
+                  - link "History" [ref=f50e148] [cursor=pointer]:
+                    - /url: /rf_slas/3/history?project_id=7
+                  - link "Edit" [ref=f50e153] [cursor=pointer]:
+                    - /url: /rf_slas/3/edit?project_id=7
+                  - link "Delete" [ref=f50e156] [cursor=pointer]:
+                    - /url: javascript:void(0)
+    - generic [ref=f50e160]:
+      - text: Powered by
+      - link "Redmine" [ref=f50e161] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f50e162]
+  - log [ref=f50e163]
+  - log [ref=f50e164]
+  - log [ref=f50e165]
+  - log [ref=f50e166]
+  - log [ref=f50e167]
+  - log [ref=f50e168]
+  - log [ref=f50e169]
+  - log [ref=f50e170]
+  - log [ref=f50e171]
+  - log [ref=f50e172]
+  - log [ref=f50e173]
+  - log [ref=f50e174]
+  - log [ref=f50e175]
+  - log [ref=f50e176]
+  - log [ref=f50e177]
+  - log [ref=f50e178]
+  - log [ref=f50e179]
+  - log [ref=f50e180]
+  - log [ref=f50e181]
+  - log [ref=f50e182]

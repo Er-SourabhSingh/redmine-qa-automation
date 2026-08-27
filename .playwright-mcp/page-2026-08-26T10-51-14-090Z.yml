@@ -1,0 +1,357 @@
+- generic [active] [ref=f279e1]:
+  - generic [ref=f279e2]:
+    - generic [ref=f279e3]:
+      - generic [ref=f279e4]:
+        - list:
+          - listitem [ref=f279e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f279e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f279e7]:
+        - text: Logged in as
+        - link "aurora.wren" [ref=f279e8] [cursor=pointer]:
+          - /url: /users/12
+      - list [ref=f279e9]:
+        - listitem [ref=f279e10]:
+          - link [ref=f279e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f279e12]
+        - listitem [ref=f279e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f279e14]:
+          - link "My page" [ref=f279e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f279e16]:
+          - link "Projects" [ref=f279e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f279e18]:
+          - link "Time Tracker" [ref=f279e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f279e20]:
+          - link "Workloads" [ref=f279e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f279e22]:
+          - link "Help" [ref=f279e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f279e24]:
+      - generic [ref=f279e25]:
+        - generic [ref=f279e26]:
+          - generic [ref=f279e27]:
+            - link "Search..." [ref=f279e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/search
+            - text: ":"
+          - textbox "Search...:" [ref=f279e29]
+        - generic [ref=f279e30]:
+          - generic [ref=f279e31] [cursor=pointer]: Helpdesk QA Beta
+          - text: ✓ ✓
+      - heading "Helpdesk QA Beta" [level=1] [ref=f279e32]
+      - generic [ref=f279e33]:
+        - list [ref=f279e34]:
+          - listitem [ref=f279e35]:
+            - link "+" [ref=f279e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f279e37]:
+            - link "Overview" [ref=f279e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta
+          - listitem [ref=f279e39]:
+            - link "Activity" [ref=f279e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/activity
+          - listitem [ref=f279e41]:
+            - link "Issues" [ref=f279e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues
+          - listitem [ref=f279e43]:
+            - link "Spent time" [ref=f279e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/time_entries
+          - listitem [ref=f279e45]:
+            - link "Gantt" [ref=f279e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues/gantt
+          - listitem [ref=f279e47]:
+            - link "Calendar" [ref=f279e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues/calendar
+          - listitem [ref=f279e49]:
+            - link "News" [ref=f279e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/news
+          - listitem [ref=f279e51]:
+            - link "Documents" [ref=f279e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/documents
+          - listitem [ref=f279e53]:
+            - link "Wiki" [ref=f279e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/wiki
+          - listitem [ref=f279e55]:
+            - link "Files" [ref=f279e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/files
+          - listitem [ref=f279e57]:
+            - link "Helpdesk" [ref=f279e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/helpdesk
+          - listitem [ref=f279e59]:
+            - link "Settings" [ref=f279e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/settings
+        - generic [ref=f279e61]:
+          - button [ref=f279e62] [cursor=pointer]
+          - button [ref=f279e65] [cursor=pointer]
+    - generic [ref=f279e68]:
+      - link [ref=f279e70] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=f279e73]:
+        - generic [ref=f279e74]: Successful update
+        - generic [ref=f279e75]:
+          - link "Start Timer" [ref=f279e76] [cursor=pointer]:
+            - /url: "#"
+          - link "Reply" [ref=f279e77] [cursor=pointer]:
+            - /url: "#"
+          - link "Edit" [ref=f279e78] [cursor=pointer]:
+            - /url: /issues/67/edit
+          - link "Log time" [ref=f279e80] [cursor=pointer]:
+            - /url: /issues/67/time_entries/new
+          - link "Watch" [ref=f279e82] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=67&object_type=issue
+          - generic "Actions" [ref=f279e86] [cursor=pointer]
+        - 'heading "Support #67" [level=2] [ref=f279e88]'
+        - text: open
+        - generic [ref=f279e89]:
+          - generic:
+            - 'img "Author: Beta Customer" [ref=f279e90]': BC
+            - 'img "Assignee: Aurora Wren" [ref=f279e91]': AW
+          - heading [level=3] [ref=f279e95]:
+            - text: "[TICKET] Ticket: Cannot access my dashboard"
+            - button "Edit" [ref=f279e96] [cursor=pointer]
+          - link [ref=f279e99] [cursor=pointer]:
+            - /url: /reactions?object_id=67&object_type=Issue
+          - paragraph [ref=f279e102]:
+            - text: Added by
+            - link "Beta Customer" [ref=f279e103] [cursor=pointer]:
+              - /url: /users/16
+            - link "about 2 hours" [ref=f279e104] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/activity?from=2026-08-26
+            - text: ago. Updated
+            - link "less than a minute" [ref=f279e105] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/activity?from=2026-08-26
+            - text: ago.
+          - generic [ref=f279e106]:
+            - generic [ref=f279e107]:
+              - generic [ref=f279e108]:
+                - generic [ref=f279e109]:
+                  - generic [ref=f279e110]: "Status:"
+                  - generic [ref=f279e111]:
+                    - text: In Progress
+                    - button "Edit" [ref=f279e112] [cursor=pointer]
+                - generic [ref=f279e113]:
+                  - generic [ref=f279e114]: "Priority:"
+                  - generic [ref=f279e115]:
+                    - text: Normal
+                    - button "Edit" [ref=f279e116] [cursor=pointer]
+                - generic [ref=f279e117]:
+                  - generic [ref=f279e118]: "Assignee:"
+                  - generic [ref=f279e119]:
+                    - link "Aurora Wren" [ref=f279e121] [cursor=pointer]:
+                      - /url: /users/12
+                    - button "Edit" [ref=f279e122] [cursor=pointer]
+              - generic [ref=f279e123]:
+                - generic [ref=f279e124]:
+                  - generic [ref=f279e125]: "Start date:"
+                  - generic [ref=f279e126]:
+                    - text: 08/26/2026
+                    - button "Edit" [ref=f279e127] [cursor=pointer]
+                - generic [ref=f279e128]:
+                  - generic [ref=f279e129]: "Due Date:"
+                  - button "Edit" [ref=f279e131] [cursor=pointer]
+                - generic [ref=f279e132]:
+                  - generic [ref=f279e133]: "Progress:"
+                  - generic [ref=f279e134]:
+                    - generic [ref=f279e135]:
+                      - table [ref=f279e136]:
+                        - rowgroup [ref=f279e137]:
+                          - row [ref=f279e138]:
+                            - cell [ref=f279e139]
+                      - paragraph [ref=f279e140]: 0%
+                    - button "Edit" [ref=f279e141] [cursor=pointer]
+                - generic [ref=f279e142]:
+                  - generic [ref=f279e143]: "Estimated time:"
+                  - button "Edit" [ref=f279e145] [cursor=pointer]
+            - generic [ref=f279e146]:
+              - generic [ref=f279e147]: "Product:"
+              - generic [ref=f279e148]: "-"
+            - generic [ref=f279e149]:
+              - generic [ref=f279e150]: "Organization:"
+              - generic [ref=f279e151]: Beta Org
+          - separator [ref=f279e152]
+          - generic [ref=f279e153]:
+            - link "Quote" [ref=f279e155] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f279e157]:
+              - strong [ref=f279e158]: Description
+              - button "Edit" [ref=f279e159] [cursor=pointer]
+            - generic [ref=f279e160]:
+              - paragraph [ref=f279e161]: Hi, I am unable to access my dashboard since this morning. It shows a blank page after login. Please help.
+              - paragraph [ref=f279e162]: Thanks, Beta Customer
+          - separator [ref=f279e163]
+          - generic [ref=f279e164]:
+            - paragraph [ref=f279e166]:
+              - strong [ref=f279e167]: Checklist
+            - generic [ref=f279e169] [cursor=pointer]
+            - generic:
+              - list
+          - separator [ref=f279e171]
+          - generic [ref=f279e172]:
+            - link "Add" [ref=f279e174] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues/new?back_url=%2Fissues%2F67&issue%5Bparent_issue_id%5D=67&issue%5Btracker_id%5D=3
+            - paragraph [ref=f279e175]:
+              - strong [ref=f279e176]: Subtasks
+          - separator [ref=f279e177]
+          - generic [ref=f279e178]:
+            - link "Add" [ref=f279e180] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f279e181]:
+              - strong [ref=f279e182]: Related issues
+        - generic [ref=f279e183]:
+          - list [ref=f279e185]:
+            - listitem [ref=f279e186]:
+              - link "History" [ref=f279e187] [cursor=pointer]:
+                - /url: /issues/67?tab=history
+            - listitem [ref=f279e188]:
+              - link "Notes" [ref=f279e189] [cursor=pointer]:
+                - /url: /issues/67?tab=notes
+            - listitem [ref=f279e190]:
+              - link "Property changes" [ref=f279e191] [cursor=pointer]:
+                - /url: /issues/67?tab=properties
+            - listitem [ref=f279e192]:
+              - link "Helpdesk Conversion (4)" [ref=f279e193] [cursor=pointer]:
+                - /url: /issues/67?tab=email-history
+            - listitem [ref=f279e194]:
+              - link "SLA Information" [ref=f279e195] [cursor=pointer]:
+                - /url: /issues/67?tab=sla-information
+          - generic [ref=f279e196]:
+            - generic [ref=f279e198]:
+              - heading [level=4] [ref=f279e199]:
+                - generic [ref=f279e200]:
+                  - img [ref=f279e201]: BC
+                  - text: Updated by
+                  - link "Beta Customer" [ref=f279e202] [cursor=pointer]:
+                    - /url: /users/16
+                  - link "about 1 hour" [ref=f279e203] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-beta/activity?from=2026-08-26
+                  - text: ago
+                - generic [ref=f279e204]:
+                  - generic [ref=f279e205]:
+                    - link [ref=f279e207] [cursor=pointer]:
+                      - /url: /reactions?object_id=532&object_type=Journal
+                    - link "Quote" [ref=f279e210] [cursor=pointer]:
+                      - /url: "#"
+                    - generic "Actions" [ref=f279e215] [cursor=pointer]
+                  - link "#2" [ref=f279e217] [cursor=pointer]:
+                    - /url: "#note-2"
+              - paragraph [ref=f279e220]: Hi Aurora, I'm using Chrome and I don't see any error message at all - the page is just completely blank white. It started right after I logged in this morning.
+            - generic [ref=f279e222]:
+              - heading [level=4] [ref=f279e223]:
+                - generic [ref=f279e224]:
+                  - img [ref=f279e225]: AW
+                  - text: Updated by
+                  - link "Aurora Wren" [ref=f279e226] [cursor=pointer]:
+                    - /url: /users/12
+                  - link "less than a minute" [ref=f279e227] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-beta/activity?from=2026-08-26
+                  - text: ago Private
+                - generic [ref=f279e228]:
+                  - generic [ref=f279e229]:
+                    - link [ref=f279e231] [cursor=pointer]:
+                      - /url: /reactions?object_id=536&object_type=Journal
+                    - link "Quote" [ref=f279e234] [cursor=pointer]:
+                      - /url: "#"
+                    - generic "Actions" [ref=f279e239] [cursor=pointer]
+                  - link "#3" [ref=f279e241] [cursor=pointer]:
+                    - /url: "#note-3"
+              - paragraph [ref=f279e244]:
+                - text: Retest BUG-HLP-007 via real click-through navigation (Projects > Helpdesk QA Beta > Helpdesk > Helpdesk Tickets >
+                - link "#67" [ref=f279e245] [cursor=pointer]:
+                  - /url: /issues/67
+                - text: "> Reply): confirming whether Internal Note submission still crashes."
+        - generic [ref=f279e246]:
+          - link "Edit" [ref=f279e247] [cursor=pointer]:
+            - /url: /issues/67/edit
+          - link "Log time" [ref=f279e249] [cursor=pointer]:
+            - /url: /issues/67/time_entries/new
+          - link "Watch" [ref=f279e251] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=67&object_type=issue
+          - generic "Actions" [ref=f279e255] [cursor=pointer]
+        - text: pre pre
+        - paragraph [ref=f279e257]:
+          - text: "Also available in:"
+          - link "PDF" [ref=f279e259] [cursor=pointer]:
+            - /url: /issues/67.pdf
+          - generic [ref=f279e260]:
+            - text: "|"
+            - link "Atom" [ref=f279e261] [cursor=pointer]:
+              - /url: /issues/67.atom?key=c882e2746efa6383024dad367e7a34cbefbcdd1d
+    - generic [ref=f279e262]:
+      - text: Powered by
+      - link "Redmine" [ref=f279e263] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f279e264]
+  - log [ref=f279e265]
+  - log [ref=f279e266]
+  - log [ref=f279e267]
+  - log [ref=f279e268]
+  - log [ref=f279e269]
+  - log [ref=f279e270]
+  - log [ref=f279e271]
+  - log [ref=f279e272]
+  - log [ref=f279e273]
+  - log [ref=f279e274]
+  - log [ref=f279e275]
+  - log [ref=f279e276]
+  - log [ref=f279e277]
+  - log [ref=f279e278]
+  - log [ref=f279e279]
+  - log [ref=f279e280]
+  - log [ref=f279e281]
+  - log [ref=f279e282]
+  - log [ref=f279e283]
+  - log [ref=f279e284]
+  - log [ref=f279e285]
+  - log [ref=f279e286]
+  - log [ref=f279e287]
+  - log [ref=f279e288]
+  - log [ref=f279e289]
+  - log [ref=f279e290]
+  - log [ref=f279e291]
+  - log [ref=f279e292]
+  - log [ref=f279e293]
+  - log [ref=f279e294]
+  - log [ref=f279e295]
+  - log [ref=f279e296]
+  - log [ref=f279e297]
+  - log [ref=f279e298]
+  - log [ref=f279e299]
+  - log [ref=f279e300]
+  - log [ref=f279e301]
+  - log [ref=f279e302]
+  - log [ref=f279e303]
+  - log [ref=f279e304]
+  - log [ref=f279e305]
+  - log [ref=f279e306]
+  - log [ref=f279e307]
+  - log [ref=f279e308]
+  - log [ref=f279e309]
+  - log [ref=f279e310]
+  - log [ref=f279e311]
+  - log [ref=f279e312]
+  - log [ref=f279e313]
+  - log [ref=f279e314]
+  - log [ref=f279e315]
+  - log [ref=f279e316]
+  - log [ref=f279e317]
+  - log [ref=f279e318]
+  - log [ref=f279e319]
+  - log [ref=f279e320]
+  - log [ref=f279e321]
+  - log [ref=f279e322]
+  - log [ref=f279e323]
+  - log [ref=f279e324]
+  - log [ref=f279e325]
+  - log [ref=f279e326]
+  - status [ref=f279e327]
+  - status [ref=f279e328]

@@ -1,0 +1,163 @@
+- generic [ref=f209e1]:
+  - generic [ref=f209e2]:
+    - generic [ref=f209e3]:
+      - generic [ref=f209e4]:
+        - list:
+          - listitem [ref=f209e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f209e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f209e7]:
+        - text: Logged in as
+        - link "admin" [ref=f209e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f209e9]:
+        - listitem [ref=f209e10]:
+          - link [ref=f209e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f209e12]
+        - listitem [ref=f209e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f209e14]:
+          - link "My page" [ref=f209e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f209e16]:
+          - link "Projects" [ref=f209e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f209e18]:
+          - link "Helpdesk Command Center" [ref=f209e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f209e20]:
+          - link "Administration" [ref=f209e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f209e22]:
+          - link "Help" [ref=f209e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f209e24]:
+      - generic [ref=f209e25]:
+        - generic [ref=f209e26]:
+          - generic [ref=f209e27]:
+            - link "Search" [ref=f209e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f209e29]
+        - generic [ref=f209e30]:
+          - generic [ref=f209e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f209e32]
+    - generic [ref=f209e33]:
+      - list [ref=f209e37]:
+        - listitem [ref=f209e38]:
+          - link "Helpdesk Dashboard" [ref=f209e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f209e42]:
+          - link "Helpdesk Tickets" [ref=f209e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f209e46]:
+          - link "Reports" [ref=f209e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f209e50]:
+          - link "Organization" [ref=f209e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f209e54]:
+          - link "Customers" [ref=f209e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f209e58]:
+          - link "Products" [ref=f209e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f209e62]:
+          - link "Helpdesk Settings" [ref=f209e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f209e66]:
+        - heading "New Holiday" [level=2] [ref=f209e67]
+        - generic [ref=f209e68]:
+          - generic [ref=f209e69]:
+            - paragraph [ref=f209e70]:
+              - generic [ref=f209e71]: Holiday Name *
+              - textbox "Holiday Name *" [active] [ref=f209e72]
+            - paragraph [ref=f209e73]:
+              - generic [ref=f209e74]: Description
+              - generic [ref=f209e75]:
+                - list [ref=f209e77]:
+                  - listitem [ref=f209e78]:
+                    - link "Edit" [ref=f209e79] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f209e80]:
+                    - link "Preview" [ref=f209e81] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f209e82]:
+                    - generic [ref=f209e83]:
+                      - button "Strong (Ctrl+B)" [ref=f209e84] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f209e85] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f209e86] [cursor=pointer]
+                      - button "Deleted" [ref=f209e87] [cursor=pointer]
+                      - button "Inline Code" [ref=f209e88] [cursor=pointer]
+                      - button "Heading 1" [ref=f209e89] [cursor=pointer]
+                      - button "Heading 2" [ref=f209e90] [cursor=pointer]
+                      - button "Heading 3" [ref=f209e91] [cursor=pointer]
+                      - button "Unordered list" [ref=f209e92] [cursor=pointer]
+                      - button "Ordered list" [ref=f209e93] [cursor=pointer]
+                      - button "Task list" [ref=f209e94] [cursor=pointer]
+                      - button "Quote" [ref=f209e95] [cursor=pointer]
+                      - button "Remove Quote" [ref=f209e96] [cursor=pointer]
+                      - button "Table" [ref=f209e97] [cursor=pointer]
+                      - button "pre" [ref=f209e98] [cursor=pointer]
+                      - button "Highlighted code" [ref=f209e99] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f209e100] [cursor=pointer]
+                      - button "Image" [ref=f209e101] [cursor=pointer]
+                      - button "Help" [ref=f209e102] [cursor=pointer]
+                - textbox "Description" [ref=f209e104]
+            - paragraph [ref=f209e105]:
+              - generic [ref=f209e106]: Start Date *
+              - textbox "Start Date *" [ref=f209e107]
+            - paragraph [ref=f209e108]:
+              - generic [ref=f209e109]: End Date *
+              - textbox "End Date *" [ref=f209e110]
+          - button "Create" [ref=f209e111] [cursor=pointer]
+          - link "Cancel" [ref=f209e112] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting?tab=holidays
+    - generic [ref=f209e113]:
+      - text: Powered by
+      - link "Redmine" [ref=f209e114] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f209e115]
+  - log [ref=f209e116]
+  - log [ref=f209e117]
+  - log [ref=f209e118]
+  - log [ref=f209e119]
+  - log [ref=f209e120]
+  - log [ref=f209e121]
+  - log [ref=f209e122]
+  - log [ref=f209e123]
+  - log [ref=f209e124]
+  - log [ref=f209e125]
+  - log [ref=f209e126]
+  - log [ref=f209e127]
+  - log [ref=f209e128]
+  - log [ref=f209e129]
+  - log [ref=f209e130]
+  - log [ref=f209e131]
+  - log [ref=f209e132]
+  - log [ref=f209e133]
+  - log [ref=f209e134]
+  - log [ref=f209e135]
+  - log [ref=f209e136]
+  - log [ref=f209e137]
+  - log [ref=f209e138]
+  - log [ref=f209e139]
+  - log [ref=f209e140]
+  - log [ref=f209e141]
+  - log [ref=f209e142]
+  - log [ref=f209e143]
+  - log [ref=f209e144]
+  - log [ref=f209e145]
+  - log [ref=f209e146]
+  - log [ref=f209e147]
+  - log [ref=f209e148]
+  - log [ref=f209e149]
+  - log [ref=f209e150]
+  - log [ref=f209e151]

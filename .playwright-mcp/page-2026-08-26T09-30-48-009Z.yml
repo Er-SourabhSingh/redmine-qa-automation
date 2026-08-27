@@ -1,0 +1,115 @@
+- generic [active] [ref=f208e1]:
+  - generic [ref=f208e2]:
+    - generic [ref=f208e3]:
+      - generic [ref=f208e4]:
+        - img "Logo" [ref=f208e5]
+        - text: 
+      - navigation "Application tasks" [ref=f208e6]:
+        - button " Compose" [ref=f208e8] [cursor=pointer]
+        - button " Mail" [disabled] [ref=f208e9] [cursor=pointer]
+        - button " Contacts" [ref=f208e10] [cursor=pointer]
+        - button " Settings" [ref=f208e11] [cursor=pointer]
+        - generic [ref=f208e12]:
+          - button " Dark mode" [ref=f208e13] [cursor=pointer]
+          - button " About" [ref=f208e14] [cursor=pointer]
+          - button " Logout" [ref=f208e15] [cursor=pointer]
+    - navigation "Email folder selection" [ref=f208e16]:
+      - generic [ref=f208e17]:
+        - text: 
+        - generic [ref=f208e18]: beta.customer@test.local
+        - button "" [ref=f208e19] [cursor=pointer]:     
+      - tree [ref=f208e21]:
+        - treeitem [level=1] [ref=f208e22]:
+          - link " Inbox 1" [ref=f208e23]:
+            - /url: /?_task=mail&_mbox=INBOX
+            - text:  Inbox
+            - generic [ref=f208e24]: "1"
+        - treeitem [level=1] [ref=f208e25]:
+          - link " Drafts" [ref=f208e26]:
+            - /url: /?_task=mail&_mbox=Drafts
+        - treeitem [level=1] [selected] [ref=f208e27]:
+          - link " Sent" [ref=f208e28]:
+            - /url: /?_task=mail&_mbox=Sent
+        - treeitem [level=1] [ref=f208e29]:
+          - link " Junk" [ref=f208e30]:
+            - /url: /?_task=mail&_mbox=Junk
+        - treeitem [level=1] [ref=f208e31]:
+          - link " Trash" [ref=f208e32]:
+            - /url: /?_task=mail&_mbox=Trash
+      - generic [ref=f208e34]:
+        - text: 
+        - generic "unknown" [ref=f208e35]: 0%
+    - generic [ref=f208e38]:
+      - generic [ref=f208e39]:
+        - text:  
+        - list [ref=f208e40]:
+          - menuitem " Select" [ref=f208e41]:
+            - link " Select":
+              - /url: "#select"
+              - text:  Select       
+          - menuitem " Threads" [ref=f208e42]:
+            - link " Threads":
+              - /url: "#threads"
+              - text:  Threads   
+          - menuitem [ref=f208e43]:
+            - link " Options" [ref=f208e44] [cursor=pointer]:
+              - /url: "#list-options"
+        - button " Refresh" [ref=f208e45] [cursor=pointer]
+        - text:  
+      - search "Email search input" [ref=f208e46]:
+        - generic [ref=f208e47]:
+          - text: 
+          - textbox "Search terms" [ref=f208e48]:
+            - /placeholder: Search...
+        - text: 
+        - button "" [ref=f208e49] [cursor=pointer]
+        - button "" [ref=f208e50] [cursor=pointer]
+        - text: 
+      - text:   
+      - generic [ref=f208e51]:
+        - text: 
+        - table "Email Messages Listing":
+          - text: 
+          - rowgroup
+      - toolbar "List navigation" [ref=f208e52]:
+        - button "" [disabled]
+        - button "" [disabled]
+        - generic [ref=f208e53]: Mailbox is empty
+        - textbox "Current page" [disabled] [ref=f208e54]
+        - button "" [disabled]
+        - button "" [disabled]
+    - generic [ref=f208e56]:
+      - toolbar "Application toolbar" [ref=f208e57]:
+        - text:                   Browse
+        - list [ref=f208e58]:
+          - menuitem: 
+          - menuitem " Reply" [ref=f208e59]:
+            - button " Reply" [disabled]
+          - menuitem [ref=f208e60]:
+            - generic [ref=f208e61]:
+              - button " Reply all" [disabled]
+              - link "" [ref=f208e62] [cursor=pointer]:
+                - /url: "#reply-all"
+          - menuitem [ref=f208e63]:
+            - generic [ref=f208e64]:
+              - button " Forward" [disabled]
+              - link "" [ref=f208e65] [cursor=pointer]:
+                - /url: "#forward"
+          - menuitem [ref=f208e66]
+          - menuitem " Delete" [ref=f208e67]:
+            - button " Delete" [disabled]
+          - menuitem [ref=f208e68]:
+            - button " Mark" [ref=f208e69] [cursor=pointer]
+          - menuitem [ref=f208e70]:
+            - button " More" [ref=f208e71] [cursor=pointer]
+          - menuitem: 
+          - menuitem: 
+          - menuitem: 
+        - text: 
+      - iframe [ref=f208e73]:
+        
+      - text:   
+  - alert [ref=f208e75]:
+    - generic [ref=f208e76]: 
+    - generic [ref=f208e77]: Loading...
+  - text:   

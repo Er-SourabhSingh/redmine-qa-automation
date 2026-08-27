@@ -1,0 +1,368 @@
+- generic [active] [ref=f157e1]:
+  - generic [ref=f157e2]:
+    - generic [ref=f157e3]:
+      - generic [ref=f157e4]:
+        - list:
+          - listitem [ref=f157e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f157e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f157e7]:
+        - text: Logged in as
+        - link "daisy.skye" [ref=f157e8] [cursor=pointer]:
+          - /url: /users/6
+      - list [ref=f157e9]:
+        - listitem [ref=f157e10]:
+          - link [ref=f157e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f157e12]
+        - listitem [ref=f157e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f157e14]:
+          - link "My page" [ref=f157e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f157e16]:
+          - link "Projects" [ref=f157e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f157e18]:
+          - link "Helpdesk Command Center" [ref=f157e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f157e20]:
+          - link "Help" [ref=f157e21] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f157e22]:
+      - generic [ref=f157e23]:
+        - generic [ref=f157e24]:
+          - generic [ref=f157e25]:
+            - link "Search" [ref=f157e26] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f157e27]
+        - generic [ref=f157e28]:
+          - generic [ref=f157e29] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f157e30]
+    - generic [ref=f157e31]:
+      - list [ref=f157e35]:
+        - listitem [ref=f157e36]:
+          - link "Helpdesk Dashboard" [ref=f157e37] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f157e40]:
+          - link "Helpdesk Tickets" [ref=f157e41] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f157e44]:
+          - link "Reports" [ref=f157e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f157e48]:
+          - link "Organization" [ref=f157e49] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f157e52]:
+          - link "Customers" [ref=f157e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f157e56]:
+          - link "Products" [ref=f157e57] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f157e60]:
+          - link "Helpdesk Settings" [ref=f157e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f157e65]:
+        - generic [ref=f157e66]:
+          - generic [ref=f157e68]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f157e69]
+            - paragraph [ref=f157e70]: 13 tickets
+          - link "New issue" [ref=f157e72] [cursor=pointer]:
+            - /url: /issue_helpdesks/new
+        - button "Filters" [ref=f157e75] [cursor=pointer]
+        - table [ref=f157e83]:
+          - rowgroup [ref=f157e84]:
+            - row [ref=f157e85]:
+              - columnheader [ref=f157e86]:
+                - 'link "Ticket #" [ref=f157e87] [cursor=pointer]':
+                  - /url: /rf_helpdesk/issues?dir=asc&sort=id
+              - columnheader [ref=f157e88]:
+                - link "Subject" [ref=f157e89] [cursor=pointer]:
+                  - /url: /rf_helpdesk/issues?dir=asc&sort=subject
+              - columnheader "Customer" [ref=f157e90]
+              - columnheader "Organization Name" [ref=f157e91]
+              - columnheader [ref=f157e92]:
+                - link "Status" [ref=f157e93] [cursor=pointer]:
+                  - /url: /rf_helpdesk/issues?dir=asc&sort=status
+              - columnheader [ref=f157e94]:
+                - link "Priority" [ref=f157e95] [cursor=pointer]:
+                  - /url: /rf_helpdesk/issues?dir=asc&sort=priority
+              - columnheader "Assignee" [ref=f157e96]
+              - columnheader "SLA Status" [ref=f157e97]
+              - columnheader [ref=f157e98]:
+                - link "Updated ▼" [ref=f157e99] [cursor=pointer]:
+                  - /url: /rf_helpdesk/issues?dir=asc&sort=updated_on
+          - rowgroup [ref=f157e100]:
+            - row [ref=f157e101]:
+              - cell [ref=f157e102]:
+                - link "#272" [ref=f157e103] [cursor=pointer]:
+                  - /url: /issues/272
+              - cell [ref=f157e104]:
+                - link "SLA/assignment flow check - login page timing out" [ref=f157e105] [cursor=pointer]:
+                  - /url: /issues/272
+              - cell [ref=f157e106]:
+                - link "Acme HDContact" [ref=f157e107] [cursor=pointer]:
+                  - /url: /rf_customers/25
+              - cell "Acme Corp" [ref=f157e108]
+              - cell "New" [ref=f157e109]
+              - cell "High" [ref=f157e112]
+              - cell "Unassigned" [ref=f157e115]
+              - cell "— No SLA" [ref=f157e116]:
+                - generic [ref=f157e117]:
+                  - generic [ref=f157e118]: —
+                  - text: No SLA
+              - cell "08/25/2026 07:26 AM" [ref=f157e119]
+            - row [ref=f157e120]:
+              - cell [ref=f157e121]:
+                - link "#271" [ref=f157e122] [cursor=pointer]:
+                  - /url: /issues/271
+              - cell [ref=f157e123]:
+                - link "Portal automation check - unable to access billing export" [ref=f157e124] [cursor=pointer]:
+                  - /url: /issues/271
+              - cell [ref=f157e125]:
+                - link "Acme HDContact" [ref=f157e126] [cursor=pointer]:
+                  - /url: /rf_customers/25
+              - cell "Acme Corp" [ref=f157e127]
+              - cell "New" [ref=f157e128]
+              - cell "Normal" [ref=f157e131]
+              - cell "Unassigned" [ref=f157e134]
+              - cell "— No SLA" [ref=f157e135]:
+                - generic [ref=f157e136]:
+                  - generic [ref=f157e137]: —
+                  - text: No SLA
+              - cell "08/25/2026 07:15 AM" [ref=f157e138]
+            - row [ref=f157e139]:
+              - cell [ref=f157e140]:
+                - link "#236" [ref=f157e141] [cursor=pointer]:
+                  - /url: /issues/236
+              - cell [ref=f157e142]:
+                - link "Fix missing breadcrumb navigation" [ref=f157e143] [cursor=pointer]:
+                  - /url: /issues/236
+              - cell "—" [ref=f157e144]
+              - cell "—" [ref=f157e145]
+              - cell "New" [ref=f157e146]
+              - cell "Normal" [ref=f157e149]
+              - cell "Harmony Rose" [ref=f157e152]
+              - cell "— No SLA" [ref=f157e153]:
+                - generic [ref=f157e154]:
+                  - generic [ref=f157e155]: —
+                  - text: No SLA
+              - cell "08/25/2026 05:16 AM" [ref=f157e156]
+            - row [ref=f157e157]:
+              - cell [ref=f157e158]:
+                - link "#235" [ref=f157e159] [cursor=pointer]:
+                  - /url: /issues/235
+              - cell [ref=f157e160]:
+                - link "Add role-based permissions editor" [ref=f157e161] [cursor=pointer]:
+                  - /url: /issues/235
+              - cell "—" [ref=f157e162]
+              - cell "—" [ref=f157e163]
+              - cell "New" [ref=f157e164]
+              - cell "Normal" [ref=f157e167]
+              - cell "Willow Belle" [ref=f157e170]
+              - cell "— No SLA" [ref=f157e171]:
+                - generic [ref=f157e172]:
+                  - generic [ref=f157e173]: —
+                  - text: No SLA
+              - cell "08/25/2026 05:16 AM" [ref=f157e174]
+            - row [ref=f157e175]:
+              - cell [ref=f157e176]:
+                - link "#234" [ref=f157e177] [cursor=pointer]:
+                  - /url: /issues/234
+              - cell [ref=f157e178]:
+                - link "Fix dashboard chart flickering" [ref=f157e179] [cursor=pointer]:
+                  - /url: /issues/234
+              - cell "—" [ref=f157e180]
+              - cell "—" [ref=f157e181]
+              - cell "New" [ref=f157e182]
+              - cell "Normal" [ref=f157e185]
+              - cell "Autumn Grace" [ref=f157e188]
+              - cell "— No SLA" [ref=f157e189]:
+                - generic [ref=f157e190]:
+                  - generic [ref=f157e191]: —
+                  - text: No SLA
+              - cell "08/25/2026 05:16 AM" [ref=f157e192]
+            - row [ref=f157e193]:
+              - cell [ref=f157e194]:
+                - link "#233" [ref=f157e195] [cursor=pointer]:
+                  - /url: /issues/233
+              - cell [ref=f157e196]:
+                - link "Add API key management UI" [ref=f157e197] [cursor=pointer]:
+                  - /url: /issues/233
+              - cell "—" [ref=f157e198]
+              - cell "—" [ref=f157e199]
+              - cell "New" [ref=f157e200]
+              - cell "Normal" [ref=f157e203]
+              - cell "Daisy Skye" [ref=f157e206]
+              - cell "— No SLA" [ref=f157e207]:
+                - generic [ref=f157e208]:
+                  - generic [ref=f157e209]: —
+                  - text: No SLA
+              - cell "08/25/2026 05:16 AM" [ref=f157e210]
+            - row [ref=f157e211]:
+              - cell [ref=f157e212]:
+                - link "#232" [ref=f157e213] [cursor=pointer]:
+                  - /url: /issues/232
+              - cell [ref=f157e214]:
+                - link "Fix API rate limit enforcement" [ref=f157e215] [cursor=pointer]:
+                  - /url: /issues/232
+              - cell "—" [ref=f157e216]
+              - cell "—" [ref=f157e217]
+              - cell "New" [ref=f157e218]
+              - cell "Normal" [ref=f157e221]
+              - cell "Luna Blossom" [ref=f157e224]
+              - cell "— No SLA" [ref=f157e225]:
+                - generic [ref=f157e226]:
+                  - generic [ref=f157e227]: —
+                  - text: No SLA
+              - cell "08/25/2026 05:16 AM" [ref=f157e228]
+            - row [ref=f157e229]:
+              - cell [ref=f157e230]:
+                - link "#231" [ref=f157e231] [cursor=pointer]:
+                  - /url: /issues/231
+              - cell [ref=f157e232]:
+                - link "Implement access control matrix" [ref=f157e233] [cursor=pointer]:
+                  - /url: /issues/231
+              - cell "—" [ref=f157e234]
+              - cell "—" [ref=f157e235]
+              - cell "New" [ref=f157e236]
+              - cell "Normal" [ref=f157e239]
+              - cell "Summer Rain" [ref=f157e242]
+              - cell "— No SLA" [ref=f157e243]:
+                - generic [ref=f157e244]:
+                  - generic [ref=f157e245]: —
+                  - text: No SLA
+              - cell "08/25/2026 05:16 AM" [ref=f157e246]
+            - row [ref=f157e247]:
+              - cell [ref=f157e248]:
+                - link "#230" [ref=f157e249] [cursor=pointer]:
+                  - /url: /issues/230
+              - cell [ref=f157e250]:
+                - link "Fix stale session logouts" [ref=f157e251] [cursor=pointer]:
+                  - /url: /issues/230
+              - cell "—" [ref=f157e252]
+              - cell "—" [ref=f157e253]
+              - cell "New" [ref=f157e254]
+              - cell "Normal" [ref=f157e257]
+              - cell "Violet Ember" [ref=f157e260]
+              - cell "— No SLA" [ref=f157e261]:
+                - generic [ref=f157e262]:
+                  - generic [ref=f157e263]: —
+                  - text: No SLA
+              - cell "08/25/2026 05:16 AM" [ref=f157e264]
+            - row [ref=f157e265]:
+              - cell [ref=f157e266]:
+                - link "#229" [ref=f157e267] [cursor=pointer]:
+                  - /url: /issues/229
+              - cell [ref=f157e268]:
+                - link "Add multi-user change tracking" [ref=f157e269] [cursor=pointer]:
+                  - /url: /issues/229
+              - cell "—" [ref=f157e270]
+              - cell "—" [ref=f157e271]
+              - cell "New" [ref=f157e272]
+              - cell "Normal" [ref=f157e275]
+              - cell "Celeste Dawn" [ref=f157e278]
+              - cell "— No SLA" [ref=f157e279]:
+                - generic [ref=f157e280]:
+                  - generic [ref=f157e281]: —
+                  - text: No SLA
+              - cell "08/25/2026 05:16 AM" [ref=f157e282]
+            - row [ref=f157e283]:
+              - cell [ref=f157e284]:
+                - link "#228" [ref=f157e285] [cursor=pointer]:
+                  - /url: /issues/228
+              - cell [ref=f157e286]:
+                - link "Fix rollback data corruption" [ref=f157e287] [cursor=pointer]:
+                  - /url: /issues/228
+              - cell "—" [ref=f157e288]
+              - cell "—" [ref=f157e289]
+              - cell "New" [ref=f157e290]
+              - cell "Normal" [ref=f157e293]
+              - cell "Serenity Bloom" [ref=f157e296]
+              - cell "— No SLA" [ref=f157e297]:
+                - generic [ref=f157e298]:
+                  - generic [ref=f157e299]: —
+                  - text: No SLA
+              - cell "08/25/2026 05:16 AM" [ref=f157e300]
+            - row [ref=f157e301]:
+              - cell [ref=f157e302]:
+                - link "#227" [ref=f157e303] [cursor=pointer]:
+                  - /url: /issues/227
+              - cell [ref=f157e304]:
+                - link "Add audit log filtering" [ref=f157e305] [cursor=pointer]:
+                  - /url: /issues/227
+              - cell "—" [ref=f157e306]
+              - cell "—" [ref=f157e307]
+              - cell "New" [ref=f157e308]
+              - cell "Normal" [ref=f157e311]
+              - cell "Selene Frost" [ref=f157e314]
+              - cell "— No SLA" [ref=f157e315]:
+                - generic [ref=f157e316]:
+                  - generic [ref=f157e317]: —
+                  - text: No SLA
+              - cell "08/25/2026 05:16 AM" [ref=f157e318]
+            - row [ref=f157e319]:
+              - cell [ref=f157e320]:
+                - link "#110" [ref=f157e321] [cursor=pointer]:
+                  - /url: /issues/110
+              - cell [ref=f157e322]:
+                - link "Analyze database schema for optimization" [ref=f157e323] [cursor=pointer]:
+                  - /url: /issues/110
+              - cell "—" [ref=f157e324]
+              - cell "—" [ref=f157e325]
+              - cell "New" [ref=f157e326]
+              - cell "Low" [ref=f157e329]
+              - cell "Summer Rain" [ref=f157e332]
+              - cell "— No SLA" [ref=f157e333]:
+                - generic [ref=f157e334]:
+                  - generic [ref=f157e335]: —
+                  - text: No SLA
+              - cell "08/25/2026 05:16 AM" [ref=f157e336]
+        - generic [ref=f157e337]:
+          - list
+          - generic [ref=f157e338]: (1-13/13)
+    - generic [ref=f157e339]:
+      - text: Powered by
+      - link "Redmine" [ref=f157e340] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f157e341]
+  - log [ref=f157e342]
+  - log [ref=f157e343]
+  - log [ref=f157e344]
+  - log [ref=f157e345]
+  - log [ref=f157e346]
+  - log [ref=f157e347]
+  - log [ref=f157e348]
+  - log [ref=f157e349]
+  - log [ref=f157e350]
+  - log [ref=f157e351]
+  - log [ref=f157e352]
+  - log [ref=f157e353]
+  - log [ref=f157e354]
+  - log [ref=f157e355]
+  - log [ref=f157e356]
+  - log [ref=f157e357]
+  - log [ref=f157e358]
+  - log [ref=f157e359]
+  - log [ref=f157e360]
+  - log [ref=f157e361]
+  - log [ref=f157e362]
+  - log [ref=f157e363]
+  - log [ref=f157e364]
+  - log [ref=f157e365]
+  - log [ref=f157e366]
+  - log [ref=f157e367]
+  - log [ref=f157e368]
+  - log [ref=f157e369]
+  - log [ref=f157e370]
+  - log [ref=f157e371]
+  - log [ref=f157e372]
+  - log [ref=f157e373]
+  - log [ref=f157e374]

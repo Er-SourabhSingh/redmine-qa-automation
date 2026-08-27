@@ -1,0 +1,118 @@
+- generic [active] [ref=f147e1]:
+  - generic [ref=f147e2]:
+    - generic [ref=f147e3]:
+      - generic [ref=f147e4]:
+        - img "Logo" [ref=f147e5]
+        - text: 
+      - navigation "Application tasks" [ref=f147e6]:
+        - button " Compose" [ref=f147e8] [cursor=pointer]
+        - button " Mail" [ref=f147e9] [cursor=pointer]
+        - button " Contacts" [ref=f147e10] [cursor=pointer]
+        - button " Settings" [ref=f147e11] [cursor=pointer]
+        - generic [ref=f147e12]:
+          - button " Dark mode" [ref=f147e13] [cursor=pointer]
+          - button " About" [ref=f147e14] [cursor=pointer]
+          - button " Logout" [ref=f147e15] [cursor=pointer]
+    - generic [ref=f147e16]:
+      - generic [ref=f147e17]:
+        - text: 
+        - generic [ref=f147e18]: Options and attachments
+      - generic [ref=f147e19]:
+        - region "Attachments" [ref=f147e20]:
+          - generic [ref=f147e21]:
+            - generic [ref=f147e22]: Maximum allowed file size is 5.0 MB
+            - button "Attach a file" [ref=f147e23] [cursor=pointer]
+          - list
+        - region "Composition options" [ref=f147e24]:
+          - generic [ref=f147e25]:
+            - generic [ref=f147e26]: Return receipt
+            - checkbox "Return receipt" [ref=f147e29]
+          - generic [ref=f147e31]:
+            - generic [ref=f147e32]: Delivery status notification
+            - checkbox "Delivery status notification" [ref=f147e35]
+          - generic [ref=f147e37]:
+            - generic [ref=f147e38]: Keep formatting
+            - checkbox "Keep formatting" [ref=f147e41]
+          - generic [ref=f147e43]:
+            - generic [ref=f147e44]: Priority
+            - combobox "Priority" [ref=f147e46]:
+              - option "Lowest"
+              - option "Low"
+              - option "Normal" [selected]
+              - option "High"
+              - option "Highest"
+          - generic [ref=f147e47]:
+            - generic [ref=f147e48]: Save sent message in
+            - combobox "Save sent message in" [ref=f147e50]:
+              - option "- don't save -"
+              - option "Inbox"
+              - option "Drafts"
+              - option "Sent" [selected]
+              - option "Junk"
+              - option "Trash"
+    - main [ref=f147e52]:
+      - generic [ref=f147e53]:
+        - text: 
+        - list [ref=f147e54]:
+          - text: 
+          - menuitem [ref=f147e55]:
+            - button " Save" [ref=f147e56] [cursor=pointer]
+          - menuitem [ref=f147e57]
+          - menuitem [ref=f147e58]:
+            - button " Attach" [ref=f147e59] [cursor=pointer]
+          - menuitem " Signature" [ref=f147e60]:
+            - button " Signature" [disabled]
+          - menuitem [ref=f147e61]:
+            - link " Responses" [ref=f147e62] [cursor=pointer]:
+              - /url: "#responses"
+              - text:  Responses  
+          - menuitem [ref=f147e63]:
+            - generic [ref=f147e64]:
+              - button " Spell" [ref=f147e65] [cursor=pointer]
+              - link "" [ref=f147e66] [cursor=pointer]:
+                - /url: "#languages"
+          - menuitem:    
+        - text: 
+      - generic [ref=f147e67]:
+        - generic [ref=f147e68]:
+          - region "Message headers" [ref=f147e69]:
+            - generic [ref=f147e70]:
+              - generic [ref=f147e71]:
+                - generic [ref=f147e72]: From
+                - generic [ref=f147e74]:
+                  - combobox "From" [ref=f147e75]:
+                    - option "beta.customer@test.local" [selected]
+                  - link "" [ref=f147e77] [cursor=pointer]:
+                    - /url: "#identities"
+              - generic [ref=f147e78]:
+                - generic [ref=f147e79]: To
+                - generic [ref=f147e81]:
+                  - combobox "To" [ref=f147e82]: beta.support@test.local,
+                  - list [ref=f147e83]:
+                    - listitem [ref=f147e102]:
+                      - generic [ref=f147e103]: beta.support@test.local
+                      - generic: ","
+                      - generic [ref=f147e104] [cursor=pointer]: 
+                    - listitem [ref=f147e84]:
+                      - combobox [ref=f147e85]
+                  - link "" [ref=f147e87] [cursor=pointer]:
+                    - /url: "#add-contact"
+                  - link "" [ref=f147e89] [cursor=pointer]:
+                    - /url: "#add-header"
+                    - text:     
+              - text:        
+              - generic [ref=f147e90]:
+                - generic [ref=f147e91]: Subject
+                - textbox "Subject" [ref=f147e93]: "Ticket: Cannot access my dashboard"
+          - generic [ref=f147e94]:
+            - textbox "Message Body" [ref=f147e95]: Hi, I am unable to access my dashboard since this morning. It shows a blank page after login. Please help. Thanks, Beta Customer
+            - link "" [ref=f147e97] [cursor=pointer]:
+              - /url: "#"
+        - generic [ref=f147e98]:
+          - button "Send" [ref=f147e99] [cursor=pointer]
+          - button "Open in new window" [ref=f147e101] [cursor=pointer]
+      - text:    
+    - text:              
+  - alert [ref=f147e106]:
+    - generic [ref=f147e107]: 
+    - generic [ref=f147e108]: Message sent successfully.

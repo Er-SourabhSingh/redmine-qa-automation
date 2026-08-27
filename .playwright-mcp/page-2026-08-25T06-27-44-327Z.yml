@@ -1,0 +1,159 @@
+- generic [ref=f105e1]:
+  - generic [ref=f105e2]:
+    - generic [ref=f105e3]:
+      - generic [ref=f105e4]:
+        - list:
+          - listitem [ref=f105e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f105e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f105e7]:
+        - text: Logged in as
+        - link "admin" [ref=f105e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f105e9]:
+        - listitem [ref=f105e10]:
+          - link [ref=f105e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f105e12]
+        - listitem [ref=f105e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f105e14]:
+          - link "My page" [ref=f105e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f105e16]:
+          - link "Projects" [ref=f105e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f105e18]:
+          - link "Helpdesk Command Center" [ref=f105e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f105e20]:
+          - link "Administration" [ref=f105e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f105e22]:
+          - link "Help" [ref=f105e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f105e24]:
+      - generic [ref=f105e25]:
+        - generic [ref=f105e26]:
+          - generic [ref=f105e27]:
+            - link "Search" [ref=f105e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f105e29]
+        - generic [ref=f105e30]:
+          - generic [ref=f105e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f105e32]
+    - generic [ref=f105e33]:
+      - list [ref=f105e37]:
+        - listitem [ref=f105e38]:
+          - link "Helpdesk Dashboard" [ref=f105e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f105e42]:
+          - link "Helpdesk Tickets" [ref=f105e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f105e46]:
+          - link "Reports" [ref=f105e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f105e50]:
+          - link "Organization" [ref=f105e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f105e54]:
+          - link "Customers" [ref=f105e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f105e58]:
+          - link "Products" [ref=f105e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f105e62]:
+          - link "Helpdesk Settings" [ref=f105e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f105e66]:
+        - generic [ref=f105e67]:
+          - generic [ref=f105e69]:
+            - heading "Acme Corp Active" [level=2] [ref=f105e70]:
+              - text: Acme Corp
+              - generic [ref=f105e71]: Active
+            - paragraph [ref=f105e73]: acme-corp.example.com
+          - link "Edit" [ref=f105e75] [cursor=pointer]:
+            - /url: /rf_organizations/1/edit
+        - navigation "Acme Corp" [ref=f105e78]:
+          - link "Overview" [ref=f105e79] [cursor=pointer]:
+            - /url: /rf_organizations/1?tab=overview
+          - link "Prepaid Support Hours" [ref=f105e84] [cursor=pointer]:
+            - /url: /rf_organizations/1?tab=prepaid_support_hours
+        - generic [ref=f105e89]:
+          - generic [ref=f105e90]:
+            - heading "Budget by project" [level=3] [ref=f105e91]
+            - link "Add / top up hours" [active] [ref=f105e92] [cursor=pointer]:
+              - /url: "#"
+          - generic [ref=f105e94]:
+            - heading "No prepaid hours set for Acme Corp" [level=3] [ref=f105e99]
+            - paragraph [ref=f105e100]: Pick a project and add hours. Usage is then tracked against the tickets this organization's customers raise on it.
+        - generic [ref=f105e101]:
+          - generic [ref=f105e102]:
+            - heading "Budget change history" [level=3] [ref=f105e103]
+            - generic [ref=f105e104]: "0"
+          - generic [ref=f105e105]:
+            - heading "No budget changes recorded yet." [level=3] [ref=f105e110]
+            - paragraph [ref=f105e111]: Every top-up and reduction is recorded here with who approved it and why.
+        - dialog [ref=f105e135]:
+          - generic [ref=f105e136]:
+            - heading "Add / top up hours" [level=3] [ref=f105e137]
+            - button "Close" [ref=f105e138] [cursor=pointer]: ×
+          - generic [ref=f105e139]:
+            - generic [ref=f105e140]:
+              - paragraph [ref=f105e141]:
+                - text: Hours are added to
+                - strong [ref=f105e142]: Acme Corp
+                - text: "'s budget on the project you pick. Enter a negative number to reduce it. The budget never goes below zero."
+              - generic [ref=f105e143]:
+                - generic [ref=f105e144]:
+                  - generic [ref=f105e145]: Project *
+                  - combobox "Project *" [ref=f105e146]:
+                    - option "Helpdesk Service Desk" [selected]
+                    - option "Agile Board Project"
+                - generic [ref=f105e147]:
+                  - generic [ref=f105e148]: Hours *
+                  - spinbutton "Hours *" [ref=f105e149]
+                - generic [ref=f105e150]:
+                  - generic [ref=f105e151]: Support Package
+                  - combobox "Support Package" [ref=f105e152]:
+                    - option "-- No package --" [selected]
+                    - option "Premium Support"
+                    - option "Standard Support"
+                - generic [ref=f105e153]:
+                  - generic [ref=f105e154]: Comment *
+                  - textbox "Comment *" [ref=f105e155]
+            - generic [ref=f105e156]:
+              - button "Cancel" [ref=f105e157] [cursor=pointer]
+              - button "Save" [ref=f105e158] [cursor=pointer]
+        - paragraph [ref=f105e112]:
+          - link "Organization List" [ref=f105e113] [cursor=pointer]:
+            - /url: /rf_organizations
+    - generic [ref=f105e114]:
+      - text: Powered by
+      - link "Redmine" [ref=f105e115] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f105e116]
+  - log [ref=f105e117]
+  - log [ref=f105e118]
+  - log [ref=f105e119]
+  - log [ref=f105e120]
+  - log [ref=f105e121]
+  - log [ref=f105e122]
+  - log [ref=f105e123]
+  - log [ref=f105e124]
+  - log [ref=f105e125]
+  - log [ref=f105e126]
+  - log [ref=f105e127]
+  - log [ref=f105e128]
+  - log [ref=f105e129]
+  - log [ref=f105e130]
+  - log [ref=f105e131]
+  - log [ref=f105e132]
+  - log [ref=f105e133]

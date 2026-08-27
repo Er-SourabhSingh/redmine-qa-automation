@@ -1,0 +1,226 @@
+- generic [active] [ref=f9e1]:
+  - generic [ref=f9e2]:
+    - generic [ref=f9e3]:
+      - generic [ref=f9e4]:
+        - list:
+          - listitem [ref=f9e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f9e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f9e7]:
+        - text: Logged in as
+        - link "admin" [ref=f9e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f9e9]:
+        - listitem [ref=f9e10]:
+          - link [ref=f9e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f9e12]
+        - listitem [ref=f9e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f9e14]:
+          - link "My page" [ref=f9e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f9e16]:
+          - link "Projects" [ref=f9e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f9e18]:
+          - link "Helpdesk Command Center" [ref=f9e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f9e20]:
+          - link "Administration" [ref=f9e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f9e22]:
+          - link "Help" [ref=f9e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f9e24]:
+      - generic [ref=f9e25]:
+        - generic [ref=f9e26]:
+          - generic [ref=f9e27]:
+            - link "Search" [ref=f9e28] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f9e29]
+        - generic [ref=f9e30]:
+          - generic [ref=f9e31] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f9e32]
+      - generic [ref=f9e33]:
+        - list [ref=f9e34]:
+          - listitem [ref=f9e35]:
+            - link "+" [ref=f9e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f9e37]:
+            - link "Overview" [ref=f9e38] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f9e39]:
+            - link "Activity" [ref=f9e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f9e41]:
+            - link "Issues" [ref=f9e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f9e43]:
+            - link "Spent time" [ref=f9e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f9e45]:
+            - link "Gantt" [ref=f9e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f9e47]:
+            - link "Calendar" [ref=f9e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f9e49]:
+            - link "News" [ref=f9e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f9e51]:
+            - link "Documents" [ref=f9e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f9e53]:
+            - link "Wiki" [ref=f9e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f9e55]:
+            - link "Files" [ref=f9e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f9e57]:
+            - link "Settings" [ref=f9e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f9e59]:
+          - button [ref=f9e60] [cursor=pointer]
+          - button [ref=f9e61] [cursor=pointer]
+    - generic [ref=f9e63]:
+      - heading "Settings" [level=2] [ref=f9e64]
+      - list [ref=f9e66]:
+        - listitem [ref=f9e67]:
+          - link "Project" [ref=f9e68] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/info
+        - listitem [ref=f9e69]:
+          - link "Members" [ref=f9e70] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/members
+        - listitem [ref=f9e71]:
+          - link "Issue tracking" [ref=f9e72] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/issues
+        - listitem [ref=f9e73]:
+          - link "Versions" [ref=f9e74] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/versions
+        - listitem [ref=f9e75]:
+          - link "Issue categories" [ref=f9e76] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/categories
+        - listitem [ref=f9e77]:
+          - link "Repositories" [ref=f9e78] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/repositories
+        - listitem [ref=f9e79]:
+          - link "Forums" [ref=f9e80] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/boards
+        - listitem [ref=f9e81]:
+          - link "Time tracking" [ref=f9e82] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/activities
+      - text: pre
+      - generic [ref=f9e84]:
+        - group [ref=f9e85]:
+          - generic [ref=f9e86]:
+            - link "Check all / Uncheck all" [ref=f9e87] [cursor=pointer]:
+              - /url: "#"
+            - text: Trackers
+          - link "Administration" [ref=f9e90] [cursor=pointer]:
+            - /url: /trackers
+          - generic [ref=f9e92]:
+            - checkbox "Bug" [checked] [ref=f9e93]
+            - text: Bug
+          - generic [ref=f9e94]:
+            - checkbox "Feature" [checked] [ref=f9e95]
+            - text: Feature
+          - generic [ref=f9e96]:
+            - checkbox "Support" [checked] [ref=f9e97]
+            - text: Support
+        - group [ref=f9e98]:
+          - generic [ref=f9e99]:
+            - link "Check all / Uncheck all" [ref=f9e100] [cursor=pointer]:
+              - /url: "#"
+            - text: Custom fields
+          - link "Administration" [ref=f9e103] [cursor=pointer]:
+            - /url: /custom_fields
+          - generic [ref=f9e105]:
+            - checkbox "Issue Category" [ref=f9e106]
+            - text: Issue Category
+        - generic [ref=f9e107]:
+          - paragraph [ref=f9e108]:
+            - generic [ref=f9e109]: Default version
+            - combobox "Default version" [ref=f9e110]:
+              - option "none" [selected]
+          - paragraph [ref=f9e111]:
+            - generic [ref=f9e112]: Default assignee
+            - combobox "Default assignee" [ref=f9e113]:
+              - option "none" [selected]
+              - option "<< me >>"
+              - option "Aurora Wren"
+              - option "Autumn Grace"
+              - option "Briar Sunset"
+              - option "Celeste Dawn"
+              - option "Daisy Skye"
+              - option "Ember Lilac"
+              - option "Harmony Rose"
+              - option "Isla Moon"
+              - option "Ivy Skylark"
+              - option "Luna Blossom"
+              - option "Luna Meadow"
+              - option "Marigold Rayne"
+              - option "Nova Starling"
+              - option "Opal Sparrow"
+              - option "Redmine Admin"
+              - option "Sage Willow"
+              - option "Selene Frost"
+              - option "Serenity Bloom"
+              - option "Summer Rain"
+              - option "Violet Ember"
+              - option "Willow Belle"
+          - paragraph [ref=f9e114]:
+            - generic [ref=f9e115]: Default issue query
+            - combobox "Default issue query" [ref=f9e116]:
+              - option "none" [selected]
+              - option "Issues assigned to me"
+              - option "Reported issues"
+              - option "Updated issues"
+              - option "Watched issues"
+            - emphasis [ref=f9e117]: Public (to any users) queries only selectable
+        - paragraph [ref=f9e118]:
+          - button "Save" [ref=f9e119] [cursor=pointer]
+    - generic [ref=f9e120]:
+      - text: Powered by
+      - link "Redmine" [ref=f9e121] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f9e122]
+  - log [ref=f9e123]
+  - log [ref=f9e124]
+  - log [ref=f9e125]
+  - log [ref=f9e126]
+  - log [ref=f9e127]
+  - log [ref=f9e128]
+  - log [ref=f9e129]
+  - log [ref=f9e130]
+  - log [ref=f9e131]
+  - log [ref=f9e132]
+  - log [ref=f9e133]
+  - log [ref=f9e134]
+  - log [ref=f9e135]
+  - log [ref=f9e136]
+  - log [ref=f9e137]
+  - log [ref=f9e138]
+  - log [ref=f9e139]
+  - log [ref=f9e140]
+  - log [ref=f9e141]
+  - log [ref=f9e142]
+  - log [ref=f9e143]
+  - log [ref=f9e144]
+  - log [ref=f9e145]
+  - log [ref=f9e146]
+  - log [ref=f9e147]
+  - log [ref=f9e148]
+  - log [ref=f9e149]
+  - log [ref=f9e150]
+  - log [ref=f9e151]
+  - log [ref=f9e152]
+  - log [ref=f9e153]
+  - log [ref=f9e154]

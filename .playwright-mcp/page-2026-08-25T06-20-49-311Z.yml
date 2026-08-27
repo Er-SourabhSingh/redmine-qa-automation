@@ -1,0 +1,212 @@
+- generic [ref=f75e1]:
+  - generic [ref=f75e2]:
+    - generic [ref=f75e3]:
+      - generic [ref=f75e4]:
+        - list:
+          - listitem [ref=f75e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f75e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f75e7]:
+        - text: Logged in as
+        - link "admin" [ref=f75e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f75e9]:
+        - listitem [ref=f75e10]:
+          - link [ref=f75e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f75e12]
+        - listitem [ref=f75e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f75e14]:
+          - link "My page" [ref=f75e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f75e16]:
+          - link "Projects" [ref=f75e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f75e18]:
+          - link "Helpdesk Command Center" [ref=f75e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f75e20]:
+          - link "Administration" [ref=f75e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f75e22]:
+          - link "Help" [ref=f75e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f75e24]:
+      - generic [ref=f75e25]:
+        - generic [ref=f75e26]:
+          - generic [ref=f75e27]:
+            - link "Search" [ref=f75e28] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Search:" [ref=f75e29]
+        - generic [ref=f75e30]:
+          - generic [ref=f75e31] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f75e32]
+      - generic [ref=f75e33]:
+        - list [ref=f75e34]:
+          - listitem [ref=f75e35]:
+            - link "+" [ref=f75e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f75e37]:
+            - link "Overview" [ref=f75e38] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f75e39]:
+            - link "Activity" [ref=f75e40] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f75e41]:
+            - link "Roadmap" [ref=f75e42] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f75e43]:
+            - link "Issues" [ref=f75e44] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f75e45]:
+            - link "Spent time" [ref=f75e46] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f75e47]:
+            - link "Gantt" [ref=f75e48] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f75e49]:
+            - link "Calendar" [ref=f75e50] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f75e51]:
+            - link "News" [ref=f75e52] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f75e53]:
+            - link "Documents" [ref=f75e54] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f75e55]:
+            - link "Wiki" [ref=f75e56] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f75e57]:
+            - link "Files" [ref=f75e58] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f75e59]:
+            - link "Helpdesk" [ref=f75e60] [cursor=pointer]:
+              - /url: /projects/agileboard/helpdesk
+          - listitem [ref=f75e61]:
+            - link "Settings" [ref=f75e62] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f75e63]:
+          - button [ref=f75e64] [cursor=pointer]
+          - button [ref=f75e65] [cursor=pointer]
+    - generic [ref=f75e66]:
+      - list [ref=f75e70]:
+        - listitem [ref=f75e71]:
+          - link "Helpdesk Dashboard" [ref=f75e72] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk
+        - listitem [ref=f75e75]:
+          - link "Helpdesk Tickets" [ref=f75e76] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/tickets
+        - listitem [ref=f75e79]:
+          - link "Knowledgebase" [ref=f75e80] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/knowledgebase
+        - listitem [ref=f75e83]:
+          - link "Helpdesk SLA" [ref=f75e84] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/sla
+        - listitem [ref=f75e87]:
+          - link "Organization" [ref=f75e88] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/organization
+        - listitem [ref=f75e91]:
+          - link "Settings" [ref=f75e92] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/settings
+      - generic [ref=f75e95]:
+        - heading "New Product" [level=2] [ref=f75e96]
+        - generic [ref=f75e97]:
+          - generic [ref=f75e98]:
+            - paragraph [ref=f75e99]:
+              - generic [ref=f75e100]: Product Name *
+              - textbox "Product Name *" [active] [ref=f75e101]
+            - paragraph [ref=f75e102]:
+              - generic [ref=f75e103]: Product Code *
+              - textbox "Product Code *" [ref=f75e104]
+            - paragraph [ref=f75e105]:
+              - generic [ref=f75e106]: Category
+              - textbox "Category" [ref=f75e107]
+              - emphasis [ref=f75e108]: Examples - Software, Hardware, Service, Support Package, Maintenance Plan , Cloud/SaaS ,Desktop Application, Mobile Application, Web Application
+            - paragraph [ref=f75e109]:
+              - generic [ref=f75e110]: Description
+              - generic [ref=f75e111]:
+                - list [ref=f75e113]:
+                  - listitem [ref=f75e114]:
+                    - link "Edit" [ref=f75e115] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f75e116]:
+                    - link "Preview" [ref=f75e117] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f75e118]:
+                    - generic [ref=f75e119]:
+                      - button "Strong (Ctrl+B)" [ref=f75e120] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f75e121] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f75e122] [cursor=pointer]
+                      - button "Deleted" [ref=f75e123] [cursor=pointer]
+                      - button "Inline Code" [ref=f75e124] [cursor=pointer]
+                      - button "Heading 1" [ref=f75e125] [cursor=pointer]
+                      - button "Heading 2" [ref=f75e126] [cursor=pointer]
+                      - button "Heading 3" [ref=f75e127] [cursor=pointer]
+                      - button "Unordered list" [ref=f75e128] [cursor=pointer]
+                      - button "Ordered list" [ref=f75e129] [cursor=pointer]
+                      - button "Task list" [ref=f75e130] [cursor=pointer]
+                      - button "Quote" [ref=f75e131] [cursor=pointer]
+                      - button "Remove Quote" [ref=f75e132] [cursor=pointer]
+                      - button "Table" [ref=f75e133] [cursor=pointer]
+                      - button "pre" [ref=f75e134] [cursor=pointer]
+                      - button "Highlighted code" [ref=f75e135] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f75e136] [cursor=pointer]
+                      - button "Image" [ref=f75e137] [cursor=pointer]
+                      - button "Help" [ref=f75e138] [cursor=pointer]
+                - textbox "Description" [ref=f75e140]
+            - paragraph [ref=f75e141]:
+              - generic [ref=f75e142]:
+                - generic [ref=f75e143]: Active
+                - checkbox [checked] [ref=f75e144]
+                - text: Active
+          - button "Create" [ref=f75e145] [cursor=pointer]
+          - link "Cancel" [ref=f75e146] [cursor=pointer]:
+            - /url: /projects/7/helpdesk/settings?tab=products
+    - generic [ref=f75e147]:
+      - text: Powered by
+      - link "Redmine" [ref=f75e148] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f75e149]
+  - log [ref=f75e150]
+  - log [ref=f75e151]
+  - log [ref=f75e152]
+  - log [ref=f75e153]
+  - log [ref=f75e154]
+  - log [ref=f75e155]
+  - log [ref=f75e156]
+  - log [ref=f75e157]
+  - log [ref=f75e158]
+  - log [ref=f75e159]
+  - log [ref=f75e160]
+  - log [ref=f75e161]
+  - log [ref=f75e162]
+  - log [ref=f75e163]
+  - log [ref=f75e164]
+  - log [ref=f75e165]
+  - log [ref=f75e166]
+  - log [ref=f75e167]
+  - log [ref=f75e168]
+  - log [ref=f75e169]
+  - log [ref=f75e170]
+  - log [ref=f75e171]
+  - log [ref=f75e172]
+  - log [ref=f75e173]
+  - log [ref=f75e174]
+  - log [ref=f75e175]
+  - log [ref=f75e176]
+  - log [ref=f75e177]
+  - log [ref=f75e178]
+  - log [ref=f75e179]
+  - log [ref=f75e180]
+  - log [ref=f75e181]
+  - log [ref=f75e182]
+  - log [ref=f75e183]
+  - log [ref=f75e184]

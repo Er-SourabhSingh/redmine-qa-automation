@@ -1,0 +1,194 @@
+- generic [ref=f145e1]:
+  - generic [ref=f145e2]:
+    - generic [ref=f145e3]:
+      - generic [ref=f145e4]:
+        - list:
+          - listitem [ref=f145e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f145e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f145e7]:
+        - text: Logged in as
+        - link "admin" [ref=f145e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f145e9]:
+        - listitem [ref=f145e10]:
+          - link [ref=f145e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f145e12]
+        - listitem [ref=f145e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f145e14]:
+          - link "My page" [ref=f145e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f145e16]:
+          - link "Projects" [ref=f145e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f145e18]:
+          - link "Helpdesk Command Center" [ref=f145e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f145e20]:
+          - link "Administration" [ref=f145e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f145e22]:
+          - link "Help" [ref=f145e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f145e24]:
+      - generic [ref=f145e25]:
+        - generic [ref=f145e26]:
+          - generic [ref=f145e27]:
+            - link "Search" [ref=f145e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f145e29]
+        - generic [ref=f145e30]:
+          - generic [ref=f145e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f145e32]
+    - generic [ref=f145e33]:
+      - list [ref=f145e37]:
+        - listitem [ref=f145e38]:
+          - link "Helpdesk Dashboard" [ref=f145e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f145e42]:
+          - link "Helpdesk Tickets" [ref=f145e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f145e46]:
+          - link "Reports" [ref=f145e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f145e50]:
+          - link "Organization" [ref=f145e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f145e54]:
+          - link "Customers" [ref=f145e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f145e58]:
+          - link "Products" [ref=f145e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f145e62]:
+          - link "Helpdesk Settings" [ref=f145e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f145e67]:
+        - generic [ref=f145e68]:
+          - generic [ref=f145e70]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f145e71]
+            - paragraph [ref=f145e72]: 1 tickets
+          - link "New issue" [ref=f145e74] [cursor=pointer]:
+            - /url: /issue_helpdesks/new
+        - generic [ref=f145e76]:
+          - button "Filters" [expanded] [ref=f145e77] [cursor=pointer]
+          - generic [ref=f145e84]:
+            - generic [ref=f145e85]:
+              - generic [ref=f145e86]:
+                - generic [ref=f145e87]: Status
+                - textbox "Any open status" [active] [ref=f145e91]
+                - 'button "Delete: Status" [ref=f145e92] [cursor=pointer]'
+              - generic [ref=f145e96]:
+                - generic [ref=f145e97]: Customer
+                - textbox "All" [ref=f145e101]
+                - 'button "Delete: Customer" [ref=f145e102] [cursor=pointer]'
+              - generic [ref=f145e106]:
+                - generic [ref=f145e107]: Assignee
+                - textbox "Nobody (unassigned)" [ref=f145e111]
+                - 'button "Delete: Assignee" [ref=f145e112] [cursor=pointer]'
+              - generic [ref=f145e116]:
+                - generic [ref=f145e117]: Created
+                - generic [ref=f145e119]:
+                  - textbox "Created from" [ref=f145e120]: 2026-07-27
+                  - generic [ref=f145e121]: –
+                  - textbox "Created to" [ref=f145e122]: 2026-08-25
+                - 'button "Delete: Created" [ref=f145e123] [cursor=pointer]'
+            - button "Add filter" [ref=f145e129] [cursor=pointer]
+            - generic [ref=f145e133]:
+              - button "Apply" [ref=f145e134] [cursor=pointer]
+              - link "Clear" [ref=f145e137] [cursor=pointer]:
+                - /url: /rf_helpdesk/issues
+              - button "Columns" [ref=f145e143] [cursor=pointer]
+        - table [ref=f145e149]:
+          - rowgroup [ref=f145e150]:
+            - row [ref=f145e151]:
+              - columnheader [ref=f145e152]:
+                - 'link "Ticket #" [ref=f145e153] [cursor=pointer]':
+                  - /url: /rf_helpdesk/issues?assigned_to_id%5B%5D=none&created_from=2026-07-27&created_to=2026-08-25&dir=asc&sort=id&status_id%5B%5D=open
+              - columnheader [ref=f145e154]:
+                - link "Subject" [ref=f145e155] [cursor=pointer]:
+                  - /url: /rf_helpdesk/issues?assigned_to_id%5B%5D=none&created_from=2026-07-27&created_to=2026-08-25&dir=asc&sort=subject&status_id%5B%5D=open
+              - columnheader "Customer" [ref=f145e156]
+              - columnheader "Organization Name" [ref=f145e157]
+              - columnheader [ref=f145e158]:
+                - link "Status" [ref=f145e159] [cursor=pointer]:
+                  - /url: /rf_helpdesk/issues?assigned_to_id%5B%5D=none&created_from=2026-07-27&created_to=2026-08-25&dir=asc&sort=status&status_id%5B%5D=open
+              - columnheader [ref=f145e160]:
+                - link "Priority" [ref=f145e161] [cursor=pointer]:
+                  - /url: /rf_helpdesk/issues?assigned_to_id%5B%5D=none&created_from=2026-07-27&created_to=2026-08-25&dir=asc&sort=priority&status_id%5B%5D=open
+              - columnheader "Assignee" [ref=f145e162]
+              - columnheader "SLA Status" [ref=f145e163]
+              - columnheader [ref=f145e164]:
+                - link "Updated ▼" [ref=f145e165] [cursor=pointer]:
+                  - /url: /rf_helpdesk/issues?assigned_to_id%5B%5D=none&created_from=2026-07-27&created_to=2026-08-25&dir=asc&sort=updated_on&status_id%5B%5D=open
+          - rowgroup [ref=f145e166]:
+            - row [ref=f145e167]:
+              - cell [ref=f145e168]:
+                - link "#271" [ref=f145e169] [cursor=pointer]:
+                  - /url: /issues/271
+              - cell [ref=f145e170]:
+                - link "Portal automation check - unable to access billing export" [ref=f145e171] [cursor=pointer]:
+                  - /url: /issues/271
+              - cell [ref=f145e172]:
+                - link "Acme HDContact" [ref=f145e173] [cursor=pointer]:
+                  - /url: /rf_customers/25
+              - cell "Acme Corp" [ref=f145e174]
+              - cell "New" [ref=f145e175]
+              - cell "Normal" [ref=f145e178]
+              - cell "Unassigned" [ref=f145e181]
+              - cell "— No SLA" [ref=f145e182]:
+                - generic [ref=f145e183]:
+                  - generic [ref=f145e184]: —
+                  - text: No SLA
+              - cell "08/25/2026 07:15 AM" [ref=f145e185]
+        - generic [ref=f145e186]:
+          - list
+          - generic [ref=f145e187]: (1-1/1)
+    - generic [ref=f145e188]:
+      - text: Powered by
+      - link "Redmine" [ref=f145e189] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f145e190]
+  - log [ref=f145e191]
+  - log [ref=f145e192]
+  - log [ref=f145e193]
+  - log [ref=f145e194]
+  - log [ref=f145e195]
+  - log [ref=f145e196]
+  - log [ref=f145e197]
+  - log [ref=f145e198]
+  - log [ref=f145e199]
+  - log [ref=f145e200]
+  - log [ref=f145e201]
+  - log [ref=f145e202]
+  - log [ref=f145e203]
+  - log [ref=f145e204]
+  - log [ref=f145e205]
+  - log [ref=f145e206]
+  - log [ref=f145e207]
+  - log [ref=f145e208]
+  - log [ref=f145e209]
+  - log [ref=f145e210]
+  - log [ref=f145e211]
+  - log [ref=f145e212]
+  - log [ref=f145e213]
+  - log [ref=f145e214]
+  - log [ref=f145e215]
+  - log [ref=f145e216]
+  - log [ref=f145e217]
+  - log [ref=f145e218]
+  - log [ref=f145e219]
+  - log [ref=f145e220]
+  - log [ref=f145e221]
+  - log [ref=f145e222]
+  - log [ref=f145e223]
+  - log [ref=f145e224]

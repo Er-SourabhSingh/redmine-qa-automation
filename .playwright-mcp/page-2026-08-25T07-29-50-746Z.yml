@@ -1,0 +1,93 @@
+- generic [active] [ref=f165e1]:
+  - generic [ref=f165e2]:
+    - generic [ref=f165e3]:
+      - generic [ref=f165e4]:
+        - list:
+          - listitem [ref=f165e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f165e6]:
+            - link "Sign out":
+              - /url: /logout
+      - list [ref=f165e7]:
+        - listitem [ref=f165e8]:
+          - link "My Helpdesk" [ref=f165e9] [cursor=pointer]:
+            - /url: /helpdesk
+    - generic [ref=f165e10]:
+      - text: ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f165e11]
+    - generic [ref=f165e12]:
+      - list [ref=f165e16]:
+        - listitem [ref=f165e17]:
+          - link "Helpdesk Dashboard" [ref=f165e18] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk
+        - listitem [ref=f165e21]:
+          - link "Helpdesk Tickets" [ref=f165e22] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets
+        - listitem [ref=f165e25]:
+          - link "Knowledgebase" [ref=f165e26] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/knowledgebase
+      - generic [ref=f165e29]:
+        - generic [ref=f165e30]:
+          - generic [ref=f165e32]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f165e33]
+            - paragraph [ref=f165e34]: Helpdesk Service Desk · 2 tickets
+          - link "New issue" [ref=f165e36] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/new
+        - button "Filters" [ref=f165e39] [cursor=pointer]
+        - table [ref=f165e47]:
+          - rowgroup [ref=f165e48]:
+            - row [ref=f165e49]:
+              - columnheader [ref=f165e50]:
+                - 'link "Ticket #" [ref=f165e51] [cursor=pointer]':
+                  - /url: /projects/helpdesk/helpdesk/tickets?dir=asc&sort=id
+              - columnheader [ref=f165e52]:
+                - link "Subject" [ref=f165e53] [cursor=pointer]:
+                  - /url: /projects/helpdesk/helpdesk/tickets?dir=asc&sort=subject
+              - columnheader [ref=f165e54]:
+                - link "Status" [ref=f165e55] [cursor=pointer]:
+                  - /url: /projects/helpdesk/helpdesk/tickets?dir=asc&sort=status
+              - columnheader [ref=f165e56]:
+                - link "Priority" [ref=f165e57] [cursor=pointer]:
+                  - /url: /projects/helpdesk/helpdesk/tickets?dir=asc&sort=priority
+              - columnheader [ref=f165e58]:
+                - link "Updated ▼" [ref=f165e59] [cursor=pointer]:
+                  - /url: /projects/helpdesk/helpdesk/tickets?dir=asc&sort=updated_on
+          - rowgroup [ref=f165e60]:
+            - row [ref=f165e61]:
+              - cell [ref=f165e62]:
+                - link "#272" [ref=f165e63] [cursor=pointer]:
+                  - /url: /issues/272
+              - cell [ref=f165e64]:
+                - link "SLA/assignment flow check - login page timing out" [ref=f165e65] [cursor=pointer]:
+                  - /url: /issues/272
+              - cell "Waiting for Customer Response" [ref=f165e66]
+              - cell "High" [ref=f165e69]
+              - cell "08/25/2026 07:27 AM" [ref=f165e72]
+            - row [ref=f165e73]:
+              - cell [ref=f165e74]:
+                - link "#271" [ref=f165e75] [cursor=pointer]:
+                  - /url: /issues/271
+              - cell [ref=f165e76]:
+                - link "Portal automation check - unable to access billing export" [ref=f165e77] [cursor=pointer]:
+                  - /url: /issues/271
+              - cell "New" [ref=f165e78]
+              - cell "Normal" [ref=f165e81]
+              - cell "08/25/2026 07:15 AM" [ref=f165e84]
+        - generic [ref=f165e85]:
+          - list
+          - generic [ref=f165e86]: (1-2/2)
+    - generic [ref=f165e87]:
+      - text: Powered by
+      - link "Redmine" [ref=f165e88] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f165e89]
+  - log [ref=f165e90]
+  - log [ref=f165e91]
+  - log [ref=f165e92]
+  - log [ref=f165e93]
+  - log [ref=f165e94]
+  - log [ref=f165e95]
+  - log [ref=f165e96]
+  - log [ref=f165e97]

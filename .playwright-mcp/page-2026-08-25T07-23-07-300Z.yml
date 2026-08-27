@@ -1,0 +1,301 @@
+- generic [ref=f144e1]:
+  - generic [ref=f144e2]:
+    - generic [ref=f144e3]:
+      - generic [ref=f144e4]:
+        - list:
+          - listitem [ref=f144e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f144e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f144e7]:
+        - text: Logged in as
+        - link "admin" [ref=f144e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f144e9]:
+        - listitem [ref=f144e10]:
+          - link [ref=f144e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f144e12]
+        - listitem [ref=f144e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f144e14]:
+          - link "My page" [ref=f144e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f144e16]:
+          - link "Projects" [ref=f144e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f144e18]:
+          - link "Helpdesk Command Center" [ref=f144e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f144e20]:
+          - link "Administration" [ref=f144e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f144e22]:
+          - link "Help" [ref=f144e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f144e24]:
+      - generic [ref=f144e25]:
+        - generic [ref=f144e26]:
+          - generic [ref=f144e27]:
+            - link "Search" [ref=f144e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f144e29]
+        - generic [ref=f144e30]:
+          - generic [ref=f144e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f144e32]
+    - generic [ref=f144e33]:
+      - list [ref=f144e37]:
+        - listitem [ref=f144e38]:
+          - link "Helpdesk Dashboard" [ref=f144e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f144e42]:
+          - link "Helpdesk Tickets" [ref=f144e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f144e46]:
+          - link "Reports" [ref=f144e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f144e50]:
+          - link "Organization" [ref=f144e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f144e54]:
+          - link "Customers" [ref=f144e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f144e58]:
+          - link "Products" [ref=f144e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f144e62]:
+          - link "Helpdesk Settings" [ref=f144e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f144e67]:
+        - generic [ref=f144e68]:
+          - generic [ref=f144e70]:
+            - heading "Helpdesk Dashboard" [level=2] [ref=f144e71]
+            - paragraph [ref=f144e72]: Ticket volume, SLA health and team workload at a glance
+          - generic [ref=f144e73]:
+            - button "Date Range" [ref=f144e75] [cursor=pointer]:
+              - generic [ref=f144e78]: 27 Jul 26 - 25 Aug 26
+            - link "New issue" [ref=f144e81] [cursor=pointer]:
+              - /url: /issue_helpdesks/new
+        - generic [ref=f144e83]:
+          - link "1 Unassigned View all" [ref=f144e84] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?assigned_to_id%5B%5D=none&created_from=2026-07-27&created_to=2026-08-25&status_id%5B%5D=open
+            - generic [ref=f144e91]: "1"
+            - generic [ref=f144e92]: Unassigned
+            - generic [ref=f144e93]: View all
+          - link "12 Open View all" [ref=f144e96] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?created_from=2026-07-27&created_to=2026-08-25&status_id%5B%5D=open
+            - generic [ref=f144e101]: "12"
+            - generic [ref=f144e102]: Open
+            - generic [ref=f144e103]: View all
+          - link "12 On Hold View all" [ref=f144e106] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?created_from=2026-07-27&created_to=2026-08-25
+            - generic [ref=f144e110]: "12"
+            - generic [ref=f144e111]: On Hold
+            - generic [ref=f144e112]: View all
+          - link "0 SLA Breached View all" [ref=f144e115] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?sla=breached
+            - generic [ref=f144e119]: "0"
+            - generic [ref=f144e120]: SLA Breached
+            - generic [ref=f144e121]: View all
+          - link "0 Resolved View all" [ref=f144e124] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?created_from=2026-07-27&created_to=2026-08-25&status_id%5B%5D=closed
+            - generic [ref=f144e129]: "0"
+            - generic [ref=f144e130]: Resolved
+            - generic [ref=f144e131]: View all
+        - generic [ref=f144e134]:
+          - heading "Prepaid Support Hours" [level=3] [ref=f144e136]
+          - table [ref=f144e137]:
+            - rowgroup [ref=f144e138]:
+              - row [ref=f144e139]:
+                - columnheader "Project" [ref=f144e140]
+                - columnheader "Organization" [ref=f144e141]
+                - columnheader "Approved" [ref=f144e142]
+                - columnheader "Used" [ref=f144e143]
+                - columnheader "Remaining" [ref=f144e144]
+                - columnheader "Usage" [ref=f144e145]
+                - columnheader "Action" [ref=f144e146]
+            - rowgroup [ref=f144e147]:
+              - row [ref=f144e148]:
+                - cell [ref=f144e149]:
+                  - link "Agile Board Project" [ref=f144e150] [cursor=pointer]:
+                    - /url: /projects/agileboard/helpdesk
+                - cell [ref=f144e151]:
+                  - link "Globex Industries" [ref=f144e152] [cursor=pointer]:
+                    - /url: /rf_organizations/2?tab=prepaid_support_hours
+                - cell "20.00h" [ref=f144e153]
+                - cell "0.00h" [ref=f144e154]
+                - cell "20.00h" [ref=f144e155]
+                - cell "0% Used 0%" [ref=f144e156]:
+                  - generic [ref=f144e157]:
+                    - img "0% Used" [ref=f144e158]
+                    - generic [ref=f144e159]: 0%
+                - cell [ref=f144e160]:
+                  - link "Ledger" [ref=f144e161] [cursor=pointer]:
+                    - /url: /helpdesk?ledger_organization_id=2&ledger_project_id=7
+              - row [ref=f144e163]:
+                - cell [ref=f144e164]:
+                  - link "Helpdesk Service Desk" [ref=f144e165] [cursor=pointer]:
+                    - /url: /projects/helpdesk/helpdesk
+                - cell [ref=f144e166]:
+                  - link "Acme Corp" [ref=f144e167] [cursor=pointer]:
+                    - /url: /rf_organizations/1?tab=prepaid_support_hours
+                - cell "40.00h" [ref=f144e168]
+                - cell "0.00h" [ref=f144e169]
+                - cell "40.00h" [ref=f144e170]
+                - cell "0% Used 0%" [ref=f144e171]:
+                  - generic [ref=f144e172]:
+                    - img "0% Used" [ref=f144e173]
+                    - generic [ref=f144e174]: 0%
+                - cell [ref=f144e175]:
+                  - link "Ledger" [ref=f144e176] [cursor=pointer]:
+                    - /url: /helpdesk?ledger_organization_id=1&ledger_project_id=9
+        - generic [ref=f144e178]:
+          - generic [ref=f144e179]:
+            - heading "Recent Tickets" [level=3] [ref=f144e180]
+            - link "View all" [ref=f144e183] [cursor=pointer]:
+              - /url: /rf_helpdesk/issues
+          - generic [ref=f144e186]:
+            - search [ref=f144e187]:
+              - textbox "Search tickets by subject…" [active] [ref=f144e188]
+            - table [ref=f144e190]:
+              - rowgroup [ref=f144e191]:
+                - row [ref=f144e192]:
+                  - columnheader "S.No." [ref=f144e193]
+                  - columnheader "Subject" [ref=f144e194]
+                  - columnheader "Project" [ref=f144e195]
+                  - columnheader "Priority" [ref=f144e196]
+                  - columnheader "Status" [ref=f144e197]
+                  - columnheader "Assignee" [ref=f144e198]
+                  - columnheader "SLA Status" [ref=f144e199]
+                  - columnheader "Created" [ref=f144e200]
+              - rowgroup [ref=f144e201]:
+                - row [ref=f144e202]:
+                  - cell "1" [ref=f144e203]
+                  - cell [ref=f144e204]:
+                    - link "Portal automation check - unable to access billing export" [ref=f144e205] [cursor=pointer]:
+                      - /url: /issues/271
+                  - cell "Helpdesk Service Desk" [ref=f144e206]
+                  - cell "Normal" [ref=f144e207]
+                  - cell "New" [ref=f144e210]
+                  - cell "Unassigned" [ref=f144e213]
+                  - cell "N/A" [ref=f144e214]
+                  - cell "8 minutes ago" [ref=f144e219]
+                - row [ref=f144e220]:
+                  - cell "2" [ref=f144e221]
+                  - cell [ref=f144e222]:
+                    - link "Fix missing breadcrumb navigation" [ref=f144e223] [cursor=pointer]:
+                      - /url: /issues/236
+                  - cell "Helpdesk Service Desk" [ref=f144e224]
+                  - cell "Normal" [ref=f144e225]
+                  - cell "New" [ref=f144e228]
+                  - cell "Harmony Rose" [ref=f144e231]
+                  - cell "N/A" [ref=f144e232]
+                  - cell "about 2 hours ago" [ref=f144e237]
+                - row [ref=f144e238]:
+                  - cell "3" [ref=f144e239]
+                  - cell [ref=f144e240]:
+                    - link "Add role-based permissions editor" [ref=f144e241] [cursor=pointer]:
+                      - /url: /issues/235
+                  - cell "Helpdesk Service Desk" [ref=f144e242]
+                  - cell "Normal" [ref=f144e243]
+                  - cell "New" [ref=f144e246]
+                  - cell "Willow Belle" [ref=f144e249]
+                  - cell "N/A" [ref=f144e250]
+                  - cell "about 2 hours ago" [ref=f144e255]
+                - row [ref=f144e256]:
+                  - cell "4" [ref=f144e257]
+                  - cell [ref=f144e258]:
+                    - link "Fix dashboard chart flickering" [ref=f144e259] [cursor=pointer]:
+                      - /url: /issues/234
+                  - cell "Helpdesk Service Desk" [ref=f144e260]
+                  - cell "Normal" [ref=f144e261]
+                  - cell "New" [ref=f144e264]
+                  - cell "Autumn Grace" [ref=f144e267]
+                  - cell "N/A" [ref=f144e268]
+                  - cell "about 2 hours ago" [ref=f144e273]
+                - row [ref=f144e274]:
+                  - cell "5" [ref=f144e275]
+                  - cell [ref=f144e276]:
+                    - link "Add API key management UI" [ref=f144e277] [cursor=pointer]:
+                      - /url: /issues/233
+                  - cell "Helpdesk Service Desk" [ref=f144e278]
+                  - cell "Normal" [ref=f144e279]
+                  - cell "New" [ref=f144e282]
+                  - cell "Daisy Skye" [ref=f144e285]
+                  - cell "N/A" [ref=f144e286]
+                  - cell "about 2 hours ago" [ref=f144e291]
+                - row [ref=f144e292]:
+                  - cell "6" [ref=f144e293]
+                  - cell [ref=f144e294]:
+                    - link "Fix API rate limit enforcement" [ref=f144e295] [cursor=pointer]:
+                      - /url: /issues/232
+                  - cell "Helpdesk Service Desk" [ref=f144e296]
+                  - cell "Normal" [ref=f144e297]
+                  - cell "New" [ref=f144e300]
+                  - cell "Luna Blossom" [ref=f144e303]
+                  - cell "N/A" [ref=f144e304]
+                  - cell "about 2 hours ago" [ref=f144e309]
+                - row [ref=f144e310]:
+                  - cell "7" [ref=f144e311]
+                  - cell [ref=f144e312]:
+                    - link "Implement access control matrix" [ref=f144e313] [cursor=pointer]:
+                      - /url: /issues/231
+                  - cell "Helpdesk Service Desk" [ref=f144e314]
+                  - cell "Normal" [ref=f144e315]
+                  - cell "New" [ref=f144e318]
+                  - cell "Summer Rain" [ref=f144e321]
+                  - cell "N/A" [ref=f144e322]
+                  - cell "about 2 hours ago" [ref=f144e327]
+                - row [ref=f144e328]:
+                  - cell "8" [ref=f144e329]
+                  - cell [ref=f144e330]:
+                    - link "Fix stale session logouts" [ref=f144e331] [cursor=pointer]:
+                      - /url: /issues/230
+                  - cell "Helpdesk Service Desk" [ref=f144e332]
+                  - cell "Normal" [ref=f144e333]
+                  - cell "New" [ref=f144e336]
+                  - cell "Violet Ember" [ref=f144e339]
+                  - cell "N/A" [ref=f144e340]
+                  - cell "about 2 hours ago" [ref=f144e345]
+        - generic [ref=f144e347]:
+          - heading "Ticket Statistics" [level=3] [ref=f144e348]
+          - generic [ref=f144e350]: 07/27/2026 – 08/25/2026
+    - generic [ref=f144e354]:
+      - text: Powered by
+      - link "Redmine" [ref=f144e355] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f144e356]
+  - log [ref=f144e357]
+  - log [ref=f144e358]
+  - log [ref=f144e359]
+  - log [ref=f144e360]
+  - log [ref=f144e361]
+  - log [ref=f144e362]
+  - log [ref=f144e363]
+  - log [ref=f144e364]
+  - log [ref=f144e365]
+  - log [ref=f144e366]
+  - log [ref=f144e367]
+  - log [ref=f144e368]
+  - log [ref=f144e369]
+  - log [ref=f144e370]
+  - log [ref=f144e371]
+  - log [ref=f144e372]
+  - log [ref=f144e373]
+  - log [ref=f144e374]
+  - log [ref=f144e375]
+  - log [ref=f144e376]
+  - log [ref=f144e377]
+  - log [ref=f144e378]
+  - log [ref=f144e379]
+  - log [ref=f144e380]
+  - log [ref=f144e381]
+  - log [ref=f144e382]
+  - log [ref=f144e383]
+  - log [ref=f144e384]

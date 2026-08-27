@@ -1,0 +1,192 @@
+- generic [ref=f300e1]:
+  - generic [ref=f300e2]:
+    - generic [ref=f300e3]:
+      - generic [ref=f300e4]:
+        - list:
+          - listitem [ref=f300e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f300e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f300e7]:
+        - text: Logged in as
+        - link "admin" [ref=f300e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f300e9]:
+        - listitem [ref=f300e10]:
+          - link [ref=f300e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f300e12]
+        - listitem [ref=f300e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f300e14]:
+          - link "My page" [ref=f300e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f300e16]:
+          - link "Projects" [ref=f300e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f300e18]:
+          - link "Helpdesk Command Center" [ref=f300e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f300e20]:
+          - link "Administration" [ref=f300e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f300e22]:
+          - link "Help" [ref=f300e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f300e24]:
+      - generic [ref=f300e25]:
+        - generic [ref=f300e26]:
+          - generic [ref=f300e27]:
+            - link "Search" [ref=f300e28] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f300e29]
+        - generic [ref=f300e30]:
+          - generic [ref=f300e31] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f300e32]
+      - generic [ref=f300e33]:
+        - list [ref=f300e34]:
+          - listitem [ref=f300e35]:
+            - link "+" [ref=f300e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f300e37]:
+            - link "Overview" [ref=f300e38] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f300e39]:
+            - link "Activity" [ref=f300e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f300e41]:
+            - link "Issues" [ref=f300e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f300e43]:
+            - link "Spent time" [ref=f300e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f300e45]:
+            - link "Gantt" [ref=f300e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f300e47]:
+            - link "Calendar" [ref=f300e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f300e49]:
+            - link "News" [ref=f300e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f300e51]:
+            - link "Documents" [ref=f300e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f300e53]:
+            - link "Wiki" [ref=f300e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f300e55]:
+            - link "Files" [ref=f300e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f300e57]:
+            - link "Helpdesk" [ref=f300e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk
+          - listitem [ref=f300e59]:
+            - link "Settings" [ref=f300e60] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f300e61]:
+          - button [ref=f300e62] [cursor=pointer]
+          - button [ref=f300e63] [cursor=pointer]
+    - generic [ref=f300e64]:
+      - list [ref=f300e68]:
+        - listitem [ref=f300e69]:
+          - link "Helpdesk Dashboard" [ref=f300e70] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk
+        - listitem [ref=f300e73]:
+          - link "Helpdesk Tickets" [ref=f300e74] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets
+        - listitem [ref=f300e77]:
+          - link "Knowledgebase" [ref=f300e78] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/knowledgebase
+        - listitem [ref=f300e81]:
+          - link "Helpdesk SLA" [ref=f300e82] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/sla
+        - listitem [ref=f300e85]:
+          - link "Organization" [ref=f300e86] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/organization
+        - listitem [ref=f300e89]:
+          - link "Settings" [ref=f300e90] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/settings
+      - generic [ref=f300e93]:
+        - generic [ref=f300e94]:
+          - generic [ref=f300e96]:
+            - heading "Helpdesk SLA" [level=2] [ref=f300e97]
+            - paragraph [ref=f300e98]: Helpdesk Service Desk
+          - link "New SLA" [ref=f300e100] [cursor=pointer]:
+            - /url: /rf_slas/new?project_id=9
+        - generic [ref=f300e103]:
+          - textbox "Search SLAs..." [active] [ref=f300e105]
+          - combobox "All Statuses" [ref=f300e106] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f300e107]:
+            - button "Apply Filters" [ref=f300e108] [cursor=pointer]
+            - link "Clear" [ref=f300e111] [cursor=pointer]:
+              - /url: /projects/9/helpdesk/sla
+        - table [ref=f300e117]:
+          - rowgroup [ref=f300e118]:
+            - row [ref=f300e119]:
+              - columnheader "S.No" [ref=f300e120]
+              - columnheader "SLA Name" [ref=f300e121]
+              - columnheader "Author" [ref=f300e122]
+              - columnheader "Updated By" [ref=f300e123]
+              - columnheader "Created" [ref=f300e124]
+              - columnheader "Updated" [ref=f300e125]
+              - columnheader "User Count" [ref=f300e126]
+              - columnheader "SLA Agreement" [ref=f300e127]
+              - columnheader "Active" [ref=f300e128]
+              - columnheader "Action" [ref=f300e129]
+          - rowgroup [ref=f300e130]:
+            - row [ref=f300e131]:
+              - cell "1" [ref=f300e132]
+              - cell [ref=f300e133]:
+                - link "dfgsdfg" [ref=f300e134] [cursor=pointer]:
+                  - /url: /rf_slas/2?project_id=9
+              - cell "Redmine Admin" [ref=f300e135]
+              - cell "Redmine Admin" [ref=f300e136]
+              - cell "08/24/2026 08:39 AM" [ref=f300e137]
+              - cell "08/24/2026 08:47 AM" [ref=f300e138]
+              - cell "0" [ref=f300e139]
+              - cell "—" [ref=f300e140]
+              - cell [ref=f300e141]:
+                - checkbox "Active" [checked] [ref=f300e142]
+              - cell [ref=f300e143]:
+                - generic [ref=f300e144]:
+                  - link "History" [ref=f300e145] [cursor=pointer]:
+                    - /url: /rf_slas/2/history?project_id=9
+                  - link "Edit" [ref=f300e150] [cursor=pointer]:
+                    - /url: /rf_slas/2/edit?project_id=9
+                  - link "Delete" [ref=f300e153] [cursor=pointer]:
+                    - /url: javascript:void(0)
+    - generic [ref=f300e157]:
+      - text: Powered by
+      - link "Redmine" [ref=f300e158] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f300e159]
+  - log [ref=f300e160]
+  - log [ref=f300e161]
+  - log [ref=f300e162]
+  - log [ref=f300e163]
+  - log [ref=f300e164]
+  - log [ref=f300e165]
+  - log [ref=f300e166]
+  - log [ref=f300e167]
+  - log [ref=f300e168]
+  - log [ref=f300e169]
+  - log [ref=f300e170]
+  - log [ref=f300e171]
+  - log [ref=f300e172]
+  - log [ref=f300e173]
+  - log [ref=f300e174]
+  - log [ref=f300e175]
+  - log [ref=f300e176]
+  - log [ref=f300e177]
+  - log [ref=f300e178]
+  - log [ref=f300e179]

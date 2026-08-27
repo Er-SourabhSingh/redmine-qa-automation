@@ -1,0 +1,86 @@
+- generic [active] [ref=f129e1]:
+  - generic [ref=f129e2]:
+    - generic [ref=f129e3]:
+      - generic [ref=f129e4]:
+        - list:
+          - listitem [ref=f129e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f129e6]:
+            - link "Sign out":
+              - /url: /logout
+      - list [ref=f129e7]:
+        - listitem [ref=f129e8]:
+          - link "My Helpdesk" [ref=f129e9] [cursor=pointer]:
+            - /url: /helpdesk
+    - heading "Helpdesk Service Desk" [level=1] [ref=f129e11]
+    - generic [ref=f129e12]:
+      - list [ref=f129e16]:
+        - listitem [ref=f129e17]:
+          - link "Helpdesk Dashboard" [ref=f129e18] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk
+        - listitem [ref=f129e21]:
+          - link "Helpdesk Tickets" [ref=f129e22] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets
+        - listitem [ref=f129e25]:
+          - link "Knowledgebase" [ref=f129e26] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/knowledgebase
+      - generic [ref=f129e29]:
+        - generic [ref=f129e30]:
+          - generic [ref=f129e32]:
+            - heading "Helpdesk Dashboard" [level=2] [ref=f129e33]
+            - paragraph [ref=f129e34]: Helpdesk Service Desk
+          - generic [ref=f129e35]:
+            - button "Date Range" [ref=f129e37] [cursor=pointer]:
+              - generic [ref=f129e40]: 27 Jul 26 - 25 Aug 26
+            - link "New issue" [ref=f129e43] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk/new
+        - generic [ref=f129e45]:
+          - link "0 Total Tickets View all" [ref=f129e46] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets?created_from=2026-07-27&created_to=2026-08-25
+            - generic [ref=f129e51]: "0"
+            - generic [ref=f129e52]: Total Tickets
+            - generic [ref=f129e53]: View all
+          - link "0 Open View all" [ref=f129e56] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets?created_from=2026-07-27&created_to=2026-08-25&status_id%5B%5D=open
+            - generic [ref=f129e61]: "0"
+            - generic [ref=f129e62]: Open
+            - generic [ref=f129e63]: View all
+          - link "0 Resolved View all" [ref=f129e66] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets?created_from=2026-07-27&created_to=2026-08-25&status_id%5B%5D=closed
+            - generic [ref=f129e71]: "0"
+            - generic [ref=f129e72]: Resolved
+            - generic [ref=f129e73]: View all
+        - generic [ref=f129e76]:
+          - heading "Prepaid Support Hours" [level=3] [ref=f129e78]
+          - table [ref=f129e79]:
+            - rowgroup [ref=f129e80]:
+              - row [ref=f129e81]:
+                - columnheader "Organization" [ref=f129e82]
+                - columnheader "Approved" [ref=f129e83]
+                - columnheader "Used" [ref=f129e84]
+                - columnheader "Remaining" [ref=f129e85]
+                - columnheader "Usage" [ref=f129e86]
+                - columnheader "Action" [ref=f129e87]
+            - rowgroup [ref=f129e88]:
+              - row [ref=f129e89]:
+                - cell "Acme Corp" [ref=f129e90]
+                - cell "40.00h" [ref=f129e91]
+                - cell "0.00h" [ref=f129e92]
+                - cell "40.00h" [ref=f129e93]
+                - cell "0% Used 0%" [ref=f129e94]:
+                  - generic [ref=f129e95]:
+                    - img "0% Used" [ref=f129e96]
+                    - generic [ref=f129e97]: 0%
+                - cell [ref=f129e98]:
+                  - link "Ledger" [ref=f129e99] [cursor=pointer]:
+                    - /url: /projects/helpdesk/helpdesk?ledger_organization_id=1&ledger_project_id=9
+    - generic [ref=f129e103]:
+      - text: Powered by
+      - link "Redmine" [ref=f129e104] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f129e105]
+  - log [ref=f129e106]
+  - log [ref=f129e107]
+  - log [ref=f129e108]

@@ -1,0 +1,165 @@
+- generic [ref=f398e1]:
+  - generic [ref=f398e2]:
+    - generic [ref=f398e3]:
+      - generic [ref=f398e4]:
+        - list:
+          - listitem [ref=f398e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f398e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f398e7]:
+        - text: Logged in as
+        - link "admin" [ref=f398e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f398e9]:
+        - listitem [ref=f398e10]:
+          - link [ref=f398e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f398e12]
+        - listitem [ref=f398e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f398e14]:
+          - link "My page" [ref=f398e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f398e16]:
+          - link "Projects" [ref=f398e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f398e18]:
+          - link "Flux Gantt" [ref=f398e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f398e20]:
+          - link "Helpdesk Command Center" [ref=f398e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f398e22]:
+          - link "Time Tracker" [ref=f398e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f398e24]:
+          - link "Timesheet" [ref=f398e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f398e26]:
+          - link "Workloads" [ref=f398e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f398e28]:
+          - link "More" [ref=f398e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f398e30]:
+      - generic [ref=f398e31]:
+        - generic [ref=f398e32]:
+          - generic [ref=f398e33]:
+            - link "Search..." [ref=f398e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f398e35]
+        - generic [ref=f398e36]:
+          - generic [ref=f398e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f398e38]
+    - generic [ref=f398e39]:
+      - list [ref=f398e43]:
+        - listitem [ref=f398e44]:
+          - link "Helpdesk Dashboard" [ref=f398e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f398e48]:
+          - link "Helpdesk Tickets" [ref=f398e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f398e52]:
+          - link "Reports" [ref=f398e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f398e56]:
+          - link "Organization" [ref=f398e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f398e60]:
+          - link "Customers" [ref=f398e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f398e64]:
+          - link "Products" [ref=f398e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f398e68]:
+          - link "Helpdesk Settings" [ref=f398e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f398e72]:
+        - 'heading "Edit Customer: Beta Customer" [level=2] [ref=f398e73]'
+        - generic [ref=f398e74]:
+          - generic [ref=f398e75]:
+            - paragraph [ref=f398e76]:
+              - generic [ref=f398e77]: Login *
+              - textbox "Login *" [ref=f398e78]: beta.customer
+              - emphasis [ref=f398e79]: Login must be at least 2 characters long
+            - paragraph [ref=f398e80]:
+              - generic [ref=f398e81]: First name *
+              - textbox "First name *" [ref=f398e82]: Beta
+            - paragraph [ref=f398e83]:
+              - generic [ref=f398e84]: Last name *
+              - textbox "Last name *" [ref=f398e85]: Customer
+            - paragraph [ref=f398e86]:
+              - generic [ref=f398e87]: Email *
+              - textbox "Email *" [ref=f398e88]: beta.customer@test.local
+            - generic [ref=f398e89]:
+              - paragraph [ref=f398e90]:
+                - generic [ref=f398e91]: Password *
+                - textbox "Password *" [ref=f398e92]
+                - emphasis [ref=f398e93]: Leave blank to keep the current password
+              - paragraph [ref=f398e94]:
+                - generic [ref=f398e95]: Confirmation *
+                - textbox "Confirmation *" [ref=f398e96]
+            - paragraph [ref=f398e97]:
+              - checkbox "Generate password automatically" [ref=f398e98]
+              - generic [ref=f398e99]: Generate password automatically
+            - paragraph [ref=f398e100]:
+              - checkbox "Send account information to the user" [checked] [active] [ref=f398e101]
+              - generic [ref=f398e102]: Send account information to the user
+          - group "Project access" [ref=f398e103]:
+            - paragraph [ref=f398e105]: Projects this customer can raise tickets against, and the SLA, support level and organisation that apply on each. Leave empty to create the account without project access.
+            - generic [ref=f398e107]:
+              - generic [ref=f398e108]:
+                - generic [ref=f398e109]: Project
+                - combobox [ref=f398e110]:
+                  - option "-- Select project --"
+                  - option "Helpdesk QA Alpha"
+                  - option "Helpdesk QA Beta" [selected]
+              - generic [ref=f398e111]:
+                - generic [ref=f398e112]: SLA Name *
+                - combobox [ref=f398e113]:
+                  - option "None"
+                  - option "Alpha Standard SLA" [disabled]
+                  - option "Beta Standard SLA" [selected]
+              - generic [ref=f398e114]:
+                - generic [ref=f398e115]: Support Level *
+                - combobox [ref=f398e116]:
+                  - option "None"
+                  - option "AB-L1" [selected]
+                  - option "L1" [disabled]
+              - generic [ref=f398e117]:
+                - generic [ref=f398e118]: Organization Name
+                - combobox [ref=f398e119]:
+                  - option "None"
+                  - option "Alpha Org"
+                  - option "Alpha Org Subsidiary"
+                  - option "Beta Org" [selected]
+              - button "Delete" [ref=f398e120] [cursor=pointer]
+            - paragraph [ref=f398e124]:
+              - button "Add project" [ref=f398e125] [cursor=pointer]
+          - paragraph [ref=f398e127]:
+            - button "Save" [ref=f398e128] [cursor=pointer]
+            - link "Cancel" [ref=f398e129] [cursor=pointer]:
+              - /url: /rf_helpdesk/customers
+    - generic [ref=f398e130]:
+      - text: Powered by
+      - link "Redmine" [ref=f398e131] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f398e132]
+  - log [ref=f398e133]
+  - log [ref=f398e134]
+  - log [ref=f398e135]
+  - log [ref=f398e136]
+  - log [ref=f398e137]
+  - log [ref=f398e138]
+  - log [ref=f398e139]
+  - log [ref=f398e140]
+  - log [ref=f398e141]
+  - log [ref=f398e142]
+  - log [ref=f398e143]

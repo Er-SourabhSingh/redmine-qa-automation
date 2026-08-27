@@ -1,0 +1,97 @@
+- generic [ref=f26e1]:
+  - generic [ref=f26e2]:
+    - generic [ref=f26e3]:
+      - generic [ref=f26e4]:
+        - list:
+          - listitem [ref=f26e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f26e6]:
+            - link "Sign out":
+              - /url: /logout
+      - list [ref=f26e7]:
+        - listitem [ref=f26e8]:
+          - link "My Helpdesk" [ref=f26e9] [cursor=pointer]:
+            - /url: /helpdesk
+    - heading "Redmine" [level=1] [ref=f26e11]
+    - generic [ref=f26e13]:
+      - link "Change password" [ref=f26e15] [cursor=pointer]:
+        - /url: /my/password
+      - heading "My account" [level=2] [ref=f26e16]
+      - generic [ref=f26e19]:
+        - group "Information" [ref=f26e20]:
+          - paragraph [ref=f26e22]:
+            - generic [ref=f26e23]: First name *
+            - textbox "First name *" [active] [ref=f26e24]: Login
+          - paragraph [ref=f26e25]:
+            - generic [ref=f26e26]: Last name *
+            - textbox "Last name *" [ref=f26e27]: TestCustomer
+          - paragraph [ref=f26e28]:
+            - generic [ref=f26e29]: Email *
+            - textbox "Email *" [ref=f26e30]: logintest.customer@example.com
+          - paragraph [ref=f26e31]:
+            - generic [ref=f26e32]: Language
+            - combobox "Language" [ref=f26e33]:
+              - option "(auto)" [selected]
+              - option "Albanian (Shqip)"
+              - option "Arabic (عربي)"
+              - option "Azerbaijani (Azeri)"
+              - option "Basque (Euskara)"
+              - option "Bosnian (Bosanski)"
+              - option "Bulgarian (Български)"
+              - option "Catalan (Català)"
+              - option "Chinese/Simplified (简体中文)"
+              - option "Chinese/Traditional (繁體中文)"
+              - option "Croatian (Hrvatski)"
+              - option "Czech (Čeština)"
+              - option "Danish (Dansk)"
+              - option "Dutch (Nederlands)"
+              - option "English"
+              - option "English (British)"
+              - option "Estonian (Eesti)"
+              - option "Finnish (Suomi)"
+              - option "French (Français)"
+              - option "Galician (Galego)"
+              - option "German (Deutsch)"
+              - option "Greek (Ελληνικά)"
+              - option "Hebrew (עברית)"
+              - option "Hungarian (Magyar)"
+              - option "Indonesian (Bahasa Indonesia)"
+              - option "Italian (Italiano)"
+              - option "Japanese (日本語)"
+              - option "Korean (한국어)"
+              - option "Latvian (Latviešu)"
+              - option "Lithuanian (lietuvių)"
+              - option "Macedonian (Македонски)"
+              - option "Mongolian (Монгол)"
+              - option "Norwegian (Norsk bokmål)"
+              - option "Persian (فارسی)"
+              - option "Polish (Polski)"
+              - option "Portuguese (Português)"
+              - option "Portuguese/Brazil (Português/Brasil)"
+              - option "Romanian (Română)"
+              - option "Russian (Русский)"
+              - option "Serbian (Srpski)"
+              - option "Serbian Cyrillic (Српски)"
+              - option "Slovak (Slovenčina)"
+              - option "Slovene (Slovenščina)"
+              - option "Spanish (Español)"
+              - option "Spanish/Panama (Español/Panamá)"
+              - option "Swedish (Svenska)"
+              - option "Tamil (தமிழ்)"
+              - option "Thai (ไทย)"
+              - option "Turkish (Türkçe)"
+              - option "Ukrainian (Українська)"
+              - option "Vietnamese (Tiếng Việt)"
+          - paragraph [ref=f26e34]:
+            - generic [ref=f26e35]: Two-factor authentication
+            - link "Enable authenticator app" [ref=f26e36] [cursor=pointer]:
+              - /url: /my/twofa/totp/activate/init
+        - paragraph [ref=f26e37]:
+          - button "Save" [ref=f26e38] [cursor=pointer]
+    - generic [ref=f26e39]:
+      - text: Powered by
+      - link "Redmine" [ref=f26e40] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f26e41]

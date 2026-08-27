@@ -1,0 +1,171 @@
+- generic [ref=f139e1]:
+  - generic [ref=f139e2]:
+    - generic [ref=f139e3]:
+      - generic [ref=f139e4]:
+        - img "Logo" [ref=f139e5]
+        - text: 
+      - navigation "Application tasks" [ref=f139e6]:
+        - button " Compose" [ref=f139e8] [cursor=pointer]
+        - button " Mail" [disabled] [ref=f139e9] [cursor=pointer]
+        - button " Contacts" [ref=f139e10] [cursor=pointer]
+        - button " Settings" [ref=f139e11] [cursor=pointer]
+        - generic [ref=f139e12]:
+          - button " Dark mode" [ref=f139e13] [cursor=pointer]
+          - button " About" [ref=f139e14] [cursor=pointer]
+          - button " Logout" [ref=f139e15] [cursor=pointer]
+    - navigation "Email folder selection" [ref=f139e16]:
+      - generic [ref=f139e17]:
+        - text: 
+        - generic [ref=f139e18]: alpha.customer@test.local
+        - button "" [ref=f139e19] [cursor=pointer]:     
+      - tree [ref=f139e21]:
+        - treeitem [level=1] [selected] [ref=f139e93]:
+          - link " Inbox" [ref=f139e94]:
+            - /url: /?_task=mail&_mbox=INBOX
+        - treeitem [level=1] [ref=f139e24]:
+          - link " Drafts" [ref=f139e25]:
+            - /url: /?_task=mail&_mbox=Drafts
+        - treeitem [level=1] [ref=f139e26]:
+          - link " Sent" [ref=f139e27]:
+            - /url: /?_task=mail&_mbox=Sent
+        - treeitem [level=1] [ref=f139e28]:
+          - link " Junk" [ref=f139e29]:
+            - /url: /?_task=mail&_mbox=Junk
+        - treeitem [level=1] [ref=f139e30]:
+          - link " Trash" [ref=f139e31]:
+            - /url: /?_task=mail&_mbox=Trash
+      - generic [ref=f139e33]:
+        - text: 
+        - generic "unknown" [ref=f139e34]: 0%
+    - generic [ref=f139e37]:
+      - generic [ref=f139e38]:
+        - text:  
+        - list [ref=f139e39]:
+          - menuitem [ref=f139e40]:
+            - link " Select" [ref=f139e80] [cursor=pointer]:
+              - /url: "#select"
+              - text:  Select       
+          - menuitem " Threads" [ref=f139e41]:
+            - link " Threads":
+              - /url: "#threads"
+              - text:  Threads   
+          - menuitem [ref=f139e42]:
+            - link " Options" [ref=f139e43] [cursor=pointer]:
+              - /url: "#list-options"
+        - button " Refresh" [ref=f139e44] [cursor=pointer]
+        - text:  
+      - search "Email search input" [ref=f139e45]:
+        - generic [ref=f139e46]:
+          - text: 
+          - textbox "Search terms" [ref=f139e47]:
+            - /placeholder: Search...
+        - text: 
+        - button "" [ref=f139e48] [cursor=pointer]
+        - button "" [ref=f139e49] [cursor=pointer]
+        - text: 
+      - text:   
+      - generic [ref=f139e50]:
+        - text: 
+        - table "Email Messages Listing" [ref=f139e81]:
+          - text: 
+          - rowgroup [ref=f139e82]:
+            - row [selected] [ref=f139e95]:
+              - cell "admin@test.local 3 KB  Your Helpdesk Account Has Been Created" [active] [ref=f139e96]:
+                - generic [ref=f139e85]: admin@test.local
+                - generic [ref=f139e97]: 3 KB
+                - generic [ref=f139e88]:
+                  - generic: 
+                  - link "Your Helpdesk Account Has Been Created" [ref=f139e89]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=1&_action=show
+              - cell "Not Flagged" [ref=f139e90]:
+                - generic [ref=f139e91] [cursor=pointer]:
+                  - generic "Not Flagged": 
+      - toolbar "List navigation" [ref=f139e51]:
+        - button "" [disabled]
+        - button "" [disabled]
+        - generic [ref=f139e52]: Messages 1 to 1 of 1
+        - textbox "Current page" [disabled] [ref=f139e53]: "1"
+        - button "" [disabled]
+        - button "" [disabled]
+    - generic [ref=f139e55]:
+      - toolbar "Application toolbar" [ref=f139e56]:
+        - text:                   Browse
+        - list [ref=f139e57]:
+          - menuitem: 
+          - menuitem [ref=f139e58]:
+            - button " Reply" [ref=f139e98] [cursor=pointer]
+          - menuitem [ref=f139e59]:
+            - generic [ref=f139e60]:
+              - button " Reply all" [ref=f139e99] [cursor=pointer]
+              - link "" [ref=f139e61] [cursor=pointer]:
+                - /url: "#reply-all"
+          - menuitem [ref=f139e62]:
+            - generic [ref=f139e63]:
+              - button " Forward" [ref=f139e100] [cursor=pointer]
+              - link "" [ref=f139e64] [cursor=pointer]:
+                - /url: "#forward"
+          - menuitem [ref=f139e65]
+          - menuitem [ref=f139e66]:
+            - button " Delete" [ref=f139e101] [cursor=pointer]
+          - menuitem [ref=f139e67]:
+            - button " Mark" [ref=f139e68] [cursor=pointer]
+          - menuitem [ref=f139e69]:
+            - button " More" [ref=f139e70] [cursor=pointer]
+          - menuitem: 
+          - menuitem: 
+          - menuitem: 
+        - text: 
+      - iframe [ref=f139e72]:
+        - generic [ref=f140e1]:
+          - main [ref=f140e3]:
+            - generic [ref=f140e4]:
+              - heading [level=2] [ref=f140e5]:
+                - text: Your Helpdesk Account Has Been Created
+                - button "" [ref=f140e6] [cursor=pointer]
+              - generic [ref=f140e7]:
+                - img "Contact photo" [ref=f140e8]
+                - generic [ref=f140e9]:
+                  - generic [ref=f140e11]:
+                    - text: From
+                    - link "admin@test.local" [ref=f140e13] [cursor=pointer]:
+                      - /url: mailto:admin@test.local
+                    - text: on 2026-08-26 14:31
+                  - generic [ref=f140e14]:
+                    - link " Details" [ref=f140e15] [cursor=pointer]:
+                      - /url: "#headers"
+                    - link " Headers" [ref=f140e16] [cursor=pointer]:
+                      - /url: "#all-headers"
+                    - button " Plain text" [ref=f140e17] [cursor=pointer]
+            - generic [ref=f140e18]:
+              - region "Attachments"
+              - region "Message Body" [ref=f140e19]:
+                - generic: 
+                - generic [ref=f140e23]:
+                  - heading "Your Helpdesk Account Has Been Created" [level=2] [ref=f140e25]
+                  - generic [ref=f140e26]:
+                    - paragraph [ref=f140e27]: Hello Alpha Customer,
+                    - generic [ref=f140e28]:
+                      - heading "Your Account Credentials" [level=3] [ref=f140e29]
+                      - paragraph [ref=f140e30]:
+                        - strong [ref=f140e31]: "Login:"
+                        - text: alpha.customer
+                      - paragraph [ref=f140e32]:
+                        - strong [ref=f140e33]: "Password:"
+                        - text: Test@12345
+                      - paragraph [ref=f140e34]:
+                        - strong [ref=f140e35]: "Email:"
+                        - text: alpha.customer@test.local
+                    - paragraph [ref=f140e36]: You can now access the helpdesk using your credentials below. Please login and update your password if required.
+                    - paragraph [ref=f140e37]:
+                      - link "Sign in" [ref=f140e38] [cursor=pointer]:
+                        - /url: http://localhost:3012/login
+                    - paragraph [ref=f140e39]:
+                      - strong [ref=f140e40]: "Helpdesk URL:"
+                      - link "http://localhost:3012/helpdesk" [ref=f140e41] [cursor=pointer]:
+                        - /url: http://localhost:3012/helpdesk
+                    - paragraph [ref=f140e42]:
+                      - emphasis [ref=f140e43]: If you have any questions, please contact your system administrator.
+                  - paragraph [ref=f140e45]: Redmine
+          - text:    
+      - text:   
+  - text:   

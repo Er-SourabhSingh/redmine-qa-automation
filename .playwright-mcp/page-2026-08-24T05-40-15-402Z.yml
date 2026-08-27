@@ -1,0 +1,478 @@
+- generic [active] [ref=f23e1]:
+  - generic [ref=f23e2]:
+    - generic [ref=f23e3]:
+      - generic [ref=f23e4]:
+        - list:
+          - listitem [ref=f23e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f23e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f23e7]:
+        - text: Logged in as
+        - link "daisy.skye" [ref=f23e8] [cursor=pointer]:
+          - /url: /users/6
+      - list [ref=f23e9]:
+        - listitem [ref=f23e10]:
+          - link [ref=f23e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f23e12]
+        - listitem [ref=f23e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f23e14]:
+          - link "My page" [ref=f23e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f23e16]:
+          - link "Projects" [ref=f23e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f23e18]:
+          - link "Helpdesk Command Center" [ref=f23e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f23e20]:
+          - link "Help" [ref=f23e21] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f23e22]:
+      - generic [ref=f23e23]:
+        - generic [ref=f23e24]:
+          - generic [ref=f23e25]:
+            - link "Search" [ref=f23e26] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f23e27]
+        - generic [ref=f23e28]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f23e30]
+    - generic [ref=f23e32]:
+      - generic [ref=f23e34]:
+        - text: "Add:"
+        - combobox "Add" [ref=f23e35]:
+          - option [selected]
+          - option "Issues assigned to me" [disabled]
+          - option "Reported issues" [disabled]
+          - option "Updated issues"
+          - option "Watched issues"
+          - option "Issues"
+          - option "Latest news"
+          - option "Calendar"
+          - option "Documents"
+          - option "Spent time"
+          - option "Activity"
+      - heading "My page" [level=2] [ref=f23e36]
+      - generic [ref=f23e37]:
+        - generic [ref=f23e40]:
+          - generic [ref=f23e41]:
+            - generic "Move" [ref=f23e42]
+            - link "Delete" [ref=f23e44] [cursor=pointer]:
+              - /url: /my/remove_block?block=issuesassignedtome
+          - link "Options" [ref=f23e47] [cursor=pointer]:
+            - /url: "#"
+          - heading [level=3] [ref=f23e49]:
+            - link "Issues assigned to me" [ref=f23e50] [cursor=pointer]:
+              - /url: /issues?c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&f%5B%5D=status_id&f%5B%5D=assigned_to_id&f%5B%5D=project.status&op%5Bassigned_to_id%5D=%3D&op%5Bproject.status%5D=%3D&op%5Bstatus_id%5D=o&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc&v%5Bassigned_to_id%5D%5B%5D=me&v%5Bproject.status%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=
+            - text: (20)
+          - table [ref=f23e53]:
+            - rowgroup [ref=f23e54]:
+              - row [ref=f23e55]:
+                - columnheader [ref=f23e56]:
+                  - link "#" [ref=f23e57] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=id%3Adesc%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f23e58]:
+                  - link "Project" [ref=f23e59] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=project%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f23e60]:
+                  - link "Tracker" [ref=f23e61] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=tracker%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f23e62]:
+                  - link "Status" [ref=f23e63] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=status%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f23e64]:
+                  - link "Subject" [ref=f23e65] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=subject%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f23e66]
+            - rowgroup [ref=f23e67]:
+              - row [ref=f23e68]:
+                - cell [ref=f23e69]:
+                  - link "259" [ref=f23e70] [cursor=pointer]:
+                    - /url: /issues/259
+                - cell [ref=f23e71]:
+                  - link "Agile Board Project" [ref=f23e72] [cursor=pointer]:
+                    - /url: /projects/agileboard
+                - cell "Feature" [ref=f23e73]
+                - cell "Feedback" [ref=f23e74]
+                - cell [ref=f23e75]:
+                  - link "Implement typing notifications" [ref=f23e76] [cursor=pointer]:
+                    - /url: /issues/259
+                - cell [ref=f23e77]:
+                  - link "Actions" [ref=f23e78] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e80]:
+                - cell [ref=f23e81]:
+                  - link "205" [ref=f23e82] [cursor=pointer]:
+                    - /url: /issues/205
+                - cell [ref=f23e83]:
+                  - link "MVP build for PaySheet Application" [ref=f23e84] [cursor=pointer]:
+                    - /url: /projects/mvpbuild
+                - cell "Feature" [ref=f23e85]
+                - cell "Feedback" [ref=f23e86]
+                - cell [ref=f23e87]:
+                  - link "Implement typing notifications" [ref=f23e88] [cursor=pointer]:
+                    - /url: /issues/205
+                - cell [ref=f23e89]:
+                  - link "Actions" [ref=f23e90] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e92]:
+                - cell [ref=f23e93]:
+                  - link "190" [ref=f23e94] [cursor=pointer]:
+                    - /url: /issues/190
+                - cell [ref=f23e95]:
+                  - link "HR management2" [ref=f23e96] [cursor=pointer]:
+                    - /url: /projects/hrmngmt
+                - cell "Feature" [ref=f23e97]
+                - cell "In Progress" [ref=f23e98]
+                - cell [ref=f23e99]:
+                  - link "Implement comment editing" [ref=f23e100] [cursor=pointer]:
+                    - /url: /issues/190
+                - cell [ref=f23e101]:
+                  - link "Actions" [ref=f23e102] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e104]:
+                - cell [ref=f23e105]:
+                  - link "125" [ref=f23e106] [cursor=pointer]:
+                    - /url: /issues/125
+                - cell [ref=f23e107]:
+                  - link "Mobile app development1" [ref=f23e108] [cursor=pointer]:
+                    - /url: /projects/mobileappdev
+                - cell "Feature" [ref=f23e109]
+                - cell "In Progress" [ref=f23e110]
+                - cell [ref=f23e111]:
+                  - link "Add custom report templates" [ref=f23e112] [cursor=pointer]:
+                    - /url: /issues/125
+                - cell [ref=f23e113]:
+                  - link "Actions" [ref=f23e114] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e116]:
+                - cell [ref=f23e117]:
+                  - link "85" [ref=f23e118] [cursor=pointer]:
+                    - /url: /issues/85
+                - cell [ref=f23e119]:
+                  - link "HR management2" [ref=f23e120] [cursor=pointer]:
+                    - /url: /projects/hrmngmt
+                - cell "Feature" [ref=f23e121]
+                - cell "In Progress" [ref=f23e122]
+                - cell [ref=f23e123]:
+                  - link "Add project visibility controls" [ref=f23e124] [cursor=pointer]:
+                    - /url: /issues/85
+                - cell [ref=f23e125]:
+                  - link "Actions" [ref=f23e126] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e128]:
+                - cell [ref=f23e129]:
+                  - link "68" [ref=f23e130] [cursor=pointer]:
+                    - /url: /issues/68
+                - cell [ref=f23e131]:
+                  - link "Mobile app development1" [ref=f23e132] [cursor=pointer]:
+                    - /url: /projects/mobileappdev
+                - cell "Bug" [ref=f23e133]
+                - cell "New" [ref=f23e134]
+                - cell [ref=f23e135]:
+                  - link "Implement email notifications" [ref=f23e136] [cursor=pointer]:
+                    - /url: /issues/68
+                - cell [ref=f23e137]:
+                  - link "Actions" [ref=f23e138] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e140]:
+                - cell [ref=f23e141]:
+                  - link "39" [ref=f23e142] [cursor=pointer]:
+                    - /url: /issues/39
+                - cell [ref=f23e143]:
+                  - link "HR management2" [ref=f23e144] [cursor=pointer]:
+                    - /url: /projects/hrmngmt
+                - cell "Feature" [ref=f23e145]
+                - cell "In Progress" [ref=f23e146]
+                - cell [ref=f23e147]:
+                  - link "Add project visibility controls" [ref=f23e148] [cursor=pointer]:
+                    - /url: /issues/39
+                - cell [ref=f23e149]:
+                  - link "Actions" [ref=f23e150] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e152]:
+                - cell [ref=f23e153]:
+                  - link "14" [ref=f23e154] [cursor=pointer]:
+                    - /url: /issues/14
+                - cell [ref=f23e155]:
+                  - link "HR management2" [ref=f23e156] [cursor=pointer]:
+                    - /url: /projects/hrmngmt
+                - cell "Feature" [ref=f23e157]
+                - cell "In Progress" [ref=f23e158]
+                - cell [ref=f23e159]:
+                  - link "The project should be visible in issues" [ref=f23e160] [cursor=pointer]:
+                    - /url: /issues/14
+                - cell [ref=f23e161]:
+                  - link "Actions" [ref=f23e162] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e164]:
+                - cell [ref=f23e165]:
+                  - link "116" [ref=f23e166] [cursor=pointer]:
+                    - /url: /issues/116
+                - cell [ref=f23e167]:
+                  - link "Marketing campaign4" [ref=f23e168] [cursor=pointer]:
+                    - /url: /projects/markcamgn
+                - cell "Support" [ref=f23e169]
+                - cell "New" [ref=f23e170]
+                - cell [ref=f23e171]:
+                  - link "Integrate analytics for project tracking" [ref=f23e172] [cursor=pointer]:
+                    - /url: /issues/116
+                - cell [ref=f23e173]:
+                  - link "Actions" [ref=f23e174] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e176]:
+                - cell [ref=f23e177]:
+                  - link "84" [ref=f23e178] [cursor=pointer]:
+                    - /url: /issues/84
+                - cell [ref=f23e179]:
+                  - link "HR management2" [ref=f23e180] [cursor=pointer]:
+                    - /url: /projects/hrmngmt
+                - cell "Support" [ref=f23e181]
+                - cell "Feedback" [ref=f23e182]
+                - cell [ref=f23e183]:
+                  - link "Implement project search filters" [ref=f23e184] [cursor=pointer]:
+                    - /url: /issues/84
+                - cell [ref=f23e185]:
+                  - link "Actions" [ref=f23e186] [cursor=pointer]:
+                    - /url: "#"
+        - generic [ref=f23e189]:
+          - generic [ref=f23e190]:
+            - generic "Move" [ref=f23e191]
+            - link "Delete" [ref=f23e193] [cursor=pointer]:
+              - /url: /my/remove_block?block=issuesreportedbyme
+          - link "Options" [ref=f23e196] [cursor=pointer]:
+            - /url: "#"
+          - heading [level=3] [ref=f23e198]:
+            - link "Reported issues" [ref=f23e199] [cursor=pointer]:
+              - /url: /issues?c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&f%5B%5D=status_id&f%5B%5D=author_id&f%5B%5D=project.status&op%5Bauthor_id%5D=%3D&op%5Bproject.status%5D=%3D&op%5Bstatus_id%5D=o&set_filter=1&sort=updated_on%3Adesc&v%5Bauthor_id%5D%5B%5D=me&v%5Bproject.status%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=
+            - text: (18)
+          - table [ref=f23e202]:
+            - rowgroup [ref=f23e203]:
+              - row [ref=f23e204]:
+                - columnheader [ref=f23e205]:
+                  - link "#" [ref=f23e206] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=id%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f23e207]:
+                  - link "Project" [ref=f23e208] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=project%2Cupdated_on%3Adesc
+                - columnheader [ref=f23e209]:
+                  - link "Tracker" [ref=f23e210] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=tracker%2Cupdated_on%3Adesc
+                - columnheader [ref=f23e211]:
+                  - link "Status" [ref=f23e212] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=status%2Cupdated_on%3Adesc
+                - columnheader [ref=f23e213]:
+                  - link "Subject" [ref=f23e214] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=subject%2Cupdated_on%3Adesc
+                - columnheader [ref=f23e215]
+            - rowgroup [ref=f23e216]:
+              - row [ref=f23e217]:
+                - cell [ref=f23e218]:
+                  - link "264" [ref=f23e219] [cursor=pointer]:
+                    - /url: /issues/264
+                - cell [ref=f23e220]:
+                  - link "Flux Gantt Project" [ref=f23e221] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                - cell "Feature" [ref=f23e222]
+                - cell "In Progress" [ref=f23e223]
+                - cell [ref=f23e224]:
+                  - link "Implement scheduled exports" [ref=f23e225] [cursor=pointer]:
+                    - /url: /issues/264
+                - cell [ref=f23e226]:
+                  - link "Actions" [ref=f23e227] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e229]:
+                - cell [ref=f23e230]:
+                  - link "263" [ref=f23e231] [cursor=pointer]:
+                    - /url: /issues/263
+                - cell [ref=f23e232]:
+                  - link "Flux Gantt Project" [ref=f23e233] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                - cell "Feature" [ref=f23e234]
+                - cell "New" [ref=f23e235]
+                - cell [ref=f23e236]:
+                  - link "Add Excel export formatting" [ref=f23e237] [cursor=pointer]:
+                    - /url: /issues/263
+                - cell [ref=f23e238]:
+                  - link "Actions" [ref=f23e239] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e241]:
+                - cell [ref=f23e242]:
+                  - link "225" [ref=f23e243] [cursor=pointer]:
+                    - /url: /issues/225
+                - cell [ref=f23e244]:
+                  - link "Software development5" [ref=f23e245] [cursor=pointer]:
+                    - /url: /projects/defaultsd
+                - cell "Feature" [ref=f23e246]
+                - cell "New" [ref=f23e247]
+                - cell [ref=f23e248]:
+                  - link "Add scheduled data backups" [ref=f23e249] [cursor=pointer]:
+                    - /url: /issues/225
+                - cell [ref=f23e250]:
+                  - link "Actions" [ref=f23e251] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e253]:
+                - cell [ref=f23e254]:
+                  - link "224" [ref=f23e255] [cursor=pointer]:
+                    - /url: /issues/224
+                - cell [ref=f23e256]:
+                  - link "Software development5" [ref=f23e257] [cursor=pointer]:
+                    - /url: /projects/defaultsd
+                - cell "Bug" [ref=f23e258]
+                - cell "Resolved" [ref=f23e259]
+                - cell [ref=f23e260]:
+                  - link "Fix export template alignment" [ref=f23e261] [cursor=pointer]:
+                    - /url: /issues/224
+                - cell [ref=f23e262]:
+                  - link "Actions" [ref=f23e263] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e265]:
+                - cell [ref=f23e266]:
+                  - link "210" [ref=f23e267] [cursor=pointer]:
+                    - /url: /issues/210
+                - cell [ref=f23e268]:
+                  - link "Software development5" [ref=f23e269] [cursor=pointer]:
+                    - /url: /projects/defaultsd
+                - cell "Feature" [ref=f23e270]
+                - cell "In Progress" [ref=f23e271]
+                - cell [ref=f23e272]:
+                  - link "Implement scheduled exports" [ref=f23e273] [cursor=pointer]:
+                    - /url: /issues/210
+                - cell [ref=f23e274]:
+                  - link "Actions" [ref=f23e275] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e277]:
+                - cell [ref=f23e278]:
+                  - link "209" [ref=f23e279] [cursor=pointer]:
+                    - /url: /issues/209
+                - cell [ref=f23e280]:
+                  - link "Software development5" [ref=f23e281] [cursor=pointer]:
+                    - /url: /projects/defaultsd
+                - cell "Feature" [ref=f23e282]
+                - cell "New" [ref=f23e283]
+                - cell [ref=f23e284]:
+                  - link "Add Excel export formatting" [ref=f23e285] [cursor=pointer]:
+                    - /url: /issues/209
+                - cell [ref=f23e286]:
+                  - link "Actions" [ref=f23e287] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e289]:
+                - cell [ref=f23e290]:
+                  - link "180" [ref=f23e291] [cursor=pointer]:
+                    - /url: /issues/180
+                - cell [ref=f23e292]:
+                  - link "Software development5" [ref=f23e293] [cursor=pointer]:
+                    - /url: /projects/defaultsd
+                - cell "Feature" [ref=f23e294]
+                - cell "In Progress" [ref=f23e295]
+                - cell [ref=f23e296]:
+                  - link "Implement conditional fields" [ref=f23e297] [cursor=pointer]:
+                    - /url: /issues/180
+                - cell [ref=f23e298]:
+                  - link "Actions" [ref=f23e299] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e301]:
+                - cell [ref=f23e302]:
+                  - link "179" [ref=f23e303] [cursor=pointer]:
+                    - /url: /issues/179
+                - cell [ref=f23e304]:
+                  - link "Software development5" [ref=f23e305] [cursor=pointer]:
+                    - /url: /projects/defaultsd
+                - cell "Feature" [ref=f23e306]
+                - cell "New" [ref=f23e307]
+                - cell [ref=f23e308]:
+                  - link "Add input masking" [ref=f23e309] [cursor=pointer]:
+                    - /url: /issues/179
+                - cell [ref=f23e310]:
+                  - link "Actions" [ref=f23e311] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e313]:
+                - cell [ref=f23e314]:
+                  - link "150" [ref=f23e315] [cursor=pointer]:
+                    - /url: /issues/150
+                - cell [ref=f23e316]:
+                  - link "Software development5" [ref=f23e317] [cursor=pointer]:
+                    - /url: /projects/defaultsd
+                - cell "Feature" [ref=f23e318]
+                - cell "In Progress" [ref=f23e319]
+                - cell [ref=f23e320]:
+                  - link "Implement data retention policy" [ref=f23e321] [cursor=pointer]:
+                    - /url: /issues/150
+                - cell [ref=f23e322]:
+                  - link "Actions" [ref=f23e323] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f23e325]:
+                - cell [ref=f23e326]:
+                  - link "149" [ref=f23e327] [cursor=pointer]:
+                    - /url: /issues/149
+                - cell [ref=f23e328]:
+                  - link "Software development5" [ref=f23e329] [cursor=pointer]:
+                    - /url: /projects/defaultsd
+                - cell "Feature" [ref=f23e330]
+                - cell "New" [ref=f23e331]
+                - cell [ref=f23e332]:
+                  - link "Add CSV export options" [ref=f23e333] [cursor=pointer]:
+                    - /url: /issues/149
+                - cell [ref=f23e334]:
+                  - link "Actions" [ref=f23e335] [cursor=pointer]:
+                    - /url: "#"
+    - generic [ref=f23e337]:
+      - text: Powered by
+      - link "Redmine" [ref=f23e338] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f23e339]
+  - log [ref=f23e340]
+  - log [ref=f23e341]
+  - log [ref=f23e342]
+  - log [ref=f23e343]
+  - log [ref=f23e344]
+  - log [ref=f23e345]
+  - log [ref=f23e346]
+  - log [ref=f23e347]
+  - log [ref=f23e348]
+  - log [ref=f23e349]
+  - log [ref=f23e350]
+  - log [ref=f23e351]
+  - log [ref=f23e352]
+  - log [ref=f23e353]
+  - log [ref=f23e354]
+  - log [ref=f23e355]
+  - log [ref=f23e356]
+  - log [ref=f23e357]
+  - log [ref=f23e358]
+  - log [ref=f23e359]
+  - log [ref=f23e360]
+  - log [ref=f23e361]
+  - log [ref=f23e362]
+  - log [ref=f23e363]
+  - log [ref=f23e364]
+  - log [ref=f23e365]
+  - log [ref=f23e366]
+  - log [ref=f23e367]
+  - log [ref=f23e368]
+  - log [ref=f23e369]
+  - log [ref=f23e370]
+  - log [ref=f23e371]
+  - log [ref=f23e372]
+  - log [ref=f23e373]
+  - log [ref=f23e374]
+  - log [ref=f23e375]
+  - log [ref=f23e376]
+  - log [ref=f23e377]
+  - log [ref=f23e378]
+  - log [ref=f23e379]
+  - log [ref=f23e380]
+  - log [ref=f23e381]
+  - log [ref=f23e382]
+  - log [ref=f23e383]
+  - log [ref=f23e384]
+  - log [ref=f23e385]
+  - log [ref=f23e386]
+  - log [ref=f23e387]

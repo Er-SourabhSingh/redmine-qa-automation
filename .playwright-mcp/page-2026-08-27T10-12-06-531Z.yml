@@ -1,0 +1,41 @@
+- generic [active] [ref=f75e1]:
+  - generic [ref=f75e2]:
+    - generic [ref=f75e3]:
+      - generic [ref=f75e4]:
+        - list:
+          - listitem [ref=f75e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f75e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f75e7]:
+        - text: Logged in as
+        - link "delta.customer" [ref=f75e8] [cursor=pointer]:
+          - /url: /users/19
+      - list [ref=f75e9]:
+        - listitem [ref=f75e10]:
+          - link [ref=f75e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f75e12]
+        - listitem [ref=f75e13]:
+          - link "My Helpdesk" [ref=f75e14] [cursor=pointer]:
+            - /url: /helpdesk
+    - heading "Helpdesk" [level=1] [ref=f75e16]
+    - generic [ref=f75e18]:
+      - generic [ref=f75e19]:
+        - img "Home" [ref=f75e21]
+        - generic [ref=f75e22]:
+          - heading "Welcome delta" [level=2] [ref=f75e23]
+          - paragraph [ref=f75e24]: Redmineflux Project Management System
+      - heading "Home" [level=2] [ref=f75e25]
+      - generic [ref=f75e28]:
+        - paragraph [ref=f75e29]: Welcome to Redmine, an open-source, flexible project management software.
+        - paragraph [ref=f75e30]: "Note: You can modify this message in the \"Welcome text\" setting (Administration > Settings > General)."
+    - generic [ref=f75e31]:
+      - text: Powered by
+      - link "Redmine" [ref=f75e32] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f75e33]
+  - log [ref=f75e34]

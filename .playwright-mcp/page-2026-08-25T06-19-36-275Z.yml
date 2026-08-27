@@ -1,0 +1,231 @@
+- generic [active] [ref=f64e1]:
+  - generic [ref=f64e2]:
+    - generic [ref=f64e3]:
+      - generic [ref=f64e4]:
+        - list:
+          - listitem [ref=f64e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f64e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f64e7]:
+        - text: Logged in as
+        - link "admin" [ref=f64e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f64e9]:
+        - listitem [ref=f64e10]:
+          - link [ref=f64e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f64e12]
+        - listitem [ref=f64e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f64e14]:
+          - link "My page" [ref=f64e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f64e16]:
+          - link "Projects" [ref=f64e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f64e18]:
+          - link "Helpdesk Command Center" [ref=f64e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f64e20]:
+          - link "Administration" [ref=f64e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f64e22]:
+          - link "Help" [ref=f64e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f64e24]:
+      - generic [ref=f64e25]:
+        - generic [ref=f64e26]:
+          - generic [ref=f64e27]:
+            - link "Search" [ref=f64e28] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Search:" [ref=f64e29]
+        - generic [ref=f64e30]:
+          - generic [ref=f64e31] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f64e32]
+      - generic [ref=f64e33]:
+        - list [ref=f64e34]:
+          - listitem [ref=f64e35]:
+            - link "+" [ref=f64e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f64e37]:
+            - link "Overview" [ref=f64e38] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f64e39]:
+            - link "Activity" [ref=f64e40] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f64e41]:
+            - link "Roadmap" [ref=f64e42] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f64e43]:
+            - link "Issues" [ref=f64e44] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f64e45]:
+            - link "Spent time" [ref=f64e46] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f64e47]:
+            - link "Gantt" [ref=f64e48] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f64e49]:
+            - link "Calendar" [ref=f64e50] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f64e51]:
+            - link "News" [ref=f64e52] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f64e53]:
+            - link "Documents" [ref=f64e54] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f64e55]:
+            - link "Wiki" [ref=f64e56] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f64e57]:
+            - link "Files" [ref=f64e58] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f64e59]:
+            - link "Helpdesk" [ref=f64e60] [cursor=pointer]:
+              - /url: /projects/agileboard/helpdesk
+          - listitem [ref=f64e61]:
+            - link "Settings" [ref=f64e62] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f64e63]:
+          - button [ref=f64e64] [cursor=pointer]
+          - button [ref=f64e65] [cursor=pointer]
+    - generic [ref=f64e66]:
+      - list [ref=f64e70]:
+        - listitem [ref=f64e71]:
+          - link "Helpdesk Dashboard" [ref=f64e72] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk
+        - listitem [ref=f64e75]:
+          - link "Helpdesk Tickets" [ref=f64e76] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/tickets
+        - listitem [ref=f64e79]:
+          - link "Knowledgebase" [ref=f64e80] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/knowledgebase
+        - listitem [ref=f64e83]:
+          - link "Helpdesk SLA" [ref=f64e84] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/sla
+        - listitem [ref=f64e87]:
+          - link "Organization" [ref=f64e88] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/organization
+        - listitem [ref=f64e91]:
+          - link "Settings" [ref=f64e92] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/settings
+      - generic [ref=f64e95]:
+        - heading "New Support Level" [level=2] [ref=f64e96]
+        - generic [ref=f64e97]:
+          - generic [ref=f64e98]:
+            - paragraph [ref=f64e99]:
+              - generic [ref=f64e100]: Support Level Name *
+              - textbox "Support Level Name *" [ref=f64e101]: AB-L1
+            - paragraph [ref=f64e102]:
+              - generic [ref=f64e103]: Level Order *
+              - spinbutton "Level Order *" [ref=f64e104]: "1"
+            - paragraph [ref=f64e105]:
+              - generic [ref=f64e106]: Description
+              - generic [ref=f64e107]:
+                - list [ref=f64e109]:
+                  - listitem [ref=f64e110]:
+                    - link "Edit" [ref=f64e111] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f64e112]:
+                    - link "Preview" [ref=f64e113] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f64e114]:
+                    - generic [ref=f64e115]:
+                      - button "Strong (Ctrl+B)" [ref=f64e116] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f64e117] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f64e118] [cursor=pointer]
+                      - button "Deleted" [ref=f64e119] [cursor=pointer]
+                      - button "Inline Code" [ref=f64e120] [cursor=pointer]
+                      - button "Heading 1" [ref=f64e121] [cursor=pointer]
+                      - button "Heading 2" [ref=f64e122] [cursor=pointer]
+                      - button "Heading 3" [ref=f64e123] [cursor=pointer]
+                      - button "Unordered list" [ref=f64e124] [cursor=pointer]
+                      - button "Ordered list" [ref=f64e125] [cursor=pointer]
+                      - button "Task list" [ref=f64e126] [cursor=pointer]
+                      - button "Quote" [ref=f64e127] [cursor=pointer]
+                      - button "Remove Quote" [ref=f64e128] [cursor=pointer]
+                      - button "Table" [ref=f64e129] [cursor=pointer]
+                      - button "pre" [ref=f64e130] [cursor=pointer]
+                      - button "Highlighted code" [ref=f64e131] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f64e132] [cursor=pointer]
+                      - button "Image" [ref=f64e133] [cursor=pointer]
+                      - button "Help" [ref=f64e134] [cursor=pointer]
+                - textbox "Description" [ref=f64e136]
+            - paragraph [ref=f64e137]:
+              - generic [ref=f64e138]: Support Assignees *
+              - textbox "2 selected" [ref=f64e207]
+              - emphasis [ref=f64e142]: Select one or more users to assign to this support level. Click to open dropdown and search for users.
+            - paragraph [ref=f64e143]:
+              - generic [ref=f64e144]: Escalation To
+              - combobox "Escalation To" [ref=f64e145]:
+                - option "None (Last Level)" [selected]
+              - emphasis [ref=f64e146]: Escalation can only be to higher level support (based on Level Order). For example, Level Order 1 can escalate to Level Order 2 or 3.
+            - paragraph [ref=f64e147]:
+              - generic [ref=f64e148]: Active
+              - checkbox [checked] [ref=f64e149]
+          - button "Create" [ref=f64e150] [cursor=pointer]
+          - link "Cancel" [ref=f64e151] [cursor=pointer]:
+            - /url: /projects/7/helpdesk/settings?tab=support_levels
+    - generic [ref=f64e152]:
+      - text: Powered by
+      - link "Redmine" [ref=f64e153] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - generic [ref=f64e190]:
+    - generic [ref=f64e191] [cursor=pointer]:
+      - checkbox [checked] [ref=f64e192]
+      - generic [ref=f64e193]: Aurora Wren
+    - generic [ref=f64e194] [cursor=pointer]:
+      - checkbox [checked] [ref=f64e195]
+      - generic [ref=f64e196]: Briar Sunset
+    - generic [ref=f64e197] [cursor=pointer]:
+      - checkbox [ref=f64e198]
+      - generic [ref=f64e199]: Celeste Dawn
+    - generic [ref=f64e200] [cursor=pointer]:
+      - checkbox [ref=f64e201]
+      - generic [ref=f64e202]: Redmine Admin
+    - generic [ref=f64e203] [cursor=pointer]:
+      - checkbox [ref=f64e204]
+      - generic [ref=f64e205]: Sage Willow
+  - log [ref=f64e154]
+  - log [ref=f64e155]
+  - log [ref=f64e156]
+  - log [ref=f64e157]
+  - log [ref=f64e158]
+  - log [ref=f64e159]
+  - log [ref=f64e160]
+  - log [ref=f64e161]
+  - log [ref=f64e162]
+  - log [ref=f64e163]
+  - log [ref=f64e164]
+  - log [ref=f64e165]
+  - log [ref=f64e166]
+  - log [ref=f64e167]
+  - log [ref=f64e168]
+  - log [ref=f64e169]
+  - log [ref=f64e170]
+  - log [ref=f64e171]
+  - log [ref=f64e172]
+  - log [ref=f64e173]
+  - log [ref=f64e174]
+  - log [ref=f64e175]
+  - log [ref=f64e176]
+  - log [ref=f64e177]
+  - log [ref=f64e178]
+  - log [ref=f64e179]
+  - log [ref=f64e180]
+  - log [ref=f64e181]
+  - log [ref=f64e182]
+  - log [ref=f64e183]
+  - log [ref=f64e184]
+  - log [ref=f64e185]
+  - log [ref=f64e186]
+  - log [ref=f64e187]
+  - log [ref=f64e188]
+  - log [ref=f64e189]

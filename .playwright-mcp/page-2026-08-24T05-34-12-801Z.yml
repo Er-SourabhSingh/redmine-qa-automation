@@ -1,0 +1,184 @@
+- generic [active] [ref=f3e1]:
+  - generic [ref=f3e2]:
+    - generic [ref=f3e3]:
+      - generic [ref=f3e4]:
+        - list:
+          - listitem [ref=f3e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f3e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f3e7]:
+        - text: Logged in as
+        - link "admin" [ref=f3e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f3e9]:
+        - listitem [ref=f3e10]:
+          - link [ref=f3e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f3e12]
+        - listitem [ref=f3e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f3e14]:
+          - link "My page" [ref=f3e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f3e16]:
+          - link "Projects" [ref=f3e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f3e18]:
+          - link "Helpdesk Command Center" [ref=f3e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f3e20]:
+          - link "Administration" [ref=f3e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f3e22]:
+          - link "Help" [ref=f3e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f3e24]:
+      - generic [ref=f3e25]:
+        - generic [ref=f3e26]:
+          - generic [ref=f3e27]:
+            - link "Search" [ref=f3e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f3e29]
+        - generic [ref=f3e30]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f3e32]
+    - generic [ref=f3e33]:
+      - generic [ref=f3e34]:
+        - link [ref=f3e36] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f3e39]:
+          - heading "Administration" [level=3] [ref=f3e40]
+          - list [ref=f3e42]:
+            - listitem [ref=f3e43]:
+              - link "Projects" [ref=f3e44] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f3e46]:
+              - link "Users" [ref=f3e47] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f3e49]:
+              - link "Groups" [ref=f3e50] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f3e52]:
+              - link "Roles and permissions" [ref=f3e53] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f3e55]:
+              - link "Trackers" [ref=f3e56] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f3e58]:
+              - link "Issue statuses" [ref=f3e59] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f3e61]:
+              - link "Workflow" [ref=f3e62] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f3e64]:
+              - link "Custom fields" [ref=f3e65] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f3e67]:
+              - link "Enumerations" [ref=f3e68] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f3e70]:
+              - link "Settings" [ref=f3e71] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f3e73]:
+              - link "LDAP authentication" [ref=f3e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f3e76]:
+              - link "Plugins" [ref=f3e77] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f3e79]:
+              - link "Information" [ref=f3e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f3e82]:
+        - heading "Plugins" [level=2] [ref=f3e83]
+        - table [ref=f3e85]:
+          - rowgroup [ref=f3e86]:
+            - row [ref=f3e87]:
+              - columnheader "Name / Description" [ref=f3e88]
+              - columnheader "Author" [ref=f3e89]
+              - columnheader "Version" [ref=f3e90]
+              - columnheader [ref=f3e91]
+          - rowgroup [ref=f3e92]:
+            - row [ref=f3e93]:
+              - cell "RedmineFlux Daisy Theme Plugin RedmineFlux Daisy theme delivers a modern, clean, and personalized Redmine user experience through plugin-based UI enhancements with complete theme styling. https://www.redmineflux.com" [ref=f3e94]:
+                - generic [ref=f3e95]: RedmineFlux Daisy Theme Plugin
+                - generic [ref=f3e96]: RedmineFlux Daisy theme delivers a modern, clean, and personalized Redmine user experience through plugin-based UI enhancements with complete theme styling.
+                - link "https://www.redmineflux.com" [ref=f3e98] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com
+              - cell [ref=f3e99]:
+                - link "RedmineFlux - Powered by Zehntech Technologies Inc" [ref=f3e100] [cursor=pointer]:
+                  - /url: https://www.zehntech.com
+              - cell "6.2.0" [ref=f3e101]
+              - cell [ref=f3e103]:
+                - link "Configure" [ref=f3e104] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_daisy
+            - row [ref=f3e105]:
+              - cell "Redmineflux Helpdesk plugin The Redmineflux Helpdesk Plugin enhances Redmine with advanced help desk functionality. It integrates ticket management, customer support workflows, and reporting features to streamline your support process and improve customer satisfaction. https://www.redmineflux.com" [ref=f3e106]:
+                - generic [ref=f3e107]: Redmineflux Helpdesk plugin
+                - generic [ref=f3e108]: The Redmineflux Helpdesk Plugin enhances Redmine with advanced help desk functionality. It integrates ticket management, customer support workflows, and reporting features to streamline your support process and improve customer satisfaction.
+                - link "https://www.redmineflux.com" [ref=f3e110] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com
+              - cell [ref=f3e111]:
+                - link "Redmineflux - Powered by Zehntech Technologies Inc" [ref=f3e112] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com
+              - cell "6.2.0" [ref=f3e113]
+              - cell [ref=f3e115]
+            - row [ref=f3e116]:
+              - cell "Redmineflux Lotus plugin Redmineflux Lotus theme delivers a modern, clean, and personalized Redmine user experience through plugin-based UI enhancements with complete theme styling. https://www.redmineflux.com" [ref=f3e117]:
+                - generic [ref=f3e118]: Redmineflux Lotus plugin
+                - generic [ref=f3e119]: Redmineflux Lotus theme delivers a modern, clean, and personalized Redmine user experience through plugin-based UI enhancements with complete theme styling.
+                - link "https://www.redmineflux.com" [ref=f3e121] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com
+              - cell [ref=f3e122]:
+                - link "Redmineflux - Powered by Zehntech Technologies Inc" [ref=f3e123] [cursor=pointer]:
+                  - /url: https://www.zehntech.com
+              - cell "7.0.0" [ref=f3e124]
+              - cell [ref=f3e126]:
+                - link "Configure" [ref=f3e127] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_lotus
+            - row [ref=f3e128]:
+              - cell "Redmineflux Scarlet Theme Plugin Redmineflux Scarlet theme delivers a modern, clean, and personalized Redmine user experience through plugin-based UI enhancements with complete theme styling. https://www.redmineflux.com" [ref=f3e129]:
+                - generic [ref=f3e130]: Redmineflux Scarlet Theme Plugin
+                - generic [ref=f3e131]: Redmineflux Scarlet theme delivers a modern, clean, and personalized Redmine user experience through plugin-based UI enhancements with complete theme styling.
+                - link "https://www.redmineflux.com" [ref=f3e133] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com
+              - cell [ref=f3e134]:
+                - link "Redmineflux - Powered by Zehntech Technologies Inc" [ref=f3e135] [cursor=pointer]:
+                  - /url: https://www.zehntech.com
+              - cell "1.0.0" [ref=f3e136]
+              - cell [ref=f3e138]:
+                - link "Configure" [ref=f3e139] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_scarlet
+        - paragraph [ref=f3e140]:
+          - link "Check for updates" [ref=f3e141] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f3e142]:
+      - text: Powered by
+      - link "Redmine" [ref=f3e143] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f3e144]
+  - log [ref=f3e145]
+  - log [ref=f3e146]
+  - log [ref=f3e147]
+  - log [ref=f3e148]
+  - log [ref=f3e149]
+  - log [ref=f3e150]
+  - log [ref=f3e151]
+  - log [ref=f3e152]
+  - log [ref=f3e153]
+  - log [ref=f3e154]
+  - log [ref=f3e155]
+  - log [ref=f3e156]
+  - log [ref=f3e157]
+  - log [ref=f3e158]
+  - log [ref=f3e159]
+  - log [ref=f3e160]
+  - log [ref=f3e161]
+  - log [ref=f3e162]
+  - log [ref=f3e163]
+  - log [ref=f3e164]
+  - log [ref=f3e165]

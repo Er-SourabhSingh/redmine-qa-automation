@@ -1,0 +1,158 @@
+- generic [ref=f241e1]:
+  - generic [ref=f241e2]:
+    - generic [ref=f241e3]:
+      - generic [ref=f241e4]:
+        - list:
+          - listitem [ref=f241e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f241e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f241e7]:
+        - text: Logged in as
+        - link "admin" [ref=f241e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f241e9]:
+        - listitem [ref=f241e10]:
+          - link [ref=f241e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f241e12]
+        - listitem [ref=f241e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f241e14]:
+          - link "My page" [ref=f241e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f241e16]:
+          - link "Projects" [ref=f241e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f241e18]:
+          - link "Helpdesk Command Center" [ref=f241e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f241e20]:
+          - link "Administration" [ref=f241e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f241e22]:
+          - link "Help" [ref=f241e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f241e24]:
+      - generic [ref=f241e25]:
+        - generic [ref=f241e26]:
+          - generic [ref=f241e27]:
+            - link "Search" [ref=f241e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f241e29]
+        - generic [ref=f241e30]:
+          - generic [ref=f241e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f241e32]
+    - generic [ref=f241e33]:
+      - list [ref=f241e37]:
+        - listitem [ref=f241e38]:
+          - link "Helpdesk Dashboard" [ref=f241e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f241e42]:
+          - link "Helpdesk Tickets" [ref=f241e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f241e46]:
+          - link "Reports" [ref=f241e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f241e50]:
+          - link "Organization" [ref=f241e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f241e54]:
+          - link "Customers" [ref=f241e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f241e58]:
+          - link "Products" [ref=f241e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f241e62]:
+          - link "Helpdesk Settings" [ref=f241e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f241e66]:
+        - heading "New Customer" [level=2] [ref=f241e67]
+        - generic [ref=f241e68]:
+          - generic [ref=f241e69]:
+            - paragraph [ref=f241e70]:
+              - generic [ref=f241e71]: Login *
+              - textbox "Login *" [active] [ref=f241e72]
+              - emphasis [ref=f241e73]: Login must be at least 2 characters long
+            - paragraph [ref=f241e74]:
+              - generic [ref=f241e75]: First name *
+              - textbox "First name *" [ref=f241e76]
+            - paragraph [ref=f241e77]:
+              - generic [ref=f241e78]: Last name *
+              - textbox "Last name *" [ref=f241e79]
+            - paragraph [ref=f241e80]:
+              - generic [ref=f241e81]: Email *
+              - textbox "Email *" [ref=f241e82]
+            - generic [ref=f241e83]:
+              - paragraph [ref=f241e84]:
+                - generic [ref=f241e85]: Password *
+                - textbox "Password *" [ref=f241e86]
+              - paragraph [ref=f241e87]:
+                - generic [ref=f241e88]: Confirmation *
+                - textbox "Confirmation *" [ref=f241e89]
+            - paragraph [ref=f241e90]:
+              - checkbox "Generate password automatically" [ref=f241e91]
+              - generic [ref=f241e92]: Generate password automatically
+            - paragraph [ref=f241e93]:
+              - checkbox "Send account information to the user" [checked] [disabled] [ref=f241e94]
+              - generic [ref=f241e95]: Send account information to the user
+          - group "Project access" [ref=f241e96]:
+            - paragraph [ref=f241e98]: Projects this customer can raise tickets against, and the SLA, support level and organisation that apply on each. Leave empty to create the account without project access.
+            - generic [ref=f241e100]:
+              - generic [ref=f241e101]:
+                - generic [ref=f241e102]: Project
+                - combobox [ref=f241e103]:
+                  - option "-- Select project --" [selected]
+                  - option "Helpdesk Service Desk"
+              - generic [ref=f241e104]:
+                - generic [ref=f241e105]: SLA Name *
+                - combobox [ref=f241e106]:
+                  - option "none" [selected]
+                  - option "Standard"
+              - generic [ref=f241e107]:
+                - generic [ref=f241e108]: Support Level *
+                - combobox [ref=f241e109]:
+                  - option "none" [selected]
+                  - option "L1" [disabled]
+                  - option "L2" [disabled]
+                  - option "L3" [disabled]
+              - generic [ref=f241e110]:
+                - generic [ref=f241e111]: Organization Name
+                - combobox [ref=f241e112]:
+                  - option "none" [selected]
+                  - option "Acme Corp"
+              - button "Delete" [ref=f241e113] [cursor=pointer]
+            - paragraph [ref=f241e117]:
+              - button "Add project" [ref=f241e118] [cursor=pointer]
+          - paragraph [ref=f241e120]:
+            - button "Create" [ref=f241e121] [cursor=pointer]
+            - link "Cancel" [ref=f241e122] [cursor=pointer]:
+              - /url: /rf_helpdesk/customers
+    - generic [ref=f241e123]:
+      - text: Powered by
+      - link "Redmine" [ref=f241e124] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f241e125]
+  - log [ref=f241e126]
+  - log [ref=f241e127]
+  - log [ref=f241e128]
+  - log [ref=f241e129]
+  - log [ref=f241e130]
+  - log [ref=f241e131]
+  - log [ref=f241e132]
+  - log [ref=f241e133]
+  - log [ref=f241e134]
+  - log [ref=f241e135]
+  - log [ref=f241e136]
+  - log [ref=f241e137]
+  - log [ref=f241e138]
+  - log [ref=f241e139]
+  - log [ref=f241e140]
+  - log [ref=f241e141]
+  - log [ref=f241e142]

@@ -1,0 +1,139 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - list:
+          - listitem [ref=e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=e7]:
+        - text: Logged in as
+        - link "alpha.customer" [ref=e8] [cursor=pointer]:
+          - /url: /users/15
+      - list [ref=e9]:
+        - listitem [ref=e10]:
+          - link [ref=e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=e12]
+        - listitem [ref=e13]:
+          - link "My Helpdesk" [ref=e14] [cursor=pointer]:
+            - /url: /helpdesk
+    - heading "Helpdesk QA Alpha" [level=1] [ref=e16]
+    - generic [ref=e17]:
+      - list [ref=e21]:
+        - listitem [ref=e22]:
+          - link "Helpdesk Dashboard" [ref=e23] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=e26]:
+          - link "Helpdesk Tickets" [ref=e27] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=e30]:
+          - link "Knowledgebase" [ref=e31] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=e34]:
+        - 'heading "Support #74" [level=2] [ref=e35]'
+        - text: open
+        - generic [ref=e36]:
+          - link "Reply" [ref=e37] [cursor=pointer]:
+            - /url: "#"
+          - link "Edit" [ref=e38] [cursor=pointer]:
+            - /url: "#"
+        - generic [ref=e41]:
+          - 'img "Author: Alpha Customer" [ref=e42]': AC
+          - generic [ref=e43]:
+            - heading "[TICKET] TC-HLP-015 - customer-raised ticket, cannot access my dashboard" [level=3] [ref=e46]
+            - text: ✓ ✗
+          - paragraph [ref=e47]:
+            - text: Added by
+            - link "Alpha Customer" [ref=e48] [cursor=pointer]:
+              - /url: /users/15
+            - link "18 minutes" [ref=e49] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-08-27
+            - text: ago. Updated
+            - link "11 minutes" [ref=e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-08-27
+            - text: ago.
+          - generic [ref=e52]:
+            - generic [ref=e53]:
+              - generic [ref=e54]:
+                - generic [ref=e55]: "Priority:"
+                - generic [ref=e56]: Normal
+              - generic [ref=e57]:
+                - generic [ref=e58]: "Organization:"
+                - generic [ref=e59]: Alpha Org
+            - generic [ref=e61]:
+              - generic [ref=e62]: "Prepaid Support Hours:"
+              - generic [ref=e63]:
+                - text: 0.00h used ·
+                - strong [ref=e64]: 40.00h left
+                - text: of 40.00h
+          - separator [ref=e65]
+          - generic [ref=e66]:
+            - paragraph [ref=e67]:
+              - strong [ref=e68]: Description
+            - paragraph [ref=e70]: Created live by alpha.customer for TC-HLP-015.
+          - separator [ref=e71]
+          - group "Reply Note" [ref=e94]:
+            - generic [ref=e98]:
+              - list [ref=e100]:
+                - listitem [ref=e101]:
+                  - link "Edit" [ref=e102] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e103]:
+                  - link "Preview" [ref=e104] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e105]:
+                  - generic [ref=e106]:
+                    - button "Strong (Ctrl+B)" [ref=e107] [cursor=pointer]
+                    - button "Italic (Ctrl+I)" [ref=e108] [cursor=pointer]
+                    - button "Underline (Ctrl+U)" [ref=e109] [cursor=pointer]
+                    - button "Deleted" [ref=e110] [cursor=pointer]
+                    - button "Inline Code" [ref=e111] [cursor=pointer]
+                    - button "Heading 1" [ref=e112] [cursor=pointer]
+                    - button "Heading 2" [ref=e113] [cursor=pointer]
+                    - button "Heading 3" [ref=e114] [cursor=pointer]
+                    - button "Unordered list" [ref=e115] [cursor=pointer]
+                    - button "Ordered list" [ref=e116] [cursor=pointer]
+                    - button "Task list" [ref=e117] [cursor=pointer]
+                    - button "Quote" [ref=e118] [cursor=pointer]
+                    - button "Remove Quote" [ref=e119] [cursor=pointer]
+                    - button "Table" [ref=e120] [cursor=pointer]
+                    - button "pre" [ref=e121] [cursor=pointer]
+                    - button "Highlighted code" [ref=e122] [cursor=pointer]
+                    - button "Link to a Wiki page" [ref=e123] [cursor=pointer]
+                    - button "Image" [ref=e124] [cursor=pointer]
+                    - button "Help" [ref=e125] [cursor=pointer]
+              - textbox [active] [ref=e127]
+            - generic [ref=e128]:
+              - button "Save" [ref=e129] [cursor=pointer]
+              - button "Cancel" [ref=e130] [cursor=pointer]
+        - list [ref=e74]:
+          - listitem
+          - listitem
+          - listitem [ref=e75]:
+            - link "Helpdesk Conversion (1)" [ref=e76] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/74?tab=email-history
+          - listitem
+    - generic [ref=e77]:
+      - text: Powered by
+      - link "Redmine" [ref=e78] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=e79]
+  - log [ref=e80]
+  - log [ref=e81]
+  - log [ref=e82]
+  - log [ref=e83]
+  - log [ref=e84]
+  - log [ref=e85]
+  - log [ref=e86]
+  - log [ref=e87]
+  - log [ref=e88]
+  - log [ref=e89]
+  - log [ref=e90]
+  - log [ref=e91]
+  - log [ref=e92]
+  - log [ref=e93]

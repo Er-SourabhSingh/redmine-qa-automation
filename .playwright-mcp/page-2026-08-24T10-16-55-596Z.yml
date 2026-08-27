@@ -1,0 +1,251 @@
+- generic [ref=f362e1]:
+  - generic [ref=f362e2]:
+    - generic [ref=f362e3]:
+      - generic [ref=f362e4]:
+        - list:
+          - listitem [ref=f362e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f362e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f362e7]:
+        - text: Logged in as
+        - link "admin" [ref=f362e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f362e9]:
+        - listitem [ref=f362e10]:
+          - link [ref=f362e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f362e12]
+        - listitem [ref=f362e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f362e14]:
+          - link "My page" [ref=f362e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f362e16]:
+          - link "Projects" [ref=f362e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f362e18]:
+          - link "Helpdesk Command Center" [ref=f362e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f362e20]:
+          - link "Administration" [ref=f362e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f362e22]:
+          - link "Help" [ref=f362e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f362e24]:
+      - generic [ref=f362e25]:
+        - generic [ref=f362e26]:
+          - generic [ref=f362e27]:
+            - link "Search" [ref=f362e28] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f362e29]
+        - generic [ref=f362e30]:
+          - generic [ref=f362e31] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f362e32]
+      - generic [ref=f362e33]:
+        - list [ref=f362e34]:
+          - listitem [ref=f362e35]:
+            - link "+" [ref=f362e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f362e37]:
+            - link "Overview" [ref=f362e38] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f362e39]:
+            - link "Activity" [ref=f362e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f362e41]:
+            - link "Issues" [ref=f362e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f362e43]:
+            - link "Spent time" [ref=f362e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f362e45]:
+            - link "Gantt" [ref=f362e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f362e47]:
+            - link "Calendar" [ref=f362e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f362e49]:
+            - link "News" [ref=f362e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f362e51]:
+            - link "Documents" [ref=f362e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f362e53]:
+            - link "Wiki" [ref=f362e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f362e55]:
+            - link "Files" [ref=f362e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f362e57]:
+            - link "Helpdesk" [ref=f362e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk
+          - listitem [ref=f362e59]:
+            - link "Settings" [ref=f362e60] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f362e61]:
+          - button [ref=f362e62] [cursor=pointer]
+          - button [ref=f362e63] [cursor=pointer]
+    - generic [ref=f362e64]:
+      - list [ref=f362e68]:
+        - listitem [ref=f362e69]:
+          - link "Helpdesk Dashboard" [ref=f362e70] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk
+        - listitem [ref=f362e73]:
+          - link "Helpdesk Tickets" [ref=f362e74] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets
+        - listitem [ref=f362e77]:
+          - link "Knowledgebase" [ref=f362e78] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/knowledgebase
+        - listitem [ref=f362e81]:
+          - link "Helpdesk SLA" [ref=f362e82] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/sla
+        - listitem [ref=f362e85]:
+          - link "Organization" [ref=f362e86] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/organization
+        - listitem [ref=f362e89]:
+          - link "Settings" [ref=f362e90] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/settings
+      - generic [ref=f362e93]:
+        - heading "New SLA" [level=2] [ref=f362e94]
+        - generic [ref=f362e95]:
+          - generic [ref=f362e96]:
+            - paragraph [ref=f362e97]:
+              - generic [ref=f362e98]: SLA Name *
+              - textbox "SLA Name *" [active] [ref=f362e99]
+            - paragraph [ref=f362e100]:
+              - generic [ref=f362e101]: Description
+              - generic [ref=f362e102]:
+                - list [ref=f362e104]:
+                  - listitem [ref=f362e105]:
+                    - link "Edit" [ref=f362e106] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f362e107]:
+                    - link "Preview" [ref=f362e108] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f362e109]:
+                    - generic [ref=f362e110]:
+                      - button "Strong (Ctrl+B)" [ref=f362e111] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f362e112] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f362e113] [cursor=pointer]
+                      - button "Deleted" [ref=f362e114] [cursor=pointer]
+                      - button "Inline Code" [ref=f362e115] [cursor=pointer]
+                      - button "Heading 1" [ref=f362e116] [cursor=pointer]
+                      - button "Heading 2" [ref=f362e117] [cursor=pointer]
+                      - button "Heading 3" [ref=f362e118] [cursor=pointer]
+                      - button "Unordered list" [ref=f362e119] [cursor=pointer]
+                      - button "Ordered list" [ref=f362e120] [cursor=pointer]
+                      - button "Task list" [ref=f362e121] [cursor=pointer]
+                      - button "Quote" [ref=f362e122] [cursor=pointer]
+                      - button "Remove Quote" [ref=f362e123] [cursor=pointer]
+                      - button "Table" [ref=f362e124] [cursor=pointer]
+                      - button "pre" [ref=f362e125] [cursor=pointer]
+                      - button "Highlighted code" [ref=f362e126] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f362e127] [cursor=pointer]
+                      - button "Image" [ref=f362e128] [cursor=pointer]
+                      - button "Help" [ref=f362e129] [cursor=pointer]
+                - textbox "Description" [ref=f362e131]
+            - paragraph [ref=f362e132]:
+              - generic [ref=f362e133]: First Response Time *
+              - spinbutton "First Response Time *" [ref=f362e134]
+              - combobox [ref=f362e135]:
+                - option "Minutes" [selected]
+                - option "Hours"
+            - paragraph [ref=f362e136]:
+              - generic [ref=f362e137]: Resolution Time *
+              - spinbutton "Resolution Time *" [ref=f362e138]
+              - combobox [ref=f362e139]:
+                - option "Minutes" [selected]
+                - option "Hours"
+                - option "Days"
+            - paragraph [ref=f362e140]:
+              - generic [ref=f362e141]: Working Hours
+              - textbox "Working Hours" [ref=f362e142]
+              - text: "-"
+              - textbox [ref=f362e143]
+              - text: UTC
+              - emphasis [ref=f362e144]: "Note: All times are in UTC timezone. Example: IST 6:00 PM = UTC 12:30 PM"
+            - paragraph [ref=f362e145]:
+              - generic [ref=f362e146]: Working Days
+              - generic [ref=f362e147]:
+                - checkbox "Monday" [ref=f362e148]
+                - text: Monday
+              - generic [ref=f362e149]:
+                - checkbox "Tuesday" [ref=f362e150]
+                - text: Tuesday
+              - generic [ref=f362e151]:
+                - checkbox "Wednesday" [ref=f362e152]
+                - text: Wednesday
+              - generic [ref=f362e153]:
+                - checkbox "Thursday" [ref=f362e154]
+                - text: Thursday
+              - generic [ref=f362e155]:
+                - checkbox "Friday" [ref=f362e156]
+                - text: Friday
+              - generic [ref=f362e157]:
+                - checkbox "Saturday" [ref=f362e158]
+                - text: Saturday
+              - generic [ref=f362e159]:
+                - checkbox "Sunday" [ref=f362e160]
+                - text: Sunday
+            - paragraph [ref=f362e161]:
+              - generic [ref=f362e162]: Holiday
+              - textbox "Select items" [ref=f362e165]
+            - paragraph [ref=f362e166]:
+              - generic [ref=f362e167]: Active
+              - checkbox "Active" [checked] [ref=f362e168]
+            - paragraph [ref=f362e169]:
+              - generic [ref=f362e170]: SLA Agreement
+              - generic [ref=f362e172]:
+                - button "Choose File" [ref=f362e173]
+                - text: "(Maximum size: 5 MB)"
+          - button "Save" [ref=f362e174] [cursor=pointer]
+          - link "Cancel" [ref=f362e175] [cursor=pointer]:
+            - /url: /projects/9/helpdesk/sla
+    - generic [ref=f362e176]:
+      - text: Powered by
+      - link "Redmine" [ref=f362e177] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f362e178]
+  - log [ref=f362e179]
+  - log [ref=f362e180]
+  - log [ref=f362e181]
+  - log [ref=f362e182]
+  - log [ref=f362e183]
+  - log [ref=f362e184]
+  - log [ref=f362e185]
+  - log [ref=f362e186]
+  - log [ref=f362e187]
+  - log [ref=f362e188]
+  - log [ref=f362e189]
+  - log [ref=f362e190]
+  - log [ref=f362e191]
+  - log [ref=f362e192]
+  - log [ref=f362e193]
+  - log [ref=f362e194]
+  - log [ref=f362e195]
+  - log [ref=f362e196]
+  - log [ref=f362e197]
+  - log [ref=f362e198]
+  - log [ref=f362e199]
+  - log [ref=f362e200]
+  - log [ref=f362e201]
+  - log [ref=f362e202]
+  - log [ref=f362e203]
+  - log [ref=f362e204]
+  - log [ref=f362e205]
+  - log [ref=f362e206]
+  - log [ref=f362e207]
+  - log [ref=f362e208]
+  - log [ref=f362e209]
+  - log [ref=f362e210]
+  - log [ref=f362e211]
+  - log [ref=f362e212]
+  - log [ref=f362e213]

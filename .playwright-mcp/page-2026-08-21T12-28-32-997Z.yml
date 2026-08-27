@@ -1,0 +1,248 @@
+- generic [active] [ref=f32e1]:
+  - generic [ref=f32e2]:
+    - generic [ref=f32e3]:
+      - generic [ref=f32e4]:
+        - list:
+          - listitem [ref=f32e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f32e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f32e7]:
+        - text: Logged in as
+        - link "admin" [ref=f32e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f32e9]:
+        - listitem [ref=f32e10]:
+          - link [ref=f32e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f32e12]
+        - listitem [ref=f32e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f32e14]:
+          - link "My page" [ref=f32e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f32e16]:
+          - link "Projects" [ref=f32e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f32e18]:
+          - link "Helpdesk Command Center" [ref=f32e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f32e20]:
+          - link "Administration" [ref=f32e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f32e22]:
+          - link "Help" [ref=f32e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f32e24]:
+      - generic [ref=f32e25]:
+        - generic [ref=f32e26]:
+          - generic [ref=f32e27]:
+            - link "Search" [ref=f32e28] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f32e29]
+        - generic [ref=f32e30]:
+          - generic [ref=f32e31] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f32e32]
+      - generic [ref=f32e33]:
+        - list [ref=f32e34]:
+          - listitem [ref=f32e35]:
+            - link "+" [ref=f32e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f32e37]:
+            - link "Overview" [ref=f32e38] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f32e39]:
+            - link "Activity" [ref=f32e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f32e41]:
+            - link "Issues" [ref=f32e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f32e43]:
+            - link "Spent time" [ref=f32e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f32e45]:
+            - link "Gantt" [ref=f32e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f32e47]:
+            - link "Calendar" [ref=f32e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f32e49]:
+            - link "News" [ref=f32e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f32e51]:
+            - link "Documents" [ref=f32e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f32e53]:
+            - link "Wiki" [ref=f32e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f32e55]:
+            - link "Files" [ref=f32e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f32e57]:
+            - link "Helpdesk" [ref=f32e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk
+          - listitem [ref=f32e59]:
+            - link "Settings" [ref=f32e60] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f32e61]:
+          - button [ref=f32e62] [cursor=pointer]
+          - button [ref=f32e63] [cursor=pointer]
+    - generic [ref=f32e65]:
+      - generic [ref=f32e66]:
+        - link "Add bookmark" [ref=f32e67] [cursor=pointer]:
+          - /url: /projects/helpdesk/bookmark
+        - generic "Actions" [ref=f32e71] [cursor=pointer]
+      - heading "Overview" [level=2] [ref=f32e73]
+      - generic [ref=f32e74]:
+        - generic [ref=f32e75]:
+          - generic [ref=f32e76]:
+            - heading "Issue tracking" [level=3] [ref=f32e77]
+            - table [ref=f32e81]:
+              - rowgroup [ref=f32e82]:
+                - row [ref=f32e83]:
+                  - columnheader [ref=f32e84]
+                  - columnheader "open" [ref=f32e85]
+                  - columnheader "closed" [ref=f32e86]
+                  - columnheader "Total" [ref=f32e87]
+              - rowgroup [ref=f32e88]:
+                - row [ref=f32e89]:
+                  - cell [ref=f32e90]:
+                    - link "Bug" [ref=f32e91] [cursor=pointer]:
+                      - /url: /projects/helpdesk/issues?set_filter=1&tracker_id=4
+                  - cell [ref=f32e92]:
+                    - link "0" [ref=f32e93] [cursor=pointer]:
+                      - /url: /projects/helpdesk/issues?set_filter=1&tracker_id=4
+                  - cell [ref=f32e94]:
+                    - link "0" [ref=f32e95] [cursor=pointer]:
+                      - /url: /projects/helpdesk/issues?set_filter=1&status_id=c&tracker_id=4
+                  - cell [ref=f32e96]:
+                    - link "0" [ref=f32e97] [cursor=pointer]:
+                      - /url: /projects/helpdesk/issues?set_filter=1&status_id=%2A&tracker_id=4
+                - row [ref=f32e98]:
+                  - cell [ref=f32e99]:
+                    - link "Feature" [ref=f32e100] [cursor=pointer]:
+                      - /url: /projects/helpdesk/issues?set_filter=1&tracker_id=5
+                  - cell [ref=f32e101]:
+                    - link "0" [ref=f32e102] [cursor=pointer]:
+                      - /url: /projects/helpdesk/issues?set_filter=1&tracker_id=5
+                  - cell [ref=f32e103]:
+                    - link "0" [ref=f32e104] [cursor=pointer]:
+                      - /url: /projects/helpdesk/issues?set_filter=1&status_id=c&tracker_id=5
+                  - cell [ref=f32e105]:
+                    - link "0" [ref=f32e106] [cursor=pointer]:
+                      - /url: /projects/helpdesk/issues?set_filter=1&status_id=%2A&tracker_id=5
+                - row [ref=f32e107]:
+                  - cell [ref=f32e108]:
+                    - link "Support" [ref=f32e109] [cursor=pointer]:
+                      - /url: /projects/helpdesk/issues?set_filter=1&tracker_id=6
+                  - cell [ref=f32e110]:
+                    - link "10" [ref=f32e111] [cursor=pointer]:
+                      - /url: /projects/helpdesk/issues?set_filter=1&tracker_id=6
+                  - cell [ref=f32e112]:
+                    - link "0" [ref=f32e113] [cursor=pointer]:
+                      - /url: /projects/helpdesk/issues?set_filter=1&status_id=c&tracker_id=6
+                  - cell [ref=f32e114]:
+                    - link "10" [ref=f32e115] [cursor=pointer]:
+                      - /url: /projects/helpdesk/issues?set_filter=1&status_id=%2A&tracker_id=6
+            - paragraph [ref=f32e116]:
+              - link "View all issues" [ref=f32e117] [cursor=pointer]:
+                - /url: /projects/helpdesk/issues?set_filter=1
+              - text: "|"
+              - link "Summary" [ref=f32e118] [cursor=pointer]:
+                - /url: /projects/helpdesk/issues/report
+              - text: "|"
+              - link "Calendar" [ref=f32e119] [cursor=pointer]:
+                - /url: /projects/helpdesk/issues/calendar
+              - text: "|"
+              - link "Gantt" [ref=f32e120] [cursor=pointer]:
+                - /url: /projects/helpdesk/issues/gantt
+          - generic [ref=f32e121]:
+            - heading "Time tracking" [level=3] [ref=f32e122]
+            - list [ref=f32e126]:
+              - listitem [ref=f32e127]: "Estimated time: 0:00 hour"
+              - listitem [ref=f32e128]: "Spent time: 0:00 hour"
+            - paragraph [ref=f32e129]:
+              - link "Log time" [ref=f32e130] [cursor=pointer]:
+                - /url: /projects/helpdesk/time_entries/new
+              - text: "|"
+              - link "Details" [ref=f32e131] [cursor=pointer]:
+                - /url: /projects/helpdesk/time_entries
+              - text: "|"
+              - link "Report" [ref=f32e132] [cursor=pointer]:
+                - /url: /projects/helpdesk/time_entries/report
+        - generic [ref=f32e134]:
+          - heading "Members" [level=3] [ref=f32e135]
+          - generic [ref=f32e138]:
+            - generic [ref=f32e139]:
+              - text: Developer
+              - generic [ref=f32e140]: (20)
+            - generic [ref=f32e141]:
+              - link "Luna Blossom" [ref=f32e142] [cursor=pointer]:
+                - /url: /users/5
+              - link "Daisy Skye" [ref=f32e143] [cursor=pointer]:
+                - /url: /users/6
+              - link "Autumn Grace" [ref=f32e144] [cursor=pointer]:
+                - /url: /users/7
+              - link "Willow Belle" [ref=f32e145] [cursor=pointer]:
+                - /url: /users/8
+              - link "Harmony Rose" [ref=f32e146] [cursor=pointer]:
+                - /url: /users/9
+              - link "Summer Rain" [ref=f32e147] [cursor=pointer]:
+                - /url: /users/10
+              - link "Violet Ember" [ref=f32e148] [cursor=pointer]:
+                - /url: /users/11
+              - link "Celeste Dawn" [ref=f32e149] [cursor=pointer]:
+                - /url: /users/12
+              - link "Serenity Bloom" [ref=f32e150] [cursor=pointer]:
+                - /url: /users/13
+              - link "Nova Starling" [ref=f32e151] [cursor=pointer]:
+                - /url: /users/14
+              - link "Aurora Wren" [ref=f32e152] [cursor=pointer]:
+                - /url: /users/15
+              - link "Ivy Skylark" [ref=f32e153] [cursor=pointer]:
+                - /url: /users/16
+              - link "Luna Meadow" [ref=f32e154] [cursor=pointer]:
+                - /url: /users/17
+              - link "Sage Willow" [ref=f32e155] [cursor=pointer]:
+                - /url: /users/18
+              - link "Marigold Rayne" [ref=f32e156] [cursor=pointer]:
+                - /url: /users/19
+              - link "Ember Lilac" [ref=f32e157] [cursor=pointer]:
+                - /url: /users/20
+              - link "Opal Sparrow" [ref=f32e158] [cursor=pointer]:
+                - /url: /users/21
+              - link "Briar Sunset" [ref=f32e159] [cursor=pointer]:
+                - /url: /users/22
+              - link "Selene Frost" [ref=f32e160] [cursor=pointer]:
+                - /url: /users/23
+              - link "Isla Moon" [ref=f32e161] [cursor=pointer]:
+                - /url: /users/24
+          - generic [ref=f32e162]:
+            - generic [ref=f32e163]:
+              - text: Manager
+              - generic [ref=f32e164]: (1)
+            - link "Redmine Admin" [ref=f32e166] [cursor=pointer]:
+              - /url: /users/1
+    - generic [ref=f32e167]:
+      - text: Powered by
+      - link "Redmine" [ref=f32e168] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f32e169]
+  - log [ref=f32e170]
+  - log [ref=f32e171]
+  - log [ref=f32e172]
+  - log [ref=f32e173]
+  - log [ref=f32e174]
+  - log [ref=f32e175]
+  - log [ref=f32e176]
+  - log [ref=f32e177]
+  - log [ref=f32e178]
+  - log [ref=f32e179]
+  - log [ref=f32e180]
+  - log [ref=f32e181]

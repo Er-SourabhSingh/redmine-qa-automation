@@ -1,0 +1,262 @@
+- generic [ref=f78e1]:
+  - generic [ref=f78e2]:
+    - generic [ref=f78e3]:
+      - generic [ref=f78e4]:
+        - list:
+          - listitem [ref=f78e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f78e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f78e7]:
+        - text: Logged in as
+        - link "admin" [ref=f78e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f78e9]:
+        - listitem [ref=f78e10]:
+          - link [ref=f78e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f78e12]
+        - listitem [ref=f78e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f78e14]:
+          - link "My page" [ref=f78e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f78e16]:
+          - link "Projects" [ref=f78e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f78e18]:
+          - link "Helpdesk Command Center" [ref=f78e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f78e20]:
+          - link "Administration" [ref=f78e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f78e22]:
+          - link "Help" [ref=f78e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f78e24]:
+      - generic [ref=f78e25]:
+        - generic [ref=f78e26]:
+          - generic [ref=f78e27]:
+            - link "Search" [ref=f78e28] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Search:" [ref=f78e29]
+        - generic [ref=f78e30]:
+          - generic [ref=f78e31] [cursor=pointer]: Agile Board Project
+          - text: ✓
+      - heading "Agile Board Project" [level=1] [ref=f78e32]
+      - generic [ref=f78e33]:
+        - list [ref=f78e34]:
+          - listitem [ref=f78e35]:
+            - link "+" [ref=f78e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f78e37]:
+            - link "Overview" [ref=f78e38] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f78e39]:
+            - link "Activity" [ref=f78e40] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f78e41]:
+            - link "Roadmap" [ref=f78e42] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f78e43]:
+            - link "Issues" [ref=f78e44] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f78e45]:
+            - link "Spent time" [ref=f78e46] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f78e47]:
+            - link "Gantt" [ref=f78e48] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f78e49]:
+            - link "Calendar" [ref=f78e50] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f78e51]:
+            - link "News" [ref=f78e52] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f78e53]:
+            - link "Documents" [ref=f78e54] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f78e55]:
+            - link "Wiki" [ref=f78e56] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f78e57]:
+            - link "Files" [ref=f78e58] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f78e59]:
+            - link "Settings" [ref=f78e60] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f78e61]:
+          - button [ref=f78e62] [cursor=pointer]
+          - button [ref=f78e63] [cursor=pointer]
+    - generic [ref=f78e65]:
+      - heading "Settings" [level=2] [ref=f78e66]
+      - list [ref=f78e68]:
+        - listitem [ref=f78e69]:
+          - link "Project" [ref=f78e70] [cursor=pointer]:
+            - /url: /projects/agileboard/settings/info
+        - listitem [ref=f78e71]:
+          - link "Members" [ref=f78e72] [cursor=pointer]:
+            - /url: /projects/agileboard/settings/members
+        - listitem [ref=f78e73]:
+          - link "Issue tracking" [ref=f78e74] [cursor=pointer]:
+            - /url: /projects/agileboard/settings/issues
+        - listitem [ref=f78e75]:
+          - link "Versions" [ref=f78e76] [cursor=pointer]:
+            - /url: /projects/agileboard/settings/versions
+        - listitem [ref=f78e77]:
+          - link "Issue categories" [ref=f78e78] [cursor=pointer]:
+            - /url: /projects/agileboard/settings/categories
+        - listitem [ref=f78e79]:
+          - link "Repositories" [ref=f78e80] [cursor=pointer]:
+            - /url: /projects/agileboard/settings/repositories
+        - listitem [ref=f78e81]:
+          - link "Forums" [ref=f78e82] [cursor=pointer]:
+            - /url: /projects/agileboard/settings/boards
+        - listitem [ref=f78e83]:
+          - link "Time tracking" [ref=f78e84] [cursor=pointer]:
+            - /url: /projects/agileboard/settings/activities
+      - generic [ref=f78e86]:
+        - generic [ref=f78e87]:
+          - paragraph [ref=f78e88]:
+            - generic [ref=f78e89]: Name *
+            - textbox "Name *" [ref=f78e90]: Agile Board Project
+          - paragraph [ref=f78e91]:
+            - generic [ref=f78e92]: Description
+            - generic [ref=f78e93]:
+              - list [ref=f78e95]:
+                - listitem [ref=f78e96]:
+                  - link "Edit" [ref=f78e97] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f78e98]:
+                  - link "Preview" [ref=f78e99] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f78e100]:
+                  - generic [ref=f78e101]:
+                    - button "Strong (Ctrl+B)" [ref=f78e102] [cursor=pointer]
+                    - button "Italic (Ctrl+I)" [ref=f78e103] [cursor=pointer]
+                    - button "Underline (Ctrl+U)" [ref=f78e104] [cursor=pointer]
+                    - button "Deleted" [ref=f78e105] [cursor=pointer]
+                    - button "Inline Code" [ref=f78e106] [cursor=pointer]
+                    - button "Heading 1" [ref=f78e107] [cursor=pointer]
+                    - button "Heading 2" [ref=f78e108] [cursor=pointer]
+                    - button "Heading 3" [ref=f78e109] [cursor=pointer]
+                    - button "Unordered list" [ref=f78e110] [cursor=pointer]
+                    - button "Ordered list" [ref=f78e111] [cursor=pointer]
+                    - button "Task list" [ref=f78e112] [cursor=pointer]
+                    - button "Quote" [ref=f78e113] [cursor=pointer]
+                    - button "Remove Quote" [ref=f78e114] [cursor=pointer]
+                    - button "Table" [ref=f78e115] [cursor=pointer]
+                    - button "pre" [ref=f78e116] [cursor=pointer]
+                    - button "Highlighted code" [ref=f78e117] [cursor=pointer]
+                    - button "Link to a Wiki page" [ref=f78e118] [cursor=pointer]
+                    - button "Image" [ref=f78e119] [cursor=pointer]
+                    - button "Help" [ref=f78e120] [cursor=pointer]
+              - textbox "Description" [ref=f78e122]
+          - paragraph [ref=f78e123]:
+            - generic [ref=f78e124]: Identifier *
+            - textbox "Identifier *" [disabled] [ref=f78e125]: agileboard
+          - paragraph [ref=f78e126]:
+            - generic [ref=f78e127]: Homepage
+            - textbox "Homepage" [ref=f78e128]
+          - paragraph [ref=f78e129]:
+            - generic [ref=f78e130]: Public
+            - checkbox "Public" [checked] [ref=f78e131]
+            - emphasis [ref=f78e132]: Public projects and their contents are openly available on the network.
+          - paragraph [ref=f78e133]:
+            - generic [ref=f78e134]: Subproject of
+            - combobox "Subproject of" [ref=f78e135]:
+              - option [selected]
+              - option "Education and training3"
+              - option "Flux Gantt Project"
+              - option "HR management2"
+              - option "Helpdesk Service Desk"
+              - option "MVP build for PaySheet Application"
+              - option "Marketing campaign4"
+              - option "Mobile app development1"
+              - option "Software development5"
+          - paragraph [ref=f78e136]:
+            - generic [ref=f78e137]: Inherit members
+            - checkbox "Inherit members" [ref=f78e138]
+        - group [ref=f78e139]:
+          - generic [ref=f78e140]:
+            - link "Check all / Uncheck all" [ref=f78e141] [cursor=pointer]:
+              - /url: "#"
+            - text: Modules
+          - generic [ref=f78e143]:
+            - checkbox "Issue tracking" [checked] [ref=f78e144]
+            - text: Issue tracking
+          - generic [ref=f78e145]:
+            - checkbox "Time tracking" [checked] [ref=f78e146]
+            - text: Time tracking
+          - generic [ref=f78e147]:
+            - checkbox "News" [checked] [ref=f78e148]
+            - text: News
+          - generic [ref=f78e149]:
+            - checkbox "Documents" [checked] [ref=f78e150]
+            - text: Documents
+          - generic [ref=f78e151]:
+            - checkbox "Files" [checked] [ref=f78e152]
+            - text: Files
+          - generic [ref=f78e153]:
+            - checkbox "Wiki" [checked] [ref=f78e154]
+            - text: Wiki
+          - generic [ref=f78e155]:
+            - checkbox "Repository" [checked] [ref=f78e156]
+            - text: Repository
+          - generic [ref=f78e157]:
+            - checkbox "Forums" [checked] [ref=f78e158]
+            - text: Forums
+          - generic [ref=f78e159]:
+            - checkbox "Calendar" [checked] [ref=f78e160]
+            - text: Calendar
+          - generic [ref=f78e161]:
+            - checkbox "Gantt" [checked] [ref=f78e162]
+            - text: Gantt
+          - generic [ref=f78e163]:
+            - checkbox "Redmineflux Helpdesk" [checked] [active] [ref=f78e164]
+            - text: Redmineflux Helpdesk
+        - button "Save" [ref=f78e165] [cursor=pointer]
+    - generic [ref=f78e166]:
+      - text: Powered by
+      - link "Redmine" [ref=f78e167] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f78e168]
+  - log [ref=f78e169]
+  - log [ref=f78e170]
+  - log [ref=f78e171]
+  - log [ref=f78e172]
+  - log [ref=f78e173]
+  - log [ref=f78e174]
+  - log [ref=f78e175]
+  - log [ref=f78e176]
+  - log [ref=f78e177]
+  - log [ref=f78e178]
+  - log [ref=f78e179]
+  - log [ref=f78e180]
+  - log [ref=f78e181]
+  - log [ref=f78e182]
+  - log [ref=f78e183]
+  - log [ref=f78e184]
+  - log [ref=f78e185]
+  - log [ref=f78e186]
+  - log [ref=f78e187]
+  - log [ref=f78e188]
+  - log [ref=f78e189]
+  - log [ref=f78e190]
+  - log [ref=f78e191]
+  - log [ref=f78e192]
+  - log [ref=f78e193]
+  - log [ref=f78e194]
+  - log [ref=f78e195]
+  - log [ref=f78e196]
+  - log [ref=f78e197]
+  - log [ref=f78e198]
+  - log [ref=f78e199]
+  - log [ref=f78e200]
+  - log [ref=f78e201]
+  - log [ref=f78e202]

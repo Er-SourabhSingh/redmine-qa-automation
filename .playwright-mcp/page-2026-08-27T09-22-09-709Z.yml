@@ -1,0 +1,145 @@
+- generic [ref=f247e1]:
+  - generic [ref=f247e2]:
+    - generic [ref=f247e3]:
+      - generic [ref=f247e4]:
+        - img "Logo" [ref=f247e5]
+        - text: 
+      - navigation "Application tasks" [ref=f247e6]:
+        - button " Compose" [ref=f247e8] [cursor=pointer]
+        - button " Mail" [disabled] [ref=f247e9] [cursor=pointer]
+        - button " Contacts" [ref=f247e10] [cursor=pointer]
+        - button " Settings" [ref=f247e11] [cursor=pointer]
+        - generic [ref=f247e12]:
+          - button " Dark mode" [ref=f247e13] [cursor=pointer]
+          - button " About" [ref=f247e14] [cursor=pointer]
+          - button " Logout" [ref=f247e15] [cursor=pointer]
+    - navigation "Email folder selection" [ref=f247e16]:
+      - generic [ref=f247e17]:
+        - text: 
+        - generic [ref=f247e18]: alpha.customer@test.local
+        - button "" [ref=f247e19] [cursor=pointer]:     
+      - tree [ref=f247e21]:
+        - treeitem [level=1] [selected] [ref=f247e22]:
+          - link " Inbox 2" [ref=f247e23]:
+            - /url: /?_task=mail&_mbox=INBOX
+            - text:  Inbox
+            - generic [ref=f247e24]: "2"
+        - treeitem [level=1] [ref=f247e25]:
+          - link " Drafts" [ref=f247e26]:
+            - /url: /?_task=mail&_mbox=Drafts
+        - treeitem [level=1] [ref=f247e27]:
+          - link " Sent" [ref=f247e28]:
+            - /url: /?_task=mail&_mbox=Sent
+        - treeitem [level=1] [ref=f247e29]:
+          - link " Junk" [ref=f247e30]:
+            - /url: /?_task=mail&_mbox=Junk
+        - treeitem [level=1] [ref=f247e31]:
+          - link " Trash" [ref=f247e32]:
+            - /url: /?_task=mail&_mbox=Trash
+      - generic [ref=f247e34]:
+        - text: 
+        - generic "unknown" [ref=f247e35]: 0%
+    - generic [ref=f247e38]:
+      - generic [ref=f247e39]:
+        - text:  
+        - list [ref=f247e40]:
+          - menuitem [ref=f247e41]:
+            - link " Select" [ref=f247e42] [cursor=pointer]:
+              - /url: "#select"
+              - text:  Select       
+          - menuitem " Threads" [ref=f247e43]:
+            - link " Threads":
+              - /url: "#threads"
+              - text:  Threads   
+          - menuitem [ref=f247e44]:
+            - link " Options" [ref=f247e45] [cursor=pointer]:
+              - /url: "#list-options"
+        - button " Refresh" [ref=f247e46] [cursor=pointer]
+        - text:  
+      - search "Email search input" [ref=f247e47]:
+        - generic [ref=f247e48]:
+          - text: 
+          - textbox "Search terms" [ref=f247e49]:
+            - /placeholder: Search...
+        - text: 
+        - button "" [ref=f247e50] [cursor=pointer]
+        - button "" [ref=f247e51] [cursor=pointer]
+        - text: 
+      - text:   
+      - generic [ref=f247e52]:
+        - text: 
+        - table "Email Messages Listing" [ref=f247e53]:
+          - text: 
+          - rowgroup [ref=f247e54]:
+            - row [ref=f247e55]:
+              - 'cell "alpha.support@test.local Today 14:44  [Helpdesk QA Alpha #74] Re: [TICKET] TC-HLP-015 - customer-raised ticket, cannot access my dashboard" [active] [ref=f247e56]':
+                - generic [ref=f247e57]: alpha.support@test.local
+                - generic [ref=f247e59]: Today 14:44
+                - generic [ref=f247e60]:
+                  - generic "Unread": 
+                  - 'link "[Helpdesk QA Alpha #74] Re: [TICKET] TC-HLP-015 - customer-raised ticket, cannot access my dashboard" [ref=f247e61]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=3&_action=show
+              - cell "Not Flagged" [ref=f247e62]:
+                - generic [ref=f247e63] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f247e65]:
+              - 'cell "alpha.support@test.local Wed 15:05  [Support #68] Just saying hello" [ref=f247e66]':
+                - generic [ref=f247e67]: alpha.support@test.local
+                - generic [ref=f247e69]: Wed 15:05
+                - generic [ref=f247e70]:
+                  - generic "Unread": 
+                  - 'link "[Support #68] Just saying hello" [ref=f247e71]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=2&_action=show
+              - cell "Not Flagged" [ref=f247e72]:
+                - generic [ref=f247e73] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f247e75]:
+              - cell "admin@test.local Wed 14:31  Your Helpdesk Account Has Been Created" [ref=f247e76]:
+                - generic [ref=f247e77]: admin@test.local
+                - generic [ref=f247e79]: Wed 14:31
+                - generic [ref=f247e80]:
+                  - generic: 
+                  - link "Your Helpdesk Account Has Been Created" [ref=f247e81]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=1&_action=show
+              - cell "Not Flagged" [ref=f247e82]:
+                - generic [ref=f247e83] [cursor=pointer]:
+                  - generic "Not Flagged"
+      - toolbar "List navigation" [ref=f247e85]:
+        - button "" [disabled]
+        - button "" [disabled]
+        - generic [ref=f247e86]: Messages 1 to 3 of 3
+        - textbox "Current page" [disabled] [ref=f247e87]: "1"
+        - button "" [disabled]
+        - button "" [disabled]
+    - generic [ref=f247e89]:
+      - toolbar "Application toolbar" [ref=f247e90]:
+        - text:                   Browse
+        - list [ref=f247e91]:
+          - menuitem: 
+          - menuitem " Reply" [ref=f247e92]:
+            - button " Reply" [disabled]
+          - menuitem [ref=f247e93]:
+            - generic [ref=f247e94]:
+              - button " Reply all" [disabled]
+              - link "":
+                - /url: "#reply-all"
+          - menuitem [ref=f247e95]:
+            - generic [ref=f247e96]:
+              - button " Forward" [disabled]
+              - link "":
+                - /url: "#forward"
+          - menuitem [ref=f247e97]
+          - menuitem " Delete" [ref=f247e98]:
+            - button " Delete" [disabled]
+          - menuitem " Mark" [ref=f247e99]:
+            - button " Mark"
+          - menuitem [ref=f247e100]:
+            - button " More" [ref=f247e101] [cursor=pointer]
+          - menuitem: 
+          - menuitem: 
+          - menuitem: 
+        - text: 
+      - iframe [ref=f247e103]:
+        
+      - text:   
+  - text:   

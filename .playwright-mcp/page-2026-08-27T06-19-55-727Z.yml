@@ -1,0 +1,230 @@
+- generic [ref=f37e1]:
+  - generic [ref=f37e2]:
+    - generic [ref=f37e3]:
+      - generic [ref=f37e4]:
+        - list:
+          - listitem [ref=f37e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f37e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f37e7]:
+        - text: Logged in as
+        - link "admin" [ref=f37e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f37e9]:
+        - listitem [ref=f37e10]:
+          - link [ref=f37e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f37e12]
+        - listitem [ref=f37e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f37e14]:
+          - link "My page" [ref=f37e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f37e16]:
+          - link "Projects" [ref=f37e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f37e18]:
+          - link "Flux Gantt" [ref=f37e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f37e20]:
+          - link "Helpdesk Command Center" [ref=f37e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f37e22]:
+          - link "Time Tracker" [ref=f37e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f37e24]:
+          - link "Timesheet" [ref=f37e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f37e26]:
+          - link "Workloads" [ref=f37e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f37e28]:
+          - link "More" [ref=f37e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f37e30]:
+      - generic [ref=f37e31]:
+        - generic [ref=f37e32]:
+          - generic [ref=f37e33]:
+            - link "Search..." [ref=f37e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f37e35]
+        - generic [ref=f37e36]:
+          - generic [ref=f37e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f37e38]
+    - generic [ref=f37e39]:
+      - list [ref=f37e43]:
+        - listitem [ref=f37e44]:
+          - link "Helpdesk Dashboard" [ref=f37e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f37e48]:
+          - link "Helpdesk Tickets" [ref=f37e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f37e52]:
+          - link "Reports" [ref=f37e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f37e56]:
+          - link "Organization" [ref=f37e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f37e60]:
+          - link "Customers" [ref=f37e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f37e64]:
+          - link "Products" [ref=f37e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f37e68]:
+          - link "Helpdesk Settings" [ref=f37e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f37e72]:
+        - generic [ref=f37e73]:
+          - generic [ref=f37e75]:
+            - heading "Organizations" [level=2] [ref=f37e76]
+            - paragraph [ref=f37e77]: Companies your customers belong to
+          - link "New Organization" [ref=f37e79] [cursor=pointer]:
+            - /url: /rf_organizations/new
+        - generic [ref=f37e82]:
+          - textbox "Search organizations..." [active] [ref=f37e84]
+          - combobox "All Statuses" [ref=f37e85] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f37e86]:
+            - button "Apply Filters" [ref=f37e87] [cursor=pointer]
+            - link "Clear" [ref=f37e90] [cursor=pointer]:
+              - /url: /rf_organizations
+        - table [ref=f37e96]:
+          - rowgroup [ref=f37e97]:
+            - row [ref=f37e98]:
+              - columnheader "S.No" [ref=f37e99]
+              - columnheader "Organization Name" [ref=f37e100]
+              - columnheader "Website" [ref=f37e101]
+              - columnheader "Author" [ref=f37e102]
+              - columnheader "Updated By" [ref=f37e103]
+              - columnheader "Created on" [ref=f37e104]
+              - columnheader "Updated" [ref=f37e105]
+              - columnheader "User Count" [ref=f37e106]
+              - columnheader "Active" [ref=f37e107]
+              - columnheader "Action" [ref=f37e108]
+          - rowgroup [ref=f37e109]:
+            - row [ref=f37e110]:
+              - cell "1" [ref=f37e111]
+              - cell [ref=f37e112]:
+                - link "Alpha Org" [ref=f37e113] [cursor=pointer]:
+                  - /url: /rf_organizations/1
+              - cell [ref=f37e114]:
+                - link "https://acme.example.com" [ref=f37e115] [cursor=pointer]:
+                  - /url: https://acme.example.com
+              - cell "Redmine Admin" [ref=f37e116]
+              - cell "Redmine Admin" [ref=f37e117]
+              - cell "08/26/2026 08:28 AM" [ref=f37e118]
+              - cell "08/26/2026 01:19 PM" [ref=f37e119]
+              - cell "1" [ref=f37e120]
+              - cell [ref=f37e121]:
+                - checkbox "Active" [checked] [ref=f37e122]
+              - cell [ref=f37e123]:
+                - generic [ref=f37e124]:
+                  - link "Edit" [ref=f37e125] [cursor=pointer]:
+                    - /url: /rf_organizations/1/edit
+                  - link "Delete" [ref=f37e128] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f37e132]:
+              - cell "2" [ref=f37e133]
+              - cell [ref=f37e134]:
+                - link "Alpha Org Subsidiary" [ref=f37e135] [cursor=pointer]:
+                  - /url: /rf_organizations/3
+              - cell [ref=f37e136]:
+                - link "https://acme.example.com" [ref=f37e137] [cursor=pointer]:
+                  - /url: https://acme.example.com
+              - cell "Redmine Admin" [ref=f37e138]
+              - cell "Redmine Admin" [ref=f37e139]
+              - cell "08/26/2026 01:19 PM" [ref=f37e140]
+              - cell "08/27/2026 06:18 AM" [ref=f37e141]
+              - cell "0" [ref=f37e142]
+              - cell [ref=f37e143]:
+                - checkbox "Active" [ref=f37e144]
+              - cell [ref=f37e145]:
+                - generic [ref=f37e146]:
+                  - link "Edit" [ref=f37e147] [cursor=pointer]:
+                    - /url: /rf_organizations/3/edit
+                  - link "Delete" [ref=f37e150] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f37e154]:
+              - cell "3" [ref=f37e155]
+              - cell [ref=f37e156]:
+                - link "Beta Org" [ref=f37e157] [cursor=pointer]:
+                  - /url: /rf_organizations/2
+              - cell "—" [ref=f37e158]
+              - cell "Redmine Admin" [ref=f37e159]
+              - cell "Redmine Admin" [ref=f37e160]
+              - cell "08/26/2026 08:28 AM" [ref=f37e161]
+              - cell "08/26/2026 08:28 AM" [ref=f37e162]
+              - cell "1" [ref=f37e163]
+              - cell [ref=f37e164]:
+                - checkbox "Active" [checked] [ref=f37e165]
+              - cell [ref=f37e166]:
+                - generic [ref=f37e167]:
+                  - link "Edit" [ref=f37e168] [cursor=pointer]:
+                    - /url: /rf_organizations/2/edit
+                  - link "Delete" [ref=f37e171] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f37e175]:
+              - cell "4" [ref=f37e176]
+              - cell [ref=f37e177]:
+                - link "Gamma Corp" [ref=f37e178] [cursor=pointer]:
+                  - /url: /rf_organizations/4
+              - cell [ref=f37e179]:
+                - link "https://gammacorp.example.com" [ref=f37e180] [cursor=pointer]:
+                  - /url: https://gammacorp.example.com
+              - cell "Redmine Admin" [ref=f37e181]
+              - cell "Redmine Admin" [ref=f37e182]
+              - cell "08/27/2026 06:08 AM" [ref=f37e183]
+              - cell "08/27/2026 06:08 AM" [ref=f37e184]
+              - cell "1" [ref=f37e185]
+              - cell [ref=f37e186]:
+                - checkbox "Active" [checked] [ref=f37e187]
+              - cell [ref=f37e188]:
+                - generic [ref=f37e189]:
+                  - link "Edit" [ref=f37e190] [cursor=pointer]:
+                    - /url: /rf_organizations/4/edit
+                  - link "Delete" [ref=f37e193] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f37e197]:
+          - list
+          - generic [ref=f37e198]: (1-4/4)
+    - generic [ref=f37e199]:
+      - text: Powered by
+      - link "Redmine" [ref=f37e200] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f37e201]
+  - log [ref=f37e202]
+  - log [ref=f37e203]
+  - log [ref=f37e204]
+  - log [ref=f37e205]
+  - log [ref=f37e206]
+  - log [ref=f37e207]
+  - log [ref=f37e208]
+  - log [ref=f37e209]
+  - log [ref=f37e210]
+  - log [ref=f37e211]
+  - log [ref=f37e212]
+  - log [ref=f37e213]
+  - log [ref=f37e214]
+  - log [ref=f37e215]
+  - log [ref=f37e216]
+  - log [ref=f37e217]
+  - log [ref=f37e218]
+  - log [ref=f37e219]
+  - log [ref=f37e220]
+  - log [ref=f37e221]
+  - log [ref=f37e222]
+  - log [ref=f37e223]
+  - log [ref=f37e224]
+  - log [ref=f37e225]
+  - log [ref=f37e226]
+  - log [ref=f37e227]

@@ -1,0 +1,162 @@
+- generic [ref=f453e1]:
+  - generic [ref=f453e2]:
+    - generic [ref=f453e3]:
+      - generic [ref=f453e4]:
+        - list:
+          - listitem [ref=f453e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f453e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f453e7]:
+        - text: Logged in as
+        - link "admin" [ref=f453e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f453e9]:
+        - listitem [ref=f453e10]:
+          - link [ref=f453e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f453e12]
+        - listitem [ref=f453e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f453e14]:
+          - link "My page" [ref=f453e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f453e16]:
+          - link "Projects" [ref=f453e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f453e18]:
+          - link "Helpdesk Command Center" [ref=f453e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f453e20]:
+          - link "Administration" [ref=f453e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f453e22]:
+          - link "Help" [ref=f453e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f453e24]:
+      - generic [ref=f453e25]:
+        - generic [ref=f453e26]:
+          - generic [ref=f453e27]:
+            - link "Search" [ref=f453e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f453e29]
+        - generic [ref=f453e30]:
+          - generic [ref=f453e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f453e32]
+    - generic [ref=f453e33]:
+      - list [ref=f453e37]:
+        - listitem [ref=f453e38]:
+          - link "Helpdesk Dashboard" [ref=f453e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f453e42]:
+          - link "Helpdesk Tickets" [ref=f453e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f453e46]:
+          - link "Reports" [ref=f453e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f453e50]:
+          - link "Organization" [ref=f453e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f453e54]:
+          - link "Customers" [ref=f453e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f453e58]:
+          - link "Products" [ref=f453e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f453e62]:
+          - link "Helpdesk Settings" [ref=f453e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f453e66]:
+        - generic [ref=f453e67]:
+          - generic [ref=f453e69]:
+            - heading "Products" [level=2] [ref=f453e70]
+            - paragraph [ref=f453e71]: Products your customers raise tickets against
+          - link "New Product" [ref=f453e73] [cursor=pointer]:
+            - /url: /rf_products/new
+        - generic [ref=f453e76]:
+          - textbox "Search products..." [ref=f453e78]
+          - combobox "All Projects" [ref=f453e79] [cursor=pointer]:
+            - option "All Projects" [selected]
+            - option "Agile Board Project"
+            - option "Helpdesk Service Desk"
+          - combobox "All Statuses" [ref=f453e80] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f453e81]:
+            - button "Apply Filters" [ref=f453e82] [cursor=pointer]
+            - link "Clear" [ref=f453e85] [cursor=pointer]:
+              - /url: /rf_products
+        - table [ref=f453e91]:
+          - rowgroup [ref=f453e92]:
+            - row [ref=f453e93]:
+              - columnheader "S.No" [ref=f453e94]
+              - columnheader "Project" [ref=f453e95]
+              - columnheader "Product Name" [ref=f453e96]
+              - columnheader "Product Code" [ref=f453e97]
+              - columnheader "Category" [ref=f453e98]
+              - columnheader "Active" [ref=f453e99]
+              - columnheader "Action" [ref=f453e100]
+          - rowgroup [ref=f453e101]:
+            - row [ref=f453e102]:
+              - cell "1" [ref=f453e103]
+              - cell "Helpdesk Service Desk" [ref=f453e104]
+              - cell [ref=f453e105]:
+                - link "Reverify Test Product" [ref=f453e106] [cursor=pointer]:
+                  - /url: /rf_products/6
+              - cell "RVTP01" [ref=f453e107]
+              - cell [ref=f453e108]
+              - cell [ref=f453e109]:
+                - checkbox "Active" [checked] [ref=f453e110]
+              - cell [ref=f453e111]:
+                - generic [ref=f453e112]:
+                  - link "Edit" [ref=f453e113] [cursor=pointer]:
+                    - /url: /rf_products/6/edit
+                  - link "Delete" [active] [ref=f453e116] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f453e120]:
+          - list
+          - generic [ref=f453e121]: (1-1/1)
+        - generic [ref=f453e149]:
+          - button "✖" [ref=f453e150] [cursor=pointer]
+          - generic [ref=f453e155]:
+            - heading "Delete Product?" [level=2] [ref=f453e156]
+            - paragraph [ref=f453e157]: Are you sure you want to delete "Reverify Test Product"? This action cannot be undone.
+          - generic [ref=f453e158]:
+            - button "Cancel" [ref=f453e159] [cursor=pointer]
+            - button "Delete" [ref=f453e160] [cursor=pointer]
+    - generic [ref=f453e122]:
+      - text: Powered by
+      - link "Redmine" [ref=f453e123] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f453e124]
+  - log [ref=f453e125]
+  - log [ref=f453e126]
+  - log [ref=f453e127]
+  - log [ref=f453e128]
+  - log [ref=f453e129]
+  - log [ref=f453e130]
+  - log [ref=f453e131]
+  - log [ref=f453e132]
+  - log [ref=f453e133]
+  - log [ref=f453e134]
+  - log [ref=f453e135]
+  - log [ref=f453e136]
+  - log [ref=f453e137]
+  - log [ref=f453e138]:
+    - generic [ref=f453e146]: Organization
+  - log [ref=f453e139]
+  - log [ref=f453e140]
+  - log [ref=f453e141]
+  - log [ref=f453e142]:
+    - generic [ref=f453e147]: Inactive
+  - log [ref=f453e143]:
+    - generic [ref=f453e145]: Edit
+  - log [ref=f453e144]:
+    - generic [ref=f453e161]: Delete

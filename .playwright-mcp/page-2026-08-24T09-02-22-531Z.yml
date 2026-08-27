@@ -1,0 +1,219 @@
+- generic [ref=f318e1]:
+  - generic [ref=f318e2]:
+    - generic [ref=f318e3]:
+      - generic [ref=f318e4]:
+        - list:
+          - listitem [ref=f318e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f318e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f318e7]:
+        - text: Logged in as
+        - link "admin" [ref=f318e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f318e9]:
+        - listitem [ref=f318e10]:
+          - link [ref=f318e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f318e12]
+        - listitem [ref=f318e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f318e14]:
+          - link "My page" [ref=f318e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f318e16]:
+          - link "Projects" [ref=f318e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f318e18]:
+          - link "Helpdesk Command Center" [ref=f318e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f318e20]:
+          - link "Administration" [ref=f318e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f318e22]:
+          - link "Help" [ref=f318e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f318e24]:
+      - generic [ref=f318e25]:
+        - generic [ref=f318e26]:
+          - generic [ref=f318e27]:
+            - link "Search" [ref=f318e28] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Search:" [ref=f318e29]
+        - generic [ref=f318e30]:
+          - generic [ref=f318e31] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f318e32]
+      - generic [ref=f318e33]:
+        - list [ref=f318e34]:
+          - listitem [ref=f318e35]:
+            - link "+" [ref=f318e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f318e37]:
+            - link "Overview" [ref=f318e38] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f318e39]:
+            - link "Activity" [ref=f318e40] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f318e41]:
+            - link "Roadmap" [ref=f318e42] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f318e43]:
+            - link "Issues" [ref=f318e44] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f318e45]:
+            - link "Spent time" [ref=f318e46] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f318e47]:
+            - link "Gantt" [ref=f318e48] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f318e49]:
+            - link "Calendar" [ref=f318e50] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f318e51]:
+            - link "News" [ref=f318e52] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f318e53]:
+            - link "Documents" [ref=f318e54] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f318e55]:
+            - link "Wiki" [ref=f318e56] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f318e57]:
+            - link "Files" [ref=f318e58] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f318e59]:
+            - link "Helpdesk" [ref=f318e60] [cursor=pointer]:
+              - /url: /projects/agileboard/helpdesk
+          - listitem [ref=f318e61]:
+            - link "Settings" [ref=f318e62] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f318e63]:
+          - button [ref=f318e64] [cursor=pointer]
+          - button [ref=f318e65] [cursor=pointer]
+    - generic [ref=f318e66]:
+      - list [ref=f318e70]:
+        - listitem [ref=f318e71]:
+          - link "Helpdesk Dashboard" [ref=f318e72] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk
+        - listitem [ref=f318e75]:
+          - link "Helpdesk Tickets" [ref=f318e76] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/tickets
+        - listitem [ref=f318e79]:
+          - link "Knowledgebase" [ref=f318e80] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/knowledgebase
+        - listitem [ref=f318e83]:
+          - link "Helpdesk SLA" [ref=f318e84] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/sla
+        - listitem [ref=f318e87]:
+          - link "Organization" [ref=f318e88] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/organization
+        - listitem [ref=f318e91]:
+          - link "Settings" [ref=f318e92] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/settings
+      - generic [ref=f318e95]:
+        - heading "New Organization" [level=2] [ref=f318e96]
+        - generic [ref=f318e97]:
+          - generic [ref=f318e98]:
+            - paragraph [ref=f318e99]:
+              - generic [ref=f318e100]: Organization Name *
+              - textbox "Organization Name *" [active] [ref=f318e101]
+            - paragraph [ref=f318e102]:
+              - generic [ref=f318e103]: Website
+              - textbox "Website" [ref=f318e104]
+            - paragraph [ref=f318e105]:
+              - generic [ref=f318e106]: Phone Number
+              - textbox "Phone Number" [ref=f318e107]
+            - paragraph [ref=f318e108]:
+              - generic [ref=f318e109]: Organization Address
+              - textbox "Organization Address" [ref=f318e110]
+            - paragraph [ref=f318e111]:
+              - generic [ref=f318e112]: Number of Employees
+              - spinbutton "Number of Employees" [ref=f318e113]
+            - paragraph [ref=f318e114]:
+              - generic [ref=f318e115]: Notes
+              - generic [ref=f318e116]:
+                - list [ref=f318e118]:
+                  - listitem [ref=f318e119]:
+                    - link "Edit" [ref=f318e120] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f318e121]:
+                    - link "Preview" [ref=f318e122] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f318e123]:
+                    - generic [ref=f318e124]:
+                      - button "Strong (Ctrl+B)" [ref=f318e125] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f318e126] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f318e127] [cursor=pointer]
+                      - button "Deleted" [ref=f318e128] [cursor=pointer]
+                      - button "Inline Code" [ref=f318e129] [cursor=pointer]
+                      - button "Heading 1" [ref=f318e130] [cursor=pointer]
+                      - button "Heading 2" [ref=f318e131] [cursor=pointer]
+                      - button "Heading 3" [ref=f318e132] [cursor=pointer]
+                      - button "Unordered list" [ref=f318e133] [cursor=pointer]
+                      - button "Ordered list" [ref=f318e134] [cursor=pointer]
+                      - button "Task list" [ref=f318e135] [cursor=pointer]
+                      - button "Quote" [ref=f318e136] [cursor=pointer]
+                      - button "Remove Quote" [ref=f318e137] [cursor=pointer]
+                      - button "Table" [ref=f318e138] [cursor=pointer]
+                      - button "pre" [ref=f318e139] [cursor=pointer]
+                      - button "Highlighted code" [ref=f318e140] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f318e141] [cursor=pointer]
+                      - button "Image" [ref=f318e142] [cursor=pointer]
+                      - button "Help" [ref=f318e143] [cursor=pointer]
+                - textbox "Notes" [ref=f318e145]
+            - paragraph [ref=f318e146]:
+              - generic [ref=f318e147]: Billing Info
+              - textbox "Billing Info" [ref=f318e148]
+            - paragraph [ref=f318e149]:
+              - generic [ref=f318e150]: Active
+              - checkbox "Active" [checked] [ref=f318e151]
+          - paragraph [ref=f318e152]:
+            - button "Create" [ref=f318e153] [cursor=pointer]
+            - link "Cancel" [ref=f318e154] [cursor=pointer]:
+              - /url: /projects/7/helpdesk/organization
+    - generic [ref=f318e155]:
+      - text: Powered by
+      - link "Redmine" [ref=f318e156] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f318e157]
+  - log [ref=f318e158]
+  - log [ref=f318e159]
+  - log [ref=f318e160]
+  - log [ref=f318e161]
+  - log [ref=f318e162]
+  - log [ref=f318e163]
+  - log [ref=f318e164]
+  - log [ref=f318e165]
+  - log [ref=f318e166]
+  - log [ref=f318e167]
+  - log [ref=f318e168]
+  - log [ref=f318e169]
+  - log [ref=f318e170]
+  - log [ref=f318e171]
+  - log [ref=f318e172]
+  - log [ref=f318e173]
+  - log [ref=f318e174]
+  - log [ref=f318e175]
+  - log [ref=f318e176]
+  - log [ref=f318e177]
+  - log [ref=f318e178]
+  - log [ref=f318e179]
+  - log [ref=f318e180]
+  - log [ref=f318e181]
+  - log [ref=f318e182]
+  - log [ref=f318e183]
+  - log [ref=f318e184]
+  - log [ref=f318e185]
+  - log [ref=f318e186]
+  - log [ref=f318e187]
+  - log [ref=f318e188]
+  - log [ref=f318e189]
+  - log [ref=f318e190]
+  - log [ref=f318e191]
+  - log [ref=f318e192]

@@ -1,0 +1,151 @@
+- generic [ref=f149e1]:
+  - generic [ref=f149e2]:
+    - generic [ref=f149e3]:
+      - generic [ref=f149e4]:
+        - list:
+          - listitem [ref=f149e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f149e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f149e7]:
+        - text: Logged in as
+        - link "admin" [ref=f149e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f149e9]:
+        - listitem [ref=f149e10]:
+          - link [ref=f149e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f149e12]
+        - listitem [ref=f149e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f149e14]:
+          - link "My page" [ref=f149e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f149e16]:
+          - link "Projects" [ref=f149e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f149e18]:
+          - link "Helpdesk Command Center" [ref=f149e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f149e20]:
+          - link "Administration" [ref=f149e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f149e22]:
+          - link "Help" [ref=f149e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f149e24]:
+      - generic [ref=f149e25]:
+        - generic [ref=f149e26]:
+          - generic [ref=f149e27]:
+            - link "Search" [ref=f149e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f149e29]
+        - generic [ref=f149e30]:
+          - generic [ref=f149e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f149e32]
+    - generic [ref=f149e33]:
+      - list [ref=f149e37]:
+        - listitem [ref=f149e38]:
+          - link "Helpdesk Dashboard" [ref=f149e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f149e42]:
+          - link "Helpdesk Tickets" [ref=f149e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f149e46]:
+          - link "Reports" [ref=f149e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f149e50]:
+          - link "Organization" [ref=f149e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f149e54]:
+          - link "Customers" [ref=f149e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f149e58]:
+          - link "Products" [ref=f149e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f149e62]:
+          - link "Helpdesk Settings" [ref=f149e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f149e66]:
+        - generic [ref=f149e69]:
+          - heading "Helpdesk Settings" [level=2] [ref=f149e70]
+          - paragraph [ref=f149e71]: Holidays, products, SLA policies and canned responses
+        - list [ref=f149e73]:
+          - listitem [ref=f149e74]:
+            - link "Holiday" [ref=f149e75] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f149e76]:
+            - link "Products" [ref=f149e77] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f149e78]:
+            - link "Email Configuration" [ref=f149e79] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f149e80]:
+            - link "Canned Responses" [ref=f149e81] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+        - generic [ref=f149e82]:
+          - generic [ref=f149e84]:
+            - textbox "Search canned responses..." [active] [ref=f149e86]
+            - generic [ref=f149e87]:
+              - button "Apply Filters" [ref=f149e88] [cursor=pointer]
+              - link "Clear" [ref=f149e91] [cursor=pointer]:
+                - /url: /rf_helpdesk/setting?tab=canned_responses
+          - generic [ref=f149e96]:
+            - generic [ref=f149e97]:
+              - heading "Canned Responses" [level=3] [ref=f149e98]
+              - link "New Canned Response" [ref=f149e100] [cursor=pointer]:
+                - /url: /rf_canned_responses/new
+            - table [ref=f149e102]:
+              - rowgroup [ref=f149e103]:
+                - row [ref=f149e104]:
+                  - columnheader "S.No" [ref=f149e105]
+                  - columnheader "Name" [ref=f149e106]
+                  - columnheader "Content" [ref=f149e107]
+                  - columnheader "Author" [ref=f149e108]
+                  - columnheader "Created" [ref=f149e109]
+                  - columnheader "Active" [ref=f149e110]
+                  - columnheader "Action" [ref=f149e111]
+              - rowgroup [ref=f149e112]:
+                - row [ref=f149e113]:
+                  - cell "1" [ref=f149e114]
+                  - cell "Acknowledge Receipt" [ref=f149e115]
+                  - 'cell "Hi {{customer_name}}, Thank you for contacting us regarding ticket {{ticket_id}} - {{ti..." [ref=f149e116]'
+                  - cell "Redmine Admin" [ref=f149e117]
+                  - cell "08/24/2026 06:31 AM" [ref=f149e118]
+                  - cell "Active" [ref=f149e119]
+                  - cell [ref=f149e125]:
+                    - generic [ref=f149e126]:
+                      - link "Edit" [ref=f149e127] [cursor=pointer]:
+                        - /url: /rf_canned_responses/1/edit
+                      - link "Delete" [ref=f149e130] [cursor=pointer]:
+                        - /url: javascript:void(0)
+    - generic [ref=f149e134]:
+      - text: Powered by
+      - link "Redmine" [ref=f149e135] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f149e136]
+  - log [ref=f149e137]
+  - log [ref=f149e138]
+  - log [ref=f149e139]
+  - log [ref=f149e140]
+  - log [ref=f149e141]
+  - log [ref=f149e142]
+  - log [ref=f149e143]
+  - log [ref=f149e144]
+  - log [ref=f149e145]
+  - log [ref=f149e146]
+  - log [ref=f149e147]
+  - log [ref=f149e148]
+  - log [ref=f149e149]
+  - log [ref=f149e150]
+  - log [ref=f149e151]
+  - log [ref=f149e152]
+  - log [ref=f149e153]
+  - log [ref=f149e154]
+  - log [ref=f149e155]

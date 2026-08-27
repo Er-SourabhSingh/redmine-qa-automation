@@ -1,0 +1,185 @@
+- generic [ref=f405e1]:
+  - generic [ref=f405e2]:
+    - generic [ref=f405e3]:
+      - generic [ref=f405e4]:
+        - list:
+          - listitem [ref=f405e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f405e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f405e7]:
+        - text: Logged in as
+        - link "admin" [ref=f405e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f405e9]:
+        - listitem [ref=f405e10]:
+          - link [ref=f405e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f405e12]
+        - listitem [ref=f405e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f405e14]:
+          - link "My page" [ref=f405e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f405e16]:
+          - link "Projects" [ref=f405e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f405e18]:
+          - link "Flux Gantt" [ref=f405e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f405e20]:
+          - link "Helpdesk Command Center" [ref=f405e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f405e22]:
+          - link "Time Tracker" [ref=f405e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f405e24]:
+          - link "Timesheet" [ref=f405e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f405e26]:
+          - link "Workloads" [ref=f405e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f405e28]:
+          - link "More" [ref=f405e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f405e30]:
+      - generic [ref=f405e31]:
+        - generic [ref=f405e32]:
+          - generic [ref=f405e33]:
+            - link "Search..." [ref=f405e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f405e35]
+        - generic [ref=f405e36]:
+          - generic [ref=f405e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f405e38]
+    - generic [ref=f405e39]:
+      - list [ref=f405e43]:
+        - listitem [ref=f405e44]:
+          - link "Helpdesk Dashboard" [ref=f405e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f405e48]:
+          - link "Helpdesk Tickets" [ref=f405e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f405e52]:
+          - link "Reports" [ref=f405e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f405e56]:
+          - link "Organization" [ref=f405e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f405e60]:
+          - link "Customers" [ref=f405e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f405e64]:
+          - link "Products" [ref=f405e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f405e68]:
+          - link "Helpdesk Settings" [ref=f405e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f405e72]:
+        - generic [ref=f405e73]: Successful update
+        - generic [ref=f405e74]:
+          - generic [ref=f405e76]:
+            - heading "Customers" [level=2] [ref=f405e77]
+            - paragraph [ref=f405e78]: People who raise tickets through the helpdesk
+          - link "New Customer" [ref=f405e80] [cursor=pointer]:
+            - /url: /rf_customers/new
+        - generic [ref=f405e83]:
+          - textbox "Search customers..." [active] [ref=f405e85]
+          - generic [ref=f405e86]:
+            - textbox "All Organizations" [ref=f405e87]
+            - combobox "All Organizations":
+              - option "All Organizations" [selected]
+              - option "Alpha Org"
+              - option "Alpha Org Subsidiary"
+              - option "Beta Org"
+          - generic [ref=f405e88]:
+            - button "Apply Filters" [ref=f405e89] [cursor=pointer]
+            - link "Clear" [ref=f405e92] [cursor=pointer]:
+              - /url: /rf_customers
+        - table [ref=f405e98]:
+          - rowgroup [ref=f405e99]:
+            - row [ref=f405e100]:
+              - columnheader "S.No" [ref=f405e101]
+              - columnheader "Customer Name" [ref=f405e102]
+              - columnheader "Email" [ref=f405e103]
+              - columnheader "Organization Name" [ref=f405e104]
+              - columnheader "Support Level" [ref=f405e105]
+              - columnheader "Projects" [ref=f405e106]
+              - columnheader "Open" [ref=f405e107]
+              - columnheader "Last Login" [ref=f405e108]
+              - columnheader "Action" [ref=f405e109]
+          - rowgroup [ref=f405e110]:
+            - row [ref=f405e111]:
+              - cell "1" [ref=f405e112]
+              - cell "Alpha Customer alpha.customer" [ref=f405e113]:
+                - link "Alpha Customer" [ref=f405e114] [cursor=pointer]:
+                  - /url: /rf_customers/15
+                - generic [ref=f405e115]: alpha.customer
+              - cell [ref=f405e116]:
+                - link "alpha.customer@test.local" [ref=f405e117] [cursor=pointer]:
+                  - /url: mailto:alpha.customer@test.local
+              - cell "Alpha Org" [ref=f405e118]
+              - cell "L1" [ref=f405e119]
+              - cell "1" [ref=f405e122]
+              - cell "1" [ref=f405e123]
+              - cell "Never" [ref=f405e124]
+              - cell [ref=f405e125]:
+                - generic [ref=f405e126]:
+                  - link "Customer details" [ref=f405e127] [cursor=pointer]:
+                    - /url: /rf_customers/15
+                  - link "Edit" [ref=f405e131] [cursor=pointer]:
+                    - /url: /rf_customers/15/edit
+                  - link "Delete" [ref=f405e134] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f405e138]:
+              - cell "2" [ref=f405e139]
+              - cell "Beta Customer-Updated beta.customer" [ref=f405e140]:
+                - link "Beta Customer-Updated" [ref=f405e141] [cursor=pointer]:
+                  - /url: /rf_customers/16
+                - generic [ref=f405e142]: beta.customer
+              - cell [ref=f405e143]:
+                - link "beta.customer@test.local" [ref=f405e144] [cursor=pointer]:
+                  - /url: mailto:beta.customer@test.local
+              - cell "Beta Org" [ref=f405e145]
+              - cell "AB-L1" [ref=f405e146]
+              - cell "1" [ref=f405e149]
+              - cell "3" [ref=f405e150]
+              - cell "08/26/2026 12:38 PM" [ref=f405e151]
+              - cell [ref=f405e152]:
+                - generic [ref=f405e153]:
+                  - link "Customer details" [ref=f405e154] [cursor=pointer]:
+                    - /url: /rf_customers/16
+                  - link "Edit" [ref=f405e158] [cursor=pointer]:
+                    - /url: /rf_customers/16/edit
+                  - link "Delete" [ref=f405e161] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f405e165]:
+          - list
+          - generic [ref=f405e166]: (1-2/2)
+    - generic [ref=f405e167]:
+      - text: Powered by
+      - link "Redmine" [ref=f405e168] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f405e169]
+  - log [ref=f405e170]
+  - log [ref=f405e171]
+  - log [ref=f405e172]
+  - log [ref=f405e173]
+  - log [ref=f405e174]
+  - log [ref=f405e175]
+  - log [ref=f405e176]
+  - log [ref=f405e177]
+  - log [ref=f405e178]
+  - log [ref=f405e179]
+  - log [ref=f405e180]
+  - log [ref=f405e181]
+  - log [ref=f405e182]
+  - log [ref=f405e183]
+  - log [ref=f405e184]
+  - log [ref=f405e185]

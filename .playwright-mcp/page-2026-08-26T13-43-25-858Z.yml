@@ -1,0 +1,217 @@
+- generic [active] [ref=f403e1]:
+  - generic [ref=f403e2]:
+    - generic [ref=f403e3]:
+      - generic [ref=f403e4]:
+        - list:
+          - listitem [ref=f403e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f403e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f403e7]:
+        - text: Logged in as
+        - link "admin" [ref=f403e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f403e9]:
+        - listitem [ref=f403e10]:
+          - link [ref=f403e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f403e12]
+        - listitem [ref=f403e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f403e14]:
+          - link "My page" [ref=f403e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f403e16]:
+          - link "Projects" [ref=f403e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f403e18]:
+          - link "Flux Gantt" [ref=f403e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f403e20]:
+          - link "Helpdesk Command Center" [ref=f403e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f403e22]:
+          - link "Time Tracker" [ref=f403e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f403e24]:
+          - link "Timesheet" [ref=f403e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f403e26]:
+          - link "Workloads" [ref=f403e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f403e28]:
+          - link "More" [ref=f403e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f403e30]:
+      - generic [ref=f403e31]:
+        - generic [ref=f403e32]:
+          - generic [ref=f403e33]:
+            - link "Search..." [ref=f403e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f403e35]
+        - generic [ref=f403e36]:
+          - generic [ref=f403e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f403e38]
+    - generic [ref=f403e39]:
+      - list [ref=f403e43]:
+        - listitem [ref=f403e44]:
+          - link "Helpdesk Dashboard" [ref=f403e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f403e48]:
+          - link "Helpdesk Tickets" [ref=f403e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f403e52]:
+          - link "Reports" [ref=f403e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f403e56]:
+          - link "Organization" [ref=f403e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f403e60]:
+          - link "Customers" [ref=f403e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f403e64]:
+          - link "Products" [ref=f403e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f403e68]:
+          - link "Helpdesk Settings" [ref=f403e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f403e73]:
+        - generic [ref=f403e74]:
+          - generic [ref=f403e76]:
+            - heading "Beta Customer" [level=2] [ref=f403e77]
+            - paragraph [ref=f403e78]:
+              - link "Customers" [ref=f403e79] [cursor=pointer]:
+                - /url: /rf_customers
+              - text: › beta.customer
+          - link "Edit" [ref=f403e81] [cursor=pointer]:
+            - /url: /rf_customers/16/edit
+        - generic [ref=f403e84]:
+          - generic [ref=f403e85]:
+            - heading "Customer details" [level=3] [ref=f403e86]
+            - generic [ref=f403e90]: Active
+          - generic [ref=f403e97]:
+            - generic [ref=f403e98]:
+              - generic [ref=f403e99]: Login
+              - generic [ref=f403e100]: beta.customer
+            - generic [ref=f403e101]:
+              - generic [ref=f403e102]: Email
+              - link "beta.customer@test.local" [ref=f403e104] [cursor=pointer]:
+                - /url: mailto:beta.customer@test.local
+            - generic [ref=f403e105]:
+              - generic [ref=f403e106]: Organization Name
+              - generic [ref=f403e107]: Beta Org
+            - generic [ref=f403e108]:
+              - generic [ref=f403e109]: Customer since
+              - generic [ref=f403e110]: 08/26/2026
+            - generic [ref=f403e111]:
+              - generic [ref=f403e112]: Last Login
+              - generic [ref=f403e113]: 08/26/2026 12:38 PM
+        - generic [ref=f403e114]:
+          - generic [ref=f403e115]:
+            - generic [ref=f403e119]: "3"
+            - generic [ref=f403e120]: Total Tickets
+          - generic [ref=f403e121]:
+            - generic [ref=f403e126]: "3"
+            - generic [ref=f403e127]: Open
+          - generic [ref=f403e128]:
+            - generic [ref=f403e132]: "1"
+            - generic [ref=f403e133]: Waiting on them
+          - generic [ref=f403e134]:
+            - generic [ref=f403e138]: "0"
+            - generic [ref=f403e139]: Breached
+          - generic [ref=f403e140]:
+            - generic [ref=f403e145]: "0"
+            - generic [ref=f403e146]: Resolved
+        - generic [ref=f403e147]:
+          - heading "Projects & entitlements 1" [level=3] [ref=f403e149]:
+            - text: Projects & entitlements
+            - generic [ref=f403e152]: "1"
+          - table [ref=f403e155]:
+            - rowgroup [ref=f403e156]:
+              - row [ref=f403e157]:
+                - columnheader "Project" [ref=f403e158]
+                - columnheader "SLA Name" [ref=f403e159]
+                - columnheader "Support Level" [ref=f403e160]
+                - columnheader "Organization Name" [ref=f403e161]
+                - columnheader "Open" [ref=f403e162]
+                - columnheader "Created on" [ref=f403e163]
+            - rowgroup [ref=f403e164]:
+              - row [ref=f403e165]:
+                - cell [ref=f403e166]:
+                  - link "Helpdesk QA Beta" [ref=f403e167] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-beta/helpdesk
+                - cell "Beta Standard SLA" [ref=f403e168]
+                - cell "AB-L1" [ref=f403e169]
+                - cell "Beta Org" [ref=f403e172]
+                - cell "3" [ref=f403e173]
+                - cell "08/26/2026" [ref=f403e174]
+        - generic [ref=f403e175]:
+          - heading "Recent Tickets" [level=3] [ref=f403e177]
+          - table [ref=f403e182]:
+            - rowgroup [ref=f403e183]:
+              - row [ref=f403e184]:
+                - columnheader "#" [ref=f403e185]
+                - columnheader "Subject" [ref=f403e186]
+                - columnheader "Project" [ref=f403e187]
+                - columnheader "Status" [ref=f403e188]
+                - columnheader "Priority" [ref=f403e189]
+                - columnheader "SLA Status" [ref=f403e190]
+                - columnheader "Updated" [ref=f403e191]
+            - rowgroup [ref=f403e192]:
+              - row [ref=f403e193]:
+                - cell [ref=f403e194]:
+                  - link "#70" [ref=f403e195] [cursor=pointer]:
+                    - /url: /issues/70
+                - cell [ref=f403e196]:
+                  - link "Verify Edit-form public note visibility and auto-status-transition" [ref=f403e197] [cursor=pointer]:
+                    - /url: /issues/70
+                - cell "Helpdesk QA Beta" [ref=f403e198]
+                - cell "Waiting for Customer Response" [ref=f403e199]
+                - cell "Normal" [ref=f403e202]
+                - cell "On Track" [ref=f403e205]
+                - cell "08/26/2026 12:34 PM" [ref=f403e211]
+              - row [ref=f403e212]:
+                - cell [ref=f403e213]:
+                  - link "#69" [ref=f403e214] [cursor=pointer]:
+                    - /url: /issues/69
+                - cell [ref=f403e215]:
+                  - 'link "BUG-HLP-006 retest: customer portal ticket open check adsf asd f" [ref=f403e216] [cursor=pointer]':
+                    - /url: /issues/69
+                - cell "Helpdesk QA Beta" [ref=f403e217]
+                - cell "In Progress" [ref=f403e218]
+                - cell "Normal" [ref=f403e221]
+                - cell "N/A" [ref=f403e224]
+                - cell "08/26/2026 12:13 PM" [ref=f403e229]
+              - row [ref=f403e230]:
+                - cell [ref=f403e231]:
+                  - link "#67" [ref=f403e232] [cursor=pointer]:
+                    - /url: /issues/67
+                - cell [ref=f403e233]:
+                  - 'link "[TICKET] Ticket: Cannot access my dashboard" [ref=f403e234] [cursor=pointer]':
+                    - /url: /issues/67
+                - cell "Helpdesk QA Beta" [ref=f403e235]
+                - cell "In Progress" [ref=f403e236]
+                - cell "Normal" [ref=f403e239]
+                - cell "Paused" [ref=f403e242]
+                - cell "08/26/2026 12:05 PM" [ref=f403e247]
+    - generic [ref=f403e248]:
+      - text: Powered by
+      - link "Redmine" [ref=f403e249] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f403e250]
+  - log [ref=f403e251]
+  - log [ref=f403e252]
+  - log [ref=f403e253]
+  - log [ref=f403e254]
+  - log [ref=f403e255]
+  - log [ref=f403e256]
+  - log [ref=f403e257]
+  - log [ref=f403e258]
+  - log [ref=f403e259]
+  - log [ref=f403e260]

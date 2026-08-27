@@ -1,0 +1,170 @@
+- generic [ref=f505e1]:
+  - generic [ref=f505e2]:
+    - generic [ref=f505e3]:
+      - generic [ref=f505e4]:
+        - list:
+          - listitem [ref=f505e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f505e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f505e7]:
+        - text: Logged in as
+        - link "admin" [ref=f505e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f505e9]:
+        - listitem [ref=f505e10]:
+          - link [ref=f505e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f505e12]
+        - listitem [ref=f505e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f505e14]:
+          - link "My page" [ref=f505e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f505e16]:
+          - link "Projects" [ref=f505e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f505e18]:
+          - link "Helpdesk Command Center" [ref=f505e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f505e20]:
+          - link "Administration" [ref=f505e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f505e22]:
+          - link "Help" [ref=f505e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f505e24]:
+      - generic [ref=f505e25]:
+        - generic [ref=f505e26]:
+          - generic [ref=f505e27]:
+            - link "Search" [ref=f505e28] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f505e29]
+        - generic [ref=f505e30]:
+          - generic [ref=f505e31] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f505e32]
+      - generic [ref=f505e33]:
+        - list [ref=f505e34]:
+          - listitem [ref=f505e35]:
+            - link "+" [ref=f505e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f505e37]:
+            - link "Overview" [ref=f505e38] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f505e39]:
+            - link "Activity" [ref=f505e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f505e41]:
+            - link "Issues" [ref=f505e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f505e43]:
+            - link "Spent time" [ref=f505e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f505e45]:
+            - link "Gantt" [ref=f505e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f505e47]:
+            - link "Calendar" [ref=f505e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f505e49]:
+            - link "News" [ref=f505e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f505e51]:
+            - link "Documents" [ref=f505e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f505e53]:
+            - link "Wiki" [ref=f505e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f505e55]:
+            - link "Files" [ref=f505e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f505e57]:
+            - link "Helpdesk" [ref=f505e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk
+          - listitem [ref=f505e59]:
+            - link "Settings" [ref=f505e60] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f505e61]:
+          - button [ref=f505e62] [cursor=pointer]
+          - button [ref=f505e63] [cursor=pointer]
+    - generic [ref=f505e64]:
+      - list [ref=f505e68]:
+        - listitem [ref=f505e69]:
+          - link "Helpdesk Dashboard" [ref=f505e70] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk
+        - listitem [ref=f505e73]:
+          - link "Helpdesk Tickets" [ref=f505e74] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets
+        - listitem [ref=f505e77]:
+          - link "Knowledgebase" [ref=f505e78] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/knowledgebase
+        - listitem [ref=f505e81]:
+          - link "Helpdesk SLA" [ref=f505e82] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/sla
+        - listitem [ref=f505e85]:
+          - link "Organization" [ref=f505e86] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/organization
+        - listitem [ref=f505e89]:
+          - link "Settings" [ref=f505e90] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/settings
+      - generic [ref=f505e93]:
+        - generic [ref=f505e96]:
+          - heading "Helpdesk Settings" [level=2] [ref=f505e97]
+          - paragraph [ref=f505e98]: Helpdesk Service Desk
+        - list [ref=f505e100]:
+          - listitem [ref=f505e101]:
+            - link "Holiday" [ref=f505e102] [cursor=pointer]:
+              - /url: /projects/9/helpdesk/settings?tab=holidays
+          - listitem [ref=f505e103]:
+            - link "Products" [ref=f505e104] [cursor=pointer]:
+              - /url: /projects/9/helpdesk/settings?tab=products
+          - listitem [ref=f505e105]:
+            - link "Support Level" [ref=f505e106] [cursor=pointer]:
+              - /url: /projects/9/helpdesk/settings?tab=support_levels
+        - generic [ref=f505e107]:
+          - generic [ref=f505e109]:
+            - textbox "Search holidays..." [active] [ref=f505e111]
+            - generic [ref=f505e112]:
+              - button "Apply Filters" [ref=f505e113] [cursor=pointer]
+              - link "Clear" [ref=f505e116] [cursor=pointer]:
+                - /url: /projects/9/helpdesk/settings
+          - generic [ref=f505e121]:
+            - generic [ref=f505e122]:
+              - heading "Holiday" [level=3] [ref=f505e123]
+              - link "New Holiday" [ref=f505e125] [cursor=pointer]:
+                - /url: /rf_helpdesk_holidays/new?project_id=9
+            - generic [ref=f505e127]:
+              - heading "No holidays defined" [level=3] [ref=f505e131]
+              - paragraph [ref=f505e132]: Holidays are excluded from SLA clocks. Add the ones your support team observes.
+              - link "New Holiday" [ref=f505e134] [cursor=pointer]:
+                - /url: /rf_helpdesk_holidays/new?project_id=9
+    - generic [ref=f505e136]:
+      - text: Powered by
+      - link "Redmine" [ref=f505e137] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f505e138]
+  - log [ref=f505e139]
+  - log [ref=f505e140]
+  - log [ref=f505e141]
+  - log [ref=f505e142]
+  - log [ref=f505e143]
+  - log [ref=f505e144]
+  - log [ref=f505e145]
+  - log [ref=f505e146]
+  - log [ref=f505e147]
+  - log [ref=f505e148]
+  - log [ref=f505e149]
+  - log [ref=f505e150]
+  - log [ref=f505e151]
+  - log [ref=f505e152]
+  - log [ref=f505e153]
+  - log [ref=f505e154]
+  - log [ref=f505e155]
+  - log [ref=f505e156]
+  - log [ref=f505e157]

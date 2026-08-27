@@ -1,0 +1,161 @@
+- generic [ref=f364e1]:
+  - generic [ref=f364e2]:
+    - generic [ref=f364e3]:
+      - generic [ref=f364e4]:
+        - list:
+          - listitem [ref=f364e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f364e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f364e7]:
+        - text: Logged in as
+        - link "admin" [ref=f364e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f364e9]:
+        - listitem [ref=f364e10]:
+          - link [ref=f364e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f364e12]
+        - listitem [ref=f364e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f364e14]:
+          - link "My page" [ref=f364e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f364e16]:
+          - link "Projects" [ref=f364e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f364e18]:
+          - link "Helpdesk Command Center" [ref=f364e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f364e20]:
+          - link "Administration" [ref=f364e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f364e22]:
+          - link "Help" [ref=f364e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f364e24]:
+      - generic [ref=f364e25]:
+        - generic [ref=f364e26]:
+          - generic [ref=f364e27]:
+            - link "Search" [ref=f364e28] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Search:" [ref=f364e29]
+        - generic [ref=f364e30]:
+          - generic [ref=f364e31] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f364e32]
+      - generic [ref=f364e33]:
+        - list [ref=f364e34]:
+          - listitem [ref=f364e35]:
+            - link "+" [ref=f364e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f364e37]:
+            - link "Overview" [ref=f364e38] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f364e39]:
+            - link "Activity" [ref=f364e40] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f364e41]:
+            - link "Roadmap" [ref=f364e42] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f364e43]:
+            - link "Issues" [ref=f364e44] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f364e45]:
+            - link "Spent time" [ref=f364e46] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f364e47]:
+            - link "Gantt" [ref=f364e48] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f364e49]:
+            - link "Calendar" [ref=f364e50] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f364e51]:
+            - link "News" [ref=f364e52] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f364e53]:
+            - link "Documents" [ref=f364e54] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f364e55]:
+            - link "Wiki" [ref=f364e56] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f364e57]:
+            - link "Files" [ref=f364e58] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f364e59]:
+            - link "Helpdesk" [ref=f364e60] [cursor=pointer]:
+              - /url: /projects/agileboard/helpdesk
+          - listitem [ref=f364e61]:
+            - link "Settings" [ref=f364e62] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f364e63]:
+          - button [ref=f364e64] [cursor=pointer]
+          - button [ref=f364e65] [cursor=pointer]
+    - generic [ref=f364e66]:
+      - list [ref=f364e70]:
+        - listitem [ref=f364e71]:
+          - link "Helpdesk Dashboard" [ref=f364e72] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk
+        - listitem [ref=f364e75]:
+          - link "Helpdesk Tickets" [ref=f364e76] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/tickets
+        - listitem [ref=f364e79]:
+          - link "Knowledgebase" [ref=f364e80] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/knowledgebase
+        - listitem [ref=f364e83]:
+          - link "Helpdesk SLA" [ref=f364e84] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/sla
+        - listitem [ref=f364e87]:
+          - link "Organization" [ref=f364e88] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/organization
+        - listitem [ref=f364e91]:
+          - link "Settings" [ref=f364e92] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/settings
+      - generic [ref=f364e95]:
+        - generic [ref=f364e96]:
+          - generic [ref=f364e98]:
+            - heading "Helpdesk SLA" [level=2] [ref=f364e99]
+            - paragraph [ref=f364e100]: Agile Board Project
+          - link "New SLA" [ref=f364e102] [cursor=pointer]:
+            - /url: /rf_slas/new?project_id=7
+        - generic [ref=f364e105]:
+          - textbox "Search SLAs..." [active] [ref=f364e107]
+          - combobox "All Statuses" [ref=f364e108] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f364e109]:
+            - button "Apply Filters" [ref=f364e110] [cursor=pointer]
+            - link "Clear" [ref=f364e113] [cursor=pointer]:
+              - /url: /projects/7/helpdesk/sla
+        - generic [ref=f364e119]:
+          - heading "No SLA policies yet" [level=3] [ref=f364e128]
+          - paragraph [ref=f364e129]: An SLA policy sets the response and resolution targets for a ticket.
+          - link "New SLA" [ref=f364e131] [cursor=pointer]:
+            - /url: /rf_slas/new?project_id=7
+    - generic [ref=f364e133]:
+      - text: Powered by
+      - link "Redmine" [ref=f364e134] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f364e135]
+  - log [ref=f364e136]
+  - log [ref=f364e137]
+  - log [ref=f364e138]
+  - log [ref=f364e139]
+  - log [ref=f364e140]
+  - log [ref=f364e141]
+  - log [ref=f364e142]
+  - log [ref=f364e143]
+  - log [ref=f364e144]
+  - log [ref=f364e145]
+  - log [ref=f364e146]
+  - log [ref=f364e147]
+  - log [ref=f364e148]
+  - log [ref=f364e149]
+  - log [ref=f364e150]
+  - log [ref=f364e151]

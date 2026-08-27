@@ -1,0 +1,151 @@
+- generic [ref=f40e1]:
+  - generic [ref=f40e2]:
+    - generic [ref=f40e3]:
+      - generic [ref=f40e4]:
+        - list:
+          - listitem [ref=f40e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f40e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f40e7]:
+        - text: Logged in as
+        - link "daisy.skye" [ref=f40e8] [cursor=pointer]:
+          - /url: /users/6
+      - list [ref=f40e9]:
+        - listitem [ref=f40e10]:
+          - link [ref=f40e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f40e12]
+        - listitem [ref=f40e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f40e14]:
+          - link "My page" [ref=f40e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f40e16]:
+          - link "Projects" [ref=f40e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f40e18]:
+          - link "Helpdesk Command Center" [ref=f40e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f40e20]:
+          - link "Help" [ref=f40e21] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f40e22]:
+      - generic [ref=f40e23]:
+        - generic [ref=f40e24]:
+          - generic [ref=f40e25]:
+            - link "Search" [ref=f40e26] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f40e27]
+        - generic [ref=f40e28]:
+          - generic [ref=f40e29] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f40e30]
+    - generic [ref=f40e31]:
+      - list [ref=f40e35]:
+        - listitem [ref=f40e36]:
+          - link "Helpdesk Dashboard" [ref=f40e37] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f40e40]:
+          - link "Helpdesk Tickets" [ref=f40e41] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f40e44]:
+          - link "Reports" [ref=f40e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f40e48]:
+          - link "Organization" [ref=f40e49] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f40e52]:
+          - link "Customers" [ref=f40e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f40e56]:
+          - link "Products" [ref=f40e57] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f40e60]:
+          - link "Helpdesk Settings" [ref=f40e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f40e64]:
+        - generic [ref=f40e65]: Successful creation.
+        - generic [ref=f40e66]:
+          - generic [ref=f40e68]:
+            - heading "Support Levels" [level=2] [ref=f40e69]
+            - paragraph [ref=f40e70]: Support levels define the escalation ladder an SLA walks up.
+          - link "New Support Level" [ref=f40e72] [cursor=pointer]:
+            - /url: /rf_support_levels/new
+        - generic [ref=f40e75]:
+          - textbox "Search support levels..." [active] [ref=f40e77]
+          - combobox "All Projects" [ref=f40e78] [cursor=pointer]:
+            - option "All Projects" [selected]
+            - option "Helpdesk Service Desk"
+          - combobox "All Statuses" [ref=f40e79] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f40e80]:
+            - button "Apply Filters" [ref=f40e81] [cursor=pointer]
+            - link "Clear" [ref=f40e84] [cursor=pointer]:
+              - /url: /rf_support_levels
+        - table [ref=f40e90]:
+          - rowgroup [ref=f40e91]:
+            - row [ref=f40e92]:
+              - columnheader "S.No" [ref=f40e93]
+              - columnheader "Support Level Name" [ref=f40e94]
+              - columnheader "Level Order" [ref=f40e95]
+              - columnheader "Escalation To" [ref=f40e96]
+              - columnheader "Created By" [ref=f40e97]
+              - columnheader "Created" [ref=f40e98]
+              - columnheader "Updated By" [ref=f40e99]
+              - columnheader "Updated" [ref=f40e100]
+              - columnheader "Active" [ref=f40e101]
+              - columnheader "Action" [ref=f40e102]
+          - rowgroup [ref=f40e103]:
+            - row [ref=f40e104]:
+              - cell "1" [ref=f40e105]
+              - cell [ref=f40e106]:
+                - link "L1" [ref=f40e107] [cursor=pointer]:
+                  - /url: /rf_support_levels/1
+              - cell "1" [ref=f40e108]
+              - cell "None (Last Level)" [ref=f40e109]
+              - cell "Daisy Skye" [ref=f40e112]
+              - cell "08/24/2026 05:47 AM" [ref=f40e113]
+              - cell "Daisy Skye" [ref=f40e114]
+              - cell "08/24/2026 05:47 AM" [ref=f40e115]
+              - cell [ref=f40e116]:
+                - checkbox "Active" [checked] [ref=f40e117]
+              - cell [ref=f40e118]:
+                - generic [ref=f40e119]:
+                  - link "Edit" [ref=f40e120] [cursor=pointer]:
+                    - /url: /rf_support_levels/1/edit
+                  - link "Delete" [ref=f40e123] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f40e127]:
+          - list
+          - generic [ref=f40e128]: (1-1/1)
+    - generic [ref=f40e129]:
+      - text: Powered by
+      - link "Redmine" [ref=f40e130] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f40e131]
+  - log [ref=f40e132]
+  - log [ref=f40e133]
+  - log [ref=f40e134]
+  - log [ref=f40e135]
+  - log [ref=f40e136]
+  - log [ref=f40e137]
+  - log [ref=f40e138]
+  - log [ref=f40e139]
+  - log [ref=f40e140]
+  - log [ref=f40e141]
+  - log [ref=f40e142]
+  - log [ref=f40e143]
+  - log [ref=f40e144]
+  - log [ref=f40e145]
+  - log [ref=f40e146]
+  - log [ref=f40e147]
+  - log [ref=f40e148]
+  - log [ref=f40e149]

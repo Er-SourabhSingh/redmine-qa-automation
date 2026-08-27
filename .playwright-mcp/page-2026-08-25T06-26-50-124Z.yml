@@ -1,0 +1,153 @@
+- generic [ref=f98e1]:
+  - generic [ref=f98e2]:
+    - generic [ref=f98e3]:
+      - generic [ref=f98e4]:
+        - list:
+          - listitem [ref=f98e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f98e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f98e7]:
+        - text: Logged in as
+        - link "admin" [ref=f98e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f98e9]:
+        - listitem [ref=f98e10]:
+          - link [ref=f98e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f98e12]
+        - listitem [ref=f98e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f98e14]:
+          - link "My page" [ref=f98e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f98e16]:
+          - link "Projects" [ref=f98e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f98e18]:
+          - link "Helpdesk Command Center" [ref=f98e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f98e20]:
+          - link "Administration" [ref=f98e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f98e22]:
+          - link "Help" [ref=f98e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f98e24]:
+      - generic [ref=f98e25]:
+        - generic [ref=f98e26]:
+          - generic [ref=f98e27]:
+            - link "Search" [ref=f98e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f98e29]
+        - generic [ref=f98e30]:
+          - generic [ref=f98e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f98e32]
+    - generic [ref=f98e33]:
+      - list [ref=f98e37]:
+        - listitem [ref=f98e38]:
+          - link "Helpdesk Dashboard" [ref=f98e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f98e42]:
+          - link "Helpdesk Tickets" [ref=f98e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f98e46]:
+          - link "Reports" [ref=f98e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f98e50]:
+          - link "Organization" [ref=f98e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f98e54]:
+          - link "Customers" [ref=f98e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f98e58]:
+          - link "Products" [ref=f98e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f98e62]:
+          - link "Helpdesk Settings" [ref=f98e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f98e66]:
+        - generic [ref=f98e69]:
+          - heading "Helpdesk Settings" [level=2] [ref=f98e70]
+          - paragraph [ref=f98e71]: Holidays, products, SLA policies and canned responses
+        - list [ref=f98e73]:
+          - listitem [ref=f98e74]:
+            - link "Holiday" [ref=f98e75] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f98e76]:
+            - link "Products" [ref=f98e77] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f98e78]:
+            - link "Email Configuration" [ref=f98e79] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f98e80]:
+            - link "Canned Responses" [ref=f98e81] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+          - listitem [ref=f98e82]:
+            - link "Support Packages" [ref=f98e83] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+        - generic [ref=f98e84]:
+          - generic [ref=f98e86]:
+            - textbox "Search support packages..." [active] [ref=f98e88]
+            - generic [ref=f98e89]:
+              - button "Apply Filters" [ref=f98e90] [cursor=pointer]
+              - link "Clear" [ref=f98e93] [cursor=pointer]:
+                - /url: /rf_helpdesk/setting?tab=support_packages
+          - generic [ref=f98e98]:
+            - generic [ref=f98e99]:
+              - heading "Support Packages" [level=3] [ref=f98e100]
+              - link "New Support Package" [ref=f98e102] [cursor=pointer]:
+                - /url: /rf_helpdesk_support_packages/new
+            - generic [ref=f98e104]:
+              - heading "No support packages yet" [level=3] [ref=f98e109]
+              - paragraph [ref=f98e110]: Add packages like "24/7 Support" or "Premium Support" to label prepaid hour top-ups and time logs.
+              - link "New Support Package" [ref=f98e112] [cursor=pointer]:
+                - /url: /rf_helpdesk_support_packages/new
+    - generic [ref=f98e114]:
+      - text: Powered by
+      - link "Redmine" [ref=f98e115] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f98e116]
+  - log [ref=f98e117]
+  - log [ref=f98e118]
+  - log [ref=f98e119]
+  - log [ref=f98e120]
+  - log [ref=f98e121]
+  - log [ref=f98e122]
+  - log [ref=f98e123]
+  - log [ref=f98e124]
+  - log [ref=f98e125]
+  - log [ref=f98e126]
+  - log [ref=f98e127]
+  - log [ref=f98e128]
+  - log [ref=f98e129]
+  - log [ref=f98e130]
+  - log [ref=f98e131]
+  - log [ref=f98e132]
+  - log [ref=f98e133]
+  - log [ref=f98e134]
+  - log [ref=f98e135]
+  - log [ref=f98e136]
+  - log [ref=f98e137]
+  - log [ref=f98e138]
+  - log [ref=f98e139]
+  - log [ref=f98e140]
+  - log [ref=f98e141]
+  - log [ref=f98e142]
+  - log [ref=f98e143]
+  - log [ref=f98e144]
+  - log [ref=f98e145]
+  - log [ref=f98e146]
+  - log [ref=f98e147]
+  - log [ref=f98e148]
+  - log [ref=f98e149]
+  - log [ref=f98e150]
+  - log [ref=f98e151]
+  - log [ref=f98e152]
+  - log [ref=f98e153]

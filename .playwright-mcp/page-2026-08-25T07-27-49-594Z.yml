@@ -1,0 +1,379 @@
+- generic [ref=f159e1]:
+  - generic [ref=f159e2]:
+    - generic [ref=f159e3]:
+      - generic [ref=f159e4]:
+        - list:
+          - listitem [ref=f159e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f159e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f159e7]:
+        - text: Logged in as
+        - link "daisy.skye" [ref=f159e8] [cursor=pointer]:
+          - /url: /users/6
+      - list [ref=f159e9]:
+        - listitem [ref=f159e10]:
+          - link [ref=f159e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f159e12]
+        - listitem [ref=f159e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f159e14]:
+          - link "My page" [ref=f159e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f159e16]:
+          - link "Projects" [ref=f159e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f159e18]:
+          - link "Helpdesk Command Center" [ref=f159e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f159e20]:
+          - link "Help" [ref=f159e21] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f159e22]:
+      - generic [ref=f159e23]:
+        - generic [ref=f159e24]:
+          - generic [ref=f159e25]:
+            - link "Search" [ref=f159e26] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f159e27]
+        - generic [ref=f159e28]:
+          - generic [ref=f159e29] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f159e30]
+      - generic [ref=f159e31]:
+        - list [ref=f159e32]:
+          - listitem [ref=f159e33]:
+            - link "+" [ref=f159e34] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f159e35]:
+            - link "Overview" [ref=f159e36] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f159e37]:
+            - link "Activity" [ref=f159e38] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f159e39]:
+            - link "Issues" [ref=f159e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f159e41]:
+            - link "Spent time" [ref=f159e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f159e43]:
+            - link "Gantt" [ref=f159e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f159e45]:
+            - link "Calendar" [ref=f159e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f159e47]:
+            - link "News" [ref=f159e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f159e49]:
+            - link "Documents" [ref=f159e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f159e51]:
+            - link "Wiki" [ref=f159e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f159e53]:
+            - link "Files" [ref=f159e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f159e55]:
+            - link "Helpdesk" [ref=f159e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk
+          - listitem [ref=f159e57]:
+            - link "Settings" [ref=f159e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f159e59]:
+          - button [ref=f159e60] [cursor=pointer]
+          - button [ref=f159e61] [cursor=pointer]
+    - generic [ref=f159e63]:
+      - generic [ref=f159e64]: Successful update.
+      - generic [ref=f159e65]:
+        - link "Reply" [ref=f159e66] [cursor=pointer]:
+          - /url: "#"
+        - link "Edit" [ref=f159e67] [cursor=pointer]:
+          - /url: /issues/272/edit
+        - link "Log time" [ref=f159e69] [cursor=pointer]:
+          - /url: /issues/272/time_entries/new
+        - link "Watch" [ref=f159e71] [cursor=pointer]:
+          - /url: /watchers/watch?object_id=272&object_type=issue
+        - generic "Actions" [ref=f159e75] [cursor=pointer]
+      - 'heading "Support #272" [level=2] [ref=f159e77]'
+      - generic [ref=f159e254]: open
+      - generic [ref=f159e78]:
+        - heading "SLA/assignment flow check - login page timing out" [level=3] [ref=f159e81]
+        - paragraph [ref=f159e82]:
+          - text: Added by
+          - link "Acme HDContact" [ref=f159e83] [cursor=pointer]:
+            - /url: /users/25
+          - link "1 minute" [ref=f159e84] [cursor=pointer]:
+            - /url: /projects/helpdesk/activity?from=2026-08-25
+          - text: ago. Updated
+          - link "less than a minute" [ref=f159e85] [cursor=pointer]:
+            - /url: /projects/helpdesk/activity?from=2026-08-25
+          - text: ago.
+        - generic [ref=f159e86]:
+          - generic [ref=f159e87]:
+            - generic [ref=f159e88]:
+              - generic [ref=f159e89]:
+                - generic [ref=f159e90]: "Status:"
+                - generic [ref=f159e91]: Waiting for Customer Response
+              - generic [ref=f159e92]:
+                - generic [ref=f159e93]: "Priority:"
+                - generic [ref=f159e94]: High
+              - generic [ref=f159e95]:
+                - generic [ref=f159e96]: "Assignee:"
+                - link "Daisy Skye" [ref=f159e98] [cursor=pointer]:
+                  - /url: /users/6
+            - generic [ref=f159e99]:
+              - generic [ref=f159e100]:
+                - generic [ref=f159e101]: "Start date:"
+                - generic [ref=f159e102]: 08/25/2026
+              - generic [ref=f159e103]: "Due date:"
+              - generic [ref=f159e105]:
+                - generic [ref=f159e106]: "% Done:"
+                - generic [ref=f159e107]:
+                  - table [ref=f159e108]:
+                    - rowgroup [ref=f159e109]:
+                      - row [ref=f159e110]:
+                        - cell [ref=f159e111]
+                  - paragraph [ref=f159e112]: 0%
+              - generic [ref=f159e113]: "Estimated time:"
+          - generic [ref=f159e115]:
+            - generic [ref=f159e116]: "Product:"
+            - generic [ref=f159e117]: "-"
+          - generic [ref=f159e118]:
+            - generic [ref=f159e119]: "Organization:"
+            - generic [ref=f159e120]: Acme Corp
+          - generic [ref=f159e121]:
+            - generic [ref=f159e122]: "Customer:"
+            - generic [ref=f159e123]:
+              - link "Acme HDContact" [ref=f159e124] [cursor=pointer]:
+                - /url: /rf_customers/25
+              - link "View portal" [ref=f159e125] [cursor=pointer]:
+                - /url: /rf_customers/25/portal?project_id=9
+          - generic [ref=f159e126]:
+            - generic [ref=f159e127]: "Prepaid Support Hours:"
+            - generic [ref=f159e128]:
+              - text: 0.00h used ·
+              - strong [ref=f159e129]: 40.00h left
+              - text: of 40.00h
+        - separator [ref=f159e130]
+        - generic [ref=f159e131]:
+          - link "Quote" [ref=f159e133] [cursor=pointer]:
+            - /url: "#"
+          - paragraph [ref=f159e135]:
+            - strong [ref=f159e136]: Description
+          - paragraph [ref=f159e138]: "Created to verify: does replying as an agent auto-assign the ticket, and does the SLA clock start on creation or on first response?"
+        - separator [ref=f159e139]
+        - generic [ref=f159e140]:
+          - link "Add" [ref=f159e142] [cursor=pointer]:
+            - /url: /projects/helpdesk/issues/new?back_url=%2Fissues%2F272&issue%5Bparent_issue_id%5D=272&issue%5Btracker_id%5D=6
+          - paragraph [ref=f159e143]:
+            - strong [ref=f159e144]: Subtasks
+        - separator [ref=f159e145]
+        - generic [ref=f159e146]:
+          - link "Add" [ref=f159e148] [cursor=pointer]:
+            - /url: "#"
+          - paragraph [ref=f159e149]:
+            - strong [ref=f159e150]: Related issues
+      - generic [ref=f159e151]:
+        - list [ref=f159e153]:
+          - listitem [ref=f159e154]:
+            - link "History" [ref=f159e155] [cursor=pointer]:
+              - /url: /issues/272?tab=history
+          - listitem [ref=f159e156]:
+            - link "Property changes" [ref=f159e157] [cursor=pointer]:
+              - /url: /issues/272?tab=properties
+          - listitem [ref=f159e158]:
+            - link "Helpdesk Conversion (1)" [ref=f159e159] [cursor=pointer]:
+              - /url: /issues/272?tab=email-history
+          - listitem [ref=f159e160]:
+            - link "SLA Information" [active] [ref=f159e161] [cursor=pointer]:
+              - /url: /issues/272?tab=sla-information
+        - generic [ref=f159e255]:
+          - generic [ref=f159e256]:
+            - generic [ref=f159e257]:
+              - generic [ref=f159e258]: Standard SLA
+              - generic [ref=f159e259]: ⏸ Paused
+            - generic [ref=f159e260]: ⏸ On Hold
+          - generic [ref=f159e261]:
+            - generic [ref=f159e262]: ⏸
+            - generic [ref=f159e263]:
+              - text: SLA timer is currently
+              - strong [ref=f159e264]: paused
+              - text: — the clock is not running. Paused since 08/25/2026 07:27 AM (UTC).
+          - generic [ref=f159e265]:
+            - generic [ref=f159e266]: SLA Overview
+            - table [ref=f159e268]:
+              - rowgroup [ref=f159e269]:
+                - row [ref=f159e270]:
+                  - columnheader "Organization" [ref=f159e271]
+                  - columnheader "SLA Policy" [ref=f159e272]
+                  - columnheader "Support Level" [ref=f159e273]
+                  - columnheader "SLA Started" [ref=f159e274]
+                  - columnheader "Initially Assigned To" [ref=f159e275]
+                  - columnheader "Current Assignee" [ref=f159e276]
+              - rowgroup [ref=f159e277]:
+                - row [ref=f159e278]:
+                  - cell "Acme Corp" [ref=f159e279]
+                  - cell [ref=f159e280]:
+                    - strong [ref=f159e281]: Standard SLA
+                  - cell "L1" [ref=f159e282]
+                  - cell "08/25/2026 07:27 AM (UTC)" [ref=f159e284]
+                  - cell "Daisy Skye" [ref=f159e285]
+                  - cell [ref=f159e286]:
+                    - strong [ref=f159e287]: Daisy Skye
+          - generic [ref=f159e288]:
+            - generic [ref=f159e289]:
+              - generic [ref=f159e290]: SLA Journey
+              - generic [ref=f159e291]: 1 stage
+            - table [ref=f159e292]:
+              - rowgroup [ref=f159e293]:
+                - row [ref=f159e294]:
+                  - columnheader "#" [ref=f159e295]
+                  - columnheader "Stage" [ref=f159e296]
+                  - columnheader "Support Level" [ref=f159e297]
+                  - columnheader "Agent" [ref=f159e298]
+                  - columnheader "Active Period" [ref=f159e299]
+                  - columnheader "Response SLA" [ref=f159e300]
+                  - columnheader "Resolution SLA" [ref=f159e301]
+                  - columnheader "Escalation Trigger" [ref=f159e302]
+              - rowgroup [ref=f159e303]:
+                - row [ref=f159e304]:
+                  - cell "1" [ref=f159e305]
+                  - cell "Initial Stage ● Current" [ref=f159e307]:
+                    - text: Initial Stage
+                    - generic [ref=f159e308]: ● Current
+                  - cell "L1" [ref=f159e309]
+                  - cell "Daisy Skye" [ref=f159e311]
+                  - cell "08/25/2026 07:27 AM (UTC) ↓ Present" [ref=f159e312]:
+                    - text: 08/25/2026 07:27 AM (UTC)
+                    - generic [ref=f159e313]: ↓
+                    - text: Present
+                  - 'cell "✓ Responded At: 08/25/2026 07:27 AM (UTC) Deadline: 08/25/2026 01:00 PM (UTC)" [ref=f159e314]':
+                    - generic [ref=f159e315]:
+                      - generic [ref=f159e316]: ✓
+                      - text: Responded
+                    - generic [ref=f159e317]: "At: 08/25/2026 07:27 AM (UTC)"
+                    - generic [ref=f159e318]: "Deadline: 08/25/2026 01:00 PM (UTC)"
+                  - 'cell "⏱ 2 days left Due: 08/27/2026 03:00 PM (UTC)" [ref=f159e319]':
+                    - generic [ref=f159e320]:
+                      - generic [ref=f159e321]: ⏱
+                      - text: 2 days left
+                    - generic [ref=f159e322]: "Due: 08/27/2026 03:00 PM (UTC)"
+                  - cell "— (active)" [ref=f159e323]
+          - generic [ref=f159e324]:
+            - generic [ref=f159e325]:
+              - generic [ref=f159e326]: Activity Log
+              - generic [ref=f159e327]: 2 events
+            - table [ref=f159e328]:
+              - rowgroup [ref=f159e329]:
+                - row [ref=f159e330]:
+                  - columnheader "#" [ref=f159e331]
+                  - columnheader "Timestamp" [ref=f159e332]
+                  - columnheader "Event" [ref=f159e333]
+                  - columnheader "Support Level" [ref=f159e334]
+                  - columnheader "Agent / By" [ref=f159e335]
+                  - columnheader "Details" [ref=f159e336]
+              - rowgroup [ref=f159e337]:
+                - row [ref=f159e338]:
+                  - 'cell "1 Initial Stage L1 Agent: Daisy Skye ● Current" [ref=f159e339]':
+                    - generic [ref=f159e340]: "1"
+                    - text: Initial Stage
+                    - generic [ref=f159e341]: L1
+                    - text: "Agent: Daisy Skye"
+                    - generic [ref=f159e342]: ● Current
+                - row [ref=f159e343]:
+                  - cell "1" [ref=f159e344]
+                  - cell "08/25/2026 07:27 AM (UTC)" [ref=f159e345]
+                  - cell "▶ SLA Started" [ref=f159e346]
+                  - cell "L1" [ref=f159e348]
+                  - cell "Daisy Skye" [ref=f159e350]
+                  - 'cell "Response deadline set: 08/25/2026 01:00 PM (UTC)" [ref=f159e351]'
+                - row [ref=f159e352]:
+                  - cell "2" [ref=f159e353]
+                  - cell "08/25/2026 07:27 AM (UTC)" [ref=f159e354]
+                  - cell "✓ First Response Given" [ref=f159e355]
+                  - cell "L1" [ref=f159e357]
+                  - cell "Daisy Skye" [ref=f159e359]
+                  - 'cell "Customer notified · Resolution deadline: 08/27/2026 03:00 PM (UTC)" [ref=f159e360]'
+      - generic [ref=f159e180]:
+        - link "Edit" [ref=f159e181] [cursor=pointer]:
+          - /url: /issues/272/edit
+        - link "Log time" [ref=f159e183] [cursor=pointer]:
+          - /url: /issues/272/time_entries/new
+        - link "Watch" [ref=f159e185] [cursor=pointer]:
+          - /url: /watchers/watch?object_id=272&object_type=issue
+        - generic "Actions" [ref=f159e189] [cursor=pointer]
+      - text: pre pre
+      - paragraph [ref=f159e191]:
+        - text: "Also available in:"
+        - link "Atom" [ref=f159e193] [cursor=pointer]:
+          - /url: /issues/272.atom?key=7b50c8c42c472106210381bc6de4d831a7739486
+        - generic [ref=f159e194]:
+          - text: "|"
+          - link "PDF" [ref=f159e195] [cursor=pointer]:
+            - /url: /issues/272.pdf
+    - generic [ref=f159e196]:
+      - text: Powered by
+      - link "Redmine" [ref=f159e197] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f159e198]
+  - log [ref=f159e199]
+  - log [ref=f159e200]
+  - log [ref=f159e201]
+  - log [ref=f159e202]
+  - log [ref=f159e203]
+  - log [ref=f159e204]
+  - log [ref=f159e205]
+  - log [ref=f159e206]
+  - log [ref=f159e207]
+  - log [ref=f159e208]
+  - log [ref=f159e209]
+  - log [ref=f159e210]
+  - log [ref=f159e213]
+  - log [ref=f159e214]
+  - log [ref=f159e215]
+  - log [ref=f159e216]
+  - log [ref=f159e217]
+  - log [ref=f159e218]
+  - log [ref=f159e219]
+  - log [ref=f159e220]
+  - log [ref=f159e221]
+  - log [ref=f159e222]
+  - log [ref=f159e223]
+  - log [ref=f159e224]
+  - log [ref=f159e225]
+  - log [ref=f159e226]
+  - log [ref=f159e227]
+  - log [ref=f159e228]
+  - log [ref=f159e229]
+  - log [ref=f159e230]
+  - log [ref=f159e231]
+  - log [ref=f159e232]
+  - log [ref=f159e233]
+  - log [ref=f159e234]
+  - log [ref=f159e235]
+  - log [ref=f159e236]
+  - log [ref=f159e237]
+  - log [ref=f159e238]
+  - log [ref=f159e239]
+  - log [ref=f159e240]
+  - log [ref=f159e241]
+  - log [ref=f159e242]
+  - log [ref=f159e243]
+  - log [ref=f159e244]
+  - log [ref=f159e245]
+  - log [ref=f159e246]
+  - log [ref=f159e247]
+  - log [ref=f159e248]
+  - log [ref=f159e249]
+  - log [ref=f159e250]
+  - log [ref=f159e251]
+  - status [ref=f159e252]
+  - status [ref=f159e253]

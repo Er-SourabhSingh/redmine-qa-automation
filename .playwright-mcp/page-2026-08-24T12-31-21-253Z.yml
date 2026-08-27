@@ -1,0 +1,118 @@
+- generic [active] [ref=f597e1]:
+  - generic [ref=f597e2]:
+    - generic [ref=f597e3]:
+      - generic [ref=f597e4]:
+        - img "Logo" [ref=f597e5]
+        - text: 
+      - navigation "Application tasks" [ref=f597e6]:
+        - button " Compose" [ref=f597e8] [cursor=pointer]
+        - button " Mail" [ref=f597e9] [cursor=pointer]
+        - button " Contacts" [ref=f597e10] [cursor=pointer]
+        - button " Settings" [ref=f597e11] [cursor=pointer]
+        - generic [ref=f597e12]:
+          - button " Dark mode" [ref=f597e13] [cursor=pointer]
+          - button " About" [ref=f597e14] [cursor=pointer]
+          - button " Logout" [ref=f597e15] [cursor=pointer]
+    - generic [ref=f597e16]:
+      - generic [ref=f597e17]:
+        - text: 
+        - generic [ref=f597e18]: Options and attachments
+      - generic [ref=f597e19]:
+        - region "Attachments" [ref=f597e20]:
+          - generic [ref=f597e21]:
+            - generic [ref=f597e22]: Maximum allowed file size is 5.0 MB
+            - button "Attach a file" [ref=f597e23] [cursor=pointer]
+          - list
+        - region "Composition options" [ref=f597e24]:
+          - generic [ref=f597e25]:
+            - generic [ref=f597e26]: Return receipt
+            - checkbox "Return receipt" [ref=f597e29]
+          - generic [ref=f597e31]:
+            - generic [ref=f597e32]: Delivery status notification
+            - checkbox "Delivery status notification" [ref=f597e35]
+          - generic [ref=f597e37]:
+            - generic [ref=f597e38]: Keep formatting
+            - checkbox "Keep formatting" [ref=f597e41]
+          - generic [ref=f597e43]:
+            - generic [ref=f597e44]: Priority
+            - combobox "Priority" [ref=f597e46]:
+              - option "Lowest"
+              - option "Low"
+              - option "Normal" [selected]
+              - option "High"
+              - option "Highest"
+          - generic [ref=f597e47]:
+            - generic [ref=f597e48]: Save sent message in
+            - combobox "Save sent message in" [ref=f597e50]:
+              - option "- don't save -"
+              - option "Inbox"
+              - option "Drafts"
+              - option "Sent" [selected]
+              - option "Junk"
+              - option "Trash"
+    - main [ref=f597e52]:
+      - generic [ref=f597e53]:
+        - text: 
+        - list [ref=f597e54]:
+          - text: 
+          - menuitem [ref=f597e55]:
+            - button " Save" [ref=f597e56] [cursor=pointer]
+          - menuitem [ref=f597e57]
+          - menuitem [ref=f597e58]:
+            - button " Attach" [ref=f597e59] [cursor=pointer]
+          - menuitem " Signature" [ref=f597e60]:
+            - button " Signature" [disabled]
+          - menuitem [ref=f597e61]:
+            - link " Responses" [ref=f597e62] [cursor=pointer]:
+              - /url: "#responses"
+              - text:  Responses  
+          - menuitem [ref=f597e63]:
+            - generic [ref=f597e64]:
+              - button " Spell" [ref=f597e65] [cursor=pointer]
+              - link "" [ref=f597e66] [cursor=pointer]:
+                - /url: "#languages"
+          - menuitem:    
+        - text: 
+      - generic [ref=f597e67]:
+        - generic [ref=f597e68]:
+          - region "Message headers" [ref=f597e69]:
+            - generic [ref=f597e70]:
+              - generic [ref=f597e71]:
+                - generic [ref=f597e72]: From
+                - generic [ref=f597e74]:
+                  - combobox "From" [ref=f597e75]:
+                    - option "customer@test.local" [selected]
+                  - link "" [ref=f597e77] [cursor=pointer]:
+                    - /url: "#identities"
+              - generic [ref=f597e78]:
+                - generic [ref=f597e79]: To
+                - generic [ref=f597e81]:
+                  - combobox "To" [ref=f597e82]: er.sourabh.singh0601@gmail.com,
+                  - list [ref=f597e83]:
+                    - listitem [ref=f597e102]:
+                      - generic [ref=f597e103]: er.sourabh.singh0601@gmail.com
+                      - generic: ","
+                      - generic [ref=f597e104] [cursor=pointer]: 
+                    - listitem [ref=f597e84]:
+                      - combobox [ref=f597e85]
+                  - link "" [ref=f597e87] [cursor=pointer]:
+                    - /url: "#add-contact"
+                  - link "" [ref=f597e89] [cursor=pointer]:
+                    - /url: "#add-header"
+                    - text:     
+              - text:        
+              - generic [ref=f597e90]:
+                - generic [ref=f597e91]: Subject
+                - textbox "Subject" [ref=f597e93]: Outbound delivery test from customer@test.local
+          - generic [ref=f597e94]:
+            - textbox "Message Body" [ref=f597e95]: Testing whether the local Docker mail server (test.local) can send outbound to a real address.
+            - link "" [ref=f597e97] [cursor=pointer]:
+              - /url: "#"
+        - generic [ref=f597e98]:
+          - button "Send" [ref=f597e99] [cursor=pointer]
+          - button "Open in new window" [ref=f597e101] [cursor=pointer]
+      - text:    
+    - text:              
+  - alert [ref=f597e106]:
+    - generic [ref=f597e107]: 
+    - generic [ref=f597e108]: Sending message...

@@ -1,0 +1,206 @@
+- generic [active] [ref=f100e1]:
+  - generic [ref=f100e2]:
+    - generic [ref=f100e3]:
+      - generic [ref=f100e4]:
+        - list:
+          - listitem [ref=f100e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f100e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f100e7]:
+        - text: Logged in as
+        - link "admin" [ref=f100e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f100e9]:
+        - listitem [ref=f100e10]:
+          - link [ref=f100e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f100e12]
+        - listitem [ref=f100e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f100e14]:
+          - link "My page" [ref=f100e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f100e16]:
+          - link "Projects" [ref=f100e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f100e18]:
+          - link "Flux Gantt" [ref=f100e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f100e20]:
+          - link "Helpdesk Command Center" [ref=f100e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f100e22]:
+          - link "Time Tracker" [ref=f100e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f100e24]:
+          - link "Timesheet" [ref=f100e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f100e26]:
+          - link "Workloads" [ref=f100e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f100e28]:
+          - link "More" [ref=f100e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f100e30]:
+      - generic [ref=f100e31]:
+        - generic [ref=f100e32]:
+          - generic [ref=f100e33]:
+            - link "Search..." [ref=f100e34] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f100e35]
+        - generic [ref=f100e36]:
+          - generic [ref=f100e37] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f100e38]
+      - generic [ref=f100e39]:
+        - list [ref=f100e40]:
+          - listitem [ref=f100e41]:
+            - link "+" [ref=f100e42] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f100e43]:
+            - link "Overview" [ref=f100e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f100e45]:
+            - link "Activity" [ref=f100e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f100e47]:
+            - link "Issues" [ref=f100e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f100e49]:
+            - link "Spent time" [ref=f100e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f100e51]:
+            - link "Gantt" [ref=f100e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f100e53]:
+            - link "Calendar" [ref=f100e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f100e55]:
+            - link "News" [ref=f100e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f100e57]:
+            - link "Documents" [ref=f100e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f100e59]:
+            - link "Wiki" [ref=f100e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f100e61]:
+            - link "Files" [ref=f100e62] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f100e63]:
+            - link "Helpdesk" [ref=f100e64] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+          - listitem [ref=f100e65]:
+            - link "Settings" [ref=f100e66] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/settings
+        - generic [ref=f100e67]:
+          - button [ref=f100e68] [cursor=pointer]
+          - button [ref=f100e71] [cursor=pointer]
+    - generic [ref=f100e75]:
+      - heading "Settings" [level=2] [ref=f100e76]
+      - list [ref=f100e78]:
+        - listitem [ref=f100e79]:
+          - link "Project" [ref=f100e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/settings/info
+        - listitem [ref=f100e81]:
+          - link "Members" [ref=f100e82] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/settings/members
+        - listitem [ref=f100e83]:
+          - link "Issue tracking" [ref=f100e84] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/settings/issues
+        - listitem [ref=f100e85]:
+          - link "Versions" [ref=f100e86] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/settings/versions
+        - listitem [ref=f100e87]:
+          - link "Issue categories" [ref=f100e88] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/settings/categories
+        - listitem [ref=f100e89]:
+          - link "Repositories" [ref=f100e90] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/settings/repositories
+        - listitem [ref=f100e91]:
+          - link "Forums" [ref=f100e92] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/settings/boards
+        - listitem [ref=f100e93]:
+          - link "Time tracking" [ref=f100e94] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/settings/activities
+      - text: pre
+      - generic [ref=f100e95]:
+        - link "Administration" [ref=f100e97] [cursor=pointer]:
+          - /url: /users
+        - paragraph [ref=f100e99]:
+          - link "New member" [ref=f100e100] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/memberships/new
+        - table [ref=f100e102]:
+          - rowgroup [ref=f100e103]:
+            - row [ref=f100e104]:
+              - columnheader "User / Group" [ref=f100e105]
+              - columnheader "Roles" [ref=f100e106]
+              - columnheader [ref=f100e107]
+          - rowgroup [ref=f100e108]:
+            - row [ref=f100e109]:
+              - cell [ref=f100e110]:
+                - link "Autumn Grace" [ref=f100e112] [cursor=pointer]:
+                  - /url: /users/10
+              - cell "Developer" [ref=f100e113]
+              - cell [ref=f100e114]:
+                - link "Edit" [ref=f100e115] [cursor=pointer]:
+                  - /url: /memberships/5/edit
+                - link "Delete" [ref=f100e118] [cursor=pointer]:
+                  - /url: /memberships/5
+            - row [ref=f100e120]:
+              - cell [ref=f100e121]:
+                - link "Luna Blossom" [ref=f100e123] [cursor=pointer]:
+                  - /url: /users/9
+              - cell "Developer" [ref=f100e124]
+              - cell [ref=f100e125]:
+                - link "Edit" [ref=f100e126] [cursor=pointer]:
+                  - /url: /memberships/6/edit
+                - link "Delete" [ref=f100e129] [cursor=pointer]:
+                  - /url: /memberships/6
+            - row [ref=f100e131]:
+              - cell [ref=f100e132]:
+                - link "Willow Belle" [ref=f100e134] [cursor=pointer]:
+                  - /url: /users/11
+              - cell "Developer" [ref=f100e135]
+              - cell [ref=f100e136]:
+                - link "Edit" [ref=f100e137] [cursor=pointer]:
+                  - /url: /memberships/7/edit
+                - link "Delete" [ref=f100e140] [cursor=pointer]:
+                  - /url: /memberships/7
+    - generic [ref=f100e142]:
+      - text: Powered by
+      - link "Redmine" [ref=f100e143] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f100e144]
+  - log [ref=f100e145]
+  - log [ref=f100e146]
+  - log [ref=f100e147]
+  - log [ref=f100e148]
+  - log [ref=f100e149]
+  - log [ref=f100e150]
+  - log [ref=f100e151]
+  - log [ref=f100e152]
+  - log [ref=f100e153]
+  - log [ref=f100e154]
+  - log [ref=f100e155]
+  - log [ref=f100e156]
+  - log [ref=f100e157]
+  - log [ref=f100e158]
+  - log [ref=f100e159]
+  - log [ref=f100e160]
+  - log [ref=f100e161]
+  - log [ref=f100e162]
+  - log [ref=f100e163]
+  - log [ref=f100e164]
+  - log [ref=f100e165]
+  - log [ref=f100e166]
+  - log [ref=f100e167]
+  - log [ref=f100e168]
+  - log [ref=f100e169]
+  - log [ref=f100e170]

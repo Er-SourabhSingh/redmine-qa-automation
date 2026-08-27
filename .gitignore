@@ -1,5 +1,14 @@
 # Playwright auth sessions (contain live session tokens)
 playwright/.auth/
+plugins/*/automation/.auth/
+
+# Playwright automation — installed deps, secrets, run artifacts
+plugins/*/automation/node_modules/
+plugins/*/automation/.env
+plugins/*/automation/playwright-report/
+plugins/*/automation/test-results/
+plugins/*/automation/downloads/
+plugins/*/automation/screenshots/
 
 # Logs and screenshots (large, not needed in repo)
 plugins/*/logs/

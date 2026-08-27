@@ -1,0 +1,103 @@
+- generic [active] [ref=f176e1]:
+  - generic [ref=f176e2]:
+    - generic [ref=f176e3]:
+      - generic [ref=f176e4]:
+        - list:
+          - listitem [ref=f176e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f176e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f176e7]:
+        - text: Logged in as
+        - link "aurora.wren" [ref=f176e8] [cursor=pointer]:
+          - /url: /users/12
+      - list [ref=f176e9]:
+        - listitem [ref=f176e10]:
+          - link [ref=f176e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f176e12]
+        - listitem [ref=f176e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f176e14]:
+          - link "My page" [ref=f176e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f176e16]:
+          - link "Projects" [ref=f176e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f176e18]:
+          - link "Time Tracker" [ref=f176e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f176e20]:
+          - link "Workloads" [ref=f176e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f176e22]:
+          - link "Help" [ref=f176e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f176e24]:
+      - generic [ref=f176e25]:
+        - generic [ref=f176e26]:
+          - generic [ref=f176e27]:
+            - link "Search..." [ref=f176e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f176e29]
+        - generic [ref=f176e30]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f176e32]
+    - generic [ref=f176e34]:
+      - generic [ref=f176e36]:
+        - text: "Add:"
+        - combobox "Add" [ref=f176e37]:
+          - option [selected]
+          - option "Issues assigned to me" [disabled]
+          - option "Reported issues" [disabled]
+          - option "Updated issues"
+          - option "Watched issues"
+          - option "Issues"
+          - option "Latest news"
+          - option "Calendar"
+          - option "Documents"
+          - option "Spent time"
+          - option "Activity"
+      - heading "My page" [level=2] [ref=f176e38]
+      - generic [ref=f176e39]:
+        - generic [ref=f176e42]:
+          - generic [ref=f176e43]:
+            - generic "Move" [ref=f176e44]
+            - link "Delete" [ref=f176e46] [cursor=pointer]:
+              - /url: /my/remove_block?block=issuesassignedtome
+          - link "Options" [ref=f176e49] [cursor=pointer]:
+            - /url: "#"
+          - heading [level=3] [ref=f176e51]:
+            - link "Issues assigned to me" [ref=f176e52] [cursor=pointer]:
+              - /url: /issues?c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&f%5B%5D=status_id&f%5B%5D=assigned_to_id&f%5B%5D=project.status&op%5Bassigned_to_id%5D=%3D&op%5Bproject.status%5D=%3D&op%5Bstatus_id%5D=o&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc&v%5Bassigned_to_id%5D%5B%5D=me&v%5Bproject.status%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=
+            - text: (0)
+          - paragraph [ref=f176e53]: No data
+        - generic [ref=f176e55]:
+          - generic [ref=f176e56]:
+            - generic "Move" [ref=f176e57]
+            - link "Delete" [ref=f176e59] [cursor=pointer]:
+              - /url: /my/remove_block?block=issuesreportedbyme
+          - link "Options" [ref=f176e62] [cursor=pointer]:
+            - /url: "#"
+          - heading [level=3] [ref=f176e64]:
+            - link "Reported issues" [ref=f176e65] [cursor=pointer]:
+              - /url: /issues?c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&f%5B%5D=status_id&f%5B%5D=author_id&f%5B%5D=project.status&op%5Bauthor_id%5D=%3D&op%5Bproject.status%5D=%3D&op%5Bstatus_id%5D=o&set_filter=1&sort=updated_on%3Adesc&v%5Bauthor_id%5D%5B%5D=me&v%5Bproject.status%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=
+            - text: (0)
+          - paragraph [ref=f176e66]: No data
+    - generic [ref=f176e67]:
+      - text: Powered by
+      - link "Redmine" [ref=f176e68] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f176e69]
+  - log [ref=f176e70]
+  - log [ref=f176e71]
+  - log [ref=f176e72]
+  - log [ref=f176e73]
+  - log [ref=f176e74]
+  - log [ref=f176e75]
+  - log [ref=f176e76]
+  - log [ref=f176e77]

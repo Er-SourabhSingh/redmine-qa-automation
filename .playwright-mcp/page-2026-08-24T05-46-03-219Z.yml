@@ -1,0 +1,149 @@
+- generic [ref=f38e1]:
+  - generic [ref=f38e2]:
+    - generic [ref=f38e3]:
+      - generic [ref=f38e4]:
+        - list:
+          - listitem [ref=f38e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f38e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f38e7]:
+        - text: Logged in as
+        - link "daisy.skye" [ref=f38e8] [cursor=pointer]:
+          - /url: /users/6
+      - list [ref=f38e9]:
+        - listitem [ref=f38e10]:
+          - link [ref=f38e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f38e12]
+        - listitem [ref=f38e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f38e14]:
+          - link "My page" [ref=f38e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f38e16]:
+          - link "Projects" [ref=f38e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f38e18]:
+          - link "Helpdesk Command Center" [ref=f38e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f38e20]:
+          - link "Help" [ref=f38e21] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f38e22]:
+      - generic [ref=f38e23]:
+        - generic [ref=f38e24]:
+          - generic [ref=f38e25]:
+            - link "Search" [ref=f38e26] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f38e27]
+        - generic [ref=f38e28]:
+          - generic [ref=f38e29] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f38e30]
+    - generic [ref=f38e31]:
+      - list [ref=f38e35]:
+        - listitem [ref=f38e36]:
+          - link "Helpdesk Dashboard" [ref=f38e37] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f38e40]:
+          - link "Helpdesk Tickets" [ref=f38e41] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f38e44]:
+          - link "Reports" [ref=f38e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f38e48]:
+          - link "Organization" [ref=f38e49] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f38e52]:
+          - link "Customers" [ref=f38e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f38e56]:
+          - link "Products" [ref=f38e57] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f38e60]:
+          - link "Helpdesk Settings" [ref=f38e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f38e64]:
+        - generic [ref=f38e65]: Successful creation.
+        - generic [ref=f38e66]:
+          - generic [ref=f38e68]:
+            - heading "Helpdesk SLA" [level=2] [ref=f38e69]
+            - paragraph [ref=f38e70]: An SLA policy sets the response and resolution targets for a ticket.
+          - link "New SLA" [ref=f38e72] [cursor=pointer]:
+            - /url: /rf_slas/new
+        - generic [ref=f38e75]:
+          - textbox "Search SLAs..." [active] [ref=f38e77]
+          - combobox "All Statuses" [ref=f38e78] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f38e79]:
+            - button "Apply Filters" [ref=f38e80] [cursor=pointer]
+            - link "Clear" [ref=f38e83] [cursor=pointer]:
+              - /url: /rf_slas
+        - table [ref=f38e89]:
+          - rowgroup [ref=f38e90]:
+            - row [ref=f38e91]:
+              - columnheader "S.No" [ref=f38e92]
+              - columnheader "SLA Name" [ref=f38e93]
+              - columnheader "Created By" [ref=f38e94]
+              - columnheader "Created" [ref=f38e95]
+              - columnheader "Updated By" [ref=f38e96]
+              - columnheader "Updated" [ref=f38e97]
+              - columnheader "SLA Agreement" [ref=f38e98]
+              - columnheader "Active" [ref=f38e99]
+              - columnheader "Action" [ref=f38e100]
+          - rowgroup [ref=f38e101]:
+            - row [ref=f38e102]:
+              - cell "1" [ref=f38e103]
+              - cell [ref=f38e104]:
+                - link "Standard" [ref=f38e105] [cursor=pointer]:
+                  - /url: /rf_slas/1
+              - cell "Daisy Skye" [ref=f38e106]
+              - cell "08/24/2026 05:46 AM" [ref=f38e107]
+              - cell "Daisy Skye" [ref=f38e108]
+              - cell "08/24/2026 05:46 AM" [ref=f38e109]
+              - cell "—" [ref=f38e110]
+              - cell [ref=f38e111]:
+                - checkbox "Active" [checked] [ref=f38e112]
+              - cell [ref=f38e113]:
+                - generic [ref=f38e114]:
+                  - link "History" [ref=f38e115] [cursor=pointer]:
+                    - /url: /rf_slas/1/history
+                  - link "Edit" [ref=f38e120] [cursor=pointer]:
+                    - /url: /rf_slas/1/edit
+                  - link "Delete" [ref=f38e123] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f38e127]:
+          - list
+          - generic [ref=f38e128]: (1-1/1)
+    - generic [ref=f38e129]:
+      - text: Powered by
+      - link "Redmine" [ref=f38e130] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f38e131]
+  - log [ref=f38e132]
+  - log [ref=f38e133]
+  - log [ref=f38e134]
+  - log [ref=f38e135]
+  - log [ref=f38e136]
+  - log [ref=f38e137]
+  - log [ref=f38e138]
+  - log [ref=f38e139]
+  - log [ref=f38e140]
+  - log [ref=f38e141]
+  - log [ref=f38e142]
+  - log [ref=f38e143]
+  - log [ref=f38e144]
+  - log [ref=f38e145]
+  - log [ref=f38e146]
+  - log [ref=f38e147]
+  - log [ref=f38e148]
+  - log [ref=f38e149]
+  - log [ref=f38e150]

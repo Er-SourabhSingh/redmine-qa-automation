@@ -1,0 +1,224 @@
+- generic [active] [ref=f357e1]:
+  - generic [ref=f357e2]:
+    - generic [ref=f357e3]:
+      - generic [ref=f357e4]:
+        - list:
+          - listitem [ref=f357e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f357e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f357e7]:
+        - text: Logged in as
+        - link "aurora.wren" [ref=f357e8] [cursor=pointer]:
+          - /url: /users/12
+      - list [ref=f357e9]:
+        - listitem [ref=f357e10]:
+          - link [ref=f357e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f357e12]
+        - listitem [ref=f357e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f357e14]:
+          - link "My page" [ref=f357e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f357e16]:
+          - link "Projects" [ref=f357e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f357e18]:
+          - link "Time Tracker" [ref=f357e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f357e20]:
+          - link "Workloads" [ref=f357e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f357e22]:
+          - link "Help" [ref=f357e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f357e24]:
+      - generic [ref=f357e25]:
+        - generic [ref=f357e26]:
+          - generic [ref=f357e27]:
+            - link "Search..." [ref=f357e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/search
+            - text: ":"
+          - textbox "Search...:" [ref=f357e29]
+        - generic [ref=f357e30]:
+          - generic [ref=f357e31] [cursor=pointer]: Helpdesk QA Beta
+          - text: ✓ ✓
+      - heading "Helpdesk QA Beta" [level=1] [ref=f357e32]
+      - generic [ref=f357e33]:
+        - list [ref=f357e34]:
+          - listitem [ref=f357e35]:
+            - link "+" [ref=f357e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f357e37]:
+            - link "Overview" [ref=f357e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta
+          - listitem [ref=f357e39]:
+            - link "Activity" [ref=f357e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/activity
+          - listitem [ref=f357e41]:
+            - link "Issues" [ref=f357e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues
+          - listitem [ref=f357e43]:
+            - link "Spent time" [ref=f357e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/time_entries
+          - listitem [ref=f357e45]:
+            - link "Gantt" [ref=f357e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues/gantt
+          - listitem [ref=f357e47]:
+            - link "Calendar" [ref=f357e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues/calendar
+          - listitem [ref=f357e49]:
+            - link "News" [ref=f357e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/news
+          - listitem [ref=f357e51]:
+            - link "Documents" [ref=f357e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/documents
+          - listitem [ref=f357e53]:
+            - link "Wiki" [ref=f357e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/wiki
+          - listitem [ref=f357e55]:
+            - link "Files" [ref=f357e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/files
+          - listitem [ref=f357e57]:
+            - link "Helpdesk" [ref=f357e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/helpdesk
+          - listitem [ref=f357e59]:
+            - link "Settings" [ref=f357e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/settings
+        - generic [ref=f357e61]:
+          - button [ref=f357e62] [cursor=pointer]
+          - button [ref=f357e65] [cursor=pointer]
+    - generic [ref=f357e68]:
+      - list [ref=f357e72]:
+        - listitem [ref=f357e73]:
+          - link "Helpdesk Dashboard" [ref=f357e74] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-beta/helpdesk
+        - listitem [ref=f357e77]:
+          - link "Helpdesk Tickets" [ref=f357e78] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-beta/helpdesk/tickets
+        - listitem [ref=f357e81]:
+          - link "Knowledgebase" [ref=f357e82] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-beta/helpdesk/knowledgebase
+      - generic [ref=f357e85]:
+        - generic [ref=f357e86]:
+          - generic [ref=f357e88]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f357e89]
+            - paragraph [ref=f357e90]: Helpdesk QA Beta · 3 tickets
+          - link "New issue" [ref=f357e92] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-beta/helpdesk/new
+        - button "Filters" [ref=f357e95] [cursor=pointer]
+        - table [ref=f357e103]:
+          - rowgroup [ref=f357e104]:
+            - row [ref=f357e105]:
+              - columnheader [ref=f357e106]:
+                - 'link "Ticket #" [ref=f357e107] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-beta/helpdesk/tickets?dir=asc&sort=id
+              - columnheader [ref=f357e108]:
+                - link "Subject" [ref=f357e109] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-beta/helpdesk/tickets?dir=asc&sort=subject
+              - columnheader "Customer" [ref=f357e110]
+              - columnheader "Organization Name" [ref=f357e111]
+              - columnheader [ref=f357e112]:
+                - link "Status" [ref=f357e113] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-beta/helpdesk/tickets?dir=asc&sort=status
+              - columnheader [ref=f357e114]:
+                - link "Priority" [ref=f357e115] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-beta/helpdesk/tickets?dir=asc&sort=priority
+              - columnheader "Assignee" [ref=f357e116]
+              - columnheader "SLA Status" [ref=f357e117]
+              - columnheader [ref=f357e118]:
+                - link "Updated ▼" [ref=f357e119] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-beta/helpdesk/tickets?dir=asc&sort=updated_on
+          - rowgroup [ref=f357e120]:
+            - row [ref=f357e121]:
+              - cell [ref=f357e122]:
+                - link "#70" [ref=f357e123] [cursor=pointer]:
+                  - /url: /issues/70
+              - cell [ref=f357e124]:
+                - link "Verify Edit-form public note visibility and auto-status-transition" [ref=f357e125] [cursor=pointer]:
+                  - /url: /issues/70
+              - cell [ref=f357e126]:
+                - link "Beta Customer" [ref=f357e127] [cursor=pointer]:
+                  - /url: /rf_customers/16
+              - cell "Beta Org" [ref=f357e128]
+              - cell "Waiting for Customer Response" [ref=f357e129]
+              - cell "Normal" [ref=f357e132]
+              - cell "Unassigned" [ref=f357e135]
+              - cell "— No SLA" [ref=f357e136]:
+                - generic [ref=f357e137]:
+                  - generic [ref=f357e138]: —
+                  - text: No SLA
+              - cell "08/26/2026 12:22 PM" [ref=f357e139]
+            - row [ref=f357e140]:
+              - cell [ref=f357e141]:
+                - link "#69" [ref=f357e142] [cursor=pointer]:
+                  - /url: /issues/69
+              - cell [ref=f357e143]:
+                - 'link "BUG-HLP-006 retest: customer portal ticket open check adsf asd f" [ref=f357e144] [cursor=pointer]':
+                  - /url: /issues/69
+              - cell [ref=f357e145]:
+                - link "Beta Customer" [ref=f357e146] [cursor=pointer]:
+                  - /url: /rf_customers/16
+              - cell "Beta Org" [ref=f357e147]
+              - cell "In Progress" [ref=f357e148]
+              - cell "Normal" [ref=f357e151]
+              - cell "Unassigned" [ref=f357e154]
+              - cell "— No SLA" [ref=f357e155]:
+                - generic [ref=f357e156]:
+                  - generic [ref=f357e157]: —
+                  - text: No SLA
+              - cell "08/26/2026 12:13 PM" [ref=f357e158]
+            - row [ref=f357e159]:
+              - cell [ref=f357e160]:
+                - link "#67" [ref=f357e161] [cursor=pointer]:
+                  - /url: /issues/67
+              - cell [ref=f357e162]:
+                - 'link "[TICKET] Ticket: Cannot access my dashboard" [ref=f357e163] [cursor=pointer]':
+                  - /url: /issues/67
+              - cell [ref=f357e164]:
+                - link "Beta Customer" [ref=f357e165] [cursor=pointer]:
+                  - /url: /rf_customers/16
+              - cell "Beta Org" [ref=f357e166]
+              - cell "In Progress" [ref=f357e167]
+              - cell "Normal" [ref=f357e170]
+              - cell "Aurora Wren" [ref=f357e173]
+              - cell "▮▮ Paused" [ref=f357e174]:
+                - generic [ref=f357e175]:
+                  - generic [ref=f357e176]: ▮▮
+                  - text: Paused
+              - cell "08/26/2026 12:05 PM" [ref=f357e177]
+        - generic [ref=f357e178]:
+          - list
+          - generic [ref=f357e179]: (1-3/3)
+    - generic [ref=f357e180]:
+      - text: Powered by
+      - link "Redmine" [ref=f357e181] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f357e182]
+  - log [ref=f357e183]
+  - log [ref=f357e184]
+  - log [ref=f357e185]
+  - log [ref=f357e186]
+  - log [ref=f357e187]
+  - log [ref=f357e188]
+  - log [ref=f357e189]
+  - log [ref=f357e190]
+  - log [ref=f357e191]
+  - log [ref=f357e192]
+  - log [ref=f357e193]
+  - log [ref=f357e194]
+  - log [ref=f357e195]
+  - log [ref=f357e196]
+  - log [ref=f357e197]
+  - log [ref=f357e198]
+  - log [ref=f357e199]
+  - log [ref=f357e200]
+  - log [ref=f357e201]
+  - log [ref=f357e202]
+  - log [ref=f357e203]
+  - log [ref=f357e204]

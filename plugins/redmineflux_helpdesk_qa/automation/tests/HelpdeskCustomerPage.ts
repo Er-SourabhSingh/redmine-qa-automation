@@ -1,0 +1,233 @@
+import { Page, expect } from '@playwright/test';
+import { BasePage } from './BasePage';
+
+/**
+ * Helpdesk › Customers (/rf_customers). Locators verified against the live
+ * Forge instance on 2026-08-21, full CRUD+search cycle re-confirmed 2026-08-24.
+ *
+ * CORRECTED (was wrong): the New Customer form DOES have a "Project access"
+ * section (Project/SLA/Support Level/Organization + "Add project" for
+ * multiple rows) — it just renders conditionally, only once an eligible
+ * Helpdesk-enabled project (and, for the row to be fully selectable, an SLA
+ * and organization) exists. Confirmed live with real field names below.
+ *
+ * Confirmed live 2026-08-24 (customer "Acme Customer" / acme.customer1, id=25):
+ * - Create WITH Project Access fully filled (Project/SLA/Support
+ *   Level/Organization) succeeds cleanly — BUG-HLP-001's stuck validation
+ *   message did NOT reproduce this run.
+ * - /rf_customers/:id/edit is correct and pre-fills all Project Access
+ *   fields from the saved row, confirming the Rails REST URL guess.
+ * - Update works: changed Support Level L1→L2 on the existing row, verified
+ *   persisted in the list afterward.
+ * - Search (?search=) and organization filter both work; a no-match search
+ *   shows "Nothing matched" (same pattern as Organization/SLA/Holiday/Support Level).
+ * - Delete is the same JS confirmation-modal pattern as every other Helpdesk
+ *   Settings entity (a.rf-delete-btn[data-item-name][data-item-type="customer"])
+ *   — CONFIRMED LIVE 2026-08-24 (second pass, new Forge instance) end-to-end
+ *   against a throwaway "CRUD Test" customer, not just markup-inspected.
+ * - /rf_customers and /rf_helpdesk/customers are BOTH live routes to the same
+ *   list (not a redirect) — either can be used for openList().
+ * - Duplicate Login refused with exact message "Login has already been
+ *   taken"; duplicate Email (different login) refused with "Email has
+ *   already been taken" — both confirmed live 2026-08-24.
+ * - TC-HLP-110/122 RESOLVED 2026-08-24: "Add project" DOES persist multiple
+ *   distinct project-access rows. Enabled the Helpdesk module on a second
+ *   project ("Agile Board Project", identifier "agileboard") and created a
+ *   support level for it (AB-L1) since Support Level is a hard-required
+ *   field per row with no way to leave it blank for a project with zero
+ *   levels defined ("Support Level is required" — submitting with "none"
+ *   silently drops ALL project-access rows back to a blank single row rather
+ *   than a field-level error). With a valid support level available for both
+ *   projects, customer id=26 ("MultiProject CustomerTwo") saved successfully
+ *   with 2 project-access rows (Agile Board Project/AB-L1 and Helpdesk
+ *   Service Desk/L1), confirmed in both the list ("Projects: 2",
+ *   "Support Level: AB-L1, L1") and the edit form (both rows pre-filled
+ *   with their correct project). One related discrepancy noted but not
+ *   filed as a bug yet: the Project dropdown in this form is scoped to the
+ *   CURRENT USER's project memberships (daisy.skye, who is only a member of
+ *   Helpdesk Service Desk, saw just that one project even after the
+ *   Helpdesk module was enabled elsewhere), not to "every Helpdesk-enabled
+ *   project" — worth a UX/permissions test case of its own.
+ */
+export class HelpdeskCustomerPage extends BasePage {
+  private readonly loginInput = this.page.locator('#customer_login');
+  private readonly firstNameInput = this.page.locator('#customer_firstname');
+  private readonly lastNameInput = this.page.locator('#customer_lastname');
+  private readonly emailInput = this.page.locator('#customer_mail');
+  private readonly passwordInput = this.page.locator('#customer_password');
+  private readonly passwordConfirmationInput = this.page.locator('#customer_password_confirmation');
+  private readonly generatePasswordCheckbox = this.page.locator('#generate_password');
+  private readonly sendInformationCheckbox = this.page.locator('#send_information');
+  /**
+   * BUG FIX 2026-08-24: this used to locate `input[type="submit"][name="commit"]`,
+   * which does not exist on this form — the real submit is a `<button
+   * type="submit">`, labeled "Create" on /rf_customers/new and "Save" on
+   * /rf_customers/:id/edit. The old locator would have silently matched
+   * nothing and thrown on .click(); it was never actually exercised via the
+   * page object (manual testing clicked the button directly), so this bug
+   * itself was never triggered until this fix. Kept as one property since
+   * only one submit button exists per page load (create OR edit, never both).
+   */
+  private readonly submitButton = this.page.getByRole('button', { name: /^(Create|Save)$/ });
+
+  // Project Access section — confirmed live 2026-08-21. Real field names use
+  // an array index per row: customer_projects[N][project_id|sla_id|support_level_id|organization_id].
+  // Only row 0 is modeled explicitly here; use projectAccessRow(n) for others.
+  private readonly addProjectButton = this.page.getByRole('button', { name: 'Add project' });
+
+  private projectAccessRow(index: number) {
+    return {
+      project: this.page.locator(`select[name="customer_projects[${index}][project_id]"]`),
+      sla: this.page.locator(`select[name="customer_projects[${index}][sla_id]"]`),
+      supportLevel: this.page.locator(`select[name="customer_projects[${index}][support_level_id]"]`),
+      organization: this.page.locator(`select[name="customer_projects[${index}][organization_id]"]`),
+      deleteButton: this.page.getByRole('button', { name: 'Delete' }).nth(index),
+    };
+  }
+
+  // List view: CORRECTED 2026-08-24 — /rf_customers and /rf_helpdesk/customers
+  // are BOTH live routes to the same list (confirmed: creating a customer
+  // redirects to /rf_customers, and navigating to /rf_helpdesk/customers
+  // directly renders the identical list with no redirect). Real <table> row
+  // markup confirmed against customer "Acme Customer" (id=25).
+  private readonly searchInput = this.page.getByPlaceholder('Search customers...');
+  private readonly organizationFilterSelect = this.page.locator('select#organization_id');
+  private readonly applyFiltersButton = this.page.getByRole('button', { name: 'Apply Filters' });
+  private readonly clearFiltersLink = this.page.getByRole('link', { name: 'Clear' });
+
+  /** Real nav path (added 2026-08-25): Helpdesk Command Center rail → "Customers". */
+  async openList() {
+    await this.clickTopNav('Helpdesk Command Center');
+    await this.clickHelpdeskSubNav('Customers');
+  }
+
+  /** Navigates to the list, then clicks "New Customer". */
+  async openNew() {
+    await this.openList();
+    await this.page.getByRole('link', { name: 'New Customer' }).click();
+  }
+
+  async search(term: string) {
+    await this.searchInput.fill(term);
+    await this.applyFiltersButton.click();
+  }
+
+  async filterByOrganization(organization: string) {
+    await this.organizationFilterSelect.selectOption({ label: organization });
+    await this.applyFiltersButton.click();
+  }
+
+  async clearFilters() {
+    await this.clearFiltersLink.click();
+  }
+
+  async createAccount(options: {
+    login: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password?: string;
+    sendInformation?: boolean;
+    /** One entry per project-access row to fill in via "Add project" (beyond the first, already-present row). */
+    projectAccess?: Array<{ project: string; sla?: string; supportLevel?: string; organization?: string }>;
+  }) {
+    await this.openNew();
+    await this.loginInput.fill(options.login);
+    await this.firstNameInput.fill(options.firstName);
+    await this.lastNameInput.fill(options.lastName);
+    await this.emailInput.fill(options.email);
+    if (options.password) {
+      await this.passwordInput.fill(options.password);
+      await this.passwordConfirmationInput.fill(options.password);
+    } else {
+      await this.generatePasswordCheckbox.check();
+    }
+    if (options.sendInformation === false) await this.sendInformationCheckbox.uncheck();
+    if (options.projectAccess) {
+      for (let i = 0; i < options.projectAccess.length; i++) {
+        if (i > 0) await this.addProjectButton.click(); // row 0 exists by default; click "Add project" for each additional row
+        const entry = options.projectAccess[i];
+        const row = this.projectAccessRow(i);
+        await row.project.selectOption({ label: entry.project });
+        if (entry.sla) await row.sla.selectOption({ label: entry.sla });
+        if (entry.supportLevel) await row.supportLevel.selectOption({ label: entry.supportLevel });
+        if (entry.organization) await row.organization.selectOption({ label: entry.organization });
+      }
+    }
+    await this.submitButton.click();
+  }
+
+  /** Removes a project-access row by index via its Delete button — does not save; call after createAccount/edit is loaded. */
+  async removeProjectAccessRow(index: number) {
+    await this.projectAccessRow(index).deleteButton.click();
+  }
+
+  /** Navigates to the list, then clicks the named row's "Edit" link — pre-fills Project Access from the saved row. */
+  async openEdit(customerFullName: string) {
+    await this.openList();
+    await this.row(customerFullName).getByRole('link', { name: 'Edit' }).click();
+  }
+
+  /** Reads the "Projects" column (a count, e.g. "2" for a multi-project customer) — call after openList(). */
+  async getProjectCount(customerFullName: string): Promise<string | null> {
+    return this.getRowCellText(customerFullName, 'Projects');
+  }
+
+  /** Reads the "Organization Name" column — call after openList(). */
+  async getOrganizationName(customerFullName: string): Promise<string | null> {
+    return this.getRowCellText(customerFullName, 'Organization Name');
+  }
+
+  /**
+   * Confirmed live 2026-08-24 via markup inspection: same JS confirmation-modal
+   * pattern as every other Helpdesk Settings entity. Not actually exercised
+   * (keeper test data), but a.rf-delete-btn[data-item-type="customer"] was
+   * observed directly on the live customer list row.
+   */
+  async delete(customerFullName: string) {
+    await this.page.locator(`a.rf-delete-btn[data-item-name="${customerFullName}"]`).click();
+    await this.page.getByRole('button', { name: 'Delete' }).click();
+  }
+
+  /** Call after openEdit(). Only touches the first project-access row; use projectAccessRow() directly for others. */
+  async edit(options: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    supportLevel?: string;
+    sla?: string;
+    organization?: string;
+  }) {
+    if (options.firstName) await this.firstNameInput.fill(options.firstName);
+    if (options.lastName) await this.lastNameInput.fill(options.lastName);
+    if (options.email) await this.emailInput.fill(options.email);
+    const row = this.projectAccessRow(0);
+    if (options.sla) await row.sla.selectOption({ label: options.sla });
+    if (options.supportLevel) await row.supportLevel.selectOption({ label: options.supportLevel });
+    if (options.organization) await row.organization.selectOption({ label: options.organization });
+    await this.submitButton.click();
+  }
+
+  async assertEmptyState() {
+    await expect(this.page.getByText('No customers yet')).toBeVisible();
+  }
+
+  async assertRowVisible(fullName: string) {
+    await expect(this.page.getByRole('link', { name: fullName })).toBeVisible();
+  }
+
+  /** Distinct from assertEmptyState — the filtered/searched-with-no-results state, confirmed live 2026-08-24. */
+  async assertNoSearchResults() {
+    await expect(this.page.getByText('Nothing matched')).toBeVisible();
+  }
+
+  /** Confirmed live 2026-08-24 — exact message: "Login has already been taken". */
+  async assertDuplicateLoginRefused() {
+    await expect(this.page.getByText(/Login has already been taken/i)).toBeVisible();
+  }
+
+  /** Confirmed live 2026-08-24 — exact message: "Email has already been taken". */
+  async assertDuplicateEmailRefused() {
+    await expect(this.page.getByText(/Email has already been taken/i)).toBeVisible();
+  }
+}

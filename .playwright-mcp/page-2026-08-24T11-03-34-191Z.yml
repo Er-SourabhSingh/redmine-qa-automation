@@ -1,0 +1,154 @@
+- generic [ref=f431e1]:
+  - generic [ref=f431e2]:
+    - generic [ref=f431e3]:
+      - generic [ref=f431e4]:
+        - list:
+          - listitem [ref=f431e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f431e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f431e7]:
+        - text: Logged in as
+        - link "admin" [ref=f431e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f431e9]:
+        - listitem [ref=f431e10]:
+          - link [ref=f431e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f431e12]
+        - listitem [ref=f431e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f431e14]:
+          - link "My page" [ref=f431e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f431e16]:
+          - link "Projects" [ref=f431e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f431e18]:
+          - link "Helpdesk Command Center" [ref=f431e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f431e20]:
+          - link "Administration" [ref=f431e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f431e22]:
+          - link "Help" [ref=f431e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f431e24]:
+      - generic [ref=f431e25]:
+        - generic [ref=f431e26]:
+          - generic [ref=f431e27]:
+            - link "Search" [ref=f431e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f431e29]
+        - generic [ref=f431e30]:
+          - generic [ref=f431e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f431e32]
+    - generic [ref=f431e33]:
+      - list [ref=f431e37]:
+        - listitem [ref=f431e38]:
+          - link "Helpdesk Dashboard" [ref=f431e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f431e42]:
+          - link "Helpdesk Tickets" [ref=f431e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f431e46]:
+          - link "Reports" [ref=f431e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f431e50]:
+          - link "Organization" [ref=f431e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f431e54]:
+          - link "Customers" [ref=f431e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f431e58]:
+          - link "Products" [ref=f431e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f431e62]:
+          - link "Helpdesk Settings" [ref=f431e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f431e66]:
+        - generic [ref=f431e67]: Successful update.
+        - generic [ref=f431e68]:
+          - generic [ref=f431e70]:
+            - heading "Organizations" [level=2] [ref=f431e71]
+            - paragraph [ref=f431e72]: Companies your customers belong to
+          - link "New Organization" [ref=f431e74] [cursor=pointer]:
+            - /url: /rf_organizations/new
+        - generic [ref=f431e77]:
+          - textbox "Search organizations..." [active] [ref=f431e79]
+          - combobox "All Statuses" [ref=f431e80] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f431e81]:
+            - button "Apply Filters" [ref=f431e82] [cursor=pointer]
+            - link "Clear" [ref=f431e85] [cursor=pointer]:
+              - /url: /rf_organizations
+        - table [ref=f431e91]:
+          - rowgroup [ref=f431e92]:
+            - row [ref=f431e93]:
+              - columnheader "S.No" [ref=f431e94]
+              - columnheader "Organization Name" [ref=f431e95]
+              - columnheader "Website" [ref=f431e96]
+              - columnheader "Author" [ref=f431e97]
+              - columnheader "Updated By" [ref=f431e98]
+              - columnheader "Created" [ref=f431e99]
+              - columnheader "Updated" [ref=f431e100]
+              - columnheader "User Count" [ref=f431e101]
+              - columnheader "Active" [ref=f431e102]
+              - columnheader "Action" [ref=f431e103]
+          - rowgroup [ref=f431e104]:
+            - row [ref=f431e105]:
+              - cell "1" [ref=f431e106]
+              - cell [ref=f431e107]:
+                - link "jgh" [ref=f431e108] [cursor=pointer]:
+                  - /url: /rf_organizations/1
+              - cell "—" [ref=f431e109]
+              - cell "Redmine Admin" [ref=f431e110]
+              - cell "Redmine Admin" [ref=f431e111]
+              - cell "08/24/2026 10:41 AM" [ref=f431e112]
+              - cell "08/24/2026 11:02 AM" [ref=f431e113]
+              - cell "0" [ref=f431e114]
+              - cell [ref=f431e115]:
+                - checkbox "Active" [checked] [ref=f431e116]
+              - cell [ref=f431e117]:
+                - generic [ref=f431e118]:
+                  - link "Edit" [ref=f431e119] [cursor=pointer]:
+                    - /url: /rf_organizations/1/edit
+                  - link "Delete" [ref=f431e122] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f431e126]:
+          - list
+          - generic [ref=f431e127]: (1-1/1)
+    - generic [ref=f431e128]:
+      - text: Powered by
+      - link "Redmine" [ref=f431e129] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f431e130]
+  - log [ref=f431e131]
+  - log [ref=f431e132]
+  - log [ref=f431e133]
+  - log [ref=f431e134]
+  - log [ref=f431e135]
+  - log [ref=f431e136]
+  - log [ref=f431e137]
+  - log [ref=f431e138]
+  - log [ref=f431e139]
+  - log [ref=f431e140]
+  - log [ref=f431e141]
+  - log [ref=f431e142]
+  - log [ref=f431e143]
+  - log [ref=f431e144]
+  - log [ref=f431e145]
+  - log [ref=f431e146]
+  - log [ref=f431e147]
+  - log [ref=f431e148]
+  - log [ref=f431e149]
+  - log [ref=f431e150]
+  - log [ref=f431e151]

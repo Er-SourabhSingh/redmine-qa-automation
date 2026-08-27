@@ -1,0 +1,261 @@
+- generic [ref=f6e1]:
+  - generic [ref=f6e2]:
+    - generic [ref=f6e3]:
+      - generic [ref=f6e4]:
+        - list:
+          - listitem [ref=f6e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f6e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f6e7]:
+        - text: Logged in as
+        - link "admin" [ref=f6e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f6e9]:
+        - listitem [ref=f6e10]:
+          - link [ref=f6e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f6e12]
+        - listitem [ref=f6e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f6e14]:
+          - link "My page" [ref=f6e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f6e16]:
+          - link "Projects" [ref=f6e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f6e18]:
+          - link "Helpdesk Command Center" [ref=f6e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f6e20]:
+          - link "Administration" [ref=f6e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f6e22]:
+          - link "Help" [ref=f6e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f6e24]:
+      - generic [ref=f6e25]:
+        - generic [ref=f6e26]:
+          - generic [ref=f6e27]:
+            - link "Search" [ref=f6e28] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f6e29]
+        - generic [ref=f6e30]:
+          - generic [ref=f6e31] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f6e32]
+      - generic [ref=f6e33]:
+        - list [ref=f6e34]:
+          - listitem [ref=f6e35]:
+            - link "+" [ref=f6e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f6e37]:
+            - link "Overview" [ref=f6e38] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f6e39]:
+            - link "Activity" [ref=f6e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f6e41]:
+            - link "Issues" [ref=f6e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f6e43]:
+            - link "Spent time" [ref=f6e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f6e45]:
+            - link "Gantt" [ref=f6e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f6e47]:
+            - link "Calendar" [ref=f6e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f6e49]:
+            - link "News" [ref=f6e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f6e51]:
+            - link "Documents" [ref=f6e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f6e53]:
+            - link "Wiki" [ref=f6e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f6e55]:
+            - link "Files" [ref=f6e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f6e57]:
+            - link "Helpdesk" [ref=f6e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk
+          - listitem [ref=f6e59]:
+            - link "Settings" [ref=f6e60] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f6e61]:
+          - button [ref=f6e62] [cursor=pointer]
+          - button [ref=f6e63] [cursor=pointer]
+    - generic [ref=f6e65]:
+      - generic [ref=f6e66]: Successful update.
+      - heading "Settings" [level=2] [ref=f6e67]
+      - list [ref=f6e69]:
+        - listitem [ref=f6e70]:
+          - link "Project" [ref=f6e71] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/info
+        - listitem [ref=f6e72]:
+          - link "Members" [ref=f6e73] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/members
+        - listitem [ref=f6e74]:
+          - link "Issue tracking" [ref=f6e75] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/issues
+        - listitem [ref=f6e76]:
+          - link "Versions" [ref=f6e77] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/versions
+        - listitem [ref=f6e78]:
+          - link "Issue categories" [ref=f6e79] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/categories
+        - listitem [ref=f6e80]:
+          - link "Repositories" [ref=f6e81] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/repositories
+        - listitem [ref=f6e82]:
+          - link "Forums" [ref=f6e83] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/boards
+        - listitem [ref=f6e84]:
+          - link "Time tracking" [ref=f6e85] [cursor=pointer]:
+            - /url: /projects/helpdesk/settings/activities
+      - generic [ref=f6e87]:
+        - generic [ref=f6e88]:
+          - paragraph [ref=f6e89]:
+            - generic [ref=f6e90]: Name *
+            - textbox "Name *" [active] [ref=f6e91]: Helpdesk Service Desk
+          - paragraph [ref=f6e92]:
+            - generic [ref=f6e93]: Description
+            - generic [ref=f6e94]:
+              - list [ref=f6e96]:
+                - listitem [ref=f6e97]:
+                  - link "Edit" [ref=f6e98] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f6e99]:
+                  - link "Preview" [ref=f6e100] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f6e101]:
+                  - generic [ref=f6e102]:
+                    - button "Strong (Ctrl+B)" [ref=f6e103] [cursor=pointer]
+                    - button "Italic (Ctrl+I)" [ref=f6e104] [cursor=pointer]
+                    - button "Underline (Ctrl+U)" [ref=f6e105] [cursor=pointer]
+                    - button "Deleted" [ref=f6e106] [cursor=pointer]
+                    - button "Inline Code" [ref=f6e107] [cursor=pointer]
+                    - button "Heading 1" [ref=f6e108] [cursor=pointer]
+                    - button "Heading 2" [ref=f6e109] [cursor=pointer]
+                    - button "Heading 3" [ref=f6e110] [cursor=pointer]
+                    - button "Unordered list" [ref=f6e111] [cursor=pointer]
+                    - button "Ordered list" [ref=f6e112] [cursor=pointer]
+                    - button "Task list" [ref=f6e113] [cursor=pointer]
+                    - button "Quote" [ref=f6e114] [cursor=pointer]
+                    - button "Remove Quote" [ref=f6e115] [cursor=pointer]
+                    - button "Table" [ref=f6e116] [cursor=pointer]
+                    - button "pre" [ref=f6e117] [cursor=pointer]
+                    - button "Highlighted code" [ref=f6e118] [cursor=pointer]
+                    - button "Link to a Wiki page" [ref=f6e119] [cursor=pointer]
+                    - button "Image" [ref=f6e120] [cursor=pointer]
+                    - button "Help" [ref=f6e121] [cursor=pointer]
+              - textbox "Description" [ref=f6e123]
+          - paragraph [ref=f6e124]:
+            - generic [ref=f6e125]: Identifier *
+            - textbox "Identifier *" [disabled] [ref=f6e126]: helpdesk
+          - paragraph [ref=f6e127]:
+            - generic [ref=f6e128]: Homepage
+            - textbox "Homepage" [ref=f6e129]
+          - paragraph [ref=f6e130]:
+            - generic [ref=f6e131]: Public
+            - checkbox "Public" [checked] [ref=f6e132]
+            - emphasis [ref=f6e133]: Public projects and their contents are openly available on the network.
+          - paragraph [ref=f6e134]:
+            - generic [ref=f6e135]: Subproject of
+            - combobox "Subproject of" [ref=f6e136]:
+              - option [selected]
+              - option "Agile Board Project"
+              - option "Education and training3"
+              - option "Flux Gantt Project"
+              - option "HR management2"
+              - option "MVP build for PaySheet Application"
+              - option "Marketing campaign4"
+              - option "Mobile app development1"
+              - option "Software development5"
+          - paragraph [ref=f6e137]:
+            - generic [ref=f6e138]: Inherit members
+            - checkbox "Inherit members" [ref=f6e139]
+        - group [ref=f6e140]:
+          - generic [ref=f6e141]:
+            - link "Check all / Uncheck all" [ref=f6e142] [cursor=pointer]:
+              - /url: "#"
+            - text: Modules
+          - generic [ref=f6e144]:
+            - checkbox "Issue tracking" [checked] [ref=f6e145]
+            - text: Issue tracking
+          - generic [ref=f6e146]:
+            - checkbox "Time tracking" [checked] [ref=f6e147]
+            - text: Time tracking
+          - generic [ref=f6e148]:
+            - checkbox "News" [checked] [ref=f6e149]
+            - text: News
+          - generic [ref=f6e150]:
+            - checkbox "Documents" [checked] [ref=f6e151]
+            - text: Documents
+          - generic [ref=f6e152]:
+            - checkbox "Files" [checked] [ref=f6e153]
+            - text: Files
+          - generic [ref=f6e154]:
+            - checkbox "Wiki" [checked] [ref=f6e155]
+            - text: Wiki
+          - generic [ref=f6e156]:
+            - checkbox "Repository" [checked] [ref=f6e157]
+            - text: Repository
+          - generic [ref=f6e158]:
+            - checkbox "Forums" [checked] [ref=f6e159]
+            - text: Forums
+          - generic [ref=f6e160]:
+            - checkbox "Calendar" [checked] [ref=f6e161]
+            - text: Calendar
+          - generic [ref=f6e162]:
+            - checkbox "Gantt" [checked] [ref=f6e163]
+            - text: Gantt
+          - generic [ref=f6e164]:
+            - checkbox "Redmineflux Helpdesk" [checked] [ref=f6e165]
+            - text: Redmineflux Helpdesk
+        - button "Save" [ref=f6e166] [cursor=pointer]
+    - generic [ref=f6e167]:
+      - text: Powered by
+      - link "Redmine" [ref=f6e168] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f6e169]
+  - log [ref=f6e170]
+  - log [ref=f6e171]
+  - log [ref=f6e172]
+  - log [ref=f6e173]
+  - log [ref=f6e174]
+  - log [ref=f6e175]
+  - log [ref=f6e176]
+  - log [ref=f6e177]
+  - log [ref=f6e178]
+  - log [ref=f6e179]
+  - log [ref=f6e180]
+  - log [ref=f6e181]
+  - log [ref=f6e182]
+  - log [ref=f6e183]
+  - log [ref=f6e184]
+  - log [ref=f6e185]
+  - log [ref=f6e186]
+  - log [ref=f6e187]
+  - log [ref=f6e188]
+  - log [ref=f6e189]
+  - log [ref=f6e190]
+  - log [ref=f6e191]
+  - log [ref=f6e192]
+  - log [ref=f6e193]
+  - log [ref=f6e194]
+  - log [ref=f6e195]
+  - log [ref=f6e196]
+  - log [ref=f6e197]
+  - log [ref=f6e198]
+  - log [ref=f6e199]
+  - log [ref=f6e200]
+  - log [ref=f6e201]

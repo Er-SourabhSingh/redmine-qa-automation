@@ -1,0 +1,103 @@
+- generic [active] [ref=f315e1]:
+  - generic [ref=f315e2]:
+    - generic [ref=f315e3]:
+      - generic [ref=f315e4]:
+        - list:
+          - listitem [ref=f315e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f315e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f315e7]:
+        - text: Logged in as
+        - link "beta.customer" [ref=f315e8] [cursor=pointer]:
+          - /url: /users/16
+      - list [ref=f315e9]:
+        - listitem [ref=f315e10]:
+          - link [ref=f315e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f315e12]
+        - listitem [ref=f315e13]:
+          - link "My Helpdesk" [ref=f315e14] [cursor=pointer]:
+            - /url: /helpdesk
+    - generic [ref=f315e15]:
+      - text: ✓
+      - heading "Helpdesk QA Beta" [level=1] [ref=f315e16]
+    - generic [ref=f315e17]:
+      - list [ref=f315e21]:
+        - listitem [ref=f315e22]:
+          - link "Helpdesk Dashboard" [ref=f315e23] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-beta/helpdesk
+        - listitem [ref=f315e26]:
+          - link "Helpdesk Tickets" [ref=f315e27] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-beta/helpdesk/tickets
+        - listitem [ref=f315e30]:
+          - link "Knowledgebase" [ref=f315e31] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-beta/helpdesk/knowledgebase
+      - generic [ref=f315e34]:
+        - generic [ref=f315e35]:
+          - generic [ref=f315e37]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f315e38]
+            - paragraph [ref=f315e39]: Helpdesk QA Beta · 2 tickets
+          - link "New issue" [ref=f315e41] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-beta/helpdesk/new
+        - button "Filters" [ref=f315e44] [cursor=pointer]
+        - table [ref=f315e52]:
+          - rowgroup [ref=f315e53]:
+            - row [ref=f315e54]:
+              - columnheader [ref=f315e55]:
+                - 'link "Ticket #" [ref=f315e56] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-beta/helpdesk/tickets?dir=asc&sort=id
+              - columnheader [ref=f315e57]:
+                - link "Subject" [ref=f315e58] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-beta/helpdesk/tickets?dir=asc&sort=subject
+              - columnheader [ref=f315e59]:
+                - link "Status" [ref=f315e60] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-beta/helpdesk/tickets?dir=asc&sort=status
+              - columnheader [ref=f315e61]:
+                - link "Priority" [ref=f315e62] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-beta/helpdesk/tickets?dir=asc&sort=priority
+              - columnheader [ref=f315e63]:
+                - link "Updated ▼" [ref=f315e64] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-beta/helpdesk/tickets?dir=asc&sort=updated_on
+          - rowgroup [ref=f315e65]:
+            - row [ref=f315e66]:
+              - cell [ref=f315e67]:
+                - link "#67" [ref=f315e68] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-beta/helpdesk/issues/67
+              - cell [ref=f315e69]:
+                - 'link "[TICKET] Ticket: Cannot access my dashboard" [ref=f315e70] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-beta/helpdesk/issues/67
+              - cell "In Progress" [ref=f315e71]
+              - cell "Normal" [ref=f315e74]
+              - cell "08/26/2026 12:05 PM" [ref=f315e77]
+            - row [ref=f315e78]:
+              - cell [ref=f315e79]:
+                - link "#69" [ref=f315e80] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-beta/helpdesk/issues/69
+              - cell [ref=f315e81]:
+                - 'link "BUG-HLP-006 retest: customer portal ticket open check" [ref=f315e82] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-beta/helpdesk/issues/69
+              - cell "New" [ref=f315e83]
+              - cell "Normal" [ref=f315e86]
+              - cell "08/26/2026 10:59 AM" [ref=f315e89]
+        - generic [ref=f315e90]:
+          - list
+          - generic [ref=f315e91]: (1-2/2)
+    - generic [ref=f315e92]:
+      - text: Powered by
+      - link "Redmine" [ref=f315e93] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f315e94]
+  - log [ref=f315e95]
+  - log [ref=f315e96]
+  - log [ref=f315e97]
+  - log [ref=f315e98]
+  - log [ref=f315e99]
+  - log [ref=f315e100]
+  - log [ref=f315e101]
+  - log [ref=f315e102]
+  - log [ref=f315e103]
+  - log [ref=f315e104]

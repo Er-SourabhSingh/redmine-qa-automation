@@ -1,0 +1,119 @@
+- generic [active] [ref=f153e1]:
+  - generic [ref=f153e2]:
+    - generic [ref=f153e3]:
+      - generic [ref=f153e4]:
+        - list:
+          - listitem [ref=f153e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f153e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f153e7]:
+        - text: Logged in as
+        - link "admin" [ref=f153e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f153e9]:
+        - listitem [ref=f153e10]:
+          - link [ref=f153e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f153e12]
+        - listitem [ref=f153e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f153e14]:
+          - link "My page" [ref=f153e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f153e16]:
+          - link "Projects" [ref=f153e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f153e18]:
+          - link "Flux Gantt" [ref=f153e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f153e20]:
+          - link "Helpdesk Command Center" [ref=f153e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f153e22]:
+          - link "Time Tracker" [ref=f153e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f153e24]:
+          - link "Timesheet" [ref=f153e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f153e26]:
+          - link "Workloads" [ref=f153e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f153e28]:
+          - link "More" [ref=f153e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f153e30]:
+      - generic [ref=f153e31]:
+        - generic [ref=f153e32]:
+          - generic [ref=f153e33]:
+            - link "Search..." [ref=f153e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f153e35]
+        - generic [ref=f153e36]:
+          - generic [ref=f153e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f153e38]
+    - generic [ref=f153e39]:
+      - list [ref=f153e43]:
+        - listitem [ref=f153e44]:
+          - link "Helpdesk Dashboard" [ref=f153e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f153e48]:
+          - link "Helpdesk Tickets" [ref=f153e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f153e52]:
+          - link "Reports" [ref=f153e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f153e56]:
+          - link "Organization" [ref=f153e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f153e60]:
+          - link "Customers" [ref=f153e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f153e64]:
+          - link "Products" [ref=f153e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f153e68]:
+          - link "Helpdesk Settings" [ref=f153e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f153e73]:
+        - status [ref=f153e74]:
+          - generic [ref=f153e79]:
+            - text: You are viewing the portal as
+            - strong [ref=f153e80]: Beta Customer
+            - text: · beta.customer@test.local. Nothing you do here is visible to the customer.
+          - generic [ref=f153e81]: Read only
+          - link "Exit preview" [ref=f153e82] [cursor=pointer]:
+            - /url: /rf_customers/16
+        - generic [ref=f153e86]:
+          - generic [ref=f153e88]:
+            - heading "My Helpdesk" [level=2] [ref=f153e89]
+            - paragraph [ref=f153e90]: What Beta Customer sees when they open the helpdesk.
+          - link "Customer details" [ref=f153e92] [cursor=pointer]:
+            - /url: /rf_customers/16
+        - generic [ref=f153e97]:
+          - heading "Helpdesk QA Beta" [level=3] [ref=f153e98]
+          - generic [ref=f153e99]:
+            - generic [ref=f153e100]: 3 open
+            - link "View" [ref=f153e102] [cursor=pointer]:
+              - /url: /rf_customers/16/portal?project_id=4
+    - generic [ref=f153e105]:
+      - text: Powered by
+      - link "Redmine" [ref=f153e106] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f153e107]
+  - log [ref=f153e108]
+  - log [ref=f153e109]
+  - log [ref=f153e110]
+  - log [ref=f153e111]
+  - log [ref=f153e112]
+  - log [ref=f153e113]
+  - log [ref=f153e114]
+  - log [ref=f153e115]
+  - log [ref=f153e116]
+  - log [ref=f153e117]

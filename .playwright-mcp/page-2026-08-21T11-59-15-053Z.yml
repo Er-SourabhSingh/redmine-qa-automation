@@ -1,0 +1,28 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - img "Flux Logo" [ref=e7]
+      - heading "Welcome to Redmineflux" [level=1] [ref=e8]
+      - paragraph [ref=e9]: Powerful project management and team collaboration.
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - heading "Welcome Back" [level=2] [ref=e12]
+        - paragraph [ref=e13]: Sign in to access your projects and dashboard
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16]: Login
+          - textbox "Login" [ref=e18]:
+            - /placeholder: Enter your email or username
+        - generic [ref=e19]:
+          - generic [ref=e20]: Password
+          - generic [ref=e21]:
+            - textbox "Enter your password" [ref=e22]
+            - generic "Show/Hide Password" [ref=e23] [cursor=pointer]: 👁
+        - link "Forgot password?" [ref=e25] [cursor=pointer]:
+          - /url: /account/lost_password
+        - button "Login" [ref=e26] [cursor=pointer]
+      - paragraph [ref=e27]:
+        - text: Don't have an account?
+        - link "Register" [ref=e28] [cursor=pointer]:
+          - /url: /account/register
+  - generic [ref=e29]: "Powered by: Redmineflux | ⓒ 2022-2026 | All rights reserved"

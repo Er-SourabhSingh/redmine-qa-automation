@@ -1,0 +1,103 @@
+- generic [active] [ref=f165e1]:
+  - generic [ref=f165e2]:
+    - generic [ref=f165e3]:
+      - generic [ref=f165e4]:
+        - img "Logo" [ref=f165e5]
+        - text: 
+      - navigation "Application tasks" [ref=f165e6]:
+        - button " Compose" [ref=f165e8] [cursor=pointer]
+        - button " Mail" [disabled] [ref=f165e9] [cursor=pointer]
+        - button " Contacts" [ref=f165e10] [cursor=pointer]
+        - button " Settings" [ref=f165e11] [cursor=pointer]
+        - generic [ref=f165e12]:
+          - button " Dark mode" [ref=f165e13] [cursor=pointer]
+          - button " About" [ref=f165e14] [cursor=pointer]
+          - button " Logout" [ref=f165e15] [cursor=pointer]
+    - navigation "Email folder selection" [ref=f165e16]:
+      - generic [ref=f165e17]:
+        - text: 
+        - generic [ref=f165e18]: beta.customer@test.local
+        - button "" [ref=f165e19] [cursor=pointer]:     
+      - generic [ref=f165e20]:
+        - tree
+      - generic [ref=f165e22]:
+        - text: 
+        - generic "unknown" [ref=f165e23]: 0%
+    - generic [ref=f165e26]:
+      - generic [ref=f165e27]:
+        - text:  
+        - list [ref=f165e28]:
+          - menuitem " Select" [ref=f165e29]:
+            - link " Select":
+              - /url: "#select"
+              - text:  Select       
+          - menuitem " Threads" [ref=f165e30]:
+            - link " Threads":
+              - /url: "#threads"
+              - text:  Threads   
+          - menuitem [ref=f165e31]:
+            - link " Options" [ref=f165e32] [cursor=pointer]:
+              - /url: "#list-options"
+        - button " Refresh" [ref=f165e33] [cursor=pointer]
+        - text:  
+      - search "Email search input" [ref=f165e34]:
+        - generic [ref=f165e35]:
+          - text: 
+          - textbox "Search terms" [ref=f165e36]:
+            - /placeholder: Search...
+        - text: 
+        - button "" [ref=f165e37] [cursor=pointer]
+        - button "" [ref=f165e38] [cursor=pointer]
+        - text: 
+      - text:   
+      - generic [ref=f165e39]:
+        - text: 
+        - table "Email Messages Listing":
+          - text: 
+          - rowgroup
+      - toolbar "List navigation" [ref=f165e40]:
+        - button "" [disabled]
+        - button "" [disabled]
+        - generic [ref=f165e41]: Mailbox is empty
+        - textbox "Current page" [disabled] [ref=f165e42]: "1"
+        - button "" [disabled]
+        - button "" [disabled]
+    - generic [ref=f165e44]:
+      - toolbar "Application toolbar" [ref=f165e45]:
+        - text:                   Browse
+        - list [ref=f165e46]:
+          - menuitem: 
+          - menuitem " Reply" [ref=f165e47]:
+            - button " Reply" [disabled]
+          - menuitem [ref=f165e48]:
+            - generic [ref=f165e49]:
+              - button " Reply all" [disabled]
+              - link "" [ref=f165e50] [cursor=pointer]:
+                - /url: "#reply-all"
+          - menuitem [ref=f165e51]:
+            - generic [ref=f165e52]:
+              - button " Forward" [disabled]
+              - link "" [ref=f165e53] [cursor=pointer]:
+                - /url: "#forward"
+          - menuitem [ref=f165e54]
+          - menuitem " Delete" [ref=f165e55]:
+            - button " Delete" [disabled]
+          - menuitem [ref=f165e56]:
+            - button " Mark" [ref=f165e57] [cursor=pointer]
+          - menuitem [ref=f165e58]:
+            - button " More" [ref=f165e59] [cursor=pointer]
+          - menuitem: 
+          - menuitem: 
+          - menuitem: 
+        - text: 
+      - iframe [ref=f165e61]:
+        
+      - text:   
+  - generic [ref=f165e62]:
+    - alert [ref=f165e63]:
+      - generic [ref=f165e64]: 
+      - generic [ref=f165e65]: Connection to storage server failed.
+    - alert [ref=f165e66]:
+      - generic [ref=f165e67]: 
+      - generic [ref=f165e68]: "Server Error: Authentication not allowed until SSL/TLS is enabled."
+  - text:   

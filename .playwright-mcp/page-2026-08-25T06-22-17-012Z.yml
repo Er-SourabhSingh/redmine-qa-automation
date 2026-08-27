@@ -1,0 +1,197 @@
+- generic [ref=f86e1]:
+  - generic [ref=f86e2]:
+    - generic [ref=f86e3]:
+      - generic [ref=f86e4]:
+        - list:
+          - listitem [ref=f86e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f86e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f86e7]:
+        - text: Logged in as
+        - link "admin" [ref=f86e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f86e9]:
+        - listitem [ref=f86e10]:
+          - link [ref=f86e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f86e12]
+        - listitem [ref=f86e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f86e14]:
+          - link "My page" [ref=f86e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f86e16]:
+          - link "Projects" [ref=f86e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f86e18]:
+          - link "Helpdesk Command Center" [ref=f86e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f86e20]:
+          - link "Administration" [ref=f86e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f86e22]:
+          - link "Help" [ref=f86e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f86e24]:
+      - generic [ref=f86e25]:
+        - generic [ref=f86e26]:
+          - generic [ref=f86e27]:
+            - link "Search" [ref=f86e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f86e29]
+        - generic [ref=f86e30]:
+          - generic [ref=f86e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f86e32]
+    - generic [ref=f86e33]:
+      - list [ref=f86e37]:
+        - listitem [ref=f86e38]:
+          - link "Helpdesk Dashboard" [ref=f86e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f86e42]:
+          - link "Helpdesk Tickets" [ref=f86e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f86e46]:
+          - link "Reports" [ref=f86e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f86e50]:
+          - link "Organization" [ref=f86e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f86e54]:
+          - link "Customers" [ref=f86e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f86e58]:
+          - link "Products" [ref=f86e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f86e62]:
+          - link "Helpdesk Settings" [ref=f86e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f86e66]:
+        - generic [ref=f86e67]: Successful creation.
+        - generic [ref=f86e70]:
+          - heading "Helpdesk Settings" [level=2] [ref=f86e71]
+          - paragraph [ref=f86e72]: Holidays, products, SLA policies and canned responses
+        - list [ref=f86e74]:
+          - listitem [ref=f86e75]:
+            - link "Holiday" [ref=f86e76] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f86e77]:
+            - link "Products" [ref=f86e78] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f86e79]:
+            - link "Email Configuration" [ref=f86e80] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f86e81]:
+            - link "Canned Responses" [ref=f86e82] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+          - listitem [ref=f86e83]:
+            - link "Support Packages" [ref=f86e84] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+        - generic [ref=f86e85]:
+          - generic [ref=f86e87]:
+            - textbox "Search canned responses..." [active] [ref=f86e89]
+            - generic [ref=f86e90]:
+              - button "Apply Filters" [ref=f86e91] [cursor=pointer]
+              - link "Clear" [ref=f86e94] [cursor=pointer]:
+                - /url: /rf_helpdesk/setting?tab=canned_responses
+          - generic [ref=f86e99]:
+            - generic [ref=f86e100]:
+              - heading "Canned Responses" [level=3] [ref=f86e101]
+              - link "New Canned Response" [ref=f86e103] [cursor=pointer]:
+                - /url: /rf_canned_responses/new
+            - table [ref=f86e105]:
+              - rowgroup [ref=f86e106]:
+                - row [ref=f86e107]:
+                  - columnheader "S.No" [ref=f86e108]
+                  - columnheader "Name" [ref=f86e109]
+                  - columnheader "Content" [ref=f86e110]
+                  - columnheader "Author" [ref=f86e111]
+                  - columnheader "Created" [ref=f86e112]
+                  - columnheader "Active" [ref=f86e113]
+                  - columnheader "Action" [ref=f86e114]
+              - rowgroup [ref=f86e115]:
+                - row [ref=f86e116]:
+                  - cell "1" [ref=f86e117]
+                  - cell "Escalation Notice" [ref=f86e118]
+                  - 'cell "Hi {{customer_name}}, your ticket {{ticket_id}} has been escalated to a senior member o..." [ref=f86e119]'
+                  - cell "Redmine Admin" [ref=f86e120]
+                  - cell "08/25/2026 06:22 AM" [ref=f86e121]
+                  - cell "Active" [ref=f86e122]
+                  - cell [ref=f86e128]:
+                    - generic [ref=f86e129]:
+                      - link "Edit" [ref=f86e130] [cursor=pointer]:
+                        - /url: /rf_canned_responses/2/edit
+                      - link "Delete" [ref=f86e133] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f86e137]:
+                  - cell "2" [ref=f86e138]
+                  - cell "Greeting - Ticket Received" [ref=f86e139]
+                  - 'cell "Hi {{customer_name}}, thanks for reaching out. We''ve received your ticket {{ticket_id}}..." [ref=f86e140]'
+                  - cell "Redmine Admin" [ref=f86e141]
+                  - cell "08/25/2026 06:21 AM" [ref=f86e142]
+                  - cell "Active" [ref=f86e143]
+                  - cell [ref=f86e149]:
+                    - generic [ref=f86e150]:
+                      - link "Edit" [ref=f86e151] [cursor=pointer]:
+                        - /url: /rf_canned_responses/1/edit
+                      - link "Delete" [ref=f86e154] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f86e158]:
+                  - cell "3" [ref=f86e159]
+                  - cell "Request for More Information" [ref=f86e160]
+                  - 'cell "Hi {{customer_name}}, to help us investigate ticket {{ticket_id}} further, could you pl..." [ref=f86e161]'
+                  - cell "Redmine Admin" [ref=f86e162]
+                  - cell "08/25/2026 06:22 AM" [ref=f86e163]
+                  - cell "Active" [ref=f86e164]
+                  - cell [ref=f86e170]:
+                    - generic [ref=f86e171]:
+                      - link "Edit" [ref=f86e172] [cursor=pointer]:
+                        - /url: /rf_canned_responses/3/edit
+                      - link "Delete" [ref=f86e175] [cursor=pointer]:
+                        - /url: javascript:void(0)
+    - generic [ref=f86e179]:
+      - text: Powered by
+      - link "Redmine" [ref=f86e180] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f86e181]
+  - log [ref=f86e182]
+  - log [ref=f86e183]
+  - log [ref=f86e184]
+  - log [ref=f86e185]
+  - log [ref=f86e186]
+  - log [ref=f86e187]
+  - log [ref=f86e188]
+  - log [ref=f86e189]
+  - log [ref=f86e190]
+  - log [ref=f86e191]
+  - log [ref=f86e192]
+  - log [ref=f86e193]
+  - log [ref=f86e194]
+  - log [ref=f86e195]
+  - log [ref=f86e196]
+  - log [ref=f86e197]
+  - log [ref=f86e198]
+  - log [ref=f86e199]
+  - log [ref=f86e200]
+  - log [ref=f86e201]
+  - log [ref=f86e202]
+  - log [ref=f86e203]
+  - log [ref=f86e204]
+  - log [ref=f86e205]
+  - log [ref=f86e206]
+  - log [ref=f86e207]
+  - log [ref=f86e208]
+  - log [ref=f86e209]
+  - log [ref=f86e210]
+  - log [ref=f86e211]
+  - log [ref=f86e212]
+  - log [ref=f86e213]
+  - log [ref=f86e214]
+  - log [ref=f86e215]
+  - log [ref=f86e216]

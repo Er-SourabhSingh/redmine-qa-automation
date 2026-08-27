@@ -1,0 +1,213 @@
+- generic [ref=f56e1]:
+  - generic [ref=f56e2]:
+    - generic [ref=f56e3]:
+      - generic [ref=f56e4]:
+        - list:
+          - listitem [ref=f56e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f56e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f56e7]:
+        - text: Logged in as
+        - link "admin" [ref=f56e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f56e9]:
+        - listitem [ref=f56e10]:
+          - link [ref=f56e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f56e12]
+        - listitem [ref=f56e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f56e14]:
+          - link "My page" [ref=f56e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f56e16]:
+          - link "Projects" [ref=f56e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f56e18]:
+          - link "Helpdesk Command Center" [ref=f56e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f56e20]:
+          - link "Administration" [ref=f56e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f56e22]:
+          - link "Help" [ref=f56e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f56e24]:
+      - generic [ref=f56e25]:
+        - generic [ref=f56e26]:
+          - generic [ref=f56e27]:
+            - link "Search" [ref=f56e28] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f56e29]
+        - generic [ref=f56e30]:
+          - generic [ref=f56e31] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f56e32]
+      - generic [ref=f56e33]:
+        - list [ref=f56e34]:
+          - listitem [ref=f56e35]:
+            - link "+" [ref=f56e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f56e37]:
+            - link "Overview" [ref=f56e38] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f56e39]:
+            - link "Activity" [ref=f56e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f56e41]:
+            - link "Issues" [ref=f56e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f56e43]:
+            - link "Spent time" [ref=f56e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f56e45]:
+            - link "Gantt" [ref=f56e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f56e47]:
+            - link "Calendar" [ref=f56e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f56e49]:
+            - link "News" [ref=f56e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f56e51]:
+            - link "Documents" [ref=f56e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f56e53]:
+            - link "Wiki" [ref=f56e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f56e55]:
+            - link "Files" [ref=f56e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f56e57]:
+            - link "Helpdesk" [ref=f56e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk
+          - listitem [ref=f56e59]:
+            - link "Settings" [ref=f56e60] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f56e61]:
+          - button [ref=f56e62] [cursor=pointer]
+          - button [ref=f56e63] [cursor=pointer]
+    - generic [ref=f56e64]:
+      - list [ref=f56e68]:
+        - listitem [ref=f56e69]:
+          - link "Helpdesk Dashboard" [ref=f56e70] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk
+        - listitem [ref=f56e73]:
+          - link "Helpdesk Tickets" [ref=f56e74] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets
+        - listitem [ref=f56e77]:
+          - link "Knowledgebase" [ref=f56e78] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/knowledgebase
+        - listitem [ref=f56e81]:
+          - link "Helpdesk SLA" [ref=f56e82] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/sla
+        - listitem [ref=f56e85]:
+          - link "Organization" [ref=f56e86] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/organization
+        - listitem [ref=f56e89]:
+          - link "Settings" [ref=f56e90] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/settings
+      - generic [ref=f56e93]:
+        - heading "New Support Level" [level=2] [ref=f56e94]
+        - generic [ref=f56e95]:
+          - generic [ref=f56e96]:
+            - paragraph [ref=f56e97]:
+              - generic [ref=f56e98]: Support Level Name *
+              - textbox "Support Level Name *" [active] [ref=f56e99]
+            - paragraph [ref=f56e100]:
+              - generic [ref=f56e101]: Level Order *
+              - spinbutton "Level Order *" [ref=f56e102]
+            - paragraph [ref=f56e103]:
+              - generic [ref=f56e104]: Description
+              - generic [ref=f56e105]:
+                - list [ref=f56e107]:
+                  - listitem [ref=f56e108]:
+                    - link "Edit" [ref=f56e109] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f56e110]:
+                    - link "Preview" [ref=f56e111] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f56e112]:
+                    - generic [ref=f56e113]:
+                      - button "Strong (Ctrl+B)" [ref=f56e114] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f56e115] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f56e116] [cursor=pointer]
+                      - button "Deleted" [ref=f56e117] [cursor=pointer]
+                      - button "Inline Code" [ref=f56e118] [cursor=pointer]
+                      - button "Heading 1" [ref=f56e119] [cursor=pointer]
+                      - button "Heading 2" [ref=f56e120] [cursor=pointer]
+                      - button "Heading 3" [ref=f56e121] [cursor=pointer]
+                      - button "Unordered list" [ref=f56e122] [cursor=pointer]
+                      - button "Ordered list" [ref=f56e123] [cursor=pointer]
+                      - button "Task list" [ref=f56e124] [cursor=pointer]
+                      - button "Quote" [ref=f56e125] [cursor=pointer]
+                      - button "Remove Quote" [ref=f56e126] [cursor=pointer]
+                      - button "Table" [ref=f56e127] [cursor=pointer]
+                      - button "pre" [ref=f56e128] [cursor=pointer]
+                      - button "Highlighted code" [ref=f56e129] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f56e130] [cursor=pointer]
+                      - button "Image" [ref=f56e131] [cursor=pointer]
+                      - button "Help" [ref=f56e132] [cursor=pointer]
+                - textbox "Description" [ref=f56e134]
+            - paragraph [ref=f56e135]:
+              - generic [ref=f56e136]: Support Assignees *
+              - textbox "Select items" [ref=f56e139]
+              - emphasis [ref=f56e140]: Select one or more users to assign to this support level. Click to open dropdown and search for users.
+            - paragraph [ref=f56e141]:
+              - generic [ref=f56e142]: Escalation To
+              - combobox "Escalation To" [ref=f56e143]:
+                - option "None (Last Level)" [selected]
+                - 'option "L1 (Order: 1)"'
+              - emphasis [ref=f56e144]: Escalation can only be to higher level support (based on Level Order). For example, Level Order 1 can escalate to Level Order 2 or 3.
+            - paragraph [ref=f56e145]:
+              - generic [ref=f56e146]: Active
+              - checkbox [checked] [ref=f56e147]
+          - button "Create" [ref=f56e148] [cursor=pointer]
+          - link "Cancel" [ref=f56e149] [cursor=pointer]:
+            - /url: /projects/9/helpdesk/settings?tab=support_levels
+    - generic [ref=f56e150]:
+      - text: Powered by
+      - link "Redmine" [ref=f56e151] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f56e152]
+  - log [ref=f56e153]
+  - log [ref=f56e154]
+  - log [ref=f56e155]
+  - log [ref=f56e156]
+  - log [ref=f56e157]
+  - log [ref=f56e158]
+  - log [ref=f56e159]
+  - log [ref=f56e160]
+  - log [ref=f56e161]
+  - log [ref=f56e162]
+  - log [ref=f56e163]
+  - log [ref=f56e164]
+  - log [ref=f56e165]
+  - log [ref=f56e166]
+  - log [ref=f56e167]
+  - log [ref=f56e168]
+  - log [ref=f56e169]
+  - log [ref=f56e170]
+  - log [ref=f56e171]
+  - log [ref=f56e172]
+  - log [ref=f56e173]
+  - log [ref=f56e174]
+  - log [ref=f56e175]
+  - log [ref=f56e176]
+  - log [ref=f56e177]
+  - log [ref=f56e178]
+  - log [ref=f56e179]
+  - log [ref=f56e180]
+  - log [ref=f56e181]
+  - log [ref=f56e182]
+  - log [ref=f56e183]
+  - log [ref=f56e184]
+  - log [ref=f56e185]
+  - log [ref=f56e186]
+  - log [ref=f56e187]

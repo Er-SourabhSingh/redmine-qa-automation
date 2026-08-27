@@ -1,0 +1,234 @@
+- generic [ref=f97e1]:
+  - generic [ref=f97e2]:
+    - generic [ref=f97e3]:
+      - generic [ref=f97e4]:
+        - list:
+          - listitem [ref=f97e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f97e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f97e7]:
+        - text: Logged in as
+        - link "admin" [ref=f97e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f97e9]:
+        - listitem [ref=f97e10]:
+          - link [ref=f97e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f97e12]
+        - listitem [ref=f97e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f97e14]:
+          - link "My page" [ref=f97e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f97e16]:
+          - link "Projects" [ref=f97e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f97e18]:
+          - link "Helpdesk Command Center" [ref=f97e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f97e20]:
+          - link "Administration" [ref=f97e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f97e22]:
+          - link "Help" [ref=f97e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f97e24]:
+      - generic [ref=f97e25]:
+        - generic [ref=f97e26]:
+          - generic [ref=f97e27]:
+            - link "Search" [ref=f97e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f97e29]
+        - generic [ref=f97e30]:
+          - generic [ref=f97e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f97e32]
+    - generic [ref=f97e33]:
+      - list [ref=f97e37]:
+        - listitem [ref=f97e38]:
+          - link "Helpdesk Dashboard" [ref=f97e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f97e42]:
+          - link "Helpdesk Tickets" [ref=f97e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f97e46]:
+          - link "Reports" [ref=f97e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f97e50]:
+          - link "Organization" [ref=f97e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f97e54]:
+          - link "Customers" [ref=f97e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f97e58]:
+          - link "Products" [ref=f97e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f97e62]:
+          - link "Helpdesk Settings" [ref=f97e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f97e66]:
+        - generic [ref=f97e67]: Successful creation. Welcome email sent to customer successfully.
+        - generic [ref=f97e68]:
+          - generic [ref=f97e70]:
+            - heading "Customers" [level=2] [ref=f97e71]
+            - paragraph [ref=f97e72]: People who raise tickets through the helpdesk
+          - link "New Customer" [ref=f97e74] [cursor=pointer]:
+            - /url: /rf_customers/new
+        - generic [ref=f97e77]:
+          - textbox "Search customers..." [active] [ref=f97e79]
+          - generic [ref=f97e80]:
+            - textbox "All Organizations" [ref=f97e81]
+            - combobox "All Organizations":
+              - option "All Organizations" [selected]
+              - option "Acme Corp"
+              - option "Globex Industries"
+          - generic [ref=f97e82]:
+            - button "Apply Filters" [ref=f97e83] [cursor=pointer]
+            - link "Clear" [ref=f97e86] [cursor=pointer]:
+              - /url: /rf_customers
+        - table [ref=f97e92]:
+          - rowgroup [ref=f97e93]:
+            - row [ref=f97e94]:
+              - columnheader "S.No" [ref=f97e95]
+              - columnheader "Customer Name" [ref=f97e96]
+              - columnheader "Email" [ref=f97e97]
+              - columnheader "Organization Name" [ref=f97e98]
+              - columnheader "Support Level" [ref=f97e99]
+              - columnheader "Projects" [ref=f97e100]
+              - columnheader "Open" [ref=f97e101]
+              - columnheader "Last Login" [ref=f97e102]
+              - columnheader "Action" [ref=f97e103]
+          - rowgroup [ref=f97e104]:
+            - row [ref=f97e105]:
+              - cell "1" [ref=f97e106]
+              - cell "Globex AgileContact globex.agile.contact" [ref=f97e107]:
+                - link "Globex AgileContact" [ref=f97e108] [cursor=pointer]:
+                  - /url: /rf_customers/26
+                - generic [ref=f97e109]: globex.agile.contact
+              - cell [ref=f97e110]:
+                - link "globex.agile.contact@example.com" [ref=f97e111] [cursor=pointer]:
+                  - /url: mailto:globex.agile.contact@example.com
+              - cell "Globex Industries" [ref=f97e112]
+              - cell "AB-L1" [ref=f97e113]
+              - cell "1" [ref=f97e116]
+              - cell "0" [ref=f97e117]
+              - cell "Never" [ref=f97e118]
+              - cell [ref=f97e119]:
+                - generic [ref=f97e120]:
+                  - link "Customer details" [ref=f97e121] [cursor=pointer]:
+                    - /url: /rf_customers/26
+                  - link "Edit" [ref=f97e125] [cursor=pointer]:
+                    - /url: /rf_customers/26/edit
+                  - link "Delete" [ref=f97e128] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f97e132]:
+              - cell "2" [ref=f97e133]
+              - cell "MultiProject Contact multiproject.contact" [ref=f97e134]:
+                - link "MultiProject Contact" [ref=f97e135] [cursor=pointer]:
+                  - /url: /rf_customers/28
+                - generic [ref=f97e136]: multiproject.contact
+              - cell [ref=f97e137]:
+                - link "multiproject.contact@example.com" [ref=f97e138] [cursor=pointer]:
+                  - /url: mailto:multiproject.contact@example.com
+              - cell "Acme Corp, Globex Industries" [ref=f97e139]
+              - cell "L1 AB-L2" [ref=f97e140]:
+                - generic [ref=f97e141]: L1
+                - generic [ref=f97e143]: AB-L2
+              - cell "2" [ref=f97e145]
+              - cell "0" [ref=f97e146]
+              - cell "Never" [ref=f97e147]
+              - cell [ref=f97e148]:
+                - generic [ref=f97e149]:
+                  - link "Customer details" [ref=f97e150] [cursor=pointer]:
+                    - /url: /rf_customers/28
+                  - link "Edit" [ref=f97e154] [cursor=pointer]:
+                    - /url: /rf_customers/28/edit
+                  - link "Delete" [ref=f97e157] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f97e161]:
+              - cell "3" [ref=f97e162]
+              - cell "Acme HDContact acme.hd.contact" [ref=f97e163]:
+                - link "Acme HDContact" [ref=f97e164] [cursor=pointer]:
+                  - /url: /rf_customers/25
+                - generic [ref=f97e165]: acme.hd.contact
+              - cell [ref=f97e166]:
+                - link "acme.hd.contact@example.com" [ref=f97e167] [cursor=pointer]:
+                  - /url: mailto:acme.hd.contact@example.com
+              - cell "Acme Corp" [ref=f97e168]
+              - cell "L1" [ref=f97e169]
+              - cell "1" [ref=f97e172]
+              - cell "0" [ref=f97e173]
+              - cell "Never" [ref=f97e174]
+              - cell [ref=f97e175]:
+                - generic [ref=f97e176]:
+                  - link "Customer details" [ref=f97e177] [cursor=pointer]:
+                    - /url: /rf_customers/25
+                  - link "Edit" [ref=f97e181] [cursor=pointer]:
+                    - /url: /rf_customers/25/edit
+                  - link "Delete" [ref=f97e184] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f97e188]:
+              - cell "4" [ref=f97e189]
+              - cell "Globex HDContact globex.hd.contact" [ref=f97e190]:
+                - link "Globex HDContact" [ref=f97e191] [cursor=pointer]:
+                  - /url: /rf_customers/27
+                - generic [ref=f97e192]: globex.hd.contact
+              - cell [ref=f97e193]:
+                - link "globex.hd.contact@example.com" [ref=f97e194] [cursor=pointer]:
+                  - /url: mailto:globex.hd.contact@example.com
+              - cell "Globex Industries" [ref=f97e195]
+              - cell "L2" [ref=f97e196]
+              - cell "1" [ref=f97e199]
+              - cell "0" [ref=f97e200]
+              - cell "Never" [ref=f97e201]
+              - cell [ref=f97e202]:
+                - generic [ref=f97e203]:
+                  - link "Customer details" [ref=f97e204] [cursor=pointer]:
+                    - /url: /rf_customers/27
+                  - link "Edit" [ref=f97e208] [cursor=pointer]:
+                    - /url: /rf_customers/27/edit
+                  - link "Delete" [ref=f97e211] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f97e215]:
+          - list
+          - generic [ref=f97e216]: (1-4/4)
+    - generic [ref=f97e217]:
+      - text: Powered by
+      - link "Redmine" [ref=f97e218] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f97e219]
+  - log [ref=f97e220]
+  - log [ref=f97e221]
+  - log [ref=f97e222]
+  - log [ref=f97e223]
+  - log [ref=f97e224]
+  - log [ref=f97e225]
+  - log [ref=f97e226]
+  - log [ref=f97e227]
+  - log [ref=f97e228]
+  - log [ref=f97e229]
+  - log [ref=f97e230]
+  - log [ref=f97e231]
+  - log [ref=f97e232]
+  - log [ref=f97e233]
+  - log [ref=f97e234]
+  - log [ref=f97e235]
+  - log [ref=f97e236]
+  - log [ref=f97e237]
+  - log [ref=f97e238]
+  - log [ref=f97e239]
+  - log [ref=f97e240]
+  - log [ref=f97e241]
+  - log [ref=f97e242]
+  - log [ref=f97e243]
+  - log [ref=f97e244]
+  - log [ref=f97e245]
+  - log [ref=f97e246]
+  - log [ref=f97e247]
+  - log [ref=f97e248]

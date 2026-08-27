@@ -1,0 +1,87 @@
+- generic [active] [ref=f221e1]:
+  - generic [ref=f221e2]:
+    - generic [ref=f221e3]:
+      - generic [ref=f221e4]:
+        - list:
+          - listitem [ref=f221e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f221e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f221e7]:
+        - text: Logged in as
+        - link "aurora.wren" [ref=f221e8] [cursor=pointer]:
+          - /url: /users/12
+      - list [ref=f221e9]:
+        - listitem [ref=f221e10]:
+          - link [ref=f221e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f221e12]
+        - listitem [ref=f221e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f221e14]:
+          - link "My page" [ref=f221e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f221e16]:
+          - link "Projects" [ref=f221e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f221e18]:
+          - link "Time Tracker" [ref=f221e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f221e20]:
+          - link "Workloads" [ref=f221e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f221e22]:
+          - link "Help" [ref=f221e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f221e24]:
+      - generic [ref=f221e25]:
+        - generic [ref=f221e26]:
+          - generic [ref=f221e27]:
+            - link "Search..." [ref=f221e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f221e29]
+        - generic [ref=f221e30]:
+          - generic [ref=f221e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Redmine" [level=1] [ref=f221e32]
+      - list [ref=f221e34]:
+        - listitem [ref=f221e35]:
+          - link "Projects" [ref=f221e36] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f221e37]:
+          - link "Activity" [ref=f221e38] [cursor=pointer]:
+            - /url: /activity
+        - listitem [ref=f221e39]:
+          - link "Issues" [ref=f221e40] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues
+        - listitem [ref=f221e41]:
+          - link "Spent time" [ref=f221e42] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/time_entries
+        - listitem [ref=f221e43]:
+          - link "Gantt" [ref=f221e44] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/gantt
+        - listitem [ref=f221e45]:
+          - link "Calendar" [ref=f221e46] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/calendar
+        - listitem [ref=f221e47]:
+          - link "News" [ref=f221e48] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/news
+    - generic [ref=f221e51]:
+      - heading "403" [level=2] [ref=f221e52]
+      - paragraph [ref=f221e53]: You are not authorized to access this page.
+      - paragraph [ref=f221e54]:
+        - link "Back" [ref=f221e55] [cursor=pointer]:
+          - /url: javascript:history.back()
+    - generic [ref=f221e56]:
+      - text: Powered by
+      - link "Redmine" [ref=f221e57] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f221e58]
+  - log [ref=f221e59]
+  - log [ref=f221e60]
+  - log [ref=f221e61]

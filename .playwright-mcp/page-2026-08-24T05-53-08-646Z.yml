@@ -1,0 +1,195 @@
+- generic [ref=f48e1]:
+  - generic [ref=f48e2]:
+    - generic [ref=f48e3]:
+      - generic [ref=f48e4]:
+        - list:
+          - listitem [ref=f48e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f48e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f48e7]:
+        - text: Logged in as
+        - link "daisy.skye" [ref=f48e8] [cursor=pointer]:
+          - /url: /users/6
+      - list [ref=f48e9]:
+        - listitem [ref=f48e10]:
+          - link [ref=f48e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f48e12]
+        - listitem [ref=f48e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f48e14]:
+          - link "My page" [ref=f48e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f48e16]:
+          - link "Projects" [ref=f48e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f48e18]:
+          - link "Helpdesk Command Center" [ref=f48e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f48e20]:
+          - link "Help" [ref=f48e21] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f48e22]:
+      - generic [ref=f48e23]:
+        - generic [ref=f48e24]:
+          - generic [ref=f48e25]:
+            - link "Search" [ref=f48e26] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f48e27]
+        - generic [ref=f48e28]:
+          - generic [ref=f48e29] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f48e30]
+    - generic [ref=f48e31]:
+      - list [ref=f48e35]:
+        - listitem [ref=f48e36]:
+          - link "Helpdesk Dashboard" [ref=f48e37] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f48e40]:
+          - link "Helpdesk Tickets" [ref=f48e41] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f48e44]:
+          - link "Reports" [ref=f48e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f48e48]:
+          - link "Organization" [ref=f48e49] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f48e52]:
+          - link "Customers" [ref=f48e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f48e56]:
+          - link "Products" [ref=f48e57] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f48e60]:
+          - link "Helpdesk Settings" [ref=f48e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f48e64]:
+        - generic [ref=f48e65]: Successful update.
+        - generic [ref=f48e66]:
+          - generic [ref=f48e68]:
+            - heading "Support Levels" [level=2] [ref=f48e69]
+            - paragraph [ref=f48e70]: Support levels define the escalation ladder an SLA walks up.
+          - link "New Support Level" [ref=f48e72] [cursor=pointer]:
+            - /url: /rf_support_levels/new
+        - generic [ref=f48e75]:
+          - textbox "Search support levels..." [active] [ref=f48e77]
+          - combobox "All Projects" [ref=f48e78] [cursor=pointer]:
+            - option "All Projects" [selected]
+            - option "Helpdesk Service Desk"
+          - combobox "All Statuses" [ref=f48e79] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f48e80]:
+            - button "Apply Filters" [ref=f48e81] [cursor=pointer]
+            - link "Clear" [ref=f48e84] [cursor=pointer]:
+              - /url: /rf_support_levels
+        - table [ref=f48e90]:
+          - rowgroup [ref=f48e91]:
+            - row [ref=f48e92]:
+              - columnheader "S.No" [ref=f48e93]
+              - columnheader "Support Level Name" [ref=f48e94]
+              - columnheader "Level Order" [ref=f48e95]
+              - columnheader "Escalation To" [ref=f48e96]
+              - columnheader "Created By" [ref=f48e97]
+              - columnheader "Created" [ref=f48e98]
+              - columnheader "Updated By" [ref=f48e99]
+              - columnheader "Updated" [ref=f48e100]
+              - columnheader "Active" [ref=f48e101]
+              - columnheader "Action" [ref=f48e102]
+          - rowgroup [ref=f48e103]:
+            - row [ref=f48e104]:
+              - cell "1" [ref=f48e105]
+              - cell [ref=f48e106]:
+                - link "L1" [ref=f48e107] [cursor=pointer]:
+                  - /url: /rf_support_levels/1
+              - cell "1" [ref=f48e108]
+              - 'cell "L2 (Level Order: 2)" [ref=f48e109]'
+              - cell "Daisy Skye" [ref=f48e110]
+              - cell "08/24/2026 05:47 AM" [ref=f48e111]
+              - cell "Daisy Skye" [ref=f48e112]
+              - cell "08/24/2026 05:52 AM" [ref=f48e113]
+              - cell [ref=f48e114]:
+                - checkbox "Active" [checked] [ref=f48e115]
+              - cell [ref=f48e116]:
+                - generic [ref=f48e117]:
+                  - link "Edit" [ref=f48e118] [cursor=pointer]:
+                    - /url: /rf_support_levels/1/edit
+                  - link "Delete" [ref=f48e121] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f48e125]:
+              - cell "2" [ref=f48e126]
+              - cell [ref=f48e127]:
+                - link "L2" [ref=f48e128] [cursor=pointer]:
+                  - /url: /rf_support_levels/2
+              - cell "2" [ref=f48e129]
+              - 'cell "L3 (Level Order: 3)" [ref=f48e130]'
+              - cell "Daisy Skye" [ref=f48e131]
+              - cell "08/24/2026 05:51 AM" [ref=f48e132]
+              - cell "Daisy Skye" [ref=f48e133]
+              - cell "08/24/2026 05:53 AM" [ref=f48e134]
+              - cell [ref=f48e135]:
+                - checkbox "Active" [checked] [ref=f48e136]
+              - cell [ref=f48e137]:
+                - generic [ref=f48e138]:
+                  - link "Edit" [ref=f48e139] [cursor=pointer]:
+                    - /url: /rf_support_levels/2/edit
+                  - link "Delete" [ref=f48e142] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f48e146]:
+              - cell "3" [ref=f48e147]
+              - cell [ref=f48e148]:
+                - link "L3" [ref=f48e149] [cursor=pointer]:
+                  - /url: /rf_support_levels/3
+              - cell "3" [ref=f48e150]
+              - cell "None (Last Level)" [ref=f48e151]
+              - cell "Daisy Skye" [ref=f48e154]
+              - cell "08/24/2026 05:52 AM" [ref=f48e155]
+              - cell "Daisy Skye" [ref=f48e156]
+              - cell "08/24/2026 05:52 AM" [ref=f48e157]
+              - cell [ref=f48e158]:
+                - checkbox "Active" [checked] [ref=f48e159]
+              - cell [ref=f48e160]:
+                - generic [ref=f48e161]:
+                  - link "Edit" [ref=f48e162] [cursor=pointer]:
+                    - /url: /rf_support_levels/3/edit
+                  - link "Delete" [ref=f48e165] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f48e169]:
+          - list
+          - generic [ref=f48e170]: (1-3/3)
+    - generic [ref=f48e171]:
+      - text: Powered by
+      - link "Redmine" [ref=f48e172] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f48e173]
+  - log [ref=f48e174]
+  - log [ref=f48e175]
+  - log [ref=f48e176]
+  - log [ref=f48e177]
+  - log [ref=f48e178]
+  - log [ref=f48e179]
+  - log [ref=f48e180]
+  - log [ref=f48e181]
+  - log [ref=f48e182]
+  - log [ref=f48e183]
+  - log [ref=f48e184]
+  - log [ref=f48e185]
+  - log [ref=f48e186]
+  - log [ref=f48e187]
+  - log [ref=f48e188]
+  - log [ref=f48e189]
+  - log [ref=f48e190]
+  - log [ref=f48e191]
+  - log [ref=f48e192]
+  - log [ref=f48e193]
+  - log [ref=f48e194]
+  - log [ref=f48e195]
+  - log [ref=f48e196]
+  - log [ref=f48e197]

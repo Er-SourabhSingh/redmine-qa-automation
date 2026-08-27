@@ -1,0 +1,214 @@
+- generic [active] [ref=f160e1]:
+  - generic [ref=f160e2]:
+    - generic [ref=f160e3]:
+      - generic [ref=f160e4]:
+        - list:
+          - listitem [ref=f160e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f160e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f160e7]:
+        - text: Logged in as
+        - link "admin" [ref=f160e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f160e9]:
+        - listitem [ref=f160e10]:
+          - link [ref=f160e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f160e12]
+        - listitem [ref=f160e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f160e14]:
+          - link "My page" [ref=f160e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f160e16]:
+          - link "Projects" [ref=f160e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f160e18]:
+          - link "Flux Gantt" [ref=f160e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f160e20]:
+          - link "Helpdesk Command Center" [ref=f160e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f160e22]:
+          - link "Time Tracker" [ref=f160e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f160e24]:
+          - link "Timesheet" [ref=f160e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f160e26]:
+          - link "Workloads" [ref=f160e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f160e28]:
+          - link "More" [ref=f160e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f160e30]:
+      - generic [ref=f160e31]:
+        - generic [ref=f160e32]:
+          - generic [ref=f160e33]:
+            - link "Search..." [ref=f160e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f160e35]
+        - generic [ref=f160e36]:
+          - generic [ref=f160e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Redmine" [level=1] [ref=f160e38]
+      - list [ref=f160e40]:
+        - listitem [ref=f160e41]:
+          - link "Projects" [ref=f160e42] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f160e43]:
+          - link "Activity" [ref=f160e44] [cursor=pointer]:
+            - /url: /activity
+        - listitem [ref=f160e45]:
+          - link "Issues" [ref=f160e46] [cursor=pointer]:
+            - /url: /issues
+        - listitem [ref=f160e47]:
+          - link "Spent time" [ref=f160e48] [cursor=pointer]:
+            - /url: /time_entries
+        - listitem [ref=f160e49]:
+          - link "Gantt" [ref=f160e50] [cursor=pointer]:
+            - /url: /issues/gantt
+        - listitem [ref=f160e51]:
+          - link "Calendar" [ref=f160e52] [cursor=pointer]:
+            - /url: /issues/calendar
+        - listitem [ref=f160e53]:
+          - link "News" [ref=f160e54] [cursor=pointer]:
+            - /url: /news
+    - generic [ref=f160e55]:
+      - generic [ref=f160e56]:
+        - link [ref=f160e58] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f160e61]:
+          - heading "Custom queries" [level=3] [ref=f160e62]
+          - list [ref=f160e63]:
+            - listitem [ref=f160e64]:
+              - link "My bookmarks" [ref=f160e65] [cursor=pointer]:
+                - /url: /projects?query_id=6
+            - listitem [ref=f160e66]:
+              - link "My projects" [ref=f160e67] [cursor=pointer]:
+                - /url: /projects?query_id=5
+      - generic [ref=f160e68]:
+        - generic [ref=f160e69]:
+          - link "New project" [ref=f160e70] [cursor=pointer]:
+            - /url: /projects/new
+          - link "Administration" [ref=f160e72] [cursor=pointer]:
+            - /url: /admin/projects
+        - heading "Projects" [level=2] [ref=f160e74]
+        - generic [ref=f160e77]:
+          - group "Filters" [ref=f160e78]
+          - group "Options" [ref=f160e82]
+        - table [ref=f160e88]:
+          - rowgroup [ref=f160e89]:
+            - row [ref=f160e90]:
+              - columnheader [ref=f160e91]:
+                - link "Name" [ref=f160e92] [cursor=pointer]:
+                  - /url: /projects?sort=name
+              - columnheader [ref=f160e93]:
+                - link "Identifier" [ref=f160e94] [cursor=pointer]:
+                  - /url: /projects?sort=identifier
+              - columnheader [ref=f160e95]:
+                - link "Description" [ref=f160e96] [cursor=pointer]:
+                  - /url: /projects?sort=short_description
+              - columnheader [ref=f160e97]:
+                - link "Status" [ref=f160e98] [cursor=pointer]:
+                  - /url: /projects?sort=status
+              - columnheader [ref=f160e99]:
+                - link "Homepage" [ref=f160e100] [cursor=pointer]:
+                  - /url: /projects?sort=homepage
+              - columnheader [ref=f160e101]:
+                - link "Subproject of" [ref=f160e102] [cursor=pointer]:
+                  - /url: /projects?sort=parent_id%3Adesc
+              - columnheader [ref=f160e103]:
+                - link "Public" [ref=f160e104] [cursor=pointer]:
+                  - /url: /projects?sort=is_public
+              - columnheader [ref=f160e105]:
+                - link "Created on" [ref=f160e106] [cursor=pointer]:
+                  - /url: /projects?sort=created_on%3Adesc
+              - columnheader [ref=f160e107]:
+                - link "Updated" [ref=f160e108] [cursor=pointer]:
+                  - /url: /projects?sort=updated_on%3Adesc
+              - columnheader "Last activity" [ref=f160e109]
+          - rowgroup [ref=f160e110]:
+            - row [ref=f160e111]:
+              - cell [ref=f160e112]:
+                - generic [ref=f160e113]:
+                  - link "Helpdesk QA Alpha" [ref=f160e115] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                  - button "Edit" [ref=f160e116] [cursor=pointer]
+              - cell "helpdesk-qa-alpha" [ref=f160e117]
+              - cell [ref=f160e118]
+              - cell "active" [ref=f160e119]
+              - cell [ref=f160e120]:
+                - button "Edit" [ref=f160e122] [cursor=pointer]
+              - cell [ref=f160e123]:
+                - button "Edit" [ref=f160e125] [cursor=pointer]
+              - cell "Yes Edit" [ref=f160e126]:
+                - generic [ref=f160e127]:
+                  - generic [ref=f160e128]: "Yes"
+                  - button "Edit" [ref=f160e129] [cursor=pointer]
+              - cell "08/25/2026 01:15 PM" [ref=f160e130]
+              - cell "08/25/2026 01:15 PM" [ref=f160e131]
+              - cell [ref=f160e132]:
+                - link "08/26/2026 10:45 AM" [ref=f160e133] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/activity?from=2026-08-26
+            - row [ref=f160e134]:
+              - cell [ref=f160e135]:
+                - generic [ref=f160e136]:
+                  - link "Helpdesk QA Beta" [ref=f160e138] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-beta
+                  - button "Edit" [ref=f160e139] [cursor=pointer]
+              - cell "helpdesk-qa-beta" [ref=f160e140]
+              - cell [ref=f160e141]
+              - cell "active" [ref=f160e142]
+              - cell [ref=f160e143]:
+                - button "Edit" [ref=f160e145] [cursor=pointer]
+              - cell [ref=f160e146]:
+                - button "Edit" [ref=f160e148] [cursor=pointer]
+              - cell "Yes Edit" [ref=f160e149]:
+                - generic [ref=f160e150]:
+                  - generic [ref=f160e151]: "Yes"
+                  - button "Edit" [ref=f160e152] [cursor=pointer]
+              - cell "08/25/2026 01:15 PM" [ref=f160e153]
+              - cell "08/25/2026 01:15 PM" [ref=f160e154]
+              - cell [ref=f160e155]:
+                - link "08/26/2026 12:22 PM" [ref=f160e156] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-beta/activity?from=2026-08-26
+        - generic [ref=f160e157]:
+          - list
+          - generic: (1-2/2)
+        - paragraph [ref=f160e159]:
+          - generic [ref=f160e160]: My projects
+          - generic [ref=f160e162]: My bookmarks
+        - paragraph [ref=f160e164]:
+          - text: "Also available in:"
+          - link "CSV" [ref=f160e166] [cursor=pointer]:
+            - /url: /projects.csv
+          - generic [ref=f160e167]:
+            - text: "|"
+            - link "Atom" [ref=f160e168] [cursor=pointer]:
+              - /url: /projects.atom?key=302d5310f6a8bc40924164e3140cb3a0d0c86e0f
+    - generic [ref=f160e169]:
+      - text: Powered by
+      - link "Redmine" [ref=f160e170] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f160e171]
+  - log [ref=f160e172]
+  - log [ref=f160e173]
+  - log [ref=f160e174]
+  - log [ref=f160e175]
+  - log [ref=f160e176]
+  - log [ref=f160e177]
+  - log [ref=f160e178]
+  - log [ref=f160e179]
+  - log [ref=f160e180]
+  - log [ref=f160e181]
+  - log [ref=f160e182]
+  - log [ref=f160e183]
+  - log [ref=f160e184]
+  - log [ref=f160e185]

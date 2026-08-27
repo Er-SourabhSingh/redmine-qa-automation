@@ -1,0 +1,252 @@
+- generic [ref=f47e1]:
+  - generic [ref=f47e2]:
+    - generic [ref=f47e3]:
+      - generic [ref=f47e4]:
+        - list:
+          - listitem [ref=f47e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f47e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f47e7]:
+        - text: Logged in as
+        - link "admin" [ref=f47e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f47e9]:
+        - listitem [ref=f47e10]:
+          - link [ref=f47e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f47e12]
+        - listitem [ref=f47e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f47e14]:
+          - link "My page" [ref=f47e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f47e16]:
+          - link "Projects" [ref=f47e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f47e18]:
+          - link "Helpdesk Command Center" [ref=f47e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f47e20]:
+          - link "Administration" [ref=f47e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f47e22]:
+          - link "Help" [ref=f47e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f47e24]:
+      - generic [ref=f47e25]:
+        - generic [ref=f47e26]:
+          - generic [ref=f47e27]:
+            - link "Search" [ref=f47e28] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f47e29]
+        - generic [ref=f47e30]:
+          - generic [ref=f47e31] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f47e32]
+      - generic [ref=f47e33]:
+        - list [ref=f47e34]:
+          - listitem [ref=f47e35]:
+            - link "+" [ref=f47e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f47e37]:
+            - link "Overview" [ref=f47e38] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f47e39]:
+            - link "Activity" [ref=f47e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f47e41]:
+            - link "Issues" [ref=f47e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f47e43]:
+            - link "Spent time" [ref=f47e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f47e45]:
+            - link "Gantt" [ref=f47e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f47e47]:
+            - link "Calendar" [ref=f47e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f47e49]:
+            - link "News" [ref=f47e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f47e51]:
+            - link "Documents" [ref=f47e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f47e53]:
+            - link "Wiki" [ref=f47e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f47e55]:
+            - link "Files" [ref=f47e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f47e57]:
+            - link "Helpdesk" [ref=f47e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk
+          - listitem [ref=f47e59]:
+            - link "Settings" [ref=f47e60] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f47e61]:
+          - button [ref=f47e62] [cursor=pointer]
+          - button [ref=f47e63] [cursor=pointer]
+    - generic [ref=f47e64]:
+      - list [ref=f47e68]:
+        - listitem [ref=f47e69]:
+          - link "Helpdesk Dashboard" [ref=f47e70] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk
+        - listitem [ref=f47e73]:
+          - link "Helpdesk Tickets" [ref=f47e74] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets
+        - listitem [ref=f47e77]:
+          - link "Knowledgebase" [ref=f47e78] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/knowledgebase
+        - listitem [ref=f47e81]:
+          - link "Helpdesk SLA" [ref=f47e82] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/sla
+        - listitem [ref=f47e85]:
+          - link "Organization" [ref=f47e86] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/organization
+        - listitem [ref=f47e89]:
+          - link "Settings" [ref=f47e90] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/settings
+      - generic [ref=f47e93]:
+        - heading "New SLA" [level=2] [ref=f47e94]
+        - generic [ref=f47e95]:
+          - generic [ref=f47e96]:
+            - paragraph [ref=f47e97]:
+              - generic [ref=f47e98]: SLA Name *
+              - textbox "SLA Name *" [ref=f47e99]: Priority SLA
+            - paragraph [ref=f47e100]:
+              - generic [ref=f47e101]: Description
+              - generic [ref=f47e102]:
+                - list [ref=f47e104]:
+                  - listitem [ref=f47e105]:
+                    - link "Edit" [ref=f47e106] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f47e107]:
+                    - link "Preview" [ref=f47e108] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f47e109]:
+                    - generic [ref=f47e110]:
+                      - button "Strong (Ctrl+B)" [ref=f47e111] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f47e112] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f47e113] [cursor=pointer]
+                      - button "Deleted" [ref=f47e114] [cursor=pointer]
+                      - button "Inline Code" [ref=f47e115] [cursor=pointer]
+                      - button "Heading 1" [ref=f47e116] [cursor=pointer]
+                      - button "Heading 2" [ref=f47e117] [cursor=pointer]
+                      - button "Heading 3" [ref=f47e118] [cursor=pointer]
+                      - button "Unordered list" [ref=f47e119] [cursor=pointer]
+                      - button "Ordered list" [ref=f47e120] [cursor=pointer]
+                      - button "Task list" [ref=f47e121] [cursor=pointer]
+                      - button "Quote" [ref=f47e122] [cursor=pointer]
+                      - button "Remove Quote" [ref=f47e123] [cursor=pointer]
+                      - button "Table" [ref=f47e124] [cursor=pointer]
+                      - button "pre" [ref=f47e125] [cursor=pointer]
+                      - button "Highlighted code" [ref=f47e126] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f47e127] [cursor=pointer]
+                      - button "Image" [ref=f47e128] [cursor=pointer]
+                      - button "Help" [ref=f47e129] [cursor=pointer]
+                - textbox "Description" [ref=f47e131]
+            - paragraph [ref=f47e132]:
+              - generic [ref=f47e133]: First Response Time *
+              - spinbutton "First Response Time *" [ref=f47e134]: "1"
+              - combobox [ref=f47e135]:
+                - option "Minutes"
+                - option "Hours" [selected]
+            - paragraph [ref=f47e136]:
+              - generic [ref=f47e137]: Resolution Time *
+              - spinbutton "Resolution Time *" [ref=f47e138]: "8"
+              - combobox [ref=f47e139]:
+                - option "Minutes"
+                - option "Hours" [selected]
+                - option "Days"
+            - paragraph [ref=f47e140]:
+              - generic [ref=f47e141]: Working Hours
+              - textbox "Working Hours" [ref=f47e142]: 08:00
+              - text: "-"
+              - textbox [ref=f47e143]: 20:00
+              - text: UTC
+              - emphasis [ref=f47e144]: "Note: All times are in UTC timezone. Example: IST 6:00 PM = UTC 12:30 PM"
+            - paragraph [ref=f47e145]:
+              - generic [ref=f47e146]: Working Days
+              - generic [ref=f47e147]:
+                - checkbox "Monday" [checked] [ref=f47e148]
+                - text: Monday
+              - generic [ref=f47e149]:
+                - checkbox "Tuesday" [checked] [ref=f47e150]
+                - text: Tuesday
+              - generic [ref=f47e151]:
+                - checkbox "Wednesday" [checked] [active] [ref=f47e152]
+                - text: Wednesday
+              - generic [ref=f47e153]:
+                - checkbox "Thursday" [ref=f47e154]
+                - text: Thursday
+              - generic [ref=f47e155]:
+                - checkbox "Friday" [ref=f47e156]
+                - text: Friday
+              - generic [ref=f47e157]:
+                - checkbox "Saturday" [ref=f47e158]
+                - text: Saturday
+              - generic [ref=f47e159]:
+                - checkbox "Sunday" [ref=f47e160]
+                - text: Sunday
+            - paragraph [ref=f47e161]:
+              - generic [ref=f47e162]: Holiday
+              - textbox "Select items" [ref=f47e165]
+            - paragraph [ref=f47e166]:
+              - generic [ref=f47e167]: Active
+              - checkbox "Active" [checked] [ref=f47e168]
+            - paragraph [ref=f47e169]:
+              - generic [ref=f47e170]: SLA Agreement
+              - generic [ref=f47e172]:
+                - button "Choose File" [ref=f47e173]
+                - text: "(Maximum size: 5 MB)"
+          - button "Save" [ref=f47e174] [cursor=pointer]
+          - link "Cancel" [ref=f47e175] [cursor=pointer]:
+            - /url: /projects/9/helpdesk/sla
+    - generic [ref=f47e176]:
+      - text: Powered by
+      - link "Redmine" [ref=f47e177] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f47e178]
+  - log [ref=f47e179]
+  - log [ref=f47e180]
+  - log [ref=f47e181]
+  - log [ref=f47e182]
+  - log [ref=f47e183]
+  - log [ref=f47e184]
+  - log [ref=f47e185]
+  - log [ref=f47e186]
+  - log [ref=f47e187]
+  - log [ref=f47e188]
+  - log [ref=f47e189]
+  - log [ref=f47e190]
+  - log [ref=f47e191]
+  - log [ref=f47e192]
+  - log [ref=f47e193]:
+    - generic [ref=f47e214]: Organization
+  - log [ref=f47e194]
+  - log [ref=f47e195]
+  - log [ref=f47e196]
+  - log [ref=f47e197]
+  - log [ref=f47e198]
+  - log [ref=f47e199]
+  - log [ref=f47e200]
+  - log [ref=f47e201]
+  - log [ref=f47e202]
+  - log [ref=f47e203]
+  - log [ref=f47e204]
+  - log [ref=f47e205]
+  - log [ref=f47e206]
+  - log [ref=f47e207]
+  - log [ref=f47e208]
+  - log [ref=f47e209]
+  - log [ref=f47e210]
+  - log [ref=f47e211]
+  - log [ref=f47e212]
+  - log [ref=f47e213]

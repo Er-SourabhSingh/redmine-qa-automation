@@ -1,0 +1,158 @@
+- generic [active] [ref=f32e1]:
+  - generic [ref=f32e2]:
+    - generic [ref=f32e3]:
+      - generic [ref=f32e4]:
+        - list:
+          - listitem [ref=f32e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f32e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f32e7]:
+        - text: Logged in as
+        - link "daisy.skye" [ref=f32e8] [cursor=pointer]:
+          - /url: /users/6
+      - list [ref=f32e9]:
+        - listitem [ref=f32e10]:
+          - link [ref=f32e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f32e12]
+        - listitem [ref=f32e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f32e14]:
+          - link "My page" [ref=f32e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f32e16]:
+          - link "Projects" [ref=f32e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f32e18]:
+          - link "Helpdesk Command Center" [ref=f32e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f32e20]:
+          - link "Help" [ref=f32e21] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f32e22]:
+      - generic [ref=f32e23]:
+        - generic [ref=f32e24]:
+          - generic [ref=f32e25]:
+            - link "Search" [ref=f32e26] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f32e27]
+        - generic [ref=f32e28]:
+          - generic [ref=f32e29] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f32e30]
+    - generic [ref=f32e31]:
+      - list [ref=f32e35]:
+        - listitem [ref=f32e36]:
+          - link "Helpdesk Dashboard" [ref=f32e37] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f32e40]:
+          - link "Helpdesk Tickets" [ref=f32e41] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f32e44]:
+          - link "Reports" [ref=f32e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f32e48]:
+          - link "Organization" [ref=f32e49] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f32e52]:
+          - link "Customers" [ref=f32e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f32e56]:
+          - link "Products" [ref=f32e57] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f32e60]:
+          - link "Helpdesk Settings" [ref=f32e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f32e64]:
+        - generic [ref=f32e65]:
+          - generic [ref=f32e67]:
+            - heading "CRUD Test Org Active" [level=2] [ref=f32e68]:
+              - text: CRUD Test Org
+              - generic [ref=f32e69]: Active
+            - paragraph [ref=f32e71]: crud-test.example.com
+          - link "Edit" [ref=f32e73] [cursor=pointer]:
+            - /url: /rf_organizations/1/edit
+        - navigation "CRUD Test Org" [ref=f32e76]:
+          - link "Overview" [ref=f32e77] [cursor=pointer]:
+            - /url: /rf_organizations/1?tab=overview
+          - link "Prepaid Support Hours" [ref=f32e82] [cursor=pointer]:
+            - /url: /rf_organizations/1?tab=prepaid_support_hours
+        - generic [ref=f32e87]:
+          - generic [ref=f32e88]:
+            - generic [ref=f32e89]: "0"
+            - generic [ref=f32e90]: Projects
+          - generic [ref=f32e91]:
+            - generic [ref=f32e92]: "0"
+            - generic [ref=f32e93]: Customers
+          - generic [ref=f32e94]:
+            - generic [ref=f32e95]: "0"
+            - generic [ref=f32e96]: Open tickets
+          - generic [ref=f32e97]:
+            - generic [ref=f32e98]: —
+            - link "Prepaid remaining" [ref=f32e100] [cursor=pointer]:
+              - /url: /rf_organizations/1?tab=prepaid_support_hours
+        - generic [ref=f32e101]:
+          - heading "Basic Information" [level=3] [ref=f32e103]
+          - generic [ref=f32e108]:
+            - generic [ref=f32e109]:
+              - generic [ref=f32e110]: Organization Name
+              - generic [ref=f32e111]: CRUD Test Org
+            - generic [ref=f32e112]:
+              - generic [ref=f32e113]: Website
+              - link "https://crud-test.example.com" [ref=f32e115] [cursor=pointer]:
+                - /url: https://crud-test.example.com
+            - generic [ref=f32e116]:
+              - generic [ref=f32e117]: Phone Number
+              - generic [ref=f32e118]: +1-555-9999
+            - generic [ref=f32e119]:
+              - generic [ref=f32e120]: Number of Employees
+              - generic [ref=f32e121]: —
+            - generic [ref=f32e122]:
+              - generic [ref=f32e123]: Organization Address
+              - generic [ref=f32e124]: —
+        - generic [ref=f32e125]:
+          - heading "Notes" [level=3] [ref=f32e127]
+          - paragraph [ref=f32e132]: No notes available
+        - generic [ref=f32e133]:
+          - heading "Billing Information" [level=3] [ref=f32e135]
+          - paragraph [ref=f32e140]: No billing information available
+        - generic [ref=f32e141]:
+          - generic [ref=f32e142]:
+            - generic [ref=f32e143]: "Created by:"
+            - link "Daisy Skye" [ref=f32e145] [cursor=pointer]:
+              - /url: /users/6
+          - generic [ref=f32e146]:
+            - generic [ref=f32e147]: "Created:"
+            - generic [ref=f32e148]: 08/24/2026 05:40 AM
+          - generic [ref=f32e149]:
+            - generic [ref=f32e150]: "Updated:"
+            - generic [ref=f32e151]: 08/24/2026 05:42 AM
+        - paragraph [ref=f32e152]:
+          - link "Organization List" [ref=f32e153] [cursor=pointer]:
+            - /url: /rf_organizations
+    - generic [ref=f32e154]:
+      - text: Powered by
+      - link "Redmine" [ref=f32e155] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f32e156]
+  - log [ref=f32e157]
+  - log [ref=f32e158]
+  - log [ref=f32e159]
+  - log [ref=f32e160]
+  - log [ref=f32e161]
+  - log [ref=f32e162]
+  - log [ref=f32e163]
+  - log [ref=f32e164]
+  - log [ref=f32e165]
+  - log [ref=f32e166]
+  - log [ref=f32e167]
+  - log [ref=f32e168]
+  - log [ref=f32e169]
+  - log [ref=f32e170]
+  - log [ref=f32e171]

@@ -1,0 +1,149 @@
+- generic [ref=f229e1]:
+  - generic [ref=f229e2]:
+    - generic [ref=f229e3]:
+      - generic [ref=f229e4]:
+        - list:
+          - listitem [ref=f229e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f229e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f229e7]:
+        - text: Logged in as
+        - link "admin" [ref=f229e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f229e9]:
+        - listitem [ref=f229e10]:
+          - link [ref=f229e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f229e12]
+        - listitem [ref=f229e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f229e14]:
+          - link "My page" [ref=f229e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f229e16]:
+          - link "Projects" [ref=f229e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f229e18]:
+          - link "Helpdesk Command Center" [ref=f229e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f229e20]:
+          - link "Administration" [ref=f229e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f229e22]:
+          - link "Help" [ref=f229e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f229e24]:
+      - generic [ref=f229e25]:
+        - generic [ref=f229e26]:
+          - generic [ref=f229e27]:
+            - link "Search" [ref=f229e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f229e29]
+        - generic [ref=f229e30]:
+          - generic [ref=f229e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f229e32]
+    - generic [ref=f229e33]:
+      - list [ref=f229e37]:
+        - listitem [ref=f229e38]:
+          - link "Helpdesk Dashboard" [ref=f229e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f229e42]:
+          - link "Helpdesk Tickets" [ref=f229e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f229e46]:
+          - link "Reports" [ref=f229e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f229e50]:
+          - link "Organization" [ref=f229e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f229e54]:
+          - link "Customers" [ref=f229e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f229e58]:
+          - link "Products" [ref=f229e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f229e62]:
+          - link "Helpdesk Settings" [ref=f229e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f229e66]:
+        - generic [ref=f229e67]: Successful creation.
+        - generic [ref=f229e68]:
+          - generic [ref=f229e70]:
+            - heading "Products" [level=2] [ref=f229e71]
+            - paragraph [ref=f229e72]: Products your customers raise tickets against
+          - link "New Product" [ref=f229e74] [cursor=pointer]:
+            - /url: /rf_products/new
+        - generic [ref=f229e77]:
+          - textbox "Search products..." [active] [ref=f229e79]
+          - combobox "All Projects" [ref=f229e80] [cursor=pointer]:
+            - option "All Projects" [selected]
+            - option "Helpdesk Service Desk"
+          - combobox "All Statuses" [ref=f229e81] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f229e82]:
+            - button "Apply Filters" [ref=f229e83] [cursor=pointer]
+            - link "Clear" [ref=f229e86] [cursor=pointer]:
+              - /url: /rf_products
+        - table [ref=f229e92]:
+          - rowgroup [ref=f229e93]:
+            - row [ref=f229e94]:
+              - columnheader "S.No" [ref=f229e95]
+              - columnheader "Project" [ref=f229e96]
+              - columnheader "Product Name" [ref=f229e97]
+              - columnheader "Product Code" [ref=f229e98]
+              - columnheader "Category" [ref=f229e99]
+              - columnheader "Active" [ref=f229e100]
+              - columnheader "Action" [ref=f229e101]
+          - rowgroup [ref=f229e102]:
+            - row [ref=f229e103]:
+              - cell "1" [ref=f229e104]
+              - cell "Helpdesk Service Desk" [ref=f229e105]
+              - cell [ref=f229e106]:
+                - link "Phoenix Core" [ref=f229e107] [cursor=pointer]:
+                  - /url: /rf_products/1
+              - cell "PHX-CORE" [ref=f229e108]
+              - cell "Software" [ref=f229e109]
+              - cell [ref=f229e110]:
+                - checkbox "Active" [checked] [ref=f229e111]
+              - cell [ref=f229e112]:
+                - generic [ref=f229e113]:
+                  - link "Edit" [ref=f229e114] [cursor=pointer]:
+                    - /url: /rf_products/1/edit
+                  - link "Delete" [ref=f229e117] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f229e121]:
+          - list
+          - generic [ref=f229e122]: (1-1/1)
+    - generic [ref=f229e123]:
+      - text: Powered by
+      - link "Redmine" [ref=f229e124] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f229e125]
+  - log [ref=f229e126]
+  - log [ref=f229e127]
+  - log [ref=f229e128]
+  - log [ref=f229e129]
+  - log [ref=f229e130]
+  - log [ref=f229e131]
+  - log [ref=f229e132]
+  - log [ref=f229e133]
+  - log [ref=f229e134]
+  - log [ref=f229e135]
+  - log [ref=f229e136]
+  - log [ref=f229e137]
+  - log [ref=f229e138]
+  - log [ref=f229e139]
+  - log [ref=f229e140]
+  - log [ref=f229e141]
+  - log [ref=f229e142]
+  - log [ref=f229e143]
+  - log [ref=f229e144]

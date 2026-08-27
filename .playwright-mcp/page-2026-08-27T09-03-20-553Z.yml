@@ -1,0 +1,292 @@
+- generic [active] [ref=f191e1]:
+  - generic [ref=f191e2]:
+    - generic [ref=f191e3]:
+      - generic [ref=f191e4]:
+        - list:
+          - listitem [ref=f191e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f191e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f191e7]:
+        - text: Logged in as
+        - link "ivy.sterling" [ref=f191e8] [cursor=pointer]:
+          - /url: /users/18
+      - list [ref=f191e9]:
+        - listitem [ref=f191e10]:
+          - link [ref=f191e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f191e12]
+        - listitem [ref=f191e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f191e14]:
+          - link "My page" [ref=f191e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f191e16]:
+          - link "Projects" [ref=f191e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f191e18]:
+          - link "Helpdesk Command Center" [ref=f191e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f191e20]:
+          - link "Time Tracker" [ref=f191e21] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f191e22]:
+          - link "Workloads" [ref=f191e23] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f191e24]:
+          - link "Help" [ref=f191e25] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f191e26]:
+      - generic [ref=f191e27]:
+        - generic [ref=f191e28]:
+          - generic [ref=f191e29]:
+            - link "Search..." [ref=f191e30] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f191e31]
+        - generic [ref=f191e32]:
+          - generic [ref=f191e33] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f191e34]
+    - generic [ref=f191e35]:
+      - list [ref=f191e39]:
+        - listitem [ref=f191e40]:
+          - link "Helpdesk Dashboard" [ref=f191e41] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f191e44]:
+          - link "Helpdesk Tickets" [ref=f191e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f191e48]:
+          - link "Reports" [ref=f191e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f191e52]:
+          - link "Organization" [ref=f191e53] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f191e56]:
+          - link "Customers" [ref=f191e57] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f191e60]:
+          - link "Products" [ref=f191e61] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f191e64]:
+          - link "Helpdesk Settings" [ref=f191e65] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f191e68]:
+        - generic [ref=f191e69]: Successful creation.
+        - generic [ref=f191e70]:
+          - generic [ref=f191e71]:
+            - generic [ref=f191e73]:
+              - heading "Helpdesk Tickets" [level=2] [ref=f191e74]
+              - paragraph [ref=f191e75]: 8 tickets
+            - link "New issue" [ref=f191e77] [cursor=pointer]:
+              - /url: /issue_helpdesks/new
+          - button "Filters" [ref=f191e80] [cursor=pointer]
+          - table [ref=f191e88]:
+            - rowgroup [ref=f191e89]:
+              - row [ref=f191e90]:
+                - columnheader [ref=f191e91]:
+                  - 'link "Ticket #" [ref=f191e92] [cursor=pointer]':
+                    - /url: /rf_helpdesk/issues?dir=asc&sort=id
+                - columnheader [ref=f191e93]:
+                  - link "Subject" [ref=f191e94] [cursor=pointer]:
+                    - /url: /rf_helpdesk/issues?dir=asc&sort=subject
+                - columnheader "Customer" [ref=f191e95]
+                - columnheader "Organization Name" [ref=f191e96]
+                - columnheader [ref=f191e97]:
+                  - link "Status" [ref=f191e98] [cursor=pointer]:
+                    - /url: /rf_helpdesk/issues?dir=asc&sort=status
+                - columnheader [ref=f191e99]:
+                  - link "Priority" [ref=f191e100] [cursor=pointer]:
+                    - /url: /rf_helpdesk/issues?dir=asc&sort=priority
+                - columnheader "Assignee" [ref=f191e101]
+                - columnheader "SLA Status" [ref=f191e102]
+                - columnheader [ref=f191e103]:
+                  - link "Updated ▼" [ref=f191e104] [cursor=pointer]:
+                    - /url: /rf_helpdesk/issues?dir=asc&sort=updated_on
+            - rowgroup [ref=f191e105]:
+              - row [ref=f191e106]:
+                - cell [ref=f191e107]:
+                  - link "#73" [ref=f191e108] [cursor=pointer]:
+                    - /url: /issues/73
+                - cell [ref=f191e109]:
+                  - link "[TICKET] Cross-project authorization probe - ivy.sterling attempting Beta" [ref=f191e110] [cursor=pointer]:
+                    - /url: /issues/73
+                - cell "—" [ref=f191e111]
+                - cell "—" [ref=f191e112]
+                - cell "New" [ref=f191e113]
+                - cell "Normal" [ref=f191e116]
+                - cell "Unassigned" [ref=f191e119]
+                - cell "— No SLA" [ref=f191e120]:
+                  - generic [ref=f191e121]:
+                    - generic [ref=f191e122]: —
+                    - text: No SLA
+                - cell "08/27/2026 09:03 AM" [ref=f191e123]
+              - row [ref=f191e124]:
+                - cell [ref=f191e125]:
+                  - link "#72" [ref=f191e126] [cursor=pointer]:
+                    - /url: /issues/72
+                - cell [ref=f191e127]:
+                  - link "[TICKET] TC-HLP-013 - agent-created ticket via global Command Center New Issue" [ref=f191e128] [cursor=pointer]:
+                    - /url: /issues/72
+                - cell "—" [ref=f191e129]
+                - cell "—" [ref=f191e130]
+                - cell "New" [ref=f191e131]
+                - cell "Urgent" [ref=f191e134]
+                - cell "Ivy Sterling" [ref=f191e137]
+                - cell "3h 59m On Track" [ref=f191e138]:
+                  - generic "3h 59m Remaining" [ref=f191e139]:
+                    - text: 3h 59m
+                    - generic [ref=f191e141]: On Track
+                - cell "08/27/2026 09:02 AM" [ref=f191e142]
+              - row [ref=f191e143]:
+                - cell [ref=f191e144]:
+                  - link "#71" [ref=f191e145] [cursor=pointer]:
+                    - /url: /issues/71
+                - cell [ref=f191e146]:
+                  - link "[TICKET] TC-HLP-014 - agent-created ticket via project Helpdesk New Issue" [ref=f191e147] [cursor=pointer]:
+                    - /url: /issues/71
+                - cell "—" [ref=f191e148]
+                - cell "—" [ref=f191e149]
+                - cell "New" [ref=f191e150]
+                - cell "High" [ref=f191e153]
+                - cell "Luna Blossom" [ref=f191e156]
+                - cell "3h 57m On Track" [ref=f191e157]:
+                  - generic "3h 57m Remaining" [ref=f191e158]:
+                    - text: 3h 57m
+                    - generic [ref=f191e160]: On Track
+                - cell "08/27/2026 09:01 AM" [ref=f191e161]
+              - row [ref=f191e162]:
+                - cell [ref=f191e163]:
+                  - link "#67" [ref=f191e164] [cursor=pointer]:
+                    - /url: /issues/67
+                - cell [ref=f191e165]:
+                  - 'link "[TICKET] Ticket: Cannot access my dashboard" [ref=f191e166] [cursor=pointer]':
+                    - /url: /issues/67
+                - cell [ref=f191e167]:
+                  - link "Beta Customer" [ref=f191e168] [cursor=pointer]:
+                    - /url: /rf_customers/16
+                - cell "Beta Org" [ref=f191e169]
+                - cell "In Progress" [ref=f191e170]
+                - cell "Normal" [ref=f191e173]
+                - cell "Aurora Wren" [ref=f191e176]
+                - cell "▮▮ Paused" [ref=f191e177]:
+                  - generic [ref=f191e178]:
+                    - generic [ref=f191e179]: ▮▮
+                    - text: Paused
+                - cell "08/27/2026 06:00 AM" [ref=f191e180]
+              - row [ref=f191e181]:
+                - cell [ref=f191e182]:
+                  - link "#70" [ref=f191e183] [cursor=pointer]:
+                    - /url: /issues/70
+                - cell [ref=f191e184]:
+                  - link "Verify Edit-form public note visibility and auto-status-transition" [ref=f191e185] [cursor=pointer]:
+                    - /url: /issues/70
+                - cell [ref=f191e186]:
+                  - link "Beta Customer" [ref=f191e187] [cursor=pointer]:
+                    - /url: /rf_customers/16
+                - cell "Beta Org" [ref=f191e188]
+                - cell "Waiting for Customer Response" [ref=f191e189]
+                - cell "Normal" [ref=f191e192]
+                - cell "Redmine Admin" [ref=f191e195]
+                - cell "⚠ Breached +16h 28m ago" [ref=f191e196]:
+                  - generic "+16h 28m ago" [ref=f191e197]:
+                    - generic [ref=f191e198]: ⚠
+                    - text: Breached
+                - cell "08/26/2026 12:34 PM" [ref=f191e200]
+              - row [ref=f191e201]:
+                - cell [ref=f191e202]:
+                  - link "#69" [ref=f191e203] [cursor=pointer]:
+                    - /url: /issues/69
+                - cell [ref=f191e204]:
+                  - 'link "BUG-HLP-006 retest: customer portal ticket open check adsf asd f" [ref=f191e205] [cursor=pointer]':
+                    - /url: /issues/69
+                - cell [ref=f191e206]:
+                  - link "Beta Customer" [ref=f191e207] [cursor=pointer]:
+                    - /url: /rf_customers/16
+                - cell "Beta Org" [ref=f191e208]
+                - cell "In Progress" [ref=f191e209]
+                - cell "Normal" [ref=f191e212]
+                - cell "Unassigned" [ref=f191e215]
+                - cell "— No SLA" [ref=f191e216]:
+                  - generic [ref=f191e217]:
+                    - generic [ref=f191e218]: —
+                    - text: No SLA
+                - cell "08/26/2026 12:13 PM" [ref=f191e219]
+              - row [ref=f191e220]:
+                - cell [ref=f191e221]:
+                  - link "#66" [ref=f191e222] [cursor=pointer]:
+                    - /url: /issues/66
+                - cell [ref=f191e223]:
+                  - link "Printer in break room is jammed" [ref=f191e224] [cursor=pointer]:
+                    - /url: /issues/66
+                - cell "—" [ref=f191e225]
+                - cell "—" [ref=f191e226]
+                - cell "New" [ref=f191e227]
+                - cell "Normal" [ref=f191e230]
+                - cell "Redmine Admin" [ref=f191e233]
+                - cell "⚠ Breached +19h 52m ago" [ref=f191e234]:
+                  - generic "+19h 52m ago" [ref=f191e235]:
+                    - generic [ref=f191e236]: ⚠
+                    - text: Breached
+                - cell "08/26/2026 10:45 AM" [ref=f191e238]
+              - row [ref=f191e239]:
+                - cell [ref=f191e240]:
+                  - link "#68" [ref=f191e241] [cursor=pointer]:
+                    - /url: /issues/68
+                - cell [ref=f191e242]:
+                  - link "[TICKET] Just saying hello" [ref=f191e243] [cursor=pointer]:
+                    - /url: /issues/68
+                - cell [ref=f191e244]:
+                  - link "Alpha Customer" [ref=f191e245] [cursor=pointer]:
+                    - /url: /rf_customers/15
+                - cell "Alpha Org" [ref=f191e246]
+                - cell "New" [ref=f191e247]
+                - cell "Normal" [ref=f191e250]
+                - cell "Unassigned" [ref=f191e253]
+                - cell "— No SLA" [ref=f191e254]:
+                  - generic [ref=f191e255]:
+                    - generic [ref=f191e256]: —
+                    - text: No SLA
+                - cell "08/26/2026 10:23 AM" [ref=f191e257]
+          - generic [ref=f191e258]:
+            - list
+            - generic [ref=f191e259]: (1-8/8)
+    - generic [ref=f191e260]:
+      - text: Powered by
+      - link "Redmine" [ref=f191e261] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f191e262]
+  - log [ref=f191e263]
+  - log [ref=f191e264]
+  - log [ref=f191e265]
+  - log [ref=f191e266]
+  - log [ref=f191e267]
+  - log [ref=f191e268]
+  - log [ref=f191e269]
+  - log [ref=f191e270]
+  - log [ref=f191e271]
+  - log [ref=f191e272]
+  - log [ref=f191e273]
+  - log [ref=f191e274]
+  - log [ref=f191e275]
+  - log [ref=f191e276]
+  - log [ref=f191e277]
+  - log [ref=f191e278]
+  - log [ref=f191e279]
+  - log [ref=f191e280]
+  - log [ref=f191e281]
+  - log [ref=f191e282]
+  - log [ref=f191e283]
+  - log [ref=f191e284]
+  - log [ref=f191e285]
+  - log [ref=f191e286]
+  - log [ref=f191e287]
+  - log [ref=f191e288]
+  - log [ref=f191e289]
+  - log [ref=f191e290]
+  - log [ref=f191e291]
+  - log [ref=f191e292]

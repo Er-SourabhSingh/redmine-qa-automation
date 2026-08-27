@@ -1,0 +1,169 @@
+- generic [ref=f123e1]:
+  - generic [ref=f123e2]:
+    - generic [ref=f123e3]:
+      - generic [ref=f123e4]:
+        - list:
+          - listitem [ref=f123e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f123e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f123e7]:
+        - text: Logged in as
+        - link "admin" [ref=f123e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f123e9]:
+        - listitem [ref=f123e10]:
+          - link [ref=f123e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f123e12]
+        - listitem [ref=f123e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f123e14]:
+          - link "My page" [ref=f123e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f123e16]:
+          - link "Projects" [ref=f123e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f123e18]:
+          - link "Flux Gantt" [ref=f123e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f123e20]:
+          - link "Helpdesk Command Center" [ref=f123e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f123e22]:
+          - link "Time Tracker" [ref=f123e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f123e24]:
+          - link "Timesheet" [ref=f123e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f123e26]:
+          - link "Workloads" [ref=f123e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f123e28]:
+          - link "More" [ref=f123e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f123e30]:
+      - generic [ref=f123e31]:
+        - generic [ref=f123e32]:
+          - generic [ref=f123e33]:
+            - link "Search..." [ref=f123e34] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f123e35]
+        - generic [ref=f123e36]:
+          - generic [ref=f123e37] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f123e38]
+      - generic [ref=f123e39]:
+        - list [ref=f123e40]:
+          - listitem [ref=f123e41]:
+            - link "+" [ref=f123e42] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f123e43]:
+            - link "Overview" [ref=f123e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f123e45]:
+            - link "Activity" [ref=f123e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f123e47]:
+            - link "Issues" [ref=f123e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f123e49]:
+            - link "Spent time" [ref=f123e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f123e51]:
+            - link "Gantt" [ref=f123e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f123e53]:
+            - link "Calendar" [ref=f123e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f123e55]:
+            - link "News" [ref=f123e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f123e57]:
+            - link "Documents" [ref=f123e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f123e59]:
+            - link "Wiki" [ref=f123e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f123e61]:
+            - link "Files" [ref=f123e62] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f123e63]:
+            - link "Helpdesk" [ref=f123e64] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+          - listitem [ref=f123e65]:
+            - link "Settings" [ref=f123e66] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/settings
+        - generic [ref=f123e67]:
+          - button [ref=f123e68] [cursor=pointer]
+          - button [ref=f123e71] [cursor=pointer]
+    - generic [ref=f123e74]:
+      - list [ref=f123e78]:
+        - listitem [ref=f123e79]:
+          - link "Helpdesk Dashboard" [ref=f123e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f123e83]:
+          - link "Helpdesk Tickets" [ref=f123e84] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f123e87]:
+          - link "Knowledgebase" [ref=f123e88] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+        - listitem [ref=f123e91]:
+          - link "Helpdesk SLA" [ref=f123e92] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/sla
+        - listitem [ref=f123e95]:
+          - link "Organization" [ref=f123e96] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/organization
+        - listitem [ref=f123e99]:
+          - link "Settings" [ref=f123e100] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/settings
+      - generic [ref=f123e103]:
+        - generic [ref=f123e106]:
+          - heading "Helpdesk Settings" [level=2] [ref=f123e107]
+          - paragraph [ref=f123e108]: Helpdesk QA Alpha
+        - list [ref=f123e110]:
+          - listitem [ref=f123e111]:
+            - link "Holiday" [ref=f123e112] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk/settings?tab=holidays
+          - listitem [ref=f123e113]:
+            - link "Products" [ref=f123e114] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk/settings?tab=products
+          - listitem [ref=f123e115]:
+            - link "Support Level" [ref=f123e116] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk/settings?tab=support_levels
+        - generic [ref=f123e117]:
+          - generic [ref=f123e119]:
+            - textbox "Search holidays..." [active] [ref=f123e121]
+            - generic [ref=f123e122]:
+              - button "Apply Filters" [ref=f123e123] [cursor=pointer]
+              - link "Clear" [ref=f123e126] [cursor=pointer]:
+                - /url: /projects/3/helpdesk/settings
+          - generic [ref=f123e131]:
+            - generic [ref=f123e132]:
+              - heading "Holiday" [level=3] [ref=f123e133]
+              - link "New Holiday" [ref=f123e135] [cursor=pointer]:
+                - /url: /rf_helpdesk_holidays/new?project_id=3
+            - generic [ref=f123e137]:
+              - heading "No holidays defined" [level=3] [ref=f123e141]
+              - paragraph [ref=f123e142]: Holidays are excluded from SLA clocks. Add the ones your support team observes.
+              - link "New Holiday" [ref=f123e144] [cursor=pointer]:
+                - /url: /rf_helpdesk_holidays/new?project_id=3
+    - generic [ref=f123e146]:
+      - text: Powered by
+      - link "Redmine" [ref=f123e147] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f123e148]
+  - log [ref=f123e149]
+  - log [ref=f123e150]
+  - log [ref=f123e151]
+  - log [ref=f123e152]
+  - log [ref=f123e153]
+  - log [ref=f123e154]
+  - log [ref=f123e155]
+  - log [ref=f123e156]
+  - log [ref=f123e157]

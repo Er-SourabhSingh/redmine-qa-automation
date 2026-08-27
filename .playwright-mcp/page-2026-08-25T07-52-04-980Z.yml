@@ -1,0 +1,433 @@
+- generic [ref=f204e1]:
+  - generic [ref=f204e2]:
+    - generic [ref=f204e3]:
+      - generic [ref=f204e4]:
+        - list:
+          - listitem [ref=f204e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f204e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f204e7]:
+        - text: Logged in as
+        - link "admin" [ref=f204e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f204e9]:
+        - listitem [ref=f204e10]:
+          - link [ref=f204e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f204e12]
+        - listitem [ref=f204e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f204e14]:
+          - link "My page" [ref=f204e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f204e16]:
+          - link "Projects" [ref=f204e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f204e18]:
+          - link "Helpdesk Command Center" [ref=f204e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f204e20]:
+          - link "Administration" [ref=f204e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f204e22]:
+          - link "Help" [ref=f204e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f204e24]:
+      - generic [ref=f204e25]:
+        - generic [ref=f204e26]:
+          - generic [ref=f204e27]:
+            - link "Search" [ref=f204e28] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f204e29]
+        - generic [ref=f204e30]:
+          - generic [ref=f204e31] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f204e32]
+      - generic [ref=f204e33]:
+        - list [ref=f204e34]:
+          - listitem [ref=f204e35]:
+            - link "+" [ref=f204e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f204e37]:
+            - link "Overview" [ref=f204e38] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f204e39]:
+            - link "Activity" [ref=f204e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f204e41]:
+            - link "Issues" [ref=f204e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f204e43]:
+            - link "Spent time" [ref=f204e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f204e45]:
+            - link "Gantt" [ref=f204e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f204e47]:
+            - link "Calendar" [ref=f204e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f204e49]:
+            - link "News" [ref=f204e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f204e51]:
+            - link "Documents" [ref=f204e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f204e53]:
+            - link "Wiki" [ref=f204e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f204e55]:
+            - link "Files" [ref=f204e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f204e57]:
+            - link "Helpdesk" [ref=f204e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk
+          - listitem [ref=f204e59]:
+            - link "Settings" [ref=f204e60] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f204e61]:
+          - button [ref=f204e62] [cursor=pointer]
+          - button [ref=f204e63] [cursor=pointer]
+    - generic [ref=f204e65]:
+      - generic [ref=f204e66]:
+        - link "Reply" [ref=f204e67] [cursor=pointer]:
+          - /url: "#"
+        - link "Edit" [ref=f204e68] [cursor=pointer]:
+          - /url: /issues/272/edit
+        - link "Log time" [ref=f204e70] [cursor=pointer]:
+          - /url: /issues/272/time_entries/new
+        - link "Unwatch" [ref=f204e72] [cursor=pointer]:
+          - /url: /watchers/watch?object_id=272&object_type=issue
+        - link "Copy" [ref=f204e74] [cursor=pointer]:
+          - /url: /projects/helpdesk/issues/272/copy
+        - generic "Actions" [ref=f204e78] [cursor=pointer]
+      - 'heading "Support #272" [level=2] [ref=f204e80]'
+      - text: open
+      - generic [ref=f204e81]:
+        - heading "SLA/assignment flow check - login page timing out" [level=3] [ref=f204e84]
+        - paragraph [ref=f204e85]:
+          - text: Added by
+          - link "Acme HDContact" [ref=f204e86] [cursor=pointer]:
+            - /url: /users/25
+          - link "25 minutes" [ref=f204e87] [cursor=pointer]:
+            - /url: /projects/helpdesk/activity?from=2026-08-25
+          - text: ago. Updated
+          - link "15 minutes" [ref=f204e88] [cursor=pointer]:
+            - /url: /projects/helpdesk/activity?from=2026-08-25
+          - text: ago.
+        - generic [ref=f204e89]:
+          - generic [ref=f204e90]:
+            - generic [ref=f204e91]:
+              - generic [ref=f204e92]:
+                - generic [ref=f204e93]: "Status:"
+                - generic [ref=f204e94]: In Progress
+              - generic [ref=f204e95]:
+                - generic [ref=f204e96]: "Priority:"
+                - generic [ref=f204e97]: High
+              - generic [ref=f204e98]:
+                - generic [ref=f204e99]: "Assignee:"
+                - link "Redmine Admin" [ref=f204e101] [cursor=pointer]:
+                  - /url: /users/1
+            - generic [ref=f204e102]:
+              - generic [ref=f204e103]:
+                - generic [ref=f204e104]: "Start date:"
+                - generic [ref=f204e105]: 08/25/2026
+              - generic [ref=f204e106]: "Due date:"
+              - generic [ref=f204e108]:
+                - generic [ref=f204e109]: "% Done:"
+                - generic [ref=f204e110]:
+                  - table [ref=f204e111]:
+                    - rowgroup [ref=f204e112]:
+                      - row [ref=f204e113]:
+                        - cell [ref=f204e114]
+                  - paragraph [ref=f204e115]: 0%
+              - generic [ref=f204e116]: "Estimated time:"
+          - generic [ref=f204e118]:
+            - generic [ref=f204e119]: "Product:"
+            - generic [ref=f204e120]: "-"
+          - generic [ref=f204e121]:
+            - generic [ref=f204e122]: "Organization:"
+            - generic [ref=f204e123]: Acme Corp
+          - generic [ref=f204e124]:
+            - generic [ref=f204e125]: "Customer:"
+            - generic [ref=f204e126]:
+              - link "Acme HDContact" [ref=f204e127] [cursor=pointer]:
+                - /url: /rf_customers/25
+              - link "View portal" [ref=f204e128] [cursor=pointer]:
+                - /url: /rf_customers/25/portal?project_id=9
+          - generic [ref=f204e129]:
+            - generic [ref=f204e130]: "Prepaid Support Hours:"
+            - generic [ref=f204e131]:
+              - text: 0.00h used ·
+              - strong [ref=f204e132]: 40.00h left
+              - text: of 40.00h
+        - separator [ref=f204e133]
+        - generic [ref=f204e134]:
+          - link "Quote" [ref=f204e136] [cursor=pointer]:
+            - /url: "#"
+          - paragraph [ref=f204e138]:
+            - strong [ref=f204e139]: Description
+          - paragraph [ref=f204e141]: "Created to verify: does replying as an agent auto-assign the ticket, and does the SLA clock start on creation or on first response?"
+        - group "Reply Note" [ref=f204e313]:
+          - generic [ref=f204e317]:
+            - list [ref=f204e319]:
+              - listitem [ref=f204e320]:
+                - link "Edit" [ref=f204e321] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=f204e322]:
+                - link "Preview" [ref=f204e323] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=f204e324]:
+                - generic [ref=f204e325]:
+                  - button "Strong (Ctrl+B)" [ref=f204e326] [cursor=pointer]
+                  - button "Italic (Ctrl+I)" [ref=f204e327] [cursor=pointer]
+                  - button "Underline (Ctrl+U)" [ref=f204e328] [cursor=pointer]
+                  - button "Deleted" [ref=f204e329] [cursor=pointer]
+                  - button "Inline Code" [ref=f204e330] [cursor=pointer]
+                  - button "Heading 1" [ref=f204e331] [cursor=pointer]
+                  - button "Heading 2" [ref=f204e332] [cursor=pointer]
+                  - button "Heading 3" [ref=f204e333] [cursor=pointer]
+                  - button "Unordered list" [ref=f204e334] [cursor=pointer]
+                  - button "Ordered list" [ref=f204e335] [cursor=pointer]
+                  - button "Task list" [ref=f204e336] [cursor=pointer]
+                  - button "Quote" [ref=f204e337] [cursor=pointer]
+                  - button "Remove Quote" [ref=f204e338] [cursor=pointer]
+                  - button "Table" [ref=f204e339] [cursor=pointer]
+                  - button "pre" [ref=f204e340] [cursor=pointer]
+                  - button "Highlighted code" [ref=f204e341] [cursor=pointer]
+                  - button "Link to a Wiki page" [ref=f204e342] [cursor=pointer]
+                  - button "Image" [ref=f204e343] [cursor=pointer]
+                  - button "Help" [ref=f204e344] [cursor=pointer]
+            - textbox [active] [ref=f204e346]
+          - generic [ref=f204e347]:
+            - text: "Canned Response:"
+            - combobox "Canned Response:" [ref=f204e348]:
+              - option "-- Select a template --" [selected]
+              - option "Closing - Ticket Resolved"
+              - option "Escalation Notice"
+              - option "Greeting - Ticket Received"
+              - option "Request for More Information"
+          - generic [ref=f204e349]:
+            - generic [ref=f204e350] [cursor=pointer]:
+              - radio "Reply Note" [checked] [ref=f204e351]
+              - text: Reply Note
+            - generic [ref=f204e352] [cursor=pointer]:
+              - radio "Internal Note" [ref=f204e353]
+              - text: Internal Note
+          - generic [ref=f204e354]:
+            - generic [ref=f204e355]:
+              - generic [ref=f204e356]: Time spent
+              - combobox "Time spent" [ref=f204e357]:
+                - option "-- none --" [selected]
+                - option "5 min"
+                - option "10 min"
+                - option "15 min"
+                - option "20 min"
+                - option "Custom"
+            - generic [ref=f204e358]:
+              - generic [ref=f204e359]: Activity *
+              - combobox "Activity *" [ref=f204e360]:
+                - option "-- Please select --" [selected]
+                - option "Design"
+                - option "Development"
+            - generic [ref=f204e361]:
+              - generic [ref=f204e362]: Support Package
+              - combobox "Support Package" [ref=f204e363]:
+                - option "-- No package --" [selected]
+                - option "Premium Support"
+                - option "Standard Support"
+            - generic [ref=f204e364]:
+              - generic [ref=f204e365]: Comment
+              - textbox "Comment" [ref=f204e366]
+            - paragraph [ref=f204e367]: Leave this empty to post the reply without logging any time.
+          - generic [ref=f204e368]:
+            - button "Save" [ref=f204e369] [cursor=pointer]
+            - button "Cancel" [ref=f204e370] [cursor=pointer]
+        - separator [ref=f204e142]
+        - generic [ref=f204e143]:
+          - link "Add" [ref=f204e145] [cursor=pointer]:
+            - /url: /projects/helpdesk/issues/new?back_url=%2Fissues%2F272&issue%5Bparent_issue_id%5D=272&issue%5Btracker_id%5D=6
+          - paragraph [ref=f204e146]:
+            - strong [ref=f204e147]: Subtasks
+        - separator [ref=f204e148]
+        - generic [ref=f204e149]:
+          - link "Add" [ref=f204e151] [cursor=pointer]:
+            - /url: "#"
+          - paragraph [ref=f204e152]:
+            - strong [ref=f204e153]: Related issues
+      - generic [ref=f204e154]:
+        - list [ref=f204e156]:
+          - listitem [ref=f204e157]:
+            - link "History" [ref=f204e158] [cursor=pointer]:
+              - /url: /issues/272?tab=history
+          - listitem [ref=f204e159]:
+            - link "Property changes" [ref=f204e160] [cursor=pointer]:
+              - /url: /issues/272?tab=properties
+          - listitem [ref=f204e161]:
+            - link "Helpdesk Conversion (2)" [ref=f204e162] [cursor=pointer]:
+              - /url: /issues/272?tab=email-history
+          - listitem [ref=f204e163]:
+            - link "SLA Information" [ref=f204e164] [cursor=pointer]:
+              - /url: /issues/272?tab=sla-information
+        - generic [ref=f204e165]:
+          - generic [ref=f204e167]:
+            - generic [ref=f204e168]:
+              - generic "Actions" [ref=f204e172] [cursor=pointer]
+              - link "#1" [ref=f204e174] [cursor=pointer]:
+                - /url: "#note-1"
+            - heading [level=4] [ref=f204e175]:
+              - text: Updated by
+              - link "Daisy Skye" [ref=f204e176] [cursor=pointer]:
+                - /url: /users/6
+              - link "24 minutes" [ref=f204e177] [cursor=pointer]:
+                - /url: /projects/helpdesk/activity?from=2026-08-25
+              - text: ago
+            - list [ref=f204e178]:
+              - listitem [ref=f204e179]:
+                - strong [ref=f204e180]: Assignee
+                - text: set to Daisy Skye
+              - listitem [ref=f204e181]:
+                - strong [ref=f204e182]: Status
+                - text: changed from New to Waiting for Customer Response
+          - generic [ref=f204e184]:
+            - generic [ref=f204e185]:
+              - generic "Actions" [ref=f204e189] [cursor=pointer]
+              - link "#2" [ref=f204e191] [cursor=pointer]:
+                - /url: "#note-2"
+            - heading [level=4] [ref=f204e192]:
+              - text: Updated by
+              - link "Daisy Skye" [ref=f204e193] [cursor=pointer]:
+                - /url: /users/6
+              - link "21 minutes" [ref=f204e194] [cursor=pointer]:
+                - /url: /projects/helpdesk/activity?from=2026-08-25
+              - text: ago
+            - list [ref=f204e195]:
+              - listitem [ref=f204e196]:
+                - strong [ref=f204e197]: Status
+                - text: changed from Waiting for Customer Response to In Progress
+          - generic [ref=f204e199]:
+            - generic [ref=f204e200]:
+              - generic "Actions" [ref=f204e204] [cursor=pointer]
+              - link "#3" [ref=f204e206] [cursor=pointer]:
+                - /url: "#note-3"
+            - heading [level=4] [ref=f204e207]:
+              - text: Updated by
+              - link "Redmine Admin" [ref=f204e208] [cursor=pointer]:
+                - /url: /users/1
+              - link "15 minutes" [ref=f204e209] [cursor=pointer]:
+                - /url: /projects/helpdesk/activity?from=2026-08-25
+              - text: ago
+            - list [ref=f204e210]:
+              - listitem [ref=f204e211]:
+                - strong [ref=f204e212]: Assignee
+                - text: changed from Daisy Skye to Redmine Admin
+              - listitem [ref=f204e213]:
+                - strong [ref=f204e214]: Status
+                - text: changed from In Progress to Waiting for Customer Response
+          - generic [ref=f204e216]:
+            - generic [ref=f204e217]:
+              - generic "Actions" [ref=f204e221] [cursor=pointer]
+              - link "#4" [ref=f204e223] [cursor=pointer]:
+                - /url: "#note-4"
+            - heading [level=4] [ref=f204e224]:
+              - text: Updated by
+              - link "Redmine Admin" [ref=f204e225] [cursor=pointer]:
+                - /url: /users/1
+              - link "15 minutes" [ref=f204e226] [cursor=pointer]:
+                - /url: /projects/helpdesk/activity?from=2026-08-25
+              - text: ago
+            - list [ref=f204e227]:
+              - listitem [ref=f204e228]:
+                - strong [ref=f204e229]: Status
+                - text: changed from Waiting for Customer Response to In Progress
+      - generic [ref=f204e230]:
+        - link "Edit" [ref=f204e231] [cursor=pointer]:
+          - /url: /issues/272/edit
+        - link "Log time" [ref=f204e233] [cursor=pointer]:
+          - /url: /issues/272/time_entries/new
+        - link "Unwatch" [ref=f204e235] [cursor=pointer]:
+          - /url: /watchers/watch?object_id=272&object_type=issue
+        - link "Copy" [ref=f204e237] [cursor=pointer]:
+          - /url: /projects/helpdesk/issues/272/copy
+        - generic "Actions" [ref=f204e241] [cursor=pointer]
+      - text: pre pre
+      - paragraph [ref=f204e243]:
+        - text: "Also available in:"
+        - link "Atom" [ref=f204e245] [cursor=pointer]:
+          - /url: /issues/272.atom?key=0a7102e4694ccf8c3e680ada388865a575e71edd
+        - generic [ref=f204e246]:
+          - text: "|"
+          - link "PDF" [ref=f204e247] [cursor=pointer]:
+            - /url: /issues/272.pdf
+    - generic [ref=f204e248]:
+      - text: Powered by
+      - link "Redmine" [ref=f204e249] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f204e250]
+  - log [ref=f204e251]
+  - log [ref=f204e252]
+  - log [ref=f204e253]
+  - log [ref=f204e254]
+  - log [ref=f204e255]
+  - log [ref=f204e256]
+  - log [ref=f204e257]
+  - log [ref=f204e258]
+  - log [ref=f204e259]
+  - log [ref=f204e260]
+  - log [ref=f204e261]
+  - log [ref=f204e262]
+  - log [ref=f204e263]
+  - log [ref=f204e264]
+  - log [ref=f204e265]
+  - log [ref=f204e266]
+  - log [ref=f204e267]
+  - log [ref=f204e268]
+  - log [ref=f204e269]
+  - log [ref=f204e270]
+  - log [ref=f204e271]
+  - log [ref=f204e272]
+  - log [ref=f204e273]
+  - log [ref=f204e274]
+  - log [ref=f204e275]
+  - log [ref=f204e276]
+  - log [ref=f204e277]
+  - log [ref=f204e278]
+  - log [ref=f204e279]
+  - log [ref=f204e280]
+  - log [ref=f204e281]
+  - log [ref=f204e282]
+  - log [ref=f204e283]
+  - log [ref=f204e284]
+  - log [ref=f204e285]
+  - log [ref=f204e286]
+  - log [ref=f204e287]
+  - log [ref=f204e288]
+  - log [ref=f204e289]
+  - log [ref=f204e290]
+  - log [ref=f204e291]
+  - log [ref=f204e292]
+  - log [ref=f204e293]
+  - log [ref=f204e294]
+  - log [ref=f204e295]
+  - log [ref=f204e296]
+  - log [ref=f204e297]
+  - log [ref=f204e298]
+  - log [ref=f204e299]
+  - log [ref=f204e300]
+  - log [ref=f204e301]
+  - log [ref=f204e302]
+  - log [ref=f204e303]
+  - log [ref=f204e304]
+  - log [ref=f204e305]
+  - log [ref=f204e306]
+  - log [ref=f204e307]
+  - log [ref=f204e308]
+  - log [ref=f204e309]
+  - log [ref=f204e310]
+  - status [ref=f204e311]
+  - status [ref=f204e312]

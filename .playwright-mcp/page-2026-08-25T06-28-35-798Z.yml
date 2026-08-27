@@ -1,0 +1,188 @@
+- generic [active] [ref=f109e1]:
+  - generic [ref=f109e2]:
+    - generic [ref=f109e3]:
+      - generic [ref=f109e4]:
+        - list:
+          - listitem [ref=f109e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f109e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f109e7]:
+        - text: Logged in as
+        - link "admin" [ref=f109e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f109e9]:
+        - listitem [ref=f109e10]:
+          - link [ref=f109e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f109e12]
+        - listitem [ref=f109e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f109e14]:
+          - link "My page" [ref=f109e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f109e16]:
+          - link "Projects" [ref=f109e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f109e18]:
+          - link "Helpdesk Command Center" [ref=f109e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f109e20]:
+          - link "Administration" [ref=f109e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f109e22]:
+          - link "Help" [ref=f109e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f109e24]:
+      - generic [ref=f109e25]:
+        - generic [ref=f109e26]:
+          - generic [ref=f109e27]:
+            - link "Search" [ref=f109e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f109e29]
+        - generic [ref=f109e30]:
+          - generic [ref=f109e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f109e32]
+    - generic [ref=f109e33]:
+      - list [ref=f109e37]:
+        - listitem [ref=f109e38]:
+          - link "Helpdesk Dashboard" [ref=f109e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f109e42]:
+          - link "Helpdesk Tickets" [ref=f109e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f109e46]:
+          - link "Reports" [ref=f109e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f109e50]:
+          - link "Organization" [ref=f109e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f109e54]:
+          - link "Customers" [ref=f109e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f109e58]:
+          - link "Products" [ref=f109e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f109e62]:
+          - link "Helpdesk Settings" [ref=f109e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f109e66]:
+        - generic [ref=f109e67]:
+          - generic [ref=f109e69]:
+            - heading "Acme Corp Active" [level=2] [ref=f109e70]:
+              - text: Acme Corp
+              - generic [ref=f109e71]: Active
+            - paragraph [ref=f109e73]: acme-corp.example.com
+          - link "Edit" [ref=f109e75] [cursor=pointer]:
+            - /url: /rf_organizations/1/edit
+        - navigation "Acme Corp" [ref=f109e78]:
+          - link "Overview" [ref=f109e79] [cursor=pointer]:
+            - /url: /rf_organizations/1?tab=overview
+          - link "Prepaid Support Hours" [ref=f109e84] [cursor=pointer]:
+            - /url: /rf_organizations/1?tab=prepaid_support_hours
+        - generic [ref=f109e89]:
+          - generic [ref=f109e90]:
+            - generic [ref=f109e91]: 40.00h
+            - generic [ref=f109e92]: Approved
+          - generic [ref=f109e93]:
+            - generic [ref=f109e94]: 0.00h
+            - generic [ref=f109e95]: Used
+          - generic [ref=f109e96]:
+            - generic [ref=f109e97]: 40.00h
+            - generic [ref=f109e98]: Remaining
+        - generic [ref=f109e99]:
+          - generic [ref=f109e100]:
+            - heading "Budget by project" [level=3] [ref=f109e101]
+            - link "Add / top up hours" [ref=f109e102] [cursor=pointer]:
+              - /url: "#"
+          - table [ref=f109e104]:
+            - rowgroup [ref=f109e105]:
+              - row [ref=f109e106]:
+                - columnheader "Project" [ref=f109e107]
+                - columnheader "Approved" [ref=f109e108]
+                - columnheader "Used" [ref=f109e109]
+                - columnheader "Remaining" [ref=f109e110]
+                - columnheader "Usage" [ref=f109e111]
+                - columnheader "When hours run out" [ref=f109e112]
+                - columnheader "Last change" [ref=f109e113]
+                - columnheader "Action" [ref=f109e114]
+            - rowgroup [ref=f109e115]:
+              - row [ref=f109e181]:
+                - cell [ref=f109e117]:
+                  - link "Helpdesk Service Desk" [ref=f109e118] [cursor=pointer]:
+                    - /url: /projects/helpdesk/helpdesk
+                - cell "40.00h" [ref=f109e119]
+                - cell "0.00h" [ref=f109e120]
+                - cell "40.00h" [ref=f109e121]
+                - cell "0% Used 0%" [ref=f109e122]:
+                  - generic [ref=f109e123]:
+                    - img "0% Used" [ref=f109e124]
+                    - generic [ref=f109e125]: 0%
+                - cell [ref=f109e182]:
+                  - combobox "When hours run out" [ref=f109e128] [cursor=pointer]:
+                    - option "No limit"
+                    - option "Hard — stop work" [selected]
+                    - option "Soft — allow overage"
+                - cell "08/25/2026" [ref=f109e129]
+                - cell [ref=f109e130]:
+                  - link "Ledger" [ref=f109e131] [cursor=pointer]:
+                    - /url: /rf_organizations/1?ledger_project_id=9&tab=prepaid_support_hours
+        - generic [ref=f109e133]:
+          - generic [ref=f109e134]:
+            - heading "Budget change history" [level=3] [ref=f109e135]
+            - generic [ref=f109e136]: "1"
+          - table [ref=f109e137]:
+            - rowgroup [ref=f109e138]:
+              - row [ref=f109e139]:
+                - columnheader "S.No" [ref=f109e140]
+                - columnheader "Updated" [ref=f109e141]
+                - columnheader "Project" [ref=f109e142]
+                - columnheader "Change" [ref=f109e143]
+                - columnheader "Support Package" [ref=f109e144]
+                - columnheader "Comment" [ref=f109e145]
+                - columnheader "Approved by" [ref=f109e146]
+            - rowgroup [ref=f109e147]:
+              - row [ref=f109e148]:
+                - cell "1" [ref=f109e149]
+                - cell "08/25/2026 06:27 AM" [ref=f109e150]
+                - cell [ref=f109e151]:
+                  - link "Helpdesk Service Desk" [ref=f109e152] [cursor=pointer]:
+                    - /url: /projects/helpdesk/helpdesk
+                - cell "0.00h → 40.00h" [ref=f109e153]
+                - cell "Premium Support" [ref=f109e154]
+                - cell "Initial prepaid hours top-up for test data setup." [ref=f109e155]
+                - cell "Redmine Admin" [ref=f109e156]
+        - text: "* * *"
+        - paragraph [ref=f109e157]:
+          - link "Organization List" [ref=f109e158] [cursor=pointer]:
+            - /url: /rf_organizations
+    - generic [ref=f109e159]:
+      - text: Powered by
+      - link "Redmine" [ref=f109e160] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f109e161]
+  - log [ref=f109e162]
+  - log [ref=f109e163]
+  - log [ref=f109e164]
+  - log [ref=f109e165]
+  - log [ref=f109e166]
+  - log [ref=f109e167]
+  - log [ref=f109e168]
+  - log [ref=f109e169]
+  - log [ref=f109e170]
+  - log [ref=f109e171]
+  - log [ref=f109e172]
+  - log [ref=f109e173]
+  - log [ref=f109e174]
+  - log [ref=f109e175]
+  - log [ref=f109e176]
+  - log [ref=f109e177]
+  - log [ref=f109e178]
+  - log [ref=f109e179]
+  - log [ref=f109e180]

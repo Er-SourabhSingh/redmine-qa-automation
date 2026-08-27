@@ -1,0 +1,318 @@
+- generic [active] [ref=f358e1]:
+  - generic [ref=f358e2]:
+    - generic [ref=f358e3]:
+      - generic [ref=f358e4]:
+        - list:
+          - listitem [ref=f358e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f358e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f358e7]:
+        - text: Logged in as
+        - link "aurora.wren" [ref=f358e8] [cursor=pointer]:
+          - /url: /users/12
+      - list [ref=f358e9]:
+        - listitem [ref=f358e10]:
+          - link [ref=f358e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f358e12]
+        - listitem [ref=f358e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f358e14]:
+          - link "My page" [ref=f358e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f358e16]:
+          - link "Projects" [ref=f358e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f358e18]:
+          - link "Time Tracker" [ref=f358e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f358e20]:
+          - link "Workloads" [ref=f358e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f358e22]:
+          - link "Help" [ref=f358e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f358e24]:
+      - generic [ref=f358e25]:
+        - generic [ref=f358e26]:
+          - generic [ref=f358e27]:
+            - link "Search..." [ref=f358e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/search
+            - text: ":"
+          - textbox "Search...:" [ref=f358e29]
+        - generic [ref=f358e30]:
+          - generic [ref=f358e31] [cursor=pointer]: Helpdesk QA Beta
+          - text: ✓ ✓
+      - heading "Helpdesk QA Beta" [level=1] [ref=f358e32]
+      - generic [ref=f358e33]:
+        - list [ref=f358e34]:
+          - listitem [ref=f358e35]:
+            - link "+" [ref=f358e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f358e37]:
+            - link "Overview" [ref=f358e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta
+          - listitem [ref=f358e39]:
+            - link "Activity" [ref=f358e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/activity
+          - listitem [ref=f358e41]:
+            - link "Issues" [ref=f358e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues
+          - listitem [ref=f358e43]:
+            - link "Spent time" [ref=f358e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/time_entries
+          - listitem [ref=f358e45]:
+            - link "Gantt" [ref=f358e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues/gantt
+          - listitem [ref=f358e47]:
+            - link "Calendar" [ref=f358e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues/calendar
+          - listitem [ref=f358e49]:
+            - link "News" [ref=f358e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/news
+          - listitem [ref=f358e51]:
+            - link "Documents" [ref=f358e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/documents
+          - listitem [ref=f358e53]:
+            - link "Wiki" [ref=f358e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/wiki
+          - listitem [ref=f358e55]:
+            - link "Files" [ref=f358e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/files
+          - listitem [ref=f358e57]:
+            - link "Helpdesk" [ref=f358e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/helpdesk
+          - listitem [ref=f358e59]:
+            - link "Settings" [ref=f358e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/settings
+        - generic [ref=f358e61]:
+          - button [ref=f358e62] [cursor=pointer]
+          - button [ref=f358e65] [cursor=pointer]
+    - generic [ref=f358e68]:
+      - link [ref=f358e70] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=f358e73]:
+        - generic [ref=f358e74]:
+          - link "Start Timer" [ref=f358e75] [cursor=pointer]:
+            - /url: "#"
+          - link "Reply" [ref=f358e76] [cursor=pointer]:
+            - /url: "#"
+          - link "Edit" [ref=f358e77] [cursor=pointer]:
+            - /url: /issues/70/edit
+          - link "Log time" [ref=f358e79] [cursor=pointer]:
+            - /url: /issues/70/time_entries/new
+          - link "Watch" [ref=f358e81] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=70&object_type=issue
+          - generic "Actions" [ref=f358e85] [cursor=pointer]
+        - 'heading "Support #70" [level=2] [ref=f358e87]'
+        - text: open
+        - generic [ref=f358e88]:
+          - 'img "Author: Beta Customer" [ref=f358e89]': BC
+          - heading [level=3] [ref=f358e93]:
+            - text: Verify Edit-form public note visibility and auto-status-transition
+            - button "Edit" [ref=f358e94] [cursor=pointer]
+          - link [ref=f358e97] [cursor=pointer]:
+            - /url: /reactions?object_id=70&object_type=Issue
+          - paragraph [ref=f358e100]:
+            - text: Added by
+            - link "Beta Customer" [ref=f358e101] [cursor=pointer]:
+              - /url: /users/16
+            - link "5 minutes" [ref=f358e102] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/activity?from=2026-08-26
+            - text: ago. Updated
+            - link "3 minutes" [ref=f358e103] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/activity?from=2026-08-26
+            - text: ago.
+          - generic [ref=f358e104]:
+            - generic [ref=f358e105]:
+              - generic [ref=f358e106]:
+                - generic [ref=f358e107]:
+                  - generic [ref=f358e108]: "Status:"
+                  - generic [ref=f358e109]:
+                    - text: Waiting for Customer Response
+                    - button "Edit" [ref=f358e110] [cursor=pointer]
+                - generic [ref=f358e111]:
+                  - generic [ref=f358e112]: "Priority:"
+                  - generic [ref=f358e113]:
+                    - text: Normal
+                    - button "Edit" [ref=f358e114] [cursor=pointer]
+                - generic [ref=f358e115]:
+                  - generic [ref=f358e116]: "Assignee:"
+                  - generic [ref=f358e117]:
+                    - text: "-"
+                    - button "Edit" [ref=f358e118] [cursor=pointer]
+              - generic [ref=f358e119]:
+                - generic [ref=f358e120]:
+                  - generic [ref=f358e121]: "Start date:"
+                  - generic [ref=f358e122]:
+                    - text: 08/26/2026
+                    - button "Edit" [ref=f358e123] [cursor=pointer]
+                - generic [ref=f358e124]:
+                  - generic [ref=f358e125]: "Due Date:"
+                  - button "Edit" [ref=f358e127] [cursor=pointer]
+                - generic [ref=f358e128]:
+                  - generic [ref=f358e129]: "Progress:"
+                  - generic [ref=f358e130]:
+                    - generic [ref=f358e131]:
+                      - table [ref=f358e132]:
+                        - rowgroup [ref=f358e133]:
+                          - row [ref=f358e134]:
+                            - cell [ref=f358e135]
+                      - paragraph [ref=f358e136]: 0%
+                    - button "Edit" [ref=f358e137] [cursor=pointer]
+                - generic [ref=f358e138]:
+                  - generic [ref=f358e139]: "Estimated time:"
+                  - button "Edit" [ref=f358e141] [cursor=pointer]
+            - generic [ref=f358e142]:
+              - generic [ref=f358e143]: "Product:"
+              - generic [ref=f358e144]: "-"
+            - generic [ref=f358e145]:
+              - generic [ref=f358e146]: "Organization:"
+              - generic [ref=f358e147]: Beta Org
+          - separator [ref=f358e148]
+          - generic [ref=f358e149]:
+            - link "Quote" [ref=f358e151] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f358e153]:
+              - strong [ref=f358e154]: Description
+              - button "Edit" [ref=f358e155] [cursor=pointer]
+            - paragraph [ref=f358e157]: "Clean fixture created to verify: when an agent uses the standard Edit form (not Reply) to add a non-private note, does it show to the customer, and does status auto-transition to Waiting for Customer Response."
+          - separator [ref=f358e158]
+          - generic [ref=f358e159]:
+            - paragraph [ref=f358e161]:
+              - strong [ref=f358e162]: Checklist
+            - generic [ref=f358e164] [cursor=pointer]
+            - generic:
+              - list
+          - separator [ref=f358e166]
+          - generic [ref=f358e167]:
+            - link "Add" [ref=f358e169] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues/new?back_url=%2Fissues%2F70&issue%5Bparent_issue_id%5D=70&issue%5Btracker_id%5D=3
+            - paragraph [ref=f358e170]:
+              - strong [ref=f358e171]: Subtasks
+          - separator [ref=f358e172]
+          - generic [ref=f358e173]:
+            - link "Add" [ref=f358e175] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f358e176]:
+              - strong [ref=f358e177]: Related issues
+        - generic [ref=f358e178]:
+          - list [ref=f358e180]:
+            - listitem [ref=f358e181]:
+              - link "History" [ref=f358e182] [cursor=pointer]:
+                - /url: /issues/70?tab=history
+            - listitem [ref=f358e183]:
+              - link "Notes" [ref=f358e184] [cursor=pointer]:
+                - /url: /issues/70?tab=notes
+            - listitem [ref=f358e185]:
+              - link "Property changes" [ref=f358e186] [cursor=pointer]:
+                - /url: /issues/70?tab=properties
+          - generic [ref=f358e189]:
+            - heading [level=4] [ref=f358e190]:
+              - generic [ref=f358e191]:
+                - img [ref=f358e192]: AW
+                - text: Updated by
+                - link "Aurora Wren" [ref=f358e193] [cursor=pointer]:
+                  - /url: /users/12
+                - link "3 minutes" [ref=f358e194] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-beta/activity?from=2026-08-26
+                - text: ago
+              - generic [ref=f358e195]:
+                - generic [ref=f358e196]:
+                  - link [ref=f358e198] [cursor=pointer]:
+                    - /url: /reactions?object_id=548&object_type=Journal
+                  - link "Quote" [ref=f358e201] [cursor=pointer]:
+                    - /url: "#"
+                  - generic "Actions" [ref=f358e206] [cursor=pointer]
+                - link "#1" [ref=f358e208] [cursor=pointer]:
+                  - /url: "#note-1"
+            - generic [ref=f358e209]:
+              - list [ref=f358e210]:
+                - listitem [ref=f358e211]:
+                  - strong [ref=f358e212]: Status
+                  - text: changed from New to Waiting for Customer Response
+              - paragraph [ref=f358e214]: Agent public note added via the standard Edit form (Private notes checkbox left unchecked) — verifying visibility to customer and auto-status-transition.
+        - generic [ref=f358e215]:
+          - link "Edit" [ref=f358e216] [cursor=pointer]:
+            - /url: /issues/70/edit
+          - link "Log time" [ref=f358e218] [cursor=pointer]:
+            - /url: /issues/70/time_entries/new
+          - link "Watch" [ref=f358e220] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=70&object_type=issue
+          - generic "Actions" [ref=f358e224] [cursor=pointer]
+        - text: pre pre
+        - paragraph [ref=f358e226]:
+          - text: "Also available in:"
+          - link "PDF" [ref=f358e228] [cursor=pointer]:
+            - /url: /issues/70.pdf
+          - generic [ref=f358e229]:
+            - text: "|"
+            - link "Atom" [ref=f358e230] [cursor=pointer]:
+              - /url: /issues/70.atom?key=c882e2746efa6383024dad367e7a34cbefbcdd1d
+    - generic [ref=f358e231]:
+      - text: Powered by
+      - link "Redmine" [ref=f358e232] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f358e233]
+  - log [ref=f358e234]
+  - log [ref=f358e235]
+  - log [ref=f358e236]
+  - log [ref=f358e237]
+  - log [ref=f358e238]
+  - log [ref=f358e239]
+  - log [ref=f358e240]
+  - log [ref=f358e241]
+  - log [ref=f358e242]
+  - log [ref=f358e243]
+  - log [ref=f358e244]
+  - log [ref=f358e245]
+  - log [ref=f358e246]
+  - log [ref=f358e247]
+  - log [ref=f358e248]
+  - log [ref=f358e249]
+  - log [ref=f358e250]
+  - log [ref=f358e251]
+  - log [ref=f358e252]
+  - log [ref=f358e253]
+  - log [ref=f358e254]
+  - log [ref=f358e255]
+  - log [ref=f358e256]
+  - log [ref=f358e257]
+  - log [ref=f358e258]
+  - log [ref=f358e259]
+  - log [ref=f358e260]
+  - log [ref=f358e261]
+  - log [ref=f358e262]
+  - log [ref=f358e263]
+  - log [ref=f358e264]
+  - log [ref=f358e265]
+  - log [ref=f358e266]
+  - log [ref=f358e267]
+  - log [ref=f358e268]
+  - log [ref=f358e269]
+  - log [ref=f358e270]
+  - log [ref=f358e271]
+  - log [ref=f358e272]
+  - log [ref=f358e273]
+  - log [ref=f358e274]
+  - log [ref=f358e275]
+  - log [ref=f358e276]
+  - log [ref=f358e277]
+  - log [ref=f358e278]
+  - log [ref=f358e279]
+  - log [ref=f358e280]
+  - log [ref=f358e281]
+  - log [ref=f358e282]
+  - log [ref=f358e283]
+  - log [ref=f358e284]
+  - log [ref=f358e285]
+  - log [ref=f358e286]
+  - log [ref=f358e287]
+  - log [ref=f358e288]
+  - status [ref=f358e289]
+  - status [ref=f358e290]

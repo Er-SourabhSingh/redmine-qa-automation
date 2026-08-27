@@ -1,0 +1,43 @@
+- generic [active] [ref=f215e1]:
+  - generic [ref=f215e2]:
+    - generic [ref=f215e3]:
+      - generic [ref=f215e4]:
+        - list:
+          - listitem [ref=f215e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f215e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f215e7]:
+        - text: Logged in as
+        - link "alpha.customer" [ref=f215e8] [cursor=pointer]:
+          - /url: /users/15
+      - list [ref=f215e9]:
+        - listitem [ref=f215e10]:
+          - link [ref=f215e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f215e12]
+        - listitem [ref=f215e13]:
+          - link "My Helpdesk" [ref=f215e14] [cursor=pointer]:
+            - /url: /helpdesk
+    - generic [ref=f215e15]:
+      - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f215e16]
+    - generic [ref=f215e19]:
+      - generic [ref=f215e22]:
+        - heading "My Helpdesk" [level=2] [ref=f215e23]
+        - paragraph [ref=f215e24]: Your support projects. Open one to raise a ticket or follow an existing one.
+      - generic [ref=f215e26]:
+        - heading "Helpdesk QA Alpha" [level=3] [ref=f215e27]
+        - generic [ref=f215e28]:
+          - generic [ref=f215e29]: 1 open
+          - link "View" [ref=f215e31] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+    - generic [ref=f215e34]:
+      - text: Powered by
+      - link "Redmine" [ref=f215e35] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f215e36]
+  - log [ref=f215e37]

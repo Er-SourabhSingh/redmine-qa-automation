@@ -1,0 +1,186 @@
+- generic [active] [ref=f274e1]:
+  - generic [ref=f274e2]:
+    - generic [ref=f274e3]:
+      - generic [ref=f274e4]:
+        - list:
+          - listitem [ref=f274e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f274e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f274e7]:
+        - text: Logged in as
+        - link "aurora.wren" [ref=f274e8] [cursor=pointer]:
+          - /url: /users/12
+      - list [ref=f274e9]:
+        - listitem [ref=f274e10]:
+          - link [ref=f274e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f274e12]
+        - listitem [ref=f274e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f274e14]:
+          - link "My page" [ref=f274e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f274e16]:
+          - link "Projects" [ref=f274e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f274e18]:
+          - link "Time Tracker" [ref=f274e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f274e20]:
+          - link "Workloads" [ref=f274e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f274e22]:
+          - link "Help" [ref=f274e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f274e24]:
+      - generic [ref=f274e25]:
+        - generic [ref=f274e26]:
+          - generic [ref=f274e27]:
+            - link "Search..." [ref=f274e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f274e29]
+        - generic [ref=f274e30]:
+          - generic [ref=f274e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Redmine" [level=1] [ref=f274e32]
+      - list [ref=f274e34]:
+        - listitem [ref=f274e35]:
+          - link "Projects" [ref=f274e36] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f274e37]:
+          - link "Activity" [ref=f274e38] [cursor=pointer]:
+            - /url: /activity
+        - listitem [ref=f274e39]:
+          - link "Issues" [ref=f274e40] [cursor=pointer]:
+            - /url: /issues
+        - listitem [ref=f274e41]:
+          - link "Spent time" [ref=f274e42] [cursor=pointer]:
+            - /url: /time_entries
+        - listitem [ref=f274e43]:
+          - link "Gantt" [ref=f274e44] [cursor=pointer]:
+            - /url: /issues/gantt
+        - listitem [ref=f274e45]:
+          - link "Calendar" [ref=f274e46] [cursor=pointer]:
+            - /url: /issues/calendar
+        - listitem [ref=f274e47]:
+          - link "News" [ref=f274e48] [cursor=pointer]:
+            - /url: /news
+    - generic [ref=f274e49]:
+      - generic [ref=f274e50]:
+        - link [ref=f274e52] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f274e55]:
+          - heading "Custom queries" [level=3] [ref=f274e56]
+          - list [ref=f274e57]:
+            - listitem [ref=f274e58]:
+              - link "My bookmarks" [ref=f274e59] [cursor=pointer]:
+                - /url: /projects?query_id=6
+            - listitem [ref=f274e60]:
+              - link "My projects" [ref=f274e61] [cursor=pointer]:
+                - /url: /projects?query_id=5
+      - generic [ref=f274e62]:
+        - heading "Projects" [level=2] [ref=f274e63]
+        - generic [ref=f274e66]:
+          - group "Filters" [ref=f274e67]
+          - group "Options" [ref=f274e71]
+        - table [ref=f274e77]:
+          - rowgroup [ref=f274e78]:
+            - row [ref=f274e79]:
+              - columnheader [ref=f274e80]:
+                - link "Name" [ref=f274e81] [cursor=pointer]:
+                  - /url: /projects?sort=name
+              - columnheader [ref=f274e82]:
+                - link "Identifier" [ref=f274e83] [cursor=pointer]:
+                  - /url: /projects?sort=identifier
+              - columnheader [ref=f274e84]:
+                - link "Description" [ref=f274e85] [cursor=pointer]:
+                  - /url: /projects?sort=short_description
+              - columnheader [ref=f274e86]:
+                - link "Status" [ref=f274e87] [cursor=pointer]:
+                  - /url: /projects?sort=status
+              - columnheader [ref=f274e88]:
+                - link "Homepage" [ref=f274e89] [cursor=pointer]:
+                  - /url: /projects?sort=homepage
+              - columnheader [ref=f274e90]:
+                - link "Subproject of" [ref=f274e91] [cursor=pointer]:
+                  - /url: /projects?sort=parent_id%3Adesc
+              - columnheader [ref=f274e92]:
+                - link "Public" [ref=f274e93] [cursor=pointer]:
+                  - /url: /projects?sort=is_public
+              - columnheader [ref=f274e94]:
+                - link "Created on" [ref=f274e95] [cursor=pointer]:
+                  - /url: /projects?sort=created_on%3Adesc
+              - columnheader [ref=f274e96]:
+                - link "Updated" [ref=f274e97] [cursor=pointer]:
+                  - /url: /projects?sort=updated_on%3Adesc
+              - columnheader "Last activity" [ref=f274e98]
+          - rowgroup [ref=f274e99]:
+            - row [ref=f274e100]:
+              - cell [ref=f274e101]:
+                - link "Helpdesk QA Alpha" [ref=f274e102] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha
+              - cell "helpdesk-qa-alpha" [ref=f274e103]
+              - cell [ref=f274e104]
+              - cell "active" [ref=f274e105]
+              - cell [ref=f274e106]
+              - cell [ref=f274e107]
+              - cell "Yes" [ref=f274e108]
+              - cell "08/25/2026 01:15 PM" [ref=f274e109]
+              - cell "08/25/2026 01:15 PM" [ref=f274e110]
+              - cell [ref=f274e111]:
+                - link "08/26/2026 09:35 AM" [ref=f274e112] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/activity?from=2026-08-26
+            - row [ref=f274e113]:
+              - cell [ref=f274e114]:
+                - link "Helpdesk QA Beta" [ref=f274e115] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-beta
+              - cell "helpdesk-qa-beta" [ref=f274e116]
+              - cell [ref=f274e117]
+              - cell "active" [ref=f274e118]
+              - cell [ref=f274e119]
+              - cell [ref=f274e120]
+              - cell "Yes" [ref=f274e121]
+              - cell "08/25/2026 01:15 PM" [ref=f274e122]
+              - cell "08/25/2026 01:15 PM" [ref=f274e123]
+              - cell [ref=f274e124]:
+                - link "08/26/2026 09:25 AM" [ref=f274e125] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-beta/activity?from=2026-08-26
+        - generic [ref=f274e126]:
+          - list
+          - generic: (1-2/2)
+        - paragraph [ref=f274e128]:
+          - generic [ref=f274e129]: My projects
+          - generic [ref=f274e131]: My bookmarks
+        - paragraph [ref=f274e133]:
+          - text: "Also available in:"
+          - link "CSV" [ref=f274e135] [cursor=pointer]:
+            - /url: /projects.csv
+          - generic [ref=f274e136]:
+            - text: "|"
+            - link "Atom" [ref=f274e137] [cursor=pointer]:
+              - /url: /projects.atom?key=c882e2746efa6383024dad367e7a34cbefbcdd1d
+    - generic [ref=f274e138]:
+      - text: Powered by
+      - link "Redmine" [ref=f274e139] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f274e140]
+  - log [ref=f274e141]
+  - log [ref=f274e142]
+  - log [ref=f274e143]
+  - log [ref=f274e144]
+  - log [ref=f274e145]
+  - log [ref=f274e146]
+  - log [ref=f274e147]
+  - log [ref=f274e148]
+  - log [ref=f274e149]
+  - log [ref=f274e150]
+  - log [ref=f274e151]
+  - log [ref=f274e152]
+  - log [ref=f274e153]
+  - log [ref=f274e154]

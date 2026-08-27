@@ -1,0 +1,83 @@
+- generic [active] [ref=f29e1]:
+  - generic [ref=f29e2]:
+    - generic [ref=f29e3]:
+      - generic [ref=f29e4]:
+        - list:
+          - listitem [ref=f29e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f29e6]:
+            - link "Sign out":
+              - /url: /logout
+      - list [ref=f29e7]:
+        - listitem [ref=f29e8]:
+          - link "My Helpdesk" [ref=f29e9] [cursor=pointer]:
+            - /url: /helpdesk
+    - generic [ref=f29e10]:
+      - text: ✓
+      - heading "Agile Board Project" [level=1] [ref=f29e11]
+    - generic [ref=f29e12]:
+      - list [ref=f29e16]:
+        - listitem [ref=f29e17]:
+          - link "Helpdesk Dashboard" [ref=f29e18] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk
+        - listitem [ref=f29e21]:
+          - link "Helpdesk Tickets" [ref=f29e22] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/tickets
+        - listitem [ref=f29e25]:
+          - link "Knowledgebase" [ref=f29e26] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/knowledgebase
+      - generic [ref=f29e29]:
+        - generic [ref=f29e30]:
+          - generic [ref=f29e32]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f29e33]
+            - paragraph [ref=f29e34]: Agile Board Project · 1 tickets
+          - link "New issue" [ref=f29e36] [cursor=pointer]:
+            - /url: /projects/agileboard/helpdesk/new
+        - button "Filters" [ref=f29e39] [cursor=pointer]
+        - table [ref=f29e47]:
+          - rowgroup [ref=f29e48]:
+            - row [ref=f29e49]:
+              - columnheader [ref=f29e50]:
+                - 'link "Ticket #" [ref=f29e51] [cursor=pointer]':
+                  - /url: /projects/agileboard/helpdesk/tickets?dir=asc&sort=id
+              - columnheader [ref=f29e52]:
+                - link "Subject" [ref=f29e53] [cursor=pointer]:
+                  - /url: /projects/agileboard/helpdesk/tickets?dir=asc&sort=subject
+              - columnheader [ref=f29e54]:
+                - link "Status" [ref=f29e55] [cursor=pointer]:
+                  - /url: /projects/agileboard/helpdesk/tickets?dir=asc&sort=status
+              - columnheader [ref=f29e56]:
+                - link "Priority" [ref=f29e57] [cursor=pointer]:
+                  - /url: /projects/agileboard/helpdesk/tickets?dir=asc&sort=priority
+              - columnheader [ref=f29e58]:
+                - link "Updated ▼" [ref=f29e59] [cursor=pointer]:
+                  - /url: /projects/agileboard/helpdesk/tickets?dir=asc&sort=updated_on
+          - rowgroup [ref=f29e60]:
+            - row [ref=f29e61]:
+              - cell [ref=f29e62]:
+                - link "#271" [ref=f29e63] [cursor=pointer]:
+                  - /url: /issues/271
+              - cell [ref=f29e64]:
+                - link "Customer login and ticket-raising test" [ref=f29e65] [cursor=pointer]:
+                  - /url: /issues/271
+              - cell "New" [ref=f29e66]
+              - cell "Normal" [ref=f29e69]
+              - cell "08/24/2026 01:51 PM" [ref=f29e72]
+        - generic [ref=f29e73]:
+          - list
+          - generic [ref=f29e74]: (1-1/1)
+    - generic [ref=f29e75]:
+      - text: Powered by
+      - link "Redmine" [ref=f29e76] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f29e77]
+  - log [ref=f29e78]
+  - log [ref=f29e79]
+  - log [ref=f29e80]
+  - log [ref=f29e81]
+  - log [ref=f29e82]
+  - log [ref=f29e83]
+  - log [ref=f29e84]
+  - log [ref=f29e85]

@@ -1,0 +1,372 @@
+- generic [ref=f13e1]:
+  - generic [ref=f13e2]:
+    - generic [ref=f13e3]:
+      - generic [ref=f13e4]:
+        - list:
+          - listitem [ref=f13e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f13e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f13e7]:
+        - text: Logged in as
+        - link "admin" [ref=f13e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f13e9]:
+        - listitem [ref=f13e10]:
+          - link [ref=f13e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f13e12]
+        - listitem [ref=f13e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f13e14]:
+          - link "My page" [ref=f13e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f13e16]:
+          - link "Projects" [ref=f13e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f13e18]:
+          - link "Flux Gantt" [ref=f13e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f13e20]:
+          - link "Helpdesk Command Center" [ref=f13e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f13e22]:
+          - link "Time Tracker" [ref=f13e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f13e24]:
+          - link "Timesheet" [ref=f13e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f13e26]:
+          - link "Workloads" [ref=f13e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f13e28]:
+          - link "More" [ref=f13e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f13e30]:
+      - generic [ref=f13e31]:
+        - generic [ref=f13e32]:
+          - generic [ref=f13e33]:
+            - link "Search..." [ref=f13e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f13e35]
+        - generic [ref=f13e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f13e38]
+    - generic [ref=f13e39]:
+      - generic [ref=f13e40]:
+        - link [ref=f13e42] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f13e45]:
+          - heading "Administration" [level=3] [ref=f13e46]
+          - list [ref=f13e48]:
+            - listitem [ref=f13e49]:
+              - link "Projects" [ref=f13e50] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f13e52]:
+              - link "Users" [ref=f13e53] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f13e55]:
+              - link "Groups" [ref=f13e56] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f13e58]:
+              - link "Roles and permissions" [ref=f13e59] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f13e61]:
+              - link "Trackers" [ref=f13e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f13e64]:
+              - link "Issue statuses" [ref=f13e65] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f13e67]:
+              - link "Workflow" [ref=f13e68] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f13e70]:
+              - link "Custom fields" [ref=f13e71] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f13e73]:
+              - link "Enumerations" [ref=f13e74] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f13e76]:
+              - link "Settings" [ref=f13e77] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f13e79]:
+              - link "LDAP authentication" [ref=f13e80] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f13e82]:
+              - link "Applications" [ref=f13e83] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f13e85]:
+              - link "Plugins" [ref=f13e86] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f13e88]:
+              - link "Information" [ref=f13e89] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f13e91]:
+        - generic [ref=f13e92]: Successful update
+        - heading "Settings" [level=2] [ref=f13e93]
+        - generic [ref=f13e94]:
+          - list [ref=f13e95]:
+            - listitem [ref=f13e96]:
+              - link "General" [ref=f13e97] [cursor=pointer]:
+                - /url: /settings?tab=general
+            - listitem [ref=f13e98]:
+              - link "Display" [ref=f13e99] [cursor=pointer]:
+                - /url: /settings?tab=display
+            - listitem [ref=f13e100]:
+              - link "Authentication" [ref=f13e101] [cursor=pointer]:
+                - /url: /settings?tab=authentication
+            - listitem [ref=f13e102]:
+              - link "API" [ref=f13e103] [cursor=pointer]:
+                - /url: /settings?tab=api
+            - listitem [ref=f13e104]:
+              - link "Projects" [ref=f13e105] [cursor=pointer]:
+                - /url: /settings?tab=projects
+            - listitem [ref=f13e106]:
+              - link "Users" [ref=f13e107] [cursor=pointer]:
+                - /url: /settings?tab=users
+            - listitem [ref=f13e108]:
+              - link "Issue tracking" [ref=f13e109] [cursor=pointer]:
+                - /url: /settings?tab=issues
+            - listitem [ref=f13e110]:
+              - link "Time tracking" [ref=f13e111] [cursor=pointer]:
+                - /url: /settings?tab=timelog
+            - listitem [ref=f13e112]:
+              - link "Files" [ref=f13e113] [cursor=pointer]:
+                - /url: /settings?tab=attachments
+            - listitem [ref=f13e114]:
+              - link "Email notifications" [ref=f13e115] [cursor=pointer]:
+                - /url: /settings?tab=notifications
+            - listitem [ref=f13e116]:
+              - link "Incoming emails" [ref=f13e117] [cursor=pointer]:
+                - /url: /settings?tab=mail_handler
+            - listitem [ref=f13e118]:
+              - link "Repositories" [ref=f13e119] [cursor=pointer]:
+                - /url: /settings?tab=repositories
+          - generic [ref=f13e120]:
+            - button [ref=f13e121] [cursor=pointer]
+            - button [ref=f13e124] [cursor=pointer]
+        - text: pre
+        - generic [ref=f13e128]:
+          - generic [ref=f13e129]:
+            - paragraph [ref=f13e130]:
+              - generic [ref=f13e131]: Emission email address
+              - textbox "Emission email address" [active] [ref=f13e132]: admin@test.local
+            - paragraph [ref=f13e133]:
+              - generic [ref=f13e134]: Plain text mail (no HTML)
+              - checkbox "Plain text mail (no HTML)" [ref=f13e135]
+            - paragraph [ref=f13e136]:
+              - generic [ref=f13e137]: Show status changes in issue mail notifications subject
+              - checkbox "Show status changes in issue mail notifications subject" [checked] [ref=f13e138]
+          - group "Select actions for which email notifications should be sent." [ref=f13e139]:
+            - generic [ref=f13e141]:
+              - checkbox "Issue added" [checked] [ref=f13e142]
+              - text: Issue added
+            - generic [ref=f13e143]:
+              - checkbox "Issue updated" [checked] [ref=f13e144]
+              - text: Issue updated
+            - generic [ref=f13e145]:
+              - checkbox "Note added" [disabled] [ref=f13e146]
+              - text: Note added
+            - generic [ref=f13e147]:
+              - checkbox "Status updated" [disabled] [ref=f13e148]
+              - text: Status updated
+            - generic [ref=f13e149]:
+              - checkbox "Assignee updated" [disabled] [ref=f13e150]
+              - text: Assignee updated
+            - generic [ref=f13e151]:
+              - checkbox "Priority updated" [disabled] [ref=f13e152]
+              - text: Priority updated
+            - generic [ref=f13e153]:
+              - checkbox "Target version updated" [disabled] [ref=f13e154]
+              - text: Target version updated
+            - generic [ref=f13e155]:
+              - checkbox "Attachment added" [disabled] [ref=f13e156]
+              - text: Attachment added
+            - generic [ref=f13e157]:
+              - checkbox "News added" [ref=f13e158]
+              - text: News added
+            - generic [ref=f13e159]:
+              - checkbox "Comment added to a news" [ref=f13e160]
+              - text: Comment added to a news
+            - generic [ref=f13e161]:
+              - checkbox "Document added" [ref=f13e162]
+              - text: Document added
+            - generic [ref=f13e163]:
+              - checkbox "File added" [ref=f13e164]
+              - text: File added
+            - generic [ref=f13e165]:
+              - checkbox "Message added" [ref=f13e166]
+              - text: Message added
+            - generic [ref=f13e167]:
+              - checkbox "Wiki page added" [ref=f13e168]
+              - text: Wiki page added
+            - generic [ref=f13e169]:
+              - checkbox "Wiki page updated" [ref=f13e170]
+              - text: Wiki page updated
+            - generic [ref=f13e171]:
+              - checkbox "Run added" [ref=f13e172]
+              - text: Run added
+            - generic [ref=f13e173]:
+              - checkbox "Run updated" [ref=f13e174]
+              - text: Run updated
+            - generic [ref=f13e175]:
+              - checkbox "Testcase result added" [ref=f13e176]
+              - text: Testcase result added
+            - paragraph [ref=f13e177]:
+              - link "Check all" [ref=f13e178] [cursor=pointer]:
+                - /url: "#"
+              - text: "|"
+              - link "Uncheck all" [ref=f13e179] [cursor=pointer]:
+                - /url: "#"
+          - group "Email header" [ref=f13e180]:
+            - generic [ref=f13e182]:
+              - list [ref=f13e184]:
+                - listitem [ref=f13e185]:
+                  - link "Edit" [ref=f13e186] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f13e187]:
+                  - link "Preview" [ref=f13e188] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f13e189]:
+                  - generic [ref=f13e190]:
+                    - button "Strong (Ctrl+B)" [ref=f13e191] [cursor=pointer]
+                    - button "Italic (Ctrl+I)" [ref=f13e192] [cursor=pointer]
+                    - button "Underline (Ctrl+U)" [ref=f13e193] [cursor=pointer]
+                    - button "Deleted" [ref=f13e194] [cursor=pointer]
+                    - button "Inline Code" [ref=f13e195] [cursor=pointer]
+                    - button "Heading 1" [ref=f13e196] [cursor=pointer]
+                    - button "Heading 2" [ref=f13e197] [cursor=pointer]
+                    - button "Heading 3" [ref=f13e198] [cursor=pointer]
+                    - button "Unordered list" [ref=f13e199] [cursor=pointer]
+                    - button "Ordered list" [ref=f13e200] [cursor=pointer]
+                    - button "Task list" [ref=f13e201] [cursor=pointer]
+                    - button "Quote" [ref=f13e202] [cursor=pointer]
+                    - button "Remove Quote" [ref=f13e203] [cursor=pointer]
+                    - button "Table" [ref=f13e204] [cursor=pointer]
+                    - button "pre" [ref=f13e205] [cursor=pointer]
+                    - button "Highlighted code" [ref=f13e206] [cursor=pointer]
+                    - button "Link to a Wiki page" [ref=f13e207] [cursor=pointer]
+                    - button "Image" [ref=f13e208] [cursor=pointer]
+                    - button "Help" [ref=f13e209] [cursor=pointer]
+              - textbox [ref=f13e211]
+          - group "Email footer" [ref=f13e212]:
+            - generic [ref=f13e214]:
+              - list [ref=f13e216]:
+                - listitem [ref=f13e217]:
+                  - link "Edit" [ref=f13e218] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f13e219]:
+                  - link "Preview" [ref=f13e220] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f13e221]:
+                  - generic [ref=f13e222]:
+                    - button "Strong (Ctrl+B)" [ref=f13e223] [cursor=pointer]
+                    - button "Italic (Ctrl+I)" [ref=f13e224] [cursor=pointer]
+                    - button "Underline (Ctrl+U)" [ref=f13e225] [cursor=pointer]
+                    - button "Deleted" [ref=f13e226] [cursor=pointer]
+                    - button "Inline Code" [ref=f13e227] [cursor=pointer]
+                    - button "Heading 1" [ref=f13e228] [cursor=pointer]
+                    - button "Heading 2" [ref=f13e229] [cursor=pointer]
+                    - button "Heading 3" [ref=f13e230] [cursor=pointer]
+                    - button "Unordered list" [ref=f13e231] [cursor=pointer]
+                    - button "Ordered list" [ref=f13e232] [cursor=pointer]
+                    - button "Task list" [ref=f13e233] [cursor=pointer]
+                    - button "Quote" [ref=f13e234] [cursor=pointer]
+                    - button "Remove Quote" [ref=f13e235] [cursor=pointer]
+                    - button "Table" [ref=f13e236] [cursor=pointer]
+                    - button "pre" [ref=f13e237] [cursor=pointer]
+                    - button "Highlighted code" [ref=f13e238] [cursor=pointer]
+                    - button "Link to a Wiki page" [ref=f13e239] [cursor=pointer]
+                    - button "Image" [ref=f13e240] [cursor=pointer]
+                    - button "Help" [ref=f13e241] [cursor=pointer]
+              - textbox [ref=f13e243]: "You have received this notification because you have either subscribed to it, or are involved in it. To change your notification preferences, please click here: http://hostname/my/account"
+          - link "Send a test email" [ref=f13e245] [cursor=pointer]:
+            - /url: /admin/test_email
+          - button "Save" [ref=f13e246] [cursor=pointer]
+    - generic [ref=f13e247]:
+      - text: Powered by
+      - link "Redmine" [ref=f13e248] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f13e249]
+  - log [ref=f13e250]
+  - log [ref=f13e251]
+  - log [ref=f13e252]
+  - log [ref=f13e253]
+  - log [ref=f13e254]
+  - log [ref=f13e255]
+  - log [ref=f13e256]
+  - log [ref=f13e257]
+  - log [ref=f13e258]
+  - log [ref=f13e259]
+  - log [ref=f13e260]
+  - log [ref=f13e261]
+  - log [ref=f13e262]
+  - log [ref=f13e263]
+  - log [ref=f13e264]
+  - log [ref=f13e265]
+  - log [ref=f13e266]
+  - log [ref=f13e267]
+  - log [ref=f13e268]
+  - log [ref=f13e269]
+  - log [ref=f13e270]
+  - log [ref=f13e271]
+  - log [ref=f13e272]
+  - log [ref=f13e273]
+  - log [ref=f13e274]
+  - log [ref=f13e275]
+  - log [ref=f13e276]
+  - log [ref=f13e277]
+  - log [ref=f13e278]
+  - log [ref=f13e279]
+  - log [ref=f13e280]
+  - log [ref=f13e281]
+  - log [ref=f13e282]
+  - log [ref=f13e283]
+  - log [ref=f13e284]
+  - log [ref=f13e285]
+  - log [ref=f13e286]
+  - log [ref=f13e287]
+  - log [ref=f13e288]
+  - log [ref=f13e289]
+  - log [ref=f13e290]
+  - log [ref=f13e291]
+  - log [ref=f13e292]
+  - log [ref=f13e293]
+  - log [ref=f13e294]
+  - log [ref=f13e295]
+  - log [ref=f13e296]
+  - log [ref=f13e297]
+  - log [ref=f13e298]
+  - log [ref=f13e299]
+  - log [ref=f13e300]
+  - log [ref=f13e301]
+  - log [ref=f13e302]
+  - log [ref=f13e303]
+  - log [ref=f13e304]
+  - log [ref=f13e305]
+  - log [ref=f13e306]
+  - log [ref=f13e307]
+  - log [ref=f13e308]
+  - log [ref=f13e309]
+  - log [ref=f13e310]
+  - log [ref=f13e311]
+  - log [ref=f13e312]
+  - log [ref=f13e313]
+  - log [ref=f13e314]
+  - log [ref=f13e315]
+  - log [ref=f13e316]
+  - log [ref=f13e317]
+  - log [ref=f13e318]
+  - log [ref=f13e319]
+  - log [ref=f13e320]
+  - log [ref=f13e321]
+  - log [ref=f13e322]
+  - log [ref=f13e323]
+  - log [ref=f13e324]
+  - log [ref=f13e325]
+  - log [ref=f13e326]
+  - log [ref=f13e327]

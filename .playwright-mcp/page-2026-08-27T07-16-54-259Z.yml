@@ -1,0 +1,154 @@
+- generic [ref=f131e1]:
+  - generic [ref=f131e2]:
+    - generic [ref=f131e3]:
+      - generic [ref=f131e4]:
+        - list:
+          - listitem [ref=f131e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f131e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f131e7]:
+        - text: Logged in as
+        - link "ivy.sterling" [ref=f131e8] [cursor=pointer]:
+          - /url: /users/18
+      - list [ref=f131e9]:
+        - listitem [ref=f131e10]:
+          - link [ref=f131e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f131e12]
+        - listitem [ref=f131e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f131e14]:
+          - link "My page" [ref=f131e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f131e16]:
+          - link "Projects" [ref=f131e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f131e18]:
+          - link "Helpdesk Command Center" [ref=f131e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f131e20]:
+          - link "Time Tracker" [ref=f131e21] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f131e22]:
+          - link "Workloads" [ref=f131e23] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f131e24]:
+          - link "Help" [ref=f131e25] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f131e26]:
+      - generic [ref=f131e27]:
+        - generic [ref=f131e28]:
+          - generic [ref=f131e29]:
+            - link "Search..." [ref=f131e30] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f131e31]
+        - generic [ref=f131e32]:
+          - generic [ref=f131e33] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f131e34]
+    - generic [ref=f131e35]:
+      - list [ref=f131e39]:
+        - listitem [ref=f131e40]:
+          - link "Helpdesk Dashboard" [ref=f131e41] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f131e44]:
+          - link "Helpdesk Tickets" [ref=f131e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f131e48]:
+          - link "Reports" [ref=f131e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f131e52]:
+          - link "Organization" [ref=f131e53] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f131e56]:
+          - link "Customers" [ref=f131e57] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f131e60]:
+          - link "Products" [ref=f131e61] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f131e64]:
+          - link "Helpdesk Settings" [ref=f131e65] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f131e68]:
+        - 'heading "Edit Customer: Beta Customer" [level=2] [ref=f131e69]'
+        - generic [ref=f131e70]:
+          - generic [ref=f131e71]:
+            - paragraph [ref=f131e72]:
+              - generic [ref=f131e73]: Login *
+              - textbox "Login *" [active] [ref=f131e74]: beta.customer
+              - emphasis [ref=f131e75]: Login must be at least 2 characters long
+            - paragraph [ref=f131e76]:
+              - generic [ref=f131e77]: First name *
+              - textbox "First name *" [ref=f131e78]: Beta
+            - paragraph [ref=f131e79]:
+              - generic [ref=f131e80]: Last name *
+              - textbox "Last name *" [ref=f131e81]: Customer
+            - paragraph [ref=f131e82]:
+              - generic [ref=f131e83]: Email *
+              - textbox "Email *" [ref=f131e84]: beta.customer@test.local
+            - generic [ref=f131e85]:
+              - paragraph [ref=f131e86]:
+                - generic [ref=f131e87]: Password *
+                - textbox "Password *" [ref=f131e88]
+                - emphasis [ref=f131e89]: Leave blank to keep the current password
+              - paragraph [ref=f131e90]:
+                - generic [ref=f131e91]: Confirmation *
+                - textbox "Confirmation *" [ref=f131e92]
+            - paragraph [ref=f131e93]:
+              - checkbox "Generate password automatically" [ref=f131e94]
+              - generic [ref=f131e95]: Generate password automatically
+            - paragraph [ref=f131e96]:
+              - checkbox "Send account information to the user" [ref=f131e97]
+              - generic [ref=f131e98]: Send account information to the user
+          - group "Project access" [ref=f131e99]:
+            - paragraph [ref=f131e101]: Projects this customer can raise tickets against, and the SLA, support level and organisation that apply on each. Leave empty to create the account without project access.
+            - generic [ref=f131e103]:
+              - generic [ref=f131e104]:
+                - generic [ref=f131e105]: Project
+                - combobox [ref=f131e106]:
+                  - option "-- Select project --" [selected]
+                  - option "Helpdesk QA Alpha"
+              - generic [ref=f131e107]:
+                - generic [ref=f131e108]: SLA Name *
+                - combobox [ref=f131e109]:
+                  - option "None" [selected]
+                  - option "Alpha Standard SLA" [disabled]
+              - generic [ref=f131e110]:
+                - generic [ref=f131e111]: Support Level *
+                - combobox [ref=f131e112]:
+                  - option "None" [selected]
+                  - option "L1" [disabled]
+              - generic [ref=f131e113]:
+                - generic [ref=f131e114]: Organization Name
+                - combobox [ref=f131e115]:
+                  - option "None" [selected]
+                  - option "Alpha Org"
+                  - option "Beta Org"
+              - button "Delete" [ref=f131e116] [cursor=pointer]
+            - paragraph [ref=f131e120]:
+              - button "Add project" [ref=f131e121] [cursor=pointer]
+          - paragraph [ref=f131e123]:
+            - button "Save" [ref=f131e124] [cursor=pointer]
+            - link "Cancel" [ref=f131e125] [cursor=pointer]:
+              - /url: /rf_helpdesk/customers
+    - generic [ref=f131e126]:
+      - text: Powered by
+      - link "Redmine" [ref=f131e127] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f131e128]
+  - log [ref=f131e129]
+  - log [ref=f131e130]
+  - log [ref=f131e131]
+  - log [ref=f131e132]
+  - log [ref=f131e133]
+  - log [ref=f131e134]
+  - log [ref=f131e135]
+  - log [ref=f131e136]
+  - log [ref=f131e137]
+  - log [ref=f131e138]

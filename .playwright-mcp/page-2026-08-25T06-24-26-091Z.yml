@@ -1,0 +1,166 @@
+- generic [ref=f94e1]:
+  - generic [ref=f94e2]:
+    - generic [ref=f94e3]:
+      - generic [ref=f94e4]:
+        - list:
+          - listitem [ref=f94e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f94e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f94e7]:
+        - text: Logged in as
+        - link "admin" [ref=f94e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f94e9]:
+        - listitem [ref=f94e10]:
+          - link [ref=f94e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f94e12]
+        - listitem [ref=f94e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f94e14]:
+          - link "My page" [ref=f94e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f94e16]:
+          - link "Projects" [ref=f94e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f94e18]:
+          - link "Helpdesk Command Center" [ref=f94e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f94e20]:
+          - link "Administration" [ref=f94e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f94e22]:
+          - link "Help" [ref=f94e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f94e24]:
+      - generic [ref=f94e25]:
+        - generic [ref=f94e26]:
+          - generic [ref=f94e27]:
+            - link "Search" [ref=f94e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f94e29]
+        - generic [ref=f94e30]:
+          - generic [ref=f94e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f94e32]
+    - generic [ref=f94e33]:
+      - list [ref=f94e37]:
+        - listitem [ref=f94e38]:
+          - link "Helpdesk Dashboard" [ref=f94e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f94e42]:
+          - link "Helpdesk Tickets" [ref=f94e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f94e46]:
+          - link "Reports" [ref=f94e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f94e50]:
+          - link "Organization" [ref=f94e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f94e54]:
+          - link "Customers" [ref=f94e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f94e58]:
+          - link "Products" [ref=f94e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f94e62]:
+          - link "Helpdesk Settings" [ref=f94e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f94e66]:
+        - heading "New Customer" [level=2] [ref=f94e67]
+        - generic [ref=f94e68]:
+          - generic [ref=f94e69]:
+            - paragraph [ref=f94e70]:
+              - generic [ref=f94e71]: Login *
+              - textbox "Login *" [ref=f94e72]: globex.hd.contact
+              - emphasis [ref=f94e73]: Login must be at least 2 characters long
+            - paragraph [ref=f94e74]:
+              - generic [ref=f94e75]: First name *
+              - textbox "First name *" [ref=f94e76]: Globex
+            - paragraph [ref=f94e77]:
+              - generic [ref=f94e78]: Last name *
+              - textbox "Last name *" [ref=f94e79]: HDContact
+            - paragraph [ref=f94e80]:
+              - generic [ref=f94e81]: Email *
+              - textbox "Email *" [ref=f94e82]: globex.hd.contact@example.com
+            - generic [ref=f94e83]:
+              - paragraph [ref=f94e84]:
+                - generic [ref=f94e85]: Password *
+                - textbox "Password *" [ref=f94e86]: Test@12345
+              - paragraph [ref=f94e87]:
+                - generic [ref=f94e88]: Confirmation *
+                - textbox "Confirmation *" [active] [ref=f94e89]: Test@12345
+            - paragraph [ref=f94e90]:
+              - checkbox "Generate password automatically" [ref=f94e91]
+              - generic [ref=f94e92]: Generate password automatically
+            - paragraph [ref=f94e93]:
+              - checkbox "Send account information to the user" [checked] [disabled] [ref=f94e94]
+              - generic [ref=f94e95]: Send account information to the user
+          - group "Project access" [ref=f94e96]:
+            - paragraph [ref=f94e98]: Projects this customer can raise tickets against, and the SLA, support level and organisation that apply on each. Leave empty to create the account without project access.
+            - generic [ref=f94e100]:
+              - generic [ref=f94e101]:
+                - generic [ref=f94e102]: Project
+                - combobox [ref=f94e103]:
+                  - option "-- Select project --"
+                  - option "Agile Board Project"
+                  - option "Helpdesk Service Desk" [selected]
+              - generic [ref=f94e104]:
+                - generic [ref=f94e105]: SLA Name *
+                - combobox [ref=f94e106]:
+                  - option "none"
+                  - option "Agile Priority SLA" [disabled]
+                  - option "Agile Standard SLA" [disabled]
+                  - option "Priority SLA" [selected]
+                  - option "Standard SLA"
+              - generic [ref=f94e107]:
+                - generic [ref=f94e108]: Support Level *
+                - combobox [ref=f94e109]:
+                  - option "none"
+                  - option "AB-L1" [disabled]
+                  - option "AB-L2" [disabled]
+                  - option "L1"
+                  - option "L2" [selected]
+                  - option "L3"
+              - generic [ref=f94e110]:
+                - generic [ref=f94e111]: Organization Name
+                - combobox [ref=f94e112]:
+                  - option "none" [selected]
+                  - option "Acme Corp"
+                  - option "Globex Industries"
+              - button "Delete" [ref=f94e113] [cursor=pointer]
+            - paragraph [ref=f94e117]:
+              - button "Add project" [ref=f94e118] [cursor=pointer]
+          - paragraph [ref=f94e120]:
+            - button "Create" [ref=f94e121] [cursor=pointer]
+            - link "Cancel" [ref=f94e122] [cursor=pointer]:
+              - /url: /rf_helpdesk/customers
+    - generic [ref=f94e123]:
+      - text: Powered by
+      - link "Redmine" [ref=f94e124] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f94e125]
+  - log [ref=f94e126]
+  - log [ref=f94e127]
+  - log [ref=f94e128]
+  - log [ref=f94e129]
+  - log [ref=f94e130]
+  - log [ref=f94e131]
+  - log [ref=f94e132]
+  - log [ref=f94e133]
+  - log [ref=f94e134]
+  - log [ref=f94e135]
+  - log [ref=f94e136]
+  - log [ref=f94e137]
+  - log [ref=f94e138]
+  - log [ref=f94e139]
+  - log [ref=f94e140]
+  - log [ref=f94e141]
+  - log [ref=f94e142]
+  - log [ref=f94e143]

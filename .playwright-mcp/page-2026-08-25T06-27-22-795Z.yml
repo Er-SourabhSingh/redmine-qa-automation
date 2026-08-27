@@ -1,0 +1,184 @@
+- generic [ref=f102e1]:
+  - generic [ref=f102e2]:
+    - generic [ref=f102e3]:
+      - generic [ref=f102e4]:
+        - list:
+          - listitem [ref=f102e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f102e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f102e7]:
+        - text: Logged in as
+        - link "admin" [ref=f102e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f102e9]:
+        - listitem [ref=f102e10]:
+          - link [ref=f102e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f102e12]
+        - listitem [ref=f102e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f102e14]:
+          - link "My page" [ref=f102e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f102e16]:
+          - link "Projects" [ref=f102e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f102e18]:
+          - link "Helpdesk Command Center" [ref=f102e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f102e20]:
+          - link "Administration" [ref=f102e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f102e22]:
+          - link "Help" [ref=f102e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f102e24]:
+      - generic [ref=f102e25]:
+        - generic [ref=f102e26]:
+          - generic [ref=f102e27]:
+            - link "Search" [ref=f102e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f102e29]
+        - generic [ref=f102e30]:
+          - generic [ref=f102e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f102e32]
+    - generic [ref=f102e33]:
+      - list [ref=f102e37]:
+        - listitem [ref=f102e38]:
+          - link "Helpdesk Dashboard" [ref=f102e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f102e42]:
+          - link "Helpdesk Tickets" [ref=f102e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f102e46]:
+          - link "Reports" [ref=f102e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f102e50]:
+          - link "Organization" [ref=f102e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f102e54]:
+          - link "Customers" [ref=f102e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f102e58]:
+          - link "Products" [ref=f102e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f102e62]:
+          - link "Helpdesk Settings" [ref=f102e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f102e66]:
+        - generic [ref=f102e67]: Successful creation.
+        - generic [ref=f102e70]:
+          - heading "Helpdesk Settings" [level=2] [ref=f102e71]
+          - paragraph [ref=f102e72]: Holidays, products, SLA policies and canned responses
+        - list [ref=f102e74]:
+          - listitem [ref=f102e75]:
+            - link "Holiday" [ref=f102e76] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f102e77]:
+            - link "Products" [ref=f102e78] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f102e79]:
+            - link "Email Configuration" [ref=f102e80] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f102e81]:
+            - link "Canned Responses" [ref=f102e82] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+          - listitem [ref=f102e83]:
+            - link "Support Packages" [ref=f102e84] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+        - generic [ref=f102e85]:
+          - generic [ref=f102e87]:
+            - textbox "Search support packages..." [active] [ref=f102e89]
+            - generic [ref=f102e90]:
+              - button "Apply Filters" [ref=f102e91] [cursor=pointer]
+              - link "Clear" [ref=f102e94] [cursor=pointer]:
+                - /url: /rf_helpdesk/setting?tab=support_packages
+          - generic [ref=f102e99]:
+            - generic [ref=f102e100]:
+              - heading "Support Packages" [level=3] [ref=f102e101]
+              - link "New Support Package" [ref=f102e103] [cursor=pointer]:
+                - /url: /rf_helpdesk_support_packages/new
+            - table [ref=f102e105]:
+              - rowgroup [ref=f102e106]:
+                - row [ref=f102e107]:
+                  - columnheader "S.No" [ref=f102e108]
+                  - columnheader "Name" [ref=f102e109]
+                  - columnheader "Description" [ref=f102e110]
+                  - columnheader "Active" [ref=f102e111]
+                  - columnheader "Action" [ref=f102e112]
+              - rowgroup [ref=f102e113]:
+                - row [ref=f102e114]:
+                  - cell "1" [ref=f102e115]
+                  - cell "Premium Support" [ref=f102e116]
+                  - cell "Prepaid premium support hours package with priority handling." [ref=f102e117]
+                  - cell "Active" [ref=f102e118]
+                  - cell [ref=f102e124]:
+                    - generic [ref=f102e125]:
+                      - link "Edit" [ref=f102e126] [cursor=pointer]:
+                        - /url: /rf_helpdesk_support_packages/1/edit
+                      - link "Delete" [ref=f102e129] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f102e133]:
+                  - cell "2" [ref=f102e134]
+                  - cell "Standard Support" [ref=f102e135]
+                  - cell "Prepaid standard support hours package, business hours only." [ref=f102e136]
+                  - cell "Active" [ref=f102e137]
+                  - cell [ref=f102e143]:
+                    - generic [ref=f102e144]:
+                      - link "Edit" [ref=f102e145] [cursor=pointer]:
+                        - /url: /rf_helpdesk_support_packages/2/edit
+                      - link "Delete" [ref=f102e148] [cursor=pointer]:
+                        - /url: javascript:void(0)
+    - generic [ref=f102e152]:
+      - text: Powered by
+      - link "Redmine" [ref=f102e153] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f102e154]
+  - log [ref=f102e155]
+  - log [ref=f102e156]
+  - log [ref=f102e157]
+  - log [ref=f102e158]
+  - log [ref=f102e159]
+  - log [ref=f102e160]
+  - log [ref=f102e161]
+  - log [ref=f102e162]
+  - log [ref=f102e163]
+  - log [ref=f102e164]
+  - log [ref=f102e165]
+  - log [ref=f102e166]
+  - log [ref=f102e167]
+  - log [ref=f102e168]
+  - log [ref=f102e169]
+  - log [ref=f102e170]
+  - log [ref=f102e171]
+  - log [ref=f102e172]
+  - log [ref=f102e173]
+  - log [ref=f102e174]
+  - log [ref=f102e175]
+  - log [ref=f102e176]
+  - log [ref=f102e177]
+  - log [ref=f102e178]
+  - log [ref=f102e179]
+  - log [ref=f102e180]
+  - log [ref=f102e181]
+  - log [ref=f102e182]
+  - log [ref=f102e183]
+  - log [ref=f102e184]
+  - log [ref=f102e185]
+  - log [ref=f102e186]
+  - log [ref=f102e187]
+  - log [ref=f102e188]
+  - log [ref=f102e189]
+  - log [ref=f102e190]
+  - log [ref=f102e191]
+  - log [ref=f102e192]
+  - log [ref=f102e193]
+  - log [ref=f102e194]
+  - log [ref=f102e195]

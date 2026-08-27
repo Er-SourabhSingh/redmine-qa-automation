@@ -1,0 +1,153 @@
+- generic [ref=f206e1]:
+  - generic [ref=f206e2]:
+    - generic [ref=f206e3]:
+      - generic [ref=f206e4]:
+        - list:
+          - listitem [ref=f206e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f206e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f206e7]:
+        - text: Logged in as
+        - link "admin" [ref=f206e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f206e9]:
+        - listitem [ref=f206e10]:
+          - link [ref=f206e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f206e12]
+        - listitem [ref=f206e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f206e14]:
+          - link "My page" [ref=f206e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f206e16]:
+          - link "Projects" [ref=f206e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f206e18]:
+          - link "Helpdesk Command Center" [ref=f206e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f206e20]:
+          - link "Administration" [ref=f206e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f206e22]:
+          - link "Help" [ref=f206e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f206e24]:
+      - generic [ref=f206e25]:
+        - generic [ref=f206e26]:
+          - generic [ref=f206e27]:
+            - link "Search" [ref=f206e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f206e29]
+        - generic [ref=f206e30]:
+          - generic [ref=f206e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f206e32]
+    - generic [ref=f206e33]:
+      - list [ref=f206e37]:
+        - listitem [ref=f206e38]:
+          - link "Helpdesk Dashboard" [ref=f206e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f206e42]:
+          - link "Helpdesk Tickets" [ref=f206e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f206e46]:
+          - link "Reports" [ref=f206e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f206e50]:
+          - link "Organization" [ref=f206e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f206e54]:
+          - link "Customers" [ref=f206e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f206e58]:
+          - link "Products" [ref=f206e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f206e62]:
+          - link "Helpdesk Settings" [ref=f206e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f206e66]:
+        - generic [ref=f206e67]: Successful creation.
+        - generic [ref=f206e68]:
+          - generic [ref=f206e70]:
+            - heading "Helpdesk SLA" [level=2] [ref=f206e71]
+            - paragraph [ref=f206e72]: An SLA policy sets the response and resolution targets for a ticket.
+          - link "New SLA" [ref=f206e74] [cursor=pointer]:
+            - /url: /rf_slas/new
+        - generic [ref=f206e77]:
+          - textbox "Search SLAs..." [active] [ref=f206e79]
+          - combobox "All Statuses" [ref=f206e80] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f206e81]:
+            - button "Apply Filters" [ref=f206e82] [cursor=pointer]
+            - link "Clear" [ref=f206e85] [cursor=pointer]:
+              - /url: /rf_slas
+        - table [ref=f206e91]:
+          - rowgroup [ref=f206e92]:
+            - row [ref=f206e93]:
+              - columnheader "S.No" [ref=f206e94]
+              - columnheader "SLA Name" [ref=f206e95]
+              - columnheader "Created By" [ref=f206e96]
+              - columnheader "Created" [ref=f206e97]
+              - columnheader "Updated By" [ref=f206e98]
+              - columnheader "Updated" [ref=f206e99]
+              - columnheader "SLA Agreement" [ref=f206e100]
+              - columnheader "Active" [ref=f206e101]
+              - columnheader "Action" [ref=f206e102]
+          - rowgroup [ref=f206e103]:
+            - row [ref=f206e104]:
+              - cell "1" [ref=f206e105]
+              - cell [ref=f206e106]:
+                - link "Standard" [ref=f206e107] [cursor=pointer]:
+                  - /url: /rf_slas/1
+              - cell "Redmine Admin" [ref=f206e108]
+              - cell "08/24/2026 08:12 AM" [ref=f206e109]
+              - cell "Redmine Admin" [ref=f206e110]
+              - cell "08/24/2026 08:12 AM" [ref=f206e111]
+              - cell "—" [ref=f206e112]
+              - cell [ref=f206e113]:
+                - checkbox "Active" [checked] [ref=f206e114]
+              - cell [ref=f206e115]:
+                - generic [ref=f206e116]:
+                  - link "History" [ref=f206e117] [cursor=pointer]:
+                    - /url: /rf_slas/1/history
+                  - link "Edit" [ref=f206e122] [cursor=pointer]:
+                    - /url: /rf_slas/1/edit
+                  - link "Delete" [ref=f206e125] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f206e129]:
+          - list
+          - generic [ref=f206e130]: (1-1/1)
+    - generic [ref=f206e131]:
+      - text: Powered by
+      - link "Redmine" [ref=f206e132] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f206e133]
+  - log [ref=f206e134]
+  - log [ref=f206e135]
+  - log [ref=f206e136]
+  - log [ref=f206e137]
+  - log [ref=f206e138]
+  - log [ref=f206e139]
+  - log [ref=f206e140]
+  - log [ref=f206e141]
+  - log [ref=f206e142]
+  - log [ref=f206e143]
+  - log [ref=f206e144]
+  - log [ref=f206e145]
+  - log [ref=f206e146]
+  - log [ref=f206e147]
+  - log [ref=f206e148]
+  - log [ref=f206e149]
+  - log [ref=f206e150]
+  - log [ref=f206e151]
+  - log [ref=f206e152]
+  - log [ref=f206e153]

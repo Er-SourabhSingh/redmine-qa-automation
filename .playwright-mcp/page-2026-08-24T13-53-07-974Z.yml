@@ -1,0 +1,266 @@
+- generic [active] [ref=f17e1]:
+  - generic [ref=f17e2]:
+    - generic [ref=f17e3]:
+      - generic [ref=f17e4]:
+        - list:
+          - listitem [ref=f17e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f17e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f17e7]:
+        - text: Logged in as
+        - link "admin" [ref=f17e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f17e9]:
+        - listitem [ref=f17e10]:
+          - link [ref=f17e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f17e12]
+        - listitem [ref=f17e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f17e14]:
+          - link "My page" [ref=f17e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f17e16]:
+          - link "Projects" [ref=f17e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f17e18]:
+          - link "Helpdesk Command Center" [ref=f17e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f17e20]:
+          - link "Administration" [ref=f17e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f17e22]:
+          - link "Help" [ref=f17e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f17e24]:
+      - generic [ref=f17e25]:
+        - generic [ref=f17e26]:
+          - generic [ref=f17e27]:
+            - link "Search" [ref=f17e28] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Search:" [ref=f17e29]
+        - generic [ref=f17e30]:
+          - generic [ref=f17e31] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f17e32]
+      - generic [ref=f17e33]:
+        - list [ref=f17e34]:
+          - listitem [ref=f17e35]:
+            - link "+" [ref=f17e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f17e37]:
+            - link "Overview" [ref=f17e38] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f17e39]:
+            - link "Activity" [ref=f17e40] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f17e41]:
+            - link "Roadmap" [ref=f17e42] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f17e43]:
+            - link "Issues" [ref=f17e44] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f17e45]:
+            - link "Spent time" [ref=f17e46] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f17e47]:
+            - link "Gantt" [ref=f17e48] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f17e49]:
+            - link "Calendar" [ref=f17e50] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f17e51]:
+            - link "News" [ref=f17e52] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f17e53]:
+            - link "Documents" [ref=f17e54] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f17e55]:
+            - link "Wiki" [ref=f17e56] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f17e57]:
+            - link "Files" [ref=f17e58] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f17e59]:
+            - link "Helpdesk" [ref=f17e60] [cursor=pointer]:
+              - /url: /projects/agileboard/helpdesk
+          - listitem [ref=f17e61]:
+            - link "Settings" [ref=f17e62] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f17e63]:
+          - button [ref=f17e64] [cursor=pointer]
+          - button [ref=f17e65] [cursor=pointer]
+    - generic [ref=f17e67]:
+      - generic [ref=f17e68]:
+        - link "Reply" [ref=f17e69] [cursor=pointer]:
+          - /url: "#"
+        - link "Edit" [ref=f17e70] [cursor=pointer]:
+          - /url: /issues/271/edit
+        - link "Log time" [ref=f17e72] [cursor=pointer]:
+          - /url: /issues/271/time_entries/new
+        - link "Watch" [ref=f17e74] [cursor=pointer]:
+          - /url: /watchers/watch?object_id=271&object_type=issue
+        - link "Copy" [ref=f17e76] [cursor=pointer]:
+          - /url: /projects/agileboard/issues/271/copy
+        - generic "Actions" [ref=f17e80] [cursor=pointer]
+      - 'heading "Support #271" [level=2] [ref=f17e82]'
+      - text: open
+      - generic [ref=f17e83]:
+        - heading "Customer login and ticket-raising test" [level=3] [ref=f17e86]
+        - paragraph [ref=f17e87]:
+          - text: Added by
+          - link "Login TestCustomer" [ref=f17e88] [cursor=pointer]:
+            - /url: /users/30
+          - link "2 minutes" [ref=f17e89] [cursor=pointer]:
+            - /url: /projects/agileboard/activity?from=2026-08-24
+          - text: ago.
+        - generic [ref=f17e90]:
+          - generic [ref=f17e91]:
+            - generic [ref=f17e92]:
+              - generic [ref=f17e93]:
+                - generic [ref=f17e94]: "Status:"
+                - generic [ref=f17e95]: New
+              - generic [ref=f17e96]:
+                - generic [ref=f17e97]: "Priority:"
+                - generic [ref=f17e98]: Normal
+              - generic [ref=f17e99]:
+                - generic [ref=f17e100]: "Assignee:"
+                - generic [ref=f17e101]: "-"
+              - generic [ref=f17e102]:
+                - generic [ref=f17e103]: "Target version:"
+                - generic [ref=f17e104]: "-"
+            - generic [ref=f17e105]:
+              - generic [ref=f17e106]:
+                - generic [ref=f17e107]: "Start date:"
+                - generic [ref=f17e108]: 08/24/2026
+              - generic [ref=f17e109]: "Due date:"
+              - generic [ref=f17e111]:
+                - generic [ref=f17e112]: "% Done:"
+                - generic [ref=f17e113]:
+                  - table [ref=f17e114]:
+                    - rowgroup [ref=f17e115]:
+                      - row [ref=f17e116]:
+                        - cell [ref=f17e117]
+                  - paragraph [ref=f17e118]: 0%
+              - generic [ref=f17e119]: "Estimated time:"
+          - generic [ref=f17e121]:
+            - generic [ref=f17e122]: "Product:"
+            - generic [ref=f17e123]: "-"
+          - generic [ref=f17e124]:
+            - generic [ref=f17e125]: "Organization:"
+            - generic [ref=f17e126]: tes
+          - generic [ref=f17e127]:
+            - generic [ref=f17e128]: "Customer:"
+            - generic [ref=f17e129]:
+              - link "Login TestCustomer" [ref=f17e130] [cursor=pointer]:
+                - /url: /rf_customers/30
+              - link "View portal" [ref=f17e131] [cursor=pointer]:
+                - /url: /rf_customers/30/portal?project_id=7
+          - generic [ref=f17e132]:
+            - generic [ref=f17e133]: "Prepaid Support Hours:"
+            - generic [ref=f17e134]:
+              - text: 0.00h used ·
+              - strong [ref=f17e135]: 9.00h left
+              - text: of 9.00h
+        - separator [ref=f17e136]
+        - generic [ref=f17e137]:
+          - link "Quote" [ref=f17e139] [cursor=pointer]:
+            - /url: "#"
+          - paragraph [ref=f17e141]:
+            - strong [ref=f17e142]: Description
+          - paragraph [ref=f17e144]: Verifying a new Helpdesk customer can log in and raise a ticket end-to-end.
+        - separator [ref=f17e145]
+        - generic [ref=f17e146]:
+          - link "Add" [ref=f17e148] [cursor=pointer]:
+            - /url: /projects/agileboard/issues/new?back_url=%2Fissues%2F271&issue%5Bparent_issue_id%5D=271&issue%5Btracker_id%5D=6
+          - paragraph [ref=f17e149]:
+            - strong [ref=f17e150]: Subtasks
+        - separator [ref=f17e151]
+        - generic [ref=f17e152]:
+          - link "Add" [ref=f17e154] [cursor=pointer]:
+            - /url: "#"
+          - paragraph [ref=f17e155]:
+            - strong [ref=f17e156]: Related issues
+      - generic [ref=f17e158]:
+        - link "Edit" [ref=f17e159] [cursor=pointer]:
+          - /url: /issues/271/edit
+        - link "Log time" [ref=f17e161] [cursor=pointer]:
+          - /url: /issues/271/time_entries/new
+        - link "Watch" [ref=f17e163] [cursor=pointer]:
+          - /url: /watchers/watch?object_id=271&object_type=issue
+        - link "Copy" [ref=f17e165] [cursor=pointer]:
+          - /url: /projects/agileboard/issues/271/copy
+        - generic "Actions" [ref=f17e169] [cursor=pointer]
+      - text: pre pre
+      - paragraph [ref=f17e171]:
+        - text: "Also available in:"
+        - link "Atom" [ref=f17e173] [cursor=pointer]:
+          - /url: /issues/271.atom?key=b7131d44c18910b1563070c3bc02f1df7cbb1a34
+        - generic [ref=f17e174]:
+          - text: "|"
+          - link "PDF" [ref=f17e175] [cursor=pointer]:
+            - /url: /issues/271.pdf
+    - generic [ref=f17e176]:
+      - text: Powered by
+      - link "Redmine" [ref=f17e177] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f17e178]
+  - log [ref=f17e179]
+  - log [ref=f17e180]
+  - log [ref=f17e181]
+  - log [ref=f17e182]
+  - log [ref=f17e183]
+  - log [ref=f17e184]
+  - log [ref=f17e185]
+  - log [ref=f17e186]
+  - log [ref=f17e187]
+  - log [ref=f17e188]
+  - log [ref=f17e189]
+  - log [ref=f17e190]
+  - log [ref=f17e191]
+  - log [ref=f17e192]
+  - log [ref=f17e193]
+  - log [ref=f17e194]
+  - log [ref=f17e195]
+  - log [ref=f17e196]
+  - log [ref=f17e197]
+  - log [ref=f17e198]
+  - log [ref=f17e199]
+  - log [ref=f17e200]
+  - log [ref=f17e201]
+  - log [ref=f17e202]
+  - log [ref=f17e203]
+  - log [ref=f17e204]
+  - log [ref=f17e205]
+  - log [ref=f17e206]
+  - log [ref=f17e207]
+  - log [ref=f17e208]
+  - log [ref=f17e209]
+  - log [ref=f17e210]
+  - log [ref=f17e211]
+  - log [ref=f17e212]
+  - log [ref=f17e213]
+  - log [ref=f17e214]
+  - log [ref=f17e215]
+  - log [ref=f17e216]
+  - log [ref=f17e217]
+  - log [ref=f17e218]
+  - log [ref=f17e219]
+  - log [ref=f17e220]
+  - log [ref=f17e221]
+  - log [ref=f17e222]
+  - log [ref=f17e223]
+  - log [ref=f17e224]
+  - log [ref=f17e225]
+  - log [ref=f17e226]
+  - log [ref=f17e227]
+  - log [ref=f17e228]
+  - log [ref=f17e229]
+  - status [ref=f17e230]
+  - status [ref=f17e231]

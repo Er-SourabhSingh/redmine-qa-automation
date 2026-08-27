@@ -1,0 +1,316 @@
+- generic [active] [ref=f10e1]:
+  - generic [ref=f10e2]:
+    - generic [ref=f10e3]:
+      - generic [ref=f10e4]:
+        - list:
+          - listitem [ref=f10e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f10e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f10e7]:
+        - text: Logged in as
+        - link "admin" [ref=f10e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f10e9]:
+        - listitem [ref=f10e10]:
+          - link [ref=f10e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f10e12]
+        - listitem [ref=f10e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f10e14]:
+          - link "My page" [ref=f10e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f10e16]:
+          - link "Projects" [ref=f10e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f10e18]:
+          - link "Flux Gantt" [ref=f10e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f10e20]:
+          - link "Helpdesk Command Center" [ref=f10e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f10e22]:
+          - link "Time Tracker" [ref=f10e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f10e24]:
+          - link "Timesheet" [ref=f10e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f10e26]:
+          - link "Workloads" [ref=f10e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f10e28]:
+          - link "More" [ref=f10e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f10e30]:
+      - generic [ref=f10e31]:
+        - generic [ref=f10e32]:
+          - generic [ref=f10e33]:
+            - link "Search..." [ref=f10e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f10e35]
+        - generic [ref=f10e36]:
+          - generic [ref=f10e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f10e38]
+    - generic [ref=f10e39]:
+      - list [ref=f10e43]:
+        - listitem [ref=f10e44]:
+          - link "Helpdesk Dashboard" [ref=f10e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f10e48]:
+          - link "Helpdesk Tickets" [ref=f10e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f10e52]:
+          - link "Reports" [ref=f10e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f10e56]:
+          - link "Organization" [ref=f10e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f10e60]:
+          - link "Customers" [ref=f10e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f10e64]:
+          - link "Products" [ref=f10e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f10e68]:
+          - link "Helpdesk Settings" [ref=f10e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f10e73]:
+        - generic [ref=f10e74]:
+          - generic [ref=f10e76]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f10e77]
+            - paragraph [ref=f10e78]: 9 tickets
+          - link "New issue" [ref=f10e80] [cursor=pointer]:
+            - /url: /issue_helpdesks/new
+        - button "Filters" [ref=f10e83] [cursor=pointer]
+        - table [ref=f10e91]:
+          - rowgroup [ref=f10e92]:
+            - row [ref=f10e93]:
+              - columnheader [ref=f10e94]:
+                - 'link "Ticket #" [ref=f10e95] [cursor=pointer]':
+                  - /url: /rf_helpdesk/issues?dir=asc&sort=id
+              - columnheader [ref=f10e96]:
+                - link "Subject" [ref=f10e97] [cursor=pointer]:
+                  - /url: /rf_helpdesk/issues?dir=asc&sort=subject
+              - columnheader "Customer" [ref=f10e98]
+              - columnheader "Organization Name" [ref=f10e99]
+              - columnheader [ref=f10e100]:
+                - link "Status" [ref=f10e101] [cursor=pointer]:
+                  - /url: /rf_helpdesk/issues?dir=asc&sort=status
+              - columnheader [ref=f10e102]:
+                - link "Priority" [ref=f10e103] [cursor=pointer]:
+                  - /url: /rf_helpdesk/issues?dir=asc&sort=priority
+              - columnheader "Assignee" [ref=f10e104]
+              - columnheader "SLA Status" [ref=f10e105]
+              - columnheader [ref=f10e106]:
+                - link "Updated ▼" [ref=f10e107] [cursor=pointer]:
+                  - /url: /rf_helpdesk/issues?dir=asc&sort=updated_on
+          - rowgroup [ref=f10e108]:
+            - row [ref=f10e109]:
+              - cell [ref=f10e110]:
+                - link "#75" [ref=f10e111] [cursor=pointer]:
+                  - /url: /issues/75
+              - cell [ref=f10e112]:
+                - link "[TICKET] TC-HLP-021 - unassigned ticket for auto-assign-on-reply check" [ref=f10e113] [cursor=pointer]:
+                  - /url: /issues/75
+              - cell "—" [ref=f10e114]
+              - cell "—" [ref=f10e115]
+              - cell "Waiting for Customer Response" [ref=f10e116]
+              - cell "Normal" [ref=f10e119]
+              - cell "Luna Blossom" [ref=f10e122]
+              - cell "▮▮ Paused" [ref=f10e123]:
+                - generic [ref=f10e124]:
+                  - generic [ref=f10e125]: ▮▮
+                  - text: Paused
+              - cell "08/27/2026 09:19 AM" [ref=f10e126]
+            - row [ref=f10e127]:
+              - cell [ref=f10e128]:
+                - link "#74" [ref=f10e129] [cursor=pointer]:
+                  - /url: /issues/74
+              - cell [ref=f10e130]:
+                - link "[TICKET] TC-HLP-015 - customer-raised ticket, cannot access my dashboard" [ref=f10e131] [cursor=pointer]:
+                  - /url: /issues/74
+              - cell [ref=f10e132]:
+                - link "Alpha Customer" [ref=f10e133] [cursor=pointer]:
+                  - /url: /rf_customers/15
+              - cell "Alpha Org" [ref=f10e134]
+              - cell "In Progress" [ref=f10e135]
+              - cell "Normal" [ref=f10e138]
+              - cell "Luna Blossom" [ref=f10e141]
+              - cell "23h 59m On Track" [ref=f10e142]:
+                - generic "23h 59m Remaining" [ref=f10e143]:
+                  - text: 23h 59m
+                  - generic [ref=f10e145]: On Track
+              - cell "08/27/2026 09:14 AM" [ref=f10e146]
+            - row [ref=f10e147]:
+              - cell [ref=f10e148]:
+                - link "#72" [ref=f10e149] [cursor=pointer]:
+                  - /url: /issues/72
+              - cell [ref=f10e150]:
+                - link "[TICKET] TC-HLP-013 - agent-created ticket via global Command Center New Issue" [ref=f10e151] [cursor=pointer]:
+                  - /url: /issues/72
+              - cell "—" [ref=f10e152]
+              - cell "—" [ref=f10e153]
+              - cell "New" [ref=f10e154]
+              - cell "Urgent" [ref=f10e157]
+              - cell "Ivy Sterling" [ref=f10e160]
+              - cell "3h 34m On Track" [ref=f10e161]:
+                - generic "3h 34m Remaining" [ref=f10e162]:
+                  - text: 3h 34m
+                  - generic [ref=f10e164]: On Track
+              - cell "08/27/2026 09:02 AM" [ref=f10e165]
+            - row [ref=f10e166]:
+              - cell [ref=f10e167]:
+                - link "#71" [ref=f10e168] [cursor=pointer]:
+                  - /url: /issues/71
+              - cell [ref=f10e169]:
+                - link "[TICKET] TC-HLP-014 - agent-created ticket via project Helpdesk New Issue" [ref=f10e170] [cursor=pointer]:
+                  - /url: /issues/71
+              - cell "—" [ref=f10e171]
+              - cell "—" [ref=f10e172]
+              - cell "Waiting for Customer Response" [ref=f10e173]
+              - cell "High" [ref=f10e176]
+              - cell "Luna Blossom" [ref=f10e179]
+              - cell "▮▮ Paused" [ref=f10e180]:
+                - generic [ref=f10e181]:
+                  - generic [ref=f10e182]: ▮▮
+                  - text: Paused
+              - cell "08/27/2026 09:01 AM" [ref=f10e183]
+            - row [ref=f10e184]:
+              - cell [ref=f10e185]:
+                - link "#67" [ref=f10e186] [cursor=pointer]:
+                  - /url: /issues/67
+              - cell [ref=f10e187]:
+                - 'link "[TICKET] Ticket: Cannot access my dashboard" [ref=f10e188] [cursor=pointer]':
+                  - /url: /issues/67
+              - cell [ref=f10e189]:
+                - link "Beta Customer" [ref=f10e190] [cursor=pointer]:
+                  - /url: /rf_customers/16
+              - cell "Beta Org" [ref=f10e191]
+              - cell "In Progress" [ref=f10e192]
+              - cell "Normal" [ref=f10e195]
+              - cell "Aurora Wren" [ref=f10e198]
+              - cell "▮▮ Paused" [ref=f10e199]:
+                - generic [ref=f10e200]:
+                  - generic [ref=f10e201]: ▮▮
+                  - text: Paused
+              - cell "08/27/2026 06:00 AM" [ref=f10e202]
+            - row [ref=f10e203]:
+              - cell [ref=f10e204]:
+                - link "#70" [ref=f10e205] [cursor=pointer]:
+                  - /url: /issues/70
+              - cell [ref=f10e206]:
+                - link "Verify Edit-form public note visibility and auto-status-transition" [ref=f10e207] [cursor=pointer]:
+                  - /url: /issues/70
+              - cell [ref=f10e208]:
+                - link "Beta Customer" [ref=f10e209] [cursor=pointer]:
+                  - /url: /rf_customers/16
+              - cell "Beta Org" [ref=f10e210]
+              - cell "Waiting for Customer Response" [ref=f10e211]
+              - cell "Normal" [ref=f10e214]
+              - cell "Redmine Admin" [ref=f10e217]
+              - cell "⚠ Breached +16h 53m ago" [ref=f10e218]:
+                - generic "+16h 53m ago" [ref=f10e219]:
+                  - generic [ref=f10e220]: ⚠
+                  - text: Breached
+              - cell "08/26/2026 12:34 PM" [ref=f10e222]
+            - row [ref=f10e223]:
+              - cell [ref=f10e224]:
+                - link "#69" [ref=f10e225] [cursor=pointer]:
+                  - /url: /issues/69
+              - cell [ref=f10e226]:
+                - 'link "BUG-HLP-006 retest: customer portal ticket open check adsf asd f" [ref=f10e227] [cursor=pointer]':
+                  - /url: /issues/69
+              - cell [ref=f10e228]:
+                - link "Beta Customer" [ref=f10e229] [cursor=pointer]:
+                  - /url: /rf_customers/16
+              - cell "Beta Org" [ref=f10e230]
+              - cell "In Progress" [ref=f10e231]
+              - cell "Normal" [ref=f10e234]
+              - cell "Unassigned" [ref=f10e237]
+              - cell "— No SLA" [ref=f10e238]:
+                - generic [ref=f10e239]:
+                  - generic [ref=f10e240]: —
+                  - text: No SLA
+              - cell "08/26/2026 12:13 PM" [ref=f10e241]
+            - row [ref=f10e242]:
+              - cell [ref=f10e243]:
+                - link "#66" [ref=f10e244] [cursor=pointer]:
+                  - /url: /issues/66
+              - cell [ref=f10e245]:
+                - link "Printer in break room is jammed" [ref=f10e246] [cursor=pointer]:
+                  - /url: /issues/66
+              - cell "—" [ref=f10e247]
+              - cell "—" [ref=f10e248]
+              - cell "New" [ref=f10e249]
+              - cell "Normal" [ref=f10e252]
+              - cell "Redmine Admin" [ref=f10e255]
+              - cell "⚠ Breached +20h 16m ago" [ref=f10e256]:
+                - generic "+20h 16m ago" [ref=f10e257]:
+                  - generic [ref=f10e258]: ⚠
+                  - text: Breached
+              - cell "08/26/2026 10:45 AM" [ref=f10e260]
+            - row [ref=f10e261]:
+              - cell [ref=f10e262]:
+                - link "#68" [ref=f10e263] [cursor=pointer]:
+                  - /url: /issues/68
+              - cell [ref=f10e264]:
+                - link "[TICKET] Just saying hello" [ref=f10e265] [cursor=pointer]:
+                  - /url: /issues/68
+              - cell [ref=f10e266]:
+                - link "Alpha Customer" [ref=f10e267] [cursor=pointer]:
+                  - /url: /rf_customers/15
+              - cell "Alpha Org" [ref=f10e268]
+              - cell "New" [ref=f10e269]
+              - cell "Normal" [ref=f10e272]
+              - cell "Unassigned" [ref=f10e275]
+              - cell "— No SLA" [ref=f10e276]:
+                - generic [ref=f10e277]:
+                  - generic [ref=f10e278]: —
+                  - text: No SLA
+              - cell "08/26/2026 10:23 AM" [ref=f10e279]
+        - generic [ref=f10e280]:
+          - list
+          - generic [ref=f10e281]: (1-9/9)
+    - generic [ref=f10e282]:
+      - text: Powered by
+      - link "Redmine" [ref=f10e283] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f10e284]
+  - log [ref=f10e285]
+  - log [ref=f10e286]
+  - log [ref=f10e287]
+  - log [ref=f10e288]
+  - log [ref=f10e289]
+  - log [ref=f10e290]
+  - log [ref=f10e291]
+  - log [ref=f10e292]
+  - log [ref=f10e293]
+  - log [ref=f10e294]
+  - log [ref=f10e295]
+  - log [ref=f10e296]
+  - log [ref=f10e297]
+  - log [ref=f10e298]
+  - log [ref=f10e299]
+  - log [ref=f10e300]
+  - log [ref=f10e301]
+  - log [ref=f10e302]
+  - log [ref=f10e303]
+  - log [ref=f10e304]
+  - log [ref=f10e305]
+  - log [ref=f10e306]
+  - log [ref=f10e307]
+  - log [ref=f10e308]
+  - log [ref=f10e309]
+  - log [ref=f10e310]
+  - log [ref=f10e311]
+  - log [ref=f10e312]
+  - log [ref=f10e313]
+  - log [ref=f10e314]
+  - log [ref=f10e315]

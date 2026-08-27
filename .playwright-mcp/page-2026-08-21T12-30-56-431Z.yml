@@ -1,0 +1,511 @@
+- generic [active] [ref=f37e1]:
+  - generic [ref=f37e2]:
+    - generic [ref=f37e3]:
+      - generic [ref=f37e4]:
+        - list:
+          - listitem [ref=f37e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f37e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f37e7]:
+        - text: Logged in as
+        - link "admin" [ref=f37e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f37e9]:
+        - listitem [ref=f37e10]:
+          - link [ref=f37e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f37e12]
+        - listitem [ref=f37e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f37e14]:
+          - link "My page" [ref=f37e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f37e16]:
+          - link "Projects" [ref=f37e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f37e18]:
+          - link "Helpdesk Command Center" [ref=f37e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f37e20]:
+          - link "Administration" [ref=f37e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f37e22]:
+          - link "Help" [ref=f37e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f37e24]:
+      - generic [ref=f37e25]:
+        - generic [ref=f37e26]:
+          - generic [ref=f37e27]:
+            - link "Search" [ref=f37e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f37e29]
+        - generic [ref=f37e30]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f37e32]
+    - generic [ref=f37e33]:
+      - generic [ref=f37e34]:
+        - link [ref=f37e36] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f37e39]:
+          - heading "Administration" [level=3] [ref=f37e40]
+          - list [ref=f37e42]:
+            - listitem [ref=f37e43]:
+              - link "Projects" [ref=f37e44] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f37e46]:
+              - link "Users" [ref=f37e47] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f37e49]:
+              - link "Groups" [ref=f37e50] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f37e52]:
+              - link "Roles and permissions" [ref=f37e53] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f37e55]:
+              - link "Trackers" [ref=f37e56] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f37e58]:
+              - link "Issue statuses" [ref=f37e59] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f37e61]:
+              - link "Workflow" [ref=f37e62] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f37e64]:
+              - link "Custom fields" [ref=f37e65] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f37e67]:
+              - link "Enumerations" [ref=f37e68] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f37e70]:
+              - link "Settings" [ref=f37e71] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f37e73]:
+              - link "LDAP authentication" [ref=f37e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f37e76]:
+              - link "Plugins" [ref=f37e77] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f37e79]:
+              - link "Information" [ref=f37e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f37e82]:
+        - generic [ref=f37e83]:
+          - link "New user" [ref=f37e84] [cursor=pointer]:
+            - /url: /users/new
+          - generic "Actions" [ref=f37e88] [cursor=pointer]
+        - heading "Users" [level=2] [ref=f37e90]
+        - generic [ref=f37e93]:
+          - group "Filters" [ref=f37e94]
+          - group "Options" [ref=f37e96]
+        - table [ref=f37e100]:
+          - rowgroup [ref=f37e101]:
+            - row [ref=f37e102]:
+              - columnheader [ref=f37e103]:
+                - checkbox "Check all / Uncheck all" [ref=f37e104]
+              - columnheader [ref=f37e105]:
+                - link "Login" [ref=f37e106] [cursor=pointer]:
+                  - /url: /users?sort=login%3Adesc
+              - columnheader [ref=f37e110]:
+                - link "First name" [ref=f37e111] [cursor=pointer]:
+                  - /url: /users?sort=firstname%2Clogin
+              - columnheader [ref=f37e112]:
+                - link "Last name" [ref=f37e113] [cursor=pointer]:
+                  - /url: /users?sort=lastname%2Clogin
+              - columnheader [ref=f37e114]:
+                - link "Email" [ref=f37e115] [cursor=pointer]:
+                  - /url: /users?sort=mail%2Clogin
+              - columnheader [ref=f37e116]:
+                - link "Administrator" [ref=f37e117] [cursor=pointer]:
+                  - /url: /users?sort=admin%2Clogin
+              - columnheader [ref=f37e118]:
+                - link "Created" [ref=f37e119] [cursor=pointer]:
+                  - /url: /users?sort=created_on%2Clogin
+              - columnheader [ref=f37e120]:
+                - link "Last sign in" [ref=f37e121] [cursor=pointer]:
+                  - /url: /users?sort=last_login_on%2Clogin
+              - columnheader [ref=f37e122]
+          - rowgroup [ref=f37e123]:
+            - row [ref=f37e124]:
+              - cell [ref=f37e125]:
+                - checkbox [ref=f37e126]
+              - cell [ref=f37e127]:
+                - link "admin" [ref=f37e128] [cursor=pointer]:
+                  - /url: /users/1/edit
+              - cell "Redmine" [ref=f37e129]
+              - cell "Admin" [ref=f37e130]
+              - cell "admin@example.net" [ref=f37e131]
+              - cell "Yes" [ref=f37e132]
+              - cell "08/21/2026 11:39 AM" [ref=f37e133]
+              - cell "08/21/2026 11:59 AM" [ref=f37e134]
+              - cell [ref=f37e135]:
+                - link "Actions" [ref=f37e136] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e138]:
+              - cell [ref=f37e139]:
+                - checkbox [ref=f37e140]
+              - cell [ref=f37e141]:
+                - link "aurora.wren" [ref=f37e142] [cursor=pointer]:
+                  - /url: /users/15/edit
+              - cell "Aurora" [ref=f37e143]
+              - cell "Wren" [ref=f37e144]
+              - cell "aurora.wren@zehntech.com" [ref=f37e145]
+              - cell "No" [ref=f37e146]
+              - cell "08/21/2026 11:41 AM" [ref=f37e147]
+              - cell [ref=f37e148]
+              - cell [ref=f37e149]:
+                - link "Actions" [ref=f37e150] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e152]:
+              - cell [ref=f37e153]:
+                - checkbox [ref=f37e154]
+              - cell [ref=f37e155]:
+                - link "autumn.grace" [ref=f37e156] [cursor=pointer]:
+                  - /url: /users/7/edit
+              - cell "Autumn" [ref=f37e157]
+              - cell "Grace" [ref=f37e158]
+              - cell "autumn.grace@zehntech.com" [ref=f37e159]
+              - cell "No" [ref=f37e160]
+              - cell "08/21/2026 11:41 AM" [ref=f37e161]
+              - cell [ref=f37e162]
+              - cell [ref=f37e163]:
+                - link "Actions" [ref=f37e164] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e166]:
+              - cell [ref=f37e167]:
+                - checkbox [ref=f37e168]
+              - cell [ref=f37e169]:
+                - link "briar.sunset" [ref=f37e170] [cursor=pointer]:
+                  - /url: /users/22/edit
+              - cell "Briar" [ref=f37e171]
+              - cell "Sunset" [ref=f37e172]
+              - cell "briar.sunset@zehntech.com" [ref=f37e173]
+              - cell "No" [ref=f37e174]
+              - cell "08/21/2026 11:41 AM" [ref=f37e175]
+              - cell [ref=f37e176]
+              - cell [ref=f37e177]:
+                - link "Actions" [ref=f37e178] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e180]:
+              - cell [ref=f37e181]:
+                - checkbox [ref=f37e182]
+              - cell [ref=f37e183]:
+                - link "celeste.dawn" [ref=f37e184] [cursor=pointer]:
+                  - /url: /users/12/edit
+              - cell "Celeste" [ref=f37e185]
+              - cell "Dawn" [ref=f37e186]
+              - cell "celeste.dawn@zehntech.com" [ref=f37e187]
+              - cell "No" [ref=f37e188]
+              - cell "08/21/2026 11:41 AM" [ref=f37e189]
+              - cell [ref=f37e190]
+              - cell [ref=f37e191]:
+                - link "Actions" [ref=f37e192] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e194]:
+              - cell [ref=f37e195]:
+                - checkbox [ref=f37e196]
+              - cell [ref=f37e197]:
+                - link "daisy.skye" [ref=f37e198] [cursor=pointer]:
+                  - /url: /users/6/edit
+              - cell "Daisy" [ref=f37e199]
+              - cell "Skye" [ref=f37e200]
+              - cell "daisy.skye@zehntech.com" [ref=f37e201]
+              - cell "No" [ref=f37e202]
+              - cell "08/21/2026 11:41 AM" [ref=f37e203]
+              - cell [ref=f37e204]
+              - cell [ref=f37e205]:
+                - link "Actions" [ref=f37e206] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e208]:
+              - cell [ref=f37e209]:
+                - checkbox [ref=f37e210]
+              - cell [ref=f37e211]:
+                - link "ember.lilac" [ref=f37e212] [cursor=pointer]:
+                  - /url: /users/20/edit
+              - cell "Ember" [ref=f37e213]
+              - cell "Lilac" [ref=f37e214]
+              - cell "ember.lilac@zehntech.com" [ref=f37e215]
+              - cell "No" [ref=f37e216]
+              - cell "08/21/2026 11:41 AM" [ref=f37e217]
+              - cell [ref=f37e218]
+              - cell [ref=f37e219]:
+                - link "Actions" [ref=f37e220] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e222]:
+              - cell [ref=f37e223]:
+                - checkbox [ref=f37e224]
+              - cell [ref=f37e225]:
+                - link "harmony.rose" [ref=f37e226] [cursor=pointer]:
+                  - /url: /users/9/edit
+              - cell "Harmony" [ref=f37e227]
+              - cell "Rose" [ref=f37e228]
+              - cell "harmony.rose@zehntech.com" [ref=f37e229]
+              - cell "No" [ref=f37e230]
+              - cell "08/21/2026 11:41 AM" [ref=f37e231]
+              - cell [ref=f37e232]
+              - cell [ref=f37e233]:
+                - link "Actions" [ref=f37e234] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e236]:
+              - cell [ref=f37e237]:
+                - checkbox [ref=f37e238]
+              - cell [ref=f37e239]:
+                - link "isla.moon" [ref=f37e240] [cursor=pointer]:
+                  - /url: /users/24/edit
+              - cell "Isla" [ref=f37e241]
+              - cell "Moon" [ref=f37e242]
+              - cell "isla.moon@zehntech.com" [ref=f37e243]
+              - cell "No" [ref=f37e244]
+              - cell "08/21/2026 11:41 AM" [ref=f37e245]
+              - cell [ref=f37e246]
+              - cell [ref=f37e247]:
+                - link "Actions" [ref=f37e248] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e250]:
+              - cell [ref=f37e251]:
+                - checkbox [ref=f37e252]
+              - cell [ref=f37e253]:
+                - link "ivy.skylark" [ref=f37e254] [cursor=pointer]:
+                  - /url: /users/16/edit
+              - cell "Ivy" [ref=f37e255]
+              - cell "Skylark" [ref=f37e256]
+              - cell "ivy.skylark@zehntech.com" [ref=f37e257]
+              - cell "No" [ref=f37e258]
+              - cell "08/21/2026 11:41 AM" [ref=f37e259]
+              - cell [ref=f37e260]
+              - cell [ref=f37e261]:
+                - link "Actions" [ref=f37e262] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e264]:
+              - cell [ref=f37e265]:
+                - checkbox [ref=f37e266]
+              - cell [ref=f37e267]:
+                - link "luna.blossom" [ref=f37e268] [cursor=pointer]:
+                  - /url: /users/5/edit
+              - cell "Luna" [ref=f37e269]
+              - cell "Blossom" [ref=f37e270]
+              - cell "luna.blossom@zehntech.com" [ref=f37e271]
+              - cell "No" [ref=f37e272]
+              - cell "08/21/2026 11:41 AM" [ref=f37e273]
+              - cell [ref=f37e274]
+              - cell [ref=f37e275]:
+                - link "Actions" [ref=f37e276] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e278]:
+              - cell [ref=f37e279]:
+                - checkbox [ref=f37e280]
+              - cell [ref=f37e281]:
+                - link "luna.meadow" [ref=f37e282] [cursor=pointer]:
+                  - /url: /users/17/edit
+              - cell "Luna" [ref=f37e283]
+              - cell "Meadow" [ref=f37e284]
+              - cell "luna.meadow@zehntech.com" [ref=f37e285]
+              - cell "No" [ref=f37e286]
+              - cell "08/21/2026 11:41 AM" [ref=f37e287]
+              - cell [ref=f37e288]
+              - cell [ref=f37e289]:
+                - link "Actions" [ref=f37e290] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e292]:
+              - cell [ref=f37e293]:
+                - checkbox [ref=f37e294]
+              - cell [ref=f37e295]:
+                - link "marigold.rayne" [ref=f37e296] [cursor=pointer]:
+                  - /url: /users/19/edit
+              - cell "Marigold" [ref=f37e297]
+              - cell "Rayne" [ref=f37e298]
+              - cell "marigold.rayne@zehntech.com" [ref=f37e299]
+              - cell "No" [ref=f37e300]
+              - cell "08/21/2026 11:41 AM" [ref=f37e301]
+              - cell [ref=f37e302]
+              - cell [ref=f37e303]:
+                - link "Actions" [ref=f37e304] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e306]:
+              - cell [ref=f37e307]:
+                - checkbox [ref=f37e308]
+              - cell [ref=f37e309]:
+                - link "nova.starling" [ref=f37e310] [cursor=pointer]:
+                  - /url: /users/14/edit
+              - cell "Nova" [ref=f37e311]
+              - cell "Starling" [ref=f37e312]
+              - cell "nova.starling@zehntech.com" [ref=f37e313]
+              - cell "No" [ref=f37e314]
+              - cell "08/21/2026 11:41 AM" [ref=f37e315]
+              - cell [ref=f37e316]
+              - cell [ref=f37e317]:
+                - link "Actions" [ref=f37e318] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e320]:
+              - cell [ref=f37e321]:
+                - checkbox [ref=f37e322]
+              - cell [ref=f37e323]:
+                - link "opal.sparrow" [ref=f37e324] [cursor=pointer]:
+                  - /url: /users/21/edit
+              - cell "Opal" [ref=f37e325]
+              - cell "Sparrow" [ref=f37e326]
+              - cell "opal.sparrow@zehntech.com" [ref=f37e327]
+              - cell "No" [ref=f37e328]
+              - cell "08/21/2026 11:41 AM" [ref=f37e329]
+              - cell [ref=f37e330]
+              - cell [ref=f37e331]:
+                - link "Actions" [ref=f37e332] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e334]:
+              - cell [ref=f37e335]:
+                - checkbox [ref=f37e336]
+              - cell [ref=f37e337]:
+                - link "sage.willow" [ref=f37e338] [cursor=pointer]:
+                  - /url: /users/18/edit
+              - cell "Sage" [ref=f37e339]
+              - cell "Willow" [ref=f37e340]
+              - cell "sage.willow@zehntech.com" [ref=f37e341]
+              - cell "No" [ref=f37e342]
+              - cell "08/21/2026 11:41 AM" [ref=f37e343]
+              - cell [ref=f37e344]
+              - cell [ref=f37e345]:
+                - link "Actions" [ref=f37e346] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e348]:
+              - cell [ref=f37e349]:
+                - checkbox [ref=f37e350]
+              - cell [ref=f37e351]:
+                - link "selene.frost" [ref=f37e352] [cursor=pointer]:
+                  - /url: /users/23/edit
+              - cell "Selene" [ref=f37e353]
+              - cell "Frost" [ref=f37e354]
+              - cell "selene.frost@zehntech.com" [ref=f37e355]
+              - cell "No" [ref=f37e356]
+              - cell "08/21/2026 11:41 AM" [ref=f37e357]
+              - cell [ref=f37e358]
+              - cell [ref=f37e359]:
+                - link "Actions" [ref=f37e360] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e362]:
+              - cell [ref=f37e363]:
+                - checkbox [ref=f37e364]
+              - cell [ref=f37e365]:
+                - link "serenity.bloom" [ref=f37e366] [cursor=pointer]:
+                  - /url: /users/13/edit
+              - cell "Serenity" [ref=f37e367]
+              - cell "Bloom" [ref=f37e368]
+              - cell "serenity.bloom@zehntech.com" [ref=f37e369]
+              - cell "No" [ref=f37e370]
+              - cell "08/21/2026 11:41 AM" [ref=f37e371]
+              - cell [ref=f37e372]
+              - cell [ref=f37e373]:
+                - link "Actions" [ref=f37e374] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e376]:
+              - cell [ref=f37e377]:
+                - checkbox [ref=f37e378]
+              - cell [ref=f37e379]:
+                - link "summer.rain" [ref=f37e380] [cursor=pointer]:
+                  - /url: /users/10/edit
+              - cell "Summer" [ref=f37e381]
+              - cell "Rain" [ref=f37e382]
+              - cell "summer.rain@zehntech.com" [ref=f37e383]
+              - cell "No" [ref=f37e384]
+              - cell "08/21/2026 11:41 AM" [ref=f37e385]
+              - cell [ref=f37e386]
+              - cell [ref=f37e387]:
+                - link "Actions" [ref=f37e388] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e390]:
+              - cell [ref=f37e391]:
+                - checkbox [ref=f37e392]
+              - cell [ref=f37e393]:
+                - link "violet.ember" [ref=f37e394] [cursor=pointer]:
+                  - /url: /users/11/edit
+              - cell "Violet" [ref=f37e395]
+              - cell "Ember" [ref=f37e396]
+              - cell "violet.ember@zehntech.com" [ref=f37e397]
+              - cell "No" [ref=f37e398]
+              - cell "08/21/2026 11:41 AM" [ref=f37e399]
+              - cell [ref=f37e400]
+              - cell [ref=f37e401]:
+                - link "Actions" [ref=f37e402] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e404]:
+              - cell [ref=f37e405]:
+                - checkbox [ref=f37e406]
+              - cell [ref=f37e407]:
+                - link "willow.belle" [ref=f37e408] [cursor=pointer]:
+                  - /url: /users/8/edit
+              - cell "Willow" [ref=f37e409]
+              - cell "Belle" [ref=f37e410]
+              - cell "willow.belle@zehntech.com" [ref=f37e411]
+              - cell "No" [ref=f37e412]
+              - cell "08/21/2026 11:41 AM" [ref=f37e413]
+              - cell [ref=f37e414]
+              - cell [ref=f37e415]:
+                - link "Actions" [ref=f37e416] [cursor=pointer]:
+                  - /url: "#"
+        - generic [ref=f37e418]:
+          - list
+          - generic: (1-21/21)
+        - paragraph [ref=f37e420]:
+          - text: "Also available in:"
+          - link "CSV" [ref=f37e422] [cursor=pointer]:
+            - /url: /users.csv
+    - generic [ref=f37e423]:
+      - text: Powered by
+      - link "Redmine" [ref=f37e424] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f37e425]
+  - log [ref=f37e426]
+  - log [ref=f37e427]
+  - log [ref=f37e428]
+  - log [ref=f37e429]
+  - log [ref=f37e430]
+  - log [ref=f37e431]
+  - log [ref=f37e432]
+  - log [ref=f37e433]
+  - log [ref=f37e434]
+  - log [ref=f37e435]
+  - log [ref=f37e436]
+  - log [ref=f37e437]
+  - log [ref=f37e438]
+  - log [ref=f37e439]
+  - log [ref=f37e440]
+  - log [ref=f37e441]
+  - log [ref=f37e442]
+  - log [ref=f37e443]
+  - log [ref=f37e444]
+  - log [ref=f37e445]
+  - log [ref=f37e446]
+  - log [ref=f37e447]
+  - log [ref=f37e448]
+  - log [ref=f37e449]
+  - log [ref=f37e450]
+  - log [ref=f37e451]
+  - log [ref=f37e452]
+  - log [ref=f37e453]
+  - log [ref=f37e454]
+  - log [ref=f37e455]
+  - log [ref=f37e456]
+  - log [ref=f37e457]
+  - log [ref=f37e458]
+  - log [ref=f37e459]
+  - log [ref=f37e460]
+  - log [ref=f37e461]
+  - log [ref=f37e462]
+  - log [ref=f37e463]
+  - log [ref=f37e464]
+  - log [ref=f37e465]
+  - log [ref=f37e466]
+  - log [ref=f37e467]
+  - log [ref=f37e468]
+  - log [ref=f37e469]
+  - log [ref=f37e470]
+  - log [ref=f37e471]
+  - log [ref=f37e472]
+  - log [ref=f37e473]
+  - log [ref=f37e474]
+  - log [ref=f37e475]
+  - log [ref=f37e476]
+  - log [ref=f37e477]

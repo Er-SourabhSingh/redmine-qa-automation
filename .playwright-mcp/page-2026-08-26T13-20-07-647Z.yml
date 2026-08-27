@@ -1,0 +1,165 @@
+- generic [active] [ref=f388e1]:
+  - generic [ref=f388e2]:
+    - generic [ref=f388e3]:
+      - generic [ref=f388e4]:
+        - list:
+          - listitem [ref=f388e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f388e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f388e7]:
+        - text: Logged in as
+        - link "admin" [ref=f388e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f388e9]:
+        - listitem [ref=f388e10]:
+          - link [ref=f388e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f388e12]
+        - listitem [ref=f388e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f388e14]:
+          - link "My page" [ref=f388e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f388e16]:
+          - link "Projects" [ref=f388e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f388e18]:
+          - link "Flux Gantt" [ref=f388e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f388e20]:
+          - link "Helpdesk Command Center" [ref=f388e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f388e22]:
+          - link "Time Tracker" [ref=f388e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f388e24]:
+          - link "Timesheet" [ref=f388e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f388e26]:
+          - link "Workloads" [ref=f388e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f388e28]:
+          - link "More" [ref=f388e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f388e30]:
+      - generic [ref=f388e31]:
+        - generic [ref=f388e32]:
+          - generic [ref=f388e33]:
+            - link "Search..." [ref=f388e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f388e35]
+        - generic [ref=f388e36]:
+          - generic [ref=f388e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f388e38]
+    - generic [ref=f388e39]:
+      - list [ref=f388e43]:
+        - listitem [ref=f388e44]:
+          - link "Helpdesk Dashboard" [ref=f388e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f388e48]:
+          - link "Helpdesk Tickets" [ref=f388e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f388e52]:
+          - link "Reports" [ref=f388e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f388e56]:
+          - link "Organization" [ref=f388e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f388e60]:
+          - link "Customers" [ref=f388e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f388e64]:
+          - link "Products" [ref=f388e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f388e68]:
+          - link "Helpdesk Settings" [ref=f388e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f388e72]:
+        - generic [ref=f388e73]:
+          - generic [ref=f388e75]:
+            - heading "Alpha Org Subsidiary Active" [level=2] [ref=f388e76]:
+              - text: Alpha Org Subsidiary
+              - generic [ref=f388e77]: Active
+            - paragraph [ref=f388e79]: acme.example.com
+          - link "Edit" [ref=f388e81] [cursor=pointer]:
+            - /url: /rf_organizations/3/edit
+        - navigation "Alpha Org Subsidiary" [ref=f388e84]:
+          - link "Overview" [ref=f388e85] [cursor=pointer]:
+            - /url: /rf_organizations/3?tab=overview
+          - link "Prepaid Support Hours" [ref=f388e90] [cursor=pointer]:
+            - /url: /rf_organizations/3?tab=prepaid_support_hours
+        - generic [ref=f388e95]:
+          - generic [ref=f388e96]:
+            - generic [ref=f388e97]: "0"
+            - generic [ref=f388e98]: Projects
+          - generic [ref=f388e99]:
+            - generic [ref=f388e100]: "0"
+            - generic [ref=f388e101]: Customers
+          - generic [ref=f388e102]:
+            - generic [ref=f388e103]: "0"
+            - generic [ref=f388e104]: Open tickets
+          - generic [ref=f388e105]:
+            - generic [ref=f388e106]: —
+            - link "Prepaid remaining" [ref=f388e108] [cursor=pointer]:
+              - /url: /rf_organizations/3?tab=prepaid_support_hours
+        - generic [ref=f388e109]:
+          - heading "Basic Information" [level=3] [ref=f388e111]
+          - generic [ref=f388e116]:
+            - generic [ref=f388e117]:
+              - generic [ref=f388e118]: Organization Name
+              - generic [ref=f388e119]: Alpha Org Subsidiary
+            - generic [ref=f388e120]:
+              - generic [ref=f388e121]: Website
+              - link "https://acme.example.com" [ref=f388e123] [cursor=pointer]:
+                - /url: https://acme.example.com
+            - generic [ref=f388e124]:
+              - generic [ref=f388e125]: Phone Number
+              - generic [ref=f388e126]: +1 (555) 123-4567
+            - generic [ref=f388e127]:
+              - generic [ref=f388e128]: Number of Employees
+              - generic [ref=f388e129]: —
+            - generic [ref=f388e130]:
+              - generic [ref=f388e131]: Organization Address
+              - generic [ref=f388e132]: —
+        - generic [ref=f388e133]:
+          - heading "Notes" [level=3] [ref=f388e135]
+          - paragraph [ref=f388e140]: No notes available
+        - generic [ref=f388e141]:
+          - heading "Billing Information" [level=3] [ref=f388e143]
+          - paragraph [ref=f388e148]: No billing information available
+        - generic [ref=f388e149]:
+          - generic [ref=f388e150]:
+            - generic [ref=f388e151]: "Created by:"
+            - link "Redmine Admin" [ref=f388e153] [cursor=pointer]:
+              - /url: /users/1
+          - generic [ref=f388e154]:
+            - generic [ref=f388e155]: "Created:"
+            - generic [ref=f388e156]: 08/26/2026 01:19 PM
+          - generic [ref=f388e157]:
+            - generic [ref=f388e158]: "Updated:"
+            - generic [ref=f388e159]: 08/26/2026 01:19 PM
+        - paragraph [ref=f388e160]:
+          - link "Organization List" [ref=f388e161] [cursor=pointer]:
+            - /url: /rf_organizations
+    - generic [ref=f388e162]:
+      - text: Powered by
+      - link "Redmine" [ref=f388e163] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f388e164]
+  - log [ref=f388e165]
+  - log [ref=f388e166]
+  - log [ref=f388e167]
+  - log [ref=f388e168]
+  - log [ref=f388e169]
+  - log [ref=f388e170]
+  - log [ref=f388e171]
+  - log [ref=f388e172]
+  - log [ref=f388e173]
+  - log [ref=f388e174]

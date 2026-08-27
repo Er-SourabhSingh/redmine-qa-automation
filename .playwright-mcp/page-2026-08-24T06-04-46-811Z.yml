@@ -1,0 +1,186 @@
+- generic [ref=f89e1]:
+  - generic [ref=f89e2]:
+    - generic [ref=f89e3]:
+      - generic [ref=f89e4]:
+        - list:
+          - listitem [ref=f89e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f89e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f89e7]:
+        - text: Logged in as
+        - link "admin" [ref=f89e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f89e9]:
+        - listitem [ref=f89e10]:
+          - link [ref=f89e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f89e12]
+        - listitem [ref=f89e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f89e14]:
+          - link "My page" [ref=f89e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f89e16]:
+          - link "Projects" [ref=f89e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f89e18]:
+          - link "Helpdesk Command Center" [ref=f89e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f89e20]:
+          - link "Administration" [ref=f89e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f89e22]:
+          - link "Help" [ref=f89e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f89e24]:
+      - generic [ref=f89e25]:
+        - generic [ref=f89e26]:
+          - generic [ref=f89e27]:
+            - link "Search" [ref=f89e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f89e29]
+        - generic [ref=f89e30]:
+          - generic [ref=f89e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f89e32]
+    - generic [ref=f89e33]:
+      - list [ref=f89e37]:
+        - listitem [ref=f89e38]:
+          - link "Helpdesk Dashboard" [ref=f89e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f89e42]:
+          - link "Helpdesk Tickets" [ref=f89e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f89e46]:
+          - link "Reports" [ref=f89e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f89e50]:
+          - link "Organization" [ref=f89e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f89e54]:
+          - link "Customers" [ref=f89e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f89e58]:
+          - link "Products" [ref=f89e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f89e62]:
+          - link "Helpdesk Settings" [ref=f89e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f89e66]:
+        - heading "New Customer" [level=2] [ref=f89e67]
+        - generic [ref=f89e68]:
+          - generic [ref=f89e69]:
+            - paragraph [ref=f89e70]:
+              - generic [ref=f89e71]: Login *
+              - textbox "Login *" [ref=f89e72]: multiproj.customer1
+              - emphasis [ref=f89e73]: Login must be at least 2 characters long
+            - paragraph [ref=f89e74]:
+              - generic [ref=f89e75]: First name *
+              - textbox "First name *" [ref=f89e76]: MultiProject
+            - paragraph [ref=f89e77]:
+              - generic [ref=f89e78]: Last name *
+              - textbox "Last name *" [ref=f89e79]: Customer
+            - paragraph [ref=f89e80]:
+              - generic [ref=f89e81]: Email *
+              - textbox "Email *" [ref=f89e82]: multiproj.customer1@example.com
+            - generic [ref=f89e83]:
+              - paragraph [ref=f89e84]:
+                - generic [ref=f89e85]: Password *
+                - textbox "Password *" [disabled] [ref=f89e86]
+              - paragraph [ref=f89e87]:
+                - generic [ref=f89e88]: Confirmation *
+                - textbox "Confirmation *" [disabled] [ref=f89e89]
+            - paragraph [ref=f89e90]:
+              - checkbox "Generate password automatically" [checked] [ref=f89e91]
+              - generic [ref=f89e92]: Generate password automatically
+            - paragraph [ref=f89e93]:
+              - checkbox "Send account information to the user" [checked] [disabled] [ref=f89e94]
+              - generic [ref=f89e95]: Send account information to the user
+          - group "Project access" [ref=f89e96]:
+            - paragraph [ref=f89e98]: Projects this customer can raise tickets against, and the SLA, support level and organisation that apply on each. Leave empty to create the account without project access.
+            - generic [ref=f89e99]:
+              - generic [ref=f89e100]:
+                - generic [ref=f89e101]:
+                  - generic [ref=f89e102]: Project
+                  - combobox [ref=f89e103]:
+                    - option "-- Select project --"
+                    - option "Agile Board Project"
+                    - option "Helpdesk Service Desk" [selected]
+                - generic [ref=f89e104]:
+                  - generic [ref=f89e105]: SLA Name *
+                  - combobox [ref=f89e106]:
+                    - option "none"
+                    - option "Standard" [selected]
+                - generic [ref=f89e107]:
+                  - generic [ref=f89e108]: Support Level *
+                  - combobox [ref=f89e109]:
+                    - option "none"
+                    - option "L1" [selected]
+                    - option "L2"
+                    - option "L3"
+                - generic [ref=f89e110]:
+                  - generic [ref=f89e111]: Organization Name
+                  - combobox [ref=f89e112]:
+                    - option "none"
+                    - option "Acme Corp" [selected]
+                - button "Delete" [ref=f89e113] [cursor=pointer]
+              - generic [ref=f89e144]:
+                - generic [ref=f89e145]:
+                  - generic [ref=f89e146]: Project
+                  - combobox [active] [ref=f89e147]:
+                    - option "-- Select project --"
+                    - option "Agile Board Project" [selected]
+                    - option "Helpdesk Service Desk"
+                - generic [ref=f89e148]:
+                  - generic [ref=f89e149]: SLA Name *
+                  - combobox [ref=f89e150]:
+                    - option "none"
+                    - option "Standard" [selected]
+                - generic [ref=f89e151]:
+                  - generic [ref=f89e152]: Support Level *
+                  - combobox [ref=f89e153]:
+                    - option "none" [selected]
+                    - option "L1" [disabled]
+                    - option "L2" [disabled]
+                    - option "L3" [disabled]
+                - generic [ref=f89e154]:
+                  - generic [ref=f89e155]: Organization Name
+                  - combobox [ref=f89e156]:
+                    - option "none"
+                    - option "Acme Corp" [selected]
+                - button "Delete" [ref=f89e157] [cursor=pointer]
+            - paragraph [ref=f89e117]:
+              - button "Add project" [ref=f89e118] [cursor=pointer]
+          - paragraph [ref=f89e120]:
+            - button "Create" [ref=f89e121] [cursor=pointer]
+            - link "Cancel" [ref=f89e122] [cursor=pointer]:
+              - /url: /rf_helpdesk/customers
+    - generic [ref=f89e123]:
+      - text: Powered by
+      - link "Redmine" [ref=f89e124] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f89e125]
+  - log [ref=f89e126]
+  - log [ref=f89e127]
+  - log [ref=f89e128]
+  - log [ref=f89e129]
+  - log [ref=f89e130]
+  - log [ref=f89e131]
+  - log [ref=f89e132]
+  - log [ref=f89e133]
+  - log [ref=f89e134]
+  - log [ref=f89e135]
+  - log [ref=f89e136]
+  - log [ref=f89e137]
+  - log [ref=f89e138]
+  - log [ref=f89e139]
+  - log [ref=f89e140]
+  - log [ref=f89e141]
+  - log [ref=f89e142]
+  - log [ref=f89e143]

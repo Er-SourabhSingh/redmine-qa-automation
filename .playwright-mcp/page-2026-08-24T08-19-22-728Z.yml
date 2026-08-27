@@ -1,0 +1,241 @@
+- generic [ref=f224e1]:
+  - generic [ref=f224e2]:
+    - generic [ref=f224e3]:
+      - generic [ref=f224e4]:
+        - list:
+          - listitem [ref=f224e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f224e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f224e7]:
+        - text: Logged in as
+        - link "admin" [ref=f224e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f224e9]:
+        - listitem [ref=f224e10]:
+          - link [ref=f224e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f224e12]
+        - listitem [ref=f224e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f224e14]:
+          - link "My page" [ref=f224e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f224e16]:
+          - link "Projects" [ref=f224e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f224e18]:
+          - link "Helpdesk Command Center" [ref=f224e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f224e20]:
+          - link "Administration" [ref=f224e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f224e22]:
+          - link "Help" [ref=f224e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f224e24]:
+      - generic [ref=f224e25]:
+        - generic [ref=f224e26]:
+          - generic [ref=f224e27]:
+            - link "Search" [ref=f224e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f224e29]
+        - generic [ref=f224e30]:
+          - generic [ref=f224e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f224e32]
+    - generic [ref=f224e33]:
+      - list [ref=f224e37]:
+        - listitem [ref=f224e38]:
+          - link "Helpdesk Dashboard" [ref=f224e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f224e42]:
+          - link "Helpdesk Tickets" [ref=f224e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f224e46]:
+          - link "Reports" [ref=f224e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f224e50]:
+          - link "Organization" [ref=f224e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f224e54]:
+          - link "Customers" [ref=f224e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f224e58]:
+          - link "Products" [ref=f224e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f224e62]:
+          - link "Helpdesk Settings" [ref=f224e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f224e66]:
+        - heading "New Support Level" [level=2] [ref=f224e67]
+        - generic [ref=f224e68]:
+          - generic [ref=f224e69]:
+            - paragraph [ref=f224e70]:
+              - generic [ref=f224e71]: Project *
+              - combobox "Project *" [ref=f224e72]:
+                - option "-- Select Project --"
+                - option "Agile Board Project"
+                - option "Education and training3"
+                - option "Flux Gantt Project"
+                - option "HR management2"
+                - option "Helpdesk Service Desk" [selected]
+                - option "MVP build for PaySheet Application"
+                - option "Marketing campaign4"
+                - option "Mobile app development1"
+                - option "Software development5"
+              - emphasis [ref=f224e73]: Select the project this support level belongs to.
+            - paragraph [ref=f224e74]:
+              - generic [ref=f224e75]: Support Level Name *
+              - textbox "Support Level Name *" [ref=f224e76]: CRUD Test Level
+            - paragraph [ref=f224e77]:
+              - generic [ref=f224e78]: Level Order *
+              - spinbutton "Level Order *" [ref=f224e79]: "5"
+            - paragraph [ref=f224e80]:
+              - generic [ref=f224e81]: Description
+              - generic [ref=f224e82]:
+                - list [ref=f224e84]:
+                  - listitem [ref=f224e85]:
+                    - link "Edit" [ref=f224e86] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f224e87]:
+                    - link "Preview" [ref=f224e88] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f224e89]:
+                    - generic [ref=f224e90]:
+                      - button "Strong (Ctrl+B)" [ref=f224e91] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f224e92] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f224e93] [cursor=pointer]
+                      - button "Deleted" [ref=f224e94] [cursor=pointer]
+                      - button "Inline Code" [ref=f224e95] [cursor=pointer]
+                      - button "Heading 1" [ref=f224e96] [cursor=pointer]
+                      - button "Heading 2" [ref=f224e97] [cursor=pointer]
+                      - button "Heading 3" [ref=f224e98] [cursor=pointer]
+                      - button "Unordered list" [ref=f224e99] [cursor=pointer]
+                      - button "Ordered list" [ref=f224e100] [cursor=pointer]
+                      - button "Task list" [ref=f224e101] [cursor=pointer]
+                      - button "Quote" [ref=f224e102] [cursor=pointer]
+                      - button "Remove Quote" [ref=f224e103] [cursor=pointer]
+                      - button "Table" [ref=f224e104] [cursor=pointer]
+                      - button "pre" [ref=f224e105] [cursor=pointer]
+                      - button "Highlighted code" [ref=f224e106] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f224e107] [cursor=pointer]
+                      - button "Image" [ref=f224e108] [cursor=pointer]
+                      - button "Help" [ref=f224e109] [cursor=pointer]
+                - textbox "Description" [ref=f224e111]
+            - paragraph [ref=f224e112]:
+              - generic [ref=f224e113]: Support Assignees *
+              - textbox "Select items" [active] [ref=f224e116]
+              - emphasis [ref=f224e117]: Select one or more users to assign to this support level. Click to open dropdown and search for users.
+            - paragraph [ref=f224e118]:
+              - generic [ref=f224e119]: Escalation To
+              - combobox "Escalation To" [ref=f224e120]:
+                - option "None (Last Level)" [selected]
+                - 'option "L1 (Order: 1)"'
+                - 'option "L2 (Order: 2)"'
+                - 'option "L3 (Order: 3)"'
+                - 'option "CRUD Test Level (Order: 4)"'
+              - emphasis [ref=f224e121]: Escalation can only be to higher level support (based on Level Order). For example, Level Order 1 can escalate to Level Order 2 or 3.
+            - paragraph [ref=f224e122]:
+              - generic [ref=f224e123]: Active
+              - checkbox [checked] [ref=f224e124]
+          - button "Create" [ref=f224e125] [cursor=pointer]
+          - link "Cancel" [ref=f224e126] [cursor=pointer]:
+            - /url: /rf_support_levels
+    - generic [ref=f224e127]:
+      - text: Powered by
+      - link "Redmine" [ref=f224e128] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - generic [ref=f224e165]:
+    - generic [ref=f224e166] [cursor=pointer]:
+      - checkbox [ref=f224e167]
+      - generic [ref=f224e168]: Briar Sunset
+    - generic [ref=f224e169] [cursor=pointer]:
+      - checkbox [ref=f224e170]
+      - generic [ref=f224e171]: Celeste Dawn
+    - generic [ref=f224e172] [cursor=pointer]:
+      - checkbox [ref=f224e173]
+      - generic [ref=f224e174]: Ember Lilac
+    - generic [ref=f224e175] [cursor=pointer]:
+      - checkbox [ref=f224e176]
+      - generic [ref=f224e177]: Harmony Rose
+    - generic [ref=f224e178] [cursor=pointer]:
+      - checkbox [ref=f224e179]
+      - generic [ref=f224e180]: Isla Moon
+    - generic [ref=f224e181] [cursor=pointer]:
+      - checkbox [ref=f224e182]
+      - generic [ref=f224e183]: Ivy Skylark
+    - generic [ref=f224e184] [cursor=pointer]:
+      - checkbox [ref=f224e185]
+      - generic [ref=f224e186]: Luna Meadow
+    - generic [ref=f224e187] [cursor=pointer]:
+      - checkbox [ref=f224e188]
+      - generic [ref=f224e189]: Marigold Rayne
+    - generic [ref=f224e190] [cursor=pointer]:
+      - checkbox [ref=f224e191]
+      - generic [ref=f224e192]: Nova Starling
+    - generic [ref=f224e193] [cursor=pointer]:
+      - checkbox [ref=f224e194]
+      - generic [ref=f224e195]: Opal Sparrow
+    - generic [ref=f224e196] [cursor=pointer]:
+      - checkbox [ref=f224e197]
+      - generic [ref=f224e198]: Redmine Admin
+    - generic [ref=f224e199] [cursor=pointer]:
+      - checkbox [ref=f224e200]
+      - generic [ref=f224e201]: Sage Willow
+    - generic [ref=f224e202] [cursor=pointer]:
+      - checkbox [ref=f224e203]
+      - generic [ref=f224e204]: Selene Frost
+    - generic [ref=f224e205] [cursor=pointer]:
+      - checkbox [ref=f224e206]
+      - generic [ref=f224e207]: Serenity Bloom
+    - generic [ref=f224e208] [cursor=pointer]:
+      - checkbox [ref=f224e209]
+      - generic [ref=f224e210]: Summer Rain
+    - generic [ref=f224e211] [cursor=pointer]:
+      - checkbox [ref=f224e212]
+      - generic [ref=f224e213]: Violet Ember
+    - generic [ref=f224e214] [cursor=pointer]:
+      - checkbox [ref=f224e215]
+      - generic [ref=f224e216]: Willow Belle
+  - log [ref=f224e129]
+  - log [ref=f224e130]
+  - log [ref=f224e131]
+  - log [ref=f224e132]
+  - log [ref=f224e133]
+  - log [ref=f224e134]
+  - log [ref=f224e135]
+  - log [ref=f224e136]
+  - log [ref=f224e137]
+  - log [ref=f224e138]
+  - log [ref=f224e139]
+  - log [ref=f224e140]
+  - log [ref=f224e141]
+  - log [ref=f224e142]
+  - log [ref=f224e143]
+  - log [ref=f224e144]
+  - log [ref=f224e145]
+  - log [ref=f224e146]
+  - log [ref=f224e147]
+  - log [ref=f224e148]
+  - log [ref=f224e149]
+  - log [ref=f224e150]
+  - log [ref=f224e151]
+  - log [ref=f224e152]
+  - log [ref=f224e153]
+  - log [ref=f224e154]
+  - log [ref=f224e155]
+  - log [ref=f224e156]
+  - log [ref=f224e157]
+  - log [ref=f224e158]
+  - log [ref=f224e159]
+  - log [ref=f224e160]
+  - log [ref=f224e161]
+  - log [ref=f224e162]
+  - log [ref=f224e163]
+  - log [ref=f224e164]

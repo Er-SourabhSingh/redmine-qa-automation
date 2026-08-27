@@ -1,0 +1,149 @@
+- generic [ref=f15e1]:
+  - generic [ref=f15e2]:
+    - generic [ref=f15e3]:
+      - generic [ref=f15e4]:
+        - list:
+          - listitem [ref=f15e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f15e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f15e7]:
+        - text: Logged in as
+        - link "admin" [ref=f15e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f15e9]:
+        - listitem [ref=f15e10]:
+          - link [ref=f15e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f15e12]
+        - listitem [ref=f15e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f15e14]:
+          - link "My page" [ref=f15e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f15e16]:
+          - link "Projects" [ref=f15e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f15e18]:
+          - link "Helpdesk Command Center" [ref=f15e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f15e20]:
+          - link "Administration" [ref=f15e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f15e22]:
+          - link "Help" [ref=f15e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f15e24]:
+      - generic [ref=f15e25]:
+        - generic [ref=f15e26]:
+          - generic [ref=f15e27]:
+            - link "Search" [ref=f15e28] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f15e29]
+        - generic [ref=f15e30]:
+          - generic [ref=f15e31] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f15e32]
+      - generic [ref=f15e33]:
+        - list [ref=f15e34]:
+          - listitem [ref=f15e35]:
+            - link "+" [ref=f15e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f15e37]:
+            - link "Overview" [ref=f15e38] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f15e39]:
+            - link "Activity" [ref=f15e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f15e41]:
+            - link "Issues" [ref=f15e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f15e43]:
+            - link "Spent time" [ref=f15e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f15e45]:
+            - link "Gantt" [ref=f15e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f15e47]:
+            - link "Calendar" [ref=f15e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f15e49]:
+            - link "News" [ref=f15e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f15e51]:
+            - link "Documents" [ref=f15e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f15e53]:
+            - link "Wiki" [ref=f15e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f15e55]:
+            - link "Files" [ref=f15e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f15e57]:
+            - link "Helpdesk" [ref=f15e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk
+          - listitem [ref=f15e59]:
+            - link "Settings" [ref=f15e60] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f15e61]:
+          - button [ref=f15e62] [cursor=pointer]
+          - button [ref=f15e63] [cursor=pointer]
+    - generic [ref=f15e65]:
+      - heading "New member" [level=2] [ref=f15e66]
+      - generic [ref=f15e67]:
+        - group "Search for user or group:" [ref=f15e68]:
+          - paragraph [ref=f15e70]:
+            - textbox "Search for user or group:" [active] [ref=f15e71]: daisy
+          - generic [ref=f15e121]:
+            - list
+            - generic: (0-0/0)
+        - group [ref=f15e85]:
+          - generic [ref=f15e86]:
+            - link "Check all / Uncheck all" [ref=f15e87] [cursor=pointer]:
+              - /url: "#"
+            - text: Roles
+          - generic [ref=f15e89]:
+            - generic [ref=f15e90]:
+              - checkbox "Manager" [ref=f15e91]
+              - text: Manager
+            - generic [ref=f15e92]:
+              - checkbox "Employee" [ref=f15e93]
+              - text: Employee
+            - generic [ref=f15e94]:
+              - checkbox "Client" [ref=f15e95]
+              - text: Client
+            - generic [ref=f15e96]:
+              - checkbox "Project Lead" [ref=f15e97]
+              - text: Project Lead
+            - generic [ref=f15e98]:
+              - checkbox "QA" [ref=f15e99]
+              - text: QA
+            - generic [ref=f15e100]:
+              - checkbox "Team Lead" [ref=f15e101]
+              - text: Team Lead
+            - generic [ref=f15e102]:
+              - checkbox "Developer" [ref=f15e103]
+              - text: Developer
+        - paragraph [ref=f15e104]:
+          - button "Add" [ref=f15e105] [cursor=pointer]
+    - generic [ref=f15e106]:
+      - text: Powered by
+      - link "Redmine" [ref=f15e107] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f15e108]
+  - log [ref=f15e109]
+  - log [ref=f15e110]
+  - log [ref=f15e111]
+  - log [ref=f15e112]
+  - log [ref=f15e113]
+  - log [ref=f15e114]
+  - log [ref=f15e115]
+  - log [ref=f15e116]
+  - log [ref=f15e117]
+  - log [ref=f15e118]
+  - log [ref=f15e119]

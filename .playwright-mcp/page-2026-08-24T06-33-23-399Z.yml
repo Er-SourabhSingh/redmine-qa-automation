@@ -1,0 +1,200 @@
+- generic [ref=f124e1]:
+  - generic [ref=f124e2]:
+    - generic [ref=f124e3]:
+      - generic [ref=f124e4]:
+        - list:
+          - listitem [ref=f124e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f124e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f124e7]:
+        - text: Logged in as
+        - link "admin" [ref=f124e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f124e9]:
+        - listitem [ref=f124e10]:
+          - link [ref=f124e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f124e12]
+        - listitem [ref=f124e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f124e14]:
+          - link "My page" [ref=f124e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f124e16]:
+          - link "Projects" [ref=f124e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f124e18]:
+          - link "Helpdesk Command Center" [ref=f124e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f124e20]:
+          - link "Administration" [ref=f124e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f124e22]:
+          - link "Help" [ref=f124e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f124e24]:
+      - generic [ref=f124e25]:
+        - generic [ref=f124e26]:
+          - generic [ref=f124e27]:
+            - link "Search" [ref=f124e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f124e29]
+        - generic [ref=f124e30]:
+          - generic [ref=f124e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f124e32]
+    - generic [ref=f124e33]:
+      - list [ref=f124e37]:
+        - listitem [ref=f124e38]:
+          - link "Helpdesk Dashboard" [ref=f124e39] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f124e42]:
+          - link "Helpdesk Tickets" [ref=f124e43] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f124e46]:
+          - link "Reports" [ref=f124e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f124e50]:
+          - link "Organization" [ref=f124e51] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f124e54]:
+          - link "Customers" [ref=f124e55] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f124e58]:
+          - link "Products" [ref=f124e59] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f124e62]:
+          - link "Helpdesk Settings" [ref=f124e63] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f124e66]:
+        - heading "New Canned Response" [level=2] [ref=f124e67]
+        - generic [ref=f124e68]:
+          - generic [ref=f124e69]:
+            - paragraph [ref=f124e70]:
+              - generic [ref=f124e71]: Name *
+              - textbox "Name *" [active] [ref=f124e72]
+            - paragraph [ref=f124e73]:
+              - generic [ref=f124e74]: Author
+              - text: Redmine Admin
+            - paragraph [ref=f124e75]:
+              - generic [ref=f124e76]: "Content: *"
+              - generic [ref=f124e77]:
+                - list [ref=f124e79]:
+                  - listitem [ref=f124e80]:
+                    - link "Edit" [ref=f124e81] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f124e82]:
+                    - link "Preview" [ref=f124e83] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f124e84]:
+                    - generic [ref=f124e85]:
+                      - button "Strong (Ctrl+B)" [ref=f124e86] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f124e87] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f124e88] [cursor=pointer]
+                      - button "Deleted" [ref=f124e89] [cursor=pointer]
+                      - button "Inline Code" [ref=f124e90] [cursor=pointer]
+                      - button "Heading 1" [ref=f124e91] [cursor=pointer]
+                      - button "Heading 2" [ref=f124e92] [cursor=pointer]
+                      - button "Heading 3" [ref=f124e93] [cursor=pointer]
+                      - button "Unordered list" [ref=f124e94] [cursor=pointer]
+                      - button "Ordered list" [ref=f124e95] [cursor=pointer]
+                      - button "Task list" [ref=f124e96] [cursor=pointer]
+                      - button "Quote" [ref=f124e97] [cursor=pointer]
+                      - button "Remove Quote" [ref=f124e98] [cursor=pointer]
+                      - button "Table" [ref=f124e99] [cursor=pointer]
+                      - button "pre" [ref=f124e100] [cursor=pointer]
+                      - button "Highlighted code" [ref=f124e101] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f124e102] [cursor=pointer]
+                      - button "Image" [ref=f124e103] [cursor=pointer]
+                      - button "Help" [ref=f124e104] [cursor=pointer]
+                - textbox "Enter canned response content" [ref=f124e106]
+              - emphasis [ref=f124e107]:
+                - text: "Available Macros:"
+                - 'link "{{customer_name}}" [ref=f124e108] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{customer_email}}" [ref=f124e109] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{ticket_id}}" [ref=f124e110] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{ticket_subject}}" [ref=f124e111] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{project_name}}" [ref=f124e112] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{assignee_name}}" [ref=f124e113] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{current_user}}" [ref=f124e114] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{current_date}}" [ref=f124e115] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{current_time}}" [ref=f124e116] [cursor=pointer]':
+                  - /url: "#"
+            - paragraph [ref=f124e117]:
+              - generic [ref=f124e118]: Active
+              - checkbox "Active" [checked] [ref=f124e119]
+          - paragraph [ref=f124e120]:
+            - button "Create" [ref=f124e121] [cursor=pointer]
+            - link "Cancel" [ref=f124e122] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+    - generic [ref=f124e123]:
+      - text: Powered by
+      - link "Redmine" [ref=f124e124] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f124e125]
+  - log [ref=f124e126]
+  - log [ref=f124e127]
+  - log [ref=f124e128]
+  - log [ref=f124e129]
+  - log [ref=f124e130]
+  - log [ref=f124e131]
+  - log [ref=f124e132]
+  - log [ref=f124e133]
+  - log [ref=f124e134]
+  - log [ref=f124e135]
+  - log [ref=f124e136]
+  - log [ref=f124e137]
+  - log [ref=f124e138]
+  - log [ref=f124e139]
+  - log [ref=f124e140]
+  - log [ref=f124e141]
+  - log [ref=f124e142]
+  - log [ref=f124e143]
+  - log [ref=f124e144]
+  - log [ref=f124e145]
+  - log [ref=f124e146]
+  - log [ref=f124e147]
+  - log [ref=f124e148]
+  - log [ref=f124e149]
+  - log [ref=f124e150]
+  - log [ref=f124e151]
+  - log [ref=f124e152]
+  - log [ref=f124e153]
+  - log [ref=f124e154]
+  - log [ref=f124e155]
+  - log [ref=f124e156]
+  - log [ref=f124e157]
+  - log [ref=f124e158]
+  - log [ref=f124e159]
+  - log [ref=f124e160]
+  - log [ref=f124e161]
+  - log [ref=f124e162]
+  - log [ref=f124e163]
+  - log [ref=f124e164]
+  - log [ref=f124e165]
+  - log [ref=f124e166]
+  - log [ref=f124e167]
+  - log [ref=f124e168]
+  - log [ref=f124e169]

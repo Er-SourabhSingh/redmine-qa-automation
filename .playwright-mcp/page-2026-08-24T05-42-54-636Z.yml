@@ -1,0 +1,151 @@
+- generic [ref=f31e1]:
+  - generic [ref=f31e2]:
+    - generic [ref=f31e3]:
+      - generic [ref=f31e4]:
+        - list:
+          - listitem [ref=f31e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f31e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f31e7]:
+        - text: Logged in as
+        - link "daisy.skye" [ref=f31e8] [cursor=pointer]:
+          - /url: /users/6
+      - list [ref=f31e9]:
+        - listitem [ref=f31e10]:
+          - link [ref=f31e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f31e12]
+        - listitem [ref=f31e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f31e14]:
+          - link "My page" [ref=f31e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f31e16]:
+          - link "Projects" [ref=f31e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f31e18]:
+          - link "Helpdesk Command Center" [ref=f31e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f31e20]:
+          - link "Help" [ref=f31e21] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f31e22]:
+      - generic [ref=f31e23]:
+        - generic [ref=f31e24]:
+          - generic [ref=f31e25]:
+            - link "Search" [ref=f31e26] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f31e27]
+        - generic [ref=f31e28]:
+          - generic [ref=f31e29] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f31e30]
+    - generic [ref=f31e31]:
+      - list [ref=f31e35]:
+        - listitem [ref=f31e36]:
+          - link "Helpdesk Dashboard" [ref=f31e37] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f31e40]:
+          - link "Helpdesk Tickets" [ref=f31e41] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f31e44]:
+          - link "Reports" [ref=f31e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f31e48]:
+          - link "Organization" [ref=f31e49] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f31e52]:
+          - link "Customers" [ref=f31e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f31e56]:
+          - link "Products" [ref=f31e57] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f31e60]:
+          - link "Helpdesk Settings" [ref=f31e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f31e64]:
+        - generic [ref=f31e65]: Successful update.
+        - generic [ref=f31e66]:
+          - generic [ref=f31e68]:
+            - heading "Organizations" [level=2] [ref=f31e69]
+            - paragraph [ref=f31e70]: Companies your customers belong to
+          - link "New Organization" [ref=f31e72] [cursor=pointer]:
+            - /url: /rf_organizations/new
+        - generic [ref=f31e75]:
+          - textbox "Search organizations..." [active] [ref=f31e77]
+          - combobox "All Statuses" [ref=f31e78] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f31e79]:
+            - button "Apply Filters" [ref=f31e80] [cursor=pointer]
+            - link "Clear" [ref=f31e83] [cursor=pointer]:
+              - /url: /rf_organizations
+        - table [ref=f31e89]:
+          - rowgroup [ref=f31e90]:
+            - row [ref=f31e91]:
+              - columnheader "S.No" [ref=f31e92]
+              - columnheader "Organization Name" [ref=f31e93]
+              - columnheader "Website" [ref=f31e94]
+              - columnheader "Author" [ref=f31e95]
+              - columnheader "Updated By" [ref=f31e96]
+              - columnheader "Created" [ref=f31e97]
+              - columnheader "Updated" [ref=f31e98]
+              - columnheader "User Count" [ref=f31e99]
+              - columnheader "Active" [ref=f31e100]
+              - columnheader "Action" [ref=f31e101]
+          - rowgroup [ref=f31e102]:
+            - row [ref=f31e103]:
+              - cell "1" [ref=f31e104]
+              - cell [ref=f31e105]:
+                - link "CRUD Test Org" [ref=f31e106] [cursor=pointer]:
+                  - /url: /rf_organizations/1
+              - cell [ref=f31e107]:
+                - link "https://crud-test.example.com" [ref=f31e108] [cursor=pointer]:
+                  - /url: https://crud-test.example.com
+              - cell "Daisy Skye" [ref=f31e109]
+              - cell "Daisy Skye" [ref=f31e110]
+              - cell "08/24/2026 05:40 AM" [ref=f31e111]
+              - cell "08/24/2026 05:42 AM" [ref=f31e112]
+              - cell "0" [ref=f31e113]
+              - cell [ref=f31e114]:
+                - checkbox "Active" [checked] [ref=f31e115]
+              - cell [ref=f31e116]:
+                - generic [ref=f31e117]:
+                  - link "Edit" [ref=f31e118] [cursor=pointer]:
+                    - /url: /rf_organizations/1/edit
+                  - link "Delete" [ref=f31e121] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f31e125]:
+          - list
+          - generic [ref=f31e126]: (1-1/1)
+    - generic [ref=f31e127]:
+      - text: Powered by
+      - link "Redmine" [ref=f31e128] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f31e129]
+  - log [ref=f31e130]
+  - log [ref=f31e131]
+  - log [ref=f31e132]
+  - log [ref=f31e133]
+  - log [ref=f31e134]
+  - log [ref=f31e135]
+  - log [ref=f31e136]
+  - log [ref=f31e137]
+  - log [ref=f31e138]
+  - log [ref=f31e139]
+  - log [ref=f31e140]
+  - log [ref=f31e141]
+  - log [ref=f31e142]
+  - log [ref=f31e143]
+  - log [ref=f31e144]
+  - log [ref=f31e145]
+  - log [ref=f31e146]
+  - log [ref=f31e147]
+  - log [ref=f31e148]

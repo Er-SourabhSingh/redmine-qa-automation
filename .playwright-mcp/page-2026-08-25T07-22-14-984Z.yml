@@ -1,0 +1,200 @@
+- generic [active] [ref=f143e1]:
+  - generic [ref=f143e2]:
+    - generic [ref=f143e3]:
+      - generic [ref=f143e4]:
+        - list:
+          - listitem [ref=f143e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f143e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f143e7]:
+        - text: Logged in as
+        - link "admin" [ref=f143e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f143e9]:
+        - listitem [ref=f143e10]:
+          - link [ref=f143e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f143e12]
+        - listitem [ref=f143e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f143e14]:
+          - link "My page" [ref=f143e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f143e16]:
+          - link "Projects" [ref=f143e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f143e18]:
+          - link "Helpdesk Command Center" [ref=f143e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f143e20]:
+          - link "Administration" [ref=f143e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f143e22]:
+          - link "Help" [ref=f143e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f143e24]:
+      - generic [ref=f143e25]:
+        - generic [ref=f143e26]:
+          - generic [ref=f143e27]:
+            - link "Search" [ref=f143e28] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f143e29]
+        - generic [ref=f143e30]:
+          - generic [ref=f143e31] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f143e32]
+      - generic [ref=f143e33]:
+        - list [ref=f143e34]:
+          - listitem [ref=f143e35]:
+            - link "+" [ref=f143e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f143e37]:
+            - link "Overview" [ref=f143e38] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f143e39]:
+            - link "Activity" [ref=f143e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f143e41]:
+            - link "Issues" [ref=f143e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f143e43]:
+            - link "Spent time" [ref=f143e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f143e45]:
+            - link "Gantt" [ref=f143e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f143e47]:
+            - link "Calendar" [ref=f143e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f143e49]:
+            - link "News" [ref=f143e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f143e51]:
+            - link "Documents" [ref=f143e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f143e53]:
+            - link "Wiki" [ref=f143e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f143e55]:
+            - link "Files" [ref=f143e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f143e57]:
+            - link "Helpdesk" [ref=f143e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk
+          - listitem [ref=f143e59]:
+            - link "Settings" [ref=f143e60] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f143e61]:
+          - button [ref=f143e62] [cursor=pointer]
+          - button [ref=f143e63] [cursor=pointer]
+    - generic [ref=f143e64]:
+      - list [ref=f143e68]:
+        - listitem [ref=f143e69]:
+          - link "Helpdesk Dashboard" [ref=f143e70] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk
+        - listitem [ref=f143e73]:
+          - link "Helpdesk Tickets" [ref=f143e74] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets
+        - listitem [ref=f143e77]:
+          - link "Knowledgebase" [ref=f143e78] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/knowledgebase
+        - listitem [ref=f143e81]:
+          - link "Helpdesk SLA" [ref=f143e82] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/sla
+        - listitem [ref=f143e85]:
+          - link "Organization" [ref=f143e86] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/organization
+        - listitem [ref=f143e89]:
+          - link "Settings" [ref=f143e90] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/settings
+      - generic [ref=f143e93]:
+        - generic [ref=f143e94]:
+          - generic [ref=f143e96]:
+            - heading "Helpdesk Dashboard" [level=2] [ref=f143e97]
+            - paragraph [ref=f143e98]: Helpdesk Service Desk
+          - generic [ref=f143e99]:
+            - button "Date Range" [ref=f143e101] [cursor=pointer]:
+              - generic [ref=f143e104]: 27 Jul 26 - 25 Aug 26
+            - link "New issue" [ref=f143e107] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk/new
+        - generic [ref=f143e109]:
+          - link "1 Unassigned View all" [ref=f143e110] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets?assigned_to_id%5B%5D=none&created_from=2026-07-27&created_to=2026-08-25&status_id%5B%5D=open
+            - generic [ref=f143e117]: "1"
+            - generic [ref=f143e118]: Unassigned
+            - generic [ref=f143e119]: View all
+          - link "11 Open View all" [ref=f143e122] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets?created_from=2026-07-27&created_to=2026-08-25&status_id%5B%5D=open
+            - generic [ref=f143e127]: "11"
+            - generic [ref=f143e128]: Open
+            - generic [ref=f143e129]: View all
+          - link "11 On Hold View all" [ref=f143e132] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets?created_from=2026-07-27&created_to=2026-08-25
+            - generic [ref=f143e136]: "11"
+            - generic [ref=f143e137]: On Hold
+            - generic [ref=f143e138]: View all
+          - link "0 SLA Breached View all" [ref=f143e141] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets?sla=breached
+            - generic [ref=f143e145]: "0"
+            - generic [ref=f143e146]: SLA Breached
+            - generic [ref=f143e147]: View all
+          - link "0 Resolved View all" [ref=f143e150] [cursor=pointer]:
+            - /url: /projects/helpdesk/helpdesk/tickets?created_from=2026-07-27&created_to=2026-08-25&status_id%5B%5D=closed
+            - generic [ref=f143e155]: "0"
+            - generic [ref=f143e156]: Resolved
+            - generic [ref=f143e157]: View all
+        - generic [ref=f143e160]:
+          - heading "Prepaid Support Hours" [level=3] [ref=f143e162]
+          - table [ref=f143e163]:
+            - rowgroup [ref=f143e164]:
+              - row [ref=f143e165]:
+                - columnheader "Organization" [ref=f143e166]
+                - columnheader "Approved" [ref=f143e167]
+                - columnheader "Used" [ref=f143e168]
+                - columnheader "Remaining" [ref=f143e169]
+                - columnheader "Usage" [ref=f143e170]
+                - columnheader "Action" [ref=f143e171]
+            - rowgroup [ref=f143e172]:
+              - row [ref=f143e173]:
+                - cell [ref=f143e174]:
+                  - link "Acme Corp" [ref=f143e175] [cursor=pointer]:
+                    - /url: /rf_organizations/1?tab=prepaid_support_hours
+                - cell "40.00h" [ref=f143e176]
+                - cell "0.00h" [ref=f143e177]
+                - cell "40.00h" [ref=f143e178]
+                - cell "0% Used 0%" [ref=f143e179]:
+                  - generic [ref=f143e180]:
+                    - img "0% Used" [ref=f143e181]
+                    - generic [ref=f143e182]: 0%
+                - cell [ref=f143e183]:
+                  - link "Ledger" [ref=f143e184] [cursor=pointer]:
+                    - /url: /projects/helpdesk/helpdesk?ledger_organization_id=1&ledger_project_id=9
+    - generic [ref=f143e188]:
+      - text: Powered by
+      - link "Redmine" [ref=f143e189] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f143e190]
+  - log [ref=f143e191]
+  - log [ref=f143e192]
+  - log [ref=f143e193]
+  - log [ref=f143e194]
+  - log [ref=f143e195]
+  - log [ref=f143e196]
+  - log [ref=f143e197]
+  - log [ref=f143e198]
+  - log [ref=f143e199]
+  - log [ref=f143e200]
+  - log [ref=f143e201]
+  - log [ref=f143e202]
+  - log [ref=f143e203]
+  - log [ref=f143e204]
+  - log [ref=f143e205]
+  - log [ref=f143e206]
+  - log [ref=f143e207]
+  - log [ref=f143e208]

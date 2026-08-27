@@ -1,0 +1,134 @@
+- generic [ref=f617e1]:
+  - generic [ref=f617e2]:
+    - generic [ref=f617e3]:
+      - generic [ref=f617e4]:
+        - img "Logo" [ref=f617e5]
+        - text: 
+      - navigation "Application tasks" [ref=f617e6]:
+        - button " Compose" [ref=f617e8] [cursor=pointer]
+        - button " Mail" [disabled] [ref=f617e9] [cursor=pointer]
+        - button " Contacts" [ref=f617e10] [cursor=pointer]
+        - button " Settings" [ref=f617e11] [cursor=pointer]
+        - generic [ref=f617e12]:
+          - button " Dark mode" [ref=f617e13] [cursor=pointer]
+          - button " About" [ref=f617e14] [cursor=pointer]
+          - button " Logout" [ref=f617e15] [cursor=pointer]
+    - navigation "Email folder selection" [ref=f617e16]:
+      - generic [ref=f617e17]:
+        - text: 
+        - generic [ref=f617e18]: qa@test.local
+        - button "" [ref=f617e19] [cursor=pointer]:     
+      - tree [ref=f617e21]:
+        - treeitem [level=1] [selected] [ref=f617e22]:
+          - link " Inbox 2" [ref=f617e23]:
+            - /url: /?_task=mail&_mbox=INBOX
+            - text:  Inbox
+            - generic [ref=f617e24]: "2"
+        - treeitem [level=1] [ref=f617e25]:
+          - link " Drafts" [ref=f617e26]:
+            - /url: /?_task=mail&_mbox=Drafts
+        - treeitem [level=1] [ref=f617e27]:
+          - link " Sent" [ref=f617e28]:
+            - /url: /?_task=mail&_mbox=Sent
+        - treeitem [level=1] [ref=f617e29]:
+          - link " Junk" [ref=f617e30]:
+            - /url: /?_task=mail&_mbox=Junk
+        - treeitem [level=1] [ref=f617e31]:
+          - link " Trash" [ref=f617e32]:
+            - /url: /?_task=mail&_mbox=Trash
+      - generic [ref=f617e34]:
+        - text: 
+        - generic "unknown" [ref=f617e35]: 0%
+    - generic [ref=f617e38]:
+      - generic [ref=f617e39]:
+        - text:  
+        - list [ref=f617e40]:
+          - menuitem [ref=f617e41]:
+            - link " Select" [ref=f617e42] [cursor=pointer]:
+              - /url: "#select"
+              - text:  Select       
+          - menuitem " Threads" [ref=f617e43]:
+            - link " Threads":
+              - /url: "#threads"
+              - text:  Threads   
+          - menuitem [ref=f617e44]:
+            - link " Options" [ref=f617e45] [cursor=pointer]:
+              - /url: "#list-options"
+        - button " Refresh" [ref=f617e46] [cursor=pointer]
+        - text:  
+      - search "Email search input" [ref=f617e47]:
+        - generic [ref=f617e48]:
+          - text: 
+          - textbox "Search terms" [ref=f617e49]:
+            - /placeholder: Search...
+        - text: 
+        - button "" [ref=f617e50] [cursor=pointer]
+        - button "" [ref=f617e51] [cursor=pointer]
+        - text: 
+      - text:   
+      - generic [ref=f617e52]:
+        - text: 
+        - table "Email Messages Listing" [ref=f617e53]:
+          - text: 
+          - rowgroup [ref=f617e54]:
+            - row [ref=f617e55]:
+              - cell "customer@test.local Today 18:09  Internal auth-fix test" [active] [ref=f617e56]:
+                - generic [ref=f617e57]: customer@test.local
+                - generic [ref=f617e59]: Today 18:09
+                - generic [ref=f617e60]:
+                  - generic "Unread": 
+                  - link "Internal auth-fix test" [ref=f617e61]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=2&_action=show
+              - cell "Not Flagged" [ref=f617e62]:
+                - generic [ref=f617e63] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f617e65]:
+              - cell "admin@test.local Fri 17:18  QA test 1787312897 â€” admin to qa" [ref=f617e66]:
+                - generic [ref=f617e67]: admin@test.local
+                - generic [ref=f617e69]: Fri 17:18
+                - generic [ref=f617e70]:
+                  - generic "Unread": 
+                  - link "QA test 1787312897 â€” admin to qa" [ref=f617e71]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=1&_action=show
+              - cell "Not Flagged" [ref=f617e72]:
+                - generic [ref=f617e73] [cursor=pointer]:
+                  - generic "Not Flagged"
+      - toolbar "List navigation" [ref=f617e75]:
+        - button "" [disabled]
+        - button "" [disabled]
+        - generic [ref=f617e76]: Messages 1 to 2 of 2
+        - textbox "Current page" [disabled] [ref=f617e77]: "1"
+        - button "" [disabled]
+        - button "" [disabled]
+    - generic [ref=f617e79]:
+      - toolbar "Application toolbar" [ref=f617e80]:
+        - text:                   Browse
+        - list [ref=f617e81]:
+          - menuitem: 
+          - menuitem " Reply" [ref=f617e82]:
+            - button " Reply" [disabled]
+          - menuitem [ref=f617e83]:
+            - generic [ref=f617e84]:
+              - button " Reply all" [disabled]
+              - link "":
+                - /url: "#reply-all"
+          - menuitem [ref=f617e85]:
+            - generic [ref=f617e86]:
+              - button " Forward" [disabled]
+              - link "":
+                - /url: "#forward"
+          - menuitem [ref=f617e87]
+          - menuitem " Delete" [ref=f617e88]:
+            - button " Delete" [disabled]
+          - menuitem " Mark" [ref=f617e89]:
+            - button " Mark"
+          - menuitem [ref=f617e90]:
+            - button " More" [ref=f617e91] [cursor=pointer]
+          - menuitem: 
+          - menuitem: 
+          - menuitem: 
+        - text: 
+      - iframe [ref=f617e93]:
+        
+      - text:   
+  - text:   

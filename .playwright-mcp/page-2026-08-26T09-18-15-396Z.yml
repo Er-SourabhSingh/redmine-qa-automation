@@ -1,0 +1,184 @@
+- generic [ref=f180e1]:
+  - generic [ref=f180e2]:
+    - generic [ref=f180e3]:
+      - generic [ref=f180e4]:
+        - img "Logo" [ref=f180e5]
+        - text: 
+      - navigation "Application tasks" [ref=f180e6]:
+        - button " Compose" [ref=f180e8] [cursor=pointer]
+        - button " Mail" [disabled] [ref=f180e9] [cursor=pointer]
+        - button " Contacts" [ref=f180e10] [cursor=pointer]
+        - button " Settings" [ref=f180e11] [cursor=pointer]
+        - generic [ref=f180e12]:
+          - button " Dark mode" [ref=f180e13] [cursor=pointer]
+          - button " About" [ref=f180e14] [cursor=pointer]
+          - button " Logout" [ref=f180e15] [cursor=pointer]
+    - navigation "Email folder selection" [ref=f180e16]:
+      - generic [ref=f180e17]:
+        - text: 
+        - generic [ref=f180e18]: beta.customer@test.local
+        - button "" [ref=f180e19] [cursor=pointer]:     
+      - tree [ref=f180e21]:
+        - treeitem [level=1] [selected] [ref=f180e113]:
+          - link " Inbox 1" [ref=f180e114]:
+            - /url: /?_task=mail&_mbox=INBOX
+            - text:  Inbox
+            - generic [ref=f180e79]: "1"
+        - treeitem [level=1] [ref=f180e24]:
+          - link " Drafts" [ref=f180e25]:
+            - /url: /?_task=mail&_mbox=Drafts
+        - treeitem [level=1] [ref=f180e26]:
+          - link " Sent" [ref=f180e27]:
+            - /url: /?_task=mail&_mbox=Sent
+        - treeitem [level=1] [ref=f180e28]:
+          - link " Junk" [ref=f180e29]:
+            - /url: /?_task=mail&_mbox=Junk
+        - treeitem [level=1] [ref=f180e30]:
+          - link " Trash" [ref=f180e31]:
+            - /url: /?_task=mail&_mbox=Trash
+      - generic [ref=f180e33]:
+        - text: 
+        - generic "unknown" [ref=f180e34]: 0%
+    - generic [ref=f180e37]:
+      - generic [ref=f180e38]:
+        - text:  
+        - list [ref=f180e39]:
+          - menuitem [ref=f180e40]:
+            - link " Select" [ref=f180e80] [cursor=pointer]:
+              - /url: "#select"
+              - text:  Select       
+          - menuitem " Threads" [ref=f180e41]:
+            - link " Threads":
+              - /url: "#threads"
+              - text:  Threads   
+          - menuitem [ref=f180e42]:
+            - link " Options" [ref=f180e43] [cursor=pointer]:
+              - /url: "#list-options"
+        - button " Refresh" [ref=f180e44] [cursor=pointer]
+        - text:  
+      - search "Email search input" [ref=f180e45]:
+        - generic [ref=f180e46]:
+          - text: 
+          - textbox "Search terms" [ref=f180e47]:
+            - /placeholder: Search...
+        - text: 
+        - button "" [ref=f180e48] [cursor=pointer]
+        - button "" [ref=f180e49] [cursor=pointer]
+        - text: 
+      - text:   
+      - generic [ref=f180e50]:
+        - text: 
+        - table "Email Messages Listing" [ref=f180e81]:
+          - text: 
+          - rowgroup [ref=f180e82]:
+            - row [selected] [ref=f180e115]:
+              - 'cell "beta.support@test.local 3 KB  [Helpdesk QA Beta #67] Re: [TICKET] Ticket: Cannot access my dashboard" [active] [ref=f180e116]':
+                - generic [ref=f180e85]: beta.support@test.local
+                - generic [ref=f180e117]: 3 KB
+                - generic [ref=f180e88]:
+                  - generic: 
+                  - 'link "[Helpdesk QA Beta #67] Re: [TICKET] Ticket: Cannot access my dashboard" [ref=f180e89]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=3&_action=show
+              - cell "Not Flagged" [ref=f180e90]:
+                - generic [ref=f180e91] [cursor=pointer]:
+                  - generic "Not Flagged": 
+            - row [ref=f180e93]:
+              - 'cell "beta.support@test.local Today 14:45  [Support #67] Ticket: Cannot access my dashboard" [ref=f180e94]':
+                - generic [ref=f180e95]: beta.support@test.local
+                - generic [ref=f180e97]: Today 14:45
+                - generic [ref=f180e98]:
+                  - generic: 
+                  - 'link "[Support #67] Ticket: Cannot access my dashboard" [ref=f180e99]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=2&_action=show
+              - cell "Not Flagged" [ref=f180e100]:
+                - generic [ref=f180e101] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f180e103]:
+              - cell "admin@test.local Today 14:31  Your Helpdesk Account Has Been Created" [ref=f180e104]:
+                - generic [ref=f180e105]: admin@test.local
+                - generic [ref=f180e107]: Today 14:31
+                - generic [ref=f180e108]:
+                  - generic "Unread": 
+                  - link "Your Helpdesk Account Has Been Created" [ref=f180e109]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=1&_action=show
+              - cell "Not Flagged" [ref=f180e110]:
+                - generic [ref=f180e111] [cursor=pointer]:
+                  - generic "Not Flagged"
+      - toolbar "List navigation" [ref=f180e51]:
+        - button "" [disabled]
+        - button "" [disabled]
+        - generic [ref=f180e52]: Messages 1 to 3 of 3
+        - textbox "Current page" [disabled] [ref=f180e53]: "1"
+        - button "" [disabled]
+        - button "" [disabled]
+    - generic [ref=f180e55]:
+      - toolbar "Application toolbar" [ref=f180e56]:
+        - text:                   Browse
+        - list [ref=f180e57]:
+          - menuitem: 
+          - menuitem [ref=f180e58]:
+            - button " Reply" [ref=f180e118] [cursor=pointer]
+          - menuitem [ref=f180e59]:
+            - generic [ref=f180e60]:
+              - button " Reply all" [ref=f180e119] [cursor=pointer]
+              - link "" [ref=f180e61] [cursor=pointer]:
+                - /url: "#reply-all"
+          - menuitem [ref=f180e62]:
+            - generic [ref=f180e63]:
+              - button " Forward" [ref=f180e120] [cursor=pointer]
+              - link "" [ref=f180e64] [cursor=pointer]:
+                - /url: "#forward"
+          - menuitem [ref=f180e65]
+          - menuitem [ref=f180e66]:
+            - button " Delete" [ref=f180e121] [cursor=pointer]
+          - menuitem [ref=f180e67]:
+            - button " Mark" [ref=f180e68] [cursor=pointer]
+          - menuitem [ref=f180e69]:
+            - button " More" [ref=f180e70] [cursor=pointer]
+          - menuitem: 
+          - menuitem: 
+          - menuitem: 
+        - text: 
+      - iframe [ref=f180e72]:
+        - generic [ref=f181e1]:
+          - main [ref=f181e3]:
+            - generic [ref=f181e4]:
+              - heading [level=2] [ref=f181e5]:
+                - text: "[Helpdesk QA Beta #67] Re: [TICKET] Ticket: Cannot access my dashboard"
+                - button "" [ref=f181e6] [cursor=pointer]
+              - generic [ref=f181e7]:
+                - img "Contact photo" [ref=f181e8]
+                - generic [ref=f181e9]:
+                  - generic [ref=f181e11]:
+                    - text: From
+                    - link "beta.support@test.local" [ref=f181e13] [cursor=pointer]:
+                      - /url: mailto:beta.support@test.local
+                    - text: on 2026-08-26 14:47
+                  - generic [ref=f181e14]:
+                    - link " Details" [ref=f181e15] [cursor=pointer]:
+                      - /url: "#headers"
+                    - link " Headers" [ref=f181e16] [cursor=pointer]:
+                      - /url: "#all-headers"
+                    - button " Plain text" [ref=f181e17] [cursor=pointer]
+            - generic [ref=f181e18]:
+              - region "Attachments"
+              - region "Message Body" [ref=f181e19]:
+                - generic: 
+                - generic [ref=f181e23]:
+                  - generic [ref=f181e24]:
+                    - heading "A new note has been added" [level=4] [ref=f181e25]
+                    - paragraph [ref=f181e26]:
+                      - strong [ref=f181e27]: "Issue #67:"
+                      - text: "[TICKET] Ticket: Cannot access my dashboard"
+                      - strong [ref=f181e28]: "Status:"
+                      - text: Waiting for Customer Response
+                      - strong [ref=f181e29]: "Note:"
+                    - paragraph [ref=f181e30]: Hi Beta Customer, thanks for reaching out. Could you tell me which browser you're using, and whether you see any error message on the blank page? I'll investigate on my end in the meantime.
+                    - separator [ref=f181e31]
+                    - paragraph [ref=f181e32]:
+                      - link "View Ticket" [ref=f181e33] [cursor=pointer]:
+                        - /url: http://localhost:3012/projects/helpdesk-qa-beta/helpdesk/issues/67
+                  - generic [ref=f181e34]: This email was sent from Helpdesk
+          - text:    
+      - text:   
+  - text:   

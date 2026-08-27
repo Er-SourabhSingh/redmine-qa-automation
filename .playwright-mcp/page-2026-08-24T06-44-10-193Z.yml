@@ -1,0 +1,243 @@
+- generic [active] [ref=f139e1]:
+  - generic [ref=f139e2]:
+    - generic [ref=f139e3]:
+      - generic [ref=f139e4]:
+        - list:
+          - listitem [ref=f139e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f139e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f139e7]:
+        - text: Logged in as
+        - link "admin" [ref=f139e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f139e9]:
+        - listitem [ref=f139e10]:
+          - link [ref=f139e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f139e12]
+        - listitem [ref=f139e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f139e14]:
+          - link "My page" [ref=f139e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f139e16]:
+          - link "Projects" [ref=f139e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f139e18]:
+          - link "Helpdesk Command Center" [ref=f139e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f139e20]:
+          - link "Administration" [ref=f139e21] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f139e22]:
+          - link "Help" [ref=f139e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f139e24]:
+      - generic [ref=f139e25]:
+        - generic [ref=f139e26]:
+          - generic [ref=f139e27]:
+            - link "Search" [ref=f139e28] [cursor=pointer]:
+              - /url: /projects/helpdesk/search
+            - text: ":"
+          - textbox "Search:" [ref=f139e29]
+        - generic [ref=f139e30]:
+          - generic [ref=f139e31] [cursor=pointer]: Helpdesk Service Desk
+          - text: ✓ ✓
+      - heading "Helpdesk Service Desk" [level=1] [ref=f139e32]
+      - generic [ref=f139e33]:
+        - list [ref=f139e34]:
+          - listitem [ref=f139e35]:
+            - link "+" [ref=f139e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f139e37]:
+            - link "Overview" [ref=f139e38] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f139e39]:
+            - link "Activity" [ref=f139e40] [cursor=pointer]:
+              - /url: /projects/helpdesk/activity
+          - listitem [ref=f139e41]:
+            - link "Issues" [ref=f139e42] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues
+          - listitem [ref=f139e43]:
+            - link "Spent time" [ref=f139e44] [cursor=pointer]:
+              - /url: /projects/helpdesk/time_entries
+          - listitem [ref=f139e45]:
+            - link "Gantt" [ref=f139e46] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/gantt
+          - listitem [ref=f139e47]:
+            - link "Calendar" [ref=f139e48] [cursor=pointer]:
+              - /url: /projects/helpdesk/issues/calendar
+          - listitem [ref=f139e49]:
+            - link "News" [ref=f139e50] [cursor=pointer]:
+              - /url: /projects/helpdesk/news
+          - listitem [ref=f139e51]:
+            - link "Documents" [ref=f139e52] [cursor=pointer]:
+              - /url: /projects/helpdesk/documents
+          - listitem [ref=f139e53]:
+            - link "Wiki" [ref=f139e54] [cursor=pointer]:
+              - /url: /projects/helpdesk/wiki
+          - listitem [ref=f139e55]:
+            - link "Files" [ref=f139e56] [cursor=pointer]:
+              - /url: /projects/helpdesk/files
+          - listitem [ref=f139e57]:
+            - link "Helpdesk" [ref=f139e58] [cursor=pointer]:
+              - /url: /projects/helpdesk/helpdesk
+          - listitem [ref=f139e59]:
+            - link "Settings" [ref=f139e60] [cursor=pointer]:
+              - /url: /projects/helpdesk/settings
+        - generic [ref=f139e61]:
+          - button [ref=f139e62] [cursor=pointer]
+          - button [ref=f139e63] [cursor=pointer]
+    - generic [ref=f139e65]:
+      - generic [ref=f139e66]:
+        - link "Reply" [ref=f139e67] [cursor=pointer]:
+          - /url: "#"
+        - link "Edit" [ref=f139e68] [cursor=pointer]:
+          - /url: /issues/236/edit
+        - link "Log time" [ref=f139e70] [cursor=pointer]:
+          - /url: /issues/236/time_entries/new
+        - link "Unwatch" [ref=f139e72] [cursor=pointer]:
+          - /url: /watchers/watch?object_id=236&object_type=issue
+        - link "Copy" [ref=f139e74] [cursor=pointer]:
+          - /url: /projects/helpdesk/issues/236/copy
+        - generic "Actions" [ref=f139e78] [cursor=pointer]
+      - 'heading "Support #236" [level=2] [ref=f139e80]'
+      - text: open
+      - generic [ref=f139e81]:
+        - heading "Fix missing breadcrumb navigation" [level=3] [ref=f139e84]
+        - paragraph [ref=f139e85]:
+          - text: Added by
+          - link "Redmine Admin" [ref=f139e86] [cursor=pointer]:
+            - /url: /users/1
+          - link "25 minutes" [ref=f139e87] [cursor=pointer]:
+            - /url: /projects/helpdesk/activity?from=2026-08-24
+          - text: ago.
+        - generic [ref=f139e88]:
+          - generic [ref=f139e89]:
+            - generic [ref=f139e90]:
+              - generic [ref=f139e91]:
+                - generic [ref=f139e92]: "Status:"
+                - generic [ref=f139e93]: New
+              - generic [ref=f139e94]:
+                - generic [ref=f139e95]: "Priority:"
+                - generic [ref=f139e96]: Normal
+              - generic [ref=f139e97]:
+                - generic [ref=f139e98]: "Assignee:"
+                - link "Harmony Rose" [ref=f139e100] [cursor=pointer]:
+                  - /url: /users/9
+            - generic [ref=f139e101]:
+              - generic [ref=f139e102]:
+                - generic [ref=f139e103]: "Start date:"
+                - generic [ref=f139e104]: 08/04/2026
+              - generic [ref=f139e105]:
+                - generic [ref=f139e106]: "Due date:"
+                - generic [ref=f139e107]: 08/14/2026 (10 days late)
+              - generic [ref=f139e108]:
+                - generic [ref=f139e109]: "% Done:"
+                - generic [ref=f139e110]:
+                  - table [ref=f139e111]:
+                    - rowgroup [ref=f139e112]:
+                      - row [ref=f139e113]:
+                        - cell [ref=f139e114]
+                  - paragraph [ref=f139e115]: 0%
+              - generic [ref=f139e116]: "Estimated time:"
+          - generic [ref=f139e118]:
+            - generic [ref=f139e119]: "Product:"
+            - generic [ref=f139e120]: "-"
+          - generic [ref=f139e121]:
+            - generic [ref=f139e122]: "Organization:"
+            - generic [ref=f139e123]: "-"
+        - separator [ref=f139e124]
+        - generic [ref=f139e125]:
+          - link "Add" [ref=f139e127] [cursor=pointer]:
+            - /url: /projects/helpdesk/issues/new?back_url=%2Fissues%2F236&issue%5Bparent_issue_id%5D=236&issue%5Btracker_id%5D=6
+          - paragraph [ref=f139e128]:
+            - strong [ref=f139e129]: Subtasks
+        - separator [ref=f139e130]
+        - generic [ref=f139e131]:
+          - link "Add" [ref=f139e133] [cursor=pointer]:
+            - /url: "#"
+          - paragraph [ref=f139e134]:
+            - strong [ref=f139e135]: Related issues
+      - generic [ref=f139e137]:
+        - link "Edit" [ref=f139e138] [cursor=pointer]:
+          - /url: /issues/236/edit
+        - link "Log time" [ref=f139e140] [cursor=pointer]:
+          - /url: /issues/236/time_entries/new
+        - link "Unwatch" [ref=f139e142] [cursor=pointer]:
+          - /url: /watchers/watch?object_id=236&object_type=issue
+        - link "Copy" [ref=f139e144] [cursor=pointer]:
+          - /url: /projects/helpdesk/issues/236/copy
+        - generic "Actions" [ref=f139e148] [cursor=pointer]
+      - text: pre pre
+      - paragraph [ref=f139e150]:
+        - text: "Also available in:"
+        - link "Atom" [ref=f139e152] [cursor=pointer]:
+          - /url: /issues/236.atom?key=76da54f501cebd6279e7f6982fd69d5a0be38dc9
+        - generic [ref=f139e153]:
+          - text: "|"
+          - link "PDF" [ref=f139e154] [cursor=pointer]:
+            - /url: /issues/236.pdf
+    - generic [ref=f139e155]:
+      - text: Powered by
+      - link "Redmine" [ref=f139e156] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f139e157]
+  - log [ref=f139e158]
+  - log [ref=f139e159]
+  - log [ref=f139e160]
+  - log [ref=f139e161]
+  - log [ref=f139e162]
+  - log [ref=f139e163]
+  - log [ref=f139e164]
+  - log [ref=f139e165]
+  - log [ref=f139e166]
+  - log [ref=f139e167]
+  - log [ref=f139e168]
+  - log [ref=f139e169]
+  - log [ref=f139e170]
+  - log [ref=f139e171]
+  - log [ref=f139e172]
+  - log [ref=f139e173]
+  - log [ref=f139e174]
+  - log [ref=f139e175]
+  - log [ref=f139e176]
+  - log [ref=f139e177]
+  - log [ref=f139e178]
+  - log [ref=f139e179]
+  - log [ref=f139e180]
+  - log [ref=f139e181]
+  - log [ref=f139e182]
+  - log [ref=f139e183]
+  - log [ref=f139e184]
+  - log [ref=f139e185]
+  - log [ref=f139e186]
+  - log [ref=f139e187]
+  - log [ref=f139e188]
+  - log [ref=f139e189]
+  - log [ref=f139e190]
+  - log [ref=f139e191]
+  - log [ref=f139e192]
+  - log [ref=f139e193]
+  - log [ref=f139e194]
+  - log [ref=f139e195]
+  - log [ref=f139e196]
+  - log [ref=f139e197]
+  - log [ref=f139e198]
+  - log [ref=f139e199]
+  - log [ref=f139e200]
+  - log [ref=f139e201]
+  - log [ref=f139e202]
+  - log [ref=f139e203]
+  - log [ref=f139e204]
+  - log [ref=f139e205]
+  - log [ref=f139e206]
+  - log [ref=f139e207]
+  - log [ref=f139e208]
+  - status [ref=f139e209]
+  - status [ref=f139e210]

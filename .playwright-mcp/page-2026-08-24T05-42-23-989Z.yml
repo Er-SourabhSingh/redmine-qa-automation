@@ -1,0 +1,171 @@
+- generic [ref=f30e1]:
+  - generic [ref=f30e2]:
+    - generic [ref=f30e3]:
+      - generic [ref=f30e4]:
+        - list:
+          - listitem [ref=f30e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f30e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f30e7]:
+        - text: Logged in as
+        - link "daisy.skye" [ref=f30e8] [cursor=pointer]:
+          - /url: /users/6
+      - list [ref=f30e9]:
+        - listitem [ref=f30e10]:
+          - link [ref=f30e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f30e12]
+        - listitem [ref=f30e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f30e14]:
+          - link "My page" [ref=f30e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f30e16]:
+          - link "Projects" [ref=f30e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f30e18]:
+          - link "Helpdesk Command Center" [ref=f30e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f30e20]:
+          - link "Help" [ref=f30e21] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f30e22]:
+      - generic [ref=f30e23]:
+        - generic [ref=f30e24]:
+          - generic [ref=f30e25]:
+            - link "Search" [ref=f30e26] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search:" [ref=f30e27]
+        - generic [ref=f30e28]:
+          - generic [ref=f30e29] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f30e30]
+    - generic [ref=f30e31]:
+      - list [ref=f30e35]:
+        - listitem [ref=f30e36]:
+          - link "Helpdesk Dashboard" [ref=f30e37] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f30e40]:
+          - link "Helpdesk Tickets" [ref=f30e41] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f30e44]:
+          - link "Reports" [ref=f30e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f30e48]:
+          - link "Organization" [ref=f30e49] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f30e52]:
+          - link "Customers" [ref=f30e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f30e56]:
+          - link "Products" [ref=f30e57] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f30e60]:
+          - link "Helpdesk Settings" [ref=f30e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f30e64]:
+        - 'heading "Edit Organization: CRUD Test Org" [level=2] [ref=f30e65]'
+        - generic [ref=f30e66]:
+          - generic [ref=f30e67]:
+            - paragraph [ref=f30e68]:
+              - generic [ref=f30e69]: Organization Name *
+              - textbox "Organization Name *" [active] [ref=f30e70]: CRUD Test Org
+            - paragraph [ref=f30e71]:
+              - generic [ref=f30e72]: Website
+              - textbox "Website" [ref=f30e73]: https://crud-test.example.com
+            - paragraph [ref=f30e74]:
+              - generic [ref=f30e75]: Phone Number
+              - textbox "Phone Number" [ref=f30e76]
+            - paragraph [ref=f30e77]:
+              - generic [ref=f30e78]: Organization Address
+              - textbox "Organization Address" [ref=f30e79]
+            - paragraph [ref=f30e80]:
+              - generic [ref=f30e81]: Number of Employees
+              - spinbutton "Number of Employees" [ref=f30e82]
+            - paragraph [ref=f30e83]:
+              - generic [ref=f30e84]: Notes
+              - generic [ref=f30e85]:
+                - list [ref=f30e87]:
+                  - listitem [ref=f30e88]:
+                    - link "Edit" [ref=f30e89] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f30e90]:
+                    - link "Preview" [ref=f30e91] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f30e92]:
+                    - generic [ref=f30e93]:
+                      - button "Strong (Ctrl+B)" [ref=f30e94] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f30e95] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f30e96] [cursor=pointer]
+                      - button "Deleted" [ref=f30e97] [cursor=pointer]
+                      - button "Inline Code" [ref=f30e98] [cursor=pointer]
+                      - button "Heading 1" [ref=f30e99] [cursor=pointer]
+                      - button "Heading 2" [ref=f30e100] [cursor=pointer]
+                      - button "Heading 3" [ref=f30e101] [cursor=pointer]
+                      - button "Unordered list" [ref=f30e102] [cursor=pointer]
+                      - button "Ordered list" [ref=f30e103] [cursor=pointer]
+                      - button "Task list" [ref=f30e104] [cursor=pointer]
+                      - button "Quote" [ref=f30e105] [cursor=pointer]
+                      - button "Remove Quote" [ref=f30e106] [cursor=pointer]
+                      - button "Table" [ref=f30e107] [cursor=pointer]
+                      - button "pre" [ref=f30e108] [cursor=pointer]
+                      - button "Highlighted code" [ref=f30e109] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f30e110] [cursor=pointer]
+                      - button "Image" [ref=f30e111] [cursor=pointer]
+                      - button "Help" [ref=f30e112] [cursor=pointer]
+                - textbox "Notes" [ref=f30e114]
+            - paragraph [ref=f30e115]:
+              - generic [ref=f30e116]: Billing Info
+              - textbox "Billing Info" [ref=f30e117]
+            - paragraph [ref=f30e118]:
+              - generic [ref=f30e119]: Active
+              - checkbox "Active" [checked] [ref=f30e120]
+          - paragraph [ref=f30e121]:
+            - button "Save" [ref=f30e122] [cursor=pointer]
+            - link "Cancel" [ref=f30e123] [cursor=pointer]:
+              - /url: /rf_organizations
+    - generic [ref=f30e124]:
+      - text: Powered by
+      - link "Redmine" [ref=f30e125] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f30e126]
+  - log [ref=f30e127]
+  - log [ref=f30e128]
+  - log [ref=f30e129]
+  - log [ref=f30e130]
+  - log [ref=f30e131]
+  - log [ref=f30e132]
+  - log [ref=f30e133]
+  - log [ref=f30e134]
+  - log [ref=f30e135]
+  - log [ref=f30e136]
+  - log [ref=f30e137]
+  - log [ref=f30e138]
+  - log [ref=f30e139]
+  - log [ref=f30e140]
+  - log [ref=f30e141]
+  - log [ref=f30e142]
+  - log [ref=f30e143]
+  - log [ref=f30e144]
+  - log [ref=f30e145]
+  - log [ref=f30e146]
+  - log [ref=f30e147]
+  - log [ref=f30e148]
+  - log [ref=f30e149]
+  - log [ref=f30e150]
+  - log [ref=f30e151]
+  - log [ref=f30e152]
+  - log [ref=f30e153]
+  - log [ref=f30e154]
+  - log [ref=f30e155]
+  - log [ref=f30e156]
+  - log [ref=f30e157]
+  - log [ref=f30e158]
+  - log [ref=f30e159]
+  - log [ref=f30e160]

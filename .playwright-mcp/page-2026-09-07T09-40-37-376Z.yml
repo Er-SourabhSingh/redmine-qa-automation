@@ -1,0 +1,434 @@
+- generic [active] [ref=f37e1]:
+  - generic [ref=f37e2]:
+    - navigation [ref=f37e3]:
+      - list [ref=f37e6]:
+        - listitem [ref=f37e7]:
+          - link "Hauptseite" [ref=f37e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f37e9]:
+          - link "Meine Seite" [ref=f37e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f37e11]:
+          - link "Projekte" [ref=f37e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f37e13]:
+          - link "Agile Board" [ref=f37e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f37e15]:
+          - link "Flux Gantt" [ref=f37e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f37e17]:
+          - link "Administration" [ref=f37e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f37e19]:
+          - link "Hilfe" [ref=f37e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f37e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f37e24]: RA
+    - generic [ref=f37e27]:
+      - generic [ref=f37e28]:
+        - generic [ref=f37e29]:
+          - generic [ref=f37e30]:
+            - link "Suche" [ref=f37e31] [cursor=pointer]:
+              - /url: /projects/defaultsd/search
+            - text: ":"
+          - textbox "Suche:" [ref=f37e32]
+        - generic [ref=f37e33]:
+          - generic [ref=f37e34] [cursor=pointer]: Software development5
+          - text: ✓ ✓
+      - heading "Software development5" [level=1] [ref=f37e35]
+      - list [ref=f37e38]:
+        - listitem [ref=f37e39]:
+          - link "+" [ref=f37e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f37e41]:
+          - link "Übersicht" [ref=f37e42] [cursor=pointer]:
+            - /url: /projects/defaultsd
+        - listitem [ref=f37e43]:
+          - link "Dashboard" [ref=f37e44] [cursor=pointer]:
+            - /url: /projects/defaultsd/analytics_dashboard
+        - listitem [ref=f37e45]:
+          - link "Aktivität" [ref=f37e46] [cursor=pointer]:
+            - /url: /projects/defaultsd/activity
+        - listitem [ref=f37e47]:
+          - link "Tickets" [ref=f37e48] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues
+        - listitem [ref=f37e49]:
+          - link "Aufgewendete Zeit" [ref=f37e50] [cursor=pointer]:
+            - /url: /projects/defaultsd/time_entries
+        - listitem [ref=f37e51]:
+          - link "Gantt-Diagramm" [ref=f37e52] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/gantt
+        - listitem [ref=f37e53]:
+          - link "Kalender" [ref=f37e54] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/calendar
+        - listitem [ref=f37e55]:
+          - link "News" [ref=f37e56] [cursor=pointer]:
+            - /url: /projects/defaultsd/news
+        - listitem [ref=f37e57]:
+          - link "Dokumente" [ref=f37e58] [cursor=pointer]:
+            - /url: /projects/defaultsd/documents
+        - listitem [ref=f37e59]:
+          - link "Wiki" [ref=f37e60] [cursor=pointer]:
+            - /url: /projects/defaultsd/wiki
+        - listitem [ref=f37e61]:
+          - link "Dateien" [ref=f37e62] [cursor=pointer]:
+            - /url: /projects/defaultsd/files
+        - listitem [ref=f37e63]:
+          - link "Konfiguration" [ref=f37e64] [cursor=pointer]:
+            - /url: /projects/defaultsd/settings
+    - generic [ref=f37e65]:
+      - generic [ref=f37e66]:
+        - link [ref=f37e68] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f37e71]:
+          - heading "Abfragen" [level=3] [ref=f37e72]
+          - list [ref=f37e73]:
+            - listitem [ref=f37e74]:
+              - link "Spent time" [ref=f37e75] [cursor=pointer]:
+                - /url: /projects/defaultsd/time_entries?query_id=7
+      - generic [ref=f37e76]:
+        - generic [ref=f37e77]: Erfolgreich aktualisiert.
+        - generic [ref=f37e80]:
+          - link "Aufwand buchen" [ref=f37e81] [cursor=pointer]:
+            - /url: /projects/defaultsd/time_entries/new
+          - generic "Aktionen" [ref=f37e87] [cursor=pointer]
+        - heading "Aufgewendete Zeit" [level=2] [ref=f37e90]
+        - generic [ref=f37e91]:
+          - generic [ref=f37e92]:
+            - generic [ref=f37e93]:
+              - group "Filter" [ref=f37e94]:
+                - generic:
+                  - generic [ref=f37e99]:
+                    - generic [ref=f37e100]:
+                      - checkbox "Datum" [checked] [ref=f37e101]
+                      - text: Datum
+                    - combobox [ref=f37e103]:
+                      - option "ist"
+                      - option ">="
+                      - option "<="
+                      - option "zwischen"
+                      - option "vor weniger als"
+                      - option "vor mehr als"
+                      - option "in den letzten"
+                      - option "vor"
+                      - option "Heute"
+                      - option "gestern"
+                      - option "aktuelle Woche"
+                      - option "vorige Woche"
+                      - option "letzte 2 Wochen"
+                      - option "aktueller Monat"
+                      - option "voriger Monat"
+                      - option "aktuelles Jahr"
+                      - option "Keine"
+                      - option "alle" [selected]
+                  - generic [ref=f37e104]:
+                    - text: Filter hinzufügen
+                    - combobox "Filter hinzufügen" [ref=f37e105]:
+                      - option [selected]
+                      - option "Ticket"
+                      - option "Benutzer"
+                      - option "Autor"
+                      - option "Aktivität"
+                      - option "Stunden"
+                      - option "Tags"
+                      - option "Datum" [disabled]
+                      - option "Kommentar"
+                      - option "Tracker des Tickets"
+                      - option "Übergeordnetes Ticket des Tickets"
+                      - option "Status des Tickets"
+                      - option "Zielversion des Tickets"
+                      - option "Kategorie des Tickets"
+                      - option "Thema des Tickets"
+                      - option "Gruppe des Benutzers"
+                      - option "Rolle des Benutzers"
+              - group "Optionen" [ref=f37e106]
+            - paragraph [ref=f37e110]:
+              - link "Anwenden" [ref=f37e111] [cursor=pointer]:
+                - /url: "#"
+              - link "Zurücksetzen" [ref=f37e115] [cursor=pointer]:
+                - /url: /projects/defaultsd/time_entries?set_filter=1&sort=
+              - link "Abfrage speichern" [ref=f37e119] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f37e124]:
+            - listitem [ref=f37e125]:
+              - link "Details" [ref=f37e126] [cursor=pointer]:
+                - /url: /projects/defaultsd/time_entries
+            - listitem [ref=f37e127]:
+              - link "Bericht" [ref=f37e128] [cursor=pointer]:
+                - /url: /projects/defaultsd/time_entries/report
+        - paragraph [ref=f37e129]:
+          - generic [ref=f37e130]: "Stunden: 42:30"
+        - table [ref=f37e133]:
+          - rowgroup [ref=f37e134]:
+            - row [ref=f37e135]:
+              - columnheader [ref=f37e136]:
+                - checkbox "Alles auswählen / Alles abwählen" [ref=f37e137]
+              - columnheader [ref=f37e138]:
+                - link "Datum" [ref=f37e139] [cursor=pointer]:
+                  - /url: /projects/defaultsd/time_entries?sort=spent_on
+              - columnheader [ref=f37e143]:
+                - link "Benutzer" [ref=f37e144] [cursor=pointer]:
+                  - /url: /projects/defaultsd/time_entries?sort=user%2Cspent_on%3Adesc
+              - columnheader [ref=f37e145]:
+                - link "Aktivität" [ref=f37e146] [cursor=pointer]:
+                  - /url: /projects/defaultsd/time_entries?sort=activity%2Cspent_on%3Adesc
+              - columnheader [ref=f37e147]:
+                - link "Ticket" [ref=f37e148] [cursor=pointer]:
+                  - /url: /projects/defaultsd/time_entries?sort=issue%2Cspent_on%3Adesc
+              - columnheader "Kommentar" [ref=f37e149]
+              - columnheader [ref=f37e150]:
+                - link "Stunden" [ref=f37e151] [cursor=pointer]:
+                  - /url: /projects/defaultsd/time_entries?sort=hours%2Cspent_on%3Adesc
+              - columnheader [ref=f37e152]
+          - rowgroup [ref=f37e153]:
+            - row [ref=f37e154]:
+              - cell [ref=f37e155]:
+                - checkbox [ref=f37e156]
+              - cell "11.12.2026" [ref=f37e157]
+              - cell [ref=f37e158]:
+                - link "Serenity Bloom" [ref=f37e159] [cursor=pointer]:
+                  - /url: /users/14
+              - cell "Design" [ref=f37e160]
+              - cell [ref=f37e161]:
+                - 'link "Bug #33" [ref=f37e162] [cursor=pointer]':
+                  - /url: /issues/33
+                - text: ": Redesign issue creation workflow"
+              - cell "Redesign issue workflow" [ref=f37e163]
+              - cell "3:00" [ref=f37e164]
+              - cell [ref=f37e165]:
+                - link "Bearbeiten" [ref=f37e166] [cursor=pointer]:
+                  - /url: /time_entries/23/edit
+                - link "Löschen" [ref=f37e169] [cursor=pointer]:
+                  - /url: /time_entries/23
+                - link "Aktionen" [ref=f37e172] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e175]:
+              - cell [ref=f37e176]:
+                - checkbox [ref=f37e177]
+              - cell "09.12.2026" [ref=f37e178]
+              - cell [ref=f37e179]:
+                - link "Willow Belle" [ref=f37e180] [cursor=pointer]:
+                  - /url: /users/9
+              - cell "Design" [ref=f37e181]
+              - cell [ref=f37e182]:
+                - 'link "Feature #31" [ref=f37e183] [cursor=pointer]':
+                  - /url: /issues/31
+                - text: ": Develop elasticsearch integration"
+              - cell "Elasticsearch integration" [ref=f37e184]
+              - cell "4:00" [ref=f37e185]
+              - cell [ref=f37e186]:
+                - link "Bearbeiten" [ref=f37e187] [cursor=pointer]:
+                  - /url: /time_entries/21/edit
+                - link "Löschen" [ref=f37e190] [cursor=pointer]:
+                  - /url: /time_entries/21
+                - link "Aktionen" [ref=f37e193] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e196]:
+              - cell [ref=f37e197]:
+                - checkbox [ref=f37e198]
+              - cell "05.09.2026" [ref=f37e199]
+              - cell [ref=f37e200]:
+                - link "Luna Blossom" [ref=f37e201] [cursor=pointer]:
+                  - /url: /users/6
+              - cell "Development" [ref=f37e202]
+              - cell [ref=f37e203]:
+                - 'link "Bug #8" [ref=f37e204] [cursor=pointer]':
+                  - /url: /issues/8
+                - text: ": Implement issues form"
+              - cell "UI improvements" [ref=f37e205]
+              - cell "7:30" [ref=f37e206]
+              - cell [ref=f37e207]:
+                - link "Bearbeiten" [ref=f37e208] [cursor=pointer]:
+                  - /url: /time_entries/1/edit
+                - link "Löschen" [ref=f37e211] [cursor=pointer]:
+                  - /url: /time_entries/1
+                - link "Aktionen" [ref=f37e214] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e217]:
+              - cell [ref=f37e218]:
+                - checkbox [ref=f37e219]
+              - cell "04.09.2026" [ref=f37e220]
+              - cell [ref=f37e221]:
+                - link "Daisy Skye" [ref=f37e222] [cursor=pointer]:
+                  - /url: /users/7
+              - cell "Design" [ref=f37e223]
+              - cell [ref=f37e224]:
+                - 'link "Bug #9" [ref=f37e225] [cursor=pointer]':
+                  - /url: /issues/9
+                - text: ": Implement time log modal"
+              - cell "Button not working solved" [ref=f37e226]
+              - cell "4:00" [ref=f37e227]
+              - cell [ref=f37e228]:
+                - link "Bearbeiten" [ref=f37e229] [cursor=pointer]:
+                  - /url: /time_entries/4/edit
+                - link "Löschen" [ref=f37e232] [cursor=pointer]:
+                  - /url: /time_entries/4
+                - link "Aktionen" [ref=f37e235] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e238]:
+              - cell [ref=f37e239]:
+                - checkbox [ref=f37e240]
+              - cell "04.09.2026" [ref=f37e241]
+              - cell [ref=f37e242]:
+                - link "Daisy Skye" [ref=f37e243] [cursor=pointer]:
+                  - /url: /users/7
+              - cell "Design" [ref=f37e244]
+              - cell [ref=f37e245]:
+                - 'link "Bug #8" [ref=f37e246] [cursor=pointer]':
+                  - /url: /issues/8
+                - text: ": Implement issues form"
+              - cell "error solved" [ref=f37e247]
+              - cell "3:00" [ref=f37e248]
+              - cell [ref=f37e249]:
+                - link "Bearbeiten" [ref=f37e250] [cursor=pointer]:
+                  - /url: /time_entries/3/edit
+                - link "Löschen" [ref=f37e253] [cursor=pointer]:
+                  - /url: /time_entries/3
+                - link "Aktionen" [ref=f37e256] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e259]:
+              - cell [ref=f37e260]:
+                - checkbox [ref=f37e261]
+              - cell "04.09.2026" [ref=f37e262]
+              - cell [ref=f37e263]:
+                - link "Daisy Skye" [ref=f37e264] [cursor=pointer]:
+                  - /url: /users/7
+              - cell "Design" [ref=f37e265]
+              - cell [ref=f37e266]:
+                - 'link "Support #7" [ref=f37e267] [cursor=pointer]':
+                  - /url: /issues/7
+                - text: ": Implement user account"
+              - cell "Bug fixing" [ref=f37e268]
+              - cell "3:00" [ref=f37e269]
+              - cell [ref=f37e270]:
+                - link "Bearbeiten" [ref=f37e271] [cursor=pointer]:
+                  - /url: /time_entries/2/edit
+                - link "Löschen" [ref=f37e274] [cursor=pointer]:
+                  - /url: /time_entries/2
+                - link "Aktionen" [ref=f37e277] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e280]:
+              - cell [ref=f37e281]:
+                - checkbox [ref=f37e282]
+              - cell "15.06.2026" [ref=f37e283]
+              - cell [ref=f37e284]:
+                - link "Celeste Dawn" [ref=f37e285] [cursor=pointer]:
+                  - /url: /users/13
+              - cell "Development" [ref=f37e286]
+              - cell [ref=f37e287]:
+                - 'link "Bug #34" [ref=f37e288] [cursor=pointer]':
+                  - /url: /issues/34
+                - text: ": Implement time tracking reports"
+              - cell "Time tracking reports" [ref=f37e289]
+              - cell "7:00" [ref=f37e290]
+              - cell [ref=f37e291]:
+                - link "Bearbeiten" [ref=f37e292] [cursor=pointer]:
+                  - /url: /time_entries/24/edit
+                - link "Löschen" [ref=f37e295] [cursor=pointer]:
+                  - /url: /time_entries/24
+                - link "Aktionen" [ref=f37e298] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e301]:
+              - cell [ref=f37e302]:
+                - checkbox [ref=f37e303]
+              - cell "13.06.2026" [ref=f37e304]
+              - cell [ref=f37e305]:
+                - link "Serenity Bloom" [ref=f37e306] [cursor=pointer]:
+                  - /url: /users/14
+              - cell "Development" [ref=f37e307]
+              - cell [ref=f37e308]:
+                - 'link "Support #32" [ref=f37e309] [cursor=pointer]':
+                  - /url: /issues/32
+                - text: ": Implement user profile management"
+              - cell "User profile management" [ref=f37e310]
+              - cell "5:00" [ref=f37e311]
+              - cell [ref=f37e312]:
+                - link "Bearbeiten" [ref=f37e313] [cursor=pointer]:
+                  - /url: /time_entries/22/edit
+                - link "Löschen" [ref=f37e316] [cursor=pointer]:
+                  - /url: /time_entries/22
+                - link "Aktionen" [ref=f37e319] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f37e322]:
+              - cell [ref=f37e323]:
+                - checkbox [ref=f37e324]
+              - cell "11.06.2026" [ref=f37e325]
+              - cell [ref=f37e326]:
+                - link "Autumn Grace" [ref=f37e327] [cursor=pointer]:
+                  - /url: /users/8
+              - cell "Development" [ref=f37e328]
+              - cell [ref=f37e329]:
+                - 'link "Bug #30" [ref=f37e330] [cursor=pointer]':
+                  - /url: /issues/30
+                - text: ": Implement OAuth login integration"
+              - cell "OAuth login integration" [ref=f37e331]
+              - cell "6:00" [ref=f37e332]
+              - cell [ref=f37e333]:
+                - link "Bearbeiten" [ref=f37e334] [cursor=pointer]:
+                  - /url: /time_entries/20/edit
+                - link "Löschen" [ref=f37e337] [cursor=pointer]:
+                  - /url: /time_entries/20
+                - link "Aktionen" [ref=f37e340] [cursor=pointer]:
+                  - /url: "#"
+        - generic [ref=f37e343]:
+          - list
+          - generic [ref=f37e344]: (1-9/9)
+        - paragraph [ref=f37e345]:
+          - text: "Auch abrufbar als:"
+          - link "CSV" [ref=f37e347] [cursor=pointer]:
+            - /url: /projects/defaultsd/time_entries.csv
+          - generic [ref=f37e348]:
+            - text: "|"
+            - link "Atom" [ref=f37e349] [cursor=pointer]:
+              - /url: /projects/defaultsd/time_entries.atom?key=1a8d0f09e0337d3150adf38fa208ced775ca01b8
+    - generic [ref=f37e350]:
+      - text: Powered by
+      - link "Redmine" [ref=f37e351] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f37e352]
+  - log [ref=f37e353]
+  - log [ref=f37e354]
+  - log [ref=f37e355]
+  - log [ref=f37e356]
+  - log [ref=f37e357]
+  - log [ref=f37e358]
+  - log [ref=f37e359]
+  - log [ref=f37e360]
+  - log [ref=f37e361]
+  - log [ref=f37e362]
+  - log [ref=f37e363]
+  - log [ref=f37e364]
+  - log [ref=f37e365]
+  - log [ref=f37e366]
+  - log [ref=f37e367]
+  - log [ref=f37e368]
+  - log [ref=f37e369]
+  - log [ref=f37e370]
+  - log [ref=f37e371]
+  - log [ref=f37e372]
+  - log [ref=f37e373]
+  - log [ref=f37e374]
+  - log [ref=f37e375]
+  - log [ref=f37e376]
+  - log [ref=f37e377]
+  - log [ref=f37e378]
+  - log [ref=f37e379]
+  - log [ref=f37e380]
+  - log [ref=f37e381]
+  - log [ref=f37e382]
+  - log [ref=f37e383]
+  - log [ref=f37e384]
+  - log [ref=f37e385]
+  - log [ref=f37e386]
+  - log [ref=f37e387]
+  - log [ref=f37e388]
+  - log [ref=f37e389]
+  - log [ref=f37e390]
+  - log [ref=f37e391]
+  - log [ref=f37e392]
+  - log [ref=f37e393]
+  - log [ref=f37e394]
+  - log [ref=f37e395]

@@ -1,0 +1,285 @@
+- generic [active] [ref=f386e1]:
+  - generic [ref=f386e2]:
+    - generic [ref=f386e3]:
+      - generic [ref=f386e4]:
+        - list:
+          - listitem [ref=f386e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f386e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f386e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f386e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f386e9]:
+        - listitem [ref=f386e10]:
+          - link [ref=f386e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f386e12]
+        - listitem [ref=f386e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f386e14]:
+          - link "My page" [ref=f386e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f386e16]:
+          - link "Projects" [ref=f386e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f386e18]:
+          - link "Time Tracker" [ref=f386e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f386e20]:
+          - link "Workloads" [ref=f386e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f386e22]:
+          - link "Help" [ref=f386e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f386e24]:
+      - generic [ref=f386e25]:
+        - generic [ref=f386e26]:
+          - generic [ref=f386e27]:
+            - link "Search..." [ref=f386e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f386e29]
+        - generic [ref=f386e30]:
+          - generic [ref=f386e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f386e32]
+      - generic [ref=f386e33]:
+        - list [ref=f386e34]:
+          - listitem [ref=f386e35]:
+            - link "+" [ref=f386e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f386e37]:
+            - link "Overview" [ref=f386e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f386e39]:
+            - link "Activity" [ref=f386e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f386e41]:
+            - link "Issues" [ref=f386e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f386e43]:
+            - link "Spent time" [ref=f386e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f386e45]:
+            - link "Gantt" [ref=f386e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f386e47]:
+            - link "Calendar" [ref=f386e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f386e49]:
+            - link "News" [ref=f386e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f386e51]:
+            - link "Documents" [ref=f386e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f386e53]:
+            - link "Wiki" [ref=f386e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f386e55]:
+            - link "Files" [ref=f386e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f386e57]:
+            - link "Helpdesk" [ref=f386e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f386e59]:
+          - button [ref=f386e60] [cursor=pointer]
+          - button [ref=f386e63] [cursor=pointer]
+    - generic [ref=f386e66]:
+      - link [ref=f386e68] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=f386e71]:
+        - generic [ref=f386e72]:
+          - link "Start Timer" [ref=f386e73] [cursor=pointer]:
+            - /url: "#"
+          - link "Reply" [ref=f386e74] [cursor=pointer]:
+            - /url: "#"
+          - link "Edit" [ref=f386e75] [cursor=pointer]:
+            - /url: /issues/8/edit
+          - link "Log time" [ref=f386e77] [cursor=pointer]:
+            - /url: /issues/8/time_entries/new
+          - link "Watch" [ref=f386e79] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=8&object_type=issue
+          - generic "Actions" [ref=f386e83] [cursor=pointer]
+        - 'heading "Support #8" [level=2] [ref=f386e85]'
+        - text: open
+        - generic [ref=f386e86]:
+          - 'img "Author: Alpha Customer" [ref=f386e87]': AC
+          - 'heading "Ticket: TC-HLP-016 fresh email creates a new ticket" [level=3] [ref=f386e91]'
+          - link [ref=f386e94] [cursor=pointer]:
+            - /url: /reactions?object_id=8&object_type=Issue
+          - paragraph [ref=f386e97]:
+            - text: Added by
+            - link "Alpha Customer" [ref=f386e98] [cursor=pointer]:
+              - /url: /users/6
+            - link "26 minutes" [ref=f386e99] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-08-31
+            - text: ago. Updated
+            - link "23 minutes" [ref=f386e100] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-08-31
+            - text: ago.
+          - generic [ref=f386e101]:
+            - generic [ref=f386e102]:
+              - generic [ref=f386e103]:
+                - generic [ref=f386e104]:
+                  - generic [ref=f386e105]: "Status:"
+                  - generic [ref=f386e106]: In Progress
+                - generic [ref=f386e107]:
+                  - generic [ref=f386e108]: "Priority:"
+                  - generic [ref=f386e109]: Normal
+                - generic [ref=f386e110]:
+                  - generic [ref=f386e111]: "Assignee:"
+                  - generic [ref=f386e112]: "-"
+              - generic [ref=f386e113]:
+                - generic [ref=f386e114]:
+                  - generic [ref=f386e115]: "Start date:"
+                  - generic [ref=f386e116]: 08/31/2026
+                - generic [ref=f386e117]: "Due Date:"
+                - generic [ref=f386e119]:
+                  - generic [ref=f386e120]: "Progress:"
+                  - generic [ref=f386e121]:
+                    - table [ref=f386e122]:
+                      - rowgroup [ref=f386e123]:
+                        - row [ref=f386e124]:
+                          - cell [ref=f386e125]
+                    - paragraph [ref=f386e126]: 0%
+                - generic [ref=f386e127]: "Estimated time:"
+            - generic [ref=f386e129]: "Issue Category:"
+            - generic [ref=f386e134]:
+              - generic [ref=f386e135]: "Product:"
+              - generic [ref=f386e136]: "-"
+            - generic [ref=f386e137]:
+              - generic [ref=f386e138]: "Organization:"
+              - generic [ref=f386e139]: "-"
+          - separator [ref=f386e140]
+          - generic [ref=f386e141]:
+            - link "Quote" [ref=f386e143] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f386e145]:
+              - strong [ref=f386e146]: Description
+            - paragraph [ref=f386e148]: Sent as alpha.customer via real webmail, per TC-HLP-016 re-run, to verify a qualifying inbound email creates a fresh ticket correctly on Helpdesk QA Alpha.
+          - separator [ref=f386e149]
+          - generic [ref=f386e150]:
+            - paragraph [ref=f386e152]:
+              - strong [ref=f386e153]: Checklist
+            - generic [ref=f386e155] [cursor=pointer]
+            - generic:
+              - list
+          - separator [ref=f386e157]
+          - generic [ref=f386e158]:
+            - link "Add" [ref=f386e160] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/new?back_url=%2Fissues%2F8&issue%5Bparent_issue_id%5D=8&issue%5Btracker_id%5D=3
+            - paragraph [ref=f386e161]:
+              - strong [ref=f386e162]: Subtasks
+        - generic [ref=f386e163]:
+          - list [ref=f386e165]:
+            - listitem [ref=f386e166]:
+              - link "History" [ref=f386e167] [cursor=pointer]:
+                - /url: /issues/8?tab=history
+            - listitem [ref=f386e168]:
+              - link "Notes" [ref=f386e169] [cursor=pointer]:
+                - /url: /issues/8?tab=notes
+            - listitem [ref=f386e170]:
+              - link "Property changes" [ref=f386e171] [cursor=pointer]:
+                - /url: /issues/8?tab=properties
+            - listitem [ref=f386e172]:
+              - link "Helpdesk Conversion (5)" [ref=f386e173] [cursor=pointer]:
+                - /url: /issues/8?tab=email-history
+          - generic [ref=f386e176]:
+            - heading [level=4] [ref=f386e177]:
+              - generic [ref=f386e178]:
+                - img [ref=f386e179]: AC
+                - text: Updated by
+                - link "Alpha Customer" [ref=f386e180] [cursor=pointer]:
+                  - /url: /users/6
+                - link "23 minutes" [ref=f386e181] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/activity?from=2026-08-31
+                - text: ago
+              - generic [ref=f386e182]:
+                - generic [ref=f386e183]:
+                  - link [ref=f386e185] [cursor=pointer]:
+                    - /url: /reactions?object_id=7&object_type=Journal
+                  - link "Quote" [ref=f386e188] [cursor=pointer]:
+                    - /url: "#"
+                  - generic "Actions" [ref=f386e193] [cursor=pointer]
+                - link "#1" [ref=f386e195] [cursor=pointer]:
+                  - /url: "#note-1"
+            - generic [ref=f386e196]:
+              - list [ref=f386e197]:
+                - listitem [ref=f386e198]:
+                  - strong [ref=f386e199]: Status
+                  - text: changed from New to In Progress
+              - paragraph [ref=f386e201]:
+                - text: Real threaded reply as alpha.customer, per TC-HLP-017 re-run. This should land as a note on ticket
+                - link "#8" [ref=f386e202] [cursor=pointer]:
+                  - /url: /issues/8
+                - text: ", not a new ticket, and should now also appear in Helpdesk Conversion per closed BUG-HLP-008."
+        - generic [ref=f386e203]:
+          - link "Edit" [ref=f386e204] [cursor=pointer]:
+            - /url: /issues/8/edit
+          - link "Log time" [ref=f386e206] [cursor=pointer]:
+            - /url: /issues/8/time_entries/new
+          - link "Watch" [ref=f386e208] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=8&object_type=issue
+          - generic "Actions" [ref=f386e212] [cursor=pointer]
+        - text: pre
+        - paragraph [ref=f386e214]:
+          - text: "Also available in:"
+          - link "PDF" [ref=f386e216] [cursor=pointer]:
+            - /url: /issues/8.pdf
+          - generic [ref=f386e217]:
+            - text: "|"
+            - link "Atom" [ref=f386e218] [cursor=pointer]:
+              - /url: /issues/8.atom?key=74f8c2c10d57ac3baeee5bf474f60ebd9a037b60
+    - generic [ref=f386e219]:
+      - text: Powered by
+      - link "Redmine" [ref=f386e220] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f386e221]
+  - log [ref=f386e222]
+  - log [ref=f386e223]
+  - log [ref=f386e224]
+  - log [ref=f386e225]
+  - log [ref=f386e226]
+  - log [ref=f386e227]
+  - log [ref=f386e228]
+  - log [ref=f386e229]
+  - log [ref=f386e230]
+  - log [ref=f386e231]
+  - log [ref=f386e232]
+  - log [ref=f386e233]
+  - log [ref=f386e234]
+  - log [ref=f386e235]
+  - log [ref=f386e236]
+  - log [ref=f386e237]
+  - log [ref=f386e238]
+  - log [ref=f386e239]
+  - log [ref=f386e240]
+  - log [ref=f386e241]
+  - log [ref=f386e242]
+  - log [ref=f386e243]
+  - log [ref=f386e244]
+  - log [ref=f386e245]
+  - log [ref=f386e246]
+  - log [ref=f386e247]
+  - log [ref=f386e248]
+  - log [ref=f386e249]
+  - log [ref=f386e250]
+  - log [ref=f386e251]
+  - log [ref=f386e252]
+  - log [ref=f386e253]
+  - log [ref=f386e254]
+  - log [ref=f386e255]
+  - log [ref=f386e256]
+  - log [ref=f386e257]
+  - log [ref=f386e258]
+  - log [ref=f386e259]
+  - log [ref=f386e260]
+  - log [ref=f386e261]
+  - log [ref=f386e262]
+  - log [ref=f386e263]

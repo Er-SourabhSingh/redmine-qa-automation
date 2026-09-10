@@ -1,0 +1,236 @@
+- generic [ref=f14e1]:
+  - generic [ref=f14e2]:
+    - navigation [ref=f14e3]:
+      - list [ref=f14e6]:
+        - listitem [ref=f14e7]:
+          - link "Hauptseite" [ref=f14e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f14e9]:
+          - link "Meine Seite" [ref=f14e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f14e11]:
+          - link "Projekte" [ref=f14e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f14e13]:
+          - link "Agile Board" [ref=f14e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f14e15]:
+          - link "Flux Gantt" [ref=f14e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f14e17]:
+          - link "Administration" [ref=f14e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f14e19]:
+          - link "Hilfe" [ref=f14e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f14e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f14e24]: RA
+    - generic [ref=f14e27]:
+      - generic [ref=f14e28]:
+        - generic [ref=f14e29]:
+          - generic [ref=f14e30]:
+            - link "Suche" [ref=f14e31] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/search
+            - text: ":"
+          - textbox "Suche:" [ref=f14e32]
+        - generic [ref=f14e33]:
+          - generic [ref=f14e34] [cursor=pointer]: Tag Retest Project
+          - text: ✓
+      - heading "Tag Retest Project" [level=1] [ref=f14e35]
+      - generic [ref=f14e37]:
+        - list [ref=f14e38]:
+          - listitem [ref=f14e39]:
+            - link "+" [ref=f14e40] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f14e41]:
+            - link "Übersicht" [ref=f14e42] [cursor=pointer]:
+              - /url: /projects/tag-retest-project
+          - listitem [ref=f14e43]:
+            - link "Dashboard" [ref=f14e44] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/analytics_dashboard
+          - listitem [ref=f14e45]:
+            - link "Aktivität" [ref=f14e46] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/activity
+          - listitem [ref=f14e47]:
+            - link "Tickets" [ref=f14e48] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/issues
+          - listitem [ref=f14e49]:
+            - link "Aufgewendete Zeit" [ref=f14e50] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/time_entries
+          - listitem [ref=f14e51]:
+            - link "Gantt-Diagramm" [ref=f14e52] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/issues/gantt
+          - listitem [ref=f14e53]:
+            - link "Kalender" [ref=f14e54] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/issues/calendar
+          - listitem [ref=f14e55]:
+            - link "News" [ref=f14e56] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/news
+          - listitem [ref=f14e57]:
+            - link "Dokumente" [ref=f14e58] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/documents
+          - listitem [ref=f14e59]:
+            - link "Wiki" [ref=f14e60] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/wiki
+          - listitem [ref=f14e61]:
+            - link "Dateien" [ref=f14e62] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/files
+          - listitem [ref=f14e63]:
+            - link "Konfiguration" [ref=f14e64] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/settings
+        - generic [ref=f14e65]:
+          - button [ref=f14e66] [cursor=pointer]
+          - button [ref=f14e69] [cursor=pointer]
+    - generic [ref=f14e73]:
+      - heading "Neues Ticket" [level=2] [ref=f14e74]
+      - generic [ref=f14e75]:
+        - generic [ref=f14e76]:
+          - generic [ref=f14e77]:
+            - paragraph [ref=f14e78]:
+              - checkbox "Privat" [ref=f14e79]
+              - text: Privat
+            - paragraph [ref=f14e80]:
+              - generic [ref=f14e81]: Tracker *
+              - combobox "Tracker *" [ref=f14e82]:
+                - option "Bug" [selected]
+                - option "Feature"
+                - option "Support"
+            - paragraph [ref=f14e83]:
+              - generic [ref=f14e84]: Thema *
+              - textbox "Thema *" [active] [ref=f14e85]
+            - paragraph [ref=f14e86]:
+              - generic [ref=f14e87]: Beschreibung
+              - generic [ref=f14e89]:
+                - list [ref=f14e91]:
+                  - listitem [ref=f14e92]:
+                    - link "Bearbeiten" [ref=f14e93] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f14e94]:
+                    - link "Vorschau" [ref=f14e95] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f14e96]:
+                    - generic [ref=f14e97]:
+                      - button "Fett (Ctrl+B)" [ref=f14e98] [cursor=pointer]
+                      - button "Kursiv (Ctrl+I)" [ref=f14e99] [cursor=pointer]
+                      - button "Unterstrichen (Ctrl+U)" [ref=f14e100] [cursor=pointer]
+                      - button "Durchgestrichen" [ref=f14e101] [cursor=pointer]
+                      - button "Quelltext" [ref=f14e102] [cursor=pointer]
+                      - button "Überschrift 1. Ordnung" [ref=f14e103] [cursor=pointer]
+                      - button "Überschrift 2. Ordnung" [ref=f14e104] [cursor=pointer]
+                      - button "Überschrift 3. Ordnung" [ref=f14e105] [cursor=pointer]
+                      - button "Aufzählungsliste" [ref=f14e106] [cursor=pointer]
+                      - button "Nummerierte Liste" [ref=f14e107] [cursor=pointer]
+                      - button "Task list" [ref=f14e108] [cursor=pointer]
+                      - button "Zitat" [ref=f14e109] [cursor=pointer]
+                      - button "Zitat entfernen" [ref=f14e110] [cursor=pointer]
+                      - button "Table" [ref=f14e111] [cursor=pointer]
+                      - button "pre" [ref=f14e112] [cursor=pointer]
+                      - button "Highlighted code" [ref=f14e113] [cursor=pointer]
+                      - button "Verweis (Link) zu einer Wiki-Seite" [ref=f14e114] [cursor=pointer]
+                      - button "Grafik" [ref=f14e115] [cursor=pointer]
+                      - button "Help" [ref=f14e116] [cursor=pointer]
+                - textbox "Beschreibung" [ref=f14e118]
+            - generic [ref=f14e120]:
+              - generic [ref=f14e121]:
+                - paragraph [ref=f14e122]:
+                  - generic [ref=f14e123]: Status *
+                  - combobox "Status *" [ref=f14e124]:
+                    - option "New" [selected]
+                - paragraph [ref=f14e125]:
+                  - generic [ref=f14e126]: Priorität *
+                  - combobox "Priorität *" [ref=f14e127]:
+                    - option "Low"
+                    - option "Normal" [selected]
+                    - option "High"
+                    - option "Urgent"
+                    - option "Immediate"
+                - paragraph [ref=f14e128]:
+                  - generic [ref=f14e129]: Zugewiesen an
+                  - combobox "Zugewiesen an" [ref=f14e130]:
+                    - option [selected]
+                    - option "<< ich >>"
+                    - option "Redmine Admin"
+                  - link "Mir zuweisen" [ref=f14e131] [cursor=pointer]:
+                    - /url: "#"
+              - generic [ref=f14e132]:
+                - paragraph [ref=f14e133]:
+                  - generic [ref=f14e134]: Übergeordnetes Ticket
+                  - textbox "Übergeordnetes Ticket" [ref=f14e135]
+                - paragraph [ref=f14e136]:
+                  - generic [ref=f14e137]: Startdatum
+                  - textbox "Startdatum" [ref=f14e138]
+                - paragraph [ref=f14e139]:
+                  - generic [ref=f14e140]: Abgabedatum
+                  - textbox "Abgabedatum" [ref=f14e141]
+                - paragraph [ref=f14e142]:
+                  - generic [ref=f14e143]: Geschätzter Aufwand
+                  - textbox "Geschätzter Aufwand" [ref=f14e144]:
+                    - /placeholder: h:mm
+                  - text: Stunden
+                - paragraph [ref=f14e145]:
+                  - generic [ref=f14e146]: "% erledigt"
+                  - combobox "% erledigt" [ref=f14e147]:
+                    - option "0 %" [selected]
+                    - option "10 %"
+                    - option "20 %"
+                    - option "30 %"
+                    - option "40 %"
+                    - option "50 %"
+                    - option "60 %"
+                    - option "70 %"
+                    - option "80 %"
+                    - option "90 %"
+                    - option "100 %"
+            - paragraph [ref=f14e148]:
+              - generic [ref=f14e149]: Markierungsliste
+              - list [ref=f14e150]:
+                - listitem [ref=f14e151]:
+                  - textbox "Markierungen hinzufügen" [ref=f14e152]
+          - paragraph [ref=f14e153]:
+            - generic [ref=f14e154]: Dateien
+            - generic [ref=f14e156]:
+              - button "Choose File" [ref=f14e157]
+              - text: "(Maximale Größe: 5 MB)"
+          - paragraph [ref=f14e159]:
+            - generic [ref=f14e160]: Beobachter
+            - link "Nach hinzufügbaren Beobachtern suchen" [ref=f14e162] [cursor=pointer]:
+              - /url: /watchers/new?project_id=tag-retest-project
+        - button "Erstellen" [ref=f14e166] [cursor=pointer]
+        - button "Anlegen und weiter" [ref=f14e167] [cursor=pointer]
+    - generic [ref=f14e168]:
+      - text: Powered by
+      - link "Redmine" [ref=f14e169] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f14e170]
+  - log [ref=f14e171]
+  - log [ref=f14e172]
+  - log [ref=f14e173]
+  - log [ref=f14e174]
+  - log [ref=f14e175]
+  - log [ref=f14e176]
+  - log [ref=f14e177]
+  - log [ref=f14e178]
+  - log [ref=f14e179]
+  - log [ref=f14e180]
+  - log [ref=f14e181]
+  - log [ref=f14e182]
+  - log [ref=f14e183]
+  - log [ref=f14e184]
+  - log [ref=f14e185]
+  - log [ref=f14e186]
+  - log [ref=f14e187]
+  - log [ref=f14e188]
+  - log [ref=f14e189]
+  - log [ref=f14e190]
+  - log [ref=f14e191]
+  - log [ref=f14e192]
+  - log [ref=f14e193]
+  - log [ref=f14e194]
+  - log [ref=f14e195]
+  - log [ref=f14e196]
+  - log [ref=f14e197]
+  - log [ref=f14e198]
+  - log [ref=f14e199]
+  - status [ref=f14e200]

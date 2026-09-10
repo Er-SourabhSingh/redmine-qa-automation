@@ -1,0 +1,124 @@
+- generic [active] [ref=f249e1]:
+  - generic [ref=f249e2]:
+    - navigation [ref=f249e3]:
+      - generic [ref=f249e4]:
+        - link [ref=f249e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f249e7] [cursor=pointer]
+      - list [ref=f249e17]:
+        - listitem [ref=f249e18]:
+          - link "Hauptseite" [ref=f249e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f249e20]:
+          - link "Meine Seite" [ref=f249e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f249e22]:
+          - link "Projekte" [ref=f249e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f249e24]:
+          - link "Agile Board" [ref=f249e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f249e26]:
+          - link "Flux Gantt" [ref=f249e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f249e28]:
+          - link "Administration" [ref=f249e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f249e30]:
+          - link "Hilfe" [ref=f249e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f249e32]:
+        - generic [ref=f249e33]:
+          - generic [ref=f249e34] [cursor=pointer]: Zu einem Projekt springen...
+          - text: ✓
+        - button "Suche" [ref=f249e35]
+        - link "Mein Konto" [ref=f249e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f249e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f249e44]:
+      - generic [ref=f249e45]:
+        - generic [ref=f249e46]:
+          - heading "Redmine" [level=1] [ref=f249e47]
+          - generic [ref=f249e48]:
+            - generic [ref=f249e49]: Hauptmenü
+            - list [ref=f249e51]:
+              - listitem [ref=f249e52]:
+                - link "Projekte" [ref=f249e53] [cursor=pointer]:
+                  - /url: /projects
+              - listitem [ref=f249e61]:
+                - link "Aktivität" [ref=f249e62] [cursor=pointer]:
+                  - /url: /activity
+              - listitem [ref=f249e67]:
+                - link "Tickets" [ref=f249e68] [cursor=pointer]:
+                  - /url: /issues
+              - listitem [ref=f249e73]:
+                - link "Aufgewendete Zeit" [ref=f249e74] [cursor=pointer]:
+                  - /url: /time_entries
+              - listitem [ref=f249e79]:
+                - link "Gantt-Diagramm" [ref=f249e80] [cursor=pointer]:
+                  - /url: /issues/gantt
+              - listitem [ref=f249e88]:
+                - link "Kalender" [ref=f249e89] [cursor=pointer]:
+                  - /url: /issues/calendar
+              - listitem [ref=f249e94]:
+                - link "News" [ref=f249e95] [cursor=pointer]:
+                  - /url: /news
+        - generic [ref=f249e101]:
+          - heading "Abfragen" [level=3] [ref=f249e102]
+          - list [ref=f249e103]:
+            - listitem [ref=f249e104]:
+              - link "Spent time" [ref=f249e105] [cursor=pointer]:
+                - /url: /time_entries/report?query_id=7
+      - generic [ref=f249e106]:
+        - generic [ref=f249e107]:
+          - button "Filter" [ref=f249e108] [cursor=pointer]
+          - link "Aufwand buchen" [ref=f249e109] [cursor=pointer]:
+            - /url: /time_entries/new
+        - heading "Aufgewendete Zeit" [level=2] [ref=f249e111]
+        - generic [ref=f249e112]:
+          - list [ref=f249e114]:
+            - listitem [ref=f249e115]:
+              - link "Details" [ref=f249e116] [cursor=pointer]:
+                - /url: /time_entries
+            - listitem [ref=f249e117]:
+              - link "Bericht" [ref=f249e118] [cursor=pointer]:
+                - /url: /time_entries/report
+          - paragraph [ref=f249e119]:
+            - text: "Details:"
+            - combobox "Details" [ref=f249e120]:
+              - option "Jahr"
+              - option "Monat" [selected]
+              - option "Woche"
+              - option "Tage"
+            - text: "Hinzufügen:"
+            - combobox "Hinzufügen" [ref=f249e121]:
+              - option [selected]
+              - option "Projekt"
+              - option "Status"
+              - option "Version"
+              - option "Kategorie"
+              - option "Benutzer"
+              - option "Tracker"
+              - option "Aktivität"
+              - option "Ticket"
+            - link "Zurücksetzen" [ref=f249e122] [cursor=pointer]:
+              - /url: /time_entries/report
+    - generic [ref=f249e124]:
+      - text: Powered by
+      - link "Redmine" [ref=f249e125] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f249e126]
+  - log [ref=f249e127]
+  - log [ref=f249e128]
+  - log [ref=f249e129]
+  - log [ref=f249e130]
+  - log [ref=f249e131]
+  - log [ref=f249e132]
+  - log [ref=f249e133]
+  - log [ref=f249e134]
+  - log [ref=f249e135]
+  - log [ref=f249e136]
+  - log [ref=f249e137]
+  - log [ref=f249e138]

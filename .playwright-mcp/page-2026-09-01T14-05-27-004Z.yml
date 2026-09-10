@@ -1,0 +1,168 @@
+- generic [ref=f137e1]:
+  - generic [ref=f137e2]:
+    - generic [ref=f137e3]:
+      - generic [ref=f137e4]:
+        - list:
+          - listitem [ref=f137e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f137e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f137e7]:
+        - text: Logged in as
+        - link "admin" [ref=f137e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f137e9]:
+        - listitem [ref=f137e10]:
+          - link [ref=f137e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f137e12]
+        - listitem [ref=f137e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f137e14]:
+          - link "My page" [ref=f137e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f137e16]:
+          - link "Projects" [ref=f137e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f137e18]:
+          - link "Flux Gantt" [ref=f137e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f137e20]:
+          - link "Helpdesk Command Center" [ref=f137e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f137e22]:
+          - link "Time Tracker" [ref=f137e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f137e24]:
+          - link "Timesheet" [ref=f137e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f137e26]:
+          - link "Workloads" [ref=f137e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f137e28]:
+          - link "More" [ref=f137e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f137e30]:
+      - generic [ref=f137e31]:
+        - generic [ref=f137e32]:
+          - generic [ref=f137e33]:
+            - link "Search..." [ref=f137e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f137e35]
+        - generic [ref=f137e36]:
+          - generic [ref=f137e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f137e38]
+    - generic [ref=f137e39]:
+      - list [ref=f137e43]:
+        - listitem [ref=f137e44]:
+          - link "Helpdesk Dashboard" [ref=f137e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f137e48]:
+          - link "Helpdesk Tickets" [ref=f137e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f137e52]:
+          - link "Reports" [ref=f137e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f137e56]:
+          - link "Organization" [ref=f137e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f137e60]:
+          - link "Customers" [ref=f137e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f137e64]:
+          - link "Products" [ref=f137e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f137e68]:
+          - link "Helpdesk Settings" [ref=f137e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f137e72]:
+        - 'heading "Edit Customer: Retest Customer1" [level=2] [ref=f137e73]'
+        - generic [ref=f137e74]:
+          - generic [ref=f137e75]:
+            - paragraph [ref=f137e76]:
+              - generic [ref=f137e77]: Login *
+              - textbox "Login *" [active] [ref=f137e78]: retest.customer1
+            - paragraph [ref=f137e79]:
+              - generic [ref=f137e80]: First name *
+              - textbox "First name *" [ref=f137e81]: Retest
+            - paragraph [ref=f137e82]:
+              - generic [ref=f137e83]: Last name *
+              - textbox "Last name *" [ref=f137e84]: Customer1
+            - paragraph [ref=f137e85]:
+              - generic [ref=f137e86]: Email *
+              - textbox "Email *" [ref=f137e87]: retest.customer1@test.local
+            - generic [ref=f137e88]:
+              - paragraph [ref=f137e89]:
+                - generic [ref=f137e90]: Password *
+                - textbox "Password *" [ref=f137e91]
+                - emphasis [ref=f137e92]: Leave blank to keep the current password
+              - paragraph [ref=f137e93]:
+                - generic [ref=f137e94]: Confirmation *
+                - textbox "Confirmation *" [ref=f137e95]
+            - paragraph [ref=f137e96]:
+              - checkbox "Generate password automatically" [ref=f137e97]
+              - generic [ref=f137e98]: Generate password automatically
+            - paragraph [ref=f137e99]:
+              - checkbox "Send account information to the user" [ref=f137e100]
+              - generic [ref=f137e101]: Send account information to the user
+          - group "Project access" [ref=f137e102]:
+            - paragraph [ref=f137e104]: Projects this customer can raise tickets against, and the SLA, support level and organisation that apply on each. Leave empty to create the account without project access.
+            - generic [ref=f137e106]:
+              - generic [ref=f137e107]:
+                - generic [ref=f137e108]: Project
+                - combobox [ref=f137e109]:
+                  - option "-- Select project --"
+                  - option "Helpdesk QA Alpha" [selected]
+                  - option "Helpdesk QA Beta"
+              - generic [ref=f137e110]:
+                - generic [ref=f137e111]: SLA Name *
+                - combobox [ref=f137e112]:
+                  - option "None"
+                  - option "Alpha CRUD Test SLA Full (Required-Only Edit)"
+                  - option "Alpha Escalation Test SLA"
+                  - option "Alpha Holiday-Skip Test SLA"
+                  - option "Alpha Outside-Hours Intraday Test SLA"
+                  - option "Alpha Priority SLA"
+                  - option "Alpha Same-Day Baseline Test SLA" [selected]
+                  - option "Alpha Standard SLA"
+                  - option "Alpha Working-Hours-Skip Test SLA"
+              - generic [ref=f137e113]:
+                - generic [ref=f137e114]: Support Level *
+                - combobox [ref=f137e115]:
+                  - option "None"
+                  - option "L1"
+                  - option "L2" [selected]
+                  - option "L3"
+              - generic [ref=f137e116]:
+                - generic [ref=f137e117]: Organization Name
+                - combobox [ref=f137e118]:
+                  - option "None" [selected]
+              - button "Delete" [ref=f137e119] [cursor=pointer]
+            - paragraph [ref=f137e123]:
+              - button "Add project" [ref=f137e124] [cursor=pointer]
+          - paragraph [ref=f137e126]:
+            - button "Save" [ref=f137e127] [cursor=pointer]
+            - link "Cancel" [ref=f137e128] [cursor=pointer]:
+              - /url: /rf_helpdesk/customers
+    - generic [ref=f137e129]:
+      - text: Powered by
+      - link "Redmine" [ref=f137e130] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f137e131]
+  - log [ref=f137e132]
+  - log [ref=f137e133]
+  - log [ref=f137e134]
+  - log [ref=f137e135]
+  - log [ref=f137e136]
+  - log [ref=f137e137]
+  - log [ref=f137e138]
+  - log [ref=f137e139]
+  - log [ref=f137e140]
+  - log [ref=f137e141]
+  - log [ref=f137e142]

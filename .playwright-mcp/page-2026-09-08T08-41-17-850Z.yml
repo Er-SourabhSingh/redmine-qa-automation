@@ -1,0 +1,213 @@
+- generic [active] [ref=f202e1]:
+  - generic [ref=f202e2]:
+    - navigation [ref=f202e3]:
+      - generic [ref=f202e4]:
+        - link [ref=f202e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f202e7] [cursor=pointer]
+      - list [ref=f202e17]:
+        - listitem [ref=f202e18]:
+          - link "Hauptseite" [ref=f202e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f202e20]:
+          - link "Meine Seite" [ref=f202e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f202e22]:
+          - link "Projekte" [ref=f202e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f202e24]:
+          - link "Agile Board" [ref=f202e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f202e26]:
+          - link "Flux Gantt" [ref=f202e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f202e28]:
+          - link "Administration" [ref=f202e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f202e30]:
+          - link "Hilfe" [ref=f202e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f202e32]:
+        - generic [ref=f202e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f202e35]
+        - link "Mein Konto" [ref=f202e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f202e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f202e44]:
+      - generic [ref=f202e45]:
+        - heading "Redmine" [level=1] [ref=f202e47]
+        - generic [ref=f202e49]:
+          - heading "Administration" [level=3] [ref=f202e50]
+          - list [ref=f202e52]:
+            - listitem [ref=f202e53]:
+              - link "Projekte" [ref=f202e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f202e55]:
+              - link "Benutzer" [ref=f202e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f202e57]:
+              - link "Gruppen" [ref=f202e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f202e59]:
+              - link "Rollen und Rechte" [ref=f202e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f202e61]:
+              - link "Tracker" [ref=f202e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f202e63]:
+              - link "Ticket-Status" [ref=f202e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f202e65]:
+              - link "Workflow" [ref=f202e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f202e67]:
+              - link "Benutzerdefinierte Felder" [ref=f202e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f202e69]:
+              - link "Aufzählungen" [ref=f202e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f202e71]:
+              - link "Konfiguration" [ref=f202e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f202e73]:
+              - link "LDAP-Authentifizierung" [ref=f202e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f202e75]:
+              - link "Applikationen" [ref=f202e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f202e77]:
+              - link "Plugins" [ref=f202e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f202e79]:
+              - link "Informationen" [ref=f202e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f202e81]:
+        - heading "Konfiguration" [level=2] [ref=f202e82]
+        - list [ref=f202e84]:
+          - listitem [ref=f202e85]:
+            - link "Allgemein" [ref=f202e86] [cursor=pointer]:
+              - /url: /settings?tab=general
+          - listitem [ref=f202e87]:
+            - link "Anzeige" [ref=f202e88] [cursor=pointer]:
+              - /url: /settings?tab=display
+          - listitem [ref=f202e89]:
+            - link "Authentifizierung" [ref=f202e90] [cursor=pointer]:
+              - /url: /settings?tab=authentication
+          - listitem [ref=f202e91]:
+            - link "Integrations" [ref=f202e92] [cursor=pointer]:
+              - /url: /settings?tab=integrations
+          - listitem [ref=f202e93]:
+            - link "Projekte" [ref=f202e94] [cursor=pointer]:
+              - /url: /settings?tab=projects
+          - listitem [ref=f202e95]:
+            - link "Benutzer" [ref=f202e96] [cursor=pointer]:
+              - /url: /settings?tab=users
+          - listitem [ref=f202e97]:
+            - link "Tickets" [ref=f202e98] [cursor=pointer]:
+              - /url: /settings?tab=issues
+          - listitem [ref=f202e99]:
+            - link "Zeiterfassung" [ref=f202e100] [cursor=pointer]:
+              - /url: /settings?tab=timelog
+          - listitem [ref=f202e101]:
+            - link "Dateien" [ref=f202e102] [cursor=pointer]:
+              - /url: /settings?tab=attachments
+          - listitem [ref=f202e103]:
+            - link "Mailbenachrichtigung" [ref=f202e104] [cursor=pointer]:
+              - /url: /settings?tab=notifications
+          - listitem [ref=f202e105]:
+            - link "Eingehende E-Mails" [ref=f202e106] [cursor=pointer]:
+              - /url: /settings?tab=mail_handler
+          - listitem [ref=f202e107]:
+            - link "Repositories" [ref=f202e108] [cursor=pointer]:
+              - /url: /settings?tab=repositories
+        - text: pre
+        - generic [ref=f202e110]:
+          - generic [ref=f202e111]:
+            - paragraph [ref=f202e112]:
+              - generic [ref=f202e113]: REST-Schnittstelle aktivieren
+              - checkbox "REST-Schnittstelle aktivieren" [checked] [ref=f202e114]
+            - paragraph [ref=f202e115]:
+              - generic [ref=f202e116]: JSONP Unterstützung aktivieren
+              - checkbox "JSONP Unterstützung aktivieren" [checked] [ref=f202e117]
+            - paragraph [ref=f202e118]:
+              - generic [ref=f202e119]: Enable webhooks
+              - checkbox "Enable webhooks" [ref=f202e120]
+          - button "Speichern" [ref=f202e121] [cursor=pointer]
+        - text: pre pre
+    - generic [ref=f202e122]:
+      - text: Powered by
+      - link "Redmine" [ref=f202e123] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f202e124]
+  - log [ref=f202e125]
+  - log [ref=f202e126]
+  - log [ref=f202e127]
+  - log [ref=f202e128]
+  - log [ref=f202e129]
+  - log [ref=f202e130]
+  - log [ref=f202e131]
+  - log [ref=f202e132]
+  - log [ref=f202e133]
+  - log [ref=f202e134]
+  - log [ref=f202e135]
+  - log [ref=f202e136]
+  - log [ref=f202e137]
+  - log [ref=f202e138]
+  - log [ref=f202e139]
+  - log [ref=f202e140]
+  - log [ref=f202e141]
+  - log [ref=f202e142]
+  - log [ref=f202e143]
+  - log [ref=f202e144]
+  - log [ref=f202e145]
+  - log [ref=f202e146]
+  - log [ref=f202e147]
+  - log [ref=f202e148]
+  - log [ref=f202e149]
+  - log [ref=f202e150]
+  - log [ref=f202e151]
+  - log [ref=f202e152]
+  - log [ref=f202e153]
+  - log [ref=f202e154]
+  - log [ref=f202e155]
+  - log [ref=f202e156]
+  - log [ref=f202e157]
+  - log [ref=f202e158]
+  - log [ref=f202e159]
+  - log [ref=f202e160]
+  - log [ref=f202e161]
+  - log [ref=f202e162]
+  - log [ref=f202e163]
+  - log [ref=f202e164]
+  - log [ref=f202e165]
+  - log [ref=f202e166]
+  - log [ref=f202e167]
+  - log [ref=f202e168]
+  - log [ref=f202e169]
+  - log [ref=f202e170]
+  - log [ref=f202e171]
+  - log [ref=f202e172]
+  - log [ref=f202e173]
+  - log [ref=f202e174]
+  - log [ref=f202e175]
+  - log [ref=f202e176]
+  - log [ref=f202e177]
+  - log [ref=f202e178]
+  - log [ref=f202e179]
+  - log [ref=f202e180]
+  - log [ref=f202e181]
+  - log [ref=f202e182]
+  - log [ref=f202e183]
+  - log [ref=f202e184]
+  - log [ref=f202e185]
+  - log [ref=f202e186]
+  - log [ref=f202e187]
+  - log [ref=f202e188]
+  - log [ref=f202e189]
+  - log [ref=f202e190]
+  - log [ref=f202e191]
+  - log [ref=f202e192]
+  - log [ref=f202e193]
+  - log [ref=f202e194]

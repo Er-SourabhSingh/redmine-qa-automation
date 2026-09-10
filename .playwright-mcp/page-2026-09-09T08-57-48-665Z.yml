@@ -1,0 +1,270 @@
+- generic [ref=f92e1]:
+  - generic [ref=f92e2]:
+    - generic [ref=f92e3]:
+      - generic [ref=f92e4]:
+        - list:
+          - listitem [ref=f92e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f92e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f92e7]:
+        - text: Logged in as
+        - link "manage.helpdesk.test" [ref=f92e8] [cursor=pointer]:
+          - /url: /users/16
+      - list [ref=f92e9]:
+        - listitem [ref=f92e10]:
+          - link [ref=f92e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f92e12]
+        - listitem [ref=f92e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f92e14]:
+          - link "My page" [ref=f92e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f92e16]:
+          - link "Projects" [ref=f92e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f92e18]:
+          - link "Helpdesk Command Center" [ref=f92e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f92e20]:
+          - link "Time Tracker" [ref=f92e21] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f92e22]:
+          - link "Workloads" [ref=f92e23] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f92e24]:
+          - link "Help" [ref=f92e25] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f92e26]:
+      - generic [ref=f92e27]:
+        - generic [ref=f92e28]:
+          - generic [ref=f92e29]:
+            - link "Search..." [ref=f92e30] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f92e31]
+        - generic [ref=f92e32]:
+          - generic [ref=f92e33] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f92e34]
+    - generic [ref=f92e35]:
+      - list [ref=f92e39]:
+        - listitem [ref=f92e40]:
+          - link "Helpdesk Dashboard" [ref=f92e41] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f92e44]:
+          - link "Helpdesk Tickets" [ref=f92e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f92e48]:
+          - link "Reports" [ref=f92e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f92e52]:
+          - link "Organization" [ref=f92e53] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f92e56]:
+          - link "Customers" [ref=f92e57] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f92e60]:
+          - link "Products" [ref=f92e61] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f92e64]:
+          - link "Helpdesk Settings" [ref=f92e65] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f92e68]:
+        - generic [ref=f92e71]:
+          - heading "Helpdesk Settings" [level=2] [ref=f92e72]
+          - paragraph [ref=f92e73]: Holidays, products, SLA policies and canned responses
+        - list [ref=f92e75]:
+          - listitem [ref=f92e76]:
+            - link "Holiday" [ref=f92e77] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f92e78]:
+            - link "Products" [ref=f92e79] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f92e80]:
+            - link "Email Configuration" [ref=f92e81] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f92e82]:
+            - link "Canned Responses" [ref=f92e83] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+          - listitem [ref=f92e84]:
+            - link "Support Packages" [ref=f92e85] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+        - generic [ref=f92e86]:
+          - generic [ref=f92e88]:
+            - textbox "Search holidays..." [active] [ref=f92e90]
+            - generic [ref=f92e91]:
+              - button "Apply Filters" [ref=f92e92] [cursor=pointer]
+              - link "Clear" [ref=f92e95] [cursor=pointer]:
+                - /url: /rf_helpdesk/setting?tab=holidays
+          - generic [ref=f92e100]:
+            - generic [ref=f92e101]:
+              - heading "Holiday" [level=3] [ref=f92e102]
+              - link "New Holiday" [ref=f92e104] [cursor=pointer]:
+                - /url: /rf_helpdesk_holidays/new
+            - table [ref=f92e106]:
+              - rowgroup [ref=f92e107]:
+                - row [ref=f92e108]:
+                  - columnheader "S.No" [ref=f92e109]
+                  - columnheader "Holiday Name" [ref=f92e110]
+                  - columnheader "Start Date" [ref=f92e111]
+                  - columnheader "End Date" [ref=f92e112]
+                  - columnheader "Action" [ref=f92e113]
+              - rowgroup [ref=f92e114]:
+                - row [ref=f92e115]:
+                  - cell "1" [ref=f92e116]
+                  - cell [ref=f92e117]:
+                    - link "Ten Years Past Test" [ref=f92e118] [cursor=pointer]:
+                      - /url: /rf_helpdesk_holidays/7
+                  - cell "09/03/2016" [ref=f92e119]
+                  - cell "09/03/2016" [ref=f92e120]
+                  - cell [ref=f92e121]:
+                    - generic [ref=f92e122]:
+                      - link "Edit" [ref=f92e123] [cursor=pointer]:
+                        - /url: /rf_helpdesk_holidays/7/edit
+                      - link "Delete" [ref=f92e126] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f92e130]:
+                  - cell "2" [ref=f92e131]
+                  - cell [ref=f92e132]:
+                    - link "TC-HLP-084 Holiday-Skip Test Day" [ref=f92e133] [cursor=pointer]:
+                      - /url: /rf_helpdesk_holidays/4
+                  - cell "09/02/2026" [ref=f92e134]
+                  - cell "09/02/2026" [ref=f92e135]
+                  - cell [ref=f92e136]:
+                    - generic [ref=f92e137]:
+                      - link "Edit" [ref=f92e138] [cursor=pointer]:
+                        - /url: /rf_helpdesk_holidays/4/edit
+                      - link "Delete" [ref=f92e141] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f92e145]:
+                  - cell "3" [ref=f92e146]
+                  - cell [ref=f92e147]:
+                    - link "TC-HLP-353 Multi-Day Holiday Test Range" [ref=f92e148] [cursor=pointer]:
+                      - /url: /rf_helpdesk_holidays/5
+                  - cell "09/02/2026" [ref=f92e149]
+                  - cell "09/04/2026" [ref=f92e150]
+                  - cell [ref=f92e151]:
+                    - generic [ref=f92e152]:
+                      - link "Edit" [ref=f92e153] [cursor=pointer]:
+                        - /url: /rf_helpdesk_holidays/5/edit
+                      - link "Delete" [ref=f92e156] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f92e160]:
+                  - cell "4" [ref=f92e161]
+                  - cell [ref=f92e162]:
+                    - link "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH" [ref=f92e163] [cursor=pointer]:
+                      - /url: /rf_helpdesk_holidays/6
+                  - cell "11/02/2026" [ref=f92e164]
+                  - cell "11/02/2026" [ref=f92e165]
+                  - cell [ref=f92e166]:
+                    - generic [ref=f92e167]:
+                      - link "Edit" [ref=f92e168] [cursor=pointer]:
+                        - /url: /rf_helpdesk_holidays/6/edit
+                      - link "Delete" [ref=f92e171] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f92e175]:
+                  - cell "5" [ref=f92e176]
+                  - cell [ref=f92e177]:
+                    - link "Alpha Winter Break 2026" [ref=f92e178] [cursor=pointer]:
+                      - /url: /rf_helpdesk_holidays/2
+                  - cell "12/24/2026" [ref=f92e179]
+                  - cell "12/31/2026" [ref=f92e180]
+                  - cell [ref=f92e181]:
+                    - generic [ref=f92e182]:
+                      - link "Edit" [ref=f92e183] [cursor=pointer]:
+                        - /url: /rf_helpdesk_holidays/2/edit
+                      - link "Delete" [ref=f92e186] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f92e190]:
+                  - cell "6" [ref=f92e191]
+                  - cell [ref=f92e192]:
+                    - link "TC-HLP-205 Permission Test Holiday" [ref=f92e193] [cursor=pointer]:
+                      - /url: /rf_helpdesk_holidays/9
+                  - cell "12/25/2026" [ref=f92e194]
+                  - cell "12/25/2026" [ref=f92e195]
+                  - cell [ref=f92e196]:
+                    - generic [ref=f92e197]:
+                      - link "Edit" [ref=f92e198] [cursor=pointer]:
+                        - /url: /rf_helpdesk_holidays/9/edit
+                      - link "Delete" [ref=f92e201] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f92e205]:
+                  - cell "7" [ref=f92e206]
+                  - cell [ref=f92e207]:
+                    - link "Ten Years Future Test" [ref=f92e208] [cursor=pointer]:
+                      - /url: /rf_helpdesk_holidays/8
+                  - cell "09/03/2036" [ref=f92e209]
+                  - cell "09/03/2036" [ref=f92e210]
+                  - cell [ref=f92e211]:
+                    - generic [ref=f92e212]:
+                      - link "Edit" [ref=f92e213] [cursor=pointer]:
+                        - /url: /rf_helpdesk_holidays/8/edit
+                      - link "Delete" [ref=f92e216] [cursor=pointer]:
+                        - /url: javascript:void(0)
+          - generic [ref=f92e220]:
+            - list
+            - generic [ref=f92e221]: (1-7/7)
+    - generic [ref=f92e222]:
+      - text: Powered by
+      - link "Redmine" [ref=f92e223] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f92e224]
+  - log [ref=f92e225]
+  - log [ref=f92e226]
+  - log [ref=f92e227]
+  - log [ref=f92e228]
+  - log [ref=f92e229]
+  - log [ref=f92e230]
+  - log [ref=f92e231]
+  - log [ref=f92e232]
+  - log [ref=f92e233]
+  - log [ref=f92e234]
+  - log [ref=f92e235]
+  - log [ref=f92e236]
+  - log [ref=f92e237]
+  - log [ref=f92e238]
+  - log [ref=f92e239]
+  - log [ref=f92e240]
+  - log [ref=f92e241]
+  - log [ref=f92e242]
+  - log [ref=f92e243]
+  - log [ref=f92e244]
+  - log [ref=f92e245]
+  - log [ref=f92e246]
+  - log [ref=f92e247]
+  - log [ref=f92e248]
+  - log [ref=f92e249]
+  - log [ref=f92e250]
+  - log [ref=f92e251]
+  - log [ref=f92e252]
+  - log [ref=f92e253]
+  - log [ref=f92e254]
+  - log [ref=f92e255]
+  - log [ref=f92e256]
+  - log [ref=f92e257]
+  - log [ref=f92e258]
+  - log [ref=f92e259]
+  - log [ref=f92e260]
+  - log [ref=f92e261]
+  - log [ref=f92e262]
+  - log [ref=f92e263]
+  - log [ref=f92e264]
+  - log [ref=f92e265]
+  - log [ref=f92e266]
+  - log [ref=f92e267]
+  - log [ref=f92e268]
+  - log [ref=f92e269]
+  - log [ref=f92e270]
+  - log [ref=f92e271]
+  - log [ref=f92e272]
+  - log [ref=f92e273]
+  - log [ref=f92e274]
+  - log [ref=f92e275]
+  - log [ref=f92e276]
+  - log [ref=f92e277]

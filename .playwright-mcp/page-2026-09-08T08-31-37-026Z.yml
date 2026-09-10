@@ -1,0 +1,142 @@
+- generic [active] [ref=f182e1]:
+  - generic [ref=f182e2]:
+    - navigation [ref=f182e3]:
+      - generic [ref=f182e4]:
+        - link [ref=f182e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f182e7] [cursor=pointer]
+      - list [ref=f182e17]:
+        - listitem [ref=f182e18]:
+          - link "Hauptseite" [ref=f182e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f182e20]:
+          - link "Meine Seite" [ref=f182e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f182e22]:
+          - link "Projekte" [ref=f182e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f182e24]:
+          - link "Agile Board" [ref=f182e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f182e26]:
+          - link "Flux Gantt" [ref=f182e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f182e28]:
+          - link "Administration" [ref=f182e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f182e30]:
+          - link "Hilfe" [ref=f182e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f182e32]:
+        - generic [ref=f182e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f182e35]
+        - link "Mein Konto" [ref=f182e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f182e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f182e44]:
+      - generic [ref=f182e45]:
+        - heading "Redmine" [level=1] [ref=f182e47]
+        - generic [ref=f182e49]:
+          - heading "Administration" [level=3] [ref=f182e50]
+          - list [ref=f182e52]:
+            - listitem [ref=f182e53]:
+              - link "Projekte" [ref=f182e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f182e55]:
+              - link "Benutzer" [ref=f182e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f182e57]:
+              - link "Gruppen" [ref=f182e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f182e59]:
+              - link "Rollen und Rechte" [ref=f182e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f182e61]:
+              - link "Tracker" [ref=f182e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f182e63]:
+              - link "Ticket-Status" [ref=f182e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f182e65]:
+              - link "Workflow" [ref=f182e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f182e67]:
+              - link "Benutzerdefinierte Felder" [ref=f182e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f182e69]:
+              - link "Aufzählungen" [ref=f182e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f182e71]:
+              - link "Konfiguration" [ref=f182e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f182e73]:
+              - link "LDAP-Authentifizierung" [ref=f182e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f182e75]:
+              - link "Applikationen" [ref=f182e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f182e77]:
+              - link "Plugins" [ref=f182e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f182e79]:
+              - link "Informationen" [ref=f182e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f182e81]:
+        - generic [ref=f182e82]:
+          - link "Kopieren" [ref=f182e83] [cursor=pointer]:
+            - /url: /workflows/copy
+          - link "Zusammenfassung" [ref=f182e85] [cursor=pointer]:
+            - /url: /workflows
+        - heading "Workflow" [level=2] [ref=f182e87]
+        - list [ref=f182e89]:
+          - listitem [ref=f182e90]:
+            - link "Statusänderungen" [ref=f182e91] [cursor=pointer]:
+              - /url: /workflows/edit
+          - listitem [ref=f182e92]:
+            - link "Feldberechtigungen" [ref=f182e93] [cursor=pointer]:
+              - /url: /workflows/permissions
+        - paragraph [ref=f182e94]: "Workflow zum Bearbeiten auswählen:"
+        - paragraph [ref=f182e96]:
+          - generic [ref=f182e97]:
+            - text: "Rolle:"
+            - combobox "Rolle:" [ref=f182e98]:
+              - option "Alle"
+              - option "Manager" [selected]
+              - option "Employee"
+              - option "Client"
+              - option "Project Lead"
+              - option "QA"
+              - option "Team Lead"
+              - option "Developer"
+              - option "Nichtmitglied"
+            - generic [ref=f182e99] [cursor=pointer]
+          - generic [ref=f182e102]:
+            - text: "Tracker:"
+            - combobox "Tracker:" [ref=f182e103]:
+              - option "Alle"
+              - option "Bug" [selected]
+              - option "Feature"
+              - option "Support"
+            - generic [ref=f182e104] [cursor=pointer]
+          - button "Bearbeiten" [ref=f182e107] [cursor=pointer]
+          - generic [ref=f182e108]:
+            - checkbox "Zeige nur Status an, die von diesem Tracker verwendet werden" [checked] [ref=f182e109]
+            - text: Zeige nur Status an, die von diesem Tracker verwendet werden
+    - generic [ref=f182e110]:
+      - text: Powered by
+      - link "Redmine" [ref=f182e111] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f182e112]
+  - log [ref=f182e113]
+  - log [ref=f182e114]
+  - log [ref=f182e115]
+  - log [ref=f182e116]
+  - log [ref=f182e117]
+  - log [ref=f182e118]
+  - log [ref=f182e119]
+  - log [ref=f182e120]
+  - log [ref=f182e121]
+  - log [ref=f182e122]
+  - log [ref=f182e123]

@@ -1,0 +1,110 @@
+- generic [ref=f40e2]:
+  - generic [ref=f40e3]:
+    - generic [ref=f40e4]:
+      - img "Logo" [ref=f40e5]
+      - text: 
+    - navigation "Application tasks" [ref=f40e6]:
+      - button " Compose" [ref=f40e8] [cursor=pointer]
+      - button " Mail" [ref=f40e9] [cursor=pointer]
+      - button " Contacts" [ref=f40e10] [cursor=pointer]
+      - button " Settings" [ref=f40e11] [cursor=pointer]
+      - generic [ref=f40e12]:
+        - button " Dark mode" [ref=f40e13] [cursor=pointer]
+        - button " About" [ref=f40e14] [cursor=pointer]
+        - button " Logout" [ref=f40e15] [cursor=pointer]
+  - generic [ref=f40e16]:
+    - generic [ref=f40e17]:
+      - text: 
+      - generic [ref=f40e18]: Options and attachments
+    - generic [ref=f40e19]:
+      - region "Attachments" [ref=f40e20]:
+        - generic [ref=f40e21]:
+          - generic [ref=f40e22]: Maximum allowed file size is 5.0 MB
+          - button "Attach a file" [ref=f40e23] [cursor=pointer]
+        - list
+      - region "Composition options" [ref=f40e24]:
+        - generic [ref=f40e25]:
+          - generic [ref=f40e26]: Return receipt
+          - checkbox "Return receipt" [ref=f40e29]
+        - generic [ref=f40e31]:
+          - generic [ref=f40e32]: Delivery status notification
+          - checkbox "Delivery status notification" [ref=f40e35]
+        - generic [ref=f40e37]:
+          - generic [ref=f40e38]: Keep formatting
+          - checkbox "Keep formatting" [ref=f40e41]
+        - generic [ref=f40e43]:
+          - generic [ref=f40e44]: Priority
+          - combobox "Priority" [ref=f40e46]:
+            - option "Lowest"
+            - option "Low"
+            - option "Normal" [selected]
+            - option "High"
+            - option "Highest"
+        - generic [ref=f40e47]:
+          - generic [ref=f40e48]: Save sent message in
+          - combobox "Save sent message in" [ref=f40e50]:
+            - option "- don't save -"
+            - option "Inbox"
+            - option "Drafts"
+            - option "Sent" [selected]
+            - option "Junk"
+            - option "Trash"
+  - main [ref=f40e52]:
+    - generic [ref=f40e53]:
+      - text: 
+      - list [ref=f40e54]:
+        - text: 
+        - menuitem [ref=f40e55]:
+          - button " Save" [ref=f40e56] [cursor=pointer]
+        - menuitem [ref=f40e57]
+        - menuitem [ref=f40e58]:
+          - button " Attach" [ref=f40e59] [cursor=pointer]
+        - menuitem " Signature" [ref=f40e60]:
+          - button " Signature" [disabled]
+        - menuitem [ref=f40e61]:
+          - link " Responses" [ref=f40e62] [cursor=pointer]:
+            - /url: "#responses"
+            - text:  Responses  
+        - menuitem [ref=f40e63]:
+          - generic [ref=f40e64]:
+            - button " Spell" [ref=f40e65] [cursor=pointer]
+            - link "" [ref=f40e66] [cursor=pointer]:
+              - /url: "#languages"
+        - menuitem:    
+      - text: 
+    - generic [ref=f40e67]:
+      - generic [ref=f40e68]:
+        - region "Message headers" [ref=f40e69]:
+          - generic [ref=f40e70]:
+            - generic [ref=f40e71]:
+              - generic [ref=f40e72]: From
+              - generic [ref=f40e74]:
+                - combobox "From" [ref=f40e75]:
+                  - option "alpha.customer@test.local" [selected]
+                - link "" [ref=f40e77] [cursor=pointer]:
+                  - /url: "#identities"
+            - generic [ref=f40e78]:
+              - generic [ref=f40e79]: To
+              - generic [ref=f40e81]:
+                - combobox "To" [ref=f40e82]
+                - list [ref=f40e83]:
+                  - listitem [ref=f40e84]:
+                    - combobox [active] [ref=f40e85]
+                - link "" [ref=f40e87] [cursor=pointer]:
+                  - /url: "#add-contact"
+                - link "" [ref=f40e89] [cursor=pointer]:
+                  - /url: "#add-header"
+                  - text:     
+            - text:        
+            - generic [ref=f40e90]:
+              - generic [ref=f40e91]: Subject
+              - textbox "Subject" [ref=f40e93]
+        - generic [ref=f40e94]:
+          - textbox "Message Body" [ref=f40e95]
+          - link "" [ref=f40e97] [cursor=pointer]:
+            - /url: "#"
+      - generic [ref=f40e98]:
+        - button "Send" [ref=f40e99] [cursor=pointer]
+        - button "Open in new window" [ref=f40e101] [cursor=pointer]
+    - text:    
+  - text:              

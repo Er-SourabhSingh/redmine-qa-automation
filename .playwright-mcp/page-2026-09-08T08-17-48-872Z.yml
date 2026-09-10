@@ -1,0 +1,152 @@
+- generic [ref=f157e1]:
+  - generic [ref=f157e2]:
+    - navigation [ref=f157e3]:
+      - generic [ref=f157e4]:
+        - link [ref=f157e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f157e7] [cursor=pointer]
+      - list [ref=f157e17]:
+        - listitem [ref=f157e18]:
+          - link "Hauptseite" [ref=f157e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f157e20]:
+          - link "Meine Seite" [ref=f157e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f157e22]:
+          - link "Projekte" [ref=f157e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f157e24]:
+          - link "Agile Board" [ref=f157e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f157e26]:
+          - link "Flux Gantt" [ref=f157e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f157e28]:
+          - link "Administration" [ref=f157e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f157e30]:
+          - link "Hilfe" [ref=f157e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f157e32]:
+        - generic [ref=f157e33]:
+          - generic [ref=f157e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f157e35]
+        - link "Mein Konto" [ref=f157e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f157e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f157e44]:
+      - generic [ref=f157e46]:
+        - heading "Agile Board Project" [level=1] [ref=f157e47]
+        - generic [ref=f157e48]:
+          - generic [ref=f157e49]:
+            - generic [ref=f157e50]: Hauptmenü
+            - listitem [ref=f157e51]:
+              - link "+" [ref=f157e52] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f157e53]:
+            - listitem [ref=f157e54]:
+              - link "Übersicht" [ref=f157e55] [cursor=pointer]:
+                - /url: /projects/agileboard
+            - listitem [ref=f157e60]:
+              - link "Dashboard" [ref=f157e61] [cursor=pointer]:
+                - /url: /projects/agileboard/analytics_dashboard
+            - listitem [ref=f157e69]:
+              - link "Aktivität" [ref=f157e70] [cursor=pointer]:
+                - /url: /projects/agileboard/activity
+            - listitem [ref=f157e75]:
+              - link "Agile Board" [ref=f157e76] [cursor=pointer]:
+                - /url: /projects/agileboard/agile_board
+            - listitem [ref=f157e84]:
+              - link "Backlog" [ref=f157e85] [cursor=pointer]:
+                - /url: /projects/agileboard/backlog
+            - listitem [ref=f157e90]:
+              - link "Roadmap" [ref=f157e91] [cursor=pointer]:
+                - /url: /projects/agileboard/roadmap
+            - listitem [ref=f157e98]:
+              - link "Tickets" [ref=f157e99] [cursor=pointer]:
+                - /url: /projects/agileboard/issues
+            - listitem [ref=f157e104]:
+              - link "Aufgewendete Zeit" [ref=f157e105] [cursor=pointer]:
+                - /url: /projects/agileboard/time_entries
+            - listitem [ref=f157e110]:
+              - link "Gantt-Diagramm" [ref=f157e111] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/gantt
+            - listitem [ref=f157e119]:
+              - link "Kalender" [ref=f157e120] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/calendar
+            - listitem [ref=f157e125]:
+              - link "News" [ref=f157e126] [cursor=pointer]:
+                - /url: /projects/agileboard/news
+            - listitem [ref=f157e131]:
+              - link "Dokumente" [ref=f157e132] [cursor=pointer]:
+                - /url: /projects/agileboard/documents
+            - listitem [ref=f157e137]:
+              - link "Wiki" [ref=f157e138] [cursor=pointer]:
+                - /url: /projects/agileboard/wiki
+            - listitem [ref=f157e143]:
+              - link "Dateien" [ref=f157e144] [cursor=pointer]:
+                - /url: /projects/agileboard/files
+            - listitem [ref=f157e149]:
+              - link "Konfiguration" [ref=f157e150] [cursor=pointer]:
+                - /url: /projects/agileboard/settings
+      - generic [ref=f157e156]:
+        - heading "Sprint bearbeiten" [level=2] [ref=f157e157]
+        - generic [ref=f157e158]:
+          - generic [ref=f157e159]:
+            - paragraph [ref=f157e160]:
+              - generic [ref=f157e161]: Name *
+              - textbox "Name *" [active] [ref=f157e162]: UI Polish
+            - paragraph [ref=f157e163]:
+              - generic [ref=f157e164]: Description
+              - textbox "Description" [ref=f157e165]
+            - paragraph [ref=f157e166]:
+              - generic [ref=f157e167]: Startdatum *
+              - textbox [ref=f157e168]: 2026-09-12
+            - paragraph [ref=f157e169]:
+              - generic [ref=f157e170]: Dauer
+              - combobox [ref=f157e171]:
+                - option "1 Woche"
+                - option "2 Wochen" [selected]
+                - option "3 Wochen"
+                - option "4 Wochen"
+            - paragraph [ref=f157e172]:
+              - generic [ref=f157e173]: End date
+              - textbox [ref=f157e174]: 2026-09-25
+              - emphasis [ref=f157e175]: Automatisch aus Startdatum und Dauer berechnet
+            - paragraph [ref=f157e176]:
+              - generic [ref=f157e177]: Status
+              - combobox "Status" [ref=f157e178]:
+                - option "Offen" [selected]
+                - option "Aktiv"
+                - option "Geschlossen"
+            - paragraph [ref=f157e179]:
+              - generic [ref=f157e180]: Sharing
+              - combobox "Sharing" [ref=f157e181]:
+                - option "Nicht geteilt" [selected]
+                - option "Mit Unterprojekten"
+                - option "Mit Projekthierarchie"
+                - option "Mit Projektbaum"
+                - option "Mit allen Projekten"
+          - paragraph [ref=f157e182]:
+            - button "Aktualisieren" [ref=f157e183] [cursor=pointer]
+            - link "Abbrechen" [ref=f157e184] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/sprints
+    - generic [ref=f157e185]:
+      - text: Powered by
+      - link "Redmine" [ref=f157e186] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f157e187]
+  - log [ref=f157e188]
+  - log [ref=f157e189]
+  - log [ref=f157e190]
+  - log [ref=f157e191]
+  - log [ref=f157e192]
+  - log [ref=f157e193]
+  - log [ref=f157e194]
+  - log [ref=f157e195]
+  - log [ref=f157e196]
+  - log [ref=f157e197]
+  - log [ref=f157e198]

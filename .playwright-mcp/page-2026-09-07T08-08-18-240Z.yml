@@ -1,0 +1,139 @@
+- generic [ref=f99e1]:
+  - generic [ref=f99e2]:
+    - generic [ref=f99e3]:
+      - generic [ref=f99e4]:
+        - list:
+          - listitem [ref=f99e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f99e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f99e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f99e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f99e9]:
+        - listitem [ref=f99e10]:
+          - link [ref=f99e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f99e12]
+        - listitem [ref=f99e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f99e14]:
+          - link "My page" [ref=f99e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f99e16]:
+          - link "Projects" [ref=f99e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f99e18]:
+          - link "Time Tracker" [ref=f99e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f99e20]:
+          - link "Workloads" [ref=f99e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f99e22]:
+          - link "Help" [ref=f99e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f99e24]:
+      - generic [ref=f99e25]:
+        - generic [ref=f99e26]:
+          - generic [ref=f99e27]:
+            - link "Search..." [ref=f99e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f99e29]
+        - generic [ref=f99e30]:
+          - generic [ref=f99e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f99e32]
+      - generic [ref=f99e33]:
+        - list [ref=f99e34]:
+          - listitem [ref=f99e35]:
+            - link "+" [ref=f99e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f99e37]:
+            - link "Overview" [ref=f99e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f99e39]:
+            - link "Activity" [ref=f99e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f99e41]:
+            - link "Issues" [ref=f99e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f99e43]:
+            - link "Spent time" [ref=f99e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f99e45]:
+            - link "Gantt" [ref=f99e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f99e47]:
+            - link "Calendar" [ref=f99e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f99e49]:
+            - link "News" [ref=f99e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f99e51]:
+            - link "Documents" [ref=f99e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f99e53]:
+            - link "Wiki" [ref=f99e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f99e55]:
+            - link "Files" [ref=f99e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f99e57]:
+            - link "Helpdesk" [ref=f99e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f99e59]:
+          - button [ref=f99e60] [cursor=pointer]
+          - button [ref=f99e63] [cursor=pointer]
+    - generic [ref=f99e67]:
+      - heading "Spent time" [level=2] [ref=f99e68]
+      - generic [ref=f99e69]:
+        - generic [ref=f99e70]:
+          - paragraph [ref=f99e71]:
+            - generic [ref=f99e72]: Issue
+            - textbox "Issue" [ref=f99e73]: "46"
+            - generic [ref=f99e74]:
+              - 'link "Support #46" [ref=f99e75] [cursor=pointer]':
+                - /url: /issues/46
+              - text: ": TC-HLP-129 prepaid hours time-logging test ticket"
+          - paragraph [ref=f99e76]:
+            - generic [ref=f99e77]: Spent on *
+            - textbox "Spent on *" [ref=f99e78]: 2026-09-07
+          - paragraph [ref=f99e79]:
+            - generic [ref=f99e80]: Hours *
+            - textbox "Hours *" [ref=f99e81]:
+              - /placeholder: h:mm
+              - text: 5:00
+          - paragraph [ref=f99e82]:
+            - generic [ref=f99e83]: Comments
+            - textbox "Comments" [active] [ref=f99e84]: TC-HLP-400 - core Log time link test under Hard mode with Remaining=2h
+          - paragraph [ref=f99e85]:
+            - generic [ref=f99e86]: Activity *
+            - combobox "Activity *" [ref=f99e87]:
+              - option "--- Please select ---"
+              - option "Design"
+              - option "Development"
+              - option "Customer Call"
+              - option "Remote Support"
+              - option "Technical Support" [selected]
+              - option "Email Support"
+              - option "Live Chat Support"
+        - button "Create" [ref=f99e88] [cursor=pointer]
+        - button "Create and add another" [ref=f99e89] [cursor=pointer]
+        - link "Cancel" [ref=f99e90] [cursor=pointer]:
+          - /url: /issues/46
+    - generic [ref=f99e91]:
+      - text: Powered by
+      - link "Redmine" [ref=f99e92] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f99e93]
+  - log [ref=f99e94]
+  - log [ref=f99e95]
+  - log [ref=f99e96]
+  - log [ref=f99e97]
+  - status [ref=f99e98]

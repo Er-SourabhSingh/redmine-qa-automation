@@ -1,0 +1,358 @@
+- generic [ref=f776e1]:
+  - generic [ref=f776e2]:
+    - generic [ref=f776e3]:
+      - generic [ref=f776e4]:
+        - list:
+          - listitem [ref=f776e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f776e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f776e7]:
+        - text: Logged in as
+        - link "admin" [ref=f776e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f776e9]:
+        - listitem [ref=f776e10]:
+          - link [ref=f776e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f776e12]
+        - listitem [ref=f776e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f776e14]:
+          - link "My page" [ref=f776e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f776e16]:
+          - link "Projects" [ref=f776e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f776e18]:
+          - link "Flux Gantt" [ref=f776e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f776e20]:
+          - link "Helpdesk Command Center" [ref=f776e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f776e22]:
+          - link "Time Tracker" [ref=f776e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f776e24]:
+          - link "Timesheet" [ref=f776e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f776e26]:
+          - link "Workloads" [ref=f776e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f776e28]:
+          - link "More" [ref=f776e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f776e30]:
+      - generic [ref=f776e31]:
+        - generic [ref=f776e32]:
+          - generic [ref=f776e33]:
+            - link "Search..." [ref=f776e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f776e35]
+        - generic [ref=f776e36]:
+          - generic [ref=f776e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f776e38]
+    - generic [ref=f776e39]:
+      - list [ref=f776e43]:
+        - listitem [ref=f776e44]:
+          - link "Helpdesk Dashboard" [ref=f776e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f776e48]:
+          - link "Helpdesk Tickets" [ref=f776e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f776e52]:
+          - link "Reports" [ref=f776e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f776e56]:
+          - link "Organization" [ref=f776e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f776e60]:
+          - link "Customers" [ref=f776e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f776e64]:
+          - link "Products" [ref=f776e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f776e68]:
+          - link "Helpdesk Settings" [ref=f776e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f776e73]:
+        - generic [ref=f776e74]:
+          - generic [ref=f776e76]:
+            - heading "Helpdesk Dashboard" [level=2] [ref=f776e77]
+            - paragraph [ref=f776e78]: Ticket volume, SLA health and team workload at a glance
+          - generic [ref=f776e79]:
+            - button "Date Range" [ref=f776e81] [cursor=pointer]:
+              - generic [ref=f776e84]: 05 Aug 26 - 03 Sep 26
+            - link "New issue" [ref=f776e87] [cursor=pointer]:
+              - /url: /issue_helpdesks/new
+        - generic [ref=f776e89]:
+          - link "13 Unassigned View All" [ref=f776e90] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?assigned_to_id%5B%5D=none&created_from=2026-08-05&created_to=2026-09-03&status_id%5B%5D=open
+            - generic [ref=f776e97]: "13"
+            - generic [ref=f776e98]: Unassigned
+            - generic [ref=f776e99]: View All
+          - link "42 Open View All" [ref=f776e102] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?created_from=2026-08-05&created_to=2026-09-03&status_id%5B%5D=open
+            - generic [ref=f776e107]: "42"
+            - generic [ref=f776e108]: Open
+            - generic [ref=f776e109]: View All
+          - link "47 On Hold View All" [ref=f776e112] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?created_from=2026-08-05&created_to=2026-09-03
+            - generic [ref=f776e116]: "47"
+            - generic [ref=f776e117]: On Hold
+            - generic [ref=f776e118]: View All
+          - link "14 SLA Breached View All" [ref=f776e121] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?sla=breached
+            - generic [ref=f776e125]: "14"
+            - generic [ref=f776e126]: SLA Breached
+            - generic [ref=f776e127]: View All
+          - link "5 Resolved View All" [ref=f776e130] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?created_from=2026-08-05&created_to=2026-09-03&status_id%5B%5D=closed
+            - generic [ref=f776e135]: "5"
+            - generic [ref=f776e136]: Resolved
+            - generic [ref=f776e137]: View All
+        - generic [ref=f776e140]:
+          - heading "Prepaid Support Hours" [level=3] [ref=f776e142]
+          - table [ref=f776e143]:
+            - rowgroup [ref=f776e144]:
+              - row [ref=f776e145]:
+                - columnheader "Project" [ref=f776e146]
+                - columnheader "Organization" [ref=f776e147]
+                - columnheader "Approved" [ref=f776e148]
+                - columnheader "Used" [ref=f776e149]
+                - columnheader "Remaining" [ref=f776e150]
+                - columnheader "Usage" [ref=f776e151]
+                - columnheader "Action" [ref=f776e152]
+            - rowgroup [ref=f776e153]:
+              - row [ref=f776e154]:
+                - cell [ref=f776e155]:
+                  - link "Helpdesk QA Alpha" [ref=f776e156] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell [ref=f776e157]:
+                  - link "<script>alert(1)</script>" [ref=f776e158] [cursor=pointer]:
+                    - /url: /rf_organizations/12?tab=prepaid_support_hours
+                - cell "1.00h" [ref=f776e159]
+                - cell "0.00h" [ref=f776e160]
+                - cell "1.00h" [ref=f776e161]
+                - cell "0% Used 0%" [ref=f776e162]:
+                  - generic [ref=f776e163]:
+                    - img "0% Used" [ref=f776e164]
+                    - generic [ref=f776e165]: 0%
+                - cell [ref=f776e166]:
+                  - link "Ledger" [ref=f776e167] [cursor=pointer]:
+                    - /url: /helpdesk?ledger_organization_id=12&ledger_project_id=1
+              - row [ref=f776e169]:
+                - cell [ref=f776e170]:
+                  - link "Helpdesk QA Alpha" [ref=f776e171] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell [ref=f776e172]:
+                  - link "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" [ref=f776e173] [cursor=pointer]:
+                    - /url: /rf_organizations/10?tab=prepaid_support_hours
+                - cell "1.00h" [ref=f776e174]
+                - cell "0.00h" [ref=f776e175]
+                - cell "1.00h" [ref=f776e176]
+                - cell "0% Used 0%" [ref=f776e177]:
+                  - generic [ref=f776e178]:
+                    - img "0% Used" [ref=f776e179]
+                    - generic [ref=f776e180]: 0%
+                - cell [ref=f776e181]:
+                  - link "Ledger" [ref=f776e182] [cursor=pointer]:
+                    - /url: /helpdesk?ledger_organization_id=10&ledger_project_id=1
+              - row [ref=f776e184]:
+                - cell [ref=f776e185]:
+                  - link "Helpdesk QA Alpha" [ref=f776e186] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell [ref=f776e187]:
+                  - link "Alpha Minimal Fields Test Org" [ref=f776e188] [cursor=pointer]:
+                    - /url: /rf_organizations/8?tab=prepaid_support_hours
+                - cell "0.75h" [ref=f776e189]
+                - cell "0.75h" [ref=f776e190]
+                - cell "0.00h" [ref=f776e191]
+                - cell "100% Used 100%" [ref=f776e192]:
+                  - generic [ref=f776e193]:
+                    - img "100% Used" [ref=f776e194]
+                    - generic [ref=f776e196]: 100%
+                - cell [ref=f776e197]:
+                  - link "Ledger" [ref=f776e198] [cursor=pointer]:
+                    - /url: /helpdesk?ledger_organization_id=8&ledger_project_id=1
+              - row [ref=f776e200]:
+                - cell [ref=f776e201]:
+                  - link "Helpdesk QA Beta" [ref=f776e202] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-beta/helpdesk
+                - cell [ref=f776e203]:
+                  - link "<script>alert(1)</script>" [ref=f776e204] [cursor=pointer]:
+                    - /url: /rf_organizations/12?tab=prepaid_support_hours
+                - cell "0.00h" [ref=f776e205]
+                - cell "0.00h" [ref=f776e206]
+                - cell "0.00h" [ref=f776e207]
+                - cell "0% Used 0%" [ref=f776e208]:
+                  - generic [ref=f776e209]:
+                    - img "0% Used" [ref=f776e210]
+                    - generic [ref=f776e211]: 0%
+                - cell [ref=f776e212]:
+                  - link "Ledger" [ref=f776e213] [cursor=pointer]:
+                    - /url: /helpdesk?ledger_organization_id=12&ledger_project_id=2
+              - row [ref=f776e215]:
+                - cell [ref=f776e216]:
+                  - link "Helpdesk QA Beta" [ref=f776e217] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-beta/helpdesk
+                - cell [ref=f776e218]:
+                  - link "Alpha Minimal Fields Test Org" [ref=f776e219] [cursor=pointer]:
+                    - /url: /rf_organizations/8?tab=prepaid_support_hours
+                - cell "0.00h" [ref=f776e220]
+                - cell "0.00h" [ref=f776e221]
+                - cell "0.00h" [ref=f776e222]
+                - cell "0% Used 0%" [ref=f776e223]:
+                  - generic [ref=f776e224]:
+                    - img "0% Used" [ref=f776e225]
+                    - generic [ref=f776e226]: 0%
+                - cell [ref=f776e227]:
+                  - link "Ledger" [ref=f776e228] [cursor=pointer]:
+                    - /url: /helpdesk?ledger_organization_id=8&ledger_project_id=2
+        - generic [ref=f776e230]:
+          - generic [ref=f776e231]:
+            - heading "Recent Tickets" [level=3] [ref=f776e232]
+            - link "View All" [ref=f776e235] [cursor=pointer]:
+              - /url: /rf_helpdesk/issues
+          - generic [ref=f776e238]:
+            - search [ref=f776e239]:
+              - textbox "Search tickets by subject…" [active] [ref=f776e240]
+            - table [ref=f776e242]:
+              - rowgroup [ref=f776e243]:
+                - row [ref=f776e244]:
+                  - columnheader "S.No." [ref=f776e245]
+                  - columnheader "Subject" [ref=f776e246]
+                  - columnheader "Project" [ref=f776e247]
+                  - columnheader "Priority" [ref=f776e248]
+                  - columnheader "Status" [ref=f776e249]
+                  - columnheader "Assignee" [ref=f776e250]
+                  - columnheader "SLA Status" [ref=f776e251]
+                  - columnheader "Created on" [ref=f776e252]
+              - rowgroup [ref=f776e253]:
+                - row [ref=f776e254]:
+                  - cell "1" [ref=f776e255]
+                  - cell [ref=f776e256]:
+                    - link "TC-HLP-135 - Soft mode exhausted budget new ticket test" [ref=f776e257] [cursor=pointer]:
+                      - /url: /issues/50
+                  - cell "Helpdesk QA Alpha" [ref=f776e258]
+                  - cell "Normal" [ref=f776e259]
+                  - cell "New" [ref=f776e262]
+                  - cell "Unassigned" [ref=f776e265]
+                  - cell "N/A" [ref=f776e266]
+                  - cell "about 1 hour ago" [ref=f776e271]
+                - row [ref=f776e272]:
+                  - cell "2" [ref=f776e273]
+                  - cell [ref=f776e274]:
+                    - link "TC-HLP-133 - No Limit mode exhausted budget new ticket test" [ref=f776e275] [cursor=pointer]:
+                      - /url: /issues/49
+                  - cell "Helpdesk QA Alpha" [ref=f776e276]
+                  - cell "Normal" [ref=f776e277]
+                  - cell "New" [ref=f776e280]
+                  - cell "Unassigned" [ref=f776e283]
+                  - cell "N/A" [ref=f776e284]
+                  - cell "about 2 hours ago" [ref=f776e289]
+                - row [ref=f776e290]:
+                  - cell "3" [ref=f776e291]
+                  - cell [ref=f776e292]:
+                    - link "TC-HLP-138 - Hard mode at zero hours new ticket test" [ref=f776e293] [cursor=pointer]:
+                      - /url: /issues/48
+                  - cell "Helpdesk QA Alpha" [ref=f776e294]
+                  - cell "Normal" [ref=f776e295]
+                  - cell "New" [ref=f776e298]
+                  - cell "Unassigned" [ref=f776e301]
+                  - cell "N/A" [ref=f776e302]
+                  - cell "about 2 hours ago" [ref=f776e307]
+                - row [ref=f776e308]:
+                  - cell "4" [ref=f776e309]
+                  - cell [ref=f776e310]:
+                    - link "TC-HLP-134 - Hard mode with budget remaining test ticket" [ref=f776e311] [cursor=pointer]:
+                      - /url: /issues/47
+                  - cell "Helpdesk QA Alpha" [ref=f776e312]
+                  - cell "Normal" [ref=f776e313]
+                  - cell "New" [ref=f776e316]
+                  - cell "Unassigned" [ref=f776e319]
+                  - cell "N/A" [ref=f776e320]
+                  - cell "about 2 hours ago" [ref=f776e325]
+                - row [ref=f776e326]:
+                  - cell "5" [ref=f776e327]
+                  - cell [ref=f776e328]:
+                    - link "TC-HLP-129 prepaid hours time-logging test ticket" [ref=f776e329] [cursor=pointer]:
+                      - /url: /issues/46
+                  - cell "Helpdesk QA Alpha" [ref=f776e330]
+                  - cell "Normal" [ref=f776e331]
+                  - cell "Waiting for Customer Response" [ref=f776e334]
+                  - cell "Luna Blossom" [ref=f776e337]
+                  - cell "Paused" [ref=f776e338]
+                  - cell "about 2 hours ago" [ref=f776e343]
+                - row [ref=f776e344]:
+                  - cell "6" [ref=f776e345]
+                  - cell [ref=f776e346]:
+                    - link "TC-HLP-366 multi-agent-L3-escalation test ticket B" [ref=f776e347] [cursor=pointer]:
+                      - /url: /issues/45
+                  - cell "Helpdesk QA Alpha" [ref=f776e348]
+                  - cell "Normal" [ref=f776e349]
+                  - cell "Resolved" [ref=f776e352]
+                  - cell "Willow Belle" [ref=f776e355]
+                  - cell "Resolved" [ref=f776e356]
+                  - cell "about 4 hours ago" [ref=f776e361]
+                - row [ref=f776e362]:
+                  - cell "7" [ref=f776e363]
+                  - cell [ref=f776e364]:
+                    - link "TC-HLP-366 multi-agent-L3-escalation test ticket A" [ref=f776e365] [cursor=pointer]:
+                      - /url: /issues/44
+                  - cell "Helpdesk QA Alpha" [ref=f776e366]
+                  - cell "Normal" [ref=f776e367]
+                  - cell "New" [ref=f776e370]
+                  - cell "Willow Belle" [ref=f776e373]
+                  - cell "Breached" [ref=f776e374]
+                  - cell "about 4 hours ago" [ref=f776e381]
+                - row [ref=f776e382]:
+                  - cell "8" [ref=f776e383]
+                  - cell [ref=f776e384]:
+                    - link "test" [ref=f776e385] [cursor=pointer]:
+                      - /url: /issues/43
+                  - cell "Helpdesk QA Alpha" [ref=f776e386]
+                  - cell "Normal" [ref=f776e387]
+                  - cell "Closed" [ref=f776e390]
+                  - cell "Luna Blossom" [ref=f776e393]
+                  - cell "Resolved" [ref=f776e394]
+                  - cell "about 4 hours ago" [ref=f776e399]
+        - generic [ref=f776e401]:
+          - heading "Ticket Statistics" [level=3] [ref=f776e402]
+          - generic [ref=f776e404]: 08/05/2026 – 09/03/2026
+    - generic [ref=f776e408]:
+      - text: Powered by
+      - link "Redmine" [ref=f776e409] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f776e410]
+  - log [ref=f776e411]
+  - log [ref=f776e412]
+  - log [ref=f776e413]
+  - log [ref=f776e414]
+  - log [ref=f776e415]
+  - log [ref=f776e416]
+  - log [ref=f776e417]
+  - log [ref=f776e418]
+  - log [ref=f776e419]
+  - log [ref=f776e420]
+  - log [ref=f776e421]
+  - log [ref=f776e422]
+  - log [ref=f776e423]
+  - log [ref=f776e424]
+  - log [ref=f776e425]
+  - log [ref=f776e426]
+  - log [ref=f776e427]
+  - log [ref=f776e428]
+  - log [ref=f776e429]
+  - log [ref=f776e430]
+  - log [ref=f776e431]
+  - log [ref=f776e432]
+  - log [ref=f776e433]
+  - log [ref=f776e434]
+  - log [ref=f776e435]

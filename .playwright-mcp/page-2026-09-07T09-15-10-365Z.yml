@@ -1,0 +1,134 @@
+- generic [active] [ref=f11e1]:
+  - generic [ref=f11e2]:
+    - navigation [ref=f11e3]:
+      - list [ref=f11e6]:
+        - listitem [ref=f11e7]:
+          - link "Hauptseite" [ref=f11e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f11e9]:
+          - link "Meine Seite" [ref=f11e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f11e11]:
+          - link "Projekte" [ref=f11e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f11e13]:
+          - link "Agile Board" [ref=f11e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f11e15]:
+          - link "Flux Gantt" [ref=f11e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f11e17]:
+          - link "Administration" [ref=f11e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f11e19]:
+          - link "Hilfe" [ref=f11e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f11e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f11e24]: RA
+    - generic [ref=f11e27]:
+      - generic [ref=f11e28]:
+        - generic [ref=f11e29]:
+          - generic [ref=f11e30]:
+            - link "Suche" [ref=f11e31] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Suche:" [ref=f11e32]
+        - generic [ref=f11e33]: Zu einem Projekt springen...
+      - heading "Redmine" [level=1] [ref=f11e35]
+    - generic [ref=f11e36]:
+      - generic [ref=f11e37]:
+        - link [ref=f11e39] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f11e42]:
+          - heading "Administration" [level=3] [ref=f11e43]
+          - list [ref=f11e45]:
+            - listitem [ref=f11e46]:
+              - link "Projekte" [ref=f11e47] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f11e51]:
+              - link "Benutzer" [ref=f11e52] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f11e56]:
+              - link "Gruppen" [ref=f11e57] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f11e61]:
+              - link "Rollen und Rechte" [ref=f11e62] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f11e66]:
+              - link "Tracker" [ref=f11e67] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f11e71]:
+              - link "Ticket-Status" [ref=f11e72] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f11e76]:
+              - link "Workflow" [ref=f11e77] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f11e81]:
+              - link "Benutzerdefinierte Felder" [ref=f11e82] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f11e86]:
+              - link "Aufzählungen" [ref=f11e87] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f11e91]:
+              - link "Konfiguration" [ref=f11e92] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f11e96]:
+              - link "LDAP-Authentifizierung" [ref=f11e97] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f11e101]:
+              - link "Applikationen" [ref=f11e102] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f11e106]:
+              - link "Plugins" [ref=f11e107] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f11e111]:
+              - link "Informationen" [ref=f11e112] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f11e116]:
+        - heading "Informationen" [level=2] [ref=f11e117]
+        - paragraph [ref=f11e118]:
+          - strong [ref=f11e119]: Redmine 7.0.1.stable
+        - table [ref=f11e120]:
+          - rowgroup [ref=f11e121]:
+            - row [ref=f11e122]:
+              - cell "Administrator-Passwort geändert" [ref=f11e123]
+              - cell [ref=f11e124]
+            - row [ref=f11e128]:
+              - cell "Verzeichnis für Dateien beschreibbar" [ref=f11e129]
+              - cell [ref=f11e130]
+            - row [ref=f11e134]:
+              - cell "Alle Datenbank-Migrationen wurden ausgeführt" [ref=f11e135]
+              - cell [ref=f11e136]
+            - row [ref=f11e140]:
+              - cell "MiniMagick verfügbar (optional)" [ref=f11e141]
+              - cell [ref=f11e142]
+            - row [ref=f11e146]:
+              - cell "ImageMagick-Konvertierung verfügbar (optional)" [ref=f11e147]
+              - cell [ref=f11e148]
+            - row [ref=f11e152]:
+              - cell "ImageMagick PDF-Unterstützung verfügbar (optional)" [ref=f11e153]
+              - cell [ref=f11e154]
+            - row [ref=f11e158]:
+              - cell "Pandoc available (optional)" [ref=f11e159]
+              - cell [ref=f11e160]
+            - row [ref=f11e164]:
+              - cell "Default queue adapter which is well suited only for dev/test changed" [ref=f11e165]
+              - cell [ref=f11e166]
+        - heading "Umgebung" [level=3] [ref=f11e170]
+        - generic [ref=f11e171]: "Environment: Redmine version 7.0.1.stable Ruby version 4.0.6-p0 (2026-07-14) [x86_64-linux] Rails version 8.1.3.1 Environment production Database adapter PostgreSQL Mailer queue ActiveJob::QueueAdapters::AsyncAdapter Mailer delivery smtp Redmine settings: Redmine theme Default SCM: Subversion 1.14.5 Mercurial 7.0.1 Bazaar 3.3.11 Git 2.47.3 Filesystem Redmine plugins: agile_board 7.0.0 flux_tags 7.0.0 inplace_issue_editor 7.0.0 redmineflux_checklist 7.0.0 redmineflux_daisy 6.2.0 redmineflux_dashboard 7.0.0 redmineflux_gantt_plugin 7.0.0 redmineflux_lotus 7.0.0 redmineflux_scarlet 1.0.0"
+    - generic [ref=f11e173]:
+      - text: Powered by
+      - link "Redmine" [ref=f11e174] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f11e175]
+  - log [ref=f11e176]
+  - log [ref=f11e177]
+  - log [ref=f11e178]
+  - log [ref=f11e179]
+  - log [ref=f11e180]
+  - log [ref=f11e181]
+  - log [ref=f11e182]
+  - log [ref=f11e183]
+  - log [ref=f11e184]

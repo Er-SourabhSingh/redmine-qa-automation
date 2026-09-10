@@ -1,0 +1,159 @@
+- generic [ref=f208e1]:
+  - generic [ref=f208e2]:
+    - generic [ref=f208e3]:
+      - generic [ref=f208e4]:
+        - list:
+          - listitem [ref=f208e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f208e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f208e7]:
+        - text: Logged in as
+        - link "admin" [ref=f208e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f208e9]:
+        - listitem [ref=f208e10]:
+          - link [ref=f208e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f208e12]
+        - listitem [ref=f208e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f208e14]:
+          - link "My page" [ref=f208e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f208e16]:
+          - link "Projects" [ref=f208e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f208e18]:
+          - link "Flux Gantt" [ref=f208e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f208e20]:
+          - link "Helpdesk Command Center" [ref=f208e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f208e22]:
+          - link "Time Tracker" [ref=f208e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f208e24]:
+          - link "Timesheet" [ref=f208e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f208e26]:
+          - link "Workloads" [ref=f208e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f208e28]:
+          - link "More" [ref=f208e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f208e30]:
+      - generic [ref=f208e31]:
+        - generic [ref=f208e32]:
+          - generic [ref=f208e33]:
+            - link "Search..." [ref=f208e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f208e35]
+        - generic [ref=f208e36]:
+          - generic [ref=f208e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f208e38]
+    - generic [ref=f208e39]:
+      - list [ref=f208e43]:
+        - listitem [ref=f208e44]:
+          - link "Helpdesk Dashboard" [ref=f208e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f208e48]:
+          - link "Helpdesk Tickets" [ref=f208e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f208e52]:
+          - link "Reports" [ref=f208e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f208e56]:
+          - link "Organization" [ref=f208e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f208e60]:
+          - link "Customers" [ref=f208e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f208e64]:
+          - link "Products" [ref=f208e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f208e68]:
+          - link "Helpdesk Settings" [ref=f208e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f208e72]:
+        - heading "New Customer" [level=2] [ref=f208e73]
+        - generic [ref=f208e74]:
+          - generic [ref=f208e75]:
+            - paragraph [ref=f208e76]:
+              - generic [ref=f208e77]: Login *
+              - textbox "Login *" [ref=f208e78]
+            - paragraph [ref=f208e79]:
+              - generic [ref=f208e80]: First name *
+              - textbox "First name *" [ref=f208e81]
+            - paragraph [ref=f208e82]:
+              - generic [ref=f208e83]: Last name *
+              - textbox "Last name *" [ref=f208e84]
+            - paragraph [ref=f208e85]:
+              - generic [ref=f208e86]: Email *
+              - textbox "Email *" [ref=f208e87]
+            - generic [ref=f208e88]:
+              - paragraph [ref=f208e89]:
+                - generic [ref=f208e90]: Password *
+                - textbox "Password *" [ref=f208e91]
+              - paragraph [ref=f208e92]:
+                - generic [ref=f208e93]: Confirmation *
+                - textbox "Confirmation *" [ref=f208e94]
+            - paragraph [ref=f208e95]:
+              - checkbox "Generate password automatically" [ref=f208e96]
+              - generic [ref=f208e97]: Generate password automatically
+            - paragraph [ref=f208e98]:
+              - checkbox "Send account information to the user" [checked] [disabled] [ref=f208e99]
+              - generic [ref=f208e100]: Send account information to the user
+          - group "Project access" [ref=f208e101]:
+            - paragraph [ref=f208e103]: Projects this customer can raise tickets against, and the SLA, support level and organisation that apply on each. Leave empty to create the account without project access.
+            - generic [ref=f208e105]:
+              - generic [ref=f208e106]:
+                - generic [ref=f208e107]: Project
+                - combobox [ref=f208e108]:
+                  - option "-- Select project --"
+                  - option "Helpdesk QA Alpha"
+                  - option "Helpdesk QA Beta" [selected]
+              - generic [ref=f208e109]:
+                - generic [ref=f208e110]: SLA Name *
+                - combobox [active] [ref=f208e111]:
+                  - option "None" [selected]
+                  - option "Beta Standard SLA"
+              - generic [ref=f208e112]:
+                - generic [ref=f208e113]: Support Level *
+                - combobox [ref=f208e114]:
+                  - option "None" [selected]
+                  - option "AB-L1"
+              - generic [ref=f208e115]:
+                - generic [ref=f208e116]: Organization Name
+                - combobox [ref=f208e117]:
+                  - option "None" [selected]
+              - button "Delete" [ref=f208e118] [cursor=pointer]
+            - paragraph [ref=f208e122]:
+              - button "Add project" [ref=f208e123] [cursor=pointer]
+          - paragraph [ref=f208e125]:
+            - button "Create" [ref=f208e126] [cursor=pointer]
+            - link "Cancel" [ref=f208e127] [cursor=pointer]:
+              - /url: /rf_helpdesk/customers
+    - generic [ref=f208e128]:
+      - text: Powered by
+      - link "Redmine" [ref=f208e129] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f208e130]
+  - log [ref=f208e131]
+  - log [ref=f208e132]
+  - log [ref=f208e133]
+  - log [ref=f208e134]
+  - log [ref=f208e135]
+  - log [ref=f208e136]:
+    - generic [ref=f208e142]: Customers
+  - log [ref=f208e137]
+  - log [ref=f208e138]
+  - log [ref=f208e139]
+  - log [ref=f208e140]
+  - log [ref=f208e141]

@@ -1,0 +1,118 @@
+- generic [active] [ref=f222e1]:
+  - generic [ref=f222e2]:
+    - generic [ref=f222e3]:
+      - generic [ref=f222e4]:
+        - img "Logo" [ref=f222e5]
+        - text: 
+      - navigation "Application tasks" [ref=f222e6]:
+        - button " Compose" [ref=f222e8] [cursor=pointer]
+        - button " Mail" [ref=f222e9] [cursor=pointer]
+        - button " Contacts" [ref=f222e10] [cursor=pointer]
+        - button " Settings" [ref=f222e11] [cursor=pointer]
+        - generic [ref=f222e12]:
+          - button " Dark mode" [ref=f222e13] [cursor=pointer]
+          - button " About" [ref=f222e14] [cursor=pointer]
+          - button " Logout" [ref=f222e15] [cursor=pointer]
+    - generic [ref=f222e16]:
+      - generic [ref=f222e17]:
+        - text: 
+        - generic [ref=f222e18]: Options and attachments
+      - generic [ref=f222e19]:
+        - region "Attachments" [ref=f222e20]:
+          - generic [ref=f222e21]:
+            - generic [ref=f222e22]: Maximum allowed file size is 5.0 MB
+            - button "Attach a file" [ref=f222e23] [cursor=pointer]
+          - list
+        - region "Composition options" [ref=f222e24]:
+          - generic [ref=f222e25]:
+            - generic [ref=f222e26]: Return receipt
+            - checkbox "Return receipt" [ref=f222e29]
+          - generic [ref=f222e31]:
+            - generic [ref=f222e32]: Delivery status notification
+            - checkbox "Delivery status notification" [ref=f222e35]
+          - generic [ref=f222e37]:
+            - generic [ref=f222e38]: Keep formatting
+            - checkbox "Keep formatting" [ref=f222e41]
+          - generic [ref=f222e43]:
+            - generic [ref=f222e44]: Priority
+            - combobox "Priority" [ref=f222e46]:
+              - option "Lowest"
+              - option "Low"
+              - option "Normal" [selected]
+              - option "High"
+              - option "Highest"
+          - generic [ref=f222e47]:
+            - generic [ref=f222e48]: Save sent message in
+            - combobox "Save sent message in" [ref=f222e50]:
+              - option "- don't save -"
+              - option "Inbox"
+              - option "Drafts"
+              - option "Sent" [selected]
+              - option "Junk"
+              - option "Trash"
+    - main [ref=f222e52]:
+      - generic [ref=f222e53]:
+        - text: 
+        - list [ref=f222e54]:
+          - text: 
+          - menuitem [ref=f222e55]:
+            - button " Save" [ref=f222e56] [cursor=pointer]
+          - menuitem [ref=f222e57]
+          - menuitem [ref=f222e58]:
+            - button " Attach" [ref=f222e59] [cursor=pointer]
+          - menuitem " Signature" [ref=f222e60]:
+            - button " Signature" [disabled]
+          - menuitem [ref=f222e61]:
+            - link " Responses" [ref=f222e62] [cursor=pointer]:
+              - /url: "#responses"
+              - text:  Responses  
+          - menuitem [ref=f222e63]:
+            - generic [ref=f222e64]:
+              - button " Spell" [ref=f222e65] [cursor=pointer]
+              - link "" [ref=f222e66] [cursor=pointer]:
+                - /url: "#languages"
+          - menuitem:    
+        - text: 
+      - generic [ref=f222e67]:
+        - generic [ref=f222e68]:
+          - region "Message headers" [ref=f222e69]:
+            - generic [ref=f222e70]:
+              - generic [ref=f222e71]:
+                - generic [ref=f222e72]: From
+                - generic [ref=f222e74]:
+                  - combobox "From" [ref=f222e75]:
+                    - option "alpha.customer@test.local" [selected]
+                  - link "" [ref=f222e77] [cursor=pointer]:
+                    - /url: "#identities"
+              - generic [ref=f222e78]:
+                - generic [ref=f222e79]: To
+                - generic [ref=f222e81]:
+                  - combobox "To" [ref=f222e82]: alpha.support@test.local,
+                  - list [ref=f222e83]:
+                    - listitem [ref=f222e102]:
+                      - generic [ref=f222e103]: alpha.support@test.local
+                      - generic: ","
+                      - generic [ref=f222e104] [cursor=pointer]: 
+                    - listitem [ref=f222e84]:
+                      - combobox [ref=f222e85]
+                  - link "" [ref=f222e87] [cursor=pointer]:
+                    - /url: "#add-contact"
+                  - link "" [ref=f222e89] [cursor=pointer]:
+                    - /url: "#add-header"
+                    - text:     
+              - text:        
+              - generic [ref=f222e90]:
+                - generic [ref=f222e91]: Subject
+                - textbox "Subject" [ref=f222e93]: TC-HLP-413 retest - Hard mode firmly exhausted - ticket keyword
+          - generic [ref=f222e94]:
+            - textbox "Message Body" [ref=f222e95]: This is the TC-HLP-413 retest email. Budget has been corrected to a firmly negative hours_left value under Hard mode. This should be blocked and should NOT create a ticket. Contains the ticket keyword.
+            - link "" [ref=f222e97] [cursor=pointer]:
+              - /url: "#"
+        - generic [ref=f222e98]:
+          - button "Send" [ref=f222e99] [cursor=pointer]
+          - button "Open in new window" [ref=f222e101] [cursor=pointer]
+      - text:    
+    - text:              
+  - alert [ref=f222e106]:
+    - generic [ref=f222e107]: 
+    - generic [ref=f222e108]: Message sent successfully.

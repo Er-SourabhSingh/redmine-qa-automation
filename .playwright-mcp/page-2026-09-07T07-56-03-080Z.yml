@@ -1,0 +1,472 @@
+- generic [active] [ref=f77e1]:
+  - generic [ref=f77e2]:
+    - generic [ref=f77e3]:
+      - generic [ref=f77e4]:
+        - list:
+          - listitem [ref=f77e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f77e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f77e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f77e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f77e9]:
+        - listitem [ref=f77e10]:
+          - link [ref=f77e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f77e12]
+        - listitem [ref=f77e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f77e14]:
+          - link "My page" [ref=f77e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f77e16]:
+          - link "Projects" [ref=f77e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f77e18]:
+          - link "Time Tracker" [ref=f77e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f77e20]:
+          - link "Workloads" [ref=f77e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f77e22]:
+          - link "Help" [ref=f77e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f77e24]:
+      - generic [ref=f77e25]:
+        - generic [ref=f77e26]:
+          - generic [ref=f77e27]:
+            - link "Search..." [ref=f77e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f77e29]
+        - generic [ref=f77e30]:
+          - generic [ref=f77e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f77e32]
+      - generic [ref=f77e33]:
+        - list [ref=f77e34]:
+          - listitem [ref=f77e35]:
+            - link "+" [ref=f77e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f77e37]:
+            - link "Overview" [ref=f77e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f77e39]:
+            - link "Activity" [ref=f77e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f77e41]:
+            - link "Issues" [ref=f77e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f77e43]:
+            - link "Spent time" [ref=f77e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f77e45]:
+            - link "Gantt" [ref=f77e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f77e47]:
+            - link "Calendar" [ref=f77e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f77e49]:
+            - link "News" [ref=f77e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f77e51]:
+            - link "Documents" [ref=f77e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f77e53]:
+            - link "Wiki" [ref=f77e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f77e55]:
+            - link "Files" [ref=f77e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f77e57]:
+            - link "Helpdesk" [ref=f77e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f77e59]:
+          - button [ref=f77e60] [cursor=pointer]
+          - button [ref=f77e63] [cursor=pointer]
+    - generic [ref=f77e66]:
+      - generic [ref=f77e67]:
+        - link [ref=f77e69] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f77e72]:
+          - heading "Custom queries" [level=3] [ref=f77e73]
+          - list [ref=f77e74]:
+            - listitem [ref=f77e75]:
+              - link "Spent time" [ref=f77e76] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/time_entries?query_id=7
+      - generic [ref=f77e77]:
+        - generic [ref=f77e78]: Successful update
+        - link "Log time" [ref=f77e80] [cursor=pointer]:
+          - /url: /projects/helpdesk-qa-alpha/time_entries/new
+        - heading "Spent time" [level=2] [ref=f77e82]
+        - generic [ref=f77e83]:
+          - generic [ref=f77e85]:
+            - group "Filters" [ref=f77e86]
+            - group "Options" [ref=f77e90]
+          - list [ref=f77e95]:
+            - listitem [ref=f77e96]:
+              - link "Details" [ref=f77e97] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/time_entries
+            - listitem [ref=f77e98]:
+              - link "Report" [ref=f77e99] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/time_entries/report
+        - paragraph [ref=f77e100]:
+          - generic [ref=f77e101]: "Hours: 12:29"
+        - generic [ref=f77e102]:
+          - button "Copy Table" [ref=f77e104] [cursor=pointer]
+          - table [ref=f77e109]:
+            - rowgroup [ref=f77e119]:
+              - row [ref=f77e120]:
+                - columnheader [ref=f77e121]:
+                  - checkbox "Check all / Uncheck all" [ref=f77e122]
+                - columnheader [ref=f77e123]:
+                  - link "Date" [ref=f77e124] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/time_entries?sort=spent_on
+                - columnheader [ref=f77e129]:
+                  - link "User" [ref=f77e130] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/time_entries?sort=user%2Cspent_on%3Adesc
+                - columnheader [ref=f77e132]:
+                  - link "Activity" [ref=f77e133] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/time_entries?sort=activity%2Cspent_on%3Adesc
+                - columnheader [ref=f77e135]:
+                  - link "Issue" [ref=f77e136] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/time_entries?sort=issue%2Cspent_on%3Adesc
+                - columnheader "Comment" [ref=f77e138]
+                - columnheader [ref=f77e140]:
+                  - link "Hours" [ref=f77e141] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/time_entries?sort=hours%2Cspent_on%3Adesc
+                - columnheader [ref=f77e143]
+            - rowgroup [ref=f77e144]:
+              - row [ref=f77e145]:
+                - cell [ref=f77e146]:
+                  - checkbox [ref=f77e147]
+                - cell "09/07/2026" [ref=f77e148]
+                - cell [ref=f77e149]:
+                  - link "Luna Blossom" [ref=f77e150] [cursor=pointer]:
+                    - /url: /users/5
+                - cell "Technical Support" [ref=f77e151]
+                - cell [ref=f77e152]:
+                  - 'link "Support #46" [ref=f77e153] [cursor=pointer]':
+                    - /url: /issues/46
+                  - text: ": TC-HLP-129 prepaid hours time-logging test ticket"
+                - cell [ref=f77e154]
+                - cell "2:00" [ref=f77e155]
+                - cell [ref=f77e156]:
+                  - link "Edit" [ref=f77e157] [cursor=pointer]:
+                    - /url: /time_entries/27/edit
+                  - link "Delete" [ref=f77e159] [cursor=pointer]:
+                    - /url: /time_entries/27
+                  - link "Actions" [ref=f77e161] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f77e163]:
+                - cell [ref=f77e164]:
+                  - checkbox [ref=f77e165]
+                - cell "09/07/2026" [ref=f77e166]
+                - cell [ref=f77e167]:
+                  - link "Luna Blossom" [ref=f77e168] [cursor=pointer]:
+                    - /url: /users/5
+                - cell "Technical Support" [ref=f77e169]
+                - cell [ref=f77e170]:
+                  - 'link "Support #46" [ref=f77e171] [cursor=pointer]':
+                    - /url: /issues/46
+                  - text: ": TC-HLP-129 prepaid hours time-logging test ticket"
+                - cell [ref=f77e172]
+                - cell "0:05" [ref=f77e173]
+                - cell [ref=f77e174]:
+                  - link "Edit" [ref=f77e175] [cursor=pointer]:
+                    - /url: /time_entries/26/edit
+                  - link "Delete" [ref=f77e177] [cursor=pointer]:
+                    - /url: /time_entries/26
+                  - link "Actions" [ref=f77e179] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f77e181]:
+                - cell [ref=f77e182]:
+                  - checkbox [ref=f77e183]
+                - cell "09/03/2026" [ref=f77e184]
+                - cell [ref=f77e185]:
+                  - link "Luna Blossom" [ref=f77e186] [cursor=pointer]:
+                    - /url: /users/5
+                - cell "Technical Support" [ref=f77e187]
+                - cell [ref=f77e188]:
+                  - 'link "Support #46" [ref=f77e189] [cursor=pointer]':
+                    - /url: /issues/46
+                  - text: ": TC-HLP-129 prepaid hours time-logging test ticket"
+                - cell [ref=f77e190]
+                - cell "2:00" [ref=f77e191]
+                - cell [ref=f77e192]:
+                  - link "Edit" [ref=f77e193] [cursor=pointer]:
+                    - /url: /time_entries/25/edit
+                  - link "Delete" [ref=f77e195] [cursor=pointer]:
+                    - /url: /time_entries/25
+                  - link "Actions" [ref=f77e197] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f77e199]:
+                - cell [ref=f77e200]:
+                  - checkbox [ref=f77e201]
+                - cell "09/03/2026" [ref=f77e202]
+                - cell [ref=f77e203]:
+                  - link "Luna Blossom" [ref=f77e204] [cursor=pointer]:
+                    - /url: /users/5
+                - cell "Technical Support" [ref=f77e205]
+                - cell [ref=f77e206]:
+                  - 'link "Support #46" [ref=f77e207] [cursor=pointer]':
+                    - /url: /issues/46
+                  - text: ": TC-HLP-129 prepaid hours time-logging test ticket"
+                - cell [ref=f77e208]
+                - cell "1:00" [ref=f77e209]
+                - cell [ref=f77e210]:
+                  - link "Edit" [ref=f77e211] [cursor=pointer]:
+                    - /url: /time_entries/24/edit
+                  - link "Delete" [ref=f77e213] [cursor=pointer]:
+                    - /url: /time_entries/24
+                  - link "Actions" [ref=f77e215] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f77e217]:
+                - cell [ref=f77e218]:
+                  - checkbox [ref=f77e219]
+                - cell "09/03/2026" [ref=f77e220]
+                - cell [ref=f77e221]:
+                  - link "Luna Blossom" [ref=f77e222] [cursor=pointer]:
+                    - /url: /users/5
+                - cell "Technical Support" [ref=f77e223]
+                - cell [ref=f77e224]:
+                  - 'link "Support #46" [ref=f77e225] [cursor=pointer]':
+                    - /url: /issues/46
+                  - text: ": TC-HLP-129 prepaid hours time-logging test ticket"
+                - cell [ref=f77e226]
+                - cell "3:00" [ref=f77e227]
+                - cell [ref=f77e228]:
+                  - link "Edit" [ref=f77e229] [cursor=pointer]:
+                    - /url: /time_entries/23/edit
+                  - link "Delete" [ref=f77e231] [cursor=pointer]:
+                    - /url: /time_entries/23
+                  - link "Actions" [ref=f77e233] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f77e235]:
+                - cell [ref=f77e236]:
+                  - checkbox [ref=f77e237]
+                - cell "09/03/2026" [ref=f77e238]
+                - cell [ref=f77e239]:
+                  - link "Luna Blossom" [ref=f77e240] [cursor=pointer]:
+                    - /url: /users/5
+                - cell "Technical Support" [ref=f77e241]
+                - cell [ref=f77e242]:
+                  - 'link "Support #46" [ref=f77e243] [cursor=pointer]':
+                    - /url: /issues/46
+                  - text: ": TC-HLP-129 prepaid hours time-logging test ticket"
+                - cell [ref=f77e244]
+                - cell "0:05" [ref=f77e245]
+                - cell [ref=f77e246]:
+                  - link "Edit" [ref=f77e247] [cursor=pointer]:
+                    - /url: /time_entries/22/edit
+                  - link "Delete" [ref=f77e249] [cursor=pointer]:
+                    - /url: /time_entries/22
+                  - link "Actions" [ref=f77e251] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f77e253]:
+                - cell [ref=f77e254]:
+                  - checkbox [ref=f77e255]
+                - cell "09/03/2026" [ref=f77e256]
+                - cell [ref=f77e257]:
+                  - link "Luna Blossom" [ref=f77e258] [cursor=pointer]:
+                    - /url: /users/5
+                - cell "Technical Support" [ref=f77e259]
+                - cell [ref=f77e260]:
+                  - 'link "Support #46" [ref=f77e261] [cursor=pointer]':
+                    - /url: /issues/46
+                  - text: ": TC-HLP-129 prepaid hours time-logging test ticket"
+                - cell [ref=f77e262]
+                - cell "0:10" [ref=f77e263]
+                - cell [ref=f77e264]:
+                  - link "Edit" [ref=f77e265] [cursor=pointer]:
+                    - /url: /time_entries/21/edit
+                  - link "Delete" [ref=f77e267] [cursor=pointer]:
+                    - /url: /time_entries/21
+                  - link "Actions" [ref=f77e269] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f77e271]:
+                - cell [ref=f77e272]:
+                  - checkbox [ref=f77e273]
+                - cell "09/03/2026" [ref=f77e274]
+                - cell [ref=f77e275]:
+                  - link "Luna Blossom" [ref=f77e276] [cursor=pointer]:
+                    - /url: /users/5
+                - cell "Technical Support" [ref=f77e277]
+                - cell [ref=f77e278]:
+                  - 'link "Support #46" [ref=f77e279] [cursor=pointer]':
+                    - /url: /issues/46
+                  - text: ": TC-HLP-129 prepaid hours time-logging test ticket"
+                - cell [ref=f77e280]
+                - cell "0:10" [ref=f77e281]
+                - cell [ref=f77e282]:
+                  - link "Edit" [ref=f77e283] [cursor=pointer]:
+                    - /url: /time_entries/20/edit
+                  - link "Delete" [ref=f77e285] [cursor=pointer]:
+                    - /url: /time_entries/20
+                  - link "Actions" [ref=f77e287] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f77e289]:
+                - cell [ref=f77e290]:
+                  - checkbox [ref=f77e291]
+                - cell "09/03/2026" [ref=f77e292]
+                - cell [ref=f77e293]:
+                  - link "Luna Blossom" [ref=f77e294] [cursor=pointer]:
+                    - /url: /users/5
+                - cell "Technical Support" [ref=f77e295]
+                - cell [ref=f77e296]:
+                  - 'link "Support #46" [ref=f77e297] [cursor=pointer]':
+                    - /url: /issues/46
+                  - text: ": TC-HLP-129 prepaid hours time-logging test ticket"
+                - cell [ref=f77e298]
+                - cell "0:15" [ref=f77e299]
+                - cell [ref=f77e300]:
+                  - link "Edit" [ref=f77e301] [cursor=pointer]:
+                    - /url: /time_entries/19/edit
+                  - link "Delete" [ref=f77e303] [cursor=pointer]:
+                    - /url: /time_entries/19
+                  - link "Actions" [ref=f77e305] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f77e307]:
+                - cell [ref=f77e308]:
+                  - checkbox [ref=f77e309]
+                - cell "09/01/2026" [ref=f77e310]
+                - cell [ref=f77e311]:
+                  - link "Redmine Admin" [ref=f77e312] [cursor=pointer]:
+                    - /url: /users/1
+                - cell "Development" [ref=f77e313]
+                - cell [ref=f77e314]:
+                  - 'link "Support #13" [ref=f77e315] [cursor=pointer]':
+                    - /url: /issues/13
+                  - text: ": TC-HLP-025 duplicate B - printer offline on office network"
+                - cell [ref=f77e316]
+                - cell "2:00" [ref=f77e317]
+                - cell [ref=f77e318]:
+                  - link "Actions" [ref=f77e319] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f77e321]:
+                - cell [ref=f77e322]:
+                  - checkbox [ref=f77e323]
+                - cell "08/31/2026" [ref=f77e324]
+                - cell [ref=f77e325]:
+                  - link "Redmine Admin" [ref=f77e326] [cursor=pointer]:
+                    - /url: /users/1
+                - cell "Remote Support" [ref=f77e327]
+                - cell [ref=f77e328]:
+                  - 'link "Support #12" [ref=f77e329] [cursor=pointer]':
+                    - /url: /issues/12
+                  - text: ": TC-HLP-025 duplicate A - printer not connecting to network"
+                - cell [ref=f77e330]
+                - cell "1:00" [ref=f77e331]
+                - cell [ref=f77e332]:
+                  - link "Actions" [ref=f77e333] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f77e335]:
+                - cell [ref=f77e336]:
+                  - checkbox [ref=f77e337]
+                - cell "08/31/2026" [ref=f77e338]
+                - cell [ref=f77e339]:
+                  - link "Luna Blossom" [ref=f77e340] [cursor=pointer]:
+                    - /url: /users/5
+                - cell "Customer Call" [ref=f77e341]
+                - cell [ref=f77e342]:
+                  - 'link "Support #11" [ref=f77e343] [cursor=pointer]':
+                    - /url: /issues/11
+                  - text: ": TC-HLP-022 fixture - Internal Note on an in-progress ticket with active SLA"
+                - cell [ref=f77e344]
+                - cell "0:35" [ref=f77e345]
+                - cell [ref=f77e346]:
+                  - link "Edit" [ref=f77e347] [cursor=pointer]:
+                    - /url: /time_entries/2/edit
+                  - link "Delete" [ref=f77e349] [cursor=pointer]:
+                    - /url: /time_entries/2
+                  - link "Actions" [ref=f77e351] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f77e353]:
+                - cell [ref=f77e354]:
+                  - checkbox [ref=f77e355]
+                - cell "08/31/2026" [ref=f77e356]
+                - cell [ref=f77e357]:
+                  - link "Luna Blossom" [ref=f77e358] [cursor=pointer]:
+                    - /url: /users/5
+                - cell "Technical Support" [ref=f77e359]
+                - cell [ref=f77e360]:
+                  - 'link "Support #11" [ref=f77e361] [cursor=pointer]':
+                    - /url: /issues/11
+                  - text: ": TC-HLP-022 fixture - Internal Note on an in-progress ticket with active SLA"
+                - cell [ref=f77e362]
+                - cell "0:10" [ref=f77e363]
+                - cell [ref=f77e364]:
+                  - link "Edit" [ref=f77e365] [cursor=pointer]:
+                    - /url: /time_entries/1/edit
+                  - link "Delete" [ref=f77e367] [cursor=pointer]:
+                    - /url: /time_entries/1
+                  - link "Actions" [ref=f77e369] [cursor=pointer]:
+                    - /url: "#"
+        - generic [ref=f77e371]:
+          - list
+          - generic: (1-13/13)
+        - paragraph [ref=f77e373]:
+          - text: "Also available in:"
+          - link "CSV" [ref=f77e375] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/time_entries.csv
+          - generic [ref=f77e376]:
+            - text: "|"
+            - link "Atom" [ref=f77e377] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries.atom?key=74f8c2c10d57ac3baeee5bf474f60ebd9a037b60
+    - generic [ref=f77e378]:
+      - text: Powered by
+      - link "Redmine" [ref=f77e379] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f77e380]
+  - log [ref=f77e381]
+  - log [ref=f77e382]
+  - log [ref=f77e383]
+  - log [ref=f77e384]
+  - log [ref=f77e385]
+  - log [ref=f77e386]
+  - log [ref=f77e387]
+  - log [ref=f77e388]
+  - log [ref=f77e389]
+  - log [ref=f77e390]
+  - log [ref=f77e391]
+  - log [ref=f77e392]
+  - log [ref=f77e393]
+  - log [ref=f77e394]
+  - log [ref=f77e395]
+  - log [ref=f77e396]
+  - log [ref=f77e397]
+  - log [ref=f77e398]
+  - log [ref=f77e399]
+  - log [ref=f77e400]
+  - log [ref=f77e401]
+  - log [ref=f77e402]
+  - log [ref=f77e403]
+  - log [ref=f77e404]
+  - log [ref=f77e405]
+  - log [ref=f77e406]
+  - log [ref=f77e407]
+  - log [ref=f77e408]
+  - log [ref=f77e409]
+  - log [ref=f77e410]
+  - log [ref=f77e411]
+  - log [ref=f77e412]
+  - log [ref=f77e413]
+  - log [ref=f77e414]
+  - log [ref=f77e415]
+  - log [ref=f77e416]
+  - log [ref=f77e417]
+  - log [ref=f77e418]
+  - log [ref=f77e419]
+  - log [ref=f77e420]
+  - log [ref=f77e421]
+  - log [ref=f77e422]
+  - log [ref=f77e423]
+  - log [ref=f77e424]
+  - log [ref=f77e425]
+  - log [ref=f77e426]

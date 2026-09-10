@@ -1,0 +1,309 @@
+- generic [active] [ref=f222e1]:
+  - generic [ref=f222e2]:
+    - navigation [ref=f222e3]:
+      - generic [ref=f222e4]:
+        - link [ref=f222e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f222e7] [cursor=pointer]
+      - list [ref=f222e17]:
+        - listitem [ref=f222e18]:
+          - link "Hauptseite" [ref=f222e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f222e20]:
+          - link "Meine Seite" [ref=f222e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f222e22]:
+          - link "Projekte" [ref=f222e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f222e24]:
+          - link "Agile Board" [ref=f222e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f222e26]:
+          - link "Flux Gantt" [ref=f222e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f222e28]:
+          - link "Administration" [ref=f222e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f222e30]:
+          - link "Hilfe" [ref=f222e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f222e32]:
+        - generic [ref=f222e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f222e35]
+        - link "Mein Konto" [ref=f222e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f222e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f222e44]:
+      - generic [ref=f222e45]:
+        - heading "Redmine" [level=1] [ref=f222e47]
+        - generic [ref=f222e49]:
+          - heading "Administration" [level=3] [ref=f222e50]
+          - list [ref=f222e52]:
+            - listitem [ref=f222e53]:
+              - link "Projekte" [ref=f222e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f222e55]:
+              - link "Benutzer" [ref=f222e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f222e57]:
+              - link "Gruppen" [ref=f222e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f222e59]:
+              - link "Rollen und Rechte" [ref=f222e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f222e61]:
+              - link "Tracker" [ref=f222e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f222e63]:
+              - link "Ticket-Status" [ref=f222e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f222e65]:
+              - link "Workflow" [ref=f222e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f222e67]:
+              - link "Benutzerdefinierte Felder" [ref=f222e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f222e69]:
+              - link "Aufzählungen" [ref=f222e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f222e71]:
+              - link "Konfiguration" [ref=f222e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f222e73]:
+              - link "LDAP-Authentifizierung" [ref=f222e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f222e75]:
+              - link "Applikationen" [ref=f222e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f222e77]:
+              - link "Plugins" [ref=f222e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f222e79]:
+              - link "Informationen" [ref=f222e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f222e81]:
+        - heading "Konfiguration" [level=2] [ref=f222e82]
+        - list [ref=f222e84]:
+          - listitem [ref=f222e85]:
+            - link "Allgemein" [ref=f222e86] [cursor=pointer]:
+              - /url: /settings?tab=general
+          - listitem [ref=f222e87]:
+            - link "Anzeige" [ref=f222e88] [cursor=pointer]:
+              - /url: /settings?tab=display
+          - listitem [ref=f222e89]:
+            - link "Authentifizierung" [ref=f222e90] [cursor=pointer]:
+              - /url: /settings?tab=authentication
+          - listitem [ref=f222e91]:
+            - link "Integrations" [ref=f222e92] [cursor=pointer]:
+              - /url: /settings?tab=integrations
+          - listitem [ref=f222e93]:
+            - link "Projekte" [ref=f222e94] [cursor=pointer]:
+              - /url: /settings?tab=projects
+          - listitem [ref=f222e95]:
+            - link "Benutzer" [ref=f222e96] [cursor=pointer]:
+              - /url: /settings?tab=users
+          - listitem [ref=f222e97]:
+            - link "Tickets" [ref=f222e98] [cursor=pointer]:
+              - /url: /settings?tab=issues
+          - listitem [ref=f222e99]:
+            - link "Zeiterfassung" [ref=f222e100] [cursor=pointer]:
+              - /url: /settings?tab=timelog
+          - listitem [ref=f222e101]:
+            - link "Dateien" [ref=f222e102] [cursor=pointer]:
+              - /url: /settings?tab=attachments
+          - listitem [ref=f222e103]:
+            - link "Mailbenachrichtigung" [ref=f222e104] [cursor=pointer]:
+              - /url: /settings?tab=notifications
+          - listitem [ref=f222e105]:
+            - link "Eingehende E-Mails" [ref=f222e106] [cursor=pointer]:
+              - /url: /settings?tab=mail_handler
+          - listitem [ref=f222e107]:
+            - link "Repositories" [ref=f222e108] [cursor=pointer]:
+              - /url: /settings?tab=repositories
+        - text: pre
+        - generic [ref=f222e110]:
+          - generic [ref=f222e111]:
+            - paragraph [ref=f222e112]:
+              - generic [ref=f222e113]: Neue Projekte sind standardmäßig öffentlich
+              - checkbox "Neue Projekte sind standardmäßig öffentlich" [checked] [ref=f222e114]
+            - paragraph [ref=f222e115]:
+              - generic [ref=f222e116]: Standardmäßig aktivierte Module für neue Projekte
+              - generic [ref=f222e117]:
+                - checkbox "Tickets" [checked] [ref=f222e118]
+                - text: Tickets
+              - generic [ref=f222e119]:
+                - checkbox "Zeiterfassung" [checked] [ref=f222e120]
+                - text: Zeiterfassung
+              - generic [ref=f222e121]:
+                - checkbox "News" [checked] [ref=f222e122]
+                - text: News
+              - generic [ref=f222e123]:
+                - checkbox "Dokumente" [checked] [ref=f222e124]
+                - text: Dokumente
+              - generic [ref=f222e125]:
+                - checkbox "Dateien" [checked] [ref=f222e126]
+                - text: Dateien
+              - generic [ref=f222e127]:
+                - checkbox "Wiki" [checked] [ref=f222e128]
+                - text: Wiki
+              - generic [ref=f222e129]:
+                - checkbox "Repository" [checked] [ref=f222e130]
+                - text: Repository
+              - generic [ref=f222e131]:
+                - checkbox "Foren" [checked] [ref=f222e132]
+                - text: Foren
+              - generic [ref=f222e133]:
+                - checkbox "Kalender" [checked] [ref=f222e134]
+                - text: Kalender
+              - generic [ref=f222e135]:
+                - checkbox "Gantt" [checked] [ref=f222e136]
+                - text: Gantt
+              - generic [ref=f222e137]:
+                - checkbox "Agile Board" [ref=f222e138]
+                - text: Agile Board
+              - generic [ref=f222e139]:
+                - checkbox "Flux Gantt-Diagramm" [ref=f222e140]
+                - text: Flux Gantt-Diagramm
+            - paragraph [ref=f222e141]:
+              - generic [ref=f222e142]: Standardmäßig aktivierte Tracker für neue Projekte
+              - generic [ref=f222e143]:
+                - checkbox "Bug" [checked] [ref=f222e144]
+                - text: Bug
+              - generic [ref=f222e145]:
+                - checkbox "Feature" [checked] [ref=f222e146]
+                - text: Feature
+              - generic [ref=f222e147]:
+                - checkbox "Support" [checked] [ref=f222e148]
+                - text: Support
+            - paragraph [ref=f222e149]:
+              - generic [ref=f222e150]: Fortlaufende Projektkennungen generieren
+              - checkbox "Fortlaufende Projektkennungen generieren" [ref=f222e151]
+            - paragraph [ref=f222e152]:
+              - generic [ref=f222e153]: Rolle, die einem Nicht-Administrator zugeordnet wird, der ein Projekt erstellt
+              - combobox "Rolle, die einem Nicht-Administrator zugeordnet wird, der ein Projekt erstellt" [ref=f222e154]:
+                - option "--- Bitte auswählen ---" [selected]
+                - option "Manager"
+                - option "Employee"
+                - option "Client"
+                - option "Project Lead"
+                - option "QA"
+                - option "Team Lead"
+                - option "Developer"
+          - group "Voreinstellungen Projektliste" [ref=f222e155]:
+            - paragraph [ref=f222e157]:
+              - text: Ergebnisse anzeigen als
+              - radio [checked] [ref=f222e158]
+              - text: Karte
+              - radio [ref=f222e159]
+              - text: Liste
+            - generic [ref=f222e161]:
+              - generic [ref=f222e162]:
+                - generic [ref=f222e163]: Verfügbare Spalten
+                - listbox "Verfügbare Spalten" [ref=f222e164]:
+                  - option "Status" [ref=f222e165]
+                  - option "Projekt-Homepage" [ref=f222e166]
+                  - option "Unterprojekt von" [ref=f222e167]
+                  - option "Öffentlich" [ref=f222e168]
+                  - option "Angelegt" [ref=f222e169]
+                  - option "Aktualisiert" [ref=f222e170]
+                  - option "Last activity" [ref=f222e171]
+                  - option "Tags" [ref=f222e172]
+              - generic [ref=f222e173]:
+                - button [ref=f222e174]
+                - button [ref=f222e177]
+              - generic [ref=f222e180]:
+                - generic [ref=f222e181]: Ausgewählte Spalten
+                - listbox "Ausgewählte Spalten" [ref=f222e182]:
+                  - option "Name" [ref=f222e183]
+                  - option "Kennung" [ref=f222e184]
+                  - option "Beschreibung" [ref=f222e185]
+              - generic [ref=f222e186]:
+                - button "⇈" [ref=f222e187]
+                - button "↑" [ref=f222e188]
+                - button "↓" [ref=f222e189]
+                - button "⇊" [ref=f222e190]
+            - paragraph [ref=f222e191]:
+              - text: Standardabfrage
+              - combobox [ref=f222e192]:
+                - option "Keine" [selected]
+                - option "My projects"
+                - option "My bookmarks"
+          - button "Speichern" [ref=f222e193] [cursor=pointer]
+        - text: pre pre
+    - generic [ref=f222e194]:
+      - text: Powered by
+      - link "Redmine" [ref=f222e195] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f222e196]
+  - log [ref=f222e197]
+  - log [ref=f222e198]
+  - log [ref=f222e199]
+  - log [ref=f222e200]
+  - log [ref=f222e201]
+  - log [ref=f222e202]
+  - log [ref=f222e203]
+  - log [ref=f222e204]
+  - log [ref=f222e205]
+  - log [ref=f222e206]
+  - log [ref=f222e207]
+  - log [ref=f222e208]
+  - log [ref=f222e209]
+  - log [ref=f222e210]
+  - log [ref=f222e211]
+  - log [ref=f222e212]
+  - log [ref=f222e213]
+  - log [ref=f222e214]
+  - log [ref=f222e215]
+  - log [ref=f222e216]
+  - log [ref=f222e217]
+  - log [ref=f222e218]
+  - log [ref=f222e219]
+  - log [ref=f222e220]
+  - log [ref=f222e221]
+  - log [ref=f222e222]
+  - log [ref=f222e223]
+  - log [ref=f222e224]
+  - log [ref=f222e225]
+  - log [ref=f222e226]
+  - log [ref=f222e227]
+  - log [ref=f222e228]
+  - log [ref=f222e229]
+  - log [ref=f222e230]
+  - log [ref=f222e231]
+  - log [ref=f222e232]
+  - log [ref=f222e233]
+  - log [ref=f222e234]
+  - log [ref=f222e235]
+  - log [ref=f222e236]
+  - log [ref=f222e237]
+  - log [ref=f222e238]
+  - log [ref=f222e239]
+  - log [ref=f222e240]
+  - log [ref=f222e241]
+  - log [ref=f222e242]
+  - log [ref=f222e243]
+  - log [ref=f222e244]
+  - log [ref=f222e245]
+  - log [ref=f222e246]
+  - log [ref=f222e247]
+  - log [ref=f222e248]
+  - log [ref=f222e249]
+  - log [ref=f222e250]
+  - log [ref=f222e251]
+  - log [ref=f222e252]
+  - log [ref=f222e253]
+  - log [ref=f222e254]
+  - log [ref=f222e255]
+  - log [ref=f222e256]
+  - log [ref=f222e257]
+  - log [ref=f222e258]
+  - log [ref=f222e259]
+  - log [ref=f222e260]
+  - log [ref=f222e261]
+  - log [ref=f222e262]
+  - log [ref=f222e263]
+  - log [ref=f222e264]
+  - log [ref=f222e265]
+  - log [ref=f222e266]

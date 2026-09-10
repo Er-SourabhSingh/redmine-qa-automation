@@ -1,0 +1,405 @@
+- generic [active] [ref=f45e1]:
+  - generic [ref=f45e2]:
+    - navigation [ref=f45e3]:
+      - list [ref=f45e6]:
+        - listitem [ref=f45e7]:
+          - link "Hauptseite" [ref=f45e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f45e9]:
+          - link "Meine Seite" [ref=f45e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f45e11]:
+          - link "Projekte" [ref=f45e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f45e13]:
+          - link "Agile Board" [ref=f45e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f45e15]:
+          - link "Flux Gantt" [ref=f45e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f45e17]:
+          - link "Administration" [ref=f45e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f45e19]:
+          - link "Hilfe" [ref=f45e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f45e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f45e24]: RA
+    - generic [ref=f45e27]:
+      - generic [ref=f45e152]:
+        - generic [ref=f45e153]:
+          - generic [ref=f45e154]:
+            - link "Suche" [ref=f45e155] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/search
+            - text: ":"
+          - textbox "Suche:" [ref=f45e156]
+        - generic [ref=f45e157]:
+          - generic [ref=f45e158] [cursor=pointer]: Flux Gantt Project
+          - text: ✓ ✓
+      - heading "Flux Gantt Project" [level=1] [ref=f45e28]
+      - list [ref=f45e31]:
+        - listitem [ref=f45e32]:
+          - link "+" [ref=f45e33] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f45e34]:
+          - link "Übersicht" [ref=f45e35] [cursor=pointer]:
+            - /url: /projects/fluxganttproject
+        - listitem [ref=f45e36]:
+          - link "Dashboard" [ref=f45e37] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/analytics_dashboard
+        - listitem [ref=f45e38]:
+          - link "Flux Gantt" [ref=f45e39] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/flux_gantt
+        - listitem [ref=f45e40]:
+          - link "Aktivität" [ref=f45e41] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/activity
+        - listitem [ref=f45e42]:
+          - link "Roadmap" [ref=f45e43] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/roadmap
+        - listitem [ref=f45e44]:
+          - link "Tickets" [ref=f45e45] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues
+        - listitem [ref=f45e46]:
+          - link "Aufgewendete Zeit" [ref=f45e47] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/time_entries
+        - listitem [ref=f45e48]:
+          - link "Gantt-Diagramm" [ref=f45e49] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/gantt
+        - listitem [ref=f45e50]:
+          - link "Kalender" [ref=f45e51] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/calendar
+        - listitem [ref=f45e52]:
+          - link "News" [ref=f45e53] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/news
+        - listitem [ref=f45e54]:
+          - link "Dokumente" [ref=f45e55] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/documents
+        - listitem [ref=f45e56]:
+          - link "Wiki" [ref=f45e57] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/wiki
+        - listitem [ref=f45e58]:
+          - link "Dateien" [ref=f45e59] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/files
+        - listitem [ref=f45e60]:
+          - link "Konfiguration" [ref=f45e61] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/settings
+    - generic [ref=f45e64]:
+      - generic [ref=f45e65]:
+        - generic [ref=f45e66]: Flux Gantt
+        - generic [ref=f45e67]:
+          - generic [ref=f45e68]:
+            - generic [ref=f45e69]: Datum von/bis
+            - button "1. Sept. 26 - 30. Sept. 26 ▾" [ref=f45e159] [cursor=pointer]:
+              - generic [ref=f45e73]: 1. Sept. 26 - 30. Sept. 26
+              - text: ▾
+          - generic [ref=f45e74]:
+            - generic [ref=f45e75]: Suche
+            - textbox "Suche..." [ref=f45e77]
+        - generic [ref=f45e79]:
+          - generic [ref=f45e80]: Details
+          - combobox [ref=f45e81] [cursor=pointer]:
+            - option "Alle einklappen" [selected]
+            - option "Alle ausklappen"
+        - generic [ref=f45e82]:
+          - button "+ Version hinzufügen" [ref=f45e83] [cursor=pointer]
+          - button "Einstellungen" [ref=f45e84] [cursor=pointer]
+          - button "Vorgänge ohne Version" [ref=f45e88] [cursor=pointer]
+          - button "Vollbild" [ref=f45e90] [cursor=pointer]
+          - button "Exportieren" [ref=f45e96] [cursor=pointer]
+      - generic [ref=f45e161]:
+        - generic [ref=f45e162]:
+          - generic [ref=f45e163]:
+            - generic [ref=f45e164]:
+              - generic [ref=f45e165]: Name
+              - button "+ Vorgang hinzufügen" [ref=f45e166] [cursor=pointer]
+            - generic [ref=f45e167]: Zugewiesen an
+            - generic [ref=f45e168]: Gesch. Stunden
+            - generic [ref=f45e169]: Erledigt %
+          - generic [ref=f45e170]:
+            - generic [ref=f45e171] [cursor=pointer]:
+              - generic [ref=f45e1214]:
+                - generic [ref=f45e1215]: ▶
+                - generic [aria-hidden] [ref=f45e1216]: ◆
+                - generic [ref=f45e1217]: Version 1
+                - generic [ref=f45e1218]: 0 Vorgänge
+              - generic [ref=f45e1220]: "-"
+              - generic [ref=f45e1221]: "-"
+              - generic [ref=f45e1223]: 0%
+            - generic [ref=f45e182] [cursor=pointer]: Keine Vorgänge in dieser Version
+            - generic [ref=f45e184] [cursor=pointer]:
+              - generic [ref=f45e1225]:
+                - generic [ref=f45e1226]: ▶
+                - generic [aria-hidden] [ref=f45e1227]: ◆
+                - generic [ref=f45e1228]: Version 2
+                - generic [ref=f45e1229]: 10 Vorgänge
+              - generic [ref=f45e1231]: "-"
+              - generic [ref=f45e1232]: "-"
+              - generic [ref=f45e1234]: 0%
+            - generic [ref=f45e195] [cursor=pointer]:
+              - generic [ref=f45e1235]:
+                - generic [aria-hidden] [ref=f45e1236]: ●
+                - generic [ref=f45e1237]:
+                  - link "#241" [ref=f45e1238]:
+                    - /url: /issues/241
+                  - generic [ref=f45e1239]: create a agile issue status column setting
+              - generic "Summer Rain" [ref=f45e1241]:
+                - generic [ref=f45e1242]:
+                  - generic [ref=f45e1243]: SR
+                  - generic [ref=f45e1244]: Summer Rain
+              - generic "0" [ref=f45e1245]
+              - generic [ref=f45e1247]: 0%
+            - generic [ref=f45e209] [cursor=pointer]:
+              - generic [ref=f45e1248]:
+                - generic [aria-hidden] [ref=f45e1249]: ●
+                - generic [ref=f45e1250]:
+                  - link "#242" [ref=f45e1251]:
+                    - /url: /issues/242
+                  - generic [ref=f45e1252]: create a agile card field column setting
+              - generic "Summer Rain" [ref=f45e1254]:
+                - generic [ref=f45e1255]:
+                  - generic [ref=f45e1256]: SR
+                  - generic [ref=f45e1257]: Summer Rain
+              - generic "0" [ref=f45e1258]
+              - generic [ref=f45e1260]: 0%
+            - generic [ref=f45e223] [cursor=pointer]:
+              - generic [ref=f45e1261]:
+                - generic [aria-hidden] [ref=f45e1262]: ●
+                - generic [ref=f45e1263]:
+                  - link "#243" [ref=f45e1264]:
+                    - /url: /issues/243
+                  - generic [ref=f45e1265]: create a demo server for agile
+              - generic "Violet Ember" [ref=f45e1267]:
+                - generic [ref=f45e1268]:
+                  - generic [ref=f45e1269]: VE
+                  - generic [ref=f45e1270]: Violet Ember
+              - generic "0" [ref=f45e1271]
+              - generic [ref=f45e1273]: 0%
+            - generic [ref=f45e237] [cursor=pointer]:
+              - generic [ref=f45e1274]:
+                - generic [aria-hidden] [ref=f45e1275]: ●
+                - generic [ref=f45e1276]:
+                  - link "#244" [ref=f45e1277]:
+                    - /url: /issues/244
+                  - generic [ref=f45e1278]: implement wip functionality
+              - generic "Violet Ember" [ref=f45e1280]:
+                - generic [ref=f45e1281]:
+                  - generic [ref=f45e1282]: VE
+                  - generic [ref=f45e1283]: Violet Ember
+              - generic "0" [ref=f45e1284]
+              - generic [ref=f45e1286]: 0%
+            - generic [ref=f45e251] [cursor=pointer]:
+              - generic [ref=f45e1287]:
+                - generic [aria-hidden] [ref=f45e1288]: ●
+                - generic [ref=f45e1289]:
+                  - link "#245" [ref=f45e1290]:
+                    - /url: /issues/245
+                  - generic [ref=f45e1291]: update agile setting
+              - generic "Celeste Dawn" [ref=f45e1293]:
+                - generic [ref=f45e1294]:
+                  - generic [ref=f45e1295]: CD
+                  - generic [ref=f45e1296]: Celeste Dawn
+              - generic "0" [ref=f45e1297]
+              - generic [ref=f45e1299]: 0%
+            - generic [ref=f45e265] [cursor=pointer]:
+              - generic [ref=f45e1300]:
+                - generic [aria-hidden] [ref=f45e1301]: ●
+                - generic [ref=f45e1302]:
+                  - link "#246" [ref=f45e1303]:
+                    - /url: /issues/246
+                  - generic [ref=f45e1304]: added a agile config form
+              - generic "Celeste Dawn" [ref=f45e1306]:
+                - generic [ref=f45e1307]:
+                  - generic [ref=f45e1308]: CD
+                  - generic [ref=f45e1309]: Celeste Dawn
+              - generic "0" [ref=f45e1310]
+              - generic [ref=f45e1312]: 0%
+            - generic [ref=f45e279] [cursor=pointer]:
+              - generic [ref=f45e1313]:
+                - generic [aria-hidden] [ref=f45e1314]: ●
+                - generic [ref=f45e1315]:
+                  - link "#247" [ref=f45e1316]:
+                    - /url: /issues/247
+                  - generic [ref=f45e1317]: Agile board card create
+              - generic "Serenity Bloom" [ref=f45e1319]:
+                - generic [ref=f45e1320]:
+                  - generic [ref=f45e1321]: SB
+                  - generic [ref=f45e1322]: Serenity Bloom
+              - generic "0" [ref=f45e1323]
+              - generic [ref=f45e1325]: 0%
+            - generic [ref=f45e293] [cursor=pointer]:
+              - generic [ref=f45e1326]:
+                - generic [aria-hidden] [ref=f45e1327]: ●
+                - generic [ref=f45e1328]:
+                  - link "#248" [ref=f45e1329]:
+                    - /url: /issues/248
+                  - generic [ref=f45e1330]: Total time update on scroll
+              - generic "Serenity Bloom" [ref=f45e1332]:
+                - generic [ref=f45e1333]:
+                  - generic [ref=f45e1334]: SB
+                  - generic [ref=f45e1335]: Serenity Bloom
+              - generic "0" [ref=f45e1336]
+              - generic [ref=f45e1338]: 0%
+            - generic [ref=f45e307] [cursor=pointer]:
+              - generic [ref=f45e1339]:
+                - generic [aria-hidden] [ref=f45e1340]: ●
+                - generic [ref=f45e1341]:
+                  - link "#249" [ref=f45e1342]:
+                    - /url: /issues/249
+                  - generic [ref=f45e1343]: card fiels are show according to project
+              - generic "Nova Starling" [ref=f45e1345]:
+                - generic [ref=f45e1346]:
+                  - generic [ref=f45e1347]: NS
+                  - generic [ref=f45e1348]: Nova Starling
+              - generic "0" [ref=f45e1349]
+              - generic [ref=f45e1351]: 0%
+            - generic [ref=f45e321] [cursor=pointer]:
+              - generic [ref=f45e1352]:
+                - generic [aria-hidden] [ref=f45e1353]: ●
+                - generic [ref=f45e1354]:
+                  - link "#250" [ref=f45e1355]:
+                    - /url: /issues/250
+                  - generic [ref=f45e1356]: Issue status are show according to project
+              - generic "Nova Starling" [ref=f45e1358]:
+                - generic [ref=f45e1359]:
+                  - generic [ref=f45e1360]: NS
+                  - generic [ref=f45e1361]: Nova Starling
+              - generic "0" [ref=f45e1362]
+              - generic [ref=f45e1364]: 0%
+            - generic [ref=f45e335] [cursor=pointer]:
+              - generic [ref=f45e1365]:
+                - generic [ref=f45e1366]: ▶
+                - generic [aria-hidden] [ref=f45e1367]: ◆
+                - generic [ref=f45e1368]: Version 3
+                - generic [ref=f45e1369]: 0 Vorgänge
+              - generic [ref=f45e1371]: "-"
+              - generic [ref=f45e1372]: "-"
+              - generic [ref=f45e1374]: 0%
+            - generic [ref=f45e346] [cursor=pointer]:
+              - generic [ref=f45e1375]:
+                - generic [ref=f45e1376]: ▶
+                - generic [aria-hidden] [ref=f45e1377]: ◆
+                - generic [ref=f45e1378]: Version 4
+                - generic [ref=f45e1379]: 0 Vorgänge
+              - generic [ref=f45e1381]: "-"
+              - generic [ref=f45e1382]: "-"
+              - generic [ref=f45e1384]: 0%
+        - generic [ref=f45e358]:
+          - generic [ref=f45e359]:
+            - generic [ref=f45e1385]:
+              - generic [ref=f45e1386]: 31 Aug - 4 Sep, 2026
+              - generic [ref=f45e1388]: 7 Sep - 11 Sep, 2026
+              - generic [ref=f45e1390]: 14 Sep - 18 Sep, 2026
+              - generic [ref=f45e1392]: 21 Sep - 25 Sep, 2026
+              - generic [ref=f45e1394]: 28 Sep - 2 Okt, 2026
+            - generic [ref=f45e1396]:
+              - generic [ref=f45e1397]: "1"
+              - generic [ref=f45e1398]: "2"
+              - generic [ref=f45e1399]: "3"
+              - generic [ref=f45e1400]: "4"
+              - generic [ref=f45e1401]: "7"
+              - generic [ref=f45e1402]: "8"
+              - generic [ref=f45e1403]: "9"
+              - generic [ref=f45e1404]: "10"
+              - generic [ref=f45e1405]: "11"
+              - generic [ref=f45e1406]: "14"
+              - generic [ref=f45e1407]: "15"
+              - generic [ref=f45e1408]: "16"
+              - generic [ref=f45e1409]: "17"
+              - generic [ref=f45e1410]: "18"
+              - generic [ref=f45e1411]: "21"
+              - generic [ref=f45e1412]: "22"
+              - generic [ref=f45e1413]: "23"
+              - generic [ref=f45e1414]: "24"
+              - generic [ref=f45e1415]: "25"
+              - generic [ref=f45e1416]: "28"
+              - generic [ref=f45e1417]: "29"
+              - generic [ref=f45e1418]: "30"
+          - generic [ref=f45e394]:
+            - generic [ref=f45e395]:
+              - generic [ref=f45e396]: Version 1
+              - generic [ref=f45e398]: Version 2
+              - generic [ref=f45e400]: Version 3
+              - generic [ref=f45e402]: Version 4
+              - generic [ref=f45e404]:
+                - generic: create a agile issue status column setting
+                - button "Eingehende Abhängigkeit erstellen" [ref=f45e408]
+                - button "Ausgehende Abhängigkeit erstellen" [ref=f45e410]
+              - generic [ref=f45e412]:
+                - generic: create a agile card field column setting
+                - button "Eingehende Abhängigkeit erstellen" [ref=f45e416]
+                - button "Ausgehende Abhängigkeit erstellen" [ref=f45e418]
+              - generic [ref=f45e420]:
+                - generic: create a demo server for agile
+                - button "Eingehende Abhängigkeit erstellen" [ref=f45e424]
+                - button "Ausgehende Abhängigkeit erstellen" [ref=f45e426]
+              - generic [ref=f45e428]:
+                - generic: implement wip functionality
+                - button "Eingehende Abhängigkeit erstellen" [ref=f45e432]
+                - button "Ausgehende Abhängigkeit erstellen" [ref=f45e434]
+              - generic [ref=f45e436]:
+                - generic: update agile setting
+                - button "Eingehende Abhängigkeit erstellen" [ref=f45e440]
+                - button "Ausgehende Abhängigkeit erstellen" [ref=f45e442]
+              - generic [ref=f45e444]:
+                - generic: added a agile config form
+                - button "Eingehende Abhängigkeit erstellen" [ref=f45e448]
+                - button "Ausgehende Abhängigkeit erstellen" [ref=f45e450]
+              - generic [ref=f45e452]:
+                - generic:
+                  - generic: 0%
+                  - generic: Agile board card create
+                - button "Eingehende Abhängigkeit erstellen" [ref=f45e456]
+                - button "Ausgehende Abhängigkeit erstellen" [ref=f45e458]
+              - generic [ref=f45e460]:
+                - generic: Total time update on scroll
+                - button "Eingehende Abhängigkeit erstellen" [ref=f45e464]
+                - button "Ausgehende Abhängigkeit erstellen" [ref=f45e466]
+              - generic [ref=f45e468]:
+                - generic: card fiels are show according to project
+                - button "Eingehende Abhängigkeit erstellen" [ref=f45e472]
+                - button "Ausgehende Abhängigkeit erstellen" [ref=f45e474]
+              - generic [ref=f45e476]:
+                - generic: Issue status are show according to project
+                - button "Eingehende Abhängigkeit erstellen" [ref=f45e480]
+                - button "Ausgehende Abhängigkeit erstellen" [ref=f45e482]
+            - generic: Heute
+    - generic [ref=f45e131]:
+      - text: Powered by
+      - link "Redmine" [ref=f45e132] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - tooltip [aria-hidden]:
+    - generic: create a demo server for agile
+    - generic:
+      - generic: Daten
+      - generic: 18. Sept. 2026 – 20. Sept. 2026
+    - generic:
+      - generic: Dauer
+      - generic: 3 Tage
+    - generic:
+      - generic: Zugewiesen an
+      - generic: Violet Ember
+    - generic:
+      - generic: Fortschritt
+      - generic: 0%
+  - log [ref=f45e133]
+  - log [ref=f45e134]
+  - log [ref=f45e135]
+  - log [ref=f45e136]
+  - log [ref=f45e137]
+  - log [ref=f45e138]
+  - log [ref=f45e139]
+  - log [ref=f45e140]
+  - log [ref=f45e141]
+  - log [ref=f45e142]
+  - log [ref=f45e143]
+  - log [ref=f45e144]
+  - log [ref=f45e145]
+  - log [ref=f45e146]
+  - log [ref=f45e147]:
+    - generic [ref=f45e545]: Einstellungen
+  - log [ref=f45e148]
+  - log [ref=f45e149]
+  - log [ref=f45e150]
+  - log [ref=f45e151]

@@ -1,0 +1,158 @@
+- generic [active] [ref=f238e1]:
+  - generic [ref=f238e2]:
+    - navigation [ref=f238e3]:
+      - generic [ref=f238e4]:
+        - link [ref=f238e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f238e7] [cursor=pointer]
+      - list [ref=f238e17]:
+        - listitem [ref=f238e18]:
+          - link "Hauptseite" [ref=f238e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f238e20]:
+          - link "Meine Seite" [ref=f238e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f238e22]:
+          - link "Projekte" [ref=f238e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f238e24]:
+          - link "Agile Board" [ref=f238e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f238e26]:
+          - link "Flux Gantt" [ref=f238e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f238e28]:
+          - link "Administration" [ref=f238e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f238e30]:
+          - link "Hilfe" [ref=f238e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f238e32]:
+        - generic [ref=f238e33]:
+          - generic [ref=f238e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f238e35]
+        - link "Mein Konto" [ref=f238e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f238e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f238e44]:
+      - generic [ref=f238e45]:
+        - generic [ref=f238e46]:
+          - heading "Agile Board Project" [level=1] [ref=f238e47]
+          - generic [ref=f238e48]:
+            - generic [ref=f238e49]:
+              - generic [ref=f238e50]: Hauptmenü
+              - listitem [ref=f238e51]:
+                - link "+" [ref=f238e52] [cursor=pointer]:
+                  - /url: "#"
+            - list [ref=f238e53]:
+              - listitem [ref=f238e54]:
+                - link "Übersicht" [ref=f238e55] [cursor=pointer]:
+                  - /url: /projects/agileboard
+              - listitem [ref=f238e60]:
+                - link "Dashboard" [ref=f238e61] [cursor=pointer]:
+                  - /url: /projects/agileboard/analytics_dashboard
+              - listitem [ref=f238e69]:
+                - link "Aktivität" [ref=f238e70] [cursor=pointer]:
+                  - /url: /projects/agileboard/activity
+              - listitem [ref=f238e75]:
+                - link "Agile Board" [ref=f238e76] [cursor=pointer]:
+                  - /url: /projects/agileboard/agile_board
+              - listitem [ref=f238e84]:
+                - link "Backlog" [ref=f238e85] [cursor=pointer]:
+                  - /url: /projects/agileboard/backlog
+              - listitem [ref=f238e90]:
+                - link "Roadmap" [ref=f238e91] [cursor=pointer]:
+                  - /url: /projects/agileboard/roadmap
+              - listitem [ref=f238e98]:
+                - link "Tickets" [ref=f238e99] [cursor=pointer]:
+                  - /url: /projects/agileboard/issues
+              - listitem [ref=f238e104]:
+                - link "Aufgewendete Zeit" [ref=f238e105] [cursor=pointer]:
+                  - /url: /projects/agileboard/time_entries
+              - listitem [ref=f238e110]:
+                - link "Gantt-Diagramm" [ref=f238e111] [cursor=pointer]:
+                  - /url: /projects/agileboard/issues/gantt
+              - listitem [ref=f238e119]:
+                - link "Kalender" [ref=f238e120] [cursor=pointer]:
+                  - /url: /projects/agileboard/issues/calendar
+              - listitem [ref=f238e125]:
+                - link "News" [ref=f238e126] [cursor=pointer]:
+                  - /url: /projects/agileboard/news
+              - listitem [ref=f238e131]:
+                - link "Dokumente" [ref=f238e132] [cursor=pointer]:
+                  - /url: /projects/agileboard/documents
+              - listitem [ref=f238e137]:
+                - link "Wiki" [ref=f238e138] [cursor=pointer]:
+                  - /url: /projects/agileboard/wiki
+              - listitem [ref=f238e143]:
+                - link "Dateien" [ref=f238e144] [cursor=pointer]:
+                  - /url: /projects/agileboard/files
+              - listitem [ref=f238e149]:
+                - link "Konfiguration" [ref=f238e150] [cursor=pointer]:
+                  - /url: /projects/agileboard/settings
+        - generic [ref=f238e156]:
+          - heading "Sortiert nach" [level=3] [ref=f238e157]
+          - list [ref=f238e158]:
+            - listitem [ref=f238e159]:
+              - link "Kategorie" [ref=f238e160] [cursor=pointer]:
+                - /url: /projects/agileboard/documents?sort_by=category
+            - listitem [ref=f238e161]:
+              - link "Datum" [ref=f238e162] [cursor=pointer]:
+                - /url: /projects/agileboard/documents?sort_by=date
+            - listitem [ref=f238e163]:
+              - link "Titel" [ref=f238e164] [cursor=pointer]:
+                - /url: /projects/agileboard/documents?sort_by=title
+            - listitem [ref=f238e165]:
+              - link "Autor" [ref=f238e166] [cursor=pointer]:
+                - /url: /projects/agileboard/documents?sort_by=author
+      - generic [ref=f238e167]:
+        - generic [ref=f238e168]: Erfolgreich angelegt
+        - link "Neues Dokument" [ref=f238e170] [cursor=pointer]:
+          - /url: /projects/agileboard/documents/new
+        - text: pre
+        - heading "Dokumente" [level=2] [ref=f238e172]
+        - generic [ref=f238e174]:
+          - heading "User documentation" [level=3] [ref=f238e175]
+          - generic [ref=f238e176]:
+            - heading [level=4] [ref=f238e177]:
+              - link "QA German Test Document" [ref=f238e180] [cursor=pointer]:
+                - /url: /documents/1
+            - emphasis [ref=f238e182]: 08.09.2026 09:04
+    - generic [ref=f238e183]:
+      - text: Powered by
+      - link "Redmine" [ref=f238e184] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f238e185]
+  - log [ref=f238e186]
+  - log [ref=f238e187]
+  - log [ref=f238e188]
+  - log [ref=f238e189]
+  - log [ref=f238e190]
+  - log [ref=f238e191]
+  - log [ref=f238e192]
+  - log [ref=f238e193]
+  - log [ref=f238e194]
+  - log [ref=f238e195]
+  - log [ref=f238e196]
+  - log [ref=f238e197]
+  - log [ref=f238e198]
+  - log [ref=f238e199]
+  - log [ref=f238e200]
+  - log [ref=f238e201]
+  - log [ref=f238e202]
+  - log [ref=f238e203]
+  - log [ref=f238e204]
+  - log [ref=f238e205]
+  - log [ref=f238e206]
+  - log [ref=f238e207]
+  - log [ref=f238e208]
+  - log [ref=f238e209]
+  - log [ref=f238e210]
+  - log [ref=f238e211]
+  - log [ref=f238e212]
+  - log [ref=f238e213]
+  - log [ref=f238e214]
+  - log [ref=f238e215]

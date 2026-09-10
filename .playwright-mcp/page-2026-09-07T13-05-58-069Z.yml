@@ -1,0 +1,127 @@
+- generic [ref=f2e1]:
+  - generic [ref=f2e2]:
+    - generic [ref=f2e3]:
+      - list [ref=f2e5]:
+        - listitem [ref=f2e6]:
+          - link "Profil" [ref=f2e7] [cursor=pointer]:
+            - /url: /users/current
+        - listitem [ref=f2e8]:
+          - link "Mein Konto" [ref=f2e9] [cursor=pointer]:
+            - /url: /my/account
+        - listitem [ref=f2e10]:
+          - link "Abmelden" [ref=f2e11] [cursor=pointer]:
+            - /url: /logout
+      - generic [ref=f2e12]:
+        - text: Angemeldet als
+        - link "admin" [ref=f2e13] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f2e14]:
+        - listitem [ref=f2e15]:
+          - link "Hauptseite" [ref=f2e16] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f2e17]:
+          - link "Meine Seite" [ref=f2e18] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f2e19]:
+          - link "Projekte" [ref=f2e20] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f2e21]:
+          - link "Agile Board" [ref=f2e22] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f2e23]:
+          - link "Flux Gantt" [ref=f2e24] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f2e25]:
+          - link "Administration" [ref=f2e26] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f2e27]:
+          - link "Hilfe" [ref=f2e28] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f2e29]:
+      - generic [ref=f2e30]:
+        - generic [ref=f2e31]:
+          - generic [ref=f2e32]:
+            - link "Suche" [ref=f2e33] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Suche:" [ref=f2e34]
+        - generic [ref=f2e35]: Zu einem Projekt springen...
+      - heading "Redmine" [level=1] [ref=f2e37]
+    - generic [ref=f2e38]:
+      - generic [ref=f2e39]:
+        - link [ref=f2e41] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f2e44]:
+          - heading "Administration" [level=3] [ref=f2e45]
+          - list [ref=f2e47]:
+            - listitem [ref=f2e48]:
+              - link "Projekte" [ref=f2e49] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f2e53]:
+              - link "Benutzer" [ref=f2e54] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f2e58]:
+              - link "Gruppen" [ref=f2e59] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f2e63]:
+              - link "Rollen und Rechte" [ref=f2e64] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f2e68]:
+              - link "Tracker" [ref=f2e69] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f2e73]:
+              - link "Ticket-Status" [ref=f2e74] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f2e78]:
+              - link "Workflow" [ref=f2e79] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f2e83]:
+              - link "Benutzerdefinierte Felder" [ref=f2e84] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f2e88]:
+              - link "Aufzählungen" [ref=f2e89] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f2e93]:
+              - link "Konfiguration" [ref=f2e94] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f2e98]:
+              - link "LDAP-Authentifizierung" [ref=f2e99] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f2e103]:
+              - link "Applikationen" [ref=f2e104] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f2e108]:
+              - link "Plugins" [ref=f2e109] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f2e113]:
+              - link "Informationen" [ref=f2e114] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f2e118]:
+        - heading "Bitte geben Sie Ihr Passwort ein" [level=2] [ref=f2e119]
+        - paragraph [ref=f2e120]:
+          - strong [ref=f2e121]: Warum das ganze?
+          - text: Zu Ihrem Schutz bitten wir Sie Ihr Kennwort zu bestätigen, bevor Sie sicherheitsrelevante Einstellungen ändern.
+        - generic [ref=f2e122]:
+          - paragraph [ref=f2e124]:
+            - generic [ref=f2e125]: Passwort*
+            - textbox "Passwort*" [active] [ref=f2e126]
+            - link "Passwort vergessen" [ref=f2e127] [cursor=pointer]:
+              - /url: /account/lost_password
+          - button "OK" [ref=f2e128] [cursor=pointer]
+    - generic [ref=f2e129]:
+      - text: Powered by
+      - link "Redmine" [ref=f2e130] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f2e131]
+  - log [ref=f2e132]
+  - log [ref=f2e133]
+  - log [ref=f2e134]
+  - log [ref=f2e135]
+  - log [ref=f2e136]
+  - log [ref=f2e137]
+  - log [ref=f2e138]
+  - log [ref=f2e139]
+  - log [ref=f2e140]
+  - log [ref=f2e141]
+  - log [ref=f2e142]

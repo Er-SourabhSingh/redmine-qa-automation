@@ -1,0 +1,1085 @@
+- generic [active] [ref=f18e1]:
+  - generic [ref=f18e2]:
+    - navigation [ref=f18e3]:
+      - list [ref=f18e6]:
+        - listitem [ref=f18e7]:
+          - link "Hauptseite" [ref=f18e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f18e9]:
+          - link "Meine Seite" [ref=f18e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f18e11]:
+          - link "Projekte" [ref=f18e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f18e13]:
+          - link "Agile Board" [ref=f18e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f18e15]:
+          - link "Flux Gantt" [ref=f18e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f18e17]:
+          - link "Administration" [ref=f18e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f18e19]:
+          - link "Hilfe" [ref=f18e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f18e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f18e24]: RA
+    - generic [ref=f18e27]:
+      - generic [ref=f18e28]:
+        - generic [ref=f18e29]:
+          - generic [ref=f18e30]:
+            - link "Suche" [ref=f18e31] [cursor=pointer]:
+              - /url: /projects/defaultsd/search
+            - text: ":"
+          - textbox "Suche:" [ref=f18e32]
+        - generic [ref=f18e33]:
+          - generic [ref=f18e34] [cursor=pointer]: Software development5
+          - text: ✓ ✓
+      - heading "Software development5" [level=1] [ref=f18e35]
+      - list [ref=f18e38]:
+        - listitem [ref=f18e39]:
+          - link "+" [ref=f18e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f18e41]:
+          - link "Übersicht" [ref=f18e42] [cursor=pointer]:
+            - /url: /projects/defaultsd
+        - listitem [ref=f18e43]:
+          - link "Dashboard" [ref=f18e44] [cursor=pointer]:
+            - /url: /projects/defaultsd/analytics_dashboard
+        - listitem [ref=f18e45]:
+          - link "Aktivität" [ref=f18e46] [cursor=pointer]:
+            - /url: /projects/defaultsd/activity
+        - listitem [ref=f18e47]:
+          - link "Tickets" [ref=f18e48] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues
+        - listitem [ref=f18e49]:
+          - link "Aufgewendete Zeit" [ref=f18e50] [cursor=pointer]:
+            - /url: /projects/defaultsd/time_entries
+        - listitem [ref=f18e51]:
+          - link "Gantt-Diagramm" [ref=f18e52] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/gantt
+        - listitem [ref=f18e53]:
+          - link "Kalender" [ref=f18e54] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/calendar
+        - listitem [ref=f18e55]:
+          - link "News" [ref=f18e56] [cursor=pointer]:
+            - /url: /projects/defaultsd/news
+        - listitem [ref=f18e57]:
+          - link "Dokumente" [ref=f18e58] [cursor=pointer]:
+            - /url: /projects/defaultsd/documents
+        - listitem [ref=f18e59]:
+          - link "Wiki" [ref=f18e60] [cursor=pointer]:
+            - /url: /projects/defaultsd/wiki
+        - listitem [ref=f18e61]:
+          - link "Dateien" [ref=f18e62] [cursor=pointer]:
+            - /url: /projects/defaultsd/files
+        - listitem [ref=f18e63]:
+          - link "Konfiguration" [ref=f18e64] [cursor=pointer]:
+            - /url: /projects/defaultsd/settings
+    - generic [ref=f18e65]:
+      - generic [ref=f18e66]:
+        - link [ref=f18e68] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f18e71]:
+          - heading "Abfragen" [level=3] [ref=f18e72]
+          - list [ref=f18e73]:
+            - listitem [ref=f18e74]:
+              - link "Issues assigned to me" [ref=f18e75] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues?query_id=1
+            - listitem [ref=f18e76]:
+              - link "Reported issues" [ref=f18e77] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues?query_id=2
+            - listitem [ref=f18e78]:
+              - link "Updated issues" [ref=f18e79] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues?query_id=3
+            - listitem [ref=f18e80]:
+              - link "Watched issues" [ref=f18e81] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues?query_id=4
+      - generic [ref=f18e82]:
+        - generic [ref=f18e83]:
+          - link "Neues Ticket" [ref=f18e84] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/new
+          - generic "Aktionen" [ref=f18e90] [cursor=pointer]
+        - heading "Tickets" [level=2] [ref=f18e93]
+        - generic [ref=f18e95]:
+          - generic [ref=f18e96]:
+            - group "Filter" [ref=f18e97]:
+              - generic:
+                - generic [ref=f18e102]:
+                  - generic [ref=f18e103]:
+                    - checkbox "Status" [checked] [ref=f18e104]
+                    - text: Status
+                  - combobox [ref=f18e106]:
+                    - option "offen" [selected]
+                    - option "ist"
+                    - option "ist nicht"
+                    - option "has been"
+                    - option "has never been"
+                    - option "changed from"
+                    - option "geschlossen"
+                    - option "alle"
+                - generic [ref=f18e107]:
+                  - text: Filter hinzufügen
+                  - combobox "Filter hinzufügen" [ref=f18e108]:
+                    - option [selected]
+                    - option "Status" [disabled]
+                    - option "Tracker"
+                    - option "Priorität"
+                    - option "Autor"
+                    - option "Zugewiesen an"
+                    - option "Zielversion"
+                    - option "Kategorie"
+                    - option "% erledigt"
+                    - option "Privat"
+                    - option "Beobachter"
+                    - option "Geändert von"
+                    - option "Zuletzt geändert von"
+                    - option "Ticket"
+                    - option "Story Points"
+                    - option "Tags"
+                    - option "Thema"
+                    - option "Beschreibung"
+                    - option "Kommentare"
+                    - option "Durchsuchbarer Text"
+                    - option "Angelegt"
+                    - option "Aktualisiert"
+                    - option "Geschlossen am"
+                    - option "Startdatum"
+                    - option "Abgabedatum"
+                    - option "Geschätzter Aufwand"
+                    - option "Aufgewendete Zeit"
+                    - option "Datei"
+                    - option "Dateibeschreibung"
+                    - option "Gruppe des Autors"
+                    - option "Rolle des Autors"
+                    - option "Zuständigkeitsgruppe"
+                    - option "Zuständigkeitsrolle"
+                    - option "Datum der Zielversion"
+                    - option "Status der Zielversion"
+                    - option "Beziehung mit"
+                    - option "Duplikat von"
+                    - option "Dupliziert durch"
+                    - option "Blockiert"
+                    - option "Blockiert durch"
+                    - option "Vorgänger von"
+                    - option "Nachfolger von"
+                    - option "Kopiert nach"
+                    - option "Kopiert von"
+                    - option "Übergeordnetes Ticket"
+                    - option "Untergeordnete Tickets"
+            - group "Optionen" [ref=f18e109]
+          - paragraph [ref=f18e113]:
+            - link "Anwenden" [ref=f18e114] [cursor=pointer]:
+              - /url: "#"
+            - link "Zurücksetzen" [ref=f18e118] [cursor=pointer]:
+              - /url: /projects/defaultsd/issues?set_filter=1&sort=
+            - link "Abfrage speichern" [ref=f18e122] [cursor=pointer]:
+              - /url: "#"
+        - table [ref=f18e128]:
+          - rowgroup [ref=f18e129]:
+            - row [ref=f18e130]:
+              - columnheader [ref=f18e131]:
+                - checkbox "Alles auswählen / Alles abwählen" [ref=f18e132]
+              - columnheader [ref=f18e133]:
+                - link "#" [ref=f18e134] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?sort=id
+              - columnheader [ref=f18e136]:
+                - link "Tracker" [ref=f18e137] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?sort=tracker%2Cid%3Adesc
+              - columnheader [ref=f18e138]:
+                - link "Status" [ref=f18e139] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?sort=status%2Cid%3Adesc
+              - columnheader [ref=f18e140]:
+                - link "Priorität" [ref=f18e141] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?sort=priority%3Adesc%2Cid%3Adesc
+              - columnheader [ref=f18e142]:
+                - link "Thema" [ref=f18e143] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?sort=subject%2Cid%3Adesc
+              - columnheader [ref=f18e144]:
+                - link "Zugewiesen an" [ref=f18e145] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?sort=assigned_to%2Cid%3Adesc
+              - columnheader [ref=f18e146]:
+                - link "Aktualisiert" [ref=f18e147] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?sort=updated_on%3Adesc%2Cid%3Adesc
+              - columnheader [ref=f18e148]
+          - rowgroup [ref=f18e149]:
+            - row [ref=f18e150]:
+              - cell [ref=f18e151]:
+                - checkbox [ref=f18e152]
+              - cell [ref=f18e153]:
+                - link "230" [ref=f18e154] [cursor=pointer]:
+                  - /url: /issues/230
+              - cell "Bug Edit" [ref=f18e155]:
+                - generic [ref=f18e156]:
+                  - generic [ref=f18e157]: Bug
+                  - button "Edit" [ref=f18e158] [cursor=pointer]
+              - cell "In Progress Edit" [ref=f18e159]:
+                - generic [ref=f18e160]:
+                  - generic [ref=f18e161]: In Progress
+                  - button "Edit" [ref=f18e162] [cursor=pointer]
+              - cell "High Edit" [ref=f18e163]:
+                - generic [ref=f18e164]:
+                  - generic [ref=f18e165]: High
+                  - button "Edit" [ref=f18e166] [cursor=pointer]
+              - cell [ref=f18e167]:
+                - generic [ref=f18e168]:
+                  - link "Fix slow report generation" [ref=f18e170] [cursor=pointer]:
+                    - /url: /issues/230
+                  - button "Edit" [ref=f18e171] [cursor=pointer]
+              - cell [ref=f18e172]:
+                - generic [ref=f18e173]:
+                  - link "Redmine Admin" [ref=f18e175] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f18e176] [cursor=pointer]
+              - cell "07.09.2026 09:18" [ref=f18e177]
+              - cell [ref=f18e178]:
+                - link "Aktionen" [ref=f18e179] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e182]:
+              - cell [ref=f18e183]:
+                - checkbox [ref=f18e184]
+              - cell [ref=f18e185]:
+                - link "229" [ref=f18e186] [cursor=pointer]:
+                  - /url: /issues/229
+              - cell "Feature Edit" [ref=f18e187]:
+                - generic [ref=f18e188]:
+                  - generic [ref=f18e189]: Feature
+                  - button "Edit" [ref=f18e190] [cursor=pointer]
+              - cell "New Edit" [ref=f18e191]:
+                - generic [ref=f18e192]:
+                  - generic [ref=f18e193]: New
+                  - button "Edit" [ref=f18e194] [cursor=pointer]
+              - cell "Normal Edit" [ref=f18e195]:
+                - generic [ref=f18e196]:
+                  - generic [ref=f18e197]: Normal
+                  - button "Edit" [ref=f18e198] [cursor=pointer]
+              - cell [ref=f18e199]:
+                - generic [ref=f18e200]:
+                  - link "Add scheduled data backups" [ref=f18e202] [cursor=pointer]:
+                    - /url: /issues/229
+                  - button "Edit" [ref=f18e203] [cursor=pointer]
+              - cell [ref=f18e204]:
+                - generic [ref=f18e205]:
+                  - link "Redmine Admin" [ref=f18e207] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f18e208] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e209]
+              - cell [ref=f18e210]:
+                - link "Aktionen" [ref=f18e211] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e214]:
+              - cell [ref=f18e215]:
+                - checkbox [ref=f18e216]
+              - cell [ref=f18e217]:
+                - link "228" [ref=f18e218] [cursor=pointer]:
+                  - /url: /issues/228
+              - cell "Bug Edit" [ref=f18e219]:
+                - generic [ref=f18e220]:
+                  - generic [ref=f18e221]: Bug
+                  - button "Edit" [ref=f18e222] [cursor=pointer]
+              - cell "Resolved Edit" [ref=f18e223]:
+                - generic [ref=f18e224]:
+                  - generic [ref=f18e225]: Resolved
+                  - button "Edit" [ref=f18e226] [cursor=pointer]
+              - cell "Low Edit" [ref=f18e227]:
+                - generic [ref=f18e228]:
+                  - generic [ref=f18e229]: Low
+                  - button "Edit" [ref=f18e230] [cursor=pointer]
+              - cell [ref=f18e231]:
+                - generic [ref=f18e232]:
+                  - link "Fix export template alignment" [ref=f18e234] [cursor=pointer]:
+                    - /url: /issues/228
+                  - button "Edit" [ref=f18e235] [cursor=pointer]
+              - cell [ref=f18e236]:
+                - generic [ref=f18e237]:
+                  - link "Redmine Admin" [ref=f18e239] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f18e240] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e241]
+              - cell [ref=f18e242]:
+                - link "Aktionen" [ref=f18e243] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e246]:
+              - cell [ref=f18e247]:
+                - checkbox [ref=f18e248]
+              - cell [ref=f18e249]:
+                - link "227" [ref=f18e250] [cursor=pointer]:
+                  - /url: /issues/227
+              - cell "Feature Edit" [ref=f18e251]:
+                - generic [ref=f18e252]:
+                  - generic [ref=f18e253]: Feature
+                  - button "Edit" [ref=f18e254] [cursor=pointer]
+              - cell "Feedback Edit" [ref=f18e255]:
+                - generic [ref=f18e256]:
+                  - generic [ref=f18e257]: Feedback
+                  - button "Edit" [ref=f18e258] [cursor=pointer]
+              - cell "Urgent Edit" [ref=f18e259]:
+                - generic [ref=f18e260]:
+                  - generic [ref=f18e261]: Urgent
+                  - button "Edit" [ref=f18e262] [cursor=pointer]
+              - cell [ref=f18e263]:
+                - generic [ref=f18e264]:
+                  - link "Add export options for charts" [ref=f18e266] [cursor=pointer]:
+                    - /url: /issues/227
+                  - button "Edit" [ref=f18e267] [cursor=pointer]
+              - cell [ref=f18e268]:
+                - generic [ref=f18e269]:
+                  - link "Redmine Admin" [ref=f18e271] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f18e272] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e273]
+              - cell [ref=f18e274]:
+                - link "Aktionen" [ref=f18e275] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e278]:
+              - cell [ref=f18e279]:
+                - checkbox [ref=f18e280]
+              - cell [ref=f18e281]:
+                - link "226" [ref=f18e282] [cursor=pointer]:
+                  - /url: /issues/226
+              - cell "Bug Edit" [ref=f18e283]:
+                - generic [ref=f18e284]:
+                  - generic [ref=f18e285]: Bug
+                  - button "Edit" [ref=f18e286] [cursor=pointer]
+              - cell "In Progress Edit" [ref=f18e287]:
+                - generic [ref=f18e288]:
+                  - generic [ref=f18e289]: In Progress
+                  - button "Edit" [ref=f18e290] [cursor=pointer]
+              - cell "High Edit" [ref=f18e291]:
+                - generic [ref=f18e292]:
+                  - generic [ref=f18e293]: High
+                  - button "Edit" [ref=f18e294] [cursor=pointer]
+              - cell [ref=f18e295]:
+                - generic [ref=f18e296]:
+                  - link "Fix auto-save bug in editor" [ref=f18e298] [cursor=pointer]:
+                    - /url: /issues/226
+                  - button "Edit" [ref=f18e299] [cursor=pointer]
+              - cell [ref=f18e300]:
+                - generic [ref=f18e301]:
+                  - link "Redmine Admin" [ref=f18e303] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f18e304] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e305]
+              - cell [ref=f18e306]:
+                - link "Aktionen" [ref=f18e307] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e310]:
+              - cell [ref=f18e311]:
+                - checkbox [ref=f18e312]
+              - cell [ref=f18e313]:
+                - link "215" [ref=f18e314] [cursor=pointer]:
+                  - /url: /issues/215
+              - cell "Bug Edit" [ref=f18e315]:
+                - generic [ref=f18e316]:
+                  - generic [ref=f18e317]: Bug
+                  - button "Edit" [ref=f18e318] [cursor=pointer]
+              - cell "Resolved Edit" [ref=f18e319]:
+                - generic [ref=f18e320]:
+                  - generic [ref=f18e321]: Resolved
+                  - button "Edit" [ref=f18e322] [cursor=pointer]
+              - cell "Low Edit" [ref=f18e323]:
+                - generic [ref=f18e324]:
+                  - generic [ref=f18e325]: Low
+                  - button "Edit" [ref=f18e326] [cursor=pointer]
+              - cell [ref=f18e327]:
+                - generic [ref=f18e328]:
+                  - link "Fix export performance" [ref=f18e330] [cursor=pointer]:
+                    - /url: /issues/215
+                  - button "Edit" [ref=f18e331] [cursor=pointer]
+              - cell [ref=f18e332]:
+                - generic [ref=f18e333]:
+                  - link "Redmine Admin" [ref=f18e335] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f18e336] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e337]
+              - cell [ref=f18e338]:
+                - link "Aktionen" [ref=f18e339] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e342]:
+              - cell [ref=f18e343]:
+                - checkbox [ref=f18e344]
+              - cell [ref=f18e345]:
+                - link "214" [ref=f18e346] [cursor=pointer]:
+                  - /url: /issues/214
+              - cell "Feature Edit" [ref=f18e347]:
+                - generic [ref=f18e348]:
+                  - generic [ref=f18e349]: Feature
+                  - button "Edit" [ref=f18e350] [cursor=pointer]
+              - cell "In Progress Edit" [ref=f18e351]:
+                - generic [ref=f18e352]:
+                  - generic [ref=f18e353]: In Progress
+                  - button "Edit" [ref=f18e354] [cursor=pointer]
+              - cell "Urgent Edit" [ref=f18e355]:
+                - generic [ref=f18e356]:
+                  - generic [ref=f18e357]: Urgent
+                  - button "Edit" [ref=f18e358] [cursor=pointer]
+              - cell [ref=f18e359]:
+                - generic [ref=f18e360]:
+                  - link "Implement scheduled exports" [ref=f18e362] [cursor=pointer]:
+                    - /url: /issues/214
+                  - button "Edit" [ref=f18e363] [cursor=pointer]
+              - cell [ref=f18e364]:
+                - generic [ref=f18e365]:
+                  - link "Redmine Admin" [ref=f18e367] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f18e368] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e369]
+              - cell [ref=f18e370]:
+                - link "Aktionen" [ref=f18e371] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e374]:
+              - cell [ref=f18e375]:
+                - checkbox [ref=f18e376]
+              - cell [ref=f18e377]:
+                - link "213" [ref=f18e378] [cursor=pointer]:
+                  - /url: /issues/213
+              - cell "Feature Edit" [ref=f18e379]:
+                - generic [ref=f18e380]:
+                  - generic [ref=f18e381]: Feature
+                  - button "Edit" [ref=f18e382] [cursor=pointer]
+              - cell "New Edit" [ref=f18e383]:
+                - generic [ref=f18e384]:
+                  - generic [ref=f18e385]: New
+                  - button "Edit" [ref=f18e386] [cursor=pointer]
+              - cell "High Edit" [ref=f18e387]:
+                - generic [ref=f18e388]:
+                  - generic [ref=f18e389]: High
+                  - button "Edit" [ref=f18e390] [cursor=pointer]
+              - cell [ref=f18e391]:
+                - generic [ref=f18e392]:
+                  - link "Add Excel export formatting" [ref=f18e394] [cursor=pointer]:
+                    - /url: /issues/213
+                  - button "Edit" [ref=f18e395] [cursor=pointer]
+              - cell [ref=f18e396]:
+                - generic [ref=f18e397]:
+                  - link "Redmine Admin" [ref=f18e399] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f18e400] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e401]
+              - cell [ref=f18e402]:
+                - link "Aktionen" [ref=f18e403] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e406]:
+              - cell [ref=f18e407]:
+                - checkbox [ref=f18e408]
+              - cell [ref=f18e409]:
+                - link "212" [ref=f18e410] [cursor=pointer]:
+                  - /url: /issues/212
+              - cell "Bug Edit" [ref=f18e411]:
+                - generic [ref=f18e412]:
+                  - generic [ref=f18e413]: Bug
+                  - button "Edit" [ref=f18e414] [cursor=pointer]
+              - cell "Feedback Edit" [ref=f18e415]:
+                - generic [ref=f18e416]:
+                  - generic [ref=f18e417]: Feedback
+                  - button "Edit" [ref=f18e418] [cursor=pointer]
+              - cell "Normal Edit" [ref=f18e419]:
+                - generic [ref=f18e420]:
+                  - generic [ref=f18e421]: Normal
+                  - button "Edit" [ref=f18e422] [cursor=pointer]
+              - cell [ref=f18e423]:
+                - generic [ref=f18e424]:
+                  - link "Fix CSV encoding issues" [ref=f18e426] [cursor=pointer]:
+                    - /url: /issues/212
+                  - button "Edit" [ref=f18e427] [cursor=pointer]
+              - cell [ref=f18e428]:
+                - generic [ref=f18e429]:
+                  - link "Redmine Admin" [ref=f18e431] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f18e432] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e433]
+              - cell [ref=f18e434]:
+                - link "Aktionen" [ref=f18e435] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e438]:
+              - cell [ref=f18e439]:
+                - checkbox [ref=f18e440]
+              - cell [ref=f18e441]:
+                - link "211" [ref=f18e442] [cursor=pointer]:
+                  - /url: /issues/211
+              - cell "Feature Edit" [ref=f18e443]:
+                - generic [ref=f18e444]:
+                  - generic [ref=f18e445]: Feature
+                  - button "Edit" [ref=f18e446] [cursor=pointer]
+              - cell "In Progress Edit" [ref=f18e447]:
+                - generic [ref=f18e448]:
+                  - generic [ref=f18e449]: In Progress
+                  - button "Edit" [ref=f18e450] [cursor=pointer]
+              - cell "Low Edit" [ref=f18e451]:
+                - generic [ref=f18e452]:
+                  - generic [ref=f18e453]: Low
+                  - button "Edit" [ref=f18e454] [cursor=pointer]
+              - cell [ref=f18e455]:
+                - generic [ref=f18e456]:
+                  - link "Implement data export templates" [ref=f18e458] [cursor=pointer]:
+                    - /url: /issues/211
+                  - button "Edit" [ref=f18e459] [cursor=pointer]
+              - cell [ref=f18e460]:
+                - generic [ref=f18e461]:
+                  - link "Redmine Admin" [ref=f18e463] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f18e464] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e465]
+              - cell [ref=f18e466]:
+                - link "Aktionen" [ref=f18e467] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e470]:
+              - cell [ref=f18e471]:
+                - checkbox [ref=f18e472]
+              - cell [ref=f18e473]:
+                - link "185" [ref=f18e474] [cursor=pointer]:
+                  - /url: /issues/185
+              - cell "Bug Edit" [ref=f18e475]:
+                - generic [ref=f18e476]:
+                  - generic [ref=f18e477]: Bug
+                  - button "Edit" [ref=f18e478] [cursor=pointer]
+              - cell "Resolved Edit" [ref=f18e479]:
+                - generic [ref=f18e480]:
+                  - generic [ref=f18e481]: Resolved
+                  - button "Edit" [ref=f18e482] [cursor=pointer]
+              - cell "Low Edit" [ref=f18e483]:
+                - generic [ref=f18e484]:
+                  - generic [ref=f18e485]: Low
+                  - button "Edit" [ref=f18e486] [cursor=pointer]
+              - cell [ref=f18e487]:
+                - generic [ref=f18e488]:
+                  - link "Fix date picker localization" [ref=f18e490] [cursor=pointer]:
+                    - /url: /issues/185
+                  - button "Edit" [ref=f18e491] [cursor=pointer]
+              - cell [ref=f18e492]:
+                - generic [ref=f18e493]:
+                  - link "Redmine Admin" [ref=f18e495] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f18e496] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e497]
+              - cell [ref=f18e498]:
+                - link "Aktionen" [ref=f18e499] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e502]:
+              - cell [ref=f18e503]:
+                - checkbox [ref=f18e504]
+              - cell [ref=f18e505]:
+                - link "184" [ref=f18e506] [cursor=pointer]:
+                  - /url: /issues/184
+              - cell "Feature Edit" [ref=f18e507]:
+                - generic [ref=f18e508]:
+                  - generic [ref=f18e509]: Feature
+                  - button "Edit" [ref=f18e510] [cursor=pointer]
+              - cell "In Progress Edit" [ref=f18e511]:
+                - generic [ref=f18e512]:
+                  - generic [ref=f18e513]: In Progress
+                  - button "Edit" [ref=f18e514] [cursor=pointer]
+              - cell "Urgent Edit" [ref=f18e515]:
+                - generic [ref=f18e516]:
+                  - generic [ref=f18e517]: Urgent
+                  - button "Edit" [ref=f18e518] [cursor=pointer]
+              - cell [ref=f18e519]:
+                - generic [ref=f18e520]:
+                  - link "Implement conditional fields" [ref=f18e522] [cursor=pointer]:
+                    - /url: /issues/184
+                  - button "Edit" [ref=f18e523] [cursor=pointer]
+              - cell [ref=f18e524]:
+                - generic [ref=f18e525]:
+                  - link "Redmine Admin" [ref=f18e527] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f18e528] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e529]
+              - cell [ref=f18e530]:
+                - link "Aktionen" [ref=f18e531] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e534]:
+              - cell [ref=f18e535]:
+                - checkbox [ref=f18e536]
+              - cell [ref=f18e537]:
+                - link "183" [ref=f18e538] [cursor=pointer]:
+                  - /url: /issues/183
+              - cell "Feature Edit" [ref=f18e539]:
+                - generic [ref=f18e540]:
+                  - generic [ref=f18e541]: Feature
+                  - button "Edit" [ref=f18e542] [cursor=pointer]
+              - cell "New Edit" [ref=f18e543]:
+                - generic [ref=f18e544]:
+                  - generic [ref=f18e545]: New
+                  - button "Edit" [ref=f18e546] [cursor=pointer]
+              - cell "High Edit" [ref=f18e547]:
+                - generic [ref=f18e548]:
+                  - generic [ref=f18e549]: High
+                  - button "Edit" [ref=f18e550] [cursor=pointer]
+              - cell [ref=f18e551]:
+                - generic [ref=f18e552]:
+                  - link "Add input masking" [ref=f18e554] [cursor=pointer]:
+                    - /url: /issues/183
+                  - button "Edit" [ref=f18e555] [cursor=pointer]
+              - cell [ref=f18e556]:
+                - generic [ref=f18e557]:
+                  - link "Redmine Admin" [ref=f18e559] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f18e560] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e561]
+              - cell [ref=f18e562]:
+                - link "Aktionen" [ref=f18e563] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e566]:
+              - cell [ref=f18e567]:
+                - checkbox [ref=f18e568]
+              - cell [ref=f18e569]:
+                - link "182" [ref=f18e570] [cursor=pointer]:
+                  - /url: /issues/182
+              - cell "Bug Edit" [ref=f18e571]:
+                - generic [ref=f18e572]:
+                  - generic [ref=f18e573]: Bug
+                  - button "Edit" [ref=f18e574] [cursor=pointer]
+              - cell "Feedback Edit" [ref=f18e575]:
+                - generic [ref=f18e576]:
+                  - generic [ref=f18e577]: Feedback
+                  - button "Edit" [ref=f18e578] [cursor=pointer]
+              - cell "Normal Edit" [ref=f18e579]:
+                - generic [ref=f18e580]:
+                  - generic [ref=f18e581]: Normal
+                  - button "Edit" [ref=f18e582] [cursor=pointer]
+              - cell [ref=f18e583]:
+                - generic [ref=f18e584]:
+                  - link "Fix form submission errors" [ref=f18e586] [cursor=pointer]:
+                    - /url: /issues/182
+                  - button "Edit" [ref=f18e587] [cursor=pointer]
+              - cell [ref=f18e588]:
+                - generic [ref=f18e589]:
+                  - link "Redmine Admin" [ref=f18e591] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f18e592] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e593]
+              - cell [ref=f18e594]:
+                - link "Aktionen" [ref=f18e595] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e598]:
+              - cell [ref=f18e599]:
+                - checkbox [ref=f18e600]
+              - cell [ref=f18e601]:
+                - link "181" [ref=f18e602] [cursor=pointer]:
+                  - /url: /issues/181
+              - cell "Feature Edit" [ref=f18e603]:
+                - generic [ref=f18e604]:
+                  - generic [ref=f18e605]: Feature
+                  - button "Edit" [ref=f18e606] [cursor=pointer]
+              - cell "In Progress Edit" [ref=f18e607]:
+                - generic [ref=f18e608]:
+                  - generic [ref=f18e609]: In Progress
+                  - button "Edit" [ref=f18e610] [cursor=pointer]
+              - cell "Low Edit" [ref=f18e611]:
+                - generic [ref=f18e612]:
+                  - generic [ref=f18e613]: Low
+                  - button "Edit" [ref=f18e614] [cursor=pointer]
+              - cell [ref=f18e615]:
+                - generic [ref=f18e616]:
+                  - link "Implement data validation rules" [ref=f18e618] [cursor=pointer]:
+                    - /url: /issues/181
+                  - button "Edit" [ref=f18e619] [cursor=pointer]
+              - cell [ref=f18e620]:
+                - generic [ref=f18e621]:
+                  - link "Redmine Admin" [ref=f18e623] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f18e624] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e625]
+              - cell [ref=f18e626]:
+                - link "Aktionen" [ref=f18e627] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e630]:
+              - cell [ref=f18e631]:
+                - checkbox [ref=f18e632]
+              - cell [ref=f18e633]:
+                - link "155" [ref=f18e634] [cursor=pointer]:
+                  - /url: /issues/155
+              - cell "Bug Edit" [ref=f18e635]:
+                - generic [ref=f18e636]:
+                  - generic [ref=f18e637]: Bug
+                  - button "Edit" [ref=f18e638] [cursor=pointer]
+              - cell "Resolved Edit" [ref=f18e639]:
+                - generic [ref=f18e640]:
+                  - generic [ref=f18e641]: Resolved
+                  - button "Edit" [ref=f18e642] [cursor=pointer]
+              - cell "Low Edit" [ref=f18e643]:
+                - generic [ref=f18e644]:
+                  - generic [ref=f18e645]: Low
+                  - button "Edit" [ref=f18e646] [cursor=pointer]
+              - cell [ref=f18e647]:
+                - generic [ref=f18e648]:
+                  - link "Fix data backup scheduling" [ref=f18e650] [cursor=pointer]:
+                    - /url: /issues/155
+                  - button "Edit" [ref=f18e651] [cursor=pointer]
+              - cell [ref=f18e652]:
+                - generic [ref=f18e653]:
+                  - link "Nova Starling" [ref=f18e655] [cursor=pointer]:
+                    - /url: /users/15
+                  - button "Edit" [ref=f18e656] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e657]
+              - cell [ref=f18e658]:
+                - link "Aktionen" [ref=f18e659] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e662]:
+              - cell [ref=f18e663]:
+                - checkbox [ref=f18e664]
+              - cell [ref=f18e665]:
+                - link "154" [ref=f18e666] [cursor=pointer]:
+                  - /url: /issues/154
+              - cell "Feature Edit" [ref=f18e667]:
+                - generic [ref=f18e668]:
+                  - generic [ref=f18e669]: Feature
+                  - button "Edit" [ref=f18e670] [cursor=pointer]
+              - cell "In Progress Edit" [ref=f18e671]:
+                - generic [ref=f18e672]:
+                  - generic [ref=f18e673]: In Progress
+                  - button "Edit" [ref=f18e674] [cursor=pointer]
+              - cell "Urgent Edit" [ref=f18e675]:
+                - generic [ref=f18e676]:
+                  - generic [ref=f18e677]: Urgent
+                  - button "Edit" [ref=f18e678] [cursor=pointer]
+              - cell [ref=f18e679]:
+                - generic [ref=f18e680]:
+                  - link "Implement data retention policy" [ref=f18e682] [cursor=pointer]:
+                    - /url: /issues/154
+                  - button "Edit" [ref=f18e683] [cursor=pointer]
+              - cell [ref=f18e684]:
+                - generic [ref=f18e685]:
+                  - link "Serenity Bloom" [ref=f18e687] [cursor=pointer]:
+                    - /url: /users/14
+                  - button "Edit" [ref=f18e688] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e689]
+              - cell [ref=f18e690]:
+                - link "Aktionen" [ref=f18e691] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e694]:
+              - cell [ref=f18e695]:
+                - checkbox [ref=f18e696]
+              - cell [ref=f18e697]:
+                - link "153" [ref=f18e698] [cursor=pointer]:
+                  - /url: /issues/153
+              - cell "Feature Edit" [ref=f18e699]:
+                - generic [ref=f18e700]:
+                  - generic [ref=f18e701]: Feature
+                  - button "Edit" [ref=f18e702] [cursor=pointer]
+              - cell "New Edit" [ref=f18e703]:
+                - generic [ref=f18e704]:
+                  - generic [ref=f18e705]: New
+                  - button "Edit" [ref=f18e706] [cursor=pointer]
+              - cell "High Edit" [ref=f18e707]:
+                - generic [ref=f18e708]:
+                  - generic [ref=f18e709]: High
+                  - button "Edit" [ref=f18e710] [cursor=pointer]
+              - cell [ref=f18e711]:
+                - generic [ref=f18e712]:
+                  - link "Add CSV export options" [ref=f18e714] [cursor=pointer]:
+                    - /url: /issues/153
+                  - button "Edit" [ref=f18e715] [cursor=pointer]
+              - cell [ref=f18e716]:
+                - generic [ref=f18e717]:
+                  - link "Celeste Dawn" [ref=f18e719] [cursor=pointer]:
+                    - /url: /users/13
+                  - button "Edit" [ref=f18e720] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e721]
+              - cell [ref=f18e722]:
+                - link "Aktionen" [ref=f18e723] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e726]:
+              - cell [ref=f18e727]:
+                - checkbox [ref=f18e728]
+              - cell [ref=f18e729]:
+                - link "152" [ref=f18e730] [cursor=pointer]:
+                  - /url: /issues/152
+              - cell "Bug Edit" [ref=f18e731]:
+                - generic [ref=f18e732]:
+                  - generic [ref=f18e733]: Bug
+                  - button "Edit" [ref=f18e734] [cursor=pointer]
+              - cell "Feedback Edit" [ref=f18e735]:
+                - generic [ref=f18e736]:
+                  - generic [ref=f18e737]: Feedback
+                  - button "Edit" [ref=f18e738] [cursor=pointer]
+              - cell "Normal Edit" [ref=f18e739]:
+                - generic [ref=f18e740]:
+                  - generic [ref=f18e741]: Normal
+                  - button "Edit" [ref=f18e742] [cursor=pointer]
+              - cell [ref=f18e743]:
+                - generic [ref=f18e744]:
+                  - link "Fix data export performance" [ref=f18e746] [cursor=pointer]:
+                    - /url: /issues/152
+                  - button "Edit" [ref=f18e747] [cursor=pointer]
+              - cell [ref=f18e748]:
+                - generic [ref=f18e749]:
+                  - link "Violet Ember" [ref=f18e751] [cursor=pointer]:
+                    - /url: /users/12
+                  - button "Edit" [ref=f18e752] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e753]
+              - cell [ref=f18e754]:
+                - link "Aktionen" [ref=f18e755] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e758]:
+              - cell [ref=f18e759]:
+                - checkbox [ref=f18e760]
+              - cell [ref=f18e761]:
+                - link "151" [ref=f18e762] [cursor=pointer]:
+                  - /url: /issues/151
+              - cell "Feature Edit" [ref=f18e763]:
+                - generic [ref=f18e764]:
+                  - generic [ref=f18e765]: Feature
+                  - button "Edit" [ref=f18e766] [cursor=pointer]
+              - cell "In Progress Edit" [ref=f18e767]:
+                - generic [ref=f18e768]:
+                  - generic [ref=f18e769]: In Progress
+                  - button "Edit" [ref=f18e770] [cursor=pointer]
+              - cell "Low Edit" [ref=f18e771]:
+                - generic [ref=f18e772]:
+                  - generic [ref=f18e773]: Low
+                  - button "Edit" [ref=f18e774] [cursor=pointer]
+              - cell [ref=f18e775]:
+                - generic [ref=f18e776]:
+                  - link "Implement audit logging system" [ref=f18e778] [cursor=pointer]:
+                    - /url: /issues/151
+                  - button "Edit" [ref=f18e779] [cursor=pointer]
+              - cell [ref=f18e780]:
+                - generic [ref=f18e781]:
+                  - link "Summer Rain" [ref=f18e783] [cursor=pointer]:
+                    - /url: /users/11
+                  - button "Edit" [ref=f18e784] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e785]
+              - cell [ref=f18e786]:
+                - link "Aktionen" [ref=f18e787] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e790]:
+              - cell [ref=f18e791]:
+                - checkbox [ref=f18e792]
+              - cell [ref=f18e793]:
+                - link "125" [ref=f18e794] [cursor=pointer]:
+                  - /url: /issues/125
+              - cell "Bug Edit" [ref=f18e795]:
+                - generic [ref=f18e796]:
+                  - generic [ref=f18e797]: Bug
+                  - button "Edit" [ref=f18e798] [cursor=pointer]
+              - cell "In Progress Edit" [ref=f18e799]:
+                - generic [ref=f18e800]:
+                  - generic [ref=f18e801]: In Progress
+                  - button "Edit" [ref=f18e802] [cursor=pointer]
+              - cell "Low Edit" [ref=f18e803]:
+                - generic [ref=f18e804]:
+                  - generic [ref=f18e805]: Low
+                  - button "Edit" [ref=f18e806] [cursor=pointer]
+              - cell [ref=f18e807]:
+                - generic [ref=f18e808]:
+                  - link "Optimize database queries for reports" [ref=f18e810] [cursor=pointer]:
+                    - /url: /issues/125
+                  - button "Edit" [ref=f18e811] [cursor=pointer]
+              - cell [ref=f18e812]:
+                - generic [ref=f18e813]:
+                  - link "Summer Rain" [ref=f18e815] [cursor=pointer]:
+                    - /url: /users/11
+                  - button "Edit" [ref=f18e816] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e817]
+              - cell [ref=f18e818]:
+                - link "Aktionen" [ref=f18e819] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e822]:
+              - cell [ref=f18e823]:
+                - checkbox [ref=f18e824]
+              - cell [ref=f18e825]:
+                - link "124" [ref=f18e826] [cursor=pointer]:
+                  - /url: /issues/124
+              - cell "Feature Edit" [ref=f18e827]:
+                - generic [ref=f18e828]:
+                  - generic [ref=f18e829]: Feature
+                  - button "Edit" [ref=f18e830] [cursor=pointer]
+              - cell "New Edit" [ref=f18e831]:
+                - generic [ref=f18e832]:
+                  - generic [ref=f18e833]: New
+                  - button "Edit" [ref=f18e834] [cursor=pointer]
+              - cell "Urgent Edit" [ref=f18e835]:
+                - generic [ref=f18e836]:
+                  - generic [ref=f18e837]: Urgent
+                  - button "Edit" [ref=f18e838] [cursor=pointer]
+              - cell [ref=f18e839]:
+                - generic [ref=f18e840]:
+                  - link "Add multi-factor authentication" [ref=f18e842] [cursor=pointer]:
+                    - /url: /issues/124
+                  - button "Edit" [ref=f18e843] [cursor=pointer]
+              - cell [ref=f18e844]:
+                - generic [ref=f18e845]:
+                  - link "Violet Ember" [ref=f18e847] [cursor=pointer]:
+                    - /url: /users/12
+                  - button "Edit" [ref=f18e848] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e849]
+              - cell [ref=f18e850]:
+                - link "Aktionen" [ref=f18e851] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e854]:
+              - cell [ref=f18e855]:
+                - checkbox [ref=f18e856]
+              - cell [ref=f18e857]:
+                - link "123" [ref=f18e858] [cursor=pointer]:
+                  - /url: /issues/123
+              - cell "Bug Edit" [ref=f18e859]:
+                - generic [ref=f18e860]:
+                  - generic [ref=f18e861]: Bug
+                  - button "Edit" [ref=f18e862] [cursor=pointer]
+              - cell "Resolved Edit" [ref=f18e863]:
+                - generic [ref=f18e864]:
+                  - generic [ref=f18e865]: Resolved
+                  - button "Edit" [ref=f18e866] [cursor=pointer]
+              - cell "High Edit" [ref=f18e867]:
+                - generic [ref=f18e868]:
+                  - generic [ref=f18e869]: High
+                  - button "Edit" [ref=f18e870] [cursor=pointer]
+              - cell [ref=f18e871]:
+                - generic [ref=f18e872]:
+                  - link "Fix session timeout issue" [ref=f18e874] [cursor=pointer]:
+                    - /url: /issues/123
+                  - button "Edit" [ref=f18e875] [cursor=pointer]
+              - cell [ref=f18e876]:
+                - generic [ref=f18e877]:
+                  - link "Celeste Dawn" [ref=f18e879] [cursor=pointer]:
+                    - /url: /users/13
+                  - button "Edit" [ref=f18e880] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e881]
+              - cell [ref=f18e882]:
+                - link "Aktionen" [ref=f18e883] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e886]:
+              - cell [ref=f18e887]:
+                - checkbox [ref=f18e888]
+              - cell [ref=f18e889]:
+                - link "122" [ref=f18e890] [cursor=pointer]:
+                  - /url: /issues/122
+              - cell "Feature Edit" [ref=f18e891]:
+                - generic [ref=f18e892]:
+                  - generic [ref=f18e893]: Feature
+                  - button "Edit" [ref=f18e894] [cursor=pointer]
+              - cell "Feedback Edit" [ref=f18e895]:
+                - generic [ref=f18e896]:
+                  - generic [ref=f18e897]: Feedback
+                  - button "Edit" [ref=f18e898] [cursor=pointer]
+              - cell "Normal Edit" [ref=f18e899]:
+                - generic [ref=f18e900]:
+                  - generic [ref=f18e901]: Normal
+                  - button "Edit" [ref=f18e902] [cursor=pointer]
+              - cell [ref=f18e903]:
+                - generic [ref=f18e904]:
+                  - link "Implement password strength meter" [ref=f18e906] [cursor=pointer]:
+                    - /url: /issues/122
+                  - button "Edit" [ref=f18e907] [cursor=pointer]
+              - cell [ref=f18e908]:
+                - generic [ref=f18e909]:
+                  - link "Serenity Bloom" [ref=f18e911] [cursor=pointer]:
+                    - /url: /users/14
+                  - button "Edit" [ref=f18e912] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e913]
+              - cell [ref=f18e914]:
+                - link "Aktionen" [ref=f18e915] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f18e918]:
+              - cell [ref=f18e919]:
+                - checkbox [ref=f18e920]
+              - cell [ref=f18e921]:
+                - link "121" [ref=f18e922] [cursor=pointer]:
+                  - /url: /issues/121
+              - cell "Bug Edit" [ref=f18e923]:
+                - generic [ref=f18e924]:
+                  - generic [ref=f18e925]: Bug
+                  - button "Edit" [ref=f18e926] [cursor=pointer]
+              - cell "In Progress Edit" [ref=f18e927]:
+                - generic [ref=f18e928]:
+                  - generic [ref=f18e929]: In Progress
+                  - button "Edit" [ref=f18e930] [cursor=pointer]
+              - cell "Low Edit" [ref=f18e931]:
+                - generic [ref=f18e932]:
+                  - generic [ref=f18e933]: Low
+                  - button "Edit" [ref=f18e934] [cursor=pointer]
+              - cell [ref=f18e935]:
+                - generic [ref=f18e936]:
+                  - link "Refactor user authentication module" [ref=f18e938] [cursor=pointer]:
+                    - /url: /issues/121
+                  - button "Edit" [ref=f18e939] [cursor=pointer]
+              - cell [ref=f18e940]:
+                - generic [ref=f18e941]:
+                  - link "Nova Starling" [ref=f18e943] [cursor=pointer]:
+                    - /url: /users/15
+                  - button "Edit" [ref=f18e944] [cursor=pointer]
+              - cell "07.09.2026 09:02" [ref=f18e945]
+              - cell [ref=f18e946]:
+                - link "Aktionen" [ref=f18e947] [cursor=pointer]:
+                  - /url: "#"
+        - generic [ref=f18e950]:
+          - list [ref=f18e951]:
+            - listitem [ref=f18e952]: « Zurück
+            - listitem [ref=f18e953]: "1"
+            - listitem [ref=f18e954]:
+              - link "2" [ref=f18e955] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues?page=2
+            - listitem [ref=f18e956]:
+              - link "Weiter »" [ref=f18e957] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues?page=2
+          - generic [ref=f18e958]:
+            - text: (1-25/48)
+            - generic [ref=f18e959]:
+              - text: "Pro Seite: 25,"
+              - link "50" [ref=f18e960] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues?per_page=50
+        - paragraph [ref=f18e961]:
+          - text: "Auch abrufbar als:"
+          - link "CSV" [ref=f18e963] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues.csv
+          - generic [ref=f18e964]:
+            - text: "|"
+            - link "PDF" [ref=f18e965] [cursor=pointer]:
+              - /url: /projects/defaultsd/issues.pdf
+          - generic [ref=f18e966]:
+            - text: "|"
+            - link "Atom" [ref=f18e967] [cursor=pointer]:
+              - /url: /projects/defaultsd/issues.atom?key=1a8d0f09e0337d3150adf38fa208ced775ca01b8
+    - generic [ref=f18e968]:
+      - text: Powered by
+      - link "Redmine" [ref=f18e969] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f18e970]
+  - log [ref=f18e971]
+  - log [ref=f18e972]
+  - log [ref=f18e973]
+  - log [ref=f18e974]
+  - log [ref=f18e975]
+  - log [ref=f18e976]
+  - log [ref=f18e977]
+  - log [ref=f18e978]
+  - log [ref=f18e979]
+  - log [ref=f18e980]
+  - log [ref=f18e981]
+  - log [ref=f18e982]
+  - log [ref=f18e983]
+  - log [ref=f18e984]
+  - log [ref=f18e985]
+  - log [ref=f18e986]
+  - log [ref=f18e987]
+  - log [ref=f18e988]
+  - log [ref=f18e989]
+  - log [ref=f18e990]
+  - log [ref=f18e991]
+  - log [ref=f18e992]
+  - log [ref=f18e993]
+  - log [ref=f18e994]
+  - log [ref=f18e995]
+  - log [ref=f18e996]
+  - log [ref=f18e997]
+  - log [ref=f18e998]
+  - log [ref=f18e999]
+  - log [ref=f18e1000]
+  - log [ref=f18e1001]
+  - log [ref=f18e1002]
+  - log [ref=f18e1003]
+  - log [ref=f18e1004]
+  - log [ref=f18e1005]
+  - log [ref=f18e1006]
+  - log [ref=f18e1007]
+  - log [ref=f18e1008]
+  - log [ref=f18e1009]
+  - log [ref=f18e1010]
+  - log [ref=f18e1011]
+  - log [ref=f18e1012]
+  - log [ref=f18e1013]
+  - log [ref=f18e1014]

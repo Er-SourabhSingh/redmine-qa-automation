@@ -1,0 +1,136 @@
+- generic [active] [ref=f93e1]:
+  - generic [ref=f93e2]:
+    - generic [ref=f93e3]:
+      - generic [ref=f93e4]:
+        - list:
+          - listitem [ref=f93e5]:
+            - link "My account" [ref=f93e6] [cursor=pointer]:
+              - /url: /my/account
+          - listitem [ref=f93e7]:
+            - link "Sign out" [ref=f93e8] [cursor=pointer]:
+              - /url: /logout
+      - generic [ref=f93e9]:
+        - text: Logged in as
+        - link "admin" [ref=f93e10] [cursor=pointer]:
+          - /url: /users/1
+      - list:
+        - listitem [ref=f93e11]:
+          - link "Home" [ref=f93e12] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f93e13]:
+          - link "My page" [ref=f93e14] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f93e15]:
+          - link "Projects" [ref=f93e16] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f93e17]:
+          - link "Flux Gantt" [ref=f93e18] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f93e19]:
+          - link "Helpdesk Command Center" [ref=f93e20] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f93e21]:
+          - link "Time Tracker" [ref=f93e22] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f93e23]:
+          - link "Timesheet" [ref=f93e24] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f93e25]:
+          - link "Workloads" [ref=f93e26] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f93e27]:
+          - link "Administration" [ref=f93e28] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f93e29]:
+          - link "Help" [ref=f93e30] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f93e31]:
+      - generic [ref=f93e32]:
+        - generic [ref=f93e33]:
+          - generic [ref=f93e34]:
+            - link "Search..." [ref=f93e35] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f93e36]
+        - generic [ref=f93e37]:
+          - generic [ref=f93e38] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Redmine" [level=1] [ref=f93e39]
+      - list [ref=f93e41]:
+        - listitem [ref=f93e42]:
+          - link "Projects" [ref=f93e43] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f93e44]:
+          - link "Activity" [ref=f93e45] [cursor=pointer]:
+            - /url: /activity
+    - generic [ref=f93e46]:
+      - generic [ref=f93e47]:
+        - link [ref=f93e49] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f93e52]:
+          - heading "Custom queries" [level=3] [ref=f93e53]
+          - list [ref=f93e54]:
+            - listitem [ref=f93e55]:
+              - link "My bookmarks" [ref=f93e56] [cursor=pointer]:
+                - /url: /projects?query_id=6
+            - listitem [ref=f93e57]:
+              - link "My projects" [ref=f93e58] [cursor=pointer]:
+                - /url: /projects?query_id=5
+      - generic [ref=f93e59]:
+        - generic [ref=f93e60]:
+          - link "New project" [ref=f93e61] [cursor=pointer]:
+            - /url: /projects/new
+          - link "Administration" [ref=f93e65] [cursor=pointer]:
+            - /url: /admin/projects
+        - heading "Projects" [level=2] [ref=f93e69]
+        - generic [ref=f93e71]:
+          - generic [ref=f93e72]:
+            - group "Filters" [ref=f93e73]:
+              - generic:
+                - generic [ref=f93e78]:
+                  - generic [ref=f93e79]:
+                    - checkbox "Status" [checked] [ref=f93e80]
+                    - text: Status
+                  - combobox [ref=f93e82]:
+                    - option "is" [selected]
+                    - option "is not"
+                  - generic [ref=f93e84]:
+                    - combobox [ref=f93e85]:
+                      - option "active" [selected]
+                      - option "closed"
+                    - generic [ref=f93e86] [cursor=pointer]
+                - generic [ref=f93e89]:
+                  - text: Add filter
+                  - combobox "Add filter" [ref=f93e90]:
+                    - option [selected]
+                    - option "Status" [disabled]
+                    - option "Project"
+                    - option "Subproject of"
+                    - option "Public"
+                    - option "Name"
+                    - option "Description"
+                    - option "Created on"
+                    - option "Updated"
+            - group "Options" [ref=f93e91]
+          - paragraph [ref=f93e95]:
+            - link "Apply" [ref=f93e96] [cursor=pointer]:
+              - /url: "#"
+            - link "Clear" [ref=f93e100] [cursor=pointer]:
+              - /url: /projects?set_filter=1&sort=
+            - link "Save custom query" [ref=f93e104] [cursor=pointer]:
+              - /url: "#"
+        - paragraph [ref=f93e108]: No data
+        - paragraph [ref=f93e109]:
+          - generic [ref=f93e110]: My projects
+          - generic [ref=f93e114]: My bookmarks
+        - paragraph [ref=f93e118]:
+          - text: "Also available in:"
+          - link "Atom" [ref=f93e120] [cursor=pointer]:
+            - /url: /projects.atom?key=37400ba0af80d0ddda427b1e9ddde606dc83db99
+    - generic [ref=f93e121]:
+      - text: Powered by
+      - link "Redmine" [ref=f93e122] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f93e123]
+  - log [ref=f93e124]

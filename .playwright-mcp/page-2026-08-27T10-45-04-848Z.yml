@@ -1,0 +1,219 @@
+- generic [active] [ref=f97e1]:
+  - generic [ref=f97e2]:
+    - generic [ref=f97e3]:
+      - generic [ref=f97e4]:
+        - list:
+          - listitem [ref=f97e5]:
+            - link "My account" [ref=f97e6] [cursor=pointer]:
+              - /url: /my/account
+          - listitem [ref=f97e7]:
+            - link "Sign out" [ref=f97e8] [cursor=pointer]:
+              - /url: /logout
+      - generic [ref=f97e9]:
+        - text: Logged in as
+        - link "admin" [ref=f97e10] [cursor=pointer]:
+          - /url: /users/1
+      - list:
+        - listitem [ref=f97e11]:
+          - link "Home" [ref=f97e12] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f97e13]:
+          - link "My page" [ref=f97e14] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f97e15]:
+          - link "Projects" [ref=f97e16] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f97e17]:
+          - link "Flux Gantt" [ref=f97e18] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f97e19]:
+          - link "Helpdesk Command Center" [ref=f97e20] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f97e21]:
+          - link "Time Tracker" [ref=f97e22] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f97e23]:
+          - link "Timesheet" [ref=f97e24] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f97e25]:
+          - link "Workloads" [ref=f97e26] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f97e27]:
+          - link "Administration" [ref=f97e28] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f97e29]:
+          - link "Help" [ref=f97e30] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f97e31]:
+      - generic [ref=f97e32]:
+        - generic [ref=f97e33]:
+          - generic [ref=f97e34]:
+            - link "Search..." [ref=f97e35] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f97e36]
+        - generic [ref=f97e37]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f97e39]
+    - generic [ref=f97e40]:
+      - generic [ref=f97e41]:
+        - link [ref=f97e43] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f97e46]:
+          - heading "Administration" [level=3] [ref=f97e47]
+          - list [ref=f97e49]:
+            - listitem [ref=f97e50]:
+              - link "Projects" [ref=f97e51] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f97e55]:
+              - link "Users" [ref=f97e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f97e60]:
+              - link "Groups" [ref=f97e61] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f97e65]:
+              - link "Roles and permissions" [ref=f97e66] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f97e70]:
+              - link "Trackers" [ref=f97e71] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f97e75]:
+              - link "Issue statuses" [ref=f97e76] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f97e80]:
+              - link "Workflow" [ref=f97e81] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f97e85]:
+              - link "Custom fields" [ref=f97e86] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f97e90]:
+              - link "Enumerations" [ref=f97e91] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f97e95]:
+              - link "Settings" [ref=f97e96] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f97e100]:
+              - link "LDAP authentication" [ref=f97e101] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f97e105]:
+              - link "Plugins" [ref=f97e106] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f97e110]:
+              - link "Information" [ref=f97e111] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f97e115]:
+        - generic [ref=f97e116]:
+          - link "New user" [ref=f97e117] [cursor=pointer]:
+            - /url: /users/new
+          - generic "Actions" [ref=f97e123] [cursor=pointer]
+        - heading "Users" [level=2] [ref=f97e126]
+        - generic [ref=f97e128]:
+          - generic [ref=f97e129]:
+            - group "Filters" [ref=f97e130]:
+              - generic:
+                - generic [ref=f97e135]:
+                  - generic [ref=f97e136]:
+                    - checkbox "Status" [checked] [ref=f97e137]
+                    - text: Status
+                  - combobox [ref=f97e139]:
+                    - option "is" [selected]
+                    - option "is not"
+                    - option "None"
+                    - option "any"
+                  - generic [ref=f97e141]:
+                    - combobox [ref=f97e142]:
+                      - option "active" [selected]
+                      - option "registered"
+                      - option "locked"
+                    - generic [ref=f97e143] [cursor=pointer]
+                - generic [ref=f97e146]:
+                  - text: Add filter
+                  - combobox "Add filter" [ref=f97e147]:
+                    - option [selected]
+                    - option "Status" [disabled]
+                    - option "Authentication mode"
+                    - option "Member of group"
+                    - option "Two-factor authentication scheme"
+                    - option "Administrator"
+                    - option "Name, email or login"
+                    - option "Login"
+                    - option "First name"
+                    - option "Last name"
+                    - option "Email"
+                    - option "Created on"
+                    - option "Last sign in"
+            - group "Options" [ref=f97e148]
+          - paragraph [ref=f97e152]:
+            - link "Apply" [ref=f97e153] [cursor=pointer]:
+              - /url: "#"
+            - link "Clear" [ref=f97e157] [cursor=pointer]:
+              - /url: /users?set_filter=1&sort=
+            - link "Save custom query" [ref=f97e161] [cursor=pointer]:
+              - /url: "#"
+        - table [ref=f97e167]:
+          - rowgroup [ref=f97e168]:
+            - row [ref=f97e169]:
+              - columnheader [ref=f97e170]:
+                - checkbox "Check all / Uncheck all" [ref=f97e171]
+              - columnheader [ref=f97e172]:
+                - link "Login" [ref=f97e173] [cursor=pointer]:
+                  - /url: /users?sort=login%3Adesc
+              - columnheader [ref=f97e177]:
+                - link "First name" [ref=f97e178] [cursor=pointer]:
+                  - /url: /users?sort=firstname%2Clogin
+              - columnheader [ref=f97e179]:
+                - link "Last name" [ref=f97e180] [cursor=pointer]:
+                  - /url: /users?sort=lastname%2Clogin
+              - columnheader [ref=f97e181]:
+                - link "Email" [ref=f97e182] [cursor=pointer]:
+                  - /url: /users?sort=mail%2Clogin
+              - columnheader [ref=f97e183]:
+                - link "Administrator" [ref=f97e184] [cursor=pointer]:
+                  - /url: /users?sort=admin%2Clogin
+              - columnheader [ref=f97e185]:
+                - link "Created on" [ref=f97e186] [cursor=pointer]:
+                  - /url: /users?sort=created_on%2Clogin
+              - columnheader [ref=f97e187]:
+                - link "Last sign in" [ref=f97e188] [cursor=pointer]:
+                  - /url: /users?sort=last_login_on%2Clogin
+              - columnheader [ref=f97e189]
+          - rowgroup [ref=f97e190]:
+            - row [ref=f97e191]:
+              - cell [ref=f97e192]:
+                - checkbox [ref=f97e193]
+              - cell [ref=f97e194]:
+                - link "admin" [ref=f97e195] [cursor=pointer]:
+                  - /url: /users/1/edit
+              - cell "Redmine" [ref=f97e196]
+              - cell "Admin" [ref=f97e197]
+              - cell "admin@example.net" [ref=f97e198]
+              - cell "Yes" [ref=f97e199]
+              - cell "08/27/2026 10:29 AM" [ref=f97e200]
+              - cell "08/27/2026 10:39 AM" [ref=f97e201]
+              - cell [ref=f97e202]:
+                - link "Actions" [ref=f97e203] [cursor=pointer]:
+                  - /url: "#"
+        - generic [ref=f97e206]:
+          - list
+          - generic [ref=f97e207]: (1-1/1)
+        - paragraph [ref=f97e208]:
+          - text: "Also available in:"
+          - link "CSV" [ref=f97e210] [cursor=pointer]:
+            - /url: /users.csv
+    - generic [ref=f97e211]:
+      - text: Powered by
+      - link "Redmine" [ref=f97e212] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f97e213]
+  - log [ref=f97e214]
+  - log [ref=f97e215]
+  - log [ref=f97e216]
+  - log [ref=f97e217]
+  - log [ref=f97e218]
+  - log [ref=f97e219]
+  - log [ref=f97e220]
+  - log [ref=f97e221]
+  - log [ref=f97e222]
+  - log [ref=f97e223]
+  - log [ref=f97e224]
+  - log [ref=f97e225]

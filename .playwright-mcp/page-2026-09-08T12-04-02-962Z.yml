@@ -1,0 +1,424 @@
+- generic [active] [ref=f28e1]:
+  - generic [ref=f28e2]:
+    - navigation [ref=f28e3]:
+      - list [ref=f28e6]:
+        - listitem [ref=f28e7]:
+          - link [ref=f28e8] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f28e9]
+        - listitem [ref=f28e10]:
+          - link "Hauptseite" [ref=f28e11] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f28e12]:
+          - link "Meine Seite" [ref=f28e13] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f28e14]:
+          - link "Projekte" [ref=f28e15] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f28e16]:
+          - link "Agile Board" [ref=f28e17] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f28e18]:
+          - link "Flux Gantt" [ref=f28e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f28e20]:
+          - link "More" [ref=f28e21] [cursor=pointer]:
+            - /url: "#"
+      - link [ref=f28e24] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f28e25]: RA
+    - generic [ref=f28e28]:
+      - generic [ref=f28e29]:
+        - generic [ref=f28e30]:
+          - generic [ref=f28e31]:
+            - link "Suche" [ref=f28e32] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Suche:" [ref=f28e33]
+        - generic [ref=f28e34]:
+          - generic [ref=f28e35] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f28e36]
+      - list [ref=f28e39]:
+        - listitem [ref=f28e40]:
+          - link "+" [ref=f28e41] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f28e42]:
+          - link "Übersicht" [ref=f28e43] [cursor=pointer]:
+            - /url: /projects/agileboard
+        - listitem [ref=f28e44]:
+          - link "Dashboard" [ref=f28e45] [cursor=pointer]:
+            - /url: /projects/agileboard/analytics_dashboard
+        - listitem [ref=f28e46]:
+          - link "Aktivität" [ref=f28e47] [cursor=pointer]:
+            - /url: /projects/agileboard/activity
+        - listitem [ref=f28e48]:
+          - link "Agile Board" [ref=f28e49] [cursor=pointer]:
+            - /url: /projects/agileboard/agile_board
+        - listitem [ref=f28e50]:
+          - link "Backlog" [ref=f28e51] [cursor=pointer]:
+            - /url: /projects/agileboard/backlog
+        - listitem [ref=f28e52]:
+          - link "Roadmap" [ref=f28e53] [cursor=pointer]:
+            - /url: /projects/agileboard/roadmap
+        - listitem [ref=f28e54]:
+          - link "Tickets" [ref=f28e55] [cursor=pointer]:
+            - /url: /projects/agileboard/issues
+        - listitem [ref=f28e56]:
+          - link "Aufgewendete Zeit" [ref=f28e57] [cursor=pointer]:
+            - /url: /projects/agileboard/time_entries
+        - listitem [ref=f28e58]:
+          - link "Gantt-Diagramm" [ref=f28e59] [cursor=pointer]:
+            - /url: /projects/agileboard/issues/gantt
+        - listitem [ref=f28e60]:
+          - link "Kalender" [ref=f28e61] [cursor=pointer]:
+            - /url: /projects/agileboard/issues/calendar
+        - listitem [ref=f28e62]:
+          - link "News" [ref=f28e63] [cursor=pointer]:
+            - /url: /projects/agileboard/news
+        - listitem [ref=f28e64]:
+          - link "Dokumente" [ref=f28e65] [cursor=pointer]:
+            - /url: /projects/agileboard/documents
+        - listitem [ref=f28e66]:
+          - link "Wiki" [ref=f28e67] [cursor=pointer]:
+            - /url: /projects/agileboard/wiki
+        - listitem [ref=f28e68]:
+          - link "Dateien" [ref=f28e69] [cursor=pointer]:
+            - /url: /projects/agileboard/files
+        - listitem [ref=f28e70]:
+          - link "Konfiguration" [ref=f28e71] [cursor=pointer]:
+            - /url: /projects/agileboard/settings
+    - generic [ref=f28e72]:
+      - generic [ref=f28e73]:
+        - link [ref=f28e75] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f28e78]:
+          - heading "Abfragen" [level=3] [ref=f28e79]
+          - list [ref=f28e80]:
+            - listitem [ref=f28e81]:
+              - link "Issues assigned to me" [ref=f28e82] [cursor=pointer]:
+                - /url: /projects/agileboard/issues?query_id=1
+            - listitem [ref=f28e83]:
+              - link "Reported issues" [ref=f28e84] [cursor=pointer]:
+                - /url: /projects/agileboard/issues?query_id=2
+            - listitem [ref=f28e85]:
+              - link "Updated issues" [ref=f28e86] [cursor=pointer]:
+                - /url: /projects/agileboard/issues?query_id=3
+            - listitem [ref=f28e87]:
+              - link "Watched issues" [ref=f28e88] [cursor=pointer]:
+                - /url: /projects/agileboard/issues?query_id=4
+      - generic [ref=f28e89]:
+        - generic [ref=f28e90]:
+          - link "Neues Ticket" [ref=f28e91] [cursor=pointer]:
+            - /url: /projects/agileboard/issues/new
+          - generic "Aktionen" [ref=f28e95] [cursor=pointer]
+        - heading "Tickets" [level=2] [ref=f28e97]
+        - generic [ref=f28e100]:
+          - group "Filter" [ref=f28e101]
+          - group "Optionen" [ref=f28e105]
+        - generic [ref=f28e109]:
+          - button "Copy Table" [ref=f28e111] [cursor=pointer]
+          - table [ref=f28e116]:
+            - rowgroup [ref=f28e127]:
+              - row [ref=f28e128]:
+                - columnheader [ref=f28e129]:
+                  - checkbox "Alles auswählen / Alles abwählen" [ref=f28e130]
+                - columnheader [ref=f28e131]:
+                  - link "#" [ref=f28e132] [cursor=pointer]:
+                    - /url: /projects/agileboard/issues?sort=id
+                - columnheader [ref=f28e135]:
+                  - link "Tracker" [ref=f28e136] [cursor=pointer]:
+                    - /url: /projects/agileboard/issues?sort=tracker%2Cid%3Adesc
+                - columnheader [ref=f28e138]:
+                  - link "Status" [ref=f28e139] [cursor=pointer]:
+                    - /url: /projects/agileboard/issues?sort=status%2Cid%3Adesc
+                - columnheader [ref=f28e141]:
+                  - link "Priorität" [ref=f28e142] [cursor=pointer]:
+                    - /url: /projects/agileboard/issues?sort=priority%3Adesc%2Cid%3Adesc
+                - columnheader [ref=f28e144]:
+                  - link "Thema" [ref=f28e145] [cursor=pointer]:
+                    - /url: /projects/agileboard/issues?sort=subject%2Cid%3Adesc
+                - columnheader [ref=f28e147]:
+                  - link "Zugewiesen an" [ref=f28e148] [cursor=pointer]:
+                    - /url: /projects/agileboard/issues?sort=assigned_to%2Cid%3Adesc
+                - columnheader [ref=f28e150]:
+                  - link "Aktualisiert" [ref=f28e151] [cursor=pointer]:
+                    - /url: /projects/agileboard/issues?sort=updated_on%3Adesc%2Cid%3Adesc
+                - columnheader [ref=f28e153]
+            - rowgroup [ref=f28e154]:
+              - row [ref=f28e155]:
+                - cell [ref=f28e156]:
+                  - checkbox [ref=f28e157]
+                - cell [ref=f28e158]:
+                  - link "260" [ref=f28e159] [cursor=pointer]:
+                    - /url: /issues/260
+                - cell "Bug Edit" [ref=f28e160]:
+                  - generic [ref=f28e161]:
+                    - generic [ref=f28e162]: Bug
+                    - button "Edit" [ref=f28e163] [cursor=pointer]
+                - cell "Resolved Edit" [ref=f28e164]:
+                  - generic [ref=f28e165]:
+                    - generic [ref=f28e166]: Resolved
+                    - button "Edit" [ref=f28e167] [cursor=pointer]
+                - cell "Low Edit" [ref=f28e168]:
+                  - generic [ref=f28e169]:
+                    - generic [ref=f28e170]: Low
+                    - button "Edit" [ref=f28e171] [cursor=pointer]
+                - cell [ref=f28e172]:
+                  - generic [ref=f28e173]:
+                    - link "Fix export performance" [ref=f28e175] [cursor=pointer]:
+                      - /url: /issues/260
+                    - button "Edit" [ref=f28e176] [cursor=pointer]
+                - cell [ref=f28e177]:
+                  - generic [ref=f28e178]:
+                    - link "Redmine Admin" [ref=f28e180] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f28e181] [cursor=pointer]
+                - cell "08.09.2026 11:45" [ref=f28e182]
+                - cell [ref=f28e183]:
+                  - link "Aktionen" [ref=f28e184] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f28e186]:
+                - cell [ref=f28e187]:
+                  - checkbox [ref=f28e188]
+                - cell [ref=f28e189]:
+                  - link "259" [ref=f28e190] [cursor=pointer]:
+                    - /url: /issues/259
+                - cell "Feature Edit" [ref=f28e191]:
+                  - generic [ref=f28e192]:
+                    - generic [ref=f28e193]: Feature
+                    - button "Edit" [ref=f28e194] [cursor=pointer]
+                - cell "In Progress Edit" [ref=f28e195]:
+                  - generic [ref=f28e196]:
+                    - generic [ref=f28e197]: In Progress
+                    - button "Edit" [ref=f28e198] [cursor=pointer]
+                - cell "Urgent Edit" [ref=f28e199]:
+                  - generic [ref=f28e200]:
+                    - generic [ref=f28e201]: Urgent
+                    - button "Edit" [ref=f28e202] [cursor=pointer]
+                - cell [ref=f28e203]:
+                  - generic [ref=f28e204]:
+                    - link "Implement scheduled exports" [ref=f28e206] [cursor=pointer]:
+                      - /url: /issues/259
+                    - button "Edit" [ref=f28e207] [cursor=pointer]
+                - cell [ref=f28e208]:
+                  - generic [ref=f28e209]:
+                    - link "Redmine Admin" [ref=f28e211] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f28e212] [cursor=pointer]
+                - cell "08.09.2026 11:45" [ref=f28e213]
+                - cell [ref=f28e214]:
+                  - link "Aktionen" [ref=f28e215] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f28e217]:
+                - cell [ref=f28e218]:
+                  - checkbox [ref=f28e219]
+                - cell [ref=f28e220]:
+                  - link "258" [ref=f28e221] [cursor=pointer]:
+                    - /url: /issues/258
+                - cell "Feature Edit" [ref=f28e222]:
+                  - generic [ref=f28e223]:
+                    - generic [ref=f28e224]: Feature
+                    - button "Edit" [ref=f28e225] [cursor=pointer]
+                - cell "New Edit" [ref=f28e226]:
+                  - generic [ref=f28e227]:
+                    - generic [ref=f28e228]: New
+                    - button "Edit" [ref=f28e229] [cursor=pointer]
+                - cell "High Edit" [ref=f28e230]:
+                  - generic [ref=f28e231]:
+                    - generic [ref=f28e232]: High
+                    - button "Edit" [ref=f28e233] [cursor=pointer]
+                - cell [ref=f28e234]:
+                  - generic [ref=f28e235]:
+                    - link "Add Excel export formatting" [ref=f28e237] [cursor=pointer]:
+                      - /url: /issues/258
+                    - button "Edit" [ref=f28e238] [cursor=pointer]
+                - cell [ref=f28e239]:
+                  - generic [ref=f28e240]:
+                    - link "Redmine Admin" [ref=f28e242] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f28e243] [cursor=pointer]
+                - cell "08.09.2026 11:45" [ref=f28e244]
+                - cell [ref=f28e245]:
+                  - link "Aktionen" [ref=f28e246] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f28e248]:
+                - cell [ref=f28e249]:
+                  - checkbox [ref=f28e250]
+                - cell [ref=f28e251]:
+                  - link "257" [ref=f28e252] [cursor=pointer]:
+                    - /url: /issues/257
+                - cell "Bug Edit" [ref=f28e253]:
+                  - generic [ref=f28e254]:
+                    - generic [ref=f28e255]: Bug
+                    - button "Edit" [ref=f28e256] [cursor=pointer]
+                - cell "Feedback Edit" [ref=f28e257]:
+                  - generic [ref=f28e258]:
+                    - generic [ref=f28e259]: Feedback
+                    - button "Edit" [ref=f28e260] [cursor=pointer]
+                - cell "Normal Edit" [ref=f28e261]:
+                  - generic [ref=f28e262]:
+                    - generic [ref=f28e263]: Normal
+                    - button "Edit" [ref=f28e264] [cursor=pointer]
+                - cell [ref=f28e265]:
+                  - generic [ref=f28e266]:
+                    - link "Fix CSV encoding issues" [ref=f28e268] [cursor=pointer]:
+                      - /url: /issues/257
+                    - button "Edit" [ref=f28e269] [cursor=pointer]
+                - cell [ref=f28e270]:
+                  - generic [ref=f28e271]:
+                    - link "Redmine Admin" [ref=f28e273] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f28e274] [cursor=pointer]
+                - cell "08.09.2026 11:45" [ref=f28e275]
+                - cell [ref=f28e276]:
+                  - link "Aktionen" [ref=f28e277] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f28e279]:
+                - cell [ref=f28e280]:
+                  - checkbox [ref=f28e281]
+                - cell [ref=f28e282]:
+                  - link "256" [ref=f28e283] [cursor=pointer]:
+                    - /url: /issues/256
+                - cell "Feature Edit" [ref=f28e284]:
+                  - generic [ref=f28e285]:
+                    - generic [ref=f28e286]: Feature
+                    - button "Edit" [ref=f28e287] [cursor=pointer]
+                - cell "In Progress Edit" [ref=f28e288]:
+                  - generic [ref=f28e289]:
+                    - generic [ref=f28e290]: In Progress
+                    - button "Edit" [ref=f28e291] [cursor=pointer]
+                - cell "Low Edit" [ref=f28e292]:
+                  - generic [ref=f28e293]:
+                    - generic [ref=f28e294]: Low
+                    - button "Edit" [ref=f28e295] [cursor=pointer]
+                - cell [ref=f28e296]:
+                  - generic [ref=f28e297]:
+                    - link "Implement data export templates" [ref=f28e299] [cursor=pointer]:
+                      - /url: /issues/256
+                    - button "Edit" [ref=f28e300] [cursor=pointer]
+                - cell [ref=f28e301]:
+                  - generic [ref=f28e302]:
+                    - link "Redmine Admin" [ref=f28e304] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f28e305] [cursor=pointer]
+                - cell "08.09.2026 11:45" [ref=f28e306]
+                - cell [ref=f28e307]:
+                  - link "Aktionen" [ref=f28e308] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f28e310]:
+                - cell [ref=f28e311]:
+                  - checkbox [ref=f28e312]
+                - cell [ref=f28e313]:
+                  - link "114" [ref=f28e314] [cursor=pointer]:
+                    - /url: /issues/114
+                - cell "Support Edit" [ref=f28e315]:
+                  - generic [ref=f28e316]:
+                    - generic [ref=f28e317]: Support
+                    - button "Edit" [ref=f28e318] [cursor=pointer]
+                - cell "New Edit" [ref=f28e319]:
+                  - generic [ref=f28e320]:
+                    - generic [ref=f28e321]: New
+                    - button "Edit" [ref=f28e322] [cursor=pointer]
+                - cell "Low Edit" [ref=f28e323]:
+                  - generic [ref=f28e324]:
+                    - generic [ref=f28e325]: Low
+                    - button "Edit" [ref=f28e326] [cursor=pointer]
+                - cell [ref=f28e327]:
+                  - generic [ref=f28e328]:
+                    - link "Analyze database schema for optimization" [ref=f28e330] [cursor=pointer]:
+                      - /url: /issues/114
+                    - button "Edit" [ref=f28e331] [cursor=pointer]
+                - cell [ref=f28e332]:
+                  - generic [ref=f28e333]:
+                    - link "Summer Rain" [ref=f28e335] [cursor=pointer]:
+                      - /url: /users/11
+                    - button "Edit" [ref=f28e336] [cursor=pointer]
+                - cell "08.09.2026 11:45" [ref=f28e337]
+                - cell [ref=f28e338]:
+                  - link "Aktionen" [ref=f28e339] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f28e341]:
+                - cell [ref=f28e342]:
+                  - checkbox [ref=f28e343]
+                - cell [ref=f28e344]:
+                  - link "106" [ref=f28e345] [cursor=pointer]:
+                    - /url: /issues/106
+                - cell "Feature Edit" [ref=f28e346]:
+                  - generic [ref=f28e347]:
+                    - generic [ref=f28e348]: Feature
+                    - button "Edit" [ref=f28e349] [cursor=pointer]
+                - cell "New Edit" [ref=f28e350]:
+                  - generic [ref=f28e351]:
+                    - generic [ref=f28e352]: New
+                    - button "Edit" [ref=f28e353] [cursor=pointer]
+                - cell "Urgent Edit" [ref=f28e354]:
+                  - generic [ref=f28e355]:
+                    - generic [ref=f28e356]: Urgent
+                    - button "Edit" [ref=f28e357] [cursor=pointer]
+                - cell [ref=f28e358]:
+                  - generic [ref=f28e359]:
+                    - link "Integrate payment gateway for subscriptions" [ref=f28e361] [cursor=pointer]:
+                      - /url: /issues/106
+                    - button "Edit" [ref=f28e362] [cursor=pointer]
+                - cell [ref=f28e363]:
+                  - generic [ref=f28e364]:
+                    - link "Summer Rain" [ref=f28e366] [cursor=pointer]:
+                      - /url: /users/11
+                    - button "Edit" [ref=f28e367] [cursor=pointer]
+                - cell "08.09.2026 11:45" [ref=f28e368]
+                - cell [ref=f28e369]:
+                  - link "Aktionen" [ref=f28e370] [cursor=pointer]:
+                    - /url: "#"
+        - generic [ref=f28e372]:
+          - list
+          - generic: (1-7/7)
+        - paragraph [ref=f28e374]:
+          - text: "Auch abrufbar als:"
+          - link "CSV" [ref=f28e376] [cursor=pointer]:
+            - /url: /projects/agileboard/issues.csv
+          - generic [ref=f28e377]:
+            - text: "|"
+            - link "PDF" [ref=f28e378] [cursor=pointer]:
+              - /url: /projects/agileboard/issues.pdf
+          - generic [ref=f28e379]:
+            - text: "|"
+            - link "Atom" [ref=f28e380] [cursor=pointer]:
+              - /url: /projects/agileboard/issues.atom?key=94fd9120e72ed97f9ffe6c094280da9513f2851e
+    - generic [ref=f28e381]:
+      - text: Powered by
+      - link "Redmine" [ref=f28e382] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f28e383]
+  - log [ref=f28e384]
+  - log [ref=f28e385]
+  - log [ref=f28e386]
+  - log [ref=f28e387]
+  - log [ref=f28e388]
+  - log [ref=f28e389]
+  - log [ref=f28e390]
+  - log [ref=f28e391]
+  - log [ref=f28e392]
+  - log [ref=f28e393]
+  - log [ref=f28e394]
+  - log [ref=f28e395]
+  - log [ref=f28e396]
+  - log [ref=f28e397]
+  - log [ref=f28e398]
+  - log [ref=f28e399]
+  - log [ref=f28e400]
+  - log [ref=f28e401]
+  - log [ref=f28e402]
+  - log [ref=f28e403]
+  - log [ref=f28e404]
+  - log [ref=f28e405]
+  - log [ref=f28e406]
+  - log [ref=f28e407]
+  - log [ref=f28e408]
+  - log [ref=f28e409]
+  - log [ref=f28e410]
+  - log [ref=f28e411]
+  - log [ref=f28e412]
+  - log [ref=f28e413]
+  - log [ref=f28e414]

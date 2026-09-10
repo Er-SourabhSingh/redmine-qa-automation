@@ -1,0 +1,293 @@
+- generic [ref=f106e1]:
+  - generic [ref=f106e2]:
+    - generic [ref=f106e3]:
+      - generic [ref=f106e4]:
+        - list:
+          - listitem [ref=f106e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f106e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f106e7]:
+        - text: Logged in as
+        - link "admin" [ref=f106e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f106e9]:
+        - listitem [ref=f106e10]:
+          - link [ref=f106e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f106e12]
+        - listitem [ref=f106e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f106e14]:
+          - link "My page" [ref=f106e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f106e16]:
+          - link "Projects" [ref=f106e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f106e18]:
+          - link "Flux Gantt" [ref=f106e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f106e20]:
+          - link "Helpdesk Command Center" [ref=f106e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f106e22]:
+          - link "Time Tracker" [ref=f106e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f106e24]:
+          - link "Timesheet" [ref=f106e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f106e26]:
+          - link "Workloads" [ref=f106e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f106e28]:
+          - link "More" [ref=f106e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f106e30]:
+      - generic [ref=f106e31]:
+        - generic [ref=f106e32]:
+          - generic [ref=f106e33]:
+            - link "Search..." [ref=f106e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f106e35]
+        - generic [ref=f106e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f106e38]
+    - generic [ref=f106e39]:
+      - link [ref=f106e41] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=f106e44]:
+        - heading "Settings" [level=2] [ref=f106e45]
+        - generic [ref=f106e46]:
+          - list [ref=f106e47]:
+            - listitem [ref=f106e48]:
+              - link "General" [ref=f106e49] [cursor=pointer]:
+                - /url: /settings?tab=general
+            - listitem [ref=f106e50]:
+              - link "Display" [ref=f106e51] [cursor=pointer]:
+                - /url: /settings?tab=display
+            - listitem [ref=f106e52]:
+              - link "Authentication" [ref=f106e53] [cursor=pointer]:
+                - /url: /settings?tab=authentication
+            - listitem [ref=f106e54]:
+              - link "API" [ref=f106e55] [cursor=pointer]:
+                - /url: /settings?tab=api
+            - listitem [ref=f106e56]:
+              - link "Projects" [ref=f106e57] [cursor=pointer]:
+                - /url: /settings?tab=projects
+            - listitem [ref=f106e58]:
+              - link "Users" [ref=f106e59] [cursor=pointer]:
+                - /url: /settings?tab=users
+            - listitem [ref=f106e60]:
+              - link "Issue tracking" [ref=f106e61] [cursor=pointer]:
+                - /url: /settings?tab=issues
+            - listitem [ref=f106e62]:
+              - link "Time tracking" [ref=f106e63] [cursor=pointer]:
+                - /url: /settings?tab=timelog
+            - listitem [ref=f106e64]:
+              - link "Files" [ref=f106e65] [cursor=pointer]:
+                - /url: /settings?tab=attachments
+            - listitem [ref=f106e66]:
+              - link "Email notifications" [ref=f106e67] [cursor=pointer]:
+                - /url: /settings?tab=notifications
+            - listitem [ref=f106e68]:
+              - link "Incoming emails" [ref=f106e69] [cursor=pointer]:
+                - /url: /settings?tab=mail_handler
+            - listitem [ref=f106e70]:
+              - link "Repositories" [ref=f106e71] [cursor=pointer]:
+                - /url: /settings?tab=repositories
+          - generic [ref=f106e72]:
+            - button [ref=f106e73] [cursor=pointer]
+            - button [ref=f106e76] [cursor=pointer]
+        - text: pre
+        - generic [ref=f106e80]:
+          - generic [ref=f106e81]:
+            - paragraph [ref=f106e82]:
+              - generic [ref=f106e83]: Authentication required
+              - combobox "Authentication required" [ref=f106e84]:
+                - option "Yes"
+                - option "No, allow anonymous access to public projects" [selected]
+              - emphasis [ref=f106e85]:
+                - text: When not requiring authentication, public projects and their contents are openly available on the network. You can
+                - link "edit the applicable permissions" [ref=f106e86] [cursor=pointer]:
+                  - /url: /roles/2/edit
+                - text: .
+            - paragraph [ref=f106e87]:
+              - generic [ref=f106e88]: Autologin
+              - combobox "Autologin" [ref=f106e89]:
+                - option "Disabled" [selected]
+                - option "1 day"
+                - option "7 days"
+                - option "30 days"
+                - option "365 days"
+            - paragraph [ref=f106e90]:
+              - generic [ref=f106e91]: Self-registration
+              - combobox "Self-registration" [ref=f106e92]:
+                - option "Disabled"
+                - option "Self account activation by email verification"
+                - option "Account activation by administrator approval" [selected]
+                - option "Automatic account activation"
+            - paragraph [ref=f106e93]:
+              - generic [ref=f106e94]: Show custom fields on registration
+              - checkbox "Show custom fields on registration" [checked] [ref=f106e95]
+            - paragraph [ref=f106e96]:
+              - generic [ref=f106e97]: Minimum password length
+              - textbox "Minimum password length" [active] [ref=f106e98]: "8"
+            - paragraph [ref=f106e99]:
+              - generic [ref=f106e100]: Required character classes for passwords
+              - generic [ref=f106e101]:
+                - checkbox "uppercase letters" [ref=f106e102]
+                - text: uppercase letters
+              - generic [ref=f106e103]:
+                - checkbox "lowercase letters" [ref=f106e104]
+                - text: lowercase letters
+              - generic [ref=f106e105]:
+                - checkbox "digits" [ref=f106e106]
+                - text: digits
+              - generic [ref=f106e107]:
+                - checkbox "special characters" [ref=f106e108]
+                - text: special characters
+            - paragraph [ref=f106e109]:
+              - generic [ref=f106e110]: Require password change after
+              - combobox "Require password change after" [ref=f106e111]:
+                - option "Disabled" [selected]
+                - option "7 days"
+                - option "30 days"
+                - option "60 days"
+                - option "90 days"
+                - option "180 days"
+                - option "365 days"
+            - paragraph [ref=f106e112]:
+              - generic [ref=f106e113]: Allow password reset via email
+              - checkbox "Allow password reset via email" [checked] [ref=f106e114]
+            - paragraph [ref=f106e115]:
+              - generic [ref=f106e116]: Two-factor authentication
+              - combobox "Two-factor authentication" [ref=f106e117]:
+                - option "Disabled"
+                - option "optional" [selected]
+                - option "required for administrators"
+                - option "required"
+              - emphasis [ref=f106e118]:
+                - text: Setting
+                - strong [ref=f106e119]: Disabled
+                - text: will deactivate and unpair two-factor authentication devices for all users. Setting
+                - strong [ref=f106e120]: optional
+                - text: will let users set up two-factor authentication at will, unless it is required by one of their groups. Setting
+                - strong [ref=f106e121]: required for administrators
+                - text: behaves like optional, but will require all users with administration rights to set up two-factor authentication at their next login. Setting
+                - strong [ref=f106e122]: required
+                - text: will require all users to set up two-factor authentication at their next login.
+          - group "Session expiration" [ref=f106e123]:
+            - generic [ref=f106e125]:
+              - paragraph [ref=f106e126]:
+                - generic [ref=f106e127]: Session maximum lifetime
+                - combobox "Session maximum lifetime" [ref=f106e128]:
+                  - option "Disabled" [selected]
+                  - option "4 hours"
+                  - option "8 hours"
+                  - option "12 hours"
+                  - option "1 day"
+                  - option "7 days"
+                  - option "30 days"
+                  - option "60 days"
+                  - option "365 days"
+              - paragraph [ref=f106e129]:
+                - generic [ref=f106e130]: Session inactivity timeout
+                - combobox "Session inactivity timeout" [ref=f106e131]:
+                  - option "Disabled" [selected]
+                  - option "1 hour"
+                  - option "2 hours"
+                  - option "4 hours"
+                  - option "8 hours"
+                  - option "12 hours"
+                  - option "24 hours"
+                  - option "48 hours"
+            - paragraph [ref=f106e132]:
+              - emphasis [ref=f106e133]: "Warning: changing these settings may expire the current sessions including yours."
+          - button "Save" [ref=f106e134] [cursor=pointer]
+        - text: pre pre
+    - generic [ref=f106e135]:
+      - text: Powered by
+      - link "Redmine" [ref=f106e136] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f106e137]
+  - log [ref=f106e138]
+  - log [ref=f106e139]
+  - log [ref=f106e140]
+  - log [ref=f106e141]
+  - log [ref=f106e142]
+  - log [ref=f106e143]
+  - log [ref=f106e144]
+  - log [ref=f106e145]
+  - log [ref=f106e146]
+  - log [ref=f106e147]
+  - log [ref=f106e148]
+  - log [ref=f106e149]
+  - log [ref=f106e150]
+  - log [ref=f106e151]
+  - log [ref=f106e152]
+  - log [ref=f106e153]
+  - log [ref=f106e154]
+  - log [ref=f106e155]
+  - log [ref=f106e156]
+  - log [ref=f106e157]
+  - log [ref=f106e158]
+  - log [ref=f106e159]
+  - log [ref=f106e160]
+  - log [ref=f106e161]
+  - log [ref=f106e162]
+  - log [ref=f106e163]
+  - log [ref=f106e164]
+  - log [ref=f106e165]
+  - log [ref=f106e166]
+  - log [ref=f106e167]
+  - log [ref=f106e168]
+  - log [ref=f106e169]
+  - log [ref=f106e170]
+  - log [ref=f106e171]
+  - log [ref=f106e172]
+  - log [ref=f106e173]
+  - log [ref=f106e174]
+  - log [ref=f106e175]
+  - log [ref=f106e176]
+  - log [ref=f106e177]
+  - log [ref=f106e178]
+  - log [ref=f106e179]
+  - log [ref=f106e180]
+  - log [ref=f106e181]
+  - log [ref=f106e182]
+  - log [ref=f106e183]
+  - log [ref=f106e184]
+  - log [ref=f106e185]
+  - log [ref=f106e186]
+  - log [ref=f106e187]
+  - log [ref=f106e188]
+  - log [ref=f106e189]
+  - log [ref=f106e190]
+  - log [ref=f106e191]
+  - log [ref=f106e192]
+  - log [ref=f106e193]
+  - log [ref=f106e194]
+  - log [ref=f106e195]
+  - log [ref=f106e196]
+  - log [ref=f106e197]
+  - log [ref=f106e198]
+  - log [ref=f106e199]
+  - log [ref=f106e200]
+  - log [ref=f106e201]
+  - log [ref=f106e202]
+  - log [ref=f106e203]
+  - log [ref=f106e204]
+  - log [ref=f106e205]
+  - log [ref=f106e206]
+  - log [ref=f106e207]
+  - log [ref=f106e208]
+  - log [ref=f106e209]
+  - log [ref=f106e210]
+  - log [ref=f106e211]
+  - log [ref=f106e212]
+  - log [ref=f106e213]
+  - log [ref=f106e214]

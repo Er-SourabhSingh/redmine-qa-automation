@@ -1,0 +1,130 @@
+- generic [ref=f145e1]:
+  - generic [ref=f145e2]:
+    - navigation [ref=f145e3]:
+      - list [ref=f145e6]:
+        - listitem [ref=f145e7]:
+          - link "Hauptseite" [ref=f145e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f145e9]:
+          - link "Meine Seite" [ref=f145e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f145e11]:
+          - link "Projekte" [ref=f145e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f145e13]:
+          - link "Agile Board" [ref=f145e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f145e15]:
+          - link "Flux Gantt" [ref=f145e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f145e17]:
+          - link "Administration" [ref=f145e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f145e19]:
+          - link "Hilfe" [ref=f145e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f145e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f145e24]: RA
+    - generic [ref=f145e27]:
+      - heading "Flux Gantt Project" [level=1] [ref=f145e28]
+      - list [ref=f145e31]:
+        - listitem [ref=f145e32]:
+          - link "+" [ref=f145e33] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f145e34]:
+          - link "Übersicht" [ref=f145e35] [cursor=pointer]:
+            - /url: /projects/fluxganttproject
+        - listitem [ref=f145e36]:
+          - link "Dashboard" [ref=f145e37] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/analytics_dashboard
+        - listitem [ref=f145e38]:
+          - link "Flux Gantt" [ref=f145e39] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/flux_gantt
+        - listitem [ref=f145e40]:
+          - link "Aktivität" [ref=f145e41] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/activity
+        - listitem [ref=f145e42]:
+          - link "Roadmap" [ref=f145e43] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/roadmap
+        - listitem [ref=f145e44]:
+          - link "Tickets" [ref=f145e45] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues
+        - listitem [ref=f145e46]:
+          - link "Aufgewendete Zeit" [ref=f145e47] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/time_entries
+        - listitem [ref=f145e48]:
+          - link "Gantt-Diagramm" [ref=f145e49] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/gantt
+        - listitem [ref=f145e50]:
+          - link "Kalender" [ref=f145e51] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/calendar
+        - listitem [ref=f145e52]:
+          - link "News" [ref=f145e53] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/news
+        - listitem [ref=f145e54]:
+          - link "Dokumente" [ref=f145e55] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/documents
+        - listitem [ref=f145e56]:
+          - link "Wiki" [ref=f145e57] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/wiki
+        - listitem [ref=f145e58]:
+          - link "Dateien" [ref=f145e59] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/files
+        - listitem [ref=f145e60]:
+          - link "Konfiguration" [ref=f145e61] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/settings
+    - generic [ref=f145e64]:
+      - generic [ref=f145e65]:
+        - generic [ref=f145e66]: Flux Gantt
+        - generic [ref=f145e67]:
+          - generic [ref=f145e68]:
+            - generic [ref=f145e69]: Datum von/bis
+            - button "Dieser Monat ▾" [ref=f145e70] [cursor=pointer]:
+              - generic [ref=f145e73]: Dieser Monat
+              - text: ▾
+          - generic [ref=f145e74]:
+            - generic [ref=f145e75]: Suche
+            - textbox "Suche..." [active] [ref=f145e77]
+        - generic [ref=f145e79]:
+          - generic [ref=f145e80]: Details
+          - combobox [ref=f145e81] [cursor=pointer]:
+            - option "Alle einklappen" [selected]
+            - option "Alle ausklappen"
+        - generic [ref=f145e82]:
+          - button "+ Version hinzufügen" [ref=f145e83] [cursor=pointer]
+          - button "Einstellungen" [ref=f145e84] [cursor=pointer]
+          - button "Vorgänge ohne Version" [ref=f145e88] [cursor=pointer]
+          - button "Vollbild" [ref=f145e90] [cursor=pointer]
+          - button "Exportieren" [ref=f145e96] [cursor=pointer]
+      - text: Today
+      - generic [ref=f145e101]:
+        - generic [ref=f145e102]: 📋
+        - heading "Keine Versionen gefunden" [level=3] [ref=f145e103]
+        - paragraph [ref=f145e104]: Erstellen Sie Ihre erste Version, um mit der Planung im Gantt zu beginnen.
+        - button "Version hinzufügen" [ref=f145e105] [cursor=pointer]
+      - generic [ref=f145e106]: Gantt-Arbeitsbereich wird vorbereitet...
+    - generic [ref=f145e131]:
+      - text: Powered by
+      - link "Redmine" [ref=f145e132] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - tooltip [aria-hidden]
+  - log [ref=f145e133]
+  - log [ref=f145e134]
+  - log [ref=f145e135]
+  - log [ref=f145e136]
+  - log [ref=f145e137]
+  - log [ref=f145e138]
+  - log [ref=f145e139]
+  - log [ref=f145e140]
+  - log [ref=f145e141]
+  - log [ref=f145e142]
+  - log [ref=f145e143]
+  - log [ref=f145e144]
+  - log [ref=f145e145]
+  - log [ref=f145e146]
+  - log [ref=f145e147]
+  - log [ref=f145e148]
+  - log [ref=f145e149]
+  - log [ref=f145e150]

@@ -1,0 +1,72 @@
+- generic [active] [ref=f351e1]:
+  - generic [ref=f351e2]:
+    - generic [ref=f351e3]:
+      - generic [ref=f351e4]:
+        - list:
+          - listitem [ref=f351e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f351e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f351e7]:
+        - text: Logged in as
+        - link "retest.customer1" [ref=f351e8] [cursor=pointer]:
+          - /url: /users/7
+      - list [ref=f351e9]:
+        - listitem [ref=f351e10]:
+          - link [ref=f351e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f351e12]
+        - listitem [ref=f351e13]:
+          - link "My Helpdesk" [ref=f351e14] [cursor=pointer]:
+            - /url: /helpdesk
+    - heading "Helpdesk QA Alpha" [level=1] [ref=f351e16]
+    - generic [ref=f351e17]:
+      - list [ref=f351e21]:
+        - listitem [ref=f351e22]:
+          - link "Helpdesk Dashboard" [ref=f351e23] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f351e26]:
+          - link "Helpdesk Tickets" [ref=f351e27] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f351e30]:
+          - link "Knowledgebase" [ref=f351e31] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f351e34]:
+        - generic [ref=f351e35]:
+          - generic [ref=f351e37]:
+            - heading "Helpdesk Dashboard" [level=2] [ref=f351e38]
+            - paragraph [ref=f351e39]: Helpdesk QA Alpha
+          - generic [ref=f351e40]:
+            - button "Date Range" [ref=f351e42] [cursor=pointer]:
+              - generic [ref=f351e45]: 05 Aug 26 - 03 Sep 26
+            - link "New issue" [ref=f351e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk/new
+        - generic [ref=f351e50]:
+          - link "17 Total Tickets View All" [ref=f351e51] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?created_from=2026-08-05&created_to=2026-09-03
+            - generic [ref=f351e56]: "17"
+            - generic [ref=f351e57]: Total Tickets
+            - generic [ref=f351e58]: View All
+          - link "17 Open View All" [ref=f351e61] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?created_from=2026-08-05&created_to=2026-09-03&status_id%5B%5D=open
+            - generic [ref=f351e66]: "17"
+            - generic [ref=f351e67]: Open
+            - generic [ref=f351e68]: View All
+          - link "0 Resolved View All" [ref=f351e71] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?created_from=2026-08-05&created_to=2026-09-03&status_id%5B%5D=closed
+            - generic [ref=f351e76]: "0"
+            - generic [ref=f351e77]: Resolved
+            - generic [ref=f351e78]: View All
+    - generic [ref=f351e83]:
+      - text: Powered by
+      - link "Redmine" [ref=f351e84] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f351e85]
+  - log [ref=f351e86]
+  - log [ref=f351e87]
+  - log [ref=f351e88]
+  - log [ref=f351e89]
+  - log [ref=f351e90]

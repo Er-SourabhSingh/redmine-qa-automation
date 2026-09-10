@@ -1,0 +1,254 @@
+- generic [active] [ref=f123e1]:
+  - generic [ref=f123e2]:
+    - navigation [ref=f123e3]:
+      - list [ref=f123e6]:
+        - listitem [ref=f123e7]:
+          - link "Hauptseite" [ref=f123e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f123e9]:
+          - link "Meine Seite" [ref=f123e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f123e11]:
+          - link "Projekte" [ref=f123e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f123e13]:
+          - link "Agile Board" [ref=f123e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f123e15]:
+          - link "Flux Gantt" [ref=f123e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f123e17]:
+          - link "Administration" [ref=f123e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f123e19]:
+          - link "Hilfe" [ref=f123e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f123e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f123e24]: RA
+    - generic [ref=f123e27]:
+      - generic [ref=f123e28]:
+        - generic [ref=f123e29]:
+          - generic [ref=f123e30]:
+            - link "Suche" [ref=f123e31] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/search
+            - text: ":"
+          - textbox "Suche:" [ref=f123e32]
+        - generic [ref=f123e33]:
+          - generic [ref=f123e34] [cursor=pointer]: Flux Gantt Project
+          - text: ✓ ✓
+      - heading "Flux Gantt Project" [level=1] [ref=f123e35]
+      - list [ref=f123e38]:
+        - listitem [ref=f123e39]:
+          - link "+" [ref=f123e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f123e41]:
+          - link "Übersicht" [ref=f123e42] [cursor=pointer]:
+            - /url: /projects/fluxganttproject
+        - listitem [ref=f123e43]:
+          - link "Dashboard" [ref=f123e44] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/analytics_dashboard
+        - listitem [ref=f123e45]:
+          - link "Aktivität" [ref=f123e46] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/activity
+        - listitem [ref=f123e47]:
+          - link "Roadmap" [ref=f123e48] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/roadmap
+        - listitem [ref=f123e49]:
+          - link "Tickets" [ref=f123e50] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues
+        - listitem [ref=f123e51]:
+          - link "Aufgewendete Zeit" [ref=f123e52] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/time_entries
+        - listitem [ref=f123e53]:
+          - link "Gantt-Diagramm" [ref=f123e54] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/gantt
+        - listitem [ref=f123e55]:
+          - link "Kalender" [ref=f123e56] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/calendar
+        - listitem [ref=f123e57]:
+          - link "News" [ref=f123e58] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/news
+        - listitem [ref=f123e59]:
+          - link "Dokumente" [ref=f123e60] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/documents
+        - listitem [ref=f123e61]:
+          - link "Wiki" [ref=f123e62] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/wiki
+        - listitem [ref=f123e63]:
+          - link "Dateien" [ref=f123e64] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/files
+        - listitem [ref=f123e65]:
+          - link "Konfiguration" [ref=f123e66] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/settings
+    - generic [ref=f123e68]:
+      - generic [ref=f123e69]:
+        - link "Lesezeichen hinzufügen" [ref=f123e70] [cursor=pointer]:
+          - /url: /projects/fluxganttproject/bookmark
+        - generic "Aktionen" [ref=f123e76] [cursor=pointer]
+      - heading "Übersicht" [level=2] [ref=f123e79]
+      - generic [ref=f123e80]:
+        - generic [ref=f123e81]:
+          - generic [ref=f123e82]:
+            - heading "Tickets" [level=3] [ref=f123e83]:
+              - link "Details" [ref=f123e87] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/report/tracker
+            - table [ref=f123e90]:
+              - rowgroup [ref=f123e91]:
+                - row [ref=f123e92]:
+                  - columnheader [ref=f123e93]
+                  - columnheader "offen" [ref=f123e94]
+                  - columnheader "geschlossen" [ref=f123e95]
+                  - columnheader "Gesamtzahl" [ref=f123e96]
+              - rowgroup [ref=f123e97]:
+                - row [ref=f123e98]:
+                  - cell [ref=f123e99]:
+                    - link "Bug" [ref=f123e100] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/issues?set_filter=1&tracker_id=4
+                  - cell [ref=f123e101]:
+                    - link "3" [ref=f123e102] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/issues?set_filter=1&tracker_id=4
+                  - cell [ref=f123e103]:
+                    - link "0" [ref=f123e104] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/issues?set_filter=1&status_id=c&tracker_id=4
+                  - cell [ref=f123e105]:
+                    - link "3" [ref=f123e106] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/issues?set_filter=1&status_id=%2A&tracker_id=4
+                - row [ref=f123e107]:
+                  - cell [ref=f123e108]:
+                    - link "Feature" [ref=f123e109] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/issues?set_filter=1&tracker_id=5
+                  - cell [ref=f123e110]:
+                    - link "14" [ref=f123e111] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/issues?set_filter=1&tracker_id=5
+                  - cell [ref=f123e112]:
+                    - link "0" [ref=f123e113] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/issues?set_filter=1&status_id=c&tracker_id=5
+                  - cell [ref=f123e114]:
+                    - link "14" [ref=f123e115] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/issues?set_filter=1&status_id=%2A&tracker_id=5
+                - row [ref=f123e116]:
+                  - cell [ref=f123e117]:
+                    - link "Support" [ref=f123e118] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/issues?set_filter=1&tracker_id=6
+                  - cell [ref=f123e119]:
+                    - link "0" [ref=f123e120] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/issues?set_filter=1&tracker_id=6
+                  - cell [ref=f123e121]:
+                    - link "0" [ref=f123e122] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/issues?set_filter=1&status_id=c&tracker_id=6
+                  - cell [ref=f123e123]:
+                    - link "0" [ref=f123e124] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/issues?set_filter=1&status_id=%2A&tracker_id=6
+            - paragraph [ref=f123e125]:
+              - link "Alle Tickets anzeigen" [ref=f123e126] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues?set_filter=1
+              - text: "|"
+              - link "Zusammenfassung" [ref=f123e127] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/report
+              - text: "|"
+              - link "Kalender" [ref=f123e128] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/calendar
+              - text: "|"
+              - link "Gantt-Diagramm" [ref=f123e129] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/gantt
+          - generic [ref=f123e130]:
+            - heading "Zeiterfassung" [level=3] [ref=f123e131]
+            - list [ref=f123e135]:
+              - listitem [ref=f123e136]: "Geschätzter Aufwand: 0:00 Stunde"
+              - listitem [ref=f123e137]: "Aufgewendete Zeit: 0:00 Stunde"
+            - paragraph [ref=f123e138]:
+              - link "Aufwand buchen" [ref=f123e139] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/time_entries/new
+              - text: "|"
+              - link "Details" [ref=f123e140] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/time_entries
+              - text: "|"
+              - link "Bericht" [ref=f123e141] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/time_entries/report
+        - generic [ref=f123e143]:
+          - heading "Mitglieder" [level=3] [ref=f123e144]
+          - paragraph [ref=f123e148]:
+            - text: "Manager:"
+            - link "Redmine Admin" [ref=f123e149] [cursor=pointer]:
+              - /url: /users/1
+          - paragraph [ref=f123e150]:
+            - text: "Developer:"
+            - link "Aurora Wren" [ref=f123e151] [cursor=pointer]:
+              - /url: /users/16
+            - text: ","
+            - link "Autumn Grace" [ref=f123e152] [cursor=pointer]:
+              - /url: /users/8
+            - text: ","
+            - link "Briar Sunset" [ref=f123e153] [cursor=pointer]:
+              - /url: /users/23
+            - text: ","
+            - link "Celeste Dawn" [ref=f123e154] [cursor=pointer]:
+              - /url: /users/13
+            - text: ","
+            - link "Daisy Skye" [ref=f123e155] [cursor=pointer]:
+              - /url: /users/7
+            - text: ","
+            - link "Ember Lilac" [ref=f123e156] [cursor=pointer]:
+              - /url: /users/21
+            - text: ","
+            - link "Harmony Rose" [ref=f123e157] [cursor=pointer]:
+              - /url: /users/10
+            - text: ","
+            - link "Isla Moon" [ref=f123e158] [cursor=pointer]:
+              - /url: /users/25
+            - text: ","
+            - link "Ivy Skylark" [ref=f123e159] [cursor=pointer]:
+              - /url: /users/17
+            - text: ","
+            - link "Luna Blossom" [ref=f123e160] [cursor=pointer]:
+              - /url: /users/6
+            - text: ","
+            - link "Luna Meadow" [ref=f123e161] [cursor=pointer]:
+              - /url: /users/18
+            - text: ","
+            - link "Marigold Rayne" [ref=f123e162] [cursor=pointer]:
+              - /url: /users/20
+            - text: ","
+            - link "Nova Starling" [ref=f123e163] [cursor=pointer]:
+              - /url: /users/15
+            - text: ","
+            - link "Opal Sparrow" [ref=f123e164] [cursor=pointer]:
+              - /url: /users/22
+            - text: ","
+            - link "Sage Willow" [ref=f123e165] [cursor=pointer]:
+              - /url: /users/19
+            - text: ","
+            - link "Selene Frost" [ref=f123e166] [cursor=pointer]:
+              - /url: /users/24
+            - text: ","
+            - link "Serenity Bloom" [ref=f123e167] [cursor=pointer]:
+              - /url: /users/14
+            - text: ","
+            - link "Summer Rain" [ref=f123e168] [cursor=pointer]:
+              - /url: /users/11
+            - text: ","
+            - link "Violet Ember" [ref=f123e169] [cursor=pointer]:
+              - /url: /users/12
+            - text: ","
+            - link "Willow Belle" [ref=f123e170] [cursor=pointer]:
+              - /url: /users/9
+    - generic [ref=f123e171]:
+      - text: Powered by
+      - link "Redmine" [ref=f123e172] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f123e173]
+  - log [ref=f123e174]
+  - log [ref=f123e175]
+  - log [ref=f123e176]
+  - log [ref=f123e177]
+  - log [ref=f123e178]
+  - log [ref=f123e179]
+  - log [ref=f123e180]
+  - log [ref=f123e181]
+  - log [ref=f123e182]
+  - log [ref=f123e183]
+  - log [ref=f123e184]
+  - log [ref=f123e185]
+  - log [ref=f123e186]

@@ -1,0 +1,7 @@
+Title,Description,Priority,Step 1,Expected Result 1,Step 2,Expected Result 2,Step 3,Expected Result 3,Step 4,Expected Result 4
+"Mixed - fully paired, 3 steps",Every step has a matching expected result,Normal,Open app,App launches,Log in,Dashboard shown,Open reports,Report list shown,,
+"Mixed - steps only, 2 steps","Steps filled, expected results blank",Normal,Click New,,Fill form,,,,,
+"Mixed - expected only, 2 results","Expected results filled, steps blank",Normal,,Form is displayed,,Record is saved,,,,
+Mixed - no step data at all,No Step/Expected columns populated; core fields only,Low,,,,,,,,
+Mixed - missing expected mid-sequence,Step 2's expected result is blank; Steps 1 and 3 are complete,Normal,Step 1 action,Step 1 expected,Step 2 action,,Step 3 action,Step 3 expected,,
+Mixed - missing step mid-sequence,Step 2's action is blank; its expected result is filled,Normal,Step 1 action,Step 1 expected,,Step 2 expected,Step 3 action,Step 3 expected,,

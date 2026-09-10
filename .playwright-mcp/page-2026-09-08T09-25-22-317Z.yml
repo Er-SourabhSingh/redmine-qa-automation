@@ -1,0 +1,194 @@
+- generic [ref=f295e1]:
+  - generic [ref=f295e2]:
+    - navigation [ref=f295e3]:
+      - generic [ref=f295e4]:
+        - link [ref=f295e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f295e7] [cursor=pointer]
+      - list [ref=f295e17]:
+        - listitem [ref=f295e18]:
+          - link "Hauptseite" [ref=f295e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f295e20]:
+          - link "Meine Seite" [ref=f295e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f295e22]:
+          - link "Projekte" [ref=f295e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f295e24]:
+          - link "Agile Board" [ref=f295e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f295e26]:
+          - link "Flux Gantt" [ref=f295e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f295e28]:
+          - link "Administration" [ref=f295e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f295e30]:
+          - link "Hilfe" [ref=f295e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f295e32]:
+        - generic [ref=f295e33]:
+          - generic [ref=f295e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f295e35]
+        - link "Mein Konto" [ref=f295e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f295e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f295e44]:
+      - generic [ref=f295e46]:
+        - heading "Agile Board Project" [level=1] [ref=f295e47]
+        - generic [ref=f295e48]:
+          - generic [ref=f295e49]:
+            - generic [ref=f295e50]: Hauptmenü
+            - listitem [ref=f295e51]:
+              - link "+" [ref=f295e52] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f295e53]:
+            - listitem [ref=f295e54]:
+              - link "Übersicht" [ref=f295e55] [cursor=pointer]:
+                - /url: /projects/agileboard
+            - listitem [ref=f295e60]:
+              - link "Dashboard" [ref=f295e61] [cursor=pointer]:
+                - /url: /projects/agileboard/analytics_dashboard
+            - listitem [ref=f295e69]:
+              - link "Aktivität" [ref=f295e70] [cursor=pointer]:
+                - /url: /projects/agileboard/activity
+            - listitem [ref=f295e75]:
+              - link "Agile Board" [ref=f295e76] [cursor=pointer]:
+                - /url: /projects/agileboard/agile_board
+            - listitem [ref=f295e84]:
+              - link "Backlog" [ref=f295e85] [cursor=pointer]:
+                - /url: /projects/agileboard/backlog
+            - listitem [ref=f295e90]:
+              - link "Roadmap" [ref=f295e91] [cursor=pointer]:
+                - /url: /projects/agileboard/roadmap
+            - listitem [ref=f295e98]:
+              - link "Tickets" [ref=f295e99] [cursor=pointer]:
+                - /url: /projects/agileboard/issues
+            - listitem [ref=f295e104]:
+              - link "Aufgewendete Zeit" [ref=f295e105] [cursor=pointer]:
+                - /url: /projects/agileboard/time_entries
+            - listitem [ref=f295e110]:
+              - link "Gantt-Diagramm" [ref=f295e111] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/gantt
+            - listitem [ref=f295e119]:
+              - link "Kalender" [ref=f295e120] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/calendar
+            - listitem [ref=f295e125]:
+              - link "News" [ref=f295e126] [cursor=pointer]:
+                - /url: /projects/agileboard/news
+            - listitem [ref=f295e131]:
+              - link "Dokumente" [ref=f295e132] [cursor=pointer]:
+                - /url: /projects/agileboard/documents
+            - listitem [ref=f295e137]:
+              - link "Wiki" [ref=f295e138] [cursor=pointer]:
+                - /url: /projects/agileboard/wiki
+            - listitem [ref=f295e143]:
+              - link "Foren" [ref=f295e144] [cursor=pointer]:
+                - /url: /projects/agileboard/boards
+            - listitem [ref=f295e149]:
+              - link "Dateien" [ref=f295e150] [cursor=pointer]:
+                - /url: /projects/agileboard/files
+            - listitem [ref=f295e155]:
+              - link "Konfiguration" [ref=f295e156] [cursor=pointer]:
+                - /url: /projects/agileboard/settings
+      - generic [ref=f295e162]:
+        - paragraph [ref=f295e163]:
+          - link "Foren" [ref=f295e164] [cursor=pointer]:
+            - /url: /projects/agileboard/boards
+          - text: »
+          - link "QA Lotus Edit Test Forum" [ref=f295e165] [cursor=pointer]:
+            - /url: /projects/agileboard/boards/2
+          - text: »
+        - heading "QA Lotus Edit Test Topic" [level=2] [ref=f295e166]:
+          - img [ref=f295e167]: RA
+          - text: QA Lotus Edit Test Topic
+        - generic [ref=f295e168]:
+          - generic [ref=f295e169]:
+            - paragraph [ref=f295e170]:
+              - text: Thema
+              - textbox "Thema" [active] [ref=f295e171]: QA Lotus Edit Test Topic
+              - checkbox "Wichtig (immer oben)" [ref=f295e172]
+              - text: Wichtig (immer oben)
+              - checkbox "Gesperrt" [ref=f295e173]
+              - text: Gesperrt
+            - paragraph [ref=f295e174]:
+              - text: Forum
+              - combobox [ref=f295e175]:
+                - option "QA Lotus Edit Test Forum" [selected]
+            - paragraph [ref=f295e176]:
+              - generic [ref=f295e177]: Nachrichteninhalt
+              - generic [ref=f295e178]:
+                - list [ref=f295e180]:
+                  - listitem [ref=f295e181]:
+                    - link "Bearbeiten" [ref=f295e182] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f295e183]:
+                    - link "Vorschau" [ref=f295e184] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f295e185]:
+                    - generic [ref=f295e186]:
+                      - button "Fett (Ctrl+B)" [ref=f295e187] [cursor=pointer]
+                      - button "Kursiv (Ctrl+I)" [ref=f295e188] [cursor=pointer]
+                      - button "Unterstrichen (Ctrl+U)" [ref=f295e189] [cursor=pointer]
+                      - button "Durchgestrichen" [ref=f295e190] [cursor=pointer]
+                      - button "Quelltext" [ref=f295e191] [cursor=pointer]
+                      - button "Überschrift 1. Ordnung" [ref=f295e192] [cursor=pointer]
+                      - button "Überschrift 2. Ordnung" [ref=f295e193] [cursor=pointer]
+                      - button "Überschrift 3. Ordnung" [ref=f295e194] [cursor=pointer]
+                      - button "Aufzählungsliste" [ref=f295e195] [cursor=pointer]
+                      - button "Nummerierte Liste" [ref=f295e196] [cursor=pointer]
+                      - button "Task list" [ref=f295e197] [cursor=pointer]
+                      - button "Zitat" [ref=f295e198] [cursor=pointer]
+                      - button "Zitat entfernen" [ref=f295e199] [cursor=pointer]
+                      - button "Table" [ref=f295e200] [cursor=pointer]
+                      - button "pre" [ref=f295e201] [cursor=pointer]
+                      - button "Highlighted code" [ref=f295e202] [cursor=pointer]
+                      - button "Verweis (Link) zu einer Wiki-Seite" [ref=f295e203] [cursor=pointer]
+                      - button "Grafik" [ref=f295e204] [cursor=pointer]
+                      - button "Help" [ref=f295e205] [cursor=pointer]
+                - textbox "Nachrichteninhalt" [ref=f295e207]: Testing topic edit form under Lotus.
+            - paragraph [ref=f295e208]:
+              - text: Dateien
+              - generic [ref=f295e210]:
+                - button "Choose File" [ref=f295e211]
+                - text: "(Maximale Größe: 5 MB)"
+          - button "Speichern" [ref=f295e212] [cursor=pointer]
+    - generic [ref=f295e213]:
+      - text: Powered by
+      - link "Redmine" [ref=f295e214] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f295e215]
+  - log [ref=f295e216]
+  - log [ref=f295e217]
+  - log [ref=f295e218]
+  - log [ref=f295e219]
+  - log [ref=f295e220]
+  - log [ref=f295e221]
+  - log [ref=f295e222]
+  - log [ref=f295e223]
+  - log [ref=f295e224]
+  - log [ref=f295e225]
+  - log [ref=f295e226]
+  - log [ref=f295e227]
+  - log [ref=f295e228]
+  - log [ref=f295e229]
+  - log [ref=f295e230]
+  - log [ref=f295e231]
+  - log [ref=f295e232]
+  - log [ref=f295e233]
+  - log [ref=f295e234]
+  - log [ref=f295e235]
+  - log [ref=f295e236]
+  - log [ref=f295e237]
+  - log [ref=f295e238]
+  - log [ref=f295e239]
+  - log [ref=f295e240]
+  - log [ref=f295e241]
+  - log [ref=f295e242]
+  - log [ref=f295e243]
+  - log [ref=f295e244]
+  - log [ref=f295e245]

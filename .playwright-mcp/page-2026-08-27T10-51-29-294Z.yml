@@ -1,0 +1,149 @@
+- generic [ref=f109e1]:
+  - generic [ref=f109e2]:
+    - generic [ref=f109e3]:
+      - generic [ref=f109e4]:
+        - list:
+          - listitem [ref=f109e5]:
+            - link "My account" [ref=f109e6] [cursor=pointer]:
+              - /url: /my/account
+          - listitem [ref=f109e7]:
+            - link "Sign out" [ref=f109e8] [cursor=pointer]:
+              - /url: /logout
+      - generic [ref=f109e9]:
+        - text: Logged in as
+        - link "admin" [ref=f109e10] [cursor=pointer]:
+          - /url: /users/1
+      - list:
+        - listitem [ref=f109e11]:
+          - link "Home" [ref=f109e12] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f109e13]:
+          - link "My page" [ref=f109e14] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f109e15]:
+          - link "Projects" [ref=f109e16] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f109e17]:
+          - link "Flux Gantt" [ref=f109e18] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f109e19]:
+          - link "Helpdesk Command Center" [ref=f109e20] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f109e21]:
+          - link "Time Tracker" [ref=f109e22] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f109e23]:
+          - link "Timesheet" [ref=f109e24] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f109e25]:
+          - link "Workloads" [ref=f109e26] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f109e27]:
+          - link "Administration" [ref=f109e28] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f109e29]:
+          - link "Help" [ref=f109e30] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f109e31]:
+      - generic [ref=f109e32]:
+        - generic [ref=f109e33]:
+          - generic [ref=f109e34]:
+            - link "Search..." [ref=f109e35] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f109e36]
+        - generic [ref=f109e37]:
+          - generic [ref=f109e38] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f109e39]
+    - generic [ref=f109e40]:
+      - list [ref=f109e44]:
+        - listitem [ref=f109e45]:
+          - link "Helpdesk Dashboard" [ref=f109e46] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f109e49]:
+          - link "Helpdesk Tickets" [ref=f109e50] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f109e53]:
+          - link "Reports" [ref=f109e54] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f109e57]:
+          - link "Organization" [ref=f109e58] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f109e61]:
+          - link "Customers" [ref=f109e62] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f109e65]:
+          - link "Products" [ref=f109e66] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f109e69]:
+          - link "Helpdesk Settings" [ref=f109e70] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f109e74]:
+        - generic [ref=f109e75]:
+          - generic [ref=f109e77]:
+            - heading "Helpdesk Dashboard" [level=2] [ref=f109e78]
+            - paragraph [ref=f109e79]: Ticket volume, SLA health and team workload at a glance
+          - generic [ref=f109e80]:
+            - button "Date Range" [ref=f109e82] [cursor=pointer]:
+              - generic [ref=f109e85]: 29 Jul 26 - 27 Aug 26
+            - link "New issue" [ref=f109e88] [cursor=pointer]:
+              - /url: /issue_helpdesks/new
+        - generic [ref=f109e90]:
+          - link "0 Unassigned View All" [ref=f109e91] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?assigned_to_id%5B%5D=none&created_from=2026-07-29&created_to=2026-08-27&status_id%5B%5D=open
+            - generic [ref=f109e98]: "0"
+            - generic [ref=f109e99]: Unassigned
+            - generic [ref=f109e100]: View All
+          - link "0 Open View All" [ref=f109e103] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?created_from=2026-07-29&created_to=2026-08-27&status_id%5B%5D=open
+            - generic [ref=f109e108]: "0"
+            - generic [ref=f109e109]: Open
+            - generic [ref=f109e110]: View All
+          - link "0 On Hold View All" [ref=f109e113] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?created_from=2026-07-29&created_to=2026-08-27
+            - generic [ref=f109e117]: "0"
+            - generic [ref=f109e118]: On Hold
+            - generic [ref=f109e119]: View All
+          - link "0 SLA Breached View All" [ref=f109e122] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?sla=breached
+            - generic [ref=f109e126]: "0"
+            - generic [ref=f109e127]: SLA Breached
+            - generic [ref=f109e128]: View All
+          - link "0 Resolved View All" [ref=f109e131] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?created_from=2026-07-29&created_to=2026-08-27&status_id%5B%5D=closed
+            - generic [ref=f109e136]: "0"
+            - generic [ref=f109e137]: Resolved
+            - generic [ref=f109e138]: View All
+        - generic [ref=f109e141]:
+          - generic [ref=f109e142]:
+            - heading "Recent Tickets" [level=3] [ref=f109e143]
+            - link "View All" [ref=f109e146] [cursor=pointer]:
+              - /url: /rf_helpdesk/issues
+          - generic [ref=f109e149]:
+            - search [ref=f109e150]:
+              - textbox "Search tickets by subject…" [active] [ref=f109e151]
+            - generic [ref=f109e152]:
+              - heading "No tickets yet" [level=3] [ref=f109e157]
+              - paragraph [ref=f109e158]: Tickets raised in the selected date range will appear here.
+              - link "New issue" [ref=f109e160] [cursor=pointer]:
+                - /url: /issue_helpdesks/new
+        - generic [ref=f109e163]:
+          - heading "Ticket Statistics" [level=3] [ref=f109e164]
+          - generic [ref=f109e166]: 07/29/2026 – 08/27/2026
+    - generic [ref=f109e170]:
+      - text: Powered by
+      - link "Redmine" [ref=f109e171] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f109e172]
+  - log [ref=f109e173]
+  - log [ref=f109e174]
+  - log [ref=f109e175]
+  - log [ref=f109e176]
+  - log [ref=f109e177]
+  - log [ref=f109e178]
+  - log [ref=f109e179]
+  - log [ref=f109e180]
+  - log [ref=f109e181]
+  - log [ref=f109e182]

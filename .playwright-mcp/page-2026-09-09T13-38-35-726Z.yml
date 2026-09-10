@@ -1,0 +1,156 @@
+- generic [ref=f122e1]:
+  - generic [ref=f122e2]:
+    - navigation [ref=f122e3]:
+      - generic [ref=f122e4]:
+        - link [ref=f122e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f122e7] [cursor=pointer]
+      - list [ref=f122e17]:
+        - listitem [ref=f122e18]:
+          - link "Hauptseite" [ref=f122e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f122e20]:
+          - link "Meine Seite" [ref=f122e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f122e22]:
+          - link "Projekte" [ref=f122e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f122e24]:
+          - link "Agile Board" [ref=f122e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f122e26]:
+          - link "Flux Gantt" [ref=f122e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f122e28]:
+          - link "Administration" [ref=f122e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f122e30]:
+          - link "Hilfe" [ref=f122e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f122e32]:
+        - generic [ref=f122e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f122e35]
+        - link "Mein Konto" [ref=f122e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f122e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f122e44]:
+      - generic [ref=f122e45]:
+        - heading "Redmine" [level=1] [ref=f122e47]
+        - generic [ref=f122e49]:
+          - heading "Administration" [level=3] [ref=f122e50]
+          - list [ref=f122e52]:
+            - listitem [ref=f122e53]:
+              - link "Projekte" [ref=f122e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f122e55]:
+              - link "Benutzer" [ref=f122e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f122e57]:
+              - link "Gruppen" [ref=f122e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f122e59]:
+              - link "Rollen und Rechte" [ref=f122e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f122e61]:
+              - link "Tracker" [ref=f122e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f122e63]:
+              - link "Ticket-Status" [ref=f122e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f122e65]:
+              - link "Workflow" [ref=f122e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f122e67]:
+              - link "Benutzerdefinierte Felder" [ref=f122e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f122e69]:
+              - link "Aufzählungen" [ref=f122e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f122e71]:
+              - link "Konfiguration" [ref=f122e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f122e73]:
+              - link "LDAP-Authentifizierung" [ref=f122e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f122e75]:
+              - link "Applikationen" [ref=f122e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f122e77]:
+              - link "Plugins" [ref=f122e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f122e79]:
+              - link "Informationen" [ref=f122e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f122e81]:
+        - heading [level=2] [ref=f122e82]:
+          - link "Plugins" [ref=f122e83] [cursor=pointer]:
+            - /url: /admin/plugins
+          - text: » Redmineflux Lotus plugin
+        - generic [ref=f122e85]:
+          - generic [ref=f122e86]:
+            - list [ref=f122e88]:
+              - listitem [ref=f122e89]:
+                - link "Tracker-Rahmenfarben" [ref=f122e90] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_lotus?tab=tracker_colors
+              - listitem [ref=f122e91]:
+                - link "Prioritätssymbole" [ref=f122e92] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_lotus?tab=priority_icons
+              - listitem [ref=f122e93]:
+                - link "Logo" [ref=f122e94] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_lotus?tab=logo
+            - generic [ref=f122e95]:
+              - heading "Tracker-Rahmenfarben" [level=2] [ref=f122e96]
+              - paragraph [ref=f122e97]: Konfigurieren Sie Rahmenfarben für Ticket-IDs basierend auf dem Tracker-Typ. Text- und Rahmenfarbe verwenden dieselbe Farbe.
+              - generic [ref=f122e98]:
+                - generic [ref=f122e99]:
+                  - generic [ref=f122e100]: Bug
+                  - generic [ref=f122e101]:
+                    - textbox "Farbe wählen" [ref=f122e102] [cursor=pointer]: "#f50d1a"
+                    - textbox "#fc641f" [active] [ref=f122e103]: "#f50d1a"
+                    - generic [ref=f122e104] [cursor=pointer]
+                - generic [ref=f122e105]:
+                  - generic [ref=f122e106]: Feature
+                  - generic [ref=f122e107]:
+                    - textbox "Farbe wählen" [ref=f122e108] [cursor=pointer]: "#00b300"
+                    - textbox "#fc641f" [ref=f122e109]: "#00b300"
+                    - generic [ref=f122e110] [cursor=pointer]
+                - generic [ref=f122e111]:
+                  - generic [ref=f122e112]: Support
+                  - generic [ref=f122e113]:
+                    - textbox "Farbe wählen" [ref=f122e114] [cursor=pointer]: "#16855b"
+                    - textbox "#fc641f" [ref=f122e115]: "#16855b"
+                    - generic [ref=f122e116] [cursor=pointer]
+              - generic [ref=f122e117]:
+                - strong [ref=f122e118]: "Hinweis:"
+                - text: Diese Farben werden als Rahmen- und Textfarbe auf Ticket-IDs in allen Ticketlisten und Detailseiten angewendet.
+          - button "Anwenden" [ref=f122e119] [cursor=pointer]
+    - generic [ref=f122e120]:
+      - text: Powered by
+      - link "Redmine" [ref=f122e121] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f122e122]
+  - log [ref=f122e123]
+  - log [ref=f122e124]
+  - log [ref=f122e125]
+  - log [ref=f122e126]
+  - log [ref=f122e127]
+  - log [ref=f122e128]
+  - log [ref=f122e129]
+  - log [ref=f122e130]
+  - log [ref=f122e131]
+  - log [ref=f122e132]
+  - log [ref=f122e133]
+  - log [ref=f122e134]
+  - log [ref=f122e135]
+  - log [ref=f122e136]
+  - log [ref=f122e137]
+  - log [ref=f122e138]
+  - log [ref=f122e139]
+  - log [ref=f122e140]
+  - log [ref=f122e141]
+  - log [ref=f122e142]
+  - log [ref=f122e143]
+  - log [ref=f122e144]
+  - log [ref=f122e145]

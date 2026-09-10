@@ -1,0 +1,120 @@
+- generic [ref=f396e1]:
+  - generic [ref=f396e2]:
+    - generic [ref=f396e3]:
+      - generic [ref=f396e4]:
+        - list:
+          - listitem [ref=f396e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f396e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f396e7]:
+        - text: Logged in as
+        - link "admin" [ref=f396e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f396e9]:
+        - listitem [ref=f396e10]:
+          - link [ref=f396e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f396e12]
+        - listitem [ref=f396e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f396e14]:
+          - link "My page" [ref=f396e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f396e16]:
+          - link "Projects" [ref=f396e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f396e18]:
+          - link "Flux Gantt" [ref=f396e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f396e20]:
+          - link "Helpdesk Command Center" [ref=f396e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f396e22]:
+          - link "Time Tracker" [ref=f396e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f396e24]:
+          - link "Timesheet" [ref=f396e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f396e26]:
+          - link "Workloads" [ref=f396e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f396e28]:
+          - link "More" [ref=f396e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f396e30]:
+      - generic [ref=f396e31]:
+        - generic [ref=f396e32]:
+          - generic [ref=f396e33]:
+            - link "Search..." [ref=f396e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f396e35]
+        - generic [ref=f396e36]:
+          - generic [ref=f396e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f396e38]
+    - generic [ref=f396e39]:
+      - list [ref=f396e43]:
+        - listitem [ref=f396e44]:
+          - link "Helpdesk Dashboard" [ref=f396e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f396e48]:
+          - link "Helpdesk Tickets" [ref=f396e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f396e52]:
+          - link "Reports" [ref=f396e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f396e56]:
+          - link "Organization" [ref=f396e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f396e60]:
+          - link "Customers" [ref=f396e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f396e64]:
+          - link "Products" [ref=f396e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f396e68]:
+          - link "Helpdesk Settings" [ref=f396e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f396e72]:
+        - generic [ref=f396e73]:
+          - generic [ref=f396e75]:
+            - heading "Customers" [level=2] [ref=f396e76]
+            - paragraph [ref=f396e77]: People who raise tickets through the helpdesk
+          - link "New Customer" [ref=f396e79] [cursor=pointer]:
+            - /url: /rf_customers/new
+        - generic [ref=f396e82]:
+          - textbox "Search customers..." [active] [ref=f396e84]: zzznonexistentcustomer99
+          - generic [ref=f396e85]:
+            - textbox "All Organizations" [ref=f396e86]
+            - combobox "All Organizations":
+              - option "All Organizations" [selected]
+              - option "Alpha Full-Fields Test Org (All Changed)"
+              - option "Alpha Minimal Fields Test Org"
+          - generic [ref=f396e87]:
+            - button "Apply Filters" [ref=f396e88] [cursor=pointer]
+            - link "Clear" [ref=f396e91] [cursor=pointer]:
+              - /url: /rf_helpdesk/customers
+        - generic [ref=f396e97]:
+          - heading "Nothing matched" [level=3] [ref=f396e102]
+          - paragraph [ref=f396e103]: No records match your search or filters. Clear them to see everything again.
+    - generic [ref=f396e104]:
+      - text: Powered by
+      - link "Redmine" [ref=f396e105] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f396e106]
+  - log [ref=f396e107]
+  - log [ref=f396e108]
+  - log [ref=f396e109]
+  - log [ref=f396e110]
+  - log [ref=f396e111]
+  - log [ref=f396e112]
+  - log [ref=f396e113]
+  - log [ref=f396e114]
+  - log [ref=f396e115]
+  - log [ref=f396e116]

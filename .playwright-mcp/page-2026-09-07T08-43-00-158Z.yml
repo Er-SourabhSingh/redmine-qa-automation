@@ -1,0 +1,541 @@
+- generic [ref=f115e1]:
+  - generic [ref=f115e2]:
+    - generic [ref=f115e3]:
+      - generic [ref=f115e4]:
+        - list:
+          - listitem [ref=f115e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f115e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f115e7]:
+        - text: Logged in as
+        - link "admin" [ref=f115e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f115e9]:
+        - listitem [ref=f115e10]:
+          - link [ref=f115e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f115e12]
+        - listitem [ref=f115e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f115e14]:
+          - link "My page" [ref=f115e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f115e16]:
+          - link "Projects" [ref=f115e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f115e18]:
+          - link "Flux Gantt" [ref=f115e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f115e20]:
+          - link "Helpdesk Command Center" [ref=f115e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f115e22]:
+          - link "Time Tracker" [ref=f115e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f115e24]:
+          - link "Timesheet" [ref=f115e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f115e26]:
+          - link "Workloads" [ref=f115e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f115e28]:
+          - link "More" [ref=f115e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f115e30]:
+      - generic [ref=f115e31]:
+        - generic [ref=f115e32]:
+          - generic [ref=f115e33]:
+            - link "Search..." [ref=f115e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f115e35]
+        - generic [ref=f115e36]:
+          - generic [ref=f115e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f115e38]
+    - generic [ref=f115e39]:
+      - list [ref=f115e43]:
+        - listitem [ref=f115e44]:
+          - link "Helpdesk Dashboard" [ref=f115e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f115e48]:
+          - link "Helpdesk Tickets" [ref=f115e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f115e52]:
+          - link "Reports" [ref=f115e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f115e56]:
+          - link "Organization" [ref=f115e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f115e60]:
+          - link "Customers" [ref=f115e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f115e64]:
+          - link "Products" [ref=f115e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f115e68]:
+          - link "Helpdesk Settings" [ref=f115e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f115e72]:
+        - generic [ref=f115e73]:
+          - generic [ref=f115e75]:
+            - heading "Customers" [level=2] [ref=f115e76]
+            - paragraph [ref=f115e77]: People who raise tickets through the helpdesk
+          - link "New Customer" [ref=f115e79] [cursor=pointer]:
+            - /url: /rf_customers/new
+        - generic [ref=f115e82]:
+          - textbox "Search customers..." [active] [ref=f115e84]
+          - generic [ref=f115e85]:
+            - textbox "All Organizations" [ref=f115e86]
+            - combobox "All Organizations":
+              - option "All Organizations" [selected]
+              - option "<script>alert(1)</script>"
+              - option "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              - option "Alpha Full-Fields Test Org (All Changed)"
+              - option "Alpha Minimal Fields Test Org"
+              - option "Field Test Org Employees Neg"
+              - option "Field Test Org Notes Billing Max"
+              - option "Field Test Org Website Phone"
+              - option "O'Brien & Sons, Ltd. 日本語テスト Acme123"
+              - option "TC-HLP-205 Permission Test Org"
+          - generic [ref=f115e87]:
+            - button "Apply Filters" [ref=f115e88] [cursor=pointer]
+            - link "Clear" [ref=f115e91] [cursor=pointer]:
+              - /url: /rf_helpdesk/customers
+        - table [ref=f115e97]:
+          - rowgroup [ref=f115e98]:
+            - row [ref=f115e99]:
+              - columnheader "S.No" [ref=f115e100]
+              - columnheader "Customer Name" [ref=f115e101]
+              - columnheader "Email" [ref=f115e102]
+              - columnheader "Organization Name" [ref=f115e103]
+              - columnheader "Support Level" [ref=f115e104]
+              - columnheader "Projects" [ref=f115e105]
+              - columnheader "Open" [ref=f115e106]
+              - columnheader "Last Login" [ref=f115e107]
+              - columnheader "Action" [ref=f115e108]
+          - rowgroup [ref=f115e109]:
+            - row [ref=f115e110]:
+              - cell "1" [ref=f115e111]
+              - cell "Alpha Customer alpha.customer" [ref=f115e112]:
+                - link "Alpha Customer" [ref=f115e113] [cursor=pointer]:
+                  - /url: /rf_customers/6
+                - generic [ref=f115e114]: alpha.customer
+              - cell [ref=f115e115]:
+                - link "alpha.customer@test.local" [ref=f115e116] [cursor=pointer]:
+                  - /url: mailto:alpha.customer@test.local
+              - cell "—" [ref=f115e117]
+              - cell "L1" [ref=f115e118]
+              - cell "1" [ref=f115e121]
+              - cell "10" [ref=f115e122]
+              - cell "09/03/2026 06:36 AM" [ref=f115e123]
+              - cell [ref=f115e124]:
+                - generic [ref=f115e125]:
+                  - link "Customer details" [ref=f115e126] [cursor=pointer]:
+                    - /url: /rf_customers/6
+                  - link "Edit" [ref=f115e130] [cursor=pointer]:
+                    - /url: /rf_customers/6/edit
+                  - link "Delete" [ref=f115e133] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f115e137]:
+              - cell "2" [ref=f115e138]
+              - cell "Delta Customer delta.customer" [ref=f115e139]:
+                - link "Delta Customer" [ref=f115e140] [cursor=pointer]:
+                  - /url: /rf_customers/14
+                - generic [ref=f115e141]: delta.customer
+              - cell [ref=f115e142]:
+                - link "delta.customer@test.local" [ref=f115e143] [cursor=pointer]:
+                  - /url: mailto:delta.customer@test.local
+              - cell "Alpha Minimal Fields Test Org" [ref=f115e144]
+              - cell "L2" [ref=f115e145]
+              - cell "1" [ref=f115e148]
+              - cell "6" [ref=f115e149]
+              - cell "09/07/2026 05:19 AM" [ref=f115e150]
+              - cell [ref=f115e151]:
+                - generic [ref=f115e152]:
+                  - link "Customer details" [ref=f115e153] [cursor=pointer]:
+                    - /url: /rf_customers/14
+                  - link "Edit" [ref=f115e157] [cursor=pointer]:
+                    - /url: /rf_customers/14/edit
+                  - link "Delete" [ref=f115e160] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f115e164]:
+              - cell "3" [ref=f115e165]
+              - cell "Retest Customer1 retest.customer1" [ref=f115e166]:
+                - link "Retest Customer1" [ref=f115e167] [cursor=pointer]:
+                  - /url: /rf_customers/7
+                - generic [ref=f115e168]: retest.customer1
+              - cell [ref=f115e169]:
+                - link "retest.customer1@test.local" [ref=f115e170] [cursor=pointer]:
+                  - /url: mailto:retest.customer1@test.local
+              - cell "—" [ref=f115e171]
+              - cell "L2" [ref=f115e172]
+              - cell "1" [ref=f115e175]
+              - cell "20" [ref=f115e176]
+              - cell "09/03/2026 09:26 AM" [ref=f115e177]
+              - cell [ref=f115e178]:
+                - generic [ref=f115e179]:
+                  - link "Customer details" [ref=f115e180] [cursor=pointer]:
+                    - /url: /rf_customers/7
+                  - link "Edit" [ref=f115e184] [cursor=pointer]:
+                    - /url: /rf_customers/7/edit
+                  - link "Delete" [ref=f115e187] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f115e191]:
+              - cell "4" [ref=f115e192]
+              - cell "Test EmailFmt2 test.emailfmt2" [ref=f115e193]:
+                - link "Test EmailFmt2" [ref=f115e194] [cursor=pointer]:
+                  - /url: /rf_customers/26
+                - generic [ref=f115e195]: test.emailfmt2
+              - cell [ref=f115e196]:
+                - link "missing@domain" [ref=f115e197] [cursor=pointer]:
+                  - /url: mailto:missing@domain
+              - cell "—" [ref=f115e198]
+              - cell "—" [ref=f115e199]
+              - cell "0" [ref=f115e200]
+              - cell "0" [ref=f115e201]
+              - cell "Never" [ref=f115e202]
+              - cell [ref=f115e203]:
+                - generic [ref=f115e204]:
+                  - link "Customer details" [ref=f115e205] [cursor=pointer]:
+                    - /url: /rf_customers/26
+                  - link "Edit" [ref=f115e209] [cursor=pointer]:
+                    - /url: /rf_customers/26/edit
+                  - link "Delete" [ref=f115e212] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f115e216]:
+              - cell "5" [ref=f115e217]
+              - cell "Test EmailLen254 test.emaillen254" [ref=f115e218]:
+                - link "Test EmailLen254" [ref=f115e219] [cursor=pointer]:
+                  - /url: /rf_customers/27
+                - generic [ref=f115e220]: test.emaillen254
+              - cell [ref=f115e221]:
+                - link "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@test.local" [ref=f115e222] [cursor=pointer]:
+                  - /url: mailto:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@test.local
+              - cell "—" [ref=f115e223]
+              - cell "—" [ref=f115e224]
+              - cell "0" [ref=f115e225]
+              - cell "0" [ref=f115e226]
+              - cell "Never" [ref=f115e227]
+              - cell [ref=f115e228]:
+                - generic [ref=f115e229]:
+                  - link "Customer details" [ref=f115e230] [cursor=pointer]:
+                    - /url: /rf_customers/27
+                  - link "Edit" [ref=f115e234] [cursor=pointer]:
+                    - /url: /rf_customers/27/edit
+                  - link "Delete" [ref=f115e237] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f115e241]:
+              - cell "6" [ref=f115e242]
+              - cell "Test GenPw test.genpw" [ref=f115e243]:
+                - link "Test GenPw" [ref=f115e244] [cursor=pointer]:
+                  - /url: /rf_customers/29
+                - generic [ref=f115e245]: test.genpw
+              - cell [ref=f115e246]:
+                - link "test.genpw@test.local" [ref=f115e247] [cursor=pointer]:
+                  - /url: mailto:test.genpw@test.local
+              - cell "—" [ref=f115e248]
+              - cell "—" [ref=f115e249]
+              - cell "0" [ref=f115e250]
+              - cell "0" [ref=f115e251]
+              - cell "Never" [ref=f115e252]
+              - cell [ref=f115e253]:
+                - generic [ref=f115e254]:
+                  - link "Customer details" [ref=f115e255] [cursor=pointer]:
+                    - /url: /rf_customers/29
+                  - link "Edit" [ref=f115e259] [cursor=pointer]:
+                    - /url: /rf_customers/29/edit
+                  - link "Delete" [ref=f115e262] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f115e266]:
+              - cell "7" [ref=f115e267]
+              - cell "Test HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH test.lastname100" [ref=f115e268]:
+                - link "Test HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH" [ref=f115e269] [cursor=pointer]:
+                  - /url: /rf_customers/22
+                - generic [ref=f115e270]: test.lastname100
+              - cell [ref=f115e271]:
+                - link "test.lastname100@test.local" [ref=f115e272] [cursor=pointer]:
+                  - /url: mailto:test.lastname100@test.local
+              - cell "—" [ref=f115e273]
+              - cell "—" [ref=f115e274]
+              - cell "0" [ref=f115e275]
+              - cell "0" [ref=f115e276]
+              - cell "Never" [ref=f115e277]
+              - cell [ref=f115e278]:
+                - generic [ref=f115e279]:
+                  - link "Customer details" [ref=f115e280] [cursor=pointer]:
+                    - /url: /rf_customers/22
+                  - link "Edit" [ref=f115e284] [cursor=pointer]:
+                    - /url: /rf_customers/22/edit
+                  - link "Delete" [ref=f115e287] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f115e291]:
+              - cell "8" [ref=f115e292]
+              - cell "Test IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII test.lastname255" [ref=f115e293]:
+                - link "Test IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII" [ref=f115e294] [cursor=pointer]:
+                  - /url: /rf_customers/23
+                - generic [ref=f115e295]: test.lastname255
+              - cell [ref=f115e296]:
+                - link "test.lastname255@test.local" [ref=f115e297] [cursor=pointer]:
+                  - /url: mailto:test.lastname255@test.local
+              - cell "—" [ref=f115e298]
+              - cell "—" [ref=f115e299]
+              - cell "0" [ref=f115e300]
+              - cell "0" [ref=f115e301]
+              - cell "Never" [ref=f115e302]
+              - cell [ref=f115e303]:
+                - generic [ref=f115e304]:
+                  - link "Customer details" [ref=f115e305] [cursor=pointer]:
+                    - /url: /rf_customers/23
+                  - link "Edit" [ref=f115e309] [cursor=pointer]:
+                    - /url: /rf_customers/23/edit
+                  - link "Delete" [ref=f115e312] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f115e316]:
+              - cell "9" [ref=f115e317]
+              - cell "Test Login30 llllllllllllllllllllllllllllll" [ref=f115e318]:
+                - link "Test Login30" [ref=f115e319] [cursor=pointer]:
+                  - /url: /rf_customers/18
+                - generic [ref=f115e320]: llllllllllllllllllllllllllllll
+              - cell [ref=f115e321]:
+                - link "test.login30@test.local" [ref=f115e322] [cursor=pointer]:
+                  - /url: mailto:test.login30@test.local
+              - cell "—" [ref=f115e323]
+              - cell "—" [ref=f115e324]
+              - cell "0" [ref=f115e325]
+              - cell "0" [ref=f115e326]
+              - cell "Never" [ref=f115e327]
+              - cell [ref=f115e328]:
+                - generic [ref=f115e329]:
+                  - link "Customer details" [ref=f115e330] [cursor=pointer]:
+                    - /url: /rf_customers/18
+                  - link "Edit" [ref=f115e334] [cursor=pointer]:
+                    - /url: /rf_customers/18/edit
+                  - link "Delete" [ref=f115e337] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f115e341]:
+              - cell "10" [ref=f115e342]
+              - cell "Test Login60 nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" [ref=f115e343]:
+                - link "Test Login60" [ref=f115e344] [cursor=pointer]:
+                  - /url: /rf_customers/19
+                - generic [ref=f115e345]: nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+              - cell [ref=f115e346]:
+                - link "test.login60@test.local" [ref=f115e347] [cursor=pointer]:
+                  - /url: mailto:test.login60@test.local
+              - cell "—" [ref=f115e348]
+              - cell "—" [ref=f115e349]
+              - cell "0" [ref=f115e350]
+              - cell "0" [ref=f115e351]
+              - cell "Never" [ref=f115e352]
+              - cell [ref=f115e353]:
+                - generic [ref=f115e354]:
+                  - link "Customer details" [ref=f115e355] [cursor=pointer]:
+                    - /url: /rf_customers/19
+                  - link "Edit" [ref=f115e359] [cursor=pointer]:
+                    - /url: /rf_customers/19/edit
+                  - link "Delete" [ref=f115e362] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f115e366]:
+              - cell "11" [ref=f115e367]
+              - cell "Test LoginAt john@doe" [ref=f115e368]:
+                - link "Test LoginAt" [ref=f115e369] [cursor=pointer]:
+                  - /url: /rf_customers/20
+                - generic [ref=f115e370]: john@doe
+              - cell [ref=f115e371]:
+                - link "test.loginat@test.local" [ref=f115e372] [cursor=pointer]:
+                  - /url: mailto:test.loginat@test.local
+              - cell "—" [ref=f115e373]
+              - cell "—" [ref=f115e374]
+              - cell "0" [ref=f115e375]
+              - cell "0" [ref=f115e376]
+              - cell "Never" [ref=f115e377]
+              - cell [ref=f115e378]:
+                - generic [ref=f115e379]:
+                  - link "Customer details" [ref=f115e380] [cursor=pointer]:
+                    - /url: /rf_customers/20
+                  - link "Edit" [ref=f115e384] [cursor=pointer]:
+                    - /url: /rf_customers/20/edit
+                  - link "Delete" [ref=f115e387] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f115e391]:
+              - cell "12" [ref=f115e392]
+              - cell "Test LoginMin a" [ref=f115e393]:
+                - link "Test LoginMin" [ref=f115e394] [cursor=pointer]:
+                  - /url: /rf_customers/17
+                - generic [ref=f115e395]: a
+              - cell [ref=f115e396]:
+                - link "test.loginmin1@test.local" [ref=f115e397] [cursor=pointer]:
+                  - /url: mailto:test.loginmin1@test.local
+              - cell "—" [ref=f115e398]
+              - cell "—" [ref=f115e399]
+              - cell "0" [ref=f115e400]
+              - cell "0" [ref=f115e401]
+              - cell "Never" [ref=f115e402]
+              - cell [ref=f115e403]:
+                - generic [ref=f115e404]:
+                  - link "Customer details" [ref=f115e405] [cursor=pointer]:
+                    - /url: /rf_customers/17
+                  - link "Edit" [ref=f115e409] [cursor=pointer]:
+                    - /url: /rf_customers/17/edit
+                  - link "Delete" [ref=f115e412] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f115e416]:
+              - cell "13" [ref=f115e417]
+              - cell "日本語 O'Connor-Smith test.unicode.name" [ref=f115e418]:
+                - link "日本語 O'Connor-Smith" [ref=f115e419] [cursor=pointer]:
+                  - /url: /rf_customers/24
+                - generic [ref=f115e420]: test.unicode.name
+              - cell [ref=f115e421]:
+                - link "test.unicodename@test.local" [ref=f115e422] [cursor=pointer]:
+                  - /url: mailto:test.unicodename@test.local
+              - cell "—" [ref=f115e423]
+              - cell "—" [ref=f115e424]
+              - cell "0" [ref=f115e425]
+              - cell "0" [ref=f115e426]
+              - cell "Never" [ref=f115e427]
+              - cell [ref=f115e428]:
+                - generic [ref=f115e429]:
+                  - link "Customer details" [ref=f115e430] [cursor=pointer]:
+                    - /url: /rf_customers/24
+                  - link "Edit" [ref=f115e434] [cursor=pointer]:
+                    - /url: /rf_customers/24/edit
+                  - link "Delete" [ref=f115e437] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f115e441]:
+              - cell "14" [ref=f115e442]
+              - cell "Test PwLen8 test.pwlen8" [ref=f115e443]:
+                - link "Test PwLen8" [ref=f115e444] [cursor=pointer]:
+                  - /url: /rf_customers/28
+                - generic [ref=f115e445]: test.pwlen8
+              - cell [ref=f115e446]:
+                - link "test.pwlen8@test.local" [ref=f115e447] [cursor=pointer]:
+                  - /url: mailto:test.pwlen8@test.local
+              - cell "—" [ref=f115e448]
+              - cell "—" [ref=f115e449]
+              - cell "0" [ref=f115e450]
+              - cell "0" [ref=f115e451]
+              - cell "Never" [ref=f115e452]
+              - cell [ref=f115e453]:
+                - generic [ref=f115e454]:
+                  - link "Customer details" [ref=f115e455] [cursor=pointer]:
+                    - /url: /rf_customers/28
+                  - link "Edit" [ref=f115e459] [cursor=pointer]:
+                    - /url: /rf_customers/28/edit
+                  - link "Delete" [ref=f115e462] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f115e466]:
+              - cell "15" [ref=f115e467]
+              - cell "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF Test test.firstname30" [ref=f115e468]:
+                - link "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF Test" [ref=f115e469] [cursor=pointer]:
+                  - /url: /rf_customers/21
+                - generic [ref=f115e470]: test.firstname30
+              - cell [ref=f115e471]:
+                - link "test.firstname30@test.local" [ref=f115e472] [cursor=pointer]:
+                  - /url: mailto:test.firstname30@test.local
+              - cell "—" [ref=f115e473]
+              - cell "—" [ref=f115e474]
+              - cell "0" [ref=f115e475]
+              - cell "0" [ref=f115e476]
+              - cell "Never" [ref=f115e477]
+              - cell [ref=f115e478]:
+                - generic [ref=f115e479]:
+                  - link "Customer details" [ref=f115e480] [cursor=pointer]:
+                    - /url: /rf_customers/21
+                  - link "Edit" [ref=f115e484] [cursor=pointer]:
+                    - /url: /rf_customers/21/edit
+                  - link "Delete" [ref=f115e487] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f115e491]:
+              - cell "16" [ref=f115e492]
+              - cell "<script>alert(1)</script> XssTest test.xss.name" [ref=f115e493]:
+                - link "<script>alert(1)</script> XssTest" [ref=f115e494] [cursor=pointer]:
+                  - /url: /rf_customers/25
+                - generic [ref=f115e495]: test.xss.name
+              - cell [ref=f115e496]:
+                - link "test.xssname@test.local" [ref=f115e497] [cursor=pointer]:
+                  - /url: mailto:test.xssname@test.local
+              - cell "—" [ref=f115e498]
+              - cell "—" [ref=f115e499]
+              - cell "0" [ref=f115e500]
+              - cell "0" [ref=f115e501]
+              - cell "Never" [ref=f115e502]
+              - cell [ref=f115e503]:
+                - generic [ref=f115e504]:
+                  - link "Customer details" [ref=f115e505] [cursor=pointer]:
+                    - /url: /rf_customers/25
+                  - link "Edit" [ref=f115e509] [cursor=pointer]:
+                    - /url: /rf_customers/25/edit
+                  - link "Delete" [ref=f115e512] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f115e516]:
+          - list
+          - generic [ref=f115e517]: (1-16/16)
+    - generic [ref=f115e518]:
+      - text: Powered by
+      - link "Redmine" [ref=f115e519] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f115e520]
+  - log [ref=f115e521]
+  - log [ref=f115e522]
+  - log [ref=f115e523]
+  - log [ref=f115e524]
+  - log [ref=f115e525]
+  - log [ref=f115e526]
+  - log [ref=f115e527]
+  - log [ref=f115e528]
+  - log [ref=f115e529]
+  - log [ref=f115e530]
+  - log [ref=f115e531]
+  - log [ref=f115e532]
+  - log [ref=f115e533]
+  - log [ref=f115e534]
+  - log [ref=f115e535]
+  - log [ref=f115e536]
+  - log [ref=f115e537]
+  - log [ref=f115e538]
+  - log [ref=f115e539]
+  - log [ref=f115e540]
+  - log [ref=f115e541]
+  - log [ref=f115e542]
+  - log [ref=f115e543]
+  - log [ref=f115e544]
+  - log [ref=f115e545]
+  - log [ref=f115e546]
+  - log [ref=f115e547]
+  - log [ref=f115e548]
+  - log [ref=f115e549]
+  - log [ref=f115e550]
+  - log [ref=f115e551]
+  - log [ref=f115e552]
+  - log [ref=f115e553]
+  - log [ref=f115e554]
+  - log [ref=f115e555]
+  - log [ref=f115e556]
+  - log [ref=f115e557]
+  - log [ref=f115e558]
+  - log [ref=f115e559]
+  - log [ref=f115e560]
+  - log [ref=f115e561]
+  - log [ref=f115e562]
+  - log [ref=f115e563]
+  - log [ref=f115e564]
+  - log [ref=f115e565]
+  - log [ref=f115e566]
+  - log [ref=f115e567]
+  - log [ref=f115e568]
+  - log [ref=f115e569]
+  - log [ref=f115e570]
+  - log [ref=f115e571]
+  - log [ref=f115e572]
+  - log [ref=f115e573]
+  - log [ref=f115e574]
+  - log [ref=f115e575]
+  - log [ref=f115e576]
+  - log [ref=f115e577]
+  - log [ref=f115e578]
+  - log [ref=f115e579]

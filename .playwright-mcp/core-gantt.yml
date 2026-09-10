@@ -1,0 +1,2746 @@
+- generic [active] [ref=f215e1]:
+  - generic [ref=f215e2]:
+    - navigation [ref=f215e3]:
+      - generic [ref=f215e4]:
+        - link [ref=f215e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f215e7] [cursor=pointer]
+      - list [ref=f215e17]:
+        - listitem [ref=f215e18]:
+          - link "Hauptseite" [ref=f215e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f215e20]:
+          - link "Meine Seite" [ref=f215e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f215e22]:
+          - link "Projekte" [ref=f215e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f215e24]:
+          - link "Agile Board" [ref=f215e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f215e26]:
+          - link "Flux Gantt" [ref=f215e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f215e28]:
+          - link "Administration" [ref=f215e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f215e30]:
+          - link "Hilfe" [ref=f215e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f215e32]:
+        - generic [ref=f215e33]:
+          - generic [ref=f215e34] [cursor=pointer]: Zu einem Projekt springen...
+          - text: ✓
+        - button "Suche" [ref=f215e35]
+        - link "Mein Konto" [ref=f215e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f215e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f215e44]:
+      - generic [ref=f215e45]:
+        - generic [ref=f215e46]:
+          - heading "Redmine" [level=1] [ref=f215e47]
+          - generic [ref=f215e48]:
+            - generic [ref=f215e49]: Hauptmenü
+            - list [ref=f215e51]:
+              - listitem [ref=f215e52]:
+                - link "Projekte" [ref=f215e53] [cursor=pointer]:
+                  - /url: /projects
+              - listitem [ref=f215e61]:
+                - link "Aktivität" [ref=f215e62] [cursor=pointer]:
+                  - /url: /activity
+              - listitem [ref=f215e67]:
+                - link "Tickets" [ref=f215e68] [cursor=pointer]:
+                  - /url: /issues
+              - listitem [ref=f215e73]:
+                - link "Aufgewendete Zeit" [ref=f215e74] [cursor=pointer]:
+                  - /url: /time_entries
+              - listitem [ref=f215e79]:
+                - link "Gantt-Diagramm" [ref=f215e80] [cursor=pointer]:
+                  - /url: /issues/gantt
+              - listitem [ref=f215e88]:
+                - link "Kalender" [ref=f215e89] [cursor=pointer]:
+                  - /url: /issues/calendar
+              - listitem [ref=f215e94]:
+                - link "News" [ref=f215e95] [cursor=pointer]:
+                  - /url: /news
+        - generic [ref=f215e101]:
+          - heading "Abfragen" [level=3] [ref=f215e102]
+          - list [ref=f215e103]:
+            - listitem [ref=f215e104]:
+              - link "Issues assigned to me" [ref=f215e105] [cursor=pointer]:
+                - /url: /issues/gantt?query_id=1
+            - listitem [ref=f215e106]:
+              - link "Reported issues" [ref=f215e107] [cursor=pointer]:
+                - /url: /issues/gantt?query_id=2
+            - listitem [ref=f215e108]:
+              - link "Updated issues" [ref=f215e109] [cursor=pointer]:
+                - /url: /issues/gantt?query_id=3
+            - listitem [ref=f215e110]:
+              - link "Watched issues" [ref=f215e111] [cursor=pointer]:
+                - /url: /issues/gantt?query_id=4
+      - generic [ref=f215e112]:
+        - button "Filter" [ref=f215e114] [cursor=pointer]
+        - heading "Gantt-Diagramm" [level=2] [ref=f215e115]
+        - table [ref=f215e116]:
+          - rowgroup [ref=f215e117]:
+            - row [ref=f215e118]:
+              - cell [ref=f215e119]:
+                - generic [ref=f215e120]:
+                  - generic:
+                    - generic:
+                      - generic [ref=f215e123]:
+                        - generic [ref=f215e124] [cursor=pointer]
+                        - link "Agile Board Project" [ref=f215e130] [cursor=pointer]:
+                          - /url: /projects/agileboard
+                      - generic "QA Quick Add Test" [ref=f215e131]:
+                        - generic [ref=f215e132]:
+                          - 'img "Zugewiesen an: Aurora Wren" [ref=f215e133]': AW
+                          - 'link "Feature #266" [ref=f215e134] [cursor=pointer]':
+                            - /url: /issues/266
+                          - text: ": QA Quick Add Test"
+                      - generic "Integrate payment gateway for subscriptions" [ref=f215e135]:
+                        - generic [ref=f215e136]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e137]': SR
+                          - 'link "Feature #106" [ref=f215e138] [cursor=pointer]':
+                            - /url: /issues/106
+                          - text: ": Integrate payment gateway for subscriptions"
+                      - generic "Analyze database schema for optimization" [ref=f215e139]:
+                        - generic [ref=f215e140]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e141]': SR
+                          - 'link "Support #114" [ref=f215e142] [cursor=pointer]':
+                            - /url: /issues/114
+                          - text: ": Analyze database schema for optimization"
+                      - generic "Implement data export templates" [ref=f215e143]:
+                        - generic [ref=f215e144]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e145]': RA
+                          - 'link "Feature #256" [ref=f215e146] [cursor=pointer]':
+                            - /url: /issues/256
+                          - text: ": Implement data export templates"
+                      - generic "Fix CSV encoding issues" [ref=f215e147]:
+                        - generic [ref=f215e148]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e149]': RA
+                          - 'link "Bug #257" [ref=f215e150] [cursor=pointer]':
+                            - /url: /issues/257
+                          - text: ": Fix CSV encoding issues"
+                      - generic "Add Excel export formatting" [ref=f215e151]:
+                        - generic [ref=f215e152]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e153]': RA
+                          - 'link "Feature #258" [ref=f215e154] [cursor=pointer]':
+                            - /url: /issues/258
+                          - text: ": Add Excel export formatting"
+                      - generic "Implement scheduled exports" [ref=f215e155]:
+                        - generic [ref=f215e156]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e157]': RA
+                          - 'link "Feature #259" [ref=f215e158] [cursor=pointer]':
+                            - /url: /issues/259
+                          - text: ": Implement scheduled exports"
+                      - generic "Fix export performance" [ref=f215e159]:
+                        - generic [ref=f215e160]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e161]': RA
+                          - 'link "Bug #260" [ref=f215e162] [cursor=pointer]':
+                            - /url: /issues/260
+                          - text: ": Fix export performance"
+                      - generic [ref=f215e163]:
+                        - generic [ref=f215e164] [cursor=pointer]
+                        - link "Education and training3" [ref=f215e170] [cursor=pointer]:
+                          - /url: /projects/edandt
+                      - generic "Add multi-language support to forms" [ref=f215e171]:
+                        - generic [ref=f215e172]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e173]': DS
+                          - 'link "Feature #103" [ref=f215e174] [cursor=pointer]':
+                            - /url: /issues/103
+                          - text: ": Add multi-language support to forms"
+                      - generic "Create automated test cases for issues" [ref=f215e175]:
+                        - generic [ref=f215e176]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e177]': AG
+                          - 'link "Support #111" [ref=f215e178] [cursor=pointer]':
+                            - /url: /issues/111
+                          - text: ": Create automated test cases for issues"
+                      - generic "Develop a reporting dashboard" [ref=f215e179]:
+                        - generic [ref=f215e180]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e181]': LB
+                          - 'link "Bug #119" [ref=f215e182] [cursor=pointer]':
+                            - /url: /issues/119
+                          - text: ": Develop a reporting dashboard"
+                      - generic "The issue should be created with a project" [ref=f215e183]:
+                        - generic [ref=f215e184]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e185]': AG
+                          - 'link "Bug #19" [ref=f215e186] [cursor=pointer]':
+                            - /url: /issues/19
+                          - text: ": The issue should be created with a project"
+                      - generic "Project name should be added with project id" [ref=f215e187]:
+                        - generic [ref=f215e188]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e189]': WB
+                          - 'link "Support #21" [ref=f215e190] [cursor=pointer]':
+                            - /url: /issues/21
+                          - text: ": Project name should be added with project id"
+                      - generic "To implement project name" [ref=f215e191]:
+                        - generic [ref=f215e192]:
+                          - 'img "Zugewiesen an: Harmony Rose" [ref=f215e193]': HR
+                          - 'link "Bug #23" [ref=f215e194] [cursor=pointer]':
+                            - /url: /issues/23
+                          - text: ": To implement project name"
+                      - generic "Validate project assignment workflow" [ref=f215e195]:
+                        - generic [ref=f215e196]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e197]': AG
+                          - 'link "Bug #44" [ref=f215e198] [cursor=pointer]':
+                            - /url: /issues/44
+                          - text: ": Validate project assignment workflow"
+                      - generic "Add project name validation" [ref=f215e199]:
+                        - generic [ref=f215e200]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e201]': WB
+                          - 'link "Support #46" [ref=f215e202] [cursor=pointer]':
+                            - /url: /issues/46
+                          - text: ": Add project name validation"
+                      - generic "Fix project name encoding" [ref=f215e203]:
+                        - generic [ref=f215e204]:
+                          - 'img "Zugewiesen an: Harmony Rose" [ref=f215e205]': HR
+                          - 'link "Bug #48" [ref=f215e206] [cursor=pointer]':
+                            - /url: /issues/48
+                          - text: ": Fix project name encoding"
+                      - generic "Implement caching for API responses" [ref=f215e207]:
+                        - generic [ref=f215e208]:
+                          - 'img "Zugewiesen an: Aurora Wren" [ref=f215e209]': AW
+                          - 'link "Bug #56" [ref=f215e210] [cursor=pointer]':
+                            - /url: /issues/56
+                          - text: ": Implement caching for API responses"
+                      - generic "Integrate payment gateway" [ref=f215e211]:
+                        - generic [ref=f215e212]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e213]': WB
+                          - 'link "Bug #64" [ref=f215e214] [cursor=pointer]':
+                            - /url: /issues/64
+                          - text: ": Integrate payment gateway"
+                      - generic "Fix UI alignment issues" [ref=f215e215]:
+                        - generic [ref=f215e216]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e217]': WB
+                          - 'link "Bug #74" [ref=f215e218] [cursor=pointer]':
+                            - /url: /issues/74
+                          - text: ": Fix UI alignment issues"
+                      - generic "Validate project assignment workflow" [ref=f215e219]:
+                        - generic [ref=f215e220]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e221]': AG
+                          - 'link "Bug #90" [ref=f215e222] [cursor=pointer]':
+                            - /url: /issues/90
+                          - text: ": Validate project assignment workflow"
+                      - generic "Add project name validation" [ref=f215e223]:
+                        - generic [ref=f215e224]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e225]': WB
+                          - 'link "Support #92" [ref=f215e226] [cursor=pointer]':
+                            - /url: /issues/92
+                          - text: ": Add project name validation"
+                      - generic "Fix project name encoding" [ref=f215e227]:
+                        - generic [ref=f215e228]:
+                          - 'img "Zugewiesen an: Harmony Rose" [ref=f215e229]': HR
+                          - 'link "Bug #94" [ref=f215e230] [cursor=pointer]':
+                            - /url: /issues/94
+                          - text: ": Fix project name encoding"
+                      - generic "Fix time entry rounding" [ref=f215e231]:
+                        - generic [ref=f215e232]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e233]': NS
+                          - 'link "Bug #170" [ref=f215e234] [cursor=pointer]':
+                            - /url: /issues/170
+                          - text: ": Fix time entry rounding"
+                      - generic "Implement billing report generation" [ref=f215e235]:
+                        - generic [ref=f215e236]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e237]': SB
+                          - 'link "Feature #169" [ref=f215e238] [cursor=pointer]':
+                            - /url: /issues/169
+                          - text: ": Implement billing report generation"
+                      - generic "Add overtime calculation" [ref=f215e239]:
+                        - generic [ref=f215e240]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e241]': CD
+                          - 'link "Feature #168" [ref=f215e242] [cursor=pointer]':
+                            - /url: /issues/168
+                          - text: ": Add overtime calculation"
+                      - generic "Fix timesheet approval workflow" [ref=f215e243]:
+                        - generic [ref=f215e244]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f215e245]': VE
+                          - 'link "Bug #167" [ref=f215e246] [cursor=pointer]':
+                            - /url: /issues/167
+                          - text: ": Fix timesheet approval workflow"
+                      - generic "Implement time tracking integration" [ref=f215e247]:
+                        - generic [ref=f215e248]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e249]': SR
+                          - 'link "Feature #166" [ref=f215e250] [cursor=pointer]':
+                            - /url: /issues/166
+                          - text: ": Implement time tracking integration"
+                      - generic "Optimize image upload processing" [ref=f215e251]:
+                        - generic [ref=f215e252]:
+                          - 'img "Zugewiesen an: Marigold Rayne" [ref=f215e253]': MR
+                          - 'link "Bug #136" [ref=f215e254] [cursor=pointer]':
+                            - /url: /issues/136
+                          - text: ": Optimize image upload processing"
+                      - generic "Implement file type validation" [ref=f215e255]:
+                        - generic [ref=f215e256]:
+                          - 'img "Zugewiesen an: Marigold Rayne" [ref=f215e257]': MR
+                          - 'link "Feature #137" [ref=f215e258] [cursor=pointer]':
+                            - /url: /issues/137
+                          - text: ": Implement file type validation"
+                      - generic "Implement file previews" [ref=f215e259]:
+                        - generic [ref=f215e260]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e261]': RA
+                          - 'link "Feature #196" [ref=f215e262] [cursor=pointer]':
+                            - /url: /issues/196
+                          - text: ": Implement file previews"
+                      - generic "Add drag and drop file upload" [ref=f215e263]:
+                        - generic [ref=f215e264]:
+                          - 'img "Zugewiesen an: Marigold Rayne" [ref=f215e265]': MR
+                          - 'link "Feature #138" [ref=f215e266] [cursor=pointer]':
+                            - /url: /issues/138
+                          - text: ": Add drag and drop file upload"
+                      - generic "Fix file storage cleanup" [ref=f215e267]:
+                        - generic [ref=f215e268]:
+                          - 'img "Zugewiesen an: Marigold Rayne" [ref=f215e269]': MR
+                          - 'link "Bug #139" [ref=f215e270] [cursor=pointer]':
+                            - /url: /issues/139
+                          - text: ": Fix file storage cleanup"
+                      - generic "Fix PDF rendering issues" [ref=f215e271]:
+                        - generic [ref=f215e272]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e273]': RA
+                          - 'link "Bug #197" [ref=f215e274] [cursor=pointer]':
+                            - /url: /issues/197
+                          - text: ": Fix PDF rendering issues"
+                      - generic "Implement cloud storage integration" [ref=f215e275]:
+                        - generic [ref=f215e276]:
+                          - 'img "Zugewiesen an: Marigold Rayne" [ref=f215e277]': MR
+                          - 'link "Feature #140" [ref=f215e278] [cursor=pointer]':
+                            - /url: /issues/140
+                          - text: ": Implement cloud storage integration"
+                      - generic "Add video thumbnails" [ref=f215e279]:
+                        - generic [ref=f215e280]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e281]': RA
+                          - 'link "Feature #198" [ref=f215e282] [cursor=pointer]':
+                            - /url: /issues/198
+                          - text: ": Add video thumbnails"
+                      - generic "Implement document annotation" [ref=f215e283]:
+                        - generic [ref=f215e284]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e285]': RA
+                          - 'link "Feature #199" [ref=f215e286] [cursor=pointer]':
+                            - /url: /issues/199
+                          - text: ": Implement document annotation"
+                      - generic "Fix image compression" [ref=f215e287]:
+                        - generic [ref=f215e288]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e289]': RA
+                          - 'link "Bug #200" [ref=f215e290] [cursor=pointer]':
+                            - /url: /issues/200
+                          - text: ": Fix image compression"
+                      - generic "Project id should appear in issues" [ref=f215e291]:
+                        - generic [ref=f215e292]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e293]': AG
+                          - 'link "Bug #20" [ref=f215e294] [cursor=pointer]':
+                            - /url: /issues/20
+                          - text: ": Project id should appear in issues"
+                      - generic "Project name should appear in issues" [ref=f215e295]:
+                        - generic [ref=f215e296]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e297]': WB
+                          - 'link "Feature #22" [ref=f215e298] [cursor=pointer]':
+                            - /url: /issues/22
+                          - text: ": Project name should appear in issues"
+                      - generic "Implement project ID validation" [ref=f215e299]:
+                        - generic [ref=f215e300]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e301]': AG
+                          - 'link "Bug #45" [ref=f215e302] [cursor=pointer]':
+                            - /url: /issues/45
+                          - text: ": Implement project ID validation"
+                      - generic "Implement project name display" [ref=f215e303]:
+                        - generic [ref=f215e304]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e305]': WB
+                          - 'link "Feature #47" [ref=f215e306] [cursor=pointer]':
+                            - /url: /issues/47
+                          - text: ": Implement project name display"
+                      - generic "Optimize image loading on the website" [ref=f215e307]:
+                        - generic [ref=f215e308]:
+                          - 'img "Zugewiesen an: Aurora Wren" [ref=f215e309]': AW
+                          - 'link "Bug #59" [ref=f215e310] [cursor=pointer]':
+                            - /url: /issues/59
+                          - text: ": Optimize image loading on the website"
+                      - generic "Set up CI/CD pipeline" [ref=f215e311]:
+                        - generic [ref=f215e312]:
+                          - 'img "Zugewiesen an: Ivy Skylark" [ref=f215e313]': IS
+                          - 'link "Bug #67" [ref=f215e314] [cursor=pointer]':
+                            - /url: /issues/67
+                          - text: ": Set up CI/CD pipeline"
+                      - generic "Develop a mobile-friendly layout" [ref=f215e315]:
+                        - generic [ref=f215e316]:
+                          - 'img "Zugewiesen an: Ivy Skylark" [ref=f215e317]': IS
+                          - 'link "Bug #69" [ref=f215e318] [cursor=pointer]':
+                            - /url: /issues/69
+                          - text: ": Develop a mobile-friendly layout"
+                      - generic "Optimize database queries" [ref=f215e319]:
+                        - generic [ref=f215e320]:
+                          - 'img "Zugewiesen an: Ivy Skylark" [ref=f215e321]': IS
+                          - 'link "Bug #71" [ref=f215e322] [cursor=pointer]':
+                            - /url: /issues/71
+                          - text: ": Optimize database queries"
+                      - generic "Implement project ID validation" [ref=f215e323]:
+                        - generic [ref=f215e324]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e325]': AG
+                          - 'link "Bug #91" [ref=f215e326] [cursor=pointer]':
+                            - /url: /issues/91
+                          - text: ": Implement project ID validation"
+                      - generic "Implement project name display" [ref=f215e327]:
+                        - generic [ref=f215e328]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e329]': WB
+                          - 'link "Feature #93" [ref=f215e330] [cursor=pointer]':
+                            - /url: /issues/93
+                          - text: ": Implement project name display"
+                      - generic [ref=f215e331]:
+                        - generic [ref=f215e332] [cursor=pointer]
+                        - link "Flux Gantt Project" [ref=f215e338] [cursor=pointer]:
+                          - /url: /projects/fluxganttproject
+                      - generic "Optimize image loading for gallery" [ref=f215e339]:
+                        - generic [ref=f215e340]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e341]': SB
+                          - 'link "Bug #107" [ref=f215e342] [cursor=pointer]':
+                            - /url: /issues/107
+                          - text: ": Optimize image loading for gallery"
+                      - generic "Set up CI/CD pipeline for deployment" [ref=f215e343]:
+                        - generic [ref=f215e344]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f215e345]': VE
+                          - 'link "Feature #115" [ref=f215e346] [cursor=pointer]':
+                            - /url: /issues/115
+                          - text: ": Set up CI/CD pipeline for deployment"
+                      - generic "Implement audit trail" [ref=f215e347]:
+                        - generic [ref=f215e348]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e349]': NS
+                          - 'link "Feature #261" [ref=f215e350] [cursor=pointer]':
+                            - /url: /issues/261
+                          - text: ": Implement audit trail"
+                      - generic "Fix change detection" [ref=f215e351]:
+                        - generic [ref=f215e352]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e353]': SB
+                          - 'link "Bug #262" [ref=f215e354] [cursor=pointer]':
+                            - /url: /issues/262
+                          - text: ": Fix change detection"
+                      - generic "Add change comments" [ref=f215e355]:
+                        - generic [ref=f215e356]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e357]': CD
+                          - 'link "Feature #263" [ref=f215e358] [cursor=pointer]':
+                            - /url: /issues/263
+                          - text: ": Add change comments"
+                      - generic "Implement rollback functionality" [ref=f215e359]:
+                        - generic [ref=f215e360]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f215e361]': VE
+                          - 'link "Feature #264" [ref=f215e362] [cursor=pointer]':
+                            - /url: /issues/264
+                          - text: ": Implement rollback functionality"
+                      - generic "Fix audit log performance" [ref=f215e363]:
+                        - generic [ref=f215e364]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e365]': SR
+                          - 'link "Bug #265" [ref=f215e366] [cursor=pointer]':
+                            - /url: /issues/265
+                          - text: ": Fix audit log performance"
+                      - generic [ref=f215e367]:
+                        - generic [ref=f215e368] [cursor=pointer]
+                        - link "Flux Gantt Project - Version 2" [ref=f215e373] [cursor=pointer]:
+                          - /url: /versions/2
+                      - generic "create a agile issue status column setting" [ref=f215e374]:
+                        - generic [ref=f215e375]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e376]': SR
+                          - 'link "Feature #241" [ref=f215e377] [cursor=pointer]':
+                            - /url: /issues/241
+                          - text: ": create a agile issue status column setting"
+                      - generic "create a agile card field column setting" [ref=f215e378]:
+                        - generic [ref=f215e379]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e380]': SR
+                          - 'link "Feature #242" [ref=f215e381] [cursor=pointer]':
+                            - /url: /issues/242
+                          - text: ": create a agile card field column setting"
+                      - generic "create a demo server for agile" [ref=f215e382]:
+                        - generic [ref=f215e383]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f215e384]': VE
+                          - 'link "Feature #243" [ref=f215e385] [cursor=pointer]':
+                            - /url: /issues/243
+                          - text: ": create a demo server for agile"
+                      - generic "implement wip functionality" [ref=f215e386]:
+                        - generic [ref=f215e387]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f215e388]': VE
+                          - 'link "Feature #244" [ref=f215e389] [cursor=pointer]':
+                            - /url: /issues/244
+                          - text: ": implement wip functionality"
+                      - generic "update agile setting" [ref=f215e390]:
+                        - generic [ref=f215e391]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e392]': CD
+                          - 'link "Feature #245" [ref=f215e393] [cursor=pointer]':
+                            - /url: /issues/245
+                          - text: ": update agile setting"
+                      - generic "added a agile config form" [ref=f215e394]:
+                        - generic [ref=f215e395]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e396]': CD
+                          - 'link "Feature #246" [ref=f215e397] [cursor=pointer]':
+                            - /url: /issues/246
+                          - text: ": added a agile config form"
+                      - generic "Total time update on scroll" [ref=f215e398]:
+                        - generic [ref=f215e399]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e400]': SB
+                          - 'link "Feature #248" [ref=f215e401] [cursor=pointer]':
+                            - /url: /issues/248
+                          - text: ": Total time update on scroll"
+                      - generic "card fiels are show according to project" [ref=f215e402]:
+                        - generic [ref=f215e403]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e404]': NS
+                          - 'link "Feature #249" [ref=f215e405] [cursor=pointer]':
+                            - /url: /issues/249
+                          - text: ": card fiels are show according to project"
+                      - generic "Issue status are show according to project" [ref=f215e406]:
+                        - generic [ref=f215e407]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e408]': NS
+                          - 'link "Feature #250" [ref=f215e409] [cursor=pointer]':
+                            - /url: /issues/250
+                          - text: ": Issue status are show according to project"
+                      - generic "Agile board card create" [ref=f215e410]:
+                        - generic [ref=f215e411]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e412]': SB
+                          - 'link "Feature #247" [ref=f215e413] [cursor=pointer]':
+                            - /url: /issues/247
+                          - text: ": Agile board card create"
+                      - generic [ref=f215e414]:
+                        - generic [ref=f215e415] [cursor=pointer]
+                        - link "HR management2" [ref=f215e421] [cursor=pointer]:
+                          - /url: /projects/hrmngmt
+                      - generic "Enhance UI for task management" [ref=f215e422]:
+                        - generic [ref=f215e423]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f215e424]': VE
+                          - 'link "Bug #102" [ref=f215e425] [cursor=pointer]':
+                            - /url: /issues/102
+                          - text: ": Enhance UI for task management"
+                      - generic "Enhance security for file uploads" [ref=f215e426]:
+                        - generic [ref=f215e427]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e428]': DS
+                          - 'link "Bug #110" [ref=f215e429] [cursor=pointer]':
+                            - /url: /issues/110
+                          - text: ": Enhance security for file uploads"
+                      - generic "Add support for file versioning" [ref=f215e430]:
+                        - generic [ref=f215e431]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e432]': NS
+                          - 'link "Feature #118" [ref=f215e433] [cursor=pointer]':
+                            - /url: /issues/118
+                          - text: ": Add support for file versioning"
+                      - generic "Create user account" [ref=f215e434]:
+                        - generic [ref=f215e435]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e436]': LB
+                          - 'link "Bug #15" [ref=f215e437] [cursor=pointer]':
+                            - /url: /issues/15
+                          - text: ": Create user account"
+                      - generic "All the projects should appear in project search" [ref=f215e438]:
+                        - generic [ref=f215e439]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e440]': DS
+                          - 'link "Support #17" [ref=f215e441] [cursor=pointer]':
+                            - /url: /issues/17
+                          - text: ": All the projects should appear in project search"
+                      - generic "Implement user account verification" [ref=f215e442]:
+                        - generic [ref=f215e443]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e444]': LB
+                          - 'link "Bug #40" [ref=f215e445] [cursor=pointer]':
+                            - /url: /issues/40
+                          - text: ": Implement user account verification"
+                      - generic "Implement project search filters" [ref=f215e446]:
+                        - generic [ref=f215e447]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e448]': DS
+                          - 'link "Support #42" [ref=f215e449] [cursor=pointer]':
+                            - /url: /issues/42
+                          - text: ": Implement project search filters"
+                      - generic "Refactor authentication module" [ref=f215e450]:
+                        - generic [ref=f215e451]:
+                          - 'img "Zugewiesen an: Aurora Wren" [ref=f215e452]': AW
+                          - 'link "Bug #58" [ref=f215e453] [cursor=pointer]':
+                            - /url: /issues/58
+                          - text: ": Refactor authentication module"
+                      - generic "Develop a reporting dashboard" [ref=f215e454]:
+                        - generic [ref=f215e455]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e456]': NS
+                          - 'link "Bug #60" [ref=f215e457] [cursor=pointer]':
+                            - /url: /issues/60
+                          - text: ": Develop a reporting dashboard"
+                      - generic "Implement user account verification" [ref=f215e458]:
+                        - generic [ref=f215e459]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e460]': LB
+                          - 'link "Bug #86" [ref=f215e461] [cursor=pointer]':
+                            - /url: /issues/86
+                          - text: ": Implement user account verification"
+                      - generic "Implement project search filters" [ref=f215e462]:
+                        - generic [ref=f215e463]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e464]': DS
+                          - 'link "Support #88" [ref=f215e465] [cursor=pointer]':
+                            - /url: /issues/88
+                          - text: ": Implement project search filters"
+                      - generic "Implement task dependency system" [ref=f215e466]:
+                        - generic [ref=f215e467]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e468]': LB
+                          - 'link "Feature #161" [ref=f215e469] [cursor=pointer]':
+                            - /url: /issues/161
+                          - text: ": Implement task dependency system"
+                      - generic "Fix Gantt chart rendering" [ref=f215e470]:
+                        - generic [ref=f215e471]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e472]': DS
+                          - 'link "Bug #162" [ref=f215e473] [cursor=pointer]':
+                            - /url: /issues/162
+                          - text: ": Fix Gantt chart rendering"
+                      - generic "Implement comment threading" [ref=f215e474]:
+                        - generic [ref=f215e475]:
+                          - 'img "Zugewiesen an: Briar Sunset" [ref=f215e476]': BS
+                          - 'link "Feature #191" [ref=f215e477] [cursor=pointer]':
+                            - /url: /issues/191
+                          - text: ": Implement comment threading"
+                      - generic "Implement API rate limiting" [ref=f215e478]:
+                        - generic [ref=f215e479]:
+                          - 'img "Zugewiesen an: Sage Willow" [ref=f215e480]': SW
+                          - 'link "Feature #131" [ref=f215e481] [cursor=pointer]':
+                            - /url: /issues/131
+                          - text: ": Implement API rate limiting"
+                      - generic "Add milestone tracking" [ref=f215e482]:
+                        - generic [ref=f215e483]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e484]': AG
+                          - 'link "Feature #163" [ref=f215e485] [cursor=pointer]':
+                            - /url: /issues/163
+                          - text: ": Add milestone tracking"
+                      - generic "Implement critical path analysis" [ref=f215e486]:
+                        - generic [ref=f215e487]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e488]': WB
+                          - 'link "Feature #164" [ref=f215e489] [cursor=pointer]':
+                            - /url: /issues/164
+                          - text: ": Implement critical path analysis"
+                      - generic "Fix mention notifications" [ref=f215e490]:
+                        - generic [ref=f215e491]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e492]': WB
+                          - 'link "Bug #192" [ref=f215e493] [cursor=pointer]':
+                            - /url: /issues/192
+                          - text: ": Fix mention notifications"
+                      - generic "Fix CORS configuration issues" [ref=f215e494]:
+                        - generic [ref=f215e495]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e496]': RA
+                          - 'link "Bug #132" [ref=f215e497] [cursor=pointer]':
+                            - /url: /issues/132
+                          - text: ": Fix CORS configuration issues"
+                      - generic "Fix task completion calculation" [ref=f215e498]:
+                        - generic [ref=f215e499]:
+                          - 'img "Zugewiesen an: Harmony Rose" [ref=f215e500]': HR
+                          - 'link "Bug #165" [ref=f215e501] [cursor=pointer]':
+                            - /url: /issues/165
+                          - text: ": Fix task completion calculation"
+                      - generic "Add comment reactions" [ref=f215e502]:
+                        - generic [ref=f215e503]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e504]': AG
+                          - 'link "Feature #193" [ref=f215e505] [cursor=pointer]':
+                            - /url: /issues/193
+                          - text: ": Add comment reactions"
+                      - generic "Add API documentation" [ref=f215e506]:
+                        - generic [ref=f215e507]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e508]': NS
+                          - 'link "Support #133" [ref=f215e509] [cursor=pointer]':
+                            - /url: /issues/133
+                          - text: ": Add API documentation"
+                      - generic "Implement comment editing" [ref=f215e510]:
+                        - generic [ref=f215e511]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e512]': DS
+                          - 'link "Feature #194" [ref=f215e513] [cursor=pointer]':
+                            - /url: /issues/194
+                          - text: ": Implement comment editing"
+                      - generic "Implement API versioning" [ref=f215e514]:
+                        - generic [ref=f215e515]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e516]': SB
+                          - 'link "Feature #134" [ref=f215e517] [cursor=pointer]':
+                            - /url: /issues/134
+                          - text: ": Implement API versioning"
+                      - generic "Fix comment sorting" [ref=f215e518]:
+                        - generic [ref=f215e519]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e520]': LB
+                          - 'link "Bug #195" [ref=f215e521] [cursor=pointer]':
+                            - /url: /issues/195
+                          - text: ": Fix comment sorting"
+                      - generic "Fix JSON parsing errors" [ref=f215e522]:
+                        - generic [ref=f215e523]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e524]': CD
+                          - 'link "Bug #135" [ref=f215e525] [cursor=pointer]':
+                            - /url: /issues/135
+                          - text: ": Fix JSON parsing errors"
+                      - generic "Design a new issue modal" [ref=f215e526]:
+                        - generic [ref=f215e527]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e528]': LB
+                          - 'link "Bug #16" [ref=f215e529] [cursor=pointer]':
+                            - /url: /issues/16
+                          - text: ": Design a new issue modal"
+                      - generic "The project should be visible in issues" [ref=f215e530]:
+                        - generic [ref=f215e531]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e532]': DS
+                          - 'link "Feature #18" [ref=f215e533] [cursor=pointer]':
+                            - /url: /issues/18
+                          - text: ": The project should be visible in issues"
+                      - generic "Design responsive issue modal" [ref=f215e534]:
+                        - generic [ref=f215e535]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e536]': LB
+                          - 'link "Bug #41" [ref=f215e537] [cursor=pointer]':
+                            - /url: /issues/41
+                          - text: ": Design responsive issue modal"
+                      - generic "Add project visibility controls" [ref=f215e538]:
+                        - generic [ref=f215e539]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e540]': DS
+                          - 'link "Feature #43" [ref=f215e541] [cursor=pointer]':
+                            - /url: /issues/43
+                          - text: ": Add project visibility controls"
+                      - generic "Analyze database schema for optimization" [ref=f215e542]:
+                        - generic [ref=f215e543]:
+                          - 'img "Zugewiesen an: Aurora Wren" [ref=f215e544]': AW
+                          - 'link "Bug #55" [ref=f215e545] [cursor=pointer]':
+                            - /url: /issues/55
+                          - text: ": Analyze database schema for optimization"
+                      - generic "Design user-friendly error pages" [ref=f215e546]:
+                        - generic [ref=f215e547]:
+                          - 'img "Zugewiesen an: Aurora Wren" [ref=f215e548]': AW
+                          - 'link "Bug #57" [ref=f215e549] [cursor=pointer]':
+                            - /url: /issues/57
+                          - text: ": Design user-friendly error pages"
+                      - generic "Add multi-language support" [ref=f215e550]:
+                        - generic [ref=f215e551]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e552]': AG
+                          - 'link "Bug #63" [ref=f215e553] [cursor=pointer]':
+                            - /url: /issues/63
+                          - text: ": Add multi-language support"
+                      - generic "Improve search functionality" [ref=f215e554]:
+                        - generic [ref=f215e555]:
+                          - 'img "Zugewiesen an: Ivy Skylark" [ref=f215e556]': IS
+                          - 'link "Bug #65" [ref=f215e557] [cursor=pointer]':
+                            - /url: /issues/65
+                          - text: ": Improve search functionality"
+                      - generic "Design responsive issue modal" [ref=f215e558]:
+                        - generic [ref=f215e559]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e560]': LB
+                          - 'link "Bug #87" [ref=f215e561] [cursor=pointer]':
+                            - /url: /issues/87
+                          - text: ": Design responsive issue modal"
+                      - generic "Add project visibility controls" [ref=f215e562]:
+                        - generic [ref=f215e563]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e564]': DS
+                          - 'link "Feature #89" [ref=f215e565] [cursor=pointer]':
+                            - /url: /issues/89
+                          - text: ": Add project visibility controls"
+                      - generic [ref=f215e566]:
+                        - generic [ref=f215e567] [cursor=pointer]
+                        - link "Helpdesk Service Desk" [ref=f215e573] [cursor=pointer]:
+                          - /url: /projects/helpdesk
+                      - generic "Fix rollback data corruption" [ref=f215e574]:
+                        - generic [ref=f215e575]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e576]': SB
+                          - 'link "Support #232" [ref=f215e577] [cursor=pointer]':
+                            - /url: /issues/232
+                          - text: ": Fix rollback data corruption"
+                      - generic "Add audit log filtering" [ref=f215e578]:
+                        - generic [ref=f215e579]:
+                          - 'img "Zugewiesen an: Selene Frost" [ref=f215e580]': SF
+                          - 'link "Support #231" [ref=f215e581] [cursor=pointer]':
+                            - /url: /issues/231
+                          - text: ": Add audit log filtering"
+                      - generic "Add multi-user change tracking" [ref=f215e582]:
+                        - generic [ref=f215e583]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e584]': CD
+                          - 'link "Support #233" [ref=f215e585] [cursor=pointer]':
+                            - /url: /issues/233
+                          - text: ": Add multi-user change tracking"
+                      - generic "Fix dashboard chart flickering" [ref=f215e586]:
+                        - generic [ref=f215e587]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e588]': AG
+                          - 'link "Support #238" [ref=f215e589] [cursor=pointer]':
+                            - /url: /issues/238
+                          - text: ": Fix dashboard chart flickering"
+                      - generic "Implement access control matrix" [ref=f215e590]:
+                        - generic [ref=f215e591]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e592]': SR
+                          - 'link "Support #235" [ref=f215e593] [cursor=pointer]':
+                            - /url: /issues/235
+                          - text: ": Implement access control matrix"
+                      - generic "Fix stale session logouts" [ref=f215e594]:
+                        - generic [ref=f215e595]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f215e596]': VE
+                          - 'link "Support #234" [ref=f215e597] [cursor=pointer]':
+                            - /url: /issues/234
+                          - text: ": Fix stale session logouts"
+                      - generic "Fix missing breadcrumb navigation" [ref=f215e598]:
+                        - generic [ref=f215e599]:
+                          - 'img "Zugewiesen an: Harmony Rose" [ref=f215e600]': HR
+                          - 'link "Support #240" [ref=f215e601] [cursor=pointer]':
+                            - /url: /issues/240
+                          - text: ": Fix missing breadcrumb navigation"
+                      - generic "Add API key management UI" [ref=f215e602]:
+                        - generic [ref=f215e603]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e604]': DS
+                          - 'link "Support #237" [ref=f215e605] [cursor=pointer]':
+                            - /url: /issues/237
+                          - text: ": Add API key management UI"
+                      - generic "Add role-based permissions editor" [ref=f215e606]:
+                        - generic [ref=f215e607]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e608]': WB
+                          - 'link "Support #239" [ref=f215e609] [cursor=pointer]':
+                            - /url: /issues/239
+                          - text: ": Add role-based permissions editor"
+                      - generic "Fix API rate limit enforcement" [ref=f215e610]:
+                        - generic [ref=f215e611]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e612]': LB
+                          - 'link "Support #236" [ref=f215e613] [cursor=pointer]':
+                            - /url: /issues/236
+                          - text: ": Fix API rate limit enforcement"
+                      - generic [ref=f215e614]:
+                        - generic [ref=f215e615] [cursor=pointer]
+                        - link "MVP build for PaySheet Application" [ref=f215e621] [cursor=pointer]:
+                          - /url: /projects/mvpbuild
+                      - generic "Develop API for user authentication" [ref=f215e622]:
+                        - generic [ref=f215e623]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e624]': WB
+                          - 'link "Bug #105" [ref=f215e625] [cursor=pointer]':
+                            - /url: /issues/105
+                          - text: ": Develop API for user authentication"
+                      - generic "Design user-friendly error pages" [ref=f215e626]:
+                        - generic [ref=f215e627]:
+                          - 'img "Zugewiesen an: Harmony Rose" [ref=f215e628]': HR
+                          - 'link "Bug #113" [ref=f215e629] [cursor=pointer]':
+                            - /url: /issues/113
+                          - text: ": Design user-friendly error pages"
+                      - generic "Testing issue for create" [ref=f215e630]:
+                        - generic [ref=f215e631]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e632]': RA
+                          - 'link "Bug #29" [ref=f215e633] [cursor=pointer]':
+                            - /url: /issues/29
+                          - text: ": Testing issue for create"
+                      - generic "Develop issue creation test suite" [ref=f215e634]:
+                        - generic [ref=f215e635]:
+                          - 'img "Zugewiesen an: Aurora Wren" [ref=f215e636]': AW
+                          - 'link "Bug #54" [ref=f215e637] [cursor=pointer]':
+                            - /url: /issues/54
+                          - text: ": Develop issue creation test suite"
+                      - generic "Fix search indexing performance" [ref=f215e638]:
+                        - generic [ref=f215e639]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e640]': NS
+                          - 'link "Bug #180" [ref=f215e641] [cursor=pointer]':
+                            - /url: /issues/180
+                          - text: ": Fix search indexing performance"
+                      - generic "Implement search history" [ref=f215e642]:
+                        - generic [ref=f215e643]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e644]': SB
+                          - 'link "Feature #179" [ref=f215e645] [cursor=pointer]':
+                            - /url: /issues/179
+                          - text: ": Implement search history"
+                      - generic "Add advanced search filters" [ref=f215e646]:
+                        - generic [ref=f215e647]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e648]': CD
+                          - 'link "Feature #178" [ref=f215e649] [cursor=pointer]':
+                            - /url: /issues/178
+                          - text: ": Add advanced search filters"
+                      - generic "Add weekly summary reports" [ref=f215e650]:
+                        - generic [ref=f215e651]:
+                          - 'img "Zugewiesen an: Selene Frost" [ref=f215e652]': SF
+                          - 'link "Feature #223" [ref=f215e653] [cursor=pointer]':
+                            - /url: /issues/223
+                          - text: ": Add weekly summary reports"
+                      - generic "Fix search result ranking" [ref=f215e654]:
+                        - generic [ref=f215e655]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f215e656]': VE
+                          - 'link "Bug #177" [ref=f215e657] [cursor=pointer]':
+                            - /url: /issues/177
+                          - text: ": Fix search result ranking"
+                      - generic "Fix user avatar loading" [ref=f215e658]:
+                        - generic [ref=f215e659]:
+                          - 'img "Zugewiesen an: Selene Frost" [ref=f215e660]': SF
+                          - 'link "Bug #224" [ref=f215e661] [cursor=pointer]':
+                            - /url: /issues/224
+                          - text: ": Fix user avatar loading"
+                      - generic "Redesign search interface" [ref=f215e662]:
+                        - generic [ref=f215e663]:
+                          - 'img "Zugewiesen an: Opal Sparrow" [ref=f215e664]': OS
+                          - 'link "Feature #176" [ref=f215e665] [cursor=pointer]':
+                            - /url: /issues/176
+                          - text: ": Redesign search interface"
+                      - generic "Enable multi-project reporting" [ref=f215e666]:
+                        - generic [ref=f215e667]:
+                          - 'img "Zugewiesen an: Selene Frost" [ref=f215e668]': SF
+                          - 'link "Feature #221" [ref=f215e669] [cursor=pointer]':
+                            - /url: /issues/221
+                          - text: ": Enable multi-project reporting"
+                      - generic "Implement real-time collaboration" [ref=f215e670]:
+                        - generic [ref=f215e671]:
+                          - 'img "Zugewiesen an: Selene Frost" [ref=f215e672]': SF
+                          - 'link "Feature #225" [ref=f215e673] [cursor=pointer]':
+                            - /url: /issues/225
+                          - text: ": Implement real-time collaboration"
+                      - generic "Fix notification email duplicates" [ref=f215e674]:
+                        - generic [ref=f215e675]:
+                          - 'img "Zugewiesen an: Selene Frost" [ref=f215e676]': SF
+                          - 'link "Bug #222" [ref=f215e677] [cursor=pointer]':
+                            - /url: /issues/222
+                          - text: ": Fix notification email duplicates"
+                      - generic "Implement real-time updates" [ref=f215e678]:
+                        - generic [ref=f215e679]:
+                          - 'img "Zugewiesen an: Isla Moon" [ref=f215e680]': IM
+                          - 'link "Feature #206" [ref=f215e681] [cursor=pointer]':
+                            - /url: /issues/206
+                          - text: ": Implement real-time updates"
+                      - generic "Implement dark mode UI" [ref=f215e682]:
+                        - generic [ref=f215e683]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e684]': LB
+                          - 'link "Feature #146" [ref=f215e685] [cursor=pointer]':
+                            - /url: /issues/146
+                          - text: ": Implement dark mode UI"
+                      - generic "Fix contrast ratio issues" [ref=f215e686]:
+                        - generic [ref=f215e687]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e688]': DS
+                          - 'link "Bug #147" [ref=f215e689] [cursor=pointer]':
+                            - /url: /issues/147
+                          - text: ": Fix contrast ratio issues"
+                      - generic "Add theme customization options" [ref=f215e690]:
+                        - generic [ref=f215e691]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e692]': AG
+                          - 'link "Feature #148" [ref=f215e693] [cursor=pointer]':
+                            - /url: /issues/148
+                          - text: ": Add theme customization options"
+                      - generic "Fix websocket connection drops" [ref=f215e694]:
+                        - generic [ref=f215e695]:
+                          - 'img "Zugewiesen an: Isla Moon" [ref=f215e696]': IM
+                          - 'link "Bug #207" [ref=f215e697] [cursor=pointer]':
+                            - /url: /issues/207
+                          - text: ": Fix websocket connection drops"
+                      - generic "Implement UI color palette system" [ref=f215e698]:
+                        - generic [ref=f215e699]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e700]': WB
+                          - 'link "Feature #149" [ref=f215e701] [cursor=pointer]':
+                            - /url: /issues/149
+                          - text: ": Implement UI color palette system"
+                      - generic "Fix font loading performance" [ref=f215e702]:
+                        - generic [ref=f215e703]:
+                          - 'img "Zugewiesen an: Harmony Rose" [ref=f215e704]': HR
+                          - 'link "Bug #150" [ref=f215e705] [cursor=pointer]':
+                            - /url: /issues/150
+                          - text: ": Fix font loading performance"
+                      - generic "Add presence indicators" [ref=f215e706]:
+                        - generic [ref=f215e707]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e708]': AG
+                          - 'link "Feature #208" [ref=f215e709] [cursor=pointer]':
+                            - /url: /issues/208
+                          - text: ": Add presence indicators"
+                      - generic "Implement typing notifications" [ref=f215e710]:
+                        - generic [ref=f215e711]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e712]': DS
+                          - 'link "Feature #209" [ref=f215e713] [cursor=pointer]':
+                            - /url: /issues/209
+                          - text: ": Implement typing notifications"
+                      - generic "Fix message synchronization" [ref=f215e714]:
+                        - generic [ref=f215e715]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e716]': LB
+                          - 'link "Bug #210" [ref=f215e717] [cursor=pointer]':
+                            - /url: /issues/210
+                          - text: ": Fix message synchronization"
+                      - generic "Dummy issue for testing" [ref=f215e718]:
+                        - generic [ref=f215e719]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e720]': RA
+                          - 'link "Bug #28" [ref=f215e721] [cursor=pointer]':
+                            - /url: /issues/28
+                          - text: ": Dummy issue for testing"
+                      - generic "Create test cases for issue tracking" [ref=f215e722]:
+                        - generic [ref=f215e723]:
+                          - 'img "Zugewiesen an: Aurora Wren" [ref=f215e724]': AW
+                          - 'link "Bug #53" [ref=f215e725] [cursor=pointer]':
+                            - /url: /issues/53
+                          - text: ": Create test cases for issue tracking"
+                      - generic "Create test cases for issue tracking" [ref=f215e726]:
+                        - generic [ref=f215e727]:
+                          - 'img "Zugewiesen an: Sage Willow" [ref=f215e728]': SW
+                          - 'link "Bug #99" [ref=f215e729] [cursor=pointer]':
+                            - /url: /issues/99
+                          - text: ": Create test cases for issue tracking"
+                      - generic "Implement real-time updates" [ref=f215e730]:
+                        - generic [ref=f215e731]:
+                          - 'img "Zugewiesen an: Harmony Rose" [ref=f215e732]': HR
+                          - 'link "Feature #251" [ref=f215e733] [cursor=pointer]':
+                            - /url: /issues/251
+                          - text: ": Implement real-time updates"
+                      - generic "Fix websocket connection drops" [ref=f215e734]:
+                        - generic [ref=f215e735]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e736]': WB
+                          - 'link "Bug #252" [ref=f215e737] [cursor=pointer]':
+                            - /url: /issues/252
+                          - text: ": Fix websocket connection drops"
+                      - generic "Add presence indicators" [ref=f215e738]:
+                        - generic [ref=f215e739]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e740]': AG
+                          - 'link "Feature #253" [ref=f215e741] [cursor=pointer]':
+                            - /url: /issues/253
+                          - text: ": Add presence indicators"
+                      - generic "Implement typing notifications" [ref=f215e742]:
+                        - generic [ref=f215e743]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e744]': DS
+                          - 'link "Feature #254" [ref=f215e745] [cursor=pointer]':
+                            - /url: /issues/254
+                          - text: ": Implement typing notifications"
+                      - generic "Fix message synchronization" [ref=f215e746]:
+                        - generic [ref=f215e747]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e748]': LB
+                          - 'link "Bug #255" [ref=f215e749] [cursor=pointer]':
+                            - /url: /issues/255
+                          - text: ": Fix message synchronization"
+                      - generic [ref=f215e750]:
+                        - generic [ref=f215e751] [cursor=pointer]
+                        - link "Marketing campaign4" [ref=f215e757] [cursor=pointer]:
+                          - /url: /projects/markcamgn
+                      - generic "Fix alignment issues in dashboard" [ref=f215e758]:
+                        - generic [ref=f215e759]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e760]': CD
+                          - 'link "Support #104" [ref=f215e761] [cursor=pointer]':
+                            - /url: /issues/104
+                          - text: ": Fix alignment issues in dashboard"
+                      - generic "Refactor authentication module" [ref=f215e762]:
+                        - generic [ref=f215e763]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e764]': WB
+                          - 'link "Feature #112" [ref=f215e765] [cursor=pointer]':
+                            - /url: /issues/112
+                          - text: ": Refactor authentication module"
+                      - generic "Integrate analytics for project tracking" [ref=f215e766]:
+                        - generic [ref=f215e767]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e768]': DS
+                          - 'link "Support #120" [ref=f215e769] [cursor=pointer]':
+                            - /url: /issues/120
+                          - text: ": Integrate analytics for project tracking"
+                      - generic "Check new issues form" [ref=f215e770]:
+                        - generic [ref=f215e771]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e772]': RA
+                          - 'link "Bug #25" [ref=f215e773] [cursor=pointer]':
+                            - /url: /issues/25
+                          - text: ": Check new issues form"
+                      - generic "Check the project search" [ref=f215e774]:
+                        - generic [ref=f215e775]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e776]': RA
+                          - 'link "Feature #27" [ref=f215e777] [cursor=pointer]':
+                            - /url: /issues/27
+                          - text: ": Check the project search"
+                      - generic "Validate issue form security" [ref=f215e778]:
+                        - generic [ref=f215e779]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e780]': RA
+                          - 'link "Bug #50" [ref=f215e781] [cursor=pointer]':
+                            - /url: /issues/50
+                          - text: ": Validate issue form security"
+                      - generic "Implement project search analytics" [ref=f215e782]:
+                        - generic [ref=f215e783]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e784]': RA
+                          - 'link "Feature #52" [ref=f215e785] [cursor=pointer]':
+                            - /url: /issues/52
+                          - text: ": Implement project search analytics"
+                      - generic "Validate issue form security" [ref=f215e786]:
+                        - generic [ref=f215e787]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e788]': RA
+                          - 'link "Bug #96" [ref=f215e789] [cursor=pointer]':
+                            - /url: /issues/96
+                          - text: ": Validate issue form security"
+                      - generic "Implement project search analytics" [ref=f215e790]:
+                        - generic [ref=f215e791]:
+                          - 'img "Zugewiesen an: Sage Willow" [ref=f215e792]': SW
+                          - 'link "Feature #98" [ref=f215e793] [cursor=pointer]':
+                            - /url: /issues/98
+                          - text: ": Implement project search analytics"
+                      - generic "Fix accessibility in modals" [ref=f215e794]:
+                        - generic [ref=f215e795]:
+                          - 'img "Zugewiesen an: Opal Sparrow" [ref=f215e796]': OS
+                          - 'link "Bug #172" [ref=f215e797] [cursor=pointer]':
+                            - /url: /issues/172
+                          - text: ": Fix accessibility in modals"
+                      - generic "Implement keyboard shortcuts" [ref=f215e798]:
+                        - generic [ref=f215e799]:
+                          - 'img "Zugewiesen an: Opal Sparrow" [ref=f215e800]': OS
+                          - 'link "Feature #171" [ref=f215e801] [cursor=pointer]':
+                            - /url: /issues/171
+                          - text: ": Implement keyboard shortcuts"
+                      - generic "Add screen reader support" [ref=f215e802]:
+                        - generic [ref=f215e803]:
+                          - 'img "Zugewiesen an: Opal Sparrow" [ref=f215e804]': OS
+                          - 'link "Feature #173" [ref=f215e805] [cursor=pointer]':
+                            - /url: /issues/173
+                          - text: ": Add screen reader support"
+                      - generic "Fix tab navigation issues" [ref=f215e806]:
+                        - generic [ref=f215e807]:
+                          - 'img "Zugewiesen an: Opal Sparrow" [ref=f215e808]': OS
+                          - 'link "Bug #175" [ref=f215e809] [cursor=pointer]':
+                            - /url: /issues/175
+                          - text: ": Fix tab navigation issues"
+                      - generic "Implement focus management" [ref=f215e810]:
+                        - generic [ref=f215e811]:
+                          - 'img "Zugewiesen an: Opal Sparrow" [ref=f215e812]': OS
+                          - 'link "Feature #174" [ref=f215e813] [cursor=pointer]':
+                            - /url: /issues/174
+                          - text: ": Implement focus management"
+                      - generic "Redesign notification system" [ref=f215e814]:
+                        - generic [ref=f215e815]:
+                          - 'img "Zugewiesen an: Ember Lilac" [ref=f215e816]': EL
+                          - 'link "Feature #141" [ref=f215e817] [cursor=pointer]':
+                            - /url: /issues/141
+                          - text: ": Redesign notification system"
+                      - generic "Fix email delivery issues" [ref=f215e818]:
+                        - generic [ref=f215e819]:
+                          - 'img "Zugewiesen an: Ember Lilac" [ref=f215e820]': EL
+                          - 'link "Bug #142" [ref=f215e821] [cursor=pointer]':
+                            - /url: /issues/142
+                          - text: ": Fix email delivery issues"
+                      - generic "Add push notification support" [ref=f215e822]:
+                        - generic [ref=f215e823]:
+                          - 'img "Zugewiesen an: Ember Lilac" [ref=f215e824]': EL
+                          - 'link "Feature #143" [ref=f215e825] [cursor=pointer]':
+                            - /url: /issues/143
+                          - text: ": Add push notification support"
+                      - generic "Implement version control integration" [ref=f215e826]:
+                        - generic [ref=f215e827]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e828]': NS
+                          - 'link "Feature #201" [ref=f215e829] [cursor=pointer]':
+                            - /url: /issues/201
+                          - text: ": Implement version control integration"
+                      - generic "Implement notification preferences" [ref=f215e830]:
+                        - generic [ref=f215e831]:
+                          - 'img "Zugewiesen an: Ember Lilac" [ref=f215e832]': EL
+                          - 'link "Feature #144" [ref=f215e833] [cursor=pointer]':
+                            - /url: /issues/144
+                          - text: ": Implement notification preferences"
+                      - generic "Fix mobile notification display" [ref=f215e834]:
+                        - generic [ref=f215e835]:
+                          - 'img "Zugewiesen an: Ember Lilac" [ref=f215e836]': EL
+                          - 'link "Bug #145" [ref=f215e837] [cursor=pointer]':
+                            - /url: /issues/145
+                          - text: ": Fix mobile notification display"
+                      - generic "Fix commit reference parsing" [ref=f215e838]:
+                        - generic [ref=f215e839]:
+                          - 'img "Zugewiesen an: Isla Moon" [ref=f215e840]': IM
+                          - 'link "Bug #202" [ref=f215e841] [cursor=pointer]':
+                            - /url: /issues/202
+                          - text: ": Fix commit reference parsing"
+                      - generic "Add branch comparison" [ref=f215e842]:
+                        - generic [ref=f215e843]:
+                          - 'img "Zugewiesen an: Isla Moon" [ref=f215e844]': IM
+                          - 'link "Feature #203" [ref=f215e845] [cursor=pointer]':
+                            - /url: /issues/203
+                          - text: ": Add branch comparison"
+                      - generic "Implement code review workflow" [ref=f215e846]:
+                        - generic [ref=f215e847]:
+                          - 'img "Zugewiesen an: Isla Moon" [ref=f215e848]': IM
+                          - 'link "Feature #204" [ref=f215e849] [cursor=pointer]':
+                            - /url: /issues/204
+                          - text: ": Implement code review workflow"
+                      - generic "Fix diff display issues" [ref=f215e850]:
+                        - generic [ref=f215e851]:
+                          - 'img "Zugewiesen an: Isla Moon" [ref=f215e852]': IM
+                          - 'link "Bug #205" [ref=f215e853] [cursor=pointer]':
+                            - /url: /issues/205
+                          - text: ": Fix diff display issues"
+                      - generic "Implement project search" [ref=f215e854]:
+                        - generic [ref=f215e855]:
+                          - 'img "Zugewiesen an: Harmony Rose" [ref=f215e856]': HR
+                          - 'link "Bug #24" [ref=f215e857] [cursor=pointer]':
+                            - /url: /issues/24
+                          - text: ": Implement project search"
+                      - generic "To check the login form" [ref=f215e858]:
+                        - generic [ref=f215e859]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e860]': RA
+                          - 'link "Support #26" [ref=f215e861] [cursor=pointer]':
+                            - /url: /issues/26
+                          - text: ": To check the login form"
+                      - generic "Optimize project search algorithm" [ref=f215e862]:
+                        - generic [ref=f215e863]:
+                          - 'img "Zugewiesen an: Harmony Rose" [ref=f215e864]': HR
+                          - 'link "Bug #49" [ref=f215e865] [cursor=pointer]':
+                            - /url: /issues/49
+                          - text: ": Optimize project search algorithm"
+                      - generic "Review authentication security" [ref=f215e866]:
+                        - generic [ref=f215e867]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e868]': RA
+                          - 'link "Support #51" [ref=f215e869] [cursor=pointer]':
+                            - /url: /issues/51
+                          - text: ": Review authentication security"
+                      - generic "Optimize project search algorithm" [ref=f215e870]:
+                        - generic [ref=f215e871]:
+                          - 'img "Zugewiesen an: Harmony Rose" [ref=f215e872]': HR
+                          - 'link "Bug #95" [ref=f215e873] [cursor=pointer]':
+                            - /url: /issues/95
+                          - text: ": Optimize project search algorithm"
+                      - generic "Review authentication security" [ref=f215e874]:
+                        - generic [ref=f215e875]:
+                          - 'img "Zugewiesen an: Sage Willow" [ref=f215e876]': SW
+                          - 'link "Support #97" [ref=f215e877] [cursor=pointer]':
+                            - /url: /issues/97
+                          - text: ": Review authentication security"
+                      - generic [ref=f215e878]:
+                        - generic [ref=f215e879] [cursor=pointer]
+                        - link "Mobile app development1" [ref=f215e885] [cursor=pointer]:
+                          - /url: /projects/mobileappdev
+                      - generic "Implement caching for search results" [ref=f215e886]:
+                        - generic [ref=f215e887]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e888]': AG
+                          - 'link "Feature #101" [ref=f215e889] [cursor=pointer]':
+                            - /url: /issues/101
+                          - text: ": Implement caching for search results"
+                      - generic "Add logging for API requests" [ref=f215e890]:
+                        - generic [ref=f215e891]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e892]': LB
+                          - 'link "Feature #109" [ref=f215e893] [cursor=pointer]':
+                            - /url: /issues/109
+                          - text: ": Add logging for API requests"
+                      - generic "Improve search functionality" [ref=f215e894]:
+                        - generic [ref=f215e895]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e896]': SB
+                          - 'link "Support #117" [ref=f215e897] [cursor=pointer]':
+                            - /url: /issues/117
+                          - text: ": Improve search functionality"
+                      - generic "Implement new timesheet modal" [ref=f215e898]:
+                        - generic [ref=f215e899]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f215e900]': VE
+                          - 'link "Feature #11" [ref=f215e901] [cursor=pointer]':
+                            - /url: /issues/11
+                          - text: ": Implement new timesheet modal"
+                      - generic "To check login form" [ref=f215e902]:
+                        - generic [ref=f215e903]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e904]': SR
+                          - 'link "Bug #13" [ref=f215e905] [cursor=pointer]':
+                            - /url: /issues/13
+                          - text: ": To check login form"
+                      - generic "Redesign timesheet entry interface" [ref=f215e906]:
+                        - generic [ref=f215e907]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f215e908]': VE
+                          - 'link "Feature #36" [ref=f215e909] [cursor=pointer]':
+                            - /url: /issues/36
+                          - text: ": Redesign timesheet entry interface"
+                      - generic "Security audit for login system" [ref=f215e910]:
+                        - generic [ref=f215e911]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e912]': SR
+                          - 'link "Bug #38" [ref=f215e913] [cursor=pointer]':
+                            - /url: /issues/38
+                          - text: ": Security audit for login system"
+                      - generic "Implement dark mode for the UI" [ref=f215e914]:
+                        - generic [ref=f215e915]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e916]': DS
+                          - 'link "Bug #62" [ref=f215e917] [cursor=pointer]':
+                            - /url: /issues/62
+                          - text: ": Implement dark mode for the UI"
+                      - generic "Create automated test cases" [ref=f215e918]:
+                        - generic [ref=f215e919]:
+                          - 'img "Zugewiesen an: Ivy Skylark" [ref=f215e920]': IS
+                          - 'link "Bug #66" [ref=f215e921] [cursor=pointer]':
+                            - /url: /issues/66
+                          - text: ": Create automated test cases"
+                      - generic "Implement role-based access control" [ref=f215e922]:
+                        - generic [ref=f215e923]:
+                          - 'img "Zugewiesen an: Ivy Skylark" [ref=f215e924]': IS
+                          - 'link "Bug #68" [ref=f215e925] [cursor=pointer]':
+                            - /url: /issues/68
+                          - text: ": Implement role-based access control"
+                      - generic "Add logging for API requests" [ref=f215e926]:
+                        - generic [ref=f215e927]:
+                          - 'img "Zugewiesen an: Ivy Skylark" [ref=f215e928]': IS
+                          - 'link "Bug #70" [ref=f215e929] [cursor=pointer]':
+                            - /url: /issues/70
+                          - text: ": Add logging for API requests"
+                      - generic "Implement email notifications" [ref=f215e930]:
+                        - generic [ref=f215e931]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e932]': DS
+                          - 'link "Bug #72" [ref=f215e933] [cursor=pointer]':
+                            - /url: /issues/72
+                          - text: ": Implement email notifications"
+                      - generic "Call client for feedback" [ref=f215e934]:
+                        - generic [ref=f215e935]:
+                          - 'img "Zugewiesen an: Luna Meadow" [ref=f215e936]': LM
+                          - 'link "Feature #82" [ref=f215e937] [cursor=pointer]':
+                            - /url: /issues/82
+                          - text: ": Call client for feedback"
+                      - generic "Update task tracker Security audit for login system" [ref=f215e938]:
+                        - generic [ref=f215e939]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e940]': SR
+                          - 'link "Bug #84" [ref=f215e941] [cursor=pointer]':
+                            - /url: /issues/84
+                          - text: ": Update task tracker Security audit for login system"
+                      - generic "Redesign dashboard layout" [ref=f215e942]:
+                        - generic [ref=f215e943]:
+                          - 'img "Zugewiesen an: Harmony Rose" [ref=f215e944]': HR
+                          - 'link "Feature #126" [ref=f215e945] [cursor=pointer]':
+                            - /url: /issues/126
+                          - text: ": Redesign dashboard layout"
+                      - generic "Fix chart rendering issues" [ref=f215e946]:
+                        - generic [ref=f215e947]:
+                          - 'img "Zugewiesen an: Willow Belle" [ref=f215e948]': WB
+                          - 'link "Bug #127" [ref=f215e949] [cursor=pointer]':
+                            - /url: /issues/127
+                          - text: ": Fix chart rendering issues"
+                      - generic "Implement export to PDF functionality" [ref=f215e950]:
+                        - generic [ref=f215e951]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e952]': AG
+                          - 'link "Feature #128" [ref=f215e953] [cursor=pointer]':
+                            - /url: /issues/128
+                          - text: ": Implement export to PDF functionality"
+                      - generic "Add custom report templates" [ref=f215e954]:
+                        - generic [ref=f215e955]:
+                          - 'img "Zugewiesen an: Daisy Skye" [ref=f215e956]': DS
+                          - 'link "Feature #129" [ref=f215e957] [cursor=pointer]':
+                            - /url: /issues/129
+                          - text: ": Add custom report templates"
+                      - generic "Implement bulk actions" [ref=f215e958]:
+                        - generic [ref=f215e959]:
+                          - 'img "Zugewiesen an: Briar Sunset" [ref=f215e960]': BS
+                          - 'link "Feature #186" [ref=f215e961] [cursor=pointer]':
+                            - /url: /issues/186
+                          - text: ": Implement bulk actions"
+                      - generic "Fix timezone handling in reports" [ref=f215e962]:
+                        - generic [ref=f215e963]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e964]': LB
+                          - 'link "Bug #130" [ref=f215e965] [cursor=pointer]':
+                            - /url: /issues/130
+                          - text: ": Fix timezone handling in reports"
+                      - generic "Implement audit trail" [ref=f215e966]:
+                        - generic [ref=f215e967]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e968]': NS
+                          - 'link "Feature #216" [ref=f215e969] [cursor=pointer]':
+                            - /url: /issues/216
+                          - text: ": Implement audit trail"
+                      - generic "Add custom role creation" [ref=f215e970]:
+                        - generic [ref=f215e971]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e972]': RA
+                          - 'link "Feature #158" [ref=f215e973] [cursor=pointer]':
+                            - /url: /issues/158
+                          - text: ": Add custom role creation"
+                      - generic "Fix permission inheritance" [ref=f215e974]:
+                        - generic [ref=f215e975]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e976]': RA
+                          - 'link "Bug #157" [ref=f215e977] [cursor=pointer]':
+                            - /url: /issues/157
+                          - text: ": Fix permission inheritance"
+                      - generic "Fix change detection" [ref=f215e978]:
+                        - generic [ref=f215e979]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e980]': SB
+                          - 'link "Bug #217" [ref=f215e981] [cursor=pointer]':
+                            - /url: /issues/217
+                          - text: ": Fix change detection"
+                      - generic "Implement permission templates" [ref=f215e982]:
+                        - generic [ref=f215e983]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e984]': RA
+                          - 'link "Feature #159" [ref=f215e985] [cursor=pointer]':
+                            - /url: /issues/159
+                          - text: ": Implement permission templates"
+                      - generic "Fix selection persistence" [ref=f215e986]:
+                        - generic [ref=f215e987]:
+                          - 'img "Zugewiesen an: Briar Sunset" [ref=f215e988]': BS
+                          - 'link "Bug #187" [ref=f215e989] [cursor=pointer]':
+                            - /url: /issues/187
+                          - text: ": Fix selection persistence"
+                      - generic "Fix admin console access" [ref=f215e990]:
+                        - generic [ref=f215e991]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e992]': RA
+                          - 'link "Bug #160" [ref=f215e993] [cursor=pointer]':
+                            - /url: /issues/160
+                          - text: ": Fix admin console access"
+                      - generic "Add change comments" [ref=f215e994]:
+                        - generic [ref=f215e995]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e996]': CD
+                          - 'link "Feature #218" [ref=f215e997] [cursor=pointer]':
+                            - /url: /issues/218
+                          - text: ": Add change comments"
+                      - generic "Implement role-based permissions" [ref=f215e998]:
+                        - generic [ref=f215e999]:
+                          - 'img "Zugewiesen an: Ember Lilac" [ref=f215e1000]': EL
+                          - 'link "Feature #156" [ref=f215e1001] [cursor=pointer]':
+                            - /url: /issues/156
+                          - text: ": Implement role-based permissions"
+                      - generic "Add undo functionality" [ref=f215e1002]:
+                        - generic [ref=f215e1003]:
+                          - 'img "Zugewiesen an: Briar Sunset" [ref=f215e1004]': BS
+                          - 'link "Feature #188" [ref=f215e1005] [cursor=pointer]':
+                            - /url: /issues/188
+                          - text: ": Add undo functionality"
+                      - generic "Implement rollback functionality" [ref=f215e1006]:
+                        - generic [ref=f215e1007]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f215e1008]': VE
+                          - 'link "Feature #219" [ref=f215e1009] [cursor=pointer]':
+                            - /url: /issues/219
+                          - text: ": Implement rollback functionality"
+                      - generic "Implement action confirmation" [ref=f215e1010]:
+                        - generic [ref=f215e1011]:
+                          - 'img "Zugewiesen an: Briar Sunset" [ref=f215e1012]': BS
+                          - 'link "Feature #189" [ref=f215e1013] [cursor=pointer]':
+                            - /url: /issues/189
+                          - text: ": Implement action confirmation"
+                      - generic "Fix audit log performance" [ref=f215e1014]:
+                        - generic [ref=f215e1015]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e1016]': SR
+                          - 'link "Bug #220" [ref=f215e1017] [cursor=pointer]':
+                            - /url: /issues/220
+                          - text: ": Fix audit log performance"
+                      - generic "Fix bulk export formatting" [ref=f215e1018]:
+                        - generic [ref=f215e1019]:
+                          - 'img "Zugewiesen an: Briar Sunset" [ref=f215e1020]': BS
+                          - 'link "Bug #190" [ref=f215e1021] [cursor=pointer]':
+                            - /url: /issues/190
+                          - text: ": Fix bulk export formatting"
+                      - generic "Implement workload dashboard" [ref=f215e1022]:
+                        - generic [ref=f215e1023]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e1024]': CD
+                          - 'link "Bug #10" [ref=f215e1025] [cursor=pointer]':
+                            - /url: /issues/10
+                          - text: ": Implement workload dashboard"
+                      - generic "Implement update timesheet modal" [ref=f215e1026]:
+                        - generic [ref=f215e1027]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f215e1028]': VE
+                          - 'link "Support #12" [ref=f215e1029] [cursor=pointer]':
+                            - /url: /issues/12
+                          - text: ": Implement update timesheet modal"
+                      - generic "To check the project search" [ref=f215e1030]:
+                        - generic [ref=f215e1031]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e1032]': SR
+                          - 'link "Bug #14" [ref=f215e1033] [cursor=pointer]':
+                            - /url: /issues/14
+                          - text: ": To check the project search"
+                      - generic "Build team workload analytics" [ref=f215e1034]:
+                        - generic [ref=f215e1035]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e1036]': CD
+                          - 'link "Bug #35" [ref=f215e1037] [cursor=pointer]':
+                            - /url: /issues/35
+                          - text: ": Build team workload analytics"
+                      - generic "Implement timesheet approval workflow" [ref=f215e1038]:
+                        - generic [ref=f215e1039]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f215e1040]': VE
+                          - 'link "Support #37" [ref=f215e1041] [cursor=pointer]':
+                            - /url: /issues/37
+                          - text: ": Implement timesheet approval workflow"
+                      - generic "Optimize project search performance" [ref=f215e1042]:
+                        - generic [ref=f215e1043]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e1044]': SR
+                          - 'link "Bug #39" [ref=f215e1045] [cursor=pointer]':
+                            - /url: /issues/39
+                          - text: ": Optimize project search performance"
+                      - generic "Enhance security for file uploads" [ref=f215e1046]:
+                        - generic [ref=f215e1047]:
+                          - 'img "Zugewiesen an: Luna Blossom" [ref=f215e1048]': LB
+                          - 'link "Bug #61" [ref=f215e1049] [cursor=pointer]':
+                            - /url: /issues/61
+                          - text: ": Enhance security for file uploads"
+                      - generic "Enhance data export functionality" [ref=f215e1050]:
+                        - generic [ref=f215e1051]:
+                          - 'img "Zugewiesen an: Autumn Grace" [ref=f215e1052]': AG
+                          - 'link "Bug #73" [ref=f215e1053] [cursor=pointer]':
+                            - /url: /issues/73
+                          - text: ": Enhance data export functionality"
+                      - generic "Prepare presentation slides" [ref=f215e1054]:
+                        - generic [ref=f215e1055]:
+                          - 'img "Zugewiesen an: Luna Meadow" [ref=f215e1056]': LM
+                          - 'link "Bug #81" [ref=f215e1057] [cursor=pointer]':
+                            - /url: /issues/81
+                          - text: ": Prepare presentation slides"
+                      - generic "Organize workspace" [ref=f215e1058]:
+                        - generic [ref=f215e1059]:
+                          - 'img "Zugewiesen an: Luna Meadow" [ref=f215e1060]': LM
+                          - 'link "Support #83" [ref=f215e1061] [cursor=pointer]':
+                            - /url: /issues/83
+                          - text: ": Organize workspace"
+                      - generic "Optimize project search performance" [ref=f215e1062]:
+                        - generic [ref=f215e1063]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e1064]': SR
+                          - 'link "Bug #85" [ref=f215e1065] [cursor=pointer]':
+                            - /url: /issues/85
+                          - text: ": Optimize project search performance"
+                      - generic [ref=f215e1066]:
+                        - generic [ref=f215e1067] [cursor=pointer]
+                        - link "Software development5" [ref=f215e1073] [cursor=pointer]:
+                          - /url: /projects/defaultsd
+                      - generic "Implement role-based access control" [ref=f215e1074]:
+                        - generic [ref=f215e1075]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e1076]': NS
+                          - 'link "Support #108" [ref=f215e1077] [cursor=pointer]':
+                            - /url: /issues/108
+                          - text: ": Implement role-based access control"
+                      - generic "Implement dark mode for the UI" [ref=f215e1078]:
+                        - generic [ref=f215e1079]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e1080]': CD
+                          - 'link "Bug #116" [ref=f215e1081] [cursor=pointer]':
+                            - /url: /issues/116
+                          - text: ": Implement dark mode for the UI"
+                      - generic "Implement login form" [ref=f215e1082]:
+                        - generic [ref=f215e1083]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e1084]': NS
+                          - 'link "Bug #1" [ref=f215e1085] [cursor=pointer]':
+                            - /url: /issues/1
+                          - text: ": Implement login form"
+                      - generic "Implement user account" [ref=f215e1086]:
+                        - generic [ref=f215e1087]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e1088]': SB
+                          - 'link "Support #3" [ref=f215e1089] [cursor=pointer]':
+                            - /url: /issues/3
+                          - text: ": Implement user account"
+                      - generic "Implement login form" [ref=f215e1090]:
+                        - generic [ref=f215e1091]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e1092]': NS
+                          - 'link "Bug #5" [ref=f215e1093] [cursor=pointer]':
+                            - /url: /issues/5
+                          - text: ": Implement login form"
+                      - generic "Implement user account" [ref=f215e1094]:
+                        - generic [ref=f215e1095]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e1096]': SB
+                          - 'link "Support #7" [ref=f215e1097] [cursor=pointer]':
+                            - /url: /issues/7
+                          - text: ": Implement user account"
+                      - generic "Implement time log modal" [ref=f215e1098]:
+                        - generic [ref=f215e1099]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e1100]': CD
+                          - 'link "Bug #9" [ref=f215e1101] [cursor=pointer]':
+                            - /url: /issues/9
+                          - text: ": Implement time log modal"
+                      - generic "Implement OAuth login integration" [ref=f215e1102]:
+                        - generic [ref=f215e1103]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e1104]': NS
+                          - 'link "Bug #30" [ref=f215e1105] [cursor=pointer]':
+                            - /url: /issues/30
+                          - text: ": Implement OAuth login integration"
+                      - generic "Implement user profile management" [ref=f215e1106]:
+                        - generic [ref=f215e1107]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e1108]': SB
+                          - 'link "Support #32" [ref=f215e1109] [cursor=pointer]':
+                            - /url: /issues/32
+                          - text: ": Implement user profile management"
+                      - generic "Implement time tracking reports" [ref=f215e1110]:
+                        - generic [ref=f215e1111]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e1112]': CD
+                          - 'link "Bug #34" [ref=f215e1113] [cursor=pointer]':
+                            - /url: /issues/34
+                          - text: ": Implement time tracking reports"
+                      - generic "Complete pending reports" [ref=f215e1114]:
+                        - generic [ref=f215e1115]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e1116]': NS
+                          - 'link "Bug #76" [ref=f215e1117] [cursor=pointer]':
+                            - /url: /issues/76
+                          - text: ": Complete pending reports"
+                      - generic "Schedule team meeting" [ref=f215e1118]:
+                        - generic [ref=f215e1119]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e1120]': SB
+                          - 'link "Support #78" [ref=f215e1121] [cursor=pointer]':
+                            - /url: /issues/78
+                          - text: ": Schedule team meeting"
+                      - generic "Submit expense claims" [ref=f215e1122]:
+                        - generic [ref=f215e1123]:
+                          - 'img "Zugewiesen an: Luna Meadow" [ref=f215e1124]': LM
+                          - 'link "Bug #80" [ref=f215e1125] [cursor=pointer]':
+                            - /url: /issues/80
+                          - text: ": Submit expense claims"
+                      - generic "Optimize database queries for reports" [ref=f215e1126]:
+                        - generic [ref=f215e1127]:
+                          - 'img "Zugewiesen an: Harmony Rose" [ref=f215e1128]': HR
+                          - 'link "Support #100" [ref=f215e1129] [cursor=pointer]':
+                            - /url: /issues/100
+                          - text: ": Optimize database queries for reports"
+                      - generic "Refactor user authentication module" [ref=f215e1130]:
+                        - generic [ref=f215e1131]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e1132]': NS
+                          - 'link "Bug #121" [ref=f215e1133] [cursor=pointer]':
+                            - /url: /issues/121
+                          - text: ": Refactor user authentication module"
+                      - generic "Implement password strength meter" [ref=f215e1134]:
+                        - generic [ref=f215e1135]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e1136]': SB
+                          - 'link "Feature #122" [ref=f215e1137] [cursor=pointer]':
+                            - /url: /issues/122
+                          - text: ": Implement password strength meter"
+                      - generic "Fix session timeout issue" [ref=f215e1138]:
+                        - generic [ref=f215e1139]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e1140]': CD
+                          - 'link "Bug #123" [ref=f215e1141] [cursor=pointer]':
+                            - /url: /issues/123
+                          - text: ": Fix session timeout issue"
+                      - generic "Add multi-factor authentication" [ref=f215e1142]:
+                        - generic [ref=f215e1143]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f215e1144]': VE
+                          - 'link "Feature #124" [ref=f215e1145] [cursor=pointer]':
+                            - /url: /issues/124
+                          - text: ": Add multi-factor authentication"
+                      - generic "Fix date picker localization" [ref=f215e1146]:
+                        - generic [ref=f215e1147]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e1148]': RA
+                          - 'link "Bug #185" [ref=f215e1149] [cursor=pointer]':
+                            - /url: /issues/185
+                          - text: ": Fix date picker localization"
+                      - generic "Optimize database queries for reports" [ref=f215e1150]:
+                        - generic [ref=f215e1151]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e1152]': SR
+                          - 'link "Bug #125" [ref=f215e1153] [cursor=pointer]':
+                            - /url: /issues/125
+                          - text: ": Optimize database queries for reports"
+                      - generic "Implement conditional fields" [ref=f215e1154]:
+                        - generic [ref=f215e1155]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e1156]': RA
+                          - 'link "Feature #184" [ref=f215e1157] [cursor=pointer]':
+                            - /url: /issues/184
+                          - text: ": Implement conditional fields"
+                      - generic "Add export options for charts" [ref=f215e1158]:
+                        - generic [ref=f215e1159]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e1160]': RA
+                          - 'link "Feature #227" [ref=f215e1161] [cursor=pointer]':
+                            - /url: /issues/227
+                          - text: ": Add export options for charts"
+                      - generic "Add input masking" [ref=f215e1162]:
+                        - generic [ref=f215e1163]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e1164]': RA
+                          - 'link "Feature #183" [ref=f215e1165] [cursor=pointer]':
+                            - /url: /issues/183
+                          - text: ": Add input masking"
+                      - generic "Fix export template alignment" [ref=f215e1166]:
+                        - generic [ref=f215e1167]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e1168]': RA
+                          - 'link "Bug #228" [ref=f215e1169] [cursor=pointer]':
+                            - /url: /issues/228
+                          - text: ": Fix export template alignment"
+                      - generic "Fix slow report generation" [ref=f215e1170]:
+                        - generic [ref=f215e1171]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e1172]': RA
+                          - 'link "Bug #230" [ref=f215e1173] [cursor=pointer]':
+                            - /url: /issues/230
+                          - text: ": Fix slow report generation"
+                      - generic "Fix form submission errors" [ref=f215e1174]:
+                        - generic [ref=f215e1175]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e1176]': RA
+                          - 'link "Bug #182" [ref=f215e1177] [cursor=pointer]':
+                            - /url: /issues/182
+                          - text: ": Fix form submission errors"
+                      - generic "Fix auto-save bug in editor" [ref=f215e1178]:
+                        - generic [ref=f215e1179]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e1180]': RA
+                          - 'link "Bug #226" [ref=f215e1181] [cursor=pointer]':
+                            - /url: /issues/226
+                          - text: ": Fix auto-save bug in editor"
+                      - generic "Implement data validation rules" [ref=f215e1182]:
+                        - generic [ref=f215e1183]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e1184]': RA
+                          - 'link "Feature #181" [ref=f215e1185] [cursor=pointer]':
+                            - /url: /issues/181
+                          - text: ": Implement data validation rules"
+                      - generic "Add scheduled data backups" [ref=f215e1186]:
+                        - generic [ref=f215e1187]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e1188]': RA
+                          - 'link "Feature #229" [ref=f215e1189] [cursor=pointer]':
+                            - /url: /issues/229
+                          - text: ": Add scheduled data backups"
+                      - generic "Implement audit logging system" [ref=f215e1190]:
+                        - generic [ref=f215e1191]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f215e1192]': SR
+                          - 'link "Feature #151" [ref=f215e1193] [cursor=pointer]':
+                            - /url: /issues/151
+                          - text: ": Implement audit logging system"
+                      - generic "Fix data export performance" [ref=f215e1194]:
+                        - generic [ref=f215e1195]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f215e1196]': VE
+                          - 'link "Bug #152" [ref=f215e1197] [cursor=pointer]':
+                            - /url: /issues/152
+                          - text: ": Fix data export performance"
+                      - generic "Implement data export templates" [ref=f215e1198]:
+                        - generic [ref=f215e1199]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e1200]': RA
+                          - 'link "Feature #211" [ref=f215e1201] [cursor=pointer]':
+                            - /url: /issues/211
+                          - text: ": Implement data export templates"
+                      - generic "Add CSV export options" [ref=f215e1202]:
+                        - generic [ref=f215e1203]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f215e1204]': CD
+                          - 'link "Feature #153" [ref=f215e1205] [cursor=pointer]':
+                            - /url: /issues/153
+                          - text: ": Add CSV export options"
+                      - generic "Implement data retention policy" [ref=f215e1206]:
+                        - generic [ref=f215e1207]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e1208]': SB
+                          - 'link "Feature #154" [ref=f215e1209] [cursor=pointer]':
+                            - /url: /issues/154
+                          - text: ": Implement data retention policy"
+                      - generic "Fix CSV encoding issues" [ref=f215e1210]:
+                        - generic [ref=f215e1211]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e1212]': RA
+                          - 'link "Bug #212" [ref=f215e1213] [cursor=pointer]':
+                            - /url: /issues/212
+                          - text: ": Fix CSV encoding issues"
+                      - generic "Fix data backup scheduling" [ref=f215e1214]:
+                        - generic [ref=f215e1215]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e1216]': NS
+                          - 'link "Bug #155" [ref=f215e1217] [cursor=pointer]':
+                            - /url: /issues/155
+                          - text: ": Fix data backup scheduling"
+                      - generic "Add Excel export formatting" [ref=f215e1218]:
+                        - generic [ref=f215e1219]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e1220]': RA
+                          - 'link "Feature #213" [ref=f215e1221] [cursor=pointer]':
+                            - /url: /issues/213
+                          - text: ": Add Excel export formatting"
+                      - generic "Implement scheduled exports" [ref=f215e1222]:
+                        - generic [ref=f215e1223]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e1224]': RA
+                          - 'link "Feature #214" [ref=f215e1225] [cursor=pointer]':
+                            - /url: /issues/214
+                          - text: ": Implement scheduled exports"
+                      - generic "Fix export performance" [ref=f215e1226]:
+                        - generic [ref=f215e1227]:
+                          - 'img "Zugewiesen an: Redmine Admin" [ref=f215e1228]': RA
+                          - 'link "Bug #215" [ref=f215e1229] [cursor=pointer]':
+                            - /url: /issues/215
+                          - text: ": Fix export performance"
+                      - generic "Implement search functionality" [ref=f215e1230]:
+                        - generic [ref=f215e1231]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e1232]': NS
+                          - 'link "Feature #2" [ref=f215e1233] [cursor=pointer]':
+                            - /url: /issues/2
+                          - text: ": Implement search functionality"
+                      - generic "Implement issues form" [ref=f215e1234]:
+                        - generic [ref=f215e1235]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e1236]': SB
+                          - 'link "Bug #4" [ref=f215e1237] [cursor=pointer]':
+                            - /url: /issues/4
+                          - text: ": Implement issues form"
+                      - generic "Implement search functionality" [ref=f215e1238]:
+                        - generic [ref=f215e1239]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e1240]': NS
+                          - 'link "Feature #6" [ref=f215e1241] [cursor=pointer]':
+                            - /url: /issues/6
+                          - text: ": Implement search functionality"
+                      - generic "Implement issues form" [ref=f215e1242]:
+                        - generic [ref=f215e1243]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e1244]': SB
+                          - 'link "Bug #8" [ref=f215e1245] [cursor=pointer]':
+                            - /url: /issues/8
+                          - text: ": Implement issues form"
+                      - generic "Develop elasticsearch integration" [ref=f215e1246]:
+                        - generic [ref=f215e1247]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e1248]': NS
+                          - 'link "Feature #31" [ref=f215e1249] [cursor=pointer]':
+                            - /url: /issues/31
+                          - text: ": Develop elasticsearch integration"
+                      - generic "Redesign issue creation workflow" [ref=f215e1250]:
+                        - generic [ref=f215e1251]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f215e1252]': SB
+                          - 'link "Bug #33" [ref=f215e1253] [cursor=pointer]':
+                            - /url: /issues/33
+                          - text: ": Redesign issue creation workflow"
+                      - generic "Add support for file versioning" [ref=f215e1254]:
+                        - generic [ref=f215e1255]:
+                          - 'img "Zugewiesen an: Harmony Rose" [ref=f215e1256]': HR
+                          - 'link "Bug #75" [ref=f215e1257] [cursor=pointer]':
+                            - /url: /issues/75
+                          - text: ": Add support for file versioning"
+                      - generic "Follow up on emails" [ref=f215e1258]:
+                        - generic [ref=f215e1259]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f215e1260]': NS
+                          - 'link "Feature #77" [ref=f215e1261] [cursor=pointer]':
+                            - /url: /issues/77
+                          - text: ": Follow up on emails"
+                      - generic "Review project updates" [ref=f215e1262]:
+                        - generic [ref=f215e1263]:
+                          - 'img "Zugewiesen an: Luna Meadow" [ref=f215e1264]': LM
+                          - 'link "Bug #79" [ref=f215e1265] [cursor=pointer]':
+                            - /url: /issues/79
+                          - text: ": Review project updates"
+              - cell [ref=f215e1267]:
+                - generic [ref=f215e1268]:
+                  - link "2026-9" [ref=f215e1271] [cursor=pointer]:
+                    - /url: /issues/gantt?month=9&months=6&year=2026&zoom=2
+                  - link "2026-10" [ref=f215e1273] [cursor=pointer]:
+                    - /url: /issues/gantt?month=10&months=6&year=2026&zoom=2
+                  - link "2026-11" [ref=f215e1275] [cursor=pointer]:
+                    - /url: /issues/gantt?month=11&months=6&year=2026&zoom=2
+                  - link "2026-12" [ref=f215e1277] [cursor=pointer]:
+                    - /url: /issues/gantt?month=12&months=6&year=2026&zoom=2
+                  - link "2027-1" [ref=f215e1279] [cursor=pointer]:
+                    - /url: /issues/gantt?month=1&months=6&year=2027&zoom=2
+                  - link "2027-2" [ref=f215e1281] [cursor=pointer]:
+                    - /url: /issues/gantt?month=2&months=6&year=2027&zoom=2
+                  - generic [ref=f215e1283]: "37"
+                  - generic [ref=f215e1284]: "38"
+                  - generic [ref=f215e1285]: "39"
+                  - generic [ref=f215e1286]: "40"
+                  - generic [ref=f215e1287]: "41"
+                  - generic [ref=f215e1288]: "42"
+                  - generic [ref=f215e1289]: "43"
+                  - generic [ref=f215e1290]: "44"
+                  - generic [ref=f215e1291]: "45"
+                  - generic [ref=f215e1292]: "46"
+                  - generic [ref=f215e1293]: "47"
+                  - generic [ref=f215e1294]: "48"
+                  - generic [ref=f215e1295]: "49"
+                  - generic [ref=f215e1296]: "50"
+                  - generic [ref=f215e1297]: "51"
+                  - generic [ref=f215e1298]: "52"
+                  - generic [ref=f215e1299]: "53"
+                  - generic [ref=f215e1300]: "1"
+                  - generic [ref=f215e1301]: "2"
+                  - generic [ref=f215e1302]: "3"
+                  - generic [ref=f215e1303]: "4"
+                  - generic [ref=f215e1304]: "5"
+                  - generic [ref=f215e1305]: "6"
+                  - generic [ref=f215e1306]: "7"
+                  - generic [ref=f215e1307]: "8"
+                  - generic:
+                    - generic [ref=f215e1309]: Agile Board Project
+                    - generic [ref=f215e1310]: In Progress 0%
+                    - generic [ref=f215e1311]: New 0%
+                    - generic [ref=f215e1312]: New 0%
+                    - generic [ref=f215e1313]: In Progress 0%
+                    - generic [ref=f215e1314]: Feedback 0%
+                    - generic [ref=f215e1315]: In Progress 0%
+                    - generic [ref=f215e1316]: In Progress 0%
+                    - generic [ref=f215e1317]: Resolved 0%
+                    - generic [ref=f215e1320]: Education and training3
+                    - generic [ref=f215e1321]: New 0%
+                    - generic [ref=f215e1322]: New 0%
+                    - generic [ref=f215e1323]: New 0%
+                    - generic [ref=f215e1324]: Resolved 0%
+                    - generic [ref=f215e1325]: Feedback 0%
+                    - generic [ref=f215e1326]: Resolved 0%
+                    - generic [ref=f215e1327]: Resolved 0%
+                    - generic [ref=f215e1328]: Feedback 0%
+                    - generic [ref=f215e1329]: Resolved 0%
+                    - generic [ref=f215e1330]: New 0%
+                    - generic [ref=f215e1331]: New 0%
+                    - generic [ref=f215e1332]: New 0%
+                    - generic [ref=f215e1333]: Resolved 0%
+                    - generic [ref=f215e1334]: Feedback 0%
+                    - generic [ref=f215e1335]: Resolved 0%
+                    - generic [ref=f215e1336]: Resolved 0%
+                    - generic [ref=f215e1337]: Feedback 0%
+                    - generic [ref=f215e1338]: New 0%
+                    - generic [ref=f215e1339]: In Progress 0%
+                    - generic [ref=f215e1340]: Feedback 0%
+                    - generic [ref=f215e1342]: In Progress 0%
+                    - generic [ref=f215e1345]: Feedback 0%
+                    - generic [ref=f215e1348]: Feedback 0%
+                    - generic [ref=f215e1351]: New 0%
+                    - generic [ref=f215e1354]: Resolved 0%
+                    - generic [ref=f215e1357]: In Progress 0%
+                    - generic [ref=f215e1360]: In Progress 0%
+                    - generic [ref=f215e1363]: New 0%
+                    - generic [ref=f215e1366]: Feedback 0%
+                    - generic [ref=f215e1369]: Resolved 0%
+                    - generic [ref=f215e1372]: In Progress 0%
+                    - generic [ref=f215e1375]: In Progress 0%
+                    - generic [ref=f215e1378]: In Progress 0%
+                    - generic [ref=f215e1381]: In Progress 0%
+                    - generic [ref=f215e1384]: New 0%
+                    - generic [ref=f215e1387]: New 0%
+                    - generic [ref=f215e1390]: New 0%
+                    - generic [ref=f215e1393]: New 0%
+                    - generic [ref=f215e1396]: In Progress 0%
+                    - generic [ref=f215e1399]: In Progress 0%
+                    - generic [ref=f215e1402]: Flux Gantt Project
+                    - generic [ref=f215e1403]: New 0%
+                    - generic [ref=f215e1404]: New 0%
+                    - generic [ref=f215e1405]: Feedback 0%
+                    - generic [ref=f215e1406]: In Progress 0%
+                    - generic [ref=f215e1407]: New 0%
+                    - generic [ref=f215e1408]: Feedback 0%
+                    - generic [ref=f215e1409]: Resolved 0%
+                    - generic [ref=f215e1413]: Flux Gantt Project -Version 2 0%
+                    - generic [ref=f215e1415]: New 0%
+                    - generic [ref=f215e1418]: New 0%
+                    - generic [ref=f215e1421]: New 0%
+                    - generic [ref=f215e1424]: New 0%
+                    - generic [ref=f215e1427]: New 0%
+                    - generic [ref=f215e1430]: New 0%
+                    - generic [ref=f215e1433]: New 0%
+                    - generic [ref=f215e1436]: New 0%
+                    - generic [ref=f215e1439]: New 0%
+                    - generic [ref=f215e1442]: New 0%
+                    - generic [ref=f215e1446]: HR management2
+                    - generic [ref=f215e1447]: New 0%
+                    - generic [ref=f215e1448]: New 0%
+                    - generic [ref=f215e1449]: New 0%
+                    - generic [ref=f215e1450]: Resolved 0%
+                    - generic [ref=f215e1451]: Feedback 0%
+                    - generic [ref=f215e1452]: Resolved 0%
+                    - generic [ref=f215e1453]: Feedback 0%
+                    - generic [ref=f215e1454]: New 0%
+                    - generic [ref=f215e1455]: New 0%
+                    - generic [ref=f215e1456]: Resolved 0%
+                    - generic [ref=f215e1457]: Feedback 0%
+                    - generic [ref=f215e1459]: In Progress 0%
+                    - generic [ref=f215e1462]: Feedback 0%
+                    - generic [ref=f215e1465]: In Progress 0%
+                    - generic [ref=f215e1468]: Resolved 0%
+                    - generic [ref=f215e1471]: New 0%
+                    - generic [ref=f215e1474]: In Progress 0%
+                    - generic [ref=f215e1477]: Feedback 0%
+                    - generic [ref=f215e1480]: In Progress 0%
+                    - generic [ref=f215e1483]: Resolved 0%
+                    - generic [ref=f215e1486]: New 0%
+                    - generic [ref=f215e1489]: New 0%
+                    - generic [ref=f215e1492]: In Progress 0%
+                    - generic [ref=f215e1495]: Feedback 0%
+                    - generic [ref=f215e1498]: Resolved 0%
+                    - generic [ref=f215e1501]: Resolved 0%
+                    - generic [ref=f215e1504]: In Progress 0%
+                    - generic [ref=f215e1507]: In Progress 0%
+                    - generic [ref=f215e1510]: In Progress 0%
+                    - generic [ref=f215e1513]: In Progress 0%
+                    - generic [ref=f215e1516]: New 0%
+                    - generic [ref=f215e1519]: New 0%
+                    - generic [ref=f215e1522]: New 0%
+                    - generic [ref=f215e1525]: New 0%
+                    - generic [ref=f215e1528]: In Progress 0%
+                    - generic [ref=f215e1531]: In Progress 0%
+                    - generic [ref=f215e1533]: Helpdesk Service Desk
+                    - generic [ref=f215e1534]: New 0%
+                    - generic [ref=f215e1535]: New 0%
+                    - generic [ref=f215e1536]: New 0%
+                    - generic [ref=f215e1537]: New 0%
+                    - generic [ref=f215e1538]: New 0%
+                    - generic [ref=f215e1539]: New 0%
+                    - generic [ref=f215e1540]: New 0%
+                    - generic [ref=f215e1541]: New 0%
+                    - generic [ref=f215e1542]: New 0%
+                    - generic [ref=f215e1543]: New 0%
+                    - generic [ref=f215e1545]: MVP build for PaySheet Application
+                    - generic [ref=f215e1546]: New 0%
+                    - generic [ref=f215e1547]: New 0%
+                    - generic [ref=f215e1548]: New 0%
+                    - generic [ref=f215e1549]: New 0%
+                    - generic [ref=f215e1550]: Resolved 0%
+                    - generic [ref=f215e1551]: Feedback 0%
+                    - generic [ref=f215e1552]: New 0%
+                    - generic [ref=f215e1553]: Feedback 0%
+                    - generic [ref=f215e1554]: In Progress 0%
+                    - generic [ref=f215e1555]: Resolved 0%
+                    - generic [ref=f215e1556]: Feedback 0%
+                    - generic [ref=f215e1557]: New 0%
+                    - generic [ref=f215e1558]: New 0%
+                    - generic [ref=f215e1559]: In Progress 0%
+                    - generic [ref=f215e1561]: Feedback 0%
+                    - generic [ref=f215e1564]: Resolved 0%
+                    - generic [ref=f215e1567]: In Progress 0%
+                    - generic [ref=f215e1570]: New 0%
+                    - generic [ref=f215e1573]: In Progress 0%
+                    - generic [ref=f215e1576]: Feedback 0%
+                    - generic [ref=f215e1579]: Resolved 0%
+                    - generic [ref=f215e1582]: New 0%
+                    - generic [ref=f215e1585]: Feedback 0%
+                    - generic [ref=f215e1588]: Resolved 0%
+                    - generic [ref=f215e1591]: New 0%
+                    - generic [ref=f215e1594]: New 0%
+                    - generic [ref=f215e1597]: New 0%
+                    - generic [ref=f215e1599]: Feedback 0%
+                    - generic [ref=f215e1600]: In Progress 0%
+                    - generic [ref=f215e1601]: New 0%
+                    - generic [ref=f215e1602]: Feedback 0%
+                    - generic [ref=f215e1603]: Resolved 0%
+                    - generic [ref=f215e1606]: Marketing campaign4
+                    - generic [ref=f215e1607]: New 0%
+                    - generic [ref=f215e1608]: New 0%
+                    - generic [ref=f215e1609]: New 0%
+                    - generic [ref=f215e1610]: Resolved 0%
+                    - generic [ref=f215e1611]: In Progress 0%
+                    - generic [ref=f215e1612]: Resolved 0%
+                    - generic [ref=f215e1613]: In Progress 0%
+                    - generic [ref=f215e1614]: Resolved 0%
+                    - generic [ref=f215e1615]: In Progress 0%
+                    - generic [ref=f215e1616]: Feedback 0%
+                    - generic [ref=f215e1617]: In Progress 0%
+                    - generic [ref=f215e1618]: New 0%
+                    - generic [ref=f215e1619]: Resolved 0%
+                    - generic [ref=f215e1620]: In Progress 0%
+                    - generic [ref=f215e1622]: Feedback 0%
+                    - generic [ref=f215e1625]: Resolved 0%
+                    - generic [ref=f215e1628]: New 0%
+                    - generic [ref=f215e1631]: In Progress 0%
+                    - generic [ref=f215e1634]: In Progress 0%
+                    - generic [ref=f215e1637]: Feedback 0%
+                    - generic [ref=f215e1640]: Feedback 0%
+                    - generic [ref=f215e1643]: New 0%
+                    - generic [ref=f215e1646]: In Progress 0%
+                    - generic [ref=f215e1649]: Resolved 0%
+                    - generic [ref=f215e1652]: In Progress 0%
+                    - generic [ref=f215e1655]: Feedback 0%
+                    - generic [ref=f215e1658]: In Progress 0%
+                    - generic [ref=f215e1661]: Feedback 0%
+                    - generic [ref=f215e1664]: In Progress 0%
+                    - generic [ref=f215e1667]: Feedback 0%
+                    - generic [ref=f215e1671]: Mobile app development1
+                    - generic [ref=f215e1672]: New 0%
+                    - generic [ref=f215e1673]: New 0%
+                    - generic [ref=f215e1674]: New 0%
+                    - generic [ref=f215e1675]: In Progress 0%
+                    - generic [ref=f215e1676]: In Progress 0%
+                    - generic [ref=f215e1677]: In Progress 0%
+                    - generic [ref=f215e1678]: In Progress 0%
+                    - generic [ref=f215e1679]: New 0%
+                    - generic [ref=f215e1680]: New 0%
+                    - generic [ref=f215e1681]: New 0%
+                    - generic [ref=f215e1682]: New 0%
+                    - generic [ref=f215e1683]: New 0%
+                    - generic [ref=f215e1684]: In Progress 0%
+                    - generic [ref=f215e1685]: In Progress 0%
+                    - generic [ref=f215e1686]: Feedback 0%
+                    - generic [ref=f215e1687]: Resolved 0%
+                    - generic [ref=f215e1688]: New 0%
+                    - generic [ref=f215e1691]: In Progress 0%
+                    - generic [ref=f215e1695]: Feedback 0%
+                    - generic [ref=f215e1698]: Feedback 0%
+                    - generic [ref=f215e1701]: Feedback 0%
+                    - generic [ref=f215e1704]: New 0%
+                    - generic [ref=f215e1707]: In Progress 0%
+                    - generic [ref=f215e1710]: In Progress 0%
+                    - generic [ref=f215e1713]: Feedback 0%
+                    - generic [ref=f215e1716]: In Progress 0%
+                    - generic [ref=f215e1719]: Resolved 0%
+                    - generic [ref=f215e1722]: New 0%
+                    - generic [ref=f215e1725]: Feedback 0%
+                    - generic [ref=f215e1728]: New 0%
+                    - generic [ref=f215e1731]: Feedback 0%
+                    - generic [ref=f215e1734]: Feedback 0%
+                    - generic [ref=f215e1737]: Resolved 0%
+                    - generic [ref=f215e1740]: Resolved 0%
+                    - generic [ref=f215e1743]: In Progress 0%
+                    - generic [ref=f215e1746]: Feedback 0%
+                    - generic [ref=f215e1749]: Resolved 0%
+                    - generic [ref=f215e1752]: In Progress 0%
+                    - generic [ref=f215e1755]: Feedback 0%
+                    - generic [ref=f215e1758]: Resolved 0%
+                    - generic [ref=f215e1761]: New 0%
+                    - generic [ref=f215e1764]: New 0%
+                    - generic [ref=f215e1767]: In Progress 0%
+                    - generic [ref=f215e1770]: Feedback 0%
+                    - generic [ref=f215e1773]: Resolved 0%
+                    - generic [ref=f215e1777]: Software development5
+                    - generic [ref=f215e1778]: New 0%
+                    - generic [ref=f215e1779]: New 0%
+                    - generic [ref=f215e1780]: In Progress 0%
+                    - generic [ref=f215e1781]: Feedback 0%
+                    - generic [ref=f215e1782]: In Progress 0%
+                    - generic [ref=f215e1783]: Feedback 0%
+                    - generic [ref=f215e1784]: Resolved 0%
+                    - generic [ref=f215e1785]: In Progress 0%
+                    - generic [ref=f215e1786]: Feedback 0%
+                    - generic [ref=f215e1787]: Resolved 0%
+                    - generic [ref=f215e1788]: In Progress 0%
+                    - generic [ref=f215e1789]: Feedback 0%
+                    - generic [ref=f215e1790]: Resolved 0%
+                    - generic [ref=f215e1791]: New 0%
+                    - generic [ref=f215e1792]: In Progress 0%
+                    - generic [ref=f215e1793]: Feedback 0%
+                    - generic [ref=f215e1794]: Resolved 0%
+                    - generic [ref=f215e1795]: New 0%
+                    - generic [ref=f215e1796]: Resolved 0%
+                    - generic [ref=f215e1797]: In Progress 0%
+                    - generic [ref=f215e1798]: In Progress 0%
+                    - generic [ref=f215e1799]: Feedback 0%
+                    - generic [ref=f215e1800]: New 0%
+                    - generic [ref=f215e1801]: Resolved 0%
+                    - generic [ref=f215e1802]: In Progress 0%
+                    - generic [ref=f215e1803]: Feedback 0%
+                    - generic [ref=f215e1804]: In Progress 0%
+                    - generic [ref=f215e1805]: In Progress 0%
+                    - generic [ref=f215e1806]: New 0%
+                    - generic [ref=f215e1808]: In Progress 0%
+                    - generic [ref=f215e1811]: Feedback 0%
+                    - generic [ref=f215e1814]: In Progress 0%
+                    - generic [ref=f215e1817]: New 0%
+                    - generic [ref=f215e1820]: In Progress 0%
+                    - generic [ref=f215e1823]: Feedback 0%
+                    - generic [ref=f215e1826]: Resolved 0%
+                    - generic [ref=f215e1829]: New 0%
+                    - generic [ref=f215e1832]: In Progress 0%
+                    - generic [ref=f215e1835]: Resolved 0%
+                    - generic [ref=f215e1838]: In Progress 0%
+                    - generic [ref=f215e1841]: In Progress 0%
+                    - generic [ref=f215e1844]: In Progress 0%
+                    - generic [ref=f215e1847]: In Progress 0%
+                    - generic [ref=f215e1850]: In Progress 0%
+                    - generic [ref=f215e1853]: In Progress 0%
+                    - generic [ref=f215e1856]: New 0%
+                    - generic [ref=f215e1859]: In Progress 0%
+                    - generic [ref=f215e1862]: In Progress 0%
+        - list [ref=f215e1867]:
+          - listitem [ref=f215e1868]:
+            - link "« Zurück" [ref=f215e1869] [cursor=pointer]:
+              - /url: /issues/gantt?action=show&controller=gantts&month=3&months=6&year=2026&zoom=2
+          - listitem [ref=f215e1870]:
+            - link "Weiter »" [ref=f215e1871] [cursor=pointer]:
+              - /url: /issues/gantt?action=show&controller=gantts&month=3&months=6&year=2027&zoom=2
+        - paragraph [ref=f215e1872]:
+          - text: "Auch abrufbar als:"
+          - link "PDF" [ref=f215e1874] [cursor=pointer]:
+            - /url: /issues/gantt.pdf?month=9&months=6&year=2026&zoom=2
+          - generic [ref=f215e1875]:
+            - text: "|"
+            - link "PNG" [ref=f215e1876] [cursor=pointer]:
+              - /url: /issues/gantt.png?month=9&months=6&year=2026&zoom=2
+    - generic [ref=f215e1877]:
+      - text: Powered by
+      - link "Redmine" [ref=f215e1878] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f215e1879]
+  - log [ref=f215e1880]
+  - log [ref=f215e1881]
+  - log [ref=f215e1882]
+  - log [ref=f215e1883]
+  - log [ref=f215e1884]
+  - log [ref=f215e1885]
+  - log [ref=f215e1886]
+  - log [ref=f215e1887]
+  - log [ref=f215e1888]
+  - log [ref=f215e1889]
+  - log [ref=f215e1890]
+  - log [ref=f215e1891]
+  - log [ref=f215e1892]
+  - log [ref=f215e1893]
+  - log [ref=f215e1894]
+  - log [ref=f215e1895]
+  - log [ref=f215e1896]
+  - log [ref=f215e1897]
+  - log [ref=f215e1898]
+  - log [ref=f215e1899]
+  - log [ref=f215e1900]
+  - log [ref=f215e1901]
+  - log [ref=f215e1902]
+  - log [ref=f215e1903]
+  - log [ref=f215e1904]
+  - log [ref=f215e1905]
+  - log [ref=f215e1906]
+  - log [ref=f215e1907]
+  - log [ref=f215e1908]
+  - log [ref=f215e1909]
+  - log [ref=f215e1910]
+  - log [ref=f215e1911]
+  - log [ref=f215e1912]
+  - log [ref=f215e1913]
+  - log [ref=f215e1914]
+  - log [ref=f215e1915]
+  - log [ref=f215e1916]
+  - log [ref=f215e1917]
+  - log [ref=f215e1918]
+  - log [ref=f215e1919]
+  - log [ref=f215e1920]
+  - log [ref=f215e1921]
+  - log [ref=f215e1922]
+  - log [ref=f215e1923]
+  - log [ref=f215e1924]
+  - log [ref=f215e1925]
+  - log [ref=f215e1926]
+  - log [ref=f215e1927]
+  - log [ref=f215e1928]
+  - log [ref=f215e1929]
+  - log [ref=f215e1930]
+  - log [ref=f215e1931]
+  - log [ref=f215e1932]
+  - log [ref=f215e1933]
+  - log [ref=f215e1934]
+  - log [ref=f215e1935]
+  - log [ref=f215e1936]
+  - log [ref=f215e1937]
+  - log [ref=f215e1938]
+  - log [ref=f215e1939]
+  - log [ref=f215e1940]
+  - log [ref=f215e1941]
+  - log [ref=f215e1942]
+  - log [ref=f215e1943]
+  - log [ref=f215e1944]
+  - log [ref=f215e1945]
+  - log [ref=f215e1946]
+  - log [ref=f215e1947]
+  - log [ref=f215e1948]
+  - log [ref=f215e1949]
+  - log [ref=f215e1950]
+  - log [ref=f215e1951]
+  - log [ref=f215e1952]
+  - log [ref=f215e1953]
+  - log [ref=f215e1954]
+  - log [ref=f215e1955]
+  - log [ref=f215e1956]
+  - log [ref=f215e1957]
+  - log [ref=f215e1958]
+  - log [ref=f215e1959]
+  - log [ref=f215e1960]
+  - log [ref=f215e1961]
+  - log [ref=f215e1962]
+  - log [ref=f215e1963]
+  - log [ref=f215e1964]
+  - log [ref=f215e1965]
+  - log [ref=f215e1966]
+  - log [ref=f215e1967]
+  - log [ref=f215e1968]
+  - log [ref=f215e1969]
+  - log [ref=f215e1970]
+  - log [ref=f215e1971]
+  - log [ref=f215e1972]
+  - log [ref=f215e1973]
+  - log [ref=f215e1974]
+  - log [ref=f215e1975]
+  - log [ref=f215e1976]
+  - log [ref=f215e1977]
+  - log [ref=f215e1978]
+  - log [ref=f215e1979]
+  - log [ref=f215e1980]
+  - log [ref=f215e1981]
+  - log [ref=f215e1982]
+  - log [ref=f215e1983]
+  - log [ref=f215e1984]
+  - log [ref=f215e1985]
+  - log [ref=f215e1986]
+  - log [ref=f215e1987]
+  - log [ref=f215e1988]
+  - log [ref=f215e1989]
+  - log [ref=f215e1990]
+  - log [ref=f215e1991]
+  - log [ref=f215e1992]
+  - log [ref=f215e1993]
+  - log [ref=f215e1994]
+  - log [ref=f215e1995]
+  - log [ref=f215e1996]
+  - log [ref=f215e1997]
+  - log [ref=f215e1998]
+  - log [ref=f215e1999]
+  - log [ref=f215e2000]
+  - log [ref=f215e2001]
+  - log [ref=f215e2002]
+  - log [ref=f215e2003]
+  - log [ref=f215e2004]
+  - log [ref=f215e2005]
+  - log [ref=f215e2006]
+  - log [ref=f215e2007]
+  - log [ref=f215e2008]
+  - log [ref=f215e2009]
+  - log [ref=f215e2010]
+  - log [ref=f215e2011]
+  - log [ref=f215e2012]
+  - log [ref=f215e2013]
+  - log [ref=f215e2014]
+  - log [ref=f215e2015]
+  - log [ref=f215e2016]
+  - log [ref=f215e2017]
+  - log [ref=f215e2018]
+  - log [ref=f215e2019]
+  - log [ref=f215e2020]
+  - log [ref=f215e2021]
+  - log [ref=f215e2022]
+  - log [ref=f215e2023]
+  - log [ref=f215e2024]
+  - log [ref=f215e2025]
+  - log [ref=f215e2026]
+  - log [ref=f215e2027]
+  - log [ref=f215e2028]
+  - log [ref=f215e2029]
+  - log [ref=f215e2030]
+  - log [ref=f215e2031]
+  - log [ref=f215e2032]
+  - log [ref=f215e2033]
+  - log [ref=f215e2034]
+  - log [ref=f215e2035]
+  - log [ref=f215e2036]
+  - log [ref=f215e2037]
+  - log [ref=f215e2038]
+  - log [ref=f215e2039]
+  - log [ref=f215e2040]
+  - log [ref=f215e2041]
+  - log [ref=f215e2042]
+  - log [ref=f215e2043]
+  - log [ref=f215e2044]
+  - log [ref=f215e2045]
+  - log [ref=f215e2046]
+  - log [ref=f215e2047]
+  - log [ref=f215e2048]
+  - log [ref=f215e2049]
+  - log [ref=f215e2050]
+  - log [ref=f215e2051]
+  - log [ref=f215e2052]
+  - log [ref=f215e2053]
+  - log [ref=f215e2054]
+  - log [ref=f215e2055]
+  - log [ref=f215e2056]
+  - log [ref=f215e2057]
+  - log [ref=f215e2058]
+  - log [ref=f215e2059]
+  - log [ref=f215e2060]
+  - log [ref=f215e2061]
+  - log [ref=f215e2062]
+  - log [ref=f215e2063]
+  - log [ref=f215e2064]
+  - log [ref=f215e2065]
+  - log [ref=f215e2066]
+  - log [ref=f215e2067]
+  - log [ref=f215e2068]
+  - log [ref=f215e2069]
+  - log [ref=f215e2070]
+  - log [ref=f215e2071]
+  - log [ref=f215e2072]
+  - log [ref=f215e2073]
+  - log [ref=f215e2074]
+  - log [ref=f215e2075]
+  - log [ref=f215e2076]
+  - log [ref=f215e2077]
+  - log [ref=f215e2078]
+  - log [ref=f215e2079]
+  - log [ref=f215e2080]
+  - log [ref=f215e2081]
+  - log [ref=f215e2082]
+  - log [ref=f215e2083]
+  - log [ref=f215e2084]
+  - log [ref=f215e2085]
+  - log [ref=f215e2086]
+  - log [ref=f215e2087]
+  - log [ref=f215e2088]
+  - log [ref=f215e2089]
+  - log [ref=f215e2090]
+  - log [ref=f215e2091]
+  - log [ref=f215e2092]
+  - log [ref=f215e2093]
+  - log [ref=f215e2094]
+  - log [ref=f215e2095]
+  - log [ref=f215e2096]
+  - log [ref=f215e2097]
+  - log [ref=f215e2098]
+  - log [ref=f215e2099]
+  - log [ref=f215e2100]
+  - log [ref=f215e2101]
+  - log [ref=f215e2102]
+  - log [ref=f215e2103]
+  - log [ref=f215e2104]
+  - log [ref=f215e2105]
+  - log [ref=f215e2106]
+  - log [ref=f215e2107]
+  - log [ref=f215e2108]
+  - log [ref=f215e2109]
+  - log [ref=f215e2110]
+  - log [ref=f215e2111]
+  - log [ref=f215e2112]
+  - log [ref=f215e2113]
+  - log [ref=f215e2114]
+  - log [ref=f215e2115]
+  - log [ref=f215e2116]
+  - log [ref=f215e2117]
+  - log [ref=f215e2118]
+  - log [ref=f215e2119]
+  - log [ref=f215e2120]
+  - log [ref=f215e2121]
+  - log [ref=f215e2122]
+  - log [ref=f215e2123]
+  - log [ref=f215e2124]
+  - log [ref=f215e2125]
+  - log [ref=f215e2126]
+  - log [ref=f215e2127]
+  - log [ref=f215e2128]
+  - log [ref=f215e2129]
+  - log [ref=f215e2130]
+  - log [ref=f215e2131]
+  - log [ref=f215e2132]
+  - log [ref=f215e2133]
+  - log [ref=f215e2134]
+  - log [ref=f215e2135]
+  - log [ref=f215e2136]
+  - log [ref=f215e2137]
+  - log [ref=f215e2138]
+  - log [ref=f215e2139]
+  - log [ref=f215e2140]
+  - log [ref=f215e2141]
+  - log [ref=f215e2142]
+  - log [ref=f215e2143]
+  - log [ref=f215e2144]
+  - log [ref=f215e2145]
+  - log [ref=f215e2146]
+  - log [ref=f215e2147]
+  - log [ref=f215e2148]
+  - log [ref=f215e2149]
+  - log [ref=f215e2150]
+  - log [ref=f215e2151]
+  - log [ref=f215e2152]
+  - log [ref=f215e2153]
+  - log [ref=f215e2154]
+  - log [ref=f215e2155]
+  - log [ref=f215e2156]
+  - log [ref=f215e2157]
+  - log [ref=f215e2158]
+  - log [ref=f215e2159]
+  - log [ref=f215e2160]
+  - log [ref=f215e2161]
+  - log [ref=f215e2162]
+  - log [ref=f215e2163]
+  - log [ref=f215e2164]
+  - log [ref=f215e2165]
+  - log [ref=f215e2166]
+  - log [ref=f215e2167]
+  - log [ref=f215e2168]
+  - log [ref=f215e2169]
+  - log [ref=f215e2170]
+  - log [ref=f215e2171]
+  - log [ref=f215e2172]
+  - log [ref=f215e2173]
+  - log [ref=f215e2174]
+  - log [ref=f215e2175]
+  - log [ref=f215e2176]
+  - log [ref=f215e2177]
+  - log [ref=f215e2178]
+  - log [ref=f215e2179]
+  - log [ref=f215e2180]
+  - log [ref=f215e2181]
+  - log [ref=f215e2182]
+  - log [ref=f215e2183]
+  - log [ref=f215e2184]
+  - log [ref=f215e2185]
+  - log [ref=f215e2186]
+  - log [ref=f215e2187]
+  - log [ref=f215e2188]
+  - log [ref=f215e2189]
+  - log [ref=f215e2190]
+  - log [ref=f215e2191]
+  - log [ref=f215e2192]
+  - log [ref=f215e2193]
+  - log [ref=f215e2194]
+  - log [ref=f215e2195]
+  - log [ref=f215e2196]
+  - log [ref=f215e2197]
+  - log [ref=f215e2198]
+  - log [ref=f215e2199]
+  - log [ref=f215e2200]
+  - log [ref=f215e2201]
+  - log [ref=f215e2202]
+  - log [ref=f215e2203]
+  - log [ref=f215e2204]
+  - log [ref=f215e2205]
+  - log [ref=f215e2206]
+  - log [ref=f215e2207]
+  - log [ref=f215e2208]
+  - log [ref=f215e2209]
+  - log [ref=f215e2210]
+  - log [ref=f215e2211]
+  - log [ref=f215e2212]
+  - log [ref=f215e2213]
+  - log [ref=f215e2214]
+  - log [ref=f215e2215]
+  - log [ref=f215e2216]
+  - log [ref=f215e2217]
+  - log [ref=f215e2218]
+  - log [ref=f215e2219]
+  - log [ref=f215e2220]
+  - log [ref=f215e2221]
+  - log [ref=f215e2222]
+  - log [ref=f215e2223]
+  - log [ref=f215e2224]
+  - log [ref=f215e2225]
+  - log [ref=f215e2226]
+  - log [ref=f215e2227]
+  - log [ref=f215e2228]
+  - log [ref=f215e2229]
+  - log [ref=f215e2230]
+  - log [ref=f215e2231]
+  - log [ref=f215e2232]
+  - log [ref=f215e2233]
+  - log [ref=f215e2234]
+  - log [ref=f215e2235]
+  - log [ref=f215e2236]
+  - log [ref=f215e2237]
+  - log [ref=f215e2238]
+  - log [ref=f215e2239]
+  - log [ref=f215e2240]
+  - log [ref=f215e2241]
+  - log [ref=f215e2242]
+  - log [ref=f215e2243]
+  - log [ref=f215e2244]
+  - log [ref=f215e2245]
+  - log [ref=f215e2246]
+  - log [ref=f215e2247]
+  - log [ref=f215e2248]
+  - log [ref=f215e2249]
+  - log [ref=f215e2250]
+  - log [ref=f215e2251]
+  - log [ref=f215e2252]
+  - log [ref=f215e2253]
+  - log [ref=f215e2254]
+  - log [ref=f215e2255]
+  - log [ref=f215e2256]
+  - log [ref=f215e2257]
+  - log [ref=f215e2258]
+  - log [ref=f215e2259]
+  - log [ref=f215e2260]
+  - log [ref=f215e2261]
+  - log [ref=f215e2262]
+  - log [ref=f215e2263]
+  - log [ref=f215e2264]
+  - log [ref=f215e2265]
+  - log [ref=f215e2266]
+  - log [ref=f215e2267]
+  - log [ref=f215e2268]
+  - log [ref=f215e2269]
+  - log [ref=f215e2270]
+  - log [ref=f215e2271]
+  - log [ref=f215e2272]
+  - log [ref=f215e2273]
+  - log [ref=f215e2274]
+  - log [ref=f215e2275]
+  - log [ref=f215e2276]
+  - log [ref=f215e2277]
+  - log [ref=f215e2278]
+  - log [ref=f215e2279]
+  - log [ref=f215e2280]
+  - log [ref=f215e2281]
+  - log [ref=f215e2282]
+  - log [ref=f215e2283]
+  - log [ref=f215e2284]
+  - log [ref=f215e2285]
+  - log [ref=f215e2286]
+  - log [ref=f215e2287]
+  - log [ref=f215e2288]
+  - log [ref=f215e2289]
+  - log [ref=f215e2290]
+  - log [ref=f215e2291]
+  - log [ref=f215e2292]
+  - log [ref=f215e2293]
+  - log [ref=f215e2294]
+  - log [ref=f215e2295]
+  - log [ref=f215e2296]
+  - log [ref=f215e2297]
+  - log [ref=f215e2298]
+  - log [ref=f215e2299]
+  - log [ref=f215e2300]
+  - log [ref=f215e2301]
+  - log [ref=f215e2302]
+  - log [ref=f215e2303]
+  - log [ref=f215e2304]
+  - log [ref=f215e2305]
+  - log [ref=f215e2306]
+  - log [ref=f215e2307]
+  - log [ref=f215e2308]
+  - log [ref=f215e2309]
+  - log [ref=f215e2310]
+  - log [ref=f215e2311]
+  - log [ref=f215e2312]
+  - log [ref=f215e2313]
+  - log [ref=f215e2314]
+  - log [ref=f215e2315]
+  - log [ref=f215e2316]
+  - log [ref=f215e2317]
+  - log [ref=f215e2318]
+  - log [ref=f215e2319]
+  - log [ref=f215e2320]
+  - log [ref=f215e2321]
+  - log [ref=f215e2322]
+  - log [ref=f215e2323]
+  - log [ref=f215e2324]
+  - log [ref=f215e2325]
+  - log [ref=f215e2326]
+  - log [ref=f215e2327]
+  - log [ref=f215e2328]
+  - log [ref=f215e2329]
+  - log [ref=f215e2330]
+  - log [ref=f215e2331]
+  - log [ref=f215e2332]
+  - log [ref=f215e2333]
+  - log [ref=f215e2334]
+  - log [ref=f215e2335]
+  - log [ref=f215e2336]
+  - log [ref=f215e2337]
+  - log [ref=f215e2338]
+  - log [ref=f215e2339]
+  - log [ref=f215e2340]
+  - log [ref=f215e2341]
+  - log [ref=f215e2342]
+  - log [ref=f215e2343]
+  - log [ref=f215e2344]
+  - log [ref=f215e2345]
+  - log [ref=f215e2346]
+  - log [ref=f215e2347]
+  - log [ref=f215e2348]
+  - log [ref=f215e2349]
+  - log [ref=f215e2350]
+  - log [ref=f215e2351]
+  - log [ref=f215e2352]
+  - log [ref=f215e2353]
+  - log [ref=f215e2354]
+  - log [ref=f215e2355]
+  - log [ref=f215e2356]
+  - log [ref=f215e2357]
+  - log [ref=f215e2358]
+  - log [ref=f215e2359]
+  - log [ref=f215e2360]
+  - log [ref=f215e2361]
+  - log [ref=f215e2362]
+  - log [ref=f215e2363]
+  - log [ref=f215e2364]
+  - log [ref=f215e2365]
+  - log [ref=f215e2366]
+  - log [ref=f215e2367]
+  - log [ref=f215e2368]
+  - log [ref=f215e2369]
+  - log [ref=f215e2370]
+  - log [ref=f215e2371]
+  - log [ref=f215e2372]
+  - log [ref=f215e2373]
+  - log [ref=f215e2374]
+  - log [ref=f215e2375]
+  - log [ref=f215e2376]
+  - log [ref=f215e2377]
+  - log [ref=f215e2378]
+  - log [ref=f215e2379]
+  - log [ref=f215e2380]
+  - log [ref=f215e2381]
+  - log [ref=f215e2382]
+  - log [ref=f215e2383]
+  - log [ref=f215e2384]
+  - log [ref=f215e2385]
+  - log [ref=f215e2386]
+  - log [ref=f215e2387]
+  - log [ref=f215e2388]
+  - log [ref=f215e2389]
+  - log [ref=f215e2390]
+  - log [ref=f215e2391]
+  - log [ref=f215e2392]
+  - log [ref=f215e2393]
+  - log [ref=f215e2394]
+  - log [ref=f215e2395]
+  - log [ref=f215e2396]
+  - log [ref=f215e2397]
+  - log [ref=f215e2398]
+  - log [ref=f215e2399]
+  - log [ref=f215e2400]
+  - log [ref=f215e2401]
+  - log [ref=f215e2402]
+  - log [ref=f215e2403]
+  - log [ref=f215e2404]
+  - log [ref=f215e2405]
+  - log [ref=f215e2406]
+  - log [ref=f215e2407]
+  - log [ref=f215e2408]
+  - log [ref=f215e2409]
+  - log [ref=f215e2410]
+  - log [ref=f215e2411]
+  - log [ref=f215e2412]
+  - log [ref=f215e2413]
+  - log [ref=f215e2414]
+  - log [ref=f215e2415]
+  - log [ref=f215e2416]
+  - log [ref=f215e2417]
+  - log [ref=f215e2418]
+  - log [ref=f215e2419]
+  - log [ref=f215e2420]
+  - log [ref=f215e2421]
+  - log [ref=f215e2422]
+  - log [ref=f215e2423]
+  - log [ref=f215e2424]
+  - log [ref=f215e2425]
+  - log [ref=f215e2426]
+  - log [ref=f215e2427]
+  - log [ref=f215e2428]
+  - log [ref=f215e2429]
+  - log [ref=f215e2430]
+  - log [ref=f215e2431]
+  - log [ref=f215e2432]
+  - log [ref=f215e2433]
+  - log [ref=f215e2434]
+  - log [ref=f215e2435]
+  - log [ref=f215e2436]
+  - log [ref=f215e2437]
+  - log [ref=f215e2438]
+  - log [ref=f215e2439]
+  - log [ref=f215e2440]
+  - log [ref=f215e2441]
+  - log [ref=f215e2442]
+  - log [ref=f215e2443]
+  - log [ref=f215e2444]
+  - log [ref=f215e2445]
+  - log [ref=f215e2446]
+  - log [ref=f215e2447]
+  - log [ref=f215e2448]
+  - log [ref=f215e2449]
+  - log [ref=f215e2450]
+  - log [ref=f215e2451]
+  - log [ref=f215e2452]
+  - log [ref=f215e2453]
+  - log [ref=f215e2454]
+  - log [ref=f215e2455]
+  - log [ref=f215e2456]
+  - log [ref=f215e2457]
+  - log [ref=f215e2458]
+  - log [ref=f215e2459]
+  - log [ref=f215e2460]
+  - log [ref=f215e2461]
+  - log [ref=f215e2462]
+  - log [ref=f215e2463]
+  - log [ref=f215e2464]
+  - log [ref=f215e2465]
+  - log [ref=f215e2466]
+  - log [ref=f215e2467]
+  - log [ref=f215e2468]
+  - log [ref=f215e2469]
+  - log [ref=f215e2470]
+  - log [ref=f215e2471]
+  - log [ref=f215e2472]
+  - log [ref=f215e2473]
+  - log [ref=f215e2474]
+  - log [ref=f215e2475]
+  - log [ref=f215e2476]
+  - log [ref=f215e2477]
+  - log [ref=f215e2478]
+  - log [ref=f215e2479]
+  - log [ref=f215e2480]
+  - log [ref=f215e2481]
+  - log [ref=f215e2482]
+  - log [ref=f215e2483]
+  - log [ref=f215e2484]
+  - log [ref=f215e2485]
+  - log [ref=f215e2486]
+  - log [ref=f215e2487]
+  - log [ref=f215e2488]
+  - log [ref=f215e2489]
+  - log [ref=f215e2490]
+  - log [ref=f215e2491]
+  - log [ref=f215e2492]
+  - log [ref=f215e2493]
+  - log [ref=f215e2494]
+  - log [ref=f215e2495]
+  - log [ref=f215e2496]
+  - log [ref=f215e2497]
+  - log [ref=f215e2498]
+  - log [ref=f215e2499]
+  - log [ref=f215e2500]
+  - log [ref=f215e2501]
+  - log [ref=f215e2502]
+  - log [ref=f215e2503]
+  - log [ref=f215e2504]
+  - log [ref=f215e2505]
+  - log [ref=f215e2506]
+  - log [ref=f215e2507]
+  - log [ref=f215e2508]
+  - log [ref=f215e2509]
+  - log [ref=f215e2510]
+  - log [ref=f215e2511]
+  - log [ref=f215e2512]
+  - log [ref=f215e2513]
+  - log [ref=f215e2514]
+  - log [ref=f215e2515]
+  - log [ref=f215e2516]
+  - log [ref=f215e2517]
+  - log [ref=f215e2518]
+  - log [ref=f215e2519]
+  - log [ref=f215e2520]
+  - log [ref=f215e2521]
+  - log [ref=f215e2522]
+  - log [ref=f215e2523]
+  - log [ref=f215e2524]
+  - log [ref=f215e2525]
+  - log [ref=f215e2526]
+  - log [ref=f215e2527]
+  - log [ref=f215e2528]
+  - log [ref=f215e2529]
+  - log [ref=f215e2530]
+  - log [ref=f215e2531]
+  - log [ref=f215e2532]
+  - log [ref=f215e2533]
+  - log [ref=f215e2534]
+  - log [ref=f215e2535]
+  - log [ref=f215e2536]
+  - log [ref=f215e2537]
+  - log [ref=f215e2538]
+  - log [ref=f215e2539]
+  - log [ref=f215e2540]
+  - log [ref=f215e2541]
+  - log [ref=f215e2542]
+  - log [ref=f215e2543]
+  - log [ref=f215e2544]
+  - log [ref=f215e2545]
+  - log [ref=f215e2546]
+  - log [ref=f215e2547]
+  - log [ref=f215e2548]
+  - log [ref=f215e2549]
+  - log [ref=f215e2550]
+  - log [ref=f215e2551]
+  - log [ref=f215e2552]
+  - log [ref=f215e2553]
+  - log [ref=f215e2554]
+  - log [ref=f215e2555]
+  - log [ref=f215e2556]
+  - log [ref=f215e2557]
+  - log [ref=f215e2558]
+  - log [ref=f215e2559]
+  - log [ref=f215e2560]
+  - log [ref=f215e2561]

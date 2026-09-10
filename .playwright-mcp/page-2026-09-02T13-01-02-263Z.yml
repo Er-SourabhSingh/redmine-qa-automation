@@ -1,0 +1,227 @@
+- generic [ref=f40e1]:
+  - generic [ref=f40e2]:
+    - generic [ref=f40e3]:
+      - generic [ref=f40e4]:
+        - list:
+          - listitem [ref=f40e5]:
+            - link "My account" [ref=f40e6] [cursor=pointer]:
+              - /url: /my/account
+          - listitem [ref=f40e7]:
+            - link "Sign out" [ref=f40e8] [cursor=pointer]:
+              - /url: /logout
+      - generic [ref=f40e9]:
+        - text: Logged in as
+        - link "admin" [ref=f40e10] [cursor=pointer]:
+          - /url: /users/1
+      - list:
+        - listitem [ref=f40e11]:
+          - link "Home" [ref=f40e12] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f40e13]:
+          - link "My page" [ref=f40e14] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f40e15]:
+          - link "Projects" [ref=f40e16] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f40e17]:
+          - link "Flux Gantt" [ref=f40e18] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f40e19]:
+          - link "Helpdesk Command Center" [ref=f40e20] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f40e21]:
+          - link "Time Tracker" [ref=f40e22] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f40e23]:
+          - link "Timesheet" [ref=f40e24] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f40e25]:
+          - link "Workloads" [ref=f40e26] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f40e27]:
+          - link "Administration" [ref=f40e28] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f40e29]:
+          - link "Help" [ref=f40e30] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f40e31]:
+      - generic [ref=f40e32]:
+        - generic [ref=f40e33]:
+          - generic [ref=f40e34]:
+            - link "Search..." [ref=f40e35] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f40e36]
+        - generic [ref=f40e37]:
+          - generic [ref=f40e38] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f40e39]
+    - generic [ref=f40e40]:
+      - list [ref=f40e44]:
+        - listitem [ref=f40e45]:
+          - link "Helpdesk Dashboard" [ref=f40e46] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f40e49]:
+          - link "Helpdesk Tickets" [ref=f40e50] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f40e53]:
+          - link "Reports" [ref=f40e54] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f40e57]:
+          - link "Organization" [ref=f40e58] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f40e61]:
+          - link "Customers" [ref=f40e62] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f40e65]:
+          - link "Products" [ref=f40e66] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f40e69]:
+          - link "Helpdesk Settings" [ref=f40e70] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f40e73]:
+        - generic [ref=f40e74]: Successful creation.
+        - generic [ref=f40e77]:
+          - generic [ref=f40e79]:
+            - heading "Organizations" [level=2] [ref=f40e80]
+            - paragraph [ref=f40e81]: Companies your customers belong to
+          - link "New Organization" [ref=f40e83] [cursor=pointer]:
+            - /url: /rf_organizations/new
+        - generic [ref=f40e86]:
+          - textbox "Search organizations..." [active] [ref=f40e88]
+          - combobox "All Statuses" [ref=f40e89] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f40e90]:
+            - button "Apply Filters" [ref=f40e91] [cursor=pointer]
+            - link "Clear" [ref=f40e94] [cursor=pointer]:
+              - /url: /rf_organizations
+        - table [ref=f40e100]:
+          - rowgroup [ref=f40e101]:
+            - row [ref=f40e102]:
+              - columnheader "S.No" [ref=f40e103]
+              - columnheader "Organization Name" [ref=f40e104]
+              - columnheader "Website" [ref=f40e105]
+              - columnheader "Author" [ref=f40e106]
+              - columnheader "Updated By" [ref=f40e107]
+              - columnheader "Created on" [ref=f40e108]
+              - columnheader "Updated" [ref=f40e109]
+              - columnheader "User Count" [ref=f40e110]
+              - columnheader "Active" [ref=f40e111]
+              - columnheader "Action" [ref=f40e112]
+          - rowgroup [ref=f40e113]:
+            - row [ref=f40e114]:
+              - cell "1" [ref=f40e115]
+              - cell [ref=f40e116]:
+                - link "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA..." [ref=f40e117] [cursor=pointer]:
+                  - /url: /rf_organizations/10
+              - cell "—" [ref=f40e118]
+              - cell "Redmine Admin" [ref=f40e119]
+              - cell "Redmine Admin" [ref=f40e120]
+              - cell "09/02/2026 01:00 PM" [ref=f40e121]
+              - cell "09/02/2026 01:00 PM" [ref=f40e122]
+              - cell "0" [ref=f40e123]
+              - cell [ref=f40e124]:
+                - checkbox "Active" [checked] [ref=f40e125]
+              - cell [ref=f40e126]:
+                - generic [ref=f40e127]:
+                  - link "Edit" [ref=f40e128] [cursor=pointer]:
+                    - /url: /rf_organizations/10/edit
+                  - link "Delete" [ref=f40e131] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f40e135]:
+              - cell "2" [ref=f40e136]
+              - cell [ref=f40e137]:
+                - link "Alpha Full-Fields Test Org (All Changed)" [ref=f40e138] [cursor=pointer]:
+                  - /url: /rf_organizations/9
+              - cell [ref=f40e139]:
+                - link "https://alpha-allchanged.example.org" [ref=f40e140] [cursor=pointer]:
+                  - /url: https://alpha-allchanged.example.org
+              - cell "Redmine Admin" [ref=f40e141]
+              - cell "Redmine Admin" [ref=f40e142]
+              - cell "09/02/2026 06:17 AM" [ref=f40e143]
+              - cell "09/02/2026 06:18 AM" [ref=f40e144]
+              - cell "0" [ref=f40e145]
+              - cell [ref=f40e146]:
+                - checkbox "Active" [checked] [ref=f40e147]
+              - cell [ref=f40e148]:
+                - generic [ref=f40e149]:
+                  - link "Edit" [ref=f40e150] [cursor=pointer]:
+                    - /url: /rf_organizations/9/edit
+                  - link "Delete" [ref=f40e153] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f40e157]:
+              - cell "3" [ref=f40e158]
+              - cell [ref=f40e159]:
+                - link "Alpha Minimal Fields Test Org" [ref=f40e160] [cursor=pointer]:
+                  - /url: /rf_organizations/8
+              - cell "—" [ref=f40e161]
+              - cell "Redmine Admin" [ref=f40e162]
+              - cell "Redmine Admin" [ref=f40e163]
+              - cell "09/02/2026 06:16 AM" [ref=f40e164]
+              - cell "09/02/2026 06:16 AM" [ref=f40e165]
+              - cell "1" [ref=f40e166]
+              - cell [ref=f40e167]:
+                - checkbox "Active" [checked] [ref=f40e168]
+              - cell [ref=f40e169]:
+                - generic [ref=f40e170]:
+                  - link "Edit" [ref=f40e171] [cursor=pointer]:
+                    - /url: /rf_organizations/8/edit
+                  - link "Delete" [ref=f40e174] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f40e178]:
+              - cell "4" [ref=f40e179]
+              - cell [ref=f40e180]:
+                - link "O'Brien & Sons, Ltd. 日本語テスト Acme123" [ref=f40e181] [cursor=pointer]:
+                  - /url: /rf_organizations/11
+              - cell "—" [ref=f40e182]
+              - cell "Redmine Admin" [ref=f40e183]
+              - cell "Redmine Admin" [ref=f40e184]
+              - cell "09/02/2026 01:01 PM" [ref=f40e185]
+              - cell "09/02/2026 01:01 PM" [ref=f40e186]
+              - cell "0" [ref=f40e187]
+              - cell [ref=f40e188]:
+                - checkbox "Active" [checked] [ref=f40e189]
+              - cell [ref=f40e190]:
+                - generic [ref=f40e191]:
+                  - link "Edit" [ref=f40e192] [cursor=pointer]:
+                    - /url: /rf_organizations/11/edit
+                  - link "Delete" [ref=f40e195] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f40e199]:
+          - list
+          - generic [ref=f40e200]: (1-4/4)
+    - generic [ref=f40e201]:
+      - text: Powered by
+      - link "Redmine" [ref=f40e202] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f40e203]
+  - log [ref=f40e204]
+  - log [ref=f40e205]
+  - log [ref=f40e206]
+  - log [ref=f40e207]
+  - log [ref=f40e208]
+  - log [ref=f40e209]
+  - log [ref=f40e210]
+  - log [ref=f40e211]
+  - log [ref=f40e212]
+  - log [ref=f40e213]
+  - log [ref=f40e214]
+  - log [ref=f40e215]
+  - log [ref=f40e216]
+  - log [ref=f40e217]
+  - log [ref=f40e218]
+  - log [ref=f40e219]
+  - log [ref=f40e220]
+  - log [ref=f40e221]
+  - log [ref=f40e222]
+  - log [ref=f40e223]
+  - log [ref=f40e224]
+  - log [ref=f40e225]
+  - log [ref=f40e226]
+  - log [ref=f40e227]
+  - log [ref=f40e228]
+  - log [ref=f40e229]
+  - log [ref=f40e230]

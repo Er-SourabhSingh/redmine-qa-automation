@@ -1,0 +1,454 @@
+- generic [ref=f9e1]:
+  - generic [ref=f9e2]:
+    - generic [ref=f9e3]:
+      - generic [ref=f9e4]:
+        - list:
+          - listitem [ref=f9e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f9e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f9e7]:
+        - text: Logged in as
+        - link "admin" [ref=f9e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f9e9]:
+        - listitem [ref=f9e10]:
+          - link [ref=f9e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f9e12]
+        - listitem [ref=f9e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f9e14]:
+          - link "My page" [ref=f9e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f9e16]:
+          - link "Projects" [ref=f9e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f9e18]:
+          - link "Flux Gantt" [ref=f9e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f9e20]:
+          - link "Helpdesk Command Center" [ref=f9e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f9e22]:
+          - link "Time Tracker" [ref=f9e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f9e24]:
+          - link "Timesheet" [ref=f9e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f9e26]:
+          - link "Workloads" [ref=f9e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f9e28]:
+          - link "More" [ref=f9e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f9e30]:
+      - generic [ref=f9e31]:
+        - generic [ref=f9e32]:
+          - generic [ref=f9e33]:
+            - link "Search..." [ref=f9e34] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f9e35]
+        - generic [ref=f9e36]:
+          - generic [ref=f9e37] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f9e38]
+      - generic [ref=f9e39]:
+        - list [ref=f9e40]:
+          - listitem [ref=f9e41]:
+            - link "+" [ref=f9e42] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f9e43]:
+            - link "Overview" [ref=f9e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f9e45]:
+            - link "Activity" [ref=f9e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f9e47]:
+            - link "Issues" [ref=f9e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f9e49]:
+            - link "Spent time" [ref=f9e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f9e51]:
+            - link "Gantt" [ref=f9e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f9e53]:
+            - link "Calendar" [ref=f9e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f9e55]:
+            - link "News" [ref=f9e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f9e57]:
+            - link "Documents" [ref=f9e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f9e59]:
+            - link "Wiki" [ref=f9e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f9e61]:
+            - link "Files" [ref=f9e62] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f9e63]:
+            - link "Helpdesk" [ref=f9e64] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+          - listitem [ref=f9e65]:
+            - link "Settings" [ref=f9e66] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/settings
+        - generic [ref=f9e67]:
+          - button [ref=f9e68] [cursor=pointer]
+          - button [ref=f9e71] [cursor=pointer]
+    - generic [ref=f9e74]:
+      - link [ref=f9e76] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=f9e79]:
+        - generic [ref=f9e80]:
+          - link "Start Timer" [ref=f9e81] [cursor=pointer]:
+            - /url: "#"
+          - link "Reply" [ref=f9e82] [cursor=pointer]:
+            - /url: "#"
+          - link "Edit" [ref=f9e83] [cursor=pointer]:
+            - /url: /issues/22/edit
+          - link "Log time" [ref=f9e85] [cursor=pointer]:
+            - /url: /issues/22/time_entries/new
+          - link "Unwatch" [ref=f9e87] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=22&object_type=issue
+          - link "Copy" [ref=f9e89] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/22/copy
+          - generic "Actions" [ref=f9e93] [cursor=pointer]
+        - 'heading "Support #22" [level=2] [ref=f9e95]'
+        - generic [ref=f9e96]: open
+        - generic [ref=f9e97]:
+          - generic:
+            - 'img "Author: Retest Customer1" [ref=f9e98]': RC
+            - 'img "Assignee: Redmine Admin" [ref=f9e99]': RA
+          - heading [level=3] [ref=f9e103]:
+            - text: TC-HLP-338 lower-level agent self-assign test ticket
+            - button "Edit" [ref=f9e104] [cursor=pointer]
+          - link [ref=f9e107] [cursor=pointer]:
+            - /url: /reactions?object_id=22&object_type=Issue
+          - paragraph [ref=f9e110]:
+            - text: Added by
+            - link "Retest Customer1" [ref=f9e111] [cursor=pointer]:
+              - /url: /users/7
+            - link "35 minutes" [ref=f9e112] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-09-01
+            - text: ago. Updated
+            - link "33 minutes" [ref=f9e113] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-09-01
+            - text: ago.
+          - generic [ref=f9e114]:
+            - generic [ref=f9e115]:
+              - generic [ref=f9e116]:
+                - generic [ref=f9e117]:
+                  - generic [ref=f9e118]: "Status:"
+                  - generic [ref=f9e119]:
+                    - text: New
+                    - button "Edit" [ref=f9e120] [cursor=pointer]
+                - generic [ref=f9e121]:
+                  - generic [ref=f9e122]: "Priority:"
+                  - generic [ref=f9e123]:
+                    - text: Normal
+                    - button "Edit" [ref=f9e124] [cursor=pointer]
+                - generic [ref=f9e125]:
+                  - generic [ref=f9e126]: "Assignee:"
+                  - textbox "Search…" [active] [ref=f9e417]: Redmine Admin
+              - generic [ref=f9e131]:
+                - generic [ref=f9e132]:
+                  - generic [ref=f9e133]: "Start date:"
+                  - generic [ref=f9e134]:
+                    - text: 09/01/2026
+                    - button "Edit" [ref=f9e135] [cursor=pointer]
+                - generic [ref=f9e136]:
+                  - generic [ref=f9e137]: "Due Date:"
+                  - button "Edit" [ref=f9e139] [cursor=pointer]
+                - generic [ref=f9e140]:
+                  - generic [ref=f9e141]: "Progress:"
+                  - generic [ref=f9e142]:
+                    - generic [ref=f9e143]:
+                      - table [ref=f9e144]:
+                        - rowgroup [ref=f9e145]:
+                          - row [ref=f9e146]:
+                            - cell [ref=f9e147]
+                      - paragraph [ref=f9e148]: 0%
+                    - button "Edit" [ref=f9e149] [cursor=pointer]
+                - generic [ref=f9e150]:
+                  - generic [ref=f9e151]: "Estimated time:"
+                  - button "Edit" [ref=f9e153] [cursor=pointer]
+            - generic [ref=f9e156]:
+              - generic [ref=f9e157]: "Issue Category:"
+              - button "Edit" [ref=f9e159] [cursor=pointer]
+            - generic [ref=f9e161]:
+              - generic [ref=f9e162]: "Product:"
+              - generic [ref=f9e163]: "-"
+            - generic [ref=f9e164]:
+              - generic [ref=f9e165]: "Organization:"
+              - generic [ref=f9e166]: "-"
+            - generic [ref=f9e167]:
+              - generic [ref=f9e168]: "Customer:"
+              - link "Retest Customer1" [ref=f9e170] [cursor=pointer]:
+                - /url: /rf_customers/7
+          - separator [ref=f9e171]
+          - generic [ref=f9e172]:
+            - paragraph [ref=f9e174]:
+              - strong [ref=f9e175]: Checklist
+            - generic [ref=f9e177] [cursor=pointer]
+            - generic:
+              - list
+          - separator [ref=f9e179]
+          - generic [ref=f9e180]:
+            - link "Add" [ref=f9e182] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/new?back_url=%2Fissues%2F22&issue%5Bparent_issue_id%5D=22&issue%5Btracker_id%5D=3
+            - paragraph [ref=f9e183]:
+              - strong [ref=f9e184]: Subtasks
+          - separator [ref=f9e185]
+          - generic [ref=f9e186]:
+            - link "Add" [ref=f9e188] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f9e189]:
+              - strong [ref=f9e190]: Related issues
+        - generic [ref=f9e191]:
+          - list [ref=f9e193]:
+            - listitem [ref=f9e194]:
+              - link "History" [ref=f9e195] [cursor=pointer]:
+                - /url: /issues/22?tab=history
+            - listitem [ref=f9e196]:
+              - link "Property changes" [ref=f9e197] [cursor=pointer]:
+                - /url: /issues/22?tab=properties
+            - listitem [ref=f9e198]:
+              - link "SLA Information" [ref=f9e199] [cursor=pointer]:
+                - /url: /issues/22?tab=sla-information
+          - generic [ref=f9e201]:
+            - generic [ref=f9e202]:
+              - generic [ref=f9e203]:
+                - generic [ref=f9e204]: Alpha Escalation Test SLA
+                - generic [ref=f9e205]: ↑ Escalated 1×
+              - generic [ref=f9e206]: ✗ SLA Missed
+            - generic [ref=f9e207]:
+              - generic [ref=f9e208]: 🚨
+              - generic [ref=f9e209]:
+                - strong [ref=f9e210]: Needs Immediate Attention —
+                - text: No further escalation path. Assigned to admin
+                - strong [ref=f9e211]: Redmine Admin
+                - text: on 09/01/2026 12:24 PM (UTC).
+            - generic [ref=f9e212]:
+              - generic [ref=f9e213]: SLA Overview
+              - table [ref=f9e215]:
+                - rowgroup [ref=f9e216]:
+                  - row [ref=f9e217]:
+                    - columnheader "Organization" [ref=f9e218]
+                    - columnheader "SLA Policy" [ref=f9e219]
+                    - columnheader "Support Level" [ref=f9e220]
+                    - columnheader "SLA Started" [ref=f9e221]
+                    - columnheader "Initially Assigned To" [ref=f9e222]
+                    - columnheader "Current Assignee" [ref=f9e223]
+                - rowgroup [ref=f9e224]:
+                  - row [ref=f9e225]:
+                    - cell "—" [ref=f9e226]
+                    - cell [ref=f9e227]:
+                      - strong [ref=f9e228]: Alpha Escalation Test SLA
+                    - cell "L3" [ref=f9e229]
+                    - cell "09/01/2026 12:14 PM (UTC)" [ref=f9e231]
+                    - cell "Willow Belle" [ref=f9e232]
+                    - cell "Redmine Admin Admin" [ref=f9e233]:
+                      - strong [ref=f9e234]: Redmine Admin
+                      - generic [ref=f9e235]: Admin
+            - generic [ref=f9e236]:
+              - generic [ref=f9e237]:
+                - generic [ref=f9e238]: SLA Journey
+                - generic [ref=f9e239]: 2 stages · 1 escalation
+              - table [ref=f9e240]:
+                - rowgroup [ref=f9e241]:
+                  - row [ref=f9e242]:
+                    - columnheader "#" [ref=f9e243]
+                    - columnheader "Stage" [ref=f9e244]
+                    - columnheader "Support Level" [ref=f9e245]
+                    - columnheader "Agent" [ref=f9e246]
+                    - columnheader "Active Period" [ref=f9e247]
+                    - columnheader "Response SLA" [ref=f9e248]
+                    - columnheader "Resolution SLA" [ref=f9e249]
+                    - columnheader "Escalation Trigger" [ref=f9e250]
+                - rowgroup [ref=f9e251]:
+                  - row [ref=f9e252]:
+                    - cell "1" [ref=f9e253]
+                    - cell "Initial Stage" [ref=f9e255]
+                    - cell "L3" [ref=f9e256]
+                    - cell "Willow Belle" [ref=f9e258]
+                    - cell "09/01/2026 12:14 PM (UTC) ↓ 09/01/2026 12:24 PM (UTC)" [ref=f9e259]:
+                      - text: 09/01/2026 12:14 PM (UTC)
+                      - generic [ref=f9e260]: ↓
+                      - text: 09/01/2026 12:24 PM (UTC)
+                    - 'cell "✗ Breached Deadline: 09/01/2026 12:15 PM (UTC)" [ref=f9e261]':
+                      - generic [ref=f9e262]:
+                        - generic [ref=f9e263]: ✗
+                        - text: Breached
+                      - generic [ref=f9e264]: "Deadline: 09/01/2026 12:15 PM (UTC)"
+                    - cell "→ Carried forward" [ref=f9e265]:
+                      - generic [ref=f9e266]:
+                        - generic [ref=f9e267]: →
+                        - text: Carried forward
+                    - cell "Response Time Breach → L3 / Redmine Admin 09/01/2026 12:24 PM (UTC)" [ref=f9e268]:
+                      - generic [ref=f9e269]: Response Time Breach
+                      - generic [ref=f9e270]: → L3 / Redmine Admin
+                      - generic [ref=f9e271]: 09/01/2026 12:24 PM (UTC)
+                  - row [ref=f9e272]:
+                    - cell "2" [ref=f9e273]
+                    - 'cell "Escalation #1 ● Current Response Time Breach" [ref=f9e275]':
+                      - text: "Escalation #1"
+                      - generic [ref=f9e276]: ● Current
+                      - generic [ref=f9e277]: Response Time Breach
+                    - cell "L3" [ref=f9e278]
+                    - cell "Redmine Admin Admin" [ref=f9e280]:
+                      - text: Redmine Admin
+                      - generic [ref=f9e281]: Admin
+                    - cell "09/01/2026 12:24 PM (UTC) ↓ Present" [ref=f9e282]:
+                      - text: 09/01/2026 12:24 PM (UTC)
+                      - generic [ref=f9e283]: ↓
+                      - text: Present
+                    - 'cell "✗ Breached Deadline: 09/01/2026 12:15 PM (UTC)" [ref=f9e284]':
+                      - generic [ref=f9e285]:
+                        - generic [ref=f9e286]: ✗
+                        - text: Breached
+                      - generic [ref=f9e287]: "Deadline: 09/01/2026 12:15 PM (UTC)"
+                    - cell "○ Starts after first response" [ref=f9e288]:
+                      - generic [ref=f9e289]:
+                        - generic [ref=f9e290]: ○
+                        - text: Starts after first response
+                    - cell "— (active)" [ref=f9e291]
+            - generic [ref=f9e292]:
+              - generic [ref=f9e293]:
+                - generic [ref=f9e294]: Activity Log
+                - generic [ref=f9e295]: 3 events
+              - table [ref=f9e296]:
+                - rowgroup [ref=f9e297]:
+                  - row [ref=f9e298]:
+                    - columnheader "#" [ref=f9e299]
+                    - columnheader "Timestamp" [ref=f9e300]
+                    - columnheader "Event" [ref=f9e301]
+                    - columnheader "Support Level" [ref=f9e302]
+                    - columnheader "Agent / By" [ref=f9e303]
+                    - columnheader "Details" [ref=f9e304]
+                - rowgroup [ref=f9e305]:
+                  - row [ref=f9e306]:
+                    - 'cell "1 Initial Stage L3 Agent: Willow Belle" [ref=f9e307]':
+                      - generic [ref=f9e308]: "1"
+                      - text: Initial Stage
+                      - generic [ref=f9e309]: L3
+                      - text: "Agent: Willow Belle"
+                  - row [ref=f9e310]:
+                    - cell "1" [ref=f9e311]
+                    - cell "09/01/2026 12:14 PM (UTC)" [ref=f9e312]
+                    - cell "▶ SLA Started" [ref=f9e313]
+                    - cell "L3" [ref=f9e315]
+                    - cell "Willow Belle" [ref=f9e317]
+                    - 'cell "Response deadline set: 09/01/2026 12:15 PM (UTC)" [ref=f9e318]'
+                  - row [ref=f9e319]:
+                    - cell "2" [ref=f9e320]
+                    - cell "09/01/2026 12:15 PM (UTC)" [ref=f9e321]
+                    - cell "✗ Response SLA Breached" [ref=f9e322]
+                    - cell "L3" [ref=f9e324]
+                    - cell "Willow Belle" [ref=f9e326]
+                    - cell "No response given by deadline" [ref=f9e327]
+                  - row [ref=f9e328]:
+                    - cell "3" [ref=f9e329]
+                    - cell "09/01/2026 12:24 PM (UTC)" [ref=f9e330]
+                    - cell "↑ Escalated → L3" [ref=f9e331]
+                    - cell "L3" [ref=f9e333]
+                    - cell "Redmine Admin" [ref=f9e335]
+                    - 'cell "Reason: Response Time Breach · New deadline: 09/01/2026 12:15 PM (UTC)" [ref=f9e336]'
+        - generic [ref=f9e337]:
+          - link "Edit" [ref=f9e338] [cursor=pointer]:
+            - /url: /issues/22/edit
+          - link "Log time" [ref=f9e340] [cursor=pointer]:
+            - /url: /issues/22/time_entries/new
+          - link "Unwatch" [ref=f9e342] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=22&object_type=issue
+          - link "Copy" [ref=f9e344] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/22/copy
+          - generic "Actions" [ref=f9e348] [cursor=pointer]
+        - text: pre pre
+        - paragraph [ref=f9e350]:
+          - text: "Also available in:"
+          - link "PDF" [ref=f9e352] [cursor=pointer]:
+            - /url: /issues/22.pdf
+          - generic [ref=f9e353]:
+            - text: "|"
+            - link "Atom" [ref=f9e354] [cursor=pointer]:
+              - /url: /issues/22.atom?key=37400ba0af80d0ddda427b1e9ddde606dc83db99
+    - generic [ref=f9e355]:
+      - text: Powered by
+      - link "Redmine" [ref=f9e356] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f9e357]
+  - log [ref=f9e358]
+  - log [ref=f9e359]
+  - log [ref=f9e360]
+  - log [ref=f9e361]
+  - log [ref=f9e362]
+  - log [ref=f9e363]
+  - log [ref=f9e364]
+  - log [ref=f9e365]
+  - log [ref=f9e366]
+  - log [ref=f9e367]
+  - log [ref=f9e368]
+  - log [ref=f9e369]
+  - log [ref=f9e370]
+  - log [ref=f9e371]
+  - log [ref=f9e372]
+  - log [ref=f9e373]
+  - log [ref=f9e374]
+  - log [ref=f9e375]
+  - log [ref=f9e376]
+  - log [ref=f9e377]
+  - log [ref=f9e378]
+  - log [ref=f9e379]
+  - log [ref=f9e380]
+  - log [ref=f9e381]
+  - log [ref=f9e382]
+  - log [ref=f9e383]
+  - log [ref=f9e384]
+  - log [ref=f9e385]
+  - log [ref=f9e386]
+  - log [ref=f9e387]
+  - log [ref=f9e388]
+  - log [ref=f9e389]
+  - log [ref=f9e390]
+  - log [ref=f9e391]
+  - log [ref=f9e392]
+  - log [ref=f9e393]
+  - log [ref=f9e394]
+  - log [ref=f9e395]
+  - log [ref=f9e396]
+  - log [ref=f9e397]
+  - log [ref=f9e398]
+  - log [ref=f9e399]
+  - log [ref=f9e400]
+  - log [ref=f9e401]
+  - log [ref=f9e402]
+  - log [ref=f9e403]
+  - log [ref=f9e404]
+  - log [ref=f9e405]
+  - log [ref=f9e406]
+  - log [ref=f9e407]
+  - log [ref=f9e408]
+  - log [ref=f9e409]
+  - log [ref=f9e410]
+  - log [ref=f9e411]
+  - log [ref=f9e412]
+  - status [ref=f9e413]
+  - status [ref=f9e414]
+  - listbox [ref=f9e418]:
+    - option "— None —" [ref=f9e419] [cursor=pointer]
+    - option "<< me >>" [selected] [ref=f9e420] [cursor=pointer]
+    - option "Retest Customer1" [ref=f9e421] [cursor=pointer]
+    - option "Willow Belle" [ref=f9e422] [cursor=pointer]
+    - option "Autumn Grace" [ref=f9e423] [cursor=pointer]
+    - option "Briar Sunset" [ref=f9e424] [cursor=pointer]
+    - option "Luna Blossom" [ref=f9e425] [cursor=pointer]
+    - option "No Perm Reporter" [ref=f9e426] [cursor=pointer]
+    - option "Redmine Admin" [selected] [ref=f9e427] [cursor=pointer]
+    - option "Willow Belle" [ref=f9e428] [cursor=pointer]

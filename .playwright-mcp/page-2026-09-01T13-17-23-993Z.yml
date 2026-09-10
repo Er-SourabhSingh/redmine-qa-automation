@@ -1,0 +1,263 @@
+- generic [active] [ref=f64e1]:
+  - generic [ref=f64e2]:
+    - generic [ref=f64e3]:
+      - generic [ref=f64e4]:
+        - list:
+          - listitem [ref=f64e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f64e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f64e7]:
+        - text: Logged in as
+        - link "admin" [ref=f64e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f64e9]:
+        - listitem [ref=f64e10]:
+          - link [ref=f64e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f64e12]
+        - listitem [ref=f64e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f64e14]:
+          - link "My page" [ref=f64e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f64e16]:
+          - link "Projects" [ref=f64e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f64e18]:
+          - link "Flux Gantt" [ref=f64e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f64e20]:
+          - link "Helpdesk Command Center" [ref=f64e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f64e22]:
+          - link "Time Tracker" [ref=f64e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f64e24]:
+          - link "Timesheet" [ref=f64e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f64e26]:
+          - link "Workloads" [ref=f64e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f64e28]:
+          - link "More" [ref=f64e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f64e30]:
+      - generic [ref=f64e31]:
+        - generic [ref=f64e32]:
+          - generic [ref=f64e33]:
+            - link "Search..." [ref=f64e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f64e35]
+        - generic [ref=f64e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f64e38]
+    - generic [ref=f64e39]:
+      - generic [ref=f64e40]:
+        - link [ref=f64e42] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f64e45]:
+          - heading "Administration" [level=3] [ref=f64e46]
+          - list [ref=f64e48]:
+            - listitem [ref=f64e49]:
+              - link "Projects" [ref=f64e50] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f64e52]:
+              - link "Users" [ref=f64e53] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f64e55]:
+              - link "Groups" [ref=f64e56] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f64e58]:
+              - link "Roles and permissions" [ref=f64e59] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f64e61]:
+              - link "Trackers" [ref=f64e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f64e64]:
+              - link "Issue statuses" [ref=f64e65] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f64e67]:
+              - link "Workflow" [ref=f64e68] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f64e70]:
+              - link "Custom fields" [ref=f64e71] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f64e73]:
+              - link "Enumerations" [ref=f64e74] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f64e76]:
+              - link "Settings" [ref=f64e77] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f64e79]:
+              - link "LDAP authentication" [ref=f64e80] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f64e82]:
+              - link "Applications" [ref=f64e83] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f64e85]:
+              - link "Plugins" [ref=f64e86] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f64e88]:
+              - link "Information" [ref=f64e89] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f64e91]:
+        - generic [ref=f64e92]: Successful update
+        - generic [ref=f64e93]:
+          - link "New user" [ref=f64e94] [cursor=pointer]:
+            - /url: /users/new
+          - generic "Actions" [ref=f64e98] [cursor=pointer]
+        - heading "Users" [level=2] [ref=f64e100]
+        - generic [ref=f64e103]:
+          - group "Filters" [ref=f64e104]
+          - group "Options" [ref=f64e108]
+        - table [ref=f64e114]:
+          - rowgroup [ref=f64e115]:
+            - row [ref=f64e116]:
+              - columnheader [ref=f64e117]:
+                - checkbox "Check all / Uncheck all" [ref=f64e118]
+              - columnheader [ref=f64e119]:
+                - link "Login" [ref=f64e120] [cursor=pointer]:
+                  - /url: /users?sort=login%3Adesc
+              - columnheader [ref=f64e124]:
+                - link "First name" [ref=f64e125] [cursor=pointer]:
+                  - /url: /users?sort=firstname%2Clogin
+              - columnheader [ref=f64e126]:
+                - link "Last name" [ref=f64e127] [cursor=pointer]:
+                  - /url: /users?sort=lastname%2Clogin
+              - columnheader [ref=f64e128]:
+                - link "Email" [ref=f64e129] [cursor=pointer]:
+                  - /url: /users?sort=mail%2Clogin
+              - columnheader [ref=f64e130]:
+                - link "Administrator" [ref=f64e131] [cursor=pointer]:
+                  - /url: /users?sort=admin%2Clogin
+              - columnheader [ref=f64e132]:
+                - link "Created on" [ref=f64e133] [cursor=pointer]:
+                  - /url: /users?sort=created_on%2Clogin
+              - columnheader [ref=f64e134]:
+                - link "Last sign in" [ref=f64e135] [cursor=pointer]:
+                  - /url: /users?sort=last_login_on%2Clogin
+              - columnheader [ref=f64e136]
+          - rowgroup [ref=f64e137]:
+            - row [ref=f64e138]:
+              - cell [ref=f64e139]:
+                - checkbox [ref=f64e140]
+              - cell [ref=f64e141]:
+                - link "admin" [ref=f64e142] [cursor=pointer]:
+                  - /url: /users/1/edit
+              - cell "Redmine" [ref=f64e143]
+              - cell "Admin" [ref=f64e144]
+              - cell "admin@test.local" [ref=f64e145]
+              - cell "Yes" [ref=f64e146]
+              - cell "08/27/2026 10:29 AM" [ref=f64e147]
+              - cell "09/01/2026 01:10 PM" [ref=f64e148]
+              - cell [ref=f64e149]:
+                - link "Actions" [ref=f64e150] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f64e152]:
+              - cell [ref=f64e153]:
+                - checkbox [ref=f64e154]
+              - cell [ref=f64e155]:
+                - link "autumn.grace" [ref=f64e156] [cursor=pointer]:
+                  - /url: /users/10/edit
+              - cell "Autumn" [ref=f64e157]
+              - cell "Grace" [ref=f64e158]
+              - cell "autumn.grace@test.local" [ref=f64e159]
+              - cell "No" [ref=f64e160]
+              - cell "09/01/2026 08:01 AM" [ref=f64e161]
+              - cell "09/01/2026 01:09 PM" [ref=f64e162]
+              - cell [ref=f64e163]:
+                - link "Actions" [ref=f64e164] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f64e166]:
+              - cell [ref=f64e167]:
+                - checkbox [ref=f64e168]
+              - cell [ref=f64e169]:
+                - link "luna.blossom" [ref=f64e170] [cursor=pointer]:
+                  - /url: /users/5/edit
+              - cell "Luna" [ref=f64e171]
+              - cell "Blossom" [ref=f64e172]
+              - cell "luna.blossom@test.local" [ref=f64e173]
+              - cell "No" [ref=f64e174]
+              - cell "08/27/2026 10:49 AM" [ref=f64e175]
+              - cell "09/01/2026 01:07 PM" [ref=f64e176]
+              - cell [ref=f64e177]:
+                - link "Actions" [ref=f64e178] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f64e180]:
+              - cell [ref=f64e181]:
+                - checkbox [ref=f64e182]
+              - cell [ref=f64e183]:
+                - link "no.perm.reporter" [ref=f64e184] [cursor=pointer]:
+                  - /url: /users/9/edit
+              - cell "No" [ref=f64e185]
+              - cell "Perm Reporter" [ref=f64e186]
+              - cell "no.perm.reporter@test.local" [ref=f64e187]
+              - cell "No" [ref=f64e188]
+              - cell "08/31/2026 10:18 AM" [ref=f64e189]
+              - cell "08/31/2026 10:23 AM" [ref=f64e190]
+              - cell [ref=f64e191]:
+                - link "Actions" [ref=f64e192] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f64e194]:
+              - cell [ref=f64e195]:
+                - checkbox [ref=f64e196]
+              - cell [ref=f64e197]:
+                - link "willow.belle" [ref=f64e198] [cursor=pointer]:
+                  - /url: /users/11/edit
+              - cell "Willow" [ref=f64e199]
+              - cell "Belle" [ref=f64e200]
+              - cell "willow.belle@test.local" [ref=f64e201]
+              - cell "No" [ref=f64e202]
+              - cell "09/01/2026 08:01 AM" [ref=f64e203]
+              - cell [ref=f64e204]
+              - cell [ref=f64e205]:
+                - link "Actions" [ref=f64e206] [cursor=pointer]:
+                  - /url: "#"
+        - generic [ref=f64e208]:
+          - list
+          - generic: (1-5/5)
+        - paragraph [ref=f64e210]:
+          - text: "Also available in:"
+          - link "CSV" [ref=f64e212] [cursor=pointer]:
+            - /url: /users.csv
+    - generic [ref=f64e213]:
+      - text: Powered by
+      - link "Redmine" [ref=f64e214] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f64e215]
+  - log [ref=f64e216]
+  - log [ref=f64e217]
+  - log [ref=f64e218]
+  - log [ref=f64e219]
+  - log [ref=f64e220]
+  - log [ref=f64e221]
+  - log [ref=f64e222]
+  - log [ref=f64e223]
+  - log [ref=f64e224]
+  - log [ref=f64e225]
+  - log [ref=f64e226]
+  - log [ref=f64e227]
+  - log [ref=f64e228]
+  - log [ref=f64e229]
+  - log [ref=f64e230]
+  - log [ref=f64e231]
+  - log [ref=f64e232]
+  - log [ref=f64e233]
+  - log [ref=f64e234]
+  - log [ref=f64e235]
+  - log [ref=f64e236]
+  - log [ref=f64e237]
+  - log [ref=f64e238]
+  - log [ref=f64e239]
+  - log [ref=f64e240]
+  - log [ref=f64e241]
+  - log [ref=f64e242]
+  - log [ref=f64e243]
+  - log [ref=f64e244]
+  - log [ref=f64e245]
+  - log [ref=f64e246]

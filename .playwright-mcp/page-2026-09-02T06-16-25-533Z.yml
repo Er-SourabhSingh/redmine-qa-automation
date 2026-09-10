@@ -1,0 +1,120 @@
+- generic [ref=f267e1]:
+  - generic [ref=f267e2]:
+    - generic [ref=f267e3]:
+      - generic [ref=f267e4]:
+        - list:
+          - listitem [ref=f267e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f267e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f267e7]:
+        - text: Logged in as
+        - link "admin" [ref=f267e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f267e9]:
+        - listitem [ref=f267e10]:
+          - link [ref=f267e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f267e12]
+        - listitem [ref=f267e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f267e14]:
+          - link "My page" [ref=f267e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f267e16]:
+          - link "Projects" [ref=f267e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f267e18]:
+          - link "Flux Gantt" [ref=f267e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f267e20]:
+          - link "Helpdesk Command Center" [ref=f267e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f267e22]:
+          - link "Time Tracker" [ref=f267e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f267e24]:
+          - link "Timesheet" [ref=f267e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f267e26]:
+          - link "Workloads" [ref=f267e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f267e28]:
+          - link "More" [ref=f267e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f267e30]:
+      - generic [ref=f267e31]:
+        - generic [ref=f267e32]:
+          - generic [ref=f267e33]:
+            - link "Search..." [ref=f267e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f267e35]
+        - generic [ref=f267e36]:
+          - generic [ref=f267e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f267e38]
+    - generic [ref=f267e39]:
+      - list [ref=f267e43]:
+        - listitem [ref=f267e44]:
+          - link "Helpdesk Dashboard" [ref=f267e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f267e48]:
+          - link "Helpdesk Tickets" [ref=f267e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f267e52]:
+          - link "Reports" [ref=f267e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f267e56]:
+          - link "Organization" [ref=f267e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f267e60]:
+          - link "Customers" [ref=f267e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f267e64]:
+          - link "Products" [ref=f267e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f267e68]:
+          - link "Helpdesk Settings" [ref=f267e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f267e72]:
+        - generic [ref=f267e73]:
+          - generic [ref=f267e75]:
+            - heading "Organizations" [level=2] [ref=f267e76]
+            - paragraph [ref=f267e77]: Companies your customers belong to
+          - link "New Organization" [ref=f267e79] [cursor=pointer]:
+            - /url: /rf_organizations/new
+        - generic [ref=f267e82]:
+          - textbox "Search organizations..." [active] [ref=f267e84]
+          - combobox "All Statuses" [ref=f267e85] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f267e86]:
+            - button "Apply Filters" [ref=f267e87] [cursor=pointer]
+            - link "Clear" [ref=f267e90] [cursor=pointer]:
+              - /url: /rf_organizations
+        - generic [ref=f267e96]:
+          - heading "No organizations yet" [level=3] [ref=f267e101]
+          - paragraph [ref=f267e102]: Group your customers by the company they belong to.
+          - link "New Organization" [ref=f267e104] [cursor=pointer]:
+            - /url: /rf_organizations/new
+    - generic [ref=f267e106]:
+      - text: Powered by
+      - link "Redmine" [ref=f267e107] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f267e108]
+  - log [ref=f267e109]
+  - log [ref=f267e110]
+  - log [ref=f267e111]
+  - log [ref=f267e112]
+  - log [ref=f267e113]
+  - log [ref=f267e114]
+  - log [ref=f267e115]
+  - log [ref=f267e116]
+  - log [ref=f267e117]
+  - log [ref=f267e118]

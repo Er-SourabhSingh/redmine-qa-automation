@@ -1,0 +1,157 @@
+- generic [ref=f390e1]:
+  - generic [ref=f390e2]:
+    - generic [ref=f390e3]:
+      - generic [ref=f390e4]:
+        - list:
+          - listitem [ref=f390e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f390e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f390e7]:
+        - text: Logged in as
+        - link "admin" [ref=f390e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f390e9]:
+        - listitem [ref=f390e10]:
+          - link [ref=f390e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f390e12]
+        - listitem [ref=f390e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f390e14]:
+          - link "My page" [ref=f390e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f390e16]:
+          - link "Projects" [ref=f390e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f390e18]:
+          - link "Flux Gantt" [ref=f390e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f390e20]:
+          - link "Helpdesk Command Center" [ref=f390e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f390e22]:
+          - link "Time Tracker" [ref=f390e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f390e24]:
+          - link "Timesheet" [ref=f390e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f390e26]:
+          - link "Workloads" [ref=f390e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f390e28]:
+          - link "More" [ref=f390e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f390e30]:
+      - generic [ref=f390e31]:
+        - generic [ref=f390e32]:
+          - generic [ref=f390e33]:
+            - link "Search..." [ref=f390e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f390e35]
+        - generic [ref=f390e36]:
+          - generic [ref=f390e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f390e38]
+    - generic [ref=f390e39]:
+      - list [ref=f390e43]:
+        - listitem [ref=f390e44]:
+          - link "Helpdesk Dashboard" [ref=f390e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f390e48]:
+          - link "Helpdesk Tickets" [ref=f390e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f390e52]:
+          - link "Reports" [ref=f390e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f390e56]:
+          - link "Organization" [ref=f390e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f390e60]:
+          - link "Customers" [ref=f390e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f390e64]:
+          - link "Products" [ref=f390e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f390e68]:
+          - link "Helpdesk Settings" [ref=f390e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f390e72]:
+        - generic [ref=f390e73]:
+          - heading "Alpha Minimal Fields Test Org Active" [level=2] [ref=f390e76]:
+            - text: Alpha Minimal Fields Test Org
+            - generic [ref=f390e77]: Active
+          - link "Edit" [ref=f390e80] [cursor=pointer]:
+            - /url: /rf_organizations/8/edit
+        - navigation "Alpha Minimal Fields Test Org" [ref=f390e83]:
+          - link "Overview" [ref=f390e84] [cursor=pointer]:
+            - /url: /rf_organizations/8?tab=overview
+          - link "Prepaid Support Hours" [ref=f390e89] [cursor=pointer]:
+            - /url: /rf_organizations/8?tab=prepaid_support_hours
+        - generic [ref=f390e94]:
+          - generic [ref=f390e95]:
+            - heading "Budget by project" [level=3] [ref=f390e96]
+            - link "Add / top up hours" [active] [ref=f390e97] [cursor=pointer]:
+              - /url: "#"
+          - generic [ref=f390e99]:
+            - heading "No prepaid hours set for Alpha Minimal Fields Test Org" [level=3] [ref=f390e104]
+            - paragraph [ref=f390e105]: Pick a project and add hours. Usage is then tracked against the tickets this organization's customers raise on it.
+        - generic [ref=f390e106]:
+          - generic [ref=f390e107]:
+            - heading "Budget change history" [level=3] [ref=f390e108]
+            - generic [ref=f390e109]: "0"
+          - generic [ref=f390e110]:
+            - heading "No budget changes recorded yet." [level=3] [ref=f390e115]
+            - paragraph [ref=f390e116]: Every top-up and reduction is recorded here with who approved it and why.
+        - dialog [ref=f390e133]:
+          - generic [ref=f390e134]:
+            - heading "Add / top up hours" [level=3] [ref=f390e135]
+            - button "Close" [ref=f390e136] [cursor=pointer]: ×
+          - generic [ref=f390e137]:
+            - generic [ref=f390e138]:
+              - paragraph [ref=f390e139]:
+                - text: Hours are added to
+                - strong [ref=f390e140]: Alpha Minimal Fields Test Org
+                - text: "'s budget on the project you pick. Enter a negative number to reduce it. The budget never goes below zero."
+              - generic [ref=f390e141]:
+                - generic [ref=f390e142]:
+                  - generic [ref=f390e143]: Project *
+                  - combobox "Project *" [ref=f390e144]:
+                    - option "Helpdesk QA Alpha" [selected]
+                    - option "Helpdesk QA Beta"
+                - generic [ref=f390e145]:
+                  - generic [ref=f390e146]: Hours *
+                  - spinbutton "Hours *" [ref=f390e147]
+                - generic [ref=f390e148]:
+                  - generic [ref=f390e149]: Support Package
+                  - combobox "Support Package" [ref=f390e150]:
+                    - option "-- No package --" [selected]
+                - generic [ref=f390e151]:
+                  - generic [ref=f390e152]: Comment *
+                  - textbox "Comment *" [ref=f390e153]
+            - generic [ref=f390e154]:
+              - button "Cancel" [ref=f390e155] [cursor=pointer]
+              - button "Save" [ref=f390e156] [cursor=pointer]
+        - paragraph [ref=f390e117]:
+          - link "Organization List" [ref=f390e118] [cursor=pointer]:
+            - /url: /rf_organizations
+    - generic [ref=f390e119]:
+      - text: Powered by
+      - link "Redmine" [ref=f390e120] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f390e121]
+  - log [ref=f390e122]
+  - log [ref=f390e123]
+  - log [ref=f390e124]
+  - log [ref=f390e125]
+  - log [ref=f390e126]
+  - log [ref=f390e127]
+  - log [ref=f390e128]
+  - log [ref=f390e129]
+  - log [ref=f390e130]
+  - log [ref=f390e131]

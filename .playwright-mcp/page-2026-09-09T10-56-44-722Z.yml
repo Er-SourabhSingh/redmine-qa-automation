@@ -1,0 +1,254 @@
+- generic [active] [ref=f16e1]:
+  - generic [ref=f16e2]:
+    - navigation [ref=f16e3]:
+      - list [ref=f16e6]:
+        - listitem [ref=f16e7]:
+          - link "Hauptseite" [ref=f16e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f16e9]:
+          - link "Meine Seite" [ref=f16e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f16e11]:
+          - link "Projekte" [ref=f16e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f16e13]:
+          - link "Agile Board" [ref=f16e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f16e15]:
+          - link "Flux Gantt" [ref=f16e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f16e17]:
+          - link "Administration" [ref=f16e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f16e19]:
+          - link "Hilfe" [ref=f16e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f16e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f16e24]: RA
+    - generic [ref=f16e27]:
+      - generic [ref=f16e28]:
+        - generic [ref=f16e29]:
+          - generic [ref=f16e30]:
+            - link "Suche" [ref=f16e31] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Suche:" [ref=f16e32]
+        - generic [ref=f16e33]:
+          - generic [ref=f16e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f16e35]
+      - generic [ref=f16e37]:
+        - list [ref=f16e38]:
+          - listitem [ref=f16e39]:
+            - link "+" [ref=f16e40] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f16e41]:
+            - link "Übersicht" [ref=f16e42] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f16e43]:
+            - link "Dashboard" [ref=f16e44] [cursor=pointer]:
+              - /url: /projects/agileboard/analytics_dashboard
+          - listitem [ref=f16e45]:
+            - link "Aktivität" [ref=f16e46] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f16e47]:
+            - link "Agile Board" [ref=f16e48] [cursor=pointer]:
+              - /url: /projects/agileboard/agile_board
+          - listitem [ref=f16e49]:
+            - link "Backlog" [ref=f16e50] [cursor=pointer]:
+              - /url: /projects/agileboard/backlog
+          - listitem [ref=f16e51]:
+            - link "Roadmap" [ref=f16e52] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f16e53]:
+            - link "Tickets" [ref=f16e54] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f16e55]:
+            - link "Aufgewendete Zeit" [ref=f16e56] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f16e57]:
+            - link "Gantt-Diagramm" [ref=f16e58] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f16e59]:
+            - link "Kalender" [ref=f16e60] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f16e61]:
+            - link "News" [ref=f16e62] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f16e63]:
+            - link "Dokumente" [ref=f16e64] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f16e65]:
+            - link "Wiki" [ref=f16e66] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f16e67]:
+            - link "Dateien" [ref=f16e68] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f16e69]:
+            - link "Konfiguration" [ref=f16e70] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f16e71]:
+          - button [ref=f16e72] [cursor=pointer]
+          - button [ref=f16e75] [cursor=pointer]
+    - generic [ref=f16e78]:
+      - generic [ref=f16e79]:
+        - link [ref=f16e81] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f16e84]:
+          - heading "Abfragen" [level=3] [ref=f16e85]
+          - list [ref=f16e86]:
+            - listitem [ref=f16e87]:
+              - link "Spent time" [ref=f16e88] [cursor=pointer]:
+                - /url: /projects/agileboard/time_entries?query_id=7
+      - generic [ref=f16e89]:
+        - generic [ref=f16e90]:
+          - link "Aufwand buchen" [ref=f16e91] [cursor=pointer]:
+            - /url: /projects/agileboard/time_entries/new
+          - generic "Aktionen" [ref=f16e97] [cursor=pointer]
+        - heading "Aufgewendete Zeit" [level=2] [ref=f16e100]
+        - generic [ref=f16e101]:
+          - generic [ref=f16e102]:
+            - generic [ref=f16e103]:
+              - group "Filter" [ref=f16e104]:
+                - generic:
+                  - generic [ref=f16e107]:
+                    - generic [ref=f16e108]:
+                      - checkbox "Datum" [checked] [ref=f16e109]
+                      - text: Datum
+                    - combobox [ref=f16e111]:
+                      - option "ist"
+                      - option ">="
+                      - option "<="
+                      - option "zwischen"
+                      - option "vor weniger als"
+                      - option "vor mehr als"
+                      - option "in den letzten"
+                      - option "vor"
+                      - option "Heute"
+                      - option "gestern"
+                      - option "aktuelle Woche"
+                      - option "vorige Woche"
+                      - option "letzte 2 Wochen"
+                      - option "aktueller Monat"
+                      - option "voriger Monat"
+                      - option "aktuelles Jahr"
+                      - option "Keine"
+                      - option "alle" [selected]
+                  - generic [ref=f16e112]:
+                    - text: Filter hinzufügen
+                    - combobox "Filter hinzufügen" [ref=f16e113]:
+                      - option [selected]
+                      - option "Ticket"
+                      - option "Benutzer"
+                      - option "Autor"
+                      - option "Aktivität"
+                      - option "Stunden"
+                      - option "Markierungen"
+                      - option "Datum" [disabled]
+                      - option "Kommentar"
+                      - option "Tracker des Tickets"
+                      - option "Übergeordnetes Ticket des Tickets"
+                      - option "Status des Tickets"
+                      - option "Zielversion des Tickets"
+                      - option "Kategorie des Tickets"
+                      - option "Thema des Tickets"
+                      - option "Gruppe des Benutzers"
+                      - option "Rolle des Benutzers"
+              - group "Optionen" [ref=f16e114]
+            - paragraph [ref=f16e116]:
+              - link "Anwenden" [ref=f16e117] [cursor=pointer]:
+                - /url: "#"
+              - link "Zurücksetzen" [ref=f16e118] [cursor=pointer]:
+                - /url: /projects/agileboard/time_entries?set_filter=1&sort=
+              - link "Abfrage speichern" [ref=f16e119] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f16e121]:
+            - listitem [ref=f16e122]:
+              - link "Details" [ref=f16e123] [cursor=pointer]:
+                - /url: /projects/agileboard/time_entries
+            - listitem [ref=f16e124]:
+              - link "Bericht" [ref=f16e125] [cursor=pointer]:
+                - /url: /projects/agileboard/time_entries/report
+        - paragraph [ref=f16e126]:
+          - generic [ref=f16e127]: "Stunden: 1:00"
+        - table [ref=f16e130]:
+          - rowgroup [ref=f16e131]:
+            - row [ref=f16e132]:
+              - columnheader [ref=f16e133]:
+                - checkbox "Alles auswählen / Alles abwählen" [ref=f16e134]
+              - columnheader [ref=f16e135]:
+                - link "Datum" [ref=f16e136] [cursor=pointer]:
+                  - /url: /projects/agileboard/time_entries?sort=spent_on
+              - columnheader [ref=f16e140]:
+                - link "Benutzer" [ref=f16e141] [cursor=pointer]:
+                  - /url: /projects/agileboard/time_entries?sort=user%2Cspent_on%3Adesc
+              - columnheader [ref=f16e142]:
+                - link "Aktivität" [ref=f16e143] [cursor=pointer]:
+                  - /url: /projects/agileboard/time_entries?sort=activity%2Cspent_on%3Adesc
+              - columnheader [ref=f16e144]:
+                - link "Ticket" [ref=f16e145] [cursor=pointer]:
+                  - /url: /projects/agileboard/time_entries?sort=issue%2Cspent_on%3Adesc
+              - columnheader "Kommentar" [ref=f16e146]
+              - columnheader [ref=f16e147]:
+                - link "Stunden" [ref=f16e148] [cursor=pointer]:
+                  - /url: /projects/agileboard/time_entries?sort=hours%2Cspent_on%3Adesc
+              - columnheader [ref=f16e149]
+          - rowgroup [ref=f16e150]:
+            - row [ref=f16e151]:
+              - cell [ref=f16e152]:
+                - checkbox [ref=f16e153]
+              - cell "09.09.2026" [ref=f16e154]
+              - cell [ref=f16e155]:
+                - link "Redmine Admin" [ref=f16e156] [cursor=pointer]:
+                  - /url: /users/1
+              - cell "Development" [ref=f16e157]
+              - cell [ref=f16e158]:
+                - 'link "Bug #266" [ref=f16e159] [cursor=pointer]':
+                  - /url: /issues/266
+                - text: ": BUG-TAG-007 retest - tag field alignment test"
+              - cell [ref=f16e160]
+              - cell "1:00" [ref=f16e161]
+              - cell [ref=f16e162]:
+                - link "Bearbeiten" [ref=f16e163] [cursor=pointer]:
+                  - /url: /time_entries/26/edit
+                - link "Löschen" [ref=f16e166] [cursor=pointer]:
+                  - /url: /time_entries/26
+                - link "Aktionen" [ref=f16e169] [cursor=pointer]:
+                  - /url: "#"
+        - generic [ref=f16e172]:
+          - list
+          - generic [ref=f16e173]: (1-1/1)
+        - paragraph [ref=f16e174]:
+          - text: "Auch abrufbar als:"
+          - link "Atom" [ref=f16e176] [cursor=pointer]:
+            - /url: /projects/agileboard/time_entries.atom?key=9d9df863e5b5ff3d666c6cd9499c3d88b772c5e2
+          - generic [ref=f16e177]:
+            - text: "|"
+            - link "CSV" [ref=f16e178] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries.csv
+    - generic [ref=f16e179]:
+      - text: Powered by
+      - link "Redmine" [ref=f16e180] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f16e181]
+  - log [ref=f16e182]
+  - log [ref=f16e183]
+  - log [ref=f16e184]
+  - log [ref=f16e185]
+  - log [ref=f16e186]
+  - log [ref=f16e187]
+  - log [ref=f16e188]
+  - log [ref=f16e189]
+  - log [ref=f16e190]
+  - log [ref=f16e191]
+  - log [ref=f16e192]
+  - log [ref=f16e193]
+  - log [ref=f16e194]
+  - log [ref=f16e195]
+  - log [ref=f16e196]
+  - log [ref=f16e197]
+  - log [ref=f16e198]
+  - log [ref=f16e199]
+  - log [ref=f16e200]

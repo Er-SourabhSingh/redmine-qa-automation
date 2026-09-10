@@ -1,0 +1,411 @@
+- generic [active] [ref=f75e1]:
+  - generic [ref=f75e2]:
+    - generic [ref=f75e3]:
+      - generic [ref=f75e4]:
+        - list:
+          - listitem [ref=f75e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f75e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f75e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f75e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f75e9]:
+        - listitem [ref=f75e10]:
+          - link [ref=f75e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f75e12]
+        - listitem [ref=f75e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f75e14]:
+          - link "My page" [ref=f75e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f75e16]:
+          - link "Projects" [ref=f75e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f75e18]:
+          - link "Time Tracker" [ref=f75e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f75e20]:
+          - link "Workloads" [ref=f75e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f75e22]:
+          - link "Help" [ref=f75e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f75e24]:
+      - generic [ref=f75e25]:
+        - generic [ref=f75e26]:
+          - generic [ref=f75e27]:
+            - link "Search..." [ref=f75e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f75e29]
+        - generic [ref=f75e30]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f75e32]
+    - generic [ref=f75e34]:
+      - generic [ref=f75e36]:
+        - text: "Add:"
+        - combobox "Add" [ref=f75e37]:
+          - option [selected]
+          - option "Issues assigned to me" [disabled]
+          - option "Reported issues" [disabled]
+          - option "Updated issues"
+          - option "Watched issues"
+          - option "Issues"
+          - option "Latest news"
+          - option "Calendar"
+          - option "Documents"
+          - option "Spent time"
+          - option "Activity"
+      - heading "My page" [level=2] [ref=f75e38]
+      - generic [ref=f75e39]:
+        - generic [ref=f75e42]:
+          - generic [ref=f75e43]:
+            - generic "Move" [ref=f75e44]
+            - link "Delete" [ref=f75e46] [cursor=pointer]:
+              - /url: /my/remove_block?block=issuesassignedtome
+          - link "Options" [ref=f75e49] [cursor=pointer]:
+            - /url: "#"
+          - heading [level=3] [ref=f75e51]:
+            - link "Issues assigned to me" [ref=f75e52] [cursor=pointer]:
+              - /url: /issues?c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&f%5B%5D=status_id&f%5B%5D=assigned_to_id&f%5B%5D=project.status&op%5Bassigned_to_id%5D=%3D&op%5Bproject.status%5D=%3D&op%5Bstatus_id%5D=o&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc&v%5Bassigned_to_id%5D%5B%5D=me&v%5Bproject.status%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=
+            - text: (10)
+          - table [ref=f75e55]:
+            - rowgroup [ref=f75e56]:
+              - row [ref=f75e57]:
+                - columnheader [ref=f75e58]:
+                  - link "#" [ref=f75e59] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=id%3Adesc%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f75e60]:
+                  - link "Project" [ref=f75e61] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=project%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f75e62]:
+                  - link "Tracker" [ref=f75e63] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=tracker%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f75e64]:
+                  - link "Status" [ref=f75e65] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=status%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f75e66]:
+                  - link "Subject" [ref=f75e67] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=subject%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f75e68]
+            - rowgroup [ref=f75e69]:
+              - row [ref=f75e70]:
+                - cell [ref=f75e71]:
+                  - link "46" [ref=f75e72] [cursor=pointer]:
+                    - /url: /issues/46
+                - cell [ref=f75e73]:
+                  - link "Helpdesk QA Alpha" [ref=f75e74] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e75]
+                - cell "Waiting for Customer Response" [ref=f75e76]
+                - cell [ref=f75e77]:
+                  - link "TC-HLP-129 prepaid hours time-logging test ticket" [ref=f75e78] [cursor=pointer]:
+                    - /url: /issues/46
+                - cell [ref=f75e79]:
+                  - link "Actions" [ref=f75e80] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f75e82]:
+                - cell [ref=f75e83]:
+                  - link "34" [ref=f75e84] [cursor=pointer]:
+                    - /url: /issues/34
+                - cell [ref=f75e85]:
+                  - link "Helpdesk QA Alpha" [ref=f75e86] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e87]
+                - cell "New" [ref=f75e88]
+                - cell [ref=f75e89]:
+                  - link "TC-HLP-354 ticket assigned during the holiday itself test" [ref=f75e90] [cursor=pointer]:
+                    - /url: /issues/34
+                - cell [ref=f75e91]:
+                  - link "Actions" [ref=f75e92] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f75e94]:
+                - cell [ref=f75e95]:
+                  - link "33" [ref=f75e96] [cursor=pointer]:
+                    - /url: /issues/33
+                - cell [ref=f75e97]:
+                  - link "Helpdesk QA Alpha" [ref=f75e98] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e99]
+                - cell "New" [ref=f75e100]
+                - cell [ref=f75e101]:
+                  - link "TC-HLP-353 multi-day holiday clock test ticket" [ref=f75e102] [cursor=pointer]:
+                    - /url: /issues/33
+                - cell [ref=f75e103]:
+                  - link "Actions" [ref=f75e104] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f75e106]:
+                - cell [ref=f75e107]:
+                  - link "32" [ref=f75e108] [cursor=pointer]:
+                    - /url: /issues/32
+                - cell [ref=f75e109]:
+                  - link "Helpdesk QA Alpha" [ref=f75e110] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e111]
+                - cell "New" [ref=f75e112]
+                - cell [ref=f75e113]:
+                  - link "TC-HLP-352 partial-consumption weekly-gap test ticket" [ref=f75e114] [cursor=pointer]:
+                    - /url: /issues/32
+                - cell [ref=f75e115]:
+                  - link "Actions" [ref=f75e116] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f75e118]:
+                - cell [ref=f75e119]:
+                  - link "25" [ref=f75e120] [cursor=pointer]:
+                    - /url: /issues/25
+                - cell [ref=f75e121]:
+                  - link "Helpdesk QA Alpha" [ref=f75e122] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e123]
+                - cell "Waiting for Customer Response" [ref=f75e124]
+                - cell [ref=f75e125]:
+                  - link "TC-HLP-343 fresh unassigned L2 ticket - reply-action warning test" [ref=f75e126] [cursor=pointer]:
+                    - /url: /issues/25
+                - cell [ref=f75e127]:
+                  - link "Actions" [ref=f75e128] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f75e130]:
+                - cell [ref=f75e131]:
+                  - link "22" [ref=f75e132] [cursor=pointer]:
+                    - /url: /issues/22
+                - cell [ref=f75e133]:
+                  - link "Helpdesk QA Alpha" [ref=f75e134] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e135]
+                - cell "New" [ref=f75e136]
+                - cell [ref=f75e137]:
+                  - link "TC-HLP-338 lower-level agent self-assign test ticket" [ref=f75e138] [cursor=pointer]:
+                    - /url: /issues/22
+                - cell [ref=f75e139]:
+                  - link "Actions" [ref=f75e140] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f75e142]:
+                - cell [ref=f75e143]:
+                  - link "23" [ref=f75e144] [cursor=pointer]:
+                    - /url: /issues/23
+                - cell [ref=f75e145]:
+                  - link "Helpdesk QA Alpha" [ref=f75e146] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e147]
+                - cell "New" [ref=f75e148]
+                - cell [ref=f75e149]:
+                  - link "TC-HLP-339 deactivated-SLA new ticket test" [ref=f75e150] [cursor=pointer]:
+                    - /url: /issues/23
+                - cell [ref=f75e151]:
+                  - link "Actions" [ref=f75e152] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f75e154]:
+                - cell [ref=f75e155]:
+                  - link "20" [ref=f75e156] [cursor=pointer]:
+                    - /url: /issues/20
+                - cell [ref=f75e157]:
+                  - link "Helpdesk QA Alpha" [ref=f75e158] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e159]
+                - cell "New" [ref=f75e160]
+                - cell [ref=f75e161]:
+                  - link "TC-HLP-083 working-hours-skip test ticket" [ref=f75e162] [cursor=pointer]:
+                    - /url: /issues/20
+                - cell [ref=f75e163]:
+                  - link "Actions" [ref=f75e164] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f75e166]:
+                - cell [ref=f75e167]:
+                  - link "8" [ref=f75e168] [cursor=pointer]:
+                    - /url: /issues/8
+                - cell [ref=f75e169]:
+                  - link "Helpdesk QA Alpha" [ref=f75e170] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e171]
+                - cell "Waiting for Customer Response" [ref=f75e172]
+                - cell [ref=f75e173]:
+                  - 'link "Ticket: TC-HLP-016 fresh email creates a new ticket" [ref=f75e174] [cursor=pointer]':
+                    - /url: /issues/8
+                - cell [ref=f75e175]:
+                  - link "Actions" [ref=f75e176] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f75e178]:
+                - cell [ref=f75e179]:
+                  - link "10" [ref=f75e180] [cursor=pointer]:
+                    - /url: /issues/10
+                - cell [ref=f75e181]:
+                  - link "Helpdesk QA Alpha" [ref=f75e182] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e183]
+                - cell "Waiting for Customer Response" [ref=f75e184]
+                - cell [ref=f75e185]:
+                  - link "BUG-HLP-016 retest after Agent role Edit Issues permission change" [ref=f75e186] [cursor=pointer]:
+                    - /url: /issues/10
+                - cell [ref=f75e187]:
+                  - link "Actions" [ref=f75e188] [cursor=pointer]:
+                    - /url: "#"
+        - generic [ref=f75e191]:
+          - generic [ref=f75e192]:
+            - generic "Move" [ref=f75e193]
+            - link "Delete" [ref=f75e195] [cursor=pointer]:
+              - /url: /my/remove_block?block=issuesreportedbyme
+          - link "Options" [ref=f75e198] [cursor=pointer]:
+            - /url: "#"
+          - heading [level=3] [ref=f75e200]:
+            - link "Reported issues" [ref=f75e201] [cursor=pointer]:
+              - /url: /issues?c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&f%5B%5D=status_id&f%5B%5D=author_id&f%5B%5D=project.status&op%5Bauthor_id%5D=%3D&op%5Bproject.status%5D=%3D&op%5Bstatus_id%5D=o&set_filter=1&sort=updated_on%3Adesc&v%5Bauthor_id%5D%5B%5D=me&v%5Bproject.status%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=
+            - text: (6)
+          - table [ref=f75e204]:
+            - rowgroup [ref=f75e205]:
+              - row [ref=f75e206]:
+                - columnheader [ref=f75e207]:
+                  - link "#" [ref=f75e208] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=id%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f75e209]:
+                  - link "Project" [ref=f75e210] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=project%2Cupdated_on%3Adesc
+                - columnheader [ref=f75e211]:
+                  - link "Tracker" [ref=f75e212] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=tracker%2Cupdated_on%3Adesc
+                - columnheader [ref=f75e213]:
+                  - link "Status" [ref=f75e214] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=status%2Cupdated_on%3Adesc
+                - columnheader [ref=f75e215]:
+                  - link "Subject" [ref=f75e216] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=subject%2Cupdated_on%3Adesc
+                - columnheader [ref=f75e217]
+            - rowgroup [ref=f75e218]:
+              - row [ref=f75e219]:
+                - cell [ref=f75e220]:
+                  - link "54" [ref=f75e221] [cursor=pointer]:
+                    - /url: /issues/54
+                - cell [ref=f75e222]:
+                  - link "Helpdesk QA Alpha" [ref=f75e223] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e224]
+                - cell "New" [ref=f75e225]
+                - cell [ref=f75e226]:
+                  - link "TC-HLP-204 view_helpdesk-only agent create-ticket test (edited)" [ref=f75e227] [cursor=pointer]:
+                    - /url: /issues/54
+                - cell [ref=f75e228]:
+                  - link "Actions" [ref=f75e229] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f75e231]:
+                - cell [ref=f75e232]:
+                  - link "13" [ref=f75e233] [cursor=pointer]:
+                    - /url: /issues/13
+                - cell [ref=f75e234]:
+                  - link "Helpdesk QA Alpha" [ref=f75e235] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e236]
+                - cell "New" [ref=f75e237]
+                - cell [ref=f75e238]:
+                  - link "TC-HLP-025 duplicate B - printer offline on office network" [ref=f75e239] [cursor=pointer]:
+                    - /url: /issues/13
+                - cell [ref=f75e240]:
+                  - link "Actions" [ref=f75e241] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f75e243]:
+                - cell [ref=f75e244]:
+                  - link "12" [ref=f75e245] [cursor=pointer]:
+                    - /url: /issues/12
+                - cell [ref=f75e246]:
+                  - link "Helpdesk QA Alpha" [ref=f75e247] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e248]
+                - cell "New" [ref=f75e249]
+                - cell [ref=f75e250]:
+                  - link "TC-HLP-025 duplicate A - printer not connecting to network" [ref=f75e251] [cursor=pointer]:
+                    - /url: /issues/12
+                - cell [ref=f75e252]:
+                  - link "Actions" [ref=f75e253] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f75e255]:
+                - cell [ref=f75e256]:
+                  - link "10" [ref=f75e257] [cursor=pointer]:
+                    - /url: /issues/10
+                - cell [ref=f75e258]:
+                  - link "Helpdesk QA Alpha" [ref=f75e259] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e260]
+                - cell "Waiting for Customer Response" [ref=f75e261]
+                - cell [ref=f75e262]:
+                  - link "BUG-HLP-016 retest after Agent role Edit Issues permission change" [ref=f75e263] [cursor=pointer]:
+                    - /url: /issues/10
+                - cell [ref=f75e264]:
+                  - link "Actions" [ref=f75e265] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f75e267]:
+                - cell [ref=f75e268]:
+                  - link "9" [ref=f75e269] [cursor=pointer]:
+                    - /url: /issues/9
+                - cell [ref=f75e270]:
+                  - link "Helpdesk QA Alpha" [ref=f75e271] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e272]
+                - cell "Waiting for Customer Response" [ref=f75e273]
+                - cell [ref=f75e274]:
+                  - link "TC-HLP-021 re-run - agent-created unassigned ticket for auto-assign/SLA-pause check" [ref=f75e275] [cursor=pointer]:
+                    - /url: /issues/9
+                - cell [ref=f75e276]:
+                  - link "Actions" [ref=f75e277] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f75e279]:
+                - cell [ref=f75e280]:
+                  - link "6" [ref=f75e281] [cursor=pointer]:
+                    - /url: /issues/6
+                - cell [ref=f75e282]:
+                  - link "Helpdesk QA Alpha" [ref=f75e283] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f75e284]
+                - cell "New" [ref=f75e285]
+                - cell [ref=f75e286]:
+                  - link "TC-HLP-014 retest - project-scoped ticket creation" [ref=f75e287] [cursor=pointer]:
+                    - /url: /issues/6
+                - cell [ref=f75e288]:
+                  - link "Actions" [ref=f75e289] [cursor=pointer]:
+                    - /url: "#"
+    - generic [ref=f75e291]:
+      - text: Powered by
+      - link "Redmine" [ref=f75e292] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f75e293]
+  - log [ref=f75e294]
+  - log [ref=f75e295]
+  - log [ref=f75e296]
+  - log [ref=f75e297]
+  - log [ref=f75e298]
+  - log [ref=f75e299]
+  - log [ref=f75e300]
+  - log [ref=f75e301]
+  - log [ref=f75e302]
+  - log [ref=f75e303]
+  - log [ref=f75e304]
+  - log [ref=f75e305]
+  - log [ref=f75e306]
+  - log [ref=f75e307]
+  - log [ref=f75e308]
+  - log [ref=f75e309]
+  - log [ref=f75e310]
+  - log [ref=f75e311]
+  - log [ref=f75e312]
+  - log [ref=f75e313]
+  - log [ref=f75e314]
+  - log [ref=f75e315]
+  - log [ref=f75e316]
+  - log [ref=f75e317]
+  - log [ref=f75e318]
+  - log [ref=f75e319]
+  - log [ref=f75e320]
+  - log [ref=f75e321]
+  - log [ref=f75e322]
+  - log [ref=f75e323]
+  - log [ref=f75e324]
+  - log [ref=f75e325]
+  - log [ref=f75e326]
+  - log [ref=f75e327]
+  - log [ref=f75e328]
+  - log [ref=f75e329]
+  - log [ref=f75e330]
+  - log [ref=f75e331]

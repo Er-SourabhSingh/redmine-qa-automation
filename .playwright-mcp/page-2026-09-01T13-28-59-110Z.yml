@@ -1,0 +1,215 @@
+- generic [ref=f100e1]:
+  - generic [ref=f100e2]:
+    - generic [ref=f100e3]:
+      - generic [ref=f100e4]:
+        - list:
+          - listitem [ref=f100e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f100e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f100e7]:
+        - text: Logged in as
+        - link "admin" [ref=f100e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f100e9]:
+        - listitem [ref=f100e10]:
+          - link [ref=f100e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f100e12]
+        - listitem [ref=f100e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f100e14]:
+          - link "My page" [ref=f100e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f100e16]:
+          - link "Projects" [ref=f100e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f100e18]:
+          - link "Flux Gantt" [ref=f100e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f100e20]:
+          - link "Helpdesk Command Center" [ref=f100e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f100e22]:
+          - link "Time Tracker" [ref=f100e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f100e24]:
+          - link "Timesheet" [ref=f100e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f100e26]:
+          - link "Workloads" [ref=f100e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f100e28]:
+          - link "More" [ref=f100e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f100e30]:
+      - generic [ref=f100e31]:
+        - generic [ref=f100e32]:
+          - generic [ref=f100e33]:
+            - link "Search..." [ref=f100e34] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f100e35]
+        - generic [ref=f100e36]:
+          - generic [ref=f100e37] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f100e38]
+      - generic [ref=f100e39]:
+        - list [ref=f100e40]:
+          - listitem [ref=f100e41]:
+            - link "+" [ref=f100e42] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f100e43]:
+            - link "Overview" [ref=f100e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f100e45]:
+            - link "Activity" [ref=f100e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f100e47]:
+            - link "Issues" [ref=f100e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f100e49]:
+            - link "Spent time" [ref=f100e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f100e51]:
+            - link "Gantt" [ref=f100e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f100e53]:
+            - link "Calendar" [ref=f100e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f100e55]:
+            - link "News" [ref=f100e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f100e57]:
+            - link "Documents" [ref=f100e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f100e59]:
+            - link "Wiki" [ref=f100e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f100e61]:
+            - link "Files" [ref=f100e62] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f100e63]:
+            - link "Helpdesk" [ref=f100e64] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+          - listitem [ref=f100e65]:
+            - link "Settings" [ref=f100e66] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/settings
+        - generic [ref=f100e67]:
+          - button [ref=f100e68] [cursor=pointer]
+          - button [ref=f100e71] [cursor=pointer]
+    - generic [ref=f100e74]:
+      - list [ref=f100e78]:
+        - listitem [ref=f100e79]:
+          - link "Helpdesk Dashboard" [ref=f100e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f100e83]:
+          - link "Helpdesk Tickets" [ref=f100e84] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f100e87]:
+          - link "Knowledgebase" [ref=f100e88] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+        - listitem [ref=f100e91]:
+          - link "Helpdesk SLA" [ref=f100e92] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/sla
+        - listitem [ref=f100e95]:
+          - link "Organization" [ref=f100e96] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/organization
+        - listitem [ref=f100e99]:
+          - link "Settings" [ref=f100e100] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/settings
+      - generic [ref=f100e103]:
+        - 'heading "Edit Support Level: L2" [level=2] [ref=f100e104]'
+        - generic [ref=f100e105]:
+          - generic [ref=f100e106]:
+            - paragraph [ref=f100e107]:
+              - generic [ref=f100e108]: Support Level Name *
+              - textbox "Support Level Name *" [active] [ref=f100e109]: L2
+            - paragraph [ref=f100e110]:
+              - generic [ref=f100e111]: Level Order *
+              - spinbutton "Level Order *" [ref=f100e112]: "2"
+            - paragraph [ref=f100e113]:
+              - generic [ref=f100e114]: Description
+              - generic [ref=f100e115]:
+                - list [ref=f100e117]:
+                  - listitem [ref=f100e118]:
+                    - link "Edit" [ref=f100e119] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f100e120]:
+                    - link "Preview" [ref=f100e121] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f100e122]:
+                    - generic [ref=f100e123]:
+                      - button "Strong (Ctrl+B)" [ref=f100e124] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f100e125] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f100e126] [cursor=pointer]
+                      - button "Deleted" [ref=f100e127] [cursor=pointer]
+                      - button "Inline Code" [ref=f100e128] [cursor=pointer]
+                      - button "Heading 1" [ref=f100e129] [cursor=pointer]
+                      - button "Heading 2" [ref=f100e130] [cursor=pointer]
+                      - button "Heading 3" [ref=f100e131] [cursor=pointer]
+                      - button "Unordered list" [ref=f100e132] [cursor=pointer]
+                      - button "Ordered list" [ref=f100e133] [cursor=pointer]
+                      - button "Task list" [ref=f100e134] [cursor=pointer]
+                      - button "Quote" [ref=f100e135] [cursor=pointer]
+                      - button "Remove Quote" [ref=f100e136] [cursor=pointer]
+                      - button "Table" [ref=f100e137] [cursor=pointer]
+                      - button "pre" [ref=f100e138] [cursor=pointer]
+                      - button "Highlighted code" [ref=f100e139] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f100e140] [cursor=pointer]
+                      - button "Image" [ref=f100e141] [cursor=pointer]
+                      - button "Help" [ref=f100e142] [cursor=pointer]
+                - textbox "Description" [ref=f100e144]: Second-tier escalation support level for Helpdesk QA Alpha.
+            - paragraph [ref=f100e145]:
+              - generic [ref=f100e146]: Support Assignees *
+              - textbox "2 selected" [ref=f100e149]
+              - emphasis [ref=f100e150]: Select one or more users to assign to this support level. Click to open dropdown and search for users.
+            - paragraph [ref=f100e151]:
+              - generic [ref=f100e152]: Escalation To
+              - combobox "Escalation To" [ref=f100e153]:
+                - option "None (Last Level)"
+                - 'option "L3 (Order: 3)" [selected]'
+              - emphasis [ref=f100e154]: Escalation can only be to higher level support (based on Level Order). For example, Level Order 1 can escalate to Level Order 2 or 3.
+            - paragraph [ref=f100e155]:
+              - generic [ref=f100e156]: Active
+              - checkbox [checked] [ref=f100e157]
+          - button "Save" [ref=f100e158] [cursor=pointer]
+          - link "Cancel" [ref=f100e159] [cursor=pointer]:
+            - /url: /projects/1/helpdesk/settings?tab=support_levels
+    - generic [ref=f100e160]:
+      - text: Powered by
+      - link "Redmine" [ref=f100e161] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f100e162]
+  - log [ref=f100e163]
+  - log [ref=f100e164]
+  - log [ref=f100e165]
+  - log [ref=f100e166]
+  - log [ref=f100e167]
+  - log [ref=f100e168]
+  - log [ref=f100e169]
+  - log [ref=f100e170]
+  - log [ref=f100e171]
+  - log [ref=f100e172]
+  - log [ref=f100e173]
+  - log [ref=f100e174]
+  - log [ref=f100e175]
+  - log [ref=f100e176]
+  - log [ref=f100e177]
+  - log [ref=f100e178]
+  - log [ref=f100e179]
+  - log [ref=f100e180]
+  - log [ref=f100e181]
+  - log [ref=f100e182]
+  - log [ref=f100e183]
+  - log [ref=f100e184]
+  - log [ref=f100e185]
+  - log [ref=f100e186]
+  - log [ref=f100e187]
+  - log [ref=f100e188]
+  - log [ref=f100e189]
+  - log [ref=f100e190]

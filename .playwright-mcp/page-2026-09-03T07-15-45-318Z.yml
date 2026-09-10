@@ -1,0 +1,165 @@
+- generic [ref=f314e1]:
+  - generic [ref=f314e2]:
+    - generic [ref=f314e3]:
+      - generic [ref=f314e4]:
+        - list:
+          - listitem [ref=f314e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f314e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f314e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f314e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f314e9]:
+        - listitem [ref=f314e10]:
+          - link [ref=f314e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f314e12]
+        - listitem [ref=f314e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f314e14]:
+          - link "My page" [ref=f314e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f314e16]:
+          - link "Projects" [ref=f314e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f314e18]:
+          - link "Time Tracker" [ref=f314e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f314e20]:
+          - link "Workloads" [ref=f314e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f314e22]:
+          - link "Help" [ref=f314e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f314e24]:
+      - generic [ref=f314e25]:
+        - generic [ref=f314e26]:
+          - generic [ref=f314e27]:
+            - link "Search..." [ref=f314e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f314e29]
+        - generic [ref=f314e30]:
+          - generic [ref=f314e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f314e32]
+      - generic [ref=f314e33]:
+        - list [ref=f314e34]:
+          - listitem [ref=f314e35]:
+            - link "+" [ref=f314e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f314e37]:
+            - link "Overview" [ref=f314e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f314e39]:
+            - link "Activity" [ref=f314e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f314e41]:
+            - link "Issues" [ref=f314e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f314e43]:
+            - link "Spent time" [ref=f314e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f314e45]:
+            - link "Gantt" [ref=f314e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f314e47]:
+            - link "Calendar" [ref=f314e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f314e49]:
+            - link "News" [ref=f314e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f314e51]:
+            - link "Documents" [ref=f314e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f314e53]:
+            - link "Wiki" [ref=f314e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f314e55]:
+            - link "Files" [ref=f314e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f314e57]:
+            - link "Helpdesk" [ref=f314e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f314e59]:
+          - button [ref=f314e60] [cursor=pointer]
+          - button [ref=f314e63] [cursor=pointer]
+    - generic [ref=f314e66]:
+      - list [ref=f314e70]:
+        - listitem [ref=f314e71]:
+          - link "Helpdesk Dashboard" [ref=f314e72] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f314e75]:
+          - link "Helpdesk Tickets" [ref=f314e76] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f314e79]:
+          - link "Knowledgebase" [ref=f314e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f314e83]:
+        - generic [ref=f314e84]:
+          - generic [ref=f314e86]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f314e87]
+            - paragraph [ref=f314e88]: Helpdesk QA Alpha · 0 tickets
+          - link "New issue" [ref=f314e90] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/new
+        - generic [ref=f314e92]:
+          - button "Filters" [expanded] [ref=f314e93] [cursor=pointer]
+          - generic [ref=f314e100]:
+            - generic [ref=f314e101]:
+              - generic [ref=f314e102]:
+                - generic [ref=f314e103]: Status
+                - textbox "Any closed status" [active] [ref=f314e107]
+                - 'button "Delete: Status" [ref=f314e108] [cursor=pointer]'
+              - generic [ref=f314e112]:
+                - generic [ref=f314e113]: Customer
+                - textbox "All" [ref=f314e117]
+                - 'button "Delete: Customer" [ref=f314e118] [cursor=pointer]'
+              - generic [ref=f314e122]:
+                - generic [ref=f314e123]: Priority
+                - textbox "High" [ref=f314e127]
+                - 'button "Delete: Priority" [ref=f314e128] [cursor=pointer]'
+            - button "Add filter" [ref=f314e134] [cursor=pointer]
+            - generic [ref=f314e138]:
+              - button "Apply" [ref=f314e139] [cursor=pointer]
+              - link "Clear" [ref=f314e142] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+              - button "Columns" [ref=f314e148] [cursor=pointer]
+        - generic [ref=f314e154]:
+          - heading "No tickets match these filters" [level=3] [ref=f314e159]
+          - paragraph [ref=f314e160]: Clear the filters, or widen them, to see more tickets.
+          - link "Clear" [ref=f314e162] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+    - generic [ref=f314e167]:
+      - text: Powered by
+      - link "Redmine" [ref=f314e168] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f314e169]
+  - log [ref=f314e170]
+  - log [ref=f314e171]
+  - log [ref=f314e172]
+  - log [ref=f314e173]
+  - log [ref=f314e174]
+  - log [ref=f314e175]
+  - log [ref=f314e176]
+  - log [ref=f314e177]
+  - log [ref=f314e178]
+  - log [ref=f314e179]
+  - log [ref=f314e180]
+  - log [ref=f314e181]
+  - log [ref=f314e182]
+  - log [ref=f314e183]
+  - log [ref=f314e184]
+  - log [ref=f314e185]
+  - log [ref=f314e186]
+  - log [ref=f314e187]
+  - log [ref=f314e188]
+  - log [ref=f314e189]
+  - log [ref=f314e190]
+  - log [ref=f314e191]
+  - log [ref=f314e192]

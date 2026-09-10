@@ -1,0 +1,264 @@
+- generic [active] [ref=f150e1]:
+  - generic [ref=f150e2]:
+    - navigation [ref=f150e3]:
+      - generic [ref=f150e4]:
+        - link [ref=f150e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f150e7] [cursor=pointer]
+      - list [ref=f150e17]:
+        - listitem [ref=f150e18]:
+          - link "Hauptseite" [ref=f150e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f150e20]:
+          - link "Meine Seite" [ref=f150e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f150e22]:
+          - link "Projekte" [ref=f150e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f150e24]:
+          - link "Agile Board" [ref=f150e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f150e26]:
+          - link "Flux Gantt" [ref=f150e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f150e28]:
+          - link "Administration" [ref=f150e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f150e30]:
+          - link "Hilfe" [ref=f150e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f150e32]:
+        - generic [ref=f150e33]:
+          - generic [ref=f150e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f150e35]
+        - link "Mein Konto" [ref=f150e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f150e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f150e44]:
+      - generic [ref=f150e45]:
+        - generic [ref=f150e46]:
+          - heading "Agile Board Project" [level=1] [ref=f150e47]
+          - generic [ref=f150e48]:
+            - generic [ref=f150e49]:
+              - generic [ref=f150e50]: Hauptmenü
+              - listitem [ref=f150e51]:
+                - link "+" [ref=f150e52] [cursor=pointer]:
+                  - /url: "#"
+            - list [ref=f150e53]:
+              - listitem [ref=f150e54]:
+                - link "Übersicht" [ref=f150e55] [cursor=pointer]:
+                  - /url: /projects/agileboard
+              - listitem [ref=f150e60]:
+                - link "Dashboard" [ref=f150e61] [cursor=pointer]:
+                  - /url: /projects/agileboard/analytics_dashboard
+              - listitem [ref=f150e69]:
+                - link "Aktivität" [ref=f150e70] [cursor=pointer]:
+                  - /url: /projects/agileboard/activity
+              - listitem [ref=f150e75]:
+                - link "Agile Board" [ref=f150e76] [cursor=pointer]:
+                  - /url: /projects/agileboard/agile_board
+              - listitem [ref=f150e84]:
+                - link "Backlog" [ref=f150e85] [cursor=pointer]:
+                  - /url: /projects/agileboard/backlog
+              - listitem [ref=f150e90]:
+                - link "Roadmap" [ref=f150e91] [cursor=pointer]:
+                  - /url: /projects/agileboard/roadmap
+              - listitem [ref=f150e98]:
+                - link "Tickets" [ref=f150e99] [cursor=pointer]:
+                  - /url: /projects/agileboard/issues
+              - listitem [ref=f150e104]:
+                - link "Aufgewendete Zeit" [ref=f150e105] [cursor=pointer]:
+                  - /url: /projects/agileboard/time_entries
+              - listitem [ref=f150e110]:
+                - link "Gantt-Diagramm" [ref=f150e111] [cursor=pointer]:
+                  - /url: /projects/agileboard/issues/gantt
+              - listitem [ref=f150e119]:
+                - link "Kalender" [ref=f150e120] [cursor=pointer]:
+                  - /url: /projects/agileboard/issues/calendar
+              - listitem [ref=f150e125]:
+                - link "News" [ref=f150e126] [cursor=pointer]:
+                  - /url: /projects/agileboard/news
+              - listitem [ref=f150e131]:
+                - link "Dokumente" [ref=f150e132] [cursor=pointer]:
+                  - /url: /projects/agileboard/documents
+              - listitem [ref=f150e137]:
+                - link "Wiki" [ref=f150e138] [cursor=pointer]:
+                  - /url: /projects/agileboard/wiki
+              - listitem [ref=f150e143]:
+                - link "Dateien" [ref=f150e144] [cursor=pointer]:
+                  - /url: /projects/agileboard/files
+              - listitem [ref=f150e149]:
+                - link "Konfiguration" [ref=f150e150] [cursor=pointer]:
+                  - /url: /projects/agileboard/settings
+        - generic [ref=f150e156]:
+          - heading "Abfragen" [level=3] [ref=f150e157]
+          - list [ref=f150e158]:
+            - listitem [ref=f150e159]:
+              - link "Issues assigned to me" [ref=f150e160] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/calendar?query_id=1
+            - listitem [ref=f150e161]:
+              - link "Reported issues" [ref=f150e162] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/calendar?query_id=2
+            - listitem [ref=f150e163]:
+              - link "Updated issues" [ref=f150e164] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/calendar?query_id=3
+            - listitem [ref=f150e165]:
+              - link "Watched issues" [ref=f150e166] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/calendar?query_id=4
+      - generic [ref=f150e167]:
+        - heading "Kalender" [level=2] [ref=f150e168]
+        - list [ref=f150e170]:
+          - listitem "Woche" [ref=f150e171]
+          - listitem [ref=f150e172]: Montag
+          - listitem [ref=f150e173]: Dienstag
+          - listitem [ref=f150e174]: Mittwoch
+          - listitem [ref=f150e175]: Donnerstag
+          - listitem [ref=f150e176]: Freitag
+          - listitem [ref=f150e177]: Samstag
+          - listitem [ref=f150e178]: Sonntag
+          - listitem [ref=f150e179]: "36"
+          - listitem [ref=f150e180]:
+            - paragraph [ref=f150e181]:
+              - generic [ref=f150e182]: "31"
+          - listitem [ref=f150e183]:
+            - paragraph [ref=f150e184]:
+              - generic [ref=f150e185]: "1"
+          - listitem [ref=f150e186]:
+            - paragraph [ref=f150e187]:
+              - generic [ref=f150e188]: "2"
+          - listitem [ref=f150e189]:
+            - paragraph [ref=f150e190]:
+              - generic [ref=f150e191]: "3"
+          - listitem [ref=f150e192]:
+            - paragraph [ref=f150e193]:
+              - generic [ref=f150e194]: "4"
+          - listitem [ref=f150e195]:
+            - paragraph [ref=f150e196]:
+              - generic [ref=f150e197]: "5"
+          - listitem [ref=f150e198]:
+            - paragraph [ref=f150e199]:
+              - generic [ref=f150e200]: "6"
+          - listitem [ref=f150e201]: "37"
+          - listitem [ref=f150e202]:
+            - paragraph [ref=f150e203]:
+              - generic [ref=f150e204]: "7"
+          - listitem [ref=f150e205]:
+            - paragraph [ref=f150e206]:
+              - generic [ref=f150e207]: "8"
+          - listitem [ref=f150e208]:
+            - paragraph [ref=f150e209]:
+              - generic [ref=f150e210]: "9"
+          - listitem [ref=f150e211]:
+            - paragraph [ref=f150e212]:
+              - generic [ref=f150e213]: "10"
+          - listitem [ref=f150e214]:
+            - paragraph [ref=f150e215]:
+              - generic [ref=f150e216]: "11"
+          - listitem [ref=f150e217]:
+            - paragraph [ref=f150e218]:
+              - generic [ref=f150e219]: "12"
+          - listitem [ref=f150e220]:
+            - paragraph [ref=f150e221]:
+              - generic [ref=f150e222]: "13"
+          - listitem [ref=f150e223]: "38"
+          - listitem [ref=f150e224]:
+            - paragraph [ref=f150e225]:
+              - generic [ref=f150e226]: "14"
+          - listitem [ref=f150e227]:
+            - paragraph [ref=f150e228]:
+              - generic [ref=f150e229]: "15"
+          - listitem [ref=f150e230]:
+            - paragraph [ref=f150e231]:
+              - generic [ref=f150e232]: "16"
+          - listitem [ref=f150e233]:
+            - paragraph [ref=f150e234]:
+              - generic [ref=f150e235]: "17"
+          - listitem [ref=f150e236]:
+            - paragraph [ref=f150e237]:
+              - generic [ref=f150e238]: "18"
+          - listitem [ref=f150e239]:
+            - paragraph [ref=f150e240]:
+              - generic [ref=f150e241]: "19"
+          - listitem [ref=f150e242]:
+            - paragraph [ref=f150e243]:
+              - generic [ref=f150e244]: "20"
+          - listitem [ref=f150e245]: "39"
+          - listitem [ref=f150e246]:
+            - paragraph [ref=f150e247]:
+              - generic [ref=f150e248]: "21"
+          - listitem [ref=f150e249]:
+            - paragraph [ref=f150e250]:
+              - generic [ref=f150e251]: "22"
+          - listitem [ref=f150e252]:
+            - paragraph [ref=f150e253]:
+              - generic [ref=f150e254]: "23"
+            - generic [ref=f150e255]:
+              - 'link "Feature #266" [ref=f150e258] [cursor=pointer]':
+                - /url: /issues/266
+              - text: ": QA Quick Add Test"
+          - listitem [ref=f150e259]:
+            - paragraph [ref=f150e260]:
+              - generic [ref=f150e261]: "24"
+          - listitem [ref=f150e262]:
+            - paragraph [ref=f150e263]:
+              - generic [ref=f150e264]: "25"
+          - listitem [ref=f150e265]:
+            - paragraph [ref=f150e266]:
+              - generic [ref=f150e267]: "26"
+          - listitem [ref=f150e268]:
+            - paragraph [ref=f150e269]:
+              - generic [ref=f150e270]: "27"
+          - listitem [ref=f150e271]: "40"
+          - listitem [ref=f150e272]:
+            - paragraph [ref=f150e273]:
+              - generic [ref=f150e274]: "28"
+          - listitem [ref=f150e275]:
+            - paragraph [ref=f150e276]:
+              - generic [ref=f150e277]: "29"
+          - listitem [ref=f150e278]:
+            - paragraph [ref=f150e279]:
+              - generic [ref=f150e280]: "30"
+            - link "Version 5" [ref=f150e283] [cursor=pointer]:
+              - /url: /versions/5
+            - link "Version 6" [ref=f150e286] [cursor=pointer]:
+              - /url: /versions/6
+          - listitem [ref=f150e287]:
+            - paragraph [ref=f150e288]:
+              - generic [ref=f150e289]: "1"
+          - listitem [ref=f150e290]:
+            - paragraph [ref=f150e291]:
+              - generic [ref=f150e292]: "2"
+          - listitem [ref=f150e293]:
+            - paragraph [ref=f150e294]:
+              - generic [ref=f150e295]: "3"
+          - listitem [ref=f150e296]:
+            - paragraph [ref=f150e297]:
+              - generic [ref=f150e298]: "4"
+        - paragraph [ref=f150e299]:
+          - generic [ref=f150e300]: Ticket, das an diesem Tag beginnt
+          - generic [ref=f150e304]: Ticket, das an diesem Tag endet
+          - generic [ref=f150e308]: Ticket, das an diesem Tag beginnt und endet
+    - generic [ref=f150e312]:
+      - text: Powered by
+      - link "Redmine" [ref=f150e313] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f150e314]
+  - log [ref=f150e315]
+  - log [ref=f150e316]
+  - log [ref=f150e317]
+  - log [ref=f150e318]
+  - log [ref=f150e319]
+  - log [ref=f150e320]
+  - log [ref=f150e321]
+  - log [ref=f150e322]
+  - log [ref=f150e323]
+  - log [ref=f150e324]
+  - log [ref=f150e325]
+  - log [ref=f150e326]
+  - log [ref=f150e327]
+  - log [ref=f150e328]
+  - log [ref=f150e329]
+  - log [ref=f150e330]

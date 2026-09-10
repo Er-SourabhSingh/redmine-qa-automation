@@ -1,0 +1,261 @@
+- generic [ref=f225e1]:
+  - generic [ref=f225e2]:
+    - navigation [ref=f225e3]:
+      - generic [ref=f225e4]:
+        - link [ref=f225e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f225e7] [cursor=pointer]
+      - list [ref=f225e17]:
+        - listitem [ref=f225e18]:
+          - link "Hauptseite" [ref=f225e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f225e20]:
+          - link "Meine Seite" [ref=f225e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f225e22]:
+          - link "Projekte" [ref=f225e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f225e24]:
+          - link "Agile Board" [ref=f225e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f225e26]:
+          - link "Flux Gantt" [ref=f225e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f225e28]:
+          - link "Administration" [ref=f225e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f225e30]:
+          - link "Hilfe" [ref=f225e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f225e32]:
+        - generic [ref=f225e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f225e35]
+        - link "Mein Konto" [ref=f225e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f225e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f225e44]:
+      - generic [ref=f225e45]:
+        - heading "Redmine" [level=1] [ref=f225e47]
+        - generic [ref=f225e49]:
+          - heading "Administration" [level=3] [ref=f225e50]
+          - list [ref=f225e52]:
+            - listitem [ref=f225e53]:
+              - link "Projekte" [ref=f225e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f225e55]:
+              - link "Benutzer" [ref=f225e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f225e57]:
+              - link "Gruppen" [ref=f225e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f225e59]:
+              - link "Rollen und Rechte" [ref=f225e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f225e61]:
+              - link "Tracker" [ref=f225e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f225e63]:
+              - link "Ticket-Status" [ref=f225e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f225e65]:
+              - link "Workflow" [ref=f225e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f225e67]:
+              - link "Benutzerdefinierte Felder" [ref=f225e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f225e69]:
+              - link "Aufzählungen" [ref=f225e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f225e71]:
+              - link "Konfiguration" [ref=f225e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f225e73]:
+              - link "LDAP-Authentifizierung" [ref=f225e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f225e75]:
+              - link "Applikationen" [ref=f225e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f225e77]:
+              - link "Plugins" [ref=f225e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f225e79]:
+              - link "Informationen" [ref=f225e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f225e81]:
+        - heading "Konfiguration" [level=2] [ref=f225e82]
+        - list [ref=f225e84]:
+          - listitem [ref=f225e85]:
+            - link "Allgemein" [ref=f225e86] [cursor=pointer]:
+              - /url: /settings?tab=general
+          - listitem [ref=f225e87]:
+            - link "Anzeige" [ref=f225e88] [cursor=pointer]:
+              - /url: /settings?tab=display
+          - listitem [ref=f225e89]:
+            - link "Authentifizierung" [ref=f225e90] [cursor=pointer]:
+              - /url: /settings?tab=authentication
+          - listitem [ref=f225e91]:
+            - link "Integrations" [ref=f225e92] [cursor=pointer]:
+              - /url: /settings?tab=integrations
+          - listitem [ref=f225e93]:
+            - link "Projekte" [ref=f225e94] [cursor=pointer]:
+              - /url: /settings?tab=projects
+          - listitem [ref=f225e95]:
+            - link "Benutzer" [ref=f225e96] [cursor=pointer]:
+              - /url: /settings?tab=users
+          - listitem [ref=f225e97]:
+            - link "Tickets" [ref=f225e98] [cursor=pointer]:
+              - /url: /settings?tab=issues
+          - listitem [ref=f225e99]:
+            - link "Zeiterfassung" [ref=f225e100] [cursor=pointer]:
+              - /url: /settings?tab=timelog
+          - listitem [ref=f225e101]:
+            - link "Dateien" [ref=f225e102] [cursor=pointer]:
+              - /url: /settings?tab=attachments
+          - listitem [ref=f225e103]:
+            - link "Mailbenachrichtigung" [ref=f225e104] [cursor=pointer]:
+              - /url: /settings?tab=notifications
+          - listitem [ref=f225e105]:
+            - link "Eingehende E-Mails" [ref=f225e106] [cursor=pointer]:
+              - /url: /settings?tab=mail_handler
+          - listitem [ref=f225e107]:
+            - link "Repositories" [ref=f225e108] [cursor=pointer]:
+              - /url: /settings?tab=repositories
+        - text: pre
+        - generic [ref=f225e110]:
+          - generic [ref=f225e111]:
+            - paragraph [ref=f225e112]:
+              - generic [ref=f225e113]: Erforderliche Felder für Zeitbuchungen
+              - generic [ref=f225e114]:
+                - checkbox "Ticket" [ref=f225e115]
+                - text: Ticket
+              - generic [ref=f225e116]:
+                - checkbox "Kommentar" [ref=f225e117]
+                - text: Kommentar
+            - paragraph [ref=f225e118]:
+              - generic [ref=f225e119]: Maximale Anzahl der täglich buchbaren Stunden pro Benutzer
+              - textbox "Maximale Anzahl der täglich buchbaren Stunden pro Benutzer" [active] [ref=f225e120]: "999"
+            - paragraph [ref=f225e121]:
+              - generic [ref=f225e122]: Akzeptiere Buchungen mit 0 Stunden
+              - checkbox "Akzeptiere Buchungen mit 0 Stunden" [checked] [ref=f225e123]
+            - paragraph [ref=f225e124]:
+              - generic [ref=f225e125]: Akzeptiere Zeitbuchungen in der Zukunft
+              - checkbox "Akzeptiere Zeitbuchungen in der Zukunft" [checked] [ref=f225e126]
+            - paragraph [ref=f225e127]:
+              - generic [ref=f225e128]: Accept time logs on closed issues
+              - checkbox "Accept time logs on closed issues" [checked] [ref=f225e129]
+          - group "Standard-Spalten in der Zeiten-Auflistung" [ref=f225e130]:
+            - generic [ref=f225e133]:
+              - generic [ref=f225e134]:
+                - generic [ref=f225e135]: Verfügbare Spalten
+                - listbox "Verfügbare Spalten" [ref=f225e136]:
+                  - option "Projekt" [ref=f225e137]
+                  - option "Angelegt" [ref=f225e138]
+                  - option "Woche" [ref=f225e139]
+                  - option "Autor" [ref=f225e140]
+                  - option "Tracker" [ref=f225e141]
+                  - option "Übergeordnetes Ticket" [ref=f225e142]
+                  - option "Status" [ref=f225e143]
+                  - option "Kategorie" [ref=f225e144]
+                  - option "Zielversion" [ref=f225e145]
+                  - option "Tags" [ref=f225e146]
+              - generic [ref=f225e147]:
+                - button [ref=f225e148]
+                - button [ref=f225e151]
+              - generic [ref=f225e154]:
+                - generic [ref=f225e155]: Ausgewählte Spalten
+                - listbox "Ausgewählte Spalten" [ref=f225e156]:
+                  - option "Datum" [ref=f225e157]
+                  - option "Benutzer" [ref=f225e158]
+                  - option "Aktivität" [ref=f225e159]
+                  - option "Ticket" [ref=f225e160]
+                  - option "Kommentar" [ref=f225e161]
+                  - option "Stunden" [ref=f225e162]
+              - generic [ref=f225e163]:
+                - button "⇈" [ref=f225e164]
+                - button "↑" [ref=f225e165]
+                - button "↓" [ref=f225e166]
+                - button "⇊" [ref=f225e167]
+            - paragraph [ref=f225e168]:
+              - text: Summe
+              - generic [ref=f225e169]:
+                - checkbox "Stunden" [checked] [ref=f225e170]
+                - text: Stunden
+          - button "Speichern" [ref=f225e171] [cursor=pointer]
+        - text: pre pre
+    - generic [ref=f225e172]:
+      - text: Powered by
+      - link "Redmine" [ref=f225e173] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f225e174]
+  - log [ref=f225e175]
+  - log [ref=f225e176]
+  - log [ref=f225e177]
+  - log [ref=f225e178]
+  - log [ref=f225e179]
+  - log [ref=f225e180]
+  - log [ref=f225e181]
+  - log [ref=f225e182]
+  - log [ref=f225e183]
+  - log [ref=f225e184]
+  - log [ref=f225e185]
+  - log [ref=f225e186]
+  - log [ref=f225e187]
+  - log [ref=f225e188]
+  - log [ref=f225e189]
+  - log [ref=f225e190]
+  - log [ref=f225e191]
+  - log [ref=f225e192]
+  - log [ref=f225e193]
+  - log [ref=f225e194]
+  - log [ref=f225e195]
+  - log [ref=f225e196]
+  - log [ref=f225e197]
+  - log [ref=f225e198]
+  - log [ref=f225e199]
+  - log [ref=f225e200]
+  - log [ref=f225e201]
+  - log [ref=f225e202]
+  - log [ref=f225e203]
+  - log [ref=f225e204]
+  - log [ref=f225e205]
+  - log [ref=f225e206]
+  - log [ref=f225e207]
+  - log [ref=f225e208]
+  - log [ref=f225e209]
+  - log [ref=f225e210]
+  - log [ref=f225e211]
+  - log [ref=f225e212]
+  - log [ref=f225e213]
+  - log [ref=f225e214]
+  - log [ref=f225e215]
+  - log [ref=f225e216]
+  - log [ref=f225e217]
+  - log [ref=f225e218]
+  - log [ref=f225e219]
+  - log [ref=f225e220]
+  - log [ref=f225e221]
+  - log [ref=f225e222]
+  - log [ref=f225e223]
+  - log [ref=f225e224]
+  - log [ref=f225e225]
+  - log [ref=f225e226]
+  - log [ref=f225e227]
+  - log [ref=f225e228]
+  - log [ref=f225e229]
+  - log [ref=f225e230]
+  - log [ref=f225e231]
+  - log [ref=f225e232]
+  - log [ref=f225e233]
+  - log [ref=f225e234]
+  - log [ref=f225e235]
+  - log [ref=f225e236]
+  - log [ref=f225e237]
+  - log [ref=f225e238]
+  - log [ref=f225e239]
+  - log [ref=f225e240]
+  - log [ref=f225e241]
+  - log [ref=f225e242]
+  - log [ref=f225e243]
+  - log [ref=f225e244]

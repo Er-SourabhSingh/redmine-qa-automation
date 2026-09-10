@@ -1,0 +1,156 @@
+- generic [ref=f269e1]:
+  - generic [ref=f269e2]:
+    - generic [ref=f269e3]:
+      - generic [ref=f269e4]:
+        - list:
+          - listitem [ref=f269e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f269e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f269e7]:
+        - text: Logged in as
+        - link "admin" [ref=f269e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f269e9]:
+        - listitem [ref=f269e10]:
+          - link [ref=f269e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f269e12]
+        - listitem [ref=f269e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f269e14]:
+          - link "My page" [ref=f269e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f269e16]:
+          - link "Projects" [ref=f269e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f269e18]:
+          - link "Flux Gantt" [ref=f269e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f269e20]:
+          - link "Helpdesk Command Center" [ref=f269e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f269e22]:
+          - link "Time Tracker" [ref=f269e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f269e24]:
+          - link "Timesheet" [ref=f269e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f269e26]:
+          - link "Workloads" [ref=f269e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f269e28]:
+          - link "More" [ref=f269e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f269e30]:
+      - generic [ref=f269e31]:
+        - generic [ref=f269e32]:
+          - generic [ref=f269e33]:
+            - link "Search..." [ref=f269e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f269e35]
+        - generic [ref=f269e36]:
+          - generic [ref=f269e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f269e38]
+    - generic [ref=f269e39]:
+      - list [ref=f269e43]:
+        - listitem [ref=f269e44]:
+          - link "Helpdesk Dashboard" [ref=f269e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f269e48]:
+          - link "Helpdesk Tickets" [ref=f269e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f269e52]:
+          - link "Reports" [ref=f269e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f269e56]:
+          - link "Organization" [ref=f269e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f269e60]:
+          - link "Customers" [ref=f269e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f269e64]:
+          - link "Products" [ref=f269e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f269e68]:
+          - link "Helpdesk Settings" [ref=f269e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f269e72]:
+        - generic [ref=f269e73]: Successful creation.
+        - generic [ref=f269e74]:
+          - generic [ref=f269e76]:
+            - heading "Organizations" [level=2] [ref=f269e77]
+            - paragraph [ref=f269e78]: Companies your customers belong to
+          - link "New Organization" [ref=f269e80] [cursor=pointer]:
+            - /url: /rf_organizations/new
+        - generic [ref=f269e83]:
+          - textbox "Search organizations..." [active] [ref=f269e85]
+          - combobox "All Statuses" [ref=f269e86] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f269e87]:
+            - button "Apply Filters" [ref=f269e88] [cursor=pointer]
+            - link "Clear" [ref=f269e91] [cursor=pointer]:
+              - /url: /rf_organizations
+        - table [ref=f269e97]:
+          - rowgroup [ref=f269e98]:
+            - row [ref=f269e99]:
+              - columnheader "S.No" [ref=f269e100]
+              - columnheader "Organization Name" [ref=f269e101]
+              - columnheader "Website" [ref=f269e102]
+              - columnheader "Author" [ref=f269e103]
+              - columnheader "Updated By" [ref=f269e104]
+              - columnheader "Created on" [ref=f269e105]
+              - columnheader "Updated" [ref=f269e106]
+              - columnheader "User Count" [ref=f269e107]
+              - columnheader "Active" [ref=f269e108]
+              - columnheader "Action" [ref=f269e109]
+          - rowgroup [ref=f269e110]:
+            - row [ref=f269e111]:
+              - cell "1" [ref=f269e112]
+              - cell [ref=f269e113]:
+                - link "Alpha Minimal Fields Test Org" [ref=f269e114] [cursor=pointer]:
+                  - /url: /rf_organizations/8
+              - cell "—" [ref=f269e115]
+              - cell "Redmine Admin" [ref=f269e116]
+              - cell "Redmine Admin" [ref=f269e117]
+              - cell "09/02/2026 06:16 AM" [ref=f269e118]
+              - cell "09/02/2026 06:16 AM" [ref=f269e119]
+              - cell "0" [ref=f269e120]
+              - cell [ref=f269e121]:
+                - checkbox "Active" [checked] [ref=f269e122]
+              - cell [ref=f269e123]:
+                - generic [ref=f269e124]:
+                  - link "Edit" [ref=f269e125] [cursor=pointer]:
+                    - /url: /rf_organizations/8/edit
+                  - link "Delete" [ref=f269e128] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f269e132]:
+          - list
+          - generic [ref=f269e133]: (1-1/1)
+    - generic [ref=f269e134]:
+      - text: Powered by
+      - link "Redmine" [ref=f269e135] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f269e136]
+  - log [ref=f269e137]
+  - log [ref=f269e138]
+  - log [ref=f269e139]
+  - log [ref=f269e140]
+  - log [ref=f269e141]
+  - log [ref=f269e142]
+  - log [ref=f269e143]
+  - log [ref=f269e144]
+  - log [ref=f269e145]
+  - log [ref=f269e146]
+  - log [ref=f269e147]
+  - log [ref=f269e148]
+  - log [ref=f269e149]
+  - log [ref=f269e150]

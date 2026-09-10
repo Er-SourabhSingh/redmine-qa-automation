@@ -1,0 +1,117 @@
+- generic [ref=f535e1]:
+  - generic [ref=f535e2]:
+    - generic [ref=f535e3]:
+      - generic [ref=f535e4]:
+        - list:
+          - listitem [ref=f535e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f535e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f535e7]:
+        - text: Logged in as
+        - link "admin" [ref=f535e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f535e9]:
+        - listitem [ref=f535e10]:
+          - link [ref=f535e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f535e12]
+        - listitem [ref=f535e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f535e14]:
+          - link "My page" [ref=f535e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f535e16]:
+          - link "Projects" [ref=f535e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f535e18]:
+          - link "Flux Gantt" [ref=f535e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f535e20]:
+          - link "Helpdesk Command Center" [ref=f535e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f535e22]:
+          - link "Time Tracker" [ref=f535e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f535e24]:
+          - link "Timesheet" [ref=f535e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f535e26]:
+          - link "Workloads" [ref=f535e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f535e28]:
+          - link "More" [ref=f535e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f535e30]:
+      - generic [ref=f535e31]:
+        - generic [ref=f535e32]:
+          - generic [ref=f535e33]:
+            - link "Search..." [ref=f535e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f535e35]
+        - generic [ref=f535e36]:
+          - generic [ref=f535e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f535e38]
+    - generic [ref=f535e39]:
+      - list [ref=f535e43]:
+        - listitem [ref=f535e44]:
+          - link "Helpdesk Dashboard" [ref=f535e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f535e48]:
+          - link "Helpdesk Tickets" [ref=f535e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f535e52]:
+          - link "Reports" [ref=f535e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f535e56]:
+          - link "Organization" [ref=f535e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f535e60]:
+          - link "Customers" [ref=f535e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f535e64]:
+          - link "Products" [ref=f535e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f535e68]:
+          - link "Helpdesk Settings" [ref=f535e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f535e72]:
+        - heading "New Support Package" [level=2] [ref=f535e73]
+        - generic [ref=f535e74]:
+          - generic [ref=f535e75]:
+            - paragraph [ref=f535e76]:
+              - generic [ref=f535e77]: Name *
+              - textbox "Name *" [active] [ref=f535e78]:
+                - /placeholder: e.g. 24/7 Support
+            - paragraph [ref=f535e79]:
+              - generic [ref=f535e80]: Description
+              - textbox "Description" [ref=f535e81]
+            - paragraph [ref=f535e82]:
+              - generic [ref=f535e83]: Active
+              - checkbox "Active" [checked] [ref=f535e84]
+          - paragraph [ref=f535e85]:
+            - button "Create" [ref=f535e86] [cursor=pointer]
+            - link "Cancel" [ref=f535e87] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+    - generic [ref=f535e88]:
+      - text: Powered by
+      - link "Redmine" [ref=f535e89] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f535e90]
+  - log [ref=f535e91]
+  - log [ref=f535e92]
+  - log [ref=f535e93]
+  - log [ref=f535e94]
+  - log [ref=f535e95]
+  - log [ref=f535e96]
+  - log [ref=f535e97]
+  - log [ref=f535e98]
+  - log [ref=f535e99]
+  - log [ref=f535e100]
+  - log [ref=f535e101]

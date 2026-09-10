@@ -1,0 +1,231 @@
+- generic [ref=f228e1]:
+  - generic [ref=f228e2]:
+    - navigation [ref=f228e3]:
+      - generic [ref=f228e4]:
+        - link [ref=f228e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f228e7] [cursor=pointer]
+      - list [ref=f228e17]:
+        - listitem [ref=f228e18]:
+          - link "Hauptseite" [ref=f228e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f228e20]:
+          - link "Meine Seite" [ref=f228e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f228e22]:
+          - link "Projekte" [ref=f228e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f228e24]:
+          - link "Agile Board" [ref=f228e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f228e26]:
+          - link "Flux Gantt" [ref=f228e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f228e28]:
+          - link "Administration" [ref=f228e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f228e30]:
+          - link "Hilfe" [ref=f228e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f228e32]:
+        - generic [ref=f228e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f228e35]
+        - link "Mein Konto" [ref=f228e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f228e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f228e44]:
+      - generic [ref=f228e45]:
+        - heading "Redmine" [level=1] [ref=f228e47]
+        - generic [ref=f228e49]:
+          - heading "Administration" [level=3] [ref=f228e50]
+          - list [ref=f228e52]:
+            - listitem [ref=f228e53]:
+              - link "Projekte" [ref=f228e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f228e55]:
+              - link "Benutzer" [ref=f228e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f228e57]:
+              - link "Gruppen" [ref=f228e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f228e59]:
+              - link "Rollen und Rechte" [ref=f228e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f228e61]:
+              - link "Tracker" [ref=f228e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f228e63]:
+              - link "Ticket-Status" [ref=f228e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f228e65]:
+              - link "Workflow" [ref=f228e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f228e67]:
+              - link "Benutzerdefinierte Felder" [ref=f228e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f228e69]:
+              - link "Aufzählungen" [ref=f228e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f228e71]:
+              - link "Konfiguration" [ref=f228e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f228e73]:
+              - link "LDAP-Authentifizierung" [ref=f228e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f228e75]:
+              - link "Applikationen" [ref=f228e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f228e77]:
+              - link "Plugins" [ref=f228e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f228e79]:
+              - link "Informationen" [ref=f228e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f228e81]:
+        - heading "Konfiguration" [level=2] [ref=f228e82]
+        - list [ref=f228e84]:
+          - listitem [ref=f228e85]:
+            - link "Allgemein" [ref=f228e86] [cursor=pointer]:
+              - /url: /settings?tab=general
+          - listitem [ref=f228e87]:
+            - link "Anzeige" [ref=f228e88] [cursor=pointer]:
+              - /url: /settings?tab=display
+          - listitem [ref=f228e89]:
+            - link "Authentifizierung" [ref=f228e90] [cursor=pointer]:
+              - /url: /settings?tab=authentication
+          - listitem [ref=f228e91]:
+            - link "Integrations" [ref=f228e92] [cursor=pointer]:
+              - /url: /settings?tab=integrations
+          - listitem [ref=f228e93]:
+            - link "Projekte" [ref=f228e94] [cursor=pointer]:
+              - /url: /settings?tab=projects
+          - listitem [ref=f228e95]:
+            - link "Benutzer" [ref=f228e96] [cursor=pointer]:
+              - /url: /settings?tab=users
+          - listitem [ref=f228e97]:
+            - link "Tickets" [ref=f228e98] [cursor=pointer]:
+              - /url: /settings?tab=issues
+          - listitem [ref=f228e99]:
+            - link "Zeiterfassung" [ref=f228e100] [cursor=pointer]:
+              - /url: /settings?tab=timelog
+          - listitem [ref=f228e101]:
+            - link "Dateien" [ref=f228e102] [cursor=pointer]:
+              - /url: /settings?tab=attachments
+          - listitem [ref=f228e103]:
+            - link "Mailbenachrichtigung" [ref=f228e104] [cursor=pointer]:
+              - /url: /settings?tab=notifications
+          - listitem [ref=f228e105]:
+            - link "Eingehende E-Mails" [ref=f228e106] [cursor=pointer]:
+              - /url: /settings?tab=mail_handler
+          - listitem [ref=f228e107]:
+            - link "Repositories" [ref=f228e108] [cursor=pointer]:
+              - /url: /settings?tab=repositories
+        - text: pre pre pre
+        - generic [ref=f228e110]:
+          - generic [ref=f228e111]:
+            - paragraph [ref=f228e112]:
+              - generic [ref=f228e113]: Schneide E-Mails nach einer dieser Zeilen ab
+              - textbox "Schneide E-Mails nach einer dieser Zeilen ab" [active] [ref=f228e114]
+              - generic [ref=f228e115]:
+                - checkbox "Reguläre Ausdrücke verwenden" [ref=f228e116]
+                - text: Reguläre Ausdrücke verwenden
+              - emphasis [ref=f228e117]: Mehrere Werte sind erlaubt (eine Zeile pro Wert).
+            - paragraph [ref=f228e118]:
+              - generic [ref=f228e119]: Anhänge nach Namen ausschließen
+              - textbox "Anhänge nach Namen ausschließen" [ref=f228e120]
+              - generic [ref=f228e121]:
+                - checkbox "Reguläre Ausdrücke verwenden" [ref=f228e122]
+                - text: Reguläre Ausdrücke verwenden
+              - emphasis [ref=f228e123]: "Mehrere Werte erlaubt (durch Komma getrennt). Beispiel: smime.p7s, *.vcf"
+            - paragraph [ref=f228e124]:
+              - generic [ref=f228e125]: Bevorzugter Teil von E-Mails im Multipart-Format
+              - combobox "Bevorzugter Teil von E-Mails im Multipart-Format" [ref=f228e126]:
+                - option "Text" [selected]
+                - option "HTML"
+          - generic [ref=f228e127]:
+            - paragraph [ref=f228e128]:
+              - generic [ref=f228e129]: Abruf eingehender E-Mails aktivieren
+              - checkbox "Abruf eingehender E-Mails aktivieren" [ref=f228e130]
+            - paragraph [ref=f228e131]:
+              - generic [ref=f228e132]: API-Schlüssel für eingehende E-Mails
+              - textbox "API-Schlüssel für eingehende E-Mails" [disabled] [ref=f228e133]
+              - link "Generieren" [ref=f228e134] [cursor=pointer]:
+                - /url: "#"
+          - button "Speichern" [ref=f228e135] [cursor=pointer]
+    - generic [ref=f228e136]:
+      - text: Powered by
+      - link "Redmine" [ref=f228e137] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f228e138]
+  - log [ref=f228e139]
+  - log [ref=f228e140]
+  - log [ref=f228e141]
+  - log [ref=f228e142]
+  - log [ref=f228e143]
+  - log [ref=f228e144]
+  - log [ref=f228e145]
+  - log [ref=f228e146]
+  - log [ref=f228e147]
+  - log [ref=f228e148]
+  - log [ref=f228e149]
+  - log [ref=f228e150]
+  - log [ref=f228e151]
+  - log [ref=f228e152]
+  - log [ref=f228e153]
+  - log [ref=f228e154]
+  - log [ref=f228e155]
+  - log [ref=f228e156]
+  - log [ref=f228e157]
+  - log [ref=f228e158]
+  - log [ref=f228e159]
+  - log [ref=f228e160]
+  - log [ref=f228e161]
+  - log [ref=f228e162]
+  - log [ref=f228e163]
+  - log [ref=f228e164]
+  - log [ref=f228e165]
+  - log [ref=f228e166]
+  - log [ref=f228e167]
+  - log [ref=f228e168]
+  - log [ref=f228e169]
+  - log [ref=f228e170]
+  - log [ref=f228e171]
+  - log [ref=f228e172]
+  - log [ref=f228e173]
+  - log [ref=f228e174]
+  - log [ref=f228e175]
+  - log [ref=f228e176]
+  - log [ref=f228e177]
+  - log [ref=f228e178]
+  - log [ref=f228e179]
+  - log [ref=f228e180]
+  - log [ref=f228e181]
+  - log [ref=f228e182]
+  - log [ref=f228e183]
+  - log [ref=f228e184]
+  - log [ref=f228e185]
+  - log [ref=f228e186]
+  - log [ref=f228e187]
+  - log [ref=f228e188]
+  - log [ref=f228e189]
+  - log [ref=f228e190]
+  - log [ref=f228e191]
+  - log [ref=f228e192]
+  - log [ref=f228e193]
+  - log [ref=f228e194]
+  - log [ref=f228e195]
+  - log [ref=f228e196]
+  - log [ref=f228e197]
+  - log [ref=f228e198]
+  - log [ref=f228e199]
+  - log [ref=f228e200]
+  - log [ref=f228e201]
+  - log [ref=f228e202]
+  - log [ref=f228e203]
+  - log [ref=f228e204]
+  - log [ref=f228e205]
+  - log [ref=f228e206]
+  - log [ref=f228e207]
+  - log [ref=f228e208]

@@ -1,0 +1,671 @@
+- generic [ref=f45e1]:
+  - generic [ref=f45e2]:
+    - generic [ref=f45e3]:
+      - generic [ref=f45e4]:
+        - list:
+          - listitem [ref=f45e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f45e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f45e7]:
+        - text: Logged in as
+        - link "admin" [ref=f45e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f45e9]:
+        - listitem [ref=f45e10]:
+          - link [ref=f45e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f45e12]
+        - listitem [ref=f45e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f45e14]:
+          - link "My page" [ref=f45e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f45e16]:
+          - link "Projects" [ref=f45e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f45e18]:
+          - link "Flux Gantt" [ref=f45e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f45e20]:
+          - link "Helpdesk Command Center" [ref=f45e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f45e22]:
+          - link "Time Tracker" [ref=f45e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f45e24]:
+          - link "Timesheet" [ref=f45e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f45e26]:
+          - link "Workloads" [ref=f45e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f45e28]:
+          - link "Administration" [ref=f45e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f45e30]:
+          - link "Help" [ref=f45e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f45e32]:
+      - generic [ref=f45e33]:
+        - generic [ref=f45e34]:
+          - generic [ref=f45e35]:
+            - link "Search..." [ref=f45e36] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f45e37]
+        - generic [ref=f45e38]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f45e40]
+    - generic [ref=f45e41]:
+      - generic [ref=f45e42]:
+        - link [ref=f45e44] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f45e47]:
+          - heading "Administration" [level=3] [ref=f45e48]
+          - list [ref=f45e50]:
+            - listitem [ref=f45e51]:
+              - link "Projects" [ref=f45e52] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f45e54]:
+              - link "Users" [ref=f45e55] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f45e57]:
+              - link "Groups" [ref=f45e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f45e60]:
+              - link "Roles and permissions" [ref=f45e61] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f45e63]:
+              - link "Trackers" [ref=f45e64] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f45e66]:
+              - link "Issue statuses" [ref=f45e67] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f45e69]:
+              - link "Workflow" [ref=f45e70] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f45e72]:
+              - link "Custom fields" [ref=f45e73] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f45e75]:
+              - link "Enumerations" [ref=f45e76] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f45e78]:
+              - link "Settings" [ref=f45e79] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f45e81]:
+              - link "LDAP authentication" [ref=f45e82] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f45e84]:
+              - link "Applications" [ref=f45e85] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f45e87]:
+              - link "Plugins" [ref=f45e88] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f45e90]:
+              - link "Information" [ref=f45e91] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f45e93]:
+        - heading [level=2] [ref=f45e94]:
+          - link "Roles" [ref=f45e95] [cursor=pointer]:
+            - /url: /roles
+          - text: » Agent ManageHelpdesk Test
+        - generic [ref=f45e96]:
+          - generic [ref=f45e97]:
+            - paragraph [ref=f45e98]:
+              - generic [ref=f45e99]: Name *
+              - textbox "Name *" [active] [ref=f45e100]: Agent ManageHelpdesk Test
+            - paragraph [ref=f45e101]:
+              - generic [ref=f45e102]: Assignable
+              - checkbox "Assignable" [checked] [ref=f45e103]
+            - paragraph [ref=f45e104]:
+              - generic [ref=f45e105]: Issues visibility
+              - combobox "Issues visibility" [ref=f45e106]:
+                - option "All issues"
+                - option "All non private issues" [selected]
+                - option "Issues created by or assigned to the user"
+            - paragraph [ref=f45e107]:
+              - generic [ref=f45e108]: Time entries visibility
+              - combobox "Time entries visibility" [ref=f45e109]:
+                - option "All time entries" [selected]
+                - option "Time entries created by the user"
+            - paragraph [ref=f45e110]:
+              - generic [ref=f45e111]: Users visibility
+              - combobox "Users visibility" [ref=f45e112]:
+                - option "All active users"
+                - option "Members of visible projects" [selected]
+            - paragraph [ref=f45e113]:
+              - generic [ref=f45e114]: Default time entry activity
+              - combobox "Default time entry activity" [ref=f45e115]:
+                - option "None" [selected]
+                - option "Design"
+                - option "Development"
+                - option "Customer Call"
+                - option "Remote Support"
+                - option "Technical Support"
+                - option "Email Support"
+                - option "Live Chat Support"
+          - heading "Permissions" [level=3] [ref=f45e116]
+          - generic [ref=f45e117]:
+            - group [ref=f45e118]:
+              - generic [ref=f45e119]:
+                - link "Check all / Uncheck all" [ref=f45e120] [cursor=pointer]:
+                  - /url: "#"
+                - text: Project
+              - generic [ref=f45e122]:
+                - checkbox "Create project" [ref=f45e123]
+                - text: Create project
+              - generic [ref=f45e124]:
+                - checkbox "Edit project" [ref=f45e125]
+                - text: Edit project
+              - generic [ref=f45e126]:
+                - checkbox "Close / reopen the project" [ref=f45e127]
+                - text: Close / reopen the project
+              - generic [ref=f45e128]:
+                - checkbox "Delete the project" [ref=f45e129]
+                - text: Delete the project
+              - generic [ref=f45e130]:
+                - checkbox "Set project public or private" [ref=f45e131]
+                - text: Set project public or private
+              - generic [ref=f45e132]:
+                - checkbox "Select project modules" [ref=f45e133]
+                - text: Select project modules
+              - generic [ref=f45e134]:
+                - checkbox "Manage members" [ref=f45e135]
+                - text: Manage members
+              - generic [ref=f45e136]:
+                - checkbox "Manage versions" [ref=f45e137]
+                - text: Manage versions
+              - generic [ref=f45e138]:
+                - checkbox "Create subprojects" [ref=f45e139]
+                - text: Create subprojects
+              - generic [ref=f45e140]:
+                - checkbox "Manage public queries" [ref=f45e141]
+                - text: Manage public queries
+              - generic [ref=f45e142]:
+                - checkbox "Save queries" [checked] [ref=f45e143]
+                - text: Save queries
+              - generic [ref=f45e144]:
+                - checkbox "View timesheets" [ref=f45e145]
+                - text: View timesheets
+              - generic [ref=f45e146]:
+                - checkbox "Manage timesheet" [ref=f45e147]
+                - text: Manage timesheet
+              - generic [ref=f45e148]:
+                - checkbox "Manage teams and skills" [ref=f45e149]
+                - text: Manage teams and skills
+            - group [ref=f45e150]:
+              - generic [ref=f45e151]:
+                - link "Check all / Uncheck all" [ref=f45e152] [cursor=pointer]:
+                  - /url: "#"
+                - text: Forums
+              - generic [ref=f45e154]:
+                - checkbox "View messages" [checked] [ref=f45e155]
+                - text: View messages
+              - generic [ref=f45e156]:
+                - checkbox "Post messages" [checked] [ref=f45e157]
+                - text: Post messages
+              - generic [ref=f45e158]:
+                - checkbox "Edit messages" [ref=f45e159]
+                - text: Edit messages
+              - generic [ref=f45e160]:
+                - checkbox "Edit own messages" [ref=f45e161]
+                - text: Edit own messages
+              - generic [ref=f45e162]:
+                - checkbox "Delete messages" [ref=f45e163]
+                - text: Delete messages
+              - generic [ref=f45e164]:
+                - checkbox "Delete own messages" [ref=f45e165]
+                - text: Delete own messages
+              - generic [ref=f45e166]:
+                - checkbox "View message watchers list" [ref=f45e167]
+                - text: View message watchers list
+              - generic [ref=f45e168]:
+                - checkbox "Add message watchers" [ref=f45e169]
+                - text: Add message watchers
+              - generic [ref=f45e170]:
+                - checkbox "Delete message watchers" [ref=f45e171]
+                - text: Delete message watchers
+              - generic [ref=f45e172]:
+                - checkbox "Manage forums" [ref=f45e173]
+                - text: Manage forums
+            - group [ref=f45e174]:
+              - generic [ref=f45e175]:
+                - link "Check all / Uncheck all" [ref=f45e176] [cursor=pointer]:
+                  - /url: "#"
+                - text: Calendar
+              - generic [ref=f45e178]:
+                - checkbox "View calendar" [checked] [ref=f45e179]
+                - text: View calendar
+            - group [ref=f45e180]:
+              - generic [ref=f45e181]:
+                - link "Check all / Uncheck all" [ref=f45e182] [cursor=pointer]:
+                  - /url: "#"
+                - text: Documents
+              - generic [ref=f45e184]:
+                - checkbox "View documents" [checked] [ref=f45e185]
+                - text: View documents
+              - generic [ref=f45e186]:
+                - checkbox "Add documents" [ref=f45e187]
+                - text: Add documents
+              - generic [ref=f45e188]:
+                - checkbox "Edit documents" [ref=f45e189]
+                - text: Edit documents
+              - generic [ref=f45e190]:
+                - checkbox "Delete documents" [ref=f45e191]
+                - text: Delete documents
+            - group [ref=f45e192]:
+              - generic [ref=f45e193]:
+                - link "Check all / Uncheck all" [ref=f45e194] [cursor=pointer]:
+                  - /url: "#"
+                - text: Files
+              - generic [ref=f45e196]:
+                - checkbox "View files" [checked] [ref=f45e197]
+                - text: View files
+              - generic [ref=f45e198]:
+                - checkbox "Manage files" [ref=f45e199]
+                - text: Manage files
+            - group [ref=f45e200]:
+              - generic [ref=f45e201]:
+                - link "Check all / Uncheck all" [ref=f45e202] [cursor=pointer]:
+                  - /url: "#"
+                - text: Gantt
+              - generic [ref=f45e204]:
+                - checkbox "View gantt chart" [checked] [ref=f45e205]
+                - text: View gantt chart
+            - group [ref=f45e206]:
+              - generic [ref=f45e207]:
+                - link "Check all / Uncheck all" [ref=f45e208] [cursor=pointer]:
+                  - /url: "#"
+                - text: Redmineflux Helpdesk
+              - generic [ref=f45e210]:
+                - checkbox "View helpdesk" [checked] [ref=f45e211]
+                - text: View helpdesk
+              - generic [ref=f45e212]:
+                - checkbox "Manage helpdesk" [checked] [ref=f45e213]
+                - text: Manage helpdesk
+              - generic [ref=f45e214]:
+                - checkbox "Export helpdesk reports" [ref=f45e215]
+                - text: Export helpdesk reports
+              - generic [ref=f45e216]:
+                - checkbox "Manage prepaid support hours" [ref=f45e217]
+                - text: Manage prepaid support hours
+              - generic [ref=f45e218]:
+                - checkbox "View email history" [ref=f45e219]
+                - text: View email history
+              - generic [ref=f45e220]:
+                - checkbox "Add Knowledge Base Article" [ref=f45e221]
+                - text: Add Knowledge Base Article
+              - generic [ref=f45e222]:
+                - checkbox "Edit Knowledge Base Article" [ref=f45e223]
+                - text: Edit Knowledge Base Article
+              - generic [ref=f45e224]:
+                - checkbox "Delete Knowledge Base Article" [ref=f45e225]
+                - text: Delete Knowledge Base Article
+            - group [ref=f45e226]:
+              - generic [ref=f45e227]:
+                - link "Check all / Uncheck all" [ref=f45e228] [cursor=pointer]:
+                  - /url: "#"
+                - text: Issue tracking
+              - generic [ref=f45e230]:
+                - checkbox "View Issues" [checked] [ref=f45e231]
+                - text: View Issues
+              - generic [ref=f45e232]:
+                - checkbox "Add issues" [checked] [ref=f45e233]
+                - text: Add issues
+              - generic [ref=f45e234]:
+                - checkbox "Edit issues" [checked] [ref=f45e235]
+                - text: Edit issues
+              - generic [ref=f45e236]:
+                - checkbox "Edit own issues" [ref=f45e237]
+                - text: Edit own issues
+              - generic [ref=f45e238]:
+                - checkbox "Copy issues" [ref=f45e239]
+                - text: Copy issues
+              - generic [ref=f45e240]:
+                - checkbox "Manage issue relations" [ref=f45e241]
+                - text: Manage issue relations
+              - generic [ref=f45e242]:
+                - checkbox "Manage subtasks" [checked] [ref=f45e243]
+                - text: Manage subtasks
+              - generic [ref=f45e244]:
+                - checkbox "Set issues public or private" [ref=f45e245]
+                - text: Set issues public or private
+              - generic [ref=f45e246]:
+                - checkbox "Set own issues public or private" [ref=f45e247]
+                - text: Set own issues public or private
+              - generic [ref=f45e248]:
+                - checkbox "Add notes" [checked] [ref=f45e249]
+                - text: Add notes
+              - generic [ref=f45e250]:
+                - checkbox "Edit notes" [ref=f45e251]
+                - text: Edit notes
+              - generic [ref=f45e252]:
+                - checkbox "Edit own notes" [checked] [ref=f45e253]
+                - text: Edit own notes
+              - generic [ref=f45e254]:
+                - checkbox "View private notes" [checked] [ref=f45e255]
+                - text: View private notes
+              - generic [ref=f45e256]:
+                - checkbox "Set notes as private" [checked] [ref=f45e257]
+                - text: Set notes as private
+              - generic [ref=f45e258]:
+                - checkbox "Delete issues" [ref=f45e259]
+                - text: Delete issues
+              - generic [ref=f45e260]:
+                - checkbox "View watchers list" [ref=f45e261]
+                - text: View watchers list
+              - generic [ref=f45e262]:
+                - checkbox "Add watchers" [ref=f45e263]
+                - text: Add watchers
+              - generic [ref=f45e264]:
+                - checkbox "Delete watchers" [ref=f45e265]
+                - text: Delete watchers
+              - generic [ref=f45e266]:
+                - checkbox "Import issues" [ref=f45e267]
+                - text: Import issues
+              - generic [ref=f45e268]:
+                - checkbox "Manage issue categories" [ref=f45e269]
+                - text: Manage issue categories
+            - group [ref=f45e270]:
+              - generic [ref=f45e271]:
+                - link "Check all / Uncheck all" [ref=f45e272] [cursor=pointer]:
+                  - /url: "#"
+                - text: Knowledgebase
+              - generic [ref=f45e274]:
+                - checkbox "Manage knowledgebase spaces" [ref=f45e275]
+                - text: Manage knowledgebase spaces
+              - generic [ref=f45e276]:
+                - checkbox "Manage knowledgebase content (folders and pages)" [ref=f45e277]
+                - text: Manage knowledgebase content (folders and pages)
+            - group [ref=f45e278]:
+              - generic [ref=f45e279]:
+                - link "Check all / Uncheck all" [ref=f45e280] [cursor=pointer]:
+                  - /url: "#"
+                - text: News
+              - generic [ref=f45e282]:
+                - checkbox "View news" [checked] [ref=f45e283]
+                - text: View news
+              - generic [ref=f45e284]:
+                - checkbox "Manage news" [ref=f45e285]
+                - text: Manage news
+              - generic [ref=f45e286]:
+                - checkbox "Comment news" [checked] [ref=f45e287]
+                - text: Comment news
+            - group [ref=f45e288]:
+              - generic [ref=f45e289]:
+                - link "Check all / Uncheck all" [ref=f45e290] [cursor=pointer]:
+                  - /url: "#"
+                - text: Flux Gantt Chart
+              - generic [ref=f45e292]:
+                - checkbox "View Flux Gantt" [ref=f45e293]
+                - text: View Flux Gantt
+              - generic [ref=f45e294]:
+                - checkbox "View Global Flux Gantt" [ref=f45e295]
+                - text: View Global Flux Gantt
+            - group [ref=f45e296]:
+              - generic [ref=f45e297]:
+                - link "Check all / Uncheck all" [ref=f45e298] [cursor=pointer]:
+                  - /url: "#"
+                - text: Repository
+              - generic [ref=f45e300]:
+                - checkbox "View changesets" [checked] [ref=f45e301]
+                - text: View changesets
+              - generic [ref=f45e302]:
+                - checkbox "Browse repository" [checked] [ref=f45e303]
+                - text: Browse repository
+              - generic [ref=f45e304]:
+                - checkbox "Commit access" [ref=f45e305]
+                - text: Commit access
+              - generic [ref=f45e306]:
+                - checkbox "Manage related issues" [ref=f45e307]
+                - text: Manage related issues
+              - generic [ref=f45e308]:
+                - checkbox "Manage repository" [ref=f45e309]
+                - text: Manage repository
+            - group [ref=f45e310]:
+              - generic [ref=f45e311]:
+                - link "Check all / Uncheck all" [ref=f45e312] [cursor=pointer]:
+                  - /url: "#"
+                - text: Redmineflux Testcase Management
+              - generic [ref=f45e314]:
+                - checkbox "Create test suite" [ref=f45e315]
+                - text: Create test suite
+              - generic [ref=f45e316]:
+                - checkbox "Edit test suite" [ref=f45e317]
+                - text: Edit test suite
+              - generic [ref=f45e318]:
+                - checkbox "Delete test suite" [ref=f45e319]
+                - text: Delete test suite
+              - generic [ref=f45e320]:
+                - checkbox "Create run" [ref=f45e321]
+                - text: Create run
+              - generic [ref=f45e322]:
+                - checkbox "Edit run" [ref=f45e323]
+                - text: Edit run
+              - generic [ref=f45e324]:
+                - checkbox "Delete run" [ref=f45e325]
+                - text: Delete run
+              - generic [ref=f45e326]:
+                - checkbox "Close run" [ref=f45e327]
+                - text: Close run
+              - generic [ref=f45e328]:
+                - checkbox "Execute testcase" [ref=f45e329]
+                - text: Execute testcase
+              - generic [ref=f45e330]:
+                - checkbox "View report" [ref=f45e331]
+                - text: View report
+              - generic [ref=f45e332]:
+                - checkbox "Create report" [ref=f45e333]
+                - text: Create report
+              - generic [ref=f45e334]:
+                - checkbox "Edit report" [ref=f45e335]
+                - text: Edit report
+              - generic [ref=f45e336]:
+                - checkbox "Delete report" [ref=f45e337]
+                - text: Delete report
+              - generic [ref=f45e338]:
+                - checkbox "View all to-dos" [ref=f45e339]
+                - text: View all to-dos
+              - generic [ref=f45e340]:
+                - checkbox "Add requirement" [ref=f45e341]
+                - text: Add requirement
+              - generic [ref=f45e342]:
+                - checkbox "Edit requirement" [ref=f45e343]
+                - text: Edit requirement
+              - generic [ref=f45e344]:
+                - checkbox "Delete requirement" [ref=f45e345]
+                - text: Delete requirement
+            - group [ref=f45e346]:
+              - generic [ref=f45e347]:
+                - link "Check all / Uncheck all" [ref=f45e348] [cursor=pointer]:
+                  - /url: "#"
+                - text: Time tracking
+              - generic [ref=f45e350]:
+                - checkbox "View spent time" [checked] [ref=f45e351]
+                - text: View spent time
+              - generic [ref=f45e352]:
+                - checkbox "Log spent time" [checked] [ref=f45e353]
+                - text: Log spent time
+              - generic [ref=f45e354]:
+                - checkbox "Edit time logs" [ref=f45e355]
+                - text: Edit time logs
+              - generic [ref=f45e356]:
+                - checkbox "Edit own time logs" [checked] [ref=f45e357]
+                - text: Edit own time logs
+              - generic [ref=f45e358]:
+                - checkbox "Manage project activities" [ref=f45e359]
+                - text: Manage project activities
+              - generic [ref=f45e360]:
+                - checkbox "Log spent time for other users" [ref=f45e361]
+                - text: Log spent time for other users
+              - generic [ref=f45e362]:
+                - checkbox "Import time entries" [ref=f45e363]
+                - text: Import time entries
+              - generic [ref=f45e364]:
+                - checkbox "View time tracker activity" [ref=f45e365]
+                - text: View time tracker activity
+              - generic [ref=f45e366]:
+                - checkbox "View time tracker reports" [ref=f45e367]
+                - text: View time tracker reports
+              - generic [ref=f45e368]:
+                - checkbox "View time tracker dashboard" [ref=f45e369]
+                - text: View time tracker dashboard
+              - generic [ref=f45e370]:
+                - checkbox "Manage time tracker tags" [ref=f45e371]
+                - text: Manage time tracker tags
+            - group [ref=f45e372]:
+              - generic [ref=f45e373]:
+                - link "Check all / Uncheck all" [ref=f45e374] [cursor=pointer]:
+                  - /url: "#"
+                - text: Wiki
+              - generic [ref=f45e376]:
+                - checkbox "View wiki" [checked] [ref=f45e377]
+                - text: View wiki
+              - generic [ref=f45e378]:
+                - checkbox "View wiki history" [checked] [ref=f45e379]
+                - text: View wiki history
+              - generic [ref=f45e380]:
+                - checkbox "Export wiki pages" [ref=f45e381]
+                - text: Export wiki pages
+              - generic [ref=f45e382]:
+                - checkbox "Edit wiki pages" [ref=f45e383]
+                - text: Edit wiki pages
+              - generic [ref=f45e384]:
+                - checkbox "Rename wiki pages" [ref=f45e385]
+                - text: Rename wiki pages
+              - generic [ref=f45e386]:
+                - checkbox "Delete wiki pages" [ref=f45e387]
+                - text: Delete wiki pages
+              - generic [ref=f45e388]:
+                - checkbox "Delete attachments" [ref=f45e389]
+                - text: Delete attachments
+              - generic [ref=f45e390]:
+                - checkbox "View wiki page watchers list" [ref=f45e391]
+                - text: View wiki page watchers list
+              - generic [ref=f45e392]:
+                - checkbox "Add wiki page watchers" [ref=f45e393]
+                - text: Add wiki page watchers
+              - generic [ref=f45e394]:
+                - checkbox "Delete wiki page watchers" [ref=f45e395]
+                - text: Delete wiki page watchers
+              - generic [ref=f45e396]:
+                - checkbox "Protect wiki pages" [ref=f45e397]
+                - text: Protect wiki pages
+              - generic [ref=f45e398]:
+                - checkbox "Manage wiki" [ref=f45e399]
+                - text: Manage wiki
+            - link "Check all" [ref=f45e400] [cursor=pointer]:
+              - /url: "#"
+            - text: "|"
+            - link "Uncheck all" [ref=f45e401] [cursor=pointer]:
+              - /url: "#"
+          - generic [ref=f45e402]:
+            - heading "Issue tracking" [level=3] [ref=f45e403]
+            - table [ref=f45e405]:
+              - rowgroup [ref=f45e406]:
+                - row [ref=f45e407]:
+                  - columnheader "Tracker" [ref=f45e408]
+                  - columnheader "View Issues" [ref=f45e409]
+                  - columnheader "Add issues" [ref=f45e410]
+                  - columnheader "Edit issues" [ref=f45e411]
+                  - columnheader "Add notes" [ref=f45e412]
+              - rowgroup [ref=f45e413]:
+                - row [ref=f45e414]:
+                  - cell [ref=f45e415]:
+                    - link "Check all / Uncheck all" [ref=f45e416] [cursor=pointer]:
+                      - /url: "#"
+                    - text: All trackers
+                  - cell [ref=f45e418]:
+                    - checkbox [checked] [ref=f45e419]
+                  - cell [ref=f45e420]:
+                    - checkbox [checked] [ref=f45e421]
+                  - cell [ref=f45e422]:
+                    - checkbox [checked] [ref=f45e423]
+                  - cell [ref=f45e424]:
+                    - checkbox [checked] [ref=f45e425]
+                - row [ref=f45e426]:
+                  - cell [ref=f45e427]:
+                    - link "Check all / Uncheck all" [ref=f45e428] [cursor=pointer]:
+                      - /url: "#"
+                    - text: Bug
+                  - cell [ref=f45e430]:
+                    - checkbox [disabled] [ref=f45e431]
+                  - cell [ref=f45e432]:
+                    - checkbox [disabled] [ref=f45e433]
+                  - cell [ref=f45e434]:
+                    - checkbox [disabled] [ref=f45e435]
+                  - cell [ref=f45e436]:
+                    - checkbox [disabled] [ref=f45e437]
+                - row [ref=f45e438]:
+                  - cell [ref=f45e439]:
+                    - link "Check all / Uncheck all" [ref=f45e440] [cursor=pointer]:
+                      - /url: "#"
+                    - text: Feature
+                  - cell [ref=f45e442]:
+                    - checkbox [disabled] [ref=f45e443]
+                  - cell [ref=f45e444]:
+                    - checkbox [disabled] [ref=f45e445]
+                  - cell [ref=f45e446]:
+                    - checkbox [disabled] [ref=f45e447]
+                  - cell [ref=f45e448]:
+                    - checkbox [disabled] [ref=f45e449]
+                - row [ref=f45e450]:
+                  - cell [ref=f45e451]:
+                    - link "Check all / Uncheck all" [ref=f45e452] [cursor=pointer]:
+                      - /url: "#"
+                    - text: Support
+                  - cell [ref=f45e454]:
+                    - checkbox [disabled] [ref=f45e455]
+                  - cell [ref=f45e456]:
+                    - checkbox [disabled] [ref=f45e457]
+                  - cell [ref=f45e458]:
+                    - checkbox [disabled] [ref=f45e459]
+                  - cell [ref=f45e460]:
+                    - checkbox [disabled] [ref=f45e461]
+          - button "Save" [ref=f45e462] [cursor=pointer]
+    - generic [ref=f45e463]:
+      - text: Powered by
+      - link "Redmine" [ref=f45e464] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f45e465]
+  - log [ref=f45e466]
+  - log [ref=f45e467]
+  - log [ref=f45e468]
+  - log [ref=f45e469]
+  - log [ref=f45e470]
+  - log [ref=f45e471]
+  - log [ref=f45e472]
+  - log [ref=f45e473]
+  - log [ref=f45e474]
+  - log [ref=f45e475]
+  - log [ref=f45e476]
+  - log [ref=f45e477]
+  - log [ref=f45e478]
+  - log [ref=f45e479]
+  - log [ref=f45e480]
+  - log [ref=f45e481]
+  - log [ref=f45e482]
+  - log [ref=f45e483]
+  - log [ref=f45e484]
+  - log [ref=f45e485]
+  - log [ref=f45e486]
+  - log [ref=f45e487]
+  - log [ref=f45e488]
+  - log [ref=f45e489]
+  - log [ref=f45e490]
+  - log [ref=f45e491]
+  - log [ref=f45e492]
+  - log [ref=f45e493]
+  - log [ref=f45e494]
+  - log [ref=f45e495]
+  - log [ref=f45e496]
+  - log [ref=f45e497]
+  - log [ref=f45e498]
+  - log [ref=f45e499]
+  - log [ref=f45e500]
+  - log [ref=f45e501]
+  - log [ref=f45e502]

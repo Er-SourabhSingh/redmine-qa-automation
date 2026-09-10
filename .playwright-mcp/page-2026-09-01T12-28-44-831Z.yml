@@ -1,0 +1,164 @@
+- generic [ref=f214e1]:
+  - generic [ref=f214e2]:
+    - generic [ref=f214e3]:
+      - generic [ref=f214e4]:
+        - list:
+          - listitem [ref=f214e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f214e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f214e7]:
+        - text: Logged in as
+        - link "admin" [ref=f214e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f214e9]:
+        - listitem [ref=f214e10]:
+          - link [ref=f214e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f214e12]
+        - listitem [ref=f214e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f214e14]:
+          - link "My page" [ref=f214e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f214e16]:
+          - link "Projects" [ref=f214e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f214e18]:
+          - link "Flux Gantt" [ref=f214e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f214e20]:
+          - link "Helpdesk Command Center" [ref=f214e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f214e22]:
+          - link "Time Tracker" [ref=f214e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f214e24]:
+          - link "Timesheet" [ref=f214e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f214e26]:
+          - link "Workloads" [ref=f214e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f214e28]:
+          - link "More" [ref=f214e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f214e30]:
+      - generic [ref=f214e31]:
+        - generic [ref=f214e32]:
+          - generic [ref=f214e33]:
+            - link "Search..." [ref=f214e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f214e35]
+        - generic [ref=f214e36]:
+          - generic [ref=f214e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f214e38]
+    - generic [ref=f214e39]:
+      - list [ref=f214e43]:
+        - listitem [ref=f214e44]:
+          - link "Helpdesk Dashboard" [ref=f214e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f214e48]:
+          - link "Helpdesk Tickets" [ref=f214e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f214e52]:
+          - link "Reports" [ref=f214e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f214e56]:
+          - link "Organization" [ref=f214e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f214e60]:
+          - link "Customers" [ref=f214e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f214e64]:
+          - link "Products" [ref=f214e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f214e68]:
+          - link "Helpdesk Settings" [ref=f214e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f214e72]:
+        - generic [ref=f214e73]:
+          - generic [ref=f214e75]:
+            - heading "Organizations" [level=2] [ref=f214e76]
+            - paragraph [ref=f214e77]: Companies your customers belong to
+          - link "New Organization" [ref=f214e79] [cursor=pointer]:
+            - /url: /rf_organizations/new
+        - generic [ref=f214e82]:
+          - textbox "Search organizations..." [ref=f214e84]
+          - combobox "All Statuses" [ref=f214e85] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f214e86]:
+            - button "Apply Filters" [ref=f214e87] [cursor=pointer]
+            - link "Clear" [ref=f214e90] [cursor=pointer]:
+              - /url: /rf_organizations
+        - table [ref=f214e96]:
+          - rowgroup [ref=f214e97]:
+            - row [ref=f214e98]:
+              - columnheader "S.No" [ref=f214e99]
+              - columnheader "Organization Name" [ref=f214e100]
+              - columnheader "Website" [ref=f214e101]
+              - columnheader "Author" [ref=f214e102]
+              - columnheader "Updated By" [ref=f214e103]
+              - columnheader "Created on" [ref=f214e104]
+              - columnheader "Updated" [ref=f214e105]
+              - columnheader "User Count" [ref=f214e106]
+              - columnheader "Active" [ref=f214e107]
+              - columnheader "Action" [ref=f214e108]
+          - rowgroup [ref=f214e109]:
+            - row [ref=f214e110]:
+              - cell "1" [ref=f214e111]
+              - cell [ref=f214e112]:
+                - link "Alpha Reactivation Test Org" [ref=f214e113] [cursor=pointer]:
+                  - /url: /rf_organizations/6
+              - cell "—" [ref=f214e114]
+              - cell "Redmine Admin" [ref=f214e115]
+              - cell "Redmine Admin" [ref=f214e116]
+              - cell "09/01/2026 12:27 PM" [ref=f214e117]
+              - cell "09/01/2026 12:28 PM" [ref=f214e118]
+              - cell "0" [ref=f214e119]
+              - cell [ref=f214e120]:
+                - checkbox "Active" [checked] [ref=f214e121]
+              - cell [ref=f214e122]:
+                - generic [ref=f214e123]:
+                  - link "Edit" [ref=f214e124] [cursor=pointer]:
+                    - /url: /rf_organizations/6/edit
+                  - link "Delete" [active] [ref=f214e127] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f214e131]:
+          - list
+          - generic [ref=f214e132]: (1-1/1)
+        - generic [ref=f214e151]:
+          - button "✖" [ref=f214e152] [cursor=pointer]
+          - generic [ref=f214e157]:
+            - heading "Delete Organization?" [level=2] [ref=f214e158]
+            - paragraph [ref=f214e159]: Are you sure you want to delete "Alpha Reactivation Test Org"? This action cannot be undone.
+          - generic [ref=f214e160]:
+            - button "Cancel" [ref=f214e161] [cursor=pointer]
+            - button "Delete" [ref=f214e162] [cursor=pointer]
+    - generic [ref=f214e133]:
+      - text: Powered by
+      - link "Redmine" [ref=f214e134] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f214e135]
+  - log [ref=f214e136]
+  - log [ref=f214e137]
+  - log [ref=f214e138]
+  - log [ref=f214e139]
+  - log [ref=f214e140]
+  - log [ref=f214e141]
+  - log [ref=f214e142]
+  - log [ref=f214e143]
+  - log [ref=f214e144]
+  - log [ref=f214e145]
+  - log [ref=f214e146]
+  - log [ref=f214e147]:
+    - generic [ref=f214e163]: Delete
+  - log [ref=f214e148]
+  - log [ref=f214e149]

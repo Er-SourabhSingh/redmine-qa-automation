@@ -1,0 +1,741 @@
+- generic [ref=f71e1]:
+  - generic [ref=f71e2]:
+    - generic [ref=f71e3]:
+      - generic [ref=f71e4]:
+        - list:
+          - listitem [ref=f71e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f71e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f71e7]:
+        - text: Logged in as
+        - link "manage.helpdesk.test" [ref=f71e8] [cursor=pointer]:
+          - /url: /users/16
+      - list [ref=f71e9]:
+        - listitem [ref=f71e10]:
+          - link [ref=f71e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f71e12]
+        - listitem [ref=f71e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f71e14]:
+          - link "My page" [ref=f71e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f71e16]:
+          - link "Projects" [ref=f71e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f71e18]:
+          - link "Helpdesk Command Center" [ref=f71e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f71e20]:
+          - link "Time Tracker" [ref=f71e21] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f71e22]:
+          - link "Workloads" [ref=f71e23] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f71e24]:
+          - link "Help" [ref=f71e25] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f71e26]:
+      - generic [ref=f71e27]:
+        - generic [ref=f71e28]:
+          - generic [ref=f71e29]:
+            - link "Search..." [ref=f71e30] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f71e31]
+        - generic [ref=f71e32]:
+          - generic [ref=f71e33] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f71e34]
+      - list [ref=f71e36]:
+        - listitem [ref=f71e37]:
+          - link "+" [ref=f71e38] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f71e39]:
+          - link "Overview" [ref=f71e40] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha
+        - listitem [ref=f71e41]:
+          - link "Activity" [ref=f71e42] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/activity
+        - listitem [ref=f71e43]:
+          - link "Issues" [ref=f71e44] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues
+        - listitem [ref=f71e45]:
+          - link "Spent time" [ref=f71e46] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/time_entries
+        - listitem [ref=f71e47]:
+          - link "Gantt" [ref=f71e48] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/gantt
+        - listitem [ref=f71e49]:
+          - link "Calendar" [ref=f71e50] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/calendar
+        - listitem [ref=f71e51]:
+          - link "News" [ref=f71e52] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/news
+        - listitem [ref=f71e53]:
+          - link "Documents" [ref=f71e54] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/documents
+        - listitem [ref=f71e55]:
+          - link "Wiki" [ref=f71e56] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/wiki
+        - listitem [ref=f71e57]:
+          - link "Files" [ref=f71e58] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/files
+        - listitem [ref=f71e59]:
+          - link "Helpdesk" [ref=f71e60] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+    - generic [ref=f71e61]:
+      - list [ref=f71e65]:
+        - listitem [ref=f71e66]:
+          - link "Helpdesk Dashboard" [ref=f71e67] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f71e70]:
+          - link "Helpdesk Tickets" [ref=f71e71] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f71e74]:
+          - link "Knowledgebase" [ref=f71e75] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+        - listitem [ref=f71e78]:
+          - link "Helpdesk SLA" [ref=f71e79] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/sla
+        - listitem [ref=f71e82]:
+          - link "Organization" [ref=f71e83] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/organization
+        - listitem [ref=f71e86]:
+          - link "Settings" [ref=f71e87] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/settings
+      - generic [ref=f71e90]:
+        - generic [ref=f71e91]:
+          - generic [ref=f71e93]:
+            - heading "Helpdesk SLA" [level=2] [ref=f71e94]
+            - paragraph [ref=f71e95]: Helpdesk QA Alpha
+          - link "New SLA" [ref=f71e97] [cursor=pointer]:
+            - /url: /projects/1/rf_slas/new
+        - generic [ref=f71e100]:
+          - textbox "Search SLAs..." [active] [ref=f71e102]
+          - combobox "All Statuses" [ref=f71e103] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f71e104]:
+            - button "Apply Filters" [ref=f71e105] [cursor=pointer]
+            - link "Clear" [ref=f71e108] [cursor=pointer]:
+              - /url: /projects/1/helpdesk/sla
+        - table [ref=f71e114]:
+          - rowgroup [ref=f71e115]:
+            - row [ref=f71e116]:
+              - columnheader "S.No" [ref=f71e117]
+              - columnheader "SLA Name" [ref=f71e118]
+              - columnheader "Author" [ref=f71e119]
+              - columnheader "Updated By" [ref=f71e120]
+              - columnheader "Created on" [ref=f71e121]
+              - columnheader "Updated" [ref=f71e122]
+              - columnheader "User Count" [ref=f71e123]
+              - columnheader "SLA Agreement" [ref=f71e124]
+              - columnheader "Active" [ref=f71e125]
+              - columnheader "Action" [ref=f71e126]
+          - rowgroup [ref=f71e127]:
+            - row [ref=f71e128]:
+              - cell "1" [ref=f71e129]
+              - cell [ref=f71e130]:
+                - link "Alpha CRUD Test SLA Full (Required-Only Edit)" [ref=f71e131] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/6
+              - cell "Redmine Admin" [ref=f71e132]
+              - cell "Redmine Admin" [ref=f71e133]
+              - cell "09/01/2026 10:03 AM" [ref=f71e134]
+              - cell "09/01/2026 10:04 AM" [ref=f71e135]
+              - cell "0" [ref=f71e136]
+              - cell [ref=f71e137]:
+                - link "sample-sla-agreement.txt" [ref=f71e139] [cursor=pointer]:
+                  - /url: /attachments/download/2/sample-sla-agreement.txt
+              - cell [ref=f71e140]:
+                - checkbox "Active" [checked] [ref=f71e141]
+              - cell [ref=f71e142]:
+                - generic [ref=f71e143]:
+                  - link "History" [ref=f71e144] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/6/history
+                  - link "Edit" [ref=f71e149] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/6/edit
+                  - link "Delete" [ref=f71e152] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e156]:
+              - cell "2" [ref=f71e157]
+              - cell [ref=f71e158]:
+                - link "Alpha Deactivation Escalation Test SLA" [ref=f71e159] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/10
+              - cell "Redmine Admin" [ref=f71e160]
+              - cell "Redmine Admin" [ref=f71e161]
+              - cell "09/01/2026 12:21 PM" [ref=f71e162]
+              - cell "09/01/2026 12:22 PM" [ref=f71e163]
+              - cell "0" [ref=f71e164]
+              - cell "—" [ref=f71e165]
+              - cell [ref=f71e166]:
+                - checkbox "Active" [ref=f71e167]
+              - cell [ref=f71e168]:
+                - generic [ref=f71e169]:
+                  - link "History" [ref=f71e170] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/10/history
+                  - link "Edit" [ref=f71e175] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/10/edit
+                  - link "Delete" [ref=f71e178] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e182]:
+              - cell "3" [ref=f71e183]
+              - cell [ref=f71e184]:
+                - link "Alpha Escalation Test SLA" [ref=f71e185] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/4
+              - cell "Redmine Admin" [ref=f71e186]
+              - cell "Redmine Admin" [ref=f71e187]
+              - cell "09/01/2026 08:08 AM" [ref=f71e188]
+              - cell "09/01/2026 08:08 AM" [ref=f71e189]
+              - cell "2" [ref=f71e190]
+              - cell "—" [ref=f71e191]
+              - cell [ref=f71e192]:
+                - checkbox "Active" [checked] [ref=f71e193]
+              - cell [ref=f71e194]:
+                - generic [ref=f71e195]:
+                  - link "History" [ref=f71e196] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/4/history
+                  - link "Edit" [ref=f71e201] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/4/edit
+                  - link "Delete" [ref=f71e204] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e208]:
+              - cell "4" [ref=f71e209]
+              - cell [ref=f71e210]:
+                - link "Alpha Holiday-Adjacency Restricted-Days Test SLA" [ref=f71e211] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/17
+              - cell "Redmine Admin" [ref=f71e212]
+              - cell "Redmine Admin" [ref=f71e213]
+              - cell "09/02/2026 05:04 AM" [ref=f71e214]
+              - cell "09/02/2026 05:04 AM" [ref=f71e215]
+              - cell "0" [ref=f71e216]
+              - cell "—" [ref=f71e217]
+              - cell [ref=f71e218]:
+                - checkbox "Active" [checked] [ref=f71e219]
+              - cell [ref=f71e220]:
+                - generic [ref=f71e221]:
+                  - link "History" [ref=f71e222] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/17/history
+                  - link "Edit" [ref=f71e227] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/17/edit
+                  - link "Delete" [ref=f71e230] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e234]:
+              - cell "5" [ref=f71e235]
+              - cell [ref=f71e236]:
+                - link "Alpha Holiday-Skip Test SLA" [ref=f71e237] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/8
+              - cell "Redmine Admin" [ref=f71e238]
+              - cell "Redmine Admin" [ref=f71e239]
+              - cell "09/01/2026 10:37 AM" [ref=f71e240]
+              - cell "09/01/2026 10:37 AM" [ref=f71e241]
+              - cell "0" [ref=f71e242]
+              - cell "—" [ref=f71e243]
+              - cell [ref=f71e244]:
+                - checkbox "Active" [checked] [ref=f71e245]
+              - cell [ref=f71e246]:
+                - generic [ref=f71e247]:
+                  - link "History" [ref=f71e248] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/8/history
+                  - link "Edit" [ref=f71e253] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/8/edit
+                  - link "Delete" [ref=f71e256] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e260]:
+              - cell "6" [ref=f71e261]
+              - cell [ref=f71e262]:
+                - link "Alpha Just-Before-Close Boundary Test SLA" [ref=f71e263] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/16
+              - cell "Redmine Admin" [ref=f71e264]
+              - cell "Redmine Admin" [ref=f71e265]
+              - cell "09/02/2026 05:00 AM" [ref=f71e266]
+              - cell "09/02/2026 05:00 AM" [ref=f71e267]
+              - cell "0" [ref=f71e268]
+              - cell "—" [ref=f71e269]
+              - cell [ref=f71e270]:
+                - checkbox "Active" [checked] [ref=f71e271]
+              - cell [ref=f71e272]:
+                - generic [ref=f71e273]:
+                  - link "History" [ref=f71e274] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/16/history
+                  - link "Edit" [ref=f71e279] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/16/edit
+                  - link "Delete" [ref=f71e282] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e286]:
+              - cell "7" [ref=f71e287]
+              - cell [ref=f71e288]:
+                - link "Alpha Multi-Day Holiday Test SLA" [ref=f71e289] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/14
+              - cell "Redmine Admin" [ref=f71e290]
+              - cell "Redmine Admin" [ref=f71e291]
+              - cell "09/01/2026 02:13 PM" [ref=f71e292]
+              - cell "09/01/2026 02:13 PM" [ref=f71e293]
+              - cell "0" [ref=f71e294]
+              - cell "—" [ref=f71e295]
+              - cell [ref=f71e296]:
+                - checkbox "Active" [checked] [ref=f71e297]
+              - cell [ref=f71e298]:
+                - generic [ref=f71e299]:
+                  - link "History" [ref=f71e300] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/14/history
+                  - link "Edit" [ref=f71e305] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/14/edit
+                  - link "Delete" [ref=f71e308] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e312]:
+              - cell "8" [ref=f71e313]
+              - cell [ref=f71e314]:
+                - link "Alpha Outside-Hours Intraday Test SLA" [ref=f71e315] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/12
+              - cell "Redmine Admin" [ref=f71e316]
+              - cell "Redmine Admin" [ref=f71e317]
+              - cell "09/01/2026 02:05 PM" [ref=f71e318]
+              - cell "09/01/2026 02:05 PM" [ref=f71e319]
+              - cell "0" [ref=f71e320]
+              - cell "—" [ref=f71e321]
+              - cell [ref=f71e322]:
+                - checkbox "Active" [checked] [ref=f71e323]
+              - cell [ref=f71e324]:
+                - generic [ref=f71e325]:
+                  - link "History" [ref=f71e326] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/12/history
+                  - link "Edit" [ref=f71e331] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/12/edit
+                  - link "Delete" [ref=f71e334] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e338]:
+              - cell "9" [ref=f71e339]
+              - cell [ref=f71e340]:
+                - link "Alpha Partial-Consumption Holiday Test SLA" [ref=f71e341] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/15
+              - cell "Redmine Admin" [ref=f71e342]
+              - cell "Redmine Admin" [ref=f71e343]
+              - cell "09/01/2026 02:17 PM" [ref=f71e344]
+              - cell "09/01/2026 02:17 PM" [ref=f71e345]
+              - cell "0" [ref=f71e346]
+              - cell "—" [ref=f71e347]
+              - cell [ref=f71e348]:
+                - checkbox "Active" [checked] [ref=f71e349]
+              - cell [ref=f71e350]:
+                - generic [ref=f71e351]:
+                  - link "History" [ref=f71e352] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/15/history
+                  - link "Edit" [ref=f71e357] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/15/edit
+                  - link "Delete" [ref=f71e360] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e364]:
+              - cell "10" [ref=f71e365]
+              - cell [ref=f71e366]:
+                - link "Alpha Partial-Consumption Weekly-Gap Test SLA" [ref=f71e367] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/13
+              - cell "Redmine Admin" [ref=f71e368]
+              - cell "Redmine Admin" [ref=f71e369]
+              - cell "09/01/2026 02:08 PM" [ref=f71e370]
+              - cell "09/01/2026 02:08 PM" [ref=f71e371]
+              - cell "0" [ref=f71e372]
+              - cell "—" [ref=f71e373]
+              - cell [ref=f71e374]:
+                - checkbox "Active" [checked] [ref=f71e375]
+              - cell [ref=f71e376]:
+                - generic [ref=f71e377]:
+                  - link "History" [ref=f71e378] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/13/history
+                  - link "Edit" [ref=f71e383] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/13/edit
+                  - link "Delete" [ref=f71e386] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e390]:
+              - cell "11" [ref=f71e391]
+              - cell [ref=f71e392]:
+                - link "Alpha Priority SLA" [ref=f71e393] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/3
+              - cell "Redmine Admin" [ref=f71e394]
+              - cell "Redmine Admin" [ref=f71e395]
+              - cell "09/01/2026 07:19 AM" [ref=f71e396]
+              - cell "09/01/2026 07:59 AM" [ref=f71e397]
+              - cell "0" [ref=f71e398]
+              - cell [ref=f71e399]:
+                - link "sample-sla-agreement.txt" [ref=f71e401] [cursor=pointer]:
+                  - /url: /attachments/download/1/sample-sla-agreement.txt
+              - cell [ref=f71e402]:
+                - checkbox "Active" [checked] [ref=f71e403]
+              - cell [ref=f71e404]:
+                - generic [ref=f71e405]:
+                  - link "History" [ref=f71e406] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/3/history
+                  - link "Edit" [ref=f71e411] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/3/edit
+                  - link "Delete" [ref=f71e414] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e418]:
+              - cell "12" [ref=f71e419]
+              - cell [ref=f71e420]:
+                - link "Alpha Same-Day Baseline Test SLA" [ref=f71e421] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/11
+              - cell "Redmine Admin" [ref=f71e422]
+              - cell "Redmine Admin" [ref=f71e423]
+              - cell "09/01/2026 02:02 PM" [ref=f71e424]
+              - cell "09/01/2026 02:02 PM" [ref=f71e425]
+              - cell "0" [ref=f71e426]
+              - cell "—" [ref=f71e427]
+              - cell [ref=f71e428]:
+                - checkbox "Active" [checked] [ref=f71e429]
+              - cell [ref=f71e430]:
+                - generic [ref=f71e431]:
+                  - link "History" [ref=f71e432] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/11/history
+                  - link "Edit" [ref=f71e437] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/11/edit
+                  - link "Delete" [ref=f71e440] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e444]:
+              - cell "13" [ref=f71e445]
+              - cell [ref=f71e446]:
+                - link "Alpha Standard SLA" [ref=f71e447] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/1
+              - cell "Redmine Admin" [ref=f71e448]
+              - cell "Redmine Admin" [ref=f71e449]
+              - cell "08/27/2026 10:52 AM" [ref=f71e450]
+              - cell "09/02/2026 01:39 PM" [ref=f71e451]
+              - cell "1" [ref=f71e452]
+              - cell "—" [ref=f71e453]
+              - cell [ref=f71e454]:
+                - checkbox "Active" [checked] [ref=f71e455]
+              - cell [ref=f71e456]:
+                - generic [ref=f71e457]:
+                  - link "History" [ref=f71e458] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/1/history
+                  - link "Edit" [ref=f71e463] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/1/edit
+                  - link "Delete" [ref=f71e466] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e470]:
+              - cell "14" [ref=f71e471]
+              - cell [ref=f71e472]:
+                - link "Alpha Working-Hours-Skip Test SLA" [ref=f71e473] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/7
+              - cell "Redmine Admin" [ref=f71e474]
+              - cell "Redmine Admin" [ref=f71e475]
+              - cell "09/01/2026 10:32 AM" [ref=f71e476]
+              - cell "09/01/2026 10:32 AM" [ref=f71e477]
+              - cell "0" [ref=f71e478]
+              - cell "—" [ref=f71e479]
+              - cell [ref=f71e480]:
+                - checkbox "Active" [checked] [ref=f71e481]
+              - cell [ref=f71e482]:
+                - generic [ref=f71e483]:
+                  - link "History" [ref=f71e484] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/7/history
+                  - link "Edit" [ref=f71e489] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/7/edit
+                  - link "Delete" [ref=f71e492] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e496]:
+              - cell "15" [ref=f71e497]
+              - cell [ref=f71e498]:
+                - link "Description Max Length Test" [ref=f71e499] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/25
+              - cell "Redmine Admin" [ref=f71e500]
+              - cell "Redmine Admin" [ref=f71e501]
+              - cell "09/02/2026 01:37 PM" [ref=f71e502]
+              - cell "09/02/2026 01:37 PM" [ref=f71e503]
+              - cell "0" [ref=f71e504]
+              - cell "—" [ref=f71e505]
+              - cell [ref=f71e506]:
+                - checkbox "Active" [checked] [ref=f71e507]
+              - cell [ref=f71e508]:
+                - generic [ref=f71e509]:
+                  - link "History" [ref=f71e510] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/25/history
+                  - link "Edit" [ref=f71e515] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/25/edit
+                  - link "Delete" [ref=f71e518] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e522]:
+              - cell "16" [ref=f71e523]
+              - cell [ref=f71e524]:
+                - link "dfsgdfs" [ref=f71e525] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/26
+              - cell "Redmine Admin" [ref=f71e526]
+              - cell "Redmine Admin" [ref=f71e527]
+              - cell "09/03/2026 11:06 AM" [ref=f71e528]
+              - cell "09/03/2026 11:06 AM" [ref=f71e529]
+              - cell "0" [ref=f71e530]
+              - cell "—" [ref=f71e531]
+              - cell [ref=f71e532]:
+                - checkbox "Active" [checked] [ref=f71e533]
+              - cell [ref=f71e534]:
+                - generic [ref=f71e535]:
+                  - link "History" [ref=f71e536] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/26/history
+                  - link "Edit" [ref=f71e541] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/26/edit
+                  - link "Delete" [ref=f71e544] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e548]:
+              - cell "17" [ref=f71e549]
+              - cell [ref=f71e550]:
+                - link "File Type DOCX Test" [ref=f71e551] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/23
+              - cell "Redmine Admin" [ref=f71e552]
+              - cell "Redmine Admin" [ref=f71e553]
+              - cell "09/02/2026 01:35 PM" [ref=f71e554]
+              - cell "09/02/2026 01:35 PM" [ref=f71e555]
+              - cell "0" [ref=f71e556]
+              - cell [ref=f71e557]:
+                - link "test-file-type.docx" [ref=f71e559] [cursor=pointer]:
+                  - /url: /attachments/download/6/test-file-type.docx
+              - cell [ref=f71e560]:
+                - checkbox "Active" [checked] [ref=f71e561]
+              - cell [ref=f71e562]:
+                - generic [ref=f71e563]:
+                  - link "History" [ref=f71e564] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/23/history
+                  - link "Edit" [ref=f71e569] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/23/edit
+                  - link "Delete" [ref=f71e572] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e576]:
+              - cell "18" [ref=f71e577]
+              - cell [ref=f71e578]:
+                - link "File Type EXE Test" [ref=f71e579] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/24
+              - cell "Redmine Admin" [ref=f71e580]
+              - cell "Redmine Admin" [ref=f71e581]
+              - cell "09/02/2026 01:36 PM" [ref=f71e582]
+              - cell "09/02/2026 01:36 PM" [ref=f71e583]
+              - cell "0" [ref=f71e584]
+              - cell [ref=f71e585]:
+                - link "test-file-type.exe" [ref=f71e587] [cursor=pointer]:
+                  - /url: /attachments/download/7/test-file-type.exe
+              - cell [ref=f71e588]:
+                - checkbox "Active" [checked] [ref=f71e589]
+              - cell [ref=f71e590]:
+                - generic [ref=f71e591]:
+                  - link "History" [ref=f71e592] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/24/history
+                  - link "Edit" [ref=f71e597] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/24/edit
+                  - link "Delete" [ref=f71e600] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e604]:
+              - cell "19" [ref=f71e605]
+              - cell [ref=f71e606]:
+                - link "File Upload Under 5MB Test" [ref=f71e607] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/22
+              - cell "Redmine Admin" [ref=f71e608]
+              - cell "Redmine Admin" [ref=f71e609]
+              - cell "09/02/2026 01:34 PM" [ref=f71e610]
+              - cell "09/02/2026 01:34 PM" [ref=f71e611]
+              - cell "0" [ref=f71e612]
+              - cell [ref=f71e613]:
+                - link "under-5mb.pdf" [ref=f71e615] [cursor=pointer]:
+                  - /url: /attachments/download/5/under-5mb.pdf
+              - cell [ref=f71e616]:
+                - checkbox "Active" [checked] [ref=f71e617]
+              - cell [ref=f71e618]:
+                - generic [ref=f71e619]:
+                  - link "History" [ref=f71e620] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/22/history
+                  - link "Edit" [ref=f71e625] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/22/edit
+                  - link "Delete" [ref=f71e628] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e632]:
+              - cell "20" [ref=f71e633]
+              - cell [ref=f71e634]:
+                - link "FRT Test Blank" [ref=f71e635] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/19
+              - cell "Redmine Admin" [ref=f71e636]
+              - cell "Redmine Admin" [ref=f71e637]
+              - cell "09/02/2026 01:28 PM" [ref=f71e638]
+              - cell "09/02/2026 01:28 PM" [ref=f71e639]
+              - cell "0" [ref=f71e640]
+              - cell "—" [ref=f71e641]
+              - cell [ref=f71e642]:
+                - checkbox "Active" [checked] [ref=f71e643]
+              - cell [ref=f71e644]:
+                - generic [ref=f71e645]:
+                  - link "History" [ref=f71e646] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/19/history
+                  - link "Edit" [ref=f71e651] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/19/edit
+                  - link "Delete" [ref=f71e654] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e658]:
+              - cell "21" [ref=f71e659]
+              - cell [ref=f71e660]:
+                - link "Resolution Test Blank" [ref=f71e661] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/20
+              - cell "Redmine Admin" [ref=f71e662]
+              - cell "Redmine Admin" [ref=f71e663]
+              - cell "09/02/2026 01:30 PM" [ref=f71e664]
+              - cell "09/02/2026 01:30 PM" [ref=f71e665]
+              - cell "0" [ref=f71e666]
+              - cell "—" [ref=f71e667]
+              - cell [ref=f71e668]:
+                - checkbox "Active" [checked] [ref=f71e669]
+              - cell [ref=f71e670]:
+                - generic [ref=f71e671]:
+                  - link "History" [ref=f71e672] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/20/history
+                  - link "Edit" [ref=f71e677] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/20/edit
+                  - link "Delete" [ref=f71e680] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e684]:
+              - cell "22" [ref=f71e685]
+              - cell [ref=f71e686]:
+                - link "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" [ref=f71e687] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/18
+              - cell "Redmine Admin" [ref=f71e688]
+              - cell "Redmine Admin" [ref=f71e689]
+              - cell "09/02/2026 01:26 PM" [ref=f71e690]
+              - cell "09/02/2026 01:26 PM" [ref=f71e691]
+              - cell "0" [ref=f71e692]
+              - cell "—" [ref=f71e693]
+              - cell [ref=f71e694]:
+                - checkbox "Active" [checked] [ref=f71e695]
+              - cell [ref=f71e696]:
+                - generic [ref=f71e697]:
+                  - link "History" [ref=f71e698] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/18/history
+                  - link "Edit" [ref=f71e703] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/18/edit
+                  - link "Delete" [ref=f71e706] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f71e710]:
+              - cell "23" [ref=f71e711]
+              - cell [ref=f71e712]:
+                - link "Working Hours End Before Start Test" [ref=f71e713] [cursor=pointer]:
+                  - /url: /projects/1/rf_slas/21
+              - cell "Redmine Admin" [ref=f71e714]
+              - cell "Redmine Admin" [ref=f71e715]
+              - cell "09/02/2026 01:33 PM" [ref=f71e716]
+              - cell "09/02/2026 01:33 PM" [ref=f71e717]
+              - cell "0" [ref=f71e718]
+              - cell "—" [ref=f71e719]
+              - cell [ref=f71e720]:
+                - checkbox "Active" [checked] [ref=f71e721]
+              - cell [ref=f71e722]:
+                - generic [ref=f71e723]:
+                  - link "History" [ref=f71e724] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/21/history
+                  - link "Edit" [ref=f71e729] [cursor=pointer]:
+                    - /url: /projects/1/rf_slas/21/edit
+                  - link "Delete" [ref=f71e732] [cursor=pointer]:
+                    - /url: javascript:void(0)
+    - generic [ref=f71e736]:
+      - text: Powered by
+      - link "Redmine" [ref=f71e737] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f71e738]
+  - log [ref=f71e739]
+  - log [ref=f71e740]
+  - log [ref=f71e741]
+  - log [ref=f71e742]
+  - log [ref=f71e743]
+  - log [ref=f71e744]
+  - log [ref=f71e745]
+  - log [ref=f71e746]
+  - log [ref=f71e747]
+  - log [ref=f71e748]
+  - log [ref=f71e749]
+  - log [ref=f71e750]
+  - log [ref=f71e751]
+  - log [ref=f71e752]
+  - log [ref=f71e753]
+  - log [ref=f71e754]
+  - log [ref=f71e755]
+  - log [ref=f71e756]
+  - log [ref=f71e757]
+  - log [ref=f71e758]
+  - log [ref=f71e759]
+  - log [ref=f71e760]
+  - log [ref=f71e761]
+  - log [ref=f71e762]
+  - log [ref=f71e763]
+  - log [ref=f71e764]
+  - log [ref=f71e765]
+  - log [ref=f71e766]
+  - log [ref=f71e767]
+  - log [ref=f71e768]
+  - log [ref=f71e769]
+  - log [ref=f71e770]
+  - log [ref=f71e771]
+  - log [ref=f71e772]
+  - log [ref=f71e773]
+  - log [ref=f71e774]
+  - log [ref=f71e775]
+  - log [ref=f71e776]
+  - log [ref=f71e777]
+  - log [ref=f71e778]
+  - log [ref=f71e779]
+  - log [ref=f71e780]
+  - log [ref=f71e781]
+  - log [ref=f71e782]
+  - log [ref=f71e783]
+  - log [ref=f71e784]
+  - log [ref=f71e785]
+  - log [ref=f71e786]
+  - log [ref=f71e787]
+  - log [ref=f71e788]
+  - log [ref=f71e789]
+  - log [ref=f71e790]
+  - log [ref=f71e791]
+  - log [ref=f71e792]
+  - log [ref=f71e793]
+  - log [ref=f71e794]
+  - log [ref=f71e795]
+  - log [ref=f71e796]
+  - log [ref=f71e797]
+  - log [ref=f71e798]
+  - log [ref=f71e799]
+  - log [ref=f71e800]
+  - log [ref=f71e801]
+  - log [ref=f71e802]
+  - log [ref=f71e803]
+  - log [ref=f71e804]
+  - log [ref=f71e805]
+  - log [ref=f71e806]
+  - log [ref=f71e807]
+  - log [ref=f71e808]
+  - log [ref=f71e809]
+  - log [ref=f71e810]
+  - log [ref=f71e811]
+  - log [ref=f71e812]
+  - log [ref=f71e813]
+  - log [ref=f71e814]
+  - log [ref=f71e815]
+  - log [ref=f71e816]
+  - log [ref=f71e817]
+  - log [ref=f71e818]
+  - log [ref=f71e819]
+  - log [ref=f71e820]
+  - log [ref=f71e821]
+  - log [ref=f71e822]
+  - log [ref=f71e823]
+  - log [ref=f71e824]
+  - log [ref=f71e825]
+  - log [ref=f71e826]
+  - log [ref=f71e827]
+  - log [ref=f71e828]
+  - log [ref=f71e829]
+  - log [ref=f71e830]
+  - log [ref=f71e831]
+  - log [ref=f71e832]
+  - log [ref=f71e833]
+  - log [ref=f71e834]
+  - log [ref=f71e835]
+  - log [ref=f71e836]
+  - log [ref=f71e837]
+  - log [ref=f71e838]
+  - log [ref=f71e839]

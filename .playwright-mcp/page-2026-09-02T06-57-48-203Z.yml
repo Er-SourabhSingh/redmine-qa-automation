@@ -1,0 +1,147 @@
+- generic [ref=f374e1]:
+  - generic [ref=f374e2]:
+    - generic [ref=f374e3]:
+      - generic [ref=f374e4]:
+        - list:
+          - listitem [ref=f374e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f374e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f374e7]:
+        - text: Logged in as
+        - link "manage.helpdesk.test" [ref=f374e8] [cursor=pointer]:
+          - /url: /users/16
+      - list [ref=f374e9]:
+        - listitem [ref=f374e10]:
+          - link [ref=f374e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f374e12]
+        - listitem [ref=f374e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f374e14]:
+          - link "My page" [ref=f374e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f374e16]:
+          - link "Projects" [ref=f374e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f374e18]:
+          - link "Helpdesk Command Center" [ref=f374e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f374e20]:
+          - link "Time Tracker" [ref=f374e21] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f374e22]:
+          - link "Workloads" [ref=f374e23] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f374e24]:
+          - link "Help" [ref=f374e25] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f374e26]:
+      - generic [ref=f374e27]:
+        - generic [ref=f374e28]:
+          - generic [ref=f374e29]:
+            - link "Search..." [ref=f374e30] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f374e31]
+        - generic [ref=f374e32]:
+          - generic [ref=f374e33] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f374e34]
+    - generic [ref=f374e35]:
+      - list [ref=f374e39]:
+        - listitem [ref=f374e40]:
+          - link "Helpdesk Dashboard" [ref=f374e41] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f374e44]:
+          - link "Helpdesk Tickets" [ref=f374e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f374e48]:
+          - link "Reports" [ref=f374e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f374e52]:
+          - link "Organization" [ref=f374e53] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f374e56]:
+          - link "Customers" [ref=f374e57] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f374e60]:
+          - link "Products" [ref=f374e61] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f374e64]:
+          - link "Helpdesk Settings" [ref=f374e65] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f374e68]:
+        - generic [ref=f374e69]: Successful creation.
+        - generic [ref=f374e70]:
+          - generic [ref=f374e72]:
+            - heading "Products" [level=2] [ref=f374e73]
+            - paragraph [ref=f374e74]: Products your customers raise tickets against
+          - link "New Product" [ref=f374e76] [cursor=pointer]:
+            - /url: /rf_products/new
+        - generic [ref=f374e79]:
+          - textbox "Search products..." [active] [ref=f374e81]
+          - combobox "All Projects" [ref=f374e82] [cursor=pointer]:
+            - option "All Projects" [selected]
+            - option "Helpdesk QA Alpha"
+            - option "Helpdesk QA Beta"
+          - combobox "All Statuses" [ref=f374e83] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f374e84]:
+            - button "Apply Filters" [ref=f374e85] [cursor=pointer]
+            - link "Clear" [ref=f374e88] [cursor=pointer]:
+              - /url: /rf_products
+        - table [ref=f374e94]:
+          - rowgroup [ref=f374e95]:
+            - row [ref=f374e96]:
+              - columnheader "S.No" [ref=f374e97]
+              - columnheader "Project" [ref=f374e98]
+              - columnheader "Product Name" [ref=f374e99]
+              - columnheader "Product Code" [ref=f374e100]
+              - columnheader "Category" [ref=f374e101]
+              - columnheader "Active" [ref=f374e102]
+              - columnheader "Action" [ref=f374e103]
+          - rowgroup [ref=f374e104]:
+            - row [ref=f374e105]:
+              - cell "1" [ref=f374e106]
+              - cell "Helpdesk QA Alpha" [ref=f374e107]
+              - cell [ref=f374e108]:
+                - link "Nav Test Product" [ref=f374e109] [cursor=pointer]:
+                  - /url: /rf_products/1
+              - cell "NAVTEST" [ref=f374e110]
+              - cell [ref=f374e111]
+              - cell [ref=f374e112]:
+                - checkbox "Active" [checked] [ref=f374e113]
+              - cell [ref=f374e114]:
+                - generic [ref=f374e115]:
+                  - link "Edit" [ref=f374e116] [cursor=pointer]:
+                    - /url: /rf_products/1/edit
+                  - link "Delete" [ref=f374e119] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f374e123]:
+          - list
+          - generic [ref=f374e124]: (1-1/1)
+    - generic [ref=f374e125]:
+      - text: Powered by
+      - link "Redmine" [ref=f374e126] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f374e127]
+  - log [ref=f374e128]
+  - log [ref=f374e129]
+  - log [ref=f374e130]
+  - log [ref=f374e131]
+  - log [ref=f374e132]
+  - log [ref=f374e133]
+  - log [ref=f374e134]
+  - log [ref=f374e135]
+  - log [ref=f374e136]
+  - log [ref=f374e137]
+  - log [ref=f374e138]
+  - log [ref=f374e139]
+  - log [ref=f374e140]

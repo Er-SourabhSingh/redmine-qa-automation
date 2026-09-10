@@ -1,0 +1,91 @@
+- generic [active] [ref=f69e1]:
+  - generic [ref=f69e2]:
+    - generic [ref=f69e3]:
+      - generic [ref=f69e4]:
+        - list:
+          - listitem [ref=f69e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f69e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f69e7]:
+        - text: Logged in as
+        - link "retest.customer1" [ref=f69e8] [cursor=pointer]:
+          - /url: /users/7
+      - list [ref=f69e9]:
+        - listitem [ref=f69e10]:
+          - link [ref=f69e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f69e12]
+        - listitem [ref=f69e13]:
+          - link "My Helpdesk" [ref=f69e14] [cursor=pointer]:
+            - /url: /helpdesk
+    - heading "Helpdesk QA Alpha" [level=1] [ref=f69e16]
+    - generic [ref=f69e17]:
+      - list [ref=f69e21]:
+        - listitem [ref=f69e22]:
+          - link "Helpdesk Dashboard" [ref=f69e23] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f69e26]:
+          - link "Helpdesk Tickets" [ref=f69e27] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f69e30]:
+          - link "Knowledgebase" [ref=f69e31] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f69e34]:
+        - generic [ref=f69e35]: Successful creation.
+        - generic [ref=f69e36]:
+          - generic [ref=f69e38]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f69e39]
+            - paragraph [ref=f69e40]: Helpdesk QA Alpha · 1 tickets
+          - link "New issue" [ref=f69e42] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/new
+        - button "Filters" [ref=f69e45] [cursor=pointer]
+        - table [ref=f69e53]:
+          - rowgroup [ref=f69e54]:
+            - row [ref=f69e55]:
+              - columnheader [ref=f69e56]:
+                - 'link "Ticket #" [ref=f69e57] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=id
+              - columnheader [ref=f69e58]:
+                - link "Subject" [ref=f69e59] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=subject
+              - columnheader [ref=f69e60]:
+                - link "Status" [ref=f69e61] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=status
+              - columnheader [ref=f69e62]:
+                - link "Priority" [ref=f69e63] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=priority
+              - columnheader [ref=f69e64]:
+                - link "Updated ▼" [ref=f69e65] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=updated_on
+          - rowgroup [ref=f69e66]:
+            - row [ref=f69e67]:
+              - cell [ref=f69e68]:
+                - link "#15" [ref=f69e69] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/15
+              - cell [ref=f69e70]:
+                - link "TC-HLP-091 mid-level entry test - customer's project-access row specifies L2" [ref=f69e71] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/15
+              - cell "New" [ref=f69e72]
+              - cell "Normal" [ref=f69e75]
+              - cell "09/01/2026 08:12 AM" [ref=f69e78]
+        - generic [ref=f69e79]:
+          - list
+          - generic [ref=f69e80]: (1-1/1)
+    - generic [ref=f69e81]:
+      - text: Powered by
+      - link "Redmine" [ref=f69e82] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f69e83]
+  - log [ref=f69e84]
+  - log [ref=f69e85]
+  - log [ref=f69e86]
+  - log [ref=f69e87]
+  - log [ref=f69e88]
+  - log [ref=f69e89]
+  - log [ref=f69e90]
+  - log [ref=f69e91]
+  - log [ref=f69e92]

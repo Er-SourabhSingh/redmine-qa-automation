@@ -339,15 +339,16 @@ When a bug is retested and confirmed **FIXED**, the bug file **must** be moved f
 
 1. Complete retest — confirm the fix across every TC that was BLOCKED by this bug
 2. Update the bug file: set `Status → FIXED`, add `Fix Date`, `Retest Date`, `Retest Result`
-3. **Copy the updated file to `bugs/closed/BUG-<CODE>-XXX.md`**
-4. **Delete the original file from `bugs/open/BUG-<CODE>-XXX.md`** — the open folder must never retain a fixed bug
-5. Update `bugs/_index.md` — change Status to `Closed`, update File Path to `bugs/closed/BUG-<CODE>-XXX.md`
-6. Update `reports/final-bug-report.md` — move bug entry from Open Bugs → Closed Bugs section
-7. Update `reports/defects-summary.html` — decrement Open count, increment Closed count, mark bug FIXED ✓
-8. Update `reports/tc-report.html` — change BLOCKED → PASS for every TC blocked by this bug; add a `fix-ref` note with bug ID and retest date
-9. Update the plugin's changelog (`docs/changelog.md`, or the Run History table in `<PREFIX>_HANDOFF.md` — see `CLAUDE.md` §2b) — add a row for the fix retest session
-10. Update the plugin's handoff file — remove the bug from the Blockers section
-11. Update `STATUS.md` — decrement Open Bugs count, update Status description
+3. **If the bug's `Production Redmine Issue ID` field is filled in**, sync the production issue before (or together with) closing locally: status **In QA → Done**, **% done → 100**, via redmineflux MCP, following the write-approval workflow in `REDMINEFLUX-MCP-SETUP.md` §4.3 — prepare the exact change, wait for explicit approval, execute, then report the result. Skip this step if the field is blank (bug was never reported to production).
+4. **Copy the updated file to `bugs/closed/BUG-<CODE>-XXX.md`**
+5. **Delete the original file from `bugs/open/BUG-<CODE>-XXX.md`** — the open folder must never retain a fixed bug
+6. Update `bugs/_index.md` — change Status to `Closed`, update File Path to `bugs/closed/BUG-<CODE>-XXX.md`
+7. Update `reports/final-bug-report.md` — move bug entry from Open Bugs → Closed Bugs section
+8. Update `reports/defects-summary.html` — decrement Open count, increment Closed count, mark bug FIXED ✓
+9. Update `reports/tc-report.html` — change BLOCKED → PASS for every TC blocked by this bug; add a `fix-ref` note with bug ID and retest date
+10. Update the plugin's changelog (`docs/changelog.md`, or the Run History table in `<PREFIX>_HANDOFF.md` — see `CLAUDE.md` §2b) — add a row for the fix retest session
+11. Update the plugin's handoff file — remove the bug from the Blockers section
+12. Update `STATUS.md` — decrement Open Bugs count, update Status description
 
 ### Bug folder states
 

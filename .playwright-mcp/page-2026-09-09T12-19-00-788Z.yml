@@ -1,0 +1,232 @@
+- generic [active] [ref=f42e1]:
+  - generic [ref=f42e2]:
+    - navigation [ref=f42e3]:
+      - generic [ref=f42e4]:
+        - link [ref=f42e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f42e7] [cursor=pointer]
+      - list [ref=f42e17]:
+        - listitem [ref=f42e18]:
+          - link "Hauptseite" [ref=f42e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f42e20]:
+          - link "Meine Seite" [ref=f42e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f42e22]:
+          - link "Projekte" [ref=f42e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f42e24]:
+          - link "Agile Board" [ref=f42e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f42e26]:
+          - link "Flux Gantt" [ref=f42e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f42e28]:
+          - link "Administration" [ref=f42e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f42e30]:
+          - link "Hilfe" [ref=f42e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f42e32]:
+        - generic [ref=f42e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f42e35]
+        - link "Mein Konto" [ref=f42e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f42e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f42e44]:
+      - list [ref=f42e50]:
+        - listitem [ref=f42e51]:
+          - link "Projekte" [ref=f42e52] [cursor=pointer]:
+            - /url: /admin/projects
+        - listitem [ref=f42e53]:
+          - link "Benutzer" [ref=f42e54] [cursor=pointer]:
+            - /url: /users
+        - listitem [ref=f42e55]:
+          - link "Gruppen" [ref=f42e56] [cursor=pointer]:
+            - /url: /groups
+        - listitem [ref=f42e57]:
+          - link "Rollen und Rechte" [ref=f42e58] [cursor=pointer]:
+            - /url: /roles
+        - listitem [ref=f42e59]:
+          - link "Tracker" [ref=f42e60] [cursor=pointer]:
+            - /url: /trackers
+        - listitem [ref=f42e61]:
+          - link "Ticket-Status" [ref=f42e62] [cursor=pointer]:
+            - /url: /issue_statuses
+        - listitem [ref=f42e63]:
+          - link "Workflow" [ref=f42e64] [cursor=pointer]:
+            - /url: /workflows/edit
+        - listitem [ref=f42e65]:
+          - link "Benutzerdefinierte Felder" [ref=f42e66] [cursor=pointer]:
+            - /url: /custom_fields
+        - listitem [ref=f42e67]:
+          - link "Aufzählungen" [ref=f42e68] [cursor=pointer]:
+            - /url: /enumerations
+        - listitem [ref=f42e69]:
+          - link "Konfiguration" [ref=f42e70] [cursor=pointer]:
+            - /url: /settings
+        - listitem [ref=f42e71]:
+          - link "LDAP-Authentifizierung" [ref=f42e72] [cursor=pointer]:
+            - /url: /auth_sources
+        - listitem [ref=f42e73]:
+          - link "Applikationen" [ref=f42e74] [cursor=pointer]:
+            - /url: /oauth/applications
+        - listitem [ref=f42e75]:
+          - link "Plugins" [ref=f42e76] [cursor=pointer]:
+            - /url: /admin/plugins
+        - listitem [ref=f42e77]:
+          - link "Informationen" [ref=f42e78] [cursor=pointer]:
+            - /url: /admin/info
+      - generic [ref=f42e79]:
+        - generic [ref=f42e80]:
+          - link "Neue Rolle" [ref=f42e81] [cursor=pointer]:
+            - /url: /roles/new
+          - link "Berechtigungsübersicht" [ref=f42e83] [cursor=pointer]:
+            - /url: /roles/permissions
+        - heading "Rollen" [level=2] [ref=f42e85]
+        - table [ref=f42e86]:
+          - rowgroup [ref=f42e87]:
+            - row [ref=f42e88]:
+              - columnheader "Rolle" [ref=f42e89]
+              - columnheader [ref=f42e90]
+              - columnheader [ref=f42e91]
+          - rowgroup [ref=f42e92]:
+            - row [ref=f42e93]:
+              - cell [ref=f42e94]:
+                - link "Manager" [ref=f42e96] [cursor=pointer]:
+                  - /url: /roles/6/edit
+              - cell [ref=f42e97]
+              - cell [ref=f42e98]:
+                - generic "Sortieren" [ref=f42e99]
+                - link "Kopieren" [ref=f42e101] [cursor=pointer]:
+                  - /url: /roles/new?copy=6
+                - link "Löschen" [ref=f42e104] [cursor=pointer]:
+                  - /url: /roles/6
+            - row [ref=f42e105]:
+              - cell [ref=f42e106]:
+                - link "Employee" [ref=f42e108] [cursor=pointer]:
+                  - /url: /roles/8/edit
+              - cell [ref=f42e109]
+              - cell [ref=f42e110]:
+                - generic "Sortieren" [ref=f42e111]
+                - link "Kopieren" [ref=f42e113] [cursor=pointer]:
+                  - /url: /roles/new?copy=8
+                - link "Löschen" [ref=f42e116] [cursor=pointer]:
+                  - /url: /roles/8
+            - row [ref=f42e117]:
+              - cell [ref=f42e118]:
+                - link "Client" [ref=f42e120] [cursor=pointer]:
+                  - /url: /roles/9/edit
+              - cell [ref=f42e121]
+              - cell [ref=f42e122]:
+                - generic "Sortieren" [ref=f42e123]
+                - link "Kopieren" [ref=f42e125] [cursor=pointer]:
+                  - /url: /roles/new?copy=9
+                - link "Löschen" [ref=f42e128] [cursor=pointer]:
+                  - /url: /roles/9
+            - row [ref=f42e129]:
+              - cell [ref=f42e130]:
+                - link "Project Lead" [ref=f42e132] [cursor=pointer]:
+                  - /url: /roles/10/edit
+              - cell "Für diese Rolle ist kein Workflow definiert ( Bearbeiten )" [ref=f42e133]:
+                - generic [ref=f42e134]:
+                  - generic [ref=f42e136]: Für diese Rolle ist kein Workflow definiert
+                  - text: (
+                  - link "Bearbeiten" [ref=f42e137] [cursor=pointer]:
+                    - /url: /workflows/edit?role_id=10
+                  - text: )
+              - cell [ref=f42e138]:
+                - generic "Sortieren" [ref=f42e139]
+                - link "Kopieren" [ref=f42e141] [cursor=pointer]:
+                  - /url: /roles/new?copy=10
+                - link "Löschen" [ref=f42e144] [cursor=pointer]:
+                  - /url: /roles/10
+            - row [ref=f42e145]:
+              - cell [ref=f42e146]:
+                - link "QA" [ref=f42e148] [cursor=pointer]:
+                  - /url: /roles/11/edit
+              - cell "Für diese Rolle ist kein Workflow definiert ( Bearbeiten )" [ref=f42e149]:
+                - generic [ref=f42e150]:
+                  - generic [ref=f42e152]: Für diese Rolle ist kein Workflow definiert
+                  - text: (
+                  - link "Bearbeiten" [ref=f42e153] [cursor=pointer]:
+                    - /url: /workflows/edit?role_id=11
+                  - text: )
+              - cell [ref=f42e154]:
+                - generic "Sortieren" [ref=f42e155]
+                - link "Kopieren" [ref=f42e157] [cursor=pointer]:
+                  - /url: /roles/new?copy=11
+                - link "Löschen" [ref=f42e160] [cursor=pointer]:
+                  - /url: /roles/11
+            - row [ref=f42e161]:
+              - cell [ref=f42e162]:
+                - link "Team Lead" [ref=f42e164] [cursor=pointer]:
+                  - /url: /roles/12/edit
+              - cell "Für diese Rolle ist kein Workflow definiert ( Bearbeiten )" [ref=f42e165]:
+                - generic [ref=f42e166]:
+                  - generic [ref=f42e168]: Für diese Rolle ist kein Workflow definiert
+                  - text: (
+                  - link "Bearbeiten" [ref=f42e169] [cursor=pointer]:
+                    - /url: /workflows/edit?role_id=12
+                  - text: )
+              - cell [ref=f42e170]:
+                - generic "Sortieren" [ref=f42e171]
+                - link "Kopieren" [ref=f42e173] [cursor=pointer]:
+                  - /url: /roles/new?copy=12
+                - link "Löschen" [ref=f42e176] [cursor=pointer]:
+                  - /url: /roles/12
+            - row [ref=f42e177]:
+              - cell [ref=f42e178]:
+                - link "Developer" [ref=f42e180] [cursor=pointer]:
+                  - /url: /roles/7/edit
+              - cell [ref=f42e181]
+              - cell [ref=f42e182]:
+                - generic "Sortieren" [ref=f42e183]
+                - link "Kopieren" [ref=f42e185] [cursor=pointer]:
+                  - /url: /roles/new?copy=7
+                - link "Löschen" [ref=f42e188] [cursor=pointer]:
+                  - /url: /roles/7
+            - row [ref=f42e189]:
+              - cell [ref=f42e190]:
+                - emphasis [ref=f42e191]:
+                  - link "Nichtmitglied" [ref=f42e192] [cursor=pointer]:
+                    - /url: /roles/1/edit
+              - cell [ref=f42e193]
+              - cell [ref=f42e194]:
+                - link "Kopieren" [ref=f42e195] [cursor=pointer]:
+                  - /url: /roles/new?copy=1
+            - row [ref=f42e198]:
+              - cell [ref=f42e199]:
+                - emphasis [ref=f42e200]:
+                  - link "Anonym" [ref=f42e201] [cursor=pointer]:
+                    - /url: /roles/2/edit
+              - cell [ref=f42e202]
+              - cell [ref=f42e203]:
+                - link "Kopieren" [ref=f42e204] [cursor=pointer]:
+                  - /url: /roles/new?copy=2
+    - generic [ref=f42e207]:
+      - text: Powered by
+      - link "Redmine" [ref=f42e208] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f42e209]
+  - log [ref=f42e210]
+  - log [ref=f42e211]
+  - log [ref=f42e212]
+  - log [ref=f42e213]
+  - log [ref=f42e214]
+  - log [ref=f42e215]
+  - log [ref=f42e216]
+  - log [ref=f42e217]
+  - log [ref=f42e218]
+  - log [ref=f42e219]
+  - log [ref=f42e220]
+  - log [ref=f42e221]
+  - log [ref=f42e222]
+  - log [ref=f42e223]
+  - log [ref=f42e224]
+  - log [ref=f42e225]
+  - log [ref=f42e226]
+  - log [ref=f42e227]
+  - log [ref=f42e228]

@@ -1,0 +1,190 @@
+- generic [ref=f184e1]:
+  - generic [ref=f184e2]:
+    - navigation [ref=f184e3]:
+      - generic [ref=f184e4]:
+        - link [ref=f184e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f184e7] [cursor=pointer]
+      - list [ref=f184e17]:
+        - listitem [ref=f184e18]:
+          - link "Hauptseite" [ref=f184e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f184e20]:
+          - link "Meine Seite" [ref=f184e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f184e22]:
+          - link "Projekte" [ref=f184e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f184e24]:
+          - link "Agile Board" [ref=f184e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f184e26]:
+          - link "Flux Gantt" [ref=f184e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f184e28]:
+          - link "Administration" [ref=f184e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f184e30]:
+          - link "Hilfe" [ref=f184e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f184e32]:
+        - generic [ref=f184e33]:
+          - generic [ref=f184e34] [cursor=pointer]: Zu einem Projekt springen...
+          - text: ✓
+        - button "Suche" [ref=f184e35]
+        - link "Mein Konto" [ref=f184e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f184e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f184e44]:
+      - generic [ref=f184e46]:
+        - heading "Redmine" [level=1] [ref=f184e47]
+        - generic [ref=f184e48]:
+          - generic [ref=f184e49]: Hauptmenü
+          - list [ref=f184e51]:
+            - listitem [ref=f184e52]:
+              - link "Projekte" [ref=f184e53] [cursor=pointer]:
+                - /url: /projects
+            - listitem [ref=f184e61]:
+              - link "Aktivität" [ref=f184e62] [cursor=pointer]:
+                - /url: /activity
+            - listitem [ref=f184e67]:
+              - link "Tickets" [ref=f184e68] [cursor=pointer]:
+                - /url: /issues
+            - listitem [ref=f184e73]:
+              - link "Aufgewendete Zeit" [ref=f184e74] [cursor=pointer]:
+                - /url: /time_entries
+            - listitem [ref=f184e79]:
+              - link "Gantt-Diagramm" [ref=f184e80] [cursor=pointer]:
+                - /url: /issues/gantt
+            - listitem [ref=f184e88]:
+              - link "Kalender" [ref=f184e89] [cursor=pointer]:
+                - /url: /issues/calendar
+            - listitem [ref=f184e94]:
+              - link "News" [ref=f184e95] [cursor=pointer]:
+                - /url: /news
+      - generic [ref=f184e101]:
+        - heading "Suche" [level=2] [ref=f184e102]
+        - generic [ref=f184e103]:
+          - generic [ref=f184e104]:
+            - generic [ref=f184e105]: Suchfeld
+            - paragraph [ref=f184e106]:
+              - textbox "Suchfeld" [active] [ref=f184e107]: test
+              - generic [ref=f184e108]: Suchbereich
+              - combobox "Suchbereich" [ref=f184e109]:
+                - option "Alle Projekte" [selected]
+                - option "Meine Projekte"
+              - generic [ref=f184e110]:
+                - checkbox "Alle Wörter" [checked] [ref=f184e111]
+                - text: Alle Wörter
+              - generic [ref=f184e112]:
+                - checkbox "Nur Titel durchsuchen" [ref=f184e113]
+                - text: Nur Titel durchsuchen
+            - group [ref=f184e114]:
+              - link "Alles auswählen / Alles abwählen" [ref=f184e116] [cursor=pointer]:
+                - /url: "#"
+              - paragraph [ref=f184e118]:
+                - generic [ref=f184e119]:
+                  - checkbox "Tickets" [checked] [ref=f184e120]
+                  - link "Tickets" [ref=f184e121] [cursor=pointer]:
+                    - /url: "#"
+                - generic [ref=f184e122]:
+                  - checkbox "News" [checked] [ref=f184e123]
+                  - link "News" [ref=f184e124] [cursor=pointer]:
+                    - /url: "#"
+                - generic [ref=f184e125]:
+                  - checkbox "Dokumente" [checked] [ref=f184e126]
+                  - link "Dokumente" [ref=f184e127] [cursor=pointer]:
+                    - /url: "#"
+                - generic [ref=f184e128]:
+                  - checkbox "Changesets" [checked] [ref=f184e129]
+                  - link "Changesets" [ref=f184e130] [cursor=pointer]:
+                    - /url: "#"
+                - generic [ref=f184e131]:
+                  - checkbox "Wiki-Seiten" [checked] [ref=f184e132]
+                  - link "Wiki-Seiten" [ref=f184e133] [cursor=pointer]:
+                    - /url: "#"
+                - generic [ref=f184e134]:
+                  - checkbox "Forenbeiträge" [checked] [ref=f184e135]
+                  - link "Forenbeiträge" [ref=f184e136] [cursor=pointer]:
+                    - /url: "#"
+                - generic [ref=f184e137]:
+                  - checkbox "Projekte" [checked] [ref=f184e138]
+                  - link "Projekte" [ref=f184e139] [cursor=pointer]:
+                    - /url: "#"
+            - group "Optionen" [ref=f184e140]
+          - paragraph [ref=f184e144]:
+            - button "Suche" [ref=f184e145] [cursor=pointer]
+        - generic [ref=f184e146]:
+          - list:
+            - listitem [ref=f184e147]:
+              - link "Tickets (8)" [ref=f184e148] [cursor=pointer]:
+                - /url: /search?issues=1&q=test
+        - heading "Resultate (8)" [level=3] [ref=f184e149]
+        - paragraph [ref=f184e150]:
+          - link "Apply issues filter" [ref=f184e151] [cursor=pointer]:
+            - /url: /issues?f%5B%5D=status_id&f%5B%5D=any_searchable&op%5Bany_searchable%5D=~&op%5Bstatus_id%5D=%2A&set_filter=1&sort=updated_on%3Adesc&v%5Bany_searchable%5D%5B%5D=test
+        - generic [ref=f184e155]:
+          - term [ref=f184e156]:
+            - generic [ref=f184e158]: Agile Board Project -
+            - 'link "Feature #266 (In Progress): QA Quick Add Test" [ref=f184e159] [cursor=pointer]':
+              - /url: /issues/266
+          - definition [ref=f184e160]:
+            - generic [ref=f184e161]: ghdfhf
+            - text: 08.09.2026 05:17
+          - term [ref=f184e162]:
+            - generic [ref=f184e164]: Education and training3 -
+            - 'link "Support #111 (New): Create automated test cases for issues" [ref=f184e165] [cursor=pointer]':
+              - /url: /issues/111
+          - definition [ref=f184e166]: 08.09.2026 05:01
+          - term [ref=f184e167]:
+            - generic [ref=f184e169]: MVP build for PaySheet Application -
+            - 'link "Bug #99 (New): Create test cases for issue tracking" [ref=f184e170] [cursor=pointer]':
+              - /url: /issues/99
+          - definition [ref=f184e171]: 08.09.2026 05:01
+          - term [ref=f184e172]:
+            - generic [ref=f184e174]: Mobile app development1 -
+            - 'link "Bug #66 (New): Create automated test cases" [ref=f184e175] [cursor=pointer]':
+              - /url: /issues/66
+          - definition [ref=f184e176]: 08.09.2026 05:01
+          - term [ref=f184e177]:
+            - generic [ref=f184e179]: MVP build for PaySheet Application -
+            - 'link "Bug #54 (New): Develop issue creation test suite" [ref=f184e180] [cursor=pointer]':
+              - /url: /issues/54
+          - definition [ref=f184e181]: 08.09.2026 05:01
+          - term [ref=f184e182]:
+            - generic [ref=f184e184]: MVP build for PaySheet Application -
+            - 'link "Bug #53 (New): Create test cases for issue tracking" [ref=f184e185] [cursor=pointer]':
+              - /url: /issues/53
+          - definition [ref=f184e186]: 08.09.2026 05:01
+          - term [ref=f184e187]:
+            - generic [ref=f184e189]: MVP build for PaySheet Application -
+            - 'link "Bug #29 (New): Testing issue for create" [ref=f184e190] [cursor=pointer]':
+              - /url: /issues/29
+          - definition [ref=f184e191]: 08.09.2026 05:01
+          - term [ref=f184e192]:
+            - generic [ref=f184e194]: MVP build for PaySheet Application -
+            - 'link "Bug #28 (New): Dummy issue for testing" [ref=f184e195] [cursor=pointer]':
+              - /url: /issues/28
+          - definition [ref=f184e196]: 08.09.2026 05:01
+        - generic [ref=f184e197]:
+          - list
+          - generic [ref=f184e198]: (1-8/8)
+    - generic [ref=f184e200]:
+      - text: Powered by
+      - link "Redmine" [ref=f184e201] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f184e202]
+  - log [ref=f184e203]
+  - log [ref=f184e204]
+  - log [ref=f184e205]
+  - log [ref=f184e206]
+  - log [ref=f184e207]
+  - log [ref=f184e208]
+  - log [ref=f184e209]
+  - log [ref=f184e210]
+  - log [ref=f184e211]
+  - log [ref=f184e212]
+  - log [ref=f184e213]
+  - log [ref=f184e214]

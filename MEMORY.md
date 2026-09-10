@@ -27,6 +27,13 @@ Persistent rules that apply to ALL plugin test runs. Plugin-specific observation
 - Always include expected vs actual result.
 - Always include the user role that triggered the bug.
 
+## Production Bug Reporting Rules (redmineflux MCP)
+
+- All plugin-related production bugs, from any plugin, go into the `ztflux` project on `flux.zehntech.com` — never `ztmcp` (that's reserved for feedback about the MCP server itself). See `REDMINEFLUX-MCP-SETUP.md` §1.1.
+- **No write operation to production is allowed without explicit user approval** — this covers creating/updating bugs, test suites, test cases, test runs, and any other write. Read-only lookups (searching, checking status) don't need approval. Full policy and required approval-workflow wording: `REDMINEFLUX-MCP-SETUP.md` §4.
+- At the time of reporting a bug, the Test Run name, Environment, and Test Case ID are supplied by the user — never inferred or guessed. Ask if any are missing.
+- When a bug with a filled-in Production Redmine Issue ID is closed locally (moved to `bugs/closed/`), the production issue must also be updated: status **In QA → Done**, **% done → 100** — same write-approval workflow applies. See `CLAUDE.md` §5 and `SENIOR_QA_STANDARDS.md` §16.
+
 ## Screenshot Rules
 
 - Take screenshots only when a bug is found. Never for passing tests.

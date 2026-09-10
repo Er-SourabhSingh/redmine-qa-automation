@@ -1,0 +1,145 @@
+- generic [active] [ref=f114e1]:
+  - generic [ref=f114e2]:
+    - generic [ref=f114e3]:
+      - generic [ref=f114e4]:
+        - list:
+          - listitem [ref=f114e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f114e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f114e7]:
+        - text: Logged in as
+        - link "admin" [ref=f114e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f114e9]:
+        - listitem [ref=f114e10]:
+          - link [ref=f114e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f114e12]
+        - listitem [ref=f114e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f114e14]:
+          - link "My page" [ref=f114e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f114e16]:
+          - link "Projects" [ref=f114e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f114e18]:
+          - link "Flux Gantt" [ref=f114e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f114e20]:
+          - link "Helpdesk Command Center" [ref=f114e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f114e22]:
+          - link "Time Tracker" [ref=f114e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f114e24]:
+          - link "Timesheet" [ref=f114e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f114e26]:
+          - link "Workloads" [ref=f114e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f114e28]:
+          - link "More" [ref=f114e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f114e30]:
+      - generic [ref=f114e31]:
+        - generic [ref=f114e32]:
+          - generic [ref=f114e33]:
+            - link "Search..." [ref=f114e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f114e35]
+        - generic [ref=f114e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f114e38]
+    - generic [ref=f114e39]:
+      - generic [ref=f114e40]:
+        - link [ref=f114e42] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f114e45]:
+          - heading "Administration" [level=3] [ref=f114e46]
+          - list [ref=f114e48]:
+            - listitem [ref=f114e49]:
+              - link "Projects" [ref=f114e50] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f114e52]:
+              - link "Users" [ref=f114e53] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f114e55]:
+              - link "Groups" [ref=f114e56] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f114e58]:
+              - link "Roles and permissions" [ref=f114e59] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f114e61]:
+              - link "Trackers" [ref=f114e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f114e64]:
+              - link "Issue statuses" [ref=f114e65] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f114e67]:
+              - link "Workflow" [ref=f114e68] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f114e70]:
+              - link "Custom fields" [ref=f114e71] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f114e73]:
+              - link "Enumerations" [ref=f114e74] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f114e76]:
+              - link "Settings" [ref=f114e77] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f114e79]:
+              - link "LDAP authentication" [ref=f114e80] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f114e82]:
+              - link "Applications" [ref=f114e83] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f114e85]:
+              - link "Plugins" [ref=f114e86] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f114e88]:
+              - link "Information" [ref=f114e89] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f114e91]:
+        - generic [ref=f114e92]:
+          - link "New user" [ref=f114e93] [cursor=pointer]:
+            - /url: /users/new
+          - generic "Actions" [ref=f114e97] [cursor=pointer]
+        - heading "Users" [level=2] [ref=f114e99]
+        - generic [ref=f114e102]:
+          - group "Filters" [ref=f114e103]
+          - group "Options" [ref=f114e107]
+        - paragraph [ref=f114e111]: No data
+        - paragraph [ref=f114e112]:
+          - text: "Also available in:"
+          - link "CSV" [ref=f114e114] [cursor=pointer]:
+            - /url: /users.csv?name=qa.reqfield.customer
+    - generic [ref=f114e115]:
+      - text: Powered by
+      - link "Redmine" [ref=f114e116] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f114e117]
+  - log [ref=f114e118]
+  - log [ref=f114e119]
+  - log [ref=f114e120]
+  - log [ref=f114e121]
+  - log [ref=f114e122]
+  - log [ref=f114e123]
+  - log [ref=f114e124]
+  - log [ref=f114e125]
+  - log [ref=f114e126]
+  - log [ref=f114e127]
+  - log [ref=f114e128]
+  - log [ref=f114e129]
+  - log [ref=f114e130]
+  - log [ref=f114e131]
+  - log [ref=f114e132]
+  - log [ref=f114e133]
+  - log [ref=f114e134]
+  - log [ref=f114e135]
+  - log [ref=f114e136]

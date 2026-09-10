@@ -1,0 +1,306 @@
+- generic [ref=f221e1]:
+  - generic [ref=f221e2]:
+    - navigation [ref=f221e3]:
+      - generic [ref=f221e4]:
+        - link [ref=f221e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f221e7] [cursor=pointer]
+      - list [ref=f221e17]:
+        - listitem [ref=f221e18]:
+          - link "Hauptseite" [ref=f221e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f221e20]:
+          - link "Meine Seite" [ref=f221e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f221e22]:
+          - link "Projekte" [ref=f221e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f221e24]:
+          - link "Agile Board" [ref=f221e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f221e26]:
+          - link "Flux Gantt" [ref=f221e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f221e28]:
+          - link "Administration" [ref=f221e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f221e30]:
+          - link "Hilfe" [ref=f221e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f221e32]:
+        - generic [ref=f221e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f221e35]
+        - link "Mein Konto" [ref=f221e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f221e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f221e44]:
+      - generic [ref=f221e45]:
+        - heading "Redmine" [level=1] [ref=f221e47]
+        - generic [ref=f221e49]:
+          - heading "Administration" [level=3] [ref=f221e50]
+          - list [ref=f221e52]:
+            - listitem [ref=f221e53]:
+              - link "Projekte" [ref=f221e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f221e55]:
+              - link "Benutzer" [ref=f221e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f221e57]:
+              - link "Gruppen" [ref=f221e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f221e59]:
+              - link "Rollen und Rechte" [ref=f221e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f221e61]:
+              - link "Tracker" [ref=f221e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f221e63]:
+              - link "Ticket-Status" [ref=f221e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f221e65]:
+              - link "Workflow" [ref=f221e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f221e67]:
+              - link "Benutzerdefinierte Felder" [ref=f221e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f221e69]:
+              - link "Aufzählungen" [ref=f221e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f221e71]:
+              - link "Konfiguration" [ref=f221e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f221e73]:
+              - link "LDAP-Authentifizierung" [ref=f221e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f221e75]:
+              - link "Applikationen" [ref=f221e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f221e77]:
+              - link "Plugins" [ref=f221e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f221e79]:
+              - link "Informationen" [ref=f221e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f221e81]:
+        - heading "Konfiguration" [level=2] [ref=f221e82]
+        - list [ref=f221e84]:
+          - listitem [ref=f221e85]:
+            - link "Allgemein" [ref=f221e86] [cursor=pointer]:
+              - /url: /settings?tab=general
+          - listitem [ref=f221e87]:
+            - link "Anzeige" [ref=f221e88] [cursor=pointer]:
+              - /url: /settings?tab=display
+          - listitem [ref=f221e89]:
+            - link "Authentifizierung" [ref=f221e90] [cursor=pointer]:
+              - /url: /settings?tab=authentication
+          - listitem [ref=f221e91]:
+            - link "Integrations" [ref=f221e92] [cursor=pointer]:
+              - /url: /settings?tab=integrations
+          - listitem [ref=f221e93]:
+            - link "Projekte" [ref=f221e94] [cursor=pointer]:
+              - /url: /settings?tab=projects
+          - listitem [ref=f221e95]:
+            - link "Benutzer" [ref=f221e96] [cursor=pointer]:
+              - /url: /settings?tab=users
+          - listitem [ref=f221e97]:
+            - link "Tickets" [ref=f221e98] [cursor=pointer]:
+              - /url: /settings?tab=issues
+          - listitem [ref=f221e99]:
+            - link "Zeiterfassung" [ref=f221e100] [cursor=pointer]:
+              - /url: /settings?tab=timelog
+          - listitem [ref=f221e101]:
+            - link "Dateien" [ref=f221e102] [cursor=pointer]:
+              - /url: /settings?tab=attachments
+          - listitem [ref=f221e103]:
+            - link "Mailbenachrichtigung" [ref=f221e104] [cursor=pointer]:
+              - /url: /settings?tab=notifications
+          - listitem [ref=f221e105]:
+            - link "Eingehende E-Mails" [ref=f221e106] [cursor=pointer]:
+              - /url: /settings?tab=mail_handler
+          - listitem [ref=f221e107]:
+            - link "Repositories" [ref=f221e108] [cursor=pointer]:
+              - /url: /settings?tab=repositories
+        - text: pre
+        - generic [ref=f221e110]:
+          - generic [ref=f221e111]:
+            - paragraph [ref=f221e112]:
+              - generic [ref=f221e113]: Authentifizierung erforderlich
+              - combobox "Authentifizierung erforderlich" [ref=f221e114]:
+                - option "Ja"
+                - option "Nein, anonymen Zugriff auf öffentliche Projekte erlauben" [selected]
+              - emphasis [ref=f221e115]:
+                - text: Ohne erforderliche Authentifizierung sind öffentlichen Projekte und deren Inhalte ohne Anmeldung frei zugänglich. Sie können die
+                - link "verwendeten Berechtigungen anpassen" [ref=f221e116] [cursor=pointer]:
+                  - /url: /roles/2/edit
+                - text: .
+            - paragraph [ref=f221e117]:
+              - generic [ref=f221e118]: Automatische Anmeldung läuft ab nach
+              - combobox "Automatische Anmeldung läuft ab nach" [ref=f221e119]:
+                - option "gesperrt" [selected]
+                - option "1 Tag"
+                - option "7 Tagen"
+                - option "30 Tagen"
+                - option "365 Tagen"
+            - paragraph [ref=f221e120]:
+              - generic [ref=f221e121]: Registrierung ermöglichen
+              - combobox "Registrierung ermöglichen" [ref=f221e122]:
+                - option "gesperrt"
+                - option "Kontoaktivierung durch E-Mail"
+                - option "Manuelle Kontoaktivierung" [selected]
+                - option "Automatische Kontoaktivierung"
+            - paragraph [ref=f221e123]:
+              - generic [ref=f221e124]: Benutzerdefinierte Felder bei der Registrierung abfragen
+              - checkbox "Benutzerdefinierte Felder bei der Registrierung abfragen" [checked] [ref=f221e125]
+            - paragraph [ref=f221e126]:
+              - generic [ref=f221e127]: Mindestlänge des Passworts
+              - textbox "Mindestlänge des Passworts" [active] [ref=f221e128]: "8"
+            - paragraph [ref=f221e129]:
+              - generic [ref=f221e130]: Für Passwörter benötigte Zeichenklassen
+              - generic [ref=f221e131]:
+                - checkbox "Großbuchstaben" [ref=f221e132]
+                - text: Großbuchstaben
+              - generic [ref=f221e133]:
+                - checkbox "Kleinbuchstaben" [ref=f221e134]
+                - text: Kleinbuchstaben
+              - generic [ref=f221e135]:
+                - checkbox "Ziffern" [ref=f221e136]
+                - text: Ziffern
+              - generic [ref=f221e137]:
+                - checkbox "Sonderzeichen" [ref=f221e138]
+                - text: Sonderzeichen
+            - paragraph [ref=f221e139]:
+              - generic [ref=f221e140]: Erzwinge Passwortwechsel nach
+              - combobox "Erzwinge Passwortwechsel nach" [ref=f221e141]:
+                - option "gesperrt" [selected]
+                - option "7 Tagen"
+                - option "30 Tagen"
+                - option "60 Tagen"
+                - option "90 Tagen"
+                - option "180 Tagen"
+                - option "365 Tagen"
+            - paragraph [ref=f221e142]:
+              - generic [ref=f221e143]: Zurücksetzen des Passworts per E-Mail erlauben
+              - checkbox "Zurücksetzen des Passworts per E-Mail erlauben" [checked] [ref=f221e144]
+            - paragraph [ref=f221e145]:
+              - generic [ref=f221e146]: Zwei-Faktor-Authentifizierung
+              - combobox "Zwei-Faktor-Authentifizierung" [ref=f221e147]:
+                - option "gesperrt"
+                - option "optional" [selected]
+                - option "erforderlich für Administratoren"
+                - option "erforderlich"
+              - emphasis [ref=f221e148]:
+                - text: Die Einstellung
+                - strong [ref=f221e149]: gesperrt
+                - text: deaktiviert Zwei-Faktor-Authentifizierung für alle Nutzer und löscht verbundene Apps. Die Einstellung
+                - strong [ref=f221e150]: optional
+                - text: läßt den Benutzer Zwei-Faktor-Authentifizierung optional verwenden, solange diese nicht durch eine Benutzergruppe erforderlich ist. Die Einstellung
+                - strong [ref=f221e151]: erforderlich für Administratoren
+                - text: verhält sich wie 'optional', erfordert aber zusätzlich für alle Benutzer mit Administrator-Rechten die Aktivierung der Zwei-Faktor-Authentifizierung beim nächsten Login. Die Einstellung
+                - strong [ref=f221e152]: erforderlich
+                - text: fordert alle Nutzer bei ihrem nächsten Login dazu auf Zwei-Faktor-Authentifizierung einzurichten.
+          - group "Ende einer Sitzung" [ref=f221e153]:
+            - generic [ref=f221e155]:
+              - paragraph [ref=f221e156]:
+                - generic [ref=f221e157]: Längste Dauer einer Sitzung
+                - combobox "Längste Dauer einer Sitzung" [ref=f221e158]:
+                  - option "gesperrt" [selected]
+                  - option "4 Stunden"
+                  - option "8 Stunden"
+                  - option "12 Stunden"
+                  - option "1 Tag"
+                  - option "7 Tagen"
+                  - option "30 Tagen"
+                  - option "60 Tagen"
+                  - option "365 Tagen"
+              - paragraph [ref=f221e159]:
+                - generic [ref=f221e160]: Zeitüberschreitung bei Inaktivität
+                - combobox "Zeitüberschreitung bei Inaktivität" [ref=f221e161]:
+                  - option "gesperrt" [selected]
+                  - option "1 Stunde"
+                  - option "2 Stunden"
+                  - option "4 Stunden"
+                  - option "8 Stunden"
+                  - option "12 Stunden"
+                  - option "24 Stunden"
+                  - option "48 Stunden"
+            - paragraph [ref=f221e162]:
+              - emphasis [ref=f221e163]: "Achtung: Änderungen können aktuelle Sitzungen beenden, Ihre eingeschlossen!"
+          - button "Speichern" [ref=f221e164] [cursor=pointer]
+        - text: pre pre
+    - generic [ref=f221e165]:
+      - text: Powered by
+      - link "Redmine" [ref=f221e166] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f221e167]
+  - log [ref=f221e168]
+  - log [ref=f221e169]
+  - log [ref=f221e170]
+  - log [ref=f221e171]
+  - log [ref=f221e172]
+  - log [ref=f221e173]
+  - log [ref=f221e174]
+  - log [ref=f221e175]
+  - log [ref=f221e176]
+  - log [ref=f221e177]
+  - log [ref=f221e178]
+  - log [ref=f221e179]
+  - log [ref=f221e180]
+  - log [ref=f221e181]
+  - log [ref=f221e182]
+  - log [ref=f221e183]
+  - log [ref=f221e184]
+  - log [ref=f221e185]
+  - log [ref=f221e186]
+  - log [ref=f221e187]
+  - log [ref=f221e188]
+  - log [ref=f221e189]
+  - log [ref=f221e190]
+  - log [ref=f221e191]
+  - log [ref=f221e192]
+  - log [ref=f221e193]
+  - log [ref=f221e194]
+  - log [ref=f221e195]
+  - log [ref=f221e196]
+  - log [ref=f221e197]
+  - log [ref=f221e198]
+  - log [ref=f221e199]
+  - log [ref=f221e200]
+  - log [ref=f221e201]
+  - log [ref=f221e202]
+  - log [ref=f221e203]
+  - log [ref=f221e204]
+  - log [ref=f221e205]
+  - log [ref=f221e206]
+  - log [ref=f221e207]
+  - log [ref=f221e208]
+  - log [ref=f221e209]
+  - log [ref=f221e210]
+  - log [ref=f221e211]
+  - log [ref=f221e212]
+  - log [ref=f221e213]
+  - log [ref=f221e214]
+  - log [ref=f221e215]
+  - log [ref=f221e216]
+  - log [ref=f221e217]
+  - log [ref=f221e218]
+  - log [ref=f221e219]
+  - log [ref=f221e220]
+  - log [ref=f221e221]
+  - log [ref=f221e222]
+  - log [ref=f221e223]
+  - log [ref=f221e224]
+  - log [ref=f221e225]
+  - log [ref=f221e226]
+  - log [ref=f221e227]
+  - log [ref=f221e228]
+  - log [ref=f221e229]
+  - log [ref=f221e230]
+  - log [ref=f221e231]
+  - log [ref=f221e232]
+  - log [ref=f221e233]
+  - log [ref=f221e234]
+  - log [ref=f221e235]
+  - log [ref=f221e236]
+  - log [ref=f221e237]

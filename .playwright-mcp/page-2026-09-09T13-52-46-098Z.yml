@@ -1,0 +1,355 @@
+- generic [ref=f134e1]:
+  - generic [ref=f134e2]:
+    - navigation [ref=f134e3]:
+      - generic [ref=f134e4]:
+        - link [ref=f134e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f134e7] [cursor=pointer]
+      - list [ref=f134e17]:
+        - listitem [ref=f134e18]:
+          - link "Hauptseite" [ref=f134e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f134e20]:
+          - link "Meine Seite" [ref=f134e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f134e22]:
+          - link "Projekte" [ref=f134e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f134e24]:
+          - link "Agile Board" [ref=f134e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f134e26]:
+          - link "Flux Gantt" [ref=f134e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f134e28]:
+          - link "Administration" [ref=f134e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f134e30]:
+          - link "Hilfe" [ref=f134e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f134e32]:
+        - generic [ref=f134e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f134e35]
+        - link "Mein Konto" [ref=f134e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f134e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f134e44]:
+      - generic [ref=f134e45]:
+        - heading "Redmine" [level=1] [ref=f134e47]
+        - generic [ref=f134e49]:
+          - heading "Administration" [level=3] [ref=f134e50]
+          - list [ref=f134e52]:
+            - listitem [ref=f134e53]:
+              - link "Projekte" [ref=f134e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f134e55]:
+              - link "Benutzer" [ref=f134e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f134e57]:
+              - link "Gruppen" [ref=f134e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f134e59]:
+              - link "Rollen und Rechte" [ref=f134e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f134e61]:
+              - link "Tracker" [ref=f134e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f134e63]:
+              - link "Ticket-Status" [ref=f134e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f134e65]:
+              - link "Workflow" [ref=f134e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f134e67]:
+              - link "Benutzerdefinierte Felder" [ref=f134e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f134e69]:
+              - link "Aufzählungen" [ref=f134e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f134e71]:
+              - link "Konfiguration" [ref=f134e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f134e73]:
+              - link "LDAP-Authentifizierung" [ref=f134e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f134e75]:
+              - link "Applikationen" [ref=f134e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f134e77]:
+              - link "Plugins" [ref=f134e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f134e79]:
+              - link "Informationen" [ref=f134e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f134e81]:
+        - heading "Konfiguration" [level=2] [ref=f134e82]
+        - generic [ref=f134e83]:
+          - list [ref=f134e84]:
+            - listitem [ref=f134e85]:
+              - link "Allgemein" [ref=f134e86] [cursor=pointer]:
+                - /url: /settings?tab=general
+            - listitem [ref=f134e87]:
+              - link "Anzeige" [ref=f134e88] [cursor=pointer]:
+                - /url: /settings?tab=display
+            - listitem [ref=f134e89]:
+              - link "Authentifizierung" [ref=f134e90] [cursor=pointer]:
+                - /url: /settings?tab=authentication
+            - listitem [ref=f134e91]:
+              - link "Integrations" [ref=f134e92] [cursor=pointer]:
+                - /url: /settings?tab=integrations
+            - listitem [ref=f134e93]:
+              - link "Projekte" [ref=f134e94] [cursor=pointer]:
+                - /url: /settings?tab=projects
+            - listitem [ref=f134e95]:
+              - link "Benutzer" [ref=f134e96] [cursor=pointer]:
+                - /url: /settings?tab=users
+            - listitem [ref=f134e97]:
+              - link "Tickets" [ref=f134e98] [cursor=pointer]:
+                - /url: /settings?tab=issues
+            - listitem [ref=f134e99]:
+              - link "Zeiterfassung" [ref=f134e100] [cursor=pointer]:
+                - /url: /settings?tab=timelog
+            - listitem [ref=f134e101]:
+              - link "Dateien" [ref=f134e102] [cursor=pointer]:
+                - /url: /settings?tab=attachments
+            - listitem [ref=f134e103]:
+              - link "Mailbenachrichtigung" [ref=f134e104] [cursor=pointer]:
+                - /url: /settings?tab=notifications
+            - listitem [ref=f134e105]:
+              - link "Eingehende E-Mails" [ref=f134e106] [cursor=pointer]:
+                - /url: /settings?tab=mail_handler
+            - listitem [ref=f134e107]:
+              - link "Repositories" [ref=f134e108] [cursor=pointer]:
+                - /url: /settings?tab=repositories
+          - generic [ref=f134e109]:
+            - button [ref=f134e110]
+            - button [ref=f134e113] [cursor=pointer]
+        - text: pre
+        - generic [ref=f134e117]:
+          - generic [ref=f134e118]:
+            - paragraph [ref=f134e119]:
+              - generic [ref=f134e120]: Design-Stil
+              - combobox "Design-Stil" [ref=f134e121]:
+                - option "Standard" [selected]
+                - option "Alternate"
+                - option "Classic"
+                - option "Redmineflux daisy"
+                - option "Redmineflux lotus"
+                - option "Redmineflux scarlet"
+            - paragraph [ref=f134e122]:
+              - generic [ref=f134e123]: Standardsprache
+              - combobox "Standardsprache" [ref=f134e124]:
+                - option "Albanian (Shqip)"
+                - option "Arabic (عربي)"
+                - option "Azerbaijani (Azeri)"
+                - option "Basque (Euskara)"
+                - option "Bosnian (Bosanski)"
+                - option "Bulgarian (Български)"
+                - option "Catalan (Català)"
+                - option "Chinese/Simplified (简体中文)"
+                - option "Chinese/Traditional (繁體中文)"
+                - option "Croatian (Hrvatski)"
+                - option "Czech (Čeština)"
+                - option "Danish (Dansk)"
+                - option "Dutch (Nederlands)"
+                - option "English"
+                - option "English (British)"
+                - option "Estonian (Eesti)"
+                - option "Finnish (Suomi)"
+                - option "French (Français)"
+                - option "Galician (Galego)"
+                - option "German (Deutsch)" [selected]
+                - option "Greek (Ελληνικά)"
+                - option "Hebrew (עברית)"
+                - option "Hungarian (Magyar)"
+                - option "Indonesian (Bahasa Indonesia)"
+                - option "Italian (Italiano)"
+                - option "Japanese (日本語)"
+                - option "Korean (한국어)"
+                - option "Latvian (Latviešu)"
+                - option "Lithuanian (lietuvių)"
+                - option "Macedonian (Македонски)"
+                - option "Mongolian (Монгол)"
+                - option "Norwegian (Norsk bokmål)"
+                - option "Persian (فارسی)"
+                - option "Polish (Polski)"
+                - option "Portuguese (Português)"
+                - option "Portuguese/Brazil (Português/Brasil)"
+                - option "Romanian (Română)"
+                - option "Russian (Русский)"
+                - option "Serbian (Srpski)"
+                - option "Serbian Cyrillic (Српски)"
+                - option "Slovak (Slovenčina)"
+                - option "Slovene (Slovenščina)"
+                - option "Spanish (Español)"
+                - option "Spanish/Panama (Español/Panamá)"
+                - option "Swedish (Svenska)"
+                - option "Tamil (தமிழ்)"
+                - option "Thai (ไทย)"
+                - option "Turkish (Türkçe)"
+                - option "Ukrainian (Українська)"
+                - option "Vietnamese (Tiếng Việt)"
+            - paragraph [ref=f134e125]:
+              - generic [ref=f134e126]: Standardsprache für anonyme Benutzer erzwingen
+              - checkbox "Standardsprache für anonyme Benutzer erzwingen" [ref=f134e127]
+            - paragraph [ref=f134e128]:
+              - generic [ref=f134e129]: Standardsprache für angemeldete Benutzer erzwingen
+              - checkbox "Standardsprache für angemeldete Benutzer erzwingen" [ref=f134e130]
+            - paragraph [ref=f134e131]:
+              - generic [ref=f134e132]: Wochenanfang
+              - combobox "Wochenanfang" [ref=f134e133]:
+                - option "Sprachabhängig" [selected]
+                - option "Montag"
+                - option "Samstag"
+                - option "Sonntag"
+            - paragraph [ref=f134e134]:
+              - generic [ref=f134e135]: Datumsformat
+              - combobox "Datumsformat" [ref=f134e136]:
+                - option "Sprachabhängig" [selected]
+                - option "2026-09-09 (yyyy-mm-dd)"
+                - option "09/09/2026 (dd/mm/yyyy)"
+                - option "09.09.2026 (dd.mm.yyyy)"
+                - option "09-09-2026 (dd-mm-yyyy)"
+                - option "09/09/2026 (mm/dd/yyyy)"
+                - option "09 Sep 2026 (dd b yyyy)"
+                - option "09 September 2026 (dd B yyyy)"
+                - option "Sep 09, 2026 (b dd, yyyy)"
+                - option "September 09, 2026 (B dd, yyyy)"
+            - paragraph [ref=f134e137]:
+              - generic [ref=f134e138]: Zeitformat
+              - combobox "Zeitformat" [ref=f134e139]:
+                - option "Sprachabhängig" [selected]
+                - option "13:52"
+                - option "01:52 NACHMITTAGS"
+            - paragraph [ref=f134e140]:
+              - generic [ref=f134e141]: Format für Zeitspannen
+              - combobox "Format für Zeitspannen" [ref=f134e142]:
+                - option "0.75"
+                - option "0:45 h" [selected]
+            - paragraph [ref=f134e143]:
+              - generic [ref=f134e144]: Benutzer-Anzeigeformat
+              - combobox "Benutzer-Anzeigeformat" [ref=f134e145]:
+                - option "Redmine Admin" [selected]
+                - option "Redmine A."
+                - option "R. Admin"
+                - option "Redmine"
+                - option "Admin Redmine"
+                - option "AdminRedmine"
+                - option "Admin, Redmine"
+                - option "Admin"
+                - option "admin"
+            - paragraph [ref=f134e146]:
+              - generic [ref=f134e147]: Gravatar-Benutzerbilder benutzen
+              - checkbox "Gravatar-Benutzerbilder benutzen" [ref=f134e148]
+              - emphasis [ref=f134e149]:
+                - text: Der aktuelle Avatar-Server ist
+                - link "https://www.gravatar.com" [ref=f134e150] [cursor=pointer]:
+                  - /url: https://www.gravatar.com
+                - text: . Die URL kann in config/configuration.yml angepasst werden.
+            - paragraph [ref=f134e151]:
+              - generic [ref=f134e152]: Standard-Gravatar-Bild
+              - combobox "Standard-Gravatar-Bild" [disabled] [ref=f134e153]:
+                - option "Keine"
+                - option "Initials"
+                - option "Color"
+                - option "Mystery man"
+                - option "Identicons" [selected]
+                - option "Monster ids"
+                - option "Wavatars"
+                - option "Retro"
+                - option "Robohash"
+            - paragraph [ref=f134e154]:
+              - generic [ref=f134e155]: Vorschaubilder von Dateianhängen anzeigen
+              - checkbox "Vorschaubilder von Dateianhängen anzeigen" [checked] [ref=f134e156]
+            - paragraph [ref=f134e157]:
+              - generic [ref=f134e158]: Größe der Vorschaubilder (in Pixeln)
+              - textbox "Größe der Vorschaubilder (in Pixeln)" [active] [ref=f134e159]: "100"
+            - paragraph [ref=f134e160]:
+              - generic [ref=f134e161]: Menü zum Anlegen neuer Objekte
+              - combobox "Menü zum Anlegen neuer Objekte" [ref=f134e162]:
+                - option "Keine"
+                - option "Tab \"Neues Ticket\" anzeigen"
+                - option "Dropdown-Menü \"+\" anzeigen" [selected]
+            - paragraph [ref=f134e163]:
+              - generic [ref=f134e164]: JavaScript-basierte Tabellensortierung in Wiki-Inhalten
+              - checkbox "JavaScript-basierte Tabellensortierung in Wiki-Inhalten" [ref=f134e165]
+          - button "Speichern" [ref=f134e166] [cursor=pointer]
+        - text: pre pre
+    - generic [ref=f134e167]:
+      - text: Powered by
+      - link "Redmine" [ref=f134e168] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f134e169]
+  - log [ref=f134e170]
+  - log [ref=f134e171]
+  - log [ref=f134e172]
+  - log [ref=f134e173]
+  - log [ref=f134e174]
+  - log [ref=f134e175]
+  - log [ref=f134e176]
+  - log [ref=f134e177]
+  - log [ref=f134e178]
+  - log [ref=f134e179]
+  - log [ref=f134e180]
+  - log [ref=f134e181]
+  - log [ref=f134e182]
+  - log [ref=f134e183]
+  - log [ref=f134e184]
+  - log [ref=f134e185]
+  - log [ref=f134e186]
+  - log [ref=f134e187]
+  - log [ref=f134e188]
+  - log [ref=f134e189]
+  - log [ref=f134e190]
+  - log [ref=f134e191]
+  - log [ref=f134e192]
+  - log [ref=f134e193]
+  - log [ref=f134e194]
+  - log [ref=f134e195]
+  - log [ref=f134e196]
+  - log [ref=f134e197]
+  - log [ref=f134e198]
+  - log [ref=f134e199]
+  - log [ref=f134e200]
+  - log [ref=f134e201]
+  - log [ref=f134e202]
+  - log [ref=f134e203]
+  - log [ref=f134e204]
+  - log [ref=f134e205]
+  - log [ref=f134e206]
+  - log [ref=f134e207]
+  - log [ref=f134e208]
+  - log [ref=f134e209]
+  - log [ref=f134e210]
+  - log [ref=f134e211]
+  - log [ref=f134e212]
+  - log [ref=f134e213]
+  - log [ref=f134e214]
+  - log [ref=f134e215]
+  - log [ref=f134e216]
+  - log [ref=f134e217]
+  - log [ref=f134e218]
+  - log [ref=f134e219]
+  - log [ref=f134e220]
+  - log [ref=f134e221]
+  - log [ref=f134e222]
+  - log [ref=f134e223]
+  - log [ref=f134e224]
+  - log [ref=f134e225]
+  - log [ref=f134e226]
+  - log [ref=f134e227]
+  - log [ref=f134e228]
+  - log [ref=f134e229]
+  - log [ref=f134e230]
+  - log [ref=f134e231]
+  - log [ref=f134e232]
+  - log [ref=f134e233]
+  - log [ref=f134e234]
+  - log [ref=f134e235]
+  - log [ref=f134e236]
+  - log [ref=f134e237]
+  - log [ref=f134e238]
+  - log [ref=f134e239]
+  - log [ref=f134e240]

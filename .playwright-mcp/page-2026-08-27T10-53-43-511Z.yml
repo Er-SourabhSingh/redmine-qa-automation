@@ -1,0 +1,155 @@
+- generic [ref=f121e1]:
+  - generic [ref=f121e2]:
+    - generic [ref=f121e3]:
+      - generic [ref=f121e4]:
+        - list:
+          - listitem [ref=f121e5]:
+            - link "My account" [ref=f121e6] [cursor=pointer]:
+              - /url: /my/account
+          - listitem [ref=f121e7]:
+            - link "Sign out" [ref=f121e8] [cursor=pointer]:
+              - /url: /logout
+      - generic [ref=f121e9]:
+        - text: Logged in as
+        - link "admin" [ref=f121e10] [cursor=pointer]:
+          - /url: /users/1
+      - list:
+        - listitem [ref=f121e11]:
+          - link "Home" [ref=f121e12] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f121e13]:
+          - link "My page" [ref=f121e14] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f121e15]:
+          - link "Projects" [ref=f121e16] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f121e17]:
+          - link "Flux Gantt" [ref=f121e18] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f121e19]:
+          - link "Helpdesk Command Center" [ref=f121e20] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f121e21]:
+          - link "Time Tracker" [ref=f121e22] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f121e23]:
+          - link "Timesheet" [ref=f121e24] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f121e25]:
+          - link "Workloads" [ref=f121e26] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f121e27]:
+          - link "Administration" [ref=f121e28] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f121e29]:
+          - link "Help" [ref=f121e30] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f121e31]:
+      - generic [ref=f121e32]:
+        - generic [ref=f121e33]:
+          - generic [ref=f121e34]:
+            - link "Search..." [ref=f121e35] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f121e36]
+        - generic [ref=f121e37]:
+          - generic [ref=f121e38] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f121e39]
+    - generic [ref=f121e40]:
+      - list [ref=f121e44]:
+        - listitem [ref=f121e45]:
+          - link "Helpdesk Dashboard" [ref=f121e46] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f121e49]:
+          - link "Helpdesk Tickets" [ref=f121e50] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f121e53]:
+          - link "Reports" [ref=f121e54] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f121e57]:
+          - link "Organization" [ref=f121e58] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f121e61]:
+          - link "Customers" [ref=f121e62] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f121e65]:
+          - link "Products" [ref=f121e66] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f121e69]:
+          - link "Helpdesk Settings" [ref=f121e70] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f121e73]:
+        - generic [ref=f121e74]: Successful creation. Welcome email sent to customer successfully.
+        - generic [ref=f121e77]:
+          - generic [ref=f121e79]:
+            - heading "Customers" [level=2] [ref=f121e80]
+            - paragraph [ref=f121e81]: People who raise tickets through the helpdesk
+          - link "New Customer" [ref=f121e83] [cursor=pointer]:
+            - /url: /rf_customers/new
+        - generic [ref=f121e86]:
+          - textbox "Search customers..." [active] [ref=f121e88]
+          - generic [ref=f121e89]:
+            - textbox "All Organizations" [ref=f121e90]
+            - combobox "All Organizations":
+              - option "All Organizations" [selected]
+          - generic [ref=f121e91]:
+            - button "Apply Filters" [ref=f121e92] [cursor=pointer]
+            - link "Clear" [ref=f121e95] [cursor=pointer]:
+              - /url: /rf_customers
+        - table [ref=f121e101]:
+          - rowgroup [ref=f121e102]:
+            - row [ref=f121e103]:
+              - columnheader "S.No" [ref=f121e104]
+              - columnheader "Customer Name" [ref=f121e105]
+              - columnheader "Email" [ref=f121e106]
+              - columnheader "Organization Name" [ref=f121e107]
+              - columnheader "Support Level" [ref=f121e108]
+              - columnheader "Projects" [ref=f121e109]
+              - columnheader "Open" [ref=f121e110]
+              - columnheader "Last Login" [ref=f121e111]
+              - columnheader "Action" [ref=f121e112]
+          - rowgroup [ref=f121e113]:
+            - row [ref=f121e114]:
+              - cell "1" [ref=f121e115]
+              - cell "Alpha Customer alpha.customer" [ref=f121e116]:
+                - link "Alpha Customer" [ref=f121e117] [cursor=pointer]:
+                  - /url: /rf_customers/6
+                - generic [ref=f121e118]: alpha.customer
+              - cell [ref=f121e119]:
+                - link "alpha.customer@test.local" [ref=f121e120] [cursor=pointer]:
+                  - /url: mailto:alpha.customer@test.local
+              - cell "—" [ref=f121e121]
+              - cell "L1" [ref=f121e122]
+              - cell "1" [ref=f121e125]
+              - cell "0" [ref=f121e126]
+              - cell "Never" [ref=f121e127]
+              - cell [ref=f121e128]:
+                - generic [ref=f121e129]:
+                  - link "Customer details" [ref=f121e130] [cursor=pointer]:
+                    - /url: /rf_customers/6
+                  - link "Edit" [ref=f121e134] [cursor=pointer]:
+                    - /url: /rf_customers/6/edit
+                  - link "Delete" [ref=f121e137] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f121e141]:
+          - list
+          - generic [ref=f121e142]: (1-1/1)
+    - generic [ref=f121e143]:
+      - text: Powered by
+      - link "Redmine" [ref=f121e144] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f121e145]
+  - log [ref=f121e146]
+  - log [ref=f121e147]
+  - log [ref=f121e148]
+  - log [ref=f121e149]
+  - log [ref=f121e150]
+  - log [ref=f121e151]
+  - log [ref=f121e152]
+  - log [ref=f121e153]
+  - log [ref=f121e154]
+  - log [ref=f121e155]
+  - log [ref=f121e156]
+  - log [ref=f121e157]

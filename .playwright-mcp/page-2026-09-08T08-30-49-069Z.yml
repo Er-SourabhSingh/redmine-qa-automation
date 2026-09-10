@@ -1,0 +1,159 @@
+- generic [active] [ref=f178e1]:
+  - generic [ref=f178e2]:
+    - navigation [ref=f178e3]:
+      - generic [ref=f178e4]:
+        - link [ref=f178e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f178e7] [cursor=pointer]
+      - list [ref=f178e17]:
+        - listitem [ref=f178e18]:
+          - link "Hauptseite" [ref=f178e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f178e20]:
+          - link "Meine Seite" [ref=f178e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f178e22]:
+          - link "Projekte" [ref=f178e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f178e24]:
+          - link "Agile Board" [ref=f178e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f178e26]:
+          - link "Flux Gantt" [ref=f178e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f178e28]:
+          - link "Administration" [ref=f178e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f178e30]:
+          - link "Hilfe" [ref=f178e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f178e32]:
+        - generic [ref=f178e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f178e35]
+        - link "Mein Konto" [ref=f178e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f178e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f178e44]:
+      - generic [ref=f178e45]:
+        - heading "Redmine" [level=1] [ref=f178e47]
+        - generic [ref=f178e49]:
+          - heading "Administration" [level=3] [ref=f178e50]
+          - list [ref=f178e52]:
+            - listitem [ref=f178e53]:
+              - link "Projekte" [ref=f178e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f178e55]:
+              - link "Benutzer" [ref=f178e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f178e57]:
+              - link "Gruppen" [ref=f178e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f178e59]:
+              - link "Rollen und Rechte" [ref=f178e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f178e61]:
+              - link "Tracker" [ref=f178e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f178e63]:
+              - link "Ticket-Status" [ref=f178e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f178e65]:
+              - link "Workflow" [ref=f178e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f178e67]:
+              - link "Benutzerdefinierte Felder" [ref=f178e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f178e69]:
+              - link "Aufzählungen" [ref=f178e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f178e71]:
+              - link "Konfiguration" [ref=f178e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f178e73]:
+              - link "LDAP-Authentifizierung" [ref=f178e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f178e75]:
+              - link "Applikationen" [ref=f178e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f178e77]:
+              - link "Plugins" [ref=f178e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f178e79]:
+              - link "Informationen" [ref=f178e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f178e81]:
+        - generic [ref=f178e82]:
+          - link "Neuer Tracker" [ref=f178e83] [cursor=pointer]:
+            - /url: /trackers/new
+          - link "Zusammenfassung" [ref=f178e85] [cursor=pointer]:
+            - /url: /trackers/fields
+        - heading "Tracker" [level=2] [ref=f178e87]
+        - table [ref=f178e88]:
+          - rowgroup [ref=f178e89]:
+            - row [ref=f178e90]:
+              - columnheader "Tracker" [ref=f178e91]
+              - columnheader "Standardstatus" [ref=f178e92]
+              - columnheader "Beschreibung" [ref=f178e93]
+              - columnheader [ref=f178e94]
+              - columnheader [ref=f178e95]
+          - rowgroup [ref=f178e96]:
+            - row [ref=f178e97]:
+              - cell [ref=f178e98]:
+                - link "Bug" [ref=f178e99] [cursor=pointer]:
+                  - /url: /trackers/4/edit
+              - cell "New" [ref=f178e100]
+              - cell [ref=f178e101]
+              - cell [ref=f178e102]
+              - cell [ref=f178e103]:
+                - generic "Sortieren" [ref=f178e104]
+                - link "Kopieren" [ref=f178e106] [cursor=pointer]:
+                  - /url: /trackers/new?copy=4
+                - link "Löschen" [ref=f178e109] [cursor=pointer]:
+                  - /url: /trackers/4
+            - row [ref=f178e110]:
+              - cell [ref=f178e111]:
+                - link "Feature" [ref=f178e112] [cursor=pointer]:
+                  - /url: /trackers/5/edit
+              - cell "New" [ref=f178e113]
+              - cell [ref=f178e114]
+              - cell [ref=f178e115]
+              - cell [ref=f178e116]:
+                - generic "Sortieren" [ref=f178e117]
+                - link "Kopieren" [ref=f178e119] [cursor=pointer]:
+                  - /url: /trackers/new?copy=5
+                - link "Löschen" [ref=f178e122] [cursor=pointer]:
+                  - /url: /trackers/5
+            - row [ref=f178e123]:
+              - cell [ref=f178e124]:
+                - link "Support" [ref=f178e125] [cursor=pointer]:
+                  - /url: /trackers/6/edit
+              - cell "New" [ref=f178e126]
+              - cell [ref=f178e127]
+              - cell [ref=f178e128]
+              - cell [ref=f178e129]:
+                - generic "Sortieren" [ref=f178e130]
+                - link "Kopieren" [ref=f178e132] [cursor=pointer]:
+                  - /url: /trackers/new?copy=6
+                - link "Löschen" [ref=f178e135] [cursor=pointer]:
+                  - /url: /trackers/6
+    - generic [ref=f178e136]:
+      - text: Powered by
+      - link "Redmine" [ref=f178e137] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f178e138]
+  - log [ref=f178e139]
+  - log [ref=f178e140]
+  - log [ref=f178e141]
+  - log [ref=f178e142]
+  - log [ref=f178e143]
+  - log [ref=f178e144]
+  - log [ref=f178e145]
+  - log [ref=f178e146]
+  - log [ref=f178e147]
+  - log [ref=f178e148]
+  - log [ref=f178e149]
+  - log [ref=f178e150]
+  - log [ref=f178e151]
+  - log [ref=f178e152]

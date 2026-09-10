@@ -1,0 +1,188 @@
+- generic [active] [ref=f306e1]:
+  - generic [ref=f306e2]:
+    - navigation [ref=f306e3]:
+      - generic [ref=f306e4]:
+        - link [ref=f306e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f306e7] [cursor=pointer]
+      - list [ref=f306e17]:
+        - listitem [ref=f306e18]:
+          - link "Hauptseite" [ref=f306e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f306e20]:
+          - link "Meine Seite" [ref=f306e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f306e22]:
+          - link "Projekte" [ref=f306e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f306e24]:
+          - link "Agile Board" [ref=f306e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f306e26]:
+          - link "Flux Gantt" [ref=f306e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f306e28]:
+          - link "Administration" [ref=f306e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f306e30]:
+          - link "Hilfe" [ref=f306e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f306e32]:
+        - generic [ref=f306e33]:
+          - generic [ref=f306e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f306e35]
+        - link "Mein Konto" [ref=f306e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f306e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f306e44]:
+      - generic [ref=f306e46]:
+        - heading "Agile Board Project" [level=1] [ref=f306e47]
+        - generic [ref=f306e48]:
+          - generic [ref=f306e49]:
+            - generic [ref=f306e50]: Hauptmenü
+            - listitem [ref=f306e51]:
+              - link "+" [ref=f306e52] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f306e53]:
+            - listitem [ref=f306e54]:
+              - link "Übersicht" [ref=f306e55] [cursor=pointer]:
+                - /url: /projects/agileboard
+            - listitem [ref=f306e60]:
+              - link "Dashboard" [ref=f306e61] [cursor=pointer]:
+                - /url: /projects/agileboard/analytics_dashboard
+            - listitem [ref=f306e69]:
+              - link "Aktivität" [ref=f306e70] [cursor=pointer]:
+                - /url: /projects/agileboard/activity
+            - listitem [ref=f306e75]:
+              - link "Agile Board" [ref=f306e76] [cursor=pointer]:
+                - /url: /projects/agileboard/agile_board
+            - listitem [ref=f306e84]:
+              - link "Backlog" [ref=f306e85] [cursor=pointer]:
+                - /url: /projects/agileboard/backlog
+            - listitem [ref=f306e90]:
+              - link "Roadmap" [ref=f306e91] [cursor=pointer]:
+                - /url: /projects/agileboard/roadmap
+            - listitem [ref=f306e98]:
+              - link "Tickets" [ref=f306e99] [cursor=pointer]:
+                - /url: /projects/agileboard/issues
+            - listitem [ref=f306e104]:
+              - link "Aufgewendete Zeit" [ref=f306e105] [cursor=pointer]:
+                - /url: /projects/agileboard/time_entries
+            - listitem [ref=f306e110]:
+              - link "Gantt-Diagramm" [ref=f306e111] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/gantt
+            - listitem [ref=f306e119]:
+              - link "Kalender" [ref=f306e120] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/calendar
+            - listitem [ref=f306e125]:
+              - link "News" [ref=f306e126] [cursor=pointer]:
+                - /url: /projects/agileboard/news
+            - listitem [ref=f306e131]:
+              - link "Dokumente" [ref=f306e132] [cursor=pointer]:
+                - /url: /projects/agileboard/documents
+            - listitem [ref=f306e137]:
+              - link "Wiki" [ref=f306e138] [cursor=pointer]:
+                - /url: /projects/agileboard/wiki
+            - listitem [ref=f306e143]:
+              - link "Dateien" [ref=f306e144] [cursor=pointer]:
+                - /url: /projects/agileboard/files
+            - listitem [ref=f306e149]:
+              - link "Konfiguration" [ref=f306e150] [cursor=pointer]:
+                - /url: /projects/agileboard/settings
+      - generic [ref=f306e156]:
+        - heading "Konfiguration" [level=2] [ref=f306e157]
+        - list [ref=f306e159]:
+          - listitem [ref=f306e160]:
+            - link "Projekt" [ref=f306e161] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/info
+          - listitem [ref=f306e162]:
+            - link "Mitglieder" [ref=f306e163] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/members
+          - listitem [ref=f306e164]:
+            - link "Tickets" [ref=f306e165] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/issues
+          - listitem [ref=f306e166]:
+            - link "Versionen" [ref=f306e167] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/versions
+          - listitem [ref=f306e168]:
+            - link "Ticket-Kategorien" [ref=f306e169] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/categories
+          - listitem [ref=f306e170]:
+            - link "Repositories" [ref=f306e171] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/repositories
+          - listitem [ref=f306e172]:
+            - link "Foren" [ref=f306e173] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/boards
+          - listitem [ref=f306e174]:
+            - link "Zeiterfassung" [ref=f306e175] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/activities
+          - listitem [ref=f306e176]:
+            - link "Sprints" [ref=f306e177] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/sprints
+        - text: pre
+        - generic [ref=f306e178]:
+          - paragraph [ref=f306e179]:
+            - link "Neue Kategorie" [ref=f306e180] [cursor=pointer]:
+              - /url: /projects/agileboard/issue_categories/new
+          - table [ref=f306e182]:
+            - rowgroup [ref=f306e183]:
+              - row [ref=f306e184]:
+                - columnheader "Ticket-Kategorie" [ref=f306e185]
+                - columnheader "Zugewiesen an" [ref=f306e186]
+                - columnheader [ref=f306e187]
+            - rowgroup [ref=f306e188]:
+              - row [ref=f306e189]:
+                - cell "QA Lotus Test Category" [ref=f306e190]
+                - cell [ref=f306e191]
+                - cell [ref=f306e192]:
+                  - link "Bearbeiten" [ref=f306e193] [cursor=pointer]:
+                    - /url: /issue_categories/1/edit
+                  - link "Löschen" [ref=f306e194] [cursor=pointer]:
+                    - /url: /issue_categories/1
+    - generic [ref=f306e195]:
+      - text: Powered by
+      - link "Redmine" [ref=f306e196] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f306e197]
+  - log [ref=f306e198]
+  - log [ref=f306e199]
+  - log [ref=f306e200]
+  - log [ref=f306e201]
+  - log [ref=f306e202]
+  - log [ref=f306e203]
+  - log [ref=f306e204]
+  - log [ref=f306e205]
+  - log [ref=f306e206]
+  - log [ref=f306e207]
+  - log [ref=f306e208]
+  - log [ref=f306e209]
+  - log [ref=f306e210]
+  - log [ref=f306e211]
+  - log [ref=f306e212]
+  - log [ref=f306e213]
+  - log [ref=f306e214]
+  - log [ref=f306e215]
+  - log [ref=f306e216]
+  - log [ref=f306e217]
+  - log [ref=f306e218]
+  - log [ref=f306e219]
+  - log [ref=f306e220]
+  - log [ref=f306e221]
+  - log [ref=f306e222]
+  - log [ref=f306e223]
+  - log [ref=f306e224]
+  - log [ref=f306e225]
+  - log [ref=f306e226]
+  - log [ref=f306e227]
+  - log [ref=f306e228]
+  - log [ref=f306e229]
+  - log [ref=f306e230]
+  - log [ref=f306e231]
+  - log [ref=f306e232]
+  - log [ref=f306e233]
+  - log [ref=f306e234]
+  - log [ref=f306e235]
+  - log [ref=f306e236]

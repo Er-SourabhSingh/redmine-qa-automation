@@ -1,0 +1,169 @@
+- generic [active] [ref=f124e1]:
+  - generic [ref=f124e2]:
+    - navigation [ref=f124e3]:
+      - list [ref=f124e6]:
+        - listitem [ref=f124e7]:
+          - link "Hauptseite" [ref=f124e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f124e9]:
+          - link "Meine Seite" [ref=f124e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f124e11]:
+          - link "Projekte" [ref=f124e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f124e13]:
+          - link "Agile Board" [ref=f124e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f124e15]:
+          - link "Flux Gantt" [ref=f124e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f124e17]:
+          - link "Administration" [ref=f124e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f124e19]:
+          - link "Hilfe" [ref=f124e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f124e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f124e24]: RA
+    - generic [ref=f124e27]:
+      - generic [ref=f124e28]:
+        - generic [ref=f124e29]:
+          - generic [ref=f124e30]:
+            - link "Suche" [ref=f124e31] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Suche:" [ref=f124e32]
+        - generic [ref=f124e33]:
+          - generic [ref=f124e34] [cursor=pointer]: Zu einem Projekt springen...
+          - text: ✓
+      - heading "Redmine" [level=1] [ref=f124e35]
+      - list [ref=f124e37]:
+        - listitem [ref=f124e38]:
+          - link "Projekte" [ref=f124e39] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f124e40]:
+          - link "Aktivität" [ref=f124e41] [cursor=pointer]:
+            - /url: /activity
+        - listitem [ref=f124e42]:
+          - link "Tickets" [ref=f124e43] [cursor=pointer]:
+            - /url: /issues
+        - listitem [ref=f124e44]:
+          - link "Aufgewendete Zeit" [ref=f124e45] [cursor=pointer]:
+            - /url: /time_entries
+        - listitem [ref=f124e46]:
+          - link "Gantt-Diagramm" [ref=f124e47] [cursor=pointer]:
+            - /url: /issues/gantt
+        - listitem [ref=f124e48]:
+          - link "Kalender" [ref=f124e49] [cursor=pointer]:
+            - /url: /issues/calendar
+        - listitem [ref=f124e50]:
+          - link "News" [ref=f124e51] [cursor=pointer]:
+            - /url: /news
+    - generic [ref=f124e52]:
+      - generic [ref=f124e53]:
+        - link [ref=f124e55] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f124e58]:
+          - heading "Abfragen" [level=3] [ref=f124e59]
+          - list [ref=f124e60]:
+            - listitem [ref=f124e61]:
+              - link "My bookmarks" [ref=f124e62] [cursor=pointer]:
+                - /url: /projects?query_id=6
+            - listitem [ref=f124e63]:
+              - link "My projects" [ref=f124e64] [cursor=pointer]:
+                - /url: /projects?query_id=5
+      - generic [ref=f124e65]:
+        - generic [ref=f124e66]:
+          - link "Neues Projekt" [ref=f124e67] [cursor=pointer]:
+            - /url: /projects/new
+          - link "Administration" [ref=f124e71] [cursor=pointer]:
+            - /url: /admin/projects
+        - heading "Projekte" [level=2] [ref=f124e75]
+        - generic [ref=f124e77]:
+          - generic [ref=f124e78]:
+            - group "Filter" [ref=f124e79]:
+              - generic:
+                - generic [ref=f124e84]:
+                  - generic [ref=f124e85]:
+                    - checkbox "Status" [checked] [ref=f124e86]
+                    - text: Status
+                  - combobox [ref=f124e88]:
+                    - option "ist" [selected]
+                    - option "ist nicht"
+                  - generic [ref=f124e90]:
+                    - combobox [ref=f124e91]:
+                      - option "aktiv" [selected]
+                      - option "geschlossen"
+                    - generic [ref=f124e92] [cursor=pointer]
+                - generic [ref=f124e95]:
+                  - text: Filter hinzufügen
+                  - combobox "Filter hinzufügen" [ref=f124e96]:
+                    - option [selected]
+                    - option "Status" [disabled]
+                    - option "Projekt"
+                    - option "Unterprojekt von"
+                    - option "Öffentlich"
+                    - option "Tags"
+                    - option "Name"
+                    - option "Beschreibung"
+                    - option "Angelegt"
+                    - option "Aktualisiert"
+            - group "Optionen" [ref=f124e97]
+          - paragraph [ref=f124e101]:
+            - link "Anwenden" [ref=f124e102] [cursor=pointer]:
+              - /url: "#"
+            - link "Zurücksetzen" [ref=f124e106] [cursor=pointer]:
+              - /url: /projects?set_filter=1&sort=
+            - link "Abfrage speichern" [ref=f124e110] [cursor=pointer]:
+              - /url: "#"
+        - list [ref=f124e115]:
+          - listitem [ref=f124e116]:
+            - link "Agile Board Project" [ref=f124e118] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f124e122]:
+            - link "Education and training3" [ref=f124e124] [cursor=pointer]:
+              - /url: /projects/edandt
+          - listitem [ref=f124e128]:
+            - link "Flux Gantt Project" [ref=f124e130] [cursor=pointer]:
+              - /url: /projects/fluxganttproject
+          - listitem [ref=f124e134]:
+            - link "HR management2" [ref=f124e136] [cursor=pointer]:
+              - /url: /projects/hrmngmt
+          - listitem [ref=f124e140]:
+            - link "Helpdesk Service Desk" [ref=f124e142] [cursor=pointer]:
+              - /url: /projects/helpdesk
+          - listitem [ref=f124e146]:
+            - link "MVP build for PaySheet Application" [ref=f124e148] [cursor=pointer]:
+              - /url: /projects/mvpbuild
+          - listitem [ref=f124e152]:
+            - link "Marketing campaign4" [ref=f124e154] [cursor=pointer]:
+              - /url: /projects/markcamgn
+          - listitem [ref=f124e158]:
+            - link "Mobile app development1" [ref=f124e160] [cursor=pointer]:
+              - /url: /projects/mobileappdev
+          - listitem [ref=f124e164]:
+            - link "Software development5" [ref=f124e166] [cursor=pointer]:
+              - /url: /projects/defaultsd
+        - paragraph [ref=f124e170]:
+          - generic [ref=f124e171]: Meine Projekte
+          - generic [ref=f124e175]: Meine Lesezeichen
+        - paragraph [ref=f124e179]:
+          - text: "Auch abrufbar als:"
+          - link "Atom" [ref=f124e181] [cursor=pointer]:
+            - /url: /projects.atom?key=a6249449f16344aaffb27d6f5be3002328ba1f62
+    - generic [ref=f124e182]:
+      - text: Powered by
+      - link "Redmine" [ref=f124e183] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f124e184]
+  - log [ref=f124e185]
+  - log [ref=f124e186]
+  - log [ref=f124e187]
+  - log [ref=f124e188]
+  - log [ref=f124e189]
+  - log [ref=f124e190]
+  - log [ref=f124e191]
+  - log [ref=f124e192]
+  - log [ref=f124e193]

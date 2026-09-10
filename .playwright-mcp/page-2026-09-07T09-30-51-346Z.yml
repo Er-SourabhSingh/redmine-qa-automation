@@ -1,0 +1,252 @@
+- generic [ref=f16e1]:
+  - generic [ref=f16e2]:
+    - navigation [ref=f16e3]:
+      - list [ref=f16e6]:
+        - listitem [ref=f16e7]:
+          - link "Hauptseite" [ref=f16e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f16e9]:
+          - link "Meine Seite" [ref=f16e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f16e11]:
+          - link "Projekte" [ref=f16e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f16e13]:
+          - link "Agile Board" [ref=f16e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f16e15]:
+          - link "Flux Gantt" [ref=f16e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f16e17]:
+          - link "Administration" [ref=f16e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f16e19]:
+          - link "Hilfe" [ref=f16e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f16e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f16e24]: RA
+    - generic [ref=f16e27]:
+      - generic [ref=f16e28]:
+        - generic [ref=f16e29]:
+          - generic [ref=f16e30]:
+            - link "Suche" [ref=f16e31] [cursor=pointer]:
+              - /url: /projects/defaultsd/search
+            - text: ":"
+          - textbox "Suche:" [ref=f16e32]
+        - generic [ref=f16e33]:
+          - generic [ref=f16e34] [cursor=pointer]: Software development5
+          - text: ✓ ✓
+      - heading "Software development5" [level=1] [ref=f16e35]
+      - list [ref=f16e38]:
+        - listitem [ref=f16e39]:
+          - link "+" [ref=f16e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f16e41]:
+          - link "Übersicht" [ref=f16e42] [cursor=pointer]:
+            - /url: /projects/defaultsd
+        - listitem [ref=f16e43]:
+          - link "Dashboard" [ref=f16e44] [cursor=pointer]:
+            - /url: /projects/defaultsd/analytics_dashboard
+        - listitem [ref=f16e45]:
+          - link "Aktivität" [ref=f16e46] [cursor=pointer]:
+            - /url: /projects/defaultsd/activity
+        - listitem [ref=f16e47]:
+          - link "Tickets" [ref=f16e48] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues
+        - listitem [ref=f16e49]:
+          - link "Aufgewendete Zeit" [ref=f16e50] [cursor=pointer]:
+            - /url: /projects/defaultsd/time_entries
+        - listitem [ref=f16e51]:
+          - link "Gantt-Diagramm" [ref=f16e52] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/gantt
+        - listitem [ref=f16e53]:
+          - link "Kalender" [ref=f16e54] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/calendar
+        - listitem [ref=f16e55]:
+          - link "News" [ref=f16e56] [cursor=pointer]:
+            - /url: /projects/defaultsd/news
+        - listitem [ref=f16e57]:
+          - link "Dokumente" [ref=f16e58] [cursor=pointer]:
+            - /url: /projects/defaultsd/documents
+        - listitem [ref=f16e59]:
+          - link "Wiki" [ref=f16e60] [cursor=pointer]:
+            - /url: /projects/defaultsd/wiki
+        - listitem [ref=f16e61]:
+          - link "Dateien" [ref=f16e62] [cursor=pointer]:
+            - /url: /projects/defaultsd/files
+        - listitem [ref=f16e63]:
+          - link "Konfiguration" [ref=f16e64] [cursor=pointer]:
+            - /url: /projects/defaultsd/settings
+    - generic [ref=f16e66]:
+      - heading "Neues Ticket" [level=2] [ref=f16e67]
+      - generic [ref=f16e68]:
+        - generic [ref=f16e69]:
+          - generic [ref=f16e70]:
+            - paragraph [ref=f16e71]:
+              - checkbox "Privat" [ref=f16e72]
+              - text: Privat
+            - paragraph [ref=f16e73]:
+              - generic [ref=f16e74]: Tracker *
+              - combobox "Tracker *" [ref=f16e75]:
+                - option "Bug" [selected]
+                - option "Feature"
+                - option "Support"
+            - paragraph [ref=f16e76]:
+              - generic [ref=f16e77]: Thema *
+              - textbox "Thema *" [active] [ref=f16e78]
+            - paragraph [ref=f16e79]:
+              - generic [ref=f16e80]: Beschreibung
+              - generic [ref=f16e82]:
+                - list [ref=f16e84]:
+                  - listitem [ref=f16e85]:
+                    - link "Bearbeiten" [ref=f16e86] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f16e87]:
+                    - link "Vorschau" [ref=f16e88] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f16e89]:
+                    - generic [ref=f16e90]:
+                      - button "Fett (Ctrl+B)" [ref=f16e91] [cursor=pointer]
+                      - button "Kursiv (Ctrl+I)" [ref=f16e92] [cursor=pointer]
+                      - button "Unterstrichen (Ctrl+U)" [ref=f16e93] [cursor=pointer]
+                      - button "Durchgestrichen" [ref=f16e94] [cursor=pointer]
+                      - button "Quelltext" [ref=f16e95] [cursor=pointer]
+                      - button "Überschrift 1. Ordnung" [ref=f16e96] [cursor=pointer]
+                      - button "Überschrift 2. Ordnung" [ref=f16e97] [cursor=pointer]
+                      - button "Überschrift 3. Ordnung" [ref=f16e98] [cursor=pointer]
+                      - button "Aufzählungsliste" [ref=f16e99] [cursor=pointer]
+                      - button "Nummerierte Liste" [ref=f16e100] [cursor=pointer]
+                      - button "Task list" [ref=f16e101] [cursor=pointer]
+                      - button "Zitat" [ref=f16e102] [cursor=pointer]
+                      - button "Zitat entfernen" [ref=f16e103] [cursor=pointer]
+                      - button "Table" [ref=f16e104] [cursor=pointer]
+                      - button "pre" [ref=f16e105] [cursor=pointer]
+                      - button "Highlighted code" [ref=f16e106] [cursor=pointer]
+                      - button "Verweis (Link) zu einer Wiki-Seite" [ref=f16e107] [cursor=pointer]
+                      - button "Grafik" [ref=f16e108] [cursor=pointer]
+                      - button "Help" [ref=f16e109] [cursor=pointer]
+                - textbox "Beschreibung" [ref=f16e111]
+            - generic [ref=f16e113]:
+              - generic [ref=f16e114]:
+                - paragraph [ref=f16e115]:
+                  - generic [ref=f16e116]: Status *
+                  - combobox "Status *" [ref=f16e117]:
+                    - option "New" [selected]
+                - paragraph [ref=f16e118]:
+                  - generic [ref=f16e119]: Priorität *
+                  - combobox "Priorität *" [ref=f16e120]:
+                    - option "Low"
+                    - option "Normal" [selected]
+                    - option "High"
+                    - option "Urgent"
+                    - option "Immediate"
+                - paragraph [ref=f16e121]:
+                  - generic [ref=f16e122]: Zugewiesen an
+                  - combobox "Zugewiesen an" [ref=f16e123]:
+                    - option [selected]
+                    - option "<< ich >>"
+                    - option "Aurora Wren"
+                    - option "Autumn Grace"
+                    - option "Briar Sunset"
+                    - option "Celeste Dawn"
+                    - option "Daisy Skye"
+                    - option "Ember Lilac"
+                    - option "Harmony Rose"
+                    - option "Isla Moon"
+                    - option "Ivy Skylark"
+                    - option "Luna Blossom"
+                    - option "Luna Meadow"
+                    - option "Marigold Rayne"
+                    - option "Nova Starling"
+                    - option "Opal Sparrow"
+                    - option "Redmine Admin"
+                    - option "Sage Willow"
+                    - option "Selene Frost"
+                    - option "Serenity Bloom"
+                    - option "Summer Rain"
+                    - option "Violet Ember"
+                    - option "Willow Belle"
+                  - link "Mir zuweisen" [ref=f16e124] [cursor=pointer]:
+                    - /url: "#"
+              - generic [ref=f16e125]:
+                - paragraph [ref=f16e126]:
+                  - generic [ref=f16e127]: Übergeordnetes Ticket
+                  - textbox "Übergeordnetes Ticket" [ref=f16e128]
+                - paragraph [ref=f16e129]:
+                  - generic [ref=f16e130]: Startdatum
+                  - textbox "Startdatum" [ref=f16e131]
+                - paragraph [ref=f16e132]:
+                  - generic [ref=f16e133]: Abgabedatum
+                  - textbox "Abgabedatum" [ref=f16e134]
+                - paragraph [ref=f16e135]:
+                  - generic [ref=f16e136]: Geschätzter Aufwand
+                  - textbox "Geschätzter Aufwand" [ref=f16e137]:
+                    - /placeholder: h:mm
+                  - text: Stunden
+                - paragraph [ref=f16e138]:
+                  - generic [ref=f16e139]: "% erledigt"
+                  - combobox "% erledigt" [ref=f16e140]:
+                    - option "0 %" [selected]
+                    - option "10 %"
+                    - option "20 %"
+                    - option "30 %"
+                    - option "40 %"
+                    - option "50 %"
+                    - option "60 %"
+                    - option "70 %"
+                    - option "80 %"
+                    - option "90 %"
+                    - option "100 %"
+            - paragraph [ref=f16e141]:
+              - generic [ref=f16e142]: Tag list
+              - list [ref=f16e143]:
+                - listitem [ref=f16e144]:
+                  - textbox "Add Tags" [ref=f16e145]
+          - paragraph [ref=f16e146]:
+            - generic [ref=f16e147]: Dateien
+            - generic [ref=f16e149]:
+              - button "Choose File" [ref=f16e150]
+              - text: "(Maximale Größe: 5 MB)"
+          - paragraph [ref=f16e152]:
+            - generic [ref=f16e153]: Beobachter
+            - link "Nach hinzufügbaren Beobachtern suchen" [ref=f16e155] [cursor=pointer]:
+              - /url: /watchers/new?project_id=defaultsd
+        - button "Erstellen" [ref=f16e159] [cursor=pointer]
+        - button "Anlegen und weiter" [ref=f16e160] [cursor=pointer]
+    - generic [ref=f16e161]:
+      - text: Powered by
+      - link "Redmine" [ref=f16e162] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f16e163]
+  - log [ref=f16e164]
+  - log [ref=f16e165]
+  - log [ref=f16e166]
+  - log [ref=f16e167]
+  - log [ref=f16e168]
+  - log [ref=f16e169]
+  - log [ref=f16e170]
+  - log [ref=f16e171]
+  - log [ref=f16e172]
+  - log [ref=f16e173]
+  - log [ref=f16e174]
+  - log [ref=f16e175]
+  - log [ref=f16e176]
+  - log [ref=f16e177]
+  - log [ref=f16e178]
+  - log [ref=f16e179]
+  - log [ref=f16e180]
+  - log [ref=f16e181]
+  - log [ref=f16e182]
+  - log [ref=f16e183]
+  - log [ref=f16e184]
+  - log [ref=f16e185]
+  - log [ref=f16e186]
+  - log [ref=f16e187]
+  - log [ref=f16e188]
+  - log [ref=f16e189]
+  - log [ref=f16e190]
+  - log [ref=f16e191]
+  - log [ref=f16e192]
+  - status [ref=f16e193]

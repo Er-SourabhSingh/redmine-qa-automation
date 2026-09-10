@@ -1,0 +1,130 @@
+- generic [active] [ref=f12e1]:
+  - generic [ref=f12e2]:
+    - generic [ref=f12e3]:
+      - generic [ref=f12e4]:
+        - link [ref=f12e5] [cursor=pointer]:
+          - /url: /
+        - button "Toggle sidebar" [ref=f12e7] [cursor=pointer]
+      - navigation [ref=f12e15]:
+        - list [ref=f12e16]:
+          - listitem [ref=f12e17]:
+            - link "Hauptseite" [ref=f12e18] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=f12e19]:
+            - link "Meine Seite" [ref=f12e20] [cursor=pointer]:
+              - /url: /my/page
+          - listitem [ref=f12e21]:
+            - link "Projekte" [ref=f12e22] [cursor=pointer]:
+              - /url: /projects
+          - listitem [ref=f12e23]:
+            - link "Agile Board" [ref=f12e24] [cursor=pointer]:
+              - /url: /agile_board/global
+          - listitem [ref=f12e25]:
+            - link "Flux Gantt" [ref=f12e26] [cursor=pointer]:
+              - /url: /global_gantt
+          - listitem [ref=f12e27]:
+            - link "Administration" [ref=f12e28] [cursor=pointer]:
+              - /url: /admin
+          - listitem [ref=f12e29]:
+            - link "Hilfe" [ref=f12e30] [cursor=pointer]:
+              - /url: https://www.redmine.org/guide
+      - generic [ref=f12e31]:
+        - generic [ref=f12e32]: Zu einem Projekt springen...
+        - button "Search" [ref=f12e34]
+        - link "Mein Konto" [ref=f12e37] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f12e40] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f12e43]:
+      - generic [ref=f12e44]:
+        - heading "Redmine" [level=1] [ref=f12e46]
+        - generic [ref=f12e48]:
+          - heading "Administration" [level=3] [ref=f12e49]
+          - list [ref=f12e51]:
+            - listitem [ref=f12e52]:
+              - link "Projekte" [ref=f12e53] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f12e54]:
+              - link "Benutzer" [ref=f12e55] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f12e56]:
+              - link "Gruppen" [ref=f12e57] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f12e58]:
+              - link "Rollen und Rechte" [ref=f12e59] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f12e60]:
+              - link "Tracker" [ref=f12e61] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f12e62]:
+              - link "Ticket-Status" [ref=f12e63] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f12e64]:
+              - link "Workflow" [ref=f12e65] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f12e66]:
+              - link "Benutzerdefinierte Felder" [ref=f12e67] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f12e68]:
+              - link "Aufzählungen" [ref=f12e69] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f12e70]:
+              - link "Konfiguration" [ref=f12e71] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f12e72]:
+              - link "LDAP-Authentifizierung" [ref=f12e73] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f12e74]:
+              - link "Plugins" [ref=f12e75] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f12e76]:
+              - link "Informationen" [ref=f12e77] [cursor=pointer]:
+                - /url: /admin/info
+        - link "A admin" [ref=f12e79] [cursor=pointer]:
+          - /url: /users/1
+          - generic [ref=f12e80]: A
+          - generic [ref=f12e81]: admin
+      - generic [ref=f12e82]:
+        - heading "Informationen" [level=2] [ref=f12e83]
+        - paragraph [ref=f12e84]:
+          - strong [ref=f12e85]: Redmine 6.0.11.stable
+        - table [ref=f12e86]:
+          - rowgroup [ref=f12e87]:
+            - row [ref=f12e88]:
+              - cell "Administrator-Passwort geändert" [ref=f12e89]
+              - cell [ref=f12e90]
+            - row [ref=f12e93]:
+              - cell "Verzeichnis für Dateien beschreibbar" [ref=f12e94]
+              - cell [ref=f12e95]
+            - row [ref=f12e98]:
+              - cell "Alle Datenbank-Migrationen wurden ausgeführt" [ref=f12e99]
+              - cell [ref=f12e100]
+            - row [ref=f12e103]:
+              - cell "MiniMagick verfügbar (optional)" [ref=f12e104]
+              - cell [ref=f12e105]
+            - row [ref=f12e108]:
+              - cell "ImageMagick-Konvertierung verfügbar (optional)" [ref=f12e109]
+              - cell [ref=f12e110]
+            - row [ref=f12e113]:
+              - cell "ImageMagick PDF-Unterstützung verfügbar (optional)" [ref=f12e114]
+              - cell [ref=f12e115]
+            - row [ref=f12e118]:
+              - cell "Default queue adapter which is well suited only for dev/test changed" [ref=f12e119]
+              - cell [ref=f12e120]
+        - generic [ref=f12e123]: "Environment: Redmine version 6.0.11.stable Ruby version 3.3.12-p206 (2026-07-16) [x86_64-linux] Rails version 7.2.3.2 Environment production Database adapter PostgreSQL Mailer queue ActiveJob::QueueAdapters::AsyncAdapter Mailer delivery smtp Redmine settings: Redmine theme Redmineflux_lotus SCM: Subversion 1.14.5 Mercurial 7.0.1 Bazaar 3.3.11 Git 2.47.3 Filesystem Redmine plugins: agile_board 7.0.0 flux_tags 7.0.0 inplace_issue_editor 7.0.0 redmineflux_checklist 7.0.0 redmineflux_daisy 6.2.0 redmineflux_dashboard 7.0.0 redmineflux_gantt_plugin 7.0.0 redmineflux_lotus 7.0.0 redmineflux_scarlet 1.0.0"
+    - generic [ref=f12e125]:
+      - text: Powered by
+      - link "Redmine" [ref=f12e126] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f12e127]
+  - log [ref=f12e128]
+  - log [ref=f12e129]
+  - log [ref=f12e130]
+  - log [ref=f12e131]
+  - log [ref=f12e132]
+  - log [ref=f12e133]
+  - log [ref=f12e134]
+  - log [ref=f12e135]
+  - log [ref=f12e136]
+  - log [ref=f12e137]

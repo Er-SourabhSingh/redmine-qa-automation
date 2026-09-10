@@ -1,0 +1,226 @@
+- generic [ref=f57e1]:
+  - generic [ref=f57e2]:
+    - generic [ref=f57e3]:
+      - generic [ref=f57e4]:
+        - list:
+          - listitem [ref=f57e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f57e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f57e7]:
+        - text: Logged in as
+        - link "admin" [ref=f57e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f57e9]:
+        - listitem [ref=f57e10]:
+          - link [ref=f57e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f57e12]
+        - listitem [ref=f57e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f57e14]:
+          - link "My page" [ref=f57e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f57e16]:
+          - link "Projects" [ref=f57e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f57e18]:
+          - link "Flux Gantt" [ref=f57e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f57e20]:
+          - link "Helpdesk Command Center" [ref=f57e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f57e22]:
+          - link "Time Tracker" [ref=f57e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f57e24]:
+          - link "Timesheet" [ref=f57e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f57e26]:
+          - link "Workloads" [ref=f57e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f57e28]:
+          - link "More" [ref=f57e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f57e30]:
+      - generic [ref=f57e31]:
+        - generic [ref=f57e32]:
+          - generic [ref=f57e33]:
+            - link "Search..." [ref=f57e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f57e35]
+        - generic [ref=f57e36]:
+          - generic [ref=f57e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f57e38]
+    - generic [ref=f57e39]:
+      - list [ref=f57e43]:
+        - listitem [ref=f57e44]:
+          - link "Helpdesk Dashboard" [ref=f57e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f57e48]:
+          - link "Helpdesk Tickets" [ref=f57e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f57e52]:
+          - link "Reports" [ref=f57e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f57e56]:
+          - link "Organization" [ref=f57e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f57e60]:
+          - link "Customers" [ref=f57e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f57e64]:
+          - link "Products" [ref=f57e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f57e68]:
+          - link "Helpdesk Settings" [ref=f57e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f57e72]:
+        - 'heading "Edit Customer: Delta Customer" [level=2] [ref=f57e73]'
+        - generic [ref=f57e74]:
+          - generic [ref=f57e75]:
+            - paragraph [ref=f57e76]:
+              - generic [ref=f57e77]: Login *
+              - textbox "Login *" [ref=f57e78]: delta.customer
+            - paragraph [ref=f57e79]:
+              - generic [ref=f57e80]: First name *
+              - textbox "First name *" [ref=f57e81]: Delta
+            - paragraph [ref=f57e82]:
+              - generic [ref=f57e83]: Last name *
+              - textbox "Last name *" [ref=f57e84]: Customer
+            - paragraph [ref=f57e85]:
+              - generic [ref=f57e86]: Email *
+              - textbox "Email *" [ref=f57e87]: delta.customer@test.local
+            - generic [ref=f57e88]:
+              - paragraph [ref=f57e89]:
+                - generic [ref=f57e90]: Password *
+                - textbox "Password *" [ref=f57e91]
+                - emphasis [ref=f57e92]: Leave blank to keep the current password
+              - paragraph [ref=f57e93]:
+                - generic [ref=f57e94]: Confirmation *
+                - textbox "Confirmation *" [ref=f57e95]
+            - paragraph [ref=f57e96]:
+              - checkbox "Generate password automatically" [ref=f57e97]
+              - generic [ref=f57e98]: Generate password automatically
+            - paragraph [ref=f57e99]:
+              - checkbox "Send account information to the user" [ref=f57e100]
+              - generic [ref=f57e101]: Send account information to the user
+          - group "Project access" [ref=f57e102]:
+            - paragraph [ref=f57e104]: Projects this customer can raise tickets against, and the SLA, support level and organisation that apply on each. Leave empty to create the account without project access.
+            - generic [ref=f57e105]:
+              - generic [ref=f57e106]:
+                - generic [ref=f57e107]:
+                  - generic [ref=f57e108]: Project
+                  - combobox [ref=f57e109]:
+                    - option "-- Select project --"
+                    - option "Helpdesk QA Alpha" [selected]
+                    - option "Helpdesk QA Beta"
+                - generic [ref=f57e110]:
+                  - generic [ref=f57e111]: SLA Name *
+                  - combobox [ref=f57e112]:
+                    - option "None"
+                    - option "Alpha CRUD Test SLA Full (Required-Only Edit)"
+                    - option "Alpha Escalation Test SLA"
+                    - option "Alpha Holiday-Adjacency Restricted-Days Test SLA"
+                    - option "Alpha Holiday-Skip Test SLA"
+                    - option "Alpha Just-Before-Close Boundary Test SLA"
+                    - option "Alpha Multi-Day Holiday Test SLA"
+                    - option "Alpha Outside-Hours Intraday Test SLA"
+                    - option "Alpha Partial-Consumption Holiday Test SLA"
+                    - option "Alpha Partial-Consumption Weekly-Gap Test SLA"
+                    - option "Alpha Priority SLA"
+                    - option "Alpha Same-Day Baseline Test SLA"
+                    - option "Alpha Standard SLA" [selected]
+                    - option "Alpha Working-Hours-Skip Test SLA"
+                    - option "Description Max Length Test"
+                    - option "dfsgdfs"
+                    - option "File Type DOCX Test"
+                    - option "File Type EXE Test"
+                    - option "File Upload Under 5MB Test"
+                    - option "FRT Test Blank"
+                    - option "Resolution Test Blank"
+                    - option "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
+                    - option "TC-HLP-205 Permission Test SLA"
+                    - option "Working Hours End Before Start Test"
+                - generic [ref=f57e113]:
+                  - generic [ref=f57e114]: Support Level *
+                  - combobox [ref=f57e115]:
+                    - option "None"
+                    - option "Description Max Length Test"
+                    - option "L1"
+                    - option "L2" [selected]
+                    - option "L3"
+                    - option "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
+                    - option "TC-HLP-205 Permission Test Level"
+                - generic [ref=f57e116]:
+                  - generic [ref=f57e117]: Organization Name
+                  - combobox [ref=f57e118]:
+                    - option "None"
+                    - option "<script>alert(1)</script>"
+                    - option "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    - option "Alpha Full-Fields Test Org (All Changed)"
+                    - option "Alpha Minimal Fields Test Org" [selected]
+                    - option "Field Test Org Employees Neg"
+                    - option "Field Test Org Notes Billing Max"
+                    - option "Field Test Org Website Phone"
+                    - option "O'Brien & Sons, Ltd. 日本語テスト Acme123"
+                    - option "TC-HLP-205 Permission Test Org"
+                - button "Delete" [ref=f57e119] [cursor=pointer]
+              - generic [ref=f57e144]:
+                - generic [ref=f57e145]:
+                  - generic [ref=f57e146]: Project
+                  - combobox [active] [ref=f57e147]:
+                    - option "-- Select project --" [selected]
+                    - option "Helpdesk QA Alpha"
+                    - option "Helpdesk QA Beta"
+                - generic [ref=f57e148]:
+                  - generic [ref=f57e149]: SLA Name *
+                  - combobox [ref=f57e150]:
+                    - option "None" [selected]
+                - generic [ref=f57e151]:
+                  - generic [ref=f57e152]: Support Level *
+                  - combobox [ref=f57e153]:
+                    - option "None" [selected]
+                - generic [ref=f57e154]:
+                  - generic [ref=f57e155]: Organization Name
+                  - combobox [ref=f57e156]:
+                    - option "None" [selected]
+                    - option "<script>alert(1)</script>"
+                    - option "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    - option "Alpha Full-Fields Test Org (All Changed)"
+                    - option "Alpha Minimal Fields Test Org"
+                    - option "Field Test Org Employees Neg"
+                    - option "Field Test Org Notes Billing Max"
+                    - option "Field Test Org Website Phone"
+                    - option "O'Brien & Sons, Ltd. 日本語テスト Acme123"
+                    - option "TC-HLP-205 Permission Test Org"
+                - button "Delete" [ref=f57e157] [cursor=pointer]
+            - paragraph [ref=f57e123]:
+              - button "Add project" [ref=f57e124] [cursor=pointer]
+          - paragraph [ref=f57e126]:
+            - button "Save" [ref=f57e127] [cursor=pointer]
+            - link "Cancel" [ref=f57e128] [cursor=pointer]:
+              - /url: /rf_helpdesk/customers
+    - generic [ref=f57e129]:
+      - text: Powered by
+      - link "Redmine" [ref=f57e130] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f57e131]
+  - log [ref=f57e132]
+  - log [ref=f57e133]
+  - log [ref=f57e134]
+  - log [ref=f57e135]
+  - log [ref=f57e136]
+  - log [ref=f57e137]
+  - log [ref=f57e138]
+  - log [ref=f57e139]
+  - log [ref=f57e140]
+  - log [ref=f57e141]
+  - log [ref=f57e142]
+  - log [ref=f57e143]

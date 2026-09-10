@@ -1,0 +1,76 @@
+- generic [active] [ref=f520e1]:
+  - generic [ref=f520e2]:
+    - generic [ref=f520e3]:
+      - generic [ref=f520e4]:
+        - list:
+          - listitem [ref=f520e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f520e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f520e7]:
+        - text: Logged in as
+        - link "admin" [ref=f520e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f520e9]:
+        - listitem [ref=f520e10]:
+          - link [ref=f520e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f520e12]
+        - listitem [ref=f520e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f520e14]:
+          - link "My page" [ref=f520e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f520e16]:
+          - link "Projects" [ref=f520e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f520e18]:
+          - link "Flux Gantt" [ref=f520e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f520e20]:
+          - link "Helpdesk Command Center" [ref=f520e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f520e22]:
+          - link "Time Tracker" [ref=f520e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f520e24]:
+          - link "Timesheet" [ref=f520e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f520e26]:
+          - link "Workloads" [ref=f520e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f520e28]:
+          - link "More" [ref=f520e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f520e30]:
+      - generic [ref=f520e31]:
+        - generic [ref=f520e32]:
+          - generic [ref=f520e33]:
+            - link "Search..." [ref=f520e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f520e35]
+        - generic [ref=f520e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f520e38]
+    - generic [ref=f520e40]:
+      - generic [ref=f520e41]:
+        - img "Home" [ref=f520e43]
+        - generic [ref=f520e44]:
+          - heading "Welcome admin" [level=2] [ref=f520e45]
+          - paragraph [ref=f520e46]: Redmineflux Project Management System
+      - heading "Home" [level=2] [ref=f520e47]
+      - generic [ref=f520e50]:
+        - paragraph [ref=f520e51]: Welcome to Redmine, an open-source, flexible project management software.
+        - paragraph [ref=f520e52]: "Note: You can modify this message in the \"Welcome text\" setting (Administration > Settings > General)."
+    - generic [ref=f520e53]:
+      - text: Powered by
+      - link "Redmine" [ref=f520e54] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f520e55]
+  - log [ref=f520e56]
+  - log [ref=f520e57]
+  - log [ref=f520e58]

@@ -1,0 +1,184 @@
+- generic [ref=f292e1]:
+  - generic [ref=f292e2]:
+    - generic [ref=f292e3]:
+      - generic [ref=f292e4]:
+        - list:
+          - listitem [ref=f292e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f292e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f292e7]:
+        - text: Logged in as
+        - link "admin" [ref=f292e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f292e9]:
+        - listitem [ref=f292e10]:
+          - link [ref=f292e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f292e12]
+        - listitem [ref=f292e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f292e14]:
+          - link "My page" [ref=f292e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f292e16]:
+          - link "Projects" [ref=f292e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f292e18]:
+          - link "Flux Gantt" [ref=f292e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f292e20]:
+          - link "Helpdesk Command Center" [ref=f292e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f292e22]:
+          - link "Time Tracker" [ref=f292e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f292e24]:
+          - link "Timesheet" [ref=f292e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f292e26]:
+          - link "Workloads" [ref=f292e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f292e28]:
+          - link "More" [ref=f292e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f292e30]:
+      - generic [ref=f292e31]:
+        - generic [ref=f292e32]:
+          - generic [ref=f292e33]:
+            - link "Search..." [ref=f292e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f292e35]
+        - generic [ref=f292e36]:
+          - generic [ref=f292e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f292e38]
+    - generic [ref=f292e39]:
+      - list [ref=f292e43]:
+        - listitem [ref=f292e44]:
+          - link "Helpdesk Dashboard" [ref=f292e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f292e48]:
+          - link "Helpdesk Tickets" [ref=f292e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f292e52]:
+          - link "Reports" [ref=f292e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f292e56]:
+          - link "Organization" [ref=f292e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f292e60]:
+          - link "Customers" [ref=f292e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f292e64]:
+          - link "Products" [ref=f292e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f292e68]:
+          - link "Helpdesk Settings" [ref=f292e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f292e72]:
+        - generic [ref=f292e73]: Successful update
+        - generic [ref=f292e74]:
+          - generic [ref=f292e76]:
+            - heading "Customers" [level=2] [ref=f292e77]
+            - paragraph [ref=f292e78]: People who raise tickets through the helpdesk
+          - link "New Customer" [ref=f292e80] [cursor=pointer]:
+            - /url: /rf_customers/new
+        - generic [ref=f292e83]:
+          - textbox "Search customers..." [active] [ref=f292e85]
+          - generic [ref=f292e86]:
+            - textbox "All Organizations" [ref=f292e87]
+            - combobox "All Organizations":
+              - option "All Organizations" [selected]
+              - option "Alpha Full-Fields Test Org (All Changed)"
+              - option "Alpha Minimal Fields Test Org"
+          - generic [ref=f292e88]:
+            - button "Apply Filters" [ref=f292e89] [cursor=pointer]
+            - link "Clear" [ref=f292e92] [cursor=pointer]:
+              - /url: /rf_customers
+        - table [ref=f292e98]:
+          - rowgroup [ref=f292e99]:
+            - row [ref=f292e100]:
+              - columnheader "S.No" [ref=f292e101]
+              - columnheader "Customer Name" [ref=f292e102]
+              - columnheader "Email" [ref=f292e103]
+              - columnheader "Organization Name" [ref=f292e104]
+              - columnheader "Support Level" [ref=f292e105]
+              - columnheader "Projects" [ref=f292e106]
+              - columnheader "Open" [ref=f292e107]
+              - columnheader "Last Login" [ref=f292e108]
+              - columnheader "Action" [ref=f292e109]
+          - rowgroup [ref=f292e110]:
+            - row [ref=f292e111]:
+              - cell "1" [ref=f292e112]
+              - cell "AlphaV2 Customer-AllChanged alpha.customer.v2" [ref=f292e113]:
+                - link "AlphaV2 Customer-AllChanged" [ref=f292e114] [cursor=pointer]:
+                  - /url: /rf_customers/6
+                - generic [ref=f292e115]: alpha.customer.v2
+              - cell [ref=f292e116]:
+                - link "alpha.customer.v2@test.local" [ref=f292e117] [cursor=pointer]:
+                  - /url: mailto:alpha.customer.v2@test.local
+              - cell "Alpha Full-Fields Test Org (All Changed)" [ref=f292e118]
+              - cell "AB-L1" [ref=f292e119]
+              - cell "1" [ref=f292e122]
+              - cell "10" [ref=f292e123]
+              - cell "09/02/2026 06:19 AM" [ref=f292e124]
+              - cell [ref=f292e125]:
+                - generic [ref=f292e126]:
+                  - link "Customer details" [ref=f292e127] [cursor=pointer]:
+                    - /url: /rf_customers/6
+                  - link "Edit" [ref=f292e131] [cursor=pointer]:
+                    - /url: /rf_customers/6/edit
+                  - link "Delete" [ref=f292e134] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f292e138]:
+              - cell "2" [ref=f292e139]
+              - cell "Retest Customer1 retest.customer1" [ref=f292e140]:
+                - link "Retest Customer1" [ref=f292e141] [cursor=pointer]:
+                  - /url: /rf_customers/7
+                - generic [ref=f292e142]: retest.customer1
+              - cell [ref=f292e143]:
+                - link "retest.customer1@test.local" [ref=f292e144] [cursor=pointer]:
+                  - /url: mailto:retest.customer1@test.local
+              - cell "—" [ref=f292e145]
+              - cell "L2" [ref=f292e146]
+              - cell "1" [ref=f292e149]
+              - cell "17" [ref=f292e150]
+              - cell "09/02/2026 05:05 AM" [ref=f292e151]
+              - cell [ref=f292e152]:
+                - generic [ref=f292e153]:
+                  - link "Customer details" [ref=f292e154] [cursor=pointer]:
+                    - /url: /rf_customers/7
+                  - link "Edit" [ref=f292e158] [cursor=pointer]:
+                    - /url: /rf_customers/7/edit
+                  - link "Delete" [ref=f292e161] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f292e165]:
+          - list
+          - generic [ref=f292e166]: (1-2/2)
+    - generic [ref=f292e167]:
+      - text: Powered by
+      - link "Redmine" [ref=f292e168] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f292e169]
+  - log [ref=f292e170]
+  - log [ref=f292e171]
+  - log [ref=f292e172]
+  - log [ref=f292e173]
+  - log [ref=f292e174]
+  - log [ref=f292e175]
+  - log [ref=f292e176]
+  - log [ref=f292e177]
+  - log [ref=f292e178]
+  - log [ref=f292e179]
+  - log [ref=f292e180]
+  - log [ref=f292e181]
+  - log [ref=f292e182]
+  - log [ref=f292e183]
+  - log [ref=f292e184]
+  - log [ref=f292e185]

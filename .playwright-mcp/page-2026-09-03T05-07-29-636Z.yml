@@ -1,0 +1,173 @@
+- generic [ref=f245e1]:
+  - generic [ref=f245e2]:
+    - generic [ref=f245e3]:
+      - generic [ref=f245e4]:
+        - list:
+          - listitem [ref=f245e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f245e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f245e7]:
+        - text: Logged in as
+        - link "admin" [ref=f245e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f245e9]:
+        - listitem [ref=f245e10]:
+          - link [ref=f245e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f245e12]
+        - listitem [ref=f245e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f245e14]:
+          - link "My page" [ref=f245e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f245e16]:
+          - link "Projects" [ref=f245e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f245e18]:
+          - link "Flux Gantt" [ref=f245e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f245e20]:
+          - link "Helpdesk Command Center" [ref=f245e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f245e22]:
+          - link "Time Tracker" [ref=f245e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f245e24]:
+          - link "Timesheet" [ref=f245e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f245e26]:
+          - link "Workloads" [ref=f245e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f245e28]:
+          - link "More" [ref=f245e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f245e30]:
+      - generic [ref=f245e31]:
+        - generic [ref=f245e32]:
+          - generic [ref=f245e33]:
+            - link "Search..." [ref=f245e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f245e35]
+        - generic [ref=f245e36]:
+          - generic [ref=f245e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f245e38]
+    - generic [ref=f245e39]:
+      - list [ref=f245e43]:
+        - listitem [ref=f245e44]:
+          - link "Helpdesk Dashboard" [ref=f245e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f245e48]:
+          - link "Helpdesk Tickets" [ref=f245e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f245e52]:
+          - link "Reports" [ref=f245e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f245e56]:
+          - link "Organization" [ref=f245e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f245e60]:
+          - link "Customers" [ref=f245e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f245e64]:
+          - link "Products" [ref=f245e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f245e68]:
+          - link "Helpdesk Settings" [ref=f245e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f245e72]:
+        - generic [ref=f245e73]: Successful creation.
+        - generic [ref=f245e74]:
+          - generic [ref=f245e76]:
+            - heading "Products" [level=2] [ref=f245e77]
+            - paragraph [ref=f245e78]: Products your customers raise tickets against
+          - link "New Product" [ref=f245e80] [cursor=pointer]:
+            - /url: /rf_products/new
+        - generic [ref=f245e83]:
+          - textbox "Search products..." [active] [ref=f245e85]
+          - combobox "All Projects" [ref=f245e86] [cursor=pointer]:
+            - option "All Projects" [selected]
+            - option "Helpdesk QA Alpha"
+            - option "Helpdesk QA Beta"
+          - combobox "All Statuses" [ref=f245e87] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f245e88]:
+            - button "Apply Filters" [ref=f245e89] [cursor=pointer]
+            - link "Clear" [ref=f245e92] [cursor=pointer]:
+              - /url: /rf_products
+        - table [ref=f245e98]:
+          - rowgroup [ref=f245e99]:
+            - row [ref=f245e100]:
+              - columnheader "S.No" [ref=f245e101]
+              - columnheader "Project" [ref=f245e102]
+              - columnheader "Product Name" [ref=f245e103]
+              - columnheader "Product Code" [ref=f245e104]
+              - columnheader "Category" [ref=f245e105]
+              - columnheader "Active" [ref=f245e106]
+              - columnheader "Action" [ref=f245e107]
+          - rowgroup [ref=f245e108]:
+            - row [ref=f245e109]:
+              - cell "1" [ref=f245e110]
+              - cell "Helpdesk QA Alpha" [ref=f245e111]
+              - cell [ref=f245e112]:
+                - link "Nav Test Product" [ref=f245e113] [cursor=pointer]:
+                  - /url: /rf_products/1
+              - cell "NAVTEST" [ref=f245e114]
+              - cell [ref=f245e115]
+              - cell [ref=f245e116]:
+                - checkbox "Active" [checked] [ref=f245e117]
+              - cell [ref=f245e118]:
+                - generic [ref=f245e119]:
+                  - link "Edit" [ref=f245e120] [cursor=pointer]:
+                    - /url: /rf_products/1/edit
+                  - link "Delete" [ref=f245e123] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f245e127]:
+              - cell "2" [ref=f245e128]
+              - cell "Helpdesk QA Alpha" [ref=f245e129]
+              - cell [ref=f245e130]:
+                - link "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN" [ref=f245e131] [cursor=pointer]:
+                  - /url: /rf_products/2
+              - cell "CODE255TEST" [ref=f245e132]
+              - cell [ref=f245e133]
+              - cell [ref=f245e134]:
+                - checkbox "Active" [checked] [ref=f245e135]
+              - cell [ref=f245e136]:
+                - generic [ref=f245e137]:
+                  - link "Edit" [ref=f245e138] [cursor=pointer]:
+                    - /url: /rf_products/2/edit
+                  - link "Delete" [ref=f245e141] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f245e145]:
+          - list
+          - generic [ref=f245e146]: (1-2/2)
+    - generic [ref=f245e147]:
+      - text: Powered by
+      - link "Redmine" [ref=f245e148] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f245e149]
+  - log [ref=f245e150]
+  - log [ref=f245e151]
+  - log [ref=f245e152]
+  - log [ref=f245e153]
+  - log [ref=f245e154]
+  - log [ref=f245e155]
+  - log [ref=f245e156]
+  - log [ref=f245e157]
+  - log [ref=f245e158]
+  - log [ref=f245e159]
+  - log [ref=f245e160]
+  - log [ref=f245e161]
+  - log [ref=f245e162]
+  - log [ref=f245e163]
+  - log [ref=f245e164]
+  - log [ref=f245e165]
+  - log [ref=f245e166]

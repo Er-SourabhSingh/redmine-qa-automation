@@ -1,0 +1,408 @@
+- generic [active] [ref=f219e1]:
+  - generic [ref=f219e2]:
+    - generic [ref=f219e3]:
+      - generic [ref=f219e4]:
+        - list:
+          - listitem [ref=f219e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f219e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f219e7]:
+        - text: Logged in as
+        - link "admin" [ref=f219e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f219e9]:
+        - listitem [ref=f219e10]:
+          - link [ref=f219e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f219e12]
+        - listitem [ref=f219e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f219e14]:
+          - link "My page" [ref=f219e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f219e16]:
+          - link "Projects" [ref=f219e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f219e18]:
+          - link "Flux Gantt" [ref=f219e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f219e20]:
+          - link "Helpdesk Command Center" [ref=f219e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f219e22]:
+          - link "Time Tracker" [ref=f219e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f219e24]:
+          - link "Timesheet" [ref=f219e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f219e26]:
+          - link "Workloads" [ref=f219e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f219e28]:
+          - link "More" [ref=f219e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f219e30]:
+      - generic [ref=f219e31]:
+        - generic [ref=f219e32]:
+          - generic [ref=f219e33]:
+            - link "Search..." [ref=f219e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f219e35]
+        - generic [ref=f219e36]:
+          - generic [ref=f219e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f219e38]
+    - generic [ref=f219e39]:
+      - list [ref=f219e43]:
+        - listitem [ref=f219e44]:
+          - link "Helpdesk Dashboard" [ref=f219e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f219e48]:
+          - link "Helpdesk Tickets" [ref=f219e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f219e52]:
+          - link "Reports" [ref=f219e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f219e56]:
+          - link "Organization" [ref=f219e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f219e60]:
+          - link "Customers" [ref=f219e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f219e64]:
+          - link "Products" [ref=f219e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f219e68]:
+          - link "Helpdesk Settings" [ref=f219e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f219e72]:
+        - generic [ref=f219e73]: Prepaid support hours for 'Alpha Minimal Fields Test Org' have been updated.
+        - generic [ref=f219e74]:
+          - heading "Alpha Minimal Fields Test Org Active" [level=2] [ref=f219e77]:
+            - text: Alpha Minimal Fields Test Org
+            - generic [ref=f219e78]: Active
+          - link "Edit" [ref=f219e81] [cursor=pointer]:
+            - /url: /rf_organizations/8/edit
+        - navigation "Alpha Minimal Fields Test Org" [ref=f219e84]:
+          - link "Overview" [ref=f219e85] [cursor=pointer]:
+            - /url: /rf_organizations/8?tab=overview
+          - link "Prepaid Support Hours" [ref=f219e90] [cursor=pointer]:
+            - /url: /rf_organizations/8?tab=prepaid_support_hours
+        - generic [ref=f219e95]:
+          - generic [ref=f219e96]:
+            - generic [ref=f219e97]: 15.67h
+            - generic [ref=f219e98]: Approved
+          - generic [ref=f219e99]:
+            - generic [ref=f219e100]: 14.67h
+            - generic [ref=f219e101]: Used
+          - generic [ref=f219e102]:
+            - generic [ref=f219e103]: 1.00h
+            - generic [ref=f219e104]: Remaining
+        - generic [ref=f219e105]:
+          - generic [ref=f219e106]:
+            - heading "Budget by project" [level=3] [ref=f219e107]
+            - link "Add / top up hours" [ref=f219e108] [cursor=pointer]:
+              - /url: "#"
+          - table [ref=f219e110]:
+            - rowgroup [ref=f219e111]:
+              - row [ref=f219e112]:
+                - columnheader "Project" [ref=f219e113]
+                - columnheader "Approved" [ref=f219e114]
+                - columnheader "Used" [ref=f219e115]
+                - columnheader "Remaining" [ref=f219e116]
+                - columnheader "Usage" [ref=f219e117]
+                - columnheader "When hours run out" [ref=f219e118]
+                - columnheader "Last change" [ref=f219e119]
+                - columnheader "Action" [ref=f219e120]
+            - rowgroup [ref=f219e121]:
+              - row [ref=f219e122]:
+                - cell [ref=f219e123]:
+                  - link "Helpdesk QA Alpha" [ref=f219e124] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "13.67h" [ref=f219e125]
+                - cell "14.67h" [ref=f219e126]
+                - cell "-1.00h" [ref=f219e127]
+                - cell "100% Used 100%" [ref=f219e128]:
+                  - generic [ref=f219e129]:
+                    - img "100% Used" [ref=f219e130]
+                    - generic [ref=f219e132]: 100%
+                - cell [ref=f219e133]:
+                  - combobox "When hours run out" [ref=f219e135] [cursor=pointer]:
+                    - option "No limit"
+                    - option "Hard — stop work" [selected]
+                    - option "Soft — allow overage"
+                - cell "09/09/2026" [ref=f219e136]
+                - cell [ref=f219e137]:
+                  - link "Ledger" [ref=f219e138] [cursor=pointer]:
+                    - /url: /rf_organizations/8?ledger_project_id=1&tab=prepaid_support_hours
+              - row [ref=f219e140]:
+                - cell [ref=f219e141]:
+                  - link "Helpdesk QA Beta" [ref=f219e142] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-beta/helpdesk
+                - cell "2.00h" [ref=f219e143]
+                - cell "0.00h" [ref=f219e144]
+                - cell "2.00h" [ref=f219e145]
+                - cell "0% Used 0%" [ref=f219e146]:
+                  - generic [ref=f219e147]:
+                    - img "0% Used" [ref=f219e148]
+                    - generic [ref=f219e149]: 0%
+                - cell [ref=f219e150]:
+                  - combobox "When hours run out" [ref=f219e152] [cursor=pointer]:
+                    - option "No limit"
+                    - option "Hard — stop work" [selected]
+                    - option "Soft — allow overage"
+                - cell "09/07/2026" [ref=f219e153]
+                - cell [ref=f219e154]:
+                  - link "Ledger" [ref=f219e155] [cursor=pointer]:
+                    - /url: /rf_organizations/8?ledger_project_id=2&tab=prepaid_support_hours
+        - generic [ref=f219e157]:
+          - generic [ref=f219e158]:
+            - heading "Budget change history" [level=3] [ref=f219e159]
+            - generic [ref=f219e160]: "30"
+          - table [ref=f219e161]:
+            - rowgroup [ref=f219e162]:
+              - row [ref=f219e163]:
+                - columnheader "S.No" [ref=f219e164]
+                - columnheader "Updated" [ref=f219e165]
+                - columnheader "Project" [ref=f219e166]
+                - columnheader "Change" [ref=f219e167]
+                - columnheader "Support Package" [ref=f219e168]
+                - columnheader "Comment" [ref=f219e169]
+                - columnheader "Approved By" [ref=f219e170]
+            - rowgroup [ref=f219e171]:
+              - row [ref=f219e172]:
+                - cell "1" [ref=f219e173]
+                - cell "09/09/2026 10:20 AM" [ref=f219e174]
+                - cell [ref=f219e175]:
+                  - link "Helpdesk QA Alpha" [ref=f219e176] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "14.67h → 13.67h" [ref=f219e177]
+                - cell "None" [ref=f219e178]
+                - cell "TC-HLP-413 correction - first attempt at \"exactly 0.00h\" left a tiny floating-point-residue positive balance (0.0033h) that did not trigger Hard-mode blocking; pushing firmly negative for a clean, unambiguous test" [ref=f219e179]
+                - cell "Redmine Admin" [ref=f219e180]:
+                  - img [ref=f219e181]: RA
+                  - text: Redmine Admin
+              - row [ref=f219e182]:
+                - cell "2" [ref=f219e183]
+                - cell "09/09/2026 10:17 AM" [ref=f219e184]
+                - cell [ref=f219e185]:
+                  - link "Helpdesk QA Alpha" [ref=f219e186] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "21.67h → 14.67h" [ref=f219e187]
+                - cell "None" [ref=f219e188]
+                - cell "TC-HLP-413 setup - reduce Alpha to exactly 0.00h remaining to test email channel under Hard-mode exhaustion" [ref=f219e189]
+                - cell "Redmine Admin" [ref=f219e190]:
+                  - img [ref=f219e191]: RA
+                  - text: Redmine Admin
+              - row [ref=f219e192]:
+                - cell "3" [ref=f219e193]
+                - cell "09/09/2026 08:45 AM" [ref=f219e194]
+                - cell [ref=f219e195]:
+                  - link "Helpdesk QA Alpha" [ref=f219e196] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "11.67h → 21.67h" [ref=f219e197]
+                - cell "None" [ref=f219e198]
+                - cell "TC-HLP-402 setup - top up Alpha temporarily so a misrouted ticket isn't confounded by a prepaid-hours block" [ref=f219e199]
+                - cell "Redmine Admin" [ref=f219e200]:
+                  - img [ref=f219e201]: RA
+                  - text: Redmine Admin
+              - row [ref=f219e202]:
+                - cell "4" [ref=f219e203]
+                - cell "09/07/2026 08:06 AM" [ref=f219e204]
+                - cell [ref=f219e205]:
+                  - link "Helpdesk QA Alpha" [ref=f219e206] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "6.83h → 11.67h" [ref=f219e207]
+                - cell "None" [ref=f219e208]
+                - cell "TC-HLP-400 setup - top up Alpha to exactly 2h remaining before testing core Log time link under Hard mode" [ref=f219e209]
+                - cell "Redmine Admin" [ref=f219e210]:
+                  - img [ref=f219e211]: RA
+                  - text: Redmine Admin
+              - row [ref=f219e212]:
+                - cell "5" [ref=f219e213]
+                - cell "09/07/2026 07:39 AM" [ref=f219e214]
+                - cell [ref=f219e215]:
+                  - link "Helpdesk QA Alpha" [ref=f219e216] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "15.75h → 6.83h" [ref=f219e217]
+                - cell "None" [ref=f219e218]
+                - cell "TC-HLP-389/390/394 setup - reduce to exactly 2h remaining under Hard mode" [ref=f219e219]
+                - cell "Redmine Admin" [ref=f219e220]:
+                  - img [ref=f219e221]: RA
+                  - text: Redmine Admin
+              - row [ref=f219e222]:
+                - cell "6" [ref=f219e223]
+                - cell "09/07/2026 07:38 AM" [ref=f219e224]
+                - cell [ref=f219e225]:
+                  - link "Helpdesk QA Beta" [ref=f219e226] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-beta/helpdesk
+                - cell "3.00h → 2.00h" [ref=f219e227]
+                - cell "None" [ref=f219e228]
+                - cell "TC-HLP-393 mixed concurrency test - tab 2 (-1h)" [ref=f219e229]
+                - cell "Redmine Admin" [ref=f219e230]:
+                  - img [ref=f219e231]: RA
+                  - text: Redmine Admin
+              - row [ref=f219e232]:
+                - cell "7" [ref=f219e233]
+                - cell "09/07/2026 07:38 AM" [ref=f219e234]
+                - cell [ref=f219e235]:
+                  - link "Helpdesk QA Beta" [ref=f219e236] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-beta/helpdesk
+                - cell "0.00h → 3.00h" [ref=f219e237]
+                - cell "None" [ref=f219e238]
+                - cell "TC-HLP-393 mixed concurrency test - tab 1 (+3h)" [ref=f219e239]
+                - cell "Redmine Admin" [ref=f219e240]:
+                  - img [ref=f219e241]: RA
+                  - text: Redmine Admin
+              - row [ref=f219e242]:
+                - cell "8" [ref=f219e243]
+                - cell "09/07/2026 07:36 AM" [ref=f219e244]
+                - cell [ref=f219e245]:
+                  - link "Helpdesk QA Beta" [ref=f219e246] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-beta/helpdesk
+                - cell "2.00h → 0.00h" [ref=f219e247]
+                - cell "None" [ref=f219e248]
+                - cell "TC-HLP-388 - reduce Beta to exactly 0.00h Approved" [ref=f219e249]
+                - cell "Redmine Admin" [ref=f219e250]:
+                  - img [ref=f219e251]: RA
+                  - text: Redmine Admin
+              - row [ref=f219e252]:
+                - cell "9" [ref=f219e253]
+                - cell "09/07/2026 07:36 AM" [ref=f219e254]
+                - cell [ref=f219e255]:
+                  - link "Helpdesk QA Beta" [ref=f219e256] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-beta/helpdesk
+                - cell "0.00h → 2.00h" [ref=f219e257]
+                - cell "None" [ref=f219e258]
+                - cell "TC-HLP-388 setup - top up Beta to 2h before reducing to exactly 0" [ref=f219e259]
+                - cell "Redmine Admin" [ref=f219e260]:
+                  - img [ref=f219e261]: RA
+                  - text: Redmine Admin
+              - row [ref=f219e262]:
+                - cell "10" [ref=f219e263]
+                - cell "09/07/2026 06:48 AM" [ref=f219e264]
+                - cell [ref=f219e265]:
+                  - link "Helpdesk QA Alpha" [ref=f219e266] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "14.75h → 15.75h" [ref=f219e267]
+                - cell "None" [ref=f219e268]
+                - cell "TC-HLP-206 positive-case retest - manage_helpdesk+manage_prepaid_support_hours top-up" [ref=f219e269]
+                - cell "Perm TestAgent" [ref=f219e270]:
+                  - img [ref=f219e271]: PT
+                  - text: Perm TestAgent
+              - row [ref=f219e272]:
+                - cell "11" [ref=f219e273]
+                - cell "09/07/2026 05:26 AM" [ref=f219e274]
+                - cell [ref=f219e275]:
+                  - link "Helpdesk QA Alpha" [ref=f219e276] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "9.75h → 14.75h" [ref=f219e277]
+                - cell "None" [ref=f219e278]
+                - cell "TC-HLP-387 concurrency test - tab 2 (+5h)" [ref=f219e279]
+                - cell "Redmine Admin" [ref=f219e280]:
+                  - img [ref=f219e281]: RA
+                  - text: Redmine Admin
+              - row [ref=f219e282]:
+                - cell "12" [ref=f219e283]
+                - cell "09/07/2026 05:26 AM" [ref=f219e284]
+                - cell [ref=f219e285]:
+                  - link "Helpdesk QA Alpha" [ref=f219e286] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "6.75h → 9.75h" [ref=f219e287]
+                - cell "None" [ref=f219e288]
+                - cell "TC-HLP-387 concurrency test - tab 1 (+3h)" [ref=f219e289]
+                - cell "Redmine Admin" [ref=f219e290]:
+                  - img [ref=f219e291]: RA
+                  - text: Redmine Admin
+              - row [ref=f219e292]:
+                - cell "13" [ref=f219e293]
+                - cell "09/07/2026 05:18 AM" [ref=f219e294]
+                - cell [ref=f219e295]:
+                  - link "Helpdesk QA Alpha" [ref=f219e296] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "3.75h → 6.75h" [ref=f219e297]
+                - cell "None" [ref=f219e298]
+                - cell "TC-HLP-384 No Limit mode with positive remaining setup" [ref=f219e299]
+                - cell "Redmine Admin" [ref=f219e300]:
+                  - img [ref=f219e301]: RA
+                  - text: Redmine Admin
+              - row [ref=f219e302]:
+                - cell "14" [ref=f219e303]
+                - cell "09/03/2026 01:41 PM" [ref=f219e304]
+                - cell [ref=f219e305]:
+                  - link "Helpdesk QA Alpha" [ref=f219e306] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "1.75h → 3.75h" [ref=f219e307]
+                - cell "None" [ref=f219e308]
+                - cell "TC-HLP-383 Soft mode crossing-boundary setup - top up to 1h remaining" [ref=f219e309]
+                - cell "Redmine Admin" [ref=f219e310]:
+                  - img [ref=f219e311]: RA
+                  - text: Redmine Admin
+              - row [ref=f219e312]:
+                - cell "15" [ref=f219e313]
+                - cell "09/03/2026 01:35 PM" [ref=f219e314]
+                - cell [ref=f219e315]:
+                  - link "Helpdesk QA Alpha" [ref=f219e316] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "0.75h → 1.75h" [ref=f219e317]
+                - cell "None" [ref=f219e318]
+                - cell "TC-HLP-382 crossing-boundary setup - top up to 1h remaining" [ref=f219e319]
+                - cell "Redmine Admin" [ref=f219e320]:
+                  - img [ref=f219e321]: RA
+                  - text: Redmine Admin
+          - generic [ref=f219e322]:
+            - list [ref=f219e323]:
+              - listitem [ref=f219e324]:
+                - generic [ref=f219e325]: « « Previous
+              - listitem [ref=f219e326]:
+                - generic [ref=f219e327]: "1"
+              - listitem [ref=f219e328]:
+                - link "2" [ref=f219e329] [cursor=pointer]:
+                  - /url: /rf_organizations/8?budget_history_page=2&tab=prepaid_support_hours
+              - listitem [ref=f219e330]:
+                - link "Next » »" [ref=f219e331] [cursor=pointer]:
+                  - /url: /rf_organizations/8?budget_history_page=2&tab=prepaid_support_hours
+            - generic [ref=f219e332]: (1-15/30)
+        - text: "* * *"
+        - paragraph [ref=f219e333]:
+          - link "Organization List" [ref=f219e334] [cursor=pointer]:
+            - /url: /rf_organizations
+    - generic [ref=f219e335]:
+      - text: Powered by
+      - link "Redmine" [ref=f219e336] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f219e337]
+  - log [ref=f219e338]
+  - log [ref=f219e339]
+  - log [ref=f219e340]
+  - log [ref=f219e341]
+  - log [ref=f219e342]
+  - log [ref=f219e343]
+  - log [ref=f219e344]
+  - log [ref=f219e345]
+  - log [ref=f219e346]
+  - log [ref=f219e347]
+  - log [ref=f219e348]
+  - log [ref=f219e349]
+  - log [ref=f219e350]
+  - log [ref=f219e351]
+  - log [ref=f219e352]
+  - log [ref=f219e353]
+  - log [ref=f219e354]
+  - log [ref=f219e355]
+  - log [ref=f219e356]
+  - log [ref=f219e357]
+  - log [ref=f219e358]
+  - log [ref=f219e359]
+  - log [ref=f219e360]
+  - log [ref=f219e361]
+  - log [ref=f219e362]
+  - log [ref=f219e363]
+  - log [ref=f219e364]
+  - log [ref=f219e365]

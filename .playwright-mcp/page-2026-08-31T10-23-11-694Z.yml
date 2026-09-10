@@ -1,0 +1,191 @@
+- generic [ref=f525e1]:
+  - generic [ref=f525e2]:
+    - generic [ref=f525e3]:
+      - generic [ref=f525e4]:
+        - list:
+          - listitem [ref=f525e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f525e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f525e7]:
+        - text: Logged in as
+        - link "admin" [ref=f525e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f525e9]:
+        - listitem [ref=f525e10]:
+          - link [ref=f525e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f525e12]
+        - listitem [ref=f525e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f525e14]:
+          - link "My page" [ref=f525e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f525e16]:
+          - link "Projects" [ref=f525e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f525e18]:
+          - link "Flux Gantt" [ref=f525e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f525e20]:
+          - link "Helpdesk Command Center" [ref=f525e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f525e22]:
+          - link "Time Tracker" [ref=f525e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f525e24]:
+          - link "Timesheet" [ref=f525e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f525e26]:
+          - link "Workloads" [ref=f525e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f525e28]:
+          - link "More" [ref=f525e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f525e30]:
+      - generic [ref=f525e31]:
+        - generic [ref=f525e32]:
+          - generic [ref=f525e33]:
+            - link "Search..." [ref=f525e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f525e35]
+        - generic [ref=f525e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f525e38]
+    - generic [ref=f525e39]:
+      - generic [ref=f525e40]:
+        - link [ref=f525e42] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f525e45]:
+          - heading "Administration" [level=3] [ref=f525e46]
+          - list [ref=f525e48]:
+            - listitem [ref=f525e49]:
+              - link "Projects" [ref=f525e50] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f525e52]:
+              - link "Users" [ref=f525e53] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f525e55]:
+              - link "Groups" [ref=f525e56] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f525e58]:
+              - link "Roles and permissions" [ref=f525e59] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f525e61]:
+              - link "Trackers" [ref=f525e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f525e64]:
+              - link "Issue statuses" [ref=f525e65] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f525e67]:
+              - link "Workflow" [ref=f525e68] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f525e70]:
+              - link "Custom fields" [ref=f525e71] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f525e73]:
+              - link "Enumerations" [ref=f525e74] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f525e76]:
+              - link "Settings" [ref=f525e77] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f525e79]:
+              - link "LDAP authentication" [ref=f525e80] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f525e82]:
+              - link "Plugins" [ref=f525e83] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f525e85]:
+              - link "Information" [ref=f525e86] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f525e88]:
+        - generic [ref=f525e89]:
+          - link "Profile" [ref=f525e90] [cursor=pointer]:
+            - /url: /users/9
+          - link "Emails" [ref=f525e92] [cursor=pointer]:
+            - /url: /users/9/email_addresses
+          - link "Lock" [ref=f525e94] [cursor=pointer]:
+            - /url: /users/9?user%5Bstatus%5D=3
+          - link "Delete" [ref=f525e96] [cursor=pointer]:
+            - /url: /users/9
+        - heading [level=2] [ref=f525e98]:
+          - link "Users" [ref=f525e99] [cursor=pointer]:
+            - /url: /users
+          - text: »
+          - img [ref=f525e100]: NP
+          - text: no.perm.reporter
+        - list [ref=f525e102]:
+          - listitem [ref=f525e103]:
+            - link "General" [ref=f525e104] [cursor=pointer]:
+              - /url: /users/9/edit?tab=general
+          - listitem [ref=f525e105]:
+            - link "Projects" [ref=f525e106] [cursor=pointer]:
+              - /url: /users/9/edit?tab=memberships
+        - generic [ref=f525e107]:
+          - paragraph [ref=f525e108]:
+            - link "Add projects" [ref=f525e109] [cursor=pointer]:
+              - /url: /users/9/memberships/new
+          - table [ref=f525e111]:
+            - rowgroup [ref=f525e112]:
+              - row [ref=f525e113]:
+                - columnheader "Project" [ref=f525e114]
+                - columnheader "Roles" [ref=f525e115]
+                - columnheader [ref=f525e116]
+            - rowgroup [ref=f525e117]:
+              - row [ref=f525e148]:
+                - cell [ref=f525e119]:
+                  - link "Helpdesk QA Alpha" [ref=f525e120] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell [ref=f525e149]:
+                  - generic [ref=f525e151]:
+                    - paragraph [ref=f525e152]:
+                      - generic [ref=f525e153]:
+                        - checkbox "Manager" [ref=f525e154]
+                        - text: Manager
+                      - generic [ref=f525e155]:
+                        - checkbox "Developer" [ref=f525e156]
+                        - text: Developer
+                      - generic [ref=f525e157]:
+                        - checkbox "Reporter" [ref=f525e158]
+                        - text: Reporter
+                      - generic [ref=f525e159]:
+                        - checkbox "Agent" [ref=f525e160]
+                        - text: Agent
+                      - generic [ref=f525e161]:
+                        - checkbox "Agent No LogTime" [checked] [active] [ref=f525e162]
+                        - text: Agent No LogTime
+                    - paragraph [ref=f525e163]:
+                      - button "Save" [ref=f525e164] [cursor=pointer]
+                      - link "Cancel" [ref=f525e165] [cursor=pointer]:
+                        - /url: "#"
+                - cell [ref=f525e122]:
+                  - link "Edit" [ref=f525e123] [cursor=pointer]:
+                    - /url: /users/9/memberships/3/edit
+                  - link "Delete" [ref=f525e126] [cursor=pointer]:
+                    - /url: /users/9/memberships/3
+    - generic [ref=f525e128]:
+      - text: Powered by
+      - link "Redmine" [ref=f525e129] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f525e130]
+  - log [ref=f525e131]
+  - log [ref=f525e132]
+  - log [ref=f525e133]
+  - log [ref=f525e134]
+  - log [ref=f525e135]
+  - log [ref=f525e136]
+  - log [ref=f525e137]
+  - log [ref=f525e138]
+  - log [ref=f525e139]
+  - log [ref=f525e140]
+  - log [ref=f525e141]
+  - log [ref=f525e142]
+  - log [ref=f525e143]
+  - log [ref=f525e144]
+  - log [ref=f525e145]
+  - log [ref=f525e146]
+  - log [ref=f525e147]

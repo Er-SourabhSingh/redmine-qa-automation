@@ -1,0 +1,171 @@
+- generic [ref=f21e1]:
+  - generic [ref=f21e2]:
+    - navigation [ref=f21e3]:
+      - list [ref=f21e6]:
+        - listitem [ref=f21e7]:
+          - link "Hauptseite" [ref=f21e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f21e9]:
+          - link "Meine Seite" [ref=f21e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f21e11]:
+          - link "Projekte" [ref=f21e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f21e13]:
+          - link "Agile Board" [ref=f21e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f21e15]:
+          - link "Flux Gantt" [ref=f21e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f21e17]:
+          - link "Administration" [ref=f21e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f21e19]:
+          - link "Hilfe" [ref=f21e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f21e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f21e24]: RA
+    - generic [ref=f21e27]:
+      - generic [ref=f21e28]:
+        - generic [ref=f21e29]:
+          - generic [ref=f21e30]:
+            - link "Suche" [ref=f21e31] [cursor=pointer]:
+              - /url: /projects/defaultsd/search
+            - text: ":"
+          - textbox "Suche:" [ref=f21e32]
+        - generic [ref=f21e33]:
+          - generic [ref=f21e34] [cursor=pointer]: Software development5
+          - text: ✓ ✓
+      - heading "Software development5" [level=1] [ref=f21e35]
+      - list [ref=f21e38]:
+        - listitem [ref=f21e39]:
+          - link "+" [ref=f21e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f21e41]:
+          - link "Übersicht" [ref=f21e42] [cursor=pointer]:
+            - /url: /projects/defaultsd
+        - listitem [ref=f21e43]:
+          - link "Dashboard" [ref=f21e44] [cursor=pointer]:
+            - /url: /projects/defaultsd/analytics_dashboard
+        - listitem [ref=f21e45]:
+          - link "Aktivität" [ref=f21e46] [cursor=pointer]:
+            - /url: /projects/defaultsd/activity
+        - listitem [ref=f21e47]:
+          - link "Tickets" [ref=f21e48] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues
+        - listitem [ref=f21e49]:
+          - link "Aufgewendete Zeit" [ref=f21e50] [cursor=pointer]:
+            - /url: /projects/defaultsd/time_entries
+        - listitem [ref=f21e51]:
+          - link "Gantt-Diagramm" [ref=f21e52] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/gantt
+        - listitem [ref=f21e53]:
+          - link "Kalender" [ref=f21e54] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/calendar
+        - listitem [ref=f21e55]:
+          - link "News" [ref=f21e56] [cursor=pointer]:
+            - /url: /projects/defaultsd/news
+        - listitem [ref=f21e57]:
+          - link "Dokumente" [ref=f21e58] [cursor=pointer]:
+            - /url: /projects/defaultsd/documents
+        - listitem [ref=f21e59]:
+          - link "Wiki" [ref=f21e60] [cursor=pointer]:
+            - /url: /projects/defaultsd/wiki
+        - listitem [ref=f21e61]:
+          - link "Dateien" [ref=f21e62] [cursor=pointer]:
+            - /url: /projects/defaultsd/files
+        - listitem [ref=f21e63]:
+          - link "Konfiguration" [ref=f21e64] [cursor=pointer]:
+            - /url: /projects/defaultsd/settings
+    - generic [ref=f21e66]:
+      - heading "Aufgewendete Zeit" [level=2] [ref=f21e67]
+      - generic [ref=f21e68]:
+        - generic [ref=f21e69]:
+          - paragraph [ref=f21e70]:
+            - generic [ref=f21e71]: Projekt *
+            - combobox "Projekt *" [ref=f21e72]:
+              - option
+              - option "Agile Board Project"
+              - option "Education and training3"
+              - option "Flux Gantt Project"
+              - option "HR management2"
+              - option "Helpdesk Service Desk"
+              - option "MVP build for PaySheet Application"
+              - option "Marketing campaign4"
+              - option "Mobile app development1"
+              - option "Software development5" [selected]
+          - paragraph [ref=f21e73]:
+            - generic [ref=f21e74]: Ticket
+            - textbox "Ticket" [active] [ref=f21e75]: "33"
+            - generic [ref=f21e76]:
+              - 'link "Bug #33" [ref=f21e77] [cursor=pointer]':
+                - /url: /issues/33
+              - text: ": Redesign issue creation workflow"
+          - paragraph [ref=f21e78]:
+            - generic [ref=f21e79]: Benutzer *
+            - combobox "Benutzer *" [ref=f21e80]:
+              - option "<< ich >>"
+              - option "Aurora Wren"
+              - option "Autumn Grace"
+              - option "Briar Sunset"
+              - option "Celeste Dawn"
+              - option "Daisy Skye"
+              - option "Ember Lilac"
+              - option "Harmony Rose"
+              - option "Isla Moon"
+              - option "Ivy Skylark"
+              - option "Luna Blossom"
+              - option "Luna Meadow"
+              - option "Marigold Rayne"
+              - option "Nova Starling"
+              - option "Opal Sparrow"
+              - option "Redmine Admin"
+              - option "Sage Willow"
+              - option "Selene Frost"
+              - option "Serenity Bloom" [selected]
+              - option "Summer Rain"
+              - option "Violet Ember"
+              - option "Willow Belle"
+          - paragraph [ref=f21e81]:
+            - generic [ref=f21e82]: Datum *
+            - textbox "Datum *" [ref=f21e83]: 2026-12-11
+          - paragraph [ref=f21e84]:
+            - generic [ref=f21e85]: Stunden *
+            - textbox "Stunden *" [ref=f21e86]:
+              - /placeholder: h:mm
+              - text: 3:00
+          - paragraph [ref=f21e87]:
+            - generic [ref=f21e88]: Kommentar
+            - textbox "Kommentar" [ref=f21e89]: Redesign issue workflow
+          - paragraph [ref=f21e90]:
+            - generic [ref=f21e91]: Aktivität *
+            - combobox "Aktivität *" [ref=f21e92]:
+              - option "--- Bitte auswählen ---"
+              - option "Design" [selected]
+              - option "Development"
+          - paragraph [ref=f21e93]:
+            - generic [ref=f21e94]: Tag list
+            - list [ref=f21e95]:
+              - listitem [ref=f21e96]:
+                - textbox "Add Tags" [ref=f21e97]
+        - button "Speichern" [ref=f21e98] [cursor=pointer]
+        - link "Abbrechen" [ref=f21e99] [cursor=pointer]:
+          - /url: /projects/defaultsd/time_entries
+    - generic [ref=f21e100]:
+      - text: Powered by
+      - link "Redmine" [ref=f21e101] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f21e102]
+  - log [ref=f21e103]
+  - log [ref=f21e104]
+  - log [ref=f21e105]
+  - log [ref=f21e106]
+  - log [ref=f21e107]
+  - log [ref=f21e108]
+  - log [ref=f21e109]
+  - log [ref=f21e110]
+  - log [ref=f21e111]
+  - status [ref=f21e112]
+  - status [ref=f21e113]

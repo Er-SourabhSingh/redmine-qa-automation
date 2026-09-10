@@ -1,0 +1,219 @@
+- generic [active] [ref=f443e1]:
+  - generic [ref=f443e2]:
+    - generic [ref=f443e3]:
+      - generic [ref=f443e4]:
+        - list:
+          - listitem [ref=f443e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f443e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f443e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f443e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f443e9]:
+        - listitem [ref=f443e10]:
+          - link [ref=f443e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f443e12]
+        - listitem [ref=f443e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f443e14]:
+          - link "My page" [ref=f443e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f443e16]:
+          - link "Projects" [ref=f443e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f443e18]:
+          - link "Time Tracker" [ref=f443e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f443e20]:
+          - link "Workloads" [ref=f443e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f443e22]:
+          - link "Help" [ref=f443e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f443e24]:
+      - generic [ref=f443e25]:
+        - generic [ref=f443e26]:
+          - generic [ref=f443e27]:
+            - link "Search..." [ref=f443e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f443e29]
+        - generic [ref=f443e30]:
+          - generic [ref=f443e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f443e32]
+      - generic [ref=f443e33]:
+        - list [ref=f443e34]:
+          - listitem [ref=f443e35]:
+            - link "+" [ref=f443e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f443e37]:
+            - link "Overview" [ref=f443e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f443e39]:
+            - link "Activity" [ref=f443e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f443e41]:
+            - link "Issues" [ref=f443e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f443e43]:
+            - link "Spent time" [ref=f443e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f443e45]:
+            - link "Gantt" [ref=f443e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f443e47]:
+            - link "Calendar" [ref=f443e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f443e49]:
+            - link "News" [ref=f443e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f443e51]:
+            - link "Documents" [ref=f443e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f443e53]:
+            - link "Wiki" [ref=f443e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f443e55]:
+            - link "Files" [ref=f443e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f443e57]:
+            - link "Helpdesk" [ref=f443e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f443e59]:
+          - button [ref=f443e60] [cursor=pointer]
+          - button [ref=f443e63] [cursor=pointer]
+    - generic [ref=f443e66]:
+      - generic [ref=f443e67]:
+        - link [ref=f443e69] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f443e72]:
+          - heading "Custom queries" [level=3] [ref=f443e73]
+          - list [ref=f443e74]:
+            - listitem [ref=f443e75]:
+              - link "Spent time" [ref=f443e76] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/time_entries?query_id=7
+      - generic [ref=f443e77]:
+        - link "Log time" [ref=f443e79] [cursor=pointer]:
+          - /url: /issues/11/time_entries/new
+        - heading "Spent time" [level=2] [ref=f443e81]
+        - generic [ref=f443e82]:
+          - generic [ref=f443e84]:
+            - group "Filters" [ref=f443e85]
+            - group "Options" [ref=f443e89]
+          - list [ref=f443e94]:
+            - listitem [ref=f443e95]:
+              - link "Details" [ref=f443e96] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/time_entries?issue_id=~11
+            - listitem [ref=f443e97]:
+              - link "Report" [ref=f443e98] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/time_entries/report?issue_id=~11
+        - paragraph [ref=f443e99]:
+          - generic [ref=f443e100]: "Hours: 0:45"
+        - generic [ref=f443e101]:
+          - button "Copy Table" [ref=f443e103] [cursor=pointer]
+          - table [ref=f443e108]:
+            - rowgroup [ref=f443e118]:
+              - row [ref=f443e119]:
+                - columnheader [ref=f443e120]:
+                  - checkbox "Check all / Uncheck all" [ref=f443e121]
+                - columnheader [ref=f443e122]:
+                  - link "Date" [ref=f443e123] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/time_entries?issue_id=~11&sort=spent_on
+                - columnheader [ref=f443e128]:
+                  - link "User" [ref=f443e129] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/time_entries?issue_id=~11&sort=user%2Cspent_on%3Adesc
+                - columnheader [ref=f443e131]:
+                  - link "Activity" [ref=f443e132] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/time_entries?issue_id=~11&sort=activity%2Cspent_on%3Adesc
+                - columnheader [ref=f443e134]:
+                  - link "Issue" [ref=f443e135] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/time_entries?issue_id=~11&sort=issue%2Cspent_on%3Adesc
+                - columnheader "Comment" [ref=f443e137]
+                - columnheader [ref=f443e139]:
+                  - link "Hours" [ref=f443e140] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/time_entries?issue_id=~11&sort=hours%2Cspent_on%3Adesc
+                - columnheader [ref=f443e142]
+            - rowgroup [ref=f443e143]:
+              - row [ref=f443e144]:
+                - cell [ref=f443e145]:
+                  - checkbox [ref=f443e146]
+                - cell "08/31/2026" [ref=f443e147]
+                - cell [ref=f443e148]:
+                  - link "Luna Blossom" [ref=f443e149] [cursor=pointer]:
+                    - /url: /users/5
+                - cell "Customer Call" [ref=f443e150]
+                - cell [ref=f443e151]:
+                  - 'link "Support #11" [ref=f443e152] [cursor=pointer]':
+                    - /url: /issues/11
+                  - text: ": TC-HLP-022 fixture - Internal Note on an in-progress ticket with active SLA"
+                - cell [ref=f443e153]
+                - cell "0:35" [ref=f443e154]
+                - cell [ref=f443e155]:
+                  - link "Edit" [ref=f443e156] [cursor=pointer]:
+                    - /url: /time_entries/2/edit
+                  - link "Delete" [ref=f443e158] [cursor=pointer]:
+                    - /url: /time_entries/2
+                  - link "Actions" [ref=f443e160] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f443e162]:
+                - cell [ref=f443e163]:
+                  - checkbox [ref=f443e164]
+                - cell "08/31/2026" [ref=f443e165]
+                - cell [ref=f443e166]:
+                  - link "Luna Blossom" [ref=f443e167] [cursor=pointer]:
+                    - /url: /users/5
+                - cell "Technical Support" [ref=f443e168]
+                - cell [ref=f443e169]:
+                  - 'link "Support #11" [ref=f443e170] [cursor=pointer]':
+                    - /url: /issues/11
+                  - text: ": TC-HLP-022 fixture - Internal Note on an in-progress ticket with active SLA"
+                - cell [ref=f443e171]
+                - cell "0:10" [ref=f443e172]
+                - cell [ref=f443e173]:
+                  - link "Edit" [ref=f443e174] [cursor=pointer]:
+                    - /url: /time_entries/1/edit
+                  - link "Delete" [ref=f443e176] [cursor=pointer]:
+                    - /url: /time_entries/1
+                  - link "Actions" [ref=f443e178] [cursor=pointer]:
+                    - /url: "#"
+        - generic [ref=f443e180]:
+          - list
+          - generic: (1-2/2)
+        - paragraph [ref=f443e182]:
+          - text: "Also available in:"
+          - link "CSV" [ref=f443e184] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/time_entries.csv?issue_id=~11
+          - generic [ref=f443e185]:
+            - text: "|"
+            - link "Atom" [ref=f443e186] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries.atom?issue_id=~11&key=74f8c2c10d57ac3baeee5bf474f60ebd9a037b60
+    - generic [ref=f443e187]:
+      - text: Powered by
+      - link "Redmine" [ref=f443e188] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f443e189]
+  - log [ref=f443e190]
+  - log [ref=f443e191]
+  - log [ref=f443e192]
+  - log [ref=f443e193]
+  - log [ref=f443e194]
+  - log [ref=f443e195]
+  - log [ref=f443e196]
+  - log [ref=f443e197]
+  - log [ref=f443e198]
+  - log [ref=f443e199]
+  - log [ref=f443e200]
+  - log [ref=f443e201]
+  - log [ref=f443e202]
+  - log [ref=f443e203]
+  - log [ref=f443e204]
+  - log [ref=f443e205]
+  - log [ref=f443e206]

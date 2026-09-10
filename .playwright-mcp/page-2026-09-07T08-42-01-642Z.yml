@@ -1,0 +1,194 @@
+- generic [ref=f110e1]:
+  - generic [ref=f110e2]:
+    - generic [ref=f110e3]:
+      - generic [ref=f110e4]:
+        - list:
+          - listitem [ref=f110e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f110e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f110e7]:
+        - text: Logged in as
+        - link "admin" [ref=f110e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f110e9]:
+        - listitem [ref=f110e10]:
+          - link [ref=f110e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f110e12]
+        - listitem [ref=f110e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f110e14]:
+          - link "My page" [ref=f110e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f110e16]:
+          - link "Projects" [ref=f110e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f110e18]:
+          - link "Flux Gantt" [ref=f110e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f110e20]:
+          - link "Helpdesk Command Center" [ref=f110e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f110e22]:
+          - link "Time Tracker" [ref=f110e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f110e24]:
+          - link "Timesheet" [ref=f110e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f110e26]:
+          - link "Workloads" [ref=f110e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f110e28]:
+          - link "More" [ref=f110e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f110e30]:
+      - generic [ref=f110e31]:
+        - generic [ref=f110e32]:
+          - generic [ref=f110e33]:
+            - link "Search..." [ref=f110e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f110e35]
+        - generic [ref=f110e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f110e38]
+    - generic [ref=f110e39]:
+      - generic [ref=f110e40]:
+        - link [ref=f110e42] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f110e45]:
+          - heading "Administration" [level=3] [ref=f110e46]
+          - list [ref=f110e48]:
+            - listitem [ref=f110e49]:
+              - link "Projects" [ref=f110e50] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f110e52]:
+              - link "Users" [ref=f110e53] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f110e55]:
+              - link "Groups" [ref=f110e56] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f110e58]:
+              - link "Roles and permissions" [ref=f110e59] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f110e61]:
+              - link "Trackers" [ref=f110e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f110e64]:
+              - link "Issue statuses" [ref=f110e65] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f110e67]:
+              - link "Workflow" [ref=f110e68] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f110e70]:
+              - link "Custom fields" [ref=f110e71] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f110e73]:
+              - link "Enumerations" [ref=f110e74] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f110e76]:
+              - link "Settings" [ref=f110e77] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f110e79]:
+              - link "LDAP authentication" [ref=f110e80] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f110e82]:
+              - link "Applications" [ref=f110e83] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f110e85]:
+              - link "Plugins" [ref=f110e86] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f110e88]:
+              - link "Information" [ref=f110e89] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f110e91]:
+        - heading [level=2] [ref=f110e92]:
+          - link "Custom fields" [ref=f110e93] [cursor=pointer]:
+            - /url: /custom_fields
+          - text: »
+          - link "Users" [ref=f110e94] [cursor=pointer]:
+            - /url: /custom_fields?tab=UserCustomField
+          - text: » QA Required User Field
+        - generic [ref=f110e96]:
+          - generic [ref=f110e97]:
+            - generic [ref=f110e98]:
+              - paragraph [ref=f110e99]:
+                - generic [ref=f110e100]: Field format
+                - combobox "Field format" [disabled] [ref=f110e101]:
+                  - option "Boolean"
+                  - option "Date"
+                  - option "File"
+                  - option "Float"
+                  - option "Integer"
+                  - option "Key/value list"
+                  - option "Link"
+                  - option "List"
+                  - option "Long text"
+                  - option "Progress bar"
+                  - option "Text" [selected]
+              - paragraph [ref=f110e102]:
+                - generic [ref=f110e103]: Name *
+                - textbox "Name *" [active] [ref=f110e104]: QA Required User Field
+              - paragraph [ref=f110e105]:
+                - generic [ref=f110e106]: Description
+                - textbox "Description" [ref=f110e107]
+              - paragraph [ref=f110e108]:
+                - generic [ref=f110e109]: Min - Max length
+                - textbox "Min - Max length" [ref=f110e110]
+                - text: "-"
+                - textbox [ref=f110e111]
+              - paragraph [ref=f110e112]:
+                - generic [ref=f110e113]: Regexp
+                - textbox "Regexp" [ref=f110e114]
+                - emphasis [ref=f110e115]: eg. ^[A-Z0-9]+$
+              - paragraph [ref=f110e116]:
+                - generic [ref=f110e117]: Text formatting
+                - checkbox "Text formatting" [ref=f110e118]
+              - paragraph [ref=f110e119]:
+                - generic [ref=f110e120]: Default value
+                - textbox "Default value" [ref=f110e121]
+              - paragraph [ref=f110e122]:
+                - generic [ref=f110e123]: Link values to URL
+                - textbox "Link values to URL" [ref=f110e124]
+            - paragraph [ref=f110e125]:
+              - button "Save" [ref=f110e126] [cursor=pointer]
+          - generic [ref=f110e128]:
+            - paragraph [ref=f110e129]:
+              - generic [ref=f110e130]: Is required
+              - checkbox "Is required" [checked] [ref=f110e131]
+            - paragraph [ref=f110e132]:
+              - generic [ref=f110e133]: Visible
+              - checkbox "Visible" [checked] [ref=f110e134]
+            - paragraph [ref=f110e135]:
+              - generic [ref=f110e136]: Editable
+              - checkbox "Editable" [checked] [ref=f110e137]
+            - paragraph [ref=f110e138]:
+              - generic [ref=f110e139]: Is filter
+              - checkbox "Is filter" [ref=f110e140]
+    - generic [ref=f110e141]:
+      - text: Powered by
+      - link "Redmine" [ref=f110e142] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f110e143]
+  - log [ref=f110e144]
+  - log [ref=f110e145]
+  - log [ref=f110e146]
+  - log [ref=f110e147]
+  - log [ref=f110e148]
+  - log [ref=f110e149]
+  - log [ref=f110e150]
+  - log [ref=f110e151]
+  - log [ref=f110e152]
+  - log [ref=f110e153]
+  - log [ref=f110e154]
+  - log [ref=f110e155]
+  - log [ref=f110e156]
+  - log [ref=f110e157]
+  - log [ref=f110e158]
+  - log [ref=f110e159]
+  - log [ref=f110e160]
+  - log [ref=f110e161]

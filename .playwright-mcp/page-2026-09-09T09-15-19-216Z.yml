@@ -1,0 +1,232 @@
+- generic [ref=f134e1]:
+  - generic [ref=f134e2]:
+    - generic [ref=f134e3]:
+      - generic [ref=f134e4]:
+        - img "Logo" [ref=f134e5]
+        - text: 
+      - navigation "Application tasks" [ref=f134e6]:
+        - button " Compose" [ref=f134e8] [cursor=pointer]
+        - button " Mail" [disabled] [ref=f134e9] [cursor=pointer]
+        - button " Contacts" [ref=f134e10] [cursor=pointer]
+        - button " Settings" [ref=f134e11] [cursor=pointer]
+        - generic [ref=f134e12]:
+          - button " Dark mode" [ref=f134e13] [cursor=pointer]
+          - button " About" [ref=f134e14] [cursor=pointer]
+          - button " Logout" [ref=f134e15] [cursor=pointer]
+    - navigation "Email folder selection" [ref=f134e16]:
+      - generic [ref=f134e17]:
+        - text: 
+        - generic [ref=f134e18]: beta.customer@test.local
+        - button "" [ref=f134e19] [cursor=pointer]:     
+      - tree [ref=f134e21]:
+        - treeitem [level=1] [selected] [ref=f134e22]:
+          - link " Inbox 6" [ref=f134e23]:
+            - /url: /?_task=mail&_mbox=INBOX
+            - text:  Inbox
+            - generic [ref=f134e24]: "6"
+        - treeitem [level=1] [ref=f134e25]:
+          - link " Drafts" [ref=f134e26]:
+            - /url: /?_task=mail&_mbox=Drafts
+        - treeitem [level=1] [ref=f134e27]:
+          - link " Sent" [ref=f134e28]:
+            - /url: /?_task=mail&_mbox=Sent
+        - treeitem [level=1] [ref=f134e29]:
+          - link " Junk" [ref=f134e30]:
+            - /url: /?_task=mail&_mbox=Junk
+        - treeitem [level=1] [ref=f134e31]:
+          - link " Trash" [ref=f134e32]:
+            - /url: /?_task=mail&_mbox=Trash
+      - generic [ref=f134e34]:
+        - text: 
+        - generic "unknown" [ref=f134e35]: 0%
+    - generic [ref=f134e38]:
+      - generic [ref=f134e39]:
+        - text:  
+        - list [ref=f134e40]:
+          - menuitem [ref=f134e41]:
+            - link " Select" [ref=f134e42] [cursor=pointer]:
+              - /url: "#select"
+              - text:  Select       
+          - menuitem " Threads" [ref=f134e43]:
+            - link " Threads":
+              - /url: "#threads"
+              - text:  Threads   
+          - menuitem [ref=f134e44]:
+            - link " Options" [ref=f134e45] [cursor=pointer]:
+              - /url: "#list-options"
+        - button " Refresh" [ref=f134e46] [cursor=pointer]
+        - text:  
+      - search "Email search input" [ref=f134e47]:
+        - generic [ref=f134e48]:
+          - text: 
+          - textbox "Search terms" [ref=f134e49]:
+            - /placeholder: Search...
+        - text: 
+        - button "" [ref=f134e50] [cursor=pointer]
+        - button "" [ref=f134e51] [cursor=pointer]
+        - text: 
+      - text:   
+      - generic [ref=f134e52]:
+        - text: 
+        - table "Email Messages Listing" [ref=f134e53]:
+          - text: 
+          - rowgroup [ref=f134e54]:
+            - row [ref=f134e55]:
+              - 'cell "beta.support@test.local Today 14:44  [Helpdesk QA Beta #63] Re: TC-HLP-402b control - Beta-only customer emailing Beta mailbox, should land on Beta" [active] [ref=f134e56]':
+                - generic [ref=f134e57]: beta.support@test.local
+                - generic [ref=f134e59]: Today 14:44
+                - generic [ref=f134e60]:
+                  - generic "Unread": 
+                  - 'link "[Helpdesk QA Beta #63] Re: TC-HLP-402b control - Beta-only customer emailing Beta mailbox, should land on Beta" [ref=f134e61]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=11&_action=show
+              - cell "Not Flagged" [ref=f134e62]:
+                - generic [ref=f134e63] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f134e65]:
+              - 'cell "beta.support@test.local Today 14:22  [Support #63] TC-HLP-402b control - Beta-only customer emailing Beta mailbox, should land on Beta" [ref=f134e66]':
+                - generic [ref=f134e67]: beta.support@test.local
+                - generic [ref=f134e69]: Today 14:22
+                - generic [ref=f134e70]:
+                  - generic "Unread": 
+                  - 'link "[Support #63] TC-HLP-402b control - Beta-only customer emailing Beta mailbox, should land on Beta" [ref=f134e71]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=10&_action=show
+              - cell "Not Flagged" [ref=f134e72]:
+                - generic [ref=f134e73] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f134e75]:
+              - 'cell "alpha.support@test.local Today 14:16  [Support #62] TC-HLP-402 routing test attempt 2, Alpha budget now positive" [ref=f134e76]':
+                - generic [ref=f134e77]: alpha.support@test.local
+                - generic [ref=f134e79]: Today 14:16
+                - generic [ref=f134e80]:
+                  - generic "Unread": 
+                  - 'link "[Support #62] TC-HLP-402 routing test attempt 2, Alpha budget now positive" [ref=f134e81]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=9&_action=show
+              - cell "Not Flagged" [ref=f134e82]:
+                - generic [ref=f134e83] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f134e85]:
+              - cell "redmine@example.net Today 14:14  Your message could not be logged — prepaid support hours used up (Helpdesk QA Alpha)" [ref=f134e86]:
+                - generic [ref=f134e87]: redmine@example.net
+                - generic [ref=f134e89]: Today 14:14
+                - generic [ref=f134e90]:
+                  - generic "Unread": 
+                  - link "Your message could not be logged — prepaid support hours used up (Helpdesk QA Alpha)" [ref=f134e91]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=8&_action=show
+              - cell "Not Flagged" [ref=f134e92]:
+                - generic [ref=f134e93] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f134e95]:
+              - cell "redmine@example.net Today 14:13  Your Helpdesk Account Has Been Created" [ref=f134e96]:
+                - generic [ref=f134e97]: redmine@example.net
+                - generic [ref=f134e99]: Today 14:13
+                - generic [ref=f134e100]:
+                  - generic "Unread": 
+                  - link "Your Helpdesk Account Has Been Created" [ref=f134e101]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=7&_action=show
+              - cell "Not Flagged" [ref=f134e102]:
+                - generic [ref=f134e103] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f134e105]:
+              - cell "redmine@example.net 2026-08-31 15:59  Registration Required - Redmineflux Helpdesk" [ref=f134e106]:
+                - generic [ref=f134e107]: redmine@example.net
+                - generic [ref=f134e109]: 2026-08-31 15:59
+                - generic [ref=f134e110]:
+                  - generic "Unread": 
+                  - link "Registration Required - Redmineflux Helpdesk" [ref=f134e111]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=6&_action=show
+              - cell "Not Flagged" [ref=f134e112]:
+                - generic [ref=f134e113] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f134e115]:
+              - cell "admin@test.local 2026-08-26 19:16  Your Helpdesk Account Has Been Updated" [ref=f134e116]:
+                - generic [ref=f134e117]: admin@test.local
+                - generic [ref=f134e119]: 2026-08-26 19:16
+                - generic [ref=f134e120]:
+                  - generic: 
+                  - link "Your Helpdesk Account Has Been Updated" [ref=f134e121]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=5&_action=show
+              - cell "Not Flagged" [ref=f134e122]:
+                - generic [ref=f134e123] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f134e125]:
+              - cell "admin@test.local 2026-08-26 19:00  Your Helpdesk Account Has Been Updated" [ref=f134e126]:
+                - generic [ref=f134e127]: admin@test.local
+                - generic [ref=f134e129]: 2026-08-26 19:00
+                - generic [ref=f134e130]:
+                  - generic: 
+                  - link "Your Helpdesk Account Has Been Updated" [ref=f134e131]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=4&_action=show
+              - cell "Not Flagged" [ref=f134e132]:
+                - generic [ref=f134e133] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f134e135]:
+              - 'cell "beta.support@test.local 2026-08-26 14:47  [Helpdesk QA Beta #67] Re: [TICKET] Ticket: Cannot access my dashboard" [ref=f134e136]':
+                - generic [ref=f134e137]: beta.support@test.local
+                - generic [ref=f134e139]: 2026-08-26 14:47
+                - generic [ref=f134e140]:
+                  - generic "Replied": 
+                  - 'link "[Helpdesk QA Beta #67] Re: [TICKET] Ticket: Cannot access my dashboard" [ref=f134e141]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=3&_action=show
+              - cell "Not Flagged" [ref=f134e142]:
+                - generic [ref=f134e143] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f134e145]:
+              - 'cell "beta.support@test.local 2026-08-26 14:45  [Support #67] Ticket: Cannot access my dashboard" [ref=f134e146]':
+                - generic [ref=f134e147]: beta.support@test.local
+                - generic [ref=f134e149]: 2026-08-26 14:45
+                - generic [ref=f134e150]:
+                  - generic: 
+                  - 'link "[Support #67] Ticket: Cannot access my dashboard" [ref=f134e151]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=2&_action=show
+              - cell "Not Flagged" [ref=f134e152]:
+                - generic [ref=f134e153] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f134e155]:
+              - cell "admin@test.local 2026-08-26 14:31  Your Helpdesk Account Has Been Created" [ref=f134e156]:
+                - generic [ref=f134e157]: admin@test.local
+                - generic [ref=f134e159]: 2026-08-26 14:31
+                - generic [ref=f134e160]:
+                  - generic: 
+                  - link "Your Helpdesk Account Has Been Created" [ref=f134e161]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=1&_action=show
+              - cell "Not Flagged" [ref=f134e162]:
+                - generic [ref=f134e163] [cursor=pointer]:
+                  - generic "Not Flagged"
+      - toolbar "List navigation" [ref=f134e165]:
+        - button "" [disabled]
+        - button "" [disabled]
+        - generic [ref=f134e166]: Messages 1 to 11 of 11
+        - textbox "Current page" [disabled] [ref=f134e167]: "1"
+        - button "" [disabled]
+        - button "" [disabled]
+    - generic [ref=f134e169]:
+      - toolbar "Application toolbar" [ref=f134e170]:
+        - text:                   Browse
+        - list [ref=f134e171]:
+          - menuitem: 
+          - menuitem " Reply" [ref=f134e172]:
+            - button " Reply" [disabled]
+          - menuitem [ref=f134e173]:
+            - generic [ref=f134e174]:
+              - button " Reply all" [disabled]
+              - link "":
+                - /url: "#reply-all"
+          - menuitem [ref=f134e175]:
+            - generic [ref=f134e176]:
+              - button " Forward" [disabled]
+              - link "":
+                - /url: "#forward"
+          - menuitem [ref=f134e177]
+          - menuitem " Delete" [ref=f134e178]:
+            - button " Delete" [disabled]
+          - menuitem " Mark" [ref=f134e179]:
+            - button " Mark"
+          - menuitem [ref=f134e180]:
+            - button " More" [ref=f134e181] [cursor=pointer]
+          - menuitem: 
+          - menuitem: 
+          - menuitem: 
+        - text: 
+      - iframe [ref=f134e183]
+      - text:   
+  - text:   

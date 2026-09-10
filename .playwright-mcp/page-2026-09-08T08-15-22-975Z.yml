@@ -1,0 +1,185 @@
+- generic [active] [ref=f149e1]:
+  - generic [ref=f149e2]:
+    - navigation [ref=f149e3]:
+      - generic [ref=f149e4]:
+        - link [ref=f149e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f149e7] [cursor=pointer]
+      - list [ref=f149e17]:
+        - listitem [ref=f149e18]:
+          - link "Hauptseite" [ref=f149e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f149e20]:
+          - link "Meine Seite" [ref=f149e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f149e22]:
+          - link "Projekte" [ref=f149e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f149e24]:
+          - link "Agile Board" [ref=f149e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f149e26]:
+          - link "Flux Gantt" [ref=f149e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f149e28]:
+          - link "Administration" [ref=f149e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f149e30]:
+          - link "Hilfe" [ref=f149e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f149e32]:
+        - generic [ref=f149e33]:
+          - generic [ref=f149e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f149e35]
+        - link "Mein Konto" [ref=f149e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f149e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f149e44]:
+      - generic [ref=f149e45]:
+        - generic [ref=f149e46]:
+          - heading "Agile Board Project" [level=1] [ref=f149e47]
+          - generic [ref=f149e48]:
+            - generic [ref=f149e49]:
+              - generic [ref=f149e50]: Hauptmenü
+              - listitem [ref=f149e51]:
+                - link "+" [ref=f149e52] [cursor=pointer]:
+                  - /url: "#"
+            - list [ref=f149e53]:
+              - listitem [ref=f149e54]:
+                - link "Übersicht" [ref=f149e55] [cursor=pointer]:
+                  - /url: /projects/agileboard
+              - listitem [ref=f149e60]:
+                - link "Dashboard" [ref=f149e61] [cursor=pointer]:
+                  - /url: /projects/agileboard/analytics_dashboard
+              - listitem [ref=f149e69]:
+                - link "Aktivität" [ref=f149e70] [cursor=pointer]:
+                  - /url: /projects/agileboard/activity
+              - listitem [ref=f149e75]:
+                - link "Agile Board" [ref=f149e76] [cursor=pointer]:
+                  - /url: /projects/agileboard/agile_board
+              - listitem [ref=f149e84]:
+                - link "Backlog" [ref=f149e85] [cursor=pointer]:
+                  - /url: /projects/agileboard/backlog
+              - listitem [ref=f149e90]:
+                - link "Roadmap" [ref=f149e91] [cursor=pointer]:
+                  - /url: /projects/agileboard/roadmap
+              - listitem [ref=f149e98]:
+                - link "Tickets" [ref=f149e99] [cursor=pointer]:
+                  - /url: /projects/agileboard/issues
+              - listitem [ref=f149e104]:
+                - link "Aufgewendete Zeit" [ref=f149e105] [cursor=pointer]:
+                  - /url: /projects/agileboard/time_entries
+              - listitem [ref=f149e110]:
+                - link "Gantt-Diagramm" [ref=f149e111] [cursor=pointer]:
+                  - /url: /projects/agileboard/issues/gantt
+              - listitem [ref=f149e119]:
+                - link "Kalender" [ref=f149e120] [cursor=pointer]:
+                  - /url: /projects/agileboard/issues/calendar
+              - listitem [ref=f149e125]:
+                - link "News" [ref=f149e126] [cursor=pointer]:
+                  - /url: /projects/agileboard/news
+              - listitem [ref=f149e131]:
+                - link "Dokumente" [ref=f149e132] [cursor=pointer]:
+                  - /url: /projects/agileboard/documents
+              - listitem [ref=f149e137]:
+                - link "Wiki" [ref=f149e138] [cursor=pointer]:
+                  - /url: /projects/agileboard/wiki
+              - listitem [ref=f149e143]:
+                - link "Dateien" [ref=f149e144] [cursor=pointer]:
+                  - /url: /projects/agileboard/files
+              - listitem [ref=f149e149]:
+                - link "Konfiguration" [ref=f149e150] [cursor=pointer]:
+                  - /url: /projects/agileboard/settings
+        - generic [ref=f149e156]:
+          - generic [ref=f149e157]:
+            - heading "Roadmap" [level=3] [ref=f149e158]
+            - list [ref=f149e159]:
+              - listitem [ref=f149e160]:
+                - generic [ref=f149e161] [cursor=pointer]:
+                  - checkbox "Bug" [ref=f149e162]
+                  - text: Bug
+              - listitem [ref=f149e163]:
+                - generic [ref=f149e164] [cursor=pointer]:
+                  - checkbox "Feature" [checked] [ref=f149e165]
+                  - text: Feature
+              - listitem [ref=f149e166]:
+                - generic [ref=f149e167] [cursor=pointer]:
+                  - checkbox "Support" [ref=f149e168]
+                  - text: Support
+            - paragraph
+            - list [ref=f149e169]:
+              - listitem [ref=f149e170]:
+                - generic [ref=f149e171] [cursor=pointer]:
+                  - checkbox "Abgeschlossene Versionen anzeigen" [ref=f149e172]
+                  - text: Abgeschlossene Versionen anzeigen
+            - paragraph [ref=f149e173]:
+              - button "Anwenden" [ref=f149e174] [cursor=pointer]
+          - heading "Versionen" [level=3] [ref=f149e175]
+          - list [ref=f149e176]:
+            - listitem [ref=f149e177]:
+              - link "Version 5" [ref=f149e178] [cursor=pointer]:
+                - /url: "#version-5"
+            - listitem [ref=f149e179]:
+              - link "Version 6" [ref=f149e180] [cursor=pointer]:
+                - /url: "#version-6"
+      - generic [ref=f149e181]:
+        - generic [ref=f149e182]:
+          - link "Neue Version" [ref=f149e183] [cursor=pointer]:
+            - /url: /projects/agileboard/versions/new
+          - generic "Aktionen" [ref=f149e187] [cursor=pointer]
+        - heading "Roadmap" [level=2] [ref=f149e190]
+        - generic [ref=f149e191]:
+          - article [ref=f149e192]:
+            - generic [ref=f149e193]:
+              - generic:
+                - link "Bearbeiten":
+                  - /url: /versions/5/edit
+              - heading [level=3] [ref=f149e194]:
+                - link "Version 5" [ref=f149e195] [cursor=pointer]:
+                  - /url: /versions/5
+              - generic [ref=f149e196]: offen
+            - generic [ref=f149e197]:
+              - paragraph [ref=f149e198]:
+                - strong [ref=f149e199]: Fällig in 22 Tagen
+                - text: (30.09.2026)
+              - paragraph [ref=f149e200]: Version 5 description
+              - paragraph [ref=f149e201]: Keine Tickets für diese Version
+          - article [ref=f149e202]:
+            - generic [ref=f149e203]:
+              - generic:
+                - link "Bearbeiten":
+                  - /url: /versions/6/edit
+              - heading [level=3] [ref=f149e204]:
+                - link "Version 6" [ref=f149e205] [cursor=pointer]:
+                  - /url: /versions/6
+              - generic [ref=f149e206]: offen
+            - generic [ref=f149e207]:
+              - paragraph [ref=f149e208]:
+                - strong [ref=f149e209]: Fällig in 22 Tagen
+                - text: (30.09.2026)
+              - paragraph [ref=f149e210]: Version 6 description
+              - paragraph [ref=f149e211]: Keine Tickets für diese Version
+    - generic [ref=f149e212]:
+      - text: Powered by
+      - link "Redmine" [ref=f149e213] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f149e214]
+  - log [ref=f149e215]
+  - log [ref=f149e216]
+  - log [ref=f149e217]
+  - log [ref=f149e218]
+  - log [ref=f149e219]
+  - log [ref=f149e220]
+  - log [ref=f149e221]
+  - log [ref=f149e222]
+  - log [ref=f149e223]
+  - log [ref=f149e224]
+  - log [ref=f149e225]
+  - log [ref=f149e226]
+  - log [ref=f149e227]
+  - log [ref=f149e228]
+  - log [ref=f149e229]
+  - log [ref=f149e230]

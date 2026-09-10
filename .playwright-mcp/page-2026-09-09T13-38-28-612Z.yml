@@ -1,0 +1,232 @@
+- generic [active] [ref=f121e1]:
+  - generic [ref=f121e2]:
+    - navigation [ref=f121e3]:
+      - generic [ref=f121e4]:
+        - link [ref=f121e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f121e7] [cursor=pointer]
+      - list [ref=f121e17]:
+        - listitem [ref=f121e18]:
+          - link "Hauptseite" [ref=f121e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f121e20]:
+          - link "Meine Seite" [ref=f121e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f121e22]:
+          - link "Projekte" [ref=f121e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f121e24]:
+          - link "Agile Board" [ref=f121e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f121e26]:
+          - link "Flux Gantt" [ref=f121e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f121e28]:
+          - link "Administration" [ref=f121e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f121e30]:
+          - link "Hilfe" [ref=f121e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f121e32]:
+        - generic [ref=f121e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f121e35]
+        - link "Mein Konto" [ref=f121e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f121e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f121e44]:
+      - generic [ref=f121e45]:
+        - heading "Redmine" [level=1] [ref=f121e47]
+        - generic [ref=f121e49]:
+          - heading "Administration" [level=3] [ref=f121e50]
+          - list [ref=f121e52]:
+            - listitem [ref=f121e53]:
+              - link "Projekte" [ref=f121e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f121e55]:
+              - link "Benutzer" [ref=f121e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f121e57]:
+              - link "Gruppen" [ref=f121e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f121e59]:
+              - link "Rollen und Rechte" [ref=f121e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f121e61]:
+              - link "Tracker" [ref=f121e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f121e63]:
+              - link "Ticket-Status" [ref=f121e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f121e65]:
+              - link "Workflow" [ref=f121e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f121e67]:
+              - link "Benutzerdefinierte Felder" [ref=f121e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f121e69]:
+              - link "Aufzählungen" [ref=f121e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f121e71]:
+              - link "Konfiguration" [ref=f121e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f121e73]:
+              - link "LDAP-Authentifizierung" [ref=f121e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f121e75]:
+              - link "Applikationen" [ref=f121e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f121e77]:
+              - link "Plugins" [ref=f121e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f121e79]:
+              - link "Informationen" [ref=f121e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f121e81]:
+        - heading "Plugins" [level=2] [ref=f121e82]
+        - table [ref=f121e84]:
+          - rowgroup [ref=f121e85]:
+            - row [ref=f121e86]:
+              - columnheader "Name / Beschreibung" [ref=f121e87]
+              - columnheader "Autor" [ref=f121e88]
+              - columnheader "Version" [ref=f121e89]
+              - columnheader [ref=f121e90]
+          - rowgroup [ref=f121e91]:
+            - row [ref=f121e92]:
+              - cell "Redmineflux Agile Board High-performance Agile Board with visual task tracking, drag-and-drop, and real-time updates for improved project management. https://www.redmineflux.com/knowledge-base/plugins/agile-board/" [ref=f121e93]:
+                - generic [ref=f121e94]: Redmineflux Agile Board
+                - generic [ref=f121e95]: High-performance Agile Board with visual task tracking, drag-and-drop, and real-time updates for improved project management.
+                - link "https://www.redmineflux.com/knowledge-base/plugins/agile-board/" [ref=f121e97] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com/knowledge-base/plugins/agile-board/
+              - cell [ref=f121e98]:
+                - link "Redmineflux - Powered by Zehntech Technologies Inc" [ref=f121e99] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com
+              - cell "7.0.0" [ref=f121e100]
+              - cell [ref=f121e102]:
+                - link "Konfigurieren" [ref=f121e103] [cursor=pointer]:
+                  - /url: /settings/plugin/agile_board
+            - row [ref=f121e104]:
+              - cell "Redmineflux Tags plugin Streamline project management tasks using Redmineflux Tag Plugin for categorize and retrieve information efficiently with tags. https://www.redmineflux.com/knowledge-base/plugins/tag-plugin" [ref=f121e105]:
+                - generic [ref=f121e106]: Redmineflux Tags plugin
+                - generic [ref=f121e107]: Streamline project management tasks using Redmineflux Tag Plugin for categorize and retrieve information efficiently with tags.
+                - link "https://www.redmineflux.com/knowledge-base/plugins/tag-plugin" [ref=f121e109] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com/knowledge-base/plugins/tag-plugin
+              - cell [ref=f121e110]:
+                - link "Redmineflux - Powered by Zehntech Technologies Inc" [ref=f121e111] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com
+              - cell "7.0.0" [ref=f121e112]
+              - cell [ref=f121e114]:
+                - link "Konfigurieren" [ref=f121e115] [cursor=pointer]:
+                  - /url: /settings/plugin/flux_tags
+            - row [ref=f121e116]:
+              - cell "Redmineflux Inline Issue Editor plugin Professional inline editing for Redmine issues, projects, and custom fields. Supports issue list, issue detail, project table, and project card views with clean searchable dropdowns, permission-aware controls, and zero layout disruption. https://www.redmineflux.com/knowledge-base/plugins/inline-editor-plugin/" [ref=f121e117]:
+                - generic [ref=f121e118]: Redmineflux Inline Issue Editor plugin
+                - generic [ref=f121e119]: Professional inline editing for Redmine issues, projects, and custom fields. Supports issue list, issue detail, project table, and project card views with clean searchable dropdowns, permission-aware controls, and zero layout disruption.
+                - link "https://www.redmineflux.com/knowledge-base/plugins/inline-editor-plugin/" [ref=f121e121] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com/knowledge-base/plugins/inline-editor-plugin/
+              - cell [ref=f121e122]:
+                - link "Redmineflux — Powered by Zehntech Technologies Inc." [ref=f121e123] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com
+              - cell "7.0.0" [ref=f121e124]
+              - cell [ref=f121e126]:
+                - link "Konfigurieren" [ref=f121e127] [cursor=pointer]:
+                  - /url: /settings/plugin/inplace_issue_editor
+            - row [ref=f121e128]:
+              - cell "Redmineflux Checklist Plugin Enhance Redmine effortlessly manage task lists within issues, track progress, ensure completion, and boost productivity. https://www.redmineflux.com/knowledge-base/plugins/checklist-plugin/" [ref=f121e129]:
+                - generic [ref=f121e130]: Redmineflux Checklist Plugin
+                - generic [ref=f121e131]: Enhance Redmine effortlessly manage task lists within issues, track progress, ensure completion, and boost productivity.
+                - link "https://www.redmineflux.com/knowledge-base/plugins/checklist-plugin/" [ref=f121e133] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com/knowledge-base/plugins/checklist-plugin/
+              - cell [ref=f121e134]:
+                - link "Redmineflux - Powered by Zehntech Technologies Inc" [ref=f121e135] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com
+              - cell "7.0.0" [ref=f121e136]
+              - cell [ref=f121e138]:
+                - link "Konfigurieren" [ref=f121e139] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_checklist
+            - row [ref=f121e140]:
+              - cell "RedmineFlux Daisy Theme Plugin RedmineFlux Daisy theme delivers a modern, clean, and personalized Redmine user experience through plugin-based UI enhancements with complete theme styling. https://www.redmineflux.com" [ref=f121e141]:
+                - generic [ref=f121e142]: RedmineFlux Daisy Theme Plugin
+                - generic [ref=f121e143]: RedmineFlux Daisy theme delivers a modern, clean, and personalized Redmine user experience through plugin-based UI enhancements with complete theme styling.
+                - link "https://www.redmineflux.com" [ref=f121e145] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com
+              - cell [ref=f121e146]:
+                - link "RedmineFlux - Powered by Zehntech Technologies Inc" [ref=f121e147] [cursor=pointer]:
+                  - /url: https://www.zehntech.com
+              - cell "6.2.0" [ref=f121e148]
+              - cell [ref=f121e150]:
+                - link "Konfigurieren" [ref=f121e151] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_daisy
+            - row [ref=f121e152]:
+              - cell "Redmineflux Analytics Dashboard Advanced analytics dashboard with tracker-wise data visualization, interactive charts, and comprehensive reporting capabilities. https://www.redmineflux.com/knowledge-base/plugins/analytics-dashboard/" [ref=f121e153]:
+                - generic [ref=f121e154]: Redmineflux Analytics Dashboard
+                - generic [ref=f121e155]: Advanced analytics dashboard with tracker-wise data visualization, interactive charts, and comprehensive reporting capabilities.
+                - link "https://www.redmineflux.com/knowledge-base/plugins/analytics-dashboard/" [ref=f121e157] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com/knowledge-base/plugins/analytics-dashboard/
+              - cell [ref=f121e158]:
+                - link "Redmineflux - Powered by Zehntech Technologies Inc" [ref=f121e159] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com
+              - cell "7.0.0" [ref=f121e160]
+              - cell [ref=f121e162]:
+                - link "Konfigurieren" [ref=f121e163] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_dashboard
+            - row [ref=f121e164]:
+              - cell "Redmineflux Gantt Plugin Redmineflux Gantt Chart Plugin displays project schedules, tasks, and dependencies visually, helping teams plan, monitor, and track progress effectively. https://www.redmineflux.com/knowledge-base/plugins/gantt-chart/" [ref=f121e165]:
+                - generic [ref=f121e166]: Redmineflux Gantt Plugin
+                - generic [ref=f121e167]: Redmineflux Gantt Chart Plugin displays project schedules, tasks, and dependencies visually, helping teams plan, monitor, and track progress effectively.
+                - link "https://www.redmineflux.com/knowledge-base/plugins/gantt-chart/" [ref=f121e169] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com/knowledge-base/plugins/gantt-chart/
+              - cell [ref=f121e170]:
+                - link "Redmineflux - Powered by Zehntech Technologies Inc" [ref=f121e171] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com
+              - cell "7.0.0" [ref=f121e172]
+              - cell [ref=f121e174]:
+                - link "Konfigurieren" [ref=f121e175] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_gantt_plugin
+            - row [ref=f121e176]:
+              - cell "Redmineflux Lotus plugin Redmineflux Lotus theme delivers a modern, clean, and personalized Redmine user experience through plugin-based UI enhancements with complete theme styling. https://www.redmineflux.com" [ref=f121e177]:
+                - generic [ref=f121e178]: Redmineflux Lotus plugin
+                - generic [ref=f121e179]: Redmineflux Lotus theme delivers a modern, clean, and personalized Redmine user experience through plugin-based UI enhancements with complete theme styling.
+                - link "https://www.redmineflux.com" [ref=f121e181] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com
+              - cell [ref=f121e182]:
+                - link "Redmineflux - Powered by Zehntech Technologies Inc" [ref=f121e183] [cursor=pointer]:
+                  - /url: https://www.zehntech.com
+              - cell "7.0.0" [ref=f121e184]
+              - cell [ref=f121e186]:
+                - link "Konfigurieren" [ref=f121e187] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_lotus
+            - row [ref=f121e188]:
+              - cell "Redmineflux Scarlet Theme Plugin Redmineflux Scarlet theme delivers a modern, clean, and personalized Redmine user experience through plugin-based UI enhancements with complete theme styling. https://www.redmineflux.com" [ref=f121e189]:
+                - generic [ref=f121e190]: Redmineflux Scarlet Theme Plugin
+                - generic [ref=f121e191]: Redmineflux Scarlet theme delivers a modern, clean, and personalized Redmine user experience through plugin-based UI enhancements with complete theme styling.
+                - link "https://www.redmineflux.com" [ref=f121e193] [cursor=pointer]:
+                  - /url: https://www.redmineflux.com
+              - cell [ref=f121e194]:
+                - link "Redmineflux - Powered by Zehntech Technologies Inc" [ref=f121e195] [cursor=pointer]:
+                  - /url: https://www.zehntech.com
+              - cell "1.0.0" [ref=f121e196]
+              - cell [ref=f121e198]:
+                - link "Konfigurieren" [ref=f121e199] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_scarlet
+        - paragraph [ref=f121e200]:
+          - link "Auf Updates prüfen" [ref=f121e201] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f121e202]:
+      - text: Powered by
+      - link "Redmine" [ref=f121e203] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f121e204]
+  - log [ref=f121e205]
+  - log [ref=f121e206]
+  - log [ref=f121e207]
+  - log [ref=f121e208]
+  - log [ref=f121e209]
+  - log [ref=f121e210]
+  - log [ref=f121e211]
+  - log [ref=f121e212]
+  - log [ref=f121e213]
+  - log [ref=f121e214]
+  - log [ref=f121e215]
+  - log [ref=f121e216]

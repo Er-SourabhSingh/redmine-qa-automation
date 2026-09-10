@@ -1,0 +1,125 @@
+- generic [active] [ref=f160e1]:
+  - generic [ref=f160e2]:
+    - navigation [ref=f160e3]:
+      - generic [ref=f160e4]:
+        - link [ref=f160e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f160e7] [cursor=pointer]
+      - list [ref=f160e17]:
+        - listitem [ref=f160e18]:
+          - link "Hauptseite" [ref=f160e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f160e20]:
+          - link "Meine Seite" [ref=f160e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f160e22]:
+          - link "Projekte" [ref=f160e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f160e24]:
+          - link "Agile Board" [ref=f160e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f160e26]:
+          - link "Flux Gantt" [ref=f160e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f160e28]:
+          - link "Administration" [ref=f160e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f160e30]:
+          - link "Hilfe" [ref=f160e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f160e32]:
+        - generic [ref=f160e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f160e35]
+        - link "Mein Konto" [ref=f160e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f160e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f160e44]:
+      - generic [ref=f160e45]:
+        - heading "Redmine" [level=1] [ref=f160e47]
+        - generic [ref=f160e49]:
+          - heading "Administration" [level=3] [ref=f160e50]
+          - list [ref=f160e52]:
+            - listitem [ref=f160e53]:
+              - link "Projekte" [ref=f160e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f160e55]:
+              - link "Benutzer" [ref=f160e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f160e57]:
+              - link "Gruppen" [ref=f160e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f160e59]:
+              - link "Rollen und Rechte" [ref=f160e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f160e61]:
+              - link "Tracker" [ref=f160e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f160e63]:
+              - link "Ticket-Status" [ref=f160e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f160e65]:
+              - link "Workflow" [ref=f160e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f160e67]:
+              - link "Benutzerdefinierte Felder" [ref=f160e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f160e69]:
+              - link "Aufzählungen" [ref=f160e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f160e71]:
+              - link "Konfiguration" [ref=f160e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f160e73]:
+              - link "LDAP-Authentifizierung" [ref=f160e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f160e75]:
+              - link "Applikationen" [ref=f160e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f160e77]:
+              - link "Plugins" [ref=f160e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f160e79]:
+              - link "Informationen" [ref=f160e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f160e81]:
+        - heading [level=2] [ref=f160e82]:
+          - link "Plugins" [ref=f160e83] [cursor=pointer]:
+            - /url: /admin/plugins
+          - text: » Redmineflux Checklist Plugin
+        - generic [ref=f160e85]:
+          - generic [ref=f160e86]:
+            - list [ref=f160e88]:
+              - listitem [ref=f160e89]:
+                - link "Allgemein" [ref=f160e90] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_checklist?tab=checklist_configuration
+              - listitem [ref=f160e91]:
+                - link "Checklisten-Vorlagen" [ref=f160e92] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_checklist?tab=checklist_template
+            - generic [ref=f160e94]:
+              - paragraph [ref=f160e95]:
+                - strong [ref=f160e96]: Ticket-Schließung blockieren
+                - checkbox [checked] [ref=f160e97]
+              - paragraph [ref=f160e98]:
+                - strong [ref=f160e99]: Ticket-Fortschritt automatisch aus Checklisten berechnen
+                - checkbox [ref=f160e100]
+          - button "Anwenden" [ref=f160e101] [cursor=pointer]
+    - generic [ref=f160e102]:
+      - text: Powered by
+      - link "Redmine" [ref=f160e103] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f160e104]
+  - log [ref=f160e105]
+  - log [ref=f160e106]
+  - log [ref=f160e107]
+  - log [ref=f160e108]
+  - log [ref=f160e109]
+  - log [ref=f160e110]
+  - log [ref=f160e111]
+  - log [ref=f160e112]
+  - log [ref=f160e113]
+  - log [ref=f160e114]
+  - log [ref=f160e115]
+  - log [ref=f160e116]
+  - log [ref=f160e117]

@@ -1,0 +1,114 @@
+- generic [ref=f263e2]:
+  - generic [ref=f263e3]:
+    - generic [ref=f263e4]:
+      - img "Logo" [ref=f263e5]
+      - text: 
+    - navigation "Application tasks" [ref=f263e6]:
+      - button " Compose" [ref=f263e8] [cursor=pointer]
+      - button " Mail" [ref=f263e9] [cursor=pointer]
+      - button " Contacts" [ref=f263e10] [cursor=pointer]
+      - button " Settings" [ref=f263e11] [cursor=pointer]
+      - generic [ref=f263e12]:
+        - button " Dark mode" [ref=f263e13] [cursor=pointer]
+        - button " About" [ref=f263e14] [cursor=pointer]
+        - button " Logout" [ref=f263e15] [cursor=pointer]
+  - generic [ref=f263e16]:
+    - generic [ref=f263e17]:
+      - text: 
+      - generic [ref=f263e18]: Options and attachments
+    - generic [ref=f263e19]:
+      - region "Attachments" [ref=f263e20]:
+        - generic [ref=f263e21]:
+          - generic [ref=f263e22]: Maximum allowed file size is 5.0 MB
+          - button "Attach a file" [ref=f263e23] [cursor=pointer]
+        - list
+      - region "Composition options" [ref=f263e24]:
+        - generic [ref=f263e25]:
+          - generic [ref=f263e26]: Return receipt
+          - checkbox "Return receipt" [ref=f263e29]
+        - generic [ref=f263e31]:
+          - generic [ref=f263e32]: Delivery status notification
+          - checkbox "Delivery status notification" [ref=f263e35]
+        - generic [ref=f263e37]:
+          - generic [ref=f263e38]: Keep formatting
+          - checkbox "Keep formatting" [ref=f263e41]
+        - generic [ref=f263e43]:
+          - generic [ref=f263e44]: Priority
+          - combobox "Priority" [ref=f263e46]:
+            - option "Lowest"
+            - option "Low"
+            - option "Normal" [selected]
+            - option "High"
+            - option "Highest"
+        - generic [ref=f263e47]:
+          - generic [ref=f263e48]: Save sent message in
+          - combobox "Save sent message in" [ref=f263e50]:
+            - option "- don't save -"
+            - option "Inbox"
+            - option "Drafts"
+            - option "Sent" [selected]
+            - option "Junk"
+            - option "Trash"
+  - main [ref=f263e52]:
+    - generic [ref=f263e53]:
+      - text: 
+      - list [ref=f263e54]:
+        - text: 
+        - menuitem [ref=f263e55]:
+          - button " Save" [ref=f263e56] [cursor=pointer]
+        - menuitem [ref=f263e57]
+        - menuitem [ref=f263e58]:
+          - button " Attach" [ref=f263e59] [cursor=pointer]
+        - menuitem " Signature" [ref=f263e60]:
+          - button " Signature" [disabled]
+        - menuitem [ref=f263e61]:
+          - link " Responses" [ref=f263e62] [cursor=pointer]:
+            - /url: "#responses"
+            - text:  Responses  
+        - menuitem [ref=f263e63]:
+          - generic [ref=f263e64]:
+            - button " Spell" [ref=f263e65] [cursor=pointer]
+            - link "" [ref=f263e66] [cursor=pointer]:
+              - /url: "#languages"
+        - menuitem:    
+      - text: 
+    - generic [ref=f263e67]:
+      - generic [ref=f263e68]:
+        - region "Message headers" [ref=f263e69]:
+          - generic [ref=f263e70]:
+            - generic [ref=f263e71]:
+              - generic [ref=f263e72]: From
+              - generic [ref=f263e74]:
+                - combobox "From" [ref=f263e75]:
+                  - option "alpha.customer@test.local" [selected]
+                - link "" [ref=f263e77] [cursor=pointer]:
+                  - /url: "#identities"
+            - generic [ref=f263e78]:
+              - generic [ref=f263e79]: To
+              - generic [ref=f263e81]:
+                - combobox "To" [ref=f263e82]: alpha.support@test.local, alpha.support@test.local
+                - list [ref=f263e83]:
+                  - listitem [ref=f263e84]:
+                    - generic [ref=f263e85]: alpha.support@test.local
+                    - generic: ","
+                    - generic [ref=f263e86] [cursor=pointer]: 
+                  - listitem [ref=f263e87]:
+                    - combobox [ref=f263e88]
+                - link "" [ref=f263e90] [cursor=pointer]:
+                  - /url: "#add-contact"
+                - link "" [ref=f263e92] [cursor=pointer]:
+                  - /url: "#add-header"
+                  - text:     
+            - text:        
+            - generic [ref=f263e93]:
+              - generic [ref=f263e94]: Subject
+              - textbox "Subject" [ref=f263e96]: "Re: [Helpdesk QA Alpha #3] Re: Ticket: BUG-HLP-008 retest - portal login issue"
+        - generic [ref=f263e97]:
+          - textbox "Message Body" [active] [ref=f263e98]: "On 2026-08-31 11:30, alpha.support@test.local wrote: > A NEW NOTE HAS BEEN ADDED > > Issue #3: Ticket: BUG-HLP-008 retest - portal login issue > Status: Waiting for Customer Response > Note: > > Hi Alpha Customer, thanks for reaching out. Could you tell me which > browser you're using and whether you see any error message? > ------------------------- > > View Ticket [1] > This email was sent from Helpdesk > > Links: > ------ > [1] http://localhost:3012/projects/helpdesk-qa-alpha/helpdesk/issues/3"
+          - link "" [ref=f263e100] [cursor=pointer]:
+            - /url: "#"
+      - generic [ref=f263e101]:
+        - button "Send" [ref=f263e102] [cursor=pointer]
+        - button "Open in new window" [ref=f263e104] [cursor=pointer]
+    - text:    
+  - text:              

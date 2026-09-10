@@ -1,0 +1,1008 @@
+- generic [active] [ref=f744e1]:
+  - generic [ref=f744e2]:
+    - generic [ref=f744e3]:
+      - generic [ref=f744e4]:
+        - list:
+          - listitem [ref=f744e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f744e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f744e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f744e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f744e9]:
+        - listitem [ref=f744e10]:
+          - link [ref=f744e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f744e12]
+        - listitem [ref=f744e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f744e14]:
+          - link "My page" [ref=f744e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f744e16]:
+          - link "Projects" [ref=f744e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f744e18]:
+          - link "Time Tracker" [ref=f744e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f744e20]:
+          - link "Workloads" [ref=f744e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f744e22]:
+          - link "Help" [ref=f744e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f744e24]:
+      - generic [ref=f744e25]:
+        - generic [ref=f744e26]:
+          - generic [ref=f744e27]:
+            - link "Search..." [ref=f744e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f744e29]
+        - generic [ref=f744e30]:
+          - generic [ref=f744e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f744e32]
+      - generic [ref=f744e33]:
+        - list [ref=f744e34]:
+          - listitem [ref=f744e35]:
+            - link "+" [ref=f744e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f744e37]:
+            - link "Overview" [ref=f744e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f744e39]:
+            - link "Activity" [ref=f744e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f744e41]:
+            - link "Issues" [ref=f744e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f744e43]:
+            - link "Spent time" [ref=f744e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f744e45]:
+            - link "Gantt" [ref=f744e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f744e47]:
+            - link "Calendar" [ref=f744e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f744e49]:
+            - link "News" [ref=f744e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f744e51]:
+            - link "Documents" [ref=f744e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f744e53]:
+            - link "Wiki" [ref=f744e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f744e55]:
+            - link "Files" [ref=f744e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f744e57]:
+            - link "Helpdesk" [ref=f744e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f744e59]:
+          - button [ref=f744e60] [cursor=pointer]
+          - button [ref=f744e63] [cursor=pointer]
+    - generic [ref=f744e66]:
+      - generic [ref=f744e67]:
+        - link [ref=f744e69] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f744e72]:
+          - heading "Custom queries" [level=3] [ref=f744e73]
+          - list [ref=f744e74]:
+            - listitem [ref=f744e75]:
+              - link "Issues assigned to me" [ref=f744e76] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/issues?query_id=1
+            - listitem [ref=f744e77]:
+              - link "Reported issues" [ref=f744e78] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/issues?query_id=2
+            - listitem [ref=f744e79]:
+              - link "Updated issues" [ref=f744e80] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/issues?query_id=3
+            - listitem [ref=f744e81]:
+              - link "Watched issues" [ref=f744e82] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/issues?query_id=4
+      - generic [ref=f744e83]:
+        - generic [ref=f744e84]:
+          - link "New issue" [ref=f744e85] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/new
+          - generic "Actions" [ref=f744e89] [cursor=pointer]
+        - heading "Issues" [level=2] [ref=f744e91]
+        - generic [ref=f744e94]:
+          - group "Filters" [ref=f744e95]
+          - group "Options" [ref=f744e99]
+        - generic [ref=f744e103]:
+          - button "Copy Table" [ref=f744e105] [cursor=pointer]
+          - table [ref=f744e110]:
+            - rowgroup [ref=f744e121]:
+              - row [ref=f744e122]:
+                - columnheader [ref=f744e123]:
+                  - checkbox "Check all / Uncheck all" [ref=f744e124]
+                - columnheader [ref=f744e125]:
+                  - link "#" [ref=f744e126] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?sort=id
+                - columnheader [ref=f744e129]:
+                  - link "Tracker" [ref=f744e130] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?sort=tracker%2Cid%3Adesc
+                - columnheader [ref=f744e132]:
+                  - link "Status" [ref=f744e133] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?sort=status%2Cid%3Adesc
+                - columnheader [ref=f744e135]:
+                  - link "Priority" [ref=f744e136] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?sort=priority%3Adesc%2Cid%3Adesc
+                - columnheader [ref=f744e138]:
+                  - link "Subject" [ref=f744e139] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?sort=subject%2Cid%3Adesc
+                - columnheader [ref=f744e141]:
+                  - link "Assignee" [ref=f744e142] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?sort=assigned_to%2Cid%3Adesc
+                - columnheader [ref=f744e144]:
+                  - link "Updated" [ref=f744e145] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?sort=updated_on%3Adesc%2Cid%3Adesc
+                - columnheader [ref=f744e147]
+            - rowgroup [ref=f744e148]:
+              - row [ref=f744e149]:
+                - cell [ref=f744e150]:
+                  - checkbox [ref=f744e151]
+                - cell [ref=f744e152]:
+                  - link "50" [ref=f744e153] [cursor=pointer]:
+                    - /url: /issues/50
+                - cell "Support Edit" [ref=f744e154]:
+                  - generic [ref=f744e155]:
+                    - generic [ref=f744e156]: Support
+                    - button "Edit" [ref=f744e157] [cursor=pointer]
+                - cell "New Edit" [ref=f744e158]:
+                  - generic [ref=f744e159]:
+                    - generic [ref=f744e160]: New
+                    - button "Edit" [ref=f744e161] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e162]:
+                  - generic [ref=f744e163]:
+                    - generic [ref=f744e164]: Normal
+                    - button "Edit" [ref=f744e165] [cursor=pointer]
+                - cell [ref=f744e166]:
+                  - generic [ref=f744e167]:
+                    - link "TC-HLP-135 - Soft mode exhausted budget new ticket test" [ref=f744e169] [cursor=pointer]:
+                      - /url: /issues/50
+                    - button "Edit" [ref=f744e170] [cursor=pointer]
+                - cell [ref=f744e171]:
+                  - button "Edit" [ref=f744e173] [cursor=pointer]
+                - cell "09/03/2026 12:05 PM" [ref=f744e174]
+                - cell [ref=f744e175]:
+                  - link "Actions" [ref=f744e176] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e178]:
+                - cell [ref=f744e179]:
+                  - checkbox [ref=f744e180]
+                - cell [ref=f744e181]:
+                  - link "49" [ref=f744e182] [cursor=pointer]:
+                    - /url: /issues/49
+                - cell "Support Edit" [ref=f744e183]:
+                  - generic [ref=f744e184]:
+                    - generic [ref=f744e185]: Support
+                    - button "Edit" [ref=f744e186] [cursor=pointer]
+                - cell "New Edit" [ref=f744e187]:
+                  - generic [ref=f744e188]:
+                    - generic [ref=f744e189]: New
+                    - button "Edit" [ref=f744e190] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e191]:
+                  - generic [ref=f744e192]:
+                    - generic [ref=f744e193]: Normal
+                    - button "Edit" [ref=f744e194] [cursor=pointer]
+                - cell [ref=f744e195]:
+                  - generic [ref=f744e196]:
+                    - link "TC-HLP-133 - No Limit mode exhausted budget new ticket test" [ref=f744e198] [cursor=pointer]:
+                      - /url: /issues/49
+                    - button "Edit" [ref=f744e199] [cursor=pointer]
+                - cell [ref=f744e200]:
+                  - button "Edit" [ref=f744e202] [cursor=pointer]
+                - cell "09/03/2026 12:01 PM" [ref=f744e203]
+                - cell [ref=f744e204]:
+                  - link "Actions" [ref=f744e205] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e207]:
+                - cell [ref=f744e208]:
+                  - checkbox [ref=f744e209]
+                - cell [ref=f744e210]:
+                  - link "48" [ref=f744e211] [cursor=pointer]:
+                    - /url: /issues/48
+                - cell "Support Edit" [ref=f744e212]:
+                  - generic [ref=f744e213]:
+                    - generic [ref=f744e214]: Support
+                    - button "Edit" [ref=f744e215] [cursor=pointer]
+                - cell "New Edit" [ref=f744e216]:
+                  - generic [ref=f744e217]:
+                    - generic [ref=f744e218]: New
+                    - button "Edit" [ref=f744e219] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e220]:
+                  - generic [ref=f744e221]:
+                    - generic [ref=f744e222]: Normal
+                    - button "Edit" [ref=f744e223] [cursor=pointer]
+                - cell [ref=f744e224]:
+                  - generic [ref=f744e225]:
+                    - link "TC-HLP-138 - Hard mode at zero hours new ticket test" [ref=f744e227] [cursor=pointer]:
+                      - /url: /issues/48
+                    - button "Edit" [ref=f744e228] [cursor=pointer]
+                - cell [ref=f744e229]:
+                  - button "Edit" [ref=f744e231] [cursor=pointer]
+                - cell "09/03/2026 11:55 AM" [ref=f744e232]
+                - cell [ref=f744e233]:
+                  - link "Actions" [ref=f744e234] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e236]:
+                - cell [ref=f744e237]:
+                  - checkbox [ref=f744e238]
+                - cell [ref=f744e239]:
+                  - link "47" [ref=f744e240] [cursor=pointer]:
+                    - /url: /issues/47
+                - cell "Support Edit" [ref=f744e241]:
+                  - generic [ref=f744e242]:
+                    - generic [ref=f744e243]: Support
+                    - button "Edit" [ref=f744e244] [cursor=pointer]
+                - cell "New Edit" [ref=f744e245]:
+                  - generic [ref=f744e246]:
+                    - generic [ref=f744e247]: New
+                    - button "Edit" [ref=f744e248] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e249]:
+                  - generic [ref=f744e250]:
+                    - generic [ref=f744e251]: Normal
+                    - button "Edit" [ref=f744e252] [cursor=pointer]
+                - cell [ref=f744e253]:
+                  - generic [ref=f744e254]:
+                    - link "TC-HLP-134 - Hard mode with budget remaining test ticket" [ref=f744e256] [cursor=pointer]:
+                      - /url: /issues/47
+                    - button "Edit" [ref=f744e257] [cursor=pointer]
+                - cell [ref=f744e258]:
+                  - button "Edit" [ref=f744e260] [cursor=pointer]
+                - cell "09/03/2026 11:49 AM" [ref=f744e261]
+                - cell [ref=f744e262]:
+                  - link "Actions" [ref=f744e263] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e265]:
+                - cell [ref=f744e266]:
+                  - checkbox [ref=f744e267]
+                - cell [ref=f744e268]:
+                  - link "46" [ref=f744e269] [cursor=pointer]:
+                    - /url: /issues/46
+                - cell "Support Edit" [ref=f744e270]:
+                  - generic [ref=f744e271]:
+                    - generic [ref=f744e272]: Support
+                    - button "Edit" [ref=f744e273] [cursor=pointer]
+                - cell "Waiting for Customer Response Edit" [ref=f744e274]:
+                  - generic [ref=f744e275]:
+                    - generic [ref=f744e276]: Waiting for Customer Response
+                    - button "Edit" [ref=f744e277] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e278]:
+                  - generic [ref=f744e279]:
+                    - generic [ref=f744e280]: Normal
+                    - button "Edit" [ref=f744e281] [cursor=pointer]
+                - cell [ref=f744e282]:
+                  - generic [ref=f744e283]:
+                    - link "TC-HLP-129 prepaid hours time-logging test ticket" [ref=f744e285] [cursor=pointer]:
+                      - /url: /issues/46
+                    - button "Edit" [ref=f744e286] [cursor=pointer]
+                - cell [ref=f744e287]:
+                  - generic [ref=f744e288]:
+                    - link "Luna Blossom" [ref=f744e290] [cursor=pointer]:
+                      - /url: /users/5
+                    - button "Edit" [ref=f744e291] [cursor=pointer]
+                - cell "09/03/2026 11:38 AM" [ref=f744e292]
+                - cell [ref=f744e293]:
+                  - link "Actions" [ref=f744e294] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e296]:
+                - cell [ref=f744e297]:
+                  - checkbox [ref=f744e298]
+                - cell [ref=f744e299]:
+                  - link "45" [ref=f744e300] [cursor=pointer]:
+                    - /url: /issues/45
+                - cell "Support Edit" [ref=f744e301]:
+                  - generic [ref=f744e302]:
+                    - generic [ref=f744e303]: Support
+                    - button "Edit" [ref=f744e304] [cursor=pointer]
+                - cell "Resolved Edit" [ref=f744e305]:
+                  - generic [ref=f744e306]:
+                    - generic [ref=f744e307]: Resolved
+                    - button "Edit" [ref=f744e308] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e309]:
+                  - generic [ref=f744e310]:
+                    - generic [ref=f744e311]: Normal
+                    - button "Edit" [ref=f744e312] [cursor=pointer]
+                - cell [ref=f744e313]:
+                  - generic [ref=f744e314]:
+                    - link "TC-HLP-366 multi-agent-L3-escalation test ticket B" [ref=f744e316] [cursor=pointer]:
+                      - /url: /issues/45
+                    - button "Edit" [ref=f744e317] [cursor=pointer]
+                - cell [ref=f744e318]:
+                  - generic [ref=f744e319]:
+                    - link "Willow Belle" [ref=f744e321] [cursor=pointer]:
+                      - /url: /users/11
+                    - button "Edit" [ref=f744e322] [cursor=pointer]
+                - cell "09/03/2026 09:39 AM" [ref=f744e323]
+                - cell [ref=f744e324]:
+                  - link "Actions" [ref=f744e325] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e327]:
+                - cell [ref=f744e328]:
+                  - checkbox [ref=f744e329]
+                - cell [ref=f744e330]:
+                  - link "44" [ref=f744e331] [cursor=pointer]:
+                    - /url: /issues/44
+                - cell "Support Edit" [ref=f744e332]:
+                  - generic [ref=f744e333]:
+                    - generic [ref=f744e334]: Support
+                    - button "Edit" [ref=f744e335] [cursor=pointer]
+                - cell "New Edit" [ref=f744e336]:
+                  - generic [ref=f744e337]:
+                    - generic [ref=f744e338]: New
+                    - button "Edit" [ref=f744e339] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e340]:
+                  - generic [ref=f744e341]:
+                    - generic [ref=f744e342]: Normal
+                    - button "Edit" [ref=f744e343] [cursor=pointer]
+                - cell [ref=f744e344]:
+                  - generic [ref=f744e345]:
+                    - link "TC-HLP-366 multi-agent-L3-escalation test ticket A" [ref=f744e347] [cursor=pointer]:
+                      - /url: /issues/44
+                    - button "Edit" [ref=f744e348] [cursor=pointer]
+                - cell [ref=f744e349]:
+                  - generic [ref=f744e350]:
+                    - link "Willow Belle" [ref=f744e352] [cursor=pointer]:
+                      - /url: /users/11
+                    - button "Edit" [ref=f744e353] [cursor=pointer]
+                - cell "09/03/2026 09:27 AM" [ref=f744e354]
+                - cell [ref=f744e355]:
+                  - link "Actions" [ref=f744e356] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e358]:
+                - cell [ref=f744e359]:
+                  - checkbox [ref=f744e360]
+                - cell [ref=f744e361]:
+                  - link "40" [ref=f744e362] [cursor=pointer]:
+                    - /url: /issues/40
+                - cell "Support Edit" [ref=f744e363]:
+                  - generic [ref=f744e364]:
+                    - generic [ref=f744e365]: Support
+                    - button "Edit" [ref=f744e366] [cursor=pointer]
+                - cell "In Progress Edit" [ref=f744e367]:
+                  - generic [ref=f744e368]:
+                    - generic [ref=f744e369]: In Progress
+                    - button "Edit" [ref=f744e370] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e371]:
+                  - generic [ref=f744e372]:
+                    - generic [ref=f744e373]: Normal
+                    - button "Edit" [ref=f744e374] [cursor=pointer]
+                - cell [ref=f744e375]:
+                  - generic [ref=f744e376]:
+                    - link "TC-HLP-363 breach-once-then-resolved-at-next-level test ticket" [ref=f744e378] [cursor=pointer]:
+                      - /url: /issues/40
+                    - button "Edit" [ref=f744e379] [cursor=pointer]
+                - cell [ref=f744e380]:
+                  - generic [ref=f744e381]:
+                    - link "Willow Belle" [ref=f744e383] [cursor=pointer]:
+                      - /url: /users/11
+                    - button "Edit" [ref=f744e384] [cursor=pointer]
+                - cell "09/03/2026 09:16 AM" [ref=f744e385]
+                - cell [ref=f744e386]:
+                  - link "Actions" [ref=f744e387] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e389]:
+                - cell [ref=f744e390]:
+                  - checkbox [ref=f744e391]
+                - cell [ref=f744e392]:
+                  - link "38" [ref=f744e393] [cursor=pointer]:
+                    - /url: /issues/38
+                - cell "Bug Edit" [ref=f744e394]:
+                  - generic [ref=f744e395]:
+                    - generic [ref=f744e396]: Bug
+                    - button "Edit" [ref=f744e397] [cursor=pointer]
+                - cell "New Edit" [ref=f744e398]:
+                  - generic [ref=f744e399]:
+                    - generic [ref=f744e400]: New
+                    - button "Edit" [ref=f744e401] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e402]:
+                  - generic [ref=f744e403]:
+                    - generic [ref=f744e404]: Normal
+                    - button "Edit" [ref=f744e405] [cursor=pointer]
+                - cell [ref=f744e406]:
+                  - generic [ref=f744e407]:
+                    - link "dsfasd" [ref=f744e409] [cursor=pointer]:
+                      - /url: /issues/38
+                    - button "Edit" [ref=f744e410] [cursor=pointer]
+                - cell [ref=f744e411]:
+                  - button "Edit" [ref=f744e413] [cursor=pointer]
+                - cell "09/03/2026 11:38 AM" [ref=f744e414]
+                - cell [ref=f744e415]:
+                  - link "Actions" [ref=f744e416] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e418]:
+                - cell [ref=f744e419]:
+                  - checkbox [ref=f744e420]
+                - cell [ref=f744e421]:
+                  - link "37" [ref=f744e422] [cursor=pointer]:
+                    - /url: /issues/37
+                - cell "Bug Edit" [ref=f744e423]:
+                  - generic [ref=f744e424]:
+                    - generic [ref=f744e425]: Bug
+                    - button "Edit" [ref=f744e426] [cursor=pointer]
+                - cell "New Edit" [ref=f744e427]:
+                  - generic [ref=f744e428]:
+                    - generic [ref=f744e429]: New
+                    - button "Edit" [ref=f744e430] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e431]:
+                  - generic [ref=f744e432]:
+                    - generic [ref=f744e433]: Normal
+                    - button "Edit" [ref=f744e434] [cursor=pointer]
+                - cell [ref=f744e435]:
+                  - generic [ref=f744e436]:
+                    - link "asdfsa" [ref=f744e438] [cursor=pointer]:
+                      - /url: /issues/37
+                    - button "Edit" [ref=f744e439] [cursor=pointer]
+                - cell [ref=f744e440]:
+                  - button "Edit" [ref=f744e442] [cursor=pointer]
+                - cell "09/02/2026 06:08 AM" [ref=f744e443]
+                - cell [ref=f744e444]:
+                  - link "Actions" [ref=f744e445] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e447]:
+                - cell [ref=f744e448]:
+                  - checkbox [ref=f744e449]
+                - cell [ref=f744e450]:
+                  - link "36" [ref=f744e451] [cursor=pointer]:
+                    - /url: /issues/36
+                - cell "Support Edit" [ref=f744e452]:
+                  - generic [ref=f744e453]:
+                    - generic [ref=f744e454]: Support
+                    - button "Edit" [ref=f744e455] [cursor=pointer]
+                - cell "New Edit" [ref=f744e456]:
+                  - generic [ref=f744e457]:
+                    - generic [ref=f744e458]: New
+                    - button "Edit" [ref=f744e459] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e460]:
+                  - generic [ref=f744e461]:
+                    - generic [ref=f744e462]: Normal
+                    - button "Edit" [ref=f744e463] [cursor=pointer]
+                - cell [ref=f744e464]:
+                  - generic [ref=f744e465]:
+                    - link "TC-HLP-356 holiday adjacency restricted-days test ticket" [ref=f744e467] [cursor=pointer]:
+                      - /url: /issues/36
+                    - button "Edit" [ref=f744e468] [cursor=pointer]
+                - cell [ref=f744e469]:
+                  - generic [ref=f744e470]:
+                    - link "Redmine Admin" [ref=f744e472] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f744e473] [cursor=pointer]
+                - cell "09/02/2026 05:06 AM" [ref=f744e474]
+                - cell [ref=f744e475]:
+                  - link "Actions" [ref=f744e476] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e478]:
+                - cell [ref=f744e479]:
+                  - checkbox [ref=f744e480]
+                - cell [ref=f744e481]:
+                  - link "35" [ref=f744e482] [cursor=pointer]:
+                    - /url: /issues/35
+                - cell "Support Edit" [ref=f744e483]:
+                  - generic [ref=f744e484]:
+                    - generic [ref=f744e485]: Support
+                    - button "Edit" [ref=f744e486] [cursor=pointer]
+                - cell "New Edit" [ref=f744e487]:
+                  - generic [ref=f744e488]:
+                    - generic [ref=f744e489]: New
+                    - button "Edit" [ref=f744e490] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e491]:
+                  - generic [ref=f744e492]:
+                    - generic [ref=f744e493]: Normal
+                    - button "Edit" [ref=f744e494] [cursor=pointer]
+                - cell [ref=f744e495]:
+                  - generic [ref=f744e496]:
+                    - link "TC-HLP-355 just-before-close boundary test ticket" [ref=f744e498] [cursor=pointer]:
+                      - /url: /issues/35
+                    - button "Edit" [ref=f744e499] [cursor=pointer]
+                - cell [ref=f744e500]:
+                  - generic [ref=f744e501]:
+                    - link "Willow Belle" [ref=f744e503] [cursor=pointer]:
+                      - /url: /users/11
+                    - button "Edit" [ref=f744e504] [cursor=pointer]
+                - cell "09/02/2026 05:03 AM" [ref=f744e505]
+                - cell [ref=f744e506]:
+                  - link "Actions" [ref=f744e507] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e509]:
+                - cell [ref=f744e510]:
+                  - checkbox [ref=f744e511]
+                - cell [ref=f744e512]:
+                  - link "34" [ref=f744e513] [cursor=pointer]:
+                    - /url: /issues/34
+                - cell "Support Edit" [ref=f744e514]:
+                  - generic [ref=f744e515]:
+                    - generic [ref=f744e516]: Support
+                    - button "Edit" [ref=f744e517] [cursor=pointer]
+                - cell "New Edit" [ref=f744e518]:
+                  - generic [ref=f744e519]:
+                    - generic [ref=f744e520]: New
+                    - button "Edit" [ref=f744e521] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e522]:
+                  - generic [ref=f744e523]:
+                    - generic [ref=f744e524]: Normal
+                    - button "Edit" [ref=f744e525] [cursor=pointer]
+                - cell [ref=f744e526]:
+                  - generic [ref=f744e527]:
+                    - link "TC-HLP-354 ticket assigned during the holiday itself test" [ref=f744e529] [cursor=pointer]:
+                      - /url: /issues/34
+                    - button "Edit" [ref=f744e530] [cursor=pointer]
+                - cell [ref=f744e531]:
+                  - generic [ref=f744e532]:
+                    - link "Luna Blossom" [ref=f744e534] [cursor=pointer]:
+                      - /url: /users/5
+                    - button "Edit" [ref=f744e535] [cursor=pointer]
+                - cell "09/02/2026 04:58 AM" [ref=f744e536]
+                - cell [ref=f744e537]:
+                  - link "Actions" [ref=f744e538] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e540]:
+                - cell [ref=f744e541]:
+                  - checkbox [ref=f744e542]
+                - cell [ref=f744e543]:
+                  - link "33" [ref=f744e544] [cursor=pointer]:
+                    - /url: /issues/33
+                - cell "Support Edit" [ref=f744e545]:
+                  - generic [ref=f744e546]:
+                    - generic [ref=f744e547]: Support
+                    - button "Edit" [ref=f744e548] [cursor=pointer]
+                - cell "New Edit" [ref=f744e549]:
+                  - generic [ref=f744e550]:
+                    - generic [ref=f744e551]: New
+                    - button "Edit" [ref=f744e552] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e553]:
+                  - generic [ref=f744e554]:
+                    - generic [ref=f744e555]: Normal
+                    - button "Edit" [ref=f744e556] [cursor=pointer]
+                - cell [ref=f744e557]:
+                  - generic [ref=f744e558]:
+                    - link "TC-HLP-353 multi-day holiday clock test ticket" [ref=f744e560] [cursor=pointer]:
+                      - /url: /issues/33
+                    - button "Edit" [ref=f744e561] [cursor=pointer]
+                - cell [ref=f744e562]:
+                  - generic [ref=f744e563]:
+                    - link "Luna Blossom" [ref=f744e565] [cursor=pointer]:
+                      - /url: /users/5
+                    - button "Edit" [ref=f744e566] [cursor=pointer]
+                - cell "09/01/2026 02:15 PM" [ref=f744e567]
+                - cell [ref=f744e568]:
+                  - link "Actions" [ref=f744e569] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e571]:
+                - cell [ref=f744e572]:
+                  - checkbox [ref=f744e573]
+                - cell [ref=f744e574]:
+                  - link "32" [ref=f744e575] [cursor=pointer]:
+                    - /url: /issues/32
+                - cell "Support Edit" [ref=f744e576]:
+                  - generic [ref=f744e577]:
+                    - generic [ref=f744e578]: Support
+                    - button "Edit" [ref=f744e579] [cursor=pointer]
+                - cell "New Edit" [ref=f744e580]:
+                  - generic [ref=f744e581]:
+                    - generic [ref=f744e582]: New
+                    - button "Edit" [ref=f744e583] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e584]:
+                  - generic [ref=f744e585]:
+                    - generic [ref=f744e586]: Normal
+                    - button "Edit" [ref=f744e587] [cursor=pointer]
+                - cell [ref=f744e588]:
+                  - generic [ref=f744e589]:
+                    - link "TC-HLP-352 partial-consumption weekly-gap test ticket" [ref=f744e591] [cursor=pointer]:
+                      - /url: /issues/32
+                    - button "Edit" [ref=f744e592] [cursor=pointer]
+                - cell [ref=f744e593]:
+                  - generic [ref=f744e594]:
+                    - link "Luna Blossom" [ref=f744e596] [cursor=pointer]:
+                      - /url: /users/5
+                    - button "Edit" [ref=f744e597] [cursor=pointer]
+                - cell "09/01/2026 02:10 PM" [ref=f744e598]
+                - cell [ref=f744e599]:
+                  - link "Actions" [ref=f744e600] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e602]:
+                - cell [ref=f744e603]:
+                  - checkbox [ref=f744e604]
+                - cell [ref=f744e605]:
+                  - link "31" [ref=f744e606] [cursor=pointer]:
+                    - /url: /issues/31
+                - cell "Support Edit" [ref=f744e607]:
+                  - generic [ref=f744e608]:
+                    - generic [ref=f744e609]: Support
+                    - button "Edit" [ref=f744e610] [cursor=pointer]
+                - cell "New Edit" [ref=f744e611]:
+                  - generic [ref=f744e612]:
+                    - generic [ref=f744e613]: New
+                    - button "Edit" [ref=f744e614] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e615]:
+                  - generic [ref=f744e616]:
+                    - generic [ref=f744e617]: Normal
+                    - button "Edit" [ref=f744e618] [cursor=pointer]
+                - cell [ref=f744e619]:
+                  - generic [ref=f744e620]:
+                    - link "TC-HLP-351 outside working hours intraday test ticket" [ref=f744e622] [cursor=pointer]:
+                      - /url: /issues/31
+                    - button "Edit" [ref=f744e623] [cursor=pointer]
+                - cell [ref=f744e624]:
+                  - generic [ref=f744e625]:
+                    - link "Willow Belle" [ref=f744e627] [cursor=pointer]:
+                      - /url: /users/11
+                    - button "Edit" [ref=f744e628] [cursor=pointer]
+                - cell "09/01/2026 02:07 PM" [ref=f744e629]
+                - cell [ref=f744e630]:
+                  - link "Actions" [ref=f744e631] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e633]:
+                - cell [ref=f744e634]:
+                  - checkbox [ref=f744e635]
+                - cell [ref=f744e636]:
+                  - link "30" [ref=f744e637] [cursor=pointer]:
+                    - /url: /issues/30
+                - cell "Support Edit" [ref=f744e638]:
+                  - generic [ref=f744e639]:
+                    - generic [ref=f744e640]: Support
+                    - button "Edit" [ref=f744e641] [cursor=pointer]
+                - cell "New Edit" [ref=f744e642]:
+                  - generic [ref=f744e643]:
+                    - generic [ref=f744e644]: New
+                    - button "Edit" [ref=f744e645] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e646]:
+                  - generic [ref=f744e647]:
+                    - generic [ref=f744e648]: Normal
+                    - button "Edit" [ref=f744e649] [cursor=pointer]
+                - cell [ref=f744e650]:
+                  - generic [ref=f744e651]:
+                    - link "TC-HLP-350 same-day baseline within working hours test ticket" [ref=f744e653] [cursor=pointer]:
+                      - /url: /issues/30
+                    - button "Edit" [ref=f744e654] [cursor=pointer]
+                - cell [ref=f744e655]:
+                  - generic [ref=f744e656]:
+                    - link "Willow Belle" [ref=f744e658] [cursor=pointer]:
+                      - /url: /users/11
+                    - button "Edit" [ref=f744e659] [cursor=pointer]
+                - cell "09/01/2026 02:04 PM" [ref=f744e660]
+                - cell [ref=f744e661]:
+                  - link "Actions" [ref=f744e662] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e664]:
+                - cell [ref=f744e665]:
+                  - checkbox [ref=f744e666]
+                - cell [ref=f744e667]:
+                  - link "29" [ref=f744e668] [cursor=pointer]:
+                    - /url: /issues/29
+                - cell "Support Edit" [ref=f744e669]:
+                  - generic [ref=f744e670]:
+                    - generic [ref=f744e671]: Support
+                    - button "Edit" [ref=f744e672] [cursor=pointer]
+                - cell "New Edit" [ref=f744e673]:
+                  - generic [ref=f744e674]:
+                    - generic [ref=f744e675]: New
+                    - button "Edit" [ref=f744e676] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e677]:
+                  - generic [ref=f744e678]:
+                    - generic [ref=f744e679]: Normal
+                    - button "Edit" [ref=f744e680] [cursor=pointer]
+                - cell [ref=f744e681]:
+                  - generic [ref=f744e682]:
+                    - link "TC-HLP-349 locked-agent escalation exclusion test 3" [ref=f744e684] [cursor=pointer]:
+                      - /url: /issues/29
+                    - button "Edit" [ref=f744e685] [cursor=pointer]
+                - cell [ref=f744e686]:
+                  - generic [ref=f744e687]:
+                    - link "Redmine Admin" [ref=f744e689] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f744e690] [cursor=pointer]
+                - cell "09/01/2026 01:21 PM" [ref=f744e691]
+                - cell [ref=f744e692]:
+                  - link "Actions" [ref=f744e693] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e695]:
+                - cell [ref=f744e696]:
+                  - checkbox [ref=f744e697]
+                - cell [ref=f744e698]:
+                  - link "28" [ref=f744e699] [cursor=pointer]:
+                    - /url: /issues/28
+                - cell "Support Edit" [ref=f744e700]:
+                  - generic [ref=f744e701]:
+                    - generic [ref=f744e702]: Support
+                    - button "Edit" [ref=f744e703] [cursor=pointer]
+                - cell "New Edit" [ref=f744e704]:
+                  - generic [ref=f744e705]:
+                    - generic [ref=f744e706]: New
+                    - button "Edit" [ref=f744e707] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e708]:
+                  - generic [ref=f744e709]:
+                    - generic [ref=f744e710]: Normal
+                    - button "Edit" [ref=f744e711] [cursor=pointer]
+                - cell [ref=f744e712]:
+                  - generic [ref=f744e713]:
+                    - link "TC-HLP-349 locked-agent escalation exclusion test 2" [ref=f744e715] [cursor=pointer]:
+                      - /url: /issues/28
+                    - button "Edit" [ref=f744e716] [cursor=pointer]
+                - cell [ref=f744e717]:
+                  - generic [ref=f744e718]:
+                    - link "Redmine Admin" [ref=f744e720] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f744e721] [cursor=pointer]
+                - cell "09/01/2026 01:21 PM" [ref=f744e722]
+                - cell [ref=f744e723]:
+                  - link "Actions" [ref=f744e724] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e726]:
+                - cell [ref=f744e727]:
+                  - checkbox [ref=f744e728]
+                - cell [ref=f744e729]:
+                  - link "27" [ref=f744e730] [cursor=pointer]:
+                    - /url: /issues/27
+                - cell "Support Edit" [ref=f744e731]:
+                  - generic [ref=f744e732]:
+                    - generic [ref=f744e733]: Support
+                    - button "Edit" [ref=f744e734] [cursor=pointer]
+                - cell "New Edit" [ref=f744e735]:
+                  - generic [ref=f744e736]:
+                    - generic [ref=f744e737]: New
+                    - button "Edit" [ref=f744e738] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e739]:
+                  - generic [ref=f744e740]:
+                    - generic [ref=f744e741]: Normal
+                    - button "Edit" [ref=f744e742] [cursor=pointer]
+                - cell [ref=f744e743]:
+                  - generic [ref=f744e744]:
+                    - link "TC-HLP-349 locked-agent escalation exclusion test 1" [ref=f744e746] [cursor=pointer]:
+                      - /url: /issues/27
+                    - button "Edit" [ref=f744e747] [cursor=pointer]
+                - cell [ref=f744e748]:
+                  - generic [ref=f744e749]:
+                    - link "Redmine Admin" [ref=f744e751] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f744e752] [cursor=pointer]
+                - cell "09/01/2026 01:20 PM" [ref=f744e753]
+                - cell [ref=f744e754]:
+                  - link "Actions" [ref=f744e755] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e757]:
+                - cell [ref=f744e758]:
+                  - checkbox [ref=f744e759]
+                - cell [ref=f744e760]:
+                  - link "26" [ref=f744e761] [cursor=pointer]:
+                    - /url: /issues/26
+                - cell "Support Edit" [ref=f744e762]:
+                  - generic [ref=f744e763]:
+                    - generic [ref=f744e764]: Support
+                    - button "Edit" [ref=f744e765] [cursor=pointer]
+                - cell "New Edit" [ref=f744e766]:
+                  - generic [ref=f744e767]:
+                    - generic [ref=f744e768]: New
+                    - button "Edit" [ref=f744e769] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e770]:
+                  - generic [ref=f744e771]:
+                    - generic [ref=f744e772]: Normal
+                    - button "Edit" [ref=f744e773] [cursor=pointer]
+                - cell [ref=f744e774]:
+                  - generic [ref=f744e775]:
+                    - link "TC-HLP-344 fresh unassigned L2 ticket - matching-level agent no-false-positive test" [ref=f744e777] [cursor=pointer]:
+                      - /url: /issues/26
+                    - button "Edit" [ref=f744e778] [cursor=pointer]
+                - cell [ref=f744e779]:
+                  - generic [ref=f744e780]:
+                    - link "Redmine Admin" [ref=f744e782] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f744e783] [cursor=pointer]
+                - cell "09/01/2026 01:09 PM" [ref=f744e784]
+                - cell [ref=f744e785]:
+                  - link "Actions" [ref=f744e786] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e788]:
+                - cell [ref=f744e789]:
+                  - checkbox [ref=f744e790]
+                - cell [ref=f744e791]:
+                  - link "25" [ref=f744e792] [cursor=pointer]:
+                    - /url: /issues/25
+                - cell "Support Edit" [ref=f744e793]:
+                  - generic [ref=f744e794]:
+                    - generic [ref=f744e795]: Support
+                    - button "Edit" [ref=f744e796] [cursor=pointer]
+                - cell "Waiting for Customer Response Edit" [ref=f744e797]:
+                  - generic [ref=f744e798]:
+                    - generic [ref=f744e799]: Waiting for Customer Response
+                    - button "Edit" [ref=f744e800] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e801]:
+                  - generic [ref=f744e802]:
+                    - generic [ref=f744e803]: Normal
+                    - button "Edit" [ref=f744e804] [cursor=pointer]
+                - cell [ref=f744e805]:
+                  - generic [ref=f744e806]:
+                    - link "TC-HLP-343 fresh unassigned L2 ticket - reply-action warning test" [ref=f744e808] [cursor=pointer]:
+                      - /url: /issues/25
+                    - button "Edit" [ref=f744e809] [cursor=pointer]
+                - cell [ref=f744e810]:
+                  - generic [ref=f744e811]:
+                    - link "Luna Blossom" [ref=f744e813] [cursor=pointer]:
+                      - /url: /users/5
+                    - button "Edit" [ref=f744e814] [cursor=pointer]
+                - cell "09/01/2026 01:08 PM" [ref=f744e815]
+                - cell [ref=f744e816]:
+                  - link "Actions" [ref=f744e817] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e819]:
+                - cell [ref=f744e820]:
+                  - checkbox [ref=f744e821]
+                - cell [ref=f744e822]:
+                  - link "24" [ref=f744e823] [cursor=pointer]:
+                    - /url: /issues/24
+                - cell "Support Edit" [ref=f744e824]:
+                  - generic [ref=f744e825]:
+                    - generic [ref=f744e826]: Support
+                    - button "Edit" [ref=f744e827] [cursor=pointer]
+                - cell "New Edit" [ref=f744e828]:
+                  - generic [ref=f744e829]:
+                    - generic [ref=f744e830]: New
+                    - button "Edit" [ref=f744e831] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e832]:
+                  - generic [ref=f744e833]:
+                    - generic [ref=f744e834]: Normal
+                    - button "Edit" [ref=f744e835] [cursor=pointer]
+                - cell [ref=f744e836]:
+                  - generic [ref=f744e837]:
+                    - link "TC-HLP-342 fresh unassigned L2 ticket - self-assign warning test" [ref=f744e839] [cursor=pointer]:
+                      - /url: /issues/24
+                    - button "Edit" [ref=f744e840] [cursor=pointer]
+                - cell [ref=f744e841]:
+                  - generic [ref=f744e842]:
+                    - link "Redmine Admin" [ref=f744e844] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f744e845] [cursor=pointer]
+                - cell "09/01/2026 01:07 PM" [ref=f744e846]
+                - cell [ref=f744e847]:
+                  - link "Actions" [ref=f744e848] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e850]:
+                - cell [ref=f744e851]:
+                  - checkbox [ref=f744e852]
+                - cell [ref=f744e853]:
+                  - link "23" [ref=f744e854] [cursor=pointer]:
+                    - /url: /issues/23
+                - cell "Support Edit" [ref=f744e855]:
+                  - generic [ref=f744e856]:
+                    - generic [ref=f744e857]: Support
+                    - button "Edit" [ref=f744e858] [cursor=pointer]
+                - cell "New Edit" [ref=f744e859]:
+                  - generic [ref=f744e860]:
+                    - generic [ref=f744e861]: New
+                    - button "Edit" [ref=f744e862] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e863]:
+                  - generic [ref=f744e864]:
+                    - generic [ref=f744e865]: Normal
+                    - button "Edit" [ref=f744e866] [cursor=pointer]
+                - cell [ref=f744e867]:
+                  - generic [ref=f744e868]:
+                    - link "TC-HLP-339 deactivated-SLA new ticket test" [ref=f744e870] [cursor=pointer]:
+                      - /url: /issues/23
+                    - button "Edit" [ref=f744e871] [cursor=pointer]
+                - cell [ref=f744e872]:
+                  - generic [ref=f744e873]:
+                    - link "Luna Blossom" [ref=f744e875] [cursor=pointer]:
+                      - /url: /users/5
+                    - button "Edit" [ref=f744e876] [cursor=pointer]
+                - cell "09/01/2026 12:24 PM" [ref=f744e877]
+                - cell [ref=f744e878]:
+                  - link "Actions" [ref=f744e879] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f744e881]:
+                - cell [ref=f744e882]:
+                  - checkbox [ref=f744e883]
+                - cell [ref=f744e884]:
+                  - link "22" [ref=f744e885] [cursor=pointer]:
+                    - /url: /issues/22
+                - cell "Support Edit" [ref=f744e886]:
+                  - generic [ref=f744e887]:
+                    - generic [ref=f744e888]: Support
+                    - button "Edit" [ref=f744e889] [cursor=pointer]
+                - cell "New Edit" [ref=f744e890]:
+                  - generic [ref=f744e891]:
+                    - generic [ref=f744e892]: New
+                    - button "Edit" [ref=f744e893] [cursor=pointer]
+                - cell "Normal Edit" [ref=f744e894]:
+                  - generic [ref=f744e895]:
+                    - generic [ref=f744e896]: Normal
+                    - button "Edit" [ref=f744e897] [cursor=pointer]
+                - cell [ref=f744e898]:
+                  - generic [ref=f744e899]:
+                    - link "TC-HLP-338 lower-level agent self-assign test ticket" [ref=f744e901] [cursor=pointer]:
+                      - /url: /issues/22
+                    - button "Edit" [ref=f744e902] [cursor=pointer]
+                - cell [ref=f744e903]:
+                  - generic [ref=f744e904]:
+                    - link "Luna Blossom" [ref=f744e906] [cursor=pointer]:
+                      - /url: /users/5
+                    - button "Edit" [ref=f744e907] [cursor=pointer]
+                - cell "09/01/2026 12:51 PM" [ref=f744e908]
+                - cell [ref=f744e909]:
+                  - link "Actions" [ref=f744e910] [cursor=pointer]:
+                    - /url: "#"
+        - generic [ref=f744e912]:
+          - list [ref=f744e913]:
+            - listitem: « « Previous
+            - listitem [ref=f744e914]: "1"
+            - listitem [ref=f744e915]:
+              - link "2" [ref=f744e916] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/issues?page=2
+            - listitem:
+              - link "Next » »" [ref=f744e917] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/issues?page=2
+          - generic:
+            - generic [ref=f744e918]: (1-25/44)
+            - generic [ref=f744e919]:
+              - text: "Per page: 25,"
+              - link "50" [ref=f744e920] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/issues?per_page=50
+        - paragraph [ref=f744e921]:
+          - text: "Also available in:"
+          - link "CSV" [ref=f744e923] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues.csv
+          - generic [ref=f744e924]:
+            - text: "|"
+            - link "PDF" [ref=f744e925] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues.pdf
+          - generic [ref=f744e926]:
+            - text: "|"
+            - link "Atom" [ref=f744e927] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues.atom?key=74f8c2c10d57ac3baeee5bf474f60ebd9a037b60
+    - generic [ref=f744e928]:
+      - text: Powered by
+      - link "Redmine" [ref=f744e929] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f744e930]
+  - log [ref=f744e931]
+  - log [ref=f744e932]
+  - log [ref=f744e933]
+  - log [ref=f744e934]
+  - log [ref=f744e935]
+  - log [ref=f744e936]
+  - log [ref=f744e937]
+  - log [ref=f744e938]
+  - log [ref=f744e939]
+  - log [ref=f744e940]
+  - log [ref=f744e941]
+  - log [ref=f744e942]
+  - log [ref=f744e943]
+  - log [ref=f744e944]
+  - log [ref=f744e945]
+  - log [ref=f744e946]
+  - log [ref=f744e947]
+  - log [ref=f744e948]
+  - log [ref=f744e949]
+  - log [ref=f744e950]
+  - log [ref=f744e951]
+  - log [ref=f744e952]
+  - log [ref=f744e953]
+  - log [ref=f744e954]
+  - log [ref=f744e955]
+  - log [ref=f744e956]
+  - log [ref=f744e957]
+  - log [ref=f744e958]
+  - log [ref=f744e959]
+  - log [ref=f744e960]
+  - log [ref=f744e961]
+  - log [ref=f744e962]
+  - log [ref=f744e963]
+  - log [ref=f744e964]
+  - log [ref=f744e965]
+  - log [ref=f744e966]
+  - log [ref=f744e967]
+  - log [ref=f744e968]
+  - log [ref=f744e969]
+  - log [ref=f744e970]
+  - log [ref=f744e971]
+  - log [ref=f744e972]
+  - log [ref=f744e973]

@@ -1,0 +1,237 @@
+- generic [active] [ref=f255e1]:
+  - generic [ref=f255e2]:
+    - generic [ref=f255e3]:
+      - generic [ref=f255e4]:
+        - list:
+          - listitem [ref=f255e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f255e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f255e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f255e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f255e9]:
+        - listitem [ref=f255e10]:
+          - link [ref=f255e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f255e12]
+        - listitem [ref=f255e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f255e14]:
+          - link "My page" [ref=f255e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f255e16]:
+          - link "Projects" [ref=f255e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f255e18]:
+          - link "Time Tracker" [ref=f255e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f255e20]:
+          - link "Workloads" [ref=f255e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f255e22]:
+          - link "Help" [ref=f255e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f255e24]:
+      - generic [ref=f255e25]:
+        - generic [ref=f255e26]:
+          - generic [ref=f255e27]:
+            - link "Search..." [ref=f255e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f255e29]
+        - generic [ref=f255e30]:
+          - generic [ref=f255e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f255e32]
+      - generic [ref=f255e33]:
+        - list [ref=f255e34]:
+          - listitem [ref=f255e35]:
+            - link "+" [ref=f255e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f255e37]:
+            - link "Overview" [ref=f255e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f255e39]:
+            - link "Activity" [ref=f255e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f255e41]:
+            - link "Issues" [ref=f255e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f255e43]:
+            - link "Spent time" [ref=f255e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f255e45]:
+            - link "Gantt" [ref=f255e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f255e47]:
+            - link "Calendar" [ref=f255e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f255e49]:
+            - link "News" [ref=f255e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f255e51]:
+            - link "Documents" [ref=f255e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f255e53]:
+            - link "Wiki" [ref=f255e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f255e55]:
+            - link "Files" [ref=f255e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f255e57]:
+            - link "Helpdesk" [ref=f255e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f255e59]:
+          - button [ref=f255e60] [cursor=pointer]
+          - button [ref=f255e63] [cursor=pointer]
+    - generic [ref=f255e66]:
+      - link [ref=f255e68] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=f255e71]:
+        - generic [ref=f255e72]:
+          - link "Start Timer" [ref=f255e73] [cursor=pointer]:
+            - /url: "#"
+          - link "Reply" [ref=f255e74] [cursor=pointer]:
+            - /url: "#"
+          - link "Edit" [ref=f255e75] [cursor=pointer]:
+            - /url: /issues/3/edit
+          - link "Log time" [ref=f255e77] [cursor=pointer]:
+            - /url: /issues/3/time_entries/new
+          - link "Watch" [ref=f255e79] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=3&object_type=issue
+          - generic "Actions" [ref=f255e83] [cursor=pointer]
+        - 'heading "Support #3" [level=2] [ref=f255e85]'
+        - text: open
+        - generic [ref=f255e86]:
+          - 'img "Author: Alpha Customer" [ref=f255e87]': AC
+          - 'heading "Ticket: BUG-HLP-008 retest - portal login issue" [level=3] [ref=f255e91]'
+          - link [ref=f255e94] [cursor=pointer]:
+            - /url: /reactions?object_id=3&object_type=Issue
+          - paragraph [ref=f255e97]:
+            - text: Added by
+            - link "Alpha Customer" [ref=f255e98] [cursor=pointer]:
+              - /url: /users/6
+            - link "1 minute" [ref=f255e99] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-08-31
+            - text: ago.
+          - generic [ref=f255e100]:
+            - generic [ref=f255e101]:
+              - generic [ref=f255e102]:
+                - generic [ref=f255e103]:
+                  - generic [ref=f255e104]: "Status:"
+                  - generic [ref=f255e105]: New
+                - generic [ref=f255e106]:
+                  - generic [ref=f255e107]: "Priority:"
+                  - generic [ref=f255e108]: Normal
+                - generic [ref=f255e109]:
+                  - generic [ref=f255e110]: "Assignee:"
+                  - generic [ref=f255e111]: "-"
+              - generic [ref=f255e112]:
+                - generic [ref=f255e113]:
+                  - generic [ref=f255e114]: "Start date:"
+                  - generic [ref=f255e115]: 08/31/2026
+                - generic [ref=f255e116]: "Due Date:"
+                - generic [ref=f255e118]:
+                  - generic [ref=f255e119]: "Progress:"
+                  - generic [ref=f255e120]:
+                    - table [ref=f255e121]:
+                      - rowgroup [ref=f255e122]:
+                        - row [ref=f255e123]:
+                          - cell [ref=f255e124]
+                    - paragraph [ref=f255e125]: 0%
+                - generic [ref=f255e126]: "Estimated time:"
+            - generic [ref=f255e128]: "Issue Category:"
+            - generic [ref=f255e133]:
+              - generic [ref=f255e134]: "Product:"
+              - generic [ref=f255e135]: "-"
+            - generic [ref=f255e136]:
+              - generic [ref=f255e137]: "Organization:"
+              - generic [ref=f255e138]: "-"
+          - separator [ref=f255e139]
+          - generic [ref=f255e140]:
+            - link "Quote" [ref=f255e142] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f255e144]:
+              - strong [ref=f255e145]: Description
+            - generic [ref=f255e146]:
+              - paragraph [ref=f255e147]: Hi Support,
+              - paragraph [ref=f255e148]: I'm having trouble logging into the customer portal. Can you please help?
+              - paragraph [ref=f255e149]: Thanks, Alpha Customer
+          - separator [ref=f255e150]
+          - generic [ref=f255e151]:
+            - paragraph [ref=f255e153]:
+              - strong [ref=f255e154]: Checklist
+            - generic [ref=f255e156] [cursor=pointer]
+            - generic:
+              - list
+          - separator [ref=f255e158]
+          - generic [ref=f255e159]:
+            - link "Add" [ref=f255e161] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/new?back_url=%2Fissues%2F3&issue%5Bparent_issue_id%5D=3&issue%5Btracker_id%5D=3
+            - paragraph [ref=f255e162]:
+              - strong [ref=f255e163]: Subtasks
+        - list [ref=f255e166]:
+          - listitem [ref=f255e167]:
+            - link "Helpdesk Conversion (2)" [ref=f255e168] [cursor=pointer]:
+              - /url: /issues/3?tab=email-history
+        - generic [ref=f255e169]:
+          - link "Edit" [ref=f255e170] [cursor=pointer]:
+            - /url: /issues/3/edit
+          - link "Log time" [ref=f255e172] [cursor=pointer]:
+            - /url: /issues/3/time_entries/new
+          - link "Watch" [ref=f255e174] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=3&object_type=issue
+          - generic "Actions" [ref=f255e178] [cursor=pointer]
+        - text: pre
+        - paragraph [ref=f255e180]:
+          - text: "Also available in:"
+          - link "PDF" [ref=f255e182] [cursor=pointer]:
+            - /url: /issues/3.pdf
+          - generic [ref=f255e183]:
+            - text: "|"
+            - link "Atom" [ref=f255e184] [cursor=pointer]:
+              - /url: /issues/3.atom?key=74f8c2c10d57ac3baeee5bf474f60ebd9a037b60
+    - generic [ref=f255e185]:
+      - text: Powered by
+      - link "Redmine" [ref=f255e186] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f255e187]
+  - log [ref=f255e188]
+  - log [ref=f255e189]
+  - log [ref=f255e190]
+  - log [ref=f255e191]
+  - log [ref=f255e192]
+  - log [ref=f255e193]
+  - log [ref=f255e194]
+  - log [ref=f255e195]
+  - log [ref=f255e196]
+  - log [ref=f255e197]
+  - log [ref=f255e198]
+  - log [ref=f255e199]
+  - log [ref=f255e200]
+  - log [ref=f255e201]
+  - log [ref=f255e202]
+  - log [ref=f255e203]
+  - log [ref=f255e204]
+  - log [ref=f255e205]
+  - log [ref=f255e206]
+  - log [ref=f255e207]
+  - log [ref=f255e208]
+  - log [ref=f255e209]
+  - log [ref=f255e210]
+  - log [ref=f255e211]
+  - log [ref=f255e212]
+  - log [ref=f255e213]
+  - log [ref=f255e214]
+  - log [ref=f255e215]
+  - log [ref=f255e216]
+  - log [ref=f255e217]
+  - log [ref=f255e218]
+  - log [ref=f255e219]
+  - log [ref=f255e220]

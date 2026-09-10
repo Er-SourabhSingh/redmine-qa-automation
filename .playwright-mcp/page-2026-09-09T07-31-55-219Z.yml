@@ -1,0 +1,291 @@
+- generic [ref=f5e1]:
+  - generic [ref=f5e2]:
+    - generic [ref=f5e3]:
+      - generic [ref=f5e4]:
+        - list:
+          - listitem [ref=f5e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f5e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f5e7]:
+        - text: Logged in as
+        - link "admin" [ref=f5e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f5e9]:
+        - listitem [ref=f5e10]:
+          - link [ref=f5e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f5e12]
+        - listitem [ref=f5e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f5e14]:
+          - link "My page" [ref=f5e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f5e16]:
+          - link "Projects" [ref=f5e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f5e18]:
+          - link "Flux Gantt" [ref=f5e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f5e20]:
+          - link "Helpdesk Command Center" [ref=f5e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f5e22]:
+          - link "Time Tracker" [ref=f5e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f5e24]:
+          - link "Timesheet" [ref=f5e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f5e26]:
+          - link "Workloads" [ref=f5e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f5e28]:
+          - link "More" [ref=f5e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f5e30]:
+      - generic [ref=f5e31]:
+        - generic [ref=f5e32]:
+          - generic [ref=f5e33]:
+            - link "Search..." [ref=f5e34] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f5e35]
+        - generic [ref=f5e36]:
+          - generic [ref=f5e37] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f5e38]
+      - generic [ref=f5e39]:
+        - list [ref=f5e40]:
+          - listitem [ref=f5e41]:
+            - link "+" [ref=f5e42] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f5e43]:
+            - link "Overview" [ref=f5e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f5e45]:
+            - link "Activity" [ref=f5e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f5e47]:
+            - link "Issues" [ref=f5e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f5e49]:
+            - link "Spent time" [ref=f5e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f5e51]:
+            - link "Gantt" [ref=f5e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f5e53]:
+            - link "Calendar" [ref=f5e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f5e55]:
+            - link "News" [ref=f5e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f5e57]:
+            - link "Documents" [ref=f5e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f5e59]:
+            - link "Wiki" [ref=f5e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f5e61]:
+            - link "Files" [ref=f5e62] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f5e63]:
+            - link "Helpdesk" [ref=f5e64] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+          - listitem [ref=f5e65]:
+            - link "Settings" [ref=f5e66] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/settings
+        - generic [ref=f5e67]:
+          - button [ref=f5e68] [cursor=pointer]
+          - button [ref=f5e71] [cursor=pointer]
+    - generic [ref=f5e75]:
+      - heading "New issue" [level=2] [ref=f5e76]
+      - generic [ref=f5e77]:
+        - generic [ref=f5e78]:
+          - generic [ref=f5e79]:
+            - paragraph [ref=f5e80]:
+              - checkbox "Private" [ref=f5e81]
+              - text: Private
+            - paragraph [ref=f5e82]:
+              - generic [ref=f5e83]: Tracker *
+              - combobox "Tracker *" [ref=f5e84]:
+                - option "Bug" [selected]
+                - option "Feature"
+                - option "Support"
+            - paragraph [ref=f5e85]:
+              - generic [ref=f5e86]: Subject *
+              - textbox "Subject *" [active] [ref=f5e87]
+            - paragraph [ref=f5e88]:
+              - generic [ref=f5e89]: Description
+              - generic [ref=f5e91]:
+                - list [ref=f5e93]:
+                  - listitem [ref=f5e94]:
+                    - link "Edit" [ref=f5e95] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f5e96]:
+                    - link "Preview" [ref=f5e97] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f5e98]:
+                    - generic [ref=f5e99]:
+                      - button "Strong (Ctrl+B)" [ref=f5e100] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f5e101] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f5e102] [cursor=pointer]
+                      - button "Deleted" [ref=f5e103] [cursor=pointer]
+                      - button "Inline Code" [ref=f5e104] [cursor=pointer]
+                      - button "Heading 1" [ref=f5e105] [cursor=pointer]
+                      - button "Heading 2" [ref=f5e106] [cursor=pointer]
+                      - button "Heading 3" [ref=f5e107] [cursor=pointer]
+                      - button "Unordered list" [ref=f5e108] [cursor=pointer]
+                      - button "Ordered list" [ref=f5e109] [cursor=pointer]
+                      - button "Task list" [ref=f5e110] [cursor=pointer]
+                      - button "Quote" [ref=f5e111] [cursor=pointer]
+                      - button "Remove Quote" [ref=f5e112] [cursor=pointer]
+                      - button "Table" [ref=f5e113] [cursor=pointer]
+                      - button "pre" [ref=f5e114] [cursor=pointer]
+                      - button "Highlighted code" [ref=f5e115] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f5e116] [cursor=pointer]
+                      - button "Image" [ref=f5e117] [cursor=pointer]
+                      - button "Help" [ref=f5e118] [cursor=pointer]
+                - textbox "Description" [ref=f5e120]
+            - generic [ref=f5e122]:
+              - generic [ref=f5e123]:
+                - paragraph [ref=f5e124]:
+                  - generic [ref=f5e125]: Status *
+                  - combobox "Status *" [ref=f5e126]:
+                    - option "New" [selected]
+                - paragraph [ref=f5e127]:
+                  - generic [ref=f5e128]: Priority *
+                  - combobox "Priority *" [ref=f5e129]:
+                    - option "Low"
+                    - option "Normal" [selected]
+                    - option "High"
+                    - option "Urgent"
+                    - option "Immediate"
+                - paragraph [ref=f5e130]:
+                  - generic [ref=f5e131]: Assigned to
+                  - combobox "Assigned to" [ref=f5e132]:
+                    - option [selected]
+                    - option "<< me >>"
+                    - option "Aurora Wren"
+                    - option "Autumn Grace"
+                    - option "Briar Sunset"
+                    - option "Luna Blossom"
+                    - option "ManageHelpdesk TestAgent"
+                    - option "No Perm Reporter"
+                    - option "Perm TestAgent"
+                    - option "Redmine Admin"
+                    - option "Willow Belle"
+                  - link "Assign to me" [ref=f5e133] [cursor=pointer]:
+                    - /url: "#"
+              - generic [ref=f5e134]:
+                - paragraph [ref=f5e135]:
+                  - generic [ref=f5e136]: Parent issue
+                  - textbox "Parent issue" [ref=f5e137]
+                - paragraph [ref=f5e138]:
+                  - generic [ref=f5e139]: Start date
+                  - textbox "Start date" [ref=f5e140]: 2026-09-09
+                - paragraph [ref=f5e141]:
+                  - generic [ref=f5e142]: Due date
+                  - textbox "Due date" [ref=f5e143]
+                - paragraph [ref=f5e144]:
+                  - generic [ref=f5e145]: Estimated hours
+                  - textbox "Estimated hours" [ref=f5e146]:
+                    - /placeholder: h:mm
+                  - text: Hours
+                - paragraph [ref=f5e147]:
+                  - generic [ref=f5e148]: Done ratio
+                  - combobox "Done ratio" [ref=f5e149]:
+                    - option "0 %" [selected]
+                    - option "10 %"
+                    - option "20 %"
+                    - option "30 %"
+                    - option "40 %"
+                    - option "50 %"
+                    - option "60 %"
+                    - option "70 %"
+                    - option "80 %"
+                    - option "90 %"
+                    - option "100 %"
+            - paragraph [ref=f5e150]:
+              - generic [ref=f5e151]: Product
+              - combobox "Product" [ref=f5e152]:
+                - option "None" [selected]
+                - option "Code255Test Product"
+                - option "Description Max Length Product Test"
+                - option "Falcon Suite"
+                - option "Nav Test Product"
+                - option "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+                - option "Phoenix Core"
+                - option "TC-HLP-205 Permission Test Product"
+            - paragraph [ref=f5e153]:
+              - generic [ref=f5e154]: Requirements
+              - text: No Requirements
+          - paragraph [ref=f5e155]:
+            - generic [ref=f5e156]: Files
+            - generic [ref=f5e158]:
+              - button "Choose File" [ref=f5e159]
+              - text: "(Maximum size: 5 MB)"
+          - paragraph [ref=f5e161]:
+            - generic [ref=f5e162]: Watchers
+            - generic [ref=f5e163]:
+              - generic [ref=f5e164]:
+                - checkbox "Aurora Wren" [ref=f5e165]
+                - text: Aurora Wren
+              - generic [ref=f5e166]:
+                - checkbox "Autumn Grace" [ref=f5e167]
+                - text: Autumn Grace
+              - generic [ref=f5e168]:
+                - checkbox "Briar Sunset" [ref=f5e169]
+                - text: Briar Sunset
+              - generic [ref=f5e170]:
+                - checkbox "Luna Blossom" [ref=f5e171]
+                - text: Luna Blossom
+              - generic [ref=f5e172]:
+                - checkbox "ManageHelpdesk TestAgent" [ref=f5e173]
+                - text: ManageHelpdesk TestAgent
+              - generic [ref=f5e174]:
+                - checkbox "No Perm Reporter" [ref=f5e175]
+                - text: No Perm Reporter
+              - generic [ref=f5e176]:
+                - checkbox "Perm TestAgent" [ref=f5e177]
+                - text: Perm TestAgent
+              - generic [ref=f5e178]:
+                - checkbox "Willow Belle" [ref=f5e179]
+                - text: Willow Belle
+            - link "Search for watchers to add" [ref=f5e181] [cursor=pointer]:
+              - /url: /watchers/new?project_id=helpdesk-qa-alpha
+        - button "Create" [ref=f5e183] [cursor=pointer]
+        - button "Create and add another" [ref=f5e184] [cursor=pointer]
+    - generic [ref=f5e185]:
+      - text: Powered by
+      - link "Redmine" [ref=f5e186] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f5e187]
+  - log [ref=f5e188]
+  - log [ref=f5e189]
+  - log [ref=f5e190]
+  - log [ref=f5e191]
+  - log [ref=f5e192]
+  - log [ref=f5e193]
+  - log [ref=f5e194]
+  - log [ref=f5e195]
+  - log [ref=f5e196]
+  - log [ref=f5e197]
+  - log [ref=f5e198]
+  - log [ref=f5e199]
+  - log [ref=f5e200]
+  - log [ref=f5e201]
+  - log [ref=f5e202]
+  - log [ref=f5e203]
+  - log [ref=f5e204]
+  - log [ref=f5e205]
+  - log [ref=f5e206]
+  - log [ref=f5e207]
+  - log [ref=f5e208]
+  - log [ref=f5e209]
+  - log [ref=f5e210]
+  - status [ref=f5e211]

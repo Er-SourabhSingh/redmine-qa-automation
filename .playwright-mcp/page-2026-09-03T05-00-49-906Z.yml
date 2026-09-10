@@ -1,0 +1,173 @@
+- generic [ref=f230e1]:
+  - generic [ref=f230e2]:
+    - generic [ref=f230e3]:
+      - generic [ref=f230e4]:
+        - list:
+          - listitem [ref=f230e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f230e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f230e7]:
+        - text: Logged in as
+        - link "admin" [ref=f230e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f230e9]:
+        - listitem [ref=f230e10]:
+          - link [ref=f230e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f230e12]
+        - listitem [ref=f230e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f230e14]:
+          - link "My page" [ref=f230e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f230e16]:
+          - link "Projects" [ref=f230e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f230e18]:
+          - link "Flux Gantt" [ref=f230e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f230e20]:
+          - link "Helpdesk Command Center" [ref=f230e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f230e22]:
+          - link "Time Tracker" [ref=f230e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f230e24]:
+          - link "Timesheet" [ref=f230e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f230e26]:
+          - link "Workloads" [ref=f230e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f230e28]:
+          - link "More" [ref=f230e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f230e30]:
+      - generic [ref=f230e31]:
+        - generic [ref=f230e32]:
+          - generic [ref=f230e33]:
+            - link "Search..." [ref=f230e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f230e35]
+        - generic [ref=f230e36]:
+          - generic [ref=f230e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f230e38]
+    - generic [ref=f230e39]:
+      - list [ref=f230e43]:
+        - listitem [ref=f230e44]:
+          - link "Helpdesk Dashboard" [ref=f230e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f230e48]:
+          - link "Helpdesk Tickets" [ref=f230e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f230e52]:
+          - link "Reports" [ref=f230e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f230e56]:
+          - link "Organization" [ref=f230e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f230e60]:
+          - link "Customers" [ref=f230e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f230e64]:
+          - link "Products" [ref=f230e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f230e68]:
+          - link "Helpdesk Settings" [ref=f230e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f230e72]:
+        - generic [ref=f230e73]: Successful creation.
+        - generic [ref=f230e76]:
+          - heading "Helpdesk Settings" [level=2] [ref=f230e77]
+          - paragraph [ref=f230e78]: Holidays, products, SLA policies and canned responses
+        - list [ref=f230e80]:
+          - listitem [ref=f230e81]:
+            - link "Holiday" [ref=f230e82] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f230e83]:
+            - link "Products" [ref=f230e84] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f230e85]:
+            - link "Email Configuration" [ref=f230e86] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f230e87]:
+            - link "Canned Responses" [ref=f230e88] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+          - listitem [ref=f230e89]:
+            - link "Support Packages" [ref=f230e90] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+        - generic [ref=f230e91]:
+          - generic [ref=f230e93]:
+            - textbox "Search canned responses..." [active] [ref=f230e95]
+            - generic [ref=f230e96]:
+              - button "Apply Filters" [ref=f230e97] [cursor=pointer]
+              - link "Clear" [ref=f230e100] [cursor=pointer]:
+                - /url: /rf_helpdesk/setting?tab=canned_responses
+          - generic [ref=f230e105]:
+            - generic [ref=f230e106]:
+              - heading "Canned Responses" [level=3] [ref=f230e107]
+              - link "New Canned Response" [ref=f230e109] [cursor=pointer]:
+                - /url: /rf_canned_responses/new
+            - table [ref=f230e111]:
+              - rowgroup [ref=f230e112]:
+                - row [ref=f230e113]:
+                  - columnheader "S.No" [ref=f230e114]
+                  - columnheader "Name" [ref=f230e115]
+                  - columnheader "Content" [ref=f230e116]
+                  - columnheader "Author" [ref=f230e117]
+                  - columnheader "Created on" [ref=f230e118]
+                  - columnheader "Active" [ref=f230e119]
+                  - columnheader "Action" [ref=f230e120]
+              - rowgroup [ref=f230e121]:
+                - row [ref=f230e122]:
+                  - cell "1" [ref=f230e123]
+                  - cell "Acknowledge Receipt" [ref=f230e124]
+                  - cell "Thank you for reaching out. We have received your request." [ref=f230e125]
+                  - cell "Redmine Admin" [ref=f230e126]
+                  - cell "09/03/2026 05:00 AM" [ref=f230e127]
+                  - cell "Active" [ref=f230e128]
+                  - cell [ref=f230e134]:
+                    - generic [ref=f230e135]:
+                      - link "Edit" [ref=f230e136] [cursor=pointer]:
+                        - /url: /rf_canned_responses/2/edit
+                      - link "Delete" [ref=f230e139] [cursor=pointer]:
+                        - /url: javascript:void(0)
+    - generic [ref=f230e143]:
+      - text: Powered by
+      - link "Redmine" [ref=f230e144] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f230e145]
+  - log [ref=f230e146]
+  - log [ref=f230e147]
+  - log [ref=f230e148]
+  - log [ref=f230e149]
+  - log [ref=f230e150]
+  - log [ref=f230e151]
+  - log [ref=f230e152]
+  - log [ref=f230e153]
+  - log [ref=f230e154]
+  - log [ref=f230e155]
+  - log [ref=f230e156]
+  - log [ref=f230e157]
+  - log [ref=f230e158]
+  - log [ref=f230e159]
+  - log [ref=f230e160]
+  - log [ref=f230e161]
+  - log [ref=f230e162]
+  - log [ref=f230e163]
+  - log [ref=f230e164]
+  - log [ref=f230e165]
+  - log [ref=f230e166]
+  - log [ref=f230e167]
+  - log [ref=f230e168]
+  - log [ref=f230e169]
+  - log [ref=f230e170]
+  - log [ref=f230e171]
+  - log [ref=f230e172]
+  - log [ref=f230e173]

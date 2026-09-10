@@ -1,0 +1,146 @@
+- generic [ref=f28e1]:
+  - generic [ref=f28e2]:
+    - navigation [ref=f28e3]:
+      - list [ref=f28e6]:
+        - listitem [ref=f28e7]:
+          - link "Hauptseite" [ref=f28e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f28e9]:
+          - link "Meine Seite" [ref=f28e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f28e11]:
+          - link "Projekte" [ref=f28e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f28e13]:
+          - link "Agile Board" [ref=f28e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f28e15]:
+          - link "Flux Gantt" [ref=f28e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f28e17]:
+          - link "Administration" [ref=f28e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f28e19]:
+          - link "Hilfe" [ref=f28e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f28e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f28e24]: RA
+    - generic [ref=f28e27]:
+      - generic [ref=f28e28]:
+        - generic [ref=f28e29]:
+          - generic [ref=f28e30]:
+            - link "Suche" [ref=f28e31] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Suche:" [ref=f28e32]
+        - generic [ref=f28e33]:
+          - generic [ref=f28e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f28e35]
+      - list [ref=f28e38]:
+        - listitem [ref=f28e39]:
+          - link "+" [ref=f28e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f28e41]:
+          - link "Übersicht" [ref=f28e42] [cursor=pointer]:
+            - /url: /projects/agileboard
+        - listitem [ref=f28e43]:
+          - link "Dashboard" [ref=f28e44] [cursor=pointer]:
+            - /url: /projects/agileboard/analytics_dashboard
+        - listitem [ref=f28e45]:
+          - link "Aktivität" [ref=f28e46] [cursor=pointer]:
+            - /url: /projects/agileboard/activity
+        - listitem [ref=f28e47]:
+          - link "Agile Board" [ref=f28e48] [cursor=pointer]:
+            - /url: /projects/agileboard/agile_board
+        - listitem [ref=f28e49]:
+          - link "Backlog" [ref=f28e50] [cursor=pointer]:
+            - /url: /projects/agileboard/backlog
+        - listitem [ref=f28e51]:
+          - link "Roadmap" [ref=f28e52] [cursor=pointer]:
+            - /url: /projects/agileboard/roadmap
+        - listitem [ref=f28e53]:
+          - link "Tickets" [ref=f28e54] [cursor=pointer]:
+            - /url: /projects/agileboard/issues
+        - listitem [ref=f28e55]:
+          - link "Aufgewendete Zeit" [ref=f28e56] [cursor=pointer]:
+            - /url: /projects/agileboard/time_entries
+        - listitem [ref=f28e57]:
+          - link "Gantt-Diagramm" [ref=f28e58] [cursor=pointer]:
+            - /url: /projects/agileboard/issues/gantt
+        - listitem [ref=f28e59]:
+          - link "Kalender" [ref=f28e60] [cursor=pointer]:
+            - /url: /projects/agileboard/issues/calendar
+        - listitem [ref=f28e61]:
+          - link "News" [ref=f28e62] [cursor=pointer]:
+            - /url: /projects/agileboard/news
+        - listitem [ref=f28e63]:
+          - link "Dokumente" [ref=f28e64] [cursor=pointer]:
+            - /url: /projects/agileboard/documents
+        - listitem [ref=f28e65]:
+          - link "Wiki" [ref=f28e66] [cursor=pointer]:
+            - /url: /projects/agileboard/wiki
+        - listitem [ref=f28e67]:
+          - link "Dateien" [ref=f28e68] [cursor=pointer]:
+            - /url: /projects/agileboard/files
+        - listitem [ref=f28e69]:
+          - link "Konfiguration" [ref=f28e70] [cursor=pointer]:
+            - /url: /projects/agileboard/settings
+    - generic [ref=f28e72]:
+      - heading "Neuer Sprint" [level=2] [ref=f28e73]
+      - generic [ref=f28e74]:
+        - generic [ref=f28e75]:
+          - paragraph [ref=f28e76]:
+            - generic [ref=f28e77]: Name *
+            - textbox "Name *" [active] [ref=f28e78]
+          - paragraph [ref=f28e79]:
+            - generic [ref=f28e80]: Description
+            - textbox "Description" [ref=f28e81]
+          - paragraph [ref=f28e82]:
+            - generic [ref=f28e83]: Startdatum *
+            - textbox [ref=f28e84]
+          - paragraph [ref=f28e85]:
+            - generic [ref=f28e86]: Dauer
+            - combobox [ref=f28e87]:
+              - option "1 Woche"
+              - option "2 Wochen" [selected]
+              - option "3 Wochen"
+              - option "4 Wochen"
+          - paragraph [ref=f28e88]:
+            - generic [ref=f28e89]: End date
+            - textbox [ref=f28e90]
+            - emphasis [ref=f28e91]: Automatisch aus Startdatum und Dauer berechnet
+          - paragraph [ref=f28e92]:
+            - generic [ref=f28e93]: Status
+            - combobox "Status" [ref=f28e94]:
+              - option "Offen" [selected]
+              - option "Aktiv"
+              - option "Geschlossen"
+          - paragraph [ref=f28e95]:
+            - generic [ref=f28e96]: Sharing
+            - combobox "Sharing" [ref=f28e97]:
+              - option "Nicht geteilt" [selected]
+              - option "Mit Unterprojekten"
+              - option "Mit Projekthierarchie"
+              - option "Mit Projektbaum"
+              - option "Mit allen Projekten"
+        - paragraph [ref=f28e98]:
+          - button "Erstellen" [ref=f28e99] [cursor=pointer]
+          - link "Abbrechen" [ref=f28e100] [cursor=pointer]:
+            - /url: /projects/agileboard/backlog
+    - generic [ref=f28e101]:
+      - text: Powered by
+      - link "Redmine" [ref=f28e102] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f28e103]
+  - log [ref=f28e104]
+  - log [ref=f28e105]
+  - log [ref=f28e106]
+  - log [ref=f28e107]
+  - log [ref=f28e108]
+  - log [ref=f28e109]
+  - log [ref=f28e110]
+  - log [ref=f28e111]
+  - log [ref=f28e112]

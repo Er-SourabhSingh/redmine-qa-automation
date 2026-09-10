@@ -1,0 +1,66 @@
+- generic [active] [ref=f33e1]:
+  - generic [ref=f33e2]:
+    - generic [ref=f33e3]:
+      - generic [ref=f33e4]:
+        - list:
+          - listitem [ref=f33e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f33e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f33e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f33e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f33e9]:
+        - listitem [ref=f33e10]:
+          - link [ref=f33e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f33e12]
+        - listitem [ref=f33e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f33e14]:
+          - link "My page" [ref=f33e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f33e16]:
+          - link "Projects" [ref=f33e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f33e18]:
+          - link "Time Tracker" [ref=f33e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f33e20]:
+          - link "Workloads" [ref=f33e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f33e22]:
+          - link "Help" [ref=f33e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f33e24]:
+      - generic [ref=f33e25]:
+        - generic [ref=f33e26]:
+          - generic [ref=f33e27]:
+            - link "Search..." [ref=f33e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f33e29]
+        - generic [ref=f33e30]:
+          - generic [ref=f33e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f33e32]
+    - generic [ref=f33e35]:
+      - heading "403" [level=2] [ref=f33e36]
+      - paragraph [ref=f33e37]: You are not authorized to access this page.
+      - paragraph [ref=f33e38]:
+        - link "Back" [ref=f33e39] [cursor=pointer]:
+          - /url: javascript:history.back()
+    - generic [ref=f33e40]:
+      - text: Powered by
+      - link "Redmine" [ref=f33e41] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f33e42]
+  - log [ref=f33e43]
+  - log [ref=f33e44]
+  - log [ref=f33e45]
+  - log [ref=f33e46]

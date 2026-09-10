@@ -1,0 +1,119 @@
+- generic [active] [ref=f386e1]:
+  - generic [ref=f386e2]:
+    - generic [ref=f386e3]:
+      - generic [ref=f386e4]:
+        - list:
+          - listitem [ref=f386e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f386e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f386e7]:
+        - text: Logged in as
+        - link "manage.helpdesk.test" [ref=f386e8] [cursor=pointer]:
+          - /url: /users/16
+      - list [ref=f386e9]:
+        - listitem [ref=f386e10]:
+          - link [ref=f386e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f386e12]
+        - listitem [ref=f386e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f386e14]:
+          - link "My page" [ref=f386e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f386e16]:
+          - link "Projects" [ref=f386e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f386e18]:
+          - link "Helpdesk Command Center" [ref=f386e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f386e20]:
+          - link "Time Tracker" [ref=f386e21] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f386e22]:
+          - link "Workloads" [ref=f386e23] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f386e24]:
+          - link "Help" [ref=f386e25] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f386e26]:
+      - generic [ref=f386e27]:
+        - generic [ref=f386e28]:
+          - generic [ref=f386e29]:
+            - link "Search..." [ref=f386e30] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f386e31]
+        - generic [ref=f386e32]:
+          - generic [ref=f386e33] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f386e34]
+    - generic [ref=f386e35]:
+      - list [ref=f386e39]:
+        - listitem [ref=f386e40]:
+          - link "Helpdesk Dashboard" [ref=f386e41] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f386e44]:
+          - link "Helpdesk Tickets" [ref=f386e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f386e48]:
+          - link "Reports" [ref=f386e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f386e52]:
+          - link "Organization" [ref=f386e53] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f386e56]:
+          - link "Customers" [ref=f386e57] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f386e60]:
+          - link "Products" [ref=f386e61] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f386e64]:
+          - link "Helpdesk Settings" [ref=f386e65] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f386e68]:
+        - generic [ref=f386e69]:
+          - heading "Alpha Minimal Fields Test Org Active" [level=2] [ref=f386e72]:
+            - text: Alpha Minimal Fields Test Org
+            - generic [ref=f386e73]: Active
+          - link "Edit" [ref=f386e76] [cursor=pointer]:
+            - /url: /rf_organizations/8/edit
+        - navigation "Alpha Minimal Fields Test Org" [ref=f386e79]:
+          - link "Overview" [ref=f386e80] [cursor=pointer]:
+            - /url: /rf_organizations/8?tab=overview
+          - link "Prepaid Support Hours" [ref=f386e85] [cursor=pointer]:
+            - /url: /rf_organizations/8?tab=prepaid_support_hours
+        - generic [ref=f386e90]:
+          - heading "Budget by project" [level=3] [ref=f386e92]
+          - generic [ref=f386e93]:
+            - heading "No prepaid hours set for Alpha Minimal Fields Test Org" [level=3] [ref=f386e98]
+            - paragraph [ref=f386e99]: Pick a project and add hours. Usage is then tracked against the tickets this organization's customers raise on it.
+        - generic [ref=f386e100]:
+          - generic [ref=f386e101]:
+            - heading "Budget change history" [level=3] [ref=f386e102]
+            - generic [ref=f386e103]: "0"
+          - generic [ref=f386e104]:
+            - heading "No budget changes recorded yet." [level=3] [ref=f386e109]
+            - paragraph [ref=f386e110]: Every top-up and reduction is recorded here with who approved it and why.
+        - paragraph [ref=f386e111]:
+          - link "Organization List" [ref=f386e112] [cursor=pointer]:
+            - /url: /rf_organizations
+    - generic [ref=f386e113]:
+      - text: Powered by
+      - link "Redmine" [ref=f386e114] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f386e115]
+  - log [ref=f386e116]
+  - log [ref=f386e117]
+  - log [ref=f386e118]
+  - log [ref=f386e119]
+  - log [ref=f386e120]
+  - log [ref=f386e121]
+  - log [ref=f386e122]
+  - log [ref=f386e123]
+  - log [ref=f386e124]
+  - log [ref=f386e125]

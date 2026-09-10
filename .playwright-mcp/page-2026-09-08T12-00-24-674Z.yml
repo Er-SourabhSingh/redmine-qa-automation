@@ -1,0 +1,192 @@
+- generic [ref=f16e1]:
+  - generic [ref=f16e2]:
+    - navigation [ref=f16e3]:
+      - list [ref=f16e6]:
+        - listitem [ref=f16e7]:
+          - link [ref=f16e8] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f16e9]
+        - listitem [ref=f16e10]:
+          - link "Hauptseite" [ref=f16e11] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f16e12]:
+          - link "Meine Seite" [ref=f16e13] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f16e14]:
+          - link "Projekte" [ref=f16e15] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f16e16]:
+          - link "Agile Board" [ref=f16e17] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f16e18]:
+          - link "Flux Gantt" [ref=f16e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f16e20]:
+          - link "More" [ref=f16e21] [cursor=pointer]:
+            - /url: "#"
+      - link [ref=f16e24] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f16e25]: RA
+    - generic [ref=f16e28]:
+      - generic [ref=f16e29]:
+        - generic [ref=f16e30]:
+          - generic [ref=f16e31]:
+            - link "Suche" [ref=f16e32] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Suche:" [ref=f16e33]
+        - generic [ref=f16e34]: Zu einem Projekt springen...
+      - heading "Redmine" [level=1] [ref=f16e36]
+      - list [ref=f16e38]:
+        - listitem [ref=f16e39]:
+          - link "Projekte" [ref=f16e40] [cursor=pointer]:
+            - /url: /projects
+    - generic [ref=f16e42]:
+      - heading "Neues Projekt" [level=2] [ref=f16e43]
+      - generic [ref=f16e44]:
+        - generic [ref=f16e45]:
+          - paragraph [ref=f16e46]:
+            - generic [ref=f16e47]: Name *
+            - textbox "Name *" [active] [ref=f16e48]
+          - paragraph [ref=f16e49]:
+            - generic [ref=f16e50]: Beschreibung
+            - generic [ref=f16e51]:
+              - list [ref=f16e53]:
+                - listitem [ref=f16e54]:
+                  - link "Bearbeiten" [ref=f16e55] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f16e56]:
+                  - link "Vorschau" [ref=f16e57] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f16e58]:
+                  - generic [ref=f16e59]:
+                    - button "Fett (Ctrl+B)" [ref=f16e60] [cursor=pointer]
+                    - button "Kursiv (Ctrl+I)" [ref=f16e61] [cursor=pointer]
+                    - button "Unterstrichen (Ctrl+U)" [ref=f16e62] [cursor=pointer]
+                    - button "Durchgestrichen" [ref=f16e63] [cursor=pointer]
+                    - button "Quelltext" [ref=f16e64] [cursor=pointer]
+                    - button "Überschrift 1. Ordnung" [ref=f16e65] [cursor=pointer]
+                    - button "Überschrift 2. Ordnung" [ref=f16e66] [cursor=pointer]
+                    - button "Überschrift 3. Ordnung" [ref=f16e67] [cursor=pointer]
+                    - button "Aufzählungsliste" [ref=f16e68] [cursor=pointer]
+                    - button "Nummerierte Liste" [ref=f16e69] [cursor=pointer]
+                    - button "Task list" [ref=f16e70] [cursor=pointer]
+                    - button "Zitat" [ref=f16e71] [cursor=pointer]
+                    - button "Zitat entfernen" [ref=f16e72] [cursor=pointer]
+                    - button "Table" [ref=f16e73] [cursor=pointer]
+                    - button "pre" [ref=f16e74] [cursor=pointer]
+                    - button "Highlighted code" [ref=f16e75] [cursor=pointer]
+                    - button "Verweis (Link) zu einer Wiki-Seite" [ref=f16e76] [cursor=pointer]
+                    - button "Grafik" [ref=f16e77] [cursor=pointer]
+                    - button "Help" [ref=f16e78] [cursor=pointer]
+              - textbox "Beschreibung" [ref=f16e80]
+          - paragraph [ref=f16e81]:
+            - generic [ref=f16e82]: Kennung *
+            - textbox "Kennung *" [ref=f16e83]
+            - emphasis [ref=f16e84]: Länge zwischen 1 und 100 Zeichen. Kleinbuchstaben (a-z), Ziffern, Binde- und Unterstriche erlaubt.Einmal gespeichert, kann die Kennung nicht mehr geändert werden.
+          - paragraph [ref=f16e85]:
+            - generic [ref=f16e86]: Projekt-Homepage
+            - textbox "Projekt-Homepage" [ref=f16e87]
+          - paragraph [ref=f16e88]:
+            - generic [ref=f16e89]: Öffentlich
+            - checkbox "Öffentlich" [checked] [ref=f16e90]
+            - emphasis [ref=f16e91]: Öffentliche Projekte und deren Inhalte sind ohne Anmeldung frei zugänglich.
+          - paragraph [ref=f16e92]:
+            - generic [ref=f16e93]: Unterprojekt von
+            - combobox "Unterprojekt von" [ref=f16e94]:
+              - option [selected]
+              - option "Agile Board Project"
+              - option "Education and training3"
+              - option "Flux Gantt Project"
+              - option "HR management2"
+              - option "Helpdesk Service Desk"
+              - option "MVP build for PaySheet Application"
+              - option "Marketing campaign4"
+              - option "Mobile app development1"
+              - option "Software development5"
+          - paragraph [ref=f16e95]:
+            - generic [ref=f16e96]: Benutzer erben
+            - checkbox "Benutzer erben" [ref=f16e97]
+          - paragraph [ref=f16e98]:
+            - generic [ref=f16e99]: Tag list
+            - list [ref=f16e100]:
+              - listitem [ref=f16e101]:
+                - textbox "Select or add tags" [ref=f16e102]
+        - group [ref=f16e103]:
+          - generic [ref=f16e104]:
+            - link "Alles auswählen / Alles abwählen" [ref=f16e105] [cursor=pointer]:
+              - /url: "#"
+            - text: Module
+          - generic [ref=f16e107]:
+            - checkbox "Tickets" [checked] [ref=f16e108]
+            - text: Tickets
+          - generic [ref=f16e109]:
+            - checkbox "Zeiterfassung" [checked] [ref=f16e110]
+            - text: Zeiterfassung
+          - generic [ref=f16e111]:
+            - checkbox "News" [checked] [ref=f16e112]
+            - text: News
+          - generic [ref=f16e113]:
+            - checkbox "Dokumente" [checked] [ref=f16e114]
+            - text: Dokumente
+          - generic [ref=f16e115]:
+            - checkbox "Dateien" [checked] [ref=f16e116]
+            - text: Dateien
+          - generic [ref=f16e117]:
+            - checkbox "Wiki" [checked] [ref=f16e118]
+            - text: Wiki
+          - generic [ref=f16e119]:
+            - checkbox "Repository" [checked] [ref=f16e120]
+            - text: Repository
+          - generic [ref=f16e121]:
+            - checkbox "Foren" [checked] [ref=f16e122]
+            - text: Foren
+          - generic [ref=f16e123]:
+            - checkbox "Kalender" [checked] [ref=f16e124]
+            - text: Kalender
+          - generic [ref=f16e125]:
+            - checkbox "Gantt" [checked] [ref=f16e126]
+            - text: Gantt
+          - generic [ref=f16e127]:
+            - checkbox "Agile Board" [ref=f16e128]
+            - text: Agile Board
+          - generic [ref=f16e129]:
+            - checkbox "Flux Gantt-Diagramm" [ref=f16e130]
+            - text: Flux Gantt-Diagramm
+        - button "Erstellen" [ref=f16e131] [cursor=pointer]
+        - button "Anlegen und weiter" [ref=f16e132] [cursor=pointer]
+    - generic [ref=f16e133]:
+      - text: Powered by
+      - link "Redmine" [ref=f16e134] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f16e135]
+  - log [ref=f16e136]
+  - log [ref=f16e137]
+  - log [ref=f16e138]
+  - log [ref=f16e139]
+  - log [ref=f16e140]
+  - log [ref=f16e141]
+  - log [ref=f16e142]
+  - log [ref=f16e143]
+  - log [ref=f16e144]
+  - log [ref=f16e145]
+  - log [ref=f16e146]
+  - log [ref=f16e147]
+  - log [ref=f16e148]
+  - log [ref=f16e149]
+  - log [ref=f16e150]
+  - log [ref=f16e151]
+  - log [ref=f16e152]
+  - log [ref=f16e153]
+  - log [ref=f16e154]
+  - log [ref=f16e155]
+  - log [ref=f16e156]
+  - log [ref=f16e157]
+  - log [ref=f16e158]
+  - log [ref=f16e159]
+  - log [ref=f16e160]
+  - log [ref=f16e161]
+  - log [ref=f16e162]
+  - log [ref=f16e163]
+  - log [ref=f16e164]

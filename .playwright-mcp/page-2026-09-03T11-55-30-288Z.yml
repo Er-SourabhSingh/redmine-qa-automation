@@ -1,0 +1,121 @@
+- generic [active] [ref=f604e1]:
+  - generic [ref=f604e2]:
+    - generic [ref=f604e3]:
+      - generic [ref=f604e4]:
+        - list:
+          - listitem [ref=f604e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f604e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f604e7]:
+        - text: Logged in as
+        - link "delta.customer" [ref=f604e8] [cursor=pointer]:
+          - /url: /users/14
+      - list [ref=f604e9]:
+        - listitem [ref=f604e10]:
+          - link [ref=f604e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f604e12]
+        - listitem [ref=f604e13]:
+          - link "My Helpdesk" [ref=f604e14] [cursor=pointer]:
+            - /url: /helpdesk
+    - heading "Helpdesk QA Alpha" [level=1] [ref=f604e16]
+    - generic [ref=f604e17]:
+      - list [ref=f604e21]:
+        - listitem [ref=f604e22]:
+          - link "Helpdesk Dashboard" [ref=f604e23] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f604e26]:
+          - link "Helpdesk Tickets" [ref=f604e27] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f604e30]:
+          - link "Knowledgebase" [ref=f604e31] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f604e34]:
+        - generic [ref=f604e35]: Successful creation.
+        - generic [ref=f604e36]:
+          - generic [ref=f604e38]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f604e39]
+            - paragraph [ref=f604e40]: Helpdesk QA Alpha · 4 tickets
+          - link "New issue" [ref=f604e42] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/new
+        - button "Filters" [ref=f604e45] [cursor=pointer]
+        - table [ref=f604e53]:
+          - rowgroup [ref=f604e54]:
+            - row [ref=f604e55]:
+              - columnheader [ref=f604e56]:
+                - 'link "Ticket #" [ref=f604e57] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=id
+              - columnheader [ref=f604e58]:
+                - link "Subject" [ref=f604e59] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=subject
+              - columnheader [ref=f604e60]:
+                - link "Status" [ref=f604e61] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=status
+              - columnheader [ref=f604e62]:
+                - link "Priority" [ref=f604e63] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=priority
+              - columnheader [ref=f604e64]:
+                - link "Updated ▼" [ref=f604e65] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=updated_on
+          - rowgroup [ref=f604e66]:
+            - row [ref=f604e67]:
+              - cell [ref=f604e68]:
+                - link "#48" [ref=f604e69] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/48
+              - cell [ref=f604e70]:
+                - link "TC-HLP-138 - Hard mode at zero hours new ticket test" [ref=f604e71] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/48
+              - cell "New" [ref=f604e72]
+              - cell "Normal" [ref=f604e75]
+              - cell "09/03/2026 11:55 AM" [ref=f604e78]
+            - row [ref=f604e79]:
+              - cell [ref=f604e80]:
+                - link "#47" [ref=f604e81] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/47
+              - cell [ref=f604e82]:
+                - link "TC-HLP-134 - Hard mode with budget remaining test ticket" [ref=f604e83] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/47
+              - cell "New" [ref=f604e84]
+              - cell "Normal" [ref=f604e87]
+              - cell "09/03/2026 11:49 AM" [ref=f604e90]
+            - row [ref=f604e91]:
+              - cell [ref=f604e92]:
+                - link "#46" [ref=f604e93] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/46
+              - cell [ref=f604e94]:
+                - link "TC-HLP-129 prepaid hours time-logging test ticket" [ref=f604e95] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/46
+              - cell "Waiting for Customer Response" [ref=f604e96]
+              - cell "Normal" [ref=f604e99]
+              - cell "09/03/2026 11:38 AM" [ref=f604e102]
+            - row [ref=f604e103]:
+              - cell [ref=f604e104]:
+                - link "#43" [ref=f604e105] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/43
+              - cell [ref=f604e106]:
+                - link "test" [ref=f604e107] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/43
+              - cell "Closed" [ref=f604e108]
+              - cell "Normal" [ref=f604e111]
+              - cell "09/03/2026 09:18 AM" [ref=f604e114]
+        - generic [ref=f604e115]:
+          - list
+          - generic [ref=f604e116]: (1-4/4)
+    - generic [ref=f604e117]:
+      - text: Powered by
+      - link "Redmine" [ref=f604e118] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f604e119]
+  - log [ref=f604e120]
+  - log [ref=f604e121]
+  - log [ref=f604e122]
+  - log [ref=f604e123]
+  - log [ref=f604e124]
+  - log [ref=f604e125]
+  - log [ref=f604e126]
+  - log [ref=f604e127]
+  - log [ref=f604e128]

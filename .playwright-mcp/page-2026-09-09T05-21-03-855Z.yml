@@ -1,0 +1,150 @@
+- generic [ref=f21e1]:
+  - generic [ref=f21e2]:
+    - navigation [ref=f21e3]:
+      - list [ref=f21e6]:
+        - listitem [ref=f21e7]:
+          - link "Hauptseite" [ref=f21e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f21e9]:
+          - link "Meine Seite" [ref=f21e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f21e11]:
+          - link "Projekte" [ref=f21e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f21e13]:
+          - link "Agile Board" [ref=f21e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f21e15]:
+          - link "Flux Gantt" [ref=f21e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f21e17]:
+          - link "Administration" [ref=f21e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f21e19]:
+          - link "Hilfe" [ref=f21e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f21e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f21e24]: RA
+    - generic [ref=f21e27]:
+      - generic [ref=f21e28]:
+        - generic [ref=f21e29]:
+          - generic [ref=f21e30]:
+            - link "Suche" [ref=f21e31] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Suche:" [ref=f21e32]
+        - generic [ref=f21e33]:
+          - generic [ref=f21e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f21e35]
+      - generic [ref=f21e37]:
+        - list [ref=f21e38]:
+          - listitem [ref=f21e39]:
+            - link "+" [ref=f21e40] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f21e41]:
+            - link "Übersicht" [ref=f21e42] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f21e43]:
+            - link "Dashboard" [ref=f21e44] [cursor=pointer]:
+              - /url: /projects/agileboard/analytics_dashboard
+          - listitem [ref=f21e45]:
+            - link "Aktivität" [ref=f21e46] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f21e47]:
+            - link "Agile Board" [ref=f21e48] [cursor=pointer]:
+              - /url: /projects/agileboard/agile_board
+          - listitem [ref=f21e49]:
+            - link "Backlog" [ref=f21e50] [cursor=pointer]:
+              - /url: /projects/agileboard/backlog
+          - listitem [ref=f21e51]:
+            - link "Roadmap" [ref=f21e52] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f21e53]:
+            - link "Tickets" [ref=f21e54] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f21e55]:
+            - link "Aufgewendete Zeit" [ref=f21e56] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f21e57]:
+            - link "Gantt-Diagramm" [ref=f21e58] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f21e59]:
+            - link "Kalender" [ref=f21e60] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f21e61]:
+            - link "News" [ref=f21e62] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f21e63]:
+            - link "Dokumente" [ref=f21e64] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f21e65]:
+            - link "Wiki" [ref=f21e66] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f21e67]:
+            - link "Dateien" [ref=f21e68] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f21e69]:
+            - link "Konfiguration" [ref=f21e70] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f21e71]:
+          - button [ref=f21e72] [cursor=pointer]
+          - button [ref=f21e75] [cursor=pointer]
+    - generic [ref=f21e79]:
+      - heading "Neuer Sprint" [level=2] [ref=f21e80]
+      - generic [ref=f21e81]:
+        - generic [ref=f21e82]:
+          - paragraph [ref=f21e83]:
+            - generic [ref=f21e84]: Name *
+            - textbox "Name *" [active] [ref=f21e85]
+          - paragraph [ref=f21e86]:
+            - generic [ref=f21e87]: Beschreibung
+            - textbox "Beschreibung" [ref=f21e88]
+          - paragraph [ref=f21e89]:
+            - generic [ref=f21e90]: Startdatum *
+            - textbox [ref=f21e91]
+          - paragraph [ref=f21e92]:
+            - generic [ref=f21e93]: Dauer
+            - combobox [ref=f21e94]:
+              - option "1 Woche"
+              - option "2 Wochen" [selected]
+              - option "3 Wochen"
+              - option "4 Wochen"
+          - paragraph [ref=f21e95]:
+            - generic [ref=f21e96]: Enddatum
+            - textbox [ref=f21e97]
+            - emphasis [ref=f21e98]: Automatisch aus Startdatum und Dauer berechnet
+          - paragraph [ref=f21e99]:
+            - generic [ref=f21e100]: Status
+            - combobox "Status" [ref=f21e101]:
+              - option "Offen" [selected]
+              - option "Aktiv"
+              - option "Geschlossen"
+          - paragraph [ref=f21e102]:
+            - generic [ref=f21e103]: Freigabe
+            - combobox "Freigabe" [ref=f21e104]:
+              - option "Nicht geteilt" [selected]
+              - option "Mit Unterprojekten"
+              - option "Mit Projekthierarchie"
+              - option "Mit Projektbaum"
+              - option "Mit allen Projekten"
+        - paragraph [ref=f21e105]:
+          - button "Erstellen" [ref=f21e106] [cursor=pointer]
+          - link "Abbrechen" [ref=f21e107] [cursor=pointer]:
+            - /url: /projects/agileboard/backlog
+    - generic [ref=f21e108]:
+      - text: Powered by
+      - link "Redmine" [ref=f21e109] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f21e110]
+  - log [ref=f21e111]
+  - log [ref=f21e112]
+  - log [ref=f21e113]
+  - log [ref=f21e114]
+  - log [ref=f21e115]
+  - log [ref=f21e116]
+  - log [ref=f21e117]
+  - log [ref=f21e118]
+  - log [ref=f21e119]

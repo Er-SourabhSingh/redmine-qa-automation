@@ -1,0 +1,39 @@
+- generic [active] [ref=f125e1]:
+  - generic [ref=f125e2]:
+    - generic [ref=f125e3]:
+      - generic [ref=f125e4]:
+        - list:
+          - listitem [ref=f125e5]:
+            - link "My account" [ref=f125e6] [cursor=pointer]:
+              - /url: /my/account
+          - listitem [ref=f125e7]:
+            - link "Sign out" [ref=f125e8] [cursor=pointer]:
+              - /url: /logout
+      - generic [ref=f125e9]:
+        - text: Logged in as
+        - link "alpha.customer" [ref=f125e10] [cursor=pointer]:
+          - /url: /users/6
+      - list:
+        - listitem [ref=f125e11]:
+          - link "My Helpdesk" [ref=f125e12] [cursor=pointer]:
+            - /url: /helpdesk
+    - generic [ref=f125e13]:
+      - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f125e14]
+    - generic [ref=f125e17]:
+      - generic [ref=f125e20]:
+        - heading "My Helpdesk" [level=2] [ref=f125e21]
+        - paragraph [ref=f125e22]: Your support projects. Open one to raise a ticket or follow an existing one.
+      - generic [ref=f125e24]:
+        - heading "Helpdesk QA Alpha" [level=3] [ref=f125e25]
+        - generic [ref=f125e26]:
+          - generic [ref=f125e27]: 0 open
+          - link "View" [ref=f125e29] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+    - generic [ref=f125e32]:
+      - text: Powered by
+      - link "Redmine" [ref=f125e33] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f125e34]
+  - log [ref=f125e35]

@@ -1,0 +1,186 @@
+- generic [active] [ref=f179e1]:
+  - generic [ref=f179e2]:
+    - navigation [ref=f179e3]:
+      - generic [ref=f179e4]:
+        - link [ref=f179e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f179e7] [cursor=pointer]
+      - list [ref=f179e17]:
+        - listitem [ref=f179e18]:
+          - link "Hauptseite" [ref=f179e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f179e20]:
+          - link "Meine Seite" [ref=f179e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f179e22]:
+          - link "Projekte" [ref=f179e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f179e24]:
+          - link "Agile Board" [ref=f179e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f179e26]:
+          - link "Flux Gantt" [ref=f179e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f179e28]:
+          - link "Administration" [ref=f179e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f179e30]:
+          - link "Hilfe" [ref=f179e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f179e32]:
+        - generic [ref=f179e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f179e35]
+        - link "Mein Konto" [ref=f179e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f179e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f179e44]:
+      - generic [ref=f179e45]:
+        - heading "Redmine" [level=1] [ref=f179e47]
+        - generic [ref=f179e49]:
+          - heading "Administration" [level=3] [ref=f179e50]
+          - list [ref=f179e52]:
+            - listitem [ref=f179e53]:
+              - link "Projekte" [ref=f179e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f179e55]:
+              - link "Benutzer" [ref=f179e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f179e57]:
+              - link "Gruppen" [ref=f179e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f179e59]:
+              - link "Rollen und Rechte" [ref=f179e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f179e61]:
+              - link "Tracker" [ref=f179e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f179e63]:
+              - link "Ticket-Status" [ref=f179e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f179e65]:
+              - link "Workflow" [ref=f179e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f179e67]:
+              - link "Benutzerdefinierte Felder" [ref=f179e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f179e69]:
+              - link "Aufzählungen" [ref=f179e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f179e71]:
+              - link "Konfiguration" [ref=f179e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f179e73]:
+              - link "LDAP-Authentifizierung" [ref=f179e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f179e75]:
+              - link "Applikationen" [ref=f179e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f179e77]:
+              - link "Plugins" [ref=f179e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f179e79]:
+              - link "Informationen" [ref=f179e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f179e81]:
+        - link "Neuer Status" [ref=f179e83] [cursor=pointer]:
+          - /url: /issue_statuses/new
+        - heading "Ticket-Status" [level=2] [ref=f179e85]
+        - table [ref=f179e86]:
+          - rowgroup [ref=f179e87]:
+            - row [ref=f179e88]:
+              - columnheader "Status" [ref=f179e89]
+              - columnheader "Ticket geschlossen" [ref=f179e90]
+              - columnheader "Beschreibung" [ref=f179e91]
+              - columnheader [ref=f179e92]
+              - columnheader [ref=f179e93]
+          - rowgroup [ref=f179e94]:
+            - row [ref=f179e95]:
+              - cell [ref=f179e96]:
+                - link "New" [ref=f179e97] [cursor=pointer]:
+                  - /url: /issue_statuses/7/edit
+              - cell [ref=f179e98]
+              - cell [ref=f179e99]
+              - cell [ref=f179e100]
+              - cell [ref=f179e101]:
+                - generic "Sortieren" [ref=f179e102]
+                - link "Löschen" [ref=f179e104] [cursor=pointer]:
+                  - /url: /issue_statuses/7
+            - row [ref=f179e105]:
+              - cell [ref=f179e106]:
+                - link "In Progress" [ref=f179e107] [cursor=pointer]:
+                  - /url: /issue_statuses/8/edit
+              - cell [ref=f179e108]
+              - cell [ref=f179e109]
+              - cell [ref=f179e110]
+              - cell [ref=f179e111]:
+                - generic "Sortieren" [ref=f179e112]
+                - link "Löschen" [ref=f179e114] [cursor=pointer]:
+                  - /url: /issue_statuses/8
+            - row [ref=f179e115]:
+              - cell [ref=f179e116]:
+                - link "Resolved" [ref=f179e117] [cursor=pointer]:
+                  - /url: /issue_statuses/9/edit
+              - cell [ref=f179e118]
+              - cell [ref=f179e119]
+              - cell [ref=f179e120]
+              - cell [ref=f179e121]:
+                - generic "Sortieren" [ref=f179e122]
+                - link "Löschen" [ref=f179e124] [cursor=pointer]:
+                  - /url: /issue_statuses/9
+            - row [ref=f179e125]:
+              - cell [ref=f179e126]:
+                - link "Feedback" [ref=f179e127] [cursor=pointer]:
+                  - /url: /issue_statuses/10/edit
+              - cell [ref=f179e128]
+              - cell [ref=f179e129]
+              - cell [ref=f179e130]
+              - cell [ref=f179e131]:
+                - generic "Sortieren" [ref=f179e132]
+                - link "Löschen" [ref=f179e134] [cursor=pointer]:
+                  - /url: /issue_statuses/10
+            - row [ref=f179e135]:
+              - cell [ref=f179e136]:
+                - link "Closed" [ref=f179e137] [cursor=pointer]:
+                  - /url: /issue_statuses/11/edit
+              - cell [ref=f179e138]
+              - cell [ref=f179e141]
+              - cell [ref=f179e142]
+              - cell [ref=f179e143]:
+                - generic "Sortieren" [ref=f179e144]
+                - link "Löschen" [ref=f179e146] [cursor=pointer]:
+                  - /url: /issue_statuses/11
+            - row [ref=f179e147]:
+              - cell [ref=f179e148]:
+                - link "Rejected" [ref=f179e149] [cursor=pointer]:
+                  - /url: /issue_statuses/12/edit
+              - cell [ref=f179e150]
+              - cell [ref=f179e153]
+              - cell [ref=f179e154]
+              - cell [ref=f179e155]:
+                - generic "Sortieren" [ref=f179e156]
+                - link "Löschen" [ref=f179e158] [cursor=pointer]:
+                  - /url: /issue_statuses/12
+    - generic [ref=f179e159]:
+      - text: Powered by
+      - link "Redmine" [ref=f179e160] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f179e161]
+  - log [ref=f179e162]
+  - log [ref=f179e163]
+  - log [ref=f179e164]
+  - log [ref=f179e165]
+  - log [ref=f179e166]
+  - log [ref=f179e167]
+  - log [ref=f179e168]
+  - log [ref=f179e169]
+  - log [ref=f179e170]
+  - log [ref=f179e171]
+  - log [ref=f179e172]
+  - log [ref=f179e173]
+  - log [ref=f179e174]
+  - log [ref=f179e175]
+  - log [ref=f179e176]
+  - log [ref=f179e177]
+  - log [ref=f179e178]

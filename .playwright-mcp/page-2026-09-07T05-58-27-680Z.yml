@@ -1,0 +1,203 @@
+- generic [ref=f77e1]:
+  - generic [ref=f77e2]:
+    - generic [ref=f77e3]:
+      - generic [ref=f77e4]:
+        - list:
+          - listitem [ref=f77e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f77e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f77e7]:
+        - text: Logged in as
+        - link "manage.helpdesk.test" [ref=f77e8] [cursor=pointer]:
+          - /url: /users/16
+      - list [ref=f77e9]:
+        - listitem [ref=f77e10]:
+          - link [ref=f77e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f77e12]
+        - listitem [ref=f77e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f77e14]:
+          - link "My page" [ref=f77e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f77e16]:
+          - link "Projects" [ref=f77e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f77e18]:
+          - link "Helpdesk Command Center" [ref=f77e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f77e20]:
+          - link "Time Tracker" [ref=f77e21] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f77e22]:
+          - link "Workloads" [ref=f77e23] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f77e24]:
+          - link "Help" [ref=f77e25] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f77e26]:
+      - generic [ref=f77e27]:
+        - generic [ref=f77e28]:
+          - generic [ref=f77e29]:
+            - link "Search..." [ref=f77e30] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f77e31]
+        - generic [ref=f77e32]:
+          - generic [ref=f77e33] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f77e34]
+      - list [ref=f77e36]:
+        - listitem [ref=f77e37]:
+          - link "+" [ref=f77e38] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f77e39]:
+          - link "Overview" [ref=f77e40] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha
+        - listitem [ref=f77e41]:
+          - link "Activity" [ref=f77e42] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/activity
+        - listitem [ref=f77e43]:
+          - link "Issues" [ref=f77e44] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues
+        - listitem [ref=f77e45]:
+          - link "Spent time" [ref=f77e46] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/time_entries
+        - listitem [ref=f77e47]:
+          - link "Gantt" [ref=f77e48] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/gantt
+        - listitem [ref=f77e49]:
+          - link "Calendar" [ref=f77e50] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/calendar
+        - listitem [ref=f77e51]:
+          - link "News" [ref=f77e52] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/news
+        - listitem [ref=f77e53]:
+          - link "Documents" [ref=f77e54] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/documents
+        - listitem [ref=f77e55]:
+          - link "Wiki" [ref=f77e56] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/wiki
+        - listitem [ref=f77e57]:
+          - link "Files" [ref=f77e58] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/files
+        - listitem [ref=f77e59]:
+          - link "Helpdesk" [ref=f77e60] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+    - generic [ref=f77e61]:
+      - list [ref=f77e65]:
+        - listitem [ref=f77e66]:
+          - link "Helpdesk Dashboard" [ref=f77e67] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f77e70]:
+          - link "Helpdesk Tickets" [ref=f77e71] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f77e74]:
+          - link "Knowledgebase" [ref=f77e75] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+        - listitem [ref=f77e78]:
+          - link "Helpdesk SLA" [ref=f77e79] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/sla
+        - listitem [ref=f77e82]:
+          - link "Organization" [ref=f77e83] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/organization
+        - listitem [ref=f77e86]:
+          - link "Settings" [ref=f77e87] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/settings
+      - generic [ref=f77e90]:
+        - heading "New Support Level" [level=2] [ref=f77e91]
+        - generic [ref=f77e92]:
+          - list [ref=f77e94]:
+            - listitem [ref=f77e95]: Please select at least one Support Assignee
+          - generic [ref=f77e96]:
+            - paragraph [ref=f77e97]:
+              - generic [ref=f77e98]: Support Level Name *
+              - textbox "Support Level Name *" [active] [ref=f77e99]: TC-HLP-205 Permission Test Level
+            - paragraph [ref=f77e100]:
+              - generic [ref=f77e101]: Level Order *
+              - spinbutton "Level Order *" [ref=f77e102]: "99"
+            - paragraph [ref=f77e103]:
+              - generic [ref=f77e104]: Description
+              - generic [ref=f77e105]:
+                - list [ref=f77e107]:
+                  - listitem [ref=f77e108]:
+                    - link "Edit" [ref=f77e109] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f77e110]:
+                    - link "Preview" [ref=f77e111] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f77e112]:
+                    - generic [ref=f77e113]:
+                      - button "Strong (Ctrl+B)" [ref=f77e114] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f77e115] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f77e116] [cursor=pointer]
+                      - button "Deleted" [ref=f77e117] [cursor=pointer]
+                      - button "Inline Code" [ref=f77e118] [cursor=pointer]
+                      - button "Heading 1" [ref=f77e119] [cursor=pointer]
+                      - button "Heading 2" [ref=f77e120] [cursor=pointer]
+                      - button "Heading 3" [ref=f77e121] [cursor=pointer]
+                      - button "Unordered list" [ref=f77e122] [cursor=pointer]
+                      - button "Ordered list" [ref=f77e123] [cursor=pointer]
+                      - button "Task list" [ref=f77e124] [cursor=pointer]
+                      - button "Quote" [ref=f77e125] [cursor=pointer]
+                      - button "Remove Quote" [ref=f77e126] [cursor=pointer]
+                      - button "Table" [ref=f77e127] [cursor=pointer]
+                      - button "pre" [ref=f77e128] [cursor=pointer]
+                      - button "Highlighted code" [ref=f77e129] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f77e130] [cursor=pointer]
+                      - button "Image" [ref=f77e131] [cursor=pointer]
+                      - button "Help" [ref=f77e132] [cursor=pointer]
+                - textbox "Description" [ref=f77e134]
+            - paragraph [ref=f77e135]:
+              - generic [ref=f77e136]: Support Assignees *
+              - textbox "Select items" [ref=f77e139]
+              - emphasis [ref=f77e140]: Select one or more users to assign to this support level. Click to open dropdown and search for users.
+            - paragraph [ref=f77e141]:
+              - generic [ref=f77e142]: Escalation To
+              - combobox "Escalation To" [ref=f77e143]:
+                - option "None (Last Level)" [selected]
+              - emphasis [ref=f77e144]: Escalation can only be to higher level support (based on Level Order). For example, Level Order 1 can escalate to Level Order 2 or 3.
+            - paragraph [ref=f77e145]:
+              - generic [ref=f77e146]: Active
+              - checkbox [checked] [ref=f77e147]
+          - button "Create" [ref=f77e148] [cursor=pointer]
+          - link "Cancel" [ref=f77e149] [cursor=pointer]:
+            - /url: /projects/1/helpdesk/settings?tab=support_levels
+    - generic [ref=f77e150]:
+      - text: Powered by
+      - link "Redmine" [ref=f77e151] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f77e152]
+  - log [ref=f77e153]
+  - log [ref=f77e154]
+  - log [ref=f77e155]
+  - log [ref=f77e156]
+  - log [ref=f77e157]
+  - log [ref=f77e158]
+  - log [ref=f77e159]
+  - log [ref=f77e160]
+  - log [ref=f77e161]
+  - log [ref=f77e162]
+  - log [ref=f77e163]
+  - log [ref=f77e164]
+  - log [ref=f77e165]
+  - log [ref=f77e166]
+  - log [ref=f77e167]
+  - log [ref=f77e168]
+  - log [ref=f77e169]
+  - log [ref=f77e170]
+  - log [ref=f77e171]
+  - log [ref=f77e172]
+  - log [ref=f77e173]
+  - log [ref=f77e174]
+  - log [ref=f77e175]
+  - log [ref=f77e176]
+  - log [ref=f77e177]
+  - log [ref=f77e178]
+  - log [ref=f77e179]
+  - log [ref=f77e180]

@@ -1,0 +1,405 @@
+- generic [active] [ref=f157e1]:
+  - generic [ref=f157e2]:
+    - navigation [ref=f157e3]:
+      - generic [ref=f157e4]:
+        - link [ref=f157e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f157e7] [cursor=pointer]
+      - list [ref=f157e17]:
+        - listitem [ref=f157e18]:
+          - link "Hauptseite" [ref=f157e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f157e20]:
+          - link "Meine Seite" [ref=f157e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f157e22]:
+          - link "Projekte" [ref=f157e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f157e24]:
+          - link "Agile Board" [ref=f157e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f157e26]:
+          - link "Flux Gantt" [ref=f157e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f157e28]:
+          - link "Administration" [ref=f157e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f157e30]:
+          - link "Hilfe" [ref=f157e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f157e32]:
+        - generic [ref=f157e33]:
+          - generic [ref=f157e34] [cursor=pointer]: Software development5
+          - text: ✓ ✓
+        - button "Suche" [ref=f157e35]
+        - link "Mein Konto" [ref=f157e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f157e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f157e44]:
+      - generic [ref=f157e46]:
+        - heading "Software development5" [level=1] [ref=f157e47]
+        - generic [ref=f157e48]:
+          - generic [ref=f157e49]:
+            - generic [ref=f157e50]: Hauptmenü
+            - listitem [ref=f157e51]:
+              - link "+" [ref=f157e52] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f157e53]:
+            - listitem [ref=f157e54]:
+              - link "Übersicht" [ref=f157e55] [cursor=pointer]:
+                - /url: /projects/defaultsd
+            - listitem [ref=f157e60]:
+              - link "Dashboard" [ref=f157e61] [cursor=pointer]:
+                - /url: /projects/defaultsd/analytics_dashboard
+            - listitem [ref=f157e69]:
+              - link "Aktivität" [ref=f157e70] [cursor=pointer]:
+                - /url: /projects/defaultsd/activity
+            - listitem [ref=f157e75]:
+              - link "Tickets" [ref=f157e76] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues
+            - listitem [ref=f157e81]:
+              - link "Aufgewendete Zeit" [ref=f157e82] [cursor=pointer]:
+                - /url: /projects/defaultsd/time_entries
+            - listitem [ref=f157e87]:
+              - link "Gantt-Diagramm" [ref=f157e88] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues/gantt
+            - listitem [ref=f157e96]:
+              - link "Kalender" [ref=f157e97] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues/calendar
+            - listitem [ref=f157e102]:
+              - link "News" [ref=f157e103] [cursor=pointer]:
+                - /url: /projects/defaultsd/news
+            - listitem [ref=f157e108]:
+              - link "Dokumente" [ref=f157e109] [cursor=pointer]:
+                - /url: /projects/defaultsd/documents
+            - listitem [ref=f157e114]:
+              - link "Wiki" [ref=f157e115] [cursor=pointer]:
+                - /url: /projects/defaultsd/wiki
+            - listitem [ref=f157e120]:
+              - link "Dateien" [ref=f157e121] [cursor=pointer]:
+                - /url: /projects/defaultsd/files
+            - listitem [ref=f157e126]:
+              - link "Konfiguration" [ref=f157e127] [cursor=pointer]:
+                - /url: /projects/defaultsd/settings
+      - generic [ref=f157e134]:
+        - generic [ref=f157e135]:
+          - generic [ref=f157e136]:
+            - 'heading "Bug #1" [level=2] [ref=f157e137]'
+            - generic [ref=f157e138]: offen
+          - generic [ref=f157e139]:
+            - link "Hinzufügen Kommentare" [ref=f157e140] [cursor=pointer]:
+              - /url: "#"
+            - generic [ref=f157e143]:
+              - link "Bearbeiten" [ref=f157e144] [cursor=pointer]:
+                - /url: /issues/1/edit
+              - link "Aufwand buchen" [ref=f157e146] [cursor=pointer]:
+                - /url: /issues/1/time_entries/new
+              - link "Nicht beobachten" [ref=f157e148] [cursor=pointer]:
+                - /url: /watchers/watch?object_id=1&object_type=issue
+              - link "Kopieren" [ref=f157e150] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues/1/copy
+              - generic "Aktionen" [ref=f157e154] [cursor=pointer]
+        - generic [ref=f157e157]:
+          - link "« Zurück" [ref=f157e158] [cursor=pointer]:
+            - /url: /issues/2
+          - text: "|"
+          - link "266/266" [ref=f157e159] [cursor=pointer]:
+            - /url: /issues?f%5B%5D=status_id&op%5Bstatus_id%5D=o&page=11&per_page=25&set_filter=1&sort=id%3Adesc&v%5Bstatus_id%5D%5B%5D=
+          - text: "| Weiter »"
+        - generic [ref=f157e160]:
+          - generic [ref=f157e162]:
+            - generic [ref=f157e163]:
+              - generic [ref=f157e164]:
+                - 'img "Autor: Luna Blossom" [ref=f157e165]': LB
+                - 'img "Zugewiesen an: Nova Starling" [ref=f157e166]': NS
+              - generic [ref=f157e167]:
+                - heading [level=3] [ref=f157e170]:
+                  - text: Implement login form
+                  - button "Edit" [ref=f157e171] [cursor=pointer]
+                - paragraph [ref=f157e172]:
+                  - text: Von
+                  - link "Luna Blossom" [ref=f157e173] [cursor=pointer]:
+                    - /url: /users/6
+                  - text: vor
+                  - link "29 Minuten" [ref=f157e174] [cursor=pointer]:
+                    - /url: /projects/defaultsd/activity?from=2026-09-10
+                  - text: hinzugefügt. Vor
+                  - link "1 Minute" [ref=f157e175] [cursor=pointer]:
+                    - /url: /projects/defaultsd/activity?from=2026-09-10
+                  - text: aktualisiert.
+            - generic [ref=f157e176]:
+              - generic [ref=f157e177]:
+                - generic [ref=f157e178]:
+                  - generic [ref=f157e179]: •
+                  - generic [ref=f157e180]: Status
+                  - generic [ref=f157e181]:
+                    - text: In Progress
+                    - button "Edit" [ref=f157e182] [cursor=pointer]
+                - generic [ref=f157e183]:
+                  - generic [ref=f157e184]: •
+                  - generic [ref=f157e185]: Priorität
+                  - generic [ref=f157e186]:
+                    - text: Urgent
+                    - button "Edit" [ref=f157e187] [cursor=pointer]
+                - generic [ref=f157e188]:
+                  - generic [ref=f157e189]: •
+                  - generic [ref=f157e190]: Zugewiesen an
+                  - generic [ref=f157e191]:
+                    - link "Nova Starling" [ref=f157e193] [cursor=pointer]:
+                      - /url: /users/15
+                    - button "Edit" [ref=f157e194] [cursor=pointer]
+                - generic [ref=f157e195]: "• Markierungen:"
+              - generic [ref=f157e197]:
+                - generic [ref=f157e198]:
+                  - generic [ref=f157e199]: •
+                  - generic [ref=f157e200]: Startdatum
+                  - generic [ref=f157e201]:
+                    - text: 12.06.2026
+                    - button "Edit" [ref=f157e202] [cursor=pointer]
+                - generic [ref=f157e203]:
+                  - generic [ref=f157e204]: •
+                  - generic [ref=f157e205]: Abgabedatum
+                  - generic [ref=f157e206]:
+                    - text: 12.06.2026 (seit etwa 3 Monaten verspätet)
+                    - button "Edit" [ref=f157e207] [cursor=pointer]
+                - generic [ref=f157e208]:
+                  - generic [ref=f157e209]: •
+                  - generic [ref=f157e210]: Geschätzter Aufwand
+                  - button "Edit" [ref=f157e212] [cursor=pointer]
+                - generic [ref=f157e213]:
+                  - generic [ref=f157e214]: •
+                  - generic [ref=f157e215]: "% erledigt"
+                  - generic [ref=f157e216]:
+                    - generic [ref=f157e217]: 0%
+                    - button "Edit" [ref=f157e220] [cursor=pointer]
+                - generic [ref=f157e221]: Hinzufügen
+            - separator [ref=f157e223]
+            - generic [ref=f157e224]:
+              - paragraph [ref=f157e226]:
+                - strong [ref=f157e227]: Checkliste
+              - generic [ref=f157e228]:
+                - generic [ref=f157e229] [cursor=pointer]
+                - generic [ref=f157e452]:
+                  - link "Neue Checkliste" [ref=f157e453] [cursor=pointer]:
+                    - /url: "#"
+                  - link "Aus Vorlage hinzufügen" [ref=f157e454] [cursor=pointer]:
+                    - /url: /checklists/new_from_template?issue_id=1
+              - generic:
+                - list
+            - generic [ref=f157e231]:
+              - link "Hinzufügen" [ref=f157e233] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues/new?back_url=%2Fissues%2F1&issue%5Bparent_issue_id%5D=1&issue%5Btracker_id%5D=4
+              - paragraph [ref=f157e235]:
+                - strong [ref=f157e236]: Untergeordnete Tickets
+            - generic [ref=f157e237]:
+              - link "Hinzufügen" [ref=f157e239] [cursor=pointer]:
+                - /url: "#"
+              - paragraph [ref=f157e241]:
+                - strong [ref=f157e242]: Zugehörige Tickets
+            - generic [ref=f157e244]:
+              - link "Hinzufügen" [ref=f157e246] [cursor=pointer]:
+                - /url: /watchers/new?object_id=1&object_type=issue
+              - heading "Beobachter (1)" [level=3] [ref=f157e247]
+              - list [ref=f157e248]:
+                - listitem [ref=f157e249]:
+                  - img [ref=f157e250]: RA
+                  - link "Redmine Admin" [ref=f157e251] [cursor=pointer]:
+                    - /url: /users/1
+                  - link "Remove" [ref=f157e252] [cursor=pointer]:
+                    - /url: /issues/1/watchers/1
+          - generic [ref=f157e255]:
+            - generic [ref=f157e257]:
+              - list [ref=f157e259]:
+                - listitem [ref=f157e260]:
+                  - link "Historie" [ref=f157e261] [cursor=pointer]:
+                    - /url: /issues/1?tab=history
+                - listitem [ref=f157e262]:
+                  - link "Eigenschaftsänderungen" [ref=f157e263] [cursor=pointer]:
+                    - /url: /issues/1?tab=properties
+              - generic [ref=f157e264]:
+                - generic [ref=f157e266]:
+                  - heading [level=4] [ref=f157e267]:
+                    - generic [ref=f157e268]:
+                      - img [ref=f157e269]: RA
+                      - text: Von
+                      - link "Redmine Admin" [ref=f157e270] [cursor=pointer]:
+                        - /url: /users/1
+                      - text: vor
+                      - link "2 Minuten" [ref=f157e271] [cursor=pointer]:
+                        - /url: /projects/defaultsd/activity?from=2026-09-10
+                      - text: aktualisiert
+                    - generic [ref=f157e272]:
+                      - generic [ref=f157e273]:
+                        - link [ref=f157e275] [cursor=pointer]:
+                          - /url: /reactions?object_id=5&object_type=Journal
+                        - generic "Aktionen" [ref=f157e280] [cursor=pointer]
+                      - link "#1" [ref=f157e283] [cursor=pointer]:
+                        - /url: "#note-1"
+                  - list [ref=f157e285]:
+                    - listitem [ref=f157e286]:
+                      - strong [ref=f157e287]: Priorität
+                      - text: wurde von Low zu High geändert
+                - generic [ref=f157e289]:
+                  - heading [level=4] [ref=f157e290]:
+                    - generic [ref=f157e291]:
+                      - img [ref=f157e292]: RA
+                      - text: Von
+                      - link "Redmine Admin" [ref=f157e293] [cursor=pointer]:
+                        - /url: /users/1
+                      - text: vor
+                      - link "2 Minuten" [ref=f157e294] [cursor=pointer]:
+                        - /url: /projects/defaultsd/activity?from=2026-09-10
+                      - text: aktualisiert
+                    - generic [ref=f157e295]:
+                      - generic [ref=f157e296]:
+                        - link [ref=f157e298] [cursor=pointer]:
+                          - /url: /reactions?object_id=6&object_type=Journal
+                        - generic "Aktionen" [ref=f157e303] [cursor=pointer]
+                      - link "#2" [ref=f157e306] [cursor=pointer]:
+                        - /url: "#note-2"
+                  - list [ref=f157e308]:
+                    - listitem [ref=f157e309]:
+                      - strong [ref=f157e310]: Status
+                      - text: wurde von In Progress zu New geändert
+                - generic [ref=f157e312]:
+                  - heading [level=4] [ref=f157e313]:
+                    - generic [ref=f157e314]:
+                      - img [ref=f157e315]: RA
+                      - text: Von
+                      - link "Redmine Admin" [ref=f157e316] [cursor=pointer]:
+                        - /url: /users/1
+                      - text: vor
+                      - link "2 Minuten" [ref=f157e317] [cursor=pointer]:
+                        - /url: /projects/defaultsd/activity?from=2026-09-10
+                      - text: aktualisiert
+                    - generic [ref=f157e318]:
+                      - generic [ref=f157e319]:
+                        - link [ref=f157e321] [cursor=pointer]:
+                          - /url: /reactions?object_id=7&object_type=Journal
+                        - generic "Aktionen" [ref=f157e326] [cursor=pointer]
+                      - link "#3" [ref=f157e329] [cursor=pointer]:
+                        - /url: "#note-3"
+                  - list [ref=f157e331]:
+                    - listitem [ref=f157e332]:
+                      - strong [ref=f157e333]: Status
+                      - text: wurde von New zu In Progress geändert
+                - generic [ref=f157e335]:
+                  - heading [level=4] [ref=f157e336]:
+                    - generic [ref=f157e337]:
+                      - img [ref=f157e338]: RA
+                      - text: Von
+                      - link "Redmine Admin" [ref=f157e339] [cursor=pointer]:
+                        - /url: /users/1
+                      - text: vor
+                      - link "1 Minute" [ref=f157e340] [cursor=pointer]:
+                        - /url: /projects/defaultsd/activity?from=2026-09-10
+                      - text: aktualisiert
+                    - generic [ref=f157e341]:
+                      - generic [ref=f157e342]:
+                        - link [ref=f157e344] [cursor=pointer]:
+                          - /url: /reactions?object_id=8&object_type=Journal
+                        - generic "Aktionen" [ref=f157e349] [cursor=pointer]
+                      - link "#4" [ref=f157e352] [cursor=pointer]:
+                        - /url: "#note-4"
+                  - list [ref=f157e354]:
+                    - listitem [ref=f157e355]:
+                      - strong [ref=f157e356]: Priorität
+                      - text: wurde von High zu Urgent geändert
+            - paragraph [ref=f157e358]:
+              - text: "Auch abrufbar als:"
+              - link "Atom" [ref=f157e360] [cursor=pointer]:
+                - /url: /issues/1.atom?key=d674513a77379f381a356a5b0d67fe9eb131b838
+              - generic [ref=f157e361]:
+                - text: "|"
+                - link "PDF" [ref=f157e362] [cursor=pointer]:
+                  - /url: /issues/1.pdf
+        - generic [ref=f157e363]:
+          - generic [ref=f157e364]:
+            - link "Bearbeiten" [ref=f157e365] [cursor=pointer]:
+              - /url: /issues/1/edit
+            - link "Aufwand buchen" [ref=f157e367] [cursor=pointer]:
+              - /url: /issues/1/time_entries/new
+            - link "Nicht beobachten" [ref=f157e369] [cursor=pointer]:
+              - /url: /watchers/watch?object_id=1&object_type=issue
+            - link "Kopieren" [ref=f157e371] [cursor=pointer]:
+              - /url: /projects/defaultsd/issues/1/copy
+            - generic "Aktionen" [ref=f157e375] [cursor=pointer]
+          - text: pre pre
+    - generic [ref=f157e378]:
+      - text: Powered by
+      - link "Redmine" [ref=f157e379] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f157e380]
+  - status [ref=f157e381]
+  - log [ref=f157e382]
+  - log [ref=f157e383]
+  - log [ref=f157e384]
+  - log [ref=f157e385]
+  - log [ref=f157e386]
+  - log [ref=f157e387]
+  - log [ref=f157e388]
+  - log [ref=f157e389]
+  - log [ref=f157e390]
+  - log [ref=f157e391]
+  - log [ref=f157e392]
+  - log [ref=f157e393]
+  - log [ref=f157e394]
+  - log [ref=f157e395]
+  - log [ref=f157e396]
+  - log [ref=f157e397]
+  - log [ref=f157e398]
+  - log [ref=f157e399]
+  - log [ref=f157e400]
+  - log [ref=f157e401]
+  - log [ref=f157e402]
+  - log [ref=f157e403]
+  - log [ref=f157e404]
+  - log [ref=f157e405]
+  - log [ref=f157e406]
+  - log [ref=f157e407]
+  - log [ref=f157e408]
+  - log [ref=f157e409]
+  - log [ref=f157e410]
+  - log [ref=f157e411]
+  - log [ref=f157e412]
+  - log [ref=f157e413]
+  - log [ref=f157e414]
+  - log [ref=f157e415]
+  - log [ref=f157e416]
+  - log [ref=f157e417]
+  - log [ref=f157e418]
+  - log [ref=f157e419]
+  - log [ref=f157e420]
+  - log [ref=f157e421]
+  - log [ref=f157e422]
+  - log [ref=f157e423]
+  - log [ref=f157e424]
+  - log [ref=f157e425]
+  - log [ref=f157e426]
+  - log [ref=f157e427]
+  - log [ref=f157e428]
+  - log [ref=f157e429]
+  - log [ref=f157e430]
+  - log [ref=f157e431]
+  - log [ref=f157e432]
+  - log [ref=f157e433]
+  - log [ref=f157e434]
+  - log [ref=f157e435]
+  - log [ref=f157e436]
+  - log [ref=f157e437]
+  - log [ref=f157e438]
+  - log [ref=f157e439]
+  - log [ref=f157e440]
+  - log [ref=f157e441]
+  - log [ref=f157e442]
+  - log [ref=f157e443]
+  - log [ref=f157e444]
+  - log [ref=f157e445]
+  - log [ref=f157e446]
+  - log [ref=f157e447]
+  - log [ref=f157e448]
+  - log [ref=f157e449]
+  - status [ref=f157e450]
+  - status [ref=f157e451]

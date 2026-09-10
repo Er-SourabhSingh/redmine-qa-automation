@@ -1,0 +1,119 @@
+- generic [active] [ref=f650e1]:
+  - generic [ref=f650e2]:
+    - generic [ref=f650e3]:
+      - generic [ref=f650e4]:
+        - list:
+          - listitem [ref=f650e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f650e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f650e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f650e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f650e9]:
+        - listitem [ref=f650e10]:
+          - link [ref=f650e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f650e12]
+        - listitem [ref=f650e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f650e14]:
+          - link "My page" [ref=f650e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f650e16]:
+          - link "Projects" [ref=f650e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f650e18]:
+          - link "Time Tracker" [ref=f650e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f650e20]:
+          - link "Workloads" [ref=f650e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f650e22]:
+          - link "Help" [ref=f650e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f650e24]:
+      - generic [ref=f650e25]:
+        - generic [ref=f650e26]:
+          - generic [ref=f650e27]:
+            - link "Search..." [ref=f650e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f650e29]
+        - generic [ref=f650e30]:
+          - generic [ref=f650e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Redmine" [level=1] [ref=f650e32]
+      - list [ref=f650e34]:
+        - listitem [ref=f650e35]:
+          - link "Projects" [ref=f650e36] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f650e37]:
+          - link "Activity" [ref=f650e38] [cursor=pointer]:
+            - /url: /activity
+        - listitem [ref=f650e39]:
+          - link "Issues" [ref=f650e40] [cursor=pointer]:
+            - /url: /issues
+        - listitem [ref=f650e41]:
+          - link "Spent time" [ref=f650e42] [cursor=pointer]:
+            - /url: /time_entries
+        - listitem [ref=f650e43]:
+          - link "Gantt" [ref=f650e44] [cursor=pointer]:
+            - /url: /issues/gantt
+        - listitem [ref=f650e45]:
+          - link "Calendar" [ref=f650e46] [cursor=pointer]:
+            - /url: /issues/calendar
+        - listitem [ref=f650e47]:
+          - link "News" [ref=f650e48] [cursor=pointer]:
+            - /url: /news
+    - generic [ref=f650e49]:
+      - generic [ref=f650e50]:
+        - link [ref=f650e52] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f650e55]:
+          - heading "Custom queries" [level=3] [ref=f650e56]
+          - list [ref=f650e57]:
+            - listitem [ref=f650e58]:
+              - link "My bookmarks" [ref=f650e59] [cursor=pointer]:
+                - /url: /projects?query_id=6
+            - listitem [ref=f650e60]:
+              - link "My projects" [ref=f650e61] [cursor=pointer]:
+                - /url: /projects?query_id=5
+      - generic [ref=f650e62]:
+        - heading "Projects" [level=2] [ref=f650e63]
+        - generic [ref=f650e66]:
+          - group "Filters" [ref=f650e67]
+          - group "Options" [ref=f650e71]
+        - list [ref=f650e76]:
+          - listitem [ref=f650e77]:
+            - link "Helpdesk QA Alpha" [ref=f650e79] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f650e83]:
+            - link "Helpdesk QA Beta" [ref=f650e85] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta
+          - listitem [ref=f650e89]:
+            - link "test" [ref=f650e91] [cursor=pointer]:
+              - /url: /projects/test
+        - paragraph [ref=f650e92]:
+          - generic [ref=f650e93]: My projects
+          - generic [ref=f650e95]: My bookmarks
+        - paragraph [ref=f650e97]:
+          - text: "Also available in:"
+          - link "Atom" [ref=f650e99] [cursor=pointer]:
+            - /url: /projects.atom?key=74f8c2c10d57ac3baeee5bf474f60ebd9a037b60
+    - generic [ref=f650e100]:
+      - text: Powered by
+      - link "Redmine" [ref=f650e101] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f650e102]
+  - log [ref=f650e103]
+  - log [ref=f650e104]
+  - log [ref=f650e105]
+  - log [ref=f650e106]
+  - log [ref=f650e107]
+  - log [ref=f650e108]

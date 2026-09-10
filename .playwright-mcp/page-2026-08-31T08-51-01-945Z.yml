@@ -1,0 +1,311 @@
+- generic [active] [ref=f381e1]:
+  - generic [ref=f381e2]:
+    - generic [ref=f381e3]:
+      - generic [ref=f381e4]:
+        - list:
+          - listitem [ref=f381e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f381e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f381e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f381e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f381e9]:
+        - listitem [ref=f381e10]:
+          - link [ref=f381e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f381e12]
+        - listitem [ref=f381e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f381e14]:
+          - link "My page" [ref=f381e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f381e16]:
+          - link "Projects" [ref=f381e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f381e18]:
+          - link "Time Tracker" [ref=f381e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f381e20]:
+          - link "Workloads" [ref=f381e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f381e22]:
+          - link "Help" [ref=f381e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f381e24]:
+      - generic [ref=f381e25]:
+        - generic [ref=f381e26]:
+          - generic [ref=f381e27]:
+            - link "Search..." [ref=f381e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f381e29]
+        - generic [ref=f381e30]:
+          - generic [ref=f381e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f381e32]
+      - generic [ref=f381e33]:
+        - list [ref=f381e34]:
+          - listitem [ref=f381e35]:
+            - link "+" [ref=f381e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f381e37]:
+            - link "Overview" [ref=f381e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f381e39]:
+            - link "Activity" [ref=f381e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f381e41]:
+            - link "Issues" [ref=f381e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f381e43]:
+            - link "Spent time" [ref=f381e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f381e45]:
+            - link "Gantt" [ref=f381e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f381e47]:
+            - link "Calendar" [ref=f381e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f381e49]:
+            - link "News" [ref=f381e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f381e51]:
+            - link "Documents" [ref=f381e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f381e53]:
+            - link "Wiki" [ref=f381e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f381e55]:
+            - link "Files" [ref=f381e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f381e57]:
+            - link "Helpdesk" [ref=f381e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f381e59]:
+          - button [ref=f381e60] [cursor=pointer]
+          - button [ref=f381e63] [cursor=pointer]
+    - generic [ref=f381e66]:
+      - list [ref=f381e70]:
+        - listitem [ref=f381e71]:
+          - link "Helpdesk Dashboard" [ref=f381e72] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f381e75]:
+          - link "Helpdesk Tickets" [ref=f381e76] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f381e79]:
+          - link "Knowledgebase" [ref=f381e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f381e83]:
+        - generic [ref=f381e84]:
+          - generic [ref=f381e86]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f381e87]
+            - paragraph [ref=f381e88]: Helpdesk QA Alpha · 8 tickets
+          - link "New issue" [ref=f381e90] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/new
+        - button "Filters" [ref=f381e93] [cursor=pointer]
+        - table [ref=f381e101]:
+          - rowgroup [ref=f381e102]:
+            - row [ref=f381e103]:
+              - columnheader [ref=f381e104]:
+                - 'link "Ticket #" [ref=f381e105] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=id
+              - columnheader [ref=f381e106]:
+                - link "Subject" [ref=f381e107] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=subject
+              - columnheader "Customer" [ref=f381e108]
+              - columnheader "Organization Name" [ref=f381e109]
+              - columnheader [ref=f381e110]:
+                - link "Status" [ref=f381e111] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=status
+              - columnheader [ref=f381e112]:
+                - link "Priority" [ref=f381e113] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=priority
+              - columnheader "Assignee" [ref=f381e114]
+              - columnheader "SLA Status" [ref=f381e115]
+              - columnheader [ref=f381e116]:
+                - link "Updated ▼" [ref=f381e117] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=updated_on
+          - rowgroup [ref=f381e118]:
+            - row [ref=f381e119]:
+              - cell [ref=f381e120]:
+                - link "#9" [ref=f381e121] [cursor=pointer]:
+                  - /url: /issues/9
+              - cell [ref=f381e122]:
+                - link "TC-HLP-021 re-run - agent-created unassigned ticket for auto-assign/SLA-pause check" [ref=f381e123] [cursor=pointer]:
+                  - /url: /issues/9
+              - cell "—" [ref=f381e124]
+              - cell "—" [ref=f381e125]
+              - cell "Waiting for Customer Response" [ref=f381e126]
+              - cell "Normal" [ref=f381e129]
+              - cell "Unassigned" [ref=f381e132]
+              - cell "— No SLA" [ref=f381e133]:
+                - generic [ref=f381e134]:
+                  - generic [ref=f381e135]: —
+                  - text: No SLA
+              - cell "08/31/2026 08:42 AM" [ref=f381e136]
+            - row [ref=f381e137]:
+              - cell [ref=f381e138]:
+                - link "#2" [ref=f381e139] [cursor=pointer]:
+                  - /url: /issues/2
+              - cell [ref=f381e140]:
+                - link "Second verification ticket for BUG-HLP-014 retest" [ref=f381e141] [cursor=pointer]:
+                  - /url: /issues/2
+              - cell [ref=f381e142]:
+                - link "Alpha Customer" [ref=f381e143] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f381e144]
+              - cell "Waiting for Customer Response" [ref=f381e145]
+              - cell "Normal" [ref=f381e148]
+              - cell "Unassigned" [ref=f381e151]
+              - cell "— No SLA" [ref=f381e152]:
+                - generic [ref=f381e153]:
+                  - generic [ref=f381e154]: —
+                  - text: No SLA
+              - cell "08/31/2026 08:31 AM" [ref=f381e155]
+            - row [ref=f381e156]:
+              - cell [ref=f381e157]:
+                - link "#8" [ref=f381e158] [cursor=pointer]:
+                  - /url: /issues/8
+              - cell [ref=f381e159]:
+                - 'link "Ticket: TC-HLP-016 fresh email creates a new ticket" [ref=f381e160] [cursor=pointer]':
+                  - /url: /issues/8
+              - cell [ref=f381e161]:
+                - link "Alpha Customer" [ref=f381e162] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f381e163]
+              - cell "In Progress" [ref=f381e164]
+              - cell "Normal" [ref=f381e167]
+              - cell "Unassigned" [ref=f381e170]
+              - cell "— No SLA" [ref=f381e171]:
+                - generic [ref=f381e172]:
+                  - generic [ref=f381e173]: —
+                  - text: No SLA
+              - cell "08/31/2026 08:30 AM" [ref=f381e174]
+            - row [ref=f381e175]:
+              - cell [ref=f381e176]:
+                - link "#7" [ref=f381e177] [cursor=pointer]:
+                  - /url: /issues/7
+              - cell [ref=f381e178]:
+                - link "TC-HLP-015 - customer raised ticket for own-tickets-only visibility check" [ref=f381e179] [cursor=pointer]:
+                  - /url: /issues/7
+              - cell [ref=f381e180]:
+                - link "Alpha Customer" [ref=f381e181] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f381e182]
+              - cell "Waiting for Customer Response" [ref=f381e183]
+              - cell "Normal" [ref=f381e186]
+              - cell "Unassigned" [ref=f381e189]
+              - cell "— No SLA" [ref=f381e190]:
+                - generic [ref=f381e191]:
+                  - generic [ref=f381e192]: —
+                  - text: No SLA
+              - cell "08/31/2026 08:24 AM" [ref=f381e193]
+            - row [ref=f381e194]:
+              - cell [ref=f381e195]:
+                - link "#6" [ref=f381e196] [cursor=pointer]:
+                  - /url: /issues/6
+              - cell [ref=f381e197]:
+                - link "TC-HLP-014 retest - project-scoped ticket creation" [ref=f381e198] [cursor=pointer]:
+                  - /url: /issues/6
+              - cell "—" [ref=f381e199]
+              - cell "—" [ref=f381e200]
+              - cell "New" [ref=f381e201]
+              - cell "High" [ref=f381e204]
+              - cell "Unassigned" [ref=f381e207]
+              - cell "— No SLA" [ref=f381e208]:
+                - generic [ref=f381e209]:
+                  - generic [ref=f381e210]: —
+                  - text: No SLA
+              - cell "08/31/2026 08:15 AM" [ref=f381e211]
+            - row [ref=f381e212]:
+              - cell [ref=f381e213]:
+                - link "#5" [ref=f381e214] [cursor=pointer]:
+                  - /url: /issues/5
+              - cell [ref=f381e215]:
+                - link "TC-HLP-013 retest - global Command Center ticket creation" [ref=f381e216] [cursor=pointer]:
+                  - /url: /issues/5
+              - cell "—" [ref=f381e217]
+              - cell "—" [ref=f381e218]
+              - cell "New" [ref=f381e219]
+              - cell "Normal" [ref=f381e222]
+              - cell "Unassigned" [ref=f381e225]
+              - cell "— No SLA" [ref=f381e226]:
+                - generic [ref=f381e227]:
+                  - generic [ref=f381e228]: —
+                  - text: No SLA
+              - cell "08/31/2026 08:13 AM" [ref=f381e229]
+            - row [ref=f381e230]:
+              - cell [ref=f381e231]:
+                - link "#4" [ref=f381e232] [cursor=pointer]:
+                  - /url: /issues/4
+              - cell [ref=f381e233]:
+                - link "BUG-HLP-009 retest - Edit form auto status transition check" [ref=f381e234] [cursor=pointer]:
+                  - /url: /issues/4
+              - cell [ref=f381e235]:
+                - link "Alpha Customer" [ref=f381e236] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f381e237]
+              - cell "New" [ref=f381e238]
+              - cell "Normal" [ref=f381e241]
+              - cell "Unassigned" [ref=f381e244]
+              - cell "— No SLA" [ref=f381e245]:
+                - generic [ref=f381e246]:
+                  - generic [ref=f381e247]: —
+                  - text: No SLA
+              - cell "08/31/2026 06:11 AM" [ref=f381e248]
+            - row [ref=f381e249]:
+              - cell [ref=f381e250]:
+                - link "#3" [ref=f381e251] [cursor=pointer]:
+                  - /url: /issues/3
+              - cell [ref=f381e252]:
+                - 'link "Ticket: BUG-HLP-008 retest - portal login issue" [ref=f381e253] [cursor=pointer]':
+                  - /url: /issues/3
+              - cell [ref=f381e254]:
+                - link "Alpha Customer" [ref=f381e255] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f381e256]
+              - cell "In Progress" [ref=f381e257]
+              - cell "Normal" [ref=f381e260]
+              - cell "Unassigned" [ref=f381e263]
+              - cell "— No SLA" [ref=f381e264]:
+                - generic [ref=f381e265]:
+                  - generic [ref=f381e266]: —
+                  - text: No SLA
+              - cell "08/31/2026 06:02 AM" [ref=f381e267]
+        - generic [ref=f381e268]:
+          - list
+          - generic [ref=f381e269]: (1-8/8)
+    - generic [ref=f381e270]:
+      - text: Powered by
+      - link "Redmine" [ref=f381e271] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f381e272]
+  - log [ref=f381e273]
+  - log [ref=f381e274]
+  - log [ref=f381e275]
+  - log [ref=f381e276]
+  - log [ref=f381e277]
+  - log [ref=f381e278]
+  - log [ref=f381e279]
+  - log [ref=f381e280]
+  - log [ref=f381e281]
+  - log [ref=f381e282]
+  - log [ref=f381e283]
+  - log [ref=f381e284]
+  - log [ref=f381e285]
+  - log [ref=f381e286]
+  - log [ref=f381e287]
+  - log [ref=f381e288]
+  - log [ref=f381e289]
+  - log [ref=f381e290]
+  - log [ref=f381e291]
+  - log [ref=f381e292]
+  - log [ref=f381e293]
+  - log [ref=f381e294]
+  - log [ref=f381e295]

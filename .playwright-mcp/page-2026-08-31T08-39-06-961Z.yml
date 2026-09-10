@@ -1,0 +1,242 @@
+- generic [ref=f357e1]:
+  - generic [ref=f357e2]:
+    - generic [ref=f357e3]:
+      - generic [ref=f357e4]:
+        - list:
+          - listitem [ref=f357e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f357e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f357e7]:
+        - text: Logged in as
+        - link "admin" [ref=f357e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f357e9]:
+        - listitem [ref=f357e10]:
+          - link [ref=f357e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f357e12]
+        - listitem [ref=f357e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f357e14]:
+          - link "My page" [ref=f357e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f357e16]:
+          - link "Projects" [ref=f357e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f357e18]:
+          - link "Flux Gantt" [ref=f357e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f357e20]:
+          - link "Helpdesk Command Center" [ref=f357e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f357e22]:
+          - link "Time Tracker" [ref=f357e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f357e24]:
+          - link "Timesheet" [ref=f357e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f357e26]:
+          - link "Workloads" [ref=f357e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f357e28]:
+          - link "More" [ref=f357e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f357e30]:
+      - generic [ref=f357e31]:
+        - generic [ref=f357e32]:
+          - generic [ref=f357e33]:
+            - link "Search..." [ref=f357e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f357e35]
+        - generic [ref=f357e36]:
+          - generic [ref=f357e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f357e38]
+    - generic [ref=f357e39]:
+      - list [ref=f357e43]:
+        - listitem [ref=f357e44]:
+          - link "Helpdesk Dashboard" [ref=f357e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f357e48]:
+          - link "Helpdesk Tickets" [ref=f357e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f357e52]:
+          - link "Reports" [ref=f357e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f357e56]:
+          - link "Organization" [ref=f357e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f357e60]:
+          - link "Customers" [ref=f357e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f357e64]:
+          - link "Products" [ref=f357e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f357e68]:
+          - link "Helpdesk Settings" [ref=f357e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f357e73]:
+        - generic [ref=f357e74]:
+          - generic [ref=f357e76]:
+            - heading "Helpdesk Dashboard" [level=2] [ref=f357e77]
+            - paragraph [ref=f357e78]: Ticket volume, SLA health and team workload at a glance
+          - generic [ref=f357e79]:
+            - button "Date Range" [ref=f357e81] [cursor=pointer]:
+              - generic [ref=f357e84]: 02 Aug 26 - 31 Aug 26
+            - link "New issue" [ref=f357e87] [cursor=pointer]:
+              - /url: /issue_helpdesks/new
+        - generic [ref=f357e89]:
+          - link "7 Unassigned View All" [ref=f357e90] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?assigned_to_id%5B%5D=none&created_from=2026-08-02&created_to=2026-08-31&status_id%5B%5D=open
+            - generic [ref=f357e97]: "7"
+            - generic [ref=f357e98]: Unassigned
+            - generic [ref=f357e99]: View All
+          - link "7 Open View All" [ref=f357e102] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?created_from=2026-08-02&created_to=2026-08-31&status_id%5B%5D=open
+            - generic [ref=f357e107]: "7"
+            - generic [ref=f357e108]: Open
+            - generic [ref=f357e109]: View All
+          - link "7 On Hold View All" [ref=f357e112] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?created_from=2026-08-02&created_to=2026-08-31
+            - generic [ref=f357e116]: "7"
+            - generic [ref=f357e117]: On Hold
+            - generic [ref=f357e118]: View All
+          - link "0 SLA Breached View All" [ref=f357e121] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?sla=breached
+            - generic [ref=f357e125]: "0"
+            - generic [ref=f357e126]: SLA Breached
+            - generic [ref=f357e127]: View All
+          - link "0 Resolved View All" [ref=f357e130] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues?created_from=2026-08-02&created_to=2026-08-31&status_id%5B%5D=closed
+            - generic [ref=f357e135]: "0"
+            - generic [ref=f357e136]: Resolved
+            - generic [ref=f357e137]: View All
+        - generic [ref=f357e140]:
+          - generic [ref=f357e141]:
+            - heading "Recent Tickets" [level=3] [ref=f357e142]
+            - link "View All" [ref=f357e145] [cursor=pointer]:
+              - /url: /rf_helpdesk/issues
+          - generic [ref=f357e148]:
+            - search [ref=f357e149]:
+              - textbox "Search tickets by subject…" [active] [ref=f357e150]
+            - table [ref=f357e152]:
+              - rowgroup [ref=f357e153]:
+                - row [ref=f357e154]:
+                  - columnheader "S.No." [ref=f357e155]
+                  - columnheader "Subject" [ref=f357e156]
+                  - columnheader "Project" [ref=f357e157]
+                  - columnheader "Priority" [ref=f357e158]
+                  - columnheader "Status" [ref=f357e159]
+                  - columnheader "Assignee" [ref=f357e160]
+                  - columnheader "SLA Status" [ref=f357e161]
+                  - columnheader "Created on" [ref=f357e162]
+              - rowgroup [ref=f357e163]:
+                - row [ref=f357e164]:
+                  - cell "1" [ref=f357e165]
+                  - cell [ref=f357e166]:
+                    - 'link "Ticket: TC-HLP-016 fresh email creates a new ticket" [ref=f357e167] [cursor=pointer]':
+                      - /url: /issues/8
+                  - cell "Helpdesk QA Alpha" [ref=f357e168]
+                  - cell "Normal" [ref=f357e169]
+                  - cell "In Progress" [ref=f357e172]
+                  - cell "Unassigned" [ref=f357e175]
+                  - cell "N/A" [ref=f357e176]
+                  - cell "11 minutes ago" [ref=f357e181]
+                - row [ref=f357e182]:
+                  - cell "2" [ref=f357e183]
+                  - cell [ref=f357e184]:
+                    - link "TC-HLP-015 - customer raised ticket for own-tickets-only visibility check" [ref=f357e185] [cursor=pointer]:
+                      - /url: /issues/7
+                  - cell "Helpdesk QA Alpha" [ref=f357e186]
+                  - cell "Normal" [ref=f357e187]
+                  - cell "New" [ref=f357e190]
+                  - cell "Unassigned" [ref=f357e193]
+                  - cell "N/A" [ref=f357e194]
+                  - cell "15 minutes ago" [ref=f357e199]
+                - row [ref=f357e200]:
+                  - cell "3" [ref=f357e201]
+                  - cell [ref=f357e202]:
+                    - link "TC-HLP-014 retest - project-scoped ticket creation" [ref=f357e203] [cursor=pointer]:
+                      - /url: /issues/6
+                  - cell "Helpdesk QA Alpha" [ref=f357e204]
+                  - cell "High" [ref=f357e205]
+                  - cell "New" [ref=f357e208]
+                  - cell "Unassigned" [ref=f357e211]
+                  - cell "N/A" [ref=f357e212]
+                  - cell "24 minutes ago" [ref=f357e217]
+                - row [ref=f357e218]:
+                  - cell "4" [ref=f357e219]
+                  - cell [ref=f357e220]:
+                    - link "TC-HLP-013 retest - global Command Center ticket creation" [ref=f357e221] [cursor=pointer]:
+                      - /url: /issues/5
+                  - cell "Helpdesk QA Alpha" [ref=f357e222]
+                  - cell "Normal" [ref=f357e223]
+                  - cell "New" [ref=f357e226]
+                  - cell "Unassigned" [ref=f357e229]
+                  - cell "N/A" [ref=f357e230]
+                  - cell "26 minutes ago" [ref=f357e235]
+                - row [ref=f357e236]:
+                  - cell "5" [ref=f357e237]
+                  - cell [ref=f357e238]:
+                    - link "BUG-HLP-009 retest - Edit form auto status transition check" [ref=f357e239] [cursor=pointer]:
+                      - /url: /issues/4
+                  - cell "Helpdesk QA Alpha" [ref=f357e240]
+                  - cell "Normal" [ref=f357e241]
+                  - cell "New" [ref=f357e244]
+                  - cell "Unassigned" [ref=f357e247]
+                  - cell "N/A" [ref=f357e248]
+                  - cell "about 3 hours ago" [ref=f357e253]
+                - row [ref=f357e254]:
+                  - cell "6" [ref=f357e255]
+                  - cell [ref=f357e256]:
+                    - 'link "Ticket: BUG-HLP-008 retest - portal login issue" [ref=f357e257] [cursor=pointer]':
+                      - /url: /issues/3
+                  - cell "Helpdesk QA Alpha" [ref=f357e258]
+                  - cell "Normal" [ref=f357e259]
+                  - cell "In Progress" [ref=f357e262]
+                  - cell "Unassigned" [ref=f357e265]
+                  - cell "N/A" [ref=f357e266]
+                  - cell "about 3 hours ago" [ref=f357e271]
+                - row [ref=f357e272]:
+                  - cell "7" [ref=f357e273]
+                  - cell [ref=f357e274]:
+                    - link "Second verification ticket for BUG-HLP-014 retest" [ref=f357e275] [cursor=pointer]:
+                      - /url: /issues/2
+                  - cell "Helpdesk QA Alpha" [ref=f357e276]
+                  - cell "Normal" [ref=f357e277]
+                  - cell "Waiting for Customer Response" [ref=f357e280]
+                  - cell "Unassigned" [ref=f357e283]
+                  - cell "N/A" [ref=f357e284]
+                  - cell "4 days ago" [ref=f357e289]
+        - generic [ref=f357e291]:
+          - heading "Ticket Statistics" [level=3] [ref=f357e292]
+          - generic [ref=f357e294]: 08/02/2026 – 08/31/2026
+    - generic [ref=f357e298]:
+      - text: Powered by
+      - link "Redmine" [ref=f357e299] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f357e300]
+  - log [ref=f357e301]
+  - log [ref=f357e302]
+  - log [ref=f357e303]
+  - log [ref=f357e304]
+  - log [ref=f357e305]
+  - log [ref=f357e306]
+  - log [ref=f357e307]
+  - log [ref=f357e308]
+  - log [ref=f357e309]
+  - log [ref=f357e310]
+  - log [ref=f357e311]
+  - log [ref=f357e312]
+  - log [ref=f357e313]
+  - log [ref=f357e314]
+  - log [ref=f357e315]
+  - log [ref=f357e316]
+  - log [ref=f357e317]
+  - log [ref=f357e318]

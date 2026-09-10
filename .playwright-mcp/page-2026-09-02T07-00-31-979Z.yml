@@ -1,0 +1,156 @@
+- generic [active] [ref=f385e1]:
+  - generic [ref=f385e2]:
+    - generic [ref=f385e3]:
+      - generic [ref=f385e4]:
+        - list:
+          - listitem [ref=f385e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f385e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f385e7]:
+        - text: Logged in as
+        - link "manage.helpdesk.test" [ref=f385e8] [cursor=pointer]:
+          - /url: /users/16
+      - list [ref=f385e9]:
+        - listitem [ref=f385e10]:
+          - link [ref=f385e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f385e12]
+        - listitem [ref=f385e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f385e14]:
+          - link "My page" [ref=f385e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f385e16]:
+          - link "Projects" [ref=f385e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f385e18]:
+          - link "Helpdesk Command Center" [ref=f385e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f385e20]:
+          - link "Time Tracker" [ref=f385e21] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f385e22]:
+          - link "Workloads" [ref=f385e23] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f385e24]:
+          - link "Help" [ref=f385e25] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f385e26]:
+      - generic [ref=f385e27]:
+        - generic [ref=f385e28]:
+          - generic [ref=f385e29]:
+            - link "Search..." [ref=f385e30] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f385e31]
+        - generic [ref=f385e32]:
+          - generic [ref=f385e33] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f385e34]
+    - generic [ref=f385e35]:
+      - list [ref=f385e39]:
+        - listitem [ref=f385e40]:
+          - link "Helpdesk Dashboard" [ref=f385e41] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f385e44]:
+          - link "Helpdesk Tickets" [ref=f385e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f385e48]:
+          - link "Reports" [ref=f385e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f385e52]:
+          - link "Organization" [ref=f385e53] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f385e56]:
+          - link "Customers" [ref=f385e57] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f385e60]:
+          - link "Products" [ref=f385e61] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f385e64]:
+          - link "Helpdesk Settings" [ref=f385e65] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f385e68]:
+        - generic [ref=f385e69]:
+          - heading "Alpha Minimal Fields Test Org Active" [level=2] [ref=f385e72]:
+            - text: Alpha Minimal Fields Test Org
+            - generic [ref=f385e73]: Active
+          - link "Edit" [ref=f385e76] [cursor=pointer]:
+            - /url: /rf_organizations/8/edit
+        - navigation "Alpha Minimal Fields Test Org" [ref=f385e79]:
+          - link "Overview" [ref=f385e80] [cursor=pointer]:
+            - /url: /rf_organizations/8?tab=overview
+          - link "Prepaid Support Hours" [ref=f385e85] [cursor=pointer]:
+            - /url: /rf_organizations/8?tab=prepaid_support_hours
+        - generic [ref=f385e90]:
+          - generic [ref=f385e91]:
+            - generic [ref=f385e92]: "1"
+            - generic [ref=f385e93]: Projects
+          - generic [ref=f385e94]:
+            - generic [ref=f385e95]: "1"
+            - generic [ref=f385e96]: Customers
+          - generic [ref=f385e97]:
+            - generic [ref=f385e98]: "0"
+            - generic [ref=f385e99]: Open tickets
+          - generic [ref=f385e100]:
+            - generic [ref=f385e101]: —
+            - link "Prepaid remaining" [ref=f385e103] [cursor=pointer]:
+              - /url: /rf_organizations/8?tab=prepaid_support_hours
+        - generic [ref=f385e104]:
+          - heading "Basic Information" [level=3] [ref=f385e106]
+          - generic [ref=f385e111]:
+            - generic [ref=f385e112]:
+              - generic [ref=f385e113]: Organization Name
+              - generic [ref=f385e114]: Alpha Minimal Fields Test Org
+            - generic [ref=f385e115]:
+              - generic [ref=f385e116]: Website
+              - generic [ref=f385e117]: —
+            - generic [ref=f385e118]:
+              - generic [ref=f385e119]: Phone Number
+              - generic [ref=f385e120]: —
+            - generic [ref=f385e121]:
+              - generic [ref=f385e122]: Number of Employees
+              - generic [ref=f385e123]: —
+            - generic [ref=f385e124]:
+              - generic [ref=f385e125]: Organization Address
+              - generic [ref=f385e126]: —
+        - generic [ref=f385e127]:
+          - heading "Notes" [level=3] [ref=f385e129]
+          - paragraph [ref=f385e134]: No notes available
+        - generic [ref=f385e135]:
+          - heading "Billing Information" [level=3] [ref=f385e137]
+          - paragraph [ref=f385e142]: No billing information available
+        - generic [ref=f385e143]:
+          - generic [ref=f385e144]:
+            - generic [ref=f385e145]: "Created by:"
+            - link "Redmine Admin" [ref=f385e147] [cursor=pointer]:
+              - /url: /users/1
+          - generic [ref=f385e148]:
+            - generic [ref=f385e149]: "Created:"
+            - generic [ref=f385e150]: 09/02/2026 06:16 AM
+          - generic [ref=f385e151]:
+            - generic [ref=f385e152]: "Updated:"
+            - generic [ref=f385e153]: 09/02/2026 06:16 AM
+        - paragraph [ref=f385e154]:
+          - link "Organization List" [ref=f385e155] [cursor=pointer]:
+            - /url: /rf_organizations
+    - generic [ref=f385e156]:
+      - text: Powered by
+      - link "Redmine" [ref=f385e157] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f385e158]
+  - log [ref=f385e159]
+  - log [ref=f385e160]
+  - log [ref=f385e161]
+  - log [ref=f385e162]
+  - log [ref=f385e163]
+  - log [ref=f385e164]
+  - log [ref=f385e165]
+  - log [ref=f385e166]
+  - log [ref=f385e167]
+  - log [ref=f385e168]

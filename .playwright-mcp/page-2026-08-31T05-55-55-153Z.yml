@@ -1,0 +1,127 @@
+- generic [active] [ref=f244e1]:
+  - generic [ref=f244e2]:
+    - generic [ref=f244e3]:
+      - generic [ref=f244e4]:
+        - list:
+          - listitem [ref=f244e5]:
+            - link "Mein Konto":
+              - /url: /my/account
+          - listitem [ref=f244e6]:
+            - link "Abmelden":
+              - /url: /logout
+      - generic [ref=f244e7]:
+        - text: Angemeldet als
+        - link "admin" [ref=f244e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f244e9]:
+        - listitem [ref=f244e10]:
+          - link [ref=f244e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f244e12]
+        - listitem [ref=f244e13]:
+          - link "Hauptseite":
+            - /url: /
+        - listitem [ref=f244e14]:
+          - link "Meine Seite" [ref=f244e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f244e16]:
+          - link "Projekte" [ref=f244e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f244e18]:
+          - link "Flux Gantt" [ref=f244e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f244e20]:
+          - link "Helpdesk-Kommandozentrale" [ref=f244e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f244e22]:
+          - link "Zeiterfassung" [ref=f244e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f244e24]:
+          - link "Timesheet" [ref=f244e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f244e26]:
+          - link "More" [ref=f244e27] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f244e28]:
+      - generic [ref=f244e29]:
+        - generic [ref=f244e30]:
+          - generic [ref=f244e31]:
+            - link "Suchen..." [ref=f244e32] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Suchen...:" [ref=f244e33]
+        - generic [ref=f244e34]:
+          - generic [ref=f244e35] [cursor=pointer]: Zu einem Projekt springen...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f244e36]
+    - generic [ref=f244e37]:
+      - list [ref=f244e41]:
+        - listitem [ref=f244e42]:
+          - link "Helpdesk-Dashboard" [ref=f244e43] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f244e46]:
+          - link "Helpdesk-Tickets" [ref=f244e47] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f244e50]:
+          - link "Reports" [ref=f244e51] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f244e54]:
+          - link "Organisation" [ref=f244e55] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f244e58]:
+          - link "Kunden" [ref=f244e59] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f244e62]:
+          - link "Produkte" [ref=f244e63] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f244e66]:
+          - link "Helpdesk-Einstellungen" [ref=f244e67] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f244e70]:
+        - generic [ref=f244e73]:
+          - heading "Helpdesk-Einstellungen" [level=2] [ref=f244e74]
+          - paragraph [ref=f244e75]: Holidays, products, SLA policies and canned responses
+        - list [ref=f244e77]:
+          - listitem [ref=f244e78]:
+            - link "Feiertag" [ref=f244e79] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f244e80]:
+            - link "Produkte" [ref=f244e81] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f244e82]:
+            - link "E-Mail-Konfiguration" [ref=f244e83] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f244e84]:
+            - link "Vordefinierte Antworten" [ref=f244e85] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+          - listitem [ref=f244e86]:
+            - link "Support Packages" [ref=f244e87] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+        - generic [ref=f244e89]:
+          - heading "E-Mail-Konfiguration" [level=3] [ref=f244e91]
+          - generic [ref=f244e92]:
+            - generic [ref=f244e93]:
+              - generic [ref=f244e94]: Projekt
+              - combobox "Projekt" [ref=f244e95] [cursor=pointer]:
+                - option "Select a project" [selected]
+                - option "Helpdesk QA Alpha"
+                - option "Helpdesk QA Beta"
+            - generic [ref=f244e96]:
+              - heading "Select a project" [level=3] [ref=f244e101]
+              - paragraph [ref=f244e102]: Email settings are per project. Choose one above to view and edit its configuration.
+    - generic [ref=f244e103]:
+      - text: Powered by
+      - link "Redmine" [ref=f244e104] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f244e105]
+  - log [ref=f244e106]
+  - log [ref=f244e107]
+  - log [ref=f244e108]
+  - log [ref=f244e109]
+  - log [ref=f244e110]
+  - log [ref=f244e111]
+  - log [ref=f244e112]
+  - log [ref=f244e113]
+  - log [ref=f244e114]
+  - log [ref=f244e115]

@@ -1,0 +1,145 @@
+- generic [active] [ref=f401e1]:
+  - generic [ref=f401e2]:
+    - generic [ref=f401e3]:
+      - generic [ref=f401e4]:
+        - list:
+          - listitem [ref=f401e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f401e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f401e7]:
+        - text: Logged in as
+        - link "autumn.grace" [ref=f401e8] [cursor=pointer]:
+          - /url: /users/10
+      - list [ref=f401e9]:
+        - listitem [ref=f401e10]:
+          - link [ref=f401e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f401e12]
+        - listitem [ref=f401e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f401e14]:
+          - link "My page" [ref=f401e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f401e16]:
+          - link "Projects" [ref=f401e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f401e18]:
+          - link "Time Tracker" [ref=f401e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f401e20]:
+          - link "Workloads" [ref=f401e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f401e22]:
+          - link "Help" [ref=f401e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f401e24]:
+      - generic [ref=f401e25]:
+        - generic [ref=f401e26]:
+          - generic [ref=f401e27]:
+            - link "Search..." [ref=f401e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f401e29]
+        - generic [ref=f401e30]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f401e32]
+    - generic [ref=f401e34]:
+      - generic [ref=f401e36]:
+        - text: "Add:"
+        - combobox "Add" [ref=f401e37]:
+          - option [selected]
+          - option "Issues assigned to me" [disabled]
+          - option "Reported issues" [disabled]
+          - option "Updated issues"
+          - option "Watched issues"
+          - option "Issues"
+          - option "Latest news"
+          - option "Calendar"
+          - option "Documents"
+          - option "Spent time"
+          - option "Activity"
+      - heading "My page" [level=2] [ref=f401e38]
+      - generic [ref=f401e39]:
+        - generic [ref=f401e42]:
+          - generic [ref=f401e43]:
+            - generic "Move" [ref=f401e44]
+            - link "Delete" [ref=f401e46] [cursor=pointer]:
+              - /url: /my/remove_block?block=issuesassignedtome
+          - link "Options" [ref=f401e49] [cursor=pointer]:
+            - /url: "#"
+          - heading [level=3] [ref=f401e51]:
+            - link "Issues assigned to me" [ref=f401e52] [cursor=pointer]:
+              - /url: /issues?c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&f%5B%5D=status_id&f%5B%5D=assigned_to_id&f%5B%5D=project.status&op%5Bassigned_to_id%5D=%3D&op%5Bproject.status%5D=%3D&op%5Bstatus_id%5D=o&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc&v%5Bassigned_to_id%5D%5B%5D=me&v%5Bproject.status%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=
+            - text: (1)
+          - table [ref=f401e55]:
+            - rowgroup [ref=f401e56]:
+              - row [ref=f401e57]:
+                - columnheader [ref=f401e58]:
+                  - link "#" [ref=f401e59] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=id%3Adesc%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f401e60]:
+                  - link "Project" [ref=f401e61] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=project%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f401e62]:
+                  - link "Tracker" [ref=f401e63] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=tracker%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f401e64]:
+                  - link "Status" [ref=f401e65] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=status%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f401e66]:
+                  - link "Subject" [ref=f401e67] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=subject%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f401e68]
+            - rowgroup [ref=f401e69]:
+              - row [ref=f401e70]:
+                - cell [ref=f401e71]:
+                  - link "21" [ref=f401e72] [cursor=pointer]:
+                    - /url: /issues/21
+                - cell [ref=f401e73]:
+                  - link "Helpdesk QA Alpha" [ref=f401e74] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f401e75]
+                - cell "New" [ref=f401e76]
+                - cell [ref=f401e77]:
+                  - link "TC-HLP-084 holiday-skip test ticket" [ref=f401e78] [cursor=pointer]:
+                    - /url: /issues/21
+                - cell [ref=f401e79]:
+                  - link "Actions" [ref=f401e80] [cursor=pointer]:
+                    - /url: "#"
+        - generic [ref=f401e83]:
+          - generic [ref=f401e84]:
+            - generic "Move" [ref=f401e85]
+            - link "Delete" [ref=f401e87] [cursor=pointer]:
+              - /url: /my/remove_block?block=issuesreportedbyme
+          - link "Options" [ref=f401e90] [cursor=pointer]:
+            - /url: "#"
+          - heading [level=3] [ref=f401e92]:
+            - link "Reported issues" [ref=f401e93] [cursor=pointer]:
+              - /url: /issues?c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&f%5B%5D=status_id&f%5B%5D=author_id&f%5B%5D=project.status&op%5Bauthor_id%5D=%3D&op%5Bproject.status%5D=%3D&op%5Bstatus_id%5D=o&set_filter=1&sort=updated_on%3Adesc&v%5Bauthor_id%5D%5B%5D=me&v%5Bproject.status%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=
+            - text: (0)
+          - paragraph [ref=f401e94]: No data
+    - generic [ref=f401e95]:
+      - text: Powered by
+      - link "Redmine" [ref=f401e96] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f401e97]
+  - log [ref=f401e98]
+  - log [ref=f401e99]
+  - log [ref=f401e100]
+  - log [ref=f401e101]
+  - log [ref=f401e102]
+  - log [ref=f401e103]
+  - log [ref=f401e104]
+  - log [ref=f401e105]
+  - log [ref=f401e106]
+  - log [ref=f401e107]
+  - log [ref=f401e108]
+  - log [ref=f401e109]
+  - log [ref=f401e110]
+  - log [ref=f401e111]
+  - log [ref=f401e112]
+  - log [ref=f401e113]

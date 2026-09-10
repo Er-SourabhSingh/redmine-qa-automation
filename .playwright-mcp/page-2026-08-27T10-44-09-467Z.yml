@@ -1,0 +1,189 @@
+- generic [ref=f94e1]:
+  - generic [ref=f94e2]:
+    - generic [ref=f94e3]:
+      - generic [ref=f94e4]:
+        - list:
+          - listitem [ref=f94e5]:
+            - link "My account" [ref=f94e6] [cursor=pointer]:
+              - /url: /my/account
+          - listitem [ref=f94e7]:
+            - link "Sign out" [ref=f94e8] [cursor=pointer]:
+              - /url: /logout
+      - generic [ref=f94e9]:
+        - text: Logged in as
+        - link "admin" [ref=f94e10] [cursor=pointer]:
+          - /url: /users/1
+      - list:
+        - listitem [ref=f94e11]:
+          - link "Home" [ref=f94e12] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f94e13]:
+          - link "My page" [ref=f94e14] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f94e15]:
+          - link "Projects" [ref=f94e16] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f94e17]:
+          - link "Flux Gantt" [ref=f94e18] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f94e19]:
+          - link "Helpdesk Command Center" [ref=f94e20] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f94e21]:
+          - link "Time Tracker" [ref=f94e22] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f94e23]:
+          - link "Timesheet" [ref=f94e24] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f94e25]:
+          - link "Workloads" [ref=f94e26] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f94e27]:
+          - link "Administration" [ref=f94e28] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f94e29]:
+          - link "Help" [ref=f94e30] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f94e31]:
+      - generic [ref=f94e32]:
+        - generic [ref=f94e33]:
+          - generic [ref=f94e34]:
+            - link "Search..." [ref=f94e35] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f94e36]
+        - generic [ref=f94e37]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f94e39]
+      - list [ref=f94e41]:
+        - listitem [ref=f94e42]:
+          - link "Projects" [ref=f94e43] [cursor=pointer]:
+            - /url: /projects
+    - generic [ref=f94e45]:
+      - heading "New project" [level=2] [ref=f94e46]
+      - generic [ref=f94e47]:
+        - generic [ref=f94e48]:
+          - paragraph [ref=f94e49]:
+            - generic [ref=f94e50]: Name *
+            - textbox "Name *" [active] [ref=f94e51]
+          - paragraph [ref=f94e52]:
+            - generic [ref=f94e53]: Description
+            - generic [ref=f94e54]:
+              - list [ref=f94e56]:
+                - listitem [ref=f94e57]:
+                  - link "Edit" [ref=f94e58] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f94e59]:
+                  - link "Preview" [ref=f94e60] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f94e61]:
+                  - generic [ref=f94e62]:
+                    - button "Strong (Ctrl+B)" [ref=f94e63] [cursor=pointer]
+                    - button "Italic (Ctrl+I)" [ref=f94e64] [cursor=pointer]
+                    - button "Underline (Ctrl+U)" [ref=f94e65] [cursor=pointer]
+                    - button "Deleted" [ref=f94e66] [cursor=pointer]
+                    - button "Inline Code" [ref=f94e67] [cursor=pointer]
+                    - button "Heading 1" [ref=f94e68] [cursor=pointer]
+                    - button "Heading 2" [ref=f94e69] [cursor=pointer]
+                    - button "Heading 3" [ref=f94e70] [cursor=pointer]
+                    - button "Unordered list" [ref=f94e71] [cursor=pointer]
+                    - button "Ordered list" [ref=f94e72] [cursor=pointer]
+                    - button "Task list" [ref=f94e73] [cursor=pointer]
+                    - button "Quote" [ref=f94e74] [cursor=pointer]
+                    - button "Remove Quote" [ref=f94e75] [cursor=pointer]
+                    - button "Table" [ref=f94e76] [cursor=pointer]
+                    - button "pre" [ref=f94e77] [cursor=pointer]
+                    - button "Highlighted code" [ref=f94e78] [cursor=pointer]
+                    - button "Link to a Wiki page" [ref=f94e79] [cursor=pointer]
+                    - button "Image" [ref=f94e80] [cursor=pointer]
+                    - button "Help" [ref=f94e81] [cursor=pointer]
+              - textbox "Description" [ref=f94e83]
+          - paragraph [ref=f94e84]:
+            - generic [ref=f94e85]: Identifier *
+            - textbox "Identifier *" [ref=f94e86]
+            - emphasis [ref=f94e87]: Length between 1 and 100 characters. Only lower case letters (a-z), numbers, dashes and underscores are allowed.Once saved, the identifier cannot be changed.
+          - paragraph [ref=f94e88]:
+            - generic [ref=f94e89]: Homepage
+            - textbox "Homepage" [ref=f94e90]
+          - paragraph [ref=f94e91]:
+            - generic [ref=f94e92]: Is public
+            - checkbox "Is public" [checked] [ref=f94e93]
+            - emphasis [ref=f94e94]: Public projects and their contents are openly available on the network.
+          - paragraph [ref=f94e95]:
+            - generic [ref=f94e96]: Inherit members
+            - checkbox "Inherit members" [ref=f94e97]
+        - group [ref=f94e98]:
+          - generic [ref=f94e99]:
+            - link "Check all / Uncheck all" [ref=f94e100] [cursor=pointer]:
+              - /url: "#"
+            - text: Modules
+          - generic [ref=f94e103]:
+            - checkbox "Issue tracking" [checked] [ref=f94e104]
+            - text: Issue tracking
+          - generic [ref=f94e105]:
+            - checkbox "Time tracking" [checked] [ref=f94e106]
+            - text: Time tracking
+          - generic [ref=f94e107]:
+            - checkbox "News" [checked] [ref=f94e108]
+            - text: News
+          - generic [ref=f94e109]:
+            - checkbox "Documents" [checked] [ref=f94e110]
+            - text: Documents
+          - generic [ref=f94e111]:
+            - checkbox "Files" [checked] [ref=f94e112]
+            - text: Files
+          - generic [ref=f94e113]:
+            - checkbox "Wiki" [checked] [ref=f94e114]
+            - text: Wiki
+          - generic [ref=f94e115]:
+            - checkbox "Repository" [checked] [ref=f94e116]
+            - text: Repository
+          - generic [ref=f94e117]:
+            - checkbox "Forums" [checked] [ref=f94e118]
+            - text: Forums
+          - generic [ref=f94e119]:
+            - checkbox "Calendar" [checked] [ref=f94e120]
+            - text: Calendar
+          - generic [ref=f94e121]:
+            - checkbox "Gantt" [checked] [ref=f94e122]
+            - text: Gantt
+          - generic [ref=f94e123]:
+            - checkbox "Flux Gantt Chart" [ref=f94e124]
+            - text: Flux Gantt Chart
+          - generic [ref=f94e125]:
+            - checkbox "Redmineflux Helpdesk" [ref=f94e126]
+            - text: Redmineflux Helpdesk
+          - generic [ref=f94e127]:
+            - checkbox "Knowledgebase" [ref=f94e128]
+            - text: Knowledgebase
+          - generic [ref=f94e129]:
+            - checkbox "Redmineflux Testcase Management" [ref=f94e130]
+            - text: Redmineflux Testcase Management
+        - button "Create" [ref=f94e131] [cursor=pointer]
+        - button "Create and add another" [ref=f94e132] [cursor=pointer]
+    - generic [ref=f94e133]:
+      - text: Powered by
+      - link "Redmine" [ref=f94e134] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f94e135]
+  - log [ref=f94e136]
+  - log [ref=f94e137]
+  - log [ref=f94e138]
+  - log [ref=f94e139]
+  - log [ref=f94e140]
+  - log [ref=f94e141]
+  - log [ref=f94e142]
+  - log [ref=f94e143]
+  - log [ref=f94e144]
+  - log [ref=f94e145]
+  - log [ref=f94e146]
+  - log [ref=f94e147]
+  - log [ref=f94e148]
+  - log [ref=f94e149]
+  - log [ref=f94e150]
+  - log [ref=f94e151]
+  - log [ref=f94e152]
+  - log [ref=f94e153]
+  - log [ref=f94e154]
+  - log [ref=f94e155]
+  - log [ref=f94e156]

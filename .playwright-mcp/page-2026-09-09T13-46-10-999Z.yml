@@ -1,0 +1,236 @@
+- generic [active] [ref=f128e1]:
+  - generic [ref=f128e2]:
+    - navigation [ref=f128e3]:
+      - generic [ref=f128e4]:
+        - link [ref=f128e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f128e7] [cursor=pointer]
+      - list [ref=f128e17]:
+        - listitem [ref=f128e18]:
+          - link "Hauptseite" [ref=f128e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f128e20]:
+          - link "Meine Seite" [ref=f128e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f128e22]:
+          - link "Projekte" [ref=f128e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f128e24]:
+          - link "Agile Board" [ref=f128e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f128e26]:
+          - link "Flux Gantt" [ref=f128e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f128e28]:
+          - link "Administration" [ref=f128e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f128e30]:
+          - link "Hilfe" [ref=f128e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f128e32]:
+        - generic [ref=f128e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f128e35]
+        - link "Mein Konto" [ref=f128e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f128e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f128e44]:
+      - generic [ref=f128e45]:
+        - heading "Redmine" [level=1] [ref=f128e47]
+        - generic [ref=f128e49]:
+          - heading "Administration" [level=3] [ref=f128e50]
+          - list [ref=f128e52]:
+            - listitem [ref=f128e53]:
+              - link "Projekte" [ref=f128e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f128e55]:
+              - link "Benutzer" [ref=f128e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f128e57]:
+              - link "Gruppen" [ref=f128e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f128e59]:
+              - link "Rollen und Rechte" [ref=f128e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f128e61]:
+              - link "Tracker" [ref=f128e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f128e63]:
+              - link "Ticket-Status" [ref=f128e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f128e65]:
+              - link "Workflow" [ref=f128e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f128e67]:
+              - link "Benutzerdefinierte Felder" [ref=f128e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f128e69]:
+              - link "Aufzählungen" [ref=f128e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f128e71]:
+              - link "Konfiguration" [ref=f128e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f128e73]:
+              - link "LDAP-Authentifizierung" [ref=f128e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f128e75]:
+              - link "Applikationen" [ref=f128e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f128e77]:
+              - link "Plugins" [ref=f128e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f128e79]:
+              - link "Informationen" [ref=f128e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f128e81]:
+        - generic [ref=f128e82]:
+          - link "Neue Rolle" [ref=f128e83] [cursor=pointer]:
+            - /url: /roles/new
+          - link "Berechtigungsübersicht" [ref=f128e85] [cursor=pointer]:
+            - /url: /roles/permissions
+        - heading "Rollen" [level=2] [ref=f128e87]
+        - table [ref=f128e88]:
+          - rowgroup [ref=f128e89]:
+            - row [ref=f128e90]:
+              - columnheader "Rolle" [ref=f128e91]
+              - columnheader [ref=f128e92]
+              - columnheader [ref=f128e93]
+          - rowgroup [ref=f128e94]:
+            - row [ref=f128e95]:
+              - cell [ref=f128e96]:
+                - link "Manager" [ref=f128e98] [cursor=pointer]:
+                  - /url: /roles/6/edit
+              - cell [ref=f128e99]
+              - cell [ref=f128e100]:
+                - generic "Sortieren" [ref=f128e101]
+                - link "Kopieren" [ref=f128e103] [cursor=pointer]:
+                  - /url: /roles/new?copy=6
+                - link "Löschen" [ref=f128e106] [cursor=pointer]:
+                  - /url: /roles/6
+            - row [ref=f128e107]:
+              - cell [ref=f128e108]:
+                - link "Employee" [ref=f128e110] [cursor=pointer]:
+                  - /url: /roles/8/edit
+              - cell [ref=f128e111]
+              - cell [ref=f128e112]:
+                - generic "Sortieren" [ref=f128e113]
+                - link "Kopieren" [ref=f128e115] [cursor=pointer]:
+                  - /url: /roles/new?copy=8
+                - link "Löschen" [ref=f128e118] [cursor=pointer]:
+                  - /url: /roles/8
+            - row [ref=f128e119]:
+              - cell [ref=f128e120]:
+                - link "Client" [ref=f128e122] [cursor=pointer]:
+                  - /url: /roles/9/edit
+              - cell [ref=f128e123]
+              - cell [ref=f128e124]:
+                - generic "Sortieren" [ref=f128e125]
+                - link "Kopieren" [ref=f128e127] [cursor=pointer]:
+                  - /url: /roles/new?copy=9
+                - link "Löschen" [ref=f128e130] [cursor=pointer]:
+                  - /url: /roles/9
+            - row [ref=f128e131]:
+              - cell [ref=f128e132]:
+                - link "Project Lead" [ref=f128e134] [cursor=pointer]:
+                  - /url: /roles/10/edit
+              - cell "Für diese Rolle ist kein Workflow definiert ( Bearbeiten )" [ref=f128e135]:
+                - generic [ref=f128e136]:
+                  - generic [ref=f128e138]: Für diese Rolle ist kein Workflow definiert
+                  - text: (
+                  - link "Bearbeiten" [ref=f128e139] [cursor=pointer]:
+                    - /url: /workflows/edit?role_id=10
+                  - text: )
+              - cell [ref=f128e140]:
+                - generic "Sortieren" [ref=f128e141]
+                - link "Kopieren" [ref=f128e143] [cursor=pointer]:
+                  - /url: /roles/new?copy=10
+                - link "Löschen" [ref=f128e146] [cursor=pointer]:
+                  - /url: /roles/10
+            - row [ref=f128e147]:
+              - cell [ref=f128e148]:
+                - link "QA" [ref=f128e150] [cursor=pointer]:
+                  - /url: /roles/11/edit
+              - cell "Für diese Rolle ist kein Workflow definiert ( Bearbeiten )" [ref=f128e151]:
+                - generic [ref=f128e152]:
+                  - generic [ref=f128e154]: Für diese Rolle ist kein Workflow definiert
+                  - text: (
+                  - link "Bearbeiten" [ref=f128e155] [cursor=pointer]:
+                    - /url: /workflows/edit?role_id=11
+                  - text: )
+              - cell [ref=f128e156]:
+                - generic "Sortieren" [ref=f128e157]
+                - link "Kopieren" [ref=f128e159] [cursor=pointer]:
+                  - /url: /roles/new?copy=11
+                - link "Löschen" [ref=f128e162] [cursor=pointer]:
+                  - /url: /roles/11
+            - row [ref=f128e163]:
+              - cell [ref=f128e164]:
+                - link "Team Lead" [ref=f128e166] [cursor=pointer]:
+                  - /url: /roles/12/edit
+              - cell "Für diese Rolle ist kein Workflow definiert ( Bearbeiten )" [ref=f128e167]:
+                - generic [ref=f128e168]:
+                  - generic [ref=f128e170]: Für diese Rolle ist kein Workflow definiert
+                  - text: (
+                  - link "Bearbeiten" [ref=f128e171] [cursor=pointer]:
+                    - /url: /workflows/edit?role_id=12
+                  - text: )
+              - cell [ref=f128e172]:
+                - generic "Sortieren" [ref=f128e173]
+                - link "Kopieren" [ref=f128e175] [cursor=pointer]:
+                  - /url: /roles/new?copy=12
+                - link "Löschen" [ref=f128e178] [cursor=pointer]:
+                  - /url: /roles/12
+            - row [ref=f128e179]:
+              - cell [ref=f128e180]:
+                - link "Developer" [ref=f128e182] [cursor=pointer]:
+                  - /url: /roles/7/edit
+              - cell [ref=f128e183]
+              - cell [ref=f128e184]:
+                - generic "Sortieren" [ref=f128e185]
+                - link "Kopieren" [ref=f128e187] [cursor=pointer]:
+                  - /url: /roles/new?copy=7
+                - link "Löschen" [ref=f128e190] [cursor=pointer]:
+                  - /url: /roles/7
+            - row [ref=f128e191]:
+              - cell [ref=f128e192]:
+                - emphasis [ref=f128e193]:
+                  - link "Nichtmitglied" [ref=f128e194] [cursor=pointer]:
+                    - /url: /roles/1/edit
+              - cell [ref=f128e195]
+              - cell [ref=f128e196]:
+                - link "Kopieren" [ref=f128e197] [cursor=pointer]:
+                  - /url: /roles/new?copy=1
+            - row [ref=f128e200]:
+              - cell [ref=f128e201]:
+                - emphasis [ref=f128e202]:
+                  - link "Anonym" [ref=f128e203] [cursor=pointer]:
+                    - /url: /roles/2/edit
+              - cell [ref=f128e204]
+              - cell [ref=f128e205]:
+                - link "Kopieren" [ref=f128e206] [cursor=pointer]:
+                  - /url: /roles/new?copy=2
+    - generic [ref=f128e209]:
+      - text: Powered by
+      - link "Redmine" [ref=f128e210] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f128e211]
+  - log [ref=f128e212]
+  - log [ref=f128e213]
+  - log [ref=f128e214]
+  - log [ref=f128e215]
+  - log [ref=f128e216]
+  - log [ref=f128e217]
+  - log [ref=f128e218]
+  - log [ref=f128e219]
+  - log [ref=f128e220]
+  - log [ref=f128e221]
+  - log [ref=f128e222]
+  - log [ref=f128e223]
+  - log [ref=f128e224]
+  - log [ref=f128e225]
+  - log [ref=f128e226]
+  - log [ref=f128e227]
+  - log [ref=f128e228]
+  - log [ref=f128e229]
+  - log [ref=f128e230]

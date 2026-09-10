@@ -1,0 +1,828 @@
+- generic [active] [ref=f248e1]:
+  - generic [ref=f248e2]:
+    - navigation [ref=f248e3]:
+      - generic [ref=f248e4]:
+        - link [ref=f248e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f248e7] [cursor=pointer]
+      - list [ref=f248e17]:
+        - listitem [ref=f248e18]:
+          - link "Hauptseite" [ref=f248e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f248e20]:
+          - link "Meine Seite" [ref=f248e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f248e22]:
+          - link "Projekte" [ref=f248e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f248e24]:
+          - link "Agile Board" [ref=f248e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f248e26]:
+          - link "Flux Gantt" [ref=f248e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f248e28]:
+          - link "Administration" [ref=f248e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f248e30]:
+          - link "Hilfe" [ref=f248e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f248e32]:
+        - generic [ref=f248e33]:
+          - generic [ref=f248e34] [cursor=pointer]: Zu einem Projekt springen...
+          - text: ✓
+        - button "Suche" [ref=f248e35]
+        - link "Mein Konto" [ref=f248e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f248e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f248e44]:
+      - generic [ref=f248e45]:
+        - generic [ref=f248e46]:
+          - heading "Redmine" [level=1] [ref=f248e47]
+          - generic [ref=f248e48]:
+            - generic [ref=f248e49]: Hauptmenü
+            - list [ref=f248e51]:
+              - listitem [ref=f248e52]:
+                - link "Projekte" [ref=f248e53] [cursor=pointer]:
+                  - /url: /projects
+              - listitem [ref=f248e61]:
+                - link "Aktivität" [ref=f248e62] [cursor=pointer]:
+                  - /url: /activity
+              - listitem [ref=f248e67]:
+                - link "Tickets" [ref=f248e68] [cursor=pointer]:
+                  - /url: /issues
+              - listitem [ref=f248e73]:
+                - link "Aufgewendete Zeit" [ref=f248e74] [cursor=pointer]:
+                  - /url: /time_entries
+              - listitem [ref=f248e79]:
+                - link "Gantt-Diagramm" [ref=f248e80] [cursor=pointer]:
+                  - /url: /issues/gantt
+              - listitem [ref=f248e88]:
+                - link "Kalender" [ref=f248e89] [cursor=pointer]:
+                  - /url: /issues/calendar
+              - listitem [ref=f248e94]:
+                - link "News" [ref=f248e95] [cursor=pointer]:
+                  - /url: /news
+        - generic [ref=f248e101]:
+          - heading "Abfragen" [level=3] [ref=f248e102]
+          - list [ref=f248e103]:
+            - listitem [ref=f248e104]:
+              - link "Spent time" [ref=f248e105] [cursor=pointer]:
+                - /url: /time_entries?query_id=7
+      - generic [ref=f248e106]:
+        - heading "Aufgewendete Zeit" [level=2] [ref=f248e107]
+        - generic [ref=f248e108]:
+          - paragraph [ref=f248e109]:
+            - generic [ref=f248e110]: "Stunden: 92:30"
+          - generic [ref=f248e111]:
+            - button "Filter" [ref=f248e112] [cursor=pointer]
+            - link "Aufwand buchen" [ref=f248e113] [cursor=pointer]:
+              - /url: /time_entries/new
+            - link "Importieren" [ref=f248e115] [cursor=pointer]:
+              - /url: /time_entries/imports/new
+        - list [ref=f248e119]:
+          - listitem [ref=f248e120]:
+            - link "Details" [ref=f248e121] [cursor=pointer]:
+              - /url: /time_entries
+          - listitem [ref=f248e122]:
+            - link "Bericht" [ref=f248e123] [cursor=pointer]:
+              - /url: /time_entries/report
+        - table [ref=f248e126]:
+          - rowgroup [ref=f248e127]:
+            - row [ref=f248e128]:
+              - columnheader [ref=f248e129]:
+                - checkbox "Alles auswählen / Alles abwählen" [ref=f248e130]
+              - columnheader [ref=f248e131]:
+                - link "Projekt" [ref=f248e132] [cursor=pointer]:
+                  - /url: /time_entries?sort=project%2Cspent_on%3Adesc
+              - columnheader [ref=f248e133]:
+                - link "Datum" [ref=f248e134] [cursor=pointer]:
+                  - /url: /time_entries?sort=spent_on
+              - columnheader [ref=f248e138]:
+                - link "Benutzer" [ref=f248e139] [cursor=pointer]:
+                  - /url: /time_entries?sort=user%2Cspent_on%3Adesc
+              - columnheader [ref=f248e140]:
+                - link "Aktivität" [ref=f248e141] [cursor=pointer]:
+                  - /url: /time_entries?sort=activity%2Cspent_on%3Adesc
+              - columnheader [ref=f248e142]:
+                - link "Ticket" [ref=f248e143] [cursor=pointer]:
+                  - /url: /time_entries?sort=issue%2Cspent_on%3Adesc
+              - columnheader "Kommentar" [ref=f248e144]
+              - columnheader [ref=f248e145]:
+                - link "Stunden" [ref=f248e146] [cursor=pointer]:
+                  - /url: /time_entries?sort=hours%2Cspent_on%3Adesc
+              - columnheader [ref=f248e147]
+          - rowgroup [ref=f248e148]:
+            - row [ref=f248e149]:
+              - cell [ref=f248e150]:
+                - checkbox [ref=f248e151] [cursor=pointer]
+              - cell [ref=f248e152]:
+                - link "Mobile app development1" [ref=f248e153] [cursor=pointer]:
+                  - /url: /projects/mobileappdev
+              - cell "14.12.2026" [ref=f248e154]
+              - cell [ref=f248e155]:
+                - link "Celeste Dawn" [ref=f248e156] [cursor=pointer]:
+                  - /url: /users/13
+              - cell "Design" [ref=f248e157]
+              - cell [ref=f248e158]:
+                - 'link "Bug #35" [ref=f248e159] [cursor=pointer]':
+                  - /url: /issues/35
+                - text: ": Build team workload analytics"
+              - cell "Workload analytics" [ref=f248e160]
+              - cell "2:00" [ref=f248e161]
+              - cell [ref=f248e162]:
+                - link "Bearbeiten" [ref=f248e163] [cursor=pointer]:
+                  - /url: /time_entries/25/edit
+                - link "Löschen" [ref=f248e164] [cursor=pointer]:
+                  - /url: /time_entries/25
+                - link "Aktionen" [ref=f248e165] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e168]:
+              - cell [ref=f248e169]:
+                - checkbox [ref=f248e170] [cursor=pointer]
+              - cell [ref=f248e171]:
+                - link "Software development5" [ref=f248e172] [cursor=pointer]:
+                  - /url: /projects/defaultsd
+              - cell "12.12.2026" [ref=f248e173]
+              - cell [ref=f248e174]:
+                - link "Serenity Bloom" [ref=f248e175] [cursor=pointer]:
+                  - /url: /users/14
+              - cell "Design" [ref=f248e176]
+              - cell [ref=f248e177]:
+                - 'link "Bug #33" [ref=f248e178] [cursor=pointer]':
+                  - /url: /issues/33
+                - text: ": Redesign issue creation workflow"
+              - cell "Redesign issue workflow" [ref=f248e179]
+              - cell "3:00" [ref=f248e180]
+              - cell [ref=f248e181]:
+                - link "Bearbeiten" [ref=f248e182] [cursor=pointer]:
+                  - /url: /time_entries/23/edit
+                - link "Löschen" [ref=f248e183] [cursor=pointer]:
+                  - /url: /time_entries/23
+                - link "Aktionen" [ref=f248e184] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e187]:
+              - cell [ref=f248e188]:
+                - checkbox [ref=f248e189] [cursor=pointer]
+              - cell [ref=f248e190]:
+                - link "Software development5" [ref=f248e191] [cursor=pointer]:
+                  - /url: /projects/defaultsd
+              - cell "10.12.2026" [ref=f248e192]
+              - cell [ref=f248e193]:
+                - link "Willow Belle" [ref=f248e194] [cursor=pointer]:
+                  - /url: /users/9
+              - cell "Design" [ref=f248e195]
+              - cell [ref=f248e196]:
+                - 'link "Feature #31" [ref=f248e197] [cursor=pointer]':
+                  - /url: /issues/31
+                - text: ": Develop elasticsearch integration"
+              - cell "Elasticsearch integration" [ref=f248e198]
+              - cell "4:00" [ref=f248e199]
+              - cell [ref=f248e200]:
+                - link "Bearbeiten" [ref=f248e201] [cursor=pointer]:
+                  - /url: /time_entries/21/edit
+                - link "Löschen" [ref=f248e202] [cursor=pointer]:
+                  - /url: /time_entries/21
+                - link "Aktionen" [ref=f248e203] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e206]:
+              - cell [ref=f248e207]:
+                - checkbox [ref=f248e208] [cursor=pointer]
+              - cell [ref=f248e209]:
+                - link "Mobile app development1" [ref=f248e210] [cursor=pointer]:
+                  - /url: /projects/mobileappdev
+              - cell "07.09.2026" [ref=f248e211]
+              - cell [ref=f248e212]:
+                - link "Celeste Dawn" [ref=f248e213] [cursor=pointer]:
+                  - /url: /users/13
+              - cell "Development" [ref=f248e214]
+              - cell [ref=f248e215]:
+                - 'link "Feature #11" [ref=f248e216] [cursor=pointer]':
+                  - /url: /issues/11
+                - text: ": Implement new timesheet modal"
+              - cell "Api created" [ref=f248e217]
+              - cell "7:00" [ref=f248e218]
+              - cell [ref=f248e219]:
+                - link "Bearbeiten" [ref=f248e220] [cursor=pointer]:
+                  - /url: /time_entries/6/edit
+                - link "Löschen" [ref=f248e221] [cursor=pointer]:
+                  - /url: /time_entries/6
+                - link "Aktionen" [ref=f248e222] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e225]:
+              - cell [ref=f248e226]:
+                - checkbox [ref=f248e227] [cursor=pointer]
+              - cell [ref=f248e228]:
+                - link "Software development5" [ref=f248e229] [cursor=pointer]:
+                  - /url: /projects/defaultsd
+              - cell "06.09.2026" [ref=f248e230]
+              - cell [ref=f248e231]:
+                - link "Luna Blossom" [ref=f248e232] [cursor=pointer]:
+                  - /url: /users/6
+              - cell "Development" [ref=f248e233]
+              - cell [ref=f248e234]:
+                - 'link "Bug #8" [ref=f248e235] [cursor=pointer]':
+                  - /url: /issues/8
+                - text: ": Implement issues form"
+              - cell "UI improvements" [ref=f248e236]
+              - cell "7:30" [ref=f248e237]
+              - cell [ref=f248e238]:
+                - link "Bearbeiten" [ref=f248e239] [cursor=pointer]:
+                  - /url: /time_entries/1/edit
+                - link "Löschen" [ref=f248e240] [cursor=pointer]:
+                  - /url: /time_entries/1
+                - link "Aktionen" [ref=f248e241] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e244]:
+              - cell [ref=f248e245]:
+                - checkbox [ref=f248e246] [cursor=pointer]
+              - cell [ref=f248e247]:
+                - link "Mobile app development1" [ref=f248e248] [cursor=pointer]:
+                  - /url: /projects/mobileappdev
+              - cell "05.09.2026" [ref=f248e249]
+              - cell [ref=f248e250]:
+                - link "Summer Rain" [ref=f248e251] [cursor=pointer]:
+                  - /url: /users/11
+              - cell "Design" [ref=f248e252]
+              - cell [ref=f248e253]:
+                - 'link "Bug #10" [ref=f248e254] [cursor=pointer]':
+                  - /url: /issues/10
+                - text: ": Implement workload dashboard"
+              - cell "Remove extra code" [ref=f248e255]
+              - cell "4:00" [ref=f248e256]
+              - cell [ref=f248e257]:
+                - link "Bearbeiten" [ref=f248e258] [cursor=pointer]:
+                  - /url: /time_entries/5/edit
+                - link "Löschen" [ref=f248e259] [cursor=pointer]:
+                  - /url: /time_entries/5
+                - link "Aktionen" [ref=f248e260] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e263]:
+              - cell [ref=f248e264]:
+                - checkbox [ref=f248e265] [cursor=pointer]
+              - cell [ref=f248e266]:
+                - link "Software development5" [ref=f248e267] [cursor=pointer]:
+                  - /url: /projects/defaultsd
+              - cell "05.09.2026" [ref=f248e268]
+              - cell [ref=f248e269]:
+                - link "Daisy Skye" [ref=f248e270] [cursor=pointer]:
+                  - /url: /users/7
+              - cell "Design" [ref=f248e271]
+              - cell [ref=f248e272]:
+                - 'link "Bug #9" [ref=f248e273] [cursor=pointer]':
+                  - /url: /issues/9
+                - text: ": Implement time log modal"
+              - cell "Button not working solved" [ref=f248e274]
+              - cell "4:00" [ref=f248e275]
+              - cell [ref=f248e276]:
+                - link "Bearbeiten" [ref=f248e277] [cursor=pointer]:
+                  - /url: /time_entries/4/edit
+                - link "Löschen" [ref=f248e278] [cursor=pointer]:
+                  - /url: /time_entries/4
+                - link "Aktionen" [ref=f248e279] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e282]:
+              - cell [ref=f248e283]:
+                - checkbox [ref=f248e284] [cursor=pointer]
+              - cell [ref=f248e285]:
+                - link "Software development5" [ref=f248e286] [cursor=pointer]:
+                  - /url: /projects/defaultsd
+              - cell "05.09.2026" [ref=f248e287]
+              - cell [ref=f248e288]:
+                - link "Daisy Skye" [ref=f248e289] [cursor=pointer]:
+                  - /url: /users/7
+              - cell "Design" [ref=f248e290]
+              - cell [ref=f248e291]:
+                - 'link "Bug #8" [ref=f248e292] [cursor=pointer]':
+                  - /url: /issues/8
+                - text: ": Implement issues form"
+              - cell "error solved" [ref=f248e293]
+              - cell "3:00" [ref=f248e294]
+              - cell [ref=f248e295]:
+                - link "Bearbeiten" [ref=f248e296] [cursor=pointer]:
+                  - /url: /time_entries/3/edit
+                - link "Löschen" [ref=f248e297] [cursor=pointer]:
+                  - /url: /time_entries/3
+                - link "Aktionen" [ref=f248e298] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e301]:
+              - cell [ref=f248e302]:
+                - checkbox [ref=f248e303] [cursor=pointer]
+              - cell [ref=f248e304]:
+                - link "Software development5" [ref=f248e305] [cursor=pointer]:
+                  - /url: /projects/defaultsd
+              - cell "05.09.2026" [ref=f248e306]
+              - cell [ref=f248e307]:
+                - link "Daisy Skye" [ref=f248e308] [cursor=pointer]:
+                  - /url: /users/7
+              - cell "Design" [ref=f248e309]
+              - cell [ref=f248e310]:
+                - 'link "Support #7" [ref=f248e311] [cursor=pointer]':
+                  - /url: /issues/7
+                - text: ": Implement user account"
+              - cell "Bug fixing" [ref=f248e312]
+              - cell "3:00" [ref=f248e313]
+              - cell [ref=f248e314]:
+                - link "Bearbeiten" [ref=f248e315] [cursor=pointer]:
+                  - /url: /time_entries/2/edit
+                - link "Löschen" [ref=f248e316] [cursor=pointer]:
+                  - /url: /time_entries/2
+                - link "Aktionen" [ref=f248e317] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e320]:
+              - cell [ref=f248e321]:
+                - checkbox [ref=f248e322] [cursor=pointer]
+              - cell [ref=f248e323]:
+                - link "Marketing campaign4" [ref=f248e324] [cursor=pointer]:
+                  - /url: /projects/markcamgn
+              - cell "02.09.2026" [ref=f248e325]
+              - cell [ref=f248e326]:
+                - link "Daisy Skye" [ref=f248e327] [cursor=pointer]:
+                  - /url: /users/7
+              - cell "Development" [ref=f248e328]
+              - cell [ref=f248e329]:
+                - 'link "Support #26" [ref=f248e330] [cursor=pointer]':
+                  - /url: /issues/26
+                - text: ": To check the login form"
+              - cell "To check the login form" [ref=f248e331]
+              - cell "5:00" [ref=f248e332]
+              - cell [ref=f248e333]:
+                - link "Bearbeiten" [ref=f248e334] [cursor=pointer]:
+                  - /url: /time_entries/19/edit
+                - link "Löschen" [ref=f248e335] [cursor=pointer]:
+                  - /url: /time_entries/19
+                - link "Aktionen" [ref=f248e336] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e339]:
+              - cell [ref=f248e340]:
+                - checkbox [ref=f248e341] [cursor=pointer]
+              - cell [ref=f248e342]:
+                - link "Marketing campaign4" [ref=f248e343] [cursor=pointer]:
+                  - /url: /projects/markcamgn
+              - cell "02.09.2026" [ref=f248e344]
+              - cell [ref=f248e345]:
+                - link "Daisy Skye" [ref=f248e346] [cursor=pointer]:
+                  - /url: /users/7
+              - cell "Development" [ref=f248e347]
+              - cell [ref=f248e348]:
+                - 'link "Bug #25" [ref=f248e349] [cursor=pointer]':
+                  - /url: /issues/25
+                - text: ": Check new issues form"
+              - cell "Check new issues form" [ref=f248e350]
+              - cell "5:00" [ref=f248e351]
+              - cell [ref=f248e352]:
+                - link "Bearbeiten" [ref=f248e353] [cursor=pointer]:
+                  - /url: /time_entries/18/edit
+                - link "Löschen" [ref=f248e354] [cursor=pointer]:
+                  - /url: /time_entries/18
+                - link "Aktionen" [ref=f248e355] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e358]:
+              - cell [ref=f248e359]:
+                - checkbox [ref=f248e360] [cursor=pointer]
+              - cell [ref=f248e361]:
+                - link "Marketing campaign4" [ref=f248e362] [cursor=pointer]:
+                  - /url: /projects/markcamgn
+              - cell "02.09.2026" [ref=f248e363]
+              - cell [ref=f248e364]:
+                - link "Daisy Skye" [ref=f248e365] [cursor=pointer]:
+                  - /url: /users/7
+              - cell "Design" [ref=f248e366]
+              - cell [ref=f248e367]:
+                - 'link "Bug #24" [ref=f248e368] [cursor=pointer]':
+                  - /url: /issues/24
+                - text: ": Implement project search"
+              - cell "Implement project search" [ref=f248e369]
+              - cell "5:00" [ref=f248e370]
+              - cell [ref=f248e371]:
+                - link "Bearbeiten" [ref=f248e372] [cursor=pointer]:
+                  - /url: /time_entries/17/edit
+                - link "Löschen" [ref=f248e373] [cursor=pointer]:
+                  - /url: /time_entries/17
+                - link "Aktionen" [ref=f248e374] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e377]:
+              - cell [ref=f248e378]:
+                - checkbox [ref=f248e379] [cursor=pointer]
+              - cell [ref=f248e380]:
+                - link "Education and training3" [ref=f248e381] [cursor=pointer]:
+                  - /url: /projects/edandt
+              - cell "02.09.2026" [ref=f248e382]
+              - cell [ref=f248e383]:
+                - link "Daisy Skye" [ref=f248e384] [cursor=pointer]:
+                  - /url: /users/7
+              - cell "Development" [ref=f248e385]
+              - cell [ref=f248e386]:
+                - 'link "Support #21" [ref=f248e387] [cursor=pointer]':
+                  - /url: /issues/21
+                - text: ": Project name should be added with project id"
+              - cell "Project name should be added with project id" [ref=f248e388]
+              - cell "5:00" [ref=f248e389]
+              - cell [ref=f248e390]:
+                - link "Bearbeiten" [ref=f248e391] [cursor=pointer]:
+                  - /url: /time_entries/16/edit
+                - link "Löschen" [ref=f248e392] [cursor=pointer]:
+                  - /url: /time_entries/16
+                - link "Aktionen" [ref=f248e393] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e396]:
+              - cell [ref=f248e397]:
+                - checkbox [ref=f248e398] [cursor=pointer]
+              - cell [ref=f248e399]:
+                - link "Education and training3" [ref=f248e400] [cursor=pointer]:
+                  - /url: /projects/edandt
+              - cell "29.08.2026" [ref=f248e401]
+              - cell [ref=f248e402]:
+                - link "Summer Rain" [ref=f248e403] [cursor=pointer]:
+                  - /url: /users/11
+              - cell "Design" [ref=f248e404]
+              - cell [ref=f248e405]:
+                - 'link "Bug #20" [ref=f248e406] [cursor=pointer]':
+                  - /url: /issues/20
+                - text: ": Project id should appear in issues"
+              - cell "\"Project id should appear in issues" [ref=f248e407]
+              - cell "5:00" [ref=f248e408]
+              - cell [ref=f248e409]:
+                - link "Bearbeiten" [ref=f248e410] [cursor=pointer]:
+                  - /url: /time_entries/15/edit
+                - link "Löschen" [ref=f248e411] [cursor=pointer]:
+                  - /url: /time_entries/15
+                - link "Aktionen" [ref=f248e412] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e415]:
+              - cell [ref=f248e416]:
+                - checkbox [ref=f248e417] [cursor=pointer]
+              - cell [ref=f248e418]:
+                - link "Education and training3" [ref=f248e419] [cursor=pointer]:
+                  - /url: /projects/edandt
+              - cell "29.08.2026" [ref=f248e420]
+              - cell [ref=f248e421]:
+                - link "Summer Rain" [ref=f248e422] [cursor=pointer]:
+                  - /url: /users/11
+              - cell "Design" [ref=f248e423]
+              - cell [ref=f248e424]:
+                - 'link "Bug #19" [ref=f248e425] [cursor=pointer]':
+                  - /url: /issues/19
+                - text: ": The issue should be created with a project"
+              - cell "The issue should be created with a project" [ref=f248e426]
+              - cell "5:00" [ref=f248e427]
+              - cell [ref=f248e428]:
+                - link "Bearbeiten" [ref=f248e429] [cursor=pointer]:
+                  - /url: /time_entries/14/edit
+                - link "Löschen" [ref=f248e430] [cursor=pointer]:
+                  - /url: /time_entries/14
+                - link "Aktionen" [ref=f248e431] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e434]:
+              - cell [ref=f248e435]:
+                - checkbox [ref=f248e436] [cursor=pointer]
+              - cell [ref=f248e437]:
+                - link "HR management2" [ref=f248e438] [cursor=pointer]:
+                  - /url: /projects/hrmngmt
+              - cell "27.08.2026" [ref=f248e439]
+              - cell [ref=f248e440]:
+                - link "Violet Ember" [ref=f248e441] [cursor=pointer]:
+                  - /url: /users/12
+              - cell "Development" [ref=f248e442]
+              - cell [ref=f248e443]:
+                - 'link "Feature #18" [ref=f248e444] [cursor=pointer]':
+                  - /url: /issues/18
+                - text: ": The project should be visible in issues"
+              - cell "The project should be visible in issues" [ref=f248e445]
+              - cell "1:00" [ref=f248e446]
+              - cell [ref=f248e447]:
+                - link "Bearbeiten" [ref=f248e448] [cursor=pointer]:
+                  - /url: /time_entries/13/edit
+                - link "Löschen" [ref=f248e449] [cursor=pointer]:
+                  - /url: /time_entries/13
+                - link "Aktionen" [ref=f248e450] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e453]:
+              - cell [ref=f248e454]:
+                - checkbox [ref=f248e455] [cursor=pointer]
+              - cell [ref=f248e456]:
+                - link "HR management2" [ref=f248e457] [cursor=pointer]:
+                  - /url: /projects/hrmngmt
+              - cell "27.08.2026" [ref=f248e458]
+              - cell [ref=f248e459]:
+                - link "Celeste Dawn" [ref=f248e460] [cursor=pointer]:
+                  - /url: /users/13
+              - cell "Design" [ref=f248e461]
+              - cell [ref=f248e462]:
+                - 'link "Support #17" [ref=f248e463] [cursor=pointer]':
+                  - /url: /issues/17
+                - text: ": All the projects should appear in project search"
+              - cell "Resolve bug of error not occur" [ref=f248e464]
+              - cell "1:00" [ref=f248e465]
+              - cell [ref=f248e466]:
+                - link "Bearbeiten" [ref=f248e467] [cursor=pointer]:
+                  - /url: /time_entries/12/edit
+                - link "Löschen" [ref=f248e468] [cursor=pointer]:
+                  - /url: /time_entries/12
+                - link "Aktionen" [ref=f248e469] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e472]:
+              - cell [ref=f248e473]:
+                - checkbox [ref=f248e474] [cursor=pointer]
+              - cell [ref=f248e475]:
+                - link "HR management2" [ref=f248e476] [cursor=pointer]:
+                  - /url: /projects/hrmngmt
+              - cell "27.08.2026" [ref=f248e477]
+              - cell [ref=f248e478]:
+                - link "Willow Belle" [ref=f248e479] [cursor=pointer]:
+                  - /url: /users/9
+              - cell "Design" [ref=f248e480]
+              - cell [ref=f248e481]:
+                - 'link "Bug #16" [ref=f248e482] [cursor=pointer]':
+                  - /url: /issues/16
+                - text: ": Design a new issue modal"
+              - cell "Time log controller" [ref=f248e483]
+              - cell "1:00" [ref=f248e484]
+              - cell [ref=f248e485]:
+                - link "Bearbeiten" [ref=f248e486] [cursor=pointer]:
+                  - /url: /time_entries/11/edit
+                - link "Löschen" [ref=f248e487] [cursor=pointer]:
+                  - /url: /time_entries/11
+                - link "Aktionen" [ref=f248e488] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e491]:
+              - cell [ref=f248e492]:
+                - checkbox [ref=f248e493] [cursor=pointer]
+              - cell [ref=f248e494]:
+                - link "HR management2" [ref=f248e495] [cursor=pointer]:
+                  - /url: /projects/hrmngmt
+              - cell "27.08.2026" [ref=f248e496]
+              - cell [ref=f248e497]:
+                - link "Harmony Rose" [ref=f248e498] [cursor=pointer]:
+                  - /url: /users/10
+              - cell "Development" [ref=f248e499]
+              - cell [ref=f248e500]:
+                - 'link "Bug #15" [ref=f248e501] [cursor=pointer]':
+                  - /url: /issues/15
+                - text: ": Create user account"
+              - cell "Time log controller" [ref=f248e502]
+              - cell "1:00" [ref=f248e503]
+              - cell [ref=f248e504]:
+                - link "Bearbeiten" [ref=f248e505] [cursor=pointer]:
+                  - /url: /time_entries/10/edit
+                - link "Löschen" [ref=f248e506] [cursor=pointer]:
+                  - /url: /time_entries/10
+                - link "Aktionen" [ref=f248e507] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e510]:
+              - cell [ref=f248e511]:
+                - checkbox [ref=f248e512] [cursor=pointer]
+              - cell [ref=f248e513]:
+                - link "Mobile app development1" [ref=f248e514] [cursor=pointer]:
+                  - /url: /projects/mobileappdev
+              - cell "27.08.2026" [ref=f248e515]
+              - cell [ref=f248e516]:
+                - link "Harmony Rose" [ref=f248e517] [cursor=pointer]:
+                  - /url: /users/10
+              - cell "Development" [ref=f248e518]
+              - cell [ref=f248e519]:
+                - 'link "Bug #14" [ref=f248e520] [cursor=pointer]':
+                  - /url: /issues/14
+                - text: ": To check the project search"
+              - cell "Time log controller" [ref=f248e521]
+              - cell "1:00" [ref=f248e522]
+              - cell [ref=f248e523]:
+                - link "Bearbeiten" [ref=f248e524] [cursor=pointer]:
+                  - /url: /time_entries/9/edit
+                - link "Löschen" [ref=f248e525] [cursor=pointer]:
+                  - /url: /time_entries/9
+                - link "Aktionen" [ref=f248e526] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e529]:
+              - cell [ref=f248e530]:
+                - checkbox [ref=f248e531] [cursor=pointer]
+              - cell [ref=f248e532]:
+                - link "Mobile app development1" [ref=f248e533] [cursor=pointer]:
+                  - /url: /projects/mobileappdev
+              - cell "27.08.2026" [ref=f248e534]
+              - cell [ref=f248e535]:
+                - link "Luna Blossom" [ref=f248e536] [cursor=pointer]:
+                  - /url: /users/6
+              - cell "Development" [ref=f248e537]
+              - cell [ref=f248e538]:
+                - 'link "Bug #13" [ref=f248e539] [cursor=pointer]':
+                  - /url: /issues/13
+                - text: ": To check login form"
+              - cell "Time log controller" [ref=f248e540]
+              - cell "1:00" [ref=f248e541]
+              - cell [ref=f248e542]:
+                - link "Bearbeiten" [ref=f248e543] [cursor=pointer]:
+                  - /url: /time_entries/8/edit
+                - link "Löschen" [ref=f248e544] [cursor=pointer]:
+                  - /url: /time_entries/8
+                - link "Aktionen" [ref=f248e545] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e548]:
+              - cell [ref=f248e549]:
+                - checkbox [ref=f248e550] [cursor=pointer]
+              - cell [ref=f248e551]:
+                - link "Mobile app development1" [ref=f248e552] [cursor=pointer]:
+                  - /url: /projects/mobileappdev
+              - cell "27.08.2026" [ref=f248e553]
+              - cell [ref=f248e554]:
+                - link "Harmony Rose" [ref=f248e555] [cursor=pointer]:
+                  - /url: /users/10
+              - cell "Development" [ref=f248e556]
+              - cell [ref=f248e557]:
+                - 'link "Support #12" [ref=f248e558] [cursor=pointer]':
+                  - /url: /issues/12
+                - text: ": Implement update timesheet modal"
+              - cell "Time log controller" [ref=f248e559]
+              - cell "1:00" [ref=f248e560]
+              - cell [ref=f248e561]:
+                - link "Bearbeiten" [ref=f248e562] [cursor=pointer]:
+                  - /url: /time_entries/7/edit
+                - link "Löschen" [ref=f248e563] [cursor=pointer]:
+                  - /url: /time_entries/7
+                - link "Aktionen" [ref=f248e564] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e567]:
+              - cell [ref=f248e568]:
+                - checkbox [ref=f248e569] [cursor=pointer]
+              - cell [ref=f248e570]:
+                - link "Software development5" [ref=f248e571] [cursor=pointer]:
+                  - /url: /projects/defaultsd
+              - cell "16.06.2026" [ref=f248e572]
+              - cell [ref=f248e573]:
+                - link "Celeste Dawn" [ref=f248e574] [cursor=pointer]:
+                  - /url: /users/13
+              - cell "Development" [ref=f248e575]
+              - cell [ref=f248e576]:
+                - 'link "Bug #34" [ref=f248e577] [cursor=pointer]':
+                  - /url: /issues/34
+                - text: ": Implement time tracking reports"
+              - cell "Time tracking reports" [ref=f248e578]
+              - cell "7:00" [ref=f248e579]
+              - cell [ref=f248e580]:
+                - link "Bearbeiten" [ref=f248e581] [cursor=pointer]:
+                  - /url: /time_entries/24/edit
+                - link "Löschen" [ref=f248e582] [cursor=pointer]:
+                  - /url: /time_entries/24
+                - link "Aktionen" [ref=f248e583] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e586]:
+              - cell [ref=f248e587]:
+                - checkbox [ref=f248e588] [cursor=pointer]
+              - cell [ref=f248e589]:
+                - link "Software development5" [ref=f248e590] [cursor=pointer]:
+                  - /url: /projects/defaultsd
+              - cell "14.06.2026" [ref=f248e591]
+              - cell [ref=f248e592]:
+                - link "Serenity Bloom" [ref=f248e593] [cursor=pointer]:
+                  - /url: /users/14
+              - cell "Development" [ref=f248e594]
+              - cell [ref=f248e595]:
+                - 'link "Support #32" [ref=f248e596] [cursor=pointer]':
+                  - /url: /issues/32
+                - text: ": Implement user profile management"
+              - cell "User profile management" [ref=f248e597]
+              - cell "5:00" [ref=f248e598]
+              - cell [ref=f248e599]:
+                - link "Bearbeiten" [ref=f248e600] [cursor=pointer]:
+                  - /url: /time_entries/22/edit
+                - link "Löschen" [ref=f248e601] [cursor=pointer]:
+                  - /url: /time_entries/22
+                - link "Aktionen" [ref=f248e602] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f248e605]:
+              - cell [ref=f248e606]:
+                - checkbox [ref=f248e607] [cursor=pointer]
+              - cell [ref=f248e608]:
+                - link "Software development5" [ref=f248e609] [cursor=pointer]:
+                  - /url: /projects/defaultsd
+              - cell "12.06.2026" [ref=f248e610]
+              - cell [ref=f248e611]:
+                - link "Autumn Grace" [ref=f248e612] [cursor=pointer]:
+                  - /url: /users/8
+              - cell "Development" [ref=f248e613]
+              - cell [ref=f248e614]:
+                - 'link "Bug #30" [ref=f248e615] [cursor=pointer]':
+                  - /url: /issues/30
+                - text: ": Implement OAuth login integration"
+              - cell "OAuth login integration" [ref=f248e616]
+              - cell "6:00" [ref=f248e617]
+              - cell [ref=f248e618]:
+                - link "Bearbeiten" [ref=f248e619] [cursor=pointer]:
+                  - /url: /time_entries/20/edit
+                - link "Löschen" [ref=f248e620] [cursor=pointer]:
+                  - /url: /time_entries/20
+                - link "Aktionen" [ref=f248e621] [cursor=pointer]:
+                  - /url: "#"
+        - generic [ref=f248e624]:
+          - list
+          - generic [ref=f248e625]: (1-25/25)
+        - paragraph [ref=f248e627]:
+          - text: "Auch abrufbar als:"
+          - link "Atom" [ref=f248e629] [cursor=pointer]:
+            - /url: /time_entries.atom?key=a6249449f16344aaffb27d6f5be3002328ba1f62
+          - generic [ref=f248e630]:
+            - text: "|"
+            - link "CSV" [ref=f248e631] [cursor=pointer]:
+              - /url: /time_entries.csv
+    - generic [ref=f248e632]:
+      - text: Powered by
+      - link "Redmine" [ref=f248e633] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f248e634]
+  - log [ref=f248e635]
+  - log [ref=f248e636]
+  - log [ref=f248e637]
+  - log [ref=f248e638]
+  - log [ref=f248e639]
+  - log [ref=f248e640]
+  - log [ref=f248e641]
+  - log [ref=f248e642]
+  - log [ref=f248e643]
+  - log [ref=f248e644]
+  - log [ref=f248e645]
+  - log [ref=f248e646]
+  - log [ref=f248e647]
+  - log [ref=f248e648]
+  - log [ref=f248e649]
+  - log [ref=f248e650]
+  - log [ref=f248e651]
+  - log [ref=f248e652]
+  - log [ref=f248e653]
+  - log [ref=f248e654]
+  - log [ref=f248e655]
+  - log [ref=f248e656]
+  - log [ref=f248e657]
+  - log [ref=f248e658]
+  - log [ref=f248e659]
+  - log [ref=f248e660]
+  - log [ref=f248e661]
+  - log [ref=f248e662]
+  - log [ref=f248e663]
+  - log [ref=f248e664]
+  - log [ref=f248e665]
+  - log [ref=f248e666]
+  - log [ref=f248e667]
+  - log [ref=f248e668]
+  - log [ref=f248e669]
+  - log [ref=f248e670]
+  - log [ref=f248e671]
+  - log [ref=f248e672]
+  - log [ref=f248e673]
+  - log [ref=f248e674]
+  - log [ref=f248e675]
+  - log [ref=f248e676]
+  - log [ref=f248e677]
+  - log [ref=f248e678]
+  - log [ref=f248e679]
+  - log [ref=f248e680]
+  - log [ref=f248e681]
+  - log [ref=f248e682]
+  - log [ref=f248e683]
+  - log [ref=f248e684]
+  - log [ref=f248e685]
+  - log [ref=f248e686]
+  - log [ref=f248e687]
+  - log [ref=f248e688]
+  - log [ref=f248e689]
+  - log [ref=f248e690]
+  - log [ref=f248e691]
+  - log [ref=f248e692]
+  - log [ref=f248e693]
+  - log [ref=f248e694]
+  - log [ref=f248e695]
+  - log [ref=f248e696]
+  - log [ref=f248e697]
+  - log [ref=f248e698]
+  - log [ref=f248e699]
+  - log [ref=f248e700]
+  - log [ref=f248e701]
+  - log [ref=f248e702]
+  - log [ref=f248e703]
+  - log [ref=f248e704]
+  - log [ref=f248e705]
+  - log [ref=f248e706]
+  - log [ref=f248e707]
+  - log [ref=f248e708]
+  - log [ref=f248e709]
+  - log [ref=f248e710]
+  - log [ref=f248e711]
+  - log [ref=f248e712]
+  - log [ref=f248e713]
+  - log [ref=f248e714]
+  - log [ref=f248e715]
+  - log [ref=f248e716]
+  - log [ref=f248e717]
+  - log [ref=f248e718]
+  - log [ref=f248e719]
+  - log [ref=f248e720]
+  - log [ref=f248e721]
+  - log [ref=f248e722]
+  - log [ref=f248e723]
+  - log [ref=f248e724]
+  - log [ref=f248e725]
+  - log [ref=f248e726]
+  - log [ref=f248e727]
+  - log [ref=f248e728]
+  - log [ref=f248e729]

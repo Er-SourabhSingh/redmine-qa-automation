@@ -1,0 +1,314 @@
+- generic [active] [ref=f257e1]:
+  - generic [ref=f257e2]:
+    - generic [ref=f257e3]:
+      - generic [ref=f257e4]:
+        - list:
+          - listitem [ref=f257e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f257e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f257e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f257e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f257e9]:
+        - listitem [ref=f257e10]:
+          - link [ref=f257e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f257e12]
+        - listitem [ref=f257e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f257e14]:
+          - link "My page" [ref=f257e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f257e16]:
+          - link "Projects" [ref=f257e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f257e18]:
+          - link "Time Tracker" [ref=f257e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f257e20]:
+          - link "Workloads" [ref=f257e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f257e22]:
+          - link "Help" [ref=f257e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f257e24]:
+      - generic [ref=f257e25]:
+        - generic [ref=f257e26]:
+          - generic [ref=f257e27]:
+            - link "Search..." [ref=f257e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f257e29]
+        - generic [ref=f257e30]:
+          - generic [ref=f257e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f257e32]
+      - generic [ref=f257e33]:
+        - list [ref=f257e34]:
+          - listitem [ref=f257e35]:
+            - link "+" [ref=f257e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f257e37]:
+            - link "Overview" [ref=f257e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f257e39]:
+            - link "Activity" [ref=f257e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f257e41]:
+            - link "Issues" [ref=f257e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f257e43]:
+            - link "Spent time" [ref=f257e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f257e45]:
+            - link "Gantt" [ref=f257e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f257e47]:
+            - link "Calendar" [ref=f257e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f257e49]:
+            - link "News" [ref=f257e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f257e51]:
+            - link "Documents" [ref=f257e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f257e53]:
+            - link "Wiki" [ref=f257e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f257e55]:
+            - link "Files" [ref=f257e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f257e57]:
+            - link "Helpdesk" [ref=f257e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f257e59]:
+          - button [ref=f257e60] [cursor=pointer]
+          - button [ref=f257e63] [cursor=pointer]
+    - generic [ref=f257e66]:
+      - link [ref=f257e68] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=f257e71]:
+        - generic [ref=f257e72]:
+          - link "Start Timer" [ref=f257e73] [cursor=pointer]:
+            - /url: "#"
+          - link "Reply" [ref=f257e74] [cursor=pointer]:
+            - /url: "#"
+          - link "Edit" [ref=f257e75] [cursor=pointer]:
+            - /url: /issues/3/edit
+          - link "Log time" [ref=f257e77] [cursor=pointer]:
+            - /url: /issues/3/time_entries/new
+          - link "Watch" [ref=f257e79] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=3&object_type=issue
+          - generic "Actions" [ref=f257e83] [cursor=pointer]
+        - 'heading "Support #3" [level=2] [ref=f257e85]'
+        - text: open
+        - generic [ref=f257e86]:
+          - 'img "Author: Alpha Customer" [ref=f257e87]': AC
+          - 'heading "Ticket: BUG-HLP-008 retest - portal login issue" [level=3] [ref=f257e91]'
+          - link [ref=f257e94] [cursor=pointer]:
+            - /url: /reactions?object_id=3&object_type=Issue
+          - paragraph [ref=f257e97]:
+            - text: Added by
+            - link "Alpha Customer" [ref=f257e98] [cursor=pointer]:
+              - /url: /users/6
+            - link "4 minutes" [ref=f257e99] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-08-31
+            - text: ago. Updated
+            - link "less than a minute" [ref=f257e100] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-08-31
+            - text: ago.
+          - generic [ref=f257e101]:
+            - generic [ref=f257e102]:
+              - generic [ref=f257e103]:
+                - generic [ref=f257e104]:
+                  - generic [ref=f257e105]: "Status:"
+                  - generic [ref=f257e106]: In Progress
+                - generic [ref=f257e107]:
+                  - generic [ref=f257e108]: "Priority:"
+                  - generic [ref=f257e109]: Normal
+                - generic [ref=f257e110]:
+                  - generic [ref=f257e111]: "Assignee:"
+                  - generic [ref=f257e112]: "-"
+              - generic [ref=f257e113]:
+                - generic [ref=f257e114]:
+                  - generic [ref=f257e115]: "Start date:"
+                  - generic [ref=f257e116]: 08/31/2026
+                - generic [ref=f257e117]: "Due Date:"
+                - generic [ref=f257e119]:
+                  - generic [ref=f257e120]: "Progress:"
+                  - generic [ref=f257e121]:
+                    - table [ref=f257e122]:
+                      - rowgroup [ref=f257e123]:
+                        - row [ref=f257e124]:
+                          - cell [ref=f257e125]
+                    - paragraph [ref=f257e126]: 0%
+                - generic [ref=f257e127]: "Estimated time:"
+            - generic [ref=f257e129]: "Issue Category:"
+            - generic [ref=f257e134]:
+              - generic [ref=f257e135]: "Product:"
+              - generic [ref=f257e136]: "-"
+            - generic [ref=f257e137]:
+              - generic [ref=f257e138]: "Organization:"
+              - generic [ref=f257e139]: "-"
+          - separator [ref=f257e140]
+          - generic [ref=f257e141]:
+            - link "Quote" [ref=f257e143] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f257e145]:
+              - strong [ref=f257e146]: Description
+            - generic [ref=f257e147]:
+              - paragraph [ref=f257e148]: Hi Support,
+              - paragraph [ref=f257e149]: I'm having trouble logging into the customer portal. Can you please help?
+              - paragraph [ref=f257e150]: Thanks, Alpha Customer
+          - separator [ref=f257e151]
+          - generic [ref=f257e152]:
+            - paragraph [ref=f257e154]:
+              - strong [ref=f257e155]: Checklist
+            - generic [ref=f257e157] [cursor=pointer]
+            - generic:
+              - list
+          - separator [ref=f257e159]
+          - generic [ref=f257e160]:
+            - link "Add" [ref=f257e162] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/new?back_url=%2Fissues%2F3&issue%5Bparent_issue_id%5D=3&issue%5Btracker_id%5D=3
+            - paragraph [ref=f257e163]:
+              - strong [ref=f257e164]: Subtasks
+        - generic [ref=f257e165]:
+          - list [ref=f257e167]:
+            - listitem [ref=f257e168]:
+              - link "History" [ref=f257e169] [cursor=pointer]:
+                - /url: /issues/3?tab=history
+            - listitem [ref=f257e170]:
+              - link "Notes" [ref=f257e171] [cursor=pointer]:
+                - /url: /issues/3?tab=notes
+            - listitem [ref=f257e172]:
+              - link "Property changes" [ref=f257e173] [cursor=pointer]:
+                - /url: /issues/3?tab=properties
+            - listitem [ref=f257e174]:
+              - link "Helpdesk Conversion (4)" [ref=f257e175] [cursor=pointer]:
+                - /url: /issues/3?tab=email-history
+          - generic [ref=f257e177]:
+            - generic [ref=f257e179]:
+              - 'heading "Alpha Customer 08/31/2026 05:58 AM (UTC) Customer replied to Support #1" [level=4] [ref=f257e180]':
+                - generic [ref=f257e181]:
+                  - generic [ref=f257e183]: Alpha Customer
+                  - generic [ref=f257e184]: 08/31/2026 05:58 AM (UTC)
+                  - generic [ref=f257e185]: Customer replied to Support
+                - link "#1" [ref=f257e188] [cursor=pointer]:
+                  - /url: "#email-note-1"
+              - generic [ref=f257e190]:
+                - paragraph [ref=f257e191]: Hi Support,
+                - paragraph [ref=f257e192]: I'm having trouble logging into the customer portal. Can you please help?
+                - paragraph [ref=f257e193]: Thanks, Alpha Customer
+            - generic [ref=f257e195]:
+              - 'heading "Alpha Customer (via Reply Note) 08/31/2026 05:58 AM (UTC) #2" [level=4] [ref=f257e196]':
+                - generic [ref=f257e197]:
+                  - generic [ref=f257e199]: Alpha Customer
+                  - generic [ref=f257e200]: (via Reply Note)
+                  - generic [ref=f257e201]: 08/31/2026 05:58 AM (UTC)
+                - link "#2" [ref=f257e203] [cursor=pointer]:
+                  - /url: "#email-note-2"
+              - generic [ref=f257e205]:
+                - heading "Ticket Created Successfully" [level=2] [ref=f257e207]
+                - generic [ref=f257e208]:
+                  - paragraph [ref=f257e209]: Dear Customer,
+                  - paragraph [ref=f257e210]: Thank you for contacting us. Your support ticket has been created successfully and our team will review it shortly.
+                  - generic [ref=f257e211]:
+                    - heading "Ticket Details" [level=3] [ref=f257e212]
+                    - generic [ref=f257e213]:
+                      - text: "Ticket Number:"
+                      - strong [ref=f257e215]: "#3"
+                    - generic [ref=f257e216]: "Subject: Ticket: BUG-HLP-008 retest - portal login issue"
+                    - generic [ref=f257e217]: "Status: New"
+                    - generic [ref=f257e218]: "Priority: Normal"
+                    - generic [ref=f257e219]: "Created On: 08/31/2026 05:58 AM (UTC)"
+                  - paragraph
+            - generic [ref=f257e221]:
+              - 'heading "Luna Blossom (via Reply Note) 08/31/2026 06:00 AM (UTC) #3" [level=4] [ref=f257e222]':
+                - generic [ref=f257e223]:
+                  - generic [ref=f257e225]: Luna Blossom
+                  - generic [ref=f257e226]: (via Reply Note)
+                  - generic [ref=f257e227]: 08/31/2026 06:00 AM (UTC)
+                - link "#3" [ref=f257e229] [cursor=pointer]:
+                  - /url: "#email-note-3"
+              - generic [ref=f257e233]:
+                - heading "A new note has been added" [level=4] [ref=f257e234]
+                - paragraph [ref=f257e235]:
+                  - strong [ref=f257e236]: "Issue #3:"
+                  - text: "Ticket: BUG-HLP-008 retest - portal login issue"
+                  - strong [ref=f257e237]: "Status:"
+                  - text: Waiting for Customer Response
+                  - strong [ref=f257e238]: "Note:"
+                - paragraph [ref=f257e239]: Hi Alpha Customer, thanks for reaching out. Could you tell me which browser you're using and whether you see any error message?
+                - paragraph
+            - generic [ref=f257e241]:
+              - 'heading "Alpha Customer 08/31/2026 06:01 AM (UTC) Customer replied to Support #4" [level=4] [ref=f257e242]':
+                - generic [ref=f257e243]:
+                  - generic [ref=f257e245]: Alpha Customer
+                  - generic [ref=f257e246]: 08/31/2026 06:01 AM (UTC)
+                  - generic [ref=f257e247]: Customer replied to Support
+                - link "#4" [ref=f257e250] [cursor=pointer]:
+                  - /url: "#email-note-4"
+              - paragraph [ref=f257e253]: Hi Luna, I'm using Chrome and the portal login page shows a completely blank white screen after I enter my password. No error message appears.
+        - generic [ref=f257e254]:
+          - link "Edit" [ref=f257e255] [cursor=pointer]:
+            - /url: /issues/3/edit
+          - link "Log time" [ref=f257e257] [cursor=pointer]:
+            - /url: /issues/3/time_entries/new
+          - link "Watch" [ref=f257e259] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=3&object_type=issue
+          - generic "Actions" [ref=f257e263] [cursor=pointer]
+        - text: pre
+        - paragraph [ref=f257e265]:
+          - text: "Also available in:"
+          - link "PDF" [ref=f257e267] [cursor=pointer]:
+            - /url: /issues/3.pdf
+          - generic [ref=f257e268]:
+            - text: "|"
+            - link "Atom" [ref=f257e269] [cursor=pointer]:
+              - /url: /issues/3.atom?key=74f8c2c10d57ac3baeee5bf474f60ebd9a037b60
+    - generic [ref=f257e270]:
+      - text: Powered by
+      - link "Redmine" [ref=f257e271] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f257e272]
+  - log [ref=f257e273]
+  - log [ref=f257e274]
+  - log [ref=f257e275]
+  - log [ref=f257e276]
+  - log [ref=f257e277]
+  - log [ref=f257e278]
+  - log [ref=f257e279]
+  - log [ref=f257e280]
+  - log [ref=f257e281]
+  - log [ref=f257e282]
+  - log [ref=f257e283]
+  - log [ref=f257e284]
+  - log [ref=f257e285]
+  - log [ref=f257e286]
+  - log [ref=f257e287]
+  - log [ref=f257e288]
+  - log [ref=f257e289]
+  - log [ref=f257e290]
+  - log [ref=f257e291]
+  - log [ref=f257e292]
+  - log [ref=f257e293]
+  - log [ref=f257e294]
+  - log [ref=f257e295]
+  - log [ref=f257e296]
+  - log [ref=f257e297]
+  - log [ref=f257e298]
+  - log [ref=f257e299]
+  - log [ref=f257e300]
+  - log [ref=f257e301]
+  - log [ref=f257e302]
+  - log [ref=f257e303]
+  - log [ref=f257e304]
+  - log [ref=f257e305]
+  - log [ref=f257e306]

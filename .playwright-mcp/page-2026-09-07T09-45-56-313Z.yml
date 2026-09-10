@@ -1,0 +1,155 @@
+- generic [active] [ref=f48e1]:
+  - generic [ref=f48e2]:
+    - navigation [ref=f48e3]:
+      - list [ref=f48e6]:
+        - listitem [ref=f48e7]:
+          - link "Hauptseite" [ref=f48e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f48e9]:
+          - link "Meine Seite" [ref=f48e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f48e11]:
+          - link "Projekte" [ref=f48e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f48e13]:
+          - link "Agile Board" [ref=f48e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f48e15]:
+          - link "Flux Gantt" [ref=f48e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f48e17]:
+          - link "Administration" [ref=f48e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f48e19]:
+          - link "Hilfe" [ref=f48e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f48e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f48e24]: RA
+    - generic [ref=f48e27]:
+      - generic [ref=f48e28]:
+        - generic [ref=f48e29]:
+          - generic [ref=f48e30]:
+            - link "Suche" [ref=f48e31] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Suche:" [ref=f48e32]
+        - generic [ref=f48e33]: Zu einem Projekt springen...
+      - heading "Redmine" [level=1] [ref=f48e35]
+    - generic [ref=f48e36]:
+      - generic [ref=f48e37]:
+        - link [ref=f48e39] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f48e42]:
+          - heading "Administration" [level=3] [ref=f48e43]
+          - list [ref=f48e45]:
+            - listitem [ref=f48e46]:
+              - link "Projekte" [ref=f48e47] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f48e51]:
+              - link "Benutzer" [ref=f48e52] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f48e56]:
+              - link "Gruppen" [ref=f48e57] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f48e61]:
+              - link "Rollen und Rechte" [ref=f48e62] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f48e66]:
+              - link "Tracker" [ref=f48e67] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f48e71]:
+              - link "Ticket-Status" [ref=f48e72] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f48e76]:
+              - link "Workflow" [ref=f48e77] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f48e81]:
+              - link "Benutzerdefinierte Felder" [ref=f48e82] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f48e86]:
+              - link "Aufzählungen" [ref=f48e87] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f48e91]:
+              - link "Konfiguration" [ref=f48e92] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f48e96]:
+              - link "LDAP-Authentifizierung" [ref=f48e97] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f48e101]:
+              - link "Applikationen" [ref=f48e102] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f48e106]:
+              - link "Plugins" [ref=f48e107] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f48e111]:
+              - link "Informationen" [ref=f48e112] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f48e116]:
+        - heading [level=2] [ref=f48e117]:
+          - link "Plugins" [ref=f48e118] [cursor=pointer]:
+            - /url: /admin/plugins
+          - text: » Redmineflux Tags plugin
+        - generic [ref=f48e120]:
+          - generic [ref=f48e121]:
+            - list [ref=f48e123]:
+              - listitem [ref=f48e124]:
+                - link "Allgemein" [ref=f48e125] [cursor=pointer]:
+                  - /url: /settings/plugin/flux_tags?tab=general
+              - listitem [ref=f48e126]:
+                - link "Issue Tags" [ref=f48e127] [cursor=pointer]:
+                  - /url: /settings/plugin/flux_tags?tab=issue
+              - listitem [ref=f48e128]:
+                - link "Time Entry Tags" [ref=f48e129] [cursor=pointer]:
+                  - /url: /settings/plugin/flux_tags?tab=time_entry
+              - listitem [ref=f48e130]:
+                - link "Project Tags" [ref=f48e131] [cursor=pointer]:
+                  - /url: /settings/plugin/flux_tags?tab=project
+            - generic [ref=f48e132]:
+              - table [ref=f48e133]:
+                - rowgroup [ref=f48e134]:
+                  - row [ref=f48e135]:
+                    - columnheader [ref=f48e136]:
+                      - link "Alles auswählen/Alles abwählen" [ref=f48e137] [cursor=pointer]:
+                        - /url: "#"
+                    - columnheader "Name" [ref=f48e140]
+                    - columnheader [ref=f48e141]
+                - rowgroup [ref=f48e142]:
+                  - row [ref=f48e143]:
+                    - cell [ref=f48e144]:
+                      - checkbox [ref=f48e145]
+                    - cell "qatimetag" [ref=f48e146]
+                    - cell [ref=f48e148]:
+                      - link "Bearbeiten" [ref=f48e149] [cursor=pointer]:
+                        - /url: /tags/2/edit?tab=time_entry
+                      - link "Delete" [ref=f48e153] [cursor=pointer]:
+                        - /url: javascript:void(0);
+              - text: (1-1/1)
+              - generic [ref=f48e157]:
+                - text: "Pages:"
+                - link "10" [ref=f48e158] [cursor=pointer]:
+                  - /url: /settings/plugin/flux_tags?per_page=10&tab=time_entry
+                - text: ","
+                - link "20" [ref=f48e159] [cursor=pointer]:
+                  - /url: /settings/plugin/flux_tags?per_page=20&tab=time_entry
+                - text: ","
+                - link "50" [ref=f48e160] [cursor=pointer]:
+                  - /url: /settings/plugin/flux_tags?per_page=50&tab=time_entry
+          - button "Anwenden" [ref=f48e161] [cursor=pointer]
+    - generic [ref=f48e162]:
+      - text: Powered by
+      - link "Redmine" [ref=f48e163] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f48e164]
+  - log [ref=f48e165]
+  - log [ref=f48e166]
+  - log [ref=f48e167]
+  - log [ref=f48e168]
+  - log [ref=f48e169]
+  - log [ref=f48e170]
+  - log [ref=f48e171]
+  - log [ref=f48e172]
+  - log [ref=f48e173]
+  - log [ref=f48e174]
+  - log [ref=f48e175]

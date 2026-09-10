@@ -1,0 +1,171 @@
+- generic [active] [ref=f369e1]:
+  - generic [ref=f369e2]:
+    - generic [ref=f369e3]:
+      - generic [ref=f369e4]:
+        - list:
+          - listitem [ref=f369e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f369e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f369e7]:
+        - text: Logged in as
+        - link "manage.helpdesk.test" [ref=f369e8] [cursor=pointer]:
+          - /url: /users/16
+      - list [ref=f369e9]:
+        - listitem [ref=f369e10]:
+          - link [ref=f369e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f369e12]
+        - listitem [ref=f369e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f369e14]:
+          - link "My page" [ref=f369e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f369e16]:
+          - link "Projects" [ref=f369e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f369e18]:
+          - link "Helpdesk Command Center" [ref=f369e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f369e20]:
+          - link "Time Tracker" [ref=f369e21] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f369e22]:
+          - link "Workloads" [ref=f369e23] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f369e24]:
+          - link "Help" [ref=f369e25] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f369e26]:
+      - generic [ref=f369e27]:
+        - generic [ref=f369e28]:
+          - generic [ref=f369e29]:
+            - link "Search..." [ref=f369e30] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f369e31]
+        - generic [ref=f369e32]:
+          - generic [ref=f369e33] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f369e34]
+    - generic [ref=f369e35]:
+      - list [ref=f369e39]:
+        - listitem [ref=f369e40]:
+          - link "Helpdesk Dashboard" [ref=f369e41] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f369e44]:
+          - link "Helpdesk Tickets" [ref=f369e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f369e48]:
+          - link "Reports" [ref=f369e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f369e52]:
+          - link "Organization" [ref=f369e53] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f369e56]:
+          - link "Customers" [ref=f369e57] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f369e60]:
+          - link "Products" [ref=f369e61] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f369e64]:
+          - link "Helpdesk Settings" [ref=f369e65] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f369e68]:
+        - generic [ref=f369e69]:
+          - heading "Reports" [level=2] [ref=f369e70]
+          - paragraph [ref=f369e71]: Overview of all helpdesk tickets by status, priority and daily trend
+        - navigation "Reports" [ref=f369e72]:
+          - link "Ticket Summary" [ref=f369e73] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+          - link "SLA Analytics" [ref=f369e76] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/sla
+          - link "Agent Performance" [ref=f369e81] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/agents
+          - link "Organizations" [ref=f369e88] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/organizations
+          - link "Projects" [ref=f369e93] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/projects
+        - generic [ref=f369e97]:
+          - generic [ref=f369e100]:
+            - generic [ref=f369e101]:
+              - generic [ref=f369e102]: Date Range
+              - generic [ref=f369e103] [cursor=pointer]: 04 Aug 26 - 02 Sep 26
+            - generic [ref=f369e107]:
+              - generic [ref=f369e108]: Assignee
+              - combobox [ref=f369e109] [cursor=pointer]:
+                - option "All" [selected]
+                - option "Redmine Admin"
+                - option "Willow Belle"
+                - option "Luna Blossom"
+                - option "Autumn Grace"
+            - generic [ref=f369e110]:
+              - generic [ref=f369e111]: Status
+              - combobox [ref=f369e112] [cursor=pointer]:
+                - option "All" [selected]
+                - option "New"
+                - option "In Progress"
+                - option "Resolved"
+                - option "Feedback"
+                - option "Closed"
+                - option "Rejected"
+                - option "Waiting for Customer Response"
+            - generic [ref=f369e113]:
+              - generic [ref=f369e114]: Priority
+              - combobox [ref=f369e115] [cursor=pointer]:
+                - option "All" [selected]
+                - option "Low"
+                - option "Normal"
+                - option "High"
+                - option "Urgent"
+                - option "Immediate"
+            - generic [ref=f369e116]:
+              - generic [ref=f369e117]: Project
+              - combobox [ref=f369e118] [cursor=pointer]:
+                - option "All" [selected]
+                - option "Helpdesk QA Alpha"
+                - option "Helpdesk QA Beta"
+            - generic [ref=f369e119]:
+              - button "Apply" [ref=f369e121] [cursor=pointer]
+              - link "Reset" [ref=f369e122] [cursor=pointer]:
+                - /url: /rf_helpdesk/reports/tickets
+          - button "Export" [ref=f369e124] [cursor=pointer]
+        - generic [ref=f369e130]:
+          - generic [ref=f369e131]:
+            - generic [ref=f369e136]: Total Tickets
+            - generic [ref=f369e137]: "35"
+          - generic [ref=f369e138]:
+            - generic [ref=f369e142]: Open
+            - generic [ref=f369e143]: "34"
+          - generic [ref=f369e144]:
+            - generic [ref=f369e149]: Resolved
+            - generic [ref=f369e150]: "1"
+          - generic [ref=f369e151]:
+            - generic [ref=f369e155]: Overdue
+            - generic [ref=f369e156]: "0"
+        - generic [ref=f369e157]:
+          - heading "Tickets by Status" [level=3] [ref=f369e164]
+          - heading "Tickets by Priority" [level=3] [ref=f369e173]
+        - heading "Tickets by Project" [level=3] [ref=f369e180]
+        - heading "Daily Ticket Trend" [level=3] [ref=f369e188]
+    - generic [ref=f369e191]:
+      - text: Powered by
+      - link "Redmine" [ref=f369e192] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f369e193]
+  - log [ref=f369e194]
+  - log [ref=f369e195]
+  - log [ref=f369e196]
+  - log [ref=f369e197]
+  - log [ref=f369e198]
+  - log [ref=f369e199]
+  - log [ref=f369e200]
+  - log [ref=f369e201]
+  - log [ref=f369e202]
+  - log [ref=f369e203]
+  - log [ref=f369e204]
+  - log [ref=f369e205]

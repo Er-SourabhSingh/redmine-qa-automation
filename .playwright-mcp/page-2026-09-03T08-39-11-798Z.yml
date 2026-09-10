@@ -1,0 +1,372 @@
+- generic [active] [ref=f407e1]:
+  - generic [ref=f407e2]:
+    - generic [ref=f407e3]:
+      - generic [ref=f407e4]:
+        - list:
+          - listitem [ref=f407e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f407e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f407e7]:
+        - text: Logged in as
+        - link "admin" [ref=f407e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f407e9]:
+        - listitem [ref=f407e10]:
+          - link [ref=f407e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f407e12]
+        - listitem [ref=f407e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f407e14]:
+          - link "My page" [ref=f407e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f407e16]:
+          - link "Projects" [ref=f407e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f407e18]:
+          - link "Flux Gantt" [ref=f407e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f407e20]:
+          - link "Helpdesk Command Center" [ref=f407e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f407e22]:
+          - link "Time Tracker" [ref=f407e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f407e24]:
+          - link "Timesheet" [ref=f407e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f407e26]:
+          - link "Workloads" [ref=f407e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f407e28]:
+          - link "More" [ref=f407e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f407e30]:
+      - generic [ref=f407e31]:
+        - generic [ref=f407e32]:
+          - generic [ref=f407e33]:
+            - link "Search..." [ref=f407e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f407e35]
+        - generic [ref=f407e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f407e38]
+    - generic [ref=f407e40]:
+      - generic [ref=f407e42]:
+        - text: "Add:"
+        - combobox "Add" [ref=f407e43]:
+          - option [selected]
+          - option "Issues assigned to me" [disabled]
+          - option "Reported issues" [disabled]
+          - option "Updated issues"
+          - option "Watched issues"
+          - option "Issues"
+          - option "Latest news"
+          - option "Calendar"
+          - option "Documents"
+          - option "Spent time"
+          - option "Activity"
+      - heading "My page" [level=2] [ref=f407e44]
+      - generic [ref=f407e45]:
+        - generic [ref=f407e48]:
+          - generic [ref=f407e49]:
+            - generic "Move" [ref=f407e50]
+            - link "Delete" [ref=f407e52] [cursor=pointer]:
+              - /url: /my/remove_block?block=issuesassignedtome
+          - link "Options" [ref=f407e55] [cursor=pointer]:
+            - /url: "#"
+          - heading [level=3] [ref=f407e57]:
+            - link "Issues assigned to me" [ref=f407e58] [cursor=pointer]:
+              - /url: /issues?c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&f%5B%5D=status_id&f%5B%5D=assigned_to_id&f%5B%5D=project.status&op%5Bassigned_to_id%5D=%3D&op%5Bproject.status%5D=%3D&op%5Bstatus_id%5D=o&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc&v%5Bassigned_to_id%5D%5B%5D=me&v%5Bproject.status%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=
+            - text: (9)
+          - table [ref=f407e61]:
+            - rowgroup [ref=f407e62]:
+              - row [ref=f407e63]:
+                - columnheader [ref=f407e64]:
+                  - link "#" [ref=f407e65] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=id%3Adesc%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f407e66]:
+                  - link "Project" [ref=f407e67] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=project%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f407e68]:
+                  - link "Tracker" [ref=f407e69] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=tracker%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f407e70]:
+                  - link "Status" [ref=f407e71] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=status%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f407e72]:
+                  - link "Subject" [ref=f407e73] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=subject%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f407e74]
+            - rowgroup [ref=f407e75]:
+              - row [ref=f407e76]:
+                - cell [ref=f407e77]:
+                  - link "27" [ref=f407e78] [cursor=pointer]:
+                    - /url: /issues/27
+                - cell [ref=f407e79]:
+                  - link "Helpdesk QA Alpha" [ref=f407e80] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f407e81]
+                - cell "New" [ref=f407e82]
+                - cell [ref=f407e83]:
+                  - link "TC-HLP-349 locked-agent escalation exclusion test 1" [ref=f407e84] [cursor=pointer]:
+                    - /url: /issues/27
+                - cell [ref=f407e85]:
+                  - link "Actions" [ref=f407e86] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f407e88]:
+                - cell [ref=f407e89]:
+                  - link "26" [ref=f407e90] [cursor=pointer]:
+                    - /url: /issues/26
+                - cell [ref=f407e91]:
+                  - link "Helpdesk QA Alpha" [ref=f407e92] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f407e93]
+                - cell "New" [ref=f407e94]
+                - cell [ref=f407e95]:
+                  - link "TC-HLP-344 fresh unassigned L2 ticket - matching-level agent no-false-positive test" [ref=f407e96] [cursor=pointer]:
+                    - /url: /issues/26
+                - cell [ref=f407e97]:
+                  - link "Actions" [ref=f407e98] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f407e100]:
+                - cell [ref=f407e101]:
+                  - link "24" [ref=f407e102] [cursor=pointer]:
+                    - /url: /issues/24
+                - cell [ref=f407e103]:
+                  - link "Helpdesk QA Alpha" [ref=f407e104] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f407e105]
+                - cell "New" [ref=f407e106]
+                - cell [ref=f407e107]:
+                  - link "TC-HLP-342 fresh unassigned L2 ticket - self-assign warning test" [ref=f407e108] [cursor=pointer]:
+                    - /url: /issues/24
+                - cell [ref=f407e109]:
+                  - link "Actions" [ref=f407e110] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f407e112]:
+                - cell [ref=f407e113]:
+                  - link "19" [ref=f407e114] [cursor=pointer]:
+                    - /url: /issues/19
+                - cell [ref=f407e115]:
+                  - link "Helpdesk QA Alpha" [ref=f407e116] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f407e117]
+                - cell "New" [ref=f407e118]
+                - cell [ref=f407e119]:
+                  - link "TC-HLP-105 deactivate-L2-mid-escalation test ticket" [ref=f407e120] [cursor=pointer]:
+                    - /url: /issues/19
+                - cell [ref=f407e121]:
+                  - link "Actions" [ref=f407e122] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f407e124]:
+                - cell [ref=f407e125]:
+                  - link "18" [ref=f407e126] [cursor=pointer]:
+                    - /url: /issues/18
+                - cell [ref=f407e127]:
+                  - link "Helpdesk QA Alpha" [ref=f407e128] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f407e129]
+                - cell "New" [ref=f407e130]
+                - cell [ref=f407e131]:
+                  - link "test manually by me" [ref=f407e132] [cursor=pointer]:
+                    - /url: /issues/18
+                - cell [ref=f407e133]:
+                  - link "Actions" [ref=f407e134] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f407e136]:
+                - cell [ref=f407e137]:
+                  - link "17" [ref=f407e138] [cursor=pointer]:
+                    - /url: /issues/17
+                - cell [ref=f407e139]:
+                  - link "Helpdesk QA Alpha" [ref=f407e140] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f407e141]
+                - cell "New" [ref=f407e142]
+                - cell [ref=f407e143]:
+                  - link "Admin-email-fix verification ticket - direct L3 top-level breach" [ref=f407e144] [cursor=pointer]:
+                    - /url: /issues/17
+                - cell [ref=f407e145]:
+                  - link "Actions" [ref=f407e146] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f407e148]:
+                - cell [ref=f407e149]:
+                  - link "15" [ref=f407e150] [cursor=pointer]:
+                    - /url: /issues/15
+                - cell [ref=f407e151]:
+                  - link "Helpdesk QA Alpha" [ref=f407e152] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f407e153]
+                - cell "In Progress" [ref=f407e154]
+                - cell [ref=f407e155]:
+                  - link "TC-HLP-091 mid-level entry test - customer's project-access row specifies L2" [ref=f407e156] [cursor=pointer]:
+                    - /url: /issues/15
+                - cell [ref=f407e157]:
+                  - link "Actions" [ref=f407e158] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f407e160]:
+                - cell [ref=f407e161]:
+                  - link "16" [ref=f407e162] [cursor=pointer]:
+                    - /url: /issues/16
+                - cell [ref=f407e163]:
+                  - link "Helpdesk QA Alpha" [ref=f407e164] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f407e165]
+                - cell "New" [ref=f407e166]
+                - cell [ref=f407e167]:
+                  - link "Admin-email-fix verification ticket - direct L3 top-level breach" [ref=f407e168] [cursor=pointer]:
+                    - /url: /issues/16
+                - cell [ref=f407e169]:
+                  - link "Actions" [ref=f407e170] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f407e172]:
+                - cell [ref=f407e173]:
+                  - link "14" [ref=f407e174] [cursor=pointer]:
+                    - /url: /issues/14
+                - cell [ref=f407e175]:
+                  - link "Helpdesk QA Alpha" [ref=f407e176] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f407e177]
+                - cell "New" [ref=f407e178]
+                - cell [ref=f407e179]:
+                  - link "TC-HLP-092 escalation-chain test ticket - fast-breach SLA" [ref=f407e180] [cursor=pointer]:
+                    - /url: /issues/14
+                - cell [ref=f407e181]:
+                  - link "Actions" [ref=f407e182] [cursor=pointer]:
+                    - /url: "#"
+        - generic [ref=f407e185]:
+          - generic [ref=f407e186]:
+            - generic "Move" [ref=f407e187]
+            - link "Delete" [ref=f407e189] [cursor=pointer]:
+              - /url: /my/remove_block?block=issuesreportedbyme
+          - link "Options" [ref=f407e192] [cursor=pointer]:
+            - /url: "#"
+          - heading [level=3] [ref=f407e194]:
+            - link "Reported issues" [ref=f407e195] [cursor=pointer]:
+              - /url: /issues?c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&f%5B%5D=status_id&f%5B%5D=author_id&f%5B%5D=project.status&op%5Bauthor_id%5D=%3D&op%5Bproject.status%5D=%3D&op%5Bstatus_id%5D=o&set_filter=1&sort=updated_on%3Adesc&v%5Bauthor_id%5D%5B%5D=me&v%5Bproject.status%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=
+            - text: (4)
+          - table [ref=f407e198]:
+            - rowgroup [ref=f407e199]:
+              - row [ref=f407e200]:
+                - columnheader [ref=f407e201]:
+                  - link "#" [ref=f407e202] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=id%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f407e203]:
+                  - link "Project" [ref=f407e204] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=project%2Cupdated_on%3Adesc
+                - columnheader [ref=f407e205]:
+                  - link "Tracker" [ref=f407e206] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=tracker%2Cupdated_on%3Adesc
+                - columnheader [ref=f407e207]:
+                  - link "Status" [ref=f407e208] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=status%2Cupdated_on%3Adesc
+                - columnheader [ref=f407e209]:
+                  - link "Subject" [ref=f407e210] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=subject%2Cupdated_on%3Adesc
+                - columnheader [ref=f407e211]
+            - rowgroup [ref=f407e212]:
+              - row [ref=f407e213]:
+                - cell [ref=f407e214]:
+                  - link "38" [ref=f407e215] [cursor=pointer]:
+                    - /url: /issues/38
+                - cell [ref=f407e216]:
+                  - link "Helpdesk QA Alpha" [ref=f407e217] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Bug" [ref=f407e218]
+                - cell "New" [ref=f407e219]
+                - cell [ref=f407e220]:
+                  - link "dsfasd" [ref=f407e221] [cursor=pointer]:
+                    - /url: /issues/38
+                - cell [ref=f407e222]:
+                  - link "Actions" [ref=f407e223] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f407e225]:
+                - cell [ref=f407e226]:
+                  - link "37" [ref=f407e227] [cursor=pointer]:
+                    - /url: /issues/37
+                - cell [ref=f407e228]:
+                  - link "Helpdesk QA Alpha" [ref=f407e229] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Bug" [ref=f407e230]
+                - cell "New" [ref=f407e231]
+                - cell [ref=f407e232]:
+                  - link "asdfsa" [ref=f407e233] [cursor=pointer]:
+                    - /url: /issues/37
+                - cell [ref=f407e234]:
+                  - link "Actions" [ref=f407e235] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f407e237]:
+                - cell [ref=f407e238]:
+                  - link "16" [ref=f407e239] [cursor=pointer]:
+                    - /url: /issues/16
+                - cell [ref=f407e240]:
+                  - link "Helpdesk QA Alpha" [ref=f407e241] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f407e242]
+                - cell "New" [ref=f407e243]
+                - cell [ref=f407e244]:
+                  - link "Admin-email-fix verification ticket - direct L3 top-level breach" [ref=f407e245] [cursor=pointer]:
+                    - /url: /issues/16
+                - cell [ref=f407e246]:
+                  - link "Actions" [ref=f407e247] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f407e249]:
+                - cell [ref=f407e250]:
+                  - link "5" [ref=f407e251] [cursor=pointer]:
+                    - /url: /issues/5
+                - cell [ref=f407e252]:
+                  - link "Helpdesk QA Alpha" [ref=f407e253] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f407e254]
+                - cell "New" [ref=f407e255]
+                - cell [ref=f407e256]:
+                  - link "TC-HLP-013 retest - global Command Center ticket creation" [ref=f407e257] [cursor=pointer]:
+                    - /url: /issues/5
+                - cell [ref=f407e258]:
+                  - link "Actions" [ref=f407e259] [cursor=pointer]:
+                    - /url: "#"
+    - generic [ref=f407e261]:
+      - text: Powered by
+      - link "Redmine" [ref=f407e262] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f407e263]
+  - log [ref=f407e264]
+  - log [ref=f407e265]
+  - log [ref=f407e266]
+  - log [ref=f407e267]
+  - log [ref=f407e268]
+  - log [ref=f407e269]
+  - log [ref=f407e270]
+  - log [ref=f407e271]
+  - log [ref=f407e272]
+  - log [ref=f407e273]
+  - log [ref=f407e274]
+  - log [ref=f407e275]
+  - log [ref=f407e276]
+  - log [ref=f407e277]
+  - log [ref=f407e278]
+  - log [ref=f407e279]
+  - log [ref=f407e280]
+  - log [ref=f407e281]
+  - log [ref=f407e282]
+  - log [ref=f407e283]
+  - log [ref=f407e284]
+  - log [ref=f407e285]
+  - log [ref=f407e286]
+  - log [ref=f407e287]
+  - log [ref=f407e288]
+  - log [ref=f407e289]
+  - log [ref=f407e290]
+  - log [ref=f407e291]
+  - log [ref=f407e292]
+  - log [ref=f407e293]
+  - log [ref=f407e294]
+  - log [ref=f407e295]
+  - log [ref=f407e296]
+  - log [ref=f407e297]
+  - log [ref=f407e298]

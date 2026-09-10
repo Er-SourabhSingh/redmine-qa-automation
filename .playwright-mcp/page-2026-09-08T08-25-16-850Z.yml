@@ -1,0 +1,228 @@
+- generic [active] [ref=f169e1]:
+  - generic [ref=f169e2]:
+    - navigation [ref=f169e3]:
+      - generic [ref=f169e4]:
+        - link [ref=f169e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f169e7] [cursor=pointer]
+      - list [ref=f169e17]:
+        - listitem [ref=f169e18]:
+          - link "Hauptseite" [ref=f169e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f169e20]:
+          - link "Meine Seite" [ref=f169e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f169e22]:
+          - link "Projekte" [ref=f169e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f169e24]:
+          - link "Agile Board" [ref=f169e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f169e26]:
+          - link "Flux Gantt" [ref=f169e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f169e28]:
+          - link "Administration" [ref=f169e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f169e30]:
+          - link "Hilfe" [ref=f169e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f169e32]:
+        - generic [ref=f169e33]:
+          - generic [ref=f169e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f169e35]
+        - link "Mein Konto" [ref=f169e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f169e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f169e44]:
+      - generic [ref=f169e46]:
+        - heading "Agile Board Project" [level=1] [ref=f169e47]
+        - generic [ref=f169e48]:
+          - generic [ref=f169e49]:
+            - generic [ref=f169e50]: Hauptmenü
+            - listitem [ref=f169e51]:
+              - link "+" [ref=f169e52] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f169e53]:
+            - listitem [ref=f169e54]:
+              - link "Übersicht" [ref=f169e55] [cursor=pointer]:
+                - /url: /projects/agileboard
+            - listitem [ref=f169e60]:
+              - link "Dashboard" [ref=f169e61] [cursor=pointer]:
+                - /url: /projects/agileboard/analytics_dashboard
+            - listitem [ref=f169e69]:
+              - link "Aktivität" [ref=f169e70] [cursor=pointer]:
+                - /url: /projects/agileboard/activity
+            - listitem [ref=f169e75]:
+              - link "Agile Board" [ref=f169e76] [cursor=pointer]:
+                - /url: /projects/agileboard/agile_board
+            - listitem [ref=f169e84]:
+              - link "Backlog" [ref=f169e85] [cursor=pointer]:
+                - /url: /projects/agileboard/backlog
+            - listitem [ref=f169e90]:
+              - link "Roadmap" [ref=f169e91] [cursor=pointer]:
+                - /url: /projects/agileboard/roadmap
+            - listitem [ref=f169e98]:
+              - link "Tickets" [ref=f169e99] [cursor=pointer]:
+                - /url: /projects/agileboard/issues
+            - listitem [ref=f169e104]:
+              - link "Aufgewendete Zeit" [ref=f169e105] [cursor=pointer]:
+                - /url: /projects/agileboard/time_entries
+            - listitem [ref=f169e110]:
+              - link "Gantt-Diagramm" [ref=f169e111] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/gantt
+            - listitem [ref=f169e119]:
+              - link "Kalender" [ref=f169e120] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/calendar
+            - listitem [ref=f169e125]:
+              - link "News" [ref=f169e126] [cursor=pointer]:
+                - /url: /projects/agileboard/news
+            - listitem [ref=f169e131]:
+              - link "Dokumente" [ref=f169e132] [cursor=pointer]:
+                - /url: /projects/agileboard/documents
+            - listitem [ref=f169e137]:
+              - link "Wiki" [ref=f169e138] [cursor=pointer]:
+                - /url: /projects/agileboard/wiki
+            - listitem [ref=f169e143]:
+              - link "Dateien" [ref=f169e144] [cursor=pointer]:
+                - /url: /projects/agileboard/files
+            - listitem [ref=f169e149]:
+              - link "Konfiguration" [ref=f169e150] [cursor=pointer]:
+                - /url: /projects/agileboard/settings
+      - generic [ref=f169e156]:
+        - heading "Konfiguration" [level=2] [ref=f169e157]
+        - list [ref=f169e159]:
+          - listitem [ref=f169e160]:
+            - link "Projekt" [ref=f169e161] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/info
+          - listitem [ref=f169e162]:
+            - link "Mitglieder" [ref=f169e163] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/members
+          - listitem [ref=f169e164]:
+            - link "Tickets" [ref=f169e165] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/issues
+          - listitem [ref=f169e166]:
+            - link "Versionen" [ref=f169e167] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/versions
+          - listitem [ref=f169e168]:
+            - link "Ticket-Kategorien" [ref=f169e169] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/categories
+          - listitem [ref=f169e170]:
+            - link "Repositories" [ref=f169e171] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/repositories
+          - listitem [ref=f169e172]:
+            - link "Foren" [ref=f169e173] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/boards
+          - listitem [ref=f169e174]:
+            - link "Zeiterfassung" [ref=f169e175] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/activities
+          - listitem [ref=f169e176]:
+            - link "Sprints" [ref=f169e177] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/sprints
+        - text: pre
+        - generic [ref=f169e178]:
+          - link "Neuer Sprint" [ref=f169e180] [cursor=pointer]:
+            - /url: /projects/agileboard/sprint_crafts/new?from_settings=true
+          - generic [ref=f169e181]:
+            - text: "Nach Status filtern:"
+            - combobox "Nach Status filtern:" [ref=f169e182]:
+              - option "Alle" [selected]
+              - option "Offen"
+              - option "Aktiv"
+              - option "Geschlossen"
+          - table [ref=f169e183]:
+            - rowgroup [ref=f169e184]:
+              - row [ref=f169e185]:
+                - columnheader "Name" [ref=f169e186]
+                - columnheader "Startdatum" [ref=f169e187]
+                - columnheader "Enddatum" [ref=f169e188]
+                - columnheader "Status" [ref=f169e189]
+                - columnheader "Freigabe" [ref=f169e190]
+                - columnheader [ref=f169e191]
+            - rowgroup [ref=f169e192]:
+              - row [ref=f169e193]:
+                - cell [ref=f169e194]:
+                  - link "QA German Sprint" [ref=f169e195] [cursor=pointer]:
+                    - /url: /projects/agileboard/sprint_crafts/3/edit
+                - cell "08.09.2026" [ref=f169e196]
+                - cell "21.09.2026" [ref=f169e197]
+                - cell "Offen" [ref=f169e198]
+                - cell "Nicht geteilt" [ref=f169e199]
+                - cell [ref=f169e200]:
+                  - link "Bearbeiten" [ref=f169e201] [cursor=pointer]:
+                    - /url: /projects/agileboard/sprint_crafts/3/edit?from_settings=true
+                  - link "Löschen" [ref=f169e202] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f169e203]:
+                - cell [ref=f169e204]:
+                  - link "UI Polish" [ref=f169e205] [cursor=pointer]:
+                    - /url: /projects/agileboard/sprint_crafts/2/edit
+                - cell "12.09.2026" [ref=f169e206]
+                - cell "21.09.2026" [ref=f169e207]
+                - cell "Offen" [ref=f169e208]
+                - cell "not_shared" [ref=f169e209]
+                - cell [ref=f169e210]:
+                  - link "Bearbeiten" [ref=f169e211] [cursor=pointer]:
+                    - /url: /projects/agileboard/sprint_crafts/2/edit?from_settings=true
+                  - link "Löschen" [ref=f169e212] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f169e213]:
+                - cell [ref=f169e214]:
+                  - link "Bug Bash" [ref=f169e215] [cursor=pointer]:
+                    - /url: /projects/agileboard/sprint_crafts/1/edit
+                - cell "01.09.2026" [ref=f169e216]
+                - cell "11.09.2026" [ref=f169e217]
+                - cell "Offen" [ref=f169e218]
+                - cell "not_shared" [ref=f169e219]
+                - cell [ref=f169e220]:
+                  - link "Bearbeiten" [ref=f169e221] [cursor=pointer]:
+                    - /url: /projects/agileboard/sprint_crafts/1/edit?from_settings=true
+                  - link "Löschen" [ref=f169e222] [cursor=pointer]:
+                    - /url: "#"
+    - generic [ref=f169e223]:
+      - text: Powered by
+      - link "Redmine" [ref=f169e224] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f169e225]
+  - log [ref=f169e226]
+  - log [ref=f169e227]
+  - log [ref=f169e228]
+  - log [ref=f169e229]
+  - log [ref=f169e230]
+  - log [ref=f169e231]
+  - log [ref=f169e232]
+  - log [ref=f169e233]
+  - log [ref=f169e234]
+  - log [ref=f169e235]
+  - log [ref=f169e236]
+  - log [ref=f169e237]
+  - log [ref=f169e238]
+  - log [ref=f169e239]
+  - log [ref=f169e240]
+  - log [ref=f169e241]
+  - log [ref=f169e242]
+  - log [ref=f169e243]
+  - log [ref=f169e244]
+  - log [ref=f169e245]
+  - log [ref=f169e246]
+  - log [ref=f169e247]
+  - log [ref=f169e248]
+  - log [ref=f169e249]
+  - log [ref=f169e250]
+  - log [ref=f169e251]
+  - log [ref=f169e252]
+  - log [ref=f169e253]
+  - log [ref=f169e254]
+  - log [ref=f169e255]
+  - log [ref=f169e256]
+  - log [ref=f169e257]
+  - log [ref=f169e258]
+  - log [ref=f169e259]
+  - log [ref=f169e260]
+  - log [ref=f169e261]
+  - log [ref=f169e262]
+  - log [ref=f169e263]
+  - log [ref=f169e264]

@@ -1,0 +1,205 @@
+- generic [ref=f32e1]:
+  - generic [ref=f32e2]:
+    - generic [ref=f32e3]:
+      - generic [ref=f32e4]:
+        - list:
+          - listitem [ref=f32e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f32e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f32e7]:
+        - text: Logged in as
+        - link "admin" [ref=f32e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f32e9]:
+        - listitem [ref=f32e10]:
+          - link [ref=f32e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f32e12]
+        - listitem [ref=f32e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f32e14]:
+          - link "My page" [ref=f32e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f32e16]:
+          - link "Projects" [ref=f32e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f32e18]:
+          - link "Flux Gantt" [ref=f32e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f32e20]:
+          - link "Helpdesk Command Center" [ref=f32e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f32e22]:
+          - link "Time Tracker" [ref=f32e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f32e24]:
+          - link "Timesheet" [ref=f32e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f32e26]:
+          - link "Workloads" [ref=f32e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f32e28]:
+          - link "More" [ref=f32e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f32e30]:
+      - generic [ref=f32e31]:
+        - generic [ref=f32e32]:
+          - generic [ref=f32e33]:
+            - link "Search..." [ref=f32e34] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f32e35]
+        - generic [ref=f32e36]:
+          - generic [ref=f32e37] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f32e38]
+      - generic [ref=f32e39]:
+        - list [ref=f32e40]:
+          - listitem [ref=f32e41]:
+            - link "+" [ref=f32e42] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f32e43]:
+            - link "Overview" [ref=f32e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f32e45]:
+            - link "Activity" [ref=f32e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f32e47]:
+            - link "Issues" [ref=f32e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f32e49]:
+            - link "Spent time" [ref=f32e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f32e51]:
+            - link "Gantt" [ref=f32e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f32e53]:
+            - link "Calendar" [ref=f32e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f32e55]:
+            - link "News" [ref=f32e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f32e57]:
+            - link "Documents" [ref=f32e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f32e59]:
+            - link "Wiki" [ref=f32e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f32e61]:
+            - link "Files" [ref=f32e62] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f32e63]:
+            - link "Helpdesk" [ref=f32e64] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+          - listitem [ref=f32e65]:
+            - link "Settings" [ref=f32e66] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/settings
+        - generic [ref=f32e67]:
+          - button [ref=f32e68] [cursor=pointer]
+          - button [ref=f32e71] [cursor=pointer]
+    - generic [ref=f32e74]:
+      - list [ref=f32e78]:
+        - listitem [ref=f32e79]:
+          - link "Helpdesk Dashboard" [ref=f32e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f32e83]:
+          - link "Helpdesk Tickets" [ref=f32e84] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f32e87]:
+          - link "Knowledgebase" [ref=f32e88] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+        - listitem [ref=f32e91]:
+          - link "Helpdesk SLA" [ref=f32e92] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/sla
+        - listitem [ref=f32e95]:
+          - link "Organization" [ref=f32e96] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/organization
+        - listitem [ref=f32e99]:
+          - link "Settings" [ref=f32e100] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/settings
+      - generic [ref=f32e103]:
+        - heading "New Holiday" [level=2] [ref=f32e104]
+        - generic [ref=f32e105]:
+          - generic [ref=f32e106]:
+            - paragraph [ref=f32e107]:
+              - generic [ref=f32e108]: Holiday Name *
+              - textbox "Holiday Name *" [active] [ref=f32e109]
+            - paragraph [ref=f32e110]:
+              - generic [ref=f32e111]: Description
+              - generic [ref=f32e112]:
+                - list [ref=f32e114]:
+                  - listitem [ref=f32e115]:
+                    - link "Edit" [ref=f32e116] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f32e117]:
+                    - link "Preview" [ref=f32e118] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f32e119]:
+                    - generic [ref=f32e120]:
+                      - button "Strong (Ctrl+B)" [ref=f32e121] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f32e122] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f32e123] [cursor=pointer]
+                      - button "Deleted" [ref=f32e124] [cursor=pointer]
+                      - button "Inline Code" [ref=f32e125] [cursor=pointer]
+                      - button "Heading 1" [ref=f32e126] [cursor=pointer]
+                      - button "Heading 2" [ref=f32e127] [cursor=pointer]
+                      - button "Heading 3" [ref=f32e128] [cursor=pointer]
+                      - button "Unordered list" [ref=f32e129] [cursor=pointer]
+                      - button "Ordered list" [ref=f32e130] [cursor=pointer]
+                      - button "Task list" [ref=f32e131] [cursor=pointer]
+                      - button "Quote" [ref=f32e132] [cursor=pointer]
+                      - button "Remove Quote" [ref=f32e133] [cursor=pointer]
+                      - button "Table" [ref=f32e134] [cursor=pointer]
+                      - button "pre" [ref=f32e135] [cursor=pointer]
+                      - button "Highlighted code" [ref=f32e136] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f32e137] [cursor=pointer]
+                      - button "Image" [ref=f32e138] [cursor=pointer]
+                      - button "Help" [ref=f32e139] [cursor=pointer]
+                - textbox "Description" [ref=f32e141]
+            - paragraph [ref=f32e142]:
+              - generic [ref=f32e143]: Start Date *
+              - textbox "Start Date *" [ref=f32e144]
+            - paragraph [ref=f32e145]:
+              - generic [ref=f32e146]: End Date *
+              - textbox "End Date *" [ref=f32e147]
+          - button "Create" [ref=f32e148] [cursor=pointer]
+          - link "Cancel" [ref=f32e149] [cursor=pointer]:
+            - /url: /projects/1/helpdesk/settings?tab=holidays
+    - generic [ref=f32e150]:
+      - text: Powered by
+      - link "Redmine" [ref=f32e151] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f32e152]
+  - log [ref=f32e153]
+  - log [ref=f32e154]
+  - log [ref=f32e155]
+  - log [ref=f32e156]
+  - log [ref=f32e157]
+  - log [ref=f32e158]
+  - log [ref=f32e159]
+  - log [ref=f32e160]
+  - log [ref=f32e161]
+  - log [ref=f32e162]
+  - log [ref=f32e163]
+  - log [ref=f32e164]
+  - log [ref=f32e165]
+  - log [ref=f32e166]
+  - log [ref=f32e167]
+  - log [ref=f32e168]
+  - log [ref=f32e169]
+  - log [ref=f32e170]
+  - log [ref=f32e171]
+  - log [ref=f32e172]
+  - log [ref=f32e173]
+  - log [ref=f32e174]
+  - log [ref=f32e175]
+  - log [ref=f32e176]
+  - log [ref=f32e177]
+  - log [ref=f32e178]
+  - log [ref=f32e179]
+  - log [ref=f32e180]

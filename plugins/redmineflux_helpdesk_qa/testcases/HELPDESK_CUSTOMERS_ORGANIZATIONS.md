@@ -40,6 +40,67 @@ These two statements are mutually exclusive. **TC-HLP-122** below exists specifi
 
 ---
 
+### TC-HLP-324: Creating an organization with only the required Name field succeeds
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Precondition:** None. Complements TC-HLP-108 (every field filled) — this is the opposite extreme, confirming Name really is the only hard requirement per `HELPDESK_USER_GUIDE.md` §3.4 ("Name is required and must be unique. Everything else... is optional").
+
+**Steps:**
+1. Helpdesk › Organizations › New Organization
+2. Enter only a unique Name — leave Website, Phone, Address, Number of Employees, Notes, and Billing Info **all blank**
+3. Save
+
+**Expected Result:**
+- Save succeeds with no required-field error on any of the optional fields
+- The organization appears in the list with every optional field showing as empty/blank/"—", not a validation failure or a silently-defaulted value
+
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS.** Created "Alpha Minimal Fields Test Org" with only the Name field filled — Website, Phone Number, Organization Address, Number of Employees, Notes, and Billing Info all left blank. Save succeeded ("Successful creation.") with no required-field error on any optional field. Detail page confirms every optional field renders correctly empty: Website "—", Phone Number "—", Number of Employees "—", Organization Address "—", "No notes available", "No billing information available" — no silent defaulting, no validation failure.
+
+---
+
+### TC-HLP-336: Editing an organization to change only the Name field leaves its already-set optional fields untouched
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Precondition:** An organization exists with every optional field populated (e.g. "Gamma Corp" from TC-HLP-108 — Website, Phone, Address, Number of Employees, Notes, and Billing Info all set).
+
+**Steps:**
+1. Open the organization's Edit form
+2. Note the current values of Website, Phone Number, Organization Address, Number of Employees, Notes, and Billing Info exactly as pre-populated by the form
+3. Change ONLY the Name field to a new unique value — do not touch any other field
+4. Save
+5. Reload the organization's detail page
+
+**Expected Result:**
+- Save succeeds and the new Name is shown
+- Every optional field (Website, Phone Number, Organization Address, Number of Employees, Notes, Billing Info) still shows the exact value noted in step 2 — none were blanked, reset to "—"/empty, or silently dropped by the partial update
+- This guards against a common Edit-form bug class where the form resubmits without properly carrying forward already-set optional fields it didn't render as changed — distinct from TC-HLP-108 (create with everything filled) and TC-HLP-324 (create with only Name), neither of which ever opens the Edit form
+- If any optional field reverts to blank/"—" after this Name-only edit, file it as a data-loss bug — severity scales with how many fields are wiped
+
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS — no data loss.** Created a fresh fixture for this TC ("Alpha Full-Fields Test Org") since no pre-existing fully-populated organization survived the environment's fixture history — filled Website (`https://alpha-fullfields.example.com`), Phone Number (`+1 (555) 222-3344`), Organization Address (`100 Baseline Street, Testville`), Number of Employees (`42`), Notes, and Billing Info, and confirmed all six saved correctly on the detail page first. Opened Edit, noted all six values exactly as pre-populated, then changed **only** Name to "Alpha Full-Fields Test Org (Renamed)" — left every other field untouched, did not click into any of them. Reloaded the detail page: Name shows the new value; Website, Phone Number, Number of Employees, Organization Address, Notes, and Billing Info are all byte-identical to what was noted before the edit — none blanked, reset to "—", or silently dropped.
+
+---
+
+### TC-HLP-337: Editing an organization to change every field in one Save persists all new values
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Precondition:** An organization exists with an established baseline of field values (e.g. "Gamma Corp" from TC-HLP-108, or any organization with known current values for every field).
+
+**Steps:**
+1. Open the organization's Edit form
+2. Change every field in one pass: Name (new unique value), Website, Phone Number, Organization Address, Number of Employees, Notes, and Billing Info — each replaced with a value different from what's currently stored
+3. Save
+4. Reload the organization's detail page
+
+**Expected Result:**
+- Save succeeds with no validation errors
+- Every field displays its newly entered value, not the old one — confirms the Edit form doesn't silently drop, ignore, or partially apply any field when all of them change together in a single submission
+- Complements TC-HLP-108 (create with all fields) by exercising the same all-fields-populated scenario via Edit instead of Create, and is the opposite extreme from the required-only Edit case above (Name-only change) — together the pair covers both ends of Edit-form field coverage
+- If any field fails to persist its new value (silently reverts to the old value, or the Save errors out), treat it as a data-integrity bug — this is the primary path an admin uses to correct an organization's details after creation
+
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS.** Reused "Alpha Full-Fields Test Org (Renamed)" from TC-HLP-336 (already had a known baseline of all 6 non-Name fields). Opened Edit and changed every field in one pass: Name → "Alpha Full-Fields Test Org (All Changed)", Website → `https://alpha-allchanged.example.org`, Phone Number → `+44 20 7946 0999`, Organization Address → `200 Updated Avenue, New Testburg`, Number of Employees → `999`, Notes → "Updated notes for TC-HLP-337 all-fields-changed test.", Billing Info → "Updated billing info for TC-HLP-337 all-fields-changed test." Save succeeded ("Successful update") with no validation errors. Reloaded the detail page — every one of the 7 fields displays its exact new value, nothing reverted to the old value and nothing was dropped.
+
+---
+
 ### TC-HLP-109: Creating a customer creates the account and flags it as a helpdesk customer
 
 **User Role:** Admin or Agent with `manage_helpdesk`
@@ -91,6 +152,31 @@ These two statements are mutually exclusive. **TC-HLP-122** below exists specifi
 
 ---
 
+### TC-HLP-333: Editing only a customer's required Last name leaves the existing Project Access row, Organization, and password untouched
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Precondition:** An existing customer with an already-set Project Access row (Project/SLA/Support Level/Organization) — e.g. `beta.customer`, whose row holds Beta Standard SLA / AB-L1 / Beta Org per TC-HLP-115. TC-HLP-293/294 already change Last name via Edit but never check whether the Project Access row or password survive the same save — this TC closes that gap.
+
+**Steps:**
+1. Open the customer's Edit form
+2. Note the current values of the Project Access row (Project, SLA, Support Level, Organization) and leave that section completely untouched — do not click into or re-select any of its dropdowns
+3. Change only the Last name field (e.g. append "-ReqOnly"); leave Login, First name, Email, and the Password/Confirmation fields exactly as they are — do not re-type anything into them
+4. Leave "Send account information to the user" unchecked (its default per TC-HLP-293)
+5. Save
+6. Reload the customer's Edit form, Customer 360, and the customer list
+
+**Expected Result:**
+- Last name shows the new value everywhere it's displayed (customer list, Customer 360 identity block, Edit form on reload)
+- The Project Access row (Project/SLA/Support Level/Organization) is byte-identical to what it was before the edit — a partial save must not blank/reset the untouched section. This is the specific defect class this TC targets: an Edit form re-submitting an untouched section's fields as empty because they weren't included in the changed-fields payload
+- Login and Email are unchanged
+- The customer can still authenticate with their existing password — a required-field-only save must not silently force a password reset or invalidate the existing credential
+- No account-update email is sent, since the checkbox was left unchecked — consistent with TC-HLP-294
+- If Project Access/Organization/Support Level is found reset to blank/None, or the existing password stops working, after this save, file it as a data-loss bug — distinct from TC-HLP-293/294, which only ever verified the Last name field itself and the email checkbox, never the Project Access section's or password's survival
+
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS.** Preconditions adapted to the real environment — `beta.customer` does not exist on this instance (never recreated after the 2026-08-27 DB reset); used `alpha.customer` instead, whose established Project Access row was Helpdesk QA Alpha / Alpha Escalation Test SLA / L1 / Organization None. Opened Edit, noted the row's exact values, left the Project Access section completely untouched, and changed only Last name (`Customer` → `Customer-ReqOnly`); left Login, First name, Email, and Password/Confirmation untouched. Saved — "Successful update". Reload confirmed: Last name shows "Customer-ReqOnly" in the customer list, Customer 360, and Edit form; Login/Email unchanged; Project Access row byte-identical (Helpdesk QA Alpha / Alpha Escalation Test SLA / L1 / None) — no reset to blank. Confirmed the existing password still works via a real sign-out/sign-in as `alpha.customer` with her original password — login succeeded, "My Helpdesk" showed "Helpdesk QA Alpha". (Last name was restored to "Customer" immediately after, as part of this session's full baseline restoration of this fixture — see TC-HLP-334 note.)
+
+---
+
 ### TC-HLP-110: Adding a project-access row saves SLA, support level, and organization together
 
 **User Role:** Admin or Agent with `manage_helpdesk`
@@ -104,6 +190,49 @@ These two statements are mutually exclusive. **TC-HLP-122** below exists specifi
 **Expected Result:**
 - The project-access row saves with all four values correctly associated
 - **CONFIRMED LIVE 2026-08-27** (Local, redmine-docker-6): PASS. Added Helpdesk QA Beta / Beta Standard SLA / AB-L1 / Gamma Corp to `gamma.customer` — "Successful update", customer list row correctly shows Gamma Corp / AB-L1 / 1 project.
+
+---
+
+### TC-HLP-334: Editing a customer and changing every field — identity, password, and the Project Access row — in one Save persists all of them
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Precondition:** An existing customer with a Project Access row already set (e.g. from TC-HLP-110). A second eligible project with its own SLA, support level, and organization exists so the Project Access row's Project/SLA/Support Level/Organization can each actually be changed to a different value, not just re-saved unchanged. TC-HLP-323 exercises "everything filled in one Save" but only on the New Customer (Create) form; TC-HLP-110 changes only the Project Access row as a follow-up edit; TC-HLP-293/294 change only Last name plus the notification checkbox. No existing case edits Login, First name, Last name, Email, Password, AND the Project Access row together in a single Edit-form Save.
+
+**Steps:**
+1. Open the customer's Edit form (the one with the Project Access row from the precondition)
+2. Change Login, First name, Last name, and Email to new values
+3. Enter a new explicit Password + Confirmation (uncheck "Generate password automatically" first if the Edit form offers that toggle)
+4. In the Project Access row, change Project, SLA, Support Level, and Organization all to a different combination than what they currently hold (per precondition)
+5. Save — all changes in one submission
+6. Reload the customer's Edit form, Customer 360, and the customer list; attempt to sign in as the customer using the new Login and new Password
+
+**Expected Result:**
+- All identity fields (Login, First name, Last name, Email) show their new values everywhere they're displayed (list, Customer 360 identity block, Edit form on reload)
+- The new password actually works for sign-in — confirmed via a real login attempt, not just assumed from the form accepting it; this is distinct from TC-HLP-246/247, which only ever check create-time password validation, never that an edited password is truly usable afterward
+- The Project Access row reflects every new value (Project/SLA/Support Level/Organization) — not a mix of old and new, and not silently dropped
+- If any single field silently reverts to its old value or drops to blank while the others save correctly, that's a distinct defect from TC-HLP-110/293/294 (each of which changes only one section at a time) since it specifically indicates the form's multi-section Save doesn't handle a fully-changed submission atomically
+
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS.** Used `alpha.customer` (id 6) as the precondition fixture; Beta's "AB-L1" Support Level had been deleted in an earlier session and was rebuilt first (Level Order 1, assignee `no.perm.reporter`) to unblock the cross-project change. In one Edit submission, changed: Login → `alpha.customer.v2`, First name → `AlphaV2`, Last name → `Customer-AllChanged`, Email → `alpha.customer.v2@test.local`, Password/Confirmation → `NewPass@2026` (explicit, not generated), and the Project Access row from Helpdesk QA Alpha/Alpha Escalation Test SLA/L1/None to Helpdesk QA Beta/Beta Standard SLA/AB-L1/Alpha Full-Fields Test Org (All Changed). Saved — "Successful update". Reload confirmed all identity fields show their new values everywhere (list, Customer 360, Edit form) and the Project Access row reflects the full new combination, no mix of old/new. Signed out and signed back in as `alpha.customer.v2` with password `NewPass@2026` — login succeeded, confirming the new password is genuinely usable, not just accepted by the form. **Fixture hygiene**: since `alpha.customer` is referenced across many other suites in this engagement, restored her immediately after to exact original baseline (Login `alpha.customer`, First `Alpha`, Last `Customer`, Email `alpha.customer@test.local`, Password `Test@12345`, Project Access: Helpdesk QA Alpha/Alpha Escalation Test SLA/L1/None) — verified via a real login as `alpha.customer` with her original password, which succeeded and showed "Helpdesk QA Alpha" again.
+
+---
+
+### TC-HLP-323: Creating a customer with identity, an explicit password, and a Project Access row all filled in a single Save
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Precondition:** An SLA, a support level, and an organization all exist on the target project. TC-HLP-109 deliberately saves without project access ("Save without adding project access yet") and TC-HLP-110 adds project access as a separate follow-up action on an already-existing customer — neither TC ever exercises the New Customer form with everything filled in on the very first Save. Per `HELPDESK_HANDOFF.md`'s own 2026-08-24 note, the Project Access section on the New Customer form is **not** statically absent — it renders conditionally once an eligible project/SLA/organization exists, so this combined flow should be reachable.
+
+**Steps:**
+1. Helpdesk › Customers › New Customer
+2. Fill in Name, Login, Email
+3. Leave "Generate password automatically" unchecked; enter an explicit Password + Confirmation
+4. In the same form, use Project Access to select a project, its SLA, its support level, and an organization
+5. Save — all in this one submission, not as a follow-up edit
+
+**Expected Result:**
+- A single Save creates the user account, flags it as a helpdesk customer, sets the explicit password (not a generated one), and creates the project-access row with all four values (project/SLA/support level/organization) correctly associated — matching what TC-HLP-110 confirms is possible via a follow-up edit, but done here in one shot at creation time
+- If any part of this combined submission fails silently (e.g. the account creates but the project-access row is dropped, or vice versa), that is a distinct defect from anything TC-HLP-109/110 individually would have caught, since each of those only exercises one half at a time
+
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS.** Helpdesk › Customers › New Customer. Filled First `Delta`, Last `Customer`, Login `delta.customer`, Email `delta.customer@test.local`; left "Generate password automatically" unchecked and entered explicit Password/Confirmation `Test@12345`. In the same form's Project Access row, selected Project "Helpdesk QA Alpha", SLA "Alpha Standard SLA", Support Level "L2", Organization "Alpha Minimal Fields Test Org". Saved in this one submission — "Successful creation. Welcome email sent to customer successfully." Customer list confirms the new row (id 14): "Delta Customer" / `delta.customer` / `delta.customer@test.local` / Organization "Alpha Minimal Fields Test Org" / Support Level "L2" / 1 project — the account, the explicit password, and the full project-access row (project/SLA/support level/organization) all persisted from the single Save, none dropped.
 
 ---
 
@@ -386,6 +515,7 @@ These two statements are mutually exclusive. **TC-HLP-122** below exists specifi
 - Step 2: the deactivated organization is not offered for new work
 - Step 3: existing historical associations and data remain intact and visible
 - **CONFIRMED LIVE 2026-08-27** (Local, redmine-docker-6): PASS. Deactivated "Beta Org" (real fixture — `beta.customer` + tickets #67/69/70). New Customer form's Organization dropdown correctly dropped it (only "Alpha Org" + "None" remained, since Alpha Org Subsidiary was also inactive at the time). `beta.customer`'s Customer 360 still showed "Organization Name: Beta Org" intact throughout, both in the identity block and the Beta project's entitlement row. Reactivated Beta Org afterward to restore normal state.
+- **CONFIRMED LIVE 2026-09-01** (Local, redmine-docker-6) — **reactivation-reappearance explicitly re-verified**, since the 2026-08-27 pass above only confirmed deactivation-hides and reactivated Beta Org without re-checking the dropdown afterward: created disposable "Alpha Reactivation Test Org" (global Organizations list, id 6). New Customer form's Organization Name dropdown correctly offered it while active ("None" + "Alpha Reactivation Test Org"). Unchecked its Active checkbox on `/rf_organizations` — New Customer form immediately dropped back to offering only "None". Re-checked Active — reloaded `/rf_customers/new` fresh — the dropdown correctly shows "None" + "Alpha Reactivation Test Org" again, confirming reactivation reliably restores dropdown availability with no stale caching or lingering exclusion. Answers Scenario 4 (deactivated-Organization dropdown behavior) completely: both the hide-on-deactivate and reappear-on-reactivate halves are now explicitly, individually confirmed.
 
 ---
 
@@ -426,7 +556,7 @@ These two statements are mutually exclusive. **TC-HLP-122** below exists specifi
 
 ## Evidence Map
 
-- Case ID: TC-HLP-108 – TC-HLP-124, plus TC-HLP-279–280 (Organization list filter, Customer list Apply/Clear combined-filter, added 2026-08-24), TC-HLP-283 (SLA dropdown project-scoping in Customer form), TC-HLP-284 (Organization dropdown NOT project-scoped, by design), TC-HLP-293–294 (Edit Customer "Send account information" checkbox gates the update-notification email), TC-HLP-296–297 (SLA/Support Level delete-while-linked-to-customer, in `HELPDESK_SLA_ESCALATION.md`), TC-HLP-298 (an organization's project-scoped Organization-tab visibility is derived from customer project-access selection, not creation origin)
+- Case ID: TC-HLP-108 – TC-HLP-124, plus TC-HLP-279–280 (Organization list filter, Customer list Apply/Clear combined-filter, added 2026-08-24), TC-HLP-283 (SLA dropdown project-scoping in Customer form), TC-HLP-284 (Organization dropdown NOT project-scoped, by design), TC-HLP-293–294 (Edit Customer "Send account information" checkbox gates the update-notification email), TC-HLP-296–297 (SLA/Support Level delete-while-linked-to-customer, in `HELPDESK_SLA_ESCALATION.md`), TC-HLP-298 (an organization's project-scoped Organization-tab visibility is derived from customer project-access selection, not creation origin), TC-HLP-323 (Customer create with identity+password+project-access all in one Save, added 2026-09-01), TC-HLP-324 (Organization create with only required Name, added 2026-09-01), TC-HLP-333/334 (Customer edit-required-only and edit-all-fields, added 2026-09-01 after a background audit workflow), TC-HLP-336/337 (Organization edit-required-only and edit-all-fields, same pass — Organization previously had ZERO Edit-form coverage of any kind); see `HELPDESK_FIELD_VALIDATIONS.md` TC-HLP-335/TC-HLP-338 for these two entities' edit-time validation-error counterparts
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`

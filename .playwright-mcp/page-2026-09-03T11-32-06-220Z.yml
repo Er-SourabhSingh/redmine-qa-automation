@@ -1,0 +1,214 @@
+- generic [ref=f542e1]:
+  - generic [ref=f542e2]:
+    - generic [ref=f542e3]:
+      - generic [ref=f542e4]:
+        - list:
+          - listitem [ref=f542e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f542e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f542e7]:
+        - text: Logged in as
+        - link "admin" [ref=f542e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f542e9]:
+        - listitem [ref=f542e10]:
+          - link [ref=f542e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f542e12]
+        - listitem [ref=f542e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f542e14]:
+          - link "My page" [ref=f542e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f542e16]:
+          - link "Projects" [ref=f542e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f542e18]:
+          - link "Flux Gantt" [ref=f542e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f542e20]:
+          - link "Helpdesk Command Center" [ref=f542e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f542e22]:
+          - link "Time Tracker" [ref=f542e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f542e24]:
+          - link "Timesheet" [ref=f542e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f542e26]:
+          - link "Workloads" [ref=f542e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f542e28]:
+          - link "More" [ref=f542e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f542e30]:
+      - generic [ref=f542e31]:
+        - generic [ref=f542e32]:
+          - generic [ref=f542e33]:
+            - link "Search..." [ref=f542e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f542e35]
+        - generic [ref=f542e36]:
+          - generic [ref=f542e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f542e38]
+    - generic [ref=f542e39]:
+      - list [ref=f542e43]:
+        - listitem [ref=f542e44]:
+          - link "Helpdesk Dashboard" [ref=f542e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f542e48]:
+          - link "Helpdesk Tickets" [ref=f542e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f542e52]:
+          - link "Reports" [ref=f542e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f542e56]:
+          - link "Organization" [ref=f542e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f542e60]:
+          - link "Customers" [ref=f542e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f542e64]:
+          - link "Products" [ref=f542e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f542e68]:
+          - link "Helpdesk Settings" [ref=f542e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f542e72]:
+        - generic [ref=f542e73]: Successful update
+        - generic [ref=f542e76]:
+          - heading "Helpdesk Settings" [level=2] [ref=f542e77]
+          - paragraph [ref=f542e78]: Holidays, products, SLA policies and canned responses
+        - list [ref=f542e80]:
+          - listitem [ref=f542e81]:
+            - link "Holiday" [ref=f542e82] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f542e83]:
+            - link "Products" [ref=f542e84] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f542e85]:
+            - link "Email Configuration" [ref=f542e86] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f542e87]:
+            - link "Canned Responses" [ref=f542e88] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+          - listitem [ref=f542e89]:
+            - link "Support Packages" [ref=f542e90] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+        - generic [ref=f542e91]:
+          - generic [ref=f542e93]:
+            - textbox "Search support packages..." [active] [ref=f542e95]
+            - generic [ref=f542e96]:
+              - button "Apply Filters" [ref=f542e97] [cursor=pointer]
+              - link "Clear" [ref=f542e100] [cursor=pointer]:
+                - /url: /rf_helpdesk/setting?tab=support_packages
+          - generic [ref=f542e105]:
+            - generic [ref=f542e106]:
+              - heading "Support Packages" [level=3] [ref=f542e107]
+              - link "New Support Package" [ref=f542e109] [cursor=pointer]:
+                - /url: /rf_helpdesk_support_packages/new
+            - table [ref=f542e111]:
+              - rowgroup [ref=f542e112]:
+                - row [ref=f542e113]:
+                  - columnheader "S.No" [ref=f542e114]
+                  - columnheader "Name" [ref=f542e115]
+                  - columnheader "Description" [ref=f542e116]
+                  - columnheader "Active" [ref=f542e117]
+                  - columnheader "Action" [ref=f542e118]
+              - rowgroup [ref=f542e119]:
+                - row [ref=f542e120]:
+                  - cell "1" [ref=f542e121]
+                  - cell "Inactive Test Package" [ref=f542e122]
+                  - cell "None" [ref=f542e123]
+                  - cell "Active" [ref=f542e124]
+                  - cell [ref=f542e130]:
+                    - generic [ref=f542e131]:
+                      - link "Edit" [ref=f542e132] [cursor=pointer]:
+                        - /url: /rf_helpdesk_support_packages/3/edit
+                      - link "Delete" [ref=f542e135] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f542e139]:
+                  - cell "2" [ref=f542e140]
+                  - cell "Premium Support (Renamed)" [ref=f542e141]
+                  - cell "24/7 priority support with a dedicated agent queue" [ref=f542e142]
+                  - cell "Active" [ref=f542e143]
+                  - cell [ref=f542e149]:
+                    - generic [ref=f542e150]:
+                      - link "Edit" [ref=f542e151] [cursor=pointer]:
+                        - /url: /rf_helpdesk_support_packages/1/edit
+                      - link "Delete" [ref=f542e154] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f542e158]:
+                  - cell "3" [ref=f542e159]
+                  - cell "Standard Support" [ref=f542e160]
+                  - cell "Business-hours support package for standard-tier customers" [ref=f542e161]
+                  - cell "Active" [ref=f542e162]
+                  - cell [ref=f542e168]:
+                    - generic [ref=f542e169]:
+                      - link "Edit" [ref=f542e170] [cursor=pointer]:
+                        - /url: /rf_helpdesk_support_packages/2/edit
+                      - link "Delete" [ref=f542e173] [cursor=pointer]:
+                        - /url: javascript:void(0)
+    - generic [ref=f542e177]:
+      - text: Powered by
+      - link "Redmine" [ref=f542e178] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f542e179]
+  - log [ref=f542e180]
+  - log [ref=f542e181]
+  - log [ref=f542e182]
+  - log [ref=f542e183]
+  - log [ref=f542e184]
+  - log [ref=f542e185]
+  - log [ref=f542e186]
+  - log [ref=f542e187]
+  - log [ref=f542e188]
+  - log [ref=f542e189]
+  - log [ref=f542e190]
+  - log [ref=f542e191]
+  - log [ref=f542e192]
+  - log [ref=f542e193]
+  - log [ref=f542e194]
+  - log [ref=f542e195]
+  - log [ref=f542e196]
+  - log [ref=f542e197]
+  - log [ref=f542e198]
+  - log [ref=f542e199]
+  - log [ref=f542e200]
+  - log [ref=f542e201]
+  - log [ref=f542e202]
+  - log [ref=f542e203]
+  - log [ref=f542e204]
+  - log [ref=f542e205]
+  - log [ref=f542e206]
+  - log [ref=f542e207]
+  - log [ref=f542e208]
+  - log [ref=f542e209]
+  - log [ref=f542e210]
+  - log [ref=f542e211]
+  - log [ref=f542e212]
+  - log [ref=f542e213]
+  - log [ref=f542e214]
+  - log [ref=f542e215]
+  - log [ref=f542e216]
+  - log [ref=f542e217]
+  - log [ref=f542e218]
+  - log [ref=f542e219]
+  - log [ref=f542e220]
+  - log [ref=f542e221]
+  - log [ref=f542e222]
+  - log [ref=f542e223]
+  - log [ref=f542e224]
+  - log [ref=f542e225]
+  - log [ref=f542e226]
+  - log [ref=f542e227]
+  - log [ref=f542e228]
+  - log [ref=f542e229]
+  - log [ref=f542e230]

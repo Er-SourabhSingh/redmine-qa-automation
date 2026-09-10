@@ -1,0 +1,2391 @@
+- generic [active] [ref=f151e1]:
+  - generic [ref=f151e2]:
+    - navigation [ref=f151e3]:
+      - generic [ref=f151e4]:
+        - link [ref=f151e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f151e7] [cursor=pointer]
+      - list [ref=f151e17]:
+        - listitem [ref=f151e18]:
+          - link "Hauptseite" [ref=f151e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f151e20]:
+          - link "Meine Seite" [ref=f151e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f151e22]:
+          - link "Projekte" [ref=f151e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f151e24]:
+          - link "Agile Board" [ref=f151e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f151e26]:
+          - link "Flux Gantt" [ref=f151e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f151e28]:
+          - link "Administration" [ref=f151e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f151e30]:
+          - link "Hilfe" [ref=f151e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f151e32]:
+        - generic [ref=f151e33]:
+          - generic [ref=f151e34] [cursor=pointer]: Zu einem Projekt springen...
+          - text: ✓
+        - button "Suche" [ref=f151e35]
+        - link "Mein Konto" [ref=f151e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f151e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f151e44]:
+      - generic [ref=f151e45]:
+        - generic [ref=f151e46]:
+          - heading "Redmine" [level=1] [ref=f151e47]
+          - generic [ref=f151e48]:
+            - generic [ref=f151e49]: Hauptmenü
+            - list [ref=f151e51]:
+              - listitem [ref=f151e52]:
+                - link "Projekte" [ref=f151e53] [cursor=pointer]:
+                  - /url: /projects
+              - listitem [ref=f151e61]:
+                - link "Aktivität" [ref=f151e62] [cursor=pointer]:
+                  - /url: /activity
+              - listitem [ref=f151e67]:
+                - link "Tickets" [ref=f151e68] [cursor=pointer]:
+                  - /url: /issues
+              - listitem [ref=f151e73]:
+                - link "Aufgewendete Zeit" [ref=f151e74] [cursor=pointer]:
+                  - /url: /time_entries
+              - listitem [ref=f151e79]:
+                - link "Gantt-Diagramm" [ref=f151e80] [cursor=pointer]:
+                  - /url: /issues/gantt
+              - listitem [ref=f151e88]:
+                - link "Kalender" [ref=f151e89] [cursor=pointer]:
+                  - /url: /issues/calendar
+              - listitem [ref=f151e94]:
+                - link "News" [ref=f151e95] [cursor=pointer]:
+                  - /url: /news
+        - generic [ref=f151e101]:
+          - heading "Abfragen" [level=3] [ref=f151e102]
+          - list [ref=f151e103]:
+            - listitem [ref=f151e104]:
+              - link "Issues assigned to me" [ref=f151e105] [cursor=pointer]:
+                - /url: /issues?query_id=1
+            - listitem [ref=f151e106]:
+              - link "Reported issues" [ref=f151e107] [cursor=pointer]:
+                - /url: /issues?query_id=2
+            - listitem [ref=f151e108]:
+              - link "Updated issues" [ref=f151e109] [cursor=pointer]:
+                - /url: /issues?query_id=3
+            - listitem [ref=f151e110]:
+              - link "Watched issues" [ref=f151e111] [cursor=pointer]:
+                - /url: /issues?query_id=4
+      - generic [ref=f151e112]:
+        - heading "Tickets" [level=2] [ref=f151e113]
+        - generic [ref=f151e115]:
+          - button "Filter" [ref=f151e116] [cursor=pointer]
+          - link "Neues Ticket" [ref=f151e117] [cursor=pointer]:
+            - /url: /issues/new
+          - link "Importieren" [ref=f151e119] [cursor=pointer]:
+            - /url: /issues/imports/new
+        - table [ref=f151e123]:
+          - rowgroup [ref=f151e124]:
+            - row [ref=f151e125]:
+              - columnheader [ref=f151e126]:
+                - checkbox "Alles auswählen / Alles abwählen" [ref=f151e127]
+              - columnheader [ref=f151e128]:
+                - link "#" [ref=f151e129] [cursor=pointer]:
+                  - /url: /issues?sort=id
+              - columnheader [ref=f151e131]:
+                - link "Projekt" [ref=f151e132] [cursor=pointer]:
+                  - /url: /issues?sort=project%2Cid%3Adesc
+              - columnheader [ref=f151e133]:
+                - link "Tracker" [ref=f151e134] [cursor=pointer]:
+                  - /url: /issues?sort=tracker%2Cid%3Adesc
+              - columnheader [ref=f151e135]:
+                - link "Status" [ref=f151e136] [cursor=pointer]:
+                  - /url: /issues?sort=status%2Cid%3Adesc
+              - columnheader [ref=f151e137]:
+                - link "Priorität" [ref=f151e138] [cursor=pointer]:
+                  - /url: /issues?sort=priority%3Adesc%2Cid%3Adesc
+              - columnheader [ref=f151e139]:
+                - link "Thema" [ref=f151e140] [cursor=pointer]:
+                  - /url: /issues?sort=subject%2Cid%3Adesc
+              - columnheader [ref=f151e141]:
+                - link "Zugewiesen an" [ref=f151e142] [cursor=pointer]:
+                  - /url: /issues?sort=assigned_to%2Cid%3Adesc
+              - columnheader [ref=f151e143]:
+                - link "Aktualisiert" [ref=f151e144] [cursor=pointer]:
+                  - /url: /issues?sort=updated_on%3Adesc%2Cid%3Adesc
+              - columnheader [ref=f151e145]:
+                - link "Übergeordnetes Ticket" [ref=f151e146] [cursor=pointer]:
+                  - /url: /issues?sort=parent%3Adesc%2Cid%3Adesc
+              - columnheader "Thema des übergeordneten Tickets" [ref=f151e147]
+              - columnheader [ref=f151e148]:
+                - link "Autor" [ref=f151e149] [cursor=pointer]:
+                  - /url: /issues?sort=author%2Cid%3Adesc
+              - columnheader "Beobachter" [ref=f151e150]
+              - columnheader [ref=f151e151]:
+                - link "Kategorie" [ref=f151e152] [cursor=pointer]:
+                  - /url: /issues?sort=category%2Cid%3Adesc
+              - columnheader [ref=f151e153]:
+                - link "Zielversion" [ref=f151e154] [cursor=pointer]:
+                  - /url: /issues?sort=fixed_version%2Cid%3Adesc
+              - columnheader [ref=f151e155]:
+                - link "Startdatum" [ref=f151e156] [cursor=pointer]:
+                  - /url: /issues?sort=start_date%2Cid%3Adesc
+              - columnheader [ref=f151e157]:
+                - link "Abgabedatum" [ref=f151e158] [cursor=pointer]:
+                  - /url: /issues?sort=due_date%2Cid%3Adesc
+              - columnheader [ref=f151e159]:
+                - link "Geschätzter Aufwand" [ref=f151e160] [cursor=pointer]:
+                  - /url: /issues?sort=estimated_hours%2Cid%3Adesc
+              - columnheader [ref=f151e161]:
+                - link "Geschätzter verbleibender Aufwand" [ref=f151e162] [cursor=pointer]:
+                  - /url: /issues?sort=estimated_remaining_hours%2Cid%3Adesc
+              - columnheader [ref=f151e163]:
+                - link "Summe des geschätzten Aufwands" [ref=f151e164] [cursor=pointer]:
+                  - /url: /issues?sort=total_estimated_hours%3Adesc%2Cid%3Adesc
+              - columnheader [ref=f151e165]:
+                - link "Aufgewendete Zeit" [ref=f151e166] [cursor=pointer]:
+                  - /url: /issues?sort=spent_hours%3Adesc%2Cid%3Adesc
+              - columnheader [ref=f151e167]:
+                - link "Aufgewendete Zeit aller Projekte anzeigen" [ref=f151e168] [cursor=pointer]:
+                  - /url: /issues?sort=total_spent_hours%3Adesc%2Cid%3Adesc
+              - columnheader [ref=f151e169]:
+                - link "% erledigt" [ref=f151e170] [cursor=pointer]:
+                  - /url: /issues?sort=done_ratio%2Cid%3Adesc
+              - columnheader [ref=f151e171]:
+                - link "Angelegt" [ref=f151e172] [cursor=pointer]:
+                  - /url: /issues?sort=created_on%3Adesc%2Cid%3Adesc
+              - columnheader [ref=f151e173]:
+                - link "Geschlossen am" [ref=f151e174] [cursor=pointer]:
+                  - /url: /issues?sort=closed_on%3Adesc%2Cid%3Adesc
+              - columnheader [ref=f151e175]:
+                - link "Zuletzt geändert von" [ref=f151e176] [cursor=pointer]:
+                  - /url: /issues?sort=last_updated_by%2Cid%3Adesc
+              - columnheader "Zugehörige Tickets" [ref=f151e177]
+              - columnheader "Dateien" [ref=f151e178]
+              - columnheader [ref=f151e179]:
+                - link "Privat" [ref=f151e180] [cursor=pointer]:
+                  - /url: /issues?sort=is_private%2Cid%3Adesc
+              - columnheader [ref=f151e181]:
+                - link "Sprint" [ref=f151e182] [cursor=pointer]:
+                  - /url: /issues?sort=sprint_craft%2Cid%3Adesc
+              - columnheader [ref=f151e183]:
+                - link "Story-Points" [ref=f151e184] [cursor=pointer]:
+                  - /url: /issues?sort=story_points%2Cid%3Adesc
+              - columnheader "Markierungen" [ref=f151e185]
+              - columnheader [ref=f151e186]
+          - rowgroup [ref=f151e187]:
+            - row [ref=f151e188]:
+              - cell [ref=f151e189]:
+                - checkbox [ref=f151e190] [cursor=pointer]
+              - cell [ref=f151e191]:
+                - link "266" [ref=f151e192] [cursor=pointer]:
+                  - /url: /issues/266
+              - cell [ref=f151e193]:
+                - generic [ref=f151e194]:
+                  - link "Flux Gantt Project" [ref=f151e196] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                  - button "Edit" [ref=f151e197] [cursor=pointer]
+              - cell "Bug Edit" [ref=f151e198]:
+                - generic [ref=f151e199]:
+                  - generic [ref=f151e200]: Bug
+                  - button "Edit" [ref=f151e201] [cursor=pointer]
+              - cell "New Edit" [ref=f151e202]:
+                - generic [ref=f151e203]:
+                  - generic [ref=f151e204]: New
+                  - button "Edit" [ref=f151e205] [cursor=pointer]
+              - cell "Normal Edit" [ref=f151e206]:
+                - generic [ref=f151e207]:
+                  - generic [ref=f151e208]: Normal
+                  - button "Edit" [ref=f151e209] [cursor=pointer]
+              - cell [ref=f151e210]:
+                - generic [ref=f151e211]:
+                  - link "sdfgsdfg" [ref=f151e213] [cursor=pointer]:
+                    - /url: /issues/266
+                  - button "Edit" [ref=f151e214] [cursor=pointer]
+              - cell [ref=f151e215]:
+                - button "Edit" [ref=f151e217] [cursor=pointer]
+              - cell "10.09.2026 05:16" [ref=f151e218]
+              - cell [ref=f151e219]:
+                - 'link "Bug #265" [ref=f151e220] [cursor=pointer]':
+                  - /url: /issues/265
+              - cell "Fix audit log performance" [ref=f151e221]
+              - cell [ref=f151e222]:
+                - link "Redmine Admin" [ref=f151e223] [cursor=pointer]:
+                  - /url: /users/1
+              - cell [ref=f151e224]:
+                - list [ref=f151e225]:
+                  - listitem [ref=f151e226]:
+                    - link "Redmine Admin" [ref=f151e227] [cursor=pointer]:
+                      - /url: /users/1
+              - cell [ref=f151e228]:
+                - button "Edit" [ref=f151e230] [cursor=pointer]
+              - cell [ref=f151e231]:
+                - button "Edit" [ref=f151e233] [cursor=pointer]
+              - cell "07.09.2026 Edit" [ref=f151e234]:
+                - generic [ref=f151e235]:
+                  - generic [ref=f151e236]: 07.09.2026
+                  - button "Edit" [ref=f151e237] [cursor=pointer]
+              - cell "30.09.2026 Edit" [ref=f151e238]:
+                - generic [ref=f151e239]:
+                  - generic [ref=f151e240]: 30.09.2026
+                  - button "Edit" [ref=f151e241] [cursor=pointer]
+              - cell [ref=f151e242]:
+                - button "Edit" [ref=f151e244] [cursor=pointer]
+              - cell "0:00" [ref=f151e245]
+              - cell [ref=f151e246]
+              - cell "0:00" [ref=f151e247]
+              - cell "0:00" [ref=f151e248]
+              - cell [ref=f151e249]:
+                - generic [ref=f151e250]:
+                  - generic [ref=f151e251]:
+                    - table [ref=f151e252]:
+                      - rowgroup [ref=f151e253]:
+                        - row [ref=f151e254]:
+                          - cell [ref=f151e255]
+                    - paragraph [ref=f151e256]: 0 %
+                  - button "Edit" [ref=f151e257] [cursor=pointer]
+              - cell "10.09.2026 05:16" [ref=f151e258]
+              - cell [ref=f151e259]
+              - cell [ref=f151e260]
+              - cell [ref=f151e261]
+              - cell [ref=f151e262]
+              - cell "Nein" [ref=f151e263]
+              - cell [ref=f151e264]:
+                - button "Edit" [ref=f151e266] [cursor=pointer]
+              - cell [ref=f151e267]:
+                - button "Edit" [ref=f151e269] [cursor=pointer]
+              - cell [ref=f151e270]
+              - cell [ref=f151e271]:
+                - link "Aktionen" [ref=f151e272] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e275]:
+              - cell [ref=f151e276]:
+                - checkbox [ref=f151e277] [cursor=pointer]
+              - cell [ref=f151e278]:
+                - link "265" [ref=f151e279] [cursor=pointer]:
+                  - /url: /issues/265
+              - cell [ref=f151e280]:
+                - generic [ref=f151e281]:
+                  - link "Flux Gantt Project" [ref=f151e283] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                  - button "Edit" [ref=f151e284] [cursor=pointer]
+              - cell "Bug Edit" [ref=f151e285]:
+                - generic [ref=f151e286]:
+                  - generic [ref=f151e287]: Bug
+                  - button "Edit" [ref=f151e288] [cursor=pointer]
+              - cell "Resolved Edit" [ref=f151e289]:
+                - generic [ref=f151e290]:
+                  - generic [ref=f151e291]: Resolved
+                  - button "Edit" [ref=f151e292] [cursor=pointer]
+              - cell "Normal" [ref=f151e293]
+              - cell [ref=f151e294]:
+                - generic [ref=f151e295]:
+                  - link "Fix audit log performance" [ref=f151e297] [cursor=pointer]:
+                    - /url: /issues/265
+                  - button "Edit" [ref=f151e298] [cursor=pointer]
+              - cell [ref=f151e299]:
+                - generic [ref=f151e300]:
+                  - link "Summer Rain" [ref=f151e302] [cursor=pointer]:
+                    - /url: /users/11
+                  - button "Edit" [ref=f151e303] [cursor=pointer]
+              - cell "10.09.2026 05:16" [ref=f151e304]
+              - cell [ref=f151e305]
+              - cell [ref=f151e306]
+              - cell [ref=f151e307]:
+                - link "Harmony Rose" [ref=f151e308] [cursor=pointer]:
+                  - /url: /users/10
+              - cell [ref=f151e309]:
+                - list [ref=f151e310]:
+                  - listitem [ref=f151e311]:
+                    - link "Redmine Admin" [ref=f151e312] [cursor=pointer]:
+                      - /url: /users/1
+              - cell [ref=f151e313]:
+                - button "Edit" [ref=f151e315] [cursor=pointer]
+              - cell [ref=f151e316]:
+                - button "Edit" [ref=f151e318] [cursor=pointer]
+              - cell "07.09.2026" [ref=f151e319]
+              - cell "30.09.2026" [ref=f151e320]
+              - cell [ref=f151e321]:
+                - button "Edit" [ref=f151e323] [cursor=pointer]
+              - cell "0:00" [ref=f151e324]
+              - cell "0:00" [ref=f151e325]
+              - cell "0:00" [ref=f151e326]
+              - cell "0:00" [ref=f151e327]
+              - cell [ref=f151e328]:
+                - table [ref=f151e329]:
+                  - rowgroup [ref=f151e330]:
+                    - row [ref=f151e331]:
+                      - cell [ref=f151e332]
+                - paragraph
+              - cell "10.09.2026 04:59" [ref=f151e333]
+              - cell [ref=f151e334]
+              - cell [ref=f151e335]:
+                - link "Redmine Admin" [ref=f151e336] [cursor=pointer]:
+                  - /url: /users/1
+              - cell [ref=f151e337]:
+                - generic [ref=f151e338]:
+                  - text: Beziehung mit
+                  - link "#263" [ref=f151e339] [cursor=pointer]:
+                    - /url: /issues/263
+              - cell [ref=f151e340]
+              - cell "Nein" [ref=f151e341]
+              - cell [ref=f151e342]:
+                - button "Edit" [ref=f151e344] [cursor=pointer]
+              - cell [ref=f151e345]:
+                - button "Edit" [ref=f151e347] [cursor=pointer]
+              - cell [ref=f151e348]
+              - cell [ref=f151e349]:
+                - link "Aktionen" [ref=f151e350] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e353]:
+              - cell [ref=f151e354]:
+                - checkbox [ref=f151e355] [cursor=pointer]
+              - cell [ref=f151e356]:
+                - link "264" [ref=f151e357] [cursor=pointer]:
+                  - /url: /issues/264
+              - cell [ref=f151e358]:
+                - generic [ref=f151e359]:
+                  - link "Flux Gantt Project" [ref=f151e361] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                  - button "Edit" [ref=f151e362] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e363]:
+                - generic [ref=f151e364]:
+                  - generic [ref=f151e365]: Feature
+                  - button "Edit" [ref=f151e366] [cursor=pointer]
+              - cell "Feedback Edit" [ref=f151e367]:
+                - generic [ref=f151e368]:
+                  - generic [ref=f151e369]: Feedback
+                  - button "Edit" [ref=f151e370] [cursor=pointer]
+              - cell "Urgent Edit" [ref=f151e371]:
+                - generic [ref=f151e372]:
+                  - generic [ref=f151e373]: Urgent
+                  - button "Edit" [ref=f151e374] [cursor=pointer]
+              - cell [ref=f151e375]:
+                - generic [ref=f151e376]:
+                  - link "Implement rollback functionality" [ref=f151e378] [cursor=pointer]:
+                    - /url: /issues/264
+                  - button "Edit" [ref=f151e379] [cursor=pointer]
+              - cell [ref=f151e380]:
+                - generic [ref=f151e381]:
+                  - link "Violet Ember" [ref=f151e383] [cursor=pointer]:
+                    - /url: /users/12
+                  - button "Edit" [ref=f151e384] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e385]
+              - cell [ref=f151e386]
+              - cell [ref=f151e387]
+              - cell [ref=f151e388]:
+                - link "Harmony Rose" [ref=f151e389] [cursor=pointer]:
+                  - /url: /users/10
+              - cell [ref=f151e390]:
+                - list
+              - cell [ref=f151e391]:
+                - button "Edit" [ref=f151e393] [cursor=pointer]
+              - cell [ref=f151e394]:
+                - button "Edit" [ref=f151e396] [cursor=pointer]
+              - cell "21.02.2029 Edit" [ref=f151e397]:
+                - generic [ref=f151e398]:
+                  - generic [ref=f151e399]: 21.02.2029
+                  - button "Edit" [ref=f151e400] [cursor=pointer]
+              - cell "26.02.2029 Edit" [ref=f151e401]:
+                - generic [ref=f151e402]:
+                  - generic [ref=f151e403]: 26.02.2029
+                  - button "Edit" [ref=f151e404] [cursor=pointer]
+              - cell [ref=f151e405]:
+                - button "Edit" [ref=f151e407] [cursor=pointer]
+              - cell "0:00" [ref=f151e408]
+              - cell [ref=f151e409]
+              - cell "0:00" [ref=f151e410]
+              - cell "0:00" [ref=f151e411]
+              - cell [ref=f151e412]:
+                - generic [ref=f151e413]:
+                  - generic [ref=f151e414]:
+                    - table [ref=f151e415]:
+                      - rowgroup [ref=f151e416]:
+                        - row [ref=f151e417]:
+                          - cell [ref=f151e418]
+                    - paragraph [ref=f151e419]: 0 %
+                  - button "Edit" [ref=f151e420] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e421]
+              - cell [ref=f151e422]
+              - cell [ref=f151e423]
+              - cell [ref=f151e424]
+              - cell [ref=f151e425]
+              - cell "Nein" [ref=f151e426]
+              - cell [ref=f151e427]:
+                - button "Edit" [ref=f151e429] [cursor=pointer]
+              - cell [ref=f151e430]:
+                - button "Edit" [ref=f151e432] [cursor=pointer]
+              - cell [ref=f151e433]
+              - cell [ref=f151e434]:
+                - link "Aktionen" [ref=f151e435] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e438]:
+              - cell [ref=f151e439]:
+                - checkbox [ref=f151e440] [cursor=pointer]
+              - cell [ref=f151e441]:
+                - link "263" [ref=f151e442] [cursor=pointer]:
+                  - /url: /issues/263
+              - cell [ref=f151e443]:
+                - generic [ref=f151e444]:
+                  - link "Flux Gantt Project" [ref=f151e446] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                  - button "Edit" [ref=f151e447] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e448]:
+                - generic [ref=f151e449]:
+                  - generic [ref=f151e450]: Feature
+                  - button "Edit" [ref=f151e451] [cursor=pointer]
+              - cell "New Edit" [ref=f151e452]:
+                - generic [ref=f151e453]:
+                  - generic [ref=f151e454]: New
+                  - button "Edit" [ref=f151e455] [cursor=pointer]
+              - cell "High Edit" [ref=f151e456]:
+                - generic [ref=f151e457]:
+                  - generic [ref=f151e458]: High
+                  - button "Edit" [ref=f151e459] [cursor=pointer]
+              - cell [ref=f151e460]:
+                - generic [ref=f151e461]:
+                  - link "Add change comments" [ref=f151e463] [cursor=pointer]:
+                    - /url: /issues/263
+                  - button "Edit" [ref=f151e464] [cursor=pointer]
+              - cell [ref=f151e465]:
+                - generic [ref=f151e466]:
+                  - link "Celeste Dawn" [ref=f151e468] [cursor=pointer]:
+                    - /url: /users/13
+                  - button "Edit" [ref=f151e469] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e470]
+              - cell [ref=f151e471]
+              - cell [ref=f151e472]
+              - cell [ref=f151e473]:
+                - link "Willow Belle" [ref=f151e474] [cursor=pointer]:
+                  - /url: /users/9
+              - cell [ref=f151e475]:
+                - list [ref=f151e476]:
+                  - listitem [ref=f151e477]:
+                    - link "Redmine Admin" [ref=f151e478] [cursor=pointer]:
+                      - /url: /users/1
+              - cell [ref=f151e479]:
+                - button "Edit" [ref=f151e481] [cursor=pointer]
+              - cell [ref=f151e482]:
+                - button "Edit" [ref=f151e484] [cursor=pointer]
+              - cell "11.02.2029 Edit" [ref=f151e485]:
+                - generic [ref=f151e486]:
+                  - generic [ref=f151e487]: 11.02.2029
+                  - button "Edit" [ref=f151e488] [cursor=pointer]
+              - cell "16.02.2029 Edit" [ref=f151e489]:
+                - generic [ref=f151e490]:
+                  - generic [ref=f151e491]: 16.02.2029
+                  - button "Edit" [ref=f151e492] [cursor=pointer]
+              - cell [ref=f151e493]:
+                - button "Edit" [ref=f151e495] [cursor=pointer]
+              - cell "0:00" [ref=f151e496]
+              - cell [ref=f151e497]
+              - cell "0:00" [ref=f151e498]
+              - cell "0:00" [ref=f151e499]
+              - cell [ref=f151e500]:
+                - generic [ref=f151e501]:
+                  - generic [ref=f151e502]:
+                    - table [ref=f151e503]:
+                      - rowgroup [ref=f151e504]:
+                        - row [ref=f151e505]:
+                          - cell [ref=f151e506]
+                    - paragraph [ref=f151e507]: 0 %
+                  - button "Edit" [ref=f151e508] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e509]
+              - cell [ref=f151e510]
+              - cell [ref=f151e511]:
+                - link "Redmine Admin" [ref=f151e512] [cursor=pointer]:
+                  - /url: /users/1
+              - cell [ref=f151e513]:
+                - generic [ref=f151e514]:
+                  - text: Beziehung mit
+                  - link "#265" [ref=f151e515] [cursor=pointer]:
+                    - /url: /issues/265
+              - cell [ref=f151e516]
+              - cell "Nein" [ref=f151e517]
+              - cell [ref=f151e518]:
+                - button "Edit" [ref=f151e520] [cursor=pointer]
+              - cell [ref=f151e521]:
+                - button "Edit" [ref=f151e523] [cursor=pointer]
+              - cell [ref=f151e524]
+              - cell [ref=f151e525]:
+                - link "Aktionen" [ref=f151e526] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e529]:
+              - cell [ref=f151e530]:
+                - checkbox [ref=f151e531] [cursor=pointer]
+              - cell [ref=f151e532]:
+                - link "262" [ref=f151e533] [cursor=pointer]:
+                  - /url: /issues/262
+              - cell [ref=f151e534]:
+                - generic [ref=f151e535]:
+                  - link "Flux Gantt Project" [ref=f151e537] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                  - button "Edit" [ref=f151e538] [cursor=pointer]
+              - cell "Bug Edit" [ref=f151e539]:
+                - generic [ref=f151e540]:
+                  - generic [ref=f151e541]: Bug
+                  - button "Edit" [ref=f151e542] [cursor=pointer]
+              - cell "In Progress Edit" [ref=f151e543]:
+                - generic [ref=f151e544]:
+                  - generic [ref=f151e545]: In Progress
+                  - button "Edit" [ref=f151e546] [cursor=pointer]
+              - cell "Normal Edit" [ref=f151e547]:
+                - generic [ref=f151e548]:
+                  - generic [ref=f151e549]: Normal
+                  - button "Edit" [ref=f151e550] [cursor=pointer]
+              - cell [ref=f151e551]:
+                - generic [ref=f151e552]:
+                  - link "Fix change detection" [ref=f151e554] [cursor=pointer]:
+                    - /url: /issues/262
+                  - button "Edit" [ref=f151e555] [cursor=pointer]
+              - cell [ref=f151e556]:
+                - generic [ref=f151e557]:
+                  - link "Serenity Bloom" [ref=f151e559] [cursor=pointer]:
+                    - /url: /users/14
+                  - button "Edit" [ref=f151e560] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e561]
+              - cell [ref=f151e562]
+              - cell [ref=f151e563]
+              - cell [ref=f151e564]:
+                - link "Willow Belle" [ref=f151e565] [cursor=pointer]:
+                  - /url: /users/9
+              - cell [ref=f151e566]:
+                - list
+              - cell [ref=f151e567]:
+                - button "Edit" [ref=f151e569] [cursor=pointer]
+              - cell [ref=f151e570]:
+                - button "Edit" [ref=f151e572] [cursor=pointer]
+              - cell "01.02.2029 Edit" [ref=f151e573]:
+                - generic [ref=f151e574]:
+                  - generic [ref=f151e575]: 01.02.2029
+                  - button "Edit" [ref=f151e576] [cursor=pointer]
+              - cell "06.02.2029 Edit" [ref=f151e577]:
+                - generic [ref=f151e578]:
+                  - generic [ref=f151e579]: 06.02.2029
+                  - button "Edit" [ref=f151e580] [cursor=pointer]
+              - cell [ref=f151e581]:
+                - button "Edit" [ref=f151e583] [cursor=pointer]
+              - cell "0:00" [ref=f151e584]
+              - cell [ref=f151e585]
+              - cell "0:00" [ref=f151e586]
+              - cell "0:00" [ref=f151e587]
+              - cell [ref=f151e588]:
+                - generic [ref=f151e589]:
+                  - generic [ref=f151e590]:
+                    - table [ref=f151e591]:
+                      - rowgroup [ref=f151e592]:
+                        - row [ref=f151e593]:
+                          - cell [ref=f151e594]
+                    - paragraph [ref=f151e595]: 0 %
+                  - button "Edit" [ref=f151e596] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e597]
+              - cell [ref=f151e598]
+              - cell [ref=f151e599]
+              - cell [ref=f151e600]
+              - cell [ref=f151e601]
+              - cell "Nein" [ref=f151e602]
+              - cell [ref=f151e603]:
+                - button "Edit" [ref=f151e605] [cursor=pointer]
+              - cell [ref=f151e606]:
+                - button "Edit" [ref=f151e608] [cursor=pointer]
+              - cell [ref=f151e609]
+              - cell [ref=f151e610]:
+                - link "Aktionen" [ref=f151e611] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e614]:
+              - cell [ref=f151e615]:
+                - checkbox [ref=f151e616] [cursor=pointer]
+              - cell [ref=f151e617]:
+                - link "261" [ref=f151e618] [cursor=pointer]:
+                  - /url: /issues/261
+              - cell [ref=f151e619]:
+                - generic [ref=f151e620]:
+                  - link "Flux Gantt Project" [ref=f151e622] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                  - button "Edit" [ref=f151e623] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e624]:
+                - generic [ref=f151e625]:
+                  - generic [ref=f151e626]: Feature
+                  - button "Edit" [ref=f151e627] [cursor=pointer]
+              - cell "Feedback Edit" [ref=f151e628]:
+                - generic [ref=f151e629]:
+                  - generic [ref=f151e630]: Feedback
+                  - button "Edit" [ref=f151e631] [cursor=pointer]
+              - cell "Low Edit" [ref=f151e632]:
+                - generic [ref=f151e633]:
+                  - generic [ref=f151e634]: Low
+                  - button "Edit" [ref=f151e635] [cursor=pointer]
+              - cell [ref=f151e636]:
+                - generic [ref=f151e637]:
+                  - link "Implement audit trail" [ref=f151e639] [cursor=pointer]:
+                    - /url: /issues/261
+                  - button "Edit" [ref=f151e640] [cursor=pointer]
+              - cell [ref=f151e641]:
+                - generic [ref=f151e642]:
+                  - link "Nova Starling" [ref=f151e644] [cursor=pointer]:
+                    - /url: /users/15
+                  - button "Edit" [ref=f151e645] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e646]
+              - cell [ref=f151e647]
+              - cell [ref=f151e648]
+              - cell [ref=f151e649]:
+                - link "Autumn Grace" [ref=f151e650] [cursor=pointer]:
+                  - /url: /users/8
+              - cell [ref=f151e651]:
+                - list
+              - cell [ref=f151e652]:
+                - button "Edit" [ref=f151e654] [cursor=pointer]
+              - cell [ref=f151e655]:
+                - button "Edit" [ref=f151e657] [cursor=pointer]
+              - cell "22.01.2029 Edit" [ref=f151e658]:
+                - generic [ref=f151e659]:
+                  - generic [ref=f151e660]: 22.01.2029
+                  - button "Edit" [ref=f151e661] [cursor=pointer]
+              - cell "27.01.2029 Edit" [ref=f151e662]:
+                - generic [ref=f151e663]:
+                  - generic [ref=f151e664]: 27.01.2029
+                  - button "Edit" [ref=f151e665] [cursor=pointer]
+              - cell [ref=f151e666]:
+                - button "Edit" [ref=f151e668] [cursor=pointer]
+              - cell "0:00" [ref=f151e669]
+              - cell [ref=f151e670]
+              - cell "0:00" [ref=f151e671]
+              - cell "0:00" [ref=f151e672]
+              - cell [ref=f151e673]:
+                - generic [ref=f151e674]:
+                  - generic [ref=f151e675]:
+                    - table [ref=f151e676]:
+                      - rowgroup [ref=f151e677]:
+                        - row [ref=f151e678]:
+                          - cell [ref=f151e679]
+                    - paragraph [ref=f151e680]: 0 %
+                  - button "Edit" [ref=f151e681] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e682]
+              - cell [ref=f151e683]
+              - cell [ref=f151e684]
+              - cell [ref=f151e685]
+              - cell [ref=f151e686]
+              - cell "Nein" [ref=f151e687]
+              - cell [ref=f151e688]:
+                - button "Edit" [ref=f151e690] [cursor=pointer]
+              - cell [ref=f151e691]:
+                - button "Edit" [ref=f151e693] [cursor=pointer]
+              - cell [ref=f151e694]
+              - cell [ref=f151e695]:
+                - link "Aktionen" [ref=f151e696] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e699]:
+              - cell [ref=f151e700]:
+                - checkbox [ref=f151e701] [cursor=pointer]
+              - cell [ref=f151e702]:
+                - link "260" [ref=f151e703] [cursor=pointer]:
+                  - /url: /issues/260
+              - cell [ref=f151e704]:
+                - generic [ref=f151e705]:
+                  - link "Agile Board Project" [ref=f151e707] [cursor=pointer]:
+                    - /url: /projects/agileboard
+                  - button "Edit" [ref=f151e708] [cursor=pointer]
+              - cell "Bug Edit" [ref=f151e709]:
+                - generic [ref=f151e710]:
+                  - generic [ref=f151e711]: Bug
+                  - button "Edit" [ref=f151e712] [cursor=pointer]
+              - cell "Resolved Edit" [ref=f151e713]:
+                - generic [ref=f151e714]:
+                  - generic [ref=f151e715]: Resolved
+                  - button "Edit" [ref=f151e716] [cursor=pointer]
+              - cell "Low Edit" [ref=f151e717]:
+                - generic [ref=f151e718]:
+                  - generic [ref=f151e719]: Low
+                  - button "Edit" [ref=f151e720] [cursor=pointer]
+              - cell [ref=f151e721]:
+                - generic [ref=f151e722]:
+                  - link "Fix export performance" [ref=f151e724] [cursor=pointer]:
+                    - /url: /issues/260
+                  - button "Edit" [ref=f151e725] [cursor=pointer]
+              - cell [ref=f151e726]:
+                - generic [ref=f151e727]:
+                  - link "Redmine Admin" [ref=f151e729] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f151e730] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e731]
+              - cell [ref=f151e732]
+              - cell [ref=f151e733]
+              - cell [ref=f151e734]:
+                - link "Autumn Grace" [ref=f151e735] [cursor=pointer]:
+                  - /url: /users/8
+              - cell [ref=f151e736]:
+                - list
+              - cell [ref=f151e737]:
+                - button "Edit" [ref=f151e739] [cursor=pointer]
+              - cell [ref=f151e740]:
+                - button "Edit" [ref=f151e742] [cursor=pointer]
+              - cell "12.01.2029 Edit" [ref=f151e743]:
+                - generic [ref=f151e744]:
+                  - generic [ref=f151e745]: 12.01.2029
+                  - button "Edit" [ref=f151e746] [cursor=pointer]
+              - cell "17.01.2029 Edit" [ref=f151e747]:
+                - generic [ref=f151e748]:
+                  - generic [ref=f151e749]: 17.01.2029
+                  - button "Edit" [ref=f151e750] [cursor=pointer]
+              - cell [ref=f151e751]:
+                - button "Edit" [ref=f151e753] [cursor=pointer]
+              - cell "0:00" [ref=f151e754]
+              - cell [ref=f151e755]
+              - cell "0:00" [ref=f151e756]
+              - cell "0:00" [ref=f151e757]
+              - cell [ref=f151e758]:
+                - generic [ref=f151e759]:
+                  - generic [ref=f151e760]:
+                    - table [ref=f151e761]:
+                      - rowgroup [ref=f151e762]:
+                        - row [ref=f151e763]:
+                          - cell [ref=f151e764]
+                    - paragraph [ref=f151e765]: 0 %
+                  - button "Edit" [ref=f151e766] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e767]
+              - cell [ref=f151e768]
+              - cell [ref=f151e769]
+              - cell [ref=f151e770]
+              - cell [ref=f151e771]
+              - cell "Nein" [ref=f151e772]
+              - cell [ref=f151e773]:
+                - button "Edit" [ref=f151e775] [cursor=pointer]
+              - cell [ref=f151e776]:
+                - button "Edit" [ref=f151e778] [cursor=pointer]
+              - cell [ref=f151e779]
+              - cell [ref=f151e780]:
+                - link "Aktionen" [ref=f151e781] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e784]:
+              - cell [ref=f151e785]:
+                - checkbox [ref=f151e786] [cursor=pointer]
+              - cell [ref=f151e787]:
+                - link "259" [ref=f151e788] [cursor=pointer]:
+                  - /url: /issues/259
+              - cell [ref=f151e789]:
+                - generic [ref=f151e790]:
+                  - link "Agile Board Project" [ref=f151e792] [cursor=pointer]:
+                    - /url: /projects/agileboard
+                  - button "Edit" [ref=f151e793] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e794]:
+                - generic [ref=f151e795]:
+                  - generic [ref=f151e796]: Feature
+                  - button "Edit" [ref=f151e797] [cursor=pointer]
+              - cell "In Progress Edit" [ref=f151e798]:
+                - generic [ref=f151e799]:
+                  - generic [ref=f151e800]: In Progress
+                  - button "Edit" [ref=f151e801] [cursor=pointer]
+              - cell "Urgent Edit" [ref=f151e802]:
+                - generic [ref=f151e803]:
+                  - generic [ref=f151e804]: Urgent
+                  - button "Edit" [ref=f151e805] [cursor=pointer]
+              - cell [ref=f151e806]:
+                - generic [ref=f151e807]:
+                  - link "Implement scheduled exports" [ref=f151e809] [cursor=pointer]:
+                    - /url: /issues/259
+                  - button "Edit" [ref=f151e810] [cursor=pointer]
+              - cell [ref=f151e811]:
+                - generic [ref=f151e812]:
+                  - link "Redmine Admin" [ref=f151e814] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f151e815] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e816]
+              - cell [ref=f151e817]
+              - cell [ref=f151e818]
+              - cell [ref=f151e819]:
+                - link "Daisy Skye" [ref=f151e820] [cursor=pointer]:
+                  - /url: /users/7
+              - cell [ref=f151e821]:
+                - list
+              - cell [ref=f151e822]:
+                - button "Edit" [ref=f151e824] [cursor=pointer]
+              - cell [ref=f151e825]:
+                - button "Edit" [ref=f151e827] [cursor=pointer]
+              - cell "02.01.2029 Edit" [ref=f151e828]:
+                - generic [ref=f151e829]:
+                  - generic [ref=f151e830]: 02.01.2029
+                  - button "Edit" [ref=f151e831] [cursor=pointer]
+              - cell "07.01.2029 Edit" [ref=f151e832]:
+                - generic [ref=f151e833]:
+                  - generic [ref=f151e834]: 07.01.2029
+                  - button "Edit" [ref=f151e835] [cursor=pointer]
+              - cell [ref=f151e836]:
+                - button "Edit" [ref=f151e838] [cursor=pointer]
+              - cell "0:00" [ref=f151e839]
+              - cell [ref=f151e840]
+              - cell "0:00" [ref=f151e841]
+              - cell "0:00" [ref=f151e842]
+              - cell [ref=f151e843]:
+                - generic [ref=f151e844]:
+                  - generic [ref=f151e845]:
+                    - table [ref=f151e846]:
+                      - rowgroup [ref=f151e847]:
+                        - row [ref=f151e848]:
+                          - cell [ref=f151e849]
+                    - paragraph [ref=f151e850]: 0 %
+                  - button "Edit" [ref=f151e851] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e852]
+              - cell [ref=f151e853]
+              - cell [ref=f151e854]
+              - cell [ref=f151e855]
+              - cell [ref=f151e856]
+              - cell "Nein" [ref=f151e857]
+              - cell [ref=f151e858]:
+                - button "Edit" [ref=f151e860] [cursor=pointer]
+              - cell [ref=f151e861]:
+                - button "Edit" [ref=f151e863] [cursor=pointer]
+              - cell [ref=f151e864]
+              - cell [ref=f151e865]:
+                - link "Aktionen" [ref=f151e866] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e869]:
+              - cell [ref=f151e870]:
+                - checkbox [ref=f151e871] [cursor=pointer]
+              - cell [ref=f151e872]:
+                - link "258" [ref=f151e873] [cursor=pointer]:
+                  - /url: /issues/258
+              - cell [ref=f151e874]:
+                - generic [ref=f151e875]:
+                  - link "Agile Board Project" [ref=f151e877] [cursor=pointer]:
+                    - /url: /projects/agileboard
+                  - button "Edit" [ref=f151e878] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e879]:
+                - generic [ref=f151e880]:
+                  - generic [ref=f151e881]: Feature
+                  - button "Edit" [ref=f151e882] [cursor=pointer]
+              - cell "New Edit" [ref=f151e883]:
+                - generic [ref=f151e884]:
+                  - generic [ref=f151e885]: New
+                  - button "Edit" [ref=f151e886] [cursor=pointer]
+              - cell "High Edit" [ref=f151e887]:
+                - generic [ref=f151e888]:
+                  - generic [ref=f151e889]: High
+                  - button "Edit" [ref=f151e890] [cursor=pointer]
+              - cell [ref=f151e891]:
+                - generic [ref=f151e892]:
+                  - link "Add Excel export formatting" [ref=f151e894] [cursor=pointer]:
+                    - /url: /issues/258
+                  - button "Edit" [ref=f151e895] [cursor=pointer]
+              - cell [ref=f151e896]:
+                - generic [ref=f151e897]:
+                  - link "Redmine Admin" [ref=f151e899] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f151e900] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e901]
+              - cell [ref=f151e902]
+              - cell [ref=f151e903]
+              - cell [ref=f151e904]:
+                - link "Daisy Skye" [ref=f151e905] [cursor=pointer]:
+                  - /url: /users/7
+              - cell [ref=f151e906]:
+                - list
+              - cell [ref=f151e907]:
+                - button "Edit" [ref=f151e909] [cursor=pointer]
+              - cell [ref=f151e910]:
+                - button "Edit" [ref=f151e912] [cursor=pointer]
+              - cell "23.12.2028 Edit" [ref=f151e913]:
+                - generic [ref=f151e914]:
+                  - generic [ref=f151e915]: 23.12.2028
+                  - button "Edit" [ref=f151e916] [cursor=pointer]
+              - cell "28.12.2028 Edit" [ref=f151e917]:
+                - generic [ref=f151e918]:
+                  - generic [ref=f151e919]: 28.12.2028
+                  - button "Edit" [ref=f151e920] [cursor=pointer]
+              - cell [ref=f151e921]:
+                - button "Edit" [ref=f151e923] [cursor=pointer]
+              - cell "0:00" [ref=f151e924]
+              - cell [ref=f151e925]
+              - cell "0:00" [ref=f151e926]
+              - cell "0:00" [ref=f151e927]
+              - cell [ref=f151e928]:
+                - generic [ref=f151e929]:
+                  - generic [ref=f151e930]:
+                    - table [ref=f151e931]:
+                      - rowgroup [ref=f151e932]:
+                        - row [ref=f151e933]:
+                          - cell [ref=f151e934]
+                    - paragraph [ref=f151e935]: 0 %
+                  - button "Edit" [ref=f151e936] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e937]
+              - cell [ref=f151e938]
+              - cell [ref=f151e939]
+              - cell [ref=f151e940]
+              - cell [ref=f151e941]
+              - cell "Nein" [ref=f151e942]
+              - cell [ref=f151e943]:
+                - button "Edit" [ref=f151e945] [cursor=pointer]
+              - cell [ref=f151e946]:
+                - button "Edit" [ref=f151e948] [cursor=pointer]
+              - cell [ref=f151e949]
+              - cell [ref=f151e950]:
+                - link "Aktionen" [ref=f151e951] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e954]:
+              - cell [ref=f151e955]:
+                - checkbox [ref=f151e956] [cursor=pointer]
+              - cell [ref=f151e957]:
+                - link "257" [ref=f151e958] [cursor=pointer]:
+                  - /url: /issues/257
+              - cell [ref=f151e959]:
+                - generic [ref=f151e960]:
+                  - link "Agile Board Project" [ref=f151e962] [cursor=pointer]:
+                    - /url: /projects/agileboard
+                  - button "Edit" [ref=f151e963] [cursor=pointer]
+              - cell "Bug Edit" [ref=f151e964]:
+                - generic [ref=f151e965]:
+                  - generic [ref=f151e966]: Bug
+                  - button "Edit" [ref=f151e967] [cursor=pointer]
+              - cell "Feedback Edit" [ref=f151e968]:
+                - generic [ref=f151e969]:
+                  - generic [ref=f151e970]: Feedback
+                  - button "Edit" [ref=f151e971] [cursor=pointer]
+              - cell "Normal Edit" [ref=f151e972]:
+                - generic [ref=f151e973]:
+                  - generic [ref=f151e974]: Normal
+                  - button "Edit" [ref=f151e975] [cursor=pointer]
+              - cell [ref=f151e976]:
+                - generic [ref=f151e977]:
+                  - link "Fix CSV encoding issues" [ref=f151e979] [cursor=pointer]:
+                    - /url: /issues/257
+                  - button "Edit" [ref=f151e980] [cursor=pointer]
+              - cell [ref=f151e981]:
+                - generic [ref=f151e982]:
+                  - link "Redmine Admin" [ref=f151e984] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f151e985] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e986]
+              - cell [ref=f151e987]
+              - cell [ref=f151e988]
+              - cell [ref=f151e989]:
+                - link "Luna Blossom" [ref=f151e990] [cursor=pointer]:
+                  - /url: /users/6
+              - cell [ref=f151e991]:
+                - list
+              - cell [ref=f151e992]:
+                - button "Edit" [ref=f151e994] [cursor=pointer]
+              - cell [ref=f151e995]:
+                - button "Edit" [ref=f151e997] [cursor=pointer]
+              - cell "13.12.2028 Edit" [ref=f151e998]:
+                - generic [ref=f151e999]:
+                  - generic [ref=f151e1000]: 13.12.2028
+                  - button "Edit" [ref=f151e1001] [cursor=pointer]
+              - cell "18.12.2028 Edit" [ref=f151e1002]:
+                - generic [ref=f151e1003]:
+                  - generic [ref=f151e1004]: 18.12.2028
+                  - button "Edit" [ref=f151e1005] [cursor=pointer]
+              - cell [ref=f151e1006]:
+                - button "Edit" [ref=f151e1008] [cursor=pointer]
+              - cell "0:00" [ref=f151e1009]
+              - cell [ref=f151e1010]
+              - cell "0:00" [ref=f151e1011]
+              - cell "0:00" [ref=f151e1012]
+              - cell [ref=f151e1013]:
+                - generic [ref=f151e1014]:
+                  - generic [ref=f151e1015]:
+                    - table [ref=f151e1016]:
+                      - rowgroup [ref=f151e1017]:
+                        - row [ref=f151e1018]:
+                          - cell [ref=f151e1019]
+                    - paragraph [ref=f151e1020]: 0 %
+                  - button "Edit" [ref=f151e1021] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1022]
+              - cell [ref=f151e1023]
+              - cell [ref=f151e1024]
+              - cell [ref=f151e1025]
+              - cell [ref=f151e1026]
+              - cell "Nein" [ref=f151e1027]
+              - cell [ref=f151e1028]:
+                - button "Edit" [ref=f151e1030] [cursor=pointer]
+              - cell [ref=f151e1031]:
+                - button "Edit" [ref=f151e1033] [cursor=pointer]
+              - cell [ref=f151e1034]
+              - cell [ref=f151e1035]:
+                - link "Aktionen" [ref=f151e1036] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e1039]:
+              - cell [ref=f151e1040]:
+                - checkbox [ref=f151e1041] [cursor=pointer]
+              - cell [ref=f151e1042]:
+                - link "256" [ref=f151e1043] [cursor=pointer]:
+                  - /url: /issues/256
+              - cell [ref=f151e1044]:
+                - generic [ref=f151e1045]:
+                  - link "Agile Board Project" [ref=f151e1047] [cursor=pointer]:
+                    - /url: /projects/agileboard
+                  - button "Edit" [ref=f151e1048] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e1049]:
+                - generic [ref=f151e1050]:
+                  - generic [ref=f151e1051]: Feature
+                  - button "Edit" [ref=f151e1052] [cursor=pointer]
+              - cell "In Progress Edit" [ref=f151e1053]:
+                - generic [ref=f151e1054]:
+                  - generic [ref=f151e1055]: In Progress
+                  - button "Edit" [ref=f151e1056] [cursor=pointer]
+              - cell "Low Edit" [ref=f151e1057]:
+                - generic [ref=f151e1058]:
+                  - generic [ref=f151e1059]: Low
+                  - button "Edit" [ref=f151e1060] [cursor=pointer]
+              - cell [ref=f151e1061]:
+                - generic [ref=f151e1062]:
+                  - link "Implement data export templates" [ref=f151e1064] [cursor=pointer]:
+                    - /url: /issues/256
+                  - button "Edit" [ref=f151e1065] [cursor=pointer]
+              - cell [ref=f151e1066]:
+                - generic [ref=f151e1067]:
+                  - link "Redmine Admin" [ref=f151e1069] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f151e1070] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1071]
+              - cell [ref=f151e1072]
+              - cell [ref=f151e1073]
+              - cell [ref=f151e1074]:
+                - link "Luna Blossom" [ref=f151e1075] [cursor=pointer]:
+                  - /url: /users/6
+              - cell [ref=f151e1076]:
+                - list
+              - cell [ref=f151e1077]:
+                - button "Edit" [ref=f151e1079] [cursor=pointer]
+              - cell [ref=f151e1080]:
+                - button "Edit" [ref=f151e1082] [cursor=pointer]
+              - cell "03.12.2028 Edit" [ref=f151e1083]:
+                - generic [ref=f151e1084]:
+                  - generic [ref=f151e1085]: 03.12.2028
+                  - button "Edit" [ref=f151e1086] [cursor=pointer]
+              - cell "08.12.2028 Edit" [ref=f151e1087]:
+                - generic [ref=f151e1088]:
+                  - generic [ref=f151e1089]: 08.12.2028
+                  - button "Edit" [ref=f151e1090] [cursor=pointer]
+              - cell [ref=f151e1091]:
+                - button "Edit" [ref=f151e1093] [cursor=pointer]
+              - cell "0:00" [ref=f151e1094]
+              - cell [ref=f151e1095]
+              - cell "0:00" [ref=f151e1096]
+              - cell "0:00" [ref=f151e1097]
+              - cell [ref=f151e1098]:
+                - generic [ref=f151e1099]:
+                  - generic [ref=f151e1100]:
+                    - table [ref=f151e1101]:
+                      - rowgroup [ref=f151e1102]:
+                        - row [ref=f151e1103]:
+                          - cell [ref=f151e1104]
+                    - paragraph [ref=f151e1105]: 0 %
+                  - button "Edit" [ref=f151e1106] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1107]
+              - cell [ref=f151e1108]
+              - cell [ref=f151e1109]
+              - cell [ref=f151e1110]
+              - cell [ref=f151e1111]
+              - cell "Nein" [ref=f151e1112]
+              - cell [ref=f151e1113]:
+                - button "Edit" [ref=f151e1115] [cursor=pointer]
+              - cell [ref=f151e1116]:
+                - button "Edit" [ref=f151e1118] [cursor=pointer]
+              - cell [ref=f151e1119]
+              - cell [ref=f151e1120]:
+                - link "Aktionen" [ref=f151e1121] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e1124]:
+              - cell [ref=f151e1125]:
+                - checkbox [ref=f151e1126] [cursor=pointer]
+              - cell [ref=f151e1127]:
+                - link "255" [ref=f151e1128] [cursor=pointer]:
+                  - /url: /issues/255
+              - cell [ref=f151e1129]:
+                - generic [ref=f151e1130]:
+                  - link "MVP build for PaySheet Application" [ref=f151e1132] [cursor=pointer]:
+                    - /url: /projects/mvpbuild
+                  - button "Edit" [ref=f151e1133] [cursor=pointer]
+              - cell "Bug Edit" [ref=f151e1134]:
+                - generic [ref=f151e1135]:
+                  - generic [ref=f151e1136]: Bug
+                  - button "Edit" [ref=f151e1137] [cursor=pointer]
+              - cell "Resolved Edit" [ref=f151e1138]:
+                - generic [ref=f151e1139]:
+                  - generic [ref=f151e1140]: Resolved
+                  - button "Edit" [ref=f151e1141] [cursor=pointer]
+              - cell "Low Edit" [ref=f151e1142]:
+                - generic [ref=f151e1143]:
+                  - generic [ref=f151e1144]: Low
+                  - button "Edit" [ref=f151e1145] [cursor=pointer]
+              - cell [ref=f151e1146]:
+                - generic [ref=f151e1147]:
+                  - link "Fix message synchronization" [ref=f151e1149] [cursor=pointer]:
+                    - /url: /issues/255
+                  - button "Edit" [ref=f151e1150] [cursor=pointer]
+              - cell [ref=f151e1151]:
+                - generic [ref=f151e1152]:
+                  - link "Luna Blossom" [ref=f151e1154] [cursor=pointer]:
+                    - /url: /users/6
+                  - button "Edit" [ref=f151e1155] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1156]
+              - cell [ref=f151e1157]
+              - cell [ref=f151e1158]
+              - cell [ref=f151e1159]:
+                - link "Redmine Admin" [ref=f151e1160] [cursor=pointer]:
+                  - /url: /users/1
+              - cell [ref=f151e1161]:
+                - list [ref=f151e1162]:
+                  - listitem [ref=f151e1163]:
+                    - link "Redmine Admin" [ref=f151e1164] [cursor=pointer]:
+                      - /url: /users/1
+              - cell [ref=f151e1165]:
+                - button "Edit" [ref=f151e1167] [cursor=pointer]
+              - cell [ref=f151e1168]:
+                - button "Edit" [ref=f151e1170] [cursor=pointer]
+              - cell "23.11.2028 Edit" [ref=f151e1171]:
+                - generic [ref=f151e1172]:
+                  - generic [ref=f151e1173]: 23.11.2028
+                  - button "Edit" [ref=f151e1174] [cursor=pointer]
+              - cell "28.11.2028 Edit" [ref=f151e1175]:
+                - generic [ref=f151e1176]:
+                  - generic [ref=f151e1177]: 28.11.2028
+                  - button "Edit" [ref=f151e1178] [cursor=pointer]
+              - cell [ref=f151e1179]:
+                - button "Edit" [ref=f151e1181] [cursor=pointer]
+              - cell "0:00" [ref=f151e1182]
+              - cell [ref=f151e1183]
+              - cell "0:00" [ref=f151e1184]
+              - cell "0:00" [ref=f151e1185]
+              - cell [ref=f151e1186]:
+                - generic [ref=f151e1187]:
+                  - generic [ref=f151e1188]:
+                    - table [ref=f151e1189]:
+                      - rowgroup [ref=f151e1190]:
+                        - row [ref=f151e1191]:
+                          - cell [ref=f151e1192]
+                    - paragraph [ref=f151e1193]: 0 %
+                  - button "Edit" [ref=f151e1194] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1195]
+              - cell [ref=f151e1196]
+              - cell [ref=f151e1197]
+              - cell [ref=f151e1198]
+              - cell [ref=f151e1199]
+              - cell "Nein" [ref=f151e1200]
+              - cell [ref=f151e1201]:
+                - button "Edit" [ref=f151e1203] [cursor=pointer]
+              - cell [ref=f151e1204]:
+                - button "Edit" [ref=f151e1206] [cursor=pointer]
+              - cell [ref=f151e1207]
+              - cell [ref=f151e1208]:
+                - link "Aktionen" [ref=f151e1209] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e1212]:
+              - cell [ref=f151e1213]:
+                - checkbox [ref=f151e1214] [cursor=pointer]
+              - cell [ref=f151e1215]:
+                - link "254" [ref=f151e1216] [cursor=pointer]:
+                  - /url: /issues/254
+              - cell [ref=f151e1217]:
+                - generic [ref=f151e1218]:
+                  - link "MVP build for PaySheet Application" [ref=f151e1220] [cursor=pointer]:
+                    - /url: /projects/mvpbuild
+                  - button "Edit" [ref=f151e1221] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e1222]:
+                - generic [ref=f151e1223]:
+                  - generic [ref=f151e1224]: Feature
+                  - button "Edit" [ref=f151e1225] [cursor=pointer]
+              - cell "Feedback Edit" [ref=f151e1226]:
+                - generic [ref=f151e1227]:
+                  - generic [ref=f151e1228]: Feedback
+                  - button "Edit" [ref=f151e1229] [cursor=pointer]
+              - cell "Urgent Edit" [ref=f151e1230]:
+                - generic [ref=f151e1231]:
+                  - generic [ref=f151e1232]: Urgent
+                  - button "Edit" [ref=f151e1233] [cursor=pointer]
+              - cell [ref=f151e1234]:
+                - generic [ref=f151e1235]:
+                  - link "Implement typing notifications" [ref=f151e1237] [cursor=pointer]:
+                    - /url: /issues/254
+                  - button "Edit" [ref=f151e1238] [cursor=pointer]
+              - cell [ref=f151e1239]:
+                - generic [ref=f151e1240]:
+                  - link "Daisy Skye" [ref=f151e1242] [cursor=pointer]:
+                    - /url: /users/7
+                  - button "Edit" [ref=f151e1243] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1244]
+              - cell [ref=f151e1245]
+              - cell [ref=f151e1246]
+              - cell [ref=f151e1247]:
+                - link "Redmine Admin" [ref=f151e1248] [cursor=pointer]:
+                  - /url: /users/1
+              - cell [ref=f151e1249]:
+                - list [ref=f151e1250]:
+                  - listitem [ref=f151e1251]:
+                    - link "Redmine Admin" [ref=f151e1252] [cursor=pointer]:
+                      - /url: /users/1
+              - cell [ref=f151e1253]:
+                - button "Edit" [ref=f151e1255] [cursor=pointer]
+              - cell [ref=f151e1256]:
+                - button "Edit" [ref=f151e1258] [cursor=pointer]
+              - cell "13.11.2028 Edit" [ref=f151e1259]:
+                - generic [ref=f151e1260]:
+                  - generic [ref=f151e1261]: 13.11.2028
+                  - button "Edit" [ref=f151e1262] [cursor=pointer]
+              - cell "18.11.2028 Edit" [ref=f151e1263]:
+                - generic [ref=f151e1264]:
+                  - generic [ref=f151e1265]: 18.11.2028
+                  - button "Edit" [ref=f151e1266] [cursor=pointer]
+              - cell [ref=f151e1267]:
+                - button "Edit" [ref=f151e1269] [cursor=pointer]
+              - cell "0:00" [ref=f151e1270]
+              - cell [ref=f151e1271]
+              - cell "0:00" [ref=f151e1272]
+              - cell "0:00" [ref=f151e1273]
+              - cell [ref=f151e1274]:
+                - generic [ref=f151e1275]:
+                  - generic [ref=f151e1276]:
+                    - table [ref=f151e1277]:
+                      - rowgroup [ref=f151e1278]:
+                        - row [ref=f151e1279]:
+                          - cell [ref=f151e1280]
+                    - paragraph [ref=f151e1281]: 0 %
+                  - button "Edit" [ref=f151e1282] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1283]
+              - cell [ref=f151e1284]
+              - cell [ref=f151e1285]
+              - cell [ref=f151e1286]
+              - cell [ref=f151e1287]
+              - cell "Nein" [ref=f151e1288]
+              - cell [ref=f151e1289]:
+                - button "Edit" [ref=f151e1291] [cursor=pointer]
+              - cell [ref=f151e1292]:
+                - button "Edit" [ref=f151e1294] [cursor=pointer]
+              - cell [ref=f151e1295]
+              - cell [ref=f151e1296]:
+                - link "Aktionen" [ref=f151e1297] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e1300]:
+              - cell [ref=f151e1301]:
+                - checkbox [ref=f151e1302] [cursor=pointer]
+              - cell [ref=f151e1303]:
+                - link "253" [ref=f151e1304] [cursor=pointer]:
+                  - /url: /issues/253
+              - cell [ref=f151e1305]:
+                - generic [ref=f151e1306]:
+                  - link "MVP build for PaySheet Application" [ref=f151e1308] [cursor=pointer]:
+                    - /url: /projects/mvpbuild
+                  - button "Edit" [ref=f151e1309] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e1310]:
+                - generic [ref=f151e1311]:
+                  - generic [ref=f151e1312]: Feature
+                  - button "Edit" [ref=f151e1313] [cursor=pointer]
+              - cell "New Edit" [ref=f151e1314]:
+                - generic [ref=f151e1315]:
+                  - generic [ref=f151e1316]: New
+                  - button "Edit" [ref=f151e1317] [cursor=pointer]
+              - cell "High Edit" [ref=f151e1318]:
+                - generic [ref=f151e1319]:
+                  - generic [ref=f151e1320]: High
+                  - button "Edit" [ref=f151e1321] [cursor=pointer]
+              - cell [ref=f151e1322]:
+                - generic [ref=f151e1323]:
+                  - link "Add presence indicators" [ref=f151e1325] [cursor=pointer]:
+                    - /url: /issues/253
+                  - button "Edit" [ref=f151e1326] [cursor=pointer]
+              - cell [ref=f151e1327]:
+                - generic [ref=f151e1328]:
+                  - link "Autumn Grace" [ref=f151e1330] [cursor=pointer]:
+                    - /url: /users/8
+                  - button "Edit" [ref=f151e1331] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1332]
+              - cell [ref=f151e1333]
+              - cell [ref=f151e1334]
+              - cell [ref=f151e1335]:
+                - link "Redmine Admin" [ref=f151e1336] [cursor=pointer]:
+                  - /url: /users/1
+              - cell [ref=f151e1337]:
+                - list [ref=f151e1338]:
+                  - listitem [ref=f151e1339]:
+                    - link "Redmine Admin" [ref=f151e1340] [cursor=pointer]:
+                      - /url: /users/1
+              - cell [ref=f151e1341]:
+                - button "Edit" [ref=f151e1343] [cursor=pointer]
+              - cell [ref=f151e1344]:
+                - button "Edit" [ref=f151e1346] [cursor=pointer]
+              - cell "03.11.2028 Edit" [ref=f151e1347]:
+                - generic [ref=f151e1348]:
+                  - generic [ref=f151e1349]: 03.11.2028
+                  - button "Edit" [ref=f151e1350] [cursor=pointer]
+              - cell "08.11.2028 Edit" [ref=f151e1351]:
+                - generic [ref=f151e1352]:
+                  - generic [ref=f151e1353]: 08.11.2028
+                  - button "Edit" [ref=f151e1354] [cursor=pointer]
+              - cell [ref=f151e1355]:
+                - button "Edit" [ref=f151e1357] [cursor=pointer]
+              - cell "0:00" [ref=f151e1358]
+              - cell [ref=f151e1359]
+              - cell "0:00" [ref=f151e1360]
+              - cell "0:00" [ref=f151e1361]
+              - cell [ref=f151e1362]:
+                - generic [ref=f151e1363]:
+                  - generic [ref=f151e1364]:
+                    - table [ref=f151e1365]:
+                      - rowgroup [ref=f151e1366]:
+                        - row [ref=f151e1367]:
+                          - cell [ref=f151e1368]
+                    - paragraph [ref=f151e1369]: 0 %
+                  - button "Edit" [ref=f151e1370] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1371]
+              - cell [ref=f151e1372]
+              - cell [ref=f151e1373]
+              - cell [ref=f151e1374]
+              - cell [ref=f151e1375]
+              - cell "Nein" [ref=f151e1376]
+              - cell [ref=f151e1377]:
+                - button "Edit" [ref=f151e1379] [cursor=pointer]
+              - cell [ref=f151e1380]:
+                - button "Edit" [ref=f151e1382] [cursor=pointer]
+              - cell [ref=f151e1383]
+              - cell [ref=f151e1384]:
+                - link "Aktionen" [ref=f151e1385] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e1388]:
+              - cell [ref=f151e1389]:
+                - checkbox [ref=f151e1390] [cursor=pointer]
+              - cell [ref=f151e1391]:
+                - link "252" [ref=f151e1392] [cursor=pointer]:
+                  - /url: /issues/252
+              - cell [ref=f151e1393]:
+                - generic [ref=f151e1394]:
+                  - link "MVP build for PaySheet Application" [ref=f151e1396] [cursor=pointer]:
+                    - /url: /projects/mvpbuild
+                  - button "Edit" [ref=f151e1397] [cursor=pointer]
+              - cell "Bug Edit" [ref=f151e1398]:
+                - generic [ref=f151e1399]:
+                  - generic [ref=f151e1400]: Bug
+                  - button "Edit" [ref=f151e1401] [cursor=pointer]
+              - cell "In Progress Edit" [ref=f151e1402]:
+                - generic [ref=f151e1403]:
+                  - generic [ref=f151e1404]: In Progress
+                  - button "Edit" [ref=f151e1405] [cursor=pointer]
+              - cell "Normal Edit" [ref=f151e1406]:
+                - generic [ref=f151e1407]:
+                  - generic [ref=f151e1408]: Normal
+                  - button "Edit" [ref=f151e1409] [cursor=pointer]
+              - cell [ref=f151e1410]:
+                - generic [ref=f151e1411]:
+                  - link "Fix websocket connection drops" [ref=f151e1413] [cursor=pointer]:
+                    - /url: /issues/252
+                  - button "Edit" [ref=f151e1414] [cursor=pointer]
+              - cell [ref=f151e1415]:
+                - generic [ref=f151e1416]:
+                  - link "Willow Belle" [ref=f151e1418] [cursor=pointer]:
+                    - /url: /users/9
+                  - button "Edit" [ref=f151e1419] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1420]
+              - cell [ref=f151e1421]
+              - cell [ref=f151e1422]
+              - cell [ref=f151e1423]:
+                - link "Redmine Admin" [ref=f151e1424] [cursor=pointer]:
+                  - /url: /users/1
+              - cell [ref=f151e1425]:
+                - list [ref=f151e1426]:
+                  - listitem [ref=f151e1427]:
+                    - link "Redmine Admin" [ref=f151e1428] [cursor=pointer]:
+                      - /url: /users/1
+              - cell [ref=f151e1429]:
+                - button "Edit" [ref=f151e1431] [cursor=pointer]
+              - cell [ref=f151e1432]:
+                - button "Edit" [ref=f151e1434] [cursor=pointer]
+              - cell "24.10.2028 Edit" [ref=f151e1435]:
+                - generic [ref=f151e1436]:
+                  - generic [ref=f151e1437]: 24.10.2028
+                  - button "Edit" [ref=f151e1438] [cursor=pointer]
+              - cell "29.10.2028 Edit" [ref=f151e1439]:
+                - generic [ref=f151e1440]:
+                  - generic [ref=f151e1441]: 29.10.2028
+                  - button "Edit" [ref=f151e1442] [cursor=pointer]
+              - cell [ref=f151e1443]:
+                - button "Edit" [ref=f151e1445] [cursor=pointer]
+              - cell "0:00" [ref=f151e1446]
+              - cell [ref=f151e1447]
+              - cell "0:00" [ref=f151e1448]
+              - cell "0:00" [ref=f151e1449]
+              - cell [ref=f151e1450]:
+                - generic [ref=f151e1451]:
+                  - generic [ref=f151e1452]:
+                    - table [ref=f151e1453]:
+                      - rowgroup [ref=f151e1454]:
+                        - row [ref=f151e1455]:
+                          - cell [ref=f151e1456]
+                    - paragraph [ref=f151e1457]: 0 %
+                  - button "Edit" [ref=f151e1458] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1459]
+              - cell [ref=f151e1460]
+              - cell [ref=f151e1461]
+              - cell [ref=f151e1462]
+              - cell [ref=f151e1463]
+              - cell "Nein" [ref=f151e1464]
+              - cell [ref=f151e1465]:
+                - button "Edit" [ref=f151e1467] [cursor=pointer]
+              - cell [ref=f151e1468]:
+                - button "Edit" [ref=f151e1470] [cursor=pointer]
+              - cell [ref=f151e1471]
+              - cell [ref=f151e1472]:
+                - link "Aktionen" [ref=f151e1473] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e1476]:
+              - cell [ref=f151e1477]:
+                - checkbox [ref=f151e1478] [cursor=pointer]
+              - cell [ref=f151e1479]:
+                - link "251" [ref=f151e1480] [cursor=pointer]:
+                  - /url: /issues/251
+              - cell [ref=f151e1481]:
+                - generic [ref=f151e1482]:
+                  - link "MVP build for PaySheet Application" [ref=f151e1484] [cursor=pointer]:
+                    - /url: /projects/mvpbuild
+                  - button "Edit" [ref=f151e1485] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e1486]:
+                - generic [ref=f151e1487]:
+                  - generic [ref=f151e1488]: Feature
+                  - button "Edit" [ref=f151e1489] [cursor=pointer]
+              - cell "Feedback Edit" [ref=f151e1490]:
+                - generic [ref=f151e1491]:
+                  - generic [ref=f151e1492]: Feedback
+                  - button "Edit" [ref=f151e1493] [cursor=pointer]
+              - cell "Low Edit" [ref=f151e1494]:
+                - generic [ref=f151e1495]:
+                  - generic [ref=f151e1496]: Low
+                  - button "Edit" [ref=f151e1497] [cursor=pointer]
+              - cell [ref=f151e1498]:
+                - generic [ref=f151e1499]:
+                  - link "Implement real-time updates" [ref=f151e1501] [cursor=pointer]:
+                    - /url: /issues/251
+                  - button "Edit" [ref=f151e1502] [cursor=pointer]
+              - cell [ref=f151e1503]:
+                - generic [ref=f151e1504]:
+                  - link "Harmony Rose" [ref=f151e1506] [cursor=pointer]:
+                    - /url: /users/10
+                  - button "Edit" [ref=f151e1507] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1508]
+              - cell [ref=f151e1509]
+              - cell [ref=f151e1510]
+              - cell [ref=f151e1511]:
+                - link "Redmine Admin" [ref=f151e1512] [cursor=pointer]:
+                  - /url: /users/1
+              - cell [ref=f151e1513]:
+                - list [ref=f151e1514]:
+                  - listitem [ref=f151e1515]:
+                    - link "Redmine Admin" [ref=f151e1516] [cursor=pointer]:
+                      - /url: /users/1
+              - cell [ref=f151e1517]:
+                - button "Edit" [ref=f151e1519] [cursor=pointer]
+              - cell [ref=f151e1520]:
+                - button "Edit" [ref=f151e1522] [cursor=pointer]
+              - cell "14.10.2028 Edit" [ref=f151e1523]:
+                - generic [ref=f151e1524]:
+                  - generic [ref=f151e1525]: 14.10.2028
+                  - button "Edit" [ref=f151e1526] [cursor=pointer]
+              - cell "19.10.2028 Edit" [ref=f151e1527]:
+                - generic [ref=f151e1528]:
+                  - generic [ref=f151e1529]: 19.10.2028
+                  - button "Edit" [ref=f151e1530] [cursor=pointer]
+              - cell [ref=f151e1531]:
+                - button "Edit" [ref=f151e1533] [cursor=pointer]
+              - cell "0:00" [ref=f151e1534]
+              - cell [ref=f151e1535]
+              - cell "0:00" [ref=f151e1536]
+              - cell "0:00" [ref=f151e1537]
+              - cell [ref=f151e1538]:
+                - generic [ref=f151e1539]:
+                  - generic [ref=f151e1540]:
+                    - table [ref=f151e1541]:
+                      - rowgroup [ref=f151e1542]:
+                        - row [ref=f151e1543]:
+                          - cell [ref=f151e1544]
+                    - paragraph [ref=f151e1545]: 0 %
+                  - button "Edit" [ref=f151e1546] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1547]
+              - cell [ref=f151e1548]
+              - cell [ref=f151e1549]
+              - cell [ref=f151e1550]
+              - cell [ref=f151e1551]
+              - cell "Nein" [ref=f151e1552]
+              - cell [ref=f151e1553]:
+                - button "Edit" [ref=f151e1555] [cursor=pointer]
+              - cell [ref=f151e1556]:
+                - button "Edit" [ref=f151e1558] [cursor=pointer]
+              - cell [ref=f151e1559]
+              - cell [ref=f151e1560]:
+                - link "Aktionen" [ref=f151e1561] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e1564]:
+              - cell [ref=f151e1565]:
+                - checkbox [ref=f151e1566] [cursor=pointer]
+              - cell [ref=f151e1567]:
+                - link "250" [ref=f151e1568] [cursor=pointer]:
+                  - /url: /issues/250
+              - cell [ref=f151e1569]:
+                - generic [ref=f151e1570]:
+                  - link "Flux Gantt Project" [ref=f151e1572] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                  - button "Edit" [ref=f151e1573] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e1574]:
+                - generic [ref=f151e1575]:
+                  - generic [ref=f151e1576]: Feature
+                  - button "Edit" [ref=f151e1577] [cursor=pointer]
+              - cell "New Edit" [ref=f151e1578]:
+                - generic [ref=f151e1579]:
+                  - generic [ref=f151e1580]: New
+                  - button "Edit" [ref=f151e1581] [cursor=pointer]
+              - cell "Urgent Edit" [ref=f151e1582]:
+                - generic [ref=f151e1583]:
+                  - generic [ref=f151e1584]: Urgent
+                  - button "Edit" [ref=f151e1585] [cursor=pointer]
+              - cell [ref=f151e1586]:
+                - generic [ref=f151e1587]:
+                  - link "Issue status are show according to project" [ref=f151e1589] [cursor=pointer]:
+                    - /url: /issues/250
+                  - button "Edit" [ref=f151e1590] [cursor=pointer]
+              - cell [ref=f151e1591]:
+                - generic [ref=f151e1592]:
+                  - link "Nova Starling" [ref=f151e1594] [cursor=pointer]:
+                    - /url: /users/15
+                  - button "Edit" [ref=f151e1595] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1596]
+              - cell [ref=f151e1597]
+              - cell [ref=f151e1598]
+              - cell [ref=f151e1599]:
+                - link "Celeste Dawn" [ref=f151e1600] [cursor=pointer]:
+                  - /url: /users/13
+              - cell [ref=f151e1601]:
+                - list
+              - cell [ref=f151e1602]:
+                - button "Edit" [ref=f151e1604] [cursor=pointer]
+              - cell [ref=f151e1605]:
+                - generic [ref=f151e1606]:
+                  - link "Flux Gantt Project - Version 2" [ref=f151e1608] [cursor=pointer]:
+                    - /url: /versions/2
+                  - button "Edit" [ref=f151e1609] [cursor=pointer]
+              - cell "20.09.2026 Edit" [ref=f151e1610]:
+                - generic [ref=f151e1611]:
+                  - generic [ref=f151e1612]: 20.09.2026
+                  - button "Edit" [ref=f151e1613] [cursor=pointer]
+              - cell [ref=f151e1614]:
+                - button "Edit" [ref=f151e1616] [cursor=pointer]
+              - cell [ref=f151e1617]:
+                - button "Edit" [ref=f151e1619] [cursor=pointer]
+              - cell "0:00" [ref=f151e1620]
+              - cell [ref=f151e1621]
+              - cell "0:00" [ref=f151e1622]
+              - cell "0:00" [ref=f151e1623]
+              - cell [ref=f151e1624]:
+                - generic [ref=f151e1625]:
+                  - generic [ref=f151e1626]:
+                    - table [ref=f151e1627]:
+                      - rowgroup [ref=f151e1628]:
+                        - row [ref=f151e1629]:
+                          - cell [ref=f151e1630]
+                    - paragraph [ref=f151e1631]: 0 %
+                  - button "Edit" [ref=f151e1632] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1633]
+              - cell [ref=f151e1634]
+              - cell [ref=f151e1635]
+              - cell [ref=f151e1636]
+              - cell [ref=f151e1637]
+              - cell "Nein" [ref=f151e1638]
+              - cell [ref=f151e1639]:
+                - button "Edit" [ref=f151e1641] [cursor=pointer]
+              - cell [ref=f151e1642]:
+                - button "Edit" [ref=f151e1644] [cursor=pointer]
+              - cell [ref=f151e1645]
+              - cell [ref=f151e1646]:
+                - link "Aktionen" [ref=f151e1647] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e1650]:
+              - cell [ref=f151e1651]:
+                - checkbox [ref=f151e1652] [cursor=pointer]
+              - cell [ref=f151e1653]:
+                - link "249" [ref=f151e1654] [cursor=pointer]:
+                  - /url: /issues/249
+              - cell [ref=f151e1655]:
+                - generic [ref=f151e1656]:
+                  - link "Flux Gantt Project" [ref=f151e1658] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                  - button "Edit" [ref=f151e1659] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e1660]:
+                - generic [ref=f151e1661]:
+                  - generic [ref=f151e1662]: Feature
+                  - button "Edit" [ref=f151e1663] [cursor=pointer]
+              - cell "New Edit" [ref=f151e1664]:
+                - generic [ref=f151e1665]:
+                  - generic [ref=f151e1666]: New
+                  - button "Edit" [ref=f151e1667] [cursor=pointer]
+              - cell "High Edit" [ref=f151e1668]:
+                - generic [ref=f151e1669]:
+                  - generic [ref=f151e1670]: High
+                  - button "Edit" [ref=f151e1671] [cursor=pointer]
+              - cell [ref=f151e1672]:
+                - generic [ref=f151e1673]:
+                  - link "card fiels are show according to project" [ref=f151e1675] [cursor=pointer]:
+                    - /url: /issues/249
+                  - button "Edit" [ref=f151e1676] [cursor=pointer]
+              - cell [ref=f151e1677]:
+                - generic [ref=f151e1678]:
+                  - link "Nova Starling" [ref=f151e1680] [cursor=pointer]:
+                    - /url: /users/15
+                  - button "Edit" [ref=f151e1681] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1682]
+              - cell [ref=f151e1683]
+              - cell [ref=f151e1684]
+              - cell [ref=f151e1685]:
+                - link "Celeste Dawn" [ref=f151e1686] [cursor=pointer]:
+                  - /url: /users/13
+              - cell [ref=f151e1687]:
+                - list
+              - cell [ref=f151e1688]:
+                - button "Edit" [ref=f151e1690] [cursor=pointer]
+              - cell [ref=f151e1691]:
+                - generic [ref=f151e1692]:
+                  - link "Flux Gantt Project - Version 2" [ref=f151e1694] [cursor=pointer]:
+                    - /url: /versions/2
+                  - button "Edit" [ref=f151e1695] [cursor=pointer]
+              - cell "20.09.2026 Edit" [ref=f151e1696]:
+                - generic [ref=f151e1697]:
+                  - generic [ref=f151e1698]: 20.09.2026
+                  - button "Edit" [ref=f151e1699] [cursor=pointer]
+              - cell [ref=f151e1700]:
+                - button "Edit" [ref=f151e1702] [cursor=pointer]
+              - cell [ref=f151e1703]:
+                - button "Edit" [ref=f151e1705] [cursor=pointer]
+              - cell "0:00" [ref=f151e1706]
+              - cell [ref=f151e1707]
+              - cell "0:00" [ref=f151e1708]
+              - cell "0:00" [ref=f151e1709]
+              - cell [ref=f151e1710]:
+                - generic [ref=f151e1711]:
+                  - generic [ref=f151e1712]:
+                    - table [ref=f151e1713]:
+                      - rowgroup [ref=f151e1714]:
+                        - row [ref=f151e1715]:
+                          - cell [ref=f151e1716]
+                    - paragraph [ref=f151e1717]: 0 %
+                  - button "Edit" [ref=f151e1718] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1719]
+              - cell [ref=f151e1720]
+              - cell [ref=f151e1721]
+              - cell [ref=f151e1722]
+              - cell [ref=f151e1723]
+              - cell "Nein" [ref=f151e1724]
+              - cell [ref=f151e1725]:
+                - button "Edit" [ref=f151e1727] [cursor=pointer]
+              - cell [ref=f151e1728]:
+                - button "Edit" [ref=f151e1730] [cursor=pointer]
+              - cell [ref=f151e1731]
+              - cell [ref=f151e1732]:
+                - link "Aktionen" [ref=f151e1733] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e1736]:
+              - cell [ref=f151e1737]:
+                - checkbox [ref=f151e1738] [cursor=pointer]
+              - cell [ref=f151e1739]:
+                - link "248" [ref=f151e1740] [cursor=pointer]:
+                  - /url: /issues/248
+              - cell [ref=f151e1741]:
+                - generic [ref=f151e1742]:
+                  - link "Flux Gantt Project" [ref=f151e1744] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                  - button "Edit" [ref=f151e1745] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e1746]:
+                - generic [ref=f151e1747]:
+                  - generic [ref=f151e1748]: Feature
+                  - button "Edit" [ref=f151e1749] [cursor=pointer]
+              - cell "New Edit" [ref=f151e1750]:
+                - generic [ref=f151e1751]:
+                  - generic [ref=f151e1752]: New
+                  - button "Edit" [ref=f151e1753] [cursor=pointer]
+              - cell "Normal Edit" [ref=f151e1754]:
+                - generic [ref=f151e1755]:
+                  - generic [ref=f151e1756]: Normal
+                  - button "Edit" [ref=f151e1757] [cursor=pointer]
+              - cell [ref=f151e1758]:
+                - generic [ref=f151e1759]:
+                  - link "Total time update on scroll" [ref=f151e1761] [cursor=pointer]:
+                    - /url: /issues/248
+                  - button "Edit" [ref=f151e1762] [cursor=pointer]
+              - cell [ref=f151e1763]:
+                - generic [ref=f151e1764]:
+                  - link "Serenity Bloom" [ref=f151e1766] [cursor=pointer]:
+                    - /url: /users/14
+                  - button "Edit" [ref=f151e1767] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1768]
+              - cell [ref=f151e1769]
+              - cell [ref=f151e1770]
+              - cell [ref=f151e1771]:
+                - link "Celeste Dawn" [ref=f151e1772] [cursor=pointer]:
+                  - /url: /users/13
+              - cell [ref=f151e1773]:
+                - list
+              - cell [ref=f151e1774]:
+                - button "Edit" [ref=f151e1776] [cursor=pointer]
+              - cell [ref=f151e1777]:
+                - generic [ref=f151e1778]:
+                  - link "Flux Gantt Project - Version 2" [ref=f151e1780] [cursor=pointer]:
+                    - /url: /versions/2
+                  - button "Edit" [ref=f151e1781] [cursor=pointer]
+              - cell "20.09.2026 Edit" [ref=f151e1782]:
+                - generic [ref=f151e1783]:
+                  - generic [ref=f151e1784]: 20.09.2026
+                  - button "Edit" [ref=f151e1785] [cursor=pointer]
+              - cell [ref=f151e1786]:
+                - button "Edit" [ref=f151e1788] [cursor=pointer]
+              - cell [ref=f151e1789]:
+                - button "Edit" [ref=f151e1791] [cursor=pointer]
+              - cell "0:00" [ref=f151e1792]
+              - cell [ref=f151e1793]
+              - cell "0:00" [ref=f151e1794]
+              - cell "0:00" [ref=f151e1795]
+              - cell [ref=f151e1796]:
+                - generic [ref=f151e1797]:
+                  - generic [ref=f151e1798]:
+                    - table [ref=f151e1799]:
+                      - rowgroup [ref=f151e1800]:
+                        - row [ref=f151e1801]:
+                          - cell [ref=f151e1802]
+                    - paragraph [ref=f151e1803]: 0 %
+                  - button "Edit" [ref=f151e1804] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1805]
+              - cell [ref=f151e1806]
+              - cell [ref=f151e1807]
+              - cell [ref=f151e1808]
+              - cell [ref=f151e1809]
+              - cell "Nein" [ref=f151e1810]
+              - cell [ref=f151e1811]:
+                - button "Edit" [ref=f151e1813] [cursor=pointer]
+              - cell [ref=f151e1814]:
+                - button "Edit" [ref=f151e1816] [cursor=pointer]
+              - cell [ref=f151e1817]
+              - cell [ref=f151e1818]:
+                - link "Aktionen" [ref=f151e1819] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e1822]:
+              - cell [ref=f151e1823]:
+                - checkbox [ref=f151e1824] [cursor=pointer]
+              - cell [ref=f151e1825]:
+                - link "247" [ref=f151e1826] [cursor=pointer]:
+                  - /url: /issues/247
+              - cell [ref=f151e1827]:
+                - generic [ref=f151e1828]:
+                  - link "Flux Gantt Project" [ref=f151e1830] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                  - button "Edit" [ref=f151e1831] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e1832]:
+                - generic [ref=f151e1833]:
+                  - generic [ref=f151e1834]: Feature
+                  - button "Edit" [ref=f151e1835] [cursor=pointer]
+              - cell "New Edit" [ref=f151e1836]:
+                - generic [ref=f151e1837]:
+                  - generic [ref=f151e1838]: New
+                  - button "Edit" [ref=f151e1839] [cursor=pointer]
+              - cell "Low Edit" [ref=f151e1840]:
+                - generic [ref=f151e1841]:
+                  - generic [ref=f151e1842]: Low
+                  - button "Edit" [ref=f151e1843] [cursor=pointer]
+              - cell [ref=f151e1844]:
+                - generic [ref=f151e1845]:
+                  - link "Agile board card create" [ref=f151e1847] [cursor=pointer]:
+                    - /url: /issues/247
+                  - button "Edit" [ref=f151e1848] [cursor=pointer]
+              - cell [ref=f151e1849]:
+                - generic [ref=f151e1850]:
+                  - link "Serenity Bloom" [ref=f151e1852] [cursor=pointer]:
+                    - /url: /users/14
+                  - button "Edit" [ref=f151e1853] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1854]
+              - cell [ref=f151e1855]
+              - cell [ref=f151e1856]
+              - cell [ref=f151e1857]:
+                - link "Celeste Dawn" [ref=f151e1858] [cursor=pointer]:
+                  - /url: /users/13
+              - cell [ref=f151e1859]:
+                - list
+              - cell [ref=f151e1860]:
+                - button "Edit" [ref=f151e1862] [cursor=pointer]
+              - cell [ref=f151e1863]:
+                - generic [ref=f151e1864]:
+                  - link "Flux Gantt Project - Version 2" [ref=f151e1866] [cursor=pointer]:
+                    - /url: /versions/2
+                  - button "Edit" [ref=f151e1867] [cursor=pointer]
+              - cell "18.09.2026 Edit" [ref=f151e1868]:
+                - generic [ref=f151e1869]:
+                  - generic [ref=f151e1870]: 18.09.2026
+                  - button "Edit" [ref=f151e1871] [cursor=pointer]
+              - cell "19.09.2026 Edit" [ref=f151e1872]:
+                - generic [ref=f151e1873]:
+                  - generic [ref=f151e1874]: 19.09.2026
+                  - button "Edit" [ref=f151e1875] [cursor=pointer]
+              - cell [ref=f151e1876]:
+                - button "Edit" [ref=f151e1878] [cursor=pointer]
+              - cell "0:00" [ref=f151e1879]
+              - cell [ref=f151e1880]
+              - cell "0:00" [ref=f151e1881]
+              - cell "0:00" [ref=f151e1882]
+              - cell [ref=f151e1883]:
+                - generic [ref=f151e1884]:
+                  - generic [ref=f151e1885]:
+                    - table [ref=f151e1886]:
+                      - rowgroup [ref=f151e1887]:
+                        - row [ref=f151e1888]:
+                          - cell [ref=f151e1889]
+                    - paragraph [ref=f151e1890]: 0 %
+                  - button "Edit" [ref=f151e1891] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1892]
+              - cell [ref=f151e1893]
+              - cell [ref=f151e1894]
+              - cell [ref=f151e1895]
+              - cell [ref=f151e1896]
+              - cell "Nein" [ref=f151e1897]
+              - cell [ref=f151e1898]:
+                - button "Edit" [ref=f151e1900] [cursor=pointer]
+              - cell [ref=f151e1901]:
+                - button "Edit" [ref=f151e1903] [cursor=pointer]
+              - cell [ref=f151e1904]
+              - cell [ref=f151e1905]:
+                - link "Aktionen" [ref=f151e1906] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e1909]:
+              - cell [ref=f151e1910]:
+                - checkbox [ref=f151e1911] [cursor=pointer]
+              - cell [ref=f151e1912]:
+                - link "246" [ref=f151e1913] [cursor=pointer]:
+                  - /url: /issues/246
+              - cell [ref=f151e1914]:
+                - generic [ref=f151e1915]:
+                  - link "Flux Gantt Project" [ref=f151e1917] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                  - button "Edit" [ref=f151e1918] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e1919]:
+                - generic [ref=f151e1920]:
+                  - generic [ref=f151e1921]: Feature
+                  - button "Edit" [ref=f151e1922] [cursor=pointer]
+              - cell "New Edit" [ref=f151e1923]:
+                - generic [ref=f151e1924]:
+                  - generic [ref=f151e1925]: New
+                  - button "Edit" [ref=f151e1926] [cursor=pointer]
+              - cell "Urgent Edit" [ref=f151e1927]:
+                - generic [ref=f151e1928]:
+                  - generic [ref=f151e1929]: Urgent
+                  - button "Edit" [ref=f151e1930] [cursor=pointer]
+              - cell [ref=f151e1931]:
+                - generic [ref=f151e1932]:
+                  - link "added a agile config form" [ref=f151e1934] [cursor=pointer]:
+                    - /url: /issues/246
+                  - button "Edit" [ref=f151e1935] [cursor=pointer]
+              - cell [ref=f151e1936]:
+                - generic [ref=f151e1937]:
+                  - link "Celeste Dawn" [ref=f151e1939] [cursor=pointer]:
+                    - /url: /users/13
+                  - button "Edit" [ref=f151e1940] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1941]
+              - cell [ref=f151e1942]
+              - cell [ref=f151e1943]
+              - cell [ref=f151e1944]:
+                - link "Celeste Dawn" [ref=f151e1945] [cursor=pointer]:
+                  - /url: /users/13
+              - cell [ref=f151e1946]:
+                - list
+              - cell [ref=f151e1947]:
+                - button "Edit" [ref=f151e1949] [cursor=pointer]
+              - cell [ref=f151e1950]:
+                - generic [ref=f151e1951]:
+                  - link "Flux Gantt Project - Version 2" [ref=f151e1953] [cursor=pointer]:
+                    - /url: /versions/2
+                  - button "Edit" [ref=f151e1954] [cursor=pointer]
+              - cell "20.09.2026 Edit" [ref=f151e1955]:
+                - generic [ref=f151e1956]:
+                  - generic [ref=f151e1957]: 20.09.2026
+                  - button "Edit" [ref=f151e1958] [cursor=pointer]
+              - cell [ref=f151e1959]:
+                - button "Edit" [ref=f151e1961] [cursor=pointer]
+              - cell [ref=f151e1962]:
+                - button "Edit" [ref=f151e1964] [cursor=pointer]
+              - cell "0:00" [ref=f151e1965]
+              - cell [ref=f151e1966]
+              - cell "0:00" [ref=f151e1967]
+              - cell "0:00" [ref=f151e1968]
+              - cell [ref=f151e1969]:
+                - generic [ref=f151e1970]:
+                  - generic [ref=f151e1971]:
+                    - table [ref=f151e1972]:
+                      - rowgroup [ref=f151e1973]:
+                        - row [ref=f151e1974]:
+                          - cell [ref=f151e1975]
+                    - paragraph [ref=f151e1976]: 0 %
+                  - button "Edit" [ref=f151e1977] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e1978]
+              - cell [ref=f151e1979]
+              - cell [ref=f151e1980]
+              - cell [ref=f151e1981]
+              - cell [ref=f151e1982]
+              - cell "Nein" [ref=f151e1983]
+              - cell [ref=f151e1984]:
+                - button "Edit" [ref=f151e1986] [cursor=pointer]
+              - cell [ref=f151e1987]:
+                - button "Edit" [ref=f151e1989] [cursor=pointer]
+              - cell [ref=f151e1990]
+              - cell [ref=f151e1991]:
+                - link "Aktionen" [ref=f151e1992] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e1995]:
+              - cell [ref=f151e1996]:
+                - checkbox [ref=f151e1997] [cursor=pointer]
+              - cell [ref=f151e1998]:
+                - link "245" [ref=f151e1999] [cursor=pointer]:
+                  - /url: /issues/245
+              - cell [ref=f151e2000]:
+                - generic [ref=f151e2001]:
+                  - link "Flux Gantt Project" [ref=f151e2003] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                  - button "Edit" [ref=f151e2004] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e2005]:
+                - generic [ref=f151e2006]:
+                  - generic [ref=f151e2007]: Feature
+                  - button "Edit" [ref=f151e2008] [cursor=pointer]
+              - cell "New Edit" [ref=f151e2009]:
+                - generic [ref=f151e2010]:
+                  - generic [ref=f151e2011]: New
+                  - button "Edit" [ref=f151e2012] [cursor=pointer]
+              - cell "High Edit" [ref=f151e2013]:
+                - generic [ref=f151e2014]:
+                  - generic [ref=f151e2015]: High
+                  - button "Edit" [ref=f151e2016] [cursor=pointer]
+              - cell [ref=f151e2017]:
+                - generic [ref=f151e2018]:
+                  - link "update agile setting" [ref=f151e2020] [cursor=pointer]:
+                    - /url: /issues/245
+                  - button "Edit" [ref=f151e2021] [cursor=pointer]
+              - cell [ref=f151e2022]:
+                - generic [ref=f151e2023]:
+                  - link "Celeste Dawn" [ref=f151e2025] [cursor=pointer]:
+                    - /url: /users/13
+                  - button "Edit" [ref=f151e2026] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e2027]
+              - cell [ref=f151e2028]
+              - cell [ref=f151e2029]
+              - cell [ref=f151e2030]:
+                - link "Celeste Dawn" [ref=f151e2031] [cursor=pointer]:
+                  - /url: /users/13
+              - cell [ref=f151e2032]:
+                - list
+              - cell [ref=f151e2033]:
+                - button "Edit" [ref=f151e2035] [cursor=pointer]
+              - cell [ref=f151e2036]:
+                - generic [ref=f151e2037]:
+                  - link "Flux Gantt Project - Version 2" [ref=f151e2039] [cursor=pointer]:
+                    - /url: /versions/2
+                  - button "Edit" [ref=f151e2040] [cursor=pointer]
+              - cell "20.09.2026 Edit" [ref=f151e2041]:
+                - generic [ref=f151e2042]:
+                  - generic [ref=f151e2043]: 20.09.2026
+                  - button "Edit" [ref=f151e2044] [cursor=pointer]
+              - cell [ref=f151e2045]:
+                - button "Edit" [ref=f151e2047] [cursor=pointer]
+              - cell [ref=f151e2048]:
+                - button "Edit" [ref=f151e2050] [cursor=pointer]
+              - cell "0:00" [ref=f151e2051]
+              - cell [ref=f151e2052]
+              - cell "0:00" [ref=f151e2053]
+              - cell "0:00" [ref=f151e2054]
+              - cell [ref=f151e2055]:
+                - generic [ref=f151e2056]:
+                  - generic [ref=f151e2057]:
+                    - table [ref=f151e2058]:
+                      - rowgroup [ref=f151e2059]:
+                        - row [ref=f151e2060]:
+                          - cell [ref=f151e2061]
+                    - paragraph [ref=f151e2062]: 0 %
+                  - button "Edit" [ref=f151e2063] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e2064]
+              - cell [ref=f151e2065]
+              - cell [ref=f151e2066]
+              - cell [ref=f151e2067]
+              - cell [ref=f151e2068]
+              - cell "Nein" [ref=f151e2069]
+              - cell [ref=f151e2070]:
+                - button "Edit" [ref=f151e2072] [cursor=pointer]
+              - cell [ref=f151e2073]:
+                - button "Edit" [ref=f151e2075] [cursor=pointer]
+              - cell [ref=f151e2076]
+              - cell [ref=f151e2077]:
+                - link "Aktionen" [ref=f151e2078] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e2081]:
+              - cell [ref=f151e2082]:
+                - checkbox [ref=f151e2083] [cursor=pointer]
+              - cell [ref=f151e2084]:
+                - link "244" [ref=f151e2085] [cursor=pointer]:
+                  - /url: /issues/244
+              - cell [ref=f151e2086]:
+                - generic [ref=f151e2087]:
+                  - link "Flux Gantt Project" [ref=f151e2089] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                  - button "Edit" [ref=f151e2090] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e2091]:
+                - generic [ref=f151e2092]:
+                  - generic [ref=f151e2093]: Feature
+                  - button "Edit" [ref=f151e2094] [cursor=pointer]
+              - cell "New Edit" [ref=f151e2095]:
+                - generic [ref=f151e2096]:
+                  - generic [ref=f151e2097]: New
+                  - button "Edit" [ref=f151e2098] [cursor=pointer]
+              - cell "Normal Edit" [ref=f151e2099]:
+                - generic [ref=f151e2100]:
+                  - generic [ref=f151e2101]: Normal
+                  - button "Edit" [ref=f151e2102] [cursor=pointer]
+              - cell [ref=f151e2103]:
+                - generic [ref=f151e2104]:
+                  - link "implement wip functionality" [ref=f151e2106] [cursor=pointer]:
+                    - /url: /issues/244
+                  - button "Edit" [ref=f151e2107] [cursor=pointer]
+              - cell [ref=f151e2108]:
+                - generic [ref=f151e2109]:
+                  - link "Violet Ember" [ref=f151e2111] [cursor=pointer]:
+                    - /url: /users/12
+                  - button "Edit" [ref=f151e2112] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e2113]
+              - cell [ref=f151e2114]
+              - cell [ref=f151e2115]
+              - cell [ref=f151e2116]:
+                - link "Celeste Dawn" [ref=f151e2117] [cursor=pointer]:
+                  - /url: /users/13
+              - cell [ref=f151e2118]:
+                - list
+              - cell [ref=f151e2119]:
+                - button "Edit" [ref=f151e2121] [cursor=pointer]
+              - cell [ref=f151e2122]:
+                - generic [ref=f151e2123]:
+                  - link "Flux Gantt Project - Version 2" [ref=f151e2125] [cursor=pointer]:
+                    - /url: /versions/2
+                  - button "Edit" [ref=f151e2126] [cursor=pointer]
+              - cell "20.09.2026 Edit" [ref=f151e2127]:
+                - generic [ref=f151e2128]:
+                  - generic [ref=f151e2129]: 20.09.2026
+                  - button "Edit" [ref=f151e2130] [cursor=pointer]
+              - cell [ref=f151e2131]:
+                - button "Edit" [ref=f151e2133] [cursor=pointer]
+              - cell [ref=f151e2134]:
+                - button "Edit" [ref=f151e2136] [cursor=pointer]
+              - cell "0:00" [ref=f151e2137]
+              - cell [ref=f151e2138]
+              - cell "0:00" [ref=f151e2139]
+              - cell "0:00" [ref=f151e2140]
+              - cell [ref=f151e2141]:
+                - generic [ref=f151e2142]:
+                  - generic [ref=f151e2143]:
+                    - table [ref=f151e2144]:
+                      - rowgroup [ref=f151e2145]:
+                        - row [ref=f151e2146]:
+                          - cell [ref=f151e2147]
+                    - paragraph [ref=f151e2148]: 0 %
+                  - button "Edit" [ref=f151e2149] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e2150]
+              - cell [ref=f151e2151]
+              - cell [ref=f151e2152]
+              - cell [ref=f151e2153]
+              - cell [ref=f151e2154]
+              - cell "Nein" [ref=f151e2155]
+              - cell [ref=f151e2156]:
+                - button "Edit" [ref=f151e2158] [cursor=pointer]
+              - cell [ref=f151e2159]:
+                - button "Edit" [ref=f151e2161] [cursor=pointer]
+              - cell [ref=f151e2162]
+              - cell [ref=f151e2163]:
+                - link "Aktionen" [ref=f151e2164] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e2167]:
+              - cell [ref=f151e2168]:
+                - checkbox [ref=f151e2169] [cursor=pointer]
+              - cell [ref=f151e2170]:
+                - link "243" [ref=f151e2171] [cursor=pointer]:
+                  - /url: /issues/243
+              - cell [ref=f151e2172]:
+                - generic [ref=f151e2173]:
+                  - link "Flux Gantt Project" [ref=f151e2175] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                  - button "Edit" [ref=f151e2176] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e2177]:
+                - generic [ref=f151e2178]:
+                  - generic [ref=f151e2179]: Feature
+                  - button "Edit" [ref=f151e2180] [cursor=pointer]
+              - cell "New Edit" [ref=f151e2181]:
+                - generic [ref=f151e2182]:
+                  - generic [ref=f151e2183]: New
+                  - button "Edit" [ref=f151e2184] [cursor=pointer]
+              - cell "Low Edit" [ref=f151e2185]:
+                - generic [ref=f151e2186]:
+                  - generic [ref=f151e2187]: Low
+                  - button "Edit" [ref=f151e2188] [cursor=pointer]
+              - cell [ref=f151e2189]:
+                - generic [ref=f151e2190]:
+                  - link "create a demo server for agile" [ref=f151e2192] [cursor=pointer]:
+                    - /url: /issues/243
+                  - button "Edit" [ref=f151e2193] [cursor=pointer]
+              - cell [ref=f151e2194]:
+                - generic [ref=f151e2195]:
+                  - link "Violet Ember" [ref=f151e2197] [cursor=pointer]:
+                    - /url: /users/12
+                  - button "Edit" [ref=f151e2198] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e2199]
+              - cell [ref=f151e2200]
+              - cell [ref=f151e2201]
+              - cell [ref=f151e2202]:
+                - link "Celeste Dawn" [ref=f151e2203] [cursor=pointer]:
+                  - /url: /users/13
+              - cell [ref=f151e2204]:
+                - list
+              - cell [ref=f151e2205]:
+                - button "Edit" [ref=f151e2207] [cursor=pointer]
+              - cell [ref=f151e2208]:
+                - generic [ref=f151e2209]:
+                  - link "Flux Gantt Project - Version 2" [ref=f151e2211] [cursor=pointer]:
+                    - /url: /versions/2
+                  - button "Edit" [ref=f151e2212] [cursor=pointer]
+              - cell "20.09.2026 Edit" [ref=f151e2213]:
+                - generic [ref=f151e2214]:
+                  - generic [ref=f151e2215]: 20.09.2026
+                  - button "Edit" [ref=f151e2216] [cursor=pointer]
+              - cell [ref=f151e2217]:
+                - button "Edit" [ref=f151e2219] [cursor=pointer]
+              - cell [ref=f151e2220]:
+                - button "Edit" [ref=f151e2222] [cursor=pointer]
+              - cell "0:00" [ref=f151e2223]
+              - cell [ref=f151e2224]
+              - cell "0:00" [ref=f151e2225]
+              - cell "0:00" [ref=f151e2226]
+              - cell [ref=f151e2227]:
+                - generic [ref=f151e2228]:
+                  - generic [ref=f151e2229]:
+                    - table [ref=f151e2230]:
+                      - rowgroup [ref=f151e2231]:
+                        - row [ref=f151e2232]:
+                          - cell [ref=f151e2233]
+                    - paragraph [ref=f151e2234]: 0 %
+                  - button "Edit" [ref=f151e2235] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e2236]
+              - cell [ref=f151e2237]
+              - cell [ref=f151e2238]
+              - cell [ref=f151e2239]
+              - cell [ref=f151e2240]
+              - cell "Nein" [ref=f151e2241]
+              - cell [ref=f151e2242]:
+                - button "Edit" [ref=f151e2244] [cursor=pointer]
+              - cell [ref=f151e2245]:
+                - button "Edit" [ref=f151e2247] [cursor=pointer]
+              - cell [ref=f151e2248]
+              - cell [ref=f151e2249]:
+                - link "Aktionen" [ref=f151e2250] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f151e2253]:
+              - cell [ref=f151e2254]:
+                - checkbox [ref=f151e2255] [cursor=pointer]
+              - cell [ref=f151e2256]:
+                - link "242" [ref=f151e2257] [cursor=pointer]:
+                  - /url: /issues/242
+              - cell [ref=f151e2258]:
+                - generic [ref=f151e2259]:
+                  - link "Flux Gantt Project" [ref=f151e2261] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject
+                  - button "Edit" [ref=f151e2262] [cursor=pointer]
+              - cell "Feature Edit" [ref=f151e2263]:
+                - generic [ref=f151e2264]:
+                  - generic [ref=f151e2265]: Feature
+                  - button "Edit" [ref=f151e2266] [cursor=pointer]
+              - cell "New Edit" [ref=f151e2267]:
+                - generic [ref=f151e2268]:
+                  - generic [ref=f151e2269]: New
+                  - button "Edit" [ref=f151e2270] [cursor=pointer]
+              - cell "Normal Edit" [ref=f151e2271]:
+                - generic [ref=f151e2272]:
+                  - generic [ref=f151e2273]: Normal
+                  - button "Edit" [ref=f151e2274] [cursor=pointer]
+              - cell [ref=f151e2275]:
+                - generic [ref=f151e2276]:
+                  - link "create a agile card field column setting" [ref=f151e2278] [cursor=pointer]:
+                    - /url: /issues/242
+                  - button "Edit" [ref=f151e2279] [cursor=pointer]
+              - cell [ref=f151e2280]:
+                - generic [ref=f151e2281]:
+                  - link "Summer Rain" [ref=f151e2283] [cursor=pointer]:
+                    - /url: /users/11
+                  - button "Edit" [ref=f151e2284] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e2285]
+              - cell [ref=f151e2286]
+              - cell [ref=f151e2287]
+              - cell [ref=f151e2288]:
+                - link "Celeste Dawn" [ref=f151e2289] [cursor=pointer]:
+                  - /url: /users/13
+              - cell [ref=f151e2290]:
+                - list
+              - cell [ref=f151e2291]:
+                - button "Edit" [ref=f151e2293] [cursor=pointer]
+              - cell [ref=f151e2294]:
+                - generic [ref=f151e2295]:
+                  - link "Flux Gantt Project - Version 2" [ref=f151e2297] [cursor=pointer]:
+                    - /url: /versions/2
+                  - button "Edit" [ref=f151e2298] [cursor=pointer]
+              - cell "20.09.2026 Edit" [ref=f151e2299]:
+                - generic [ref=f151e2300]:
+                  - generic [ref=f151e2301]: 20.09.2026
+                  - button "Edit" [ref=f151e2302] [cursor=pointer]
+              - cell [ref=f151e2303]:
+                - button "Edit" [ref=f151e2305] [cursor=pointer]
+              - cell [ref=f151e2306]:
+                - button "Edit" [ref=f151e2308] [cursor=pointer]
+              - cell "0:00" [ref=f151e2309]
+              - cell [ref=f151e2310]
+              - cell "0:00" [ref=f151e2311]
+              - cell "0:00" [ref=f151e2312]
+              - cell [ref=f151e2313]:
+                - generic [ref=f151e2314]:
+                  - generic [ref=f151e2315]:
+                    - table [ref=f151e2316]:
+                      - rowgroup [ref=f151e2317]:
+                        - row [ref=f151e2318]:
+                          - cell [ref=f151e2319]
+                    - paragraph [ref=f151e2320]: 0 %
+                  - button "Edit" [ref=f151e2321] [cursor=pointer]
+              - cell "10.09.2026 04:59" [ref=f151e2322]
+              - cell [ref=f151e2323]
+              - cell [ref=f151e2324]
+              - cell [ref=f151e2325]
+              - cell [ref=f151e2326]
+              - cell "Nein" [ref=f151e2327]
+              - cell [ref=f151e2328]:
+                - button "Edit" [ref=f151e2330] [cursor=pointer]
+              - cell [ref=f151e2331]:
+                - button "Edit" [ref=f151e2333] [cursor=pointer]
+              - cell [ref=f151e2334]
+              - cell [ref=f151e2335]:
+                - link "Aktionen" [ref=f151e2336] [cursor=pointer]:
+                  - /url: "#"
+        - generic [ref=f151e2339]:
+          - list [ref=f151e2340]:
+            - listitem [ref=f151e2341]:
+              - generic [ref=f151e2342]: « Zurück
+            - listitem [ref=f151e2343]:
+              - generic [ref=f151e2344] [cursor=pointer]: "1"
+            - listitem [ref=f151e2345]:
+              - link "2" [ref=f151e2346] [cursor=pointer]:
+                - /url: /issues?page=2
+            - listitem [ref=f151e2347]:
+              - link "3" [ref=f151e2348] [cursor=pointer]:
+                - /url: /issues?page=3
+            - listitem [ref=f151e2349]:
+              - generic [ref=f151e2350]: …
+            - listitem [ref=f151e2351]:
+              - link "11" [ref=f151e2352] [cursor=pointer]:
+                - /url: /issues?page=11
+            - listitem [ref=f151e2353]:
+              - link "Weiter »" [ref=f151e2354] [cursor=pointer]:
+                - /url: /issues?page=2
+          - generic [ref=f151e2355]:
+            - generic [ref=f151e2356]: (1-25/266)
+            - generic [ref=f151e2357]:
+              - text: "Pro Seite:"
+              - generic [ref=f151e2358]: "25"
+              - text: ","
+              - link "50" [ref=f151e2359] [cursor=pointer]:
+                - /url: /issues?per_page=50
+              - text: ","
+              - link "100" [ref=f151e2360] [cursor=pointer]:
+                - /url: /issues?per_page=100
+        - paragraph [ref=f151e2361]:
+          - text: "Auch abrufbar als:"
+          - link "CSV" [ref=f151e2363] [cursor=pointer]:
+            - /url: /issues.csv
+          - generic [ref=f151e2364]:
+            - text: "|"
+            - link "PDF" [ref=f151e2365] [cursor=pointer]:
+              - /url: /issues.pdf
+          - generic [ref=f151e2366]:
+            - text: "|"
+            - link "Atom" [ref=f151e2367] [cursor=pointer]:
+              - /url: /issues.atom?key=d674513a77379f381a356a5b0d67fe9eb131b838
+    - generic [ref=f151e2368]:
+      - text: Powered by
+      - link "Redmine" [ref=f151e2369] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f151e2370]
+  - log [ref=f151e2371]
+  - log [ref=f151e2372]
+  - log [ref=f151e2373]
+  - log [ref=f151e2374]
+  - log [ref=f151e2375]
+  - log [ref=f151e2376]
+  - log [ref=f151e2377]
+  - log [ref=f151e2378]
+  - log [ref=f151e2379]
+  - log [ref=f151e2380]
+  - log [ref=f151e2381]
+  - log [ref=f151e2382]
+  - log [ref=f151e2383]
+  - log [ref=f151e2384]
+  - log [ref=f151e2385]
+  - log [ref=f151e2386]
+  - log [ref=f151e2387]
+  - log [ref=f151e2388]
+  - log [ref=f151e2389]
+  - log [ref=f151e2390]
+  - log [ref=f151e2391]
+  - log [ref=f151e2392]
+  - log [ref=f151e2393]
+  - log [ref=f151e2394]
+  - log [ref=f151e2395]
+  - log [ref=f151e2396]
+  - log [ref=f151e2397]
+  - log [ref=f151e2398]
+  - log [ref=f151e2399]
+  - log [ref=f151e2400]
+  - log [ref=f151e2401]
+  - log [ref=f151e2402]
+  - log [ref=f151e2403]
+  - log [ref=f151e2404]
+  - log [ref=f151e2405]
+  - log [ref=f151e2406]
+  - log [ref=f151e2407]
+  - log [ref=f151e2408]
+  - log [ref=f151e2409]
+  - log [ref=f151e2410]
+  - log [ref=f151e2411]
+  - log [ref=f151e2412]
+  - log [ref=f151e2413]
+  - log [ref=f151e2414]
+  - log [ref=f151e2415]
+  - log [ref=f151e2416]
+  - log [ref=f151e2417]
+  - log [ref=f151e2418]
+  - log [ref=f151e2419]
+  - log [ref=f151e2420]
+  - log [ref=f151e2421]
+  - log [ref=f151e2422]
+  - log [ref=f151e2423]
+  - log [ref=f151e2424]
+  - log [ref=f151e2425]
+  - log [ref=f151e2426]
+  - log [ref=f151e2427]
+  - log [ref=f151e2428]
+  - log [ref=f151e2429]
+  - log [ref=f151e2430]
+  - log [ref=f151e2431]
+  - log [ref=f151e2432]
+  - log [ref=f151e2433]
+  - log [ref=f151e2434]
+  - log [ref=f151e2435]
+  - log [ref=f151e2436]
+  - log [ref=f151e2437]
+  - log [ref=f151e2438]
+  - log [ref=f151e2439]
+  - log [ref=f151e2440]
+  - log [ref=f151e2441]
+  - log [ref=f151e2442]
+  - log [ref=f151e2443]
+  - log [ref=f151e2444]
+  - log [ref=f151e2445]
+  - log [ref=f151e2446]
+  - log [ref=f151e2447]
+  - log [ref=f151e2448]
+  - log [ref=f151e2449]

@@ -1,0 +1,151 @@
+- generic [ref=f228e1]:
+  - generic [ref=f228e2]:
+    - generic [ref=f228e3]:
+      - generic [ref=f228e4]:
+        - list:
+          - listitem [ref=f228e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f228e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f228e7]:
+        - text: Logged in as
+        - link "admin" [ref=f228e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f228e9]:
+        - listitem [ref=f228e10]:
+          - link [ref=f228e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f228e12]
+        - listitem [ref=f228e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f228e14]:
+          - link "My page" [ref=f228e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f228e16]:
+          - link "Projects" [ref=f228e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f228e18]:
+          - link "Flux Gantt" [ref=f228e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f228e20]:
+          - link "Helpdesk Command Center" [ref=f228e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f228e22]:
+          - link "Time Tracker" [ref=f228e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f228e24]:
+          - link "Timesheet" [ref=f228e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f228e26]:
+          - link "Workloads" [ref=f228e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f228e28]:
+          - link "More" [ref=f228e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f228e30]:
+      - generic [ref=f228e31]:
+        - generic [ref=f228e32]:
+          - generic [ref=f228e33]:
+            - link "Search..." [ref=f228e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f228e35]
+        - generic [ref=f228e36]:
+          - generic [ref=f228e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f228e38]
+    - generic [ref=f228e39]:
+      - list [ref=f228e43]:
+        - listitem [ref=f228e44]:
+          - link "Helpdesk Dashboard" [ref=f228e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f228e48]:
+          - link "Helpdesk Tickets" [ref=f228e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f228e52]:
+          - link "Reports" [ref=f228e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f228e56]:
+          - link "Organization" [ref=f228e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f228e60]:
+          - link "Customers" [ref=f228e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f228e64]:
+          - link "Products" [ref=f228e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f228e68]:
+          - link "Helpdesk Settings" [ref=f228e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f228e72]:
+        - generic [ref=f228e75]:
+          - heading "Helpdesk Settings" [level=2] [ref=f228e76]
+          - paragraph [ref=f228e77]: Holidays, products, SLA policies and canned responses
+        - list [ref=f228e79]:
+          - listitem [ref=f228e80]:
+            - link "Holiday" [ref=f228e81] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f228e82]:
+            - link "Products" [ref=f228e83] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f228e84]:
+            - link "Email Configuration" [ref=f228e85] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f228e86]:
+            - link "Canned Responses" [ref=f228e87] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+          - listitem [ref=f228e88]:
+            - link "Support Packages" [ref=f228e89] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+        - generic [ref=f228e90]:
+          - generic [ref=f228e92]:
+            - textbox "Search canned responses..." [active] [ref=f228e94]
+            - generic [ref=f228e95]:
+              - button "Apply Filters" [ref=f228e96] [cursor=pointer]
+              - link "Clear" [ref=f228e99] [cursor=pointer]:
+                - /url: /rf_helpdesk/setting?tab=canned_responses
+          - generic [ref=f228e104]:
+            - generic [ref=f228e105]:
+              - heading "Canned Responses" [level=3] [ref=f228e106]
+              - link "New Canned Response" [ref=f228e108] [cursor=pointer]:
+                - /url: /rf_canned_responses/new
+            - generic [ref=f228e110]:
+              - heading "No canned responses yet" [level=3] [ref=f228e114]
+              - paragraph [ref=f228e115]: Save reusable replies so agents answer common questions faster.
+              - link "New Canned Response" [ref=f228e117] [cursor=pointer]:
+                - /url: /rf_canned_responses/new
+    - generic [ref=f228e119]:
+      - text: Powered by
+      - link "Redmine" [ref=f228e120] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f228e121]
+  - log [ref=f228e122]
+  - log [ref=f228e123]
+  - log [ref=f228e124]
+  - log [ref=f228e125]
+  - log [ref=f228e126]
+  - log [ref=f228e127]
+  - log [ref=f228e128]
+  - log [ref=f228e129]
+  - log [ref=f228e130]
+  - log [ref=f228e131]
+  - log [ref=f228e132]
+  - log [ref=f228e133]
+  - log [ref=f228e134]
+  - log [ref=f228e135]
+  - log [ref=f228e136]
+  - log [ref=f228e137]
+  - log [ref=f228e138]
+  - log [ref=f228e139]
+  - log [ref=f228e140]
+  - log [ref=f228e141]
+  - log [ref=f228e142]
+  - log [ref=f228e143]
+  - log [ref=f228e144]
+  - log [ref=f228e145]
+  - log [ref=f228e146]
+  - log [ref=f228e147]

@@ -1,0 +1,731 @@
+- generic [active] [ref=f154e1]:
+  - generic [ref=f154e2]:
+    - navigation [ref=f154e3]:
+      - list [ref=f154e6]:
+        - listitem [ref=f154e7]:
+          - link "Hauptseite" [ref=f154e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f154e9]:
+          - link "Meine Seite" [ref=f154e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f154e11]:
+          - link "Projekte" [ref=f154e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f154e13]:
+          - link "Agile Board" [ref=f154e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f154e15]:
+          - link "Flux Gantt" [ref=f154e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f154e17]:
+          - link "Administration" [ref=f154e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f154e19]:
+          - link "Hilfe" [ref=f154e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f154e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f154e24]: RA
+    - generic [ref=f154e27]:
+      - generic [ref=f154e248]:
+        - generic [ref=f154e249]:
+          - generic [ref=f154e250]:
+            - link "Suche" [ref=f154e251] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/search
+            - text: ":"
+          - textbox "Suche:" [ref=f154e252]
+        - generic [ref=f154e253]:
+          - generic [ref=f154e254] [cursor=pointer]: Flux Gantt Project
+          - text: ✓ ✓
+      - heading "Flux Gantt Project" [level=1] [ref=f154e28]
+      - list [ref=f154e31]:
+        - listitem [ref=f154e32]:
+          - link "+" [ref=f154e33] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f154e34]:
+          - link "Übersicht" [ref=f154e35] [cursor=pointer]:
+            - /url: /projects/fluxganttproject
+        - listitem [ref=f154e36]:
+          - link "Dashboard" [ref=f154e37] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/analytics_dashboard
+        - listitem [ref=f154e38]:
+          - link "Flux Gantt" [ref=f154e39] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/flux_gantt
+        - listitem [ref=f154e40]:
+          - link "Aktivität" [ref=f154e41] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/activity
+        - listitem [ref=f154e42]:
+          - link "Roadmap" [ref=f154e43] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/roadmap
+        - listitem [ref=f154e44]:
+          - link "Tickets" [ref=f154e45] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues
+        - listitem [ref=f154e46]:
+          - link "Aufgewendete Zeit" [ref=f154e47] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/time_entries
+        - listitem [ref=f154e48]:
+          - link "Gantt-Diagramm" [ref=f154e49] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/gantt
+        - listitem [ref=f154e50]:
+          - link "Kalender" [ref=f154e51] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/calendar
+        - listitem [ref=f154e52]:
+          - link "News" [ref=f154e53] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/news
+        - listitem [ref=f154e54]:
+          - link "Dokumente" [ref=f154e55] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/documents
+        - listitem [ref=f154e56]:
+          - link "Wiki" [ref=f154e57] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/wiki
+        - listitem [ref=f154e58]:
+          - link "Dateien" [ref=f154e59] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/files
+        - listitem [ref=f154e60]:
+          - link "Konfiguration" [ref=f154e61] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/settings
+    - generic [ref=f154e64]:
+      - generic [ref=f154e65]:
+        - generic [ref=f154e66]: Flux Gantt
+        - generic [ref=f154e67]:
+          - generic [ref=f154e68]:
+            - generic [ref=f154e69]: Datum von/bis
+            - button "1. Sept. 26 - 30. Sept. 26 ▾" [ref=f154e70] [cursor=pointer]:
+              - generic [ref=f154e73]: 1. Sept. 26 - 30. Sept. 26
+              - text: ▾
+          - generic [ref=f154e74]:
+            - generic [ref=f154e75]: Suche
+            - textbox "Suche..." [ref=f154e77]
+        - generic [ref=f154e79]:
+          - generic [ref=f154e80]: Details
+          - combobox [ref=f154e81] [cursor=pointer]:
+            - option "Alle einklappen" [selected]
+            - option "Alle ausklappen"
+        - generic [ref=f154e82]:
+          - button "+ Version hinzufügen" [ref=f154e83] [cursor=pointer]
+          - button "Einstellungen" [ref=f154e84] [cursor=pointer]
+          - button "Vorgänge ohne Version" [ref=f154e88] [cursor=pointer]
+          - button "Vollbild" [ref=f154e90] [cursor=pointer]
+          - button "Exportieren" [ref=f154e96] [cursor=pointer]
+      - generic [ref=f154e102]:
+        - generic [ref=f154e103]:
+          - generic [ref=f154e104]:
+            - generic [ref=f154e105]:
+              - generic [ref=f154e106]: Name
+              - button "+ Vorgang hinzufügen" [ref=f154e107] [cursor=pointer]
+            - generic [ref=f154e108]: Zugewiesen an
+            - generic [ref=f154e109]: Gesch. Stunden
+            - generic [ref=f154e110]: Erledigt %
+          - generic [ref=f154e111]:
+            - generic [ref=f154e112] [cursor=pointer]:
+              - generic [ref=f154e418]:
+                - generic [ref=f154e419]: ▶
+                - generic [aria-hidden] [ref=f154e420]: ◆
+                - generic [ref=f154e421]: Version 1
+                - generic [ref=f154e422]: 2 Vorgänge
+              - generic [ref=f154e429]: "-"
+              - generic [ref=f154e430]: "-"
+              - generic [ref=f154e432]: 0%
+            - generic [ref=f154e123] [cursor=pointer]:
+              - generic [ref=f154e433]:
+                - generic [aria-hidden] [ref=f154e434]: ●
+                - generic [ref=f154e435]:
+                  - link "#266" [ref=f154e436]:
+                    - /url: /issues/266
+                  - generic [ref=f154e437]: QA Bar Resize Test A
+              - generic [ref=f154e439]: "-"
+              - generic "8" [ref=f154e440]
+              - generic [ref=f154e442]: 0%
+            - generic [ref=f154e134] [cursor=pointer]:
+              - generic [ref=f154e443]:
+                - generic [aria-hidden] [ref=f154e444]: ●
+                - generic [ref=f154e445]:
+                  - link "#267" [ref=f154e446]:
+                    - /url: /issues/267
+                  - generic [ref=f154e447]: QA Dependency Test B
+              - generic [ref=f154e449]: "-"
+              - generic "4" [ref=f154e450]
+              - generic [ref=f154e452]: 0%
+            - generic [ref=f154e145] [cursor=pointer]:
+              - generic [ref=f154e453]:
+                - generic [ref=f154e454]: ▶
+                - generic [aria-hidden] [ref=f154e455]: ◆
+                - generic [ref=f154e456]: Version 2
+                - generic [ref=f154e457]: 0 Vorgänge
+              - generic [ref=f154e459]: "-"
+              - generic [ref=f154e460]: "-"
+              - generic [ref=f154e462]: 0%
+            - generic [ref=f154e463] [cursor=pointer]:
+              - generic [ref=f154e464]:
+                - generic [ref=f154e465]: ▶
+                - generic [aria-hidden] [ref=f154e466]: ◆
+                - generic [ref=f154e467]: Version 3
+                - generic [ref=f154e468]: 0 Vorgänge
+              - generic [ref=f154e470]: "-"
+              - generic [ref=f154e471]: "-"
+              - generic [ref=f154e473]: 0%
+            - generic [ref=f154e474] [cursor=pointer]:
+              - generic [ref=f154e475]:
+                - generic [ref=f154e476]: ▶
+                - generic [aria-hidden] [ref=f154e477]: ◆
+                - generic [ref=f154e478]: Version 4
+                - generic [ref=f154e479]: 0 Vorgänge
+              - generic [ref=f154e481]: "-"
+              - generic [ref=f154e482]: "-"
+              - generic [ref=f154e484]: 0%
+        - generic [ref=f154e157]:
+          - generic [ref=f154e158]:
+            - generic [ref=f154e485]:
+              - generic [ref=f154e486]: 31 Aug - 4 Sep, 2026
+              - generic [ref=f154e487]: 7 Sep - 11 Sep, 2026
+              - generic [ref=f154e488]: 14 Sep - 18 Sep, 2026
+              - generic [ref=f154e489]: 21 Sep - 25 Sep, 2026
+              - generic [ref=f154e490]: 28 Sep - 2 Okt, 2026
+            - generic [ref=f154e491]:
+              - generic [ref=f154e492]: "1"
+              - generic [ref=f154e493]: "2"
+              - generic [ref=f154e494]: "3"
+              - generic [ref=f154e495]: "4"
+              - generic [ref=f154e496]: "7"
+              - generic [ref=f154e497]: "8"
+              - generic [ref=f154e498]: "9"
+              - generic [ref=f154e499]: "10"
+              - generic [ref=f154e500]: "11"
+              - generic [ref=f154e501]: "14"
+              - generic [ref=f154e502]: "15"
+              - generic [ref=f154e503]: "16"
+              - generic [ref=f154e504]: "17"
+              - generic [ref=f154e505]: "18"
+              - generic [ref=f154e506]: "21"
+              - generic [ref=f154e507]: "22"
+              - generic [ref=f154e508]: "23"
+              - generic [ref=f154e509]: "24"
+              - generic [ref=f154e510]: "25"
+              - generic [ref=f154e511]: "28"
+              - generic [ref=f154e512]: "29"
+              - generic [ref=f154e513]: "30"
+          - generic [ref=f154e188]:
+            - generic [ref=f154e189]:
+              - generic [ref=f154e190]:
+                - generic:
+                  - generic: 0%
+                  - generic: Version 1
+              - generic [ref=f154e192]: Version 2
+              - generic [ref=f154e194]: Version 3
+              - generic [ref=f154e196]: Version 4
+              - generic [ref=f154e514]:
+                - generic: QA Bar Resize Test A
+                - button "Eingehende Abhängigkeit erstellen" [ref=f154e518]
+                - button "Ausgehende Abhängigkeit erstellen" [ref=f154e520]
+              - generic [ref=f154e522]:
+                - generic: QA Dependency Test B
+                - button "Eingehende Abhängigkeit erstellen" [ref=f154e526]
+                - button "Ausgehende Abhängigkeit erstellen" [ref=f154e528]
+            - generic: Today
+      - generic [ref=f154e532]:
+        - list [ref=f154e534]:
+          - listitem [ref=f154e535] [cursor=pointer]: Aktuelle Woche
+          - listitem [ref=f154e536] [cursor=pointer]: Gestern
+          - listitem [ref=f154e537] [cursor=pointer]: Letzte 7 Tage
+          - listitem [ref=f154e538] [cursor=pointer]: Letzte 30 Tage
+          - listitem [ref=f154e539] [cursor=pointer]: Dieser Monat
+          - listitem [ref=f154e540] [cursor=pointer]: Letzter Monat
+          - listitem [ref=f154e541] [cursor=pointer]: Nächster Monat
+          - listitem [ref=f154e542] [cursor=pointer]: Benutzerdefinierter Bereich
+        - table [ref=f154e685]:
+          - rowgroup [ref=f154e686]:
+            - row [ref=f154e687]:
+              - columnheader [ref=f154e688] [cursor=pointer]
+              - columnheader "September 2026" [ref=f154e690] [cursor=pointer]:
+                - combobox [ref=f154e691]:
+                  - option "Januar"
+                  - option "Februar"
+                  - option "März"
+                  - option "April"
+                  - option "Mai"
+                  - option "Juni"
+                  - option "Juli"
+                  - option "August"
+                  - option "September" [selected]
+                  - option "Oktober"
+                  - option "November"
+                  - option "Dezember"
+                - combobox [ref=f154e692]:
+                  - option "1926"
+                  - option "1927"
+                  - option "1928"
+                  - option "1929"
+                  - option "1930"
+                  - option "1931"
+                  - option "1932"
+                  - option "1933"
+                  - option "1934"
+                  - option "1935"
+                  - option "1936"
+                  - option "1937"
+                  - option "1938"
+                  - option "1939"
+                  - option "1940"
+                  - option "1941"
+                  - option "1942"
+                  - option "1943"
+                  - option "1944"
+                  - option "1945"
+                  - option "1946"
+                  - option "1947"
+                  - option "1948"
+                  - option "1949"
+                  - option "1950"
+                  - option "1951"
+                  - option "1952"
+                  - option "1953"
+                  - option "1954"
+                  - option "1955"
+                  - option "1956"
+                  - option "1957"
+                  - option "1958"
+                  - option "1959"
+                  - option "1960"
+                  - option "1961"
+                  - option "1962"
+                  - option "1963"
+                  - option "1964"
+                  - option "1965"
+                  - option "1966"
+                  - option "1967"
+                  - option "1968"
+                  - option "1969"
+                  - option "1970"
+                  - option "1971"
+                  - option "1972"
+                  - option "1973"
+                  - option "1974"
+                  - option "1975"
+                  - option "1976"
+                  - option "1977"
+                  - option "1978"
+                  - option "1979"
+                  - option "1980"
+                  - option "1981"
+                  - option "1982"
+                  - option "1983"
+                  - option "1984"
+                  - option "1985"
+                  - option "1986"
+                  - option "1987"
+                  - option "1988"
+                  - option "1989"
+                  - option "1990"
+                  - option "1991"
+                  - option "1992"
+                  - option "1993"
+                  - option "1994"
+                  - option "1995"
+                  - option "1996"
+                  - option "1997"
+                  - option "1998"
+                  - option "1999"
+                  - option "2000"
+                  - option "2001"
+                  - option "2002"
+                  - option "2003"
+                  - option "2004"
+                  - option "2005"
+                  - option "2006"
+                  - option "2007"
+                  - option "2008"
+                  - option "2009"
+                  - option "2010"
+                  - option "2011"
+                  - option "2012"
+                  - option "2013"
+                  - option "2014"
+                  - option "2015"
+                  - option "2016"
+                  - option "2017"
+                  - option "2018"
+                  - option "2019"
+                  - option "2020"
+                  - option "2021"
+                  - option "2022"
+                  - option "2023"
+                  - option "2024"
+                  - option "2025"
+                  - option "2026" [selected]
+                  - option "2027"
+                  - option "2028"
+                  - option "2029"
+                  - option "2030"
+                  - option "2031"
+                  - option "2032"
+                  - option "2033"
+                  - option "2034"
+                  - option "2035"
+                  - option "2036"
+                  - option "2037"
+                  - option "2038"
+                  - option "2039"
+                  - option "2040"
+                  - option "2041"
+                  - option "2042"
+                  - option "2043"
+                  - option "2044"
+                  - option "2045"
+                  - option "2046"
+                  - option "2047"
+                  - option "2048"
+                  - option "2049"
+                  - option "2050"
+                  - option "2051"
+                  - option "2052"
+                  - option "2053"
+                  - option "2054"
+                  - option "2055"
+                  - option "2056"
+                  - option "2057"
+                  - option "2058"
+                  - option "2059"
+                  - option "2060"
+                  - option "2061"
+                  - option "2062"
+                  - option "2063"
+                  - option "2064"
+                  - option "2065"
+                  - option "2066"
+                  - option "2067"
+                  - option "2068"
+                  - option "2069"
+                  - option "2070"
+                  - option "2071"
+                  - option "2072"
+                  - option "2073"
+                  - option "2074"
+                  - option "2075"
+                  - option "2076"
+                  - option "2077"
+                  - option "2078"
+                  - option "2079"
+                  - option "2080"
+                  - option "2081"
+                  - option "2082"
+                  - option "2083"
+                  - option "2084"
+                  - option "2085"
+                  - option "2086"
+                  - option "2087"
+                  - option "2088"
+                  - option "2089"
+                  - option "2090"
+                  - option "2091"
+                  - option "2092"
+                  - option "2093"
+                  - option "2094"
+                  - option "2095"
+                  - option "2096"
+                  - option "2097"
+                  - option "2098"
+                  - option "2099"
+                  - option "2100"
+                  - option "2101"
+                  - option "2102"
+                  - option "2103"
+                  - option "2104"
+                  - option "2105"
+                  - option "2106"
+                  - option "2107"
+                  - option "2108"
+                  - option "2109"
+                  - option "2110"
+                  - option "2111"
+                  - option "2112"
+                  - option "2113"
+                  - option "2114"
+                  - option "2115"
+                  - option "2116"
+                  - option "2117"
+                  - option "2118"
+                  - option "2119"
+                  - option "2120"
+                  - option "2121"
+                  - option "2122"
+                  - option "2123"
+                  - option "2124"
+                  - option "2125"
+                  - option "2126"
+              - columnheader [ref=f154e693] [cursor=pointer]
+            - row [ref=f154e695]:
+              - columnheader "So" [ref=f154e696] [cursor=pointer]
+              - columnheader "Mo" [ref=f154e697] [cursor=pointer]
+              - columnheader "Di" [ref=f154e698] [cursor=pointer]
+              - columnheader "Mi" [ref=f154e699] [cursor=pointer]
+              - columnheader "Do" [ref=f154e700] [cursor=pointer]
+              - columnheader "Fr" [ref=f154e701] [cursor=pointer]
+              - columnheader "Sa" [ref=f154e702] [cursor=pointer]
+          - rowgroup [ref=f154e703]:
+            - row [ref=f154e704]:
+              - cell "30" [ref=f154e705] [cursor=pointer]
+              - cell "31" [ref=f154e706] [cursor=pointer]
+              - cell "1" [ref=f154e707] [cursor=pointer]
+              - cell "2" [ref=f154e708] [cursor=pointer]
+              - cell "3" [ref=f154e709] [cursor=pointer]
+              - cell "4" [ref=f154e710] [cursor=pointer]
+              - cell "5" [ref=f154e711] [cursor=pointer]
+            - row [ref=f154e712]:
+              - cell "6" [ref=f154e713] [cursor=pointer]
+              - cell "7" [ref=f154e714] [cursor=pointer]
+              - cell "8" [ref=f154e715] [cursor=pointer]
+              - cell "9" [ref=f154e716] [cursor=pointer]
+              - cell "10" [ref=f154e717] [cursor=pointer]
+              - cell "11" [ref=f154e718] [cursor=pointer]
+              - cell "12" [ref=f154e719] [cursor=pointer]
+            - row [ref=f154e720]:
+              - cell "13" [ref=f154e721] [cursor=pointer]
+              - cell "14" [ref=f154e722] [cursor=pointer]
+              - cell "15" [ref=f154e723] [cursor=pointer]
+              - cell "16" [ref=f154e724] [cursor=pointer]
+              - cell "17" [ref=f154e725] [cursor=pointer]
+              - cell "18" [ref=f154e726] [cursor=pointer]
+              - cell "19" [ref=f154e727] [cursor=pointer]
+            - row [ref=f154e728]:
+              - cell "20" [ref=f154e729] [cursor=pointer]
+              - cell "21" [ref=f154e730] [cursor=pointer]
+              - cell "22" [ref=f154e731] [cursor=pointer]
+              - cell "23" [ref=f154e732] [cursor=pointer]
+              - cell "24" [ref=f154e733] [cursor=pointer]
+              - cell "25" [ref=f154e734] [cursor=pointer]
+              - cell "26" [ref=f154e735] [cursor=pointer]
+            - row [ref=f154e736]:
+              - cell "27" [ref=f154e737] [cursor=pointer]
+              - cell "28" [ref=f154e738] [cursor=pointer]
+              - cell "29" [ref=f154e739] [cursor=pointer]
+              - cell "30" [ref=f154e740] [cursor=pointer]
+              - cell "1" [ref=f154e741] [cursor=pointer]
+              - cell "2" [ref=f154e742] [cursor=pointer]
+              - cell "3" [ref=f154e743] [cursor=pointer]
+            - row [ref=f154e744]:
+              - cell "4" [ref=f154e745] [cursor=pointer]
+              - cell "5" [ref=f154e746] [cursor=pointer]
+              - cell "6" [ref=f154e747] [cursor=pointer]
+              - cell "7" [ref=f154e748] [cursor=pointer]
+              - cell "8" [ref=f154e749] [cursor=pointer]
+              - cell "9" [ref=f154e750] [cursor=pointer]
+              - cell "10" [ref=f154e751] [cursor=pointer]
+        - table [ref=f154e752]:
+          - rowgroup [ref=f154e753]:
+            - row [ref=f154e754]:
+              - columnheader [ref=f154e755] [cursor=pointer]
+              - columnheader "Oktober 2026" [ref=f154e756] [cursor=pointer]:
+                - combobox [ref=f154e757]:
+                  - option "Januar" [disabled]
+                  - option "Februar" [disabled]
+                  - option "März" [disabled]
+                  - option "April" [disabled]
+                  - option "Mai" [disabled]
+                  - option "Juni" [disabled]
+                  - option "Juli" [disabled]
+                  - option "August" [disabled]
+                  - option "September" [disabled]
+                  - option "Oktober" [selected]
+                  - option "November"
+                  - option "Dezember"
+                - combobox [ref=f154e758]:
+                  - option "2026" [selected]
+                  - option "2027"
+                  - option "2028"
+                  - option "2029"
+                  - option "2030"
+                  - option "2031"
+                  - option "2032"
+                  - option "2033"
+                  - option "2034"
+                  - option "2035"
+                  - option "2036"
+                  - option "2037"
+                  - option "2038"
+                  - option "2039"
+                  - option "2040"
+                  - option "2041"
+                  - option "2042"
+                  - option "2043"
+                  - option "2044"
+                  - option "2045"
+                  - option "2046"
+                  - option "2047"
+                  - option "2048"
+                  - option "2049"
+                  - option "2050"
+                  - option "2051"
+                  - option "2052"
+                  - option "2053"
+                  - option "2054"
+                  - option "2055"
+                  - option "2056"
+                  - option "2057"
+                  - option "2058"
+                  - option "2059"
+                  - option "2060"
+                  - option "2061"
+                  - option "2062"
+                  - option "2063"
+                  - option "2064"
+                  - option "2065"
+                  - option "2066"
+                  - option "2067"
+                  - option "2068"
+                  - option "2069"
+                  - option "2070"
+                  - option "2071"
+                  - option "2072"
+                  - option "2073"
+                  - option "2074"
+                  - option "2075"
+                  - option "2076"
+                  - option "2077"
+                  - option "2078"
+                  - option "2079"
+                  - option "2080"
+                  - option "2081"
+                  - option "2082"
+                  - option "2083"
+                  - option "2084"
+                  - option "2085"
+                  - option "2086"
+                  - option "2087"
+                  - option "2088"
+                  - option "2089"
+                  - option "2090"
+                  - option "2091"
+                  - option "2092"
+                  - option "2093"
+                  - option "2094"
+                  - option "2095"
+                  - option "2096"
+                  - option "2097"
+                  - option "2098"
+                  - option "2099"
+                  - option "2100"
+                  - option "2101"
+                  - option "2102"
+                  - option "2103"
+                  - option "2104"
+                  - option "2105"
+                  - option "2106"
+                  - option "2107"
+                  - option "2108"
+                  - option "2109"
+                  - option "2110"
+                  - option "2111"
+                  - option "2112"
+                  - option "2113"
+                  - option "2114"
+                  - option "2115"
+                  - option "2116"
+                  - option "2117"
+                  - option "2118"
+                  - option "2119"
+                  - option "2120"
+                  - option "2121"
+                  - option "2122"
+                  - option "2123"
+                  - option "2124"
+                  - option "2125"
+                  - option "2126"
+              - columnheader [ref=f154e759] [cursor=pointer]
+            - row [ref=f154e761]:
+              - columnheader "So" [ref=f154e762] [cursor=pointer]
+              - columnheader "Mo" [ref=f154e763] [cursor=pointer]
+              - columnheader "Di" [ref=f154e764] [cursor=pointer]
+              - columnheader "Mi" [ref=f154e765] [cursor=pointer]
+              - columnheader "Do" [ref=f154e766] [cursor=pointer]
+              - columnheader "Fr" [ref=f154e767] [cursor=pointer]
+              - columnheader "Sa" [ref=f154e768] [cursor=pointer]
+          - rowgroup [ref=f154e769]:
+            - row [ref=f154e770]:
+              - cell "27" [ref=f154e771] [cursor=pointer]
+              - cell "28" [ref=f154e772] [cursor=pointer]
+              - cell "29" [ref=f154e773] [cursor=pointer]
+              - cell "30" [ref=f154e774] [cursor=pointer]
+              - cell "1" [ref=f154e775] [cursor=pointer]
+              - cell "2" [ref=f154e776] [cursor=pointer]
+              - cell "3" [ref=f154e777] [cursor=pointer]
+            - row [ref=f154e778]:
+              - cell "4" [ref=f154e779] [cursor=pointer]
+              - cell "5" [ref=f154e780] [cursor=pointer]
+              - cell "6" [ref=f154e781] [cursor=pointer]
+              - cell "7" [ref=f154e782] [cursor=pointer]
+              - cell "8" [ref=f154e783] [cursor=pointer]
+              - cell "9" [ref=f154e784] [cursor=pointer]
+              - cell "10" [ref=f154e785] [cursor=pointer]
+            - row [ref=f154e786]:
+              - cell "11" [ref=f154e787] [cursor=pointer]
+              - cell "12" [ref=f154e788] [cursor=pointer]
+              - cell "13" [ref=f154e789] [cursor=pointer]
+              - cell "14" [ref=f154e790] [cursor=pointer]
+              - cell "15" [ref=f154e791] [cursor=pointer]
+              - cell "16" [ref=f154e792] [cursor=pointer]
+              - cell "17" [ref=f154e793] [cursor=pointer]
+            - row [ref=f154e794]:
+              - cell "18" [ref=f154e795] [cursor=pointer]
+              - cell "19" [ref=f154e796] [cursor=pointer]
+              - cell "20" [ref=f154e797] [cursor=pointer]
+              - cell "21" [ref=f154e798] [cursor=pointer]
+              - cell "22" [ref=f154e799] [cursor=pointer]
+              - cell "23" [ref=f154e800] [cursor=pointer]
+              - cell "24" [ref=f154e801] [cursor=pointer]
+            - row [ref=f154e802]:
+              - cell "25" [ref=f154e803] [cursor=pointer]
+              - cell "26" [ref=f154e804] [cursor=pointer]
+              - cell "27" [ref=f154e805] [cursor=pointer]
+              - cell "28" [ref=f154e806] [cursor=pointer]
+              - cell "29" [ref=f154e807] [cursor=pointer]
+              - cell "30" [ref=f154e808] [cursor=pointer]
+              - cell "31" [ref=f154e809] [cursor=pointer]
+            - row [ref=f154e810]:
+              - cell "1" [ref=f154e811] [cursor=pointer]
+              - cell "2" [ref=f154e812] [cursor=pointer]
+              - cell "3" [ref=f154e813] [cursor=pointer]
+              - cell "4" [ref=f154e814] [cursor=pointer]
+              - cell "5" [ref=f154e815] [cursor=pointer]
+              - cell "6" [ref=f154e816] [cursor=pointer]
+              - cell "7" [ref=f154e817] [cursor=pointer]
+        - generic [ref=f154e682]:
+          - button "Abbrechen" [ref=f154e683] [cursor=pointer]
+          - button "Anwenden" [disabled] [ref=f154e684] [cursor=pointer]
+    - generic [ref=f154e228]:
+      - text: Powered by
+      - link "Redmine" [ref=f154e229] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - tooltip [aria-hidden]:
+    - generic: Version 1
+    - generic:
+      - generic: Daten
+      - generic: 8. Sept. 2026 – 5. Okt. 2026
+    - generic:
+      - generic: Dauer
+      - generic: 4 Wochen
+    - generic:
+      - generic: Fortschritt
+      - generic: 0%
+    - generic:
+      - generic: Vorgänge gesamt
+      - generic: "2"
+  - log [ref=f154e230]
+  - log [ref=f154e231]
+  - log [ref=f154e232]
+  - log [ref=f154e233]
+  - log [ref=f154e234]
+  - log [ref=f154e235]
+  - log [ref=f154e236]
+  - log [ref=f154e237]
+  - log [ref=f154e238]
+  - log [ref=f154e239]
+  - log [ref=f154e240]:
+    - generic [ref=f154e543]: Datum von/bis
+  - log [ref=f154e241]
+  - log [ref=f154e242]
+  - log [ref=f154e243]
+  - log [ref=f154e244]
+  - log [ref=f154e245]
+  - log [ref=f154e246]
+  - log [ref=f154e247]

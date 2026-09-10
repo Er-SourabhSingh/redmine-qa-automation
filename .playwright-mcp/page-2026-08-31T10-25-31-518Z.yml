@@ -1,0 +1,143 @@
+- generic [ref=f536e1]:
+  - generic [ref=f536e2]:
+    - generic [ref=f536e3]:
+      - generic [ref=f536e4]:
+        - img "Logo" [ref=f536e5]
+        - text: 
+      - navigation "Application tasks" [ref=f536e6]:
+        - button " Compose" [ref=f536e8] [cursor=pointer]
+        - button " Mail" [disabled] [ref=f536e9] [cursor=pointer]
+        - button " Contacts" [ref=f536e10] [cursor=pointer]
+        - button " Settings" [ref=f536e11] [cursor=pointer]
+        - generic [ref=f536e12]:
+          - button " Dark mode" [ref=f536e13] [cursor=pointer]
+          - button " About" [ref=f536e14] [cursor=pointer]
+          - button " Logout" [ref=f536e15] [cursor=pointer]
+    - navigation "Email folder selection" [ref=f536e16]:
+      - generic [ref=f536e17]:
+        - text: 
+        - generic [ref=f536e18]: qa@test.local
+        - button "" [ref=f536e19] [cursor=pointer]:     
+      - tree [ref=f536e21]:
+        - treeitem [level=1] [selected] [ref=f536e22]:
+          - link " Inbox" [ref=f536e23]:
+            - /url: /?_task=mail&_mbox=INBOX
+        - treeitem [level=1] [ref=f536e24]:
+          - link " Drafts" [ref=f536e25]:
+            - /url: /?_task=mail&_mbox=Drafts
+        - treeitem [level=1] [ref=f536e26]:
+          - link " Sent" [ref=f536e27]:
+            - /url: /?_task=mail&_mbox=Sent
+        - treeitem [level=1] [ref=f536e28]:
+          - link " Junk" [ref=f536e29]:
+            - /url: /?_task=mail&_mbox=Junk
+        - treeitem [level=1] [ref=f536e30]:
+          - link " Trash" [ref=f536e31]:
+            - /url: /?_task=mail&_mbox=Trash
+      - generic [ref=f536e33]:
+        - text: 
+        - generic "unknown" [ref=f536e34]: 0%
+    - generic [ref=f536e37]:
+      - generic [ref=f536e38]:
+        - text:  
+        - list [ref=f536e39]:
+          - menuitem [ref=f536e40]:
+            - link " Select" [ref=f536e41] [cursor=pointer]:
+              - /url: "#select"
+              - text:  Select       
+          - menuitem " Threads" [ref=f536e42]:
+            - link " Threads":
+              - /url: "#threads"
+              - text:  Threads   
+          - menuitem [ref=f536e43]:
+            - link " Options" [ref=f536e44] [cursor=pointer]:
+              - /url: "#list-options"
+        - button " Refresh" [ref=f536e45] [cursor=pointer]
+        - text:  
+      - search "Email search input" [ref=f536e46]:
+        - generic [ref=f536e47]:
+          - text: 
+          - textbox "Search terms" [ref=f536e48]:
+            - /placeholder: Search...
+        - text: 
+        - button "" [ref=f536e49] [cursor=pointer]
+        - button "" [ref=f536e50] [cursor=pointer]
+        - text: 
+      - text:   
+      - generic [ref=f536e51]:
+        - text: 
+        - table "Email Messages Listing" [ref=f536e52]:
+          - text: 
+          - rowgroup [ref=f536e53]:
+            - row [ref=f536e54]:
+              - cell "Redmine Tue 18:05  Your Redmine account activation" [active] [ref=f536e55]:
+                - generic [ref=f536e56]: Redmine
+                - generic [ref=f536e58]: Tue 18:05
+                - generic [ref=f536e59]:
+                  - generic: 
+                  - link "Your Redmine account activation" [ref=f536e60]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=3&_action=show
+              - cell "Not Flagged" [ref=f536e61]:
+                - generic [ref=f536e62] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f536e64]:
+              - cell "customer@test.local 2026-08-24 18:09  Internal auth-fix test" [ref=f536e65]:
+                - generic [ref=f536e66]: customer@test.local
+                - generic [ref=f536e68]: 2026-08-24 18:09
+                - generic [ref=f536e69]:
+                  - generic: 
+                  - link "Internal auth-fix test" [ref=f536e70]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=2&_action=show
+              - cell "Not Flagged" [ref=f536e71]:
+                - generic [ref=f536e72] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f536e74]:
+              - cell "admin@test.local 2026-08-21 17:18  QA test 1787312897 â€” admin to qa" [ref=f536e75]:
+                - generic [ref=f536e76]: admin@test.local
+                - generic [ref=f536e78]: 2026-08-21 17:18
+                - generic [ref=f536e79]:
+                  - generic: 
+                  - link "QA test 1787312897 â€” admin to qa" [ref=f536e80]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=1&_action=show
+              - cell "Not Flagged" [ref=f536e81]:
+                - generic [ref=f536e82] [cursor=pointer]:
+                  - generic "Not Flagged"
+      - toolbar "List navigation" [ref=f536e84]:
+        - button "" [disabled]
+        - button "" [disabled]
+        - generic [ref=f536e85]: Messages 1 to 3 of 3
+        - textbox "Current page" [disabled] [ref=f536e86]: "1"
+        - button "" [disabled]
+        - button "" [disabled]
+    - generic [ref=f536e88]:
+      - toolbar "Application toolbar" [ref=f536e89]:
+        - text:                   Browse
+        - list [ref=f536e90]:
+          - menuitem: 
+          - menuitem " Reply" [ref=f536e91]:
+            - button " Reply" [disabled]
+          - menuitem [ref=f536e92]:
+            - generic [ref=f536e93]:
+              - button " Reply all" [disabled]
+              - link "":
+                - /url: "#reply-all"
+          - menuitem [ref=f536e94]:
+            - generic [ref=f536e95]:
+              - button " Forward" [disabled]
+              - link "":
+                - /url: "#forward"
+          - menuitem [ref=f536e96]
+          - menuitem " Delete" [ref=f536e97]:
+            - button " Delete" [disabled]
+          - menuitem " Mark" [ref=f536e98]:
+            - button " Mark"
+          - menuitem [ref=f536e99]:
+            - button " More" [ref=f536e100] [cursor=pointer]
+          - menuitem: 
+          - menuitem: 
+          - menuitem: 
+        - text: 
+      - iframe [ref=f536e102]:
+        
+      - text:   
+  - text:   

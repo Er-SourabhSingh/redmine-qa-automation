@@ -1,0 +1,266 @@
+- generic [ref=f555e1]:
+  - generic [ref=f555e2]:
+    - generic [ref=f555e3]:
+      - generic [ref=f555e4]:
+        - img "Logo" [ref=f555e5]
+        - text: 
+      - navigation "Application tasks" [ref=f555e6]:
+        - button " Compose" [ref=f555e8] [cursor=pointer]
+        - button " Mail" [disabled] [ref=f555e9] [cursor=pointer]
+        - button " Contacts" [ref=f555e10] [cursor=pointer]
+        - button " Settings" [ref=f555e11] [cursor=pointer]
+        - generic [ref=f555e12]:
+          - button " Dark mode" [ref=f555e13] [cursor=pointer]
+          - button " About" [ref=f555e14] [cursor=pointer]
+          - button " Logout" [ref=f555e15] [cursor=pointer]
+    - navigation "Email folder selection" [ref=f555e16]:
+      - generic [ref=f555e17]:
+        - text: 
+        - generic [ref=f555e18]: alpha.customer@test.local
+        - button "" [ref=f555e19] [cursor=pointer]:     
+      - tree [ref=f555e21]:
+        - treeitem [level=1] [selected] [ref=f555e22]:
+          - link " Inbox 8" [ref=f555e23]:
+            - /url: /?_task=mail&_mbox=INBOX
+            - text:  Inbox
+            - generic [ref=f555e24]: "8"
+        - treeitem [level=1] [ref=f555e25]:
+          - link " Drafts" [ref=f555e26]:
+            - /url: /?_task=mail&_mbox=Drafts
+        - treeitem [level=1] [ref=f555e27]:
+          - link " Sent" [ref=f555e28]:
+            - /url: /?_task=mail&_mbox=Sent
+        - treeitem [level=1] [ref=f555e29]:
+          - link " Junk" [ref=f555e30]:
+            - /url: /?_task=mail&_mbox=Junk
+        - treeitem [level=1] [ref=f555e31]:
+          - link " Trash" [ref=f555e32]:
+            - /url: /?_task=mail&_mbox=Trash
+      - generic [ref=f555e34]:
+        - text: 
+        - generic "unknown" [ref=f555e35]: 0%
+    - generic [ref=f555e38]:
+      - generic [ref=f555e39]:
+        - text:  
+        - list [ref=f555e40]:
+          - menuitem [ref=f555e41]:
+            - link " Select" [ref=f555e42] [cursor=pointer]:
+              - /url: "#select"
+              - text:  Select       
+          - menuitem " Threads" [ref=f555e43]:
+            - link " Threads":
+              - /url: "#threads"
+              - text:  Threads   
+          - menuitem [ref=f555e44]:
+            - link " Options" [ref=f555e45] [cursor=pointer]:
+              - /url: "#list-options"
+        - button " Refresh" [ref=f555e46] [cursor=pointer]
+        - text:  
+      - search "Email search input" [ref=f555e47]:
+        - generic [ref=f555e48]:
+          - text: 
+          - textbox "Search terms" [ref=f555e49]:
+            - /placeholder: Search...
+        - text: 
+        - button "" [ref=f555e50] [cursor=pointer]
+        - button "" [ref=f555e51] [cursor=pointer]
+        - text: 
+      - text:   
+      - generic [ref=f555e52]:
+        - text: 
+        - table "Email Messages Listing" [ref=f555e53]:
+          - text: 
+          - rowgroup [ref=f555e54]:
+            - row [ref=f555e55]:
+              - 'cell "alpha.support@test.local Today 14:48  [Helpdesk QA Alpha #8] Re: Ticket: TC-HLP-016 fresh email creates a new ticket" [active] [ref=f555e56]':
+                - generic [ref=f555e57]: alpha.support@test.local
+                - generic [ref=f555e59]: Today 14:48
+                - generic [ref=f555e60]:
+                  - generic "Unread": 
+                  - 'link "[Helpdesk QA Alpha #8] Re: Ticket: TC-HLP-016 fresh email creates a new ticket" [ref=f555e61]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=14&_action=show
+              - cell "Not Flagged" [ref=f555e62]:
+                - generic [ref=f555e63] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f555e65]:
+              - 'cell "alpha.support@test.local Today 14:47  [Helpdesk QA Alpha #2] Re: Second verification ticket for BUG-HLP-014 retest" [ref=f555e66]':
+                - generic [ref=f555e67]: alpha.support@test.local
+                - generic [ref=f555e69]: Today 14:47
+                - generic [ref=f555e70]:
+                  - generic "Unread": 
+                  - 'link "[Helpdesk QA Alpha #2] Re: Second verification ticket for BUG-HLP-014 retest" [ref=f555e71]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=13&_action=show
+              - cell "Not Flagged" [ref=f555e72]:
+                - generic [ref=f555e73] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f555e75]:
+              - 'cell "alpha.support@test.local Today 14:34  [Helpdesk QA Alpha #8] Re: Ticket: TC-HLP-016 fresh email creates a new ticket" [ref=f555e76]':
+                - generic [ref=f555e77]: alpha.support@test.local
+                - generic [ref=f555e79]: Today 14:34
+                - generic [ref=f555e80]:
+                  - generic "Unread": 
+                  - 'link "[Helpdesk QA Alpha #8] Re: Ticket: TC-HLP-016 fresh email creates a new ticket" [ref=f555e81]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=12&_action=show
+              - cell "Not Flagged" [ref=f555e82]:
+                - generic [ref=f555e83] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f555e85]:
+              - 'cell "alpha.support@test.local Today 14:11  [Helpdesk QA Alpha #7] Re: TC-HLP-015 - customer raised ticket for own-tickets-only visibility check" [ref=f555e86]':
+                - generic [ref=f555e87]: alpha.support@test.local
+                - generic [ref=f555e89]: Today 14:11
+                - generic [ref=f555e90]:
+                  - generic "Unread": 
+                  - 'link "[Helpdesk QA Alpha #7] Re: TC-HLP-015 - customer raised ticket for own-tickets-only visibility check" [ref=f555e91]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=11&_action=show
+              - cell "Not Flagged" [ref=f555e92]:
+                - generic [ref=f555e93] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f555e95]:
+              - 'cell "alpha.support@test.local Today 14:02  [Helpdesk QA Alpha #8] Re: Ticket: TC-HLP-016 fresh email creates a new ticket" [ref=f555e96]':
+                - generic [ref=f555e97]: alpha.support@test.local
+                - generic [ref=f555e99]: Today 14:02
+                - generic [ref=f555e100]:
+                  - generic "Unread": 
+                  - 'link "[Helpdesk QA Alpha #8] Re: Ticket: TC-HLP-016 fresh email creates a new ticket" [ref=f555e101]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=10&_action=show
+              - cell "Not Flagged" [ref=f555e102]:
+                - generic [ref=f555e103] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f555e105]:
+              - 'cell "alpha.support@test.local Today 14:01  [Helpdesk QA Alpha #2] Re: Second verification ticket for BUG-HLP-014 retest" [ref=f555e106]':
+                - generic [ref=f555e107]: alpha.support@test.local
+                - generic [ref=f555e109]: Today 14:01
+                - generic [ref=f555e110]:
+                  - generic "Unread": 
+                  - 'link "[Helpdesk QA Alpha #2] Re: Second verification ticket for BUG-HLP-014 retest" [ref=f555e111]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=9&_action=show
+              - cell "Not Flagged" [ref=f555e112]:
+                - generic [ref=f555e113] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f555e115]:
+              - 'cell "alpha.support@test.local Today 13:57  [Support #8] Ticket: TC-HLP-016 fresh email creates a new ticket" [ref=f555e116]':
+                - generic [ref=f555e117]: alpha.support@test.local
+                - generic [ref=f555e119]: Today 13:57
+                - generic [ref=f555e120]:
+                  - generic "Replied": 
+                  - 'link "[Support #8] Ticket: TC-HLP-016 fresh email creates a new ticket" [ref=f555e121]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=8&_action=show
+              - cell "Not Flagged" [ref=f555e122]:
+                - generic [ref=f555e123] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f555e125]:
+              - 'cell "alpha.support@test.local Today 11:30  [Helpdesk QA Alpha #3] Re: Ticket: BUG-HLP-008 retest - portal login issue" [ref=f555e126]':
+                - generic [ref=f555e127]: alpha.support@test.local
+                - generic [ref=f555e129]: Today 11:30
+                - generic [ref=f555e130]:
+                  - generic "Replied": 
+                  - 'link "[Helpdesk QA Alpha #3] Re: Ticket: BUG-HLP-008 retest - portal login issue" [ref=f555e131]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=7&_action=show
+              - cell "Not Flagged" [ref=f555e132]:
+                - generic [ref=f555e133] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f555e135]:
+              - 'cell "alpha.support@test.local Today 11:28  [Support #3] Ticket: BUG-HLP-008 retest - portal login issue" [ref=f555e136]':
+                - generic [ref=f555e137]: alpha.support@test.local
+                - generic [ref=f555e139]: Today 11:28
+                - generic [ref=f555e140]:
+                  - generic "Unread": 
+                  - 'link "[Support #3] Ticket: BUG-HLP-008 retest - portal login issue" [ref=f555e141]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=6&_action=show
+              - cell "Not Flagged" [ref=f555e142]:
+                - generic [ref=f555e143] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f555e145]:
+              - cell "redmine@example.net Thu 16:23  Your Helpdesk Account Has Been Created" [ref=f555e146]:
+                - generic [ref=f555e147]: redmine@example.net
+                - generic [ref=f555e149]: Thu 16:23
+                - generic [ref=f555e150]:
+                  - generic "Unread": 
+                  - link "Your Helpdesk Account Has Been Created" [ref=f555e151]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=5&_action=show
+              - cell "Not Flagged" [ref=f555e152]:
+                - generic [ref=f555e153] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f555e155]:
+              - 'cell "alpha.support@test.local Thu 15:02  [Helpdesk QA Alpha #74] Re: [TICKET] TC-HLP-015 - customer-raised ticket, cannot access my dashboard" [ref=f555e156]':
+                - generic [ref=f555e157]: alpha.support@test.local
+                - generic [ref=f555e159]: Thu 15:02
+                - generic [ref=f555e160]:
+                  - generic: 
+                  - 'link "[Helpdesk QA Alpha #74] Re: [TICKET] TC-HLP-015 - customer-raised ticket, cannot access my dashboard" [ref=f555e161]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=4&_action=show
+              - cell "Not Flagged" [ref=f555e162]:
+                - generic [ref=f555e163] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f555e165]:
+              - 'cell "alpha.support@test.local Thu 14:44  [Helpdesk QA Alpha #74] Re: [TICKET] TC-HLP-015 - customer-raised ticket, cannot access my dashboard" [ref=f555e166]':
+                - generic [ref=f555e167]: alpha.support@test.local
+                - generic [ref=f555e169]: Thu 14:44
+                - generic [ref=f555e170]:
+                  - generic: 
+                  - 'link "[Helpdesk QA Alpha #74] Re: [TICKET] TC-HLP-015 - customer-raised ticket, cannot access my dashboard" [ref=f555e171]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=3&_action=show
+              - cell "Not Flagged" [ref=f555e172]:
+                - generic [ref=f555e173] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f555e175]:
+              - 'cell "alpha.support@test.local Wed 15:05  [Support #68] Just saying hello" [ref=f555e176]':
+                - generic [ref=f555e177]: alpha.support@test.local
+                - generic [ref=f555e179]: Wed 15:05
+                - generic [ref=f555e180]:
+                  - generic: 
+                  - 'link "[Support #68] Just saying hello" [ref=f555e181]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=2&_action=show
+              - cell "Not Flagged" [ref=f555e182]:
+                - generic [ref=f555e183] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f555e185]:
+              - cell "admin@test.local Wed 14:31  Your Helpdesk Account Has Been Created" [ref=f555e186]:
+                - generic [ref=f555e187]: admin@test.local
+                - generic [ref=f555e189]: Wed 14:31
+                - generic [ref=f555e190]:
+                  - generic: 
+                  - link "Your Helpdesk Account Has Been Created" [ref=f555e191]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=1&_action=show
+              - cell "Not Flagged" [ref=f555e192]:
+                - generic [ref=f555e193] [cursor=pointer]:
+                  - generic "Not Flagged"
+      - toolbar "List navigation" [ref=f555e195]:
+        - button "" [disabled]
+        - button "" [disabled]
+        - generic [ref=f555e196]: Messages 1 to 14 of 14
+        - textbox "Current page" [disabled] [ref=f555e197]: "1"
+        - button "" [disabled]
+        - button "" [disabled]
+    - generic [ref=f555e199]:
+      - toolbar "Application toolbar" [ref=f555e200]:
+        - text:                   Browse
+        - list [ref=f555e201]:
+          - menuitem: 
+          - menuitem " Reply" [ref=f555e202]:
+            - button " Reply" [disabled]
+          - menuitem [ref=f555e203]:
+            - generic [ref=f555e204]:
+              - button " Reply all" [disabled]
+              - link "":
+                - /url: "#reply-all"
+          - menuitem [ref=f555e205]:
+            - generic [ref=f555e206]:
+              - button " Forward" [disabled]
+              - link "":
+                - /url: "#forward"
+          - menuitem [ref=f555e207]
+          - menuitem " Delete" [ref=f555e208]:
+            - button " Delete" [disabled]
+          - menuitem " Mark" [ref=f555e209]:
+            - button " Mark"
+          - menuitem [ref=f555e210]:
+            - button " More" [ref=f555e211] [cursor=pointer]
+          - menuitem: 
+          - menuitem: 
+          - menuitem: 
+        - text: 
+      - iframe [ref=f555e213]:
+        
+      - text:   
+  - text:   

@@ -1,6 +1,7 @@
 # BUG-HLP-007
 
 - Bug ID: BUG-HLP-007
+- Production Redmine Issue ID: 119631
 - Title: Submitting an Internal Note on a ticket crashes with a 500 Internal Server Error (`private_notes` NOT NULL violation)
 - Redmine version: 6 (local Docker, `redmine-docker-6`)
 - Plugin name: Redmineflux Helpdesk
@@ -50,6 +51,7 @@ The steps below (marked **[Branded route / crashes]**) are the original, still-v
 ## Expected result
 
 - The note is saved as an internal (team-only) note on the ticket, per `HELPDESK_FEATURES_LIST.md` #15 — never emailed to the customer, no status/SLA side effects — **regardless of which route the ticket page was reached through.**
+- **Per explicit user product-judgment direction (2026-08-31): an Agent should not open a ticket via the branded/"customer" ticket URL (`/projects/:id/helpdesk/issues/:id`) at all — an Agent session should only ever use the core Redmine issue route (`/issues/:id`).** The branded route is intended for the customer-facing experience; an Agent landing on it (e.g. via a notification email's "View Ticket" link, which currently points there for every role) is itself the wrong behavior, not just an acceptable path that happens to crash on Internal Note. The real fix direction is therefore two-part: (1) outbound notification emails should link Agents to the core `/issues/:id` route, not the branded route, and (2) even if the branded route remains reachable, it should not be relied upon for Agent workflows — this reframes the priority away from "fix `private_notes` handling on the branded route" and toward "stop routing Agents to the branded route in the first place."
 
 ## Actual result
 
@@ -89,6 +91,14 @@ The steps below (marked **[Branded route / crashes]**) are the original, still-v
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
+
+## Retest — 2026-08-31, Local (redmine-docker-6), fresh rebuilt environment
+
+- **Context**: retested on the environment rebuilt earlier this session (new project Helpdesk QA Alpha, new agent `luna.blossom`, ticket #2) — zero shared history with the original `aurora.wren`/Helpdesk QA Beta repro.
+- **Branded route** (`/projects/helpdesk-qa-alpha/helpdesk/issues/2`, reached by direct navigation since there is still no legitimate in-app agent click path to it — only an outbound notification email link reaches it, matching this bug's own established finding): logged in as `luna.blossom`, Reply → Internal Note → text → Activity "Technical Support" → Save. **Still crashes with HTTP 500.** Confirmed via the server log (`docker logs redmine-docker-6-redmine-1`) — byte-for-byte the same failure as originally reported: `Processing by RfProjectHelpdeskIssuesController#update`, params show `"private_notes" => ""`, exception `ActiveRecord::NotNullViolation (Mysql2::Error: Column 'private_notes' cannot be null)`. Screenshot: `retest-2026-08-31-still-500-error.png`.
+- **Core route** (`/issues/2`) contrast check, same session: Internal Note submitted cleanly, no error, note saved and correctly marked "Private" in the ticket's history. Confirms the branded-vs-core split is unchanged.
+- **Verdict: RETEST FAIL — bug still reproduces, unchanged.** This is a genuinely unfixed defect, not an environment-specific artifact — same exact controller, same exact param shape, same exact exception as the original report. Left open.
+- **Follow-up check, same session: confirmed by actually clicking, not just reading `href` attributes, that there is still no in-app agent click path to the branded route.** Clicked through Helpdesk QA Alpha's own "Helpdesk" tab → "Helpdesk Tickets" sub-nav → clicked the ticket row itself (both the `#2` link and the subject link) — lands on `/issues/2` (core route) every time, confirmed via the resulting page URL after the click, not merely the link's static `href`. Also checked the project's Helpdesk Dashboard for a "Recent Tickets"-style widget as an alternate path — none exists at the project level (that widget is Command-Center-only, admin/manager-facing). This reconfirms: the branded route is reachable in practice only via an outbound notification email's "View Ticket" link, never through any in-app navigation an agent would organically use — which is exactly why this bug's real-world impact is high despite the core route working fine.
 
 ## Notes
 

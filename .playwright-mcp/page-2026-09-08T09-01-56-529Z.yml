@@ -1,0 +1,342 @@
+- generic [active] [ref=f229e1]:
+  - generic [ref=f229e2]:
+    - navigation [ref=f229e3]:
+      - generic [ref=f229e4]:
+        - link [ref=f229e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f229e7] [cursor=pointer]
+      - list [ref=f229e17]:
+        - listitem [ref=f229e18]:
+          - link "Hauptseite" [ref=f229e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f229e20]:
+          - link "Meine Seite" [ref=f229e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f229e22]:
+          - link "Projekte" [ref=f229e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f229e24]:
+          - link "Agile Board" [ref=f229e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f229e26]:
+          - link "Flux Gantt" [ref=f229e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f229e28]:
+          - link "Administration" [ref=f229e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f229e30]:
+          - link "Hilfe" [ref=f229e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f229e32]:
+        - generic [ref=f229e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f229e35]
+        - link "Mein Konto" [ref=f229e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f229e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f229e44]:
+      - generic [ref=f229e45]:
+        - heading "Redmine" [level=1] [ref=f229e47]
+        - generic [ref=f229e49]:
+          - heading "Administration" [level=3] [ref=f229e50]
+          - list [ref=f229e52]:
+            - listitem [ref=f229e53]:
+              - link "Projekte" [ref=f229e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f229e55]:
+              - link "Benutzer" [ref=f229e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f229e57]:
+              - link "Gruppen" [ref=f229e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f229e59]:
+              - link "Rollen und Rechte" [ref=f229e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f229e61]:
+              - link "Tracker" [ref=f229e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f229e63]:
+              - link "Ticket-Status" [ref=f229e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f229e65]:
+              - link "Workflow" [ref=f229e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f229e67]:
+              - link "Benutzerdefinierte Felder" [ref=f229e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f229e69]:
+              - link "Aufzählungen" [ref=f229e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f229e71]:
+              - link "Konfiguration" [ref=f229e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f229e73]:
+              - link "LDAP-Authentifizierung" [ref=f229e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f229e75]:
+              - link "Applikationen" [ref=f229e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f229e77]:
+              - link "Plugins" [ref=f229e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f229e79]:
+              - link "Informationen" [ref=f229e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f229e81]:
+        - heading "Konfiguration" [level=2] [ref=f229e82]
+        - list [ref=f229e84]:
+          - listitem [ref=f229e85]:
+            - link "Allgemein" [ref=f229e86] [cursor=pointer]:
+              - /url: /settings?tab=general
+          - listitem [ref=f229e87]:
+            - link "Anzeige" [ref=f229e88] [cursor=pointer]:
+              - /url: /settings?tab=display
+          - listitem [ref=f229e89]:
+            - link "Authentifizierung" [ref=f229e90] [cursor=pointer]:
+              - /url: /settings?tab=authentication
+          - listitem [ref=f229e91]:
+            - link "Integrations" [ref=f229e92] [cursor=pointer]:
+              - /url: /settings?tab=integrations
+          - listitem [ref=f229e93]:
+            - link "Projekte" [ref=f229e94] [cursor=pointer]:
+              - /url: /settings?tab=projects
+          - listitem [ref=f229e95]:
+            - link "Benutzer" [ref=f229e96] [cursor=pointer]:
+              - /url: /settings?tab=users
+          - listitem [ref=f229e97]:
+            - link "Tickets" [ref=f229e98] [cursor=pointer]:
+              - /url: /settings?tab=issues
+          - listitem [ref=f229e99]:
+            - link "Zeiterfassung" [ref=f229e100] [cursor=pointer]:
+              - /url: /settings?tab=timelog
+          - listitem [ref=f229e101]:
+            - link "Dateien" [ref=f229e102] [cursor=pointer]:
+              - /url: /settings?tab=attachments
+          - listitem [ref=f229e103]:
+            - link "Mailbenachrichtigung" [ref=f229e104] [cursor=pointer]:
+              - /url: /settings?tab=notifications
+          - listitem [ref=f229e105]:
+            - link "Eingehende E-Mails" [ref=f229e106] [cursor=pointer]:
+              - /url: /settings?tab=mail_handler
+          - listitem [ref=f229e107]:
+            - link "Repositories" [ref=f229e108] [cursor=pointer]:
+              - /url: /settings?tab=repositories
+        - text: pre pre pre
+        - generic [ref=f229e110]:
+          - group "Aktivierte Versionskontrollsysteme" [ref=f229e111]:
+            - table [ref=f229e113]:
+              - rowgroup [ref=f229e114]:
+                - row [ref=f229e115]:
+                  - columnheader [ref=f229e116]
+                  - columnheader "Kommando" [ref=f229e117]
+                  - columnheader "Version" [ref=f229e118]
+                - row [ref=f229e119]:
+                  - cell [ref=f229e120]:
+                    - generic [ref=f229e121]:
+                      - checkbox "Subversion" [checked] [ref=f229e122]
+                      - text: Subversion
+                  - cell "svn" [ref=f229e123]
+                  - cell "1.14.5" [ref=f229e124]
+                - row [ref=f229e125]:
+                  - cell [ref=f229e126]:
+                    - generic [ref=f229e127]:
+                      - checkbox "Mercurial" [checked] [ref=f229e128]
+                      - text: Mercurial
+                  - cell "hg" [ref=f229e129]
+                  - cell "7.0.1" [ref=f229e130]
+                - row [ref=f229e131]:
+                  - cell [ref=f229e132]:
+                    - generic [ref=f229e133]:
+                      - checkbox "Cvs" [checked] [ref=f229e134]
+                      - text: Cvs
+                  - cell "cvs" [ref=f229e135]
+                  - cell [ref=f229e136]
+                - row [ref=f229e137]:
+                  - cell [ref=f229e138]:
+                    - generic [ref=f229e139]:
+                      - checkbox "Bazaar" [checked] [ref=f229e140]
+                      - text: Bazaar
+                  - cell "bzr" [ref=f229e141]
+                  - cell "3.3.11" [ref=f229e142]
+                - row [ref=f229e143]:
+                  - cell [ref=f229e144]:
+                    - generic [ref=f229e145]:
+                      - checkbox "Git" [checked] [ref=f229e146]
+                      - text: Git
+                  - cell "git" [ref=f229e147]
+                  - cell "2.47.3" [ref=f229e148]
+                - row [ref=f229e149]:
+                  - cell [ref=f229e150]:
+                    - generic [ref=f229e151]:
+                      - checkbox "Filesystem" [ref=f229e152]
+                      - text: Filesystem
+                  - cell [ref=f229e153]
+                  - cell [ref=f229e154]
+            - paragraph [ref=f229e155]:
+              - emphasis [ref=f229e156]: Die SCM-Kommandos können in config/configuration.yml festgelegt werden. Bitte starten Sie die Applikation danach neu.
+          - generic [ref=f229e157]:
+            - paragraph [ref=f229e158]:
+              - generic [ref=f229e159]: Changesets automatisch abrufen
+              - checkbox "Changesets automatisch abrufen" [checked] [ref=f229e160]
+            - paragraph [ref=f229e161]:
+              - generic [ref=f229e162]: Webservice zur Verwaltung der Repositories benutzen
+              - checkbox "Webservice zur Verwaltung der Repositories benutzen" [ref=f229e163]
+            - paragraph [ref=f229e164]:
+              - generic [ref=f229e165]: API-Schlüssel für Webservice zur Repository-Verwaltung
+              - textbox "API-Schlüssel für Webservice zur Repository-Verwaltung" [disabled] [ref=f229e166]
+              - link "Generieren" [ref=f229e167] [cursor=pointer]:
+                - /url: "#"
+            - paragraph [ref=f229e168]:
+              - generic [ref=f229e169]: Maximale Anzahl anzuzeigender Revisionen in der Historie einer Datei
+              - textbox "Maximale Anzahl anzuzeigender Revisionen in der Historie einer Datei" [ref=f229e170]: "100"
+            - paragraph [ref=f229e171]:
+              - generic [ref=f229e172]: Textformatierung für Commit-Nachrichten
+              - checkbox "Textformatierung für Commit-Nachrichten" [checked] [ref=f229e173]
+          - group "Ticket-Beziehungen und -Status in Commit-Nachrichten" [ref=f229e174]:
+            - paragraph [ref=f229e176]:
+              - generic [ref=f229e177]: Schlüsselwörter (Beziehungen)
+              - textbox "Schlüsselwörter (Beziehungen)" [ref=f229e178]: refs,references,IssueID
+              - emphasis [ref=f229e179]: Mehrere Werte erlaubt (durch Komma getrennt).
+            - paragraph [ref=f229e180]:
+              - generic [ref=f229e181]: Erlauben, Tickets aller anderen Projekte zu referenzieren
+              - checkbox "Erlauben, Tickets aller anderen Projekte zu referenzieren" [ref=f229e182]
+            - paragraph [ref=f229e183]:
+              - generic [ref=f229e184]: Aktiviere Zeiterfassung via Commit-Nachricht
+              - checkbox "Aktiviere Zeiterfassung via Commit-Nachricht" [ref=f229e185]
+            - paragraph [ref=f229e186]:
+              - generic [ref=f229e187]: Aktivität für die Zeiterfassung
+              - combobox "Aktivität für die Zeiterfassung" [disabled] [ref=f229e188]:
+                - option "Standard" [selected]
+                - option "Design"
+                - option "Development"
+          - table [ref=f229e189]:
+            - rowgroup [ref=f229e190]:
+              - row [ref=f229e191]:
+                - columnheader "Tracker" [ref=f229e192]
+                - columnheader "Schlüsselwörter (Status)" [ref=f229e193]
+                - columnheader "Zugewiesener Status" [ref=f229e194]
+                - columnheader "% erledigt" [ref=f229e195]
+                - columnheader [ref=f229e196]
+            - rowgroup [ref=f229e197]:
+              - row [ref=f229e198]:
+                - cell "Alle" [ref=f229e199]:
+                  - combobox [ref=f229e200]:
+                    - option "Alle" [selected]
+                    - option "Bug"
+                    - option "Feature"
+                    - option "Support"
+                - cell [ref=f229e201]:
+                  - textbox [ref=f229e202]
+                - cell [ref=f229e203]:
+                  - combobox [ref=f229e204]:
+                    - option [selected]
+                    - option "New"
+                    - option "In Progress"
+                    - option "Resolved"
+                    - option "Feedback"
+                    - option "Closed"
+                    - option "Rejected"
+                - cell [ref=f229e205]:
+                  - combobox [ref=f229e206]:
+                    - option [selected]
+                    - option "0 %"
+                    - option "10 %"
+                    - option "20 %"
+                    - option "30 %"
+                    - option "40 %"
+                    - option "50 %"
+                    - option "60 %"
+                    - option "70 %"
+                    - option "80 %"
+                    - option "90 %"
+                    - option "100 %"
+                - cell [ref=f229e207]:
+                  - link "Löschen" [ref=f229e208] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f229e209]:
+                - cell [ref=f229e210]
+                - cell [ref=f229e211]:
+                  - emphasis [ref=f229e212]: Mehrere Werte erlaubt (durch Komma getrennt).
+                - cell [ref=f229e213]
+                - cell [ref=f229e214]
+                - cell [ref=f229e215]:
+                  - link "Hinzufügen" [ref=f229e216] [cursor=pointer]:
+                    - /url: "#"
+          - paragraph [ref=f229e218]:
+            - button "Speichern" [ref=f229e219] [cursor=pointer]
+    - generic [ref=f229e220]:
+      - text: Powered by
+      - link "Redmine" [ref=f229e221] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f229e222]
+  - log [ref=f229e223]
+  - log [ref=f229e224]
+  - log [ref=f229e225]
+  - log [ref=f229e226]
+  - log [ref=f229e227]
+  - log [ref=f229e228]
+  - log [ref=f229e229]
+  - log [ref=f229e230]
+  - log [ref=f229e231]
+  - log [ref=f229e232]
+  - log [ref=f229e233]
+  - log [ref=f229e234]
+  - log [ref=f229e235]
+  - log [ref=f229e236]
+  - log [ref=f229e237]
+  - log [ref=f229e238]
+  - log [ref=f229e239]
+  - log [ref=f229e240]
+  - log [ref=f229e241]
+  - log [ref=f229e242]
+  - log [ref=f229e243]
+  - log [ref=f229e244]
+  - log [ref=f229e245]
+  - log [ref=f229e246]
+  - log [ref=f229e247]
+  - log [ref=f229e248]
+  - log [ref=f229e249]
+  - log [ref=f229e250]
+  - log [ref=f229e251]
+  - log [ref=f229e252]
+  - log [ref=f229e253]
+  - log [ref=f229e254]
+  - log [ref=f229e255]
+  - log [ref=f229e256]
+  - log [ref=f229e257]
+  - log [ref=f229e258]
+  - log [ref=f229e259]
+  - log [ref=f229e260]
+  - log [ref=f229e261]
+  - log [ref=f229e262]
+  - log [ref=f229e263]
+  - log [ref=f229e264]
+  - log [ref=f229e265]
+  - log [ref=f229e266]
+  - log [ref=f229e267]
+  - log [ref=f229e268]
+  - log [ref=f229e269]
+  - log [ref=f229e270]
+  - log [ref=f229e271]
+  - log [ref=f229e272]
+  - log [ref=f229e273]
+  - log [ref=f229e274]
+  - log [ref=f229e275]
+  - log [ref=f229e276]
+  - log [ref=f229e277]
+  - log [ref=f229e278]
+  - log [ref=f229e279]
+  - log [ref=f229e280]
+  - log [ref=f229e281]
+  - log [ref=f229e282]
+  - log [ref=f229e283]
+  - log [ref=f229e284]
+  - log [ref=f229e285]
+  - log [ref=f229e286]
+  - log [ref=f229e287]
+  - log [ref=f229e288]
+  - log [ref=f229e289]
+  - log [ref=f229e290]
+  - log [ref=f229e291]
+  - log [ref=f229e292]

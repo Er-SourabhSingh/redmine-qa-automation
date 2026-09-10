@@ -1,0 +1,175 @@
+- generic [ref=f124e1]:
+  - generic [ref=f124e2]:
+    - generic [ref=f124e3]:
+      - generic [ref=f124e4]:
+        - list:
+          - listitem [ref=f124e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f124e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f124e7]:
+        - text: Logged in as
+        - link "admin" [ref=f124e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f124e9]:
+        - listitem [ref=f124e10]:
+          - link [ref=f124e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f124e12]
+        - listitem [ref=f124e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f124e14]:
+          - link "My page" [ref=f124e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f124e16]:
+          - link "Projects" [ref=f124e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f124e18]:
+          - link "Flux Gantt" [ref=f124e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f124e20]:
+          - link "Helpdesk Command Center" [ref=f124e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f124e22]:
+          - link "Time Tracker" [ref=f124e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f124e24]:
+          - link "Timesheet" [ref=f124e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f124e26]:
+          - link "Workloads" [ref=f124e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f124e28]:
+          - link "More" [ref=f124e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f124e30]:
+      - generic [ref=f124e31]:
+        - generic [ref=f124e32]:
+          - generic [ref=f124e33]:
+            - link "Search..." [ref=f124e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f124e35]
+        - generic [ref=f124e36]:
+          - generic [ref=f124e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f124e38]
+    - generic [ref=f124e39]:
+      - list [ref=f124e43]:
+        - listitem [ref=f124e44]:
+          - link "Helpdesk Dashboard" [ref=f124e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f124e48]:
+          - link "Helpdesk Tickets" [ref=f124e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f124e52]:
+          - link "Reports" [ref=f124e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f124e56]:
+          - link "Organization" [ref=f124e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f124e60]:
+          - link "Customers" [ref=f124e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f124e64]:
+          - link "Products" [ref=f124e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f124e68]:
+          - link "Helpdesk Settings" [ref=f124e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f124e72]:
+        - generic [ref=f124e75]:
+          - heading "Helpdesk Settings" [level=2] [ref=f124e76]
+          - paragraph [ref=f124e77]: Holidays, products, SLA policies and canned responses
+        - list [ref=f124e79]:
+          - listitem [ref=f124e80]:
+            - link "Holiday" [ref=f124e81] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f124e82]:
+            - link "Products" [ref=f124e83] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f124e84]:
+            - link "Email Configuration" [active] [ref=f124e85] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f124e86]:
+            - link "Canned Responses" [ref=f124e87] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+          - listitem [ref=f124e88]:
+            - link "Support Packages" [ref=f124e89] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+        - generic [ref=f124e284]:
+          - heading "Email Configuration" [level=3] [ref=f124e286]
+          - generic [ref=f124e287]:
+            - generic [ref=f124e288]:
+              - generic [ref=f124e289]: Project
+              - combobox "Project" [ref=f124e290] [cursor=pointer]:
+                - option "Select a project"
+                - option "Helpdesk QA Alpha" [selected]
+                - option "Helpdesk QA Beta"
+                - option "Helpdesk QA Gamma"
+            - generic [ref=f124e291]:
+              - heading "Select a project" [level=3] [ref=f124e296]
+              - paragraph [ref=f124e297]: Email settings are per project. Choose one above to view and edit its configuration.
+    - generic [ref=f124e226]:
+      - text: Powered by
+      - link "Redmine" [ref=f124e227] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f124e228]
+  - log [ref=f124e229]
+  - log [ref=f124e230]
+  - log [ref=f124e231]
+  - log [ref=f124e232]
+  - log [ref=f124e233]
+  - log [ref=f124e234]
+  - log [ref=f124e235]
+  - log [ref=f124e236]
+  - log [ref=f124e237]
+  - log [ref=f124e238]
+  - log [ref=f124e239]
+  - log [ref=f124e240]
+  - log [ref=f124e241]
+  - log [ref=f124e242]
+  - log [ref=f124e243]
+  - log [ref=f124e244]
+  - log [ref=f124e245]
+  - log [ref=f124e246]
+  - log [ref=f124e247]
+  - log [ref=f124e248]
+  - log [ref=f124e249]
+  - log [ref=f124e250]
+  - log [ref=f124e251]
+  - log [ref=f124e252]
+  - log [ref=f124e253]
+  - log [ref=f124e254]
+  - log [ref=f124e255]
+  - log [ref=f124e256]
+  - log [ref=f124e257]
+  - log [ref=f124e258]
+  - log [ref=f124e259]
+  - log [ref=f124e260]
+  - log [ref=f124e261]
+  - log [ref=f124e262]
+  - log [ref=f124e263]
+  - log [ref=f124e264]
+  - log [ref=f124e265]
+  - log [ref=f124e266]
+  - log [ref=f124e267]
+  - log [ref=f124e268]
+  - log [ref=f124e269]
+  - log [ref=f124e270]
+  - log [ref=f124e271]
+  - log [ref=f124e272]
+  - log [ref=f124e273]
+  - log [ref=f124e274]
+  - log [ref=f124e275]
+  - log [ref=f124e276]
+  - log [ref=f124e277]
+  - log [ref=f124e278]
+  - log [ref=f124e279]
+  - log [ref=f124e280]
+  - log [ref=f124e281]
+  - log [ref=f124e282]

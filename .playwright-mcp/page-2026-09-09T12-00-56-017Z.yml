@@ -1,0 +1,329 @@
+- generic [active] [ref=f31e1]:
+  - generic [ref=f31e2]:
+    - navigation [ref=f31e3]:
+      - list [ref=f31e6]:
+        - listitem [ref=f31e7]:
+          - link "Hauptseite" [ref=f31e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f31e9]:
+          - link "Meine Seite" [ref=f31e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f31e11]:
+          - link "Projekte" [ref=f31e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f31e13]:
+          - link "Agile Board" [ref=f31e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f31e15]:
+          - link "Flux Gantt" [ref=f31e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f31e17]:
+          - link "Administration" [ref=f31e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f31e19]:
+          - link "Hilfe" [ref=f31e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f31e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f31e24]: RA
+    - generic [ref=f31e27]:
+      - generic [ref=f31e28]:
+        - generic [ref=f31e29]:
+          - generic [ref=f31e30]:
+            - link "Suche" [ref=f31e31] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Suche:" [ref=f31e32]
+        - generic [ref=f31e33]:
+          - generic [ref=f31e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f31e35]
+      - generic [ref=f31e37]:
+        - list [ref=f31e38]:
+          - listitem [ref=f31e39]:
+            - link "+" [ref=f31e40] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f31e41]:
+            - link "Übersicht" [ref=f31e42] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f31e43]:
+            - link "Dashboard" [ref=f31e44] [cursor=pointer]:
+              - /url: /projects/agileboard/analytics_dashboard
+          - listitem [ref=f31e45]:
+            - link "Aktivität" [ref=f31e46] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f31e47]:
+            - link "Agile Board" [ref=f31e48] [cursor=pointer]:
+              - /url: /projects/agileboard/agile_board
+          - listitem [ref=f31e49]:
+            - link "Backlog" [ref=f31e50] [cursor=pointer]:
+              - /url: /projects/agileboard/backlog
+          - listitem [ref=f31e51]:
+            - link "Roadmap" [ref=f31e52] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f31e53]:
+            - link "Tickets" [ref=f31e54] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f31e55]:
+            - link "Aufgewendete Zeit" [ref=f31e56] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f31e57]:
+            - link "Gantt-Diagramm" [ref=f31e58] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f31e59]:
+            - link "Kalender" [ref=f31e60] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f31e61]:
+            - link "News" [ref=f31e62] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f31e63]:
+            - link "Dokumente" [ref=f31e64] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f31e65]:
+            - link "Wiki" [ref=f31e66] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f31e67]:
+            - link "Dateien" [ref=f31e68] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f31e69]:
+            - link "Konfiguration" [ref=f31e70] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f31e71]:
+          - button [ref=f31e72] [cursor=pointer]
+          - button [ref=f31e75] [cursor=pointer]
+    - generic [ref=f31e79]:
+      - generic [ref=f31e80]: Erfolgreich aktualisiert.
+      - generic [ref=f31e83]:
+        - link "Bearbeiten" [ref=f31e84] [cursor=pointer]:
+          - /url: /issues/106/edit
+        - link "Aufwand buchen" [ref=f31e88] [cursor=pointer]:
+          - /url: /issues/106/time_entries/new
+        - link "Nicht beobachten" [ref=f31e92] [cursor=pointer]:
+          - /url: /watchers/watch?object_id=106&object_type=issue
+        - link "Kopieren" [ref=f31e96] [cursor=pointer]:
+          - /url: /projects/agileboard/issues/106/copy
+        - generic "Aktionen" [ref=f31e102] [cursor=pointer]
+      - 'heading "Feature #106" [level=2] [ref=f31e105]'
+      - text: offen
+      - generic [ref=f31e106]:
+        - generic:
+          - 'img "Autor: Redmine Admin" [ref=f31e107]': RA
+          - 'img "Zugewiesen an: Summer Rain" [ref=f31e108]': SR
+        - heading [level=3] [ref=f31e111]:
+          - text: Integrate payment gateway for subscriptions
+          - button "Edit" [ref=f31e112] [cursor=pointer]
+        - paragraph [ref=f31e113]:
+          - text: Von
+          - link "Redmine Admin" [ref=f31e114] [cursor=pointer]:
+            - /url: /users/1
+          - text: vor
+          - link "etwa 1 Stunde" [ref=f31e115] [cursor=pointer]:
+            - /url: /projects/agileboard/activity?from=2026-09-09
+          - text: hinzugefügt. Vor
+          - link "weniger als 1 Minute" [ref=f31e116] [cursor=pointer]:
+            - /url: /projects/agileboard/activity?from=2026-09-09
+          - text: aktualisiert.
+        - generic [ref=f31e117]:
+          - generic [ref=f31e118]:
+            - generic [ref=f31e119]:
+              - generic [ref=f31e120]:
+                - generic [ref=f31e121]: "Status:"
+                - generic [ref=f31e122]:
+                  - text: New
+                  - button "Edit" [ref=f31e380] [cursor=pointer]
+              - generic [ref=f31e124]:
+                - generic [ref=f31e125]: "Priorität:"
+                - generic [ref=f31e126]: Saving…
+              - generic [ref=f31e128]:
+                - generic [ref=f31e129]: "Zugewiesen an:"
+                - generic [ref=f31e130]:
+                  - link "Summer Rain" [ref=f31e383] [cursor=pointer]:
+                    - /url: /users/11
+                  - button "Edit" [ref=f31e384] [cursor=pointer]
+              - generic [ref=f31e134]:
+                - generic [ref=f31e135]: "Zielversion:"
+                - generic [ref=f31e136]:
+                  - text: "-"
+                  - button "Edit" [ref=f31e385] [cursor=pointer]
+            - generic [ref=f31e138]:
+              - generic [ref=f31e139]:
+                - generic [ref=f31e140]: "Startdatum:"
+                - generic [ref=f31e141]:
+                  - text: 24.01.2025
+                  - button "Edit" [ref=f31e386] [cursor=pointer]
+              - generic [ref=f31e143]:
+                - generic [ref=f31e144]: "Abgabedatum:"
+                - generic [ref=f31e145]:
+                  - text: 24.01.2025 (seit etwa 20 Monaten verspätet)
+                  - button "Edit" [ref=f31e387] [cursor=pointer]
+              - generic [ref=f31e147]:
+                - generic [ref=f31e148]: "% erledigt:"
+                - generic [ref=f31e149]:
+                  - generic [ref=f31e388]:
+                    - table [ref=f31e389]:
+                      - rowgroup [ref=f31e390]:
+                        - row [ref=f31e391]:
+                          - cell [ref=f31e392]
+                    - paragraph [ref=f31e393]: 0%
+                  - button "Edit" [ref=f31e394] [cursor=pointer]
+              - generic [ref=f31e157]:
+                - generic [ref=f31e158]: "Geschätzter Aufwand:"
+                - button "Edit" [ref=f31e395] [cursor=pointer]
+          - generic [ref=f31e161]:
+            - generic [ref=f31e163]:
+              - generic [ref=f31e164]: "Sprint:"
+              - generic [ref=f31e165]:
+                - text: "-"
+                - button "Edit" [ref=f31e166] [cursor=pointer]
+            - generic [ref=f31e168]:
+              - generic [ref=f31e169]: "Story-Points:"
+              - generic [ref=f31e170]:
+                - text: "-"
+                - button "Edit" [ref=f31e171] [cursor=pointer]
+          - generic [ref=f31e172]:
+            - generic [ref=f31e173]: "Markierungen:"
+            - generic: Hinzufügen
+        - separator [ref=f31e175]
+        - generic [ref=f31e176]:
+          - paragraph [ref=f31e177]:
+            - strong [ref=f31e178]: Beschreibung
+            - button "Edit" [ref=f31e179] [cursor=pointer]
+          - paragraph [ref=f31e367]: QA test description for inline editor retest.
+        - separator [ref=f31e182]
+        - generic [ref=f31e183]:
+          - paragraph [ref=f31e397]:
+            - strong [ref=f31e398]: Checkliste
+          - generic [ref=f31e400] [cursor=pointer]
+          - generic:
+            - list
+        - separator [ref=f31e191]
+        - generic [ref=f31e192]:
+          - link "Hinzufügen" [ref=f31e194] [cursor=pointer]:
+            - /url: /projects/agileboard/issues/new?back_url=%2Fissues%2F106&issue%5Bparent_issue_id%5D=106&issue%5Btracker_id%5D=5
+          - paragraph [ref=f31e198]:
+            - strong [ref=f31e199]: Untergeordnete Tickets
+        - separator [ref=f31e200]
+        - generic [ref=f31e201]:
+          - link "Hinzufügen" [ref=f31e203] [cursor=pointer]:
+            - /url: "#"
+          - paragraph [ref=f31e207]:
+            - strong [ref=f31e208]: Zugehörige Tickets
+      - generic [ref=f31e209]:
+        - list [ref=f31e211]:
+          - listitem [ref=f31e212]:
+            - link "Historie" [ref=f31e213] [cursor=pointer]:
+              - /url: /issues/106?tab=history
+          - listitem [ref=f31e214]:
+            - link "Eigenschaftsänderungen" [ref=f31e215] [cursor=pointer]:
+              - /url: /issues/106?tab=properties
+        - generic [ref=f31e218]:
+          - heading [level=4] [ref=f31e219]:
+            - generic [ref=f31e220]:
+              - img [ref=f31e221]: RA
+              - text: Von
+              - link "Redmine Admin" [ref=f31e222] [cursor=pointer]:
+                - /url: /users/1
+              - text: vor
+              - link "weniger als 1 Minute" [ref=f31e223] [cursor=pointer]:
+                - /url: /projects/agileboard/activity?from=2026-09-09
+              - text: aktualisiert
+            - generic [ref=f31e224]:
+              - generic [ref=f31e225]:
+                - link [ref=f31e227] [cursor=pointer]:
+                  - /url: /reactions?object_id=4&object_type=Journal
+                - generic "Aktionen" [ref=f31e232] [cursor=pointer]
+              - link "#1" [ref=f31e235] [cursor=pointer]:
+                - /url: "#note-1"
+          - list [ref=f31e237]:
+            - listitem [ref=f31e238]:
+              - strong [ref=f31e239]: Beschreibung
+              - text: aktualisiert (
+              - link "Vergleich" [ref=f31e240] [cursor=pointer]:
+                - /url: /journals/4/diff?detail_id=3
+              - text: )
+      - generic [ref=f31e241]:
+        - link "Bearbeiten" [ref=f31e242] [cursor=pointer]:
+          - /url: /issues/106/edit
+        - link "Aufwand buchen" [ref=f31e246] [cursor=pointer]:
+          - /url: /issues/106/time_entries/new
+        - link "Nicht beobachten" [ref=f31e250] [cursor=pointer]:
+          - /url: /watchers/watch?object_id=106&object_type=issue
+        - link "Kopieren" [ref=f31e254] [cursor=pointer]:
+          - /url: /projects/agileboard/issues/106/copy
+        - generic "Aktionen" [ref=f31e260] [cursor=pointer]
+      - paragraph [ref=f31e263]:
+        - text: "Auch abrufbar als:"
+        - link "Atom" [ref=f31e265] [cursor=pointer]:
+          - /url: /issues/106.atom?key=9d9df863e5b5ff3d666c6cd9499c3d88b772c5e2
+        - generic [ref=f31e266]:
+          - text: "|"
+          - link "PDF" [ref=f31e267] [cursor=pointer]:
+            - /url: /issues/106.pdf
+    - generic [ref=f31e268]:
+      - text: Powered by
+      - link "Redmine" [ref=f31e269] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f31e270]
+  - status [ref=f31e271]
+  - log [ref=f31e272]
+  - log [ref=f31e273]
+  - log [ref=f31e274]
+  - log [ref=f31e275]
+  - log [ref=f31e276]
+  - log [ref=f31e277]
+  - log [ref=f31e278]
+  - log [ref=f31e279]
+  - log [ref=f31e280]
+  - log [ref=f31e281]
+  - log [ref=f31e282]
+  - log [ref=f31e283]
+  - log [ref=f31e284]
+  - log [ref=f31e285]
+  - log [ref=f31e286]
+  - log [ref=f31e287]
+  - log [ref=f31e288]
+  - log [ref=f31e289]
+  - log [ref=f31e290]
+  - log [ref=f31e291]
+  - log [ref=f31e292]
+  - log [ref=f31e293]
+  - log [ref=f31e294]
+  - log [ref=f31e295]
+  - log [ref=f31e296]
+  - log [ref=f31e297]
+  - log [ref=f31e298]
+  - log [ref=f31e299]
+  - log [ref=f31e300]
+  - log [ref=f31e301]
+  - log [ref=f31e302]
+  - log [ref=f31e303]
+  - log [ref=f31e304]
+  - log [ref=f31e305]
+  - log [ref=f31e306]
+  - log [ref=f31e307]
+  - log [ref=f31e308]
+  - log [ref=f31e309]
+  - log [ref=f31e310]
+  - log [ref=f31e311]
+  - log [ref=f31e312]
+  - log [ref=f31e313]
+  - log [ref=f31e314]
+  - log [ref=f31e315]
+  - log [ref=f31e316]
+  - log [ref=f31e317]
+  - log [ref=f31e318]
+  - log [ref=f31e319]
+  - log [ref=f31e320]
+  - log [ref=f31e321]
+  - log [ref=f31e322]
+  - log [ref=f31e323]
+  - log [ref=f31e324]
+  - log [ref=f31e325]
+  - log [ref=f31e326]
+  - log [ref=f31e327]
+  - log [ref=f31e328]
+  - log [ref=f31e329]
+  - log [ref=f31e330]
+  - status [ref=f31e331]
+  - status [ref=f31e332]

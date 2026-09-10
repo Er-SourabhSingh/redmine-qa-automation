@@ -1,0 +1,133 @@
+- generic [active] [ref=f205e1]:
+  - generic [ref=f205e2]:
+    - navigation [ref=f205e3]:
+      - generic [ref=f205e4]:
+        - link [ref=f205e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f205e7] [cursor=pointer]
+      - list [ref=f205e17]:
+        - listitem [ref=f205e18]:
+          - link "Hauptseite" [ref=f205e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f205e20]:
+          - link "Meine Seite" [ref=f205e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f205e22]:
+          - link "Projekte" [ref=f205e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f205e24]:
+          - link "Agile Board" [ref=f205e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f205e26]:
+          - link "Flux Gantt" [ref=f205e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f205e28]:
+          - link "Administration" [ref=f205e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f205e30]:
+          - link "Hilfe" [ref=f205e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f205e32]:
+        - generic [ref=f205e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f205e35]
+        - link "Mein Konto" [ref=f205e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f205e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f205e44]:
+      - generic [ref=f205e45]:
+        - heading "Redmine" [level=1] [ref=f205e47]
+        - generic [ref=f205e49]:
+          - heading "Administration" [level=3] [ref=f205e50]
+          - list [ref=f205e52]:
+            - listitem [ref=f205e53]:
+              - link "Projekte" [ref=f205e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f205e55]:
+              - link "Benutzer" [ref=f205e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f205e57]:
+              - link "Gruppen" [ref=f205e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f205e59]:
+              - link "Rollen und Rechte" [ref=f205e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f205e61]:
+              - link "Tracker" [ref=f205e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f205e63]:
+              - link "Ticket-Status" [ref=f205e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f205e65]:
+              - link "Workflow" [ref=f205e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f205e67]:
+              - link "Benutzerdefinierte Felder" [ref=f205e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f205e69]:
+              - link "Aufzählungen" [ref=f205e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f205e71]:
+              - link "Konfiguration" [ref=f205e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f205e73]:
+              - link "LDAP-Authentifizierung" [ref=f205e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f205e75]:
+              - link "Applikationen" [ref=f205e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f205e77]:
+              - link "Plugins" [ref=f205e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f205e79]:
+              - link "Informationen" [ref=f205e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f205e81]:
+        - heading "Informationen" [level=2] [ref=f205e82]
+        - paragraph [ref=f205e83]:
+          - strong [ref=f205e84]: Redmine 7.0.1.stable
+        - table [ref=f205e85]:
+          - rowgroup [ref=f205e86]:
+            - row [ref=f205e87]:
+              - cell "Administrator-Passwort geändert" [ref=f205e88]
+              - cell [ref=f205e89]
+            - row [ref=f205e92]:
+              - cell "Verzeichnis für Dateien beschreibbar" [ref=f205e93]
+              - cell [ref=f205e94]
+            - row [ref=f205e97]:
+              - cell "Alle Datenbank-Migrationen wurden ausgeführt" [ref=f205e98]
+              - cell [ref=f205e99]
+            - row [ref=f205e102]:
+              - cell "MiniMagick verfügbar (optional)" [ref=f205e103]
+              - cell [ref=f205e104]
+            - row [ref=f205e107]:
+              - cell "ImageMagick-Konvertierung verfügbar (optional)" [ref=f205e108]
+              - cell [ref=f205e109]
+            - row [ref=f205e112]:
+              - cell "ImageMagick PDF-Unterstützung verfügbar (optional)" [ref=f205e113]
+              - cell [ref=f205e114]
+            - row [ref=f205e117]:
+              - cell "Pandoc available (optional)" [ref=f205e118]
+              - cell [ref=f205e119]
+            - row [ref=f205e122]:
+              - cell "Default queue adapter which is well suited only for dev/test changed" [ref=f205e123]
+              - cell [ref=f205e124]
+        - heading "Umgebung" [level=3] [ref=f205e127]
+        - generic [ref=f205e128]: "Environment: Redmine version 7.0.1.stable Ruby version 4.0.6-p0 (2026-07-14) [x86_64-linux] Rails version 8.1.3.1 Environment production Database adapter PostgreSQL Mailer queue ActiveJob::QueueAdapters::AsyncAdapter Mailer delivery smtp Redmine settings: Redmine theme Redmineflux_lotus SCM: Subversion 1.14.5 Mercurial 7.0.1 Bazaar 3.3.11 Git 2.47.3 Filesystem Redmine plugins: agile_board 7.0.0 flux_tags 7.0.0 inplace_issue_editor 7.0.0 redmineflux_checklist 7.0.0 redmineflux_daisy 6.2.0 redmineflux_dashboard 7.0.0 redmineflux_gantt_plugin 7.0.0 redmineflux_lotus 7.0.0 redmineflux_scarlet 1.0.0"
+    - generic [ref=f205e130]:
+      - text: Powered by
+      - link "Redmine" [ref=f205e131] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f205e132]
+  - log [ref=f205e133]
+  - log [ref=f205e134]
+  - log [ref=f205e135]
+  - log [ref=f205e136]
+  - log [ref=f205e137]
+  - log [ref=f205e138]
+  - log [ref=f205e139]
+  - log [ref=f205e140]
+  - log [ref=f205e141]
+  - log [ref=f205e142]
+  - log [ref=f205e143]

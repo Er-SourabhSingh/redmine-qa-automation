@@ -1,0 +1,192 @@
+- generic [active] [ref=f107e1]:
+  - generic [ref=f107e2]:
+    - generic [ref=f107e3]:
+      - generic [ref=f107e4]:
+        - list:
+          - listitem [ref=f107e5]:
+            - link "My account" [ref=f107e6] [cursor=pointer]:
+              - /url: /my/account
+          - listitem [ref=f107e7]:
+            - link "Sign out" [ref=f107e8] [cursor=pointer]:
+              - /url: /logout
+      - generic [ref=f107e9]:
+        - text: Logged in as
+        - link "admin" [ref=f107e10] [cursor=pointer]:
+          - /url: /users/1
+      - list:
+        - listitem [ref=f107e11]:
+          - link "Home" [ref=f107e12] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f107e13]:
+          - link "My page" [ref=f107e14] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f107e15]:
+          - link "Projects" [ref=f107e16] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f107e17]:
+          - link "Flux Gantt" [ref=f107e18] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f107e19]:
+          - link "Helpdesk Command Center" [ref=f107e20] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f107e21]:
+          - link "Time Tracker" [ref=f107e22] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f107e23]:
+          - link "Timesheet" [ref=f107e24] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f107e25]:
+          - link "Workloads" [ref=f107e26] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f107e27]:
+          - link "Administration" [ref=f107e28] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f107e29]:
+          - link "Help" [ref=f107e30] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f107e31]:
+      - generic [ref=f107e32]:
+        - generic [ref=f107e33]:
+          - generic [ref=f107e34]:
+            - link "Search..." [ref=f107e35] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f107e36]
+        - generic [ref=f107e37]:
+          - generic [ref=f107e38] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f107e39]
+      - list [ref=f107e41]:
+        - listitem [ref=f107e42]:
+          - link "+" [ref=f107e43] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f107e44]:
+          - link "Overview" [ref=f107e45] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha
+        - listitem [ref=f107e46]:
+          - link "Activity" [ref=f107e47] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/activity
+        - listitem [ref=f107e48]:
+          - link "Issues" [ref=f107e49] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues
+        - listitem [ref=f107e50]:
+          - link "Spent time" [ref=f107e51] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/time_entries
+        - listitem [ref=f107e52]:
+          - link "Gantt" [ref=f107e53] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/gantt
+        - listitem [ref=f107e54]:
+          - link "Calendar" [ref=f107e55] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/calendar
+        - listitem [ref=f107e56]:
+          - link "News" [ref=f107e57] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/news
+        - listitem [ref=f107e58]:
+          - link "Documents" [ref=f107e59] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/documents
+        - listitem [ref=f107e60]:
+          - link "Wiki" [ref=f107e61] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/wiki
+        - listitem [ref=f107e62]:
+          - link "Files" [ref=f107e63] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/files
+        - listitem [ref=f107e64]:
+          - link "Helpdesk" [ref=f107e65] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f107e66]:
+          - link "Settings" [ref=f107e67] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/settings
+    - generic [ref=f107e69]:
+      - generic [ref=f107e70]:
+        - link "Add bookmark" [ref=f107e71] [cursor=pointer]:
+          - /url: /projects/helpdesk-qa-alpha/bookmark
+        - generic "Actions" [ref=f107e77] [cursor=pointer]
+      - heading "Overview" [level=2] [ref=f107e80]
+      - generic [ref=f107e82]:
+        - generic [ref=f107e83]:
+          - heading "Issue tracking" [level=3] [ref=f107e84]:
+            - link "Details" [ref=f107e88] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/report/tracker
+          - table [ref=f107e91]:
+            - rowgroup [ref=f107e92]:
+              - row [ref=f107e93]:
+                - columnheader [ref=f107e94]
+                - columnheader "open" [ref=f107e95]
+                - columnheader "closed" [ref=f107e96]
+                - columnheader "Total" [ref=f107e97]
+            - rowgroup [ref=f107e98]:
+              - row [ref=f107e99]:
+                - cell [ref=f107e100]:
+                  - link "Bug" [ref=f107e101] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?set_filter=1&tracker_id=1
+                - cell [ref=f107e102]:
+                  - link "0" [ref=f107e103] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?set_filter=1&tracker_id=1
+                - cell [ref=f107e104]:
+                  - link "0" [ref=f107e105] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?set_filter=1&status_id=c&tracker_id=1
+                - cell [ref=f107e106]:
+                  - link "0" [ref=f107e107] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?set_filter=1&status_id=%2A&tracker_id=1
+              - row [ref=f107e108]:
+                - cell [ref=f107e109]:
+                  - link "Feature" [ref=f107e110] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?set_filter=1&tracker_id=2
+                - cell [ref=f107e111]:
+                  - link "0" [ref=f107e112] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?set_filter=1&tracker_id=2
+                - cell [ref=f107e113]:
+                  - link "0" [ref=f107e114] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?set_filter=1&status_id=c&tracker_id=2
+                - cell [ref=f107e115]:
+                  - link "0" [ref=f107e116] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?set_filter=1&status_id=%2A&tracker_id=2
+              - row [ref=f107e117]:
+                - cell [ref=f107e118]:
+                  - link "Support" [ref=f107e119] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?set_filter=1&tracker_id=3
+                - cell [ref=f107e120]:
+                  - link "0" [ref=f107e121] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?set_filter=1&tracker_id=3
+                - cell [ref=f107e122]:
+                  - link "0" [ref=f107e123] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?set_filter=1&status_id=c&tracker_id=3
+                - cell [ref=f107e124]:
+                  - link "0" [ref=f107e125] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/issues?set_filter=1&status_id=%2A&tracker_id=3
+          - paragraph [ref=f107e126]:
+            - link "View all issues" [ref=f107e127] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues?set_filter=1
+            - text: "|"
+            - link "Summary" [ref=f107e128] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/report
+            - text: "|"
+            - link "Calendar" [ref=f107e129] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+            - text: "|"
+            - link "Gantt" [ref=f107e130] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+        - generic [ref=f107e131]:
+          - heading "Time tracking" [level=3] [ref=f107e132]
+          - list [ref=f107e136]:
+            - listitem [ref=f107e137]: "Estimated time: 0:00 hour"
+            - listitem [ref=f107e138]: "Spent time: 0:00 hour"
+          - paragraph [ref=f107e139]:
+            - link "Log time" [ref=f107e140] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries/new
+            - text: "|"
+            - link "Details" [ref=f107e141] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+            - text: "|"
+            - link "Report" [ref=f107e142] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries/report
+    - generic [ref=f107e144]:
+      - text: Powered by
+      - link "Redmine" [ref=f107e145] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f107e146]
+  - log [ref=f107e147]
+  - log [ref=f107e148]
+  - log [ref=f107e149]
+  - log [ref=f107e150]

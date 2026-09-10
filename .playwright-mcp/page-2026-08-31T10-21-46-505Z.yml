@@ -1,0 +1,205 @@
+- generic [active] [ref=f522e1]:
+  - generic [ref=f522e2]:
+    - generic [ref=f522e3]:
+      - generic [ref=f522e4]:
+        - list:
+          - listitem [ref=f522e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f522e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f522e7]:
+        - text: Logged in as
+        - link "admin" [ref=f522e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f522e9]:
+        - listitem [ref=f522e10]:
+          - link [ref=f522e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f522e12]
+        - listitem [ref=f522e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f522e14]:
+          - link "My page" [ref=f522e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f522e16]:
+          - link "Projects" [ref=f522e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f522e18]:
+          - link "Flux Gantt" [ref=f522e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f522e20]:
+          - link "Helpdesk Command Center" [ref=f522e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f522e22]:
+          - link "Time Tracker" [ref=f522e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f522e24]:
+          - link "Timesheet" [ref=f522e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f522e26]:
+          - link "Workloads" [ref=f522e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f522e28]:
+          - link "More" [ref=f522e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f522e30]:
+      - generic [ref=f522e31]:
+        - generic [ref=f522e32]:
+          - generic [ref=f522e33]:
+            - link "Search..." [ref=f522e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f522e35]
+        - generic [ref=f522e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f522e38]
+    - generic [ref=f522e39]:
+      - generic [ref=f522e40]:
+        - link [ref=f522e42] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f522e45]:
+          - heading "Administration" [level=3] [ref=f522e46]
+          - list [ref=f522e48]:
+            - listitem [ref=f522e49]:
+              - link "Projects" [ref=f522e50] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f522e52]:
+              - link "Users" [ref=f522e53] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f522e55]:
+              - link "Groups" [ref=f522e56] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f522e58]:
+              - link "Roles and permissions" [ref=f522e59] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f522e61]:
+              - link "Trackers" [ref=f522e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f522e64]:
+              - link "Issue statuses" [ref=f522e65] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f522e67]:
+              - link "Workflow" [ref=f522e68] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f522e70]:
+              - link "Custom fields" [ref=f522e71] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f522e73]:
+              - link "Enumerations" [ref=f522e74] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f522e76]:
+              - link "Settings" [ref=f522e77] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f522e79]:
+              - link "LDAP authentication" [ref=f522e80] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f522e82]:
+              - link "Plugins" [ref=f522e83] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f522e85]:
+              - link "Information" [ref=f522e86] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f522e88]:
+        - generic [ref=f522e89]:
+          - link "New role" [ref=f522e90] [cursor=pointer]:
+            - /url: /roles/new
+          - link "Permissions report" [ref=f522e92] [cursor=pointer]:
+            - /url: /roles/permissions
+        - heading "Roles" [level=2] [ref=f522e94]
+        - table [ref=f522e95]:
+          - rowgroup [ref=f522e96]:
+            - row [ref=f522e97]:
+              - columnheader "Role" [ref=f522e98]
+              - columnheader [ref=f522e99]
+              - columnheader [ref=f522e100]
+          - rowgroup [ref=f522e101]:
+            - row [ref=f522e102]:
+              - cell [ref=f522e103]:
+                - link "Manager" [ref=f522e105] [cursor=pointer]:
+                  - /url: /roles/3/edit
+              - cell [ref=f522e106]
+              - cell [ref=f522e107]:
+                - generic "Sort"
+                - link "Copy" [ref=f522e108] [cursor=pointer]:
+                  - /url: /roles/new?copy=3
+                - link "Delete" [ref=f522e110] [cursor=pointer]:
+                  - /url: /roles/3
+            - row [ref=f522e112]:
+              - cell [ref=f522e113]:
+                - link "Developer" [ref=f522e115] [cursor=pointer]:
+                  - /url: /roles/4/edit
+              - cell [ref=f522e116]
+              - cell [ref=f522e117]:
+                - generic "Sort"
+                - link "Copy" [ref=f522e118] [cursor=pointer]:
+                  - /url: /roles/new?copy=4
+                - link "Delete" [ref=f522e120] [cursor=pointer]:
+                  - /url: /roles/4
+            - row [ref=f522e122]:
+              - cell [ref=f522e123]:
+                - link "Reporter" [ref=f522e125] [cursor=pointer]:
+                  - /url: /roles/5/edit
+              - cell [ref=f522e126]
+              - cell [ref=f522e127]:
+                - generic "Sort"
+                - link "Copy" [ref=f522e128] [cursor=pointer]:
+                  - /url: /roles/new?copy=5
+                - link "Delete" [ref=f522e130] [cursor=pointer]:
+                  - /url: /roles/5
+            - row [ref=f522e132]:
+              - cell [ref=f522e133]:
+                - link "Agent" [ref=f522e135] [cursor=pointer]:
+                  - /url: /roles/6/edit
+              - cell [ref=f522e136]
+              - cell [ref=f522e137]:
+                - generic "Sort"
+                - link "Copy" [ref=f522e138] [cursor=pointer]:
+                  - /url: /roles/new?copy=6
+                - link "Delete" [ref=f522e140] [cursor=pointer]:
+                  - /url: /roles/6
+            - row [ref=f522e142]:
+              - cell [ref=f522e143]:
+                - emphasis [ref=f522e144]:
+                  - link "Non member" [ref=f522e145] [cursor=pointer]:
+                    - /url: /roles/1/edit
+              - cell [ref=f522e146]
+              - cell [ref=f522e147]:
+                - link "Copy" [ref=f522e148] [cursor=pointer]:
+                  - /url: /roles/new?copy=1
+            - row [ref=f522e150]:
+              - cell [ref=f522e151]:
+                - emphasis [ref=f522e152]:
+                  - link "Anonymous" [ref=f522e153] [cursor=pointer]:
+                    - /url: /roles/2/edit
+              - cell [ref=f522e154]
+              - cell [ref=f522e155]:
+                - link "Copy" [ref=f522e156] [cursor=pointer]:
+                  - /url: /roles/new?copy=2
+    - generic [ref=f522e158]:
+      - text: Powered by
+      - link "Redmine" [ref=f522e159] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f522e160]
+  - log [ref=f522e161]
+  - log [ref=f522e162]
+  - log [ref=f522e163]
+  - log [ref=f522e164]
+  - log [ref=f522e165]
+  - log [ref=f522e166]
+  - log [ref=f522e167]
+  - log [ref=f522e168]
+  - log [ref=f522e169]
+  - log [ref=f522e170]
+  - log [ref=f522e171]
+  - log [ref=f522e172]
+  - log [ref=f522e173]
+  - log [ref=f522e174]
+  - log [ref=f522e175]
+  - log [ref=f522e176]
+  - log [ref=f522e177]
+  - log [ref=f522e178]
+  - log [ref=f522e179]
+  - log [ref=f522e180]

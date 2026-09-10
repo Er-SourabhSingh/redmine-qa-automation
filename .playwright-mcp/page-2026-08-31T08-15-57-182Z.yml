@@ -1,0 +1,188 @@
+- generic [active] [ref=f283e1]:
+  - generic [ref=f283e2]:
+    - generic [ref=f283e3]:
+      - generic [ref=f283e4]:
+        - list:
+          - listitem [ref=f283e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f283e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f283e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f283e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f283e9]:
+        - listitem [ref=f283e10]:
+          - link [ref=f283e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f283e12]
+        - listitem [ref=f283e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f283e14]:
+          - link "My page" [ref=f283e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f283e16]:
+          - link "Projects" [ref=f283e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f283e18]:
+          - link "Time Tracker" [ref=f283e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f283e20]:
+          - link "Workloads" [ref=f283e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f283e22]:
+          - link "Help" [ref=f283e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f283e24]:
+      - generic [ref=f283e25]:
+        - generic [ref=f283e26]:
+          - generic [ref=f283e27]:
+            - link "Search..." [ref=f283e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f283e29]
+        - generic [ref=f283e30]:
+          - generic [ref=f283e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f283e32]
+      - generic [ref=f283e33]:
+        - list [ref=f283e34]:
+          - listitem [ref=f283e35]:
+            - link "+" [ref=f283e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f283e37]:
+            - link "Overview" [ref=f283e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f283e39]:
+            - link "Activity" [ref=f283e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f283e41]:
+            - link "Issues" [ref=f283e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f283e43]:
+            - link "Spent time" [ref=f283e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f283e45]:
+            - link "Gantt" [ref=f283e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f283e47]:
+            - link "Calendar" [ref=f283e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f283e49]:
+            - link "News" [ref=f283e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f283e51]:
+            - link "Documents" [ref=f283e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f283e53]:
+            - link "Wiki" [ref=f283e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f283e55]:
+            - link "Files" [ref=f283e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f283e57]:
+            - link "Helpdesk" [ref=f283e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f283e59]:
+          - button [ref=f283e60] [cursor=pointer]
+          - button [ref=f283e63] [cursor=pointer]
+    - generic [ref=f283e66]:
+      - list [ref=f283e70]:
+        - listitem [ref=f283e71]:
+          - link "Helpdesk Dashboard" [ref=f283e72] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f283e75]:
+          - link "Helpdesk Tickets" [ref=f283e76] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f283e79]:
+          - link "Knowledgebase" [ref=f283e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f283e83]:
+        - 'heading "Support #6" [level=2] [ref=f283e84]'
+        - text: open
+        - generic [ref=f283e85]:
+          - link "Start Timer" [ref=f283e86] [cursor=pointer]:
+            - /url: "#"
+          - link "Reply" [ref=f283e87] [cursor=pointer]:
+            - /url: "#"
+          - link "Edit" [ref=f283e88] [cursor=pointer]:
+            - /url: "#"
+        - generic [ref=f283e91]:
+          - 'img "Author: Luna Blossom" [ref=f283e92]': LB
+          - generic [ref=f283e93]:
+            - heading "TC-HLP-014 retest - project-scoped ticket creation" [level=3] [ref=f283e96]
+            - text: ✓ ✗
+          - paragraph [ref=f283e97]:
+            - text: Added by
+            - link "Luna Blossom" [ref=f283e98] [cursor=pointer]:
+              - /url: /users/5
+            - link "1 minute" [ref=f283e99] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-08-31
+            - text: ago.
+          - generic [ref=f283e100]:
+            - generic [ref=f283e101]:
+              - generic [ref=f283e102]:
+                - generic [ref=f283e103]:
+                  - generic [ref=f283e104]: "Status:"
+                  - generic [ref=f283e105]: New
+                - generic [ref=f283e106]:
+                  - generic [ref=f283e107]: "Priority:"
+                  - generic [ref=f283e108]: High
+                - generic [ref=f283e109]:
+                  - generic [ref=f283e110]: "Assignee:"
+                  - generic [ref=f283e111]: "-"
+                - generic [ref=f283e112]:
+                  - generic [ref=f283e113]: "Product:"
+                  - generic [ref=f283e114]: "-"
+                - generic [ref=f283e115]:
+                  - generic [ref=f283e116]: "Organization:"
+                  - generic [ref=f283e117]: "-"
+              - generic [ref=f283e118]:
+                - generic [ref=f283e119]:
+                  - generic [ref=f283e120]: "Start date:"
+                  - generic [ref=f283e121]: 08/31/2026
+                - generic [ref=f283e122]: "Due Date:"
+                - generic [ref=f283e124]:
+                  - generic [ref=f283e125]: "Progress:"
+                  - generic [ref=f283e126]:
+                    - table [ref=f283e127]:
+                      - rowgroup [ref=f283e128]:
+                        - row [ref=f283e129]:
+                          - cell [ref=f283e130]
+                    - paragraph [ref=f283e131]: 0%
+                - generic [ref=f283e132]: "Estimated time:"
+            - generic [ref=f283e134]: "Issue Category:"
+          - separator [ref=f283e139]
+          - generic [ref=f283e140]:
+            - paragraph [ref=f283e141]:
+              - strong [ref=f283e142]: Description
+            - paragraph [ref=f283e144]: Created via project's own Helpdesk New issue form as luna.blossom, per TC-HLP-014 retest.
+          - separator [ref=f283e145]
+          - separator [ref=f283e146]
+          - generic [ref=f283e147]:
+            - link "Add" [ref=f283e149] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/new?issue%5Bparent_issue_id%5D=6&issue%5Btracker_id%5D=3
+            - paragraph [ref=f283e150]:
+              - strong [ref=f283e151]: Subtasks
+    - generic [ref=f283e152]:
+      - text: Powered by
+      - link "Redmine" [ref=f283e153] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f283e154]
+  - log [ref=f283e155]
+  - log [ref=f283e156]
+  - log [ref=f283e157]
+  - log [ref=f283e158]
+  - log [ref=f283e159]
+  - log [ref=f283e160]
+  - log [ref=f283e161]
+  - log [ref=f283e162]
+  - log [ref=f283e163]
+  - log [ref=f283e164]
+  - log [ref=f283e165]
+  - log [ref=f283e166]
+  - log [ref=f283e167]

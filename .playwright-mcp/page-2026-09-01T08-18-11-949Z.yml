@@ -1,0 +1,201 @@
+- generic [ref=f85e1]:
+  - generic [ref=f85e2]:
+    - generic [ref=f85e3]:
+      - generic [ref=f85e4]:
+        - img "Logo" [ref=f85e5]
+        - text: 
+      - navigation "Application tasks" [ref=f85e6]:
+        - button " Compose" [ref=f85e8] [cursor=pointer]
+        - button " Mail" [disabled] [ref=f85e9] [cursor=pointer]
+        - button " Contacts" [ref=f85e10] [cursor=pointer]
+        - button " Settings" [ref=f85e11] [cursor=pointer]
+        - generic [ref=f85e12]:
+          - button " Dark mode" [ref=f85e13] [cursor=pointer]
+          - button " About" [ref=f85e14] [cursor=pointer]
+          - button " Logout" [ref=f85e15] [cursor=pointer]
+    - navigation "Email folder selection" [ref=f85e16]:
+      - generic [ref=f85e17]:
+        - text: 
+        - generic [ref=f85e18]: admin@test.local
+        - button "" [ref=f85e19] [cursor=pointer]:     
+      - tree [ref=f85e21]:
+        - treeitem [level=1] [selected] [ref=f85e22]:
+          - link " Inbox 6" [ref=f85e23]:
+            - /url: /?_task=mail&_mbox=INBOX
+            - text:  Inbox
+            - generic [ref=f85e24]: "6"
+        - treeitem [level=1] [ref=f85e25]:
+          - link " Drafts" [ref=f85e26]:
+            - /url: /?_task=mail&_mbox=Drafts
+        - treeitem [level=1] [ref=f85e27]:
+          - link " Sent" [ref=f85e28]:
+            - /url: /?_task=mail&_mbox=Sent
+        - treeitem [level=1] [ref=f85e29]:
+          - link " Junk" [ref=f85e30]:
+            - /url: /?_task=mail&_mbox=Junk
+        - treeitem [level=1] [ref=f85e31]:
+          - link " Trash" [ref=f85e32]:
+            - /url: /?_task=mail&_mbox=Trash
+      - generic [ref=f85e34]:
+        - text: 
+        - generic "unknown" [ref=f85e35]: 0%
+    - generic [ref=f85e38]:
+      - generic [ref=f85e39]:
+        - text:  
+        - list [ref=f85e40]:
+          - menuitem [ref=f85e41]:
+            - link " Select" [ref=f85e42] [cursor=pointer]:
+              - /url: "#select"
+              - text:  Select       
+          - menuitem " Threads" [ref=f85e43]:
+            - link " Threads":
+              - /url: "#threads"
+              - text:  Threads   
+          - menuitem [ref=f85e44]:
+            - link " Options" [ref=f85e45] [cursor=pointer]:
+              - /url: "#list-options"
+        - button " Refresh" [ref=f85e46] [cursor=pointer]
+        - text:  
+      - search "Email search input" [ref=f85e47]:
+        - generic [ref=f85e48]:
+          - text: 
+          - textbox "Search terms" [ref=f85e49]:
+            - /placeholder: Search...
+        - text: 
+        - button "" [ref=f85e50] [cursor=pointer]
+        - button "" [ref=f85e51] [cursor=pointer]
+        - text: 
+      - text:   
+      - generic [ref=f85e52]:
+        - text: 
+        - table "Email Messages Listing" [ref=f85e53]:
+          - text: 
+          - rowgroup [ref=f85e54]:
+            - row [ref=f85e55]:
+              - cell "Mail Delivery System Thu 15:34  Undelivered Mail Returned to Sender" [active] [ref=f85e56]:
+                - generic [ref=f85e57]: Mail Delivery System
+                - generic [ref=f85e59]: Thu 15:34
+                - generic [ref=f85e60]:
+                  - generic "Unread": 
+                  - link "Undelivered Mail Returned to Sender" [ref=f85e61]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=8&_action=show
+              - cell "Not Flagged " [ref=f85e62]:
+                - generic [ref=f85e63] [cursor=pointer]:
+                  - generic "Not Flagged"
+                - generic [ref=f85e64]: 
+            - row [ref=f85e66]:
+              - cell "Mail Delivery System Thu 11:40  Undelivered Mail Returned to Sender" [ref=f85e67]:
+                - generic [ref=f85e68]: Mail Delivery System
+                - generic [ref=f85e70]: Thu 11:40
+                - generic [ref=f85e71]:
+                  - generic "Unread": 
+                  - link "Undelivered Mail Returned to Sender" [ref=f85e72]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=7&_action=show
+              - cell "Not Flagged " [ref=f85e73]:
+                - generic [ref=f85e74] [cursor=pointer]:
+                  - generic "Not Flagged"
+                - generic [ref=f85e75]: 
+            - row [ref=f85e77]:
+              - 'cell "admin@test.local Wed 23:01  [CRITICAL] SLA Breach Alert - AB-L1 - Issue #70: Verify Edit-form public note visibility and auto-status-transition" [ref=f85e78]':
+                - generic [ref=f85e79]: admin@test.local
+                - generic [ref=f85e81]: Wed 23:01
+                - generic [ref=f85e82]:
+                  - generic "Unread": 
+                  - 'link "[CRITICAL] SLA Breach Alert - AB-L1 - Issue #70: Verify Edit-form public note visibility and auto-status-transition" [ref=f85e83]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=6&_action=show
+              - cell "Not Flagged" [ref=f85e84]:
+                - generic [ref=f85e85] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f85e87]:
+              - 'cell "admin@test.local Wed 18:42  [CRITICAL] SLA Breach Alert - L1 - Issue #66: Printer in break room is jammed" [ref=f85e88]':
+                - generic [ref=f85e89]: admin@test.local
+                - generic [ref=f85e91]: Wed 18:42
+                - generic [ref=f85e92]:
+                  - generic "Unread": 
+                  - 'link "[CRITICAL] SLA Breach Alert - L1 - Issue #66: Printer in break room is jammed" [ref=f85e93]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=5&_action=show
+              - cell "Not Flagged" [ref=f85e94]:
+                - generic [ref=f85e95] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f85e97]:
+              - cell "Redmine Wed 14:21  [Redmine] Security notification" [ref=f85e98]:
+                - generic [ref=f85e99]: Redmine
+                - generic [ref=f85e101]: Wed 14:21
+                - generic [ref=f85e102]:
+                  - generic "Unread": 
+                  - link "[Redmine] Security notification" [ref=f85e103]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=4&_action=show
+              - cell "Not Flagged" [ref=f85e104]:
+                - generic [ref=f85e105] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f85e107]:
+              - cell "Redmine 2026-08-25 18:02  Redmine test" [ref=f85e108]:
+                - generic [ref=f85e109]: Redmine
+                - generic [ref=f85e111]: 2026-08-25 18:02
+                - generic [ref=f85e112]:
+                  - generic: 
+                  - link "Redmine test" [ref=f85e113]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=3&_action=show
+              - cell "Not Flagged" [ref=f85e114]:
+                - generic [ref=f85e115] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f85e117]:
+              - cell "Redmine 2026-08-25 17:59  [Redmine] Security notification" [ref=f85e118]:
+                - generic [ref=f85e119]: Redmine
+                - generic [ref=f85e121]: 2026-08-25 17:59
+                - generic [ref=f85e122]:
+                  - generic "Unread": 
+                  - link "[Redmine] Security notification" [ref=f85e123]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=2&_action=show
+              - cell "Not Flagged" [ref=f85e124]:
+                - generic [ref=f85e125] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f85e127]:
+              - cell "qa@test.local 2026-08-21 17:18  QA test 1787312900 â€” qa reply to admin" [ref=f85e128]:
+                - generic [ref=f85e129]: qa@test.local
+                - generic [ref=f85e131]: 2026-08-21 17:18
+                - generic [ref=f85e132]:
+                  - generic: 
+                  - link "QA test 1787312900 â€” qa reply to admin" [ref=f85e133]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=1&_action=show
+              - cell "Not Flagged" [ref=f85e134]:
+                - generic [ref=f85e135] [cursor=pointer]:
+                  - generic "Not Flagged"
+      - toolbar "List navigation" [ref=f85e137]:
+        - button "" [disabled]
+        - button "" [disabled]
+        - generic [ref=f85e138]: Messages 1 to 8 of 8
+        - textbox "Current page" [disabled] [ref=f85e139]: "1"
+        - button "" [disabled]
+        - button "" [disabled]
+    - generic [ref=f85e141]:
+      - toolbar "Application toolbar" [ref=f85e142]:
+        - text:                   Browse
+        - list [ref=f85e143]:
+          - menuitem: 
+          - menuitem " Reply" [ref=f85e144]:
+            - button " Reply" [disabled]
+          - menuitem [ref=f85e145]:
+            - generic [ref=f85e146]:
+              - button " Reply all" [disabled]
+              - link "":
+                - /url: "#reply-all"
+          - menuitem [ref=f85e147]:
+            - generic [ref=f85e148]:
+              - button " Forward" [disabled]
+              - link "":
+                - /url: "#forward"
+          - menuitem [ref=f85e149]
+          - menuitem " Delete" [ref=f85e150]:
+            - button " Delete" [disabled]
+          - menuitem " Mark" [ref=f85e151]:
+            - button " Mark"
+          - menuitem [ref=f85e152]:
+            - button " More" [ref=f85e153] [cursor=pointer]
+          - menuitem: 
+          - menuitem: 
+          - menuitem: 
+        - text: 
+      - iframe [ref=f85e155]
+      - text:   
+  - text:   

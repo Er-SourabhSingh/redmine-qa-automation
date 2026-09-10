@@ -1,0 +1,226 @@
+- generic [ref=f39e1]:
+  - generic [ref=f39e2]:
+    - navigation [ref=f39e3]:
+      - list [ref=f39e6]:
+        - listitem [ref=f39e7]:
+          - link "Hauptseite" [ref=f39e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f39e9]:
+          - link "Meine Seite" [ref=f39e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f39e11]:
+          - link "Projekte" [ref=f39e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f39e13]:
+          - link "Agile Board" [ref=f39e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f39e15]:
+          - link "Flux Gantt" [ref=f39e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f39e17]:
+          - link "Administration" [ref=f39e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f39e19]:
+          - link "Hilfe" [ref=f39e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f39e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f39e24]: RA
+    - generic [ref=f39e27]:
+      - generic [ref=f39e28]:
+        - generic [ref=f39e29]:
+          - generic [ref=f39e30]:
+            - link "Suche" [ref=f39e31] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Suche:" [ref=f39e32]
+        - generic [ref=f39e33]:
+          - generic [ref=f39e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f39e35]
+      - generic [ref=f39e37]:
+        - list [ref=f39e38]:
+          - listitem [ref=f39e39]:
+            - link "+" [ref=f39e40] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f39e41]:
+            - link "Übersicht" [ref=f39e42] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f39e43]:
+            - link "Dashboard" [ref=f39e44] [cursor=pointer]:
+              - /url: /projects/agileboard/analytics_dashboard
+          - listitem [ref=f39e45]:
+            - link "Aktivität" [ref=f39e46] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f39e47]:
+            - link "Agile Board" [ref=f39e48] [cursor=pointer]:
+              - /url: /projects/agileboard/agile_board
+          - listitem [ref=f39e49]:
+            - link "Backlog" [ref=f39e50] [cursor=pointer]:
+              - /url: /projects/agileboard/backlog
+          - listitem [ref=f39e51]:
+            - link "Roadmap" [ref=f39e52] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f39e53]:
+            - link "Tickets" [ref=f39e54] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f39e55]:
+            - link "Aufgewendete Zeit" [ref=f39e56] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f39e57]:
+            - link "Gantt-Diagramm" [ref=f39e58] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f39e59]:
+            - link "Kalender" [ref=f39e60] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f39e61]:
+            - link "News" [ref=f39e62] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f39e63]:
+            - link "Dokumente" [ref=f39e64] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f39e65]:
+            - link "Wiki" [ref=f39e66] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f39e67]:
+            - link "Dateien" [ref=f39e68] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f39e69]:
+            - link "Konfiguration" [ref=f39e70] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f39e71]:
+          - button [ref=f39e72] [cursor=pointer]
+          - button [ref=f39e75] [cursor=pointer]
+    - generic [ref=f39e79]:
+      - generic [ref=f39e80]:
+        - generic [ref=f39e81]:
+          - heading "Analyse-Dashboard" [level=2] [ref=f39e82]
+          - generic [ref=f39e83]:
+            - button "Teilen" [ref=f39e84] [cursor=pointer]
+            - button "AUS" [ref=f39e88] [cursor=pointer]
+            - combobox [disabled] [ref=f39e93]:
+              - option "30 Sek."
+              - option "1 Min." [selected]
+              - option "2 Min."
+              - option "5 Min."
+              - option "10 Min."
+        - generic [ref=f39e94]:
+          - generic [ref=f39e95]:
+            - generic [ref=f39e96]: "Tracker:"
+            - combobox "Tracker:" [ref=f39e97]:
+              - option "Alle Tracker" [selected]
+              - option "Bug"
+              - option "Feature"
+              - option "Support"
+          - generic [ref=f39e98]:
+            - generic [ref=f39e99]: "Zeitraum:"
+            - combobox "Zeitraum:" [ref=f39e100]:
+              - option "Heute"
+              - option "Letzte 7 Tage"
+              - option "Letzte 30 Tage" [selected]
+              - option "Letzte 90 Tage"
+              - option "Dieser Monat"
+              - option "Letzter Monat"
+              - option "Dieses Jahr"
+              - option "Benutzerdefinierter Zeitraum"
+          - button "Anwenden" [ref=f39e101] [cursor=pointer]
+          - generic [ref=f39e102]:
+            - button "Aktualisieren" [ref=f39e103] [cursor=pointer]
+            - button "Vollbild" [ref=f39e106] [cursor=pointer]
+        - button "Diagramm hinzufügen" [ref=f39e110] [cursor=pointer]
+        - generic [ref=f39e113]:
+          - generic [ref=f39e114]:
+            - heading "Aufgewendete Zeit nach Rolle" [level=3] [ref=f39e117]
+            - generic [ref=f39e118]:
+              - button "Diagramm kopieren" [ref=f39e119] [cursor=pointer]
+              - button "Vollbild" [ref=f39e123] [cursor=pointer]
+              - button "Diagramminformationen" [ref=f39e126] [cursor=pointer]
+              - button "Einstellungen" [ref=f39e129] [cursor=pointer]
+              - button "Entfernen" [ref=f39e133] [cursor=pointer]
+          - generic "Ziehen, um die Breite zu ändern" [ref=f39e139]
+          - generic "Ziehen, um die Höhe zu ändern" [ref=f39e140]
+          - generic "Ziehen, um Breite und Höhe zu ändern" [ref=f39e141]
+      - text: 🗑️ 🗑️
+      - generic [ref=f39e246]:
+        - button [active] [ref=f39e247] [cursor=pointer]
+        - heading "Diagramm-Container löschen?" [level=3] [ref=f39e254]
+        - paragraph [ref=f39e255]: Wenn Sie diesen Diagramm-Container löschen, kann er nicht wiederhergestellt werden. Alle zugehörigen Diagrammdaten und Konfigurationen werden dauerhaft entfernt.
+        - generic [ref=f39e256]:
+          - button "Abbrechen" [ref=f39e257] [cursor=pointer]
+          - button "Löschen" [ref=f39e258] [cursor=pointer]
+    - generic [ref=f39e142]:
+      - text: Powered by
+      - link "Redmine" [ref=f39e143] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f39e144]
+  - log [ref=f39e145]
+  - log [ref=f39e146]
+  - log [ref=f39e147]
+  - log [ref=f39e148]
+  - log [ref=f39e149]
+  - log [ref=f39e150]
+  - log [ref=f39e151]
+  - log [ref=f39e152]
+  - log [ref=f39e153]
+  - log [ref=f39e154]:
+    - generic [ref=f39e224]: Öffentlichen Freigabelink erzeugen
+  - log [ref=f39e155]:
+    - generic [ref=f39e209]: Automatische Aktualisierung ein-/ausschalten
+  - log [ref=f39e156]
+  - log [ref=f39e157]
+  - log [ref=f39e158]
+  - log [ref=f39e159]
+  - log [ref=f39e160]:
+    - generic [ref=f39e225]: Diagramminformationen
+  - log [ref=f39e161]:
+    - generic [ref=f39e226]: Einstellungen
+  - log [ref=f39e162]:
+    - generic [ref=f39e259]: Entfernen
+  - log [ref=f39e163]:
+    - generic [ref=f39e243]: Ziehen, um die Breite zu ändern
+  - log [ref=f39e164]:
+    - generic [ref=f39e244]: Ziehen, um die Höhe zu ändern
+  - log [ref=f39e165]
+  - log [ref=f39e166]
+  - log [ref=f39e167]
+  - log [ref=f39e168]
+  - log [ref=f39e169]
+  - log [ref=f39e170]
+  - log [ref=f39e171]
+  - log [ref=f39e172]
+  - log [ref=f39e173]
+  - log [ref=f39e174]
+  - log [ref=f39e175]
+  - log [ref=f39e176]
+  - log [ref=f39e177]
+  - log [ref=f39e178]
+  - log [ref=f39e179]
+  - log [ref=f39e180]
+  - log [ref=f39e181]
+  - log [ref=f39e182]
+  - log [ref=f39e183]
+  - log [ref=f39e184]
+  - log [ref=f39e185]
+  - log [ref=f39e186]
+  - log [ref=f39e187]
+  - log [ref=f39e188]
+  - log [ref=f39e189]
+  - log [ref=f39e190]
+  - log [ref=f39e191]
+  - log [ref=f39e192]
+  - log [ref=f39e193]
+  - log [ref=f39e194]
+  - log [ref=f39e195]
+  - log [ref=f39e196]
+  - log [ref=f39e197]
+  - log [ref=f39e198]
+  - log [ref=f39e199]
+  - log [ref=f39e200]
+  - log [ref=f39e201]
+  - log [ref=f39e202]
+  - log [ref=f39e203]
+  - log [ref=f39e204]
+  - log [ref=f39e205]
+  - log [ref=f39e206]
+  - log [ref=f39e207]

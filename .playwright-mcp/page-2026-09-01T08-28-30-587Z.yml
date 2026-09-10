@@ -1,0 +1,172 @@
+- generic [ref=f113e1]:
+  - generic [ref=f113e2]:
+    - generic [ref=f113e3]:
+      - generic [ref=f113e4]:
+        - list:
+          - listitem [ref=f113e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f113e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f113e7]:
+        - text: Logged in as
+        - link "admin" [ref=f113e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f113e9]:
+        - listitem [ref=f113e10]:
+          - link [ref=f113e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f113e12]
+        - listitem [ref=f113e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f113e14]:
+          - link "My page" [ref=f113e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f113e16]:
+          - link "Projects" [ref=f113e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f113e18]:
+          - link "Flux Gantt" [ref=f113e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f113e20]:
+          - link "Helpdesk Command Center" [ref=f113e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f113e22]:
+          - link "Time Tracker" [ref=f113e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f113e24]:
+          - link "Timesheet" [ref=f113e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f113e26]:
+          - link "Workloads" [ref=f113e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f113e28]:
+          - link "More" [ref=f113e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f113e30]:
+      - generic [ref=f113e31]:
+        - generic [ref=f113e32]:
+          - generic [ref=f113e33]:
+            - link "Search..." [ref=f113e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f113e35]
+        - generic [ref=f113e36]:
+          - generic [ref=f113e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f113e38]
+    - generic [ref=f113e39]:
+      - list [ref=f113e43]:
+        - listitem [ref=f113e44]:
+          - link "Helpdesk Dashboard" [ref=f113e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f113e48]:
+          - link "Helpdesk Tickets" [ref=f113e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f113e52]:
+          - link "Reports" [ref=f113e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f113e56]:
+          - link "Organization" [ref=f113e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f113e60]:
+          - link "Customers" [ref=f113e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f113e64]:
+          - link "Products" [ref=f113e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f113e68]:
+          - link "Helpdesk Settings" [ref=f113e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f113e72]:
+        - generic [ref=f113e75]:
+          - heading "Helpdesk Settings" [level=2] [ref=f113e76]
+          - paragraph [ref=f113e77]: Holidays, products, SLA policies and canned responses
+        - list [ref=f113e79]:
+          - listitem [ref=f113e80]:
+            - link "Holiday" [ref=f113e81] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f113e82]:
+            - link "Products" [ref=f113e83] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f113e84]:
+            - link "Email Configuration" [ref=f113e85] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f113e86]:
+            - link "Canned Responses" [ref=f113e87] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+          - listitem [ref=f113e88]:
+            - link "Support Packages" [ref=f113e89] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+        - generic [ref=f113e90]:
+          - generic [ref=f113e92]:
+            - textbox "Search holidays..." [active] [ref=f113e94]
+            - generic [ref=f113e95]:
+              - button "Apply Filters" [ref=f113e96] [cursor=pointer]
+              - link "Clear" [ref=f113e99] [cursor=pointer]:
+                - /url: /rf_helpdesk/setting?tab=holidays
+          - generic [ref=f113e104]:
+            - generic [ref=f113e105]:
+              - heading "Holiday" [level=3] [ref=f113e106]
+              - link "New Holiday" [ref=f113e108] [cursor=pointer]:
+                - /url: /rf_helpdesk_holidays/new
+            - table [ref=f113e110]:
+              - rowgroup [ref=f113e111]:
+                - row [ref=f113e112]:
+                  - columnheader "S.No" [ref=f113e113]
+                  - columnheader "Holiday Name" [ref=f113e114]
+                  - columnheader "Start Date" [ref=f113e115]
+                  - columnheader "End Date" [ref=f113e116]
+                  - columnheader "Action" [ref=f113e117]
+              - rowgroup [ref=f113e118]:
+                - row [ref=f113e119]:
+                  - cell "1" [ref=f113e120]
+                  - cell [ref=f113e121]:
+                    - link "Alpha Founders Day 2026" [ref=f113e122] [cursor=pointer]:
+                      - /url: /rf_helpdesk_holidays/1
+                  - cell "09/07/2026" [ref=f113e123]
+                  - cell "09/07/2026" [ref=f113e124]
+                  - cell [ref=f113e125]:
+                    - generic [ref=f113e126]:
+                      - link "Edit" [ref=f113e127] [cursor=pointer]:
+                        - /url: /rf_helpdesk_holidays/1/edit
+                      - link "Delete" [ref=f113e130] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f113e134]:
+                  - cell "2" [ref=f113e135]
+                  - cell [ref=f113e136]:
+                    - link "Alpha Winter Break 2026" [ref=f113e137] [cursor=pointer]:
+                      - /url: /rf_helpdesk_holidays/2
+                  - cell "12/24/2026" [ref=f113e138]
+                  - cell "12/31/2026" [ref=f113e139]
+                  - cell [ref=f113e140]:
+                    - generic [ref=f113e141]:
+                      - link "Edit" [ref=f113e142] [cursor=pointer]:
+                        - /url: /rf_helpdesk_holidays/2/edit
+                      - link "Delete" [ref=f113e145] [cursor=pointer]:
+                        - /url: javascript:void(0)
+          - generic [ref=f113e149]:
+            - list
+            - generic [ref=f113e150]: (1-2/2)
+    - generic [ref=f113e151]:
+      - text: Powered by
+      - link "Redmine" [ref=f113e152] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f113e153]
+  - log [ref=f113e154]
+  - log [ref=f113e155]
+  - log [ref=f113e156]
+  - log [ref=f113e157]
+  - log [ref=f113e158]
+  - log [ref=f113e159]
+  - log [ref=f113e160]
+  - log [ref=f113e161]
+  - log [ref=f113e162]
+  - log [ref=f113e163]
+  - log [ref=f113e164]
+  - log [ref=f113e165]
+  - log [ref=f113e166]
+  - log [ref=f113e167]

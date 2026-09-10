@@ -1,0 +1,246 @@
+- generic [ref=f569e1]:
+  - generic [ref=f569e2]:
+    - generic [ref=f569e3]:
+      - generic [ref=f569e4]:
+        - list:
+          - listitem [ref=f569e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f569e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f569e7]:
+        - text: Logged in as
+        - link "admin" [ref=f569e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f569e9]:
+        - listitem [ref=f569e10]:
+          - link [ref=f569e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f569e12]
+        - listitem [ref=f569e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f569e14]:
+          - link "My page" [ref=f569e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f569e16]:
+          - link "Projects" [ref=f569e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f569e18]:
+          - link "Flux Gantt" [ref=f569e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f569e20]:
+          - link "Helpdesk Command Center" [ref=f569e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f569e22]:
+          - link "Time Tracker" [ref=f569e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f569e24]:
+          - link "Timesheet" [ref=f569e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f569e26]:
+          - link "Workloads" [ref=f569e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f569e28]:
+          - link "More" [ref=f569e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f569e30]:
+      - generic [ref=f569e31]:
+        - generic [ref=f569e32]:
+          - generic [ref=f569e33]:
+            - link "Search..." [ref=f569e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f569e35]
+        - generic [ref=f569e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f569e38]
+    - generic [ref=f569e39]:
+      - link [ref=f569e41] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=f569e44]:
+        - heading "Settings" [level=2] [ref=f569e45]
+        - generic [ref=f569e46]:
+          - list [ref=f569e47]:
+            - listitem [ref=f569e48]:
+              - link "General" [ref=f569e49] [cursor=pointer]:
+                - /url: /settings?tab=general
+            - listitem [ref=f569e50]:
+              - link "Display" [ref=f569e51] [cursor=pointer]:
+                - /url: /settings?tab=display
+            - listitem [ref=f569e52]:
+              - link "Authentication" [ref=f569e53] [cursor=pointer]:
+                - /url: /settings?tab=authentication
+            - listitem [ref=f569e54]:
+              - link "API" [ref=f569e55] [cursor=pointer]:
+                - /url: /settings?tab=api
+            - listitem [ref=f569e56]:
+              - link "Projects" [ref=f569e57] [cursor=pointer]:
+                - /url: /settings?tab=projects
+            - listitem [ref=f569e58]:
+              - link "Users" [ref=f569e59] [cursor=pointer]:
+                - /url: /settings?tab=users
+            - listitem [ref=f569e60]:
+              - link "Issue tracking" [ref=f569e61] [cursor=pointer]:
+                - /url: /settings?tab=issues
+            - listitem [ref=f569e62]:
+              - link "Time tracking" [ref=f569e63] [cursor=pointer]:
+                - /url: /settings?tab=timelog
+            - listitem [ref=f569e64]:
+              - link "Files" [ref=f569e65] [cursor=pointer]:
+                - /url: /settings?tab=attachments
+            - listitem [ref=f569e66]:
+              - link "Email notifications" [ref=f569e67] [cursor=pointer]:
+                - /url: /settings?tab=notifications
+            - listitem [ref=f569e68]:
+              - link "Incoming emails" [ref=f569e69] [cursor=pointer]:
+                - /url: /settings?tab=mail_handler
+            - listitem [ref=f569e70]:
+              - link "Repositories" [ref=f569e71] [cursor=pointer]:
+                - /url: /settings?tab=repositories
+          - generic [ref=f569e72]:
+            - button [ref=f569e73] [cursor=pointer]
+            - button [ref=f569e76] [cursor=pointer]
+        - text: pre
+        - generic [ref=f569e80]:
+          - generic [ref=f569e81]:
+            - paragraph [ref=f569e82]:
+              - generic [ref=f569e83]: Required fields for time logs
+              - generic [ref=f569e84]:
+                - checkbox "Issue" [ref=f569e85]
+                - text: Issue
+              - generic [ref=f569e86]:
+                - checkbox "Comment" [checked] [active] [ref=f569e87]
+                - text: Comment
+            - paragraph [ref=f569e88]:
+              - generic [ref=f569e89]: Maximum hours that can be logged per day and user
+              - textbox "Maximum hours that can be logged per day and user" [ref=f569e90]: "999"
+            - paragraph [ref=f569e91]:
+              - generic [ref=f569e92]: Accept time logs with 0 hours
+              - checkbox "Accept time logs with 0 hours" [checked] [ref=f569e93]
+            - paragraph [ref=f569e94]:
+              - generic [ref=f569e95]: Accept time logs on future dates
+              - checkbox "Accept time logs on future dates" [checked] [ref=f569e96]
+            - paragraph [ref=f569e97]:
+              - generic [ref=f569e98]: Accept time logs on closed issues
+              - checkbox "Accept time logs on closed issues" [checked] [ref=f569e99]
+          - group "Timelog list defaults" [ref=f569e100]:
+            - generic [ref=f569e103]:
+              - generic [ref=f569e104]:
+                - generic [ref=f569e105]: Available Columns
+                - listbox "Available Columns" [ref=f569e106]:
+                  - option "Project" [ref=f569e107]
+                  - option "Created on" [ref=f569e108]
+                  - option "Week" [ref=f569e109]
+                  - option "Author" [ref=f569e110]
+                  - option "Tracker" [ref=f569e111]
+                  - option "Parent task" [ref=f569e112]
+                  - option "Status" [ref=f569e113]
+                  - option "Category" [ref=f569e114]
+                  - option "Target version" [ref=f569e115]
+                  - option "Issue Category" [ref=f569e116]
+              - generic [ref=f569e117]:
+                - button [ref=f569e118]
+                - button [ref=f569e121]
+              - generic [ref=f569e124]:
+                - generic [ref=f569e125]: Selected Columns
+                - listbox "Selected Columns" [ref=f569e126]:
+                  - option "Date" [ref=f569e127]
+                  - option "User" [ref=f569e128]
+                  - option "Activity" [ref=f569e129]
+                  - option "Issue" [ref=f569e130]
+                  - option "Comment" [ref=f569e131]
+                  - option "Hours" [ref=f569e132]
+              - generic [ref=f569e133]:
+                - button "⇈" [ref=f569e134]
+                - button "↑" [ref=f569e135]
+                - button "↓" [ref=f569e136]
+                - button "⇊" [ref=f569e137]
+            - paragraph [ref=f569e138]:
+              - text: Totals
+              - generic [ref=f569e139]:
+                - checkbox "Hours" [checked] [ref=f569e140]
+                - text: Hours
+          - button "Save" [ref=f569e141] [cursor=pointer]
+        - text: pre pre
+    - generic [ref=f569e142]:
+      - text: Powered by
+      - link "Redmine" [ref=f569e143] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f569e144]
+  - log [ref=f569e145]
+  - log [ref=f569e146]
+  - log [ref=f569e147]
+  - log [ref=f569e148]
+  - log [ref=f569e149]
+  - log [ref=f569e150]
+  - log [ref=f569e151]
+  - log [ref=f569e152]
+  - log [ref=f569e153]
+  - log [ref=f569e154]
+  - log [ref=f569e155]
+  - log [ref=f569e156]
+  - log [ref=f569e157]
+  - log [ref=f569e158]
+  - log [ref=f569e159]
+  - log [ref=f569e160]
+  - log [ref=f569e161]
+  - log [ref=f569e162]
+  - log [ref=f569e163]
+  - log [ref=f569e164]
+  - log [ref=f569e165]
+  - log [ref=f569e166]
+  - log [ref=f569e167]
+  - log [ref=f569e168]
+  - log [ref=f569e169]
+  - log [ref=f569e170]
+  - log [ref=f569e171]
+  - log [ref=f569e172]
+  - log [ref=f569e173]
+  - log [ref=f569e174]
+  - log [ref=f569e175]
+  - log [ref=f569e176]
+  - log [ref=f569e177]
+  - log [ref=f569e178]
+  - log [ref=f569e179]
+  - log [ref=f569e180]
+  - log [ref=f569e181]
+  - log [ref=f569e182]
+  - log [ref=f569e183]
+  - log [ref=f569e184]
+  - log [ref=f569e185]
+  - log [ref=f569e186]
+  - log [ref=f569e187]
+  - log [ref=f569e188]
+  - log [ref=f569e189]
+  - log [ref=f569e190]
+  - log [ref=f569e191]
+  - log [ref=f569e192]
+  - log [ref=f569e193]
+  - log [ref=f569e194]
+  - log [ref=f569e195]
+  - log [ref=f569e196]
+  - log [ref=f569e197]
+  - log [ref=f569e198]
+  - log [ref=f569e199]
+  - log [ref=f569e200]
+  - log [ref=f569e201]
+  - log [ref=f569e202]
+  - log [ref=f569e203]
+  - log [ref=f569e204]
+  - log [ref=f569e205]
+  - log [ref=f569e206]
+  - log [ref=f569e207]
+  - log [ref=f569e208]
+  - log [ref=f569e209]
+  - log [ref=f569e210]
+  - log [ref=f569e211]
+  - log [ref=f569e212]
+  - log [ref=f569e213]
+  - log [ref=f569e214]
+  - log [ref=f569e215]
+  - log [ref=f569e216]
+  - log [ref=f569e217]
+  - log [ref=f569e218]
+  - log [ref=f569e219]

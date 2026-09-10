@@ -1,0 +1,167 @@
+- generic [ref=f255e1]:
+  - generic [ref=f255e2]:
+    - generic [ref=f255e3]:
+      - generic [ref=f255e4]:
+        - img "Logo" [ref=f255e5]
+        - text: 
+      - navigation "Application tasks" [ref=f255e6]:
+        - button " Compose" [ref=f255e8] [cursor=pointer]
+        - button " Mail" [disabled] [ref=f255e9] [cursor=pointer]
+        - button " Contacts" [ref=f255e10] [cursor=pointer]
+        - button " Settings" [ref=f255e11] [cursor=pointer]
+        - generic [ref=f255e12]:
+          - button " Dark mode" [ref=f255e13] [cursor=pointer]
+          - button " About" [ref=f255e14] [cursor=pointer]
+          - button " Logout" [ref=f255e15] [cursor=pointer]
+    - navigation "Email folder selection" [ref=f255e16]:
+      - generic [ref=f255e17]:
+        - text: 
+        - generic [ref=f255e18]: alpha.customer@test.local
+        - button "" [ref=f255e19] [cursor=pointer]:     
+      - tree [ref=f255e21]:
+        - treeitem [level=1] [selected] [ref=f255e22]:
+          - link " Inbox 1" [ref=f255e23]:
+            - /url: /?_task=mail&_mbox=INBOX
+            - text:  Inbox
+            - generic [ref=f255e24]: "1"
+        - treeitem [level=1] [ref=f255e25]:
+          - link " Drafts" [ref=f255e26]:
+            - /url: /?_task=mail&_mbox=Drafts
+        - treeitem [level=1] [ref=f255e27]:
+          - link " Sent" [ref=f255e28]:
+            - /url: /?_task=mail&_mbox=Sent
+        - treeitem [level=1] [ref=f255e29]:
+          - link " Junk" [ref=f255e30]:
+            - /url: /?_task=mail&_mbox=Junk
+        - treeitem [level=1] [ref=f255e31]:
+          - link " Trash" [ref=f255e32]:
+            - /url: /?_task=mail&_mbox=Trash
+      - generic [ref=f255e34]:
+        - text: 
+        - generic "unknown" [ref=f255e35]: 0%
+    - generic [ref=f255e38]:
+      - generic [ref=f255e39]:
+        - text:  
+        - list [ref=f255e40]:
+          - menuitem [ref=f255e41]:
+            - link " Select" [ref=f255e42] [cursor=pointer]:
+              - /url: "#select"
+              - text:  Select       
+          - menuitem " Threads" [ref=f255e43]:
+            - link " Threads":
+              - /url: "#threads"
+              - text:  Threads   
+          - menuitem [ref=f255e44]:
+            - link " Options" [ref=f255e45] [cursor=pointer]:
+              - /url: "#list-options"
+        - button " Refresh" [ref=f255e46] [cursor=pointer]
+        - text:  
+      - search "Email search input" [ref=f255e47]:
+        - generic [ref=f255e48]:
+          - text: 
+          - textbox "Search terms" [ref=f255e49]:
+            - /placeholder: Search...
+        - text: 
+        - button "" [ref=f255e50] [cursor=pointer]
+        - button "" [ref=f255e51] [cursor=pointer]
+        - text: 
+      - text:   
+      - generic [ref=f255e52]:
+        - text: 
+        - table "Email Messages Listing" [ref=f255e53]:
+          - text: 
+          - rowgroup [ref=f255e54]:
+            - row [ref=f255e55]:
+              - cell "redmine@example.net Thu 16:23  Your Helpdesk Account Has Been Created" [active] [ref=f255e56]:
+                - generic [ref=f255e57]: redmine@example.net
+                - generic [ref=f255e59]: Thu 16:23
+                - generic [ref=f255e60]:
+                  - generic "Unread": 
+                  - link "Your Helpdesk Account Has Been Created" [ref=f255e61]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=5&_action=show
+              - cell "Not Flagged" [ref=f255e62]:
+                - generic [ref=f255e63] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f255e65]:
+              - 'cell "alpha.support@test.local Thu 15:02  [Helpdesk QA Alpha #74] Re: [TICKET] TC-HLP-015 - customer-raised ticket, cannot access my dashboard" [ref=f255e66]':
+                - generic [ref=f255e67]: alpha.support@test.local
+                - generic [ref=f255e69]: Thu 15:02
+                - generic [ref=f255e70]:
+                  - generic: 
+                  - 'link "[Helpdesk QA Alpha #74] Re: [TICKET] TC-HLP-015 - customer-raised ticket, cannot access my dashboard" [ref=f255e71]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=4&_action=show
+              - cell "Not Flagged" [ref=f255e72]:
+                - generic [ref=f255e73] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f255e75]:
+              - 'cell "alpha.support@test.local Thu 14:44  [Helpdesk QA Alpha #74] Re: [TICKET] TC-HLP-015 - customer-raised ticket, cannot access my dashboard" [ref=f255e76]':
+                - generic [ref=f255e77]: alpha.support@test.local
+                - generic [ref=f255e79]: Thu 14:44
+                - generic [ref=f255e80]:
+                  - generic: 
+                  - 'link "[Helpdesk QA Alpha #74] Re: [TICKET] TC-HLP-015 - customer-raised ticket, cannot access my dashboard" [ref=f255e81]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=3&_action=show
+              - cell "Not Flagged" [ref=f255e82]:
+                - generic [ref=f255e83] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f255e85]:
+              - 'cell "alpha.support@test.local Wed 15:05  [Support #68] Just saying hello" [ref=f255e86]':
+                - generic [ref=f255e87]: alpha.support@test.local
+                - generic [ref=f255e89]: Wed 15:05
+                - generic [ref=f255e90]:
+                  - generic: 
+                  - 'link "[Support #68] Just saying hello" [ref=f255e91]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=2&_action=show
+              - cell "Not Flagged" [ref=f255e92]:
+                - generic [ref=f255e93] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f255e95]:
+              - cell "admin@test.local Wed 14:31  Your Helpdesk Account Has Been Created" [ref=f255e96]:
+                - generic [ref=f255e97]: admin@test.local
+                - generic [ref=f255e99]: Wed 14:31
+                - generic [ref=f255e100]:
+                  - generic: 
+                  - link "Your Helpdesk Account Has Been Created" [ref=f255e101]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=1&_action=show
+              - cell "Not Flagged" [ref=f255e102]:
+                - generic [ref=f255e103] [cursor=pointer]:
+                  - generic "Not Flagged"
+      - toolbar "List navigation" [ref=f255e105]:
+        - button "" [disabled]
+        - button "" [disabled]
+        - generic [ref=f255e106]: Messages 1 to 5 of 5
+        - textbox "Current page" [disabled] [ref=f255e107]: "1"
+        - button "" [disabled]
+        - button "" [disabled]
+    - generic [ref=f255e109]:
+      - toolbar "Application toolbar" [ref=f255e110]:
+        - text:                   Browse
+        - list [ref=f255e111]:
+          - menuitem: 
+          - menuitem " Reply" [ref=f255e112]:
+            - button " Reply" [disabled]
+          - menuitem [ref=f255e113]:
+            - generic [ref=f255e114]:
+              - button " Reply all" [disabled]
+              - link "":
+                - /url: "#reply-all"
+          - menuitem [ref=f255e115]:
+            - generic [ref=f255e116]:
+              - button " Forward" [disabled]
+              - link "":
+                - /url: "#forward"
+          - menuitem [ref=f255e117]
+          - menuitem " Delete" [ref=f255e118]:
+            - button " Delete" [disabled]
+          - menuitem " Mark" [ref=f255e119]:
+            - button " Mark"
+          - menuitem [ref=f255e120]:
+            - button " More" [ref=f255e121] [cursor=pointer]
+          - menuitem: 
+          - menuitem: 
+          - menuitem: 
+        - text: 
+      - iframe [ref=f255e123]:
+        
+      - text:   
+  - text:   

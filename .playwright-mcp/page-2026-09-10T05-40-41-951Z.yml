@@ -1,0 +1,350 @@
+- generic [active] [ref=f176e1]:
+  - generic [ref=f176e2]:
+    - navigation [ref=f176e3]:
+      - generic [ref=f176e4]:
+        - link [ref=f176e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f176e7] [cursor=pointer]
+      - list [ref=f176e17]:
+        - listitem [ref=f176e18]:
+          - link "Hauptseite" [ref=f176e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f176e20]:
+          - link "Meine Seite" [ref=f176e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f176e22]:
+          - link "Projekte" [ref=f176e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f176e24]:
+          - link "Agile Board" [ref=f176e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f176e26]:
+          - link "Flux Gantt" [ref=f176e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f176e28]:
+          - link "Administration" [ref=f176e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f176e30]:
+          - link "Hilfe" [ref=f176e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f176e32]:
+        - generic [ref=f176e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f176e35]
+        - link "Mein Konto" [ref=f176e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f176e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f176e44]:
+      - generic [ref=f176e45]:
+        - heading "Redmine" [level=1] [ref=f176e47]
+        - generic [ref=f176e49]:
+          - heading "Administration" [level=3] [ref=f176e50]
+          - list [ref=f176e52]:
+            - listitem [ref=f176e53]:
+              - link "Projekte" [ref=f176e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f176e55]:
+              - link "Benutzer" [ref=f176e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f176e57]:
+              - link "Gruppen" [ref=f176e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f176e59]:
+              - link "Rollen und Rechte" [ref=f176e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f176e61]:
+              - link "Tracker" [ref=f176e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f176e63]:
+              - link "Ticket-Status" [ref=f176e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f176e65]:
+              - link "Workflow" [ref=f176e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f176e67]:
+              - link "Benutzerdefinierte Felder" [ref=f176e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f176e69]:
+              - link "Aufzählungen" [ref=f176e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f176e71]:
+              - link "Konfiguration" [ref=f176e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f176e73]:
+              - link "LDAP-Authentifizierung" [ref=f176e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f176e75]:
+              - link "Applikationen" [ref=f176e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f176e77]:
+              - link "Plugins" [ref=f176e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f176e79]:
+              - link "Informationen" [ref=f176e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f176e81]:
+        - heading [level=2] [ref=f176e82]:
+          - link "Plugins" [ref=f176e83] [cursor=pointer]:
+            - /url: /admin/plugins
+          - text: » Redmineflux Agile Board
+        - generic [ref=f176e85]:
+          - generic [ref=f176e87]:
+            - heading "Agile-Board-Einstellungen" [level=3] [ref=f176e88]
+            - paragraph [ref=f176e89]:
+              - generic [ref=f176e90]: Story Points aktivieren
+              - checkbox [ref=f176e91]
+              - emphasis [ref=f176e92]: Story Points für Agile Board, Global Agile Board und Backlog aktivieren oder deaktivieren.
+            - paragraph [ref=f176e93]:
+              - generic [ref=f176e94]: Maximales WIP-Limit
+              - spinbutton [ref=f176e95]: "50"
+              - emphasis [ref=f176e96]: Maximales WIP-Limit, das Benutzer für eine Spalte setzen können.
+            - separator [ref=f176e97]
+            - heading "Prioritätssymbole" [level=3] [ref=f176e98]
+            - emphasis [ref=f176e99]: Konfigurieren Sie Icon und Farbe für jede Priorität.
+            - generic [ref=f176e100]:
+              - generic [ref=f176e101]:
+                - strong [ref=f176e102]:
+                  - text: Low
+                  - generic [ref=f176e103]: "(Standard: ↑ ●)"
+                - generic [ref=f176e104]:
+                  - combobox [ref=f176e105]:
+                    - option "↑" [selected]
+                    - option "↓"
+                    - option "="
+                    - option "🔥"
+                    - option "⚡"
+                    - option "⭐"
+                    - option "❗"
+                    - option "⚠️"
+                    - option "✓"
+                    - option "●"
+                    - option "■"
+                    - option "🔴"
+                    - option "🟡"
+                    - option "🟢"
+                    - option "🔵"
+                    - option "📌"
+                    - option "🎯"
+                  - textbox [ref=f176e107]: "#cd1316"
+              - generic [ref=f176e108]:
+                - strong [ref=f176e109]:
+                  - text: Normal
+                  - generic [ref=f176e110]: "(Standard: ↑ ●)"
+                - generic [ref=f176e111]:
+                  - combobox [ref=f176e112]:
+                    - option "↑" [selected]
+                    - option "↓"
+                    - option "="
+                    - option "🔥"
+                    - option "⚡"
+                    - option "⭐"
+                    - option "❗"
+                    - option "⚠️"
+                    - option "✓"
+                    - option "●"
+                    - option "■"
+                    - option "🔴"
+                    - option "🟡"
+                    - option "🟢"
+                    - option "🔵"
+                    - option "📌"
+                    - option "🎯"
+                  - textbox [ref=f176e114]: "#e97f33"
+              - generic [ref=f176e115]:
+                - strong [ref=f176e116]:
+                  - text: High
+                  - generic [ref=f176e117]: "(Standard: = ●)"
+                - generic [ref=f176e118]:
+                  - combobox [ref=f176e119]:
+                    - option "↑"
+                    - option "↓"
+                    - option "=" [selected]
+                    - option "🔥"
+                    - option "⚡"
+                    - option "⭐"
+                    - option "❗"
+                    - option "⚠️"
+                    - option "✓"
+                    - option "●"
+                    - option "■"
+                    - option "🔴"
+                    - option "🟡"
+                    - option "🟢"
+                    - option "🔵"
+                    - option "📌"
+                    - option "🎯"
+                  - textbox [ref=f176e121]: "#e9a234"
+              - generic [ref=f176e122]:
+                - strong [ref=f176e123]:
+                  - text: Urgent
+                  - generic [ref=f176e124]: "(Standard: ↓ ●)"
+                - generic [ref=f176e125]:
+                  - combobox [ref=f176e126]:
+                    - option "↑"
+                    - option "↓" [selected]
+                    - option "="
+                    - option "🔥"
+                    - option "⚡"
+                    - option "⭐"
+                    - option "❗"
+                    - option "⚠️"
+                    - option "✓"
+                    - option "●"
+                    - option "■"
+                    - option "🔴"
+                    - option "🟡"
+                    - option "🟢"
+                    - option "🔵"
+                    - option "📌"
+                    - option "🎯"
+                  - textbox [ref=f176e128]: "#2d8738"
+              - generic [ref=f176e129]:
+                - strong [ref=f176e130]:
+                  - text: Immediate
+                  - generic [ref=f176e131]: "(Standard: ↓ ●)"
+                - generic [ref=f176e132]:
+                  - combobox [ref=f176e133]:
+                    - option "↑"
+                    - option "↓" [selected]
+                    - option "="
+                    - option "🔥"
+                    - option "⚡"
+                    - option "⭐"
+                    - option "❗"
+                    - option "⚠️"
+                    - option "✓"
+                    - option "●"
+                    - option "■"
+                    - option "🔴"
+                    - option "🟡"
+                    - option "🟢"
+                    - option "🔵"
+                    - option "📌"
+                    - option "🎯"
+                  - textbox [ref=f176e135]: "#57a55a"
+            - separator [ref=f176e136]
+            - heading "Tracker-Icons konfigurieren" [level=3] [ref=f176e137]
+            - emphasis [ref=f176e138]: Konfigurieren Sie Icon und Farbe für jeden Tracker/Tickettyp.
+            - generic [ref=f176e139]:
+              - generic [ref=f176e140]:
+                - strong [ref=f176e141]: "Bug (Standard: 🐞)"
+                - combobox [ref=f176e143]:
+                  - option "●"
+                  - option "■"
+                  - option "▲"
+                  - option "▼"
+                  - option "◆"
+                  - option "★"
+                  - option "✓"
+                  - option "✗"
+                  - option "➤"
+                  - option "◉"
+                  - option "□"
+                  - option "○"
+                  - option "△"
+                  - option "🐞" [selected]
+                  - option "⭐"
+                  - option "💬"
+                  - option "📘"
+                  - option "⚡"
+                  - option "📋"
+                  - option "🔧"
+                  - option "🎯"
+                  - option "📌"
+                  - option "🚀"
+                  - option "💡"
+                  - option "🔥"
+                  - option "📦"
+                  - option "🎨"
+                  - option "🔨"
+                  - option "⚙️"
+                  - option "📝"
+                  - option "🏆"
+              - generic [ref=f176e144]:
+                - strong [ref=f176e145]: "Feature (Standard: ⭐)"
+                - combobox [ref=f176e147]:
+                  - option "●"
+                  - option "■"
+                  - option "▲"
+                  - option "▼"
+                  - option "◆"
+                  - option "★"
+                  - option "✓"
+                  - option "✗"
+                  - option "➤"
+                  - option "◉"
+                  - option "□"
+                  - option "○"
+                  - option "△"
+                  - option "🐞"
+                  - option "⭐" [selected]
+                  - option "💬"
+                  - option "📘"
+                  - option "⚡"
+                  - option "📋"
+                  - option "🔧"
+                  - option "🎯"
+                  - option "📌"
+                  - option "🚀"
+                  - option "💡"
+                  - option "🔥"
+                  - option "📦"
+                  - option "🎨"
+                  - option "🔨"
+                  - option "⚙️"
+                  - option "📝"
+                  - option "🏆"
+              - generic [ref=f176e148]:
+                - strong [ref=f176e149]: "Support (Standard: 💬)"
+                - combobox [ref=f176e151]:
+                  - option "●"
+                  - option "■"
+                  - option "▲"
+                  - option "▼"
+                  - option "◆"
+                  - option "★"
+                  - option "✓"
+                  - option "✗"
+                  - option "➤"
+                  - option "◉"
+                  - option "□"
+                  - option "○"
+                  - option "△"
+                  - option "🐞"
+                  - option "⭐"
+                  - option "💬" [selected]
+                  - option "📘"
+                  - option "⚡"
+                  - option "📋"
+                  - option "🔧"
+                  - option "🎯"
+                  - option "📌"
+                  - option "🚀"
+                  - option "💡"
+                  - option "🔥"
+                  - option "📦"
+                  - option "🎨"
+                  - option "🔨"
+                  - option "⚙️"
+                  - option "📝"
+                  - option "🏆"
+          - button "Anwenden" [ref=f176e152] [cursor=pointer]
+    - generic [ref=f176e153]:
+      - text: Powered by
+      - link "Redmine" [ref=f176e154] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f176e155]
+  - log [ref=f176e156]
+  - log [ref=f176e157]
+  - log [ref=f176e158]
+  - log [ref=f176e159]
+  - log [ref=f176e160]
+  - log [ref=f176e161]
+  - log [ref=f176e162]
+  - log [ref=f176e163]
+  - log [ref=f176e164]
+  - log [ref=f176e165]
+  - log [ref=f176e166]
+  - log [ref=f176e167]
+  - log [ref=f176e168]

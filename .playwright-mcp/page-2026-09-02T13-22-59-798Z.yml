@@ -1,0 +1,168 @@
+- generic [ref=f116e1]:
+  - generic [ref=f116e2]:
+    - generic [ref=f116e3]:
+      - generic [ref=f116e4]:
+        - list:
+          - listitem [ref=f116e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f116e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f116e7]:
+        - text: Logged in as
+        - link "admin" [ref=f116e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f116e9]:
+        - listitem [ref=f116e10]:
+          - link [ref=f116e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f116e12]
+        - listitem [ref=f116e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f116e14]:
+          - link "My page" [ref=f116e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f116e16]:
+          - link "Projects" [ref=f116e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f116e18]:
+          - link "Flux Gantt" [ref=f116e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f116e20]:
+          - link "Helpdesk Command Center" [ref=f116e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f116e22]:
+          - link "Time Tracker" [ref=f116e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f116e24]:
+          - link "Timesheet" [ref=f116e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f116e26]:
+          - link "Workloads" [ref=f116e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f116e28]:
+          - link "More" [ref=f116e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f116e30]:
+      - generic [ref=f116e31]:
+        - generic [ref=f116e32]:
+          - generic [ref=f116e33]:
+            - link "Search..." [ref=f116e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f116e35]
+        - generic [ref=f116e36]:
+          - generic [ref=f116e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f116e38]
+    - generic [ref=f116e39]:
+      - list [ref=f116e43]:
+        - listitem [ref=f116e44]:
+          - link "Helpdesk Dashboard" [ref=f116e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f116e48]:
+          - link "Helpdesk Tickets" [ref=f116e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f116e52]:
+          - link "Reports" [ref=f116e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f116e56]:
+          - link "Organization" [ref=f116e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f116e60]:
+          - link "Customers" [ref=f116e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f116e64]:
+          - link "Products" [ref=f116e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f116e68]:
+          - link "Helpdesk Settings" [ref=f116e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f116e72]:
+        - 'heading "Edit Customer: Test" [level=2] [ref=f116e73]'
+        - generic [ref=f116e74]:
+          - list [ref=f116e76]:
+            - listitem [ref=f116e77]: Lastname cannot be blank
+          - generic [ref=f116e78]:
+            - paragraph [ref=f116e79]:
+              - generic [ref=f116e80]: Login *
+              - textbox "Login *" [active] [ref=f116e81]: test.genpw
+            - paragraph [ref=f116e82]:
+              - generic [ref=f116e83]: First name *
+              - textbox "First name *" [ref=f116e84]: Test
+            - paragraph [ref=f116e85]:
+              - generic [ref=f116e86]: Last name *
+              - textbox "Last name *" [ref=f116e87]
+            - paragraph [ref=f116e88]:
+              - generic [ref=f116e89]: Email *
+              - textbox "Email *" [ref=f116e90]: test.genpw@test.local
+            - generic [ref=f116e91]:
+              - paragraph [ref=f116e92]:
+                - generic [ref=f116e93]: Password *
+                - textbox "Password *" [ref=f116e94]
+                - emphasis [ref=f116e95]: Leave blank to keep the current password
+              - paragraph [ref=f116e96]:
+                - generic [ref=f116e97]: Confirmation *
+                - textbox "Confirmation *" [ref=f116e98]
+            - paragraph [ref=f116e99]:
+              - checkbox "Generate password automatically" [ref=f116e100]
+              - generic [ref=f116e101]: Generate password automatically
+            - paragraph [ref=f116e102]:
+              - checkbox "Send account information to the user" [ref=f116e103]
+              - generic [ref=f116e104]: Send account information to the user
+          - group "Project access" [ref=f116e105]:
+            - paragraph [ref=f116e107]: Projects this customer can raise tickets against, and the SLA, support level and organisation that apply on each. Leave empty to create the account without project access.
+            - generic [ref=f116e109]:
+              - generic [ref=f116e110]:
+                - generic [ref=f116e111]: Project
+                - combobox [ref=f116e112]:
+                  - option "-- Select project --" [selected]
+                  - option "Helpdesk QA Alpha"
+                  - option "Helpdesk QA Beta"
+              - generic [ref=f116e113]:
+                - generic [ref=f116e114]: SLA Name *
+                - combobox [ref=f116e115]:
+                  - option "None" [selected]
+              - generic [ref=f116e116]:
+                - generic [ref=f116e117]: Support Level *
+                - combobox [ref=f116e118]:
+                  - option "None" [selected]
+              - generic [ref=f116e119]:
+                - generic [ref=f116e120]: Organization Name
+                - combobox [ref=f116e121]:
+                  - option "None" [selected]
+                  - option "<script>alert(1)</script>"
+                  - option "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  - option "Alpha Full-Fields Test Org (All Changed)"
+                  - option "Alpha Minimal Fields Test Org"
+                  - option "Field Test Org Employees Neg"
+                  - option "Field Test Org Notes Billing Max"
+                  - option "Field Test Org Website Phone"
+                  - option "O'Brien & Sons, Ltd. 日本語テスト Acme123"
+              - button "Delete" [ref=f116e122] [cursor=pointer]
+            - paragraph [ref=f116e126]:
+              - button "Add project" [ref=f116e127] [cursor=pointer]
+          - paragraph [ref=f116e129]:
+            - button "Save" [ref=f116e130] [cursor=pointer]
+            - link "Cancel" [ref=f116e131] [cursor=pointer]:
+              - /url: /rf_helpdesk/customers
+    - generic [ref=f116e132]:
+      - text: Powered by
+      - link "Redmine" [ref=f116e133] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f116e134]
+  - log [ref=f116e135]
+  - log [ref=f116e136]
+  - log [ref=f116e137]
+  - log [ref=f116e138]
+  - log [ref=f116e139]
+  - log [ref=f116e140]
+  - log [ref=f116e141]
+  - log [ref=f116e142]
+  - log [ref=f116e143]
+  - log [ref=f116e144]
+  - log [ref=f116e145]
+  - log [ref=f116e146]

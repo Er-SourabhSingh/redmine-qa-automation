@@ -1,0 +1,316 @@
+- generic [ref=f163e1]:
+  - generic [ref=f163e2]:
+    - navigation [ref=f163e3]:
+      - generic [ref=f163e4]:
+        - link [ref=f163e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f163e7] [cursor=pointer]
+      - list [ref=f163e17]:
+        - listitem [ref=f163e18]:
+          - link "Hauptseite" [ref=f163e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f163e20]:
+          - link "Meine Seite" [ref=f163e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f163e22]:
+          - link "Projekte" [ref=f163e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f163e24]:
+          - link "Agile Board" [ref=f163e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f163e26]:
+          - link "Flux Gantt" [ref=f163e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f163e28]:
+          - link "Administration" [ref=f163e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f163e30]:
+          - link "Hilfe" [ref=f163e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f163e32]:
+        - generic [ref=f163e33]:
+          - generic [ref=f163e34] [cursor=pointer]: Software development5
+          - text: ✓ ✓
+        - button "Suche" [ref=f163e35]
+        - link "Mein Konto" [ref=f163e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f163e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f163e44]:
+      - generic [ref=f163e46]:
+        - heading "Software development5" [level=1] [ref=f163e47]
+        - generic [ref=f163e48]:
+          - generic [ref=f163e49]:
+            - generic [ref=f163e50]: Hauptmenü
+            - listitem [ref=f163e51]:
+              - link "+" [ref=f163e52] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f163e53]:
+            - listitem [ref=f163e54]:
+              - link "Übersicht" [ref=f163e55] [cursor=pointer]:
+                - /url: /projects/defaultsd
+            - listitem [ref=f163e60]:
+              - link "Dashboard" [ref=f163e61] [cursor=pointer]:
+                - /url: /projects/defaultsd/analytics_dashboard
+            - listitem [ref=f163e69]:
+              - link "Aktivität" [ref=f163e70] [cursor=pointer]:
+                - /url: /projects/defaultsd/activity
+            - listitem [ref=f163e75]:
+              - link "Tickets" [ref=f163e76] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues
+            - listitem [ref=f163e81]:
+              - link "Aufgewendete Zeit" [ref=f163e82] [cursor=pointer]:
+                - /url: /projects/defaultsd/time_entries
+            - listitem [ref=f163e87]:
+              - link "Gantt-Diagramm" [ref=f163e88] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues/gantt
+            - listitem [ref=f163e96]:
+              - link "Kalender" [ref=f163e97] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues/calendar
+            - listitem [ref=f163e102]:
+              - link "News" [ref=f163e103] [cursor=pointer]:
+                - /url: /projects/defaultsd/news
+            - listitem [ref=f163e108]:
+              - link "Dokumente" [ref=f163e109] [cursor=pointer]:
+                - /url: /projects/defaultsd/documents
+            - listitem [ref=f163e114]:
+              - link "Wiki" [ref=f163e115] [cursor=pointer]:
+                - /url: /projects/defaultsd/wiki
+            - listitem [ref=f163e120]:
+              - link "Dateien" [ref=f163e121] [cursor=pointer]:
+                - /url: /projects/defaultsd/files
+            - listitem [ref=f163e126]:
+              - link "Konfiguration" [ref=f163e127] [cursor=pointer]:
+                - /url: /projects/defaultsd/settings
+      - generic [ref=f163e134]:
+        - 'heading "Bug #1" [level=2] [ref=f163e136]'
+        - generic [ref=f163e138]:
+          - generic [ref=f163e139]:
+            - group "Eigenschaften ändern" [ref=f163e140]:
+              - generic [ref=f163e142]:
+                - paragraph [ref=f163e143]:
+                  - checkbox "Privat" [ref=f163e144]
+                  - text: Privat
+                - paragraph [ref=f163e145]:
+                  - generic [ref=f163e146]: Projekt *
+                  - combobox "Projekt *" [ref=f163e147]:
+                    - option "Agile Board Project"
+                    - option "Education and training3"
+                    - option "Flux Gantt Project"
+                    - option "HR management2"
+                    - option "Helpdesk Service Desk"
+                    - option "MVP build for PaySheet Application"
+                    - option "Marketing campaign4"
+                    - option "Mobile app development1"
+                    - option "Software development5" [selected]
+                - paragraph [ref=f163e148]:
+                  - generic [ref=f163e149]: Tracker *
+                  - combobox "Tracker *" [ref=f163e150]:
+                    - option "Bug" [selected]
+                    - option "Feature"
+                    - option "Support"
+                - paragraph [ref=f163e151]:
+                  - generic [ref=f163e152]: Thema *
+                  - textbox "Thema *" [active] [ref=f163e153]: Implement login form
+                - paragraph [ref=f163e154]:
+                  - generic [ref=f163e155]: Beschreibung
+                  - text: pre
+                  - link "Bearbeiten" [ref=f163e156] [cursor=pointer]:
+                    - /url: "#"
+                - generic [ref=f163e161]:
+                  - generic [ref=f163e162]:
+                    - paragraph [ref=f163e163]:
+                      - generic [ref=f163e164]: Status *
+                      - combobox "Status *" [ref=f163e165]:
+                        - option "New"
+                        - option "In Progress" [selected]
+                        - option "Resolved"
+                        - option "Feedback"
+                        - option "Closed"
+                        - option "Rejected"
+                    - paragraph [ref=f163e166]:
+                      - generic [ref=f163e167]: Priorität *
+                      - combobox "Priorität *" [ref=f163e168]:
+                        - option "Low"
+                        - option "Normal"
+                        - option "High"
+                        - option "Urgent" [selected]
+                        - option "Immediate"
+                    - paragraph [ref=f163e169]:
+                      - generic [ref=f163e170]: Zugewiesen an
+                      - combobox "Zugewiesen an" [ref=f163e171]:
+                        - option
+                        - option "<< ich >>"
+                        - option "Luna Blossom"
+                        - option "Aurora Wren"
+                        - option "Autumn Grace"
+                        - option "Briar Sunset"
+                        - option "Celeste Dawn"
+                        - option "Daisy Skye"
+                        - option "Ember Lilac"
+                        - option "Harmony Rose"
+                        - option "Isla Moon"
+                        - option "Ivy Skylark"
+                        - option "Luna Blossom"
+                        - option "Luna Meadow"
+                        - option "Marigold Rayne"
+                        - option "Nova Starling" [selected]
+                        - option "Opal Sparrow"
+                        - option "Redmine Admin"
+                        - option "Sage Willow"
+                        - option "Selene Frost"
+                        - option "Serenity Bloom"
+                        - option "Summer Rain"
+                        - option "Violet Ember"
+                        - option "Willow Belle"
+                      - link "Mir zuweisen" [ref=f163e172] [cursor=pointer]:
+                        - /url: "#"
+                  - generic [ref=f163e173]:
+                    - paragraph [ref=f163e174]:
+                      - generic [ref=f163e175]: Übergeordnetes Ticket
+                      - textbox "Übergeordnetes Ticket" [ref=f163e176]
+                    - paragraph [ref=f163e177]:
+                      - generic [ref=f163e178]: Startdatum
+                      - textbox "Startdatum" [ref=f163e179]: 2026-06-12
+                    - paragraph [ref=f163e180]:
+                      - generic [ref=f163e181]: Abgabedatum
+                      - textbox "Abgabedatum" [ref=f163e182]: 2026-06-12
+                    - paragraph [ref=f163e183]:
+                      - generic [ref=f163e184]: Geschätzter Aufwand
+                      - textbox "Geschätzter Aufwand" [ref=f163e185]:
+                        - /placeholder: h:mm
+                      - text: Stunden
+                    - paragraph [ref=f163e186]:
+                      - generic [ref=f163e187]: "% erledigt"
+                      - combobox "% erledigt" [ref=f163e188]:
+                        - option "0 %" [selected]
+                        - option "10 %"
+                        - option "20 %"
+                        - option "30 %"
+                        - option "40 %"
+                        - option "50 %"
+                        - option "60 %"
+                        - option "70 %"
+                        - option "80 %"
+                        - option "90 %"
+                        - option "100 %"
+                - paragraph [ref=f163e189]:
+                  - generic [ref=f163e190]: Markierungsliste
+                  - list [ref=f163e191]:
+                    - listitem [ref=f163e192]:
+                      - textbox "Markierungen hinzufügen" [ref=f163e193]
+            - group "Aufwand buchen" [ref=f163e194]:
+              - generic [ref=f163e196]:
+                - paragraph [ref=f163e198]:
+                  - generic [ref=f163e199]: Aufgewendete Zeit
+                  - textbox "Aufgewendete Zeit" [ref=f163e200]:
+                    - /placeholder: h:mm
+                  - text: Stunden
+                - paragraph [ref=f163e202]:
+                  - generic [ref=f163e203]: Aktivität
+                  - combobox "Aktivität" [ref=f163e204]:
+                    - option "--- Bitte auswählen ---" [selected]
+                    - option "Design"
+                    - option "Development"
+              - paragraph [ref=f163e205]:
+                - generic [ref=f163e206]: Kommentar
+                - textbox "Kommentar" [ref=f163e207]
+            - group "Kommentare" [ref=f163e208]:
+              - generic [ref=f163e210]:
+                - list [ref=f163e212]:
+                  - listitem [ref=f163e213]:
+                    - link "Bearbeiten" [ref=f163e214] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f163e215]:
+                    - link "Vorschau" [ref=f163e216] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f163e217]:
+                    - generic [ref=f163e218]:
+                      - button "Fett (Ctrl+B)" [ref=f163e219] [cursor=pointer]
+                      - button "Kursiv (Ctrl+I)" [ref=f163e220] [cursor=pointer]
+                      - button "Unterstrichen (Ctrl+U)" [ref=f163e221] [cursor=pointer]
+                      - button "Durchgestrichen" [ref=f163e222] [cursor=pointer]
+                      - button "Quelltext" [ref=f163e223] [cursor=pointer]
+                      - button "Überschrift 1. Ordnung" [ref=f163e224] [cursor=pointer]
+                      - button "Überschrift 2. Ordnung" [ref=f163e225] [cursor=pointer]
+                      - button "Überschrift 3. Ordnung" [ref=f163e226] [cursor=pointer]
+                      - button "Aufzählungsliste" [ref=f163e227] [cursor=pointer]
+                      - button "Nummerierte Liste" [ref=f163e228] [cursor=pointer]
+                      - button "Task list" [ref=f163e229] [cursor=pointer]
+                      - button "Zitat" [ref=f163e230] [cursor=pointer]
+                      - button "Zitat entfernen" [ref=f163e231] [cursor=pointer]
+                      - button "Table" [ref=f163e232] [cursor=pointer]
+                      - button "pre" [ref=f163e233] [cursor=pointer]
+                      - button "Highlighted code" [ref=f163e234] [cursor=pointer]
+                      - button "Verweis (Link) zu einer Wiki-Seite" [ref=f163e235] [cursor=pointer]
+                      - button "Grafik" [ref=f163e236] [cursor=pointer]
+                      - button "Help" [ref=f163e237] [cursor=pointer]
+                - textbox [ref=f163e239]
+              - checkbox "Privater Kommentar" [ref=f163e240]
+              - text: Privater Kommentar
+            - group "Dateien" [ref=f163e241]:
+              - generic [ref=f163e245]:
+                - button "Choose File" [ref=f163e246]
+                - text: "(Maximale Größe: 5 MB)"
+          - button "OK" [ref=f163e247] [cursor=pointer]
+          - link "Abbrechen" [ref=f163e248] [cursor=pointer]:
+            - /url: /issues/1
+    - generic [ref=f163e249]:
+      - text: Powered by
+      - link "Redmine" [ref=f163e250] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f163e251]
+  - log [ref=f163e252]
+  - log [ref=f163e253]
+  - log [ref=f163e254]
+  - log [ref=f163e255]
+  - log [ref=f163e256]
+  - log [ref=f163e257]
+  - log [ref=f163e258]
+  - log [ref=f163e259]
+  - log [ref=f163e260]
+  - log [ref=f163e261]
+  - log [ref=f163e262]
+  - log [ref=f163e263]
+  - log [ref=f163e264]
+  - log [ref=f163e265]
+  - log [ref=f163e266]
+  - log [ref=f163e267]
+  - log [ref=f163e268]
+  - log [ref=f163e269]
+  - log [ref=f163e270]
+  - log [ref=f163e271]
+  - log [ref=f163e272]
+  - log [ref=f163e273]
+  - log [ref=f163e274]
+  - log [ref=f163e275]
+  - log [ref=f163e276]
+  - log [ref=f163e277]
+  - log [ref=f163e278]
+  - log [ref=f163e279]
+  - log [ref=f163e280]
+  - log [ref=f163e281]
+  - log [ref=f163e282]
+  - log [ref=f163e283]
+  - log [ref=f163e284]
+  - log [ref=f163e285]
+  - log [ref=f163e286]
+  - log [ref=f163e287]
+  - log [ref=f163e288]
+  - log [ref=f163e289]
+  - log [ref=f163e290]
+  - log [ref=f163e291]
+  - log [ref=f163e292]
+  - log [ref=f163e293]
+  - log [ref=f163e294]
+  - log [ref=f163e295]
+  - log [ref=f163e296]
+  - log [ref=f163e297]
+  - log [ref=f163e298]
+  - log [ref=f163e299]
+  - log [ref=f163e300]
+  - log [ref=f163e301]
+  - log [ref=f163e302]
+  - log [ref=f163e303]
+  - status [ref=f163e304]

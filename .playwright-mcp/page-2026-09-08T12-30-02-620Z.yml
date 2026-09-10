@@ -1,0 +1,255 @@
+- generic [active] [ref=f17e1]:
+  - generic [ref=f17e2]:
+    - navigation [ref=f17e3]:
+      - list [ref=f17e6]:
+        - listitem [ref=f17e7]:
+          - link "Hauptseite" [ref=f17e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f17e9]:
+          - link "Meine Seite" [ref=f17e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f17e11]:
+          - link "Projekte" [ref=f17e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f17e13]:
+          - link "Agile Board" [ref=f17e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f17e15]:
+          - link "Flux Gantt" [ref=f17e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f17e17]:
+          - link "Administration" [ref=f17e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f17e19]:
+          - link "Hilfe" [ref=f17e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f17e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f17e24]: RA
+    - generic [ref=f17e27]:
+      - generic [ref=f17e28]:
+        - generic [ref=f17e29]:
+          - generic [ref=f17e30]:
+            - link "Suche" [ref=f17e31] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/search
+            - text: ":"
+          - textbox "Suche:" [ref=f17e32]
+        - generic [ref=f17e33]:
+          - generic [ref=f17e34] [cursor=pointer]: Tag Retest Project
+          - text: ✓
+      - heading "Tag Retest Project" [level=1] [ref=f17e35]
+      - list [ref=f17e38]:
+        - listitem [ref=f17e39]:
+          - link "+" [ref=f17e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f17e41]:
+          - link "Übersicht" [ref=f17e42] [cursor=pointer]:
+            - /url: /projects/tag-retest-project
+        - listitem [ref=f17e43]:
+          - link "Dashboard" [ref=f17e44] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/analytics_dashboard
+        - listitem [ref=f17e45]:
+          - link "Aktivität" [ref=f17e46] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/activity
+        - listitem [ref=f17e47]:
+          - link "Tickets" [ref=f17e48] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/issues
+        - listitem [ref=f17e49]:
+          - link "Aufgewendete Zeit" [ref=f17e50] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/time_entries
+        - listitem [ref=f17e51]:
+          - link "Gantt-Diagramm" [ref=f17e52] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/issues/gantt
+        - listitem [ref=f17e53]:
+          - link "Kalender" [ref=f17e54] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/issues/calendar
+        - listitem [ref=f17e55]:
+          - link "News" [ref=f17e56] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/news
+        - listitem [ref=f17e57]:
+          - link "Dokumente" [ref=f17e58] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/documents
+        - listitem [ref=f17e59]:
+          - link "Wiki" [ref=f17e60] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/wiki
+        - listitem [ref=f17e61]:
+          - link "Dateien" [ref=f17e62] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/files
+        - listitem [ref=f17e63]:
+          - link "Konfiguration" [ref=f17e64] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/settings
+    - generic [ref=f17e66]:
+      - generic [ref=f17e67]:
+        - link "Bearbeiten" [ref=f17e68] [cursor=pointer]:
+          - /url: /issues/266/edit
+        - link "Aufwand buchen" [ref=f17e72] [cursor=pointer]:
+          - /url: /issues/266/time_entries/new
+        - link "Nicht beobachten" [ref=f17e76] [cursor=pointer]:
+          - /url: /watchers/watch?object_id=266&object_type=issue
+        - link "Kopieren" [ref=f17e80] [cursor=pointer]:
+          - /url: /projects/tag-retest-project/issues/266/copy
+        - generic "Aktionen" [ref=f17e86] [cursor=pointer]
+      - 'heading "Bug #266" [level=2] [ref=f17e89]'
+      - text: offen
+      - generic [ref=f17e90]:
+        - 'img "Autor: Redmine Admin" [ref=f17e91]': RA
+        - heading [level=3] [ref=f17e94]:
+          - text: Tag Retest Issue
+          - button "Edit" [ref=f17e95] [cursor=pointer]
+        - paragraph [ref=f17e96]:
+          - text: Von
+          - link "Redmine Admin" [ref=f17e97] [cursor=pointer]:
+            - /url: /users/1
+          - text: vor
+          - link "1 Minute" [ref=f17e98] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/activity?from=2026-09-08
+          - text: hinzugefügt. Vor
+          - link "weniger als 1 Minute" [ref=f17e99] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/activity?from=2026-09-08
+          - text: aktualisiert.
+        - generic [ref=f17e100]:
+          - generic [ref=f17e101]:
+            - generic [ref=f17e102]:
+              - generic [ref=f17e103]:
+                - generic [ref=f17e104]: "Status:"
+                - generic [ref=f17e105]:
+                  - text: New
+                  - button "Edit" [ref=f17e106] [cursor=pointer]
+              - generic [ref=f17e107]:
+                - generic [ref=f17e108]: "Priorität:"
+                - generic [ref=f17e109]:
+                  - text: Normal
+                  - button "Edit" [ref=f17e110] [cursor=pointer]
+              - generic [ref=f17e111]:
+                - generic [ref=f17e112]: "Zugewiesen an:"
+                - generic [ref=f17e113]:
+                  - text: "-"
+                  - button "Edit" [ref=f17e114] [cursor=pointer]
+            - generic [ref=f17e115]:
+              - generic [ref=f17e116]:
+                - generic [ref=f17e117]: "Startdatum:"
+                - button "Edit" [ref=f17e119] [cursor=pointer]
+              - generic [ref=f17e120]:
+                - generic [ref=f17e121]: "Abgabedatum:"
+                - button "Edit" [ref=f17e123] [cursor=pointer]
+              - generic [ref=f17e124]:
+                - generic [ref=f17e125]: "% erledigt:"
+                - generic [ref=f17e126]:
+                  - generic [ref=f17e127]:
+                    - table [ref=f17e128]:
+                      - rowgroup [ref=f17e129]:
+                        - row [ref=f17e130]:
+                          - cell [ref=f17e131]
+                    - paragraph [ref=f17e132]: 0%
+                  - button "Edit" [ref=f17e133] [cursor=pointer]
+              - generic [ref=f17e134]:
+                - generic [ref=f17e135]: "Geschätzter Aufwand:"
+                - button "Edit" [ref=f17e137] [cursor=pointer]
+          - generic [ref=f17e138]:
+            - generic [ref=f17e139]: "Markierungen:"
+            - generic [ref=f17e141]:
+              - link "testdeleteme" [ref=f17e143] [cursor=pointer]:
+                - /url: /projects/tag-retest-project/issues?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&v%5Btags%5D%5B%5D=testdeleteme&values%5Btags%5D%5B%5D=testdeleteme
+              - link "testkeepme" [ref=f17e145] [cursor=pointer]:
+                - /url: /projects/tag-retest-project/issues?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&v%5Btags%5D%5B%5D=testkeepme&values%5Btags%5D%5B%5D=testkeepme
+          - generic [ref=f17e146]: Hinzufügen
+        - separator [ref=f17e147]
+        - generic [ref=f17e148]:
+          - paragraph [ref=f17e150]:
+            - strong [ref=f17e151]: Checkliste
+          - generic [ref=f17e153] [cursor=pointer]
+          - generic:
+            - list
+        - separator [ref=f17e156]
+        - generic [ref=f17e157]:
+          - link "Hinzufügen" [ref=f17e159] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/issues/new?back_url=%2Fissues%2F266&issue%5Bparent_issue_id%5D=266&issue%5Btracker_id%5D=4
+          - paragraph [ref=f17e163]:
+            - strong [ref=f17e164]: Untergeordnete Tickets
+        - separator [ref=f17e165]
+        - generic [ref=f17e166]:
+          - link "Hinzufügen" [ref=f17e168] [cursor=pointer]:
+            - /url: "#"
+          - paragraph [ref=f17e172]:
+            - strong [ref=f17e173]: Zugehörige Tickets
+      - generic [ref=f17e174]:
+        - link "Bearbeiten" [ref=f17e175] [cursor=pointer]:
+          - /url: /issues/266/edit
+        - link "Aufwand buchen" [ref=f17e179] [cursor=pointer]:
+          - /url: /issues/266/time_entries/new
+        - link "Nicht beobachten" [ref=f17e183] [cursor=pointer]:
+          - /url: /watchers/watch?object_id=266&object_type=issue
+        - link "Kopieren" [ref=f17e187] [cursor=pointer]:
+          - /url: /projects/tag-retest-project/issues/266/copy
+        - generic "Aktionen" [ref=f17e193] [cursor=pointer]
+      - text: pre pre
+      - paragraph [ref=f17e196]:
+        - text: "Auch abrufbar als:"
+        - link "Atom" [ref=f17e198] [cursor=pointer]:
+          - /url: /issues/266.atom?key=38dc3cc965d666584d87540428c64b0d5e8a4f62
+        - generic [ref=f17e199]:
+          - text: "|"
+          - link "PDF" [ref=f17e200] [cursor=pointer]:
+            - /url: /issues/266.pdf
+    - generic [ref=f17e201]:
+      - text: Powered by
+      - link "Redmine" [ref=f17e202] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f17e203]
+  - status [ref=f17e204]
+  - log [ref=f17e205]
+  - log [ref=f17e206]
+  - log [ref=f17e207]
+  - log [ref=f17e208]
+  - log [ref=f17e209]
+  - log [ref=f17e210]
+  - log [ref=f17e211]
+  - log [ref=f17e212]
+  - log [ref=f17e213]
+  - log [ref=f17e214]
+  - log [ref=f17e215]
+  - log [ref=f17e216]
+  - log [ref=f17e217]
+  - log [ref=f17e218]
+  - log [ref=f17e219]
+  - log [ref=f17e220]
+  - log [ref=f17e221]
+  - log [ref=f17e222]
+  - log [ref=f17e223]
+  - log [ref=f17e224]
+  - log [ref=f17e225]
+  - log [ref=f17e226]
+  - log [ref=f17e227]
+  - log [ref=f17e228]
+  - log [ref=f17e229]
+  - log [ref=f17e230]
+  - log [ref=f17e231]
+  - log [ref=f17e232]
+  - log [ref=f17e233]
+  - log [ref=f17e234]
+  - log [ref=f17e235]
+  - log [ref=f17e236]
+  - log [ref=f17e237]
+  - log [ref=f17e238]
+  - log [ref=f17e239]
+  - log [ref=f17e240]
+  - log [ref=f17e241]
+  - log [ref=f17e242]
+  - log [ref=f17e243]
+  - log [ref=f17e244]
+  - log [ref=f17e245]
+  - log [ref=f17e246]
+  - log [ref=f17e247]
+  - log [ref=f17e248]
+  - log [ref=f17e249]
+  - log [ref=f17e250]
+  - log [ref=f17e251]
+  - log [ref=f17e252]
+  - log [ref=f17e253]
+  - log [ref=f17e254]
+  - log [ref=f17e255]
+  - log [ref=f17e256]
+  - log [ref=f17e257]
+  - status [ref=f17e258]
+  - status [ref=f17e259]

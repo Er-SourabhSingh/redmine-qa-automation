@@ -1,0 +1,39 @@
+- generic [active] [ref=f498e1]:
+  - generic [ref=f498e2]:
+    - generic [ref=f498e3]:
+      - generic [ref=f498e4]:
+        - list:
+          - listitem [ref=f498e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f498e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f498e7]:
+        - text: Logged in as
+        - link "alpha.customer" [ref=f498e8] [cursor=pointer]:
+          - /url: /users/6
+      - list [ref=f498e9]:
+        - listitem [ref=f498e10]:
+          - link [ref=f498e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f498e12]
+        - listitem [ref=f498e13]:
+          - link "My Helpdesk" [ref=f498e14] [cursor=pointer]:
+            - /url: /helpdesk
+    - generic [ref=f498e15]:
+      - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f498e16]
+    - generic [ref=f498e19]:
+      - heading "403" [level=2] [ref=f498e20]
+      - paragraph [ref=f498e21]: You are not authorized to access this page.
+      - paragraph [ref=f498e22]:
+        - link "Back" [ref=f498e23] [cursor=pointer]:
+          - /url: javascript:history.back()
+    - generic [ref=f498e24]:
+      - text: Powered by
+      - link "Redmine" [ref=f498e25] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f498e26]
+  - log [ref=f498e27]

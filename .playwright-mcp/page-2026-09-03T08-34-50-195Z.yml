@@ -1,0 +1,407 @@
+- generic [active] [ref=f388e1]:
+  - generic [ref=f388e2]:
+    - generic [ref=f388e3]:
+      - generic [ref=f388e4]:
+        - list:
+          - listitem [ref=f388e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f388e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f388e7]:
+        - text: Logged in as
+        - link "willow.belle" [ref=f388e8] [cursor=pointer]:
+          - /url: /users/11
+      - list [ref=f388e9]:
+        - listitem [ref=f388e10]:
+          - link [ref=f388e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f388e12]
+        - listitem [ref=f388e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f388e14]:
+          - link "My page" [ref=f388e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f388e16]:
+          - link "Projects" [ref=f388e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f388e18]:
+          - link "Time Tracker" [ref=f388e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f388e20]:
+          - link "Workloads" [ref=f388e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f388e22]:
+          - link "Help" [ref=f388e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f388e24]:
+      - generic [ref=f388e25]:
+        - generic [ref=f388e26]:
+          - generic [ref=f388e27]:
+            - link "Search..." [ref=f388e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f388e29]
+        - generic [ref=f388e30]:
+          - generic [ref=f388e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f388e32]
+      - generic [ref=f388e33]:
+        - list [ref=f388e34]:
+          - listitem [ref=f388e35]:
+            - link "+" [ref=f388e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f388e37]:
+            - link "Overview" [ref=f388e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f388e39]:
+            - link "Activity" [ref=f388e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f388e41]:
+            - link "Issues" [ref=f388e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f388e43]:
+            - link "Spent time" [ref=f388e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f388e45]:
+            - link "Gantt" [ref=f388e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f388e47]:
+            - link "Calendar" [ref=f388e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f388e49]:
+            - link "News" [ref=f388e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f388e51]:
+            - link "Documents" [ref=f388e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f388e53]:
+            - link "Wiki" [ref=f388e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f388e55]:
+            - link "Files" [ref=f388e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f388e57]:
+            - link "Helpdesk" [ref=f388e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f388e59]:
+          - button [ref=f388e60] [cursor=pointer]
+          - button [ref=f388e63] [cursor=pointer]
+    - generic [ref=f388e66]:
+      - link [ref=f388e68] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=f388e71]:
+        - generic [ref=f388e72]:
+          - link "Start Timer" [ref=f388e73] [cursor=pointer]:
+            - /url: "#"
+          - link "Reply" [ref=f388e74] [cursor=pointer]:
+            - /url: "#"
+          - link "Edit" [ref=f388e75] [cursor=pointer]:
+            - /url: /issues/40/edit
+          - link "Log time" [ref=f388e77] [cursor=pointer]:
+            - /url: /issues/40/time_entries/new
+          - link "Watch" [ref=f388e79] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=40&object_type=issue
+          - generic "Actions" [ref=f388e83] [cursor=pointer]
+        - 'heading "Support #40" [level=2] [ref=f388e85]'
+        - generic [ref=f388e86]: open
+        - generic [ref=f388e87]:
+          - generic:
+            - 'img "Author: Retest Customer1" [ref=f388e88]': RC
+            - 'img "Assignee: Willow Belle" [ref=f388e89]': WB
+          - heading [level=3] [ref=f388e93]:
+            - text: TC-HLP-363 breach-once-then-resolved-at-next-level test ticket
+            - button "Edit" [ref=f388e94] [cursor=pointer]
+          - link [ref=f388e97] [cursor=pointer]:
+            - /url: /reactions?object_id=40&object_type=Issue
+          - paragraph [ref=f388e100]:
+            - text: Added by
+            - link "Retest Customer1" [ref=f388e101] [cursor=pointer]:
+              - /url: /users/7
+            - link "24 minutes" [ref=f388e102] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-09-03
+            - text: ago. Updated
+            - link "23 minutes" [ref=f388e103] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-09-03
+            - text: ago.
+          - generic [ref=f388e104]:
+            - generic [ref=f388e105]:
+              - generic [ref=f388e106]:
+                - generic [ref=f388e107]:
+                  - generic [ref=f388e108]: "Status:"
+                  - generic [ref=f388e109]:
+                    - text: New
+                    - button "Edit" [ref=f388e110] [cursor=pointer]
+                - generic [ref=f388e111]:
+                  - generic [ref=f388e112]: "Priority:"
+                  - generic [ref=f388e113]:
+                    - text: Normal
+                    - button "Edit" [ref=f388e114] [cursor=pointer]
+                - generic [ref=f388e115]:
+                  - generic [ref=f388e116]: "Assignee:"
+                  - generic [ref=f388e117]:
+                    - link "Willow Belle" [ref=f388e119] [cursor=pointer]:
+                      - /url: /users/11
+                    - button "Edit" [ref=f388e120] [cursor=pointer]
+              - generic [ref=f388e121]:
+                - generic [ref=f388e122]:
+                  - generic [ref=f388e123]: "Start date:"
+                  - generic [ref=f388e124]:
+                    - text: 09/03/2026
+                    - button "Edit" [ref=f388e125] [cursor=pointer]
+                - generic [ref=f388e126]:
+                  - generic [ref=f388e127]: "Due Date:"
+                  - button "Edit" [ref=f388e129] [cursor=pointer]
+                - generic [ref=f388e130]:
+                  - generic [ref=f388e131]: "Progress:"
+                  - generic [ref=f388e132]:
+                    - generic [ref=f388e133]:
+                      - table [ref=f388e134]:
+                        - rowgroup [ref=f388e135]:
+                          - row [ref=f388e136]:
+                            - cell [ref=f388e137]
+                      - paragraph [ref=f388e138]: 0%
+                    - button "Edit" [ref=f388e139] [cursor=pointer]
+                - generic [ref=f388e140]:
+                  - generic [ref=f388e141]: "Estimated time:"
+                  - button "Edit" [ref=f388e143] [cursor=pointer]
+            - generic [ref=f388e146]:
+              - generic [ref=f388e147]: "Issue Category:"
+              - button "Edit" [ref=f388e149] [cursor=pointer]
+            - generic [ref=f388e151]:
+              - generic [ref=f388e152]: "Product:"
+              - generic [ref=f388e153]: "-"
+            - generic [ref=f388e154]:
+              - generic [ref=f388e155]: "Organization:"
+              - generic [ref=f388e156]: "-"
+          - separator [ref=f388e157]
+          - generic [ref=f388e158]:
+            - paragraph [ref=f388e160]:
+              - strong [ref=f388e161]: Checklist
+            - generic [ref=f388e163] [cursor=pointer]
+            - generic:
+              - list
+          - separator [ref=f388e165]
+          - generic [ref=f388e166]:
+            - link "Add" [ref=f388e168] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/new?back_url=%2Fissues%2F40&issue%5Bparent_issue_id%5D=40&issue%5Btracker_id%5D=3
+            - paragraph [ref=f388e169]:
+              - strong [ref=f388e170]: Subtasks
+        - generic [ref=f388e171]:
+          - list [ref=f388e173]:
+            - listitem [ref=f388e174]:
+              - link "History" [ref=f388e175] [cursor=pointer]:
+                - /url: /issues/40?tab=history
+            - listitem [ref=f388e176]:
+              - link "Property changes" [ref=f388e177] [cursor=pointer]:
+                - /url: /issues/40?tab=properties
+            - listitem [ref=f388e178]:
+              - link "SLA Information" [ref=f388e179] [cursor=pointer]:
+                - /url: /issues/40?tab=sla-information
+          - generic [ref=f388e181]:
+            - generic [ref=f388e182]:
+              - generic [ref=f388e183]:
+                - generic [ref=f388e184]: Alpha Escalation Test SLA
+                - generic [ref=f388e185]: ↑ Escalated 1×
+              - generic [ref=f388e186]: ⚠ Needs Attention
+            - generic [ref=f388e187]:
+              - generic [ref=f388e188]: SLA Overview
+              - table [ref=f388e190]:
+                - rowgroup [ref=f388e191]:
+                  - row [ref=f388e192]:
+                    - columnheader "Organization" [ref=f388e193]
+                    - columnheader "SLA Policy" [ref=f388e194]
+                    - columnheader "Support Level" [ref=f388e195]
+                    - columnheader "SLA Started" [ref=f388e196]
+                    - columnheader "Initially Assigned To" [ref=f388e197]
+                    - columnheader "Current Assignee" [ref=f388e198]
+                - rowgroup [ref=f388e199]:
+                  - row [ref=f388e200]:
+                    - cell "—" [ref=f388e201]
+                    - cell [ref=f388e202]:
+                      - strong [ref=f388e203]: Alpha Escalation Test SLA
+                    - cell "L3" [ref=f388e204]
+                    - cell "09/03/2026 08:12 AM (UTC)" [ref=f388e206]
+                    - cell "Autumn Grace" [ref=f388e207]
+                    - cell [ref=f388e208]:
+                      - strong [ref=f388e209]: Willow Belle
+            - generic [ref=f388e210]:
+              - generic [ref=f388e211]:
+                - generic [ref=f388e212]: SLA Journey
+                - generic [ref=f388e213]: 2 stages · 1 escalation
+              - table [ref=f388e214]:
+                - rowgroup [ref=f388e215]:
+                  - row [ref=f388e216]:
+                    - columnheader "#" [ref=f388e217]
+                    - columnheader "Stage" [ref=f388e218]
+                    - columnheader "Support Level" [ref=f388e219]
+                    - columnheader "Agent" [ref=f388e220]
+                    - columnheader "Active Period" [ref=f388e221]
+                    - columnheader "Response SLA" [ref=f388e222]
+                    - columnheader "Resolution SLA" [ref=f388e223]
+                    - columnheader "Escalation Trigger" [ref=f388e224]
+                - rowgroup [ref=f388e225]:
+                  - row [ref=f388e226]:
+                    - cell "1" [ref=f388e227]
+                    - cell "Initial Stage" [ref=f388e229]
+                    - cell "L2" [ref=f388e230]
+                    - cell "Autumn Grace" [ref=f388e232]
+                    - cell "09/03/2026 08:12 AM (UTC) ↓ 09/03/2026 08:24 AM (UTC)" [ref=f388e233]:
+                      - text: 09/03/2026 08:12 AM (UTC)
+                      - generic [ref=f388e234]: ↓
+                      - text: 09/03/2026 08:24 AM (UTC)
+                    - 'cell "✗ Breached Deadline: 09/03/2026 08:13 AM (UTC)" [ref=f388e235]':
+                      - generic [ref=f388e236]:
+                        - generic [ref=f388e237]: ✗
+                        - text: Breached
+                      - generic [ref=f388e238]: "Deadline: 09/03/2026 08:13 AM (UTC)"
+                    - cell "→ Carried forward" [ref=f388e239]:
+                      - generic [ref=f388e240]:
+                        - generic [ref=f388e241]: →
+                        - text: Carried forward
+                    - cell "Response Time Breach → L3 / Willow Belle 09/03/2026 08:24 AM (UTC)" [ref=f388e242]:
+                      - generic [ref=f388e243]: Response Time Breach
+                      - generic [ref=f388e244]: → L3 / Willow Belle
+                      - generic [ref=f388e245]: 09/03/2026 08:24 AM (UTC)
+                  - row [ref=f388e246]:
+                    - cell "2" [ref=f388e247]
+                    - 'cell "Escalation #1 ● Current Response Time Breach" [ref=f388e249]':
+                      - text: "Escalation #1"
+                      - generic [ref=f388e250]: ● Current
+                      - generic [ref=f388e251]: Response Time Breach
+                    - cell "L3" [ref=f388e252]
+                    - cell "Willow Belle" [ref=f388e254]
+                    - cell "09/03/2026 08:24 AM (UTC) ↓ Present" [ref=f388e255]:
+                      - text: 09/03/2026 08:24 AM (UTC)
+                      - generic [ref=f388e256]: ↓
+                      - text: Present
+                    - 'cell "⚠ Overdue 10 minutes Deadline: 09/03/2026 08:25 AM (UTC)" [ref=f388e257]':
+                      - generic [ref=f388e258]:
+                        - generic [ref=f388e259]: ⚠
+                        - text: Overdue 10 minutes
+                      - generic [ref=f388e260]: "Deadline: 09/03/2026 08:25 AM (UTC)"
+                    - cell "○ Starts after first response" [ref=f388e261]:
+                      - generic [ref=f388e262]:
+                        - generic [ref=f388e263]: ○
+                        - text: Starts after first response
+                    - cell "— (active)" [ref=f388e264]
+            - generic [ref=f388e265]:
+              - generic [ref=f388e266]:
+                - generic [ref=f388e267]: Activity Log
+                - generic [ref=f388e268]: 3 events
+              - table [ref=f388e269]:
+                - rowgroup [ref=f388e270]:
+                  - row [ref=f388e271]:
+                    - columnheader "#" [ref=f388e272]
+                    - columnheader "Timestamp" [ref=f388e273]
+                    - columnheader "Event" [ref=f388e274]
+                    - columnheader "Support Level" [ref=f388e275]
+                    - columnheader "Agent / By" [ref=f388e276]
+                    - columnheader "Details" [ref=f388e277]
+                - rowgroup [ref=f388e278]:
+                  - row [ref=f388e279]:
+                    - 'cell "1 Initial Stage L2 Agent: Autumn Grace" [ref=f388e280]':
+                      - generic [ref=f388e281]: "1"
+                      - text: Initial Stage
+                      - generic [ref=f388e282]: L2
+                      - text: "Agent: Autumn Grace"
+                  - row [ref=f388e283]:
+                    - cell "1" [ref=f388e284]
+                    - cell "09/03/2026 08:12 AM (UTC)" [ref=f388e285]
+                    - cell "▶ SLA Started" [ref=f388e286]
+                    - cell "L2" [ref=f388e288]
+                    - cell "Autumn Grace" [ref=f388e290]
+                    - 'cell "Response deadline set: 09/03/2026 08:25 AM (UTC)" [ref=f388e291]'
+                  - row [ref=f388e292]:
+                    - cell "2" [ref=f388e293]
+                    - cell "09/03/2026 08:13 AM (UTC)" [ref=f388e294]
+                    - cell "✗ Response SLA Breached" [ref=f388e295]
+                    - cell "L2" [ref=f388e297]
+                    - cell "Autumn Grace" [ref=f388e299]
+                    - cell "No response given by deadline" [ref=f388e300]
+                  - row [ref=f388e301]:
+                    - cell "3" [ref=f388e302]
+                    - cell "09/03/2026 08:24 AM (UTC)" [ref=f388e303]
+                    - cell "↑ Escalated → L3" [ref=f388e304]
+                    - cell "L3" [ref=f388e306]
+                    - cell "Willow Belle" [ref=f388e308]
+                    - 'cell "Reason: Response Time Breach · New deadline: 09/03/2026 08:25 AM (UTC)" [ref=f388e309]'
+        - generic [ref=f388e310]:
+          - link "Edit" [ref=f388e311] [cursor=pointer]:
+            - /url: /issues/40/edit
+          - link "Log time" [ref=f388e313] [cursor=pointer]:
+            - /url: /issues/40/time_entries/new
+          - link "Watch" [ref=f388e315] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=40&object_type=issue
+          - generic "Actions" [ref=f388e319] [cursor=pointer]
+        - text: pre pre
+        - paragraph [ref=f388e321]:
+          - text: "Also available in:"
+          - link "PDF" [ref=f388e323] [cursor=pointer]:
+            - /url: /issues/40.pdf
+          - generic [ref=f388e324]:
+            - text: "|"
+            - link "Atom" [ref=f388e325] [cursor=pointer]:
+              - /url: /issues/40.atom?key=7903572df7ece2eec9e81531ff5b2364888536c5
+    - generic [ref=f388e326]:
+      - text: Powered by
+      - link "Redmine" [ref=f388e327] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f388e328]
+  - log [ref=f388e329]
+  - log [ref=f388e330]
+  - log [ref=f388e331]
+  - log [ref=f388e332]
+  - log [ref=f388e333]
+  - log [ref=f388e334]
+  - log [ref=f388e335]
+  - log [ref=f388e336]
+  - log [ref=f388e337]
+  - log [ref=f388e338]
+  - log [ref=f388e339]
+  - log [ref=f388e340]
+  - log [ref=f388e341]
+  - log [ref=f388e342]
+  - log [ref=f388e343]
+  - log [ref=f388e344]
+  - log [ref=f388e345]
+  - log [ref=f388e346]
+  - log [ref=f388e347]
+  - log [ref=f388e348]
+  - log [ref=f388e349]
+  - log [ref=f388e350]
+  - log [ref=f388e351]
+  - log [ref=f388e352]
+  - log [ref=f388e353]
+  - log [ref=f388e354]
+  - log [ref=f388e355]
+  - log [ref=f388e356]
+  - log [ref=f388e357]
+  - log [ref=f388e358]
+  - log [ref=f388e359]
+  - log [ref=f388e360]
+  - log [ref=f388e361]
+  - log [ref=f388e362]
+  - log [ref=f388e363]
+  - log [ref=f388e364]
+  - log [ref=f388e365]
+  - log [ref=f388e366]
+  - log [ref=f388e367]
+  - log [ref=f388e368]
+  - log [ref=f388e369]
+  - log [ref=f388e370]
+  - log [ref=f388e371]
+  - log [ref=f388e372]
+  - log [ref=f388e373]
+  - log [ref=f388e374]
+  - log [ref=f388e375]
+  - log [ref=f388e376]
+  - log [ref=f388e377]
+  - log [ref=f388e378]
+  - log [ref=f388e379]
+  - log [ref=f388e380]
+  - log [ref=f388e381]
+  - status [ref=f388e382]

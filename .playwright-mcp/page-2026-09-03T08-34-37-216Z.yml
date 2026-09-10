@@ -1,0 +1,306 @@
+- generic [ref=f387e1]:
+  - generic [ref=f387e2]:
+    - generic [ref=f387e3]:
+      - generic [ref=f387e4]:
+        - list:
+          - listitem [ref=f387e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f387e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f387e7]:
+        - text: Logged in as
+        - link "willow.belle" [ref=f387e8] [cursor=pointer]:
+          - /url: /users/11
+      - list [ref=f387e9]:
+        - listitem [ref=f387e10]:
+          - link [ref=f387e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f387e12]
+        - listitem [ref=f387e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f387e14]:
+          - link "My page" [ref=f387e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f387e16]:
+          - link "Projects" [ref=f387e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f387e18]:
+          - link "Time Tracker" [ref=f387e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f387e20]:
+          - link "Workloads" [ref=f387e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f387e22]:
+          - link "Help" [ref=f387e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f387e24]:
+      - generic [ref=f387e25]:
+        - generic [ref=f387e26]:
+          - generic [ref=f387e27]:
+            - link "Search..." [ref=f387e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f387e29]
+        - generic [ref=f387e30]:
+          - generic [ref=f387e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f387e32]
+      - generic [ref=f387e33]:
+        - list [ref=f387e34]:
+          - listitem [ref=f387e35]:
+            - link "+" [ref=f387e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f387e37]:
+            - link "Overview" [ref=f387e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f387e39]:
+            - link "Activity" [ref=f387e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f387e41]:
+            - link "Issues" [ref=f387e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f387e43]:
+            - link "Spent time" [ref=f387e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f387e45]:
+            - link "Gantt" [ref=f387e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f387e47]:
+            - link "Calendar" [ref=f387e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f387e49]:
+            - link "News" [ref=f387e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f387e51]:
+            - link "Documents" [ref=f387e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f387e53]:
+            - link "Wiki" [ref=f387e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f387e55]:
+            - link "Files" [ref=f387e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f387e57]:
+            - link "Helpdesk" [ref=f387e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f387e59]:
+          - button [ref=f387e60] [cursor=pointer]
+          - button [ref=f387e63] [cursor=pointer]
+    - generic [ref=f387e67]:
+      - 'heading "Support #40" [level=2] [ref=f387e68]'
+      - generic [ref=f387e69]:
+        - generic [ref=f387e70]:
+          - group "Change properties" [ref=f387e71]:
+            - generic [ref=f387e73]:
+              - paragraph [ref=f387e74]:
+                - generic [ref=f387e75]: Project *
+                - combobox "Project *" [ref=f387e76]:
+                  - option "Helpdesk QA Alpha" [selected]
+                  - option "test"
+              - paragraph [ref=f387e77]:
+                - generic [ref=f387e78]: Tracker *
+                - combobox "Tracker *" [ref=f387e79]:
+                  - option "Bug"
+                  - option "Feature"
+                  - option "Support" [selected]
+              - paragraph [ref=f387e80]:
+                - generic [ref=f387e81]: Subject *
+                - textbox "Subject *" [active] [ref=f387e82]: TC-HLP-363 breach-once-then-resolved-at-next-level test ticket
+              - paragraph [ref=f387e83]:
+                - generic [ref=f387e84]: Description
+                - text: pre
+                - link "Edit" [ref=f387e85] [cursor=pointer]:
+                  - /url: "#"
+              - generic [ref=f387e89]:
+                - generic [ref=f387e90]:
+                  - generic [ref=f387e91]:
+                    - paragraph [ref=f387e92]:
+                      - generic [ref=f387e93]: Status *
+                      - combobox "Status *" [ref=f387e94]:
+                        - option "New"
+                        - option "In Progress"
+                        - option "Resolved" [selected]
+                        - option "Feedback"
+                        - option "Closed"
+                        - option "Rejected"
+                        - option "Waiting for Customer Response"
+                    - paragraph [ref=f387e95]:
+                      - generic [ref=f387e96]: Priority *
+                      - combobox "Priority *" [ref=f387e97]:
+                        - option "Low"
+                        - option "Normal" [selected]
+                        - option "High"
+                        - option "Urgent"
+                        - option "Immediate"
+                    - paragraph [ref=f387e98]:
+                      - generic [ref=f387e99]: Assigned to
+                      - combobox "Assigned to" [ref=f387e100]:
+                        - option
+                        - option "<< me >>"
+                        - option "Retest Customer1" [disabled]
+                        - option "Autumn Grace"
+                        - option "Briar Sunset"
+                        - option "Luna Blossom"
+                        - option "ManageHelpdesk TestAgent"
+                        - option "No Perm Reporter"
+                        - option "Willow Belle" [selected]
+                  - generic [ref=f387e101]:
+                    - paragraph [ref=f387e102]:
+                      - generic [ref=f387e103]: Parent issue
+                      - textbox "Parent issue" [ref=f387e104]
+                    - paragraph [ref=f387e105]:
+                      - generic [ref=f387e106]: Start date
+                      - textbox "Start date" [ref=f387e107]: 2026-09-03
+                    - paragraph [ref=f387e108]:
+                      - generic [ref=f387e109]: Due date
+                      - textbox "Due date" [ref=f387e110]
+                    - paragraph [ref=f387e111]:
+                      - generic [ref=f387e112]: Estimated hours
+                      - textbox "Estimated hours" [ref=f387e113]:
+                        - /placeholder: h:mm
+                      - text: Hours
+                    - paragraph [ref=f387e114]:
+                      - generic [ref=f387e115]: Done ratio
+                      - combobox "Done ratio" [ref=f387e116]:
+                        - option "0 %" [selected]
+                        - option "10 %"
+                        - option "20 %"
+                        - option "30 %"
+                        - option "40 %"
+                        - option "50 %"
+                        - option "60 %"
+                        - option "70 %"
+                        - option "80 %"
+                        - option "90 %"
+                        - option "100 %"
+                - paragraph [ref=f387e119]:
+                  - generic [ref=f387e120]: Issue Category
+                  - combobox "Issue Category" [ref=f387e121]:
+                    - option [selected]
+                    - option "Community Plugins and Files"
+                    - option "Report a Bug"
+                    - option "Data Protection and Security"
+                    - option "Payments and Invoices"
+                    - option "Account and File Management"
+              - paragraph [ref=f387e123]:
+                - generic [ref=f387e124]: Product
+                - combobox "Product" [ref=f387e125]:
+                  - option "None" [selected]
+                  - option "Code255Test Product"
+                  - option "Description Max Length Product Test"
+                  - option "Falcon Suite"
+                  - option "Nav Test Product"
+                  - option "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+                  - option "Phoenix Core"
+          - group "Log time" [ref=f387e126]:
+            - generic [ref=f387e128]:
+              - paragraph [ref=f387e130]:
+                - generic [ref=f387e131]: Spent time
+                - textbox "Spent time" [ref=f387e132]:
+                  - /placeholder: h:mm
+                - text: Hours
+              - paragraph [ref=f387e134]:
+                - generic [ref=f387e135]: Activity
+                - combobox "Activity" [ref=f387e136]:
+                  - option "--- Please select ---" [selected]
+                  - option "Design"
+                  - option "Development"
+                  - option "Customer Call"
+                  - option "Remote Support"
+                  - option "Technical Support"
+                  - option "Email Support"
+                  - option "Live Chat Support"
+            - paragraph [ref=f387e137]:
+              - generic [ref=f387e138]: Comments
+              - textbox "Comments" [ref=f387e139]
+          - group "Notes" [ref=f387e140]:
+            - generic [ref=f387e142]:
+              - list [ref=f387e144]:
+                - listitem [ref=f387e145]:
+                  - link "Edit" [ref=f387e146] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f387e147]:
+                  - link "Preview" [ref=f387e148] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f387e149]:
+                  - generic [ref=f387e150]:
+                    - button "Strong (Ctrl+B)" [ref=f387e151] [cursor=pointer]
+                    - button "Italic (Ctrl+I)" [ref=f387e152] [cursor=pointer]
+                    - button "Underline (Ctrl+U)" [ref=f387e153] [cursor=pointer]
+                    - button "Deleted" [ref=f387e154] [cursor=pointer]
+                    - button "Inline Code" [ref=f387e155] [cursor=pointer]
+                    - button "Heading 1" [ref=f387e156] [cursor=pointer]
+                    - button "Heading 2" [ref=f387e157] [cursor=pointer]
+                    - button "Heading 3" [ref=f387e158] [cursor=pointer]
+                    - button "Unordered list" [ref=f387e159] [cursor=pointer]
+                    - button "Ordered list" [ref=f387e160] [cursor=pointer]
+                    - button "Task list" [ref=f387e161] [cursor=pointer]
+                    - button "Quote" [ref=f387e162] [cursor=pointer]
+                    - button "Remove Quote" [ref=f387e163] [cursor=pointer]
+                    - button "Table" [ref=f387e164] [cursor=pointer]
+                    - button "pre" [ref=f387e165] [cursor=pointer]
+                    - button "Highlighted code" [ref=f387e166] [cursor=pointer]
+                    - button "Link to a Wiki page" [ref=f387e167] [cursor=pointer]
+                    - button "Image" [ref=f387e168] [cursor=pointer]
+                    - button "Help" [ref=f387e169] [cursor=pointer]
+              - textbox [ref=f387e171]
+            - checkbox "Private notes" [ref=f387e172]
+            - text: Private notes
+          - group "Files" [ref=f387e173]:
+            - generic [ref=f387e177]:
+              - button "Choose File" [ref=f387e178]
+              - text: "(Maximum size: 5 MB)"
+        - button "Submit" [ref=f387e179] [cursor=pointer]
+        - link "Cancel" [ref=f387e180] [cursor=pointer]:
+          - /url: /issues/40
+    - generic [ref=f387e181]:
+      - text: Powered by
+      - link "Redmine" [ref=f387e182] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+    - generic [ref=f387e225]: Loading...
+  - log [ref=f387e183]
+  - log [ref=f387e184]
+  - log [ref=f387e185]
+  - log [ref=f387e186]
+  - log [ref=f387e187]
+  - log [ref=f387e188]
+  - log [ref=f387e189]
+  - log [ref=f387e190]
+  - log [ref=f387e191]
+  - log [ref=f387e192]
+  - log [ref=f387e193]
+  - log [ref=f387e194]
+  - log [ref=f387e195]
+  - log [ref=f387e196]
+  - log [ref=f387e197]
+  - log [ref=f387e198]
+  - log [ref=f387e199]
+  - log [ref=f387e200]
+  - log [ref=f387e201]
+  - log [ref=f387e202]
+  - log [ref=f387e203]
+  - log [ref=f387e204]
+  - log [ref=f387e205]
+  - log [ref=f387e206]
+  - log [ref=f387e207]
+  - log [ref=f387e208]
+  - log [ref=f387e209]
+  - log [ref=f387e210]
+  - log [ref=f387e211]
+  - log [ref=f387e212]
+  - log [ref=f387e213]
+  - log [ref=f387e214]
+  - log [ref=f387e215]
+  - log [ref=f387e216]
+  - log [ref=f387e217]
+  - log [ref=f387e218]
+  - log [ref=f387e219]
+  - log [ref=f387e220]
+  - log [ref=f387e221]
+  - log [ref=f387e222]
+  - log [ref=f387e223]
+  - status [ref=f387e224]

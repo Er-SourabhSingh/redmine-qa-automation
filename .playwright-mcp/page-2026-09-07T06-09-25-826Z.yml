@@ -1,0 +1,188 @@
+- generic [active] [ref=f106e1]:
+  - generic [ref=f106e2]:
+    - generic [ref=f106e3]:
+      - generic [ref=f106e4]:
+        - list:
+          - listitem [ref=f106e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f106e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f106e7]:
+        - text: Logged in as
+        - link "manage.helpdesk.test" [ref=f106e8] [cursor=pointer]:
+          - /url: /users/16
+      - list [ref=f106e9]:
+        - listitem [ref=f106e10]:
+          - link [ref=f106e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f106e12]
+        - listitem [ref=f106e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f106e14]:
+          - link "My page" [ref=f106e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f106e16]:
+          - link "Projects" [ref=f106e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f106e18]:
+          - link "Helpdesk Command Center" [ref=f106e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f106e20]:
+          - link "Time Tracker" [ref=f106e21] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f106e22]:
+          - link "Workloads" [ref=f106e23] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f106e24]:
+          - link "Help" [ref=f106e25] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f106e26]:
+      - generic [ref=f106e27]:
+        - generic [ref=f106e28]:
+          - generic [ref=f106e29]:
+            - link "Search..." [ref=f106e30] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f106e31]
+        - generic [ref=f106e32]:
+          - generic [ref=f106e33] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Redmine" [level=1] [ref=f106e34]
+      - list [ref=f106e36]:
+        - listitem [ref=f106e37]:
+          - link "Projects" [ref=f106e38] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f106e39]:
+          - link "Activity" [ref=f106e40] [cursor=pointer]:
+            - /url: /activity
+        - listitem [ref=f106e41]:
+          - link "Issues" [ref=f106e42] [cursor=pointer]:
+            - /url: /issues
+        - listitem [ref=f106e43]:
+          - link "Spent time" [ref=f106e44] [cursor=pointer]:
+            - /url: /time_entries
+        - listitem [ref=f106e45]:
+          - link "Gantt" [ref=f106e46] [cursor=pointer]:
+            - /url: /issues/gantt
+        - listitem [ref=f106e47]:
+          - link "Calendar" [ref=f106e48] [cursor=pointer]:
+            - /url: /issues/calendar
+        - listitem [ref=f106e49]:
+          - link "News" [ref=f106e50] [cursor=pointer]:
+            - /url: /news
+    - generic [ref=f106e51]:
+      - list [ref=f106e55]:
+        - listitem [ref=f106e56]:
+          - link "Helpdesk Dashboard" [ref=f106e57] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f106e60]:
+          - link "Helpdesk Tickets" [ref=f106e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f106e64]:
+          - link "Reports" [ref=f106e65] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f106e68]:
+          - link "Organization" [ref=f106e69] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f106e72]:
+          - link "Customers" [ref=f106e73] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f106e76]:
+          - link "Products" [ref=f106e77] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f106e80]:
+          - link "Helpdesk Settings" [ref=f106e81] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f106e84]:
+        - generic [ref=f106e87]:
+          - heading "Helpdesk Settings" [level=2] [ref=f106e88]
+          - paragraph [ref=f106e89]: Holidays, products, SLA policies and canned responses
+        - list [ref=f106e91]:
+          - listitem [ref=f106e92]:
+            - link "Holiday" [ref=f106e93] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f106e94]:
+            - link "Products" [ref=f106e95] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f106e96]:
+            - link "Email Configuration" [ref=f106e97] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f106e98]:
+            - link "Canned Responses" [ref=f106e99] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+          - listitem [ref=f106e100]:
+            - link "Support Packages" [ref=f106e101] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+        - generic [ref=f106e103]:
+          - heading "Email Configuration" [level=3] [ref=f106e105]
+          - generic [ref=f106e106]:
+            - generic [ref=f106e107]:
+              - generic [ref=f106e108]: Project
+              - combobox "Project" [ref=f106e109] [cursor=pointer]:
+                - option "Select a project" [selected]
+                - option "Helpdesk QA Alpha"
+            - generic [ref=f106e110]:
+              - heading "Select a project" [level=3] [ref=f106e115]
+              - paragraph [ref=f106e116]: Email settings are per project. Choose one above to view and edit its configuration.
+    - generic [ref=f106e117]:
+      - text: Powered by
+      - link "Redmine" [ref=f106e118] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f106e119]
+  - log [ref=f106e120]
+  - log [ref=f106e121]
+  - log [ref=f106e122]
+  - log [ref=f106e123]
+  - log [ref=f106e124]
+  - log [ref=f106e125]
+  - log [ref=f106e126]
+  - log [ref=f106e127]
+  - log [ref=f106e128]
+  - log [ref=f106e129]
+  - log [ref=f106e130]
+  - log [ref=f106e131]
+  - log [ref=f106e132]
+  - log [ref=f106e133]
+  - log [ref=f106e134]
+  - log [ref=f106e135]
+  - log [ref=f106e136]
+  - log [ref=f106e137]
+  - log [ref=f106e138]
+  - log [ref=f106e139]
+  - log [ref=f106e140]
+  - log [ref=f106e141]
+  - log [ref=f106e142]
+  - log [ref=f106e143]
+  - log [ref=f106e144]
+  - log [ref=f106e145]
+  - log [ref=f106e146]
+  - log [ref=f106e147]
+  - log [ref=f106e148]
+  - log [ref=f106e149]
+  - log [ref=f106e150]
+  - log [ref=f106e151]
+  - log [ref=f106e152]
+  - log [ref=f106e153]
+  - log [ref=f106e154]
+  - log [ref=f106e155]
+  - log [ref=f106e156]
+  - log [ref=f106e157]
+  - log [ref=f106e158]
+  - log [ref=f106e159]
+  - log [ref=f106e160]
+  - log [ref=f106e161]
+  - log [ref=f106e162]
+  - log [ref=f106e163]
+  - log [ref=f106e164]
+  - log [ref=f106e165]
+  - log [ref=f106e166]
+  - log [ref=f106e167]
+  - log [ref=f106e168]
+  - log [ref=f106e169]
+  - log [ref=f106e170]
+  - log [ref=f106e171]
+  - log [ref=f106e172]

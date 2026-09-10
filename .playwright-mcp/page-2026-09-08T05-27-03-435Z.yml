@@ -1,0 +1,1283 @@
+- generic [ref=f18e1]:
+  - generic [ref=f18e2]:
+    - navigation [ref=f18e3]:
+      - list [ref=f18e6]:
+        - listitem [ref=f18e7]:
+          - link "Hauptseite" [ref=f18e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f18e9]:
+          - link "Meine Seite" [ref=f18e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f18e11]:
+          - link "Projekte" [ref=f18e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f18e13]:
+          - link "Agile Board" [ref=f18e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f18e15]:
+          - link "Flux Gantt" [ref=f18e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f18e17]:
+          - link "Administration" [ref=f18e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f18e19]:
+          - link "Hilfe" [ref=f18e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f18e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f18e24]: RA
+    - generic [ref=f18e27]:
+      - generic [ref=f18e28]:
+        - generic [ref=f18e29]:
+          - generic [ref=f18e30]:
+            - link "Suche" [ref=f18e31] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Suche:" [ref=f18e32]
+        - generic [ref=f18e33]: Zu einem Projekt springen...
+      - heading "Redmine" [level=1] [ref=f18e35]
+    - generic [ref=f18e37]:
+      - generic [ref=f18e39]:
+        - text: "Hinzufügen:"
+        - combobox "Hinzufügen" [ref=f18e40]:
+          - option [selected]
+          - option "Mir zugewiesene Tickets" [disabled]
+          - option "Erstellte Tickets" [disabled]
+          - option "Aktualisierte Tickets"
+          - option "Beobachtete Tickets"
+          - option "Tickets"
+          - option "Letzte News"
+          - option "Kalender"
+          - option "Dokumente"
+          - option "Aufgewendete Zeit"
+          - option "Aktivität"
+          - option "Agile Board" [disabled]
+      - heading "Meine Seite" [level=2] [ref=f18e41]
+      - generic [ref=f18e42]:
+        - generic [ref=f18e44]:
+          - generic [ref=f18e45]:
+            - generic "Verschieben" [ref=f18e46]
+            - link "Löschen" [ref=f18e49] [cursor=pointer]:
+              - /url: /my/remove_block?block=agile_board
+          - generic [ref=f18e52]:
+            - generic [ref=f18e53]:
+              - heading "Agile Board" [level=2] [ref=f18e55]
+              - generic [ref=f18e56]:
+                - generic [ref=f18e57]:
+                  - strong [ref=f18e58]: "39"
+                  - text: Tickets
+                - button [active] [ref=f18e1225] [cursor=pointer]
+            - generic [ref=f18e1227]:
+              - generic [ref=f18e1228]:
+                - heading "Board-Einstellungen" [level=3] [ref=f18e1229]
+                - button "x" [ref=f18e1230] [cursor=pointer]
+              - generic [ref=f18e1231]:
+                - group "Sichtbare Statusspalten" [ref=f18e1232]:
+                  - generic [ref=f18e1234]:
+                    - generic [ref=f18e1235]:
+                      - generic [ref=f18e1236] [cursor=pointer]:
+                        - checkbox "New" [checked] [ref=f18e1237]
+                        - text: New
+                      - generic [ref=f18e1238]:
+                        - generic [ref=f18e1239]: "WIP:"
+                        - 'spinbutton "WIP-Limit (max.: 50)" [ref=f18e1240]'
+                    - generic [ref=f18e1241]:
+                      - generic [ref=f18e1242] [cursor=pointer]:
+                        - checkbox "In Progress" [checked] [ref=f18e1243]
+                        - text: In Progress
+                      - generic [ref=f18e1244]:
+                        - generic [ref=f18e1245]: "WIP:"
+                        - 'spinbutton "WIP-Limit (max.: 50)" [ref=f18e1246]'
+                    - generic [ref=f18e1247]:
+                      - generic [ref=f18e1248] [cursor=pointer]:
+                        - checkbox "Resolved" [checked] [ref=f18e1249]
+                        - text: Resolved
+                      - generic [ref=f18e1250]:
+                        - generic [ref=f18e1251]: "WIP:"
+                        - 'spinbutton "WIP-Limit (max.: 50)" [ref=f18e1252]'
+                    - generic [ref=f18e1253]:
+                      - generic [ref=f18e1254] [cursor=pointer]:
+                        - checkbox "Feedback" [checked] [ref=f18e1255]
+                        - text: Feedback
+                      - generic [ref=f18e1256]:
+                        - generic [ref=f18e1257]: "WIP:"
+                        - 'spinbutton "WIP-Limit (max.: 50)" [ref=f18e1258]'
+                    - generic [ref=f18e1259]:
+                      - generic [ref=f18e1260] [cursor=pointer]:
+                        - checkbox "Closed" [checked] [ref=f18e1261]
+                        - text: Closed
+                      - generic [ref=f18e1262]:
+                        - generic [ref=f18e1263]: "WIP:"
+                        - 'spinbutton "WIP-Limit (max.: 50)" [ref=f18e1264]'
+                    - generic [ref=f18e1265]:
+                      - generic [ref=f18e1266] [cursor=pointer]:
+                        - checkbox "Rejected" [checked] [ref=f18e1267]
+                        - text: Rejected
+                      - generic [ref=f18e1268]:
+                        - generic [ref=f18e1269]: "WIP:"
+                        - 'spinbutton "WIP-Limit (max.: 50)" [ref=f18e1270]'
+                - group "Sichtbare Kartenfelder" [ref=f18e1271]:
+                  - generic [ref=f18e1273]:
+                    - generic [ref=f18e1274] [cursor=pointer]:
+                      - checkbox "Id (erforderlich)" [checked] [disabled] [ref=f18e1275]
+                      - text: Id
+                      - generic [ref=f18e1276]: (erforderlich)
+                    - generic [ref=f18e1277] [cursor=pointer]:
+                      - checkbox "Subject (erforderlich)" [checked] [disabled] [ref=f18e1278]
+                      - text: Subject
+                      - generic [ref=f18e1279]: (erforderlich)
+                    - generic [ref=f18e1280] [cursor=pointer]:
+                      - checkbox "Tracker (erforderlich)" [checked] [disabled] [ref=f18e1281]
+                      - text: Tracker
+                      - generic [ref=f18e1282]: (erforderlich)
+                    - generic [ref=f18e1283] [cursor=pointer]:
+                      - checkbox "Priority" [ref=f18e1284]
+                      - text: Priority
+                    - generic [ref=f18e1285] [cursor=pointer]:
+                      - checkbox "Assigned to (erforderlich)" [checked] [disabled] [ref=f18e1286]
+                      - text: Assigned to
+                      - generic [ref=f18e1287]: (erforderlich)
+                    - generic [ref=f18e1288] [cursor=pointer]:
+                      - checkbox "Author" [ref=f18e1289]
+                      - text: Author
+                    - generic [ref=f18e1290] [cursor=pointer]:
+                      - checkbox "Start date" [ref=f18e1291]
+                      - text: Start date
+                    - generic [ref=f18e1292] [cursor=pointer]:
+                      - checkbox "Due date" [ref=f18e1293]
+                      - text: Due date
+                    - generic [ref=f18e1294] [cursor=pointer]:
+                      - checkbox "Estimated hours" [ref=f18e1295]
+                      - text: Estimated hours
+                    - generic [ref=f18e1296] [cursor=pointer]:
+                      - checkbox "Spent hours" [ref=f18e1297]
+                      - text: Spent hours
+                    - generic [ref=f18e1298] [cursor=pointer]:
+                      - checkbox "Done ratio" [ref=f18e1299]
+                      - text: Done ratio
+                    - generic [ref=f18e1300] [cursor=pointer]:
+                      - checkbox "Parent" [ref=f18e1301]
+                      - text: Parent
+                    - generic [ref=f18e1302] [cursor=pointer]:
+                      - checkbox "Children count" [ref=f18e1303]
+                      - text: Children count
+                    - generic [ref=f18e1304] [cursor=pointer]:
+                      - checkbox "Description" [ref=f18e1305]
+                      - text: Description
+                    - generic [ref=f18e1306] [cursor=pointer]:
+                      - checkbox "Last comment" [ref=f18e1307]
+                      - text: Last comment
+                    - generic [ref=f18e1308] [cursor=pointer]:
+                      - checkbox "Tags" [ref=f18e1309]
+                      - text: Tags
+                    - generic [ref=f18e1310] [cursor=pointer]:
+                      - checkbox "Category" [ref=f18e1311]
+                      - text: Category
+                    - generic [ref=f18e1312] [cursor=pointer]:
+                      - checkbox "Fixed version" [ref=f18e1313]
+                      - text: Fixed version
+                    - generic [ref=f18e1314] [cursor=pointer]:
+                      - checkbox "Journals count" [ref=f18e1315]
+                      - text: Journals count
+                    - generic [ref=f18e1316] [cursor=pointer]:
+                      - checkbox "Attachments count" [ref=f18e1317]
+                      - text: Attachments count
+                - generic [ref=f18e1318]:
+                  - generic [ref=f18e1319]: Summen anzeigen
+                  - generic [ref=f18e1320]:
+                    - generic [ref=f18e1321] [cursor=pointer]:
+                      - checkbox "Geschätzte Zeit" [ref=f18e1322]
+                      - text: Geschätzte Zeit
+                    - generic [ref=f18e1323] [cursor=pointer]:
+                      - checkbox "Aufgewendete Zeit" [ref=f18e1324]
+                      - text: Aufgewendete Zeit
+                - generic [ref=f18e1325]:
+                  - generic [ref=f18e1326]: Spaltenreihenfolge
+                  - generic [ref=f18e1328] [cursor=pointer]:
+                    - checkbox "Sortierung aktivieren" [ref=f18e1329]
+                    - text: Sortierung aktivieren
+              - generic [ref=f18e1330]:
+                - button "Einstellungen anwenden" [ref=f18e1331] [cursor=pointer]
+                - button "Abbrechen" [ref=f18e1332] [cursor=pointer]
+            - generic [ref=f18e65]:
+              - generic [ref=f18e66]:
+                - generic [ref=f18e67]:
+                  - heading "NEW" [level=3] [ref=f18e68]
+                  - generic [ref=f18e69]: "7"
+                - generic [ref=f18e70]:
+                  - generic [ref=f18e71] [cursor=pointer]:
+                    - generic "Software development5" [ref=f18e72]
+                    - generic [ref=f18e73]:
+                      - link "#229" [ref=f18e74]:
+                        - /url: /issues/229
+                      - generic "Add scheduled data backups" [ref=f18e75]
+                      - button "Dieses Ticket markieren" [ref=f18e76]
+                    - generic [ref=f18e79]:
+                      - generic "Feature" [ref=f18e81]: ⭐
+                      - generic "Redmine Admin" [ref=f18e83]: RA
+                  - generic [ref=f18e84] [cursor=pointer]:
+                    - generic "Software development5" [ref=f18e85]
+                    - generic [ref=f18e86]:
+                      - link "#213" [ref=f18e87]:
+                        - /url: /issues/213
+                      - generic "Add Excel export formatting" [ref=f18e88]
+                      - button "Dieses Ticket markieren" [ref=f18e89]
+                    - generic [ref=f18e92]:
+                      - generic "Feature" [ref=f18e94]: ⭐
+                      - generic "Redmine Admin" [ref=f18e96]: RA
+                  - generic [ref=f18e97] [cursor=pointer]:
+                    - generic "Education and training3" [ref=f18e98]
+                    - generic [ref=f18e99]:
+                      - link "#198" [ref=f18e100]:
+                        - /url: /issues/198
+                      - generic "Add video thumbnails" [ref=f18e101]
+                      - button "Dieses Ticket markieren" [ref=f18e102]
+                    - generic [ref=f18e105]:
+                      - generic "Feature" [ref=f18e107]: ⭐
+                      - generic "Redmine Admin" [ref=f18e109]: RA
+                  - generic [ref=f18e110] [cursor=pointer]:
+                    - generic "Software development5" [ref=f18e111]
+                    - generic [ref=f18e112]:
+                      - link "#183" [ref=f18e113]:
+                        - /url: /issues/183
+                      - generic "Add input masking" [ref=f18e114]
+                      - button "Dieses Ticket markieren" [ref=f18e115]
+                    - generic [ref=f18e118]:
+                      - generic "Feature" [ref=f18e120]: ⭐
+                      - generic "Redmine Admin" [ref=f18e122]: RA
+                  - generic [ref=f18e123] [cursor=pointer]:
+                    - generic "Mobile app development1" [ref=f18e124]
+                    - generic [ref=f18e125]:
+                      - link "#158" [ref=f18e126]:
+                        - /url: /issues/158
+                      - generic "Add custom role creation" [ref=f18e127]
+                      - button "Dieses Ticket markieren" [ref=f18e128]
+                    - generic [ref=f18e131]:
+                      - generic "Feature" [ref=f18e133]: ⭐
+                      - generic "Redmine Admin" [ref=f18e135]: RA
+                  - generic [ref=f18e136] [cursor=pointer]:
+                    - generic "MVP build for PaySheet Application" [ref=f18e137]
+                    - generic [ref=f18e138]:
+                      - link "#29" [ref=f18e139]:
+                        - /url: /issues/29
+                      - generic "Testing issue for create" [ref=f18e140]
+                      - button "Dieses Ticket markieren" [ref=f18e141]
+                    - generic [ref=f18e144]:
+                      - generic "Bug" [ref=f18e146]: 🐞
+                      - generic "Redmine Admin" [ref=f18e148]: RA
+                  - generic [ref=f18e149] [cursor=pointer]:
+                    - generic "MVP build for PaySheet Application" [ref=f18e150]
+                    - generic [ref=f18e151]:
+                      - link "#28" [ref=f18e152]:
+                        - /url: /issues/28
+                      - generic "Dummy issue for testing" [ref=f18e153]
+                      - button "Dieses Ticket markieren" [ref=f18e154]
+                    - generic [ref=f18e157]:
+                      - generic "Bug" [ref=f18e159]: 🐞
+                      - generic "Redmine Admin" [ref=f18e161]: RA
+              - generic [ref=f18e162]:
+                - generic [ref=f18e163]:
+                  - heading "IN PROGRESS" [level=3] [ref=f18e164]
+                  - generic [ref=f18e165]: "14"
+                - generic [ref=f18e166]:
+                  - generic [ref=f18e167] [cursor=pointer]:
+                    - generic "Agile Board Project" [ref=f18e168]
+                    - generic [ref=f18e169]:
+                      - link "#258" [ref=f18e170]:
+                        - /url: /issues/258
+                      - generic "Add Excel export formatting" [ref=f18e171]
+                      - button "Dieses Ticket markieren" [ref=f18e172]
+                    - generic [ref=f18e175]:
+                      - generic "Feature" [ref=f18e177]: ⭐
+                      - generic "Redmine Admin" [ref=f18e179]: RA
+                  - generic [ref=f18e180] [cursor=pointer]:
+                    - generic "Agile Board Project" [ref=f18e181]
+                    - generic [ref=f18e182]:
+                      - link "#259" [ref=f18e183]:
+                        - /url: /issues/259
+                      - generic "Implement scheduled exports" [ref=f18e184]
+                      - button "Dieses Ticket markieren" [ref=f18e185]
+                    - generic [ref=f18e188]:
+                      - generic "Feature" [ref=f18e190]: ⭐
+                      - generic "Redmine Admin" [ref=f18e192]: RA
+                  - generic [ref=f18e193] [cursor=pointer]:
+                    - generic "Agile Board Project" [ref=f18e194]
+                    - generic [ref=f18e195]:
+                      - link "#256" [ref=f18e196]:
+                        - /url: /issues/256
+                      - generic "Implement data export templates" [ref=f18e197]
+                      - button "Dieses Ticket markieren" [ref=f18e198]
+                    - generic [ref=f18e201]:
+                      - generic "Feature" [ref=f18e203]: ⭐
+                      - generic "Redmine Admin" [ref=f18e205]: RA
+                  - generic [ref=f18e206] [cursor=pointer]:
+                    - generic "Software development5" [ref=f18e207]
+                    - generic [ref=f18e208]:
+                      - link "#230" [ref=f18e209]:
+                        - /url: /issues/230
+                      - generic "Fix slow report generation" [ref=f18e210]
+                      - button "Dieses Ticket markieren" [ref=f18e211]
+                    - generic [ref=f18e214]:
+                      - generic "Bug" [ref=f18e216]: 🐞
+                      - generic "Redmine Admin" [ref=f18e218]: RA
+                  - generic [ref=f18e219] [cursor=pointer]:
+                    - generic "Software development5" [ref=f18e220]
+                    - generic [ref=f18e221]:
+                      - link "#226" [ref=f18e222]:
+                        - /url: /issues/226
+                      - generic "Fix auto-save bug in editor" [ref=f18e223]
+                      - button "Dieses Ticket markieren" [ref=f18e224]
+                    - generic [ref=f18e227]:
+                      - generic "Bug" [ref=f18e229]: 🐞
+                      - generic "Redmine Admin" [ref=f18e231]: RA
+                  - generic [ref=f18e232] [cursor=pointer]:
+                    - generic "Software development5" [ref=f18e233]
+                    - generic [ref=f18e234]:
+                      - link "#214" [ref=f18e235]:
+                        - /url: /issues/214
+                      - generic "Implement scheduled exports" [ref=f18e236]
+                      - button "Dieses Ticket markieren" [ref=f18e237]
+                    - generic [ref=f18e240]:
+                      - generic "Feature" [ref=f18e242]: ⭐
+                      - generic "Redmine Admin" [ref=f18e244]: RA
+                  - generic [ref=f18e245] [cursor=pointer]:
+                    - generic "Software development5" [ref=f18e246]
+                    - generic [ref=f18e247]:
+                      - link "#211" [ref=f18e248]:
+                        - /url: /issues/211
+                      - generic "Implement data export templates" [ref=f18e249]
+                      - button "Dieses Ticket markieren" [ref=f18e250]
+                    - generic [ref=f18e253]:
+                      - generic "Feature" [ref=f18e255]: ⭐
+                      - generic "Redmine Admin" [ref=f18e257]: RA
+                  - generic [ref=f18e258] [cursor=pointer]:
+                    - generic "Education and training3" [ref=f18e259]
+                    - generic [ref=f18e260]:
+                      - link "#197" [ref=f18e261]:
+                        - /url: /issues/197
+                      - generic "Fix PDF rendering issues" [ref=f18e262]
+                      - button "Dieses Ticket markieren" [ref=f18e263]
+                    - generic [ref=f18e266]:
+                      - generic "Bug" [ref=f18e268]: 🐞
+                      - generic "Redmine Admin" [ref=f18e270]: RA
+                  - generic [ref=f18e271] [cursor=pointer]:
+                    - generic "Software development5" [ref=f18e272]
+                    - generic [ref=f18e273]:
+                      - link "#184" [ref=f18e274]:
+                        - /url: /issues/184
+                      - generic "Implement conditional fields" [ref=f18e275]
+                      - button "Dieses Ticket markieren" [ref=f18e276]
+                    - generic [ref=f18e279]:
+                      - generic "Feature" [ref=f18e281]: ⭐
+                      - generic "Redmine Admin" [ref=f18e283]: RA
+                  - generic [ref=f18e284] [cursor=pointer]:
+                    - generic "Software development5" [ref=f18e285]
+                    - generic [ref=f18e286]:
+                      - link "#181" [ref=f18e287]:
+                        - /url: /issues/181
+                      - generic "Implement data validation rules" [ref=f18e288]
+                      - button "Dieses Ticket markieren" [ref=f18e289]
+                    - generic [ref=f18e292]:
+                      - generic "Feature" [ref=f18e294]: ⭐
+                      - generic "Redmine Admin" [ref=f18e296]: RA
+                  - generic [ref=f18e297] [cursor=pointer]:
+                    - generic "Mobile app development1" [ref=f18e298]
+                    - generic [ref=f18e299]:
+                      - link "#157" [ref=f18e300]:
+                        - /url: /issues/157
+                      - generic "Fix permission inheritance" [ref=f18e301]
+                      - button "Dieses Ticket markieren" [ref=f18e302]
+                    - generic [ref=f18e305]:
+                      - generic "Bug" [ref=f18e307]: 🐞
+                      - generic "Redmine Admin" [ref=f18e309]: RA
+                  - generic [ref=f18e310] [cursor=pointer]:
+                    - generic "HR management2" [ref=f18e311]
+                    - generic [ref=f18e312]:
+                      - link "#132" [ref=f18e313]:
+                        - /url: /issues/132
+                      - generic "Fix CORS configuration issues" [ref=f18e314]
+                      - button "Dieses Ticket markieren" [ref=f18e315]
+                    - generic [ref=f18e318]:
+                      - generic "Bug" [ref=f18e320]: 🐞
+                      - generic "Redmine Admin" [ref=f18e322]: RA
+                  - generic [ref=f18e323] [cursor=pointer]:
+                    - generic "Marketing campaign4" [ref=f18e324]
+                    - generic [ref=f18e325]:
+                      - link "#52" [ref=f18e326]:
+                        - /url: /issues/52
+                      - generic "Implement project search analytics" [ref=f18e327]
+                      - button "Dieses Ticket markieren" [ref=f18e328]
+                    - generic [ref=f18e331]:
+                      - generic "Feature" [ref=f18e333]: ⭐
+                      - generic "Redmine Admin" [ref=f18e335]: RA
+                  - generic [ref=f18e336] [cursor=pointer]:
+                    - generic "Marketing campaign4" [ref=f18e337]
+                    - generic [ref=f18e338]:
+                      - link "#27" [ref=f18e339]:
+                        - /url: /issues/27
+                      - generic "Check the project search" [ref=f18e340]
+                      - button "Dieses Ticket markieren" [ref=f18e341]
+                    - generic [ref=f18e344]:
+                      - generic "Feature" [ref=f18e346]: ⭐
+                      - generic "Redmine Admin" [ref=f18e348]: RA
+              - generic [ref=f18e349]:
+                - generic [ref=f18e350]:
+                  - heading "RESOLVED" [level=3] [ref=f18e351]
+                  - generic [ref=f18e352]: "9"
+                - generic [ref=f18e353]:
+                  - generic [ref=f18e354] [cursor=pointer]:
+                    - generic "Agile Board Project" [ref=f18e355]
+                    - generic [ref=f18e356]:
+                      - link "#260" [ref=f18e357]:
+                        - /url: /issues/260
+                      - generic "Fix export performance" [ref=f18e358]
+                      - button "Dieses Ticket markieren" [ref=f18e359]
+                    - generic [ref=f18e362]:
+                      - generic "Bug" [ref=f18e364]: 🐞
+                      - generic "Redmine Admin" [ref=f18e366]: RA
+                  - generic [ref=f18e367] [cursor=pointer]:
+                    - generic "Software development5" [ref=f18e368]
+                    - generic [ref=f18e369]:
+                      - link "#228" [ref=f18e370]:
+                        - /url: /issues/228
+                      - generic "Fix export template alignment" [ref=f18e371]
+                      - button "Dieses Ticket markieren" [ref=f18e372]
+                    - generic [ref=f18e375]:
+                      - generic "Bug" [ref=f18e377]: 🐞
+                      - generic "Redmine Admin" [ref=f18e379]: RA
+                  - generic [ref=f18e380] [cursor=pointer]:
+                    - generic "Software development5" [ref=f18e381]
+                    - generic [ref=f18e382]:
+                      - link "#215" [ref=f18e383]:
+                        - /url: /issues/215
+                      - generic "Fix export performance" [ref=f18e384]
+                      - button "Dieses Ticket markieren" [ref=f18e385]
+                    - generic [ref=f18e388]:
+                      - generic "Bug" [ref=f18e390]: 🐞
+                      - generic "Redmine Admin" [ref=f18e392]: RA
+                  - generic [ref=f18e393] [cursor=pointer]:
+                    - generic "Education and training3" [ref=f18e394]
+                    - generic [ref=f18e395]:
+                      - link "#200" [ref=f18e396]:
+                        - /url: /issues/200
+                      - generic "Fix image compression" [ref=f18e397]
+                      - button "Dieses Ticket markieren" [ref=f18e398]
+                    - generic [ref=f18e401]:
+                      - generic "Bug" [ref=f18e403]: 🐞
+                      - generic "Redmine Admin" [ref=f18e405]: RA
+                  - generic [ref=f18e406] [cursor=pointer]:
+                    - generic "Software development5" [ref=f18e407]
+                    - generic [ref=f18e408]:
+                      - link "#185" [ref=f18e409]:
+                        - /url: /issues/185
+                      - generic "Fix date picker localization" [ref=f18e410]
+                      - button "Dieses Ticket markieren" [ref=f18e411]
+                    - generic [ref=f18e414]:
+                      - generic "Bug" [ref=f18e416]: 🐞
+                      - generic "Redmine Admin" [ref=f18e418]: RA
+                  - generic [ref=f18e419] [cursor=pointer]:
+                    - generic "Mobile app development1" [ref=f18e420]
+                    - generic [ref=f18e421]:
+                      - link "#160" [ref=f18e422]:
+                        - /url: /issues/160
+                      - generic "Fix admin console access" [ref=f18e423]
+                      - button "Dieses Ticket markieren" [ref=f18e424]
+                    - generic [ref=f18e427]:
+                      - generic "Bug" [ref=f18e429]: 🐞
+                      - generic "Redmine Admin" [ref=f18e431]: RA
+                  - generic [ref=f18e432] [cursor=pointer]:
+                    - generic "Marketing campaign4" [ref=f18e433]
+                    - generic [ref=f18e434]:
+                      - link "#96" [ref=f18e435]:
+                        - /url: /issues/96
+                      - generic "Validate issue form security" [ref=f18e436]
+                      - button "Dieses Ticket markieren" [ref=f18e437]
+                    - generic [ref=f18e440]:
+                      - generic "Bug" [ref=f18e442]: 🐞
+                      - generic "Redmine Admin" [ref=f18e444]: RA
+                  - generic [ref=f18e445] [cursor=pointer]:
+                    - generic "Marketing campaign4" [ref=f18e446]
+                    - generic [ref=f18e447]:
+                      - link "#50" [ref=f18e448]:
+                        - /url: /issues/50
+                      - generic "Validate issue form security" [ref=f18e449]
+                      - button "Dieses Ticket markieren" [ref=f18e450]
+                    - generic [ref=f18e453]:
+                      - generic "Bug" [ref=f18e455]: 🐞
+                      - generic "Redmine Admin" [ref=f18e457]: RA
+                  - generic [ref=f18e458] [cursor=pointer]:
+                    - generic "Marketing campaign4" [ref=f18e459]
+                    - generic [ref=f18e460]:
+                      - link "#25" [ref=f18e461]:
+                        - /url: /issues/25
+                      - generic "Check new issues form" [ref=f18e462]
+                      - button "Dieses Ticket markieren" [ref=f18e463]
+                    - generic [ref=f18e466]:
+                      - generic "Bug" [ref=f18e468]: 🐞
+                      - generic "Redmine Admin" [ref=f18e470]: RA
+              - generic [ref=f18e471]:
+                - generic [ref=f18e472]:
+                  - heading "FEEDBACK" [level=3] [ref=f18e473]
+                  - generic [ref=f18e474]: "9"
+                - generic [ref=f18e475]:
+                  - generic [ref=f18e476] [cursor=pointer]:
+                    - generic "Agile Board Project" [ref=f18e477]
+                    - generic [ref=f18e478]:
+                      - link "#257" [ref=f18e479]:
+                        - /url: /issues/257
+                      - generic "Fix CSV encoding issues" [ref=f18e480]
+                      - button "Dieses Ticket markieren" [ref=f18e481]
+                    - generic [ref=f18e484]:
+                      - generic "Bug" [ref=f18e486]: 🐞
+                      - generic "Redmine Admin" [ref=f18e488]: RA
+                  - generic [ref=f18e489] [cursor=pointer]:
+                    - generic "Software development5" [ref=f18e490]
+                    - generic [ref=f18e491]:
+                      - link "#227" [ref=f18e492]:
+                        - /url: /issues/227
+                      - generic "Add export options for charts" [ref=f18e493]
+                      - button "Dieses Ticket markieren" [ref=f18e494]
+                    - generic [ref=f18e497]:
+                      - generic "Feature" [ref=f18e499]: ⭐
+                      - generic "Redmine Admin" [ref=f18e501]: RA
+                  - generic [ref=f18e502] [cursor=pointer]:
+                    - generic "Software development5" [ref=f18e503]
+                    - generic [ref=f18e504]:
+                      - link "#212" [ref=f18e505]:
+                        - /url: /issues/212
+                      - generic "Fix CSV encoding issues" [ref=f18e506]
+                      - button "Dieses Ticket markieren" [ref=f18e507]
+                    - generic [ref=f18e510]:
+                      - generic "Bug" [ref=f18e512]: 🐞
+                      - generic "Redmine Admin" [ref=f18e514]: RA
+                  - generic [ref=f18e515] [cursor=pointer]:
+                    - generic "Education and training3" [ref=f18e516]
+                    - generic [ref=f18e517]:
+                      - link "#199" [ref=f18e518]:
+                        - /url: /issues/199
+                      - generic "Implement document annotation" [ref=f18e519]
+                      - button "Dieses Ticket markieren" [ref=f18e520]
+                    - generic [ref=f18e523]:
+                      - generic "Feature" [ref=f18e525]: ⭐
+                      - generic "Redmine Admin" [ref=f18e527]: RA
+                  - generic [ref=f18e528] [cursor=pointer]:
+                    - generic "Education and training3" [ref=f18e529]
+                    - generic [ref=f18e530]:
+                      - link "#196" [ref=f18e531]:
+                        - /url: /issues/196
+                      - generic "Implement file previews" [ref=f18e532]
+                      - button "Dieses Ticket markieren" [ref=f18e533]
+                    - generic [ref=f18e536]:
+                      - generic "Feature" [ref=f18e538]: ⭐
+                      - generic "Redmine Admin" [ref=f18e540]: RA
+                  - generic [ref=f18e541] [cursor=pointer]:
+                    - generic "Software development5" [ref=f18e542]
+                    - generic [ref=f18e543]:
+                      - link "#182" [ref=f18e544]:
+                        - /url: /issues/182
+                      - generic "Fix form submission errors" [ref=f18e545]
+                      - button "Dieses Ticket markieren" [ref=f18e546]
+                    - generic [ref=f18e549]:
+                      - generic "Bug" [ref=f18e551]: 🐞
+                      - generic "Redmine Admin" [ref=f18e553]: RA
+                  - generic [ref=f18e554] [cursor=pointer]:
+                    - generic "Mobile app development1" [ref=f18e555]
+                    - generic [ref=f18e556]:
+                      - link "#159" [ref=f18e557]:
+                        - /url: /issues/159
+                      - generic "Implement permission templates" [ref=f18e558]
+                      - button "Dieses Ticket markieren" [ref=f18e559]
+                    - generic [ref=f18e562]:
+                      - generic "Feature" [ref=f18e564]: ⭐
+                      - generic "Redmine Admin" [ref=f18e566]: RA
+                  - generic [ref=f18e567] [cursor=pointer]:
+                    - generic "Marketing campaign4" [ref=f18e568]
+                    - generic [ref=f18e569]:
+                      - link "#51" [ref=f18e570]:
+                        - /url: /issues/51
+                      - generic "Review authentication security" [ref=f18e571]
+                      - button "Dieses Ticket markieren" [ref=f18e572]
+                    - generic [ref=f18e575]:
+                      - generic "Support" [ref=f18e577]: 💬
+                      - generic "Redmine Admin" [ref=f18e579]: RA
+                  - generic [ref=f18e580] [cursor=pointer]:
+                    - generic "Marketing campaign4" [ref=f18e581]
+                    - generic [ref=f18e582]:
+                      - link "#26" [ref=f18e583]:
+                        - /url: /issues/26
+                      - generic "To check the login form" [ref=f18e584]
+                      - button "Dieses Ticket markieren" [ref=f18e585]
+                    - generic [ref=f18e588]:
+                      - generic "Support" [ref=f18e590]: 💬
+                      - generic "Redmine Admin" [ref=f18e592]: RA
+              - generic [ref=f18e593]:
+                - generic [ref=f18e594]:
+                  - heading "CLOSED" [level=3] [ref=f18e595]
+                  - generic [ref=f18e596]: "0"
+                - paragraph [ref=f18e599]: Tickets hier ablegen
+              - generic [ref=f18e600]:
+                - generic [ref=f18e601]:
+                  - heading "REJECTED" [level=3] [ref=f18e602]
+                  - generic [ref=f18e603]: "0"
+                - paragraph [ref=f18e606]: Tickets hier ablegen
+        - generic [ref=f18e608]:
+          - generic [ref=f18e609]:
+            - generic "Verschieben" [ref=f18e610]
+            - link "Löschen" [ref=f18e613] [cursor=pointer]:
+              - /url: /my/remove_block?block=issuesassignedtome
+          - link "Optionen" [ref=f18e617] [cursor=pointer]:
+            - /url: "#"
+          - heading [level=3] [ref=f18e620]:
+            - link "Mir zugewiesene Tickets" [ref=f18e621] [cursor=pointer]:
+              - /url: /issues?c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&f%5B%5D=status_id&f%5B%5D=assigned_to_id&f%5B%5D=project.status&op%5Bassigned_to_id%5D=%3D&op%5Bproject.status%5D=%3D&op%5Bstatus_id%5D=o&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc&v%5Bassigned_to_id%5D%5B%5D=me&v%5Bproject.status%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=
+            - text: (39)
+          - table [ref=f18e624]:
+            - rowgroup [ref=f18e625]:
+              - row [ref=f18e626]:
+                - columnheader [ref=f18e627]:
+                  - link "#" [ref=f18e628] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=id%3Adesc%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f18e629]:
+                  - link "Projekt" [ref=f18e630] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=project%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f18e631]:
+                  - link "Tracker" [ref=f18e632] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=tracker%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f18e633]:
+                  - link "Status" [ref=f18e634] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=status%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f18e635]:
+                  - link "Thema" [ref=f18e636] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesassignedtome%5D%5Bsort%5D=subject%2Cpriority%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f18e637]
+            - rowgroup [ref=f18e638]:
+              - row [ref=f18e639]:
+                - cell [ref=f18e640]:
+                  - link "259" [ref=f18e641] [cursor=pointer]:
+                    - /url: /issues/259
+                - cell [ref=f18e642]:
+                  - link "Agile Board Project" [ref=f18e643] [cursor=pointer]:
+                    - /url: /projects/agileboard
+                - cell "Feature" [ref=f18e644]
+                - cell "In Progress" [ref=f18e645]
+                - cell [ref=f18e646]:
+                  - link "Implement scheduled exports" [ref=f18e647] [cursor=pointer]:
+                    - /url: /issues/259
+                - cell [ref=f18e648]:
+                  - link "Aktionen" [ref=f18e649] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e652]:
+                - cell [ref=f18e653]:
+                  - link "227" [ref=f18e654] [cursor=pointer]:
+                    - /url: /issues/227
+                - cell [ref=f18e655]:
+                  - link "Software development5" [ref=f18e656] [cursor=pointer]:
+                    - /url: /projects/defaultsd
+                - cell "Feature" [ref=f18e657]
+                - cell "Feedback" [ref=f18e658]
+                - cell [ref=f18e659]:
+                  - link "Add export options for charts" [ref=f18e660] [cursor=pointer]:
+                    - /url: /issues/227
+                - cell [ref=f18e661]:
+                  - link "Aktionen" [ref=f18e662] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e665]:
+                - cell [ref=f18e666]:
+                  - link "214" [ref=f18e667] [cursor=pointer]:
+                    - /url: /issues/214
+                - cell [ref=f18e668]:
+                  - link "Software development5" [ref=f18e669] [cursor=pointer]:
+                    - /url: /projects/defaultsd
+                - cell "Feature" [ref=f18e670]
+                - cell "In Progress" [ref=f18e671]
+                - cell [ref=f18e672]:
+                  - link "Implement scheduled exports" [ref=f18e673] [cursor=pointer]:
+                    - /url: /issues/214
+                - cell [ref=f18e674]:
+                  - link "Aktionen" [ref=f18e675] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e678]:
+                - cell [ref=f18e679]:
+                  - link "199" [ref=f18e680] [cursor=pointer]:
+                    - /url: /issues/199
+                - cell [ref=f18e681]:
+                  - link "Education and training3" [ref=f18e682] [cursor=pointer]:
+                    - /url: /projects/edandt
+                - cell "Feature" [ref=f18e683]
+                - cell "Feedback" [ref=f18e684]
+                - cell [ref=f18e685]:
+                  - link "Implement document annotation" [ref=f18e686] [cursor=pointer]:
+                    - /url: /issues/199
+                - cell [ref=f18e687]:
+                  - link "Aktionen" [ref=f18e688] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e691]:
+                - cell [ref=f18e692]:
+                  - link "184" [ref=f18e693] [cursor=pointer]:
+                    - /url: /issues/184
+                - cell [ref=f18e694]:
+                  - link "Software development5" [ref=f18e695] [cursor=pointer]:
+                    - /url: /projects/defaultsd
+                - cell "Feature" [ref=f18e696]
+                - cell "In Progress" [ref=f18e697]
+                - cell [ref=f18e698]:
+                  - link "Implement conditional fields" [ref=f18e699] [cursor=pointer]:
+                    - /url: /issues/184
+                - cell [ref=f18e700]:
+                  - link "Aktionen" [ref=f18e701] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e704]:
+                - cell [ref=f18e705]:
+                  - link "159" [ref=f18e706] [cursor=pointer]:
+                    - /url: /issues/159
+                - cell [ref=f18e707]:
+                  - link "Mobile app development1" [ref=f18e708] [cursor=pointer]:
+                    - /url: /projects/mobileappdev
+                - cell "Feature" [ref=f18e709]
+                - cell "Feedback" [ref=f18e710]
+                - cell [ref=f18e711]:
+                  - link "Implement permission templates" [ref=f18e712] [cursor=pointer]:
+                    - /url: /issues/159
+                - cell [ref=f18e713]:
+                  - link "Aktionen" [ref=f18e714] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e717]:
+                - cell [ref=f18e718]:
+                  - link "52" [ref=f18e719] [cursor=pointer]:
+                    - /url: /issues/52
+                - cell [ref=f18e720]:
+                  - link "Marketing campaign4" [ref=f18e721] [cursor=pointer]:
+                    - /url: /projects/markcamgn
+                - cell "Feature" [ref=f18e722]
+                - cell "In Progress" [ref=f18e723]
+                - cell [ref=f18e724]:
+                  - link "Implement project search analytics" [ref=f18e725] [cursor=pointer]:
+                    - /url: /issues/52
+                - cell [ref=f18e726]:
+                  - link "Aktionen" [ref=f18e727] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e730]:
+                - cell [ref=f18e731]:
+                  - link "27" [ref=f18e732] [cursor=pointer]:
+                    - /url: /issues/27
+                - cell [ref=f18e733]:
+                  - link "Marketing campaign4" [ref=f18e734] [cursor=pointer]:
+                    - /url: /projects/markcamgn
+                - cell "Feature" [ref=f18e735]
+                - cell "In Progress" [ref=f18e736]
+                - cell [ref=f18e737]:
+                  - link "Check the project search" [ref=f18e738] [cursor=pointer]:
+                    - /url: /issues/27
+                - cell [ref=f18e739]:
+                  - link "Aktionen" [ref=f18e740] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e743]:
+                - cell [ref=f18e744]:
+                  - link "258" [ref=f18e745] [cursor=pointer]:
+                    - /url: /issues/258
+                - cell [ref=f18e746]:
+                  - link "Agile Board Project" [ref=f18e747] [cursor=pointer]:
+                    - /url: /projects/agileboard
+                - cell "Feature" [ref=f18e748]
+                - cell "In Progress" [ref=f18e749]
+                - cell [ref=f18e750]:
+                  - link "Add Excel export formatting" [ref=f18e751] [cursor=pointer]:
+                    - /url: /issues/258
+                - cell [ref=f18e752]:
+                  - link "Aktionen" [ref=f18e753] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e756]:
+                - cell [ref=f18e757]:
+                  - link "230" [ref=f18e758] [cursor=pointer]:
+                    - /url: /issues/230
+                - cell [ref=f18e759]:
+                  - link "Software development5" [ref=f18e760] [cursor=pointer]:
+                    - /url: /projects/defaultsd
+                - cell "Bug" [ref=f18e761]
+                - cell "In Progress" [ref=f18e762]
+                - cell [ref=f18e763]:
+                  - link "Fix slow report generation" [ref=f18e764] [cursor=pointer]:
+                    - /url: /issues/230
+                - cell [ref=f18e765]:
+                  - link "Aktionen" [ref=f18e766] [cursor=pointer]:
+                    - /url: "#"
+        - generic [ref=f18e770]:
+          - generic [ref=f18e771]:
+            - generic "Verschieben" [ref=f18e772]
+            - link "Löschen" [ref=f18e775] [cursor=pointer]:
+              - /url: /my/remove_block?block=issuesreportedbyme
+          - link "Optionen" [ref=f18e779] [cursor=pointer]:
+            - /url: "#"
+          - heading [level=3] [ref=f18e782]:
+            - link "Erstellte Tickets" [ref=f18e783] [cursor=pointer]:
+              - /url: /issues?c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&f%5B%5D=status_id&f%5B%5D=author_id&f%5B%5D=project.status&op%5Bauthor_id%5D=%3D&op%5Bproject.status%5D=%3D&op%5Bstatus_id%5D=o&set_filter=1&sort=updated_on%3Adesc&v%5Bauthor_id%5D%5B%5D=me&v%5Bproject.status%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=
+            - text: (102)
+          - table [ref=f18e786]:
+            - rowgroup [ref=f18e787]:
+              - row [ref=f18e788]:
+                - columnheader [ref=f18e789]:
+                  - link "#" [ref=f18e790] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=id%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f18e791]:
+                  - link "Projekt" [ref=f18e792] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=project%2Cupdated_on%3Adesc
+                - columnheader [ref=f18e793]:
+                  - link "Tracker" [ref=f18e794] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=tracker%2Cupdated_on%3Adesc
+                - columnheader [ref=f18e795]:
+                  - link "Status" [ref=f18e796] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=status%2Cupdated_on%3Adesc
+                - columnheader [ref=f18e797]:
+                  - link "Thema" [ref=f18e798] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=subject%2Cupdated_on%3Adesc
+                - columnheader [ref=f18e799]
+            - rowgroup [ref=f18e800]:
+              - row [ref=f18e801]:
+                - cell [ref=f18e802]:
+                  - link "266" [ref=f18e803] [cursor=pointer]:
+                    - /url: /issues/266
+                - cell [ref=f18e804]:
+                  - link "Agile Board Project" [ref=f18e805] [cursor=pointer]:
+                    - /url: /projects/agileboard
+                - cell "Bug" [ref=f18e806]
+                - cell "New" [ref=f18e807]
+                - cell [ref=f18e808]:
+                  - link "QA Quick Add Test" [ref=f18e809] [cursor=pointer]:
+                    - /url: /issues/266
+                - cell [ref=f18e810]:
+                  - link "Aktionen" [ref=f18e811] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e814]:
+                - cell [ref=f18e815]:
+                  - link "255" [ref=f18e816] [cursor=pointer]:
+                    - /url: /issues/255
+                - cell [ref=f18e817]:
+                  - link "MVP build for PaySheet Application" [ref=f18e818] [cursor=pointer]:
+                    - /url: /projects/mvpbuild
+                - cell "Bug" [ref=f18e819]
+                - cell "Resolved" [ref=f18e820]
+                - cell [ref=f18e821]:
+                  - link "Fix message synchronization" [ref=f18e822] [cursor=pointer]:
+                    - /url: /issues/255
+                - cell [ref=f18e823]:
+                  - link "Aktionen" [ref=f18e824] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e827]:
+                - cell [ref=f18e828]:
+                  - link "254" [ref=f18e829] [cursor=pointer]:
+                    - /url: /issues/254
+                - cell [ref=f18e830]:
+                  - link "MVP build for PaySheet Application" [ref=f18e831] [cursor=pointer]:
+                    - /url: /projects/mvpbuild
+                - cell "Feature" [ref=f18e832]
+                - cell "Feedback" [ref=f18e833]
+                - cell [ref=f18e834]:
+                  - link "Implement typing notifications" [ref=f18e835] [cursor=pointer]:
+                    - /url: /issues/254
+                - cell [ref=f18e836]:
+                  - link "Aktionen" [ref=f18e837] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e840]:
+                - cell [ref=f18e841]:
+                  - link "253" [ref=f18e842] [cursor=pointer]:
+                    - /url: /issues/253
+                - cell [ref=f18e843]:
+                  - link "MVP build for PaySheet Application" [ref=f18e844] [cursor=pointer]:
+                    - /url: /projects/mvpbuild
+                - cell "Feature" [ref=f18e845]
+                - cell "New" [ref=f18e846]
+                - cell [ref=f18e847]:
+                  - link "Add presence indicators" [ref=f18e848] [cursor=pointer]:
+                    - /url: /issues/253
+                - cell [ref=f18e849]:
+                  - link "Aktionen" [ref=f18e850] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e853]:
+                - cell [ref=f18e854]:
+                  - link "252" [ref=f18e855] [cursor=pointer]:
+                    - /url: /issues/252
+                - cell [ref=f18e856]:
+                  - link "MVP build for PaySheet Application" [ref=f18e857] [cursor=pointer]:
+                    - /url: /projects/mvpbuild
+                - cell "Bug" [ref=f18e858]
+                - cell "In Progress" [ref=f18e859]
+                - cell [ref=f18e860]:
+                  - link "Fix websocket connection drops" [ref=f18e861] [cursor=pointer]:
+                    - /url: /issues/252
+                - cell [ref=f18e862]:
+                  - link "Aktionen" [ref=f18e863] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e866]:
+                - cell [ref=f18e867]:
+                  - link "251" [ref=f18e868] [cursor=pointer]:
+                    - /url: /issues/251
+                - cell [ref=f18e869]:
+                  - link "MVP build for PaySheet Application" [ref=f18e870] [cursor=pointer]:
+                    - /url: /projects/mvpbuild
+                - cell "Feature" [ref=f18e871]
+                - cell "Feedback" [ref=f18e872]
+                - cell [ref=f18e873]:
+                  - link "Implement real-time updates" [ref=f18e874] [cursor=pointer]:
+                    - /url: /issues/251
+                - cell [ref=f18e875]:
+                  - link "Aktionen" [ref=f18e876] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e879]:
+                - cell [ref=f18e880]:
+                  - link "240" [ref=f18e881] [cursor=pointer]:
+                    - /url: /issues/240
+                - cell [ref=f18e882]:
+                  - link "Helpdesk Service Desk" [ref=f18e883] [cursor=pointer]:
+                    - /url: /projects/helpdesk
+                - cell "Support" [ref=f18e884]
+                - cell "New" [ref=f18e885]
+                - cell [ref=f18e886]:
+                  - link "Fix missing breadcrumb navigation" [ref=f18e887] [cursor=pointer]:
+                    - /url: /issues/240
+                - cell [ref=f18e888]:
+                  - link "Aktionen" [ref=f18e889] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e892]:
+                - cell [ref=f18e893]:
+                  - link "239" [ref=f18e894] [cursor=pointer]:
+                    - /url: /issues/239
+                - cell [ref=f18e895]:
+                  - link "Helpdesk Service Desk" [ref=f18e896] [cursor=pointer]:
+                    - /url: /projects/helpdesk
+                - cell "Support" [ref=f18e897]
+                - cell "New" [ref=f18e898]
+                - cell [ref=f18e899]:
+                  - link "Add role-based permissions editor" [ref=f18e900] [cursor=pointer]:
+                    - /url: /issues/239
+                - cell [ref=f18e901]:
+                  - link "Aktionen" [ref=f18e902] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e905]:
+                - cell [ref=f18e906]:
+                  - link "238" [ref=f18e907] [cursor=pointer]:
+                    - /url: /issues/238
+                - cell [ref=f18e908]:
+                  - link "Helpdesk Service Desk" [ref=f18e909] [cursor=pointer]:
+                    - /url: /projects/helpdesk
+                - cell "Support" [ref=f18e910]
+                - cell "New" [ref=f18e911]
+                - cell [ref=f18e912]:
+                  - link "Fix dashboard chart flickering" [ref=f18e913] [cursor=pointer]:
+                    - /url: /issues/238
+                - cell [ref=f18e914]:
+                  - link "Aktionen" [ref=f18e915] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f18e918]:
+                - cell [ref=f18e919]:
+                  - link "237" [ref=f18e920] [cursor=pointer]:
+                    - /url: /issues/237
+                - cell [ref=f18e921]:
+                  - link "Helpdesk Service Desk" [ref=f18e922] [cursor=pointer]:
+                    - /url: /projects/helpdesk
+                - cell "Support" [ref=f18e923]
+                - cell "New" [ref=f18e924]
+                - cell [ref=f18e925]:
+                  - link "Add API key management UI" [ref=f18e926] [cursor=pointer]:
+                    - /url: /issues/237
+                - cell [ref=f18e927]:
+                  - link "Aktionen" [ref=f18e928] [cursor=pointer]:
+                    - /url: "#"
+    - generic [ref=f18e931]:
+      - text: Powered by
+      - link "Redmine" [ref=f18e932] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f18e933]
+  - log [ref=f18e934]
+  - log [ref=f18e935]
+  - log [ref=f18e936]
+  - log [ref=f18e937]
+  - log [ref=f18e938]
+  - log [ref=f18e939]
+  - log [ref=f18e940]
+  - log [ref=f18e941]
+  - log [ref=f18e942]
+  - log [ref=f18e943]
+  - log [ref=f18e944]
+  - log [ref=f18e945]:
+    - generic [ref=f18e1333]: Board-Einstellungen
+  - log [ref=f18e946]
+  - log [ref=f18e947]
+  - log [ref=f18e948]
+  - log [ref=f18e949]
+  - log [ref=f18e950]
+  - log [ref=f18e951]
+  - log [ref=f18e952]
+  - log [ref=f18e953]
+  - log [ref=f18e954]
+  - log [ref=f18e955]
+  - log [ref=f18e956]
+  - log [ref=f18e957]
+  - log [ref=f18e958]
+  - log [ref=f18e959]
+  - log [ref=f18e960]
+  - log [ref=f18e961]
+  - log [ref=f18e962]
+  - log [ref=f18e963]
+  - log [ref=f18e964]
+  - log [ref=f18e965]
+  - log [ref=f18e966]
+  - log [ref=f18e967]
+  - log [ref=f18e968]
+  - log [ref=f18e969]
+  - log [ref=f18e970]
+  - log [ref=f18e971]
+  - log [ref=f18e972]
+  - log [ref=f18e973]
+  - log [ref=f18e974]
+  - log [ref=f18e975]
+  - log [ref=f18e976]
+  - log [ref=f18e977]
+  - log [ref=f18e978]
+  - log [ref=f18e979]
+  - log [ref=f18e980]
+  - log [ref=f18e981]
+  - log [ref=f18e982]
+  - log [ref=f18e983]
+  - log [ref=f18e984]
+  - log [ref=f18e985]
+  - log [ref=f18e986]
+  - log [ref=f18e987]
+  - log [ref=f18e988]
+  - log [ref=f18e989]
+  - log [ref=f18e990]
+  - log [ref=f18e991]
+  - log [ref=f18e992]
+  - log [ref=f18e993]
+  - log [ref=f18e994]
+  - log [ref=f18e995]
+  - log [ref=f18e996]
+  - log [ref=f18e997]
+  - log [ref=f18e998]
+  - log [ref=f18e999]
+  - log [ref=f18e1000]
+  - log [ref=f18e1001]
+  - log [ref=f18e1002]
+  - log [ref=f18e1003]
+  - log [ref=f18e1004]
+  - log [ref=f18e1005]
+  - log [ref=f18e1006]
+  - log [ref=f18e1007]
+  - log [ref=f18e1008]
+  - log [ref=f18e1009]
+  - log [ref=f18e1010]
+  - log [ref=f18e1011]
+  - log [ref=f18e1012]
+  - log [ref=f18e1013]
+  - log [ref=f18e1014]
+  - log [ref=f18e1015]
+  - log [ref=f18e1016]
+  - log [ref=f18e1017]
+  - log [ref=f18e1018]
+  - log [ref=f18e1019]
+  - log [ref=f18e1020]
+  - log [ref=f18e1021]
+  - log [ref=f18e1022]
+  - log [ref=f18e1023]
+  - log [ref=f18e1024]
+  - log [ref=f18e1025]
+  - log [ref=f18e1026]
+  - log [ref=f18e1027]
+  - log [ref=f18e1028]
+  - log [ref=f18e1029]
+  - log [ref=f18e1030]
+  - log [ref=f18e1031]
+  - log [ref=f18e1032]
+  - log [ref=f18e1033]
+  - log [ref=f18e1034]
+  - log [ref=f18e1035]
+  - log [ref=f18e1036]
+  - log [ref=f18e1037]
+  - log [ref=f18e1038]
+  - log [ref=f18e1039]
+  - log [ref=f18e1040]
+  - log [ref=f18e1041]
+  - log [ref=f18e1042]
+  - log [ref=f18e1043]
+  - log [ref=f18e1044]
+  - log [ref=f18e1045]
+  - log [ref=f18e1046]
+  - log [ref=f18e1047]
+  - log [ref=f18e1048]
+  - log [ref=f18e1049]
+  - log [ref=f18e1050]
+  - log [ref=f18e1051]
+  - log [ref=f18e1052]
+  - log [ref=f18e1053]
+  - log [ref=f18e1054]
+  - log [ref=f18e1055]
+  - log [ref=f18e1056]
+  - log [ref=f18e1057]
+  - log [ref=f18e1058]
+  - log [ref=f18e1059]
+  - log [ref=f18e1060]
+  - log [ref=f18e1061]
+  - log [ref=f18e1062]
+  - log [ref=f18e1063]
+  - log [ref=f18e1064]
+  - log [ref=f18e1065]
+  - log [ref=f18e1066]
+  - log [ref=f18e1067]
+  - log [ref=f18e1068]
+  - log [ref=f18e1069]
+  - log [ref=f18e1070]
+  - log [ref=f18e1071]
+  - log [ref=f18e1072]
+  - log [ref=f18e1073]
+  - log [ref=f18e1074]
+  - log [ref=f18e1075]
+  - log [ref=f18e1076]
+  - log [ref=f18e1077]
+  - log [ref=f18e1078]
+  - log [ref=f18e1079]
+  - log [ref=f18e1080]
+  - log [ref=f18e1081]
+  - log [ref=f18e1082]
+  - log [ref=f18e1083]
+  - log [ref=f18e1084]
+  - log [ref=f18e1085]
+  - log [ref=f18e1086]
+  - log [ref=f18e1087]
+  - log [ref=f18e1088]
+  - log [ref=f18e1089]
+  - log [ref=f18e1090]
+  - log [ref=f18e1091]
+  - log [ref=f18e1092]
+  - log [ref=f18e1093]
+  - log [ref=f18e1094]
+  - log [ref=f18e1095]
+  - log [ref=f18e1096]
+  - log [ref=f18e1097]
+  - log [ref=f18e1098]
+  - log [ref=f18e1099]
+  - log [ref=f18e1100]
+  - log [ref=f18e1101]
+  - log [ref=f18e1102]
+  - log [ref=f18e1103]
+  - log [ref=f18e1104]
+  - log [ref=f18e1105]
+  - log [ref=f18e1106]
+  - log [ref=f18e1107]
+  - log [ref=f18e1108]
+  - log [ref=f18e1109]
+  - log [ref=f18e1110]
+  - log [ref=f18e1111]
+  - log [ref=f18e1112]
+  - log [ref=f18e1113]
+  - log [ref=f18e1114]
+  - log [ref=f18e1115]
+  - log [ref=f18e1116]
+  - log [ref=f18e1117]
+  - log [ref=f18e1118]
+  - log [ref=f18e1119]
+  - log [ref=f18e1120]
+  - log [ref=f18e1121]
+  - log [ref=f18e1122]
+  - log [ref=f18e1123]
+  - log [ref=f18e1124]
+  - log [ref=f18e1125]
+  - log [ref=f18e1126]
+  - log [ref=f18e1127]
+  - log [ref=f18e1128]
+  - log [ref=f18e1129]
+  - log [ref=f18e1130]
+  - log [ref=f18e1131]
+  - log [ref=f18e1132]
+  - log [ref=f18e1133]
+  - log [ref=f18e1134]
+  - log [ref=f18e1135]
+  - log [ref=f18e1136]
+  - log [ref=f18e1137]
+  - log [ref=f18e1138]
+  - log [ref=f18e1139]
+  - log [ref=f18e1140]
+  - log [ref=f18e1141]
+  - log [ref=f18e1142]
+  - log [ref=f18e1143]
+  - log [ref=f18e1144]
+  - log [ref=f18e1145]
+  - log [ref=f18e1146]
+  - log [ref=f18e1147]
+  - log [ref=f18e1148]
+  - log [ref=f18e1149]
+  - log [ref=f18e1150]
+  - log [ref=f18e1151]
+  - log [ref=f18e1152]
+  - log [ref=f18e1153]
+  - log [ref=f18e1154]
+  - log [ref=f18e1155]
+  - log [ref=f18e1156]
+  - log [ref=f18e1157]
+  - log [ref=f18e1158]
+  - log [ref=f18e1159]
+  - log [ref=f18e1160]
+  - log [ref=f18e1161]
+  - log [ref=f18e1162]
+  - log [ref=f18e1163]
+  - log [ref=f18e1164]
+  - log [ref=f18e1165]
+  - log [ref=f18e1166]
+  - log [ref=f18e1167]
+  - log [ref=f18e1168]
+  - log [ref=f18e1169]
+  - log [ref=f18e1170]
+  - log [ref=f18e1171]
+  - log [ref=f18e1172]
+  - log [ref=f18e1173]
+  - log [ref=f18e1174]
+  - log [ref=f18e1175]
+  - log [ref=f18e1176]
+  - log [ref=f18e1177]
+  - log [ref=f18e1178]
+  - log [ref=f18e1179]
+  - log [ref=f18e1180]
+  - log [ref=f18e1181]
+  - log [ref=f18e1182]
+  - log [ref=f18e1183]
+  - log [ref=f18e1184]
+  - log [ref=f18e1185]
+  - log [ref=f18e1186]
+  - log [ref=f18e1187]
+  - log [ref=f18e1188]
+  - log [ref=f18e1189]
+  - log [ref=f18e1190]
+  - log [ref=f18e1191]
+  - log [ref=f18e1192]
+  - log [ref=f18e1193]
+  - log [ref=f18e1194]
+  - log [ref=f18e1195]
+  - log [ref=f18e1196]
+  - log [ref=f18e1197]
+  - log [ref=f18e1198]
+  - log [ref=f18e1199]
+  - log [ref=f18e1200]
+  - log [ref=f18e1201]
+  - log [ref=f18e1202]
+  - log [ref=f18e1203]
+  - log [ref=f18e1204]
+  - log [ref=f18e1205]
+  - log [ref=f18e1206]
+  - log [ref=f18e1207]
+  - log [ref=f18e1208]
+  - log [ref=f18e1209]
+  - log [ref=f18e1210]
+  - log [ref=f18e1211]
+  - log [ref=f18e1212]
+  - log [ref=f18e1213]
+  - log [ref=f18e1214]
+  - log [ref=f18e1215]
+  - log [ref=f18e1216]
+  - log [ref=f18e1217]
+  - log [ref=f18e1218]
+  - log [ref=f18e1219]
+  - log [ref=f18e1220]
+  - log [ref=f18e1221]
+  - log [ref=f18e1222]
+  - log [ref=f18e1223]
+  - log [ref=f18e1224]
+  - tooltip "Board-Einstellungen"

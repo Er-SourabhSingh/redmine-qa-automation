@@ -1,0 +1,111 @@
+- generic [active] [ref=f264e1]:
+  - generic [ref=f264e2]:
+    - generic [ref=f264e3]:
+      - generic [ref=f264e4]:
+        - list:
+          - listitem [ref=f264e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f264e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f264e7]:
+        - text: Logged in as
+        - link "alpha.customer" [ref=f264e8] [cursor=pointer]:
+          - /url: /users/6
+      - list [ref=f264e9]:
+        - listitem [ref=f264e10]:
+          - link [ref=f264e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f264e12]
+        - listitem [ref=f264e13]:
+          - link "My Helpdesk" [ref=f264e14] [cursor=pointer]:
+            - /url: /helpdesk
+    - heading "Helpdesk QA Alpha" [level=1] [ref=f264e16]
+    - generic [ref=f264e17]:
+      - list [ref=f264e21]:
+        - listitem [ref=f264e22]:
+          - link "Helpdesk Dashboard" [ref=f264e23] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f264e26]:
+          - link "Helpdesk Tickets" [ref=f264e27] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f264e30]:
+          - link "Knowledgebase" [ref=f264e31] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f264e34]:
+        - generic [ref=f264e35]: Successful creation.
+        - generic [ref=f264e36]:
+          - generic [ref=f264e38]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f264e39]
+            - paragraph [ref=f264e40]: Helpdesk QA Alpha · 3 tickets
+          - link "New issue" [ref=f264e42] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/new
+        - button "Filters" [ref=f264e45] [cursor=pointer]
+        - table [ref=f264e53]:
+          - rowgroup [ref=f264e54]:
+            - row [ref=f264e55]:
+              - columnheader [ref=f264e56]:
+                - 'link "Ticket #" [ref=f264e57] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=id
+              - columnheader [ref=f264e58]:
+                - link "Subject" [ref=f264e59] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=subject
+              - columnheader [ref=f264e60]:
+                - link "Status" [ref=f264e61] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=status
+              - columnheader [ref=f264e62]:
+                - link "Priority" [ref=f264e63] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=priority
+              - columnheader [ref=f264e64]:
+                - link "Updated ▼" [ref=f264e65] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=updated_on
+          - rowgroup [ref=f264e66]:
+            - row [ref=f264e67]:
+              - cell [ref=f264e68]:
+                - link "#4" [ref=f264e69] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/4
+              - cell [ref=f264e70]:
+                - link "BUG-HLP-009 retest - Edit form auto status transition check" [ref=f264e71] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/4
+              - cell "New" [ref=f264e72]
+              - cell "Normal" [ref=f264e75]
+              - cell "08/31/2026 06:09 AM" [ref=f264e78]
+            - row [ref=f264e79]:
+              - cell [ref=f264e80]:
+                - link "#3" [ref=f264e81] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/3
+              - cell [ref=f264e82]:
+                - 'link "Ticket: BUG-HLP-008 retest - portal login issue" [ref=f264e83] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/3
+              - cell "In Progress" [ref=f264e84]
+              - cell "Normal" [ref=f264e87]
+              - cell "08/31/2026 06:02 AM" [ref=f264e90]
+            - row [ref=f264e91]:
+              - cell [ref=f264e92]:
+                - link "#2" [ref=f264e93] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/2
+              - cell [ref=f264e94]:
+                - link "Second verification ticket for BUG-HLP-014 retest" [ref=f264e95] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/2
+              - cell "New" [ref=f264e96]
+              - cell "Normal" [ref=f264e99]
+              - cell "08/31/2026 05:20 AM" [ref=f264e102]
+        - generic [ref=f264e103]:
+          - list
+          - generic [ref=f264e104]: (1-3/3)
+    - generic [ref=f264e105]:
+      - text: Powered by
+      - link "Redmine" [ref=f264e106] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f264e107]
+  - log [ref=f264e108]
+  - log [ref=f264e109]
+  - log [ref=f264e110]
+  - log [ref=f264e111]
+  - log [ref=f264e112]
+  - log [ref=f264e113]
+  - log [ref=f264e114]
+  - log [ref=f264e115]
+  - log [ref=f264e116]

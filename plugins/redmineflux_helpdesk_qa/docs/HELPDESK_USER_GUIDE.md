@@ -152,7 +152,7 @@ Three kinds of people use this plugin, and the screens change for each.
 | | Who they are | What they see |
 |---|---|---|
 | **Administrator** | Redmine admin | Everything, plus the only person who can save a project's email configuration |
-| **Agent** | A member with `manage_helpdesk` (or `view_helpdesk`) on a helpdesk project | The full desk: tickets, SLAs, customers, reports |
+| **Agent** | A member with `manage_helpdesk` on a helpdesk project | The full desk: tickets, SLAs, customers, reports — including the top-menu "Helpdesk" link, the cross-project Command Center, and the project-level SLA/Organization/Settings tabs. `view_helpdesk` alone (without `manage_helpdesk`) still lets a member work tickets on a project's own Dashboard/Tickets/Knowledgebase, but does **not** grant the top-menu link or the desk-configuration screens (confirmed live 2026-09-02, see `HELPDESK_NAVIGATION_WORKSPACES.md` TC-HLP-060/065) |
 | **Customer** | A Redmine user flagged as a helpdesk customer | Only their own tickets, with a trimmed set of columns and filters |
 
 A **customer** is not a separate account type in Redmine. It is an ordinary user
@@ -400,8 +400,10 @@ whether you are looking at one customer's project or across all of them.
 ### Helpdesk Command Center — across every project
 
 Reached from **Helpdesk** in the top menu. This is a product in its own right:
-Redmine's application menu is hidden here and the header reads *Helpdesk
-Support*, because the icon rail on the left is how you move around.
+Redmine's application menu is hidden here and the header reads *Helpdesk*
+(confirmed live 2026-09-02, per Product Owner request — this page previously
+said "Helpdesk Support", which was outdated), because the icon rail on the
+left is how you move around.
 
 | Icon rail | What it is |
 |---|---|
@@ -982,7 +984,7 @@ Set per role at **Administration › Roles and permissions**, under *Helpdesk*.
 | `view_helpdesk` | See the helpdesk screens, tickets and reports; create and edit tickets |
 | `manage_helpdesk` | Everything in view, plus managing the desk's configuration and exporting reports |
 | `export_helpdesk_reports` | Export reports to CSV/Excel |
-| `manage_prepaid_support_hours` | Set and adjust prepaid budgets, and choose what happens when they run out |
+| `manage_prepaid_support_hours` | Set and adjust prepaid budgets, and choose what happens when they run out — **requires `manage_helpdesk` too** (confirmed live 2026-09-07, `HELPDESK_PERMISSIONS.md` TC-HLP-206/210). `manage_helpdesk` is what grants access to the Organization page in the first place; `manage_prepaid_support_hours` then additionally unlocks the modification controls (top-up, run-out mode) on that page. It is not a standalone permission — granted alone, without `manage_helpdesk`, there is no page to use it on |
 | `add_kb_page` | Create knowledgebase articles |
 | `edit_kb_page` | Edit them |
 | `delete_kb_page` | Delete them and their attachments |
@@ -1285,7 +1287,7 @@ browsers.
 
 ### B. Navigation and chrome
 
-- [ ] **Helpdesk** appears in the top menu for an agent
+- [ ] **Helpdesk** appears in the top menu for an agent with `manage_helpdesk` (a `view_helpdesk`-only member does not get this link — confirmed 2026-09-02, see `HELPDESK_NAVIGATION_WORKSPACES.md` TC-HLP-060)
 - [ ] The Command Center hides Redmine's application menu, and the header reads *Helpdesk Support*
 - [ ] The icon rail reaches Dashboard, Tickets, Reports, Organizations, Customers, Products, Settings
 - [ ] A project's Helpdesk tab keeps Redmine's normal project menu and the project name
@@ -1506,7 +1508,7 @@ browsers.
 - [ ] `manage_helpdesk`: can also manage configuration and export
 - [ ] Neither: the Helpdesk tab is absent and the URLs are refused
 - [ ] `export_helpdesk_reports` controls the Export button
-- [ ] `manage_prepaid_support_hours` controls setting a budget and the run-out mode
+- [ ] `manage_prepaid_support_hours` controls setting a budget and the run-out mode — but only in combination with `manage_helpdesk`, which grants access to the Organization page itself; the two are not independent
 - [ ] Saving a project's email configuration is **admin only**
 - [ ] The Swagger page at `/helpdesk/swagger` is **admin only**
 

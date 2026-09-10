@@ -1,0 +1,283 @@
+- generic [ref=f199e1]:
+  - generic [ref=f199e2]:
+    - navigation [ref=f199e3]:
+      - generic [ref=f199e4]:
+        - link [ref=f199e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f199e7] [cursor=pointer]
+      - list [ref=f199e17]:
+        - listitem [ref=f199e18]:
+          - link "Hauptseite" [ref=f199e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f199e20]:
+          - link "Meine Seite" [ref=f199e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f199e22]:
+          - link "Projekte" [ref=f199e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f199e24]:
+          - link "Agile Board" [ref=f199e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f199e26]:
+          - link "Flux Gantt" [ref=f199e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f199e28]:
+          - link "Administration" [ref=f199e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f199e30]:
+          - link "Hilfe" [ref=f199e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f199e32]:
+        - generic [ref=f199e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f199e35]
+        - link "Mein Konto" [ref=f199e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f199e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f199e44]:
+      - generic [ref=f199e45]:
+        - heading "Redmine" [level=1] [ref=f199e47]
+        - generic [ref=f199e49]:
+          - heading "Administration" [level=3] [ref=f199e50]
+          - list [ref=f199e52]:
+            - listitem [ref=f199e53]:
+              - link "Projekte" [ref=f199e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f199e55]:
+              - link "Benutzer" [ref=f199e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f199e57]:
+              - link "Gruppen" [ref=f199e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f199e59]:
+              - link "Rollen und Rechte" [ref=f199e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f199e61]:
+              - link "Tracker" [ref=f199e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f199e63]:
+              - link "Ticket-Status" [ref=f199e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f199e65]:
+              - link "Workflow" [ref=f199e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f199e67]:
+              - link "Benutzerdefinierte Felder" [ref=f199e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f199e69]:
+              - link "Aufzählungen" [ref=f199e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f199e71]:
+              - link "Konfiguration" [ref=f199e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f199e73]:
+              - link "LDAP-Authentifizierung" [ref=f199e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f199e75]:
+              - link "Applikationen" [ref=f199e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f199e77]:
+              - link "Plugins" [ref=f199e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f199e79]:
+              - link "Informationen" [ref=f199e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f199e81]:
+        - heading "Konfiguration" [level=2] [ref=f199e82]
+        - list [ref=f199e84]:
+          - listitem [ref=f199e85]:
+            - link "Allgemein" [ref=f199e86] [cursor=pointer]:
+              - /url: /settings?tab=general
+          - listitem [ref=f199e87]:
+            - link "Anzeige" [ref=f199e88] [cursor=pointer]:
+              - /url: /settings?tab=display
+          - listitem [ref=f199e89]:
+            - link "Authentifizierung" [ref=f199e90] [cursor=pointer]:
+              - /url: /settings?tab=authentication
+          - listitem [ref=f199e91]:
+            - link "Integrations" [ref=f199e92] [cursor=pointer]:
+              - /url: /settings?tab=integrations
+          - listitem [ref=f199e93]:
+            - link "Projekte" [ref=f199e94] [cursor=pointer]:
+              - /url: /settings?tab=projects
+          - listitem [ref=f199e95]:
+            - link "Benutzer" [ref=f199e96] [cursor=pointer]:
+              - /url: /settings?tab=users
+          - listitem [ref=f199e97]:
+            - link "Tickets" [ref=f199e98] [cursor=pointer]:
+              - /url: /settings?tab=issues
+          - listitem [ref=f199e99]:
+            - link "Zeiterfassung" [ref=f199e100] [cursor=pointer]:
+              - /url: /settings?tab=timelog
+          - listitem [ref=f199e101]:
+            - link "Dateien" [ref=f199e102] [cursor=pointer]:
+              - /url: /settings?tab=attachments
+          - listitem [ref=f199e103]:
+            - link "Mailbenachrichtigung" [ref=f199e104] [cursor=pointer]:
+              - /url: /settings?tab=notifications
+          - listitem [ref=f199e105]:
+            - link "Eingehende E-Mails" [ref=f199e106] [cursor=pointer]:
+              - /url: /settings?tab=mail_handler
+          - listitem [ref=f199e107]:
+            - link "Repositories" [ref=f199e108] [cursor=pointer]:
+              - /url: /settings?tab=repositories
+        - generic [ref=f199e110]:
+          - generic [ref=f199e111]:
+            - paragraph [ref=f199e112]:
+              - generic [ref=f199e113]: Applikationstitel
+              - textbox "Applikationstitel" [active] [ref=f199e114]: Redmine
+            - paragraph [ref=f199e115]:
+              - generic [ref=f199e116]: Willkommenstext
+              - generic [ref=f199e117]:
+                - list [ref=f199e119]:
+                  - listitem [ref=f199e120]:
+                    - link "Bearbeiten" [ref=f199e121] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f199e122]:
+                    - link "Vorschau" [ref=f199e123] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f199e124]:
+                    - generic [ref=f199e125]:
+                      - button "Fett (Ctrl+B)" [ref=f199e126] [cursor=pointer]
+                      - button "Kursiv (Ctrl+I)" [ref=f199e127] [cursor=pointer]
+                      - button "Unterstrichen (Ctrl+U)" [ref=f199e128] [cursor=pointer]
+                      - button "Durchgestrichen" [ref=f199e129] [cursor=pointer]
+                      - button "Quelltext" [ref=f199e130] [cursor=pointer]
+                      - button "Überschrift 1. Ordnung" [ref=f199e131] [cursor=pointer]
+                      - button "Überschrift 2. Ordnung" [ref=f199e132] [cursor=pointer]
+                      - button "Überschrift 3. Ordnung" [ref=f199e133] [cursor=pointer]
+                      - button "Aufzählungsliste" [ref=f199e134] [cursor=pointer]
+                      - button "Nummerierte Liste" [ref=f199e135] [cursor=pointer]
+                      - button "Task list" [ref=f199e136] [cursor=pointer]
+                      - button "Zitat" [ref=f199e137] [cursor=pointer]
+                      - button "Zitat entfernen" [ref=f199e138] [cursor=pointer]
+                      - button "Table" [ref=f199e139] [cursor=pointer]
+                      - button "pre" [ref=f199e140] [cursor=pointer]
+                      - button "Highlighted code" [ref=f199e141] [cursor=pointer]
+                      - button "Verweis (Link) zu einer Wiki-Seite" [ref=f199e142] [cursor=pointer]
+                      - button "Grafik" [ref=f199e143] [cursor=pointer]
+                      - button "Help" [ref=f199e144] [cursor=pointer]
+                - textbox "Willkommenstext" [ref=f199e146]: "Welcome to Redmine, an open-source, flexible project management software. Note: You can modify this message in the \"Welcome text\" setting (Administration > Settings > General)."
+            - paragraph [ref=f199e147]:
+              - generic [ref=f199e148]: Objekte pro Seite
+              - textbox "Objekte pro Seite" [ref=f199e149]: 25,50,100
+              - emphasis [ref=f199e150]: Mehrere Werte erlaubt (durch Komma getrennt).
+            - paragraph [ref=f199e151]:
+              - generic [ref=f199e152]: Suchergebnisse pro Seite
+              - textbox "Suchergebnisse pro Seite" [ref=f199e153]: "10"
+            - paragraph [ref=f199e154]:
+              - generic [ref=f199e155]: Anzahl Tage pro Seite der Projekt-Aktivität
+              - textbox "Anzahl Tage pro Seite der Projekt-Aktivität" [ref=f199e156]: "10"
+              - text: Tage
+            - paragraph [ref=f199e157]:
+              - generic [ref=f199e158]: Hostname
+              - textbox "Hostname" [ref=f199e159]: flux-frmka2kzh49.forge.zehntech.com
+              - emphasis [ref=f199e160]: "Beispiel: flux-frmka2kzh49.forge.zehntech.com"
+            - paragraph [ref=f199e161]:
+              - generic [ref=f199e162]: Protokoll
+              - combobox "Protokoll" [ref=f199e163]:
+                - option "HTTP"
+                - option "HTTPS" [selected]
+            - paragraph [ref=f199e164]:
+              - generic [ref=f199e165]: Textformatierung
+              - combobox "Textformatierung" [ref=f199e166]:
+                - option "Keine"
+                - option "Textile"
+                - option "CommonMark Markdown (GitHub Flavored)" [selected]
+              - generic [ref=f199e167]:
+                - generic [ref=f199e168]:
+                  - checkbox "Hardbreaks" [checked] [disabled] [ref=f199e169]
+                  - text: Hardbreaks
+                - emphasis [ref=f199e170]: Diese Verhalten kann in der Datei config/configuration.yml konfiguriert werden. Ein Neustart der Anwendung ist nach einer Änderung erforderlich.
+            - paragraph [ref=f199e171]:
+              - generic [ref=f199e172]: Formatierten Text im Cache speichern
+              - checkbox "Formatierten Text im Cache speichern" [ref=f199e173]
+            - paragraph [ref=f199e174]:
+              - generic [ref=f199e175]: Wiki-Historie komprimieren
+              - combobox "Wiki-Historie komprimieren" [ref=f199e176]:
+                - option "Keine" [selected]
+                - option "Gzip"
+            - paragraph [ref=f199e177]:
+              - generic [ref=f199e178]: Maximale Anzahl Einträge pro Atom-Feed
+              - textbox "Maximale Anzahl Einträge pro Atom-Feed" [ref=f199e179]: "15"
+            - paragraph [ref=f199e180]:
+              - generic [ref=f199e181]: Enable reactions
+              - checkbox "Enable reactions" [checked] [ref=f199e182]
+          - button "Speichern" [ref=f199e183] [cursor=pointer]
+        - text: pre pre
+    - generic [ref=f199e184]:
+      - text: Powered by
+      - link "Redmine" [ref=f199e185] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f199e186]
+  - log [ref=f199e187]
+  - log [ref=f199e188]
+  - log [ref=f199e189]
+  - log [ref=f199e190]
+  - log [ref=f199e191]
+  - log [ref=f199e192]
+  - log [ref=f199e193]
+  - log [ref=f199e194]
+  - log [ref=f199e195]
+  - log [ref=f199e196]
+  - log [ref=f199e197]
+  - log [ref=f199e198]
+  - log [ref=f199e199]
+  - log [ref=f199e200]
+  - log [ref=f199e201]
+  - log [ref=f199e202]
+  - log [ref=f199e203]
+  - log [ref=f199e204]
+  - log [ref=f199e205]
+  - log [ref=f199e206]
+  - log [ref=f199e207]
+  - log [ref=f199e208]
+  - log [ref=f199e209]
+  - log [ref=f199e210]
+  - log [ref=f199e211]
+  - log [ref=f199e212]
+  - log [ref=f199e213]
+  - log [ref=f199e214]
+  - log [ref=f199e215]
+  - log [ref=f199e216]
+  - log [ref=f199e217]
+  - log [ref=f199e218]
+  - log [ref=f199e219]
+  - log [ref=f199e220]
+  - log [ref=f199e221]
+  - log [ref=f199e222]
+  - log [ref=f199e223]
+  - log [ref=f199e224]
+  - log [ref=f199e225]
+  - log [ref=f199e226]
+  - log [ref=f199e227]
+  - log [ref=f199e228]
+  - log [ref=f199e229]
+  - log [ref=f199e230]
+  - log [ref=f199e231]
+  - log [ref=f199e232]
+  - log [ref=f199e233]
+  - log [ref=f199e234]
+  - log [ref=f199e235]
+  - log [ref=f199e236]
+  - log [ref=f199e237]
+  - log [ref=f199e238]
+  - log [ref=f199e239]
+  - log [ref=f199e240]
+  - log [ref=f199e241]
+  - log [ref=f199e242]
+  - log [ref=f199e243]
+  - log [ref=f199e244]
+  - log [ref=f199e245]
+  - log [ref=f199e246]
+  - log [ref=f199e247]
+  - log [ref=f199e248]
+  - log [ref=f199e249]
+  - log [ref=f199e250]
+  - log [ref=f199e251]
+  - log [ref=f199e252]
+  - log [ref=f199e253]
+  - log [ref=f199e254]
+  - log [ref=f199e255]
+  - log [ref=f199e256]

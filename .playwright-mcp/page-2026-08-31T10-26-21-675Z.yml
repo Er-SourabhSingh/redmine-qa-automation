@@ -1,0 +1,45 @@
+- generic [ref=f542e2]:
+  - generic [ref=f542e3]:
+    - generic [ref=f542e4]:
+      - img "Logo" [ref=f542e5]
+      - text: 
+    - navigation "Application tasks" [ref=f542e6]:
+      - button " Compose" [ref=f542e8] [cursor=pointer]
+      - button " Mail" [ref=f542e9] [cursor=pointer]
+      - button " Contacts" [ref=f542e10] [cursor=pointer]
+      - button " Settings" [disabled] [ref=f542e11] [cursor=pointer]
+      - generic [ref=f542e12]:
+        - button " Dark mode" [ref=f542e13] [cursor=pointer]
+        - button " About" [ref=f542e14] [cursor=pointer]
+        - button " Logout" [ref=f542e15] [cursor=pointer]
+  - navigation "Settings" [ref=f542e16]:
+    - generic [ref=f542e17]:
+      - text: 
+      - generic [ref=f542e18]: Settings
+    - list [ref=f542e20]:
+      - listitem [ref=f542e21]:
+        - button " Preferences" [ref=f542e22]
+      - listitem [ref=f542e23]:
+        - button " Folders" [ref=f542e24]
+      - listitem [ref=f542e25]:
+        - button " Identities" [ref=f542e26]
+      - listitem [ref=f542e27]:
+        - button " Responses" [ref=f542e28]
+  - generic "Identities" [ref=f542e30]:
+    - generic [ref=f542e31]:  
+    - listbox [ref=f542e33]:
+      - rowgroup [ref=f542e34]:
+        - option [ref=f542e35]:
+          - cell " <qa@test.local>" [active] [ref=f542e36]
+  - main [ref=f542e38]:
+    - toolbar "Application toolbar" [ref=f542e39]:
+      - text: 
+      - list [ref=f542e40]:
+        - menuitem [ref=f542e41]:
+          - button " Create" [ref=f542e42] [cursor=pointer]
+        - menuitem " Delete" [ref=f542e43]:
+          - button " Delete" [disabled]
+      - text: 
+    - iframe [ref=f542e45]:
+      
+    - text:  

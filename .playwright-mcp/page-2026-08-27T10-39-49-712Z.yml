@@ -1,0 +1,79 @@
+- generic [active] [ref=f91e1]:
+  - generic [ref=f91e2]:
+    - generic [ref=f91e3]:
+      - generic [ref=f91e4]:
+        - list:
+          - listitem [ref=f91e5]:
+            - link "My account" [ref=f91e6] [cursor=pointer]:
+              - /url: /my/account
+          - listitem [ref=f91e7]:
+            - link "Sign out" [ref=f91e8] [cursor=pointer]:
+              - /url: /logout
+      - generic [ref=f91e9]:
+        - text: Logged in as
+        - link "admin" [ref=f91e10] [cursor=pointer]:
+          - /url: /users/1
+      - list:
+        - listitem [ref=f91e11]:
+          - link "Home" [ref=f91e12] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f91e13]:
+          - link "My page" [ref=f91e14] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f91e15]:
+          - link "Projects" [ref=f91e16] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f91e17]:
+          - link "Flux Gantt" [ref=f91e18] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f91e19]:
+          - link "Helpdesk Command Center" [ref=f91e20] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f91e21]:
+          - link "Time Tracker" [ref=f91e22] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f91e23]:
+          - link "Timesheet" [ref=f91e24] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f91e25]:
+          - link "Workloads" [ref=f91e26] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f91e27]:
+          - link "Administration" [ref=f91e28] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f91e29]:
+          - link "Help" [ref=f91e30] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f91e31]:
+      - generic [ref=f91e32]:
+        - generic [ref=f91e33]:
+          - generic [ref=f91e34]:
+            - link "Search..." [ref=f91e35] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f91e36]
+        - generic [ref=f91e37]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f91e39]
+    - generic [ref=f91e41]:
+      - generic [ref=f91e42]: Your password has expired or the administrator requires you to change it.
+      - heading "Change password" [level=2] [ref=f91e45]
+      - generic [ref=f91e46]:
+        - generic [ref=f91e47]:
+          - paragraph [ref=f91e48]:
+            - generic [ref=f91e49]: Current password *
+            - textbox "Current password *" [ref=f91e50]
+          - paragraph [ref=f91e51]:
+            - generic [ref=f91e52]: New password *
+            - textbox "New password *" [ref=f91e53]
+            - emphasis [ref=f91e54]: Must be at least 8 characters long.
+          - paragraph [ref=f91e55]:
+            - generic [ref=f91e56]: Confirmation *
+            - textbox "Confirmation *" [ref=f91e57]
+        - button "Apply" [ref=f91e58] [cursor=pointer]
+    - generic [ref=f91e59]:
+      - text: Powered by
+      - link "Redmine" [ref=f91e60] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f91e61]
+  - log [ref=f91e62]

@@ -1,0 +1,167 @@
+- generic [ref=f105e1]:
+  - generic [ref=f105e2]:
+    - generic [ref=f105e3]:
+      - generic [ref=f105e4]:
+        - list:
+          - listitem [ref=f105e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f105e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f105e7]:
+        - text: Logged in as
+        - link "admin" [ref=f105e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f105e9]:
+        - listitem [ref=f105e10]:
+          - link [ref=f105e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f105e12]
+        - listitem [ref=f105e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f105e14]:
+          - link "My page" [ref=f105e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f105e16]:
+          - link "Projects" [ref=f105e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f105e18]:
+          - link "Flux Gantt" [ref=f105e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f105e20]:
+          - link "Helpdesk Command Center" [ref=f105e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f105e22]:
+          - link "Time Tracker" [ref=f105e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f105e24]:
+          - link "Timesheet" [ref=f105e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f105e26]:
+          - link "Workloads" [ref=f105e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f105e28]:
+          - link "More" [ref=f105e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f105e30]:
+      - generic [ref=f105e31]:
+        - generic [ref=f105e32]:
+          - generic [ref=f105e33]:
+            - link "Search..." [ref=f105e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f105e35]
+        - generic [ref=f105e36]:
+          - generic [ref=f105e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f105e38]
+    - generic [ref=f105e39]:
+      - list [ref=f105e43]:
+        - listitem [ref=f105e44]:
+          - link "Helpdesk Dashboard" [ref=f105e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f105e48]:
+          - link "Helpdesk Tickets" [ref=f105e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f105e52]:
+          - link "Reports" [ref=f105e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f105e56]:
+          - link "Organization" [ref=f105e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f105e60]:
+          - link "Customers" [ref=f105e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f105e64]:
+          - link "Products" [ref=f105e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f105e68]:
+          - link "Helpdesk Settings" [ref=f105e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f105e72]:
+        - heading "New Customer" [level=2] [ref=f105e73]
+        - generic [ref=f105e74]:
+          - list [ref=f105e76]:
+            - listitem [ref=f105e77]: Password doesn't match confirmation
+          - generic [ref=f105e78]:
+            - paragraph [ref=f105e79]:
+              - generic [ref=f105e80]: Login *
+              - textbox "Login *" [active] [ref=f105e81]: test.pwmismatch
+            - paragraph [ref=f105e82]:
+              - generic [ref=f105e83]: First name *
+              - textbox "First name *" [ref=f105e84]: Test
+            - paragraph [ref=f105e85]:
+              - generic [ref=f105e86]: Last name *
+              - textbox "Last name *" [ref=f105e87]: PwMismatch
+            - paragraph [ref=f105e88]:
+              - generic [ref=f105e89]: Email *
+              - textbox "Email *" [ref=f105e90]: test.pwmismatch@test.local
+            - generic [ref=f105e91]:
+              - paragraph [ref=f105e92]:
+                - generic [ref=f105e93]: Password *
+                - textbox "Password *" [ref=f105e94]
+              - paragraph [ref=f105e95]:
+                - generic [ref=f105e96]: Confirmation *
+                - textbox "Confirmation *" [ref=f105e97]
+            - paragraph [ref=f105e98]:
+              - checkbox "Generate password automatically" [ref=f105e99]
+              - generic [ref=f105e100]: Generate password automatically
+            - paragraph [ref=f105e101]:
+              - checkbox "Send account information to the user" [checked] [disabled] [ref=f105e102]
+              - generic [ref=f105e103]: Send account information to the user
+          - group "Project access" [ref=f105e104]:
+            - paragraph [ref=f105e106]: Projects this customer can raise tickets against, and the SLA, support level and organisation that apply on each. Leave empty to create the account without project access.
+            - generic [ref=f105e108]:
+              - generic [ref=f105e109]:
+                - generic [ref=f105e110]: Project
+                - combobox [ref=f105e111]:
+                  - option "-- Select project --" [selected]
+                  - option "Helpdesk QA Alpha"
+                  - option "Helpdesk QA Beta"
+              - generic [ref=f105e112]:
+                - generic [ref=f105e113]: SLA Name *
+                - combobox [ref=f105e114]:
+                  - option "None" [selected]
+              - generic [ref=f105e115]:
+                - generic [ref=f105e116]: Support Level *
+                - combobox [ref=f105e117]:
+                  - option "None" [selected]
+              - generic [ref=f105e118]:
+                - generic [ref=f105e119]: Organization Name
+                - combobox [ref=f105e120]:
+                  - option "None" [selected]
+                  - option "<script>alert(1)</script>"
+                  - option "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  - option "Alpha Full-Fields Test Org (All Changed)"
+                  - option "Alpha Minimal Fields Test Org"
+                  - option "Field Test Org Employees Neg"
+                  - option "Field Test Org Notes Billing Max"
+                  - option "Field Test Org Website Phone"
+                  - option "O'Brien & Sons, Ltd. 日本語テスト Acme123"
+              - button "Delete" [ref=f105e121] [cursor=pointer]
+            - paragraph [ref=f105e125]:
+              - button "Add project" [ref=f105e126] [cursor=pointer]
+          - paragraph [ref=f105e128]:
+            - button "Create" [ref=f105e129] [cursor=pointer]
+            - link "Cancel" [ref=f105e130] [cursor=pointer]:
+              - /url: /rf_helpdesk/customers
+    - generic [ref=f105e131]:
+      - text: Powered by
+      - link "Redmine" [ref=f105e132] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f105e133]
+  - log [ref=f105e134]
+  - log [ref=f105e135]
+  - log [ref=f105e136]
+  - log [ref=f105e137]
+  - log [ref=f105e138]
+  - log [ref=f105e139]
+  - log [ref=f105e140]
+  - log [ref=f105e141]
+  - log [ref=f105e142]
+  - log [ref=f105e143]
+  - log [ref=f105e144]
+  - log [ref=f105e145]

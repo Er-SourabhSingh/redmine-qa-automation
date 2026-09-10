@@ -1,0 +1,415 @@
+- generic [active] [ref=f90e1]:
+  - generic [ref=f90e2]:
+    - navigation [ref=f90e3]:
+      - list [ref=f90e6]:
+        - listitem [ref=f90e7]:
+          - link "Hauptseite" [ref=f90e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f90e9]:
+          - link "Meine Seite" [ref=f90e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f90e11]:
+          - link "Projekte" [ref=f90e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f90e13]:
+          - link "Agile Board" [ref=f90e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f90e15]:
+          - link "Flux Gantt" [ref=f90e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f90e17]:
+          - link "Administration" [ref=f90e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f90e19]:
+          - link "Hilfe" [ref=f90e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f90e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f90e24]: RA
+    - generic [ref=f90e27]:
+      - generic [ref=f90e28]:
+        - generic [ref=f90e29]:
+          - generic [ref=f90e30]:
+            - link "Suche" [ref=f90e31] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Suche:" [ref=f90e32]
+        - generic [ref=f90e33]:
+          - generic [ref=f90e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f90e35]
+      - list [ref=f90e38]:
+        - listitem [ref=f90e39]:
+          - link "+" [ref=f90e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f90e41]:
+          - link "Übersicht" [ref=f90e42] [cursor=pointer]:
+            - /url: /projects/agileboard
+        - listitem [ref=f90e43]:
+          - link "Dashboard" [ref=f90e44] [cursor=pointer]:
+            - /url: /projects/agileboard/analytics_dashboard
+        - listitem [ref=f90e45]:
+          - link "Aktivität" [ref=f90e46] [cursor=pointer]:
+            - /url: /projects/agileboard/activity
+        - listitem [ref=f90e47]:
+          - link "Agile Board" [ref=f90e48] [cursor=pointer]:
+            - /url: /projects/agileboard/agile_board
+        - listitem [ref=f90e49]:
+          - link "Backlog" [ref=f90e50] [cursor=pointer]:
+            - /url: /projects/agileboard/backlog
+        - listitem [ref=f90e51]:
+          - link "Roadmap" [ref=f90e52] [cursor=pointer]:
+            - /url: /projects/agileboard/roadmap
+        - listitem [ref=f90e53]:
+          - link "Tickets" [ref=f90e54] [cursor=pointer]:
+            - /url: /projects/agileboard/issues
+        - listitem [ref=f90e55]:
+          - link "Aufgewendete Zeit" [ref=f90e56] [cursor=pointer]:
+            - /url: /projects/agileboard/time_entries
+        - listitem [ref=f90e57]:
+          - link "Gantt-Diagramm" [ref=f90e58] [cursor=pointer]:
+            - /url: /projects/agileboard/issues/gantt
+        - listitem [ref=f90e59]:
+          - link "Kalender" [ref=f90e60] [cursor=pointer]:
+            - /url: /projects/agileboard/issues/calendar
+        - listitem [ref=f90e61]:
+          - link "News" [ref=f90e62] [cursor=pointer]:
+            - /url: /projects/agileboard/news
+        - listitem [ref=f90e63]:
+          - link "Dokumente" [ref=f90e64] [cursor=pointer]:
+            - /url: /projects/agileboard/documents
+        - listitem [ref=f90e65]:
+          - link "Wiki" [ref=f90e66] [cursor=pointer]:
+            - /url: /projects/agileboard/wiki
+        - listitem [ref=f90e67]:
+          - link "Dateien" [ref=f90e68] [cursor=pointer]:
+            - /url: /projects/agileboard/files
+        - listitem [ref=f90e69]:
+          - link "Konfiguration" [ref=f90e70] [cursor=pointer]:
+            - /url: /projects/agileboard/settings
+    - generic [ref=f90e71]:
+      - generic [ref=f90e72]:
+        - link [ref=f90e74] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f90e77]:
+          - heading "Abfragen" [level=3] [ref=f90e78]
+          - list [ref=f90e79]:
+            - listitem [ref=f90e80]:
+              - link "Issues assigned to me" [ref=f90e81] [cursor=pointer]:
+                - /url: /projects/agileboard/issues?query_id=1
+            - listitem [ref=f90e82]:
+              - link "Reported issues" [ref=f90e83] [cursor=pointer]:
+                - /url: /projects/agileboard/issues?query_id=2
+            - listitem [ref=f90e84]:
+              - link "Updated issues" [ref=f90e85] [cursor=pointer]:
+                - /url: /projects/agileboard/issues?query_id=3
+            - listitem [ref=f90e86]:
+              - link "Watched issues" [ref=f90e87] [cursor=pointer]:
+                - /url: /projects/agileboard/issues?query_id=4
+          - generic [ref=f90e88]:
+            - link "Hinzufügen" [ref=f90e90] [cursor=pointer]:
+              - /url: /watchers/new?object_id=259&object_type=issue
+            - heading "Beobachter (1)" [level=3] [ref=f90e91]
+            - list [ref=f90e92]:
+              - listitem [ref=f90e93]:
+                - img [ref=f90e94]: RA
+                - link "Redmine Admin" [ref=f90e95] [cursor=pointer]:
+                  - /url: /users/1
+                - link "Remove" [ref=f90e96] [cursor=pointer]:
+                  - /url: /issues/259/watchers/1
+      - generic [ref=f90e99]:
+        - generic [ref=f90e100]:
+          - link "Bearbeiten" [ref=f90e101] [cursor=pointer]:
+            - /url: /issues/259/edit
+          - link "Aufwand buchen" [ref=f90e105] [cursor=pointer]:
+            - /url: /issues/259/time_entries/new
+          - link "Nicht beobachten" [ref=f90e109] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=259&object_type=issue
+          - link "Kopieren" [ref=f90e113] [cursor=pointer]:
+            - /url: /projects/agileboard/issues/259/copy
+          - generic "Aktionen" [ref=f90e119] [cursor=pointer]
+        - 'heading "Feature #259" [level=2] [ref=f90e122]'
+        - text: offen
+        - generic [ref=f90e123]:
+          - list [ref=f90e126]:
+            - listitem [ref=f90e127]:
+              - link "« Zurück" [ref=f90e128] [cursor=pointer]:
+                - /url: /issues/260
+            - listitem [ref=f90e129]:
+              - link "3/8" [ref=f90e130] [cursor=pointer]:
+                - /url: /projects/agileboard/issues?f%5B%5D=status_id&op%5Bstatus_id%5D=o&page=1&per_page=25&set_filter=1&sort=id%3Adesc&v%5Bstatus_id%5D%5B%5D=
+            - listitem [ref=f90e131]:
+              - link "Weiter »" [ref=f90e132] [cursor=pointer]:
+                - /url: /issues/258
+          - generic:
+            - 'img "Autor: Daisy Skye" [ref=f90e133]': DS
+            - 'img "Zugewiesen an: Redmine Admin" [ref=f90e134]': RA
+          - heading [level=3] [ref=f90e138]:
+            - text: Implement scheduled exports
+            - button "Edit" [ref=f90e139] [cursor=pointer]
+          - link [ref=f90e142] [cursor=pointer]:
+            - /url: /reactions?object_id=259&object_type=Issue
+          - paragraph [ref=f90e145]:
+            - text: Von
+            - link "Daisy Skye" [ref=f90e146] [cursor=pointer]:
+              - /url: /users/7
+            - text: vor
+            - link "etwa 2 Stunden" [ref=f90e147] [cursor=pointer]:
+              - /url: /projects/agileboard/activity?from=2026-09-08
+            - text: hinzugefügt. Vor
+            - link "weniger als 1 Minute" [ref=f90e148] [cursor=pointer]:
+              - /url: /projects/agileboard/activity?from=2026-09-08
+            - text: aktualisiert.
+          - generic [ref=f90e149]:
+            - generic [ref=f90e150]:
+              - generic [ref=f90e151]:
+                - generic [ref=f90e152]:
+                  - generic [ref=f90e153]: "Status:"
+                  - generic [ref=f90e154]: Saving…
+                - generic [ref=f90e156]:
+                  - generic [ref=f90e157]: "Priorität:"
+                  - generic [ref=f90e158]:
+                    - text: Normal
+                    - button "Edit" [ref=f90e159] [cursor=pointer]
+                - generic [ref=f90e160]:
+                  - generic [ref=f90e161]: "Zugewiesen an:"
+                  - generic [ref=f90e162]:
+                    - link "Redmine Admin" [ref=f90e164] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f90e165] [cursor=pointer]
+                - generic [ref=f90e166]:
+                  - generic [ref=f90e167]: "Zielversion:"
+                  - generic [ref=f90e168]:
+                    - text: "-"
+                    - button "Edit" [ref=f90e169] [cursor=pointer]
+              - generic [ref=f90e170]:
+                - generic [ref=f90e171]:
+                  - generic [ref=f90e172]: "Startdatum:"
+                  - generic [ref=f90e173]:
+                    - text: 31.12.2028
+                    - button "Edit" [ref=f90e174] [cursor=pointer]
+                - generic [ref=f90e175]:
+                  - generic [ref=f90e176]: "Abgabedatum:"
+                  - generic [ref=f90e177]:
+                    - text: 05.01.2029 (Fällig in mehr als 2 Jahren)
+                    - button "Edit" [ref=f90e178] [cursor=pointer]
+                - generic [ref=f90e179]:
+                  - generic [ref=f90e180]: "% erledigt:"
+                  - generic [ref=f90e181]:
+                    - generic [ref=f90e182]:
+                      - table [ref=f90e183]:
+                        - rowgroup [ref=f90e184]:
+                          - row [ref=f90e185]:
+                            - cell [ref=f90e186]
+                      - paragraph [ref=f90e187]: 0%
+                    - button "Edit" [ref=f90e188] [cursor=pointer]
+                - generic [ref=f90e189]:
+                  - generic [ref=f90e190]: "Geschätzter Aufwand:"
+                  - button "Edit" [ref=f90e192] [cursor=pointer]
+            - generic [ref=f90e193]:
+              - generic [ref=f90e195]:
+                - generic [ref=f90e196]: "Sprint:"
+                - generic [ref=f90e197]:
+                  - text: "-"
+                  - button "Edit" [ref=f90e198] [cursor=pointer]
+              - generic [ref=f90e200]:
+                - generic [ref=f90e201]: "Story Points:"
+                - generic [ref=f90e202]:
+                  - text: "-"
+                  - button "Edit" [ref=f90e203] [cursor=pointer]
+            - generic [ref=f90e204]: "Tags:"
+            - generic [ref=f90e206]: Hinzufügen
+          - separator [ref=f90e207]
+          - generic [ref=f90e208]:
+            - paragraph [ref=f90e210]:
+              - strong [ref=f90e211]: Checkliste
+            - generic [ref=f90e213] [cursor=pointer]
+            - generic:
+              - list
+          - separator [ref=f90e216]
+          - generic [ref=f90e217]:
+            - link "Hinzufügen" [ref=f90e219] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/new?back_url=%2Fissues%2F259&issue%5Bparent_issue_id%5D=259&issue%5Btracker_id%5D=5
+            - paragraph [ref=f90e223]:
+              - strong [ref=f90e224]: Untergeordnete Tickets
+          - separator [ref=f90e225]
+          - generic [ref=f90e226]:
+            - link "Hinzufügen" [ref=f90e228] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f90e232]:
+              - strong [ref=f90e233]: Zugehörige Tickets
+        - generic [ref=f90e234]:
+          - list [ref=f90e236]:
+            - listitem [ref=f90e237]:
+              - link "Historie" [ref=f90e238] [cursor=pointer]:
+                - /url: /issues/259?tab=history
+            - listitem [ref=f90e239]:
+              - link "Eigenschaftsänderungen" [ref=f90e240] [cursor=pointer]:
+                - /url: /issues/259?tab=properties
+          - generic [ref=f90e241]:
+            - generic [ref=f90e243]:
+              - heading [level=4] [ref=f90e244]:
+                - generic [ref=f90e245]:
+                  - img [ref=f90e246]: RA
+                  - text: Von
+                  - link "Redmine Admin" [ref=f90e247] [cursor=pointer]:
+                    - /url: /users/1
+                  - text: vor
+                  - link "9 Minuten" [ref=f90e248] [cursor=pointer]:
+                    - /url: /projects/agileboard/activity?from=2026-09-08
+                  - text: aktualisiert
+                - generic [ref=f90e249]:
+                  - generic [ref=f90e250]:
+                    - link [ref=f90e252] [cursor=pointer]:
+                      - /url: /reactions?object_id=4&object_type=Journal
+                    - generic "Aktionen" [ref=f90e257] [cursor=pointer]
+                  - link "#1" [ref=f90e260] [cursor=pointer]:
+                    - /url: "#note-1"
+              - list [ref=f90e262]:
+                - listitem [ref=f90e263]:
+                  - strong [ref=f90e264]: Beschreibung
+                  - text: aktualisiert (
+                  - link "Vergleich" [ref=f90e265] [cursor=pointer]:
+                    - /url: /journals/4/diff?detail_id=4
+                  - text: )
+            - generic [ref=f90e267]:
+              - heading [level=4] [ref=f90e268]:
+                - generic [ref=f90e269]:
+                  - img [ref=f90e270]: RA
+                  - text: Von
+                  - link "Redmine Admin" [ref=f90e271] [cursor=pointer]:
+                    - /url: /users/1
+                  - text: vor
+                  - link "8 Minuten" [ref=f90e272] [cursor=pointer]:
+                    - /url: /projects/agileboard/activity?from=2026-09-08
+                  - text: aktualisiert
+                - generic [ref=f90e273]:
+                  - generic [ref=f90e274]:
+                    - link [ref=f90e276] [cursor=pointer]:
+                      - /url: /reactions?object_id=5&object_type=Journal
+                    - generic "Aktionen" [ref=f90e281] [cursor=pointer]
+                  - link "#2" [ref=f90e284] [cursor=pointer]:
+                    - /url: "#note-2"
+              - list [ref=f90e286]:
+                - listitem [ref=f90e287]:
+                  - strong [ref=f90e288]: Beschreibung
+                  - text: aktualisiert (
+                  - link "Vergleich" [ref=f90e289] [cursor=pointer]:
+                    - /url: /journals/5/diff?detail_id=5
+                  - text: )
+            - generic [ref=f90e291]:
+              - heading [level=4] [ref=f90e292]:
+                - generic [ref=f90e293]:
+                  - img [ref=f90e294]: RA
+                  - text: Von
+                  - link "Redmine Admin" [ref=f90e295] [cursor=pointer]:
+                    - /url: /users/1
+                  - text: vor
+                  - link "weniger als 1 Minute" [ref=f90e296] [cursor=pointer]:
+                    - /url: /projects/agileboard/activity?from=2026-09-08
+                  - text: aktualisiert
+                - generic [ref=f90e297]:
+                  - generic [ref=f90e298]:
+                    - link [ref=f90e300] [cursor=pointer]:
+                      - /url: /reactions?object_id=13&object_type=Journal
+                    - generic "Aktionen" [ref=f90e305] [cursor=pointer]
+                  - link "#3" [ref=f90e308] [cursor=pointer]:
+                    - /url: "#note-3"
+              - list [ref=f90e310]:
+                - listitem [ref=f90e311]:
+                  - strong [ref=f90e312]: Priorität
+                  - text: wurde von Urgent zu Normal geändert
+        - generic [ref=f90e313]:
+          - link "Bearbeiten" [ref=f90e314] [cursor=pointer]:
+            - /url: /issues/259/edit
+          - link "Aufwand buchen" [ref=f90e318] [cursor=pointer]:
+            - /url: /issues/259/time_entries/new
+          - link "Nicht beobachten" [ref=f90e322] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=259&object_type=issue
+          - link "Kopieren" [ref=f90e326] [cursor=pointer]:
+            - /url: /projects/agileboard/issues/259/copy
+          - generic "Aktionen" [ref=f90e332] [cursor=pointer]
+        - text: pre pre
+        - paragraph [ref=f90e335]:
+          - text: "Auch abrufbar als:"
+          - link "PDF" [ref=f90e337] [cursor=pointer]:
+            - /url: /issues/259.pdf
+          - generic [ref=f90e338]:
+            - text: "|"
+            - link "Atom" [ref=f90e339] [cursor=pointer]:
+              - /url: /issues/259.atom?key=a6249449f16344aaffb27d6f5be3002328ba1f62
+    - generic [ref=f90e340]:
+      - text: Powered by
+      - link "Redmine" [ref=f90e341] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f90e342]
+  - status [ref=f90e343]
+  - log [ref=f90e344]
+  - log [ref=f90e345]
+  - log [ref=f90e346]
+  - log [ref=f90e347]
+  - log [ref=f90e348]
+  - log [ref=f90e349]
+  - log [ref=f90e350]
+  - log [ref=f90e351]
+  - log [ref=f90e352]
+  - log [ref=f90e353]
+  - log [ref=f90e354]
+  - log [ref=f90e355]
+  - log [ref=f90e356]
+  - log [ref=f90e357]
+  - log [ref=f90e358]
+  - log [ref=f90e359]
+  - log [ref=f90e360]
+  - log [ref=f90e361]
+  - log [ref=f90e362]
+  - log [ref=f90e363]
+  - log [ref=f90e364]
+  - log [ref=f90e365]
+  - log [ref=f90e366]
+  - log [ref=f90e367]
+  - log [ref=f90e368]
+  - log [ref=f90e369]
+  - log [ref=f90e370]
+  - log [ref=f90e371]
+  - log [ref=f90e372]
+  - log [ref=f90e373]
+  - log [ref=f90e374]
+  - log [ref=f90e375]
+  - log [ref=f90e376]
+  - log [ref=f90e377]
+  - log [ref=f90e378]
+  - log [ref=f90e379]
+  - log [ref=f90e380]
+  - log [ref=f90e381]
+  - log [ref=f90e382]
+  - log [ref=f90e383]
+  - log [ref=f90e384]
+  - log [ref=f90e385]
+  - log [ref=f90e386]
+  - log [ref=f90e387]
+  - log [ref=f90e388]
+  - log [ref=f90e389]
+  - log [ref=f90e390]
+  - log [ref=f90e391]
+  - log [ref=f90e392]
+  - log [ref=f90e393]
+  - log [ref=f90e394]
+  - log [ref=f90e395]
+  - log [ref=f90e396]
+  - log [ref=f90e397]
+  - log [ref=f90e398]
+  - log [ref=f90e399]
+  - log [ref=f90e400]
+  - log [ref=f90e401]
+  - log [ref=f90e402]
+  - log [ref=f90e403]
+  - log [ref=f90e404]
+  - log [ref=f90e405]
+  - log [ref=f90e406]
+  - log [ref=f90e407]
+  - log [ref=f90e408]
+  - log [ref=f90e409]
+  - status [ref=f90e410]
+  - status [ref=f90e411]

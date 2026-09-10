@@ -1,0 +1,249 @@
+- generic [ref=f280e1]:
+  - generic [ref=f280e2]:
+    - generic [ref=f280e3]:
+      - generic [ref=f280e4]:
+        - list:
+          - listitem [ref=f280e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f280e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f280e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f280e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f280e9]:
+        - listitem [ref=f280e10]:
+          - link [ref=f280e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f280e12]
+        - listitem [ref=f280e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f280e14]:
+          - link "My page" [ref=f280e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f280e16]:
+          - link "Projects" [ref=f280e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f280e18]:
+          - link "Time Tracker" [ref=f280e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f280e20]:
+          - link "Workloads" [ref=f280e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f280e22]:
+          - link "Help" [ref=f280e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f280e24]:
+      - generic [ref=f280e25]:
+        - generic [ref=f280e26]:
+          - generic [ref=f280e27]:
+            - link "Search..." [ref=f280e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f280e29]
+        - generic [ref=f280e30]:
+          - generic [ref=f280e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f280e32]
+      - generic [ref=f280e33]:
+        - list [ref=f280e34]:
+          - listitem [ref=f280e35]:
+            - link "+" [ref=f280e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f280e37]:
+            - link "Overview" [ref=f280e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f280e39]:
+            - link "Activity" [ref=f280e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f280e41]:
+            - link "Issues" [ref=f280e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f280e43]:
+            - link "Spent time" [ref=f280e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f280e45]:
+            - link "Gantt" [ref=f280e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f280e47]:
+            - link "Calendar" [ref=f280e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f280e49]:
+            - link "News" [ref=f280e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f280e51]:
+            - link "Documents" [ref=f280e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f280e53]:
+            - link "Wiki" [ref=f280e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f280e55]:
+            - link "Files" [ref=f280e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f280e57]:
+            - link "Helpdesk" [ref=f280e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f280e59]:
+          - button [ref=f280e60] [cursor=pointer]
+          - button [ref=f280e63] [cursor=pointer]
+    - generic [ref=f280e66]:
+      - list [ref=f280e70]:
+        - listitem [ref=f280e71]:
+          - link "Helpdesk Dashboard" [ref=f280e72] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f280e75]:
+          - link "Helpdesk Tickets" [ref=f280e76] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f280e79]:
+          - link "Knowledgebase" [ref=f280e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f280e83]:
+        - heading "New issue" [level=2] [ref=f280e84]
+        - generic [ref=f280e85]:
+          - generic [ref=f280e86]:
+            - paragraph [ref=f280e87]:
+              - generic [ref=f280e88]: Tracker *
+              - combobox "Tracker *" [ref=f280e89]:
+                - option "Support" [selected]
+            - paragraph [ref=f280e90]:
+              - generic [ref=f280e91]: Subject *
+              - textbox "Subject *" [active] [ref=f280e92]
+            - paragraph [ref=f280e93]:
+              - generic [ref=f280e94]: Description
+              - generic [ref=f280e96]:
+                - list [ref=f280e98]:
+                  - listitem [ref=f280e99]:
+                    - link "Edit" [ref=f280e100] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f280e101]:
+                    - link "Preview" [ref=f280e102] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f280e103]:
+                    - generic [ref=f280e104]:
+                      - button "Strong (Ctrl+B)" [ref=f280e105] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f280e106] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f280e107] [cursor=pointer]
+                      - button "Deleted" [ref=f280e108] [cursor=pointer]
+                      - button "Inline Code" [ref=f280e109] [cursor=pointer]
+                      - button "Heading 1" [ref=f280e110] [cursor=pointer]
+                      - button "Heading 2" [ref=f280e111] [cursor=pointer]
+                      - button "Heading 3" [ref=f280e112] [cursor=pointer]
+                      - button "Unordered list" [ref=f280e113] [cursor=pointer]
+                      - button "Ordered list" [ref=f280e114] [cursor=pointer]
+                      - button "Task list" [ref=f280e115] [cursor=pointer]
+                      - button "Quote" [ref=f280e116] [cursor=pointer]
+                      - button "Remove Quote" [ref=f280e117] [cursor=pointer]
+                      - button "Table" [ref=f280e118] [cursor=pointer]
+                      - button "pre" [ref=f280e119] [cursor=pointer]
+                      - button "Highlighted code" [ref=f280e120] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f280e121] [cursor=pointer]
+                      - button "Image" [ref=f280e122] [cursor=pointer]
+                      - button "Help" [ref=f280e123] [cursor=pointer]
+                - textbox "Description" [ref=f280e125]
+            - generic [ref=f280e126]:
+              - generic [ref=f280e127]:
+                - generic [ref=f280e128]:
+                  - paragraph [ref=f280e129]:
+                    - generic [ref=f280e130]: Status *
+                    - combobox "Status *" [ref=f280e131]:
+                      - option "New" [selected]
+                  - paragraph [ref=f280e132]:
+                    - generic [ref=f280e133]: Priority *
+                    - combobox "Priority *" [ref=f280e134]:
+                      - option "Low"
+                      - option "Normal" [selected]
+                      - option "High"
+                      - option "Urgent"
+                      - option "Immediate"
+                  - paragraph [ref=f280e135]:
+                    - generic [ref=f280e136]: Assigned to
+                    - combobox "Assigned to" [ref=f280e137]:
+                      - option [selected]
+                      - option "<< me >>"
+                      - option "Luna Blossom"
+                    - link "Assign to me" [ref=f280e138] [cursor=pointer]:
+                      - /url: "#"
+                - generic [ref=f280e139]:
+                  - paragraph [ref=f280e140]:
+                    - generic [ref=f280e141]: Parent issue
+                    - textbox "Parent issue" [ref=f280e142]
+                  - paragraph [ref=f280e143]:
+                    - generic [ref=f280e144]: Created Date
+                    - textbox "Created Date" [ref=f280e145]: 2026-08-31
+                  - paragraph [ref=f280e146]:
+                    - generic [ref=f280e147]: Resolve Date
+                    - textbox "Resolve Date" [ref=f280e148]
+                  - paragraph [ref=f280e149]:
+                    - generic [ref=f280e150]: Estimated hours
+                    - textbox "Estimated hours" [ref=f280e151]:
+                      - /placeholder: h:mm
+                    - text: Hours
+                  - paragraph [ref=f280e152]:
+                    - generic [ref=f280e153]: Done ratio
+                    - combobox "Done ratio" [ref=f280e154]:
+                      - option "0 %" [selected]
+                      - option "10 %"
+                      - option "20 %"
+                      - option "30 %"
+                      - option "40 %"
+                      - option "50 %"
+                      - option "60 %"
+                      - option "70 %"
+                      - option "80 %"
+                      - option "90 %"
+                      - option "100 %"
+              - paragraph [ref=f280e157]:
+                - generic [ref=f280e158]: Issue Category
+                - combobox "Issue Category" [ref=f280e159]:
+                  - option [selected]
+                  - option "Community Plugins and Files"
+                  - option "Report a Bug"
+                  - option "Data Protection and Security"
+                  - option "Payments and Invoices"
+                  - option "Account and File Management"
+            - paragraph [ref=f280e161]:
+              - generic [ref=f280e162]: Requirements
+              - text: No Requirements
+            - paragraph [ref=f280e163]:
+              - generic [ref=f280e164]: Product
+              - combobox "Product" [ref=f280e165]:
+                - option "None" [selected]
+          - paragraph [ref=f280e166]:
+            - button "Create" [ref=f280e167] [cursor=pointer]
+            - button "Create and add another" [ref=f280e168] [cursor=pointer]
+    - generic [ref=f280e169]:
+      - text: Powered by
+      - link "Redmine" [ref=f280e170] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f280e171]
+  - log [ref=f280e172]
+  - log [ref=f280e173]
+  - log [ref=f280e174]
+  - log [ref=f280e175]
+  - log [ref=f280e176]
+  - log [ref=f280e177]
+  - log [ref=f280e178]
+  - log [ref=f280e179]
+  - log [ref=f280e180]
+  - log [ref=f280e181]
+  - log [ref=f280e182]
+  - log [ref=f280e183]
+  - log [ref=f280e184]
+  - log [ref=f280e185]
+  - log [ref=f280e186]
+  - log [ref=f280e187]
+  - log [ref=f280e188]
+  - log [ref=f280e189]
+  - log [ref=f280e190]
+  - log [ref=f280e191]
+  - log [ref=f280e192]
+  - log [ref=f280e193]
+  - log [ref=f280e194]
+  - log [ref=f280e195]
+  - log [ref=f280e196]
+  - log [ref=f280e197]
+  - status [ref=f280e198]

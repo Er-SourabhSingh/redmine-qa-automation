@@ -1,0 +1,305 @@
+- generic [ref=f25e1]:
+  - generic [ref=f25e2]:
+    - navigation [ref=f25e3]:
+      - list [ref=f25e6]:
+        - listitem [ref=f25e7]:
+          - link "Hauptseite" [ref=f25e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f25e9]:
+          - link "Meine Seite" [ref=f25e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f25e11]:
+          - link "Projekte" [ref=f25e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f25e13]:
+          - link "Agile Board" [ref=f25e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f25e15]:
+          - link "Flux Gantt" [ref=f25e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f25e17]:
+          - link "Administration" [ref=f25e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f25e19]:
+          - link "Hilfe" [ref=f25e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f25e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f25e24]: RA
+    - generic [ref=f25e27]:
+      - generic [ref=f25e28]:
+        - generic [ref=f25e29]:
+          - generic [ref=f25e30]:
+            - link "Suche" [ref=f25e31] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/search
+            - text: ":"
+          - textbox "Suche:" [ref=f25e32]
+        - generic [ref=f25e33]:
+          - generic [ref=f25e34] [cursor=pointer]: Flux Gantt Project
+          - text: ✓ ✓
+      - heading "Flux Gantt Project" [level=1] [ref=f25e35]
+      - list [ref=f25e38]:
+        - listitem [ref=f25e39]:
+          - link "+" [ref=f25e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f25e41]:
+          - link "Übersicht" [ref=f25e42] [cursor=pointer]:
+            - /url: /projects/fluxganttproject
+        - listitem [ref=f25e43]:
+          - link "Dashboard" [ref=f25e44] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/analytics_dashboard
+        - listitem [ref=f25e45]:
+          - link "Flux Gantt" [ref=f25e46] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/flux_gantt
+        - listitem [ref=f25e47]:
+          - link "Aktivität" [ref=f25e48] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/activity
+        - listitem [ref=f25e49]:
+          - link "Roadmap" [ref=f25e50] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/roadmap
+        - listitem [ref=f25e51]:
+          - link "Tickets" [ref=f25e52] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues
+        - listitem [ref=f25e53]:
+          - link "Aufgewendete Zeit" [ref=f25e54] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/time_entries
+        - listitem [ref=f25e55]:
+          - link "Gantt-Diagramm" [ref=f25e56] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/gantt
+        - listitem [ref=f25e57]:
+          - link "Kalender" [ref=f25e58] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/calendar
+        - listitem [ref=f25e59]:
+          - link "News" [ref=f25e60] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/news
+        - listitem [ref=f25e61]:
+          - link "Dokumente" [ref=f25e62] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/documents
+        - listitem [ref=f25e63]:
+          - link "Wiki" [ref=f25e64] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/wiki
+        - listitem [ref=f25e65]:
+          - link "Dateien" [ref=f25e66] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/files
+        - listitem [ref=f25e67]:
+          - link "Konfiguration" [ref=f25e68] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/settings
+    - generic [ref=f25e70]:
+      - generic [ref=f25e71]:
+        - generic [ref=f25e72]:
+          - heading "Analytics Dashboard" [level=2] [ref=f25e73]
+          - generic [ref=f25e74]:
+            - button "Share" [ref=f25e75] [cursor=pointer]
+            - button "OFF" [ref=f25e79] [cursor=pointer]
+            - combobox [disabled] [ref=f25e84]:
+              - option "30 sec"
+              - option "1 min" [selected]
+              - option "2 min"
+              - option "5 min"
+              - option "10 min"
+        - generic [ref=f25e85]:
+          - generic [ref=f25e86]:
+            - generic [ref=f25e87]: "Tracker:"
+            - combobox "Tracker:" [ref=f25e88]:
+              - option "All Trackers" [selected]
+              - option "Bug"
+              - option "Feature"
+              - option "Support"
+          - generic [ref=f25e89]:
+            - generic [ref=f25e90]: "Date Range:"
+            - combobox "Date Range:" [ref=f25e91]:
+              - option "Heute"
+              - option "die letzten 7 Tage"
+              - option "die letzten 30 Tage" [selected]
+              - option "die letzten 90 Tage"
+              - option "aktueller Monat"
+              - option "voriger Monat"
+              - option "aktuelles Jahr"
+              - option "Custom Range"
+          - button "Apply" [ref=f25e92] [cursor=pointer]
+          - generic [ref=f25e93]:
+            - button "Refresh" [ref=f25e94] [cursor=pointer]
+            - button "Fullscreen" [ref=f25e97] [cursor=pointer]
+        - button "Add Chart" [ref=f25e101] [cursor=pointer]
+        - generic [ref=f25e104]:
+          - generic [ref=f25e105]:
+            - heading "Issues by Status" [level=3] [ref=f25e108]
+            - generic [ref=f25e109]:
+              - button "Copy Chart" [ref=f25e212] [cursor=pointer]
+              - button "Fullscreen" [ref=f25e114] [cursor=pointer]
+              - button "Chart Information" [ref=f25e203] [cursor=pointer]
+              - button "Settings" [ref=f25e120] [cursor=pointer]
+              - button "Remove" [ref=f25e124] [cursor=pointer]
+          - generic [ref=f25e129] [cursor=pointer]
+          - generic "Drag to resize width" [ref=f25e130]
+          - generic "Drag to resize height" [ref=f25e131]
+          - generic "Drag to resize both" [ref=f25e132]
+      - generic [ref=f25e214]:
+        - generic [ref=f25e215]:
+          - heading "Chart Settings" [level=3] [ref=f25e216]
+          - button [active] [ref=f25e217] [cursor=pointer]
+        - generic [ref=f25e221]:
+          - generic [ref=f25e222]:
+            - generic [ref=f25e223]: General
+            - generic [ref=f25e226]:
+              - generic [ref=f25e227]: Chart Title
+              - textbox "Enter chart title" [ref=f25e228]: Issues by Status
+            - generic [ref=f25e229]:
+              - generic [ref=f25e230]: Legend Position
+              - combobox "Legend Position" [ref=f25e231]:
+                - option "Bottom" [selected]
+                - option "Top"
+                - option "Left"
+                - option "Right"
+            - generic [ref=f25e232]:
+              - generic [ref=f25e233]: Show Data Labels
+              - combobox "Show Data Labels" [ref=f25e234]:
+                - option "Hide" [selected]
+                - option "Show"
+            - generic [ref=f25e235]:
+              - generic [ref=f25e236]:
+                - generic [ref=f25e237]: Custom Date Range
+                - generic [ref=f25e238]: Leave empty to use global date filter
+              - generic [ref=f25e239]:
+                - generic [ref=f25e240]:
+                  - generic [ref=f25e241]: Start Date
+                  - textbox [ref=f25e242]
+                - generic [ref=f25e243]:
+                  - generic [ref=f25e244]: End Date
+                  - textbox [ref=f25e245]
+              - button "🗑️ Clear Custom Dates" [ref=f25e246] [cursor=pointer]
+              - paragraph [ref=f25e247]: Leave empty to use global date filter
+          - generic [ref=f25e248]:
+            - generic [ref=f25e249]: Data Filters
+            - generic [ref=f25e403]:
+              - generic [ref=f25e404]:
+                - generic [ref=f25e405]: Issue Status
+                - generic [ref=f25e406]: Select up to 15 statuses
+              - generic [ref=f25e407]:
+                - generic [ref=f25e408]:
+                  - generic [ref=f25e409]: Available Statuses
+                  - listbox [ref=f25e410]:
+                    - option "Closed" [ref=f25e411] [cursor=pointer]
+                    - option "Rejected" [ref=f25e412] [cursor=pointer]
+                - generic [ref=f25e413]:
+                  - button "▶" [ref=f25e414] [cursor=pointer]
+                  - button "◀" [ref=f25e415] [cursor=pointer]
+                - generic [ref=f25e416]:
+                  - generic [ref=f25e417]: Selected Statuses
+                  - listbox [ref=f25e418]:
+                    - option "Feedback" [ref=f25e419] [cursor=pointer]
+                    - option "In Progress" [ref=f25e420] [cursor=pointer]
+                    - option "New" [ref=f25e421] [cursor=pointer]
+                    - option "Resolved" [ref=f25e422] [cursor=pointer]
+          - generic [ref=f25e275]:
+            - generic [ref=f25e276]: Appearance
+            - generic [ref=f25e284]:
+              - generic [ref=f25e285]: Top Accent Color
+              - generic [ref=f25e289]:
+                - generic [ref=f25e290]:
+                  - generic [ref=f25e291]:
+                    - textbox [ref=f25e292] [cursor=pointer]: "#2196f3"
+                    - generic [ref=f25e293]: Pick Color
+                  - generic [ref=f25e294]:
+                    - generic [ref=f25e295]: Hex Code
+                    - textbox "#2196F3" [ref=f25e296]
+                - paragraph [ref=f25e297]: This color appears as a bar at the top of the chart card
+            - generic [ref=f25e300]:
+              - generic [ref=f25e301]: Chart Color Palette
+              - generic [ref=f25e307]:
+                - generic [ref=f25e308]:
+                  - generic [ref=f25e309]: Select a Pre-built Palette
+                  - generic [ref=f25e310]:
+                    - generic "Modern" [ref=f25e311] [cursor=pointer]
+                    - generic "Pastel" [ref=f25e320] [cursor=pointer]
+                    - generic "Vibrant" [ref=f25e329] [cursor=pointer]
+                    - generic "Professional" [ref=f25e338] [cursor=pointer]
+                    - generic "Earth Tones" [ref=f25e347] [cursor=pointer]
+                    - generic "Ocean" [ref=f25e356] [cursor=pointer]
+                  - generic [ref=f25e365]: Select a palette above or create custom
+                  - generic [ref=f25e367]:
+                    - button "Create Custom Palette" [ref=f25e368] [cursor=pointer]
+                    - button "🗑️ Clear Colors" [ref=f25e369] [cursor=pointer]
+                - paragraph [ref=f25e370]: Selected colors will be used for chart data series in order
+        - generic [ref=f25e373]:
+          - button "Cancel" [ref=f25e374] [cursor=pointer]
+          - button "Save Settings" [ref=f25e375] [cursor=pointer]
+    - generic [ref=f25e133]:
+      - text: Powered by
+      - link "Redmine" [ref=f25e134] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f25e135]
+  - log [ref=f25e136]
+  - log [ref=f25e137]
+  - log [ref=f25e138]
+  - log [ref=f25e139]
+  - log [ref=f25e140]
+  - log [ref=f25e141]
+  - log [ref=f25e142]
+  - log [ref=f25e143]
+  - log [ref=f25e144]
+  - log [ref=f25e145]
+  - log [ref=f25e146]
+  - log [ref=f25e147]:
+    - generic [ref=f25e204]: Generate Public Share Link
+  - log [ref=f25e148]:
+    - generic [ref=f25e205]: Enable/Disable Auto Refresh
+  - log [ref=f25e149]:
+    - generic [ref=f25e206]: Refresh
+  - log [ref=f25e150]:
+    - generic [ref=f25e207]: Fullscreen
+  - log [ref=f25e151]:
+    - generic [ref=f25e209]: Copy Chart
+  - log [ref=f25e152]
+  - log [ref=f25e153]:
+    - generic [ref=f25e202]: Chart Information
+  - log [ref=f25e154]:
+    - generic [ref=f25e424]: Settings
+  - log [ref=f25e155]
+  - log [ref=f25e156]
+  - log [ref=f25e157]
+  - log [ref=f25e158]
+  - log [ref=f25e159]
+  - log [ref=f25e160]
+  - log [ref=f25e161]
+  - log [ref=f25e162]
+  - log [ref=f25e163]
+  - log [ref=f25e164]
+  - log [ref=f25e165]
+  - log [ref=f25e166]
+  - log [ref=f25e167]
+  - log [ref=f25e168]
+  - log [ref=f25e169]
+  - log [ref=f25e170]
+  - log [ref=f25e171]
+  - log [ref=f25e172]
+  - log [ref=f25e173]
+  - log [ref=f25e174]
+  - log [ref=f25e175]
+  - log [ref=f25e176]
+  - log [ref=f25e177]
+  - log [ref=f25e178]
+  - log [ref=f25e179]
+  - log [ref=f25e180]
+  - log [ref=f25e181]
+  - log [ref=f25e182]
+  - log [ref=f25e183]
+  - log [ref=f25e184]
+  - log [ref=f25e185]
+  - log [ref=f25e186]
+  - log [ref=f25e187]
+  - log [ref=f25e188]
+  - log [ref=f25e189]
+  - log [ref=f25e190]
+  - log [ref=f25e191]
+  - log [ref=f25e192]
+  - log [ref=f25e193]
+  - log [ref=f25e194]
+  - log [ref=f25e195]
+  - log [ref=f25e196]
+  - log [ref=f25e197]
+  - log [ref=f25e198]
+  - log [ref=f25e199]
+  - log [ref=f25e200]
+  - tooltip "Settings"

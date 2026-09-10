@@ -1,0 +1,268 @@
+- generic [ref=f566e1]:
+  - generic [ref=f566e2]:
+    - generic [ref=f566e3]:
+      - generic [ref=f566e4]:
+        - list:
+          - listitem [ref=f566e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f566e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f566e7]:
+        - text: Logged in as
+        - link "admin" [ref=f566e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f566e9]:
+        - listitem [ref=f566e10]:
+          - link [ref=f566e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f566e12]
+        - listitem [ref=f566e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f566e14]:
+          - link "My page" [ref=f566e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f566e16]:
+          - link "Projects" [ref=f566e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f566e18]:
+          - link "Flux Gantt" [ref=f566e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f566e20]:
+          - link "Helpdesk Command Center" [ref=f566e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f566e22]:
+          - link "Time Tracker" [ref=f566e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f566e24]:
+          - link "Timesheet" [ref=f566e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f566e26]:
+          - link "Workloads" [ref=f566e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f566e28]:
+          - link "More" [ref=f566e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f566e30]:
+      - generic [ref=f566e31]:
+        - generic [ref=f566e32]:
+          - generic [ref=f566e33]:
+            - link "Search..." [ref=f566e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f566e35]
+        - generic [ref=f566e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f566e38]
+    - generic [ref=f566e39]:
+      - link [ref=f566e41] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=f566e44]:
+        - heading "Settings" [level=2] [ref=f566e45]
+        - generic [ref=f566e46]:
+          - list [ref=f566e47]:
+            - listitem [ref=f566e48]:
+              - link "General" [ref=f566e49] [cursor=pointer]:
+                - /url: /settings?tab=general
+            - listitem [ref=f566e50]:
+              - link "Display" [ref=f566e51] [cursor=pointer]:
+                - /url: /settings?tab=display
+            - listitem [ref=f566e52]:
+              - link "Authentication" [ref=f566e53] [cursor=pointer]:
+                - /url: /settings?tab=authentication
+            - listitem [ref=f566e54]:
+              - link "API" [ref=f566e55] [cursor=pointer]:
+                - /url: /settings?tab=api
+            - listitem [ref=f566e56]:
+              - link "Projects" [ref=f566e57] [cursor=pointer]:
+                - /url: /settings?tab=projects
+            - listitem [ref=f566e58]:
+              - link "Users" [ref=f566e59] [cursor=pointer]:
+                - /url: /settings?tab=users
+            - listitem [ref=f566e60]:
+              - link "Issue tracking" [ref=f566e61] [cursor=pointer]:
+                - /url: /settings?tab=issues
+            - listitem [ref=f566e62]:
+              - link "Time tracking" [ref=f566e63] [cursor=pointer]:
+                - /url: /settings?tab=timelog
+            - listitem [ref=f566e64]:
+              - link "Files" [ref=f566e65] [cursor=pointer]:
+                - /url: /settings?tab=attachments
+            - listitem [ref=f566e66]:
+              - link "Email notifications" [ref=f566e67] [cursor=pointer]:
+                - /url: /settings?tab=notifications
+            - listitem [ref=f566e68]:
+              - link "Incoming emails" [ref=f566e69] [cursor=pointer]:
+                - /url: /settings?tab=mail_handler
+            - listitem [ref=f566e70]:
+              - link "Repositories" [ref=f566e71] [cursor=pointer]:
+                - /url: /settings?tab=repositories
+          - generic [ref=f566e72]:
+            - button [ref=f566e73] [cursor=pointer]
+            - button [ref=f566e76] [cursor=pointer]
+        - generic [ref=f566e80]:
+          - generic [ref=f566e81]:
+            - paragraph [ref=f566e82]:
+              - generic [ref=f566e83]: Application title
+              - textbox "Application title" [active] [ref=f566e84]: Redmine
+            - paragraph [ref=f566e85]:
+              - generic [ref=f566e86]: Welcome text
+              - generic [ref=f566e87]:
+                - list [ref=f566e89]:
+                  - listitem [ref=f566e90]:
+                    - link "Edit" [ref=f566e91] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f566e92]:
+                    - link "Preview" [ref=f566e93] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f566e94]:
+                    - generic [ref=f566e95]:
+                      - button "Strong (Ctrl+B)" [ref=f566e96] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f566e97] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f566e98] [cursor=pointer]
+                      - button "Deleted" [ref=f566e99] [cursor=pointer]
+                      - button "Inline Code" [ref=f566e100] [cursor=pointer]
+                      - button "Heading 1" [ref=f566e101] [cursor=pointer]
+                      - button "Heading 2" [ref=f566e102] [cursor=pointer]
+                      - button "Heading 3" [ref=f566e103] [cursor=pointer]
+                      - button "Unordered list" [ref=f566e104] [cursor=pointer]
+                      - button "Ordered list" [ref=f566e105] [cursor=pointer]
+                      - button "Task list" [ref=f566e106] [cursor=pointer]
+                      - button "Quote" [ref=f566e107] [cursor=pointer]
+                      - button "Remove Quote" [ref=f566e108] [cursor=pointer]
+                      - button "Table" [ref=f566e109] [cursor=pointer]
+                      - button "pre" [ref=f566e110] [cursor=pointer]
+                      - button "Highlighted code" [ref=f566e111] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f566e112] [cursor=pointer]
+                      - button "Image" [ref=f566e113] [cursor=pointer]
+                      - button "Help" [ref=f566e114] [cursor=pointer]
+                - textbox "Welcome text" [ref=f566e116]: "Welcome to Redmine, an open-source, flexible project management software. Note: You can modify this message in the \"Welcome text\" setting (Administration > Settings > General)."
+            - paragraph [ref=f566e117]:
+              - generic [ref=f566e118]: Objects per page options
+              - textbox "Objects per page options" [ref=f566e119]: 25,50,100
+              - emphasis [ref=f566e120]: Multiple values allowed (comma separated).
+            - paragraph [ref=f566e121]:
+              - generic [ref=f566e122]: Search results per page
+              - textbox "Search results per page" [ref=f566e123]: "10"
+            - paragraph [ref=f566e124]:
+              - generic [ref=f566e125]: Days displayed on project activity
+              - textbox "Days displayed on project activity" [ref=f566e126]: "10"
+              - text: days
+            - paragraph [ref=f566e127]:
+              - generic [ref=f566e128]: Host name and path
+              - textbox "Host name and path" [ref=f566e129]: localhost:3012
+              - emphasis [ref=f566e130]: "Example: localhost:3012"
+            - paragraph [ref=f566e131]:
+              - generic [ref=f566e132]: Protocol
+              - combobox "Protocol" [ref=f566e133]:
+                - option "HTTP" [selected]
+                - option "HTTPS"
+            - paragraph [ref=f566e134]:
+              - generic [ref=f566e135]: Text formatting
+              - combobox "Text formatting" [ref=f566e136]:
+                - option "None"
+                - option "Textile"
+                - option "CommonMark Markdown (GitHub Flavored)" [selected]
+              - generic [ref=f566e137]:
+                - generic [ref=f566e138]:
+                  - checkbox "Hardbreaks" [checked] [disabled] [ref=f566e139]
+                  - text: Hardbreaks
+                - emphasis [ref=f566e140]: You can configure the behaviour in config/configuration.yml. Please restart the application after editing it.
+            - paragraph [ref=f566e141]:
+              - generic [ref=f566e142]: Cache formatted text
+              - checkbox "Cache formatted text" [ref=f566e143]
+            - paragraph [ref=f566e144]:
+              - generic [ref=f566e145]: Wiki history compression
+              - combobox "Wiki history compression" [ref=f566e146]:
+                - option "None" [selected]
+                - option "Gzip"
+            - paragraph [ref=f566e147]:
+              - generic [ref=f566e148]: Maximum number of items in Atom feeds
+              - textbox "Maximum number of items in Atom feeds" [ref=f566e149]: "15"
+            - paragraph [ref=f566e150]:
+              - generic [ref=f566e151]: Enable reactions
+              - checkbox "Enable reactions" [checked] [ref=f566e152]
+          - button "Save" [ref=f566e153] [cursor=pointer]
+        - text: pre pre
+    - generic [ref=f566e154]:
+      - text: Powered by
+      - link "Redmine" [ref=f566e155] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f566e156]
+  - log [ref=f566e157]
+  - log [ref=f566e158]
+  - log [ref=f566e159]
+  - log [ref=f566e160]
+  - log [ref=f566e161]
+  - log [ref=f566e162]
+  - log [ref=f566e163]
+  - log [ref=f566e164]
+  - log [ref=f566e165]
+  - log [ref=f566e166]
+  - log [ref=f566e167]
+  - log [ref=f566e168]
+  - log [ref=f566e169]
+  - log [ref=f566e170]
+  - log [ref=f566e171]
+  - log [ref=f566e172]
+  - log [ref=f566e173]
+  - log [ref=f566e174]
+  - log [ref=f566e175]
+  - log [ref=f566e176]
+  - log [ref=f566e177]
+  - log [ref=f566e178]
+  - log [ref=f566e179]
+  - log [ref=f566e180]
+  - log [ref=f566e181]
+  - log [ref=f566e182]
+  - log [ref=f566e183]
+  - log [ref=f566e184]
+  - log [ref=f566e185]
+  - log [ref=f566e186]
+  - log [ref=f566e187]
+  - log [ref=f566e188]
+  - log [ref=f566e189]
+  - log [ref=f566e190]
+  - log [ref=f566e191]
+  - log [ref=f566e192]
+  - log [ref=f566e193]
+  - log [ref=f566e194]
+  - log [ref=f566e195]
+  - log [ref=f566e196]
+  - log [ref=f566e197]
+  - log [ref=f566e198]
+  - log [ref=f566e199]
+  - log [ref=f566e200]
+  - log [ref=f566e201]
+  - log [ref=f566e202]
+  - log [ref=f566e203]
+  - log [ref=f566e204]
+  - log [ref=f566e205]
+  - log [ref=f566e206]
+  - log [ref=f566e207]
+  - log [ref=f566e208]
+  - log [ref=f566e209]
+  - log [ref=f566e210]
+  - log [ref=f566e211]
+  - log [ref=f566e212]
+  - log [ref=f566e213]
+  - log [ref=f566e214]
+  - log [ref=f566e215]
+  - log [ref=f566e216]
+  - log [ref=f566e217]
+  - log [ref=f566e218]
+  - log [ref=f566e219]
+  - log [ref=f566e220]
+  - log [ref=f566e221]
+  - log [ref=f566e222]
+  - log [ref=f566e223]
+  - log [ref=f566e224]
+  - log [ref=f566e225]
+  - log [ref=f566e226]
+  - log [ref=f566e227]
+  - log [ref=f566e228]
+  - log [ref=f566e229]
+  - log [ref=f566e230]
+  - log [ref=f566e231]

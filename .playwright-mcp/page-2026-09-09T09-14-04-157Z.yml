@@ -1,0 +1,99 @@
+- generic [active] [ref=f127e1]:
+  - generic [ref=f127e2]:
+    - generic [ref=f127e3]:
+      - generic [ref=f127e4]:
+        - img "Logo" [ref=f127e5]
+        - text: 
+      - navigation "Application tasks" [ref=f127e6]:
+        - button " Compose" [ref=f127e8] [cursor=pointer]
+        - button " Mail" [ref=f127e9] [cursor=pointer]
+        - button " Contacts" [ref=f127e10] [cursor=pointer]
+        - button " Settings" [ref=f127e11] [cursor=pointer]
+        - generic [ref=f127e12]:
+          - button " Dark mode" [ref=f127e13] [cursor=pointer]
+          - button " About" [ref=f127e14] [cursor=pointer]
+          - button " Logout" [ref=f127e15] [cursor=pointer]
+    - generic [ref=f127e16]:
+      - toolbar "Application toolbar" [ref=f127e17]:
+        - text:                 
+        - list [ref=f127e18]:
+          - menuitem: 
+          - menuitem [ref=f127e19]:
+            - button " Reply" [ref=f127e20] [cursor=pointer]
+          - menuitem [ref=f127e21]:
+            - generic [ref=f127e22]:
+              - button " Reply all" [ref=f127e23] [cursor=pointer]
+              - link "" [ref=f127e24] [cursor=pointer]:
+                - /url: "#reply-all"
+          - menuitem [ref=f127e25]:
+            - generic [ref=f127e26]:
+              - button " Forward" [ref=f127e27] [cursor=pointer]
+              - link "" [ref=f127e28] [cursor=pointer]:
+                - /url: "#forward"
+          - menuitem [ref=f127e29]
+          - menuitem [ref=f127e30]:
+            - button " Delete" [ref=f127e31] [cursor=pointer]
+          - menuitem [ref=f127e32]:
+            - button " Print" [ref=f127e33] [cursor=pointer]
+          - menuitem [ref=f127e34]:
+            - button " Mark" [ref=f127e35] [cursor=pointer]
+          - menuitem [ref=f127e36]:
+            - button " More" [ref=f127e37] [cursor=pointer]
+          - menuitem [ref=f127e38]
+          - menuitem " Previous" [ref=f127e39]:
+            - button " Previous" [disabled]
+          - menuitem " Next" [ref=f127e40]:
+            - button " Next" [disabled]
+        - text: 
+      - main [ref=f127e41]:
+        - generic [ref=f127e42]:
+          - heading [level=2] [ref=f127e43]:
+            - text: "Ticket #55 automatically closed due to inactivity"
+            - button "" [ref=f127e44] [cursor=pointer]
+          - generic [ref=f127e45]:
+            - img "Contact photo" [ref=f127e46]
+            - generic [ref=f127e47]:
+              - generic [ref=f127e49]:
+                - text: From
+                - link "alpha.support@test.local" [ref=f127e51] [cursor=pointer]:
+                  - /url: mailto:alpha.support@test.local
+                - text: on 2026-09-09 13:09
+              - generic [ref=f127e52]:
+                - link " Details" [ref=f127e53] [cursor=pointer]:
+                  - /url: "#headers"
+                - link " Headers" [ref=f127e54] [cursor=pointer]:
+                  - /url: "#all-headers"
+                - button " Plain text" [ref=f127e55] [cursor=pointer]
+        - generic [ref=f127e56]:
+          - region "Attachments"
+          - region "Message Body" [ref=f127e57]:
+            - generic: 
+            - generic [ref=f127e61]:
+              - heading "Ticket Auto-Closed" [level=2] [ref=f127e63]
+              - generic [ref=f127e64]:
+                - paragraph [ref=f127e65]: Hello,
+                - paragraph [ref=f127e66]: Your support ticket has been automatically closed due to inactivity.
+                - generic [ref=f127e67]:
+                  - strong [ref=f127e68]: "Ticket Details:"
+                  - strong [ref=f127e69]: "ID:"
+                  - text: "#55"
+                  - strong [ref=f127e70]: "Subject:"
+                  - text: TC-HLP-150/153 auto-close test ticket A (will be Resolved)
+                  - strong [ref=f127e71]: "Status:"
+                  - text: Closed
+                  - strong [ref=f127e72]: "Reason: No updates for 1 days"
+                - paragraph [ref=f127e73]: Your ticket has been automatically closed because there was no activity for 1 days. If you still need assistance, please reply to this email or create a new ticket.
+                - paragraph [ref=f127e74]:
+                  - link "View Ticket" [ref=f127e75] [cursor=pointer]:
+                    - /url: http://localhost:3012/projects/helpdesk-qa-alpha/helpdesk/issues/55
+                - paragraph [ref=f127e76]: "If you need further assistance, please feel free to:"
+                - list [ref=f127e77]:
+                  - listitem [ref=f127e78]: Reply to this email to reopen the ticket
+                  - listitem [ref=f127e79]: Create a new support ticket
+                  - listitem [ref=f127e80]: Contact our support team
+                - paragraph [ref=f127e81]: Best regards, Helpdesk QA Alpha Support Team
+              - paragraph [ref=f127e83]: This is an automated message. Please do not reply directly to this email.
+    - text:    
+  - alert [ref=f127e85]:
+    - generic [ref=f127e86]: 
+    - generic [ref=f127e87]: Loading...

@@ -1,0 +1,145 @@
+- generic [active] [ref=f104e1]:
+  - generic [ref=f104e2]:
+    - navigation [ref=f104e3]:
+      - list [ref=f104e6]:
+        - listitem [ref=f104e7]:
+          - link "Hauptseite" [ref=f104e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f104e9]:
+          - link "Meine Seite" [ref=f104e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f104e11]:
+          - link "Projekte" [ref=f104e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f104e13]:
+          - link "Agile Board" [ref=f104e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f104e15]:
+          - link "Flux Gantt" [ref=f104e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f104e17]:
+          - link "Administration" [ref=f104e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f104e19]:
+          - link "Hilfe" [ref=f104e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f104e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f104e24]: RA
+    - generic [ref=f104e27]:
+      - generic [ref=f104e28]:
+        - generic [ref=f104e29]:
+          - generic [ref=f104e30]:
+            - link "Suche" [ref=f104e31] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Suche:" [ref=f104e32]
+        - generic [ref=f104e33]: Zu einem Projekt springen...
+      - heading "Redmine" [level=1] [ref=f104e35]
+    - generic [ref=f104e36]:
+      - generic [ref=f104e37]:
+        - link [ref=f104e39] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f104e42]:
+          - heading "Administration" [level=3] [ref=f104e43]
+          - list [ref=f104e45]:
+            - listitem [ref=f104e46]:
+              - link "Projekte" [ref=f104e47] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f104e51]:
+              - link "Benutzer" [ref=f104e52] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f104e56]:
+              - link "Gruppen" [ref=f104e57] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f104e61]:
+              - link "Rollen und Rechte" [ref=f104e62] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f104e66]:
+              - link "Tracker" [ref=f104e67] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f104e71]:
+              - link "Ticket-Status" [ref=f104e72] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f104e76]:
+              - link "Workflow" [ref=f104e77] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f104e81]:
+              - link "Benutzerdefinierte Felder" [ref=f104e82] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f104e86]:
+              - link "Aufzählungen" [ref=f104e87] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f104e91]:
+              - link "Konfiguration" [ref=f104e92] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f104e96]:
+              - link "LDAP-Authentifizierung" [ref=f104e97] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f104e101]:
+              - link "Applikationen" [ref=f104e102] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f104e106]:
+              - link "Plugins" [ref=f104e107] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f104e111]:
+              - link "Informationen" [ref=f104e112] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f104e116]:
+        - heading [level=2] [ref=f104e117]:
+          - link "Plugins" [ref=f104e118] [cursor=pointer]:
+            - /url: /admin/plugins
+          - text: » Redmineflux Checklist Plugin
+        - generic [ref=f104e120]:
+          - generic [ref=f104e121]:
+            - list [ref=f104e123]:
+              - listitem [ref=f104e124]:
+                - link "Allgemein" [ref=f104e125] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_checklist?tab=checklist_configuration
+              - listitem [ref=f104e126]:
+                - link "Checklisten-Vorlagen" [ref=f104e127] [cursor=pointer]:
+                  - /url: /settings/plugin/redmineflux_checklist?tab=checklist_template
+            - generic [ref=f104e128]:
+              - generic [ref=f104e129]:
+                - heading "Checklisten-Vorlagen" [level=2] [ref=f104e130]
+                - link "Checklisten-Vorlage hinzufügen" [ref=f104e132] [cursor=pointer]:
+                  - /url: /checklist_templates/new
+              - table "Checklisten-Vorlagen" [ref=f104e137]:
+                - rowgroup [ref=f104e138]:
+                  - row [ref=f104e139]:
+                    - columnheader "Nr." [ref=f104e140]
+                    - columnheader "Vorlagenname" [ref=f104e141]
+                    - columnheader "Vorgangstyp" [ref=f104e142]
+                    - columnheader "Checklisten" [ref=f104e143]
+                    - columnheader "Unter-Checklisten" [ref=f104e144]
+                    - columnheader "Aktionen" [ref=f104e145]
+                - rowgroup [ref=f104e146]:
+                  - row [ref=f104e147]:
+                    - cell "1" [ref=f104e148]
+                    - cell "QA Template Two" [ref=f104e149]
+                    - cell "Bug" [ref=f104e150]
+                    - cell "From Template Item" [ref=f104e151]
+                    - cell "Keine Unter-Checkliste" [ref=f104e152]
+                    - cell [ref=f104e153]:
+                      - link "Bearbeiten" [ref=f104e154] [cursor=pointer]:
+                        - /url: /checklist_templates/2/edit
+                      - link "Löschen" [ref=f104e158] [cursor=pointer]:
+                        - /url: javascript:void(0);
+          - button "Anwenden" [ref=f104e162] [cursor=pointer]
+    - generic [ref=f104e163]:
+      - text: Powered by
+      - link "Redmine" [ref=f104e164] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f104e165]
+  - log [ref=f104e166]
+  - log [ref=f104e167]
+  - log [ref=f104e168]
+  - log [ref=f104e169]
+  - log [ref=f104e170]
+  - log [ref=f104e171]
+  - log [ref=f104e172]
+  - log [ref=f104e173]
+  - log [ref=f104e174]
+  - log [ref=f104e175]
+  - log [ref=f104e176]

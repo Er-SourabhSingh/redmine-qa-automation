@@ -1,0 +1,350 @@
+- generic [ref=f236e1]:
+  - generic [ref=f236e2]:
+    - navigation [ref=f236e3]:
+      - list [ref=f236e6]:
+        - listitem [ref=f236e7]:
+          - link "Hauptseite" [ref=f236e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f236e9]:
+          - link "Meine Seite" [ref=f236e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f236e11]:
+          - link "Projekte" [ref=f236e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f236e13]:
+          - link "Agile Board" [ref=f236e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f236e15]:
+          - link "Flux Gantt" [ref=f236e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f236e17]:
+          - link "Administration" [ref=f236e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f236e19]:
+          - link "Hilfe" [ref=f236e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f236e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f236e24]: RA
+    - generic [ref=f236e27]:
+      - generic [ref=f236e28]:
+        - generic [ref=f236e29]:
+          - generic [ref=f236e30]:
+            - link "Suche" [ref=f236e31] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Suche:" [ref=f236e32]
+        - generic [ref=f236e33]:
+          - generic [ref=f236e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f236e35]
+      - generic [ref=f236e37]:
+        - list [ref=f236e38]:
+          - listitem [ref=f236e39]:
+            - link "+" [ref=f236e40] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f236e41]:
+            - link "Übersicht" [ref=f236e42] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f236e43]:
+            - link "Dashboard" [ref=f236e44] [cursor=pointer]:
+              - /url: /projects/agileboard/analytics_dashboard
+          - listitem [ref=f236e45]:
+            - link "Aktivität" [ref=f236e46] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f236e47]:
+            - link "Agile Board" [ref=f236e48] [cursor=pointer]:
+              - /url: /projects/agileboard/agile_board
+          - listitem [ref=f236e49]:
+            - link "Backlog" [ref=f236e50] [cursor=pointer]:
+              - /url: /projects/agileboard/backlog
+          - listitem [ref=f236e51]:
+            - link "Roadmap" [ref=f236e52] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f236e53]:
+            - link "Tickets" [ref=f236e54] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f236e55]:
+            - link "Aufgewendete Zeit" [ref=f236e56] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f236e57]:
+            - link "Gantt-Diagramm" [ref=f236e58] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f236e59]:
+            - link "Kalender" [ref=f236e60] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f236e61]:
+            - link "News" [ref=f236e62] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f236e63]:
+            - link "Dokumente" [ref=f236e64] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f236e65]:
+            - link "Wiki" [ref=f236e66] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f236e67]:
+            - link "Dateien" [ref=f236e68] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f236e69]:
+            - link "Konfiguration" [ref=f236e70] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f236e71]:
+          - button [ref=f236e72] [cursor=pointer]
+          - button [ref=f236e75] [cursor=pointer]
+    - generic [ref=f236e81]:
+      - heading "Board-Konfiguration bearbeiten" [level=2] [ref=f236e82]
+      - generic [ref=f236e83]:
+        - generic [ref=f236e84]:
+          - generic [ref=f236e85]:
+            - paragraph [ref=f236e86]:
+              - generic [ref=f236e87]: Name *
+              - textbox "Name *" [active] [ref=f236e88]: QA Regression Test Config
+            - paragraph [ref=f236e89]:
+              - generic [ref=f236e90]: Sichtbarkeit
+              - generic [ref=f236e91]:
+                - radio "nur für mich" [ref=f236e92]
+                - text: nur für mich
+              - generic [ref=f236e93]:
+                - radio "nur für diese Rollen:" [ref=f236e94]
+                - text: "nur für diese Rollen:"
+              - generic [ref=f236e95]:
+                - checkbox "Manager" [disabled] [ref=f236e96]
+                - text: Manager
+              - generic [ref=f236e97]:
+                - checkbox "Employee" [disabled] [ref=f236e98]
+                - text: Employee
+              - generic [ref=f236e99]:
+                - checkbox "Client" [disabled] [ref=f236e100]
+                - text: Client
+              - generic [ref=f236e101]:
+                - checkbox "Project Lead" [disabled] [ref=f236e102]
+                - text: Project Lead
+              - generic [ref=f236e103]:
+                - checkbox "QA" [disabled] [ref=f236e104]
+                - text: QA
+              - generic [ref=f236e105]:
+                - checkbox "Team Lead" [disabled] [ref=f236e106]
+                - text: Team Lead
+              - generic [ref=f236e107]:
+                - checkbox "Developer" [disabled] [ref=f236e108]
+                - text: Developer
+              - generic [ref=f236e109]:
+                - radio "für jeden Benutzer" [checked] [ref=f236e110]
+                - text: für jeden Benutzer
+            - paragraph [ref=f236e111]:
+              - generic [ref=f236e112]: Für alle Projekte
+              - checkbox "Für alle Projekte" [ref=f236e113]
+            - group "Optionen" [ref=f236e114]:
+              - paragraph [ref=f236e116]:
+                - generic [ref=f236e117]: Board-Typ
+                - combobox "Board-Typ" [ref=f236e118]:
+                  - option "Kanban-Board" [selected]
+                  - option "Scrum-Board"
+              - paragraph [ref=f236e119]:
+                - generic [ref=f236e120]: Gruppieren nach (Swimlanes)
+                - combobox "Gruppieren nach (Swimlanes)" [ref=f236e121]:
+                  - option [selected]
+                  - option "Projekt"
+                  - option "Tracker"
+                  - option "Priorität"
+                  - option "Autor"
+                  - option "Kategorie"
+                  - option "Zielversion"
+                  - option "Übergeordnetes Ticket"
+                  - option "Zugewiesen an"
+              - paragraph [ref=f236e122]:
+                - generic [ref=f236e123]: Summen anzeigen
+                - generic [ref=f236e124]:
+                  - checkbox "Story-Points" [ref=f236e125]
+                  - text: Story-Points
+                - generic [ref=f236e126]:
+                  - checkbox "Geschätzte Zeit" [ref=f236e127]
+                  - text: Geschätzte Zeit
+                - generic [ref=f236e128]:
+                  - checkbox "Aufgewendete Zeit" [ref=f236e129]
+                  - text: Aufgewendete Zeit
+          - group "Filter" [ref=f236e130]:
+            - generic [ref=f236e132]:
+              - generic [ref=f236e133]: Filter hinzufügen
+              - combobox "Filter hinzufügen" [ref=f236e134]:
+                - option [selected]
+                - option "Status"
+                - option "Tracker"
+                - option "Priorität"
+                - option "Autor"
+                - option "Zugewiesen an"
+                - option "Zielversion"
+                - option "Kategorie"
+                - option "% erledigt"
+                - option "Privat"
+                - option "Beobachter"
+                - option "Geändert von"
+                - option "Zuletzt geändert von"
+                - option "Übergeordnetes Ticket"
+                - option "Untergeordnete Tickets"
+                - option "Ticket"
+                - option "Sprint"
+                - option "Story-Points"
+                - option "Markierungen"
+                - option "Thema"
+                - option "Beschreibung"
+                - option "Kommentare"
+                - option "Durchsuchbarer Text"
+                - option "Angelegt"
+                - option "Aktualisiert"
+                - option "Geschlossen am"
+                - option "Startdatum"
+                - option "Abgabedatum"
+                - option "Geschätzter Aufwand"
+                - option "Aufgewendete Zeit"
+                - option "Datei"
+                - option "Dateibeschreibung"
+                - option "Gruppe des Autors"
+                - option "Rolle des Autors"
+                - option "Zuständigkeitsgruppe"
+                - option "Zuständigkeitsrolle"
+                - option "Datum der Zielversion"
+                - option "Status der Zielversion"
+                - option "Beziehung mit"
+                - option "Duplikat von"
+                - option "Dupliziert durch"
+                - option "Blockiert"
+                - option "Blockiert durch"
+                - option "Vorgänger von"
+                - option "Nachfolger von"
+                - option "Kopiert nach"
+                - option "Kopiert von"
+          - group "Sichtbare Statusspalten" [ref=f236e135]:
+            - generic [ref=f236e137]:
+              - generic [ref=f236e138]:
+                - generic [ref=f236e139] [cursor=pointer]:
+                  - checkbox "New" [checked] [ref=f236e140]
+                  - text: New
+                - generic [ref=f236e141]:
+                  - generic [ref=f236e142]: "WIP:"
+                  - 'spinbutton "WIP-Limit (max.: 50)" [ref=f236e143]'
+              - generic [ref=f236e144]:
+                - generic [ref=f236e145] [cursor=pointer]:
+                  - checkbox "In Progress" [checked] [ref=f236e146]
+                  - text: In Progress
+                - generic [ref=f236e147]:
+                  - generic [ref=f236e148]: "WIP:"
+                  - 'spinbutton "WIP-Limit (max.: 50)" [ref=f236e149]'
+              - generic [ref=f236e150]:
+                - generic [ref=f236e151] [cursor=pointer]:
+                  - checkbox "Resolved" [checked] [ref=f236e152]
+                  - text: Resolved
+                - generic [ref=f236e153]:
+                  - generic [ref=f236e154]: "WIP:"
+                  - 'spinbutton "WIP-Limit (max.: 50)" [ref=f236e155]'
+              - generic [ref=f236e156]:
+                - generic [ref=f236e157] [cursor=pointer]:
+                  - checkbox "Feedback" [checked] [ref=f236e158]
+                  - text: Feedback
+                - generic [ref=f236e159]:
+                  - generic [ref=f236e160]: "WIP:"
+                  - 'spinbutton "WIP-Limit (max.: 50)" [ref=f236e161]'
+              - generic [ref=f236e162]:
+                - generic [ref=f236e163] [cursor=pointer]:
+                  - checkbox "Closed" [checked] [ref=f236e164]
+                  - text: Closed
+                - generic [ref=f236e165]:
+                  - generic [ref=f236e166]: "WIP:"
+                  - 'spinbutton "WIP-Limit (max.: 50)" [ref=f236e167]'
+              - generic [ref=f236e168]:
+                - generic [ref=f236e169] [cursor=pointer]:
+                  - checkbox "Rejected" [checked] [ref=f236e170]
+                  - text: Rejected
+                - generic [ref=f236e171]:
+                  - generic [ref=f236e172]: "WIP:"
+                  - 'spinbutton "WIP-Limit (max.: 50)" [ref=f236e173]'
+          - group "Sichtbare Kartenfelder" [ref=f236e174]:
+            - generic [ref=f236e176]:
+              - generic [ref=f236e177] [cursor=pointer]:
+                - checkbox "ID (erforderlich)" [checked] [disabled] [ref=f236e178]
+                - text: ID (erforderlich)
+              - generic [ref=f236e179] [cursor=pointer]:
+                - checkbox "Thema (erforderlich)" [checked] [disabled] [ref=f236e180]
+                - text: Thema (erforderlich)
+              - generic [ref=f236e181] [cursor=pointer]:
+                - checkbox "Tracker (erforderlich)" [checked] [disabled] [ref=f236e182]
+                - text: Tracker (erforderlich)
+              - generic [ref=f236e183] [cursor=pointer]:
+                - checkbox "Priorität" [ref=f236e184]
+                - text: Priorität
+              - generic [ref=f236e185] [cursor=pointer]:
+                - checkbox "Zugewiesen an (erforderlich)" [checked] [disabled] [ref=f236e186]
+                - text: Zugewiesen an (erforderlich)
+              - generic [ref=f236e187] [cursor=pointer]:
+                - checkbox "Autor" [ref=f236e188]
+                - text: Autor
+              - generic [ref=f236e189] [cursor=pointer]:
+                - checkbox "Startdatum" [ref=f236e190]
+                - text: Startdatum
+              - generic [ref=f236e191] [cursor=pointer]:
+                - checkbox "Abgabedatum" [ref=f236e192]
+                - text: Abgabedatum
+              - generic [ref=f236e193] [cursor=pointer]:
+                - checkbox "Geschätzter Aufwand" [ref=f236e194]
+                - text: Geschätzter Aufwand
+              - generic [ref=f236e195] [cursor=pointer]:
+                - checkbox "Aufgewendete Zeit" [ref=f236e196]
+                - text: Aufgewendete Zeit
+              - generic [ref=f236e197] [cursor=pointer]:
+                - checkbox "% erledigt" [ref=f236e198]
+                - text: "% erledigt"
+              - generic [ref=f236e199] [cursor=pointer]:
+                - checkbox "Übergeordnetes Ticket" [ref=f236e200]
+                - text: Übergeordnetes Ticket
+              - generic [ref=f236e201] [cursor=pointer]:
+                - checkbox "Unteraufgaben" [ref=f236e202]
+                - text: Unteraufgaben
+              - generic [ref=f236e203] [cursor=pointer]:
+                - checkbox "Story-Points" [ref=f236e204]
+                - text: Story-Points
+              - generic [ref=f236e205] [cursor=pointer]:
+                - checkbox "Beschreibung" [ref=f236e206]
+                - text: Beschreibung
+              - generic [ref=f236e207] [cursor=pointer]:
+                - checkbox "Letzter Kommentar" [checked] [ref=f236e208]
+                - text: Letzter Kommentar
+              - generic [ref=f236e209] [cursor=pointer]:
+                - checkbox "Markierungen" [checked] [ref=f236e210]
+                - text: Markierungen
+              - generic [ref=f236e211] [cursor=pointer]:
+                - checkbox "Kategorie" [ref=f236e212]
+                - text: Kategorie
+              - generic [ref=f236e213] [cursor=pointer]:
+                - checkbox "Zielversion" [ref=f236e214]
+                - text: Zielversion
+              - generic [ref=f236e215] [cursor=pointer]:
+                - checkbox "Kommentare" [ref=f236e216]
+                - text: Kommentare
+              - generic [ref=f236e217] [cursor=pointer]:
+                - checkbox "Anhänge" [ref=f236e218]
+                - text: Anhänge
+        - generic [ref=f236e219]:
+          - button "Speichern" [ref=f236e220] [cursor=pointer]
+          - link "Abbrechen" [ref=f236e221] [cursor=pointer]:
+            - /url: /projects/agileboard/agile_board
+    - generic [ref=f236e222]:
+      - text: Powered by
+      - link "Redmine" [ref=f236e223] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f236e224]
+  - log [ref=f236e225]
+  - log [ref=f236e226]
+  - log [ref=f236e227]
+  - log [ref=f236e228]
+  - log [ref=f236e229]
+  - log [ref=f236e230]
+  - log [ref=f236e231]
+  - log [ref=f236e232]
+  - log [ref=f236e233]
+  - log [ref=f236e234]
+  - log [ref=f236e235]
+  - log [ref=f236e236]
+  - log [ref=f236e237]
+  - log [ref=f236e238]
+  - log [ref=f236e239]

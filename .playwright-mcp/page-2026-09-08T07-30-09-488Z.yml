@@ -1,0 +1,276 @@
+- generic [active] [ref=f93e1]:
+  - generic [ref=f93e2]:
+    - navigation [ref=f93e3]:
+      - list [ref=f93e6]:
+        - listitem [ref=f93e7]:
+          - link "Hauptseite" [ref=f93e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f93e9]:
+          - link "Meine Seite" [ref=f93e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f93e11]:
+          - link "Projekte" [ref=f93e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f93e13]:
+          - link "Agile Board" [ref=f93e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f93e15]:
+          - link "Flux Gantt" [ref=f93e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f93e17]:
+          - link "Administration" [ref=f93e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f93e19]:
+          - link "Hilfe" [ref=f93e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f93e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f93e24]: RA
+    - generic [ref=f93e27]:
+      - generic [ref=f93e28]:
+        - generic [ref=f93e29]:
+          - generic [ref=f93e30]:
+            - link "Suche" [ref=f93e31] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Suche:" [ref=f93e32]
+        - generic [ref=f93e33]: Zu einem Projekt springen...
+      - heading "Redmine" [level=1] [ref=f93e35]
+    - generic [ref=f93e36]:
+      - generic [ref=f93e37]:
+        - link [ref=f93e39] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f93e42]:
+          - heading "Administration" [level=3] [ref=f93e43]
+          - list [ref=f93e45]:
+            - listitem [ref=f93e46]:
+              - link "Projekte" [ref=f93e47] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f93e51]:
+              - link "Benutzer" [ref=f93e52] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f93e56]:
+              - link "Gruppen" [ref=f93e57] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f93e61]:
+              - link "Rollen und Rechte" [ref=f93e62] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f93e66]:
+              - link "Tracker" [ref=f93e67] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f93e71]:
+              - link "Ticket-Status" [ref=f93e72] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f93e76]:
+              - link "Workflow" [ref=f93e77] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f93e81]:
+              - link "Benutzerdefinierte Felder" [ref=f93e82] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f93e86]:
+              - link "Aufzählungen" [ref=f93e87] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f93e91]:
+              - link "Konfiguration" [ref=f93e92] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f93e96]:
+              - link "LDAP-Authentifizierung" [ref=f93e97] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f93e101]:
+              - link "Applikationen" [ref=f93e102] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f93e106]:
+              - link "Plugins" [ref=f93e107] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f93e111]:
+              - link "Informationen" [ref=f93e112] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f93e116]:
+        - link "Neues Projekt" [ref=f93e118] [cursor=pointer]:
+          - /url: /projects/new
+        - heading "Projekte" [level=2] [ref=f93e122]
+        - generic [ref=f93e124]:
+          - generic [ref=f93e125]:
+            - group "Filter" [ref=f93e126]:
+              - generic:
+                - generic [ref=f93e131]:
+                  - generic [ref=f93e132]:
+                    - checkbox "Status" [checked] [ref=f93e133]
+                    - text: Status
+                  - combobox [ref=f93e135]:
+                    - option "ist" [selected]
+                    - option "ist nicht"
+                  - generic [ref=f93e137]:
+                    - combobox [ref=f93e138]:
+                      - option "aktiv" [selected]
+                      - option "geschlossen"
+                      - option "archiviert"
+                      - option "scheduled for deletion"
+                    - generic [ref=f93e139] [cursor=pointer]
+                - generic [ref=f93e142]:
+                  - text: Filter hinzufügen
+                  - combobox "Filter hinzufügen" [ref=f93e143]:
+                    - option [selected]
+                    - option "Status" [disabled]
+                    - option "Projekt"
+                    - option "Unterprojekt von"
+                    - option "Öffentlich"
+                    - option "Tags"
+                    - option "Name"
+                    - option "Beschreibung"
+                    - option "Angelegt"
+                    - option "Aktualisiert"
+            - group "Optionen" [ref=f93e144]
+          - paragraph [ref=f93e148]:
+            - link "Anwenden" [ref=f93e149] [cursor=pointer]:
+              - /url: "#"
+            - link "Zurücksetzen" [ref=f93e153] [cursor=pointer]:
+              - /url: /admin/projects?set_filter=1&sort=
+            - link "Abfrage speichern" [ref=f93e157] [cursor=pointer]:
+              - /url: "#"
+        - table [ref=f93e163]:
+          - rowgroup [ref=f93e164]:
+            - row [ref=f93e165]:
+              - columnheader [ref=f93e166]:
+                - checkbox "Alles auswählen / Alles abwählen" [ref=f93e167]
+              - columnheader [ref=f93e168]:
+                - link "Name" [ref=f93e169] [cursor=pointer]:
+                  - /url: /admin/projects?sort=name
+              - columnheader [ref=f93e170]:
+                - link "Kennung" [ref=f93e171] [cursor=pointer]:
+                  - /url: /admin/projects?sort=identifier
+              - columnheader [ref=f93e172]:
+                - link "Beschreibung" [ref=f93e173] [cursor=pointer]:
+                  - /url: /admin/projects?sort=short_description
+              - columnheader [ref=f93e174]
+          - rowgroup [ref=f93e175]:
+            - row [ref=f93e176]:
+              - cell [ref=f93e177]:
+                - checkbox [ref=f93e178]
+              - cell [ref=f93e179]:
+                - link "Agile Board Project" [ref=f93e180] [cursor=pointer]:
+                  - /url: /projects/agileboard
+              - cell "agileboard" [ref=f93e184]
+              - cell [ref=f93e185]
+              - cell [ref=f93e186]:
+                - link "Aktionen" [ref=f93e187] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f93e190]:
+              - cell [ref=f93e191]:
+                - checkbox [ref=f93e192]
+              - cell [ref=f93e193]:
+                - link "Education and training3" [ref=f93e194] [cursor=pointer]:
+                  - /url: /projects/edandt
+              - cell "edandt" [ref=f93e198]
+              - cell [ref=f93e199]
+              - cell [ref=f93e200]:
+                - link "Aktionen" [ref=f93e201] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f93e204]:
+              - cell [ref=f93e205]:
+                - checkbox [ref=f93e206]
+              - cell [ref=f93e207]:
+                - link "Flux Gantt Project" [ref=f93e208] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject
+              - cell "fluxganttproject" [ref=f93e212]
+              - cell [ref=f93e213]
+              - cell [ref=f93e214]:
+                - link "Aktionen" [ref=f93e215] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f93e218]:
+              - cell [ref=f93e219]:
+                - checkbox [ref=f93e220]
+              - cell [ref=f93e221]:
+                - link "HR management2" [ref=f93e222] [cursor=pointer]:
+                  - /url: /projects/hrmngmt
+              - cell "hrmngmt" [ref=f93e226]
+              - cell [ref=f93e227]
+              - cell [ref=f93e228]:
+                - link "Aktionen" [ref=f93e229] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f93e232]:
+              - cell [ref=f93e233]:
+                - checkbox [ref=f93e234]
+              - cell [ref=f93e235]:
+                - link "Helpdesk Service Desk" [ref=f93e236] [cursor=pointer]:
+                  - /url: /projects/helpdesk
+              - cell "helpdesk" [ref=f93e240]
+              - cell [ref=f93e241]
+              - cell [ref=f93e242]:
+                - link "Aktionen" [ref=f93e243] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f93e246]:
+              - cell [ref=f93e247]:
+                - checkbox [ref=f93e248]
+              - cell [ref=f93e249]:
+                - link "MVP build for PaySheet Application" [ref=f93e250] [cursor=pointer]:
+                  - /url: /projects/mvpbuild
+              - cell "mvpbuild" [ref=f93e254]
+              - cell [ref=f93e255]
+              - cell [ref=f93e256]:
+                - link "Aktionen" [ref=f93e257] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f93e260]:
+              - cell [ref=f93e261]:
+                - checkbox [ref=f93e262]
+              - cell [ref=f93e263]:
+                - link "Marketing campaign4" [ref=f93e264] [cursor=pointer]:
+                  - /url: /projects/markcamgn
+              - cell "markcamgn" [ref=f93e268]
+              - cell [ref=f93e269]
+              - cell [ref=f93e270]:
+                - link "Aktionen" [ref=f93e271] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f93e274]:
+              - cell [ref=f93e275]:
+                - checkbox [ref=f93e276]
+              - cell [ref=f93e277]:
+                - link "Mobile app development1" [ref=f93e278] [cursor=pointer]:
+                  - /url: /projects/mobileappdev
+              - cell "mobileappdev" [ref=f93e282]
+              - cell [ref=f93e283]
+              - cell [ref=f93e284]:
+                - link "Aktionen" [ref=f93e285] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f93e288]:
+              - cell [ref=f93e289]:
+                - checkbox [ref=f93e290]
+              - cell [ref=f93e291]:
+                - link "Software development5" [ref=f93e292] [cursor=pointer]:
+                  - /url: /projects/defaultsd
+              - cell "defaultsd" [ref=f93e296]
+              - cell [ref=f93e297]
+              - cell [ref=f93e298]:
+                - link "Aktionen" [ref=f93e299] [cursor=pointer]:
+                  - /url: "#"
+        - generic [ref=f93e302]:
+          - list
+          - generic [ref=f93e303]: (1-9/9)
+    - generic [ref=f93e304]:
+      - text: Powered by
+      - link "Redmine" [ref=f93e305] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f93e306]
+  - log [ref=f93e307]
+  - log [ref=f93e308]
+  - log [ref=f93e309]
+  - log [ref=f93e310]
+  - log [ref=f93e311]
+  - log [ref=f93e312]
+  - log [ref=f93e313]
+  - log [ref=f93e314]
+  - log [ref=f93e315]
+  - log [ref=f93e316]
+  - log [ref=f93e317]
+  - log [ref=f93e318]
+  - log [ref=f93e319]
+  - log [ref=f93e320]
+  - log [ref=f93e321]
+  - log [ref=f93e322]
+  - log [ref=f93e323]
+  - log [ref=f93e324]
+  - log [ref=f93e325]
+  - log [ref=f93e326]
+  - log [ref=f93e327]
+  - log [ref=f93e328]

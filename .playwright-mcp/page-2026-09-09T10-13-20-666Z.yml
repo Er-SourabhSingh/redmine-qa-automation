@@ -1,0 +1,134 @@
+- generic [ref=f190e1]:
+  - generic [ref=f190e2]:
+    - generic [ref=f190e3]:
+      - generic [ref=f190e4]:
+        - list:
+          - listitem [ref=f190e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f190e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f190e7]:
+        - text: Logged in as
+        - link "alpha.customer" [ref=f190e8] [cursor=pointer]:
+          - /url: /users/6
+      - list [ref=f190e9]:
+        - listitem [ref=f190e10]:
+          - link [ref=f190e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f190e12]
+        - listitem [ref=f190e13]:
+          - link "My Helpdesk" [ref=f190e14] [cursor=pointer]:
+            - /url: /helpdesk
+    - heading "Helpdesk QA Alpha" [level=1] [ref=f190e16]
+    - generic [ref=f190e17]:
+      - list [ref=f190e21]:
+        - listitem [ref=f190e22]:
+          - link "Helpdesk Dashboard" [ref=f190e23] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f190e26]:
+          - link "Helpdesk Tickets" [ref=f190e27] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f190e30]:
+          - link "Knowledgebase" [ref=f190e31] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f190e34]:
+        - heading "New issue" [level=2] [ref=f190e35]
+        - generic [ref=f190e36]:
+          - generic [ref=f190e37]:
+            - paragraph [ref=f190e38]:
+              - generic [ref=f190e39]: Subject *
+              - textbox "Subject *" [active] [ref=f190e40]
+            - paragraph [ref=f190e41]:
+              - generic [ref=f190e42]: Description
+              - generic [ref=f190e44]:
+                - list [ref=f190e46]:
+                  - listitem [ref=f190e47]:
+                    - link "Edit" [ref=f190e48] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f190e49]:
+                    - link "Preview" [ref=f190e50] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f190e51]:
+                    - generic [ref=f190e52]:
+                      - button "Strong (Ctrl+B)" [ref=f190e53] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f190e54] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f190e55] [cursor=pointer]
+                      - button "Deleted" [ref=f190e56] [cursor=pointer]
+                      - button "Inline Code" [ref=f190e57] [cursor=pointer]
+                      - button "Heading 1" [ref=f190e58] [cursor=pointer]
+                      - button "Heading 2" [ref=f190e59] [cursor=pointer]
+                      - button "Heading 3" [ref=f190e60] [cursor=pointer]
+                      - button "Unordered list" [ref=f190e61] [cursor=pointer]
+                      - button "Ordered list" [ref=f190e62] [cursor=pointer]
+                      - button "Task list" [ref=f190e63] [cursor=pointer]
+                      - button "Quote" [ref=f190e64] [cursor=pointer]
+                      - button "Remove Quote" [ref=f190e65] [cursor=pointer]
+                      - button "Table" [ref=f190e66] [cursor=pointer]
+                      - button "pre" [ref=f190e67] [cursor=pointer]
+                      - button "Highlighted code" [ref=f190e68] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f190e69] [cursor=pointer]
+                      - button "Image" [ref=f190e70] [cursor=pointer]
+                      - button "Help" [ref=f190e71] [cursor=pointer]
+                - textbox "Description" [ref=f190e73]
+            - generic [ref=f190e74]:
+              - paragraph [ref=f190e77]:
+                - generic [ref=f190e78]: Priority *
+                - combobox "Priority *" [ref=f190e79]:
+                  - option "Low"
+                  - option "Normal" [selected]
+                  - option "High"
+                  - option "Urgent"
+                  - option "Immediate"
+              - paragraph [ref=f190e83]:
+                - generic [ref=f190e84]: Issue Category
+                - combobox "Issue Category" [ref=f190e85]:
+                  - option [selected]
+                  - option "Community Plugins and Files"
+                  - option "Report a Bug"
+                  - option "Data Protection and Security"
+                  - option "Payments and Invoices"
+                  - option "Account and File Management"
+            - paragraph [ref=f190e87]:
+              - generic [ref=f190e88]: Product
+              - combobox "Product" [ref=f190e89]:
+                - option "None" [selected]
+                - option "Code255Test Product"
+                - option "Description Max Length Product Test"
+                - option "Falcon Suite"
+                - option "Nav Test Product"
+                - option "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+                - option "Phoenix Core"
+                - option "TC-HLP-205 Permission Test Product"
+          - paragraph [ref=f190e90]:
+            - button "Create" [ref=f190e91] [cursor=pointer]
+    - generic [ref=f190e92]:
+      - text: Powered by
+      - link "Redmine" [ref=f190e93] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f190e94]
+  - log [ref=f190e95]
+  - log [ref=f190e96]
+  - log [ref=f190e97]
+  - log [ref=f190e98]
+  - log [ref=f190e99]
+  - log [ref=f190e100]
+  - log [ref=f190e101]
+  - log [ref=f190e102]
+  - log [ref=f190e103]
+  - log [ref=f190e104]
+  - log [ref=f190e105]
+  - log [ref=f190e106]
+  - log [ref=f190e107]
+  - log [ref=f190e108]
+  - log [ref=f190e109]
+  - log [ref=f190e110]
+  - log [ref=f190e111]
+  - log [ref=f190e112]
+  - log [ref=f190e113]
+  - log [ref=f190e114]
+  - log [ref=f190e115]
+  - log [ref=f190e116]
+  - log [ref=f190e117]

@@ -1,0 +1,344 @@
+- generic [ref=f56e1]:
+  - generic [ref=f56e2]:
+    - navigation [ref=f56e3]:
+      - list [ref=f56e6]:
+        - listitem [ref=f56e7]:
+          - link "Hauptseite" [ref=f56e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f56e9]:
+          - link "Meine Seite" [ref=f56e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f56e11]:
+          - link "Projekte" [ref=f56e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f56e13]:
+          - link "Agile Board" [ref=f56e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f56e15]:
+          - link "Flux Gantt" [ref=f56e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f56e17]:
+          - link "Administration" [ref=f56e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f56e19]:
+          - link "Hilfe" [ref=f56e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f56e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f56e24]: RA
+    - generic [ref=f56e27]:
+      - generic [ref=f56e28]:
+        - generic [ref=f56e29]:
+          - generic [ref=f56e30]:
+            - link "Suche" [ref=f56e31] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Suche:" [ref=f56e32]
+        - generic [ref=f56e33]:
+          - generic [ref=f56e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f56e35]
+      - generic [ref=f56e37]:
+        - list [ref=f56e38]:
+          - listitem [ref=f56e39]:
+            - link "+" [ref=f56e40] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f56e41]:
+            - link "Übersicht" [ref=f56e42] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f56e43]:
+            - link "Dashboard" [ref=f56e44] [cursor=pointer]:
+              - /url: /projects/agileboard/analytics_dashboard
+          - listitem [ref=f56e45]:
+            - link "Aktivität" [ref=f56e46] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f56e47]:
+            - link "Agile Board" [ref=f56e48] [cursor=pointer]:
+              - /url: /projects/agileboard/agile_board
+          - listitem [ref=f56e49]:
+            - link "Backlog" [ref=f56e50] [cursor=pointer]:
+              - /url: /projects/agileboard/backlog
+          - listitem [ref=f56e51]:
+            - link "Roadmap" [ref=f56e52] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f56e53]:
+            - link "Tickets" [ref=f56e54] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f56e55]:
+            - link "Aufgewendete Zeit" [ref=f56e56] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f56e57]:
+            - link "Gantt-Diagramm" [ref=f56e58] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f56e59]:
+            - link "Kalender" [ref=f56e60] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f56e61]:
+            - link "News" [ref=f56e62] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f56e63]:
+            - link "Dokumente" [ref=f56e64] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f56e65]:
+            - link "Wiki" [ref=f56e66] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f56e67]:
+            - link "Dateien" [ref=f56e68] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f56e69]:
+            - link "Konfiguration" [ref=f56e70] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f56e71]:
+          - button [ref=f56e72] [cursor=pointer]
+          - button [ref=f56e75] [cursor=pointer]
+    - generic [ref=f56e79]:
+      - 'heading "Bug #106" [level=2] [ref=f56e80]'
+      - generic [ref=f56e81]:
+        - generic [ref=f56e82]:
+          - group "Eigenschaften ändern" [ref=f56e83]:
+            - generic [ref=f56e85]:
+              - paragraph [ref=f56e86]:
+                - checkbox "Privat" [ref=f56e87]
+                - text: Privat
+              - paragraph [ref=f56e88]:
+                - generic [ref=f56e89]: Projekt *
+                - combobox "Projekt *" [ref=f56e90]:
+                  - option "Agile Board Project" [selected]
+                  - option "Education and training3"
+                  - option "Flux Gantt Project"
+                  - option "HR management2"
+                  - option "Helpdesk Service Desk"
+                  - option "MVP build for PaySheet Application"
+                  - option "Marketing campaign4"
+                  - option "Mobile app development1"
+                  - option "Software development5"
+              - paragraph [ref=f56e91]:
+                - generic [ref=f56e92]: Tracker *
+                - combobox "Tracker *" [ref=f56e93]:
+                  - option "Bug" [selected]
+                  - option "Feature"
+                  - option "Support"
+              - paragraph [ref=f56e94]:
+                - generic [ref=f56e95]: Thema *
+                - textbox "Thema *" [active] [ref=f56e96]: Integrate payment gateway for subscriptions
+              - paragraph [ref=f56e97]:
+                - generic [ref=f56e98]: Beschreibung
+                - text: pre
+                - link "Bearbeiten" [ref=f56e99] [cursor=pointer]:
+                  - /url: "#"
+              - generic [ref=f56e104]:
+                - generic [ref=f56e105]:
+                  - paragraph [ref=f56e106]:
+                    - generic [ref=f56e107]: Status *
+                    - combobox "Status *" [ref=f56e108]:
+                      - option "New"
+                      - option "In Progress" [selected]
+                      - option "Resolved"
+                      - option "Feedback"
+                      - option "Closed"
+                      - option "Rejected"
+                  - paragraph [ref=f56e109]:
+                    - generic [ref=f56e110]: Priorität *
+                    - combobox "Priorität *" [ref=f56e111]:
+                      - option "Low"
+                      - option "Normal"
+                      - option "High"
+                      - option "Urgent" [selected]
+                      - option "Immediate"
+                  - paragraph [ref=f56e112]:
+                    - generic [ref=f56e113]: Zugewiesen an
+                    - combobox "Zugewiesen an" [ref=f56e114]:
+                      - option
+                      - option "<< ich >>"
+                      - option "Redmine Admin"
+                      - option "Aurora Wren"
+                      - option "Autumn Grace"
+                      - option "Briar Sunset"
+                      - option "Celeste Dawn"
+                      - option "Daisy Skye"
+                      - option "Ember Lilac"
+                      - option "Harmony Rose"
+                      - option "Isla Moon"
+                      - option "Ivy Skylark"
+                      - option "Luna Blossom"
+                      - option "Luna Meadow"
+                      - option "Marigold Rayne"
+                      - option "Nova Starling"
+                      - option "Opal Sparrow"
+                      - option "Redmine Admin"
+                      - option "Sage Willow"
+                      - option "Selene Frost"
+                      - option "Serenity Bloom"
+                      - option "Summer Rain" [selected]
+                      - option "Violet Ember"
+                      - option "Willow Belle"
+                    - link "Mir zuweisen" [ref=f56e115] [cursor=pointer]:
+                      - /url: "#"
+                  - paragraph [ref=f56e116]:
+                    - generic [ref=f56e117]: Zielversion
+                    - combobox "Zielversion" [ref=f56e118]:
+                      - option [selected]
+                      - option "Version 5"
+                      - option "Version 6"
+                    - link "Neue Version" [ref=f56e119] [cursor=pointer]:
+                      - /url: /projects/agileboard/versions/new
+                - generic [ref=f56e122]:
+                  - paragraph [ref=f56e123]:
+                    - generic [ref=f56e124]: Übergeordnetes Ticket
+                    - textbox "Übergeordnetes Ticket" [ref=f56e125]
+                  - paragraph [ref=f56e126]:
+                    - generic [ref=f56e127]: Startdatum
+                    - textbox "Startdatum" [ref=f56e128]: 2025-01-24
+                  - paragraph [ref=f56e129]:
+                    - generic [ref=f56e130]: Abgabedatum
+                    - textbox "Abgabedatum" [ref=f56e131]: 2025-01-24
+                  - paragraph [ref=f56e132]:
+                    - generic [ref=f56e133]: Geschätzter Aufwand
+                    - textbox "Geschätzter Aufwand" [ref=f56e134]:
+                      - /placeholder: h:mm
+                    - text: Stunden
+                  - paragraph [ref=f56e135]:
+                    - generic [ref=f56e136]: "% erledigt"
+                    - combobox "% erledigt" [ref=f56e137]:
+                      - option "0 %" [selected]
+                      - option "10 %"
+                      - option "20 %"
+                      - option "30 %"
+                      - option "40 %"
+                      - option "50 %"
+                      - option "60 %"
+                      - option "70 %"
+                      - option "80 %"
+                      - option "90 %"
+                      - option "100 %"
+              - paragraph [ref=f56e138]:
+                - generic [ref=f56e139]: Story Points
+                - combobox "Story Points" [ref=f56e140]:
+                  - option "--" [selected]
+                  - option "1"
+                  - option "2"
+                  - option "3"
+                - emphasis [ref=f56e141]: Schätzung der Komplexität (z. B. 1, 2, 3, 5, 8, 13)
+              - paragraph [ref=f56e142]:
+                - generic [ref=f56e143]: Sprint
+                - combobox "Sprint" [ref=f56e144]:
+                  - option "Keine" [selected]
+                  - option "Bug Bash"
+                  - option "UI Polish"
+              - paragraph [ref=f56e145]:
+                - generic [ref=f56e146]: Markierungsliste
+                - list [ref=f56e147]:
+                  - listitem [ref=f56e148]:
+                    - textbox "Markierungen hinzufügen" [ref=f56e149]
+          - group "Aufwand buchen" [ref=f56e150]:
+            - generic [ref=f56e152]:
+              - paragraph [ref=f56e154]:
+                - generic [ref=f56e155]: Aufgewendete Zeit
+                - textbox "Aufgewendete Zeit" [ref=f56e156]:
+                  - /placeholder: h:mm
+                - text: Stunden
+              - paragraph [ref=f56e158]:
+                - generic [ref=f56e159]: Aktivität
+                - combobox "Aktivität" [ref=f56e160]:
+                  - option "--- Bitte auswählen ---" [selected]
+                  - option "Design"
+                  - option "Development"
+            - paragraph [ref=f56e161]:
+              - generic [ref=f56e162]: Kommentar
+              - textbox "Kommentar" [ref=f56e163]
+          - group "Kommentare" [ref=f56e164]:
+            - generic [ref=f56e166]:
+              - list [ref=f56e168]:
+                - listitem [ref=f56e169]:
+                  - link "Bearbeiten" [ref=f56e170] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f56e171]:
+                  - link "Vorschau" [ref=f56e172] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f56e173]:
+                  - generic [ref=f56e174]:
+                    - button "Fett (Ctrl+B)" [ref=f56e175] [cursor=pointer]
+                    - button "Kursiv (Ctrl+I)" [ref=f56e176] [cursor=pointer]
+                    - button "Unterstrichen (Ctrl+U)" [ref=f56e177] [cursor=pointer]
+                    - button "Durchgestrichen" [ref=f56e178] [cursor=pointer]
+                    - button "Quelltext" [ref=f56e179] [cursor=pointer]
+                    - button "Überschrift 1. Ordnung" [ref=f56e180] [cursor=pointer]
+                    - button "Überschrift 2. Ordnung" [ref=f56e181] [cursor=pointer]
+                    - button "Überschrift 3. Ordnung" [ref=f56e182] [cursor=pointer]
+                    - button "Aufzählungsliste" [ref=f56e183] [cursor=pointer]
+                    - button "Nummerierte Liste" [ref=f56e184] [cursor=pointer]
+                    - button "Task list" [ref=f56e185] [cursor=pointer]
+                    - button "Zitat" [ref=f56e186] [cursor=pointer]
+                    - button "Zitat entfernen" [ref=f56e187] [cursor=pointer]
+                    - button "Table" [ref=f56e188] [cursor=pointer]
+                    - button "pre" [ref=f56e189] [cursor=pointer]
+                    - button "Highlighted code" [ref=f56e190] [cursor=pointer]
+                    - button "Verweis (Link) zu einer Wiki-Seite" [ref=f56e191] [cursor=pointer]
+                    - button "Grafik" [ref=f56e192] [cursor=pointer]
+                    - button "Help" [ref=f56e193] [cursor=pointer]
+              - textbox [ref=f56e195]
+            - checkbox "Privater Kommentar" [ref=f56e196]
+            - text: Privater Kommentar
+          - group "Dateien" [ref=f56e197]:
+            - generic [ref=f56e201]:
+              - button "Choose File" [ref=f56e202]
+              - text: "(Maximale Größe: 5 MB)"
+        - button "OK" [ref=f56e203] [cursor=pointer]
+        - link "Abbrechen" [ref=f56e204] [cursor=pointer]:
+          - /url: /issues/106
+    - generic [ref=f56e205]:
+      - text: Powered by
+      - link "Redmine" [ref=f56e206] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f56e207]
+  - log [ref=f56e208]
+  - log [ref=f56e209]
+  - log [ref=f56e210]
+  - log [ref=f56e211]
+  - log [ref=f56e212]
+  - log [ref=f56e213]
+  - log [ref=f56e214]
+  - log [ref=f56e215]
+  - log [ref=f56e216]
+  - log [ref=f56e217]
+  - log [ref=f56e218]
+  - log [ref=f56e219]
+  - log [ref=f56e220]
+  - log [ref=f56e221]
+  - log [ref=f56e222]
+  - log [ref=f56e223]
+  - log [ref=f56e224]
+  - log [ref=f56e225]
+  - log [ref=f56e226]
+  - log [ref=f56e227]
+  - log [ref=f56e228]
+  - log [ref=f56e229]
+  - log [ref=f56e230]
+  - log [ref=f56e231]
+  - log [ref=f56e232]
+  - log [ref=f56e233]
+  - log [ref=f56e234]
+  - log [ref=f56e235]
+  - log [ref=f56e236]
+  - log [ref=f56e237]
+  - log [ref=f56e238]
+  - log [ref=f56e239]
+  - log [ref=f56e240]
+  - log [ref=f56e241]
+  - log [ref=f56e242]
+  - log [ref=f56e243]
+  - log [ref=f56e244]
+  - log [ref=f56e245]
+  - log [ref=f56e246]
+  - log [ref=f56e247]
+  - log [ref=f56e248]
+  - log [ref=f56e249]
+  - log [ref=f56e250]
+  - log [ref=f56e251]
+  - log [ref=f56e252]
+  - log [ref=f56e253]
+  - log [ref=f56e254]
+  - log [ref=f56e255]
+  - log [ref=f56e256]
+  - status [ref=f56e257]

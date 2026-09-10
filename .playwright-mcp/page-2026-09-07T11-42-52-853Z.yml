@@ -1,0 +1,229 @@
+- generic [active] [ref=f129e1]:
+  - generic [ref=f129e2]:
+    - navigation [ref=f129e3]:
+      - list [ref=f129e6]:
+        - listitem [ref=f129e7]:
+          - link "Hauptseite" [ref=f129e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f129e9]:
+          - link "Meine Seite" [ref=f129e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f129e11]:
+          - link "Projekte" [ref=f129e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f129e13]:
+          - link "Agile Board" [ref=f129e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f129e15]:
+          - link "Flux Gantt" [ref=f129e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f129e17]:
+          - link "Administration" [ref=f129e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f129e19]:
+          - link "Hilfe" [ref=f129e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f129e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f129e24]: RA
+    - generic [ref=f129e27]:
+      - generic [ref=f129e153]:
+        - generic [ref=f129e154]:
+          - generic [ref=f129e155]:
+            - link "Suche" [ref=f129e156] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/search
+            - text: ":"
+          - textbox "Suche:" [ref=f129e157]
+        - generic [ref=f129e158]:
+          - generic [ref=f129e159] [cursor=pointer]: Flux Gantt Project
+          - text: ✓ ✓
+      - heading "Flux Gantt Project" [level=1] [ref=f129e28]
+      - list [ref=f129e31]:
+        - listitem [ref=f129e32]:
+          - link "+" [ref=f129e33] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f129e34]:
+          - link "Übersicht" [ref=f129e35] [cursor=pointer]:
+            - /url: /projects/fluxganttproject
+        - listitem [ref=f129e36]:
+          - link "Dashboard" [ref=f129e37] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/analytics_dashboard
+        - listitem [ref=f129e38]:
+          - link "Flux Gantt" [ref=f129e39] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/flux_gantt
+        - listitem [ref=f129e40]:
+          - link "Aktivität" [ref=f129e41] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/activity
+        - listitem [ref=f129e42]:
+          - link "Roadmap" [ref=f129e43] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/roadmap
+        - listitem [ref=f129e44]:
+          - link "Tickets" [ref=f129e45] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues
+        - listitem [ref=f129e46]:
+          - link "Aufgewendete Zeit" [ref=f129e47] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/time_entries
+        - listitem [ref=f129e48]:
+          - link "Gantt-Diagramm" [ref=f129e49] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/gantt
+        - listitem [ref=f129e50]:
+          - link "Kalender" [ref=f129e51] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/calendar
+        - listitem [ref=f129e52]:
+          - link "News" [ref=f129e53] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/news
+        - listitem [ref=f129e54]:
+          - link "Dokumente" [ref=f129e55] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/documents
+        - listitem [ref=f129e56]:
+          - link "Wiki" [ref=f129e57] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/wiki
+        - listitem [ref=f129e58]:
+          - link "Dateien" [ref=f129e59] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/files
+        - listitem [ref=f129e60]:
+          - link "Konfiguration" [ref=f129e61] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/settings
+    - generic [ref=f129e64]:
+      - generic [ref=f129e65]:
+        - generic [ref=f129e66]: Flux Gantt
+        - generic [ref=f129e67]:
+          - generic [ref=f129e68]:
+            - generic [ref=f129e69]: Datum von/bis
+            - button "1. Sept. 26 - 30. Sept. 26 ▾" [ref=f129e160] [cursor=pointer]:
+              - generic [ref=f129e73]: 1. Sept. 26 - 30. Sept. 26
+              - text: ▾
+          - generic [ref=f129e74]:
+            - generic [ref=f129e75]: Suche
+            - textbox "Suche..." [ref=f129e77]
+        - generic [ref=f129e79]:
+          - generic [ref=f129e80]: Details
+          - combobox [ref=f129e81] [cursor=pointer]:
+            - option "Alle einklappen" [selected]
+            - option "Alle ausklappen"
+        - generic [ref=f129e82]:
+          - button "+ Version hinzufügen" [ref=f129e83] [cursor=pointer]
+          - button "Einstellungen" [ref=f129e84] [cursor=pointer]
+          - button "Vorgänge ohne Version" [ref=f129e88] [cursor=pointer]
+          - button "Vollbild" [ref=f129e90] [cursor=pointer]
+          - button "Exportieren" [ref=f129e96] [cursor=pointer]
+      - generic [ref=f129e162]:
+        - generic [ref=f129e163]:
+          - generic [ref=f129e164]:
+            - generic [ref=f129e165]:
+              - generic [ref=f129e166]: Name
+              - button "+ Vorgang hinzufügen" [ref=f129e167] [cursor=pointer]
+            - generic [ref=f129e168]: Zugewiesen an
+            - generic [ref=f129e169]: Erledigt %
+          - generic [ref=f129e170]:
+            - generic [ref=f129e171] [cursor=pointer]:
+              - generic [ref=f129e359]:
+                - generic [ref=f129e360]: ▶
+                - generic [aria-hidden] [ref=f129e361]: ◆
+                - generic [ref=f129e362]: Version 2
+                - generic [ref=f129e363]: 10 Vorgänge
+              - generic [ref=f129e365]: "-"
+              - generic [ref=f129e366]: 0%
+            - generic [ref=f129e180] [cursor=pointer]:
+              - generic [ref=f129e367]:
+                - generic [ref=f129e368]: ▶
+                - generic [aria-hidden] [ref=f129e369]: ◆
+                - generic [ref=f129e370]: Version 1
+                - generic [ref=f129e371]: 0 Vorgänge
+              - generic [ref=f129e373]: "-"
+              - generic [ref=f129e374]: 0%
+            - generic [ref=f129e189] [cursor=pointer]:
+              - generic [ref=f129e375]:
+                - generic [ref=f129e376]: ▶
+                - generic [aria-hidden] [ref=f129e377]: ◆
+                - generic [ref=f129e378]: Version 3
+                - generic [ref=f129e379]: 0 Vorgänge
+              - generic [ref=f129e381]: "-"
+              - generic [ref=f129e382]: 0%
+            - generic [ref=f129e198] [cursor=pointer]:
+              - generic [ref=f129e383]:
+                - generic [ref=f129e384]: ▶
+                - generic [aria-hidden] [ref=f129e385]: ◆
+                - generic [ref=f129e386]: Version 4
+                - generic [ref=f129e387]: 0 Vorgänge
+              - generic [ref=f129e389]: "-"
+              - generic [ref=f129e390]: 0%
+        - generic [ref=f129e208]:
+          - generic [ref=f129e209]:
+            - generic [ref=f129e391]:
+              - generic [ref=f129e392]: 31 Aug - 4 Sep, 2026
+              - generic [ref=f129e393]: 7 Sep - 11 Sep, 2026
+              - generic [ref=f129e394]: 14 Sep - 18 Sep, 2026
+              - generic [ref=f129e395]: 21 Sep - 25 Sep, 2026
+              - generic [ref=f129e396]: 28 Sep - 2 Okt, 2026
+            - generic [ref=f129e397]:
+              - generic [ref=f129e398]: "1"
+              - generic [ref=f129e399]: "2"
+              - generic [ref=f129e400]: "3"
+              - generic [ref=f129e401]: "4"
+              - generic [ref=f129e402]: "7"
+              - generic [ref=f129e403]: "8"
+              - generic [ref=f129e404]: "9"
+              - generic [ref=f129e405]: "10"
+              - generic [ref=f129e406]: "11"
+              - generic [ref=f129e407]: "14"
+              - generic [ref=f129e408]: "15"
+              - generic [ref=f129e409]: "16"
+              - generic [ref=f129e410]: "17"
+              - generic [ref=f129e411]: "18"
+              - generic [ref=f129e412]: "21"
+              - generic [ref=f129e413]: "22"
+              - generic [ref=f129e414]: "23"
+              - generic [ref=f129e415]: "24"
+              - generic [ref=f129e416]: "25"
+              - generic [ref=f129e417]: "28"
+              - generic [ref=f129e418]: "29"
+              - generic [ref=f129e419]: "30"
+          - generic [ref=f129e239]:
+            - generic [ref=f129e240]:
+              - generic [ref=f129e241]:
+                - generic:
+                  - generic: 0%
+                  - generic: Version 2
+              - generic [ref=f129e243]:
+                - generic:
+                  - generic: 0%
+                  - generic: Version 1
+              - generic [ref=f129e245]:
+                - generic:
+                  - generic: 0%
+                  - generic: Version 3
+              - generic [ref=f129e247]:
+                - generic:
+                  - generic: 0%
+                  - generic: Version 4
+            - generic: Today
+      - alert [ref=f129e420]:
+        - generic [ref=f129e421]: Vorgang erstellt
+        - button "Dismiss" [ref=f129e422] [cursor=pointer]: ×
+    - generic [ref=f129e131]:
+      - text: Powered by
+      - link "Redmine" [ref=f129e132] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - tooltip [aria-hidden]
+  - log [ref=f129e133]
+  - log [ref=f129e134]
+  - log [ref=f129e135]
+  - log [ref=f129e136]
+  - log [ref=f129e137]
+  - log [ref=f129e138]
+  - log [ref=f129e139]
+  - log [ref=f129e140]
+  - log [ref=f129e141]
+  - log [ref=f129e142]
+  - log [ref=f129e143]
+  - log [ref=f129e144]
+  - log [ref=f129e145]
+  - log [ref=f129e146]
+  - log [ref=f129e147]
+  - log [ref=f129e148]
+  - log [ref=f129e149]
+  - log [ref=f129e150]
+  - log [ref=f129e151]
+  - log [ref=f129e152]

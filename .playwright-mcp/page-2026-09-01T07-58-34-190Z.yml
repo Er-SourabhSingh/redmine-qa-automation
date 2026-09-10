@@ -1,0 +1,175 @@
+- generic [active] [ref=f15e1]:
+  - generic [ref=f15e2]:
+    - generic [ref=f15e3]:
+      - generic [ref=f15e4]:
+        - list:
+          - listitem [ref=f15e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f15e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f15e7]:
+        - text: Logged in as
+        - link "admin" [ref=f15e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f15e9]:
+        - listitem [ref=f15e10]:
+          - link [ref=f15e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f15e12]
+        - listitem [ref=f15e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f15e14]:
+          - link "My page" [ref=f15e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f15e16]:
+          - link "Projects" [ref=f15e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f15e18]:
+          - link "Flux Gantt" [ref=f15e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f15e20]:
+          - link "Helpdesk Command Center" [ref=f15e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f15e22]:
+          - link "Time Tracker" [ref=f15e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f15e24]:
+          - link "Timesheet" [ref=f15e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f15e26]:
+          - link "Workloads" [ref=f15e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f15e28]:
+          - link "More" [ref=f15e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f15e30]:
+      - generic [ref=f15e31]:
+        - generic [ref=f15e32]:
+          - generic [ref=f15e33]:
+            - link "Search..." [ref=f15e34] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f15e35]
+        - generic [ref=f15e36]:
+          - generic [ref=f15e37] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f15e38]
+      - generic [ref=f15e39]:
+        - list [ref=f15e40]:
+          - listitem [ref=f15e41]:
+            - link "+" [ref=f15e42] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f15e43]:
+            - link "Overview" [ref=f15e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f15e45]:
+            - link "Activity" [ref=f15e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f15e47]:
+            - link "Issues" [ref=f15e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f15e49]:
+            - link "Spent time" [ref=f15e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f15e51]:
+            - link "Gantt" [ref=f15e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f15e53]:
+            - link "Calendar" [ref=f15e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f15e55]:
+            - link "News" [ref=f15e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f15e57]:
+            - link "Documents" [ref=f15e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f15e59]:
+            - link "Wiki" [ref=f15e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f15e61]:
+            - link "Files" [ref=f15e62] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f15e63]:
+            - link "Helpdesk" [ref=f15e64] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+          - listitem [ref=f15e65]:
+            - link "Settings" [ref=f15e66] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/settings
+        - generic [ref=f15e67]:
+          - button [ref=f15e68] [cursor=pointer]
+          - button [ref=f15e71] [cursor=pointer]
+    - generic [ref=f15e74]:
+      - list [ref=f15e78]:
+        - listitem [ref=f15e79]:
+          - link "Helpdesk Dashboard" [ref=f15e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f15e83]:
+          - link "Helpdesk Tickets" [ref=f15e84] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f15e87]:
+          - link "Knowledgebase" [ref=f15e88] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+        - listitem [ref=f15e91]:
+          - link "Helpdesk SLA" [ref=f15e92] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/sla
+        - listitem [ref=f15e95]:
+          - link "Organization" [ref=f15e96] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/organization
+        - listitem [ref=f15e99]:
+          - link "Settings" [ref=f15e100] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/settings
+      - generic [ref=f15e103]:
+        - generic [ref=f15e104]:
+          - generic [ref=f15e106]:
+            - heading "Helpdesk Dashboard" [level=2] [ref=f15e107]
+            - paragraph [ref=f15e108]: Helpdesk QA Alpha
+          - generic [ref=f15e109]:
+            - button "Date Range" [ref=f15e111] [cursor=pointer]:
+              - generic [ref=f15e114]: 03 Aug 26 - 01 Sep 26
+            - link "New issue" [ref=f15e117] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk/new
+        - generic [ref=f15e119]:
+          - link "9 Unassigned View All" [ref=f15e120] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?assigned_to_id%5B%5D=none&created_from=2026-08-03&created_to=2026-09-01&status_id%5B%5D=open
+            - generic [ref=f15e127]: "9"
+            - generic [ref=f15e128]: Unassigned
+            - generic [ref=f15e129]: View All
+          - link "11 Open View All" [ref=f15e132] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?created_from=2026-08-03&created_to=2026-09-01&status_id%5B%5D=open
+            - generic [ref=f15e137]: "11"
+            - generic [ref=f15e138]: Open
+            - generic [ref=f15e139]: View All
+          - link "12 On Hold View All" [ref=f15e142] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?created_from=2026-08-03&created_to=2026-09-01
+            - generic [ref=f15e146]: "12"
+            - generic [ref=f15e147]: On Hold
+            - generic [ref=f15e148]: View All
+          - link "0 SLA Breached View All" [ref=f15e151] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?sla=breached
+            - generic [ref=f15e155]: "0"
+            - generic [ref=f15e156]: SLA Breached
+            - generic [ref=f15e157]: View All
+          - link "1 Resolved View All" [ref=f15e160] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?created_from=2026-08-03&created_to=2026-09-01&status_id%5B%5D=closed
+            - generic [ref=f15e165]: "1"
+            - generic [ref=f15e166]: Resolved
+            - generic [ref=f15e167]: View All
+    - generic [ref=f15e172]:
+      - text: Powered by
+      - link "Redmine" [ref=f15e173] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f15e174]
+  - log [ref=f15e175]
+  - log [ref=f15e176]
+  - log [ref=f15e177]
+  - log [ref=f15e178]
+  - log [ref=f15e179]
+  - log [ref=f15e180]
+  - log [ref=f15e181]
+  - log [ref=f15e182]
+  - log [ref=f15e183]
+  - log [ref=f15e184]

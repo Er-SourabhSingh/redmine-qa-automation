@@ -1,0 +1,130 @@
+- generic [active] [ref=f141e1]:
+  - generic [ref=f141e2]:
+    - generic [ref=f141e3]:
+      - generic [ref=f141e4]:
+        - img "Logo" [ref=f141e5]
+        - text: 
+      - navigation "Application tasks" [ref=f141e6]:
+        - button " Compose" [ref=f141e8] [cursor=pointer]
+        - button " Mail" [ref=f141e9] [cursor=pointer]
+        - button " Contacts" [ref=f141e10] [cursor=pointer]
+        - button " Settings" [ref=f141e11] [cursor=pointer]
+        - generic [ref=f141e12]:
+          - button " Dark mode" [ref=f141e13] [cursor=pointer]
+          - button " About" [ref=f141e14] [cursor=pointer]
+          - button " Logout" [ref=f141e15] [cursor=pointer]
+    - generic [ref=f141e16]:
+      - toolbar "Application toolbar" [ref=f141e17]:
+        - text:                 
+        - list [ref=f141e18]:
+          - menuitem: 
+          - menuitem [ref=f141e19]:
+            - button " Reply" [ref=f141e20] [cursor=pointer]
+          - menuitem [ref=f141e21]:
+            - generic [ref=f141e22]:
+              - button " Reply all" [ref=f141e23] [cursor=pointer]
+              - link "" [ref=f141e24] [cursor=pointer]:
+                - /url: "#reply-all"
+          - menuitem [ref=f141e25]:
+            - generic [ref=f141e26]:
+              - button " Forward" [ref=f141e27] [cursor=pointer]
+              - link "" [ref=f141e28] [cursor=pointer]:
+                - /url: "#forward"
+          - menuitem [ref=f141e29]
+          - menuitem [ref=f141e30]:
+            - button " Delete" [ref=f141e31] [cursor=pointer]
+          - menuitem [ref=f141e32]:
+            - button " Print" [ref=f141e33] [cursor=pointer]
+          - menuitem [ref=f141e34]:
+            - button " Mark" [ref=f141e35] [cursor=pointer]
+          - menuitem [ref=f141e36]:
+            - button " More" [ref=f141e37] [cursor=pointer]
+          - menuitem [ref=f141e38]
+          - menuitem " Previous" [ref=f141e39]:
+            - button " Previous" [disabled]
+          - menuitem " Next" [ref=f141e40]:
+            - button " Next" [disabled]
+        - text: 
+      - main [ref=f141e41]:
+        - generic [ref=f141e42]:
+          - heading [level=2] [ref=f141e43]:
+            - text: "[CRITICAL] SLA Breach Alert - L3 - Issue #36: TC-HLP-356 holiday adjacency restricted-days test ticket"
+            - button "" [ref=f141e44] [cursor=pointer]
+          - generic [ref=f141e45]:
+            - img "Contact photo" [ref=f141e46]
+            - generic [ref=f141e47]:
+              - generic [ref=f141e49]:
+                - text: From
+                - link "redmine@example.net" [ref=f141e51] [cursor=pointer]:
+                  - /url: mailto:redmine@example.net
+                - text: on 2026-09-03 15:00
+              - generic [ref=f141e52]:
+                - link " Details" [ref=f141e53] [cursor=pointer]:
+                  - /url: "#headers"
+                - link " Headers" [ref=f141e54] [cursor=pointer]:
+                  - /url: "#all-headers"
+                - button " Plain text" [ref=f141e55] [cursor=pointer]
+        - generic [ref=f141e56]:
+          - region "Attachments"
+          - region "Message Body" [ref=f141e57]:
+            - generic: 
+            - generic [ref=f141e62]:
+              - generic [ref=f141e63]:
+                - heading "Critical SLA Alert" [level=1] [ref=f141e64]
+                - generic [ref=f141e65]: Last Level Escalation
+              - generic [ref=f141e66]:
+                - paragraph [ref=f141e68]: Immediate attention required - Issue escalated to final support level
+                - paragraph [ref=f141e69]:
+                  - text: Dear
+                  - strong [ref=f141e70]: Redmine Admin
+                  - text: ","
+                - paragraph [ref=f141e71]:
+                  - text: This is a critical alert regarding an SLA breach. The issue has been escalated to the
+                  - strong [ref=f141e72]: last available support level
+                  - text: and requires your immediate attention. No further automatic escalation is possible.
+                - generic [ref=f141e73]:
+                  - heading "Issue Details" [level=3] [ref=f141e74]
+                  - generic [ref=f141e75]:
+                    - generic [ref=f141e76]: "Issue Number:"
+                    - strong [ref=f141e78]: "#36"
+                  - generic [ref=f141e79]:
+                    - generic [ref=f141e80]: "Subject:"
+                    - generic [ref=f141e81]: TC-HLP-356 holiday adjacency restricted-days test ticket
+                  - generic [ref=f141e82]:
+                    - generic [ref=f141e83]: "Project:"
+                    - generic [ref=f141e84]: Helpdesk QA Alpha
+                  - generic [ref=f141e85]:
+                    - generic [ref=f141e86]: "Priority:"
+                    - strong [ref=f141e88]: Normal
+                  - generic [ref=f141e89]:
+                    - generic [ref=f141e90]: "Status:"
+                    - generic [ref=f141e91]: New
+                  - generic [ref=f141e92]:
+                    - generic [ref=f141e93]: "Assigned To:"
+                    - generic [ref=f141e94]: Redmine Admin
+                - generic [ref=f141e95]:
+                  - heading "SLA Information" [level=3] [ref=f141e96]
+                  - generic [ref=f141e97]:
+                    - generic [ref=f141e98]: "Support Level:"
+                    - generic [ref=f141e99]:
+                      - strong [ref=f141e100]: L3
+                      - text: (Final Level)
+                  - generic [ref=f141e101]:
+                    - generic [ref=f141e102]: "SLA Policy:"
+                    - generic [ref=f141e103]: Alpha Holiday-Adjacency Restricted-Days Test SLA
+                  - generic [ref=f141e104]:
+                    - generic [ref=f141e105]: "Total Escalations:"
+                    - generic [ref=f141e106]: "1"
+                - generic [ref=f141e107]:
+                  - heading "Final Escalation Level Reached" [level=3] [ref=f141e108]
+                  - paragraph [ref=f141e109]: This is the highest support level. No further automatic escalation is available. Please prioritize and resolve this issue immediately.
+                - link "View Issue →" [ref=f141e111] [cursor=pointer]:
+                  - /url: http://localhost:3012/issues/36
+              - generic [ref=f141e112]:
+                - paragraph [ref=f141e113]:
+                  - strong [ref=f141e114]: Helpdesk System
+                - paragraph [ref=f141e115]: This is an automated SLA monitoring alert. Please do not reply to this email.
+    - text:    
+  - alert [ref=f141e117]:
+    - generic [ref=f141e118]: 
+    - generic [ref=f141e119]: Loading...

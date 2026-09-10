@@ -1,0 +1,231 @@
+- generic [ref=f226e1]:
+  - generic [ref=f226e2]:
+    - navigation [ref=f226e3]:
+      - generic [ref=f226e4]:
+        - link [ref=f226e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f226e7] [cursor=pointer]
+      - list [ref=f226e17]:
+        - listitem [ref=f226e18]:
+          - link "Hauptseite" [ref=f226e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f226e20]:
+          - link "Meine Seite" [ref=f226e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f226e22]:
+          - link "Projekte" [ref=f226e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f226e24]:
+          - link "Agile Board" [ref=f226e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f226e26]:
+          - link "Flux Gantt" [ref=f226e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f226e28]:
+          - link "Administration" [ref=f226e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f226e30]:
+          - link "Hilfe" [ref=f226e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f226e32]:
+        - generic [ref=f226e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f226e35]
+        - link "Mein Konto" [ref=f226e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f226e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f226e44]:
+      - generic [ref=f226e45]:
+        - heading "Redmine" [level=1] [ref=f226e47]
+        - generic [ref=f226e49]:
+          - heading "Administration" [level=3] [ref=f226e50]
+          - list [ref=f226e52]:
+            - listitem [ref=f226e53]:
+              - link "Projekte" [ref=f226e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f226e55]:
+              - link "Benutzer" [ref=f226e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f226e57]:
+              - link "Gruppen" [ref=f226e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f226e59]:
+              - link "Rollen und Rechte" [ref=f226e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f226e61]:
+              - link "Tracker" [ref=f226e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f226e63]:
+              - link "Ticket-Status" [ref=f226e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f226e65]:
+              - link "Workflow" [ref=f226e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f226e67]:
+              - link "Benutzerdefinierte Felder" [ref=f226e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f226e69]:
+              - link "Aufzählungen" [ref=f226e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f226e71]:
+              - link "Konfiguration" [ref=f226e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f226e73]:
+              - link "LDAP-Authentifizierung" [ref=f226e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f226e75]:
+              - link "Applikationen" [ref=f226e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f226e77]:
+              - link "Plugins" [ref=f226e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f226e79]:
+              - link "Informationen" [ref=f226e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f226e81]:
+        - heading "Konfiguration" [level=2] [ref=f226e82]
+        - list [ref=f226e84]:
+          - listitem [ref=f226e85]:
+            - link "Allgemein" [ref=f226e86] [cursor=pointer]:
+              - /url: /settings?tab=general
+          - listitem [ref=f226e87]:
+            - link "Anzeige" [ref=f226e88] [cursor=pointer]:
+              - /url: /settings?tab=display
+          - listitem [ref=f226e89]:
+            - link "Authentifizierung" [ref=f226e90] [cursor=pointer]:
+              - /url: /settings?tab=authentication
+          - listitem [ref=f226e91]:
+            - link "Integrations" [ref=f226e92] [cursor=pointer]:
+              - /url: /settings?tab=integrations
+          - listitem [ref=f226e93]:
+            - link "Projekte" [ref=f226e94] [cursor=pointer]:
+              - /url: /settings?tab=projects
+          - listitem [ref=f226e95]:
+            - link "Benutzer" [ref=f226e96] [cursor=pointer]:
+              - /url: /settings?tab=users
+          - listitem [ref=f226e97]:
+            - link "Tickets" [ref=f226e98] [cursor=pointer]:
+              - /url: /settings?tab=issues
+          - listitem [ref=f226e99]:
+            - link "Zeiterfassung" [ref=f226e100] [cursor=pointer]:
+              - /url: /settings?tab=timelog
+          - listitem [ref=f226e101]:
+            - link "Dateien" [ref=f226e102] [cursor=pointer]:
+              - /url: /settings?tab=attachments
+          - listitem [ref=f226e103]:
+            - link "Mailbenachrichtigung" [ref=f226e104] [cursor=pointer]:
+              - /url: /settings?tab=notifications
+          - listitem [ref=f226e105]:
+            - link "Eingehende E-Mails" [ref=f226e106] [cursor=pointer]:
+              - /url: /settings?tab=mail_handler
+          - listitem [ref=f226e107]:
+            - link "Repositories" [ref=f226e108] [cursor=pointer]:
+              - /url: /settings?tab=repositories
+        - text: pre
+        - generic [ref=f226e110]:
+          - generic [ref=f226e111]:
+            - paragraph [ref=f226e112]:
+              - generic [ref=f226e113]: Maximale Dateigröße
+              - textbox "Maximale Dateigröße" [active] [ref=f226e114]: "5120"
+              - text: KB
+            - paragraph [ref=f226e115]:
+              - generic [ref=f226e116]: Maximalgröße für den aggregierten Download von Anhängen
+              - textbox "Maximalgröße für den aggregierten Download von Anhängen" [ref=f226e117]: "102400"
+              - text: KB
+            - paragraph [ref=f226e118]:
+              - generic [ref=f226e119]: Zugelassene Dateitypen
+              - textbox "Zugelassene Dateitypen" [ref=f226e120]
+              - emphasis [ref=f226e121]: "Mehrere Werte erlaubt (durch Komma getrennt). Beispiel: txt, png"
+            - paragraph [ref=f226e122]:
+              - generic [ref=f226e123]: Nicht zugelassene Dateitypen
+              - textbox "Nicht zugelassene Dateitypen" [ref=f226e124]
+              - emphasis [ref=f226e125]: "Mehrere Werte erlaubt (durch Komma getrennt). Beispiel: js, swf"
+            - paragraph [ref=f226e126]:
+              - generic [ref=f226e127]: Maximale Größe inline angezeigter Textdateien
+              - textbox "Maximale Größe inline angezeigter Textdateien" [ref=f226e128]: "512"
+              - text: KB
+            - paragraph [ref=f226e129]:
+              - generic [ref=f226e130]: Maximale Anzahl anzuzeigender Diff-Zeilen
+              - textbox "Maximale Anzahl anzuzeigender Diff-Zeilen" [ref=f226e131]: "1500"
+            - paragraph [ref=f226e132]:
+              - generic [ref=f226e133]: Kodierung von Anhängen und Repositories
+              - textbox "Kodierung von Anhängen und Repositories" [ref=f226e134]
+              - emphasis [ref=f226e135]: Mehrere Werte erlaubt (durch Komma getrennt).
+          - button "Speichern" [ref=f226e136] [cursor=pointer]
+        - text: pre pre
+    - generic [ref=f226e137]:
+      - text: Powered by
+      - link "Redmine" [ref=f226e138] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f226e139]
+  - log [ref=f226e140]
+  - log [ref=f226e141]
+  - log [ref=f226e142]
+  - log [ref=f226e143]
+  - log [ref=f226e144]
+  - log [ref=f226e145]
+  - log [ref=f226e146]
+  - log [ref=f226e147]
+  - log [ref=f226e148]
+  - log [ref=f226e149]
+  - log [ref=f226e150]
+  - log [ref=f226e151]
+  - log [ref=f226e152]
+  - log [ref=f226e153]
+  - log [ref=f226e154]
+  - log [ref=f226e155]
+  - log [ref=f226e156]
+  - log [ref=f226e157]
+  - log [ref=f226e158]
+  - log [ref=f226e159]
+  - log [ref=f226e160]
+  - log [ref=f226e161]
+  - log [ref=f226e162]
+  - log [ref=f226e163]
+  - log [ref=f226e164]
+  - log [ref=f226e165]
+  - log [ref=f226e166]
+  - log [ref=f226e167]
+  - log [ref=f226e168]
+  - log [ref=f226e169]
+  - log [ref=f226e170]
+  - log [ref=f226e171]
+  - log [ref=f226e172]
+  - log [ref=f226e173]
+  - log [ref=f226e174]
+  - log [ref=f226e175]
+  - log [ref=f226e176]
+  - log [ref=f226e177]
+  - log [ref=f226e178]
+  - log [ref=f226e179]
+  - log [ref=f226e180]
+  - log [ref=f226e181]
+  - log [ref=f226e182]
+  - log [ref=f226e183]
+  - log [ref=f226e184]
+  - log [ref=f226e185]
+  - log [ref=f226e186]
+  - log [ref=f226e187]
+  - log [ref=f226e188]
+  - log [ref=f226e189]
+  - log [ref=f226e190]
+  - log [ref=f226e191]
+  - log [ref=f226e192]
+  - log [ref=f226e193]
+  - log [ref=f226e194]
+  - log [ref=f226e195]
+  - log [ref=f226e196]
+  - log [ref=f226e197]
+  - log [ref=f226e198]
+  - log [ref=f226e199]
+  - log [ref=f226e200]
+  - log [ref=f226e201]
+  - log [ref=f226e202]
+  - log [ref=f226e203]
+  - log [ref=f226e204]
+  - log [ref=f226e205]
+  - log [ref=f226e206]
+  - log [ref=f226e207]
+  - log [ref=f226e208]
+  - log [ref=f226e209]

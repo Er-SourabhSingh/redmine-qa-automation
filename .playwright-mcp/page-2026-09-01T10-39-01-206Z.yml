@@ -1,0 +1,131 @@
+- generic [active] [ref=f130e1]:
+  - generic [ref=f130e2]:
+    - generic [ref=f130e3]:
+      - generic [ref=f130e4]:
+        - list:
+          - listitem [ref=f130e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f130e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f130e7]:
+        - text: Logged in as
+        - link "retest.customer1" [ref=f130e8] [cursor=pointer]:
+          - /url: /users/7
+      - list [ref=f130e9]:
+        - listitem [ref=f130e10]:
+          - link [ref=f130e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f130e12]
+        - listitem [ref=f130e13]:
+          - link "My Helpdesk" [ref=f130e14] [cursor=pointer]:
+            - /url: /helpdesk
+    - heading "Helpdesk QA Alpha" [level=1] [ref=f130e16]
+    - generic [ref=f130e17]:
+      - list [ref=f130e21]:
+        - listitem [ref=f130e22]:
+          - link "Helpdesk Dashboard" [ref=f130e23] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f130e26]:
+          - link "Helpdesk Tickets" [ref=f130e27] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f130e30]:
+          - link "Knowledgebase" [ref=f130e31] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f130e34]:
+        - generic [ref=f130e35]: Successful creation.
+        - generic [ref=f130e36]:
+          - generic [ref=f130e38]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f130e39]
+            - paragraph [ref=f130e40]: Helpdesk QA Alpha · 5 tickets
+          - link "New issue" [ref=f130e42] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/new
+        - button "Filters" [ref=f130e45] [cursor=pointer]
+        - table [ref=f130e53]:
+          - rowgroup [ref=f130e54]:
+            - row [ref=f130e55]:
+              - columnheader [ref=f130e56]:
+                - 'link "Ticket #" [ref=f130e57] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=id
+              - columnheader [ref=f130e58]:
+                - link "Subject" [ref=f130e59] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=subject
+              - columnheader [ref=f130e60]:
+                - link "Status" [ref=f130e61] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=status
+              - columnheader [ref=f130e62]:
+                - link "Priority" [ref=f130e63] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=priority
+              - columnheader [ref=f130e64]:
+                - link "Updated ▼" [ref=f130e65] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=updated_on
+          - rowgroup [ref=f130e66]:
+            - row [ref=f130e67]:
+              - cell [ref=f130e68]:
+                - link "#21" [ref=f130e69] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/21
+              - cell [ref=f130e70]:
+                - link "TC-HLP-084 holiday-skip test ticket" [ref=f130e71] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/21
+              - cell "New" [ref=f130e72]
+              - cell "Normal" [ref=f130e75]
+              - cell "09/01/2026 10:39 AM" [ref=f130e78]
+            - row [ref=f130e79]:
+              - cell [ref=f130e80]:
+                - link "#20" [ref=f130e81] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/20
+              - cell [ref=f130e82]:
+                - link "TC-HLP-083 working-hours-skip test ticket" [ref=f130e83] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/20
+              - cell "New" [ref=f130e84]
+              - cell "Normal" [ref=f130e87]
+              - cell "09/01/2026 10:34 AM" [ref=f130e90]
+            - row [ref=f130e91]:
+              - cell [ref=f130e92]:
+                - link "#19" [ref=f130e93] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/19
+              - cell [ref=f130e94]:
+                - link "TC-HLP-105 deactivate-L2-mid-escalation test ticket" [ref=f130e95] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/19
+              - cell "New" [ref=f130e96]
+              - cell "Normal" [ref=f130e99]
+              - cell "09/01/2026 10:16 AM" [ref=f130e102]
+            - row [ref=f130e103]:
+              - cell [ref=f130e104]:
+                - link "#17" [ref=f130e105] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/17
+              - cell [ref=f130e106]:
+                - link "Admin-email-fix verification ticket - direct L3 top-level breach" [ref=f130e107] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/17
+              - cell "New" [ref=f130e108]
+              - cell "Normal" [ref=f130e111]
+              - cell "09/01/2026 08:36 AM" [ref=f130e114]
+            - row [ref=f130e115]:
+              - cell [ref=f130e116]:
+                - link "#15" [ref=f130e117] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/15
+              - cell [ref=f130e118]:
+                - link "TC-HLP-091 mid-level entry test - customer's project-access row specifies L2" [ref=f130e119] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/15
+              - cell "In Progress" [ref=f130e120]
+              - cell "Normal" [ref=f130e123]
+              - cell "09/01/2026 08:36 AM" [ref=f130e126]
+        - generic [ref=f130e127]:
+          - list
+          - generic [ref=f130e128]: (1-5/5)
+    - generic [ref=f130e129]:
+      - text: Powered by
+      - link "Redmine" [ref=f130e130] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f130e131]
+  - log [ref=f130e132]
+  - log [ref=f130e133]
+  - log [ref=f130e134]
+  - log [ref=f130e135]
+  - log [ref=f130e136]
+  - log [ref=f130e137]
+  - log [ref=f130e138]
+  - log [ref=f130e139]
+  - log [ref=f130e140]

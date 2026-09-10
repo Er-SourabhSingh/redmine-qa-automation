@@ -1,0 +1,144 @@
+- generic [ref=f242e1]:
+  - generic [ref=f242e2]:
+    - navigation [ref=f242e3]:
+      - generic [ref=f242e4]:
+        - link [ref=f242e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f242e7] [cursor=pointer]
+      - list [ref=f242e17]:
+        - listitem [ref=f242e18]:
+          - link "Hauptseite" [ref=f242e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f242e20]:
+          - link "Meine Seite" [ref=f242e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f242e22]:
+          - link "Projekte" [ref=f242e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f242e24]:
+          - link "Agile Board" [ref=f242e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f242e26]:
+          - link "Flux Gantt" [ref=f242e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f242e28]:
+          - link "Administration" [ref=f242e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f242e30]:
+          - link "Hilfe" [ref=f242e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f242e32]:
+        - generic [ref=f242e33]:
+          - generic [ref=f242e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f242e35]
+        - link "Mein Konto" [ref=f242e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f242e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f242e44]:
+      - generic [ref=f242e46]:
+        - heading "Agile Board Project" [level=1] [ref=f242e47]
+        - generic [ref=f242e48]:
+          - generic [ref=f242e49]:
+            - generic [ref=f242e50]: Hauptmenü
+            - listitem [ref=f242e51]:
+              - link "+" [ref=f242e52] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f242e53]:
+            - listitem [ref=f242e54]:
+              - link "Übersicht" [ref=f242e55] [cursor=pointer]:
+                - /url: /projects/agileboard
+            - listitem [ref=f242e60]:
+              - link "Dashboard" [ref=f242e61] [cursor=pointer]:
+                - /url: /projects/agileboard/analytics_dashboard
+            - listitem [ref=f242e69]:
+              - link "Aktivität" [ref=f242e70] [cursor=pointer]:
+                - /url: /projects/agileboard/activity
+            - listitem [ref=f242e75]:
+              - link "Agile Board" [ref=f242e76] [cursor=pointer]:
+                - /url: /projects/agileboard/agile_board
+            - listitem [ref=f242e84]:
+              - link "Backlog" [ref=f242e85] [cursor=pointer]:
+                - /url: /projects/agileboard/backlog
+            - listitem [ref=f242e90]:
+              - link "Roadmap" [ref=f242e91] [cursor=pointer]:
+                - /url: /projects/agileboard/roadmap
+            - listitem [ref=f242e98]:
+              - link "Tickets" [ref=f242e99] [cursor=pointer]:
+                - /url: /projects/agileboard/issues
+            - listitem [ref=f242e104]:
+              - link "Aufgewendete Zeit" [ref=f242e105] [cursor=pointer]:
+                - /url: /projects/agileboard/time_entries
+            - listitem [ref=f242e110]:
+              - link "Gantt-Diagramm" [ref=f242e111] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/gantt
+            - listitem [ref=f242e119]:
+              - link "Kalender" [ref=f242e120] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/calendar
+            - listitem [ref=f242e125]:
+              - link "News" [ref=f242e126] [cursor=pointer]:
+                - /url: /projects/agileboard/news
+            - listitem [ref=f242e131]:
+              - link "Dokumente" [ref=f242e132] [cursor=pointer]:
+                - /url: /projects/agileboard/documents
+            - listitem [ref=f242e137]:
+              - link "Wiki" [ref=f242e138] [cursor=pointer]:
+                - /url: /projects/agileboard/wiki
+            - listitem [ref=f242e143]:
+              - link "Dateien" [ref=f242e144] [cursor=pointer]:
+                - /url: /projects/agileboard/files
+            - listitem [ref=f242e149]:
+              - link "Konfiguration" [ref=f242e150] [cursor=pointer]:
+                - /url: /projects/agileboard/settings
+      - generic [ref=f242e156]:
+        - heading "Neues Repository" [level=2] [ref=f242e157]
+        - generic [ref=f242e158]:
+          - generic [ref=f242e159]:
+            - paragraph [ref=f242e160]:
+              - generic [ref=f242e161]: Versionskontrollsystem
+              - combobox "Versionskontrollsystem" [ref=f242e162]:
+                - option "--- Bitte auswählen ---"
+                - option "Subversion" [selected]
+                - option "Mercurial"
+                - option "CVS"
+                - option "Bazaar"
+                - option "Git"
+            - paragraph [ref=f242e163]:
+              - generic [ref=f242e164]: Haupt-Repository
+              - checkbox "Haupt-Repository" [checked] [ref=f242e165]
+            - paragraph [ref=f242e166]:
+              - generic [ref=f242e167]: Kennung
+              - textbox "Kennung" [active] [ref=f242e168]
+              - emphasis [ref=f242e169]: Länge zwischen 1 und 255 Zeichen. Kleinbuchstaben (a-z), Ziffern, Binde- und Unterstriche erlaubt.Einmal gespeichert, kann die Kennung nicht mehr geändert werden.
+            - paragraph [ref=f242e170]:
+              - generic [ref=f242e171]: URL *
+              - textbox "URL *" [ref=f242e172]
+              - emphasis [ref=f242e173]: "Beispiele: file:///, http://, https://, svn://, svn+[tunnelscheme]://"
+            - paragraph [ref=f242e174]:
+              - generic [ref=f242e175]: Mitgliedsname
+              - textbox "Mitgliedsname" [ref=f242e176]
+            - paragraph [ref=f242e177]:
+              - generic [ref=f242e178]: Passwort
+              - textbox "Passwort" [ref=f242e179]
+          - paragraph [ref=f242e180]:
+            - button "Erstellen" [ref=f242e181] [cursor=pointer]
+            - link "Abbrechen" [ref=f242e182] [cursor=pointer]:
+              - /url: /projects/agileboard/settings/repositories
+    - generic [ref=f242e183]:
+      - text: Powered by
+      - link "Redmine" [ref=f242e184] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f242e185]
+  - log [ref=f242e186]
+  - log [ref=f242e187]
+  - log [ref=f242e188]
+  - log [ref=f242e189]
+  - log [ref=f242e190]
+  - log [ref=f242e191]
+  - log [ref=f242e192]
+  - log [ref=f242e193]
+  - log [ref=f242e194]
+  - log [ref=f242e195]
+  - log [ref=f242e196]

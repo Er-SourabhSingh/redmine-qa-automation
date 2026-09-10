@@ -1,0 +1,351 @@
+- generic [ref=f220e1]:
+  - generic [ref=f220e2]:
+    - navigation [ref=f220e3]:
+      - generic [ref=f220e4]:
+        - link [ref=f220e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f220e7] [cursor=pointer]
+      - list [ref=f220e17]:
+        - listitem [ref=f220e18]:
+          - link "Hauptseite" [ref=f220e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f220e20]:
+          - link "Meine Seite" [ref=f220e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f220e22]:
+          - link "Projekte" [ref=f220e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f220e24]:
+          - link "Agile Board" [ref=f220e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f220e26]:
+          - link "Flux Gantt" [ref=f220e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f220e28]:
+          - link "Administration" [ref=f220e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f220e30]:
+          - link "Hilfe" [ref=f220e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f220e32]:
+        - generic [ref=f220e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f220e35]
+        - link "Mein Konto" [ref=f220e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f220e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f220e44]:
+      - generic [ref=f220e45]:
+        - heading "Redmine" [level=1] [ref=f220e47]
+        - generic [ref=f220e49]:
+          - heading "Administration" [level=3] [ref=f220e50]
+          - list [ref=f220e52]:
+            - listitem [ref=f220e53]:
+              - link "Projekte" [ref=f220e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f220e55]:
+              - link "Benutzer" [ref=f220e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f220e57]:
+              - link "Gruppen" [ref=f220e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f220e59]:
+              - link "Rollen und Rechte" [ref=f220e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f220e61]:
+              - link "Tracker" [ref=f220e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f220e63]:
+              - link "Ticket-Status" [ref=f220e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f220e65]:
+              - link "Workflow" [ref=f220e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f220e67]:
+              - link "Benutzerdefinierte Felder" [ref=f220e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f220e69]:
+              - link "Aufzählungen" [ref=f220e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f220e71]:
+              - link "Konfiguration" [ref=f220e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f220e73]:
+              - link "LDAP-Authentifizierung" [ref=f220e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f220e75]:
+              - link "Applikationen" [ref=f220e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f220e77]:
+              - link "Plugins" [ref=f220e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f220e79]:
+              - link "Informationen" [ref=f220e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f220e81]:
+        - generic [ref=f220e82]: Erfolgreich aktualisiert.
+        - heading "Konfiguration" [level=2] [ref=f220e83]
+        - list [ref=f220e85]:
+          - listitem [ref=f220e86]:
+            - link "Allgemein" [ref=f220e87] [cursor=pointer]:
+              - /url: /settings?tab=general
+          - listitem [ref=f220e88]:
+            - link "Anzeige" [ref=f220e89] [cursor=pointer]:
+              - /url: /settings?tab=display
+          - listitem [ref=f220e90]:
+            - link "Authentifizierung" [ref=f220e91] [cursor=pointer]:
+              - /url: /settings?tab=authentication
+          - listitem [ref=f220e92]:
+            - link "Integrations" [ref=f220e93] [cursor=pointer]:
+              - /url: /settings?tab=integrations
+          - listitem [ref=f220e94]:
+            - link "Projekte" [ref=f220e95] [cursor=pointer]:
+              - /url: /settings?tab=projects
+          - listitem [ref=f220e96]:
+            - link "Benutzer" [ref=f220e97] [cursor=pointer]:
+              - /url: /settings?tab=users
+          - listitem [ref=f220e98]:
+            - link "Tickets" [ref=f220e99] [cursor=pointer]:
+              - /url: /settings?tab=issues
+          - listitem [ref=f220e100]:
+            - link "Zeiterfassung" [ref=f220e101] [cursor=pointer]:
+              - /url: /settings?tab=timelog
+          - listitem [ref=f220e102]:
+            - link "Dateien" [ref=f220e103] [cursor=pointer]:
+              - /url: /settings?tab=attachments
+          - listitem [ref=f220e104]:
+            - link "Mailbenachrichtigung" [ref=f220e105] [cursor=pointer]:
+              - /url: /settings?tab=notifications
+          - listitem [ref=f220e106]:
+            - link "Eingehende E-Mails" [ref=f220e107] [cursor=pointer]:
+              - /url: /settings?tab=mail_handler
+          - listitem [ref=f220e108]:
+            - link "Repositories" [ref=f220e109] [cursor=pointer]:
+              - /url: /settings?tab=repositories
+        - text: pre
+        - generic [ref=f220e111]:
+          - generic [ref=f220e112]:
+            - paragraph [ref=f220e113]:
+              - generic [ref=f220e114]: Design-Stil
+              - combobox "Design-Stil" [ref=f220e115]:
+                - option "Standard"
+                - option "Alternate"
+                - option "Classic"
+                - option "Redmineflux daisy"
+                - option "Redmineflux lotus" [selected]
+                - option "Redmineflux scarlet"
+            - paragraph [ref=f220e116]:
+              - generic [ref=f220e117]: Standardsprache
+              - combobox "Standardsprache" [ref=f220e118]:
+                - option "Albanian (Shqip)"
+                - option "Arabic (عربي)"
+                - option "Azerbaijani (Azeri)"
+                - option "Basque (Euskara)"
+                - option "Bosnian (Bosanski)"
+                - option "Bulgarian (Български)"
+                - option "Catalan (Català)"
+                - option "Chinese/Simplified (简体中文)"
+                - option "Chinese/Traditional (繁體中文)"
+                - option "Croatian (Hrvatski)"
+                - option "Czech (Čeština)"
+                - option "Danish (Dansk)"
+                - option "Dutch (Nederlands)"
+                - option "English"
+                - option "English (British)"
+                - option "Estonian (Eesti)"
+                - option "Finnish (Suomi)"
+                - option "French (Français)"
+                - option "Galician (Galego)"
+                - option "German (Deutsch)" [selected]
+                - option "Greek (Ελληνικά)"
+                - option "Hebrew (עברית)"
+                - option "Hungarian (Magyar)"
+                - option "Indonesian (Bahasa Indonesia)"
+                - option "Italian (Italiano)"
+                - option "Japanese (日本語)"
+                - option "Korean (한국어)"
+                - option "Latvian (Latviešu)"
+                - option "Lithuanian (lietuvių)"
+                - option "Macedonian (Македонски)"
+                - option "Mongolian (Монгол)"
+                - option "Norwegian (Norsk bokmål)"
+                - option "Persian (فارسی)"
+                - option "Polish (Polski)"
+                - option "Portuguese (Português)"
+                - option "Portuguese/Brazil (Português/Brasil)"
+                - option "Romanian (Română)"
+                - option "Russian (Русский)"
+                - option "Serbian (Srpski)"
+                - option "Serbian Cyrillic (Српски)"
+                - option "Slovak (Slovenčina)"
+                - option "Slovene (Slovenščina)"
+                - option "Spanish (Español)"
+                - option "Spanish/Panama (Español/Panamá)"
+                - option "Swedish (Svenska)"
+                - option "Tamil (தமிழ்)"
+                - option "Thai (ไทย)"
+                - option "Turkish (Türkçe)"
+                - option "Ukrainian (Українська)"
+                - option "Vietnamese (Tiếng Việt)"
+            - paragraph [ref=f220e119]:
+              - generic [ref=f220e120]: Standardsprache für anonyme Benutzer erzwingen
+              - checkbox "Standardsprache für anonyme Benutzer erzwingen" [ref=f220e121]
+            - paragraph [ref=f220e122]:
+              - generic [ref=f220e123]: Standardsprache für angemeldete Benutzer erzwingen
+              - checkbox "Standardsprache für angemeldete Benutzer erzwingen" [ref=f220e124]
+            - paragraph [ref=f220e125]:
+              - generic [ref=f220e126]: Wochenanfang
+              - combobox "Wochenanfang" [ref=f220e127]:
+                - option "Sprachabhängig" [selected]
+                - option "Montag"
+                - option "Samstag"
+                - option "Sonntag"
+            - paragraph [ref=f220e128]:
+              - generic [ref=f220e129]: Datumsformat
+              - combobox "Datumsformat" [ref=f220e130]:
+                - option "Sprachabhängig" [selected]
+                - option "2026-09-08 (yyyy-mm-dd)"
+                - option "08/09/2026 (dd/mm/yyyy)"
+                - option "08.09.2026 (dd.mm.yyyy)"
+                - option "08-09-2026 (dd-mm-yyyy)"
+                - option "09/08/2026 (mm/dd/yyyy)"
+                - option "08 Sep 2026 (dd b yyyy)"
+                - option "08 September 2026 (dd B yyyy)"
+                - option "Sep 08, 2026 (b dd, yyyy)"
+                - option "September 08, 2026 (B dd, yyyy)"
+            - paragraph [ref=f220e131]:
+              - generic [ref=f220e132]: Zeitformat
+              - combobox "Zeitformat" [ref=f220e133]:
+                - option "Sprachabhängig" [selected]
+                - option "08:58"
+                - option "08:58 VORMITTAGS"
+            - paragraph [ref=f220e134]:
+              - generic [ref=f220e135]: Format für Zeitspannen
+              - combobox "Format für Zeitspannen" [ref=f220e136]:
+                - option "0.75"
+                - option "0:45 h" [selected]
+            - paragraph [ref=f220e137]:
+              - generic [ref=f220e138]: Benutzer-Anzeigeformat
+              - combobox "Benutzer-Anzeigeformat" [ref=f220e139]:
+                - option "Redmine Admin" [selected]
+                - option "Redmine A."
+                - option "R. Admin"
+                - option "Redmine"
+                - option "Admin Redmine"
+                - option "AdminRedmine"
+                - option "Admin, Redmine"
+                - option "Admin"
+                - option "admin"
+            - paragraph [ref=f220e140]:
+              - generic [ref=f220e141]: Gravatar-Benutzerbilder benutzen
+              - checkbox "Gravatar-Benutzerbilder benutzen" [ref=f220e142]
+              - emphasis [ref=f220e143]:
+                - text: Der aktuelle Avatar-Server ist
+                - link "https://www.gravatar.com" [ref=f220e144] [cursor=pointer]:
+                  - /url: https://www.gravatar.com
+                - text: . Die URL kann in config/configuration.yml angepasst werden.
+            - paragraph [ref=f220e145]:
+              - generic [ref=f220e146]: Standard-Gravatar-Bild
+              - combobox "Standard-Gravatar-Bild" [disabled] [ref=f220e147]:
+                - option "Keine"
+                - option "Initials"
+                - option "Color"
+                - option "Mystery man"
+                - option "Identicons" [selected]
+                - option "Monster ids"
+                - option "Wavatars"
+                - option "Retro"
+                - option "Robohash"
+            - paragraph [ref=f220e148]:
+              - generic [ref=f220e149]: Vorschaubilder von Dateianhängen anzeigen
+              - checkbox "Vorschaubilder von Dateianhängen anzeigen" [checked] [ref=f220e150]
+            - paragraph [ref=f220e151]:
+              - generic [ref=f220e152]: Größe der Vorschaubilder (in Pixeln)
+              - textbox "Größe der Vorschaubilder (in Pixeln)" [active] [ref=f220e153]: "100"
+            - paragraph [ref=f220e154]:
+              - generic [ref=f220e155]: Menü zum Anlegen neuer Objekte
+              - combobox "Menü zum Anlegen neuer Objekte" [ref=f220e156]:
+                - option "Keine"
+                - option "Tab \"Neues Ticket\" anzeigen"
+                - option "Dropdown-Menü \"+\" anzeigen" [selected]
+            - paragraph [ref=f220e157]:
+              - generic [ref=f220e158]: JavaScript-basierte Tabellensortierung in Wiki-Inhalten
+              - checkbox "JavaScript-basierte Tabellensortierung in Wiki-Inhalten" [ref=f220e159]
+          - button "Speichern" [ref=f220e160] [cursor=pointer]
+        - text: pre pre
+    - generic [ref=f220e161]:
+      - text: Powered by
+      - link "Redmine" [ref=f220e162] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f220e163]
+  - log [ref=f220e164]
+  - log [ref=f220e165]
+  - log [ref=f220e166]
+  - log [ref=f220e167]
+  - log [ref=f220e168]
+  - log [ref=f220e169]
+  - log [ref=f220e170]
+  - log [ref=f220e171]
+  - log [ref=f220e172]
+  - log [ref=f220e173]
+  - log [ref=f220e174]
+  - log [ref=f220e175]
+  - log [ref=f220e176]
+  - log [ref=f220e177]
+  - log [ref=f220e178]
+  - log [ref=f220e179]
+  - log [ref=f220e180]
+  - log [ref=f220e181]
+  - log [ref=f220e182]
+  - log [ref=f220e183]
+  - log [ref=f220e184]
+  - log [ref=f220e185]
+  - log [ref=f220e186]
+  - log [ref=f220e187]
+  - log [ref=f220e188]
+  - log [ref=f220e189]
+  - log [ref=f220e190]
+  - log [ref=f220e191]
+  - log [ref=f220e192]
+  - log [ref=f220e193]
+  - log [ref=f220e194]
+  - log [ref=f220e195]
+  - log [ref=f220e196]
+  - log [ref=f220e197]
+  - log [ref=f220e198]
+  - log [ref=f220e199]
+  - log [ref=f220e200]
+  - log [ref=f220e201]
+  - log [ref=f220e202]
+  - log [ref=f220e203]
+  - log [ref=f220e204]
+  - log [ref=f220e205]
+  - log [ref=f220e206]
+  - log [ref=f220e207]
+  - log [ref=f220e208]
+  - log [ref=f220e209]
+  - log [ref=f220e210]
+  - log [ref=f220e211]
+  - log [ref=f220e212]
+  - log [ref=f220e213]
+  - log [ref=f220e214]
+  - log [ref=f220e215]
+  - log [ref=f220e216]
+  - log [ref=f220e217]
+  - log [ref=f220e218]
+  - log [ref=f220e219]
+  - log [ref=f220e220]
+  - log [ref=f220e221]
+  - log [ref=f220e222]
+  - log [ref=f220e223]
+  - log [ref=f220e224]
+  - log [ref=f220e225]
+  - log [ref=f220e226]
+  - log [ref=f220e227]
+  - log [ref=f220e228]
+  - log [ref=f220e229]
+  - log [ref=f220e230]
+  - log [ref=f220e231]
+  - log [ref=f220e232]
+  - log [ref=f220e233]

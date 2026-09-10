@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TC Report — Redmineflux Checklist Plugin</title>
+<style>
+  :root {
+    --pass: #1e7e34; --pass-bg: #eaf7ec;
+    --fail: #b02a37; --fail-bg: #fdecee;
+    --border: #dfe3e6; --muted: #6b7280; --head-bg: #f6f8fa;
+  }
+  body { font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 32px; color: #1f2328; background: #fff; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .subtitle { color: var(--muted); margin: 0 0 24px; font-size: 14px; }
+  .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px 24px; background: var(--head-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; margin-bottom: 24px; font-size: 13px; }
+  .meta div span.k { color: var(--muted); display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+  .summary { display: flex; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+  .stat { border: 1px solid var(--border); border-radius: 8px; padding: 14px 20px; min-width: 110px; text-align: center; }
+  .stat .num { font-size: 26px; font-weight: 700; display: block; }
+  .stat .lbl { font-size: 12px; color: var(--muted); }
+  .stat.pass .num { color: var(--pass); }
+  .stat.fail .num { color: var(--fail); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--head-bg); font-size: 11px; text-transform: uppercase; letter-spacing: .03em; color: var(--muted); position: sticky; top: 0; }
+  tr:hover td { background: #fafbfc; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .03em; }
+  .badge.pass { color: var(--pass); background: var(--pass-bg); }
+  .badge.fail { color: var(--fail); background: var(--fail-bg); }
+  .tcid { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; white-space: nowrap; }
+  .stage { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .03em; }
+  .notes { color: #374151; }
+  .notes code { background: #f0f1f3; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+  footer { margin-top: 28px; color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+
+<h1>Test Case Report — Redmineflux Checklist Plugin</h1>
+<p class="subtitle">German (Deutsch) language compatibility — Default &amp; Lotus theme, 1280×720 &amp; 1920×1080</p>
+
+<div class="meta">
+  <div><span class="k">Redmine version</span>7.0.1.stable</div>
+  <div><span class="k">Plugin version</span>redmineflux_checklist 7.0.0</div>
+  <div><span class="k">Environment</span>Forge (flux-fczk00paf49)</div>
+  <div><span class="k">Tested by</span>Claude (Playwright MCP)</div>
+  <div><span class="k">Test date</span>2026-09-07</div>
+  <div><span class="k">Test cycle</span>Stages 1–6 complete</div>
+</div>
+
+<div class="summary">
+  <div class="stat"><span class="num">11</span><span class="lbl">Total TCs</span></div>
+  <div class="stat pass"><span class="num">11</span><span class="lbl">Pass</span></div>
+  <div class="stat fail"><span class="num">0</span><span class="lbl">Fail</span></div>
+  <div class="stat"><span class="num">0</span><span class="lbl">Open bugs</span></div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>TC ID</th>
+      <th>Stage</th>
+      <th>Title</th>
+      <th>Verdict</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="tcid">TC-CHK-001</td>
+      <td class="stage">Stage 1</td>
+      <td>Issue detail Checklist widget — actions menu, add form, sub-item form, journal message</td>
+      <td><span class="badge pass">PASS</span></td>
+      <td class="notes">Actions menu, "Neue Checkliste:" label, add-journal message, sub-item form all fully German.</td>
+    </tr>
+    <tr>
+      <td class="tcid">TC-CHK-002</td>
+      <td class="stage">Stage 1</td>
+      <td>Admin Checklist Templates — create, edit, delete (with confirm modal)</td>
+      <td><span class="badge pass">PASS</span></td>
+      <td class="notes">Full CRUD form, template list table, delete confirm modal, and both success flashes 100% German — a strong contrast to the Tag Plugin's equivalent (<code>BUG-TAG-004</code>).</td>
+    </tr>
+    <tr>
+      <td class="tcid">TC-CHK-003</td>
+      <td class="stage">Stage 1</td>
+      <td>Issue detail widget on an Agile-Board project — cross-plugin overlap check, item Edit/Delete, "Aus Vorlage hinzufügen", Checklisten-Verlauf tab</td>
+      <td><span class="badge pass">PASS</span></td>
+      <td class="notes">No layout overlap with Sprint/Story Points, unlike the Tag Plugin (<code>BUG-TAG-006</code>). Item dropdown, delete modal, template-apply flow, and history tab all fully German.</td>
+    </tr>
+    <tr>
+      <td class="tcid">TC-CHK-004</td>
+      <td class="stage">Stage 1</td>
+      <td>Sub-checklist item creation, including its per-item Status dropdown</td>
+      <td><span class="badge pass">PASS</span></td>
+      <td class="notes">Confirmed the Status dropdown ("Neu"/"In Bearbeitung"/"Erledigt") exists on sub-items and is fully translated.</td>
+    </tr>
+    <tr>
+      <td class="tcid">TC-CHK-005</td>
+      <td class="stage">Stage 1</td>
+      <td>"Block issue closing" functional enforcement and its error message</td>
+      <td><span class="badge pass">PASS</span></td>
+      <td class="notes">Block works correctly; full-Edit-form error message fully German. (Inline quick-edit's toast wrapper issue is a separate defect in the Inline Editor plugin, <code>BUG-INE-002</code> — not this plugin.)</td>
+    </tr>
+    <tr>
+      <td class="tcid">TC-CHK-006</td>
+      <td class="stage">Stage 1</td>
+      <td>"Aus Vorlage hinzufügen" journal message</td>
+      <td><span class="badge fail">FAIL</span></td>
+      <td class="notes">Journal message untranslated (English), unlike every other checklist journal message. Filed as <code>BUG-CHK-001</code> (Low), then <strong>closed</strong> per user direction — already independently reported by the user before this session. Follow-up: the dedicated <em>Checklisten-Verlauf</em> tab's own record of the same event is fully German — the untranslated string is confined to the redundant journal-note duplicate only.</td>
+    </tr>
+    <tr>
+      <td class="tcid">TC-CHK-007</td>
+      <td class="stage">Stage 2</td>
+      <td>Layout integrity at 1280×720</td>
+      <td><span class="badge pass">PASS</span></td>
+      <td class="notes">No overflow, clipping, or overlap across issue detail, admin template list, and delete modal.</td>
+    </tr>
+    <tr>
+      <td class="tcid">TC-CHK-008</td>
+      <td class="stage">Stage 2</td>
+      <td>Layout integrity at 1920×1080</td>
+      <td><span class="badge pass">PASS</span></td>
+      <td class="notes">Layout scales cleanly, no new issues at the wider viewport.</td>
+    </tr>
+    <tr>
+      <td class="tcid">TC-CHK-009</td>
+      <td class="stage">Stages 3–6</td>
+      <td>Issue detail Checklist widget under Lotus theme</td>
+      <td><span class="badge pass">PASS</span></td>
+      <td class="notes">No overlap with Sprint/Story Points under Lotus either; actions menu remains fully translated.</td>
+    </tr>
+    <tr>
+      <td class="tcid">TC-CHK-010</td>
+      <td class="stage">Stages 3–6</td>
+      <td>Admin Checklisten-Vorlagen page + Delete modal under Lotus theme</td>
+      <td><span class="badge pass">PASS</span></td>
+      <td class="notes">Clean Lotus-styled rendering, fully translated. (Confirms the already-known <code>BUG-LTS-001</code> sidebar-truncation bug reproduces here too — not a Checklist-specific issue.)</td>
+    </tr>
+    <tr>
+      <td class="tcid">TC-CHK-011</td>
+      <td class="stage">Stages 3–6</td>
+      <td>Resolution testing under Lotus (1280×720 and 1920×1080)</td>
+      <td><span class="badge pass">PASS</span></td>
+      <td class="notes">1920×1080 clean. The 1280×720 tab-strip clipping found is a Lotus theme defect (<code>BUG-LTS-002</code>) — the Checklist Plugin's own translated string is correct and unaffected.</td>
+    </tr>
+  </tbody>
+</table>
+
+<footer>
+  Generated per CLAUDE.md §7 report rules. Source: <code>plugins/redmineflux_checklist_qa/testcases/CHECKLIST_GERMAN_LANGUAGE.md</code>.
+  Not yet covered: drag-reorder (if any), expand/collapse checklist icon, "Auto-calculate % done" toggle's functional behavior.
+  See <code>docs/CHECKLIST_HANDOFF.md</code> for full session notes.
+</footer>
+
+</body>
+</html>

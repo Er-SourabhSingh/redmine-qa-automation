@@ -1,0 +1,173 @@
+- generic [ref=f15e1]:
+  - generic [ref=f15e2]:
+    - navigation [ref=f15e3]:
+      - list [ref=f15e6]:
+        - listitem [ref=f15e7]:
+          - link "Hauptseite" [ref=f15e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f15e9]:
+          - link "Meine Seite" [ref=f15e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f15e11]:
+          - link "Projekte" [ref=f15e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f15e13]:
+          - link "Agile Board" [ref=f15e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f15e15]:
+          - link "Flux Gantt" [ref=f15e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f15e17]:
+          - link "Administration" [ref=f15e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f15e19]:
+          - link "Hilfe" [ref=f15e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f15e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f15e24]: RA
+    - generic [ref=f15e27]:
+      - generic [ref=f15e28]:
+        - generic [ref=f15e29]:
+          - generic [ref=f15e30]:
+            - link "Suche" [ref=f15e31] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Suche:" [ref=f15e32]
+        - generic [ref=f15e33]:
+          - generic [ref=f15e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f15e35]
+      - generic [ref=f15e37]:
+        - list [ref=f15e38]:
+          - listitem [ref=f15e39]:
+            - link "+" [ref=f15e40] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f15e41]:
+            - link "Übersicht" [ref=f15e42] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f15e43]:
+            - link "Dashboard" [ref=f15e44] [cursor=pointer]:
+              - /url: /projects/agileboard/analytics_dashboard
+          - listitem [ref=f15e45]:
+            - link "Aktivität" [ref=f15e46] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f15e47]:
+            - link "Agile Board" [ref=f15e48] [cursor=pointer]:
+              - /url: /projects/agileboard/agile_board
+          - listitem [ref=f15e49]:
+            - link "Backlog" [ref=f15e50] [cursor=pointer]:
+              - /url: /projects/agileboard/backlog
+          - listitem [ref=f15e51]:
+            - link "Roadmap" [ref=f15e52] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f15e53]:
+            - link "Tickets" [ref=f15e54] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f15e55]:
+            - link "Aufgewendete Zeit" [ref=f15e56] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f15e57]:
+            - link "Gantt-Diagramm" [ref=f15e58] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f15e59]:
+            - link "Kalender" [ref=f15e60] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f15e61]:
+            - link "News" [ref=f15e62] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f15e63]:
+            - link "Dokumente" [ref=f15e64] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f15e65]:
+            - link "Wiki" [ref=f15e66] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f15e67]:
+            - link "Dateien" [ref=f15e68] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f15e69]:
+            - link "Konfiguration" [ref=f15e70] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f15e71]:
+          - button [ref=f15e72] [cursor=pointer]
+          - button [ref=f15e75] [cursor=pointer]
+    - generic [ref=f15e79]:
+      - generic [ref=f15e80]: Erfolgreich angelegt
+      - heading "Aufgewendete Zeit" [level=2] [ref=f15e83]
+      - generic [ref=f15e84]:
+        - generic [ref=f15e85]:
+          - paragraph [ref=f15e86]:
+            - generic [ref=f15e87]: Ticket
+            - textbox "Ticket" [active] [ref=f15e88]: "266"
+            - generic [ref=f15e89]:
+              - 'link "Bug #266" [ref=f15e90] [cursor=pointer]':
+                - /url: /issues/266
+              - text: ": BUG-TAG-007 retest - tag field alignment test"
+          - paragraph [ref=f15e91]:
+            - generic [ref=f15e92]: Benutzer *
+            - combobox "Benutzer *" [ref=f15e93]:
+              - option "<< ich >>" [selected]
+              - option "Redmine Admin"
+              - option "Aurora Wren"
+              - option "Autumn Grace"
+              - option "Briar Sunset"
+              - option "Celeste Dawn"
+              - option "Daisy Skye"
+              - option "Ember Lilac"
+              - option "Harmony Rose"
+              - option "Isla Moon"
+              - option "Ivy Skylark"
+              - option "Luna Blossom"
+              - option "Luna Meadow"
+              - option "Marigold Rayne"
+              - option "Nova Starling"
+              - option "Opal Sparrow"
+              - option "Redmine Admin"
+              - option "Sage Willow"
+              - option "Selene Frost"
+              - option "Serenity Bloom"
+              - option "Summer Rain"
+              - option "Violet Ember"
+              - option "Willow Belle"
+          - paragraph [ref=f15e94]:
+            - generic [ref=f15e95]: Datum *
+            - textbox "Datum *" [ref=f15e96]: 2026-09-09
+          - paragraph [ref=f15e97]:
+            - generic [ref=f15e98]: Stunden *
+            - textbox "Stunden *" [ref=f15e99]:
+              - /placeholder: h:mm
+          - paragraph [ref=f15e100]:
+            - generic [ref=f15e101]: Kommentar
+            - textbox "Kommentar" [ref=f15e102]
+          - paragraph [ref=f15e103]:
+            - generic [ref=f15e104]: Aktivität *
+            - combobox "Aktivität *" [ref=f15e105]:
+              - option "--- Bitte auswählen ---" [selected]
+              - option "Design"
+              - option "Development"
+          - paragraph [ref=f15e106]:
+            - generic [ref=f15e107]: Markierungsliste
+            - list [ref=f15e108]:
+              - listitem [ref=f15e109]:
+                - textbox "Markierungen hinzufügen" [ref=f15e110]
+        - button "Erstellen" [ref=f15e111] [cursor=pointer]
+        - button "Anlegen und weiter" [ref=f15e112] [cursor=pointer]
+        - link "Abbrechen" [ref=f15e113] [cursor=pointer]:
+          - /url: /time_entries
+    - generic [ref=f15e114]:
+      - text: Powered by
+      - link "Redmine" [ref=f15e115] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f15e116]
+  - log [ref=f15e117]
+  - log [ref=f15e118]
+  - log [ref=f15e119]
+  - log [ref=f15e120]
+  - log [ref=f15e121]
+  - log [ref=f15e122]
+  - log [ref=f15e123]
+  - log [ref=f15e124]
+  - log [ref=f15e125]
+  - status [ref=f15e126]
+  - status [ref=f15e127]

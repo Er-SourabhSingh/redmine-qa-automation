@@ -1,0 +1,280 @@
+- generic [active] [ref=f26e1]:
+  - generic [ref=f26e2]:
+    - navigation [ref=f26e3]:
+      - list [ref=f26e6]:
+        - listitem [ref=f26e7]:
+          - link "Hauptseite" [ref=f26e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f26e9]:
+          - link "Meine Seite" [ref=f26e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f26e11]:
+          - link "Projekte" [ref=f26e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f26e13]:
+          - link "Agile Board" [ref=f26e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f26e15]:
+          - link "Flux Gantt" [ref=f26e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f26e17]:
+          - link "Administration" [ref=f26e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f26e19]:
+          - link "Hilfe" [ref=f26e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f26e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f26e24]: RA
+    - generic [ref=f26e27]:
+      - generic [ref=f26e28]:
+        - generic [ref=f26e29]:
+          - generic [ref=f26e30]:
+            - link "Suche" [ref=f26e31] [cursor=pointer]:
+              - /url: /projects/defaultsd/search
+            - text: ":"
+          - textbox "Suche:" [ref=f26e32]
+        - generic [ref=f26e33]:
+          - generic [ref=f26e34] [cursor=pointer]: Software development5
+          - text: ✓ ✓
+      - heading "Software development5" [level=1] [ref=f26e35]
+      - list [ref=f26e38]:
+        - listitem [ref=f26e39]:
+          - link "+" [ref=f26e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f26e41]:
+          - link "Übersicht" [ref=f26e42] [cursor=pointer]:
+            - /url: /projects/defaultsd
+        - listitem [ref=f26e43]:
+          - link "Dashboard" [ref=f26e44] [cursor=pointer]:
+            - /url: /projects/defaultsd/analytics_dashboard
+        - listitem [ref=f26e45]:
+          - link "Aktivität" [ref=f26e46] [cursor=pointer]:
+            - /url: /projects/defaultsd/activity
+        - listitem [ref=f26e47]:
+          - link "Tickets" [ref=f26e48] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues
+        - listitem [ref=f26e49]:
+          - link "Aufgewendete Zeit" [ref=f26e50] [cursor=pointer]:
+            - /url: /projects/defaultsd/time_entries
+        - listitem [ref=f26e51]:
+          - link "Gantt-Diagramm" [ref=f26e52] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/gantt
+        - listitem [ref=f26e53]:
+          - link "Kalender" [ref=f26e54] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/calendar
+        - listitem [ref=f26e55]:
+          - link "News" [ref=f26e56] [cursor=pointer]:
+            - /url: /projects/defaultsd/news
+        - listitem [ref=f26e57]:
+          - link "Dokumente" [ref=f26e58] [cursor=pointer]:
+            - /url: /projects/defaultsd/documents
+        - listitem [ref=f26e59]:
+          - link "Wiki" [ref=f26e60] [cursor=pointer]:
+            - /url: /projects/defaultsd/wiki
+        - listitem [ref=f26e61]:
+          - link "Dateien" [ref=f26e62] [cursor=pointer]:
+            - /url: /projects/defaultsd/files
+        - listitem [ref=f26e63]:
+          - link "Konfiguration" [ref=f26e64] [cursor=pointer]:
+            - /url: /projects/defaultsd/settings
+    - generic [ref=f26e65]:
+      - generic [ref=f26e66]:
+        - link [ref=f26e68] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f26e71]:
+          - heading "Abfragen" [level=3] [ref=f26e72]
+          - list [ref=f26e73]:
+            - listitem [ref=f26e74]:
+              - link "Issues assigned to me" [ref=f26e75] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues?query_id=1
+            - listitem [ref=f26e76]:
+              - link "Reported issues" [ref=f26e77] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues?query_id=2
+            - listitem [ref=f26e78]:
+              - link "Updated issues" [ref=f26e79] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues?query_id=3
+            - listitem [ref=f26e80]:
+              - link "Watched issues" [ref=f26e81] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues?query_id=4
+      - generic [ref=f26e82]:
+        - generic [ref=f26e83]:
+          - link "Neues Ticket" [ref=f26e84] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/new
+          - generic "Aktionen" [ref=f26e90] [cursor=pointer]
+        - heading "Tickets" [level=2] [ref=f26e93]
+        - generic [ref=f26e95]:
+          - generic [ref=f26e96]:
+            - group "Filter" [ref=f26e97]:
+              - generic:
+                - generic [ref=f26e102]:
+                  - generic [ref=f26e103]:
+                    - checkbox "Tags" [checked] [ref=f26e104]
+                    - text: Tags
+                  - combobox [ref=f26e106]:
+                    - option "ist" [selected]
+                    - option "ist nicht"
+                    - option "Keine"
+                    - option "alle"
+                  - generic [ref=f26e108]:
+                    - combobox [ref=f26e109]:
+                      - option "qagermantest" [selected]
+                    - generic [ref=f26e110] [cursor=pointer]
+                - generic [ref=f26e113]:
+                  - text: Filter hinzufügen
+                  - combobox "Filter hinzufügen" [ref=f26e114]:
+                    - option [selected]
+                    - option "Status"
+                    - option "Tracker"
+                    - option "Priorität"
+                    - option "Autor"
+                    - option "Zugewiesen an"
+                    - option "Zielversion"
+                    - option "Kategorie"
+                    - option "% erledigt"
+                    - option "Privat"
+                    - option "Beobachter"
+                    - option "Geändert von"
+                    - option "Zuletzt geändert von"
+                    - option "Ticket"
+                    - option "Story Points"
+                    - option "Tags" [disabled]
+                    - option "Thema"
+                    - option "Beschreibung"
+                    - option "Kommentare"
+                    - option "Durchsuchbarer Text"
+                    - option "Angelegt"
+                    - option "Aktualisiert"
+                    - option "Geschlossen am"
+                    - option "Startdatum"
+                    - option "Abgabedatum"
+                    - option "Geschätzter Aufwand"
+                    - option "Aufgewendete Zeit"
+                    - option "Datei"
+                    - option "Dateibeschreibung"
+                    - option "Gruppe des Autors"
+                    - option "Rolle des Autors"
+                    - option "Zuständigkeitsgruppe"
+                    - option "Zuständigkeitsrolle"
+                    - option "Datum der Zielversion"
+                    - option "Status der Zielversion"
+                    - option "Beziehung mit"
+                    - option "Duplikat von"
+                    - option "Dupliziert durch"
+                    - option "Blockiert"
+                    - option "Blockiert durch"
+                    - option "Vorgänger von"
+                    - option "Nachfolger von"
+                    - option "Kopiert nach"
+                    - option "Kopiert von"
+                    - option "Übergeordnetes Ticket"
+                    - option "Untergeordnete Tickets"
+            - group "Optionen" [ref=f26e115]
+          - paragraph [ref=f26e119]:
+            - link "Anwenden" [ref=f26e120] [cursor=pointer]:
+              - /url: "#"
+            - link "Zurücksetzen" [ref=f26e124] [cursor=pointer]:
+              - /url: /projects/defaultsd/issues?set_filter=1&sort=
+            - link "Abfrage speichern" [ref=f26e128] [cursor=pointer]:
+              - /url: "#"
+        - table [ref=f26e134]:
+          - rowgroup [ref=f26e135]:
+            - row [ref=f26e136]:
+              - columnheader [ref=f26e137]:
+                - checkbox "Alles auswählen / Alles abwählen" [ref=f26e138]
+              - columnheader [ref=f26e139]:
+                - link "#" [ref=f26e140] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&sort=id&v%5Btags%5D%5B%5D=qagermantest&values%5Btags%5D%5B%5D=qagermantest
+              - columnheader [ref=f26e142]:
+                - link "Tracker" [ref=f26e143] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&sort=tracker%2Cid%3Adesc&v%5Btags%5D%5B%5D=qagermantest&values%5Btags%5D%5B%5D=qagermantest
+              - columnheader [ref=f26e144]:
+                - link "Status" [ref=f26e145] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&sort=status%2Cid%3Adesc&v%5Btags%5D%5B%5D=qagermantest&values%5Btags%5D%5B%5D=qagermantest
+              - columnheader [ref=f26e146]:
+                - link "Priorität" [ref=f26e147] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&sort=priority%3Adesc%2Cid%3Adesc&v%5Btags%5D%5B%5D=qagermantest&values%5Btags%5D%5B%5D=qagermantest
+              - columnheader [ref=f26e148]:
+                - link "Thema" [ref=f26e149] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&sort=subject%2Cid%3Adesc&v%5Btags%5D%5B%5D=qagermantest&values%5Btags%5D%5B%5D=qagermantest
+              - columnheader [ref=f26e150]:
+                - link "Zugewiesen an" [ref=f26e151] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&sort=assigned_to%2Cid%3Adesc&v%5Btags%5D%5B%5D=qagermantest&values%5Btags%5D%5B%5D=qagermantest
+              - columnheader [ref=f26e152]:
+                - link "Aktualisiert" [ref=f26e153] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&sort=updated_on%3Adesc%2Cid%3Adesc&v%5Btags%5D%5B%5D=qagermantest&values%5Btags%5D%5B%5D=qagermantest
+              - columnheader [ref=f26e154]
+          - rowgroup [ref=f26e155]:
+            - row [ref=f26e156]:
+              - cell [ref=f26e157]:
+                - checkbox [ref=f26e158]
+              - cell [ref=f26e159]:
+                - link "230" [ref=f26e160] [cursor=pointer]:
+                  - /url: /issues/230
+              - cell "Bug Edit" [ref=f26e161]:
+                - generic [ref=f26e162]:
+                  - generic [ref=f26e163]: Bug
+                  - button "Edit" [ref=f26e164] [cursor=pointer]
+              - cell "In Progress Edit" [ref=f26e165]:
+                - generic [ref=f26e166]:
+                  - generic [ref=f26e167]: In Progress
+                  - button "Edit" [ref=f26e168] [cursor=pointer]
+              - cell "High Edit" [ref=f26e169]:
+                - generic [ref=f26e170]:
+                  - generic [ref=f26e171]: High
+                  - button "Edit" [ref=f26e172] [cursor=pointer]
+              - cell [ref=f26e173]:
+                - generic [ref=f26e174]:
+                  - link "Fix slow report generation" [ref=f26e176] [cursor=pointer]:
+                    - /url: /issues/230
+                  - button "Edit" [ref=f26e177] [cursor=pointer]
+              - cell [ref=f26e178]:
+                - generic [ref=f26e179]:
+                  - link "Redmine Admin" [ref=f26e181] [cursor=pointer]:
+                    - /url: /users/1
+                  - button "Edit" [ref=f26e182] [cursor=pointer]
+              - cell "07.09.2026 09:33" [ref=f26e183]
+              - cell [ref=f26e184]:
+                - link "Aktionen" [ref=f26e185] [cursor=pointer]:
+                  - /url: "#"
+        - generic [ref=f26e188]:
+          - list
+          - generic [ref=f26e189]: (1-1/1)
+        - paragraph [ref=f26e190]:
+          - text: "Auch abrufbar als:"
+          - link "CSV" [ref=f26e192] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues.csv?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&v%5Btags%5D%5B%5D=qagermantest&values%5Btags%5D%5B%5D=qagermantest
+          - generic [ref=f26e193]:
+            - text: "|"
+            - link "PDF" [ref=f26e194] [cursor=pointer]:
+              - /url: /projects/defaultsd/issues.pdf?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&v%5Btags%5D%5B%5D=qagermantest&values%5Btags%5D%5B%5D=qagermantest
+          - generic [ref=f26e195]:
+            - text: "|"
+            - link "Atom" [ref=f26e196] [cursor=pointer]:
+              - /url: /projects/defaultsd/issues.atom?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&key=1a8d0f09e0337d3150adf38fa208ced775ca01b8&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&v%5Btags%5D%5B%5D=qagermantest&values%5Btags%5D%5B%5D=qagermantest
+    - generic [ref=f26e197]:
+      - text: Powered by
+      - link "Redmine" [ref=f26e198] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f26e199]
+  - log [ref=f26e200]
+  - log [ref=f26e201]
+  - log [ref=f26e202]
+  - log [ref=f26e203]
+  - log [ref=f26e204]
+  - log [ref=f26e205]
+  - log [ref=f26e206]
+  - log [ref=f26e207]
+  - log [ref=f26e208]
+  - log [ref=f26e209]
+  - log [ref=f26e210]
+  - log [ref=f26e211]
+  - log [ref=f26e212]
+  - log [ref=f26e213]
+  - log [ref=f26e214]
+  - log [ref=f26e215]
+  - log [ref=f26e216]
+  - log [ref=f26e217]
+  - log [ref=f26e218]
+  - log [ref=f26e219]

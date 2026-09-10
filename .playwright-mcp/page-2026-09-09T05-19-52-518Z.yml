@@ -1,0 +1,222 @@
+- generic [active] [ref=f16e1]:
+  - generic [ref=f16e2]:
+    - navigation [ref=f16e3]:
+      - list [ref=f16e6]:
+        - listitem [ref=f16e7]:
+          - link "Hauptseite" [ref=f16e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f16e9]:
+          - link "Meine Seite" [ref=f16e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f16e11]:
+          - link "Projekte" [ref=f16e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f16e13]:
+          - link "Agile Board" [ref=f16e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f16e15]:
+          - link "Flux Gantt" [ref=f16e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f16e17]:
+          - link "Administration" [ref=f16e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f16e19]:
+          - link "Hilfe" [ref=f16e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f16e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f16e24]: RA
+    - generic [ref=f16e27]:
+      - generic [ref=f16e28]:
+        - generic [ref=f16e29]:
+          - generic [ref=f16e30]:
+            - link "Suche" [ref=f16e31] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Suche:" [ref=f16e32]
+        - generic [ref=f16e33]:
+          - generic [ref=f16e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f16e35]
+      - generic [ref=f16e37]:
+        - list [ref=f16e38]:
+          - listitem [ref=f16e39]:
+            - link "+" [ref=f16e40] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f16e41]:
+            - link "Übersicht" [ref=f16e42] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f16e43]:
+            - link "Dashboard" [ref=f16e44] [cursor=pointer]:
+              - /url: /projects/agileboard/analytics_dashboard
+          - listitem [ref=f16e45]:
+            - link "Aktivität" [ref=f16e46] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f16e47]:
+            - link "Agile Board" [ref=f16e48] [cursor=pointer]:
+              - /url: /projects/agileboard/agile_board
+          - listitem [ref=f16e49]:
+            - link "Backlog" [ref=f16e50] [cursor=pointer]:
+              - /url: /projects/agileboard/backlog
+          - listitem [ref=f16e51]:
+            - link "Roadmap" [ref=f16e52] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f16e53]:
+            - link "Tickets" [ref=f16e54] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f16e55]:
+            - link "Aufgewendete Zeit" [ref=f16e56] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f16e57]:
+            - link "Gantt-Diagramm" [ref=f16e58] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f16e59]:
+            - link "Kalender" [ref=f16e60] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f16e61]:
+            - link "News" [ref=f16e62] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f16e63]:
+            - link "Dokumente" [ref=f16e64] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f16e65]:
+            - link "Wiki" [ref=f16e66] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f16e67]:
+            - link "Dateien" [ref=f16e68] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f16e69]:
+            - link "Konfiguration" [ref=f16e70] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f16e71]:
+          - button [ref=f16e72] [cursor=pointer]
+          - button [ref=f16e75] [cursor=pointer]
+    - generic [ref=f16e78]:
+      - generic [ref=f16e79]:
+        - link [ref=f16e81] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f16e84]:
+          - heading "Abfragen" [level=3] [ref=f16e85]
+          - list [ref=f16e86]:
+            - listitem [ref=f16e87]:
+              - link "Issues assigned to me" [ref=f16e88] [cursor=pointer]:
+                - /url: /projects/agileboard/issues?query_id=1
+            - listitem [ref=f16e89]:
+              - link "Reported issues" [ref=f16e90] [cursor=pointer]:
+                - /url: /projects/agileboard/issues?query_id=2
+            - listitem [ref=f16e91]:
+              - link "Updated issues" [ref=f16e92] [cursor=pointer]:
+                - /url: /projects/agileboard/issues?query_id=3
+            - listitem [ref=f16e93]:
+              - link "Watched issues" [ref=f16e94] [cursor=pointer]:
+                - /url: /projects/agileboard/issues?query_id=4
+      - generic [ref=f16e95]:
+        - generic [ref=f16e96]:
+          - link "Neues Ticket" [ref=f16e97] [cursor=pointer]:
+            - /url: /projects/agileboard/issues/new
+          - generic "Aktionen" [ref=f16e103] [cursor=pointer]
+        - heading "Tickets" [level=2] [ref=f16e106]
+        - generic [ref=f16e108]:
+          - generic [ref=f16e109]:
+            - group "Filter" [ref=f16e110]:
+              - generic:
+                - generic [ref=f16e113]:
+                  - generic [ref=f16e114]:
+                    - checkbox "Zugewiesen an" [checked] [ref=f16e115]
+                    - text: Zugewiesen an
+                  - combobox [ref=f16e117]:
+                    - option "ist"
+                    - option "ist nicht"
+                    - option "has been"
+                    - option "has never been"
+                    - option "changed from"
+                    - option "Keine" [selected]
+                    - option "alle"
+                - generic [ref=f16e118]:
+                  - text: Filter hinzufügen
+                  - combobox "Filter hinzufügen" [ref=f16e119]:
+                    - option [selected]
+                    - option "Status"
+                    - option "Tracker"
+                    - option "Priorität"
+                    - option "Autor"
+                    - option "Zugewiesen an" [disabled]
+                    - option "Zielversion"
+                    - option "Kategorie"
+                    - option "% erledigt"
+                    - option "Privat"
+                    - option "Beobachter"
+                    - option "Geändert von"
+                    - option "Zuletzt geändert von"
+                    - option "Ticket"
+                    - option "Sprint"
+                    - option "Story Points"
+                    - option "Markierungen"
+                    - option "Thema"
+                    - option "Beschreibung"
+                    - option "Kommentare"
+                    - option "Durchsuchbarer Text"
+                    - option "Angelegt"
+                    - option "Aktualisiert"
+                    - option "Geschlossen am"
+                    - option "Startdatum"
+                    - option "Abgabedatum"
+                    - option "Geschätzter Aufwand"
+                    - option "Aufgewendete Zeit"
+                    - option "Datei"
+                    - option "Dateibeschreibung"
+                    - option "Gruppe des Autors"
+                    - option "Rolle des Autors"
+                    - option "Zuständigkeitsgruppe"
+                    - option "Zuständigkeitsrolle"
+                    - option "Datum der Zielversion"
+                    - option "Status der Zielversion"
+                    - option "Beziehung mit"
+                    - option "Duplikat von"
+                    - option "Dupliziert durch"
+                    - option "Blockiert"
+                    - option "Blockiert durch"
+                    - option "Vorgänger von"
+                    - option "Nachfolger von"
+                    - option "Kopiert nach"
+                    - option "Kopiert von"
+                    - option "Übergeordnetes Ticket"
+                    - option "Untergeordnete Tickets"
+            - group "Optionen" [ref=f16e120]
+          - paragraph [ref=f16e122]:
+            - link "Anwenden" [ref=f16e123] [cursor=pointer]:
+              - /url: "#"
+            - link "Zurücksetzen" [ref=f16e124] [cursor=pointer]:
+              - /url: /projects/agileboard/issues?set_filter=1&sort=
+            - link "Abfrage speichern" [ref=f16e125] [cursor=pointer]:
+              - /url: "#"
+        - paragraph [ref=f16e126]: Nichts anzuzeigen
+        - paragraph [ref=f16e127]:
+          - text: "Auch abrufbar als:"
+          - link "CSV" [ref=f16e129] [cursor=pointer]:
+            - /url: /projects/agileboard/issues.csv?f%5B%5D=assigned_to_id&op%5Bassigned_to_id%5D=%21%2A&query_id=&set_filter=1
+          - generic [ref=f16e130]:
+            - text: "|"
+            - link "PDF" [ref=f16e131] [cursor=pointer]:
+              - /url: /projects/agileboard/issues.pdf?f%5B%5D=assigned_to_id&op%5Bassigned_to_id%5D=%21%2A&query_id=&set_filter=1
+          - generic [ref=f16e132]:
+            - text: "|"
+            - link "Atom" [ref=f16e133] [cursor=pointer]:
+              - /url: /projects/agileboard/issues.atom?f%5B%5D=assigned_to_id&key=567ff370bf5edfc0f98b88c1cf7303a334ecbf45&op%5Bassigned_to_id%5D=%21%2A&query_id=&set_filter=1
+    - generic [ref=f16e134]:
+      - text: Powered by
+      - link "Redmine" [ref=f16e135] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f16e136]
+  - log [ref=f16e137]
+  - log [ref=f16e138]
+  - log [ref=f16e139]
+  - log [ref=f16e140]
+  - log [ref=f16e141]
+  - log [ref=f16e142]
+  - log [ref=f16e143]
+  - log [ref=f16e144]
+  - log [ref=f16e145]
+  - log [ref=f16e146]
+  - log [ref=f16e147]

@@ -1,0 +1,290 @@
+- generic [active] [ref=f21e1]:
+  - generic [ref=f21e2]:
+    - navigation [ref=f21e3]:
+      - list [ref=f21e6]:
+        - listitem [ref=f21e7]:
+          - link [ref=f21e8] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f21e9]
+        - listitem [ref=f21e10]:
+          - link "Hauptseite" [ref=f21e11] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f21e12]:
+          - link "Meine Seite" [ref=f21e13] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f21e14]:
+          - link "Projekte" [ref=f21e15] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f21e16]:
+          - link "Agile Board" [ref=f21e17] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f21e18]:
+          - link "Flux Gantt" [ref=f21e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f21e20]:
+          - link "More" [ref=f21e21] [cursor=pointer]:
+            - /url: "#"
+      - link [ref=f21e24] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f21e25]: RA
+    - generic [ref=f21e28]:
+      - generic [ref=f21e29]:
+        - generic [ref=f21e30]:
+          - generic [ref=f21e31]:
+            - link "Suche" [ref=f21e32] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/search
+            - text: ":"
+          - textbox "Suche:" [ref=f21e33]
+        - generic [ref=f21e34]:
+          - generic [ref=f21e35] [cursor=pointer]: Tag Retest Project
+          - text: ✓
+      - heading "Tag Retest Project" [level=1] [ref=f21e36]
+      - list [ref=f21e39]:
+        - listitem [ref=f21e40]:
+          - link "+" [ref=f21e41] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f21e42]:
+          - link "Übersicht" [ref=f21e43] [cursor=pointer]:
+            - /url: /projects/tag-retest-project
+        - listitem [ref=f21e44]:
+          - link "Dashboard" [ref=f21e45] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/analytics_dashboard
+        - listitem [ref=f21e46]:
+          - link "Aktivität" [ref=f21e47] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/activity
+        - listitem [ref=f21e48]:
+          - link "Tickets" [ref=f21e49] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/issues
+        - listitem [ref=f21e50]:
+          - link "Aufgewendete Zeit" [ref=f21e51] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/time_entries
+        - listitem [ref=f21e52]:
+          - link "Gantt-Diagramm" [ref=f21e53] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/issues/gantt
+        - listitem [ref=f21e54]:
+          - link "Kalender" [ref=f21e55] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/issues/calendar
+        - listitem [ref=f21e56]:
+          - link "News" [ref=f21e57] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/news
+        - listitem [ref=f21e58]:
+          - link "Dokumente" [ref=f21e59] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/documents
+        - listitem [ref=f21e60]:
+          - link "Wiki" [ref=f21e61] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/wiki
+        - listitem [ref=f21e62]:
+          - link "Dateien" [ref=f21e63] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/files
+        - listitem [ref=f21e64]:
+          - link "Konfiguration" [ref=f21e65] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/settings
+    - generic [ref=f21e66]:
+      - generic [ref=f21e67]:
+        - link [ref=f21e69] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f21e72]:
+          - heading "Abfragen" [level=3] [ref=f21e73]
+          - list [ref=f21e74]:
+            - listitem [ref=f21e75]:
+              - link "Issues assigned to me" [ref=f21e76] [cursor=pointer]:
+                - /url: /projects/tag-retest-project/issues?query_id=1
+            - listitem [ref=f21e77]:
+              - link "Reported issues" [ref=f21e78] [cursor=pointer]:
+                - /url: /projects/tag-retest-project/issues?query_id=2
+            - listitem [ref=f21e79]:
+              - link "Updated issues" [ref=f21e80] [cursor=pointer]:
+                - /url: /projects/tag-retest-project/issues?query_id=3
+            - listitem [ref=f21e81]:
+              - link "Watched issues" [ref=f21e82] [cursor=pointer]:
+                - /url: /projects/tag-retest-project/issues?query_id=4
+          - generic [ref=f21e83]:
+            - link "Hinzufügen" [ref=f21e85] [cursor=pointer]:
+              - /url: /watchers/new?object_id=266&object_type=issue
+            - heading "Beobachter (1)" [level=3] [ref=f21e86]
+            - list [ref=f21e87]:
+              - listitem [ref=f21e88]:
+                - img [ref=f21e89]: RA
+                - link "Redmine Admin" [ref=f21e90] [cursor=pointer]:
+                  - /url: /users/1
+                - link "Remove" [ref=f21e91] [cursor=pointer]:
+                  - /url: /issues/266/watchers/1
+      - generic [ref=f21e94]:
+        - generic [ref=f21e95]:
+          - link "Bearbeiten" [ref=f21e96] [cursor=pointer]:
+            - /url: /issues/266/edit
+          - link "Aufwand buchen" [ref=f21e98] [cursor=pointer]:
+            - /url: /issues/266/time_entries/new
+          - link "Nicht beobachten" [ref=f21e100] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=266&object_type=issue
+          - link "Kopieren" [ref=f21e102] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/issues/266/copy
+          - generic "Aktionen" [ref=f21e106] [cursor=pointer]
+        - 'heading "Bug #266" [level=2] [ref=f21e108]'
+        - text: offen
+        - generic [ref=f21e109]:
+          - 'img "Autor: Redmine Admin" [ref=f21e110]': RA
+          - heading [level=3] [ref=f21e114]:
+            - text: Tag Retest Issue
+            - button "Edit" [ref=f21e115] [cursor=pointer]
+          - link [ref=f21e118] [cursor=pointer]:
+            - /url: /reactions?object_id=266&object_type=Issue
+          - paragraph [ref=f21e121]:
+            - text: Von
+            - link "Redmine Admin" [ref=f21e122] [cursor=pointer]:
+              - /url: /users/1
+            - text: vor
+            - link "weniger als 1 Minute" [ref=f21e123] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/activity?from=2026-09-08
+            - text: hinzugefügt.
+          - generic [ref=f21e124]:
+            - generic [ref=f21e125]:
+              - generic [ref=f21e126]:
+                - generic [ref=f21e127]:
+                  - generic [ref=f21e128]: "Status:"
+                  - generic [ref=f21e129]:
+                    - text: New
+                    - button "Edit" [ref=f21e130] [cursor=pointer]
+                - generic [ref=f21e131]:
+                  - generic [ref=f21e132]: "Priorität:"
+                  - generic [ref=f21e133]:
+                    - text: Normal
+                    - button "Edit" [ref=f21e134] [cursor=pointer]
+                - generic [ref=f21e135]:
+                  - generic [ref=f21e136]: "Zugewiesen an:"
+                  - generic [ref=f21e137]:
+                    - text: "-"
+                    - button "Edit" [ref=f21e138] [cursor=pointer]
+              - generic [ref=f21e139]:
+                - generic [ref=f21e140]:
+                  - generic [ref=f21e141]: "Startdatum:"
+                  - button "Edit" [ref=f21e143] [cursor=pointer]
+                - generic [ref=f21e144]:
+                  - generic [ref=f21e145]: "Abgabedatum:"
+                  - button "Edit" [ref=f21e147] [cursor=pointer]
+                - generic [ref=f21e148]:
+                  - generic [ref=f21e149]: "% erledigt:"
+                  - generic [ref=f21e150]:
+                    - generic [ref=f21e151]:
+                      - table [ref=f21e152]:
+                        - rowgroup [ref=f21e153]:
+                          - row [ref=f21e154]:
+                            - cell [ref=f21e155]
+                      - paragraph [ref=f21e156]: 0%
+                    - button "Edit" [ref=f21e157] [cursor=pointer]
+                - generic [ref=f21e158]:
+                  - generic [ref=f21e159]: "Geschätzter Aufwand:"
+                  - button "Edit" [ref=f21e161] [cursor=pointer]
+            - generic [ref=f21e162]:
+              - generic [ref=f21e163]: "Tags:"
+              - generic [ref=f21e165]:
+                - link "testdeleteme" [ref=f21e167] [cursor=pointer]:
+                  - /url: /projects/tag-retest-project/issues?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&v%5Btags%5D%5B%5D=testdeleteme&values%5Btags%5D%5B%5D=testdeleteme
+                - link "testkeepme" [ref=f21e169] [cursor=pointer]:
+                  - /url: /projects/tag-retest-project/issues?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&v%5Btags%5D%5B%5D=testkeepme&values%5Btags%5D%5B%5D=testkeepme
+            - generic [ref=f21e170]: Hinzufügen
+          - separator [ref=f21e171]
+          - generic [ref=f21e172]:
+            - paragraph [ref=f21e174]:
+              - strong [ref=f21e175]: Checkliste
+            - generic [ref=f21e177] [cursor=pointer]
+            - generic:
+              - list
+          - separator [ref=f21e179]
+          - generic [ref=f21e180]:
+            - link "Hinzufügen" [ref=f21e182] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/issues/new?back_url=%2Fissues%2F266&issue%5Bparent_issue_id%5D=266&issue%5Btracker_id%5D=4
+            - paragraph [ref=f21e184]:
+              - strong [ref=f21e185]: Untergeordnete Tickets
+          - separator [ref=f21e186]
+          - generic [ref=f21e187]:
+            - link "Hinzufügen" [ref=f21e189] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f21e191]:
+              - strong [ref=f21e192]: Zugehörige Tickets
+        - generic [ref=f21e194]:
+          - link "Bearbeiten" [ref=f21e195] [cursor=pointer]:
+            - /url: /issues/266/edit
+          - link "Aufwand buchen" [ref=f21e197] [cursor=pointer]:
+            - /url: /issues/266/time_entries/new
+          - link "Nicht beobachten" [ref=f21e199] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=266&object_type=issue
+          - link "Kopieren" [ref=f21e201] [cursor=pointer]:
+            - /url: /projects/tag-retest-project/issues/266/copy
+          - generic "Aktionen" [ref=f21e205] [cursor=pointer]
+        - text: pre pre
+        - paragraph [ref=f21e207]:
+          - text: "Auch abrufbar als:"
+          - link "PDF" [ref=f21e209] [cursor=pointer]:
+            - /url: /issues/266.pdf
+          - generic [ref=f21e210]:
+            - text: "|"
+            - link "Atom" [ref=f21e211] [cursor=pointer]:
+              - /url: /issues/266.atom?key=94fd9120e72ed97f9ffe6c094280da9513f2851e
+    - generic [ref=f21e212]:
+      - text: Powered by
+      - link "Redmine" [ref=f21e213] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f21e214]
+  - status [ref=f21e215]
+  - log [ref=f21e216]
+  - log [ref=f21e217]
+  - log [ref=f21e218]
+  - log [ref=f21e219]
+  - log [ref=f21e220]
+  - log [ref=f21e221]
+  - log [ref=f21e222]
+  - log [ref=f21e223]
+  - log [ref=f21e224]
+  - log [ref=f21e225]
+  - log [ref=f21e226]
+  - log [ref=f21e227]
+  - log [ref=f21e228]
+  - log [ref=f21e229]
+  - log [ref=f21e230]
+  - log [ref=f21e231]
+  - log [ref=f21e232]
+  - log [ref=f21e233]
+  - log [ref=f21e234]
+  - log [ref=f21e235]
+  - log [ref=f21e236]
+  - log [ref=f21e237]
+  - log [ref=f21e238]
+  - log [ref=f21e239]
+  - log [ref=f21e240]
+  - log [ref=f21e241]
+  - log [ref=f21e242]
+  - log [ref=f21e243]
+  - log [ref=f21e244]
+  - log [ref=f21e245]
+  - log [ref=f21e246]
+  - log [ref=f21e247]
+  - log [ref=f21e248]
+  - log [ref=f21e249]
+  - log [ref=f21e250]
+  - log [ref=f21e251]
+  - log [ref=f21e252]
+  - log [ref=f21e253]
+  - log [ref=f21e254]
+  - log [ref=f21e255]
+  - log [ref=f21e256]
+  - log [ref=f21e257]
+  - log [ref=f21e258]
+  - log [ref=f21e259]
+  - log [ref=f21e260]
+  - log [ref=f21e261]
+  - log [ref=f21e262]
+  - log [ref=f21e263]
+  - log [ref=f21e264]
+  - log [ref=f21e265]
+  - log [ref=f21e266]
+  - log [ref=f21e267]
+  - log [ref=f21e268]
+  - log [ref=f21e269]
+  - log [ref=f21e270]
+  - log [ref=f21e271]
+  - log [ref=f21e272]
+  - log [ref=f21e273]
+  - status [ref=f21e274]
+  - status [ref=f21e275]

@@ -1,0 +1,178 @@
+- generic [ref=f277e1]:
+  - generic [ref=f277e2]:
+    - generic [ref=f277e3]:
+      - generic [ref=f277e4]:
+        - list:
+          - listitem [ref=f277e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f277e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f277e7]:
+        - text: Logged in as
+        - link "admin" [ref=f277e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f277e9]:
+        - listitem [ref=f277e10]:
+          - link [ref=f277e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f277e12]
+        - listitem [ref=f277e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f277e14]:
+          - link "My page" [ref=f277e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f277e16]:
+          - link "Projects" [ref=f277e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f277e18]:
+          - link "Flux Gantt" [ref=f277e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f277e20]:
+          - link "Helpdesk Command Center" [ref=f277e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f277e22]:
+          - link "Time Tracker" [ref=f277e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f277e24]:
+          - link "Timesheet" [ref=f277e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f277e26]:
+          - link "Workloads" [ref=f277e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f277e28]:
+          - link "More" [ref=f277e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f277e30]:
+      - generic [ref=f277e31]:
+        - generic [ref=f277e32]:
+          - generic [ref=f277e33]:
+            - link "Search..." [ref=f277e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f277e35]
+        - generic [ref=f277e36]:
+          - generic [ref=f277e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f277e38]
+    - generic [ref=f277e39]:
+      - list [ref=f277e43]:
+        - listitem [ref=f277e44]:
+          - link "Helpdesk Dashboard" [ref=f277e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f277e48]:
+          - link "Helpdesk Tickets" [ref=f277e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f277e52]:
+          - link "Reports" [ref=f277e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f277e56]:
+          - link "Organization" [ref=f277e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f277e60]:
+          - link "Customers" [ref=f277e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f277e64]:
+          - link "Products" [ref=f277e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f277e68]:
+          - link "Helpdesk Settings" [ref=f277e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f277e72]:
+        - 'heading "Edit Organization: Alpha Full-Fields Test Org (Renamed)" [level=2] [ref=f277e73]'
+        - generic [ref=f277e74]:
+          - generic [ref=f277e75]:
+            - paragraph [ref=f277e76]:
+              - generic [ref=f277e77]: Organization Name *
+              - textbox "Organization Name *" [active] [ref=f277e78]: Alpha Full-Fields Test Org (Renamed)
+            - paragraph [ref=f277e79]:
+              - generic [ref=f277e80]: Website
+              - textbox "Website" [ref=f277e81]: https://alpha-fullfields.example.com
+            - paragraph [ref=f277e82]:
+              - generic [ref=f277e83]: Phone Number
+              - textbox "Phone Number" [ref=f277e84]: +1 (555) 222-3344
+            - paragraph [ref=f277e85]:
+              - generic [ref=f277e86]: Organization Address
+              - textbox "Organization Address" [ref=f277e87]: 100 Baseline Street, Testville
+            - paragraph [ref=f277e88]:
+              - generic [ref=f277e89]: Number of Employees
+              - spinbutton "Number of Employees" [ref=f277e90]: "42"
+            - paragraph [ref=f277e91]:
+              - generic [ref=f277e92]: Notes
+              - generic [ref=f277e93]:
+                - list [ref=f277e95]:
+                  - listitem [ref=f277e96]:
+                    - link "Edit" [ref=f277e97] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f277e98]:
+                    - link "Preview" [ref=f277e99] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f277e100]:
+                    - generic [ref=f277e101]:
+                      - button "Strong (Ctrl+B)" [ref=f277e102] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f277e103] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f277e104] [cursor=pointer]
+                      - button "Deleted" [ref=f277e105] [cursor=pointer]
+                      - button "Inline Code" [ref=f277e106] [cursor=pointer]
+                      - button "Heading 1" [ref=f277e107] [cursor=pointer]
+                      - button "Heading 2" [ref=f277e108] [cursor=pointer]
+                      - button "Heading 3" [ref=f277e109] [cursor=pointer]
+                      - button "Unordered list" [ref=f277e110] [cursor=pointer]
+                      - button "Ordered list" [ref=f277e111] [cursor=pointer]
+                      - button "Task list" [ref=f277e112] [cursor=pointer]
+                      - button "Quote" [ref=f277e113] [cursor=pointer]
+                      - button "Remove Quote" [ref=f277e114] [cursor=pointer]
+                      - button "Table" [ref=f277e115] [cursor=pointer]
+                      - button "pre" [ref=f277e116] [cursor=pointer]
+                      - button "Highlighted code" [ref=f277e117] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f277e118] [cursor=pointer]
+                      - button "Image" [ref=f277e119] [cursor=pointer]
+                      - button "Help" [ref=f277e120] [cursor=pointer]
+                - textbox "Notes" [ref=f277e122]: Original notes for TC-HLP-336/337 baseline.
+            - paragraph [ref=f277e123]:
+              - generic [ref=f277e124]: Billing Info
+              - textbox "Billing Info" [ref=f277e125]: Original billing info for TC-HLP-336/337 baseline.
+            - paragraph [ref=f277e126]:
+              - generic [ref=f277e127]: Active
+              - checkbox "Active" [checked] [ref=f277e128]
+          - paragraph [ref=f277e129]:
+            - button "Save" [ref=f277e130] [cursor=pointer]
+            - link "Cancel" [ref=f277e131] [cursor=pointer]:
+              - /url: /rf_organizations
+    - generic [ref=f277e132]:
+      - text: Powered by
+      - link "Redmine" [ref=f277e133] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f277e134]
+  - log [ref=f277e135]
+  - log [ref=f277e136]
+  - log [ref=f277e137]
+  - log [ref=f277e138]
+  - log [ref=f277e139]
+  - log [ref=f277e140]
+  - log [ref=f277e141]
+  - log [ref=f277e142]
+  - log [ref=f277e143]
+  - log [ref=f277e144]
+  - log [ref=f277e145]
+  - log [ref=f277e146]
+  - log [ref=f277e147]
+  - log [ref=f277e148]
+  - log [ref=f277e149]
+  - log [ref=f277e150]
+  - log [ref=f277e151]
+  - log [ref=f277e152]
+  - log [ref=f277e153]
+  - log [ref=f277e154]
+  - log [ref=f277e155]
+  - log [ref=f277e156]
+  - log [ref=f277e157]
+  - log [ref=f277e158]
+  - log [ref=f277e159]
+  - log [ref=f277e160]
+  - log [ref=f277e161]
+  - log [ref=f277e162]
+  - log [ref=f277e163]

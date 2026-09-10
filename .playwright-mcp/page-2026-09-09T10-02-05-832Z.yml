@@ -1,0 +1,243 @@
+- generic [ref=f174e1]:
+  - generic [ref=f174e2]:
+    - generic [ref=f174e3]:
+      - generic [ref=f174e4]:
+        - img "Logo" [ref=f174e5]
+        - text: 
+      - navigation "Application tasks" [ref=f174e6]:
+        - button " Compose" [ref=f174e8] [cursor=pointer]
+        - button " Mail" [disabled] [ref=f174e9] [cursor=pointer]
+        - button " Contacts" [ref=f174e10] [cursor=pointer]
+        - button " Settings" [ref=f174e11] [cursor=pointer]
+        - generic [ref=f174e12]:
+          - button " Dark mode" [ref=f174e13] [cursor=pointer]
+          - button " About" [ref=f174e14] [cursor=pointer]
+          - button " Logout" [ref=f174e15] [cursor=pointer]
+    - navigation "Email folder selection" [ref=f174e16]:
+      - generic [ref=f174e17]:
+        - text: 
+        - generic [ref=f174e18]: beta.customer@test.local
+        - button "" [ref=f174e19] [cursor=pointer]:     
+      - tree [ref=f174e21]:
+        - treeitem [level=1] [selected] [ref=f174e22]:
+          - link " Inbox 7" [ref=f174e23]:
+            - /url: /?_task=mail&_mbox=INBOX
+            - text:  Inbox
+            - generic [ref=f174e24]: "7"
+        - treeitem [level=1] [ref=f174e25]:
+          - link " Drafts" [ref=f174e26]:
+            - /url: /?_task=mail&_mbox=Drafts
+        - treeitem [level=1] [ref=f174e27]:
+          - link " Sent" [ref=f174e28]:
+            - /url: /?_task=mail&_mbox=Sent
+        - treeitem [level=1] [ref=f174e29]:
+          - link " Junk" [ref=f174e30]:
+            - /url: /?_task=mail&_mbox=Junk
+        - treeitem [level=1] [ref=f174e31]:
+          - link " Trash" [ref=f174e32]:
+            - /url: /?_task=mail&_mbox=Trash
+      - generic [ref=f174e34]:
+        - text: 
+        - generic "unknown" [ref=f174e35]: 0%
+    - generic [ref=f174e38]:
+      - generic [ref=f174e39]:
+        - text:  
+        - list [ref=f174e40]:
+          - menuitem [ref=f174e41]:
+            - link " Select" [ref=f174e42] [cursor=pointer]:
+              - /url: "#select"
+              - text:  Select       
+          - menuitem " Threads" [ref=f174e43]:
+            - link " Threads":
+              - /url: "#threads"
+              - text:  Threads   
+          - menuitem [ref=f174e44]:
+            - link " Options" [ref=f174e45] [cursor=pointer]:
+              - /url: "#list-options"
+        - button " Refresh" [ref=f174e46] [cursor=pointer]
+        - text:  
+      - search "Email search input" [ref=f174e47]:
+        - generic [ref=f174e48]:
+          - text: 
+          - textbox "Search terms" [ref=f174e49]:
+            - /placeholder: Search...
+        - text: 
+        - button "" [ref=f174e50] [cursor=pointer]
+        - button "" [ref=f174e51] [cursor=pointer]
+        - text: 
+      - text:   
+      - generic [ref=f174e52]:
+        - text: 
+        - table "Email Messages Listing" [ref=f174e53]:
+          - text: 
+          - rowgroup [ref=f174e54]:
+            - row [ref=f174e55]:
+              - 'cell "alpha.support@test.local Today 15:31  [Helpdesk QA Beta #63] Re: TC-HLP-402b control - Beta-only customer emailing Beta mailbox, should land on Beta" [active] [ref=f174e56]':
+                - generic [ref=f174e57]: alpha.support@test.local
+                - generic [ref=f174e59]: Today 15:31
+                - generic [ref=f174e60]:
+                  - generic "Unread": 
+                  - 'link "[Helpdesk QA Beta #63] Re: TC-HLP-402b control - Beta-only customer emailing Beta mailbox, should land on Beta" [ref=f174e61]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=12&_action=show
+              - cell "Not Flagged" [ref=f174e62]:
+                - generic [ref=f174e63] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f174e65]:
+              - 'cell "beta.support@test.local Today 14:44  [Helpdesk QA Beta #63] Re: TC-HLP-402b control - Beta-only customer emailing Beta mailbox, should land on Beta" [ref=f174e66]':
+                - generic [ref=f174e67]: beta.support@test.local
+                - generic [ref=f174e69]: Today 14:44
+                - generic [ref=f174e70]:
+                  - generic "Unread": 
+                  - 'link "[Helpdesk QA Beta #63] Re: TC-HLP-402b control - Beta-only customer emailing Beta mailbox, should land on Beta" [ref=f174e71]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=11&_action=show
+              - cell "Not Flagged" [ref=f174e72]:
+                - generic [ref=f174e73] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f174e75]:
+              - 'cell "beta.support@test.local Today 14:22  [Support #63] TC-HLP-402b control - Beta-only customer emailing Beta mailbox, should land on Beta" [ref=f174e76]':
+                - generic [ref=f174e77]: beta.support@test.local
+                - generic [ref=f174e79]: Today 14:22
+                - generic [ref=f174e80]:
+                  - generic "Unread": 
+                  - 'link "[Support #63] TC-HLP-402b control - Beta-only customer emailing Beta mailbox, should land on Beta" [ref=f174e81]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=10&_action=show
+              - cell "Not Flagged" [ref=f174e82]:
+                - generic [ref=f174e83] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f174e85]:
+              - 'cell "alpha.support@test.local Today 14:16  [Support #62] TC-HLP-402 routing test attempt 2, Alpha budget now positive" [ref=f174e86]':
+                - generic [ref=f174e87]: alpha.support@test.local
+                - generic [ref=f174e89]: Today 14:16
+                - generic [ref=f174e90]:
+                  - generic "Unread": 
+                  - 'link "[Support #62] TC-HLP-402 routing test attempt 2, Alpha budget now positive" [ref=f174e91]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=9&_action=show
+              - cell "Not Flagged" [ref=f174e92]:
+                - generic [ref=f174e93] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f174e95]:
+              - cell "redmine@example.net Today 14:14  Your message could not be logged — prepaid support hours used up (Helpdesk QA Alpha)" [ref=f174e96]:
+                - generic [ref=f174e97]: redmine@example.net
+                - generic [ref=f174e99]: Today 14:14
+                - generic [ref=f174e100]:
+                  - generic "Unread": 
+                  - link "Your message could not be logged — prepaid support hours used up (Helpdesk QA Alpha)" [ref=f174e101]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=8&_action=show
+              - cell "Not Flagged" [ref=f174e102]:
+                - generic [ref=f174e103] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f174e105]:
+              - cell "redmine@example.net Today 14:13  Your Helpdesk Account Has Been Created" [ref=f174e106]:
+                - generic [ref=f174e107]: redmine@example.net
+                - generic [ref=f174e109]: Today 14:13
+                - generic [ref=f174e110]:
+                  - generic "Unread": 
+                  - link "Your Helpdesk Account Has Been Created" [ref=f174e111]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=7&_action=show
+              - cell "Not Flagged" [ref=f174e112]:
+                - generic [ref=f174e113] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f174e115]:
+              - cell "redmine@example.net 2026-08-31 15:59  Registration Required - Redmineflux Helpdesk" [ref=f174e116]:
+                - generic [ref=f174e117]: redmine@example.net
+                - generic [ref=f174e119]: 2026-08-31 15:59
+                - generic [ref=f174e120]:
+                  - generic "Unread": 
+                  - link "Registration Required - Redmineflux Helpdesk" [ref=f174e121]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=6&_action=show
+              - cell "Not Flagged" [ref=f174e122]:
+                - generic [ref=f174e123] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f174e125]:
+              - cell "admin@test.local 2026-08-26 19:16  Your Helpdesk Account Has Been Updated" [ref=f174e126]:
+                - generic [ref=f174e127]: admin@test.local
+                - generic [ref=f174e129]: 2026-08-26 19:16
+                - generic [ref=f174e130]:
+                  - generic: 
+                  - link "Your Helpdesk Account Has Been Updated" [ref=f174e131]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=5&_action=show
+              - cell "Not Flagged" [ref=f174e132]:
+                - generic [ref=f174e133] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f174e135]:
+              - cell "admin@test.local 2026-08-26 19:00  Your Helpdesk Account Has Been Updated" [ref=f174e136]:
+                - generic [ref=f174e137]: admin@test.local
+                - generic [ref=f174e139]: 2026-08-26 19:00
+                - generic [ref=f174e140]:
+                  - generic: 
+                  - link "Your Helpdesk Account Has Been Updated" [ref=f174e141]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=4&_action=show
+              - cell "Not Flagged" [ref=f174e142]:
+                - generic [ref=f174e143] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f174e145]:
+              - 'cell "beta.support@test.local 2026-08-26 14:47  [Helpdesk QA Beta #67] Re: [TICKET] Ticket: Cannot access my dashboard" [ref=f174e146]':
+                - generic [ref=f174e147]: beta.support@test.local
+                - generic [ref=f174e149]: 2026-08-26 14:47
+                - generic [ref=f174e150]:
+                  - generic "Replied": 
+                  - 'link "[Helpdesk QA Beta #67] Re: [TICKET] Ticket: Cannot access my dashboard" [ref=f174e151]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=3&_action=show
+              - cell "Not Flagged" [ref=f174e152]:
+                - generic [ref=f174e153] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f174e155]:
+              - 'cell "beta.support@test.local 2026-08-26 14:45  [Support #67] Ticket: Cannot access my dashboard" [ref=f174e156]':
+                - generic [ref=f174e157]: beta.support@test.local
+                - generic [ref=f174e159]: 2026-08-26 14:45
+                - generic [ref=f174e160]:
+                  - generic: 
+                  - 'link "[Support #67] Ticket: Cannot access my dashboard" [ref=f174e161]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=2&_action=show
+              - cell "Not Flagged" [ref=f174e162]:
+                - generic [ref=f174e163] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f174e165]:
+              - cell "admin@test.local 2026-08-26 14:31  Your Helpdesk Account Has Been Created" [ref=f174e166]:
+                - generic [ref=f174e167]: admin@test.local
+                - generic [ref=f174e169]: 2026-08-26 14:31
+                - generic [ref=f174e170]:
+                  - generic: 
+                  - link "Your Helpdesk Account Has Been Created" [ref=f174e171]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=1&_action=show
+              - cell "Not Flagged" [ref=f174e172]:
+                - generic [ref=f174e173] [cursor=pointer]:
+                  - generic "Not Flagged"
+      - toolbar "List navigation" [ref=f174e175]:
+        - button "" [disabled]
+        - button "" [disabled]
+        - generic [ref=f174e176]: Messages 1 to 12 of 12
+        - textbox "Current page" [disabled] [ref=f174e177]: "1"
+        - button "" [disabled]
+        - button "" [disabled]
+    - generic [ref=f174e179]:
+      - toolbar "Application toolbar" [ref=f174e180]:
+        - text:                   Browse
+        - list [ref=f174e181]:
+          - menuitem: 
+          - menuitem " Reply" [ref=f174e182]:
+            - button " Reply" [disabled]
+          - menuitem [ref=f174e183]:
+            - generic [ref=f174e184]:
+              - button " Reply all" [disabled]
+              - link "":
+                - /url: "#reply-all"
+          - menuitem [ref=f174e185]:
+            - generic [ref=f174e186]:
+              - button " Forward" [disabled]
+              - link "":
+                - /url: "#forward"
+          - menuitem [ref=f174e187]
+          - menuitem " Delete" [ref=f174e188]:
+            - button " Delete" [disabled]
+          - menuitem " Mark" [ref=f174e189]:
+            - button " Mark"
+          - menuitem [ref=f174e190]:
+            - button " More" [ref=f174e191] [cursor=pointer]
+          - menuitem: 
+          - menuitem: 
+          - menuitem: 
+        - text: 
+      - iframe [ref=f174e193]
+      - text:   
+  - text:   

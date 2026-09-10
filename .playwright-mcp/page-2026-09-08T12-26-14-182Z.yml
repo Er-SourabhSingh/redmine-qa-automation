@@ -1,0 +1,237 @@
+- generic [ref=f9e1]:
+  - generic [ref=f9e2]:
+    - navigation [ref=f9e3]:
+      - list [ref=f9e6]:
+        - listitem [ref=f9e7]:
+          - link [ref=f9e8] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f9e9]
+        - listitem [ref=f9e10]:
+          - link "Hauptseite" [ref=f9e11] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f9e12]:
+          - link "Meine Seite" [ref=f9e13] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f9e14]:
+          - link "Projekte" [ref=f9e15] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f9e16]:
+          - link "Agile Board" [ref=f9e17] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f9e18]:
+          - link "Flux Gantt" [ref=f9e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f9e20]:
+          - link "More" [ref=f9e21] [cursor=pointer]:
+            - /url: "#"
+      - link [ref=f9e24] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f9e25]: RA
+    - generic [ref=f9e28]:
+      - generic [ref=f9e29]:
+        - generic [ref=f9e30]:
+          - generic [ref=f9e31]:
+            - link "Suche" [ref=f9e32] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/search
+            - text: ":"
+          - textbox "Suche:" [ref=f9e33]
+        - generic [ref=f9e34]:
+          - generic [ref=f9e35] [cursor=pointer]: Tag Retest Project
+          - text: ✓
+      - heading "Tag Retest Project" [level=1] [ref=f9e36]
+      - generic [ref=f9e38]:
+        - list [ref=f9e39]:
+          - listitem [ref=f9e40]:
+            - link "+" [ref=f9e41] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f9e42]:
+            - link "Übersicht" [ref=f9e43] [cursor=pointer]:
+              - /url: /projects/tag-retest-project
+          - listitem [ref=f9e44]:
+            - link "Dashboard" [ref=f9e45] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/analytics_dashboard
+          - listitem [ref=f9e46]:
+            - link "Aktivität" [ref=f9e47] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/activity
+          - listitem [ref=f9e48]:
+            - link "Tickets" [ref=f9e49] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/issues
+          - listitem [ref=f9e50]:
+            - link "Aufgewendete Zeit" [ref=f9e51] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/time_entries
+          - listitem [ref=f9e52]:
+            - link "Gantt-Diagramm" [ref=f9e53] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/issues/gantt
+          - listitem [ref=f9e54]:
+            - link "Kalender" [ref=f9e55] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/issues/calendar
+          - listitem [ref=f9e56]:
+            - link "News" [ref=f9e57] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/news
+          - listitem [ref=f9e58]:
+            - link "Dokumente" [ref=f9e59] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/documents
+          - listitem [ref=f9e60]:
+            - link "Wiki" [ref=f9e61] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/wiki
+          - listitem [ref=f9e62]:
+            - link "Dateien" [ref=f9e63] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/files
+          - listitem [ref=f9e64]:
+            - link "Konfiguration" [ref=f9e65] [cursor=pointer]:
+              - /url: /projects/tag-retest-project/settings
+        - generic [ref=f9e66]:
+          - button [ref=f9e67] [cursor=pointer]
+          - button [ref=f9e70] [cursor=pointer]
+    - generic [ref=f9e74]:
+      - heading "Neues Ticket" [level=2] [ref=f9e75]
+      - generic [ref=f9e76]:
+        - generic [ref=f9e77]:
+          - generic [ref=f9e78]:
+            - paragraph [ref=f9e79]:
+              - checkbox "Privat" [ref=f9e80]
+              - text: Privat
+            - paragraph [ref=f9e81]:
+              - generic [ref=f9e82]: Tracker *
+              - combobox "Tracker *" [ref=f9e83]:
+                - option "Bug" [selected]
+                - option "Feature"
+                - option "Support"
+            - paragraph [ref=f9e84]:
+              - generic [ref=f9e85]: Thema *
+              - textbox "Thema *" [ref=f9e86]: Tag Retest Issue
+            - paragraph [ref=f9e87]:
+              - generic [ref=f9e88]: Beschreibung
+              - generic [ref=f9e90]:
+                - list [ref=f9e92]:
+                  - listitem [ref=f9e93]:
+                    - link "Bearbeiten" [ref=f9e94] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f9e95]:
+                    - link "Vorschau" [ref=f9e96] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f9e97]:
+                    - generic [ref=f9e98]:
+                      - button "Fett (Ctrl+B)" [ref=f9e99] [cursor=pointer]
+                      - button "Kursiv (Ctrl+I)" [ref=f9e100] [cursor=pointer]
+                      - button "Unterstrichen (Ctrl+U)" [ref=f9e101] [cursor=pointer]
+                      - button "Durchgestrichen" [ref=f9e102] [cursor=pointer]
+                      - button "Quelltext" [ref=f9e103] [cursor=pointer]
+                      - button "Überschrift 1. Ordnung" [ref=f9e104] [cursor=pointer]
+                      - button "Überschrift 2. Ordnung" [ref=f9e105] [cursor=pointer]
+                      - button "Überschrift 3. Ordnung" [ref=f9e106] [cursor=pointer]
+                      - button "Aufzählungsliste" [ref=f9e107] [cursor=pointer]
+                      - button "Nummerierte Liste" [ref=f9e108] [cursor=pointer]
+                      - button "Task list" [ref=f9e109] [cursor=pointer]
+                      - button "Zitat" [ref=f9e110] [cursor=pointer]
+                      - button "Zitat entfernen" [ref=f9e111] [cursor=pointer]
+                      - button "Table" [ref=f9e112] [cursor=pointer]
+                      - button "pre" [ref=f9e113] [cursor=pointer]
+                      - button "Highlighted code" [ref=f9e114] [cursor=pointer]
+                      - button "Verweis (Link) zu einer Wiki-Seite" [ref=f9e115] [cursor=pointer]
+                      - button "Grafik" [ref=f9e116] [cursor=pointer]
+                      - button "Help" [ref=f9e117] [cursor=pointer]
+                - textbox "Beschreibung" [ref=f9e119]
+            - generic [ref=f9e121]:
+              - generic [ref=f9e122]:
+                - paragraph [ref=f9e123]:
+                  - generic [ref=f9e124]: Status *
+                  - combobox "Status *" [ref=f9e125]:
+                    - option "New" [selected]
+                - paragraph [ref=f9e126]:
+                  - generic [ref=f9e127]: Priorität *
+                  - combobox "Priorität *" [ref=f9e128]:
+                    - option "Low"
+                    - option "Normal" [selected]
+                    - option "High"
+                    - option "Urgent"
+                    - option "Immediate"
+                - paragraph [ref=f9e129]:
+                  - generic [ref=f9e130]: Zugewiesen an
+                  - combobox "Zugewiesen an" [ref=f9e131]:
+                    - option [selected]
+                    - option "<< ich >>"
+                    - option "Redmine Admin"
+                  - link "Mir zuweisen" [ref=f9e132] [cursor=pointer]:
+                    - /url: "#"
+              - generic [ref=f9e133]:
+                - paragraph [ref=f9e134]:
+                  - generic [ref=f9e135]: Übergeordnetes Ticket
+                  - textbox "Übergeordnetes Ticket" [ref=f9e136]
+                - paragraph [ref=f9e137]:
+                  - generic [ref=f9e138]: Startdatum
+                  - textbox "Startdatum" [ref=f9e139]
+                - paragraph [ref=f9e140]:
+                  - generic [ref=f9e141]: Abgabedatum
+                  - textbox "Abgabedatum" [ref=f9e142]
+                - paragraph [ref=f9e143]:
+                  - generic [ref=f9e144]: Geschätzter Aufwand
+                  - textbox "Geschätzter Aufwand" [ref=f9e145]:
+                    - /placeholder: h:mm
+                  - text: Stunden
+                - paragraph [ref=f9e146]:
+                  - generic [ref=f9e147]: "% erledigt"
+                  - combobox "% erledigt" [ref=f9e148]:
+                    - option "0 %" [selected]
+                    - option "10 %"
+                    - option "20 %"
+                    - option "30 %"
+                    - option "40 %"
+                    - option "50 %"
+                    - option "60 %"
+                    - option "70 %"
+                    - option "80 %"
+                    - option "90 %"
+                    - option "100 %"
+            - paragraph [ref=f9e149]:
+              - generic [ref=f9e150]: Markierungsliste
+              - list [ref=f9e151]:
+                - listitem [ref=f9e152]:
+                  - textbox "Markierungen hinzufügen" [active] [ref=f9e153]
+          - paragraph [ref=f9e154]:
+            - generic [ref=f9e155]: Dateien
+            - generic [ref=f9e157]:
+              - button "Choose File" [ref=f9e158]
+              - text: "(Maximale Größe: 5 MB)"
+          - paragraph [ref=f9e160]:
+            - generic [ref=f9e161]: Beobachter
+            - link "Nach hinzufügbaren Beobachtern suchen" [ref=f9e163] [cursor=pointer]:
+              - /url: /watchers/new?project_id=tag-retest-project
+        - button "Erstellen" [ref=f9e165] [cursor=pointer]
+        - button "Anlegen und weiter" [ref=f9e166] [cursor=pointer]
+    - generic [ref=f9e167]:
+      - text: Powered by
+      - link "Redmine" [ref=f9e168] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f9e169]
+  - log [ref=f9e170]
+  - log [ref=f9e171]
+  - log [ref=f9e172]
+  - log [ref=f9e173]
+  - log [ref=f9e174]
+  - log [ref=f9e175]
+  - log [ref=f9e176]
+  - log [ref=f9e177]
+  - log [ref=f9e178]
+  - log [ref=f9e179]
+  - log [ref=f9e180]
+  - log [ref=f9e181]
+  - log [ref=f9e182]
+  - log [ref=f9e183]
+  - log [ref=f9e184]
+  - log [ref=f9e185]
+  - log [ref=f9e186]
+  - log [ref=f9e187]
+  - log [ref=f9e188]
+  - log [ref=f9e189]
+  - log [ref=f9e190]
+  - log [ref=f9e191]
+  - log [ref=f9e192]
+  - log [ref=f9e193]
+  - log [ref=f9e194]
+  - log [ref=f9e195]
+  - log [ref=f9e196]
+  - log [ref=f9e197]
+  - log [ref=f9e198]
+  - status [ref=f9e199]

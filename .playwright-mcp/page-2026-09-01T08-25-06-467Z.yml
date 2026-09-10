@@ -1,0 +1,101 @@
+- generic [active] [ref=f101e1]:
+  - generic [ref=f101e2]:
+    - generic [ref=f101e3]:
+      - generic [ref=f101e4]:
+        - list:
+          - listitem [ref=f101e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f101e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f101e7]:
+        - text: Logged in as
+        - link "retest.customer1" [ref=f101e8] [cursor=pointer]:
+          - /url: /users/7
+      - list [ref=f101e9]:
+        - listitem [ref=f101e10]:
+          - link [ref=f101e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f101e12]
+        - listitem [ref=f101e13]:
+          - link "My Helpdesk" [ref=f101e14] [cursor=pointer]:
+            - /url: /helpdesk
+    - heading "Helpdesk QA Alpha" [level=1] [ref=f101e16]
+    - generic [ref=f101e17]:
+      - list [ref=f101e21]:
+        - listitem [ref=f101e22]:
+          - link "Helpdesk Dashboard" [ref=f101e23] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f101e26]:
+          - link "Helpdesk Tickets" [ref=f101e27] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f101e30]:
+          - link "Knowledgebase" [ref=f101e31] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f101e34]:
+        - generic [ref=f101e35]: Successful creation.
+        - generic [ref=f101e36]:
+          - generic [ref=f101e38]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f101e39]
+            - paragraph [ref=f101e40]: Helpdesk QA Alpha · 2 tickets
+          - link "New issue" [ref=f101e42] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/new
+        - button "Filters" [ref=f101e45] [cursor=pointer]
+        - table [ref=f101e53]:
+          - rowgroup [ref=f101e54]:
+            - row [ref=f101e55]:
+              - columnheader [ref=f101e56]:
+                - 'link "Ticket #" [ref=f101e57] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=id
+              - columnheader [ref=f101e58]:
+                - link "Subject" [ref=f101e59] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=subject
+              - columnheader [ref=f101e60]:
+                - link "Status" [ref=f101e61] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=status
+              - columnheader [ref=f101e62]:
+                - link "Priority" [ref=f101e63] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=priority
+              - columnheader [ref=f101e64]:
+                - link "Updated ▼" [ref=f101e65] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=updated_on
+          - rowgroup [ref=f101e66]:
+            - row [ref=f101e67]:
+              - cell [ref=f101e68]:
+                - link "#17" [ref=f101e69] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/17
+              - cell [ref=f101e70]:
+                - link "Admin-email-fix verification ticket - direct L3 top-level breach" [ref=f101e71] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/17
+              - cell "New" [ref=f101e72]
+              - cell "Normal" [ref=f101e75]
+              - cell "09/01/2026 08:25 AM" [ref=f101e78]
+            - row [ref=f101e79]:
+              - cell [ref=f101e80]:
+                - link "#15" [ref=f101e81] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/15
+              - cell [ref=f101e82]:
+                - link "TC-HLP-091 mid-level entry test - customer's project-access row specifies L2" [ref=f101e83] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/15
+              - cell "New" [ref=f101e84]
+              - cell "Normal" [ref=f101e87]
+              - cell "09/01/2026 08:12 AM" [ref=f101e90]
+        - generic [ref=f101e91]:
+          - list
+          - generic [ref=f101e92]: (1-2/2)
+    - generic [ref=f101e93]:
+      - text: Powered by
+      - link "Redmine" [ref=f101e94] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f101e95]
+  - log [ref=f101e96]
+  - log [ref=f101e97]
+  - log [ref=f101e98]
+  - log [ref=f101e99]
+  - log [ref=f101e100]
+  - log [ref=f101e101]
+  - log [ref=f101e102]
+  - log [ref=f101e103]
+  - log [ref=f101e104]

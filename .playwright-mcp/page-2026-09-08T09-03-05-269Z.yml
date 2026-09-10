@@ -1,0 +1,177 @@
+- generic [ref=f234e1]:
+  - generic [ref=f234e2]:
+    - navigation [ref=f234e3]:
+      - generic [ref=f234e4]:
+        - link [ref=f234e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f234e7] [cursor=pointer]
+      - list [ref=f234e17]:
+        - listitem [ref=f234e18]:
+          - link "Hauptseite" [ref=f234e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f234e20]:
+          - link "Meine Seite" [ref=f234e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f234e22]:
+          - link "Projekte" [ref=f234e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f234e24]:
+          - link "Agile Board" [ref=f234e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f234e26]:
+          - link "Flux Gantt" [ref=f234e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f234e28]:
+          - link "Administration" [ref=f234e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f234e30]:
+          - link "Hilfe" [ref=f234e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f234e32]:
+        - generic [ref=f234e33]:
+          - generic [ref=f234e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f234e35]
+        - link "Mein Konto" [ref=f234e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f234e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f234e44]:
+      - generic [ref=f234e46]:
+        - heading "Agile Board Project" [level=1] [ref=f234e47]
+        - generic [ref=f234e48]:
+          - generic [ref=f234e49]:
+            - generic [ref=f234e50]: Hauptmenü
+            - listitem [ref=f234e51]:
+              - link "+" [ref=f234e52] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f234e53]:
+            - listitem [ref=f234e54]:
+              - link "Übersicht" [ref=f234e55] [cursor=pointer]:
+                - /url: /projects/agileboard
+            - listitem [ref=f234e60]:
+              - link "Dashboard" [ref=f234e61] [cursor=pointer]:
+                - /url: /projects/agileboard/analytics_dashboard
+            - listitem [ref=f234e69]:
+              - link "Aktivität" [ref=f234e70] [cursor=pointer]:
+                - /url: /projects/agileboard/activity
+            - listitem [ref=f234e75]:
+              - link "Agile Board" [ref=f234e76] [cursor=pointer]:
+                - /url: /projects/agileboard/agile_board
+            - listitem [ref=f234e84]:
+              - link "Backlog" [ref=f234e85] [cursor=pointer]:
+                - /url: /projects/agileboard/backlog
+            - listitem [ref=f234e90]:
+              - link "Roadmap" [ref=f234e91] [cursor=pointer]:
+                - /url: /projects/agileboard/roadmap
+            - listitem [ref=f234e98]:
+              - link "Tickets" [ref=f234e99] [cursor=pointer]:
+                - /url: /projects/agileboard/issues
+            - listitem [ref=f234e104]:
+              - link "Aufgewendete Zeit" [ref=f234e105] [cursor=pointer]:
+                - /url: /projects/agileboard/time_entries
+            - listitem [ref=f234e110]:
+              - link "Gantt-Diagramm" [ref=f234e111] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/gantt
+            - listitem [ref=f234e119]:
+              - link "Kalender" [ref=f234e120] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/calendar
+            - listitem [ref=f234e125]:
+              - link "News" [ref=f234e126] [cursor=pointer]:
+                - /url: /projects/agileboard/news
+            - listitem [ref=f234e131]:
+              - link "Dokumente" [ref=f234e132] [cursor=pointer]:
+                - /url: /projects/agileboard/documents
+            - listitem [ref=f234e137]:
+              - link "Wiki" [ref=f234e138] [cursor=pointer]:
+                - /url: /projects/agileboard/wiki
+            - listitem [ref=f234e143]:
+              - link "Dateien" [ref=f234e144] [cursor=pointer]:
+                - /url: /projects/agileboard/files
+            - listitem [ref=f234e149]:
+              - link "Konfiguration" [ref=f234e150] [cursor=pointer]:
+                - /url: /projects/agileboard/settings
+      - generic [ref=f234e156]:
+        - heading "News hinzufügen" [level=2] [ref=f234e157]
+        - generic [ref=f234e158]:
+          - generic [ref=f234e159]:
+            - paragraph [ref=f234e160]:
+              - generic [ref=f234e161]: Titel *
+              - textbox "Titel *" [active] [ref=f234e162]
+            - paragraph [ref=f234e163]:
+              - generic [ref=f234e164]: Zusammenfassung
+              - textbox "Zusammenfassung" [ref=f234e165]
+            - paragraph [ref=f234e166]:
+              - generic [ref=f234e167]: Beschreibung *
+              - generic [ref=f234e168]:
+                - list [ref=f234e170]:
+                  - listitem [ref=f234e171]:
+                    - link "Bearbeiten" [ref=f234e172] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f234e173]:
+                    - link "Vorschau" [ref=f234e174] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f234e175]:
+                    - generic [ref=f234e176]:
+                      - button "Fett (Ctrl+B)" [ref=f234e177] [cursor=pointer]
+                      - button "Kursiv (Ctrl+I)" [ref=f234e178] [cursor=pointer]
+                      - button "Unterstrichen (Ctrl+U)" [ref=f234e179] [cursor=pointer]
+                      - button "Durchgestrichen" [ref=f234e180] [cursor=pointer]
+                      - button "Quelltext" [ref=f234e181] [cursor=pointer]
+                      - button "Überschrift 1. Ordnung" [ref=f234e182] [cursor=pointer]
+                      - button "Überschrift 2. Ordnung" [ref=f234e183] [cursor=pointer]
+                      - button "Überschrift 3. Ordnung" [ref=f234e184] [cursor=pointer]
+                      - button "Aufzählungsliste" [ref=f234e185] [cursor=pointer]
+                      - button "Nummerierte Liste" [ref=f234e186] [cursor=pointer]
+                      - button "Task list" [ref=f234e187] [cursor=pointer]
+                      - button "Zitat" [ref=f234e188] [cursor=pointer]
+                      - button "Zitat entfernen" [ref=f234e189] [cursor=pointer]
+                      - button "Table" [ref=f234e190] [cursor=pointer]
+                      - button "pre" [ref=f234e191] [cursor=pointer]
+                      - button "Highlighted code" [ref=f234e192] [cursor=pointer]
+                      - button "Verweis (Link) zu einer Wiki-Seite" [ref=f234e193] [cursor=pointer]
+                      - button "Grafik" [ref=f234e194] [cursor=pointer]
+                      - button "Help" [ref=f234e195] [cursor=pointer]
+                - textbox "Beschreibung *" [ref=f234e197]
+            - paragraph [ref=f234e198]:
+              - generic [ref=f234e199]: Dateien
+              - generic [ref=f234e201]:
+                - button "Choose File" [ref=f234e202]
+                - text: "(Maximale Größe: 5 MB)"
+          - button "Erstellen" [ref=f234e203] [cursor=pointer]
+    - generic [ref=f234e204]:
+      - text: Powered by
+      - link "Redmine" [ref=f234e205] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f234e206]
+  - log [ref=f234e207]
+  - log [ref=f234e208]
+  - log [ref=f234e209]
+  - log [ref=f234e210]
+  - log [ref=f234e211]
+  - log [ref=f234e212]
+  - log [ref=f234e213]
+  - log [ref=f234e214]
+  - log [ref=f234e215]
+  - log [ref=f234e216]
+  - log [ref=f234e217]
+  - log [ref=f234e218]
+  - log [ref=f234e219]
+  - log [ref=f234e220]
+  - log [ref=f234e221]
+  - log [ref=f234e222]
+  - log [ref=f234e223]
+  - log [ref=f234e224]
+  - log [ref=f234e225]
+  - log [ref=f234e226]
+  - log [ref=f234e227]
+  - log [ref=f234e228]
+  - log [ref=f234e229]
+  - log [ref=f234e230]
+  - log [ref=f234e231]
+  - log [ref=f234e232]
+  - log [ref=f234e233]
+  - log [ref=f234e234]
+  - log [ref=f234e235]
+  - log [ref=f234e236]

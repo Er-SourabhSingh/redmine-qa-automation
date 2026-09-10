@@ -1,0 +1,288 @@
+- generic [ref=f6e1]:
+  - generic [ref=f6e2]:
+    - navigation [ref=f6e3]:
+      - generic [ref=f6e4]:
+        - link [ref=f6e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f6e7] [cursor=pointer]
+      - list [ref=f6e17]:
+        - listitem [ref=f6e18]:
+          - link "Hauptseite" [ref=f6e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f6e20]:
+          - link "Meine Seite" [ref=f6e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f6e22]:
+          - link "Projekte" [ref=f6e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f6e24]:
+          - link "Agile Board" [ref=f6e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f6e26]:
+          - link "Flux Gantt" [ref=f6e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f6e28]:
+          - link "Administration" [ref=f6e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f6e30]:
+          - link "Hilfe" [ref=f6e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f6e32]:
+        - generic [ref=f6e33]:
+          - generic [ref=f6e34] [cursor=pointer]: Flux Gantt Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f6e35]
+        - link "Mein Konto" [ref=f6e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f6e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f6e44]:
+      - generic [ref=f6e46]:
+        - heading "Flux Gantt Project" [level=1] [ref=f6e47]
+        - generic [ref=f6e48]:
+          - generic [ref=f6e49]:
+            - generic [ref=f6e50]: Hauptmenü
+            - listitem [ref=f6e51]:
+              - link "+" [ref=f6e52] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f6e53]:
+            - listitem [ref=f6e54]:
+              - link "Übersicht" [ref=f6e55] [cursor=pointer]:
+                - /url: /projects/fluxganttproject
+            - listitem [ref=f6e60]:
+              - link "Dashboard" [ref=f6e61] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/analytics_dashboard
+            - listitem [ref=f6e69]:
+              - link "Flux Gantt" [ref=f6e70] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/flux_gantt
+            - listitem [ref=f6e77]:
+              - link "Aktivität" [ref=f6e78] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/activity
+            - listitem [ref=f6e83]:
+              - link "Roadmap" [ref=f6e84] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/roadmap
+            - listitem [ref=f6e91]:
+              - link "Tickets" [ref=f6e92] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues
+            - listitem [ref=f6e97]:
+              - link "Aufgewendete Zeit" [ref=f6e98] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/time_entries
+            - listitem [ref=f6e103]:
+              - link "Gantt-Diagramm" [ref=f6e104] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/gantt
+            - listitem [ref=f6e112]:
+              - link "Kalender" [ref=f6e113] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/calendar
+            - listitem [ref=f6e118]:
+              - link "News" [ref=f6e119] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/news
+            - listitem [ref=f6e124]:
+              - link "Dokumente" [ref=f6e125] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/documents
+            - listitem [ref=f6e130]:
+              - link "Wiki" [ref=f6e131] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/wiki
+            - listitem [ref=f6e136]:
+              - link "Dateien" [ref=f6e137] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/files
+            - listitem [ref=f6e142]:
+              - link "Konfiguration" [ref=f6e143] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/settings
+      - generic [ref=f6e150]:
+        - generic [ref=f6e151]:
+          - generic [ref=f6e152]: Flux Gantt
+          - generic [ref=f6e153]:
+            - generic [ref=f6e154]:
+              - generic [ref=f6e155]: Datum von/bis
+              - button "1. Sept. 26 - 7. Okt. 26 ▾" [ref=f6e156] [cursor=pointer]:
+                - generic [ref=f6e159]: 1. Sept. 26 - 7. Okt. 26
+                - text: ▾
+            - generic [ref=f6e160]:
+              - generic [ref=f6e161]: Suche
+              - textbox "Suche..." [ref=f6e163]
+          - generic [ref=f6e165]:
+            - generic [ref=f6e166]: Details
+            - combobox [ref=f6e167] [cursor=pointer]:
+              - option "Alle einklappen" [selected]
+              - option "Alle ausklappen"
+          - generic [ref=f6e168]:
+            - button "+ Version hinzufügen" [ref=f6e169] [cursor=pointer]
+            - button [active] [ref=f6e467] [cursor=pointer]
+            - button "Vorgänge ohne Version" [ref=f6e174] [cursor=pointer]
+            - button "Vollbild" [ref=f6e176] [cursor=pointer]
+            - button "Exportieren" [ref=f6e182] [cursor=pointer]
+        - generic [ref=f6e242]:
+          - generic [ref=f6e243]:
+            - generic [ref=f6e244]:
+              - generic [ref=f6e245]:
+                - generic [ref=f6e246]: Name
+                - button "+ Vorgang hinzufügen" [ref=f6e247] [cursor=pointer]
+              - generic [ref=f6e248]: Zugewiesen an
+              - generic [ref=f6e249]: Gesch. Stunden
+              - generic [ref=f6e250]: Erledigt %
+            - generic [ref=f6e251]:
+              - generic [ref=f6e252] [cursor=pointer]:
+                - generic [ref=f6e468]:
+                  - generic [ref=f6e469]: ▶
+                  - generic [aria-hidden] [ref=f6e470]: ◆
+                  - generic [ref=f6e471]: Version 3
+                  - generic [ref=f6e472]: 1 Vorgänge
+                - generic [ref=f6e474]: "-"
+                - generic [ref=f6e475]: "-"
+                - generic [ref=f6e477]: 0%
+              - generic [ref=f6e263] [cursor=pointer]:
+                - generic [ref=f6e478]:
+                  - generic [ref=f6e479]: ▶
+                  - generic [aria-hidden] [ref=f6e480]: ◆
+                  - generic [ref=f6e481]: Version 2
+                  - generic [ref=f6e482]: 10 Vorgänge
+                - generic [ref=f6e484]: "-"
+                - generic [ref=f6e485]: "-"
+                - generic [ref=f6e487]: 0%
+              - generic [ref=f6e274] [cursor=pointer]:
+                - generic [ref=f6e488]:
+                  - generic [ref=f6e489]: ▶
+                  - generic [aria-hidden] [ref=f6e490]: ◆
+                  - generic [ref=f6e491]: Version 4
+                  - generic [ref=f6e492]: 0 Vorgänge
+                - generic [ref=f6e494]: "-"
+                - generic [ref=f6e495]: "-"
+                - generic [ref=f6e497]: 0%
+              - generic [ref=f6e285] [cursor=pointer]:
+                - generic [ref=f6e498]:
+                  - generic [ref=f6e499]: ▶
+                  - generic [aria-hidden] [ref=f6e500]: ◆
+                  - generic [ref=f6e501]: Version 1
+                  - generic [ref=f6e502]: 2 Vorgänge
+                - generic [ref=f6e504]: "-"
+                - generic [ref=f6e505]: "-"
+                - generic [ref=f6e507]: 0%
+          - generic [ref=f6e297]:
+            - generic [ref=f6e298]:
+              - generic [ref=f6e508]:
+                - generic [ref=f6e509]: 31 Aug - 4 Sep, 2026
+                - generic [ref=f6e510]: 7 Sep - 11 Sep, 2026
+                - generic [ref=f6e511]: 14 Sep - 18 Sep, 2026
+                - generic [ref=f6e512]: 21 Sep - 25 Sep, 2026
+                - generic [ref=f6e513]: 28 Sep - 2 Okt, 2026
+                - generic [ref=f6e514]: 5 Okt - 9 Okt, 2026
+              - generic [ref=f6e515]:
+                - generic [ref=f6e516]: "1"
+                - generic [ref=f6e517]: "2"
+                - generic [ref=f6e518]: "3"
+                - generic [ref=f6e519]: "4"
+                - generic [ref=f6e520]: "7"
+                - generic [ref=f6e521]: "8"
+                - generic [ref=f6e522]: "9"
+                - generic [ref=f6e523]: "10"
+                - generic [ref=f6e524]: "11"
+                - generic [ref=f6e525]: "14"
+                - generic [ref=f6e526]: "15"
+                - generic [ref=f6e527]: "16"
+                - generic [ref=f6e528]: "17"
+                - generic [ref=f6e529]: "18"
+                - generic [ref=f6e530]: "21"
+                - generic [ref=f6e531]: "22"
+                - generic [ref=f6e532]: "23"
+                - generic [ref=f6e533]: "24"
+                - generic [ref=f6e534]: "25"
+                - generic [ref=f6e535]: "28"
+                - generic [ref=f6e536]: "29"
+                - generic [ref=f6e537]: "30"
+                - generic [ref=f6e538]: "1"
+                - generic [ref=f6e539]: "2"
+                - generic [ref=f6e540]: "5"
+                - generic [ref=f6e541]: "6"
+                - generic [ref=f6e542]: "7"
+            - generic [ref=f6e334]:
+              - generic [ref=f6e335]:
+                - generic [ref=f6e336]:
+                  - generic:
+                    - generic: 0%
+                    - generic: Version 3
+                - generic [ref=f6e338]:
+                  - generic:
+                    - generic: 0%
+                    - generic: Version 2
+                - generic [ref=f6e340]: Version 4
+                - generic [ref=f6e342]:
+                  - generic:
+                    - generic: 0%
+                    - generic: Version 1
+              - generic: Today
+        - generic [ref=f6e543]:
+          - generic [ref=f6e544]:
+            - generic [ref=f6e545]: Einstellungen
+            - button "×" [ref=f6e546] [cursor=pointer]
+          - generic [ref=f6e547]:
+            - generic [ref=f6e548]:
+              - generic [ref=f6e549]: Anzeigeoptionen
+              - generic [ref=f6e550]: Zoom-Stufe
+              - generic [ref=f6e551]:
+                - button "Stunden" [ref=f6e552] [cursor=pointer]
+                - button "Tag" [ref=f6e553] [cursor=pointer]
+                - button "Woche" [ref=f6e554] [cursor=pointer]
+                - button "Monat" [ref=f6e555] [cursor=pointer]
+              - generic [ref=f6e556]: Anzeigemodus
+              - generic [ref=f6e557]:
+                - button "Vollständige Woche" [ref=f6e558] [cursor=pointer]
+                - button "Arbeitstage" [ref=f6e559] [cursor=pointer]
+              - generic [ref=f6e560] [cursor=pointer]:
+                - checkbox "Heutigen Tag anzeigen" [checked] [ref=f6e561]
+                - generic [ref=f6e562]: Heutigen Tag anzeigen
+            - generic [ref=f6e563]:
+              - generic [ref=f6e564]: Anzeigefelder
+              - generic [ref=f6e565] [cursor=pointer]:
+                - checkbox "Zugewiesene Person anzeigen" [checked] [ref=f6e566]
+                - generic [ref=f6e567]: Zugewiesene Person anzeigen
+              - generic [ref=f6e568] [cursor=pointer]:
+                - checkbox "Fortschritt % anzeigen" [checked] [ref=f6e569]
+                - generic [ref=f6e570]: Fortschritt % anzeigen
+              - generic [ref=f6e571] [cursor=pointer]:
+                - checkbox "Geschätzte Stunden anzeigen" [checked] [ref=f6e572]
+                - generic [ref=f6e573]: Geschätzte Stunden anzeigen
+              - generic [ref=f6e574] [cursor=pointer]:
+                - checkbox "Basislinien-Steuerung anzeigen" [ref=f6e575]
+                - generic [ref=f6e576]: Basislinien-Steuerung anzeigen
+              - generic [ref=f6e577] [cursor=pointer]:
+                - checkbox "Show Critical Path" [ref=f6e578]
+                - generic [ref=f6e579]: Show Critical Path
+              - generic [ref=f6e580]: Benutzerdefinierte Feldspalten
+              - generic [ref=f6e581]: Für dieses Projekt sind keine benutzerdefinierten Felder verfügbar.
+            - generic [ref=f6e582]:
+              - generic [ref=f6e583]: Meilenstein-Markierungen
+              - generic [ref=f6e584] [cursor=pointer]:
+                - checkbox "Meilenstein-Markierungen anzeigen" [checked] [ref=f6e585]
+                - generic [ref=f6e586]: Meilenstein-Markierungen anzeigen
+              - generic [ref=f6e587]: Keine Projekt-Datumsfelder verfügbar. Legen Sie ein benutzerdefiniertes Projektfeld vom Typ Datum an, um Meilenstein-Markierungen zu verwenden.
+    - generic [ref=f6e217]:
+      - text: Powered by
+      - link "Redmine" [ref=f6e218] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - tooltip [aria-hidden]
+  - log [ref=f6e219]
+  - log [ref=f6e220]
+  - log [ref=f6e221]
+  - log [ref=f6e222]
+  - log [ref=f6e223]
+  - log [ref=f6e224]
+  - log [ref=f6e225]
+  - log [ref=f6e226]
+  - log [ref=f6e227]
+  - log [ref=f6e228]
+  - log [ref=f6e229]
+  - log [ref=f6e230]
+  - log [ref=f6e231]:
+    - generic [ref=f6e465]: Mein Konto
+  - log [ref=f6e232]
+  - log [ref=f6e233]
+  - log [ref=f6e234]
+  - log [ref=f6e235]
+  - log [ref=f6e236]:
+    - generic [ref=f6e588]: Einstellungen
+  - log [ref=f6e237]
+  - log [ref=f6e238]
+  - log [ref=f6e239]
+  - log [ref=f6e240]
+  - tooltip "Einstellungen"

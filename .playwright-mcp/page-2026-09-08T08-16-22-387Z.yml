@@ -1,0 +1,275 @@
+- generic [active] [ref=f154e1]:
+  - generic [ref=f154e2]:
+    - navigation [ref=f154e3]:
+      - generic [ref=f154e4]:
+        - link [ref=f154e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f154e7] [cursor=pointer]
+      - list [ref=f154e17]:
+        - listitem [ref=f154e18]:
+          - link "Hauptseite" [ref=f154e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f154e20]:
+          - link "Meine Seite" [ref=f154e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f154e22]:
+          - link "Projekte" [ref=f154e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f154e24]:
+          - link "Agile Board" [ref=f154e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f154e26]:
+          - link "Flux Gantt" [ref=f154e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f154e28]:
+          - link "Administration" [ref=f154e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f154e30]:
+          - link "Hilfe" [ref=f154e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f154e32]:
+        - generic [ref=f154e33]:
+          - generic [ref=f154e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f154e35]
+        - link "Mein Konto" [ref=f154e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f154e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f154e44]:
+      - generic [ref=f154e46]:
+        - heading "Agile Board Project" [level=1] [ref=f154e47]
+        - generic [ref=f154e48]:
+          - generic [ref=f154e49]:
+            - generic [ref=f154e50]: Hauptmenü
+            - listitem [ref=f154e51]:
+              - link "+" [ref=f154e52] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f154e53]:
+            - listitem [ref=f154e54]:
+              - link "Übersicht" [ref=f154e55] [cursor=pointer]:
+                - /url: /projects/agileboard
+            - listitem [ref=f154e60]:
+              - link "Dashboard" [ref=f154e61] [cursor=pointer]:
+                - /url: /projects/agileboard/analytics_dashboard
+            - listitem [ref=f154e69]:
+              - link "Aktivität" [ref=f154e70] [cursor=pointer]:
+                - /url: /projects/agileboard/activity
+            - listitem [ref=f154e75]:
+              - link "Agile Board" [ref=f154e76] [cursor=pointer]:
+                - /url: /projects/agileboard/agile_board
+            - listitem [ref=f154e84]:
+              - link "Backlog" [ref=f154e85] [cursor=pointer]:
+                - /url: /projects/agileboard/backlog
+            - listitem [ref=f154e90]:
+              - link "Roadmap" [ref=f154e91] [cursor=pointer]:
+                - /url: /projects/agileboard/roadmap
+            - listitem [ref=f154e98]:
+              - link "Tickets" [ref=f154e99] [cursor=pointer]:
+                - /url: /projects/agileboard/issues
+            - listitem [ref=f154e104]:
+              - link "Aufgewendete Zeit" [ref=f154e105] [cursor=pointer]:
+                - /url: /projects/agileboard/time_entries
+            - listitem [ref=f154e110]:
+              - link "Gantt-Diagramm" [ref=f154e111] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/gantt
+            - listitem [ref=f154e119]:
+              - link "Kalender" [ref=f154e120] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/calendar
+            - listitem [ref=f154e125]:
+              - link "News" [ref=f154e126] [cursor=pointer]:
+                - /url: /projects/agileboard/news
+            - listitem [ref=f154e131]:
+              - link "Dokumente" [ref=f154e132] [cursor=pointer]:
+                - /url: /projects/agileboard/documents
+            - listitem [ref=f154e137]:
+              - link "Wiki" [ref=f154e138] [cursor=pointer]:
+                - /url: /projects/agileboard/wiki
+            - listitem [ref=f154e143]:
+              - link "Dateien" [ref=f154e144] [cursor=pointer]:
+                - /url: /projects/agileboard/files
+            - listitem [ref=f154e149]:
+              - link "Konfiguration" [ref=f154e150] [cursor=pointer]:
+                - /url: /projects/agileboard/settings
+      - generic [ref=f154e157]:
+        - heading "Aktivität" [level=2] [ref=f154e158]
+        - paragraph [ref=f154e159]: Datum von/bis
+        - generic [ref=f154e161]:
+          - textbox [ref=f154e163] [cursor=pointer]: 2026-09-08
+          - combobox [ref=f154e165] [cursor=pointer]:
+            - option [selected]
+            - option "<< ich >>"
+            - option "Aurora Wren"
+            - option "Autumn Grace"
+            - option "Briar Sunset"
+            - option "Celeste Dawn"
+            - option "Daisy Skye"
+            - option "Ember Lilac"
+            - option "Harmony Rose"
+            - option "Isla Moon"
+            - option "Ivy Skylark"
+            - option "Luna Blossom"
+            - option "Luna Meadow"
+            - option "Marigold Rayne"
+            - option "Nova Starling"
+            - option "Opal Sparrow"
+            - option "Redmine Admin"
+            - option "Sage Willow"
+            - option "Selene Frost"
+            - option "Serenity Bloom"
+            - option "Summer Rain"
+            - option "Violet Ember"
+            - option "Willow Belle"
+          - button "Filter" [ref=f154e167] [cursor=pointer]
+          - paragraph [ref=f154e168]:
+            - button "Anwenden" [ref=f154e169] [cursor=pointer]
+        - generic [ref=f154e170]:
+          - generic [ref=f154e171] [cursor=pointer]: Heute
+          - generic [ref=f154e176]:
+            - generic [ref=f154e177]:
+              - img [ref=f154e179]: RA
+              - generic [ref=f154e180]:
+                - 'link "Feature #259 (In Progress)" [ref=f154e183] [cursor=pointer]':
+                  - /url: /issues/259#change-15
+                - link "Implement scheduled exports" [ref=f154e185] [cursor=pointer]:
+                  - /url: /issues/259#change-15
+              - generic [ref=f154e186]:
+                - generic [ref=f154e187]: 07:23
+                - generic [ref=f154e188]: Redmine Admin
+            - generic [ref=f154e189]:
+              - img [ref=f154e191]: RA
+              - generic [ref=f154e192]:
+                - 'link "Feature #259 (Feedback)" [ref=f154e195] [cursor=pointer]':
+                  - /url: /issues/259#change-14
+                - link "Implement scheduled exports" [ref=f154e197] [cursor=pointer]:
+                  - /url: /issues/259#change-14
+              - generic [ref=f154e198]:
+                - generic [ref=f154e199]: 07:23
+                - generic [ref=f154e200]: Redmine Admin
+            - generic [ref=f154e201]:
+              - img [ref=f154e203]: DS
+              - generic [ref=f154e204]:
+                - 'link "Feature #259 (In Progress)" [ref=f154e207] [cursor=pointer]':
+                  - /url: /issues/259
+                - link "Implement scheduled exports" [ref=f154e209] [cursor=pointer]:
+                  - /url: /issues/259
+              - generic [ref=f154e210]:
+                - generic [ref=f154e211]: 05:01
+                - generic [ref=f154e212]: Daisy Skye
+            - generic [ref=f154e213]:
+              - img [ref=f154e215]: RA
+              - generic [ref=f154e216]:
+                - 'link "Feature #266 (In Progress)" [ref=f154e219] [cursor=pointer]':
+                  - /url: /issues/266#change-10
+                - link "QA Quick Add Test" [ref=f154e221] [cursor=pointer]:
+                  - /url: /issues/266#change-10
+              - generic [ref=f154e222]:
+                - generic [ref=f154e223]: 07:20
+                - generic [ref=f154e224]: Redmine Admin
+            - generic [ref=f154e225]:
+              - img [ref=f154e227]: RA
+              - generic [ref=f154e228]:
+                - 'link "Feature #266 (In Progress)" [ref=f154e231] [cursor=pointer]':
+                  - /url: /issues/266
+                - link "QA Quick Add Test" [ref=f154e233] [cursor=pointer]:
+                  - /url: /issues/266
+                - generic [ref=f154e234]: ghdfhf
+              - generic [ref=f154e235]:
+                - generic [ref=f154e236]: 05:17
+                - generic [ref=f154e237]: Redmine Admin
+            - generic [ref=f154e238]:
+              - img [ref=f154e240]: RA
+              - generic [ref=f154e241]:
+                - 'link "Feature #258 (In Progress)" [ref=f154e244] [cursor=pointer]':
+                  - /url: /issues/258#change-1
+                - link "Add Excel export formatting" [ref=f154e246] [cursor=pointer]:
+                  - /url: /issues/258#change-1
+                - generic [ref=f154e247]: Status changed via Agile Board
+              - generic [ref=f154e248]:
+                - generic [ref=f154e249]: 05:22
+                - generic [ref=f154e250]: Redmine Admin
+            - generic [ref=f154e251]:
+              - img [ref=f154e253]: DS
+              - generic [ref=f154e254]:
+                - 'link "Feature #258 (In Progress)" [ref=f154e257] [cursor=pointer]':
+                  - /url: /issues/258
+                - link "Add Excel export formatting" [ref=f154e259] [cursor=pointer]:
+                  - /url: /issues/258
+              - generic [ref=f154e260]:
+                - generic [ref=f154e261]: 05:01
+                - generic [ref=f154e262]: Daisy Skye
+            - generic [ref=f154e263]:
+              - img [ref=f154e265]: AG
+              - generic [ref=f154e266]:
+                - 'link "Bug #260 (Resolved)" [ref=f154e269] [cursor=pointer]':
+                  - /url: /issues/260
+                - link "Fix export performance" [ref=f154e271] [cursor=pointer]:
+                  - /url: /issues/260
+              - generic [ref=f154e272]:
+                - generic [ref=f154e273]: 05:01
+                - generic [ref=f154e274]: Autumn Grace
+            - generic [ref=f154e275]:
+              - img [ref=f154e277]: LB
+              - generic [ref=f154e278]:
+                - 'link "Bug #257 (Feedback)" [ref=f154e281] [cursor=pointer]':
+                  - /url: /issues/257
+                - link "Fix CSV encoding issues" [ref=f154e283] [cursor=pointer]:
+                  - /url: /issues/257
+              - generic [ref=f154e284]:
+                - generic [ref=f154e285]: 05:01
+                - generic [ref=f154e286]: Luna Blossom
+            - generic [ref=f154e287]:
+              - img [ref=f154e289]: LB
+              - generic [ref=f154e290]:
+                - 'link "Feature #256 (In Progress)" [ref=f154e293] [cursor=pointer]':
+                  - /url: /issues/256
+                - link "Implement data export templates" [ref=f154e295] [cursor=pointer]:
+                  - /url: /issues/256
+              - generic [ref=f154e296]:
+                - generic [ref=f154e297]: 05:01
+                - generic [ref=f154e298]: Luna Blossom
+            - generic [ref=f154e299]:
+              - img [ref=f154e301]: RA
+              - generic [ref=f154e302]:
+                - 'link "Support #114 (New)" [ref=f154e305] [cursor=pointer]':
+                  - /url: /issues/114
+                - link "Analyze database schema for optimization" [ref=f154e307] [cursor=pointer]:
+                  - /url: /issues/114
+              - generic [ref=f154e308]:
+                - generic [ref=f154e309]: 05:01
+                - generic [ref=f154e310]: Redmine Admin
+            - generic [ref=f154e311]:
+              - img [ref=f154e313]: RA
+              - generic [ref=f154e314]:
+                - 'link "Feature #106 (New)" [ref=f154e317] [cursor=pointer]':
+                  - /url: /issues/106
+                - link "Integrate payment gateway for subscriptions" [ref=f154e319] [cursor=pointer]:
+                  - /url: /issues/106
+              - generic [ref=f154e320]:
+                - generic [ref=f154e321]: 05:01
+                - generic [ref=f154e322]: Redmine Admin
+        - link "« Zurück" [ref=f154e324] [cursor=pointer]:
+          - /url: /projects/agileboard/activity?from=2026-08-29
+        - paragraph [ref=f154e325]:
+          - text: "Auch abrufbar als:"
+          - link "Atom" [ref=f154e327] [cursor=pointer]:
+            - /url: /projects/agileboard/activity.atom?key=a6249449f16344aaffb27d6f5be3002328ba1f62
+    - generic [ref=f154e328]:
+      - text: Powered by
+      - link "Redmine" [ref=f154e329] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f154e330]
+  - log [ref=f154e331]
+  - log [ref=f154e332]
+  - log [ref=f154e333]
+  - log [ref=f154e334]
+  - log [ref=f154e335]
+  - log [ref=f154e336]
+  - log [ref=f154e337]
+  - log [ref=f154e338]
+  - log [ref=f154e339]
+  - log [ref=f154e340]
+  - log [ref=f154e341]
+  - log [ref=f154e342]
+  - log [ref=f154e343]

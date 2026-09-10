@@ -1,0 +1,154 @@
+- generic [active] [ref=f57e1]:
+  - generic [ref=f57e2]:
+    - generic [ref=f57e3]:
+      - generic [ref=f57e4]:
+        - list:
+          - listitem [ref=f57e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f57e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f57e7]:
+        - text: Logged in as
+        - link "admin" [ref=f57e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f57e9]:
+        - listitem [ref=f57e10]:
+          - link [ref=f57e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f57e12]
+        - listitem [ref=f57e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f57e14]:
+          - link "My page" [ref=f57e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f57e16]:
+          - link "Projects" [ref=f57e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f57e18]:
+          - link "Flux Gantt" [ref=f57e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f57e20]:
+          - link "Helpdesk Command Center" [ref=f57e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f57e22]:
+          - link "Time Tracker" [ref=f57e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f57e24]:
+          - link "Timesheet" [ref=f57e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f57e26]:
+          - link "Workloads" [ref=f57e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f57e28]:
+          - link "More" [ref=f57e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f57e30]:
+      - generic [ref=f57e31]:
+        - generic [ref=f57e32]:
+          - generic [ref=f57e33]:
+            - link "Search..." [ref=f57e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f57e35]
+        - generic [ref=f57e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f57e38]
+    - generic [ref=f57e40]:
+      - generic [ref=f57e42]:
+        - text: "Add:"
+        - combobox "Add" [ref=f57e43]:
+          - option [selected]
+          - option "Issues assigned to me" [disabled]
+          - option "Reported issues" [disabled]
+          - option "Updated issues"
+          - option "Watched issues"
+          - option "Issues"
+          - option "Latest news"
+          - option "Calendar"
+          - option "Documents"
+          - option "Spent time"
+          - option "Activity"
+      - heading "My page" [level=2] [ref=f57e44]
+      - generic [ref=f57e45]:
+        - generic [ref=f57e48]:
+          - generic [ref=f57e49]:
+            - generic "Move" [ref=f57e50]
+            - link "Delete" [ref=f57e52] [cursor=pointer]:
+              - /url: /my/remove_block?block=issuesassignedtome
+          - link "Options" [ref=f57e55] [cursor=pointer]:
+            - /url: "#"
+          - heading [level=3] [ref=f57e57]:
+            - link "Issues assigned to me" [ref=f57e58] [cursor=pointer]:
+              - /url: /issues?c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&f%5B%5D=status_id&f%5B%5D=assigned_to_id&f%5B%5D=project.status&op%5Bassigned_to_id%5D=%3D&op%5Bproject.status%5D=%3D&op%5Bstatus_id%5D=o&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc&v%5Bassigned_to_id%5D%5B%5D=me&v%5Bproject.status%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=
+            - text: (0)
+          - paragraph [ref=f57e59]: No data
+        - generic [ref=f57e61]:
+          - generic [ref=f57e62]:
+            - generic "Move" [ref=f57e63]
+            - link "Delete" [ref=f57e65] [cursor=pointer]:
+              - /url: /my/remove_block?block=issuesreportedbyme
+          - link "Options" [ref=f57e68] [cursor=pointer]:
+            - /url: "#"
+          - heading [level=3] [ref=f57e70]:
+            - link "Reported issues" [ref=f57e71] [cursor=pointer]:
+              - /url: /issues?c%5B%5D=project&c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&f%5B%5D=status_id&f%5B%5D=author_id&f%5B%5D=project.status&op%5Bauthor_id%5D=%3D&op%5Bproject.status%5D=%3D&op%5Bstatus_id%5D=o&set_filter=1&sort=updated_on%3Adesc&v%5Bauthor_id%5D%5B%5D=me&v%5Bproject.status%5D%5B%5D=1&v%5Bstatus_id%5D%5B%5D=
+            - text: (1)
+          - table [ref=f57e74]:
+            - rowgroup [ref=f57e75]:
+              - row [ref=f57e76]:
+                - columnheader [ref=f57e77]:
+                  - link "#" [ref=f57e78] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=id%3Adesc%2Cupdated_on%3Adesc
+                - columnheader [ref=f57e79]:
+                  - link "Project" [ref=f57e80] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=project%2Cupdated_on%3Adesc
+                - columnheader [ref=f57e81]:
+                  - link "Tracker" [ref=f57e82] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=tracker%2Cupdated_on%3Adesc
+                - columnheader [ref=f57e83]:
+                  - link "Status" [ref=f57e84] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=status%2Cupdated_on%3Adesc
+                - columnheader [ref=f57e85]:
+                  - link "Subject" [ref=f57e86] [cursor=pointer]:
+                    - /url: /my/page?settings%5Bissuesreportedbyme%5D%5Bsort%5D=subject%2Cupdated_on%3Adesc
+                - columnheader [ref=f57e87]
+            - rowgroup [ref=f57e88]:
+              - row [ref=f57e89]:
+                - cell [ref=f57e90]:
+                  - link "5" [ref=f57e91] [cursor=pointer]:
+                    - /url: /issues/5
+                - cell [ref=f57e92]:
+                  - link "Helpdesk QA Alpha" [ref=f57e93] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Support" [ref=f57e94]
+                - cell "New" [ref=f57e95]
+                - cell [ref=f57e96]:
+                  - link "TC-HLP-013 retest - global Command Center ticket creation" [ref=f57e97] [cursor=pointer]:
+                    - /url: /issues/5
+                - cell [ref=f57e98]:
+                  - link "Actions" [ref=f57e99] [cursor=pointer]:
+                    - /url: "#"
+    - generic [ref=f57e101]:
+      - text: Powered by
+      - link "Redmine" [ref=f57e102] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f57e103]
+  - log [ref=f57e104]
+  - log [ref=f57e105]
+  - log [ref=f57e106]
+  - log [ref=f57e107]
+  - log [ref=f57e108]
+  - log [ref=f57e109]
+  - log [ref=f57e110]
+  - log [ref=f57e111]
+  - log [ref=f57e112]
+  - log [ref=f57e113]
+  - log [ref=f57e114]
+  - log [ref=f57e115]
+  - log [ref=f57e116]
+  - log [ref=f57e117]
+  - log [ref=f57e118]
+  - log [ref=f57e119]

@@ -1,0 +1,163 @@
+- generic [active] [ref=f276e1]:
+  - generic [ref=f276e2]:
+    - generic [ref=f276e3]:
+      - generic [ref=f276e4]:
+        - list:
+          - listitem [ref=f276e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f276e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f276e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f276e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f276e9]:
+        - listitem [ref=f276e10]:
+          - link [ref=f276e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f276e12]
+        - listitem [ref=f276e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f276e14]:
+          - link "My page" [ref=f276e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f276e16]:
+          - link "Projects" [ref=f276e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f276e18]:
+          - link "Time Tracker" [ref=f276e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f276e20]:
+          - link "Workloads" [ref=f276e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f276e22]:
+          - link "Help" [ref=f276e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f276e24]:
+      - generic [ref=f276e25]:
+        - generic [ref=f276e26]:
+          - generic [ref=f276e27]:
+            - link "Search..." [ref=f276e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f276e29]
+        - generic [ref=f276e30]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f276e32]
+    - generic [ref=f276e34]:
+      - heading "Luna Blossom" [level=2] [ref=f276e35]:
+        - img [ref=f276e36]: LB
+        - text: Luna Blossom
+      - generic [ref=f276e37]:
+        - generic [ref=f276e38]:
+          - list [ref=f276e39]:
+            - listitem [ref=f276e40]: "Login: luna.blossom"
+            - listitem [ref=f276e41]: "Registered on: 08/27/2026"
+            - listitem [ref=f276e42]: "Last sign in: 08/31/2026"
+          - heading "Issues" [level=3] [ref=f276e43]
+          - table [ref=f276e44]:
+            - rowgroup [ref=f276e45]:
+              - row [ref=f276e46]:
+                - columnheader [ref=f276e47]
+                - columnheader "open" [ref=f276e48]
+                - columnheader "closed" [ref=f276e49]
+                - columnheader "Total" [ref=f276e50]
+            - rowgroup [ref=f276e51]:
+              - row [ref=f276e52]:
+                - cell [ref=f276e53]:
+                  - link "Assigned issues" [ref=f276e54] [cursor=pointer]:
+                    - /url: /issues?assigned_to_id=5&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc
+                - cell [ref=f276e55]:
+                  - link "0" [ref=f276e56] [cursor=pointer]:
+                    - /url: /issues?assigned_to_id=5&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc
+                - cell [ref=f276e57]:
+                  - link "0" [ref=f276e58] [cursor=pointer]:
+                    - /url: /issues?assigned_to_id=5&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc&status_id=c
+                - cell [ref=f276e59]:
+                  - link "0" [ref=f276e60] [cursor=pointer]:
+                    - /url: /issues?assigned_to_id=5&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc&status_id=%2A
+              - row [ref=f276e61]:
+                - cell [ref=f276e62]:
+                  - link "Reported issues" [ref=f276e63] [cursor=pointer]:
+                    - /url: /issues?author_id=5&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc
+                - cell [ref=f276e64]:
+                  - link "0" [ref=f276e65] [cursor=pointer]:
+                    - /url: /issues?author_id=5&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc
+                - cell [ref=f276e66]:
+                  - link "0" [ref=f276e67] [cursor=pointer]:
+                    - /url: /issues?author_id=5&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc&status_id=c
+                - cell [ref=f276e68]:
+                  - link "0" [ref=f276e69] [cursor=pointer]:
+                    - /url: /issues?author_id=5&set_filter=1&sort=priority%3Adesc%2Cupdated_on%3Adesc&status_id=%2A
+          - heading "Projects" [level=3] [ref=f276e70]
+          - table [ref=f276e71]:
+            - rowgroup [ref=f276e72]:
+              - row [ref=f276e73]:
+                - columnheader "Project" [ref=f276e74]
+                - columnheader "Roles" [ref=f276e75]
+                - columnheader "Registered on" [ref=f276e76]
+            - rowgroup [ref=f276e77]:
+              - row [ref=f276e78]:
+                - cell [ref=f276e79]:
+                  - link "Helpdesk QA Alpha" [ref=f276e81] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha
+                - cell "Agent" [ref=f276e82]
+                - cell "08/27/2026" [ref=f276e83]
+              - row [ref=f276e84]:
+                - cell [ref=f276e85]:
+                  - link "Helpdesk QA Beta" [ref=f276e87] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-beta
+                - cell "Agent" [ref=f276e88]
+                - cell "08/27/2026" [ref=f276e89]
+        - generic [ref=f276e90]:
+          - heading [level=3] [ref=f276e91]:
+            - link "Activity" [ref=f276e92] [cursor=pointer]:
+              - /url: /activity?from=2026-08-31&user_id=5
+          - generic [ref=f276e93]:
+            - button "Today" [expanded] [ref=f276e94] [cursor=pointer]
+            - generic [ref=f276e95]:
+              - term [ref=f276e96]:
+                - img [ref=f276e99]: LB
+                - generic [ref=f276e100]: 06:11 AM
+                - text: Helpdesk QA Alpha -
+                - 'link "Support #4: BUG-HLP-009 retest - Edit form auto status transition check" [ref=f276e101] [cursor=pointer]':
+                  - /url: /issues/4#change-4
+              - definition [ref=f276e102]:
+                - generic [ref=f276e103]: Looking into this now, will update shortly.
+                - link "Luna Blossom" [ref=f276e105] [cursor=pointer]:
+                  - /url: /users/5
+              - term [ref=f276e106]:
+                - img [ref=f276e109]: LB
+                - generic [ref=f276e110]: 06:00 AM
+                - text: Helpdesk QA Alpha -
+                - 'link "Support #3 (Waiting for Customer Response): Ticket: BUG-HLP-008 retest - portal login issue" [ref=f276e111] [cursor=pointer]':
+                  - /url: /issues/3#change-2
+              - definition [ref=f276e112]:
+                - link "Luna Blossom" [ref=f276e114] [cursor=pointer]:
+                  - /url: /users/5
+              - term [ref=f276e115]:
+                - img [ref=f276e118]: LB
+                - generic [ref=f276e119]: 05:20 AM
+                - text: Helpdesk QA Alpha -
+                - 'link "Support #2: Second verification ticket for BUG-HLP-014 retest" [ref=f276e120] [cursor=pointer]':
+                  - /url: /issues/2#change-1
+              - definition [ref=f276e121]:
+                - generic [ref=f276e122]: "Internal: retesting BUG-HLP-007 core route contrast check."
+                - link "Luna Blossom" [ref=f276e124] [cursor=pointer]:
+                  - /url: /users/5
+          - paragraph [ref=f276e125]:
+            - text: "Also available in:"
+            - link "Atom" [ref=f276e127] [cursor=pointer]:
+              - /url: /activity.atom?key=74f8c2c10d57ac3baeee5bf474f60ebd9a037b60&user_id=5
+    - generic [ref=f276e128]:
+      - text: Powered by
+      - link "Redmine" [ref=f276e129] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f276e130]
+  - log [ref=f276e131]
+  - log [ref=f276e132]
+  - log [ref=f276e133]
+  - log [ref=f276e134]

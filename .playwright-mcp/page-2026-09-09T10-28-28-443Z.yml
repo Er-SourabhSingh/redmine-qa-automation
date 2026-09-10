@@ -1,0 +1,302 @@
+- generic [active] [ref=f247e1]:
+  - generic [ref=f247e2]:
+    - generic [ref=f247e3]:
+      - generic [ref=f247e4]:
+        - list:
+          - listitem [ref=f247e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f247e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f247e7]:
+        - text: Logged in as
+        - link "admin" [ref=f247e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f247e9]:
+        - listitem [ref=f247e10]:
+          - link [ref=f247e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f247e12]
+        - listitem [ref=f247e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f247e14]:
+          - link "My page" [ref=f247e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f247e16]:
+          - link "Projects" [ref=f247e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f247e18]:
+          - link "Flux Gantt" [ref=f247e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f247e20]:
+          - link "Helpdesk Command Center" [ref=f247e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f247e22]:
+          - link "Time Tracker" [ref=f247e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f247e24]:
+          - link "Timesheet" [ref=f247e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f247e26]:
+          - link "Workloads" [ref=f247e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f247e28]:
+          - link "More" [ref=f247e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f247e30]:
+      - generic [ref=f247e31]:
+        - generic [ref=f247e32]:
+          - generic [ref=f247e33]:
+            - link "Search..." [ref=f247e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f247e35]
+        - generic [ref=f247e36]:
+          - generic [ref=f247e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f247e38]
+    - generic [ref=f247e39]:
+      - list [ref=f247e43]:
+        - listitem [ref=f247e44]:
+          - link "Helpdesk Dashboard" [ref=f247e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f247e48]:
+          - link "Helpdesk Tickets" [ref=f247e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f247e52]:
+          - link "Reports" [ref=f247e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f247e56]:
+          - link "Organization" [ref=f247e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f247e60]:
+          - link "Customers" [ref=f247e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f247e64]:
+          - link "Products" [ref=f247e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f247e68]:
+          - link "Helpdesk Settings" [ref=f247e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f247e73]:
+        - generic [ref=f247e74]:
+          - generic [ref=f247e76]:
+            - heading "Alpha Customer" [level=2] [ref=f247e77]
+            - paragraph [ref=f247e78]:
+              - link "Customers" [ref=f247e79] [cursor=pointer]:
+                - /url: /rf_customers
+              - text: › alpha.customer
+          - link "Edit" [ref=f247e81] [cursor=pointer]:
+            - /url: /rf_customers/6/edit
+        - generic [ref=f247e84]:
+          - generic [ref=f247e85]:
+            - heading "Customer details" [level=3] [ref=f247e86]
+            - generic [ref=f247e90]: Active
+          - generic [ref=f247e97]:
+            - generic [ref=f247e98]:
+              - generic [ref=f247e99]: Login
+              - generic [ref=f247e100]: alpha.customer
+            - generic [ref=f247e101]:
+              - generic [ref=f247e102]: Email
+              - link "alpha.customer@test.local" [ref=f247e104] [cursor=pointer]:
+                - /url: mailto:alpha.customer@test.local
+            - generic [ref=f247e105]:
+              - generic [ref=f247e106]: Organization Name
+              - generic [ref=f247e107]: Alpha Minimal Fields Test Org
+            - generic [ref=f247e108]:
+              - generic [ref=f247e109]: Customer since
+              - generic [ref=f247e110]: 08/27/2026
+            - generic [ref=f247e111]:
+              - generic [ref=f247e112]: Last Login
+              - generic [ref=f247e113]: 09/09/2026 10:12 AM
+        - generic [ref=f247e114]:
+          - generic [ref=f247e115]:
+            - generic [ref=f247e119]: "20"
+            - generic [ref=f247e120]: Total Tickets
+          - generic [ref=f247e121]:
+            - generic [ref=f247e126]: "10"
+            - generic [ref=f247e127]: Open
+          - generic [ref=f247e128]:
+            - generic [ref=f247e132]: "0"
+            - generic [ref=f247e133]: Waiting on them
+          - generic [ref=f247e134]:
+            - generic [ref=f247e138]: "5"
+            - generic [ref=f247e139]: Breached
+          - generic [ref=f247e140]:
+            - generic [ref=f247e145]: "10"
+            - generic [ref=f247e146]: Resolved
+        - generic [ref=f247e147]:
+          - heading "Projects & entitlements 1" [level=3] [ref=f247e149]:
+            - text: Projects & entitlements
+            - generic [ref=f247e152]: "1"
+          - table [ref=f247e155]:
+            - rowgroup [ref=f247e156]:
+              - row [ref=f247e157]:
+                - columnheader "Project" [ref=f247e158]
+                - columnheader "SLA Name" [ref=f247e159]
+                - columnheader "Support Level" [ref=f247e160]
+                - columnheader "Organization Name" [ref=f247e161]
+                - columnheader "Open" [ref=f247e162]
+                - columnheader "Created on" [ref=f247e163]
+            - rowgroup [ref=f247e164]:
+              - row [ref=f247e165]:
+                - cell [ref=f247e166]:
+                  - link "Helpdesk QA Alpha" [ref=f247e167] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "Alpha Escalation Test SLA" [ref=f247e168]
+                - cell "L1" [ref=f247e169]
+                - cell "Alpha Minimal Fields Test Org" [ref=f247e172]
+                - cell "10" [ref=f247e173]
+                - cell "09/02/2026" [ref=f247e174]
+        - generic [ref=f247e175]:
+          - heading "Recent Tickets" [level=3] [ref=f247e177]
+          - table [ref=f247e182]:
+            - rowgroup [ref=f247e183]:
+              - row [ref=f247e184]:
+                - columnheader "#" [ref=f247e185]
+                - columnheader "Subject" [ref=f247e186]
+                - columnheader "Project" [ref=f247e187]
+                - columnheader "Status" [ref=f247e188]
+                - columnheader "Priority" [ref=f247e189]
+                - columnheader "SLA Status" [ref=f247e190]
+                - columnheader "Updated" [ref=f247e191]
+            - rowgroup [ref=f247e192]:
+              - row [ref=f247e193]:
+                - cell [ref=f247e194]:
+                  - link "#72" [ref=f247e195] [cursor=pointer]:
+                    - /url: /issues/72
+                - cell [ref=f247e196]:
+                  - link "TC-HLP-411 email ticket creation - Soft mode with negative balance - ticket keyword" [ref=f247e197] [cursor=pointer]:
+                    - /url: /issues/72
+                - cell "Helpdesk QA Alpha" [ref=f247e198]
+                - cell "New" [ref=f247e199]
+                - cell "Normal" [ref=f247e202]
+                - cell "N/A" [ref=f247e205]
+                - cell "09/09/2026 10:27 AM" [ref=f247e210]
+              - row [ref=f247e211]:
+                - cell [ref=f247e212]:
+                  - link "#71" [ref=f247e213] [cursor=pointer]:
+                    - /url: /issues/71
+                - cell [ref=f247e214]:
+                  - link "TC-HLP-410 email ticket creation - No limit mode with negative balance - ticket keyword" [ref=f247e215] [cursor=pointer]:
+                    - /url: /issues/71
+                - cell "Helpdesk QA Alpha" [ref=f247e216]
+                - cell "New" [ref=f247e217]
+                - cell "Normal" [ref=f247e220]
+                - cell "N/A" [ref=f247e223]
+                - cell "09/09/2026 10:26 AM" [ref=f247e228]
+              - row [ref=f247e229]:
+                - cell [ref=f247e230]:
+                  - link "#70" [ref=f247e231] [cursor=pointer]:
+                    - /url: /issues/70
+                - cell [ref=f247e232]:
+                  - link "TC-HLP-413 email ticket creation - Hard mode exhausted at exactly zero - ticket keyword" [ref=f247e233] [cursor=pointer]:
+                    - /url: /issues/70
+                - cell "Helpdesk QA Alpha" [ref=f247e234]
+                - cell "New" [ref=f247e235]
+                - cell "Normal" [ref=f247e238]
+                - cell "N/A" [ref=f247e241]
+                - cell "09/09/2026 10:18 AM" [ref=f247e246]
+              - row [ref=f247e247]:
+                - cell [ref=f247e248]:
+                  - link "#69" [ref=f247e249] [cursor=pointer]:
+                    - /url: /issues/69
+                - cell [ref=f247e250]:
+                  - link "TC-HLP-412 email ticket creation - Hard mode with Remaining greater than zero - ticket keyword" [ref=f247e251] [cursor=pointer]:
+                    - /url: /issues/69
+                - cell "Helpdesk QA Alpha" [ref=f247e252]
+                - cell "New" [ref=f247e253]
+                - cell "Normal" [ref=f247e256]
+                - cell "N/A" [ref=f247e259]
+                - cell "09/09/2026 10:16 AM" [ref=f247e264]
+              - row [ref=f247e265]:
+                - cell [ref=f247e266]:
+                  - link "#68" [ref=f247e267] [cursor=pointer]:
+                    - /url: /issues/68
+                - cell [ref=f247e268]:
+                  - link "TC-HLP-409 email ticket creation with no budget assigned - ticket keyword" [ref=f247e269] [cursor=pointer]:
+                    - /url: /issues/68
+                - cell "Helpdesk QA Alpha" [ref=f247e270]
+                - cell "New" [ref=f247e271]
+                - cell "Normal" [ref=f247e274]
+                - cell "N/A" [ref=f247e277]
+                - cell "09/09/2026 10:15 AM" [ref=f247e282]
+              - row [ref=f247e283]:
+                - cell [ref=f247e284]:
+                  - link "#67" [ref=f247e285] [cursor=pointer]:
+                    - /url: /issues/67
+                - cell [ref=f247e286]:
+                  - link "TC-HLP-408 Portal ticket creation with no budget assigned" [ref=f247e287] [cursor=pointer]:
+                    - /url: /issues/67
+                - cell "Helpdesk QA Alpha" [ref=f247e288]
+                - cell "New" [ref=f247e289]
+                - cell "Normal" [ref=f247e292]
+                - cell "N/A" [ref=f247e295]
+                - cell "09/09/2026 10:13 AM" [ref=f247e300]
+              - row [ref=f247e301]:
+                - cell [ref=f247e302]:
+                  - link "#66" [ref=f247e303] [cursor=pointer]:
+                    - /url: /issues/66
+                - cell [ref=f247e304]:
+                  - link "TC-HLP-290 shared mailbox test - ticket keyword" [ref=f247e305] [cursor=pointer]:
+                    - /url: /issues/66
+                - cell "Helpdesk QA Alpha" [ref=f247e306]
+                - cell "New" [ref=f247e307]
+                - cell "Normal" [ref=f247e310]
+                - cell "N/A" [ref=f247e313]
+                - cell "09/09/2026 09:28 AM" [ref=f247e318]
+              - row [ref=f247e319]:
+                - cell [ref=f247e320]:
+                  - link "#61" [ref=f247e321] [cursor=pointer]:
+                    - /url: /issues/61
+                - cell [ref=f247e322]:
+                  - link "[TICKET] TC-HLP-407 ticket both fields test" [ref=f247e323] [cursor=pointer]:
+                    - /url: /issues/61
+                - cell "Helpdesk QA Alpha" [ref=f247e324]
+                - cell "New" [ref=f247e325]
+                - cell "Normal" [ref=f247e328]
+                - cell "N/A" [ref=f247e331]
+                - cell "09/09/2026 08:26 AM" [ref=f247e336]
+              - row [ref=f247e337]:
+                - cell [ref=f247e338]:
+                  - link "#60" [ref=f247e339] [cursor=pointer]:
+                    - /url: /issues/60
+                - cell [ref=f247e340]:
+                  - link "[TICKET] TC-HLP-406 prefix only test" [ref=f247e341] [cursor=pointer]:
+                    - /url: /issues/60
+                - cell "Helpdesk QA Alpha" [ref=f247e342]
+                - cell "New" [ref=f247e343]
+                - cell "Normal" [ref=f247e346]
+                - cell "N/A" [ref=f247e349]
+                - cell "09/09/2026 08:25 AM" [ref=f247e354]
+              - row [ref=f247e355]:
+                - cell [ref=f247e356]:
+                  - link "#59" [ref=f247e357] [cursor=pointer]:
+                    - /url: /issues/59
+                - cell [ref=f247e358]:
+                  - link "TC-HLP-405 both fields blank test" [ref=f247e359] [cursor=pointer]:
+                    - /url: /issues/59
+                - cell "Helpdesk QA Alpha" [ref=f247e360]
+                - cell "New" [ref=f247e361]
+                - cell "Normal" [ref=f247e364]
+                - cell "N/A" [ref=f247e367]
+                - cell "09/09/2026 08:23 AM" [ref=f247e372]
+    - generic [ref=f247e373]:
+      - text: Powered by
+      - link "Redmine" [ref=f247e374] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f247e375]
+  - log [ref=f247e376]
+  - log [ref=f247e377]
+  - log [ref=f247e378]
+  - log [ref=f247e379]
+  - log [ref=f247e380]
+  - log [ref=f247e381]
+  - log [ref=f247e382]
+  - log [ref=f247e383]
+  - log [ref=f247e384]
+  - log [ref=f247e385]
+  - log [ref=f247e386]

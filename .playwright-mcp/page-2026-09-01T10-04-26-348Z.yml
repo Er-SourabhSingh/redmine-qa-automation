@@ -1,0 +1,159 @@
+- generic [active] [ref=f25e1]:
+  - generic [ref=f25e2]:
+    - generic [ref=f25e3]:
+      - generic [ref=f25e4]:
+        - list:
+          - listitem [ref=f25e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f25e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f25e7]:
+        - text: Logged in as
+        - link "admin" [ref=f25e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f25e9]:
+        - listitem [ref=f25e10]:
+          - link [ref=f25e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f25e12]
+        - listitem [ref=f25e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f25e14]:
+          - link "My page" [ref=f25e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f25e16]:
+          - link "Projects" [ref=f25e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f25e18]:
+          - link "Flux Gantt" [ref=f25e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f25e20]:
+          - link "Helpdesk Command Center" [ref=f25e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f25e22]:
+          - link "Time Tracker" [ref=f25e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f25e24]:
+          - link "Timesheet" [ref=f25e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f25e26]:
+          - link "Workloads" [ref=f25e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f25e28]:
+          - link "More" [ref=f25e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f25e30]:
+      - generic [ref=f25e31]:
+        - generic [ref=f25e32]:
+          - generic [ref=f25e33]:
+            - link "Search..." [ref=f25e34] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f25e35]
+        - generic [ref=f25e36]:
+          - generic [ref=f25e37] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f25e38]
+      - generic [ref=f25e39]:
+        - list [ref=f25e40]:
+          - listitem [ref=f25e41]:
+            - link "+" [ref=f25e42] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f25e43]:
+            - link "Overview" [ref=f25e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f25e45]:
+            - link "Activity" [ref=f25e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f25e47]:
+            - link "Issues" [ref=f25e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f25e49]:
+            - link "Spent time" [ref=f25e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f25e51]:
+            - link "Gantt" [ref=f25e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f25e53]:
+            - link "Calendar" [ref=f25e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f25e55]:
+            - link "News" [ref=f25e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f25e57]:
+            - link "Documents" [ref=f25e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f25e59]:
+            - link "Wiki" [ref=f25e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f25e61]:
+            - link "Files" [ref=f25e62] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f25e63]:
+            - link "Helpdesk" [ref=f25e64] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+          - listitem [ref=f25e65]:
+            - link "Settings" [ref=f25e66] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/settings
+        - generic [ref=f25e67]:
+          - button [ref=f25e68] [cursor=pointer]
+          - button [ref=f25e71] [cursor=pointer]
+    - generic [ref=f25e74]:
+      - list [ref=f25e78]:
+        - listitem [ref=f25e79]:
+          - link "Helpdesk Dashboard" [ref=f25e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f25e83]:
+          - link "Helpdesk Tickets" [ref=f25e84] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f25e87]:
+          - link "Knowledgebase" [ref=f25e88] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+        - listitem [ref=f25e91]:
+          - link "Helpdesk SLA" [ref=f25e92] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/sla
+        - listitem [ref=f25e95]:
+          - link "Organization" [ref=f25e96] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/organization
+        - listitem [ref=f25e99]:
+          - link "Settings" [ref=f25e100] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/settings
+      - generic [ref=f25e103]:
+        - link "Back" [ref=f25e105] [cursor=pointer]:
+          - /url: /projects/1/helpdesk/sla
+        - heading "Alpha CRUD Test SLA Full (Required-Only Edit) - History" [level=2] [ref=f25e106]
+        - generic [ref=f25e107]:
+          - generic [ref=f25e108]:
+            - generic [ref=f25e109]:
+              - generic [ref=f25e110]: Update
+              - text: Redmine Admin 09/01/2026 10:04 AM
+            - generic [ref=f25e111]:
+              - generic [ref=f25e112]:
+                - generic [ref=f25e113]: Resolution Time
+                - generic [ref=f25e114]: 180 → 240
+              - generic [ref=f25e115]:
+                - generic [ref=f25e116]: SLA Name
+                - generic [ref=f25e117]: Alpha CRUD Test SLA Full → Alpha CRUD Test SLA Full (Required-Only Edit)
+          - generic [ref=f25e118]:
+            - generic [ref=f25e119]:
+              - generic [ref=f25e120]: Create
+              - text: Redmine Admin 09/01/2026 10:03 AM
+            - generic [ref=f25e121]: "Created: Alpha CRUD Test SLA Full"
+    - generic [ref=f25e124]:
+      - text: Powered by
+      - link "Redmine" [ref=f25e125] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f25e126]
+  - log [ref=f25e127]
+  - log [ref=f25e128]
+  - log [ref=f25e129]
+  - log [ref=f25e130]
+  - log [ref=f25e131]
+  - log [ref=f25e132]
+  - log [ref=f25e133]
+  - log [ref=f25e134]
+  - log [ref=f25e135]

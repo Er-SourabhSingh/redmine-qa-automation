@@ -1,0 +1,300 @@
+- generic [active] [ref=f128e1]:
+  - generic [ref=f128e2]:
+    - generic [ref=f128e3]:
+      - generic [ref=f128e4]:
+        - list:
+          - listitem [ref=f128e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f128e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f128e7]:
+        - text: Logged in as
+        - link "admin" [ref=f128e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f128e9]:
+        - listitem [ref=f128e10]:
+          - link [ref=f128e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f128e12]
+        - listitem [ref=f128e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f128e14]:
+          - link "My page" [ref=f128e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f128e16]:
+          - link "Projects" [ref=f128e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f128e18]:
+          - link "Flux Gantt" [ref=f128e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f128e20]:
+          - link "Helpdesk Command Center" [ref=f128e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f128e22]:
+          - link "Time Tracker" [ref=f128e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f128e24]:
+          - link "Timesheet" [ref=f128e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f128e26]:
+          - link "Workloads" [ref=f128e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f128e28]:
+          - link "More" [ref=f128e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f128e30]:
+      - generic [ref=f128e31]:
+        - generic [ref=f128e32]:
+          - generic [ref=f128e33]:
+            - link "Search..." [ref=f128e34] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/search
+            - text: ":"
+          - textbox "Search...:" [ref=f128e35]
+        - generic [ref=f128e36]:
+          - generic [ref=f128e37] [cursor=pointer]: Helpdesk QA Beta
+          - text: ✓
+      - heading "Helpdesk QA Beta" [level=1] [ref=f128e38]
+      - generic [ref=f128e39]:
+        - list [ref=f128e40]:
+          - listitem [ref=f128e41]:
+            - link "+" [ref=f128e42] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f128e43]:
+            - link "Overview" [ref=f128e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta
+          - listitem [ref=f128e45]:
+            - link "Activity" [ref=f128e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/activity
+          - listitem [ref=f128e47]:
+            - link "Issues" [ref=f128e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues
+          - listitem [ref=f128e49]:
+            - link "Spent time" [ref=f128e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/time_entries
+          - listitem [ref=f128e51]:
+            - link "Gantt" [ref=f128e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues/gantt
+          - listitem [ref=f128e53]:
+            - link "Calendar" [ref=f128e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues/calendar
+          - listitem [ref=f128e55]:
+            - link "News" [ref=f128e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/news
+          - listitem [ref=f128e57]:
+            - link "Documents" [ref=f128e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/documents
+          - listitem [ref=f128e59]:
+            - link "Wiki" [ref=f128e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/wiki
+          - listitem [ref=f128e61]:
+            - link "Files" [ref=f128e62] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/files
+          - listitem [ref=f128e63]:
+            - link "Helpdesk" [ref=f128e64] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/helpdesk
+          - listitem [ref=f128e65]:
+            - link "Settings" [ref=f128e66] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/settings
+        - generic [ref=f128e67]:
+          - button [ref=f128e68] [cursor=pointer]
+          - button [ref=f128e71] [cursor=pointer]
+    - generic [ref=f128e74]:
+      - link [ref=f128e76] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=f128e79]:
+        - generic [ref=f128e80]:
+          - link "Start Timer" [ref=f128e81] [cursor=pointer]:
+            - /url: "#"
+          - link "Reply" [ref=f128e82] [cursor=pointer]:
+            - /url: "#"
+          - link "Edit" [ref=f128e83] [cursor=pointer]:
+            - /url: /issues/63/edit
+          - link "Log time" [ref=f128e85] [cursor=pointer]:
+            - /url: /issues/63/time_entries/new
+          - link "Watch" [ref=f128e87] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=63&object_type=issue
+          - link "Copy" [ref=f128e89] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-beta/issues/63/copy
+          - generic "Actions" [ref=f128e93] [cursor=pointer]
+        - 'heading "Support #63" [level=2] [ref=f128e95]'
+        - text: open
+        - generic [ref=f128e96]:
+          - 'img "Author: Beta Customer" [ref=f128e97]': BC
+          - heading [level=3] [ref=f128e101]:
+            - text: TC-HLP-402b control - Beta-only customer emailing Beta mailbox, should land on Beta
+            - button "Edit" [ref=f128e102] [cursor=pointer]
+          - link [ref=f128e105] [cursor=pointer]:
+            - /url: /reactions?object_id=63&object_type=Issue
+          - paragraph [ref=f128e108]:
+            - text: Added by
+            - link "Beta Customer" [ref=f128e109] [cursor=pointer]:
+              - /url: /users/32
+            - link "22 minutes" [ref=f128e110] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/activity?from=2026-09-09
+            - text: ago.
+          - generic [ref=f128e111]:
+            - generic [ref=f128e112]:
+              - generic [ref=f128e113]:
+                - generic [ref=f128e114]:
+                  - generic [ref=f128e115]: "Status:"
+                  - generic [ref=f128e116]:
+                    - text: New
+                    - button "Edit" [ref=f128e117] [cursor=pointer]
+                - generic [ref=f128e118]:
+                  - generic [ref=f128e119]: "Priority:"
+                  - generic [ref=f128e120]:
+                    - text: Normal
+                    - button "Edit" [ref=f128e121] [cursor=pointer]
+                - generic [ref=f128e122]:
+                  - generic [ref=f128e123]: "Assignee:"
+                  - generic [ref=f128e124]:
+                    - text: "-"
+                    - button "Edit" [ref=f128e125] [cursor=pointer]
+              - generic [ref=f128e126]:
+                - generic [ref=f128e127]:
+                  - generic [ref=f128e128]: "Start date:"
+                  - generic [ref=f128e129]:
+                    - text: 09/09/2026
+                    - button "Edit" [ref=f128e130] [cursor=pointer]
+                - generic [ref=f128e131]:
+                  - generic [ref=f128e132]: "Due Date:"
+                  - button "Edit" [ref=f128e134] [cursor=pointer]
+                - generic [ref=f128e135]:
+                  - generic [ref=f128e136]: "Progress:"
+                  - generic [ref=f128e137]:
+                    - generic [ref=f128e138]:
+                      - table [ref=f128e139]:
+                        - rowgroup [ref=f128e140]:
+                          - row [ref=f128e141]:
+                            - cell [ref=f128e142]
+                      - paragraph [ref=f128e143]: 0%
+                    - button "Edit" [ref=f128e144] [cursor=pointer]
+                - generic [ref=f128e145]:
+                  - generic [ref=f128e146]: "Estimated time:"
+                  - button "Edit" [ref=f128e148] [cursor=pointer]
+            - generic [ref=f128e151]:
+              - generic [ref=f128e152]: "Issue Category:"
+              - button "Edit" [ref=f128e154] [cursor=pointer]
+            - generic [ref=f128e156]:
+              - generic [ref=f128e157]: "Product:"
+              - generic [ref=f128e158]: "-"
+            - generic [ref=f128e159]:
+              - generic [ref=f128e160]: "Organization:"
+              - generic [ref=f128e161]: "-"
+            - generic [ref=f128e162]:
+              - generic [ref=f128e163]: "Customer:"
+              - link "Beta Customer" [ref=f128e165] [cursor=pointer]:
+                - /url: /rf_customers/32
+          - separator [ref=f128e166]
+          - generic [ref=f128e167]:
+            - link "Quote" [ref=f128e169] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f128e171]:
+              - strong [ref=f128e172]: Description
+              - button "Edit" [ref=f128e173] [cursor=pointer]
+            - paragraph [ref=f128e175]: I am now entitled ONLY to Beta (Alpha row removed). Sent specifically to Beta's own mailbox. This is the control case to isolate whether the misrouting bug is specific to multi-project customers, or whether it also affects single-project customers. Contains keyword ticket.
+          - separator [ref=f128e176]
+          - generic [ref=f128e177]:
+            - paragraph [ref=f128e179]:
+              - strong [ref=f128e180]: Checklist
+            - generic [ref=f128e182] [cursor=pointer]
+            - generic:
+              - list
+          - separator [ref=f128e184]
+          - generic [ref=f128e185]:
+            - link "Add" [ref=f128e187] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-beta/issues/new?back_url=%2Fissues%2F63&issue%5Bparent_issue_id%5D=63&issue%5Btracker_id%5D=3
+            - paragraph [ref=f128e188]:
+              - strong [ref=f128e189]: Subtasks
+          - separator [ref=f128e190]
+          - generic [ref=f128e191]:
+            - link "Add" [ref=f128e193] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f128e194]:
+              - strong [ref=f128e195]: Related issues
+        - list [ref=f128e198]:
+          - listitem [ref=f128e199]:
+            - link "Helpdesk Conversion (2)" [ref=f128e200] [cursor=pointer]:
+              - /url: /issues/63?tab=email-history
+        - generic [ref=f128e201]:
+          - link "Edit" [ref=f128e202] [cursor=pointer]:
+            - /url: /issues/63/edit
+          - link "Log time" [ref=f128e204] [cursor=pointer]:
+            - /url: /issues/63/time_entries/new
+          - link "Watch" [ref=f128e206] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=63&object_type=issue
+          - link "Copy" [ref=f128e208] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-beta/issues/63/copy
+          - generic "Actions" [ref=f128e212] [cursor=pointer]
+        - text: pre pre
+        - paragraph [ref=f128e214]:
+          - text: "Also available in:"
+          - link "PDF" [ref=f128e216] [cursor=pointer]:
+            - /url: /issues/63.pdf
+          - generic [ref=f128e217]:
+            - text: "|"
+            - link "Atom" [ref=f128e218] [cursor=pointer]:
+              - /url: /issues/63.atom?key=37400ba0af80d0ddda427b1e9ddde606dc83db99
+    - generic [ref=f128e219]:
+      - text: Powered by
+      - link "Redmine" [ref=f128e220] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f128e221]
+  - log [ref=f128e222]
+  - log [ref=f128e223]
+  - log [ref=f128e224]
+  - log [ref=f128e225]
+  - log [ref=f128e226]
+  - log [ref=f128e227]
+  - log [ref=f128e228]
+  - log [ref=f128e229]
+  - log [ref=f128e230]
+  - log [ref=f128e231]
+  - log [ref=f128e232]
+  - log [ref=f128e233]
+  - log [ref=f128e234]
+  - log [ref=f128e235]
+  - log [ref=f128e236]
+  - log [ref=f128e237]
+  - log [ref=f128e238]
+  - log [ref=f128e239]
+  - log [ref=f128e240]
+  - log [ref=f128e241]
+  - log [ref=f128e242]
+  - log [ref=f128e243]
+  - log [ref=f128e244]
+  - log [ref=f128e245]
+  - log [ref=f128e246]
+  - log [ref=f128e247]
+  - log [ref=f128e248]
+  - log [ref=f128e249]
+  - log [ref=f128e250]
+  - log [ref=f128e251]
+  - log [ref=f128e252]
+  - log [ref=f128e253]
+  - log [ref=f128e254]
+  - log [ref=f128e255]
+  - log [ref=f128e256]
+  - log [ref=f128e257]
+  - log [ref=f128e258]
+  - log [ref=f128e259]
+  - log [ref=f128e260]
+  - log [ref=f128e261]
+  - log [ref=f128e262]
+  - log [ref=f128e263]
+  - log [ref=f128e264]
+  - log [ref=f128e265]
+  - log [ref=f128e266]
+  - log [ref=f128e267]
+  - log [ref=f128e268]
+  - log [ref=f128e269]
+  - log [ref=f128e270]
+  - log [ref=f128e271]
+  - log [ref=f128e272]
+  - log [ref=f128e273]
+  - status [ref=f128e274]
+  - status [ref=f128e275]

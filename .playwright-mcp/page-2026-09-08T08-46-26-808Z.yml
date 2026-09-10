@@ -1,0 +1,807 @@
+- generic [active] [ref=f216e1]:
+  - generic [ref=f216e2]:
+    - navigation [ref=f216e3]:
+      - generic [ref=f216e4]:
+        - link [ref=f216e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f216e7] [cursor=pointer]
+      - list [ref=f216e17]:
+        - listitem [ref=f216e18]:
+          - link "Hauptseite" [ref=f216e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f216e20]:
+          - link "Meine Seite" [ref=f216e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f216e22]:
+          - link "Projekte" [ref=f216e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f216e24]:
+          - link "Agile Board" [ref=f216e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f216e26]:
+          - link "Flux Gantt" [ref=f216e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f216e28]:
+          - link "Administration" [ref=f216e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f216e30]:
+          - link "Hilfe" [ref=f216e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f216e32]:
+        - generic [ref=f216e33]:
+          - generic [ref=f216e34] [cursor=pointer]: Zu einem Projekt springen...
+          - text: ✓
+        - button "Suche" [ref=f216e35]
+        - link "Mein Konto" [ref=f216e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f216e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f216e44]:
+      - generic [ref=f216e45]:
+        - generic [ref=f216e46]:
+          - heading "Redmine" [level=1] [ref=f216e47]
+          - generic [ref=f216e48]:
+            - generic [ref=f216e49]: Hauptmenü
+            - list [ref=f216e51]:
+              - listitem [ref=f216e52]:
+                - link "Projekte" [ref=f216e53] [cursor=pointer]:
+                  - /url: /projects
+              - listitem [ref=f216e61]:
+                - link "Aktivität" [ref=f216e62] [cursor=pointer]:
+                  - /url: /activity
+              - listitem [ref=f216e67]:
+                - link "Tickets" [ref=f216e68] [cursor=pointer]:
+                  - /url: /issues
+              - listitem [ref=f216e73]:
+                - link "Aufgewendete Zeit" [ref=f216e74] [cursor=pointer]:
+                  - /url: /time_entries
+              - listitem [ref=f216e79]:
+                - link "Gantt-Diagramm" [ref=f216e80] [cursor=pointer]:
+                  - /url: /issues/gantt
+              - listitem [ref=f216e88]:
+                - link "Kalender" [ref=f216e89] [cursor=pointer]:
+                  - /url: /issues/calendar
+              - listitem [ref=f216e94]:
+                - link "News" [ref=f216e95] [cursor=pointer]:
+                  - /url: /news
+        - generic [ref=f216e101]:
+          - heading "Abfragen" [level=3] [ref=f216e102]
+          - list [ref=f216e103]:
+            - listitem [ref=f216e104]:
+              - link "Issues assigned to me" [ref=f216e105] [cursor=pointer]:
+                - /url: /issues/calendar?query_id=1
+            - listitem [ref=f216e106]:
+              - link "Reported issues" [ref=f216e107] [cursor=pointer]:
+                - /url: /issues/calendar?query_id=2
+            - listitem [ref=f216e108]:
+              - link "Updated issues" [ref=f216e109] [cursor=pointer]:
+                - /url: /issues/calendar?query_id=3
+            - listitem [ref=f216e110]:
+              - link "Watched issues" [ref=f216e111] [cursor=pointer]:
+                - /url: /issues/calendar?query_id=4
+      - generic [ref=f216e112]:
+        - heading "Kalender" [level=2] [ref=f216e113]
+        - list [ref=f216e115]:
+          - listitem "Woche" [ref=f216e116]
+          - listitem [ref=f216e117]: Montag
+          - listitem [ref=f216e118]: Dienstag
+          - listitem [ref=f216e119]: Mittwoch
+          - listitem [ref=f216e120]: Donnerstag
+          - listitem [ref=f216e121]: Freitag
+          - listitem [ref=f216e122]: Samstag
+          - listitem [ref=f216e123]: Sonntag
+          - listitem [ref=f216e124]: "36"
+          - listitem [ref=f216e125]:
+            - paragraph [ref=f216e126]:
+              - generic [ref=f216e127]: "31"
+          - listitem [ref=f216e128]:
+            - paragraph [ref=f216e129]:
+              - generic [ref=f216e130]: "1"
+          - listitem [ref=f216e131]:
+            - paragraph [ref=f216e132]:
+              - generic [ref=f216e133]: "2"
+          - listitem [ref=f216e134]:
+            - paragraph [ref=f216e135]:
+              - generic [ref=f216e136]: "3"
+            - generic [ref=f216e137]:
+              - text: Mobile app development1 -
+              - 'link "Feature #186" [ref=f216e140] [cursor=pointer]':
+                - /url: /issues/186
+              - text: ": Implement bulk actions"
+            - generic [ref=f216e141]:
+              - text: Mobile app development1 -
+              - 'link "Feature #129" [ref=f216e144] [cursor=pointer]':
+                - /url: /issues/129
+              - text: ": Add custom report templates"
+          - listitem [ref=f216e145]:
+            - paragraph [ref=f216e146]:
+              - generic [ref=f216e147]: "4"
+          - listitem [ref=f216e148]:
+            - paragraph [ref=f216e149]:
+              - generic [ref=f216e150]: "5"
+          - listitem [ref=f216e151]:
+            - paragraph [ref=f216e152]:
+              - generic [ref=f216e153]: "6"
+          - listitem [ref=f216e154]: "37"
+          - listitem [ref=f216e155]:
+            - paragraph [ref=f216e156]:
+              - generic [ref=f216e157]: "7"
+          - listitem [ref=f216e158]:
+            - paragraph [ref=f216e159]:
+              - generic [ref=f216e160]: "8"
+          - listitem [ref=f216e161]:
+            - paragraph [ref=f216e162]:
+              - generic [ref=f216e163]: "9"
+          - listitem [ref=f216e164]:
+            - paragraph [ref=f216e165]:
+              - generic [ref=f216e166]: "10"
+          - listitem [ref=f216e167]:
+            - paragraph [ref=f216e168]:
+              - generic [ref=f216e169]: "11"
+            - generic [ref=f216e170]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #250" [ref=f216e173] [cursor=pointer]':
+                - /url: /issues/250
+              - text: ": Issue status are show accor..."
+            - generic [ref=f216e174]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #249" [ref=f216e177] [cursor=pointer]':
+                - /url: /issues/249
+              - text: ": card fiels are show accordi..."
+            - generic [ref=f216e178]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #248" [ref=f216e181] [cursor=pointer]':
+                - /url: /issues/248
+              - text: ": Total time update on scroll"
+            - generic [ref=f216e182]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #246" [ref=f216e185] [cursor=pointer]':
+                - /url: /issues/246
+              - text: ": added a agile config form"
+            - generic [ref=f216e186]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #245" [ref=f216e189] [cursor=pointer]':
+                - /url: /issues/245
+              - text: ": update agile setting"
+            - generic [ref=f216e190]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #244" [ref=f216e193] [cursor=pointer]':
+                - /url: /issues/244
+              - text: ": implement wip functionality"
+            - generic [ref=f216e194]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #243" [ref=f216e197] [cursor=pointer]':
+                - /url: /issues/243
+              - text: ": create a demo server for agile"
+            - generic [ref=f216e198]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #242" [ref=f216e201] [cursor=pointer]':
+                - /url: /issues/242
+              - text: ": create a agile card field c..."
+            - generic [ref=f216e202]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #241" [ref=f216e205] [cursor=pointer]':
+                - /url: /issues/241
+              - text: ": create a agile issue status..."
+          - listitem [ref=f216e206]:
+            - paragraph [ref=f216e207]:
+              - generic [ref=f216e208]: "12"
+          - listitem [ref=f216e209]:
+            - paragraph [ref=f216e210]:
+              - generic [ref=f216e211]: "13"
+            - generic [ref=f216e212]:
+              - text: Mobile app development1 -
+              - 'link "Feature #129" [ref=f216e215] [cursor=pointer]':
+                - /url: /issues/129
+              - text: ": Add custom report templates"
+            - generic [ref=f216e216]:
+              - text: Mobile app development1 -
+              - 'link "Feature #216" [ref=f216e219] [cursor=pointer]':
+                - /url: /issues/216
+              - text: ": Implement audit trail"
+            - generic [ref=f216e220]:
+              - text: MVP build for PaySheet Application -
+              - 'link "Feature #206" [ref=f216e223] [cursor=pointer]':
+                - /url: /issues/206
+              - text: ": Implement real-time updates"
+            - generic [ref=f216e224]:
+              - text: HR management2 -
+              - 'link "Feature #161" [ref=f216e227] [cursor=pointer]':
+                - /url: /issues/161
+              - text: ": Implement task dependency s..."
+            - generic [ref=f216e228]:
+              - text: Software development5 -
+              - 'link "Feature #151" [ref=f216e231] [cursor=pointer]':
+                - /url: /issues/151
+              - text: ": Implement audit logging system"
+            - generic [ref=f216e232]:
+              - text: Marketing campaign4 -
+              - 'link "Feature #141" [ref=f216e235] [cursor=pointer]':
+                - /url: /issues/141
+              - text: ": Redesign notification system"
+            - generic [ref=f216e236]:
+              - text: Mobile app development1 -
+              - 'link "Bug #130" [ref=f216e239] [cursor=pointer]':
+                - /url: /issues/130
+              - text: ": Fix timezone handling in re..."
+          - listitem [ref=f216e240]: "38"
+          - listitem [ref=f216e241]:
+            - paragraph [ref=f216e242]:
+              - generic [ref=f216e243]: "14"
+          - listitem [ref=f216e244]:
+            - paragraph [ref=f216e245]:
+              - generic [ref=f216e246]: "15"
+          - listitem [ref=f216e247]:
+            - paragraph [ref=f216e248]:
+              - generic [ref=f216e249]: "16"
+          - listitem [ref=f216e250]:
+            - paragraph [ref=f216e251]:
+              - generic [ref=f216e252]: "17"
+            - generic [ref=f216e253]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #247" [ref=f216e256] [cursor=pointer]':
+                - /url: /issues/247
+              - text: ": Agile board card create"
+          - listitem [ref=f216e257]:
+            - paragraph [ref=f216e258]:
+              - generic [ref=f216e259]: "18"
+            - generic [ref=f216e260]:
+              - text: Mobile app development1 -
+              - 'link "Feature #216" [ref=f216e263] [cursor=pointer]':
+                - /url: /issues/216
+              - text: ": Implement audit trail"
+            - generic [ref=f216e264]:
+              - text: MVP build for PaySheet Application -
+              - 'link "Feature #206" [ref=f216e267] [cursor=pointer]':
+                - /url: /issues/206
+              - text: ": Implement real-time updates"
+            - generic [ref=f216e268]:
+              - text: Mobile app development1 -
+              - 'link "Feature #186" [ref=f216e271] [cursor=pointer]':
+                - /url: /issues/186
+              - text: ": Implement bulk actions"
+            - generic [ref=f216e272]:
+              - text: Mobile app development1 -
+              - 'link "Bug #130" [ref=f216e275] [cursor=pointer]':
+                - /url: /issues/130
+              - text: ": Fix timezone handling in re..."
+            - generic [ref=f216e276]:
+              - text: Software development5 -
+              - 'link "Feature #211" [ref=f216e279] [cursor=pointer]':
+                - /url: /issues/211
+              - text: ": Implement data export templ..."
+            - generic [ref=f216e280]:
+              - text: HR management2 -
+              - 'link "Feature #191" [ref=f216e283] [cursor=pointer]':
+                - /url: /issues/191
+              - text: ": Implement comment threading"
+            - generic [ref=f216e284]:
+              - text: HR management2 -
+              - 'link "Bug #162" [ref=f216e287] [cursor=pointer]':
+                - /url: /issues/162
+              - text: ": Fix Gantt chart rendering"
+            - generic [ref=f216e288]:
+              - text: Mobile app development1 -
+              - 'link "Feature #158" [ref=f216e291] [cursor=pointer]':
+                - /url: /issues/158
+              - text: ": Add custom role creation"
+            - generic [ref=f216e292]:
+              - text: Software development5 -
+              - 'link "Bug #152" [ref=f216e295] [cursor=pointer]':
+                - /url: /issues/152
+              - text: ": Fix data export performance"
+            - generic [ref=f216e296]:
+              - text: MVP build for PaySheet Application -
+              - 'link "Feature #146" [ref=f216e299] [cursor=pointer]':
+                - /url: /issues/146
+              - text: ": Implement dark mode UI"
+            - generic [ref=f216e300]:
+              - text: Marketing campaign4 -
+              - 'link "Bug #142" [ref=f216e303] [cursor=pointer]':
+                - /url: /issues/142
+              - text: ": Fix email delivery issues"
+            - generic [ref=f216e304]:
+              - text: Education and training3 -
+              - 'link "Bug #136" [ref=f216e307] [cursor=pointer]':
+                - /url: /issues/136
+              - text: ": Optimize image upload proce..."
+          - listitem [ref=f216e308]:
+            - paragraph [ref=f216e309]:
+              - generic [ref=f216e310]: "19"
+            - generic [ref=f216e311]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #250" [ref=f216e314] [cursor=pointer]':
+                - /url: /issues/250
+              - text: ": Issue status are show accor..."
+            - generic [ref=f216e315]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #249" [ref=f216e318] [cursor=pointer]':
+                - /url: /issues/249
+              - text: ": card fiels are show accordi..."
+            - generic [ref=f216e319]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #248" [ref=f216e322] [cursor=pointer]':
+                - /url: /issues/248
+              - text: ": Total time update on scroll"
+            - generic [ref=f216e323]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #246" [ref=f216e326] [cursor=pointer]':
+                - /url: /issues/246
+              - text: ": added a agile config form"
+            - generic [ref=f216e327]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #245" [ref=f216e330] [cursor=pointer]':
+                - /url: /issues/245
+              - text: ": update agile setting"
+            - generic [ref=f216e331]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #244" [ref=f216e334] [cursor=pointer]':
+                - /url: /issues/244
+              - text: ": implement wip functionality"
+            - generic [ref=f216e335]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #243" [ref=f216e338] [cursor=pointer]':
+                - /url: /issues/243
+              - text: ": create a demo server for agile"
+            - generic [ref=f216e339]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #242" [ref=f216e342] [cursor=pointer]':
+                - /url: /issues/242
+              - text: ": create a agile card field c..."
+            - generic [ref=f216e343]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #241" [ref=f216e346] [cursor=pointer]':
+                - /url: /issues/241
+              - text: ": create a agile issue status..."
+          - listitem [ref=f216e347]:
+            - paragraph [ref=f216e348]:
+              - generic [ref=f216e349]: "20"
+            - generic [ref=f216e350]:
+              - text: Flux Gantt Project -
+              - 'link "Feature #247" [ref=f216e353] [cursor=pointer]':
+                - /url: /issues/247
+              - text: ": Agile board card create"
+          - listitem [ref=f216e354]: "39"
+          - listitem [ref=f216e355]:
+            - paragraph [ref=f216e356]:
+              - generic [ref=f216e357]: "21"
+          - listitem [ref=f216e358]:
+            - paragraph [ref=f216e359]:
+              - generic [ref=f216e360]: "22"
+          - listitem [ref=f216e361]:
+            - paragraph [ref=f216e362]:
+              - generic [ref=f216e363]: "23"
+            - generic [ref=f216e364]:
+              - text: Agile Board Project -
+              - 'link "Feature #266" [ref=f216e367] [cursor=pointer]':
+                - /url: /issues/266
+              - text: ": QA Quick Add Test"
+            - generic [ref=f216e368]:
+              - text: Software development5 -
+              - 'link "Feature #211" [ref=f216e371] [cursor=pointer]':
+                - /url: /issues/211
+              - text: ": Implement data export templ..."
+            - generic [ref=f216e372]:
+              - text: HR management2 -
+              - 'link "Feature #191" [ref=f216e375] [cursor=pointer]':
+                - /url: /issues/191
+              - text: ": Implement comment threading"
+            - generic [ref=f216e376]:
+              - text: Software development5 -
+              - 'link "Feature #151" [ref=f216e379] [cursor=pointer]':
+                - /url: /issues/151
+              - text: ": Implement audit logging system"
+            - generic [ref=f216e380]:
+              - text: Marketing campaign4 -
+              - 'link "Feature #141" [ref=f216e383] [cursor=pointer]':
+                - /url: /issues/141
+              - text: ": Redesign notification system"
+            - generic [ref=f216e384]:
+              - text: Mobile app development1 -
+              - 'link "Bug #217" [ref=f216e387] [cursor=pointer]':
+                - /url: /issues/217
+              - text: ": Fix change detection"
+            - generic [ref=f216e388]:
+              - text: Marketing campaign4 -
+              - 'link "Feature #201" [ref=f216e391] [cursor=pointer]':
+                - /url: /issues/201
+              - text: ": Implement version control i..."
+            - generic [ref=f216e392]:
+              - text: Education and training3 -
+              - 'link "Feature #196" [ref=f216e395] [cursor=pointer]':
+                - /url: /issues/196
+              - text: ": Implement file previews"
+            - generic [ref=f216e396]:
+              - text: HR management2 -
+              - 'link "Feature #163" [ref=f216e399] [cursor=pointer]':
+                - /url: /issues/163
+              - text: ": Add milestone tracking"
+            - generic [ref=f216e400]:
+              - text: Mobile app development1 -
+              - 'link "Bug #157" [ref=f216e403] [cursor=pointer]':
+                - /url: /issues/157
+              - text: ": Fix permission inheritance"
+            - generic [ref=f216e404]:
+              - text: Software development5 -
+              - 'link "Feature #153" [ref=f216e407] [cursor=pointer]':
+                - /url: /issues/153
+              - text: ": Add CSV export options"
+            - generic [ref=f216e408]:
+              - text: MVP build for PaySheet Application -
+              - 'link "Bug #147" [ref=f216e411] [cursor=pointer]':
+                - /url: /issues/147
+              - text: ": Fix contrast ratio issues"
+            - generic [ref=f216e412]:
+              - text: Marketing campaign4 -
+              - 'link "Feature #143" [ref=f216e415] [cursor=pointer]':
+                - /url: /issues/143
+              - text: ": Add push notification support"
+            - generic [ref=f216e416]:
+              - text: Education and training3 -
+              - 'link "Feature #137" [ref=f216e419] [cursor=pointer]':
+                - /url: /issues/137
+              - text: ": Implement file type validation"
+            - generic [ref=f216e420]:
+              - text: HR management2 -
+              - 'link "Feature #131" [ref=f216e423] [cursor=pointer]':
+                - /url: /issues/131
+              - text: ": Implement API rate limiting"
+          - listitem [ref=f216e424]:
+            - paragraph [ref=f216e425]:
+              - generic [ref=f216e426]: "24"
+          - listitem [ref=f216e427]:
+            - paragraph [ref=f216e428]:
+              - generic [ref=f216e429]: "25"
+          - listitem [ref=f216e430]:
+            - paragraph [ref=f216e431]:
+              - generic [ref=f216e432]: "26"
+          - listitem [ref=f216e433]:
+            - paragraph [ref=f216e434]:
+              - generic [ref=f216e435]: "27"
+          - listitem [ref=f216e436]: "40"
+          - listitem [ref=f216e437]:
+            - paragraph [ref=f216e438]:
+              - generic [ref=f216e439]: "28"
+            - generic [ref=f216e440]:
+              - text: Mobile app development1 -
+              - 'link "Bug #217" [ref=f216e443] [cursor=pointer]':
+                - /url: /issues/217
+              - text: ": Fix change detection"
+            - generic [ref=f216e444]:
+              - text: Marketing campaign4 -
+              - 'link "Feature #201" [ref=f216e447] [cursor=pointer]':
+                - /url: /issues/201
+              - text: ": Implement version control i..."
+            - generic [ref=f216e448]:
+              - text: Education and training3 -
+              - 'link "Feature #196" [ref=f216e451] [cursor=pointer]':
+                - /url: /issues/196
+              - text: ": Implement file previews"
+            - generic [ref=f216e452]:
+              - text: Software development5 -
+              - 'link "Bug #152" [ref=f216e455] [cursor=pointer]':
+                - /url: /issues/152
+              - text: ": Fix data export performance"
+            - generic [ref=f216e456]:
+              - text: MVP build for PaySheet Application -
+              - 'link "Feature #146" [ref=f216e459] [cursor=pointer]':
+                - /url: /issues/146
+              - text: ": Implement dark mode UI"
+            - generic [ref=f216e460]:
+              - text: Marketing campaign4 -
+              - 'link "Bug #142" [ref=f216e463] [cursor=pointer]':
+                - /url: /issues/142
+              - text: ": Fix email delivery issues"
+            - generic [ref=f216e464]:
+              - text: Education and training3 -
+              - 'link "Bug #136" [ref=f216e467] [cursor=pointer]':
+                - /url: /issues/136
+              - text: ": Optimize image upload proce..."
+            - generic [ref=f216e468]:
+              - text: HR management2 -
+              - 'link "Feature #131" [ref=f216e471] [cursor=pointer]':
+                - /url: /issues/131
+              - text: ": Implement API rate limiting"
+            - generic [ref=f216e472]:
+              - text: Software development5 -
+              - 'link "Bug #212" [ref=f216e475] [cursor=pointer]':
+                - /url: /issues/212
+              - text: ": Fix CSV encoding issues"
+            - generic [ref=f216e476]:
+              - text: MVP build for PaySheet Application -
+              - 'link "Bug #207" [ref=f216e479] [cursor=pointer]':
+                - /url: /issues/207
+              - text: ": Fix websocket connection drops"
+            - generic [ref=f216e480]:
+              - text: HR management2 -
+              - 'link "Bug #192" [ref=f216e483] [cursor=pointer]':
+                - /url: /issues/192
+              - text: ": Fix mention notifications"
+            - generic [ref=f216e484]:
+              - text: Mobile app development1 -
+              - 'link "Bug #187" [ref=f216e487] [cursor=pointer]':
+                - /url: /issues/187
+              - text: ": Fix selection persistence"
+            - generic [ref=f216e488]:
+              - text: HR management2 -
+              - 'link "Feature #164" [ref=f216e491] [cursor=pointer]':
+                - /url: /issues/164
+              - text: ": Implement critical path ana..."
+            - generic [ref=f216e492]:
+              - text: Mobile app development1 -
+              - 'link "Feature #159" [ref=f216e495] [cursor=pointer]':
+                - /url: /issues/159
+              - text: ": Implement permission templates"
+            - generic [ref=f216e496]:
+              - text: Software development5 -
+              - 'link "Feature #154" [ref=f216e499] [cursor=pointer]':
+                - /url: /issues/154
+              - text: ": Implement data retention po..."
+            - generic [ref=f216e500]:
+              - text: MVP build for PaySheet Application -
+              - 'link "Feature #148" [ref=f216e503] [cursor=pointer]':
+                - /url: /issues/148
+              - text: ": Add theme customization opt..."
+            - generic [ref=f216e504]:
+              - text: Marketing campaign4 -
+              - 'link "Feature #144" [ref=f216e507] [cursor=pointer]':
+                - /url: /issues/144
+              - text: ": Implement notification pref..."
+            - generic [ref=f216e508]:
+              - text: Education and training3 -
+              - 'link "Feature #138" [ref=f216e511] [cursor=pointer]':
+                - /url: /issues/138
+              - text: ": Add drag and drop file upload"
+          - listitem [ref=f216e512]:
+            - paragraph [ref=f216e513]:
+              - generic [ref=f216e514]: "29"
+          - listitem [ref=f216e515]:
+            - paragraph [ref=f216e516]:
+              - generic [ref=f216e517]: "30"
+            - generic [ref=f216e518]:
+              - text: Flux Gantt Project -
+              - link "Flux Gantt Project - Version 1" [ref=f216e520] [cursor=pointer]:
+                - /url: /versions/1
+            - generic [ref=f216e521]:
+              - text: Flux Gantt Project -
+              - link "Flux Gantt Project - Version 2" [ref=f216e523] [cursor=pointer]:
+                - /url: /versions/2
+            - generic [ref=f216e524]:
+              - text: Flux Gantt Project -
+              - link "Flux Gantt Project - Version 3" [ref=f216e526] [cursor=pointer]:
+                - /url: /versions/3
+            - generic [ref=f216e527]:
+              - text: Flux Gantt Project -
+              - link "Flux Gantt Project - Version 4" [ref=f216e529] [cursor=pointer]:
+                - /url: /versions/4
+            - generic [ref=f216e530]:
+              - text: Agile Board Project -
+              - link "Agile Board Project - Version 5" [ref=f216e532] [cursor=pointer]:
+                - /url: /versions/5
+            - generic [ref=f216e533]:
+              - text: Agile Board Project -
+              - link "Agile Board Project - Version 6" [ref=f216e535] [cursor=pointer]:
+                - /url: /versions/6
+          - listitem [ref=f216e536]:
+            - paragraph [ref=f216e537]:
+              - generic [ref=f216e538]: "1"
+          - listitem [ref=f216e539]:
+            - paragraph [ref=f216e540]:
+              - generic [ref=f216e541]: "2"
+          - listitem [ref=f216e542]:
+            - paragraph [ref=f216e543]:
+              - generic [ref=f216e544]: "3"
+            - generic [ref=f216e545]:
+              - text: Software development5 -
+              - 'link "Bug #212" [ref=f216e548] [cursor=pointer]':
+                - /url: /issues/212
+              - text: ": Fix CSV encoding issues"
+            - generic [ref=f216e549]:
+              - text: MVP build for PaySheet Application -
+              - 'link "Bug #207" [ref=f216e552] [cursor=pointer]':
+                - /url: /issues/207
+              - text: ": Fix websocket connection drops"
+            - generic [ref=f216e553]:
+              - text: HR management2 -
+              - 'link "Bug #192" [ref=f216e556] [cursor=pointer]':
+                - /url: /issues/192
+              - text: ": Fix mention notifications"
+            - generic [ref=f216e557]:
+              - text: Mobile app development1 -
+              - 'link "Bug #187" [ref=f216e560] [cursor=pointer]':
+                - /url: /issues/187
+              - text: ": Fix selection persistence"
+            - generic [ref=f216e561]:
+              - text: Software development5 -
+              - 'link "Feature #153" [ref=f216e564] [cursor=pointer]':
+                - /url: /issues/153
+              - text: ": Add CSV export options"
+            - generic [ref=f216e565]:
+              - text: MVP build for PaySheet Application -
+              - 'link "Bug #147" [ref=f216e568] [cursor=pointer]':
+                - /url: /issues/147
+              - text: ": Fix contrast ratio issues"
+            - generic [ref=f216e569]:
+              - text: Marketing campaign4 -
+              - 'link "Feature #143" [ref=f216e572] [cursor=pointer]':
+                - /url: /issues/143
+              - text: ": Add push notification support"
+            - generic [ref=f216e573]:
+              - text: Education and training3 -
+              - 'link "Feature #137" [ref=f216e576] [cursor=pointer]':
+                - /url: /issues/137
+              - text: ": Implement file type validation"
+            - generic [ref=f216e577]:
+              - text: Mobile app development1 -
+              - 'link "Feature #218" [ref=f216e580] [cursor=pointer]':
+                - /url: /issues/218
+              - text: ": Add change comments"
+            - generic [ref=f216e581]:
+              - text: Marketing campaign4 -
+              - 'link "Bug #202" [ref=f216e584] [cursor=pointer]':
+                - /url: /issues/202
+              - text: ": Fix commit reference parsing"
+            - generic [ref=f216e585]:
+              - text: Education and training3 -
+              - 'link "Bug #197" [ref=f216e588] [cursor=pointer]':
+                - /url: /issues/197
+              - text: ": Fix PDF rendering issues"
+            - generic [ref=f216e589]:
+              - text: HR management2 -
+              - 'link "Bug #165" [ref=f216e592] [cursor=pointer]':
+                - /url: /issues/165
+              - text: ": Fix task completion calcula..."
+            - generic [ref=f216e593]:
+              - text: Mobile app development1 -
+              - 'link "Bug #160" [ref=f216e596] [cursor=pointer]':
+                - /url: /issues/160
+              - text: ": Fix admin console access"
+            - generic [ref=f216e597]:
+              - text: Software development5 -
+              - 'link "Bug #155" [ref=f216e600] [cursor=pointer]':
+                - /url: /issues/155
+              - text: ": Fix data backup scheduling"
+            - generic [ref=f216e601]:
+              - text: MVP build for PaySheet Application -
+              - 'link "Feature #149" [ref=f216e604] [cursor=pointer]':
+                - /url: /issues/149
+              - text: ": Implement UI color palette ..."
+            - generic [ref=f216e605]:
+              - text: Marketing campaign4 -
+              - 'link "Bug #145" [ref=f216e608] [cursor=pointer]':
+                - /url: /issues/145
+              - text: ": Fix mobile notification dis..."
+            - generic [ref=f216e609]:
+              - text: Education and training3 -
+              - 'link "Bug #139" [ref=f216e612] [cursor=pointer]':
+                - /url: /issues/139
+              - text: ": Fix file storage cleanup"
+            - generic [ref=f216e613]:
+              - text: HR management2 -
+              - 'link "Bug #132" [ref=f216e616] [cursor=pointer]':
+                - /url: /issues/132
+              - text: ": Fix CORS configuration issues"
+          - listitem [ref=f216e617]:
+            - paragraph [ref=f216e618]:
+              - generic [ref=f216e619]: "4"
+        - paragraph [ref=f216e620]:
+          - generic [ref=f216e621]: Ticket, das an diesem Tag beginnt
+          - generic [ref=f216e625]: Ticket, das an diesem Tag endet
+          - generic [ref=f216e629]: Ticket, das an diesem Tag beginnt und endet
+    - generic [ref=f216e633]:
+      - text: Powered by
+      - link "Redmine" [ref=f216e634] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f216e635]
+  - log [ref=f216e636]
+  - log [ref=f216e637]
+  - log [ref=f216e638]
+  - log [ref=f216e639]
+  - log [ref=f216e640]
+  - log [ref=f216e641]
+  - log [ref=f216e642]
+  - log [ref=f216e643]
+  - log [ref=f216e644]
+  - log [ref=f216e645]
+  - log [ref=f216e646]
+  - log [ref=f216e647]
+  - log [ref=f216e648]
+  - log [ref=f216e649]
+  - log [ref=f216e650]
+  - log [ref=f216e651]
+  - log [ref=f216e652]
+  - log [ref=f216e653]
+  - log [ref=f216e654]
+  - log [ref=f216e655]
+  - log [ref=f216e656]
+  - log [ref=f216e657]
+  - log [ref=f216e658]
+  - log [ref=f216e659]
+  - log [ref=f216e660]
+  - log [ref=f216e661]
+  - log [ref=f216e662]
+  - log [ref=f216e663]
+  - log [ref=f216e664]
+  - log [ref=f216e665]
+  - log [ref=f216e666]
+  - log [ref=f216e667]
+  - log [ref=f216e668]
+  - log [ref=f216e669]
+  - log [ref=f216e670]
+  - log [ref=f216e671]
+  - log [ref=f216e672]
+  - log [ref=f216e673]
+  - log [ref=f216e674]
+  - log [ref=f216e675]
+  - log [ref=f216e676]
+  - log [ref=f216e677]
+  - log [ref=f216e678]
+  - log [ref=f216e679]
+  - log [ref=f216e680]
+  - log [ref=f216e681]
+  - log [ref=f216e682]
+  - log [ref=f216e683]
+  - log [ref=f216e684]
+  - log [ref=f216e685]
+  - log [ref=f216e686]
+  - log [ref=f216e687]
+  - log [ref=f216e688]
+  - log [ref=f216e689]
+  - log [ref=f216e690]
+  - log [ref=f216e691]
+  - log [ref=f216e692]
+  - log [ref=f216e693]
+  - log [ref=f216e694]
+  - log [ref=f216e695]
+  - log [ref=f216e696]
+  - log [ref=f216e697]
+  - log [ref=f216e698]
+  - log [ref=f216e699]
+  - log [ref=f216e700]
+  - log [ref=f216e701]
+  - log [ref=f216e702]
+  - log [ref=f216e703]
+  - log [ref=f216e704]
+  - log [ref=f216e705]
+  - log [ref=f216e706]
+  - log [ref=f216e707]
+  - log [ref=f216e708]
+  - log [ref=f216e709]
+  - log [ref=f216e710]
+  - log [ref=f216e711]
+  - log [ref=f216e712]
+  - log [ref=f216e713]
+  - log [ref=f216e714]
+  - log [ref=f216e715]
+  - log [ref=f216e716]
+  - log [ref=f216e717]
+  - log [ref=f216e718]
+  - log [ref=f216e719]
+  - log [ref=f216e720]
+  - log [ref=f216e721]
+  - log [ref=f216e722]
+  - log [ref=f216e723]
+  - log [ref=f216e724]
+  - log [ref=f216e725]
+  - log [ref=f216e726]
+  - log [ref=f216e727]
+  - log [ref=f216e728]
+  - log [ref=f216e729]
+  - log [ref=f216e730]
+  - log [ref=f216e731]
+  - log [ref=f216e732]
+  - log [ref=f216e733]
+  - log [ref=f216e734]
+  - log [ref=f216e735]
+  - log [ref=f216e736]
+  - log [ref=f216e737]
+  - log [ref=f216e738]
+  - log [ref=f216e739]
+  - log [ref=f216e740]
+  - log [ref=f216e741]
+  - log [ref=f216e742]
+  - log [ref=f216e743]
+  - log [ref=f216e744]
+  - log [ref=f216e745]
+  - log [ref=f216e746]

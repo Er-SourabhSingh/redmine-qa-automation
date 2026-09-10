@@ -1,0 +1,197 @@
+- generic [active] [ref=f150e1]:
+  - generic [ref=f150e2]:
+    - navigation [ref=f150e3]:
+      - list [ref=f150e6]:
+        - listitem [ref=f150e7]:
+          - link "Hauptseite" [ref=f150e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f150e9]:
+          - link "Meine Seite" [ref=f150e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f150e11]:
+          - link "Projekte" [ref=f150e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f150e13]:
+          - link "Agile Board" [ref=f150e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f150e15]:
+          - link "Flux Gantt" [ref=f150e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f150e17]:
+          - link "Administration" [ref=f150e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f150e19]:
+          - link "Hilfe" [ref=f150e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f150e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f150e24]: RA
+    - generic [ref=f150e27]:
+      - generic [ref=f150e28]:
+        - generic [ref=f150e29]:
+          - generic [ref=f150e30]:
+            - link "Suche" [ref=f150e31] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/search
+            - text: ":"
+          - textbox "Suche:" [ref=f150e32]
+        - generic [ref=f150e33]:
+          - generic [ref=f150e34] [cursor=pointer]: Flux Gantt Project
+          - text: ✓ ✓
+      - heading "Flux Gantt Project" [level=1] [ref=f150e35]
+      - list [ref=f150e38]:
+        - listitem [ref=f150e39]:
+          - link "+" [ref=f150e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f150e41]:
+          - link "Übersicht" [ref=f150e42] [cursor=pointer]:
+            - /url: /projects/fluxganttproject
+        - listitem [ref=f150e43]:
+          - link "Dashboard" [ref=f150e44] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/analytics_dashboard
+        - listitem [ref=f150e45]:
+          - link "Flux Gantt" [ref=f150e46] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/flux_gantt
+        - listitem [ref=f150e47]:
+          - link "Aktivität" [ref=f150e48] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/activity
+        - listitem [ref=f150e49]:
+          - link "Roadmap" [ref=f150e50] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/roadmap
+        - listitem [ref=f150e51]:
+          - link "Tickets" [ref=f150e52] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues
+        - listitem [ref=f150e53]:
+          - link "Aufgewendete Zeit" [ref=f150e54] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/time_entries
+        - listitem [ref=f150e55]:
+          - link "Gantt-Diagramm" [ref=f150e56] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/gantt
+        - listitem [ref=f150e57]:
+          - link "Kalender" [ref=f150e58] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/calendar
+        - listitem [ref=f150e59]:
+          - link "News" [ref=f150e60] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/news
+        - listitem [ref=f150e61]:
+          - link "Dokumente" [ref=f150e62] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/documents
+        - listitem [ref=f150e63]:
+          - link "Wiki" [ref=f150e64] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/wiki
+        - listitem [ref=f150e65]:
+          - link "Dateien" [ref=f150e66] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/files
+        - listitem [ref=f150e67]:
+          - link "Konfiguration" [ref=f150e68] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/settings
+    - generic [ref=f150e70]:
+      - generic [ref=f150e71]:
+        - link "Bearbeiten" [ref=f150e72] [cursor=pointer]:
+          - /url: /versions/1/edit
+        - link "Löschen" [ref=f150e76] [cursor=pointer]:
+          - /url: /versions/1?back_url=%2Fprojects%2Ffluxganttproject%2Froadmap
+        - link "Neues Ticket" [ref=f150e80] [cursor=pointer]:
+          - /url: /projects/fluxganttproject/issues/new?back_url=%2Fversions%2F1&issue%5Bfixed_version_id%5D=1&issue%5Btracker_id%5D=4
+      - generic [ref=f150e84]:
+        - heading "Version 1" [level=2] [ref=f150e85]
+        - text: offen
+        - generic [ref=f150e86]:
+          - paragraph [ref=f150e87]:
+            - strong [ref=f150e88]: Fällig in 23 Tagen
+            - text: (30.09.2026)
+          - paragraph [ref=f150e89]: Version 1 description
+          - table [ref=f150e90]:
+            - rowgroup [ref=f150e91]:
+              - row [ref=f150e92]:
+                - cell [ref=f150e93]
+          - paragraph [ref=f150e94]: 0%
+          - paragraph [ref=f150e95]:
+            - link "2 Tickets" [ref=f150e96] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/issues?fixed_version_id=1&set_filter=1&status_id=%2A
+            - text: (0 geschlossen —
+            - link "2 offen" [ref=f150e97] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/issues?fixed_version_id=1&set_filter=1&status_id=o
+            - text: )
+        - generic [ref=f150e98]:
+          - group "Zeiterfassung" [ref=f150e99]:
+            - table [ref=f150e101]:
+              - rowgroup [ref=f150e102]:
+                - row [ref=f150e103]:
+                  - rowheader "Geschätzter Aufwand" [ref=f150e104]
+                  - cell [ref=f150e105]:
+                    - link "12:00 Stunden" [ref=f150e106] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/issues?c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&c%5B%5D=estimated_hours&fixed_version_id=1&set_filter=1&status_id=%2A&t%5B%5D=estimated_hours
+                - row [ref=f150e107]:
+                  - rowheader "Geschätzter verbleibender Aufwand" [ref=f150e108]
+                  - cell [ref=f150e109]:
+                    - link "12:00 Stunden" [ref=f150e110] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/issues?c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&c%5B%5D=estimated_remaining_hours&fixed_version_id=1&set_filter=1&status_id=%2A&t%5B%5D=estimated_remaining_hours
+                - row [ref=f150e111]:
+                  - rowheader "Aufgewendete Zeit" [ref=f150e112]
+                  - cell [ref=f150e113]:
+                    - link "0:00 Stunde" [ref=f150e114] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/time_entries?issue.fixed_version_id=1&set_filter=1
+          - group [ref=f150e117]:
+            - generic [ref=f150e118]:
+              - text: Tickets pro
+              - combobox [ref=f150e119]:
+                - option "Tracker" [selected]
+                - option "Status"
+                - option "Priorität"
+                - option "Autor"
+                - option "Zugewiesen an"
+                - option "Kategorie"
+            - table [ref=f150e120]:
+              - rowgroup [ref=f150e121]:
+                - row [ref=f150e122]:
+                  - cell [ref=f150e123]:
+                    - link "Bug" [ref=f150e124] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/issues?fixed_version_id=1&set_filter=1&status_id=%2A&tracker_id=4
+                  - cell [ref=f150e125]:
+                    - table [ref=f150e126]:
+                      - rowgroup [ref=f150e127]:
+                        - row [ref=f150e128]:
+                          - cell [ref=f150e129]
+                    - paragraph [ref=f150e130]: 0/2
+        - table [ref=f150e132]:
+          - caption [ref=f150e133]: Zugehörige Tickets
+          - rowgroup [ref=f150e134]:
+            - row [ref=f150e135]:
+              - cell [ref=f150e136]
+              - cell [ref=f150e137]:
+                - 'link "Bug #266" [ref=f150e138] [cursor=pointer]':
+                  - /url: /issues/266
+                - text: ": QA Bar Resize Test A"
+              - cell [ref=f150e139]:
+                - link "Aktionen" [ref=f150e140] [cursor=pointer]:
+                  - /url: "#"
+            - row [ref=f150e143]:
+              - cell [ref=f150e144]
+              - cell [ref=f150e145]:
+                - 'link "Bug #267" [ref=f150e146] [cursor=pointer]':
+                  - /url: /issues/267
+                - text: ": QA Dependency Test B"
+              - cell [ref=f150e147]:
+                - link "Aktionen" [ref=f150e148] [cursor=pointer]:
+                  - /url: "#"
+      - paragraph [ref=f150e151]:
+        - text: "Auch abrufbar als:"
+        - link "TXT" [ref=f150e153] [cursor=pointer]:
+          - /url: /versions/1.txt
+    - generic [ref=f150e154]:
+      - text: Powered by
+      - link "Redmine" [ref=f150e155] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f150e156]
+  - log [ref=f150e157]
+  - log [ref=f150e158]
+  - log [ref=f150e159]
+  - log [ref=f150e160]
+  - log [ref=f150e161]
+  - log [ref=f150e162]
+  - log [ref=f150e163]
+  - log [ref=f150e164]
+  - log [ref=f150e165]
+  - log [ref=f150e166]
+  - log [ref=f150e167]

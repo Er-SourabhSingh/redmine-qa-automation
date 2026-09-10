@@ -1,0 +1,689 @@
+- generic [ref=f326e1]:
+  - generic [ref=f326e2]:
+    - generic [ref=f326e3]:
+      - generic [ref=f326e4]:
+        - list:
+          - listitem [ref=f326e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f326e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f326e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f326e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f326e9]:
+        - listitem [ref=f326e10]:
+          - link [ref=f326e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f326e12]
+        - listitem [ref=f326e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f326e14]:
+          - link "My page" [ref=f326e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f326e16]:
+          - link "Projects" [ref=f326e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f326e18]:
+          - link "Time Tracker" [ref=f326e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f326e20]:
+          - link "Workloads" [ref=f326e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f326e22]:
+          - link "Help" [ref=f326e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f326e24]:
+      - generic [ref=f326e25]:
+        - generic [ref=f326e26]:
+          - generic [ref=f326e27]:
+            - link "Search..." [ref=f326e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f326e29]
+        - generic [ref=f326e30]:
+          - generic [ref=f326e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f326e32]
+      - generic [ref=f326e33]:
+        - list [ref=f326e34]:
+          - listitem [ref=f326e35]:
+            - link "+" [ref=f326e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f326e37]:
+            - link "Overview" [ref=f326e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f326e39]:
+            - link "Activity" [ref=f326e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f326e41]:
+            - link "Issues" [ref=f326e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f326e43]:
+            - link "Spent time" [ref=f326e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f326e45]:
+            - link "Gantt" [ref=f326e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f326e47]:
+            - link "Calendar" [ref=f326e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f326e49]:
+            - link "News" [ref=f326e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f326e51]:
+            - link "Documents" [ref=f326e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f326e53]:
+            - link "Wiki" [ref=f326e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f326e55]:
+            - link "Files" [ref=f326e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f326e57]:
+            - link "Helpdesk" [ref=f326e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f326e59]:
+          - button [ref=f326e60] [cursor=pointer]
+          - button [ref=f326e63] [cursor=pointer]
+    - generic [ref=f326e66]:
+      - list [ref=f326e70]:
+        - listitem [ref=f326e71]:
+          - link "Helpdesk Dashboard" [ref=f326e72] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f326e75]:
+          - link "Helpdesk Tickets" [ref=f326e76] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f326e79]:
+          - link "Knowledgebase" [ref=f326e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f326e83]:
+        - generic [ref=f326e84]:
+          - generic [ref=f326e86]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f326e87]
+            - paragraph [ref=f326e88]: Helpdesk QA Alpha · 35 tickets
+          - link "New issue" [ref=f326e90] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/new
+        - generic [ref=f326e92]:
+          - button "Filters" [expanded] [active] [ref=f326e93] [cursor=pointer]
+          - generic [ref=f326e673]:
+            - generic [ref=f326e674]:
+              - generic [ref=f326e675]:
+                - generic [ref=f326e676]: Status
+                - textbox "All" [ref=f326e680]
+                - 'button "Delete: Status" [ref=f326e681] [cursor=pointer]'
+              - generic [ref=f326e685]:
+                - generic [ref=f326e686]: Customer
+                - textbox "All" [ref=f326e690]
+                - 'button "Delete: Customer" [ref=f326e691] [cursor=pointer]'
+            - button "Add filter" [ref=f326e697] [cursor=pointer]
+            - generic [ref=f326e701]:
+              - button "Apply" [ref=f326e702] [cursor=pointer]
+              - link "Clear" [ref=f326e705] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+              - button "Columns" [ref=f326e711] [cursor=pointer]
+        - table [ref=f326e101]:
+          - rowgroup [ref=f326e102]:
+            - row [ref=f326e103]:
+              - columnheader [ref=f326e104]:
+                - 'link "Ticket #" [ref=f326e105] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=id
+              - columnheader [ref=f326e106]:
+                - link "Subject" [ref=f326e107] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=subject
+              - columnheader "Customer" [ref=f326e108]
+              - columnheader "Organization Name" [ref=f326e109]
+              - columnheader [ref=f326e110]:
+                - link "Status" [ref=f326e111] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=status
+              - columnheader [ref=f326e112]:
+                - link "Priority" [ref=f326e113] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=priority
+              - columnheader "Assignee" [ref=f326e114]
+              - columnheader "SLA Status" [ref=f326e115]
+              - columnheader [ref=f326e116]:
+                - link "Updated ▼" [ref=f326e117] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=updated_on
+          - rowgroup [ref=f326e118]:
+            - row [ref=f326e119]:
+              - cell [ref=f326e120]:
+                - link "#36" [ref=f326e121] [cursor=pointer]:
+                  - /url: /issues/36
+              - cell [ref=f326e122]:
+                - link "TC-HLP-356 holiday adjacency restricted-days test ticket" [ref=f326e123] [cursor=pointer]:
+                  - /url: /issues/36
+              - cell [ref=f326e124]:
+                - link "Retest Customer1" [ref=f326e125] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e126]
+              - cell "New" [ref=f326e127]
+              - cell "Normal" [ref=f326e130]
+              - cell "Luna Blossom" [ref=f326e133]
+              - cell "⚠ Breached +6h 44m ago" [ref=f326e134]:
+                - generic "+6h 44m ago" [ref=f326e135]:
+                  - generic [ref=f326e136]: ⚠
+                  - text: Breached
+              - cell "09/02/2026 05:06 AM" [ref=f326e138]
+            - row [ref=f326e139]:
+              - cell [ref=f326e140]:
+                - link "#35" [ref=f326e141] [cursor=pointer]:
+                  - /url: /issues/35
+              - cell [ref=f326e142]:
+                - link "TC-HLP-355 just-before-close boundary test ticket" [ref=f326e143] [cursor=pointer]:
+                  - /url: /issues/35
+              - cell [ref=f326e144]:
+                - link "Retest Customer1" [ref=f326e145] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e146]
+              - cell "New" [ref=f326e147]
+              - cell "Normal" [ref=f326e150]
+              - cell "Luna Blossom" [ref=f326e153]
+              - cell "⚠ Breached +7h 30m ago" [ref=f326e154]:
+                - generic "+7h 30m ago" [ref=f326e155]:
+                  - generic [ref=f326e156]: ⚠
+                  - text: Breached
+              - cell "09/02/2026 05:03 AM" [ref=f326e158]
+            - row [ref=f326e159]:
+              - cell [ref=f326e160]:
+                - link "#34" [ref=f326e161] [cursor=pointer]:
+                  - /url: /issues/34
+              - cell [ref=f326e162]:
+                - link "TC-HLP-354 ticket assigned during the holiday itself test" [ref=f326e163] [cursor=pointer]:
+                  - /url: /issues/34
+              - cell [ref=f326e164]:
+                - link "Retest Customer1" [ref=f326e165] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e166]
+              - cell "New" [ref=f326e167]
+              - cell "Normal" [ref=f326e170]
+              - cell "Luna Blossom" [ref=f326e173]
+              - cell "12h 15m At Risk" [ref=f326e174]:
+                - generic "12h 15m Remaining" [ref=f326e175]:
+                  - text: 12h 15m
+                  - generic [ref=f326e177]: At Risk
+              - cell "09/02/2026 04:58 AM" [ref=f326e178]
+            - row [ref=f326e179]:
+              - cell [ref=f326e180]:
+                - link "#33" [ref=f326e181] [cursor=pointer]:
+                  - /url: /issues/33
+              - cell [ref=f326e182]:
+                - link "TC-HLP-353 multi-day holiday clock test ticket" [ref=f326e183] [cursor=pointer]:
+                  - /url: /issues/33
+              - cell [ref=f326e184]:
+                - link "Retest Customer1" [ref=f326e185] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e186]
+              - cell "New" [ref=f326e187]
+              - cell "Normal" [ref=f326e190]
+              - cell "Luna Blossom" [ref=f326e193]
+              - cell "54h 32m On Track" [ref=f326e194]:
+                - generic "54h 32m Remaining" [ref=f326e195]:
+                  - text: 54h 32m
+                  - generic [ref=f326e197]: On Track
+              - cell "09/01/2026 02:15 PM" [ref=f326e198]
+            - row [ref=f326e199]:
+              - cell [ref=f326e200]:
+                - link "#32" [ref=f326e201] [cursor=pointer]:
+                  - /url: /issues/32
+              - cell [ref=f326e202]:
+                - link "TC-HLP-352 partial-consumption weekly-gap test ticket" [ref=f326e203] [cursor=pointer]:
+                  - /url: /issues/32
+              - cell [ref=f326e204]:
+                - link "Retest Customer1" [ref=f326e205] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e206]
+              - cell "New" [ref=f326e207]
+              - cell "Normal" [ref=f326e210]
+              - cell "Luna Blossom" [ref=f326e213]
+              - cell "122h 26m On Track" [ref=f326e214]:
+                - generic "122h 26m Remaining" [ref=f326e215]:
+                  - text: 122h 26m
+                  - generic [ref=f326e217]: On Track
+              - cell "09/01/2026 02:10 PM" [ref=f326e218]
+            - row [ref=f326e219]:
+              - cell [ref=f326e220]:
+                - link "#31" [ref=f326e221] [cursor=pointer]:
+                  - /url: /issues/31
+              - cell [ref=f326e222]:
+                - link "TC-HLP-351 outside working hours intraday test ticket" [ref=f326e223] [cursor=pointer]:
+                  - /url: /issues/31
+              - cell [ref=f326e224]:
+                - link "Retest Customer1" [ref=f326e225] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e226]
+              - cell "New" [ref=f326e227]
+              - cell "Normal" [ref=f326e230]
+              - cell "Luna Blossom" [ref=f326e233]
+              - cell "⚠ Breached +22h 14m ago" [ref=f326e234]:
+                - generic "+22h 14m ago" [ref=f326e235]:
+                  - generic [ref=f326e236]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 02:07 PM" [ref=f326e238]
+            - row [ref=f326e239]:
+              - cell [ref=f326e240]:
+                - link "#30" [ref=f326e241] [cursor=pointer]:
+                  - /url: /issues/30
+              - cell [ref=f326e242]:
+                - link "TC-HLP-350 same-day baseline within working hours test ticket" [ref=f326e243] [cursor=pointer]:
+                  - /url: /issues/30
+              - cell [ref=f326e244]:
+                - link "Retest Customer1" [ref=f326e245] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e246]
+              - cell "New" [ref=f326e247]
+              - cell "Normal" [ref=f326e250]
+              - cell "Luna Blossom" [ref=f326e253]
+              - cell "⚠ Breached +40h 40m ago" [ref=f326e254]:
+                - generic "+40h 40m ago" [ref=f326e255]:
+                  - generic [ref=f326e256]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 02:04 PM" [ref=f326e258]
+            - row [ref=f326e259]:
+              - cell [ref=f326e260]:
+                - link "#29" [ref=f326e261] [cursor=pointer]:
+                  - /url: /issues/29
+              - cell [ref=f326e262]:
+                - link "TC-HLP-349 locked-agent escalation exclusion test 3" [ref=f326e263] [cursor=pointer]:
+                  - /url: /issues/29
+              - cell [ref=f326e264]:
+                - link "Alpha Customer" [ref=f326e265] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f326e266]
+              - cell "New" [ref=f326e267]
+              - cell "Normal" [ref=f326e270]
+              - cell "Autumn Grace" [ref=f326e273]
+              - cell "⚠ Breached +42h 19m ago" [ref=f326e274]:
+                - generic "+42h 19m ago" [ref=f326e275]:
+                  - generic [ref=f326e276]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 01:21 PM" [ref=f326e278]
+            - row [ref=f326e279]:
+              - cell [ref=f326e280]:
+                - link "#28" [ref=f326e281] [cursor=pointer]:
+                  - /url: /issues/28
+              - cell [ref=f326e282]:
+                - link "TC-HLP-349 locked-agent escalation exclusion test 2" [ref=f326e283] [cursor=pointer]:
+                  - /url: /issues/28
+              - cell [ref=f326e284]:
+                - link "Alpha Customer" [ref=f326e285] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f326e286]
+              - cell "New" [ref=f326e287]
+              - cell "Normal" [ref=f326e290]
+              - cell "Autumn Grace" [ref=f326e293]
+              - cell "⚠ Breached +42h 19m ago" [ref=f326e294]:
+                - generic "+42h 19m ago" [ref=f326e295]:
+                  - generic [ref=f326e296]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 01:21 PM" [ref=f326e298]
+            - row [ref=f326e299]:
+              - cell [ref=f326e300]:
+                - link "#27" [ref=f326e301] [cursor=pointer]:
+                  - /url: /issues/27
+              - cell [ref=f326e302]:
+                - link "TC-HLP-349 locked-agent escalation exclusion test 1" [ref=f326e303] [cursor=pointer]:
+                  - /url: /issues/27
+              - cell [ref=f326e304]:
+                - link "Alpha Customer" [ref=f326e305] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f326e306]
+              - cell "New" [ref=f326e307]
+              - cell "Normal" [ref=f326e310]
+              - cell "Willow Belle" [ref=f326e313]
+              - cell "⚠ Breached +42h 19m ago" [ref=f326e314]:
+                - generic "+42h 19m ago" [ref=f326e315]:
+                  - generic [ref=f326e316]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 01:20 PM" [ref=f326e318]
+            - row [ref=f326e319]:
+              - cell [ref=f326e320]:
+                - link "#26" [ref=f326e321] [cursor=pointer]:
+                  - /url: /issues/26
+              - cell [ref=f326e322]:
+                - link "TC-HLP-344 fresh unassigned L2 ticket - matching-level agent no-false-positive test" [ref=f326e323] [cursor=pointer]:
+                  - /url: /issues/26
+              - cell [ref=f326e324]:
+                - link "Retest Customer1" [ref=f326e325] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e326]
+              - cell "New" [ref=f326e327]
+              - cell "Normal" [ref=f326e330]
+              - cell "Redmine Admin" [ref=f326e333]
+              - cell "⚠ Breached +42h 21m ago" [ref=f326e334]:
+                - generic "+42h 21m ago" [ref=f326e335]:
+                  - generic [ref=f326e336]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 01:09 PM" [ref=f326e338]
+            - row [ref=f326e339]:
+              - cell [ref=f326e340]:
+                - link "#25" [ref=f326e341] [cursor=pointer]:
+                  - /url: /issues/25
+              - cell [ref=f326e342]:
+                - link "TC-HLP-343 fresh unassigned L2 ticket - reply-action warning test" [ref=f326e343] [cursor=pointer]:
+                  - /url: /issues/25
+              - cell [ref=f326e344]:
+                - link "Retest Customer1" [ref=f326e345] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e346]
+              - cell "Waiting for Customer Response" [ref=f326e347]
+              - cell "Normal" [ref=f326e350]
+              - cell "Luna Blossom" [ref=f326e353]
+              - cell "▮▮ Paused" [ref=f326e354]:
+                - generic [ref=f326e355]:
+                  - generic [ref=f326e356]: ▮▮
+                  - text: Paused
+              - cell "09/01/2026 01:08 PM" [ref=f326e357]
+            - row [ref=f326e358]:
+              - cell [ref=f326e359]:
+                - link "#24" [ref=f326e360] [cursor=pointer]:
+                  - /url: /issues/24
+              - cell [ref=f326e361]:
+                - link "TC-HLP-342 fresh unassigned L2 ticket - self-assign warning test" [ref=f326e362] [cursor=pointer]:
+                  - /url: /issues/24
+              - cell [ref=f326e363]:
+                - link "Retest Customer1" [ref=f326e364] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e365]
+              - cell "New" [ref=f326e366]
+              - cell "Normal" [ref=f326e369]
+              - cell "Redmine Admin" [ref=f326e372]
+              - cell "⚠ Breached +42h 21m ago" [ref=f326e373]:
+                - generic "+42h 21m ago" [ref=f326e374]:
+                  - generic [ref=f326e375]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 01:07 PM" [ref=f326e377]
+            - row [ref=f326e378]:
+              - cell [ref=f326e379]:
+                - link "#22" [ref=f326e380] [cursor=pointer]:
+                  - /url: /issues/22
+              - cell [ref=f326e381]:
+                - link "TC-HLP-338 lower-level agent self-assign test ticket" [ref=f326e382] [cursor=pointer]:
+                  - /url: /issues/22
+              - cell [ref=f326e383]:
+                - link "Retest Customer1" [ref=f326e384] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e385]
+              - cell "New" [ref=f326e386]
+              - cell "Normal" [ref=f326e389]
+              - cell "Luna Blossom" [ref=f326e392]
+              - cell "⚠ Breached +43h 28m ago" [ref=f326e393]:
+                - generic "+43h 28m ago" [ref=f326e394]:
+                  - generic [ref=f326e395]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 12:51 PM" [ref=f326e397]
+            - row [ref=f326e398]:
+              - cell [ref=f326e399]:
+                - link "#23" [ref=f326e400] [cursor=pointer]:
+                  - /url: /issues/23
+              - cell [ref=f326e401]:
+                - link "TC-HLP-339 deactivated-SLA new ticket test" [ref=f326e402] [cursor=pointer]:
+                  - /url: /issues/23
+              - cell [ref=f326e403]:
+                - link "Retest Customer1" [ref=f326e404] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e405]
+              - cell "New" [ref=f326e406]
+              - cell "Normal" [ref=f326e409]
+              - cell "Luna Blossom" [ref=f326e412]
+              - cell "— No SLA" [ref=f326e413]:
+                - generic [ref=f326e414]:
+                  - generic [ref=f326e415]: —
+                  - text: No SLA
+              - cell "09/01/2026 12:24 PM" [ref=f326e416]
+            - row [ref=f326e417]:
+              - cell [ref=f326e418]:
+                - link "#21" [ref=f326e419] [cursor=pointer]:
+                  - /url: /issues/21
+              - cell [ref=f326e420]:
+                - link "TC-HLP-084 holiday-skip test ticket" [ref=f326e421] [cursor=pointer]:
+                  - /url: /issues/21
+              - cell [ref=f326e422]:
+                - link "Retest Customer1" [ref=f326e423] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e424]
+              - cell "New" [ref=f326e425]
+              - cell "Normal" [ref=f326e428]
+              - cell "Luna Blossom" [ref=f326e431]
+              - cell "⚠ Breached +6h 3m ago" [ref=f326e432]:
+                - generic "+6h 3m ago" [ref=f326e433]:
+                  - generic [ref=f326e434]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 10:39 AM" [ref=f326e436]
+            - row [ref=f326e437]:
+              - cell [ref=f326e438]:
+                - link "#20" [ref=f326e439] [cursor=pointer]:
+                  - /url: /issues/20
+              - cell [ref=f326e440]:
+                - link "TC-HLP-083 working-hours-skip test ticket" [ref=f326e441] [cursor=pointer]:
+                  - /url: /issues/20
+              - cell [ref=f326e442]:
+                - link "Retest Customer1" [ref=f326e443] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e444]
+              - cell "New" [ref=f326e445]
+              - cell "Normal" [ref=f326e448]
+              - cell "Luna Blossom" [ref=f326e451]
+              - cell "25h 45m At Risk" [ref=f326e452]:
+                - generic "25h 45m Remaining" [ref=f326e453]:
+                  - text: 25h 45m
+                  - generic [ref=f326e455]: At Risk
+              - cell "09/01/2026 10:34 AM" [ref=f326e456]
+            - row [ref=f326e457]:
+              - cell [ref=f326e458]:
+                - link "#19" [ref=f326e459] [cursor=pointer]:
+                  - /url: /issues/19
+              - cell [ref=f326e460]:
+                - link "TC-HLP-105 deactivate-L2-mid-escalation test ticket" [ref=f326e461] [cursor=pointer]:
+                  - /url: /issues/19
+              - cell [ref=f326e462]:
+                - link "Retest Customer1" [ref=f326e463] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e464]
+              - cell "New" [ref=f326e465]
+              - cell "Normal" [ref=f326e468]
+              - cell "Redmine Admin" [ref=f326e471]
+              - cell "⚠ Breached +43h 18m ago" [ref=f326e472]:
+                - generic "+43h 18m ago" [ref=f326e473]:
+                  - generic [ref=f326e474]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 10:16 AM" [ref=f326e476]
+            - row [ref=f326e477]:
+              - cell [ref=f326e478]:
+                - link "#18" [ref=f326e479] [cursor=pointer]:
+                  - /url: /issues/18
+              - cell [ref=f326e480]:
+                - link "test manually by me" [ref=f326e481] [cursor=pointer]:
+                  - /url: /issues/18
+              - cell [ref=f326e482]:
+                - link "Alpha Customer" [ref=f326e483] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f326e484]
+              - cell "New" [ref=f326e485]
+              - cell "Normal" [ref=f326e488]
+              - cell "Redmine Admin" [ref=f326e491]
+              - cell "⚠ Breached +43h 18m ago" [ref=f326e492]:
+                - generic "+43h 18m ago" [ref=f326e493]:
+                  - generic [ref=f326e494]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 09:25 AM" [ref=f326e496]
+            - row [ref=f326e497]:
+              - cell [ref=f326e498]:
+                - link "#17" [ref=f326e499] [cursor=pointer]:
+                  - /url: /issues/17
+              - cell [ref=f326e500]:
+                - link "Admin-email-fix verification ticket - direct L3 top-level breach" [ref=f326e501] [cursor=pointer]:
+                  - /url: /issues/17
+              - cell [ref=f326e502]:
+                - link "Retest Customer1" [ref=f326e503] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e504]
+              - cell "New" [ref=f326e505]
+              - cell "Normal" [ref=f326e508]
+              - cell "Redmine Admin" [ref=f326e511]
+              - cell "⚠ Breached +47h 17m ago" [ref=f326e512]:
+                - generic "+47h 17m ago" [ref=f326e513]:
+                  - generic [ref=f326e514]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 08:36 AM" [ref=f326e516]
+            - row [ref=f326e517]:
+              - cell [ref=f326e518]:
+                - link "#15" [ref=f326e519] [cursor=pointer]:
+                  - /url: /issues/15
+              - cell [ref=f326e520]:
+                - link "TC-HLP-091 mid-level entry test - customer's project-access row specifies L2" [ref=f326e521] [cursor=pointer]:
+                  - /url: /issues/15
+              - cell [ref=f326e522]:
+                - link "Retest Customer1" [ref=f326e523] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f326e524]
+              - cell "In Progress" [ref=f326e525]
+              - cell "Normal" [ref=f326e528]
+              - cell "Redmine Admin" [ref=f326e531]
+              - cell "⚠ Breached +47h 5m ago" [ref=f326e532]:
+                - generic "+47h 5m ago" [ref=f326e533]:
+                  - generic [ref=f326e534]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 08:36 AM" [ref=f326e536]
+            - row [ref=f326e537]:
+              - cell [ref=f326e538]:
+                - link "#16" [ref=f326e539] [cursor=pointer]:
+                  - /url: /issues/16
+              - cell [ref=f326e540]:
+                - link "Admin-email-fix verification ticket - direct L3 top-level breach" [ref=f326e541] [cursor=pointer]:
+                  - /url: /issues/16
+              - cell "—" [ref=f326e542]
+              - cell "—" [ref=f326e543]
+              - cell "New" [ref=f326e544]
+              - cell "Normal" [ref=f326e547]
+              - cell "Willow Belle" [ref=f326e550]
+              - cell "⚠ Breached +42h 19m ago" [ref=f326e551]:
+                - generic "+42h 19m ago" [ref=f326e552]:
+                  - generic [ref=f326e553]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 08:23 AM" [ref=f326e555]
+            - row [ref=f326e556]:
+              - cell [ref=f326e557]:
+                - link "#14" [ref=f326e558] [cursor=pointer]:
+                  - /url: /issues/14
+              - cell [ref=f326e559]:
+                - link "TC-HLP-092 escalation-chain test ticket - fast-breach SLA" [ref=f326e560] [cursor=pointer]:
+                  - /url: /issues/14
+              - cell [ref=f326e561]:
+                - link "Alpha Customer" [ref=f326e562] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f326e563]
+              - cell "New" [ref=f326e564]
+              - cell "Normal" [ref=f326e567]
+              - cell "Redmine Admin" [ref=f326e570]
+              - cell "⚠ Breached +47h 27m ago" [ref=f326e571]:
+                - generic "+47h 27m ago" [ref=f326e572]:
+                  - generic [ref=f326e573]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 08:10 AM" [ref=f326e575]
+            - row [ref=f326e576]:
+              - cell [ref=f326e577]:
+                - link "#13" [ref=f326e578] [cursor=pointer]:
+                  - /url: /issues/13
+              - cell [ref=f326e579]:
+                - link "TC-HLP-025 duplicate B - printer offline on office network" [ref=f326e580] [cursor=pointer]:
+                  - /url: /issues/13
+              - cell "—" [ref=f326e581]
+              - cell "—" [ref=f326e582]
+              - cell "New" [ref=f326e583]
+              - cell "Normal" [ref=f326e586]
+              - cell "Unassigned" [ref=f326e589]
+              - cell "— No SLA" [ref=f326e590]:
+                - generic [ref=f326e591]:
+                  - generic [ref=f326e592]: —
+                  - text: No SLA
+              - cell "08/31/2026 10:51 AM" [ref=f326e593]
+            - row [ref=f326e594]:
+              - cell [ref=f326e595]:
+                - link "#8" [ref=f326e596] [cursor=pointer]:
+                  - /url: /issues/8
+              - cell [ref=f326e597]:
+                - 'link "Ticket: TC-HLP-016 fresh email creates a new ticket" [ref=f326e598] [cursor=pointer]':
+                  - /url: /issues/8
+              - cell [ref=f326e599]:
+                - link "Alpha Customer" [ref=f326e600] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f326e601]
+              - cell "Waiting for Customer Response" [ref=f326e602]
+              - cell "Normal" [ref=f326e605]
+              - cell "Luna Blossom" [ref=f326e608]
+              - cell "▮▮ Paused" [ref=f326e609]:
+                - generic [ref=f326e610]:
+                  - generic [ref=f326e611]: ▮▮
+                  - text: Paused
+              - cell "08/31/2026 10:12 AM" [ref=f326e612]
+        - generic [ref=f326e613]:
+          - list [ref=f326e614]:
+            - listitem [ref=f326e615]:
+              - generic [ref=f326e616]: « « Previous
+            - listitem [ref=f326e617]:
+              - generic [ref=f326e618]: "1"
+            - listitem [ref=f326e619]:
+              - link "2" [ref=f326e620] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?page=2
+            - listitem [ref=f326e621]:
+              - link "Next » »" [ref=f326e622] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?page=2
+          - generic [ref=f326e623]:
+            - text: (1-25/35)
+            - generic [ref=f326e624]:
+              - text: "Per page: 25,"
+              - link "50" [ref=f326e625] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?per_page=50
+    - generic [ref=f326e626]:
+      - text: Powered by
+      - link "Redmine" [ref=f326e627] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f326e628]
+  - log [ref=f326e629]
+  - log [ref=f326e630]
+  - log [ref=f326e631]
+  - log [ref=f326e632]
+  - log [ref=f326e633]
+  - log [ref=f326e634]
+  - log [ref=f326e635]
+  - log [ref=f326e636]
+  - log [ref=f326e637]
+  - log [ref=f326e638]
+  - log [ref=f326e639]
+  - log [ref=f326e640]
+  - log [ref=f326e641]
+  - log [ref=f326e642]
+  - log [ref=f326e643]
+  - log [ref=f326e644]
+  - log [ref=f326e645]
+  - log [ref=f326e646]
+  - log [ref=f326e647]
+  - log [ref=f326e648]
+  - log [ref=f326e649]
+  - log [ref=f326e650]
+  - log [ref=f326e651]
+  - log [ref=f326e652]
+  - log [ref=f326e653]
+  - log [ref=f326e654]
+  - log [ref=f326e655]
+  - log [ref=f326e656]
+  - log [ref=f326e657]
+  - log [ref=f326e658]
+  - log [ref=f326e659]
+  - log [ref=f326e660]
+  - log [ref=f326e661]
+  - log [ref=f326e662]
+  - log [ref=f326e663]
+  - log [ref=f326e664]
+  - log [ref=f326e665]
+  - log [ref=f326e666]
+  - log [ref=f326e667]
+  - log [ref=f326e668]
+  - log [ref=f326e669]
+  - log [ref=f326e670]
+  - log [ref=f326e671]
+  - log [ref=f326e672]

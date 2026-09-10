@@ -1,0 +1,194 @@
+- generic [ref=f17e1]:
+  - generic [ref=f17e2]:
+    - navigation [ref=f17e3]:
+      - list [ref=f17e6]:
+        - listitem [ref=f17e7]:
+          - link [ref=f17e8] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f17e9]
+        - listitem [ref=f17e10]:
+          - link "Hauptseite" [ref=f17e11] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f17e12]:
+          - link "Meine Seite" [ref=f17e13] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f17e14]:
+          - link "Projekte" [ref=f17e15] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f17e16]:
+          - link "Agile Board" [ref=f17e17] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f17e18]:
+          - link "Flux Gantt" [ref=f17e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f17e20]:
+          - link "More" [ref=f17e21] [cursor=pointer]:
+            - /url: "#"
+      - link [ref=f17e24] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f17e25]: RA
+    - generic [ref=f17e28]:
+      - generic [ref=f17e29]:
+        - generic [ref=f17e30]:
+          - generic [ref=f17e31]:
+            - link "Suche" [ref=f17e32] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Suche:" [ref=f17e33]
+        - generic [ref=f17e34]: Zu einem Projekt springen...
+      - heading "Redmine" [level=1] [ref=f17e36]
+      - list [ref=f17e38]:
+        - listitem [ref=f17e39]:
+          - link "Projekte" [ref=f17e40] [cursor=pointer]:
+            - /url: /projects
+    - generic [ref=f17e42]:
+      - heading "Neues Projekt" [level=2] [ref=f17e43]
+      - generic [ref=f17e44]:
+        - list [ref=f17e46]:
+          - listitem [ref=f17e47]: Kennung muss ausgefüllt werden
+        - generic [ref=f17e48]:
+          - paragraph [ref=f17e49]:
+            - generic [ref=f17e50]: Name *
+            - textbox "Name *" [active] [ref=f17e51]: Tag Retest Project
+          - paragraph [ref=f17e52]:
+            - generic [ref=f17e53]: Beschreibung
+            - generic [ref=f17e54]:
+              - list [ref=f17e56]:
+                - listitem [ref=f17e57]:
+                  - link "Bearbeiten" [ref=f17e58] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f17e59]:
+                  - link "Vorschau" [ref=f17e60] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f17e61]:
+                  - generic [ref=f17e62]:
+                    - button "Fett (Ctrl+B)" [ref=f17e63] [cursor=pointer]
+                    - button "Kursiv (Ctrl+I)" [ref=f17e64] [cursor=pointer]
+                    - button "Unterstrichen (Ctrl+U)" [ref=f17e65] [cursor=pointer]
+                    - button "Durchgestrichen" [ref=f17e66] [cursor=pointer]
+                    - button "Quelltext" [ref=f17e67] [cursor=pointer]
+                    - button "Überschrift 1. Ordnung" [ref=f17e68] [cursor=pointer]
+                    - button "Überschrift 2. Ordnung" [ref=f17e69] [cursor=pointer]
+                    - button "Überschrift 3. Ordnung" [ref=f17e70] [cursor=pointer]
+                    - button "Aufzählungsliste" [ref=f17e71] [cursor=pointer]
+                    - button "Nummerierte Liste" [ref=f17e72] [cursor=pointer]
+                    - button "Task list" [ref=f17e73] [cursor=pointer]
+                    - button "Zitat" [ref=f17e74] [cursor=pointer]
+                    - button "Zitat entfernen" [ref=f17e75] [cursor=pointer]
+                    - button "Table" [ref=f17e76] [cursor=pointer]
+                    - button "pre" [ref=f17e77] [cursor=pointer]
+                    - button "Highlighted code" [ref=f17e78] [cursor=pointer]
+                    - button "Verweis (Link) zu einer Wiki-Seite" [ref=f17e79] [cursor=pointer]
+                    - button "Grafik" [ref=f17e80] [cursor=pointer]
+                    - button "Help" [ref=f17e81] [cursor=pointer]
+              - textbox "Beschreibung" [ref=f17e83]
+          - paragraph [ref=f17e84]:
+            - generic [ref=f17e85]: Kennung *
+            - textbox "Kennung *" [ref=f17e86]
+            - emphasis [ref=f17e87]: Länge zwischen 1 und 100 Zeichen. Kleinbuchstaben (a-z), Ziffern, Binde- und Unterstriche erlaubt.Einmal gespeichert, kann die Kennung nicht mehr geändert werden.
+          - paragraph [ref=f17e88]:
+            - generic [ref=f17e89]: Projekt-Homepage
+            - textbox "Projekt-Homepage" [ref=f17e90]
+          - paragraph [ref=f17e91]:
+            - generic [ref=f17e92]: Öffentlich
+            - checkbox "Öffentlich" [checked] [ref=f17e93]
+            - emphasis [ref=f17e94]: Öffentliche Projekte und deren Inhalte sind ohne Anmeldung frei zugänglich.
+          - paragraph [ref=f17e95]:
+            - generic [ref=f17e96]: Unterprojekt von
+            - combobox "Unterprojekt von" [ref=f17e97]:
+              - option [selected]
+              - option "Agile Board Project"
+              - option "Education and training3"
+              - option "Flux Gantt Project"
+              - option "HR management2"
+              - option "Helpdesk Service Desk"
+              - option "MVP build for PaySheet Application"
+              - option "Marketing campaign4"
+              - option "Mobile app development1"
+              - option "Software development5"
+          - paragraph [ref=f17e98]:
+            - generic [ref=f17e99]: Benutzer erben
+            - checkbox "Benutzer erben" [ref=f17e100]
+          - paragraph [ref=f17e101]:
+            - generic [ref=f17e102]: Tag list
+            - list [ref=f17e103]:
+              - listitem [ref=f17e104]:
+                - textbox "Select or add tags" [ref=f17e105]
+        - group [ref=f17e106]:
+          - generic [ref=f17e107]:
+            - link "Alles auswählen / Alles abwählen" [ref=f17e108] [cursor=pointer]:
+              - /url: "#"
+            - text: Module
+          - generic [ref=f17e110]:
+            - checkbox "Tickets" [checked] [ref=f17e111]
+            - text: Tickets
+          - generic [ref=f17e112]:
+            - checkbox "Zeiterfassung" [checked] [ref=f17e113]
+            - text: Zeiterfassung
+          - generic [ref=f17e114]:
+            - checkbox "News" [checked] [ref=f17e115]
+            - text: News
+          - generic [ref=f17e116]:
+            - checkbox "Dokumente" [checked] [ref=f17e117]
+            - text: Dokumente
+          - generic [ref=f17e118]:
+            - checkbox "Dateien" [checked] [ref=f17e119]
+            - text: Dateien
+          - generic [ref=f17e120]:
+            - checkbox "Wiki" [checked] [ref=f17e121]
+            - text: Wiki
+          - generic [ref=f17e122]:
+            - checkbox "Repository" [checked] [ref=f17e123]
+            - text: Repository
+          - generic [ref=f17e124]:
+            - checkbox "Foren" [checked] [ref=f17e125]
+            - text: Foren
+          - generic [ref=f17e126]:
+            - checkbox "Kalender" [checked] [ref=f17e127]
+            - text: Kalender
+          - generic [ref=f17e128]:
+            - checkbox "Gantt" [checked] [ref=f17e129]
+            - text: Gantt
+          - generic [ref=f17e130]:
+            - checkbox "Agile Board" [ref=f17e131]
+            - text: Agile Board
+          - generic [ref=f17e132]:
+            - checkbox "Flux Gantt-Diagramm" [ref=f17e133]
+            - text: Flux Gantt-Diagramm
+        - button "Erstellen" [ref=f17e134] [cursor=pointer]
+        - button "Anlegen und weiter" [ref=f17e135] [cursor=pointer]
+    - generic [ref=f17e136]:
+      - text: Powered by
+      - link "Redmine" [ref=f17e137] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f17e138]
+  - log [ref=f17e139]
+  - log [ref=f17e140]
+  - log [ref=f17e141]
+  - log [ref=f17e142]
+  - log [ref=f17e143]
+  - log [ref=f17e144]
+  - log [ref=f17e145]
+  - log [ref=f17e146]
+  - log [ref=f17e147]
+  - log [ref=f17e148]
+  - log [ref=f17e149]
+  - log [ref=f17e150]
+  - log [ref=f17e151]
+  - log [ref=f17e152]
+  - log [ref=f17e153]
+  - log [ref=f17e154]
+  - log [ref=f17e155]
+  - log [ref=f17e156]
+  - log [ref=f17e157]
+  - log [ref=f17e158]
+  - log [ref=f17e159]
+  - log [ref=f17e160]
+  - log [ref=f17e161]
+  - log [ref=f17e162]
+  - log [ref=f17e163]
+  - log [ref=f17e164]
+  - log [ref=f17e165]
+  - log [ref=f17e166]
+  - log [ref=f17e167]

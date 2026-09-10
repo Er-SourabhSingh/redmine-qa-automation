@@ -1,0 +1,359 @@
+- generic [active] [ref=f144e1]:
+  - generic [ref=f144e2]:
+    - navigation [ref=f144e3]:
+      - list [ref=f144e6]:
+        - listitem [ref=f144e7]:
+          - link "Hauptseite" [ref=f144e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f144e9]:
+          - link "Meine Seite" [ref=f144e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f144e11]:
+          - link "Projekte" [ref=f144e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f144e13]:
+          - link "Agile Board" [ref=f144e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f144e15]:
+          - link "Flux Gantt" [ref=f144e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f144e17]:
+          - link "Administration" [ref=f144e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f144e19]:
+          - link "Hilfe" [ref=f144e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f144e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f144e24]: RA
+    - generic [ref=f144e27]:
+      - generic [ref=f144e153]:
+        - generic [ref=f144e154]:
+          - generic [ref=f144e155]:
+            - link "Suche" [ref=f144e156] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/search
+            - text: ":"
+          - textbox "Suche:" [ref=f144e157]
+        - generic [ref=f144e158]:
+          - generic [ref=f144e159] [cursor=pointer]: Flux Gantt Project
+          - text: ✓ ✓
+      - heading "Flux Gantt Project" [level=1] [ref=f144e28]
+      - list [ref=f144e31]:
+        - listitem [ref=f144e32]:
+          - link "+" [ref=f144e33] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f144e34]:
+          - link "Übersicht" [ref=f144e35] [cursor=pointer]:
+            - /url: /projects/fluxganttproject
+        - listitem [ref=f144e36]:
+          - link "Dashboard" [ref=f144e37] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/analytics_dashboard
+        - listitem [ref=f144e38]:
+          - link "Flux Gantt" [ref=f144e39] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/flux_gantt
+        - listitem [ref=f144e40]:
+          - link "Aktivität" [ref=f144e41] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/activity
+        - listitem [ref=f144e42]:
+          - link "Roadmap" [ref=f144e43] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/roadmap
+        - listitem [ref=f144e44]:
+          - link "Tickets" [ref=f144e45] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues
+        - listitem [ref=f144e46]:
+          - link "Aufgewendete Zeit" [ref=f144e47] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/time_entries
+        - listitem [ref=f144e48]:
+          - link "Gantt-Diagramm" [ref=f144e49] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/gantt
+        - listitem [ref=f144e50]:
+          - link "Kalender" [ref=f144e51] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/calendar
+        - listitem [ref=f144e52]:
+          - link "News" [ref=f144e53] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/news
+        - listitem [ref=f144e54]:
+          - link "Dokumente" [ref=f144e55] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/documents
+        - listitem [ref=f144e56]:
+          - link "Wiki" [ref=f144e57] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/wiki
+        - listitem [ref=f144e58]:
+          - link "Dateien" [ref=f144e59] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/files
+        - listitem [ref=f144e60]:
+          - link "Konfiguration" [ref=f144e61] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/settings
+    - generic [ref=f144e64]:
+      - generic [ref=f144e65]:
+        - generic [ref=f144e66]: Flux Gantt
+        - generic [ref=f144e67]:
+          - generic [ref=f144e68]:
+            - generic [ref=f144e69]: Datum von/bis
+            - button "1. Sept. 26 - 30. Sept. 26 ▾" [ref=f144e160] [cursor=pointer]:
+              - generic [ref=f144e73]: 1. Sept. 26 - 30. Sept. 26
+              - text: ▾
+          - generic [ref=f144e74]:
+            - generic [ref=f144e75]: Suche
+            - textbox "Suche..." [ref=f144e77]
+        - generic [ref=f144e79]:
+          - generic [ref=f144e80]: Details
+          - combobox [ref=f144e81] [cursor=pointer]:
+            - option "Alle einklappen" [selected]
+            - option "Alle ausklappen"
+        - generic [ref=f144e82]:
+          - button "+ Version hinzufügen" [ref=f144e83] [cursor=pointer]
+          - button "Einstellungen" [ref=f144e84] [cursor=pointer]
+          - button "Vorgänge ohne Version" [ref=f144e742] [cursor=pointer]
+          - button "Vollbild" [ref=f144e90] [cursor=pointer]
+          - button "Exportieren" [ref=f144e96] [cursor=pointer]
+      - generic [ref=f144e161]:
+        - generic [ref=f144e162]:
+          - generic [ref=f144e163]:
+            - generic [ref=f144e164]:
+              - generic [ref=f144e165]:
+                - generic [ref=f144e166]: Name
+                - button "+ Vorgang hinzufügen" [ref=f144e167] [cursor=pointer]
+              - generic [ref=f144e168]: Zugewiesen an
+              - generic [ref=f144e169]: Erledigt %
+            - generic [ref=f144e170]:
+              - generic [ref=f144e171] [cursor=pointer]:
+                - generic [ref=f144e743]:
+                  - generic [ref=f144e744]: ▶
+                  - generic [aria-hidden] [ref=f144e745]: ◆
+                  - generic [ref=f144e746]: Version 1
+                  - generic [ref=f144e747]: 1 Vorgänge
+                - generic [ref=f144e749]: "-"
+                - generic [ref=f144e750]: 0%
+              - generic [ref=f144e180] [cursor=pointer]:
+                - generic [ref=f144e751]:
+                  - generic [aria-hidden] [ref=f144e752]: ●
+                  - generic [ref=f144e753]:
+                    - link "#266" [ref=f144e754]:
+                      - /url: /issues/266
+                    - generic [ref=f144e755]: QA Bar Resize Test A
+                - generic [ref=f144e757]: "-"
+                - generic [ref=f144e758]: 0%
+              - generic [ref=f144e189] [cursor=pointer]:
+                - generic [ref=f144e759]:
+                  - generic [ref=f144e760]: ▶
+                  - generic [aria-hidden] [ref=f144e761]: ◆
+                  - generic [ref=f144e762]: Version 2
+                  - generic [ref=f144e763]: 0 Vorgänge
+                - generic [ref=f144e765]: "-"
+                - generic [ref=f144e766]: 0%
+              - generic [ref=f144e198] [cursor=pointer]:
+                - generic [ref=f144e767]:
+                  - generic [ref=f144e768]: ▶
+                  - generic [aria-hidden] [ref=f144e769]: ◆
+                  - generic [ref=f144e770]: Version 3
+                  - generic [ref=f144e771]: 0 Vorgänge
+                - generic [ref=f144e773]: "-"
+                - generic [ref=f144e774]: 0%
+              - generic [ref=f144e775] [cursor=pointer]:
+                - generic [ref=f144e776]:
+                  - generic [ref=f144e777]: ▶
+                  - generic [aria-hidden] [ref=f144e778]: ◆
+                  - generic [ref=f144e779]: Version 4
+                  - generic [ref=f144e780]: 0 Vorgänge
+                - generic [ref=f144e782]: "-"
+                - generic [ref=f144e783]: 0%
+              - text: ◆
+          - generic [ref=f144e208]:
+            - generic [ref=f144e209]:
+              - generic [ref=f144e784]:
+                - generic [ref=f144e785]: 31 Aug - 4 Sep, 2026
+                - generic [ref=f144e786]: 7 Sep - 11 Sep, 2026
+                - generic [ref=f144e787]: 14 Sep - 18 Sep, 2026
+                - generic [ref=f144e788]: 21 Sep - 25 Sep, 2026
+                - generic [ref=f144e789]: 28 Sep - 2 Okt, 2026
+              - generic [ref=f144e790]:
+                - generic [ref=f144e791]: "1"
+                - generic [ref=f144e792]: "2"
+                - generic [ref=f144e793]: "3"
+                - generic [ref=f144e794]: "4"
+                - generic [ref=f144e795]: "7"
+                - generic [ref=f144e796]: "8"
+                - generic [ref=f144e797]: "9"
+                - generic [ref=f144e798]: "10"
+                - generic [ref=f144e799]: "11"
+                - generic [ref=f144e800]: "14"
+                - generic [ref=f144e801]: "15"
+                - generic [ref=f144e802]: "16"
+                - generic [ref=f144e803]: "17"
+                - generic [ref=f144e804]: "18"
+                - generic [ref=f144e805]: "21"
+                - generic [ref=f144e806]: "22"
+                - generic [ref=f144e807]: "23"
+                - generic [ref=f144e808]: "24"
+                - generic [ref=f144e809]: "25"
+                - generic [ref=f144e810]: "28"
+                - generic [ref=f144e811]: "29"
+                - generic [ref=f144e812]: "30"
+            - generic [ref=f144e239]:
+              - generic [ref=f144e240]:
+                - generic [ref=f144e241]: Version 1
+                - generic [ref=f144e243]: Version 2
+                - generic [ref=f144e245]: Version 3
+                - generic [ref=f144e247]: Version 4
+                - generic [ref=f144e813]:
+                  - generic: QA Bar Resize Test A
+                  - button "Eingehende Abhängigkeit erstellen" [ref=f144e817]
+                  - button "Ausgehende Abhängigkeit erstellen" [ref=f144e819]
+              - generic: Today
+        - generic [ref=f144e639]:
+          - generic [ref=f144e640]:
+            - generic [ref=f144e641]:
+              - generic [ref=f144e642]: Vorgänge ohne Version
+              - generic [ref=f144e643]: "8"
+            - button "×" [ref=f144e644] [cursor=pointer]
+          - generic [ref=f144e645]:
+            - textbox "Vorgänge suchen..." [ref=f144e646]
+            - generic [ref=f144e647]: 8 Vorgänge
+          - generic [ref=f144e648]:
+            - generic [ref=f144e822]:
+              - generic [ref=f144e823]:
+                - link "#107" [ref=f144e824] [cursor=pointer]:
+                  - /url: /issues/107
+                - generic [ref=f144e825]: Optimize image loading for gallery
+              - generic [ref=f144e826]: Bug · Serenity Bloom
+              - generic [ref=f144e827]:
+                - generic [ref=f144e828]:
+                  - generic [ref=f144e829]: Start
+                  - text: 2025-07-23
+                - generic [ref=f144e830]:
+                  - generic [ref=f144e831]: Fällig
+                  - text: 2025-07-23
+            - generic [ref=f144e832]:
+              - generic [ref=f144e833]:
+                - link "#115" [ref=f144e834] [cursor=pointer]:
+                  - /url: /issues/115
+                - generic [ref=f144e835]: Set up CI/CD pipeline for deployment
+              - generic [ref=f144e836]: Feature · Violet Ember
+              - generic [ref=f144e837]:
+                - generic [ref=f144e838]:
+                  - generic [ref=f144e839]: Start
+                  - text: 2025-07-23
+                - generic [ref=f144e840]:
+                  - generic [ref=f144e841]: Fällig
+                  - text: 2025-07-23
+            - generic [ref=f144e842]:
+              - generic [ref=f144e843]:
+                - link "#267" [ref=f144e844] [cursor=pointer]:
+                  - /url: /issues/267
+                - generic [ref=f144e845]: QA Dependency Test B
+                - 'generic "Geschätzt: 4h" [ref=f144e846]': 4h
+              - generic [ref=f144e847]: Bug
+              - generic [ref=f144e848]:
+                - generic [ref=f144e849]:
+                  - generic [ref=f144e850]: Start
+                  - text: 2026-09-15
+                - generic [ref=f144e851]:
+                  - generic [ref=f144e852]: Fällig
+                  - text: 2026-09-18
+            - generic [ref=f144e853]:
+              - generic [ref=f144e854]:
+                - link "#261" [ref=f144e855] [cursor=pointer]:
+                  - /url: /issues/261
+                - generic [ref=f144e856]: Implement audit trail
+              - generic [ref=f144e857]: Feature · Nova Starling
+              - generic [ref=f144e858]:
+                - generic [ref=f144e859]:
+                  - generic [ref=f144e860]: Start
+                  - text: 2029-01-19
+                - generic [ref=f144e861]:
+                  - generic [ref=f144e862]: Fällig
+                  - text: 2029-01-24
+            - generic [ref=f144e863]:
+              - generic [ref=f144e864]:
+                - link "#262" [ref=f144e865] [cursor=pointer]:
+                  - /url: /issues/262
+                - generic [ref=f144e866]: Fix change detection
+              - generic [ref=f144e867]: Bug · Serenity Bloom
+              - generic [ref=f144e868]:
+                - generic [ref=f144e869]:
+                  - generic [ref=f144e870]: Start
+                  - text: 2029-01-29
+                - generic [ref=f144e871]:
+                  - generic [ref=f144e872]: Fällig
+                  - text: 2029-02-03
+            - generic [ref=f144e873]:
+              - generic [ref=f144e874]:
+                - link "#263" [ref=f144e875] [cursor=pointer]:
+                  - /url: /issues/263
+                - generic [ref=f144e876]: Add change comments
+              - generic [ref=f144e877]: Feature · Celeste Dawn
+              - generic [ref=f144e878]:
+                - generic [ref=f144e879]:
+                  - generic [ref=f144e880]: Start
+                  - text: 2029-02-08
+                - generic [ref=f144e881]:
+                  - generic [ref=f144e882]: Fällig
+                  - text: 2029-02-13
+            - generic [ref=f144e883]:
+              - generic [ref=f144e884]:
+                - link "#264" [ref=f144e885] [cursor=pointer]:
+                  - /url: /issues/264
+                - generic [ref=f144e886]: Implement rollback functionality
+              - generic [ref=f144e887]: Feature · Violet Ember
+              - generic [ref=f144e888]:
+                - generic [ref=f144e889]:
+                  - generic [ref=f144e890]: Start
+                  - text: 2029-02-18
+                - generic [ref=f144e891]:
+                  - generic [ref=f144e892]: Fällig
+                  - text: 2029-02-23
+            - generic [ref=f144e893]:
+              - generic [ref=f144e894]:
+                - link "#265" [ref=f144e895] [cursor=pointer]:
+                  - /url: /issues/265
+                - generic [ref=f144e896]: Fix audit log performance
+              - generic [ref=f144e897]: Bug · Summer Rain
+              - generic [ref=f144e898]:
+                - generic [ref=f144e899]:
+                  - generic [ref=f144e900]: Start
+                  - text: 2029-02-28
+                - generic [ref=f144e901]:
+                  - generic [ref=f144e902]: Fällig
+                  - text: 2029-03-05
+      - alert [ref=f144e903]:
+        - generic [ref=f144e904]: Vorgang wurde Version zugewiesen
+        - button "Dismiss" [ref=f144e905] [cursor=pointer]: ×
+    - generic [ref=f144e133]:
+      - text: Powered by
+      - link "Redmine" [ref=f144e134] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - tooltip "Version 1 Daten 30. Sept. 2026 – 30. Sept. 2026 Dauer 1 Tag Fortschritt 0% Vorgänge gesamt 1":
+    - generic: Version 1
+    - generic:
+      - generic: Daten
+      - generic: 30. Sept. 2026 – 30. Sept. 2026
+    - generic:
+      - generic: Dauer
+      - generic: 1 Tag
+    - generic:
+      - generic: Fortschritt
+      - generic: 0%
+    - generic:
+      - generic: Vorgänge gesamt
+      - generic: "1"
+  - log [ref=f144e135]
+  - log [ref=f144e136]
+  - log [ref=f144e137]
+  - log [ref=f144e138]
+  - log [ref=f144e139]
+  - log [ref=f144e140]
+  - log [ref=f144e141]
+  - log [ref=f144e142]
+  - log [ref=f144e143]
+  - log [ref=f144e144]
+  - log [ref=f144e145]
+  - log [ref=f144e146]
+  - log [ref=f144e147]
+  - log [ref=f144e148]
+  - log [ref=f144e149]:
+    - generic [ref=f144e741]: Vorgänge ohne Version
+  - log [ref=f144e150]
+  - log [ref=f144e151]
+  - log [ref=f144e152]

@@ -1,0 +1,342 @@
+- generic [active] [ref=f45e1]:
+  - generic [ref=f45e2]:
+    - navigation [ref=f45e3]:
+      - list [ref=f45e6]:
+        - listitem [ref=f45e7]:
+          - link "Hauptseite" [ref=f45e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f45e9]:
+          - link "Meine Seite" [ref=f45e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f45e11]:
+          - link "Projekte" [ref=f45e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f45e13]:
+          - link "Agile Board" [ref=f45e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f45e15]:
+          - link "Flux Gantt" [ref=f45e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f45e17]:
+          - link "Administration" [ref=f45e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f45e19]:
+          - link "Hilfe" [ref=f45e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f45e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f45e24]: RA
+    - generic [ref=f45e27]:
+      - generic [ref=f45e28]:
+        - generic [ref=f45e29]:
+          - generic [ref=f45e30]:
+            - link "Suche" [ref=f45e31] [cursor=pointer]:
+              - /url: /projects/defaultsd/search
+            - text: ":"
+          - textbox "Suche:" [ref=f45e32]
+        - generic [ref=f45e33]:
+          - generic [ref=f45e34] [cursor=pointer]: Software development5
+          - text: ✓ ✓
+      - heading "Software development5" [level=1] [ref=f45e35]
+      - list [ref=f45e38]:
+        - listitem [ref=f45e39]:
+          - link "+" [ref=f45e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f45e41]:
+          - link "Übersicht" [ref=f45e42] [cursor=pointer]:
+            - /url: /projects/defaultsd
+        - listitem [ref=f45e43]:
+          - link "Dashboard" [ref=f45e44] [cursor=pointer]:
+            - /url: /projects/defaultsd/analytics_dashboard
+        - listitem [ref=f45e45]:
+          - link "Aktivität" [ref=f45e46] [cursor=pointer]:
+            - /url: /projects/defaultsd/activity
+        - listitem [ref=f45e47]:
+          - link "Tickets" [ref=f45e48] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues
+        - listitem [ref=f45e49]:
+          - link "Aufgewendete Zeit" [ref=f45e50] [cursor=pointer]:
+            - /url: /projects/defaultsd/time_entries
+        - listitem [ref=f45e51]:
+          - link "Gantt-Diagramm" [ref=f45e52] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/gantt
+        - listitem [ref=f45e53]:
+          - link "Kalender" [ref=f45e54] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/calendar
+        - listitem [ref=f45e55]:
+          - link "News" [ref=f45e56] [cursor=pointer]:
+            - /url: /projects/defaultsd/news
+        - listitem [ref=f45e57]:
+          - link "Dokumente" [ref=f45e58] [cursor=pointer]:
+            - /url: /projects/defaultsd/documents
+        - listitem [ref=f45e59]:
+          - link "Wiki" [ref=f45e60] [cursor=pointer]:
+            - /url: /projects/defaultsd/wiki
+        - listitem [ref=f45e61]:
+          - link "Dateien" [ref=f45e62] [cursor=pointer]:
+            - /url: /projects/defaultsd/files
+        - listitem [ref=f45e63]:
+          - link "Konfiguration" [ref=f45e64] [cursor=pointer]:
+            - /url: /projects/defaultsd/settings
+    - generic [ref=f45e65]:
+      - generic [ref=f45e66]:
+        - link [ref=f45e68] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f45e71]:
+          - heading "Abfragen" [level=3] [ref=f45e72]
+          - list [ref=f45e73]:
+            - listitem [ref=f45e74]:
+              - link "Issues assigned to me" [ref=f45e75] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues?query_id=1
+            - listitem [ref=f45e76]:
+              - link "Reported issues" [ref=f45e77] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues?query_id=2
+            - listitem [ref=f45e78]:
+              - link "Updated issues" [ref=f45e79] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues?query_id=3
+            - listitem [ref=f45e80]:
+              - link "Watched issues" [ref=f45e81] [cursor=pointer]:
+                - /url: /projects/defaultsd/issues?query_id=4
+          - generic [ref=f45e82]:
+            - link "Hinzufügen" [ref=f45e84] [cursor=pointer]:
+              - /url: /watchers/new?object_id=230&object_type=issue
+            - heading "Beobachter (1)" [level=3] [ref=f45e85]
+            - list [ref=f45e86]:
+              - listitem [ref=f45e87]:
+                - img [ref=f45e88]: RA
+                - link "Redmine Admin" [ref=f45e89] [cursor=pointer]:
+                  - /url: /users/1
+                - link "Remove" [ref=f45e90] [cursor=pointer]:
+                  - /url: /issues/230/watchers/1
+      - generic [ref=f45e93]:
+        - generic [ref=f45e94]:
+          - link "Bearbeiten" [ref=f45e95] [cursor=pointer]:
+            - /url: /issues/230/edit
+          - link "Aufwand buchen" [ref=f45e99] [cursor=pointer]:
+            - /url: /issues/230/time_entries/new
+          - link "Nicht beobachten" [ref=f45e103] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=230&object_type=issue
+          - link "Kopieren" [ref=f45e107] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/230/copy
+          - generic "Aktionen" [ref=f45e113] [cursor=pointer]
+        - 'heading "Bug #230" [level=2] [ref=f45e116]'
+        - text: offen
+        - generic [ref=f45e117]:
+          - generic:
+            - 'img "Autor: Autumn Grace" [ref=f45e118]': AG
+            - 'img "Zugewiesen an: Redmine Admin" [ref=f45e119]': RA
+          - heading [level=3] [ref=f45e123]:
+            - text: Fix slow report generation
+            - button "Edit" [ref=f45e124] [cursor=pointer]
+          - link [ref=f45e127] [cursor=pointer]:
+            - /url: /reactions?object_id=230&object_type=Issue
+          - paragraph [ref=f45e130]:
+            - text: Von
+            - link "Autumn Grace" [ref=f45e131] [cursor=pointer]:
+              - /url: /users/8
+            - text: vor
+            - link "40 Minuten" [ref=f45e132] [cursor=pointer]:
+              - /url: /projects/defaultsd/activity?from=2026-09-07
+            - text: hinzugefügt. Vor
+            - link "weniger als 1 Minute" [ref=f45e133] [cursor=pointer]:
+              - /url: /projects/defaultsd/activity?from=2026-09-07
+            - text: aktualisiert.
+          - generic [ref=f45e134]:
+            - generic [ref=f45e135]:
+              - generic [ref=f45e136]:
+                - generic [ref=f45e137]:
+                  - generic [ref=f45e138]: "Status:"
+                  - generic [ref=f45e139]:
+                    - text: In Progress
+                    - button "Edit" [ref=f45e140] [cursor=pointer]
+                - generic [ref=f45e141]:
+                  - generic [ref=f45e142]: "Priorität:"
+                  - generic [ref=f45e143]:
+                    - text: High
+                    - button "Edit" [ref=f45e144] [cursor=pointer]
+                - generic [ref=f45e145]:
+                  - generic [ref=f45e146]: "Zugewiesen an:"
+                  - generic [ref=f45e147]:
+                    - link "Redmine Admin" [ref=f45e149] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f45e150] [cursor=pointer]
+              - generic [ref=f45e151]:
+                - generic [ref=f45e152]:
+                  - generic [ref=f45e153]: "Startdatum:"
+                  - generic [ref=f45e154]:
+                    - text: 08.08.2026
+                    - button "Edit" [ref=f45e155] [cursor=pointer]
+                - generic [ref=f45e156]:
+                  - generic [ref=f45e157]: "Abgabedatum:"
+                  - generic [ref=f45e158]:
+                    - text: 28.08.2026 (seit 10 Tagen verspätet)
+                    - button "Edit" [ref=f45e159] [cursor=pointer]
+                - generic [ref=f45e160]:
+                  - generic [ref=f45e161]: "% erledigt:"
+                  - generic [ref=f45e162]:
+                    - generic [ref=f45e163]:
+                      - table [ref=f45e164]:
+                        - rowgroup [ref=f45e165]:
+                          - row [ref=f45e166]:
+                            - cell [ref=f45e167]
+                      - paragraph [ref=f45e168]: 0%
+                    - button "Edit" [ref=f45e169] [cursor=pointer]
+                - generic [ref=f45e170]:
+                  - generic [ref=f45e171]: "Geschätzter Aufwand:"
+                  - button "Edit" [ref=f45e173] [cursor=pointer]
+            - generic [ref=f45e174]:
+              - generic [ref=f45e175]: "Tags:"
+              - generic [ref=f45e177]:
+                - link "qagermantwo" [ref=f45e179] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&v%5Btags%5D%5B%5D=qagermantwo&values%5Btags%5D%5B%5D=qagermantwo
+                - link "qagermanthree" [ref=f45e181] [cursor=pointer]:
+                  - /url: /projects/defaultsd/issues?display_type=list&f%5B%5D=tags&fields%5B%5D=tags&op%5Btags%5D=%3D&operators%5Btags%5D=%3D&set_filter=1&v%5Btags%5D%5B%5D=qagermanthree&values%5Btags%5D%5B%5D=qagermanthree
+            - generic [ref=f45e182]: Hinzufügen
+          - separator [ref=f45e183]
+          - generic [ref=f45e184]:
+            - paragraph [ref=f45e186]:
+              - strong [ref=f45e187]: Checkliste
+            - generic [ref=f45e189] [cursor=pointer]
+            - list [ref=f45e193]:
+              - listitem [ref=f45e194]:
+                - generic [ref=f45e195]:
+                  - generic [ref=f45e196]:
+                    - checkbox [ref=f45e197]
+                    - generic [ref=f45e198]: QA Test Checklist DE
+                  - generic [ref=f45e199]:
+                    - progressbar:
+                      - generic [ref=f45e200]: 0%
+                - generic [ref=f45e202] [cursor=pointer]
+          - separator [ref=f45e205]
+          - generic [ref=f45e206]:
+            - link "Hinzufügen" [ref=f45e208] [cursor=pointer]:
+              - /url: /projects/defaultsd/issues/new?back_url=%2Fissues%2F230&issue%5Bparent_issue_id%5D=230&issue%5Btracker_id%5D=4
+            - paragraph [ref=f45e212]:
+              - strong [ref=f45e213]: Untergeordnete Tickets
+          - separator [ref=f45e214]
+          - generic [ref=f45e215]:
+            - link "Hinzufügen" [ref=f45e217] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f45e221]:
+              - strong [ref=f45e222]: Zugehörige Tickets
+        - generic [ref=f45e223]:
+          - list [ref=f45e225]:
+            - listitem [ref=f45e226]:
+              - link "Historie" [ref=f45e227] [cursor=pointer]:
+                - /url: /issues/230?tab=history
+            - listitem [ref=f45e228]:
+              - link "Notizen" [ref=f45e229] [cursor=pointer]:
+                - /url: /issues/230?tab=notes
+            - listitem [ref=f45e230]:
+              - link "Checklisten-Verlauf" [ref=f45e231] [cursor=pointer]:
+                - /url: /issues/230?tab=checklist_history
+          - generic [ref=f45e234]:
+            - heading [level=4] [ref=f45e235]:
+              - generic [ref=f45e236]:
+                - img [ref=f45e237]: RA
+                - text: Von
+                - link "Redmine Admin" [ref=f45e238] [cursor=pointer]:
+                  - /url: /users/1
+                - text: vor
+                - link "25 Minuten" [ref=f45e239] [cursor=pointer]:
+                  - /url: /projects/defaultsd/activity?from=2026-09-07
+                - text: aktualisiert
+              - generic [ref=f45e240]:
+                - generic [ref=f45e241]:
+                  - link [ref=f45e243] [cursor=pointer]:
+                    - /url: /reactions?object_id=1&object_type=Journal
+                  - link "Zitieren" [ref=f45e246] [cursor=pointer]:
+                    - /url: "#"
+                  - link "Bearbeiten" [ref=f45e249] [cursor=pointer]:
+                    - /url: /journals/1/edit
+                  - generic "Aktionen" [ref=f45e254] [cursor=pointer]
+                - link "#1" [ref=f45e257] [cursor=pointer]:
+                  - /url: "#note-1"
+            - paragraph [ref=f45e260]: Checkliste 'QA Test Checklist DE' wurde von Redmine Admin hinzugefügt.
+        - generic [ref=f45e261]:
+          - link "Bearbeiten" [ref=f45e262] [cursor=pointer]:
+            - /url: /issues/230/edit
+          - link "Aufwand buchen" [ref=f45e266] [cursor=pointer]:
+            - /url: /issues/230/time_entries/new
+          - link "Nicht beobachten" [ref=f45e270] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=230&object_type=issue
+          - link "Kopieren" [ref=f45e274] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/230/copy
+          - generic "Aktionen" [ref=f45e280] [cursor=pointer]
+        - text: pre pre
+        - paragraph [ref=f45e283]:
+          - text: "Auch abrufbar als:"
+          - link "PDF" [ref=f45e285] [cursor=pointer]:
+            - /url: /issues/230.pdf
+          - generic [ref=f45e286]:
+            - text: "|"
+            - link "Atom" [ref=f45e287] [cursor=pointer]:
+              - /url: /issues/230.atom?key=1a8d0f09e0337d3150adf38fa208ced775ca01b8
+    - generic [ref=f45e288]:
+      - text: Powered by
+      - link "Redmine" [ref=f45e289] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f45e290]
+  - status [ref=f45e291]
+  - log [ref=f45e292]
+  - log [ref=f45e293]
+  - log [ref=f45e294]
+  - log [ref=f45e295]
+  - log [ref=f45e296]
+  - log [ref=f45e297]
+  - log [ref=f45e298]
+  - log [ref=f45e299]
+  - log [ref=f45e300]
+  - log [ref=f45e301]
+  - log [ref=f45e302]
+  - log [ref=f45e303]
+  - log [ref=f45e304]
+  - log [ref=f45e305]
+  - log [ref=f45e306]
+  - log [ref=f45e307]
+  - log [ref=f45e308]
+  - log [ref=f45e309]
+  - log [ref=f45e310]
+  - log [ref=f45e311]
+  - log [ref=f45e312]
+  - log [ref=f45e313]
+  - log [ref=f45e314]
+  - log [ref=f45e315]
+  - log [ref=f45e316]
+  - log [ref=f45e317]
+  - log [ref=f45e318]
+  - log [ref=f45e319]
+  - log [ref=f45e320]
+  - log [ref=f45e321]
+  - log [ref=f45e322]
+  - log [ref=f45e323]
+  - log [ref=f45e324]
+  - log [ref=f45e325]
+  - log [ref=f45e326]
+  - log [ref=f45e327]
+  - log [ref=f45e328]
+  - log [ref=f45e329]
+  - log [ref=f45e330]
+  - log [ref=f45e331]
+  - log [ref=f45e332]
+  - log [ref=f45e333]
+  - log [ref=f45e334]
+  - log [ref=f45e335]
+  - log [ref=f45e336]
+  - log [ref=f45e337]
+  - log [ref=f45e338]
+  - log [ref=f45e339]
+  - log [ref=f45e340]
+  - log [ref=f45e341]
+  - log [ref=f45e342]
+  - log [ref=f45e343]
+  - log [ref=f45e344]
+  - log [ref=f45e345]
+  - log [ref=f45e346]
+  - log [ref=f45e347]
+  - log [ref=f45e348]
+  - log [ref=f45e349]
+  - log [ref=f45e350]
+  - status [ref=f45e351]
+  - status [ref=f45e352]

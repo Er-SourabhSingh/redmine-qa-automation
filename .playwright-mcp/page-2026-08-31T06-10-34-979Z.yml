@@ -1,0 +1,152 @@
+- generic [active] [ref=f272e1]:
+  - generic [ref=f272e2]:
+    - generic [ref=f272e3]:
+      - generic [ref=f272e4]:
+        - list:
+          - listitem [ref=f272e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f272e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f272e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f272e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f272e9]:
+        - listitem [ref=f272e10]:
+          - link [ref=f272e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f272e12]
+        - listitem [ref=f272e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f272e14]:
+          - link "My page" [ref=f272e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f272e16]:
+          - link "Projects" [ref=f272e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f272e18]:
+          - link "Time Tracker" [ref=f272e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f272e20]:
+          - link "Workloads" [ref=f272e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f272e22]:
+          - link "Help" [ref=f272e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f272e24]:
+      - generic [ref=f272e25]:
+        - generic [ref=f272e26]:
+          - generic [ref=f272e27]:
+            - link "Search..." [ref=f272e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f272e29]
+        - generic [ref=f272e30]:
+          - generic [ref=f272e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f272e32]
+      - generic [ref=f272e33]:
+        - list [ref=f272e34]:
+          - listitem [ref=f272e35]:
+            - link "+" [ref=f272e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f272e37]:
+            - link "Overview" [ref=f272e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f272e39]:
+            - link "Activity" [ref=f272e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f272e41]:
+            - link "Issues" [ref=f272e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f272e43]:
+            - link "Spent time" [ref=f272e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f272e45]:
+            - link "Gantt" [ref=f272e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f272e47]:
+            - link "Calendar" [ref=f272e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f272e49]:
+            - link "News" [ref=f272e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f272e51]:
+            - link "Documents" [ref=f272e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f272e53]:
+            - link "Wiki" [ref=f272e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f272e55]:
+            - link "Files" [ref=f272e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f272e57]:
+            - link "Helpdesk" [ref=f272e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f272e59]:
+          - button [ref=f272e60] [cursor=pointer]
+          - button [ref=f272e63] [cursor=pointer]
+    - generic [ref=f272e66]:
+      - list [ref=f272e70]:
+        - listitem [ref=f272e71]:
+          - link "Helpdesk Dashboard" [ref=f272e72] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f272e75]:
+          - link "Helpdesk Tickets" [ref=f272e76] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f272e79]:
+          - link "Knowledgebase" [ref=f272e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f272e83]:
+        - generic [ref=f272e84]:
+          - generic [ref=f272e86]:
+            - heading "Helpdesk Dashboard" [level=2] [ref=f272e87]
+            - paragraph [ref=f272e88]: Helpdesk QA Alpha
+          - generic [ref=f272e89]:
+            - button "Date Range" [ref=f272e91] [cursor=pointer]:
+              - generic [ref=f272e94]: 02 Aug 26 - 31 Aug 26
+            - link "New issue" [ref=f272e97] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk/new
+        - generic [ref=f272e99]:
+          - link "3 Unassigned View All" [ref=f272e100] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?assigned_to_id%5B%5D=none&created_from=2026-08-02&created_to=2026-08-31&status_id%5B%5D=open
+            - generic [ref=f272e107]: "3"
+            - generic [ref=f272e108]: Unassigned
+            - generic [ref=f272e109]: View All
+          - link "3 Open View All" [ref=f272e112] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?created_from=2026-08-02&created_to=2026-08-31&status_id%5B%5D=open
+            - generic [ref=f272e117]: "3"
+            - generic [ref=f272e118]: Open
+            - generic [ref=f272e119]: View All
+          - link "3 On Hold View All" [ref=f272e122] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?created_from=2026-08-02&created_to=2026-08-31
+            - generic [ref=f272e126]: "3"
+            - generic [ref=f272e127]: On Hold
+            - generic [ref=f272e128]: View All
+          - link "0 SLA Breached View All" [ref=f272e131] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?sla=breached
+            - generic [ref=f272e135]: "0"
+            - generic [ref=f272e136]: SLA Breached
+            - generic [ref=f272e137]: View All
+          - link "0 Resolved View All" [ref=f272e140] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?created_from=2026-08-02&created_to=2026-08-31&status_id%5B%5D=closed
+            - generic [ref=f272e145]: "0"
+            - generic [ref=f272e146]: Resolved
+            - generic [ref=f272e147]: View All
+    - generic [ref=f272e152]:
+      - text: Powered by
+      - link "Redmine" [ref=f272e153] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f272e154]
+  - log [ref=f272e155]
+  - log [ref=f272e156]
+  - log [ref=f272e157]
+  - log [ref=f272e158]
+  - log [ref=f272e159]
+  - log [ref=f272e160]
+  - log [ref=f272e161]
+  - log [ref=f272e162]

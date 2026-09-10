@@ -1,0 +1,556 @@
+- generic [active] [ref=f152e1]:
+  - generic [ref=f152e2]:
+    - navigation [ref=f152e3]:
+      - generic [ref=f152e4]:
+        - link [ref=f152e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f152e7] [cursor=pointer]
+      - list [ref=f152e17]:
+        - listitem [ref=f152e18]:
+          - link "Hauptseite" [ref=f152e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f152e20]:
+          - link "Meine Seite" [ref=f152e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f152e22]:
+          - link "Projekte" [ref=f152e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f152e24]:
+          - link "Agile Board" [ref=f152e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f152e26]:
+          - link "Flux Gantt" [ref=f152e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f152e28]:
+          - link "Administration" [ref=f152e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f152e30]:
+          - link "Hilfe" [ref=f152e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f152e32]:
+        - generic [ref=f152e33]:
+          - generic [ref=f152e34] [cursor=pointer]: Flux Gantt Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f152e35]
+        - link "Mein Konto" [ref=f152e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f152e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f152e44]:
+      - generic [ref=f152e46]:
+        - heading "Flux Gantt Project" [level=1] [ref=f152e47]
+        - generic [ref=f152e48]:
+          - generic [ref=f152e49]:
+            - generic [ref=f152e50]: Hauptmenü
+            - listitem [ref=f152e51]:
+              - link "+" [ref=f152e52] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f152e53]:
+            - listitem [ref=f152e54]:
+              - link "Übersicht" [ref=f152e55] [cursor=pointer]:
+                - /url: /projects/fluxganttproject
+            - listitem [ref=f152e60]:
+              - link "Dashboard" [ref=f152e61] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/analytics_dashboard
+            - listitem [ref=f152e69]:
+              - link "Aktivität" [ref=f152e70] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/activity
+            - listitem [ref=f152e75]:
+              - link "Roadmap" [ref=f152e76] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/roadmap
+            - listitem [ref=f152e83]:
+              - link "Tickets" [ref=f152e84] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues
+            - listitem [ref=f152e89]:
+              - link "Aufgewendete Zeit" [ref=f152e90] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/time_entries
+            - listitem [ref=f152e95]:
+              - link "Gantt-Diagramm" [ref=f152e96] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/gantt
+            - listitem [ref=f152e104]:
+              - link "Kalender" [ref=f152e105] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/calendar
+            - listitem [ref=f152e110]:
+              - link "News" [ref=f152e111] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/news
+            - listitem [ref=f152e116]:
+              - link "Dokumente" [ref=f152e117] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/documents
+            - listitem [ref=f152e122]:
+              - link "Wiki" [ref=f152e123] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/wiki
+            - listitem [ref=f152e128]:
+              - link "Dateien" [ref=f152e129] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/files
+            - listitem [ref=f152e134]:
+              - link "Konfiguration" [ref=f152e135] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/settings
+      - generic [ref=f152e142]:
+        - generic [ref=f152e143]:
+          - generic [ref=f152e144]:
+            - 'heading "Bug #265" [level=2] [ref=f152e145]'
+            - generic [ref=f152e146]: offen
+          - generic [ref=f152e147]:
+            - link "Hinzufügen Kommentare" [ref=f152e148] [cursor=pointer]:
+              - /url: "#"
+            - generic [ref=f152e151]:
+              - link "Bearbeiten" [ref=f152e152] [cursor=pointer]:
+                - /url: /issues/265/edit
+              - link "Aufwand buchen" [ref=f152e154] [cursor=pointer]:
+                - /url: /issues/265/time_entries/new
+              - link "Nicht beobachten" [ref=f152e156] [cursor=pointer]:
+                - /url: /watchers/watch?object_id=265&object_type=issue
+              - link "Kopieren" [ref=f152e158] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/265/copy
+              - generic "Aktionen" [ref=f152e162] [cursor=pointer]
+        - generic [ref=f152e165]:
+          - link "« Zurück" [ref=f152e166] [cursor=pointer]:
+            - /url: /issues/266
+          - text: "|"
+          - link "2/266" [ref=f152e167] [cursor=pointer]:
+            - /url: /issues?f%5B%5D=status_id&op%5Bstatus_id%5D=o&page=1&per_page=25&set_filter=1&sort=id%3Adesc&v%5Bstatus_id%5D%5B%5D=
+          - text: "|"
+          - link "Weiter »" [ref=f152e168] [cursor=pointer]:
+            - /url: /issues/264
+        - generic [ref=f152e169]:
+          - generic [ref=f152e171]:
+            - generic [ref=f152e172]:
+              - generic [ref=f152e173]:
+                - 'img "Autor: Harmony Rose" [ref=f152e174]': HR
+                - 'img "Zugewiesen an: Summer Rain" [ref=f152e175]': SR
+              - generic [ref=f152e176]:
+                - heading [level=3] [ref=f152e179]:
+                  - text: Fix audit log performance
+                  - button "Edit" [ref=f152e180] [cursor=pointer]
+                - paragraph [ref=f152e181]:
+                  - text: Von
+                  - link "Harmony Rose" [ref=f152e182] [cursor=pointer]:
+                    - /url: /users/10
+                  - text: vor
+                  - link "24 Minuten" [ref=f152e183] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject/activity?from=2026-09-10
+                  - text: hinzugefügt. Vor
+                  - link "8 Minuten" [ref=f152e184] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject/activity?from=2026-09-10
+                  - text: aktualisiert.
+            - generic [ref=f152e185]:
+              - generic [ref=f152e186]:
+                - generic [ref=f152e187]:
+                  - generic [ref=f152e188]: •
+                  - generic [ref=f152e189]: Status
+                  - generic [ref=f152e190]:
+                    - text: Resolved
+                    - button "Edit" [ref=f152e191] [cursor=pointer]
+                - generic [ref=f152e192]:
+                  - generic [ref=f152e193]: •
+                  - generic [ref=f152e194]: Priorität
+                  - generic [ref=f152e195]: Normal
+                - generic [ref=f152e196]:
+                  - generic [ref=f152e197]: •
+                  - generic [ref=f152e198]: Zugewiesen an
+                  - generic [ref=f152e199]:
+                    - link "Summer Rain" [ref=f152e201] [cursor=pointer]:
+                      - /url: /users/11
+                    - button "Edit" [ref=f152e202] [cursor=pointer]
+                - generic [ref=f152e203]:
+                  - generic [ref=f152e204]: •
+                  - generic [ref=f152e205]: Zielversion
+                  - generic [ref=f152e206]:
+                    - text: "-"
+                    - button "Edit" [ref=f152e207] [cursor=pointer]
+                - generic [ref=f152e208]: "• Markierungen:"
+              - generic [ref=f152e210]:
+                - generic [ref=f152e211]:
+                  - generic [ref=f152e212]: •
+                  - generic [ref=f152e213]: Startdatum
+                  - generic [ref=f152e214]: 07.09.2026
+                - generic [ref=f152e215]:
+                  - generic [ref=f152e216]: •
+                  - generic [ref=f152e217]: Abgabedatum
+                  - generic [ref=f152e218]: 30.09.2026 (Fällig in 20 Tagen)
+                - generic [ref=f152e219]:
+                  - generic [ref=f152e220]: •
+                  - generic [ref=f152e221]: Geschätzter Aufwand
+                  - generic [ref=f152e222]:
+                    - text: "(Gesamtzahl: 0:00 h)"
+                    - button "Edit" [ref=f152e223] [cursor=pointer]
+                - generic [ref=f152e224]:
+                  - generic [ref=f152e225]: •
+                  - generic [ref=f152e226]: "% erledigt"
+                  - generic [ref=f152e227]: 0%
+                - generic [ref=f152e230]: Hinzufügen
+            - separator [ref=f152e232]
+            - generic [ref=f152e233]:
+              - paragraph [ref=f152e235]:
+                - strong [ref=f152e236]: Checkliste
+              - generic [ref=f152e238] [cursor=pointer]
+              - list [ref=f152e241]:
+                - listitem [ref=f152e242]:
+                  - generic [ref=f152e243]:
+                    - generic [ref=f152e244]:
+                      - checkbox [ref=f152e245]
+                      - generic [ref=f152e246]: sadfdafsa
+                    - generic [ref=f152e247]:
+                      - progressbar:
+                        - generic [ref=f152e248]: 0%
+                  - generic [ref=f152e250] [cursor=pointer]
+            - generic [ref=f152e252]:
+              - link "Hinzufügen" [ref=f152e254] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/new?back_url=%2Fissues%2F265&issue%5Bparent_issue_id%5D=265&issue%5Btracker_id%5D=4
+              - paragraph [ref=f152e256]:
+                - strong [ref=f152e257]: Untergeordnete Tickets
+                - generic [ref=f152e258]:
+                  - link "1" [ref=f152e260] [cursor=pointer]:
+                    - /url: /issues?parent_id=~265&set_filter=true&status_id=%2A
+                  - text: (
+                  - link "1 offen" [ref=f152e262] [cursor=pointer]:
+                    - /url: /issues?parent_id=~265&set_filter=true&status_id=o
+                  - text: — 0 geschlossen)
+              - table [ref=f152e265]:
+                - rowgroup [ref=f152e266]:
+                  - row [ref=f152e267]:
+                    - columnheader "Thema" [ref=f152e268]
+                    - columnheader "Status" [ref=f152e269]
+                    - columnheader "Zugewiesen an" [ref=f152e270]
+                    - columnheader "Startdatum" [ref=f152e271]
+                    - columnheader "Abgabedatum" [ref=f152e272]
+                    - columnheader "% erledigt" [ref=f152e273]
+                    - columnheader "Projekt" [ref=f152e274]
+                    - columnheader "Übergeordnetes Ticket" [ref=f152e275]
+                    - columnheader "Thema des übergeordneten Tickets" [ref=f152e276]
+                    - columnheader "Priorität" [ref=f152e277]
+                    - columnheader "Autor" [ref=f152e278]
+                    - columnheader "Beobachter" [ref=f152e279]
+                    - columnheader "Aktualisiert" [ref=f152e280]
+                    - columnheader "Kategorie" [ref=f152e281]
+                    - columnheader "Zielversion" [ref=f152e282]
+                    - columnheader "Geschätzter Aufwand" [ref=f152e283]
+                    - columnheader "Geschätzter verbleibender Aufwand" [ref=f152e284]
+                    - columnheader "Summe des geschätzten Aufwands" [ref=f152e285]
+                    - columnheader "Aufgewendete Zeit" [ref=f152e286]
+                    - columnheader "Aufgewendete Zeit aller Projekte anzeigen" [ref=f152e287]
+                    - columnheader "Angelegt" [ref=f152e288]
+                    - columnheader "Geschlossen am" [ref=f152e289]
+                    - columnheader "Zuletzt geändert von" [ref=f152e290]
+                    - columnheader "Zugehörige Tickets" [ref=f152e291]
+                    - columnheader "Dateien" [ref=f152e292]
+                    - columnheader "Privat" [ref=f152e293]
+                    - columnheader "Sprint" [ref=f152e294]
+                    - columnheader "Story-Points" [ref=f152e295]
+                    - columnheader "Markierungen" [ref=f152e296]
+                - rowgroup [ref=f152e297]:
+                  - row [ref=f152e298]:
+                    - cell [ref=f152e299]:
+                      - 'link "Bug #266" [ref=f152e300] [cursor=pointer]':
+                        - /url: /issues/266
+                      - text: ": sdfgsdfg"
+                    - cell "New" [ref=f152e301]
+                    - cell [ref=f152e302]
+                    - cell "07.09.2026" [ref=f152e303]
+                    - cell "30.09.2026" [ref=f152e304]
+                    - cell [ref=f152e305]:
+                      - table [ref=f152e306]:
+                        - rowgroup [ref=f152e307]:
+                          - row [ref=f152e308]:
+                            - cell [ref=f152e309]
+                      - paragraph
+                    - cell [ref=f152e310]:
+                      - link "Flux Gantt Project" [ref=f152e311] [cursor=pointer]:
+                        - /url: /projects/fluxganttproject
+                    - cell [ref=f152e312]:
+                      - 'link "Bug #265" [ref=f152e313] [cursor=pointer]':
+                        - /url: /issues/265
+                    - cell "Fix audit log performance" [ref=f152e314]
+                    - cell "Normal" [ref=f152e315]
+                    - cell [ref=f152e316]:
+                      - link "Redmine Admin" [ref=f152e317] [cursor=pointer]:
+                        - /url: /users/1
+                    - cell [ref=f152e318]:
+                      - list [ref=f152e319]:
+                        - listitem [ref=f152e320]:
+                          - link "Redmine Admin" [ref=f152e321] [cursor=pointer]:
+                            - /url: /users/1
+                    - cell "10.09.2026 05:16" [ref=f152e322]
+                    - cell [ref=f152e323]
+                    - cell [ref=f152e324]
+                    - cell [ref=f152e325]
+                    - cell "0:00" [ref=f152e326]
+                    - cell [ref=f152e327]
+                    - cell "0:00" [ref=f152e328]
+                    - cell "0:00" [ref=f152e329]
+                    - cell "10.09.2026 05:16" [ref=f152e330]
+                    - cell [ref=f152e331]
+                    - cell [ref=f152e332]
+                    - cell [ref=f152e333]
+                    - cell [ref=f152e334]
+                    - cell "Nein" [ref=f152e335]
+                    - cell [ref=f152e336]
+                    - cell [ref=f152e337]
+                    - cell [ref=f152e338]
+                    - cell [ref=f152e339]:
+                      - link "Remove subtask" [ref=f152e340] [cursor=pointer]:
+                        - /url: /issues/266?back_url=%2Fissues%2F265&issue%5Bparent_issue_id%5D=&no_flash=1
+                      - link "Aktionen" [ref=f152e342] [cursor=pointer]:
+                        - /url: "#"
+            - generic [ref=f152e345]:
+              - link "Hinzufügen" [ref=f152e347] [cursor=pointer]:
+                - /url: "#"
+              - paragraph [ref=f152e349]:
+                - strong [ref=f152e350]: Zugehörige Tickets
+                - generic [ref=f152e351]:
+                  - link "1" [ref=f152e353] [cursor=pointer]:
+                    - /url: /issues?issue_id=263&set_filter=true&status_id=%2A
+                  - text: (
+                  - link "1 offen" [ref=f152e355] [cursor=pointer]:
+                    - /url: /issues?issue_id=263&set_filter=true&status_id=o
+                  - text: — 0 geschlossen)
+              - table [ref=f152e358]:
+                - rowgroup [ref=f152e359]:
+                  - row [ref=f152e360]:
+                    - columnheader "Thema" [ref=f152e361]
+                    - columnheader "Status" [ref=f152e362]
+                    - columnheader "Zugewiesen an" [ref=f152e363]
+                    - columnheader "Startdatum" [ref=f152e364]
+                    - columnheader "Abgabedatum" [ref=f152e365]
+                    - columnheader "% erledigt" [ref=f152e366]
+                    - columnheader "Projekt" [ref=f152e367]
+                    - columnheader "Übergeordnetes Ticket" [ref=f152e368]
+                    - columnheader "Thema des übergeordneten Tickets" [ref=f152e369]
+                    - columnheader "Priorität" [ref=f152e370]
+                    - columnheader "Autor" [ref=f152e371]
+                    - columnheader "Beobachter" [ref=f152e372]
+                    - columnheader "Aktualisiert" [ref=f152e373]
+                    - columnheader "Kategorie" [ref=f152e374]
+                    - columnheader "Zielversion" [ref=f152e375]
+                    - columnheader "Geschätzter Aufwand" [ref=f152e376]
+                    - columnheader "Geschätzter verbleibender Aufwand" [ref=f152e377]
+                    - columnheader "Summe des geschätzten Aufwands" [ref=f152e378]
+                    - columnheader "Aufgewendete Zeit" [ref=f152e379]
+                    - columnheader "Aufgewendete Zeit aller Projekte anzeigen" [ref=f152e380]
+                    - columnheader "Angelegt" [ref=f152e381]
+                    - columnheader "Geschlossen am" [ref=f152e382]
+                    - columnheader "Zuletzt geändert von" [ref=f152e383]
+                    - columnheader "Zugehörige Tickets" [ref=f152e384]
+                    - columnheader "Dateien" [ref=f152e385]
+                    - columnheader "Privat" [ref=f152e386]
+                    - columnheader "Sprint" [ref=f152e387]
+                    - columnheader "Story-Points" [ref=f152e388]
+                    - columnheader "Markierungen" [ref=f152e389]
+                - rowgroup [ref=f152e390]:
+                  - row [ref=f152e391]:
+                    - cell [ref=f152e392]:
+                      - text: Beziehung mit
+                      - 'link "Feature #263" [ref=f152e393] [cursor=pointer]':
+                        - /url: /issues/263
+                      - text: ": Add change comments"
+                    - cell "New" [ref=f152e394]
+                    - cell [ref=f152e395]:
+                      - link "Celeste Dawn" [ref=f152e396] [cursor=pointer]:
+                        - /url: /users/13
+                    - cell "11.02.2029" [ref=f152e397]
+                    - cell "16.02.2029" [ref=f152e398]
+                    - cell [ref=f152e399]:
+                      - table [ref=f152e400]:
+                        - rowgroup [ref=f152e401]:
+                          - row [ref=f152e402]:
+                            - cell [ref=f152e403]
+                      - paragraph
+                    - cell [ref=f152e404]:
+                      - link "Flux Gantt Project" [ref=f152e405] [cursor=pointer]:
+                        - /url: /projects/fluxganttproject
+                    - cell [ref=f152e406]
+                    - cell [ref=f152e407]
+                    - cell "High" [ref=f152e408]
+                    - cell [ref=f152e409]:
+                      - link "Willow Belle" [ref=f152e410] [cursor=pointer]:
+                        - /url: /users/9
+                    - cell [ref=f152e411]:
+                      - list [ref=f152e412]:
+                        - listitem [ref=f152e413]:
+                          - link "Redmine Admin" [ref=f152e414] [cursor=pointer]:
+                            - /url: /users/1
+                    - cell "10.09.2026 04:59" [ref=f152e415]
+                    - cell [ref=f152e416]
+                    - cell [ref=f152e417]
+                    - cell [ref=f152e418]
+                    - cell "0:00" [ref=f152e419]
+                    - cell [ref=f152e420]
+                    - cell "0:00" [ref=f152e421]
+                    - cell "0:00" [ref=f152e422]
+                    - cell "10.09.2026 04:59" [ref=f152e423]
+                    - cell [ref=f152e424]
+                    - cell [ref=f152e425]:
+                      - link "Redmine Admin" [ref=f152e426] [cursor=pointer]:
+                        - /url: /users/1
+                    - cell [ref=f152e427]:
+                      - generic [ref=f152e428]:
+                        - text: Beziehung mit
+                        - link "#265" [ref=f152e429] [cursor=pointer]:
+                          - /url: /issues/265
+                    - cell [ref=f152e430]
+                    - cell "Nein" [ref=f152e431]
+                    - cell [ref=f152e432]
+                    - cell [ref=f152e433]
+                    - cell [ref=f152e434]
+                    - cell [ref=f152e435]:
+                      - link "Remove relation" [ref=f152e436] [cursor=pointer]:
+                        - /url: /relations/1?issue_id=265
+                      - link "Aktionen" [ref=f152e438] [cursor=pointer]:
+                        - /url: "#"
+            - generic [ref=f152e442]:
+              - link "Hinzufügen" [ref=f152e444] [cursor=pointer]:
+                - /url: /watchers/new?object_id=265&object_type=issue
+              - heading "Beobachter (1)" [level=3] [ref=f152e445]
+              - list [ref=f152e446]:
+                - listitem [ref=f152e447]:
+                  - img [ref=f152e448]: RA
+                  - link "Redmine Admin" [ref=f152e449] [cursor=pointer]:
+                    - /url: /users/1
+                  - link "Remove" [ref=f152e450] [cursor=pointer]:
+                    - /url: /issues/265/watchers/1
+          - generic [ref=f152e453]:
+            - generic [ref=f152e455]:
+              - generic [ref=f152e456]:
+                - list [ref=f152e457]:
+                  - listitem [ref=f152e458]:
+                    - link "Historie" [ref=f152e459] [cursor=pointer]:
+                      - /url: /issues/265?tab=history
+                  - listitem [ref=f152e460]:
+                    - link "Notizen" [ref=f152e461] [cursor=pointer]:
+                      - /url: /issues/265?tab=notes
+                  - listitem [ref=f152e462]:
+                    - link "Eigenschaftsänderungen" [ref=f152e463] [cursor=pointer]:
+                      - /url: /issues/265?tab=properties
+                  - listitem [ref=f152e464]:
+                    - link "Checklisten-Verlauf" [ref=f152e465] [cursor=pointer]:
+                      - /url: /issues/265?tab=checklist_history
+                - generic [ref=f152e466]:
+                  - button [ref=f152e467]
+                  - button [ref=f152e470] [cursor=pointer]
+              - generic [ref=f152e475]:
+                - heading [level=4] [ref=f152e476]:
+                  - generic [ref=f152e477]:
+                    - img [ref=f152e478]: RA
+                    - text: Von
+                    - link "Redmine Admin" [ref=f152e479] [cursor=pointer]:
+                      - /url: /users/1
+                    - text: vor
+                    - link "8 Minuten" [ref=f152e480] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject/activity?from=2026-09-10
+                    - text: aktualisiert
+                  - generic [ref=f152e481]:
+                    - generic [ref=f152e482]:
+                      - link [ref=f152e484] [cursor=pointer]:
+                        - /url: /reactions?object_id=4&object_type=Journal
+                      - link "Zitieren" [ref=f152e487] [cursor=pointer]:
+                        - /url: "#"
+                      - link "Bearbeiten" [ref=f152e490] [cursor=pointer]:
+                        - /url: /journals/4/edit
+                      - generic "Aktionen" [ref=f152e495] [cursor=pointer]
+                    - link "#3" [ref=f152e498] [cursor=pointer]:
+                      - /url: "#note-3"
+                - paragraph [ref=f152e501]: Checklist 'sadfdafsa' was added by Redmine Admin.
+            - paragraph [ref=f152e503]:
+              - text: "Auch abrufbar als:"
+              - link "Atom" [ref=f152e505] [cursor=pointer]:
+                - /url: /issues/265.atom?key=d674513a77379f381a356a5b0d67fe9eb131b838
+              - generic [ref=f152e506]:
+                - text: "|"
+                - link "PDF" [ref=f152e507] [cursor=pointer]:
+                  - /url: /issues/265.pdf
+        - generic [ref=f152e508]:
+          - generic [ref=f152e509]:
+            - link "Bearbeiten" [ref=f152e510] [cursor=pointer]:
+              - /url: /issues/265/edit
+            - link "Aufwand buchen" [ref=f152e512] [cursor=pointer]:
+              - /url: /issues/265/time_entries/new
+            - link "Nicht beobachten" [ref=f152e514] [cursor=pointer]:
+              - /url: /watchers/watch?object_id=265&object_type=issue
+            - link "Kopieren" [ref=f152e516] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/issues/265/copy
+            - generic "Aktionen" [ref=f152e520] [cursor=pointer]
+          - text: pre pre
+    - generic [ref=f152e523]:
+      - text: Powered by
+      - link "Redmine" [ref=f152e524] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f152e525]
+  - status [ref=f152e526]
+  - log [ref=f152e527]
+  - log [ref=f152e528]
+  - log [ref=f152e529]
+  - log [ref=f152e530]
+  - log [ref=f152e531]
+  - log [ref=f152e532]
+  - log [ref=f152e533]
+  - log [ref=f152e534]
+  - log [ref=f152e535]
+  - log [ref=f152e536]
+  - log [ref=f152e537]
+  - log [ref=f152e538]
+  - log [ref=f152e539]
+  - log [ref=f152e540]
+  - log [ref=f152e541]
+  - log [ref=f152e542]
+  - log [ref=f152e543]
+  - log [ref=f152e544]
+  - log [ref=f152e545]
+  - log [ref=f152e546]
+  - log [ref=f152e547]
+  - log [ref=f152e548]
+  - log [ref=f152e549]
+  - log [ref=f152e550]
+  - log [ref=f152e551]
+  - log [ref=f152e552]
+  - log [ref=f152e553]
+  - log [ref=f152e554]
+  - log [ref=f152e555]
+  - log [ref=f152e556]
+  - log [ref=f152e557]
+  - log [ref=f152e558]
+  - log [ref=f152e559]
+  - log [ref=f152e560]
+  - log [ref=f152e561]
+  - log [ref=f152e562]
+  - log [ref=f152e563]
+  - log [ref=f152e564]
+  - log [ref=f152e565]
+  - log [ref=f152e566]
+  - log [ref=f152e567]
+  - log [ref=f152e568]
+  - log [ref=f152e569]
+  - log [ref=f152e570]
+  - log [ref=f152e571]
+  - log [ref=f152e572]
+  - log [ref=f152e573]
+  - log [ref=f152e574]
+  - log [ref=f152e575]
+  - log [ref=f152e576]
+  - log [ref=f152e577]
+  - log [ref=f152e578]
+  - log [ref=f152e579]
+  - log [ref=f152e580]
+  - log [ref=f152e581]
+  - log [ref=f152e582]
+  - log [ref=f152e583]
+  - log [ref=f152e584]
+  - log [ref=f152e585]
+  - log [ref=f152e586]
+  - log [ref=f152e587]
+  - log [ref=f152e588]
+  - log [ref=f152e589]
+  - log [ref=f152e590]
+  - log [ref=f152e591]
+  - log [ref=f152e592]
+  - log [ref=f152e593]
+  - log [ref=f152e594]
+  - log [ref=f152e595]
+  - log [ref=f152e596]
+  - log [ref=f152e597]
+  - log [ref=f152e598]
+  - log [ref=f152e599]
+  - log [ref=f152e600]
+  - log [ref=f152e601]
+  - status [ref=f152e602]
+  - status [ref=f152e603]

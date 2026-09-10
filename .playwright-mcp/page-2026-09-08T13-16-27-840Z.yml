@@ -1,0 +1,314 @@
+- generic [active] [ref=f11e1]:
+  - generic [ref=f11e2]:
+    - navigation [ref=f11e3]:
+      - generic [ref=f11e4]:
+        - link [ref=f11e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f11e7] [cursor=pointer]
+      - list [ref=f11e17]:
+        - listitem [ref=f11e18]:
+          - link "Hauptseite" [ref=f11e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f11e20]:
+          - link "Meine Seite" [ref=f11e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f11e22]:
+          - link "Projekte" [ref=f11e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f11e24]:
+          - link "Agile Board" [ref=f11e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f11e26]:
+          - link "Flux Gantt" [ref=f11e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f11e28]:
+          - link "Administration" [ref=f11e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f11e30]:
+          - link "Hilfe" [ref=f11e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f11e32]:
+        - generic [ref=f11e33]:
+          - generic [ref=f11e34] [cursor=pointer]: Flux Gantt Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f11e35]
+        - link "Mein Konto" [ref=f11e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f11e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f11e44]:
+      - generic [ref=f11e46]:
+        - heading "Flux Gantt Project" [level=1] [ref=f11e47]
+        - generic [ref=f11e48]:
+          - generic [ref=f11e49]:
+            - generic [ref=f11e50]: Hauptmenü
+            - listitem [ref=f11e51]:
+              - link "+" [ref=f11e52] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f11e53]:
+            - listitem [ref=f11e54]:
+              - link "Übersicht" [ref=f11e55] [cursor=pointer]:
+                - /url: /projects/fluxganttproject
+            - listitem [ref=f11e60]:
+              - link "Dashboard" [ref=f11e61] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/analytics_dashboard
+            - listitem [ref=f11e69]:
+              - link "Flux Gantt" [ref=f11e70] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/flux_gantt
+            - listitem [ref=f11e77]:
+              - link "Aktivität" [ref=f11e78] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/activity
+            - listitem [ref=f11e83]:
+              - link "Roadmap" [ref=f11e84] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/roadmap
+            - listitem [ref=f11e91]:
+              - link "Tickets" [ref=f11e92] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues
+            - listitem [ref=f11e97]:
+              - link "Aufgewendete Zeit" [ref=f11e98] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/time_entries
+            - listitem [ref=f11e103]:
+              - link "Gantt-Diagramm" [ref=f11e104] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/gantt
+            - listitem [ref=f11e112]:
+              - link "Kalender" [ref=f11e113] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/calendar
+            - listitem [ref=f11e118]:
+              - link "News" [ref=f11e119] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/news
+            - listitem [ref=f11e124]:
+              - link "Dokumente" [ref=f11e125] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/documents
+            - listitem [ref=f11e130]:
+              - link "Wiki" [ref=f11e131] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/wiki
+            - listitem [ref=f11e136]:
+              - link "Dateien" [ref=f11e137] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/files
+            - listitem [ref=f11e142]:
+              - link "Konfiguration" [ref=f11e143] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/settings
+      - generic [ref=f11e150]:
+        - generic [ref=f11e151]:
+          - generic [ref=f11e152]:
+            - 'heading "Feature #241" [level=2] [ref=f11e153]'
+            - generic [ref=f11e154]: offen
+          - generic [ref=f11e155]:
+            - link "Hinzufügen Kommentare" [ref=f11e156] [cursor=pointer]:
+              - /url: "#"
+            - generic [ref=f11e159]:
+              - link "Bearbeiten" [ref=f11e160] [cursor=pointer]:
+                - /url: /issues/241/edit
+              - link "Aufwand buchen" [ref=f11e162] [cursor=pointer]:
+                - /url: /issues/241/time_entries/new
+              - link "Beobachten" [ref=f11e164] [cursor=pointer]:
+                - /url: /watchers/watch?object_id=241&object_type=issue
+              - link "Kopieren" [ref=f11e166] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/241/copy
+              - generic "Aktionen" [ref=f11e170] [cursor=pointer]
+        - generic [ref=f11e173]:
+          - generic [ref=f11e175]:
+            - generic [ref=f11e176]:
+              - generic [ref=f11e177]:
+                - 'img "Autor: Celeste Dawn" [ref=f11e178]': CD
+                - 'img "Zugewiesen an: Summer Rain" [ref=f11e179]': SR
+              - generic [ref=f11e180]:
+                - heading [level=3] [ref=f11e183]:
+                  - text: create a agile issue status column setting
+                  - button "Edit" [ref=f11e184] [cursor=pointer]
+                - paragraph [ref=f11e185]:
+                  - text: Von
+                  - link "Celeste Dawn" [ref=f11e186] [cursor=pointer]:
+                    - /url: /users/13
+                  - text: vor
+                  - link "etwa 1 Stunde" [ref=f11e187] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject/activity?from=2026-09-08
+                  - text: hinzugefügt.
+            - generic [ref=f11e188]:
+              - generic [ref=f11e189]:
+                - generic [ref=f11e190]:
+                  - generic [ref=f11e191]: •
+                  - generic [ref=f11e192]: Status
+                  - generic [ref=f11e193]:
+                    - text: New
+                    - button "Edit" [ref=f11e194] [cursor=pointer]
+                - generic [ref=f11e195]:
+                  - generic [ref=f11e196]: •
+                  - generic [ref=f11e197]: Priorität
+                  - generic [ref=f11e198]:
+                    - text: Low
+                    - button "Edit" [ref=f11e199] [cursor=pointer]
+                - generic [ref=f11e200]:
+                  - generic [ref=f11e201]: •
+                  - generic [ref=f11e202]: Zugewiesen an
+                  - generic [ref=f11e203]:
+                    - link "Summer Rain" [ref=f11e205] [cursor=pointer]:
+                      - /url: /users/11
+                    - button "Edit" [ref=f11e206] [cursor=pointer]
+                - generic [ref=f11e207]:
+                  - generic [ref=f11e208]: •
+                  - generic [ref=f11e209]: Zielversion
+                  - generic [ref=f11e210]:
+                    - link "Version 2" [ref=f11e212] [cursor=pointer]:
+                      - /url: /versions/2
+                    - button "Edit" [ref=f11e213] [cursor=pointer]
+                - generic [ref=f11e214]: "• Markierungen:"
+              - generic [ref=f11e216]:
+                - generic [ref=f11e217]:
+                  - generic [ref=f11e218]: •
+                  - generic [ref=f11e219]: Startdatum
+                  - generic [ref=f11e220]:
+                    - text: 14.09.2026
+                    - button "Edit" [ref=f11e221] [cursor=pointer]
+                - generic [ref=f11e222]:
+                  - generic [ref=f11e223]: •
+                  - generic [ref=f11e224]: Abgabedatum
+                  - generic [ref=f11e225]:
+                    - text: 18.09.2026 (Fällig in 10 Tagen)
+                    - button "Edit" [ref=f11e226] [cursor=pointer]
+                - generic [ref=f11e227]:
+                  - generic [ref=f11e228]: •
+                  - generic [ref=f11e229]: Geschätzter Aufwand
+                  - button "Edit" [ref=f11e231] [cursor=pointer]
+                - generic [ref=f11e232]:
+                  - generic [ref=f11e233]: •
+                  - generic [ref=f11e234]: "% erledigt"
+                  - generic [ref=f11e235]:
+                    - generic [ref=f11e236]: 0%
+                    - button "Edit" [ref=f11e239] [cursor=pointer]
+                - generic [ref=f11e240]: Hinzufügen
+            - separator [ref=f11e242]
+            - generic [ref=f11e243]:
+              - paragraph [ref=f11e245]:
+                - strong [ref=f11e246]: Checkliste
+              - generic [ref=f11e248] [cursor=pointer]
+              - generic:
+                - list
+            - generic [ref=f11e250]:
+              - link "Hinzufügen" [ref=f11e252] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/new?back_url=%2Fissues%2F241&issue%5Bparent_issue_id%5D=241&issue%5Btracker_id%5D=5
+              - paragraph [ref=f11e254]:
+                - strong [ref=f11e255]: Untergeordnete Tickets
+            - generic [ref=f11e256]:
+              - link "Hinzufügen" [ref=f11e258] [cursor=pointer]:
+                - /url: "#"
+              - paragraph [ref=f11e260]:
+                - strong [ref=f11e261]: Zugehörige Tickets
+                - generic [ref=f11e262]:
+                  - link "1" [ref=f11e264] [cursor=pointer]:
+                    - /url: /issues?issue_id=242&set_filter=true&status_id=%2A
+                  - text: (
+                  - link "1 offen" [ref=f11e266] [cursor=pointer]:
+                    - /url: /issues?issue_id=242&set_filter=true&status_id=o
+                  - text: — 0 geschlossen)
+              - table [ref=f11e269]:
+                - rowgroup [ref=f11e270]:
+                  - row [ref=f11e271]:
+                    - cell [ref=f11e272]:
+                      - text: Vorgänger von
+                      - 'link "Feature #242" [ref=f11e273] [cursor=pointer]':
+                        - /url: /issues/242
+                      - text: ": create a agile card field column setting"
+                    - cell "New" [ref=f11e274]
+                    - cell [ref=f11e275]:
+                      - link "Summer Rain" [ref=f11e276] [cursor=pointer]:
+                        - /url: /users/11
+                    - cell "21.09.2026" [ref=f11e277]
+                    - cell "25.09.2026" [ref=f11e278]
+                    - cell [ref=f11e279]:
+                      - table [ref=f11e280]:
+                        - rowgroup [ref=f11e281]:
+                          - row [ref=f11e282]:
+                            - cell [ref=f11e283]
+                      - paragraph
+                    - cell [ref=f11e284]:
+                      - link "Remove relation" [ref=f11e285] [cursor=pointer]:
+                        - /url: /relations/1?issue_id=241
+                      - link "Aktionen" [ref=f11e287] [cursor=pointer]:
+                        - /url: "#"
+            - generic [ref=f11e291]:
+              - link "Hinzufügen" [ref=f11e293] [cursor=pointer]:
+                - /url: /watchers/new?object_id=241&object_type=issue
+              - heading "Beobachter (0)" [level=3] [ref=f11e294]
+          - text: "|"
+        - generic [ref=f11e295]:
+          - generic [ref=f11e296]:
+            - link "Bearbeiten" [ref=f11e297] [cursor=pointer]:
+              - /url: /issues/241/edit
+            - link "Aufwand buchen" [ref=f11e299] [cursor=pointer]:
+              - /url: /issues/241/time_entries/new
+            - link "Beobachten" [ref=f11e301] [cursor=pointer]:
+              - /url: /watchers/watch?object_id=241&object_type=issue
+            - link "Kopieren" [ref=f11e303] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/issues/241/copy
+            - generic "Aktionen" [ref=f11e307] [cursor=pointer]
+          - text: pre pre
+    - generic [ref=f11e310]:
+      - text: Powered by
+      - link "Redmine" [ref=f11e311] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f11e312]
+  - status [ref=f11e313]
+  - log [ref=f11e314]
+  - log [ref=f11e315]
+  - log [ref=f11e316]
+  - log [ref=f11e317]
+  - log [ref=f11e318]
+  - log [ref=f11e319]
+  - log [ref=f11e320]
+  - log [ref=f11e321]
+  - log [ref=f11e322]
+  - log [ref=f11e323]
+  - log [ref=f11e324]
+  - log [ref=f11e325]
+  - log [ref=f11e326]
+  - log [ref=f11e327]
+  - log [ref=f11e328]
+  - log [ref=f11e329]
+  - log [ref=f11e330]
+  - log [ref=f11e331]
+  - log [ref=f11e332]
+  - log [ref=f11e333]
+  - log [ref=f11e334]
+  - log [ref=f11e335]
+  - log [ref=f11e336]
+  - log [ref=f11e337]
+  - log [ref=f11e338]
+  - log [ref=f11e339]
+  - log [ref=f11e340]
+  - log [ref=f11e341]
+  - log [ref=f11e342]
+  - log [ref=f11e343]
+  - log [ref=f11e344]
+  - log [ref=f11e345]
+  - log [ref=f11e346]
+  - log [ref=f11e347]
+  - log [ref=f11e348]
+  - log [ref=f11e349]
+  - log [ref=f11e350]
+  - log [ref=f11e351]
+  - log [ref=f11e352]
+  - log [ref=f11e353]
+  - log [ref=f11e354]
+  - log [ref=f11e355]
+  - log [ref=f11e356]
+  - log [ref=f11e357]
+  - log [ref=f11e358]
+  - log [ref=f11e359]
+  - log [ref=f11e360]
+  - log [ref=f11e361]
+  - log [ref=f11e362]
+  - log [ref=f11e363]
+  - log [ref=f11e364]
+  - log [ref=f11e365]
+  - log [ref=f11e366]
+  - log [ref=f11e367]
+  - log [ref=f11e368]
+  - log [ref=f11e369]
+  - log [ref=f11e370]
+  - log [ref=f11e371]
+  - log [ref=f11e372]
+  - log [ref=f11e373]
+  - status [ref=f11e374]
+  - status [ref=f11e375]

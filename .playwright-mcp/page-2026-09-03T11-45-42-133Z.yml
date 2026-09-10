@@ -1,0 +1,230 @@
+- generic [active] [ref=f575e1]:
+  - generic [ref=f575e2]:
+    - generic [ref=f575e3]:
+      - generic [ref=f575e4]:
+        - list:
+          - listitem [ref=f575e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f575e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f575e7]:
+        - text: Logged in as
+        - link "admin" [ref=f575e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f575e9]:
+        - listitem [ref=f575e10]:
+          - link [ref=f575e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f575e12]
+        - listitem [ref=f575e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f575e14]:
+          - link "My page" [ref=f575e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f575e16]:
+          - link "Projects" [ref=f575e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f575e18]:
+          - link "Flux Gantt" [ref=f575e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f575e20]:
+          - link "Helpdesk Command Center" [ref=f575e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f575e22]:
+          - link "Time Tracker" [ref=f575e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f575e24]:
+          - link "Timesheet" [ref=f575e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f575e26]:
+          - link "Workloads" [ref=f575e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f575e28]:
+          - link "More" [ref=f575e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f575e30]:
+      - generic [ref=f575e31]:
+        - generic [ref=f575e32]:
+          - generic [ref=f575e33]:
+            - link "Search..." [ref=f575e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f575e35]
+        - generic [ref=f575e36]:
+          - generic [ref=f575e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f575e38]
+    - generic [ref=f575e39]:
+      - list [ref=f575e43]:
+        - listitem [ref=f575e44]:
+          - link "Helpdesk Dashboard" [ref=f575e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f575e48]:
+          - link "Helpdesk Tickets" [ref=f575e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f575e52]:
+          - link "Reports" [ref=f575e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f575e56]:
+          - link "Organization" [ref=f575e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f575e60]:
+          - link "Customers" [ref=f575e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f575e64]:
+          - link "Products" [ref=f575e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f575e68]:
+          - link "Helpdesk Settings" [ref=f575e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f575e72]:
+        - generic [ref=f575e73]:
+          - heading "Alpha Minimal Fields Test Org Active" [level=2] [ref=f575e76]:
+            - text: Alpha Minimal Fields Test Org
+            - generic [ref=f575e77]: Active
+          - link "Edit" [ref=f575e80] [cursor=pointer]:
+            - /url: /rf_organizations/8/edit
+        - navigation "Alpha Minimal Fields Test Org" [ref=f575e83]:
+          - link "Overview" [ref=f575e84] [cursor=pointer]:
+            - /url: /rf_organizations/8?tab=overview
+          - link "Prepaid Support Hours" [ref=f575e89] [cursor=pointer]:
+            - /url: /rf_organizations/8?tab=prepaid_support_hours
+        - generic [ref=f575e94]:
+          - generic [ref=f575e95]:
+            - generic [ref=f575e96]: 20.00h
+            - generic [ref=f575e97]: Approved
+          - generic [ref=f575e98]:
+            - generic [ref=f575e99]: 0.25h
+            - generic [ref=f575e100]: Used
+          - generic [ref=f575e101]:
+            - generic [ref=f575e102]: 19.75h
+            - generic [ref=f575e103]: Remaining
+        - generic [ref=f575e104]:
+          - generic [ref=f575e105]:
+            - heading "Budget by project" [level=3] [ref=f575e106]
+            - link "Add / top up hours" [ref=f575e107] [cursor=pointer]:
+              - /url: "#"
+          - table [ref=f575e109]:
+            - rowgroup [ref=f575e110]:
+              - row [ref=f575e111]:
+                - columnheader "Project" [ref=f575e112]
+                - columnheader "Approved" [ref=f575e113]
+                - columnheader "Used" [ref=f575e114]
+                - columnheader "Remaining" [ref=f575e115]
+                - columnheader "Usage" [ref=f575e116]
+                - columnheader "When hours run out" [ref=f575e117]
+                - columnheader "Last change" [ref=f575e118]
+                - columnheader "Action" [ref=f575e119]
+            - rowgroup [ref=f575e120]:
+              - row [ref=f575e121]:
+                - cell [ref=f575e122]:
+                  - link "Helpdesk QA Alpha" [ref=f575e123] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "20.00h" [ref=f575e124]
+                - cell "0.25h" [ref=f575e125]
+                - cell "19.75h" [ref=f575e126]
+                - cell "1% Used 1%" [ref=f575e127]:
+                  - generic [ref=f575e128]:
+                    - img "1% Used" [ref=f575e129]
+                    - generic [ref=f575e131]: 1%
+                - cell [ref=f575e132]:
+                  - combobox "When hours run out" [ref=f575e134] [cursor=pointer]:
+                    - option "No limit"
+                    - option "Hard — stop work" [selected]
+                    - option "Soft — allow overage"
+                - cell "09/03/2026" [ref=f575e135]
+                - cell [ref=f575e136]:
+                  - link "Ledger" [ref=f575e137] [cursor=pointer]:
+                    - /url: /rf_organizations/8?ledger_project_id=1&tab=prepaid_support_hours
+        - generic [ref=f575e139]:
+          - generic [ref=f575e140]:
+            - heading "Budget change history" [level=3] [ref=f575e141]
+            - generic [ref=f575e142]: "4"
+          - table [ref=f575e143]:
+            - rowgroup [ref=f575e144]:
+              - row [ref=f575e145]:
+                - columnheader "S.No" [ref=f575e146]
+                - columnheader "Updated" [ref=f575e147]
+                - columnheader "Project" [ref=f575e148]
+                - columnheader "Change" [ref=f575e149]
+                - columnheader "Support Package" [ref=f575e150]
+                - columnheader "Comment" [ref=f575e151]
+                - columnheader "Approved By" [ref=f575e152]
+            - rowgroup [ref=f575e153]:
+              - row [ref=f575e154]:
+                - cell "1" [ref=f575e155]
+                - cell "09/03/2026 11:42 AM" [ref=f575e156]
+                - cell [ref=f575e157]:
+                  - link "Helpdesk QA Alpha" [ref=f575e158] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "25.00h → 20.00h" [ref=f575e159]
+                - cell "None" [ref=f575e160]
+                - cell "TC-HLP-127 correction - over-invoiced" [ref=f575e161]
+                - cell "Redmine Admin" [ref=f575e162]:
+                  - img [ref=f575e163]: RA
+                  - text: Redmine Admin
+              - row [ref=f575e164]:
+                - cell "2" [ref=f575e165]
+                - cell "09/03/2026 11:41 AM" [ref=f575e166]
+                - cell [ref=f575e167]:
+                  - link "Helpdesk QA Alpha" [ref=f575e168] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "15.00h → 25.00h" [ref=f575e169]
+                - cell "None" [ref=f575e170]
+                - cell "TC-HLP-126 top-up test" [ref=f575e171]
+                - cell "Redmine Admin" [ref=f575e172]:
+                  - img [ref=f575e173]: RA
+                  - text: Redmine Admin
+              - row [ref=f575e174]:
+                - cell "3" [ref=f575e175]
+                - cell "09/03/2026 11:33 AM" [ref=f575e176]
+                - cell [ref=f575e177]:
+                  - link "Helpdesk QA Alpha" [ref=f575e178] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "10.00h → 15.00h" [ref=f575e179]
+                - cell "Premium Support (Renamed)" [ref=f575e180]
+                - cell "TC-HLP-372 support package labeling test" [ref=f575e181]
+                - cell "Redmine Admin" [ref=f575e182]:
+                  - img [ref=f575e183]: RA
+                  - text: Redmine Admin
+              - row [ref=f575e184]:
+                - cell "4" [ref=f575e185]
+                - cell "09/02/2026 07:01 AM" [ref=f575e186]
+                - cell [ref=f575e187]:
+                  - link "Helpdesk QA Alpha" [ref=f575e188] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "0.00h → 10.00h" [ref=f575e189]
+                - cell "None" [ref=f575e190]
+                - cell "TC-HLP-067 project dashboard prepaid hours display test" [ref=f575e191]
+                - cell "Redmine Admin" [ref=f575e192]:
+                  - img [ref=f575e193]: RA
+                  - text: Redmine Admin
+        - text: "* * *"
+        - paragraph [ref=f575e194]:
+          - link "Organization List" [ref=f575e195] [cursor=pointer]:
+            - /url: /rf_organizations
+    - generic [ref=f575e196]:
+      - text: Powered by
+      - link "Redmine" [ref=f575e197] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f575e198]
+  - log [ref=f575e199]
+  - log [ref=f575e200]
+  - log [ref=f575e201]
+  - log [ref=f575e202]
+  - log [ref=f575e203]
+  - log [ref=f575e204]
+  - log [ref=f575e205]
+  - log [ref=f575e206]
+  - log [ref=f575e207]
+  - log [ref=f575e208]
+  - log [ref=f575e209]
+  - log [ref=f575e210]
+  - log [ref=f575e211]
+  - log [ref=f575e212]
+  - log [ref=f575e213]
+  - log [ref=f575e214]

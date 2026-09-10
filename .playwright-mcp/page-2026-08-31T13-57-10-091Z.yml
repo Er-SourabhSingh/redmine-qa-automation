@@ -1,0 +1,203 @@
+- generic [ref=f616e1]:
+  - generic [ref=f616e2]:
+    - generic [ref=f616e3]:
+      - generic [ref=f616e4]:
+        - list:
+          - listitem [ref=f616e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f616e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f616e7]:
+        - text: Logged in as
+        - link "admin" [ref=f616e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f616e9]:
+        - listitem [ref=f616e10]:
+          - link [ref=f616e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f616e12]
+        - listitem [ref=f616e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f616e14]:
+          - link "My page" [ref=f616e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f616e16]:
+          - link "Projects" [ref=f616e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f616e18]:
+          - link "Flux Gantt" [ref=f616e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f616e20]:
+          - link "Helpdesk Command Center" [ref=f616e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f616e22]:
+          - link "Time Tracker" [ref=f616e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f616e24]:
+          - link "Timesheet" [ref=f616e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f616e26]:
+          - link "Workloads" [ref=f616e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f616e28]:
+          - link "More" [ref=f616e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f616e30]:
+      - generic [ref=f616e31]:
+        - generic [ref=f616e32]:
+          - generic [ref=f616e33]:
+            - link "Search..." [ref=f616e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f616e35]
+        - generic [ref=f616e36]:
+          - generic [ref=f616e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f616e38]
+    - generic [ref=f616e39]:
+      - list [ref=f616e43]:
+        - listitem [ref=f616e44]:
+          - link "Helpdesk Dashboard" [ref=f616e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f616e48]:
+          - link "Helpdesk Tickets" [ref=f616e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f616e52]:
+          - link "Reports" [ref=f616e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f616e56]:
+          - link "Organization" [ref=f616e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f616e60]:
+          - link "Customers" [ref=f616e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f616e64]:
+          - link "Products" [ref=f616e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f616e68]:
+          - link "Helpdesk Settings" [ref=f616e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f616e72]:
+        - heading "New Canned Response" [level=2] [ref=f616e73]
+        - generic [ref=f616e74]:
+          - generic [ref=f616e75]:
+            - paragraph [ref=f616e76]:
+              - generic [ref=f616e77]: Name *
+              - textbox "Name *" [active] [ref=f616e78]
+            - paragraph [ref=f616e79]:
+              - generic [ref=f616e80]: Author
+              - text: Redmine Admin
+            - paragraph [ref=f616e81]:
+              - generic [ref=f616e82]: "Content: *"
+              - generic [ref=f616e83]:
+                - list [ref=f616e85]:
+                  - listitem [ref=f616e86]:
+                    - link "Edit" [ref=f616e87] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f616e88]:
+                    - link "Preview" [ref=f616e89] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f616e90]:
+                    - generic [ref=f616e91]:
+                      - button "Strong (Ctrl+B)" [ref=f616e92] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f616e93] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f616e94] [cursor=pointer]
+                      - button "Deleted" [ref=f616e95] [cursor=pointer]
+                      - button "Inline Code" [ref=f616e96] [cursor=pointer]
+                      - button "Heading 1" [ref=f616e97] [cursor=pointer]
+                      - button "Heading 2" [ref=f616e98] [cursor=pointer]
+                      - button "Heading 3" [ref=f616e99] [cursor=pointer]
+                      - button "Unordered list" [ref=f616e100] [cursor=pointer]
+                      - button "Ordered list" [ref=f616e101] [cursor=pointer]
+                      - button "Task list" [ref=f616e102] [cursor=pointer]
+                      - button "Quote" [ref=f616e103] [cursor=pointer]
+                      - button "Remove Quote" [ref=f616e104] [cursor=pointer]
+                      - button "Table" [ref=f616e105] [cursor=pointer]
+                      - button "pre" [ref=f616e106] [cursor=pointer]
+                      - button "Highlighted code" [ref=f616e107] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f616e108] [cursor=pointer]
+                      - button "Image" [ref=f616e109] [cursor=pointer]
+                      - button "Help" [ref=f616e110] [cursor=pointer]
+                - textbox "Enter canned response content" [ref=f616e112]
+              - emphasis [ref=f616e113]:
+                - text: "Available Macros:"
+                - 'link "{{customer_name}}" [ref=f616e114] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{customer_email}}" [ref=f616e115] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{ticket_id}}" [ref=f616e116] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{ticket_subject}}" [ref=f616e117] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{project_name}}" [ref=f616e118] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{assignee_name}}" [ref=f616e119] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{current_user}}" [ref=f616e120] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{current_date}}" [ref=f616e121] [cursor=pointer]':
+                  - /url: "#"
+                - text: ","
+                - 'link "{{current_time}}" [ref=f616e122] [cursor=pointer]':
+                  - /url: "#"
+            - paragraph [ref=f616e123]:
+              - generic [ref=f616e124]: Active
+              - checkbox "Active" [checked] [ref=f616e125]
+          - paragraph [ref=f616e126]:
+            - button "Create" [ref=f616e127] [cursor=pointer]
+            - link "Cancel" [ref=f616e128] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+    - generic [ref=f616e129]:
+      - text: Powered by
+      - link "Redmine" [ref=f616e130] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f616e131]
+  - log [ref=f616e132]
+  - log [ref=f616e133]
+  - log [ref=f616e134]
+  - log [ref=f616e135]
+  - log [ref=f616e136]
+  - log [ref=f616e137]
+  - log [ref=f616e138]
+  - log [ref=f616e139]
+  - log [ref=f616e140]
+  - log [ref=f616e141]
+  - log [ref=f616e142]
+  - log [ref=f616e143]
+  - log [ref=f616e144]
+  - log [ref=f616e145]
+  - log [ref=f616e146]
+  - log [ref=f616e147]
+  - log [ref=f616e148]
+  - log [ref=f616e149]
+  - log [ref=f616e150]
+  - log [ref=f616e151]
+  - log [ref=f616e152]
+  - log [ref=f616e153]
+  - log [ref=f616e154]
+  - log [ref=f616e155]
+  - log [ref=f616e156]
+  - log [ref=f616e157]
+  - log [ref=f616e158]
+  - log [ref=f616e159]
+  - log [ref=f616e160]
+  - log [ref=f616e161]
+  - log [ref=f616e162]
+  - log [ref=f616e163]
+  - log [ref=f616e164]
+  - log [ref=f616e165]
+  - log [ref=f616e166]
+  - log [ref=f616e167]
+  - log [ref=f616e168]
+  - log [ref=f616e169]

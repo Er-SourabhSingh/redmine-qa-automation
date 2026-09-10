@@ -1,0 +1,263 @@
+- generic [ref=f50e1]:
+  - generic [ref=f50e2]:
+    - generic [ref=f50e3]:
+      - generic [ref=f50e4]:
+        - list:
+          - listitem [ref=f50e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f50e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f50e7]:
+        - text: Logged in as
+        - link "admin" [ref=f50e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f50e9]:
+        - listitem [ref=f50e10]:
+          - link [ref=f50e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f50e12]
+        - listitem [ref=f50e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f50e14]:
+          - link "My page" [ref=f50e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f50e16]:
+          - link "Projects" [ref=f50e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f50e18]:
+          - link "Flux Gantt" [ref=f50e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f50e20]:
+          - link "Helpdesk Command Center" [ref=f50e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f50e22]:
+          - link "Time Tracker" [ref=f50e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f50e24]:
+          - link "Timesheet" [ref=f50e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f50e26]:
+          - link "Workloads" [ref=f50e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f50e28]:
+          - link "More" [ref=f50e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f50e30]:
+      - generic [ref=f50e31]:
+        - generic [ref=f50e32]:
+          - generic [ref=f50e33]:
+            - link "Search..." [ref=f50e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f50e35]
+        - generic [ref=f50e36]:
+          - generic [ref=f50e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f50e38]
+    - generic [ref=f50e39]:
+      - list [ref=f50e43]:
+        - listitem [ref=f50e44]:
+          - link "Helpdesk Dashboard" [ref=f50e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f50e48]:
+          - link "Helpdesk Tickets" [ref=f50e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f50e52]:
+          - link "Reports" [ref=f50e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f50e56]:
+          - link "Organization" [ref=f50e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f50e60]:
+          - link "Customers" [ref=f50e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f50e64]:
+          - link "Products" [ref=f50e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f50e68]:
+          - link "Helpdesk Settings" [ref=f50e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f50e72]:
+        - generic [ref=f50e75]:
+          - heading "Helpdesk Settings" [level=2] [ref=f50e76]
+          - paragraph [ref=f50e77]: Holidays, products, SLA policies and canned responses
+        - list [ref=f50e79]:
+          - listitem [ref=f50e80]:
+            - link "Holiday" [ref=f50e81] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f50e82]:
+            - link "Products" [ref=f50e83] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f50e84]:
+            - link "Email Configuration" [ref=f50e85] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f50e86]:
+            - link "Canned Responses" [ref=f50e87] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+          - listitem [ref=f50e88]:
+            - link "Support Packages" [ref=f50e89] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+        - generic [ref=f50e91]:
+          - heading "Email Configuration" [level=3] [ref=f50e93]
+          - generic [ref=f50e94]:
+            - generic [ref=f50e95]:
+              - generic [ref=f50e96]: Project
+              - combobox "Project" [ref=f50e97] [cursor=pointer]:
+                - option "Select a project"
+                - option "Helpdesk QA Alpha" [selected]
+                - option "Helpdesk QA Beta"
+            - generic [ref=f50e98]:
+              - heading "Email Configuration" [level=3] [ref=f50e99]
+              - generic [ref=f50e100]:
+                - group "Outgoing Email Settings (SMTP)" [ref=f50e101]:
+                  - paragraph [ref=f50e103]:
+                    - generic [ref=f50e104]: SMTP Server *
+                    - textbox "SMTP Server *" [active] [ref=f50e105]:
+                      - /placeholder: smtp.example.com
+                      - text: mail
+                  - paragraph [ref=f50e106]:
+                    - generic [ref=f50e107]: SMTP Port *
+                    - spinbutton "SMTP Port *" [ref=f50e108]: "587"
+                    - emphasis [ref=f50e109]: "Default ports: 587 (TLS), 465 (SSL), 25 (Plain)"
+                  - paragraph [ref=f50e110]:
+                    - generic [ref=f50e111]: Authentication
+                    - combobox "Authentication" [ref=f50e112]:
+                      - option "None"
+                      - option "Plain"
+                      - option "Login" [selected]
+                      - option "CRAM-MD5"
+                  - paragraph [ref=f50e113]:
+                    - generic [ref=f50e114]: SMTP Username
+                    - textbox "SMTP Username" [ref=f50e115]:
+                      - /placeholder: user@example.com
+                      - text: alpha.support@test.local
+                  - paragraph [ref=f50e116]:
+                    - generic [ref=f50e117]: SMTP Password
+                    - textbox "SMTP Password" [ref=f50e118]: Test@12345
+                  - paragraph [ref=f50e119]:
+                    - generic [ref=f50e120]: Email From Address *
+                    - textbox "Email From Address *" [ref=f50e121]:
+                      - /placeholder: support@example.com
+                      - text: alpha.support@test.local
+                - group "Incoming Email Settings (IMAP/POP3)" [ref=f50e122]:
+                  - generic [ref=f50e124]:
+                    - paragraph [ref=f50e125]:
+                      - strong [ref=f50e126]: "Important:"
+                      - text: Helpdesk automatically marks emails as READ after processing, but does NOT delete them from your mailbox. Emails remain in your inbox for your records.
+                    - paragraph [ref=f50e127]:
+                      - emphasis [ref=f50e128]: "Note: IMAP is recommended. POP3 protocol may delete emails due to protocol limitations."
+                  - generic [ref=f50e129]:
+                    - paragraph [ref=f50e130]:
+                      - generic [ref=f50e131]: Mail Protocol *
+                      - combobox "Mail Protocol *" [ref=f50e132]:
+                        - option "IMAP (Recommended - Keeps emails)" [selected]
+                        - option "POP3 (May delete emails)"
+                    - paragraph [ref=f50e133]:
+                      - generic [ref=f50e134]: Mail Server *
+                      - textbox "Mail Server *" [ref=f50e135]:
+                        - /placeholder: imap.example.com
+                        - text: mail
+                    - paragraph [ref=f50e136]:
+                      - generic [ref=f50e137]: Mail Port *
+                      - spinbutton "Mail Port *" [ref=f50e138]: "993"
+                      - emphasis [ref=f50e139]: "Default ports: IMAP 993 (SSL), 143 (Plain) | POP3 995 (SSL), 110 (Plain)"
+                    - paragraph [ref=f50e140]:
+                      - generic [ref=f50e141]: Mail Username *
+                      - textbox "Mail Username *" [ref=f50e142]:
+                        - /placeholder: support@example.com
+                        - text: alpha.support@test.local
+                    - paragraph [ref=f50e143]:
+                      - generic [ref=f50e144]: Mail Password *
+                      - textbox "Mail Password *" [ref=f50e145]: Test@12345
+                    - paragraph [ref=f50e146]:
+                      - generic [ref=f50e147]:
+                        - checkbox "Use SSL/TLS" [checked] [disabled] [ref=f50e148]
+                        - text: Use SSL/TLS
+                - group "Ticket Settings" [ref=f50e149]:
+                  - paragraph [ref=f50e151]:
+                    - generic [ref=f50e152]: Identifier Keywords
+                    - textbox "Identifier Keywords" [ref=f50e153]:
+                      - /placeholder: ticket, issue, request
+                      - text: ticket, issue, request
+                    - emphasis [ref=f50e154]: Comma-separated keywords to identify ticket emails (e.g., ticket, issue, request)
+                  - paragraph [ref=f50e155]:
+                    - generic [ref=f50e156]: Email Subject Prefix
+                    - textbox "Email Subject Prefix" [ref=f50e157]:
+                      - /placeholder: "[TICKET]"
+                      - text: "[TICKET]"
+                    - emphasis [ref=f50e158]: Prefix to add in ticket email subjects (e.g., [TICKET])
+                  - paragraph [ref=f50e159]:
+                    - generic [ref=f50e160]: Default Tracker *
+                    - combobox [disabled] [ref=f50e161]:
+                      - option "Bug"
+                      - option "Feature"
+                      - option "Support" [selected]
+                    - emphasis [ref=f50e162]: Default tracker for tickets created from emails
+                  - paragraph [ref=f50e163]:
+                    - generic [ref=f50e164]: Auto Close Ticket (Days)
+                    - spinbutton "Auto Close Ticket (Days)" [ref=f50e165]
+                    - emphasis [ref=f50e166]: Automatically close resolved tickets after specified days (leave blank to disable)
+                - button "Save" [ref=f50e167] [cursor=pointer]
+    - generic [ref=f50e168]:
+      - text: Powered by
+      - link "Redmine" [ref=f50e169] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f50e170]
+  - log [ref=f50e171]
+  - log [ref=f50e172]
+  - log [ref=f50e173]
+  - log [ref=f50e174]
+  - log [ref=f50e175]
+  - log [ref=f50e176]
+  - log [ref=f50e177]
+  - log [ref=f50e178]
+  - log [ref=f50e179]
+  - log [ref=f50e180]
+  - log [ref=f50e181]
+  - log [ref=f50e182]
+  - log [ref=f50e183]
+  - log [ref=f50e184]
+  - log [ref=f50e185]
+  - log [ref=f50e186]
+  - log [ref=f50e187]
+  - log [ref=f50e188]
+  - log [ref=f50e189]
+  - log [ref=f50e190]
+  - log [ref=f50e191]
+  - log [ref=f50e192]
+  - log [ref=f50e193]
+  - log [ref=f50e194]
+  - log [ref=f50e195]
+  - log [ref=f50e196]
+  - log [ref=f50e197]
+  - log [ref=f50e198]
+  - log [ref=f50e199]
+  - log [ref=f50e200]
+  - log [ref=f50e201]
+  - log [ref=f50e202]
+  - log [ref=f50e203]
+  - log [ref=f50e204]
+  - log [ref=f50e205]
+  - log [ref=f50e206]
+  - log [ref=f50e207]
+  - log [ref=f50e208]
+  - log [ref=f50e209]
+  - log [ref=f50e210]
+  - log [ref=f50e211]
+  - log [ref=f50e212]
+  - log [ref=f50e213]
+  - log [ref=f50e214]
+  - log [ref=f50e215]
+  - log [ref=f50e216]
+  - log [ref=f50e217]
+  - log [ref=f50e218]
+  - log [ref=f50e219]
+  - log [ref=f50e220]
+  - log [ref=f50e221]
+  - log [ref=f50e222]
+  - log [ref=f50e223]
+  - log [ref=f50e224]

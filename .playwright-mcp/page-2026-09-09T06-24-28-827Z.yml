@@ -1,0 +1,214 @@
+- generic [active] [ref=f43e1]:
+  - generic [ref=f43e2]:
+    - navigation [ref=f43e3]:
+      - list [ref=f43e6]:
+        - listitem [ref=f43e7]:
+          - link "Hauptseite" [ref=f43e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f43e9]:
+          - link "Meine Seite" [ref=f43e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f43e11]:
+          - link "Projekte" [ref=f43e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f43e13]:
+          - link "Agile Board" [ref=f43e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f43e15]:
+          - link "Flux Gantt" [ref=f43e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f43e17]:
+          - link "Administration" [ref=f43e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f43e19]:
+          - link "Hilfe" [ref=f43e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f43e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f43e24]: RA
+    - generic [ref=f43e27]:
+      - generic [ref=f43e28]:
+        - generic [ref=f43e29]:
+          - generic [ref=f43e30]:
+            - link "Suche" [ref=f43e31] [cursor=pointer]:
+              - /url: /projects/agileboard/search
+            - text: ":"
+          - textbox "Suche:" [ref=f43e32]
+        - generic [ref=f43e33]:
+          - generic [ref=f43e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+      - heading "Agile Board Project" [level=1] [ref=f43e35]
+      - generic [ref=f43e37]:
+        - list [ref=f43e38]:
+          - listitem [ref=f43e39]:
+            - link "+" [ref=f43e40] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f43e41]:
+            - link "Übersicht" [ref=f43e42] [cursor=pointer]:
+              - /url: /projects/agileboard
+          - listitem [ref=f43e43]:
+            - link "Dashboard" [ref=f43e44] [cursor=pointer]:
+              - /url: /projects/agileboard/analytics_dashboard
+          - listitem [ref=f43e45]:
+            - link "Aktivität" [ref=f43e46] [cursor=pointer]:
+              - /url: /projects/agileboard/activity
+          - listitem [ref=f43e47]:
+            - link "Agile Board" [ref=f43e48] [cursor=pointer]:
+              - /url: /projects/agileboard/agile_board
+          - listitem [ref=f43e49]:
+            - link "Backlog" [ref=f43e50] [cursor=pointer]:
+              - /url: /projects/agileboard/backlog
+          - listitem [ref=f43e51]:
+            - link "Roadmap" [ref=f43e52] [cursor=pointer]:
+              - /url: /projects/agileboard/roadmap
+          - listitem [ref=f43e53]:
+            - link "Tickets" [ref=f43e54] [cursor=pointer]:
+              - /url: /projects/agileboard/issues
+          - listitem [ref=f43e55]:
+            - link "Aufgewendete Zeit" [ref=f43e56] [cursor=pointer]:
+              - /url: /projects/agileboard/time_entries
+          - listitem [ref=f43e57]:
+            - link "Gantt-Diagramm" [ref=f43e58] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/gantt
+          - listitem [ref=f43e59]:
+            - link "Kalender" [ref=f43e60] [cursor=pointer]:
+              - /url: /projects/agileboard/issues/calendar
+          - listitem [ref=f43e61]:
+            - link "News" [ref=f43e62] [cursor=pointer]:
+              - /url: /projects/agileboard/news
+          - listitem [ref=f43e63]:
+            - link "Dokumente" [ref=f43e64] [cursor=pointer]:
+              - /url: /projects/agileboard/documents
+          - listitem [ref=f43e65]:
+            - link "Wiki" [ref=f43e66] [cursor=pointer]:
+              - /url: /projects/agileboard/wiki
+          - listitem [ref=f43e67]:
+            - link "Dateien" [ref=f43e68] [cursor=pointer]:
+              - /url: /projects/agileboard/files
+          - listitem [ref=f43e69]:
+            - link "Konfiguration" [ref=f43e70] [cursor=pointer]:
+              - /url: /projects/agileboard/settings
+        - generic [ref=f43e71]:
+          - button [ref=f43e72] [cursor=pointer]
+          - button [ref=f43e75] [cursor=pointer]
+    - generic [ref=f43e79]:
+      - generic [ref=f43e80]:
+        - generic [ref=f43e81]:
+          - heading "Analyse-Dashboard" [level=2] [ref=f43e82]
+          - generic [ref=f43e83]:
+            - button "Teilen" [ref=f43e84] [cursor=pointer]
+            - button "EIN" [ref=f43e88] [cursor=pointer]
+            - combobox [ref=f43e93]:
+              - option "30 Sek."
+              - option "1 Min."
+              - option "2 Min."
+              - option "5 Min."
+              - option "10 Min." [selected]
+            - generic [ref=f43e94]: "Nächste: 10 Min. 0 Sek."
+        - generic [ref=f43e95]:
+          - generic [ref=f43e96]:
+            - generic [ref=f43e97]: "Tracker:"
+            - combobox "Tracker:" [ref=f43e98]:
+              - option "Alle Tracker" [selected]
+              - option "Bug"
+              - option "Feature"
+              - option "Support"
+          - generic [ref=f43e99]:
+            - generic [ref=f43e100]: "Zeitraum:"
+            - combobox "Zeitraum:" [ref=f43e101]:
+              - option "Heute"
+              - option "Letzte 7 Tage"
+              - option "Letzte 30 Tage" [selected]
+              - option "Letzte 90 Tage"
+              - option "Dieser Monat"
+              - option "Letzter Monat"
+              - option "Dieses Jahr"
+              - option "Benutzerdefinierter Zeitraum"
+          - button "Anwenden" [ref=f43e102] [cursor=pointer]
+          - generic [ref=f43e103]:
+            - button "Aktualisieren" [ref=f43e104] [cursor=pointer]
+            - button "Vollbild" [ref=f43e107] [cursor=pointer]
+        - button "Diagramm hinzufügen" [ref=f43e111] [cursor=pointer]
+        - generic [ref=f43e114]:
+          - generic [ref=f43e115]:
+            - heading "Tickets nach Status" [level=3] [ref=f43e118]
+            - generic [ref=f43e119]:
+              - button "Diagramm kopieren" [ref=f43e120] [cursor=pointer]
+              - button "Vollbild" [ref=f43e124] [cursor=pointer]
+              - button "Diagramminformationen" [ref=f43e127] [cursor=pointer]
+              - button "Einstellungen" [ref=f43e130] [cursor=pointer]
+              - button "Entfernen" [ref=f43e134] [cursor=pointer]
+          - generic [ref=f43e139] [cursor=pointer]
+          - generic "Ziehen, um die Breite zu ändern" [ref=f43e140]
+          - generic "Ziehen, um die Höhe zu ändern" [ref=f43e141]
+          - generic "Ziehen, um Breite und Höhe zu ändern" [ref=f43e142]
+      - text: 🗑️ 🗑️
+    - generic [ref=f43e143]:
+      - text: Powered by
+      - link "Redmine" [ref=f43e144] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f43e145]
+  - log [ref=f43e146]
+  - log [ref=f43e147]
+  - log [ref=f43e148]
+  - log [ref=f43e149]
+  - log [ref=f43e150]
+  - log [ref=f43e151]
+  - log [ref=f43e152]
+  - log [ref=f43e153]
+  - log [ref=f43e154]
+  - log [ref=f43e155]
+  - log [ref=f43e156]
+  - log [ref=f43e157]
+  - log [ref=f43e158]
+  - log [ref=f43e159]
+  - log [ref=f43e160]
+  - log [ref=f43e161]
+  - log [ref=f43e162]
+  - log [ref=f43e163]
+  - log [ref=f43e164]
+  - log [ref=f43e165]
+  - log [ref=f43e166]
+  - log [ref=f43e167]
+  - log [ref=f43e168]
+  - log [ref=f43e169]
+  - log [ref=f43e170]
+  - log [ref=f43e171]
+  - log [ref=f43e172]
+  - log [ref=f43e173]
+  - log [ref=f43e174]
+  - log [ref=f43e175]
+  - log [ref=f43e176]
+  - log [ref=f43e177]
+  - log [ref=f43e178]
+  - log [ref=f43e179]
+  - log [ref=f43e180]
+  - log [ref=f43e181]
+  - log [ref=f43e182]
+  - log [ref=f43e183]
+  - log [ref=f43e184]
+  - log [ref=f43e185]
+  - log [ref=f43e186]
+  - log [ref=f43e187]
+  - log [ref=f43e188]
+  - log [ref=f43e189]
+  - log [ref=f43e190]
+  - log [ref=f43e191]
+  - log [ref=f43e192]
+  - log [ref=f43e193]
+  - log [ref=f43e194]
+  - log [ref=f43e195]
+  - log [ref=f43e196]
+  - log [ref=f43e197]
+  - log [ref=f43e198]
+  - log [ref=f43e199]
+  - log [ref=f43e200]
+  - log [ref=f43e201]
+  - log [ref=f43e202]
+  - log [ref=f43e203]
+  - log [ref=f43e204]
+  - log [ref=f43e205]
+  - log [ref=f43e206]
+  - log [ref=f43e207]
+  - log [ref=f43e208]

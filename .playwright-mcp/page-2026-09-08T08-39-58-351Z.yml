@@ -1,0 +1,154 @@
+- generic [ref=f198e1]:
+  - generic [ref=f198e2]:
+    - navigation [ref=f198e3]:
+      - generic [ref=f198e4]:
+        - link [ref=f198e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f198e7] [cursor=pointer]
+      - list [ref=f198e17]:
+        - listitem [ref=f198e18]:
+          - link "Hauptseite" [ref=f198e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f198e20]:
+          - link "Meine Seite" [ref=f198e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f198e22]:
+          - link "Projekte" [ref=f198e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f198e24]:
+          - link "Agile Board" [ref=f198e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f198e26]:
+          - link "Flux Gantt" [ref=f198e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f198e28]:
+          - link "Administration" [ref=f198e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f198e30]:
+          - link "Hilfe" [ref=f198e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f198e32]:
+        - generic [ref=f198e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f198e35]
+        - link "Mein Konto" [ref=f198e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f198e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f198e44]:
+      - generic [ref=f198e45]:
+        - heading "Redmine" [level=1] [ref=f198e47]
+        - generic [ref=f198e49]:
+          - heading "Administration" [level=3] [ref=f198e50]
+          - list [ref=f198e52]:
+            - listitem [ref=f198e53]:
+              - link "Projekte" [ref=f198e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f198e55]:
+              - link "Benutzer" [ref=f198e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f198e57]:
+              - link "Gruppen" [ref=f198e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f198e59]:
+              - link "Rollen und Rechte" [ref=f198e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f198e61]:
+              - link "Tracker" [ref=f198e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f198e63]:
+              - link "Ticket-Status" [ref=f198e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f198e65]:
+              - link "Workflow" [ref=f198e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f198e67]:
+              - link "Benutzerdefinierte Felder" [ref=f198e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f198e69]:
+              - link "Aufzählungen" [ref=f198e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f198e71]:
+              - link "Konfiguration" [ref=f198e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f198e73]:
+              - link "LDAP-Authentifizierung" [ref=f198e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f198e75]:
+              - link "Applikationen" [ref=f198e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f198e77]:
+              - link "Plugins" [ref=f198e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f198e79]:
+              - link "Informationen" [ref=f198e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f198e81]:
+        - heading [level=2] [ref=f198e82]:
+          - link "Authentifizierungs-Arten" [ref=f198e83] [cursor=pointer]:
+            - /url: /auth_sources
+          - text: » Neuer Authentifizierungs-Modus (LDAP)
+        - generic [ref=f198e84]:
+          - generic [ref=f198e85]:
+            - paragraph [ref=f198e86]:
+              - generic [ref=f198e87]: Name *
+              - textbox "Name *" [active] [ref=f198e88]
+            - paragraph [ref=f198e89]:
+              - generic [ref=f198e90]: Host *
+              - textbox "Host *" [ref=f198e91]
+            - paragraph [ref=f198e92]:
+              - generic [ref=f198e93]: Port *
+              - textbox "Port *" [ref=f198e94]
+              - combobox [ref=f198e95]:
+                - option "LDAP" [selected]
+                - option "LDAPS (ohne Zertifikatsprüfung)"
+                - option "LDAPS"
+              - emphasis [ref=f198e96]: Es wird empfohlen, eine verschlüsselte LDAPS-Verbindung mit Zertifikatsprüfung zu verwenden, um Manipulationen während der Authentifizierung zu verhindern.
+            - paragraph [ref=f198e97]:
+              - generic [ref=f198e98]: Konto
+              - textbox "Konto" [ref=f198e99]
+            - paragraph [ref=f198e100]:
+              - generic [ref=f198e101]: Passwort
+              - textbox "Passwort" [ref=f198e102]
+            - paragraph [ref=f198e103]:
+              - generic [ref=f198e104]: Base DN *
+              - textbox "Base DN *" [ref=f198e105]
+            - paragraph [ref=f198e106]:
+              - generic [ref=f198e107]: LDAP-Filter
+              - textbox "LDAP-Filter" [ref=f198e108]
+            - paragraph [ref=f198e109]:
+              - generic [ref=f198e110]: Auszeit (in Sekunden)
+              - textbox "Auszeit (in Sekunden)" [ref=f198e111]
+            - paragraph [ref=f198e112]:
+              - generic [ref=f198e113]: On-the-fly-Benutzererstellung
+              - checkbox "On-the-fly-Benutzererstellung" [ref=f198e114]
+          - group "Attribute" [ref=f198e115]:
+            - paragraph [ref=f198e117]:
+              - generic [ref=f198e118]: Mitgliedsname-Attribut *
+              - textbox "Mitgliedsname-Attribut *" [ref=f198e119]
+            - paragraph [ref=f198e120]:
+              - generic [ref=f198e121]: Vorname-Attribut
+              - textbox "Vorname-Attribut" [ref=f198e122]
+            - paragraph [ref=f198e123]:
+              - generic [ref=f198e124]: Name-Attribut
+              - textbox "Name-Attribut" [ref=f198e125]
+            - paragraph [ref=f198e126]:
+              - generic [ref=f198e127]: E-Mail-Attribut
+              - textbox "E-Mail-Attribut" [ref=f198e128]
+          - button "Erstellen" [ref=f198e129] [cursor=pointer]
+    - generic [ref=f198e130]:
+      - text: Powered by
+      - link "Redmine" [ref=f198e131] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f198e132]
+  - log [ref=f198e133]
+  - log [ref=f198e134]
+  - log [ref=f198e135]
+  - log [ref=f198e136]
+  - log [ref=f198e137]
+  - log [ref=f198e138]
+  - log [ref=f198e139]
+  - log [ref=f198e140]
+  - log [ref=f198e141]
+  - log [ref=f198e142]
+  - log [ref=f198e143]

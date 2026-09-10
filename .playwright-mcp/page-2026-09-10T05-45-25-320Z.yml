@@ -1,0 +1,328 @@
+- generic [ref=f190e1]:
+  - generic [ref=f190e2]:
+    - navigation [ref=f190e3]:
+      - generic [ref=f190e4]:
+        - link [ref=f190e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f190e7] [cursor=pointer]
+      - list [ref=f190e17]:
+        - listitem [ref=f190e18]:
+          - link "Hauptseite" [ref=f190e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f190e20]:
+          - link "Meine Seite" [ref=f190e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f190e22]:
+          - link "Projekte" [ref=f190e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f190e24]:
+          - link "Agile Board" [ref=f190e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f190e26]:
+          - link "Flux Gantt" [ref=f190e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f190e28]:
+          - link "Administration" [ref=f190e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f190e30]:
+          - link "Hilfe" [ref=f190e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f190e32]:
+        - generic [ref=f190e33]:
+          - generic [ref=f190e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f190e35]
+        - link "Mein Konto" [ref=f190e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f190e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f190e44]:
+      - generic [ref=f190e46]:
+        - heading "Agile Board Project" [level=1] [ref=f190e47]
+        - generic [ref=f190e48]:
+          - generic [ref=f190e49]:
+            - generic [ref=f190e50]: Hauptmenü
+            - listitem [ref=f190e51]:
+              - link "+" [ref=f190e52] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f190e53]:
+            - listitem [ref=f190e54]:
+              - link "Übersicht" [ref=f190e55] [cursor=pointer]:
+                - /url: /projects/agileboard
+            - listitem [ref=f190e60]:
+              - link "Dashboard" [ref=f190e61] [cursor=pointer]:
+                - /url: /projects/agileboard/analytics_dashboard
+            - listitem [ref=f190e69]:
+              - link "Aktivität" [ref=f190e70] [cursor=pointer]:
+                - /url: /projects/agileboard/activity
+            - listitem [ref=f190e75]:
+              - link "Agile Board" [ref=f190e76] [cursor=pointer]:
+                - /url: /projects/agileboard/agile_board
+            - listitem [ref=f190e84]:
+              - link "Backlog" [ref=f190e85] [cursor=pointer]:
+                - /url: /projects/agileboard/backlog
+            - listitem [ref=f190e90]:
+              - link "Roadmap" [ref=f190e91] [cursor=pointer]:
+                - /url: /projects/agileboard/roadmap
+            - listitem [ref=f190e98]:
+              - link "Tickets" [ref=f190e99] [cursor=pointer]:
+                - /url: /projects/agileboard/issues
+            - listitem [ref=f190e104]:
+              - link "Aufgewendete Zeit" [ref=f190e105] [cursor=pointer]:
+                - /url: /projects/agileboard/time_entries
+            - listitem [ref=f190e110]:
+              - link "Gantt-Diagramm" [ref=f190e111] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/gantt
+            - listitem [ref=f190e119]:
+              - link "Kalender" [ref=f190e120] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/calendar
+            - listitem [ref=f190e125]:
+              - link "News" [ref=f190e126] [cursor=pointer]:
+                - /url: /projects/agileboard/news
+            - listitem [ref=f190e131]:
+              - link "Dokumente" [ref=f190e132] [cursor=pointer]:
+                - /url: /projects/agileboard/documents
+            - listitem [ref=f190e137]:
+              - link "Wiki" [ref=f190e138] [cursor=pointer]:
+                - /url: /projects/agileboard/wiki
+            - listitem [ref=f190e143]:
+              - link "Dateien" [ref=f190e144] [cursor=pointer]:
+                - /url: /projects/agileboard/files
+            - listitem [ref=f190e149]:
+              - link "Konfiguration" [ref=f190e150] [cursor=pointer]:
+                - /url: /projects/agileboard/settings
+      - generic [ref=f190e157]:
+        - button "Seitenleiste erweitern" [ref=f190e159] [cursor=pointer]
+        - generic [ref=f190e162]:
+          - generic [ref=f190e164]:
+            - heading "Agile Board" [level=2] [ref=f190e166]
+            - link "Board speichern" [ref=f190e168] [cursor=pointer]:
+              - /url: "#"
+          - generic [ref=f190e172]:
+            - generic [ref=f190e173]:
+              - textbox "Tickets suchen" [active] [ref=f190e175]
+              - generic [ref=f190e177]:
+                - button "LB" [ref=f190e178] [cursor=pointer]
+                - button "DS" [ref=f190e179] [cursor=pointer]
+                - button "AG" [ref=f190e180] [cursor=pointer]
+                - button "WB" [ref=f190e181] [cursor=pointer]
+                - button "HR" [ref=f190e182] [cursor=pointer]
+                - button "SR" [ref=f190e183] [cursor=pointer]
+                - button "+15" [ref=f190e185] [cursor=pointer]
+              - button "Tracker" [ref=f190e187] [cursor=pointer]
+            - generic [ref=f190e191]:
+              - button "Weitere Filter" [ref=f190e192] [cursor=pointer]
+              - button [ref=f190e197] [cursor=pointer]:
+                - generic [ref=f190e198]:
+                  - text: "Gruppieren nach:"
+                  - strong [ref=f190e199]: Keine
+              - button "Einblicke" [ref=f190e202] [cursor=pointer]
+              - button "Board markieren" [ref=f190e206] [cursor=pointer]
+              - button "Board-Einstellungen" [ref=f190e209] [cursor=pointer]
+          - generic [ref=f190e215]:
+            - generic [ref=f190e216]:
+              - generic [ref=f190e217]: "Schätzung:"
+              - generic [ref=f190e218]: 0,0h
+            - generic [ref=f190e219]: "|"
+            - generic [ref=f190e220]:
+              - generic [ref=f190e221]: "Aufgewendet:"
+              - generic [ref=f190e222]: 0,0h
+            - generic [ref=f190e223]: "|"
+            - generic [ref=f190e224]:
+              - generic [ref=f190e225]: "Story-Points:"
+              - generic [ref=f190e226]: "0"
+          - generic [ref=f190e228]:
+            - generic [ref=f190e229]:
+              - generic [ref=f190e230]:
+                - heading "NEW" [level=3] [ref=f190e231]
+                - generic [ref=f190e232]: "2"
+              - textbox "+ Ticket erstellen" [ref=f190e234]
+              - generic [ref=f190e235]:
+                - generic [ref=f190e236] [cursor=pointer]:
+                  - generic [ref=f190e237]:
+                    - link "#114" [ref=f190e238]:
+                      - /url: /issues/114
+                    - generic "Analyze database schema for optimization" [ref=f190e239]
+                    - button "Dieses Ticket markieren" [ref=f190e240]
+                  - generic [ref=f190e243]:
+                    - generic "Support" [ref=f190e245]: 💬
+                    - generic "Summer Rain" [ref=f190e247]: SR
+                - generic [ref=f190e248] [cursor=pointer]:
+                  - generic [ref=f190e249]:
+                    - link "#106" [ref=f190e250]:
+                      - /url: /issues/106
+                    - generic "Integrate payment gateway for subscriptions" [ref=f190e251]: Integrate payment gateway for...
+                    - button "Dieses Ticket markieren" [ref=f190e252]
+                  - generic [ref=f190e255]:
+                    - generic "Feature" [ref=f190e257]: ⭐
+                    - generic "Summer Rain" [ref=f190e259]: SR
+            - generic [ref=f190e260]:
+              - generic [ref=f190e261]:
+                - heading "IN PROGRESS" [level=3] [ref=f190e262]
+                - generic [ref=f190e263]: "3"
+              - textbox "+ Ticket erstellen" [ref=f190e265]
+              - generic [ref=f190e266]:
+                - generic [ref=f190e267] [cursor=pointer]:
+                  - generic [ref=f190e268]:
+                    - link "#259" [ref=f190e269]:
+                      - /url: /issues/259
+                    - generic "Implement scheduled exports" [ref=f190e270]
+                    - button "Dieses Ticket markieren" [ref=f190e271]
+                  - generic [ref=f190e274]:
+                    - generic "Feature" [ref=f190e276]: ⭐
+                    - generic "Redmine Admin" [ref=f190e278]: RA
+                - generic [ref=f190e279] [cursor=pointer]:
+                  - generic [ref=f190e280]:
+                    - link "#258" [ref=f190e281]:
+                      - /url: /issues/258
+                    - generic "Add Excel export formatting" [ref=f190e282]
+                    - button "Dieses Ticket markieren" [ref=f190e283]
+                  - generic [ref=f190e286]:
+                    - generic "Feature" [ref=f190e288]: ⭐
+                    - generic "Redmine Admin" [ref=f190e290]: RA
+                - generic [ref=f190e291] [cursor=pointer]:
+                  - generic [ref=f190e292]:
+                    - link "#256" [ref=f190e293]:
+                      - /url: /issues/256
+                    - generic "Implement data export templates" [ref=f190e294]
+                    - button "Dieses Ticket markieren" [ref=f190e295]
+                  - generic [ref=f190e298]:
+                    - generic "Feature" [ref=f190e300]: ⭐
+                    - generic "Redmine Admin" [ref=f190e302]: RA
+            - generic [ref=f190e303]:
+              - generic [ref=f190e304]:
+                - heading "RESOLVED" [level=3] [ref=f190e305]
+                - generic [ref=f190e306]: "1"
+              - textbox "+ Ticket erstellen" [ref=f190e308]
+              - generic [ref=f190e310] [cursor=pointer]:
+                - generic [ref=f190e311]:
+                  - link "#260" [ref=f190e312]:
+                    - /url: /issues/260
+                  - generic "Fix export performance" [ref=f190e313]
+                  - button "Dieses Ticket markieren" [ref=f190e314]
+                - generic [ref=f190e317]:
+                  - generic "Bug" [ref=f190e319]: 🐞
+                  - generic "Redmine Admin" [ref=f190e321]: RA
+            - generic [ref=f190e322]:
+              - generic [ref=f190e323]:
+                - heading "FEEDBACK" [level=3] [ref=f190e324]
+                - generic [ref=f190e325]: "1"
+              - textbox "+ Ticket erstellen" [ref=f190e327]
+              - generic [ref=f190e329] [cursor=pointer]:
+                - generic [ref=f190e330]:
+                  - link "#257" [ref=f190e331]:
+                    - /url: /issues/257
+                  - generic "Fix CSV encoding issues" [ref=f190e332]
+                  - button "Dieses Ticket markieren" [ref=f190e333]
+                - generic [ref=f190e336]:
+                  - generic "Bug" [ref=f190e338]: 🐞
+                  - generic "Redmine Admin" [ref=f190e340]: RA
+            - generic [ref=f190e341]:
+              - generic [ref=f190e342]:
+                - heading "CLOSED" [level=3] [ref=f190e343]
+                - generic [ref=f190e344]: "0"
+              - textbox "Tickets hier ablegen" [disabled] [ref=f190e346]:
+                - /placeholder: Tickets in diese Spalte ziehen
+              - paragraph [ref=f190e349]: Tickets hier ablegen
+            - generic [ref=f190e350]:
+              - generic [ref=f190e351]:
+                - heading "REJECTED" [level=3] [ref=f190e352]
+                - generic [ref=f190e353]: "0"
+              - textbox "Tickets hier ablegen" [disabled] [ref=f190e355]:
+                - /placeholder: Tickets in diese Spalte ziehen
+              - paragraph [ref=f190e358]: Tickets hier ablegen
+    - generic [ref=f190e359]:
+      - text: Powered by
+      - link "Redmine" [ref=f190e360] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f190e361]
+  - log [ref=f190e362]
+  - log [ref=f190e363]
+  - log [ref=f190e364]
+  - log [ref=f190e365]
+  - log [ref=f190e366]
+  - log [ref=f190e367]
+  - log [ref=f190e368]
+  - log [ref=f190e369]
+  - log [ref=f190e370]
+  - log [ref=f190e371]
+  - log [ref=f190e372]
+  - log [ref=f190e373]
+  - log [ref=f190e374]
+  - log [ref=f190e375]
+  - log [ref=f190e376]
+  - log [ref=f190e377]
+  - log [ref=f190e378]
+  - log [ref=f190e379]
+  - log [ref=f190e380]
+  - log [ref=f190e381]
+  - log [ref=f190e382]
+  - log [ref=f190e383]
+  - log [ref=f190e384]
+  - log [ref=f190e385]
+  - log [ref=f190e386]
+  - log [ref=f190e387]
+  - log [ref=f190e388]
+  - log [ref=f190e389]
+  - log [ref=f190e390]
+  - log [ref=f190e391]
+  - log [ref=f190e392]
+  - log [ref=f190e393]
+  - log [ref=f190e394]
+  - log [ref=f190e395]
+  - log [ref=f190e396]
+  - log [ref=f190e397]
+  - log [ref=f190e398]
+  - log [ref=f190e399]
+  - log [ref=f190e400]
+  - log [ref=f190e401]
+  - log [ref=f190e402]
+  - log [ref=f190e403]
+  - log [ref=f190e404]
+  - log [ref=f190e405]
+  - log [ref=f190e406]
+  - log [ref=f190e407]
+  - log [ref=f190e408]
+  - log [ref=f190e409]
+  - log [ref=f190e410]
+  - log [ref=f190e411]
+  - log [ref=f190e412]
+  - log [ref=f190e413]
+  - log [ref=f190e414]
+  - log [ref=f190e415]
+  - log [ref=f190e416]
+  - log [ref=f190e417]
+  - log [ref=f190e418]
+  - log [ref=f190e419]
+  - log [ref=f190e420]
+  - log [ref=f190e421]
+  - log [ref=f190e422]
+  - log [ref=f190e423]
+  - log [ref=f190e424]
+  - log [ref=f190e425]
+  - log [ref=f190e426]
+  - log [ref=f190e427]
+  - log [ref=f190e428]
+  - log [ref=f190e429]
+  - log [ref=f190e430]
+  - log [ref=f190e431]
+  - log [ref=f190e432]
+  - log [ref=f190e433]
+  - log [ref=f190e434]
+  - log [ref=f190e435]
+  - log [ref=f190e436]
+  - log [ref=f190e437]
+  - log [ref=f190e438]
+  - log [ref=f190e439]
+  - log [ref=f190e440]
+  - log [ref=f190e441]
+  - log [ref=f190e442]
+  - log [ref=f190e443]
+  - log [ref=f190e444]
+  - log [ref=f190e445]
+  - log [ref=f190e446]
+  - log [ref=f190e447]
+  - log [ref=f190e448]
+  - log [ref=f190e449]
+  - log [ref=f190e450]

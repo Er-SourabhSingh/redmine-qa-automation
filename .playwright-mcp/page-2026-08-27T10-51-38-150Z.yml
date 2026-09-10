@@ -1,0 +1,136 @@
+- generic [ref=f110e1]:
+  - generic [ref=f110e2]:
+    - generic [ref=f110e3]:
+      - generic [ref=f110e4]:
+        - list:
+          - listitem [ref=f110e5]:
+            - link "My account" [ref=f110e6] [cursor=pointer]:
+              - /url: /my/account
+          - listitem [ref=f110e7]:
+            - link "Sign out" [ref=f110e8] [cursor=pointer]:
+              - /url: /logout
+      - generic [ref=f110e9]:
+        - text: Logged in as
+        - link "admin" [ref=f110e10] [cursor=pointer]:
+          - /url: /users/1
+      - list:
+        - listitem [ref=f110e11]:
+          - link "Home" [ref=f110e12] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f110e13]:
+          - link "My page" [ref=f110e14] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f110e15]:
+          - link "Projects" [ref=f110e16] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f110e17]:
+          - link "Flux Gantt" [ref=f110e18] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f110e19]:
+          - link "Helpdesk Command Center" [ref=f110e20] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f110e21]:
+          - link "Time Tracker" [ref=f110e22] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f110e23]:
+          - link "Timesheet" [ref=f110e24] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f110e25]:
+          - link "Workloads" [ref=f110e26] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f110e27]:
+          - link "Administration" [ref=f110e28] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f110e29]:
+          - link "Help" [ref=f110e30] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f110e31]:
+      - generic [ref=f110e32]:
+        - generic [ref=f110e33]:
+          - generic [ref=f110e34]:
+            - link "Search..." [ref=f110e35] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f110e36]
+        - generic [ref=f110e37]:
+          - generic [ref=f110e38] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f110e39]
+    - generic [ref=f110e40]:
+      - list [ref=f110e44]:
+        - listitem [ref=f110e45]:
+          - link "Helpdesk Dashboard" [ref=f110e46] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f110e49]:
+          - link "Helpdesk Tickets" [ref=f110e50] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f110e53]:
+          - link "Reports" [ref=f110e54] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f110e57]:
+          - link "Organization" [ref=f110e58] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f110e61]:
+          - link "Customers" [ref=f110e62] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f110e65]:
+          - link "Products" [ref=f110e66] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f110e69]:
+          - link "Helpdesk Settings" [ref=f110e70] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f110e73]:
+        - generic [ref=f110e76]:
+          - heading "Helpdesk Settings" [level=2] [ref=f110e77]
+          - paragraph [ref=f110e78]: Holidays, products, SLA policies and canned responses
+        - list [ref=f110e80]:
+          - listitem [ref=f110e81]:
+            - link "Holiday" [ref=f110e82] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f110e83]:
+            - link "Products" [ref=f110e84] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f110e85]:
+            - link "Email Configuration" [ref=f110e86] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f110e87]:
+            - link "Canned Responses" [ref=f110e88] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+          - listitem [ref=f110e89]:
+            - link "Support Packages" [ref=f110e90] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+        - generic [ref=f110e91]:
+          - generic [ref=f110e93]:
+            - textbox "Search holidays..." [active] [ref=f110e95]
+            - generic [ref=f110e96]:
+              - button "Apply Filters" [ref=f110e97] [cursor=pointer]
+              - link "Clear" [ref=f110e100] [cursor=pointer]:
+                - /url: /rf_helpdesk/setting?tab=holidays
+          - generic [ref=f110e105]:
+            - generic [ref=f110e106]:
+              - heading "Holiday" [level=3] [ref=f110e107]
+              - link "New Holiday" [ref=f110e109] [cursor=pointer]:
+                - /url: /rf_helpdesk_holidays/new
+            - generic [ref=f110e111]:
+              - heading "No holidays defined" [level=3] [ref=f110e115]
+              - paragraph [ref=f110e116]: Holidays are excluded from SLA clocks. Add the ones your support team observes.
+              - link "New Holiday" [ref=f110e118] [cursor=pointer]:
+                - /url: /rf_helpdesk_holidays/new
+          - generic [ref=f110e120]:
+            - list
+            - generic [ref=f110e121]: (0-0/0)
+    - generic [ref=f110e122]:
+      - text: Powered by
+      - link "Redmine" [ref=f110e123] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f110e124]
+  - log [ref=f110e125]
+  - log [ref=f110e126]
+  - log [ref=f110e127]
+  - log [ref=f110e128]
+  - log [ref=f110e129]
+  - log [ref=f110e130]
+  - log [ref=f110e131]
+  - log [ref=f110e132]
+  - log [ref=f110e133]

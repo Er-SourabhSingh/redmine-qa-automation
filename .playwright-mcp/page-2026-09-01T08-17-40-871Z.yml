@@ -1,0 +1,542 @@
+- generic [active] [ref=f81e1]:
+  - generic [ref=f81e2]:
+    - generic [ref=f81e3]:
+      - generic [ref=f81e4]:
+        - list:
+          - listitem [ref=f81e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f81e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f81e7]:
+        - text: Logged in as
+        - link "admin" [ref=f81e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f81e9]:
+        - listitem [ref=f81e10]:
+          - link [ref=f81e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f81e12]
+        - listitem [ref=f81e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f81e14]:
+          - link "My page" [ref=f81e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f81e16]:
+          - link "Projects" [ref=f81e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f81e18]:
+          - link "Flux Gantt" [ref=f81e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f81e20]:
+          - link "Helpdesk Command Center" [ref=f81e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f81e22]:
+          - link "Time Tracker" [ref=f81e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f81e24]:
+          - link "Timesheet" [ref=f81e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f81e26]:
+          - link "Workloads" [ref=f81e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f81e28]:
+          - link "More" [ref=f81e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f81e30]:
+      - generic [ref=f81e31]:
+        - generic [ref=f81e32]:
+          - generic [ref=f81e33]:
+            - link "Search..." [ref=f81e34] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f81e35]
+        - generic [ref=f81e36]:
+          - generic [ref=f81e37] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f81e38]
+      - generic [ref=f81e39]:
+        - list [ref=f81e40]:
+          - listitem [ref=f81e41]:
+            - link "+" [ref=f81e42] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f81e43]:
+            - link "Overview" [ref=f81e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f81e45]:
+            - link "Activity" [ref=f81e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f81e47]:
+            - link "Issues" [ref=f81e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f81e49]:
+            - link "Spent time" [ref=f81e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f81e51]:
+            - link "Gantt" [ref=f81e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f81e53]:
+            - link "Calendar" [ref=f81e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f81e55]:
+            - link "News" [ref=f81e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f81e57]:
+            - link "Documents" [ref=f81e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f81e59]:
+            - link "Wiki" [ref=f81e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f81e61]:
+            - link "Files" [ref=f81e62] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f81e63]:
+            - link "Helpdesk" [ref=f81e64] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+          - listitem [ref=f81e65]:
+            - link "Settings" [ref=f81e66] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/settings
+        - generic [ref=f81e67]:
+          - button [ref=f81e68] [cursor=pointer]
+          - button [ref=f81e71] [cursor=pointer]
+    - generic [ref=f81e74]:
+      - link [ref=f81e76] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=f81e79]:
+        - generic [ref=f81e80]:
+          - link "Start Timer" [ref=f81e81] [cursor=pointer]:
+            - /url: "#"
+          - link "Reply" [ref=f81e82] [cursor=pointer]:
+            - /url: "#"
+          - link "Edit" [ref=f81e83] [cursor=pointer]:
+            - /url: /issues/14/edit
+          - link "Log time" [ref=f81e85] [cursor=pointer]:
+            - /url: /issues/14/time_entries/new
+          - link "Unwatch" [ref=f81e87] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=14&object_type=issue
+          - link "Copy" [ref=f81e89] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/14/copy
+          - generic "Actions" [ref=f81e93] [cursor=pointer]
+        - 'heading "Support #14" [level=2] [ref=f81e95]'
+        - generic [ref=f81e96]: open
+        - generic [ref=f81e97]:
+          - generic:
+            - 'img "Author: Alpha Customer" [ref=f81e98]': AC
+            - 'img "Assignee: Redmine Admin" [ref=f81e99]': RA
+          - heading [level=3] [ref=f81e103]:
+            - text: TC-HLP-092 escalation-chain test ticket - fast-breach SLA
+            - button "Edit" [ref=f81e104] [cursor=pointer]
+          - link [ref=f81e107] [cursor=pointer]:
+            - /url: /reactions?object_id=14&object_type=Issue
+          - paragraph [ref=f81e110]:
+            - text: Added by
+            - link "Alpha Customer" [ref=f81e111] [cursor=pointer]:
+              - /url: /users/6
+            - link "8 minutes" [ref=f81e112] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-09-01
+            - text: ago. Updated
+            - link "7 minutes" [ref=f81e113] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-09-01
+            - text: ago.
+          - generic [ref=f81e114]:
+            - generic [ref=f81e115]:
+              - generic [ref=f81e116]:
+                - generic [ref=f81e117]:
+                  - generic [ref=f81e118]: "Status:"
+                  - generic [ref=f81e119]:
+                    - text: New
+                    - button "Edit" [ref=f81e120] [cursor=pointer]
+                - generic [ref=f81e121]:
+                  - generic [ref=f81e122]: "Priority:"
+                  - generic [ref=f81e123]:
+                    - text: Normal
+                    - button "Edit" [ref=f81e124] [cursor=pointer]
+                - generic [ref=f81e125]:
+                  - generic [ref=f81e126]: "Assignee:"
+                  - generic [ref=f81e127]:
+                    - link "Redmine Admin" [ref=f81e129] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f81e130] [cursor=pointer]
+              - generic [ref=f81e131]:
+                - generic [ref=f81e132]:
+                  - generic [ref=f81e133]: "Start date:"
+                  - generic [ref=f81e134]:
+                    - text: 09/01/2026
+                    - button "Edit" [ref=f81e135] [cursor=pointer]
+                - generic [ref=f81e136]:
+                  - generic [ref=f81e137]: "Due Date:"
+                  - button "Edit" [ref=f81e139] [cursor=pointer]
+                - generic [ref=f81e140]:
+                  - generic [ref=f81e141]: "Progress:"
+                  - generic [ref=f81e142]:
+                    - generic [ref=f81e143]:
+                      - table [ref=f81e144]:
+                        - rowgroup [ref=f81e145]:
+                          - row [ref=f81e146]:
+                            - cell [ref=f81e147]
+                      - paragraph [ref=f81e148]: 0%
+                    - button "Edit" [ref=f81e149] [cursor=pointer]
+                - generic [ref=f81e150]:
+                  - generic [ref=f81e151]: "Estimated time:"
+                  - button "Edit" [ref=f81e153] [cursor=pointer]
+            - generic [ref=f81e156]:
+              - generic [ref=f81e157]: "Issue Category:"
+              - button "Edit" [ref=f81e159] [cursor=pointer]
+            - generic [ref=f81e161]:
+              - generic [ref=f81e162]: "Product:"
+              - generic [ref=f81e163]: "-"
+            - generic [ref=f81e164]:
+              - generic [ref=f81e165]: "Organization:"
+              - generic [ref=f81e166]: "-"
+            - generic [ref=f81e167]:
+              - generic [ref=f81e168]: "Customer:"
+              - link "Alpha Customer" [ref=f81e170] [cursor=pointer]:
+                - /url: /rf_customers/6
+          - separator [ref=f81e171]
+          - generic [ref=f81e172]:
+            - link "Quote" [ref=f81e174] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f81e176]:
+              - strong [ref=f81e177]: Description
+              - button "Edit" [ref=f81e178] [cursor=pointer]
+            - paragraph [ref=f81e180]: Fixture ticket created to exercise the real breach-to-escalation flow (TC-HLP-092 onward) using Alpha Escalation Test SLA (1 min response/resolution).
+          - separator [ref=f81e181]
+          - generic [ref=f81e182]:
+            - paragraph [ref=f81e184]:
+              - strong [ref=f81e185]: Checklist
+            - generic [ref=f81e187] [cursor=pointer]
+            - generic:
+              - list
+          - separator [ref=f81e189]
+          - generic [ref=f81e190]:
+            - link "Add" [ref=f81e192] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/new?back_url=%2Fissues%2F14&issue%5Bparent_issue_id%5D=14&issue%5Btracker_id%5D=3
+            - paragraph [ref=f81e193]:
+              - strong [ref=f81e194]: Subtasks
+          - separator [ref=f81e195]
+          - generic [ref=f81e196]:
+            - link "Add" [ref=f81e198] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f81e199]:
+              - strong [ref=f81e200]: Related issues
+        - generic [ref=f81e201]:
+          - list [ref=f81e203]:
+            - listitem [ref=f81e204]:
+              - link "History" [ref=f81e205] [cursor=pointer]:
+                - /url: /issues/14?tab=history
+            - listitem [ref=f81e206]:
+              - link "Property changes" [ref=f81e207] [cursor=pointer]:
+                - /url: /issues/14?tab=properties
+            - listitem [ref=f81e208]:
+              - link "SLA Information" [ref=f81e209] [cursor=pointer]:
+                - /url: /issues/14?tab=sla-information
+          - generic [ref=f81e211]:
+            - generic [ref=f81e212]:
+              - generic [ref=f81e213]:
+                - generic [ref=f81e214]: Alpha Escalation Test SLA
+                - generic [ref=f81e215]: ↑ Escalated 3×
+              - generic [ref=f81e216]: ✗ SLA Missed
+            - generic [ref=f81e217]:
+              - generic [ref=f81e218]: 🚨
+              - generic [ref=f81e219]:
+                - strong [ref=f81e220]: Needs Immediate Attention —
+                - text: No further escalation path. Assigned to admin
+                - strong [ref=f81e221]: Redmine Admin
+                - text: on 09/01/2026 08:17 AM (UTC).
+            - generic [ref=f81e222]:
+              - generic [ref=f81e223]: SLA Overview
+              - table [ref=f81e225]:
+                - rowgroup [ref=f81e226]:
+                  - row [ref=f81e227]:
+                    - columnheader "Organization" [ref=f81e228]
+                    - columnheader "SLA Policy" [ref=f81e229]
+                    - columnheader "Support Level" [ref=f81e230]
+                    - columnheader "SLA Started" [ref=f81e231]
+                    - columnheader "Initially Assigned To" [ref=f81e232]
+                    - columnheader "Current Assignee" [ref=f81e233]
+                - rowgroup [ref=f81e234]:
+                  - row [ref=f81e235]:
+                    - cell "—" [ref=f81e236]
+                    - cell [ref=f81e237]:
+                      - strong [ref=f81e238]: Alpha Escalation Test SLA
+                    - cell "L3" [ref=f81e239]
+                    - cell "09/01/2026 08:10 AM (UTC)" [ref=f81e241]
+                    - cell "Luna Blossom" [ref=f81e242]
+                    - cell "Redmine Admin Admin" [ref=f81e243]:
+                      - strong [ref=f81e244]: Redmine Admin
+                      - generic [ref=f81e245]: Admin
+            - generic [ref=f81e246]:
+              - generic [ref=f81e247]:
+                - generic [ref=f81e248]: SLA Journey
+                - generic [ref=f81e249]: 4 stages · 3 escalations
+              - table [ref=f81e250]:
+                - rowgroup [ref=f81e251]:
+                  - row [ref=f81e252]:
+                    - columnheader "#" [ref=f81e253]
+                    - columnheader "Stage" [ref=f81e254]
+                    - columnheader "Support Level" [ref=f81e255]
+                    - columnheader "Agent" [ref=f81e256]
+                    - columnheader "Active Period" [ref=f81e257]
+                    - columnheader "Response SLA" [ref=f81e258]
+                    - columnheader "Resolution SLA" [ref=f81e259]
+                    - columnheader "Escalation Trigger" [ref=f81e260]
+                - rowgroup [ref=f81e261]:
+                  - row [ref=f81e262]:
+                    - cell "1" [ref=f81e263]
+                    - cell "Initial Stage" [ref=f81e265]
+                    - cell "L1" [ref=f81e266]
+                    - cell "Luna Blossom" [ref=f81e268]
+                    - cell "09/01/2026 08:10 AM (UTC) ↓ 09/01/2026 08:13 AM (UTC)" [ref=f81e269]:
+                      - text: 09/01/2026 08:10 AM (UTC)
+                      - generic [ref=f81e270]: ↓
+                      - text: 09/01/2026 08:13 AM (UTC)
+                    - 'cell "✗ Breached Deadline: 09/01/2026 08:11 AM (UTC)" [ref=f81e271]':
+                      - generic [ref=f81e272]:
+                        - generic [ref=f81e273]: ✗
+                        - text: Breached
+                      - generic [ref=f81e274]: "Deadline: 09/01/2026 08:11 AM (UTC)"
+                    - cell "→ Carried forward" [ref=f81e275]:
+                      - generic [ref=f81e276]:
+                        - generic [ref=f81e277]: →
+                        - text: Carried forward
+                    - cell "Response Time Breach → L2 / Autumn Grace 09/01/2026 08:13 AM (UTC)" [ref=f81e278]:
+                      - generic [ref=f81e279]: Response Time Breach
+                      - generic [ref=f81e280]: → L2 / Autumn Grace
+                      - generic [ref=f81e281]: 09/01/2026 08:13 AM (UTC)
+                  - row [ref=f81e282]:
+                    - cell "2" [ref=f81e283]
+                    - 'cell "Escalation #1 Response Time Breach" [ref=f81e285]':
+                      - text: "Escalation #1"
+                      - generic [ref=f81e286]: Response Time Breach
+                    - cell "L2" [ref=f81e287]
+                    - cell "Autumn Grace" [ref=f81e289]
+                    - cell "09/01/2026 08:13 AM (UTC) ↓ 09/01/2026 08:15 AM (UTC)" [ref=f81e290]:
+                      - text: 09/01/2026 08:13 AM (UTC)
+                      - generic [ref=f81e291]: ↓
+                      - text: 09/01/2026 08:15 AM (UTC)
+                    - 'cell "✗ Breached Deadline: 09/01/2026 08:14 AM (UTC)" [ref=f81e292]':
+                      - generic [ref=f81e293]:
+                        - generic [ref=f81e294]: ✗
+                        - text: Breached
+                      - generic [ref=f81e295]: "Deadline: 09/01/2026 08:14 AM (UTC)"
+                    - cell "→ Carried forward" [ref=f81e296]:
+                      - generic [ref=f81e297]:
+                        - generic [ref=f81e298]: →
+                        - text: Carried forward
+                    - cell "Response Time Breach → L3 / Willow Belle 09/01/2026 08:15 AM (UTC)" [ref=f81e299]:
+                      - generic [ref=f81e300]: Response Time Breach
+                      - generic [ref=f81e301]: → L3 / Willow Belle
+                      - generic [ref=f81e302]: 09/01/2026 08:15 AM (UTC)
+                  - row [ref=f81e303]:
+                    - cell "3" [ref=f81e304]
+                    - 'cell "Escalation #2 Response Time Breach" [ref=f81e306]':
+                      - text: "Escalation #2"
+                      - generic [ref=f81e307]: Response Time Breach
+                    - cell "L3" [ref=f81e308]
+                    - cell "Willow Belle" [ref=f81e310]
+                    - cell "09/01/2026 08:15 AM (UTC) ↓ 09/01/2026 08:17 AM (UTC)" [ref=f81e311]:
+                      - text: 09/01/2026 08:15 AM (UTC)
+                      - generic [ref=f81e312]: ↓
+                      - text: 09/01/2026 08:17 AM (UTC)
+                    - 'cell "✗ Breached Deadline: 09/01/2026 08:16 AM (UTC)" [ref=f81e313]':
+                      - generic [ref=f81e314]:
+                        - generic [ref=f81e315]: ✗
+                        - text: Breached
+                      - generic [ref=f81e316]: "Deadline: 09/01/2026 08:16 AM (UTC)"
+                    - cell "→ Carried forward" [ref=f81e317]:
+                      - generic [ref=f81e318]:
+                        - generic [ref=f81e319]: →
+                        - text: Carried forward
+                    - cell "Response Time Breach → L3 / Redmine Admin 09/01/2026 08:17 AM (UTC)" [ref=f81e320]:
+                      - generic [ref=f81e321]: Response Time Breach
+                      - generic [ref=f81e322]: → L3 / Redmine Admin
+                      - generic [ref=f81e323]: 09/01/2026 08:17 AM (UTC)
+                  - row [ref=f81e324]:
+                    - cell "4" [ref=f81e325]
+                    - 'cell "Escalation #3 ● Current Response Time Breach" [ref=f81e327]':
+                      - text: "Escalation #3"
+                      - generic [ref=f81e328]: ● Current
+                      - generic [ref=f81e329]: Response Time Breach
+                    - cell "L3" [ref=f81e330]
+                    - cell "Redmine Admin Admin" [ref=f81e332]:
+                      - text: Redmine Admin
+                      - generic [ref=f81e333]: Admin
+                    - cell "09/01/2026 08:17 AM (UTC) ↓ Present" [ref=f81e334]:
+                      - text: 09/01/2026 08:17 AM (UTC)
+                      - generic [ref=f81e335]: ↓
+                      - text: Present
+                    - 'cell "✗ Breached Deadline: 09/01/2026 08:16 AM (UTC)" [ref=f81e336]':
+                      - generic [ref=f81e337]:
+                        - generic [ref=f81e338]: ✗
+                        - text: Breached
+                      - generic [ref=f81e339]: "Deadline: 09/01/2026 08:16 AM (UTC)"
+                    - cell "○ Starts after first response" [ref=f81e340]:
+                      - generic [ref=f81e341]:
+                        - generic [ref=f81e342]: ○
+                        - text: Starts after first response
+                    - cell "— (active)" [ref=f81e343]
+            - generic [ref=f81e344]:
+              - generic [ref=f81e345]:
+                - generic [ref=f81e346]: Activity Log
+                - generic [ref=f81e347]: 7 events
+              - table [ref=f81e348]:
+                - rowgroup [ref=f81e349]:
+                  - row [ref=f81e350]:
+                    - columnheader "#" [ref=f81e351]
+                    - columnheader "Timestamp" [ref=f81e352]
+                    - columnheader "Event" [ref=f81e353]
+                    - columnheader "Support Level" [ref=f81e354]
+                    - columnheader "Agent / By" [ref=f81e355]
+                    - columnheader "Details" [ref=f81e356]
+                - rowgroup [ref=f81e357]:
+                  - row [ref=f81e358]:
+                    - 'cell "1 Initial Stage L1 Agent: Luna Blossom" [ref=f81e359]':
+                      - generic [ref=f81e360]: "1"
+                      - text: Initial Stage
+                      - generic [ref=f81e361]: L1
+                      - text: "Agent: Luna Blossom"
+                  - row [ref=f81e362]:
+                    - cell "1" [ref=f81e363]
+                    - cell "09/01/2026 08:10 AM (UTC)" [ref=f81e364]
+                    - cell "▶ SLA Started" [ref=f81e365]
+                    - cell "L1" [ref=f81e367]
+                    - cell "Luna Blossom" [ref=f81e369]
+                    - 'cell "Response deadline set: 09/01/2026 08:16 AM (UTC)" [ref=f81e370]'
+                  - row [ref=f81e371]:
+                    - cell "2" [ref=f81e372]
+                    - cell "09/01/2026 08:11 AM (UTC)" [ref=f81e373]
+                    - cell "✗ Response SLA Breached" [ref=f81e374]
+                    - cell "L1" [ref=f81e376]
+                    - cell "Luna Blossom" [ref=f81e378]
+                    - cell "No response given by deadline" [ref=f81e379]
+                  - row [ref=f81e380]:
+                    - cell "3" [ref=f81e381]
+                    - cell "09/01/2026 08:13 AM (UTC)" [ref=f81e382]
+                    - cell "↑ Escalated → L2" [ref=f81e383]
+                    - cell "L2" [ref=f81e385]
+                    - cell "Autumn Grace" [ref=f81e387]
+                    - 'cell "Reason: Response Time Breach · New deadline: 09/01/2026 08:14 AM (UTC)" [ref=f81e388]'
+                  - row [ref=f81e389]:
+                    - 'cell "2 Escalation #1 L2 Agent: Autumn Grace" [ref=f81e390]':
+                      - generic [ref=f81e391]: "2"
+                      - text: "Escalation #1"
+                      - generic [ref=f81e392]: L2
+                      - text: "Agent: Autumn Grace"
+                  - row [ref=f81e393]:
+                    - cell "4" [ref=f81e394]
+                    - cell "09/01/2026 08:14 AM (UTC)" [ref=f81e395]
+                    - cell "✗ Response SLA Breached" [ref=f81e396]
+                    - cell "L2" [ref=f81e398]
+                    - cell "Autumn Grace" [ref=f81e400]
+                    - cell "No response given by deadline" [ref=f81e401]
+                  - row [ref=f81e402]:
+                    - cell "5" [ref=f81e403]
+                    - cell "09/01/2026 08:15 AM (UTC)" [ref=f81e404]
+                    - cell "↑ Escalated → L3" [ref=f81e405]
+                    - cell "L3" [ref=f81e407]
+                    - cell "Willow Belle" [ref=f81e409]
+                    - 'cell "Reason: Response Time Breach · New deadline: 09/01/2026 08:16 AM (UTC)" [ref=f81e410]'
+                  - row [ref=f81e411]:
+                    - 'cell "3 Escalation #2 L3 Agent: Willow Belle" [ref=f81e412]':
+                      - generic [ref=f81e413]: "3"
+                      - text: "Escalation #2"
+                      - generic [ref=f81e414]: L3
+                      - text: "Agent: Willow Belle"
+                  - row [ref=f81e415]:
+                    - cell "6" [ref=f81e416]
+                    - cell "09/01/2026 08:16 AM (UTC)" [ref=f81e417]
+                    - cell "✗ Response SLA Breached" [ref=f81e418]
+                    - cell "L3" [ref=f81e420]
+                    - cell "Willow Belle" [ref=f81e422]
+                    - cell "No response given by deadline" [ref=f81e423]
+                  - row [ref=f81e424]:
+                    - cell "7" [ref=f81e425]
+                    - cell "09/01/2026 08:17 AM (UTC)" [ref=f81e426]
+                    - cell "↑ Escalated → L3" [ref=f81e427]
+                    - cell "L3" [ref=f81e429]
+                    - cell "Redmine Admin" [ref=f81e431]
+                    - 'cell "Reason: Response Time Breach · New deadline: 09/01/2026 08:16 AM (UTC)" [ref=f81e432]'
+        - generic [ref=f81e433]:
+          - link "Edit" [ref=f81e434] [cursor=pointer]:
+            - /url: /issues/14/edit
+          - link "Log time" [ref=f81e436] [cursor=pointer]:
+            - /url: /issues/14/time_entries/new
+          - link "Unwatch" [ref=f81e438] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=14&object_type=issue
+          - link "Copy" [ref=f81e440] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/14/copy
+          - generic "Actions" [ref=f81e444] [cursor=pointer]
+        - text: pre pre
+        - paragraph [ref=f81e446]:
+          - text: "Also available in:"
+          - link "PDF" [ref=f81e448] [cursor=pointer]:
+            - /url: /issues/14.pdf
+          - generic [ref=f81e449]:
+            - text: "|"
+            - link "Atom" [ref=f81e450] [cursor=pointer]:
+              - /url: /issues/14.atom?key=37400ba0af80d0ddda427b1e9ddde606dc83db99
+    - generic [ref=f81e451]:
+      - text: Powered by
+      - link "Redmine" [ref=f81e452] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f81e453]
+  - log [ref=f81e454]
+  - log [ref=f81e455]
+  - log [ref=f81e456]
+  - log [ref=f81e457]
+  - log [ref=f81e458]
+  - log [ref=f81e459]
+  - log [ref=f81e460]
+  - log [ref=f81e461]
+  - log [ref=f81e462]
+  - log [ref=f81e463]
+  - log [ref=f81e464]
+  - log [ref=f81e465]
+  - log [ref=f81e466]
+  - log [ref=f81e467]
+  - log [ref=f81e468]
+  - log [ref=f81e469]
+  - log [ref=f81e470]
+  - log [ref=f81e471]
+  - log [ref=f81e472]
+  - log [ref=f81e473]
+  - log [ref=f81e474]
+  - log [ref=f81e475]
+  - log [ref=f81e476]
+  - log [ref=f81e477]
+  - log [ref=f81e478]
+  - log [ref=f81e479]
+  - log [ref=f81e480]
+  - log [ref=f81e481]
+  - log [ref=f81e482]
+  - log [ref=f81e483]
+  - log [ref=f81e484]
+  - log [ref=f81e485]
+  - log [ref=f81e486]
+  - log [ref=f81e487]
+  - log [ref=f81e488]
+  - log [ref=f81e489]
+  - log [ref=f81e490]
+  - log [ref=f81e491]
+  - log [ref=f81e492]
+  - log [ref=f81e493]
+  - log [ref=f81e494]
+  - log [ref=f81e495]
+  - log [ref=f81e496]
+  - log [ref=f81e497]
+  - log [ref=f81e498]
+  - log [ref=f81e499]
+  - log [ref=f81e500]
+  - log [ref=f81e501]
+  - log [ref=f81e502]
+  - log [ref=f81e503]
+  - log [ref=f81e504]
+  - log [ref=f81e505]
+  - log [ref=f81e506]
+  - log [ref=f81e507]
+  - log [ref=f81e508]
+  - status [ref=f81e509]
+  - status [ref=f81e510]

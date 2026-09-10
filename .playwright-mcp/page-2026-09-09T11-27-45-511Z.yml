@@ -1,0 +1,189 @@
+- generic [active] [ref=f49e1]:
+  - generic [ref=f49e2]:
+    - navigation [ref=f49e3]:
+      - list [ref=f49e6]:
+        - listitem [ref=f49e7]:
+          - link "Hauptseite" [ref=f49e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f49e9]:
+          - link "Meine Seite" [ref=f49e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f49e11]:
+          - link "Projekte" [ref=f49e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f49e13]:
+          - link "Agile Board" [ref=f49e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f49e15]:
+          - link "Flux Gantt" [ref=f49e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f49e17]:
+          - link "Administration" [ref=f49e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f49e19]:
+          - link "Hilfe" [ref=f49e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f49e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f49e24]: RA
+    - generic [ref=f49e27]:
+      - generic [ref=f49e28]:
+        - generic [ref=f49e29]:
+          - generic [ref=f49e30]:
+            - link "Suche" [ref=f49e31] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/search
+            - text: ":"
+          - textbox "Suche:" [ref=f49e32]
+        - generic [ref=f49e33]:
+          - generic [ref=f49e34] [cursor=pointer]: Flux Gantt Project
+          - text: ✓ ✓
+      - heading "Flux Gantt Project" [level=1] [ref=f49e35]
+      - list [ref=f49e38]:
+        - listitem [ref=f49e39]:
+          - link "+" [ref=f49e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f49e41]:
+          - link "Übersicht" [ref=f49e42] [cursor=pointer]:
+            - /url: /projects/fluxganttproject
+        - listitem [ref=f49e43]:
+          - link "Dashboard" [ref=f49e44] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/analytics_dashboard
+        - listitem [ref=f49e45]:
+          - link "Flux Gantt" [ref=f49e46] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/flux_gantt
+        - listitem [ref=f49e47]:
+          - link "Aktivität" [ref=f49e48] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/activity
+        - listitem [ref=f49e49]:
+          - link "Roadmap" [ref=f49e50] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/roadmap
+        - listitem [ref=f49e51]:
+          - link "Tickets" [ref=f49e52] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues
+        - listitem [ref=f49e53]:
+          - link "Aufgewendete Zeit" [ref=f49e54] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/time_entries
+        - listitem [ref=f49e55]:
+          - link "Gantt-Diagramm" [ref=f49e56] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/gantt
+        - listitem [ref=f49e57]:
+          - link "Kalender" [ref=f49e58] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/calendar
+        - listitem [ref=f49e59]:
+          - link "News" [ref=f49e60] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/news
+        - listitem [ref=f49e61]:
+          - link "Dokumente" [ref=f49e62] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/documents
+        - listitem [ref=f49e63]:
+          - link "Wiki" [ref=f49e64] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/wiki
+        - listitem [ref=f49e65]:
+          - link "Dateien" [ref=f49e66] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/files
+        - listitem [ref=f49e67]:
+          - link "Konfiguration" [ref=f49e68] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/settings
+    - generic [ref=f49e70]:
+      - generic [ref=f49e71]:
+        - generic [ref=f49e72]:
+          - heading "Analyse-Dashboard" [level=2] [ref=f49e73]
+          - generic [ref=f49e74]:
+            - button "Teilen" [ref=f49e75] [cursor=pointer]
+            - button "AUS" [ref=f49e79] [cursor=pointer]
+            - combobox [disabled] [ref=f49e84]:
+              - option "30 Sek."
+              - option "1 Min." [selected]
+              - option "2 Min."
+              - option "5 Min."
+              - option "10 Min."
+        - generic [ref=f49e85]:
+          - generic [ref=f49e86]:
+            - generic [ref=f49e87]: "Tracker:"
+            - combobox "Tracker:" [ref=f49e88]:
+              - option "Alle Tracker" [selected]
+              - option "Bug"
+              - option "Feature"
+              - option "Support"
+          - generic [ref=f49e89]:
+            - generic [ref=f49e90]: "Zeitraum:"
+            - combobox "Zeitraum:" [ref=f49e91]:
+              - option "Heute"
+              - option "Letzte 7 Tage"
+              - option "Letzte 30 Tage" [selected]
+              - option "Letzte 90 Tage"
+              - option "Dieser Monat"
+              - option "Letzter Monat"
+              - option "Dieses Jahr"
+              - option "Benutzerdefinierter Zeitraum"
+          - button "Anwenden" [ref=f49e92] [cursor=pointer]
+          - generic [ref=f49e93]:
+            - button "Aktualisieren" [ref=f49e94] [cursor=pointer]
+            - button "Vollbild" [ref=f49e97] [cursor=pointer]
+        - button "Diagramm hinzufügen" [ref=f49e101] [cursor=pointer]
+        - generic [ref=f49e104]:
+          - heading "Keine Diagramme hinzugefügt" [level=3] [ref=f49e129]
+          - paragraph [ref=f49e130]: Klicken Sie oben auf „Diagramm hinzufügen“, um Ihr erstes Diagramm anzulegen
+      - text: 🗑️ 🗑️
+    - generic [ref=f49e131]:
+      - text: Powered by
+      - link "Redmine" [ref=f49e132] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f49e133]
+  - log [ref=f49e134]
+  - log [ref=f49e135]
+  - log [ref=f49e136]
+  - log [ref=f49e137]
+  - log [ref=f49e138]
+  - log [ref=f49e139]
+  - log [ref=f49e140]
+  - log [ref=f49e141]
+  - log [ref=f49e142]
+  - log [ref=f49e143]
+  - log [ref=f49e144]
+  - log [ref=f49e145]
+  - log [ref=f49e146]
+  - log [ref=f49e147]
+  - log [ref=f49e148]
+  - log [ref=f49e149]
+  - log [ref=f49e150]
+  - log [ref=f49e151]
+  - log [ref=f49e152]
+  - log [ref=f49e153]
+  - log [ref=f49e154]
+  - log [ref=f49e155]
+  - log [ref=f49e156]
+  - log [ref=f49e157]
+  - log [ref=f49e158]
+  - log [ref=f49e159]
+  - log [ref=f49e160]
+  - log [ref=f49e161]
+  - log [ref=f49e162]
+  - log [ref=f49e163]
+  - log [ref=f49e164]
+  - log [ref=f49e165]
+  - log [ref=f49e166]
+  - log [ref=f49e167]
+  - log [ref=f49e168]
+  - log [ref=f49e169]
+  - log [ref=f49e170]
+  - log [ref=f49e171]
+  - log [ref=f49e172]
+  - log [ref=f49e173]
+  - log [ref=f49e174]
+  - log [ref=f49e175]
+  - log [ref=f49e176]
+  - log [ref=f49e177]
+  - log [ref=f49e178]
+  - log [ref=f49e179]
+  - log [ref=f49e180]
+  - log [ref=f49e181]
+  - log [ref=f49e182]
+  - log [ref=f49e183]
+  - log [ref=f49e184]
+  - log [ref=f49e185]
+  - log [ref=f49e186]
+  - log [ref=f49e187]
+  - log [ref=f49e188]
+  - log [ref=f49e189]

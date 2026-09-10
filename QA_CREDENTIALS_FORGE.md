@@ -8,7 +8,7 @@
 |---|---|
 | Application | Redmine |
 | Environment | Forge |
-| Base URL | `https://flux-fwdq7ydhw49.forge.zehntech.com/` |
+| Base URL | `https://flux-frmka2kzh49.forge.zehntech.com/` |
 
 ---
 
@@ -25,7 +25,7 @@
 | Field | Value |
 |---|---|
 | Username | admin |
-| Password | 12345678 (default was `admin`, changed by tester this session — new server flux-fwdq7ydhw49) |
+| Password | 12345678 (default was `admin`, forced change on new server flux-frmka2kzh49) |
 | Role | Administrator |
 | API Key | `<not configured>` |
 

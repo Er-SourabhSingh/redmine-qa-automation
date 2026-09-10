@@ -1,0 +1,223 @@
+- generic [ref=f729e1]:
+  - generic [ref=f729e2]:
+    - generic [ref=f729e3]:
+      - generic [ref=f729e4]:
+        - list:
+          - listitem [ref=f729e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f729e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f729e7]:
+        - text: Logged in as
+        - link "admin" [ref=f729e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f729e9]:
+        - listitem [ref=f729e10]:
+          - link [ref=f729e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f729e12]
+        - listitem [ref=f729e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f729e14]:
+          - link "My page" [ref=f729e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f729e16]:
+          - link "Projects" [ref=f729e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f729e18]:
+          - link "Flux Gantt" [ref=f729e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f729e20]:
+          - link "Helpdesk Command Center" [ref=f729e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f729e22]:
+          - link "Time Tracker" [ref=f729e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f729e24]:
+          - link "Timesheet" [ref=f729e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f729e26]:
+          - link "Workloads" [ref=f729e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f729e28]:
+          - link "More" [ref=f729e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f729e30]:
+      - generic [ref=f729e31]:
+        - generic [ref=f729e32]:
+          - generic [ref=f729e33]:
+            - link "Search..." [ref=f729e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f729e35]
+        - generic [ref=f729e36]:
+          - generic [ref=f729e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f729e38]
+    - generic [ref=f729e39]:
+      - list [ref=f729e43]:
+        - listitem [ref=f729e44]:
+          - link "Helpdesk Dashboard" [ref=f729e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f729e48]:
+          - link "Helpdesk Tickets" [ref=f729e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f729e52]:
+          - link "Reports" [ref=f729e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f729e56]:
+          - link "Organization" [ref=f729e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f729e60]:
+          - link "Customers" [ref=f729e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f729e64]:
+          - link "Products" [ref=f729e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f729e68]:
+          - link "Helpdesk Settings" [ref=f729e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f729e72]:
+        - generic [ref=f729e73]: Successful creation.
+        - generic [ref=f729e76]:
+          - heading "Helpdesk Settings" [level=2] [ref=f729e77]
+          - paragraph [ref=f729e78]: Holidays, products, SLA policies and canned responses
+        - list [ref=f729e80]:
+          - listitem [ref=f729e81]:
+            - link "Holiday" [ref=f729e82] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f729e83]:
+            - link "Products" [ref=f729e84] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f729e85]:
+            - link "Email Configuration" [ref=f729e86] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f729e87]:
+            - link "Canned Responses" [ref=f729e88] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+          - listitem [ref=f729e89]:
+            - link "Support Packages" [ref=f729e90] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+        - generic [ref=f729e91]:
+          - generic [ref=f729e93]:
+            - textbox "Search support packages..." [ref=f729e95]
+            - generic [ref=f729e96]:
+              - button "Apply Filters" [ref=f729e97] [cursor=pointer]
+              - link "Clear" [ref=f729e100] [cursor=pointer]:
+                - /url: /rf_helpdesk/setting?tab=support_packages
+          - generic [ref=f729e105]:
+            - generic [ref=f729e106]:
+              - heading "Support Packages" [level=3] [ref=f729e107]
+              - link "New Support Package" [ref=f729e109] [cursor=pointer]:
+                - /url: /rf_helpdesk_support_packages/new
+            - table [ref=f729e111]:
+              - rowgroup [ref=f729e112]:
+                - row [ref=f729e113]:
+                  - columnheader "S.No" [ref=f729e114]
+                  - columnheader "Name" [ref=f729e115]
+                  - columnheader "Description" [ref=f729e116]
+                  - columnheader "Active" [ref=f729e117]
+                  - columnheader "Action" [ref=f729e118]
+              - rowgroup [ref=f729e119]:
+                - row [ref=f729e120]:
+                  - cell "1" [ref=f729e121]
+                  - cell "premium support (renamed)" [ref=f729e122]
+                  - cell "None" [ref=f729e123]
+                  - cell "Active" [ref=f729e124]
+                  - cell [ref=f729e130]:
+                    - generic [ref=f729e131]:
+                      - link "Edit" [ref=f729e132] [cursor=pointer]:
+                        - /url: /rf_helpdesk_support_packages/4/edit
+                      - link "Delete" [active] [ref=f729e135] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f729e139]:
+                  - cell "2" [ref=f729e140]
+                  - cell "Premium Support (Renamed)" [ref=f729e141]
+                  - cell "24/7 priority support with a dedicated agent queue" [ref=f729e142]
+                  - cell "Active" [ref=f729e143]
+                  - cell [ref=f729e149]:
+                    - generic [ref=f729e150]:
+                      - link "Edit" [ref=f729e151] [cursor=pointer]:
+                        - /url: /rf_helpdesk_support_packages/1/edit
+                      - link "Delete" [ref=f729e154] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f729e158]:
+                  - cell "3" [ref=f729e159]
+                  - cell "Standard Support (Edited)" [ref=f729e160]
+                  - cell "TC-HLP-374 edit test - updated description" [ref=f729e161]
+                  - cell "Active" [ref=f729e162]
+                  - cell [ref=f729e168]:
+                    - generic [ref=f729e169]:
+                      - link "Edit" [ref=f729e170] [cursor=pointer]:
+                        - /url: /rf_helpdesk_support_packages/2/edit
+                      - link "Delete" [ref=f729e173] [cursor=pointer]:
+                        - /url: javascript:void(0)
+        - generic [ref=f729e232]:
+          - button "✖" [ref=f729e233] [cursor=pointer]
+          - generic [ref=f729e238]:
+            - heading "Delete Support package?" [level=2] [ref=f729e239]
+            - paragraph [ref=f729e240]: Are you sure you want to delete " premium support (renamed) "? This action cannot be undone.
+          - generic [ref=f729e241]:
+            - button "Cancel" [ref=f729e242] [cursor=pointer]
+            - button "Delete" [ref=f729e243] [cursor=pointer]
+    - generic [ref=f729e177]:
+      - text: Powered by
+      - link "Redmine" [ref=f729e178] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f729e179]
+  - log [ref=f729e180]
+  - log [ref=f729e181]
+  - log [ref=f729e182]
+  - log [ref=f729e183]
+  - log [ref=f729e184]
+  - log [ref=f729e185]
+  - log [ref=f729e186]
+  - log [ref=f729e187]
+  - log [ref=f729e188]
+  - log [ref=f729e189]
+  - log [ref=f729e190]
+  - log [ref=f729e191]
+  - log [ref=f729e192]
+  - log [ref=f729e193]
+  - log [ref=f729e194]
+  - log [ref=f729e195]
+  - log [ref=f729e196]
+  - log [ref=f729e197]
+  - log [ref=f729e198]
+  - log [ref=f729e199]
+  - log [ref=f729e200]
+  - log [ref=f729e201]
+  - log [ref=f729e202]
+  - log [ref=f729e203]
+  - log [ref=f729e204]
+  - log [ref=f729e205]
+  - log [ref=f729e206]
+  - log [ref=f729e207]
+  - log [ref=f729e208]
+  - log [ref=f729e209]
+  - log [ref=f729e210]
+  - log [ref=f729e211]
+  - log [ref=f729e212]
+  - log [ref=f729e213]
+  - log [ref=f729e214]
+  - log [ref=f729e215]
+  - log [ref=f729e216]
+  - log [ref=f729e217]
+  - log [ref=f729e218]
+  - log [ref=f729e219]
+  - log [ref=f729e220]
+  - log [ref=f729e221]
+  - log [ref=f729e222]
+  - log [ref=f729e223]
+  - log [ref=f729e224]:
+    - generic [ref=f729e244]: Delete
+  - log [ref=f729e225]
+  - log [ref=f729e226]
+  - log [ref=f729e227]
+  - log [ref=f729e228]
+  - log [ref=f729e229]
+  - log [ref=f729e230]

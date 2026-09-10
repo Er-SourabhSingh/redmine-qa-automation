@@ -1,0 +1,285 @@
+- generic [active] [ref=f19e1]:
+  - generic [ref=f19e2]:
+    - navigation [ref=f19e3]:
+      - generic [ref=f19e4]:
+        - link [ref=f19e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f19e7] [cursor=pointer]
+      - list [ref=f19e17]:
+        - listitem [ref=f19e18]:
+          - link "Hauptseite" [ref=f19e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f19e20]:
+          - link "Meine Seite" [ref=f19e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f19e22]:
+          - link "Projekte" [ref=f19e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f19e24]:
+          - link "Agile Board" [ref=f19e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f19e26]:
+          - link "Flux Gantt" [ref=f19e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f19e28]:
+          - link "Administration" [ref=f19e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f19e30]:
+          - link "Hilfe" [ref=f19e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f19e32]:
+        - generic [ref=f19e33]:
+          - generic [ref=f19e34] [cursor=pointer]: Flux Gantt Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f19e35]
+        - link "Mein Konto" [ref=f19e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f19e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f19e44]:
+      - generic [ref=f19e46]:
+        - heading "Flux Gantt Project" [level=1] [ref=f19e47]
+        - generic [ref=f19e48]:
+          - generic [ref=f19e49]:
+            - generic [ref=f19e50]: Hauptmenü
+            - listitem [ref=f19e51]:
+              - link "+" [ref=f19e52] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f19e53]:
+            - listitem [ref=f19e54]:
+              - link "Übersicht" [ref=f19e55] [cursor=pointer]:
+                - /url: /projects/fluxganttproject
+            - listitem [ref=f19e60]:
+              - link "Dashboard" [ref=f19e61] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/analytics_dashboard
+            - listitem [ref=f19e69]:
+              - link "Flux Gantt" [ref=f19e70] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/flux_gantt
+            - listitem [ref=f19e77]:
+              - link "Aktivität" [ref=f19e78] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/activity
+            - listitem [ref=f19e83]:
+              - link "Roadmap" [ref=f19e84] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/roadmap
+            - listitem [ref=f19e91]:
+              - link "Tickets" [ref=f19e92] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues
+            - listitem [ref=f19e97]:
+              - link "Aufgewendete Zeit" [ref=f19e98] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/time_entries
+            - listitem [ref=f19e103]:
+              - link "Gantt-Diagramm" [ref=f19e104] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/gantt
+            - listitem [ref=f19e112]:
+              - link "Kalender" [ref=f19e113] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/calendar
+            - listitem [ref=f19e118]:
+              - link "News" [ref=f19e119] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/news
+            - listitem [ref=f19e124]:
+              - link "Dokumente" [ref=f19e125] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/documents
+            - listitem [ref=f19e130]:
+              - link "Wiki" [ref=f19e131] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/wiki
+            - listitem [ref=f19e136]:
+              - link "Dateien" [ref=f19e137] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/files
+            - listitem [ref=f19e142]:
+              - link "Konfiguration" [ref=f19e143] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/settings
+      - generic [ref=f19e149]:
+        - generic [ref=f19e150]:
+          - link "Bearbeiten" [ref=f19e151] [cursor=pointer]:
+            - /url: /versions/2/edit
+          - link "Löschen" [ref=f19e153] [cursor=pointer]:
+            - /url: /versions/2?back_url=%2Fprojects%2Ffluxganttproject%2Froadmap
+          - link "Neues Ticket" [ref=f19e155] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/new?back_url=%2Fversions%2F2&issue%5Bfixed_version_id%5D=2&issue%5Btracker_id%5D=4
+        - generic [ref=f19e157]:
+          - heading "Version 2 offen" [level=2] [ref=f19e158]:
+            - text: Version 2
+            - generic [ref=f19e159]: offen
+          - generic [ref=f19e160]:
+            - paragraph [ref=f19e161]:
+              - strong [ref=f19e162]: Fällig in 10 Tagen
+              - text: (18.09.2026)
+            - paragraph [ref=f19e163]: Version 2 description
+            - table [ref=f19e164]:
+              - rowgroup [ref=f19e165]:
+                - row [ref=f19e166]:
+                  - cell [ref=f19e167]
+            - paragraph [ref=f19e168]: 0%
+            - paragraph [ref=f19e169]:
+              - link "10 Tickets" [ref=f19e170] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues?fixed_version_id=2&set_filter=1&status_id=%2A
+              - text: (0 geschlossen —
+              - link "10 offen" [ref=f19e171] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues?fixed_version_id=2&set_filter=1&status_id=o
+              - text: )
+          - generic [ref=f19e172]:
+            - group "Zeiterfassung" [ref=f19e173]:
+              - table [ref=f19e175]:
+                - rowgroup [ref=f19e176]:
+                  - row [ref=f19e177]:
+                    - rowheader "Geschätzter Aufwand" [ref=f19e178]
+                    - cell [ref=f19e179]:
+                      - link "0:00 Stunde" [ref=f19e180] [cursor=pointer]:
+                        - /url: /projects/fluxganttproject/issues?c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&c%5B%5D=estimated_hours&fixed_version_id=2&set_filter=1&status_id=%2A&t%5B%5D=estimated_hours
+                  - row [ref=f19e181]:
+                    - rowheader "Geschätzter verbleibender Aufwand" [ref=f19e182]
+                    - cell [ref=f19e183]:
+                      - link "0:00 Stunde" [ref=f19e184] [cursor=pointer]:
+                        - /url: /projects/fluxganttproject/issues?c%5B%5D=tracker&c%5B%5D=status&c%5B%5D=subject&c%5B%5D=estimated_remaining_hours&fixed_version_id=2&set_filter=1&status_id=%2A&t%5B%5D=estimated_remaining_hours
+                  - row [ref=f19e185]:
+                    - rowheader "Aufgewendete Zeit" [ref=f19e186]
+                    - cell [ref=f19e187]:
+                      - link "0:00 Stunde" [ref=f19e188] [cursor=pointer]:
+                        - /url: /projects/fluxganttproject/time_entries?issue.fixed_version_id=2&set_filter=1
+            - group [ref=f19e191]:
+              - generic [ref=f19e192]:
+                - text: Tickets pro
+                - combobox [ref=f19e193] [cursor=pointer]:
+                  - option "Tracker" [selected]
+                  - option "Status"
+                  - option "Priorität"
+                  - option "Autor"
+                  - option "Zugewiesen an"
+                  - option "Kategorie"
+              - table [ref=f19e194]:
+                - rowgroup [ref=f19e195]:
+                  - row [ref=f19e196]:
+                    - cell [ref=f19e197]:
+                      - link "Feature" [ref=f19e198] [cursor=pointer]:
+                        - /url: /projects/fluxganttproject/issues?fixed_version_id=2&set_filter=1&status_id=%2A&tracker_id=5
+                    - cell [ref=f19e199]:
+                      - table [ref=f19e200]:
+                        - rowgroup [ref=f19e201]:
+                          - row [ref=f19e202]:
+                            - cell [ref=f19e203]
+                      - paragraph [ref=f19e204]: 0/10
+          - table [ref=f19e206]:
+            - caption [ref=f19e207]: Zugehörige Tickets
+            - rowgroup [ref=f19e208]:
+              - row [ref=f19e209]:
+                - cell [ref=f19e210]:
+                  - 'link "Feature #241" [ref=f19e211] [cursor=pointer]':
+                    - /url: /issues/241
+                  - text: ": create a agile issue status column setting"
+                - cell [ref=f19e212]:
+                  - link "Aktionen" [ref=f19e213] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f19e216]:
+                - cell [ref=f19e217]:
+                  - 'link "Feature #242" [ref=f19e218] [cursor=pointer]':
+                    - /url: /issues/242
+                  - text: ": create a agile card field column setting"
+                - cell [ref=f19e219]:
+                  - link "Aktionen" [ref=f19e220] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f19e223]:
+                - cell [ref=f19e224]:
+                  - 'link "Feature #243" [ref=f19e225] [cursor=pointer]':
+                    - /url: /issues/243
+                  - text: ": create a demo server for agile"
+                - cell [ref=f19e226]:
+                  - link "Aktionen" [ref=f19e227] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f19e230]:
+                - cell [ref=f19e231]:
+                  - 'link "Feature #244" [ref=f19e232] [cursor=pointer]':
+                    - /url: /issues/244
+                  - text: ": implement wip functionality"
+                - cell [ref=f19e233]:
+                  - link "Aktionen" [ref=f19e234] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f19e237]:
+                - cell [ref=f19e238]:
+                  - 'link "Feature #245" [ref=f19e239] [cursor=pointer]':
+                    - /url: /issues/245
+                  - text: ": update agile setting"
+                - cell [ref=f19e240]:
+                  - link "Aktionen" [ref=f19e241] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f19e244]:
+                - cell [ref=f19e245]:
+                  - 'link "Feature #246" [ref=f19e246] [cursor=pointer]':
+                    - /url: /issues/246
+                  - text: ": added a agile config form"
+                - cell [ref=f19e247]:
+                  - link "Aktionen" [ref=f19e248] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f19e251]:
+                - cell [ref=f19e252]:
+                  - 'link "Feature #247" [ref=f19e253] [cursor=pointer]':
+                    - /url: /issues/247
+                  - text: ": Agile board card create"
+                - cell [ref=f19e254]:
+                  - link "Aktionen" [ref=f19e255] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f19e258]:
+                - cell [ref=f19e259]:
+                  - 'link "Feature #248" [ref=f19e260] [cursor=pointer]':
+                    - /url: /issues/248
+                  - text: ": Total time update on scroll"
+                - cell [ref=f19e261]:
+                  - link "Aktionen" [ref=f19e262] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f19e265]:
+                - cell [ref=f19e266]:
+                  - 'link "Feature #249" [ref=f19e267] [cursor=pointer]':
+                    - /url: /issues/249
+                  - text: ": card fiels are show according to project"
+                - cell [ref=f19e268]:
+                  - link "Aktionen" [ref=f19e269] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f19e272]:
+                - cell [ref=f19e273]:
+                  - 'link "Feature #250" [ref=f19e274] [cursor=pointer]':
+                    - /url: /issues/250
+                  - text: ": Issue status are show according to project"
+                - cell [ref=f19e275]:
+                  - link "Aktionen" [ref=f19e276] [cursor=pointer]:
+                    - /url: "#"
+        - paragraph [ref=f19e279]:
+          - text: "Auch abrufbar als:"
+          - link "TXT" [ref=f19e281] [cursor=pointer]:
+            - /url: /versions/2.txt
+    - generic [ref=f19e282]:
+      - text: Powered by
+      - link "Redmine" [ref=f19e283] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f19e284]
+  - log [ref=f19e285]
+  - log [ref=f19e286]
+  - log [ref=f19e287]
+  - log [ref=f19e288]
+  - log [ref=f19e289]
+  - log [ref=f19e290]
+  - log [ref=f19e291]
+  - log [ref=f19e292]
+  - log [ref=f19e293]
+  - log [ref=f19e294]
+  - log [ref=f19e295]
+  - log [ref=f19e296]
+  - log [ref=f19e297]
+  - log [ref=f19e298]
+  - log [ref=f19e299]
+  - log [ref=f19e300]
+  - log [ref=f19e301]
+  - log [ref=f19e302]
+  - log [ref=f19e303]
+  - log [ref=f19e304]
+  - log [ref=f19e305]
+  - log [ref=f19e306]
+  - log [ref=f19e307]
+  - log [ref=f19e308]
+  - log [ref=f19e309]
+  - log [ref=f19e310]
+  - log [ref=f19e311]
+  - log [ref=f19e312]
+  - log [ref=f19e313]
+  - log [ref=f19e314]
+  - log [ref=f19e315]
+  - log [ref=f19e316]

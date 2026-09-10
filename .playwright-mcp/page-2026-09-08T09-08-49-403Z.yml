@@ -1,0 +1,419 @@
+- generic [ref=f251e1]:
+  - generic [ref=f251e2]:
+    - navigation [ref=f251e3]:
+      - generic [ref=f251e4]:
+        - link [ref=f251e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f251e7] [cursor=pointer]
+      - list [ref=f251e17]:
+        - listitem [ref=f251e18]:
+          - link "Hauptseite" [ref=f251e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f251e20]:
+          - link "Meine Seite" [ref=f251e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f251e22]:
+          - link "Projekte" [ref=f251e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f251e24]:
+          - link "Agile Board" [ref=f251e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f251e26]:
+          - link "Flux Gantt" [ref=f251e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f251e28]:
+          - link "Administration" [ref=f251e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f251e30]:
+          - link "Hilfe" [ref=f251e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f251e32]:
+        - generic [ref=f251e33]:
+          - generic [ref=f251e34] [cursor=pointer]: Agile Board Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f251e35]
+        - link "Mein Konto" [ref=f251e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f251e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f251e44]:
+      - generic [ref=f251e46]:
+        - heading "Agile Board Project" [level=1] [ref=f251e47]
+        - generic [ref=f251e48]:
+          - generic [ref=f251e49]:
+            - generic [ref=f251e50]: Hauptmenü
+            - listitem [ref=f251e51]:
+              - link "+" [ref=f251e52] [cursor=pointer]:
+                - /url: "#"
+          - list [ref=f251e53]:
+            - listitem [ref=f251e54]:
+              - link "Übersicht" [ref=f251e55] [cursor=pointer]:
+                - /url: /projects/agileboard
+            - listitem [ref=f251e60]:
+              - link "Dashboard" [ref=f251e61] [cursor=pointer]:
+                - /url: /projects/agileboard/analytics_dashboard
+            - listitem [ref=f251e69]:
+              - link "Aktivität" [ref=f251e70] [cursor=pointer]:
+                - /url: /projects/agileboard/activity
+            - listitem [ref=f251e75]:
+              - link "Agile Board" [ref=f251e76] [cursor=pointer]:
+                - /url: /projects/agileboard/agile_board
+            - listitem [ref=f251e84]:
+              - link "Backlog" [ref=f251e85] [cursor=pointer]:
+                - /url: /projects/agileboard/backlog
+            - listitem [ref=f251e90]:
+              - link "Roadmap" [ref=f251e91] [cursor=pointer]:
+                - /url: /projects/agileboard/roadmap
+            - listitem [ref=f251e98]:
+              - link "Tickets" [ref=f251e99] [cursor=pointer]:
+                - /url: /projects/agileboard/issues
+            - listitem [ref=f251e104]:
+              - link "Aufgewendete Zeit" [ref=f251e105] [cursor=pointer]:
+                - /url: /projects/agileboard/time_entries
+            - listitem [ref=f251e110]:
+              - link "Gantt-Diagramm" [ref=f251e111] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/gantt
+            - listitem [ref=f251e119]:
+              - link "Kalender" [ref=f251e120] [cursor=pointer]:
+                - /url: /projects/agileboard/issues/calendar
+            - listitem [ref=f251e125]:
+              - link "News" [ref=f251e126] [cursor=pointer]:
+                - /url: /projects/agileboard/news
+            - listitem [ref=f251e131]:
+              - link "Dokumente" [ref=f251e132] [cursor=pointer]:
+                - /url: /projects/agileboard/documents
+            - listitem [ref=f251e137]:
+              - link "Wiki" [ref=f251e138] [cursor=pointer]:
+                - /url: /projects/agileboard/wiki
+            - listitem [ref=f251e143]:
+              - link "Foren" [ref=f251e144] [cursor=pointer]:
+                - /url: /projects/agileboard/boards
+            - listitem [ref=f251e149]:
+              - link "Dateien" [ref=f251e150] [cursor=pointer]:
+                - /url: /projects/agileboard/files
+            - listitem [ref=f251e155]:
+              - link "Konfiguration" [ref=f251e156] [cursor=pointer]:
+                - /url: /projects/agileboard/settings
+      - generic [ref=f251e162]:
+        - heading "Neue Abfrage" [level=2] [ref=f251e163]
+        - generic [ref=f251e164]:
+          - generic [ref=f251e165]:
+            - generic [ref=f251e166]:
+              - paragraph [ref=f251e167]:
+                - generic [ref=f251e168]: Name *
+                - textbox "Name *" [active] [ref=f251e169]
+              - paragraph [ref=f251e170]:
+                - generic [ref=f251e171]: Beschreibung
+                - textbox "Beschreibung" [ref=f251e172]
+              - paragraph [ref=f251e173]:
+                - generic [ref=f251e174]: Sichtbarkeit
+                - generic [ref=f251e175]:
+                  - radio "nur für mich" [checked] [ref=f251e176]
+                  - text: nur für mich
+                - generic [ref=f251e177]:
+                  - radio "für jeden Benutzer" [ref=f251e178]
+                  - text: für jeden Benutzer
+                - generic [ref=f251e179]:
+                  - radio "nur für diese Rollen:" [ref=f251e180]
+                  - text: "nur für diese Rollen:"
+                - generic [ref=f251e181]:
+                  - checkbox "Manager" [disabled] [ref=f251e182]
+                  - text: Manager
+                - generic [ref=f251e183]:
+                  - checkbox "Employee" [disabled] [ref=f251e184]
+                  - text: Employee
+                - generic [ref=f251e185]:
+                  - checkbox "Client" [disabled] [ref=f251e186]
+                  - text: Client
+                - generic [ref=f251e187]:
+                  - checkbox "Project Lead" [disabled] [ref=f251e188]
+                  - text: Project Lead
+                - generic [ref=f251e189]:
+                  - checkbox "QA" [disabled] [ref=f251e190]
+                  - text: QA
+                - generic [ref=f251e191]:
+                  - checkbox "Team Lead" [disabled] [ref=f251e192]
+                  - text: Team Lead
+                - generic [ref=f251e193]:
+                  - checkbox "Developer" [disabled] [ref=f251e194]
+                  - text: Developer
+              - paragraph [ref=f251e195]:
+                - generic [ref=f251e196]: Für alle Projekte
+                - checkbox "Für alle Projekte" [ref=f251e197]
+              - group "Optionen" [ref=f251e198]:
+                - paragraph [ref=f251e200]:
+                  - generic [ref=f251e201]: Standardspalten
+                  - checkbox "Standardspalten" [checked] [ref=f251e202]
+                - paragraph [ref=f251e203]:
+                  - generic [ref=f251e204]: Gruppiere Ergebnisse nach
+                  - combobox "Gruppiere Ergebnisse nach" [ref=f251e205]:
+                    - option [selected]
+                    - option "Projekt"
+                    - option "Tracker"
+                    - option "Status"
+                    - option "Priorität"
+                    - option "Autor"
+                    - option "Zugewiesen an"
+                    - option "Aktualisiert"
+                    - option "Kategorie"
+                    - option "Zielversion"
+                    - option "Startdatum"
+                    - option "Abgabedatum"
+                    - option "% erledigt"
+                    - option "Angelegt"
+                    - option "Geschlossen am"
+                    - option "Privat"
+                    - option "Sprint"
+                - paragraph [ref=f251e206]:
+                  - generic [ref=f251e207]: Anzeigen
+                  - generic [ref=f251e208]:
+                    - checkbox "Beschreibung" [disabled] [ref=f251e209]
+                    - text: Beschreibung
+                  - generic [ref=f251e210]:
+                    - checkbox "Letzte Kommentare" [disabled] [ref=f251e211]
+                    - text: Letzte Kommentare
+                - paragraph [ref=f251e212]:
+                  - generic [ref=f251e213]: Summe
+                  - generic [ref=f251e214]:
+                    - checkbox "Geschätzter Aufwand" [ref=f251e215]
+                    - text: Geschätzter Aufwand
+                  - generic [ref=f251e216]:
+                    - checkbox "Geschätzter verbleibender Aufwand" [ref=f251e217]
+                    - text: Geschätzter verbleibender Aufwand
+                  - generic [ref=f251e218]:
+                    - checkbox "Aufgewendete Zeit" [ref=f251e219]
+                    - text: Aufgewendete Zeit
+            - group "Filter" [ref=f251e220]:
+              - generic [ref=f251e223]:
+                - generic [ref=f251e224]:
+                  - checkbox "Status" [checked] [ref=f251e225]
+                  - text: Status
+                - combobox [ref=f251e227]:
+                  - option "offen" [selected]
+                  - option "ist"
+                  - option "ist nicht"
+                  - option "has been"
+                  - option "has never been"
+                  - option "changed from"
+                  - option "geschlossen"
+                  - option "alle"
+              - generic [ref=f251e228]:
+                - text: Filter hinzufügen
+                - combobox "Filter hinzufügen" [ref=f251e229]:
+                  - option [selected]
+                  - option "Status" [disabled]
+                  - option "Tracker"
+                  - option "Priorität"
+                  - option "Autor"
+                  - option "Zugewiesen an"
+                  - option "Zielversion"
+                  - option "Kategorie"
+                  - option "% erledigt"
+                  - option "Privat"
+                  - option "Beobachter"
+                  - option "Geändert von"
+                  - option "Zuletzt geändert von"
+                  - option "Ticket"
+                  - option "Sprint"
+                  - option "Story Points"
+                  - option "Tags"
+                  - option "Thema"
+                  - option "Beschreibung"
+                  - option "Kommentare"
+                  - option "Durchsuchbarer Text"
+                  - option "Angelegt"
+                  - option "Aktualisiert"
+                  - option "Geschlossen am"
+                  - option "Startdatum"
+                  - option "Abgabedatum"
+                  - option "Geschätzter Aufwand"
+                  - option "Aufgewendete Zeit"
+                  - option "Datei"
+                  - option "Dateibeschreibung"
+                  - option "Gruppe des Autors"
+                  - option "Rolle des Autors"
+                  - option "Zuständigkeitsgruppe"
+                  - option "Zuständigkeitsrolle"
+                  - option "Datum der Zielversion"
+                  - option "Status der Zielversion"
+                  - option "Beziehung mit"
+                  - option "Duplikat von"
+                  - option "Dupliziert durch"
+                  - option "Blockiert"
+                  - option "Blockiert durch"
+                  - option "Vorgänger von"
+                  - option "Nachfolger von"
+                  - option "Kopiert nach"
+                  - option "Kopiert von"
+                  - option "Übergeordnetes Ticket"
+                  - option "Untergeordnete Tickets"
+            - group "Sortierung" [ref=f251e230]:
+              - generic [ref=f251e232]: "1:"
+              - generic [ref=f251e233]: Sortierattribut
+              - combobox "Sortierattribut" [ref=f251e234]:
+                - option
+                - option "#" [selected]
+                - option "Projekt"
+                - option "Tracker"
+                - option "Übergeordnetes Ticket"
+                - option "Status"
+                - option "Priorität"
+                - option "Thema"
+                - option "Autor"
+                - option "Zugewiesen an"
+                - option "Aktualisiert"
+                - option "Kategorie"
+                - option "Zielversion"
+                - option "Startdatum"
+                - option "Abgabedatum"
+                - option "Geschätzter Aufwand"
+                - option "Geschätzter verbleibender Aufwand"
+                - option "Summe des geschätzten Aufwands"
+                - option "Aufgewendete Zeit"
+                - option "Aufgewendete Zeit aller Projekte anzeigen"
+                - option "% erledigt"
+                - option "Angelegt"
+                - option "Geschlossen am"
+                - option "Zuletzt geändert von"
+                - option "Privat"
+                - option "Sprint"
+                - option "Story Points"
+              - generic [ref=f251e235]: Sortierrichtung
+              - combobox "Sortierrichtung" [ref=f251e236]:
+                - option
+                - option "Aufsteigend"
+                - option "Absteigend" [selected]
+              - generic [ref=f251e237]: "2:"
+              - generic [ref=f251e238]: Sortierattribut
+              - combobox "Sortierattribut" [ref=f251e239]:
+                - option [selected]
+                - option "#"
+                - option "Projekt"
+                - option "Tracker"
+                - option "Übergeordnetes Ticket"
+                - option "Status"
+                - option "Priorität"
+                - option "Thema"
+                - option "Autor"
+                - option "Zugewiesen an"
+                - option "Aktualisiert"
+                - option "Kategorie"
+                - option "Zielversion"
+                - option "Startdatum"
+                - option "Abgabedatum"
+                - option "Geschätzter Aufwand"
+                - option "Geschätzter verbleibender Aufwand"
+                - option "Summe des geschätzten Aufwands"
+                - option "Aufgewendete Zeit"
+                - option "Aufgewendete Zeit aller Projekte anzeigen"
+                - option "% erledigt"
+                - option "Angelegt"
+                - option "Geschlossen am"
+                - option "Zuletzt geändert von"
+                - option "Privat"
+                - option "Sprint"
+                - option "Story Points"
+              - generic [ref=f251e240]: Sortierrichtung
+              - combobox "Sortierrichtung" [ref=f251e241]:
+                - option [selected]
+                - option "Aufsteigend"
+                - option "Absteigend"
+              - generic [ref=f251e242]: "3:"
+              - generic [ref=f251e243]: Sortierattribut
+              - combobox "Sortierattribut" [ref=f251e244]:
+                - option [selected]
+                - option "#"
+                - option "Projekt"
+                - option "Tracker"
+                - option "Übergeordnetes Ticket"
+                - option "Status"
+                - option "Priorität"
+                - option "Thema"
+                - option "Autor"
+                - option "Zugewiesen an"
+                - option "Aktualisiert"
+                - option "Kategorie"
+                - option "Zielversion"
+                - option "Startdatum"
+                - option "Abgabedatum"
+                - option "Geschätzter Aufwand"
+                - option "Geschätzter verbleibender Aufwand"
+                - option "Summe des geschätzten Aufwands"
+                - option "Aufgewendete Zeit"
+                - option "Aufgewendete Zeit aller Projekte anzeigen"
+                - option "% erledigt"
+                - option "Angelegt"
+                - option "Geschlossen am"
+                - option "Zuletzt geändert von"
+                - option "Privat"
+                - option "Sprint"
+                - option "Story Points"
+              - generic [ref=f251e245]: Sortierrichtung
+              - combobox "Sortierrichtung" [ref=f251e246]:
+                - option [selected]
+                - option "Aufsteigend"
+                - option "Absteigend"
+            - group "Spalten" [ref=f251e247]:
+              - generic [ref=f251e250]:
+                - generic [ref=f251e251]:
+                  - generic [ref=f251e252]: Verfügbare Spalten
+                  - listbox "Verfügbare Spalten" [disabled] [ref=f251e253]:
+                    - option "Projekt" [disabled] [ref=f251e254]
+                    - option "Übergeordnetes Ticket" [disabled] [ref=f251e255]
+                    - option "Thema des übergeordneten Tickets" [disabled] [ref=f251e256]
+                    - option "Autor" [disabled] [ref=f251e257]
+                    - option "Beobachter" [disabled] [ref=f251e258]
+                    - option "Kategorie" [disabled] [ref=f251e259]
+                    - option "Zielversion" [disabled] [ref=f251e260]
+                    - option "Startdatum" [disabled] [ref=f251e261]
+                    - option "Abgabedatum" [disabled] [ref=f251e262]
+                    - option "Geschätzter Aufwand" [disabled] [ref=f251e263]
+                    - option "Geschätzter verbleibender Aufwand" [disabled] [ref=f251e264]
+                    - option "Summe des geschätzten Aufwands" [disabled] [ref=f251e265]
+                    - option "Aufgewendete Zeit" [disabled] [ref=f251e266]
+                    - option "Aufgewendete Zeit aller Projekte anzeigen" [disabled] [ref=f251e267]
+                    - option "% erledigt" [disabled] [ref=f251e268]
+                    - option "Angelegt" [disabled] [ref=f251e269]
+                    - option "Geschlossen am" [disabled] [ref=f251e270]
+                    - option "Zuletzt geändert von" [disabled] [ref=f251e271]
+                    - option "Zugehörige Tickets" [disabled] [ref=f251e272]
+                    - option "Dateien" [disabled] [ref=f251e273]
+                    - option "Privat" [disabled] [ref=f251e274]
+                    - option "Sprint" [disabled] [ref=f251e275]
+                    - option "Story Points" [disabled] [ref=f251e276]
+                    - option "Tags" [disabled] [ref=f251e277]
+                - generic [ref=f251e278]:
+                  - button [disabled] [ref=f251e279]
+                  - button [disabled] [ref=f251e282]
+                - generic [ref=f251e285]:
+                  - generic [ref=f251e286]: Ausgewählte Spalten
+                  - listbox "Ausgewählte Spalten" [disabled] [ref=f251e287]:
+                    - option "Tracker" [disabled] [ref=f251e288]
+                    - option "Status" [disabled] [ref=f251e289]
+                    - option "Priorität" [disabled] [ref=f251e290]
+                    - option "Thema" [disabled] [ref=f251e291]
+                    - option "Zugewiesen an" [disabled] [ref=f251e292]
+                    - option "Aktualisiert" [disabled] [ref=f251e293]
+                - generic [ref=f251e294]:
+                  - button "⇈" [disabled] [ref=f251e295]
+                  - button "↑" [disabled] [ref=f251e296]
+                  - button "↓" [disabled] [ref=f251e297]
+                  - button "⇊" [disabled] [ref=f251e298]
+          - button "Speichern" [ref=f251e299] [cursor=pointer]
+    - generic [ref=f251e300]:
+      - text: Powered by
+      - link "Redmine" [ref=f251e301] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f251e302]
+  - log [ref=f251e303]
+  - log [ref=f251e304]
+  - log [ref=f251e305]
+  - log [ref=f251e306]
+  - log [ref=f251e307]
+  - log [ref=f251e308]
+  - log [ref=f251e309]
+  - log [ref=f251e310]
+  - log [ref=f251e311]
+  - log [ref=f251e312]
+  - log [ref=f251e313]

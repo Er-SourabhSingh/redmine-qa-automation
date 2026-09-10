@@ -1,0 +1,171 @@
+- generic [active] [ref=f4e1]:
+  - generic [ref=f4e2]:
+    - generic [ref=f4e3]:
+      - generic [ref=f4e4]:
+        - list:
+          - listitem [ref=f4e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f4e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f4e7]:
+        - text: Logged in as
+        - link "admin" [ref=f4e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f4e9]:
+        - listitem [ref=f4e10]:
+          - link [ref=f4e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f4e12]
+        - listitem [ref=f4e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f4e14]:
+          - link "My page" [ref=f4e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f4e16]:
+          - link "Projects" [ref=f4e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f4e18]:
+          - link "Flux Gantt" [ref=f4e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f4e20]:
+          - link "Helpdesk Command Center" [ref=f4e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f4e22]:
+          - link "Time Tracker" [ref=f4e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f4e24]:
+          - link "Timesheet" [ref=f4e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f4e26]:
+          - link "Workloads" [ref=f4e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f4e28]:
+          - link "More" [ref=f4e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f4e30]:
+      - generic [ref=f4e31]:
+        - generic [ref=f4e32]:
+          - generic [ref=f4e33]:
+            - link "Search..." [ref=f4e34] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f4e35]
+        - generic [ref=f4e36]:
+          - generic [ref=f4e37] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f4e38]
+      - generic [ref=f4e39]:
+        - list [ref=f4e40]:
+          - listitem [ref=f4e41]:
+            - link "+" [ref=f4e42] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f4e43]:
+            - link "Overview" [ref=f4e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f4e45]:
+            - link "Activity" [ref=f4e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f4e47]:
+            - link "Issues" [ref=f4e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f4e49]:
+            - link "Spent time" [ref=f4e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f4e51]:
+            - link "Gantt" [ref=f4e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f4e53]:
+            - link "Calendar" [ref=f4e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f4e55]:
+            - link "News" [ref=f4e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f4e57]:
+            - link "Documents" [ref=f4e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f4e59]:
+            - link "Wiki" [ref=f4e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f4e61]:
+            - link "Files" [ref=f4e62] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f4e63]:
+            - link "Helpdesk" [ref=f4e64] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+          - listitem [ref=f4e65]:
+            - link "Settings" [ref=f4e66] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/settings
+        - generic [ref=f4e67]:
+          - button [ref=f4e68] [cursor=pointer]
+          - button [ref=f4e71] [cursor=pointer]
+    - generic [ref=f4e74]:
+      - list [ref=f4e78]:
+        - listitem [ref=f4e79]:
+          - link "Helpdesk Dashboard" [ref=f4e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f4e83]:
+          - link "Helpdesk Tickets" [ref=f4e84] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f4e87]:
+          - link "Knowledgebase" [ref=f4e88] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+        - listitem [ref=f4e91]:
+          - link "Helpdesk SLA" [ref=f4e92] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/sla
+        - listitem [ref=f4e95]:
+          - link "Organization" [ref=f4e96] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/organization
+        - listitem [ref=f4e99]:
+          - link "Settings" [ref=f4e100] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/settings
+      - generic [ref=f4e103]:
+        - heading "Alpha Priority SLA" [level=2] [ref=f4e104]
+        - generic [ref=f4e105]:
+          - paragraph [ref=f4e106]:
+            - strong [ref=f4e107]: "SLA Name:"
+            - text: Alpha Priority SLA
+          - paragraph [ref=f4e108]:
+            - strong [ref=f4e109]: "First Response Time:"
+            - text: 4 hours
+          - paragraph [ref=f4e110]:
+            - strong [ref=f4e111]: "Resolution Time:"
+            - text: 24 hours
+          - paragraph [ref=f4e112]:
+            - strong [ref=f4e113]: "Working Hours:"
+            - text: "-"
+          - paragraph [ref=f4e114]:
+            - strong [ref=f4e115]: "Working Days:"
+            - text: "-"
+          - paragraph [ref=f4e116]:
+            - strong [ref=f4e117]: "Holiday:"
+            - text: "-"
+          - paragraph [ref=f4e118]:
+            - strong [ref=f4e119]: "Active:"
+            - text: "yes"
+          - paragraph [ref=f4e120]:
+            - strong [ref=f4e121]: "Created on:"
+            - text: 09/01/2026 07:19 AM UTC
+          - paragraph [ref=f4e122]:
+            - strong [ref=f4e123]: "Created By:"
+            - text: Redmine Admin
+        - paragraph [ref=f4e124]:
+          - link "SLA List" [ref=f4e125] [cursor=pointer]:
+            - /url: /projects/1/helpdesk/sla
+    - generic [ref=f4e126]:
+      - text: Powered by
+      - link "Redmine" [ref=f4e127] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f4e128]
+  - log [ref=f4e129]
+  - log [ref=f4e130]
+  - log [ref=f4e131]
+  - log [ref=f4e132]
+  - log [ref=f4e133]
+  - log [ref=f4e134]
+  - log [ref=f4e135]
+  - log [ref=f4e136]
+  - log [ref=f4e137]

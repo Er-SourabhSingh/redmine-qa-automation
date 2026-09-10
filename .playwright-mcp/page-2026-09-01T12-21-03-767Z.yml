@@ -1,0 +1,175 @@
+- generic [active] [ref=f181e1]:
+  - generic [ref=f181e2]:
+    - generic [ref=f181e3]:
+      - generic [ref=f181e4]:
+        - list:
+          - listitem [ref=f181e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f181e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f181e7]:
+        - text: Logged in as
+        - link "admin" [ref=f181e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f181e9]:
+        - listitem [ref=f181e10]:
+          - link [ref=f181e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f181e12]
+        - listitem [ref=f181e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f181e14]:
+          - link "My page" [ref=f181e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f181e16]:
+          - link "Projects" [ref=f181e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f181e18]:
+          - link "Flux Gantt" [ref=f181e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f181e20]:
+          - link "Helpdesk Command Center" [ref=f181e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f181e22]:
+          - link "Time Tracker" [ref=f181e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f181e24]:
+          - link "Timesheet" [ref=f181e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f181e26]:
+          - link "Workloads" [ref=f181e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f181e28]:
+          - link "More" [ref=f181e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f181e30]:
+      - generic [ref=f181e31]:
+        - generic [ref=f181e32]:
+          - generic [ref=f181e33]:
+            - link "Search..." [ref=f181e34] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f181e35]
+        - generic [ref=f181e36]:
+          - generic [ref=f181e37] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f181e38]
+      - generic [ref=f181e39]:
+        - list [ref=f181e40]:
+          - listitem [ref=f181e41]:
+            - link "+" [ref=f181e42] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f181e43]:
+            - link "Overview" [ref=f181e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f181e45]:
+            - link "Activity" [ref=f181e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f181e47]:
+            - link "Issues" [ref=f181e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f181e49]:
+            - link "Spent time" [ref=f181e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f181e51]:
+            - link "Gantt" [ref=f181e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f181e53]:
+            - link "Calendar" [ref=f181e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f181e55]:
+            - link "News" [ref=f181e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f181e57]:
+            - link "Documents" [ref=f181e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f181e59]:
+            - link "Wiki" [ref=f181e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f181e61]:
+            - link "Files" [ref=f181e62] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f181e63]:
+            - link "Helpdesk" [ref=f181e64] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+          - listitem [ref=f181e65]:
+            - link "Settings" [ref=f181e66] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/settings
+        - generic [ref=f181e67]:
+          - button [ref=f181e68] [cursor=pointer]
+          - button [ref=f181e71] [cursor=pointer]
+    - generic [ref=f181e74]:
+      - list [ref=f181e78]:
+        - listitem [ref=f181e79]:
+          - link "Helpdesk Dashboard" [ref=f181e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f181e83]:
+          - link "Helpdesk Tickets" [ref=f181e84] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f181e87]:
+          - link "Knowledgebase" [ref=f181e88] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+        - listitem [ref=f181e91]:
+          - link "Helpdesk SLA" [ref=f181e92] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/sla
+        - listitem [ref=f181e95]:
+          - link "Organization" [ref=f181e96] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/organization
+        - listitem [ref=f181e99]:
+          - link "Settings" [ref=f181e100] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/settings
+      - generic [ref=f181e103]:
+        - generic [ref=f181e104]:
+          - generic [ref=f181e106]:
+            - heading "Helpdesk Dashboard" [level=2] [ref=f181e107]
+            - paragraph [ref=f181e108]: Helpdesk QA Alpha
+          - generic [ref=f181e109]:
+            - button "Date Range" [ref=f181e111] [cursor=pointer]:
+              - generic [ref=f181e114]: 03 Aug 26 - 01 Sep 26
+            - link "New issue" [ref=f181e117] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk/new
+        - generic [ref=f181e119]:
+          - link "9 Unassigned View All" [ref=f181e120] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?assigned_to_id%5B%5D=none&created_from=2026-08-03&created_to=2026-09-01&status_id%5B%5D=open
+            - generic [ref=f181e127]: "9"
+            - generic [ref=f181e128]: Unassigned
+            - generic [ref=f181e129]: View All
+          - link "20 Open View All" [ref=f181e132] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?created_from=2026-08-03&created_to=2026-09-01&status_id%5B%5D=open
+            - generic [ref=f181e137]: "20"
+            - generic [ref=f181e138]: Open
+            - generic [ref=f181e139]: View All
+          - link "21 On Hold View All" [ref=f181e142] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?created_from=2026-08-03&created_to=2026-09-01
+            - generic [ref=f181e146]: "21"
+            - generic [ref=f181e147]: On Hold
+            - generic [ref=f181e148]: View All
+          - link "3 SLA Breached View All" [ref=f181e151] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?sla=breached
+            - generic [ref=f181e155]: "3"
+            - generic [ref=f181e156]: SLA Breached
+            - generic [ref=f181e157]: View All
+          - link "1 Resolved View All" [ref=f181e160] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?created_from=2026-08-03&created_to=2026-09-01&status_id%5B%5D=closed
+            - generic [ref=f181e165]: "1"
+            - generic [ref=f181e166]: Resolved
+            - generic [ref=f181e167]: View All
+    - generic [ref=f181e172]:
+      - text: Powered by
+      - link "Redmine" [ref=f181e173] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f181e174]
+  - log [ref=f181e175]
+  - log [ref=f181e176]
+  - log [ref=f181e177]
+  - log [ref=f181e178]
+  - log [ref=f181e179]
+  - log [ref=f181e180]
+  - log [ref=f181e181]
+  - log [ref=f181e182]
+  - log [ref=f181e183]
+  - log [ref=f181e184]

@@ -1,0 +1,230 @@
+- generic [ref=f256e1]:
+  - generic [ref=f256e2]:
+    - generic [ref=f256e3]:
+      - generic [ref=f256e4]:
+        - list:
+          - listitem [ref=f256e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f256e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f256e7]:
+        - text: Logged in as
+        - link "admin" [ref=f256e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f256e9]:
+        - listitem [ref=f256e10]:
+          - link [ref=f256e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f256e12]
+        - listitem [ref=f256e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f256e14]:
+          - link "My page" [ref=f256e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f256e16]:
+          - link "Projects" [ref=f256e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f256e18]:
+          - link "Flux Gantt" [ref=f256e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f256e20]:
+          - link "Helpdesk Command Center" [ref=f256e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f256e22]:
+          - link "Time Tracker" [ref=f256e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f256e24]:
+          - link "Timesheet" [ref=f256e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f256e26]:
+          - link "Workloads" [ref=f256e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f256e28]:
+          - link "More" [ref=f256e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f256e30]:
+      - generic [ref=f256e31]:
+        - generic [ref=f256e32]:
+          - generic [ref=f256e33]:
+            - link "Search..." [ref=f256e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f256e35]
+        - generic [ref=f256e36]:
+          - generic [ref=f256e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f256e38]
+    - generic [ref=f256e39]:
+      - list [ref=f256e43]:
+        - listitem [ref=f256e44]:
+          - link "Helpdesk Dashboard" [ref=f256e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f256e48]:
+          - link "Helpdesk Tickets" [ref=f256e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f256e52]:
+          - link "Reports" [ref=f256e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f256e56]:
+          - link "Organization" [ref=f256e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f256e60]:
+          - link "Customers" [ref=f256e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f256e64]:
+          - link "Products" [ref=f256e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f256e68]:
+          - link "Helpdesk Settings" [ref=f256e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f256e72]:
+        - generic [ref=f256e73]: Successful creation.
+        - generic [ref=f256e74]:
+          - generic [ref=f256e76]:
+            - heading "Products" [level=2] [ref=f256e77]
+            - paragraph [ref=f256e78]: Products your customers raise tickets against
+          - link "New Product" [ref=f256e80] [cursor=pointer]:
+            - /url: /rf_products/new
+        - generic [ref=f256e83]:
+          - textbox "Search products..." [active] [ref=f256e85]
+          - combobox "All Projects" [ref=f256e86] [cursor=pointer]:
+            - option "All Projects" [selected]
+            - option "Helpdesk QA Alpha"
+            - option "Helpdesk QA Beta"
+          - combobox "All Statuses" [ref=f256e87] [cursor=pointer]:
+            - option "All Statuses" [selected]
+            - option "Active only"
+            - option "Inactive only"
+          - generic [ref=f256e88]:
+            - button "Apply Filters" [ref=f256e89] [cursor=pointer]
+            - link "Clear" [ref=f256e92] [cursor=pointer]:
+              - /url: /rf_products
+        - table [ref=f256e98]:
+          - rowgroup [ref=f256e99]:
+            - row [ref=f256e100]:
+              - columnheader "S.No" [ref=f256e101]
+              - columnheader "Project" [ref=f256e102]
+              - columnheader "Product Name" [ref=f256e103]
+              - columnheader "Product Code" [ref=f256e104]
+              - columnheader "Category" [ref=f256e105]
+              - columnheader "Active" [ref=f256e106]
+              - columnheader "Action" [ref=f256e107]
+          - rowgroup [ref=f256e108]:
+            - row [ref=f256e109]:
+              - cell "1" [ref=f256e110]
+              - cell "Helpdesk QA Alpha" [ref=f256e111]
+              - cell [ref=f256e112]:
+                - link "Code255Test Product" [ref=f256e113] [cursor=pointer]:
+                  - /url: /rf_products/3
+              - cell "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" [ref=f256e114]
+              - cell [ref=f256e115]
+              - cell [ref=f256e116]:
+                - checkbox "Active" [checked] [ref=f256e117]
+              - cell [ref=f256e118]:
+                - generic [ref=f256e119]:
+                  - link "Edit" [ref=f256e120] [cursor=pointer]:
+                    - /url: /rf_products/3/edit
+                  - link "Delete" [ref=f256e123] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f256e127]:
+              - cell "2" [ref=f256e128]
+              - cell "Helpdesk QA Alpha" [ref=f256e129]
+              - cell [ref=f256e130]:
+                - link "Description Max Length Product Test" [ref=f256e131] [cursor=pointer]:
+                  - /url: /rf_products/4
+              - cell "DESCMAXTEST" [ref=f256e132]
+              - cell [ref=f256e133]
+              - cell [ref=f256e134]:
+                - checkbox "Active" [checked] [ref=f256e135]
+              - cell [ref=f256e136]:
+                - generic [ref=f256e137]:
+                  - link "Edit" [ref=f256e138] [cursor=pointer]:
+                    - /url: /rf_products/4/edit
+                  - link "Delete" [ref=f256e141] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f256e145]:
+              - cell "3" [ref=f256e146]
+              - cell "Helpdesk QA Alpha" [ref=f256e147]
+              - cell [ref=f256e148]:
+                - link "Nav Test Product" [ref=f256e149] [cursor=pointer]:
+                  - /url: /rf_products/1
+              - cell "NAVTEST" [ref=f256e150]
+              - cell [ref=f256e151]
+              - cell [ref=f256e152]:
+                - checkbox "Active" [checked] [ref=f256e153]
+              - cell [ref=f256e154]:
+                - generic [ref=f256e155]:
+                  - link "Edit" [ref=f256e156] [cursor=pointer]:
+                    - /url: /rf_products/1/edit
+                  - link "Delete" [ref=f256e159] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f256e163]:
+              - cell "4" [ref=f256e164]
+              - cell "Helpdesk QA Alpha" [ref=f256e165]
+              - cell [ref=f256e166]:
+                - link "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN" [ref=f256e167] [cursor=pointer]:
+                  - /url: /rf_products/2
+              - cell "CODE255TEST" [ref=f256e168]
+              - cell [ref=f256e169]
+              - cell [ref=f256e170]:
+                - checkbox "Active" [checked] [ref=f256e171]
+              - cell [ref=f256e172]:
+                - generic [ref=f256e173]:
+                  - link "Edit" [ref=f256e174] [cursor=pointer]:
+                    - /url: /rf_products/2/edit
+                  - link "Delete" [ref=f256e177] [cursor=pointer]:
+                    - /url: javascript:void(0)
+            - row [ref=f256e181]:
+              - cell "5" [ref=f256e182]
+              - cell "Helpdesk QA Alpha" [ref=f256e183]
+              - cell [ref=f256e184]:
+                - link "Phoenix Core" [ref=f256e185] [cursor=pointer]:
+                  - /url: /rf_products/5
+              - cell "PHX-CORE" [ref=f256e186]
+              - cell [ref=f256e187]
+              - cell [ref=f256e188]:
+                - checkbox "Active" [checked] [ref=f256e189]
+              - cell [ref=f256e190]:
+                - generic [ref=f256e191]:
+                  - link "Edit" [ref=f256e192] [cursor=pointer]:
+                    - /url: /rf_products/5/edit
+                  - link "Delete" [ref=f256e195] [cursor=pointer]:
+                    - /url: javascript:void(0)
+        - generic [ref=f256e199]:
+          - list
+          - generic [ref=f256e200]: (1-5/5)
+    - generic [ref=f256e201]:
+      - text: Powered by
+      - link "Redmine" [ref=f256e202] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f256e203]
+  - log [ref=f256e204]
+  - log [ref=f256e205]
+  - log [ref=f256e206]
+  - log [ref=f256e207]
+  - log [ref=f256e208]
+  - log [ref=f256e209]
+  - log [ref=f256e210]
+  - log [ref=f256e211]
+  - log [ref=f256e212]
+  - log [ref=f256e213]
+  - log [ref=f256e214]
+  - log [ref=f256e215]
+  - log [ref=f256e216]
+  - log [ref=f256e217]
+  - log [ref=f256e218]
+  - log [ref=f256e219]
+  - log [ref=f256e220]
+  - log [ref=f256e221]
+  - log [ref=f256e222]
+  - log [ref=f256e223]
+  - log [ref=f256e224]
+  - log [ref=f256e225]
+  - log [ref=f256e226]
+  - log [ref=f256e227]
+  - log [ref=f256e228]
+  - log [ref=f256e229]

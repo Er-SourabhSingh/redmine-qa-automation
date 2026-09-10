@@ -20,6 +20,7 @@ redmine-qa-automation/
 ├── STATUS.md                        ← cross-plugin test status dashboard
 ├── README.md
 ├── SENIOR_QA_STANDARDS.md           ← testing methodology and bug standards
+├── REDMINEFLUX-MCP-SETUP.md         ← production redmineflux MCP server setup + write-approval policy
 ├── QA_CREDENTIALS_FORGE.md          ← Forge environment credentials
 ├── QA_CREDENTIALS_LOCAL.md          ← local environment credentials
 │
@@ -272,8 +273,8 @@ Use this content for each new file (replace `<PREFIX>_` in the actual filename w
 ```markdown
 # Bug Index — [Plugin Name]
 
-| Bug ID | Title | Status | Severity | Redmine Version | File Path |
-|--------|-------|--------|----------|-----------------|-----------|
+| Bug ID | Title | Status | Severity | Redmine Version | Production Redmine Issue ID | File Path |
+|--------|-------|--------|----------|-----------------|------------------------------|-----------|
 
 ## Notes
 - Open bugs: bugs/open/
@@ -320,7 +321,6 @@ Format: `BUG-<PLUGIN-CODE>-<NUMBER>`
 | Plugin | Code |
 |--------|------|
 | testcase-management-plugin | TCM |
-| gantt-plugin | GNT |
 | redmineflux_advanced_field | RAF |
 | redmineflux_devops | RDV |
 | redmineflux_scarlet | RSC |
@@ -329,6 +329,14 @@ Format: `BUG-<PLUGIN-CODE>-<NUMBER>`
 | redmineflux_mcp_checklist | RCL |
 | redmineflux_mcp_knowledgebase | RKB |
 | redmineflux_helpdesk | HLP |
+| redmineflux_gantt | GNT |
+| redmineflux_dashboards | DSH |
+| redmineflux_checklist | CHK |
+| redmineflux_agile | AGB |
+| redmineflux_tags | TAG |
+| redmineflux_inline_editor | INE |
+| redmineflux_lotus | LTS |
+| redmineflux_crux | CRX |
 
 Examples: `BUG-TCM-001`, `BUG-GNT-001`
 
@@ -347,6 +355,14 @@ Always include:
 - Actual result
 - User role when bug was found
 - Screenshot **embedded** in the bug MD file using `![](../../screenshots/<BUG-ID>/filename.png)` — not a plain text path
+- **Production Redmine Issue ID** — once a bug is reported on `flux.zehntech.com`, project `ztflux` (see `REDMINEFLUX-MCP-SETUP.md` §1.1), via the redmineflux MCP server (`redmineflux_testcases_management_report_defect`, after write approval per `REDMINEFLUX-MCP-SETUP.md` §4), record the returned production issue number in the local bug MD file. If the bug hasn't been reported to production yet, leave it blank rather than guessing.
+
+### Closing a bug: sync production status
+
+When moving a bug's file from `bugs/open/` to `bugs/closed/` (Section 12), check its **Production Redmine Issue ID** field first:
+
+- **Blank** — just move the file locally, nothing to sync.
+- **Filled in** — the production issue must also be updated: status **In QA → Done**, and **% done → 100**. This is a production write (`redmineflux_core_update_issue` or equivalent), so it follows the same write-approval workflow as any other production change (`REDMINEFLUX-MCP-SETUP.md` §4.3) — prepare the exact change (issue ID, old/new status, old/new % done) and wait for explicit approval before executing. Do this before, or together with, moving the local file, so the local `bugs/closed/` copy and the production issue never fall out of sync.
 
 ---
 
@@ -439,14 +455,15 @@ At the start of every test session, read in this order:
 1. `CLAUDE.md` (this file)
 2. `MEMORY.md` (global rules)
 3. `SENIOR_QA_STANDARDS.md` (testing standards)
-4. `QA_CREDENTIALS_FORGE.md` or `QA_CREDENTIALS_LOCAL.md` (target environment)
-5. `plugins/<name>/docs/<PREFIX>_REQUIREMENTS.md`
-6. `plugins/<name>/docs/<PREFIX>_FEATURES_LIST.md`
-7. `plugins/<name>/docs/<PREFIX>_USER_GUIDE.md`
-8. `plugins/<name>/docs/<PREFIX>_SCOPE.md`
-9. `plugins/<name>/docs/<PREFIX>_MEMORY.md`
-10. `plugins/<name>/docs/<PREFIX>_HANDOFF.md`
-11. `plugins/<name>/testcases/<PREFIX>_<suite>.md`
+4. `REDMINEFLUX-MCP-SETUP.md` (production redmineflux MCP write-approval policy — required before any bug is ever reported to production)
+5. `QA_CREDENTIALS_FORGE.md` or `QA_CREDENTIALS_LOCAL.md` (target environment)
+6. `plugins/<name>/docs/<PREFIX>_REQUIREMENTS.md`
+7. `plugins/<name>/docs/<PREFIX>_FEATURES_LIST.md`
+8. `plugins/<name>/docs/<PREFIX>_USER_GUIDE.md`
+9. `plugins/<name>/docs/<PREFIX>_SCOPE.md`
+10. `plugins/<name>/docs/<PREFIX>_MEMORY.md`
+11. `plugins/<name>/docs/<PREFIX>_HANDOFF.md`
+12. `plugins/<name>/testcases/<PREFIX>_<suite>.md`
 
 (For plugins scaffolded before §2b, these are the lowercase `requirements.md` / `features-list.md` / etc. instead.)
 
@@ -462,6 +479,7 @@ At the end of every test session:
 
 - [ ] All bugs saved to `bugs/open/` with correct format
 - [ ] Fixed bugs moved from `bugs/open/` to `bugs/closed/` and open copy deleted
+- [ ] For each bug closed this session that has a Production Redmine Issue ID, the production issue's status is updated In QA → Done and % done → 100 (Section 5, write-approval required)
 - [ ] `bugs/_index.md` updated (status + file path)
 - [ ] TC screenshots saved under `screenshots/<TC-ID>/`
 - [ ] Bug screenshots saved under `screenshots/<BUG-ID>/`

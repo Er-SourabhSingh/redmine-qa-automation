@@ -1,0 +1,236 @@
+- generic [ref=f23e1]:
+  - generic [ref=f23e2]:
+    - navigation [ref=f23e3]:
+      - list [ref=f23e6]:
+        - listitem [ref=f23e7]:
+          - link "Hauptseite" [ref=f23e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f23e9]:
+          - link "Meine Seite" [ref=f23e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f23e11]:
+          - link "Projekte" [ref=f23e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f23e13]:
+          - link "Agile Board" [ref=f23e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f23e15]:
+          - link "Flux Gantt" [ref=f23e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f23e17]:
+          - link "Administration" [ref=f23e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f23e19]:
+          - link "Hilfe" [ref=f23e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f23e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f23e24]: RA
+    - generic [ref=f23e27]:
+      - generic [ref=f23e28]:
+        - generic [ref=f23e29]:
+          - generic [ref=f23e30]:
+            - link "Suche" [ref=f23e31] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/search
+            - text: ":"
+          - textbox "Suche:" [ref=f23e32]
+        - generic [ref=f23e33]:
+          - generic [ref=f23e34] [cursor=pointer]: Flux Gantt Project
+          - text: ✓ ✓
+      - heading "Flux Gantt Project" [level=1] [ref=f23e35]
+      - list [ref=f23e38]:
+        - listitem [ref=f23e39]:
+          - link "+" [ref=f23e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f23e41]:
+          - link "Übersicht" [ref=f23e42] [cursor=pointer]:
+            - /url: /projects/fluxganttproject
+        - listitem [ref=f23e43]:
+          - link "Dashboard" [ref=f23e44] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/analytics_dashboard
+        - listitem [ref=f23e45]:
+          - link "Flux Gantt" [ref=f23e46] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/flux_gantt
+        - listitem [ref=f23e47]:
+          - link "Aktivität" [ref=f23e48] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/activity
+        - listitem [ref=f23e49]:
+          - link "Roadmap" [ref=f23e50] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/roadmap
+        - listitem [ref=f23e51]:
+          - link "Tickets" [ref=f23e52] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues
+        - listitem [ref=f23e53]:
+          - link "Aufgewendete Zeit" [ref=f23e54] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/time_entries
+        - listitem [ref=f23e55]:
+          - link "Gantt-Diagramm" [ref=f23e56] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/gantt
+        - listitem [ref=f23e57]:
+          - link "Kalender" [ref=f23e58] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/calendar
+        - listitem [ref=f23e59]:
+          - link "News" [ref=f23e60] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/news
+        - listitem [ref=f23e61]:
+          - link "Dokumente" [ref=f23e62] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/documents
+        - listitem [ref=f23e63]:
+          - link "Wiki" [ref=f23e64] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/wiki
+        - listitem [ref=f23e65]:
+          - link "Dateien" [ref=f23e66] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/files
+        - listitem [ref=f23e67]:
+          - link "Konfiguration" [ref=f23e68] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/settings
+    - generic [ref=f23e70]:
+      - generic [ref=f23e71]:
+        - generic [ref=f23e72]:
+          - heading "Analytics Dashboard" [level=2] [ref=f23e73]
+          - generic [ref=f23e74]:
+            - button "Share" [ref=f23e75] [cursor=pointer]
+            - button "OFF" [ref=f23e79] [cursor=pointer]
+            - combobox [disabled] [ref=f23e84]:
+              - option "30 sec"
+              - option "1 min" [selected]
+              - option "2 min"
+              - option "5 min"
+              - option "10 min"
+        - generic [ref=f23e85]:
+          - generic [ref=f23e86]:
+            - generic [ref=f23e87]: "Tracker:"
+            - combobox "Tracker:" [ref=f23e88]:
+              - option "All Trackers" [selected]
+              - option "Bug"
+              - option "Feature"
+              - option "Support"
+          - generic [ref=f23e89]:
+            - generic [ref=f23e90]: "Date Range:"
+            - combobox "Date Range:" [ref=f23e91]:
+              - option "Heute"
+              - option "die letzten 7 Tage"
+              - option "die letzten 30 Tage" [selected]
+              - option "die letzten 90 Tage"
+              - option "aktueller Monat"
+              - option "voriger Monat"
+              - option "aktuelles Jahr"
+              - option "Custom Range"
+          - button "Apply" [ref=f23e92] [cursor=pointer]
+          - generic [ref=f23e93]:
+            - button "Refresh" [ref=f23e94] [cursor=pointer]
+            - button "Fullscreen" [ref=f23e97] [cursor=pointer]
+        - button "Add Chart" [ref=f23e101] [cursor=pointer]
+        - generic [ref=f23e104]:
+          - heading "No Charts Added" [level=3] [ref=f23e129]
+          - paragraph [ref=f23e130]: Click "Add Chart" button above to add your first chart
+      - text: 🗑️ 🗑️
+      - generic [ref=f23e194]:
+        - generic [ref=f23e195]:
+          - heading "Add New Chart" [level=3] [ref=f23e196]
+          - button [ref=f23e197] [cursor=pointer]
+        - generic [ref=f23e201]:
+          - generic [ref=f23e202]:
+            - heading "📊 Core Analytics Dashboard" [level=4] [ref=f23e203]
+            - paragraph [ref=f23e204]: 22 chart queries + 5 saved queries available
+          - generic [ref=f23e205]:
+            - button "📊 Our Queries (22)" [ref=f23e206] [cursor=pointer]
+            - button "💾 Saved Queries (5)" [ref=f23e207] [cursor=pointer]
+          - generic [ref=f23e209]:
+            - generic [ref=f23e210]: "Query Type:"
+            - textbox "🔍 Search query types..." [active] [ref=f23e211]
+            - listbox "Query Type:" [ref=f23e212]:
+              - option "📊 Issues by Status" [selected] [ref=f23e213] [cursor=pointer]
+              - option "🎯 Issues by Tracker" [ref=f23e214] [cursor=pointer]
+              - option "⚡ Issues by Priority" [ref=f23e215] [cursor=pointer]
+              - option "👤 Issues by Assignee" [ref=f23e216] [cursor=pointer]
+              - option "📊 Issues by Assignee (Stacked by Status)" [ref=f23e217] [cursor=pointer]
+              - option "🎯 Issues by Assignee (Stacked by Tracker)" [ref=f23e218] [cursor=pointer]
+              - option "⚡ Issues by Assignee (Stacked by Priority)" [ref=f23e219] [cursor=pointer]
+              - option "🚀 Issues by Release (Target Version)" [ref=f23e220] [cursor=pointer]
+              - option "📈 Issues by Percentage Done" [ref=f23e221] [cursor=pointer]
+              - option "📈 Issues Trend" [ref=f23e222] [cursor=pointer]
+              - option "👥 User Activity" [ref=f23e223] [cursor=pointer]
+              - option "⏱️ Total Spent Hours by Users" [ref=f23e224] [cursor=pointer]
+              - option "📋 Total Spent Hours by Activity" [ref=f23e225] [cursor=pointer]
+              - option "🎯 Total Spent Time by Issues Tracker" [ref=f23e226] [cursor=pointer]
+              - option "📊 Total Spent Time by Issues Status" [ref=f23e227] [cursor=pointer]
+              - option "🚀 Total Spent Time by Target Version" [ref=f23e228] [cursor=pointer]
+              - option "📉 Estimated vs Spent Time by User" [ref=f23e229] [cursor=pointer]
+              - option "🚀 Estimated vs Spent Time by Version" [ref=f23e230] [cursor=pointer]
+              - option "👥 Total Spent Time by Role" [ref=f23e231] [cursor=pointer]
+              - option "⏳ Total Remaining Time by Assignee" [ref=f23e232] [cursor=pointer]
+              - option "🎯 Total Remaining Time by Tracker" [ref=f23e233] [cursor=pointer]
+              - option "⏲️ Project Progress (Gauge)" [ref=f23e234] [cursor=pointer]
+          - generic [ref=f23e235]:
+            - generic [ref=f23e236]: "Chart Title (optional):"
+            - textbox "Chart Title Chart Title (optional):" [ref=f23e237]:
+              - /placeholder: Leave empty to use query name
+        - generic [ref=f23e238]:
+          - button "Abbrechen" [ref=f23e239] [cursor=pointer]
+          - button "Add" [ref=f23e240] [cursor=pointer]
+    - generic [ref=f23e131]:
+      - text: Powered by
+      - link "Redmine" [ref=f23e132] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f23e133]
+  - log [ref=f23e134]
+  - log [ref=f23e135]
+  - log [ref=f23e136]
+  - log [ref=f23e137]
+  - log [ref=f23e138]
+  - log [ref=f23e139]
+  - log [ref=f23e140]
+  - log [ref=f23e141]
+  - log [ref=f23e142]
+  - log [ref=f23e143]
+  - log [ref=f23e144]
+  - log [ref=f23e145]:
+    - generic [ref=f23e241]: Generate Public Share Link
+  - log [ref=f23e146]:
+    - generic [ref=f23e242]: Enable/Disable Auto Refresh
+  - log [ref=f23e147]
+  - log [ref=f23e148]
+  - log [ref=f23e149]
+  - log [ref=f23e150]
+  - log [ref=f23e151]
+  - log [ref=f23e152]
+  - log [ref=f23e153]
+  - log [ref=f23e154]
+  - log [ref=f23e155]
+  - log [ref=f23e156]
+  - log [ref=f23e157]
+  - log [ref=f23e158]
+  - log [ref=f23e159]
+  - log [ref=f23e160]
+  - log [ref=f23e161]
+  - log [ref=f23e162]
+  - log [ref=f23e163]
+  - log [ref=f23e164]
+  - log [ref=f23e165]
+  - log [ref=f23e166]
+  - log [ref=f23e167]
+  - log [ref=f23e168]
+  - log [ref=f23e169]
+  - log [ref=f23e170]
+  - log [ref=f23e171]
+  - log [ref=f23e172]
+  - log [ref=f23e173]
+  - log [ref=f23e174]
+  - log [ref=f23e175]
+  - log [ref=f23e176]
+  - log [ref=f23e177]
+  - log [ref=f23e178]
+  - log [ref=f23e179]
+  - log [ref=f23e180]
+  - log [ref=f23e181]
+  - log [ref=f23e182]
+  - log [ref=f23e183]
+  - log [ref=f23e184]
+  - log [ref=f23e185]
+  - log [ref=f23e186]
+  - log [ref=f23e187]
+  - log [ref=f23e188]
+  - log [ref=f23e189]
+  - log [ref=f23e190]

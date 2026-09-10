@@ -1,0 +1,134 @@
+- generic [ref=f257e1]:
+  - generic [ref=f257e2]:
+    - generic [ref=f257e3]:
+      - generic [ref=f257e4]:
+        - list:
+          - listitem [ref=f257e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f257e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f257e7]:
+        - text: Logged in as
+        - link "alpha.customer" [ref=f257e8] [cursor=pointer]:
+          - /url: /users/6
+      - list [ref=f257e9]:
+        - listitem [ref=f257e10]:
+          - link [ref=f257e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f257e12]
+        - listitem [ref=f257e13]:
+          - link "My Helpdesk" [ref=f257e14] [cursor=pointer]:
+            - /url: /helpdesk
+    - heading "Helpdesk QA Alpha" [level=1] [ref=f257e16]
+    - generic [ref=f257e17]:
+      - list [ref=f257e21]:
+        - listitem [ref=f257e22]:
+          - link "Helpdesk Dashboard" [ref=f257e23] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f257e26]:
+          - link "Helpdesk Tickets" [ref=f257e27] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f257e30]:
+          - link "Knowledgebase" [ref=f257e31] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f257e34]:
+        - heading "New issue" [level=2] [ref=f257e35]
+        - generic [ref=f257e36]:
+          - generic [ref=f257e37]:
+            - paragraph [ref=f257e38]:
+              - generic [ref=f257e39]: Subject *
+              - textbox "Subject *" [active] [ref=f257e40]
+            - paragraph [ref=f257e41]:
+              - generic [ref=f257e42]: Description
+              - generic [ref=f257e44]:
+                - list [ref=f257e46]:
+                  - listitem [ref=f257e47]:
+                    - link "Edit" [ref=f257e48] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f257e49]:
+                    - link "Preview" [ref=f257e50] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f257e51]:
+                    - generic [ref=f257e52]:
+                      - button "Strong (Ctrl+B)" [ref=f257e53] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f257e54] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f257e55] [cursor=pointer]
+                      - button "Deleted" [ref=f257e56] [cursor=pointer]
+                      - button "Inline Code" [ref=f257e57] [cursor=pointer]
+                      - button "Heading 1" [ref=f257e58] [cursor=pointer]
+                      - button "Heading 2" [ref=f257e59] [cursor=pointer]
+                      - button "Heading 3" [ref=f257e60] [cursor=pointer]
+                      - button "Unordered list" [ref=f257e61] [cursor=pointer]
+                      - button "Ordered list" [ref=f257e62] [cursor=pointer]
+                      - button "Task list" [ref=f257e63] [cursor=pointer]
+                      - button "Quote" [ref=f257e64] [cursor=pointer]
+                      - button "Remove Quote" [ref=f257e65] [cursor=pointer]
+                      - button "Table" [ref=f257e66] [cursor=pointer]
+                      - button "pre" [ref=f257e67] [cursor=pointer]
+                      - button "Highlighted code" [ref=f257e68] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f257e69] [cursor=pointer]
+                      - button "Image" [ref=f257e70] [cursor=pointer]
+                      - button "Help" [ref=f257e71] [cursor=pointer]
+                - textbox "Description" [ref=f257e73]
+            - generic [ref=f257e74]:
+              - paragraph [ref=f257e77]:
+                - generic [ref=f257e78]: Priority *
+                - combobox "Priority *" [ref=f257e79]:
+                  - option "Low"
+                  - option "Normal" [selected]
+                  - option "High"
+                  - option "Urgent"
+                  - option "Immediate"
+              - paragraph [ref=f257e83]:
+                - generic [ref=f257e84]: Issue Category
+                - combobox "Issue Category" [ref=f257e85]:
+                  - option [selected]
+                  - option "Community Plugins and Files"
+                  - option "Report a Bug"
+                  - option "Data Protection and Security"
+                  - option "Payments and Invoices"
+                  - option "Account and File Management"
+            - paragraph [ref=f257e87]:
+              - generic [ref=f257e88]: Product
+              - combobox "Product" [ref=f257e89]:
+                - option "None" [selected]
+                - option "Code255Test Product"
+                - option "Description Max Length Product Test"
+                - option "Falcon Suite"
+                - option "Nav Test Product"
+                - option "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+                - option "Phoenix Core"
+                - option "TC-HLP-205 Permission Test Product"
+          - paragraph [ref=f257e90]:
+            - button "Create" [ref=f257e91] [cursor=pointer]
+    - generic [ref=f257e92]:
+      - text: Powered by
+      - link "Redmine" [ref=f257e93] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f257e94]
+  - log [ref=f257e95]
+  - log [ref=f257e96]
+  - log [ref=f257e97]
+  - log [ref=f257e98]
+  - log [ref=f257e99]
+  - log [ref=f257e100]
+  - log [ref=f257e101]
+  - log [ref=f257e102]
+  - log [ref=f257e103]
+  - log [ref=f257e104]
+  - log [ref=f257e105]
+  - log [ref=f257e106]
+  - log [ref=f257e107]
+  - log [ref=f257e108]
+  - log [ref=f257e109]
+  - log [ref=f257e110]
+  - log [ref=f257e111]
+  - log [ref=f257e112]
+  - log [ref=f257e113]
+  - log [ref=f257e114]
+  - log [ref=f257e115]
+  - log [ref=f257e116]
+  - log [ref=f257e117]

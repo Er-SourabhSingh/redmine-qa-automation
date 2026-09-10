@@ -1,0 +1,165 @@
+- generic [active] [ref=f273e1]:
+  - generic [ref=f273e2]:
+    - generic [ref=f273e3]:
+      - generic [ref=f273e4]:
+        - list:
+          - listitem [ref=f273e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f273e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f273e7]:
+        - text: Logged in as
+        - link "admin" [ref=f273e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f273e9]:
+        - listitem [ref=f273e10]:
+          - link [ref=f273e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f273e12]
+        - listitem [ref=f273e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f273e14]:
+          - link "My page" [ref=f273e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f273e16]:
+          - link "Projects" [ref=f273e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f273e18]:
+          - link "Flux Gantt" [ref=f273e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f273e20]:
+          - link "Helpdesk Command Center" [ref=f273e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f273e22]:
+          - link "Time Tracker" [ref=f273e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f273e24]:
+          - link "Timesheet" [ref=f273e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f273e26]:
+          - link "Workloads" [ref=f273e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f273e28]:
+          - link "More" [ref=f273e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f273e30]:
+      - generic [ref=f273e31]:
+        - generic [ref=f273e32]:
+          - generic [ref=f273e33]:
+            - link "Search..." [ref=f273e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f273e35]
+        - generic [ref=f273e36]:
+          - generic [ref=f273e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f273e38]
+    - generic [ref=f273e39]:
+      - list [ref=f273e43]:
+        - listitem [ref=f273e44]:
+          - link "Helpdesk Dashboard" [ref=f273e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f273e48]:
+          - link "Helpdesk Tickets" [ref=f273e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f273e52]:
+          - link "Reports" [ref=f273e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f273e56]:
+          - link "Organization" [ref=f273e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f273e60]:
+          - link "Customers" [ref=f273e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f273e64]:
+          - link "Products" [ref=f273e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f273e68]:
+          - link "Helpdesk Settings" [ref=f273e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f273e72]:
+        - generic [ref=f273e73]:
+          - generic [ref=f273e75]:
+            - heading "Alpha Full-Fields Test Org Active" [level=2] [ref=f273e76]:
+              - text: Alpha Full-Fields Test Org
+              - generic [ref=f273e77]: Active
+            - paragraph [ref=f273e79]: 42 employees · alpha-fullfields.example.com
+          - link "Edit" [ref=f273e81] [cursor=pointer]:
+            - /url: /rf_organizations/9/edit
+        - navigation "Alpha Full-Fields Test Org" [ref=f273e84]:
+          - link "Overview" [ref=f273e85] [cursor=pointer]:
+            - /url: /rf_organizations/9?tab=overview
+          - link "Prepaid Support Hours" [ref=f273e90] [cursor=pointer]:
+            - /url: /rf_organizations/9?tab=prepaid_support_hours
+        - generic [ref=f273e95]:
+          - generic [ref=f273e96]:
+            - generic [ref=f273e97]: "0"
+            - generic [ref=f273e98]: Projects
+          - generic [ref=f273e99]:
+            - generic [ref=f273e100]: "0"
+            - generic [ref=f273e101]: Customers
+          - generic [ref=f273e102]:
+            - generic [ref=f273e103]: "0"
+            - generic [ref=f273e104]: Open tickets
+          - generic [ref=f273e105]:
+            - generic [ref=f273e106]: —
+            - link "Prepaid remaining" [ref=f273e108] [cursor=pointer]:
+              - /url: /rf_organizations/9?tab=prepaid_support_hours
+        - generic [ref=f273e109]:
+          - heading "Basic Information" [level=3] [ref=f273e111]
+          - generic [ref=f273e116]:
+            - generic [ref=f273e117]:
+              - generic [ref=f273e118]: Organization Name
+              - generic [ref=f273e119]: Alpha Full-Fields Test Org
+            - generic [ref=f273e120]:
+              - generic [ref=f273e121]: Website
+              - link "https://alpha-fullfields.example.com" [ref=f273e123] [cursor=pointer]:
+                - /url: https://alpha-fullfields.example.com
+            - generic [ref=f273e124]:
+              - generic [ref=f273e125]: Phone Number
+              - generic [ref=f273e126]: +1 (555) 222-3344
+            - generic [ref=f273e127]:
+              - generic [ref=f273e128]: Number of Employees
+              - generic [ref=f273e129]: "42"
+            - generic [ref=f273e130]:
+              - generic [ref=f273e131]: Organization Address
+              - paragraph [ref=f273e133]: 100 Baseline Street, Testville
+        - generic [ref=f273e134]:
+          - heading "Notes" [level=3] [ref=f273e136]
+          - paragraph [ref=f273e142]: Original notes for TC-HLP-336/337 baseline.
+        - generic [ref=f273e143]:
+          - heading "Billing Information" [level=3] [ref=f273e145]
+          - paragraph [ref=f273e150]: Original billing info for TC-HLP-336/337 baseline.
+        - generic [ref=f273e151]:
+          - generic [ref=f273e152]:
+            - generic [ref=f273e153]: "Created by:"
+            - link "Redmine Admin" [ref=f273e155] [cursor=pointer]:
+              - /url: /users/1
+          - generic [ref=f273e156]:
+            - generic [ref=f273e157]: "Created:"
+            - generic [ref=f273e158]: 09/02/2026 06:17 AM
+          - generic [ref=f273e159]:
+            - generic [ref=f273e160]: "Updated:"
+            - generic [ref=f273e161]: 09/02/2026 06:17 AM
+        - paragraph [ref=f273e162]:
+          - link "Organization List" [ref=f273e163] [cursor=pointer]:
+            - /url: /rf_organizations
+    - generic [ref=f273e164]:
+      - text: Powered by
+      - link "Redmine" [ref=f273e165] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f273e166]
+  - log [ref=f273e167]
+  - log [ref=f273e168]
+  - log [ref=f273e169]
+  - log [ref=f273e170]
+  - log [ref=f273e171]
+  - log [ref=f273e172]
+  - log [ref=f273e173]
+  - log [ref=f273e174]
+  - log [ref=f273e175]
+  - log [ref=f273e176]

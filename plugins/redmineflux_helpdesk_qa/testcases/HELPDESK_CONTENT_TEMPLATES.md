@@ -91,6 +91,26 @@
 
 ---
 
+### TC-HLP-339: Editing only Content on an existing canned response leaves Name and the already-checked Active untouched
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Precondition:** An existing, Active canned response with both a distinct Name and non-empty Content already saved (e.g. "Acknowledge Receipt").
+
+**Steps:**
+1. Open the canned response's Edit page (`/rf_canned_responses/:id/edit`)
+2. Change ONLY the Content field — leave Name exactly as pre-filled, and do not touch the Active checkbox at all
+3. Save
+4. Reopen Edit on the same record, and also check the Canned Responses list
+
+**Expected Result:**
+- Content shows the new value entered in Step 2
+- Name is unchanged from its original value — editing Content alone did not blank or reset Name, which is the common partial-update bug class this dimension targets (an Edit view that doesn't correctly resubmit a field the user never touched)
+- Active is still checked/Active in both the reopened Edit form and the list — leaving an already-checked checkbox untouched during an unrelated field edit must not silently uncheck it
+- This is the mirror case of TC-HLP-177/BUG-HLP-003: that pair covers deliberately UNCHECKING Active (currently blocked, since the checkbox has no Rails hidden fallback field and an unchecked box omits `active` from the request). This case never touches the checkbox — a checked checkbox always submits `active=1` regardless of what else changed on the form — so BUG-HLP-003's known failure mode should not apply here
+- If Active were found unchecked after this save despite never being touched, that would be a distinct and more severe bug than BUG-HLP-003 — a partial edit silently deactivating a record via a field it never interacted with — and should be filed as its own bug, not folded into BUG-HLP-003
+
+---
+
 ### TC-HLP-273: Deleting a canned response removes it after confirmation
 
 **User Role:** Admin or Agent with `manage_helpdesk`
@@ -119,6 +139,86 @@
 
 **Expected Result:**
 - Saves successfully with all fields correctly stored
+- **Field-list correction, live form check 2026-08-31 (Local, redmine-docker-6):** the real New Product form has a **Description** textarea (`rf_product[description]`) that isn't in `HELPDESK_USER_GUIDE.md` §15's field table and isn't covered by this TC's own steps above — see TC-HLP-309 for dedicated coverage of that field.
+
+---
+
+### TC-HLP-321: Creating a Product with only the required fields succeeds
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Precondition:** None. Per `HELPDESK_USER_GUIDE.md` §15, only Name and Code are required — Category, Description, and Active all have defaults or are optional.
+
+**Steps:**
+1. Helpdesk Settings › Products › New Product
+2. Fill only Name and Code — leave Category and Description blank
+3. Save
+
+**Expected Result:**
+- Save succeeds with no required-field error on Category or Description
+- The product appears in the list/detail with Category and Description both empty
+
+---
+
+### TC-HLP-322: Creating a Product with every field filled in the initial Save, not via a later Edit
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Precondition:** None. Complements TC-HLP-309, which only proves Description is editable via Edit on an already-existing product.
+
+**Steps:**
+1. New Product
+2. In one Save: fill Name, Code, Category, **Description**, and leave Active checked
+3. Save, then open the product to confirm every field
+
+**Expected Result:**
+- Description saves correctly on the very first Save, not only when added later via Edit
+
+---
+
+### TC-HLP-309: Editing a Product updates every field, including its undocumented Description
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Precondition:** An existing product (e.g. "Phoenix Core").
+
+**Steps:**
+1. Open the product's Edit form
+2. Change Name, Code, Category, **Description**, and Active in one save (Project is a locked field on this form, per the live check above — not independently editable, so not exercised here)
+3. Save, then reopen Edit to confirm each field independently
+
+**Expected Result:**
+- Every field saves the new value entered
+- **Description** is checked here specifically — it's a real field on this form but has no coverage anywhere else in this suite or in `HELPDESK_FIELD_VALIDATIONS.md`
+
+---
+
+### TC-HLP-331: Editing a Product's required fields only leaves its already-set optional fields untouched
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Precondition:** An existing product with Category and Description both already populated — any product satisfies this, e.g. one created via TC-HLP-322's single-Save all-fields flow, or "Phoenix Core" (Code `PHX-CORE`) after TC-HLP-309 has given it a Description.
+
+**Steps:**
+1. Open the product's Edit form
+2. Change only the Name field to a new value (e.g. append " II") — leave Code, Category, and Description exactly as they were pre-filled, do not click into or alter them
+3. Save
+4. Reopen Edit to inspect all fields, then repeat Steps 1–4 changing only Code this time instead of Name
+
+**Expected Result:**
+- The touched required field (Name, then Code) saves the new value each time
+- Category and Description still show their original, pre-existing values after both saves — neither was blanked, reset, or truncated by a Save that only intended to change the required field
+- This is distinct from TC-HLP-309 (Editing a Product updates every field...), which changes every field including the optional ones in the same Save and so cannot by itself prove a partial update is safe — a form whose Edit view fails to re-populate an already-set optional field into the submitted params would silently wipe Category/Description on any Save that only touches Name or Code. This TC isolates exactly that failure path
+- If either optional field comes back blank after either save, this is a real bug (the common "Edit view didn't pre-populate the field, so it round-trips empty" class) — file it rather than treating it as expected behavior
+
+---
+
+### TC-HLP-310: Deleting an unused Product succeeds
+
+**User Role:** Admin or Agent with `manage_helpdesk`
+**Precondition:** A product not currently linked to any ticket (distinct from TC-HLP-172, which covers the linked/blocked case).
+
+**Steps:**
+1. Delete the unused product
+
+**Expected Result:**
+- Deletion succeeds with no error, and the product no longer appears in the Product list or in the ticket-form Product dropdown
 
 ---
 
@@ -471,7 +571,7 @@
 
 ## Evidence Map
 
-- Case ID: TC-HLP-157 – TC-HLP-180, plus TC-HLP-281–282 (Product and Canned Response list search & filter, added 2026-08-24), TC-HLP-285 (Product dropdown project-scoping on the ticket form)
+- Case ID: TC-HLP-157 – TC-HLP-180, plus TC-HLP-281–282 (Product and Canned Response list search & filter, added 2026-08-24), TC-HLP-285 (Product dropdown project-scoping on the ticket form), TC-HLP-309–310 (Product Edit-all-fields and Delete CRUD gap closure, added 2026-08-31 after live form exploration), TC-HLP-321–322 (Product Create-time required-fields-only and all-fields-in-one-Save cases, added 2026-09-01), TC-HLP-331 (Product edit-required-fields-only-leaves-optional-untouched), TC-HLP-339 (Canned Response same dimension) — both added 2026-09-01 after a background audit workflow; see `HELPDESK_FIELD_VALIDATIONS.md` TC-HLP-332/TC-HLP-340 for these two entities' edit-time validation-error counterparts
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`

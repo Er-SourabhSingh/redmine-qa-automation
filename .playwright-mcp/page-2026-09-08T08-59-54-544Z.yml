@@ -1,0 +1,422 @@
+- generic [active] [ref=f224e1]:
+  - generic [ref=f224e2]:
+    - navigation [ref=f224e3]:
+      - generic [ref=f224e4]:
+        - link [ref=f224e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f224e7] [cursor=pointer]
+      - list [ref=f224e17]:
+        - listitem [ref=f224e18]:
+          - link "Hauptseite" [ref=f224e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f224e20]:
+          - link "Meine Seite" [ref=f224e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f224e22]:
+          - link "Projekte" [ref=f224e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f224e24]:
+          - link "Agile Board" [ref=f224e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f224e26]:
+          - link "Flux Gantt" [ref=f224e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f224e28]:
+          - link "Administration" [ref=f224e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f224e30]:
+          - link "Hilfe" [ref=f224e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f224e32]:
+        - generic [ref=f224e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f224e35]
+        - link "Mein Konto" [ref=f224e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f224e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f224e44]:
+      - generic [ref=f224e45]:
+        - heading "Redmine" [level=1] [ref=f224e47]
+        - generic [ref=f224e49]:
+          - heading "Administration" [level=3] [ref=f224e50]
+          - list [ref=f224e52]:
+            - listitem [ref=f224e53]:
+              - link "Projekte" [ref=f224e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f224e55]:
+              - link "Benutzer" [ref=f224e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f224e57]:
+              - link "Gruppen" [ref=f224e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f224e59]:
+              - link "Rollen und Rechte" [ref=f224e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f224e61]:
+              - link "Tracker" [ref=f224e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f224e63]:
+              - link "Ticket-Status" [ref=f224e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f224e65]:
+              - link "Workflow" [ref=f224e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f224e67]:
+              - link "Benutzerdefinierte Felder" [ref=f224e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f224e69]:
+              - link "Aufzählungen" [ref=f224e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f224e71]:
+              - link "Konfiguration" [ref=f224e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f224e73]:
+              - link "LDAP-Authentifizierung" [ref=f224e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f224e75]:
+              - link "Applikationen" [ref=f224e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f224e77]:
+              - link "Plugins" [ref=f224e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f224e79]:
+              - link "Informationen" [ref=f224e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f224e81]:
+        - heading "Konfiguration" [level=2] [ref=f224e82]
+        - list [ref=f224e84]:
+          - listitem [ref=f224e85]:
+            - link "Allgemein" [ref=f224e86] [cursor=pointer]:
+              - /url: /settings?tab=general
+          - listitem [ref=f224e87]:
+            - link "Anzeige" [ref=f224e88] [cursor=pointer]:
+              - /url: /settings?tab=display
+          - listitem [ref=f224e89]:
+            - link "Authentifizierung" [ref=f224e90] [cursor=pointer]:
+              - /url: /settings?tab=authentication
+          - listitem [ref=f224e91]:
+            - link "Integrations" [ref=f224e92] [cursor=pointer]:
+              - /url: /settings?tab=integrations
+          - listitem [ref=f224e93]:
+            - link "Projekte" [ref=f224e94] [cursor=pointer]:
+              - /url: /settings?tab=projects
+          - listitem [ref=f224e95]:
+            - link "Benutzer" [ref=f224e96] [cursor=pointer]:
+              - /url: /settings?tab=users
+          - listitem [ref=f224e97]:
+            - link "Tickets" [ref=f224e98] [cursor=pointer]:
+              - /url: /settings?tab=issues
+          - listitem [ref=f224e99]:
+            - link "Zeiterfassung" [ref=f224e100] [cursor=pointer]:
+              - /url: /settings?tab=timelog
+          - listitem [ref=f224e101]:
+            - link "Dateien" [ref=f224e102] [cursor=pointer]:
+              - /url: /settings?tab=attachments
+          - listitem [ref=f224e103]:
+            - link "Mailbenachrichtigung" [ref=f224e104] [cursor=pointer]:
+              - /url: /settings?tab=notifications
+          - listitem [ref=f224e105]:
+            - link "Eingehende E-Mails" [ref=f224e106] [cursor=pointer]:
+              - /url: /settings?tab=mail_handler
+          - listitem [ref=f224e107]:
+            - link "Repositories" [ref=f224e108] [cursor=pointer]:
+              - /url: /settings?tab=repositories
+        - text: pre
+        - generic [ref=f224e110]:
+          - generic [ref=f224e111]:
+            - paragraph [ref=f224e112]:
+              - generic [ref=f224e113]: Ticket-Beziehungen zwischen Projekten erlauben
+              - checkbox "Ticket-Beziehungen zwischen Projekten erlauben" [ref=f224e114]
+            - paragraph [ref=f224e115]:
+              - generic [ref=f224e116]: Tickets beim Kopieren verlinken
+              - combobox "Tickets beim Kopieren verlinken" [ref=f224e117]:
+                - option "Ja"
+                - option "Nein"
+                - option "Nachfragen" [selected]
+            - paragraph [ref=f224e118]:
+              - generic [ref=f224e119]: Copy attachments on copy
+              - combobox "Copy attachments on copy" [ref=f224e120]:
+                - option "Ja"
+                - option "Nein"
+                - option "Nachfragen" [selected]
+            - paragraph [ref=f224e121]:
+              - generic [ref=f224e122]: Projektübergreifende untergeordnete Tickets erlauben
+              - combobox "Projektübergreifende untergeordnete Tickets erlauben" [ref=f224e123]:
+                - option "gesperrt"
+                - option "Mit allen Projekten"
+                - option "Mit Projektbaum" [selected]
+                - option "Mit Projekthierarchie"
+                - option "Mit Unterprojekten"
+            - paragraph [ref=f224e124]:
+              - generic [ref=f224e125]: Duplikate automatisch schließen
+              - checkbox "Duplikate automatisch schließen" [checked] [ref=f224e126]
+            - paragraph [ref=f224e127]:
+              - generic [ref=f224e128]: Ticketzuweisung an Gruppen erlauben
+              - checkbox "Ticketzuweisung an Gruppen erlauben" [ref=f224e129]
+            - paragraph [ref=f224e130]:
+              - generic [ref=f224e131]: Assignee drop-down display format
+              - combobox "Assignee drop-down display format" [disabled] [ref=f224e132]:
+                - option "Users then groups" [selected]
+                - option "Groups then users"
+                - option "Users by group"
+            - paragraph [ref=f224e133]:
+              - generic [ref=f224e134]: Aktuelles Datum als Beginn für neue Tickets verwenden
+              - checkbox "Aktuelles Datum als Beginn für neue Tickets verwenden" [ref=f224e135]
+            - paragraph [ref=f224e136]:
+              - generic [ref=f224e137]: Enable default due date for new issues
+              - checkbox "Enable default due date for new issues" [ref=f224e138]
+            - paragraph [ref=f224e139]:
+              - textbox [disabled] [ref=f224e141]
+              - text: days relative to today
+            - paragraph [ref=f224e142]:
+              - generic [ref=f224e143]: Tickets von Unterprojekten im Hauptprojekt anzeigen
+              - checkbox "Tickets von Unterprojekten im Hauptprojekt anzeigen" [checked] [ref=f224e144]
+            - paragraph [ref=f224e145]:
+              - generic [ref=f224e146]: Berechne den Ticket-Fortschritt mittels
+              - combobox "Berechne den Ticket-Fortschritt mittels" [ref=f224e147]:
+                - option "Ticket-Feld % erledigt" [selected]
+                - option "Ticket-Status"
+            - paragraph [ref=f224e148]:
+              - generic [ref=f224e149]: Done ratio options interval
+              - combobox "Done ratio options interval" [ref=f224e150]:
+                - option "5 %"
+                - option "10 %" [selected]
+            - paragraph [ref=f224e151]:
+              - generic [ref=f224e152]: Arbeitsfreie Tage
+              - generic [ref=f224e153]:
+                - checkbox "Montag" [ref=f224e154]
+                - text: Montag
+              - generic [ref=f224e155]:
+                - checkbox "Dienstag" [ref=f224e156]
+                - text: Dienstag
+              - generic [ref=f224e157]:
+                - checkbox "Mittwoch" [ref=f224e158]
+                - text: Mittwoch
+              - generic [ref=f224e159]:
+                - checkbox "Donnerstag" [ref=f224e160]
+                - text: Donnerstag
+              - generic [ref=f224e161]:
+                - checkbox "Freitag" [ref=f224e162]
+                - text: Freitag
+              - generic [ref=f224e163]:
+                - checkbox "Samstag" [checked] [ref=f224e164]
+                - text: Samstag
+              - generic [ref=f224e165]:
+                - checkbox "Sonntag" [checked] [ref=f224e166]
+                - text: Sonntag
+            - paragraph [ref=f224e167]:
+              - generic [ref=f224e168]: Maximale Anzahl Tickets bei CSV/PDF-Export
+              - textbox "Maximale Anzahl Tickets bei CSV/PDF-Export" [ref=f224e169]: "500"
+            - paragraph [ref=f224e170]:
+              - generic [ref=f224e171]: Maximale Anzahl von Tickets, die im Gantt-Diagramm angezeigt werden
+              - textbox "Maximale Anzahl von Tickets, die im Gantt-Diagramm angezeigt werden" [ref=f224e172]: "500"
+            - paragraph [ref=f224e173]:
+              - generic [ref=f224e174]: Maximal anzeigbare Monate im Gantt-Diagramm
+              - textbox "Maximal anzeigbare Monate im Gantt-Diagramm" [ref=f224e175]: "24"
+          - group "Eigenschaften übergeordneter Tickets" [ref=f224e176]:
+            - generic [ref=f224e178]:
+              - paragraph [ref=f224e179]:
+                - generic [ref=f224e180]: Startdatum / Abgabedatum
+                - combobox "Startdatum / Abgabedatum" [ref=f224e181]:
+                  - option "Abgeleitet von untergeordneten Tickets" [selected]
+                  - option "Unabhängig von untergeordneten Tickets"
+              - paragraph [ref=f224e182]:
+                - generic [ref=f224e183]: Priorität
+                - combobox "Priorität" [ref=f224e184]:
+                  - option "Abgeleitet von untergeordneten Tickets" [selected]
+                  - option "Unabhängig von untergeordneten Tickets"
+              - paragraph [ref=f224e185]:
+                - generic [ref=f224e186]: "% erledigt"
+                - combobox "% erledigt" [ref=f224e187]:
+                  - option "Abgeleitet von untergeordneten Tickets" [selected]
+                  - option "Unabhängig von untergeordneten Tickets"
+          - group "Standard-Spalten in der Ticket-Auflistung" [ref=f224e188]:
+            - generic [ref=f224e191]:
+              - generic [ref=f224e192]:
+                - generic [ref=f224e193]: Verfügbare Spalten
+                - listbox "Verfügbare Spalten" [ref=f224e194]:
+                  - option "Projekt" [ref=f224e195]
+                  - option "Übergeordnetes Ticket" [ref=f224e196]
+                  - option "Thema des übergeordneten Tickets" [ref=f224e197]
+                  - option "Autor" [ref=f224e198]
+                  - option "Beobachter" [ref=f224e199]
+                  - option "Kategorie" [ref=f224e200]
+                  - option "Zielversion" [ref=f224e201]
+                  - option "Startdatum" [ref=f224e202]
+                  - option "Abgabedatum" [ref=f224e203]
+                  - option "Geschätzter Aufwand" [ref=f224e204]
+                  - option "Geschätzter verbleibender Aufwand" [ref=f224e205]
+                  - option "Summe des geschätzten Aufwands" [ref=f224e206]
+                  - option "Aufgewendete Zeit" [ref=f224e207]
+                  - option "Aufgewendete Zeit aller Projekte anzeigen" [ref=f224e208]
+                  - option "% erledigt" [ref=f224e209]
+                  - option "Angelegt" [ref=f224e210]
+                  - option "Geschlossen am" [ref=f224e211]
+                  - option "Zuletzt geändert von" [ref=f224e212]
+                  - option "Zugehörige Tickets" [ref=f224e213]
+                  - option "Dateien" [ref=f224e214]
+                  - option "Privat" [ref=f224e215]
+                  - option "Sprint" [ref=f224e216]
+                  - option "Story Points" [ref=f224e217]
+                  - option "Tags" [ref=f224e218]
+              - generic [ref=f224e219]:
+                - button [ref=f224e220]
+                - button [ref=f224e223]
+              - generic [ref=f224e226]:
+                - generic [ref=f224e227]: Ausgewählte Spalten
+                - listbox "Ausgewählte Spalten" [ref=f224e228]:
+                  - option "Tracker" [ref=f224e229]
+                  - option "Status" [ref=f224e230]
+                  - option "Priorität" [ref=f224e231]
+                  - option "Thema" [ref=f224e232]
+                  - option "Zugewiesen an" [ref=f224e233]
+                  - option "Aktualisiert" [ref=f224e234]
+              - generic [ref=f224e235]:
+                - button "⇈" [ref=f224e236]
+                - button "↑" [ref=f224e237]
+                - button "↓" [ref=f224e238]
+                - button "⇊" [ref=f224e239]
+            - paragraph [ref=f224e240]:
+              - text: Summe
+              - generic [ref=f224e241]:
+                - checkbox "Geschätzter Aufwand" [ref=f224e242]
+                - text: Geschätzter Aufwand
+              - generic [ref=f224e243]:
+                - checkbox "Geschätzter verbleibender Aufwand" [ref=f224e244]
+                - text: Geschätzter verbleibender Aufwand
+              - generic [ref=f224e245]:
+                - checkbox "Aufgewendete Zeit" [ref=f224e246]
+                - text: Aufgewendete Zeit
+            - paragraph [ref=f224e247]:
+              - text: Standardabfrage
+              - combobox [ref=f224e248]:
+                - option "Keine" [selected]
+                - option "Issues assigned to me"
+                - option "Reported issues"
+                - option "Updated issues"
+                - option "Watched issues"
+          - group "Standard-Spalten für verknüpfte und untergeordnete Aufgaben" [ref=f224e249]:
+            - generic [ref=f224e252]:
+              - generic [ref=f224e253]:
+                - generic [ref=f224e254]: Verfügbare Spalten
+                - listbox "Verfügbare Spalten" [ref=f224e255]:
+                  - option "Projekt" [ref=f224e256]
+                  - option "Übergeordnetes Ticket" [ref=f224e257]
+                  - option "Thema des übergeordneten Tickets" [ref=f224e258]
+                  - option "Priorität" [ref=f224e259]
+                  - option "Autor" [ref=f224e260]
+                  - option "Beobachter" [ref=f224e261]
+                  - option "Aktualisiert" [ref=f224e262]
+                  - option "Kategorie" [ref=f224e263]
+                  - option "Zielversion" [ref=f224e264]
+                  - option "Geschätzter Aufwand" [ref=f224e265]
+                  - option "Geschätzter verbleibender Aufwand" [ref=f224e266]
+                  - option "Summe des geschätzten Aufwands" [ref=f224e267]
+                  - option "Aufgewendete Zeit" [ref=f224e268]
+                  - option "Aufgewendete Zeit aller Projekte anzeigen" [ref=f224e269]
+                  - option "Angelegt" [ref=f224e270]
+                  - option "Geschlossen am" [ref=f224e271]
+                  - option "Zuletzt geändert von" [ref=f224e272]
+                  - option "Zugehörige Tickets" [ref=f224e273]
+                  - option "Dateien" [ref=f224e274]
+                  - option "Privat" [ref=f224e275]
+                  - option "Sprint" [ref=f224e276]
+                  - option "Story Points" [ref=f224e277]
+                  - option "Tags" [ref=f224e278]
+              - generic [ref=f224e279]:
+                - button [ref=f224e280]
+                - button [ref=f224e283]
+              - generic [ref=f224e286]:
+                - generic [ref=f224e287]: Ausgewählte Spalten
+                - listbox "Ausgewählte Spalten" [ref=f224e288]:
+                  - option "Status" [ref=f224e289]
+                  - option "Zugewiesen an" [ref=f224e290]
+                  - option "Startdatum" [ref=f224e291]
+                  - option "Abgabedatum" [ref=f224e292]
+                  - option "% erledigt" [ref=f224e293]
+              - generic [ref=f224e294]:
+                - button "⇈" [ref=f224e295]
+                - button "↑" [ref=f224e296]
+                - button "↓" [ref=f224e297]
+                - button "⇊" [ref=f224e298]
+            - paragraph [ref=f224e300]:
+              - generic [ref=f224e301]: Spaltenüberschriften anzeigen
+              - checkbox "Spaltenüberschriften anzeigen" [ref=f224e302]
+          - button "Speichern" [ref=f224e303] [cursor=pointer]
+        - text: pre pre
+    - generic [ref=f224e304]:
+      - text: Powered by
+      - link "Redmine" [ref=f224e305] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f224e306]
+  - log [ref=f224e307]
+  - log [ref=f224e308]
+  - log [ref=f224e309]
+  - log [ref=f224e310]
+  - log [ref=f224e311]
+  - log [ref=f224e312]
+  - log [ref=f224e313]
+  - log [ref=f224e314]
+  - log [ref=f224e315]
+  - log [ref=f224e316]
+  - log [ref=f224e317]
+  - log [ref=f224e318]
+  - log [ref=f224e319]
+  - log [ref=f224e320]
+  - log [ref=f224e321]
+  - log [ref=f224e322]
+  - log [ref=f224e323]
+  - log [ref=f224e324]
+  - log [ref=f224e325]
+  - log [ref=f224e326]
+  - log [ref=f224e327]
+  - log [ref=f224e328]
+  - log [ref=f224e329]
+  - log [ref=f224e330]
+  - log [ref=f224e331]
+  - log [ref=f224e332]
+  - log [ref=f224e333]
+  - log [ref=f224e334]
+  - log [ref=f224e335]
+  - log [ref=f224e336]
+  - log [ref=f224e337]
+  - log [ref=f224e338]
+  - log [ref=f224e339]
+  - log [ref=f224e340]
+  - log [ref=f224e341]
+  - log [ref=f224e342]
+  - log [ref=f224e343]
+  - log [ref=f224e344]
+  - log [ref=f224e345]
+  - log [ref=f224e346]
+  - log [ref=f224e347]
+  - log [ref=f224e348]
+  - log [ref=f224e349]
+  - log [ref=f224e350]
+  - log [ref=f224e351]
+  - log [ref=f224e352]
+  - log [ref=f224e353]
+  - log [ref=f224e354]
+  - log [ref=f224e355]
+  - log [ref=f224e356]
+  - log [ref=f224e357]
+  - log [ref=f224e358]
+  - log [ref=f224e359]
+  - log [ref=f224e360]
+  - log [ref=f224e361]
+  - log [ref=f224e362]
+  - log [ref=f224e363]
+  - log [ref=f224e364]
+  - log [ref=f224e365]
+  - log [ref=f224e366]
+  - log [ref=f224e367]
+  - log [ref=f224e368]
+  - log [ref=f224e369]
+  - log [ref=f224e370]
+  - log [ref=f224e371]
+  - log [ref=f224e372]
+  - log [ref=f224e373]
+  - log [ref=f224e374]
+  - log [ref=f224e375]
+  - log [ref=f224e376]

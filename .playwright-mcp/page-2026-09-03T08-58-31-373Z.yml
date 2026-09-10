@@ -1,0 +1,357 @@
+- generic [active] [ref=f430e1]:
+  - generic [ref=f430e2]:
+    - generic [ref=f430e3]:
+      - generic [ref=f430e4]:
+        - list:
+          - listitem [ref=f430e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f430e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f430e7]:
+        - text: Logged in as
+        - link "admin" [ref=f430e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f430e9]:
+        - listitem [ref=f430e10]:
+          - link [ref=f430e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f430e12]
+        - listitem [ref=f430e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f430e14]:
+          - link "My page" [ref=f430e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f430e16]:
+          - link "Projects" [ref=f430e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f430e18]:
+          - link "Flux Gantt" [ref=f430e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f430e20]:
+          - link "Helpdesk Command Center" [ref=f430e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f430e22]:
+          - link "Time Tracker" [ref=f430e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f430e24]:
+          - link "Timesheet" [ref=f430e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f430e26]:
+          - link "Workloads" [ref=f430e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f430e28]:
+          - link "More" [ref=f430e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f430e30]:
+      - generic [ref=f430e31]:
+        - generic [ref=f430e32]:
+          - generic [ref=f430e33]:
+            - link "Search..." [ref=f430e34] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f430e35]
+        - generic [ref=f430e36]:
+          - generic [ref=f430e37] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f430e38]
+      - generic [ref=f430e39]:
+        - list [ref=f430e40]:
+          - listitem [ref=f430e41]:
+            - link "+" [ref=f430e42] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f430e43]:
+            - link "Overview" [ref=f430e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f430e45]:
+            - link "Activity" [ref=f430e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f430e47]:
+            - link "Issues" [ref=f430e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f430e49]:
+            - link "Spent time" [ref=f430e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f430e51]:
+            - link "Gantt" [ref=f430e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f430e53]:
+            - link "Calendar" [ref=f430e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f430e55]:
+            - link "News" [ref=f430e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f430e57]:
+            - link "Documents" [ref=f430e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f430e59]:
+            - link "Wiki" [ref=f430e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f430e61]:
+            - link "Files" [ref=f430e62] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f430e63]:
+            - link "Helpdesk" [ref=f430e64] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+          - listitem [ref=f430e65]:
+            - link "Settings" [ref=f430e66] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/settings
+        - generic [ref=f430e67]:
+          - button [ref=f430e68] [cursor=pointer]
+          - button [ref=f430e71] [cursor=pointer]
+    - generic [ref=f430e74]:
+      - link [ref=f430e76] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=f430e79]:
+        - generic [ref=f430e80]: Successful update
+        - generic [ref=f430e81]:
+          - link "Start Timer" [ref=f430e82] [cursor=pointer]:
+            - /url: "#"
+          - link "Reply" [ref=f430e83] [cursor=pointer]:
+            - /url: "#"
+          - link "Edit" [ref=f430e84] [cursor=pointer]:
+            - /url: /issues/42/edit
+          - link "Log time" [ref=f430e86] [cursor=pointer]:
+            - /url: /issues/42/time_entries/new
+          - link "Unwatch" [ref=f430e88] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=42&object_type=issue
+          - link "Copy" [ref=f430e90] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/42/copy
+          - generic "Actions" [ref=f430e94] [cursor=pointer]
+        - 'heading "Support #42" [level=2] [ref=f430e96]'
+        - text: open
+        - generic [ref=f430e97]:
+          - generic:
+            - 'img "Author: Retest Customer1" [ref=f430e98]': RC
+            - 'img "Assignee: Redmine Admin" [ref=f430e99]': RA
+          - heading [level=3] [ref=f430e103]:
+            - text: TC-HLP-365 full-chain-escalation-then-admin-resolves test ticket
+            - button "Edit" [ref=f430e104] [cursor=pointer]
+          - link [ref=f430e107] [cursor=pointer]:
+            - /url: /reactions?object_id=42&object_type=Issue
+          - paragraph [ref=f430e110]:
+            - text: Added by
+            - link "Retest Customer1" [ref=f430e111] [cursor=pointer]:
+              - /url: /users/7
+            - link "6 minutes" [ref=f430e112] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-09-03
+            - text: ago. Updated
+            - link "less than a minute" [ref=f430e113] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity?from=2026-09-03
+            - text: ago.
+          - generic [ref=f430e114]:
+            - generic [ref=f430e115]:
+              - generic [ref=f430e116]:
+                - generic [ref=f430e117]:
+                  - generic [ref=f430e118]: "Status:"
+                  - generic [ref=f430e119]:
+                    - text: Resolved
+                    - button "Edit" [ref=f430e120] [cursor=pointer]
+                - generic [ref=f430e121]:
+                  - generic [ref=f430e122]: "Priority:"
+                  - generic [ref=f430e123]:
+                    - text: Normal
+                    - button "Edit" [ref=f430e124] [cursor=pointer]
+                - generic [ref=f430e125]:
+                  - generic [ref=f430e126]: "Assignee:"
+                  - generic [ref=f430e127]:
+                    - link "Redmine Admin" [ref=f430e129] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f430e130] [cursor=pointer]
+              - generic [ref=f430e131]:
+                - generic [ref=f430e132]:
+                  - generic [ref=f430e133]: "Start date:"
+                  - generic [ref=f430e134]:
+                    - text: 09/03/2026
+                    - button "Edit" [ref=f430e135] [cursor=pointer]
+                - generic [ref=f430e136]:
+                  - generic [ref=f430e137]: "Due Date:"
+                  - button "Edit" [ref=f430e139] [cursor=pointer]
+                - generic [ref=f430e140]:
+                  - generic [ref=f430e141]: "Progress:"
+                  - generic [ref=f430e142]:
+                    - generic [ref=f430e143]:
+                      - table [ref=f430e144]:
+                        - rowgroup [ref=f430e145]:
+                          - row [ref=f430e146]:
+                            - cell [ref=f430e147]
+                      - paragraph [ref=f430e148]: 0%
+                    - button "Edit" [ref=f430e149] [cursor=pointer]
+                - generic [ref=f430e150]:
+                  - generic [ref=f430e151]: "Estimated time:"
+                  - button "Edit" [ref=f430e153] [cursor=pointer]
+            - generic [ref=f430e156]:
+              - generic [ref=f430e157]: "Issue Category:"
+              - button "Edit" [ref=f430e159] [cursor=pointer]
+            - generic [ref=f430e161]:
+              - generic [ref=f430e162]: "Product:"
+              - generic [ref=f430e163]: "-"
+            - generic [ref=f430e164]:
+              - generic [ref=f430e165]: "Organization:"
+              - generic [ref=f430e166]: "-"
+            - generic [ref=f430e167]:
+              - generic [ref=f430e168]: "Customer:"
+              - link "Retest Customer1" [ref=f430e170] [cursor=pointer]:
+                - /url: /rf_customers/7
+          - separator [ref=f430e171]
+          - generic [ref=f430e172]:
+            - paragraph [ref=f430e174]:
+              - strong [ref=f430e175]: Checklist
+            - generic [ref=f430e177] [cursor=pointer]
+            - generic:
+              - list
+          - separator [ref=f430e179]
+          - generic [ref=f430e180]:
+            - link "Add" [ref=f430e182] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/new?back_url=%2Fissues%2F42&issue%5Bparent_issue_id%5D=42&issue%5Btracker_id%5D=3
+            - paragraph [ref=f430e183]:
+              - strong [ref=f430e184]: Subtasks
+          - separator [ref=f430e185]
+          - generic [ref=f430e186]:
+            - link "Add" [ref=f430e188] [cursor=pointer]:
+              - /url: "#"
+            - paragraph [ref=f430e189]:
+              - strong [ref=f430e190]: Related issues
+        - generic [ref=f430e191]:
+          - list [ref=f430e193]:
+            - listitem [ref=f430e194]:
+              - link "History" [ref=f430e195] [cursor=pointer]:
+                - /url: /issues/42?tab=history
+            - listitem [ref=f430e196]:
+              - link "Property changes" [ref=f430e197] [cursor=pointer]:
+                - /url: /issues/42?tab=properties
+            - listitem [ref=f430e198]:
+              - link "SLA Information" [ref=f430e199] [cursor=pointer]:
+                - /url: /issues/42?tab=sla-information
+          - generic [ref=f430e200]:
+            - generic [ref=f430e202]:
+              - heading [level=4] [ref=f430e203]:
+                - generic [ref=f430e204]:
+                  - img [ref=f430e205]: AG
+                  - text: Updated by
+                  - link "Autumn Grace" [ref=f430e206] [cursor=pointer]:
+                    - /url: /users/10
+                  - link "5 minutes" [ref=f430e207] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/activity?from=2026-09-03
+                  - text: ago
+                - generic [ref=f430e208]:
+                  - generic [ref=f430e209]:
+                    - link [ref=f430e211] [cursor=pointer]:
+                      - /url: /reactions?object_id=78&object_type=Journal
+                    - generic "Actions" [ref=f430e216] [cursor=pointer]
+                  - link "#1" [ref=f430e218] [cursor=pointer]:
+                    - /url: "#note-1"
+              - list [ref=f430e220]:
+                - listitem [ref=f430e221]:
+                  - strong [ref=f430e222]: Assignee
+                  - text: set to Autumn Grace
+            - generic [ref=f430e224]:
+              - heading [level=4] [ref=f430e225]:
+                - generic [ref=f430e226]:
+                  - img [ref=f430e227]: RA
+                  - text: Updated by
+                  - link "Redmine Admin" [ref=f430e228] [cursor=pointer]:
+                    - /url: /users/1
+                  - link "less than a minute" [ref=f430e229] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/activity?from=2026-09-03
+                  - text: ago
+                - generic [ref=f430e230]:
+                  - generic [ref=f430e231]:
+                    - link [ref=f430e233] [cursor=pointer]:
+                      - /url: /reactions?object_id=79&object_type=Journal
+                    - generic "Actions" [ref=f430e238] [cursor=pointer]
+                  - link "#2" [ref=f430e240] [cursor=pointer]:
+                    - /url: "#note-2"
+              - list [ref=f430e242]:
+                - listitem [ref=f430e243]:
+                  - strong [ref=f430e244]: Status
+                  - text: changed from New to Resolved
+        - generic [ref=f430e245]:
+          - link "Edit" [ref=f430e246] [cursor=pointer]:
+            - /url: /issues/42/edit
+          - link "Log time" [ref=f430e248] [cursor=pointer]:
+            - /url: /issues/42/time_entries/new
+          - link "Unwatch" [ref=f430e250] [cursor=pointer]:
+            - /url: /watchers/watch?object_id=42&object_type=issue
+          - link "Copy" [ref=f430e252] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/42/copy
+          - generic "Actions" [ref=f430e256] [cursor=pointer]
+        - text: pre pre
+        - paragraph [ref=f430e258]:
+          - text: "Also available in:"
+          - link "PDF" [ref=f430e260] [cursor=pointer]:
+            - /url: /issues/42.pdf
+          - generic [ref=f430e261]:
+            - text: "|"
+            - link "Atom" [ref=f430e262] [cursor=pointer]:
+              - /url: /issues/42.atom?key=37400ba0af80d0ddda427b1e9ddde606dc83db99
+    - generic [ref=f430e263]:
+      - text: Powered by
+      - link "Redmine" [ref=f430e264] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f430e265]
+  - log [ref=f430e266]
+  - log [ref=f430e267]
+  - log [ref=f430e268]
+  - log [ref=f430e269]
+  - log [ref=f430e270]
+  - log [ref=f430e271]
+  - log [ref=f430e272]
+  - log [ref=f430e273]
+  - log [ref=f430e274]
+  - log [ref=f430e275]
+  - log [ref=f430e276]
+  - log [ref=f430e277]
+  - log [ref=f430e278]
+  - log [ref=f430e279]
+  - log [ref=f430e280]
+  - log [ref=f430e281]
+  - log [ref=f430e282]
+  - log [ref=f430e283]
+  - log [ref=f430e284]
+  - log [ref=f430e285]
+  - log [ref=f430e286]
+  - log [ref=f430e287]
+  - log [ref=f430e288]
+  - log [ref=f430e289]
+  - log [ref=f430e290]
+  - log [ref=f430e291]
+  - log [ref=f430e292]
+  - log [ref=f430e293]
+  - log [ref=f430e294]
+  - log [ref=f430e295]
+  - log [ref=f430e296]
+  - log [ref=f430e297]
+  - log [ref=f430e298]
+  - log [ref=f430e299]
+  - log [ref=f430e300]
+  - log [ref=f430e301]
+  - log [ref=f430e302]
+  - log [ref=f430e303]
+  - log [ref=f430e304]
+  - log [ref=f430e305]
+  - log [ref=f430e306]
+  - log [ref=f430e307]
+  - log [ref=f430e308]
+  - log [ref=f430e309]
+  - log [ref=f430e310]
+  - log [ref=f430e311]
+  - log [ref=f430e312]
+  - log [ref=f430e313]
+  - log [ref=f430e314]
+  - log [ref=f430e315]
+  - log [ref=f430e316]
+  - log [ref=f430e317]
+  - log [ref=f430e318]
+  - log [ref=f430e319]
+  - log [ref=f430e320]
+  - log [ref=f430e321]
+  - log [ref=f430e322]
+  - log [ref=f430e323]
+  - log [ref=f430e324]
+  - log [ref=f430e325]
+  - status [ref=f430e326]
+  - status [ref=f430e327]

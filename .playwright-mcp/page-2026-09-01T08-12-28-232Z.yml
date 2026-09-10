@@ -1,0 +1,40 @@
+- generic [ref=f72e1]:
+  - generic [ref=f72e3]:
+    - generic [ref=f72e4]:
+      - img "Flux Logo" [ref=f72e7]
+      - heading "Welcome to Redmineflux" [level=1] [ref=f72e8]
+      - paragraph [ref=f72e9]: Powerful project management and team collaboration.
+    - generic [ref=f72e10]:
+      - generic [ref=f72e11]:
+        - heading "Welcome Back" [level=2] [ref=f72e12]
+        - paragraph [ref=f72e13]: Sign in to access your projects and dashboard
+      - generic [ref=f72e14]:
+        - generic [ref=f72e15]: ⚡ Demo quick login
+        - combobox "⚡ Demo quick login" [ref=f72e16] [cursor=pointer]:
+          - option "— pick a user (demo only) —" [selected]
+          - option "Administrator — Redmine Admin"
+          - option "Manager — Sarah Mitchell"
+          - option "Developer — Marcus Chen"
+          - option "Reporter — Jessica Wang"
+          - option "Support Agent — Diego Ramirez"
+          - option "Customer (Solstice Retail Group) — Marcus Webb"
+          - option "Customer (Northbridge Logistics) — Priya Nair"
+      - generic [ref=f72e17]:
+        - generic [ref=f72e18]:
+          - generic [ref=f72e19]: Login
+          - textbox "Login" [active] [ref=f72e21]:
+            - /placeholder: Enter your email or username
+            - text: admin
+        - generic [ref=f72e22]:
+          - generic [ref=f72e23]: Password
+          - generic [ref=f72e24]:
+            - textbox "Enter your password" [ref=f72e25]: "12345678"
+            - generic "Show/Hide Password" [ref=f72e26] [cursor=pointer]: 👁
+        - link "Forgot password?" [ref=f72e28] [cursor=pointer]:
+          - /url: /account/lost_password
+        - button "Login" [ref=f72e29] [cursor=pointer]
+      - paragraph [ref=f72e30]:
+        - text: Don't have an account?
+        - link "Register" [ref=f72e31] [cursor=pointer]:
+          - /url: /account/register
+  - generic [ref=f72e32]: "Powered by: Redmineflux | ⓒ 2022-2026 | All rights reserved"

@@ -1,0 +1,366 @@
+- generic [active] [ref=f38e1]:
+  - generic [ref=f38e2]:
+    - navigation [ref=f38e3]:
+      - generic [ref=f38e4]:
+        - link [ref=f38e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f38e7] [cursor=pointer]
+      - list [ref=f38e17]:
+        - listitem [ref=f38e18]:
+          - link "Hauptseite" [ref=f38e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f38e20]:
+          - link "Meine Seite" [ref=f38e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f38e22]:
+          - link "Projekte" [ref=f38e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f38e24]:
+          - link "Agile Board" [ref=f38e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f38e26]:
+          - link "Flux Gantt" [ref=f38e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f38e28]:
+          - link "Administration" [ref=f38e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f38e30]:
+          - link "Hilfe" [ref=f38e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f38e32]:
+        - generic [ref=f38e33]:
+          - generic [ref=f38e34] [cursor=pointer]: Flux Gantt Project
+          - text: ✓
+        - button "Suche" [ref=f38e35]
+        - link "Mein Konto" [ref=f38e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f38e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f38e44]:
+      - generic [ref=f38e45]:
+        - generic [ref=f38e46]:
+          - heading "Flux Gantt Project" [level=1] [ref=f38e47]
+          - generic [ref=f38e48]:
+            - generic [ref=f38e49]:
+              - generic [ref=f38e50]: Hauptmenü
+              - listitem [ref=f38e51]:
+                - link "+" [ref=f38e52] [cursor=pointer]:
+                  - /url: "#"
+            - list [ref=f38e53]:
+              - listitem [ref=f38e54]:
+                - link "Übersicht" [ref=f38e55] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject
+              - listitem [ref=f38e60]:
+                - link "Dashboard" [ref=f38e61] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/analytics_dashboard
+              - listitem [ref=f38e69]:
+                - link "Aktivität" [ref=f38e70] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/activity
+              - listitem [ref=f38e75]:
+                - link "Roadmap" [ref=f38e76] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/roadmap
+              - listitem [ref=f38e83]:
+                - link "Tickets" [ref=f38e84] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/issues
+              - listitem [ref=f38e89]:
+                - link "Aufgewendete Zeit" [ref=f38e90] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/time_entries
+              - listitem [ref=f38e95]:
+                - link "Gantt-Diagramm" [ref=f38e96] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/issues/gantt
+              - listitem [ref=f38e104]:
+                - link "Kalender" [ref=f38e105] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/issues/calendar
+              - listitem [ref=f38e110]:
+                - link "News" [ref=f38e111] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/news
+              - listitem [ref=f38e116]:
+                - link "Dokumente" [ref=f38e117] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/documents
+              - listitem [ref=f38e122]:
+                - link "Wiki" [ref=f38e123] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/wiki
+              - listitem [ref=f38e128]:
+                - link "Dateien" [ref=f38e129] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/files
+              - listitem [ref=f38e134]:
+                - link "Konfiguration" [ref=f38e135] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/settings
+        - generic [ref=f38e141]:
+          - heading "Abfragen" [level=3] [ref=f38e142]
+          - list [ref=f38e143]:
+            - listitem [ref=f38e144]:
+              - link "Issues assigned to me" [ref=f38e145] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/gantt?query_id=1
+            - listitem [ref=f38e146]:
+              - link "Reported issues" [ref=f38e147] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/gantt?query_id=2
+            - listitem [ref=f38e148]:
+              - link "Updated issues" [ref=f38e149] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/gantt?query_id=3
+            - listitem [ref=f38e150]:
+              - link "Watched issues" [ref=f38e151] [cursor=pointer]:
+                - /url: /projects/fluxganttproject/issues/gantt?query_id=4
+      - generic [ref=f38e152]:
+        - button "Filter" [ref=f38e154] [cursor=pointer]
+        - heading "Gantt-Diagramm" [level=2] [ref=f38e155]
+        - table [ref=f38e156]:
+          - rowgroup [ref=f38e157]:
+            - row [ref=f38e158]:
+              - cell [ref=f38e159]:
+                - generic [ref=f38e160]:
+                  - generic:
+                    - generic:
+                      - generic [ref=f38e163]:
+                        - generic [ref=f38e164] [cursor=pointer]
+                        - link "Flux Gantt Project" [ref=f38e170] [cursor=pointer]:
+                          - /url: /projects/fluxganttproject
+                      - generic "Optimize image loading for gallery" [ref=f38e171]:
+                        - generic [ref=f38e172]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f38e173]': SB
+                          - 'link "Bug #107" [ref=f38e174] [cursor=pointer]':
+                            - /url: /issues/107
+                          - text: ": Optimize image loading for gallery"
+                      - generic "Set up CI/CD pipeline for deployment" [ref=f38e175]:
+                        - generic [ref=f38e176]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f38e177]': VE
+                          - 'link "Feature #115" [ref=f38e178] [cursor=pointer]':
+                            - /url: /issues/115
+                          - text: ": Set up CI/CD pipeline for deployment"
+                      - generic "Implement audit trail" [ref=f38e179]:
+                        - generic [ref=f38e180]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f38e181]': NS
+                          - 'link "Feature #261" [ref=f38e182] [cursor=pointer]':
+                            - /url: /issues/261
+                          - text: ": Implement audit trail"
+                      - generic "Fix change detection" [ref=f38e183]:
+                        - generic [ref=f38e184]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f38e185]': SB
+                          - 'link "Bug #262" [ref=f38e186] [cursor=pointer]':
+                            - /url: /issues/262
+                          - text: ": Fix change detection"
+                      - generic "Add change comments" [ref=f38e187]:
+                        - generic [ref=f38e188]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f38e189]': CD
+                          - 'link "Feature #263" [ref=f38e190] [cursor=pointer]':
+                            - /url: /issues/263
+                          - text: ": Add change comments"
+                      - generic "Implement rollback functionality" [ref=f38e191]:
+                        - generic [ref=f38e192]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f38e193]': VE
+                          - 'link "Feature #264" [ref=f38e194] [cursor=pointer]':
+                            - /url: /issues/264
+                          - text: ": Implement rollback functionality"
+                      - generic "Fix audit log performance" [ref=f38e195]:
+                        - generic [ref=f38e196]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f38e197]': SR
+                          - 'link "Bug #265" [ref=f38e198] [cursor=pointer]':
+                            - /url: /issues/265
+                          - text: ": Fix audit log performance"
+                      - generic [ref=f38e199]:
+                        - generic [ref=f38e200] [cursor=pointer]
+                        - link "Version 2" [ref=f38e205] [cursor=pointer]:
+                          - /url: /versions/2
+                      - generic "Agile board card create" [ref=f38e206]:
+                        - generic [ref=f38e207]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f38e208]': SB
+                          - 'link "Feature #247" [ref=f38e209] [cursor=pointer]':
+                            - /url: /issues/247
+                          - text: ": Agile board card create"
+                      - generic "create a agile issue status column setting" [ref=f38e210]:
+                        - generic [ref=f38e211]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f38e212]': SR
+                          - 'link "Feature #241" [ref=f38e213] [cursor=pointer]':
+                            - /url: /issues/241
+                          - text: ": create a agile issue status column setting"
+                      - generic "create a agile card field column setting" [ref=f38e214]:
+                        - generic [ref=f38e215]:
+                          - 'img "Zugewiesen an: Summer Rain" [ref=f38e216]': SR
+                          - 'link "Feature #242" [ref=f38e217] [cursor=pointer]':
+                            - /url: /issues/242
+                          - text: ": create a agile card field column setting"
+                      - generic "create a demo server for agile" [ref=f38e218]:
+                        - generic [ref=f38e219]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f38e220]': VE
+                          - 'link "Feature #243" [ref=f38e221] [cursor=pointer]':
+                            - /url: /issues/243
+                          - text: ": create a demo server for agile"
+                      - generic "implement wip functionality" [ref=f38e222]:
+                        - generic [ref=f38e223]:
+                          - 'img "Zugewiesen an: Violet Ember" [ref=f38e224]': VE
+                          - 'link "Feature #244" [ref=f38e225] [cursor=pointer]':
+                            - /url: /issues/244
+                          - text: ": implement wip functionality"
+                      - generic "update agile setting" [ref=f38e226]:
+                        - generic [ref=f38e227]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f38e228]': CD
+                          - 'link "Feature #245" [ref=f38e229] [cursor=pointer]':
+                            - /url: /issues/245
+                          - text: ": update agile setting"
+                      - generic "added a agile config form" [ref=f38e230]:
+                        - generic [ref=f38e231]:
+                          - 'img "Zugewiesen an: Celeste Dawn" [ref=f38e232]': CD
+                          - 'link "Feature #246" [ref=f38e233] [cursor=pointer]':
+                            - /url: /issues/246
+                          - text: ": added a agile config form"
+                      - generic "Total time update on scroll" [ref=f38e234]:
+                        - generic [ref=f38e235]:
+                          - 'img "Zugewiesen an: Serenity Bloom" [ref=f38e236]': SB
+                          - 'link "Feature #248" [ref=f38e237] [cursor=pointer]':
+                            - /url: /issues/248
+                          - text: ": Total time update on scroll"
+                      - generic "card fiels are show according to project" [ref=f38e238]:
+                        - generic [ref=f38e239]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f38e240]': NS
+                          - 'link "Feature #249" [ref=f38e241] [cursor=pointer]':
+                            - /url: /issues/249
+                          - text: ": card fiels are show according to project"
+                      - generic "Issue status are show according to project" [ref=f38e242]:
+                        - generic [ref=f38e243]:
+                          - 'img "Zugewiesen an: Nova Starling" [ref=f38e244]': NS
+                          - 'link "Feature #250" [ref=f38e245] [cursor=pointer]':
+                            - /url: /issues/250
+                          - text: ": Issue status are show according to project"
+              - cell "2026-9 2026-10 2026-11 2026-12 2027-1 2027-2 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 1 2 3 4 5 6 7 8 Flux Gantt Project New 0% New 0% Feedback 0% In Progress 0% New 0% Feedback 0% Resolved 0% Version 2 0% New 0% New 0% New 0% New 0% New 0% New 0% New 0% New 0% New 0% New 0%" [ref=f38e247]:
+                - generic [ref=f38e248]:
+                  - link "2026-9" [ref=f38e251] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject/issues/gantt?month=9&months=6&year=2026&zoom=2
+                  - link "2026-10" [ref=f38e253] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject/issues/gantt?month=10&months=6&year=2026&zoom=2
+                  - link "2026-11" [ref=f38e255] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject/issues/gantt?month=11&months=6&year=2026&zoom=2
+                  - link "2026-12" [ref=f38e257] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject/issues/gantt?month=12&months=6&year=2026&zoom=2
+                  - link "2027-1" [ref=f38e259] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject/issues/gantt?month=1&months=6&year=2027&zoom=2
+                  - link "2027-2" [ref=f38e261] [cursor=pointer]:
+                    - /url: /projects/fluxganttproject/issues/gantt?month=2&months=6&year=2027&zoom=2
+                  - generic [ref=f38e263]: "37"
+                  - generic [ref=f38e264]: "38"
+                  - generic [ref=f38e265]: "39"
+                  - generic [ref=f38e266]: "40"
+                  - generic [ref=f38e267]: "41"
+                  - generic [ref=f38e268]: "42"
+                  - generic [ref=f38e269]: "43"
+                  - generic [ref=f38e270]: "44"
+                  - generic [ref=f38e271]: "45"
+                  - generic [ref=f38e272]: "46"
+                  - generic [ref=f38e273]: "47"
+                  - generic [ref=f38e274]: "48"
+                  - generic [ref=f38e275]: "49"
+                  - generic [ref=f38e276]: "50"
+                  - generic [ref=f38e277]: "51"
+                  - generic [ref=f38e278]: "52"
+                  - generic [ref=f38e279]: "53"
+                  - generic [ref=f38e280]: "1"
+                  - generic [ref=f38e281]: "2"
+                  - generic [ref=f38e282]: "3"
+                  - generic [ref=f38e283]: "4"
+                  - generic [ref=f38e284]: "5"
+                  - generic [ref=f38e285]: "6"
+                  - generic [ref=f38e286]: "7"
+                  - generic [ref=f38e287]: "8"
+                  - generic:
+                    - generic [ref=f38e289]: Flux Gantt Project
+                    - generic [ref=f38e290]: New 0%
+                    - generic [ref=f38e291]: New 0%
+                    - generic [ref=f38e292]: Feedback 0%
+                    - generic [ref=f38e293]: In Progress 0%
+                    - generic [ref=f38e294]: New 0%
+                    - generic [ref=f38e295]: Feedback 0%
+                    - generic [ref=f38e296]: Resolved 0%
+                    - generic [ref=f38e300]: Version 2 0%
+                    - generic [ref=f38e302]: New 0%
+                    - generic [ref=f38e305]: New 0%
+                    - generic [ref=f38e308]: New 0%
+                    - generic [ref=f38e311]: New 0%
+                    - generic [ref=f38e314]: New 0%
+                    - generic [ref=f38e317]: New 0%
+                    - generic [ref=f38e320]: New 0%
+                    - generic [ref=f38e323]: New 0%
+                    - generic [ref=f38e326]: New 0%
+                    - generic [ref=f38e329]: New 0%
+        - list [ref=f38e334]:
+          - listitem [ref=f38e335]:
+            - link "« Zurück" [ref=f38e336] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/issues/gantt?action=show&controller=gantts&month=3&months=6&project_id=fluxganttproject&year=2026&zoom=2
+          - listitem [ref=f38e337]:
+            - link "Weiter »" [ref=f38e338] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/issues/gantt?action=show&controller=gantts&month=3&months=6&project_id=fluxganttproject&year=2027&zoom=2
+        - paragraph [ref=f38e339]:
+          - text: "Auch abrufbar als:"
+          - link "PDF" [ref=f38e341] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/gantt.pdf?month=9&months=6&year=2026&zoom=2
+          - generic [ref=f38e342]:
+            - text: "|"
+            - link "PNG" [ref=f38e343] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/issues/gantt.png?month=9&months=6&year=2026&zoom=2
+    - generic [ref=f38e344]:
+      - text: Powered by
+      - link "Redmine" [ref=f38e345] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f38e346]
+  - log [ref=f38e347]
+  - log [ref=f38e348]
+  - log [ref=f38e349]
+  - log [ref=f38e350]
+  - log [ref=f38e351]
+  - log [ref=f38e352]
+  - log [ref=f38e353]
+  - log [ref=f38e354]
+  - log [ref=f38e355]
+  - log [ref=f38e356]
+  - log [ref=f38e357]
+  - log [ref=f38e358]
+  - log [ref=f38e359]
+  - log [ref=f38e360]
+  - log [ref=f38e361]
+  - log [ref=f38e362]
+  - log [ref=f38e363]
+  - log [ref=f38e364]
+  - log [ref=f38e365]
+  - log [ref=f38e366]
+  - log [ref=f38e367]
+  - log [ref=f38e368]
+  - log [ref=f38e369]
+  - log [ref=f38e370]
+  - log [ref=f38e371]
+  - log [ref=f38e372]
+  - log [ref=f38e373]
+  - log [ref=f38e374]
+  - log [ref=f38e375]
+  - log [ref=f38e376]
+  - log [ref=f38e377]
+  - log [ref=f38e378]
+  - log [ref=f38e379]
+  - log [ref=f38e380]
+  - log [ref=f38e381]
+  - log [ref=f38e382]
+  - log [ref=f38e383]
+  - log [ref=f38e384]
+  - log [ref=f38e385]
+  - log [ref=f38e386]
+  - log [ref=f38e387]
+  - log [ref=f38e388]
+  - log [ref=f38e389]
+  - log [ref=f38e390]
+  - log [ref=f38e391]
+  - log [ref=f38e392]
+  - log [ref=f38e393]
+  - log [ref=f38e394]
+  - log [ref=f38e395]
+  - log [ref=f38e396]
+  - log [ref=f38e397]
+  - log [ref=f38e398]
+  - log [ref=f38e399]
+  - log [ref=f38e400]
+  - log [ref=f38e401]
+  - log [ref=f38e402]
+  - log [ref=f38e403]
+  - log [ref=f38e404]
+  - log [ref=f38e405]
+  - log [ref=f38e406]
+  - log [ref=f38e407]
+  - log [ref=f38e408]
+  - log [ref=f38e409]

@@ -1,0 +1,180 @@
+- generic [ref=f38e1]:
+  - generic [ref=f38e2]:
+    - generic [ref=f38e3]:
+      - generic [ref=f38e4]:
+        - list:
+          - listitem [ref=f38e5]:
+            - link "My account" [ref=f38e6] [cursor=pointer]:
+              - /url: /my/account
+          - listitem [ref=f38e7]:
+            - link "Sign out" [ref=f38e8] [cursor=pointer]:
+              - /url: /logout
+      - generic [ref=f38e9]:
+        - text: Logged in as
+        - link "admin" [ref=f38e10] [cursor=pointer]:
+          - /url: /users/1
+      - list:
+        - listitem [ref=f38e11]:
+          - link "Home" [ref=f38e12] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f38e13]:
+          - link "My page" [ref=f38e14] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f38e15]:
+          - link "Projects" [ref=f38e16] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f38e17]:
+          - link "Flux Gantt" [ref=f38e18] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f38e19]:
+          - link "Helpdesk Command Center" [ref=f38e20] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f38e21]:
+          - link "Time Tracker" [ref=f38e22] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f38e23]:
+          - link "Timesheet" [ref=f38e24] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f38e25]:
+          - link "Workloads" [ref=f38e26] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f38e27]:
+          - link "Administration" [ref=f38e28] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f38e29]:
+          - link "Help" [ref=f38e30] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f38e31]:
+      - generic [ref=f38e32]:
+        - generic [ref=f38e33]:
+          - generic [ref=f38e34]:
+            - link "Search..." [ref=f38e35] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f38e36]
+        - generic [ref=f38e37]:
+          - generic [ref=f38e38] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f38e39]
+    - generic [ref=f38e40]:
+      - list [ref=f38e44]:
+        - listitem [ref=f38e45]:
+          - link "Helpdesk Dashboard" [ref=f38e46] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f38e49]:
+          - link "Helpdesk Tickets" [ref=f38e50] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f38e53]:
+          - link "Reports" [ref=f38e54] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f38e57]:
+          - link "Organization" [ref=f38e58] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f38e61]:
+          - link "Customers" [ref=f38e62] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f38e65]:
+          - link "Products" [ref=f38e66] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f38e69]:
+          - link "Helpdesk Settings" [ref=f38e70] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f38e73]:
+        - 'heading "Edit Organization: BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" [level=2] [ref=f38e74]'
+        - generic [ref=f38e75]:
+          - list [ref=f38e79]:
+            - listitem [ref=f38e80]: Name is too long (maximum is 100 characters)
+          - generic [ref=f38e81]:
+            - paragraph [ref=f38e82]:
+              - generic [ref=f38e83]: Organization Name *
+              - textbox "Organization Name *" [active] [ref=f38e84]: BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+            - paragraph [ref=f38e85]:
+              - generic [ref=f38e86]: Website
+              - textbox "Website" [ref=f38e87]
+            - paragraph [ref=f38e88]:
+              - generic [ref=f38e89]: Phone Number
+              - textbox "Phone Number" [ref=f38e90]
+            - paragraph [ref=f38e91]:
+              - generic [ref=f38e92]: Organization Address
+              - textbox "Organization Address" [ref=f38e93]
+            - paragraph [ref=f38e94]:
+              - generic [ref=f38e95]: Number of Employees
+              - spinbutton "Number of Employees" [ref=f38e96]
+            - paragraph [ref=f38e97]:
+              - generic [ref=f38e98]: Notes
+              - generic [ref=f38e99]:
+                - list [ref=f38e101]:
+                  - listitem [ref=f38e102]:
+                    - link "Edit" [ref=f38e103] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f38e104]:
+                    - link "Preview" [ref=f38e105] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f38e106]:
+                    - generic [ref=f38e107]:
+                      - button "Strong (Ctrl+B)" [ref=f38e108] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f38e109] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f38e110] [cursor=pointer]
+                      - button "Deleted" [ref=f38e111] [cursor=pointer]
+                      - button "Inline Code" [ref=f38e112] [cursor=pointer]
+                      - button "Heading 1" [ref=f38e113] [cursor=pointer]
+                      - button "Heading 2" [ref=f38e114] [cursor=pointer]
+                      - button "Heading 3" [ref=f38e115] [cursor=pointer]
+                      - button "Unordered list" [ref=f38e116] [cursor=pointer]
+                      - button "Ordered list" [ref=f38e117] [cursor=pointer]
+                      - button "Task list" [ref=f38e118] [cursor=pointer]
+                      - button "Quote" [ref=f38e119] [cursor=pointer]
+                      - button "Remove Quote" [ref=f38e120] [cursor=pointer]
+                      - button "Table" [ref=f38e121] [cursor=pointer]
+                      - button "pre" [ref=f38e122] [cursor=pointer]
+                      - button "Highlighted code" [ref=f38e123] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f38e124] [cursor=pointer]
+                      - button "Image" [ref=f38e125] [cursor=pointer]
+                      - button "Help" [ref=f38e126] [cursor=pointer]
+                - textbox "Notes" [ref=f38e128]
+            - paragraph [ref=f38e129]:
+              - generic [ref=f38e130]: Billing Info
+              - textbox "Billing Info" [ref=f38e131]
+            - paragraph [ref=f38e132]:
+              - generic [ref=f38e133]: Active
+              - checkbox "Active" [checked] [ref=f38e134]
+          - paragraph [ref=f38e135]:
+            - button "Save" [ref=f38e136] [cursor=pointer]
+            - link "Cancel" [ref=f38e137] [cursor=pointer]:
+              - /url: /rf_organizations
+    - generic [ref=f38e138]:
+      - text: Powered by
+      - link "Redmine" [ref=f38e139] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f38e140]
+  - log [ref=f38e141]
+  - log [ref=f38e142]
+  - log [ref=f38e143]
+  - log [ref=f38e144]
+  - log [ref=f38e145]
+  - log [ref=f38e146]
+  - log [ref=f38e147]
+  - log [ref=f38e148]
+  - log [ref=f38e149]
+  - log [ref=f38e150]
+  - log [ref=f38e151]
+  - log [ref=f38e152]
+  - log [ref=f38e153]
+  - log [ref=f38e154]
+  - log [ref=f38e155]
+  - log [ref=f38e156]
+  - log [ref=f38e157]
+  - log [ref=f38e158]
+  - log [ref=f38e159]
+  - log [ref=f38e160]
+  - log [ref=f38e161]
+  - log [ref=f38e162]
+  - log [ref=f38e163]
+  - log [ref=f38e164]
+  - log [ref=f38e165]
+  - log [ref=f38e166]
+  - log [ref=f38e167]
+  - log [ref=f38e168]
+  - log [ref=f38e169]
+  - log [ref=f38e170]

@@ -1,0 +1,129 @@
+- generic [ref=f37e2]:
+  - navigation [ref=f37e3]:
+    - list [ref=f37e6]:
+      - listitem [ref=f37e7]:
+        - link "Hauptseite" [ref=f37e8] [cursor=pointer]:
+          - /url: /
+      - listitem [ref=f37e9]:
+        - link "Meine Seite" [ref=f37e10] [cursor=pointer]:
+          - /url: /my/page
+      - listitem [ref=f37e11]:
+        - link "Projekte" [ref=f37e12] [cursor=pointer]:
+          - /url: /projects
+      - listitem [ref=f37e13]:
+        - link "Agile Board" [ref=f37e14] [cursor=pointer]:
+          - /url: /agile_board/global
+      - listitem [ref=f37e15]:
+        - link "Flux Gantt" [ref=f37e16] [cursor=pointer]:
+          - /url: /global_gantt
+      - listitem [ref=f37e17]:
+        - link "Administration" [ref=f37e18] [cursor=pointer]:
+          - /url: /admin
+      - listitem [ref=f37e19]:
+        - link "Hilfe" [ref=f37e20] [cursor=pointer]:
+          - /url: https://www.redmine.org/guide
+    - link [ref=f37e23] [cursor=pointer]:
+      - /url: "#"
+      - img [ref=f37e24]: RA
+  - generic [ref=f37e27]:
+    - generic [ref=f37e28]:
+      - generic [ref=f37e29]:
+        - generic [ref=f37e30]:
+          - link "Suche" [ref=f37e31] [cursor=pointer]:
+            - /url: /projects/agileboard/search
+          - text: ":"
+        - textbox "Suche:" [ref=f37e32]
+      - generic [ref=f37e33]:
+        - generic [ref=f37e34] [cursor=pointer]: Agile Board Project
+        - text: ✓ ✓
+    - heading "Agile Board Project" [level=1] [ref=f37e35]
+    - list [ref=f37e38]:
+      - listitem [ref=f37e39]:
+        - link "+" [ref=f37e40] [cursor=pointer]:
+          - /url: "#"
+      - listitem [ref=f37e41]:
+        - link "Übersicht" [ref=f37e42] [cursor=pointer]:
+          - /url: /projects/agileboard
+      - listitem [ref=f37e43]:
+        - link "Dashboard" [ref=f37e44] [cursor=pointer]:
+          - /url: /projects/agileboard/analytics_dashboard
+      - listitem [ref=f37e45]:
+        - link "Aktivität" [ref=f37e46] [cursor=pointer]:
+          - /url: /projects/agileboard/activity
+      - listitem [ref=f37e47]:
+        - link "Agile Board" [ref=f37e48] [cursor=pointer]:
+          - /url: /projects/agileboard/agile_board
+      - listitem [ref=f37e49]:
+        - link "Backlog" [ref=f37e50] [cursor=pointer]:
+          - /url: /projects/agileboard/backlog
+      - listitem [ref=f37e51]:
+        - link "Roadmap" [ref=f37e52] [cursor=pointer]:
+          - /url: /projects/agileboard/roadmap
+      - listitem [ref=f37e53]:
+        - link "Tickets" [ref=f37e54] [cursor=pointer]:
+          - /url: /projects/agileboard/issues
+      - listitem [ref=f37e55]:
+        - link "Aufgewendete Zeit" [ref=f37e56] [cursor=pointer]:
+          - /url: /projects/agileboard/time_entries
+      - listitem [ref=f37e57]:
+        - link "Gantt-Diagramm" [ref=f37e58] [cursor=pointer]:
+          - /url: /projects/agileboard/issues/gantt
+      - listitem [ref=f37e59]:
+        - link "Kalender" [ref=f37e60] [cursor=pointer]:
+          - /url: /projects/agileboard/issues/calendar
+      - listitem [ref=f37e61]:
+        - link "News" [ref=f37e62] [cursor=pointer]:
+          - /url: /projects/agileboard/news
+      - listitem [ref=f37e63]:
+        - link "Dokumente" [ref=f37e64] [cursor=pointer]:
+          - /url: /projects/agileboard/documents
+      - listitem [ref=f37e65]:
+        - link "Wiki" [ref=f37e66] [cursor=pointer]:
+          - /url: /projects/agileboard/wiki
+      - listitem [ref=f37e67]:
+        - link "Dateien" [ref=f37e68] [cursor=pointer]:
+          - /url: /projects/agileboard/files
+      - listitem [ref=f37e69]:
+        - link "Konfiguration" [ref=f37e70] [cursor=pointer]:
+          - /url: /projects/agileboard/settings
+  - generic [ref=f37e72]:
+    - generic [ref=f37e73]:
+      - generic [ref=f37e74]:
+        - heading "Analyse-Dashboard" [level=2] [ref=f37e75]
+        - generic [ref=f37e76]:
+          - button "Teilen" [ref=f37e77] [cursor=pointer]
+          - button "AUS" [ref=f37e81] [cursor=pointer]
+          - combobox [disabled] [ref=f37e86]:
+            - option "30 Sek."
+            - option "1 Min." [selected]
+            - option "2 Min."
+            - option "5 Min."
+            - option "10 Min."
+      - generic [ref=f37e87]:
+        - generic [ref=f37e88]:
+          - generic [ref=f37e89]: "Tracker:"
+          - combobox "Tracker:" [ref=f37e90]:
+            - option "Alle Tracker" [selected]
+            - option "Bug"
+            - option "Feature"
+            - option "Support"
+        - generic [ref=f37e91]:
+          - generic [ref=f37e92]: "Zeitraum:"
+          - combobox "Zeitraum:" [ref=f37e93]:
+            - option "Heute"
+            - option "Letzte 7 Tage"
+            - option "Letzte 30 Tage" [selected]
+            - option "Letzte 90 Tage"
+            - option "Dieser Monat"
+            - option "Letzter Monat"
+            - option "Dieses Jahr"
+            - option "Benutzerdefinierter Zeitraum"
+        - button "Anwenden" [ref=f37e94] [cursor=pointer]
+        - generic [ref=f37e95]:
+          - button "Aktualisieren" [ref=f37e96] [cursor=pointer]
+          - button "Vollbild" [ref=f37e99] [cursor=pointer]
+      - button "Diagramm hinzufügen" [ref=f37e103] [cursor=pointer]
+      - generic [ref=f37e106]:
+        - heading "Keine Diagramme hinzugefügt" [level=3] [ref=f37e131]
+        - paragraph [ref=f37e132]: Klicken Sie oben auf „Diagramm hinzufügen“, um Ihr erstes Diagramm anzulegen
+    - text: 🗑️ 🗑️

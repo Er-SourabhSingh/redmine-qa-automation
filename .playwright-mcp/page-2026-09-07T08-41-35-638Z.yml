@@ -1,0 +1,171 @@
+- generic [active] [ref=f107e1]:
+  - generic [ref=f107e2]:
+    - generic [ref=f107e3]:
+      - generic [ref=f107e4]:
+        - list:
+          - listitem [ref=f107e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f107e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f107e7]:
+        - text: Logged in as
+        - link "admin" [ref=f107e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f107e9]:
+        - listitem [ref=f107e10]:
+          - link [ref=f107e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f107e12]
+        - listitem [ref=f107e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f107e14]:
+          - link "My page" [ref=f107e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f107e16]:
+          - link "Projects" [ref=f107e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f107e18]:
+          - link "Flux Gantt" [ref=f107e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f107e20]:
+          - link "Helpdesk Command Center" [ref=f107e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f107e22]:
+          - link "Time Tracker" [ref=f107e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f107e24]:
+          - link "Timesheet" [ref=f107e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f107e26]:
+          - link "Workloads" [ref=f107e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f107e28]:
+          - link "More" [ref=f107e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f107e30]:
+      - generic [ref=f107e31]:
+        - generic [ref=f107e32]:
+          - generic [ref=f107e33]:
+            - link "Search..." [ref=f107e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f107e35]
+        - generic [ref=f107e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f107e38]
+    - generic [ref=f107e39]:
+      - generic [ref=f107e40]:
+        - link [ref=f107e42] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f107e45]:
+          - heading "Administration" [level=3] [ref=f107e46]
+          - list [ref=f107e48]:
+            - listitem [ref=f107e49]:
+              - link "Projects" [ref=f107e50] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f107e52]:
+              - link "Users" [ref=f107e53] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f107e55]:
+              - link "Groups" [ref=f107e56] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f107e58]:
+              - link "Roles and permissions" [ref=f107e59] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f107e61]:
+              - link "Trackers" [ref=f107e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f107e64]:
+              - link "Issue statuses" [ref=f107e65] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f107e67]:
+              - link "Workflow" [ref=f107e68] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f107e70]:
+              - link "Custom fields" [ref=f107e71] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f107e73]:
+              - link "Enumerations" [ref=f107e74] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f107e76]:
+              - link "Settings" [ref=f107e77] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f107e79]:
+              - link "LDAP authentication" [ref=f107e80] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f107e82]:
+              - link "Applications" [ref=f107e83] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f107e85]:
+              - link "Plugins" [ref=f107e86] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f107e88]:
+              - link "Information" [ref=f107e89] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f107e91]:
+        - heading [level=2] [ref=f107e92]:
+          - link "Custom fields" [ref=f107e93] [cursor=pointer]:
+            - /url: /custom_fields
+          - text: » New custom field
+        - generic [ref=f107e94]:
+          - generic [ref=f107e95]:
+            - paragraph [ref=f107e96]: "Select the type of object to which the custom field is to be attached:"
+            - paragraph [ref=f107e97]:
+              - generic [ref=f107e98]:
+                - radio "Issues" [checked] [ref=f107e99]
+                - text: Issues
+              - generic [ref=f107e100]:
+                - radio "Spent time" [ref=f107e101]
+                - text: Spent time
+              - generic [ref=f107e102]:
+                - radio "Projects" [ref=f107e103]
+                - text: Projects
+              - generic [ref=f107e104]:
+                - radio "Versions" [ref=f107e105]
+                - text: Versions
+              - generic [ref=f107e106]:
+                - radio "Documents" [ref=f107e107]
+                - text: Documents
+              - generic [ref=f107e108]:
+                - radio "Users" [ref=f107e109]
+                - text: Users
+              - generic [ref=f107e110]:
+                - radio "Groups" [ref=f107e111]
+                - text: Groups
+              - generic [ref=f107e112]:
+                - radio "Activities (time tracking)" [ref=f107e113]
+                - text: Activities (time tracking)
+              - generic [ref=f107e114]:
+                - radio "Issue priorities" [ref=f107e115]
+                - text: Issue priorities
+              - generic [ref=f107e116]:
+                - radio "Document categories" [ref=f107e117]
+                - text: Document categories
+          - paragraph [ref=f107e118]:
+            - button "Next » »" [ref=f107e119] [cursor=pointer]
+    - generic [ref=f107e120]:
+      - text: Powered by
+      - link "Redmine" [ref=f107e121] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f107e122]
+  - log [ref=f107e123]
+  - log [ref=f107e124]
+  - log [ref=f107e125]
+  - log [ref=f107e126]
+  - log [ref=f107e127]
+  - log [ref=f107e128]
+  - log [ref=f107e129]
+  - log [ref=f107e130]
+  - log [ref=f107e131]
+  - log [ref=f107e132]
+  - log [ref=f107e133]
+  - log [ref=f107e134]
+  - log [ref=f107e135]
+  - log [ref=f107e136]
+  - log [ref=f107e137]
+  - log [ref=f107e138]
+  - log [ref=f107e139]
+  - log [ref=f107e140]

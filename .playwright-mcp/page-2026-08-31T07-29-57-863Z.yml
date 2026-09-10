@@ -1,0 +1,217 @@
+- generic [active] [ref=f330e1]:
+  - generic [ref=f330e2]:
+    - generic [ref=f330e3]:
+      - generic [ref=f330e4]:
+        - list:
+          - listitem [ref=f330e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f330e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f330e7]:
+        - text: Logged in as
+        - link "admin" [ref=f330e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f330e9]:
+        - listitem [ref=f330e10]:
+          - link [ref=f330e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f330e12]
+        - listitem [ref=f330e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f330e14]:
+          - link "My page" [ref=f330e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f330e16]:
+          - link "Projects" [ref=f330e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f330e18]:
+          - link "Flux Gantt" [ref=f330e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f330e20]:
+          - link "Helpdesk Command Center" [ref=f330e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f330e22]:
+          - link "Time Tracker" [ref=f330e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f330e24]:
+          - link "Timesheet" [ref=f330e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f330e26]:
+          - link "Workloads" [ref=f330e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f330e28]:
+          - link "More" [ref=f330e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f330e30]:
+      - generic [ref=f330e31]:
+        - generic [ref=f330e32]:
+          - generic [ref=f330e33]:
+            - link "Search..." [ref=f330e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f330e35]
+        - generic [ref=f330e36]:
+          - generic [ref=f330e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f330e38]
+    - generic [ref=f330e39]:
+      - list [ref=f330e43]:
+        - listitem [ref=f330e44]:
+          - link "Helpdesk Dashboard" [ref=f330e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f330e48]:
+          - link "Helpdesk Tickets" [ref=f330e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f330e52]:
+          - link "Reports" [ref=f330e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f330e56]:
+          - link "Organization" [ref=f330e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f330e60]:
+          - link "Customers" [ref=f330e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f330e64]:
+          - link "Products" [ref=f330e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f330e68]:
+          - link "Helpdesk Settings" [ref=f330e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f330e73]:
+        - generic [ref=f330e74]:
+          - generic [ref=f330e76]:
+            - heading "Alpha Customer" [level=2] [ref=f330e77]
+            - paragraph [ref=f330e78]:
+              - link "Customers" [ref=f330e79] [cursor=pointer]:
+                - /url: /rf_customers
+              - text: › alpha.customer
+          - link "Edit" [ref=f330e81] [cursor=pointer]:
+            - /url: /rf_customers/6/edit
+        - generic [ref=f330e84]:
+          - generic [ref=f330e85]:
+            - heading "Customer details" [level=3] [ref=f330e86]
+            - generic [ref=f330e90]: Active
+          - generic [ref=f330e97]:
+            - generic [ref=f330e98]:
+              - generic [ref=f330e99]: Login
+              - generic [ref=f330e100]: alpha.customer
+            - generic [ref=f330e101]:
+              - generic [ref=f330e102]: Email
+              - link "alpha.customer@test.local" [ref=f330e104] [cursor=pointer]:
+                - /url: mailto:alpha.customer@test.local
+            - generic [ref=f330e105]:
+              - generic [ref=f330e106]: Organization Name
+              - generic [ref=f330e107]: —
+            - generic [ref=f330e108]:
+              - generic [ref=f330e109]: Customer since
+              - generic [ref=f330e110]: 08/27/2026
+            - generic [ref=f330e111]:
+              - generic [ref=f330e112]: Last Login
+              - generic [ref=f330e113]: 08/31/2026 06:43 AM
+        - generic [ref=f330e114]:
+          - generic [ref=f330e115]:
+            - generic [ref=f330e119]: "3"
+            - generic [ref=f330e120]: Total Tickets
+          - generic [ref=f330e121]:
+            - generic [ref=f330e126]: "3"
+            - generic [ref=f330e127]: Open
+          - generic [ref=f330e128]:
+            - generic [ref=f330e132]: "0"
+            - generic [ref=f330e133]: Waiting on them
+          - generic [ref=f330e134]:
+            - generic [ref=f330e138]: "0"
+            - generic [ref=f330e139]: Breached
+          - generic [ref=f330e140]:
+            - generic [ref=f330e145]: "0"
+            - generic [ref=f330e146]: Resolved
+        - generic [ref=f330e147]:
+          - heading "Projects & entitlements 1" [level=3] [ref=f330e149]:
+            - text: Projects & entitlements
+            - generic [ref=f330e152]: "1"
+          - table [ref=f330e155]:
+            - rowgroup [ref=f330e156]:
+              - row [ref=f330e157]:
+                - columnheader "Project" [ref=f330e158]
+                - columnheader "SLA Name" [ref=f330e159]
+                - columnheader "Support Level" [ref=f330e160]
+                - columnheader "Organization Name" [ref=f330e161]
+                - columnheader "Open" [ref=f330e162]
+                - columnheader "Created on" [ref=f330e163]
+            - rowgroup [ref=f330e164]:
+              - row [ref=f330e165]:
+                - cell [ref=f330e166]:
+                  - link "Helpdesk QA Alpha" [ref=f330e167] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "Alpha Standard SLA" [ref=f330e168]
+                - cell "L1" [ref=f330e169]
+                - cell "—" [ref=f330e172]
+                - cell "3" [ref=f330e173]
+                - cell "08/27/2026" [ref=f330e174]
+        - generic [ref=f330e175]:
+          - heading "Recent Tickets" [level=3] [ref=f330e177]
+          - table [ref=f330e182]:
+            - rowgroup [ref=f330e183]:
+              - row [ref=f330e184]:
+                - columnheader "#" [ref=f330e185]
+                - columnheader "Subject" [ref=f330e186]
+                - columnheader "Project" [ref=f330e187]
+                - columnheader "Status" [ref=f330e188]
+                - columnheader "Priority" [ref=f330e189]
+                - columnheader "SLA Status" [ref=f330e190]
+                - columnheader "Updated" [ref=f330e191]
+            - rowgroup [ref=f330e192]:
+              - row [ref=f330e193]:
+                - cell [ref=f330e194]:
+                  - link "#2" [ref=f330e195] [cursor=pointer]:
+                    - /url: /issues/2
+                - cell [ref=f330e196]:
+                  - link "Second verification ticket for BUG-HLP-014 retest" [ref=f330e197] [cursor=pointer]:
+                    - /url: /issues/2
+                - cell "Helpdesk QA Alpha" [ref=f330e198]
+                - cell "New" [ref=f330e199]
+                - cell "Normal" [ref=f330e202]
+                - cell "N/A" [ref=f330e205]
+                - cell "08/31/2026 07:06 AM" [ref=f330e210]
+              - row [ref=f330e211]:
+                - cell [ref=f330e212]:
+                  - link "#4" [ref=f330e213] [cursor=pointer]:
+                    - /url: /issues/4
+                - cell [ref=f330e214]:
+                  - link "BUG-HLP-009 retest - Edit form auto status transition check" [ref=f330e215] [cursor=pointer]:
+                    - /url: /issues/4
+                - cell "Helpdesk QA Alpha" [ref=f330e216]
+                - cell "New" [ref=f330e217]
+                - cell "Normal" [ref=f330e220]
+                - cell "N/A" [ref=f330e223]
+                - cell "08/31/2026 06:11 AM" [ref=f330e228]
+              - row [ref=f330e229]:
+                - cell [ref=f330e230]:
+                  - link "#3" [ref=f330e231] [cursor=pointer]:
+                    - /url: /issues/3
+                - cell [ref=f330e232]:
+                  - 'link "Ticket: BUG-HLP-008 retest - portal login issue" [ref=f330e233] [cursor=pointer]':
+                    - /url: /issues/3
+                - cell "Helpdesk QA Alpha" [ref=f330e234]
+                - cell "In Progress" [ref=f330e235]
+                - cell "Normal" [ref=f330e238]
+                - cell "N/A" [ref=f330e241]
+                - cell "08/31/2026 06:02 AM" [ref=f330e246]
+    - generic [ref=f330e247]:
+      - text: Powered by
+      - link "Redmine" [ref=f330e248] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f330e249]
+  - log [ref=f330e250]
+  - log [ref=f330e251]
+  - log [ref=f330e252]
+  - log [ref=f330e253]
+  - log [ref=f330e254]
+  - log [ref=f330e255]
+  - log [ref=f330e256]
+  - log [ref=f330e257]
+  - log [ref=f330e258]
+  - log [ref=f330e259]

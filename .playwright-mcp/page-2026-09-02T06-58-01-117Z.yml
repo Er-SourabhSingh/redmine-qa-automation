@@ -1,0 +1,184 @@
+- generic [ref=f376e1]:
+  - generic [ref=f376e2]:
+    - generic [ref=f376e3]:
+      - generic [ref=f376e4]:
+        - list:
+          - listitem [ref=f376e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f376e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f376e7]:
+        - text: Logged in as
+        - link "manage.helpdesk.test" [ref=f376e8] [cursor=pointer]:
+          - /url: /users/16
+      - list [ref=f376e9]:
+        - listitem [ref=f376e10]:
+          - link [ref=f376e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f376e12]
+        - listitem [ref=f376e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f376e14]:
+          - link "My page" [ref=f376e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f376e16]:
+          - link "Projects" [ref=f376e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f376e18]:
+          - link "Helpdesk Command Center" [ref=f376e19] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f376e20]:
+          - link "Time Tracker" [ref=f376e21] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f376e22]:
+          - link "Workloads" [ref=f376e23] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f376e24]:
+          - link "Help" [ref=f376e25] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f376e26]:
+      - generic [ref=f376e27]:
+        - generic [ref=f376e28]:
+          - generic [ref=f376e29]:
+            - link "Search..." [ref=f376e30] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f376e31]
+        - generic [ref=f376e32]:
+          - generic [ref=f376e33] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f376e34]
+    - generic [ref=f376e35]:
+      - list [ref=f376e39]:
+        - listitem [ref=f376e40]:
+          - link "Helpdesk Dashboard" [ref=f376e41] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f376e44]:
+          - link "Helpdesk Tickets" [ref=f376e45] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f376e48]:
+          - link "Reports" [ref=f376e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f376e52]:
+          - link "Organization" [ref=f376e53] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f376e56]:
+          - link "Customers" [ref=f376e57] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f376e60]:
+          - link "Products" [ref=f376e61] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f376e64]:
+          - link "Helpdesk Settings" [ref=f376e65] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f376e68]:
+        - generic [ref=f376e71]:
+          - heading "Helpdesk Settings" [level=2] [ref=f376e72]
+          - paragraph [ref=f376e73]: Holidays, products, SLA policies and canned responses
+        - list [ref=f376e75]:
+          - listitem [ref=f376e76]:
+            - link "Holiday" [ref=f376e77] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=holidays
+          - listitem [ref=f376e78]:
+            - link "Products" [ref=f376e79] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=products
+          - listitem [ref=f376e80]:
+            - link "Email Configuration" [ref=f376e81] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=email_configuration
+          - listitem [ref=f376e82]:
+            - link "Canned Responses" [ref=f376e83] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=canned_responses
+          - listitem [ref=f376e84]:
+            - link "Support Packages" [ref=f376e85] [cursor=pointer]:
+              - /url: /rf_helpdesk/setting?tab=support_packages
+        - generic [ref=f376e86]:
+          - generic [ref=f376e88]:
+            - textbox "Search holidays..." [active] [ref=f376e90]
+            - generic [ref=f376e91]:
+              - button "Apply Filters" [ref=f376e92] [cursor=pointer]
+              - link "Clear" [ref=f376e95] [cursor=pointer]:
+                - /url: /rf_helpdesk/setting?tab=holidays
+          - generic [ref=f376e100]:
+            - generic [ref=f376e101]:
+              - heading "Holiday" [level=3] [ref=f376e102]
+              - link "New Holiday" [ref=f376e104] [cursor=pointer]:
+                - /url: /rf_helpdesk_holidays/new
+            - table [ref=f376e106]:
+              - rowgroup [ref=f376e107]:
+                - row [ref=f376e108]:
+                  - columnheader "S.No" [ref=f376e109]
+                  - columnheader "Holiday Name" [ref=f376e110]
+                  - columnheader "Start Date" [ref=f376e111]
+                  - columnheader "End Date" [ref=f376e112]
+                  - columnheader "Action" [ref=f376e113]
+              - rowgroup [ref=f376e114]:
+                - row [ref=f376e115]:
+                  - cell "1" [ref=f376e116]
+                  - cell [ref=f376e117]:
+                    - link "TC-HLP-084 Holiday-Skip Test Day" [ref=f376e118] [cursor=pointer]:
+                      - /url: /rf_helpdesk_holidays/4
+                  - cell "09/02/2026" [ref=f376e119]
+                  - cell "09/02/2026" [ref=f376e120]
+                  - cell [ref=f376e121]:
+                    - generic [ref=f376e122]:
+                      - link "Edit" [ref=f376e123] [cursor=pointer]:
+                        - /url: /rf_helpdesk_holidays/4/edit
+                      - link "Delete" [ref=f376e126] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f376e130]:
+                  - cell "2" [ref=f376e131]
+                  - cell [ref=f376e132]:
+                    - link "TC-HLP-353 Multi-Day Holiday Test Range" [ref=f376e133] [cursor=pointer]:
+                      - /url: /rf_helpdesk_holidays/5
+                  - cell "09/02/2026" [ref=f376e134]
+                  - cell "09/04/2026" [ref=f376e135]
+                  - cell [ref=f376e136]:
+                    - generic [ref=f376e137]:
+                      - link "Edit" [ref=f376e138] [cursor=pointer]:
+                        - /url: /rf_helpdesk_holidays/5/edit
+                      - link "Delete" [ref=f376e141] [cursor=pointer]:
+                        - /url: javascript:void(0)
+                - row [ref=f376e145]:
+                  - cell "3" [ref=f376e146]
+                  - cell [ref=f376e147]:
+                    - link "Alpha Winter Break 2026" [ref=f376e148] [cursor=pointer]:
+                      - /url: /rf_helpdesk_holidays/2
+                  - cell "12/24/2026" [ref=f376e149]
+                  - cell "12/31/2026" [ref=f376e150]
+                  - cell [ref=f376e151]:
+                    - generic [ref=f376e152]:
+                      - link "Edit" [ref=f376e153] [cursor=pointer]:
+                        - /url: /rf_helpdesk_holidays/2/edit
+                      - link "Delete" [ref=f376e156] [cursor=pointer]:
+                        - /url: javascript:void(0)
+          - generic [ref=f376e160]:
+            - list
+            - generic [ref=f376e161]: (1-3/3)
+    - generic [ref=f376e162]:
+      - text: Powered by
+      - link "Redmine" [ref=f376e163] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f376e164]
+  - log [ref=f376e165]
+  - log [ref=f376e166]
+  - log [ref=f376e167]
+  - log [ref=f376e168]
+  - log [ref=f376e169]
+  - log [ref=f376e170]
+  - log [ref=f376e171]
+  - log [ref=f376e172]
+  - log [ref=f376e173]
+  - log [ref=f376e174]
+  - log [ref=f376e175]
+  - log [ref=f376e176]
+  - log [ref=f376e177]
+  - log [ref=f376e178]
+  - log [ref=f376e179]
+  - log [ref=f376e180]
+  - log [ref=f376e181]
+  - log [ref=f376e182]
+  - log [ref=f376e183]

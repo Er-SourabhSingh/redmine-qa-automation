@@ -1,0 +1,292 @@
+- generic [ref=f64e1]:
+  - generic [ref=f64e2]:
+    - navigation [ref=f64e3]:
+      - list [ref=f64e6]:
+        - listitem [ref=f64e7]:
+          - link "Hauptseite" [ref=f64e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f64e9]:
+          - link "Meine Seite" [ref=f64e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f64e11]:
+          - link "Projekte" [ref=f64e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f64e13]:
+          - link "Agile Board" [ref=f64e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f64e15]:
+          - link "Flux Gantt" [ref=f64e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f64e17]:
+          - link "Administration" [ref=f64e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f64e19]:
+          - link "Hilfe" [ref=f64e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f64e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f64e24]: RA
+    - generic [ref=f64e27]:
+      - generic [ref=f64e28]:
+        - generic [ref=f64e29]:
+          - generic [ref=f64e30]:
+            - link "Suche" [ref=f64e31] [cursor=pointer]:
+              - /url: /projects/defaultsd/search
+            - text: ":"
+          - textbox "Suche:" [ref=f64e32]
+        - generic [ref=f64e33]:
+          - generic [ref=f64e34] [cursor=pointer]: Software development5
+          - text: ✓ ✓
+      - heading "Software development5" [level=1] [ref=f64e35]
+      - list [ref=f64e38]:
+        - listitem [ref=f64e39]:
+          - link "+" [ref=f64e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f64e41]:
+          - link "Übersicht" [ref=f64e42] [cursor=pointer]:
+            - /url: /projects/defaultsd
+        - listitem [ref=f64e43]:
+          - link "Dashboard" [ref=f64e44] [cursor=pointer]:
+            - /url: /projects/defaultsd/analytics_dashboard
+        - listitem [ref=f64e45]:
+          - link "Aktivität" [ref=f64e46] [cursor=pointer]:
+            - /url: /projects/defaultsd/activity
+        - listitem [ref=f64e47]:
+          - link "Tickets" [ref=f64e48] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues
+        - listitem [ref=f64e49]:
+          - link "Aufgewendete Zeit" [ref=f64e50] [cursor=pointer]:
+            - /url: /projects/defaultsd/time_entries
+        - listitem [ref=f64e51]:
+          - link "Gantt-Diagramm" [ref=f64e52] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/gantt
+        - listitem [ref=f64e53]:
+          - link "Kalender" [ref=f64e54] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/calendar
+        - listitem [ref=f64e55]:
+          - link "News" [ref=f64e56] [cursor=pointer]:
+            - /url: /projects/defaultsd/news
+        - listitem [ref=f64e57]:
+          - link "Dokumente" [ref=f64e58] [cursor=pointer]:
+            - /url: /projects/defaultsd/documents
+        - listitem [ref=f64e59]:
+          - link "Wiki" [ref=f64e60] [cursor=pointer]:
+            - /url: /projects/defaultsd/wiki
+        - listitem [ref=f64e61]:
+          - link "Dateien" [ref=f64e62] [cursor=pointer]:
+            - /url: /projects/defaultsd/files
+        - listitem [ref=f64e63]:
+          - link "Konfiguration" [ref=f64e64] [cursor=pointer]:
+            - /url: /projects/defaultsd/settings
+    - generic [ref=f64e66]:
+      - generic [ref=f64e264]: Checkliste erfolgreich erstellt.
+      - generic [ref=f64e71]:
+        - link "Bearbeiten" [ref=f64e72] [cursor=pointer]:
+          - /url: /issues/269/edit
+        - link "Aufwand buchen" [ref=f64e76] [cursor=pointer]:
+          - /url: /issues/269/time_entries/new
+        - link "Nicht beobachten" [ref=f64e80] [cursor=pointer]:
+          - /url: /watchers/watch?object_id=269&object_type=issue
+        - link "Kopieren" [ref=f64e84] [cursor=pointer]:
+          - /url: /projects/defaultsd/issues/269/copy
+        - generic "Aktionen" [ref=f64e90] [cursor=pointer]
+      - 'heading "Bug #269" [level=2] [ref=f64e93]'
+      - text: offen
+      - generic [ref=f64e94]:
+        - 'img "Autor: Redmine Admin" [ref=f64e95]': RA
+        - heading [level=3] [ref=f64e98]:
+          - text: BUG-INE-002 retest - checklist blocking test
+          - button "Edit" [ref=f64e99] [cursor=pointer]
+        - paragraph [ref=f64e100]:
+          - text: Von
+          - link "Redmine Admin" [ref=f64e101] [cursor=pointer]:
+            - /url: /users/1
+          - text: vor
+          - link "weniger als 1 Minute" [ref=f64e102] [cursor=pointer]:
+            - /url: /projects/defaultsd/activity?from=2026-09-09
+          - text: hinzugefügt.
+        - generic [ref=f64e103]:
+          - generic [ref=f64e104]:
+            - generic [ref=f64e105]:
+              - generic [ref=f64e106]:
+                - generic [ref=f64e107]: "Status:"
+                - combobox [active] [ref=f64e326] [cursor=pointer]:
+                  - option "New" [selected]
+                  - option "In Progress"
+                  - option "Resolved"
+                  - option "Feedback"
+                  - option "Closed"
+                  - option "Rejected"
+              - generic [ref=f64e110]:
+                - generic [ref=f64e111]: "Priorität:"
+                - generic [ref=f64e112]:
+                  - text: Normal
+                  - button "Edit" [ref=f64e113] [cursor=pointer]
+              - generic [ref=f64e114]:
+                - generic [ref=f64e115]: "Zugewiesen an:"
+                - generic [ref=f64e116]:
+                  - text: "-"
+                  - button "Edit" [ref=f64e117] [cursor=pointer]
+            - generic [ref=f64e118]:
+              - generic [ref=f64e119]:
+                - generic [ref=f64e120]: "Startdatum:"
+                - button "Edit" [ref=f64e122] [cursor=pointer]
+              - generic [ref=f64e123]:
+                - generic [ref=f64e124]: "Abgabedatum:"
+                - button "Edit" [ref=f64e126] [cursor=pointer]
+              - generic [ref=f64e127]:
+                - generic [ref=f64e265]: "% erledigt:"
+                - generic [ref=f64e266]:
+                  - table [ref=f64e267]:
+                    - rowgroup [ref=f64e268]:
+                      - row [ref=f64e269]:
+                        - cell [ref=f64e270]
+                  - paragraph [ref=f64e271]: 0%
+              - generic [ref=f64e137]:
+                - generic [ref=f64e138]: "Geschätzter Aufwand:"
+                - button "Edit" [ref=f64e140] [cursor=pointer]
+          - generic [ref=f64e141]: "Markierungen:"
+          - generic [ref=f64e143]: Hinzufügen
+        - separator [ref=f64e144]
+        - generic [ref=f64e145]:
+          - paragraph [ref=f64e272]:
+            - strong [ref=f64e273]: Checkliste
+          - generic [ref=f64e150] [cursor=pointer]
+          - list [ref=f64e275]:
+            - listitem [ref=f64e276]:
+              - generic [ref=f64e277]:
+                - generic [ref=f64e278]:
+                  - checkbox [ref=f64e279]
+                  - generic [ref=f64e280]: Incomplete checklist item for BUG-INE-002 retest
+                - generic [ref=f64e281]:
+                  - progressbar:
+                    - generic [ref=f64e282]: 0%
+              - generic [ref=f64e284] [cursor=pointer]
+        - separator [ref=f64e153]
+        - generic [ref=f64e154]:
+          - link "Hinzufügen" [ref=f64e156] [cursor=pointer]:
+            - /url: /projects/defaultsd/issues/new?back_url=%2Fissues%2F269&issue%5Bparent_issue_id%5D=269&issue%5Btracker_id%5D=4
+          - paragraph [ref=f64e160]:
+            - strong [ref=f64e161]: Untergeordnete Tickets
+        - separator [ref=f64e162]
+        - generic [ref=f64e163]:
+          - link "Hinzufügen" [ref=f64e165] [cursor=pointer]:
+            - /url: "#"
+          - paragraph [ref=f64e169]:
+            - strong [ref=f64e170]: Zugehörige Tickets
+      - generic [ref=f64e287]:
+        - list [ref=f64e289]:
+          - listitem [ref=f64e290]:
+            - link "Historie" [ref=f64e291] [cursor=pointer]:
+              - /url: /issues/269?tab=history
+          - listitem [ref=f64e292]:
+            - link "Notizen" [ref=f64e293] [cursor=pointer]:
+              - /url: /issues/269?tab=notes
+          - listitem [ref=f64e294]:
+            - link "Checklisten-Verlauf" [ref=f64e295] [cursor=pointer]:
+              - /url: /issues/269?tab=checklist_history
+        - generic [ref=f64e298]:
+          - heading [level=4] [ref=f64e299]:
+            - generic [ref=f64e300]:
+              - img [ref=f64e301]: RA
+              - text: Von
+              - link "Redmine Admin" [ref=f64e302] [cursor=pointer]:
+                - /url: /users/1
+              - text: vor
+              - link "weniger als 1 Minute" [ref=f64e303] [cursor=pointer]:
+                - /url: /projects/defaultsd/activity?from=2026-09-09
+              - text: aktualisiert
+            - generic [ref=f64e304]:
+              - generic [ref=f64e305]:
+                - link [ref=f64e307] [cursor=pointer]:
+                  - /url: /reactions?object_id=16&object_type=Journal
+                - link "Zitieren" [ref=f64e310] [cursor=pointer]:
+                  - /url: "#"
+                - link "Bearbeiten" [ref=f64e313] [cursor=pointer]:
+                  - /url: /journals/16/edit
+                - generic "Aktionen" [ref=f64e318] [cursor=pointer]
+              - link "#1" [ref=f64e321] [cursor=pointer]:
+                - /url: "#note-1"
+          - paragraph [ref=f64e324]: Checkliste 'Incomplete checklist item for BUG-INE-002 retest' wurde von Redmine Admin hinzugefügt.
+      - generic [ref=f64e171]:
+        - link "Bearbeiten" [ref=f64e172] [cursor=pointer]:
+          - /url: /issues/269/edit
+        - link "Aufwand buchen" [ref=f64e176] [cursor=pointer]:
+          - /url: /issues/269/time_entries/new
+        - link "Nicht beobachten" [ref=f64e180] [cursor=pointer]:
+          - /url: /watchers/watch?object_id=269&object_type=issue
+        - link "Kopieren" [ref=f64e184] [cursor=pointer]:
+          - /url: /projects/defaultsd/issues/269/copy
+        - generic "Aktionen" [ref=f64e190] [cursor=pointer]
+      - text: pre pre
+      - paragraph [ref=f64e193]:
+        - text: "Auch abrufbar als:"
+        - link "Atom" [ref=f64e195] [cursor=pointer]:
+          - /url: /issues/269.atom?key=567ff370bf5edfc0f98b88c1cf7303a334ecbf45
+        - generic [ref=f64e196]:
+          - text: "|"
+          - link "PDF" [ref=f64e197] [cursor=pointer]:
+            - /url: /issues/269.pdf
+    - generic [ref=f64e198]:
+      - text: Powered by
+      - link "Redmine" [ref=f64e199] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - status [ref=f64e200]
+  - status [ref=f64e201]
+  - log [ref=f64e202]
+  - log [ref=f64e203]
+  - log [ref=f64e204]
+  - log [ref=f64e205]
+  - log [ref=f64e206]
+  - log [ref=f64e207]
+  - log [ref=f64e208]
+  - log [ref=f64e209]
+  - log [ref=f64e210]
+  - log [ref=f64e211]
+  - log [ref=f64e212]
+  - log [ref=f64e214]
+  - log [ref=f64e215]:
+    - generic [ref=f64e327]: "Autor: Redmine Admin"
+  - log [ref=f64e216]
+  - log [ref=f64e217]
+  - log [ref=f64e218]
+  - log [ref=f64e219]
+  - log [ref=f64e220]
+  - log [ref=f64e221]
+  - log [ref=f64e222]
+  - log [ref=f64e223]
+  - log [ref=f64e224]
+  - log [ref=f64e225]
+  - log [ref=f64e226]
+  - log [ref=f64e227]
+  - log [ref=f64e228]
+  - log [ref=f64e229]
+  - log [ref=f64e230]
+  - log [ref=f64e231]
+  - log [ref=f64e232]
+  - log [ref=f64e233]
+  - log [ref=f64e234]
+  - log [ref=f64e235]
+  - log [ref=f64e236]
+  - log [ref=f64e237]
+  - log [ref=f64e238]
+  - log [ref=f64e239]
+  - log [ref=f64e240]
+  - log [ref=f64e241]
+  - log [ref=f64e242]
+  - log [ref=f64e243]
+  - log [ref=f64e244]
+  - log [ref=f64e245]
+  - log [ref=f64e246]
+  - log [ref=f64e247]
+  - log [ref=f64e248]
+  - log [ref=f64e249]
+  - log [ref=f64e250]
+  - log [ref=f64e251]
+  - log [ref=f64e252]
+  - log [ref=f64e253]
+  - log [ref=f64e254]
+  - log [ref=f64e255]
+  - status [ref=f64e256]
+  - status [ref=f64e257]

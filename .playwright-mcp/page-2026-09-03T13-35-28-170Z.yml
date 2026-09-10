@@ -1,0 +1,408 @@
+- generic [active] [ref=f778e1]:
+  - generic [ref=f778e2]:
+    - generic [ref=f778e3]:
+      - generic [ref=f778e4]:
+        - list:
+          - listitem [ref=f778e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f778e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f778e7]:
+        - text: Logged in as
+        - link "admin" [ref=f778e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f778e9]:
+        - listitem [ref=f778e10]:
+          - link [ref=f778e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f778e12]
+        - listitem [ref=f778e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f778e14]:
+          - link "My page" [ref=f778e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f778e16]:
+          - link "Projects" [ref=f778e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f778e18]:
+          - link "Flux Gantt" [ref=f778e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f778e20]:
+          - link "Helpdesk Command Center" [ref=f778e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f778e22]:
+          - link "Time Tracker" [ref=f778e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f778e24]:
+          - link "Timesheet" [ref=f778e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f778e26]:
+          - link "Workloads" [ref=f778e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f778e28]:
+          - link "More" [ref=f778e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f778e30]:
+      - generic [ref=f778e31]:
+        - generic [ref=f778e32]:
+          - generic [ref=f778e33]:
+            - link "Search..." [ref=f778e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f778e35]
+        - generic [ref=f778e36]:
+          - generic [ref=f778e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f778e38]
+    - generic [ref=f778e39]:
+      - list [ref=f778e43]:
+        - listitem [ref=f778e44]:
+          - link "Helpdesk Dashboard" [ref=f778e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f778e48]:
+          - link "Helpdesk Tickets" [ref=f778e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f778e52]:
+          - link "Reports" [ref=f778e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f778e56]:
+          - link "Organization" [ref=f778e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f778e60]:
+          - link "Customers" [ref=f778e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f778e64]:
+          - link "Products" [ref=f778e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f778e68]:
+          - link "Helpdesk Settings" [ref=f778e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f778e72]:
+        - generic [ref=f778e73]: Prepaid support hours for 'Alpha Minimal Fields Test Org' have been updated.
+        - generic [ref=f778e74]:
+          - heading "Alpha Minimal Fields Test Org Active" [level=2] [ref=f778e77]:
+            - text: Alpha Minimal Fields Test Org
+            - generic [ref=f778e78]: Active
+          - link "Edit" [ref=f778e81] [cursor=pointer]:
+            - /url: /rf_organizations/8/edit
+        - navigation "Alpha Minimal Fields Test Org" [ref=f778e84]:
+          - link "Overview" [ref=f778e85] [cursor=pointer]:
+            - /url: /rf_organizations/8?tab=overview
+          - link "Prepaid Support Hours" [ref=f778e90] [cursor=pointer]:
+            - /url: /rf_organizations/8?tab=prepaid_support_hours
+        - generic [ref=f778e95]:
+          - generic [ref=f778e96]:
+            - generic [ref=f778e97]: 1.75h
+            - generic [ref=f778e98]: Approved
+          - generic [ref=f778e99]:
+            - generic [ref=f778e100]: 0.75h
+            - generic [ref=f778e101]: Used
+          - generic [ref=f778e102]:
+            - generic [ref=f778e103]: 1.00h
+            - generic [ref=f778e104]: Remaining
+        - generic [ref=f778e105]:
+          - generic [ref=f778e106]:
+            - heading "Budget by project" [level=3] [ref=f778e107]
+            - link "Add / top up hours" [ref=f778e108] [cursor=pointer]:
+              - /url: "#"
+          - table [ref=f778e110]:
+            - rowgroup [ref=f778e111]:
+              - row [ref=f778e112]:
+                - columnheader "Project" [ref=f778e113]
+                - columnheader "Approved" [ref=f778e114]
+                - columnheader "Used" [ref=f778e115]
+                - columnheader "Remaining" [ref=f778e116]
+                - columnheader "Usage" [ref=f778e117]
+                - columnheader "When hours run out" [ref=f778e118]
+                - columnheader "Last change" [ref=f778e119]
+                - columnheader "Action" [ref=f778e120]
+            - rowgroup [ref=f778e121]:
+              - row [ref=f778e122]:
+                - cell [ref=f778e123]:
+                  - link "Helpdesk QA Alpha" [ref=f778e124] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "1.75h" [ref=f778e125]
+                - cell "0.75h" [ref=f778e126]
+                - cell "1.00h" [ref=f778e127]
+                - cell "43% Used 43%" [ref=f778e128]:
+                  - generic [ref=f778e129]:
+                    - img "43% Used" [ref=f778e130]
+                    - generic [ref=f778e132]: 43%
+                - cell [ref=f778e133]:
+                  - combobox "When hours run out" [ref=f778e135] [cursor=pointer]:
+                    - option "No limit"
+                    - option "Hard — stop work" [selected]
+                    - option "Soft — allow overage"
+                - cell "09/03/2026" [ref=f778e136]
+                - cell [ref=f778e137]:
+                  - link "Ledger" [ref=f778e138] [cursor=pointer]:
+                    - /url: /rf_organizations/8?ledger_project_id=1&tab=prepaid_support_hours
+              - row [ref=f778e140]:
+                - cell [ref=f778e141]:
+                  - link "Helpdesk QA Beta" [ref=f778e142] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-beta/helpdesk
+                - cell "0.00h" [ref=f778e143]
+                - cell "0.00h" [ref=f778e144]
+                - cell "0.00h" [ref=f778e145]
+                - cell "0% Used 0%" [ref=f778e146]:
+                  - generic [ref=f778e147]:
+                    - img "0% Used" [ref=f778e148]
+                    - generic [ref=f778e149]: 0%
+                - cell [ref=f778e150]:
+                  - combobox "When hours run out" [ref=f778e152] [cursor=pointer]:
+                    - option "No limit"
+                    - option "Hard — stop work" [selected]
+                    - option "Soft — allow overage"
+                - cell "09/03/2026" [ref=f778e153]
+                - cell [ref=f778e154]:
+                  - link "Ledger" [ref=f778e155] [cursor=pointer]:
+                    - /url: /rf_organizations/8?ledger_project_id=2&tab=prepaid_support_hours
+        - generic [ref=f778e157]:
+          - generic [ref=f778e158]:
+            - heading "Budget change history" [level=3] [ref=f778e159]
+            - generic [ref=f778e160]: "16"
+          - table [ref=f778e161]:
+            - rowgroup [ref=f778e162]:
+              - row [ref=f778e163]:
+                - columnheader "S.No" [ref=f778e164]
+                - columnheader "Updated" [ref=f778e165]
+                - columnheader "Project" [ref=f778e166]
+                - columnheader "Change" [ref=f778e167]
+                - columnheader "Support Package" [ref=f778e168]
+                - columnheader "Comment" [ref=f778e169]
+                - columnheader "Approved By" [ref=f778e170]
+            - rowgroup [ref=f778e171]:
+              - row [ref=f778e172]:
+                - cell "1" [ref=f778e173]
+                - cell "09/03/2026 01:35 PM" [ref=f778e174]
+                - cell [ref=f778e175]:
+                  - link "Helpdesk QA Alpha" [ref=f778e176] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "0.75h → 1.75h" [ref=f778e177]
+                - cell "None" [ref=f778e178]
+                - cell "TC-HLP-382 crossing-boundary setup - top up to 1h remaining" [ref=f778e179]
+                - cell "Redmine Admin" [ref=f778e180]:
+                  - img [ref=f778e181]: RA
+                  - text: Redmine Admin
+              - row [ref=f778e182]:
+                - cell "2" [ref=f778e183]
+                - cell "09/03/2026 01:29 PM" [ref=f778e184]
+                - cell [ref=f778e185]:
+                  - link "Helpdesk QA Alpha" [ref=f778e186] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "5.75h → 0.75h" [ref=f778e187]
+                - cell "None" [ref=f778e188]
+                - cell "Controlled test step 2 - single-op reduction to exact-zero, retesting original BUG-037 methodology" [ref=f778e189]
+                - cell "Redmine Admin" [ref=f778e190]:
+                  - img [ref=f778e191]: RA
+                  - text: Redmine Admin
+              - row [ref=f778e192]:
+                - cell "3" [ref=f778e193]
+                - cell "09/03/2026 01:28 PM" [ref=f778e194]
+                - cell [ref=f778e195]:
+                  - link "Helpdesk QA Alpha" [ref=f778e196] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "0.75h → 5.75h" [ref=f778e197]
+                - cell "None" [ref=f778e198]
+                - cell "Controlled test step 1 - topup before single-op exact-zero retest" [ref=f778e199]
+                - cell "Redmine Admin" [ref=f778e200]:
+                  - img [ref=f778e201]: RA
+                  - text: Redmine Admin
+              - row [ref=f778e202]:
+                - cell "4" [ref=f778e203]
+                - cell "09/03/2026 01:27 PM" [ref=f778e204]
+                - cell [ref=f778e205]:
+                  - link "Helpdesk QA Beta" [ref=f778e206] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-beta/helpdesk
+                - cell "10.00h → 0.00h" [ref=f778e207]
+                - cell "None" [ref=f778e208]
+                - cell "Controlled test - single-op exact-zero reduction on Beta for Hard mode comparison" [ref=f778e209]
+                - cell "Redmine Admin" [ref=f778e210]:
+                  - img [ref=f778e211]: RA
+                  - text: Redmine Admin
+              - row [ref=f778e212]:
+                - cell "5" [ref=f778e213]
+                - cell "09/03/2026 01:20 PM" [ref=f778e214]
+                - cell [ref=f778e215]:
+                  - link "Helpdesk QA Alpha" [ref=f778e216] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "4.00h → 0.75h" [ref=f778e217]
+                - cell "None" [ref=f778e218]
+                - cell "TC-HLP-380/381 exhaustion setup" [ref=f778e219]
+                - cell "Redmine Admin" [ref=f778e220]:
+                  - img [ref=f778e221]: RA
+                  - text: Redmine Admin
+              - row [ref=f778e222]:
+                - cell "6" [ref=f778e223]
+                - cell "09/03/2026 01:19 PM" [ref=f778e224]
+                - cell [ref=f778e225]:
+                  - link "Helpdesk QA Alpha" [ref=f778e226] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "3.92h → 4.00h" [ref=f778e227]
+                - cell "Standard Support (Edited)" [ref=f778e228]
+                - cell "TC-HLP-379 full audit trail test comment with specific detail" [ref=f778e229]
+                - cell "Redmine Admin" [ref=f778e230]:
+                  - img [ref=f778e231]: RA
+                  - text: Redmine Admin
+              - row [ref=f778e232]:
+                - cell "7" [ref=f778e233]
+                - cell "09/03/2026 01:18 PM" [ref=f778e234]
+                - cell [ref=f778e235]:
+                  - link "Helpdesk QA Alpha" [ref=f778e236] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "2.42h → 3.92h" [ref=f778e237]
+                - cell "None" [ref=f778e238]
+                - cell "TC-HLP-378 sequence op 3 (+1.5h)" [ref=f778e239]
+                - cell "Redmine Admin" [ref=f778e240]:
+                  - img [ref=f778e241]: RA
+                  - text: Redmine Admin
+              - row [ref=f778e242]:
+                - cell "8" [ref=f778e243]
+                - cell "09/03/2026 01:17 PM" [ref=f778e244]
+                - cell [ref=f778e245]:
+                  - link "Helpdesk QA Alpha" [ref=f778e246] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "3.42h → 2.42h" [ref=f778e247]
+                - cell "None" [ref=f778e248]
+                - cell "TC-HLP-378 sequence op 2 (-1h)" [ref=f778e249]
+                - cell "Redmine Admin" [ref=f778e250]:
+                  - img [ref=f778e251]: RA
+                  - text: Redmine Admin
+              - row [ref=f778e252]:
+                - cell "9" [ref=f778e253]
+                - cell "09/03/2026 01:16 PM" [ref=f778e254]
+                - cell [ref=f778e255]:
+                  - link "Helpdesk QA Alpha" [ref=f778e256] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "1.42h → 3.42h" [ref=f778e257]
+                - cell "None" [ref=f778e258]
+                - cell "TC-HLP-378 sequence op 1 (+2h)" [ref=f778e259]
+                - cell "Redmine Admin" [ref=f778e260]:
+                  - img [ref=f778e261]: RA
+                  - text: Redmine Admin
+              - row [ref=f778e262]:
+                - cell "10" [ref=f778e263]
+                - cell "09/03/2026 01:16 PM" [ref=f778e264]
+                - cell [ref=f778e265]:
+                  - link "Helpdesk QA Alpha" [ref=f778e266] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "0.42h → 1.42h" [ref=f778e267]
+                - cell "None" [ref=f778e268]
+                - cell "TC-HLP-377 no-package top-up test" [ref=f778e269]
+                - cell "Redmine Admin" [ref=f778e270]:
+                  - img [ref=f778e271]: RA
+                  - text: Redmine Admin
+              - row [ref=f778e272]:
+                - cell "11" [ref=f778e273]
+                - cell "09/03/2026 12:10 PM" [ref=f778e274]
+                - cell [ref=f778e275]:
+                  - link "Helpdesk QA Beta" [ref=f778e276] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-beta/helpdesk
+                - cell "0.00h → 10.00h" [ref=f778e277]
+                - cell "None" [ref=f778e278]
+                - cell "TC-HLP-142 per-project budget independence test" [ref=f778e279]
+                - cell "Redmine Admin" [ref=f778e280]:
+                  - img [ref=f778e281]: RA
+                  - text: Redmine Admin
+              - row [ref=f778e282]:
+                - cell "12" [ref=f778e283]
+                - cell "09/03/2026 11:54 AM" [ref=f778e284]
+                - cell [ref=f778e285]:
+                  - link "Helpdesk QA Alpha" [ref=f778e286] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "20.00h → 0.42h" [ref=f778e287]
+                - cell "None" [ref=f778e288]
+                - cell "TC-HLP-138/139 exhaustion setup - reducing budget to zero remaining for Hard-mode-at-zero test" [ref=f778e289]
+                - cell "Redmine Admin" [ref=f778e290]:
+                  - img [ref=f778e291]: RA
+                  - text: Redmine Admin
+              - row [ref=f778e292]:
+                - cell "13" [ref=f778e293]
+                - cell "09/03/2026 11:42 AM" [ref=f778e294]
+                - cell [ref=f778e295]:
+                  - link "Helpdesk QA Alpha" [ref=f778e296] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "25.00h → 20.00h" [ref=f778e297]
+                - cell "None" [ref=f778e298]
+                - cell "TC-HLP-127 correction - over-invoiced" [ref=f778e299]
+                - cell "Redmine Admin" [ref=f778e300]:
+                  - img [ref=f778e301]: RA
+                  - text: Redmine Admin
+              - row [ref=f778e302]:
+                - cell "14" [ref=f778e303]
+                - cell "09/03/2026 11:41 AM" [ref=f778e304]
+                - cell [ref=f778e305]:
+                  - link "Helpdesk QA Alpha" [ref=f778e306] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "15.00h → 25.00h" [ref=f778e307]
+                - cell "None" [ref=f778e308]
+                - cell "TC-HLP-126 top-up test" [ref=f778e309]
+                - cell "Redmine Admin" [ref=f778e310]:
+                  - img [ref=f778e311]: RA
+                  - text: Redmine Admin
+              - row [ref=f778e312]:
+                - cell "15" [ref=f778e313]
+                - cell "09/03/2026 11:33 AM" [ref=f778e314]
+                - cell [ref=f778e315]:
+                  - link "Helpdesk QA Alpha" [ref=f778e316] [cursor=pointer]:
+                    - /url: /projects/helpdesk-qa-alpha/helpdesk
+                - cell "10.00h → 15.00h" [ref=f778e317]
+                - cell "Premium Support (Renamed)" [ref=f778e318]
+                - cell "TC-HLP-372 support package labeling test" [ref=f778e319]
+                - cell "Redmine Admin" [ref=f778e320]:
+                  - img [ref=f778e321]: RA
+                  - text: Redmine Admin
+          - generic [ref=f778e322]:
+            - list [ref=f778e323]:
+              - listitem [ref=f778e324]:
+                - generic [ref=f778e325]: « « Previous
+              - listitem [ref=f778e326]:
+                - generic [ref=f778e327]: "1"
+              - listitem [ref=f778e328]:
+                - link "2" [ref=f778e329] [cursor=pointer]:
+                  - /url: /rf_organizations/8?budget_history_page=2&tab=prepaid_support_hours
+              - listitem [ref=f778e330]:
+                - link "Next » »" [ref=f778e331] [cursor=pointer]:
+                  - /url: /rf_organizations/8?budget_history_page=2&tab=prepaid_support_hours
+            - generic [ref=f778e332]: (1-15/16)
+        - text: "* * *"
+        - paragraph [ref=f778e333]:
+          - link "Organization List" [ref=f778e334] [cursor=pointer]:
+            - /url: /rf_organizations
+    - generic [ref=f778e335]:
+      - text: Powered by
+      - link "Redmine" [ref=f778e336] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f778e337]
+  - log [ref=f778e338]
+  - log [ref=f778e339]
+  - log [ref=f778e340]
+  - log [ref=f778e341]
+  - log [ref=f778e342]
+  - log [ref=f778e343]
+  - log [ref=f778e344]
+  - log [ref=f778e345]
+  - log [ref=f778e346]
+  - log [ref=f778e347]
+  - log [ref=f778e348]
+  - log [ref=f778e349]
+  - log [ref=f778e350]
+  - log [ref=f778e351]
+  - log [ref=f778e352]
+  - log [ref=f778e353]
+  - log [ref=f778e354]
+  - log [ref=f778e355]
+  - log [ref=f778e356]
+  - log [ref=f778e357]
+  - log [ref=f778e358]
+  - log [ref=f778e359]
+  - log [ref=f778e360]
+  - log [ref=f778e361]
+  - log [ref=f778e362]
+  - log [ref=f778e363]
+  - log [ref=f778e364]
+  - log [ref=f778e365]

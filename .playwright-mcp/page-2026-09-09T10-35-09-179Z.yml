@@ -1,0 +1,675 @@
+- generic [active] [ref=f250e1]:
+  - generic [ref=f250e2]:
+    - generic [ref=f250e3]:
+      - generic [ref=f250e4]:
+        - list:
+          - listitem [ref=f250e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f250e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f250e7]:
+        - text: Logged in as
+        - link "admin" [ref=f250e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f250e9]:
+        - listitem [ref=f250e10]:
+          - link [ref=f250e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f250e12]
+        - listitem [ref=f250e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f250e14]:
+          - link "My page" [ref=f250e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f250e16]:
+          - link "Projects" [ref=f250e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f250e18]:
+          - link "Flux Gantt" [ref=f250e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f250e20]:
+          - link "Helpdesk Command Center" [ref=f250e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f250e22]:
+          - link "Time Tracker" [ref=f250e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f250e24]:
+          - link "Timesheet" [ref=f250e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f250e26]:
+          - link "Workloads" [ref=f250e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f250e28]:
+          - link "More" [ref=f250e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f250e30]:
+      - generic [ref=f250e31]:
+        - generic [ref=f250e32]:
+          - generic [ref=f250e33]:
+            - link "Search..." [ref=f250e34] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f250e35]
+        - generic [ref=f250e36]:
+          - generic [ref=f250e37] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f250e38]
+      - generic [ref=f250e39]:
+        - list [ref=f250e40]:
+          - listitem [ref=f250e41]:
+            - link "+" [ref=f250e42] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f250e43]:
+            - link "Overview" [ref=f250e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f250e45]:
+            - link "Activity" [ref=f250e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f250e47]:
+            - link "Issues" [ref=f250e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f250e49]:
+            - link "Spent time" [ref=f250e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f250e51]:
+            - link "Gantt" [ref=f250e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f250e53]:
+            - link "Calendar" [ref=f250e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f250e55]:
+            - link "News" [ref=f250e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f250e57]:
+            - link "Documents" [ref=f250e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f250e59]:
+            - link "Wiki" [ref=f250e60] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f250e61]:
+            - link "Files" [ref=f250e62] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f250e63]:
+            - link "Helpdesk" [ref=f250e64] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+          - listitem [ref=f250e65]:
+            - link "Settings" [ref=f250e66] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/settings
+        - generic [ref=f250e67]:
+          - button [ref=f250e68] [cursor=pointer]
+          - button [ref=f250e71] [cursor=pointer]
+    - generic [ref=f250e74]:
+      - list [ref=f250e78]:
+        - listitem [ref=f250e79]:
+          - link "Helpdesk Dashboard" [ref=f250e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f250e83]:
+          - link "Helpdesk Tickets" [ref=f250e84] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f250e87]:
+          - link "Knowledgebase" [ref=f250e88] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+        - listitem [ref=f250e91]:
+          - link "Helpdesk SLA" [ref=f250e92] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/sla
+        - listitem [ref=f250e95]:
+          - link "Organization" [ref=f250e96] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/organization
+        - listitem [ref=f250e99]:
+          - link "Settings" [ref=f250e100] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/settings
+      - generic [ref=f250e103]:
+        - generic [ref=f250e104]:
+          - generic [ref=f250e106]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f250e107]
+            - paragraph [ref=f250e108]: Helpdesk QA Alpha · 64 tickets
+          - link "New issue" [ref=f250e110] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/issues/new?issue%5Btracker_id%5D=3
+        - button "Filters" [ref=f250e113] [cursor=pointer]
+        - table [ref=f250e121]:
+          - rowgroup [ref=f250e122]:
+            - row [ref=f250e123]:
+              - columnheader [ref=f250e124]:
+                - 'link "Ticket #" [ref=f250e125] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=id
+              - columnheader [ref=f250e126]:
+                - link "Subject" [ref=f250e127] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=subject
+              - columnheader "Customer" [ref=f250e128]
+              - columnheader "Organization Name" [ref=f250e129]
+              - columnheader [ref=f250e130]:
+                - link "Status" [ref=f250e131] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=status
+              - columnheader [ref=f250e132]:
+                - link "Priority" [ref=f250e133] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=priority
+              - columnheader "Assignee" [ref=f250e134]
+              - columnheader "SLA Status" [ref=f250e135]
+              - columnheader [ref=f250e136]:
+                - link "Updated ▼" [ref=f250e137] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=updated_on
+          - rowgroup [ref=f250e138]:
+            - row [ref=f250e139]:
+              - cell [ref=f250e140]:
+                - link "#72" [ref=f250e141] [cursor=pointer]:
+                  - /url: /issues/72
+              - cell [ref=f250e142]:
+                - link "TC-HLP-411 email ticket creation - Soft mode with negative balance - ticket keyword" [ref=f250e143] [cursor=pointer]:
+                  - /url: /issues/72
+              - cell [ref=f250e144]:
+                - link "Alpha Customer" [ref=f250e145] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f250e146]
+              - cell "New" [ref=f250e147]
+              - cell "Normal" [ref=f250e150]
+              - cell "Unassigned" [ref=f250e153]
+              - cell "— No SLA" [ref=f250e154]:
+                - generic [ref=f250e155]:
+                  - generic [ref=f250e156]: —
+                  - text: No SLA
+              - cell "09/09/2026 10:27 AM" [ref=f250e157]
+            - row [ref=f250e158]:
+              - cell [ref=f250e159]:
+                - link "#71" [ref=f250e160] [cursor=pointer]:
+                  - /url: /issues/71
+              - cell [ref=f250e161]:
+                - link "TC-HLP-410 email ticket creation - No limit mode with negative balance - ticket keyword" [ref=f250e162] [cursor=pointer]:
+                  - /url: /issues/71
+              - cell [ref=f250e163]:
+                - link "Alpha Customer" [ref=f250e164] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f250e165]
+              - cell "New" [ref=f250e166]
+              - cell "Normal" [ref=f250e169]
+              - cell "Unassigned" [ref=f250e172]
+              - cell "— No SLA" [ref=f250e173]:
+                - generic [ref=f250e174]:
+                  - generic [ref=f250e175]: —
+                  - text: No SLA
+              - cell "09/09/2026 10:26 AM" [ref=f250e176]
+            - row [ref=f250e177]:
+              - cell [ref=f250e178]:
+                - link "#70" [ref=f250e179] [cursor=pointer]:
+                  - /url: /issues/70
+              - cell [ref=f250e180]:
+                - link "TC-HLP-413 email ticket creation - Hard mode exhausted at exactly zero - ticket keyword" [ref=f250e181] [cursor=pointer]:
+                  - /url: /issues/70
+              - cell [ref=f250e182]:
+                - link "Alpha Customer" [ref=f250e183] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f250e184]
+              - cell "New" [ref=f250e185]
+              - cell "Normal" [ref=f250e188]
+              - cell "Unassigned" [ref=f250e191]
+              - cell "— No SLA" [ref=f250e192]:
+                - generic [ref=f250e193]:
+                  - generic [ref=f250e194]: —
+                  - text: No SLA
+              - cell "09/09/2026 10:18 AM" [ref=f250e195]
+            - row [ref=f250e196]:
+              - cell [ref=f250e197]:
+                - link "#69" [ref=f250e198] [cursor=pointer]:
+                  - /url: /issues/69
+              - cell [ref=f250e199]:
+                - link "TC-HLP-412 email ticket creation - Hard mode with Remaining greater than zero - ticket keyword" [ref=f250e200] [cursor=pointer]:
+                  - /url: /issues/69
+              - cell [ref=f250e201]:
+                - link "Alpha Customer" [ref=f250e202] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f250e203]
+              - cell "New" [ref=f250e204]
+              - cell "Normal" [ref=f250e207]
+              - cell "Unassigned" [ref=f250e210]
+              - cell "— No SLA" [ref=f250e211]:
+                - generic [ref=f250e212]:
+                  - generic [ref=f250e213]: —
+                  - text: No SLA
+              - cell "09/09/2026 10:16 AM" [ref=f250e214]
+            - row [ref=f250e215]:
+              - cell [ref=f250e216]:
+                - link "#68" [ref=f250e217] [cursor=pointer]:
+                  - /url: /issues/68
+              - cell [ref=f250e218]:
+                - link "TC-HLP-409 email ticket creation with no budget assigned - ticket keyword" [ref=f250e219] [cursor=pointer]:
+                  - /url: /issues/68
+              - cell [ref=f250e220]:
+                - link "Alpha Customer" [ref=f250e221] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f250e222]
+              - cell "New" [ref=f250e223]
+              - cell "Normal" [ref=f250e226]
+              - cell "Unassigned" [ref=f250e229]
+              - cell "— No SLA" [ref=f250e230]:
+                - generic [ref=f250e231]:
+                  - generic [ref=f250e232]: —
+                  - text: No SLA
+              - cell "09/09/2026 10:15 AM" [ref=f250e233]
+            - row [ref=f250e234]:
+              - cell [ref=f250e235]:
+                - link "#67" [ref=f250e236] [cursor=pointer]:
+                  - /url: /issues/67
+              - cell [ref=f250e237]:
+                - link "TC-HLP-408 Portal ticket creation with no budget assigned" [ref=f250e238] [cursor=pointer]:
+                  - /url: /issues/67
+              - cell [ref=f250e239]:
+                - link "Alpha Customer" [ref=f250e240] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f250e241]
+              - cell "New" [ref=f250e242]
+              - cell "Normal" [ref=f250e245]
+              - cell "Unassigned" [ref=f250e248]
+              - cell "— No SLA" [ref=f250e249]:
+                - generic [ref=f250e250]:
+                  - generic [ref=f250e251]: —
+                  - text: No SLA
+              - cell "09/09/2026 10:13 AM" [ref=f250e252]
+            - row [ref=f250e253]:
+              - cell [ref=f250e254]:
+                - link "#66" [ref=f250e255] [cursor=pointer]:
+                  - /url: /issues/66
+              - cell [ref=f250e256]:
+                - link "TC-HLP-290 shared mailbox test - ticket keyword" [ref=f250e257] [cursor=pointer]:
+                  - /url: /issues/66
+              - cell [ref=f250e258]:
+                - link "Alpha Customer" [ref=f250e259] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f250e260]
+              - cell "New" [ref=f250e261]
+              - cell "Normal" [ref=f250e264]
+              - cell "Unassigned" [ref=f250e267]
+              - cell "— No SLA" [ref=f250e268]:
+                - generic [ref=f250e269]:
+                  - generic [ref=f250e270]: —
+                  - text: No SLA
+              - cell "09/09/2026 09:28 AM" [ref=f250e271]
+            - row [ref=f250e272]:
+              - cell [ref=f250e273]:
+                - link "#65" [ref=f250e274] [cursor=pointer]:
+                  - /url: /issues/65
+              - cell [ref=f250e275]:
+                - link "TC-HLP-154 resolved-just-before-window test ticket" [ref=f250e276] [cursor=pointer]:
+                  - /url: /issues/65
+              - cell "—" [ref=f250e277]
+              - cell "—" [ref=f250e278]
+              - cell "Waiting for Customer Response" [ref=f250e279]
+              - cell "Normal" [ref=f250e282]
+              - cell "Redmine Admin" [ref=f250e285]
+              - cell "▮▮ Paused" [ref=f250e286]:
+                - generic [ref=f250e287]:
+                  - generic [ref=f250e288]: ▮▮
+                  - text: Paused
+              - cell "09/09/2026 09:21 AM" [ref=f250e289]
+            - row [ref=f250e290]:
+              - cell [ref=f250e291]:
+                - link "#62" [ref=f250e292] [cursor=pointer]:
+                  - /url: /issues/62
+              - cell [ref=f250e293]:
+                - link "TC-HLP-402 routing test attempt 2, Alpha budget now positive" [ref=f250e294] [cursor=pointer]:
+                  - /url: /issues/62
+              - cell [ref=f250e295]:
+                - link "Beta Customer" [ref=f250e296] [cursor=pointer]:
+                  - /url: /rf_customers/32
+              - cell "Alpha Minimal Fields Test Org" [ref=f250e297]
+              - cell "New" [ref=f250e298]
+              - cell "Normal" [ref=f250e301]
+              - cell "Unassigned" [ref=f250e304]
+              - cell "— No SLA" [ref=f250e305]:
+                - generic [ref=f250e306]:
+                  - generic [ref=f250e307]: —
+                  - text: No SLA
+              - cell "09/09/2026 08:46 AM" [ref=f250e308]
+            - row [ref=f250e309]:
+              - cell [ref=f250e310]:
+                - link "#61" [ref=f250e311] [cursor=pointer]:
+                  - /url: /issues/61
+              - cell [ref=f250e312]:
+                - link "[TICKET] TC-HLP-407 ticket both fields test" [ref=f250e313] [cursor=pointer]:
+                  - /url: /issues/61
+              - cell [ref=f250e314]:
+                - link "Alpha Customer" [ref=f250e315] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f250e316]
+              - cell "New" [ref=f250e317]
+              - cell "Normal" [ref=f250e320]
+              - cell "Unassigned" [ref=f250e323]
+              - cell "— No SLA" [ref=f250e324]:
+                - generic [ref=f250e325]:
+                  - generic [ref=f250e326]: —
+                  - text: No SLA
+              - cell "09/09/2026 08:26 AM" [ref=f250e327]
+            - row [ref=f250e328]:
+              - cell [ref=f250e329]:
+                - link "#60" [ref=f250e330] [cursor=pointer]:
+                  - /url: /issues/60
+              - cell [ref=f250e331]:
+                - link "[TICKET] TC-HLP-406 prefix only test" [ref=f250e332] [cursor=pointer]:
+                  - /url: /issues/60
+              - cell [ref=f250e333]:
+                - link "Alpha Customer" [ref=f250e334] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f250e335]
+              - cell "New" [ref=f250e336]
+              - cell "Normal" [ref=f250e339]
+              - cell "Unassigned" [ref=f250e342]
+              - cell "— No SLA" [ref=f250e343]:
+                - generic [ref=f250e344]:
+                  - generic [ref=f250e345]: —
+                  - text: No SLA
+              - cell "09/09/2026 08:25 AM" [ref=f250e346]
+            - row [ref=f250e347]:
+              - cell [ref=f250e348]:
+                - link "#59" [ref=f250e349] [cursor=pointer]:
+                  - /url: /issues/59
+              - cell [ref=f250e350]:
+                - link "TC-HLP-405 both fields blank test" [ref=f250e351] [cursor=pointer]:
+                  - /url: /issues/59
+              - cell [ref=f250e352]:
+                - link "Alpha Customer" [ref=f250e353] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f250e354]
+              - cell "New" [ref=f250e355]
+              - cell "Normal" [ref=f250e358]
+              - cell "Unassigned" [ref=f250e361]
+              - cell "— No SLA" [ref=f250e362]:
+                - generic [ref=f250e363]:
+                  - generic [ref=f250e364]: —
+                  - text: No SLA
+              - cell "09/09/2026 08:23 AM" [ref=f250e365]
+            - row [ref=f250e366]:
+              - cell [ref=f250e367]:
+                - link "#57" [ref=f250e368] [cursor=pointer]:
+                  - /url: /issues/57
+              - cell [ref=f250e369]:
+                - link "TC-HLP-403/404 auto-close positive control - Support tracker, Alpha, should close" [ref=f250e370] [cursor=pointer]:
+                  - /url: /issues/57
+              - cell "—" [ref=f250e371]
+              - cell "—" [ref=f250e372]
+              - cell "Closed" [ref=f250e373]
+              - cell "Normal" [ref=f250e376]
+              - cell "Unassigned" [ref=f250e379]
+              - cell "— No SLA" [ref=f250e380]:
+                - generic [ref=f250e381]:
+                  - generic [ref=f250e382]: —
+                  - text: No SLA
+              - cell "09/09/2026 08:17 AM" [ref=f250e383]
+            - row [ref=f250e384]:
+              - cell [ref=f250e385]:
+                - link "#56" [ref=f250e386] [cursor=pointer]:
+                  - /url: /issues/56
+              - cell [ref=f250e387]:
+                - link "TC-HLP-153 auto-close test ticket B (never Resolved, stays In Progress)" [ref=f250e388] [cursor=pointer]:
+                  - /url: /issues/56
+              - cell "—" [ref=f250e389]
+              - cell "—" [ref=f250e390]
+              - cell "Closed" [ref=f250e391]
+              - cell "Normal" [ref=f250e394]
+              - cell "Unassigned" [ref=f250e397]
+              - cell "— No SLA" [ref=f250e398]:
+                - generic [ref=f250e399]:
+                  - generic [ref=f250e400]: —
+                  - text: No SLA
+              - cell "09/09/2026 07:39 AM" [ref=f250e401]
+            - row [ref=f250e402]:
+              - cell [ref=f250e403]:
+                - link "#55" [ref=f250e404] [cursor=pointer]:
+                  - /url: /issues/55
+              - cell [ref=f250e405]:
+                - link "TC-HLP-150/153 auto-close test ticket A (will be Resolved)" [ref=f250e406] [cursor=pointer]:
+                  - /url: /issues/55
+              - cell "—" [ref=f250e407]
+              - cell "—" [ref=f250e408]
+              - cell "Closed" [ref=f250e409]
+              - cell "Normal" [ref=f250e412]
+              - cell "Unassigned" [ref=f250e415]
+              - cell "— No SLA" [ref=f250e416]:
+                - generic [ref=f250e417]:
+                  - generic [ref=f250e418]: —
+                  - text: No SLA
+              - cell "09/09/2026 07:39 AM" [ref=f250e419]
+            - row [ref=f250e420]:
+              - cell [ref=f250e421]:
+                - link "#54" [ref=f250e422] [cursor=pointer]:
+                  - /url: /issues/54
+              - cell [ref=f250e423]:
+                - link "TC-HLP-204 view_helpdesk-only agent create-ticket test (edited)" [ref=f250e424] [cursor=pointer]:
+                  - /url: /issues/54
+              - cell "—" [ref=f250e425]
+              - cell "—" [ref=f250e426]
+              - cell "Closed" [ref=f250e427]
+              - cell "Normal" [ref=f250e430]
+              - cell "Unassigned" [ref=f250e433]
+              - cell "— No SLA" [ref=f250e434]:
+                - generic [ref=f250e435]:
+                  - generic [ref=f250e436]: —
+                  - text: No SLA
+              - cell "09/09/2026 07:39 AM" [ref=f250e437]
+            - row [ref=f250e438]:
+              - cell [ref=f250e439]:
+                - link "#51" [ref=f250e440] [cursor=pointer]:
+                  - /url: /issues/51
+              - cell [ref=f250e441]:
+                - link "TC-HLP-384 - No Limit mode with positive remaining test" [ref=f250e442] [cursor=pointer]:
+                  - /url: /issues/51
+              - cell [ref=f250e443]:
+                - link "Delta Customer" [ref=f250e444] [cursor=pointer]:
+                  - /url: /rf_customers/14
+              - cell "Alpha Minimal Fields Test Org" [ref=f250e445]
+              - cell "Closed" [ref=f250e446]
+              - cell "Normal" [ref=f250e449]
+              - cell "Unassigned" [ref=f250e452]
+              - cell "— No SLA" [ref=f250e453]:
+                - generic [ref=f250e454]:
+                  - generic [ref=f250e455]: —
+                  - text: No SLA
+              - cell "09/09/2026 07:39 AM" [ref=f250e456]
+            - row [ref=f250e457]:
+              - cell [ref=f250e458]:
+                - link "#50" [ref=f250e459] [cursor=pointer]:
+                  - /url: /issues/50
+              - cell [ref=f250e460]:
+                - link "TC-HLP-135 - Soft mode exhausted budget new ticket test" [ref=f250e461] [cursor=pointer]:
+                  - /url: /issues/50
+              - cell [ref=f250e462]:
+                - link "Delta Customer" [ref=f250e463] [cursor=pointer]:
+                  - /url: /rf_customers/14
+              - cell "Alpha Minimal Fields Test Org" [ref=f250e464]
+              - cell "Closed" [ref=f250e465]
+              - cell "Normal" [ref=f250e468]
+              - cell "Unassigned" [ref=f250e471]
+              - cell "— No SLA" [ref=f250e472]:
+                - generic [ref=f250e473]:
+                  - generic [ref=f250e474]: —
+                  - text: No SLA
+              - cell "09/09/2026 07:39 AM" [ref=f250e475]
+            - row [ref=f250e476]:
+              - cell [ref=f250e477]:
+                - link "#49" [ref=f250e478] [cursor=pointer]:
+                  - /url: /issues/49
+              - cell [ref=f250e479]:
+                - link "TC-HLP-133 - No Limit mode exhausted budget new ticket test" [ref=f250e480] [cursor=pointer]:
+                  - /url: /issues/49
+              - cell [ref=f250e481]:
+                - link "Delta Customer" [ref=f250e482] [cursor=pointer]:
+                  - /url: /rf_customers/14
+              - cell "Alpha Minimal Fields Test Org" [ref=f250e483]
+              - cell "Closed" [ref=f250e484]
+              - cell "Normal" [ref=f250e487]
+              - cell "Unassigned" [ref=f250e490]
+              - cell "— No SLA" [ref=f250e491]:
+                - generic [ref=f250e492]:
+                  - generic [ref=f250e493]: —
+                  - text: No SLA
+              - cell "09/09/2026 07:39 AM" [ref=f250e494]
+            - row [ref=f250e495]:
+              - cell [ref=f250e496]:
+                - link "#48" [ref=f250e497] [cursor=pointer]:
+                  - /url: /issues/48
+              - cell [ref=f250e498]:
+                - link "TC-HLP-138 - Hard mode at zero hours new ticket test" [ref=f250e499] [cursor=pointer]:
+                  - /url: /issues/48
+              - cell [ref=f250e500]:
+                - link "Delta Customer" [ref=f250e501] [cursor=pointer]:
+                  - /url: /rf_customers/14
+              - cell "Alpha Minimal Fields Test Org" [ref=f250e502]
+              - cell "Closed" [ref=f250e503]
+              - cell "Normal" [ref=f250e506]
+              - cell "Unassigned" [ref=f250e509]
+              - cell "— No SLA" [ref=f250e510]:
+                - generic [ref=f250e511]:
+                  - generic [ref=f250e512]: —
+                  - text: No SLA
+              - cell "09/09/2026 07:39 AM" [ref=f250e513]
+            - row [ref=f250e514]:
+              - cell [ref=f250e515]:
+                - link "#47" [ref=f250e516] [cursor=pointer]:
+                  - /url: /issues/47
+              - cell [ref=f250e517]:
+                - link "TC-HLP-134 - Hard mode with budget remaining test ticket" [ref=f250e518] [cursor=pointer]:
+                  - /url: /issues/47
+              - cell [ref=f250e519]:
+                - link "Delta Customer" [ref=f250e520] [cursor=pointer]:
+                  - /url: /rf_customers/14
+              - cell "Alpha Minimal Fields Test Org" [ref=f250e521]
+              - cell "Closed" [ref=f250e522]
+              - cell "Normal" [ref=f250e525]
+              - cell "Unassigned" [ref=f250e528]
+              - cell "— No SLA" [ref=f250e529]:
+                - generic [ref=f250e530]:
+                  - generic [ref=f250e531]: —
+                  - text: No SLA
+              - cell "09/09/2026 07:39 AM" [ref=f250e532]
+            - row [ref=f250e533]:
+              - cell [ref=f250e534]:
+                - link "#46" [ref=f250e535] [cursor=pointer]:
+                  - /url: /issues/46
+              - cell [ref=f250e536]:
+                - link "TC-HLP-129 prepaid hours time-logging test ticket" [ref=f250e537] [cursor=pointer]:
+                  - /url: /issues/46
+              - cell [ref=f250e538]:
+                - link "Delta Customer" [ref=f250e539] [cursor=pointer]:
+                  - /url: /rf_customers/14
+              - cell "Alpha Minimal Fields Test Org" [ref=f250e540]
+              - cell "Waiting for Customer Response" [ref=f250e541]
+              - cell "Normal" [ref=f250e544]
+              - cell "Luna Blossom" [ref=f250e547]
+              - cell "✓ Resolved" [ref=f250e548]:
+                - generic [ref=f250e549]:
+                  - generic [ref=f250e550]: ✓
+                  - text: Resolved
+              - cell "09/09/2026 07:39 AM" [ref=f250e551]
+            - row [ref=f250e552]:
+              - cell [ref=f250e553]:
+                - link "#45" [ref=f250e554] [cursor=pointer]:
+                  - /url: /issues/45
+              - cell [ref=f250e555]:
+                - link "TC-HLP-366 multi-agent-L3-escalation test ticket B" [ref=f250e556] [cursor=pointer]:
+                  - /url: /issues/45
+              - cell [ref=f250e557]:
+                - link "Retest Customer1" [ref=f250e558] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f250e559]
+              - cell "Closed" [ref=f250e560]
+              - cell "Normal" [ref=f250e563]
+              - cell "Willow Belle" [ref=f250e566]
+              - cell "✓ Resolved" [ref=f250e567]:
+                - generic [ref=f250e568]:
+                  - generic [ref=f250e569]: ✓
+                  - text: Resolved
+              - cell "09/09/2026 07:39 AM" [ref=f250e570]
+            - row [ref=f250e571]:
+              - cell [ref=f250e572]:
+                - link "#44" [ref=f250e573] [cursor=pointer]:
+                  - /url: /issues/44
+              - cell [ref=f250e574]:
+                - link "TC-HLP-366 multi-agent-L3-escalation test ticket A" [ref=f250e575] [cursor=pointer]:
+                  - /url: /issues/44
+              - cell [ref=f250e576]:
+                - link "Retest Customer1" [ref=f250e577] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f250e578]
+              - cell "Closed" [ref=f250e579]
+              - cell "Normal" [ref=f250e582]
+              - cell "Willow Belle" [ref=f250e585]
+              - cell "✓ Resolved" [ref=f250e586]:
+                - generic [ref=f250e587]:
+                  - generic [ref=f250e588]: ✓
+                  - text: Resolved
+              - cell "09/09/2026 07:39 AM" [ref=f250e589]
+            - row [ref=f250e590]:
+              - cell [ref=f250e591]:
+                - link "#40" [ref=f250e592] [cursor=pointer]:
+                  - /url: /issues/40
+              - cell [ref=f250e593]:
+                - link "TC-HLP-363 breach-once-then-resolved-at-next-level test ticket" [ref=f250e594] [cursor=pointer]:
+                  - /url: /issues/40
+              - cell [ref=f250e595]:
+                - link "Retest Customer1" [ref=f250e596] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f250e597]
+              - cell "Closed" [ref=f250e598]
+              - cell "Normal" [ref=f250e601]
+              - cell "Willow Belle" [ref=f250e604]
+              - cell "✓ Resolved" [ref=f250e605]:
+                - generic [ref=f250e606]:
+                  - generic [ref=f250e607]: ✓
+                  - text: Resolved
+              - cell "09/09/2026 07:39 AM" [ref=f250e608]
+        - generic [ref=f250e609]:
+          - list [ref=f250e610]:
+            - listitem [ref=f250e611]:
+              - generic [ref=f250e612]: « « Previous
+            - listitem [ref=f250e613]:
+              - generic [ref=f250e614]: "1"
+            - listitem [ref=f250e615]:
+              - link "2" [ref=f250e616] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?page=2
+            - listitem [ref=f250e617]:
+              - link "3" [ref=f250e618] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?page=3
+            - listitem [ref=f250e619]:
+              - link "Next » »" [ref=f250e620] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?page=2
+          - generic [ref=f250e621]:
+            - text: (1-25/64)
+            - generic [ref=f250e622]:
+              - text: "Per page: 25,"
+              - link "50" [ref=f250e623] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?per_page=50
+              - text: ","
+              - link "100" [ref=f250e624] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?per_page=100
+    - generic [ref=f250e625]:
+      - text: Powered by
+      - link "Redmine" [ref=f250e626] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f250e627]
+  - log [ref=f250e628]
+  - log [ref=f250e629]
+  - log [ref=f250e630]
+  - log [ref=f250e631]
+  - log [ref=f250e632]
+  - log [ref=f250e633]
+  - log [ref=f250e634]
+  - log [ref=f250e635]
+  - log [ref=f250e636]
+  - log [ref=f250e637]
+  - log [ref=f250e638]
+  - log [ref=f250e639]
+  - log [ref=f250e640]
+  - log [ref=f250e641]
+  - log [ref=f250e642]
+  - log [ref=f250e643]
+  - log [ref=f250e644]
+  - log [ref=f250e645]
+  - log [ref=f250e646]
+  - log [ref=f250e647]
+  - log [ref=f250e648]
+  - log [ref=f250e649]
+  - log [ref=f250e650]
+  - log [ref=f250e651]
+  - log [ref=f250e652]
+  - log [ref=f250e653]

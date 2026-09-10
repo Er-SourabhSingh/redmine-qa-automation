@@ -1,0 +1,196 @@
+- generic [ref=f198e1]:
+  - generic [ref=f198e2]:
+    - generic [ref=f198e3]:
+      - generic [ref=f198e4]:
+        - list:
+          - listitem [ref=f198e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f198e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f198e7]:
+        - text: Logged in as
+        - link "admin" [ref=f198e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f198e9]:
+        - listitem [ref=f198e10]:
+          - link [ref=f198e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f198e12]
+        - listitem [ref=f198e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f198e14]:
+          - link "My page" [ref=f198e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f198e16]:
+          - link "Projects" [ref=f198e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f198e18]:
+          - link "Flux Gantt" [ref=f198e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f198e20]:
+          - link "Helpdesk Command Center" [ref=f198e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f198e22]:
+          - link "Time Tracker" [ref=f198e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f198e24]:
+          - link "Timesheet" [ref=f198e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f198e26]:
+          - link "Workloads" [ref=f198e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f198e28]:
+          - link "More" [ref=f198e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f198e30]:
+      - generic [ref=f198e31]:
+        - generic [ref=f198e32]:
+          - generic [ref=f198e33]:
+            - link "Search..." [ref=f198e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f198e35]
+        - generic [ref=f198e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f198e38]
+      - list [ref=f198e40]:
+        - listitem [ref=f198e41]:
+          - link "Projects" [ref=f198e42] [cursor=pointer]:
+            - /url: /projects
+    - generic [ref=f198e44]:
+      - heading "New project" [level=2] [ref=f198e45]
+      - generic [ref=f198e46]:
+        - generic [ref=f198e47]:
+          - paragraph [ref=f198e48]:
+            - generic [ref=f198e49]: Name *
+            - textbox "Name *" [active] [ref=f198e50]
+          - paragraph [ref=f198e51]:
+            - generic [ref=f198e52]: Description
+            - generic [ref=f198e53]:
+              - list [ref=f198e55]:
+                - listitem [ref=f198e56]:
+                  - link "Edit" [ref=f198e57] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f198e58]:
+                  - link "Preview" [ref=f198e59] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f198e60]:
+                  - generic [ref=f198e61]:
+                    - button "Strong (Ctrl+B)" [ref=f198e62] [cursor=pointer]
+                    - button "Italic (Ctrl+I)" [ref=f198e63] [cursor=pointer]
+                    - button "Underline (Ctrl+U)" [ref=f198e64] [cursor=pointer]
+                    - button "Deleted" [ref=f198e65] [cursor=pointer]
+                    - button "Inline Code" [ref=f198e66] [cursor=pointer]
+                    - button "Heading 1" [ref=f198e67] [cursor=pointer]
+                    - button "Heading 2" [ref=f198e68] [cursor=pointer]
+                    - button "Heading 3" [ref=f198e69] [cursor=pointer]
+                    - button "Unordered list" [ref=f198e70] [cursor=pointer]
+                    - button "Ordered list" [ref=f198e71] [cursor=pointer]
+                    - button "Task list" [ref=f198e72] [cursor=pointer]
+                    - button "Quote" [ref=f198e73] [cursor=pointer]
+                    - button "Remove Quote" [ref=f198e74] [cursor=pointer]
+                    - button "Table" [ref=f198e75] [cursor=pointer]
+                    - button "pre" [ref=f198e76] [cursor=pointer]
+                    - button "Highlighted code" [ref=f198e77] [cursor=pointer]
+                    - button "Link to a Wiki page" [ref=f198e78] [cursor=pointer]
+                    - button "Image" [ref=f198e79] [cursor=pointer]
+                    - button "Help" [ref=f198e80] [cursor=pointer]
+              - textbox "Description" [ref=f198e82]
+          - paragraph [ref=f198e83]:
+            - generic [ref=f198e84]: Identifier *
+            - textbox "Identifier *" [ref=f198e85]
+            - emphasis [ref=f198e86]: Length between 1 and 100 characters. Only lower case letters (a-z), numbers, dashes and underscores are allowed.Once saved, the identifier cannot be changed.
+          - paragraph [ref=f198e87]:
+            - generic [ref=f198e88]: Homepage
+            - textbox "Homepage" [ref=f198e89]
+          - paragraph [ref=f198e90]:
+            - generic [ref=f198e91]: Is public
+            - checkbox "Is public" [checked] [ref=f198e92]
+            - emphasis [ref=f198e93]: Public projects and their contents are openly available on the network.
+          - paragraph [ref=f198e94]:
+            - generic [ref=f198e95]: Subproject of
+            - combobox "Subproject of" [ref=f198e96]:
+              - option [selected]
+              - option "Helpdesk QA Alpha"
+          - paragraph [ref=f198e97]:
+            - generic [ref=f198e98]: Inherit members
+            - checkbox "Inherit members" [ref=f198e99]
+        - group [ref=f198e100]:
+          - generic [ref=f198e101]:
+            - link "Check all / Uncheck all" [ref=f198e102] [cursor=pointer]:
+              - /url: "#"
+            - text: Modules
+          - generic [ref=f198e104]:
+            - checkbox "Issue tracking" [checked] [ref=f198e105]
+            - text: Issue tracking
+          - generic [ref=f198e106]:
+            - checkbox "Time tracking" [checked] [ref=f198e107]
+            - text: Time tracking
+          - generic [ref=f198e108]:
+            - checkbox "News" [checked] [ref=f198e109]
+            - text: News
+          - generic [ref=f198e110]:
+            - checkbox "Documents" [checked] [ref=f198e111]
+            - text: Documents
+          - generic [ref=f198e112]:
+            - checkbox "Files" [checked] [ref=f198e113]
+            - text: Files
+          - generic [ref=f198e114]:
+            - checkbox "Wiki" [checked] [ref=f198e115]
+            - text: Wiki
+          - generic [ref=f198e116]:
+            - checkbox "Repository" [checked] [ref=f198e117]
+            - text: Repository
+          - generic [ref=f198e118]:
+            - checkbox "Forums" [checked] [ref=f198e119]
+            - text: Forums
+          - generic [ref=f198e120]:
+            - checkbox "Calendar" [checked] [ref=f198e121]
+            - text: Calendar
+          - generic [ref=f198e122]:
+            - checkbox "Gantt" [checked] [ref=f198e123]
+            - text: Gantt
+          - generic [ref=f198e124]:
+            - checkbox "Flux Gantt Chart" [ref=f198e125]
+            - text: Flux Gantt Chart
+          - generic [ref=f198e126]:
+            - checkbox "Redmineflux Helpdesk" [ref=f198e127]
+            - text: Redmineflux Helpdesk
+          - generic [ref=f198e128]:
+            - checkbox "Knowledgebase" [ref=f198e129]
+            - text: Knowledgebase
+          - generic [ref=f198e130]:
+            - checkbox "Redmineflux Testcase Management" [ref=f198e131]
+            - text: Redmineflux Testcase Management
+        - button "Create" [ref=f198e132] [cursor=pointer]
+        - button "Create and add another" [ref=f198e133] [cursor=pointer]
+    - generic [ref=f198e134]:
+      - text: Powered by
+      - link "Redmine" [ref=f198e135] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f198e136]
+  - log [ref=f198e137]
+  - log [ref=f198e138]
+  - log [ref=f198e139]
+  - log [ref=f198e140]
+  - log [ref=f198e141]
+  - log [ref=f198e142]
+  - log [ref=f198e143]
+  - log [ref=f198e144]
+  - log [ref=f198e145]
+  - log [ref=f198e146]
+  - log [ref=f198e147]
+  - log [ref=f198e148]
+  - log [ref=f198e149]
+  - log [ref=f198e150]
+  - log [ref=f198e151]
+  - log [ref=f198e152]
+  - log [ref=f198e153]
+  - log [ref=f198e154]
+  - log [ref=f198e155]
+  - log [ref=f198e156]
+  - log [ref=f198e157]
+  - log [ref=f198e158]

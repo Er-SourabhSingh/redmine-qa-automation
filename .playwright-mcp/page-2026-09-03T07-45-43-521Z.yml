@@ -1,0 +1,306 @@
+- generic [ref=f327e1]:
+  - generic [ref=f327e2]:
+    - generic [ref=f327e3]:
+      - generic [ref=f327e4]:
+        - list:
+          - listitem [ref=f327e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f327e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f327e7]:
+        - text: Logged in as
+        - link "luna.blossom" [ref=f327e8] [cursor=pointer]:
+          - /url: /users/5
+      - list [ref=f327e9]:
+        - listitem [ref=f327e10]:
+          - link [ref=f327e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f327e12]
+        - listitem [ref=f327e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f327e14]:
+          - link "My page" [ref=f327e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f327e16]:
+          - link "Projects" [ref=f327e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f327e18]:
+          - link "Time Tracker" [ref=f327e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f327e20]:
+          - link "Workloads" [ref=f327e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f327e22]:
+          - link "Help" [ref=f327e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f327e24]:
+      - generic [ref=f327e25]:
+        - generic [ref=f327e26]:
+          - generic [ref=f327e27]:
+            - link "Search..." [ref=f327e28] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/search
+            - text: ":"
+          - textbox "Search...:" [ref=f327e29]
+        - generic [ref=f327e30]:
+          - generic [ref=f327e31] [cursor=pointer]: Helpdesk QA Alpha
+          - text: ✓ ✓
+      - heading "Helpdesk QA Alpha" [level=1] [ref=f327e32]
+      - generic [ref=f327e33]:
+        - list [ref=f327e34]:
+          - listitem [ref=f327e35]:
+            - link "+" [ref=f327e36] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f327e37]:
+            - link "Overview" [ref=f327e38] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha
+          - listitem [ref=f327e39]:
+            - link "Activity" [ref=f327e40] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/activity
+          - listitem [ref=f327e41]:
+            - link "Issues" [ref=f327e42] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues
+          - listitem [ref=f327e43]:
+            - link "Spent time" [ref=f327e44] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/time_entries
+          - listitem [ref=f327e45]:
+            - link "Gantt" [ref=f327e46] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/gantt
+          - listitem [ref=f327e47]:
+            - link "Calendar" [ref=f327e48] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/issues/calendar
+          - listitem [ref=f327e49]:
+            - link "News" [ref=f327e50] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/news
+          - listitem [ref=f327e51]:
+            - link "Documents" [ref=f327e52] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/documents
+          - listitem [ref=f327e53]:
+            - link "Wiki" [ref=f327e54] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/wiki
+          - listitem [ref=f327e55]:
+            - link "Files" [ref=f327e56] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/files
+          - listitem [ref=f327e57]:
+            - link "Helpdesk" [ref=f327e58] [cursor=pointer]:
+              - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - generic [ref=f327e59]:
+          - button [ref=f327e60] [cursor=pointer]
+          - button [ref=f327e63] [cursor=pointer]
+    - generic [ref=f327e66]:
+      - list [ref=f327e70]:
+        - listitem [ref=f327e71]:
+          - link "Helpdesk Dashboard" [ref=f327e72] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f327e75]:
+          - link "Helpdesk Tickets" [ref=f327e76] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f327e79]:
+          - link "Knowledgebase" [ref=f327e80] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f327e83]:
+        - generic [ref=f327e84]:
+          - generic [ref=f327e86]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f327e87]
+            - paragraph [ref=f327e88]: Helpdesk QA Alpha · 6 tickets
+          - link "New issue" [ref=f327e90] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/new
+        - generic [ref=f327e92]:
+          - button "Filters" [expanded] [ref=f327e93] [cursor=pointer]
+          - generic [ref=f327e100]:
+            - generic [ref=f327e101]:
+              - generic [ref=f327e102]:
+                - generic [ref=f327e103]: Status
+                - textbox "New" [active] [ref=f327e107]
+                - 'button "Delete: Status" [ref=f327e108] [cursor=pointer]'
+              - generic [ref=f327e112]:
+                - generic [ref=f327e113]: Customer
+                - textbox "All" [ref=f327e117]
+                - 'button "Delete: Customer" [ref=f327e118] [cursor=pointer]'
+              - generic [ref=f327e122]:
+                - generic [ref=f327e123]: Assignee
+                - textbox "Redmine Admin" [ref=f327e127]
+                - 'button "Delete: Assignee" [ref=f327e128] [cursor=pointer]'
+            - button "Add filter" [ref=f327e134] [cursor=pointer]
+            - generic [ref=f327e138]:
+              - button "Apply" [ref=f327e139] [cursor=pointer]
+              - link "Clear" [ref=f327e142] [cursor=pointer]:
+                - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+              - button "Columns" [ref=f327e148] [cursor=pointer]
+        - table [ref=f327e154]:
+          - rowgroup [ref=f327e155]:
+            - row [ref=f327e156]:
+              - columnheader [ref=f327e157]:
+                - 'link "Ticket #" [ref=f327e158] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?assigned_to_id%5B%5D=1&c%5B%5D=id&c%5B%5D=subject&c%5B%5D=customer&c%5B%5D=organization&c%5B%5D=status&c%5B%5D=priority&c%5B%5D=assigned_to&c%5B%5D=sla_remaining&c%5B%5D=updated_on&closed_from=&closed_to=&created_from=&created_to=&description=&dir=asc&done_ratio_max=&done_ratio_min=&due_date_from=&due_date_to=&issue_id=&sla=&sort=id&start_date_from=&start_date_to=&status_id%5B%5D=1&subject=
+              - columnheader [ref=f327e159]:
+                - link "Subject" [ref=f327e160] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?assigned_to_id%5B%5D=1&c%5B%5D=id&c%5B%5D=subject&c%5B%5D=customer&c%5B%5D=organization&c%5B%5D=status&c%5B%5D=priority&c%5B%5D=assigned_to&c%5B%5D=sla_remaining&c%5B%5D=updated_on&closed_from=&closed_to=&created_from=&created_to=&description=&dir=asc&done_ratio_max=&done_ratio_min=&due_date_from=&due_date_to=&issue_id=&sla=&sort=subject&start_date_from=&start_date_to=&status_id%5B%5D=1&subject=
+              - columnheader "Customer" [ref=f327e161]
+              - columnheader "Organization Name" [ref=f327e162]
+              - columnheader [ref=f327e163]:
+                - link "Status" [ref=f327e164] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?assigned_to_id%5B%5D=1&c%5B%5D=id&c%5B%5D=subject&c%5B%5D=customer&c%5B%5D=organization&c%5B%5D=status&c%5B%5D=priority&c%5B%5D=assigned_to&c%5B%5D=sla_remaining&c%5B%5D=updated_on&closed_from=&closed_to=&created_from=&created_to=&description=&dir=asc&done_ratio_max=&done_ratio_min=&due_date_from=&due_date_to=&issue_id=&sla=&sort=status&start_date_from=&start_date_to=&status_id%5B%5D=1&subject=
+              - columnheader [ref=f327e165]:
+                - link "Priority" [ref=f327e166] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?assigned_to_id%5B%5D=1&c%5B%5D=id&c%5B%5D=subject&c%5B%5D=customer&c%5B%5D=organization&c%5B%5D=status&c%5B%5D=priority&c%5B%5D=assigned_to&c%5B%5D=sla_remaining&c%5B%5D=updated_on&closed_from=&closed_to=&created_from=&created_to=&description=&dir=asc&done_ratio_max=&done_ratio_min=&due_date_from=&due_date_to=&issue_id=&sla=&sort=priority&start_date_from=&start_date_to=&status_id%5B%5D=1&subject=
+              - columnheader "Assignee" [ref=f327e167]
+              - columnheader "SLA Status" [ref=f327e168]
+              - columnheader [ref=f327e169]:
+                - link "Updated ▼" [ref=f327e170] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?assigned_to_id%5B%5D=1&c%5B%5D=id&c%5B%5D=subject&c%5B%5D=customer&c%5B%5D=organization&c%5B%5D=status&c%5B%5D=priority&c%5B%5D=assigned_to&c%5B%5D=sla_remaining&c%5B%5D=updated_on&closed_from=&closed_to=&created_from=&created_to=&description=&dir=asc&done_ratio_max=&done_ratio_min=&due_date_from=&due_date_to=&issue_id=&sla=&sort=updated_on&start_date_from=&start_date_to=&status_id%5B%5D=1&subject=
+          - rowgroup [ref=f327e171]:
+            - row [ref=f327e172]:
+              - cell [ref=f327e173]:
+                - link "#26" [ref=f327e174] [cursor=pointer]:
+                  - /url: /issues/26
+              - cell [ref=f327e175]:
+                - link "TC-HLP-344 fresh unassigned L2 ticket - matching-level agent no-false-positive test" [ref=f327e176] [cursor=pointer]:
+                  - /url: /issues/26
+              - cell [ref=f327e177]:
+                - link "Retest Customer1" [ref=f327e178] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f327e179]
+              - cell "New" [ref=f327e180]
+              - cell "Normal" [ref=f327e183]
+              - cell "Redmine Admin" [ref=f327e186]
+              - cell "⚠ Breached +42h 22m ago" [ref=f327e187]:
+                - generic "+42h 22m ago" [ref=f327e188]:
+                  - generic [ref=f327e189]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 01:09 PM" [ref=f327e191]
+            - row [ref=f327e192]:
+              - cell [ref=f327e193]:
+                - link "#24" [ref=f327e194] [cursor=pointer]:
+                  - /url: /issues/24
+              - cell [ref=f327e195]:
+                - link "TC-HLP-342 fresh unassigned L2 ticket - self-assign warning test" [ref=f327e196] [cursor=pointer]:
+                  - /url: /issues/24
+              - cell [ref=f327e197]:
+                - link "Retest Customer1" [ref=f327e198] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f327e199]
+              - cell "New" [ref=f327e200]
+              - cell "Normal" [ref=f327e203]
+              - cell "Redmine Admin" [ref=f327e206]
+              - cell "⚠ Breached +42h 22m ago" [ref=f327e207]:
+                - generic "+42h 22m ago" [ref=f327e208]:
+                  - generic [ref=f327e209]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 01:07 PM" [ref=f327e211]
+            - row [ref=f327e212]:
+              - cell [ref=f327e213]:
+                - link "#19" [ref=f327e214] [cursor=pointer]:
+                  - /url: /issues/19
+              - cell [ref=f327e215]:
+                - link "TC-HLP-105 deactivate-L2-mid-escalation test ticket" [ref=f327e216] [cursor=pointer]:
+                  - /url: /issues/19
+              - cell [ref=f327e217]:
+                - link "Retest Customer1" [ref=f327e218] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f327e219]
+              - cell "New" [ref=f327e220]
+              - cell "Normal" [ref=f327e223]
+              - cell "Redmine Admin" [ref=f327e226]
+              - cell "⚠ Breached +43h 20m ago" [ref=f327e227]:
+                - generic "+43h 20m ago" [ref=f327e228]:
+                  - generic [ref=f327e229]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 10:16 AM" [ref=f327e231]
+            - row [ref=f327e232]:
+              - cell [ref=f327e233]:
+                - link "#18" [ref=f327e234] [cursor=pointer]:
+                  - /url: /issues/18
+              - cell [ref=f327e235]:
+                - link "test manually by me" [ref=f327e236] [cursor=pointer]:
+                  - /url: /issues/18
+              - cell [ref=f327e237]:
+                - link "Alpha Customer" [ref=f327e238] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f327e239]
+              - cell "New" [ref=f327e240]
+              - cell "Normal" [ref=f327e243]
+              - cell "Redmine Admin" [ref=f327e246]
+              - cell "⚠ Breached +43h 20m ago" [ref=f327e247]:
+                - generic "+43h 20m ago" [ref=f327e248]:
+                  - generic [ref=f327e249]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 09:25 AM" [ref=f327e251]
+            - row [ref=f327e252]:
+              - cell [ref=f327e253]:
+                - link "#17" [ref=f327e254] [cursor=pointer]:
+                  - /url: /issues/17
+              - cell [ref=f327e255]:
+                - link "Admin-email-fix verification ticket - direct L3 top-level breach" [ref=f327e256] [cursor=pointer]:
+                  - /url: /issues/17
+              - cell [ref=f327e257]:
+                - link "Retest Customer1" [ref=f327e258] [cursor=pointer]:
+                  - /url: /rf_customers/7
+              - cell "—" [ref=f327e259]
+              - cell "New" [ref=f327e260]
+              - cell "Normal" [ref=f327e263]
+              - cell "Redmine Admin" [ref=f327e266]
+              - cell "⚠ Breached +47h 19m ago" [ref=f327e267]:
+                - generic "+47h 19m ago" [ref=f327e268]:
+                  - generic [ref=f327e269]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 08:36 AM" [ref=f327e271]
+            - row [ref=f327e272]:
+              - cell [ref=f327e273]:
+                - link "#14" [ref=f327e274] [cursor=pointer]:
+                  - /url: /issues/14
+              - cell [ref=f327e275]:
+                - link "TC-HLP-092 escalation-chain test ticket - fast-breach SLA" [ref=f327e276] [cursor=pointer]:
+                  - /url: /issues/14
+              - cell [ref=f327e277]:
+                - link "Alpha Customer" [ref=f327e278] [cursor=pointer]:
+                  - /url: /rf_customers/6
+              - cell "—" [ref=f327e279]
+              - cell "New" [ref=f327e280]
+              - cell "Normal" [ref=f327e283]
+              - cell "Redmine Admin" [ref=f327e286]
+              - cell "⚠ Breached +47h 29m ago" [ref=f327e287]:
+                - generic "+47h 29m ago" [ref=f327e288]:
+                  - generic [ref=f327e289]: ⚠
+                  - text: Breached
+              - cell "09/01/2026 08:10 AM" [ref=f327e291]
+        - generic [ref=f327e292]:
+          - list
+          - generic [ref=f327e293]: (1-6/6)
+    - generic [ref=f327e294]:
+      - text: Powered by
+      - link "Redmine" [ref=f327e295] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f327e296]
+  - log [ref=f327e297]
+  - log [ref=f327e298]
+  - log [ref=f327e299]
+  - log [ref=f327e300]
+  - log [ref=f327e301]
+  - log [ref=f327e302]
+  - log [ref=f327e303]
+  - log [ref=f327e304]
+  - log [ref=f327e305]
+  - log [ref=f327e306]
+  - log [ref=f327e307]
+  - log [ref=f327e308]
+  - log [ref=f327e309]
+  - log [ref=f327e310]
+  - log [ref=f327e311]
+  - log [ref=f327e312]
+  - log [ref=f327e313]
+  - log [ref=f327e314]
+  - log [ref=f327e315]
+  - log [ref=f327e316]
+  - log [ref=f327e317]
+  - log [ref=f327e318]
+  - log [ref=f327e319]
+  - log [ref=f327e320]
+  - log [ref=f327e321]
+  - log [ref=f327e322]
+  - log [ref=f327e323]
+  - log [ref=f327e324]
+  - log [ref=f327e325]

@@ -1,0 +1,288 @@
+- generic [ref=f48e1]:
+  - generic [ref=f48e2]:
+    - navigation [ref=f48e3]:
+      - list [ref=f48e6]:
+        - listitem [ref=f48e7]:
+          - link "Hauptseite" [ref=f48e8] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f48e9]:
+          - link "Meine Seite" [ref=f48e10] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f48e11]:
+          - link "Projekte" [ref=f48e12] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f48e13]:
+          - link "Agile Board" [ref=f48e14] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f48e15]:
+          - link "Flux Gantt" [ref=f48e16] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f48e17]:
+          - link "Administration" [ref=f48e18] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f48e19]:
+          - link "Hilfe" [ref=f48e20] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - link [ref=f48e23] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=f48e24]: RA
+    - generic [ref=f48e27]:
+      - generic [ref=f48e28]:
+        - generic [ref=f48e29]:
+          - generic [ref=f48e30]:
+            - link "Suche" [ref=f48e31] [cursor=pointer]:
+              - /url: /projects/fluxganttproject/search
+            - text: ":"
+          - textbox "Suche:" [ref=f48e32]
+        - generic [ref=f48e33]:
+          - generic [ref=f48e34] [cursor=pointer]: Flux Gantt Project
+          - text: ✓ ✓
+      - heading "Flux Gantt Project" [level=1] [ref=f48e35]
+      - list [ref=f48e38]:
+        - listitem [ref=f48e39]:
+          - link "+" [ref=f48e40] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=f48e41]:
+          - link "Übersicht" [ref=f48e42] [cursor=pointer]:
+            - /url: /projects/fluxganttproject
+        - listitem [ref=f48e43]:
+          - link "Dashboard" [ref=f48e44] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/analytics_dashboard
+        - listitem [ref=f48e45]:
+          - link "Flux Gantt" [ref=f48e46] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/flux_gantt
+        - listitem [ref=f48e47]:
+          - link "Aktivität" [ref=f48e48] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/activity
+        - listitem [ref=f48e49]:
+          - link "Roadmap" [ref=f48e50] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/roadmap
+        - listitem [ref=f48e51]:
+          - link "Tickets" [ref=f48e52] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues
+        - listitem [ref=f48e53]:
+          - link "Aufgewendete Zeit" [ref=f48e54] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/time_entries
+        - listitem [ref=f48e55]:
+          - link "Gantt-Diagramm" [ref=f48e56] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/gantt
+        - listitem [ref=f48e57]:
+          - link "Kalender" [ref=f48e58] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/issues/calendar
+        - listitem [ref=f48e59]:
+          - link "News" [ref=f48e60] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/news
+        - listitem [ref=f48e61]:
+          - link "Dokumente" [ref=f48e62] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/documents
+        - listitem [ref=f48e63]:
+          - link "Wiki" [ref=f48e64] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/wiki
+        - listitem [ref=f48e65]:
+          - link "Dateien" [ref=f48e66] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/files
+        - listitem [ref=f48e67]:
+          - link "Konfiguration" [ref=f48e68] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/settings
+    - generic [ref=f48e70]:
+      - generic [ref=f48e71]:
+        - generic [ref=f48e72]:
+          - heading "Analyse-Dashboard" [level=2] [ref=f48e73]
+          - generic [ref=f48e74]:
+            - button "Teilen" [ref=f48e75] [cursor=pointer]
+            - button "AUS" [ref=f48e79] [cursor=pointer]
+            - combobox [disabled] [ref=f48e84]:
+              - option "30 Sek."
+              - option "1 Min." [selected]
+              - option "2 Min."
+              - option "5 Min."
+              - option "10 Min."
+        - generic [ref=f48e85]:
+          - generic [ref=f48e86]:
+            - generic [ref=f48e87]: "Tracker:"
+            - combobox "Tracker:" [ref=f48e88]:
+              - option "Alle Tracker" [selected]
+              - option "Bug"
+              - option "Feature"
+              - option "Support"
+          - generic [ref=f48e89]:
+            - generic [ref=f48e90]: "Zeitraum:"
+            - combobox "Zeitraum:" [ref=f48e91]:
+              - option "Heute"
+              - option "Letzte 7 Tage"
+              - option "Letzte 30 Tage" [selected]
+              - option "Letzte 90 Tage"
+              - option "Dieser Monat"
+              - option "Letzter Monat"
+              - option "Dieses Jahr"
+              - option "Benutzerdefinierter Zeitraum"
+          - button "Anwenden" [ref=f48e92] [cursor=pointer]
+          - generic [ref=f48e93]:
+            - button "Aktualisieren" [ref=f48e94] [cursor=pointer]
+            - button "Vollbild" [ref=f48e97] [cursor=pointer]
+        - button "Diagramm hinzufügen" [ref=f48e101] [cursor=pointer]
+        - generic [ref=f48e238]:
+          - generic [ref=f48e239]:
+            - heading "Tickets nach Status" [level=3] [ref=f48e242]
+            - generic [ref=f48e243]:
+              - button "Diagramm kopieren" [ref=f48e244] [cursor=pointer]
+              - button "Vollbild" [ref=f48e248] [cursor=pointer]
+              - button "Diagramminformationen" [ref=f48e251] [cursor=pointer]
+              - button "Einstellungen" [ref=f48e254] [cursor=pointer]
+              - button "Entfernen" [ref=f48e258] [cursor=pointer]
+          - generic [ref=f48e263] [cursor=pointer]
+          - generic "Ziehen, um die Breite zu ändern" [ref=f48e264]
+          - generic "Ziehen, um die Höhe zu ändern" [ref=f48e265]
+          - generic "Ziehen, um Breite und Höhe zu ändern" [ref=f48e266]
+      - generic [ref=f48e269]:
+        - generic [ref=f48e270]:
+          - heading "Diagrammeinstellungen" [level=3] [ref=f48e271]
+          - button "Schließen" [active] [ref=f48e272] [cursor=pointer]
+        - generic [ref=f48e276]:
+          - generic [ref=f48e277]:
+            - generic [ref=f48e278]: Allgemein
+            - generic [ref=f48e281]:
+              - generic [ref=f48e282]: Diagrammtitel
+              - textbox "Diagrammtitel eingeben" [ref=f48e283]: Tickets nach Status
+            - generic [ref=f48e284]:
+              - generic [ref=f48e285]: Position der Legende
+              - combobox "Position der Legende" [ref=f48e286]:
+                - option "Unten" [selected]
+                - option "Oben"
+                - option "Links"
+                - option "Rechts"
+            - generic [ref=f48e287]:
+              - generic [ref=f48e288]: Datenbeschriftungen anzeigen
+              - combobox "Datenbeschriftungen anzeigen" [ref=f48e289]:
+                - option "Ausblenden" [selected]
+                - option "Anzeigen"
+            - generic [ref=f48e290]:
+              - generic [ref=f48e291]:
+                - generic [ref=f48e292]: Benutzerdefinierter Zeitraum
+                - generic [ref=f48e293]: Leer lassen, um den globalen Datumsfilter zu verwenden
+              - generic [ref=f48e294]:
+                - generic [ref=f48e295]:
+                  - generic [ref=f48e296]: Startdatum
+                  - textbox [ref=f48e297]
+                - generic [ref=f48e298]:
+                  - generic [ref=f48e299]: Enddatum
+                  - textbox [ref=f48e300]
+              - button "🗑️ Benutzerdefinierte Daten löschen" [ref=f48e301] [cursor=pointer]
+              - paragraph [ref=f48e302]: Leer lassen, um den globalen Datumsfilter zu verwenden
+          - generic [ref=f48e303]:
+            - generic [ref=f48e304]: Datenfilter
+            - generic [ref=f48e310]:
+              - generic [ref=f48e311]:
+                - generic [ref=f48e312]: Ticket-Status
+                - generic [ref=f48e313]: Bis zu 15 Status auswählen
+              - generic [ref=f48e314]:
+                - generic [ref=f48e315]:
+                  - generic [ref=f48e316]: Verfügbare Status
+                  - listbox [ref=f48e317]:
+                    - option "Closed" [ref=f48e318] [cursor=pointer]
+                    - option "Rejected" [ref=f48e319] [cursor=pointer]
+                - generic [ref=f48e320]:
+                  - button "▶" [ref=f48e321] [cursor=pointer]
+                  - button "◀" [ref=f48e322] [cursor=pointer]
+                - generic [ref=f48e323]:
+                  - generic [ref=f48e324]: Ausgewählte Status
+                  - listbox [ref=f48e325]:
+                    - option "Feedback" [ref=f48e326] [cursor=pointer]
+                    - option "In Progress" [ref=f48e327] [cursor=pointer]
+                    - option "New" [ref=f48e328] [cursor=pointer]
+                    - option "Resolved" [ref=f48e329] [cursor=pointer]
+          - generic [ref=f48e330]:
+            - generic [ref=f48e331]: Darstellung
+            - generic [ref=f48e339]:
+              - generic [ref=f48e340]: Akzentfarbe oben
+              - generic [ref=f48e344]:
+                - generic [ref=f48e345]:
+                  - generic [ref=f48e346]:
+                    - textbox [ref=f48e347] [cursor=pointer]: "#2196f3"
+                    - generic [ref=f48e348]: Farbe wählen
+                  - generic [ref=f48e349]:
+                    - generic [ref=f48e350]: Hex-Code
+                    - textbox "#2196F3" [ref=f48e351]
+                - paragraph [ref=f48e352]: Diese Farbe erscheint als Balken am oberen Rand der Diagrammkarte
+            - generic [ref=f48e355]:
+              - generic [ref=f48e356]: Farbpalette des Diagramms
+              - generic [ref=f48e362]:
+                - generic [ref=f48e363]:
+                  - generic [ref=f48e364]: Vorgefertigte Palette auswählen
+                  - generic [ref=f48e365]:
+                    - generic "Modern" [ref=f48e366] [cursor=pointer]
+                    - generic "Pastell" [ref=f48e375] [cursor=pointer]
+                    - generic "Kräftig" [ref=f48e384] [cursor=pointer]
+                    - generic "Professionell" [ref=f48e393] [cursor=pointer]
+                    - generic "Erdtöne" [ref=f48e402] [cursor=pointer]
+                    - generic "Ozean" [ref=f48e411] [cursor=pointer]
+                  - generic [ref=f48e420]: Wählen Sie oben eine Palette oder erstellen Sie eine eigene
+                  - generic [ref=f48e422]:
+                    - button "Eigene Palette erstellen" [ref=f48e423] [cursor=pointer]
+                    - button "🗑️ Farben zurücksetzen" [ref=f48e424] [cursor=pointer]
+                - paragraph [ref=f48e425]: Die ausgewählten Farben werden in dieser Reihenfolge für die Datenreihen des Diagramms verwendet
+        - generic [ref=f48e428]:
+          - button "Abbrechen" [ref=f48e429] [cursor=pointer]
+          - button "Einstellungen speichern" [ref=f48e430] [cursor=pointer]
+    - generic [ref=f48e131]:
+      - text: Powered by
+      - link "Redmine" [ref=f48e132] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f48e133]
+  - log [ref=f48e134]
+  - log [ref=f48e135]
+  - log [ref=f48e136]
+  - log [ref=f48e137]
+  - log [ref=f48e138]
+  - log [ref=f48e139]
+  - log [ref=f48e140]
+  - log [ref=f48e141]
+  - log [ref=f48e142]
+  - log [ref=f48e143]
+  - log [ref=f48e144]
+  - log [ref=f48e145]
+  - log [ref=f48e146]
+  - log [ref=f48e147]
+  - log [ref=f48e148]
+  - log [ref=f48e149]
+  - log [ref=f48e150]
+  - log [ref=f48e151]
+  - log [ref=f48e152]
+  - log [ref=f48e153]
+  - log [ref=f48e154]
+  - log [ref=f48e155]
+  - log [ref=f48e156]
+  - log [ref=f48e157]
+  - log [ref=f48e158]
+  - log [ref=f48e159]
+  - log [ref=f48e160]
+  - log [ref=f48e161]
+  - log [ref=f48e162]
+  - log [ref=f48e163]
+  - log [ref=f48e164]
+  - log [ref=f48e165]
+  - log [ref=f48e166]
+  - log [ref=f48e167]
+  - log [ref=f48e168]
+  - log [ref=f48e169]
+  - log [ref=f48e170]
+  - log [ref=f48e171]
+  - log [ref=f48e172]
+  - log [ref=f48e173]
+  - log [ref=f48e174]
+  - log [ref=f48e175]
+  - log [ref=f48e176]
+  - log [ref=f48e177]
+  - log [ref=f48e178]
+  - log [ref=f48e179]
+  - log [ref=f48e180]
+  - log [ref=f48e181]
+  - log [ref=f48e182]
+  - log [ref=f48e183]
+  - log [ref=f48e184]
+  - log [ref=f48e185]
+  - log [ref=f48e186]
+  - log [ref=f48e187]
+  - log [ref=f48e188]
+  - log [ref=f48e189]

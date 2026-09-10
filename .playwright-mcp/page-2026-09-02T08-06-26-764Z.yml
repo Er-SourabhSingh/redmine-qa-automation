@@ -1,0 +1,70 @@
+- generic [active] [ref=f403e1]:
+  - generic [ref=f403e2]:
+    - generic [ref=f403e3]:
+      - generic [ref=f403e4]:
+        - list:
+          - listitem [ref=f403e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f403e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f403e7]:
+        - text: Logged in as
+        - link "zero.perm.user" [ref=f403e8] [cursor=pointer]:
+          - /url: /users/15
+      - list [ref=f403e9]:
+        - listitem [ref=f403e10]:
+          - link [ref=f403e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f403e12]
+        - listitem [ref=f403e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f403e14]:
+          - link "My page" [ref=f403e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f403e16]:
+          - link "Projects" [ref=f403e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f403e18]:
+          - link "Time Tracker" [ref=f403e19] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f403e20]:
+          - link "Workloads" [ref=f403e21] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f403e22]:
+          - link "Help" [ref=f403e23] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f403e24]:
+      - generic [ref=f403e25]:
+        - generic [ref=f403e26]:
+          - generic [ref=f403e27]:
+            - link "Search..." [ref=f403e28] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f403e29]
+        - generic [ref=f403e30]:
+          - generic [ref=f403e31] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Redmine" [level=1] [ref=f403e32]
+      - list [ref=f403e34]:
+        - listitem [ref=f403e35]:
+          - link "Projects" [ref=f403e36] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f403e37]:
+          - link "Activity" [ref=f403e38] [cursor=pointer]:
+            - /url: /activity
+    - generic [ref=f403e40]:
+      - heading "403" [level=2] [ref=f403e41]
+      - paragraph [ref=f403e42]: You are not authorized to access this page.
+      - paragraph [ref=f403e43]:
+        - link "Back" [ref=f403e44] [cursor=pointer]:
+          - /url: javascript:history.back()
+    - generic [ref=f403e45]:
+      - text: Powered by
+      - link "Redmine" [ref=f403e46] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f403e47]
+  - log [ref=f403e48]

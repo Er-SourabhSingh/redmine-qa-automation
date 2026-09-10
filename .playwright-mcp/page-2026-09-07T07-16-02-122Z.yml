@@ -1,0 +1,1155 @@
+- generic [active] [ref=f8e1]:
+  - generic [ref=f8e2]:
+    - generic [ref=f8e3]:
+      - generic [ref=f8e4]:
+        - list:
+          - listitem [ref=f8e5]:
+            - link "Mein Konto":
+              - /url: /my/account
+          - listitem [ref=f8e6]:
+            - link "Abmelden":
+              - /url: /logout
+      - generic [ref=f8e7]:
+        - text: Angemeldet als
+        - link "admin" [ref=f8e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f8e9]:
+        - listitem [ref=f8e10]:
+          - link [ref=f8e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f8e12]
+        - listitem [ref=f8e13]:
+          - link "Hauptseite":
+            - /url: /
+        - listitem [ref=f8e14]:
+          - link "Meine Seite" [ref=f8e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f8e16]:
+          - link "Projekte" [ref=f8e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f8e18]:
+          - link "Agile Board" [ref=f8e19] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f8e20]:
+          - link "Flux Gantt" [ref=f8e21] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f8e22]:
+          - link "Administration" [ref=f8e23] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f8e24]:
+          - link "Hilfe" [ref=f8e25] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+    - generic [ref=f8e26]:
+      - generic [ref=f8e27]:
+        - generic [ref=f8e28]:
+          - generic [ref=f8e29]:
+            - link "Suche" [ref=f8e30] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Suche:" [ref=f8e31]
+        - generic [ref=f8e32]:
+          - generic [ref=f8e33] [cursor=pointer]: Zu einem Projekt springen...
+          - text: ✓
+      - heading "Redmine" [level=1] [ref=f8e34]
+      - list [ref=f8e36]:
+        - listitem [ref=f8e37]:
+          - link "Projekte" [ref=f8e38] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f8e39]:
+          - link "Aktivität" [ref=f8e40] [cursor=pointer]:
+            - /url: /activity
+        - listitem [ref=f8e41]:
+          - link "Tickets" [ref=f8e42] [cursor=pointer]:
+            - /url: /issues
+        - listitem [ref=f8e43]:
+          - link "Aufgewendete Zeit" [ref=f8e44] [cursor=pointer]:
+            - /url: /time_entries
+        - listitem [ref=f8e45]:
+          - link "Gantt-Diagramm" [ref=f8e46] [cursor=pointer]:
+            - /url: /issues/gantt
+        - listitem [ref=f8e47]:
+          - link "Kalender" [ref=f8e48] [cursor=pointer]:
+            - /url: /issues/calendar
+        - listitem [ref=f8e49]:
+          - link "News" [ref=f8e50] [cursor=pointer]:
+            - /url: /news
+    - generic [ref=f8e51]:
+      - generic [ref=f8e52]:
+        - link [ref=f8e54] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f8e57]:
+          - heading "Abfragen" [level=3] [ref=f8e58]
+          - list [ref=f8e59]:
+            - listitem [ref=f8e60]:
+              - link "Issues assigned to me" [ref=f8e61] [cursor=pointer]:
+                - /url: /issues?query_id=1
+            - listitem [ref=f8e62]:
+              - link "Reported issues" [ref=f8e63] [cursor=pointer]:
+                - /url: /issues?query_id=2
+            - listitem [ref=f8e64]:
+              - link "Updated issues" [ref=f8e65] [cursor=pointer]:
+                - /url: /issues?query_id=3
+            - listitem [ref=f8e66]:
+              - link "Watched issues" [ref=f8e67] [cursor=pointer]:
+                - /url: /issues?query_id=4
+      - generic [ref=f8e68]:
+        - generic [ref=f8e69]:
+          - link "Neues Ticket" [ref=f8e70] [cursor=pointer]:
+            - /url: /issues/new
+          - generic "Aktionen" [ref=f8e74] [cursor=pointer]
+        - heading "Tickets" [level=2] [ref=f8e76]
+        - generic [ref=f8e79]:
+          - group "Filter" [ref=f8e80]
+          - group "Optionen" [ref=f8e82]
+        - generic [ref=f8e84]:
+          - button "Copy Table" [ref=f8e86] [cursor=pointer]
+          - table [ref=f8e91]:
+            - rowgroup [ref=f8e103]:
+              - row [ref=f8e104]:
+                - columnheader [ref=f8e105]:
+                  - checkbox "Alles auswählen / Alles abwählen" [ref=f8e106]
+                - columnheader [ref=f8e107]:
+                  - link "#" [ref=f8e108] [cursor=pointer]:
+                    - /url: /issues?sort=id
+                - columnheader [ref=f8e111]:
+                  - link "Projekt" [ref=f8e112] [cursor=pointer]:
+                    - /url: /issues?sort=project%2Cid%3Adesc
+                - columnheader [ref=f8e114]:
+                  - link "Tracker" [ref=f8e115] [cursor=pointer]:
+                    - /url: /issues?sort=tracker%2Cid%3Adesc
+                - columnheader [ref=f8e117]:
+                  - link "Status" [ref=f8e118] [cursor=pointer]:
+                    - /url: /issues?sort=status%2Cid%3Adesc
+                - columnheader [ref=f8e120]:
+                  - link "Priorität" [ref=f8e121] [cursor=pointer]:
+                    - /url: /issues?sort=priority%3Adesc%2Cid%3Adesc
+                - columnheader [ref=f8e123]:
+                  - link "Thema" [ref=f8e124] [cursor=pointer]:
+                    - /url: /issues?sort=subject%2Cid%3Adesc
+                - columnheader [ref=f8e126]:
+                  - link "Zugewiesen an" [ref=f8e127] [cursor=pointer]:
+                    - /url: /issues?sort=assigned_to%2Cid%3Adesc
+                - columnheader [ref=f8e129]:
+                  - link "Aktualisiert" [ref=f8e130] [cursor=pointer]:
+                    - /url: /issues?sort=updated_on%3Adesc%2Cid%3Adesc
+                - columnheader [ref=f8e132]
+            - rowgroup [ref=f8e133]:
+              - row [ref=f8e134]:
+                - cell [ref=f8e135]:
+                  - checkbox [ref=f8e136]
+                - cell [ref=f8e137]:
+                  - link "265" [ref=f8e138] [cursor=pointer]:
+                    - /url: /issues/265
+                - cell [ref=f8e139]:
+                  - generic [ref=f8e140]:
+                    - link "Flux Gantt Project" [ref=f8e142] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject
+                    - button "Edit" [ref=f8e143] [cursor=pointer]
+                - cell "Bug Edit" [ref=f8e144]:
+                  - generic [ref=f8e145]:
+                    - generic [ref=f8e146]: Bug
+                    - button "Edit" [ref=f8e147] [cursor=pointer]
+                - cell "Resolved Edit" [ref=f8e148]:
+                  - generic [ref=f8e149]:
+                    - generic [ref=f8e150]: Resolved
+                    - button "Edit" [ref=f8e151] [cursor=pointer]
+                - cell "Low Edit" [ref=f8e152]:
+                  - generic [ref=f8e153]:
+                    - generic [ref=f8e154]: Low
+                    - button "Edit" [ref=f8e155] [cursor=pointer]
+                - cell [ref=f8e156]:
+                  - generic [ref=f8e157]:
+                    - link "Fix audit log performance" [ref=f8e159] [cursor=pointer]:
+                      - /url: /issues/265
+                    - button "Edit" [ref=f8e160] [cursor=pointer]
+                - cell [ref=f8e161]:
+                  - generic [ref=f8e162]:
+                    - link "Summer Rain" [ref=f8e164] [cursor=pointer]:
+                      - /url: /users/11
+                    - button "Edit" [ref=f8e165] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e166]
+                - cell [ref=f8e167]:
+                  - link "Aktionen" [ref=f8e168] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e170]:
+                - cell [ref=f8e171]:
+                  - checkbox [ref=f8e172]
+                - cell [ref=f8e173]:
+                  - link "264" [ref=f8e174] [cursor=pointer]:
+                    - /url: /issues/264
+                - cell [ref=f8e175]:
+                  - generic [ref=f8e176]:
+                    - link "Flux Gantt Project" [ref=f8e178] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject
+                    - button "Edit" [ref=f8e179] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e180]:
+                  - generic [ref=f8e181]:
+                    - generic [ref=f8e182]: Feature
+                    - button "Edit" [ref=f8e183] [cursor=pointer]
+                - cell "Feedback Edit" [ref=f8e184]:
+                  - generic [ref=f8e185]:
+                    - generic [ref=f8e186]: Feedback
+                    - button "Edit" [ref=f8e187] [cursor=pointer]
+                - cell "Urgent Edit" [ref=f8e188]:
+                  - generic [ref=f8e189]:
+                    - generic [ref=f8e190]: Urgent
+                    - button "Edit" [ref=f8e191] [cursor=pointer]
+                - cell [ref=f8e192]:
+                  - generic [ref=f8e193]:
+                    - link "Implement rollback functionality" [ref=f8e195] [cursor=pointer]:
+                      - /url: /issues/264
+                    - button "Edit" [ref=f8e196] [cursor=pointer]
+                - cell [ref=f8e197]:
+                  - generic [ref=f8e198]:
+                    - link "Violet Ember" [ref=f8e200] [cursor=pointer]:
+                      - /url: /users/12
+                    - button "Edit" [ref=f8e201] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e202]
+                - cell [ref=f8e203]:
+                  - link "Aktionen" [ref=f8e204] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e206]:
+                - cell [ref=f8e207]:
+                  - checkbox [ref=f8e208]
+                - cell [ref=f8e209]:
+                  - link "263" [ref=f8e210] [cursor=pointer]:
+                    - /url: /issues/263
+                - cell [ref=f8e211]:
+                  - generic [ref=f8e212]:
+                    - link "Flux Gantt Project" [ref=f8e214] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject
+                    - button "Edit" [ref=f8e215] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e216]:
+                  - generic [ref=f8e217]:
+                    - generic [ref=f8e218]: Feature
+                    - button "Edit" [ref=f8e219] [cursor=pointer]
+                - cell "New Edit" [ref=f8e220]:
+                  - generic [ref=f8e221]:
+                    - generic [ref=f8e222]: New
+                    - button "Edit" [ref=f8e223] [cursor=pointer]
+                - cell "High Edit" [ref=f8e224]:
+                  - generic [ref=f8e225]:
+                    - generic [ref=f8e226]: High
+                    - button "Edit" [ref=f8e227] [cursor=pointer]
+                - cell [ref=f8e228]:
+                  - generic [ref=f8e229]:
+                    - link "Add change comments" [ref=f8e231] [cursor=pointer]:
+                      - /url: /issues/263
+                    - button "Edit" [ref=f8e232] [cursor=pointer]
+                - cell [ref=f8e233]:
+                  - generic [ref=f8e234]:
+                    - link "Celeste Dawn" [ref=f8e236] [cursor=pointer]:
+                      - /url: /users/13
+                    - button "Edit" [ref=f8e237] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e238]
+                - cell [ref=f8e239]:
+                  - link "Aktionen" [ref=f8e240] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e242]:
+                - cell [ref=f8e243]:
+                  - checkbox [ref=f8e244]
+                - cell [ref=f8e245]:
+                  - link "262" [ref=f8e246] [cursor=pointer]:
+                    - /url: /issues/262
+                - cell [ref=f8e247]:
+                  - generic [ref=f8e248]:
+                    - link "Flux Gantt Project" [ref=f8e250] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject
+                    - button "Edit" [ref=f8e251] [cursor=pointer]
+                - cell "Bug Edit" [ref=f8e252]:
+                  - generic [ref=f8e253]:
+                    - generic [ref=f8e254]: Bug
+                    - button "Edit" [ref=f8e255] [cursor=pointer]
+                - cell "In Progress Edit" [ref=f8e256]:
+                  - generic [ref=f8e257]:
+                    - generic [ref=f8e258]: In Progress
+                    - button "Edit" [ref=f8e259] [cursor=pointer]
+                - cell "Normal Edit" [ref=f8e260]:
+                  - generic [ref=f8e261]:
+                    - generic [ref=f8e262]: Normal
+                    - button "Edit" [ref=f8e263] [cursor=pointer]
+                - cell [ref=f8e264]:
+                  - generic [ref=f8e265]:
+                    - link "Fix change detection" [ref=f8e267] [cursor=pointer]:
+                      - /url: /issues/262
+                    - button "Edit" [ref=f8e268] [cursor=pointer]
+                - cell [ref=f8e269]:
+                  - generic [ref=f8e270]:
+                    - link "Serenity Bloom" [ref=f8e272] [cursor=pointer]:
+                      - /url: /users/14
+                    - button "Edit" [ref=f8e273] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e274]
+                - cell [ref=f8e275]:
+                  - link "Aktionen" [ref=f8e276] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e278]:
+                - cell [ref=f8e279]:
+                  - checkbox [ref=f8e280]
+                - cell [ref=f8e281]:
+                  - link "261" [ref=f8e282] [cursor=pointer]:
+                    - /url: /issues/261
+                - cell [ref=f8e283]:
+                  - generic [ref=f8e284]:
+                    - link "Flux Gantt Project" [ref=f8e286] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject
+                    - button "Edit" [ref=f8e287] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e288]:
+                  - generic [ref=f8e289]:
+                    - generic [ref=f8e290]: Feature
+                    - button "Edit" [ref=f8e291] [cursor=pointer]
+                - cell "Feedback Edit" [ref=f8e292]:
+                  - generic [ref=f8e293]:
+                    - generic [ref=f8e294]: Feedback
+                    - button "Edit" [ref=f8e295] [cursor=pointer]
+                - cell "Low Edit" [ref=f8e296]:
+                  - generic [ref=f8e297]:
+                    - generic [ref=f8e298]: Low
+                    - button "Edit" [ref=f8e299] [cursor=pointer]
+                - cell [ref=f8e300]:
+                  - generic [ref=f8e301]:
+                    - link "Implement audit trail" [ref=f8e303] [cursor=pointer]:
+                      - /url: /issues/261
+                    - button "Edit" [ref=f8e304] [cursor=pointer]
+                - cell [ref=f8e305]:
+                  - generic [ref=f8e306]:
+                    - link "Nova Starling" [ref=f8e308] [cursor=pointer]:
+                      - /url: /users/15
+                    - button "Edit" [ref=f8e309] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e310]
+                - cell [ref=f8e311]:
+                  - link "Aktionen" [ref=f8e312] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e314]:
+                - cell [ref=f8e315]:
+                  - checkbox [ref=f8e316]
+                - cell [ref=f8e317]:
+                  - link "260" [ref=f8e318] [cursor=pointer]:
+                    - /url: /issues/260
+                - cell [ref=f8e319]:
+                  - generic [ref=f8e320]:
+                    - link "Agile Board Project" [ref=f8e322] [cursor=pointer]:
+                      - /url: /projects/agileboard
+                    - button "Edit" [ref=f8e323] [cursor=pointer]
+                - cell "Bug Edit" [ref=f8e324]:
+                  - generic [ref=f8e325]:
+                    - generic [ref=f8e326]: Bug
+                    - button "Edit" [ref=f8e327] [cursor=pointer]
+                - cell "Resolved Edit" [ref=f8e328]:
+                  - generic [ref=f8e329]:
+                    - generic [ref=f8e330]: Resolved
+                    - button "Edit" [ref=f8e331] [cursor=pointer]
+                - cell "Low Edit" [ref=f8e332]:
+                  - generic [ref=f8e333]:
+                    - generic [ref=f8e334]: Low
+                    - button "Edit" [ref=f8e335] [cursor=pointer]
+                - cell [ref=f8e336]:
+                  - generic [ref=f8e337]:
+                    - link "Fix export performance" [ref=f8e339] [cursor=pointer]:
+                      - /url: /issues/260
+                    - button "Edit" [ref=f8e340] [cursor=pointer]
+                - cell [ref=f8e341]:
+                  - generic [ref=f8e342]:
+                    - link "Redmine Admin" [ref=f8e344] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f8e345] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e346]
+                - cell [ref=f8e347]:
+                  - link "Aktionen" [ref=f8e348] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e350]:
+                - cell [ref=f8e351]:
+                  - checkbox [ref=f8e352]
+                - cell [ref=f8e353]:
+                  - link "259" [ref=f8e354] [cursor=pointer]:
+                    - /url: /issues/259
+                - cell [ref=f8e355]:
+                  - generic [ref=f8e356]:
+                    - link "Agile Board Project" [ref=f8e358] [cursor=pointer]:
+                      - /url: /projects/agileboard
+                    - button "Edit" [ref=f8e359] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e360]:
+                  - generic [ref=f8e361]:
+                    - generic [ref=f8e362]: Feature
+                    - button "Edit" [ref=f8e363] [cursor=pointer]
+                - cell "In Progress Edit" [ref=f8e364]:
+                  - generic [ref=f8e365]:
+                    - generic [ref=f8e366]: In Progress
+                    - button "Edit" [ref=f8e367] [cursor=pointer]
+                - cell "Urgent Edit" [ref=f8e368]:
+                  - generic [ref=f8e369]:
+                    - generic [ref=f8e370]: Urgent
+                    - button "Edit" [ref=f8e371] [cursor=pointer]
+                - cell [ref=f8e372]:
+                  - generic [ref=f8e373]:
+                    - link "Implement scheduled exports" [ref=f8e375] [cursor=pointer]:
+                      - /url: /issues/259
+                    - button "Edit" [ref=f8e376] [cursor=pointer]
+                - cell [ref=f8e377]:
+                  - generic [ref=f8e378]:
+                    - link "Redmine Admin" [ref=f8e380] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f8e381] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e382]
+                - cell [ref=f8e383]:
+                  - link "Aktionen" [ref=f8e384] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e386]:
+                - cell [ref=f8e387]:
+                  - checkbox [ref=f8e388]
+                - cell [ref=f8e389]:
+                  - link "258" [ref=f8e390] [cursor=pointer]:
+                    - /url: /issues/258
+                - cell [ref=f8e391]:
+                  - generic [ref=f8e392]:
+                    - link "Agile Board Project" [ref=f8e394] [cursor=pointer]:
+                      - /url: /projects/agileboard
+                    - button "Edit" [ref=f8e395] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e396]:
+                  - generic [ref=f8e397]:
+                    - generic [ref=f8e398]: Feature
+                    - button "Edit" [ref=f8e399] [cursor=pointer]
+                - cell "New Edit" [ref=f8e400]:
+                  - generic [ref=f8e401]:
+                    - generic [ref=f8e402]: New
+                    - button "Edit" [ref=f8e403] [cursor=pointer]
+                - cell "High Edit" [ref=f8e404]:
+                  - generic [ref=f8e405]:
+                    - generic [ref=f8e406]: High
+                    - button "Edit" [ref=f8e407] [cursor=pointer]
+                - cell [ref=f8e408]:
+                  - generic [ref=f8e409]:
+                    - link "Add Excel export formatting" [ref=f8e411] [cursor=pointer]:
+                      - /url: /issues/258
+                    - button "Edit" [ref=f8e412] [cursor=pointer]
+                - cell [ref=f8e413]:
+                  - generic [ref=f8e414]:
+                    - link "Redmine Admin" [ref=f8e416] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f8e417] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e418]
+                - cell [ref=f8e419]:
+                  - link "Aktionen" [ref=f8e420] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e422]:
+                - cell [ref=f8e423]:
+                  - checkbox [ref=f8e424]
+                - cell [ref=f8e425]:
+                  - link "257" [ref=f8e426] [cursor=pointer]:
+                    - /url: /issues/257
+                - cell [ref=f8e427]:
+                  - generic [ref=f8e428]:
+                    - link "Agile Board Project" [ref=f8e430] [cursor=pointer]:
+                      - /url: /projects/agileboard
+                    - button "Edit" [ref=f8e431] [cursor=pointer]
+                - cell "Bug Edit" [ref=f8e432]:
+                  - generic [ref=f8e433]:
+                    - generic [ref=f8e434]: Bug
+                    - button "Edit" [ref=f8e435] [cursor=pointer]
+                - cell "Feedback Edit" [ref=f8e436]:
+                  - generic [ref=f8e437]:
+                    - generic [ref=f8e438]: Feedback
+                    - button "Edit" [ref=f8e439] [cursor=pointer]
+                - cell "Normal Edit" [ref=f8e440]:
+                  - generic [ref=f8e441]:
+                    - generic [ref=f8e442]: Normal
+                    - button "Edit" [ref=f8e443] [cursor=pointer]
+                - cell [ref=f8e444]:
+                  - generic [ref=f8e445]:
+                    - link "Fix CSV encoding issues" [ref=f8e447] [cursor=pointer]:
+                      - /url: /issues/257
+                    - button "Edit" [ref=f8e448] [cursor=pointer]
+                - cell [ref=f8e449]:
+                  - generic [ref=f8e450]:
+                    - link "Redmine Admin" [ref=f8e452] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f8e453] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e454]
+                - cell [ref=f8e455]:
+                  - link "Aktionen" [ref=f8e456] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e458]:
+                - cell [ref=f8e459]:
+                  - checkbox [ref=f8e460]
+                - cell [ref=f8e461]:
+                  - link "256" [ref=f8e462] [cursor=pointer]:
+                    - /url: /issues/256
+                - cell [ref=f8e463]:
+                  - generic [ref=f8e464]:
+                    - link "Agile Board Project" [ref=f8e466] [cursor=pointer]:
+                      - /url: /projects/agileboard
+                    - button "Edit" [ref=f8e467] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e468]:
+                  - generic [ref=f8e469]:
+                    - generic [ref=f8e470]: Feature
+                    - button "Edit" [ref=f8e471] [cursor=pointer]
+                - cell "In Progress Edit" [ref=f8e472]:
+                  - generic [ref=f8e473]:
+                    - generic [ref=f8e474]: In Progress
+                    - button "Edit" [ref=f8e475] [cursor=pointer]
+                - cell "Low Edit" [ref=f8e476]:
+                  - generic [ref=f8e477]:
+                    - generic [ref=f8e478]: Low
+                    - button "Edit" [ref=f8e479] [cursor=pointer]
+                - cell [ref=f8e480]:
+                  - generic [ref=f8e481]:
+                    - link "Implement data export templates" [ref=f8e483] [cursor=pointer]:
+                      - /url: /issues/256
+                    - button "Edit" [ref=f8e484] [cursor=pointer]
+                - cell [ref=f8e485]:
+                  - generic [ref=f8e486]:
+                    - link "Redmine Admin" [ref=f8e488] [cursor=pointer]:
+                      - /url: /users/1
+                    - button "Edit" [ref=f8e489] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e490]
+                - cell [ref=f8e491]:
+                  - link "Aktionen" [ref=f8e492] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e494]:
+                - cell [ref=f8e495]:
+                  - checkbox [ref=f8e496]
+                - cell [ref=f8e497]:
+                  - link "255" [ref=f8e498] [cursor=pointer]:
+                    - /url: /issues/255
+                - cell [ref=f8e499]:
+                  - generic [ref=f8e500]:
+                    - link "MVP build for PaySheet Application" [ref=f8e502] [cursor=pointer]:
+                      - /url: /projects/mvpbuild
+                    - button "Edit" [ref=f8e503] [cursor=pointer]
+                - cell "Bug Edit" [ref=f8e504]:
+                  - generic [ref=f8e505]:
+                    - generic [ref=f8e506]: Bug
+                    - button "Edit" [ref=f8e507] [cursor=pointer]
+                - cell "Resolved Edit" [ref=f8e508]:
+                  - generic [ref=f8e509]:
+                    - generic [ref=f8e510]: Resolved
+                    - button "Edit" [ref=f8e511] [cursor=pointer]
+                - cell "Low Edit" [ref=f8e512]:
+                  - generic [ref=f8e513]:
+                    - generic [ref=f8e514]: Low
+                    - button "Edit" [ref=f8e515] [cursor=pointer]
+                - cell [ref=f8e516]:
+                  - generic [ref=f8e517]:
+                    - link "Fix message synchronization" [ref=f8e519] [cursor=pointer]:
+                      - /url: /issues/255
+                    - button "Edit" [ref=f8e520] [cursor=pointer]
+                - cell [ref=f8e521]:
+                  - generic [ref=f8e522]:
+                    - link "Luna Blossom" [ref=f8e524] [cursor=pointer]:
+                      - /url: /users/6
+                    - button "Edit" [ref=f8e525] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e526]
+                - cell [ref=f8e527]:
+                  - link "Aktionen" [ref=f8e528] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e530]:
+                - cell [ref=f8e531]:
+                  - checkbox [ref=f8e532]
+                - cell [ref=f8e533]:
+                  - link "254" [ref=f8e534] [cursor=pointer]:
+                    - /url: /issues/254
+                - cell [ref=f8e535]:
+                  - generic [ref=f8e536]:
+                    - link "MVP build for PaySheet Application" [ref=f8e538] [cursor=pointer]:
+                      - /url: /projects/mvpbuild
+                    - button "Edit" [ref=f8e539] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e540]:
+                  - generic [ref=f8e541]:
+                    - generic [ref=f8e542]: Feature
+                    - button "Edit" [ref=f8e543] [cursor=pointer]
+                - cell "Feedback Edit" [ref=f8e544]:
+                  - generic [ref=f8e545]:
+                    - generic [ref=f8e546]: Feedback
+                    - button "Edit" [ref=f8e547] [cursor=pointer]
+                - cell "Urgent Edit" [ref=f8e548]:
+                  - generic [ref=f8e549]:
+                    - generic [ref=f8e550]: Urgent
+                    - button "Edit" [ref=f8e551] [cursor=pointer]
+                - cell [ref=f8e552]:
+                  - generic [ref=f8e553]:
+                    - link "Implement typing notifications" [ref=f8e555] [cursor=pointer]:
+                      - /url: /issues/254
+                    - button "Edit" [ref=f8e556] [cursor=pointer]
+                - cell [ref=f8e557]:
+                  - generic [ref=f8e558]:
+                    - link "Daisy Skye" [ref=f8e560] [cursor=pointer]:
+                      - /url: /users/7
+                    - button "Edit" [ref=f8e561] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e562]
+                - cell [ref=f8e563]:
+                  - link "Aktionen" [ref=f8e564] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e566]:
+                - cell [ref=f8e567]:
+                  - checkbox [ref=f8e568]
+                - cell [ref=f8e569]:
+                  - link "253" [ref=f8e570] [cursor=pointer]:
+                    - /url: /issues/253
+                - cell [ref=f8e571]:
+                  - generic [ref=f8e572]:
+                    - link "MVP build for PaySheet Application" [ref=f8e574] [cursor=pointer]:
+                      - /url: /projects/mvpbuild
+                    - button "Edit" [ref=f8e575] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e576]:
+                  - generic [ref=f8e577]:
+                    - generic [ref=f8e578]: Feature
+                    - button "Edit" [ref=f8e579] [cursor=pointer]
+                - cell "New Edit" [ref=f8e580]:
+                  - generic [ref=f8e581]:
+                    - generic [ref=f8e582]: New
+                    - button "Edit" [ref=f8e583] [cursor=pointer]
+                - cell "High Edit" [ref=f8e584]:
+                  - generic [ref=f8e585]:
+                    - generic [ref=f8e586]: High
+                    - button "Edit" [ref=f8e587] [cursor=pointer]
+                - cell [ref=f8e588]:
+                  - generic [ref=f8e589]:
+                    - link "Add presence indicators" [ref=f8e591] [cursor=pointer]:
+                      - /url: /issues/253
+                    - button "Edit" [ref=f8e592] [cursor=pointer]
+                - cell [ref=f8e593]:
+                  - generic [ref=f8e594]:
+                    - link "Autumn Grace" [ref=f8e596] [cursor=pointer]:
+                      - /url: /users/8
+                    - button "Edit" [ref=f8e597] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e598]
+                - cell [ref=f8e599]:
+                  - link "Aktionen" [ref=f8e600] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e602]:
+                - cell [ref=f8e603]:
+                  - checkbox [ref=f8e604]
+                - cell [ref=f8e605]:
+                  - link "252" [ref=f8e606] [cursor=pointer]:
+                    - /url: /issues/252
+                - cell [ref=f8e607]:
+                  - generic [ref=f8e608]:
+                    - link "MVP build for PaySheet Application" [ref=f8e610] [cursor=pointer]:
+                      - /url: /projects/mvpbuild
+                    - button "Edit" [ref=f8e611] [cursor=pointer]
+                - cell "Bug Edit" [ref=f8e612]:
+                  - generic [ref=f8e613]:
+                    - generic [ref=f8e614]: Bug
+                    - button "Edit" [ref=f8e615] [cursor=pointer]
+                - cell "In Progress Edit" [ref=f8e616]:
+                  - generic [ref=f8e617]:
+                    - generic [ref=f8e618]: In Progress
+                    - button "Edit" [ref=f8e619] [cursor=pointer]
+                - cell "Normal Edit" [ref=f8e620]:
+                  - generic [ref=f8e621]:
+                    - generic [ref=f8e622]: Normal
+                    - button "Edit" [ref=f8e623] [cursor=pointer]
+                - cell [ref=f8e624]:
+                  - generic [ref=f8e625]:
+                    - link "Fix websocket connection drops" [ref=f8e627] [cursor=pointer]:
+                      - /url: /issues/252
+                    - button "Edit" [ref=f8e628] [cursor=pointer]
+                - cell [ref=f8e629]:
+                  - generic [ref=f8e630]:
+                    - link "Willow Belle" [ref=f8e632] [cursor=pointer]:
+                      - /url: /users/9
+                    - button "Edit" [ref=f8e633] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e634]
+                - cell [ref=f8e635]:
+                  - link "Aktionen" [ref=f8e636] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e638]:
+                - cell [ref=f8e639]:
+                  - checkbox [ref=f8e640]
+                - cell [ref=f8e641]:
+                  - link "251" [ref=f8e642] [cursor=pointer]:
+                    - /url: /issues/251
+                - cell [ref=f8e643]:
+                  - generic [ref=f8e644]:
+                    - link "MVP build for PaySheet Application" [ref=f8e646] [cursor=pointer]:
+                      - /url: /projects/mvpbuild
+                    - button "Edit" [ref=f8e647] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e648]:
+                  - generic [ref=f8e649]:
+                    - generic [ref=f8e650]: Feature
+                    - button "Edit" [ref=f8e651] [cursor=pointer]
+                - cell "Feedback Edit" [ref=f8e652]:
+                  - generic [ref=f8e653]:
+                    - generic [ref=f8e654]: Feedback
+                    - button "Edit" [ref=f8e655] [cursor=pointer]
+                - cell "Low Edit" [ref=f8e656]:
+                  - generic [ref=f8e657]:
+                    - generic [ref=f8e658]: Low
+                    - button "Edit" [ref=f8e659] [cursor=pointer]
+                - cell [ref=f8e660]:
+                  - generic [ref=f8e661]:
+                    - link "Implement real-time updates" [ref=f8e663] [cursor=pointer]:
+                      - /url: /issues/251
+                    - button "Edit" [ref=f8e664] [cursor=pointer]
+                - cell [ref=f8e665]:
+                  - generic [ref=f8e666]:
+                    - link "Harmony Rose" [ref=f8e668] [cursor=pointer]:
+                      - /url: /users/10
+                    - button "Edit" [ref=f8e669] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e670]
+                - cell [ref=f8e671]:
+                  - link "Aktionen" [ref=f8e672] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e674]:
+                - cell [ref=f8e675]:
+                  - checkbox [ref=f8e676]
+                - cell [ref=f8e677]:
+                  - link "250" [ref=f8e678] [cursor=pointer]:
+                    - /url: /issues/250
+                - cell [ref=f8e679]:
+                  - generic [ref=f8e680]:
+                    - link "Flux Gantt Project" [ref=f8e682] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject
+                    - button "Edit" [ref=f8e683] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e684]:
+                  - generic [ref=f8e685]:
+                    - generic [ref=f8e686]: Feature
+                    - button "Edit" [ref=f8e687] [cursor=pointer]
+                - cell "New Edit" [ref=f8e688]:
+                  - generic [ref=f8e689]:
+                    - generic [ref=f8e690]: New
+                    - button "Edit" [ref=f8e691] [cursor=pointer]
+                - cell "Urgent Edit" [ref=f8e692]:
+                  - generic [ref=f8e693]:
+                    - generic [ref=f8e694]: Urgent
+                    - button "Edit" [ref=f8e695] [cursor=pointer]
+                - cell [ref=f8e696]:
+                  - generic [ref=f8e697]:
+                    - link "Issue status are show according to project" [ref=f8e699] [cursor=pointer]:
+                      - /url: /issues/250
+                    - button "Edit" [ref=f8e700] [cursor=pointer]
+                - cell [ref=f8e701]:
+                  - generic [ref=f8e702]:
+                    - link "Nova Starling" [ref=f8e704] [cursor=pointer]:
+                      - /url: /users/15
+                    - button "Edit" [ref=f8e705] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e706]
+                - cell [ref=f8e707]:
+                  - link "Aktionen" [ref=f8e708] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e710]:
+                - cell [ref=f8e711]:
+                  - checkbox [ref=f8e712]
+                - cell [ref=f8e713]:
+                  - link "249" [ref=f8e714] [cursor=pointer]:
+                    - /url: /issues/249
+                - cell [ref=f8e715]:
+                  - generic [ref=f8e716]:
+                    - link "Flux Gantt Project" [ref=f8e718] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject
+                    - button "Edit" [ref=f8e719] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e720]:
+                  - generic [ref=f8e721]:
+                    - generic [ref=f8e722]: Feature
+                    - button "Edit" [ref=f8e723] [cursor=pointer]
+                - cell "New Edit" [ref=f8e724]:
+                  - generic [ref=f8e725]:
+                    - generic [ref=f8e726]: New
+                    - button "Edit" [ref=f8e727] [cursor=pointer]
+                - cell "High Edit" [ref=f8e728]:
+                  - generic [ref=f8e729]:
+                    - generic [ref=f8e730]: High
+                    - button "Edit" [ref=f8e731] [cursor=pointer]
+                - cell [ref=f8e732]:
+                  - generic [ref=f8e733]:
+                    - link "card fiels are show according to project" [ref=f8e735] [cursor=pointer]:
+                      - /url: /issues/249
+                    - button "Edit" [ref=f8e736] [cursor=pointer]
+                - cell [ref=f8e737]:
+                  - generic [ref=f8e738]:
+                    - link "Nova Starling" [ref=f8e740] [cursor=pointer]:
+                      - /url: /users/15
+                    - button "Edit" [ref=f8e741] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e742]
+                - cell [ref=f8e743]:
+                  - link "Aktionen" [ref=f8e744] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e746]:
+                - cell [ref=f8e747]:
+                  - checkbox [ref=f8e748]
+                - cell [ref=f8e749]:
+                  - link "248" [ref=f8e750] [cursor=pointer]:
+                    - /url: /issues/248
+                - cell [ref=f8e751]:
+                  - generic [ref=f8e752]:
+                    - link "Flux Gantt Project" [ref=f8e754] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject
+                    - button "Edit" [ref=f8e755] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e756]:
+                  - generic [ref=f8e757]:
+                    - generic [ref=f8e758]: Feature
+                    - button "Edit" [ref=f8e759] [cursor=pointer]
+                - cell "New Edit" [ref=f8e760]:
+                  - generic [ref=f8e761]:
+                    - generic [ref=f8e762]: New
+                    - button "Edit" [ref=f8e763] [cursor=pointer]
+                - cell "Normal Edit" [ref=f8e764]:
+                  - generic [ref=f8e765]:
+                    - generic [ref=f8e766]: Normal
+                    - button "Edit" [ref=f8e767] [cursor=pointer]
+                - cell [ref=f8e768]:
+                  - generic [ref=f8e769]:
+                    - link "Total time update on scroll" [ref=f8e771] [cursor=pointer]:
+                      - /url: /issues/248
+                    - button "Edit" [ref=f8e772] [cursor=pointer]
+                - cell [ref=f8e773]:
+                  - generic [ref=f8e774]:
+                    - link "Serenity Bloom" [ref=f8e776] [cursor=pointer]:
+                      - /url: /users/14
+                    - button "Edit" [ref=f8e777] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e778]
+                - cell [ref=f8e779]:
+                  - link "Aktionen" [ref=f8e780] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e782]:
+                - cell [ref=f8e783]:
+                  - checkbox [ref=f8e784]
+                - cell [ref=f8e785]:
+                  - link "247" [ref=f8e786] [cursor=pointer]:
+                    - /url: /issues/247
+                - cell [ref=f8e787]:
+                  - generic [ref=f8e788]:
+                    - link "Flux Gantt Project" [ref=f8e790] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject
+                    - button "Edit" [ref=f8e791] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e792]:
+                  - generic [ref=f8e793]:
+                    - generic [ref=f8e794]: Feature
+                    - button "Edit" [ref=f8e795] [cursor=pointer]
+                - cell "New Edit" [ref=f8e796]:
+                  - generic [ref=f8e797]:
+                    - generic [ref=f8e798]: New
+                    - button "Edit" [ref=f8e799] [cursor=pointer]
+                - cell "Low Edit" [ref=f8e800]:
+                  - generic [ref=f8e801]:
+                    - generic [ref=f8e802]: Low
+                    - button "Edit" [ref=f8e803] [cursor=pointer]
+                - cell [ref=f8e804]:
+                  - generic [ref=f8e805]:
+                    - link "Agile board card create" [ref=f8e807] [cursor=pointer]:
+                      - /url: /issues/247
+                    - button "Edit" [ref=f8e808] [cursor=pointer]
+                - cell [ref=f8e809]:
+                  - generic [ref=f8e810]:
+                    - link "Serenity Bloom" [ref=f8e812] [cursor=pointer]:
+                      - /url: /users/14
+                    - button "Edit" [ref=f8e813] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e814]
+                - cell [ref=f8e815]:
+                  - link "Aktionen" [ref=f8e816] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e818]:
+                - cell [ref=f8e819]:
+                  - checkbox [ref=f8e820]
+                - cell [ref=f8e821]:
+                  - link "246" [ref=f8e822] [cursor=pointer]:
+                    - /url: /issues/246
+                - cell [ref=f8e823]:
+                  - generic [ref=f8e824]:
+                    - link "Flux Gantt Project" [ref=f8e826] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject
+                    - button "Edit" [ref=f8e827] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e828]:
+                  - generic [ref=f8e829]:
+                    - generic [ref=f8e830]: Feature
+                    - button "Edit" [ref=f8e831] [cursor=pointer]
+                - cell "New Edit" [ref=f8e832]:
+                  - generic [ref=f8e833]:
+                    - generic [ref=f8e834]: New
+                    - button "Edit" [ref=f8e835] [cursor=pointer]
+                - cell "Urgent Edit" [ref=f8e836]:
+                  - generic [ref=f8e837]:
+                    - generic [ref=f8e838]: Urgent
+                    - button "Edit" [ref=f8e839] [cursor=pointer]
+                - cell [ref=f8e840]:
+                  - generic [ref=f8e841]:
+                    - link "added a agile config form" [ref=f8e843] [cursor=pointer]:
+                      - /url: /issues/246
+                    - button "Edit" [ref=f8e844] [cursor=pointer]
+                - cell [ref=f8e845]:
+                  - generic [ref=f8e846]:
+                    - link "Celeste Dawn" [ref=f8e848] [cursor=pointer]:
+                      - /url: /users/13
+                    - button "Edit" [ref=f8e849] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e850]
+                - cell [ref=f8e851]:
+                  - link "Aktionen" [ref=f8e852] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e854]:
+                - cell [ref=f8e855]:
+                  - checkbox [ref=f8e856]
+                - cell [ref=f8e857]:
+                  - link "245" [ref=f8e858] [cursor=pointer]:
+                    - /url: /issues/245
+                - cell [ref=f8e859]:
+                  - generic [ref=f8e860]:
+                    - link "Flux Gantt Project" [ref=f8e862] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject
+                    - button "Edit" [ref=f8e863] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e864]:
+                  - generic [ref=f8e865]:
+                    - generic [ref=f8e866]: Feature
+                    - button "Edit" [ref=f8e867] [cursor=pointer]
+                - cell "New Edit" [ref=f8e868]:
+                  - generic [ref=f8e869]:
+                    - generic [ref=f8e870]: New
+                    - button "Edit" [ref=f8e871] [cursor=pointer]
+                - cell "High Edit" [ref=f8e872]:
+                  - generic [ref=f8e873]:
+                    - generic [ref=f8e874]: High
+                    - button "Edit" [ref=f8e875] [cursor=pointer]
+                - cell [ref=f8e876]:
+                  - generic [ref=f8e877]:
+                    - link "update agile setting" [ref=f8e879] [cursor=pointer]:
+                      - /url: /issues/245
+                    - button "Edit" [ref=f8e880] [cursor=pointer]
+                - cell [ref=f8e881]:
+                  - generic [ref=f8e882]:
+                    - link "Celeste Dawn" [ref=f8e884] [cursor=pointer]:
+                      - /url: /users/13
+                    - button "Edit" [ref=f8e885] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e886]
+                - cell [ref=f8e887]:
+                  - link "Aktionen" [ref=f8e888] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e890]:
+                - cell [ref=f8e891]:
+                  - checkbox [ref=f8e892]
+                - cell [ref=f8e893]:
+                  - link "244" [ref=f8e894] [cursor=pointer]:
+                    - /url: /issues/244
+                - cell [ref=f8e895]:
+                  - generic [ref=f8e896]:
+                    - link "Flux Gantt Project" [ref=f8e898] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject
+                    - button "Edit" [ref=f8e899] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e900]:
+                  - generic [ref=f8e901]:
+                    - generic [ref=f8e902]: Feature
+                    - button "Edit" [ref=f8e903] [cursor=pointer]
+                - cell "New Edit" [ref=f8e904]:
+                  - generic [ref=f8e905]:
+                    - generic [ref=f8e906]: New
+                    - button "Edit" [ref=f8e907] [cursor=pointer]
+                - cell "Normal Edit" [ref=f8e908]:
+                  - generic [ref=f8e909]:
+                    - generic [ref=f8e910]: Normal
+                    - button "Edit" [ref=f8e911] [cursor=pointer]
+                - cell [ref=f8e912]:
+                  - generic [ref=f8e913]:
+                    - link "implement wip functionality" [ref=f8e915] [cursor=pointer]:
+                      - /url: /issues/244
+                    - button "Edit" [ref=f8e916] [cursor=pointer]
+                - cell [ref=f8e917]:
+                  - generic [ref=f8e918]:
+                    - link "Violet Ember" [ref=f8e920] [cursor=pointer]:
+                      - /url: /users/12
+                    - button "Edit" [ref=f8e921] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e922]
+                - cell [ref=f8e923]:
+                  - link "Aktionen" [ref=f8e924] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e926]:
+                - cell [ref=f8e927]:
+                  - checkbox [ref=f8e928]
+                - cell [ref=f8e929]:
+                  - link "243" [ref=f8e930] [cursor=pointer]:
+                    - /url: /issues/243
+                - cell [ref=f8e931]:
+                  - generic [ref=f8e932]:
+                    - link "Flux Gantt Project" [ref=f8e934] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject
+                    - button "Edit" [ref=f8e935] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e936]:
+                  - generic [ref=f8e937]:
+                    - generic [ref=f8e938]: Feature
+                    - button "Edit" [ref=f8e939] [cursor=pointer]
+                - cell "New Edit" [ref=f8e940]:
+                  - generic [ref=f8e941]:
+                    - generic [ref=f8e942]: New
+                    - button "Edit" [ref=f8e943] [cursor=pointer]
+                - cell "Low Edit" [ref=f8e944]:
+                  - generic [ref=f8e945]:
+                    - generic [ref=f8e946]: Low
+                    - button "Edit" [ref=f8e947] [cursor=pointer]
+                - cell [ref=f8e948]:
+                  - generic [ref=f8e949]:
+                    - link "create a demo server for agile" [ref=f8e951] [cursor=pointer]:
+                      - /url: /issues/243
+                    - button "Edit" [ref=f8e952] [cursor=pointer]
+                - cell [ref=f8e953]:
+                  - generic [ref=f8e954]:
+                    - link "Violet Ember" [ref=f8e956] [cursor=pointer]:
+                      - /url: /users/12
+                    - button "Edit" [ref=f8e957] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e958]
+                - cell [ref=f8e959]:
+                  - link "Aktionen" [ref=f8e960] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e962]:
+                - cell [ref=f8e963]:
+                  - checkbox [ref=f8e964]
+                - cell [ref=f8e965]:
+                  - link "242" [ref=f8e966] [cursor=pointer]:
+                    - /url: /issues/242
+                - cell [ref=f8e967]:
+                  - generic [ref=f8e968]:
+                    - link "Flux Gantt Project" [ref=f8e970] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject
+                    - button "Edit" [ref=f8e971] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e972]:
+                  - generic [ref=f8e973]:
+                    - generic [ref=f8e974]: Feature
+                    - button "Edit" [ref=f8e975] [cursor=pointer]
+                - cell "New Edit" [ref=f8e976]:
+                  - generic [ref=f8e977]:
+                    - generic [ref=f8e978]: New
+                    - button "Edit" [ref=f8e979] [cursor=pointer]
+                - cell "Normal Edit" [ref=f8e980]:
+                  - generic [ref=f8e981]:
+                    - generic [ref=f8e982]: Normal
+                    - button "Edit" [ref=f8e983] [cursor=pointer]
+                - cell [ref=f8e984]:
+                  - generic [ref=f8e985]:
+                    - link "create a agile card field column setting" [ref=f8e987] [cursor=pointer]:
+                      - /url: /issues/242
+                    - button "Edit" [ref=f8e988] [cursor=pointer]
+                - cell [ref=f8e989]:
+                  - generic [ref=f8e990]:
+                    - link "Summer Rain" [ref=f8e992] [cursor=pointer]:
+                      - /url: /users/11
+                    - button "Edit" [ref=f8e993] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e994]
+                - cell [ref=f8e995]:
+                  - link "Aktionen" [ref=f8e996] [cursor=pointer]:
+                    - /url: "#"
+              - row [ref=f8e998]:
+                - cell [ref=f8e999]:
+                  - checkbox [ref=f8e1000]
+                - cell [ref=f8e1001]:
+                  - link "241" [ref=f8e1002] [cursor=pointer]:
+                    - /url: /issues/241
+                - cell [ref=f8e1003]:
+                  - generic [ref=f8e1004]:
+                    - link "Flux Gantt Project" [ref=f8e1006] [cursor=pointer]:
+                      - /url: /projects/fluxganttproject
+                    - button "Edit" [ref=f8e1007] [cursor=pointer]
+                - cell "Feature Edit" [ref=f8e1008]:
+                  - generic [ref=f8e1009]:
+                    - generic [ref=f8e1010]: Feature
+                    - button "Edit" [ref=f8e1011] [cursor=pointer]
+                - cell "New Edit" [ref=f8e1012]:
+                  - generic [ref=f8e1013]:
+                    - generic [ref=f8e1014]: New
+                    - button "Edit" [ref=f8e1015] [cursor=pointer]
+                - cell "Low Edit" [ref=f8e1016]:
+                  - generic [ref=f8e1017]:
+                    - generic [ref=f8e1018]: Low
+                    - button "Edit" [ref=f8e1019] [cursor=pointer]
+                - cell [ref=f8e1020]:
+                  - generic [ref=f8e1021]:
+                    - link "create a agile issue status column setting" [ref=f8e1023] [cursor=pointer]:
+                      - /url: /issues/241
+                    - button "Edit" [ref=f8e1024] [cursor=pointer]
+                - cell [ref=f8e1025]:
+                  - generic [ref=f8e1026]:
+                    - link "Summer Rain" [ref=f8e1028] [cursor=pointer]:
+                      - /url: /users/11
+                    - button "Edit" [ref=f8e1029] [cursor=pointer]
+                - cell "07.09.2026 06:02" [ref=f8e1030]
+                - cell [ref=f8e1031]:
+                  - link "Aktionen" [ref=f8e1032] [cursor=pointer]:
+                    - /url: "#"
+        - generic [ref=f8e1034]:
+          - list [ref=f8e1035]:
+            - listitem: « Zurück
+            - listitem [ref=f8e1036]: "1"
+            - listitem [ref=f8e1037]:
+              - link "2" [ref=f8e1038] [cursor=pointer]:
+                - /url: /issues?page=2
+            - listitem [ref=f8e1039]:
+              - link "3" [ref=f8e1040] [cursor=pointer]:
+                - /url: /issues?page=3
+            - listitem [ref=f8e1041]: …
+            - listitem [ref=f8e1042]:
+              - link "11" [ref=f8e1043] [cursor=pointer]:
+                - /url: /issues?page=11
+            - listitem:
+              - link "Weiter »" [ref=f8e1044] [cursor=pointer]:
+                - /url: /issues?page=2
+          - generic:
+            - generic [ref=f8e1045]: (1-25/265)
+            - generic [ref=f8e1046]:
+              - text: "Pro Seite: 25,"
+              - link "50" [ref=f8e1047] [cursor=pointer]:
+                - /url: /issues?per_page=50
+              - text: ","
+              - link "100" [ref=f8e1048] [cursor=pointer]:
+                - /url: /issues?per_page=100
+        - paragraph [ref=f8e1049]:
+          - text: "Auch abrufbar als:"
+          - link "Atom" [ref=f8e1051] [cursor=pointer]:
+            - /url: /issues.atom?key=f04b5f859a607426fda8b254ce66c9f6611b2c4f
+          - generic [ref=f8e1052]:
+            - text: "|"
+            - link "CSV" [ref=f8e1053] [cursor=pointer]:
+              - /url: /issues.csv
+          - generic [ref=f8e1054]:
+            - text: "|"
+            - link "PDF" [ref=f8e1055] [cursor=pointer]:
+              - /url: /issues.pdf
+    - generic [ref=f8e1056]:
+      - text: Powered by
+      - link "Redmine" [ref=f8e1057] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f8e1058]
+  - log [ref=f8e1059]
+  - log [ref=f8e1060]
+  - log [ref=f8e1061]
+  - log [ref=f8e1062]
+  - log [ref=f8e1063]
+  - log [ref=f8e1064]
+  - log [ref=f8e1065]
+  - log [ref=f8e1066]
+  - log [ref=f8e1067]
+  - log [ref=f8e1068]
+  - log [ref=f8e1069]
+  - log [ref=f8e1070]
+  - log [ref=f8e1071]
+  - log [ref=f8e1072]
+  - log [ref=f8e1073]
+  - log [ref=f8e1074]
+  - log [ref=f8e1075]
+  - log [ref=f8e1076]
+  - log [ref=f8e1077]
+  - log [ref=f8e1078]
+  - log [ref=f8e1079]
+  - log [ref=f8e1080]
+  - log [ref=f8e1081]
+  - log [ref=f8e1082]
+  - log [ref=f8e1083]
+  - log [ref=f8e1084]
+  - log [ref=f8e1085]
+  - log [ref=f8e1086]
+  - log [ref=f8e1087]
+  - log [ref=f8e1088]
+  - log [ref=f8e1089]
+  - log [ref=f8e1090]
+  - log [ref=f8e1091]
+  - log [ref=f8e1092]
+  - log [ref=f8e1093]
+  - log [ref=f8e1094]
+  - log [ref=f8e1095]
+  - log [ref=f8e1096]
+  - log [ref=f8e1097]
+  - log [ref=f8e1098]
+  - log [ref=f8e1099]
+  - log [ref=f8e1100]
+  - log [ref=f8e1101]
+  - log [ref=f8e1102]
+  - log [ref=f8e1103]
+  - log [ref=f8e1104]
+  - log [ref=f8e1105]
+  - log [ref=f8e1106]
+  - log [ref=f8e1107]
+  - log [ref=f8e1108]

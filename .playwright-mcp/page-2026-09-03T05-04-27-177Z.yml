@@ -1,0 +1,178 @@
+- generic [ref=f239e1]:
+  - generic [ref=f239e2]:
+    - generic [ref=f239e3]:
+      - generic [ref=f239e4]:
+        - list:
+          - listitem [ref=f239e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f239e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f239e7]:
+        - text: Logged in as
+        - link "admin" [ref=f239e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f239e9]:
+        - listitem [ref=f239e10]:
+          - link [ref=f239e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f239e12]
+        - listitem [ref=f239e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f239e14]:
+          - link "My page" [ref=f239e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f239e16]:
+          - link "Projects" [ref=f239e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f239e18]:
+          - link "Flux Gantt" [ref=f239e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f239e20]:
+          - link "Helpdesk Command Center" [ref=f239e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f239e22]:
+          - link "Time Tracker" [ref=f239e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f239e24]:
+          - link "Timesheet" [ref=f239e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f239e26]:
+          - link "Workloads" [ref=f239e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f239e28]:
+          - link "More" [ref=f239e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f239e30]:
+      - generic [ref=f239e31]:
+        - generic [ref=f239e32]:
+          - generic [ref=f239e33]:
+            - link "Search..." [ref=f239e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f239e35]
+        - generic [ref=f239e36]:
+          - generic [ref=f239e37] [cursor=pointer]: Jump to a project...
+          - text: ✓
+      - heading "Helpdesk" [level=1] [ref=f239e38]
+    - generic [ref=f239e39]:
+      - list [ref=f239e43]:
+        - listitem [ref=f239e44]:
+          - link "Helpdesk Dashboard" [ref=f239e45] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f239e48]:
+          - link "Helpdesk Tickets" [ref=f239e49] [cursor=pointer]:
+            - /url: /rf_helpdesk/issues
+        - listitem [ref=f239e52]:
+          - link "Reports" [ref=f239e53] [cursor=pointer]:
+            - /url: /rf_helpdesk/reports/tickets
+        - listitem [ref=f239e56]:
+          - link "Organization" [ref=f239e57] [cursor=pointer]:
+            - /url: /rf_organizations
+        - listitem [ref=f239e60]:
+          - link "Customers" [ref=f239e61] [cursor=pointer]:
+            - /url: /rf_helpdesk/customers
+        - listitem [ref=f239e64]:
+          - link "Products" [ref=f239e65] [cursor=pointer]:
+            - /url: /rf_products
+        - listitem [ref=f239e68]:
+          - link "Helpdesk Settings" [ref=f239e69] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting
+      - generic [ref=f239e72]:
+        - heading "New Product" [level=2] [ref=f239e73]
+        - generic [ref=f239e74]:
+          - generic [ref=f239e75]:
+            - paragraph [ref=f239e76]:
+              - generic [ref=f239e77]: Project *
+              - combobox "Project *" [ref=f239e78]:
+                - option "-- Select --" [selected]
+                - option "Helpdesk QA Alpha"
+                - option "Helpdesk QA Beta"
+            - paragraph [ref=f239e79]:
+              - generic [ref=f239e80]: Product Name *
+              - textbox "Product Name *" [active] [ref=f239e81]
+            - paragraph [ref=f239e82]:
+              - generic [ref=f239e83]: Product Code *
+              - textbox "Product Code *" [ref=f239e84]
+            - paragraph [ref=f239e85]:
+              - generic [ref=f239e86]: Category
+              - textbox "Category" [ref=f239e87]
+              - emphasis [ref=f239e88]: Examples - Software, Hardware, Service, Support Package, Maintenance Plan , Cloud/SaaS ,Desktop Application, Mobile Application, Web Application
+            - paragraph [ref=f239e89]:
+              - generic [ref=f239e90]: Description
+              - generic [ref=f239e91]:
+                - list [ref=f239e93]:
+                  - listitem [ref=f239e94]:
+                    - link "Edit" [ref=f239e95] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f239e96]:
+                    - link "Preview" [ref=f239e97] [cursor=pointer]:
+                      - /url: "#"
+                  - listitem [ref=f239e98]:
+                    - generic [ref=f239e99]:
+                      - button "Strong (Ctrl+B)" [ref=f239e100] [cursor=pointer]
+                      - button "Italic (Ctrl+I)" [ref=f239e101] [cursor=pointer]
+                      - button "Underline (Ctrl+U)" [ref=f239e102] [cursor=pointer]
+                      - button "Deleted" [ref=f239e103] [cursor=pointer]
+                      - button "Inline Code" [ref=f239e104] [cursor=pointer]
+                      - button "Heading 1" [ref=f239e105] [cursor=pointer]
+                      - button "Heading 2" [ref=f239e106] [cursor=pointer]
+                      - button "Heading 3" [ref=f239e107] [cursor=pointer]
+                      - button "Unordered list" [ref=f239e108] [cursor=pointer]
+                      - button "Ordered list" [ref=f239e109] [cursor=pointer]
+                      - button "Task list" [ref=f239e110] [cursor=pointer]
+                      - button "Quote" [ref=f239e111] [cursor=pointer]
+                      - button "Remove Quote" [ref=f239e112] [cursor=pointer]
+                      - button "Table" [ref=f239e113] [cursor=pointer]
+                      - button "pre" [ref=f239e114] [cursor=pointer]
+                      - button "Highlighted code" [ref=f239e115] [cursor=pointer]
+                      - button "Link to a Wiki page" [ref=f239e116] [cursor=pointer]
+                      - button "Image" [ref=f239e117] [cursor=pointer]
+                      - button "Help" [ref=f239e118] [cursor=pointer]
+                - textbox "Description" [ref=f239e120]
+            - paragraph [ref=f239e121]:
+              - generic [ref=f239e122]:
+                - generic [ref=f239e123]: Active
+                - checkbox [checked] [ref=f239e124]
+                - text: Active
+          - button "Create" [ref=f239e125] [cursor=pointer]
+          - link "Cancel" [ref=f239e126] [cursor=pointer]:
+            - /url: /rf_helpdesk/setting?tab=products
+    - generic [ref=f239e127]:
+      - text: Powered by
+      - link "Redmine" [ref=f239e128] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f239e129]
+  - log [ref=f239e130]
+  - log [ref=f239e131]
+  - log [ref=f239e132]
+  - log [ref=f239e133]
+  - log [ref=f239e134]
+  - log [ref=f239e135]
+  - log [ref=f239e136]
+  - log [ref=f239e137]
+  - log [ref=f239e138]
+  - log [ref=f239e139]
+  - log [ref=f239e140]
+  - log [ref=f239e141]
+  - log [ref=f239e142]
+  - log [ref=f239e143]
+  - log [ref=f239e144]
+  - log [ref=f239e145]
+  - log [ref=f239e146]
+  - log [ref=f239e147]
+  - log [ref=f239e148]
+  - log [ref=f239e149]
+  - log [ref=f239e150]
+  - log [ref=f239e151]
+  - log [ref=f239e152]
+  - log [ref=f239e153]
+  - log [ref=f239e154]
+  - log [ref=f239e155]
+  - log [ref=f239e156]
+  - log [ref=f239e157]
+  - log [ref=f239e158]
+  - log [ref=f239e159]

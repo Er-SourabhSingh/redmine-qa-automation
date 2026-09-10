@@ -1,6 +1,7 @@
 # Bug Report Template
 
 - Bug ID:
+- Production Redmine Issue ID: <!-- #NNNN on flux.zehntech.com, filled after MCP report_defect/create_issue is approved and executed -->
 - Title:
 - Redmine version:
 - Plugin name:

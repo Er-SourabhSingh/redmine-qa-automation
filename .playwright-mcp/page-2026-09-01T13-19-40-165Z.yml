@@ -1,0 +1,171 @@
+- generic [active] [ref=f78e1]:
+  - generic [ref=f78e2]:
+    - generic [ref=f78e3]:
+      - generic [ref=f78e4]:
+        - list:
+          - listitem [ref=f78e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f78e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f78e7]:
+        - text: Logged in as
+        - link "alpha.customer" [ref=f78e8] [cursor=pointer]:
+          - /url: /users/6
+      - list [ref=f78e9]:
+        - listitem [ref=f78e10]:
+          - link [ref=f78e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f78e12]
+        - listitem [ref=f78e13]:
+          - link "My Helpdesk" [ref=f78e14] [cursor=pointer]:
+            - /url: /helpdesk
+    - heading "Helpdesk QA Alpha" [level=1] [ref=f78e16]
+    - generic [ref=f78e17]:
+      - list [ref=f78e21]:
+        - listitem [ref=f78e22]:
+          - link "Helpdesk Dashboard" [ref=f78e23] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk
+        - listitem [ref=f78e26]:
+          - link "Helpdesk Tickets" [ref=f78e27] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets
+        - listitem [ref=f78e30]:
+          - link "Knowledgebase" [ref=f78e31] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/knowledgebase
+      - generic [ref=f78e34]:
+        - generic [ref=f78e35]: Successful creation.
+        - generic [ref=f78e36]:
+          - generic [ref=f78e38]:
+            - heading "Helpdesk Tickets" [level=2] [ref=f78e39]
+            - paragraph [ref=f78e40]: Helpdesk QA Alpha · 9 tickets
+          - link "New issue" [ref=f78e42] [cursor=pointer]:
+            - /url: /projects/helpdesk-qa-alpha/helpdesk/new
+        - button "Filters" [ref=f78e45] [cursor=pointer]
+        - table [ref=f78e53]:
+          - rowgroup [ref=f78e54]:
+            - row [ref=f78e55]:
+              - columnheader [ref=f78e56]:
+                - 'link "Ticket #" [ref=f78e57] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=id
+              - columnheader [ref=f78e58]:
+                - link "Subject" [ref=f78e59] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=subject
+              - columnheader [ref=f78e60]:
+                - link "Status" [ref=f78e61] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=status
+              - columnheader [ref=f78e62]:
+                - link "Priority" [ref=f78e63] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=priority
+              - columnheader [ref=f78e64]:
+                - link "Updated ▼" [ref=f78e65] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/tickets?dir=asc&sort=updated_on
+          - rowgroup [ref=f78e66]:
+            - row [ref=f78e67]:
+              - cell [ref=f78e68]:
+                - link "#28" [ref=f78e69] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/28
+              - cell [ref=f78e70]:
+                - link "TC-HLP-349 locked-agent escalation exclusion test 2" [ref=f78e71] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/28
+              - cell "New" [ref=f78e72]
+              - cell "Normal" [ref=f78e75]
+              - cell "09/01/2026 01:19 PM" [ref=f78e78]
+            - row [ref=f78e79]:
+              - cell [ref=f78e80]:
+                - link "#27" [ref=f78e81] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/27
+              - cell [ref=f78e82]:
+                - link "TC-HLP-349 locked-agent escalation exclusion test 1" [ref=f78e83] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/27
+              - cell "New" [ref=f78e84]
+              - cell "Normal" [ref=f78e87]
+              - cell "09/01/2026 01:19 PM" [ref=f78e90]
+            - row [ref=f78e91]:
+              - cell [ref=f78e92]:
+                - link "#18" [ref=f78e93] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/18
+              - cell [ref=f78e94]:
+                - link "test manually by me" [ref=f78e95] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/18
+              - cell "New" [ref=f78e96]
+              - cell "Normal" [ref=f78e99]
+              - cell "09/01/2026 09:25 AM" [ref=f78e102]
+            - row [ref=f78e103]:
+              - cell [ref=f78e104]:
+                - link "#14" [ref=f78e105] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/14
+              - cell [ref=f78e106]:
+                - link "TC-HLP-092 escalation-chain test ticket - fast-breach SLA" [ref=f78e107] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/14
+              - cell "New" [ref=f78e108]
+              - cell "Normal" [ref=f78e111]
+              - cell "09/01/2026 08:10 AM" [ref=f78e114]
+            - row [ref=f78e115]:
+              - cell [ref=f78e116]:
+                - link "#8" [ref=f78e117] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/8
+              - cell [ref=f78e118]:
+                - 'link "Ticket: TC-HLP-016 fresh email creates a new ticket" [ref=f78e119] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/8
+              - cell "Waiting for Customer Response" [ref=f78e120]
+              - cell "Normal" [ref=f78e123]
+              - cell "08/31/2026 10:12 AM" [ref=f78e126]
+            - row [ref=f78e127]:
+              - cell [ref=f78e128]:
+                - link "#2" [ref=f78e129] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/2
+              - cell [ref=f78e130]:
+                - link "Second verification ticket for BUG-HLP-014 retest" [ref=f78e131] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/2
+              - cell "Waiting for Customer Response" [ref=f78e132]
+              - cell "Normal" [ref=f78e135]
+              - cell "08/31/2026 08:31 AM" [ref=f78e138]
+            - row [ref=f78e139]:
+              - cell [ref=f78e140]:
+                - link "#7" [ref=f78e141] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/7
+              - cell [ref=f78e142]:
+                - link "TC-HLP-015 - customer raised ticket for own-tickets-only visibility check" [ref=f78e143] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/7
+              - cell "Waiting for Customer Response" [ref=f78e144]
+              - cell "Normal" [ref=f78e147]
+              - cell "08/31/2026 08:24 AM" [ref=f78e150]
+            - row [ref=f78e151]:
+              - cell [ref=f78e152]:
+                - link "#4" [ref=f78e153] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/4
+              - cell [ref=f78e154]:
+                - link "BUG-HLP-009 retest - Edit form auto status transition check" [ref=f78e155] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/4
+              - cell "New" [ref=f78e156]
+              - cell "Normal" [ref=f78e159]
+              - cell "08/31/2026 06:11 AM" [ref=f78e162]
+            - row [ref=f78e163]:
+              - cell [ref=f78e164]:
+                - link "#3" [ref=f78e165] [cursor=pointer]:
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/3
+              - cell [ref=f78e166]:
+                - 'link "Ticket: BUG-HLP-008 retest - portal login issue" [ref=f78e167] [cursor=pointer]':
+                  - /url: /projects/helpdesk-qa-alpha/helpdesk/issues/3
+              - cell "In Progress" [ref=f78e168]
+              - cell "Normal" [ref=f78e171]
+              - cell "08/31/2026 06:02 AM" [ref=f78e174]
+        - generic [ref=f78e175]:
+          - list
+          - generic [ref=f78e176]: (1-9/9)
+    - generic [ref=f78e177]:
+      - text: Powered by
+      - link "Redmine" [ref=f78e178] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f78e179]
+  - log [ref=f78e180]
+  - log [ref=f78e181]
+  - log [ref=f78e182]
+  - log [ref=f78e183]
+  - log [ref=f78e184]
+  - log [ref=f78e185]
+  - log [ref=f78e186]
+  - log [ref=f78e187]
+  - log [ref=f78e188]

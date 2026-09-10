@@ -1,0 +1,304 @@
+- generic [ref=f110e1]:
+  - generic [ref=f110e2]:
+    - generic [ref=f110e3]:
+      - generic [ref=f110e4]:
+        - img "Logo" [ref=f110e5]
+        - text: 
+      - navigation "Application tasks" [ref=f110e6]:
+        - button " Compose" [ref=f110e8] [cursor=pointer]
+        - button " Mail" [disabled] [ref=f110e9] [cursor=pointer]
+        - button " Contacts" [ref=f110e10] [cursor=pointer]
+        - button " Settings" [ref=f110e11] [cursor=pointer]
+        - generic [ref=f110e12]:
+          - button " Dark mode" [ref=f110e13] [cursor=pointer]
+          - button " About" [ref=f110e14] [cursor=pointer]
+          - button " Logout" [ref=f110e15] [cursor=pointer]
+    - navigation "Email folder selection" [ref=f110e16]:
+      - generic [ref=f110e17]:
+        - text: 
+        - generic [ref=f110e18]: admin@test.local
+        - button "" [ref=f110e19] [cursor=pointer]:     
+      - tree [ref=f110e21]:
+        - treeitem [level=1] [selected] [ref=f110e185]:
+          - link " Inbox 6" [ref=f110e186]:
+            - /url: /?_task=mail&_mbox=INBOX
+            - text:  Inbox
+            - generic [ref=f110e79]: "6"
+        - treeitem [level=1] [ref=f110e24]:
+          - link " Drafts" [ref=f110e25]:
+            - /url: /?_task=mail&_mbox=Drafts
+        - treeitem [level=1] [ref=f110e26]:
+          - link " Sent" [ref=f110e27]:
+            - /url: /?_task=mail&_mbox=Sent
+        - treeitem [level=1] [ref=f110e28]:
+          - link " Junk" [ref=f110e29]:
+            - /url: /?_task=mail&_mbox=Junk
+        - treeitem [level=1] [ref=f110e30]:
+          - link " Trash" [ref=f110e31]:
+            - /url: /?_task=mail&_mbox=Trash
+      - generic [ref=f110e33]:
+        - text: 
+        - generic "unknown" [ref=f110e34]: 0%
+    - generic [ref=f110e37]:
+      - generic [ref=f110e38]:
+        - text:  
+        - list [ref=f110e39]:
+          - menuitem [ref=f110e40]:
+            - link " Select" [ref=f110e80] [cursor=pointer]:
+              - /url: "#select"
+              - text:  Select       
+          - menuitem " Threads" [ref=f110e41]:
+            - link " Threads":
+              - /url: "#threads"
+              - text:  Threads   
+          - menuitem [ref=f110e42]:
+            - link " Options" [ref=f110e43] [cursor=pointer]:
+              - /url: "#list-options"
+        - button " Refresh" [ref=f110e44] [cursor=pointer]
+        - text:  
+      - search "Email search input" [ref=f110e45]:
+        - generic [ref=f110e46]:
+          - text: 
+          - textbox "Search terms" [ref=f110e47]:
+            - /placeholder: Search...
+        - text: 
+        - button "" [ref=f110e48] [cursor=pointer]
+        - button "" [ref=f110e49] [cursor=pointer]
+        - text: 
+      - text:   
+      - generic [ref=f110e50]:
+        - text: 
+        - table "Email Messages Listing" [ref=f110e81]:
+          - text: 
+          - rowgroup [ref=f110e82]:
+            - row [selected] [ref=f110e187]:
+              - 'cell "redmine@example.net 10 KB  [CRITICAL] SLA Breach Alert - L3 - Issue #17: Admin-email-fix verification ticket - direct L3 top-level breach" [active] [ref=f110e188]':
+                - generic [ref=f110e85]: redmine@example.net
+                - generic [ref=f110e189]: 10 KB
+                - generic [ref=f110e88]:
+                  - generic: 
+                  - 'link "[CRITICAL] SLA Breach Alert - L3 - Issue #17: Admin-email-fix verification ticket - direct L3 top-level breach" [ref=f110e89]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=10&_action=show
+              - cell "Not Flagged" [ref=f110e90]:
+                - generic [ref=f110e91] [cursor=pointer]:
+                  - generic "Not Flagged": 
+            - row [ref=f110e93]:
+              - cell "Redmine Today 13:49  [Redmine] Security notification" [ref=f110e94]:
+                - generic [ref=f110e95]: Redmine
+                - generic [ref=f110e97]: Today 13:49
+                - generic [ref=f110e98]:
+                  - generic "Unread": 
+                  - link "[Redmine] Security notification" [ref=f110e99]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=9&_action=show
+              - cell "Not Flagged" [ref=f110e100]:
+                - generic [ref=f110e101] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f110e103]:
+              - cell "Mail Delivery System Thu 15:34  Undelivered Mail Returned to Sender" [ref=f110e104]:
+                - generic [ref=f110e105]: Mail Delivery System
+                - generic [ref=f110e107]: Thu 15:34
+                - generic [ref=f110e108]:
+                  - generic: 
+                  - link "Undelivered Mail Returned to Sender" [ref=f110e109]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=8&_action=show
+              - cell "Not Flagged " [ref=f110e110]:
+                - generic [ref=f110e111] [cursor=pointer]:
+                  - generic "Not Flagged"
+                - generic [ref=f110e112]: 
+            - row [ref=f110e114]:
+              - cell "Mail Delivery System Thu 11:40  Undelivered Mail Returned to Sender" [ref=f110e115]:
+                - generic [ref=f110e116]: Mail Delivery System
+                - generic [ref=f110e118]: Thu 11:40
+                - generic [ref=f110e119]:
+                  - generic "Unread": 
+                  - link "Undelivered Mail Returned to Sender" [ref=f110e120]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=7&_action=show
+              - cell "Not Flagged " [ref=f110e121]:
+                - generic [ref=f110e122] [cursor=pointer]:
+                  - generic "Not Flagged"
+                - generic [ref=f110e123]: 
+            - row [ref=f110e125]:
+              - 'cell "admin@test.local Wed 23:01  [CRITICAL] SLA Breach Alert - AB-L1 - Issue #70: Verify Edit-form public note visibility and auto-status-transition" [ref=f110e126]':
+                - generic [ref=f110e127]: admin@test.local
+                - generic [ref=f110e129]: Wed 23:01
+                - generic [ref=f110e130]:
+                  - generic "Unread": 
+                  - 'link "[CRITICAL] SLA Breach Alert - AB-L1 - Issue #70: Verify Edit-form public note visibility and auto-status-transition" [ref=f110e131]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=6&_action=show
+              - cell "Not Flagged" [ref=f110e132]:
+                - generic [ref=f110e133] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f110e135]:
+              - 'cell "admin@test.local Wed 18:42  [CRITICAL] SLA Breach Alert - L1 - Issue #66: Printer in break room is jammed" [ref=f110e136]':
+                - generic [ref=f110e137]: admin@test.local
+                - generic [ref=f110e139]: Wed 18:42
+                - generic [ref=f110e140]:
+                  - generic "Unread": 
+                  - 'link "[CRITICAL] SLA Breach Alert - L1 - Issue #66: Printer in break room is jammed" [ref=f110e141]':
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=5&_action=show
+              - cell "Not Flagged" [ref=f110e142]:
+                - generic [ref=f110e143] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f110e145]:
+              - cell "Redmine Wed 14:21  [Redmine] Security notification" [ref=f110e146]:
+                - generic [ref=f110e147]: Redmine
+                - generic [ref=f110e149]: Wed 14:21
+                - generic [ref=f110e150]:
+                  - generic "Unread": 
+                  - link "[Redmine] Security notification" [ref=f110e151]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=4&_action=show
+              - cell "Not Flagged" [ref=f110e152]:
+                - generic [ref=f110e153] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f110e155]:
+              - cell "Redmine 2026-08-25 18:02  Redmine test" [ref=f110e156]:
+                - generic [ref=f110e157]: Redmine
+                - generic [ref=f110e159]: 2026-08-25 18:02
+                - generic [ref=f110e160]:
+                  - generic: 
+                  - link "Redmine test" [ref=f110e161]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=3&_action=show
+              - cell "Not Flagged" [ref=f110e162]:
+                - generic [ref=f110e163] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f110e165]:
+              - cell "Redmine 2026-08-25 17:59  [Redmine] Security notification" [ref=f110e166]:
+                - generic [ref=f110e167]: Redmine
+                - generic [ref=f110e169]: 2026-08-25 17:59
+                - generic [ref=f110e170]:
+                  - generic "Unread": 
+                  - link "[Redmine] Security notification" [ref=f110e171]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=2&_action=show
+              - cell "Not Flagged" [ref=f110e172]:
+                - generic [ref=f110e173] [cursor=pointer]:
+                  - generic "Not Flagged"
+            - row [ref=f110e175]:
+              - cell "qa@test.local 2026-08-21 17:18  QA test 1787312900 â€” qa reply to admin" [ref=f110e176]:
+                - generic [ref=f110e177]: qa@test.local
+                - generic [ref=f110e179]: 2026-08-21 17:18
+                - generic [ref=f110e180]:
+                  - generic: 
+                  - link "QA test 1787312900 â€” qa reply to admin" [ref=f110e181]:
+                    - /url: /?_task=mail&_mbox=INBOX&_uid=1&_action=show
+              - cell "Not Flagged" [ref=f110e182]:
+                - generic [ref=f110e183] [cursor=pointer]:
+                  - generic "Not Flagged"
+      - toolbar "List navigation" [ref=f110e51]:
+        - button "" [disabled]
+        - button "" [disabled]
+        - generic [ref=f110e52]: Messages 1 to 10 of 10
+        - textbox "Current page" [disabled] [ref=f110e53]: "1"
+        - button "" [disabled]
+        - button "" [disabled]
+    - generic [ref=f110e55]:
+      - toolbar "Application toolbar" [ref=f110e56]:
+        - text:                   Browse
+        - list [ref=f110e57]:
+          - menuitem: 
+          - menuitem [ref=f110e58]:
+            - button " Reply" [ref=f110e190] [cursor=pointer]
+          - menuitem [ref=f110e59]:
+            - generic [ref=f110e60]:
+              - button " Reply all" [ref=f110e191] [cursor=pointer]
+              - link "" [ref=f110e61] [cursor=pointer]:
+                - /url: "#reply-all"
+          - menuitem [ref=f110e62]:
+            - generic [ref=f110e63]:
+              - button " Forward" [ref=f110e192] [cursor=pointer]
+              - link "" [ref=f110e64] [cursor=pointer]:
+                - /url: "#forward"
+          - menuitem [ref=f110e65]
+          - menuitem [ref=f110e66]:
+            - button " Delete" [ref=f110e193] [cursor=pointer]
+          - menuitem [ref=f110e67]:
+            - button " Mark" [ref=f110e68] [cursor=pointer]
+          - menuitem [ref=f110e69]:
+            - button " More" [ref=f110e70] [cursor=pointer]
+          - menuitem: 
+          - menuitem: 
+          - menuitem: 
+        - text: 
+      - iframe [ref=f110e72]:
+        - generic [ref=f111e1]:
+          - main [ref=f111e3]:
+            - generic [ref=f111e4]:
+              - heading [level=2] [ref=f111e5]:
+                - text: "[CRITICAL] SLA Breach Alert - L3 - Issue #17: Admin-email-fix verification ticket - direct L3 top-level breach"
+                - button "" [ref=f111e6] [cursor=pointer]
+              - generic [ref=f111e7]:
+                - img "Contact photo" [ref=f111e8]
+                - generic [ref=f111e9]:
+                  - generic [ref=f111e11]:
+                    - text: From
+                    - link "redmine@example.net" [ref=f111e13] [cursor=pointer]:
+                      - /url: mailto:redmine@example.net
+                    - text: on 2026-09-01 13:57
+                  - generic [ref=f111e14]:
+                    - link " Details" [ref=f111e15] [cursor=pointer]:
+                      - /url: "#headers"
+                    - link " Headers" [ref=f111e16] [cursor=pointer]:
+                      - /url: "#all-headers"
+                    - button " Plain text" [ref=f111e17] [cursor=pointer]
+            - generic [ref=f111e18]:
+              - region "Attachments"
+              - region "Message Body" [ref=f111e19]:
+                - generic: 
+                - generic [ref=f111e24]:
+                  - generic [ref=f111e25]:
+                    - heading "Critical SLA Alert" [level=1] [ref=f111e26]
+                    - generic [ref=f111e27]: Last Level Escalation
+                  - generic [ref=f111e28]:
+                    - paragraph [ref=f111e30]: Immediate attention required - Issue escalated to final support level
+                    - paragraph [ref=f111e31]:
+                      - text: Dear
+                      - strong [ref=f111e32]: Redmine Admin
+                      - text: ","
+                    - paragraph [ref=f111e33]:
+                      - text: This is a critical alert regarding an SLA breach. The issue has been escalated to the
+                      - strong [ref=f111e34]: last available support level
+                      - text: and requires your immediate attention. No further automatic escalation is possible.
+                    - generic [ref=f111e35]:
+                      - heading "Issue Details" [level=3] [ref=f111e36]
+                      - generic [ref=f111e37]:
+                        - generic [ref=f111e38]: "Issue Number:"
+                        - strong [ref=f111e40]: "#17"
+                      - generic [ref=f111e41]:
+                        - generic [ref=f111e42]: "Subject:"
+                        - generic [ref=f111e43]: Admin-email-fix verification ticket - direct L3 top-level breach
+                      - generic [ref=f111e44]:
+                        - generic [ref=f111e45]: "Project:"
+                        - generic [ref=f111e46]: Helpdesk QA Alpha
+                      - generic [ref=f111e47]:
+                        - generic [ref=f111e48]: "Priority:"
+                        - strong [ref=f111e50]: Normal
+                      - generic [ref=f111e51]:
+                        - generic [ref=f111e52]: "Status:"
+                        - generic [ref=f111e53]: New
+                      - generic [ref=f111e54]:
+                        - generic [ref=f111e55]: "Assigned To:"
+                        - generic [ref=f111e56]: Redmine Admin
+                    - generic [ref=f111e57]:
+                      - heading "SLA Information" [level=3] [ref=f111e58]
+                      - generic [ref=f111e59]:
+                        - generic [ref=f111e60]: "Support Level:"
+                        - generic [ref=f111e61]:
+                          - strong [ref=f111e62]: L3
+                          - text: (Final Level)
+                      - generic [ref=f111e63]:
+                        - generic [ref=f111e64]: "SLA Policy:"
+                        - generic [ref=f111e65]: Alpha Escalation Test SLA
+                      - generic [ref=f111e66]:
+                        - generic [ref=f111e67]: "Total Escalations:"
+                        - generic [ref=f111e68]: "0"
+                    - generic [ref=f111e69]:
+                      - heading "Final Escalation Level Reached" [level=3] [ref=f111e70]
+                      - paragraph [ref=f111e71]: This is the highest support level. No further automatic escalation is available. Please prioritize and resolve this issue immediately.
+                    - link "View Issue →" [ref=f111e73] [cursor=pointer]:
+                      - /url: http://localhost:3012/issues/17
+                  - generic [ref=f111e74]:
+                    - paragraph [ref=f111e75]:
+                      - strong [ref=f111e76]: Helpdesk System
+                    - paragraph [ref=f111e77]: This is an automated SLA monitoring alert. Please do not reply to this email.
+          - text:    
+      - text:   
+  - text:   

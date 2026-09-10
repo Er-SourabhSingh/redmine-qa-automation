@@ -1,0 +1,454 @@
+- generic [ref=f508e1]:
+  - generic [ref=f508e2]:
+    - generic [ref=f508e3]:
+      - generic [ref=f508e4]:
+        - list:
+          - listitem [ref=f508e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f508e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f508e7]:
+        - text: Logged in as
+        - link "admin" [ref=f508e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f508e9]:
+        - listitem [ref=f508e10]:
+          - link [ref=f508e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f508e12]
+        - listitem [ref=f508e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f508e14]:
+          - link "My page" [ref=f508e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f508e16]:
+          - link "Projects" [ref=f508e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f508e18]:
+          - link "Flux Gantt" [ref=f508e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f508e20]:
+          - link "Helpdesk Command Center" [ref=f508e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f508e22]:
+          - link "Time Tracker" [ref=f508e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f508e24]:
+          - link "Timesheet" [ref=f508e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f508e26]:
+          - link "Workloads" [ref=f508e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f508e28]:
+          - link "More" [ref=f508e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f508e30]:
+      - generic [ref=f508e31]:
+        - generic [ref=f508e32]:
+          - generic [ref=f508e33]:
+            - link "Search..." [ref=f508e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f508e35]
+        - generic [ref=f508e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f508e38]
+    - generic [ref=f508e39]:
+      - generic [ref=f508e40]:
+        - link [ref=f508e42] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f508e45]:
+          - heading "Administration" [level=3] [ref=f508e46]
+          - list [ref=f508e48]:
+            - listitem [ref=f508e49]:
+              - link "Projects" [ref=f508e50] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f508e52]:
+              - link "Users" [ref=f508e53] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f508e55]:
+              - link "Groups" [ref=f508e56] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f508e58]:
+              - link "Roles and permissions" [ref=f508e59] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f508e61]:
+              - link "Trackers" [ref=f508e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f508e64]:
+              - link "Issue statuses" [ref=f508e65] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f508e67]:
+              - link "Workflow" [ref=f508e68] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f508e70]:
+              - link "Custom fields" [ref=f508e71] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f508e73]:
+              - link "Enumerations" [ref=f508e74] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f508e76]:
+              - link "Settings" [ref=f508e77] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f508e79]:
+              - link "LDAP authentication" [ref=f508e80] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f508e82]:
+              - link "Plugins" [ref=f508e83] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f508e85]:
+              - link "Information" [ref=f508e86] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f508e88]:
+        - heading [level=2] [ref=f508e89]:
+          - link "Users" [ref=f508e90] [cursor=pointer]:
+            - /url: /users
+          - text: » New user
+        - generic [ref=f508e91]:
+          - generic [ref=f508e93]:
+            - generic [ref=f508e94]:
+              - group "Information" [ref=f508e95]:
+                - paragraph [ref=f508e97]:
+                  - generic [ref=f508e98]: Login *
+                  - textbox "Login *" [active] [ref=f508e99]
+                - paragraph [ref=f508e100]:
+                  - generic [ref=f508e101]: Firstname *
+                  - textbox "Firstname *" [ref=f508e102]
+                - paragraph [ref=f508e103]:
+                  - generic [ref=f508e104]: Lastname *
+                  - textbox "Lastname *" [ref=f508e105]
+                - paragraph [ref=f508e106]:
+                  - generic [ref=f508e107]: Mail *
+                  - textbox "Mail *" [ref=f508e108]: admin
+                - paragraph [ref=f508e109]:
+                  - generic [ref=f508e110]: Language
+                  - combobox "Language" [ref=f508e111]:
+                    - option "(auto)"
+                    - option "Albanian (Shqip)"
+                    - option "Arabic (عربي)"
+                    - option "Azerbaijani (Azeri)"
+                    - option "Basque (Euskara)"
+                    - option "Bosnian (Bosanski)"
+                    - option "Bulgarian (Български)"
+                    - option "Catalan (Català)"
+                    - option "Chinese/Simplified (简体中文)"
+                    - option "Chinese/Traditional (繁體中文)"
+                    - option "Croatian (Hrvatski)"
+                    - option "Czech (Čeština)"
+                    - option "Danish (Dansk)"
+                    - option "Dutch (Nederlands)"
+                    - option "English" [selected]
+                    - option "English (British)"
+                    - option "Estonian (Eesti)"
+                    - option "Finnish (Suomi)"
+                    - option "French (Français)"
+                    - option "Galician (Galego)"
+                    - option "German (Deutsch)"
+                    - option "Greek (Ελληνικά)"
+                    - option "Hebrew (עברית)"
+                    - option "Hungarian (Magyar)"
+                    - option "Indonesian (Bahasa Indonesia)"
+                    - option "Italian (Italiano)"
+                    - option "Japanese (日本語)"
+                    - option "Korean (한국어)"
+                    - option "Latvian (Latviešu)"
+                    - option "Lithuanian (lietuvių)"
+                    - option "Macedonian (Македонски)"
+                    - option "Mongolian (Монгол)"
+                    - option "Norwegian (Norsk bokmål)"
+                    - option "Persian (فارسی)"
+                    - option "Polish (Polski)"
+                    - option "Portuguese (Português)"
+                    - option "Portuguese/Brazil (Português/Brasil)"
+                    - option "Romanian (Română)"
+                    - option "Russian (Русский)"
+                    - option "Serbian (Srpski)"
+                    - option "Serbian Cyrillic (Српски)"
+                    - option "Slovak (Slovenčina)"
+                    - option "Slovene (Slovenščina)"
+                    - option "Spanish (Español)"
+                    - option "Spanish/Panama (Español/Panamá)"
+                    - option "Swedish (Svenska)"
+                    - option "Tamil (தமிழ்)"
+                    - option "Thai (ไทย)"
+                    - option "Turkish (Türkçe)"
+                    - option "Ukrainian (Українська)"
+                    - option "Vietnamese (Tiếng Việt)"
+                - paragraph [ref=f508e112]:
+                  - generic [ref=f508e113]: Admin
+                  - checkbox "Admin" [ref=f508e114]
+              - group "Authentication" [ref=f508e115]:
+                - generic [ref=f508e117]:
+                  - paragraph [ref=f508e118]:
+                    - generic [ref=f508e119]: Password *
+                    - textbox "Password *" [ref=f508e120]: "12345678"
+                    - emphasis [ref=f508e121]: Must be at least 8 characters long.
+                  - paragraph [ref=f508e122]:
+                    - generic [ref=f508e123]: Password confirmation *
+                    - textbox "Password confirmation *" [ref=f508e124]
+                  - paragraph [ref=f508e125]:
+                    - generic [ref=f508e126]: Generate password
+                    - checkbox "Generate password" [ref=f508e127]
+                  - paragraph [ref=f508e128]:
+                    - generic [ref=f508e129]: Must change passwd
+                    - checkbox "Must change passwd" [ref=f508e130]
+              - paragraph [ref=f508e131]:
+                - button "Create" [ref=f508e132] [cursor=pointer]
+                - button "Create and add another" [ref=f508e133] [cursor=pointer]
+            - generic [ref=f508e134]:
+              - group "Email notifications" [ref=f508e135]:
+                - paragraph [ref=f508e137]:
+                  - generic [ref=f508e138]: Mail notification settings
+                  - combobox "Mail notification settings" [ref=f508e139]:
+                    - option "For any event on all my projects"
+                    - option "Only for things I watch or I'm involved in"
+                    - option "Only for things I watch or I am assigned to" [selected]
+                    - option "Only for things I watch or I am the owner of"
+                    - option "No events"
+                - paragraph [ref=f508e140]:
+                  - checkbox "Also notify me about issues with a priority of high or higher" [ref=f508e141]
+                  - generic [ref=f508e142]:
+                    - text: Also notify me about issues with a priority of
+                    - emphasis [ref=f508e143]: high
+                    - text: or higher
+                - paragraph [ref=f508e144]:
+                  - checkbox "I don't want to be notified of changes that I make myself" [checked] [ref=f508e145]
+                  - text: I don't want to be notified of changes that I make myself
+              - group "Auto watch" [ref=f508e146]:
+                - paragraph [ref=f508e148]:
+                  - checkbox "Issues I created" [checked] [ref=f508e149]
+                  - text: Issues I created
+                - paragraph [ref=f508e150]:
+                  - checkbox "Issues I contributed to" [checked] [ref=f508e151]
+                  - text: Issues I contributed to
+              - group "Preferences" [ref=f508e152]:
+                - paragraph [ref=f508e154]:
+                  - generic [ref=f508e155]: Hide mail
+                  - checkbox "Hide mail" [checked] [ref=f508e156]
+                - paragraph [ref=f508e157]:
+                  - generic [ref=f508e158]: Time zone
+                  - combobox "Time zone" [ref=f508e159]:
+                    - option [selected]
+                    - option "(GMT-12:00) International Date Line West"
+                    - option "(GMT-11:00) American Samoa"
+                    - option "(GMT-11:00) Midway Island"
+                    - option "(GMT-10:00) Hawaii"
+                    - option "(GMT-09:00) Alaska"
+                    - option "(GMT-08:00) Pacific Time (US & Canada)"
+                    - option "(GMT-08:00) Tijuana"
+                    - option "(GMT-07:00) Arizona"
+                    - option "(GMT-07:00) Mazatlan"
+                    - option "(GMT-07:00) Mountain Time (US & Canada)"
+                    - option "(GMT-06:00) Central America"
+                    - option "(GMT-06:00) Central Time (US & Canada)"
+                    - option "(GMT-06:00) Chihuahua"
+                    - option "(GMT-06:00) Guadalajara"
+                    - option "(GMT-06:00) Mexico City"
+                    - option "(GMT-06:00) Monterrey"
+                    - option "(GMT-06:00) Saskatchewan"
+                    - option "(GMT-05:00) Bogota"
+                    - option "(GMT-05:00) Eastern Time (US & Canada)"
+                    - option "(GMT-05:00) Indiana (East)"
+                    - option "(GMT-05:00) Lima"
+                    - option "(GMT-05:00) Quito"
+                    - option "(GMT-04:00) Atlantic Time (Canada)"
+                    - option "(GMT-04:00) Caracas"
+                    - option "(GMT-04:00) Georgetown"
+                    - option "(GMT-04:00) La Paz"
+                    - option "(GMT-04:00) Puerto Rico"
+                    - option "(GMT-04:00) Santiago"
+                    - option "(GMT-03:30) Newfoundland"
+                    - option "(GMT-03:00) Brasilia"
+                    - option "(GMT-03:00) Buenos Aires"
+                    - option "(GMT-03:00) Montevideo"
+                    - option "(GMT-02:00) Greenland"
+                    - option "(GMT-02:00) Mid-Atlantic"
+                    - option "(GMT-01:00) Azores"
+                    - option "(GMT-01:00) Cape Verde Is."
+                    - option "(GMT+00:00) Edinburgh"
+                    - option "(GMT+00:00) Lisbon"
+                    - option "(GMT+00:00) London"
+                    - option "(GMT+00:00) Monrovia"
+                    - option "(GMT+00:00) UTC"
+                    - option "(GMT+01:00) Amsterdam"
+                    - option "(GMT+01:00) Belgrade"
+                    - option "(GMT+01:00) Berlin"
+                    - option "(GMT+01:00) Bern"
+                    - option "(GMT+01:00) Bratislava"
+                    - option "(GMT+01:00) Brussels"
+                    - option "(GMT+01:00) Budapest"
+                    - option "(GMT+01:00) Casablanca"
+                    - option "(GMT+01:00) Copenhagen"
+                    - option "(GMT+01:00) Dublin"
+                    - option "(GMT+01:00) Ljubljana"
+                    - option "(GMT+01:00) Madrid"
+                    - option "(GMT+01:00) Paris"
+                    - option "(GMT+01:00) Prague"
+                    - option "(GMT+01:00) Rome"
+                    - option "(GMT+01:00) Sarajevo"
+                    - option "(GMT+01:00) Skopje"
+                    - option "(GMT+01:00) Stockholm"
+                    - option "(GMT+01:00) Vienna"
+                    - option "(GMT+01:00) Warsaw"
+                    - option "(GMT+01:00) West Central Africa"
+                    - option "(GMT+01:00) Zagreb"
+                    - option "(GMT+01:00) Zurich"
+                    - option "(GMT+02:00) Athens"
+                    - option "(GMT+02:00) Bucharest"
+                    - option "(GMT+02:00) Cairo"
+                    - option "(GMT+02:00) Harare"
+                    - option "(GMT+02:00) Helsinki"
+                    - option "(GMT+02:00) Jerusalem"
+                    - option "(GMT+02:00) Kaliningrad"
+                    - option "(GMT+02:00) Kyiv"
+                    - option "(GMT+02:00) Pretoria"
+                    - option "(GMT+02:00) Riga"
+                    - option "(GMT+02:00) Sofia"
+                    - option "(GMT+02:00) Tallinn"
+                    - option "(GMT+02:00) Vilnius"
+                    - option "(GMT+03:00) Baghdad"
+                    - option "(GMT+03:00) Istanbul"
+                    - option "(GMT+03:00) Kuwait"
+                    - option "(GMT+03:00) Minsk"
+                    - option "(GMT+03:00) Moscow"
+                    - option "(GMT+03:00) Nairobi"
+                    - option "(GMT+03:00) Riyadh"
+                    - option "(GMT+03:00) St. Petersburg"
+                    - option "(GMT+03:00) Volgograd"
+                    - option "(GMT+03:30) Tehran"
+                    - option "(GMT+04:00) Abu Dhabi"
+                    - option "(GMT+04:00) Baku"
+                    - option "(GMT+04:00) Muscat"
+                    - option "(GMT+04:00) Samara"
+                    - option "(GMT+04:00) Tbilisi"
+                    - option "(GMT+04:00) Yerevan"
+                    - option "(GMT+04:30) Kabul"
+                    - option "(GMT+05:00) Almaty"
+                    - option "(GMT+05:00) Astana"
+                    - option "(GMT+05:00) Ekaterinburg"
+                    - option "(GMT+05:00) Islamabad"
+                    - option "(GMT+05:00) Karachi"
+                    - option "(GMT+05:00) Tashkent"
+                    - option "(GMT+05:30) Chennai"
+                    - option "(GMT+05:30) Kolkata"
+                    - option "(GMT+05:30) Mumbai"
+                    - option "(GMT+05:30) New Delhi"
+                    - option "(GMT+05:30) Sri Jayawardenepura"
+                    - option "(GMT+05:45) Kathmandu"
+                    - option "(GMT+06:00) Dhaka"
+                    - option "(GMT+06:00) Urumqi"
+                    - option "(GMT+06:30) Rangoon"
+                    - option "(GMT+07:00) Bangkok"
+                    - option "(GMT+07:00) Hanoi"
+                    - option "(GMT+07:00) Jakarta"
+                    - option "(GMT+07:00) Krasnoyarsk"
+                    - option "(GMT+07:00) Novosibirsk"
+                    - option "(GMT+08:00) Beijing"
+                    - option "(GMT+08:00) Chongqing"
+                    - option "(GMT+08:00) Hong Kong"
+                    - option "(GMT+08:00) Irkutsk"
+                    - option "(GMT+08:00) Kuala Lumpur"
+                    - option "(GMT+08:00) Perth"
+                    - option "(GMT+08:00) Singapore"
+                    - option "(GMT+08:00) Taipei"
+                    - option "(GMT+08:00) Ulaanbaatar"
+                    - option "(GMT+09:00) Osaka"
+                    - option "(GMT+09:00) Sapporo"
+                    - option "(GMT+09:00) Seoul"
+                    - option "(GMT+09:00) Tokyo"
+                    - option "(GMT+09:00) Yakutsk"
+                    - option "(GMT+09:30) Adelaide"
+                    - option "(GMT+09:30) Darwin"
+                    - option "(GMT+10:00) Brisbane"
+                    - option "(GMT+10:00) Canberra"
+                    - option "(GMT+10:00) Guam"
+                    - option "(GMT+10:00) Hobart"
+                    - option "(GMT+10:00) Melbourne"
+                    - option "(GMT+10:00) Port Moresby"
+                    - option "(GMT+10:00) Sydney"
+                    - option "(GMT+10:00) Vladivostok"
+                    - option "(GMT+11:00) Magadan"
+                    - option "(GMT+11:00) New Caledonia"
+                    - option "(GMT+11:00) Solomon Is."
+                    - option "(GMT+11:00) Srednekolymsk"
+                    - option "(GMT+12:00) Auckland"
+                    - option "(GMT+12:00) Fiji"
+                    - option "(GMT+12:00) Kamchatka"
+                    - option "(GMT+12:00) Marshall Is."
+                    - option "(GMT+12:00) Wellington"
+                    - option "(GMT+12:45) Chatham Is."
+                    - option "(GMT+13:00) Nuku'alofa"
+                    - option "(GMT+13:00) Samoa"
+                    - option "(GMT+13:00) Tokelau Is."
+                - paragraph [ref=f508e160]:
+                  - generic [ref=f508e161]: Comments sorting
+                  - combobox "Comments sorting" [ref=f508e162]:
+                    - option "In chronological order" [selected]
+                    - option "In reverse chronological order"
+                - paragraph [ref=f508e163]:
+                  - generic [ref=f508e164]: Warn on leaving unsaved
+                  - checkbox "Warn on leaving unsaved" [checked] [ref=f508e165]
+                - paragraph [ref=f508e166]:
+                  - generic [ref=f508e167]: Textarea font
+                  - combobox "Textarea font" [ref=f508e168]:
+                    - option "Default font" [selected]
+                    - option "Monospaced font"
+                    - option "Proportional font"
+                - paragraph [ref=f508e169]:
+                  - generic [ref=f508e170]: Recently used projects
+                  - textbox "Recently used projects" [ref=f508e171]: "3"
+                - paragraph [ref=f508e172]:
+                  - generic [ref=f508e173]: History default tab
+                  - combobox "History default tab" [ref=f508e174]:
+                    - option "Notes" [selected]
+                    - option "History"
+                    - option "Property changes"
+                    - option "Spent time"
+                    - option "Associated revisions"
+                    - option "Last visited tab"
+                - paragraph [ref=f508e175]:
+                  - generic [ref=f508e176]: Toolbar language options
+                  - textbox "Toolbar language options" [ref=f508e177]: c,cpp,csharp,css,diff,go,groovy,html,java,javascript,objc,perl,php,python,r,ruby,sass,scala,shell,sql,swift,xml,yaml
+                - paragraph [ref=f508e178]:
+                  - generic [ref=f508e179]: Default issue query
+                  - combobox "Default issue query" [ref=f508e180]:
+                    - option "None" [selected]
+                    - option "Issues assigned to me"
+                    - option "Reported issues"
+                    - option "Updated issues"
+                    - option "Watched issues"
+                - paragraph [ref=f508e181]:
+                  - generic [ref=f508e182]: Default project query
+                  - combobox "Default project query" [ref=f508e183]:
+                    - option "None" [selected]
+                    - option "My projects"
+                    - option "My bookmarks"
+          - paragraph [ref=f508e184]:
+            - generic [ref=f508e185]:
+              - checkbox "Send account information to the user" [ref=f508e186]
+              - text: Send account information to the user
+    - generic [ref=f508e187]:
+      - text: Powered by
+      - link "Redmine" [ref=f508e188] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f508e189]
+  - log [ref=f508e190]
+  - log [ref=f508e191]
+  - log [ref=f508e192]
+  - log [ref=f508e193]
+  - log [ref=f508e194]
+  - log [ref=f508e195]
+  - log [ref=f508e196]
+  - log [ref=f508e197]
+  - log [ref=f508e198]
+  - log [ref=f508e199]
+  - log [ref=f508e200]
+  - log [ref=f508e201]
+  - log [ref=f508e202]
+  - log [ref=f508e203]
+  - log [ref=f508e204]
+  - log [ref=f508e205]
+  - log [ref=f508e206]

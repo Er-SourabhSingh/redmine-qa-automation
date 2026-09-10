@@ -1,0 +1,357 @@
+- generic [active] [ref=f14e1]:
+  - generic [ref=f14e2]:
+    - navigation [ref=f14e3]:
+      - generic [ref=f14e4]:
+        - link [ref=f14e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f14e7] [cursor=pointer]
+      - list [ref=f14e17]:
+        - listitem [ref=f14e18]:
+          - link "Hauptseite" [ref=f14e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f14e20]:
+          - link "Meine Seite" [ref=f14e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f14e22]:
+          - link "Projekte" [ref=f14e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f14e24]:
+          - link "Agile Board" [ref=f14e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f14e26]:
+          - link "Flux Gantt" [ref=f14e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f14e28]:
+          - link "Administration" [ref=f14e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f14e30]:
+          - link "Hilfe" [ref=f14e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f14e32]:
+        - generic [ref=f14e33]:
+          - generic [ref=f14e34] [cursor=pointer]: Flux Gantt Project
+          - text: ✓ ✓
+        - button "Suche" [ref=f14e35]
+        - link "Mein Konto" [ref=f14e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f14e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f14e44]:
+      - generic [ref=f14e45]:
+        - generic [ref=f14e46]:
+          - heading "Flux Gantt Project" [level=1] [ref=f14e47]
+          - generic [ref=f14e48]:
+            - generic [ref=f14e49]:
+              - generic [ref=f14e50]: Hauptmenü
+              - listitem [ref=f14e51]:
+                - link "+" [ref=f14e52] [cursor=pointer]:
+                  - /url: "#"
+            - list [ref=f14e53]:
+              - listitem [ref=f14e54]:
+                - link "Übersicht" [ref=f14e55] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject
+              - listitem [ref=f14e60]:
+                - link "Dashboard" [ref=f14e61] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/analytics_dashboard
+              - listitem [ref=f14e69]:
+                - link "Flux Gantt" [ref=f14e70] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/flux_gantt
+              - listitem [ref=f14e77]:
+                - link "Aktivität" [ref=f14e78] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/activity
+              - listitem [ref=f14e83]:
+                - link "Roadmap" [ref=f14e84] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/roadmap
+              - listitem [ref=f14e91]:
+                - link "Tickets" [ref=f14e92] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/issues
+              - listitem [ref=f14e97]:
+                - link "Aufgewendete Zeit" [ref=f14e98] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/time_entries
+              - listitem [ref=f14e103]:
+                - link "Gantt-Diagramm" [ref=f14e104] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/issues/gantt
+              - listitem [ref=f14e112]:
+                - link "Kalender" [ref=f14e113] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/issues/calendar
+              - listitem [ref=f14e118]:
+                - link "News" [ref=f14e119] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/news
+              - listitem [ref=f14e124]:
+                - link "Dokumente" [ref=f14e125] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/documents
+              - listitem [ref=f14e130]:
+                - link "Wiki" [ref=f14e131] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/wiki
+              - listitem [ref=f14e136]:
+                - link "Dateien" [ref=f14e137] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/files
+              - listitem [ref=f14e142]:
+                - link "Konfiguration" [ref=f14e143] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/settings
+        - generic [ref=f14e149]:
+          - generic [ref=f14e150]:
+            - heading "Roadmap" [level=3] [ref=f14e151]
+            - list [ref=f14e152]:
+              - listitem [ref=f14e153]:
+                - generic [ref=f14e154] [cursor=pointer]:
+                  - checkbox "Bug" [ref=f14e155]
+                  - text: Bug
+              - listitem [ref=f14e156]:
+                - generic [ref=f14e157] [cursor=pointer]:
+                  - checkbox "Feature" [checked] [ref=f14e158]
+                  - text: Feature
+              - listitem [ref=f14e159]:
+                - generic [ref=f14e160] [cursor=pointer]:
+                  - checkbox "Support" [ref=f14e161]
+                  - text: Support
+            - paragraph
+            - list [ref=f14e162]:
+              - listitem [ref=f14e163]:
+                - generic [ref=f14e164] [cursor=pointer]:
+                  - checkbox "Abgeschlossene Versionen anzeigen" [ref=f14e165]
+                  - text: Abgeschlossene Versionen anzeigen
+            - paragraph [ref=f14e166]:
+              - button "Anwenden" [ref=f14e167] [cursor=pointer]
+          - heading "Versionen" [level=3] [ref=f14e168]
+          - list [ref=f14e169]:
+            - listitem [ref=f14e170]:
+              - link "Version 1" [ref=f14e171] [cursor=pointer]:
+                - /url: "#version-1"
+            - listitem [ref=f14e172]:
+              - link "Version 2" [ref=f14e173] [cursor=pointer]:
+                - /url: "#version-2"
+            - listitem [ref=f14e174]:
+              - link "Version 3" [ref=f14e175] [cursor=pointer]:
+                - /url: "#version-3"
+            - listitem [ref=f14e176]:
+              - link "Version 4" [ref=f14e177] [cursor=pointer]:
+                - /url: "#version-4"
+      - generic [ref=f14e178]:
+        - generic [ref=f14e179]:
+          - link "Neue Version" [ref=f14e180] [cursor=pointer]:
+            - /url: /projects/fluxganttproject/versions/new
+          - generic "Aktionen" [ref=f14e184] [cursor=pointer]
+        - heading "Roadmap" [level=2] [ref=f14e187]
+        - generic [ref=f14e188]:
+          - article [ref=f14e189]:
+            - generic [ref=f14e190]:
+              - generic:
+                - link "Bearbeiten":
+                  - /url: /versions/1/edit
+              - heading [level=3] [ref=f14e191]:
+                - link "Version 1" [ref=f14e192] [cursor=pointer]:
+                  - /url: /versions/1
+              - generic [ref=f14e193]: offen
+            - generic [ref=f14e194]:
+              - paragraph [ref=f14e195]:
+                - strong [ref=f14e196]: Fällig in 22 Tagen
+                - text: (30.09.2026)
+              - paragraph [ref=f14e197]: Version 1 description
+              - paragraph [ref=f14e198]: Keine Tickets für diese Version
+          - article [ref=f14e199]:
+            - generic [ref=f14e200]:
+              - generic:
+                - link "Bearbeiten":
+                  - /url: /versions/2/edit
+              - heading [level=3] [ref=f14e201]:
+                - link "Version 2" [ref=f14e202] [cursor=pointer]:
+                  - /url: /versions/2
+              - generic [ref=f14e203]: offen
+            - generic [ref=f14e204]:
+              - paragraph [ref=f14e205]:
+                - strong [ref=f14e206]: Fällig in 22 Tagen
+                - text: (30.09.2026)
+              - paragraph [ref=f14e207]: Version 2 description
+              - table [ref=f14e208]:
+                - rowgroup [ref=f14e209]:
+                  - row [ref=f14e210]:
+                    - cell [ref=f14e211]
+              - paragraph [ref=f14e212]: 0%
+              - paragraph [ref=f14e213]:
+                - link "10 Tickets" [ref=f14e214] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/issues?fixed_version_id=2&set_filter=1&status_id=%2A
+                - text: (0 geschlossen —
+                - link "10 offen" [ref=f14e215] [cursor=pointer]:
+                  - /url: /projects/fluxganttproject/issues?fixed_version_id=2&set_filter=1&status_id=o
+                - text: )
+            - button "Zugehörige Tickets (10)" [ref=f14e216] [cursor=pointer]
+            - table "Zugehörige Tickets" [ref=f14e223]:
+              - rowgroup [ref=f14e224]:
+                - row [ref=f14e225]:
+                  - cell [ref=f14e226]:
+                    - 'img "Zugewiesen an: Summer Rain" [ref=f14e227]': SR
+                  - cell [ref=f14e228]:
+                    - 'link "Feature #241" [ref=f14e229] [cursor=pointer]':
+                      - /url: /issues/241
+                    - text: ": create a agile issue status column setting"
+                  - cell [ref=f14e230]:
+                    - link "Aktionen" [ref=f14e231] [cursor=pointer]:
+                      - /url: "#"
+                - row [ref=f14e234]:
+                  - cell [ref=f14e235]:
+                    - 'img "Zugewiesen an: Summer Rain" [ref=f14e236]': SR
+                  - cell [ref=f14e237]:
+                    - 'link "Feature #242" [ref=f14e238] [cursor=pointer]':
+                      - /url: /issues/242
+                    - text: ": create a agile card field column setting"
+                  - cell [ref=f14e239]:
+                    - link "Aktionen" [ref=f14e240] [cursor=pointer]:
+                      - /url: "#"
+                - row [ref=f14e243]:
+                  - cell [ref=f14e244]:
+                    - 'img "Zugewiesen an: Violet Ember" [ref=f14e245]': VE
+                  - cell [ref=f14e246]:
+                    - 'link "Feature #243" [ref=f14e247] [cursor=pointer]':
+                      - /url: /issues/243
+                    - text: ": create a demo server for agile"
+                  - cell [ref=f14e248]:
+                    - link "Aktionen" [ref=f14e249] [cursor=pointer]:
+                      - /url: "#"
+                - row [ref=f14e252]:
+                  - cell [ref=f14e253]:
+                    - 'img "Zugewiesen an: Violet Ember" [ref=f14e254]': VE
+                  - cell [ref=f14e255]:
+                    - 'link "Feature #244" [ref=f14e256] [cursor=pointer]':
+                      - /url: /issues/244
+                    - text: ": implement wip functionality"
+                  - cell [ref=f14e257]:
+                    - link "Aktionen" [ref=f14e258] [cursor=pointer]:
+                      - /url: "#"
+                - row [ref=f14e261]:
+                  - cell [ref=f14e262]:
+                    - 'img "Zugewiesen an: Celeste Dawn" [ref=f14e263]': CD
+                  - cell [ref=f14e264]:
+                    - 'link "Feature #245" [ref=f14e265] [cursor=pointer]':
+                      - /url: /issues/245
+                    - text: ": update agile setting"
+                  - cell [ref=f14e266]:
+                    - link "Aktionen" [ref=f14e267] [cursor=pointer]:
+                      - /url: "#"
+                - row [ref=f14e270]:
+                  - cell [ref=f14e271]:
+                    - 'img "Zugewiesen an: Celeste Dawn" [ref=f14e272]': CD
+                  - cell [ref=f14e273]:
+                    - 'link "Feature #246" [ref=f14e274] [cursor=pointer]':
+                      - /url: /issues/246
+                    - text: ": added a agile config form"
+                  - cell [ref=f14e275]:
+                    - link "Aktionen" [ref=f14e276] [cursor=pointer]:
+                      - /url: "#"
+                - row [ref=f14e279]:
+                  - cell [ref=f14e280]:
+                    - 'img "Zugewiesen an: Serenity Bloom" [ref=f14e281]': SB
+                  - cell [ref=f14e282]:
+                    - 'link "Feature #247" [ref=f14e283] [cursor=pointer]':
+                      - /url: /issues/247
+                    - text: ": Agile board card create"
+                  - cell [ref=f14e284]:
+                    - link "Aktionen" [ref=f14e285] [cursor=pointer]:
+                      - /url: "#"
+                - row [ref=f14e288]:
+                  - cell [ref=f14e289]:
+                    - 'img "Zugewiesen an: Serenity Bloom" [ref=f14e290]': SB
+                  - cell [ref=f14e291]:
+                    - 'link "Feature #248" [ref=f14e292] [cursor=pointer]':
+                      - /url: /issues/248
+                    - text: ": Total time update on scroll"
+                  - cell [ref=f14e293]:
+                    - link "Aktionen" [ref=f14e294] [cursor=pointer]:
+                      - /url: "#"
+                - row [ref=f14e297]:
+                  - cell [ref=f14e298]:
+                    - 'img "Zugewiesen an: Nova Starling" [ref=f14e299]': NS
+                  - cell [ref=f14e300]:
+                    - 'link "Feature #249" [ref=f14e301] [cursor=pointer]':
+                      - /url: /issues/249
+                    - text: ": card fiels are show according to project"
+                  - cell [ref=f14e302]:
+                    - link "Aktionen" [ref=f14e303] [cursor=pointer]:
+                      - /url: "#"
+                - row [ref=f14e306]:
+                  - cell [ref=f14e307]:
+                    - 'img "Zugewiesen an: Nova Starling" [ref=f14e308]': NS
+                  - cell [ref=f14e309]:
+                    - 'link "Feature #250" [ref=f14e310] [cursor=pointer]':
+                      - /url: /issues/250
+                    - text: ": Issue status are show according to project"
+                  - cell [ref=f14e311]:
+                    - link "Aktionen" [ref=f14e312] [cursor=pointer]:
+                      - /url: "#"
+          - article [ref=f14e315]:
+            - generic [ref=f14e316]:
+              - generic:
+                - link "Bearbeiten":
+                  - /url: /versions/3/edit
+              - heading [level=3] [ref=f14e317]:
+                - link "Version 3" [ref=f14e318] [cursor=pointer]:
+                  - /url: /versions/3
+              - generic [ref=f14e319]: offen
+            - generic [ref=f14e320]:
+              - paragraph [ref=f14e321]:
+                - strong [ref=f14e322]: Fällig in 22 Tagen
+                - text: (30.09.2026)
+              - paragraph [ref=f14e323]: Version 3 description
+              - paragraph [ref=f14e324]: Keine Tickets für diese Version
+          - article [ref=f14e325]:
+            - generic [ref=f14e326]:
+              - generic:
+                - link "Bearbeiten":
+                  - /url: /versions/4/edit
+              - heading [level=3] [ref=f14e327]:
+                - link "Version 4" [ref=f14e328] [cursor=pointer]:
+                  - /url: /versions/4
+              - generic [ref=f14e329]: offen
+            - generic [ref=f14e330]:
+              - paragraph [ref=f14e331]:
+                - strong [ref=f14e332]: Fällig in 22 Tagen
+                - text: (30.09.2026)
+              - paragraph [ref=f14e333]: Version 4 description
+              - paragraph [ref=f14e334]: Keine Tickets für diese Version
+    - generic [ref=f14e335]:
+      - text: Powered by
+      - link "Redmine" [ref=f14e336] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f14e337]
+  - log [ref=f14e338]
+  - log [ref=f14e339]
+  - log [ref=f14e340]
+  - log [ref=f14e341]
+  - log [ref=f14e342]
+  - log [ref=f14e343]
+  - log [ref=f14e344]
+  - log [ref=f14e345]
+  - log [ref=f14e346]
+  - log [ref=f14e347]
+  - log [ref=f14e348]
+  - log [ref=f14e349]
+  - log [ref=f14e350]
+  - log [ref=f14e351]
+  - log [ref=f14e352]
+  - log [ref=f14e353]
+  - log [ref=f14e354]
+  - log [ref=f14e355]
+  - log [ref=f14e356]
+  - log [ref=f14e357]
+  - log [ref=f14e358]
+  - log [ref=f14e359]
+  - log [ref=f14e360]
+  - log [ref=f14e361]
+  - log [ref=f14e362]
+  - log [ref=f14e363]
+  - log [ref=f14e364]
+  - log [ref=f14e365]
+  - log [ref=f14e366]
+  - log [ref=f14e367]
+  - log [ref=f14e368]
+  - log [ref=f14e369]
+  - log [ref=f14e370]
+  - log [ref=f14e371]
+  - log [ref=f14e372]
+  - log [ref=f14e373]
+  - log [ref=f14e374]
+  - log [ref=f14e375]
+  - log [ref=f14e376]
+  - log [ref=f14e377]
+  - log [ref=f14e378]

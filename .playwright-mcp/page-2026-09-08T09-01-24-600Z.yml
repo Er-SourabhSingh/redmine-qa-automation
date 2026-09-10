@@ -1,0 +1,328 @@
+- generic [ref=f227e1]:
+  - generic [ref=f227e2]:
+    - navigation [ref=f227e3]:
+      - generic [ref=f227e4]:
+        - link [ref=f227e5] [cursor=pointer]:
+          - /url: /
+        - button "Seitenleiste umschalten" [ref=f227e7] [cursor=pointer]
+      - list [ref=f227e17]:
+        - listitem [ref=f227e18]:
+          - link "Hauptseite" [ref=f227e19] [cursor=pointer]:
+            - /url: /
+        - listitem [ref=f227e20]:
+          - link "Meine Seite" [ref=f227e21] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f227e22]:
+          - link "Projekte" [ref=f227e23] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f227e24]:
+          - link "Agile Board" [ref=f227e25] [cursor=pointer]:
+            - /url: /agile_board/global
+        - listitem [ref=f227e26]:
+          - link "Flux Gantt" [ref=f227e27] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f227e28]:
+          - link "Administration" [ref=f227e29] [cursor=pointer]:
+            - /url: /admin
+        - listitem [ref=f227e30]:
+          - link "Hilfe" [ref=f227e31] [cursor=pointer]:
+            - /url: https://www.redmine.org/guide
+      - generic [ref=f227e32]:
+        - generic [ref=f227e33]: Zu einem Projekt springen...
+        - button "Suche" [ref=f227e35]
+        - link "Mein Konto" [ref=f227e38] [cursor=pointer]:
+          - /url: /my/account
+        - link "Abmelden" [ref=f227e41] [cursor=pointer]:
+          - /url: /logout
+    - generic [ref=f227e44]:
+      - generic [ref=f227e45]:
+        - heading "Redmine" [level=1] [ref=f227e47]
+        - generic [ref=f227e49]:
+          - heading "Administration" [level=3] [ref=f227e50]
+          - list [ref=f227e52]:
+            - listitem [ref=f227e53]:
+              - link "Projekte" [ref=f227e54] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f227e55]:
+              - link "Benutzer" [ref=f227e56] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f227e57]:
+              - link "Gruppen" [ref=f227e58] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f227e59]:
+              - link "Rollen und Rechte" [ref=f227e60] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f227e61]:
+              - link "Tracker" [ref=f227e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f227e63]:
+              - link "Ticket-Status" [ref=f227e64] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f227e65]:
+              - link "Workflow" [ref=f227e66] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f227e67]:
+              - link "Benutzerdefinierte Felder" [ref=f227e68] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f227e69]:
+              - link "Aufzählungen" [ref=f227e70] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f227e71]:
+              - link "Konfiguration" [ref=f227e72] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f227e73]:
+              - link "LDAP-Authentifizierung" [ref=f227e74] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f227e75]:
+              - link "Applikationen" [ref=f227e76] [cursor=pointer]:
+                - /url: /oauth/applications
+            - listitem [ref=f227e77]:
+              - link "Plugins" [ref=f227e78] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f227e79]:
+              - link "Informationen" [ref=f227e80] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f227e81]:
+        - heading "Konfiguration" [level=2] [ref=f227e82]
+        - list [ref=f227e84]:
+          - listitem [ref=f227e85]:
+            - link "Allgemein" [ref=f227e86] [cursor=pointer]:
+              - /url: /settings?tab=general
+          - listitem [ref=f227e87]:
+            - link "Anzeige" [ref=f227e88] [cursor=pointer]:
+              - /url: /settings?tab=display
+          - listitem [ref=f227e89]:
+            - link "Authentifizierung" [ref=f227e90] [cursor=pointer]:
+              - /url: /settings?tab=authentication
+          - listitem [ref=f227e91]:
+            - link "Integrations" [ref=f227e92] [cursor=pointer]:
+              - /url: /settings?tab=integrations
+          - listitem [ref=f227e93]:
+            - link "Projekte" [ref=f227e94] [cursor=pointer]:
+              - /url: /settings?tab=projects
+          - listitem [ref=f227e95]:
+            - link "Benutzer" [ref=f227e96] [cursor=pointer]:
+              - /url: /settings?tab=users
+          - listitem [ref=f227e97]:
+            - link "Tickets" [ref=f227e98] [cursor=pointer]:
+              - /url: /settings?tab=issues
+          - listitem [ref=f227e99]:
+            - link "Zeiterfassung" [ref=f227e100] [cursor=pointer]:
+              - /url: /settings?tab=timelog
+          - listitem [ref=f227e101]:
+            - link "Dateien" [ref=f227e102] [cursor=pointer]:
+              - /url: /settings?tab=attachments
+          - listitem [ref=f227e103]:
+            - link "Mailbenachrichtigung" [ref=f227e104] [cursor=pointer]:
+              - /url: /settings?tab=notifications
+          - listitem [ref=f227e105]:
+            - link "Eingehende E-Mails" [ref=f227e106] [cursor=pointer]:
+              - /url: /settings?tab=mail_handler
+          - listitem [ref=f227e107]:
+            - link "Repositories" [ref=f227e108] [cursor=pointer]:
+              - /url: /settings?tab=repositories
+        - text: pre
+        - generic [ref=f227e110]:
+          - generic [ref=f227e111]:
+            - paragraph [ref=f227e112]:
+              - generic [ref=f227e113]: E-Mail-Absender
+              - textbox "E-Mail-Absender" [active] [ref=f227e114]: no-reply@zehntechmail.com
+            - paragraph [ref=f227e115]:
+              - generic [ref=f227e116]: Nur reinen Text (kein HTML) senden
+              - checkbox "Nur reinen Text (kein HTML) senden" [ref=f227e117]
+            - paragraph [ref=f227e118]:
+              - generic [ref=f227e119]: Zeige Statusänderungen im Betreff der E-Mail-Benachrichtigung für Tickets
+              - checkbox "Zeige Statusänderungen im Betreff der E-Mail-Benachrichtigung für Tickets" [checked] [ref=f227e120]
+          - group "Bitte wählen Sie die Aktionen aus, für die eine E-Mail-Benachrichtigung gesendet werden soll." [ref=f227e121]:
+            - generic [ref=f227e123]:
+              - checkbox "Ticket hinzugefügt" [checked] [ref=f227e124]
+              - text: Ticket hinzugefügt
+            - generic [ref=f227e125]:
+              - checkbox "Ticket aktualisiert" [checked] [ref=f227e126]
+              - text: Ticket aktualisiert
+            - generic [ref=f227e127]:
+              - checkbox "Notiz hinzugefügt" [disabled] [ref=f227e128]
+              - text: Notiz hinzugefügt
+            - generic [ref=f227e129]:
+              - checkbox "Status aktualisiert" [disabled] [ref=f227e130]
+              - text: Status aktualisiert
+            - generic [ref=f227e131]:
+              - checkbox "Bearbeiter aktualisiert" [disabled] [ref=f227e132]
+              - text: Bearbeiter aktualisiert
+            - generic [ref=f227e133]:
+              - checkbox "Priorität aktualisiert" [disabled] [ref=f227e134]
+              - text: Priorität aktualisiert
+            - generic [ref=f227e135]:
+              - checkbox "Zielversion aktualisiert" [disabled] [ref=f227e136]
+              - text: Zielversion aktualisiert
+            - generic [ref=f227e137]:
+              - checkbox "Attachment added" [disabled] [ref=f227e138]
+              - text: Attachment added
+            - generic [ref=f227e139]:
+              - checkbox "News hinzugefügt" [ref=f227e140]
+              - text: News hinzugefügt
+            - generic [ref=f227e141]:
+              - checkbox "Kommentar zu einer News hinzugefügt" [ref=f227e142]
+              - text: Kommentar zu einer News hinzugefügt
+            - generic [ref=f227e143]:
+              - checkbox "Dokument hinzugefügt" [ref=f227e144]
+              - text: Dokument hinzugefügt
+            - generic [ref=f227e145]:
+              - checkbox "Datei hinzugefügt" [ref=f227e146]
+              - text: Datei hinzugefügt
+            - generic [ref=f227e147]:
+              - checkbox "Forenbeitrag hinzugefügt" [ref=f227e148]
+              - text: Forenbeitrag hinzugefügt
+            - generic [ref=f227e149]:
+              - checkbox "Wiki-Seite hinzugefügt" [ref=f227e150]
+              - text: Wiki-Seite hinzugefügt
+            - generic [ref=f227e151]:
+              - checkbox "Wiki-Seite aktualisiert" [ref=f227e152]
+              - text: Wiki-Seite aktualisiert
+            - paragraph [ref=f227e153]:
+              - link "Alles auswählen" [ref=f227e154] [cursor=pointer]:
+                - /url: "#"
+              - text: "|"
+              - link "Alles abwählen" [ref=f227e155] [cursor=pointer]:
+                - /url: "#"
+          - group "E-Mail-Kopfzeile" [ref=f227e156]:
+            - generic [ref=f227e158]:
+              - list [ref=f227e160]:
+                - listitem [ref=f227e161]:
+                  - link "Bearbeiten" [ref=f227e162] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f227e163]:
+                  - link "Vorschau" [ref=f227e164] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f227e165]:
+                  - generic [ref=f227e166]:
+                    - button "Fett (Ctrl+B)" [ref=f227e167] [cursor=pointer]
+                    - button "Kursiv (Ctrl+I)" [ref=f227e168] [cursor=pointer]
+                    - button "Unterstrichen (Ctrl+U)" [ref=f227e169] [cursor=pointer]
+                    - button "Durchgestrichen" [ref=f227e170] [cursor=pointer]
+                    - button "Quelltext" [ref=f227e171] [cursor=pointer]
+                    - button "Überschrift 1. Ordnung" [ref=f227e172] [cursor=pointer]
+                    - button "Überschrift 2. Ordnung" [ref=f227e173] [cursor=pointer]
+                    - button "Überschrift 3. Ordnung" [ref=f227e174] [cursor=pointer]
+                    - button "Aufzählungsliste" [ref=f227e175] [cursor=pointer]
+                    - button "Nummerierte Liste" [ref=f227e176] [cursor=pointer]
+                    - button "Task list" [ref=f227e177] [cursor=pointer]
+                    - button "Zitat" [ref=f227e178] [cursor=pointer]
+                    - button "Zitat entfernen" [ref=f227e179] [cursor=pointer]
+                    - button "Table" [ref=f227e180] [cursor=pointer]
+                    - button "pre" [ref=f227e181] [cursor=pointer]
+                    - button "Highlighted code" [ref=f227e182] [cursor=pointer]
+                    - button "Verweis (Link) zu einer Wiki-Seite" [ref=f227e183] [cursor=pointer]
+                    - button "Grafik" [ref=f227e184] [cursor=pointer]
+                    - button "Help" [ref=f227e185] [cursor=pointer]
+              - textbox [ref=f227e187]
+          - group "E-Mail-Fußzeile" [ref=f227e188]:
+            - generic [ref=f227e190]:
+              - list [ref=f227e192]:
+                - listitem [ref=f227e193]:
+                  - link "Bearbeiten" [ref=f227e194] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f227e195]:
+                  - link "Vorschau" [ref=f227e196] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=f227e197]:
+                  - generic [ref=f227e198]:
+                    - button "Fett (Ctrl+B)" [ref=f227e199] [cursor=pointer]
+                    - button "Kursiv (Ctrl+I)" [ref=f227e200] [cursor=pointer]
+                    - button "Unterstrichen (Ctrl+U)" [ref=f227e201] [cursor=pointer]
+                    - button "Durchgestrichen" [ref=f227e202] [cursor=pointer]
+                    - button "Quelltext" [ref=f227e203] [cursor=pointer]
+                    - button "Überschrift 1. Ordnung" [ref=f227e204] [cursor=pointer]
+                    - button "Überschrift 2. Ordnung" [ref=f227e205] [cursor=pointer]
+                    - button "Überschrift 3. Ordnung" [ref=f227e206] [cursor=pointer]
+                    - button "Aufzählungsliste" [ref=f227e207] [cursor=pointer]
+                    - button "Nummerierte Liste" [ref=f227e208] [cursor=pointer]
+                    - button "Task list" [ref=f227e209] [cursor=pointer]
+                    - button "Zitat" [ref=f227e210] [cursor=pointer]
+                    - button "Zitat entfernen" [ref=f227e211] [cursor=pointer]
+                    - button "Table" [ref=f227e212] [cursor=pointer]
+                    - button "pre" [ref=f227e213] [cursor=pointer]
+                    - button "Highlighted code" [ref=f227e214] [cursor=pointer]
+                    - button "Verweis (Link) zu einer Wiki-Seite" [ref=f227e215] [cursor=pointer]
+                    - button "Grafik" [ref=f227e216] [cursor=pointer]
+                    - button "Help" [ref=f227e217] [cursor=pointer]
+              - textbox [ref=f227e219]: "You have received this notification because you have either subscribed to it, or are involved in it. To change your notification preferences, please click here: http://hostname/my/account"
+          - link "Test-E-Mail senden" [ref=f227e221] [cursor=pointer]:
+            - /url: /admin/test_email
+          - button "Speichern" [ref=f227e222] [cursor=pointer]
+    - generic [ref=f227e223]:
+      - text: Powered by
+      - link "Redmine" [ref=f227e224] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f227e225]
+  - log [ref=f227e226]
+  - log [ref=f227e227]
+  - log [ref=f227e228]
+  - log [ref=f227e229]
+  - log [ref=f227e230]
+  - log [ref=f227e231]
+  - log [ref=f227e232]
+  - log [ref=f227e233]
+  - log [ref=f227e234]
+  - log [ref=f227e235]
+  - log [ref=f227e236]
+  - log [ref=f227e237]
+  - log [ref=f227e238]
+  - log [ref=f227e239]
+  - log [ref=f227e240]
+  - log [ref=f227e241]
+  - log [ref=f227e242]
+  - log [ref=f227e243]
+  - log [ref=f227e244]
+  - log [ref=f227e245]
+  - log [ref=f227e246]
+  - log [ref=f227e247]
+  - log [ref=f227e248]
+  - log [ref=f227e249]
+  - log [ref=f227e250]
+  - log [ref=f227e251]
+  - log [ref=f227e252]
+  - log [ref=f227e253]
+  - log [ref=f227e254]
+  - log [ref=f227e255]
+  - log [ref=f227e256]
+  - log [ref=f227e257]
+  - log [ref=f227e258]
+  - log [ref=f227e259]
+  - log [ref=f227e260]
+  - log [ref=f227e261]
+  - log [ref=f227e262]
+  - log [ref=f227e263]
+  - log [ref=f227e264]
+  - log [ref=f227e265]
+  - log [ref=f227e266]
+  - log [ref=f227e267]
+  - log [ref=f227e268]
+  - log [ref=f227e269]
+  - log [ref=f227e270]
+  - log [ref=f227e271]
+  - log [ref=f227e272]
+  - log [ref=f227e273]
+  - log [ref=f227e274]
+  - log [ref=f227e275]
+  - log [ref=f227e276]
+  - log [ref=f227e277]
+  - log [ref=f227e278]
+  - log [ref=f227e279]
+  - log [ref=f227e280]
+  - log [ref=f227e281]
+  - log [ref=f227e282]
+  - log [ref=f227e283]
+  - log [ref=f227e284]
+  - log [ref=f227e285]
+  - log [ref=f227e286]
+  - log [ref=f227e287]
+  - log [ref=f227e288]
+  - log [ref=f227e289]
+  - log [ref=f227e290]
+  - log [ref=f227e291]
+  - log [ref=f227e292]
+  - log [ref=f227e293]
+  - log [ref=f227e294]
+  - log [ref=f227e295]

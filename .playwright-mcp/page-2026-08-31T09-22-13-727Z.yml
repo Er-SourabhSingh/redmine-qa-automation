@@ -1,0 +1,161 @@
+- generic [active] [ref=f413e1]:
+  - generic [ref=f413e2]:
+    - generic [ref=f413e3]:
+      - generic [ref=f413e4]:
+        - list:
+          - listitem [ref=f413e5]:
+            - link "My account":
+              - /url: /my/account
+          - listitem [ref=f413e6]:
+            - link "Sign out":
+              - /url: /logout
+      - generic [ref=f413e7]:
+        - text: Logged in as
+        - link "admin" [ref=f413e8] [cursor=pointer]:
+          - /url: /users/1
+      - list [ref=f413e9]:
+        - listitem [ref=f413e10]:
+          - link [ref=f413e11] [cursor=pointer]:
+            - /url: /
+            - img "Flux Logo" [ref=f413e12]
+        - listitem [ref=f413e13]:
+          - link "Home":
+            - /url: /
+        - listitem [ref=f413e14]:
+          - link "My page" [ref=f413e15] [cursor=pointer]:
+            - /url: /my/page
+        - listitem [ref=f413e16]:
+          - link "Projects" [ref=f413e17] [cursor=pointer]:
+            - /url: /projects
+        - listitem [ref=f413e18]:
+          - link "Flux Gantt" [ref=f413e19] [cursor=pointer]:
+            - /url: /global_gantt
+        - listitem [ref=f413e20]:
+          - link "Helpdesk Command Center" [ref=f413e21] [cursor=pointer]:
+            - /url: /helpdesk
+        - listitem [ref=f413e22]:
+          - link "Time Tracker" [ref=f413e23] [cursor=pointer]:
+            - /url: /time_tracker
+        - listitem [ref=f413e24]:
+          - link "Timesheet" [ref=f413e25] [cursor=pointer]:
+            - /url: /timesheets/weekly
+        - listitem [ref=f413e26]:
+          - link "Workloads" [ref=f413e27] [cursor=pointer]:
+            - /url: /rf_workloads
+        - listitem [ref=f413e28]:
+          - link "More" [ref=f413e29] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=f413e30]:
+      - generic [ref=f413e31]:
+        - generic [ref=f413e32]:
+          - generic [ref=f413e33]:
+            - link "Search..." [ref=f413e34] [cursor=pointer]:
+              - /url: /search
+            - text: ":"
+          - textbox "Search...:" [ref=f413e35]
+        - generic [ref=f413e36]: Jump to a project...
+      - heading "Redmine" [level=1] [ref=f413e38]
+    - generic [ref=f413e39]:
+      - generic [ref=f413e40]:
+        - link [ref=f413e42] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f413e45]:
+          - heading "Administration" [level=3] [ref=f413e46]
+          - list [ref=f413e48]:
+            - listitem [ref=f413e49]:
+              - link "Projects" [ref=f413e50] [cursor=pointer]:
+                - /url: /admin/projects
+            - listitem [ref=f413e52]:
+              - link "Users" [ref=f413e53] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f413e55]:
+              - link "Groups" [ref=f413e56] [cursor=pointer]:
+                - /url: /groups
+            - listitem [ref=f413e58]:
+              - link "Roles and permissions" [ref=f413e59] [cursor=pointer]:
+                - /url: /roles
+            - listitem [ref=f413e61]:
+              - link "Trackers" [ref=f413e62] [cursor=pointer]:
+                - /url: /trackers
+            - listitem [ref=f413e64]:
+              - link "Issue statuses" [ref=f413e65] [cursor=pointer]:
+                - /url: /issue_statuses
+            - listitem [ref=f413e67]:
+              - link "Workflow" [ref=f413e68] [cursor=pointer]:
+                - /url: /workflows/edit
+            - listitem [ref=f413e70]:
+              - link "Custom fields" [ref=f413e71] [cursor=pointer]:
+                - /url: /custom_fields
+            - listitem [ref=f413e73]:
+              - link "Enumerations" [ref=f413e74] [cursor=pointer]:
+                - /url: /enumerations
+            - listitem [ref=f413e76]:
+              - link "Settings" [ref=f413e77] [cursor=pointer]:
+                - /url: /settings
+            - listitem [ref=f413e79]:
+              - link "LDAP authentication" [ref=f413e80] [cursor=pointer]:
+                - /url: /auth_sources
+            - listitem [ref=f413e82]:
+              - link "Plugins" [ref=f413e83] [cursor=pointer]:
+                - /url: /admin/plugins
+            - listitem [ref=f413e85]:
+              - link "Information" [ref=f413e86] [cursor=pointer]:
+                - /url: /admin/info
+      - generic [ref=f413e88]:
+        - generic [ref=f413e89]:
+          - link "Copy" [ref=f413e90] [cursor=pointer]:
+            - /url: /workflows/copy
+          - link "Summary" [ref=f413e92] [cursor=pointer]:
+            - /url: /workflows
+        - heading "Workflow" [level=2] [ref=f413e94]
+        - list [ref=f413e96]:
+          - listitem [ref=f413e97]:
+            - link "Status transitions" [ref=f413e98] [cursor=pointer]:
+              - /url: /workflows/edit
+          - listitem [ref=f413e99]:
+            - link "Fields permissions" [ref=f413e100] [cursor=pointer]:
+              - /url: /workflows/permissions
+        - paragraph [ref=f413e101]: "Select a role and a tracker to edit the workflow:"
+        - paragraph [ref=f413e103]:
+          - generic [ref=f413e104]:
+            - text: "Role:"
+            - combobox "Role:" [ref=f413e105]:
+              - option "All"
+              - option "Manager" [selected]
+              - option "Developer"
+              - option "Reporter"
+              - option "Agent"
+              - option "Non member"
+          - generic [ref=f413e106]:
+            - text: "Tracker:"
+            - combobox "Tracker:" [ref=f413e107]:
+              - option "All"
+              - option "Bug" [selected]
+              - option "Feature"
+              - option "Support"
+          - button "Edit" [ref=f413e108] [cursor=pointer]
+          - generic [ref=f413e109]:
+            - checkbox "Only display statuses that are used by this tracker" [checked] [ref=f413e110]
+            - text: Only display statuses that are used by this tracker
+    - generic [ref=f413e111]:
+      - text: Powered by
+      - link "Redmine" [ref=f413e112] [cursor=pointer]:
+        - /url: https://www.redmine.org/
+      - text: © 2006-2026 Jean-Philippe Lang
+  - log [ref=f413e113]
+  - log [ref=f413e114]
+  - log [ref=f413e115]
+  - log [ref=f413e116]
+  - log [ref=f413e117]
+  - log [ref=f413e118]
+  - log [ref=f413e119]
+  - log [ref=f413e120]
+  - log [ref=f413e121]
+  - log [ref=f413e122]
+  - log [ref=f413e123]
+  - log [ref=f413e124]
+  - log [ref=f413e125]
+  - log [ref=f413e126]
+  - log [ref=f413e127]
+  - log [ref=f413e128]
+  - log [ref=f413e129]

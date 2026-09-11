@@ -24,7 +24,7 @@ customer, the promise you made them, and the clock that holds you to it.
 | Reply to customer | Emails the customer, moves the ticket to *Waiting for Customer Response*, pauses the SLA | [§7.1](#71-replying-to-the-customer) |
 | Internal notes | Team-only notes that never reach the customer and never touch the clock | [§7.2](#72-writing-an-internal-note) |
 | Reply time log | Log the minutes a reply took from inside the reply box — presets or a custom value | [§8](#8-logging-the-time-a-reply-took) |
-| Merge duplicates | Fold one ticket into another, keeping notes and history | [§7.4](#74-merging-duplicates) |
+| Duplicate tickets | No Merge control; replies auto-match to the original ticket, genuine duplicates get closed with a reference note | [§7.4](#74-duplicate-tickets) |
 | Automatic status flow | Agent replies → waiting on customer. Customer replies → back in progress | [§9](#9-slas-how-the-clock-actually-works) |
 
 ### Service levels
@@ -589,10 +589,23 @@ In the reply box, pick a template from **Canned Response**. Its text is appended
 to whatever you have typed, with the macros already filled in for this ticket
 (see [section 14](#14-canned-responses)).
 
-### 7.4 Merging duplicates
+### 7.4 Duplicate tickets
 
-If the same problem arrives twice, open one ticket and use **Merge** to fold it
-into the other. Notes and history come across.
+There is no Merge control. A customer's email reply is automatically matched
+back to its original ticket, so replying never creates a second one — genuine
+duplicates only happen when someone raises a new ticket for something already
+reported. If that happens, close the newer ticket and leave a note on the
+older one pointing to it.
+
+*(Revised 2026-09-10, per production issue #119713's developer note: this
+section previously promised a "Merge" button, which never existed in the UI —
+see the now-closed `BUG-HLP-017`. The team decided not to build one; this
+section was rewritten to match that decision rather than the button being
+added. We have not independently inspected the production-side copy of this
+guide the developer's note refers to — this rewrite reflects our own QA
+reference copy only, brought in line with the confirmed, live-tested behavior:
+no Merge control exists anywhere, on either an individual ticket's page or the
+multi-select context menu.)*
 
 ---
 

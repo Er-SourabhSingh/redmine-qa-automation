@@ -262,7 +262,8 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 **Expected Result:**
 - The step's value should be read and saved like any other correctly-mapped column
-- **CONFIRMED (external session)**: **FAIL** — mapping is correct but the value is not read during import; the step is wrongly reported as missing and skipped, and the wrong content is silently promoted into its place. Non-padded headers (any case, internal double-spacing) are unaffected. Filed as **BUG-TCM-001**.
+- **2026-09-02 (external session)**: **FAIL** — mapping was correct but the value was not read during import; the step was wrongly reported as missing and skipped, and the wrong content was silently promoted into its place (test case #1014). Filed as **BUG-TCM-001**.
+- **2026-09-11 retest (localhost:3010, Redmine 7.0.0, plugin v7.0.0, admin)**: **PASS** — re-imported the same fixture as test case **#1023**; both steps present with correct content, preview reported 1 correct / 0 warnings / 0 errors. Header is now trimmed consistently at mapping and value-read time. **BUG-TCM-001 closed.**
 
 ---
 
@@ -278,7 +279,8 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 **Expected Result:**
 - Either both values are handled explicitly, or the user is warned that one will be discarded
-- **CONFIRMED (external session)**: **FAIL** — only the first occurrence's data is kept; the second is silently discarded with no warning or error anywhere in the wizard. Filed as **BUG-TCM-002**.
+- **2026-09-02 (external session)**: **FAIL** — only the first occurrence's data was kept; the second was silently discarded with no warning or error anywhere in the wizard. Filed as **BUG-TCM-002**.
+- **2026-09-11 retest (localhost:3010, Redmine 7.0.0, plugin v7.0.0, admin)**: **PASS** — step 2 of the wizard now shows "Duplicate column names found: Step 1, Expected Result 1 — only the first occurrence of each will be used, the rest will be ignored." before the user confirms. Saved case #1024 matches the warning. **BUG-TCM-002 closed.**
 
 ---
 
@@ -304,5 +306,42 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 | TC-TCM-012 | step-2500-chars.csv | — |
 | TC-TCM-013 | empty-file.csv, header-only.csv | — |
 | TC-TCM-014 | bulk-100x3.csv | — |
-| TC-TCM-015 | padded-header.csv | BUG-TCM-001 |
-| TC-TCM-016 | duplicate-header.csv | BUG-TCM-002 |
+| TC-TCM-015 | `automation/testdata/csv-test-data/15_header_case_and_whitespace_variations.csv` | BUG-TCM-001 (closed 2026-09-11) |
+| TC-TCM-016 | `automation/testdata/csv-test-data/14_duplicate_step_column_headers.csv` | BUG-TCM-002 (closed 2026-09-11) |
+
+---
+
+## Regression Run — 2026-09-11 (post BUG-TCM-001 / BUG-TCM-002 fix)
+
+Environment: Docker `localhost:3010` (container `redmine-docker-700-redmine-1`), Redmine 7.0.0, plugin v7.0.0,
+project `test-project`, user `admin`, Chromium 152. Scope per `SENIOR_QA_STANDARDS.md` §26 (Medium severity → all
+TCs in the affected suite). Fixtures: `automation/testdata/csv-test-data/`.
+
+| TC | Fixture | Preview result | Verdict |
+|---|---|---|---|
+| TC-TCM-001 | 01_legacy_single_step_format.csv | 4 correct / 1 warning / 0 errors; legacy `Steps`/`Expected` auto-mapped | PASS |
+| TC-TCM-002 | 01 (row with missing Expected) | row warned & skipped, case still created | PASS |
+| TC-TCM-003 | 02_zero_to_fifty_steps_range.csv | 51 correct / 0 / 0; 0-step row imports with no steps | PASS |
+| TC-TCM-004 | 02 (50-step row) | step count exact for all 50 cases, 0 mismatches, ordered | PASS |
+| TC-TCM-005 | 03_steps_only_no_expected.csv / 04_expected_only_no_steps.csv | 0 correct / 5 warnings / 0 errors each | PASS |
+| TC-TCM-006 | 05_mixed_partial_per_row.csv | 2 correct / 4 warnings / 0 errors; mid-sequence gap skips only that step | PASS |
+| TC-TCM-006 | 06_varying_step_counts_same_file.csv | 5 correct / 0 / 0; step counts exactly 1, 3, 7, 15, 30 | PASS |
+| TC-TCM-007 | 12_non_sequential_step_numbering.csv | 1 correct / 0 / 0; preview shows 1/3/5, saved case #1009 renumbered 1/2/3 with correct content | PASS |
+| TC-TCM-008 | 13_special_characters_and_escaping.csv | 2 correct / 0 / 0; quotes, commas, emoji 🚀, café/naïve/日本語/тест and embedded newlines round-trip exactly | PASS |
+| TC-TCM-009 | 16_step_columns_without_expected_columns_in_header.csv | 1 warning, 3 sub-warnings "Step N is missing its expected result; this step will be skipped" | PASS |
+| TC-TCM-009 | 17_expected_columns_without_step_columns_in_header.csv | mirror: 3 sub-warnings "Step N is missing its step text" | PASS |
+| TC-TCM-010 | 08_boundary_2000_vs_2001_chars.csv (2000-char row) | accepted, 1 correct | PASS |
+| TC-TCM-011 | 08 (2001-char row) | rejected, 1 error | PASS |
+| TC-TCM-012 | 07_oversized_step_text_negative.csv | 0 correct / 0 warnings / 1 error — "Step 1: step content exceeds the maximum length of 2000 characters (got 2500)"; case not imported | PASS |
+| TC-TCM-013 | 10_header_only_no_data_rows.csv | blocked at step 2: "The CSV file contains headers but no data rows." | PASS |
+| TC-TCM-013 | 11_completely_empty_file.csv | blocked at step 2: "The file does not contain any headers or data." | PASS |
+| TC-TCM-014 | 09_large_bulk_import_100_rows.csv | 100 correct / 0 / 0; full wizard in ~544 ms, no timeout | PASS |
+| TC-TCM-015 | 15_header_case_and_whitespace_variations.csv | 1 correct / 0 / 0; padded header's value read correctly (case #1023) | PASS (was FAIL) |
+| TC-TCM-016 | 14_duplicate_step_column_headers.csv | duplicate-header warning shown before confirm; case #1024 matches it | PASS (was FAIL) |
+
+**Result: 16/16 TCs PASS, zero new failures.** BUG-TCM-001 and BUG-TCM-002 moved to `bugs/closed/`.
+
+Method note: TC-TCM-015 and TC-TCM-016 (the two retests that gate the bug closures) were executed end-to-end
+through the real wizard UI, including performing the import and opening the saved test case. The remaining
+fixtures were driven through the same four wizard endpoints from the authenticated browser session and asserted
+on the rendered step-2 mapping screen and step-4 preview summary.

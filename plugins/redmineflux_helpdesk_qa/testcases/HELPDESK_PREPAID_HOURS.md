@@ -1013,9 +1013,60 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `luna.blossom`, ticket #46 /
 
 ---
 
+## Additional Coverage, round 6 (customer-without-organization time-logging + multi-customer shared-organization budget, 2026-09-10)
+
+> User asked directly to investigate two specific budget-management scenarios: (1) a customer with no organization having an agent log time against her ticket (extends TC-HLP-408/409, which only tested ticket *creation* for this state, not time-logging), and (2) whether two different customers belonging to the *same* organization on the *same* project share one combined budget. Both were investigated against `HELPDESK_USER_GUIDE.md` §12 first, then confirmed live, per the standing "verify against docs before filing/concluding" discipline.
+
+### TC-HLP-414: Logging time on a ticket whose author has no organization succeeds, uncounted, no budget checked anywhere
+
+**User Role:** Agent
+
+**Precondition:** A customer with Organization = None on her project-access row (e.g. `alpha.customer` on Helpdesk QA Alpha — confirmed live via the Customers list, Organization column reads "—").
+
+**Steps:**
+1. As the customer, raise a new ticket.
+2. As an agent, assign the ticket to yourself.
+3. As the agent, reply with time logged (15 min, Technical Support).
+
+**Expected Result:**
+- Per `HELPDESK_USER_GUIDE.md` §12 ("Used comes from Redmine time entries, resolved through the ticket author's organization") and §3 (Organizations marked "Optional"): with no organization to resolve to, there is no budget row to check or consume, so the reply/time-log should succeed exactly like any core Redmine time entry, with no blocking and no visible budget effect anywhere.
+
+- **CONFIRMED LIVE 2026-09-10** (Local, redmine-docker-6): **PASS.** As `alpha.customer` (Organization: "—", confirmed via `/rf_customers` list before starting), raised ticket **#84** ("Budget Scenario 1 - no organization customer time-logging test") on Helpdesk QA Alpha. As `luna.blossom` (agent), assigned the ticket to herself, then replied with 15 min logged (Technical Support). Saved cleanly with no error, no confirmation dialog beyond the standard unsaved-changes prompt, and no mismatch/budget warning of any kind — Spent time went to **0:15h**, ticket status auto-transitioned New → Waiting for Customer Response exactly as it does for every other ticket in this suite. The ticket's own detail page shows **"Organization: -"** and **no "Prepaid Support Hours:" line at all** (that line only renders when an organization is actually resolved — contrast with TC-HLP-415 below, where the same field shows a live figure). Confirms the system does not treat a no-organization customer as having an "unlimited" budget in the sense of a real, tracked-but-uncapped ledger — there is no ledger row for this customer at all, so nothing is checked, nothing is consumed, and nothing is displayed. This is consistent, not merely silent: `alpha.customer`'s other historical tickets on this environment have logged time the same way for the whole engagement without incident.
+- **Documentation gap, not a bug**: §12 never explicitly states what happens when the ticket author has no organization at all (it only describes run-out *modes* for a budget that already exists) — the "no ledger row exists, so nothing is checked" behavior is only inferable from the "resolved through the ticket author's organization" sentence plus §3's "Optional" framing. Recommend §12 gain one explicit line: "A customer with no organization is never subject to budget enforcement — there is nothing to check or consume." (Same class of gap already flagged for TC-HLP-408/409's "no budget assigned" state.)
+- Ticket #84 left in place (open, in Waiting for Customer Response) as a reusable fixture, matching this suite's established convention of not deleting time-logging evidence.
+
+---
+
+### TC-HLP-415: Two different customers on the same organization and project share one combined budget — consumption is per-organization-per-project, not per-customer
+
+**User Role:** Client (Customer) × 2, Agent
+
+**Precondition:** One organization with two real customers, both with a project-access row on the same project, same organization (e.g. `delta.customer` and `beta.customer`, both entitled to "Alpha Minimal Fields Test Org" on Helpdesk QA Alpha — confirmed live via each customer's own detail page before starting).
+
+**Steps:**
+1. Customer A creates a ticket on the shared project.
+2. Customer B creates a separate ticket on the same project.
+3. An agent logs time on Customer A's ticket; note the organization's Approved/Used/Remaining.
+4. The agent logs time on Customer B's ticket; note the same figures again.
+
+**Expected Result:**
+- Per `HELPDESK_USER_GUIDE.md` §12 ("A budget belongs to an organization on one project") and the source-grounded finding already recorded above ("Used... resolved through the ticket author's organization"): the budget is keyed by (organization, project), not by individual customer, so both customers' tickets should debit the exact same Approved/Used/Remaining figures, with combined consumption visible from either ticket, either customer's own dashboard, or the organization's own page.
+
+- **CONFIRMED LIVE 2026-09-10** (Local, redmine-docker-6): **PASS, unambiguously.** Baseline confirmed on the organization page (`/rf_organizations/8?tab=prepaid_support_hours`) before starting: Helpdesk QA Alpha row — **Approved 21.67h / Used 14.67h / Remaining 7.00h**, Hard mode.
+  - As `delta.customer`, raised ticket **#85** ("Budget Scenario 2 - Customer A..."). Her own Helpdesk Dashboard for this project showed the **identical** org figures (21.67h/14.67h/7.00h) in its "Prepaid Support Hours" table before any action.
+  - As `beta.customer` (a completely different customer login, id 32), raised ticket **#86** ("Budget Scenario 2 - Customer B..."). Her own dashboard for the **same project** showed the **exact same** figures too — both customers see one shared row, not two separate ones.
+  - As `luna.blossom` (agent), assigned ticket #85 to herself and logged 15 min. Ticket #85's own "Prepaid Support Hours" field updated in place: **14.67h used → 14.92h used, 7.00h left → 6.75h left** (of 21.67h).
+  - Immediately reopened ticket **#86** (Customer B's, not yet touched) — it **already showed the updated figures** (14.92h used / 6.75h left), confirming the combined ledger is live and shared, not cached per-customer.
+  - Assigned ticket #86 to Luna Blossom and logged 15 min there too. Figures updated again, on the same shared row: **14.92h used → 15.17h used, 6.75h left → 6.50h left** (of 21.67h) — the exact combined total of both customers' 15-minute entries (0.25h + 0.25h = 0.50h consumed from the single shared budget).
+  - **Conclusion**: budget consumption is calculated per (organization, project), never per-customer or per-ticket individually — two unrelated customers under the same organization genuinely drain one shared pool, and either one logging time reduces what the other has left. This matches the documented contract exactly ("A budget belongs to an organization on one project") and is not a bug; it is the intended, designed sharing model. An admin provisioning multiple customers under one organization should expect them to compete for the same hours.
+- **Not tested here (out of scope for this round, flagged for a possible future TC)**: what happens when the shared budget is driven to exactly zero/negative by the combined activity of two different customers under Hard mode (i.e., does the block apply organization-wide once *either* customer's activity exhausts it, blocking the *other* customer too) — plausible given the shared-ledger finding above, but not independently exercised this round.
+- Tickets #85/#86 left in place (open, Waiting for Customer Response) as reusable fixtures for a future round covering the Hard-mode-exhaustion-under-shared-budget scenario noted above. No cleanup needed — nothing was set to an incorrect/invalid state; the combined Used/Remaining figures are the real, intended shared-ledger effect of this test, not something to revert.
+
+---
+
 ## Evidence Map
 
-- Case ID: TC-HLP-125 – TC-HLP-142, TC-HLP-367 – TC-HLP-373 (Support Packages, newly discovered entity, added 2026-09-03), TC-HLP-374 – TC-HLP-387 (user-identified coverage gaps, added 2026-09-03), TC-HLP-388 – TC-HLP-395 (user-identified coverage gaps round 2, added 2026-09-07), TC-HLP-396 – TC-HLP-399 (editing/deleting an existing time entry, round 3, added 2026-09-07), TC-HLP-400 (core "Log time" link, a third distinct code path, round 4, added 2026-09-07), TC-HLP-408 – TC-HLP-413 (budget configuration × ticket-creation channel matrix, round 5, added 2026-09-09)
+- Case ID: TC-HLP-125 – TC-HLP-142, TC-HLP-367 – TC-HLP-373 (Support Packages, newly discovered entity, added 2026-09-03), TC-HLP-374 – TC-HLP-387 (user-identified coverage gaps, added 2026-09-03), TC-HLP-388 – TC-HLP-395 (user-identified coverage gaps round 2, added 2026-09-07), TC-HLP-396 – TC-HLP-399 (editing/deleting an existing time entry, round 3, added 2026-09-07), TC-HLP-400 (core "Log time" link, a third distinct code path, round 4, added 2026-09-07), TC-HLP-408 – TC-HLP-413 (budget configuration × ticket-creation channel matrix, round 5, added 2026-09-09), TC-HLP-414 – TC-HLP-415 (customer-without-organization time-logging + multi-customer shared-organization budget, round 6, added 2026-09-10)
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`

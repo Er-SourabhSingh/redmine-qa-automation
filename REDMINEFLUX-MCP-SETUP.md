@@ -111,9 +111,32 @@ Every production write follows this sequence:
    - Current status
    - Any important result or error
 
-### 4.3a Bug-report fields supplied by the user
+### 4.3a Bug-report fields required at creation
 
-For a **bug** write specifically, the Test Run name, Environment, and Test Case ID are supplied by the user at the time of reporting — not inferred, guessed, or picked from the local bug MD file on Claude's own judgment. If the user hasn't given all three yet, ask for them before preparing the write proposal in step 2. `Project` is fixed at `ztflux` regardless (see §1.1 rule) and does not need to be supplied.
+For a **bug** write specifically, the write proposal in step 2 must cover every one of these before it's shown to the user:
+
+- **Project** — fixed at `ztflux` (§1.1 rule), never asked for.
+- **Subject/Title prefix** — the production issue's Subject must start with the local bug's own ID, exactly as it appears in the MD filename (`BUG-<CODE>-<NUMBER>`, e.g. `BUG-HLP-025`), followed by a colon and the descriptive title: `BUG-HLP-025: Submitting an Internal Note on a ticket crashes with a 500 error`. Never drop this prefix or invent a different production-side numbering — it's what ties the production issue back to the local `bugs/open/<BUG-ID>.md` file and its `_index.md` row.
+- **Test Run name, Environment, Test Case ID** — supplied by the user at the time of reporting, not inferred, guessed, or picked from the local bug MD file on Claude's own judgment. Ask for any that are missing.
+- **Priority and Severity** — set on the production issue, mapped from the local bug MD file's own Severity classification (Critical/High/Medium/Low). State the mapped value explicitly in the proposal so the user can correct it before approval.
+- **Assignee** — always ask the user who the production issue should be assigned to. Never default, guess, or leave unassigned without asking first.
+- **Attachments** — evidence must reach the production issue as a real, viewable attachment. **Known issue (found 2026-09-11):** embedding a raw screenshot inline into the Description field via redmineflux MCP renders as a blank/gray block on production instead of the actual image — do not rely on inline image embedding until this is confirmed fixed.
+  - **Workaround — attach a generated PDF instead of a raw inline image:** generate a single-bug PDF from the local bug MD file (bug details + its screenshot(s) baked in as real rendered images, not a live embed reference) and attach that PDF as a normal file attachment. A PDF's images are flattened into the file itself, so this sidesteps the inline-embed rendering bug entirely — *provided the underlying file-upload/attach call itself works*, which should be confirmed (read-only check: does a previously-attempted screenshot attachment actually show up in that issue's Files list?) before relying on this as the standard path. If file upload itself turns out to be broken too, this workaround doesn't fix it and the MCP server bug needs fixing/reporting to `ztmcp` first.
+  - Generation: `node scripts/gen_bug_pdf.js <path-to-bug-md> <out-pdf-path>` (implemented 2026-09-11, **switched to a pdfkit-based renderer the same day** — see below). Dependencies live in `scripts/package.json` (`npm install` inside `scripts/` once).
+  - **Critical size constraint discovered 2026-09-11**: the `upload_file` tool requires the entire file as a literal base64 string typed into the tool call, and this has a **practical reliable ceiling well under 20KB of base64 text** (~15KB raw file) — pasting more silently truncates or produces an "invalid base64" error, even when the text is assembled correctly across multiple reads. The original implementation (Playwright/Chromium HTML-to-PDF via `page.pdf()`) always embeds a subsetted font file per distinct family/weight/style actually rendered (regular+bold+italic+monospace = up to 4 separate embedded fonts), inflating even a plain 3-page text-only bug report to 70-100KB — well past that ceiling. **Fixed by switching to `pdfkit`** (added to `scripts/package.json`), which renders using the PDF spec's Base-14 standard fonts (Helvetica/Helvetica-Bold/Courier) referenced by name and never embedded — the same bug report now comes out at 6-8KB, comfortably under the ceiling in one shot. The generator parses the bug MD with `marked.lexer()` and lays out headings/paragraphs/lists/code blocks/tables directly with pdfkit; it does not currently bake in screenshot images (most rake-task/server-side bugs have none, and re-adding images would reintroduce the same size problem — revisit if a bug with a screenshot needs this path again).
+  - For any future large-file upload via this tool (a PDF, or anything else): **check the resulting `File size:` in the tool's own response matches the real source file size** before trusting the upload succeeded — a silent short-upload will still return a token and a (wrong, smaller) size with no error.
+  - Output location: `bugs/pdf/<BUG-ID>.pdf` per plugin (sibling to `bugs/open/`/`bugs/closed/`), gitignored — it's a regenerable snapshot of the MD file's current state, not source of truth.
+  - The local bug MD file (`bugs/open/<BUG-ID>.md`) is still attached alongside the PDF for traceability back to the plain-text source.
+- **Description field structure** — the production issue's Description must carry the same structured sections as the local bug MD file, not a flattened paragraph or a bare title. At minimum, in this order:
+  1. **Preconditions** (if the local bug file has any)
+  2. **Steps to reproduce** (numbered list, verbatim from the local file)
+  3. **Expected result**
+  4. **Actual result**
+  5. Environment / Redmine version / Browser / User role
+  6. A note that full evidence (screenshot) is in the attached PDF — do not attempt to inline-embed the screenshot image directly into this text field (see the known issue above)
+  Use the target field's native formatting (Redmine Textile/Markdown headers, numbered lists) so each section actually renders distinctly — don't collapse them into one run-on paragraph.
+
+Do not proceed to the write proposal until all of the above are known — ask for whatever's missing (at minimum: Test Run, Environment, Test Case ID, Assignee) in one message.
 
 ### 4.4 What does NOT count as approval
 
@@ -132,11 +155,35 @@ Only an explicit, specific confirmation after a prepared write proposal counts a
 > I found a defect during TC-123 execution.
 >
 > I have prepared the bug details:
-> - Title: ...
+> - Title: BUG-HLP-123: <descriptive title from the local bug file>
 > - Project: ztflux
 > - Environment: QA
 > - Test Case: TC-123
 > - Test Run: TR-456
+> - Priority: High
+> - Severity: High
+> - Assignee: ? (please tell me who to assign this to)
+> - Attachments: bugs/pdf/BUG-XXX.pdf (generated — bug detail + screenshot baked in), bugs/open/BUG-XXX.md
+> - Description:
+>   ```
+>   h3. Preconditions
+>   - ...
+>
+>   h3. Steps to reproduce
+>   # ...
+>   # ...
+>
+>   h3. Expected result
+>   ...
+>
+>   h3. Actual result
+>   ...
+>
+>   h3. Environment
+>   Redmine version: ... | Environment: ... | Browser: ... | User role: ...
+>
+>   Full evidence (screenshot) is in the attached PDF.
+>   ```
 >
 > I am ready to create this bug on the production Redmine server.
 > **Do you approve creating it?**

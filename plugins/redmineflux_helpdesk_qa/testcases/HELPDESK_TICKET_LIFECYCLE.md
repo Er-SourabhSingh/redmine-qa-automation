@@ -266,7 +266,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 
 ---
 
-### TC-HLP-025: Merging a duplicate ticket carries its notes and history into the surviving ticket
+### TC-HLP-025: Merging a duplicate ticket carries its notes and history into the surviving ticket — SUPERSEDED, see revision note
 
 **User Role:** Agent
 **Precondition:** Two open tickets describing the same issue.
@@ -276,10 +276,12 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 2. Use **Merge** and select the other ticket as the target (or source, per the UI's actual direction)
 3. Confirm
 
-**Expected Result:**
+**Expected Result (original, now superseded):**
 - The merged-away ticket's notes and history appear on the surviving ticket
 - No data from either ticket is lost
 - **CONFIRMED LIVE 2026-08-31** (Local, redmine-docker-6): **FAIL — cannot execute steps as written.** Created two genuine duplicate tickets (#12 "printer not connecting to network", #13 "printer offline on office network"). Step 2 cannot be performed: no **Merge** control exists anywhere. Checked ticket #12's own page in full (only per-ticket action menu is "Actions" → "Copy link", nothing else) and the core Issues list's multi-select context menu for both tickets selected together (`/issues/context_menu?ids[]=12&ids[]=13`) — its complete contents are Bulk edit/Status/Tracker/Priority/Assignee/Progress/Issue Category/Watch/Filter/Copy link/Copy/Delete issues/Remove All Testcase, no Merge option. Filed as **BUG-HLP-017** (Medium) — see `bugs/open/BUG-HLP-017.md`. Tickets #12/#13 left in place as ready-made fixtures for retesting once fixed.
+
+**Revision 2026-09-10 — Not a bug, feature intentionally not built:** Per the developer's note on production issue #119713, the team decided **not** to build a Merge control — duplicate tickets are expected to be rare because a customer's reply auto-matches to its original ticket, and a genuine duplicate is handled by closing the newer ticket with a note referencing the older one, not by merging. `HELPDESK_USER_GUIDE.md` §7.4 was rewritten to match (no longer promises a Merge button) and this TC's original Expected Result is retired along with it. Re-verified live on two fresh open tickets (#81, #82): still no Merge control anywhere (ticket page Actions menu, or the multi-select context menu) — this is now the confirmed, correct, by-design behavior, not a defect. **BUG-HLP-017 closed** as resolved-by-design, not as a fixed technical defect. This TC is superseded and should be considered out of scope going forward (no Merge feature exists to test); TC-HLP-032 and TC-HLP-041, which depended on this one's precondition, are superseded for the same reason.
 
 ---
 
@@ -511,7 +513,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 
 ---
 
-### TC-HLP-032: Merging a ticket that itself already has reply/note history preserves both threads
+### TC-HLP-032: Merging a ticket that itself already has reply/note history preserves both threads — SUPERSEDED, see revision note
 
 **User Role:** Agent
 **Precondition:** Two tickets, each with at least one prior reply and one internal note of their own.
@@ -519,9 +521,11 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 **Steps:**
 1. Merge one ticket into the other
 
-**Expected Result:**
+**Expected Result (original, now superseded):**
 - The surviving ticket shows the replies and internal notes from **both** original tickets, in a coherent combined history — nothing from either side is dropped or overwritten
 - **CONFIRMED LIVE 2026-08-31** (Local, redmine-docker-6): **BLOCKED — same root cause as TC-HLP-025.** No Merge control exists anywhere in the UI (checked both the individual ticket page and the multi-select context menu — see **BUG-HLP-017**), so this TC's own precondition can never be reached regardless of how much reply/note history the two source tickets have. Not independently re-verified with its own dedicated fixture since the blocking cause is already fully established; will retest once BUG-HLP-017 is fixed.
+
+**Revision 2026-09-10 — Not a bug, feature intentionally not built:** Same product decision as TC-HLP-025 — see that TC's revision note. There is no Merge feature to test; this TC is superseded and out of scope going forward. **BUG-HLP-017 closed** as resolved-by-design.
 
 ---
 
@@ -576,7 +580,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 
 ---
 
-### TC-HLP-041: Attempting to merge a ticket into itself is rejected or has no effect
+### TC-HLP-041: Attempting to merge a ticket into itself is rejected or has no effect — SUPERSEDED, see revision note
 
 **User Role:** Agent
 **Precondition:** A single existing ticket.
@@ -585,9 +589,11 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 1. Open the ticket
 2. Use **Merge** and select the same ticket as the target
 
-**Expected Result:**
+**Expected Result (original, now superseded):**
 - The action is rejected with a clear message, or has no effect — the ticket is not duplicated, corrupted, or left in an inconsistent state
 - **CONFIRMED LIVE 2026-08-31** (Local, redmine-docker-6): **BLOCKED — same root cause as TC-HLP-025.** No Merge control exists anywhere in the UI to even attempt selecting the same ticket as its own target — see **BUG-HLP-017**. Will retest once fixed.
+
+**Revision 2026-09-10 — Not a bug, feature intentionally not built:** Same product decision as TC-HLP-025 — see that TC's revision note. There is no Merge feature to test; this TC is superseded and out of scope going forward. **BUG-HLP-017 closed** as resolved-by-design.
 
 ---
 

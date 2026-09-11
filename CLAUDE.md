@@ -65,7 +65,10 @@ redmine-qa-automation/
         │   ├── _index.md            ← master bug tracker for this plugin
         │   ├── _duplicates.md       ← duplicate prevention register
         │   ├── open/                ← one .md file per open bug
-        │   └── closed/              ← one .md file per closed bug
+        │   ├── closed/              ← one .md file per closed bug
+        │   └── pdf/                 ← generated per-bug PDF (gitignored) for production attachment,
+        │                               see REDMINEFLUX-MCP-SETUP.md §4.3a — workaround for the
+        │                               redmineflux MCP inline-screenshot-embed rendering bug
         ├── screenshots/
         │   ├── <TC-ID>/             ← one subfolder per TC (e.g. TC-RAF-001/) — PASS/FAIL evidence
         │   └── <BUG-ID>/            ← one subfolder per bug (e.g. BUG-RAF-001/) — failure + retest evidence
@@ -127,6 +130,7 @@ plugins/<plugin-name>/                  (<PREFIX> = doc prefix per §2b, e.g. HE
   bugs/_duplicates.md
   bugs/open/
   bugs/closed/
+  bugs/pdf/             ← gitignored — generated per-bug PDFs for production attachment (§4.3a)
   screenshots/          ← subfolders created per TC-ID and BUG-ID as testing progresses
   reports/final-bug-report.md
   logs/

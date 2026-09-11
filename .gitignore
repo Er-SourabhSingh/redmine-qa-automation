@@ -4,6 +4,7 @@ plugins/*/automation/.auth/
 
 # Playwright automation — installed deps, secrets, run artifacts
 plugins/*/automation/node_modules/
+scripts/node_modules/
 plugins/*/automation/.env
 plugins/*/automation/playwright-report/
 plugins/*/automation/test-results/
@@ -14,9 +15,13 @@ plugins/*/automation/screenshots/
 plugins/*/logs/
 plugins/*/screenshots/
 
+# Generated per-bug PDFs for production attachment — regenerable from bugs/open|closed/*.md
+plugins/*/bugs/pdf/
+
 # OS files
 .DS_Store
 Thumbs.db
 
 # MCP config — contains a live production API key
 .mcp.json
+.playwright-mcp/

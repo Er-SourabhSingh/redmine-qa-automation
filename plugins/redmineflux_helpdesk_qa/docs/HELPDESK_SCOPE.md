@@ -27,7 +27,7 @@ Supported per plugin documentation: 5.0.x, 5.1.x, 6.0.x, 6.1.x. Tested to date: 
 
 ## Environment
 
-- **Forge** — rotates per run, always re-verify current URL against `QA_CREDENTIALS_FORGE.md`. Cannot test email (no route to any real inbox). Primary environment for everything else.
+- **Forge** — rotates per run, always re-verify current URL against `QA_CREDENTIALS.md`. Cannot test email (no route to any real inbox). Primary environment for everything else.
 - **Local** — `http://localhost:3012` (`redmine-docker-6-redmine-1`). The only environment that can test real email end-to-end (local Docker mail server, domain `test.local`). Requires Redis + Sidekiq started manually every session (do not survive a container restart).
 
 ## Test Cycle

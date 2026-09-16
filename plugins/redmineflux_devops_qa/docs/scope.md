@@ -21,12 +21,11 @@
 ## Redmine Version
 
 - Target: 6.0.9.stable (Forge environment) / local dev as fallback
-- Credentials: load from QA_CREDENTIALS_FORGE.md (Forge) or QA_CREDENTIALS_LOCAL.md (local)
+- Credentials: load from QA_CREDENTIALS.md
 
 ## Environment
 
-- Forge (primary): credentials in QA_CREDENTIALS_FORGE.md
-- Local (secondary): credentials in QA_CREDENTIALS_LOCAL.md
+- Forge (primary) and Local (secondary): both in QA_CREDENTIALS.md
 - Never hardcode base URLs or credentials in test files
 
 ## Test Cycle

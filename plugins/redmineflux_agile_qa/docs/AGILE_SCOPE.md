@@ -20,7 +20,7 @@
 
 ## Environment
 
-Forge — see `QA_CREDENTIALS_FORGE.md` for current Base URL.
+Forge — see `QA_CREDENTIALS.md` for current Base URL.
 
 ## Test Cycle
 

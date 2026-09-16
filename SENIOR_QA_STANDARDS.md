@@ -21,14 +21,13 @@ This document focuses only on:
 
 ## Configuration References
 
-> All credential, server, and session configuration must be read from the dedicated environment credential file before any test execution begins.
+> All credential, server, and session configuration must be read from the common credentials file before any test execution begins.
 
 | Config Type | File |
 |---|---|
-| Forge server URL, admin user, Forge seed users, session rules | [`QA_CREDENTIALS_FORGE.md`](QA_CREDENTIALS_FORGE.md) |
-| Local server URL, role-based users, session rules | [`QA_CREDENTIALS_LOCAL.md`](QA_CREDENTIALS_LOCAL.md) |
+| Known environments (Forge/Local), role-based users, session rules | [`QA_CREDENTIALS.md`](QA_CREDENTIALS.md) |
 
-**Rule:** Never hardcode credentials or base URLs in test files. Always load them from the active environment credential file.
+**Rule:** Never hardcode credentials or base URLs in test files. Always load them from `QA_CREDENTIALS.md`.
 
 ---
 
@@ -213,7 +212,7 @@ Every execution must validate:
 
 ## 10. Test Execution Standards
 
-Before execution, load server and credential details from the active environment file ([`QA_CREDENTIALS_FORGE.md`](QA_CREDENTIALS_FORGE.md) or [`QA_CREDENTIALS_LOCAL.md`](QA_CREDENTIALS_LOCAL.md)), then verify:
+Before execution, load server and credential details from [`QA_CREDENTIALS.md`](QA_CREDENTIALS.md), then verify:
 
 - Verify target server is running at the configured base URL
 - Verify login page accessibility
@@ -239,10 +238,9 @@ Do not create random users if setup users already exist.
 
 All credentials and server details must be sourced exclusively from:
 
-- **[`QA_CREDENTIALS_FORGE.md`](QA_CREDENTIALS_FORGE.md)** for Forge runs
-- **[`QA_CREDENTIALS_LOCAL.md`](QA_CREDENTIALS_LOCAL.md)** for local runs
+- **[`QA_CREDENTIALS.md`](QA_CREDENTIALS.md)** for every run, Forge or local
 
-These files contain:
+This file contains:
 
 - Base URL
 - Admin credentials

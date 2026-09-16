@@ -284,6 +284,80 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
+### TC-TCM-017: Wide CSV — all-columns Redmine issue export does not overflow the session cookie
+
+**User Role:** Admin / QA (testcase-management create permission)
+**Precondition:** A project with many issue custom fields defined, so that an "All Columns" issue export produces a
+wide header. This suite's fixture was produced with **15 custom fields** added, giving **45 columns**.
+**Regression origin:** production issue **#118789** — step 4 returned a 500 (`ActionDispatch::Cookies::CookieOverflow`,
+session cookie 4802 bytes) because `TestcaseImportController` stored `csv_columns` and `field_mappings` directly in
+the session. Fixed by moving them to `tmp/import_meta_<user_id>.yml`.
+
+**Steps:**
+1. Administration → Custom fields → create enough issue custom fields that an all-columns export is wide
+   (note: Redmine caps a custom field **name at 30 characters** — longer names are rejected).
+2. Project → **Issues** → filter to all statuses → **CSV** export → select **All Columns** → export.
+   (Equivalent URL parameter: `c[]=all_inline`.)
+3. Project → **TestCases** → **Import Testcases** → step 1: upload that CSV, set **Encoding** to match the export
+   (Redmine exports as Windows-1252 by default here, not UTF-8) → **Next**.
+4. Step 2 — review the auto-mapped columns → **Next**.
+5. Step 3 — map Status/Priority values → **Next**.
+6. Step 4 — observe.
+
+**Expected Result:**
+- Step 4 loads and renders the import preview with per-row validation status and importable/warning/error counts.
+- **No 500**, and no `CookieOverflow` / `FATAL` in the server log.
+- The column and mapping data is written to `tmp/import_meta_<user_id>.yml`; only small values (file paths,
+  settings, counts) remain in the session.
+
+**CONFIRMED PASS 2026-09-15** on `localhost:3010` (Redmine 7.0.0, plugin v7.0.0) with a **45-column / 500-row /
+121,525-byte** export — 50% wider than the ~30 columns that triggered the original defect. `POST .../step4`
+returned `200 OK in 1176ms`; steps 2 and 3 also 200; no `CookieOverflow`. `import_meta_1.yml` held the 45 columns
+(2,121 bytes). Evidence: `screenshots/RETEST-118789/step4-renders-preview-no-500.png`,
+`logs/RETEST-118789-2026-09-15.log`, fixture `automation/testdata/csv-test-data/18_all_columns_export_118789.csv`.
+
+**CONFIRMED PASS 2026-09-15 on Redmine 6 as well** — repeated end-to-end on `localhost:3012`
+(**Redmine 6.1.3**, plugin v7.0.0) after creating 15 custom fields there, giving a **44-column / 727-char-header**
+all-columns export. Step 4 rendered the preview (5 rows, 0 errors); no 500. This matters because the original
+defect was reported on **Redmine 6.1.1** — so the fix is confirmed on the Redmine major version the bug was
+raised against, not only on Redmine 7. Evidence: `screenshots/RETEST-118789/step4-redmine6-1-3-no-500.png`,
+fixture `automation/testdata/csv-test-data/19_all_columns_export_118789_redmine6.csv`.
+
+Plugin **7.0.0 is a single release supporting Redmine 5, 6 and 7** — the version renumber was for Redmine 7
+compatibility, not a fork. There is no separate 6.x maintenance line, so this one release is what every customer
+gets. **All three supported Redmine versions verified:**
+
+| Redmine | Instance | Plugin | Columns | Header chars | Separator / encoding | Step 4 |
+|---|---|---|---|---|---|---|
+| 7.0.0 | `localhost:3010` | 7.0.0 | 45 | 752 | `,` / Windows-1252 | **200 OK** — preview rendered |
+| 6.1.3 | `localhost:3012` | 7.0.0 | 44 | 727 | `,` / UTF-8 | **preview rendered**, no 500 |
+| 5.1.12 | `localhost:3011` | 7.0.0 | 38 | 424 | `;` / Windows-1252 | **preview rendered**, no 500 |
+
+Every run is above the ~30 columns that produced the original 4,802-byte cookie overflow, and every run rendered
+step 4. Evidence: `screenshots/RETEST-118789/step4-renders-preview-no-500.png`,
+`step4-redmine6-1-3-no-500.png`, `step4-redmine5-1-12-no-500.png`.
+
+**Separator/encoding vary by instance and locale — check before importing.** The German-locale Redmine 5 instance
+exports **semicolon**-separated cp1252 (Redmine uses `;` where comma is the decimal separator); `localhost:3010`
+exports comma-separated Windows-1252; `localhost:3012` comma-separated UTF-8. Step 1's **Field Separator** and
+**Encoding** must both match the file or the wizard misreads it.
+
+**Note on the per-row outcomes:** the Redmine 7 and 6 runs reported every row "with warnings", 0 errors. That is expected and not a
+defect — an issue export contains no `Step N` / `Expected Result N` columns, so every row warns about missing
+steps. The assertion here is that step 4 *renders*, not that the rows import cleanly.
+
+On the German-locale Redmine 5 instance all 25 rows reported **Error / "(no subject)"** instead. That is a
+**separate observation, not this defect** — the step-2 auto-mapper matches English column headers, so the German
+`Thema` column was not mapped to Subject, and the run was clicked through without correcting the mapping by hand.
+Worth a dedicated test case for localized column headers; it does not affect the step-4 rendering assertion here,
+which is what #118789 was about.
+
+**Note on encoding:** the two instances exported different encodings — `localhost:3010` produced Windows-1252,
+`localhost:3012` produced UTF-8. Check the file and set step 1's **Encoding** accordingly; the wizard defaults to
+UTF-8 and mangles content otherwise.
+
+---
+
 ## Notes (non-bug observations)
 
 - **Preview vs. final step numbering mismatch**: when a step is skipped, the final saved test case renumbers surviving steps contiguously (1, 2, 3...), while the import preview still shows them under their original CSV column numbers with a visible gap. Not incorrect, but could read as confusing to someone reviewing the preview before confirming. No TC/bug filed for this — tracked here and in `docs/TESTCASE_MANAGEMENT_MEMORY.md`.
@@ -308,6 +382,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 | TC-TCM-014 | bulk-100x3.csv | — |
 | TC-TCM-015 | `automation/testdata/csv-test-data/15_header_case_and_whitespace_variations.csv` | BUG-TCM-001 (closed 2026-09-11) |
 | TC-TCM-016 | `automation/testdata/csv-test-data/14_duplicate_step_column_headers.csv` | BUG-TCM-002 (closed 2026-09-11) |
+| TC-TCM-017 | `18_all_columns_export_118789.csv` (R7), `19_..._redmine6.csv` (R6), `20_..._redmine5.csv` (R5) — all in `automation/testdata/csv-test-data/` | production #118789 — retest PASS 2026-09-15 on all three supported Redmine versions |
 
 ---
 

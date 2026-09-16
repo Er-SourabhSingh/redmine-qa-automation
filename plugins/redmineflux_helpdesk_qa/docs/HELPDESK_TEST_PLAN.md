@@ -49,7 +49,7 @@ Not yet tested on: 5.0.x, 5.1.x, 6.1.x. No local containers exist for those vers
 
 ### 4.1 Forge
 
-- Base URL rotates per run — always re-verify against `QA_CREDENTIALS_FORGE.md`'s current value before starting (its own **URL Rule** section governs this).
+- Base URL rotates per run — always re-verify the current value before starting (see the Forge row under `QA_CREDENTIALS.md`'s **Known Environments** section).
 - Cannot receive or send real email (no route to any real inbox, including this project's own local Docker mail server) — this is *why* the local environment exists as a second track. Email-flow test cases must run on Local, not Forge.
 - Primary environment for everything else — richest test data built up here across 8 sessions (2 Organizations, 4 SLAs, 5 Support Levels across 2 escalation chains, 4 Products, 4 Canned Responses, 4 Customers, Support Packages + Prepaid Budgets). See `HELPDESK_TESTDATA_FORGE.xlsx` and `automation/testdata/helpdesk.fixtures.ts` for the exact current roster.
 - Data does **not** survive a Forge rotation — treat every new Forge URL as a fresh instance; the fixtures above describe "the current rotation," not a permanent state.

@@ -4,6 +4,8 @@
 >
 > Webmail: `http://127.0.0.1:8081/` — log in with the full email address as username.
 > Mail domain: `test.local`.
+>
+> **PASSWORD STANDARDIZED 2026-09-14**: the shared password for every fixture account (agents/manager/customers, both Redmine login and mailbox) is now `12345678`, matching the common password in the repo root's `QA_CREDENTIALS.md` and this plugin's `automation/testdata/helpdesk.local.fixtures.ts` `MAIL_PASSWORD` constant — a deliberate change from the `Test@12345` value used everywhere below, so an already-seeded environment never needs its password force-updated to a plugin-specific value. Every `Test@12345` mention in this file from here on is historical (describes what was true when written) — current password for all these accounts is `12345678`.
 
 ---
 

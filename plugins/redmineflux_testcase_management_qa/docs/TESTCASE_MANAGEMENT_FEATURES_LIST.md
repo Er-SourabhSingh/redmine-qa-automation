@@ -1,13 +1,41 @@
 # Features List — Redmineflux Testcase Management
 
 > This file must be read before writing any test case. It defines the full feature scope for test coverage.
+> Derived from the vendor knowledge base (captured 2026-09-14):
+> https://www.redmineflux.com/knowledge-base/plugins/testcase-management/
 
 ## Feature List
 
 | # | Feature | Description | Covered by TC |
 |---|---------|-------------|---------------|
-| 1 | CSV Import — Test Steps & Expected Results | 4-step wizard (upload → column mapping → value mapping → preview/confirm) importing test cases from CSV, supporting both the legacy single `Steps`/`Expected` column pair and numbered `Step N`/`Expected Result N` columns, with per-step validation (missing pair → warning + skip, >2000 chars → error). | TC-TCM-001 – TC-TCM-016 (`testcases/TESTCASE_MANAGEMENT_CSV_IMPORT.md`) |
+| 1 | CSV Import — Steps & Expected Results | 4-step wizard (upload → column mapping → value mapping → preview/confirm), legacy single `Steps`/`Expected` pair and numbered `Step N`/`Expected Result N` columns, per-step validation. | TC-TCM-001 – TC-TCM-016 (`TESTCASE_MANAGEMENT_CSV_IMPORT.md`) |
+| 2 | Environment management | Create, edit, delete named execution environments; assign to runs; results recorded per environment. | TC-TCM-101 – TC-TCM-108 (`TESTCASE_MANAGEMENT_ENVIRONMENTS.md`) |
+| 3 | Test suite management | Create/edit/delete suites; add sub-suites (nesting); testcase count display toggle. | TC-TCM-201 – TC-TCM-212 (`TESTCASE_MANAGEMENT_TEST_SUITES.md`) |
+| 4 | Test case authoring | Create/edit/delete test cases; ordered Step + Expected Result pairs; assignee, category, priority; requirement linking. | TC-TCM-301 – TC-TCM-316 (`TESTCASE_MANAGEMENT_TEST_CASES.md`) |
+| 5 | Test case ↔ suite organisation | Drag-and-drop cases into suites; add/copy cases to a suite; remove cases from a suite; bulk-assign requirements. | TC-TCM-317 – TC-TCM-324 (`TESTCASE_MANAGEMENT_TEST_CASES.md`) |
+| 6 | Test run lifecycle | Create/edit/close/delete runs; run state; start/end dates; multi-environment; assignee; watchers; case selection; Active/Closed tabs. | TC-TCM-401 – TC-TCM-418 (`TESTCASE_MANAGEMENT_TEST_RUNS.md`) |
+| 7 | Test execution | Record a result per case per environment (Untested/Passed/Failed/Retest/Blocked/Skipped); notes; attachments; report or link a defect; execute from the case detail page; execution history; filter by defect status. | TC-TCM-419 – TC-TCM-436 (`TESTCASE_MANAGEMENT_TEST_RUNS.md`) |
+| 8 | Bulk update of results | Set a result for multiple selected cases in one run at once. | TC-TCM-437 – TC-TCM-440 (`TESTCASE_MANAGEMENT_TEST_RUNS.md`) — **currently blocked by BUG-TCM-003** |
+| 9 | Reporting | Six report types (Testcase Summary, Defect Summary, Activity Summary, Tester Scorecard, Requirement Coverage, Overdue Run Summary); view/edit/delete; in-app download as HTML/PDF/Excel. | TC-TCM-501 – TC-TCM-520 (`TESTCASE_MANAGEMENT_REPORTS.md`) |
+| 10 | Report emailing & scheduling | Email a report as HTML or PDF attachment; recipient list; send now or on a schedule (daily/weekly/monthly at a UTC time); Scheduled Reports list; cancel scheduling. | TC-TCM-521 – TC-TCM-534 (`TESTCASE_MANAGEMENT_REPORTS.md`) — **PDF path affected by BUG-TCM-005** |
+| 11 | Requirements management | Create requirement documents; link test cases to requirements; edit/delete requirements. | TC-TCM-601 – TC-TCM-610 (`TESTCASE_MANAGEMENT_REQUIREMENTS_RTM.md`) |
+| 12 | Traceability matrix (RTM) | Coverage view of requirements against test cases and their results. | TC-TCM-611 – TC-TCM-616 (`TESTCASE_MANAGEMENT_REQUIREMENTS_RTM.md`) |
+| 13 | To-Do management | Per-user list of assigned execution work; "View All To-Do's" permission widens visibility. | TC-TCM-701 – TC-TCM-706 (`TESTCASE_MANAGEMENT_TODO.md`) |
+| 14 | Activity log | Timestamped audit of execution actions. | TC-TCM-707 – TC-TCM-710 (`TESTCASE_MANAGEMENT_TODO.md`) |
+| 15 | Roles & permissions | 16 permissions across 6 groups; positive UI, negative UI-absence, and direct-URL enforcement per role. | TC-TCM-801 – TC-TCM-832 (`TESTCASE_MANAGEMENT_PERMISSIONS.md`) |
+| 16 | Plugin configuration | Tracker selection (Testcase/Defect/Feature); display toggles; email reminder frequency; Run and Testcase email template customisation; run types. | TC-TCM-901 – TC-TCM-907, TC-TCM-915 – TC-TCM-916 (`TESTCASE_MANAGEMENT_CONFIGURATION.md`) |
+| 17 | Email notifications | Run Added, Run Updated, Test Case Result Added. | TC-TCM-908 – TC-TCM-914 (`TESTCASE_MANAGEMENT_CONFIGURATION.md`) |
+| 18 | Installation prerequisites | Redis, Node.js + Puppeteer + Chromium, Sidekiq — each gates a user-visible feature. | TC-TCM-917 – TC-TCM-920 (`TESTCASE_MANAGEMENT_CONFIGURATION.md`) |
 
 ## Notes
 
-- Feature #1's requirements/full field schema still need to be written up in `TESTCASE_MANAGEMENT_REQUIREMENTS.md` and `TESTCASE_MANAGEMENT_USER_GUIDE.md` — the coverage above came from an external test report, not a full requirements pass.
+- Feature #1 is the only area with completed execution (16/16 PASS, regression 2026-09-11). Everything else is
+  **authored but not yet executed**.
+- Features #8 and #10 have **known open defects** (BUG-TCM-003, BUG-TCM-005). Their test cases are written to the
+  documented expected behaviour, so they are expected to FAIL until those bugs are fixed — that is intentional and
+  makes them the retest vehicle.
+- Features #15 and #18 are the highest-value untested areas: permissions because a gap there is a data-exposure
+  risk (see root `MEMORY.md` on testing the URL directly, not just UI absence), and prerequisites because an
+  incomplete install silently disables whole features rather than erroring.
+- The KB documents Redmine **5.0.x / 6.0.x** support. Both QA instances are outside that range (6.1.3 and 7.0.0) —
+  state this in any bug filed from them.

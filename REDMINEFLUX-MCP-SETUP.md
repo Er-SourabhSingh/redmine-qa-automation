@@ -113,6 +113,17 @@ Every production write follows this sequence:
 
 ### 4.3a Bug-report fields required at creation
 
+**Single-call creation, no attachments (updated 2026-09-15):** `redmineflux_core_create_issue` accepts `priority_id`, `assigned_to_id`, and `custom_fields` all as parameters on the *same* call — there is no need for separate `update_issue` calls afterward to set priority, assignee, or custom fields. **Do not attach the generated PDF or the local bug MD file at all** — per explicit instruction, creating a bug is now just **1 call**: `create_issue` with `project_id=ztflux`, the prefixed `subject`, a fully self-contained Textile-formatted `description`, `priority_id`, `assigned_to_id`, and `custom_fields`. No `upload_file` calls, no `uploads` parameter.
+
+Why attachments were dropped: each `upload_file` call carries the same ~6-7 second fixed latency tax as any other redmineflux MCP call, so 2 attachments meant 2 extra calls (and extra wait) for every bug. It also turned out to be the less reliable path — see the corruption findings kept below for the record. Since the Description field is plain text sent inline with the single `create_issue` call (no separate upload, no base64, never observed to corrupt), **all bug detail now lives in the Description itself**, not in an attached file.
+
+**Built-in Priority IDs on this instance** (from `list_priorities`, no lookup needed each time): `1=Low`, `2=Medium (default)`, `3=High`, `4=Blocker`.
+
+**Known gap — custom field IDs unavailable:** the "Defect Type" / "Defect Severity" / "Defect priority" fields visible on existing issues (e.g. #120477) are *custom fields*, distinct from the built-in Priority above. Setting them via `custom_fields` requires each field's numeric ID, and `list_custom_fields` currently returns "You do not have permission to view custom fields" for this API key's account. Until resolved, these three fields cannot be set in the single `create_issue` call — either:
+- ask a Redmine admin to grant this account permission to view custom fields, so the IDs can be looked up once and hardcoded here permanently, or
+- get the numeric IDs directly from Redmine admin (**Administration → Custom fields** → open each field → ID is in the URL, e.g. `.../custom_fields/47/edit`) and supply them for this doc.
+`get_issue`'s formatted output shows these fields' *names and current values* (that's a normal issue-view permission), but never their numeric IDs — so reading an existing issue can't work around this gap.
+
 For a **bug** write specifically, the write proposal in step 2 must cover every one of these before it's shown to the user:
 
 - **Project** — fixed at `ztflux` (§1.1 rule), never asked for.
@@ -120,21 +131,34 @@ For a **bug** write specifically, the write proposal in step 2 must cover every 
 - **Test Run name, Environment, Test Case ID** — supplied by the user at the time of reporting, not inferred, guessed, or picked from the local bug MD file on Claude's own judgment. Ask for any that are missing.
 - **Priority and Severity** — set on the production issue, mapped from the local bug MD file's own Severity classification (Critical/High/Medium/Low). State the mapped value explicitly in the proposal so the user can correct it before approval.
 - **Assignee** — always ask the user who the production issue should be assigned to. Never default, guess, or leave unassigned without asking first.
-- **Attachments** — evidence must reach the production issue as a real, viewable attachment. **Known issue (found 2026-09-11):** embedding a raw screenshot inline into the Description field via redmineflux MCP renders as a blank/gray block on production instead of the actual image — do not rely on inline image embedding until this is confirmed fixed.
-  - **Workaround — attach a generated PDF instead of a raw inline image:** generate a single-bug PDF from the local bug MD file (bug details + its screenshot(s) baked in as real rendered images, not a live embed reference) and attach that PDF as a normal file attachment. A PDF's images are flattened into the file itself, so this sidesteps the inline-embed rendering bug entirely — *provided the underlying file-upload/attach call itself works*, which should be confirmed (read-only check: does a previously-attempted screenshot attachment actually show up in that issue's Files list?) before relying on this as the standard path. If file upload itself turns out to be broken too, this workaround doesn't fix it and the MCP server bug needs fixing/reporting to `ztmcp` first.
-  - Generation: `node scripts/gen_bug_pdf.js <path-to-bug-md> <out-pdf-path>` (implemented 2026-09-11, **switched to a pdfkit-based renderer the same day** — see below). Dependencies live in `scripts/package.json` (`npm install` inside `scripts/` once).
-  - **Critical size constraint discovered 2026-09-11**: the `upload_file` tool requires the entire file as a literal base64 string typed into the tool call, and this has a **practical reliable ceiling well under 20KB of base64 text** (~15KB raw file) — pasting more silently truncates or produces an "invalid base64" error, even when the text is assembled correctly across multiple reads. The original implementation (Playwright/Chromium HTML-to-PDF via `page.pdf()`) always embeds a subsetted font file per distinct family/weight/style actually rendered (regular+bold+italic+monospace = up to 4 separate embedded fonts), inflating even a plain 3-page text-only bug report to 70-100KB — well past that ceiling. **Fixed by switching to `pdfkit`** (added to `scripts/package.json`), which renders using the PDF spec's Base-14 standard fonts (Helvetica/Helvetica-Bold/Courier) referenced by name and never embedded — the same bug report now comes out at 6-8KB, comfortably under the ceiling in one shot. The generator parses the bug MD with `marked.lexer()` and lays out headings/paragraphs/lists/code blocks/tables directly with pdfkit; it does not currently bake in screenshot images (most rake-task/server-side bugs have none, and re-adding images would reintroduce the same size problem — revisit if a bug with a screenshot needs this path again).
-  - For any future large-file upload via this tool (a PDF, or anything else): **check the resulting `File size:` in the tool's own response matches the real source file size** before trusting the upload succeeded — a silent short-upload will still return a token and a (wrong, smaller) size with no error.
-  - Output location: `bugs/pdf/<BUG-ID>.pdf` per plugin (sibling to `bugs/open/`/`bugs/closed/`), gitignored — it's a regenerable snapshot of the MD file's current state, not source of truth.
-  - The local bug MD file (`bugs/open/<BUG-ID>.md`) is still attached alongside the PDF for traceability back to the plain-text source.
-- **Description field structure** — the production issue's Description must carry the same structured sections as the local bug MD file, not a flattened paragraph or a bare title. At minimum, in this order:
+- **Attachments — retired 2026-09-15, do not attach anything.** Do not generate or attach a PDF, and do not attach the local bug MD file (`bugs/open/<BUG-ID>.md`), to the production issue. There is no per-bug PDF folder or convention anymore — Every bug's full detail must be captured in the Description field itself instead (see below), with no attachment fallback for missing detail.
+
+  > **Historical record** (context only, not active instructions): a raw screenshot embedded inline into Description originally rendered as a blank/gray block (found 2026-09-11), so the workaround was to generate a single-bug PDF (`scripts/gen_bug_pdf.js`, pdfkit-based to stay under a base64 size ceiling, output previously kept under a per-plugin `bugs/pdf/` folder — now removed) and attach that plus the bug MD file instead of embedding an image directly. This was dropped for two reasons: **(1) Speed** — each `upload_file` call carries the same ~6-7s fixed latency tax as any other redmineflux MCP call, so 2 attachments meant 2 extra calls' worth of waiting per bug on top of the create call. **(2) Reliability** — a 12,388-byte PDF uploaded to issue #120588 reported a correct `File size: 12.1 KB` and had valid `%PDF`/`%%EOF` markers, yet still had 2 bytes silently substituted mid-file (offsets 5954-5955), corrupting 1 of 4 content streams; length-preserving corruption defeats a size check, and the only reliable verification (download + checksum) is itself more calls and more time. Measured ceiling for byte-exact uploads was only ~4KB. `scripts/gen_bug_pdf.js` itself still exists and works if a PDF is ever needed for another purpose (pass any output path explicitly) — it is simply no longer wired into the bug-creation flow.
+- **Description field structure, in Textile (not Markdown)** — this Redmine instance's Description field renders **Textile**, not Markdown. The local bug MD file is Markdown-formatted, so its content must be *converted* to Textile syntax when writing the Description, not pasted as-is. Since the Description is plain text sent inline with the single `create_issue` call (no upload, no base64), this is the one part of the bug that reaches production reliably and without the attachment-latency cost — so it must be complete on its own.
+
+  Markdown → Textile conversion cheat sheet:
+
+  | Markdown | Textile |
+  |---|---|
+  | `# H1` / `## H2` / `### H3` | `h1. H1` / `h2. H2` / `h3. H3` |
+  | `**bold**` | `*bold*` |
+  | `*italic*` / `_italic_` | `_italic_` |
+  | `- item` / `* item` (bullet) | `* item` |
+  | `1. item` (numbered) | `# item` |
+  | `` `code` `` | `@code@` |
+  | fenced ` ```code block``` ` | `bc. code block` (own paragraph, blank line before/after) |
+  | `> quote` | `bq. quote` |
+  | `---` (horizontal rule) | `---` (unchanged) |
+  | `[text](url)` | `"text":url` |
+
+  Required section order, at minimum:
   1. **Preconditions** (if the local bug file has any)
-  2. **Steps to reproduce** (numbered list, verbatim from the local file)
+  2. **Steps to reproduce** (numbered list, verbatim from the local file, converted to Textile `#` list syntax)
   3. **Expected result**
   4. **Actual result**
   5. Environment / Redmine version / Browser / User role
-  6. A note that full evidence (screenshot) is in the attached PDF — do not attempt to inline-embed the screenshot image directly into this text field (see the known issue above)
-  Use the target field's native formatting (Redmine Textile/Markdown headers, numbered lists) so each section actually renders distinctly — don't collapse them into one run-on paragraph.
+
+  Write each section as real Textile headers/lists (per the cheat sheet above) so they render distinctly on production — don't collapse them into one run-on paragraph, and don't leave any Markdown syntax (`#`, `**`, `` ` ``, etc.) untranslated in the final text.
 
 Do not proceed to the write proposal until all of the above are known — ask for whatever's missing (at minimum: Test Run, Environment, Test Case ID, Assignee) in one message.
 
@@ -163,11 +187,10 @@ Only an explicit, specific confirmation after a prepared write proposal counts a
 > - Priority: High
 > - Severity: High
 > - Assignee: ? (please tell me who to assign this to)
-> - Attachments: bugs/pdf/BUG-XXX.pdf (generated — bug detail + screenshot baked in), bugs/open/BUG-XXX.md
-> - Description:
+> - Description (Textile):
 >   ```
 >   h3. Preconditions
->   - ...
+>   * ...
 >
 >   h3. Steps to reproduce
 >   # ...
@@ -181,14 +204,14 @@ Only an explicit, specific confirmation after a prepared write proposal counts a
 >
 >   h3. Environment
 >   Redmine version: ... | Environment: ... | Browser: ... | User role: ...
->
->   Full evidence (screenshot) is in the attached PDF.
 >   ```
 >
-> I am ready to create this bug on the production Redmine server.
+> No attachments — full detail is in the Description above.
+>
+> I am ready to create this bug on the production Redmine server — a single `create_issue` call with priority, assignee, and custom fields all included.
 > **Do you approve creating it?**
 
-Only after an explicit yes should the MCP write tool be called.
+Only after an explicit yes should the MCP write tool be called (one `create_issue` call — see §4.3a).
 
 ## 5. Security notes
 

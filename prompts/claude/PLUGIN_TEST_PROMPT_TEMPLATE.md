@@ -27,7 +27,7 @@ Follow all rules in `SENIOR_QA_STANDARDS.md` strictly.
 1. `CLAUDE.md`
 2. `MEMORY.md`
 3. `SENIOR_QA_STANDARDS.md`
-4. `QA_CREDENTIALS_FORGE.md` (if FORGE) or `QA_CREDENTIALS_LOCAL.md` (if LOCAL)
+4. `QA_CREDENTIALS.md`
 5. `plugins/<plugin-folder-name>/docs/<DOC_PREFIX>_REQUIREMENTS.md`
 6. `plugins/<plugin-folder-name>/docs/<DOC_PREFIX>_SCOPE.md`
 7. `plugins/<plugin-folder-name>/docs/<DOC_PREFIX>_MEMORY.md`

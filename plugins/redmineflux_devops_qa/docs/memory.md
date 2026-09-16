@@ -174,8 +174,7 @@
 
 ## Environment Notes
 
-- Forge environment credentials: QA_CREDENTIALS_FORGE.md
-- Local environment credentials: QA_CREDENTIALS_LOCAL.md
+- Environment credentials (Forge and Local): QA_CREDENTIALS.md
 - Never hardcode credentials or base URLs in test files or test case steps
 - For webhook tests: the Redmine instance must be reachable from the CI tool's network (or use a local tunnel for local testing)
 - Source plugin code location: c:\redmine\plugins\redmineflux_devops\

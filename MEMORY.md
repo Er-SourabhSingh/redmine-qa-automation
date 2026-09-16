@@ -6,7 +6,7 @@ Persistent rules that apply to ALL plugin test runs. Plugin-specific observation
 
 ## Execution Rules
 
-- Always load credentials and base URL from `QA_CREDENTIALS_FORGE.md` or `QA_CREDENTIALS_LOCAL.md`.
+- Always load credentials and base URL from `QA_CREDENTIALS.md`.
 - Never hardcode users, passwords, or environment values.
 - Stop execution immediately if authentication fails.
 - Capture screenshot, logs, and network evidence on every bug found.
@@ -74,9 +74,9 @@ Persistent rules that apply to ALL plugin test runs. Plugin-specific observation
 - Only automate a test case after it has a confirmed manual PASS. The automation suite re-verifies known-good behavior; it is not a discovery tool.
 - One spec file per test suite, same base name as `testcases/<suite-name>.md`.
 - Every automated test title must include the TC ID(s) it covers, for traceability back to the testcase file.
-- Follow Page Object Model: no raw selectors inside spec files — only inside page object classes (`<Name>Page.ts`) living in `automation/tests/` alongside the specs. Reuse an existing page object in that plugin's `automation/tests/` before writing a new one.
-- File naming in `automation/tests/`: `<suite-name>.spec.ts` for specs, `<Name>Page.ts` for page objects, `<name>.setup.ts` for one-time infra (e.g. `auth.setup.ts`).
-- Load credentials and base URL only through `automation/utilities/env.ts`, sourced from `QA_CREDENTIALS_FORGE.md` / `QA_CREDENTIALS_LOCAL.md`. Never hardcode them in a spec or page object.
+- Follow Page Object Model: no raw selectors inside spec files — only inside page object classes (`<Name>Page.ts`) living in `automation/tests/pages/`. Reuse an existing page object in that plugin's `automation/tests/pages/` before writing a new one.
+- File naming: `<suite-name>.spec.ts` for specs and `<name>.setup.ts` for one-time infra (e.g. `auth.setup.ts`) live directly in `automation/tests/`; every `<Name>Page.ts` page object lives in `automation/tests/pages/`.
+- Load credentials and base URL only through `automation/utilities/env.ts`, sourced from `QA_CREDENTIALS.md`. Never hardcode them in a spec or page object.
 - Use fixtures (`automation/utilities/`) for login/session setup instead of repeating login steps in every test.
 - `automation/testdata/` and `automation/uploads/` hold checked-in fixtures; `automation/downloads/` and `automation/screenshots/` hold run-generated artifacts (gitignored).
 - **Test data registry:** maintain one real `.xlsx` per environment in `automation/testdata/<PREFIX>_TESTDATA_<ENV>.xlsx` (e.g. `HELPDESK_TESTDATA_LOCAL.xlsx`) tracking what test entities currently exist/are deleted on that specific server — see `CLAUDE.md` §13a. Check it before creating a fixture; update it immediately after creating/changing/deleting one. Never hardcode a ticket number in an expected result — track fixture tickets by description instead, and re-verify the current # each session.

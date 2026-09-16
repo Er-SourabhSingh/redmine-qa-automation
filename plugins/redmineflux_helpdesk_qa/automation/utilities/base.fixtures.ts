@@ -1,19 +1,19 @@
 import { test as base, expect } from '@playwright/test';
-import { HelpdeskOrganizationPage } from '../tests/HelpdeskOrganizationPage';
-import { HelpdeskSlaPage } from '../tests/HelpdeskSlaPage';
-import { HelpdeskSupportLevelPage } from '../tests/HelpdeskSupportLevelPage';
-import { HelpdeskCustomerPage } from '../tests/HelpdeskCustomerPage';
-import { HelpdeskProductPage } from '../tests/HelpdeskProductPage';
-import { HelpdeskCannedResponsePage } from '../tests/HelpdeskCannedResponsePage';
-import { HelpdeskHolidayPage } from '../tests/HelpdeskHolidayPage';
-import { HelpdeskTicketListPage } from '../tests/HelpdeskTicketListPage';
-import { HelpdeskKnowledgebasePage } from '../tests/HelpdeskKnowledgebasePage';
-import { RolesPermissionsPage } from '../tests/RolesPermissionsPage';
-import { ProjectSettingsPage } from '../tests/ProjectSettingsPage';
-import { ProjectMembersPage } from '../tests/ProjectMembersPage';
-import { AdminUsersPage } from '../tests/AdminUsersPage';
-import { CustomerPortalPage } from '../tests/CustomerPortalPage';
-import { HelpdeskDashboardPage } from '../tests/HelpdeskDashboardPage';
+import { HelpdeskOrganizationPage } from '../tests/pages/HelpdeskOrganizationPage';
+import { HelpdeskSlaPage } from '../tests/pages/HelpdeskSlaPage';
+import { HelpdeskSupportLevelPage } from '../tests/pages/HelpdeskSupportLevelPage';
+import { HelpdeskCustomerPage } from '../tests/pages/HelpdeskCustomerPage';
+import { HelpdeskProductPage } from '../tests/pages/HelpdeskProductPage';
+import { HelpdeskCannedResponsePage } from '../tests/pages/HelpdeskCannedResponsePage';
+import { HelpdeskHolidayPage } from '../tests/pages/HelpdeskHolidayPage';
+import { HelpdeskTicketListPage } from '../tests/pages/HelpdeskTicketListPage';
+import { HelpdeskKnowledgebasePage } from '../tests/pages/HelpdeskKnowledgebasePage';
+import { RolesPermissionsPage } from '../tests/pages/RolesPermissionsPage';
+import { ProjectSettingsPage } from '../tests/pages/ProjectSettingsPage';
+import { ProjectMembersPage } from '../tests/pages/ProjectMembersPage';
+import { AdminUsersPage } from '../tests/pages/AdminUsersPage';
+import { CustomerPortalPage } from '../tests/pages/CustomerPortalPage';
+import { HelpdeskDashboardPage } from '../tests/pages/HelpdeskDashboardPage';
 
 // Add more page objects here as they're written (ticket detail/reply, reports, etc.).
 type Fixtures = {

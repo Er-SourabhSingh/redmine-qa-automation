@@ -21,8 +21,7 @@ redmine-qa-automation/
 ├── README.md
 ├── SENIOR_QA_STANDARDS.md           ← testing methodology and bug standards
 ├── REDMINEFLUX-MCP-SETUP.md         ← production redmineflux MCP server setup + write-approval policy
-├── QA_CREDENTIALS_FORGE.md          ← Forge environment credentials
-├── QA_CREDENTIALS_LOCAL.md          ← local environment credentials
+├── QA_CREDENTIALS.md                ← common QA credentials (all environments/roles)
 │
 ├── scripts/                         ← utility/seed scripts
 ├── templates/
@@ -49,12 +48,14 @@ redmine-qa-automation/
         │   ├── playwright.config.ts
         │   ├── package.json
         │   ├── tsconfig.json
-        │   ├── tests/                 ← specs AND page objects together, self-contained to this plugin
+        │   ├── tests/                 ← specs + setup files, self-contained to this plugin
         │   │   ├── <PREFIX>_<suite-name>.spec.ts  ← mirrors testcases/<PREFIX>_<suite-name>.md, one spec per suite
-        │   │   ├── <PluginName>Page.ts    ← page object (POM) — no .spec.ts suffix, not run as a test
-        │   │   └── auth.setup.ts          ← logs in per role, saves session to .auth/<role>.json
+        │   │   ├── auth.setup.ts          ← logs in per role, saves session to .auth/<role>.json
+        │   │   ├── provision.setup.ts     ← idempotently creates the roles/projects/users/customers automation depends on
+        │   │   └── pages/                 ← page objects (POM), separate from specs
+        │   │       └── <PluginName>Page.ts    ← page object — no .spec.ts suffix, not run as a test
         │   ├── utilities/             ← env/credentials loader, custom fixtures, shared helpers
-        │   │   └── env.ts             ← reads QA_CREDENTIALS_FORGE.md / QA_CREDENTIALS_LOCAL.md
+        │   │   └── env.ts             ← reads QA_CREDENTIALS.md
         │   ├── testdata/              ← checked-in test data fixtures (JSON/CSV/etc.) AND the
         │   │   └── <PREFIX>_TESTDATA_<ENV>.xlsx  ← per-environment test data registry, see §13a
         │   ├── uploads/               ← checked-in sample files used by upload test cases
@@ -65,10 +66,7 @@ redmine-qa-automation/
         │   ├── _index.md            ← master bug tracker for this plugin
         │   ├── _duplicates.md       ← duplicate prevention register
         │   ├── open/                ← one .md file per open bug
-        │   ├── closed/              ← one .md file per closed bug
-        │   └── pdf/                 ← generated per-bug PDF (gitignored) for production attachment,
-        │                               see REDMINEFLUX-MCP-SETUP.md §4.3a — workaround for the
-        │                               redmineflux MCP inline-screenshot-embed rendering bug
+        │   └── closed/              ← one .md file per closed bug
         ├── screenshots/
         │   ├── <TC-ID>/             ← one subfolder per TC (e.g. TC-RAF-001/) — PASS/FAIL evidence
         │   └── <BUG-ID>/            ← one subfolder per bug (e.g. BUG-RAF-001/) — failure + retest evidence
@@ -120,7 +118,7 @@ plugins/<plugin-name>/                  (<PREFIX> = doc prefix per §2b, e.g. HE
     playwright.config.ts
     package.json
     tsconfig.json
-    tests/               ← specs + page objects together; tests/auth.setup.ts for login
+    tests/               ← specs + setup files; tests/auth.setup.ts for login, tests/pages/ for page objects
     utilities/env.ts
     testdata/
     uploads/
@@ -130,7 +128,6 @@ plugins/<plugin-name>/                  (<PREFIX> = doc prefix per §2b, e.g. HE
   bugs/_duplicates.md
   bugs/open/
   bugs/closed/
-  bugs/pdf/             ← gitignored — generated per-bug PDFs for production attachment (§4.3a)
   screenshots/          ← subfolders created per TC-ID and BUG-ID as testing progresses
   reports/final-bug-report.md
   logs/
@@ -341,10 +338,28 @@ Format: `BUG-<PLUGIN-CODE>-<NUMBER>`
 | redmineflux_inline_editor | INE |
 | redmineflux_lotus | LTS |
 | redmineflux_crux | CRX |
+| redmineflux_timesheet | TMS |
+| redmineflux_workload | WKL |
+| redmineflux_notification | NTF |
+| redmineflux_time_tracker | TMT |
+| redmineflux_invoice | INV |
+| redmineflux_crm | CRM |
+| redmineflux_mentions | MEN |
+| redmineflux_fluxshot | FSX |
 
 Examples: `BUG-TCM-001`, `BUG-GNT-001`
 
 Add a new code row when a new plugin is added.
+
+**Note on the four `mcp_*` rows.** `RFM`, `RIT`, `RKB` and `RCL` were originally registered for MCP-related
+work. They are now the codes for the standalone plugins of the same name, which is where their QA folders live:
+
+| Code | QA folder |
+|------|-----------|
+| RFM | `plugins/redmineflux_mcp_qa` (Redmineflux MCP Server) |
+| RIT | `plugins/redmineflux_issue_template_qa` |
+| RKB | `plugins/redmineflux_knowledge_base_qa` |
+| RCL | reserved — checklist bugs use `CHK` (`plugins/redmineflux_checklist_qa`) |
 
 ---
 
@@ -460,7 +475,7 @@ At the start of every test session, read in this order:
 2. `MEMORY.md` (global rules)
 3. `SENIOR_QA_STANDARDS.md` (testing standards)
 4. `REDMINEFLUX-MCP-SETUP.md` (production redmineflux MCP write-approval policy — required before any bug is ever reported to production)
-5. `QA_CREDENTIALS_FORGE.md` or `QA_CREDENTIALS_LOCAL.md` (target environment)
+5. `QA_CREDENTIALS.md` (credentials for the target environment)
 6. `plugins/<name>/docs/<PREFIX>_REQUIREMENTS.md`
 7. `plugins/<name>/docs/<PREFIX>_FEATURES_LIST.md`
 8. `plugins/<name>/docs/<PREFIX>_USER_GUIDE.md`
@@ -515,10 +530,11 @@ Each plugin owns its own self-contained Playwright + TypeScript suite under `plu
 - **Automate only test cases with a confirmed manual PASS.** Do not write a Playwright spec for a TC that hasn't been executed and passed manually first — automation locks in verified behavior, it does not discover new behavior.
 - **One spec file per test suite**, same base name as the source: `testcases/<PREFIX>_<suite-name>.md` → `automation/tests/<PREFIX>_<suite-name>.spec.ts`.
 - **Every `test()` title must carry the TC ID(s)** it covers, e.g. `test('TC-HLP-003 - agent can close ticket', async ({ page }) => { ... })`, so results stay traceable back to the testcase file.
-- **Page Object Model, self-contained per plugin.** Page objects live in `automation/tests/` next to the specs — as plain classes named `<Name>Page.ts` (PascalCase, no `.spec.ts` suffix, so the runner doesn't treat them as tests). A spec file must not contain raw selectors — it calls page object methods. Before adding a new page object, check this plugin's own `automation/tests/` first; don't create a second page object for a screen this plugin's suite already models.
-- **File naming inside `automation/tests/`:** `<suite-name>.spec.ts` for specs, `<Name>Page.ts` for page objects, `<name>.setup.ts` for one-time infrastructure (e.g. `auth.setup.ts`). Only `.spec.ts` and `.setup.ts` files are runnable tests.
-- **Credentials/base URL only via `automation/utilities/env.ts`**, which reads the active `QA_CREDENTIALS_FORGE.md` or `QA_CREDENTIALS_LOCAL.md`. Never hardcode a URL, username, or password inside a spec or page object.
+- **Page Object Model, self-contained per plugin.** Page objects live in `automation/tests/pages/`, separate from the specs — as plain classes named `<Name>Page.ts` (PascalCase, no `.spec.ts` suffix, so the runner doesn't treat them as tests). A spec file must not contain raw selectors — it calls page object methods. Before adding a new page object, check this plugin's own `automation/tests/pages/` first; don't create a second page object for a screen this plugin's suite already models.
+- **File naming inside `automation/tests/`:** `<suite-name>.spec.ts` for specs and `<name>.setup.ts` for one-time infrastructure (e.g. `auth.setup.ts`, `provision.setup.ts`) live directly in `automation/tests/`; every `<Name>Page.ts` page object lives in `automation/tests/pages/`. Only `.spec.ts` and `.setup.ts` files are runnable tests.
+- **Credentials/base URL only via `automation/utilities/env.ts`**, which reads `QA_CREDENTIALS.md`. Never hardcode a URL, username, or password inside a spec or page object.
 - **Use fixtures for login/session state** (`automation/utilities/`, e.g. `base.fixtures.ts`) instead of repeating login steps inside every test. The standard pattern is a `tests/auth.setup.ts` that logs in once per role and saves `.auth/<role>.json`, referenced by `storageState` in `playwright.config.ts`.
+- **`tests/provision.setup.ts` bootstraps the environment itself, idempotently.** Runs before `auth.setup.ts` (both matched by the `.setup.ts` runner pattern, chained via `dependencies` in `playwright.config.ts` so order is guaranteed regardless of `fullyParallel`). Logs in as the one credential every fresh instance is guaranteed to have — Admin — then checks-before-creating every other role/project/user/customer the suite's fixtures reference, via real UI clicks (no direct DB/backend access). This is what lets the suite run against a brand-new server or container, not just the one environment it happened to be built against.
 - **`testdata/` and `uploads/`** hold checked-in fixtures (sample data files, files used by upload test cases) — commit these. **`downloads/` and `screenshots/`** hold run-generated artifacts — gitignored, and distinct from the plugin's own `screenshots/<TC-ID>/` manual evidence folder.
 - Playwright's own HTML report and trace files are a separate artifact from `reports/tc-report.html` — they report the automated regression run, not the manual session.
 - When a bug is found *by the automation suite* (a regression), file it exactly like a manually found bug: check `bugs/_duplicates.md` / `bugs/_index.md`, use `templates/bug-template.md`, save to `bugs/open/`, and note in the bug file that it was found via the automated regression suite.

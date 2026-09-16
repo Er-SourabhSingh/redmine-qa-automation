@@ -9,8 +9,7 @@ redmine-qa-automation/
 ├── MEMORY.md                          ← global testing rules (all plugins)
 ├── STATUS.md                          ← cross-plugin test status dashboard
 ├── SENIOR_QA_STANDARDS.md             ← testing methodology and bug standards
-├── QA_CREDENTIALS_FORGE.md            ← Forge environment credentials
-├── QA_CREDENTIALS_LOCAL.md            ← local environment credentials
+├── QA_CREDENTIALS.md                  ← common QA credentials (all environments/roles)
 │
 ├── scripts/                           ← utility scripts
 ├── templates/
@@ -64,7 +63,7 @@ redmine-qa-automation/
 | File | Purpose |
 |------|---------|
 | `SENIOR_QA_STANDARDS.md` | Testing methodology — always loaded |
-| `QA_CREDENTIALS_FORGE.md` or `QA_CREDENTIALS_LOCAL.md` | Credentials for target environment |
+| `QA_CREDENTIALS.md` | Credentials for the target environment |
 | `plugins/<name>/docs/<PREFIX>_REQUIREMENTS.md` | What the plugin does |
 | `plugins/<name>/docs/<PREFIX>_SCOPE.md` | What is in/out of scope |
 | `plugins/<name>/testcases/<PREFIX>_<suite>.md` | Specific test cases to execute |

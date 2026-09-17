@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Defects Summary — Redmineflux Crux</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 24px; color: #222; }
+  h1 { color: #6a1b9a; }
+  h2 { color: #444; border-bottom: 2px solid #6a1b9a; padding-bottom: 4px; margin-top: 24px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px; }
+  th { background: #6a1b9a; color: #fff; padding: 8px 10px; text-align: left; }
+  td { padding: 7px 10px; border-bottom: 1px solid #ddd; }
+  tr:nth-child(even) td { background: #f9f9f9; }
+  .critical { color: #b22222; font-weight: bold; }
+  .high { color: #d97700; font-weight: bold; }
+  .medium-high { color: #c26b00; font-weight: bold; }
+  .medium { color: #1a6bc4; font-weight: bold; }
+  .low { color: #207a1f; font-weight: bold; }
+  .open { color: #b22222; font-weight: bold; }
+  .closed { color: #207a1f; font-weight: bold; }
+  .summary-box { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .stat { background: #f4f4f4; border: 1px solid #ddd; border-radius: 6px; padding: 12px 20px; text-align: center; min-width: 80px; }
+  .stat .num { font-size: 28px; font-weight: bold; }
+  .stat .label { font-size: 12px; color: #666; }
+  .meta { font-size: 12px; color: #666; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<h1>Defects Summary — Redmineflux Crux</h1>
+<p class="meta">
+  Redmine: 7.0.0 (local Docker) &nbsp;|&nbsp; Plugin: redmineflux_crux (crux-core 0.92.0) &nbsp;|&nbsp;
+  Environment: Local (crux-redmine, http://localhost:3014) &nbsp;|&nbsp; Engagement: 2026-09-10 through 2026-09-17 (ongoing) &nbsp;|&nbsp;
+  Generated: 2026-09-17
+</p>
+
+<div class="summary-box">
+  <div class="stat"><div class="num">31</div><div class="label">Total Found</div></div>
+  <div class="stat" style="border-color:#b22222"><div class="num" style="color:#b22222">17</div><div class="label">Open</div></div>
+  <div class="stat" style="border-color:#207a1f"><div class="num" style="color:#207a1f">14</div><div class="label">Closed</div></div>
+  <div class="stat"><div class="num" style="color:#b22222">1</div><div class="label">Critical (open)</div></div>
+  <div class="stat"><div class="num" style="color:#d97700">9</div><div class="label">High (open)</div></div>
+  <div class="stat"><div class="num" style="color:#c26b00">2</div><div class="label">Medium-High (open)</div></div>
+  <div class="stat"><div class="num" style="color:#1a6bc4">5</div><div class="label">Medium (open)</div></div>
+</div>
+
+<h2>Open Defects (17)</h2>
+<table>
+  <tr><th>Bug ID</th><th>Title</th><th>Severity</th><th>Domain / Agent</th><th>Production ID</th><th>Status</th></tr>
+  <tr><td>BUG-CRX-008</td><td>Chat write-confirm gate never checks Work Package autonomy — suggest-only WP tickets writable via chat regardless of gate state</td><td class="critical">Critical</td><td>Platform-wide (write-confirm gate)</td><td>#120613</td><td class="open">Open</td></tr>
+  <tr><td>BUG-CRX-009</td><td>Improve/Apply confirm endpoint reports "ok":true when the write was silently refused by a real permission check</td><td class="high">High</td><td>Improve wand</td><td>#120616</td><td class="open">Open</td></tr>
+  <tr><td>BUG-CRX-013</td><td>Self-contradiction pattern blocking confirm proposals for many named-record write intents — platform-wide</td><td class="high">High</td><td>CRM/Sales, Workload/Capacity, Budget, Scrum, KB</td><td>#120664</td><td class="open">Open (held back by dev)</td></tr>
+  <tr><td>BUG-CRX-016</td><td>redmineflux-mcp's one-shot startup plugin-detection has no retry — a slow Redmine boot silently disables ALL plugin tools</td><td class="high">High</td><td>Infrastructure (MCP)</td><td>#120696</td><td class="open">Open</td></tr>
+  <tr><td>BUG-CRX-017</td><td>Capacity Agent's bulk-member-removal falsely reports real members as "not currently members"</td><td class="medium">Medium</td><td>Capacity/Workload</td><td>#120704</td><td class="open">Open</td></tr>
+  <tr><td>BUG-CRX-018</td><td>Allocation resize/date-update tools reject the ID Workload Add Issue just returned; misleading "✓"-prefixed failure — confirmed on 4 agents/4 failure types</td><td class="high">High</td><td>Capacity/Workload, KB, Sales/CRM, Scrum/Agile</td><td>#120705</td><td class="open">Open</td></tr>
+  <tr><td>BUG-CRX-019</td><td>Leave Create silently resolves an unrecognized username to User ID 0</td><td class="high">High</td><td>Capacity/Workload</td><td>#120706</td><td class="open">Open</td></tr>
+  <tr><td>BUG-CRX-022</td><td>`/crux/agents` controller enforces no permission check at all</td><td class="high">High</td><td>Platform-wide (agent roster)</td><td>#120720</td><td class="open">Open</td></tr>
+  <tr><td>BUG-CRX-023</td><td>KB Agent's `list_spaces` enforces no Knowledge Base permission check</td><td class="medium-high">Medium-High</td><td>KB Agent</td><td>#120756</td><td class="open">Open</td></tr>
+  <tr><td>BUG-CRX-024</td><td>QA Agent's `list_test_suites` enforces no Testcase Management permission check</td><td class="medium">Medium</td><td>QA Agent</td><td>#120757</td><td class="open">Open</td></tr>
+  <tr><td>BUG-CRX-025</td><td>Budget Agent's `get_budget_status` enforces no permission check at all — real financial data exposed</td><td class="medium-high">Medium-High</td><td>Budget Agent</td><td>#120758</td><td class="open">Open</td></tr>
+  <tr><td>BUG-CRX-026</td><td>Scrum Agent fabricates "backlog empty" instead of honestly reporting the Agile plugin is unreachable</td><td class="high">High</td><td>Scrum/Agile</td><td>#120759</td><td class="open">Open</td></tr>
+  <tr><td>BUG-CRX-027</td><td>Correcting a validation error via follow-up produces a fabricated "Still PENDING" proposal with zero buttons</td><td class="high">High</td><td>Sales/CRM</td><td>#120763</td><td class="open">Open</td></tr>
+  <tr><td>BUG-CRX-028</td><td>`update_invoice` on a Sent invoice fabricates a "✓ updated successfully" confirmation, write never persists — confirmed on 3 agents/3 action types</td><td class="high">High</td><td>Invoicing, Capacity/Workload</td><td>#120768</td><td class="open">Open</td></tr>
+  <tr><td>BUG-CRX-029</td><td>QA Agent falsely claims "no write tools are available," contradicting its own prior successes in-session</td><td class="medium">Medium</td><td>QA Agent</td><td>#120782</td><td class="open">Open</td></tr>
+  <tr><td>BUG-CRX-030</td><td>QA Agent's `remove_testcases_from_suite` genuinely un-scopes a testcase, violating the documented immutable-scope rule</td><td class="medium">Medium</td><td>QA Agent</td><td>#120784</td><td class="open">Open</td></tr>
+  <tr><td>BUG-CRX-031</td><td>Scrum Agent's `move_issue` resolves "Rejected" column to two different wrong statuses on consecutive attempts</td><td class="medium">Medium</td><td>Scrum/Agile</td><td>#120785</td><td class="open">Open</td></tr>
+</table>
+
+<h2>Closed Defects (14)</h2>
+<table>
+  <tr><th>Bug ID</th><th>Title</th><th>Severity</th><th>Production ID</th></tr>
+  <tr><td>BUG-CRX-001</td><td>LLM provider "Test Connection" reports false-positive success regardless of key validity</td><td class="high">High</td><td>#120514</td></tr>
+  <tr><td>BUG-CRX-002</td><td>6 of 9 bundled agents' chat-picker persona text falsely claims read-only behavior</td><td class="medium">Medium</td><td>#120515</td></tr>
+  <tr><td>BUG-CRX-003</td><td>Global-dashboard gate approval has zero project-scoping logic</td><td class="high">High</td><td>#120574</td></tr>
+  <tr><td>BUG-CRX-004</td><td>MCP client never recovers from a stale/expired session</td><td class="high">High</td><td>#120575</td></tr>
+  <tr><td>BUG-CRX-005</td><td>"Show the Crux/Agents entry" admin toggles are purely cosmetic</td><td class="low">Low-Medium</td><td>#120576</td></tr>
+  <tr><td>BUG-CRX-006</td><td>Shared proxy module discards crux-core's real HTTP status on every proxied call</td><td class="medium">Medium</td><td>#120606</td></tr>
+  <tr><td>BUG-CRX-007</td><td>Domain-inference chat routing never fires on a bare domain question</td><td class="medium">Medium</td><td>#120609</td></tr>
+  <tr><td>BUG-CRX-010</td><td>Session Artifact/Keep snapshot omits the real write outcome</td><td class="medium">Medium</td><td>#120659</td></tr>
+  <tr><td>BUG-CRX-011</td><td>Shared read-only viewer can Confirm the owner's pending write proposal</td><td class="critical">Critical</td><td>#120660</td></tr>
+  <tr><td>BUG-CRX-012</td><td>`/crux` dashboard controller enforces no permission check at all</td><td class="critical">Critical</td><td>#120661</td></tr>
+  <tr><td>BUG-CRX-014</td><td>Unprefixed follow-up chat turn mis-routes to Project Manager, falsely denies CRM write tools</td><td class="high">High</td><td>#120665</td></tr>
+  <tr><td>BUG-CRX-015</td><td>"Link contact to deal" demands an unresolvable numeric project_id, plus false "contact doesn't exist" negative</td><td class="high">High</td><td>#120669</td></tr>
+  <tr><td>BUG-CRX-020</td><td>Fabricated-confirm proposals platform-wide with no real button — 11 reproductions, 5 agents, 9 action types</td><td class="critical">Critical</td><td>#120710</td></tr>
+  <tr><td>BUG-CRX-021</td><td>Invoicing Agent resolves project "crux-qa" to a nonexistent numeric ID</td><td class="high">High</td><td>#120712</td></tr>
+</table>
+
+<h2>Defect Class Categories</h2>
+<table>
+  <tr><th>Category</th><th>Open Count</th><th>Closed Count</th><th>Bug IDs</th></tr>
+  <tr><td>Missing permission check on a Crux-exposed read</td><td>4</td><td>2</td><td>BUG-CRX-022, 023, 024, 025 (open); BUG-CRX-003, 012 (closed)</td></tr>
+  <tr><td>Fabricated-confirm / zero-button write proposal</td><td>2</td><td>1</td><td>BUG-CRX-027, 028 (open); BUG-CRX-020 (closed, but recurring under new triggers)</td></tr>
+  <tr><td>Self-contradiction / can't-propose-a-write pattern</td><td>1</td><td>0</td><td>BUG-CRX-013 (open, held back by dev)</td></tr>
+  <tr><td>Misleading "✓" prefix on a genuine failure</td><td>1</td><td>0</td><td>BUG-CRX-018 (open, 4 cross-agent confirmations)</td></tr>
+  <tr><td>Wrong entity/ID resolution (project, user, status)</td><td>2</td><td>1</td><td>BUG-CRX-019, 031 (open); BUG-CRX-021 (closed)</td></tr>
+  <tr><td>Fabricated read / hallucinated response</td><td>2</td><td>0</td><td>BUG-CRX-026, 029 (open)</td></tr>
+  <tr><td>Documented business-rule violation on a genuine write</td><td>1</td><td>0</td><td>BUG-CRX-030 (open)</td></tr>
+  <tr><td>Infrastructure / MCP tooling</td><td>1</td><td>0</td><td>BUG-CRX-016 (open)</td></tr>
+  <tr><td>Other (session/permission/gate integrity, misc.)</td><td>3</td><td>10</td><td>BUG-CRX-008, 009, 017 (open); BUG-CRX-001, 002, 004, 005, 006, 007, 010, 011, 014, 015 (closed)</td></tr>
+</table>
+
+<p class="meta">Note: this report reflects <code>bugs/open/</code> and <code>bugs/closed/</code> as of 2026-09-17. It is the first <code>defects-summary.html</code> generated for this plugin — no prior version existed to diff against.</p>
+
+</body>
+</html>

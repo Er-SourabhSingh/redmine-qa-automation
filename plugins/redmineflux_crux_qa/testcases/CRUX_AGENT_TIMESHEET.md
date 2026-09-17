@@ -3,6 +3,8 @@
 > Source: `redmineflux-crux-core/agents/timesheet.md` (full file); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
 > **Execution readiness: UNBLOCKED — executed live 2026-09-16.** Read surface (TC-CRX-121) and both negative cases (TC-CRX-125/126 step 1) PASS. **Write actions hit BUG-CRX-020 again** (fabricated-confirm proposals with no real button) — reproduced on `create_schema` and `settings_update`, blocking TC-CRX-122/123/124 and the confirm half of TC-CRX-126.
+>
+> **2026-09-17 update:** TC-CRX-147–152 (gap cases) BLOCKED mid-session by a platform-wide Ask Crux provider outage (OpenRouter key returning 401 Unauthorized, confirmed via native `/crux/admin/keys` diagnostic — not a plugin defect). A full fixture was built and verified genuine before the outage hit: approval schema "Two-Level Approval" (ID 1, Manager L1 / Developer L2), new user `crux.developer` (id 8, Developer role), team "Retest Squad" assigned the schema. Notably, this schema's create-confirm proposal rendered with 2 real buttons and genuinely persisted — contradicting the 2026-09-16 note below that `create_schema` reliably hit BUG-CRX-020; see TC-CRX-147 for detail. Resume TC-CRX-147 step 2 once a working provider key is restored.
 
 ## Plugin
 - Name: redmineflux_crux (Time Agent, Timesheet plugin domain)
@@ -154,9 +156,17 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §1 (quoting the Timesheet plugin's own KB page): "Strict sequential approval: 'Higher-level approver cannot act before lower-level decision', 'No approval level can be skipped'." The Time Agent's `approve` action must honestly refuse the out-of-sequence approval (citing the real rule), never silently succeed or fabricate an approval.
 
-**Result: NOT YET EXECUTED**
+**Result: BLOCKED (2026-09-17) — infrastructure outage, not a plugin defect**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Time Agent's manifest/allowed_tools only.
+Fixture built and confirmed genuine this session (2026-09-17), then testing halted by a platform-wide outage before step 2 could run:
+- Created approval schema **"Two-Level Approval"** (ID 1) via Time Agent chat — Level 1 = Manager role (id 3), Level 2 (final) = Developer role (id 4). The write proposal rendered with 2 real `<button>` elements (DOM-verified) and, after confirming, was cross-checked against the native `/approval_schemas` UI (not chat) — genuinely created, not fabricated. Notably this contradicts the file's own earlier 2026-09-16 note that `create_schema` reliably hit BUG-CRX-020 (fabricated-confirm, no button) — worth a retest note, see Evidence Map.
+- Created a new native user `crux.developer` (user id 8), granted the project-level **Developer** role on Crux QA, added as a team member of **"Retest Squad"** (team id 2) with team-role **Developer**; existing member `luna.blossom` (Crux Manager, user id 5) given team-role **Manager**. Schema assigned to the team (confirmed via native UI: "✓ Assigned — Two-Level Approval — L1: Manager, L2: Developer").
+- Logged a real 4:00hr time entry for `admin` on Crux QA for Mon 2026-09-14 (visible in the native weekly timesheet grid).
+- Attempted "Time Agent, submit my timesheet for the week of Sep 14 to Sep 20, 2026 for approval." → failed with `provider error: HTTP Error 401: Unauthorized`. Retried 3x (including a trivial "Time Agent, hello" with no tool call at all) — same 401 every time.
+- Root-caused via `/crux/admin/keys` → "Test connection" on the OpenRouter provider (the only configured key, used for every prior successful exchange this session) → **`HTTPError: HTTP Error 401: Unauthorized`**, confirmed via the native diagnostic, not chat. No other provider (Anthropic, OpenAI, Gemini) has a key configured as fallback ("no key configured for 'anthropic' — add a key first").
+- This is a genuine environment/ops issue (an expired, revoked, or quota-exhausted shared API key), not a Crux/Timesheet plugin defect. It blocks **all** Crux agent chat interactions platform-wide, not just Timesheet — confirmed no other domain agent can be reached either while this persists.
+
+**Next session start point:** once the OpenRouter key (or any provider key) is restored, the fixture above is ready to use immediately — re-run step 2 of TC-147 (attempt approval at the Developer/L2 level before Manager/L1 has decided), then continue to TC-148–152 using the same schema/team/users.
 
 ---
 
@@ -174,9 +184,9 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §1: "Self-approval edge case: 'If submitter is final-level approver, only admin can complete approval/rejection.'" Step 2/3 must be honestly refused for the non-admin submitter. Step 4 (admin acting) must succeed. (`docs/CRUX_HANDOFF.md` records an informal prior observation that "timesheet's `approve` correctly refused a self-approval" — this TC formalizes that into a repeatable, specific test rather than a one-off note.)
 
-**Result: NOT YET EXECUTED**
+**Result: BLOCKED (2026-09-17) — same infrastructure outage as TC-147**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Time Agent's manifest/allowed_tools only.
+Not attempted — the Ask Crux provider outage (see TC-147) halted all chat-based testing before this TC could be reached. The fixture built for TC-147 (schema, team, `crux.developer` as final-level approver) also covers this TC's precondition once the provider is restored.
 
 ---
 
@@ -192,9 +202,9 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §1: "Withdrawal only permitted 'before minimum approval level is approved'." The withdraw attempt must be honestly refused once that threshold is passed, not silently accepted.
 
-**Result: NOT YET EXECUTED**
+**Result: BLOCKED (2026-09-17) — same infrastructure outage as TC-147**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Time Agent's manifest/allowed_tools only.
+Not attempted — halted by the Ask Crux provider outage (see TC-147) before this TC could be reached.
 
 ---
 
@@ -210,9 +220,9 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §1: once this setting is on, "users cannot add or edit entries after approval." The agent must honestly refuse citing the real Redmine-layer block, never fabricate a successful edit.
 
-**Result: NOT YET EXECUTED**
+**Result: BLOCKED (2026-09-17) — same infrastructure outage as TC-147**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Time Agent's manifest/allowed_tools only.
+Not attempted — halted by the Ask Crux provider outage (see TC-147) before this TC could be reached.
 
 ---
 
@@ -228,9 +238,9 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §1: "timesheets below a configured hour count bypass manual review entirely." The agent must recognize the timesheet is already (auto-)approved and not propose a redundant approval action or claim it is still "pending" — a stale/incorrect "pending" claim here would be a real bug per the doc's own framing ("does a stale 'pending' claim surface?").
 
-**Result: NOT YET EXECUTED**
+**Result: BLOCKED (2026-09-17) — same infrastructure outage as TC-147**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Time Agent's manifest/allowed_tools only.
+Not attempted — halted by the Ask Crux provider outage (see TC-147) before this TC could be reached.
 
 ---
 
@@ -248,7 +258,9 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_AGENT_PERMISSION_MATRIX.md` §1: the same submission "becomes visible only after the grant" if scoping is genuinely permission-based. Step 2 must NOT surface the fixture timesheet; step 4 must.
 
-**Result: NOT YET EXECUTED (fixture-based re-run)**
+**Result: BLOCKED (2026-09-17) — same infrastructure outage as TC-147**
+
+Not attempted this session — halted by the Ask Crux provider outage (see TC-147) before this TC could be reached. Still inconclusive from the prior 2026-09-16 probe below.
 
 Evidence (already-observed-2026-09-16, partial/inconclusive — quoted from `docs/CRUX_AGENT_PERMISSION_MATRIX.md` §1):
 - "Time Agent, show me the approval dashboard for pending timesheets." (as `luna.blossom`, lacking `Manage Timesheet`) → real tool call (`redmineflux_timesheet_approval_dashboard`), returned "There are currently no timesheets pending your approval." This local instance had **no timesheet data at all** at the time, so the empty result is consistent with either correct scoping or an unscoped read that would return empty regardless — **inconclusive from this probe alone**, which is exactly why this TC's fixture-based steps above are needed to resolve it.
@@ -258,6 +270,7 @@ Evidence (already-observed-2026-09-16, partial/inconclusive — quoted from `doc
 ## Evidence Map
 
 - Case IDs: TC-CRX-121 through TC-CRX-126 — 4/6 reached a definitive verdict (3 PASS: 121, 125, 126-gating; 1 FAIL: 124; 2 BLOCKED: 122, 123 — downstream of the same upstream bug); TC-CRX-126's confirm-mechanism half also FAIL.
+- Case IDs: TC-CRX-147 through TC-CRX-152 (gap cases, drafted 2026-09-16) — all 6 BLOCKED 2026-09-17 by a platform-wide Ask Crux provider outage (OpenRouter key 401 Unauthorized), not a plugin defect. Fixture (schema + team + roles) built and verified genuine before the outage; ready for immediate reuse next session.
 - Screenshots: bugs only (none captured — evidence via live chat transcript text and direct DOM inspection).
-- Log: session ses-143, 2026-09-16.
-- Bug reference: BUG-CRX-020 (fabricated-confirm proposals with no real button, reproduced on a fourth domain agent — Time Agent, 2 action types: `create_schema`, `settings_update`).
+- Log: session ses-143, 2026-09-16; session ses-040, 2026-09-17.
+- Bug reference: BUG-CRX-020 (fabricated-confirm proposals with no real button, reproduced on a fourth domain agent — Time Agent, 2 action types: `create_schema`, `settings_update`). Note: 2026-09-17's `create_schema` retest produced a genuine, real-button proposal that persisted correctly — consistent with this bug's already-documented inconsistent/intermittent behavior across other agents this session, not a contradiction requiring the bug to be closed.

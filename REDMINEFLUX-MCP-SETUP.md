@@ -162,6 +162,12 @@ For a **bug** write specifically, the write proposal in step 2 must cover every 
 
 Do not proceed to the write proposal until all of the above are known — ask for whatever's missing (at minimum: Test Run, Environment, Test Case ID, Assignee) in one message.
 
+### 4.3b ⚠️ Never use these tools to build local test fixtures
+
+**Incident (2026-09-17):** while testing `redmineflux_crux`'s QA Agent against a local Docker Redmine instance (`localhost:3014`), a session called `redmineflux_testcases_management_create_testcase` to build a throwaway fixture testcase ("TC-CRX-170 Passed Fixture") for a local test scenario. Because this MCP server is *always* connected to production (§1), that call created a real, permanent issue on `flux.zehntech.com` (`ztflux` project, issue #120780) instead of a disposable local record — even though the intent was purely local.
+
+**The rule going forward:** every `mcp__redmineflux__*` write tool — not just the ones in §4.1's list — writes to **production**, full stop, regardless of which plugin or instance is under test. There is no "local mode" for this MCP server. If a session is testing against a local/Docker Redmine instance (a different port, e.g. `localhost:3006` or `localhost:3014`), **fixtures for that instance must be built exclusively through the local instance's own native UI (Playwright)**, never through any `redmineflux_*` MCP tool call — even ones that look like harmless test-data setup (`create_testcase`, `create_test_suite`, `create_run`, `create_environment`, etc.). The only legitimate use of these write tools in a local-testing session is reporting a confirmed bug to `ztflux` per the approval workflow above — nothing else. Before calling any `redmineflux_*` write tool, confirm the action is actually a production bug report, not a fixture for whatever instance is currently under test.
+
 ### 4.4 What does NOT count as approval
 
 Statements like the following must **never** be treated as permission to write to production:

@@ -173,9 +173,9 @@ Evidence (session ses-143, `admin`, 2026-09-16): the literal `report_defect` pre
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §6: "Defect reporting only available for Failed or Blocked statuses." The QA Agent must honestly refuse a defect-report request against a Passed result — never silently accept a status mismatch.
 
-**Result: NOT YET EXECUTED**
+**Result: BLOCKED — fixture setup failed, new bug found along the way**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the QA Agent's manifest/allowed_tools only.
+No Passed testcase result existed anywhere in project crux-qa/crux-qa-private to use as a fixture, so attempted to build one live via the QA Agent: created an environment, a test suite, a testcase, and added the testcase to the suite — all 4 real writes succeeded. Creating the test run itself hit repeated instability: a validation-error-correction round trip (wrong environment name) reproduced the zero-real-button proposal shape (same as BUG-CRX-027/028, now a 4th agent), and sending "Confirm" as plain text then produced a fabricated "no write tools are available in this deployment" claim directly contradicting the session's own prior successful writes. Filed as **BUG-CRX-029** (#120782). Separately, an `update_run` troubleshooting attempt made during this setup incidentally cleared Run #569's suite/testcase-plan association, blocking further result recording against it until fixed (tooling-side issue, not part of the plugin under test — see `bugs/_index.md` notes). TC-170 could not reach a definitive verdict — BLOCKED, not FAIL, since the underlying `report_defect`-on-Passed-result behavior itself was never actually exercised.
 
 ---
 
@@ -190,9 +190,9 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §6: "Removing cases from a suite fails if the suite is linked to an active run." The removal must fail honestly while the run is active, never silently succeed.
 
-**Result: NOT YET EXECUTED**
+**Result: BLOCKED — same fixture-setup failure as TC-CRX-170**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the QA Agent's manifest/allowed_tools only.
+Requires an active run linked to a suite (see TC-CRX-170) — the fixture run (`TC-170 Fixture Run`) could never be created due to the confirm-flow instability documented in TC-CRX-170/BUG-CRX-029. Not attempted independently.
 
 ---
 
@@ -207,9 +207,11 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §6: "Test cases are scoped to their suite immutably — 'test cases created within a suite remain scoped to that suite; they cannot appear outside it,' and 'test case scope is immutable once assigned to a suite.'" The agent should refuse or clarify that only copy/add-to-another-suite operations exist — it must never fabricate an unsupported scope-breaking "move" as having succeeded.
 
-**Result: NOT YET EXECUTED**
+**Result: FAIL — CONFIRMED LIVE 2026-09-17**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the QA Agent's manifest/allowed_tools only.
+Using testcase #16 ("TC-170 Passed Fixture", scoped to suite #1 "TC-170 Fixture Suite" from the TC-170 fixture setup), asked: "QA Agent, move testcase 'TC-170 Passed Fixture' out of suite 'TC-170 Fixture Suite' so it's no longer scoped to any suite." The agent did not refuse — it rendered a real "Proposal: Remove Testcase from Suite... leaving it unassigned to any suite" and, on confirmation, genuinely executed the removal: `"✓ 1 testcase(s) removed from suite #1 'TC-170 Fixture Suite'."` Verified against the real backend: `/test_suites?project_id=crux-qa&testsuite_id=1` now shows "No data" — the testcase is genuinely unscoped, contradicting the KB-documented "test case scope is immutable once assigned to a suite" rule.
+
+**New bug filed: BUG-CRX-030** (#120784) — this is a genuine, correctly-executed write whose real outcome contradicts the plugin's own documented business rule, not a chat-layer fabrication.
 
 ---
 

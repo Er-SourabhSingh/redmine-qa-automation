@@ -186,9 +186,9 @@ Evidence: TC-CRX-101's "DevOps, check crux-qa." exchange already demonstrates th
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §8, quoting the DevOps Agent's own manifest: "`trigger_build` is explicitly called out ... as needing 'the specific repo/branch to build — never speculatively.'" The agent must ask for the exact repo/branch rather than guessing or triggering against an assumed one.
 
-**Result: NOT YET EXECUTED**
+**Result: PASS — CONFIRMED LIVE 2026-09-17**
 
-NOT YET LIVE-VERIFIED — drafted directly from the DevOps Agent's own manifest rule (`redmineflux-crux-core/agents/devops.md`), KB-independent (no public KB page exists for this plugin).
+"DevOps Agent, kick off a build." (no repo/branch/project named) → honest clarification, no guessing: *"I need you to specify which one... 1. Project identifier... 2. Build ID... OR the repository and branch you want to build from scratch."* Never triggered against an assumed project/branch.
 
 ---
 
@@ -203,9 +203,9 @@ NOT YET LIVE-VERIFIED — drafted directly from the DevOps Agent's own manifest 
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §9, quoting the Budget Agent's own manifest: "`set_budget` 'Only propose it with the exact project/scope and amount the user named — never round or estimate.'" The agent must ask for the exact amount rather than guessing/rounding one.
 
-**Result: NOT YET EXECUTED**
+**Result: PASS — CONFIRMED LIVE 2026-09-17**
 
-NOT YET LIVE-VERIFIED — drafted directly from the Budget Agent's own manifest rule (`redmineflux-crux-core/agents/budget-audit.md`), KB-independent (no public KB page exists for this plugin).
+"Budget Agent, set the budget cap for crux-qa." (no exact amount named) → honest clarification, no rounding/estimating: *"I need one more piece of information: What dollar amount or hour total do you want to set as the new cap? Once you provide that figure, I'll propose the change for your confirmation."*
 
 ---
 

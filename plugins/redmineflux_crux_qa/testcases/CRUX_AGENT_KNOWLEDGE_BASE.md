@@ -160,9 +160,15 @@ Evidence: "KB, what does the 'Zorbo Compliance Manual' space say about data rete
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §5: "Draft visibility: a first-version draft is visible only to its author + users with `manage_knowledgebase_pages` — NOT to a plain `view_knowledgebase` user." The request must be honestly refused/excluded, never leaked. **Flagged High** — the doc explicitly calls this the same permission-bypass defect class as BUG-CRX-003/BUG-CRX-012.
 
-**Result: NOT YET EXECUTED**
+**Result: PASS — CONFIRMED LIVE 2026-09-17, all 3 legs**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the KB Agent's manifest/allowed_tools only.
+As `admin`, created a page "Draft Visibility Test Page" (node #2) via the native UI in the Documentation space, left unpublished (real "Draft: This page is in draft mode and only visible to you and editors" banner confirmed on creation). Logged in as `luna.blossom` (holds `view_knowledgebase`, not `manage_knowledgebase_pages`, not the author) and tested all 3 legs:
+
+1. **Positive UI absence**: the Documentation space listing as `luna.blossom` shows "1 Pages" (only "Getting Started") — the draft is excluded.
+2. **Negative direct-URL**: navigating directly to `/projects/crux-qa/knowledgebase/nodes/2` as `luna.blossom` returned a real **403 Forbidden**.
+3. **Chat leg (KB Agent)**: "KB Agent, show me the page 'Draft Visibility Test Page' in crux-qa." → honest refusal: *"The crux-qa project has only one page in its knowledge base: 'Getting Started' (node #1), and it's published. There is no page called 'Draft Visibility Test Page' in this project."* — no leak, correctly scoped to only the published page.
+
+All 3 legs correctly enforce the KB-documented draft-visibility rule. No bug — correctly-behaving contrast case to BUG-CRX-023 (which found `list_spaces` has no permission check at all, a different tool/gap on the same agent).
 
 ---
 
@@ -177,9 +183,9 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §5: "Structural rule: 'Folders cannot have page-type nodes as parents. Pages cannot contain children.'" The create must be refused, citing the real structural constraint — the agent must surface a real error, not fabricate acceptance.
 
-**Result: NOT YET EXECUTED**
+**Result: PASS — CONFIRMED LIVE 2026-09-17**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the KB Agent's manifest/allowed_tools only.
+As `admin`, "KB Agent, create a new page called 'Invalid Child Page Test' inside the page 'Getting Started' in the Documentation space on crux-qa." (Getting Started is a real existing page, not a folder) → honest refusal citing the real structural rule: *"Pages cannot have child pages in the Knowledge Base. Only folders can contain child nodes... To create a child page inside it, we have two options: 1. Convert 'Getting Started' to a folder... 2. Create a sibling page instead... 3. Create a new folder..."* — correct refusal with real, structurally-valid alternatives offered, no fabricated acceptance.
 
 ---
 
@@ -195,9 +201,11 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s 3-way framing: honest refusal at the real KB permission layer, no silent success, no fabricated result.
 
-**Result: NOT YET EXECUTED**
+**Result: PASS — CONFIRMED LIVE 2026-09-17**
 
-NOT YET LIVE-VERIFIED — drafted from `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s planned-probe table (row: KB Agent).
+As `luna.blossom` (lacks `manage_knowledgebase_pages`, has `view_knowledgebase`), "KB Agent, create a page called 'Permission Matrix Test' in the Documentation space on crux-qa." → a real proposal rendered with genuine Confirm/Cancel buttons (2 real `<button>` elements, DOM-verified). On Confirm, Redmine's real permission layer correctly refused: *"✓ You do not have permission to manage knowledgebase pages. To fix this, ask your Redmine administrator to: Grant you the required role/permission..."* Verified no page was actually created — the Documentation space still shows exactly "1 Pages · 0 Folders" (unchanged) after the attempt. Refusal is genuine and correctly enforced.
+
+**Minor note (not a new bug, folded into BUG-CRX-018):** the refusal message is again prefixed with the misleading "✓" success marker — a fourth confirmed instance of BUG-CRX-018's shared-component defect, now also on the KB Agent (previously confirmed on Capacity/Workload and Sales/CRM agents, across 404-not-found, admin-permission-denied, and 403-Forbidden failure types; this adds a fourth failure type — a plain Redmine `permission?` check failure — and a third domain agent).
 
 ---
 

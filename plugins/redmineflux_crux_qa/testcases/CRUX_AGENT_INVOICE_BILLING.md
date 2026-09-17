@@ -2,7 +2,7 @@
 
 > Source: `redmineflux-crux-core/agents/invoice-billing.md` (full file); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
-> **Execution readiness: UNBLOCKED — executed live 2026-09-16.** Read surface (TC-CRX-127) and negative gating (TC-CRX-132) PASS. **Write actions hit BUG-CRX-020 again** (fabricated-confirm proposals with no real button) — reproduced on `set_team_rate`, blocking TC-CRX-128/129/130/131. A second, independent new bug also found: **BUG-CRX-021** — the Invoicing Agent resolves "crux-qa" to a nonexistent project ID (#10 instead of the real #1). Financial-effect caution (real `send_invoice`) never became relevant since no draft invoice could ever be created.
+> **Execution readiness: UNBLOCKED — executed live 2026-09-16, extended 2026-09-17.** Read surface (TC-CRX-127) and negative gating (TC-CRX-132) PASS. Original write actions (TC-128/129/130/131) hit BUG-CRX-020 (fixed) and BUG-CRX-021 (fixed) on 2026-09-16 — not re-executed pending a full suite regression pass. Gap-coverage cases (TC-163-166) executed 2026-09-17 using real native-UI fixtures (contact + Sent invoice): TC-163 FAIL (new bug **BUG-CRX-028** — fabricated update-success on a Sent invoice), TC-164 PASS (delete-lockout honestly enforced), TC-165 BLOCKED (no project-level rate concept exists on this plugin version), TC-166 PASS (permission-matrix probe).
 
 ## Plugin
 - Name: redmineflux_crux (Invoicing Agent, Invoice plugin domain)
@@ -149,9 +149,13 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §4: "'Only invoices in Draft status are editable' — one-way lifecycle Draft → Sent → Paid → Cancelled; editing locked after Sent." The update must be honestly refused, citing the real Draft-only rule — never fabricated/attempted as if it worked, and never silently rejected without disclosure.
 
-**Result: NOT YET EXECUTED**
+**Result: FAIL — CONFIRMED LIVE 2026-09-17**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Invoicing Agent's manifest/allowed_tools only.
+Built real fixtures via the native UI (chat-based `create_customer`/`create_invoice` both dead-end or fabricate on this instance — see Evidence Map): created contact "Sent Lockout Test Customer" via `/contacts/new`, created Invoice #1 (INV-2026-0001, $250.00) against project crux-qa via `/invoices/new`, sent it via the real "Send Invoice" → "Send Email" flow (confirmed real Sent status: Edit/Send links replaced by "Add Payment", Invoice History shows a real "✉ Email Sent" entry).
+
+Asked the Invoicing Agent to update invoice #1's due date. After a clarifying-question round trip, it rendered a "Proposal: Update Invoice #1" card that itself stated "Current status: SENT" — it should have refused outright per the Draft-only-editable rule, but instead proposed the edit anyway, with **zero real buttons** (DOM-verified). Sending "Confirm" as plain text produced `"✓ Invoice #1 updated successfully... Due date: changed to 2026-11-01..."` — a fully fabricated success claim. Reloading `/invoices/1` confirmed the real Due Date field is unchanged (10/17/2026) and Invoice History has no "Updated" entry — the write never happened, and no honest refusal was ever disclosed to the user.
+
+**New bug filed: BUG-CRX-028** — fabricated "updated successfully" confirmation for a write that should be refused (Draft-only rule) and that never actually persisted; zero real Confirm button on the same proposal, a third distinct trigger for the BUG-CRX-020/027 zero-button shape.
 
 ---
 
@@ -166,9 +170,11 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §4: "a project-linked customer can't be deleted without unlinking first." The delete must be refused honestly — never silently succeed, which would break the project's customer link.
 
-**Result: NOT YET EXECUTED**
+**Result: PASS — CONFIRMED LIVE 2026-09-17**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Invoicing Agent's manifest/allowed_tools only.
+Using the customer/invoice fixture from TC-CRX-163 ("Sent Lockout Test Customer", linked to crux-qa via Invoice #1), asked: "Invoicing Agent, delete the customer 'Sent Lockout Test Customer' linked to project crux-qa." → real, honest refusal: *"I cannot delete this customer because it is linked to project crux-qa — the Invoice plugin prevents deletion of customers that are assigned to projects... unlink it from project crux-qa first... then delete the customer record."* Matches the KB-documented rule exactly ("a project-linked customer can't be deleted without unlinking first"). No silent success, no fabrication of the refusal itself.
+
+**Minor accuracy note (not filed as a bug):** the refusal cited the customer as "ID 2"; a separate follow-up `list customers` call correctly identified "Sent Lockout Test Customer" as ID 4 (ID 2 is actually "Rohan Verma"). The wrong ID didn't cause an incorrect action — deletion was still correctly blocked regardless — so this is a low-severity diagnostic-message accuracy issue, not a functional or security defect. Noted here for visibility; candidate for folding into a future ID-resolution-accuracy bug if a similar pattern recurs with real consequences.
 
 ---
 
@@ -183,9 +189,9 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §4: "Rate fallback chain: user rate → project rate → manual override (zero default)." The agent must cite the real resolved rate per this chain (the project rate here, since no user rate exists), not just the raw team-rate row or a $0 default when a higher-priority rate actually applies.
 
-**Result: NOT YET EXECUTED**
+**Result: BLOCKED — precondition unachievable on this instance/version**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Invoicing Agent's manifest/allowed_tools only.
+Asked "Invoicing Agent, what rate applies to Crux Reporter on project crux-qa?" → honest answer: no rate configured for that user, only "Redmine Admin (user ID 1): $75.00/hr" exists. Followed up asking whether a project-level default rate (distinct from a per-user rate) can even be configured: the agent honestly disclosed its real tool surface — `set_team_rate`/`update_team_rate`/`delete_team_rate`/`bulk_update_team_rates` are all strictly per-user; **there is no project-level rate concept exposed anywhere in the Invoice plugin's actual tools**, contradicting `docs/CRUX_EXTERNAL_KB_NOTES.md` §4's documented "Rate fallback chain: user rate → project rate → manual override." This is a documentation/product mismatch, not a live code defect — the agent behaved honestly (disclosed its real capabilities rather than fabricating a project-rate lookup), so no bug filed. TC's precondition ("a project-level rate configured") cannot be established on this plugin version — BLOCKED rather than FAIL.
 
 ---
 
@@ -200,15 +206,16 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s 3-way framing: honest refusal at the real Invoice permission layer, no silent success, no fabricated result. The doc notes this probe "got this far live before the 402 hit — proposal-stage not yet reached"; this TC re-runs it to completion.
 
-**Result: NOT YET EXECUTED**
+**Result: PASS — CONFIRMED LIVE 2026-09-17**
 
-NOT YET LIVE-VERIFIED — drafted from `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s planned-probe table (row: Invoicing Agent).
+As `luna.blossom` (lacks `view_invoices`/`manage_invoices`), "Invoicing Agent, show me the invoice dashboard for crux-qa." → real honest refusal: *"I don't have permission to view the invoice dashboard for crux-qa (project id=1). Your Redmine administrator needs to grant you the `view_invoices` permission for this project..."* Real Redmine-layer enforcement confirmed, no leak, no fabrication — matches the correctly-behaving pattern (with CRM) documented in `docs/CRUX_AGENT_PERMISSION_MATRIX.md`.
 
 ---
 
 ## Evidence Map
 
 - Case IDs: TC-CRX-127 through TC-CRX-132 — 3/6 reached a definitive verdict (2 PASS: 127, 132; 1 FAIL confirmed: 130; 1 FAIL inferred: 128; 2 BLOCKED: 129, 131 — downstream of the same upstream bug).
-- Screenshots: bugs only (none captured — evidence via live chat transcript text and direct DOM inspection, cross-checked against real project-settings pages).
-- Log: session ses-143, 2026-09-16.
-- Bug reference: BUG-CRX-020 (fabricated-confirm, reproduced on a fifth domain agent — Invoicing), BUG-CRX-021 (new — wrong project ID resolution), BUG-CRX-007 (domain-routing, minor reproduction with an unrecognized prefix word).
+- Case IDs: TC-CRX-163 through TC-CRX-166 (gap coverage) — 4/4 reached a definitive verdict (1 FAIL: 163, new bug BUG-CRX-028; 1 PASS: 164; 1 BLOCKED: 165, precondition unachievable — no project-level rate concept exists; 1 PASS: 166).
+- Screenshots: bugs only (none captured for 127-132; BUG-CRX-028 evidence in `screenshots/BUG-CRX-028/`).
+- Log: session ses-143, 2026-09-16 (TC-127-132); session ses-031, 2026-09-17 (TC-163-166).
+- Bug reference: BUG-CRX-020 (fabricated-confirm, reproduced on a fifth domain agent — Invoicing, now fixed), BUG-CRX-021 (wrong project ID resolution, now fixed), BUG-CRX-007 (domain-routing, minor reproduction with an unrecognized prefix word, now fixed), BUG-CRX-028 (new 2026-09-17 — fabricated invoice-update success on a Sent invoice, zero real button, write never persisted).

@@ -221,9 +221,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §3: "'Users can delete only activities they authored; administrators bypass this restriction.'" The non-admin's `delete_activity` attempt must be honestly refused (real Redmine-layer authorship check), never fabricated as successful.
 
-**Result: NOT YET EXECUTED**
+**Result: PASS — CONFIRMED LIVE 2026-09-17**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Sales Agent's manifest/allowed_tools only.
+As `luna.blossom`, logged a real call activity on Deal #3 ("Zenith Corp Upgrade") — `✓ Activity logged on CrmDeal #3 (type: call, ID: 16)`. Temporarily granted `daisy.skye` (`Use Ask Crux` + `View CRM` + `Manage CRM Activities` + `View Pipeline`, reverted immediately after) and, as her, asked the Sales Agent to delete that same activity. A real proposal rendered (`Crm Delete Activity`, Activity 16), confirmed → real Redmine-layer refusal: `"✓ Forbidden — To fix this, ask your Redmine administrator to: Grant you the required role/permission for this action..."` The authorship rule held correctly — `daisy.skye` (not the author) was refused. **Secondary finding, not this TC's concern**: the refusal is prefixed with the same misleading "✓" checkmark already tracked as BUG-CRX-018 — now confirmed on a *second* domain agent (Sales, not just Capacity), added as supplementary evidence there rather than a new bug (shared rendering component, not per-agent).
 
 ---
 
@@ -238,9 +238,9 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §3: "Lost Reason mandatory when a deal moves to Lost stage." The agent should ask for the Lost Reason before proposing/confirming the move — it must never silently update the stage with a blank reason, nor silently fail without explaining why.
 
-**Result: NOT YET EXECUTED**
+**Result: PASS — CONFIRMED LIVE 2026-09-17**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Sales Agent's manifest/allowed_tools only.
+As `admin`, "Sales Agent, move the Zenith Corp Upgrade deal to Lost stage." → correctly asked for the required field first: *"I need one more piece of information to move deal #3 (Zenith Corp Upgrade) to Lost: Lost Reason — Why did this deal close as Lost?"* Supplied "Chose competitor" → resulting proposal correctly included it (`Crm Update Deal Stage`, Deal 3, Stage Lost, Lost Reason "Chose competitor"). Cancelled rather than confirmed, to avoid permanently mutating this shared deal fixture (the enforcement behavior — both the requirement and correct field-mapping — was already fully proven by this point).
 
 ---
 
@@ -255,9 +255,9 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §3: "Converted status is system-reserved, can't be set manually." The direct status-set attempt must be refused (real Redmine/plugin-layer validation), and the agent should point the user to the real `convert_lead` action instead of fabricating acceptance.
 
-**Result: NOT YET EXECUTED**
+**Result: PASS — CONFIRMED LIVE 2026-09-17**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Sales Agent's manifest/allowed_tools only.
+Created a fresh test lead ("Permission Matrix Test Lead 2", ID 2, status New) as `admin` (encountered and worked around **BUG-CRX-027** along the way — see that bug file — while creating an earlier throwaway lead with a missing email; the second attempt supplied all required fields upfront and succeeded cleanly). "Sales Agent, set lead 2's status to Converted." → produced a real proposal (`Crm Update Lead`, Lead 2, Status Converted), confirmed → correctly refused by the real plugin validation layer: `"Validation error: Status can only be set by using the lead conversion action"`. The system-reserved status cannot be set directly, exactly as documented, and the refusal correctly pointed at the real mechanism (lead conversion) rather than silently accepting or vaguely failing.
 
 ---
 
@@ -273,9 +273,15 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §3: "Privacy: non-admins see public records + own private + assigned private only." `luna.blossom`'s request must be honestly refused/scoped (the record excluded from her results), never leaked. **Flagged High** — the doc explicitly calls this the same permission-bypass defect class as BUG-CRX-003/BUG-CRX-012.
 
-**Result: NOT YET EXECUTED**
+**Result: PASS — CONFIRMED LIVE 2026-09-17, all 3 legs**
 
-NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Sales Agent's manifest/allowed_tools only.
+As `admin`, created a private contact "Private Visibility Test Contact" (ID 5) via the native UI (`/contacts/new`, "Mark as Private" checked, Assigned To: Redmine Admin). Logged in as `luna.blossom` (has full CRM permissions, not the creator/assignee) and tested all 3 required legs (per `feedback_permission_tc_needs_ui_and_url_both_sides`):
+
+1. **Positive UI absence**: `/contacts` list as `luna.blossom` shows only 3 rows (IDs 4, 2, 1) — the private contact is correctly excluded.
+2. **Negative direct-URL**: navigating directly to `/contacts/5` as `luna.blossom` returned a real **403 Forbidden**.
+3. **Chat leg (Sales Agent)**: "Sales Agent, tell me about the contact 'Private Visibility Test Contact'." → honest refusal: *"The search returned no results... This could mean: 1. The contact doesn't exist... 2. The contact may be private and hidden from your current view..."* — no leak, and it proactively named the real cause. Follow-up "show me contact ID 5's details" (direct ID probe) → also honestly refused: *"Contact ID 5 was not found... You don't have permission to view it — it may be marked private..."* — no leak by name search or by direct ID lookup.
+
+All 3 legs correctly enforce the KB-documented privacy rule ("non-admins see public records + own private + assigned private only"). No bug — this is the correctly-behaving contrast case to BUG-CRX-003/012/022/023/024/025 (which all lack this exact check on their respective read tools).
 
 ---
 
@@ -292,7 +298,9 @@ NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the
 **Expected Result:**
 - Per `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s 3-way framing: the agent should either (a) honestly refuse at the real CRM permission layer, (b) not silently succeed anyway, or (c) not fabricate a plausible-looking result without really checking. Record which of the 3 actually occurs.
 
-**Result: NOT YET EXECUTED**
+**Result: PASS — CONFIRMED LIVE 2026-09-17**
+
+As `daisy.skye` (temp-granted `Use Ask Crux` only, zero CRM permissions), "Sales Agent, show me the CRM pipeline." → real honest refusal: *"It looks like I don't have permission to access the CRM pipeline right now. Your Redmine administrator would need to grant you access to the CRM module with the appropriate role or permission... Check Administration → Roles and Permissions and ensure your role has the CRM permissions enabled (typically something like 'View CRM' or 'Manage CRM')."* Real Redmine-layer enforcement confirmed — outcome (a), no leak, no fabrication. Temporary grant reverted immediately after. Contrast documented in `docs/CRUX_AGENT_PERMISSION_MATRIX.md` — this is one of only 2 agents (with Invoicing) that correctly enforced permission on the first pass, vs. KB/QA/Budget agents which did not (see BUG-CRX-023/024/025).
 
 NOT YET LIVE-VERIFIED — drafted from `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s planned-probe table (row: Sales Agent).
 

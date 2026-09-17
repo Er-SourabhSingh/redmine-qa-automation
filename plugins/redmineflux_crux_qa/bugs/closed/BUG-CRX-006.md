@@ -46,6 +46,14 @@ Not captured — this is an HTTP-status-level finding, not a rendering defect; v
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
 
+## 2026-09-16 retest — FIXED, confirmed live
+
+Dev's `CHANGES.md` handoff updated `core_client.rb` and `proxy.rb` exactly per the root-cause description above: `CoreClient.request` now returns `[res.code.to_i, JSON.parse(res.body)]` instead of discarding the status, and `proxy_get`/`proxy_post` destructure `status, body` and pass `status:` through to `render json: body, status: status`. The three direct callers in `crux_admin_settings_controller.rb` (`capability_map`, `capability_map_save`, `capability_map_delete`) were updated the same way.
+
+**Retest:** Navigated directly to `http://localhost:3014/crux/admin/logs.json?level=BOGUS&limit=10` (same exact repro URL as the original finding). Playwright's own navigation result reports **`HTTP status: 400 Bad Request`**, body unchanged (`{"ok":false,"error":"unknown level 'BOGUS'"}`). Previously this was always `200`.
+
+**Verdict: FIXED.** Not separately re-verified against all 12 affected controllers this session, but the fix is in the one shared module (`CoreClient`/`Proxy`) every controller funnels through, so the single confirmed case generalizes.
+
 Reported to production 2026-09-15 as issue **#120606** in `ztflux`, via `redmineflux_testcases_management_report_defect`. Linked to testcase #120489, Run #569 "Crux QA Run 1", Environment "Window 11 + Chrome". Testcase #120489 marked Failed. This bug MD file attached to #120606 (2026-09-15, via `upload_file` + `update_issue`).
 
 Assigned to **Prashant Chaurasia** (user id 410) on production, 2026-09-15.

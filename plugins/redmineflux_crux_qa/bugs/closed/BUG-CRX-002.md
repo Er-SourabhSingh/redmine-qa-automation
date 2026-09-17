@@ -74,6 +74,23 @@ Cross-referenced against `redmineflux-crux-core/agents/devops.md`, `budget-audit
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
 
+## 2026-09-16 retest — FIXED, confirmed live
+
+Dev's `CHANGES.md` handoff updated `db.seed.json`/`db.seed.production.json`'s `persona` field for all 6 affected agents, replacing the false "never..." claims with accurate capability descriptions:
+
+| Agent | New persona text |
+|---|---|
+| Capacity Agent | "reports allocation, and reassigns, resizes, or splits it on request" |
+| DevOps Agent | "reads build and repo state, and can trigger a build on request" |
+| Budget Agent | "reports spend vs cap, and can set a new one on request" |
+| Scrum Agent | "reads the board and backlog, and moves cards or manages sprints on request" |
+| Time Agent | "reports hours and approval status, and can approve or reject one on request" |
+| Invoicing Agent | "reports invoices and rates, and can send one on request" |
+
+**Retest:** Already live-confirmed via the real `/crux/admin/settings` "Chat agents" section (visited earlier this same session for BUG-CRX-005 verification) — the rendered checkbox labels matched this corrected text exactly, no false "never" claims remaining for any of the 6 agents.
+
+**Verdict: FIXED.**
+
 ## Notes
 
 - Reported to production 2026-09-11 as issue **#120515** in `ztflux`, via `redmineflux_testcases_management_report_defect` (user approval obtained). Linked to testcase #120489, Run #569 "Crux QA Run 1", Environment "Window 11 + Chrome". Testcase #120489 marked Failed in the run.

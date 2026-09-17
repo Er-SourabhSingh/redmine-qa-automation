@@ -42,6 +42,16 @@ Not captured — behavioral/access-control finding, not a rendering defect.
 - Duplicate found: No (related to, but distinct from, TC-CRX-002/003/010's already-accepted "login-only, not permission-gated" design finding — this bug is specifically about the admin-facing toggle's own effectiveness, not role permissions)
 - Existing bug reference (if duplicate): —
 
+## 2026-09-16 retest — FIXED, confirmed live
+
+Dev's `CHANGES.md` handoff updated `crux_admin_settings_controller.rb`, `index.html.erb`, and `_redmineflux_crux.html.erb` — exactly the labeling fix requested below, not a behavior change (which this bug's own triage note said was acceptable: "at minimum, the setting's label/description should be corrected").
+
+**Retest:** As admin, navigated via UI (Crux → Settings) to `/crux/admin/settings`. Both checkboxes now show the exact clarifying text:
+- Crux entry: *"Only hides the top-menu shortcut. Any logged-in user can still open /crux directly (e.g. via a bookmark or a link from elsewhere in Crux) — this is not an access control."*
+- Agents entry: *"Only hides the top-menu shortcut. The Agents page is always reachable from the Crux sidebar rail regardless of this setting, and any logged-in user can open /crux/agents directly — this is not an access control."*
+
+**Verdict: FIXED.** Admins can no longer be misled about what these toggles do.
+
 ## Note for triage
 
 Not necessarily asking for these pages to become access-restricted (that may be a larger design decision) — at minimum, the setting's label/description should be corrected if it's intentionally cosmetic-only (e.g. "Show the Crux entry in the top menu (does not restrict access — the page remains reachable by direct URL to any logged-in user)"), so admins aren't misled about what the control actually does.

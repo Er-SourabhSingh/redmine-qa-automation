@@ -48,6 +48,16 @@ Not captured — text-content comparison, not a rendering defect; verified via t
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
 
+## 2026-09-16 retest — FIXED, confirmed live
+
+Dev's `CHANGES.md` handoff updated `assets/javascripts/crux.js`: the Keep button's saved text (`btn._keepText`) is now mutable rather than a fixed closed-over string. `CruxProposal.decide()`'s success branch extends it with the real outcome (`resultText(res.result, ctx.kind)`) the moment a confirm resolves, and `renderTurns()` (session reload/replay) pre-computes the same extended text up front for any turn whose proposal is already `executed` — so both the live-then-Keep path and the reload-then-Keep path save the full outcome, not just the pre-confirm proposal text.
+
+**Retest steps:** New chat → `@crux create an issue titled "BUG-CRX-010 retest keep artifact" in the Crux QA project` → Confirm → outcome rendered inline (`✓ Created #11`) → clicked **Keep** (after the outcome had already rendered, same as the original repro) → opened the Artifacts panel → clicked into the new entry.
+
+**Result:** The saved artifact now reads: *"→ asking the Project Manager… I'll create this issue — confirm? ✓ Created #11"* (with a real, clickable link to `/issues/11`) — the full outcome is present, not just the pre-execution proposal text.
+
+**Verdict: FIXED.**
+
 ## Production report
 
 Reported to production as issue **#120659** (`ztflux`, Tracker Bug, Priority **Medium**, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Linked to Run #569 "Crux QA Run 1", testcase **#120487** (`CRUX_CHAT_CAPABILITIES_KEEP_SHARE_ARTIFACTS.md`, where it was found via TC-CRX-055), Environment "Window 11 + Chrome" — testcase marked **Failed**. Attachments: `BUG-CRX-010.pdf` (5.3 KB) and this MD file (4.7 KB), both confirmed size-exact against production.

@@ -61,6 +61,16 @@ HTTP 200
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
 
+## 2026-09-16 retest — FIXED, confirmed live
+
+Dev's `CHANGES.md` handoff updated `llm_router.py`/`providers.py`: `test_provider()`'s comment explicitly confirms the fix — "found live 2026-09-14/15: openai-compatible's old `/models` probe was dropped — some backends, e.g. OpenRouter, answer it 200 with no valid key at all, so it never actually exercised the stored credential" — replaced with one minimal real completion call (1 max_token) that genuinely exercises the stored key.
+
+**Retest steps:** Created a throwaway provider ("OpenRouter Fake Test", same `openai-compatible` kind, same `https://openrouter.ai/api/v1` base URL as the real one) with the exact deliberately-invalid key from this bug's original evidence (`sk-or-v1-totally-invalid-fake-key-000000`), set as its default key. Clicked "Test connection."
+
+**Result:** `HTTPError: HTTP Error 401: Unauthorized` — a genuine failure, not the old false-positive `ok: true`. Cleaned up the throwaway provider/key immediately after.
+
+**Verdict: FIXED.**
+
 ## Notes
 
 - This bug was found while diagnosing an unrelated environment issue (a lost `CRUX_SECRET` after a folder refresh broke the stored OpenRouter key's decryption — see `docs/CRUX_HANDOFF.md` 2026-09-11 for the full root-cause chain). The `CRUX_SECRET` issue itself was a local environment/config problem, not a product bug, and has since been fixed locally. **This bug is the separate, genuine product-level finding that surfaced along the way**: the Test Connection feature's validation logic doesn't prove what it claims to prove.

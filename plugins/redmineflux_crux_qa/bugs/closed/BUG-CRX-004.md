@@ -53,6 +53,16 @@ crux-core:  2026-09-14T11:07:27.144+00:00 INFO [core.askcrux.mcp] [ses:ses-107] 
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
 
+## 2026-09-16 retest — FIXED, confirmed live
+
+Dev's `CHANGES.md` handoff updated `mcp_client.py` exactly per the suggested fix direction below: `_StreamableConnection._post()` now catches `urllib.error.HTTPError` specifically when `e.code == 404 and self._session_id`, calls `self.dead.set()`, and raises a distinct `McpError("MCP session expired (404) — reconnecting on next call")`. `_connection()`'s existing reconnect-on-drop check (`if _CONN is None or _CONN.dead.is_set()`) then opens a fresh session automatically on the very next call — no code changes needed there since the drop-detection path already existed for other failure modes.
+
+**Retest steps:** With `crux-core` already running with a live, working MCP singleton connection (proven by earlier successful chat calls in this session), restarted **only** `crux-redmine-docker-mcp-1` via `docker restart` — deliberately never touching `crux-core` — to invalidate the MCP-side session the same way a multi-day idle period originally did. Then, as `luna.blossom`, started a brand-new Ask Crux chat session and sent "What are the agents working on?" (a tool-calling query).
+
+**Result:** The call succeeded immediately and cleanly — `mcp call tool=tools/list ok=true tools=453` followed by a full successful chat turn (`outcome=success`), with zero errors logged. Under the original bug, this exact sequence (MCP-side session gone, `crux-core` never restarted) produced a permanent `"Streamable HTTP POST to MCP failed: HTTP Error 404: Not Found"` on every subsequent call from every user, recoverable only via a manual `docker restart crux-core`. This time, no manual `crux-core` restart was performed at any point, and chat kept working normally.
+
+**Verdict: FIXED.** The self-healing behavior described in the suggested fix direction is confirmed live, not just at the code level.
+
 ## Note for triage
 
 Suggested fix direction for dev: in `_StreamableConnection._post()` (or the caller in `mcp_client.py`), treat an `HTTPError` with code `404` (or any error indicating an unrecognized `Mcp-Session-Id`) as "session invalid" — mark the connection `dead` (or clear `self._session_id`) and let `_connection()`'s existing reconnect-on-drop path re-run `initialize` on the next call, the same way a genuinely dropped connection is already handled. This would make the singleton self-healing without needing an operator to restart the whole crux-core process.

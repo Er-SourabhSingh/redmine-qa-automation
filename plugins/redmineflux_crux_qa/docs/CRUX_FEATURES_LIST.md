@@ -28,33 +28,33 @@
 | 19 | Gate approval click | `POST /api/gate` — a human approval `{wp_id, gate_id, approver}`, always attributable | `CRUX_WRITE_CONFIRM_GATE.md` TC-CRX-029–030; `CRUX_NAVIGATION_AND_PERMISSIONS.md` TC-CRX-005 |
 | 20 | @-mention delegation | `@`-mentions in ticket comments act on the ticket, reply-only, visible delegation (CRX-26) | `CRUX_ASK_CRUX_CHAT_CORE.md` TC-CRX-014 (chat `@mention`); ticket-comment `@mention` (CRX-26 specifically) not yet covered — add if distinct from chat addressing |
 | 21 | Frozen rules (object-level write blocks) | Admin-only page + enforcement layer above the standard gate (CRX-39) | `CRUX_WRITE_CONFIRM_GATE.md` TC-CRX-031; `CRUX_NAVIGATION_AND_PERMISSIONS.md` TC-CRX-008 |
-| 22 | Full CRUD — Sales Agent (CRM) | Contacts, companies, deals, leads, activities, settings | `CRUX_AGENT_CRM_SALES.md` TC-CRX-085–092 |
-| 23 | Full CRUD — Capacity Agent (Workload) | Allocations, teams, members, skills, leave, holidays | `CRUX_AGENT_WORKLOAD_CAPACITY.md` TC-CRX-093–100 |
-| 24 | Write — DevOps Agent | `trigger_build` only (domain-appropriate single action) | `CRUX_AGENT_DEVOPS_AND_BUDGET.md` TC-CRX-101–103, 107 |
-| 25 | Write — Budget Agent | `set_budget` only (domain-appropriate single action) | `CRUX_AGENT_DEVOPS_AND_BUDGET.md` TC-CRX-104–107 |
-| 26 | Full CRUD — Scrum Agent (Agile) | Boards, sprints, columns, cards, board config | `CRUX_AGENT_AGILE_SCRUM.md` TC-CRX-108–113 |
-| 27 | Full CRUD — QA Agent (Test Case Mgmt) | Test cases, suites, runs, results, reference data, defect reporting | `CRUX_AGENT_QA_TESTCASES.md` TC-CRX-114–120 |
-| 28 | Full CRUD — Time Agent (Timesheet) | Submit/approve/reject/withdraw, deadlines, schemas, teams | `CRUX_AGENT_TIMESHEET.md` TC-CRX-121–126 |
-| 29 | Full CRUD — Invoicing Agent (Invoice) | Customers, invoices, payments, team rates, PDF link | `CRUX_AGENT_INVOICE_BILLING.md` TC-CRX-127–132 |
-| 30 | Full CRUD — KB Agent (Knowledge Base) | Spaces, pages, publish/unpublish, version restore | `CRUX_AGENT_KNOWLEDGE_BASE.md` TC-CRX-133–138 |
+| 22 | Full CRUD — Sales Agent (CRM) | Contacts, companies, deals, leads, activities, settings | `CRUX_AGENT_CRM_SALES.md` TC-CRX-085–092, 158–162 (gap coverage: activity-deletion authorship, Lost Reason, Converted-status lockout, privacy visibility, no-perm chat probe) |
+| 23 | Full CRUD — Capacity Agent (Workload) | Allocations, teams, members, skills, leave, holidays | `CRUX_AGENT_WORKLOAD_CAPACITY.md` TC-CRX-093–100, 153–157 (gap coverage: duplicate-membership rejection, holiday-scheme exclusivity, overload-disabled refusal, admin-only dashboard, permission-denial ✓-prefix regression check) |
+| 24 | Write — DevOps Agent | `trigger_build` only (domain-appropriate single action) | `CRUX_AGENT_DEVOPS_AND_BUDGET.md` TC-CRX-101–103, 107, 177, 179 (gap coverage: vague-trigger clarification, no-perm probe) |
+| 25 | Write — Budget Agent | `set_budget` only (domain-appropriate single action) | `CRUX_AGENT_DEVOPS_AND_BUDGET.md` TC-CRX-104–107, 178, 180 (gap coverage: vague-amount clarification, no-perm probe) |
+| 26 | Full CRUD — Scrum Agent (Agile) | Boards, sprints, columns, cards, board config | `CRUX_AGENT_AGILE_SCRUM.md` TC-CRX-108–113, 174–176 (gap coverage: invalid workflow-transition refusal, Story Points honesty, no-perm probe) |
+| 27 | Full CRUD — QA Agent (Test Case Mgmt) | Test cases, suites, runs, results, reference data, defect reporting | `CRUX_AGENT_QA_TESTCASES.md` TC-CRX-114–120, 170–173 (gap coverage: defect-report status gating, active-run suite lock, immutable suite scope, no-perm probe) |
+| 28 | Full CRUD — Time Agent (Timesheet) | Submit/approve/reject/withdraw, deadlines, schemas, teams | `CRUX_AGENT_TIMESHEET.md` TC-CRX-121–126, 147–152 (gap coverage: sequential approval order, self-approval lockout, withdrawal-after-approval refusal, edit-lock-after-approval, auto-approve threshold, no-perm dashboard probe) |
+| 29 | Full CRUD — Invoicing Agent (Invoice) | Customers, invoices, payments, team rates, PDF link | `CRUX_AGENT_INVOICE_BILLING.md` TC-CRX-127–132, 163–166 (gap coverage: Sent-invoice edit lockout, linked-customer delete refusal, rate-fallback chain, no-perm probe) |
+| 30 | Full CRUD — KB Agent (Knowledge Base) | Spaces, pages, publish/unpublish, version restore | `CRUX_AGENT_KNOWLEDGE_BASE.md` TC-CRX-133–138, 167–169 (gap coverage: draft-visibility privacy, invalid-parent structural rule, no-perm probe) |
 
-**Suite index (16 files, TC-CRX-001–138 — some numbers intentionally unused across suite boundaries, not a gap to fill):**
-1. `CRUX_NAVIGATION_AND_PERMISSIONS.md` (001–010) — executable now
+**Suite index (16 files, TC-CRX-001–180 — some numbers intentionally unused across suite boundaries, not a gap to fill):**
+1. `CRUX_NAVIGATION_AND_PERMISSIONS.md` (001–010, 139–141) — executable now
 2. `CRUX_ASK_CRUX_CHAT_CORE.md` (011–021) — blocked on LLM key (mostly)
 3. `CRUX_WRITE_CONFIRM_GATE.md` (025–032) — blocked on LLM key (mostly)
 4. `CRUX_PER_USER_KEY_CRX12.md` (037–042) — blocked on LLM-key-flip + 2nd test user
 5. `CRUX_PROJECT_CREATION_AND_IMPROVE_WAND.md` (043–052) — blocked on LLM key
 6. `CRUX_CHAT_CAPABILITIES_KEEP_SHARE_ARTIFACTS.md` (053–060) — partially blocked
-7. `CRUX_DASHBOARD_GRAPH_PIPELINE.md` (062–069) — executable now
-8. `CRUX_AGENT_ROSTER_ADMIN.md` (074–084) — executable now
-9. `CRUX_AGENT_CRM_SALES.md` (085–092) — blocked on LLM key
-10. `CRUX_AGENT_WORKLOAD_CAPACITY.md` (093–100) — blocked on LLM key
-11. `CRUX_AGENT_DEVOPS_AND_BUDGET.md` (101–107) — blocked on LLM key
-12. `CRUX_AGENT_AGILE_SCRUM.md` (108–113) — blocked on LLM key
-13. `CRUX_AGENT_QA_TESTCASES.md` (114–120) — blocked on LLM key
-14. `CRUX_AGENT_TIMESHEET.md` (121–126) — blocked on LLM key
-15. `CRUX_AGENT_INVOICE_BILLING.md` (127–132) — blocked on LLM key
-16. `CRUX_AGENT_KNOWLEDGE_BASE.md` (133–138) — blocked on LLM key
+7. `CRUX_DASHBOARD_GRAPH_PIPELINE.md` (062–069, 142–144) — executable now
+8. `CRUX_AGENT_ROSTER_ADMIN.md` (074–084, 145–146) — executable now
+9. `CRUX_AGENT_CRM_SALES.md` (085–092, 158–162) — blocked on LLM key; 158–161 also blocked on OpenRouter credit (2026-09-16), 162 needs a temp `daisy.skye` grant
+10. `CRUX_AGENT_WORKLOAD_CAPACITY.md` (093–100, 153–157) — blocked on LLM key; 153–157 also blocked on OpenRouter credit (2026-09-16)
+11. `CRUX_AGENT_DEVOPS_AND_BUDGET.md` (101–107, 177–180) — blocked on LLM key; 177–180 also blocked on OpenRouter credit (2026-09-16)
+12. `CRUX_AGENT_AGILE_SCRUM.md` (108–113, 174–176) — blocked on LLM key; 174–176 also blocked on OpenRouter credit (2026-09-16)
+13. `CRUX_AGENT_QA_TESTCASES.md` (114–120, 170–173) — blocked on LLM key; 170–173 also blocked on OpenRouter credit (2026-09-16)
+14. `CRUX_AGENT_TIMESHEET.md` (121–126, 147–152) — blocked on LLM key; 147–152 also blocked on OpenRouter credit (2026-09-16)
+15. `CRUX_AGENT_INVOICE_BILLING.md` (127–132, 163–166) — blocked on LLM key; 163–166 also blocked on OpenRouter credit (2026-09-16)
+16. `CRUX_AGENT_KNOWLEDGE_BASE.md` (133–138, 167–169) — blocked on LLM key; 167–169 also blocked on OpenRouter credit (2026-09-16)
 
 ### Per-agent CRUD coverage (the 9 agents named in #117162)
 

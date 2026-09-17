@@ -55,6 +55,19 @@ Not captured — behavioral finding confirmed via the real Redmine issue journal
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
 
+## 2026-09-16 retest — FIXED (update_issue scope), confirmed live
+
+Dev's `CHANGES.md` handoff added `write_policy.evaluate_autonomy(wp)` (factored out of `check()` so it's callable outside the 4 dispatch-path `WRITE_KINDS`) and `write_policy.wp_for_issue(db, iid)` (the same lookup `/api/workpackage_for_issue` already used). `proposals.py`'s `confirm()` now calls both, scoped to `kind == "update_issue"` (matching the existing frozen-rule check's own documented v1 scope, same limitation, explicitly commented as such — not a new gap introduced by this fix).
+
+**Retest steps:**
+1. Recreated the exact scenario live (crux-core's WP state is in-memory, wiped by today's restart): via Ask Crux chat, created `wp-002` bound to real issue #3 (`TC-CRX-025 Write Gate Test`, a dedicated fixture from the original finding) with `autonomy: suggest-only`, gate unapproved (default `clarify` stage, no gate).
+2. Sent the exact original repro message: `update issue #3 to set its status to Closed`. A real "Update issue" proposal appeared (`Issue: #3, Status: Closed`).
+3. Clicked Confirm.
+
+**Result:** The confirm was refused — `POST /crux/ask/confirm` returned `400 Bad Request`, and the UI surfaced the exact sacred-rule message: **"work package 'wp-002' is suggest-only — writes are never allowed."** Fresh reload of `/issues/3` confirms no new journal entry was added — the only "Status changed from New to Closed" and "Priority changed from Normal to High" entries are both timestamped "1 day ago" (from the *original*, pre-fix bug reproduction on 2026-09-15) — today's attempt produced zero effect.
+
+**Verdict: FIXED**, for the confirmed original repro (`update_issue`, gate-unapproved case). Not separately re-verified: the gate-approved case (original bug's second scenario) — not re-tested live this session, but the fix's `evaluate_autonomy()` call is unconditional on gate state (checks `autonomy == "suggest-only"` before ever looking at `gates.can_advance()`), so the same refusal applies structurally regardless of gate approval. **Known, dev-documented remaining gap** (not a regression, pre-existing and explicitly scoped out): the fix is `update_issue`-only, same as the adjacent frozen-rule check — the 9 domain-plugin write kinds (CRM, Timesheet, Invoice, Helpdesk, Workload, KB, Testcase, Agile, Budget) and `create_issue` are NOT covered by this specific fix and likely still share the original gap. Recommend flagging this to the dev as a follow-up scope, not blocking this bug's closure (which was filed and fixed specifically against the `update_issue` reproduction).
+
 ## Note for triage
 
 - No UI path was found for setting a Work Package's autonomy to `suggest-only` at creation (tested via the API directly, per the same limitation noted in TC-CRX-069/TC-CRX-028's own precondition text: "If suggest-only WPs aren't independently creatable via UI yet, test via the underlying endpoints"). This doesn't reduce the severity of the finding — any WP created via the documented `POST /api/workpackage` API with `autonomy: "suggest-only"` is vulnerable the moment a user reaches it through chat, regardless of how it was created.

@@ -65,6 +65,20 @@ Reading the issue back after posting confirmed it already had prior activity I h
 
 **Status: unresolved, deliberately not escalated further this session.** Presented this conflict to the user; explicit instruction was to flag it only and make no further production writes on #120574 this session (no rebuttal comment posted, no reopen attempted). Leaving the production issue exactly as dev closed it (In QA, "intentional design") until the user or a future session decides how to proceed — possibly with dev, pointing specifically at `_frozen_target()` as the counter-evidence.
 
+## 2026-09-16 retest — FIXED, confirmed live
+
+Dev's `CHANGES.md` handoff added real per-project scoping to `authorize_gate_approval` in `crux_dashboard_controller.rb`: it now resolves the WP's member issues' project(s) via `Issue.where(id: member_issue_ids).distinct.pluck(:project_id)` and requires `approve_crux_gates` in every one of those projects (falling back to the honest global check only when a WP has no resolvable member issues).
+
+**Retest steps:**
+1. Restarted `crux-redmine`/`mcp`/`crux-core` to load the dev's updated files (separate session task — see `CRUX_HANDOFF.md`). Verified real LLM chat working post-restart.
+2. Since crux-core's Work Package state is in-memory and was lost on restart, recreated the exact scenario live: as admin, via Ask Crux chat ("PM, start the Bug fix pipeline work package for issue #1"), created `wp-001` bound to real issue #1 (`PRIVATE-MARKER-7f3a`, project `crux-qa-private`) — confirmed via the chat's own "Tickets: #1" proposal table before confirming.
+3. Logged out of admin, logged in as `luna.blossom` (member of `crux-qa` only, NOT a member of `crux-qa-private`).
+4. On the real `/crux` dashboard, clicked "approve" on `wp-001`'s `fix-approve` gate, then clicked "Approve" in the resulting confirm dialog.
+
+**Result:** Both the evidence fetch (`GET /crux/gate_evidence`) and the approval POST (`POST /crux/gate`) returned `403 Forbidden`. The dialog surfaced a clear, correct, user-facing message: **"⚠ approval requires the approve_crux_gates permission in the project(s) this work package touches"**. The gate remained unapproved — pipeline stage stayed at `reproduce`, `🚦 fix-approve` still shows the unapproved icon. This is the exact opposite of the original bug's outcome (unconditional silent success).
+
+**Verdict: FIXED.** Retested against the original scope only (per `[[feedback_retest_verdict_against_original_scope]]`) — the admin-bypass path (`return if User.current.admin?`) was not separately re-verified live this session but is an unchanged, pre-existing, intentional code path, not part of the original defect. Recommend closing BUG-CRX-003 / production #120574, pending user approval for the production status update.
+
 ## Note for triage
 
 This may be an intentional design choice (consistent with the global dashboard's other "any logged-in/any-permission-holder" scoping — see `docs/CRUX_HANDOFF.md`), in which case `init.rb`'s `require: :member` comment/declaration is misleading rather than the runtime being wrong. **Additionally, and more importantly:** since none of this environment's seeded Work Packages map to real Redmine issues, this finding could not be live-tested against genuine cross-project data — it rests on the controller source showing zero project-scoping logic, not on an observed real-world leak. Ask the dev specifically: (1) is a WP always expected to map to a real Redmine issue/project in production usage, and (2) if so, should `approve_gate`/`gate_evidence` resolve that issue's project and check membership there, the way `CruxProjectController`'s project-scoped actions already do (confirmed pattern, see `CRUX_DASHBOARD_GRAPH_PIPELINE.md` TC-CRX-143). Ideally re-tested against a real project-linked WP first if one becomes available.

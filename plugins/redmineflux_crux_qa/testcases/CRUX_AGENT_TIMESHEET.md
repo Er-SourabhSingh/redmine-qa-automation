@@ -2,7 +2,7 @@
 
 > Source: `redmineflux-crux-core/agents/timesheet.md` (full file); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
-> **Execution readiness: BLOCKED** — needs a real LLM key. Write now, execute once a key is added.
+> **Execution readiness: UNBLOCKED — executed live 2026-09-16.** Read surface (TC-CRX-121) and both negative cases (TC-CRX-125/126 step 1) PASS. **Write actions hit BUG-CRX-020 again** (fabricated-confirm proposals with no real button) — reproduced on `create_schema` and `settings_update`, blocking TC-CRX-122/123/124 and the confirm half of TC-CRX-126.
 
 ## Plugin
 - Name: redmineflux_crux (Time Agent, Timesheet plugin domain)
@@ -30,6 +30,12 @@
 **Expected Result:**
 - Each grounded in a real tool call. Per the agent's own spec, `audit_log_export` "confirms a matching row count and returns a CSV download link — it cannot hand back file content directly" — verify the agent doesn't claim to paste file contents inline.
 
+**Result: PASS (steps 3-4 not exercised — no data)**
+
+Evidence (session ses-143, `admin`, 2026-09-16):
+- "Timesheet, whose timesheets are pending approval, and show me hours logged on project crux-qa this week." → real grounded tool call (`Sources (2)`), honest: "None — no timesheets are waiting for your approval," "No time entries recorded yet for this week." Correctly disclosed the empty state.
+- Audit log / export steps not separately exercised — no timesheet activity exists yet on this fresh instance to audit.
+
 ---
 
 ### TC-CRX-122: Submit, approve, reject, withdraw — each naming the exact timesheet/user/period
@@ -46,6 +52,8 @@
 **Expected Result:**
 - Each action targets the exact named timesheet/user/period/team — verify state changes correctly (submitted → approved/rejected/withdrawn) and persists.
 
+**Result: BLOCKED** — precondition (a submittable timesheet) requires a real schema/team first, which could not be created (BUG-CRX-020, see TC-CRX-124). Not attempted.
+
 ---
 
 ### TC-CRX-123: Deadline lock/unlock for a specific period
@@ -60,6 +68,8 @@
 
 **Expected Result:**
 - Locking genuinely prevents edits outside chat too (a real, enforced lock, not chat-only cosmetic). Unlock restores editability.
+
+**Result: BLOCKED** — not attempted, given the overwhelming and consistent evidence (already 10 reproductions across 4 agents/8 action types) that any write proposal from this agent will hit the identical BUG-CRX-020 fabricated-confirm dead end. Revisit once that bug is fixed.
 
 ---
 
@@ -76,6 +86,12 @@
 
 **Expected Result:**
 - Each write succeeds, targeting exactly the named schema/team/project/member.
+
+**Result: FAIL**
+
+Evidence (session ses-143, `admin`, 2026-09-16):
+- "Timesheet, create a timesheet schema called 'Standard Weekly' for project crux-qa." → produced a correctly-detailed "Proposed Schema Creation" table (Schema Name, Description, Approval Levels, Active status) and even honestly flagged that a schema needs at least one approval level before activation — but direct DOM inspection confirmed no real Confirm/Cancel button exists (`hasButton: false`). No schema ever created. Remaining steps (assign, activate, team create/add/remove) not attempted — already blocked at step 1.
+- **Blocked by BUG-CRX-020** — reproduced on a fourth domain agent (Time Agent).
 
 ---
 
@@ -94,6 +110,11 @@
 **Expected Result:**
 - No delete proposal for any specific timesheet is generated without explicit naming.
 
+**Result: PASS**
+
+Evidence (session ses-143, `admin`, 2026-09-16):
+- "Timesheet, clean up old timesheets." → no delete proposal — the agent asked for the project/team, the definition of "old," and clarified it can only delete draft/rejected timesheets, explicitly stating "I'll propose the exact deletion(s) by timesheet ID and period before anything is removed." Correct gating.
+
 ---
 
 ### TC-CRX-126: `settings_update` (plugin-wide) requires clear confirmation of intent
@@ -108,11 +129,135 @@
 **Expected Result:**
 - Step 1 produces no settings-change proposal. Step 2 does, confirmed before applying — per the agent's own "confirm this is really what the user wants" rule, since it's plugin-wide (affects everyone, not just one timesheet).
 
+**Result: PASS (gating) / FAIL (confirm mechanism)**
+
+Evidence (session ses-143, `admin`, 2026-09-16):
+- Step 1: "Timesheet, our approval process feels a bit slow lately, not sure what's going on." → no settings-change proposal — correctly diagnostic-only, citing real current configuration (mode, period, auto-approval threshold, notifications, locking) and honest possible causes (no teams/schemas/submissions yet). Correct gating.
+- Step 2: "Timesheet, please update the timesheet settings to change the submission period from weekly to monthly." → produced a well-formed "Proposed Settings Update" table (Current vs Proposed, explicit Impact bullets) — but again `hasButton: false`. Gating logic (asking clearly before proposing) is correct; the confirm mechanism itself is broken (BUG-CRX-020).
+
+---
+
+## Additional Gap Coverage Cases (drafted 2026-09-16 — testcase-gap-writer, from `docs/CRUX_EXTERNAL_KB_NOTES.md` §1 and `docs/CRUX_AGENT_PERMISSION_MATRIX.md` §1)
+
+---
+
+### TC-CRX-147: Sequential approval order — a higher-level approver cannot act before the lower level has decided
+
+**User Role:** Logged-in user with `use_ask_crux` and Timesheet plugin access; a schema with 2+ approval levels.
+**Precondition:** A team member whose role exists in a multi-level approval schema; a submitted (not yet approved) timesheet for that member.
+
+**Steps:**
+1. Submit a timesheet for a user under a 2+ level approval schema.
+2. "Time Agent, approve [user]'s timesheet for [period]" addressed at the *second* (higher) approval level, before the first level has approved it.
+3. Observe whether a proposal is even generated, and if confirmed, whether it executes.
+
+**Expected Result:**
+- Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §1 (quoting the Timesheet plugin's own KB page): "Strict sequential approval: 'Higher-level approver cannot act before lower-level decision', 'No approval level can be skipped'." The Time Agent's `approve` action must honestly refuse the out-of-sequence approval (citing the real rule), never silently succeed or fabricate an approval.
+
+**Result: NOT YET EXECUTED**
+
+NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Time Agent's manifest/allowed_tools only.
+
+---
+
+### TC-CRX-148: Self-approval is blocked when the submitter is also the final-level approver
+
+**User Role:** A user configured as both submitter and final-level approver for their own timesheet; separately, admin.
+**Precondition:** A schema where one user's role is the final approval level, and that same user is the submitter.
+
+**Steps:**
+1. As that user, submit their own timesheet for a period.
+2. As the same user, "Time Agent, approve my own timesheet for [period]."
+3. Observe whether a proposal is generated and whether confirming it executes.
+4. Separately, as `admin`: "Time Agent, approve [that user]'s timesheet for [period]" for the same self-approval case.
+
+**Expected Result:**
+- Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §1: "Self-approval edge case: 'If submitter is final-level approver, only admin can complete approval/rejection.'" Step 2/3 must be honestly refused for the non-admin submitter. Step 4 (admin acting) must succeed. (`docs/CRUX_HANDOFF.md` records an informal prior observation that "timesheet's `approve` correctly refused a self-approval" — this TC formalizes that into a repeatable, specific test rather than a one-off note.)
+
+**Result: NOT YET EXECUTED**
+
+NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Time Agent's manifest/allowed_tools only.
+
+---
+
+### TC-CRX-149: Withdrawal is refused once the minimum approval level has already approved
+
+**User Role:** Same as TC-CRX-147.
+**Precondition:** A submitted timesheet that has already received its minimum-level approval.
+
+**Steps:**
+1. Submit a timesheet and get it approved at the minimum required level.
+2. "Time Agent, withdraw [user]'s timesheet for [period]."
+
+**Expected Result:**
+- Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §1: "Withdrawal only permitted 'before minimum approval level is approved'." The withdraw attempt must be honestly refused once that threshold is passed, not silently accepted.
+
+**Result: NOT YET EXECUTED**
+
+NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Time Agent's manifest/allowed_tools only.
+
+---
+
+### TC-CRX-150: `Disable Log/Edit After Approval` blocks a chat-driven edit attempt
+
+**User Role:** Same as TC-CRX-147.
+**Precondition:** The `Disable Log/Edit After Approval` setting is ON; a timesheet already fully approved.
+
+**Steps:**
+1. Confirm the setting is enabled in the real Timesheet plugin settings.
+2. "Time Agent, add a time entry to [user]'s already-approved timesheet for [period]."
+
+**Expected Result:**
+- Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §1: once this setting is on, "users cannot add or edit entries after approval." The agent must honestly refuse citing the real Redmine-layer block, never fabricate a successful edit.
+
+**Result: NOT YET EXECUTED**
+
+NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Time Agent's manifest/allowed_tools only.
+
+---
+
+### TC-CRX-151: Auto-Approve Threshold — the agent's `approve` proposal correctly reflects an already-auto-approved timesheet
+
+**User Role:** Same as TC-CRX-147.
+**Precondition:** `Auto-Approve Threshold` configured to N hours; a timesheet submitted with fewer than N hours logged.
+
+**Steps:**
+1. Submit a timesheet with hours below the configured Auto-Approve Threshold.
+2. "Time Agent, approve [user]'s timesheet for [period]."
+
+**Expected Result:**
+- Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §1: "timesheets below a configured hour count bypass manual review entirely." The agent must recognize the timesheet is already (auto-)approved and not propose a redundant approval action or claim it is still "pending" — a stale/incorrect "pending" claim here would be a real bug per the doc's own framing ("does a stale 'pending' claim surface?").
+
+**Result: NOT YET EXECUTED**
+
+NOT YET LIVE-VERIFIED — drafted from the plugin's own KB documentation and the Time Agent's manifest/allowed_tools only.
+
+---
+
+### TC-CRX-152: Permission matrix — Time Agent, no-domain-permission approval-dashboard read, resolved with a real fixture
+
+**User Role:** `luna.blossom` (lacks `Manage Timesheet`), before/after a temporary grant.
+**Precondition:** A real submitted timesheet created by a *different* user, in a scope `luna.blossom` is not granted `Manage Timesheet` for.
+
+**Steps:**
+1. As `admin`, create a real submitted timesheet for a different user (e.g. `daisy.skye`).
+2. As `luna.blossom` (lacks `Manage Timesheet`), "Time Agent, show me the approval dashboard for pending timesheets."
+3. Grant `luna.blossom` the `Manage Timesheet` permission.
+4. Repeat the identical question and compare the two results.
+
+**Expected Result:**
+- Per `docs/CRUX_AGENT_PERMISSION_MATRIX.md` §1: the same submission "becomes visible only after the grant" if scoping is genuinely permission-based. Step 2 must NOT surface the fixture timesheet; step 4 must.
+
+**Result: NOT YET EXECUTED (fixture-based re-run)**
+
+Evidence (already-observed-2026-09-16, partial/inconclusive — quoted from `docs/CRUX_AGENT_PERMISSION_MATRIX.md` §1):
+- "Time Agent, show me the approval dashboard for pending timesheets." (as `luna.blossom`, lacking `Manage Timesheet`) → real tool call (`redmineflux_timesheet_approval_dashboard`), returned "There are currently no timesheets pending your approval." This local instance had **no timesheet data at all** at the time, so the empty result is consistent with either correct scoping or an unscoped read that would return empty regardless — **inconclusive from this probe alone**, which is exactly why this TC's fixture-based steps above are needed to resolve it.
+
 ---
 
 ## Evidence Map
 
-- Case IDs: TC-CRX-121 through TC-CRX-126
-- Screenshots: bugs only.
-- Log: —
-- Bug reference: —
+- Case IDs: TC-CRX-121 through TC-CRX-126 — 4/6 reached a definitive verdict (3 PASS: 121, 125, 126-gating; 1 FAIL: 124; 2 BLOCKED: 122, 123 — downstream of the same upstream bug); TC-CRX-126's confirm-mechanism half also FAIL.
+- Screenshots: bugs only (none captured — evidence via live chat transcript text and direct DOM inspection).
+- Log: session ses-143, 2026-09-16.
+- Bug reference: BUG-CRX-020 (fabricated-confirm proposals with no real button, reproduced on a fourth domain agent — Time Agent, 2 action types: `create_schema`, `settings_update`).

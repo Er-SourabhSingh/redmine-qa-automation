@@ -66,6 +66,16 @@ Real `/contacts` page at the time of the first (false-negative) response: row pr
 - Duplicate found: No
 - Existing bug reference (if duplicate): — (the false-negative "no contact named X" half is superficially similar to BUG-CRX-014's false "no write tools" claim, but that bug is about mis-routing to the wrong agent entirely; here the Sales Agent itself — the correct agent — is making the false claim, and the more severe finding is the unresolvable "project ID" requirement, which is a distinct root cause)
 
+## 2026-09-16 retest — FIXED, confirmed live
+
+Dev's `CHANGES.md` handoff updated `agents/crm-sales.md` (the Sales Agent's own system prompt) to correct the underlying conceptual confusion: it now explicitly states that `link_contact`/`link_deal` attach a CRM record to a Redmine issue/ticket (legitimately needing `project_id`+`issue_id`) — and that "link contact X to deal Y" is NOT that kind of link at all, since a deal already carries `contact_id`/`company_id` as its own fields. The correct mapping for that phrasing is `update_deal(deal_id, contact_id=X)`, not `link_contact`.
+
+**Retest (exact original repro):** With the same real records still in place (Priya Sharma, Contact #1; Acme Corp Renewal, Deal #1), sent: `CRM, link contact Priya Sharma to the Acme Corp Renewal deal.`
+
+**Result:** No false negative ("no contact named Priya Sharma") and no unresolvable "project ID" demand — the Sales Agent immediately produced a genuine `Crm Update Deal` proposal (`Deal: 1, Contact: 1`). Confirmed → `"✓ Deal #1 updated successfully."` Verified live on the real `/deals/1` page: **Contact: Priya Sharma** now genuinely shown on the deal record.
+
+**Verdict: FIXED.**
+
 ## Production report
 
 Reported to production as issue **#120669** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Textile description, no attachments (per updated §4.3a policy). Linked to Run #569, testcase #120490 (`CRUX_AGENT_CRM_SALES.md`, found via TC-CRX-088) — testcase marked Failed.

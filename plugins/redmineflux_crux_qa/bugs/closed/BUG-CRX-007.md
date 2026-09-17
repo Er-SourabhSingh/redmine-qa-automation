@@ -54,6 +54,16 @@ Not captured — behavioral/routing finding, not a rendering defect.
 
 This may point to `_domain_route()` (or whatever routes the very first turn of a session/context) requiring a keyword match against the message's own leading tokens rather than a full-message semantic classification — worth checking whether the router's keyword list only matches when the domain word is the literal first word (`"CRM,"`, `"Workload,"`) rather than anywhere in a semantically-matching sentence (`"what deals need attention?"`). If so, this is a narrow, fixable trigger-pattern bug, not a deep routing-model problem — the underlying tool-calling and data accuracy are completely sound once *any* valid trigger is used.
 
+## 2026-09-16 retest — FIXED, confirmed live
+
+Not part of today's `CHANGES.md` file list, but `chat.py` now contains a `_domain_route()`/`_DOMAIN_ROUTES` mechanism (with its own code comment explicitly citing "BUG-CRX-007 found live 2026-09-15") that is checked in `_route()` before the generic PM/`_ROUTE_WORDS` fallback — this must have landed in an earlier fix pass than today's handoff.
+
+**Retest (exact original repro):**
+1. New chat → `what deals need attention?` (bare, no prefix, no @mention) → routed to **"the Sales Agent"** with a real, grounded, accurate answer (4 real deals cited by ID/value, real tool call, `Sources (2)`). Previously this fell to tool-less plain chat ("I don't have tools available...").
+2. New chat → `who's overloaded this week?` (bare) → routed to **"the Capacity Agent"** specifically (not just the Project Manager's incidental Workload tool grant, which the original bug noted as a "happy accident") — real tool call, accurate empty-state answer.
+
+**Verdict: FIXED.** Both bare-question reproductions now route correctly to the matching domain agent, exactly as TC-CRX-013 originally specified.
+
 ## Production report
 
 Reported to production as issue **#120609** (`ztflux`, Tracker Bug, priority Medium, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Linked to Run #569 "Crux QA Run 1", testcase **#120483** (`CRUX_ASK_CRUX_CHAT_CORE.md`, where it was found via TC-CRX-013), Environment "Window 11 + Chrome" — testcase marked **Failed**, defect relation `#120483 defect #120609` confirmed. Attachments: `BUG-CRX-007.pdf` (5943 bytes) and this MD file (5590 bytes), both confirmed byte-size-exact against the production copies.

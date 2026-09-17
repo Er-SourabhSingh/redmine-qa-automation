@@ -50,6 +50,14 @@ Not captured — behavioral/API-response finding, not a rendering defect; verifi
 - Duplicate found: No
 - Existing bug reference (if duplicate): — (see "Actual result" for why this is distinct from BUG-CRX-006)
 
+## 2026-09-16 retest — FIXED at code level; live confirmation blocked by an unrelated missing provider key
+
+Dev's `CHANGES.md` handoff updated `improve.py`'s `_confirm_description()` exactly per the "never faked, verify the real object" pattern: after the `update_issue` call raises no exception, it now does a verification read (`GET_ISSUE_TOOL`) and compares `actual_description` against `new_description`. On a mismatch (the silent-permission-refusal case this bug describes), it now returns `{"ok": False, "error": "the write did not take effect — you may not have permission to edit this issue's description"}` instead of the old unconditional `{"ok": True, "result": {..., "updated": True}}`. Code comment explicitly cites BUG-CRX-008... (typo in comment, actually BUG-CRX-009) and describes the exact scenario from this bug's own reproduction.
+
+**Retest attempt:** Reproduced the exact original setup — unchecked "Edit issues"/"Edit own issues" on the Manager role (`luna.blossom`'s role on `crux-qa`), logged in as `luna.blossom`, opened issue #6, clicked "Improve with Crux" → "Improve the description →". **Blocked**: the Improve feature specifically requires the "Anthropic" provider (hardcoded), which has no key configured in this environment (only OpenRouter was added this session) — `"couldn't propose a description: provider 'anthropic' has no key configured"`. This is an unrelated environment/configuration gap, not a regression of this bug, but it prevented reaching the actual Apply step live.
+
+**Verdict: FIXED at the code level** (high confidence — the fix directly implements the exact verify-then-report pattern this bug asked for, at the exact call site identified in the root cause). **Not independently confirmed live** this session due to the missing Anthropic key. Restored "Edit issues"/"Edit own issues" on the Manager role afterward to avoid leaving other tests affected. Recommend a follow-up live confirmation once an Anthropic (or equivalent) provider key is available.
+
 ## Production report
 
 Reported to production as issue **#120616** (`ztflux`, Tracker Bug, Priority **High**, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Linked to Run #569 "Crux QA Run 1", testcase **#120486** (`CRUX_PROJECT_CREATION_AND_IMPROVE_WAND.md`, where it was found via TC-CRX-050), Environment "Window 11 + Chrome" — testcase marked **Failed**. Attachments: `BUG-CRX-009.pdf` (5.7 KB) and this MD file (5.1 KB), both confirmed size-exact against production.

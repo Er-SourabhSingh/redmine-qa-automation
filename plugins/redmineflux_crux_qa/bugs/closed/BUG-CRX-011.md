@@ -55,6 +55,21 @@ Not captured — behavioral finding confirmed via the real Redmine issue record 
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
 
+## 2026-09-16 retest — FIXED, confirmed live
+
+Dev's `CHANGES.md` handoff updated `proposals.py`'s `_refuse_reason()` exactly per the root cause: it now calls `sessions.get(store, session_id, user)` — the plugin's own already-correct owner-filtered read (the same one `rename()` already relies on) — which returns `None` for anyone but the real owner, `shared_with` viewers included. A non-owner now reads identically to a forged/missing session ("not found"), never leaking that a real proposal exists. This check is called from all 3 confirm/cancel/select call sites (`_refuse_reason` invoked at lines 912, 987, 1284).
+
+**Retest steps (exact original repro):**
+1. As `luna.blossom`, new chat → `@crux create an issue titled "BUG-CRX-011 retest share confirm" in the Crux QA project`. Confirm card rendered. **Did not click Confirm.**
+2. Clicked Share, added `daisy.skye`, got "Shared with daisy.skye."
+3. Signed out, signed in as `daisy.skye` (temporarily re-granted `Use Ask Crux` on the Reporter role, same precondition workaround as the original report; reverted afterward).
+4. Navigated to the shared session (`/crux/ask?session=ses-009`). Banner correctly read "Shared by luna.blossom — read-only, you can't send or change anything here," composer disabled. The proposal's Confirm/Cancel buttons were still rendered non-disabled (UI-level gap unchanged — the fix is server-side).
+5. Clicked Confirm as `daisy.skye`.
+
+**Result:** `POST /crux/ask/confirm` returned `404 Not Found`; the UI surfaced **"not found"** in place of the proposal card, matching the fix's non-leaking design. Verified via the real Crux QA project issue list — no issue titled "BUG-CRX-011 retest share confirm" exists anywhere; the write never executed, and no attribution-to-viewer issue was created (unlike the original bug's `Bug #8` outcome).
+
+**Verdict: FIXED.** The single most severe finding of this engagement is resolved — a shared read-only viewer can no longer confirm/execute the owner's pending proposal. Reverted `Use Ask Crux` on the Reporter role afterward.
+
 ## Production report
 
 Reported to production as issue **#120660** (`ztflux`, Tracker Bug, Priority **Blocker** — mapped from local Critical severity, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Linked to Run #569 "Crux QA Run 1", testcase **#120487** (`CRUX_CHAT_CAPABILITIES_KEEP_SHARE_ARTIFACTS.md`, where it was found via TC-CRX-059), Environment "Window 11 + Chrome" — testcase marked **Failed**. Attachments: `BUG-CRX-011.pdf` (5.7 KB) and this MD file (5.3 KB), both confirmed size-exact against production.

@@ -49,6 +49,18 @@ Not captured — confirmed via the full rendered page content (table rows, dolla
 - Duplicate found: No
 - Existing bug reference (if duplicate): — (related to, but distinct from, BUG-CRX-005 — that bug is about the nav-link visibility toggle being cosmetic; this bug is about the dashboard controller's own access-control check being entirely absent, a strictly more severe data-exposure issue)
 
+## 2026-09-16 retest — FIXED (original scope: `/crux` dashboard), confirmed live; new adjacent gap found in a different controller
+
+Dev's `CHANGES.md` handoff added `before_action :authorize_view_dashboard, only: [:index, :data, :runs, :runs_data, :queue, :work_packages]` to `crux_dashboard_controller.rb`, checking `User.current.admin? || User.current.allowed_to_globally?(:view_crux)` — refusing with Redmine's standard `deny_access` (HTML) or a JSON `403` (JSON), exactly mirroring the sibling per-project controller's existing correct pattern.
+
+**Retest (exact original repro):** Confirmed `daisy.skye` (Reporter) still has zero Redmineflux Crux permissions. Signed in as `daisy.skye`, clicked the (still cosmetically-shown, per BUG-CRX-005) "Crux" nav link to `/crux`.
+
+**Result:** Playwright's own navigation result: **`HTTP status: 403 Forbidden`**, page title "403 - Redmine", body "You are not authorized to access this page." — the standard Redmine deny page, no dashboard content, no data of any kind rendered.
+
+**Verdict: FIXED**, for the original scope (direct navigation to `/crux`).
+
+**New finding (out of this bug's original scope, judged separately per [[feedback_retest_verdict_against_original_scope]]):** While re-verifying, also checked `/crux/agents` (the "Agent Fleet" page the dashboard links out to) as the same `daisy.skye` user — it rendered **completely unrestricted**, full fleet table with real spend/cap dollar figures and provider/model details for all 23 agents, no 403, no redirect. Confirmed in `crux_agents_controller.rb`: `before_action :require_login` and `before_action :require_manage_agents, only: [:create, :pause, :provision, :retire, :upload]` — the read action (`index`) has no `view_crux` (or equivalent) check at all. This is the same class of defect BUG-CRX-012 described, just in a sibling controller this fix didn't touch. Not folded into this bug (original repro never tested `/crux/agents`) — flagged to the user as a candidate new bug (BUG-CRX-022) rather than filed unilaterally.
+
 ## Production report
 
 Reported to production as issue **#120661** (`ztflux`, Tracker Bug, Priority **Blocker** — mapped from local Critical severity, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Linked to Run #569 "Crux QA Run 1", testcase **#120487** (`CRUX_CHAT_CAPABILITIES_KEEP_SHARE_ARTIFACTS.md`, where it was found via TC-CRX-060), Environment "Window 11 + Chrome" — testcase marked **Failed**. Attachments: `BUG-CRX-012.pdf` (5.3 KB) and this MD file (4.4 KB), both confirmed size-exact against production.

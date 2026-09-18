@@ -2,11 +2,23 @@
 
 ## Last Session
 
-- Date: 2026-09-10
+- Date: 2026-09-18
 - Redmine Version: 7.0.1.stable
-- Environment: Forge — `https://flux-f3lnytazd49.forge.zehntech.com/`
+- Environment: Forge — `https://flux-fccirp6sk49.forge.zehntech.com/`
 
-## Completed This Session (2026-09-10, continued) — BUG-LTS-006 FIXED; BUG-LTS-003 narrowed further
+## Completed This Session (2026-09-18) — BUG-LTS-003 retested again, mixed result: Tags-widget overlap now FIXED, edit-form full-width break REGRESSED
+
+Retested `BUG-LTS-003` at 1280×720, Lotus theme, German language, Admin role, on a new Forge server (issue #260, the same fixture issue this bug's Tags-widget finding originally used — Sprint set to "Bug Bash", Story-Points set to 13):
+
+- **Tags-widget overlap — FIXED.** No overlap between the tag editor and either the Sprint value or Story-Points label (bounding-box checks both null). This was the sub-finding the bug's title had been narrowed to since 2026-09-10 — it's now resolved.
+- **Sprint/Story-Points value overlap and font/color/bullet mismatch — reconfirmed still fixed.**
+- **Edit-form full-width break — REGRESSED.** Previously fixed on server `flux-f3lnytazd49` (2026-09-10), this reappeared on this server: Sprint/Story-Points selects both render at 682px (full grid width) vs. siblings' 241px (half-width). Confirmed numerically and visually.
+- **User asked to retest and close the bug** — initially did not close it, since the edit-form full-width break was still reproducing. Reported the mixed result back to the user.
+- **User reviewed the finding and made an explicit judgment call to close anyway**: since the remaining sub-finding is a width mismatch, not an overlap (no content is obscured or inaccessible), and is judged minor, the user directed closing the bug. Updated the bug file with this closure rationale, moved it to `bugs/closed/`, updated `bugs/_index.md`.
+- Checked production issue #120218: already showed Status: Done, Done ratio: 100%, updated by Sourabh Singh directly in Redmine the same day ("Retested and closed" journal entry) — no production write needed from this session, the sync was already done outside the MCP tool chain.
+- `bugs/open/` for this plugin is now **empty**. Per `CLAUDE.md` §10/§12, this triggers the requirement for a full final-cycle regression (`SENIOR_QA_STANDARDS.md` §27 — every TC in `LOTUS_GERMAN_LANGUAGE.md`, no automation specs exist yet for this plugin) before `STATUS.md` can be set to `Complete`. **Not yet run this session** — `STATUS.md` stays `In Progress` pending it.
+
+## Completed Previous Session (2026-09-10, continued) — BUG-LTS-006 FIXED; BUG-LTS-003 narrowed further
 
 Retested the 2 remaining open bugs at 1280×720, Lotus theme, German language, on a third Forge server this session, using a fresh test issue (Sprint = "Bug Bash", Story-Points = 89, plus a subtask and a related ticket — all deleted afterward):
 
@@ -61,7 +73,9 @@ TC-LTS-011 (explicitly asked: "please cover all redmine pages do not miss any fo
 
 ## Next Session Start Point
 
-- BUG-LTS-003 is the only open bug — narrowed (2026-09-10) to just the Tags-widget "Hinzufügen" editor overlapping the Story-Points *label* at 1280×720 (the Sprint/Story-Points value overlap, font/bullet mismatch, and edit-form full-width break are all now fixed). Once this last overlap is fixed and `bugs/open/` is empty, run the full final-cycle regression (`SENIOR_QA_STANDARDS.md` §27) before setting `STATUS.md` to `Complete`.
+- `bugs/open/` is now **empty** (BUG-LTS-003 closed 2026-09-18, per explicit user judgment that its one remaining sub-finding — the edit-form full-width layout, no overlap — is minor). Per `CLAUDE.md` §10/§12, the next step before `STATUS.md` can be set to `Complete` is the **full final-cycle regression** (`SENIOR_QA_STANDARDS.md` §27): re-execute all 13 TCs in `testcases/LOTUS_GERMAN_LANGUAGE.md` (no automation specs exist yet for this plugin, so this is fully manual). This was not run this session — start here.
+- Note for whoever runs that regression: `BUG-LTS-003`'s sub-findings flipped fixed/unfixed across servers multiple times throughout this bug's history — if the edit-form full-width layout or any of its other 3 sub-findings resurface during the regression pass, that's expected server-dependent behavior, not necessarily a new defect; consult `LOTUS_MEMORY.md`'s Recurring Issues section.
+- Dashboard plugin retest under Lotus is also still pending (see "Not yet covered this session" in the testcase file) — the last plugin-level item for this theme's full cycle.
 - **Before filing a "content is clipped/cut off" finding on any tab strip, carousel, or similarly narrow container, check whether scroll/page controls (arrows, dots, swipe) are present and whether clicking them reveals the content in full** — `BUG-LTS-002` was invalidated because what looked like broken clipping was actually a working "peek of next item" affordance, confirmed by clicking through it.
 - **When retesting BUG-LTS-003's remaining sub-findings, always check at 1280×720 as well as 1920×1080, and always inspect the actual rendered value/text elements (e.g. `.rf-show-display` spans), not just the outer `.attribute` container rects** — the outer containers can look non-overlapping while an inner value span still spills into a neighboring field's space. This exact mistake caused a bug to be closed as fixed and then have to be reopened same-day.
 - Investigate the `plus-d08c3110.svg` 404's visual impact.
@@ -74,7 +88,7 @@ TC-LTS-011 (explicitly asked: "please cover all redmine pages do not miss any fo
 
 ## Open Bugs Found
 
-- BUG-LTS-003 (Medium) — **narrowed again 2026-09-10.** Of the 4 original sub-findings, 3 are now fixed (font/color/bullet mismatch, edit-form full-width break, and — as of 2026-09-10 — the Sprint/Story-Points value overlap at 1280×720). The remaining sub-finding: opening the Tags "Hinzufügen" editor still overlaps the Story-Points **label** (not the Sprint value, which is now fixed) by a confirmed 49.4×19.5px intersection.
+- None — `bugs/open/` is empty as of 2026-09-18.
 
 ## Closed Bugs (fixed, verified across sessions)
 
@@ -82,6 +96,7 @@ TC-LTS-011 (explicitly asked: "please cover all redmine pages do not miss any fo
 - BUG-LTS-004 (Low) — Inline Editor's Description-CKEditor "Save" button oversized (50px vs Cancel's 34px) under Lotus only. Fixed: both now render at 34px.
 - BUG-LTS-005 (Medium) — the plugin's own "Konfigurieren" link led to a genuine 404. Fixed: settings page now loads with working Tracker-Rahmenfarben/Prioritätssymbole/Logo tabs.
 - BUG-LTS-006 (was Medium, fixed 2026-09-10) — subtask/related-tickets table overflowed its container at 1280×720, overlapping the Historie/Notizen sidebar. Fixed: a new `div.rf_issue_section_row` wrapper (`overflow-x: auto`) now scrolls the table within its own bounds instead of letting it spill into the sidebar.
+- BUG-LTS-003 (Medium, closed 2026-09-18) — Sprint/Story-Points integration under Lotus (font/color/bullet mismatch, value overlap, Tags-widget overlap) all confirmed fixed across retests. The last remaining sub-finding (issue-edit-form full-width layout, no overlap) was closed per explicit user judgment as minor/cosmetic rather than left open, despite still reproducing on the final retest server.
 
 ## Invalidated Bugs (not actual defects)
 
@@ -111,3 +126,4 @@ TC-LTS-011 (explicitly asked: "please cover all redmine pages do not miss any fo
 | 2026-09-09 | 7.0.1.stable | Forge (flux-fhggkobjh49) | Claude (Playwright MCP) | Follow-up in the same session: the subtask/related-tickets table overflow (previously left informational) was, at the user's explicit request, filed as `BUG-LTS-006` (Medium) — root-caused to the table's ~32-column set (many plugins each contributing one column, e.g. Agile Board's `sprint_craft`/`story_points`, Tags plugin's `tags`) rendering at ~2001px inside a ~548px container with `overflow-x: visible`, spilling into the Historie/Notizen sidebar column at 1280×720. Confirmed theme-agnostic (reproduces under Default) but filed against Lotus per explicit user direction rather than left informational or attributed to one contributing plugin. `bugs/open/` now has 3 bugs (BUG-LTS-002, 003, 006); `STATUS.md` remains `In Progress`. |
 | 2026-09-10 | 7.0.1.stable | Forge (flux-fhhcov1xf49) | Claude (Playwright MCP) | User pushed back on `BUG-LTS-002` via screenshot, pointing out the "<"/">" buttons are a scroll control. Verified by clicking through the tab strip on issue #1 (Lotus, 1280×720): confirmed it's a working paginated "peek of next tab" affordance — earlier tabs are hidden (`display:none`, not scrolled) as you page forward, and each tab renders fully once paged to (final residual overflow ~5px, down from the originally-described 23–174px). **Invalidated — moved to `bugs/closed/`.** `bugs/open/` now has 2 bugs (BUG-LTS-003, BUG-LTS-006). |
 | 2026-09-10 | 7.0.1.stable | Forge (flux-f3lnytazd49) | Claude (Playwright MCP) | Retested both remaining bugs at 1280×720, Lotus theme, fresh test issue (Sprint="Bug Bash", Story-Points=89, plus subtask + related ticket, all deleted afterward). **BUG-LTS-006 confirmed FIXED and closed** — a new `div.rf_issue_section_row` wrapper (`overflow-x: auto`) now scrolls the subtask/related-tickets table within its own bounds (~703px), no longer overlapping the Historie/Notizen sidebar. **BUG-LTS-003 narrowed further**: the Sprint/Story-Points value overlap is now fixed (Sprint value renders single-line, 58.6px, no wrap); font/bullet and edit-form fixes still hold. The Tags-widget overlap still reproduces, but now against the Story-Points *label* rather than the Sprint value (49.4×19.5px confirmed overlap) — bug stays open, narrowed to just this. `bugs/open/` now has only 1 bug (BUG-LTS-003). |
+| 2026-09-18 | 7.0.1.stable | Forge (flux-fccirp6sk49) | Claude (Playwright MCP) | User asked to retest `BUG-LTS-003` and close it. Retested at 1280×720, issue #260 (Sprint="Bug Bash", Story-Points=13). **Mixed result, initially not closed**: Tags-widget overlap (the sub-finding the title was narrowed to) is now FIXED; Sprint/Story-Points value overlap and font/bullet mismatch reconfirmed fixed; but the edit-form full-width break — previously fixed on a different server (2026-09-10) — REGRESSED and still reproduced here. Reported the mixed result to the user. **User reviewed and explicitly directed closure anyway**, judging the remaining width-only (non-overlapping) layout gap as minor/cosmetic. Bug closed, moved to `bugs/closed/`. Production issue #120218 was already Done/100% (updated directly in Redmine by Sourabh Singh same day, outside this session) — no write needed. `bugs/open/` now **empty**. Full final-cycle regression (`SENIOR_QA_STANDARDS.md` §27) not yet run — `STATUS.md` stays `In Progress` pending it. |

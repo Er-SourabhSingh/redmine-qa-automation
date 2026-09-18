@@ -2,8 +2,8 @@
 
 - Bug ID: BUG-LTS-003
 - Production Redmine Issue ID: 120218
-- Severity: Medium (narrowed 2026-09-10 — 3 of 4 sub-findings now fixed; only the Tags-widget/Story-Points-label overlap remains)
-- Title: [Narrowed 2026-09-10] At 1280×720 under Lotus, the Tags-widget "Hinzufügen" editor overlaps the "Story-Points" label when opened — the Sprint/Story-Points value overlap, font/color/bullet mismatch, and issue-edit-form full-width break are all now fixed at both resolutions
+- Severity: Medium (re-narrowed 2026-09-18 — 3 of 4 sub-findings now fixed; only the issue-edit-form full-width break remains, and it is environment/server-dependent — see Retest history below)
+- Title: [Re-narrowed 2026-09-18] At 1280×720 under Lotus, the issue-edit-form "Sprint"/"Story Points" rows still span the full grid width on some servers instead of the half-width column their siblings use — the Tags-widget overlap, Sprint/Story-Points value overlap, and font/color/bullet mismatch are all now fixed
 - Redmine version: 7.0.1.stable
 - Plugin name: Redmineflux Lotus Theme (redmineflux_lotus)
 - Plugin version: 7.0.0
@@ -143,6 +143,31 @@ Retested at 1280×720, Lotus theme, German language, Admin role, fresh test issu
 ![Tags-widget still overlaps the Story-Points label (not the Sprint value)](../../screenshots/BUG-LTS-003/retest-2026-09-10-tagswidget-still-overlaps-storypoints-label.png)
 
 ![Edit form still fixed — half-width Sprint/Story-Points rows](../../screenshots/BUG-LTS-003/retest-2026-09-10-editform-still-fixed.png)
+
+## Retest — 2026-09-18, new Forge server (flux-fccirp6sk49) — Tags-widget overlap now FIXED; edit-form full-width break REGRESSED (reappeared)
+
+Retested at 1280×720, Lotus theme, German language, Admin role, issue #260 (the same fixture issue this bug's Tags-widget finding was originally documented on — Sprint set to "Bug Bash", Story-Points set to 13 to reproduce conditions):
+
+- **Tags-widget overlap — FIXED.** Opened the Tags row's "+ Hinzufügen" editor; bounding-box check against both the Sprint value span and the Story-Points label returned no intersection (`overlap = null` for both). Visually confirmed clean, separate rows — the tag editor no longer collides with either field. This closes out the sub-finding that this bug's title had been narrowed down to since 2026-09-10.
+- **Sprint/Story-Points value overlap (issue detail) — reconfirmed FIXED.** Sprint value span (`x:440.67, y:474.31, w:58.625, h:16`) vs. Story-Points label (`x:300.67, y:507.71, w:140, h:21`) vs. Story-Points value (`x:440.67, y:509.31, w:13.55, h:16`) — no intersection, consistent with the 2026-09-10 finding.
+- **Font/color/bullet mismatch — reconfirmed FIXED.** `font-weight: 500`, `font-size: 13px`, `color: rgb(107, 114, 128)` on both Sprint and Story-Points labels, matching the Lotus grid styling of their siblings.
+- **Edit-form full-width break — REGRESSED, still/again reproduces on this server.** This sub-finding had been marked fixed on server `flux-f3lnytazd49` (2026-09-10 retest, Sprint row 439px matching sibling half-width). On this server, the Sprint and Story-Points `<select>` elements both render at `682.09px` wide, starting at the same `x:473.33` — compared to true half-width siblings Priorität (`select#issue_priority_id`) and Zielversion (`select[name*="fixed_version"]`), both `241.29px` wide. Confirmed both numerically (bounding-box width comparison) and visually — a full-context screenshot shows Sprint and Story Points each breaking out into their own oversized full-width row below the properly-paired two-column fields, the same defect pattern originally documented in this bug's very first entry (2026-09-08).
+
+**Note on methodology (self-caught near-miss during this retest):** a first screenshot of the edit form's upper portion looked visually fine at a glance and was nearly read as "fixed, matches siblings" — only a numeric bounding-box comparison against the sibling select elements caught that the fields were still full-width. A second, fuller screenshot then confirmed the regression unambiguously. This reinforces the existing `LOTUS_MEMORY.md` rule to always compare actual rendered element rects, not rely on a first visual impression.
+
+**Conclusion:** this is the same environment/server-dependent pattern this bug has shown throughout its whole history (see `LOTUS_MEMORY.md` Recurring Issues) — different sub-findings reproduce depending on which Forge deployment is tested, not a stable "all fixed" or "all broken" state. On this server, 3 of 4 sub-findings are fixed, but the edit-form full-width break — previously fixed on a different server — has reappeared. **The bug does not qualify for closure and stays in `bugs/open/`.** Title/severity re-narrowed above to reflect the edit-form full-width break as the current sole reproducing sub-finding; the Tags-widget overlap this bug's title had previously centered on is now fixed.
+
+### Retest screenshot — 2026-09-18
+
+![Tags-widget editor open, no overlap with Sprint/Story-Points — fixed](../../screenshots/BUG-LTS-003/retest-2026-09-18-tagswidget-fixed-no-overlap.png)
+
+![Edit form: Sprint and Story-Points both still render full-width instead of half-width like Priorität/Zielversion](../../screenshots/BUG-LTS-003/retest-2026-09-18-editform-fullwidth-STILL-REPRODUCES.png)
+
+## Closed — 2026-09-18 (user judgment call)
+
+The 2026-09-18 retest (above) found the edit-form full-width break still reproducing on server `flux-fccirp6sk49` (Sprint/Story-Points selects rendering at 682px instead of the 241px half-width column their siblings use). The user reviewed this finding and made the call to close the bug: since the fields no longer **overlap** anything (the original defect's actual impact), just render wider than their siblings, this is judged a minor cosmetic layout gap, not worth keeping open. All 3 other sub-findings (Tags-widget overlap, Sprint/Story-Points value overlap, font/color/bullet mismatch) are independently confirmed fixed. **Closed per explicit user direction — moving to `bugs/closed/`.**
+
+Production issue #120218 was already updated to Status: Done, Done ratio: 100% directly in Redmine (journal entry 2026-09-18T08:38:19Z, "Retested and closed") — no further production sync needed from this session.
 
 ## Duplicate check
 

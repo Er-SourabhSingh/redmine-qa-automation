@@ -1,6 +1,7 @@
 # BUG-HLP-045
 
 - Bug ID: BUG-HLP-045
+- Production Redmine Issue ID: #120377 (ztflux)
 - Title: An email sent to one project's own mailbox is routed to a different project's ticket list — a registered customer entitled to multiple projects always gets her *first* project-access row, never the project whose mailbox actually received the email
 - Redmine version: 6 (local Docker, `redmine-docker-6`)
 - Plugin name: Redmineflux Helpdesk
@@ -54,6 +55,16 @@ Root-caused via source (`mail_handler_patch.rb`, `target_project_with_helpdesk`)
 ## Follow-up control test (same day)
 
 To isolate whether this is specific to multi-project entitlement, or a more fundamental "always routes to Alpha" defect, temporarily removed `beta.customer`'s Alpha row (leaving her entitled to Beta only) and resent a fresh email to `beta.support@test.local`. This time the log correctly showed `MailHandler: Found helpdesk project [helpdesk-qa-beta] for customer [beta.customer]`, and the resulting ticket (#63) was confirmed live under Helpdesk QA Beta (page title, outbound confirmation via Beta's own SMTP). **This confirms the defect is specific to multi-project entitlement**: a customer with only one project-access row routes correctly (trivially — her only row is also her "first" row); the bug requires 2+ rows, and only manifests when the mailbox actually polled isn't whichever row happens to be first. `beta.customer`'s Alpha row was restored afterward for future reuse.
+
+## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #120377 checked in)
+
+**CONFIRMED FIXED.** Root-caused via source (`lib/redmineflux_helpdesk/patches/mail_handler_patch.rb#target_project_with_helpdesk`): now checks `handler_options.dig(:issue, :project)` (the project whose mailbox the poller actually polled) FIRST, resolving it via `Project.find_by_identifier` and returning it immediately — only falling back to the customer's-first-row guess if that's absent. Carries an explicit `BUG-HLP-045` comment matching this bug's own Recommend section exactly.
+
+Live-verified end-to-end: gave `alpha.customer` a genuine second project-access row (Alpha first, Beta second, matching the original repro's customer shape), sent a real qualifying email to `beta.support@test.local`, and ran the real scheduled `Helpdesk::EmailPollerWorker` directly. Log now reads `MailHandler: Using project [helpdesk-qa-beta] the email's own mailbox was polled from` (three times across the request, once per internal `target_project` call) — the routing decision is now unconditionally correct, a complete reversal from the original `Found helpdesk project [helpdesk-qa-alpha]` misroute.
+
+**Methodology note**: the rake task's own `check_emails` (`lib/tasks/helpdesk.rake`) turned out to be a dead end for retesting this specific bug — it calls `Redmine::IMAP.check(imap_options) { |message| ... }` with a block, but this Redmine version's actual `Redmine::IMAP.check(imap_options={}, options={})` signature never yields to a block at all (it calls `MailHandler.safe_receive` internally using its own second positional `options` argument, which the rake task never passes) — so the block, and the per-project routing options it was meant to build, are silently dead code. This reliably reproduced the *original* misrouting symptom by accident (options genuinely empty, not just a stale value), which is why several attempts via the rake task path kept "failing" this retest before switching to the real worker (which implements its own direct `Net::IMAP` handling, unaffected by this signature mismatch) — a separate, deeper defect in the rake task worth its own future bug report, not filed here since it's outside this bug's scope.
+
+Ticket persistence itself failed on the final routing-confirmed run with `Validation failed: Test cannot be blank` — a pre-existing required custom field ("test") from earlier field-validation testing that blocks any programmatic/email ticket creation on this instance, unrelated to routing; the routing decision (this bug's actual subject) had already succeeded before that failure.
 
 ## Notes
 

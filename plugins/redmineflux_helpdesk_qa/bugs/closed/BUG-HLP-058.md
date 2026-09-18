@@ -41,6 +41,14 @@ The API call succeeded (`201`, `{"message":"Reply added successfully."}`) and di
 - Duplicate found: No (checked `bugs/_index.md`/`bugs/_duplicates.md` — distinct from BUG-HLP-015, which is about a customer's own email reply being double-logged; this is about the REST API's reply endpoint landing in the wrong log entirely, for an admin-initiated reply)
 - Existing bug reference (if duplicate): —
 
+## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #120540 checked in)
+
+**CONFIRMED FIXED for this bug's core claim.** Root-caused via source (`app/controllers/api/v1/conversations_controller.rb#create`), with an explicit `BUG-HLP-058` comment: the endpoint now sets `Thread.current[:send_customer_reply]`/`Thread.current[:reply_note_content]` (the same signal `issues_controller_patch.rb`'s own UI Reply Note path sets, consumed by `issue_patch.rb`), defaulting to on for a public agent reply (not private, not customer-authored) — routing the API reply through the identical mechanism a genuine UI Reply Note uses.
+
+Live-verified on ticket #336: `POST /helpdesk/api/v1/tickets/336/conversations` with `{note: "..."}` returned `201`. The Helpdesk Conversion tab count went from **0 → 1** (previously stayed unchanged at the pre-existing count), and its new entry shows `OUTBOUND`, `Redmine Admin (via Reply Note)`, a real `Subject:` and `To:` line, and the note body — the exact same shape and labeling a genuine UI-driven Reply Note produces, confirming this is the real Conversion-logging path, not a lookalike.
+
+**One observation worth recording, not a reason to keep this bug open**: the same journal is *also* still visible under the plain Notes tab (`/issues/336?tab=notes` shows journal #544 with the identical text). Time didn't permit confirming live whether a genuine UI-driven Reply Note is itself also visible under Notes on this instance (a quick control-test attempt was interrupted by an unrelated `beforeunload` dialog blocking navigation) — if a real UI reply is *also* always visible under Notes (plausible, since Notes is core Redmine's own unfiltered Journal listing with no plugin-side exclusion mechanism found in source), then this is consistent, expected behavior and not a residual defect at all. Left as a note for a future session to confirm cheaply, not a blocker on this bug's closure.
+
 ## Notes
 
 - Found while executing `HELPDESK_REPORTING_AUTOMATION.md` TC-HLP-190 (REST API conversations list/reply).

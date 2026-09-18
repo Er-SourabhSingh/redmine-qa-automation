@@ -1,7 +1,7 @@
 # BUG-HLP-054
 
 - Bug ID: BUG-HLP-054
-- Production Redmine Issue ID: 120507
+- Production Redmine Issue ID: #120507 (ztflux)
 - Title: `seed_demo_data` crashes with an unhandled `ActiveRecord::RecordInvalid` once cumulative logged time exceeds Sakura Mobility KK's own hard-enforced prepaid budget — leaves a permanently, silently half-populated dataset, and every future run at or above that ticket count now crashes identically forever
 - Redmine version: 6 (local Docker, `redmine-docker-6`)
 - Plugin name: Redmineflux Helpdesk
@@ -50,6 +50,12 @@ No "Tickets: N new, M total" summary line was ever printed — the crash happene
 
 - Duplicate found: No (checked `bugs/_index.md` / `bugs/_duplicates.md` — no prior coverage of `seed_demo_data`'s ticket-seeding-loop error handling; distinct from BUG-HLP-053, which is about the project-matching/rename step, not ticket seeding)
 - Existing bug reference (if duplicate): —
+
+## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #120507 checked in)
+
+**CONFIRMED FIXED.** Root-caused via source (`lib/tasks/seed_demo_data.rake#log_time_for_ticket`), with an explicit `BUG-HLP-036 (via #120507)` comment: the method now wraps its `TimeEntry.create!` in `rescue StandardError => e ... say "  ! time entry for ##{issue.id} skipped: #{e.message}"` — skipping just the one over-budget entry (matching the pattern `build_ticket` already used for a skipped ticket) instead of letting the exception abort the whole rake task.
+
+Live-verified: ran `TICKETS=300 bundle exec rake redmineflux_helpdesk:seed_demo_data` again (project already primed at 234 tickets from the original crash point). The exact same trigger condition (Sakura Mobility KK's prepaid budget hitting zero) fired **14 times** during this run — each time printing `! time entry for #<id> skipped: Validation failed: Prepaid support hours for Sakura Mobility KK are used up (0.00h)...` and continuing — and the task completed all the way to a real summary (`66 new, 300 total across 6 SLA states`, `Done.` with full per-model counts), a complete reversal of the original `rake aborted!` crash that previously left the dataset permanently stuck at 233/300.
 
 ## Notes
 

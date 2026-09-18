@@ -1,7 +1,7 @@
 # BUG-HLP-059
 
 - Bug ID: BUG-HLP-059
-- Production Redmine Issue ID: 120543
+- Production Redmine Issue ID: #120543 (ztflux) — reopened on production 2026-09-18 after retest (was In QA, moved to Reopen)
 - Title: The REST API's own documented "existing Redmine browser session" authentication method never actually works — combined with Customer accounts having no self-service way to obtain an API key at all, this makes the Swagger spec's own documented "customers... restricted to their own tickets" API access completely unreachable in practice
 - Redmine version: 6 (local Docker, `redmine-docker-6`)
 - Plugin name: Redmineflux Helpdesk
@@ -47,6 +47,20 @@ Per the API's own documented contract: step 2 should succeed (a valid, logged-in
 
 - Duplicate found: No (checked `bugs/_index.md`/`bugs/_duplicates.md` — distinct from BUG-HLP-058, which is about a reply's visibility after a successful authenticated call, not about authentication itself)
 - Existing bug reference (if duplicate): —
+
+## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #120543 checked in)
+
+**PARTIALLY FIXED — both originally-cited root causes are genuinely fixed, but a live end-to-end retest shows a Customer still cannot practically use the API, for two different, newly-surfaced reasons. Kept OPEN. Per explicit user instruction, production issue #120543 has been moved from In QA to Reopen, with a note detailing exactly what still fails and why — see the production issue's own journal for that note; summarized again below.**
+
+**Both original root causes confirmed fixed via source (`app/controllers/api/v1/base_controller.rb`, `lib/redmineflux_helpdesk/patches/application_controller_patch.rb`), each with an explicit `BUG-HLP-059` comment:**
+1. Session-cookie auth: the early `request.format = :json` prepend that was silently breaking `find_current_user`'s session-recognition branch for this controller family is removed, and `skip_before_action :check_if_login_required` was added (Redmine core's own login gate was pre-empting this controller's own, more complete `require_api_key_auth` check). Live-verified: `fetch('/helpdesk/api/v1/tickets/336', {credentials:'include'})` as **admin**, no API key at all, now returns a genuine `200` with real ticket data — a complete reversal of the original `401`.
+2. Customer self-service API key: `application_controller_patch.rb`'s customer allowlist now includes `'my' => [..., 'show_api_key', 'reset_api_key']`. Live-verified: `alpha.customer` navigating to `/my/api_key` now shows a real key (`ba220d8c71ee...`) instead of silently redirecting away.
+
+**But the bug's own stated "combined effect" — a customer having a working path to the API at all — still does not hold, for two different reasons found while verifying end-to-end:**
+- **Session-based access for a customer specifically is blocked by an unrelated filter never updated for this fix**: `restrict_helpdesk_customer_access` (`application_controller_patch.rb`) runs on every request and redirects any already-logged-in customer to `home_path` unless the controller/action is on its explicit allowlist — `api/v1/*` was never added. Live-verified: with `alpha.customer` logged in (session cookie active) and using her own valid API key via header, `fetch('/helpdesk/api/v1/tickets/337', {headers:{'X-Redmine-API-Key':'...'}})` still redirected to `/` (this filter runs before `require_api_key_auth` even gets a chance, since `User.current.logged?` is already true from the session).
+- **Key-only access (no session) reaches the API but sees zero tickets, including her own**: fully logged out, then calling the same endpoint with only the header, correctly bypasses the customer-redirect filter (no session means `User.current` is still Anonymous when that filter runs) and reaches the real controller — `GET /helpdesk/api/v1/tickets/337` → genuine `404 {"error":"Ticket not found."}`, and `GET /helpdesk/api/v1/tickets` (list) → `200 {"data":[],"meta":{"total_count":0,...}}`, despite ticket #337 being her own, genuinely-authored ticket (confirmed live via the UI minutes earlier). Likely the same root pattern as BUG-HLP-014 (customers have no real Redmine `Member` row, only `RfProjectCustomer`, so core visibility/scoping checks silently return empty for them) — not independently root-caused via source this session, flagged for follow-up.
+
+**Resolved per explicit user instruction (2026-09-18)**: kept open and reopened on production rather than closed, since the practical customer-API-access outcome the bug was really about is still not resolved — the two new causes are folded into this same bug's scope going forward (not filed as separate bug IDs). Production issue #120543 moved In QA → Reopen with the full explanation (both original causes confirmed fixed; the `restrict_helpdesk_customer_access` allowlist gap and the zero-ticket-visibility gap are what's keeping this open now).
 
 ## Notes
 

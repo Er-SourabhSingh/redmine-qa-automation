@@ -1,6 +1,7 @@
 # BUG-HLP-047
 
 - Bug ID: BUG-HLP-047
+- Production Redmine Issue ID: #120379 (ztflux)
 - Title: The same email account (incoming and/or outgoing) can be configured on two different projects with no warning — incoming reuse causes silent misrouting, outgoing reuse causes silent sender-identity confusion
 - Redmine version: 6 (local Docker, `redmine-docker-6`)
 - Plugin name: Redmineflux Helpdesk
@@ -62,6 +63,12 @@ Helpdesk::EmailPollerWorker: Found 0 unread message(s) in INBOX
 
 - Duplicate found: No (checked `bugs/_index.md` — no existing bug about mailbox reuse across projects; distinct from BUG-HLP-045, which is about a *registered customer's* project routing, not a *shared incoming mailbox address* configuration gap).
 - Existing bug reference (if duplicate): None.
+
+## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #120379 checked in)
+
+**CONFIRMED FIXED, both directions.** Root-caused via source (`app/models/rf_helpdesk_email_config.rb`): two new validations, `validate :incoming_account_not_used_by_another_project` and `validate :outgoing_account_not_used_by_another_project`, checking `mail_server`+`mail_username` for incoming and `smtp_server`+`smtp_username` / `email_from` for outgoing against every other project's config row.
+
+Live-verified exactly as originally reproduced: set Beta's incoming Mail Username to Alpha's own mailbox (`alpha.support@test.local`) and clicked Save — refused with `"Failed to save email configuration: Mail username This mailbox is already the incoming account for project \"Helpdesk QA Alpha\". Two projects can't poll the same mailbox - one of them would silently stop receiving emails."`, and the field reverted to Beta's own value (save genuinely rejected, not just a client-side warning). Then set Beta's outgoing SMTP Username to Alpha's account and Saved again — refused with `"Failed to save email configuration: Smtp username This account is already the outgoing account for project \"Helpdesk QA Alpha\"."`. Both messages name the conflicting project by name, matching this bug's own Recommend section (mirroring the BUG-HLP-010 Website/Phone precedent).
 
 ## Notes
 

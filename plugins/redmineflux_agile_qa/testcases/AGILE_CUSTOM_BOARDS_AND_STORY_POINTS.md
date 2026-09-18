@@ -264,6 +264,12 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 **Expected Result:**
 - Values and per-sprint totals are correct — this is the number teams plan sprints with.
 
+> **Superseded in detail by Feature #120436.** The Backlog's per-column story point display is specified in
+> full — Closed/Total badge, completed-story visibility, and the two new global settings — in
+> `AGILE_BACKLOG_AND_SPRINTS.md` under "Feature #120436 — Story Points in the Backlog"
+> (**TC-AGB-529 to TC-AGB-553**). Execute those rather than treating this case as the whole of the Backlog
+> story-point coverage.
+
 ---
 
 ### TC-AGB-857: Story Point changes are journaled

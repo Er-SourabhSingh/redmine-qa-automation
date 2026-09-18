@@ -43,6 +43,12 @@ Together these two results prove the Reports controller (view and export both) i
 - Duplicate found: No (checked `bugs/_index.md`/`bugs/_duplicates.md` — no prior coverage of `export_helpdesk_reports` specifically; distinct from the `manage_prepaid_support_hours`-requires-`manage_helpdesk` finding already resolved as by-design in BUG-HLP-040, since that one **is** genuinely deliberate per direct user confirmation — this one contradicts the User Guide's own permissions table with no such confirmation)
 - Existing bug reference (if duplicate): —
 
+## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #120539 checked in)
+
+**CONFIRMED FIXED.** Root-caused via source (`app/controllers/rf_helpdesk_reports_controller.rb#require_admin_or_manage_helpdesk`), with an explicit `BUG-HLP-057` comment: the gate now also accepts `User.current.allowed_to?(:export_helpdesk_reports, nil, global: true)`, applying to every action in the controller (both view and export).
+
+Live-verified with the exact original role (`perm.test.agent`, "Permission Test Role" — `view_helpdesk` + `export_helpdesk_reports`, no `manage_helpdesk`, confirmed via `role.permissions.inspect`): navigating directly to `/rf_helpdesk/reports/tickets` now loads the full Reports page (all 5 tabs, real KPI figures — 323 total tickets, 226 open, 97 resolved), a complete reversal from the original 403 Forbidden. The Export dropdown's CSV link was also exercised directly (`/rf_helpdesk/reports/export?export_format=csv&...`) and returned a real downloaded file, confirming export access works too, not just view.
+
 ## Notes
 
 - Found while executing `HELPDESK_REPORTING_AUTOMATION.md` TC-HLP-197 ("Export refused for a role without `export_helpdesk_reports`") — that TC's own precondition assumes a role can view Reports but be refused Export specifically; no such tier exists, since viewing Reports at all already requires `manage_helpdesk`, which already includes export capability by itself.

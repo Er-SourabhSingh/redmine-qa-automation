@@ -1,6 +1,7 @@
 # BUG-HLP-046
 
 - Bug ID: BUG-HLP-046
+- Production Redmine Issue ID: #120378 (ztflux)
 - Title: The "Email History" tab (Helpdesk Conversion) never shows recipient, subject, or an explicit direction field for any entry — only sender, timestamp, and body
 - Redmine version: 6 (local Docker, `redmine-docker-6`)
 - Plugin name: Redmineflux Helpdesk
@@ -47,6 +48,12 @@ So 3 of the 6 documented pieces of information (recipient, subject, an explicit 
 
 - Duplicate found: No (checked `bugs/_index.md` — no existing bug about Email History's field completeness; BUG-HLP-008, the only prior bug about this tab, was about missing/duplicate *entries*, not missing *fields* within an entry).
 - Existing bug reference (if duplicate): None.
+
+## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #120378 checked in)
+
+**CONFIRMED FIXED.** Root-caused via source (`app/views/rf_email_histories/_index.html.erb`), with an explicit `BUG-HLP-046` comment: the partial now renders a `direction-badge` showing literal "Inbound"/"Outbound" text (not just implied via label wording), plus a `Subject:` line and a `To:` (recipient) line whenever either is present.
+
+Live-verified on ticket #63 (5 real Helpdesk Conversion entries, a genuine mix of customer and agent messages): `Array.from(document.querySelectorAll('.direction-badge'))` returned explicit "Inbound"/"Outbound" text for all 5 entries, matching their real direction; every entry now shows a real `To:` recipient address (`beta.support@test.local`, `beta.customer@test.local`); every entry shows a real `Subject:` line distinct from the ticket-creation-acknowledgement's own embedded body text. All 3 originally-missing pieces (recipient, subject, explicit direction) are now genuinely present, per-entry, matching `HELPDESK_USER_GUIDE.md` §13's documented promise.
 
 ## Notes
 

@@ -1,7 +1,7 @@
 # BUG-HLP-020
 
 - Bug ID: BUG-HLP-020
-- Production Redmine Issue ID: 119752
+- Production Redmine Issue ID: #119752 (ztflux)
 - Title: Reassigning an unassigned ticket resumes the SLA clock without extending the deadline by the paused duration — unlike the Waiting-for-Customer-Response pause/resume, which does extend it correctly
 - Redmine version: 6 (local Docker, `redmine-docker-6`)
 - Plugin name: Redmineflux Helpdesk
@@ -51,6 +51,14 @@ The ticket was escalated to L3 (reassigned to Willow Belle) and an escalation em
 
 - Duplicate found: No (checked `bugs/_duplicates.md` — empty register)
 - Existing bug reference (if duplicate): —
+
+## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #119752 checked in)
+
+**CONFIRMED FIXED.** Root-caused via source (`app/models/rf_issue_sla_status.rb#resume!`), with an explicit comment: "Extends both deadlines by the pause duration so the SLA monitor never immediately breaches a ticket that was paused for a legitimate reason." Critically, `pause_sla`/`resume_sla` (the two methods `issue_patch.rb#handle_sla_on_assignment_change` calls for unassign/reassign) now delegate to the exact same `pause!`/`resume!` model methods the Waiting-for-Customer-Response cycle already used correctly — a single, unified fix rather than a separate code path for each pause reason.
+
+Live-verified end-to-end on a fresh ticket (#404, customer-raised so it genuinely picks up Alpha's SLA): assigned to Autumn Grace (Status → In Progress), noted the real `response_deadline` (`2026-09-18 14:13:55 UTC`), unassigned via the real Edit form (confirmed `is_paused: true`, `paused_at: 13:15:27`), waited ~2 real minutes, reassigned back to Autumn Grace via the real Edit form. Result: `is_paused: false`, `total_paused_minutes: 2`, and **`response_deadline` moved to `2026-09-18 14:15:55 UTC`** — extended by exactly the 2 minutes the ticket sat unassigned, correctly crediting back the paused window instead of leaving it frozen. This is the precise mechanism whose absence caused the original false L2→L3 escalation.
+
+**One residual observation, not blocking**: the SLA Information tab's Activity Log still shows no explicit "Paused"/"Resumed" entries for this unassign/reassign cycle (matching the original bug's own secondary observation about a missing audit trail) — the deadline math itself is now correct and verified at the data level, but the on-screen activity log doesn't yet surface these two events the way it does for other SLA transitions. Not re-filed separately since the bug's core, customer-facing claim (false escalation from an unextended deadline) is what's fixed here.
 
 ## Notes
 

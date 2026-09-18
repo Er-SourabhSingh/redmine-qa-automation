@@ -1,7 +1,7 @@
 # BUG-HLP-056
 
 - Bug ID: BUG-HLP-056
-- Production Redmine Issue ID: 120510
+- Production Redmine Issue ID: #120510 (ztflux)
 - Title: `rake redmineflux_helpdesk:check_sla` correctly detects and marks every SLA breach, but every single escalation attempt fails — the hand-run task passes a human-readable escalation reason string that fails the model's own inclusion validation, while the real scheduled worker passes the correct machine-readable value
 - Redmine version: 6 (local Docker, `redmine-docker-6`)
 - Plugin name: Redmineflux Helpdesk
@@ -71,6 +71,12 @@ Verified live on ticket #301 (`/issues/301?tab=sla-information`): the SLA Journe
 
 - Duplicate found: No (checked `bugs/_index.md`/`bugs/_duplicates.md` — distinct from BUG-HLP-044/055, which are both "reads a legacy config field, does nothing at all"; this task genuinely operates on the current, correct model but passes the wrong argument value to one specific method call)
 - Existing bug reference (if duplicate): —
+
+## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #120510 checked in)
+
+**CONFIRMED FIXED.** Root-caused via source (`lib/tasks/helpdesk.rake`): both hardcoded human-readable strings are now the correct machine-readable values — `sla_status.escalate_to_next_level!('response_breach')` and `sla_status.escalate_to_next_level!('resolution_breach')` — exactly matching `RfIssueSlaEscalationHistory`'s `inclusion` validation and the real scheduled worker's own call.
+
+Live-verified: ran `bundle exec rake redmineflux_helpdesk:check_sla` for real. Output: `Notifications sent : 359`, `Escalations : 202`, `Errors : 0` — a complete reversal of the original `Escalations : 0, Errors : 118`, with the exact same repeated `Validation failed: Escalation reason is not included in the list` error no longer occurring at all. Confirmed via a live Sidekiq log line during the run: `[SLA][ESCALATION] Ticket #329 | L1 → L2 | Assignee: luna.blossom → briar.sunset | ...` — a genuine escalation, correctly recorded, with escalation-notification emails queued to both the new and prior assignee.
 
 ## Notes
 

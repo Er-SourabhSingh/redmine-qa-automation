@@ -1,7 +1,7 @@
 # BUG-HLP-051
 
 - Bug ID: BUG-HLP-051
-- Production Redmine Issue ID: 120475
+- Production Redmine Issue ID: #120475 (ztflux)
 - Title: A customer picks a ticket's Product when raising it, but can never see that value again — the Product attribute is hidden (`display:none`) on their own ticket
 - Redmine version: 6 (local Docker, `redmine-docker-6`)
 - Plugin name: Redmineflux Helpdesk
@@ -51,6 +51,12 @@ Clicking **Edit** as the customer confirms there is no alternate path to see it 
 
 - Duplicate found: No (checked `bugs/_index.md` — no existing entry for Product visibility on the Customer role's ticket view; `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-161's only prior evidence was an Admin editing an existing ticket, never a Customer creating one)
 - Existing bug reference (if duplicate): —
+
+## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #120475 checked in)
+
+**CONFIRMED FIXED.** Root-caused the fix via source (`assets/stylesheets/customer_menu.css`): the offending CSS rule that unconditionally hid `.product` is now removed entirely, replaced with a comment explaining the original mistake — it was meant to hide a *duplicate* Product row, but that duplication was already prevented server-side (`view_hooks.rb` skips rendering its own Product row on the branded customer ticket view), so the rule was hiding the customer's only Product row, not a real duplicate.
+
+Live-verified end-to-end as `alpha.customer`: created a fresh ticket (#337) via the real customer-facing New Issue form, selecting Product "Falcon Suite". Opened the same ticket as the same customer — `.product.attribute` now resolves to `getComputedStyle(...).display === "block"` (was `"none"`), and the field grid visibly shows "Product: Falcon Suite" between Priority and Organization, exactly matching the documented `HELPDESK_USER_GUIDE.md` §7 promise. `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-161 can now be updated to reflect the customer-side case as passing too.
 
 ## Notes
 

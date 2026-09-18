@@ -2,6 +2,7 @@
 
 - Bug ID: BUG-HLP-043
 - Title: Auto-close closes ANY open-status ticket past the silence window, not just Resolved ones — contradicts the documented contract and the Email Configuration form's own field hint
+- Production Redmine Issue ID: #120375 (ztflux)
 - Redmine version: 6 (local Docker, `redmine-docker-6`)
 - Plugin name: Redmineflux Helpdesk
 - Plugin version: (installed copy in `redmine-docker-6-redmine-1`, current as of 2026-09-09)
@@ -62,6 +63,18 @@ As a companion positive control (not itself a bug): TC-HLP-150 confirmed a genui
 
 - Duplicate found: No (checked `bugs/_duplicates.md` — empty register; grepped the whole plugin QA folder for "auto close"/"auto-close" beforehand — this exact scenario, testing a non-Resolved ticket against the real worker, was written as TC-HLP-153 but never previously executed)
 - Existing bug reference (if duplicate): None. Related to, but a distinct root cause from, BUG-HLP-044 (filed alongside this bug) — that bug is the rake task being entirely non-functional (reads a config source that no longer exists, so it never closes anything); this bug is the real scheduled worker being functional but far broader in scope than documented.
+
+## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #120375 checked in)
+
+**CONFIRMED FIXED.** Preconditions: container restarted this session; Redis + Sidekiq were found NOT running after the restart (only Puma auto-restarts on this container — known gotcha, see `MEMORY.md`) and were started manually before retesting.
+
+- Set Auto Close Ticket Days = 1 on Helpdesk QA Alpha via the real Email Configuration UI (`/rf_helpdesk/setting?tab=email_configuration&config_project_id=1` — note this is the correct real path; the per-project `/projects/:id/helpdesk/settings` page does NOT have an Email Configuration tab, see this bug's sibling BUG-HLP-044 retest notes).
+- Created a fresh ticket (#336, Support tracker, Helpdesk QA Alpha), left Status at **New**, backdated `updated_on` to 2 days ago via `rails runner` (test-setup only, same convention as the original repro).
+- Ran the real `Helpdesk::AutoCloseTicketsWorker.new.perform` directly: ticket #336 was **not touched** — `Project Helpdesk QA Alpha: Closed 0 tickets`, ticket #336 confirmed still Status New / `is_closed? == false` afterward.
+- Root-caused the fix via source (`app/workers/helpdesk/auto_close_tickets_worker.rb`): the query now reads `resolved_status = IssueStatus.find_by(name: 'Resolved')` then `.where(status_id: resolved_status.id)` — genuinely scoped to Resolved only, replacing the old unscoped `.open` — with a code comment explicitly referencing this exact gap ("without this explicit Resolved filter, a silent New ticket got auto-closed just as readily as one actually resolved").
+- Positive control (not itself part of this bug, confirms the fix didn't over-correct into closing nothing): the same worker run, via the companion `redmineflux_helpdesk:auto_close_tickets` rake task (see BUG-HLP-044), genuinely closed 43 real Resolved-and-silent tickets across 2 projects — the mechanism still works, now correctly scoped.
+- `lib/tasks/auto_close_tickets.rake` carries the identical fix (same `resolved_status` filter), confirming both implementations were corrected together as this bug's own Notes recommended.
+- Cleanup: Auto Close Ticket Days reset back to blank on Helpdesk QA Alpha afterward, matching the original bug's own convention.
 
 ## Notes
 

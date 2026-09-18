@@ -1,7 +1,7 @@
 # BUG-HLP-055
 
 - Bug ID: BUG-HLP-055
-- Production Redmine Issue ID: 120508
+- Production Redmine Issue ID: #120508 (ztflux)
 - Title: `rake redmineflux_helpdesk:check_emails` is completely non-functional on every project, regardless of real mail configuration — identical dead-code pattern to the already-filed `auto_close_tickets` (BUG-HLP-044)
 - Redmine version: 6 (local Docker, `redmine-docker-6`)
 - Plugin name: Redmineflux Helpdesk
@@ -66,6 +66,12 @@ This reads a **legacy** `ProjectCustomField` named `helpdesk_enable_incoming_ema
 
 - Duplicate found: No new bug ID collision (checked `bugs/_index.md`/`bugs/_duplicates.md`) — but this is the **exact predicted follow-up** already flagged in BUG-HLP-044's own Notes section ("the identical dead-code migration-cleanup pattern already noted (but never filed) for the sibling `check_emails` rake task in `HELPDESK_MEMORY.md`... recommend auditing both together") and in `HELPDESK_MEMORY.md` itself. This is that audit, now confirmed live and filed as its own bug per that recommendation, rather than folded into BUG-HLP-044 (each task is independently broken code, in a different file, with its own distinct legacy-field set).
 - Existing bug reference (if duplicate): Root-cause pattern shared with BUG-HLP-044 (`auto_close_tickets`) — see that bug for the sibling defect and the underlying `RfHelpdeskEmailConfig` migration context.
+
+## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #120508 checked in)
+
+**CONFIRMED FIXED.** Root-caused via source (`lib/tasks/helpdesk.rake`, `check_emails` task): now reads `config = RfHelpdeskEmailConfig.for_project(project)&.incoming_settings || {}` and checks `config[:enable_incoming_email]` — the real, current config table, replacing all 7 legacy `ProjectCustomField` lookups.
+
+Live-verified: ran `bundle exec rake redmineflux_helpdesk:check_emails` for real with the same 4 helpdesk-enabled projects present. Alpha and Beta — the two with genuinely working incoming-mail config — are now correctly recognized as enabled: the task printed their real `Protocol: imap`, `Server: mail:993`, `Username: alpha.support@test.local` / `beta.support@test.local`, `SSL: Yes` and attempted a real IMAP connection (`Connecting to IMAP server...`), a world apart from the original's blanket "Incoming email disabled for this project, skipping..." for every project without exception. Gamma and the "Redmineflux Helpdesk" project (genuinely no incoming config) are still correctly reported as disabled — proving the check is now real, not unconditional either way. The connection itself failed with `Connection refused - connect(2) for 172.18.0.4:993` — a separate local-environment networking issue (the mail server container wasn't reachable at that port from this container's network at the time), not a reproduction of the original defect; the fix under test here is the config-reading logic, which is now demonstrably correct.
 
 ## Notes
 

@@ -2,6 +2,7 @@
 
 - Bug ID: BUG-HLP-044
 - Title: `rake redmineflux_helpdesk:auto_close_tickets` is completely non-functional — it reads a legacy `ProjectCustomField` that no longer exists on this instance, so it can never close a ticket regardless of any project's real Auto Close Ticket Days configuration
+- Production Redmine Issue ID: #120376 (ztflux)
 - Redmine version: 6 (local Docker, `redmine-docker-6`)
 - Plugin name: Redmineflux Helpdesk
 - Plugin version: (installed copy in `redmine-docker-6-redmine-1`, current as of 2026-09-09)
@@ -55,6 +56,20 @@ This reads a **legacy** `ProjectCustomField` named `helpdesk_auto_close_days` �
 
 - Duplicate found: No (checked `bugs/_duplicates.md` — empty register)
 - Existing bug reference (if duplicate): None filed, but **the identical dead-code pattern was already independently observed and documented (not filed as a bug at the time) for a sibling rake task**, `check_emails`, per `HELPDESK_MEMORY.md`: *"the `check_emails` rake task is dead code — it still reads the legacy `ProjectCustomField` config the UI stopped writing to after a migration to `RfHelpdeskEmailConfig`, while the real scheduled Sidekiq `EmailPollerWorker` correctly uses the new model."* This is the same migration-cleanup gap recurring on a second rake task. Recommend auditing every rake task in `lib/tasks/` for the same legacy-`ProjectCustomField` read pattern rather than fixing this one in isolation — `check_emails` likely needs the identical fix and is not yet filed as its own bug.
+
+## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #120376 checked in)
+
+**CONFIRMED FIXED.** Preconditions: container restarted this session; Redis + Sidekiq were found NOT running after the restart (only Puma auto-restarts on this container) and were started manually before retesting.
+
+- Note on the Email Configuration UI's real location, discovered while re-navigating for this retest: the per-project `/projects/:id/helpdesk/settings` page (`RfProjectHelpdeskController#settings`) only has 3 tabs (Holiday, Products, Support Level) — no Email Configuration tab at all. The real Email Configuration form lives on the plugin's top-level "Helpdesk Command Center" settings page, `/rf_helpdesk/setting?tab=email_configuration&config_project_id=<id>` (`RfHelpdeskController#setting`), with a Project selector — confirmed via `save_email_configuration`'s own redirect target in `rf_project_helpdesk_controller.rb`. Not itself a defect (the per-project page never claimed to host it), just a real navigation gotcha worth recording so the next session doesn't re-lose time on it — added to `HELPDESK_MEMORY.md`.
+- Set Auto Close Ticket Days = 1 on Helpdesk QA Alpha via that real Email Configuration UI.
+- Created a fresh eligible-setup ticket (#336), backdated `updated_on` 2 days via `rails runner` (setup only).
+- Ran `bundle exec rake redmineflux_helpdesk:auto_close_tickets` for real: output now shows genuine per-project processing — `Processing project: Helpdesk QA Alpha (auto_close_days: 1)`, `Processing project: Redmineflux Helpdesk (auto_close_days: 5)` — closing 43 real eligible (Resolved + silent) tickets across both projects (e.g. `✓ Closed issue #87: TC-HLP-151 auto-close disabled test - Auto Close Ticket Days blank`), a world apart from the original "no project processed, no ticket closed, no error" silent no-op.
+- Root-caused the fix via source (`lib/tasks/auto_close_tickets.rake`): now reads `RfHelpdeskEmailConfig.for_project(project)&.auto_close_days` — the real, current config table — replacing the old dead `ProjectCustomField.find_by(name: 'helpdesk_auto_close_days')` lookup (confirmed still `ProjectCustomField.count == 0` on this instance, so the old code path would still always no-op if it were still there).
+- Bonus finding: the same fix pass also corrected BUG-HLP-043's scope defect in this exact rake task (now filters `.where(status_id: resolved_status.id)` instead of the old unscoped `.open`) — see BUG-HLP-043's own retest for the dedicated verification; ticket #336 (status New) was correctly left untouched by this same rake run.
+- This is also the natural retest for TC-HLP-217 in `HELPDESK_RAKE_TASKS.md` ("`auto_close_tickets` run by hand closes eligible tickets") — now genuinely PASS, matching the scheduled worker's behavior as originally promised.
+- Cleanup: Auto Close Ticket Days reset back to blank on Helpdesk QA Alpha afterward.
+- Not retested here (separate, still-open bug, not part of this bug's scope): the sibling `check_emails` rake task's identical legacy-`ProjectCustomField` pattern — this bug's own Notes section already flagged that task as needing an audit for the same fix; it has not yet been independently confirmed fixed.
 
 ## Notes
 

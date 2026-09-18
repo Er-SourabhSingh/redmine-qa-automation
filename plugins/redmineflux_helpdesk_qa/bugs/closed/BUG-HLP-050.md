@@ -1,7 +1,7 @@
 # BUG-HLP-050
 
 - Bug ID: BUG-HLP-050
-- Production Redmine Issue ID: 120474
+- Production Redmine Issue ID: #120474 (ztflux)
 - Title: An attachment added to a Knowledgebase article cannot be removed through any discoverable UI interaction
 - Redmine version: 6 (local Docker, `redmine-docker-6`)
 - Plugin name: Redmineflux Helpdesk
@@ -53,6 +53,18 @@ Per `HELPDESK_USER_GUIDE.md` §17 ("Attachments | Add and remove files on an art
 
 - Duplicate found: No (checked `bugs/_duplicates.md` — empty register; same general class as BUG-HLP-048/049 — a documented KB sub-feature whose intended mechanism exists but isn't reachable through the actual UI)
 - Existing bug reference (if duplicate): —
+
+## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #120474 checked in)
+
+**CONFIRMED FIXED.** Root-caused via source (`assets/javascripts/rf_knowledgebase.js`): a new delete icon is now rendered in the Attachments panel's Action column (`<span class="kb-icon kb-delete-icon delete-attachment ..." id="delete-attachment-${id}">`), wired to a click handler that calls `DELETE rf_kb_delete_attachment/${id}.json` after a real confirmation modal — a genuinely new, independent removal path from the original `block-removed` Editor.js event path (which is left untouched).
+
+Live-verified end-to-end on the exact original fixture (article "Resetting your password", id 3, attachment id 9, `tc-166-test-attachment.txt`):
+- Opened Menu → Attachments on the article; the panel's Action column now shows a real delete icon (`#delete-attachment-9`) alongside the existing download link.
+- Clicked it — a genuine "Delete Attachment? Are you sure you want to delete this attachment? This action cannot be undone." confirmation modal appeared (Cancel/Delete).
+- Clicked Delete — the row disappeared from the Attachments panel immediately.
+- Confirmed via direct DB check (`rails runner`): `Attachment.where(id: 9).exists? == false` and `RfKnowledgebasePageAttachment.where(attachment_id: 9).count == 0` — the underlying attachment and its join record are genuinely destroyed, not just hidden client-side.
+
+**One residual nuance worth recording, not a reason to keep this bug open**: after a full page reload, the article's own content still visually renders the old Attachment block with the file's name (the block's data is baked into the article's saved Editor.js JSON, which the panel-delete path doesn't rewrite) — its download link would now be dead since the underlying `Attachment` row is gone. This is a display artifact of the article's stored content, distinct from "no removal path exists at all" (the bug's actual scope) — the original in-editor Backspace/settings-button removal gap may still exist unchanged, but the documented capability ("remove files on an article") is now genuinely reachable and functionally correct via the Attachments panel.
 
 ## Notes
 

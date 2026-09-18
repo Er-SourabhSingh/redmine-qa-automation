@@ -1,7 +1,7 @@
 # BUG-HLP-053
 
 - Bug ID: BUG-HLP-053
-- Production Redmine Issue ID: 120504
+- Production Redmine Issue ID: #120504 (ztflux)
 - Title: `seed_demo_data` silently renames and repurposes ANY project whose identifier happens to be the legacy `helpdesk-support` slug, with no check that it's actually old demo data
 - Redmine version: 6 (local Docker, `redmine-docker-6`)
 - Plugin name: Redmineflux Helpdesk
@@ -58,6 +58,17 @@ This was found while investigating `HELPDESK_RAKE_TASKS.md` TC-HLP-224, which or
 
 - Duplicate found: No (checked `bugs/_index.md` / `bugs/_duplicates.md` — no prior coverage of `seed_demo_data`'s project-matching logic; distinct from BUG-HLP-044's dead-code `check_emails`/`auto_close_tickets` legacy-custom-field pattern, though both trace back to the same historical "pre-migration to dedicated tables" cleanup debt)
 - Existing bug reference (if duplicate): —
+
+## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #120504 checked in)
+
+**CONFIRMED FIXED, source-verified — matching this bug's own original methodology (not live-reproducible either way).** `lib/tasks/seed_demo_data.rake`'s `seed_project` now adds exactly the safeguard this bug's own Recommend section asked for:
+
+```ruby
+@project ||= Project.find_by(identifier: LEGACY_PROJECT_IDENTIFIER)
+                    &.then { |p| p.description.to_s.include?(SEED_DESCRIPTION_MARKER) ? p : nil }
+```
+
+`SEED_DESCRIPTION_MARKER = 'redmineflux_demo_data NovaCrest dataset'` — the exact substring the seeder itself writes into a genuinely-seeded project's description at creation time. A legacy-identifier match is now only reused/renamed if its description already carries this marker; otherwise `@project` becomes `nil` and the method falls through to creating a brand-new project instead, leaving any unrelated real project (e.g. one an admin happens to have named "Helpdesk Support") completely untouched. As with the original filing, the legacy branch remains unreachable live on this instance (the primary-identifier project "Redmineflux Helpdesk" already exists, so the primary lookup always wins first) — confirmed via direct source reading, not an end-to-end trigger, consistent with how this bug was originally investigated.
 
 ## Notes
 

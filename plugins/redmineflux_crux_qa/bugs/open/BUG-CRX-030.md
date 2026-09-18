@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-030
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #120784
 - Title: QA Agent's `remove_testcases_from_suite` genuinely un-scopes a testcase entirely, contradicting the plugin's own documented "test case scope is immutable once assigned to a suite" rule
 - Redmine version: 7.0.0 (local Docker)
 - Plugin name: redmineflux_crux (QA Agent, Testcase Management plugin domain)

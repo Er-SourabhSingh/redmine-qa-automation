@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-029
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #120782
 - Title: QA Agent falsely claims "no write tools are available in this deployment" and deflects to another agent, directly contradicting multiple real write tool successes earlier in the same session
 - Redmine version: 7.0.0 (local Docker)
 - Plugin name: redmineflux_crux (QA Agent, Testcase Management plugin domain)

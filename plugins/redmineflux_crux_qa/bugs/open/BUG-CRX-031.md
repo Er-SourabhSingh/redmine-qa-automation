@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-031
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #120785
 - Title: Scrum Agent's `move_issue` resolves a real, named board column ("Rejected") to the wrong underlying status, inconsistently, on every attempt
 - Redmine version: 7.0.0 (local Docker)
 - Plugin name: redmineflux_crux (Scrum Agent, Agile plugin domain)

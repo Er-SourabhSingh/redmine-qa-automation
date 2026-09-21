@@ -490,6 +490,8 @@ Do not begin testing until all of the above are read.
 
 **Before writing any test case file**, the requirements, features-list, and user-guide files must all be present. If any are missing, ask the user to provide them — do not proceed.
 
+**Scope of this checklist:** it applies when starting or resuming actual testing work on a plugin (executing test cases, writing new ones, investigating a defect). It does **not** apply to a narrow, standalone action on something already fully written — e.g. "report BUG-XXX-NNN to production," "close BUG-XXX-NNN," "link this bug to a run." For those, read only the one document that actually governs that specific action (`REDMINEFLUX-MCP-SETUP.md` for reporting/linking a bug, `SENIOR_QA_STANDARDS.md` §16/§26/§27 for closure/regression) plus the local bug file itself — reading all 12 documents for a single already-scoped action wastes a large amount of tokens for no benefit, since none of the plugin's requirements/features/user-guide/scope/handoff/testcases content is actually used by that action.
+
 ---
 
 ## 12. Session End Checklist

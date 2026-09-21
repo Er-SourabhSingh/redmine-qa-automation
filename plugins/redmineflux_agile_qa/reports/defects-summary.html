@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Defects Summary — Redmineflux Agile Board — Feature #120436</title>
+<style>
+  body { font-family: Arial, sans-serif; font-size: 13px; margin: 24px; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 4px; }
+  h2 { font-size: 15px; margin-top: 28px; }
+  .meta { color: #555; margin-bottom: 20px; font-size: 12px; }
+  table { border-collapse: collapse; width: 100%; margin-bottom: 16px; }
+  th { background: #3c3c3c; color: #fff; padding: 7px 10px; text-align: left; font-size: 12px; }
+  td { padding: 7px 10px; border-bottom: 1px solid #ddd; vertical-align: top; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  .medium { color: #b8860b; font-weight: bold; }
+  .high { color: #c00; font-weight: bold; }
+  .open-row { background: #fff8f0; }
+  .high-s .num { color: #c00; }
+  .closed-row { background: #f0fff0; }
+  .fixed-badge { display: inline-block; background: #2a8a2a; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 3px; margin-left: 6px; }
+  .open-badge { display: inline-block; background: #b8860b; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 3px; margin-left: 6px; }
+  .summary { display: flex; gap: 24px; margin-bottom: 20px; flex-wrap: wrap; }
+  .stat { background: #f0f0f0; border-radius: 6px; padding: 12px 20px; text-align: center; min-width: 80px; }
+  .stat .num { font-size: 28px; font-weight: bold; }
+  .stat .lbl { font-size: 11px; color: #555; }
+  .open-s .num { color: #b8860b; }
+  .closed-s .num { color: #2a8a2a; }
+  .screenshot { font-size: 11px; color: #555; font-style: italic; }
+  .fix-ref { font-size: 11px; color: #2a8a2a; }
+  code { background: #eee; padding: 1px 4px; border-radius: 3px; }
+</style>
+</head>
+<body>
+<h1>Defects Summary — Redmineflux Agile Board</h1>
+<h2 style="margin-top:0; color:#333;">Feature #120436 test cycle</h2>
+<div class="meta">
+  Plugin: Redmineflux Agile Board 7.0.0 (branch <code>feature/backlog-sprint-points</code>) &nbsp;|&nbsp;
+  Redmine: 7.0.0 &nbsp;|&nbsp;
+  Environment: Local Docker <code>redmine-docker-700</code> (http://localhost:3010) &nbsp;|&nbsp;
+  Sanity: 2026-09-18 &nbsp;|&nbsp;
+  Regression: 2026-09-21
+</div>
+
+<div class="summary">
+  <div class="stat"><div class="num">2</div><div class="lbl">Total Open</div></div>
+  <div class="stat"><div class="num">0</div><div class="lbl">Critical</div></div>
+  <div class="stat high-s"><div class="num">1</div><div class="lbl">High Open</div></div>
+  <div class="stat open-s"><div class="num">1</div><div class="lbl">Medium Open</div></div>
+  <div class="stat"><div class="num">0</div><div class="lbl">Low</div></div>
+  <div class="stat closed-s"><div class="num">1</div><div class="lbl">Closed</div></div>
+  <div class="stat"><div class="num" style="color:#2a8a2a">1</div><div class="lbl">Fixed &amp; Confirmed</div></div>
+</div>
+
+<h2>Open Bugs</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Bug ID</th><th>Title</th><th>Severity</th><th>Status</th><th>Found via</th><th>Production</th><th>Affects Feature #120436?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="open-row">
+      <td><strong>BUG-AGB-011</strong></td>
+      <td>Backlog story-points badge goes wrong (including negative) after dragging a card between sprint/version columns, without a page reload — drag updates the card count live but never the points badge, and a later inline point edit applies its delta on top of the stale value</td>
+      <td class="high">High</td>
+      <td>Open <span class="open-badge">OPEN</span></td>
+      <td>User live-testing after #120436 marked Done on production (2026-09-21); reproduced &amp; root-caused this session</td>
+      <td>#120990 (assigned Prashant Chaurasia)</td>
+      <td><strong>Yes</strong> — within #120436's own delivered badge-display code; corrects the earlier "zero defects" sign-off</td>
+    </tr>
+    <tr class="open-row">
+      <td><strong>BUG-AGB-010</strong></td>
+      <td>A <code>query_id</code> parameter on the Agile Board / Backlog controller crashes with a 500 (FrozenError on a frozen string literal in <code>retrieve_rf_agile_query</code>) — confirmed not reachable via any current UI link</td>
+      <td class="medium">Medium</td>
+      <td>Open <span class="open-badge">OPEN</span></td>
+      <td>Side-finding while checking TC-AGB-541's premise (regression, 2026-09-21)</td>
+      <td>#120986</td>
+      <td>No — pre-existing shared controller code, not touched by #120436's changes; does not block any of the ticket's four requirements</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Closed Bugs (this cycle)</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Bug ID</th><th>Title</th><th>Severity</th><th>Status</th><th>Fix Date</th><th>Retest</th><th>Production</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="closed-row">
+      <td><strong>BUG-AGB-009</strong></td>
+      <td>Turning Story Points off and on again silently wiped the configured Story Point Values</td>
+      <td class="medium">Medium</td>
+      <td>Closed <span class="fixed-badge">FIXED ✓</span></td>
+      <td>2026-09-18 (commit <code>288d293</code>)</td>
+      <td>2026-09-21 — PASS</td>
+      <td>#120947 — In QA → Done, 100%</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Fix Evidence</h2>
+<table>
+  <thead>
+    <tr><th>Bug ID</th><th>Root Cause</th><th>Fix Applied</th><th>Retest Evidence</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>BUG-AGB-009</strong></td>
+      <td>The Story Point Values field was only rendered on the Configure page while Enable Story Points was checked; since a Redmine plugin settings form replaces the whole settings hash on submit, a field not in the page saved as blank the next time the toggle was flipped.</td>
+      <td>Field is now always rendered and hidden with CSS instead of being removed from the DOM, so it is always submitted regardless of the checkbox state. Also now reappears live as soon as the checkbox is re-ticked, before any save.</td>
+      <td class="fix-ref">Followed the bug's exact repro steps: configured <code>1, 2, 3</code>, toggled off then on, saved each time — the scale survived intact on both the Configure page and the issue form's dropdown. No regression in the Backlog badge feature. See bugs/closed/BUG-AGB-009.md</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Investigated, not filed as bugs</h2>
+<table>
+  <thead>
+    <tr><th>Item</th><th>Test Case</th><th>Details</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>REST API returns 403 even with a valid admin API key</td>
+      <td>TC-AGB-548</td>
+      <td>Redmine core's own login-required filter appears to run before the plugin's custom <code>require_api_authentication</code> before_action gets a chance to authenticate the request. Root cause (core filter ordering vs. plugin/route configuration) not conclusively isolated in the time available — left inconclusive rather than filed speculatively.</td>
+    </tr>
+    <tr>
+      <td>Backlog "Board Settings" panel has two similarly-placed submit buttons</td>
+      <td>TC-AGB-537</td>
+      <td>The filter panel's "Apply" and the Board Settings panel's own "Apply Settings" sit close together in the same form; clicking the wrong one looks identical (page reloads either way) but never touches <code>visible_card_fields</code>. Not a defect once the correct button is used — the inline story-point editor works correctly and was fully re-verified. Recorded as a memory note for future sessions rather than a bug.</td>
+    </tr>
+    <tr>
+      <td>"Open the Backlog through a saved query" has no UI implementation</td>
+      <td>TC-AGB-541</td>
+      <td>Checked every view in the plugin: no button or link generates a <code>query_id</code>-carrying URL for the Backlog or Agile Board pages. The Issues page's own saved-query sidebar only ever links to <code>issues?query_id=N</code>. Marked the TC N/A rather than a defect, since the product never built this feature; the ticket itself never asked for it either. The underlying crash on manually-supplied <code>query_id</code> is tracked separately as BUG-AGB-010.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="margin-top:20px; font-size:11px; color:#888;">
+  Generated: 2026-09-21 &nbsp;|&nbsp; Suite: AGILE_BACKLOG_AND_SPRINTS.md, Feature #120436 (TC-AGB-529–553) &nbsp;|&nbsp;
+  Feature #120436 marked Done (100%) on production 2026-09-21, then a High-severity defect (BUG-AGB-011, production #120990) found within its own delivered code shortly after &mdash; #120436 reopened to In QA/90% pending the fix &nbsp;|&nbsp;
+  1 bug fixed &amp; closed this cycle, 2 bugs remain open (1 unrelated Medium, 1 new High within #120436's scope)
+</p>
+</body>
+</html>

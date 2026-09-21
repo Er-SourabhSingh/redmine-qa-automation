@@ -28,11 +28,31 @@
   "Issue closed" flag. That makes Resolved/Rejected a good pair for proving a closed-points calculation follows the
   flag rather than the status name.
 
-- **`settings[story_point_values]` is only rendered while Enable Story Points is checked**, so a disable-then-save
-  followed by an enable-then-save wipes it to `""` (`BUG-AGB-009`). The field then shows the default list as a
-  **placeholder**, which looks identical to a populated field at a glance - always read `.value`, never the
-  rendered text, when checking whether the scale is configured. With the setting blank the issue form falls back
-  to the built-in 11-value default, so a wrong dropdown is the visible symptom.
+- **`BUG-AGB-009` FIXED and closed 2026-09-21** (commit `288d293`). `settings[story_point_values]` used to be
+  rendered only while Enable Story Points was checked, so a disable-then-save followed by an enable-then-save wiped
+  it to `""`. Now the field is always rendered and hidden with CSS (`display: none`) instead of being removed from
+  the DOM, and it reappears immediately when the checkbox is re-ticked, before any save. Retested against the
+  exact repro: value survives the full off/on cycle on both the Configure page and the issue form dropdown.
+  Still worth remembering: the field previously showed the default list as a **placeholder** when empty, which
+  looked identical to a populated field at a glance - if a similar always-vs-conditionally-rendered field issue
+  ever comes up elsewhere, read `.value`, not the rendered text.
+
+- **`BUG-AGB-011` (open, High) - Backlog story-points badge goes wrong (incl. negative) after a drag, without a
+  reload.** Found within Feature #120436's own delivered code, discovered right after that ticket was marked Done
+  on production. Root cause: `backlog.html.erb`'s sortable `update` handler updates the card count
+  (`updateSingleColumnCount`) on drop but never touches `.backlog-column-story-points` - that badge is only
+  rendered at initial page load (`backlog_story_points_badge`, `rf_boards_helper.rb`). A subsequent inline point
+  edit (`rf_story_points.js`'s `updateBadges`) then applies its delta on top of the stale, drag-desynced badge,
+  compounding the error - repeated drags/edits in one session can drive the number arbitrarily wrong, including
+  negative. **Purely client-side**: a plain reload always shows the correct total, nothing is written wrong to
+  `story_points` server-side. **Testing-methodology lesson**: this only shows up when a drag and an inline point
+  edit happen back-to-back in the same page load, no reload in between - exactly real sprint-planning behavior,
+  but not a scenario this suite's TC-by-TC (each followed by a check/reload) execution ever exercised. If this
+  plugin gets any other "live badge/count" feature in the future, test it the same combined way, not just as
+  isolated single-action TCs. Reported to production 2026-09-21 as **#120990** (assigned Prashant Chaurasia,
+  user id 410 — project memberships list is the reliable way to resolve a numeric user id when `list_users`
+  is permission-blocked for this API key). Companion action: production **#120436** reopened (Done/100% ->
+  In QA/90%) pending this fix and retest.
 
 ## Confirmed Working
 
@@ -57,3 +77,41 @@
   #120436: sprint "SP Sanity Sprint 120436" and issues #1530 (New, 8 SP), #1529 (Resolved, 5 SP), #1528 (New, no
   SP), #1527 (Rejected, 2 SP), #1526 (In Progress, 3 SP) - all in that sprint. "test project" holds ~1180 issues,
   which also makes it a usable fixture for the lazy-load case TC-AGB-536.
+
+- **`BUG-AGB-010` (open, Medium - downgraded from an initial High)**: a `query_id` parameter on the Agile
+  Board/Backlog controller crashes 500 with `FrozenError (can't modify frozen String: "project_id IS NULL")`
+  in `RfBoardsController#retrieve_rf_agile_query` (rf_boards_controller.rb:1596). Cause: the file has
+  `# frozen_string_literal: true` and the method builds a SQL condition with a mutating `cond << " OR ..."` on
+  a frozen literal. Hits the project Kanban board too (shared before_action across 10 action entry points) -
+  almost certainly Global board and My Page block as well, though only Backlog and the project board were
+  directly confirmed. **Checked every view in the plugin for a `query_id` link into Backlog/Agile Board: none
+  exists** - the Issues sidebar's own saved-query links only ever point at `issues?query_id=N`. So there is no
+  button or link that reaches this crash; it requires manually editing the URL, which is why severity was
+  revised down after the initial filing. Still a real, intentionally-handled input from the controller's own
+  code (not dead code), so worth fixing regardless. Workaround: use `set_filter=1` with explicit `f[]`/`op[]`
+  params instead of `query_id` on these pages. **TC-AGB-541 ("a saved query overrides the setting") is marked N/A, not blocked** - there is no UI feature to load a saved query on the Backlog or Agile Board pages at all, so the TC describes something the product never built; this bug is an independent side-finding, not the reason the TC can't run.
+- **Fractional Story Points are rejected by design, not a gap.** The Story Point Values input has client-side
+  validation ("Story points must be positive integers only (no decimals or negative numbers)"); an invalid
+  submission (e.g. "2.5") is safely ignored server-side too, leaving the prior valid config untouched rather
+  than corrupting it.
+- **Redmine's REST API on this instance requires `X-Redmine-API-Key`/`?key=`, and even a valid admin key 403'd**
+  on the Agile Board plugin's `/api/v1/projects/:id/backlog` endpoint with "Filter chain halted as
+  `:check_if_login_required` rendered or redirected" - i.e. Redmine core's own login-required filter fires
+  before the plugin's custom API-key check gets a chance to run. Not root-caused; worth investigating with more
+  time before assuming it's a real defect.
+- **The Backlog page's "Board Settings" panel has two separate submit buttons in the same form — don't confuse
+  them.** The filter panel's own "Apply" button sits right next to the Board Settings panel's "**Apply Settings**"
+  button; only the latter submits `board[visible_card_fields][]`. Clicking the wrong one looks identical (both
+  reload the Backlog) but never touches card-field visibility, which briefly looked like a persistence bug
+  during TC-AGB-537 until the right button was used — it persists correctly. Once `story_points` is checked
+  and saved via "Apply Settings", every card renders a `[data-points]` button; clicking it inserts a
+  `<select class="rf-points-select">` next to the button (`rf_story_points.js`) that creates/updates/removes the
+  column badge live, matching a reload exactly. The Kanban board's own settings panel uses a different, separate
+  scheme (`show_story_points` boolean) that doesn't map onto Backlog cards — that one genuinely is a different
+  mechanism, not a bug.
+- **To test as a non-admin project member, use the pre-seeded `testuser100` / `testuser<N>` accounts** (password
+  `12345678`, set via Administration > Users since they aren't in the shared QA_CREDENTIALS.md pool) rather than
+  the `luna.blossom`-style seed users - the latter don't exist as Redmine users on this particular local
+  instance, only the `testuser1`-`testuser100` fixtures from a separate dummy-data seed do. The Developer role on
+  this instance does **not** have "View Agile Board" granted by default - grant it temporarily for a
+  non-admin Agile Board test and revert it afterward, so other suites' permission fixtures aren't disturbed.

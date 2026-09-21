@@ -400,6 +400,13 @@ sits in the Backlog.
 > Redmine 7.0.0, Agile Board plugin 7.0.0 on branch `feature/backlog-sprint-points` (commit `66ae25f`), as Admin,
 > Chrome via Playwright MCP, viewport 1920x1080. Production run #577, testcase #120941.
 >
+> **2026-09-21 update:** production testcase #120941 (run #577) has been marked **Failed** and linked to
+> **BUG-AGB-011 / production #120990** — the drag-without-reload badge defect regresses this sanity testcase's
+> own scope (the badge display), even though the individual local TCs below (TC-AGB-529/530/533/535/539/545)
+> still each pass in isolation. This is a deliberate divergence: the local per-TC verdicts below reflect
+> isolated execution and are left as-is per `SENIOR_QA_STANDARDS.md`'s retest-scope rule; production run #577's
+> own result now reflects the regression found under the combined drag+edit-without-reload workflow.
+>
 > | TC | Verdict | Evidence |
 > |---|---|---|
 > | TC-AGB-529 | **PASS** | Configure page has a `Backlog` section with exactly the two checkboxes (`settings[backlog_show_closed_issues]`, `settings[backlog_wide_unassigned_column]`), both unchecked on first view, each with its hint text. "Successful update" on save; both still false after reload. |
@@ -575,6 +582,13 @@ sits in the Backlog.
 - In each case the page state matches what a reload produces - the recorded reason for this behaviour is that
   a column with no points carries no badge to update, so a stale-until-reload total is the defect to watch for.
 
+> **Execution note.** The Backlog's inline per-card story-point editor is enabled via **Board Settings → the
+> Story Points checkbox in the visible-card-fields list**, submitted with its own **"Apply Settings"** button
+> — a separate control from the filter panel's own "Apply" button that sits nearby in the same form. An
+> earlier attempt this cycle used the wrong button and concluded the setting didn't persist; it does, and once
+> submitted correctly the inline editor (a `<select class="rf-points-select">` inserted next to the card's
+> points button on click) works exactly as specified. See Regression execution below for the confirmed result.
+
 ---
 
 ### TC-AGB-538: With the setting off, completed stories drop out of the Backlog
@@ -624,7 +638,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-541: A saved query overrides the setting
+### TC-AGB-541: A saved query overrides the setting — **N/A, feature not built**
 
 **User Role:** Member
 **Steps:**
@@ -634,6 +648,20 @@ sits in the Backlog.
 - The saved query is applied exactly as saved; the setting does not modify it.
 - A saved query is the user's own deliberate definition, and a global setting silently rewriting it would make
   every saved Backlog query untrustworthy.
+
+> **Verdict: N/A (2026-09-21 regression).** Step 1 assumes a UI feature — "open the Backlog through a saved
+> query" — that does not exist. Checked every view in the plugin: the project Issues page's "My custom
+> queries" sidebar is the only place the app generates a `query_id` link at all, and every one of those points
+> at `issues?query_id=N`, never at the Backlog or Agile Board. The Backlog's own "More filters" panel is a
+> filter *builder* (pick a field/operator/value, Apply) with no saved-query selector of any kind — that panel
+> is what the docs' "query-based filters" requirement actually refers to, and it's already covered by
+> TC-AGB-540. There is nothing to test here as written; this is not a gap to fix, it's a TC written against a
+> feature the product never built. Marked N/A rather than Blocked.
+>
+> A side-finding surfaced while checking this: the underlying `query_id` **parameter** is still intentionally
+> handled by the controller (not dead code — see `retrieve_rf_agile_query`), and passing it directly in a
+> hand-edited URL crashes with a 500. That's tracked separately as `BUG-AGB-010`, independent of this TC's
+> verdict — see the bug file for why it's still worth fixing despite having no UI entry point today.
 
 ---
 
@@ -803,13 +831,73 @@ sits in the Backlog.
 
 ---
 
+## Regression execution — Feature #120436 — 2026-09-21
+
+> Full regression of the remaining TC-AGB-531–553 (the sanity subset TC-AGB-529/530/533/535/539/545 was already
+> executed 2026-09-18). Environment: local Docker `redmine-docker-700`, http://localhost:3010, Redmine 7.0.0,
+> Agile Board plugin branch `feature/backlog-sprint-points`, commit `288d293` (post BUG-AGB-009 fix). Admin +
+> `testuser100` (Developer role, granted View Agile Board for the duration of TC-AGB-550 and reverted after).
+
+| TC | Verdict | Notes |
+|---|---|---|
+| TC-AGB-531 | **PASS** | Version column badge `3 / 8 SP`, exactly matching #1222 (New, 5) + #825 (Rejected, 3). |
+| TC-AGB-532 | **PASS** | Both No Sprint (`3 / 8 SP`) and No Version (`5 / 21 SP`) carried badges, correctly aggregating only the pointed issues each actually contains. |
+| TC-AGB-534 | **PASS** | "No Points Sprint" with 2 unpointed issues showed **no badge**, count still correct (2). |
+| TC-AGB-536 | **PASS** | "Big Sprint" (30 issues): badge read `5 / 13 SP` correctly on first render, from issues #1494/#1495 that were beyond the 25-card initial page and not yet loaded. |
+| TC-AGB-537 | **PASS (corrected — initial "blocked" verdict was tester error, not a product gap).** Re-ran using the Board Settings panel's own **"Apply Settings"** submit button (previously the adjacent filter panel's "Apply" was clicked by mistake, which never touches `visible_card_fields`). With `story_points` enabled as a visible card field, it persists correctly and each card renders a `[data-points]` button. On a clean column (Live Update Sprint 537, 1 unpointed issue): setting 5 via the inline `<select class="rf-points-select">` created the badge live (`NONE` → `0 / 5 SP`); changing to 13 updated it live (`0 / 13 SP`); clearing it removed the badge entirely (back to `NONE`). A subsequent plain reload matched every intermediate state exactly. |
+| TC-AGB-538 | **PASS** | With the setting off, confirmed baseline: Big Sprint total 29 (open-only), closed #1494 excluded. |
+| TC-AGB-539 | **PASS** (reconfirmed) | Toggling the setting on brought the total to 30 immediately. |
+| TC-AGB-540 | **PASS** | Explicit `status_id=open` filter dropped the total to 29 (closed #1494 excluded) even with the setting on, and the choice survived further Backlog navigation without a set_filter re-submit. |
+| TC-AGB-541 | **N/A — feature not built.** No button or link anywhere in the plugin's UI opens the Backlog "through a saved query"; checked every view. The docs' "query-based filters" requirement is satisfied by the filter-builder panel instead, already covered by TC-AGB-540. Not a gap, not blocked — there is nothing here to test as written. Side-finding while checking this: the raw `query_id` parameter still crashes with a 500 if hand-supplied in the URL (`BUG-AGB-010`), tracked as its own independent defect. |
+| TC-AGB-542 | **PASS** | With a clean open-only baseline (29), enabling the setting brought total to 30; disabling it again brought total back to 29 on the very next reload — no logout or manual filter-clear needed. Badge (`5 / 13 SP`) unchanged by either toggle. |
+| TC-AGB-543 | **PASS** | Scrolling Big Sprint to load-more brought in closed #1494; final loaded count (30) matched the header total exactly, badge unchanged. |
+| TC-AGB-544 | **PASS** (reconfirmed) | Unassigned column 284px at 1920px with the width setting off. |
+| TC-AGB-545 | **PASS** (reconfirmed) | Sprints-tab No Sprint and Versions-tab No Version both 444px with the setting on; no clipping. |
+| TC-AGB-546 | **PASS** | At exactly 1024px (the CSS breakpoint boundary), the wide column reverted to standard 284px despite the setting being on. |
+| TC-AGB-547 | **PASS** | Enabled Agile Board module + both settings on "Flux Gantt Project" (a second, unrelated project) — both settings applied there too (wide columns on both unassigned columns), confirming instance-wide scope. |
+| TC-AGB-548 | **INCONCLUSIVE — not completed.** The plugin's `/api/v1/projects/:id/backlog` endpoint requires an `X-Redmine-API-Key`/`?key=` and returned 403 "Filter chain halted as `:check_if_login_required` rendered or redirected" even with a valid admin API key, before the plugin's own `require_api_authentication` before_action had a chance to run. Root cause not conclusively isolated (Redmine core authentication-filter ordering vs. environment/route configuration) in the time available; not filed as a bug on this basis alone. |
+| TC-AGB-549 | **PASS (feature is integer-only by design)** | Attempting `2.5` in Story Point Values triggered a clear client-side message ("Story points must be positive integers only (no decimals or negative numbers)"); the rejected submission left the existing configuration untouched rather than corrupting it. Fractional points are out of scope by design, not a gap. |
+| TC-AGB-550 | **PASS** | Issue #1520 (13 SP) marked Private, not authored/assigned to `testuser100`. Admin saw `0 / 13 SP` and 2 cards; `testuser100` saw **no badge** and only 1 card (#1521) — the hidden issue's points were fully excluded from the total, no leak. |
+| TC-AGB-551 | **PASS** | As `testuser100` (non-admin): GET `/settings/plugin/agile_board` → 403; POST attempting to flip `enable_story_points` to `0` → 403, and the stored setting was confirmed unchanged afterward as admin. |
+| TC-AGB-552 | **PASS** | Switched to German: both setting labels and their hint text render fully in German ("Abgeschlossene Tickets im Backlog anzeigen", "Breitere Spalte für nicht zugeordnete Tickets" + hints), and the badge's hover title reads "5 von 21 Story Points abgeschlossen". |
+| TC-AGB-553 | **PASS** | "Flux Gantt Project" (bare, no sprints/versions/points) with both settings + Story Points on: clean layout, widened unassigned column, no badges, no error. |
+
+**Result: 23 PASS, 1 N/A (feature not built), 1 inconclusive (API auth).** TC-AGB-537 was initially miscalled
+"blocked" due to a tester mistake (wrong "Apply" button clicked) rather than a real product gap — corrected
+after the user flagged it, and passes cleanly once the right control is used. One separate, pre-existing
+Medium-severity defect found as a side-finding while checking TC-AGB-541's premise: **`BUG-AGB-010`** — a
+code-level crash on the `query_id` parameter, confirmed not reachable via any current UI link (see the bug
+file's own reachability note) — see below.
+
+> ### ⚠️ Correction — a real defect in #120436's own code, found after the above was signed off (2026-09-21)
+>
+> The line above originally read "No new defects found in Feature #120436's own code" — **that was wrong.**
+> The user independently found, and this session then reproduced and root-caused, **`BUG-AGB-011`**: the
+> Backlog's story-points badge goes wrong — including negative — after dragging a card between sprint/version
+> columns without reloading the page, because the drag handler updates the card count live but never the
+> points badge, and a subsequent inline point edit then applies its delta on top of that stale, wrong badge
+> value. This is squarely inside `backlog_story_points_badge` and the badge display #120436 introduced, not
+> pre-existing plugin code like BUG-AGB-010.
+>
+> **Why TC-by-TC execution missed it:** every drag TC (TC-AGB-545) and every inline-edit TC (TC-AGB-530–539
+> etc.) was followed by a check and often a reload, in isolation. The bug only shows up when a drag and a
+> point edit happen **back-to-back in the same page load, no reload in between** — the actual shape of live
+> sprint planning, and not a scenario any single TC in this suite exercised. See `BUG-AGB-011` for full
+> reproduction, root cause (exact file/line in `backlog.html.erb` and `rf_story_points.js`), and evidence.
+>
+> Feature #120436 was already marked **Done** on production before this was found — see the plugin's Handoff
+> and STATUS.md for how that's being tracked now.
+
+---
+
 ## Evidence Map
 
 | Case ID | Screenshot | Log | Bug reference |
 |---------|------------|-----|---------------|
 | TC-AGB-529 | n/a (PASS - no screenshot per CLAUDE.md s6) | 2026-09-18 sanity pass | - |
 | TC-AGB-530 | n/a (PASS) | 2026-09-18 sanity pass | - |
-| TC-AGB-533 | screenshots/BUG-AGB-009/ | 2026-09-18 sanity pass | BUG-AGB-009 (separate defect found en route; TC itself PASS) |
+| TC-AGB-533 | screenshots/BUG-AGB-009/ | 2026-09-18 sanity pass | BUG-AGB-009 (separate defect found en route; TC itself PASS, now FIXED and closed) |
 | TC-AGB-535 | n/a (PASS) | 2026-09-18 sanity pass | - |
 | TC-AGB-539 | n/a (PASS) | 2026-09-18 sanity pass | - |
 | TC-AGB-545 | n/a (PASS) | 2026-09-18 sanity pass | - |
+| TC-AGB-541 | n/a (N/A verdict, feature not built) | 2026-09-21 regression | BUG-AGB-010 (independent side-finding, not blocking this TC's N/A verdict) |

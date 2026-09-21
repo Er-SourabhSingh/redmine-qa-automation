@@ -37,7 +37,7 @@ The server is defined in a **project-scoped** `.mcp.json` at the repository root
       "type": "http",
       "url": "https://flux.zehntech.com/mcp",
       "headers": {
-        "X-Redmine-API-Key": "d8ff92a06082fbf9efc0adfead1616aa1ba7198d"
+        "X-Redmine-API-Key": "<see local .mcp.json — never put the real key in this tracked file, see §5>"
       }
     }
   }
@@ -113,27 +113,50 @@ Every production write follows this sequence:
 
 ### 4.3a Bug-report fields required at creation
 
-**Single-call creation, no attachments (updated 2026-09-15):** `redmineflux_core_create_issue` accepts `priority_id`, `assigned_to_id`, and `custom_fields` all as parameters on the *same* call — there is no need for separate `update_issue` calls afterward to set priority, assignee, or custom fields. **Do not attach the generated PDF or the local bug MD file at all** — per explicit instruction, creating a bug is now just **1 call**: `create_issue` with `project_id=ztflux`, the prefixed `subject`, a fully self-contained Textile-formatted `description`, `priority_id`, `assigned_to_id`, and `custom_fields`. No `upload_file` calls, no `uploads` parameter.
+**Single-call creation, no attachments (updated 2026-09-15):** `redmineflux_core_create_issue` accepts `tracker_id`, `priority_id`, `assigned_to_id`, and `custom_fields` all as parameters on the *same* call — there is no need for separate `update_issue` calls afterward to set priority, assignee, or custom fields. **Do not attach the generated PDF or the local bug MD file at all** — per explicit instruction, creating a bug is now just **1 call**: `create_issue` with `project_id=ztflux`, `tracker_id=3` (Bug — see §4.3b), the prefixed `subject`, a fully self-contained Textile-formatted `description`, `priority_id`, `assigned_to_id`, and `custom_fields`. No `upload_file` calls, no `uploads` parameter.
+
+> **⚠️ Confirmed bug in this process, found 2026-09-21:** `tracker_id` was never explicitly included in the create-bug template above until this fix. `create_issue`'s `tracker_id` defaults to `0` ("project default tracker") when omitted — and `ztflux`'s project default tracker resolves to **Task**, not **Bug**. Every bug created before this fix via this flow may have silently landed under the Task tracker instead of Bug. **`tracker_id=3` (Bug) must be passed explicitly on every bug-creation call from now on — never rely on the project default.** If you're auditing older bugs for this, check the tracker shown by `get_issue` against the intended value.
 
 Why attachments were dropped: each `upload_file` call carries the same ~6-7 second fixed latency tax as any other redmineflux MCP call, so 2 attachments meant 2 extra calls (and extra wait) for every bug. It also turned out to be the less reliable path — see the corruption findings kept below for the record. Since the Description field is plain text sent inline with the single `create_issue` call (no separate upload, no base64, never observed to corrupt), **all bug detail now lives in the Description itself**, not in an attached file.
 
-**Built-in Priority IDs on this instance** (from `list_priorities`, no lookup needed each time): `1=Low`, `2=Medium (default)`, `3=High`, `4=Blocker`.
+### 4.3b Cached reference IDs — check here before calling a list_*/get_* lookup tool
 
-**Known gap — custom field IDs unavailable:** the "Defect Type" / "Defect Severity" / "Defect priority" fields visible on existing issues (e.g. #120477) are *custom fields*, distinct from the built-in Priority above. Setting them via `custom_fields` requires each field's numeric ID, and `list_custom_fields` currently returns "You do not have permission to view custom fields" for this API key's account. Until resolved, these three fields cannot be set in the single `create_issue` call — either:
-- ask a Redmine admin to grant this account permission to view custom fields, so the IDs can be looked up once and hardcoded here permanently, or
-- get the numeric IDs directly from Redmine admin (**Administration → Custom fields** → open each field → ID is in the URL, e.g. `.../custom_fields/47/edit`) and supply them for this doc.
-`get_issue`'s formatted output shows these fields' *names and current values* (that's a normal issue-view permission), but never their numeric IDs — so reading an existing issue can't work around this gap.
+These are stable on this instance and confirmed by direct tool calls on the dates noted. Re-fetching any of these via a lookup tool wastes a call (~6-7s + tokens) for no new information — use the cached value instead, and only re-verify if something here stops matching reality.
+
+| What | Values | Confirmed |
+|---|---|---|
+| Project `ztflux` | numeric ID **122** | 2026-09-16 |
+| Priority (built-in) | `1=Low`, `2=Medium (default)`, `3=High`, `4=Blocker` | `list_priorities` |
+| Issue Status (built-in, `status_id`) | `7=New`, `6=In Specification`, `2=In Progress`, `19=In Peer Review`, `3=In QA`, `4=In Approval`, `5=Done (closed)`, `16=Cancel (closed)`, `8=Won't Fix (closed)`, `21=On Hold`, **`9=Reopen`**, `10=Identifying`, `11=Sourcing`, `17=Test Case Fail`, `18=Test Case Pass (closed)` | `list_statuses`, 2026-09-21 |
+| Case Status (`case_status_id`, testcase-management) | `1=Untested (disabled)`, `2=Passed`, `3=Failed [requires defect_ids]`, `4=Retest`, `5=Blocked [requires defect_ids]`, `6=Skipped` | `list_case_statuses`, 2026-09-18 |
+| Run State (`state`, `create_run`) | `1=New`, `2=In Progress`, `3=Done`, `4=Rejected`, `5=Under Review` | tool docstring |
+| Tracker (`tracker_id`) | `4=Task`, **`3=Bug`**, `6=Feature`, `5=Support`, **`7=Test Case`**, `8=Improvement`, `9=Requirement`, `12=CPP - Content`, `13=Developer - Python/NodeJS/PHP`, `14=Digital Marketing and Sales`, `15=Change Request`, `16=Quality Assurance`, `17=AWS Support`, `18=Leave`, `19=Training`, `20=Incident`, `21=Epic` | `list_trackers`, 2026-09-21 |
+| Category (`category_id`, per plugin — from `list_issue_categories(122)`, 2026-09-21, full list) | `2734=Helpdesk Plugin`, `257=Agile board plugin`, `6177=Crux Plugin`, `2085=Testcase Management Plugin`, `2079=Knowledgebase Plugin`, `5782=CRM Plugin`, `5493=Invoice Plugin`, `6085=DevOps Plugin`, `258=Timesheet plugin`, `255=Workload Plugin`, `2116=Time Tracker Plugin` (also `5492=Time tracker web Plugin` — separate, near-identical name, check which one a given bug actually needs), `355=Tags Plugin`, `608=Checklist Plugin`, `2080=Inline Editor Plugin`, `353=Issue Template Plugin`, `6084=MCP Plugin`, `619=Mentions Plugin`, `2776=Notification Plugin`, `2114=Fluxshot Plugin`, `5703=Scarlet Plugin`, `5887=Lotus Plugin`, `346=FluxGantt Plugin`, `256=Custom dashboard plugin`, `360=Budget and Audit plugin`, `610=Budget & Finance Plugin`, `4574=Budget and Billing Plugin`, `614=Announcement Plugin`, `2749=AI Plugin`. Generic/non-plugin categories also exist (`611=Development - Quality Assurance & Testing`, `613=Development - Web Application - Backend`, `259=QA`, `321=UI/UX`, etc.) — pick the plugin-specific one whenever the bug is against a specific plugin. | 2026-09-21 |
+| Custom fields | `43=Defect Type`, `44=Defect Severity`, `45=Defect priority`, `46=Peer Reviewer`, `51=System Component`, `57=Crux Capability` | 2026-09-15, confirmed by setting them, not by `list_custom_fields` (permission-blocked) |
+| Defect Type (43) possible values | `Functional`, `Performance`, `Usability`, `Compatibility`, `Security` | screenshot of the real dropdown, 2026-09-21 |
+| Defect Severity (44) possible values | `Blocker`, `Critical`, `High-severity`, `Medium-severity`, `Low-severity` | screenshot of the real dropdown, 2026-09-21 (note the inconsistent naming — Blocker/Critical have no "-severity" suffix, High/Medium/Low do; this is exactly how the field is configured, not a typo to "fix") |
+| Defect priority (45) possible values | `Urgent`, `High`, `Medium`, `Low` | screenshot of the real dropdown, 2026-09-21 |
+| Known assignees (`assigned_to_id`) | Vaishnavi Bhawsar **= 192**; Sheetal Sharma **= 397**; Prashant Chaurasia **= 410** | `list_project_memberships(ztflux)`, 2026-09-21 — `list_users` itself is permission-blocked, so carry these forward rather than re-looking-up. Full `ztflux` membership list also includes: Mahendra Patidar=1, Sourabh Agrawal=12, Pravesh Kumar Jain=30, Priyank Upadhyay=51, Sourabh Singh=683, Nidhi Singh=737, Ashish Patel=806, Zehntech MCP Bot=818. |
+
+Environment labels, testsuite IDs, and testcase IDs are **not** cached here — those genuinely vary per run and must be looked up fresh each time via `get_run`/`get_run_testcases`/`list_testcases_in_suite`.
 
 For a **bug** write specifically, the write proposal in step 2 must cover every one of these before it's shown to the user:
 
 - **Project** — fixed at `ztflux` (§1.1 rule), never asked for.
 - **Subject/Title prefix** — the production issue's Subject must start with the local bug's own ID, exactly as it appears in the MD filename (`BUG-<CODE>-<NUMBER>`, e.g. `BUG-HLP-025`), followed by a colon and the descriptive title: `BUG-HLP-025: Submitting an Internal Note on a ticket crashes with a 500 error`. Never drop this prefix or invent a different production-side numbering — it's what ties the production issue back to the local `bugs/open/<BUG-ID>.md` file and its `_index.md` row.
 - **Test Run name, Environment, Test Case ID** — supplied by the user at the time of reporting, not inferred, guessed, or picked from the local bug MD file on Claude's own judgment. Ask for any that are missing.
-- **Priority and Severity** — set on the production issue, mapped from the local bug MD file's own Severity classification (Critical/High/Medium/Low). State the mapped value explicitly in the proposal so the user can correct it before approval.
-- **Assignee** — always ask the user who the production issue should be assigned to. Never default, guess, or leave unassigned without asking first.
-- **Attachments — retired 2026-09-15, do not attach anything.** Do not generate or attach a PDF, and do not attach the local bug MD file (`bugs/open/<BUG-ID>.md`), to the production issue. There is no per-bug PDF folder or convention anymore — Every bug's full detail must be captured in the Description field itself instead (see below), with no attachment fallback for missing detail.
+- **Priority and Severity** — set on the production issue, mapped from the local bug MD file's own Severity classification, using this exact table (all four fields — built-in Priority, Defect Severity, Defect priority, and Defect Type — must be set per bug, never left at a default that doesn't match the actual severity):
 
-  > **Historical record** (context only, not active instructions): a raw screenshot embedded inline into Description originally rendered as a blank/gray block (found 2026-09-11), so the workaround was to generate a single-bug PDF (`scripts/gen_bug_pdf.js`, pdfkit-based to stay under a base64 size ceiling, output previously kept under a per-plugin `bugs/pdf/` folder — now removed) and attach that plus the bug MD file instead of embedding an image directly. This was dropped for two reasons: **(1) Speed** — each `upload_file` call carries the same ~6-7s fixed latency tax as any other redmineflux MCP call, so 2 attachments meant 2 extra calls' worth of waiting per bug on top of the create call. **(2) Reliability** — a 12,388-byte PDF uploaded to issue #120588 reported a correct `File size: 12.1 KB` and had valid `%PDF`/`%%EOF` markers, yet still had 2 bytes silently substituted mid-file (offsets 5954-5955), corrupting 1 of 4 content streams; length-preserving corruption defeats a size check, and the only reliable verification (download + checksum) is itself more calls and more time. Measured ceiling for byte-exact uploads was only ~4KB. `scripts/gen_bug_pdf.js` itself still exists and works if a PDF is ever needed for another purpose (pass any output path explicitly) — it is simply no longer wired into the bug-creation flow.
+  | Local bug Severity | `priority_id` (built-in) | Defect Severity (44) | Defect priority (45) |
+  |---|---|---|---|
+  | Critical | `4` (Blocker) | `Blocker` or `Critical` (pick per actual impact) | `Urgent` |
+  | High | `3` (High) | `High-severity` | `High` |
+  | Medium | `2` (Medium) | `Medium-severity` | `Medium` |
+  | Low | `1` (Low) | `Low-severity` | `Low` |
+
+  Defect Type (43) is set from the bug's own nature, not its severity — pick whichever of `Functional`, `Performance`, `Usability`, `Compatibility`, `Security` actually matches (default to `Functional` only when the bug genuinely is a functional defect, not as a blanket default regardless of type). State every mapped value explicitly in the proposal so the user can correct it before approval — **a known past mistake (BUG-CRX-008, a Blocker-priority bug) shipped with Defect Severity left at `Medium-severity` instead of being raised to match — don't let severity silently default instead of being actively mapped.**
+- **Assignee** — always ask the user who the production issue should be assigned to. Never default, guess, or leave unassigned without asking first.
+- **Attachments — retired 2026-09-15, do not attach anything.** Do not generate or attach a PDF, and do not attach the local bug MD file (`bugs/open/<BUG-ID>.md`), to the production issue. There is no per-bug PDF folder or convention anymore — every bug's full detail must be captured in the Description field itself instead (see below), with no attachment fallback for missing detail. (Dropped for speed and reliability — full history in `scripts/gen_bug_pdf.js`'s header comment if ever needed; the script itself still works standalone for other purposes.)
 - **Description field structure, in Textile (not Markdown)** — this Redmine instance's Description field renders **Textile**, not Markdown. The local bug MD file is Markdown-formatted, so its content must be *converted* to Textile syntax when writing the Description, not pasted as-is. Since the Description is plain text sent inline with the single `create_issue` call (no upload, no base64), this is the one part of the bug that reaches production reliably and without the attachment-latency cost — so it must be complete on its own.
 
   Markdown → Textile conversion cheat sheet:
@@ -162,7 +185,7 @@ For a **bug** write specifically, the write proposal in step 2 must cover every 
 
 Do not proceed to the write proposal until all of the above are known — ask for whatever's missing (at minimum: Test Run, Environment, Test Case ID, Assignee) in one message.
 
-### 4.3b ⚠️ Never use these tools to build local test fixtures
+### 4.3c ⚠️ Never use these tools to build local test fixtures
 
 **Incident (2026-09-17):** while testing `redmineflux_crux`'s QA Agent against a local Docker Redmine instance (`localhost:3014`), a session called `redmineflux_testcases_management_create_testcase` to build a throwaway fixture testcase ("TC-CRX-170 Passed Fixture") for a local test scenario. Because this MCP server is *always* connected to production (§1), that call created a real, permanent issue on `flux.zehntech.com` (`ztflux` project, issue #120780) instead of a disposable local record — even though the intent was purely local.
 

@@ -1,4 +1,4 @@
-# BUG-AGB-009
+# BUG-AGB-009 [FIXED]
 
 - Bug ID: BUG-AGB-009
 - Production Redmine Issue ID: #120947 (ztflux, assigned to Prashant Chaurasia, reported 2026-09-18)
@@ -118,3 +118,62 @@ The admin had configured `1, 2, 3`; the dropdown offers `0`, `5`, `8` … from t
 - Duplicate found: No
 - Checked `bugs/_index.md` (BUG-AGB-001 … 008, all closed, all translation/display defects) and
   `bugs/_duplicates.md` (empty). No prior bug touches Story Points configuration persistence.
+
+## Retest — 2026-09-21
+
+- Retest environment: Local Docker `redmine-docker-700` — http://localhost:3010, same as original.
+- Plugin version: 7.0.0, branch `feature/backlog-sprint-points`, commit `288d293` ("Keep the story point scale
+  when the feature is toggled off" — fixes this bug per its own commit message and the reference `Fixes
+  BUG-AGB-009 (#120947)`).
+- Browser: Chrome (Playwright MCP), 1920×1080. User role: Admin.
+- Restarted the container and ran `start-background-jobs.sh` (Redis + Sidekiq) before retesting, per standing
+  environment procedure.
+
+### Steps followed (identical to the bug's own repro)
+
+1. Configure page → set **Story Point Values** to `1, 2, 3`, **Enable Story Points** checked, **Apply**.
+   - Confirmed saved: `1, 2, 3`, "Successful update".
+2. Issue #1528 edit form → **Story Points** dropdown: confirmed exactly `--, 1, 2, 3`.
+3. Configure page → **unchecked** Enable Story Points, **Apply**.
+   - Confirmed via DOM: `input#story_point_values_input` is **present** (not absent, per the fix's approach —
+     "render always, hide with CSS") with `value="1, 2, 3"` intact, and its row has `style="display: none;"`.
+4. Configure page → **re-checked** Enable Story Points (no reload).
+   - The Story Point Values row **reappeared immediately on ticking the checkbox, before any save** — matching
+     the fix's stated improvement ("the field now also appears as soon as the checkbox is ticked, rather than
+     only after a save"). Value still `1, 2, 3`.
+5. Clicked **Apply**.
+   - "Successful update". Configure page re-read: **Story Point Values still reads `1, 2, 3`.**
+6. Issue #1528 edit form, re-opened: **Story Points** dropdown offers exactly **`--, 1, 2, 3`** — the built-in
+   11-value default (`0, 5, 8, 13…`) does **not** reappear. Issue #1528's own previously-set value (`3`) is
+   still selected.
+
+### Result: FIXED
+
+The admin's configured scale survives the full off/on cycle end to end, on both the Configure page and the issue
+form — exactly the Expected Result this bug specifies. See screenshots.
+
+### No regression in the surrounding feature
+
+Re-checked the Backlog page (Feature #120436, this same session's other work): the sprint's Closed/Total badge
+still reads `5 / 21 SP` unchanged, so the fix did not disturb the story-points badge or backlog behavior.
+
+### Anomaly observed once, not reproducible — noted, not filed separately
+
+On the *first* attempt at step 5 (Apply after re-checking the box), the page returned a Redmine 500 Internal
+Server error. The write itself had actually succeeded — reloading the Configure page afterward showed `1, 2, 3`
+correctly saved — so the failure was in rendering the response, not in the setting update. Retried the exact
+same sequence (uncheck → Apply → re-check → Apply) a second time immediately after, following the steps via
+plain UI clicks rather than a mix of scripted DOM manipulation and clicks as in the first attempt, and it
+completed cleanly with no error, repeatably. `docker logs` for this container is only capturing buffered/stale
+output in this environment (unrelated infra quirk, tail sits days behind wall-clock except for a few FATAL
+lines), so no stack trace could be pulled to confirm a root cause. Given it did not reproduce against the
+documented steps and the underlying data was correct both times, this is **not blocking** the FIXED verdict, but
+is worth a quiet follow-up if a 500 is ever seen again on this settings form.
+
+### Evidence
+
+![Retest: Configure page after full off/on cycle, values intact](../../screenshots/BUG-AGB-009/retest-2026-09-21-pass-config.png)
+
+![Retest: issue form dropdown shows exactly --, 1, 2, 3](../../screenshots/BUG-AGB-009/retest-2026-09-21-pass-issue-form.png)
+
+Environment restored to the default scale (`0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89`) after retest.

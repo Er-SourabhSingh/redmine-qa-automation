@@ -53,6 +53,14 @@ This is a **regression, not a permanent environment limitation**: `HELPDESK_MEMO
 
 - Duplicate found: No (checked `bugs/_index.md`/`bugs/_duplicates.md` — distinct from BUG-HLP-055/056, which are about the manually-invoked `rake` tasks' own internal logic bugs; this is about the *automatic, scheduled* execution path never running at all, a categorically more severe problem since it means the correctly-written parts of BUG-HLP-056's own analysis — the real scheduled `Helpdesk::SlaMonitorWorker` passing the correct escalation reason — never actually get to execute in this environment either)
 
+## Retest — 2026-09-21 (Local, `redmine-docker-6`, production issue #120545 checked in)
+
+**FIXED — confirmed via source and a genuine end-to-end live test with zero manual worker invocation. Moved to closed/. Production issue #120545 synced to Status: Done, % Done: 100 (2026-09-21).**
+
+- **Source-level fix**: the plugin's own `Gemfile` now pins `gem 'connection_pool', '~> 2.5'` with an explicit `BUG-HLP-060` comment explaining the root cause (Sidekiq 7.3.9's `Scheduled::Poller#initial_wait` calls `TimedStack#pop` with a positional argument that `connection_pool` 3.0+ made keyword-only). On this session's container restart, `bundle install` (run by the Docker entrypoint) picked this pin up and downgraded the resolved `connection_pool` from `3.0.2` to `2.5.5`.
+- **Live end-to-end confirmation**: after correctly starting Sidekiq with `bundle exec sidekiq -e production -C plugins/redmineflux_helpdesk/config/sidekiq.yml` (the `-C` flag is required for Sidekiq to listen on the plugin's `helpdesk`/`helpdesk_emails`/`mailers` queues — a bare `sidekiq -e production` only listens on `default`, silently stranding every cron-enqueued job with no error, confirmed via `Sidekiq::ProcessSet`/`Sidekiq::Queue.all`; this was a test-setup mistake on my end this session, not a plugin defect, but worth flagging for any future retest of a background-job-dependent bug on this environment), a completely fresh ticket (#406) was created, assigned to start a real 1-minute SLA clock, and — with zero manual `rails runner` intervention — was automatically detected as breached (`response_breached: true`) and escalated (`escalation_count: 1`) purely by the scheduled cron mechanism, confirmed via genuine Sidekiq job log lines at the correct 2-minute cadence.
+- No `ArgumentError` crash occurs on Sidekiq boot anymore; the scheduler thread stays alive for the life of the process.
+
 ## Notes
 
 - Found while executing `HELPDESK_REPORTING_AUTOMATION.md` TC-HLP-186/187 (scheduled SLA monitor / email poller cadence checks) — per the standing project rule to check/restart Redis + Sidekiq before any such timing test, both were confirmed down and freshly restarted this session, which is what surfaced the crash.

@@ -10,7 +10,9 @@
 | BUG-AGB-006 | Admin Configure page: "(Default: ...)" parenthetical untranslated in all 8 priority/tracker icon rows | Closed | Low | 7.0.1.stable |  | bugs/closed/BUG-AGB-006.md |
 | BUG-AGB-007 | [FIXED] Project Settings → Sprints tab: "Freigabe" column showed raw untranslated "not_shared" for pre-existing sprints — confirmed now showing "Nicht geteilt" correctly | Closed | Low | 7.0.1.stable |  | bugs/closed/BUG-AGB-007.md |
 | BUG-AGB-008 | [FIXED] Drag-and-drop status-change confirmation toast was entirely hardcoded English — confirmed now rendering "Ticket #259 verschoben nach RESOLVED" fully in German | Closed | Low | 7.0.1.stable |  | bugs/closed/BUG-AGB-008.md |
-| BUG-AGB-009 | Turning Story Points off and on again silently wipes the configured Story Point Values, and the issue form falls back to the built-in default list | Open | Medium | 7.0.0 (local Docker) | #120947 | bugs/open/BUG-AGB-009.md |
+| BUG-AGB-009 | [FIXED] Turning Story Points off and on again silently wiped the configured Story Point Values — confirmed now surviving the full off/on cycle | Closed | Medium | 7.0.0 (local Docker) | #120947 | bugs/closed/BUG-AGB-009.md |
+| BUG-AGB-010 | A query_id parameter on the Agile Board / Backlog controller crashes with a 500 (FrozenError in retrieve_rf_agile_query) - not reachable via any current UI link | Open | Medium | 7.0.0 (local Docker) | #120986 | bugs/open/BUG-AGB-010.md |
+| BUG-AGB-011 | Backlog story-points badge goes wrong (including negative) after dragging a card between sprint/version columns, without a page reload | Open | High | 7.0.0 (local Docker) | #120990 | bugs/open/BUG-AGB-011.md |
 
 ## Notes
 - Open bugs: bugs/open/

@@ -55,6 +55,15 @@ This is a partial-feature gap: version history genuinely exists and correctly re
 - Duplicate found: No (checked `bugs/_duplicates.md` — empty register)
 - Existing bug reference (if duplicate): —
 
+## Retest — 2026-09-21 (Local, `redmine-docker-6`, production issue #120471 checked in)
+
+**FIXED — confirmed via source and a genuine live Compare + Restore test on the same fixture article. Moved to closed/. Production issue #120471 synced to Status: Done, % Done: 100 (2026-09-21).**
+
+- **Source-level fix**: a real `version_restore` controller action now exists (`app/controllers/rf_knowledgebase_pages_controller.rb`), a compare modal was added to the KB view (`app/views/rf_project_helpdesk/knowledgebase.html.erb`), and the JS bundle (`assets/javascripts/rf_knowledgebase.js`) now renders `Compare`/`Restore` action links per version row — all three carry explicit `BUG-HLP-049` comments.
+- **Live confirmation — Compare**: on "Resetting your password" (page 3, now with 5 real versions), clicking Compare on v.4 opened a real side-by-side modal showing v.4's content/attachments against the current version — correctly surfaced a difference (v.4 had an extra attachment the current version had removed).
+- **Live confirmation — Restore**: clicking Restore on v.1 showed a real confirm dialog ("Replace the current content with this version? The current content will be kept as a version of its own, so nothing is lost."). After confirming, the article's live content genuinely changed to v.1's content ("Version 1 content - initial draft of password reset steps.") — verified both via the UI (updated timestamp, new content) and directly in the DB (a new version was snapshotted first, preserving the pre-restore state, then `page.content` was overwritten) — exactly matching the promised behavior.
+- **Operational note for future sessions**: this plugin shipped a real migration (`20260918140000_add_parent_id_to_rf_knowledgebase_pages.rb`) that was not yet applied on this container after a plain restart — `rake db:migrate` runs automatically on container start, but `rake redmine:plugins:migrate` (which applies plugin migrations) only runs if `REDMINE_PLUGINS_MIGRATE` is set, which it isn't here. The first restore attempt 500'd for this reason (missing `parent_id` column tripped an unrelated validation shared with BUG-HLP-048's fix); running `bundle exec rake redmine:plugins:migrate RAILS_ENV=production` and restarting the container resolved it cleanly. Any future retest on this environment after a plugin update should run plugin migrations explicitly, not just restart the container.
+
 ## Notes
 
 - Found while executing `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-165 ("Comparing and restoring an older Knowledgebase version works"), immediately after TC-HLP-164 (version history listing) passed cleanly on the same article.

@@ -55,6 +55,14 @@ This is **not** the same mechanism as BUG-HLP-051 (Product hidden via `display:n
 - Duplicate found: No (checked `bugs/_index.md` — no prior coverage of custom-field value rendering on the Customer role's ticket view)
 - Existing bug reference (if duplicate): —
 
+## Retest — 2026-09-21 (Local, `redmine-docker-6`, production issue #120476 checked in)
+
+**FIXED — confirmed via source and a genuine live customer-view check. Moved to closed/. Production issue #120476 synced to Status: Done, % Done: 100 (2026-09-21).**
+
+- **Source-level fix**: `app/views/rf_project_helpdesk_issues/show.html.erb` now calls Redmine **core's own** `render_half_width_custom_fields_rows(@issue)` / `render_full_width_custom_fields_rows(@issue)` helpers (from `/usr/src/redmine/app/helpers/issues_helper.rb`) instead of any hand-rolled plugin template — delegating custom-field rendering to the same already-correct mechanism the core `/issues/:id` view uses.
+- **Live confirmation**: set a fresh ticket's (#406) Issue Category custom field to "Report a Bug" as Admin, confirmed persisted via `Issue.find(406).custom_field_values` (`"Report a Bug"`), then logged in as the ticket's real author (`retest.customer1`) and opened the same ticket on the branded customer view (`/projects/helpdesk-qa-alpha/helpdesk/issues/406`). The exact DOM node that was previously empty now renders the real value: `<div class="list_cf cf_1 attribute"><div class="label"><span>Issue Category</span>:</div><div class="value">Report a Bug</div></div>`.
+- The "test" string custom field correctly showed "n/a" when left empty on this ticket — expected placeholder behavior, not a recurrence of this bug.
+
 ## Notes
 
 - Found immediately after BUG-HLP-051, while re-checking a user's direct follow-up observation ("custom field value label visible to customer but their selected value not visible") on that same ticket page. Distinct root cause from BUG-HLP-051 (that one hides the whole attribute via CSS; this one renders an empty value node for a visible attribute) — filed separately rather than folded in, since the failure mechanism and user-facing impact (looks like data loss, not an intentionally-hidden field) are both different.

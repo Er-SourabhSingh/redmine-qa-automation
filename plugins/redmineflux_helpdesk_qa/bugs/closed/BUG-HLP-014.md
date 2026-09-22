@@ -27,7 +27,7 @@
 
 ## Expected result
 
-- Per `HELPDESK_TICKET_LIFECYCLE.md` TC-HLP-015: "the customer's ticket list shows this ticket and no others they didn't raise." The customer's own Tickets tab should show at least the ticket she just created (and her other pre-existing ticket, e.g. #68), not an empty list.
+- Per `HELPDESK_TICKET_LIFECYCLE.md` TC-HLP-367: "the customer's ticket list shows this ticket and no others they didn't raise." The customer's own Tickets tab should show at least the ticket she just created (and her other pre-existing ticket, e.g. #68), not an empty list.
 
 ## Actual result
 
@@ -82,7 +82,7 @@ The `author_id: user.id` customer-scoping (`base_scope`'s `s = s.where(author_id
 
 ## Related
 
-- Found while executing TC-HLP-015 (customer raises a ticket and sees only their own afterward) in `HELPDESK_TICKET_LIFECYCLE.md` — that TC **FAILS** as a direct result of this bug.
+- Found while executing TC-HLP-367 (customer raises a ticket and sees only their own afterward) in `HELPDESK_TICKET_LIFECYCLE.md` — that TC **FAILS** as a direct result of this bug.
 
 ## Retest — 2026-08-27 (post-fix, full environment rebuild)
 

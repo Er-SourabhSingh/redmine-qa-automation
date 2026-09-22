@@ -28,7 +28,7 @@ import { BasePage } from './BasePage';
 export class HelpdeskOrganizationPage extends BasePage {
   // --- Prepaid Support Hours tab (/rf_organizations/:id?tab=prepaid_support_hours) ---
   // Locators confirmed live 2026-08-26 on Local (redmine-docker-6) by actually
-  // executing TC-HLP-125 end to end (Alpha Org, Helpdesk QA Alpha project, 40h).
+  // executing TC-HLP-188 end to end (Alpha Org, Helpdesk QA Alpha project, 40h).
   // No "Run-out mode" field exists in the Add/top-up dialog — it's a separate
   // inline <select name="mode"> per project row in the "Budget by project" table.
   private readonly addTopUpHoursLink = this.page.getByRole('link', { name: 'Add / top up hours' });
@@ -247,12 +247,12 @@ export class HelpdeskOrganizationPage extends BasePage {
 
   // --- Prepaid Support Hours ---
 
-  /** Navigate straight to an organization's Prepaid Support Hours tab. Confirmed live 2026-08-26 (TC-HLP-125). */
+  /** Navigate straight to an organization's Prepaid Support Hours tab. Confirmed live 2026-08-26 (TC-HLP-188). */
   async openPrepaidHours(organizationId: number) {
     await this.goto(`/rf_organizations/${organizationId}?tab=prepaid_support_hours`);
   }
 
-  /** Confirmed live 2026-08-26 — Package/Hours field can be negative to reduce a budget (see TC-HLP-127/136). */
+  /** Confirmed live 2026-08-26 — Package/Hours field can be negative to reduce a budget (see TC-HLP-190/136). */
   async addTopUpHours(options: { projectLabel: string; hours: number; supportPackage?: string; comment: string }) {
     await this.addTopUpHoursLink.click();
     await this.prepaidProjectSelect.selectOption({ label: options.projectLabel });

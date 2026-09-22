@@ -14,7 +14,7 @@ Bug fix retest session — all previously blocked TCs retested and confirmed pas
 - TC-RAF-022: Add HR → Location (Branch Office) dependency rule — **PASS** (BUG-RAF-001 fixed)
 - TC-RAF-023: Add Finance → Location (Branch Office, CRM) scoped to project — **PASS** (BUG-RAF-001 fixed)
 - TC-RAF-024: Add Operations → Location (WAN, LAN, VPN) globally — **PASS** (BUG-RAF-001 fixed)
-- TC-RAF-036: Live dropdown filtering IT→HR on issue form — **PASS** (BUG-RAF-001 fixed)
+- TC-RAF-035: Live dropdown filtering IT→HR on issue form — **PASS** (BUG-RAF-001 fixed)
 - BUG-RAF-002 retest: Issue #274, Integer divide field = 3 (rounded), edit + submit succeeds — **PASS**
 
 Full suite result: **51 PASS, 0 FAIL, 0 BLOCKED**
@@ -32,7 +32,7 @@ None. All blockers cleared:
 
 ## Next Session Start Point
 
-**Workflow test cases (TC-RAF-051 through TC-RAF-054)** — read positive-testcases.md for these TCs before starting.
+**Workflow test cases (TC-RAF-044 through TC-RAF-047)** — read positive-testcases.md for these TCs before starting.
 
 Current environment state for next session:
 - Active formulas: Downtime (ID 4, minutes, log=yes), Duration (ID 5, hours), Total Hours (ID 6, add)

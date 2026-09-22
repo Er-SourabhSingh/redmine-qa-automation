@@ -24,7 +24,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-601: Summary Report groups by Project, User and Activity
+### TC-TMT-057: Summary Report groups by Project, User and Activity
 
 **User Role:** Member with **View Time Tracker Reports**
 **Steps:**
@@ -37,7 +37,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-602: Summary totals reconcile with source data
+### TC-TMT-058: Summary totals reconcile with source data
 
 **User Role:** Member with the permission
 **Steps:**
@@ -48,7 +48,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-603: Charts match the tabular data
+### TC-TMT-059: Charts match the tabular data
 
 **User Role:** Member
 **Steps:**
@@ -60,7 +60,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-604: Export to PDF, CSV and XML
+### TC-TMT-060: Export to PDF, CSV and XML
 
 **User Role:** Member with the permission
 **Steps:**
@@ -73,7 +73,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-605: Export formatting integrity
+### TC-TMT-061: Export formatting integrity
 
 **User Role:** Member
 **Steps:**
@@ -91,7 +91,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-606: Detailed Report
+### TC-TMT-062: Detailed Report
 
 **User Role:** Member with the permission
 **Steps:**
@@ -103,7 +103,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-607: Weekly Report
+### TC-TMT-063: Weekly Report
 
 **User Role:** Member with the permission
 **Steps:**
@@ -115,7 +115,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-608: Reports with no matching data
+### TC-TMT-064: Reports with no matching data
 
 **User Role:** Member
 **Steps:**
@@ -127,7 +127,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-609: Large report volume
+### TC-TMT-065: Large report volume
 
 **User Role:** Member
 **Steps:**
@@ -142,7 +142,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-701: Create a tag
+### TC-TMT-066: Create a tag
 
 **User Role:** Member with **Manage Time Tracker Tags**
 **Steps:**
@@ -153,7 +153,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-702: Edit a tag
+### TC-TMT-067: Edit a tag
 
 **User Role:** Member with the permission
 **Steps:**
@@ -164,7 +164,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-703: Delete an unused tag
+### TC-TMT-068: Delete an unused tag
 
 **User Role:** Member with the permission
 **Steps:**
@@ -175,7 +175,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-704: Delete a tag that is in use
+### TC-TMT-069: Delete a tag that is in use
 
 **User Role:** Member with the permission
 **Steps:**
@@ -188,7 +188,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-705: Used / Unused filter
+### TC-TMT-070: Used / Unused filter
 
 **User Role:** Member
 **Steps:**
@@ -200,7 +200,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-706: Duplicate tag names
+### TC-TMT-071: Duplicate tag names
 
 **User Role:** Member with the permission
 **Steps:**
@@ -212,7 +212,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-707: Tag name validation
+### TC-TMT-072: Tag name validation
 
 **User Role:** Member with the permission
 **Steps:**
@@ -225,7 +225,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-708: Tag management requires the permission
+### TC-TMT-073: Tag management requires the permission
 
 **User Role:** Member **without** Manage Time Tracker Tags
 **Steps:**
@@ -243,7 +243,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-801: Configure the extension
+### TC-TMT-074: Configure the extension
 
 **User Role:** Member
 **Steps:**
@@ -254,7 +254,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-802: Test Connection fails clearly on bad input
+### TC-TMT-075: Test Connection fails clearly on bad input
 
 **User Role:** Member
 **Steps:**
@@ -266,7 +266,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-803: Start the timer from the extension
+### TC-TMT-076: Start the timer from the extension
 
 **User Role:** Member
 **Steps:**
@@ -277,7 +277,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-804: Timer runs with the extension closed
+### TC-TMT-077: Timer runs with the extension closed
 
 **User Role:** Member
 **Steps:**
@@ -288,7 +288,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-805: Stop from the extension records the entry
+### TC-TMT-078: Stop from the extension records the entry
 
 **User Role:** Member
 **Steps:**
@@ -299,7 +299,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-806: Extension and web UI act on the same timer
+### TC-TMT-079: Extension and web UI act on the same timer
 
 **User Role:** Member
 **Steps:**
@@ -310,12 +310,12 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 **Expected Result:**
 - Both surfaces control one shared timer in both directions.
 - The second start is refused or stops the first — **two concurrent timers would produce overlapping entries and
-  double-count the same wall-clock hours** (paired with TC-TMT-206). This is the most likely real defect in the
+  double-count the same wall-clock hours** (paired with TC-TMT-090). This is the most likely real defect in the
   extension integration, because the two clients are easy to build independently.
 
 ---
 
-### TC-TMT-807: Extension respects required fields
+### TC-TMT-080: Extension respects required fields
 
 **User Role:** Member
 **Preconditions:** The instance requires a comment or a custom field on time entries.
@@ -330,7 +330,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-808: Extension API key scope
+### TC-TMT-081: Extension API key scope
 
 **User Role:** Member
 **Steps:**
@@ -348,7 +348,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-901: Reports require View Time Tracker Reports
+### TC-TMT-082: Reports require View Time Tracker Reports
 
 **User Role:** Member without the permission
 **Steps:**
@@ -364,7 +364,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-902: Reports respect per-user visibility
+### TC-TMT-083: Reports respect per-user visibility
 
 **User Role:** Member with report access but without permission to view others' time entries
 **Steps:**
@@ -376,7 +376,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 
 ---
 
-### TC-TMT-903: Reports respect project visibility
+### TC-TMT-084: Reports respect project visibility
 
 **User Role:** Member of project A only
 **Preconditions:** **Confirm project B is genuinely private.**

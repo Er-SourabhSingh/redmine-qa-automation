@@ -76,9 +76,9 @@ step-2 mapping screen the CSV column ` step 1 ` is presented under the normalise
 - **Fixture used:** `automation/testdata/csv-test-data/15_header_case_and_whitespace_variations.csv`
   (headers ` step 1 `, `EXPECTED RESULT 1`, `Step  2`, `expected result 2`) — covers the padded-header case plus
   the case-variation and internal-double-space cases in one file.
-- **TC-TCM-015:** FAIL → **PASS**.
+- **TC-TCM-035:** FAIL → **PASS**.
 - **Regression (`SENIOR_QA_STANDARDS.md` §26, Medium → all TCs in the affected suite):** full CSV Import suite
-  re-run on 2026-09-11 — all 17 fixtures / 16 TCs (TC-TCM-001 … TC-TCM-016) **PASS**, zero new failures. See the
+  re-run on 2026-09-11 — all 17 fixtures / 16 TCs (TC-TCM-021 … TC-TCM-036) **PASS**, zero new failures. See the
   Run History row in `docs/TESTCASE_MANAGEMENT_HANDOFF.md`.
 
 ### Console / log
@@ -93,5 +93,5 @@ step-2 mapping screen the CSV column ` step 1 ` is presented under the normalise
 
 ## Notes
 
-- Found via `testcases/TESTCASE_MANAGEMENT_CSV_IMPORT.md` TC-TCM-015, fixture `automation/uploads/padded-header.csv` (paste in when available).
+- Found via `testcases/TESTCASE_MANAGEMENT_CSV_IMPORT.md` TC-TCM-035, fixture `automation/uploads/padded-header.csv` (paste in when available).
 - Root-cause hypothesis (from external session): the mapping-resolution step trims/normalizes the header for matching purposes, but the value-read step later looks up the cell by the raw (untrimmed) header key, which no longer matches — so the lookup silently misses instead of erroring.

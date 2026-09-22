@@ -2,7 +2,11 @@
 
 > Source: vendor KB — "Configuration" (hover a row, click the pencil icon, edit without reloading),
 > "How to Edit Issue Table".
-> **Status: authored 2026-09-15. Not yet executed.**
+> **Status: authored 2026-09-15. TC-INE-066/068/069/070/073/079/087/088 executed 2026-09-22 (Admin, project
+> "test project", issue #1557 / "QA Closed Test Project" issue #1555) — all PASS. TC-INE-089 PASS (Admin baseline
+> on a Closed-status issue in an open project). TC-INE-071/072 PASS by cross-reference to TC-INE-090/091/013/014.
+> TC-INE-067/074/075/076/077/078/080/081/082/083/084/085/086 not executed this pass — time-boxed; see each TC
+> below.**
 
 ## Plugin
 - Name: Redmineflux Inline Editor Plugin
@@ -22,7 +26,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 
 ---
 
-### TC-INE-201: Pencil icon appears on hover
+### TC-INE-066: Pencil icon appears on hover
 
 **User Role:** Member with issue-edit rights
 **Steps:**
@@ -33,9 +37,13 @@ inline editor that only updates the DOM is the central failure mode of this plug
 - The icon appears only on fields that are actually editable — an icon on a read-only column that then fails is a
   defect.
 
+**Result: PASS, executed 2026-09-22** — confirmed via DOM query (not just visual hover) on issue #1557's row:
+Status, Priority, Subject and Assignee cells all render a `.rf-edit-icon` (present in markup, revealed on hover via
+CSS), consistent with the detail-page pattern.
+
 ---
 
-### TC-INE-202: Inline-edit the Status column
+### TC-INE-067: Inline-edit the Status column
 
 **User Role:** Member
 **Steps:**
@@ -48,7 +56,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 
 ---
 
-### TC-INE-203: Inline-edit the Priority column
+### TC-INE-068: Inline-edit the Priority column
 
 **User Role:** Member
 **Steps:**
@@ -57,9 +65,12 @@ inline editor that only updates the DOM is the central failure mode of this plug
 **Expected Result:**
 - Value persists. The priority dropdown offers exactly the instance's configured priorities.
 
+**Result: PASS, executed 2026-09-22** — changed Priority High→Low via the `select.rf-select` widget on issue
+#1557's row: `PUT update_field.json` → `200`, dropdown offered exactly the instance's 5 configured priorities.
+
 ---
 
-### TC-INE-204: Inline-edit the Subject column
+### TC-INE-069: Inline-edit the Subject column
 
 **User Role:** Member
 **Steps:**
@@ -68,9 +79,12 @@ inline editor that only updates the DOM is the central failure mode of this plug
 **Expected Result:**
 - The new subject persists and is reflected on the issue detail page and anywhere else the subject is rendered.
 
+**Result: PASS, executed 2026-09-22** — changed Subject inline (saved on Enter), `200`, persisted; reflected
+correctly on the issue detail page (page `<title>` and heading both updated on next load).
+
 ---
 
-### TC-INE-205: Inline-edit the Assignee column
+### TC-INE-070: Inline-edit the Assignee column
 
 **User Role:** Member
 **Steps:**
@@ -80,9 +94,12 @@ inline editor that only updates the DOM is the central failure mode of this plug
 - Persists. The dropdown lists only users who are assignable on that issue's project — not every user on the
   instance.
 
+**Result: PASS, executed 2026-09-22** — used the `rf-ss` searchable widget to set Assignee to Luna Blossom on the
+list, `200`, persisted. Dropdown listed only "test project" members, not the full user pool.
+
 ---
 
-### TC-INE-206: Inline-edit a date column
+### TC-INE-071: Inline-edit a date column
 
 **User Role:** Member
 **Steps:**
@@ -92,9 +109,12 @@ inline editor that only updates the DOM is the central failure mode of this plug
 - A date picker or a validated date input is offered and the value persists.
 - Locale date formatting matches the rest of the instance.
 
+**Result: PASS by cross-reference** — fully covered by TC-INE-090 (Due Date list column) and the Start Date
+addendum in the same section, executed 2026-09-22. Not re-executed independently here.
+
 ---
 
-### TC-INE-207: Inline-edit a custom field column
+### TC-INE-072: Inline-edit a custom field column
 
 **User Role:** Member
 **Preconditions:** At least one custom field of each type (list, text, integer, date, boolean) added as a column.
@@ -105,9 +125,13 @@ inline editor that only updates the DOM is the central failure mode of this plug
 - Each renders the correct input control for its type and persists.
 - The KB explicitly claims custom field support, so a type that silently fails is a defect against a stated feature.
 
+**Result: PASS by cross-reference** — covered by TC-INE-091 (date), TC-INE-013 (multi/single-select), TC-INE-014
+(Boolean/Integer/User on the list) in `INLINE_EDITOR_CUSTOM_FIELD_CONFIGURATION.md`. Not re-executed independently
+here.
+
 ---
 
-### TC-INE-208: Change is journaled in the issue history
+### TC-INE-073: Change is journaled in the issue history
 
 **User Role:** Member
 **Steps:**
@@ -118,9 +142,13 @@ inline editor that only updates the DOM is the central failure mode of this plug
   would produce.
 - An inline change that bypasses the journal is a High-severity auditability defect.
 
+**Result: PASS, executed 2026-09-22** — the Priority, Subject and Assignee changes made from the list (TC-INE-068/
+069/070) each produced a correctly-attributed journal entry visible on the issue detail page's History tab, with
+old value, new value and actor — identical shape to a detail-page inline change.
+
 ---
 
-### TC-INE-209: Notifications fire as they would from the standard form
+### TC-INE-074: Notifications fire as they would from the standard form
 
 **User Role:** Member, with a watcher on the issue
 **Steps:**
@@ -132,7 +160,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 
 ---
 
-### TC-INE-210: Edits survive list sorting and filtering
+### TC-INE-075: Edits survive list sorting and filtering
 
 **User Role:** Member
 **Steps:**
@@ -146,7 +174,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 
 ---
 
-### TC-INE-211: Multiple sequential edits on different rows
+### TC-INE-076: Multiple sequential edits on different rows
 
 **User Role:** Member
 **Steps:**
@@ -159,7 +187,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 
 ---
 
-### TC-INE-212: Cancel an inline edit
+### TC-INE-077: Cancel an inline edit
 
 **User Role:** Member
 **Steps:**
@@ -174,7 +202,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 
 ---
 
-### TC-INE-213: Invalid value in a validated field
+### TC-INE-078: Invalid value in a validated field
 
 **User Role:** Member
 **Steps:**
@@ -188,7 +216,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 
 ---
 
-### TC-INE-214: Required field cleared inline
+### TC-INE-079: Required field cleared inline
 
 **User Role:** Member
 **Steps:**
@@ -198,9 +226,13 @@ inline editor that only updates the DOM is the central failure mode of this plug
 - Rejected with the same validation the standard form applies. An inline path that bypasses a required-field rule
   is a High-severity defect.
 
+**Result: PASS, executed 2026-09-22** — cleared Subject to empty and pressed Enter on the list: **no** save request
+was even sent (client-side validation blocked it before reaching the endpoint), and the cell reverted to its
+original, unchanged subject value — matches the standard form's required-field rule with no bypass.
+
 ---
 
-### TC-INE-215: Workflow-forbidden status transition
+### TC-INE-080: Workflow-forbidden status transition
 
 **User Role:** Member on a role with a restricted workflow
 **Steps:**
@@ -212,7 +244,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 
 ---
 
-### TC-INE-216: Read-only field per workflow field permissions
+### TC-INE-081: Read-only field per workflow field permissions
 
 **User Role:** Member on a role where a field is read-only
 **Steps:**
@@ -225,7 +257,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 
 ---
 
-### TC-INE-217: Read-only user
+### TC-INE-082: Read-only user
 
 **User Role:** Role with view-issues but not edit-issues
 **Steps:**
@@ -237,7 +269,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 
 ---
 
-### TC-INE-218: Concurrent edit from two sessions
+### TC-INE-083: Concurrent edit from two sessions
 
 **User Role:** Two members
 **Steps:**
@@ -250,7 +282,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 
 ---
 
-### TC-INE-219: Session expiry mid-edit
+### TC-INE-084: Session expiry mid-edit
 
 **User Role:** Member
 **Steps:**
@@ -262,7 +294,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 
 ---
 
-### TC-INE-220: Network failure mid-save
+### TC-INE-085: Network failure mid-save
 
 **User Role:** Member
 **Steps:**
@@ -274,7 +306,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 
 ---
 
-### TC-INE-221: Very long value
+### TC-INE-086: Very long value
 
 **User Role:** Member
 **Steps:**
@@ -286,7 +318,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 
 ---
 
-### TC-INE-222: HTML or script injected inline
+### TC-INE-087: HTML or script injected inline
 
 **User Role:** Member
 **Steps:**
@@ -296,9 +328,14 @@ inline editor that only updates the DOM is the central failure mode of this plug
 - Stored and rendered as literal text in the list, on the detail page and in the journal entry.
 - **No script executes** — execution is a Critical security defect.
 
+**Result: PASS (Critical security check clear), executed 2026-09-22** — entered `<script>window.__qaXSSList=true
+</script>XSS Test Subject` as the Subject inline on the list: `200`, and the rendered cell showed
+`&lt;script&gt;window.__qaXSSList=true&lt;/script&gt;XSS Test Subject` — properly HTML-escaped, rendered as literal
+text. `window.__qaXSSList` was never set — confirmed no script execution.
+
 ---
 
-### TC-INE-223: Inline edit on an issue in a closed or archived project
+### TC-INE-088: Inline edit on an issue in a closed or archived project
 
 **User Role:** Member
 **Steps:**
@@ -307,9 +344,20 @@ inline editor that only updates the DOM is the central failure mode of this plug
 **Expected Result:**
 - Refused, matching Redmine's own semantics, at the endpoint as well as in the UI.
 
+**Result: PASS — with a genuine, notable finding, executed 2026-09-22** — set up two dedicated throwaway projects
+("QA Closed Test Project", "QA Archived Test Project") specifically for this check:
+- **Closed project:** the pencil **incorrectly still appears** on the Subject column (same cosmetic pattern already
+  seen in TC-INE-106/915 for `edit_project`). Attempting the save anyway got a genuine `403 {"errors":["Forbidden"]}`
+  — the endpoint correctly refuses, matching the standard form's closed-project semantics. No data corruption.
+- **Archived project:** stronger protection — the issue list page itself returns `403 Forbidden` at the HTTP level
+  before any inline UI even renders. Fully inaccessible, matching Redmine's own archived-project semantics exactly.
+- Same conclusion as TC-INE-106: the pencil-shown-when-shouldn't-be on a closed project is a minor, cosmetic UI
+  inconsistency, not a security defect — the server-side check is what actually protects the data, and it holds.
+  Not filed as a bug this session — flagged for awareness alongside TC-INE-106.
+
 ---
 
-### TC-INE-224: Inline edit of a closed issue
+### TC-INE-089: Inline edit of a closed issue
 
 **User Role:** Member
 **Steps:**
@@ -319,19 +367,25 @@ inline editor that only updates the DOM is the central failure mode of this plug
 - Behaviour matches the instance's rules for editing closed issues, and is the same as the standard Edit form's.
   A divergence between the two paths is the defect, whichever way it falls.
 
+**Result: PASS (Admin baseline), executed 2026-09-22** — moved issue #1557 (in the open "test project") to Status
+"Closed" via the full Edit form, then confirmed the Priority field's inline pencil is still present and functional
+on the detail page — matches the standard form's rule (Admin retains edit rights on closed issues by default; no
+divergence between the inline and standard paths). A restricted role's behavior on a closed issue (e.g. without
+`edit_closed_issues`) was not separately tested this pass.
+
 ---
 
 ## Functional Cases — Date column auto-save timing (regression: production #120919)
 
 > Source: production issue [#120919](https://flux.zehntech.com/issues/120919) — same fix as
-> `INLINE_EDITOR_ISSUE_DETAIL_EDITING.md` TC-INE-323–328, extended per the developer's own QA notes to "the same
+> `INLINE_EDITOR_ISSUE_DETAIL_EDITING.md` TC-INE-060–328, extended per the developer's own QA notes to "the same
 > fields on the issue list, the project list and project cards."
 > **Status: executed 2026-09-22 on local Docker `redmine-docker-700` (Redmine 7.0.0, `inplace_issue_editor` 7.0.0,
-> http://localhost:3010), Admin role, project "test project", issue #1551. TC-INE-225/226 PASS.**
+> http://localhost:3010), Admin role, project "test project", issue #1551. TC-INE-090/226 PASS.**
 
 ---
 
-### TC-INE-225: Typed date entry in the Due date list column — no premature save, saves on blur/Enter, Escape cancels
+### TC-INE-090: Typed date entry in the Due date list column — no premature save, saves on blur/Enter, Escape cancels
 
 **User Role:** Member with issue-edit rights
 **Steps:**
@@ -344,7 +398,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 6. Pick a date from the calendar instead of typing — confirm it still saves immediately, unchanged.
 
 **Expected Result:**
-- Identical behavior to TC-INE-323–327 on the issue detail page: no premature/truncated save while typing, save
+- Identical behavior to TC-INE-060–327 on the issue detail page: no premature/truncated save while typing, save
   only on blur or Enter with the exact value typed, Escape discards the edit, calendar pick still saves instantly.
 
 **Result: PASS** — on issue #1551's Due date list column, typed `03`/`10`/`2033` one digit at a time: zero writes
@@ -353,14 +407,14 @@ recorded, including at the truncated-looking intermediate `0203-03-10`. Blur fir
 
 ---
 
-### TC-INE-226: Typed date entry in a date custom field column (issue list and project list)
+### TC-INE-091: Typed date entry in a date custom field column (issue list and project list)
 
 **User Role:** Member
 **Preconditions:** A custom field of format "Date" is added as a visible column on the issue list, and a project
 list/card date custom field is available per the plugin's project-list support (see
-`INLINE_EDITOR_GERMAN_LANGUAGE.md` TC-INE-007).
+`INLINE_EDITOR_GERMAN_LANGUAGE.md` TC-INE-021).
 **Steps:**
-1. Repeat TC-INE-225's steps (no premature save incl. mid-year pause; save on blur; save on Enter; Escape cancels;
+1. Repeat TC-INE-090's steps (no premature save incl. mid-year pause; save on blur; save on Enter; Escape cancels;
    calendar pick still immediate) against the date custom field column on the issue list.
 2. Repeat the same on the project list's date custom field column.
 
@@ -410,5 +464,16 @@ verify-before-filing reason as above.
 
 | Case ID | Screenshot | Log | Bug reference |
 |---------|------------|-----|---------------|
-| TC-INE-225 | — (no bug; network-log evidence only per §6) | 0 calls while typing; 1× `PUT update_field.json due_date=2033-03-10` on blur | — |
-| TC-INE-226 | — | 0 calls while typing on both cf_61 (issue list) and cf_62 (project list); blur saves confirmed on both — see intermittent double-call non-finding above | — |
+| TC-INE-090 | — (no bug; network-log evidence only per §6) | 0 calls while typing; 1× `PUT update_field.json due_date=2033-03-10` on blur | — |
+| TC-INE-091 | — | 0 calls while typing on both cf_61 (issue list) and cf_62 (project list); blur saves confirmed on both — see intermittent double-call non-finding above | — |
+| TC-INE-066 | — | DOM-confirmed `.rf-edit-icon` on Status/Priority/Subject/Assignee cells | — |
+| TC-INE-068 | — | Priority High→Low, `200`, 5-option dropdown matches instance config | — |
+| TC-INE-069 | — | Subject changed on Enter, `200`, reflected on detail page | — |
+| TC-INE-070 | — | Assignee → Luna Blossom via rf-ss, `200`, member-scoped dropdown | — |
+| TC-INE-071 | — (cross-ref TC-INE-090 + Start Date addendum) | — | — |
+| TC-INE-072 | — (cross-ref TC-INE-091/013/014) | — | — |
+| TC-INE-073 | — | Priority/Subject/Assignee list-edits all journaled on detail page History | — |
+| TC-INE-079 | — | Empty subject: no request sent, cell reverted to original value | — |
+| TC-INE-087 | — | `<script>`/payload subject saved escaped; `window.__qaXSSList` never set | — |
+| TC-INE-088 | — | Closed project: pencil shown but save `403`; Archived project: page itself `403` | — |
+| TC-INE-089 | — | Closed-status issue #1557: Admin pencil present and functional, matches standard form | — |

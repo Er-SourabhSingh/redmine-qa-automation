@@ -15,7 +15,7 @@ import { BasePage } from './BasePage';
  *   256 is refused with "Name is too long (maximum is 255 characters)",
  *   255 succeeds. Confirmed by direct boundary probe, not guessed.
  * - Duplicate Name is refused server-side with "Name has already been
- *   taken" (TC-HLP-170).
+ *   taken" (TC-HLP-026).
  * - Author is NOT an input — it's static text showing the current user,
  *   confirmed un-editable.
  * - The submit button here genuinely IS `input[type="submit"][name="commit"]`
@@ -29,18 +29,18 @@ import { BasePage } from './BasePage';
  *   Content on click (confirmed: clicking {{customer_name}} after typing
  *   "Hi " produced "Hi {{customer_name}}").
  * - Macro substitution on a real ticket reply confirmed correct for all 9
- *   macros simultaneously (TC-HLP-158): {{customer_name}}→ticket author,
+ *   macros simultaneously (TC-HLP-002): {{customer_name}}→ticket author,
  *   {{ticket_id}}→"#236", {{ticket_subject}}, {{project_name}},
  *   {{assignee_name}}, {{current_user}}→replying user, {{current_date}},
  *   {{current_time}} all substituted correctly. Selecting a template in the
  *   reply box's Canned Response dropdown APPENDS after already-typed text
- *   rather than replacing it (TC-HLP-159, confirmed).
+ *   rather than replacing it (TC-HLP-003, confirmed).
  *
  * BUG-HLP-003 (filed 2026-08-24, High): the Active checkbox on this Edit
  * form has no Rails hidden fallback input, so unchecking it and saving
  * sends no `active` param at all — the update silently leaves the record
  * Active. Deactivating a canned response via the UI currently DOES NOT
- * WORK once it has been created Active. TC-HLP-177 cannot pass as written
+ * WORK once it has been created Active. TC-HLP-033 cannot pass as written
  * until this is fixed. `setActive(false)` below is implemented to match
  * the documented UI flow, but calling it against an already-Active record
  * will NOT actually deactivate it — this is the bug, not a locator issue.
@@ -143,7 +143,7 @@ export class HelpdeskCannedResponsePage extends BasePage {
 
   /**
    * NOT YET VERIFIED — the exact duplicate-name error wording IS confirmed
-   * ("Name has already been taken", TC-HLP-170 executed 2026-08-24), but this
+   * ("Name has already been taken", TC-HLP-026 executed 2026-08-24), but this
    * assertion helper's regex was written broad to also match other entities'
    * wording; narrow it if a stricter match is needed.
    */

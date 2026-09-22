@@ -25,7 +25,7 @@ workspace.
 
 ---
 
-### TC-CRM-101: Plugin appears after installation
+### TC-CRM-139: Plugin appears after installation
 
 **User Role:** Admin
 **Preconditions:** Folder copied as `plugins/redmineflux_crm`, `bundle install` and migrations run, restarted.
@@ -39,7 +39,7 @@ workspace.
 
 ---
 
-### TC-CRM-102: Migrations complete cleanly
+### TC-CRM-140: Migrations complete cleanly
 
 **User Role:** Admin
 **Steps:**
@@ -50,7 +50,7 @@ workspace.
 
 ---
 
-### TC-CRM-103: Permissions must be granted before anything works
+### TC-CRM-141: Permissions must be granted before anything works
 
 **User Role:** Admin, then a member with no CRM permissions
 **Steps:**
@@ -64,7 +64,7 @@ workspace.
 
 ---
 
-### TC-CRM-104: Assets load
+### TC-CRM-142: Assets load
 
 **User Role:** Any
 **Steps:**
@@ -79,7 +79,7 @@ workspace.
 
 ---
 
-### TC-CRM-105: Default values match the documentation
+### TC-CRM-143: Default values match the documentation
 
 **User Role:** Admin
 **Steps:**
@@ -92,7 +92,7 @@ workspace.
 
 ---
 
-### TC-CRM-106: Default currency applies to new deals
+### TC-CRM-144: Default currency applies to new deals
 
 **User Role:** Admin then a deal owner
 **Steps:**
@@ -101,12 +101,12 @@ workspace.
 
 **Expected Result:**
 - The new deal uses the new currency; the older deal keeps its original one.
-- **Currency is immutable per deal** (TC-CRM-409), so a retroactive change would silently restate the value of
+- **Currency is immutable per deal** (TC-CRM-091), so a retroactive change would silently restate the value of
   historic deals in a different currency — a serious reporting defect.
 
 ---
 
-### TC-CRM-107: Add a custom deal stage
+### TC-CRM-145: Add a custom deal stage
 
 **User Role:** Admin
 **Steps:**
@@ -117,7 +117,7 @@ workspace.
 
 ---
 
-### TC-CRM-108: Territories, lead statuses and lead sources are configurable
+### TC-CRM-146: Territories, lead statuses and lead sources are configurable
 
 **User Role:** Admin
 **Steps:**
@@ -130,7 +130,7 @@ workspace.
 
 ---
 
-### TC-CRM-109: Configuration changes are not retroactive
+### TC-CRM-147: Configuration changes are not retroactive
 
 **User Role:** Admin
 **Steps:**
@@ -148,7 +148,7 @@ workspace.
 
 ---
 
-### TC-CRM-110: Removing the Won or Lost stage
+### TC-CRM-148: Removing the Won or Lost stage
 
 **User Role:** Admin
 **Steps:**
@@ -163,7 +163,7 @@ workspace.
 
 ---
 
-### TC-CRM-111: Removing the Qualified lead status
+### TC-CRM-149: Removing the Qualified lead status
 
 **User Role:** Admin
 **Steps:**
@@ -178,7 +178,7 @@ workspace.
 
 ---
 
-### TC-CRM-112: Adding Converted to the lead statuses
+### TC-CRM-150: Adding Converted to the lead statuses
 
 **User Role:** Admin
 **Steps:**
@@ -188,12 +188,12 @@ workspace.
 **Expected Result:**
 - The KB says this value is reserved and applied automatically. Ideally it is refused.
 - If it is accepted, record what breaks: a manually "Converted" lead that was never converted has no contact, no
-  deal and no conversion activity, yet is locked against deletion and re-conversion (TC-CRM-518, 519) — an
+  deal and no conversion activity, yet is locked against deletion and re-conversion (TC-CRM-176, 519) — an
   unrecoverable record created through a settings field.
 
 ---
 
-### TC-CRM-113: Removing a stage or status currently in use
+### TC-CRM-151: Removing a stage or status currently in use
 
 **User Role:** Admin
 **Steps:**
@@ -211,7 +211,7 @@ workspace.
 
 ---
 
-### TC-CRM-114: CRM opens from the top menu
+### TC-CRM-152: CRM opens from the top menu
 
 **User Role:** Member with View CRM
 **Steps:**
@@ -223,7 +223,7 @@ workspace.
 
 ---
 
-### TC-CRM-115: CRM is global, not project-scoped
+### TC-CRM-153: CRM is global, not project-scoped
 
 **User Role:** Member
 **Steps:**
@@ -236,7 +236,7 @@ workspace.
 
 ---
 
-### TC-CRM-116: Dashboard shows all nine documented panels
+### TC-CRM-154: Dashboard shows all nine documented panels
 
 **User Role:** Member with View CRM
 **Steps:**
@@ -248,7 +248,7 @@ workspace.
 
 ---
 
-### TC-CRM-117: Dashboard counts are accurate
+### TC-CRM-155: Dashboard counts are accurate
 
 **User Role:** Member
 **Steps:**
@@ -261,7 +261,7 @@ workspace.
 
 ---
 
-### TC-CRM-118: Quick Create
+### TC-CRM-156: Quick Create
 
 **User Role:** Member with the manage permissions
 **Steps:**
@@ -272,7 +272,7 @@ workspace.
 
 ---
 
-### TC-CRM-119: Dashboard export
+### TC-CRM-157: Dashboard export
 
 **User Role:** Member with View CRM
 **Steps:**
@@ -280,7 +280,7 @@ workspace.
 
 **Expected Result:**
 - Both formats download and their figures match the screen.
-- **The export respects privacy** — it must contain only records this user can see (paired with TC-CRM-906).
+- **The export respects privacy** — it must contain only records this user can see (paired with TC-CRM-189).
 
 ---
 
@@ -288,7 +288,7 @@ workspace.
 
 ---
 
-### TC-CRM-120: Clean uninstall
+### TC-CRM-158: Clean uninstall
 
 **User Role:** Admin
 **Preconditions:** **Database backup taken.**

@@ -18,7 +18,7 @@
 
 ## Expected result
 
-- Per `HELPDESK_TICKET_LIFECYCLE.md` TC-HLP-039's own documented expectation for this feature: once Comment is marked Required, **a Comment field appears** in the reply's time-log block, and is required to save.
+- Per `HELPDESK_TICKET_LIFECYCLE.md` TC-HLP-395's own documented expectation for this feature: once Comment is marked Required, **a Comment field appears** in the reply's time-log block, and is required to save.
 
 ## Actual result
 
@@ -57,10 +57,10 @@
 
 ## Closed — 2026-08-31
 
-- Closed as **not a real bug** — a false positive from this session's own testing methodology (an accessibility-snapshot text search that missed a real, fully visible form field), not a plugin defect. The Comment field behaves exactly as `HELPDESK_TICKET_LIFECYCLE.md` TC-HLP-039 expects: absent when not required, present and required when the admin setting is on, from the very first load.
+- Closed as **not a real bug** — a false positive from this session's own testing methodology (an accessibility-snapshot text search that missed a real, fully visible form field), not a plugin defect. The Comment field behaves exactly as `HELPDESK_TICKET_LIFECYCLE.md` TC-HLP-395 expects: absent when not required, present and required when the admin setting is on, from the very first load.
 - If a similar "field completely absent" symptom appears again, cross-check via direct DOM inspection (`browser_evaluate` / `getComputedStyle`) before filing, rather than relying solely on an accessibility-snapshot text search.
 
 ## Notes
 
-- Found while executing `testcases/HELPDESK_TICKET_LIFECYCLE.md` TC-HLP-039 — its own Expected Result ("a Comment field appears") is written as a proactive, on-load behavior; the real behavior turned out to match this exactly once retested properly.
+- Found while executing `testcases/HELPDESK_TICKET_LIFECYCLE.md` TC-HLP-395 — its own Expected Result ("a Comment field appears") is written as a proactive, on-load behavior; the real behavior turned out to match this exactly once retested properly.
 - Not a data-loss bug even under the original (mistaken) understanding — the reply text and other fields survive untouched either way.

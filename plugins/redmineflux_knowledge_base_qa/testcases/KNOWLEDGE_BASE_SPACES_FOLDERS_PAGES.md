@@ -19,7 +19,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-201: Create a space
+### TC-RKB-160: Create a space
 
 **User Role:** Member with `manage_knowledgebase_spaces`
 **Steps:**
@@ -30,7 +30,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-202: Create a space without a description
+### TC-RKB-161: Create a space without a description
 
 **User Role:** Member
 **Steps:**
@@ -41,7 +41,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-203: Multiple spaces in one project
+### TC-RKB-162: Multiple spaces in one project
 
 **User Role:** Member
 **Steps:**
@@ -53,7 +53,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-204: Edit a space
+### TC-RKB-163: Edit a space
 
 **User Role:** Member
 **Steps:**
@@ -64,7 +64,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-205: Spaces are project-scoped
+### TC-RKB-164: Spaces are project-scoped
 
 **User Role:** Member of two projects
 **Steps:**
@@ -75,7 +75,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-206: Delete a space — cascade is warned about before it happens
+### TC-RKB-165: Delete a space — cascade is warned about before it happens
 
 **User Role:** Member with `manage_knowledgebase_spaces`
 **Preconditions:** The space contains folders, pages, and pages with version history.
@@ -96,7 +96,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-207: Create a folder inside a space
+### TC-RKB-166: Create a folder inside a space
 
 **User Role:** Member with `manage_knowledgebase_pages`
 **Steps:**
@@ -107,7 +107,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-208: Create a nested folder inside a folder
+### TC-RKB-167: Create a nested folder inside a folder
 
 **User Role:** Member
 **Steps:**
@@ -118,7 +118,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-209: Deep nesting
+### TC-RKB-168: Deep nesting
 
 **User Role:** Member
 **Steps:**
@@ -131,7 +131,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-210: Edit a folder
+### TC-RKB-169: Edit a folder
 
 **User Role:** Member
 **Steps:**
@@ -142,7 +142,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-211: Delete a folder containing pages
+### TC-RKB-170: Delete a folder containing pages
 
 **User Role:** Member
 **Steps:**
@@ -159,7 +159,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-212: Create a page inside a space
+### TC-RKB-171: Create a page inside a space
 
 **User Role:** Member with `manage_knowledgebase_pages`
 **Steps:**
@@ -170,7 +170,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-213: Create a page inside a folder
+### TC-RKB-172: Create a page inside a folder
 
 **User Role:** Member
 **Steps:**
@@ -181,7 +181,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-214: Create a page from a content template
+### TC-RKB-173: Create a page from a content template
 
 **User Role:** Member
 **Steps:**
@@ -192,7 +192,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-215: Edit a page
+### TC-RKB-174: Edit a page
 
 **User Role:** Member
 **Steps:**
@@ -203,7 +203,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-216: Delete a page
+### TC-RKB-175: Delete a page
 
 **User Role:** Member
 **Steps:**
@@ -219,7 +219,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-217: A folder cannot have a page as its parent
+### TC-RKB-176: A folder cannot have a page as its parent
 
 **User Role:** Member
 **Steps:**
@@ -232,7 +232,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-218: A page cannot contain children
+### TC-RKB-177: A page cannot contain children
 
 **User Role:** Member
 **Steps:**
@@ -249,7 +249,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-219: Blank names
+### TC-RKB-178: Blank names
 
 **User Role:** Member
 **Steps:**
@@ -261,7 +261,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-220: Duplicate names at the same level
+### TC-RKB-179: Duplicate names at the same level
 
 **User Role:** Member
 **Steps:**
@@ -275,7 +275,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-221: Very long names
+### TC-RKB-180: Very long names
 
 **User Role:** Member
 **Steps:**
@@ -287,7 +287,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-222: Script content in a name or title
+### TC-RKB-181: Script content in a name or title
 
 **User Role:** Member
 **Steps:**
@@ -303,7 +303,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-223: Special characters in names
+### TC-RKB-182: Special characters in names
 
 **User Role:** Member
 **Steps:**
@@ -314,7 +314,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-224: Concurrent structural edits
+### TC-RKB-183: Concurrent structural edits
 
 **User Role:** Two members
 **Steps:**
@@ -326,7 +326,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-225: Deleting a space with a publicly shared page inside it
+### TC-RKB-184: Deleting a space with a publicly shared page inside it
 
 **User Role:** Member, then unauthenticated visitor
 **Steps:**
@@ -340,7 +340,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 
 ---
 
-### TC-RKB-226: Node creation without permission
+### TC-RKB-185: Node creation without permission
 
 **User Role:** Member with `view_knowledgebase` only
 **Steps:**

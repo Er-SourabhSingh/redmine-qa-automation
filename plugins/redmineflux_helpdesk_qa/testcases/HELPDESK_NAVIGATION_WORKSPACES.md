@@ -14,7 +14,7 @@
 
 ---
 
-### TC-HLP-060: "Helpdesk" appears in the top menu for an agent and opens the Command Center
+### TC-HLP-147: "Helpdesk" appears in the top menu for an agent and opens the Command Center
 
 **User Role:** Agent
 **Precondition:** Agent has `view_helpdesk` and `manage_helpdesk` on at least one project.
@@ -33,7 +33,7 @@
 
 ---
 
-### TC-HLP-061: The Command Center hides Redmine's application menu and shows its own header
+### TC-HLP-148: The Command Center hides Redmine's application menu and shows its own header
 
 **User Role:** Agent
 **Precondition:** Command Center open.
@@ -45,11 +45,11 @@
 - Redmine's normal application menu is hidden
 - The header reads **Helpdesk** *(corrected 2026-09-02, per Product Owner request — previously documented as "Helpdesk Support", now outdated wording)*
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test` — real `manage_helpdesk` via a genuine project Membership, not admin): **PASS, both halves.** Direct DOM inspection (`browser_evaluate`, not just the accessibility snapshot), enumerating every `<ul>` on the page: `<h1>` reads `"Helpdesk"` — matches the corrected Expected Result above (the "Helpdesk Support" wording was outdated documentation, confirmed by the Product Owner; see `bugs/closed/BUG-HLP-028.md`, Rejected/Not a Bug). Redmine's real `:application_menu` (the bar that reads Projects/Activity/Issues/Spent time/Gantt/Calendar/News on a plain `/projects` page, or a project's own tab bar when inside one) has **no matching `<ul>` anywhere in the Command Center's DOM at all** — genuinely, completely absent, correctly replaced by the Helpdesk icon rail (`<ul class="rf_helpdesk_sidebar_nav">`). (An earlier pass had wrongly checked the always-present `<ul class="scarlet-topmenu-managed">` — Redmine's `:top_menu`, not `:application_menu` — and concluded the app menu wasn't hidden; corrected same day.) The icon rail itself is present and correctly functions as the primary navigation (see TC-HLP-062).
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test` — real `manage_helpdesk` via a genuine project Membership, not admin): **PASS, both halves.** Direct DOM inspection (`browser_evaluate`, not just the accessibility snapshot), enumerating every `<ul>` on the page: `<h1>` reads `"Helpdesk"` — matches the corrected Expected Result above (the "Helpdesk Support" wording was outdated documentation, confirmed by the Product Owner; see `bugs/closed/BUG-HLP-028.md`, Rejected/Not a Bug). Redmine's real `:application_menu` (the bar that reads Projects/Activity/Issues/Spent time/Gantt/Calendar/News on a plain `/projects` page, or a project's own tab bar when inside one) has **no matching `<ul>` anywhere in the Command Center's DOM at all** — genuinely, completely absent, correctly replaced by the Helpdesk icon rail (`<ul class="rf_helpdesk_sidebar_nav">`). (An earlier pass had wrongly checked the always-present `<ul class="scarlet-topmenu-managed">` — Redmine's `:top_menu`, not `:application_menu` — and concluded the app menu wasn't hidden; corrected same day.) The icon rail itself is present and correctly functions as the primary navigation (see TC-HLP-149).
 
 ---
 
-### TC-HLP-062: The Command Center icon rail reaches all seven sections
+### TC-HLP-149: The Command Center icon rail reaches all seven sections
 
 **User Role:** Agent
 **Precondition:** Command Center open.
@@ -62,11 +62,11 @@
 - All seven are present in the rail
 - Each navigates to its corresponding screen without leaving the Command Center chrome
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test` — real `manage_helpdesk`): **PASS.** All 7 rail entries present (Helpdesk Dashboard, Helpdesk Tickets, Reports, Organization, Customers, Products, Helpdesk Settings) and each was clicked in turn — Dashboard (`/helpdesk`), Reports (`/rf_helpdesk/reports/tickets`, 5 sub-report tabs), Organization (`/rf_organizations`), Customers (`/rf_helpdesk/customers`), Products (`/rf_products`), Helpdesk Settings (`/rf_helpdesk/setting`, 5 sub-tabs: Holiday/Products/Email Configuration/Canned Responses/Support Packages). Every screen rendered with the same 7-item rail still present in its own chrome — none of them dropped to a project-scoped or plain-Redmine view. Cross-reference: a `view_helpdesk`-only Agent (`luna.blossom`) sees only 2 of these 7 items (Dashboard, Tickets) when reaching `/helpdesk` by direct URL — this is deliberate, correct `manage_helpdesk` gating, not a defect (see TC-HLP-065 below and BUG-HLP-027's Closed section, retracted as Not a Bug 2026-09-02).
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test` — real `manage_helpdesk`): **PASS.** All 7 rail entries present (Helpdesk Dashboard, Helpdesk Tickets, Reports, Organization, Customers, Products, Helpdesk Settings) and each was clicked in turn — Dashboard (`/helpdesk`), Reports (`/rf_helpdesk/reports/tickets`, 5 sub-report tabs), Organization (`/rf_organizations`), Customers (`/rf_helpdesk/customers`), Products (`/rf_products`), Helpdesk Settings (`/rf_helpdesk/setting`, 5 sub-tabs: Holiday/Products/Email Configuration/Canned Responses/Support Packages). Every screen rendered with the same 7-item rail still present in its own chrome — none of them dropped to a project-scoped or plain-Redmine view. Cross-reference: a `view_helpdesk`-only Agent (`luna.blossom`) sees only 2 of these 7 items (Dashboard, Tickets) when reaching `/helpdesk` by direct URL — this is deliberate, correct `manage_helpdesk` gating, not a defect (see TC-HLP-152 below and BUG-HLP-027's Closed section, retracted as Not a Bug 2026-09-02).
 
 ---
 
-### TC-HLP-063: SLAs and Support Levels are reachable directly by URL despite no rail icon
+### TC-HLP-150: SLAs and Support Levels are reachable directly by URL despite no rail icon
 
 **User Role:** Agent
 **Precondition:** Command Center open; agent has access to at least one project's SLAs/support levels.
@@ -80,11 +80,11 @@
 - Neither has a rail icon (by design — both are reached from inside a project's own tabs instead)
 - Both direct URLs load their respective lists correctly regardless
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test`): **PASS on Step 1, FAIL on Steps 2–3 as literally written — but this is a superseded TC, not a regression.** Neither SLAs nor Support Levels appears in the Command Center rail (confirmed against TC-HLP-062's full 7-item enumeration above). `/rf_slas` and `/rf_support_levels` both now return a genuine HTTP 404, not their list pages. **This is the intended, already-shipped fix for BUG-HLP-005** (closed 2026-08-31): those two bare/unscoped global routes were the exact bypass BUG-HLP-005 flagged (unlinked from any nav, capable of creating an orphaned SLA with no project association) — the fix removed the routes entirely rather than just hiding them, which is stronger than what the bug asked for but means this TC's own Step 2/3 instructions now describe removed functionality. SLA/Support Level ARE still fully reachable and correctly project-scoped via each project's own SLA tab and Settings → Support Levels (confirmed separately via `HELPDESK_SLA_ESCALATION.md`'s CRUD test cases). **Revision History**: Expected Result should read "both bare global URLs now return 404 — SLA/Support Level are reachable only via a project's own tabs" instead of "both direct URLs load their respective lists correctly". Not re-filing as a new bug — this is `bugs/closed/BUG-HLP-005.md`'s own fix working as intended, just not yet reflected in this TC's wording.
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test`): **PASS on Step 1, FAIL on Steps 2–3 as literally written — but this is a superseded TC, not a regression.** Neither SLAs nor Support Levels appears in the Command Center rail (confirmed against TC-HLP-149's full 7-item enumeration above). `/rf_slas` and `/rf_support_levels` both now return a genuine HTTP 404, not their list pages. **This is the intended, already-shipped fix for BUG-HLP-005** (closed 2026-08-31): those two bare/unscoped global routes were the exact bypass BUG-HLP-005 flagged (unlinked from any nav, capable of creating an orphaned SLA with no project association) — the fix removed the routes entirely rather than just hiding them, which is stronger than what the bug asked for but means this TC's own Step 2/3 instructions now describe removed functionality. SLA/Support Level ARE still fully reachable and correctly project-scoped via each project's own SLA tab and Settings → Support Levels (confirmed separately via `HELPDESK_SLA_ESCALATION.md`'s CRUD test cases). **Revision History**: Expected Result should read "both bare global URLs now return 404 — SLA/Support Level are reachable only via a project's own tabs" instead of "both direct URLs load their respective lists correctly". Not re-filing as a new bug — this is `bugs/closed/BUG-HLP-005.md`'s own fix working as intended, just not yet reflected in this TC's wording.
 
 ---
 
-### TC-HLP-064: A project's Helpdesk tab keeps Redmine's normal project chrome
+### TC-HLP-151: A project's Helpdesk tab keeps Redmine's normal project chrome
 
 **User Role:** Agent
 **Precondition:** Viewing a project's Helpdesk tab.
@@ -96,11 +96,11 @@
 - Redmine's normal project menu and the project's name/header remain visible (unlike the Command Center, which hides them)
 - The same underlying screens (Dashboard, Tickets, etc.) render, just scoped to this project
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `luna.blossom`): **PASS.** Opened `/projects/helpdesk-qa-alpha` as a real Agent — Redmine's normal project tab bar (Overview/Activity/Issues/Spent time/Gantt/Calendar/News/Documents/Wiki/Files/**Helpdesk**) and the project heading "Helpdesk QA Alpha" both remain fully visible. This project tab bar **is** Redmine's real `:application_menu` in its project-scoped form — the same menu that's completely absent (not just the universal top bar) on the Command Center, confirmed via DOM inspection under TC-HLP-061.
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `luna.blossom`): **PASS.** Opened `/projects/helpdesk-qa-alpha` as a real Agent — Redmine's normal project tab bar (Overview/Activity/Issues/Spent time/Gantt/Calendar/News/Documents/Wiki/Files/**Helpdesk**) and the project heading "Helpdesk QA Alpha" both remain fully visible. This project tab bar **is** Redmine's real `:application_menu` in its project-scoped form — the same menu that's completely absent (not just the universal top bar) on the Command Center, confirmed via DOM inspection under TC-HLP-148.
 
 ---
 
-### TC-HLP-065: Project-level Helpdesk exposes the correct six tabs
+### TC-HLP-152: Project-level Helpdesk exposes the correct six tabs
 
 **User Role:** Agent
 **Precondition:** Viewing a project's Helpdesk tab.
@@ -111,11 +111,11 @@
 **Expected Result:**
 - Exactly these six are present: Dashboard, Tickets, SLA, Organization, Knowledgebase, Settings
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test` — real `manage_helpdesk`): **PASS (order differs from the guide, already a known quirk, not a new gap).** All 6 tabs present: Helpdesk Dashboard, Helpdesk Tickets, Knowledgebase, Helpdesk SLA, Organization, Settings — rendered in the order Dashboard/Tickets/**Knowledgebase**/SLA/Organization/Settings, not the guide's documented Dashboard/Tickets/**SLA**/Organization/Knowledgebase/Settings (same Knowledgebase-position discrepancy already noted in `HELPDESK_MEMORY.md`'s Known Quirks, not new). **Important permission-tier finding**: a `view_helpdesk`-only Agent (`luna.blossom`) sees only **3** of these 6 (Dashboard/Tickets/Knowledgebase) — SLA/Organization/Settings are missing entirely for her, and a direct URL to the SLA tab (`/projects/helpdesk-qa-alpha/helpdesk/sla`) returns a genuine 403. **Root cause confirmed via source**: `RfProjectHelpdeskController` has `before_action :require_manage_permission, only: [:organization, :products, :sla, :settings]` — an explicit, deliberate gate matching the guide's own permissions table ("`manage_helpdesk`: Everything in view, plus managing the desk's configuration"). **Not a bug** — this is the same deliberate `manage_helpdesk` requirement confirmed via TC-HLP-060/BUG-HLP-027 (retracted as Not a Bug 2026-09-02 once the user corrected the real precondition to "`view_helpdesk` **and** `manage_helpdesk`"); `HELPDESK_USER_GUIDE.md` §4 has been corrected accordingly. Precondition note: this TC's own wording ("Viewing a project's Helpdesk tab") doesn't specify which permission tier, so both outcomes (3 tabs for view_helpdesk-only, 6 for manage_helpdesk) are individually correct depending on which Agent variant is being tested — the 6-tab outcome is what a real "Agent" per the corrected guide definition should see.
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test` — real `manage_helpdesk`): **PASS (order differs from the guide, already a known quirk, not a new gap).** All 6 tabs present: Helpdesk Dashboard, Helpdesk Tickets, Knowledgebase, Helpdesk SLA, Organization, Settings — rendered in the order Dashboard/Tickets/**Knowledgebase**/SLA/Organization/Settings, not the guide's documented Dashboard/Tickets/**SLA**/Organization/Knowledgebase/Settings (same Knowledgebase-position discrepancy already noted in `HELPDESK_MEMORY.md`'s Known Quirks, not new). **Important permission-tier finding**: a `view_helpdesk`-only Agent (`luna.blossom`) sees only **3** of these 6 (Dashboard/Tickets/Knowledgebase) — SLA/Organization/Settings are missing entirely for her, and a direct URL to the SLA tab (`/projects/helpdesk-qa-alpha/helpdesk/sla`) returns a genuine 403. **Root cause confirmed via source**: `RfProjectHelpdeskController` has `before_action :require_manage_permission, only: [:organization, :products, :sla, :settings]` — an explicit, deliberate gate matching the guide's own permissions table ("`manage_helpdesk`: Everything in view, plus managing the desk's configuration"). **Not a bug** — this is the same deliberate `manage_helpdesk` requirement confirmed via TC-HLP-147/BUG-HLP-027 (retracted as Not a Bug 2026-09-02 once the user corrected the real precondition to "`view_helpdesk` **and** `manage_helpdesk`"); `HELPDESK_USER_GUIDE.md` §4 has been corrected accordingly. Precondition note: this TC's own wording ("Viewing a project's Helpdesk tab") doesn't specify which permission tier, so both outcomes (3 tabs for view_helpdesk-only, 6 for manage_helpdesk) are individually correct depending on which Agent variant is being tested — the 6-tab outcome is what a real "Agent" per the corrected guide definition should see.
 
 ---
 
-### TC-HLP-066: Command Center Dashboard shows KPI cards, recent tickets, and charts
+### TC-HLP-153: Command Center Dashboard shows KPI cards, recent tickets, and charts
 
 **User Role:** Agent
 **Precondition:** Some tickets exist across at least one project.
@@ -130,7 +130,7 @@
 
 ---
 
-### TC-HLP-067: Project Dashboard shows this project's KPIs and prepaid hours per organization
+### TC-HLP-154: Project Dashboard shows this project's KPIs and prepaid hours per organization
 
 **User Role:** Agent
 **Precondition:** Project has tickets and at least one organization with a prepaid-hours budget.
@@ -142,11 +142,11 @@
 - KPI cards and charts scoped to this project only
 - Prepaid support hours are broken out per organization on this project's dashboard
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS.** No organization on Helpdesk QA Alpha had a prepaid budget yet, so a real one was added first (Organization → Alpha Minimal Fields Test Org → Prepaid Support Hours → Add/top up hours, 10h on Helpdesk QA Alpha). Reloading the project's Helpdesk Dashboard confirms: the 5 KPI cards (9/34/35/8/1) are scoped to this project only (matching TC-HLP-275's counts exactly), and a "Prepaid Support Hours" table now appears with Organization/Approved/Used/Remaining/Usage/Action columns, correctly showing "Alpha Minimal Fields Test Org — 10.00h Approved / 0.00h Used / 10.00h Remaining / 0% Used" and a working "Ledger" link. Confirms the section genuinely renders per-organization once real budget data exists — it was absent before only because no organization had a budget yet, not a plugin defect.
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS.** No organization on Helpdesk QA Alpha had a prepaid budget yet, so a real one was added first (Organization → Alpha Minimal Fields Test Org → Prepaid Support Hours → Add/top up hours, 10h on Helpdesk QA Alpha). Reloading the project's Helpdesk Dashboard confirms: the 5 KPI cards (9/34/35/8/1) are scoped to this project only (matching TC-HLP-156's counts exactly), and a "Prepaid Support Hours" table now appears with Organization/Approved/Used/Remaining/Usage/Action columns, correctly showing "Alpha Minimal Fields Test Org — 10.00h Approved / 0.00h Used / 10.00h Remaining / 0% Used" and a working "Ledger" link. Confirms the section genuinely renders per-organization once real budget data exists — it was absent before only because no organization had a budget yet, not a plugin defect.
 
 ---
 
-### TC-HLP-274: Command Center Dashboard's KPI "View all" links navigate with the correct filter already applied
+### TC-HLP-155: Command Center Dashboard's KPI "View all" links navigate with the correct filter already applied
 
 **User Role:** Agent
 **Precondition:** Command Center Dashboard open, with tickets covering a range of statuses (Unassigned, Open, On Hold, SLA Breached, Resolved).
@@ -161,32 +161,32 @@
 - Each click navigates to the global ticket list with the matching filter already applied automatically — no manual filter setup needed
 - The filter panel shows the correct field(s)/value(s) pre-filled for that KPI (e.g. Unassigned carries an `assigned_to_id=none` + open-status filter; Resolved carries a closed-status filter)
 - The resulting list's row count matches the KPI count noted in step 1 (accounting for the KPI's own date range, if one is shown on the Dashboard)
-- The URL reflects the applied filter (shareable, consistent with TC-HLP-044's URL-persistence behavior for the ticket list generally)
+- The URL reflects the applied filter (shareable, consistent with TC-HLP-400's URL-persistence behavior for the ticket list generally)
 
-- **CONFIRMED LIVE 2026-08-25** (backfilled into this file 2026-09-02 — evidence previously sat only in `HELPDESK_MEMORY.md`'s addendum #4, never copied here): **PASS.** Clicked the global Command Center Dashboard's "Unassigned" KPI card — landed on the global ticket list (`/rf_helpdesk/issues`) with the filter panel correctly pre-filled (Status = Any open status, Assignee = Nobody (unassigned)), and the resulting ticket count matched the KPI's own count exactly. **Re-confirmed again live 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test`): same mechanic, same-session KPI count (9 Unassigned) matched the resulting list's count exactly, URL carries the applied filter as query params (`assigned_to_id[]=none&status_id[]=open&created_from=...&created_to=...`), consistent with TC-HLP-275's project-scoped equivalent below.
+- **CONFIRMED LIVE 2026-08-25** (backfilled into this file 2026-09-02 — evidence previously sat only in `HELPDESK_MEMORY.md`'s addendum #4, never copied here): **PASS.** Clicked the global Command Center Dashboard's "Unassigned" KPI card — landed on the global ticket list (`/rf_helpdesk/issues`) with the filter panel correctly pre-filled (Status = Any open status, Assignee = Nobody (unassigned)), and the resulting ticket count matched the KPI's own count exactly. **Re-confirmed again live 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test`): same mechanic, same-session KPI count (9 Unassigned) matched the resulting list's count exactly, URL carries the applied filter as query params (`assigned_to_id[]=none&status_id[]=open&created_from=...&created_to=...`), consistent with TC-HLP-156's project-scoped equivalent below.
 
 ---
 
-### TC-HLP-275: Project Dashboard's KPI "View all" links apply the same filter, scoped to that project only
+### TC-HLP-156: Project Dashboard's KPI "View all" links apply the same filter, scoped to that project only
 
 **User Role:** Agent
 **Precondition:** A project's own Helpdesk Dashboard open, with tickets covering a range of statuses.
 
 **Steps:**
-1. Click **View all** on each KPI card (Unassigned, Open, On Hold, SLA Breached, Resolved) in turn, as in TC-HLP-274
+1. Click **View all** on each KPI card (Unassigned, Open, On Hold, SLA Breached, Resolved) in turn, as in TC-HLP-155
 
 **Expected Result:**
 - Each link lands on **this project's** ticket list (not the global Command Center list) with the matching filter pre-applied
-- Counts and filter behavior otherwise match TC-HLP-274, just scoped to the one project
+- Counts and filter behavior otherwise match TC-HLP-155, just scoped to the one project
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test`): **PASS.** Opened Helpdesk QA Alpha's own Helpdesk Dashboard (`/projects/helpdesk-qa-alpha/helpdesk`, 5 KPI cards: 9 Unassigned/34 Open/35 On Hold/8 SLA Breached/1 Resolved). Clicked "View All" on the Unassigned card — landed on `/projects/helpdesk-qa-alpha/helpdesk/tickets` (the project-scoped list, not `/rf_helpdesk/issues`), with Status = "Any open status" and Assignee = "Nobody (unassigned)" correctly pre-filled in the filter panel, heading reading "Helpdesk QA Alpha · 9 tickets" and the paginator confirming "(1-9/9)" — the resulting count matches the KPI's own count exactly, same behavior as TC-HLP-274 just correctly scoped to this one project instead of the global list.
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test`): **PASS.** Opened Helpdesk QA Alpha's own Helpdesk Dashboard (`/projects/helpdesk-qa-alpha/helpdesk`, 5 KPI cards: 9 Unassigned/34 Open/35 On Hold/8 SLA Breached/1 Resolved). Clicked "View All" on the Unassigned card — landed on `/projects/helpdesk-qa-alpha/helpdesk/tickets` (the project-scoped list, not `/rf_helpdesk/issues`), with Status = "Any open status" and Assignee = "Nobody (unassigned)" correctly pre-filled in the filter panel, heading reading "Helpdesk QA Alpha · 9 tickets" and the paginator confirming "(1-9/9)" — the resulting count matches the KPI's own count exactly, same behavior as TC-HLP-155 just correctly scoped to this one project instead of the global list.
 
 ---
 
-### TC-HLP-359: Changing the Dashboard's Date Range (not just accepting the default) carries the new range into a KPI's "View all" redirect
+### TC-HLP-157: Changing the Dashboard's Date Range (not just accepting the default) carries the new range into a KPI's "View all" redirect
 
 **User Role:** Agent
-**Precondition:** A project's own Helpdesk Dashboard open. TC-HLP-274/275 only ever exercised the page's *default* date range (`created_from`/`created_to` reflecting whatever the Date Range picker showed on load) — this TC exercises a range the user deliberately changes.
+**Precondition:** A project's own Helpdesk Dashboard open. TC-HLP-155/275 only ever exercised the page's *default* date range (`created_from`/`created_to` reflecting whatever the Date Range picker showed on load) — this TC exercises a range the user deliberately changes.
 
 **Steps:**
 1. Note the Dashboard's default Date Range button value and each KPI card's count under it (e.g. "05 Aug 26 - 03 Sep 26": 9 Unassigned/34 Open/35 On Hold/8 SLA Breached/1 Resolved).
@@ -198,11 +198,11 @@
 - Changing the Date Range preset updates the KPI counts on the Dashboard itself.
 - The KPI's "View all" link is built from the **currently-selected** range at click time, not a stale copy of the range that was active when the page first loaded.
 - The redirected ticket list's row count matches the updated KPI count, and its `created_from`/`created_to` URL params equal the newly-picked range.
-- CONFIRMED LIVE 2026-09-03 (Local, redmine-docker-6, `luna.blossom`/Agent): PASS. Default Date Range showed "05 Aug 26 - 03 Sep 26" with Open = 34. Clicked the Date Range button, selected **Yesterday** from the preset dropdown — URL updated to `?from_date=2026-09-02&to_date=2026-09-02` and the Open KPI count dropped live to **3** (Unassigned 0, On Hold 3, Resolved 0; SLA Breached stayed 8, since that card's own "View all" link — `?sla=breached` — carries no date params at all, confirmed unaffected by the picker both before and after the change). Clicked "Open View all" — landed on `/projects/helpdesk-qa-alpha/helpdesk/tickets?created_from=2026-09-02&created_to=2026-09-02&status_id[]=open`, i.e. the just-picked Yesterday range, **not** the page's original `2026-08-05`–`2026-09-03` default. The resulting table showed exactly 3 rows (#34, #35, #36 — all with an Updated/Created timestamp of 09/02/2026), matching the updated KPI count exactly. Confirms the "View all" links are computed from live picker state at click time, not fixed to the page's initial load — the gap this TC was written to close (TC-HLP-274/275 never exercised anything but the default range). No bug found.
+- CONFIRMED LIVE 2026-09-03 (Local, redmine-docker-6, `luna.blossom`/Agent): PASS. Default Date Range showed "05 Aug 26 - 03 Sep 26" with Open = 34. Clicked the Date Range button, selected **Yesterday** from the preset dropdown — URL updated to `?from_date=2026-09-02&to_date=2026-09-02` and the Open KPI count dropped live to **3** (Unassigned 0, On Hold 3, Resolved 0; SLA Breached stayed 8, since that card's own "View all" link — `?sla=breached` — carries no date params at all, confirmed unaffected by the picker both before and after the change). Clicked "Open View all" — landed on `/projects/helpdesk-qa-alpha/helpdesk/tickets?created_from=2026-09-02&created_to=2026-09-02&status_id[]=open`, i.e. the just-picked Yesterday range, **not** the page's original `2026-08-05`–`2026-09-03` default. The resulting table showed exactly 3 rows (#34, #35, #36 — all with an Updated/Created timestamp of 09/02/2026), matching the updated KPI count exactly. Confirms the "View all" links are computed from live picker state at click time, not fixed to the page's initial load — the gap this TC was written to close (TC-HLP-155/275 never exercised anything but the default range). No bug found.
 
 ---
 
-### TC-HLP-068: Search on a list screen finds matching records and survives paging
+### TC-HLP-158: Search on a list screen finds matching records and survives paging
 
 **User Role:** Agent
 **Precondition:** A list screen (e.g. Customers, Organizations, Products) with enough records to paginate.
@@ -220,7 +220,7 @@
 
 ---
 
-### TC-HLP-069: Opening a product from the global Products list stays in Command Center chrome
+### TC-HLP-159: Opening a product from the global Products list stays in Command Center chrome
 
 **User Role:** Agent
 **Precondition:** At least one product exists.
@@ -239,7 +239,7 @@
 
 ---
 
-### TC-HLP-070: "Helpdesk" does not appear in the top menu for a user with no helpdesk permission anywhere
+### TC-HLP-160: "Helpdesk" does not appear in the top menu for a user with no helpdesk permission anywhere
 
 **User Role:** Redmine user who is not a member of any helpdesk-enabled project, or is a member but with neither `view_helpdesk` nor `manage_helpdesk` on any project
 **Precondition:** As above.
@@ -250,7 +250,7 @@
 **Expected Result:**
 - **Helpdesk** is absent from the top menu entirely
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin — fixture `zero.perm.user`): **PASS.** Created a disposable user with zero project memberships anywhere (Administration → New user, no membership ever added), logged in as them — top menu shows only Home/My page/Projects/Time Tracker/Workloads/Help, no "Helpdesk" entry. Also incidentally confirmed the anonymous (logged-out) state shows no Helpdesk entry either. Cross-reference: this same absent-menu signature also appears for `luna.blossom`, a real Agent with `view_helpdesk` only (no `manage_helpdesk`) — this is expected, not a defect: per TC-HLP-060's corrected precondition (`view_helpdesk` **and** `manage_helpdesk`), a `view_helpdesk`-only member is not yet a full "Agent" for top-menu purposes, so matching this negative case is intended (see TC-HLP-060 and BUG-HLP-027's Closed/Not-a-Bug section).
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin — fixture `zero.perm.user`): **PASS.** Created a disposable user with zero project memberships anywhere (Administration → New user, no membership ever added), logged in as them — top menu shows only Home/My page/Projects/Time Tracker/Workloads/Help, no "Helpdesk" entry. Also incidentally confirmed the anonymous (logged-out) state shows no Helpdesk entry either. Cross-reference: this same absent-menu signature also appears for `luna.blossom`, a real Agent with `view_helpdesk` only (no `manage_helpdesk`) — this is expected, not a defect: per TC-HLP-147's corrected precondition (`view_helpdesk` **and** `manage_helpdesk`), a `view_helpdesk`-only member is not yet a full "Agent" for top-menu purposes, so matching this negative case is intended (see TC-HLP-147 and BUG-HLP-027's Closed/Not-a-Bug section).
 
 - **Follow-up verification, same day, per direct user question: does a hidden menu link also mean the URLs themselves are blocked, for both the no-permission and partial-permission (`view_helpdesk`-only) cases?** Tested every Command Center rail URL directly (not just the menu) for both tiers:
 
@@ -262,14 +262,14 @@
   | `/rf_products` | 403 | 403 |
   | `/rf_helpdesk/setting` | 403 | 403 |
   | `/projects/helpdesk-qa-alpha/helpdesk` (project dashboard) | 403 (not a member) | Loads (she IS a member) — 3-tab reduced sub-nav |
-  | `/projects/helpdesk-qa-alpha/helpdesk/sla` \| `/organization` \| `/settings` | not applicable (already 403'd above her) | 403 (confirmed under TC-HLP-065) |
+  | `/projects/helpdesk-qa-alpha/helpdesk/sla` \| `/organization` \| `/settings` | not applicable (already 403'd above her) | 403 (confirmed under TC-HLP-152) |
   | `/helpdesk` (**global** dashboard) | **Loads — and leaks real cross-project ticket data. See BUG-HLP-029.** | Loads, reduced 2-item rail, shows her own projects' real tickets (legitimate — she IS a member of both projects that currently exist) |
 
   **Every rail screen except the global dashboard itself correctly blocks direct URL access for both tiers** — hiding the menu link is backed by a real server-side check everywhere except one place. The one exception: `/helpdesk`'s own "Recent Tickets" list has no visibility scoping at all (confirmed via source — `Issue.where(project_id: @helpdesk_project_ids)` with no `.visible(User.current)` or permission filter), so it renders real ticket subjects/project/assignee/SLA-breach data to `zero.perm.user` despite her having zero access anywhere — while the same dashboard's own KPI cards correctly read 0 for her, proving the leak is specific to one code path, not the whole action. Filed as **BUG-HLP-029** (High). This was NOT exercised by `luna.blossom`'s test above, since she's a legitimate member of both projects that exist on this environment — her seeing her own projects' tickets there is correct, not a symptom of the same bug; the leak was proven specifically with a user who has zero legitimate access anywhere.
 
 ---
 
-### TC-HLP-071: Searching for a term matching no records shows a clean empty state
+### TC-HLP-161: Searching for a term matching no records shows a clean empty state
 
 **User Role:** Agent
 **Precondition:** Any list screen with search.
@@ -288,7 +288,7 @@
 
 ---
 
-### TC-HLP-072: Deep-linking directly to a Command Center URL works without navigating via the menu
+### TC-HLP-162: Deep-linking directly to a Command Center URL works without navigating via the menu
 
 **User Role:** Agent
 **Precondition:** Agent has an active session but has not clicked through the Helpdesk menu this session.
@@ -299,11 +299,11 @@
 **Expected Result:**
 - The Command Center Dashboard renders correctly, with the same hidden-app-menu chrome as if reached via the menu
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test`): **PASS.** Pasted `/helpdesk` directly into the address bar without having clicked the top-menu link this session — the Command Center Dashboard rendered correctly and identically to reaching it via the menu click (same rail, same KPI cards, same Recent Tickets, Redmine's real `:application_menu` equally absent — confirmed under TC-HLP-061). Chrome matches the (corrected) guide either way it's reached — including the header text, which reads "Helpdesk" as intended (`bugs/closed/BUG-HLP-028.md`, Rejected/Not a Bug).
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test`): **PASS.** Pasted `/helpdesk` directly into the address bar without having clicked the top-menu link this session — the Command Center Dashboard rendered correctly and identically to reaching it via the menu click (same rail, same KPI cards, same Recent Tickets, Redmine's real `:application_menu` equally absent — confirmed under TC-HLP-148). Chrome matches the (corrected) guide either way it's reached — including the header text, which reads "Helpdesk" as intended (`bugs/closed/BUG-HLP-028.md`, Rejected/Not a Bug).
 
 ---
 
-### TC-HLP-073: Switching between Command Center and a project's Helpdesk tab does not bleed chrome between modes
+### TC-HLP-163: Switching between Command Center and a project's Helpdesk tab does not bleed chrome between modes
 
 **User Role:** Agent
 **Precondition:** Access to both the Command Center and at least one project's Helpdesk tab.
@@ -316,14 +316,14 @@
 **Expected Result:**
 - Each transition shows the correct chrome for that mode (app menu hidden only in the Command Center) — no leftover project menu in the Command Center, and no missing project menu when back in the project
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test`): **PASS, both halves.** Opened the Command Center (7-item rail, Redmine's real `:application_menu` completely absent from the DOM — confirmed under TC-HLP-061) → navigated into Helpdesk QA Alpha's project Helpdesk tab (project heading "Helpdesk QA Alpha" + the project's own tab bar, which IS that same `:application_menu` in its project-scoped form, correctly reappeared, 6-tab Helpdesk sub-nav) → navigated back to the Command Center via the top-menu link (7-item rail correctly restored, `:application_menu`/project tab bar correctly gone again, no leftover Alpha-specific content). No bleed in either direction — each mode shows exactly the chrome it should, matching "app menu hidden only in the Command Center" precisely once "app menu" is correctly identified as Redmine's `:application_menu`, not the always-present `:top_menu`.
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, Agent `manage.helpdesk.test`): **PASS, both halves.** Opened the Command Center (7-item rail, Redmine's real `:application_menu` completely absent from the DOM — confirmed under TC-HLP-148) → navigated into Helpdesk QA Alpha's project Helpdesk tab (project heading "Helpdesk QA Alpha" + the project's own tab bar, which IS that same `:application_menu` in its project-scoped form, correctly reappeared, 6-tab Helpdesk sub-nav) → navigated back to the Command Center via the top-menu link (7-item rail correctly restored, `:application_menu`/project tab bar correctly gone again, no leftover Alpha-specific content). No bleed in either direction — each mode shows exactly the chrome it should, matching "app menu hidden only in the Command Center" precisely once "app menu" is correctly identified as Redmine's `:application_menu`, not the always-present `:top_menu`.
 
 ---
 
-### TC-HLP-074: Clearing a search term resets the list to its unfiltered state on the current page
+### TC-HLP-164: Clearing a search term resets the list to its unfiltered state on the current page
 
 **User Role:** Agent
-**Precondition:** A search is active on page 2 of a filtered list (per TC-HLP-068).
+**Precondition:** A search is active on page 2 of a filtered list (per TC-HLP-158).
 
 **Steps:**
 1. Clear the search box
@@ -331,13 +331,13 @@
 **Expected Result:**
 - The list returns to its full unfiltered contents; the page does not stay stuck on a now out-of-range page number if the unfiltered set has fewer pages than where the search left off
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS on the clear-resets-to-unfiltered half; the page-2/out-of-range half is BLOCKED for the same reason as TC-HLP-068 (insufficient real records to ever reach page 2).** After searching "zzznonexistentcustomer99" (0 results) and then clicking **Clear**, the Customers list correctly returned to its full unfiltered 3-row contents (`alpha.customer`/`delta.customer`/`retest.customer1`), search box emptied, no stale filter state. The out-of-range-page-number scenario specifically requires a list that both paginates AND has a search narrow enough to leave fewer pages than the current one — not constructible on Customers/Organizations/Products with their current real record counts (all under 4 rows). Not fabricating bulk dummy data solely to force this edge case.
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS on the clear-resets-to-unfiltered half; the page-2/out-of-range half is BLOCKED for the same reason as TC-HLP-158 (insufficient real records to ever reach page 2).** After searching "zzznonexistentcustomer99" (0 results) and then clicking **Clear**, the Customers list correctly returned to its full unfiltered 3-row contents (`alpha.customer`/`delta.customer`/`retest.customer1`), search box emptied, no stale filter state. The out-of-range-page-number scenario specifically requires a list that both paginates AND has a search narrow enough to leave fewer pages than the current one — not constructible on Customers/Organizations/Products with their current real record counts (all under 4 rows). Not fabricating bulk dummy data solely to force this edge case.
 
 ---
 
 ## Evidence Map
 
-- Case ID: TC-HLP-060 – TC-HLP-074, plus TC-HLP-274–275 (Dashboard KPI "View all" links, added 2026-08-24), plus TC-HLP-359 (Dashboard KPI "View all" with a manually-changed Date Range, added 2026-09-03)
+- Case ID: TC-HLP-147 – TC-HLP-164, plus TC-HLP-155–275 (Dashboard KPI "View all" links, added 2026-08-24), plus TC-HLP-157 (Dashboard KPI "View all" with a manually-changed Date Range, added 2026-09-03)
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`

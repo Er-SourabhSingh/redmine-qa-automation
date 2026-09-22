@@ -75,15 +75,15 @@
       <td class="bugid">BUG-CHK-002</td>
       <td><span class="badge critical">Critical</span></td>
       <td>Checklist/sub-item title containing a <code>&lt;script&gt;</code> tag executes on creation</td>
-      <td class="notes">Regression pass for #120920, <code>TC-CHK-217</code></td>
+      <td class="notes">Regression pass for #120920, <code>TC-CHK-031</code></td>
       <td class="notes">Not yet reported</td>
-      <td class="notes">Client-side self-XSS in <code>checklist.js</code>'s creation AJAX handlers (unescaped raw HTML interpolation) — not caused by #120920 itself, pre-existing. Not a stored XSS for other viewers (a normal reload renders it safely escaped). Confirmed the template apply/creation path (<code>_form_modal.html.erb</code>, <code>TC-CHK-419</code>) does <em>not</em> share this bug — fully server-rendered and escaped.</td>
+      <td class="notes">Client-side self-XSS in <code>checklist.js</code>'s creation AJAX handlers (unescaped raw HTML interpolation) — not caused by #120920 itself, pre-existing. Not a stored XSS for other viewers (a normal reload renders it safely escaped). Confirmed the template apply/creation path (<code>_form_modal.html.erb</code>, <code>TC-CHK-111</code>) does <em>not</em> share this bug — fully server-rendered and escaped.</td>
     </tr>
     <tr>
       <td class="bugid">BUG-CHK-004</td>
       <td><span class="badge medium">Medium</span></td>
       <td>Toggling a sub-checklist item's checkbox writes duplicate Checklist History journal entries</td>
-      <td class="notes"><code>TC-CHK-313</code> (rapid toggling), root-caused via source read</td>
+      <td class="notes"><code>TC-CHK-091</code> (rapid toggling), root-caused via source read</td>
       <td class="notes">Not yet reported</td>
       <td class="notes">A single click already fires two separate AJAX PATCH requests to two different endpoints (<code>toggle_completed</code> and <code>update_state</code>) for the same state change — confirmed via the Network tab, not just under rapid clicking (which compounds it further via unsequenced overlapping requests). Audit-trail / data-integrity defect only — the checkbox's actual final state and completion % are always correct.</td>
     </tr>

@@ -21,7 +21,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-201: Mention a user in an issue description
+### TC-MEN-036: Mention a user in an issue description
 
 **User Role:** Member with issue-edit rights
 **Steps:**
@@ -36,7 +36,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-202: Mention a user in an issue note
+### TC-MEN-037: Mention a user in an issue note
 
 **User Role:** Member
 **Steps:**
@@ -48,7 +48,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-203: Mention a user while creating a new issue
+### TC-MEN-038: Mention a user while creating a new issue
 
 **User Role:** Member with issue-create rights
 **Steps:**
@@ -59,7 +59,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-204: Mention renders as a link to the user
+### TC-MEN-039: Mention renders as a link to the user
 
 **User Role:** Member
 **Steps:**
@@ -72,7 +72,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-205: Editing a description to add a mention notifies only the newly mentioned user
+### TC-MEN-040: Editing a description to add a mention notifies only the newly mentioned user
 
 **User Role:** Member
 **Steps:**
@@ -85,7 +85,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-206: Mention typed through the Inline Editor plugin
+### TC-MEN-041: Mention typed through the Inline Editor plugin
 
 **User Role:** Member
 **Preconditions:** Inline Editor plugin installed and active.
@@ -99,7 +99,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-207: Several users mentioned in one save
+### TC-MEN-042: Several users mentioned in one save
 
 **User Role:** Member
 **Steps:**
@@ -110,7 +110,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-208: Mention a username containing dots, hyphens or underscores
+### TC-MEN-043: Mention a username containing dots, hyphens or underscores
 
 **User Role:** Member
 **Steps:**
@@ -122,7 +122,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-209: Determine whether a user picker / autocomplete exists
+### TC-MEN-044: Determine whether a user picker / autocomplete exists
 
 **User Role:** Member
 **Steps:**
@@ -131,11 +131,11 @@ The active mention symbol is whatever the plugin configuration currently holds â
 **Expected Result:**
 - Record the observed behaviour. The KB never claims an autocomplete exists, so absence is a documented limitation
   to note in the features list, not a bug.
-- If a picker **does** appear, it must list only users the current user is permitted to see (covered by TC-MEN-907).
+- If a picker **does** appear, it must list only users the current user is permitted to see (covered by TC-MEN-064).
 
 ---
 
-### TC-MEN-210: Mention in a private note
+### TC-MEN-045: Mention in a private note
 
 **User Role:** Member with private-note rights
 **Steps:**
@@ -151,7 +151,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-211: Mention a non-existent username
+### TC-MEN-046: Mention a non-existent username
 
 **User Role:** Member
 **Steps:**
@@ -163,7 +163,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-212: Symbol with nothing after it
+### TC-MEN-047: Symbol with nothing after it
 
 **User Role:** Member
 **Steps:**
@@ -174,7 +174,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-213: Username containing the mention symbol itself
+### TC-MEN-048: Username containing the mention symbol itself
 
 **User Role:** Member
 **Steps:**
@@ -188,7 +188,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-214: Ambiguous prefix matching
+### TC-MEN-049: Ambiguous prefix matching
 
 **User Role:** Member
 **Steps:**
@@ -201,7 +201,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-215: Mention embedded in other text without whitespace
+### TC-MEN-050: Mention embedded in other text without whitespace
 
 **User Role:** Member
 **Steps:**
@@ -214,7 +214,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-216: Mention inside a code block or preformatted text
+### TC-MEN-051: Mention inside a code block or preformatted text
 
 **User Role:** Member
 **Steps:**
@@ -226,7 +226,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-217: Mention a locked or registered-but-inactive user
+### TC-MEN-052: Mention a locked or registered-but-inactive user
 
 **User Role:** Member
 **Steps:**
@@ -238,7 +238,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-218: Mention a group name
+### TC-MEN-053: Mention a group name
 
 **User Role:** Member
 **Steps:**
@@ -251,7 +251,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-219: Self-mention
+### TC-MEN-054: Self-mention
 
 **User Role:** Member
 **Steps:**
@@ -263,7 +263,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-220: Very many mentions in one save
+### TC-MEN-055: Very many mentions in one save
 
 **User Role:** Member
 **Steps:**
@@ -276,7 +276,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-221: HTML or script in place of a username
+### TC-MEN-056: HTML or script in place of a username
 
 **User Role:** Member
 **Steps:**
@@ -287,7 +287,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 
 ---
 
-### TC-MEN-222: Mention removed by a later edit
+### TC-MEN-057: Mention removed by a later edit
 
 **User Role:** Member
 **Steps:**

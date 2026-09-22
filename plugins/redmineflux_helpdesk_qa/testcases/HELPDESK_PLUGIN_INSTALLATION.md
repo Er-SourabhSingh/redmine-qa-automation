@@ -14,7 +14,7 @@
 
 ---
 
-### TC-HLP-001: Fresh install completes end-to-end on a supported Redmine version
+### TC-HLP-176: Fresh install completes end-to-end on a supported Redmine version
 
 **User Role:** System Administrator (server access)
 **Precondition:** A clean Redmine instance on a supported version (5.0.x, 5.1.x, 6.0.x or 6.1.x). Redmine's default data has **not** yet been loaded.
@@ -38,10 +38,10 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 
 ---
 
-### TC-HLP-002: Plugin migration creates the "Waiting for Customer Response" issue status
+### TC-HLP-177: Plugin migration creates the "Waiting for Customer Response" issue status
 
 **User Role:** System Administrator (server access)
-**Precondition:** TC-HLP-001 completed successfully.
+**Precondition:** TC-HLP-176 completed successfully.
 
 **Steps:**
 1. Log in as Administrator
@@ -50,14 +50,14 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 **Expected Result:**
 - A status named **Waiting for Customer Response** exists, created by the plugin's migration
 
-CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`, immediately following TC-HLP-001's fresh install on this same instance): **PASS.** Administration → Issue statuses lists "Waiting for Customer Response" as a real status row. Also confirmed via direct DB query right after the plugin migration ran (before this UI check): exactly one `issue_statuses` row existed at that point, with this exact name — genuinely created by the plugin's own migration, not present beforehand.
+CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`, immediately following TC-HLP-176's fresh install on this same instance): **PASS.** Administration → Issue statuses lists "Waiting for Customer Response" as a real status row. Also confirmed via direct DB query right after the plugin migration ran (before this UI check): exactly one `issue_statuses` row existed at that point, with this exact name — genuinely created by the plugin's own migration, not present beforehand.
 
 ---
 
-### TC-HLP-003: A tracker named "Support" is available after install
+### TC-HLP-178: A tracker named "Support" is available after install
 
 **User Role:** Administrator
-**Precondition:** TC-HLP-001 completed successfully.
+**Precondition:** TC-HLP-176 completed successfully.
 
 **Steps:**
 1. Navigate to Administration → Trackers
@@ -65,14 +65,14 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 **Expected Result:**
 - A tracker named **Support** exists (created either by Redmine's default data or already present) — every helpdesk ticket depends on this tracker existing
 
-CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`, immediately following TC-HLP-001's fresh install): **PASS.** Administration → Trackers lists **Support** alongside **Bug** and **Feature** — resolving the TC's own noted ambiguity: `Support` is genuinely one of Redmine core's own 3 default trackers (created by `rake redmine:load_default_data` itself, before the plugin's migration ever ran), not something the plugin creates or requires as a separate setup step.
+CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`, immediately following TC-HLP-176's fresh install): **PASS.** Administration → Trackers lists **Support** alongside **Bug** and **Feature** — resolving the TC's own noted ambiguity: `Support` is genuinely one of Redmine core's own 3 default trackers (created by `rake redmine:load_default_data` itself, before the plugin's migration ever ran), not something the plugin creates or requires as a separate setup step.
 
 ---
 
-### TC-HLP-004: Background jobs run once Redis and Sidekiq are up
+### TC-HLP-179: Background jobs run once Redis and Sidekiq are up
 
 **User Role:** System Administrator (server access)
-**Precondition:** Plugin installed per TC-HLP-001; Redis and Sidekiq running.
+**Precondition:** Plugin installed per TC-HLP-176; Redis and Sidekiq running.
 
 **Steps:**
 1. Run `bundle exec rake redmineflux_helpdesk:check_sla` by hand (or wait for the scheduled run)
@@ -82,11 +82,11 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 - The SLA monitor job runs without error
 - Sidekiq log shows the scheduled jobs firing on their intervals (SLA monitor every 2 min, email poller every 5 min, auto-close every 2 min) once left running
 
-CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`, following TC-HLP-001): **PARTIAL — manual invocation PASS, automatic cadence FAIL, same root cause as BUG-HLP-060.** Manually ran `bundle exec rake redmineflux_helpdesk:check_sla` by hand → completed cleanly, `"SLA check completed... Notifications sent: 0, Escalations: 0, Errors: 0"` (zero counts are correct — no tickets/SLAs exist yet on this fresh instance). But Sidekiq's own log — on this same completely fresh install — shows the identical `Scheduled::Poller` `ArgumentError` crash documented in BUG-HLP-060 (`sidekiq 7.3.9`/`connection_pool 3.0.2` incompatibility), and grepping the full log for any of the 3 worker class names (`SlaMonitorWorker`/`EmailPollerWorker`/`AutoCloseTicketsWorker`) found zero execution entries — only their one-time cron registration at boot. The scheduled jobs are registered but never actually fire automatically, confirming this is a real defect present from a totally clean install, not something introduced later. See BUG-HLP-060 for full analysis.
+CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`, following TC-HLP-176): **PARTIAL — manual invocation PASS, automatic cadence FAIL, same root cause as BUG-HLP-060.** Manually ran `bundle exec rake redmineflux_helpdesk:check_sla` by hand → completed cleanly, `"SLA check completed... Notifications sent: 0, Escalations: 0, Errors: 0"` (zero counts are correct — no tickets/SLAs exist yet on this fresh instance). But Sidekiq's own log — on this same completely fresh install — shows the identical `Scheduled::Poller` `ArgumentError` crash documented in BUG-HLP-060 (`sidekiq 7.3.9`/`connection_pool 3.0.2` incompatibility), and grepping the full log for any of the 3 worker class names (`SlaMonitorWorker`/`EmailPollerWorker`/`AutoCloseTicketsWorker`) found zero execution entries — only their one-time cron registration at boot. The scheduled jobs are registered but never actually fire automatically, confirming this is a real defect present from a totally clean install, not something introduced later. See BUG-HLP-060 for full analysis.
 
 ---
 
-### TC-HLP-005: Upgrade path preserves existing data
+### TC-HLP-180: Upgrade path preserves existing data
 
 **User Role:** System Administrator (server access)
 **Precondition:** An existing install with at least one SLA, one customer, and one ticket already created.
@@ -102,7 +102,7 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 - Previously created SLAs, customers, organizations, and tickets are all still present and unchanged
 - No duplicate "Waiting for Customer Response" status is created
 
-CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`, following TC-HLP-009 on this same instance): **PASS — mechanical steps only, no real version diff was available to test.** Using the existing fixtures from TC-009 (SLA "TC009 No-Sidekiq Test SLA", customer `tc009.customer`, ticket #1, org "TC009 Test Org"), stopped Puma, replaced the plugin folder in place with a freshly re-copied source (same directory name — no actual version difference exists to install, since only one version of this plugin is available; this exercises the exact mechanical upgrade sequence, not a genuine cross-version migration), ran `bundle install` (clean, same 111 gems) and `rake redmine:plugins:migrate` (clean no-op) again, then restarted Puma. Verified via the real UI afterward: ticket #1 still loads with its full content, the SLA still appears in the project's SLA list, the customer still appears in the Customers list — all unchanged. Confirmed via direct DB query: still exactly 1 "Waiting for Customer Response" status, not duplicated.
+CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`, following TC-HLP-184 on this same instance): **PASS — mechanical steps only, no real version diff was available to test.** Using the existing fixtures from TC-009 (SLA "TC009 No-Sidekiq Test SLA", customer `tc009.customer`, ticket #1, org "TC009 Test Org"), stopped Puma, replaced the plugin folder in place with a freshly re-copied source (same directory name — no actual version difference exists to install, since only one version of this plugin is available; this exercises the exact mechanical upgrade sequence, not a genuine cross-version migration), ran `bundle install` (clean, same 111 gems) and `rake redmine:plugins:migrate` (clean no-op) again, then restarted Puma. Verified via the real UI afterward: ticket #1 still loads with its full content, the SLA still appears in the project's SLA list, the customer still appears in the Customers list — all unchanged. Confirmed via direct DB query: still exactly 1 "Waiting for Customer Response" status, not duplicated.
 
 ---
 
@@ -110,7 +110,7 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 
 ---
 
-### TC-HLP-006: Loading Redmine's default data after the plugin migration is refused
+### TC-HLP-181: Loading Redmine's default data after the plugin migration is refused
 
 **User Role:** System Administrator (server access)
 **Precondition:** The plugin migration (`rake redmine:plugins:migrate`) has already been run on this instance.
@@ -122,14 +122,14 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 - The command refuses with an error to the effect of "Some configuration data is already loaded"
 - No default trackers, statuses, priorities, or roles are created by this run
 
-CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`, following TC-HLP-001): **PASS.** Re-ran `rake redmine:load_default_data` on the already-migrated instance → refused verbatim with `"Some configuration data is already loaded."`. Confirmed no duplication via direct DB query: `trackers` = 3 (Bug/Feature/Support, unchanged), `issue_statuses` = 7 (the 6 core defaults + the plugin's own "Waiting for Customer Response", unchanged), `roles` = 5 (3 named core roles + 2 built-in Non member/Anonymous, unchanged) — identical counts before and after this refused attempt.
+CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`, following TC-HLP-176): **PASS.** Re-ran `rake redmine:load_default_data` on the already-migrated instance → refused verbatim with `"Some configuration data is already loaded."`. Confirmed no duplication via direct DB query: `trackers` = 3 (Bug/Feature/Support, unchanged), `issue_statuses` = 7 (the 6 core defaults + the plugin's own "Waiting for Customer Response", unchanged), `roles` = 5 (3 named core roles + 2 built-in Non member/Anonymous, unchanged) — identical counts before and after this refused attempt.
 
 ---
 
-### TC-HLP-007: Renaming the plugin folder breaks plugin registration
+### TC-HLP-182: Renaming the plugin folder breaks plugin registration
 
 **User Role:** System Administrator (server access)
-**Precondition:** Plugin installed and working per TC-HLP-001.
+**Precondition:** Plugin installed and working per TC-HLP-176.
 
 **Steps:**
 1. Rename the plugin's folder under `redmine/plugins/` to something other than the name it was installed as
@@ -142,7 +142,7 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`)
 
 ---
 
-### TC-HLP-008: Migrating without first running `bundle install` fails
+### TC-HLP-183: Migrating without first running `bundle install` fails
 
 **User Role:** System Administrator (server access)
 **Precondition:** Plugin folder copied into `redmine/plugins/`; gems from the plugin's Gemfile have not been installed.
@@ -158,10 +158,10 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 
 ---
 
-### TC-HLP-009: Without Redis/Sidekiq running, the desk loads but nothing automated happens
+### TC-HLP-184: Without Redis/Sidekiq running, the desk loads but nothing automated happens
 
 **User Role:** Agent
-**Precondition:** Plugin installed per TC-HLP-001; Redis and/or Sidekiq deliberately stopped.
+**Precondition:** Plugin installed per TC-HLP-176; Redis and/or Sidekiq deliberately stopped.
 
 **Steps:**
 1. Log in and open the Helpdesk Command Center and a project's Helpdesk tab
@@ -182,10 +182,10 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`)
 
 ---
 
-### TC-HLP-010: Re-running the plugin migration a second time is idempotent
+### TC-HLP-185: Re-running the plugin migration a second time is idempotent
 
 **User Role:** System Administrator (server access)
-**Precondition:** Plugin already installed and migrated successfully once (TC-HLP-001).
+**Precondition:** Plugin already installed and migrated successfully once (TC-HLP-176).
 
 **Steps:**
 1. Run `RAILS_ENV=production bundle exec rake redmine:plugins:migrate` again with no schema changes pending
@@ -195,11 +195,11 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`)
 - Exactly one "Waiting for Customer Response" status exists, not duplicated
 - No existing SLA, support level, customer, or ticket data is altered
 
-CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`, following TC-HLP-001): **PASS.** Re-ran `rake redmine:plugins:migrate` a second time with no schema changes pending → completed instantly with zero migration-step output (a genuine no-op, not just "no errors while doing something"). Confirmed via direct DB query: exactly 1 row for "Waiting for Customer Response" in `issue_statuses`, not duplicated.
+CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`, following TC-HLP-176): **PASS.** Re-ran `rake redmine:plugins:migrate` a second time with no schema changes pending → completed instantly with zero migration-step output (a genuine no-op, not just "no errors while doing something"). Confirmed via direct DB query: exactly 1 row for "Waiting for Customer Response" in `issue_statuses`, not duplicated.
 
 ---
 
-### TC-HLP-011: Running the plugin migration before Redmine's default data produces the documented broken state
+### TC-HLP-186: Running the plugin migration before Redmine's default data produces the documented broken state
 
 **User Role:** System Administrator (server access)
 **Precondition:** A completely fresh Redmine instance with no data loaded at all.
@@ -218,25 +218,25 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`)
 
 ---
 
-### TC-HLP-012: Setup functions identically on the oldest and newest supported Redmine versions
+### TC-HLP-187: Setup functions identically on the oldest and newest supported Redmine versions
 
 **User Role:** System Administrator (server access)
 **Precondition:** Two clean instances available — one on Redmine 5.0.x, one on 6.1.x.
 
 **Steps:**
-1. Repeat TC-HLP-001 through TC-HLP-003 on both instances
+1. Repeat TC-HLP-176 through TC-HLP-178 on both instances
 
 **Expected Result:**
 - Installation, migration, and the resulting tracker/status setup behave identically on both versions
 - No version-specific errors or missing screens on either
 
-**SKIPPED 2026-09-14, per explicit user decision.** Would have required spinning up a second disposable Redmine 5.0.x instance (a `redmine-install-test:5.0` stack was scaffolded — `C:\redmine-docker-install-test-5x\`, Dockerfile + docker-compose.yml only, never built/started) to repeat TC-HLP-001–003 there and compare against the 6.x results already confirmed live in this same suite. User explicitly chose to skip this TC for now rather than build the second instance. Not run — no pass/fail claim being made. Revisit if cross-version parity ever needs verifying.
+**SKIPPED 2026-09-14, per explicit user decision.** Would have required spinning up a second disposable Redmine 5.0.x instance (a `redmine-install-test:5.0` stack was scaffolded — `C:\redmine-docker-install-test-5x\`, Dockerfile + docker-compose.yml only, never built/started) to repeat TC-HLP-176–003 there and compare against the 6.x results already confirmed live in this same suite. User explicitly chose to skip this TC for now rather than build the second instance. Not run — no pass/fail claim being made. Revisit if cross-version parity ever needs verifying.
 
 ---
 
 ## Evidence Map
 
-- Case ID: TC-HLP-001 – TC-HLP-012
+- Case ID: TC-HLP-176 – TC-HLP-187
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`

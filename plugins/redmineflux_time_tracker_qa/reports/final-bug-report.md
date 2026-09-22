@@ -15,7 +15,7 @@
 - Severity: High
 - Production Redmine Issue ID: not yet reported
 - Found via an ad-hoc investigation prompted by a user report, not a full suite pass — this is the plugin's
-  first live finding. Corresponds to `TC-TMT-923` ("Closed and archived projects"), previously authored but not
+  first live finding. Corresponds to `TC-TMT-055` ("Closed and archived projects"), previously authored but not
   executed.
 - Core's "Log time" is correctly absent/blocked on a closed project's issue, but the plugin's own "Start Timer" →
   "Stop Timer & Log Time" flow fully succeeds: `POST /time_tracker/start_timer` → 200, `POST

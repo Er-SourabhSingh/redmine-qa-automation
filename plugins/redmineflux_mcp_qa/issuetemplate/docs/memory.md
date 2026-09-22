@@ -11,7 +11,7 @@
 - HTML tags (h2, ul, li, ol, strong, p) are stored and returned verbatim — CKEditor content fully supported via MCP.
 - Template #68 = global Bug template (QA test data, Session 1)
 - Template #69 = project Task template assigned to wiftsep + flxcyb (QA test data, Session 1)
-- Issue #115344 = created via template apply in TC-RIT-011 (QA test data, clean up if needed)
+- Issue #115344 = created via template apply in TC-RIT-100 (QA test data, clean up if needed)
 
 ## Confirmed Working
 
@@ -33,4 +33,4 @@
   - `redmineflux` (admin) — active from session start
   - `redmineflux_user_perm` (with permission) — requires session restart to activate
   - `redmineflux_user_noperm` (no permission) — requires session restart to activate
-- TC-RIT-016, TC-RIT-017, TC-RIT-018 are pending session restart
+- TC-RIT-105, TC-RIT-106, TC-RIT-107 are pending session restart

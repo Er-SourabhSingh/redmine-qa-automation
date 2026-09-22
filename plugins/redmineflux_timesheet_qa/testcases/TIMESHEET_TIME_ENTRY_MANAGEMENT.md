@@ -25,7 +25,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-201: The weekly grid renders the correct period
+### TC-TMS-125: The weekly grid renders the correct period
 
 **User Role:** Member with View Timesheet
 **Steps:**
@@ -38,7 +38,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-202: Totals are accurate
+### TC-TMS-126: Totals are accurate
 
 **User Role:** Member
 **Steps:**
@@ -54,7 +54,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-203: Log time via the Log Time modal
+### TC-TMS-127: Log time via the Log Time modal
 
 **User Role:** Member
 **Steps:**
@@ -66,7 +66,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-204: Log time by hovering a task cell
+### TC-TMS-128: Log time by hovering a task cell
 
 **User Role:** Member
 **Steps:**
@@ -77,7 +77,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-205: Activity list matches the project's configuration
+### TC-TMS-129: Activity list matches the project's configuration
 
 **User Role:** Member
 **Steps:**
@@ -88,7 +88,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-206: Required fields are enforced
+### TC-TMS-130: Required fields are enforced
 
 **User Role:** Member
 **Preconditions:** The instance requires a comment on time entries, and/or has required time-entry custom fields.
@@ -106,7 +106,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-207: Expand a task row to see its entries
+### TC-TMS-131: Expand a task row to see its entries
 
 **User Role:** Member
 **Steps:**
@@ -117,7 +117,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-208: Update an entry's fields
+### TC-TMS-132: Update an entry's fields
 
 **User Role:** Member
 **Steps:**
@@ -130,7 +130,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-209: Multiple entries for the same issue and activity
+### TC-TMS-133: Multiple entries for the same issue and activity
 
 **User Role:** Member
 **Steps:**
@@ -143,7 +143,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-210: Cancelling an update writes nothing
+### TC-TMS-134: Cancelling an update writes nothing
 
 **User Role:** Member
 **Steps:**
@@ -158,7 +158,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-211: Delete an entry
+### TC-TMS-135: Delete an entry
 
 **User Role:** Member
 **Steps:**
@@ -169,7 +169,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-212: Cancel a deletion
+### TC-TMS-136: Cancel a deletion
 
 **User Role:** Member
 **Steps:**
@@ -184,7 +184,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-213: Logging outside the allowed past-date window
+### TC-TMS-137: Logging outside the allowed past-date window
 
 **User Role:** Member
 **Preconditions:** Allowed Past Days = 3.
@@ -199,7 +199,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-214: Logging after the daily cutoff time
+### TC-TMS-138: Logging after the daily cutoff time
 
 **User Role:** Member
 **Steps:**
@@ -211,7 +211,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-215: Past-date logging disabled entirely
+### TC-TMS-139: Past-date logging disabled entirely
 
 **User Role:** Admin then Member
 **Steps:**
@@ -222,7 +222,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-216: Future-dated entries
+### TC-TMS-140: Future-dated entries
 
 **User Role:** Member
 **Steps:**
@@ -235,7 +235,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-217: Editing and deleting outside the allowed window
+### TC-TMS-141: Editing and deleting outside the allowed window
 
 **User Role:** Member
 **Preconditions:** **Block Edit/Delete After Allowed Period** enabled.
@@ -243,11 +243,11 @@ Main navigation → **Timesheet**. Do not type URLs.
 1. Attempt to edit, then delete, an entry outside the window, through the UI and directly.
 
 **Expected Result:**
-- Both refused at both legs (paired with TC-TMS-114).
+- Both refused at both legs (paired with TC-TMS-040).
 
 ---
 
-### TC-TMS-218: Editing after approval
+### TC-TMS-142: Editing after approval
 
 **User Role:** Member
 **Preconditions:** **Disable Log/Edit After Approval** enabled; the period is approved.
@@ -261,7 +261,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-219: Overtime is flagged at the threshold boundary
+### TC-TMS-143: Overtime is flagged at the threshold boundary
 
 **User Role:** Member
 **Preconditions:** Overtime Threshold = 8.
@@ -274,7 +274,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-220: Invalid hours values
+### TC-TMS-144: Invalid hours values
 
 **User Role:** Member
 **Steps:**
@@ -287,7 +287,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-221: Script content in a comment
+### TC-TMS-145: Script content in a comment
 
 **User Role:** Member
 **Steps:**
@@ -301,7 +301,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-222: Editing another user's entries
+### TC-TMS-146: Editing another user's entries
 
 **User Role:** Member
 **Steps:**
@@ -314,7 +314,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-223: Concurrent edits to the same entry
+### TC-TMS-147: Concurrent edits to the same entry
 
 **User Role:** Two users with rights over the same entry
 **Steps:**
@@ -325,7 +325,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-224: Logging against an issue in a closed or archived project
+### TC-TMS-148: Logging against an issue in a closed or archived project
 
 **User Role:** Member
 **Steps:**
@@ -337,7 +337,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 
 ---
 
-### TC-TMS-225: Entries persist correctly across a period boundary
+### TC-TMS-149: Entries persist correctly across a period boundary
 
 **User Role:** Member
 **Steps:**

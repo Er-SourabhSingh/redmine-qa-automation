@@ -20,7 +20,7 @@ Administration → Plugins → Redmineflux Tag Plugin → Configure → **Manage
 
 ---
 
-### TC-TAG-301: Manage Tags lists every existing tag
+### TC-TAG-054: Manage Tags lists every existing tag
 
 **User Role:** Admin
 **Steps:**
@@ -33,7 +33,7 @@ Administration → Plugins → Redmineflux Tag Plugin → Configure → **Manage
 
 ---
 
-### TC-TAG-302: Rename a tag
+### TC-TAG-055: Rename a tag
 
 **User Role:** Admin
 **Steps:**
@@ -47,7 +47,7 @@ Administration → Plugins → Redmineflux Tag Plugin → Configure → **Manage
 
 ---
 
-### TC-TAG-303: Assign a specific colour to a tag
+### TC-TAG-056: Assign a specific colour to a tag
 
 **User Role:** Admin
 **Steps:**
@@ -59,7 +59,7 @@ Administration → Plugins → Redmineflux Tag Plugin → Configure → **Manage
 
 ---
 
-### TC-TAG-304: Delete a tag that is not assigned anywhere
+### TC-TAG-057: Delete a tag that is not assigned anywhere
 
 **User Role:** Admin
 **Steps:**
@@ -70,7 +70,7 @@ Administration → Plugins → Redmineflux Tag Plugin → Configure → **Manage
 
 ---
 
-### TC-TAG-305: Delete a tag that is assigned to entities
+### TC-TAG-058: Delete a tag that is assigned to entities
 
 **User Role:** Admin
 **Steps:**
@@ -85,7 +85,7 @@ Administration → Plugins → Redmineflux Tag Plugin → Configure → **Manage
 
 ---
 
-### TC-TAG-306: Cancel a tag deletion
+### TC-TAG-059: Cancel a tag deletion
 
 **User Role:** Admin
 **Steps:**
@@ -96,7 +96,7 @@ Administration → Plugins → Redmineflux Tag Plugin → Configure → **Manage
 
 ---
 
-### TC-TAG-307: Tag usage count is accurate
+### TC-TAG-060: Tag usage count is accurate
 
 **User Role:** Admin
 **Steps:**
@@ -107,7 +107,7 @@ Administration → Plugins → Redmineflux Tag Plugin → Configure → **Manage
 
 ---
 
-### TC-TAG-308: Merging duplicate tags
+### TC-TAG-061: Merging duplicate tags
 
 **User Role:** Admin
 **Steps:**
@@ -124,7 +124,7 @@ Administration → Plugins → Redmineflux Tag Plugin → Configure → **Manage
 
 ---
 
-### TC-TAG-309: Rename a tag to an empty or whitespace-only name
+### TC-TAG-062: Rename a tag to an empty or whitespace-only name
 
 **User Role:** Admin
 **Steps:**
@@ -135,18 +135,18 @@ Administration → Plugins → Redmineflux Tag Plugin → Configure → **Manage
 
 ---
 
-### TC-TAG-310: Rename a tag to a name that already exists
+### TC-TAG-063: Rename a tag to a name that already exists
 
 **User Role:** Admin
 **Steps:**
 1. Rename tag A to exactly tag B's name.
 
 **Expected Result:**
-- Either rejected with a uniqueness message, or merged deliberately (see TC-TAG-308). Not silently duplicated.
+- Either rejected with a uniqueness message, or merged deliberately (see TC-TAG-061). Not silently duplicated.
 
 ---
 
-### TC-TAG-311: HTML and special characters in a tag name via administration
+### TC-TAG-064: HTML and special characters in a tag name via administration
 
 **User Role:** Admin
 **Steps:**
@@ -158,7 +158,7 @@ Administration → Plugins → Redmineflux Tag Plugin → Configure → **Manage
 
 ---
 
-### TC-TAG-312: Very long tag name via administration
+### TC-TAG-065: Very long tag name via administration
 
 **User Role:** Admin
 **Steps:**
@@ -170,7 +170,7 @@ Administration → Plugins → Redmineflux Tag Plugin → Configure → **Manage
 
 ---
 
-### TC-TAG-313: Non-admin cannot reach Manage Tags
+### TC-TAG-066: Non-admin cannot reach Manage Tags
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
 **Steps:**
@@ -185,7 +185,7 @@ Administration → Plugins → Redmineflux Tag Plugin → Configure → **Manage
 
 ---
 
-### TC-TAG-314: Deleting a tag mid-use by another session
+### TC-TAG-067: Deleting a tag mid-use by another session
 
 **User Role:** Admin plus a member
 **Steps:**
@@ -199,7 +199,7 @@ Administration → Plugins → Redmineflux Tag Plugin → Configure → **Manage
 
 ---
 
-### TC-TAG-315: Deleting a tag does not delete its entities
+### TC-TAG-068: Deleting a tag does not delete its entities
 
 **User Role:** Admin
 **Steps:**

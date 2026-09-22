@@ -22,7 +22,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-201: Project board opens from the project menu
+### TC-AGB-185: Project board opens from the project menu
 
 **User Role:** Member with View Agile Board
 **Steps:**
@@ -34,7 +34,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-202: Cards are placed in the correct status column
+### TC-AGB-186: Cards are placed in the correct status column
 
 **User Role:** Member
 **Steps:**
@@ -46,7 +46,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-203: Card content matches the issue
+### TC-AGB-187: Card content matches the issue
 
 **User Role:** Member
 **Steps:**
@@ -57,7 +57,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-204: Column issue counts are accurate
+### TC-AGB-188: Column issue counts are accurate
 
 **User Role:** Member
 **Steps:**
@@ -68,7 +68,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-205: Large columns load more cards
+### TC-AGB-189: Large columns load more cards
 
 **User Role:** Member
 **Steps:**
@@ -84,7 +84,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-206: Quick-add an issue into a column
+### TC-AGB-190: Quick-add an issue into a column
 
 **User Role:** Member with issue-create rights
 **Steps:**
@@ -96,7 +96,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-207: Quick-add applies project defaults for unspecified fields
+### TC-AGB-191: Quick-add applies project defaults for unspecified fields
 
 **User Role:** Member
 **Steps:**
@@ -108,7 +108,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-208: Quick-add respects required fields
+### TC-AGB-192: Quick-add respects required fields
 
 **User Role:** Member
 **Steps:**
@@ -121,7 +121,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-209: Quick-add into a column whose status is not the default
+### TC-AGB-193: Quick-add into a column whose status is not the default
 
 **User Role:** Member
 **Steps:**
@@ -137,7 +137,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-210: Drag a card to another status column
+### TC-AGB-194: Drag a card to another status column
 
 **User Role:** Member with edit rights
 **Steps:**
@@ -150,7 +150,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-211: A workflow-blocked transition is not applied
+### TC-AGB-195: A workflow-blocked transition is not applied
 
 **User Role:** Member on a role with a restricted workflow
 **Steps:**
@@ -163,7 +163,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-212: Drag respects edit permission
+### TC-AGB-196: Drag respects edit permission
 
 **User Role:** Member with view-only access to issues
 **Steps:**
@@ -175,7 +175,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-213: Drag within the same column
+### TC-AGB-197: Drag within the same column
 
 **User Role:** Member
 **Steps:**
@@ -187,7 +187,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-214: Drag triggers the same side effects as a normal status change
+### TC-AGB-198: Drag triggers the same side effects as a normal status change
 
 **User Role:** Member, with a watcher on the issue
 **Steps:**
@@ -203,7 +203,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-215: Double-click opens the edit modal
+### TC-AGB-199: Double-click opens the edit modal
 
 **User Role:** Member
 **Steps:**
@@ -214,7 +214,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-216: Saving the modal updates the issue and the board
+### TC-AGB-200: Saving the modal updates the issue and the board
 
 **User Role:** Member
 **Steps:**
@@ -227,7 +227,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-217: Cancelling the modal writes nothing
+### TC-AGB-201: Cancelling the modal writes nothing
 
 **User Role:** Member
 **Steps:**
@@ -238,7 +238,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-218: Modal validation matches the standard form
+### TC-AGB-202: Modal validation matches the standard form
 
 **User Role:** Member
 **Steps:**
@@ -254,7 +254,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-219: Script content in a subject or description
+### TC-AGB-203: Script content in a subject or description
 
 **User Role:** Member
 **Steps:**
@@ -267,7 +267,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-220: Very long subject
+### TC-AGB-204: Very long subject
 
 **User Role:** Member
 **Steps:**
@@ -278,7 +278,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-221: Concurrent moves of the same card
+### TC-AGB-205: Concurrent moves of the same card
 
 **User Role:** Two members
 **Steps:**
@@ -290,7 +290,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-222: Issue deleted while its card is on screen
+### TC-AGB-206: Issue deleted while its card is on screen
 
 **User Role:** Two members
 **Steps:**
@@ -301,7 +301,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-223: Network failure mid-drag
+### TC-AGB-207: Network failure mid-drag
 
 **User Role:** Member
 **Steps:**
@@ -313,7 +313,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-224: Session expiry mid-action
+### TC-AGB-208: Session expiry mid-action
 
 **User Role:** Member
 **Steps:**
@@ -324,7 +324,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-225: Board in a closed or archived project
+### TC-AGB-209: Board in a closed or archived project
 
 **User Role:** Member
 **Steps:**
@@ -337,7 +337,7 @@ central defect class this suite exists to catch.
 
 ---
 
-### TC-AGB-226: Issue moved to a status hidden from the board
+### TC-AGB-210: Issue moved to a status hidden from the board
 
 **User Role:** Member
 **Steps:**

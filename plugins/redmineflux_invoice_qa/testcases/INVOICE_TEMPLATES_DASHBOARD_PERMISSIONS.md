@@ -16,7 +16,7 @@ Templates: Administration → Plugins → Redmineflux Invoice → Configure → 
 Global view and dashboard: top navigation → **Invoices**.
 
 > **Templates are ERB executed on the server.** Unlike the other plugins' HTML templates, these are code. That
-> makes TC-INV-605 a genuine server-side execution question, not just an escaping one.
+> makes TC-INV-102 a genuine server-side execution question, not just an escaping one.
 
 ---
 
@@ -24,7 +24,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-601: The default template produces a valid PDF
+### TC-INV-098: The default template produces a valid PDF
 
 **User Role:** Admin
 **Steps:**
@@ -37,7 +37,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-602: Create a custom template
+### TC-INV-099: Create a custom template
 
 **User Role:** Admin
 **Steps:**
@@ -49,7 +49,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-603: Preview reflects the real output
+### TC-INV-100: Preview reflects the real output
 
 **User Role:** Admin
 **Steps:**
@@ -60,7 +60,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-604: Copy a template
+### TC-INV-101: Copy a template
 
 **User Role:** Admin
 **Steps:**
@@ -71,7 +71,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-605: ERB templates cannot be used to execute arbitrary code
+### TC-INV-102: ERB templates cannot be used to execute arbitrary code
 
 **User Role:** Admin
 **Steps:**
@@ -84,12 +84,12 @@ Global view and dashboard: top navigation → **Invoices**.
 - **This is the sharpest case in the suite.** ERB rendered server-side is code execution by design; the question is
   whether it runs in a restricted context. If a template can read arbitrary files or the environment, then anyone
   who can edit templates can read the instance's secrets — including the Stripe secret key stored by this same
-  plugin. That is Critical, and it raises the stakes on TC-INV-909 (who can reach the configuration page).
+  plugin. That is Critical, and it raises the stakes on TC-INV-125 (who can reach the configuration page).
 - Malformed ERB must produce a clear error rather than a 500 that leaves invoices ungeneratable.
 
 ---
 
-### TC-INV-606: PDF generation failure is loud, not silent
+### TC-INV-103: PDF generation failure is loud, not silent
 
 **User Role:** Admin
 **Steps:**
@@ -103,7 +103,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-607: All documented macros resolve
+### TC-INV-104: All documented macros resolve
 
 **User Role:** Admin
 **Steps:**
@@ -122,7 +122,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-608: Create and use an email template
+### TC-INV-105: Create and use an email template
 
 **User Role:** Admin
 **Steps:**
@@ -134,7 +134,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-609: Placeholders resolve
+### TC-INV-106: Placeholders resolve
 
 **User Role:** Admin
 **Steps:**
@@ -147,7 +147,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-610: Attach the PDF option
+### TC-INV-107: Attach the PDF option
 
 **User Role:** Admin
 **Steps:**
@@ -155,12 +155,12 @@ Global view and dashboard: top navigation → **Invoices**.
 
 **Expected Result:**
 - The PDF is attached only when enabled, and the attachment opens and matches the invoice.
-- Paired with TC-INV-606: if PDF generation fails while this option is on, the send must not proceed silently
+- Paired with TC-INV-103: if PDF generation fails while this option is on, the send must not proceed silently
   without the attachment.
 
 ---
 
-### TC-INV-611: Preview an email template
+### TC-INV-108: Preview an email template
 
 **User Role:** Admin
 **Steps:**
@@ -171,7 +171,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-612: Template validation
+### TC-INV-109: Template validation
 
 **User Role:** Admin
 **Steps:**
@@ -183,7 +183,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-613: Deleting a template in use
+### TC-INV-110: Deleting a template in use
 
 **User Role:** Admin
 **Steps:**
@@ -199,7 +199,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-701: The global view lists invoices across projects
+### TC-INV-111: The global view lists invoices across projects
 
 **User Role:** User with `view_invoices` on several projects
 **Steps:**
@@ -210,7 +210,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-702: Global filters
+### TC-INV-112: Global filters
 
 **User Role:** Same
 **Steps:**
@@ -221,7 +221,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-703: Create and send from the global view
+### TC-INV-113: Create and send from the global view
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -232,7 +232,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-704: Dashboard KPIs are accurate
+### TC-INV-114: Dashboard KPIs are accurate
 
 **User Role:** User with `view_invoices`
 **Steps:**
@@ -246,7 +246,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-705: Project and global dashboards agree
+### TC-INV-115: Project and global dashboards agree
 
 **User Role:** User with `view_invoices`
 **Steps:**
@@ -257,7 +257,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-706: Partial payments in the KPIs
+### TC-INV-116: Partial payments in the KPIs
 
 **User Role:** User with `view_invoices`
 **Steps:**
@@ -274,7 +274,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-901: `view_invoices` is read-only
+### TC-INV-117: `view_invoices` is read-only
 
 **User Role:** User with `view_invoices` only
 **Steps:**
@@ -289,7 +289,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-902: `manage_invoices` does not reach plugin configuration
+### TC-INV-118: `manage_invoices` does not reach plugin configuration
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -298,12 +298,12 @@ Global view and dashboard: top navigation → **Invoices**.
 **Expected Result:**
 - Refused with 403.
 - **Two separate escalations are blocked here**: reading the Stripe secret key, and editing an ERB template that
-  runs server-side (TC-INV-605). Either would turn the broadest invoice permission into far more than billing
+  runs server-side (TC-INV-102). Either would turn the broadest invoice permission into far more than billing
   access. High severity if reachable.
 
 ---
 
-### TC-INV-903: `manage_customers` is global in scope
+### TC-INV-119: `manage_customers` is global in scope
 
 **User Role:** User with `manage_customers` but no project invoice permissions
 **Steps:**
@@ -318,7 +318,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-904: Project scoping of invoice permissions
+### TC-INV-120: Project scoping of invoice permissions
 
 **User Role:** User with `manage_invoices` on project A only
 **Steps:**
@@ -331,7 +331,7 @@ Global view and dashboard: top navigation → **Invoices**.
 
 ---
 
-### TC-INV-905: Sending requires `manage_invoices`
+### TC-INV-121: Sending requires `manage_invoices`
 
 **User Role:** User with `view_invoices` only
 **Steps:**
@@ -339,12 +339,12 @@ Global view and dashboard: top navigation → **Invoices**.
 
 **Expected Result:**
 - Refused.
-- **Sending emails a real client and permanently locks the document** (TC-INV-419), so an unguarded send endpoint
+- **Sending emails a real client and permanently locks the document** (TC-INV-065), so an unguarded send endpoint
   causes irreversible external consequences, not just a data change.
 
 ---
 
-### TC-INV-906: Non-member cannot reach invoices
+### TC-INV-122: Non-member cannot reach invoices
 
 **User Role:** Authenticated non-member
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
@@ -359,7 +359,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-INV-907: Anonymous users reach nothing but the payment link
+### TC-INV-123: Anonymous users reach nothing but the payment link
 
 **User Role:** Anonymous (logged out)
 **Steps:**
@@ -368,13 +368,13 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 **Expected Result:**
 - All refused.
-- **The Stripe payment link must be the only unauthenticated surface** (TC-INV-508). Any other page reachable
+- **The Stripe payment link must be the only unauthenticated surface** (TC-INV-083). Any other page reachable
   without a session is a leak — and once a token-based bypass exists in the same controller, it is a realistic
   implementation mistake.
 
 ---
 
-### TC-INV-908: The global view does not widen visibility
+### TC-INV-124: The global view does not widen visibility
 
 **User Role:** User with `view_invoices` on project A only
 **Steps:**
@@ -387,7 +387,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-INV-909: Template and configuration access is admin-only
+### TC-INV-125: Template and configuration access is admin-only
 
 **User Role:** Every non-admin role in turn
 **Steps:**
@@ -395,12 +395,12 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 **Expected Result:**
 - All refused.
-- Template editing is effectively code execution (TC-INV-605) and controls the content of documents sent to
+- Template editing is effectively code execution (TC-INV-102) and controls the content of documents sent to
   clients under the company's name — both reasons to treat any access here as High severity.
 
 ---
 
-### TC-INV-910: Permission revocation takes effect without re-login
+### TC-INV-126: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected user
 **Steps:**
@@ -412,7 +412,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-INV-911: Closed and archived projects
+### TC-INV-127: Closed and archived projects
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -427,7 +427,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-INV-912: Audit of who did what
+### TC-INV-128: Audit of who did what
 
 **User Role:** Admin
 **Steps:**

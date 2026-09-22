@@ -15,7 +15,7 @@
 
 **Session 2 (25 TCs):** Time Entries list, New Time Entry, Files, Wiki, Wiki edit, Forums, News, Documents, Core Gantt (PASS on easosrt), Admin Users list, New User form, Roles, Custom Fields, Workflows, Enumerations, Trackers, Issue Statuses, Groups, Settings Display/Auth/API/Issues/Notifications, Bulk Edit context menu, Bulk Edit form
 
-**Total: 39 TCs — 37 PASS, 1 FAIL (TC-RSC-005), 1 INFO (TC-RSC-009)**
+**Total: 39 TCs — 37 PASS, 1 FAIL (TC-RSC-005), 1 INFO (TC-RSC-010)**
 
 **4 bugs filed:** BUG-RSC-001, BUG-RSC-002, BUG-RSC-003, BUG-RSC-004
 

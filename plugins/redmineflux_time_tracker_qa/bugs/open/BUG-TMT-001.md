@@ -42,7 +42,7 @@
 - This is the same category of gap as `BUG-CHK-005` (Checklist plugin) found in the same session: a plugin
   provides its own write path on the issue detail page that doesn't check the project's closed state, even
   though Redmine core's own equivalent action on the same page correctly does.
-- This suite (`TIME_TRACKER_PERMISSIONS.md`) already had a test case for exactly this scenario, `TC-TMT-923`
+- This suite (`TIME_TRACKER_PERMISSIONS.md`) already had a test case for exactly this scenario, `TC-TMT-055`
   ("Closed and archived projects"), authored but not yet executed before this session — this finding is its
   first live execution (closed-project half only; archived-project half and the "edit an existing entry" /
   direct-endpoint sub-steps remain untested).

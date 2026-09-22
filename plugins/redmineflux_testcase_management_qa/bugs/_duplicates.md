@@ -9,6 +9,6 @@
 
 > **BUG-TCM-005 / BUG-TCM-006 are not duplicates of each other.** They share a visible symptom (no attachment) but
 > differ in assertion, trigger and cause. 005 = the PDF must be generated and attached on a working server
-> (TC-TCM-523, fixed by completing the install). 006 = a *failed* PDF must not produce an email claiming an
-> attachment (TC-TCM-524, open, needs a code fix). Deciding which applies: if `node`, `npm` and Chromium are
+> (TC-TCM-100, fixed by completing the install). 006 = a *failed* PDF must not produce an email claiming an
+> attachment (TC-TCM-101, open, needs a code fix). Deciding which applies: if `node`, `npm` and Chromium are
 > present and the Sidekiq worker has `PUPPETEER_EXECUTABLE_PATH` set, it is 006.

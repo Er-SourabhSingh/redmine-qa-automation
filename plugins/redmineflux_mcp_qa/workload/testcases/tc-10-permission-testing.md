@@ -4,14 +4,14 @@
 |-------|-------|
 | **Plugin** | redmineflux_mcp |
 | **Module** | Cross-Module Permission Testing |
-| **TC Range** | TC-RFM-082 to TC-RFM-087 |
+| **TC Range** | TC-RFM-160 to TC-RFM-165 |
 | **Total TCs** | 6 |
 | **Execution Order** | Suite 10 — Run last (depends on all prior suites) |
 | **Feature Coverage** | RFM-F082 through RFM-F087 |
 
 ---
 
-## TC-RFM-082 — Admin can perform all operations across all modules
+## TC-RFM-160 — Admin can perform all operations across all modules
 
 | Field | Value |
 |-------|-------|
@@ -46,7 +46,7 @@
 
 ---
 
-## TC-RFM-083 — User with permission can perform allowed operations
+## TC-RFM-161 — User with permission can perform allowed operations
 
 | Field | Value |
 |-------|-------|
@@ -81,7 +81,7 @@
 
 ---
 
-## TC-RFM-084 — User without permission is denied restricted operations
+## TC-RFM-162 — User without permission is denied restricted operations
 
 | Field | Value |
 |-------|-------|
@@ -116,7 +116,7 @@
 
 ---
 
-## TC-RFM-085 — Team manager can manage team-level operations
+## TC-RFM-163 — Team manager can manage team-level operations
 
 | Field | Value |
 |-------|-------|
@@ -152,7 +152,7 @@
 
 ---
 
-## TC-RFM-086 — Leave approver can only manage leave operations
+## TC-RFM-164 — Leave approver can only manage leave operations
 
 | Field | Value |
 |-------|-------|
@@ -191,7 +191,7 @@
 
 ---
 
-## TC-RFM-087 — Unauthorized access returns proper MCP error messages
+## TC-RFM-165 — Unauthorized access returns proper MCP error messages
 
 | Field | Value |
 |-------|-------|

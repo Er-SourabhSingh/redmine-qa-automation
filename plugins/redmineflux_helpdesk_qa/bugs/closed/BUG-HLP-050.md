@@ -23,7 +23,7 @@ Per `HELPDESK_USER_GUIDE.md` §17 ("Attachments | Add and remove files on an art
 
 ## Actual result
 
-**Adding works correctly and is fully confirmed** (see TC-HLP-166's PASS half): uploading via the Attachment block genuinely persists a real file (real size, real download link, listed in the Attachments panel with uploader/timestamp).
+**Adding works correctly and is fully confirmed** (see TC-HLP-022's PASS half): uploading via the Attachment block genuinely persists a real file (real size, real download link, listed in the Attachments panel with uploader/timestamp).
 
 **Removing does not work through any UI path found**, despite exhaustive attempts:
 - The Attachments panel's table has an Action column containing **only a download link** (`<a class="transparent-btn m-0" href="/rf_kb/download?...">`) — confirmed via direct `innerHTML` inspection, no delete icon of any kind.
@@ -68,6 +68,6 @@ Live-verified end-to-end on the exact original fixture (article "Resetting your 
 
 ## Notes
 
-- Found while executing `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-166 ("Adding and removing attachments on a Knowledgebase article"). The "add" half passed cleanly; this bug covers only the "remove" half.
+- Found while executing `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-022 ("Adding and removing attachments on a Knowledgebase article"). The "add" half passed cleanly; this bug covers only the "remove" half.
 - Uses the same fixture article as BUG-HLP-048/049 ("Resetting your password", id 3), which now has one permanent attachment (`tc-166-test-attachment.txt`, id 9) left in place since it cannot currently be removed through the UI.
 - This is the third distinct KB sub-feature gap found in this session (alongside BUG-HLP-048 nesting and BUG-HLP-049 compare/restore) — all three share the shape of "the documented capability's server-side/event-wiring exists or was clearly intended, but the actual UI never reaches it."

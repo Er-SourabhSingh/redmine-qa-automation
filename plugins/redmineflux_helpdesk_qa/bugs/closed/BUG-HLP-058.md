@@ -20,7 +20,7 @@
 
 ## Expected result
 
-Per `HELPDESK_REPORTING_AUTOMATION.md` TC-HLP-190, adding a reply via the API should appear "both via the API and in the UI, with the same side effects as a UI-driven reply (status change, SLA pause) where applicable" — i.e. behave like the real branded Reply box, not like a generic Redmine note. Per `HELPDESK_USER_GUIDE.md`/BUG-HLP-015's own established distinction, a genuine agent reply is correctly excluded from the plain Notes tab and reflected in the customer-facing Helpdesk Conversion history instead.
+Per `HELPDESK_REPORTING_AUTOMATION.md` TC-HLP-270, adding a reply via the API should appear "both via the API and in the UI, with the same side effects as a UI-driven reply (status change, SLA pause) where applicable" — i.e. behave like the real branded Reply box, not like a generic Redmine note. Per `HELPDESK_USER_GUIDE.md`/BUG-HLP-015's own established distinction, a genuine agent reply is correctly excluded from the plain Notes tab and reflected in the customer-facing Helpdesk Conversion history instead.
 
 ## Actual result
 
@@ -33,8 +33,8 @@ The API call succeeded (`201`, `{"message":"Reply added successfully."}`) and di
 ### Console / log
 
 - Before: ticket #301, Helpdesk Conversion tab reads "(2)"; SLA Activity Log has 2 entries (SLA Started, Escalated → L2).
-- API call: `POST /helpdesk/api/v1/tickets/301/conversations` `{"note":"TC-HLP-190 API reply test","is_private":false}` → `201` `{"data":{"id":499,"notes":"TC-HLP-190 API reply test","private_notes":false,...},"message":"Reply added successfully."}`
-- After, via UI: Helpdesk Conversion tab still reads "(2)" — unchanged. Notes tab (`/issues/301?tab=notes`) shows the new note "TC-HLP-190 API reply test" verbatim. SLA Information tab's Activity Log gained a real 3rd entry: `✓ First Response Given ... Customer notified · Resolution deadline: 09/16/2026 10:25 AM (UTC)`.
+- API call: `POST /helpdesk/api/v1/tickets/301/conversations` `{"note":"TC-HLP-270 API reply test","is_private":false}` → `201` `{"data":{"id":499,"notes":"TC-HLP-270 API reply test","private_notes":false,...},"message":"Reply added successfully."}`
+- After, via UI: Helpdesk Conversion tab still reads "(2)" — unchanged. Notes tab (`/issues/301?tab=notes`) shows the new note "TC-HLP-270 API reply test" verbatim. SLA Information tab's Activity Log gained a real 3rd entry: `✓ First Response Given ... Customer notified · Resolution deadline: 09/16/2026 10:25 AM (UTC)`.
 
 ## Duplicate check
 
@@ -51,6 +51,6 @@ Live-verified on ticket #336: `POST /helpdesk/api/v1/tickets/336/conversations` 
 
 ## Notes
 
-- Found while executing `HELPDESK_REPORTING_AUTOMATION.md` TC-HLP-190 (REST API conversations list/reply).
+- Found while executing `HELPDESK_REPORTING_AUTOMATION.md` TC-HLP-270 (REST API conversations list/reply).
 - Severity judged **Medium**: the SLA mechanics work correctly (the higher-stakes half), but a customer contacting support and getting a reply logged via the API (e.g. through an integration) would never see that reply in their own Helpdesk Conversion history — while an internal Notes viewer would see it as if it were a private/internal note, not a customer-facing reply. This is a real visibility/audit-trail inconsistency, not just a cosmetic one.
 - Recommend: route the API's `conversations` reply creation through the same code path the branded UI Reply box uses (which correctly logs to Helpdesk Conversion and excludes Notes), rather than a plain `Issue#init_journal`/notes save that happens to also trigger the SLA first-response hook.

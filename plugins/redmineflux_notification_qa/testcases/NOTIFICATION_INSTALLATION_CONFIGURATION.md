@@ -24,7 +24,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-101: Plugin folder name is enforced
+### TC-NTF-001: Plugin folder name is enforced
 
 **User Role:** Admin
 **Preconditions:** Folder `redmineflux_notification` in `plugins/`.
@@ -40,7 +40,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-102: Migrations complete cleanly
+### TC-NTF-002: Migrations complete cleanly
 
 **User Role:** Admin
 **Steps:**
@@ -51,7 +51,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-103: Assets load
+### TC-NTF-003: Assets load
 
 **User Role:** Any
 **Steps:**
@@ -63,7 +63,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-104: Redmine version boundary
+### TC-NTF-004: Redmine version boundary
 
 **User Role:** Admin
 **Steps:**
@@ -80,7 +80,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-105: All three configuration tabs are present
+### TC-NTF-005: All three configuration tabs are present
 
 **User Role:** Admin
 **Steps:**
@@ -92,7 +92,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-106: All seven notification events are offered
+### TC-NTF-006: All seven notification events are offered
 
 **User Role:** Admin
 **Steps:**
@@ -106,7 +106,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-107: Event selections persist
+### TC-NTF-007: Event selections persist
 
 **User Role:** Admin
 **Steps:**
@@ -117,7 +117,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-108: Disabling an event stops its notifications
+### TC-NTF-008: Disabling an event stops its notifications
 
 **User Role:** Admin, then two members
 **Steps:**
@@ -132,7 +132,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-109: Settings changes take effect without a restart
+### TC-NTF-009: Settings changes take effect without a restart
 
 **User Role:** Admin, then two members
 **Steps:**
@@ -149,7 +149,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-110: Configure page is not reachable by a non-admin
+### TC-NTF-010: Configure page is not reachable by a non-admin
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
 **Steps:**
@@ -163,7 +163,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-111: Credentials are not exposed in the rendered page
+### TC-NTF-011: Credentials are not exposed in the rendered page
 
 **User Role:** Admin
 **Steps:**
@@ -178,7 +178,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-112: Invalid configuration values
+### TC-NTF-012: Invalid configuration values
 
 **User Role:** Admin
 **Steps:**
@@ -192,7 +192,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-113: No configuration at all
+### TC-NTF-013: No configuration at all
 
 **User Role:** Admin, then members
 **Steps:**
@@ -204,7 +204,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-114: Plugin conflicts
+### TC-NTF-014: Plugin conflicts
 
 **User Role:** Admin
 **Steps:**
@@ -218,7 +218,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-115: Migrations not run
+### TC-NTF-015: Migrations not run
 
 **User Role:** Admin
 **Steps:**
@@ -234,7 +234,7 @@ the notification it does or does not produce, never by the configuration page re
 
 ---
 
-### TC-NTF-116: Clean uninstall
+### TC-NTF-016: Clean uninstall
 
 **User Role:** Admin
 **Preconditions:** **Database backup taken** — the KB requires this before rollback.

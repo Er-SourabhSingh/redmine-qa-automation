@@ -7,16 +7,16 @@
 
 | # | Feature | Description | Covered by TC |
 |---|---------|-------------|---------------|
-| 1 | Tag assignment | Add tags to issues, projects, time entries | TC-TAG-001, TC-TAG-002 |
-| 2 | Tag viewing | Display assigned tags on entity pages | TC-TAG-001 |
-| 3 | Tag entry via Enter key | Tag input accepts "hit enter" to submit a tag | TC-TAG-002 (functional flow confirmed working; German-translation FAIL logged separately) |
-| 4 | Tag display as hyperlinks | Tags render as clickable labels | TC-TAG-005 — PASS |
-| 5 | Tag filtering (Issues list) | Filter issues by tag via dedicated filter interface | TC-TAG-005 — PASS |
-| 6 | Tag column on Issues list | Toggleable via the list's column-options menu | TC-TAG-005 — PASS |
-| 7 | Click tag to view all associated entities | Clicking a tag opens a filtered list view | TC-TAG-005 — PASS |
-| 8 | Tag management (admin) | Create/edit/rename/delete tags — "Manage Tags" section | TC-TAG-003, TC-TAG-004 — FAIL |
+| 1 | Tag assignment | Add tags to issues, projects, time entries | TC-TAG-019, TC-TAG-020 |
+| 2 | Tag viewing | Display assigned tags on entity pages | TC-TAG-019 |
+| 3 | Tag entry via Enter key | Tag input accepts "hit enter" to submit a tag | TC-TAG-020 (functional flow confirmed working; German-translation FAIL logged separately) |
+| 4 | Tag display as hyperlinks | Tags render as clickable labels | TC-TAG-023 — PASS |
+| 5 | Tag filtering (Issues list) | Filter issues by tag via dedicated filter interface | TC-TAG-023 — PASS |
+| 6 | Tag column on Issues list | Toggleable via the list's column-options menu | TC-TAG-023 — PASS |
+| 7 | Click tag to view all associated entities | Clicking a tag opens a filtered list view | TC-TAG-023 — PASS |
+| 8 | Tag management (admin) | Create/edit/rename/delete tags — "Manage Tags" section | TC-TAG-021, TC-TAG-022 — FAIL |
 | 9 | Tag color customization | Set the default color for tags (admin setting) | Seen ("Use colored tag" checkbox, General tab) — untranslated, folded into BUG-TAG-004; the actual color-picker control itself not yet exercised |
-| 10 | Tag filter/column on Projects list & Spent Time list | Additional surfaces identified by user (not in KB) | TC-TAG-005 — PASS (Spent Time list); Projects list filter confirmed correct in an earlier pass |
+| 10 | Tag filter/column on Projects list & Spent Time list | Additional surfaces identified by user (not in KB) | TC-TAG-023 — PASS (Spent Time list); Projects list filter confirmed correct in an earlier pass |
 
 ## Notes
 

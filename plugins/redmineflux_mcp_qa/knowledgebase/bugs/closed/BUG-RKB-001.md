@@ -7,7 +7,7 @@
 | **Status** | **Closed — Fixed** |
 | **Plugin** | redmineflux_knowledgebase (MCP server) |
 | **Redmine Version** | 5.x (localhost:3006) |
-| **Found During** | TC-RKB-001, TC-RKB-004 to TC-RKB-006, TC-RKB-009 to TC-RKB-012, TC-RKB-014, TC-RKB-017, TC-RKB-020 to TC-RKB-022, TC-RKB-025 to TC-RKB-027, TC-RKB-029, TC-RKB-033, TC-RKB-036, TC-RKB-038 |
+| **Found During** | TC-RKB-206, TC-RKB-209 to TC-RKB-211, TC-RKB-214 to TC-RKB-217, TC-RKB-219, TC-RKB-222, TC-RKB-225 to TC-RKB-227, TC-RKB-230 to TC-RKB-232, TC-RKB-234, TC-RKB-238, TC-RKB-241, TC-RKB-243 |
 | **Found By** | QA MCP execution — 2026-06-19 |
 | **Closed By** | QA (code fix + retest) — 2026-06-19 |
 | **Environment** | Local — localhost:3006, MCP server via Docker (redmineflux-mcp container) |
@@ -111,26 +111,26 @@ All 19 previously-blocked TCs re-run via MCP tools. All 19 PASS:
 
 | TC | Tool | Role | Result |
 |----|------|------|--------|
-| TC-RKB-001 | create_space | Admin | ✅ PASS |
-| TC-RKB-004 | update_space | Admin | ✅ PASS |
-| TC-RKB-005 | create_node (folder) | Admin | ✅ PASS |
-| TC-RKB-006 | create_node (page) | Admin | ✅ PASS |
-| TC-RKB-009 | update_node | Admin | ✅ PASS |
-| TC-RKB-010 | publish_node | Admin | ✅ PASS |
-| TC-RKB-011 | unpublish_node | Admin | ✅ PASS |
-| TC-RKB-012 | update+publish (v2) | Admin | ✅ PASS |
-| TC-RKB-014 | restore_version | Admin | ✅ PASS |
-| TC-RKB-017 | create_space | Manager | ✅ PASS |
-| TC-RKB-020 | update_space | Manager | ✅ PASS |
-| TC-RKB-021 | create_node (folder) | Manager | ✅ PASS |
-| TC-RKB-022 | create_node (page) | Manager | ✅ PASS |
-| TC-RKB-025 | update_node | Manager | ✅ PASS |
-| TC-RKB-026 | publish_node | Manager | ✅ PASS |
-| TC-RKB-027 | unpublish_node | Manager | ✅ PASS |
-| TC-RKB-029 | restore_version | Manager | ✅ PASS |
-| TC-RKB-033 | create_space → 403 | Developer | ✅ PASS |
-| TC-RKB-036 | create_node → 403 | Developer | ✅ PASS |
-| TC-RKB-038 | publish_node → 403 | Developer | ✅ PASS |
+| TC-RKB-206 | create_space | Admin | ✅ PASS |
+| TC-RKB-209 | update_space | Admin | ✅ PASS |
+| TC-RKB-210 | create_node (folder) | Admin | ✅ PASS |
+| TC-RKB-211 | create_node (page) | Admin | ✅ PASS |
+| TC-RKB-214 | update_node | Admin | ✅ PASS |
+| TC-RKB-215 | publish_node | Admin | ✅ PASS |
+| TC-RKB-216 | unpublish_node | Admin | ✅ PASS |
+| TC-RKB-217 | update+publish (v2) | Admin | ✅ PASS |
+| TC-RKB-219 | restore_version | Admin | ✅ PASS |
+| TC-RKB-222 | create_space | Manager | ✅ PASS |
+| TC-RKB-225 | update_space | Manager | ✅ PASS |
+| TC-RKB-226 | create_node (folder) | Manager | ✅ PASS |
+| TC-RKB-227 | create_node (page) | Manager | ✅ PASS |
+| TC-RKB-230 | update_node | Manager | ✅ PASS |
+| TC-RKB-231 | publish_node | Manager | ✅ PASS |
+| TC-RKB-232 | unpublish_node | Manager | ✅ PASS |
+| TC-RKB-234 | restore_version | Manager | ✅ PASS |
+| TC-RKB-238 | create_space → 403 | Developer | ✅ PASS |
+| TC-RKB-241 | create_node → 403 | Developer | ✅ PASS |
+| TC-RKB-243 | publish_node → 403 | Developer | ✅ PASS |
 
 **Bug closed. All 39 TCs PASS via MCP tools.**
 

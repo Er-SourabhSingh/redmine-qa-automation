@@ -21,7 +21,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 
 ---
 
-### TC-TAG-401: Add the Tag column to the issue list
+### TC-TAG-001: Add the Tag column to the issue list
 
 **User Role:** Member
 **Steps:**
@@ -33,7 +33,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 
 ---
 
-### TC-TAG-402: Tag column survives saving a custom query
+### TC-TAG-002: Tag column survives saving a custom query
 
 **User Role:** Member
 **Steps:**
@@ -45,7 +45,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 
 ---
 
-### TC-TAG-403: Sort the issue list by the Tag column
+### TC-TAG-003: Sort the issue list by the Tag column
 
 **User Role:** Member
 **Steps:**
@@ -57,7 +57,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 
 ---
 
-### TC-TAG-404: Tag column in CSV/PDF export
+### TC-TAG-004: Tag column in CSV/PDF export
 
 **User Role:** Member
 **Steps:**
@@ -73,7 +73,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 
 ---
 
-### TC-TAG-405: Filter issues by a single tag
+### TC-TAG-005: Filter issues by a single tag
 
 **User Role:** Member
 **Steps:**
@@ -81,11 +81,11 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 
 **Expected Result:**
 - Only issues carrying that tag are listed, and every such issue visible to the user is present.
-- Cross-check the count against the tag's own listing page (TC-TAG-409).
+- Cross-check the count against the tag's own listing page (TC-TAG-009).
 
 ---
 
-### TC-TAG-406: Filter by multiple tags
+### TC-TAG-006: Filter by multiple tags
 
 **User Role:** Member
 **Steps:**
@@ -98,7 +98,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 
 ---
 
-### TC-TAG-407: "None" / "Any" tag filter operators
+### TC-TAG-007: "None" / "Any" tag filter operators
 
 **User Role:** Member
 **Steps:**
@@ -110,7 +110,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 
 ---
 
-### TC-TAG-408: Tag filter combines with other filters
+### TC-TAG-008: Tag filter combines with other filters
 
 **User Role:** Member
 **Steps:**
@@ -125,7 +125,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 
 ---
 
-### TC-TAG-409: Clicking a tag opens its entity listing
+### TC-TAG-009: Clicking a tag opens its entity listing
 
 **User Role:** Member
 **Steps:**
@@ -137,7 +137,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 
 ---
 
-### TC-TAG-410: Tag listing respects project visibility
+### TC-TAG-010: Tag listing respects project visibility
 
 **User Role:** Member of project A only
 **Preconditions:** The same tag is used on an issue in project A and on an issue in a **private** project B that
@@ -151,7 +151,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 
 ---
 
-### TC-TAG-411: Tag listing from the issue list column
+### TC-TAG-011: Tag listing from the issue list column
 
 **User Role:** Member
 **Steps:**
@@ -166,7 +166,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 
 ---
 
-### TC-TAG-412: Filter by a tag that has no issues
+### TC-TAG-012: Filter by a tag that has no issues
 
 **User Role:** Member
 **Steps:**
@@ -177,7 +177,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 
 ---
 
-### TC-TAG-413: Filter by a tag deleted mid-session
+### TC-TAG-013: Filter by a tag deleted mid-session
 
 **User Role:** Member + Admin
 **Steps:**
@@ -188,7 +188,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 
 ---
 
-### TC-TAG-414: Saved query referencing a deleted tag
+### TC-TAG-014: Saved query referencing a deleted tag
 
 **User Role:** Member + Admin
 **Steps:**
@@ -199,7 +199,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 
 ---
 
-### TC-TAG-415: Tag filter on the global (cross-project) issue list
+### TC-TAG-015: Tag filter on the global (cross-project) issue list
 
 **User Role:** Member of several projects
 **Steps:**
@@ -210,7 +210,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 
 ---
 
-### TC-TAG-416: Very many tags on one issue
+### TC-TAG-016: Very many tags on one issue
 
 **User Role:** Member
 **Steps:**
@@ -222,7 +222,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 
 ---
 
-### TC-TAG-417: Large tag vocabulary in the filter dropdown
+### TC-TAG-017: Large tag vocabulary in the filter dropdown
 
 **User Role:** Member
 **Steps:**
@@ -234,7 +234,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 
 ---
 
-### TC-TAG-418: Tag search via the global search box
+### TC-TAG-018: Tag search via the global search box
 
 **User Role:** Member
 **Steps:**

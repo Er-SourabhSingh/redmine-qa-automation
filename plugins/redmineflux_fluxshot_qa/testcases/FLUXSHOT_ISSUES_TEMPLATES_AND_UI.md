@@ -22,7 +22,7 @@ sessions.
 
 ---
 
-### TC-FSX-401: Create an issue with all fields
+### TC-FSX-050: Create an issue with all fields
 
 **User Role:** Logged-in member with issue-create rights
 **Steps:**
@@ -36,7 +36,7 @@ sessions.
 
 ---
 
-### TC-FSX-402: Subject is required
+### TC-FSX-051: Subject is required
 
 **User Role:** Logged-in member
 **Steps:**
@@ -47,18 +47,18 @@ sessions.
 
 ---
 
-### TC-FSX-403: Project dropdown lists accessible projects
+### TC-FSX-052: Project dropdown lists accessible projects
 
 **User Role:** Member of two projects out of several
 **Steps:**
 1. Open the Project dropdown and compare it against the projects the user can see in Redmine.
 
 **Expected Result:**
-- Exactly the user's accessible projects — no more (see TC-FSX-903 for the endpoint check).
+- Exactly the user's accessible projects — no more (see TC-FSX-090 for the endpoint check).
 
 ---
 
-### TC-FSX-404: Tracker list matches the project
+### TC-FSX-053: Tracker list matches the project
 
 **User Role:** Logged-in member
 **Steps:**
@@ -69,7 +69,7 @@ sessions.
 
 ---
 
-### TC-FSX-405: Assignee list matches the project
+### TC-FSX-054: Assignee list matches the project
 
 **User Role:** Logged-in member
 **Steps:**
@@ -80,7 +80,7 @@ sessions.
 
 ---
 
-### TC-FSX-406: Parent issue creates a sub-issue
+### TC-FSX-055: Parent issue creates a sub-issue
 
 **User Role:** Logged-in member
 **Steps:**
@@ -91,7 +91,7 @@ sessions.
 
 ---
 
-### TC-FSX-407: Required custom fields
+### TC-FSX-056: Required custom fields
 
 **User Role:** Logged-in member
 **Preconditions:** The tracker has required custom fields the extension form does not collect.
@@ -106,7 +106,7 @@ sessions.
 
 ---
 
-### TC-FSX-408: Save & Open navigates to the issue
+### TC-FSX-057: Save & Open navigates to the issue
 
 **User Role:** Logged-in member
 **Steps:**
@@ -117,7 +117,7 @@ sessions.
 
 ---
 
-### TC-FSX-409: Creation failure is reported
+### TC-FSX-058: Creation failure is reported
 
 **User Role:** Logged-in member
 **Steps:**
@@ -133,7 +133,7 @@ sessions.
 
 ---
 
-### TC-FSX-410: Update an existing issue
+### TC-FSX-059: Update an existing issue
 
 **User Role:** Logged-in member with edit rights
 **Steps:**
@@ -146,7 +146,7 @@ sessions.
 
 ---
 
-### TC-FSX-411: Fields pre-fill from the selected issue
+### TC-FSX-060: Fields pre-fill from the selected issue
 
 **User Role:** Logged-in member
 **Steps:**
@@ -159,7 +159,7 @@ sessions.
 
 ---
 
-### TC-FSX-412: The issue dropdown is searchable and shows ID and subject
+### TC-FSX-061: The issue dropdown is searchable and shows ID and subject
 
 **User Role:** Logged-in member
 **Steps:**
@@ -170,7 +170,7 @@ sessions.
 
 ---
 
-### TC-FSX-413: Tracker filters the issue list
+### TC-FSX-062: Tracker filters the issue list
 
 **User Role:** Logged-in member
 **Steps:**
@@ -181,7 +181,7 @@ sessions.
 
 ---
 
-### TC-FSX-414: Non-admins see only issues assigned to them
+### TC-FSX-063: Non-admins see only issues assigned to them
 
 **User Role:** A non-admin member
 **Steps:**
@@ -194,7 +194,7 @@ sessions.
 
 ---
 
-### TC-FSX-415: Update & Open navigates to the issue
+### TC-FSX-064: Update & Open navigates to the issue
 
 **User Role:** Logged-in member
 **Steps:**
@@ -205,7 +205,7 @@ sessions.
 
 ---
 
-### TC-FSX-416: Update failure is reported
+### TC-FSX-065: Update failure is reported
 
 **User Role:** Logged-in member
 **Steps:**
@@ -221,7 +221,7 @@ sessions.
 
 ---
 
-### TC-FSX-417: All formatting controls work
+### TC-FSX-066: All formatting controls work
 
 **User Role:** Logged-in member
 **Steps:**
@@ -232,7 +232,7 @@ sessions.
 
 ---
 
-### TC-FSX-418: Formatting renders correctly in Redmine
+### TC-FSX-067: Formatting renders correctly in Redmine
 
 **User Role:** Logged-in member
 **Steps:**
@@ -245,7 +245,7 @@ sessions.
 
 ---
 
-### TC-FSX-419: Underline in Markdown
+### TC-FSX-068: Underline in Markdown
 
 **User Role:** Logged-in member
 **Steps:**
@@ -257,7 +257,7 @@ sessions.
 
 ---
 
-### TC-FSX-420: Special characters and injection
+### TC-FSX-069: Special characters and injection
 
 **User Role:** Logged-in member
 **Steps:**
@@ -274,7 +274,7 @@ sessions.
 
 ---
 
-### TC-FSX-501: Create a template
+### TC-FSX-070: Create a template
 
 **User Role:** Logged-in member
 **Steps:**
@@ -285,7 +285,7 @@ sessions.
 
 ---
 
-### TC-FSX-502: Use a template to pre-fill
+### TC-FSX-071: Use a template to pre-fill
 
 **User Role:** Logged-in member
 **Steps:**
@@ -296,7 +296,7 @@ sessions.
 
 ---
 
-### TC-FSX-503: Edit a template
+### TC-FSX-072: Edit a template
 
 **User Role:** Logged-in member
 **Steps:**
@@ -308,7 +308,7 @@ sessions.
 
 ---
 
-### TC-FSX-504: Delete a template with confirmation
+### TC-FSX-073: Delete a template with confirmation
 
 **User Role:** Logged-in member
 **Steps:**
@@ -319,7 +319,7 @@ sessions.
 
 ---
 
-### TC-FSX-505: Template validation
+### TC-FSX-074: Template validation
 
 **User Role:** Logged-in member
 **Steps:**
@@ -331,7 +331,7 @@ sessions.
 
 ---
 
-### TC-FSX-506: Several templates coexist
+### TC-FSX-075: Several templates coexist
 
 **User Role:** Logged-in member
 **Steps:**
@@ -342,7 +342,7 @@ sessions.
 
 ---
 
-### TC-FSX-507: Templates persist across devices
+### TC-FSX-076: Templates persist across devices
 
 **User Role:** Logged-in member
 **Steps:**
@@ -353,14 +353,14 @@ sessions.
 
 ---
 
-### TC-FSX-508: Templates are private to their owner
+### TC-FSX-077: Templates are private to their owner
 
 **User Role:** Two members
 **Steps:**
 1. User A creates a template; user B opens the Templates tab.
 
 **Expected Result:**
-- B sees only their own templates, per the KB's explicit privacy claim. The endpoint check is TC-FSX-902.
+- B sees only their own templates, per the KB's explicit privacy claim. The endpoint check is TC-FSX-089.
 
 ---
 
@@ -368,7 +368,7 @@ sessions.
 
 ---
 
-### TC-FSX-601: Dark mode applies throughout
+### TC-FSX-078: Dark mode applies throughout
 
 **User Role:** Logged-in member
 **Steps:**
@@ -381,7 +381,7 @@ sessions.
 
 ---
 
-### TC-FSX-602: Dark mode persists
+### TC-FSX-079: Dark mode persists
 
 **User Role:** Logged-in member
 **Steps:**
@@ -392,7 +392,7 @@ sessions.
 
 ---
 
-### TC-FSX-603: Dark mode does not affect the screenshot
+### TC-FSX-080: Dark mode does not affect the screenshot
 
 **User Role:** Logged-in member
 **Steps:**
@@ -403,7 +403,7 @@ sessions.
 
 ---
 
-### TC-FSX-604: All five accent colours apply
+### TC-FSX-081: All five accent colours apply
 
 **User Role:** Logged-in member
 **Steps:**
@@ -415,7 +415,7 @@ sessions.
 
 ---
 
-### TC-FSX-605: Accent colour persists
+### TC-FSX-082: Accent colour persists
 
 **User Role:** Logged-in member
 **Steps:**
@@ -426,7 +426,7 @@ sessions.
 
 ---
 
-### TC-FSX-606: Accent colour works with dark mode
+### TC-FSX-083: Accent colour works with dark mode
 
 **User Role:** Logged-in member
 **Steps:**
@@ -437,7 +437,7 @@ sessions.
 
 ---
 
-### TC-FSX-607: Resize the sidebar
+### TC-FSX-084: Resize the sidebar
 
 **User Role:** Logged-in member
 **Steps:**
@@ -449,7 +449,7 @@ sessions.
 
 ---
 
-### TC-FSX-608: Width limits are enforced
+### TC-FSX-085: Width limits are enforced
 
 **User Role:** Logged-in member
 **Steps:**
@@ -461,7 +461,7 @@ sessions.
 
 ---
 
-### TC-FSX-609: Width persists
+### TC-FSX-086: Width persists
 
 **User Role:** Logged-in member
 **Steps:**
@@ -472,7 +472,7 @@ sessions.
 
 ---
 
-### TC-FSX-610: Form usability at the minimum width
+### TC-FSX-087: Form usability at the minimum width
 
 **User Role:** Logged-in member
 **Steps:**
@@ -488,7 +488,7 @@ sessions.
 
 ---
 
-### TC-FSX-901: Issue creation follows the user's own Redmine permissions
+### TC-FSX-088: Issue creation follows the user's own Redmine permissions
 
 **User Role:** A member without issue-create rights on a project
 **Steps:**
@@ -500,7 +500,7 @@ sessions.
 
 ---
 
-### TC-FSX-902: Templates cannot be read or changed by another user
+### TC-FSX-089: Templates cannot be read or changed by another user
 
 **User Role:** Two members
 **Steps:**
@@ -515,7 +515,7 @@ sessions.
 
 ---
 
-### TC-FSX-903: The project list does not leak inaccessible projects
+### TC-FSX-090: The project list does not leak inaccessible projects
 
 **User Role:** Member of two projects
 **Steps:**
@@ -527,7 +527,7 @@ sessions.
 
 ---
 
-### TC-FSX-904: The issue list does not leak inaccessible issues
+### TC-FSX-091: The issue list does not leak inaccessible issues
 
 **User Role:** Non-admin member
 **Steps:**
@@ -541,7 +541,7 @@ sessions.
 
 ---
 
-### TC-FSX-905: Non-member cannot reach a private project
+### TC-FSX-092: Non-member cannot reach a private project
 
 **User Role:** Authenticated non-member
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
@@ -554,7 +554,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-FSX-906: Unauthenticated API access
+### TC-FSX-093: Unauthenticated API access
 
 **User Role:** No credentials
 **Steps:**
@@ -563,11 +563,11 @@ checked by default; uncheck it explicitly or this case falsely passes.
 **Expected Result:**
 - 401 for all.
 - Only `plugin_info.json` is expected to be unauthenticated, and it must disclose nothing beyond the installed
-  flag and version (TC-FSX-107).
+  flag and version (TC-FSX-030).
 
 ---
 
-### TC-FSX-907: A revoked API key stops working
+### TC-FSX-094: A revoked API key stops working
 
 **User Role:** Member + Admin
 **Steps:**
@@ -579,7 +579,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-FSX-908: Permission revocation takes effect immediately
+### TC-FSX-095: Permission revocation takes effect immediately
 
 **User Role:** Admin + member
 **Steps:**
@@ -590,7 +590,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-FSX-909: Closed and archived projects
+### TC-FSX-096: Closed and archived projects
 
 **User Role:** Logged-in member
 **Steps:**
@@ -601,7 +601,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-FSX-910: Attachments respect issue visibility
+### TC-FSX-097: Attachments respect issue visibility
 
 **User Role:** Member
 **Steps:**

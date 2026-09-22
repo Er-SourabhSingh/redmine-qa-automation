@@ -2,11 +2,11 @@
 
 > Source: `redmineflux-crux-core/agents/devops.md`, `agents/budget-audit.md` (both full files); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
-> **Execution readiness: PARTIALLY UNBLOCKED — executed live 2026-09-16.** The original "not installed" blocker no longer applies: both `devops` and `budget_audit` now show up in the MCP server's own plugin-detection log (confirmed immediately before this session), and both agents route correctly and make real tool calls. **Budget Agent is fully testable** — a real category-scoped budget cap was set, read back, and verified exactly on the real Redmine UI. **DevOps Agent's read/negative-gating behavior is testable, but there is still no repository connected to any local project**, so TC-CRX-101's "cite the real repo/build/PR" requirement can't be fully satisfied — the agent instead correctly and honestly reports "not wired" rather than fabricating data, which is itself valid evidence. **TC-CRX-102 (trigger a real build) remains BLOCKED** — still needs a dev-confirmed safe test repository/branch per the original note; do not improvise one given the real infrastructure cost/effect.
+> **Execution readiness: PARTIALLY UNBLOCKED — executed live 2026-09-16.** The original "not installed" blocker no longer applies: both `devops` and `budget_audit` now show up in the MCP server's own plugin-detection log (confirmed immediately before this session), and both agents route correctly and make real tool calls. **Budget Agent is fully testable** — a real category-scoped budget cap was set, read back, and verified exactly on the real Redmine UI. **DevOps Agent's read/negative-gating behavior is testable, but there is still no repository connected to any local project**, so TC-CRX-023's "cite the real repo/build/PR" requirement can't be fully satisfied — the agent instead correctly and honestly reports "not wired" rather than fabricating data, which is itself valid evidence. **TC-CRX-024 (trigger a real build) remains BLOCKED** — still needs a dev-confirmed safe test repository/branch per the original note; do not improvise one given the real infrastructure cost/effect.
 >
 > **Note on scope:** unlike the other 7 agents, DevOps and Budget/Audit each have exactly ONE write action (`trigger_build`, `set_budget` respectively) — no create/update/delete exists in their domain, by design. Do not file the absence of CRUD for these two as a gap against #117162; the ticket's own acceptance criteria says "at least one real record type" per agent, and a single write action satisfies that for these two.
 >
-> **Also still pending from dev** for TC-CRX-102 specifically (`trigger_build` — real CI effect): a confirmed safe test repository/branch. Do not improvise one.
+> **Also still pending from dev** for TC-CRX-024 specifically (`trigger_build` — real CI effect): a confirmed safe test repository/branch. Do not improvise one.
 
 ## Plugin
 - Name: redmineflux_crux (DevOps Agent + Budget Agent)
@@ -20,7 +20,7 @@
 
 ---
 
-### TC-CRX-101: DevOps read surface — project summary, repos, commits, PRs, builds
+### TC-CRX-023: DevOps read surface — project summary, repos, commits, PRs, builds
 
 **User Role:** Logged-in user with `use_ask_crux` and DevOps plugin access.
 **Precondition:** DevOps plugin installed with real repos/builds.
@@ -44,9 +44,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-102: Trigger a build — real infrastructure effect, confirm-gated
+### TC-CRX-024: Trigger a build — real infrastructure effect, confirm-gated
 
-**User Role:** Same as TC-CRX-101.
+**User Role:** Same as TC-CRX-023.
 **Precondition:** A real, named repo/branch the tester is authorized to build.
 
 **Steps:**
@@ -62,9 +62,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-103: A vague/speculative build request does NOT produce a trigger proposal
+### TC-CRX-025: A vague/speculative build request does NOT produce a trigger proposal
 
-**User Role:** Same as TC-CRX-101.
+**User Role:** Same as TC-CRX-023.
 **Precondition:** None.
 
 **Steps:**
@@ -84,7 +84,7 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-104: Budget read surface — status, approved-hours audit
+### TC-CRX-026: Budget read surface — status, approved-hours audit
 
 **User Role:** Logged-in user with `use_ask_crux` and Budget/Audit plugin access.
 **Precondition:** Budget/Audit plugin installed with a real budget cap and approved hours.
@@ -102,14 +102,14 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 Evidence (session ses-143, `admin`, 2026-09-16):
 - "Budget, are we over cap on project crux-qa?" → correctly routed to "the Budget Agent," which asked for the numeric project ID rather than guessing/assuming a slug maps directly (legitimate clarifying question — the underlying tool requires an integer).
 - "Budget, project ID is 1." → real grounded tool call (`Sources (1)`): "Project crux-qa (ID 1) has no approved budget hours set yet... no spending caps or category budgets to compare against" — honest empty-state disclosure before any budget existed.
-- After TC-CRX-105 set a real 37.5h cap: "Budget, are we over cap on project 1 now, and what hours were approved this week?" → exact, grounded answer ("Total approved: 37.5h... Development - Quality Assurance & Testing (ID 6)... Approved hours this week: One record... Record ID 1") matching the real `/projects/crux-qa/settings/approved_hours_settings` page exactly.
+- After TC-CRX-027 set a real 37.5h cap: "Budget, are we over cap on project 1 now, and what hours were approved this week?" → exact, grounded answer ("Total approved: 37.5h... Development - Quality Assurance & Testing (ID 6)... Approved hours this week: One record... Record ID 1") matching the real `/projects/crux-qa/settings/approved_hours_settings` page exactly.
 - "Budget, show me approval #1's detail." → full exact record detail (Project, Category, Approved Total 37.5h, Comment, Updated by Redmine Admin) — all fields matching the real UI exactly.
 
 ---
 
-### TC-CRX-105: Set a budget cap with the exact project/scope and amount
+### TC-CRX-027: Set a budget cap with the exact project/scope and amount
 
-**User Role:** Same as TC-CRX-104.
+**User Role:** Same as TC-CRX-026.
 **Precondition:** A named test project.
 
 **Steps:**
@@ -124,8 +124,8 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 **Result: PASS**
 
 Evidence (session ses-143, `admin`, 2026-09-16):
-- "Budget, approve 37.5 hours for the 'Development - Quality Assurance & Testing' category in crux-qa. Reason: TC-CRX-105 budget cap test." → correctly asked for the numeric category ID (found via the real UI: category 6). Provided it → correct confirm card (Project: Crux QA, Category: Development - Quality Assurance & Testing, Hours: 37.5 — exact, no rounding, Comment: exact) → confirmed → "✓ Budget updated: approved hour record #1 created. Project #1, category #6: 37.5h approved."
-- **Verified independently** on the real `/projects/crux-qa/settings/approved_hours_settings` page: History row reads "Hours Changed from 0.0 to 37.5 | Development - Quality Assurance & Testing | TC-CRX-105 budget cap test | Redmine Admin" — exact match, no rounding/estimation anywhere in the chain.
+- "Budget, approve 37.5 hours for the 'Development - Quality Assurance & Testing' category in crux-qa. Reason: TC-CRX-027 budget cap test." → correctly asked for the numeric category ID (found via the real UI: category 6). Provided it → correct confirm card (Project: Crux QA, Category: Development - Quality Assurance & Testing, Hours: 37.5 — exact, no rounding, Comment: exact) → confirmed → "✓ Budget updated: approved hour record #1 created. Project #1, category #6: 37.5h approved."
+- **Verified independently** on the real `/projects/crux-qa/settings/approved_hours_settings` page: History row reads "Hours Changed from 0.0 to 37.5 | Development - Quality Assurance & Testing | TC-CRX-027 budget cap test | Redmine Admin" — exact match, no rounding/estimation anywhere in the chain.
 
 ---
 
@@ -133,9 +133,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-106: Budget Agent never claims a cap changed before confirmation
+### TC-CRX-028: Budget Agent never claims a cap changed before confirmation
 
-**User Role:** Same as TC-CRX-104.
+**User Role:** Same as TC-CRX-026.
 **Precondition:** None.
 
 **Steps:**
@@ -150,13 +150,13 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 Evidence (session ses-143, `admin`, 2026-09-16):
 - "Budget, approve 10 hours for category 6 in project 1..." self-contradicted once (BUG-CRX-013 pattern, reproduced on a third distinct domain agent — Budget Agent — see the bug file's dated update); a rephrased retry ("please approve 10 hours now...") produced a correct confirm card (Hours: 10, Comment: exact) — left unconfirmed.
 - "Budget, did that budget change go through?" → correctly honest: "No — the budget change is still pending your confirmation. I proposed it, but it has not been executed yet... Once you confirm, the new approved total... will be 47.5h (37.5h + 10h)." No premature success claim.
-- **Verified independently** on the real `/projects/crux-qa/settings/approved_hours_settings` page: History still shows only the single 37.5h record from TC-CRX-105 — the pending 10h proposal genuinely never applied. Cancelled the stale proposal afterward (cleanup).
+- **Verified independently** on the real `/projects/crux-qa/settings/approved_hours_settings` page: History still shows only the single 37.5h record from TC-CRX-027 — the pending 10h proposal genuinely never applied. Cancelled the stale proposal afterward (cleanup).
 
 ---
 
-### TC-CRX-107: Unreachable DevOps/Budget plugin tools reported honestly
+### TC-CRX-029: Unreachable DevOps/Budget plugin tools reported honestly
 
-**User Role:** Same as TC-CRX-101/104.
+**User Role:** Same as TC-CRX-023/104.
 **Precondition:** Simulate or identify a scenario where the relevant plugin's tools are unreachable, if feasible.
 
 **Steps:**
@@ -165,9 +165,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 **Expected Result:**
 - Plain statement that the plugin's tools aren't reachable — never an answer from guesswork.
 
-**Result: PASS (cross-referenced against TC-CRX-101)**
+**Result: PASS (cross-referenced against TC-CRX-023)**
 
-Evidence: TC-CRX-101's "DevOps, check crux-qa." exchange already demonstrates this precisely — the agent made a real tool call and plainly disclosed "The DevOps plugin isn't wired to the crux-qa project, or it has no builds, commits, PRs, or repositories tracked yet," rather than fabricating a plausible-sounding pipeline status. No separate live action needed; a literal "simulate unreachable tools" scenario isn't constructible from chat/UI (the TC's own precondition marks this "if feasible").
+Evidence: TC-CRX-023's "DevOps, check crux-qa." exchange already demonstrates this precisely — the agent made a real tool call and plainly disclosed "The DevOps plugin isn't wired to the crux-qa project, or it has no builds, commits, PRs, or repositories tracked yet," rather than fabricating a plausible-sounding pipeline status. No separate live action needed; a literal "simulate unreachable tools" scenario isn't constructible from chat/UI (the TC's own precondition marks this "if feasible").
 
 ---
 
@@ -175,13 +175,13 @@ Evidence: TC-CRX-101's "DevOps, check crux-qa." exchange already demonstrates th
 
 ---
 
-### TC-CRX-177: DevOps — a vague `trigger_build` request is clarified, never guessed at
+### TC-CRX-030: DevOps — a vague `trigger_build` request is clarified, never guessed at
 
-**User Role:** Same as TC-CRX-101.
+**User Role:** Same as TC-CRX-023.
 **Precondition:** None.
 
 **Steps:**
-1. "DevOps Agent, kick off a build." (no repo/branch named — a direct trigger request, distinct from TC-CRX-103's status-question phrasing)
+1. "DevOps Agent, kick off a build." (no repo/branch named — a direct trigger request, distinct from TC-CRX-025's status-question phrasing)
 
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §8, quoting the DevOps Agent's own manifest: "`trigger_build` is explicitly called out ... as needing 'the specific repo/branch to build — never speculatively.'" The agent must ask for the exact repo/branch rather than guessing or triggering against an assumed one.
@@ -192,9 +192,9 @@ Evidence: TC-CRX-101's "DevOps, check crux-qa." exchange already demonstrates th
 
 ---
 
-### TC-CRX-178: Budget — a vague `set_budget` request (no exact amount) is clarified, never rounded/estimated
+### TC-CRX-031: Budget — a vague `set_budget` request (no exact amount) is clarified, never rounded/estimated
 
-**User Role:** Same as TC-CRX-104.
+**User Role:** Same as TC-CRX-026.
 **Precondition:** None.
 
 **Steps:**
@@ -209,7 +209,7 @@ Evidence: TC-CRX-101's "DevOps, check crux-qa." exchange already demonstrates th
 
 ---
 
-### TC-CRX-179: Permission matrix — DevOps Agent, no-domain-permission probe (distinguish from the known infra blocker)
+### TC-CRX-032: Permission matrix — DevOps Agent, no-domain-permission probe (distinguish from the known infra blocker)
 
 **User Role:** `luna.blossom` (`Trigger builds` is 0 for every role including Manager — only admin bypasses, per `docs/CRUX_AGENT_PERMISSION_MATRIX.md`).
 **Precondition:** None.
@@ -218,7 +218,7 @@ Evidence: TC-CRX-101's "DevOps, check crux-qa." exchange already demonstrates th
 1. As `luna.blossom`, "DevOps Agent, trigger a build for [repo/branch]."
 
 **Expected Result:**
-- Per `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s planned-probe table: this probe must distinguish two outcomes that could look similar — (a) a genuine permission refusal (lacks `Trigger builds`), vs. (b) the pre-existing "no safe test repo" infra blocker already tracked as TC-CRX-102 (BLOCKED). Record which one actually occurs; do not conflate them.
+- Per `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s planned-probe table: this probe must distinguish two outcomes that could look similar — (a) a genuine permission refusal (lacks `Trigger builds`), vs. (b) the pre-existing "no safe test repo" infra blocker already tracked as TC-CRX-024 (BLOCKED). Record which one actually occurs; do not conflate them.
 
 **Result: NOT YET EXECUTED**
 
@@ -226,7 +226,7 @@ NOT YET LIVE-VERIFIED — drafted from `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s 
 
 ---
 
-### TC-CRX-180: Permission matrix — Budget Agent, no-domain-permission probe
+### TC-CRX-033: Permission matrix — Budget Agent, no-domain-permission probe
 
 **User Role:** `luna.blossom` (`Manage approved hours` is 0 for every role including Manager, per `docs/CRUX_AGENT_PERMISSION_MATRIX.md`).
 **Precondition:** None.
@@ -245,7 +245,7 @@ NOT YET LIVE-VERIFIED — drafted from `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s 
 
 ## Evidence Map
 
-- Case IDs: TC-CRX-101 through TC-CRX-107 — 6/7 reached a definitive verdict (6 PASS: 101, 103, 104, 105, 106, 107; 1 BLOCKED: 102, pending dev-provided safe test repo).
+- Case IDs: TC-CRX-023 through TC-CRX-029 — 6/7 reached a definitive verdict (6 PASS: 101, 103, 104, 105, 106, 107; 1 BLOCKED: 102, pending dev-provided safe test repo).
 - Screenshots: bugs only (none captured — evidence via live chat transcript cross-checked against the real `/projects/crux-qa/settings/approved_hours_settings` page).
 - Log: session ses-143, 2026-09-16.
 - Bug reference: BUG-CRX-013 (self-contradiction, reproduced on Budget Agent — third distinct domain agent confirmed).

@@ -24,7 +24,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-901: Testcase Tracker is required for test case creation
+### TC-TCM-001: Testcase Tracker is required for test case creation
 
 **User Role:** Admin
 **Steps:**
@@ -39,7 +39,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-902: Changing the Testcase Tracker
+### TC-TCM-002: Changing the Testcase Tracker
 
 **User Role:** Admin
 **Steps:**
@@ -52,7 +52,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-903: Defect Tracker drives the Report Bug flow
+### TC-TCM-003: Defect Tracker drives the Report Bug flow
 
 **User Role:** Admin, then QA
 **Steps:**
@@ -65,7 +65,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-904: Feature Tracker drives requirements
+### TC-TCM-004: Feature Tracker drives requirements
 
 **User Role:** Admin, then QA
 **Steps:**
@@ -77,7 +77,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-905: Same tracker selected for two roles
+### TC-TCM-005: Same tracker selected for two roles
 
 **User Role:** Admin
 **Steps:**
@@ -94,7 +94,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-906: Show testcase count in test suites
+### TC-TCM-006: Show testcase count in test suites
 
 **User Role:** Admin
 **Steps:**
@@ -103,11 +103,11 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 **Expected Result:**
 - Enabled: counts shown and accurate. Disabled: counts absent. Covered functionally in
-  `TESTCASE_MANAGEMENT_TEST_SUITES.md` TC-TCM-210.
+  `TESTCASE_MANAGEMENT_TEST_SUITES.md` TC-TCM-201.
 
 ---
 
-### TC-TCM-907: Hide default status field on issue details page
+### TC-TCM-007: Hide default status field on issue details page
 
 **User Role:** Admin
 **Steps:**
@@ -123,7 +123,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-908: Customise the Run Email Template
+### TC-TCM-008: Customise the Run Email Template
 
 **User Role:** Admin, plus a recipient mailbox
 **Precondition:** Sidekiq running.
@@ -137,7 +137,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-909: Customise the Testcase Email Template
+### TC-TCM-009: Customise the Testcase Email Template
 
 **User Role:** Admin, plus a recipient mailbox
 **Steps:**
@@ -149,7 +149,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-910: Invalid template content is handled safely
+### TC-TCM-010: Invalid template content is handled safely
 
 **User Role:** Admin
 **Steps:**
@@ -162,7 +162,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-911: Run Added notification
+### TC-TCM-011: Run Added notification
 
 **User Role:** QA, watcher mailbox
 **Steps:**
@@ -174,7 +174,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-912: Run Updated notification
+### TC-TCM-012: Run Updated notification
 
 **User Role:** QA, watcher mailbox
 **Steps:**
@@ -185,7 +185,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-913: Test Case Result Added notification
+### TC-TCM-013: Test Case Result Added notification
 
 **User Role:** QA, watcher mailbox
 **Steps:**
@@ -196,7 +196,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-914: Email Reminder Frequency for overdue notifications
+### TC-TCM-014: Email Reminder Frequency for overdue notifications
 
 **User Role:** Admin
 **Precondition:** An overdue run; Sidekiq running.
@@ -214,7 +214,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-915: Add a run type via administration
+### TC-TCM-015: Add a run type via administration
 
 **User Role:** Admin
 **Steps:**
@@ -226,7 +226,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-916: Delete a run type in use
+### TC-TCM-016: Delete a run type in use
 
 **User Role:** Admin
 **Steps:**
@@ -246,7 +246,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-917: Redis stopped — background jobs
+### TC-TCM-017: Redis stopped — background jobs
 
 **User Role:** Admin
 **Steps:**
@@ -259,7 +259,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-918: Sidekiq stopped — all notification email
+### TC-TCM-018: Sidekiq stopped — all notification email
 
 **User Role:** Admin
 **Steps:**
@@ -273,7 +273,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 ---
 
-### TC-TCM-919: Node/Puppeteer absent — PDF report attachment
+### TC-TCM-019: Node/Puppeteer absent — PDF report attachment
 
 **User Role:** Admin
 **Steps:**
@@ -282,13 +282,13 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 2. Inspect the delivered message and the Sidekiq log.
 
 **Expected Result:**
-- The product should not send a misleading email — see `TESTCASE_MANAGEMENT_REPORTS.md` TC-TCM-524.
+- The product should not send a misleading email — see `TESTCASE_MANAGEMENT_REPORTS.md` TC-TCM-101.
 - **CONFIRMED FAIL 2026-09-14 — BUG-TCM-005** (prod #120588): an email arrives claiming an attachment that is
   absent, with `Error generating PDF: No such file or directory - node` logged only in Sidekiq.
 
 ---
 
-### TC-TCM-920: Node/Puppeteer present — PDF report attachment succeeds
+### TC-TCM-020: Node/Puppeteer present — PDF report attachment succeeds
 
 **User Role:** Admin
 **Precondition:** Installation step 6 completed — Node.js installed, `npm install` run, and
@@ -299,7 +299,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 **Expected Result:**
 - The email arrives as `multipart/mixed` with a valid, openable `.pdf` attachment.
-- This is the environment-side retest for BUG-TCM-005; TC-TCM-524 is the product-side one, and **both** must pass
+- This is the environment-side retest for BUG-TCM-005; TC-TCM-101 is the product-side one, and **both** must pass
   before that bug is closed.
 
 ---
@@ -308,11 +308,11 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-901 – 905 | Tracker configuration | — |
-| TC-TCM-906 – 907 | Display settings | — |
-| TC-TCM-908 – 914 | Email templates and notifications | — |
-| TC-TCM-915 – 916 | Run types | — |
-| TC-TCM-917 – 920 | Installation prerequisites | **BUG-TCM-005** (prod #120588) |
+| TC-TCM-001 – 905 | Tracker configuration | — |
+| TC-TCM-006 – 907 | Display settings | — |
+| TC-TCM-008 – 914 | Email templates and notifications | — |
+| TC-TCM-015 – 916 | Run types | — |
+| TC-TCM-017 – 920 | Installation prerequisites | **BUG-TCM-005** (prod #120588) |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
 - **Restore every setting changed by this suite** before running any other suite.

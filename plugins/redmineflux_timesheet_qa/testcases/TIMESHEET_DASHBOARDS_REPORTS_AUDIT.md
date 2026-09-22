@@ -25,7 +25,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-601: View another user's timesheet
+### TC-TMS-001: View another user's timesheet
 
 **User Role:** Member with **Manage Timesheet**
 **Steps:**
@@ -37,7 +37,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-602: View by team
+### TC-TMS-002: View by team
 
 **User Role:** Member with Manage Timesheet
 **Steps:**
@@ -49,7 +49,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-603: View by project
+### TC-TMS-003: View by project
 
 **User Role:** Member with Manage Timesheet
 **Steps:**
@@ -61,7 +61,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-604: Custom date range
+### TC-TMS-004: Custom date range
 
 **User Role:** Member
 **Steps:**
@@ -79,7 +79,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-605: Dashboard counts are accurate
+### TC-TMS-005: Dashboard counts are accurate
 
 **User Role:** Member
 **Steps:**
@@ -92,7 +92,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-606: Segmented tabs list the right items
+### TC-TMS-006: Segmented tabs list the right items
 
 **User Role:** Member
 **Steps:**
@@ -104,7 +104,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-607: Dashboard shows only the current user's data
+### TC-TMS-007: Dashboard shows only the current user's data
 
 **User Role:** Member
 **Steps:**
@@ -120,7 +120,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-608: Submission/Approval Report
+### TC-TMS-008: Submission/Approval Report
 
 **User Role:** Admin
 **Steps:**
@@ -131,7 +131,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-609: Timelogs Report
+### TC-TMS-009: Timelogs Report
 
 **User Role:** Admin
 **Steps:**
@@ -143,7 +143,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-610: Filters constrain results correctly
+### TC-TMS-010: Filters constrain results correctly
 
 **User Role:** Admin
 **Steps:**
@@ -155,7 +155,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-611: Group By changes grouping, not totals
+### TC-TMS-011: Group By changes grouping, not totals
 
 **User Role:** Admin
 **Steps:**
@@ -168,7 +168,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-612: CSV export matches the on-screen report
+### TC-TMS-012: CSV export matches the on-screen report
 
 **User Role:** Admin
 **Steps:**
@@ -180,7 +180,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-613: CSV formatting integrity
+### TC-TMS-013: CSV formatting integrity
 
 **User Role:** Admin
 **Steps:**
@@ -199,7 +199,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-614: All documented sections are present
+### TC-TMS-014: All documented sections are present
 
 **User Role:** Admin
 **Steps:**
@@ -211,7 +211,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-615: Summary metrics reconcile
+### TC-TMS-015: Summary metrics reconcile
 
 **User Role:** Admin
 **Steps:**
@@ -222,19 +222,19 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-616: Late Submission Unlock Queue is actionable
+### TC-TMS-016: Late Submission Unlock Queue is actionable
 
 **User Role:** Admin
 **Steps:**
 1. With a user blocked by a missed deadline, confirm they appear in the queue and unlock them.
 
 **Expected Result:**
-- The user appears, the unlock works, and they can then submit (paired with TC-TMS-306).
+- The user appears, the unlock works, and they can then submit (paired with TC-TMS-072).
 - A queue that lists blocked users but offers no working unlock leaves them permanently unable to submit.
 
 ---
 
-### TC-TMS-617: Quick Access links work
+### TC-TMS-017: Quick Access links work
 
 **User Role:** Admin
 **Steps:**
@@ -249,7 +249,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-618: Audit Log records approvals and rejections
+### TC-TMS-018: Audit Log records approvals and rejections
 
 **User Role:** Admin
 **Steps:**
@@ -261,7 +261,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-619: Audit Log filters by context
+### TC-TMS-019: Audit Log filters by context
 
 **User Role:** Admin
 **Steps:**
@@ -272,7 +272,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-620: Audit entries are immutable
+### TC-TMS-020: Audit entries are immutable
 
 **User Role:** Admin
 **Steps:**
@@ -286,7 +286,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-621: Audit Log is admin-only
+### TC-TMS-021: Audit Log is admin-only
 
 **User Role:** Every non-admin role in turn, including one with Manage Timesheet
 **Steps:**
@@ -302,7 +302,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-622: Views respect the permission boundary
+### TC-TMS-022: Views respect the permission boundary
 
 **User Role:** Member with **View Timesheet** only
 **Steps:**
@@ -316,7 +316,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-623: Reports respect the permission boundary
+### TC-TMS-023: Reports respect the permission boundary
 
 **User Role:** Non-admin, including one with Manage Timesheet
 **Steps:**
@@ -331,7 +331,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-624: Reports with no matching data
+### TC-TMS-024: Reports with no matching data
 
 **User Role:** Admin
 **Steps:**
@@ -342,7 +342,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-625: Large report volume
+### TC-TMS-025: Large report volume
 
 **User Role:** Admin
 **Steps:**
@@ -354,7 +354,7 @@ entries in the left sidebar.
 
 ---
 
-### TC-TMS-626: Dashboard and report figures agree
+### TC-TMS-026: Dashboard and report figures agree
 
 **User Role:** Admin
 **Steps:**

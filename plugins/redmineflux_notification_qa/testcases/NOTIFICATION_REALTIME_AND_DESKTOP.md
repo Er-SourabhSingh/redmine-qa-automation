@@ -30,7 +30,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-301: Faye server starts
+### TC-NTF-062: Faye server starts
 
 **User Role:** Admin (shell)
 **Steps:**
@@ -43,7 +43,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-302: Configure the Faye address
+### TC-NTF-063: Configure the Faye address
 
 **User Role:** Admin
 **Steps:**
@@ -55,7 +55,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-303: Notifications arrive in real time
+### TC-NTF-064: Notifications arrive in real time
 
 **User Role:** Actor and Watcher, in separate browsers
 **Steps:**
@@ -69,7 +69,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-304: Real-time delivery reaches only the intended recipient
+### TC-NTF-065: Real-time delivery reaches only the intended recipient
 
 **User Role:** Actor, Watcher, Uninvolved member (three browsers)
 **Steps:**
@@ -84,7 +84,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-305: Real-time survives a reconnect
+### TC-NTF-066: Real-time survives a reconnect
 
 **User Role:** Watcher
 **Steps:**
@@ -96,7 +96,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-306: Stored notifications work regardless of Faye
+### TC-NTF-067: Stored notifications work regardless of Faye
 
 **User Role:** Admin + Watcher
 **Steps:**
@@ -109,7 +109,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-307: Empty Faye address turns real-time off cleanly
+### TC-NTF-068: Empty Faye address turns real-time off cleanly
 
 **User Role:** Admin + Watcher
 **Steps:**
@@ -125,7 +125,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-308: Wrong or unreachable Faye address
+### TC-NTF-069: Wrong or unreachable Faye address
 
 **User Role:** Admin + Watcher
 **Steps:**
@@ -139,7 +139,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-309: Mixed-content blocking
+### TC-NTF-070: Mixed-content blocking
 
 **User Role:** Watcher
 **Steps:**
@@ -153,7 +153,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-310: Faye endpoint does not leak to unauthenticated clients
+### TC-NTF-071: Faye endpoint does not leak to unauthenticated clients
 
 **User Role:** Anonymous / an unauthenticated client
 **Steps:**
@@ -171,7 +171,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-311: Enable desktop notifications
+### TC-NTF-072: Enable desktop notifications
 
 **User Role:** Member
 **Steps:**
@@ -184,7 +184,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-312: A desktop notification is delivered
+### TC-NTF-073: A desktop notification is delivered
 
 **User Role:** Actor and Watcher
 **Steps:**
@@ -195,7 +195,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-313: Desktop notifications respect the preference
+### TC-NTF-074: Desktop notifications respect the preference
 
 **User Role:** Member
 **Steps:**
@@ -206,7 +206,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-314: Browser permission denied
+### TC-NTF-075: Browser permission denied
 
 **User Role:** Member
 **Steps:**
@@ -219,7 +219,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-315: Operating-system notifications disabled
+### TC-NTF-076: Operating-system notifications disabled
 
 **User Role:** Member
 **Steps:**
@@ -233,7 +233,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-316: Desktop notification content
+### TC-NTF-077: Desktop notification content
 
 **User Role:** Watcher
 **Steps:**
@@ -247,7 +247,7 @@ operating system's notification setting. All three are documented, and any one s
 
 ---
 
-### TC-NTF-317: Desktop notifications at volume
+### TC-NTF-078: Desktop notifications at volume
 
 **User Role:** Watcher
 **Steps:**

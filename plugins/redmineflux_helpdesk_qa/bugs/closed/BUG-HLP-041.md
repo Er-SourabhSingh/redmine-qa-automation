@@ -28,7 +28,7 @@
 
 ## Expected result
 
-Per `HELPDESK_USER_GUIDE.md`'s documented Hard-mode contract ("nobody can log time... customer cannot raise a new ticket") and this suite's own TC-HLP-380/381/389/390 (all of which correctly block/cap new time-log attempts once Remaining is exhausted), increasing an existing entry's Hours far past the available Remaining under Hard mode should be refused, capped, or otherwise blocked — the same enforcement that correctly blocks a *new* reply-box time log should extend to *editing* an existing entry, since both actions have the identical effect of increasing Used against a Hard-mode budget.
+Per `HELPDESK_USER_GUIDE.md`'s documented Hard-mode contract ("nobody can log time... customer cannot raise a new ticket") and this suite's own TC-HLP-219/381/389/390 (all of which correctly block/cap new time-log attempts once Remaining is exhausted), increasing an existing entry's Hours far past the available Remaining under Hard mode should be refused, capped, or otherwise blocked — the same enforcement that correctly blocks a *new* reply-box time log should extend to *editing* an existing entry, since both actions have the identical effect of increasing Used against a Hard-mode budget.
 
 ## Actual result
 
@@ -66,10 +66,10 @@ This confirms the same root-cause defect on **two separate Redmine core `TimeEnt
 
 ## Notes
 
-- Found while executing `HELPDESK_PREPAID_HOURS.md` TC-HLP-396, added following a direct user follow-up asking specifically about editing/deleting existing time entries (a code path this suite's first two rounds of coverage — TC-125–142, 367–395 — never exercised; every prior time-logging TC used the reply box's own create-time integration). Path B (TC-HLP-400) was added after a second, separate user follow-up asking specifically whether the core "Log time" link (a third distinct code path, creating a brand-new entry without going through the reply box at all) had also been checked — it had not, until this addendum.
+- Found while executing `HELPDESK_PREPAID_HOURS.md` TC-HLP-235, added following a direct user follow-up asking specifically about editing/deleting existing time entries (a code path this suite's first two rounds of coverage — TC-125–142, 367–395 — never exercised; every prior time-logging TC used the reply box's own create-time integration). Path B (TC-HLP-239) was added after a second, separate user follow-up asking specifically whether the core "Log time" link (a third distinct code path, creating a brand-new entry without going through the reply box at all) had also been checked — it had not, until this addendum.
 - Severity judged **Medium**, matching BUG-HLP-038's precedent: this is a real, cleanly-reproducible enforcement gap on a genuine, commonly-used path (any agent who realizes they under-logged time and corrects it via Edit, rather than logging a fresh entry, silently bypasses Hard mode entirely) — but it does not expose data or grant unauthorized access; it is a business-logic completeness gap in the prepaid-hours enforcement layer, the same class as BUG-HLP-038.
 - Recommend: audit every place `TimeEntry` can be created, updated, or destroyed (not just the reply box's own controller action) and route all of them through the same prepaid-hours enforcement check used for new reply-box time logs — this bug and BUG-HLP-038 together suggest the enforcement was implemented as a single-purpose hook on one specific controller action rather than a shared, model-level concern that would automatically cover every code path.
-- TC-HLP-398/399 (same session) confirmed the *arithmetic* side of edit/delete is correct — Used/Remaining correctly recalculate on both a reduction and a deletion, symmetrically. The gap is specifically in *enforcement* (Hard mode's block), not in the underlying bookkeeping, which is accurate in every direction tested.
+- TC-HLP-237/399 (same session) confirmed the *arithmetic* side of edit/delete is correct — Used/Remaining correctly recalculate on both a reduction and a deletion, symmetrically. The gap is specifically in *enforcement* (Hard mode's block), not in the underlying bookkeeping, which is accurate in every direction tested.
 
 ## Retest — Confirmed FIXED (2026-09-10)
 

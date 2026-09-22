@@ -43,31 +43,31 @@
     <th>Result</th>
     <th>Notes</th>
   </tr>
-  <tr><td>TC-RIT-001</td><td>Create Global Template</td><td>Admin</td><td class="pass">PASS</td><td>Template #68 created. is_global=true confirmed.</td></tr>
-  <tr><td>TC-RIT-002</td><td>Create Project Template</td><td>Admin</td><td class="pass">PASS</td><td>Template #69 created. Assigned to wiftsep.</td></tr>
-  <tr><td>TC-RIT-003</td><td>List All Templates</td><td>Admin</td><td class="pass">PASS</td><td>Both templates visible in unfiltered list.</td></tr>
-  <tr><td>TC-RIT-004</td><td>Get Global Template by ID</td><td>Admin</td><td class="pass">PASS</td><td>All fields correct. HTML description preserved.</td></tr>
-  <tr><td>TC-RIT-005</td><td>Get Project Template by ID</td><td>Admin</td><td class="pass">PASS</td><td>Projects: ["wiftsep"] confirmed.</td></tr>
-  <tr><td>TC-RIT-006</td><td>Project Filter Search (list by project_id)</td><td>Admin</td><td class="fail">FAIL → BUG-RIT-001</td><td>500 on all project_id values (identifier + numeric).</td></tr>
-  <tr><td>TC-RIT-007</td><td>Edit Template</td><td>Admin</td><td class="pass">PASS</td><td>Name + description updated on template #68.</td></tr>
-  <tr><td>TC-RIT-008</td><td>Data Persistence After Update</td><td>Admin</td><td class="pass">PASS</td><td>get_template confirms updated values.</td></tr>
-  <tr><td>TC-RIT-009</td><td>Assign to Multiple Projects</td><td>Admin</td><td class="pass">PASS</td><td>Template #69 updated with wiftsep,flxcyb.</td></tr>
-  <tr><td>TC-RIT-010</td><td>Verify Multi-Project Assignment</td><td>Admin</td><td class="pass">PASS</td><td>get_template returns Projects: ["wiftsep","flxcyb"].</td></tr>
-  <tr><td>TC-RIT-011</td><td>Apply Template + Create Issue</td><td>Admin</td><td class="pass">PASS</td><td>apply_template returned pre-filled fields. Issue #115344 created.</td></tr>
-  <tr><td>TC-RIT-012</td><td>CKEditor / HTML Content Support</td><td>Admin</td><td class="pass">PASS</td><td>Template #70: h2, ul, li, ol, strong all preserved verbatim.</td></tr>
-  <tr><td>TC-RIT-013</td><td>Deactivate Template</td><td>Admin</td><td class="pass">PASS</td><td>Template #70 set inactive. Absent from is_active=true list.</td></tr>
-  <tr><td>TC-RIT-014</td><td>Validation Rules (required fields)</td><td>Admin</td><td class="pass">PASS</td><td>Blank name → validation error. tracker_id=0 → MCP client error.</td></tr>
-  <tr><td>TC-RIT-015</td><td>Delete Template</td><td>Admin</td><td class="pass">PASS</td><td>Template #70 deleted. get_template returns 404.</td></tr>
-  <tr><td>TC-RIT-019</td><td>List Inactive Templates (is_active filter)</td><td>Admin</td><td class="pass">PASS</td><td>is_active:"false" returns only inactive templates.</td></tr>
-  <tr><td>TC-RIT-020</td><td>Reactivate a Deactivated Template</td><td>Admin</td><td class="pass">PASS</td><td>Template #71: deactivated → reactivated. Toggle bidirectional.</td></tr>
-  <tr><td>TC-RIT-016</td><td>Permitted User — View Templates (View permission)</td><td>test1 / ztflux</td><td class="pass">PASS</td><td>58 total, 36 global templates visible. No 403. View permission confirmed.</td></tr>
-  <tr><td>TC-RIT-017</td><td>Permitted User — Create Template (Create permission)</td><td>test1 / ztflux</td><td class="pass">PASS</td><td>Template #78 created in ztflux. No permission error.</td></tr>
-  <tr><td>TC-RIT-021</td><td>Permitted User — Edit Template (Edit permission)</td><td>test1 / ztflux</td><td class="pass">PASS</td><td>Template #78 updated. Edit permission confirmed.</td></tr>
-  <tr><td>TC-RIT-022</td><td>Permitted User — Apply Template + Create Issue (Apply permission)</td><td>test1 / ztflux</td><td class="pass">PASS</td><td>apply_template #78 → Issue #115348 in ztflux. Apply permission confirmed.</td></tr>
-  <tr><td>TC-RIT-023</td><td>Permitted User — Delete Template (Delete permission)</td><td>test1 / ztflux</td><td class="pass">PASS</td><td>Template #78 deleted. Delete permission confirmed.</td></tr>
-  <tr><td>TC-RIT-024</td><td>Global Template Access for Permitted User (ztflux context)</td><td>test1 / ztflux</td><td class="pass">PASS</td><td>36 global templates returned via is_global=true. Accessible to non-admin with view permission.</td></tr>
-  <tr><td>TC-RIT-025</td><td>Permission Boundary — Create Template for No-Permission Project (gdaplt)</td><td>test1 / gdaplt</td><td class="fail">FAIL → BUG-RIT-002</td><td>Template #79 created for gdaplt despite test1 having no template perms there. Server uses ANY-project check, not per-target-project.</td></tr>
-  <tr><td>TC-RIT-018</td><td>No-Permission in Target Project — All Ops Should Be Blocked (gdaplt)</td><td>test1 / gdaplt</td><td class="fail">FAIL → BUG-RIT-002</td><td>All 5 ops (Create #80, Apply, Edit, Delete, list→500) allowed despite zero gdaplt template permissions. Server grants access via ztflux role.</td></tr>
+  <tr><td>TC-RIT-090</td><td>Create Global Template</td><td>Admin</td><td class="pass">PASS</td><td>Template #68 created. is_global=true confirmed.</td></tr>
+  <tr><td>TC-RIT-091</td><td>Create Project Template</td><td>Admin</td><td class="pass">PASS</td><td>Template #69 created. Assigned to wiftsep.</td></tr>
+  <tr><td>TC-RIT-092</td><td>List All Templates</td><td>Admin</td><td class="pass">PASS</td><td>Both templates visible in unfiltered list.</td></tr>
+  <tr><td>TC-RIT-093</td><td>Get Global Template by ID</td><td>Admin</td><td class="pass">PASS</td><td>All fields correct. HTML description preserved.</td></tr>
+  <tr><td>TC-RIT-094</td><td>Get Project Template by ID</td><td>Admin</td><td class="pass">PASS</td><td>Projects: ["wiftsep"] confirmed.</td></tr>
+  <tr><td>TC-RIT-095</td><td>Project Filter Search (list by project_id)</td><td>Admin</td><td class="fail">FAIL → BUG-RIT-001</td><td>500 on all project_id values (identifier + numeric).</td></tr>
+  <tr><td>TC-RIT-096</td><td>Edit Template</td><td>Admin</td><td class="pass">PASS</td><td>Name + description updated on template #68.</td></tr>
+  <tr><td>TC-RIT-097</td><td>Data Persistence After Update</td><td>Admin</td><td class="pass">PASS</td><td>get_template confirms updated values.</td></tr>
+  <tr><td>TC-RIT-098</td><td>Assign to Multiple Projects</td><td>Admin</td><td class="pass">PASS</td><td>Template #69 updated with wiftsep,flxcyb.</td></tr>
+  <tr><td>TC-RIT-099</td><td>Verify Multi-Project Assignment</td><td>Admin</td><td class="pass">PASS</td><td>get_template returns Projects: ["wiftsep","flxcyb"].</td></tr>
+  <tr><td>TC-RIT-100</td><td>Apply Template + Create Issue</td><td>Admin</td><td class="pass">PASS</td><td>apply_template returned pre-filled fields. Issue #115344 created.</td></tr>
+  <tr><td>TC-RIT-101</td><td>CKEditor / HTML Content Support</td><td>Admin</td><td class="pass">PASS</td><td>Template #70: h2, ul, li, ol, strong all preserved verbatim.</td></tr>
+  <tr><td>TC-RIT-102</td><td>Deactivate Template</td><td>Admin</td><td class="pass">PASS</td><td>Template #70 set inactive. Absent from is_active=true list.</td></tr>
+  <tr><td>TC-RIT-103</td><td>Validation Rules (required fields)</td><td>Admin</td><td class="pass">PASS</td><td>Blank name → validation error. tracker_id=0 → MCP client error.</td></tr>
+  <tr><td>TC-RIT-104</td><td>Delete Template</td><td>Admin</td><td class="pass">PASS</td><td>Template #70 deleted. get_template returns 404.</td></tr>
+  <tr><td>TC-RIT-108</td><td>List Inactive Templates (is_active filter)</td><td>Admin</td><td class="pass">PASS</td><td>is_active:"false" returns only inactive templates.</td></tr>
+  <tr><td>TC-RIT-109</td><td>Reactivate a Deactivated Template</td><td>Admin</td><td class="pass">PASS</td><td>Template #71: deactivated → reactivated. Toggle bidirectional.</td></tr>
+  <tr><td>TC-RIT-105</td><td>Permitted User — View Templates (View permission)</td><td>test1 / ztflux</td><td class="pass">PASS</td><td>58 total, 36 global templates visible. No 403. View permission confirmed.</td></tr>
+  <tr><td>TC-RIT-106</td><td>Permitted User — Create Template (Create permission)</td><td>test1 / ztflux</td><td class="pass">PASS</td><td>Template #78 created in ztflux. No permission error.</td></tr>
+  <tr><td>TC-RIT-110</td><td>Permitted User — Edit Template (Edit permission)</td><td>test1 / ztflux</td><td class="pass">PASS</td><td>Template #78 updated. Edit permission confirmed.</td></tr>
+  <tr><td>TC-RIT-111</td><td>Permitted User — Apply Template + Create Issue (Apply permission)</td><td>test1 / ztflux</td><td class="pass">PASS</td><td>apply_template #78 → Issue #115348 in ztflux. Apply permission confirmed.</td></tr>
+  <tr><td>TC-RIT-112</td><td>Permitted User — Delete Template (Delete permission)</td><td>test1 / ztflux</td><td class="pass">PASS</td><td>Template #78 deleted. Delete permission confirmed.</td></tr>
+  <tr><td>TC-RIT-113</td><td>Global Template Access for Permitted User (ztflux context)</td><td>test1 / ztflux</td><td class="pass">PASS</td><td>36 global templates returned via is_global=true. Accessible to non-admin with view permission.</td></tr>
+  <tr><td>TC-RIT-114</td><td>Permission Boundary — Create Template for No-Permission Project (gdaplt)</td><td>test1 / gdaplt</td><td class="fail">FAIL → BUG-RIT-002</td><td>Template #79 created for gdaplt despite test1 having no template perms there. Server uses ANY-project check, not per-target-project.</td></tr>
+  <tr><td>TC-RIT-107</td><td>No-Permission in Target Project — All Ops Should Be Blocked (gdaplt)</td><td>test1 / gdaplt</td><td class="fail">FAIL → BUG-RIT-002</td><td>All 5 ops (Create #80, Apply, Edit, Delete, list→500) allowed despite zero gdaplt template permissions. Server grants access via ztflux role.</td></tr>
   <tr><td>TC-N/A-001</td><td>Clear Form Functionality</td><td>—</td><td class="na">N/A</td><td>UI-only — not testable via MCP.</td></tr>
   <tr><td>TC-N/A-002</td><td>Cancel Functionality</td><td>—</td><td class="na">N/A</td><td>UI-only — not testable via MCP.</td></tr>
 </table>

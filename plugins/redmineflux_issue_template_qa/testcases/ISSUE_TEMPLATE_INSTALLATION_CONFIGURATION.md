@@ -22,7 +22,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 
 ---
 
-### TC-RIT-101: Plugin appears in Administration → Plugins
+### TC-RIT-044: Plugin appears in Administration → Plugins
 
 **User Role:** Admin
 **Preconditions:** ZIP extracted into `plugins/` under its original folder name, `bundle install` and
@@ -35,7 +35,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 
 ---
 
-### TC-RIT-102: Both entry points appear after installation
+### TC-RIT-045: Both entry points appear after installation
 
 **User Role:** Admin
 **Steps:**
@@ -50,7 +50,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 
 ---
 
-### TC-RIT-103: Assets load correctly
+### TC-RIT-046: Assets load correctly
 
 **User Role:** Any
 **Steps:**
@@ -63,7 +63,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 
 ---
 
-### TC-RIT-104: Plugin functions on the Redmine version under test
+### TC-RIT-047: Plugin functions on the Redmine version under test
 
 **User Role:** Admin
 **Steps:**
@@ -80,7 +80,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 
 ---
 
-### TC-RIT-105: CKEditor renders in the Issue description field
+### TC-RIT-048: CKEditor renders in the Issue description field
 
 **User Role:** Admin
 **Preconditions:** CKEditor configured on the instance.
@@ -90,11 +90,11 @@ Reach the two entry points through real navigation: **Administration → Issue T
 **Expected Result:**
 - The CKEditor toolbar loads and formatting controls work.
 - Formatting applied here survives into the template and then onto the created issue (covered end to end by
-  TC-RIT-507).
+  TC-RIT-049).
 
 ---
 
-### TC-RIT-106: Behaviour with CKEditor absent
+### TC-RIT-050: Behaviour with CKEditor absent
 
 **User Role:** Admin
 **Preconditions:** Instance using Redmine's stock Textile/Markdown formatting.
@@ -113,7 +113,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 
 ---
 
-### TC-RIT-107: Plugin folder renamed on disk
+### TC-RIT-051: Plugin folder renamed on disk
 
 **User Role:** Admin
 **Steps:**
@@ -125,7 +125,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 
 ---
 
-### TC-RIT-108: Migration not run
+### TC-RIT-052: Migration not run
 
 **User Role:** Admin
 **Steps:**
@@ -138,7 +138,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 
 ---
 
-### TC-RIT-109: Administration section is not reachable by a non-admin
+### TC-RIT-053: Administration section is not reachable by a non-admin
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
 **Steps:**
@@ -149,7 +149,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 
 ---
 
-### TC-RIT-110: Stale cache after a plugin change
+### TC-RIT-054: Stale cache after a plugin change
 
 **User Role:** Admin
 **Steps:**
@@ -160,7 +160,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 
 ---
 
-### TC-RIT-111: Conflicts with other plugins on the New Issue form
+### TC-RIT-055: Conflicts with other plugins on the New Issue form
 
 **User Role:** Member
 **Preconditions:** Checklist, Tags and Inline Editor plugins also installed.
@@ -174,7 +174,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 
 ---
 
-### TC-RIT-112: Template data survives a Redmine upgrade path
+### TC-RIT-056: Template data survives a Redmine upgrade path
 
 **User Role:** Admin
 **Steps:**
@@ -186,7 +186,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 
 ---
 
-### TC-RIT-113: Behaviour when all trackers are deleted or renamed
+### TC-RIT-057: Behaviour when all trackers are deleted or renamed
 
 **User Role:** Admin
 **Steps:**
@@ -203,7 +203,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 
 ---
 
-### TC-RIT-114: Clean uninstall
+### TC-RIT-058: Clean uninstall
 
 **User Role:** Admin
 **Preconditions:** Database backup taken.

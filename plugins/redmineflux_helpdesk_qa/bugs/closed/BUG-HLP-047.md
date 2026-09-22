@@ -21,14 +21,14 @@
 
 ## Expected result
 
-Per this suite's own precondition framing (`HELPDESK_EMAIL.md` TC-HLP-290): since one real-world mailbox can only sensibly be polled by one project's checker, Save should either be refused with a validation naming the conflict, or — if silently allowed — the real-world outcome should be deterministic and documented, not a silent single-winner race with no indication anything is wrong.
+Per this suite's own precondition framing (`HELPDESK_EMAIL.md` TC-HLP-079): since one real-world mailbox can only sensibly be polled by one project's checker, Save should either be refused with a validation naming the conflict, or — if silently allowed — the real-world outcome should be deterministic and documented, not a silent single-winner race with no indication anything is wrong.
 
 ## Actual result
 
 **Save succeeds completely silently — no validation, no warning, no error of any kind.** Confirmed live:
 
 - Set Beta's `Mail Username`/`Mail Password` to `alpha.support@test.local` / `Test@12345` (Alpha's own real, already-configured mailbox), left Beta's outgoing SMTP as its own (`beta.support@test.local`). Clicked Save: `"Successful update"` banner, no conflict named anywhere.
-- As `alpha.customer`, sent a real qualifying email (subject "TC-HLP-290 shared mailbox test - ticket keyword", body containing "ticket") to `alpha.support@test.local`.
+- As `alpha.customer`, sent a real qualifying email (subject "TC-HLP-079 shared mailbox test - ticket keyword", body containing "ticket") to `alpha.support@test.local`.
 - Manually invoked `Helpdesk::EmailPollerWorker`. Server log shows the real mechanism: the worker iterates projects in a fixed order (Alpha, then Beta). Alpha's turn ran first — `"Found 1 unread message(s) in INBOX"` — and it fully processed and consumed the email (`MailHandler: issue #66 created by Alpha Customer`, `Created ticket #66`). Because IMAP `\Seen` is a mailbox-wide flag, not project-scoped, by the time Beta's turn came moments later on the *identical* mailbox, it found `"Found 0 unread message(s) in INBOX"` — nothing left to process, silently.
 - Confirmed live: ticket **#66** was created under **Helpdesk QA Alpha** (page title: *"Support #66: ... - Helpdesk QA Alpha - Redmine"*) — despite Beta now also being configured to poll that exact mailbox. Beta received nothing: no ticket, no error, no log line indicating a conflict.
 
@@ -50,13 +50,13 @@ Helpdesk::EmailPollerWorker: Found 1 unread message(s) in INBOX
 MailHandler: Email from registered customer [alpha.customer@test.local] - proceeding with ticket creation
 MailHandler: Found helpdesk project [helpdesk-qa-alpha] for customer [alpha.customer]
 MailHandler: issue #66 created by Alpha Customer
-Helpdesk::EmailPollerWorker: Created ticket #66 - TC-HLP-290 shared mailbox test - ticket keyword
+Helpdesk::EmailPollerWorker: Created ticket #66 - TC-HLP-079 shared mailbox test - ticket keyword
 ...
 Helpdesk::EmailPollerWorker: Checking emails for project [helpdesk-qa-beta]
 Helpdesk::EmailPollerWorker: Found 0 unread message(s) in INBOX
 ```
 
-- Live UI confirmation: ticket #66 page title reads `Support #66: TC-HLP-290 shared mailbox test - ticket keyword - Helpdesk QA Alpha - Redmine`.
+- Live UI confirmation: ticket #66 page title reads `Support #66: TC-HLP-079 shared mailbox test - ticket keyword - Helpdesk QA Alpha - Redmine`.
 - Save confirmation: "Successful update" banner shown on Beta's Email Configuration form immediately after entering Alpha's mailbox credentials — no validation error of any kind.
 
 ## Duplicate check
@@ -72,6 +72,6 @@ Live-verified exactly as originally reproduced: set Beta's incoming Mail Usernam
 
 ## Notes
 
-- Found while executing `HELPDESK_EMAIL.md` TC-HLP-290, a previously-unexecuted negative case explicitly flagged in the suite as "not yet executed — this is a real data-integrity risk, not just a UX gap" if misrouting/duplication is observed.
+- Found while executing `HELPDESK_EMAIL.md` TC-HLP-079, a previously-unexecuted negative case explicitly flagged in the suite as "not yet executed — this is a real data-integrity risk, not just a UX gap" if misrouting/duplication is observed.
 - Severity judged **Medium**: no security exposure and no crash, but a real, silent, deterministic data-loss-adjacent risk for any admin who reuses a mailbox address across two projects (e.g. during setup/copy-paste error) — the second project's own customers' emails vanish into the first project's queue with zero indication of what happened.
 - Recommend: add a uniqueness validation on both the incoming Mail Username/Server combination AND the outgoing SMTP Username/Email From Address across `RfHelpdeskEmailConfig` rows, refusing Save with a clear message naming the conflicting project — mirroring how Organization Website/Phone duplicates were fixed in BUG-HLP-010.

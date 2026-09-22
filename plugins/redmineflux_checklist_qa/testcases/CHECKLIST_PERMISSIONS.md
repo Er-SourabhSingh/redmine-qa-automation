@@ -2,7 +2,7 @@
 
 > Source: vendor KB — "Configuration" (admin vs. user actions) plus the repo standard that every permission case
 > must cover all three legs: positive UI, negative UI-absence, and negative direct-URL/endpoint.
-> **Status: authored 2026-09-15. Executed 2026-09-21 — 11 PASS, 1 N/A (TC-CHK-906, this instance's global
+> **Status: authored 2026-09-15. Executed 2026-09-21 — 11 PASS, 1 N/A (TC-CHK-072, this instance's global
 > `login_required=true` setting overrides Anonymous role permissions site-wide, so the TC's public-project premise
 > doesn't apply here). No bugs found. See per-TC evidence below.**
 
@@ -58,7 +58,7 @@ CONFIRMED LIVE 2026-09-21 (Local, redmine-docker-7.0.0), filled in from this sui
 
 ---
 
-### TC-CHK-901: Admin has full access
+### TC-CHK-067: Admin has full access
 
 **User Role:** Admin
 **Steps:**
@@ -73,7 +73,7 @@ access, template management access — all succeeded as Admin.
 
 ---
 
-### TC-CHK-902: A project member with issue-edit rights can manage checklists
+### TC-CHK-068: A project member with issue-edit rights can manage checklists
 
 **User Role:** Developer or equivalent
 **Steps:**
@@ -83,12 +83,12 @@ access, template management access — all succeeded as Admin.
 - All succeed. Checklist management follows the issue-edit permission.
 
 CONFIRMED LIVE 2026-09-21: **PASS.** `luna.blossom` (Developer role, `test project`) created, edited, and had
-items status-changed successfully throughout the #120920 sanity-testing session and TC-CHK-910 below — all as a
+items status-changed successfully throughout the #120920 sanity-testing session and TC-CHK-076 below — all as a
 non-admin Developer-tier member, no admin rights needed.
 
 ---
 
-### TC-CHK-903: A read-only member can view but not modify
+### TC-CHK-069: A read-only member can view but not modify
 
 **User Role:** Role with view-issues but not edit-issues
 **Steps:**
@@ -101,14 +101,14 @@ non-admin Developer-tier member, no admin rights needed.
 
 CONFIRMED LIVE 2026-09-21 (`daisy.skye` added as Reporter — view_issues yes, edit_issues no — to `test project`,
 issue #1530): **PASS, all 3 legs.**
-- Leg 1: items and progress bar visible (`"Concurrent add (TC-CHK-220)"`, 0%).
+- Leg 1: items and progress bar visible (`"Concurrent add (TC-CHK-034)"`, 0%).
 - Leg 2: no checklist Actions icon, no "New checklist" trigger in the DOM's interactable form.
 - Leg 3: direct `POST /checklists` → 403, `PATCH /checklists/50` → 403, `DELETE /checklists_delete/50.json` → 403
   ("You don't have permission to perform this action."). Checklist 50 confirmed unaffected afterward.
 
 ---
 
-### TC-CHK-904: Non-member cannot see checklists in a private project
+### TC-CHK-070: Non-member cannot see checklists in a private project
 
 **User Role:** Authenticated user who is not a member of the project
 **Steps:**
@@ -126,11 +126,11 @@ checklist title, item text, or count — both were generic Redmine error pages.
 
 ---
 
-### TC-CHK-905: Anonymous user cannot see checklists in a private project
+### TC-CHK-071: Anonymous user cannot see checklists in a private project
 
 **User Role:** Anonymous (logged out)
 **Steps:**
-1. Repeat TC-CHK-904 with no session.
+1. Repeat TC-CHK-070 with no session.
 
 **Expected Result:**
 - Redirected to login or 403. No checklist content in the response.
@@ -140,7 +140,7 @@ issue) — redirected to `/login?back_url=...issues/1533`, no checklist content 
 
 ---
 
-### TC-CHK-906: Anonymous access to a public project follows the project's own rules
+### TC-CHK-072: Anonymous access to a public project follows the project's own rules
 
 **User Role:** Anonymous
 **Steps:**
@@ -151,7 +151,7 @@ issue) — redirected to `/login?back_url=...issues/1533`, no checklist content 
   visible, and never editable.
 
 CONFIRMED LIVE 2026-09-21: **N/A on this instance.** Requested `test project` issue #1530 (confirmed public)
-while logged out — redirected to login, same as TC-CHK-905's private-project result. Investigated why: the
+while logged out — redirected to login, same as TC-CHK-071's private-project result. Investigated why: the
 Anonymous role's own `view_issues` permission IS checked and enabled (`Role.find(2).permissions` includes
 `:view_issues`), but `Setting.login_required == true` on this instance — a global, site-wide auth requirement that
 overrides all Anonymous access regardless of project publicity or per-role permissions. This is a deliberate
@@ -161,7 +161,7 @@ reach a public project's issues) simply doesn't hold on an instance with `login_
 
 ---
 
-### TC-CHK-907: Only admins can manage checklist templates
+### TC-CHK-073: Only admins can manage checklist templates
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
 **Steps:**
@@ -179,7 +179,7 @@ it generalizes to every non-admin role rather than needing per-role re-verificat
 
 ---
 
-### TC-CHK-908: Applying a template requires issue-edit rights
+### TC-CHK-074: Applying a template requires issue-edit rights
 
 **User Role:** Read-only member
 **Steps:**
@@ -196,7 +196,7 @@ HTTP 403 — satisfies leg 3.
 
 ---
 
-### TC-CHK-909: Cross-project isolation of templates and checklists
+### TC-CHK-075: Cross-project isolation of templates and checklists
 
 **User Role:** Member of project A only
 **Steps:**
@@ -208,7 +208,7 @@ HTTP 403 — satisfies leg 3.
 - Before filing any finding here, confirm project B is genuinely private and the user genuinely has no membership
   path to it — otherwise the result is expected, not a leak.
 
-CONFIRMED LIVE 2026-09-21: **PASS**, satisfied by the exact same evidence as TC-CHK-904 above — `daisy.skye` is a
+CONFIRMED LIVE 2026-09-21: **PASS**, satisfied by the exact same evidence as TC-CHK-070 above — `daisy.skye` is a
 genuine member of `test project` (project A, Reporter role) and genuinely has zero membership path to
 `checklist-perm-private` (project B, confirmed private). Requesting project B's issue #1533 and its checklist
 endpoints directly from her authenticated session returned 403/404 with no content leak — identical mechanics to
@@ -216,7 +216,7 @@ cross-project isolation, not re-run separately since it's the same request/respo
 
 ---
 
-### TC-CHK-910: Permission change takes effect without re-login
+### TC-CHK-076: Permission change takes effect without re-login
 
 **User Role:** Admin + affected member
 **Steps:**
@@ -236,7 +236,7 @@ and removed the test checklist afterward.
 
 ---
 
-### TC-CHK-911: Checklist History respects issue visibility
+### TC-CHK-077: Checklist History respects issue visibility
 
 **User Role:** Non-member / read-only member
 **Steps:**
@@ -251,7 +251,7 @@ does not bypass the underlying issue-visibility check.
 
 ---
 
-### TC-CHK-912: Locked or archived project
+### TC-CHK-078: Locked or archived project
 
 **User Role:** Member
 **Steps:**

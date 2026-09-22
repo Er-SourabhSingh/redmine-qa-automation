@@ -8,7 +8,7 @@
 - Plugin version: 0.39.0 (plugin) / crux-core 0.92.0
 - Environment: Local — `http://localhost:3014`
 - Browser: Chromium (Playwright MCP)
-- User role: `luna.blossom` (with real CRM plugin access, per TC-CRX-085 precondition)
+- User role: `luna.blossom` (with real CRM plugin access, per TC-CRX-010 precondition)
 - Date: 2026-09-15
 
 ## Steps to reproduce
@@ -22,7 +22,7 @@
 
 ## Expected result
 
-- Per TC-CRX-087 and the Sales Agent's own spec, a stage-move request should produce a `Crm Update Deal Stage` (or equivalent) confirm proposal — using `update_deal_stage` specifically rather than a generic field update — which the user can then Confirm to genuinely change the deal's stage.
+- Per TC-CRX-012 and the Sales Agent's own spec, a stage-move request should produce a `Crm Update Deal Stage` (or equivalent) confirm proposal — using `update_deal_stage` specifically rather than a generic field update — which the user can then Confirm to genuinely change the deal's stage.
 
 ## Actual result
 
@@ -33,7 +33,7 @@
 - This is not a routing problem (the Sales Agent was reached correctly each time — confirmed by the "→ asking the Sales Agent…" prefix) and not a phrasing problem (three materially different phrasings all failed identically, while create-deal, create-contact, create-company, and create-lead requests all produced correct confirm cards earlier in the very same session using comparable natural-language phrasing).
 - The deal's stage was never changed — deal ID:3 ("Zenith Corp Upgrade") still shows stage "Qualified" on the real `/deals` page after all three attempts.
 - This completely blocks a documented, spec'd write capability (`update_deal_stage`) for every phrasing tested. The agent's own error message is also internally confusing — it claims to have "described a change" when in fact nothing resembling a proposal was shown to the user at all, just this bare apology-and-retry message.
-- The same self-contradictory response pattern was also seen once during TC-CRX-086 for the first "create a lead" attempt (before a retry succeeded), suggesting this is a broader intermittent failure mode in how the agent decides whether to actually call a write tool vs. just describe an intended change — but for `update_deal_stage` specifically, it was 100% reproducible (3/3) with no successful retry found.
+- The same self-contradictory response pattern was also seen once during TC-CRX-011 for the first "create a lead" attempt (before a retry succeeded), suggesting this is a broader intermittent failure mode in how the agent decides whether to actually call a write tool vs. just describe an intended change — but for `update_deal_stage` specifically, it was 100% reproducible (3/3) with no successful retry found.
 
 ## Evidence
 
@@ -66,7 +66,7 @@ Real `/deals` page state after all three attempts: row 1, "Zenith Corp Upgrade",
 
 ### 2026-09-16 update — same failure mode reproduced for a different entity/field (lead status)
 
-While executing TC-CRX-089 (convert a qualified lead), the identical self-contradictory response was reproduced 2/2 times for a completely different update intent — setting a lead's status field, not a deal's stage:
+While executing TC-CRX-014 (convert a qualified lead), the identical self-contradictory response was reproduced 2/2 times for a completely different update intent — setting a lead's status field, not a deal's stage:
 
 ```
 C: CRM, update lead ID:1 (Rohan Verma) status to Qualified.
@@ -80,7 +80,7 @@ I described a change without actually proposing it, so there's nothing to confir
 (anthropic/claude-haiku-4.5 · 17,693 in / 38 out · $0.0143 est.)
 ```
 
-Worked around by setting the lead's status directly via the real `/leads/1/edit` UI instead (not a chat write), so TC-CRX-089 could still proceed and pass on its own merits. This confirms the bug is **not specific to `update_deal_stage`** — it affects generic single-field-update intents across at least two different CRM entity types (deals and leads), each 100% reproducible with zero successful retries found for that specific intent. The title and severity remain unchanged (High) but the scope is broader than originally filed.
+Worked around by setting the lead's status directly via the real `/leads/1/edit` UI instead (not a chat write), so TC-CRX-014 could still proceed and pass on its own merits. This confirms the bug is **not specific to `update_deal_stage`** — it affects generic single-field-update intents across at least two different CRM entity types (deals and leads), each 100% reproducible with zero successful retries found for that specific intent. The title and severity remain unchanged (High) but the scope is broader than originally filed.
 
 ### 2026-09-16 update — confirmed platform-wide: same failure mode on a completely different domain agent (Capacity Agent / Workload), for create, add, and bulk-remove intents
 
@@ -97,7 +97,7 @@ This reproduced 2/2 times for team creation (a brand-new create, not an update o
 
 ### 2026-09-16 update — same failure mode reproduced a third time, for delete (not just update)
 
-While executing TC-CRX-091 (delete requires explicit naming), the identical self-contradictory response appeared again — this time for a delete intent rather than an update:
+While executing TC-CRX-016 (delete requires explicit naming), the identical self-contradictory response appeared again — this time for a delete intent rather than an update:
 
 ```
 C: CRM, delete contact Disposable Testcontact.
@@ -113,7 +113,7 @@ As with every prior reproduction, retrying with the record's explicit numeric ID
 While executing `CRUX_AGENT_DEVOPS_AND_BUDGET.md` (a third structurally unrelated plugin domain, using the Budget Agent rather than the Sales Agent or Capacity Agent), the identical self-contradictory response appeared again on a fresh `set_budget` write intent:
 
 ```
-C: Budget, approve 10 hours for category 6 in project 1. Reason: TC-CRX-106 pending-check test.
+C: Budget, approve 10 hours for category 6 in project 1. Reason: TC-CRX-028 pending-check test.
 -> asking the Budget Agent...
 I described a change without actually proposing it, so there's nothing to confirm yet -- please tell me
 again exactly what to change and I'll make it a real, confirmable proposal.
@@ -126,7 +126,7 @@ As with every prior reproduction, a rephrased retry ("Budget, please approve 10 
 While executing `CRUX_AGENT_AGILE_SCRUM.md`, the identical self-contradictory response appeared once more on a fresh `create_issue` write intent from the Scrum Agent:
 
 ```
-C: Agile, create an issue titled "TC-CRX-112 Agile Create Test" in project crux-qa from the backlog.
+C: Agile, create an issue titled "TC-CRX-005 Agile Create Test" in project crux-qa from the backlog.
 -> asking the Scrum Agent...
 I described a change without actually proposing it, so there's nothing to confirm yet -- please tell me
 again exactly what to change and I'll make it a real, confirmable proposal.
@@ -145,4 +145,4 @@ While executing `CRUX_AGENT_KNOWLEDGE_BASE.md`, the self-contradictory response 
 
 ## Production report
 
-Reported to production as issue **#120664** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Textile description, no attachments (per updated §4.3a policy). Linked to Run #569, testcase #120490 (`CRUX_AGENT_CRM_SALES.md`, found via TC-CRX-087) — testcase marked Failed.
+Reported to production as issue **#120664** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Textile description, no attachments (per updated §4.3a policy). Linked to Run #569, testcase #120490 (`CRUX_AGENT_CRM_SALES.md`, found via TC-CRX-012) — testcase marked Failed.

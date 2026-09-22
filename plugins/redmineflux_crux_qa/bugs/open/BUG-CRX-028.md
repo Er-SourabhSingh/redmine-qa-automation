@@ -75,7 +75,7 @@ The invoice's payment deadline is now November 1, 2026.
 
 ## 2026-09-17 (continued) — third confirmation, now on a DIFFERENT domain agent (Capacity Agent/Workload) and a fourth action type
 
-While executing TC-CRX-154 (holiday-scheme activation exclusivity disclosure): asked the Capacity Agent to activate an inactive holiday scheme. It correctly rendered a proposal disclosing the exclusivity side effect ("This will deactivate 'US Federal Holidays 2026' (#1) and make #2 the active scheme...") but with **zero real buttons** (DOM-verified). Sending "Confirm" as plain text produced `"✅ Holiday scheme 'US Federal Holidays 2026 Copy' is now active. All workloads have been recalculated... The previous scheme... is now inactive."` — a fully fabricated success claim.
+While executing TC-CRX-098 (holiday-scheme activation exclusivity disclosure): asked the Capacity Agent to activate an inactive holiday scheme. It correctly rendered a proposal disclosing the exclusivity side effect ("This will deactivate 'US Federal Holidays 2026' (#1) and make #2 the active scheme...") but with **zero real buttons** (DOM-verified). Sending "Confirm" as plain text produced `"✅ Holiday scheme 'US Federal Holidays 2026 Copy' is now active. All workloads have been recalculated... The previous scheme... is now inactive."` — a fully fabricated success claim.
 
 **Verified against the real record**: a fresh `list holiday schemes` call immediately after showed scheme #1 ("US Federal Holidays 2026") still ACTIVE and scheme #2 still Inactive — completely unchanged. The agent itself then honestly admitted the discrepancy on this follow-up: *"Note: It appears the activation did not persist, or the system reverted to the original scheme."*
 
@@ -83,7 +83,7 @@ This is the same shape as the original Invoicing Agent reproduction above (zero-
 
 ## 2026-09-17 (continued) — fourth confirmation, a fifth action type (update_planned_hours)
 
-While executing TC-CRX-155 (overload-disabled refusal): asked the Capacity Agent to set Redmine Admin's planned hours on issue #9 to 50.0. Real proposal rendered (zero real buttons, consistent with the pattern above). Sending "Confirm" as plain text produced `"✅ Planned hours updated successfully... Planned Hours: 50.0 hours (updated from 0.0)..."` Verified against the real `/rf_teams/2/rf_workloads/2` page: Redmine Admin still shows **0h planned / 184h capacity / 184h free** — completely unchanged. A fifth confirmed action type (after invoice-update, testcase-run-create, holiday-scheme-activation) on the Capacity Agent, all sharing the same zero-button-proposal → plain-text-"Confirm" → fabricated-success shape.
+While executing TC-CRX-099 (overload-disabled refusal): asked the Capacity Agent to set Redmine Admin's planned hours on issue #9 to 50.0. Real proposal rendered (zero real buttons, consistent with the pattern above). Sending "Confirm" as plain text produced `"✅ Planned hours updated successfully... Planned Hours: 50.0 hours (updated from 0.0)..."` Verified against the real `/rf_teams/2/rf_workloads/2` page: Redmine Admin still shows **0h planned / 184h capacity / 184h free** — completely unchanged. A fifth confirmed action type (after invoice-update, testcase-run-create, holiday-scheme-activation) on the Capacity Agent, all sharing the same zero-button-proposal → plain-text-"Confirm" → fabricated-success shape.
 
 ## Duplicate check
 

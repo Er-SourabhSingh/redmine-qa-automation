@@ -2,7 +2,7 @@
 
 > Source: `docs/CRUX_FEATURES_LIST.md` #14, #15, #16, #17, #18; `redmineflux-crux-core/docs/API.md` `GET/POST /api/agents`, `/api/agent/pause`, `/api/agent/provision_identity` (CRX-48), `GET/POST /api/providers`, `GET/POST /api/llm_keys`, `GET /api/logs`; `redmineflux_crux/init.rb` admin menu entries.
 >
-> **Execution readiness: Executable now** — these are plugin-native admin pages and direct agent-registry operations, not chat-mediated, so the missing LLM key does not block this suite (though adding a real provider key IS literally part of TC-CRX-074's own subject matter).
+> **Execution readiness: Executable now** — these are plugin-native admin pages and direct agent-registry operations, not chat-mediated, so the missing LLM key does not block this suite (though adding a real provider key IS literally part of TC-CRX-064's own subject matter).
 
 ## Plugin
 - Name: redmineflux_crux
@@ -16,10 +16,10 @@
 
 ---
 
-### TC-CRX-074: Agent roster lists bundled + customer agents
+### TC-CRX-064: Agent roster lists bundled + customer agents
 
 **User Role:** Logged-in user (roster viewing needs only login per `init.rb` comment: "viewing needs only login").
-**Precondition:** `nav_top_agents` enabled (see TC-CRX-003) or direct navigation to the roster.
+**Precondition:** `nav_top_agents` enabled (see TC-CRX-134) or direct navigation to the roster.
 
 **Steps:**
 1. Open the agent roster.
@@ -32,7 +32,7 @@
 
 ---
 
-### TC-CRX-075: Pause and resume an agent
+### TC-CRX-065: Pause and resume an agent
 
 **User Role:** Logged-in user with `manage_crux_agents` (global permission).
 **Precondition:** None.
@@ -51,10 +51,10 @@
 
 ---
 
-### TC-CRX-076: A user without `manage_crux_agents` cannot pause/create/retire/upload an agent (viewing needs only login, not any Crux permission)
+### TC-CRX-066: A user without `manage_crux_agents` cannot pause/create/retire/upload an agent (viewing needs only login, not any Crux permission)
 
 **User Role:** Logged-in user with zero Crux permissions (not even `view_crux`).
-**CORRECTED 2026-09-11 (source review):** viewing succeeding isn't due to any declared "read" permission — `CruxAgentsController` only requires `before_action :require_login` for `index`/`list`, confirmed by its own comment: "Visibility mirrors the global dashboard: any logged-in user can look." `manage_crux_agents` is checked via a custom `require_manage_agents` method applied to `create`, `pause`, `provision`, **`retire`**, and **`upload`** — the latter two aren't listed in `init.rb`'s visible permission-action mapping at all, but are enforced identically in code (see TC-CRX-145/146).
+**CORRECTED 2026-09-11 (source review):** viewing succeeding isn't due to any declared "read" permission — `CruxAgentsController` only requires `before_action :require_login` for `index`/`list`, confirmed by its own comment: "Visibility mirrors the global dashboard: any logged-in user can look." `manage_crux_agents` is checked via a custom `require_manage_agents` method applied to `create`, `pause`, `provision`, **`retire`**, and **`upload`** — the latter two aren't listed in `init.rb`'s visible permission-action mapping at all, but are enforced identically in code (see TC-CRX-075/146).
 **Precondition:** None.
 
 **Steps:**
@@ -69,7 +69,7 @@
 
 ---
 
-### TC-CRX-077: Provision a real Redmine identity for an agent (CRX-48)
+### TC-CRX-067: Provision a real Redmine identity for an agent (CRX-48)
 
 **User Role:** Logged-in user with `manage_crux_agents`.
 **Precondition:** An agent without a provisioned identity yet.
@@ -91,7 +91,7 @@
 
 ---
 
-### TC-CRX-078: Add an LLM provider key and verify it with the live credential test
+### TC-CRX-068: Add an LLM provider key and verify it with the live credential test
 
 **User Role:** Administrator (Administration → Crux — providers & keys is `require_admin`).
 **Precondition:** A real (or intentionally invalid, for the negative case) provider API key.
@@ -106,11 +106,11 @@
 - Only one default exists per provider at a time; setting a new default un-defaults the previous one.
 - **This TC is also the actual fix for the "no LLM key configured" environment gap** — once a valid key passes its live test here, re-run every chat-dependent suite (Ask Crux Core, Write Confirm Gate, Project Creation/Improve, Chat Capabilities, all 9 per-agent CRUD suites) that was previously blocked.
 
-- **CONFIRMED LIVE 2026-09-11** (Local, `crux-redmine` localhost:3014, admin): **PASS on adding/verifying a key, but the "Test connection" step itself is FAIL — filed as BUG-CRX-001 (High).** Navigated Crux → Providers & keys. An "OpenRouter" custom provider + key already existed (added by "admin" 2026-08-19) but was non-functional — root-caused to a lost `CRUX_SECRET` after an environment refresh (full chain in `docs/CRUX_HANDOFF.md`). Fixed by setting a real `CRUX_SECRET` and re-adding the key via `POST /api/llm_key` (API-level; UI "+ Add Key" form not separately exercised since the record already existed post-fix). Clicked "Test connection" on the OpenRouter row — showed `ok · 454ms`. **This is a false positive**: proved independently that OpenRouter's `/models` endpoint (what the test call hits) returns HTTP 200 with no `Authorization` header at all, and even with a deliberately invalid key — the test provides no real signal about key validity. A genuine chat call (see TC-CRX-001 in `CRUX_NAVIGATION_AND_PERMISSIONS.md`) is what actually proved the key works, not this button.
+- **CONFIRMED LIVE 2026-09-11** (Local, `crux-redmine` localhost:3014, admin): **PASS on adding/verifying a key, but the "Test connection" step itself is FAIL — filed as BUG-CRX-001 (High).** Navigated Crux → Providers & keys. An "OpenRouter" custom provider + key already existed (added by "admin" 2026-08-19) but was non-functional — root-caused to a lost `CRUX_SECRET` after an environment refresh (full chain in `docs/CRUX_HANDOFF.md`). Fixed by setting a real `CRUX_SECRET` and re-adding the key via `POST /api/llm_key` (API-level; UI "+ Add Key" form not separately exercised since the record already existed post-fix). Clicked "Test connection" on the OpenRouter row — showed `ok · 454ms`. **This is a false positive**: proved independently that OpenRouter's `/models` endpoint (what the test call hits) returns HTTP 200 with no `Authorization` header at all, and even with a deliberately invalid key — the test provides no real signal about key validity. A genuine chat call (see TC-CRX-132 in `CRUX_NAVIGATION_AND_PERMISSIONS.md`) is what actually proved the key works, not this button.
 
 ---
 
-### TC-CRX-079: Keys are always masked in the UI/API
+### TC-CRX-069: Keys are always masked in the UI/API
 
 **User Role:** Administrator.
 **Precondition:** At least one key configured.
@@ -126,7 +126,7 @@
 
 ---
 
-### TC-CRX-080: Delete a provider key
+### TC-CRX-070: Delete a provider key
 
 **User Role:** Administrator.
 **Precondition:** A non-default provider key exists.
@@ -138,7 +138,7 @@
 **Expected Result:**
 - Deletion succeeds; no crash/500 on subsequent chat turns that would have used that provider.
 
-- **CONFIRMED LIVE 2026-09-15** (Local, `crux-redmine` localhost:3014, admin): **PASS.** Added a throwaway Anthropic key (used for TC-CRX-084 below, so it was that provider's only/default key at deletion time — not the "non-default" precondition literally, but the deletion+continuity behavior is identical), deleted it via the Keys table's Delete button with its native confirm dialog ("Delete key ... This cannot be undone."), confirmed via `keys.json` it was gone cleanly with no orphaned state. Sent a fresh chat turn immediately after (`@auto`, new session) — answered normally via the already-configured OpenRouter/claude-haiku-4.5 default, no crash, no 500, no degraded behavior of any kind.
+- **CONFIRMED LIVE 2026-09-15** (Local, `crux-redmine` localhost:3014, admin): **PASS.** Added a throwaway Anthropic key (used for TC-CRX-074 below, so it was that provider's only/default key at deletion time — not the "non-default" precondition literally, but the deletion+continuity behavior is identical), deleted it via the Keys table's Delete button with its native confirm dialog ("Delete key ... This cannot be undone."), confirmed via `keys.json` it was gone cleanly with no orphaned state. Sent a fresh chat turn immediately after (`@auto`, new session) — answered normally via the already-configured OpenRouter/claude-haiku-4.5 default, no crash, no 500, no degraded behavior of any kind.
 
 ---
 
@@ -146,7 +146,7 @@
 
 ---
 
-### TC-CRX-081: Structured log viewer filters correctly
+### TC-CRX-071: Structured log viewer filters correctly
 
 **User Role:** Administrator (Administration → Crux — logs is `require_admin`).
 **Precondition:** Recent activity exists (chat turns, writes, etc.) to generate log entries.
@@ -166,7 +166,7 @@
 
 ---
 
-### TC-CRX-082: Set the core service URL from the Crux nav rail
+### TC-CRX-072: Set the core service URL from the Crux nav rail
 
 **User Role:** Whichever role the settings page actually requires (confirm live — the plugin README says "no admin section needed" for this specific page, CRX-50).
 **Precondition:** None.
@@ -190,22 +190,22 @@
 
 ---
 
-### TC-CRX-083: Non-admin cannot reach providers & keys, logs, or settings pages meant for admins
+### TC-CRX-073: Non-admin cannot reach providers & keys, logs, or settings pages meant for admins
 
-**User Role:** Non-admin user with all five Crux role permissions (cross-ref TC-CRX-008).
+**User Role:** Non-admin user with all five Crux role permissions (cross-ref TC-CRX-139).
 **Precondition:** None.
 
 **Steps:**
 1. Attempt direct navigation to each admin-only page.
 
 **Expected Result:**
-- All refused — duplicate of TC-CRX-008's coverage from this suite's own angle; confirm consistent results between both TCs.
+- All refused — duplicate of TC-CRX-139's coverage from this suite's own angle; confirm consistent results between both TCs.
 
-- **CROSS-REFERENCED 2026-09-15** — not independently re-executed this session to avoid duplicating live evidence already gathered: `CRUX_NAVIGATION_AND_PERMISSIONS.md`'s TC-CRX-008 already confirmed direct-URL refusal (403) for `/crux/admin/keys`, `/crux/admin/logs`, and `/crux/admin/settings` for a non-admin user with all five Crux role permissions granted, tested with both `luna.blossom` and `daisy.skye`. Consistent with this suite's own admin-only findings on TC-CRX-078/079/080/081/084 (all admin-session evidence gathered without ever needing a non-admin session to reach these pages).
+- **CROSS-REFERENCED 2026-09-15** — not independently re-executed this session to avoid duplicating live evidence already gathered: `CRUX_NAVIGATION_AND_PERMISSIONS.md`'s TC-CRX-139 already confirmed direct-URL refusal (403) for `/crux/admin/keys`, `/crux/admin/logs`, and `/crux/admin/settings` for a non-admin user with all five Crux role permissions granted, tested with both `luna.blossom` and `daisy.skye`. Consistent with this suite's own admin-only findings on TC-CRX-068/079/080/081/084 (all admin-session evidence gathered without ever needing a non-admin session to reach these pages).
 
 ---
 
-### TC-CRX-084: Invalid/expired provider key fails its live test honestly
+### TC-CRX-074: Invalid/expired provider key fails its live test honestly
 
 **User Role:** Administrator.
 **Precondition:** A deliberately invalid API key string.
@@ -217,20 +217,20 @@
 **Expected Result:**
 - The test reports a genuine failure with a real reason (e.g. 401 from the provider) — not a false "success," and not a generic unhelpful error.
 
-- **CONFIRMED LIVE 2026-09-15** (Local, `crux-redmine` localhost:3014, admin): **PASS — and this is the positive counterpart to BUG-CRX-001.** Added a deliberately invalid key (`sk-ant-invalid-deliberately-wrong-...`) for the **Anthropic** provider (distinct from OpenRouter, whose "Test connection" was already proven a false-positive in BUG-CRX-001 because its `/models` endpoint needs no auth). Clicked "Test connection" on the Anthropic row: it displayed a genuine, specific failure — `HTTPError: HTTP Error 401: Unauthorized` — a real provider-returned reason, not a generic message and not a false success. Confirms the test button's mechanism is sound in general; BUG-CRX-001 is specifically about OpenRouter's unauthenticated `/models` endpoint, not the test feature as a whole. Deleted the throwaway key afterward (also exercised as TC-CRX-080's delete case above).
+- **CONFIRMED LIVE 2026-09-15** (Local, `crux-redmine` localhost:3014, admin): **PASS — and this is the positive counterpart to BUG-CRX-001.** Added a deliberately invalid key (`sk-ant-invalid-deliberately-wrong-...`) for the **Anthropic** provider (distinct from OpenRouter, whose "Test connection" was already proven a false-positive in BUG-CRX-001 because its `/models` endpoint needs no auth). Clicked "Test connection" on the Anthropic row: it displayed a genuine, specific failure — `HTTPError: HTTP Error 401: Unauthorized` — a real provider-returned reason, not a generic message and not a false success. Confirms the test button's mechanism is sound in general; BUG-CRX-001 is specifically about OpenRouter's unauthenticated `/models` endpoint, not the test feature as a whole. Deleted the throwaway key afterward (also exercised as TC-CRX-070's delete case above).
 
 ---
 
 ## Additional Cases (added 2026-09-11 after full controller/route source review)
 
-> `retire` and `upload` had zero test coverage — both are real write actions gated by `manage_crux_agents` exactly like `create`/`pause`/`provision`, but neither appears in `init.rb`'s visible permission-action array (only enforced via the controller's own `require_manage_agents` method). Worth testing independently rather than assuming they're covered by TC-CRX-075/077's coverage of the other three actions.
+> `retire` and `upload` had zero test coverage — both are real write actions gated by `manage_crux_agents` exactly like `create`/`pause`/`provision`, but neither appears in `init.rb`'s visible permission-action array (only enforced via the controller's own `require_manage_agents` method). Worth testing independently rather than assuming they're covered by TC-CRX-065/077's coverage of the other three actions.
 
 ---
 
-### TC-CRX-145: Retire an agent — one-way, permanent, locks the paired Redmine user (CRX-48 rule 3)
+### TC-CRX-075: Retire an agent — one-way, permanent, locks the paired Redmine user (CRX-48 rule 3)
 
 **User Role:** Logged-in user with `manage_crux_agents`.
-**Precondition:** An agent with a provisioned Redmine identity (from TC-CRX-077).
+**Precondition:** An agent with a provisioned Redmine identity (from TC-CRX-067).
 
 **Steps:**
 1. Retire the agent, with the explicit confirm checkbox checked (`confirm=true` — the controller never forces this itself; an unconfirmed call must be honestly refused by core).
@@ -242,11 +242,11 @@
 - This is explicitly one-way per its own spec comment ("one-way, permanent") — confirm there is no un-retire path; attempting to retire an already-retired agent reports honestly (not a fabricated second success).
 - Retiring WITHOUT `confirm=true` is refused by core, not silently treated as confirmed.
 
-- **CONFIRMED LIVE 2026-09-15** (Local, `crux-redmine` localhost:3014, luna.blossom — `manage_crux_agents`): **PASS, all four sub-checks.** Used "Builder 1" (the identity provisioned in TC-CRX-077). (1) Direct API POST to `/crux/agents/retire` with `{id: 'builder-1'}` and no `confirm` → honestly refused: `200 {"ok":false,"error":"retiring is permanent — pass \"confirm\": true to proceed"}`, not silently treated as confirmed. (2) Checked "I understand this is permanent" and clicked "Retire agent" in the UI dialog → succeeded, row status flipped to "retired" with the entire Actions column removed (no Pause/Edit/Retire/Create-identity buttons at all). (3) Independently verified via `rails runner` (bypassing UI/API) that the paired Redmine user is genuinely locked: `login=builder-1 status=3 locked=true` (Redmine's `STATUS_LOCKED`). (4) Attempted to retire the already-retired agent again via direct API (`confirm:true`) → honest refusal, not a fabricated second success: `200 {"ok":false,"error":"agent 'builder-1' is already retired"}`. No un-retire control exists anywhere in the UI for a retired row, confirming the "one-way, permanent" claim.
+- **CONFIRMED LIVE 2026-09-15** (Local, `crux-redmine` localhost:3014, luna.blossom — `manage_crux_agents`): **PASS, all four sub-checks.** Used "Builder 1" (the identity provisioned in TC-CRX-067). (1) Direct API POST to `/crux/agents/retire` with `{id: 'builder-1'}` and no `confirm` → honestly refused: `200 {"ok":false,"error":"retiring is permanent — pass \"confirm\": true to proceed"}`, not silently treated as confirmed. (2) Checked "I understand this is permanent" and clicked "Retire agent" in the UI dialog → succeeded, row status flipped to "retired" with the entire Actions column removed (no Pause/Edit/Retire/Create-identity buttons at all). (3) Independently verified via `rails runner` (bypassing UI/API) that the paired Redmine user is genuinely locked: `login=builder-1 status=3 locked=true` (Redmine's `STATUS_LOCKED`). (4) Attempted to retire the already-retired agent again via direct API (`confirm:true`) → honest refusal, not a fabricated second success: `200 {"ok":false,"error":"agent 'builder-1' is already retired"}`. No un-retire control exists anywhere in the UI for a retired row, confirming the "one-way, permanent" claim.
 
 ---
 
-### TC-CRX-146: Upload a customer-authored agent definition (CRX-23)
+### TC-CRX-076: Upload a customer-authored agent definition (CRX-23)
 
 **User Role:** Logged-in user with `manage_crux_agents`.
 **Precondition:** A valid agent-definition text file matching the `AGENT-TEMPLATE.md` shape; separately, a deliberately malformed one for the negative case.
@@ -261,14 +261,14 @@
 - Malformed upload fails with the real, specific list of validation errors from core (per the route's own comment: "the response ... passes through unchanged so the form can render exactly what core said, never a re-interpreted summary") — not a generic failure message.
 - A user without `manage_crux_agents` cannot upload at all (403, same as create/pause/provision/retire).
 
-- **CONFIRMED LIVE 2026-09-15** (Local, `crux-redmine` localhost:3014, luna.blossom — `manage_crux_agents`): **PASS, all three sub-checks.** (1) Uploaded a valid definition matching `AGENT-TEMPLATE.md`'s shape (`qa-crx146-agent`, frontmatter + system prompt) via the "Upload Agent" dialog's file picker — "Definition file" auto-filled "Raw content" verbatim, "Upload" succeeded ("\"QA CRX-146 Agent\" uploaded."), and appeared correctly in the roster. Verified via `/crux/agents.json` that the created record matches the uploaded file exactly, field for field: `description`, `capabilities: [qa-test]`, `allowed_tools: []`, `max_concurrent: "1"`, `cost_budget_month: "10"`, `origin: customer`, and `prompt` all byte-identical to the source file — confirming the controller does zero transformation. (2) Uploaded a deliberately malformed file (plain text, no `---` frontmatter) → real, specific error shown in the dialog itself: `⚠ malformed file — expected '---' frontmatter, then '---', then the prompt body` — not a generic failure message. (3) Already confirmed in TC-CRX-076 above: `daisy.skye` (zero Crux permissions) got `403 {"ok":false,"error":"You are not allowed to manage agents."}` on a direct POST to `/crux/agents/upload` — identical to create/pause/provision/retire.
+- **CONFIRMED LIVE 2026-09-15** (Local, `crux-redmine` localhost:3014, luna.blossom — `manage_crux_agents`): **PASS, all three sub-checks.** (1) Uploaded a valid definition matching `AGENT-TEMPLATE.md`'s shape (`qa-crx146-agent`, frontmatter + system prompt) via the "Upload Agent" dialog's file picker — "Definition file" auto-filled "Raw content" verbatim, "Upload" succeeded ("\"QA CRX-146 Agent\" uploaded."), and appeared correctly in the roster. Verified via `/crux/agents.json` that the created record matches the uploaded file exactly, field for field: `description`, `capabilities: [qa-test]`, `allowed_tools: []`, `max_concurrent: "1"`, `cost_budget_month: "10"`, `origin: customer`, and `prompt` all byte-identical to the source file — confirming the controller does zero transformation. (2) Uploaded a deliberately malformed file (plain text, no `---` frontmatter) → real, specific error shown in the dialog itself: `⚠ malformed file — expected '---' frontmatter, then '---', then the prompt body` — not a generic failure message. (3) Already confirmed in TC-CRX-066 above: `daisy.skye` (zero Crux permissions) got `403 {"ok":false,"error":"You are not allowed to manage agents."}` on a direct POST to `/crux/agents/upload` — identical to create/pause/provision/retire.
 
 ---
 
 ## Evidence Map
 
-- Case IDs: TC-CRX-074 through TC-CRX-084, TC-CRX-145 through TC-CRX-146 — all 13 executed live 2026-09-15 (TC-CRX-078/082 carried forward from 2026-09-11, all others fresh this session), all PASS. TC-CRX-083 cross-referenced against `CRUX_NAVIGATION_AND_PERMISSIONS.md`'s TC-CRX-008 rather than re-executed (same admin-only pages, same non-admin refusal already proven there).
+- Case IDs: TC-CRX-064 through TC-CRX-074, TC-CRX-075 through TC-CRX-076 — all 13 executed live 2026-09-15 (TC-CRX-068/082 carried forward from 2026-09-11, all others fresh this session), all PASS. TC-CRX-073 cross-referenced against `CRUX_NAVIGATION_AND_PERMISSIONS.md`'s TC-CRX-139 rather than re-executed (same admin-only pages, same non-admin refusal already proven there).
 - Screenshots: bugs only (none captured — all findings this session were HTTP/API/log-level, not rendering defects).
 - Log: `docs/CRUX_HANDOFF.md` 2026-09-15 entry.
-- Bug reference: BUG-CRX-006 (new, found via TC-CRX-081) — a systemic proxy-layer status-code bug affecting all 12 Crux controllers, not specific to this suite's own action set. BUG-CRX-001 cross-confirmed as OpenRouter-specific (not a general "Test connection" defect) via TC-CRX-084's Anthropic-provider negative case.
-- Fixtures created this session (see `automation/testdata/CRUX_TESTDATA_LOCAL.xlsx` — update before next session): Redmine role "AI Agent" (admin, permanent — required for CRX-48 provisioning to work at all); agent `qa-crx146-agent` "QA CRX-146 Agent" (customer, online — TC-CRX-146 upload fixture, left in place); Redmine user `builder-1` (provisioned then retired/locked — TC-CRX-077/145 fixture, permanent per CRX-48's "never deleted" rule); agent `docs-writer` paused then resumed (no residual state); `automation/uploads/valid-agent-def.md` and `malformed-agent-def.md` (checked-in upload fixtures for TC-CRX-146).
+- Bug reference: BUG-CRX-006 (new, found via TC-CRX-071) — a systemic proxy-layer status-code bug affecting all 12 Crux controllers, not specific to this suite's own action set. BUG-CRX-001 cross-confirmed as OpenRouter-specific (not a general "Test connection" defect) via TC-CRX-074's Anthropic-provider negative case.
+- Fixtures created this session (see `automation/testdata/CRUX_TESTDATA_LOCAL.xlsx` — update before next session): Redmine role "AI Agent" (admin, permanent — required for CRX-48 provisioning to work at all); agent `qa-crx146-agent` "QA CRX-146 Agent" (customer, online — TC-CRX-076 upload fixture, left in place); Redmine user `builder-1` (provisioned then retired/locked — TC-CRX-067/145 fixture, permanent per CRX-48's "never deleted" rule); agent `docs-writer` paused then resumed (no residual state); `automation/uploads/valid-agent-def.md` and `malformed-agent-def.md` (checked-in upload fixtures for TC-CRX-076).

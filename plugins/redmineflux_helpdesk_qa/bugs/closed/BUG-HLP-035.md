@@ -57,14 +57,14 @@ This is the only `active`-named input anywhere in the form (`New` and `Edit` bot
 
 ## Notes
 
-- Found while executing `HELPDESK_PREPAID_HOURS.md` TC-HLP-368 (Creating a Support Package with every field filled, including Active unchecked, in one Save) — expanded into a dedicated repro since the same symptom reproduced identically via Edit too (not just Create).
-- Severity judged **Medium**: not a crash or data-corruption bug, but a real, total loss of an entire documented-by-implication field's functionality — the Active checkbox exists, is rendered, and looks fully interactive, but has zero effect in the "make inactive" direction on this entity. This also **blocks TC-HLP-371** (verifying a deactivated Support Package is excluded from the prepaid-hours top-up dialog) from being tested via the normal UI path — there is currently no way to produce a real Inactive Support Package fixture through the UI to test against.
+- Found while executing `HELPDESK_PREPAID_HOURS.md` TC-HLP-207 (Creating a Support Package with every field filled, including Active unchecked, in one Save) — expanded into a dedicated repro since the same symptom reproduced identically via Edit too (not just Create).
+- Severity judged **Medium**: not a crash or data-corruption bug, but a real, total loss of an entire documented-by-implication field's functionality — the Active checkbox exists, is rendered, and looks fully interactive, but has zero effect in the "make inactive" direction on this entity. This also **blocks TC-HLP-210** (verifying a deactivated Support Package is excluded from the prepaid-hours top-up dialog) from being tested via the normal UI path — there is currently no way to produce a real Inactive Support Package fixture through the UI to test against.
 - Given BUG-HLP-003's precedent (same "Active checkbox effectively can't be unchecked" symptom, fixed by adding the correct hidden-fallback/handling for Organization/SLA/Canned Response), recommend checking whether Support Packages was implemented via a copy-paste of an older form partial that predates that fix, rather than the corrected one.
 
 ## Retest — Confirmed FIXED (2026-09-10)
 
 - Production issue #120074 found marked "In QA" (developer checked in a fix), triggering this retest per the user's request to retest all checked-in Helpdesk bugs on `localhost:3012`.
-- Opened Edit on "Standard Support (Edited v2 - TC-HLP-391)" (Support Package #2, previously always saved Active regardless of the checkbox), unchecked Active, Save. **Result: "Successful update"**, and the Support Packages list now shows this package as **Inactive**.
+- Opened Edit on "Standard Support (Edited v2 - TC-HLP-230)" (Support Package #2, previously always saved Active regardless of the checkbox), unchecked Active, Save. **Result: "Successful update"**, and the Support Packages list now shows this package as **Inactive**.
 - Re-opened its Edit form: the Active checkbox correctly loads unchecked (persisted state), confirming this isn't a list-display-only fix — the underlying record is genuinely Inactive.
 - Restored the package back to Active afterward to leave the environment in its original state.
 - Production issue #120074 synced 2026-09-10: status In QA → Done, % done → 100 (approved).

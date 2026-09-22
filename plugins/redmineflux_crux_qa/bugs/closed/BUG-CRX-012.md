@@ -31,7 +31,7 @@
   - **Work Packages — pipeline view**: full internal pipeline state for every WP (goal text, members, stage, autonomy, gate-approval history with real approver usernames).
   - **Run Ledger**: a live, detailed log of every agent run — issue, agent, model, duration, exact token counts, exact dollar cost, tool-call counts, outcome — for the entire instance.
 - This was reached via a **plain, direct page navigation** — no chat session, no Share feature, no confirm dance involved. It is a raw, unauthenticated-by-permission read of the entire dashboard, available to literally any logged-in Redmine user regardless of role.
-- This is broader and more fundamental than BUG-CRX-011 (shared-session write execution) and than TC-CRX-060's original framing (Share leaking owner-scoped data to a narrower-permission viewer via a chat session) — the dashboard itself needs no sharing step at all; the "View Crux dashboard" permission checkbox has zero effect on `/crux` access.
+- This is broader and more fundamental than BUG-CRX-011 (shared-session write execution) and than TC-CRX-120's original framing (Share leaking owner-scoped data to a narrower-permission viewer via a chat session) — the dashboard itself needs no sharing step at all; the "View Crux dashboard" permission checkbox has zero effect on `/crux` access.
 
 ## Evidence
 
@@ -63,4 +63,4 @@ Dev's `CHANGES.md` handoff added `before_action :authorize_view_dashboard, only:
 
 ## Production report
 
-Reported to production as issue **#120661** (`ztflux`, Tracker Bug, Priority **Blocker** — mapped from local Critical severity, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Linked to Run #569 "Crux QA Run 1", testcase **#120487** (`CRUX_CHAT_CAPABILITIES_KEEP_SHARE_ARTIFACTS.md`, where it was found via TC-CRX-060), Environment "Window 11 + Chrome" — testcase marked **Failed**. Attachments: `BUG-CRX-012.pdf` (5.3 KB) and this MD file (4.4 KB), both confirmed size-exact against production.
+Reported to production as issue **#120661** (`ztflux`, Tracker Bug, Priority **Blocker** — mapped from local Critical severity, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Linked to Run #569 "Crux QA Run 1", testcase **#120487** (`CRUX_CHAT_CAPABILITIES_KEEP_SHARE_ARTIFACTS.md`, where it was found via TC-CRX-120), Environment "Window 11 + Chrome" — testcase marked **Failed**. Attachments: `BUG-CRX-012.pdf` (5.3 KB) and this MD file (4.4 KB), both confirmed size-exact against production.

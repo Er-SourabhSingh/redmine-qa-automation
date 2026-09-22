@@ -5,7 +5,7 @@ import { BasePage } from './BasePage';
  * A project's Knowledgebase tab (/projects/:id/helpdesk/knowledgebase).
  * Locators verified against the live Forge instance on 2026-08-21 for the
  * empty-state chrome, and CONFIRMED LIVE on Local (redmine-docker-6) on
- * 2026-08-26 by actually creating and publishing a real article (TC-HLP-162)
+ * 2026-08-26 by actually creating and publishing a real article (TC-HLP-018)
  * — the article editor's title/body/action-button locators below are no
  * longer guesses.
  *
@@ -78,7 +78,7 @@ export class HelpdeskKnowledgebasePage extends BasePage {
     await this.createChildSpaceButton.click();
   }
 
-  /** Confirmed live 2026-08-26 (TC-HLP-162) — the top-level "+" opens this panel directly, no separate Space step. */
+  /** Confirmed live 2026-08-26 (TC-HLP-018) — the top-level "+" opens this panel directly, no separate Space step. */
   async createArticle(title: string) {
     await this.newArticleButton.click();
     await this.newArticleTitleInput.fill(title);

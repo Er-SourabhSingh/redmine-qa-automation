@@ -155,7 +155,7 @@ export class HelpdeskTicketListPage extends BasePage {
   // other badge color classes for e.g. High priority or Resolved status are not yet confirmed)
   // SLA Status renders as <span class="sla-timer sla-<state>"><span class="sla-sym sla-sym-<color>">symbol</span> Label</span>
   // — only "sla-no-sla" / "sla-sym-grey" / "No SLA" observed so far (no SLA exists yet in this
-  // environment); the other 6 badge states from HELPDESK_TICKET_LIST_FILTERS_COLUMNS.md TC-HLP-050
+  // environment); the other 6 badge states from HELPDESK_TICKET_LIST_FILTERS_COLUMNS.md TC-HLP-406
   // (On Track/At Risk/Critical/Breached/Paused/Resolved) are NOT yet confirmed — update this
   // comment and the locators below the first time a real SLA is attached to a ticket.
   // Updated date renders as plain text in <td class="rf_helpdesk_table_date">, format "MM/DD/YYYY h:mm AM/PM".

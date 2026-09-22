@@ -17,7 +17,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 > **The rule that ties this suite together**, stated by the vendor: *"Each team member must have a role that exists
 > in the selected approval schema."* A team whose members' roles are not represented in its schema produces
-> timesheets that cannot be routed. TC-TMS-514 and TC-TMS-515 exist to find out whether the plugin prevents that
+> timesheets that cannot be routed. TC-TMS-111 and TC-TMS-112 exist to find out whether the plugin prevents that
 > configuration or lets an admin create it silently.
 
 ---
@@ -26,7 +26,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-501: Create a team
+### TC-TMS-098: Create a team
 
 **User Role:** Admin
 **Steps:**
@@ -37,7 +37,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-502: Assign an approval schema to a team
+### TC-TMS-099: Assign an approval schema to a team
 
 **User Role:** Admin
 **Steps:**
@@ -49,7 +49,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-503: Add members and assign roles
+### TC-TMS-100: Add members and assign roles
 
 **User Role:** Admin
 **Steps:**
@@ -62,7 +62,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-504: Edit a team name
+### TC-TMS-101: Edit a team name
 
 **User Role:** Admin
 **Steps:**
@@ -74,7 +74,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-505: Update a member's role
+### TC-TMS-102: Update a member's role
 
 **User Role:** Admin
 **Steps:**
@@ -83,11 +83,11 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 **Expected Result:**
 - The change persists, and the member's routing follows the new role on their **next** submission.
 - **Record what happens to their in-flight timesheets** — a role change mid-approval must not strand them
-  (paired with TC-TMS-417).
+  (paired with TC-TMS-095).
 
 ---
 
-### TC-TMS-506: Remove a member from a team
+### TC-TMS-103: Remove a member from a team
 
 **User Role:** Admin
 **Steps:**
@@ -101,7 +101,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-507: Delete a team
+### TC-TMS-104: Delete a team
 
 **User Role:** Admin
 **Steps:**
@@ -114,7 +114,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-508: A user in multiple teams
+### TC-TMS-105: A user in multiple teams
 
 **User Role:** Admin then Member
 **Steps:**
@@ -127,7 +127,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-509: Teams are only meaningful in Team Mode
+### TC-TMS-106: Teams are only meaningful in Team Mode
 
 **User Role:** Admin
 **Steps:**
@@ -143,7 +143,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-510: Create a schema with multiple levels
+### TC-TMS-107: Create a schema with multiple levels
 
 **User Role:** Admin
 **Steps:**
@@ -155,19 +155,19 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-511: Single-level schema
+### TC-TMS-108: Single-level schema
 
 **User Role:** Admin then Submitter
 **Steps:**
 1. Create a one-level schema, assign it, and run a submission through it.
 
 **Expected Result:**
-- One approval completes the workflow. The minimum-level rule for withdrawal (TC-TMS-310) applies to that single
+- One approval completes the workflow. The minimum-level rule for withdrawal (TC-TMS-076) applies to that single
   level.
 
 ---
 
-### TC-TMS-512: Level order is respected
+### TC-TMS-109: Level order is respected
 
 **User Role:** Admin
 **Steps:**
@@ -178,7 +178,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-513: Edit a schema
+### TC-TMS-110: Edit a schema
 
 **User Role:** Admin
 **Steps:**
@@ -186,11 +186,11 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 **Expected Result:**
 - Changes persist and apply to **new** submissions.
-- Behaviour for in-flight submissions is covered by TC-TMS-417 and must be coherent.
+- Behaviour for in-flight submissions is covered by TC-TMS-095 and must be coherent.
 
 ---
 
-### TC-TMS-514: Enabled / disabled status
+### TC-TMS-111: Enabled / disabled status
 
 **User Role:** Admin
 **Steps:**
@@ -202,7 +202,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-515: Lock (deactivate) a schema in use
+### TC-TMS-112: Lock (deactivate) a schema in use
 
 **User Role:** Admin
 **Steps:**
@@ -215,7 +215,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-516: Delete an unused schema
+### TC-TMS-113: Delete an unused schema
 
 **User Role:** Admin
 **Steps:**
@@ -226,7 +226,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-517: A schema in use cannot be deleted
+### TC-TMS-114: A schema in use cannot be deleted
 
 **User Role:** Admin
 **Steps:**
@@ -240,7 +240,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-518: A schema with no levels
+### TC-TMS-115: A schema with no levels
 
 **User Role:** Admin
 **Steps:**
@@ -253,7 +253,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-519: Team members whose role is absent from the schema
+### TC-TMS-116: Team members whose role is absent from the schema
 
 **User Role:** Admin then Member
 **Steps:**
@@ -272,7 +272,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-520: The project selector appears only in Project Mode
+### TC-TMS-117: The project selector appears only in Project Mode
 
 **User Role:** Admin
 **Steps:**
@@ -284,7 +284,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-521: Assign a schema to a project
+### TC-TMS-118: Assign a schema to a project
 
 **User Role:** Admin then Submitter
 **Steps:**
@@ -295,7 +295,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-522: Schema selection on project creation
+### TC-TMS-119: Schema selection on project creation
 
 **User Role:** Admin
 **Steps:**
@@ -306,7 +306,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-523: A project with no schema selected
+### TC-TMS-120: A project with no schema selected
 
 **User Role:** Submitter
 **Steps:**
@@ -323,7 +323,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-524: Validation on names
+### TC-TMS-121: Validation on names
 
 **User Role:** Admin
 **Steps:**
@@ -338,7 +338,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-525: Team and schema management is admin-only
+### TC-TMS-122: Team and schema management is admin-only
 
 **User Role:** Every non-admin role in turn, including one holding Manage Timesheet
 **Steps:**
@@ -354,7 +354,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-526: Concurrent schema edits
+### TC-TMS-123: Concurrent schema edits
 
 **User Role:** Two admins
 **Steps:**
@@ -366,7 +366,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 
 ---
 
-### TC-TMS-527: Deleting a role used by a schema level
+### TC-TMS-124: Deleting a role used by a schema level
 
 **User Role:** Admin
 **Steps:**

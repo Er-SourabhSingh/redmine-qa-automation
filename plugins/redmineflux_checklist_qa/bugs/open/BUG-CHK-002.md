@@ -25,7 +25,7 @@ Also reproducible via the sub-item "Add" flow (same anti-pattern, different fiel
 ## Expected result
 
 - The markup is stored and rendered as literal text. No script executes at any point (creation or later viewing) —
-  per this suite's own TC-CHK-217, script execution here is a Critical security defect.
+  per this suite's own TC-CHK-031, script execution here is a Critical security defect.
 
 ## Actual result
 

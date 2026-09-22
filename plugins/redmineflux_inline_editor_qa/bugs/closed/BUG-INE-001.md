@@ -46,7 +46,7 @@ Since this is described as a single shared component reused across issue list, i
 
 - **Reconfirmed on a new server**: the original finding was on `flux-fczk00paf49`, which has since expired. Re-tested on the current active Forge instance (`flux-frmka2kzh49`) — identical "Search…"/"— None —" strings reproduce byte-for-byte, confirming this is a genuine code-level defect, not an environment/data artifact.
 - **Confirmed on the Issues LIST view**: clicking the Edit icon on a row's "Zugewiesen an" cell (not just the issue detail sidebar) opens the same `rf-ss` widget with the identical untranslated "Search…"/"— None —" strings — confirming the shared-widget prediction above for at least this one additional surface.
-- **Priority field does NOT share this gap**: Priority's inline edit uses a plain native `<select>`, not the `rf-ss` widget at all — so this bug's pattern cannot and does not apply there (see `TC-INE-003`).
+- **Priority field does NOT share this gap**: Priority's inline edit uses a plain native `<select>`, not the `rf-ss` widget at all — so this bug's pattern cannot and does not apply there (see `TC-INE-017`).
 
 ## Severity rationale
 

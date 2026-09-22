@@ -26,7 +26,7 @@
 - Sequence scope by tracker works: Bug-only rule generates IDs only for Bug tracker issues.
 - Dependency filtering works: setting parent field value dynamically filters child field dropdown without page reload.
 - Visibility HIDE rule hides field immediately on trigger; restores on non-matching value.
-- All four features (Formula, Dependency, Sequence, Visibility) work simultaneously without conflict (verified in TC-RAF-044).
+- All four features (Formula, Dependency, Sequence, Visibility) work simultaneously without conflict (verified in TC-RAF-043).
 
 ## Recurring Issues
 
@@ -47,12 +47,12 @@
   - 16: Extra Hours [Float]
   - 17: Total Hours [Float, formula target]
   - 18: Duration (hours) [Float, formula target]
-  - 19: Subtract Result [Float, formula target — deleted after TC-RAF-034]
-  - 20: Multiply Result [Float, formula target — deleted after TC-RAF-034]
-  - 21: Divide Result [Float, formula target — deleted after TC-RAF-034]
-  - 22: Condition GT Result [Float, formula target — deleted after TC-RAF-034]
-  - 23: Condition LT Result [Float, formula target — deleted after TC-RAF-034]
-  - 24: Condition EQ Result [Float, formula target — deleted after TC-RAF-034]
+  - 19: Subtract Result [Float, formula target — deleted after TC-RAF-033]
+  - 20: Multiply Result [Float, formula target — deleted after TC-RAF-033]
+  - 21: Divide Result [Float, formula target — deleted after TC-RAF-033]
+  - 22: Condition GT Result [Float, formula target — deleted after TC-RAF-033]
+  - 23: Condition LT Result [Float, formula target — deleted after TC-RAF-033]
+  - 24: Condition EQ Result [Float, formula target — deleted after TC-RAF-033]
   - 25: Environment [List]
   - 26: Components [List]
 - Active formulas after teardown: Downtime (ID 4), Duration (ID 5), Total Hours (ID 6)

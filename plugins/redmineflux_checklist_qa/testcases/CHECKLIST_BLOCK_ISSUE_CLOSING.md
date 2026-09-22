@@ -25,7 +25,7 @@ issue on this instance.
 
 ---
 
-### TC-CHK-501: Closing is blocked while checklist items are incomplete
+### TC-CHK-001: Closing is blocked while checklist items are incomplete
 
 **User Role:** Member
 **Preconditions:** Block issue closing **enabled**; issue has a checklist with at least one incomplete item.
@@ -43,7 +43,7 @@ as there are incomplete checklists." Status confirmed still "New" after a fresh 
 
 ---
 
-### TC-CHK-502: Closing succeeds once every item is complete
+### TC-CHK-002: Closing succeeds once every item is complete
 
 **User Role:** Member
 **Steps:**
@@ -58,7 +58,7 @@ CONFIRMED LIVE 2026-09-21 (issue #1542, marked "Block-close checklist A"'s item 
 
 ---
 
-### TC-CHK-503: Issues with no checklist at all are unaffected
+### TC-CHK-003: Issues with no checklist at all are unaffected
 
 **User Role:** Member
 **Steps:**
@@ -72,7 +72,7 @@ normally, no block — the rule doesn't apply globally to every issue on the ins
 
 ---
 
-### TC-CHK-504: Disabling the setting removes the block
+### TC-CHK-004: Disabling the setting removes the block
 
 **User Role:** Admin + Member
 **Steps:**
@@ -88,7 +88,7 @@ needed. Re-enabled the setting afterward (default state for the rest of this ses
 
 ---
 
-### TC-CHK-505: Block applies across all closed statuses
+### TC-CHK-005: Block applies across all closed statuses
 
 **User Role:** Admin + Member
 **Steps:**
@@ -105,7 +105,7 @@ incomplete checklists." No closed status slips through.
 
 ---
 
-### TC-CHK-506: Block applies to multiple checklists on one issue
+### TC-CHK-006: Block applies to multiple checklists on one issue
 
 **User Role:** Member
 **Steps:**
@@ -120,7 +120,7 @@ with the same message — confirms the rule requires *every* checklist on the is
 
 ---
 
-### TC-CHK-507: Non-closed status transitions are unaffected
+### TC-CHK-007: Non-closed status transitions are unaffected
 
 **User Role:** Member
 **Steps:**
@@ -138,7 +138,7 @@ Save succeeded, status confirmed "In Progress" — only closed-status transition
 
 ---
 
-### TC-CHK-508: Bulk edit bypass
+### TC-CHK-008: Bulk edit bypass
 
 **User Role:** Manager
 **Steps:**
@@ -157,7 +157,7 @@ silently closed. No bulk-edit bypass.
 
 ---
 
-### TC-CHK-509: Inline / quick edit bypass
+### TC-CHK-009: Inline / quick edit bypass
 
 **User Role:** Member
 **Steps:**
@@ -178,7 +178,7 @@ not a Checklist plugin defect) — per this TC's own note, that belongs to the o
 
 ---
 
-### TC-CHK-510: REST API bypass
+### TC-CHK-010: REST API bypass
 
 **User Role:** Member with API key
 **Steps:**
@@ -196,7 +196,7 @@ key out-of-band (not read it via browser automation) and pass it as the `X-Redmi
 
 ---
 
-### TC-CHK-511: Closing a parent issue whose subtask has an incomplete checklist
+### TC-CHK-011: Closing a parent issue whose subtask has an incomplete checklist
 
 **User Role:** Member
 **Steps:**
@@ -220,7 +220,7 @@ not a defect in this plugin (a generic Redmine workflow-transition guard, not ch
 
 ---
 
-### TC-CHK-512: Issue already closed before the setting was enabled
+### TC-CHK-012: Issue already closed before the setting was enabled
 
 **User Role:** Admin + Member
 **Steps:**
@@ -240,7 +240,7 @@ against current state, correctly.
 
 ---
 
-### TC-CHK-513: Deleting the incomplete item unblocks closing
+### TC-CHK-013: Deleting the incomplete item unblocks closing
 
 **User Role:** Member
 **Steps:**
@@ -256,7 +256,7 @@ Delete, retried Status → Closed): **PASS.** Close succeeded immediately after 
 
 ---
 
-### TC-CHK-514: Error message is specific and localized
+### TC-CHK-014: Error message is specific and localized
 
 **User Role:** Member
 **Steps:**
@@ -278,8 +278,8 @@ English fragments. Switched language back to English afterward.
 
 | Case ID | Screenshot | Log | Bug reference |
 |---------|------------|-----|---------------|
-| TC-CHK-501–509, 511–514 | n/a (no bugs found) | inline evidence above | none |
-| TC-CHK-510 | n/a (not executed) | inline note above | none |
+| TC-CHK-001–509, 511–514 | n/a (no bugs found) | inline evidence above | none |
+| TC-CHK-010 | n/a (not executed) | inline note above | none |
 
 ## Summary
 
@@ -291,7 +291,7 @@ transitions unaffected, bulk-edit bypass blocked with a clear itemized message, 
 interaction (clarified that a stricter unrelated Redmine workflow rule — no closing a parent with an open
 subtask — gates this before the checklist block ever gets a chance to apply), already-closed-before-enabling
 issues left alone, deleting the blocking item unblocks immediately, and the error message is fully localized
-(confirmed in German). **TC-CHK-510 (REST API bypass) was not executed** — reading a real API key was blocked by
+(confirmed in German). **TC-CHK-010 (REST API bypass) was not executed** — reading a real API key was blocked by
 this session's credential-materialization safeguard, and an unauthenticated `.json` PUT triggers a disruptive
 native browser Basic-Auth popup; left for a future session with an out-of-band API key. No new bugs found in
 this suite.

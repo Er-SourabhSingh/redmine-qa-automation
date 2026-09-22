@@ -8,7 +8,7 @@
 - Plugin version: 0.39.0 (plugin) / crux-core 0.92.0
 - Environment: Local — `http://localhost:3014`
 - Browser: Chromium (Playwright MCP), plus direct `fetch()` calls from the browser console
-- User role: Administrator (found while executing TC-CRX-081, Structured log viewer)
+- User role: Administrator (found while executing TC-CRX-071, Structured log viewer)
 - Date: 2026-09-15
 
 ## Steps to reproduce

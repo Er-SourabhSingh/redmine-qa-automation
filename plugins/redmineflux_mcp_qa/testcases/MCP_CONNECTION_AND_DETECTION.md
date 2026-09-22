@@ -25,7 +25,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-101: Locate the account's MCP server URL
+### TC-RFM-001: Locate the account's MCP server URL
 
 **User Role:** Account owner
 **Steps:**
@@ -38,7 +38,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-102: Retrieve a Redmine API key
+### TC-RFM-002: Retrieve a Redmine API key
 
 **User Role:** Any Redmine user
 **Steps:**
@@ -49,7 +49,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-103: Reset the API key invalidates the old one
+### TC-RFM-003: Reset the API key invalidates the old one
 
 **User Role:** Any Redmine user
 **Steps:**
@@ -68,7 +68,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-104: Connect Claude Desktop with the documented config
+### TC-RFM-004: Connect Claude Desktop with the documented config
 
 **User Role:** Any
 **Preconditions:** Node.js 18+ installed (`node --version`).
@@ -82,7 +82,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-105: Verification prompt returns data
+### TC-RFM-005: Verification prompt returns data
 
 **User Role:** Any
 **Steps:**
@@ -93,7 +93,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-106: Missing Node.js
+### TC-RFM-006: Missing Node.js
 
 **User Role:** Any
 **Steps:**
@@ -107,7 +107,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-107: Malformed Desktop config
+### TC-RFM-007: Malformed Desktop config
 
 **User Role:** Any
 **Steps:**
@@ -123,7 +123,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-108: Connect via Claude.ai Integrations
+### TC-RFM-008: Connect via Claude.ai Integrations
 
 **User Role:** Any
 **Steps:**
@@ -135,7 +135,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-109: Two users share one server URL
+### TC-RFM-009: Two users share one server URL
 
 **User Role:** Two Redmine users with different permissions
 **Steps:**
@@ -154,7 +154,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-110: Add via the CLI for the current project
+### TC-RFM-010: Add via the CLI for the current project
 
 **User Role:** Any
 **Steps:**
@@ -166,7 +166,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-111: Add globally with `--scope user`
+### TC-RFM-011: Add globally with `--scope user`
 
 **User Role:** Any
 **Steps:**
@@ -177,7 +177,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-112: Project scope does not leak into other projects
+### TC-RFM-012: Project scope does not leak into other projects
 
 **User Role:** Any
 **Steps:**
@@ -188,7 +188,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-113: Manual config files
+### TC-RFM-013: Manual config files
 
 **User Role:** Any
 **Steps:**
@@ -200,7 +200,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-114: Verify in VS Code
+### TC-RFM-014: Verify in VS Code
 
 **User Role:** Any
 **Steps:**
@@ -215,7 +215,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-201: Only detected plugins' tools are registered
+### TC-RFM-015: Only detected plugins' tools are registered
 
 **User Role:** Any
 **Preconditions:** At least one Redmineflux plugin installed and at least one **not** installed.
@@ -228,7 +228,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-202: Asking about an uninstalled plugin
+### TC-RFM-016: Asking about an uninstalled plugin
 
 **User Role:** Any
 **Steps:**
@@ -241,7 +241,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-203: Installing a plugin registers its tools
+### TC-RFM-017: Installing a plugin registers its tools
 
 **User Role:** Admin + MCP user
 **Steps:**
@@ -255,7 +255,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-204: Module enabled per project
+### TC-RFM-018: Module enabled per project
 
 **User Role:** Admin + MCP user
 **Steps:**
@@ -267,7 +267,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-205: Core tools are always available
+### TC-RFM-019: Core tools are always available
 
 **User Role:** Any
 **Steps:**
@@ -278,7 +278,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-206: `redmineflux_system_version` reports version and plugins
+### TC-RFM-020: `redmineflux_system_version` reports version and plugins
 
 **User Role:** Any
 **Steps:**
@@ -292,7 +292,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-207: Version reporting is usable for support
+### TC-RFM-021: Version reporting is usable for support
 
 **User Role:** Any
 **Steps:**
@@ -303,7 +303,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-208: Detection after uninstalling a plugin
+### TC-RFM-022: Detection after uninstalling a plugin
 
 **User Role:** Admin + MCP user
 **Steps:**
@@ -316,7 +316,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-209: Detection does not require a client restart to be correct
+### TC-RFM-023: Detection does not require a client restart to be correct
 
 **User Role:** Any
 **Steps:**
@@ -328,7 +328,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-210: Tool count is plausible
+### TC-RFM-024: Tool count is plausible
 
 **User Role:** Any
 **Steps:**
@@ -344,7 +344,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-211: Invalid API key
+### TC-RFM-025: Invalid API key
 
 **User Role:** Any
 **Steps:**
@@ -356,7 +356,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-212: Locked Redmine account
+### TC-RFM-026: Locked Redmine account
 
 **User Role:** A locked account's key
 **Steps:**
@@ -369,7 +369,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-213: No API key supplied
+### TC-RFM-027: No API key supplied
 
 **User Role:** Any
 **Steps:**
@@ -381,7 +381,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-214: Wrong server URL
+### TC-RFM-028: Wrong server URL
 
 **User Role:** Any
 **Steps:**
@@ -394,7 +394,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-215: No outbound HTTPS access
+### TC-RFM-029: No outbound HTTPS access
 
 **User Role:** Any
 **Steps:**
@@ -406,7 +406,7 @@ which was observed. Record the client and its version alongside each case.
 
 ---
 
-### TC-RFM-216: Redmine unreachable from the MCP server
+### TC-RFM-030: Redmine unreachable from the MCP server
 
 **User Role:** Any
 **Steps:**
@@ -415,7 +415,7 @@ which was observed. Record the client and its version alongside each case.
 **Expected Result:**
 - A clear error naming the upstream problem, not a hang.
 - The KB claims transient errors are retried automatically — record whether a retry occurs and whether it is
-  bounded (see TC-RFM-416).
+  bounded (see TC-RFM-074).
 
 ---
 

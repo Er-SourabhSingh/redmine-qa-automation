@@ -49,7 +49,7 @@
 
 ## Section A — Admin: Space Management
 
-### TC-RKB-001 — Admin: Create a knowledgebase space
+### TC-RKB-206 — Admin: Create a knowledgebase space
 
 | Field | Value |
 |-------|-------|
@@ -69,7 +69,7 @@ Space created: #5 'Admin Test Space' in project 'test-project'.
 
 ---
 
-### TC-RKB-002 — Admin: List all spaces in project
+### TC-RKB-207 — Admin: List all spaces in project
 
 | Field | Value |
 |-------|-------|
@@ -85,7 +85,7 @@ KB Spaces — project 'test-project' (1 total):
 
 ---
 
-### TC-RKB-003 — Admin: Get a single space by ID
+### TC-RKB-208 — Admin: Get a single space by ID
 
 | Field | Value |
 |-------|-------|
@@ -103,7 +103,7 @@ Space #5 — Admin Test Space
 
 ---
 
-### TC-RKB-004 — Admin: Update space name and description
+### TC-RKB-209 — Admin: Update space name and description
 
 | Field | Value |
 |-------|-------|
@@ -120,7 +120,7 @@ Space #5 updated. Name: 'Admin Test Space (Updated)'.
 
 ## Section B — Admin: Node Management
 
-### TC-RKB-005 — Admin: Create a folder node inside space
+### TC-RKB-210 — Admin: Create a folder node inside space
 
 | Field | Value |
 |-------|-------|
@@ -135,7 +135,7 @@ Node created: #9 [folder] 'Admin Folder' in space #5 (slug: admin-folder).
 
 ---
 
-### TC-RKB-006 — Admin: Create a page node (draft) inside folder
+### TC-RKB-211 — Admin: Create a page node (draft) inside folder
 
 | Field | Value |
 |-------|-------|
@@ -150,7 +150,7 @@ Node created: #10 [page] 'Admin Page' in space #5 (slug: admin-page). — use re
 
 ---
 
-### TC-RKB-007 — Admin: List nodes in space
+### TC-RKB-212 — Admin: List nodes in space
 
 | Field | Value |
 |-------|-------|
@@ -167,7 +167,7 @@ KB Nodes — project 'test-project' (2 total, page 1):
 
 ---
 
-### TC-RKB-008 — Admin: Get a single node by ID
+### TC-RKB-213 — Admin: Get a single node by ID
 
 | Field | Value |
 |-------|-------|
@@ -185,7 +185,7 @@ Node #10 [page]
 
 ---
 
-### TC-RKB-009 — Admin: Update node content
+### TC-RKB-214 — Admin: Update node content
 
 | Field | Value |
 |-------|-------|
@@ -202,7 +202,7 @@ Node #10 'Admin Page (Revised)' updated. Run redmineflux_kb_publish_node to publ
 
 ## Section C — Admin: Publish Workflow
 
-### TC-RKB-010 — Admin: Publish a draft page
+### TC-RKB-215 — Admin: Publish a draft page
 
 | Field | Value |
 |-------|-------|
@@ -217,7 +217,7 @@ Node #10 'Admin Page (Revised)' updated. Run redmineflux_kb_publish_node to publ
 
 ---
 
-### TC-RKB-011 — Admin: Unpublish a published page
+### TC-RKB-216 — Admin: Unpublish a published page
 
 | Field | Value |
 |-------|-------|
@@ -232,7 +232,7 @@ Node #10 'Admin Page (Revised)' updated. Run redmineflux_kb_publish_node to publ
 
 ---
 
-### TC-RKB-012 — Admin: Re-publish to create second version
+### TC-RKB-217 — Admin: Re-publish to create second version
 
 | Field | Value |
 |-------|-------|
@@ -252,7 +252,7 @@ Node #10 'Admin Page (Revised)' updated.
 
 ## Section D — Admin: Version History
 
-### TC-RKB-013 — Admin: List versions of a page
+### TC-RKB-218 — Admin: List versions of a page
 
 | Field | Value |
 |-------|-------|
@@ -269,7 +269,7 @@ Version history — node #10 (2 versions, newest first):
 
 ---
 
-### TC-RKB-014 — Admin: Restore a previous version
+### TC-RKB-219 — Admin: Restore a previous version
 
 | Field | Value |
 |-------|-------|
@@ -288,7 +288,7 @@ Version history — node #10 (2 versions, newest first):
 
 ## Section E — Admin: Cleanup
 
-### TC-RKB-015 — Admin: Delete a node
+### TC-RKB-220 — Admin: Delete a node
 
 | Field | Value |
 |-------|-------|
@@ -300,7 +300,7 @@ Version history — node #10 (2 versions, newest first):
 
 ---
 
-### TC-RKB-016 — Admin: Delete a space
+### TC-RKB-221 — Admin: Delete a space
 
 | Field | Value |
 |-------|-------|
@@ -314,7 +314,7 @@ Version history — node #10 (2 versions, newest first):
 
 ## Section F — Manager: Space Management
 
-### TC-RKB-017 — Manager: Create a knowledgebase space
+### TC-RKB-222 — Manager: Create a knowledgebase space
 
 | Field | Value |
 |-------|-------|
@@ -329,7 +329,7 @@ Space created: #6 'Manager Test Space' in project 'test-project'.
 
 ---
 
-### TC-RKB-018 — Manager: List spaces in project
+### TC-RKB-223 — Manager: List spaces in project
 
 | Field | Value |
 |-------|-------|
@@ -345,7 +345,7 @@ KB Spaces — project 'test-project' (1 total):
 
 ---
 
-### TC-RKB-019 — Manager: Get space by ID
+### TC-RKB-224 — Manager: Get space by ID
 
 | Field | Value |
 |-------|-------|
@@ -362,7 +362,7 @@ Space #6 — Manager Test Space
 
 ---
 
-### TC-RKB-020 — Manager: Update space
+### TC-RKB-225 — Manager: Update space
 
 | Field | Value |
 |-------|-------|
@@ -379,7 +379,7 @@ Space #6 updated. Name: 'Manager Test Space (Updated)'.
 
 ## Section G — Manager: Node Management
 
-### TC-RKB-021 — Manager: Create a folder node
+### TC-RKB-226 — Manager: Create a folder node
 
 | Field | Value |
 |-------|-------|
@@ -394,7 +394,7 @@ Node created: #11 [folder] 'Manager Folder' in space #6 (slug: manager-folder).
 
 ---
 
-### TC-RKB-022 — Manager: Create a page node
+### TC-RKB-227 — Manager: Create a page node
 
 | Field | Value |
 |-------|-------|
@@ -409,7 +409,7 @@ Node created: #12 [page] 'Manager Page' in space #6 (slug: manager-page).
 
 ---
 
-### TC-RKB-023 — Manager: List nodes in space
+### TC-RKB-228 — Manager: List nodes in space
 
 | Field | Value |
 |-------|-------|
@@ -426,7 +426,7 @@ KB Nodes — project 'test-project' (2 total, page 1):
 
 ---
 
-### TC-RKB-024 — Manager: Get node by ID
+### TC-RKB-229 — Manager: Get node by ID
 
 | Field | Value |
 |-------|-------|
@@ -441,7 +441,7 @@ Node #12 [page]  |  Title: Manager Page  |  Status: draft  |  Author ID: 5  |  V
 
 ---
 
-### TC-RKB-025 — Manager: Update node content
+### TC-RKB-230 — Manager: Update node content
 
 | Field | Value |
 |-------|-------|
@@ -458,7 +458,7 @@ Node #12 'Manager Page (Revised)' updated. Run redmineflux_kb_publish_node to pu
 
 ## Section H — Manager: Publish Workflow
 
-### TC-RKB-026 — Manager: Publish a page
+### TC-RKB-231 — Manager: Publish a page
 
 | Field | Value |
 |-------|-------|
@@ -473,7 +473,7 @@ Node #12 'Manager Page (Revised)' updated. Run redmineflux_kb_publish_node to pu
 
 ---
 
-### TC-RKB-027 — Manager: Unpublish a page
+### TC-RKB-232 — Manager: Unpublish a page
 
 | Field | Value |
 |-------|-------|
@@ -490,7 +490,7 @@ Node #12 'Manager Page (Revised)' updated. Run redmineflux_kb_publish_node to pu
 
 ## Section I — Manager: Version History
 
-### TC-RKB-028 — Manager: List versions of a page
+### TC-RKB-233 — Manager: List versions of a page
 
 | Field | Value |
 |-------|-------|
@@ -507,7 +507,7 @@ Version history — node #12 (2 versions, newest first):
 
 ---
 
-### TC-RKB-029 — Manager: Restore a previous version
+### TC-RKB-234 — Manager: Restore a previous version
 
 | Field | Value |
 |-------|-------|
@@ -526,7 +526,7 @@ Version history — node #12 (2 versions, newest first):
 
 ## Section J — Manager: Cleanup
 
-### TC-RKB-030 — Manager: Delete a node
+### TC-RKB-235 — Manager: Delete a node
 
 | Field | Value |
 |-------|-------|
@@ -538,7 +538,7 @@ Version history — node #12 (2 versions, newest first):
 
 ---
 
-### TC-RKB-031 — Manager: Delete a space
+### TC-RKB-236 — Manager: Delete a space
 
 | Field | Value |
 |-------|-------|
@@ -554,7 +554,7 @@ Version history — node #12 (2 versions, newest first):
 
 > **Note:** `view_knowledgebase` is `public: true` in `init.rb`. All project members receive it automatically. Developer CAN read KB data. Only write operations require explicit manage permissions and return 403.
 
-### TC-RKB-032 — Developer: List spaces
+### TC-RKB-237 — Developer: List spaces
 
 | Field | Value |
 |-------|-------|
@@ -572,7 +572,7 @@ KB Spaces — project 'test-project' (1 total):
 
 ---
 
-### TC-RKB-033 — Developer: Create space → must be denied
+### TC-RKB-238 — Developer: Create space → must be denied
 
 | Field | Value |
 |-------|-------|
@@ -590,7 +590,7 @@ To fix this, ask your Redmine administrator to: Grant you the required role/perm
 
 ---
 
-### TC-RKB-034 — Developer: Get space by ID
+### TC-RKB-239 — Developer: Get space by ID
 
 | Field | Value |
 |-------|-------|
@@ -605,7 +605,7 @@ Space #6 — Manager Test Space (Updated)  |  Nodes: 2
 
 ---
 
-### TC-RKB-035 — Developer: List nodes
+### TC-RKB-240 — Developer: List nodes
 
 | Field | Value |
 |-------|-------|
@@ -622,7 +622,7 @@ KB Nodes — project 'test-project' (2 total, page 1):
 
 ---
 
-### TC-RKB-036 — Developer: Create node → must be denied
+### TC-RKB-241 — Developer: Create node → must be denied
 
 | Field | Value |
 |-------|-------|
@@ -638,7 +638,7 @@ To fix this, ask your Redmine administrator to: Grant you the required role/perm
 
 ---
 
-### TC-RKB-037 — Developer: Get node by ID
+### TC-RKB-242 — Developer: Get node by ID
 
 | Field | Value |
 |-------|-------|
@@ -653,7 +653,7 @@ Node #12 [page]  |  Title: Manager Page (Revised)  |  Status: published  |  Vers
 
 ---
 
-### TC-RKB-038 — Developer: Publish node → must be denied
+### TC-RKB-243 — Developer: Publish node → must be denied
 
 | Field | Value |
 |-------|-------|
@@ -669,7 +669,7 @@ To fix this, ask your Redmine administrator to: Grant you the required role/perm
 
 ---
 
-### TC-RKB-039 — Developer: List versions
+### TC-RKB-244 — Developer: List versions
 
 | Field | Value |
 |-------|-------|
@@ -687,7 +687,7 @@ Version history — node #12 (3 versions, newest first):
 
 ---
 
-### TC-RKB-039b — Developer: Delete node → must be denied
+### TC-RKB-244b — Developer: Delete node → must be denied
 
 | Field | Value |
 |-------|-------|
@@ -707,43 +707,43 @@ To fix this, ask your Redmine administrator to: Grant you the required role/perm
 
 | TC ID | Role | Tool | Session 1 | Session 2 |
 |-------|------|------|-----------|-----------|
-| TC-RKB-001 | Admin | create_space | ❌ FAIL | ✅ PASS |
-| TC-RKB-002 | Admin | list_spaces | ✅ PASS | ✅ PASS |
-| TC-RKB-003 | Admin | get_space | ✅ PASS | ✅ PASS |
-| TC-RKB-004 | Admin | update_space | ❌ FAIL | ✅ PASS |
-| TC-RKB-005 | Admin | create_node (folder) | ❌ FAIL | ✅ PASS |
-| TC-RKB-006 | Admin | create_node (page) | ❌ FAIL | ✅ PASS |
-| TC-RKB-007 | Admin | list_nodes | ✅ PASS | ✅ PASS |
-| TC-RKB-008 | Admin | get_node | ✅ PASS | ✅ PASS |
-| TC-RKB-009 | Admin | update_node | ❌ FAIL | ✅ PASS |
-| TC-RKB-010 | Admin | publish_node | ❌ FAIL | ✅ PASS |
-| TC-RKB-011 | Admin | unpublish_node | ❌ FAIL | ✅ PASS |
-| TC-RKB-012 | Admin | update+publish (v2) | ❌ FAIL | ✅ PASS |
-| TC-RKB-013 | Admin | list_versions | ✅ PASS | ✅ PASS |
-| TC-RKB-014 | Admin | restore_version | ❌ FAIL | ✅ PASS |
-| TC-RKB-015 | Admin | delete_node | ✅ PASS | ✅ PASS |
-| TC-RKB-016 | Admin | delete_space | ✅ PASS | ✅ PASS |
-| TC-RKB-017 | Manager | create_space | ❌ FAIL | ✅ PASS |
-| TC-RKB-018 | Manager | list_spaces | ✅ PASS | ✅ PASS |
-| TC-RKB-019 | Manager | get_space | ✅ PASS | ✅ PASS |
-| TC-RKB-020 | Manager | update_space | ❌ FAIL | ✅ PASS |
-| TC-RKB-021 | Manager | create_node (folder) | ❌ FAIL | ✅ PASS |
-| TC-RKB-022 | Manager | create_node (page) | ❌ FAIL | ✅ PASS |
-| TC-RKB-023 | Manager | list_nodes | ✅ PASS | ✅ PASS |
-| TC-RKB-024 | Manager | get_node | ✅ PASS | ✅ PASS |
-| TC-RKB-025 | Manager | update_node | ❌ FAIL | ✅ PASS |
-| TC-RKB-026 | Manager | publish_node | ❌ FAIL | ✅ PASS |
-| TC-RKB-027 | Manager | unpublish_node | ❌ FAIL | ✅ PASS |
-| TC-RKB-028 | Manager | list_versions | ✅ PASS | ✅ PASS |
-| TC-RKB-029 | Manager | restore_version | ❌ FAIL | ✅ PASS |
-| TC-RKB-030 | Manager | delete_node | ✅ PASS | ✅ PASS |
-| TC-RKB-031 | Manager | delete_space | ✅ PASS | ✅ PASS |
-| TC-RKB-032 | Developer | list_spaces | ✅ PASS | ✅ PASS |
-| TC-RKB-033 | Developer | create_space → 403 | ❌ FAIL | ✅ PASS |
-| TC-RKB-034 | Developer | get_space | ✅ PASS | ✅ PASS |
-| TC-RKB-035 | Developer | list_nodes | ✅ PASS | ✅ PASS |
-| TC-RKB-036 | Developer | create_node → 403 | ❌ FAIL | ✅ PASS |
-| TC-RKB-037 | Developer | get_node | ✅ PASS | ✅ PASS |
-| TC-RKB-038 | Developer | publish_node → 403 | ❌ FAIL | ✅ PASS |
-| TC-RKB-039 | Developer | list_versions | ✅ PASS | ✅ PASS |
-| TC-RKB-039b | Developer | delete_node → 403 | ✅ PASS | ✅ PASS |
+| TC-RKB-206 | Admin | create_space | ❌ FAIL | ✅ PASS |
+| TC-RKB-207 | Admin | list_spaces | ✅ PASS | ✅ PASS |
+| TC-RKB-208 | Admin | get_space | ✅ PASS | ✅ PASS |
+| TC-RKB-209 | Admin | update_space | ❌ FAIL | ✅ PASS |
+| TC-RKB-210 | Admin | create_node (folder) | ❌ FAIL | ✅ PASS |
+| TC-RKB-211 | Admin | create_node (page) | ❌ FAIL | ✅ PASS |
+| TC-RKB-212 | Admin | list_nodes | ✅ PASS | ✅ PASS |
+| TC-RKB-213 | Admin | get_node | ✅ PASS | ✅ PASS |
+| TC-RKB-214 | Admin | update_node | ❌ FAIL | ✅ PASS |
+| TC-RKB-215 | Admin | publish_node | ❌ FAIL | ✅ PASS |
+| TC-RKB-216 | Admin | unpublish_node | ❌ FAIL | ✅ PASS |
+| TC-RKB-217 | Admin | update+publish (v2) | ❌ FAIL | ✅ PASS |
+| TC-RKB-218 | Admin | list_versions | ✅ PASS | ✅ PASS |
+| TC-RKB-219 | Admin | restore_version | ❌ FAIL | ✅ PASS |
+| TC-RKB-220 | Admin | delete_node | ✅ PASS | ✅ PASS |
+| TC-RKB-221 | Admin | delete_space | ✅ PASS | ✅ PASS |
+| TC-RKB-222 | Manager | create_space | ❌ FAIL | ✅ PASS |
+| TC-RKB-223 | Manager | list_spaces | ✅ PASS | ✅ PASS |
+| TC-RKB-224 | Manager | get_space | ✅ PASS | ✅ PASS |
+| TC-RKB-225 | Manager | update_space | ❌ FAIL | ✅ PASS |
+| TC-RKB-226 | Manager | create_node (folder) | ❌ FAIL | ✅ PASS |
+| TC-RKB-227 | Manager | create_node (page) | ❌ FAIL | ✅ PASS |
+| TC-RKB-228 | Manager | list_nodes | ✅ PASS | ✅ PASS |
+| TC-RKB-229 | Manager | get_node | ✅ PASS | ✅ PASS |
+| TC-RKB-230 | Manager | update_node | ❌ FAIL | ✅ PASS |
+| TC-RKB-231 | Manager | publish_node | ❌ FAIL | ✅ PASS |
+| TC-RKB-232 | Manager | unpublish_node | ❌ FAIL | ✅ PASS |
+| TC-RKB-233 | Manager | list_versions | ✅ PASS | ✅ PASS |
+| TC-RKB-234 | Manager | restore_version | ❌ FAIL | ✅ PASS |
+| TC-RKB-235 | Manager | delete_node | ✅ PASS | ✅ PASS |
+| TC-RKB-236 | Manager | delete_space | ✅ PASS | ✅ PASS |
+| TC-RKB-237 | Developer | list_spaces | ✅ PASS | ✅ PASS |
+| TC-RKB-238 | Developer | create_space → 403 | ❌ FAIL | ✅ PASS |
+| TC-RKB-239 | Developer | get_space | ✅ PASS | ✅ PASS |
+| TC-RKB-240 | Developer | list_nodes | ✅ PASS | ✅ PASS |
+| TC-RKB-241 | Developer | create_node → 403 | ❌ FAIL | ✅ PASS |
+| TC-RKB-242 | Developer | get_node | ✅ PASS | ✅ PASS |
+| TC-RKB-243 | Developer | publish_node → 403 | ❌ FAIL | ✅ PASS |
+| TC-RKB-244 | Developer | list_versions | ✅ PASS | ✅ PASS |
+| TC-RKB-244b | Developer | delete_node → 403 | ✅ PASS | ✅ PASS |

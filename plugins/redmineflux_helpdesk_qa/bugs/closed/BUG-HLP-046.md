@@ -30,7 +30,7 @@ Confirmed live on ticket #63 (Helpdesk QA Beta, 3 real Email History entries —
 - **Body**: shown for every entry (full content, not truncated).
 - **Direction**: only *implied* via label text ("Customer replied to Support" vs "(via Reply Note)") — there is no explicit "Inbound"/"Outbound" or "in"/"out" field anywhere.
 - **Recipient**: never shown anywhere in the tab, for any entry. Confirmed via a full-page DOM search (`document.body.innerHTML`) for the word "recipient" or a "To:" label — zero matches.
-- **Subject**: never shown as a distinct field. The literal string "Subject:" appears only incidentally, embedded inside the ticket-creation acknowledgement's own body template ("Subject: TC-HLP-402b control...") — this is the *ticket's* subject baked into that one email's content, not a per-entry email-header field. The inbound customer-reply entry and the agent-reply entry have no "Subject:" line at all.
+- **Subject**: never shown as a distinct field. The literal string "Subject:" appears only incidentally, embedded inside the ticket-creation acknowledgement's own body template ("Subject: TC-HLP-370b control...") — this is the *ticket's* subject baked into that one email's content, not a per-entry email-header field. The inbound customer-reply entry and the agent-reply entry have no "Subject:" line at all.
 
 So 3 of the 6 documented pieces of information (recipient, subject, an explicit direction field) are absent from every entry in this tab — the actual recipient and subject of each individual email are not recoverable from this screen at all; a user must go to the real mailbox (e.g. Roundcube) to see them.
 
@@ -57,5 +57,5 @@ Live-verified on ticket #63 (5 real Helpdesk Conversion entries, a genuine mix o
 
 ## Notes
 
-- Found while executing `HELPDESK_EMAIL.md` TC-HLP-148 ("Email History shows full detail for every message"), part of a full sweep of this suite's previously-unexecuted TCs.
+- Found while executing `HELPDESK_EMAIL.md` TC-HLP-072 ("Email History shows full detail for every message"), part of a full sweep of this suite's previously-unexecuted TCs.
 - Severity judged **Medium**: no data-integrity or security impact, and the missing information (recipient, subject) is still recoverable by the admin via the real mailbox — but it's a genuine, direct contradiction of a specific, explicit documented promise (`HELPDESK_USER_GUIDE.md` §13), not a testcase author's assumption, and undermines the tab's own stated purpose ("the record of what the customer was actually told").

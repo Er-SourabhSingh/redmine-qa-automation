@@ -24,7 +24,7 @@
 ## Actual result
 
 - Both pages load completely normally — full dashboard with live KPI/agent/run data (`/crux`), full agent fleet table with cost/capability/health data (`/crux/agents`) — for **any** logged-in user, exactly as if the setting were still enabled. The setting only removes the link from the menu; it has zero effect on `CruxDashboardController` or `CruxAgentsController`, neither of which checks these settings at all (only `before_action :require_login`).
-- This is functionally consistent with the plugin's existing "login-only" access design for these two pages (already documented via TC-CRX-002/003/010 for the *permission*-based case) — but this bug is about a **different** thing: an admin's own explicit on/off control for the feature's visibility does not do what its label implies. An admin who unchecks "Show the Agents entry" specifically because they don't want most users browsing agent cost/health data would reasonably expect that to have some effect — it has none beyond cosmetics.
+- This is functionally consistent with the plugin's existing "login-only" access design for these two pages (already documented via TC-CRX-133/003/010 for the *permission*-based case) — but this bug is about a **different** thing: an admin's own explicit on/off control for the feature's visibility does not do what its label implies. An admin who unchecks "Show the Agents entry" specifically because they don't want most users browsing agent cost/health data would reasonably expect that to have some effect — it has none beyond cosmetics.
 - Compounding this: during this session, both settings were found to have somehow reset to disabled ("0") between test sessions (see `docs/CRUX_HANDOFF.md`'s 2026-09-14 entry — the reset itself could not be reproduced through normal save actions), which means this cosmetic-only toggle can end up in the "off" state unexpectedly, silently giving admins false confidence that a feature is hidden when it never was and isn't now.
 
 ## Evidence
@@ -39,7 +39,7 @@ Not captured — behavioral/access-control finding, not a rendering defect.
 
 ## Duplicate check
 
-- Duplicate found: No (related to, but distinct from, TC-CRX-002/003/010's already-accepted "login-only, not permission-gated" design finding — this bug is specifically about the admin-facing toggle's own effectiveness, not role permissions)
+- Duplicate found: No (related to, but distinct from, TC-CRX-133/003/010's already-accepted "login-only, not permission-gated" design finding — this bug is specifically about the admin-facing toggle's own effectiveness, not role permissions)
 - Existing bug reference (if duplicate): —
 
 ## 2026-09-16 retest — FIXED, confirmed live

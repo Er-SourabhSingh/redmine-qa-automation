@@ -16,7 +16,7 @@
 
 ---
 
-### TC-CRX-133: Read surface — spaces, nodes/pages, version history
+### TC-CRX-044: Read surface — spaces, nodes/pages, version history
 
 **User Role:** Logged-in user with `use_ask_crux` and Knowledge Base plugin access.
 **Precondition:** KB plugin installed with real spaces/pages.
@@ -34,13 +34,13 @@
 Evidence (session ses-143, `admin`, 2026-09-16):
 - "KB, what spaces do we have?" → correctly asked for the project (multi-project ambiguity). "KB, I mean project crux-qa (ID 1)." → correctly and honestly reported "The Knowledge Base module is not enabled for project crux-qa (#1)" — a real precondition gap, not a bug. Fixed via the real Settings > Project UI (checked "Redmineflux Knowledgebase" module, saved). Retrying the identical question once returned a stale "not enabled" answer, but a second retry correctly showed "The module is now enabled" — a one-off transient staleness that self-resolved, not filed as a bug.
 - "KB, what does our docs say about what crux-qa is used for?" (after TC-134 created real content) → exact grounded quote from the real "Getting Started" page (`Sources (1)`), correctly attributed to its source page.
-- "KB, what does the 'Zorbo Compliance Manual' space say about data retention?" (a deliberately made-up space) → honestly reported no such space exists in project 1, listed the one real space that does exist ("Documentation") — no fabricated content. (This also serves as TC-CRX-138's evidence.)
+- "KB, what does the 'Zorbo Compliance Manual' space say about data retention?" (a deliberately made-up space) → honestly reported no such space exists in project 1, listed the one real space that does exist ("Documentation") — no fabricated content. (This also serves as TC-CRX-049's evidence.)
 
 ---
 
-### TC-CRX-134: Create a space and a page with grounded content
+### TC-CRX-045: Create a space and a page with grounded content
 
-**User Role:** Same as TC-CRX-133.
+**User Role:** Same as TC-CRX-044.
 **Precondition:** None.
 
 **Steps:**
@@ -60,10 +60,10 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-135: Update a page, publish it, then unpublish it
+### TC-CRX-046: Update a page, publish it, then unpublish it
 
-**User Role:** Same as TC-CRX-133.
-**Precondition:** A draft page from TC-CRX-134.
+**User Role:** Same as TC-CRX-044.
+**Precondition:** A draft page from TC-CRX-045.
 
 **Steps:**
 1. "Update page [Y] to add [specific content]."
@@ -84,10 +84,10 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-136: Restore an earlier version
+### TC-CRX-047: Restore an earlier version
 
-**User Role:** Same as TC-CRX-133.
-**Precondition:** A page with at least two versions (from TC-CRX-135's update).
+**User Role:** Same as TC-CRX-044.
+**Precondition:** A page with at least two versions (from TC-CRX-046's update).
 
 **Steps:**
 1. "Restore page [Y] to version [N]."
@@ -109,9 +109,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-137: Delete (space or page) requires the specific one named
+### TC-CRX-048: Delete (space or page) requires the specific one named
 
-**User Role:** Same as TC-CRX-133.
+**User Role:** Same as TC-CRX-044.
 **Precondition:** None.
 
 **Steps:**
@@ -127,9 +127,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-138: A question about a nonexistent space/page is answered honestly
+### TC-CRX-049: A question about a nonexistent space/page is answered honestly
 
-**User Role:** Same as TC-CRX-133.
+**User Role:** Same as TC-CRX-044.
 **Precondition:** A deliberately made-up space/page name.
 
 **Steps:**
@@ -138,9 +138,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 **Expected Result:**
 - The agent says the space/page doesn't exist or isn't reachable — it does not fabricate plausible-sounding content for a space that doesn't exist.
 
-**Result: PASS (cross-referenced against TC-CRX-133)**
+**Result: PASS (cross-referenced against TC-CRX-044)**
 
-Evidence: "KB, what does the 'Zorbo Compliance Manual' space say about data retention?" (see TC-CRX-133) → correctly asked for the project, then honestly reported "There is no 'Zorbo Compliance Manual' space in project 1," correctly listing the one real space instead of inventing plausible-sounding compliance content.
+Evidence: "KB, what does the 'Zorbo Compliance Manual' space say about data retention?" (see TC-CRX-044) → correctly asked for the project, then honestly reported "There is no 'Zorbo Compliance Manual' space in project 1," correctly listing the one real space instead of inventing plausible-sounding compliance content.
 
 ---
 
@@ -148,7 +148,7 @@ Evidence: "KB, what does the 'Zorbo Compliance Manual' space say about data rete
 
 ---
 
-### TC-CRX-167: Draft-visibility — a plain `view_knowledgebase` user cannot read a first-draft page — flagged High
+### TC-CRX-050: Draft-visibility — a plain `view_knowledgebase` user cannot read a first-draft page — flagged High
 
 **User Role:** A non-author test user holding only `view_knowledgebase` (not `manage_knowledgebase_pages`).
 **Precondition:** A page/node in first-version draft state (unpublished), authored by a different user (e.g. `admin`).
@@ -172,9 +172,9 @@ All 3 legs correctly enforce the KB-documented draft-visibility rule. No bug —
 
 ---
 
-### TC-CRX-168: `create_node` with an invalid parent (a page node as the new node's parent) is refused
+### TC-CRX-051: `create_node` with an invalid parent (a page node as the new node's parent) is refused
 
-**User Role:** Same as TC-CRX-133.
+**User Role:** Same as TC-CRX-044.
 **Precondition:** An existing page-type node (not a folder).
 
 **Steps:**
@@ -189,7 +189,7 @@ As `admin`, "KB Agent, create a new page called 'Invalid Child Page Test' inside
 
 ---
 
-### TC-CRX-169: Permission matrix — KB Agent, no-domain-permission probe
+### TC-CRX-052: Permission matrix — KB Agent, no-domain-permission probe
 
 **User Role:** `luna.blossom` (lacks `Manage knowledgebase spaces`/`content`).
 **Precondition:** At least one existing KB space (check via `list_spaces` as `admin` first).
@@ -211,7 +211,7 @@ As `luna.blossom` (lacks `manage_knowledgebase_pages`, has `view_knowledgebase`)
 
 ## Evidence Map
 
-- Case IDs: TC-CRX-133 through TC-CRX-138 — all 6 reached a definitive verdict, all PASS. First fully-clean suite this round (BUG-CRX-020 did not block this agent's writes, though BUG-CRX-013 self-contradiction was reproduced repeatedly — see below).
+- Case IDs: TC-CRX-044 through TC-CRX-049 — all 6 reached a definitive verdict, all PASS. First fully-clean suite this round (BUG-CRX-020 did not block this agent's writes, though BUG-CRX-013 self-contradiction was reproduced repeatedly — see below).
 - Screenshots: bugs only (none captured — evidence via live chat transcript text, cross-checked via independent read-backs after each write).
 - Log: session ses-143, 2026-09-16.
 - Bug reference: BUG-CRX-013 (self-contradiction, reproduced on a sixth domain agent — KB — across 6+ occurrences: create_space, create_node, update_node×2, publish_node×2, unpublish_node×2, restore_version×1; every single one eventually succeeded on retry with explicit numeric IDs/"do it now" phrasing, 100% eventual success rate for this agent unlike BUG-CRX-020's agents).

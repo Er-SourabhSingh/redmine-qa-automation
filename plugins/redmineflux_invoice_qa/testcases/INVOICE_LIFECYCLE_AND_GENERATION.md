@@ -28,7 +28,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-403: Billing Report shows billable hours by user
+### TC-INV-047: Billing Report shows billable hours by user
 
 **User Role:** User with `view_invoices`
 **Steps:**
@@ -41,18 +41,18 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-404: Only billable activities are counted
+### TC-INV-048: Only billable activities are counted
 
 **User Role:** User with `view_invoices`
 **Steps:**
 1. With some activities marked non-billable, compare the report against the full spent-time total.
 
 **Expected Result:**
-- Non-billable hours are excluded from both the hours and the amounts (paired with TC-INV-303).
+- Non-billable hours are excluded from both the hours and the amounts (paired with TC-INV-013).
 
 ---
 
-### TC-INV-405: Date range boundaries are inclusive
+### TC-INV-049: Date range boundaries are inclusive
 
 **User Role:** User with `view_invoices`
 **Steps:**
@@ -65,7 +65,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-406: Amounts use the correct rate per user
+### TC-INV-050: Amounts use the correct rate per user
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -80,7 +80,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-407: Generate an invoice from the Billing Report
+### TC-INV-051: Generate an invoice from the Billing Report
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -92,7 +92,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-408: Generated totals reconcile across three sources
+### TC-INV-052: Generated totals reconcile across three sources
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -106,7 +106,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-409: Overlapping date ranges
+### TC-INV-053: Overlapping date ranges
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -120,7 +120,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-410: Generating with no billable time
+### TC-INV-054: Generating with no billable time
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -132,7 +132,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-401: Create an invoice manually
+### TC-INV-055: Create an invoice manually
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -143,7 +143,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-402: Manual line item arithmetic
+### TC-INV-056: Manual line item arithmetic
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -158,7 +158,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-411: Draft invoices are editable
+### TC-INV-057: Draft invoices are editable
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -169,7 +169,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-412: Non-Draft invoices are locked
+### TC-INV-058: Non-Draft invoices are locked
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -184,7 +184,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-413: Add a tax adjustment
+### TC-INV-059: Add a tax adjustment
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -195,7 +195,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-414: Tax is applied after the discount
+### TC-INV-060: Tax is applied after the discount
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -209,7 +209,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-415: Multiple adjustments
+### TC-INV-061: Multiple adjustments
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -222,7 +222,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-416: Remove an adjustment
+### TC-INV-062: Remove an adjustment
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -237,7 +237,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-417: Send an invoice
+### TC-INV-063: Send an invoice
 
 **User Role:** User with `manage_invoices`
 **Preconditions:** Working mail path; **Host name and path** verified; the customer's email is a test mailbox.
@@ -251,18 +251,18 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-418: Sending locks the invoice
+### TC-INV-064: Sending locks the invoice
 
 **User Role:** User with `manage_invoices`
 **Steps:**
 1. After sending, attempt to edit (UI and endpoint).
 
 **Expected Result:**
-- Locked, as in TC-INV-412.
+- Locked, as in TC-INV-058.
 
 ---
 
-### TC-INV-419: Sending is confirmed before it happens
+### TC-INV-065: Sending is confirmed before it happens
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -276,7 +276,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-420: Email send failure
+### TC-INV-066: Email send failure
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -289,7 +289,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-421: Mark an invoice Cancelled
+### TC-INV-067: Mark an invoice Cancelled
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -301,7 +301,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-422: Status transitions follow the documented lifecycle
+### TC-INV-068: Status transitions follow the documented lifecycle
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -315,7 +315,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-423: Deleting an invoice
+### TC-INV-069: Deleting an invoice
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -328,7 +328,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-424: Concurrent send
+### TC-INV-070: Concurrent send
 
 **User Role:** Two users with `manage_invoices`
 **Steps:**
@@ -345,7 +345,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-425: Invalid adjustment values
+### TC-INV-071: Invalid adjustment values
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -357,7 +357,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-426: Rounding consistency
+### TC-INV-072: Rounding consistency
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -370,7 +370,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-427: Very large invoices
+### TC-INV-073: Very large invoices
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -381,7 +381,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 
 ---
 
-### TC-INV-428: Script content in line items and labels
+### TC-INV-074: Script content in line items and labels
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -391,11 +391,11 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 **Expected Result:**
 - Escaped and rendered literally in all three. **No script executes.**
 - The PDF path matters as well as the HTML one: templates are ERB, so unescaped content there can break generation
-  outright (TC-INV-605).
+  outright (TC-INV-102).
 
 ---
 
-### TC-INV-429: Invoice for a project whose customer is unset
+### TC-INV-075: Invoice for a project whose customer is unset
 
 **User Role:** User with `manage_invoices`
 **Steps:**

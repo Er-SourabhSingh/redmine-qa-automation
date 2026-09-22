@@ -33,11 +33,11 @@ import { BasePage } from './BasePage';
  * Confirmed live 2026-08-24 (full CRUD+search cycle re-run on a fresh Forge
  * instance, real "Standard" kept as seed data):
  * - Duplicate Name refused with exact message "SLA Name has already been
- *   taken" (TC-HLP-099).
+ *   taken" (TC-HLP-343).
  * - REAL cross-field validation confirmed: "Resolution Time must be greater
  *   than or equal to the Response Time" — submitting Resolution < First
  *   Response (e.g. 2 min resolution vs 30 min response) is refused. This
- *   answers TC-HLP-253 in HELPDESK_FIELD_VALIDATIONS.md definitively: the
+ *   answers TC-HLP-118 in HELPDESK_FIELD_VALIDATIONS.md definitively: the
  *   plugin DOES cross-validate these two fields, it is not silently accepted.
  * - Same BUG-HLP-003 Active-checkbox-can't-be-unchecked-via-Edit defect as
  *   Canned Response — BUT the list view at /rf_slas has its own working

@@ -73,7 +73,7 @@ Approve button proves nothing.
 
 ---
 
-### TC-TMS-901: Admin has full access
+### TC-TMS-052: Admin has full access
 
 **User Role:** Admin
 **Steps:**
@@ -84,7 +84,7 @@ Approve button proves nothing.
 
 ---
 
-### TC-TMS-902: View Timesheet grants own-timesheet access only
+### TC-TMS-053: View Timesheet grants own-timesheet access only
 
 **User Role:** Submitter
 **Steps:**
@@ -98,7 +98,7 @@ Approve button proves nothing.
 
 ---
 
-### TC-TMS-903: Manage Timesheet grants visibility, not approval authority
+### TC-TMS-054: Manage Timesheet grants visibility, not approval authority
 
 **User Role:** Manager-no-schema
 **Steps:**
@@ -115,7 +115,7 @@ Approve button proves nothing.
 
 ---
 
-### TC-TMS-904: Approval authority is level-specific
+### TC-TMS-055: Approval authority is level-specific
 
 **User Role:** Approver L1 and Approver L2
 **Steps:**
@@ -124,11 +124,11 @@ Approve button proves nothing.
 
 **Expected Result:**
 - Each is refused outside their own level. A single "can approve" check that ignores the level would collapse the
-  chain into one step (paired with TC-TMS-410).
+  chain into one step (paired with TC-TMS-088).
 
 ---
 
-### TC-TMS-905: A member with no plugin permissions has no access
+### TC-TMS-056: A member with no plugin permissions has no access
 
 **User Role:** No-permission member
 **Steps:**
@@ -140,7 +140,7 @@ Approve button proves nothing.
 
 ---
 
-### TC-TMS-906: Editing another user's time entries is gated
+### TC-TMS-057: Editing another user's time entries is gated
 
 **User Role:** Approver L1
 **Steps:**
@@ -154,7 +154,7 @@ Approve button proves nothing.
 
 ---
 
-### TC-TMS-907: Cross-context isolation
+### TC-TMS-058: Cross-context isolation
 
 **User Role:** Approver L1 of team A
 **Preconditions:** Team B exists with its own schema and pending timesheets.
@@ -167,7 +167,7 @@ Approve button proves nothing.
 
 ---
 
-### TC-TMS-908: Non-member cannot access a project's timesheets
+### TC-TMS-059: Non-member cannot access a project's timesheets
 
 **User Role:** Non-member
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
@@ -180,7 +180,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-TMS-909: Anonymous has no access
+### TC-TMS-060: Anonymous has no access
 
 **User Role:** Anonymous (logged out)
 **Steps:**
@@ -191,7 +191,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-TMS-910: Admin-only areas are closed to every role
+### TC-TMS-061: Admin-only areas are closed to every role
 
 **User Role:** Approver L1, Manager-no-schema, Submitter (each in turn)
 **Steps:**
@@ -203,11 +203,11 @@ checked by default; uncheck it explicitly or this case falsely passes.
 - All refused with 403.
 - **Schema editing is the crown-jewel target here**: a user who can edit a schema could map level 1 to their own
   role and then approve their own team's timesheets, bypassing every other control in the plugin
-  (paired with TC-TMS-525).
+  (paired with TC-TMS-122).
 
 ---
 
-### TC-TMS-911: Report and export permissions match the view permissions
+### TC-TMS-062: Report and export permissions match the view permissions
 
 **User Role:** Non-admin roles
 **Steps:**
@@ -220,7 +220,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-TMS-912: Permission revocation takes effect without re-login
+### TC-TMS-063: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected approver
 **Steps:**
@@ -233,7 +233,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-TMS-913: Closed and archived projects
+### TC-TMS-064: Closed and archived projects
 
 **User Role:** Submitter and Approver
 **Steps:**
@@ -247,7 +247,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-TMS-914: Users cannot approve their own timesheets under any path
+### TC-TMS-065: Users cannot approve their own timesheets under any path
 
 **User Role:** Approver L1 and the final-approver account
 **Steps:**
@@ -255,7 +255,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
    by any bulk or dashboard action available.
 
 **Expected Result:**
-- Refused on every path. Routing follows the documented rules (TC-TMS-413, TC-TMS-414).
+- Refused on every path. Routing follows the documented rules (TC-TMS-091, TC-TMS-092).
 - Self-approval is the single most attractive bypass in a timesheet system, so it is worth attacking from every
   available direction rather than testing the obvious button once.
 

@@ -31,7 +31,7 @@ Clicking an older version only **displays its content read-only** — no compare
 - A full-source search of the entire KB JS bundle for `restore` and `compare` (case-insensitive) returns zero matches anywhere in the file. The only related variable, `isOldVersion`, exists purely to prevent old-version viewing from triggering an unintended auto-save of the current draft — it has no restore/compare behavior attached.
 - The only way back to the live, editable article is navigating away and re-opening it fresh (which was confirmed to correctly still show the real current version, v. 2 — no data was corrupted by this investigation).
 
-This is a partial-feature gap: version history genuinely exists and correctly retains every save (TC-HLP-164 passes), but the two actions the documentation specifically promises on top of that list — compare and restore — are both completely absent, not just hard to find.
+This is a partial-feature gap: version history genuinely exists and correctly retains every save (TC-HLP-020 passes), but the two actions the documentation specifically promises on top of that list — compare and restore — are both completely absent, not just hard to find.
 
 ## Evidence
 
@@ -66,5 +66,5 @@ This is a partial-feature gap: version history genuinely exists and correctly re
 
 ## Notes
 
-- Found while executing `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-165 ("Comparing and restoring an older Knowledgebase version works"), immediately after TC-HLP-164 (version history listing) passed cleanly on the same article.
+- Found while executing `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-021 ("Comparing and restoring an older Knowledgebase version works"), immediately after TC-HLP-020 (version history listing) passed cleanly on the same article.
 - Uses the same fixture article as BUG-HLP-048 ("Resetting your password", id 3) — left in place with its 2 real versions intact for future retesting.

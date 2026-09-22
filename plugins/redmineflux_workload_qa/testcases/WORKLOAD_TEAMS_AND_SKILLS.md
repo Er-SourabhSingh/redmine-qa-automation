@@ -24,7 +24,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-201: Create a team
+### TC-WKL-118: Create a team
 
 **User Role:** User with **Manage teams and skills**
 **Steps:**
@@ -35,7 +35,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-202: Create a team without a description
+### TC-WKL-119: Create a team without a description
 
 **User Role:** Same
 **Steps:**
@@ -46,7 +46,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-203: Edit a team
+### TC-WKL-120: Edit a team
 
 **User Role:** Same
 **Steps:**
@@ -58,7 +58,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-204: Delete a team with no workloads
+### TC-WKL-121: Delete a team with no workloads
 
 **User Role:** Same
 **Steps:**
@@ -69,7 +69,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-205: Delete a team that has workloads
+### TC-WKL-122: Delete a team that has workloads
 
 **User Role:** Same
 **Steps:**
@@ -84,7 +84,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-206: Bulk delete teams
+### TC-WKL-123: Bulk delete teams
 
 **User Role:** Same
 **Steps:**
@@ -101,7 +101,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-207: Add members with a Redmine role
+### TC-WKL-124: Add members with a Redmine role
 
 **User Role:** User with Manage teams and skills
 **Steps:**
@@ -112,7 +112,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-208: A user cannot be added twice to the same team
+### TC-WKL-125: A user cannot be added twice to the same team
 
 **User Role:** Same
 **Steps:**
@@ -125,7 +125,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-209: A user may belong to multiple teams
+### TC-WKL-126: A user may belong to multiple teams
 
 **User Role:** Same
 **Steps:**
@@ -136,7 +136,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-210: Remove a member
+### TC-WKL-127: Remove a member
 
 **User Role:** Same
 **Steps:**
@@ -150,7 +150,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-211: Change a member's Redmine role
+### TC-WKL-128: Change a member's Redmine role
 
 **User Role:** Same
 **Steps:**
@@ -161,7 +161,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-212: The Manage workload flag is per team
+### TC-WKL-129: The Manage workload flag is per team
 
 **User Role:** Admin to configure, then the affected member
 **Steps:**
@@ -177,7 +177,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-213: The Can approve leave flag is per team
+### TC-WKL-130: The Can approve leave flag is per team
 
 **User Role:** Admin to configure, then the affected member
 **Steps:**
@@ -196,7 +196,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-214: Create a skill
+### TC-WKL-131: Create a skill
 
 **User Role:** User with Manage teams and skills
 **Steps:**
@@ -207,7 +207,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-215: Edit a skill
+### TC-WKL-132: Edit a skill
 
 **User Role:** Same
 **Steps:**
@@ -218,7 +218,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-216: Delete a skill
+### TC-WKL-133: Delete a skill
 
 **User Role:** Same
 **Steps:**
@@ -229,7 +229,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-217: Bulk delete skills
+### TC-WKL-134: Bulk delete skills
 
 **User Role:** Same
 **Steps:**
@@ -240,7 +240,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-218: Assign users to a skill with a proficiency level
+### TC-WKL-135: Assign users to a skill with a proficiency level
 
 **User Role:** Same
 **Steps:**
@@ -251,7 +251,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-219: Update a user's proficiency
+### TC-WKL-136: Update a user's proficiency
 
 **User Role:** Same
 **Steps:**
@@ -262,7 +262,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-220: Remove a user from a skill
+### TC-WKL-137: Remove a user from a skill
 
 **User Role:** Same
 **Steps:**
@@ -273,7 +273,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-221: Find team members by skill
+### TC-WKL-138: Find team members by skill
 
 **User Role:** Workload manager
 **Steps:**
@@ -285,7 +285,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-222: Find-by-skill with no matches
+### TC-WKL-139: Find-by-skill with no matches
 
 **User Role:** Workload manager
 **Steps:**
@@ -300,7 +300,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-223: Name validation for teams and skills
+### TC-WKL-140: Name validation for teams and skills
 
 **User Role:** User with Manage teams and skills
 **Steps:**
@@ -316,7 +316,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-224: Team and skill management requires the permission
+### TC-WKL-141: Team and skill management requires the permission
 
 **User Role:** A plain member with no plugin permission
 **Steps:**
@@ -332,7 +332,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-225: Deleting a Redmine user who is a team member
+### TC-WKL-142: Deleting a Redmine user who is a team member
 
 **User Role:** Admin
 **Steps:**
@@ -346,7 +346,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-226: Concurrent membership edits
+### TC-WKL-143: Concurrent membership edits
 
 **User Role:** Two users with Manage teams and skills
 **Steps:**
@@ -359,7 +359,7 @@ Workloads → **Teams** / **Skills** icons in the plugin sidebar. Do not type UR
 
 ---
 
-### TC-WKL-227: Team membership does not grant Redmine project access
+### TC-WKL-144: Team membership does not grant Redmine project access
 
 **User Role:** A user added to a workload team but not a member of the related Redmine projects
 **Steps:**

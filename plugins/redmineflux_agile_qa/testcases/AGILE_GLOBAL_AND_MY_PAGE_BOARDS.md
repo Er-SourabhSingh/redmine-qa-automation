@@ -22,7 +22,7 @@ URL is the point.
 
 ---
 
-### TC-AGB-601: Global board opens from the top menu
+### TC-AGB-122: Global board opens from the top menu
 
 **User Role:** Member with the required permission
 **Steps:**
@@ -33,7 +33,7 @@ URL is the point.
 
 ---
 
-### TC-AGB-602: Only visible projects' issues appear
+### TC-AGB-123: Only visible projects' issues appear
 
 **User Role:** Member of projects A and B, not of private project C
 **Preconditions:** **Confirm project C is genuinely private** — a newly created Redmine project has "Public"
@@ -48,7 +48,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-603: Project context is shown on cards
+### TC-AGB-124: Project context is shown on cards
 
 **User Role:** Member
 **Steps:**
@@ -59,7 +59,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-604: Search by subject across projects
+### TC-AGB-125: Search by subject across projects
 
 **User Role:** Member
 **Steps:**
@@ -70,7 +70,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-605: Filter by assigned members
+### TC-AGB-126: Filter by assigned members
 
 **User Role:** Member
 **Steps:**
@@ -81,7 +81,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-606: Group by each supported option globally
+### TC-AGB-127: Group by each supported option globally
 
 **User Role:** Member
 **Steps:**
@@ -93,7 +93,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-607: Drag between statuses on the global board
+### TC-AGB-128: Drag between statuses on the global board
 
 **User Role:** Member with edit rights on the issue's project
 **Steps:**
@@ -104,7 +104,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-608: Double-click editing on the global board
+### TC-AGB-129: Double-click editing on the global board
 
 **User Role:** Member
 **Steps:**
@@ -119,7 +119,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-609: Add the Agile Board block to My Page
+### TC-AGB-130: Add the Agile Board block to My Page
 
 **User Role:** Any logged-in user
 **Steps:**
@@ -130,7 +130,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-610: The block shows only the user's assigned issues
+### TC-AGB-131: The block shows only the user's assigned issues
 
 **User Role:** Member
 **Steps:**
@@ -143,7 +143,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-611: Only active, visible projects are included
+### TC-AGB-132: Only active, visible projects are included
 
 **User Role:** Member
 **Steps:**
@@ -154,7 +154,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-612: Drag cards on the My Page board
+### TC-AGB-133: Drag cards on the My Page board
 
 **User Role:** Member
 **Steps:**
@@ -165,7 +165,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-613: Double-click editing on the My Page board
+### TC-AGB-134: Double-click editing on the My Page board
 
 **User Role:** Member
 **Steps:**
@@ -176,7 +176,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-614: Block settings — visible statuses
+### TC-AGB-135: Block settings — visible statuses
 
 **User Role:** Member
 **Steps:**
@@ -189,7 +189,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-615: Block settings — card fields, totals and WIP
+### TC-AGB-136: Block settings — card fields, totals and WIP
 
 **User Role:** Member
 **Steps:**
@@ -202,7 +202,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-616: Block settings are stored per user
+### TC-AGB-137: Block settings are stored per user
 
 **User Role:** Two members
 **Steps:**
@@ -214,7 +214,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-617: Column reordering on the My Page block
+### TC-AGB-138: Column reordering on the My Page block
 
 **User Role:** Member
 **Steps:**
@@ -225,7 +225,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-618: Load more in large columns
+### TC-AGB-139: Load more in large columns
 
 **User Role:** Member with many assigned issues
 **Steps:**
@@ -240,7 +240,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-619: Global board without the required permission
+### TC-AGB-140: Global board without the required permission
 
 **User Role:** Member lacking the board permission
 **Steps:**
@@ -254,7 +254,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-620: Global drag without edit permission on the target project
+### TC-AGB-141: Global drag without edit permission on the target project
 
 **User Role:** Member who can view project B but not edit its issues
 **Steps:**
@@ -267,7 +267,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-621: My Page board for a user with no assigned issues
+### TC-AGB-142: My Page board for a user with no assigned issues
 
 **User Role:** A user with nothing assigned
 **Steps:**
@@ -279,7 +279,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-622: My Page block for an anonymous visitor
+### TC-AGB-143: My Page block for an anonymous visitor
 
 **User Role:** Anonymous (logged out)
 **Steps:**
@@ -291,7 +291,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-623: My Page board respects issue visibility, not just assignment
+### TC-AGB-144: My Page board respects issue visibility, not just assignment
 
 **User Role:** Member assigned an issue in a project their role can no longer view
 **Steps:**
@@ -303,7 +303,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-624: Story Points hidden when disabled at plugin level
+### TC-AGB-145: Story Points hidden when disabled at plugin level
 
 **User Role:** Member
 **Steps:**
@@ -315,7 +315,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-625: Global board with a very large dataset
+### TC-AGB-146: Global board with a very large dataset
 
 **User Role:** Member with access to many projects
 **Steps:**
@@ -327,7 +327,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-626: My Page block after the module is disabled everywhere
+### TC-AGB-147: My Page block after the module is disabled everywhere
 
 **User Role:** Admin + Member
 **Steps:**

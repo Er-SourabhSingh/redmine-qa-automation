@@ -18,7 +18,7 @@
 
 ## Expected result
 
-Per `HELPDESK_RAKE_TASKS.md` TC-HLP-226 ("Large value: seeder completes successfully and creates that many tickets, without timing out or erroring — record actual behavior/limits if any are hit"), a demo-data seeding tool should either complete successfully for a large ticket count, or fail gracefully with a clear, actionable message — not crash with a raw Ruby exception backtrace and leave the dataset in an inconsistent, unrecoverable state.
+Per `HELPDESK_RAKE_TASKS.md` TC-HLP-259 ("Large value: seeder completes successfully and creates that many tickets, without timing out or erroring — record actual behavior/limits if any are hit"), a demo-data seeding tool should either complete successfully for a large ticket count, or fail gracefully with a clear, actionable message — not crash with a raw Ruby exception backtrace and leave the dataset in an inconsistent, unrecoverable state.
 
 ## Actual result
 
@@ -59,7 +59,7 @@ Live-verified: ran `TICKETS=300 bundle exec rake redmineflux_helpdesk:seed_demo_
 
 ## Notes
 
-- Found while executing `HELPDESK_RAKE_TASKS.md` TC-HLP-226 ("large `TICKETS` value... record actual behavior/limits if any are hit") — the TC explicitly anticipated a limit might exist; this confirms one does, and it's a hard crash rather than a graceful cap.
+- Found while executing `HELPDESK_RAKE_TASKS.md` TC-HLP-259 ("large `TICKETS` value... record actual behavior/limits if any are hit") — the TC explicitly anticipated a limit might exist; this confirms one does, and it's a hard crash rather than a graceful cap.
 - Severity judged **High**: this is a genuine, permanent, self-inflicted regression (the seeder's own hard-enforcement configuration is what causes its own later crash), it corrupts the demo dataset into an inconsistent half-seeded state with zero rollback or warning, and — critically — it cannot be fixed by re-running the task; every subsequent invocation at or above the triggering ticket count fails identically forever without manual DB intervention outside the task's own interface.
 - Recommend: `log_time_for_ticket` should catch/skip (or cap the hours at the remaining budget) rather than calling the raising `create!` unconditionally; alternatively, `seed_prepaid_hours`/`set_prepaid_enforcement` could scale Sakura's grant to the requested `TICKETS` count instead of a fixed 80h, so the two seeded quantities stay consistent with each other regardless of scale.
 - This also affects re-running the suite's own earlier TCs going forward on this instance: any future `seed_demo_data` invocation on this container that would produce enough Sakura-linked tickets to re-hit this wall (now permanently primed at 233 tickets) will crash the same way — noted here so a future session doesn't waste time treating a repeat of this exact crash as a new, unrelated finding.

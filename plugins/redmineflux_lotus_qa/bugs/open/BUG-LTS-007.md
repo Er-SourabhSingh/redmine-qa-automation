@@ -72,5 +72,5 @@
 ## Reported by
 
 Found incidentally by the user while reviewing a Checklist-plugin permission-test fixture project
-("Checklist Perm Private", closed for `TC-CHK-912` testing) — not part of a planned Lotus test pass. Investigated
+("Checklist Perm Private", closed for `TC-CHK-078` testing) — not part of a planned Lotus test pass. Investigated
 and root-caused in this session at the user's request.

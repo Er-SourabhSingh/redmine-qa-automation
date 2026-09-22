@@ -4,7 +4,7 @@
 |-------|-------|
 | **Plugin** | redmineflux_mcp |
 | **Module** | Holiday Schema (Admin only) |
-| **TC Range** | TC-RFM-001 to TC-RFM-009 |
+| **TC Range** | TC-RFM-079 to TC-RFM-087 |
 | **Total TCs** | 9 |
 | **Execution Order** | Suite 1 — Run first (no dependencies) |
 | **Feature Coverage** | RFM-F001 through RFM-F009 |
@@ -15,7 +15,7 @@
 
 ---
 
-## TC-RFM-001 — Admin creates holiday schema via MCP
+## TC-RFM-079 — Admin creates holiday schema via MCP
 
 | Field | Value |
 |-------|-------|
@@ -37,7 +37,7 @@
 2. Validate MCP response:
    - Response confirms successful creation.
    - Response includes schema name "India 2026" and a schema ID.
-   - Note the schema ID for use in TC-RFM-002 through TC-RFM-009.
+   - Note the schema ID for use in TC-RFM-080 through TC-RFM-087.
 3. Using Playwright, navigate to `/rf_settings` (Holiday Schemes section).
 4. Verify "India 2026" appears in the holiday schemes list.
 
@@ -47,7 +47,7 @@
 
 ---
 
-## TC-RFM-002 — Admin reads holiday schema via MCP
+## TC-RFM-080 — Admin reads holiday schema via MCP
 
 | Field | Value |
 |-------|-------|
@@ -58,13 +58,13 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Holiday schema "India 2026" exists (created in TC-RFM-001).
+- Holiday schema "India 2026" exists (created in TC-RFM-079).
 
 **Test Data:**
-- Schema ID from TC-RFM-001.
+- Schema ID from TC-RFM-079.
 
 **Steps:**
-1. Call MCP tool `holiday_scheme_show` with the schema ID from TC-RFM-001.
+1. Call MCP tool `holiday_scheme_show` with the schema ID from TC-RFM-079.
 2. Validate MCP response:
    - Response contains schema name = "India 2026".
    - Response contains schema ID.
@@ -78,7 +78,7 @@
 
 ---
 
-## TC-RFM-003 — Admin updates holiday schema via MCP
+## TC-RFM-081 — Admin updates holiday schema via MCP
 
 | Field | Value |
 |-------|-------|
@@ -89,10 +89,10 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Holiday schema "India 2026" exists (from TC-RFM-001).
+- Holiday schema "India 2026" exists (from TC-RFM-079).
 
 **Test Data:**
-- Schema ID from TC-RFM-001.
+- Schema ID from TC-RFM-079.
 - New name: "India Holidays 2026"
 
 **Steps:**
@@ -111,7 +111,7 @@
 
 ---
 
-## TC-RFM-004 — Admin deletes holiday schema via MCP
+## TC-RFM-082 — Admin deletes holiday schema via MCP
 
 | Field | Value |
 |-------|-------|
@@ -147,7 +147,7 @@
 
 ---
 
-## TC-RFM-005 — Add holiday to schema via MCP
+## TC-RFM-083 — Add holiday to schema via MCP
 
 | Field | Value |
 |-------|-------|
@@ -158,20 +158,20 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Holiday schema "India 2026" exists (from TC-RFM-001).
+- Holiday schema "India 2026" exists (from TC-RFM-079).
 - No holiday named "Diwali" exists in this schema.
 
 **Test Data:**
-- Schema ID from TC-RFM-001.
+- Schema ID from TC-RFM-079.
 - Holiday name: Diwali
 - Holiday date: 2026-11-10
 
 **Steps:**
-1. Call MCP `holiday_create` with scheme_id (from TC-RFM-001), name = "Diwali", date = "2026-11-10".
+1. Call MCP `holiday_create` with scheme_id (from TC-RFM-079), name = "Diwali", date = "2026-11-10".
 2. Validate MCP response:
    - Response confirms "Diwali" added with date 2026-11-10.
    - Response includes holiday ID.
-   - Note the holiday ID for TC-RFM-006 and TC-RFM-007.
+   - Note the holiday ID for TC-RFM-084 and TC-RFM-085.
 3. Using Playwright, navigate to the "India 2026" schema detail page.
 4. Verify "Diwali" appears in the holiday list with date 10-Nov-2026.
 
@@ -181,7 +181,7 @@
 
 ---
 
-## TC-RFM-006 — Update holiday in schema via MCP
+## TC-RFM-084 — Update holiday in schema via MCP
 
 | Field | Value |
 |-------|-------|
@@ -192,14 +192,14 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Holiday "Diwali" exists in schema "India 2026" with date 2026-11-10 (from TC-RFM-005).
+- Holiday "Diwali" exists in schema "India 2026" with date 2026-11-10 (from TC-RFM-083).
 
 **Test Data:**
-- Holiday ID from TC-RFM-005.
+- Holiday ID from TC-RFM-083.
 - New date: 2026-10-20
 
 **Steps:**
-1. Call MCP `holiday_update` with holiday ID (from TC-RFM-005) and date = "2026-10-20".
+1. Call MCP `holiday_update` with holiday ID (from TC-RFM-083) and date = "2026-10-20".
 2. Validate MCP response:
    - Response confirms holiday date updated to 2026-10-20.
 3. Using Playwright, navigate to the "India 2026" schema detail.
@@ -212,7 +212,7 @@
 
 ---
 
-## TC-RFM-007 — Delete holiday from schema via MCP
+## TC-RFM-085 — Delete holiday from schema via MCP
 
 | Field | Value |
 |-------|-------|
@@ -223,10 +223,10 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Holiday "Diwali" exists in schema "India 2026" (from TC-RFM-005 / TC-RFM-006).
+- Holiday "Diwali" exists in schema "India 2026" (from TC-RFM-083 / TC-RFM-084).
 
 **Test Data:**
-- Holiday ID from TC-RFM-005.
+- Holiday ID from TC-RFM-083.
 
 **Steps:**
 1. Call MCP `holiday_delete` with the Diwali holiday ID.
@@ -241,7 +241,7 @@
 
 ---
 
-## TC-RFM-008 — View all holidays in schema via MCP
+## TC-RFM-086 — View all holidays in schema via MCP
 
 | Field | Value |
 |-------|-------|
@@ -252,10 +252,10 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Holiday schema "India 2026" exists (from TC-RFM-001).
+- Holiday schema "India 2026" exists (from TC-RFM-079).
 
 **Test Data:**
-- Schema ID from TC-RFM-001.
+- Schema ID from TC-RFM-079.
 - Add 3 holidays via MCP before calling the list:
   - Independence Day — 2026-08-15
   - Republic Day — 2026-01-26
@@ -263,7 +263,7 @@
 
 **Steps:**
 1. Add 3 holidays to "India 2026" via MCP `holiday_create` (Independence Day, Republic Day, Gandhi Jayanti).
-2. Call MCP `holidays_list` with scheme_id from TC-RFM-001.
+2. Call MCP `holidays_list` with scheme_id from TC-RFM-079.
 3. Validate MCP response:
    - Response contains all 3 holidays with correct names and dates.
 4. Using Playwright, navigate to the "India 2026" schema detail.
@@ -276,7 +276,7 @@
 
 ---
 
-## TC-RFM-009 — Non-admin user denied holiday schema operations
+## TC-RFM-087 — Non-admin user denied holiday schema operations
 
 | Field | Value |
 |-------|-------|
@@ -287,7 +287,7 @@
 | **User Role** | Non-Admin User |
 
 **Preconditions:**
-- Holiday schema "India 2026" exists (from TC-RFM-001).
+- Holiday schema "India 2026" exists (from TC-RFM-079).
 - MCP session is authenticated as Admin (we verify the server enforces admin-only access).
 
 **Test Data:**

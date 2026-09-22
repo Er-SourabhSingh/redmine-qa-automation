@@ -10,7 +10,7 @@
 
 ---
 
-### TC-INE-001 — Issue detail "Zugewiesen an" (Assigned to) inline searchable dropdown fully translated in German
+### TC-INE-015 — Issue detail "Zugewiesen an" (Assigned to) inline searchable dropdown fully translated in German
 
 **Steps**
 
@@ -38,7 +38,7 @@ Root cause is very likely the same: both strings are hardcoded literals in the s
 
 ---
 
-### TC-INE-002 — Inline-edit error toast is fully translated when a save is rejected by another plugin's validation (cross-plugin: Redmineflux Checklist)
+### TC-INE-016 — Inline-edit error toast is fully translated when a save is rejected by another plugin's validation (cross-plugin: Redmineflux Checklist)
 
 **Steps**
 
@@ -69,7 +69,7 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 
 ---
 
-### TC-INE-003 — Priority field inline edit (native `<select>`, not the `rf-ss` widget) — re-verification of BUG-INE-001's scope
+### TC-INE-017 — Priority field inline edit (native `<select>`, not the `rf-ss` widget) — re-verification of BUG-INE-001's scope
 
 **Steps**
 
@@ -84,7 +84,7 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 
 ---
 
-### TC-INE-004 — Issues LIST view inline editing (Subject, Zugewiesen an) and surrounding list-page chrome
+### TC-INE-018 — Issues LIST view inline editing (Subject, Zugewiesen an) and surrounding list-page chrome
 
 **Steps**
 
@@ -105,7 +105,7 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 
 ---
 
-### TC-INE-005 — Description field's inline CKEditor (Save/Cancel buttons, success toast)
+### TC-INE-019 — Description field's inline CKEditor (Save/Cancel buttons, success toast)
 
 **Steps**
 
@@ -125,7 +125,7 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 
 ---
 
-### TC-INE-006 — "Saved successfully." toast reproduces on every inline-edit field, not just Description
+### TC-INE-020 — "Saved successfully." toast reproduces on every inline-edit field, not just Description
 
 **Steps** (explicitly asked: "save successfully toaster message not translated when we change each field")
 
@@ -135,7 +135,7 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 
 **Actual Result — FAIL, confirms the toast is shared/global, not Description-specific**
 
-- Both the Status change and the Priority change produce the identical **"Saved successfully."** toast — hardcoded English, same as already found on the Description editor in TC-INE-005.
+- Both the Status change and the Priority change produce the identical **"Saved successfully."** toast — hardcoded English, same as already found on the Description editor in TC-INE-019.
 - Both fields were successfully reverted to their original values afterward (In Progress / Urgent) — no lasting data change from this verification.
 
 **Note:** an earlier attempt to change Priority by directly setting a native `<select>`'s `.value` and dispatching a synthetic `change` event (rather than using the real dropdown interaction) caused an actual save attempt with an invalid/empty value, surfacing a raw PostgreSQL `NotNullViolation` error in the toast. This was a **self-inflicted test artifact** from bypassing the widget's own option-selection mechanism, not a defect reachable by a real user through the actual UI (a real user can only ever pick one of the dropdown's real option values) — not filed as a bug. The save was correctly rejected server-side and the field's value was left unchanged.
@@ -144,7 +144,7 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 
 ---
 
-### TC-INE-007 — Project card/list view and single-project Overview page (explicitly asked: "did you tested on issue list page and project board and project list page")
+### TC-INE-021 — Project card/list view and single-project Overview page (explicitly asked: "did you tested on issue list page and project board and project list page")
 
 **Steps**
 
@@ -158,7 +158,7 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 
 - Project card view: clicking a card's Name Edit icon turns it into a plain text input, pre-selected — same save-on-Enter/cancel-on-Escape pattern as Issue Subject, no translatable strings in this control.
 - Filter panel ("Filter", "Status", "ist", "aktiv", "Optionen", "Anwenden", "Zurücksetzen", "Abfrage speichern", "Filter hinzufügen"), "Neues Projekt", "Administration", and "Auch abrufbar als: Atom" — all correctly translated.
-- Sidebar "Abfragen" links "My bookmarks"/"My projects" are English, but confirmed via `href` (`?query_id=5/6`) to be actual saved `Query` records (data), not a UI string — same pattern as the Issues list sidebar in TC-INE-004. Not a bug.
+- Sidebar "Abfragen" links "My bookmarks"/"My projects" are English, but confirmed via `href` (`?query_id=5/6`) to be actual saved `Query` records (data), not a UI string — same pattern as the Issues list sidebar in TC-INE-018. Not a bug.
 - A single project's own Overview page (`/projects/agileboard`) has **zero** inline-edit icons anywhere — this plugin's project-level editing is scoped entirely to the Projects list/card view, not a single project's Overview.
 - Administration → Projects (the admin project table, `Name`/`Kennung`/`Beschreibung` columns, all correctly translated) also has **zero** inline-edit icons — this is a core-Redmine admin page the plugin doesn't touch.
 
@@ -166,7 +166,7 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 
 ---
 
-### TC-INE-008 — Stage 3/6: Lotus theme retest (default + 1280×720)
+### TC-INE-022 — Stage 3/6: Lotus theme retest (default + 1280×720)
 
 **Steps**
 
@@ -180,19 +180,19 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 - Assignee `rf-ss` widget: renders inside Lotus's own `rf_issue_attrs_grid` column with no layout break (unlike the Agile Board plugin's Sprint/Story Points fields in `BUG-LTS-003`, since Assignee is a core Redmine field Lotus already styles) — identical "Search…"/"— None —" untranslated strings reproduce (`BUG-INE-001`), both at 1920×1080 and 1280×720.
 - Description CKEditor: renders cleanly under Lotus, tabs/toolbar correctly translated, "Cancel"/"Save" buttons and the "Saved successfully." toast remain hardcoded English (`BUG-INE-003`) — confirmed theme-agnostic.
 - Issues list view: clean layout at both resolutions under Lotus (horizontal scroll at 1280×720, as expected); Assignee cell's inline edit reproduces the identical `BUG-INE-001` gap.
-- **New discovery**: the Projects page under Lotus shows a much richer card design (Startdatum/Abgabedatum/Kunde/Projektleiter/% Fertig progress bar/geschlossen-offen-Gesamtzahl counts/member avatars — all correctly translated) plus a "Kartenansicht"/"Listenansicht" view toggle (both button labels correctly translated) that **does not exist under Default theme at all** (confirmed by switching themes back and forth) — this rich project-browsing UI is a Lotus-theme-specific enhancement, not something missed in the earlier Default-theme pass (TC-INE-007). The "Listenansicht" (`?display_type=list`) view is the plugin's own "project table" view referenced in its KB description — its "Name"/"Kennung"/"Beschreibung" headers and Filter panel are correctly translated, and its Name field's inline edit works cleanly (plain input, no strings to check). Both card and list views render without overlap at 1280×720 too.
+- **New discovery**: the Projects page under Lotus shows a much richer card design (Startdatum/Abgabedatum/Kunde/Projektleiter/% Fertig progress bar/geschlossen-offen-Gesamtzahl counts/member avatars — all correctly translated) plus a "Kartenansicht"/"Listenansicht" view toggle (both button labels correctly translated) that **does not exist under Default theme at all** (confirmed by switching themes back and forth) — this rich project-browsing UI is a Lotus-theme-specific enhancement, not something missed in the earlier Default-theme pass (TC-INE-021). The "Listenansicht" (`?display_type=list`) view is the plugin's own "project table" view referenced in its KB description — its "Name"/"Kennung"/"Beschreibung" headers and Filter panel are correctly translated, and its Name field's inline edit works cleanly (plain input, no strings to check). Both card and list views render without overlap at 1280×720 too.
 
-**Verdict:** Mostly PASS — no new Lotus-specific bugs for this plugin's own widgets (unlike Agile Board's `BUG-LTS-003`, since this plugin mostly attaches to core fields Lotus already styles). All three existing bugs (`BUG-INE-001`, `BUG-INE-002` not re-tested this pass, `BUG-INE-003`) confirmed theme-agnostic where re-checked. Corrected/expanded TC-INE-007's finding: the Lotus-only card/list toggle and its "project table" view are now covered.
+**Verdict:** Mostly PASS — no new Lotus-specific bugs for this plugin's own widgets (unlike Agile Board's `BUG-LTS-003`, since this plugin mostly attaches to core fields Lotus already styles). All three existing bugs (`BUG-INE-001`, `BUG-INE-002` not re-tested this pass, `BUG-INE-003`) confirmed theme-agnostic where re-checked. Corrected/expanded TC-INE-021's finding: the Lotus-only card/list toggle and its "project table" view are now covered.
 
 **Evidence:** No new screenshots needed (no bugs found) — all checks were PASS/reconfirmations of existing bugs.
 
 ---
 
-### TC-INE-009 — Description CKEditor's "Save" button renders oversized under Lotus theme (explicitly asked: "did you reported this bug save button size")
+### TC-INE-023 — Description CKEditor's "Save" button renders oversized under Lotus theme (explicitly asked: "did you reported this bug save button size")
 
 **Steps**
 
-1. Under Lotus theme, open the Description CKEditor (as in TC-INE-005/008) and compare the computed `height` of its "Cancel" and "Save" buttons.
+1. Under Lotus theme, open the Description CKEditor (as in TC-INE-019/008) and compare the computed `height` of its "Cancel" and "Save" buttons.
 2. Switch to Default theme and repeat the same comparison on the identical editor.
 
 **Actual Result — FAIL under Lotus, PASS under Default**

@@ -25,7 +25,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-501: Timeline renders allocations across the workload range
+### TC-WKL-001: Timeline renders allocations across the workload range
 
 **User Role:** Workload manager
 **Steps:**
@@ -38,7 +38,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-502: Weekends, holidays and leave are visible as unavailable
+### TC-WKL-002: Weekends, holidays and leave are visible as unavailable
 
 **User Role:** Workload manager
 **Steps:**
@@ -52,7 +52,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-503: Drag an allocation to new dates
+### TC-WKL-003: Drag an allocation to new dates
 
 **User Role:** Workload manager
 **Steps:**
@@ -63,7 +63,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-504: Resize an allocation
+### TC-WKL-004: Resize an allocation
 
 **User Role:** Workload manager
 **Steps:**
@@ -76,7 +76,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-505: Reorder a user's allocations
+### TC-WKL-005: Reorder a user's allocations
 
 **User Role:** Workload manager
 **Steps:**
@@ -87,7 +87,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-506: Daily allocation distribution
+### TC-WKL-006: Daily allocation distribution
 
 **User Role:** Workload manager
 **Steps:**
@@ -101,7 +101,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-507: Overlapping conflicts are identified
+### TC-WKL-007: Overlapping conflicts are identified
 
 **User Role:** Workload manager
 **Steps:**
@@ -112,7 +112,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-508: Rejected drags revert
+### TC-WKL-008: Rejected drags revert
 
 **User Role:** Workload manager
 **Steps:**
@@ -126,7 +126,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-509: Split an allocation
+### TC-WKL-009: Split an allocation
 
 **User Role:** Workload manager
 **Steps:**
@@ -140,7 +140,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-510: Edit the halves of a split independently
+### TC-WKL-010: Edit the halves of a split independently
 
 **User Role:** Workload manager
 **Steps:**
@@ -151,7 +151,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-511: Split at a boundary
+### TC-WKL-011: Split at a boundary
 
 **User Role:** Workload manager
 **Steps:**
@@ -162,7 +162,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-512: Cross-workload conflicts
+### TC-WKL-012: Cross-workload conflicts
 
 **User Role:** Workload manager
 **Steps:**
@@ -180,7 +180,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-601: Dashboard is available to administrators
+### TC-WKL-013: Dashboard is available to administrators
 
 **User Role:** Admin
 **Steps:**
@@ -191,7 +191,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-602: All documented sections are present
+### TC-WKL-014: All documented sections are present
 
 **User Role:** Admin
 **Steps:**
@@ -204,7 +204,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-603: KPI figures reconcile with the workloads
+### TC-WKL-015: KPI figures reconcile with the workloads
 
 **User Role:** Admin
 **Steps:**
@@ -218,7 +218,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-604: Team capacity distribution
+### TC-WKL-016: Team capacity distribution
 
 **User Role:** Admin
 **Steps:**
@@ -229,7 +229,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-605: User availability heatmap
+### TC-WKL-017: User availability heatmap
 
 **User Role:** Admin
 **Steps:**
@@ -240,18 +240,18 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-606: Cross-workload conflicts on the dashboard
+### TC-WKL-018: Cross-workload conflicts on the dashboard
 
 **User Role:** Admin
 **Steps:**
 1. With a user allocated in two overlapping workloads, check the dashboard's conflicts section.
 
 **Expected Result:**
-- The conflict is listed, naming the user and both workloads (paired with TC-WKL-512).
+- The conflict is listed, naming the user and both workloads (paired with TC-WKL-012).
 
 ---
 
-### TC-WKL-607: Workload matrix
+### TC-WKL-019: Workload matrix
 
 **User Role:** Admin
 **Steps:**
@@ -262,7 +262,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-608: Allocation drilldown
+### TC-WKL-020: Allocation drilldown
 
 **User Role:** Admin
 **Steps:**
@@ -275,7 +275,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-609: Forecast
+### TC-WKL-021: Forecast
 
 **User Role:** Admin
 **Steps:**
@@ -287,7 +287,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-610: Trends over a date range
+### TC-WKL-022: Trends over a date range
 
 **User Role:** Admin
 **Steps:**
@@ -302,7 +302,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-611: Each filter narrows the data
+### TC-WKL-023: Each filter narrows the data
 
 **User Role:** Admin
 **Steps:**
@@ -314,7 +314,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-612: Filters combine
+### TC-WKL-024: Filters combine
 
 **User Role:** Admin
 **Steps:**
@@ -326,7 +326,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-613: Active filters are clearly indicated
+### TC-WKL-025: Active filters are clearly indicated
 
 **User Role:** Admin
 **Steps:**
@@ -343,7 +343,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-614: Dashboard is not reachable by non-admins
+### TC-WKL-026: Dashboard is not reachable by non-admins
 
 **User Role:** A user with **Manage teams and skills**, a workload manager, and a plain member
 **Steps:**
@@ -358,7 +358,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-615: Dashboard with no data
+### TC-WKL-027: Dashboard with no data
 
 **User Role:** Admin
 **Steps:**
@@ -370,7 +370,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-616: Gantt changes without permission
+### TC-WKL-028: Gantt changes without permission
 
 **User Role:** A member of the team **without** the Manage workload flag
 **Steps:**
@@ -383,7 +383,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-617: Dashboard and workload figures agree
+### TC-WKL-029: Dashboard and workload figures agree
 
 **User Role:** Admin
 **Steps:**
@@ -397,7 +397,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 
 ---
 
-### TC-WKL-618: Large-scale performance
+### TC-WKL-030: Large-scale performance
 
 **User Role:** Admin
 **Steps:**

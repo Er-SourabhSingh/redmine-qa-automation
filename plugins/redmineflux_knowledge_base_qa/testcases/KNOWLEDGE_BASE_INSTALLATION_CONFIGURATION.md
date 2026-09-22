@@ -25,7 +25,7 @@ Project → Settings → Modules for the module. Reach the knowledge base by cli
 
 ---
 
-### TC-RKB-101: Plugin appears in Administration → Plugins
+### TC-RKB-075: Plugin appears in Administration → Plugins
 
 **User Role:** Admin
 **Preconditions:** Plugin placed at `plugins/redmineflux_knowledgebase`, `bundle install` run, migrations run,
@@ -39,7 +39,7 @@ server restarted.
 
 ---
 
-### TC-RKB-102: Migrations complete cleanly
+### TC-RKB-076: Migrations complete cleanly
 
 **User Role:** Admin
 **Steps:**
@@ -50,7 +50,7 @@ server restarted.
 
 ---
 
-### TC-RKB-103: Assets load
+### TC-RKB-077: Assets load
 
 **User Role:** Any
 **Steps:**
@@ -63,7 +63,7 @@ server restarted.
 
 ---
 
-### TC-RKB-104: Redmine and Ruby version boundary
+### TC-RKB-078: Redmine and Ruby version boundary
 
 **User Role:** Admin
 **Steps:**
@@ -76,7 +76,7 @@ server restarted.
 
 ---
 
-### TC-RKB-105: rack-attack dependency is installed
+### TC-RKB-079: rack-attack dependency is installed
 
 **User Role:** Admin
 **Steps:**
@@ -95,7 +95,7 @@ server restarted.
 
 ---
 
-### TC-RKB-106: Enabling the module adds the project menu entry
+### TC-RKB-080: Enabling the module adds the project menu entry
 
 **User Role:** Admin or Manager
 **Steps:**
@@ -107,7 +107,7 @@ server restarted.
 
 ---
 
-### TC-RKB-107: Disabling the module removes access
+### TC-RKB-081: Disabling the module removes access
 
 **User Role:** Manager
 **Steps:**
@@ -129,7 +129,7 @@ server restarted.
 
 ---
 
-### TC-RKB-108: Configure page shows all three tabs
+### TC-RKB-082: Configure page shows all three tabs
 
 **User Role:** Admin
 **Steps:**
@@ -141,7 +141,7 @@ server restarted.
 
 ---
 
-### TC-RKB-109: "Mention users" toggle controls @mention support
+### TC-RKB-083: "Mention users" toggle controls @mention support
 
 **User Role:** Admin then Member
 **Steps:**
@@ -154,7 +154,7 @@ server restarted.
 
 ---
 
-### TC-RKB-110: "Mention issues" toggle controls #issue linking
+### TC-RKB-084: "Mention issues" toggle controls #issue linking
 
 **User Role:** Admin then Member
 **Steps:**
@@ -168,7 +168,7 @@ server restarted.
 
 ---
 
-### TC-RKB-111: Public access master toggle
+### TC-RKB-085: Public access master toggle
 
 **User Role:** Admin then external visitor
 **Steps:**
@@ -183,7 +183,7 @@ server restarted.
 
 ---
 
-### TC-RKB-112: Rate-limit settings persist and show documented defaults
+### TC-RKB-086: Rate-limit settings persist and show documented defaults
 
 **User Role:** Admin
 **Steps:**
@@ -196,7 +196,7 @@ server restarted.
 
 ---
 
-### TC-RKB-113: Rate-limit changes take effect without a restart
+### TC-RKB-087: Rate-limit changes take effect without a restart
 
 **User Role:** Admin
 **Steps:**
@@ -214,7 +214,7 @@ server restarted.
 
 ---
 
-### TC-RKB-114: Wrong plugin folder name
+### TC-RKB-088: Wrong plugin folder name
 
 **User Role:** Admin
 **Steps:**
@@ -225,7 +225,7 @@ server restarted.
 
 ---
 
-### TC-RKB-115: Migrations not run
+### TC-RKB-089: Migrations not run
 
 **User Role:** Admin
 **Steps:**
@@ -236,7 +236,7 @@ server restarted.
 
 ---
 
-### TC-RKB-116: Configure page is not reachable by a non-admin
+### TC-RKB-090: Configure page is not reachable by a non-admin
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
 **Steps:**
@@ -249,7 +249,7 @@ server restarted.
 
 ---
 
-### TC-RKB-117: Invalid rate-limit values
+### TC-RKB-091: Invalid rate-limit values
 
 **User Role:** Admin
 **Steps:**
@@ -262,7 +262,7 @@ server restarted.
 
 ---
 
-### TC-RKB-118: Malformed IP allowlist / blocklist entries
+### TC-RKB-092: Malformed IP allowlist / blocklist entries
 
 **User Role:** Admin
 **Steps:**
@@ -276,7 +276,7 @@ server restarted.
 
 ---
 
-### TC-RKB-119: Rate limiting environment caveats are understood
+### TC-RKB-093: Rate limiting environment caveats are understood
 
 **User Role:** Admin
 **Steps:**
@@ -295,7 +295,7 @@ server restarted.
 
 ---
 
-### TC-RKB-120: Clean uninstall
+### TC-RKB-094: Clean uninstall
 
 **User Role:** Admin
 **Preconditions:** **Database backup taken** — the KB warns that rollback removes all knowledge base tables and

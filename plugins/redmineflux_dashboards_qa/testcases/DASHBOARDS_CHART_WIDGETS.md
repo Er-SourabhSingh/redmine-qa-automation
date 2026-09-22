@@ -26,7 +26,7 @@ Project → **Dashboard** → **Add Chart** → the **Our Queries** tab. Do not 
 
 ---
 
-### TC-DSH-201: Add a chart widget
+### TC-DSH-027: Add a chart widget
 
 **User Role:** Member
 **Steps:**
@@ -38,7 +38,7 @@ Project → **Dashboard** → **Add Chart** → the **Our Queries** tab. Do not 
 
 ---
 
-### TC-DSH-202: Custom title is applied at creation
+### TC-DSH-028: Custom title is applied at creation
 
 **User Role:** Member
 **Steps:**
@@ -49,7 +49,7 @@ Project → **Dashboard** → **Add Chart** → the **Our Queries** tab. Do not 
 
 ---
 
-### TC-DSH-203: Default title when none is entered
+### TC-DSH-029: Default title when none is entered
 
 **User Role:** Member
 **Steps:**
@@ -60,7 +60,7 @@ Project → **Dashboard** → **Add Chart** → the **Our Queries** tab. Do not 
 
 ---
 
-### TC-DSH-204: Search the chart type list
+### TC-DSH-030: Search the chart type list
 
 **User Role:** Member
 **Steps:**
@@ -72,7 +72,7 @@ Project → **Dashboard** → **Add Chart** → the **Our Queries** tab. Do not 
 
 ---
 
-### TC-DSH-205: All documented core chart types are present and render
+### TC-DSH-031: All documented core chart types are present and render
 
 **User Role:** Member
 **Preconditions:** A project with issues across several statuses, trackers, priorities, assignees and versions,
@@ -96,7 +96,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-206: Project Progress Gauge is available in all installations
+### TC-DSH-032: Project Progress Gauge is available in all installations
 
 **User Role:** Member
 **Steps:**
@@ -107,7 +107,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-207: Chart type cannot be changed after creation
+### TC-DSH-033: Chart type cannot be changed after creation
 
 **User Role:** Member
 **Steps:**
@@ -124,7 +124,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-208: Delete a chart widget
+### TC-DSH-034: Delete a chart widget
 
 **User Role:** Member
 **Steps:**
@@ -136,7 +136,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-209: Cancel a widget deletion
+### TC-DSH-035: Cancel a widget deletion
 
 **User Role:** Member
 **Steps:**
@@ -147,7 +147,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-210: Copy a chart widget
+### TC-DSH-036: Copy a chart widget
 
 **User Role:** Member
 **Steps:**
@@ -161,7 +161,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-211: Update a chart title
+### TC-DSH-037: Update a chart title
 
 **User Role:** Member
 **Steps:**
@@ -172,7 +172,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-212: Info tooltip shows chart context
+### TC-DSH-038: Info tooltip shows chart context
 
 **User Role:** Member
 **Steps:**
@@ -185,7 +185,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-213: Many widgets on one dashboard
+### TC-DSH-039: Many widgets on one dashboard
 
 **User Role:** Member
 **Steps:**
@@ -201,7 +201,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-214: Chart with no matching data
+### TC-DSH-040: Chart with no matching data
 
 **User Role:** Member
 **Steps:**
@@ -212,7 +212,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-215: Script content in a chart title
+### TC-DSH-041: Script content in a chart title
 
 **User Role:** Member
 **Steps:**
@@ -226,7 +226,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-216: Very long chart title
+### TC-DSH-042: Very long chart title
 
 **User Role:** Member
 **Steps:**
@@ -237,7 +237,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-217: Duplicate widgets of the same type
+### TC-DSH-043: Duplicate widgets of the same type
 
 **User Role:** Member
 **Steps:**
@@ -249,7 +249,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-218: Widget referencing deleted configuration
+### TC-DSH-044: Widget referencing deleted configuration
 
 **User Role:** Admin + Member
 **Steps:**
@@ -263,7 +263,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-219: Chart data respects issue visibility
+### TC-DSH-045: Chart data respects issue visibility
 
 **User Role:** Member on a role whose issue visibility is limited (e.g. to their own issues)
 **Steps:**
@@ -276,7 +276,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-220: Time-tracking charts respect time-entry visibility
+### TC-DSH-046: Time-tracking charts respect time-entry visibility
 
 **User Role:** Member without permission to view other users' spent time
 **Steps:**
@@ -285,11 +285,11 @@ plus logged time across activities, users and roles.
 **Expected Result:**
 - Only permitted data is included. Other users' hours must not be disclosed through an aggregate chart when the
   time report itself would hide them.
-- This is the time-tracking equivalent of TC-DSH-219 and is just as easy to get wrong.
+- This is the time-tracking equivalent of TC-DSH-045 and is just as easy to get wrong.
 
 ---
 
-### TC-DSH-221: Widget creation without permission
+### TC-DSH-047: Widget creation without permission
 
 **User Role:** Member with view-only project access
 **Steps:**
@@ -302,7 +302,7 @@ plus logged time across activities, users and roles.
 
 ---
 
-### TC-DSH-222: Concurrent widget edits
+### TC-DSH-048: Concurrent widget edits
 
 **User Role:** Two members
 **Steps:**

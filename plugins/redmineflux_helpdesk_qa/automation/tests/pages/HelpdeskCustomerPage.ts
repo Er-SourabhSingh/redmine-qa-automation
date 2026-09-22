@@ -30,7 +30,7 @@ import { BasePage } from './BasePage';
  * - Duplicate Login refused with exact message "Login has already been
  *   taken"; duplicate Email (different login) refused with "Email has
  *   already been taken" — both confirmed live 2026-08-24.
- * - TC-HLP-110/122 RESOLVED 2026-08-24: "Add project" DOES persist multiple
+ * - TC-HLP-045/122 RESOLVED 2026-08-24: "Add project" DOES persist multiple
  *   distinct project-access rows. Enabled the Helpdesk module on a second
  *   project ("Agile Board Project", identifier "agileboard") and created a
  *   support level for it (AB-L1) since Support Level is a hard-required
@@ -185,7 +185,7 @@ export class HelpdeskCustomerPage extends BasePage {
 
   /**
    * Adds a brand-new, blank project-access row (clicks "Add project") and
-   * fills it — for TC-HLP-122's two-step scenario (row A saved in one Save,
+   * fills it — for TC-HLP-063's two-step scenario (row A saved in one Save,
    * row B added via a SEPARATE later edit, without touching row A) — does
    * NOT save; call submit() after. `index` is the new row's position (the
    * count of rows already on the form before this call).
@@ -220,7 +220,7 @@ export class HelpdeskCustomerPage extends BasePage {
     return this.getRowCellText(customerFullName, 'Organization Name');
   }
 
-  /** Reads the "Open" (open-ticket count) column — call after openList(). Used by TC-HLP-113/116 to cross-check against Customer 360's own Open KPI. */
+  /** Reads the "Open" (open-ticket count) column — call after openList(). Used by TC-HLP-052/116 to cross-check against Customer 360's own Open KPI. */
   async getOpenCount(customerFullName: string): Promise<string | null> {
     return this.getRowCellText(customerFullName, 'Open');
   }
@@ -300,7 +300,7 @@ export class HelpdeskCustomerPage extends BasePage {
 
   // --- Customer 360 (/rf_customers/:id) — confirmed live 2026-09-14 ---
 
-  /** Navigates to the list, then clicks the named row's "Customer details" link (the eye icon) — opens Customer 360, NOT the Portal Preview (TC-HLP-114). */
+  /** Navigates to the list, then clicks the named row's "Customer details" link (the eye icon) — opens Customer 360, NOT the Portal Preview (TC-HLP-053). */
   async openDetail(customerFullName: string) {
     await this.openList();
     await this.row(customerFullName).getByRole('link', { name: 'Customer details' }).click();
@@ -343,12 +343,12 @@ export class HelpdeskCustomerPage extends BasePage {
     return this.getRowCellText(projectName, columnHeader);
   }
 
-  // --- Project Access dropdown scoping (TC-HLP-111/283/284) ---
+  // --- Project Access dropdown scoping (TC-HLP-048/283/284) ---
   // Confirmed live 2026-09-14: SLA/Support Level options for a project other
   // than the row's currently-selected Project are present in the DOM but
   // rendered `disabled` (BUG-HLP-004 — the option should arguably not appear
   // at all, but the FUNCTIONAL requirement — can't be selected — holds).
-  // Organization is deliberately NOT filtered this way (TC-HLP-284, by design).
+  // Organization is deliberately NOT filtered this way (TC-HLP-050, by design).
 
   private projectAccessSelect(index: number, field: 'sla' | 'supportLevel' | 'organization') {
     return this.projectAccessRow(index)[field];
@@ -370,12 +370,12 @@ export class HelpdeskCustomerPage extends BasePage {
     return (await option.getAttribute('disabled')) !== null;
   }
 
-  /** All option labels currently in the given row's dropdown, in DOM order — used to confirm Organization's full list stays IDENTICAL across a Project change (TC-HLP-284), unlike SLA/Support Level. */
+  /** All option labels currently in the given row's dropdown, in DOM order — used to confirm Organization's full list stays IDENTICAL across a Project change (TC-HLP-050), unlike SLA/Support Level. */
   async getProjectAccessOptionLabels(index: number, field: 'sla' | 'supportLevel' | 'organization'): Promise<string[]> {
     return this.projectAccessSelect(index, field).locator('option').allTextContents();
   }
 
-  /** Selects the row's Project dropdown only, without touching SLA/Support Level/Organization or submitting — for TC-HLP-111/283/284, which inspect the OTHER dropdowns' reaction to a Project change. Call openNew()/openEdit() first. */
+  /** Selects the row's Project dropdown only, without touching SLA/Support Level/Organization or submitting — for TC-HLP-048/283/284, which inspect the OTHER dropdowns' reaction to a Project change. Call openNew()/openEdit() first. */
   async selectProjectAccessProject(index: number, projectLabel: string) {
     await this.projectAccessRow(index).project.selectOption({ label: projectLabel });
   }

@@ -21,7 +21,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-301: One-click capture
+### TC-FSX-001: One-click capture
 
 **User Role:** Logged-in user
 **Steps:**
@@ -32,7 +32,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-302: The capture matches what was on screen
+### TC-FSX-002: The capture matches what was on screen
 
 **User Role:** Logged-in user
 **Steps:**
@@ -45,7 +45,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-303: Capture on different page types
+### TC-FSX-003: Capture on different page types
 
 **User Role:** Logged-in user
 **Steps:**
@@ -59,7 +59,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-304: Capture on a restricted page
+### TC-FSX-004: Capture on a restricted page
 
 **User Role:** Logged-in user
 **Steps:**
@@ -76,7 +76,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-305: All ten Painterro tools work
+### TC-FSX-005: All ten Painterro tools work
 
 **User Role:** Logged-in user
 **Steps:**
@@ -90,7 +90,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-306: Crop changes the image that is submitted
+### TC-FSX-006: Crop changes the image that is submitted
 
 **User Role:** Logged-in user
 **Steps:**
@@ -103,7 +103,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-307: The eraser removes annotations, not image content
+### TC-FSX-007: The eraser removes annotations, not image content
 
 **User Role:** Logged-in user
 **Steps:**
@@ -114,7 +114,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-308: Blur is burnt into the image, not an overlay
+### TC-FSX-008: Blur is burnt into the image, not an overlay
 
 **User Role:** Logged-in user
 **Steps:**
@@ -133,7 +133,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-309: The annotated version is what gets attached
+### TC-FSX-009: The annotated version is what gets attached
 
 **User Role:** Logged-in user
 **Steps:**
@@ -149,7 +149,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-310: All three delays are offered and work
+### TC-FSX-010: All three delays are offered and work
 
 **User Role:** Logged-in user
 **Steps:**
@@ -160,7 +160,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-311: The countdown overlay appears on the source tab
+### TC-FSX-011: The countdown overlay appears on the source tab
 
 **User Role:** Logged-in user
 **Steps:**
@@ -171,7 +171,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-312: The overlay does not appear in the screenshot
+### TC-FSX-012: The overlay does not appear in the screenshot
 
 **User Role:** Logged-in user
 **Steps:**
@@ -184,7 +184,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-313: Timer captures a transient UI state
+### TC-FSX-013: Timer captures a transient UI state
 
 **User Role:** Logged-in user
 **Steps:**
@@ -195,7 +195,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-314: Cancel aborts the countdown
+### TC-FSX-014: Cancel aborts the countdown
 
 **User Role:** Logged-in user
 **Steps:**
@@ -206,7 +206,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-315: Timer with the source tab closed or navigating
+### TC-FSX-015: Timer with the source tab closed or navigating
 
 **User Role:** Logged-in user
 **Steps:**
@@ -223,7 +223,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-316: Copy the annotated screenshot
+### TC-FSX-016: Copy the annotated screenshot
 
 **User Role:** Logged-in user
 **Steps:**
@@ -235,7 +235,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-317: The editor stays open after copying
+### TC-FSX-017: The editor stays open after copying
 
 **User Role:** Logged-in user
 **Steps:**
@@ -246,7 +246,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-318: Copying creates nothing in Redmine
+### TC-FSX-018: Copying creates nothing in Redmine
 
 **User Role:** Logged-in user
 **Steps:**
@@ -257,7 +257,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-319: Clipboard permission denied
+### TC-FSX-019: Clipboard permission denied
 
 **User Role:** Logged-in user
 **Steps:**
@@ -273,7 +273,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-320: Blank or white screenshot recovery
+### TC-FSX-020: Blank or white screenshot recovery
 
 **User Role:** Logged-in user
 **Steps:**
@@ -285,7 +285,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-321: Very large captures
+### TC-FSX-021: Very large captures
 
 **User Role:** Logged-in user
 **Steps:**
@@ -299,7 +299,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-322: Rapid successive captures
+### TC-FSX-022: Rapid successive captures
 
 **User Role:** Logged-in user
 **Steps:**
@@ -311,7 +311,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 
 ---
 
-### TC-FSX-323: Annotation performance
+### TC-FSX-023: Annotation performance
 
 **User Role:** Logged-in user
 **Steps:**

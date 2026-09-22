@@ -11,7 +11,7 @@
 
 ---
 
-### TC-GNT-001 — Flux Gantt toolbar and column headers fully translated
+### TC-GNT-039 — Flux Gantt toolbar and column headers fully translated
 
 **Steps**
 
@@ -28,7 +28,7 @@
 
 ---
 
-### TC-GNT-002 — Settings panel fully translated
+### TC-GNT-040 — Settings panel fully translated
 
 **Steps**
 
@@ -46,7 +46,7 @@
 
 ---
 
-### TC-GNT-003 — "Add Issue" (Vorgang hinzufügen) dialog fully translated
+### TC-GNT-041 — "Add Issue" (Vorgang hinzufügen) dialog fully translated
 
 **Steps**
 
@@ -60,7 +60,7 @@
 
 ---
 
-### TC-GNT-004 — "Add Release/Version" (Version hinzufügen) dialog fully translated
+### TC-GNT-042 — "Add Release/Version" (Version hinzufügen) dialog fully translated
 
 **Steps**
 
@@ -80,7 +80,7 @@ The left-panel "NAME" column truncates even short version names (e.g. "Version 1
 
 ---
 
-### TC-GNT-005 — Inline "Vorgang bearbeiten" (Edit Issue) modal, opened via double-click on a timeline bar
+### TC-GNT-043 — Inline "Vorgang bearbeiten" (Edit Issue) modal, opened via double-click on a timeline bar
 
 **Steps**
 
@@ -98,11 +98,11 @@ The left-panel "NAME" column truncates even short version names (e.g. "Version 1
 
 ---
 
-### TC-GNT-006 — Delete issue via the Edit Issue modal
+### TC-GNT-044 — Delete issue via the Edit Issue modal
 
 **Steps**
 
-1. From the "Vorgang bearbeiten" modal (TC-GNT-005), click "Vorgang löschen".
+1. From the "Vorgang bearbeiten" modal (TC-GNT-043), click "Vorgang löschen".
 2. Inspect the confirmation dialog, then confirm deletion.
 
 **Actual Result — PASS**
@@ -114,7 +114,7 @@ The left-panel "NAME" column truncates even short version names (e.g. "Version 1
 
 ---
 
-### TC-GNT-007 — "Version bearbeiten" (Edit Version) modal
+### TC-GNT-045 — "Version bearbeiten" (Edit Version) modal
 
 **Steps**
 
@@ -129,7 +129,7 @@ The left-panel "NAME" column truncates even short version names (e.g. "Version 1
 
 ---
 
-### TC-GNT-008 — Delete a version via the Edit Version modal
+### TC-GNT-046 — Delete a version via the Edit Version modal
 
 **Steps**
 
@@ -145,7 +145,7 @@ The left-panel "NAME" column truncates even short version names (e.g. "Version 1
 
 ---
 
-### TC-GNT-009 — Baseline creation and deletion
+### TC-GNT-047 — Baseline creation and deletion
 
 **Steps**
 
@@ -164,7 +164,7 @@ The left-panel "NAME" column truncates even short version names (e.g. "Version 1
 
 ---
 
-### TC-GNT-010 — Global Flux Gantt view (`/global_gantt`)
+### TC-GNT-048 — Global Flux Gantt view (`/global_gantt`)
 
 **Steps**
 
@@ -186,7 +186,7 @@ The left-panel "NAME" column truncates even short version names (e.g. "Version 1
 
 ---
 
-### TC-GNT-011 — Error/validation messages across Add/Edit dialogs (Release and Issue)
+### TC-GNT-049 — Error/validation messages across Add/Edit dialogs (Release and Issue)
 
 **Steps**
 
@@ -213,11 +213,11 @@ The left-panel "NAME" column truncates even short version names (e.g. "Version 1
 
 ### Functional finding (not a translation bug) — Version date-range edit hides assigned issues from Flux Gantt
 
-While setting up test fixtures for TC-GNT-011 on a second Forge environment, discovered that narrowing an already-assigned version's date range so it no longer spans an issue's own dates causes the Flux Gantt view to report "0 Vorgänge" (and show the translated empty-state row) for that version, while core Redmine's own Version page simultaneously and correctly shows "2 Tickets" with both issues listed. Filed as `BUG-GNT-004` (Medium) — this is a functional/data-consistency defect found incidentally, not an i18n issue (all the strings involved are themselves correctly translated).
+While setting up test fixtures for TC-GNT-049 on a second Forge environment, discovered that narrowing an already-assigned version's date range so it no longer spans an issue's own dates causes the Flux Gantt view to report "0 Vorgänge" (and show the translated empty-state row) for that version, while core Redmine's own Version page simultaneously and correctly shows "2 Tickets" with both issues listed. Filed as `BUG-GNT-004` (Medium) — this is a functional/data-consistency defect found incidentally, not an i18n issue (all the strings involved are themselves correctly translated).
 
 ---
 
-### TC-GNT-012 — Bar resizing (drag left/right edge to change start/due date)
+### TC-GNT-050 — Bar resizing (drag left/right edge to change start/due date)
 
 **Environment note:** run on the second Forge server (`flux-f6nlrqpvk49`), German + Default theme, after re-establishing the same preconditions (module enabled, German language, test fixtures).
 
@@ -236,7 +236,7 @@ While setting up test fixtures for TC-GNT-011 on a second Forge environment, dis
 
 ---
 
-### TC-GNT-013 — Dependency-link creation (drag from one bar's connector handle to another's)
+### TC-GNT-051 — Dependency-link creation (drag from one bar's connector handle to another's)
 
 **Steps**
 
@@ -255,9 +255,9 @@ While setting up test fixtures for TC-GNT-011 on a second Forge environment, dis
 
 ---
 
-### TC-GNT-014 — Column header layout with "Gesch. Stunden" (Estimated Hours) column enabled
+### TC-GNT-052 — Column header layout with "Gesch. Stunden" (Estimated Hours) column enabled
 
-**Found via user review of a screenshot from TC-GNT-011.**
+**Found via user review of a screenshot from TC-GNT-049.**
 
 **Steps**
 
@@ -274,7 +274,7 @@ While setting up test fixtures for TC-GNT-011 on a second Forge environment, dis
 
 ---
 
-### TC-GNT-010 (re-verification) — Global Flux Gantt view on the second Forge server
+### TC-GNT-048 (re-verification) — Global Flux Gantt view on the second Forge server
 
 **Steps**
 
@@ -290,7 +290,7 @@ While setting up test fixtures for TC-GNT-011 on a second Forge environment, dis
 
 ---
 
-### TC-GNT-015 — Stage 2: Resolution testing (1280×720 and 1920×1080)
+### TC-GNT-053 — Stage 2: Resolution testing (1280×720 and 1920×1080)
 
 **Steps**
 
@@ -309,7 +309,7 @@ While setting up test fixtures for TC-GNT-011 on a second Forge environment, dis
 
 ---
 
-### TC-GNT-016 — Stage 3/6: Redmineflux Lotus theme retest
+### TC-GNT-054 — Stage 3/6: Redmineflux Lotus theme retest
 
 **Steps**
 
@@ -329,7 +329,7 @@ While setting up test fixtures for TC-GNT-011 on a second Forge environment, dis
 
 ---
 
-### TC-GNT-017 — Stage 6: Lotus theme + resolution testing combined (1280×720)
+### TC-GNT-055 — Stage 6: Lotus theme + resolution testing combined (1280×720)
 
 **Steps**
 

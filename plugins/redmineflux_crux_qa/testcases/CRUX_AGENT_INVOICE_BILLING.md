@@ -2,7 +2,7 @@
 
 > Source: `redmineflux-crux-core/agents/invoice-billing.md` (full file); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
-> **Execution readiness: UNBLOCKED — executed live 2026-09-16, extended 2026-09-17.** Read surface (TC-CRX-127) and negative gating (TC-CRX-132) PASS. Original write actions (TC-128/129/130/131) hit BUG-CRX-020 (fixed) and BUG-CRX-021 (fixed) on 2026-09-16 — not re-executed pending a full suite regression pass. Gap-coverage cases (TC-163-166) executed 2026-09-17 using real native-UI fixtures (contact + Sent invoice): TC-163 FAIL (new bug **BUG-CRX-028** — fabricated update-success on a Sent invoice), TC-164 PASS (delete-lockout honestly enforced), TC-165 BLOCKED (no project-level rate concept exists on this plugin version), TC-166 PASS (permission-matrix probe).
+> **Execution readiness: UNBLOCKED — executed live 2026-09-16, extended 2026-09-17.** Read surface (TC-CRX-034) and negative gating (TC-CRX-039) PASS. Original write actions (TC-128/129/130/131) hit BUG-CRX-020 (fixed) and BUG-CRX-021 (fixed) on 2026-09-16 — not re-executed pending a full suite regression pass. Gap-coverage cases (TC-163-166) executed 2026-09-17 using real native-UI fixtures (contact + Sent invoice): TC-163 FAIL (new bug **BUG-CRX-028** — fabricated update-success on a Sent invoice), TC-164 PASS (delete-lockout honestly enforced), TC-165 BLOCKED (no project-level rate concept exists on this plugin version), TC-166 PASS (permission-matrix probe).
 
 ## Plugin
 - Name: redmineflux_crux (Invoicing Agent, Invoice plugin domain)
@@ -16,7 +16,7 @@
 
 ---
 
-### TC-CRX-127: Read surface — dashboard, customers, invoices, team rates, time report
+### TC-CRX-034: Read surface — dashboard, customers, invoices, team rates, time report
 
 **User Role:** Logged-in user with `use_ask_crux` and Invoice plugin access.
 **Precondition:** Invoice plugin installed with real customers/invoices.
@@ -38,9 +38,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-128: Create a customer, generate an invoice from logged effort, record a payment
+### TC-CRX-035: Create a customer, generate an invoice from logged effort, record a payment
 
-**User Role:** Same as TC-CRX-127.
+**User Role:** Same as TC-CRX-034.
 **Precondition:** A test project with logged time.
 
 **Steps:**
@@ -56,9 +56,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-129: Send an invoice — real communication effect, explicit intent required
+### TC-CRX-036: Send an invoice — real communication effect, explicit intent required
 
-**User Role:** Same as TC-CRX-127.
+**User Role:** Same as TC-CRX-034.
 **Precondition:** A draft test invoice; a QA-controlled test customer email.
 
 **Steps:**
@@ -74,9 +74,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-130: Team rates — set, update, bulk-update, delete
+### TC-CRX-037: Team rates — set, update, bulk-update, delete
 
-**User Role:** Same as TC-CRX-127.
+**User Role:** Same as TC-CRX-034.
 **Precondition:** None.
 
 **Steps:**
@@ -97,9 +97,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-131: PDF link — path only, never raw bytes
+### TC-CRX-038: PDF link — path only, never raw bytes
 
-**User Role:** Same as TC-CRX-127.
+**User Role:** Same as TC-CRX-034.
 **Precondition:** An existing invoice.
 
 **Steps:**
@@ -116,9 +116,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-132: Delete (customer/invoice/payment/rate) and send both require the specific record/explicit intent named
+### TC-CRX-039: Delete (customer/invoice/payment/rate) and send both require the specific record/explicit intent named
 
-**User Role:** Same as TC-CRX-127.
+**User Role:** Same as TC-CRX-034.
 **Precondition:** None.
 
 **Steps:**
@@ -138,9 +138,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-163: `update_invoice` on an already-Sent invoice is refused (Draft-only editable)
+### TC-CRX-040: `update_invoice` on an already-Sent invoice is refused (Draft-only editable)
 
-**User Role:** Same as TC-CRX-127.
+**User Role:** Same as TC-CRX-034.
 **Precondition:** An invoice in Sent (not Draft) status.
 
 **Steps:**
@@ -159,9 +159,9 @@ Asked the Invoicing Agent to update invoice #1's due date. After a clarifying-qu
 
 ---
 
-### TC-CRX-164: Deleting a customer still linked to a project is refused
+### TC-CRX-041: Deleting a customer still linked to a project is refused
 
-**User Role:** Same as TC-CRX-127.
+**User Role:** Same as TC-CRX-034.
 **Precondition:** A customer currently linked to a project (per KB, one customer per project).
 
 **Steps:**
@@ -172,15 +172,15 @@ Asked the Invoicing Agent to update invoice #1's due date. After a clarifying-qu
 
 **Result: PASS — CONFIRMED LIVE 2026-09-17**
 
-Using the customer/invoice fixture from TC-CRX-163 ("Sent Lockout Test Customer", linked to crux-qa via Invoice #1), asked: "Invoicing Agent, delete the customer 'Sent Lockout Test Customer' linked to project crux-qa." → real, honest refusal: *"I cannot delete this customer because it is linked to project crux-qa — the Invoice plugin prevents deletion of customers that are assigned to projects... unlink it from project crux-qa first... then delete the customer record."* Matches the KB-documented rule exactly ("a project-linked customer can't be deleted without unlinking first"). No silent success, no fabrication of the refusal itself.
+Using the customer/invoice fixture from TC-CRX-040 ("Sent Lockout Test Customer", linked to crux-qa via Invoice #1), asked: "Invoicing Agent, delete the customer 'Sent Lockout Test Customer' linked to project crux-qa." → real, honest refusal: *"I cannot delete this customer because it is linked to project crux-qa — the Invoice plugin prevents deletion of customers that are assigned to projects... unlink it from project crux-qa first... then delete the customer record."* Matches the KB-documented rule exactly ("a project-linked customer can't be deleted without unlinking first"). No silent success, no fabrication of the refusal itself.
 
 **Minor accuracy note (not filed as a bug):** the refusal cited the customer as "ID 2"; a separate follow-up `list customers` call correctly identified "Sent Lockout Test Customer" as ID 4 (ID 2 is actually "Rohan Verma"). The wrong ID didn't cause an incorrect action — deletion was still correctly blocked regardless — so this is a low-severity diagnostic-message accuracy issue, not a functional or security defect. Noted here for visibility; candidate for folding into a future ID-resolution-accuracy bug if a similar pattern recurs with real consequences.
 
 ---
 
-### TC-CRX-165: The agent cites the real resolved rate per the fallback chain, not just the raw team-rate row
+### TC-CRX-042: The agent cites the real resolved rate per the fallback chain, not just the raw team-rate row
 
-**User Role:** Same as TC-CRX-127.
+**User Role:** Same as TC-CRX-034.
 **Precondition:** A user with no personal rate set, but a project-level rate configured.
 
 **Steps:**
@@ -195,7 +195,7 @@ Asked "Invoicing Agent, what rate applies to Crux Reporter on project crux-qa?" 
 
 ---
 
-### TC-CRX-166: Permission matrix — Invoicing Agent, no-domain-permission probe
+### TC-CRX-043: Permission matrix — Invoicing Agent, no-domain-permission probe
 
 **User Role:** `luna.blossom` (lacks `View invoices`/`Manage invoices`).
 **Precondition:** None.
@@ -214,8 +214,8 @@ As `luna.blossom` (lacks `view_invoices`/`manage_invoices`), "Invoicing Agent, s
 
 ## Evidence Map
 
-- Case IDs: TC-CRX-127 through TC-CRX-132 — 3/6 reached a definitive verdict (2 PASS: 127, 132; 1 FAIL confirmed: 130; 1 FAIL inferred: 128; 2 BLOCKED: 129, 131 — downstream of the same upstream bug).
-- Case IDs: TC-CRX-163 through TC-CRX-166 (gap coverage) — 4/4 reached a definitive verdict (1 FAIL: 163, new bug BUG-CRX-028; 1 PASS: 164; 1 BLOCKED: 165, precondition unachievable — no project-level rate concept exists; 1 PASS: 166).
+- Case IDs: TC-CRX-034 through TC-CRX-039 — 3/6 reached a definitive verdict (2 PASS: 127, 132; 1 FAIL confirmed: 130; 1 FAIL inferred: 128; 2 BLOCKED: 129, 131 — downstream of the same upstream bug).
+- Case IDs: TC-CRX-040 through TC-CRX-043 (gap coverage) — 4/4 reached a definitive verdict (1 FAIL: 163, new bug BUG-CRX-028; 1 PASS: 164; 1 BLOCKED: 165, precondition unachievable — no project-level rate concept exists; 1 PASS: 166).
 - Screenshots: bugs only (none captured for 127-132; BUG-CRX-028 evidence in `screenshots/BUG-CRX-028/`).
 - Log: session ses-143, 2026-09-16 (TC-127-132); session ses-031, 2026-09-17 (TC-163-166).
 - Bug reference: BUG-CRX-020 (fabricated-confirm, reproduced on a fifth domain agent — Invoicing, now fixed), BUG-CRX-021 (wrong project ID resolution, now fixed), BUG-CRX-007 (domain-routing, minor reproduction with an unrecognized prefix word, now fixed), BUG-CRX-028 (new 2026-09-17 — fabricated invoice-update success on a Sent invoice, zero real button, write never persisted).

@@ -26,7 +26,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-101: Plugin folder name is enforced
+### TC-TMT-025: Plugin folder name is enforced
 
 **User Role:** Admin
 **Preconditions:** Plugin folder uploaded to `Redmine/plugins` with its original name.
@@ -42,7 +42,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-102: Migrations complete cleanly
+### TC-TMT-026: Migrations complete cleanly
 
 **User Role:** Admin
 **Steps:**
@@ -53,7 +53,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-103: Assets load
+### TC-TMT-027: Assets load
 
 **User Role:** Any
 **Steps:**
@@ -65,7 +65,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-104: Redmine version boundary
+### TC-TMT-028: Redmine version boundary
 
 **User Role:** Admin
 **Steps:**
@@ -80,7 +80,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-105: Location required for a named user
+### TC-TMT-029: Location required for a named user
 
 **User Role:** Admin then the named Member
 **Steps:**
@@ -94,7 +94,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-106: Empty user selection applies to everyone
+### TC-TMT-030: Empty user selection applies to everyone
 
 **User Role:** Admin then several Members
 **Steps:**
@@ -109,7 +109,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-107: Disabling the setting removes the requirement
+### TC-TMT-031: Disabling the setting removes the requirement
 
 **User Role:** Admin then Member
 **Steps:**
@@ -125,7 +125,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-108: Enable Manual Time Entry
+### TC-TMT-032: Enable Manual Time Entry
 
 **User Role:** Admin then Member
 **Steps:**
@@ -141,7 +141,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-109: Google Maps API Key
+### TC-TMT-033: Google Maps API Key
 
 **User Role:** Admin
 **Steps:**
@@ -156,7 +156,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-110: Page design — Modern Card
+### TC-TMT-034: Page design — Modern Card
 
 **User Role:** Admin then Member
 **Steps:**
@@ -167,11 +167,11 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-111: Page design — Compact Layout and Detailed Expanded
+### TC-TMT-035: Page design — Compact Layout and Detailed Expanded
 
 **User Role:** Admin then Member
 **Steps:**
-1. Repeat TC-TMT-110 for each of the other two layouts.
+1. Repeat TC-TMT-034 for each of the other two layouts.
 
 **Expected Result:**
 - Each renders correctly and **all functionality remains available in every layout** — start/stop, inline editing,
@@ -182,7 +182,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-112: Layout preview matches the applied result
+### TC-TMT-036: Layout preview matches the applied result
 
 **User Role:** Admin
 **Steps:**
@@ -197,7 +197,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-113: Configure page is not reachable by a non-admin
+### TC-TMT-037: Configure page is not reachable by a non-admin
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
 **Steps:**
@@ -211,7 +211,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-114: Invalid configuration values
+### TC-TMT-038: Invalid configuration values
 
 **User Role:** Admin
 **Steps:**
@@ -223,7 +223,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-115: Settings persist across save and reload
+### TC-TMT-039: Settings persist across save and reload
 
 **User Role:** Admin
 **Steps:**
@@ -231,11 +231,11 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 **Expected Result:**
 - All values persist, including the selected user list for location tracking. A user list that silently empties on
-  save would widen location tracking to everyone (see TC-TMT-106) — a quiet and serious failure.
+  save would widen location tracking to everyone (see TC-TMT-030) — a quiet and serious failure.
 
 ---
 
-### TC-TMT-116: Location requirement changed while a timer is running
+### TC-TMT-040: Location requirement changed while a timer is running
 
 **User Role:** Admin + Member
 **Steps:**
@@ -251,7 +251,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-117: Conflicts with other time-related plugins
+### TC-TMT-041: Conflicts with other time-related plugins
 
 **User Role:** Member
 **Preconditions:** The Redmineflux Timesheet plugin also installed.
@@ -270,7 +270,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 
 ---
 
-### TC-TMT-118: Clean uninstall
+### TC-TMT-042: Clean uninstall
 
 **User Role:** Admin
 **Preconditions:** **Database backup taken.**

@@ -3,8 +3,12 @@
 > Source: the vendor KB publishes no permissions matrix; it states only that inline availability "depends on the
 > Redmine configuration and the specific fields exposed by the plugin". This suite establishes the matrix
 > empirically and verifies that the inline path enforces exactly the same rules as the standard Edit form.
-> **Status: authored 2026-09-15. TC-INE-913/914/915 executed 2026-09-22, all PASS** (913's negative-endpoint leg
-> and TC-INE-901–912 not yet executed). See each TC below for fixtures and evidence.
+> **Status: authored 2026-09-15. TC-INE-104/105/106 executed 2026-09-22, all PASS. TC-INE-092 executed 2026-09-22,
+> PASS. TC-INE-093/094/095 PARTIAL PASS (leg 1/positive + leg 2/dropdown-filtering confirmed via real UI; leg 3/
+> negative-endpoint not executed — needs a safer approach than raw `fetch()`, see global memory). TC-INE-096
+> legs 1–2 PASS (leg 3 same constraint). TC-INE-097–103 not yet executed** — infrastructure for them (roles "QA
+> Read Only"/"QA Own Visibility", project "QA Private Project" with issue #1554, throwaway closed/archived
+> projects) was built this session; see each TC below for fixtures and evidence.
 
 ## Plugin
 - Name: Redmineflux Inline Editor Plugin
@@ -48,7 +52,7 @@ Fill in from observed behaviour, not from assumption. Record separately, per rol
 
 ---
 
-### TC-INE-901: Admin can inline-edit every exposed field
+### TC-INE-092: Admin can inline-edit every exposed field
 
 **User Role:** Admin
 **Steps:**
@@ -57,9 +61,15 @@ Fill in from observed behaviour, not from assumption. Record separately, per rol
 **Expected Result:**
 - All succeed and all are journaled.
 
+**Result: PASS, executed 2026-09-22** — as Admin on fresh issue #1557 (test project, Bug tracker): inline-edited
+Status, Priority, Assignee, %Done and `cf_69` (the workflow-read-only-at-New field — Admin is exempt from workflow
+field permissions and got a working pencil where a Developer would not). All 5 saves returned `200` and each
+produced a correctly-attributed journal entry. Description also exercised separately (TC-INE-045–053) with the
+same clean result. Matrix row "Admin: all editable rows succeed" confirmed.
+
 ---
 
-### TC-INE-902: Inline editing requires the edit-issues permission
+### TC-INE-093: Inline editing requires the edit-issues permission
 
 **User Role:** Developer (has it), then a role without it
 **Steps:**
@@ -70,9 +80,18 @@ Fill in from observed behaviour, not from assumption. Record separately, per rol
 **Expected Result:**
 - Leg 3 refused with 403. The inline path grants nothing beyond the standard edit permission.
 
+**Result: PARTIAL PASS, executed 2026-09-22** — added `willow.belle` as Developer on "test project" (new member,
+`edit_issues=true` per the role's existing config). **Leg 1 PASS:** inline-edited Priority on issue #1557,
+`200`, saved. **Leg 2 PASS:** as `harmony.rose` (new "QA Read Only" role: `view_issues` only), confirmed **zero**
+`.rf-edit-icon` elements anywhere on the same issue — no affordance at all, not merely hidden. **Leg 3 not
+executed** — the plugin renders no editor markup at all for this role, so there is no UI-driven request to trigger,
+and a hand-rolled `fetch()` for this leg was specifically declined this session (see global memory "Avoid Raw
+fetch() On .json Endpoint Tests"). The complete absence of client-side affordance is itself a stronger signal than
+a merely-hidden control, but the server-side 403 remains formally unconfirmed for this exact role.
+
 ---
 
-### TC-INE-903: Workflow field permissions are enforced at the endpoint
+### TC-INE-094: Workflow field permissions are enforced at the endpoint
 
 **User Role:** Role with a field marked read-only in the workflow
 **Steps:**
@@ -84,9 +103,18 @@ Fill in from observed behaviour, not from assumption. Record separately, per rol
   only when rendering the icon, and not when handling the write, lets any member with basic edit rights change
   fields the workflow reserves for managers. That would be High severity.
 
+**Result: PARTIAL PASS (leg 1 only), executed 2026-09-22** — reused the `cf_69` fixture rule (role Developer,
+tracker Bug, Status "New" = Read-only, established in `INLINE_EDITOR_CUSTOM_FIELD_CONFIGURATION.md` TC-INE-006).
+As `willow.belle` (Developer) on a fresh Bug-tracker issue at "New": `cf_69`'s row rendered with **no**
+`.rf-edit-icon`, while the same row's Priority field (unrestricted) **did** show one — confirms the plugin reads
+the workflow permission per-field, correctly, not as a blanket lock. **Leg 2 (direct endpoint write) not
+executed** — same raw-`fetch()` constraint as TC-INE-093/096. This remains the suite's single highest-value
+unconfirmed item; recommend prioritizing a safe way to drive this leg (e.g. via the plugin's own request-signing
+path rather than a hand-rolled fetch) in a follow-up session.
+
 ---
 
-### TC-INE-904: Workflow status transitions are enforced at the endpoint
+### TC-INE-095: Workflow status transitions are enforced at the endpoint
 
 **User Role:** Role with a restricted status workflow
 **Steps:**
@@ -97,9 +125,15 @@ Fill in from observed behaviour, not from assumption. Record separately, per rol
 - Refused with the same error the standard form produces. A dropdown filtered client-side but unenforced
   server-side is a High-severity defect.
 
+**Result: PARTIAL PASS (leg 1 only), executed 2026-09-22** — as `willow.belle` (Developer) on the Bug tracker's
+Status dropdown: offered 5 of the workflow's 6 statuses (New, In Progress, Resolved, Feedback, Closed — "Rejected"
+excluded), confirming the dropdown genuinely reflects a role-restricted status-transition workflow, not just the
+full status list. A valid transition (New → In Progress) saved correctly (`200`, journaled). **Leg 2 (forbidden
+transition sent directly) not executed** — same raw-`fetch()` constraint as TC-INE-093/094.
+
 ---
 
-### TC-INE-905: Read-only member sees no affordance and is refused
+### TC-INE-096: Read-only member sees no affordance and is refused
 
 **User Role:** Role with view-issues only
 **Steps:**
@@ -109,9 +143,22 @@ Fill in from observed behaviour, not from assumption. Record separately, per rol
 **Expected Result:**
 - No affordance anywhere; both direct requests refused with 403.
 
+**Result: PARTIAL PASS (leg 1 only), executed 2026-09-22** — created role "QA Read Only" (`view_issues` only,
+nothing else) and added `harmony.rose` to "test project" under it. On issue #1557's detail page: confirmed via DOM
+query (not visual hover) that **zero** `.rf-edit-icon` elements exist anywhere on the page, for any field including
+the description. **Leg 2 (direct requests for a simple field and the description) not executed** — no UI-driven
+path exists to trigger it (no editor markup renders at all for this role), and a hand-rolled `fetch()` was
+specifically declined this session.
+
 ---
 
-### TC-INE-906: Non-member cannot inline-edit in a private project
+### TC-INE-097: Non-member cannot inline-edit in a private project
+
+**Fixtures prepared, not yet executed, 2026-09-22** — created project "QA Private Project" (`is_public` explicitly
+unchecked and confirmed `false` via DOM read, not assumed) with issue #1554 (tracker Feature, to sidestep the
+Bug-only/Required custom-field fixtures on this instance). No user has been added as a member. Execution (log in as
+an authenticated user who is a member of neither this project nor any parent, request `/issues/1554` directly, then
+attempt an inline update) is still outstanding.
 
 **User Role:** Authenticated non-member
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
@@ -124,7 +171,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-INE-907: Anonymous user cannot inline-edit
+### TC-INE-098: Anonymous user cannot inline-edit
 
 **User Role:** Anonymous (logged out)
 **Steps:**
@@ -134,9 +181,11 @@ checked by default; uncheck it explicitly or this case falsely passes.
 **Expected Result:**
 - No affordance and the request refused. An unauthenticated write path would be Critical.
 
+**Not executed, 2026-09-22** — not yet attempted this session.
+
 ---
 
-### TC-INE-908: Cross-project write via the inline endpoint
+### TC-INE-099: Cross-project write via the inline endpoint
 
 **User Role:** Member of project A only
 **Preconditions:** Confirm the target issue really is in a private project B with no membership path for this user.
@@ -147,9 +196,13 @@ checked by default; uncheck it explicitly or this case falsely passes.
 - Refused. The endpoint must authorise the **target issue**, not merely the presence of a valid session.
 - A successful write here is a Critical cross-project defect.
 
+**Fixtures ready, not yet executed, 2026-09-22** — "QA Private Project" (issue #1554) is a genuinely private
+project with no membership path for `willow.belle`, who is a member of "test project" (project A) only. Execution
+(send an inline update naming issue #1554 while authenticated as `willow.belle`) is still outstanding.
+
 ---
 
-### TC-INE-909: Private notes and private content stay private
+### TC-INE-100: Private notes and private content stay private
 
 **User Role:** Member without private-note rights
 **Steps:**
@@ -160,9 +213,14 @@ checked by default; uncheck it explicitly or this case falsely passes.
 - Refused, and the response contains none of the private content — the edit-form fetch is as much a read as the
   page itself, and is a common place for content to leak.
 
+**Resolved N/A, checked 2026-09-22** — same finding as `INLINE_EDITOR_ISSUE_DETAIL_EDITING.md` TC-INE-058: the
+plugin adds no inline-edit affordance to journal/notes content at all (`0` `.rf-edit-icon` elements inside any
+journal element). Its inline-edit surface never touches notes, so there is no private-note attack surface via this
+path.
+
 ---
 
-### TC-INE-910: Permission revocation takes effect without re-login
+### TC-INE-101: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
 **Steps:**
@@ -172,9 +230,13 @@ checked by default; uncheck it explicitly or this case falsely passes.
 **Expected Result:**
 - Rejected. Permissions are evaluated per request, not cached in the page's JavaScript state.
 
+**Not executed, 2026-09-22** — requires two simultaneously-authenticated sessions in the same browser (Admin
+revoking while the member's tab stays live), which this single-context Playwright session can't cleanly isolate;
+not attempted this pass.
+
 ---
 
-### TC-INE-911: Closed and archived projects
+### TC-INE-102: Closed and archived projects
 
 **User Role:** Member
 **Steps:**
@@ -183,9 +245,14 @@ checked by default; uncheck it explicitly or this case falsely passes.
 **Expected Result:**
 - Refused at both, matching Redmine's own semantics for closed (read-only) and archived (inaccessible) projects.
 
+**Result: PASS by cross-reference, executed 2026-09-22** — fully covered by `INLINE_EDITOR_ISSUE_LIST_EDITING.md`
+TC-INE-088, using the same "QA Closed Test Project"/"QA Archived Test Project" fixtures built this session: closed
+project's pencil shown but save correctly `403`'d (no data corruption); archived project fully inaccessible
+(`403` at the page level itself). Not re-executed independently here.
+
 ---
 
-### TC-INE-912: Inline edit respects issue visibility rules
+### TC-INE-103: Inline edit respects issue visibility rules
 
 **User Role:** Role whose issue visibility is limited to "issues created by the user"
 **Steps:**
@@ -196,13 +263,18 @@ checked by default; uncheck it explicitly or this case falsely passes.
 - Refused. Visibility-scoped roles are the subtlest permission tier and the most likely to be missed by a plugin
   that only checks the project-level edit permission.
 
+**Fixtures ready, not yet executed, 2026-09-22** — created role "QA Own Visibility" (`view_issues`+`edit_issues`+
+`add_issues`, `issues_visibility` set to `own`) and added `summer.rain` to "test project" under it. Execution
+(confirm affordance appears only on her own issues; attempt an inline update on one authored by someone else) is
+still outstanding.
+
 ---
 
-### TC-INE-913: "Edit own issues" permission allows inline-editing only the user's own issues
+### TC-INE-104: "Edit own issues" permission allows inline-editing only the user's own issues
 
 **User Role:** Reporter, reconfigured to `edit_own_issues=true`, `edit_issues=false` (was both false by default on
 this instance — checked via Administration → Roles and permissions before assuming stock Redmine defaults). Do
-not conflate with TC-INE-902/912, which test the broader "Edit issues" permission and visibility-scoped roles
+not conflate with TC-INE-093/912, which test the broader "Edit issues" permission and visibility-scoped roles
 respectively.
 **Preconditions:** `daisy.skye`'s membership on "test project" changed from Developer to **Reporter**. Issue
 **#1553** created by `daisy.skye` herself (her "own" issue). Issue **#1551** authored by Redmine Admin (not hers).
@@ -216,7 +288,7 @@ respectively.
 - Own-issue edits succeed; the other user's issue is refused both in the UI and at the endpoint (403). An inline
   editor that only checks "does this role have *some* edit permission" without distinguishing "own" from "any"
   would let this role silently edit everyone's issues — a real permission-boundary defect distinct from
-  TC-INE-902's simpler on/off check.
+  TC-INE-093's simpler on/off check.
 
 **Result: PASS (steps 1–2, both surfaces), executed 2026-09-22** — as `daisy.skye`:
 - **Issue detail page** (`/issues/1553`): Priority inline-edit succeeded (`200`, saved "High"). On #1551
@@ -234,13 +306,13 @@ respectively.
   persisted. No console errors observed on the list page under this restricted role across the whole check.
 
 **Step 3 (negative endpoint leg) not attempted** — an earlier raw-`fetch()` endpoint test in this same session
-(TC-INE-406) triggered the browser's native Basic Auth popup and hung the Playwright session on a different
+(TC-INE-006) triggered the browser's native Basic Auth popup and hung the Playwright session on a different
 endpoint; rather than risk repeating that, this leg was skipped this pass. See global memory "Avoid Raw fetch()
 On .json Endpoint Tests" before attempting it — drive the plugin's own request path instead of a hand-rolled one.
 
 ---
 
-### TC-INE-914: "Edit issues" permission (not "Edit own issues") allows inline-editing any issue in the project
+### TC-INE-105: "Edit issues" permission (not "Edit own issues") allows inline-editing any issue in the project
 
 **User Role:** Manager (`luna.blossom`, already `edit_issues=true` on this instance, no reconfiguration needed)
 **Steps:**
@@ -248,7 +320,7 @@ On .json Endpoint Tests" before attempting it — drive the plugin's own request
    issue detail page and the issue list view.
 
 **Expected Result:**
-- Succeeds — this is the contrast case for TC-INE-913, confirming the broader permission genuinely grants
+- Succeeds — this is the contrast case for TC-INE-104, confirming the broader permission genuinely grants
   project-wide edit rather than being silently narrowed to "own" by the inline path.
 
 **Result: PASS on both surfaces, executed 2026-09-22** — as `luna.blossom` (Manager):
@@ -260,7 +332,7 @@ On .json Endpoint Tests" before attempting it — drive the plugin's own request
 
 ---
 
-### TC-INE-915: "Edit project" permission gates project-list/card inline editing, per project
+### TC-INE-106: "Edit project" permission gates project-list/card inline editing, per project
 
 **User Role:** Reporter (`daisy.skye`), reconfigured to `edit_project=true` on this role. She is a member of
 "test project" (Reporter, edit_project granted) and can also **view** "Helpdesk Service Desk" (visible in her
@@ -275,7 +347,7 @@ Admin Saves" — the first attempt silently did not save).
    a save regardless of what the pencil shows.
 
 **Expected Result:**
-- Refused on the ungranted project, both UI and endpoint — this is the project-level analogue of TC-INE-902/913:
+- Refused on the ungranted project, both UI and endpoint — this is the project-level analogue of TC-INE-093/913:
   the inline path must check "Edit project" per-project, not just "is this user logged in and a member of *some*
   project."
 
@@ -293,7 +365,7 @@ Admin Saves" — the first attempt silently did not save).
   checking `edit_project` before rendering the icon on this surface) — **not a security defect**, since the
   server-side check is what actually protects the data. Worth a look if this plugin's UI logic is ever revisited,
   but Low severity at most given the endpoint holds. Not filed as a bug this session — flagged for awareness.
-- Note: this 403 did **not** trigger the native Basic-Auth-popup risk documented for TC-INE-406/913 — that risk
+- Note: this 403 did **not** trigger the native Basic-Auth-popup risk documented for TC-INE-006/913 — that risk
   appears specific to certain request shapes, not universal to every 403 on this instance.
 - **Follow-up, explicitly asked whether regression was complete — checked the project board/card view too**
   (the previous check only covered the project list `?display_type=list` view): same result. On the board,
@@ -307,6 +379,11 @@ Admin Saves" — the first attempt silently did not save).
 
 | Case ID | Screenshot | Log | Bug reference |
 |---------|------------|-----|---------------|
-| TC-INE-913 | — | Detail page + issue list, both confirmed: own issue (#1553) Priority edit 200 on both surfaces; other's issue (#1551) zero inline affordance on both. Endpoint leg not attempted (popup risk) | — |
-| TC-INE-914 | — | Detail page + issue list, both confirmed: Manager edits non-authored issue (#1553) Priority 200, persisted on both surfaces | — |
-| TC-INE-915 | — | "test project" (granted): pencil + save 204. "Helpdesk Service Desk" (not granted): pencil incorrectly shown, save correctly refused 403, no data corruption | — |
+| TC-INE-104 | — | Detail page + issue list, both confirmed: own issue (#1553) Priority edit 200 on both surfaces; other's issue (#1551) zero inline affordance on both. Endpoint leg not attempted (popup risk) | — |
+| TC-INE-105 | — | Detail page + issue list, both confirmed: Manager edits non-authored issue (#1553) Priority 200, persisted on both surfaces | — |
+| TC-INE-106 | — | "test project" (granted): pencil + save 204. "Helpdesk Service Desk" (not granted): pencil incorrectly shown, save correctly refused 403, no data corruption | — |
+| TC-INE-092 | — | 5 field types inline-edited by Admin, all `200`, all journaled, including workflow-exempt `cf_69` | — |
+| TC-INE-093 | — | Leg 1: Developer Priority edit `200`. Leg 2: QA-Read-Only role, 0 edit icons anywhere. Leg 3: not executed | — |
+| TC-INE-094 | — | Leg 1: `cf_69` no icon at New for Developer, Priority icon present same issue. Leg 2: not executed | — |
+| TC-INE-095 | — | Leg 1: Status dropdown 5/6 options (Rejected excluded), valid transition saved `200`. Leg 2: not executed | — |
+| TC-INE-096 | — | 0 edit icons anywhere for QA-Read-Only role (DOM-confirmed). Endpoint leg not executed | — |

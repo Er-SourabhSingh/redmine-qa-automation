@@ -77,7 +77,7 @@ untestable.
 
 ---
 
-### TC-CRM-901: Admin has full access
+### TC-CRM-184: Admin has full access
 
 **User Role:** Admin
 **Steps:**
@@ -88,7 +88,7 @@ untestable.
 
 ---
 
-### TC-CRM-902: View CRM alone is read-only
+### TC-CRM-185: View CRM alone is read-only
 
 **User Role:** Viewer
 **Steps:**
@@ -103,7 +103,7 @@ untestable.
 
 ---
 
-### TC-CRM-903: The four manage permissions are separate
+### TC-CRM-186: The four manage permissions are separate
 
 **User Role:** A role with **Manage Contacts** only
 **Steps:**
@@ -116,7 +116,7 @@ untestable.
 
 ---
 
-### TC-CRM-904: **Manage does not include delete**
+### TC-CRM-187: **Manage does not include delete**
 
 **User Role:** SalesRep (all four manage permissions, **no** Delete CRM Data)
 **Steps:**
@@ -132,19 +132,19 @@ untestable.
 
 ---
 
-### TC-CRM-905: Delete CRM Data covers all four entity types
+### TC-CRM-188: Delete CRM Data covers all four entity types
 
 **User Role:** SalesManager
 **Steps:**
 1. Delete a contact, a company, a deal and a lead.
 
 **Expected Result:**
-- All succeed, and each follows its documented cascade (TC-CRM-219, 309, 425).
-- Converted leads remain undeletable even for this role (TC-CRM-519).
+- All succeed, and each follows its documented cascade (TC-CRM-070, 309, 425).
+- Converted leads remain undeletable even for this role (TC-CRM-177).
 
 ---
 
-### TC-CRM-906: Manage CRM Activities permits authoring and own-deletion only
+### TC-CRM-189: Manage CRM Activities permits authoring and own-deletion only
 
 **User Role:** SalesRep and a second member
 **Steps:**
@@ -159,7 +159,7 @@ untestable.
 
 ---
 
-### TC-CRM-907: View Pipeline and Manage Deals are distinct
+### TC-CRM-190: View Pipeline and Manage Deals are distinct
 
 **User Role:** A role with **View Pipeline** but not Manage Deals
 **Steps:**
@@ -167,22 +167,22 @@ untestable.
 2. Send the `update_stage` request directly.
 
 **Expected Result:**
-- Refused (paired with TC-CRM-427).
+- Refused (paired with TC-CRM-109).
 
 ---
 
-### TC-CRM-908: View Audit Log is its own permission
+### TC-CRM-191: View Audit Log is its own permission
 
 **User Role:** SalesRep (no View Audit Log)
 **Steps:**
 1. Confirm the Audit Log entry is absent; request its URL and `/api/crm_audit_logs` directly.
 
 **Expected Result:**
-- Refused at both (paired with TC-CRM-828).
+- Refused at both (paired with TC-CRM-051).
 
 ---
 
-### TC-CRM-909: The recommended role configurations work as described
+### TC-CRM-192: The recommended role configurations work as described
 
 **User Role:** SalesRep, SalesManager, Viewer
 **Steps:**
@@ -192,7 +192,7 @@ untestable.
 **Expected Result:**
 - Each role behaves as documented.
 - This validates that the vendor's recommended setup is actually usable — if a Sales Rep cannot do their job
-  without Delete CRM Data, teams will grant it anyway and the separation in TC-CRM-904 becomes theoretical.
+  without Delete CRM Data, teams will grant it anyway and the separation in TC-CRM-187 becomes theoretical.
 
 ---
 
@@ -200,7 +200,7 @@ untestable.
 
 ---
 
-### TC-CRM-910: Admins see all private records
+### TC-CRM-193: Admins see all private records
 
 **User Role:** Admin
 **Steps:**
@@ -211,7 +211,7 @@ untestable.
 
 ---
 
-### TC-CRM-911: Non-admins see public records
+### TC-CRM-194: Non-admins see public records
 
 **User Role:** OwnerB
 **Steps:**
@@ -222,7 +222,7 @@ untestable.
 
 ---
 
-### TC-CRM-912: A creator sees their own private records
+### TC-CRM-195: A creator sees their own private records
 
 **User Role:** OwnerA
 **Steps:**
@@ -233,7 +233,7 @@ untestable.
 
 ---
 
-### TC-CRM-913: An assignee sees private records assigned to them
+### TC-CRM-196: An assignee sees private records assigned to them
 
 **User Role:** OwnerA creates, OwnerB is assigned
 **Steps:**
@@ -246,7 +246,7 @@ untestable.
 
 ---
 
-### TC-CRM-914: A non-owner, non-assignee cannot see a private record
+### TC-CRM-197: A non-owner, non-assignee cannot see a private record
 
 **User Role:** OwnerB
 **Steps:**
@@ -257,12 +257,12 @@ untestable.
 **Expected Result:**
 - Absent from the lists, **and refused at every direct route**, with no name, email or activity content in any
   response body.
-- The nested activity route is the one most likely to be missed (paired with TC-CRM-621), and activity content is
+- The nested activity route is the one most likely to be missed (paired with TC-CRM-021), and activity content is
   often the most sensitive material in the plugin.
 
 ---
 
-### TC-CRM-915: Counts reflect only visible records
+### TC-CRM-198: Counts reflect only visible records
 
 **User Role:** OwnerA and OwnerB
 **Steps:**
@@ -271,11 +271,11 @@ untestable.
 **Expected Result:**
 - They legitimately differ, each reflecting only what that user can see, per the KB.
 - **Record this explicitly**, so a future "the counts disagree" report is triaged as documented behaviour rather
-  than a bug — and so that a count which is too *high* is recognised as the real leak (paired with TC-CRM-825).
+  than a bug — and so that a count which is too *high* is recognised as the real leak (paired with TC-CRM-048).
 
 ---
 
-### TC-CRM-916: Privacy survives edits and reassignment
+### TC-CRM-199: Privacy survives edits and reassignment
 
 **User Role:** OwnerA, then OwnerB
 **Steps:**
@@ -291,7 +291,7 @@ untestable.
 
 ---
 
-### TC-CRM-917: The API requires authentication
+### TC-CRM-200: The API requires authentication
 
 **User Role:** No credentials
 **Steps:**
@@ -304,7 +304,7 @@ untestable.
 
 ---
 
-### TC-CRM-918: The API enforces the same permissions as the UI
+### TC-CRM-201: The API enforces the same permissions as the UI
 
 **User Role:** Viewer, then SalesRep
 **Steps:**
@@ -314,13 +314,13 @@ untestable.
 
 **Expected Result:**
 - Viewer's writes refused with **403** — the KB states this outcome explicitly for a user without Manage Contacts.
-- SalesRep's deletes refused (TC-CRM-904); the closed-deal stage update refused (TC-CRM-420).
+- SalesRep's deletes refused (TC-CRM-187); the closed-deal stage update refused (TC-CRM-102).
 - **The API is the second write path over the same data.** Every rule proved in the UI must hold here, and this is
   where a rule implemented only in a controller filter or a view would be exposed.
 
 ---
 
-### TC-CRM-919: API import and export endpoints are gated
+### TC-CRM-202: API import and export endpoints are gated
 
 **User Role:** Viewer and NoAccess
 **Steps:**
@@ -330,11 +330,11 @@ untestable.
 - Refused.
 - **The export endpoints are the highest-value target in the plugin** — a single unguarded call returns the entire
   customer database, and unlike a screen view it produces a file that can be forwarded anywhere (paired with
-  TC-CRM-725).
+  TC-CRM-203).
 
 ---
 
-### TC-CRM-920: API responses respect privacy
+### TC-CRM-204: API responses respect privacy
 
 **User Role:** OwnerB
 **Steps:**
@@ -348,7 +348,7 @@ untestable.
 
 ---
 
-### TC-CRM-921: API validation matches the UI
+### TC-CRM-205: API validation matches the UI
 
 **User Role:** SalesRep
 **Steps:**
@@ -358,22 +358,22 @@ untestable.
 **Expected Result:**
 - All five refused with the same rules the UI applies.
 - **The API must not be a route around validation.** A Lost deal created with no lost reason, or a lead forced to
-  `Converted`, produces exactly the unrecoverable records described in TC-CRM-407 and TC-CRM-508.
+  `Converted`, produces exactly the unrecoverable records described in TC-CRM-089 and TC-CRM-166.
 
 ---
 
-### TC-CRM-922: API issue-link operations require issue-edit permission
+### TC-CRM-206: API issue-link operations require issue-edit permission
 
 **User Role:** A member with full CRM permissions but no edit-issues on the project
 **Steps:**
 1. Call the link-contact, unlink-contact, link-deal and unlink-deal endpoints directly.
 
 **Expected Result:**
-- All refused (paired with TC-CRM-817). Linking writes to the issue and must be gated by the issue's permission.
+- All refused (paired with TC-CRM-040). Linking writes to the issue and must be gated by the issue's permission.
 
 ---
 
-### TC-CRM-923: An API key cannot act beyond its user
+### TC-CRM-207: An API key cannot act beyond its user
 
 **User Role:** SalesRep's API key
 **Steps:**
@@ -386,7 +386,7 @@ untestable.
 
 ---
 
-### TC-CRM-924: Permission revocation takes effect without re-login
+### TC-CRM-208: Permission revocation takes effect without re-login
 
 **User Role:** Admin + SalesRep
 **Steps:**

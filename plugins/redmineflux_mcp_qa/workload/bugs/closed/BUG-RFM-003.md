@@ -45,9 +45,9 @@ The MCP tool schema changed: `role` (string) → `role_id` (integer).
 
 ## Affected TCs
 
-- TC-RFM-030: PASS (retest) — `member_update` with role_id now applies role
-- TC-RFM-031: PASS (retest) — `member_add` with role_id now assigns role at creation
-- TC-RFM-034: PASS (retest)
+- TC-RFM-108: PASS (retest) — `member_update` with role_id now applies role
+- TC-RFM-109: PASS (retest) — `member_add` with role_id now assigns role at creation
+- TC-RFM-112: PASS (retest)
 
 ## Duplicate check
 

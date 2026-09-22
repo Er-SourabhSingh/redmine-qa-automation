@@ -4,7 +4,7 @@
 |-------|-------|
 | **Plugin** | redmineflux_mcp |
 | **Module** | Workload Dashboard |
-| **TC Range** | TC-RFM-071 to TC-RFM-077 |
+| **TC Range** | TC-RFM-149 to TC-RFM-155 |
 | **Total TCs** | 7 |
 | **Execution Order** | Suite 8 — Run after Workload Filtering (tc-07) |
 | **Feature Coverage** | RFM-F071 through RFM-F077 |
@@ -16,7 +16,7 @@
 
 ---
 
-## TC-RFM-071 — View workload dashboard by team via MCP
+## TC-RFM-149 — View workload dashboard by team via MCP
 
 | Field | Value |
 |-------|-------|
@@ -28,10 +28,10 @@
 
 **Preconditions:**
 - "QA Team June 2026" workload exists with at least 2 issues assigned.
-- Automation Team exists (TC-RFM-023).
+- Automation Team exists (TC-RFM-101).
 
 **Test Data:**
-- Team ID from TC-RFM-023.
+- Team ID from TC-RFM-101.
 
 **Steps:**
 1. Call MCP `dashboard` with team_id = Automation Team ID.
@@ -50,7 +50,7 @@
 
 ---
 
-## TC-RFM-072 — View workload dashboard by user via MCP
+## TC-RFM-150 — View workload dashboard by user via MCP
 
 | Field | Value |
 |-------|-------|
@@ -81,7 +81,7 @@
 
 ---
 
-## TC-RFM-073 — View workload dashboard by specific workload via MCP
+## TC-RFM-151 — View workload dashboard by specific workload via MCP
 
 | Field | Value |
 |-------|-------|
@@ -95,10 +95,10 @@
 - "QA Team June 2026" exists with at least 2 issue assignments (tc-06).
 
 **Test Data:**
-- Workload ID from TC-RFM-048.
+- Workload ID from TC-RFM-126.
 
 **Steps:**
-1. Call MCP `workload_show` with workload ID from TC-RFM-048 (gives workload-scoped data).
+1. Call MCP `workload_show` with workload ID from TC-RFM-126 (gives workload-scoped data).
 2. Validate MCP response:
    - Contains metrics for "QA Team June 2026" only.
    - Includes issue count, total planned hours, per-user breakdown.
@@ -112,7 +112,7 @@
 
 ---
 
-## TC-RFM-074 — View workload dashboard by date range via MCP
+## TC-RFM-152 — View workload dashboard by date range via MCP
 
 | Field | Value |
 |-------|-------|
@@ -144,7 +144,7 @@
 
 ---
 
-## TC-RFM-075 — View available hours report via MCP
+## TC-RFM-153 — View available hours report via MCP
 
 | Field | Value |
 |-------|-------|
@@ -156,7 +156,7 @@
 
 **Preconditions:**
 - "Automation Team" exists with members (tc-03).
-- john.doe has approved leave 2026-06-23 to 2026-06-24 (TC-RFM-042, tc-04).
+- john.doe has approved leave 2026-06-23 to 2026-06-24 (TC-RFM-120, tc-04).
 
 **Test Data:**
 - Team ID = Automation Team.
@@ -176,7 +176,7 @@
 
 ---
 
-## TC-RFM-076 — View capacity report via MCP
+## TC-RFM-154 — View capacity report via MCP
 
 | Field | Value |
 |-------|-------|
@@ -207,7 +207,7 @@
 
 ---
 
-## TC-RFM-077 — Dashboard data consistency: MCP response matches Playwright UI
+## TC-RFM-155 — Dashboard data consistency: MCP response matches Playwright UI
 
 | Field | Value |
 |-------|-------|

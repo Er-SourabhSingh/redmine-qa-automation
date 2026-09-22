@@ -12,7 +12,7 @@
 - Date: 2026-09-21
 - Severity: Medium (downgraded from an initial High — see "UI reachability" in Notes: no in-app link or
   button currently constructs the URL that triggers this)
-- Found during: regression pass on Feature #120436, as a side-finding while checking TC-AGB-541's premise
+- Found during: regression pass on Feature #120436, as a side-finding while checking TC-AGB-041's premise
   (that TC was itself marked N/A — the feature it describes isn't built; see the testcase file and Notes below)
   (production testcase #120941)
 
@@ -85,7 +85,7 @@ code path and would fail the same way.
 ## Impact
 
 Any request that reaches these actions with `query_id` set crashes hard — not degraded, not silently ignoring
-the filter, with no in-page recovery (only "Back" is offered). This is **not** the direct cause of TC-AGB-541
+the filter, with no in-page recovery (only "Back" is offered). This is **not** the direct cause of TC-AGB-041
 being untestable — that TC was marked N/A because the UI feature it describes was never built, independent of
 this crash (see the testcase file). This bug is a separate, code-level finding surfaced while checking that
 TC's premise. Confirmed reachable paths:
@@ -137,7 +137,7 @@ identical `FrozenError` shape (differing only by the calling line: 505 for `back
   `backlog` or `agile_board`. Neither the Backlog page nor the Agile Board (Kanban) page renders any
   saved-query selector of its own — the Backlog's "More filters" panel is a plain filter builder
   (field/operator/value/Apply), not a saved-query picker. **So there is no button or link a user can click to
-  reach this crash today**, and — per the user's own call, recorded against **TC-AGB-541** in the testcase
+  reach this crash today**, and — per the user's own call, recorded against **TC-AGB-041** in the testcase
   file — the TC that would have exercised this ("open the Backlog through a saved query") is correctly marked
   **N/A**, not blocked, because that's simply not a feature the product built. This bug was found as a
   side-finding while checking that TC's premise, not by executing the TC itself.
@@ -150,9 +150,9 @@ identical `FrozenError` shape (differing only by the calling line: 505 for `back
 - **Trivial fix**: use `String.new("project_id IS NULL")`, a mutable duplicate (`+"project_id IS NULL"` or
   `.dup`), or build the condition with an array/`+` instead of `<<`, so the frozen-string-literal magic comment
   at the top of the file doesn't apply to this particular string.
-- Fixing this does **not** revive TC-AGB-541 — that TC stays N/A regardless, unless a UI feature to load a
+- Fixing this does **not** revive TC-AGB-041 — that TC stays N/A regardless, unless a UI feature to load a
   saved query on these pages is built separately. If `query_id` is ever wired into a UI element in the future,
-  re-test that new feature against this fix directly rather than re-opening TC-AGB-541.
+  re-test that new feature against this fix directly rather than re-opening TC-AGB-041.
 
 ## Duplicate check
 

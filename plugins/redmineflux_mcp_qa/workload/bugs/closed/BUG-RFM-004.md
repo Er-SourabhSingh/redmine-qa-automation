@@ -48,7 +48,7 @@ The MCP tool error handler does not distinguish between HTTP status codes. Any n
 
 ## Affected TCs
 
-- TC-RFM-051: FAIL — step 6 (post-deletion `workload_show` returns 500, not "not-found")
+- TC-RFM-129: FAIL — step 6 (post-deletion `workload_show` returns 500, not "not-found")
 
 ## Duplicate check
 

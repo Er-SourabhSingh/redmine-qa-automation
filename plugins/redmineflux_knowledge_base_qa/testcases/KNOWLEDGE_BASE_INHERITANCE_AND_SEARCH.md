@@ -29,7 +29,7 @@ cannot detect the leak they exist to find.
 
 ---
 
-### TC-RKB-701: Parent spaces appear in the sub-project sidebar
+### TC-RKB-055: Parent spaces appear in the sub-project sidebar
 
 **User Role:** Both
 **Steps:**
@@ -41,7 +41,7 @@ cannot detect the leak they exist to find.
 
 ---
 
-### TC-RKB-702: Inheritance is enabled by default
+### TC-RKB-056: Inheritance is enabled by default
 
 **User Role:** Admin
 **Steps:**
@@ -52,7 +52,7 @@ cannot detect the leak they exist to find.
 
 ---
 
-### TC-RKB-703: Inherited content is read-only
+### TC-RKB-057: Inherited content is read-only
 
 **User Role:** Both (with `manage_knowledgebase_pages` on S)
 **Steps:**
@@ -68,7 +68,7 @@ cannot detect the leak they exist to find.
 
 ---
 
-### TC-RKB-704: Inherited pages are readable
+### TC-RKB-058: Inherited pages are readable
 
 **User Role:** Both
 **Steps:**
@@ -79,7 +79,7 @@ cannot detect the leak they exist to find.
 
 ---
 
-### TC-RKB-705: Inheritance respects the parent's page visibility rules
+### TC-RKB-059: Inheritance respects the parent's page visibility rules
 
 **User Role:** Both, holding only `view_knowledgebase` on P
 **Preconditions:** P contains a published page, a never-published draft, and an explicitly unpublished page.
@@ -94,7 +94,7 @@ cannot detect the leak they exist to find.
 
 ---
 
-### TC-RKB-706: Disabling inheritance removes the section
+### TC-RKB-060: Disabling inheritance removes the section
 
 **User Role:** Admin then Both
 **Steps:**
@@ -107,7 +107,7 @@ cannot detect the leak they exist to find.
 
 ---
 
-### TC-RKB-707: Multi-level hierarchies
+### TC-RKB-061: Multi-level hierarchies
 
 **User Role:** Both
 **Preconditions:** A grandparent → parent → child project chain.
@@ -126,7 +126,7 @@ cannot detect the leak they exist to find.
 
 ---
 
-### TC-RKB-708: A user without parent access sees no inherited content
+### TC-RKB-062: A user without parent access sees no inherited content
 
 **User Role:** Sub-only
 **Preconditions:** **Confirm project P is genuinely private and this user has no membership path to it** — a newly
@@ -146,7 +146,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RKB-709: Inherited content when the parent's module is disabled
+### TC-RKB-063: Inherited content when the parent's module is disabled
 
 **User Role:** Both
 **Steps:**
@@ -157,7 +157,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RKB-710: Parent content deleted while displayed
+### TC-RKB-064: Parent content deleted while displayed
 
 **User Role:** Both
 **Steps:**
@@ -168,7 +168,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RKB-711: Inherited pages cannot be shared publicly from the sub-project
+### TC-RKB-065: Inherited pages cannot be shared publicly from the sub-project
 
 **User Role:** Both with `manage_knowledgebase_pages` on S only
 **Steps:**
@@ -184,7 +184,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RKB-712: Search filters the tree live
+### TC-RKB-066: Search filters the tree live
 
 **User Role:** Member
 **Steps:**
@@ -195,7 +195,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RKB-713: Search is client-side with no page reload
+### TC-RKB-067: Search is client-side with no page reload
 
 **User Role:** Member
 **Steps:**
@@ -204,11 +204,11 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 **Expected Result:**
 - No page reload occurs. The KB describes the search as client-side.
 - If requests **are** issued per keystroke, record it — that is a different implementation with different
-  performance and leak characteristics, and it makes TC-RKB-717 relevant.
+  performance and leak characteristics, and it makes TC-RKB-071 relevant.
 
 ---
 
-### TC-RKB-714: Clearing the search restores the full tree
+### TC-RKB-068: Clearing the search restores the full tree
 
 **User Role:** Member
 **Steps:**
@@ -219,7 +219,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RKB-715: Search matches partial strings and is case-insensitive
+### TC-RKB-069: Search matches partial strings and is case-insensitive
 
 **User Role:** Member
 **Steps:**
@@ -230,7 +230,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RKB-716: No matches shows an empty state
+### TC-RKB-070: No matches shows an empty state
 
 **User Role:** Member
 **Steps:**
@@ -245,7 +245,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RKB-717: Search cannot reveal hidden pages
+### TC-RKB-071: Search cannot reveal hidden pages
 
 **User Role:** Reader with `view_knowledgebase` only
 **Preconditions:** A draft page exists whose title contains a distinctive string.
@@ -262,18 +262,18 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RKB-718: Search does not match inherited content the user cannot see
+### TC-RKB-072: Search does not match inherited content the user cannot see
 
 **User Role:** Sub-only
 **Steps:**
 1. Search for a distinctive string from the parent project's page titles.
 
 **Expected Result:**
-- No match, and no parent title present in the client-side data (paired with TC-RKB-708).
+- No match, and no parent title present in the client-side data (paired with TC-RKB-062).
 
 ---
 
-### TC-RKB-719: Special characters in the search field
+### TC-RKB-073: Special characters in the search field
 
 **User Role:** Member
 **Steps:**
@@ -285,7 +285,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RKB-720: Search on a very large tree
+### TC-RKB-074: Search on a very large tree
 
 **User Role:** Member
 **Steps:**

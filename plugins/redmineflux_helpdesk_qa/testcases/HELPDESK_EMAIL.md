@@ -2,7 +2,7 @@
 
 > Source: `docs/HELPDESK_FEATURES_LIST.md` #41–44 (category G). Grounded in `docs/HELPDESK_USER_GUIDE.md` §3.6 (Configure email), §13 (Email: in and out), §19 (background jobs), and tester checklist §26 groups O (Email — incoming) and P (Email — outgoing).
 >
-> Email-creates-a-ticket behavior (registered vs. unregistered sender, identifier keywords, email prefix, thread-reply-becomes-note, Email History on creation) is already covered in `HELPDESK_TICKET_LIFECYCLE.md` (TC-HLP-016, 017, 026, 027) — not repeated here. This suite covers what's still untested: email configuration access control, outgoing SMTP behavior and fallback, full Email History content, and auto-close.
+> Email-creates-a-ticket behavior (registered vs. unregistered sender, identifier keywords, email prefix, thread-reply-becomes-note, Email History on creation) is already covered in `HELPDESK_TICKET_LIFECYCLE.md` (TC-HLP-368, 017, 026, 027) — not repeated here. This suite covers what's still untested: email configuration access control, outgoing SMTP behavior and fallback, full Email History content, and auto-close.
 
 ## Plugin
 - Name: redmineflux_helpdesk
@@ -16,7 +16,7 @@
 
 ---
 
-### TC-HLP-143: An administrator can save a project's email configuration
+### TC-HLP-067: An administrator can save a project's email configuration
 
 **User Role:** Administrator
 **Precondition:** A project with the Helpdesk module enabled.
@@ -29,11 +29,11 @@
 **Expected Result:**
 - The form is shown and saves successfully — this screen is admin-only regardless of the signed-in user's helpdesk role/permissions
 
-CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin): **PASS.** Helpdesk → Settings → Email Configuration → Helpdesk QA Alpha: form rendered fully populated with Alpha's real SMTP/IMAP/Ticket Settings values. Clicked Save (values unchanged). Result: "Successful update" banner shown, form redisplayed with all values intact. Confirms an administrator can open and save a project's email configuration. (Contrast with TC-HLP-152/212 below — the identical screen refuses to render any form fields at all for a non-admin `manage_helpdesk` user.)
+CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin): **PASS.** Helpdesk → Settings → Email Configuration → Helpdesk QA Alpha: form rendered fully populated with Alpha's real SMTP/IMAP/Ticket Settings values. Clicked Save (values unchanged). Result: "Successful update" banner shown, form redisplayed with all values intact. Confirms an administrator can open and save a project's email configuration. (Contrast with TC-HLP-080/212 below — the identical screen refuses to render any form fields at all for a non-admin `manage_helpdesk` user.)
 
 ---
 
-### TC-HLP-144: A project with its own SMTP settings sends from its configured address
+### TC-HLP-068: A project with its own SMTP settings sends from its configured address
 
 **User Role:** N/A (system-driven, verified via a received email)
 **Precondition:** Project A has SMTP settings configured with **Email from** = `support@acme.example`.
@@ -45,11 +45,11 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin): **PASS.** Helpdesk �
 **Expected Result:**
 - The email is sent from `support@acme.example`, using Project A's own SMTP settings
 
-CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, Helpdesk QA Alpha, `alpha.support@test.local`): **PASS.** Auto-close notification for ticket #55 (fired during TC-150's execution earlier this session) confirmed via Roundcube (`admin@test.local` inbox): From `alpha.support@test.local` — Alpha's own configured Email From Address, not a global/shared one. See TC-HLP-146 for the same confirmed against Beta's distinct address in the same session.
+CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, Helpdesk QA Alpha, `alpha.support@test.local`): **PASS.** Auto-close notification for ticket #55 (fired during TC-150's execution earlier this session) confirmed via Roundcube (`admin@test.local` inbox): From `alpha.support@test.local` — Alpha's own configured Email From Address, not a global/shared one. See TC-HLP-070 for the same confirmed against Beta's distinct address in the same session.
 
 ---
 
-### TC-HLP-145: A project without SMTP settings falls back to Redmine's global mail settings
+### TC-HLP-069: A project without SMTP settings falls back to Redmine's global mail settings
 
 **User Role:** N/A (system-driven)
 **Precondition:** Project B has no SMTP fields configured.
@@ -64,7 +64,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, Helpdesk QA Gamma —
 
 ---
 
-### TC-HLP-146: Two projects with different SMTP settings send as two distinct senders
+### TC-HLP-070: Two projects with different SMTP settings send as two distinct senders
 
 **User Role:** N/A (system-driven)
 **Precondition:** Project A configured as `support@acme.example`; Project C configured as `help@othercorp.example`.
@@ -80,7 +80,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, Helpdesk QA Alpha vs Helpdes
 
 ---
 
-### TC-HLP-147: Outgoing mail fires on all four documented trigger events
+### TC-HLP-071: Outgoing mail fires on all four documented trigger events
 
 **User Role:** Agent (verified via Email History / received mail)
 **Precondition:** A project with outgoing mail configured (or falling back to global).
@@ -95,16 +95,16 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, Helpdesk QA Alpha vs Helpdes
 - An outgoing email is sent for each of the four events: ticket created, agent reply, SLA breach/escalation, and auto-close
 
 CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, cross-referencing real evidence gathered across this session and earlier ones, all on this same environment): **PASS**, all 4 events fire real outgoing mail.
-1. **Ticket created**: TC-HLP-016's evidence (ticket #8) and this session's TC-HLP-405/406/407 (tickets #59-61) all confirm a real acknowledgement email, server log "confirmation email queued"/"Created ticket #NN".
-2. **Agent reply**: this session's TC-HLP-145/146 replies (tickets #64, #63) both confirmed via Roundcube — real emails received, correct per-project sender.
+1. **Ticket created**: TC-HLP-368's evidence (ticket #8) and this session's TC-HLP-084/406/407 (tickets #59-61) all confirm a real acknowledgement email, server log "confirmation email queued"/"Created ticket #NN".
+2. **Agent reply**: this session's TC-HLP-069/146 replies (tickets #64, #63) both confirmed via Roundcube — real emails received, correct per-project sender.
 3. **SLA breach/escalation**: confirmed via a real, pre-existing "[CRITICAL] SLA Breach Alert - L3 - Issue #36" email (`admin@test.local` inbox, dated 2026-09-03, from earlier SLA Escalation suite testing on this same environment) — From `redmine@example.net`, full detail (Issue/SLA Information/Final Escalation Level blocks), confirming this trigger fires independently.
-4. **Auto-close**: this session's TC-HLP-147/150 evidence — ticket #55's "Ticket #55 automatically closed due to inactivity" email, confirmed via Roundcube, From `alpha.support@test.local`.
+4. **Auto-close**: this session's TC-HLP-071/150 evidence — ticket #55's "Ticket #55 automatically closed due to inactivity" email, confirmed via Roundcube, From `alpha.support@test.local`.
 
 All 4 documented trigger events independently confirmed to fire real outgoing mail.
 
 ---
 
-### TC-HLP-148: Email History shows full detail for every message
+### TC-HLP-072: Email History shows full detail for every message
 
 **User Role:** Agent
 **Precondition:** A ticket with at least one inbound and one outbound message recorded.
@@ -115,11 +115,11 @@ All 4 documented trigger events independently confirmed to fire real outgoing ma
 **Expected Result:**
 - Each entry shows direction (in/out), sender, recipient, subject, body, and timestamp
 
-CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, ticket #63 — Helpdesk QA Beta, 3 real Email History entries): **FAIL — filed as BUG-HLP-046.** Sender, timestamp, and body are shown for every entry. Direction is only implied via label text ("Customer replied to Support" vs "(via Reply Note)"), never an explicit field. Recipient is never shown anywhere — confirmed via a full-page DOM search (`browser_evaluate`) for "recipient" or a "To:" label: zero matches. Subject is never shown as a distinct per-entry field — the literal text "Subject:" appears 3 times in the page, but all 3 traced to one email's own embedded acknowledgement-template body ("Subject: TC-HLP-402b control..."), not a structured header repeated per entry; the other two entries have no "Subject:" text at all. 3 of the 6 documented fields (recipient, subject, explicit direction) are absent.
+CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, ticket #63 — Helpdesk QA Beta, 3 real Email History entries): **FAIL — filed as BUG-HLP-046.** Sender, timestamp, and body are shown for every entry. Direction is only implied via label text ("Customer replied to Support" vs "(via Reply Note)"), never an explicit field. Recipient is never shown anywhere — confirmed via a full-page DOM search (`browser_evaluate`) for "recipient" or a "To:" label: zero matches. Subject is never shown as a distinct per-entry field — the literal text "Subject:" appears 3 times in the page, but all 3 traced to one email's own embedded acknowledgement-template body ("Subject: TC-HLP-370b control..."), not a structured header repeated per entry; the other two entries have no "Subject:" text at all. 3 of the 6 documented fields (recipient, subject, explicit direction) are absent.
 
 ---
 
-### TC-HLP-286: An agent's Reply Note is logged in the Helpdesk Conversion tab, correctly attributed
+### TC-HLP-073: An agent's Reply Note is logged in the Helpdesk Conversion tab, correctly attributed
 
 **User Role:** Agent
 **Precondition:** An existing ticket (any origin).
@@ -134,7 +134,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, ticket #63 — Helpde
 
 ---
 
-### TC-HLP-287: A customer's portal Reply is logged in the Helpdesk Conversion tab, correctly attributed
+### TC-HLP-074: A customer's portal Reply is logged in the Helpdesk Conversion tab, correctly attributed
 
 **User Role:** Client (Customer)
 **Precondition:** An existing ticket the customer can open (see BUG-HLP-006 for when this is blocked).
@@ -145,11 +145,11 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, ticket #63 — Helpde
 
 **Expected Result:**
 - A new entry appears, labeled with the customer's own name (e.g. "Beta Customer (via Reply Note)") and the reply text, correctly attributed
-- **CONFIRMED LIVE 2026-08-26** (Local, ticket #69, portal-created fixture): PASS — entry correctly attributed, no mislabeling (contrast with TC-HLP-286's caveat above). No separate "Notes" tab appeared either, since Reply Note content only ever surfaces via Helpdesk Conversion, matching the agent-side behavior.
+- **CONFIRMED LIVE 2026-08-26** (Local, ticket #69, portal-created fixture): PASS — entry correctly attributed, no mislabeling (contrast with TC-HLP-073's caveat above). No separate "Notes" tab appeared either, since Reply Note content only ever surfaces via Helpdesk Conversion, matching the agent-side behavior.
 
 ---
 
-### TC-HLP-288: A customer's real inbound-email reply to an existing ticket is NOT logged in the Helpdesk Conversion tab
+### TC-HLP-075: A customer's real inbound-email reply to an existing ticket is NOT logged in the Helpdesk Conversion tab
 
 **User Role:** Client (Customer), replying by real email — verified from the Agent side
 **Precondition:** A ticket that already has at least one agent reply (so an outbound notification email exists for the customer to reply to).
@@ -160,12 +160,12 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, ticket #63 — Helpde
 3. Open the ticket's **Notes** tab, then separately open its **Helpdesk Conversion** tab
 
 **Expected Result:**
-- The reply appears as a Journal entry under Notes **and** as a correctly-attributed inbound entry under Helpdesk Conversion, consistent with TC-HLP-286/287 above — Helpdesk Conversion should be a complete audit trail of all correspondence regardless of which channel a reply came in through
+- The reply appears as a Journal entry under Notes **and** as a correctly-attributed inbound entry under Helpdesk Conversion, consistent with TC-HLP-073/287 above — Helpdesk Conversion should be a complete audit trail of all correspondence regardless of which channel a reply came in through
 - **CONFIRMED LIVE 2026-08-26** (Local, ticket #67): FAIL — the reply appears under Notes only (correct content, correctly attributed to the customer). The Helpdesk Conversion tab's count does not increment; the email reply is absent from it entirely. Tracked as **BUG-HLP-008**, Part A. Likely shared root cause with the `Helpdesk::EmailPollerWorker`'s `MailHandler returned unexpected result: Journal` warning — see `HELPDESK_MEMORY.md` and `bugs/open/BUG-HLP-008.md`.
 
 ---
 
-### TC-HLP-149: Leaving incoming mail settings blank means no mailbox is polled for that project
+### TC-HLP-076: Leaving incoming mail settings blank means no mailbox is polled for that project
 
 **User Role:** N/A (system-driven)
 **Precondition:** A project's email configuration has all incoming (mailbox) fields left blank.
@@ -181,7 +181,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::EmailPolle
 
 ---
 
-### TC-HLP-150: A resolved ticket auto-closes after the configured silent period
+### TC-HLP-077: A resolved ticket auto-closes after the configured silent period
 
 **User Role:** N/A (system-driven, verified by Agent)
 **Precondition:** Project's Auto-close days = 2; a ticket set to Resolved and left untouched.
@@ -193,11 +193,11 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::EmailPolle
 **Expected Result:**
 - The ticket is automatically moved to **Closed**
 
-CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseTicketsWorker`, Helpdesk QA Alpha): **PASS.** Set Auto Close Ticket (Days) = 1 via Email Configuration. Created ticket #55 (Support tracker), set Status = Resolved, backdated `updated_on` to 2 days ago (test-setup only, to avoid a real multi-day wait — the actual worker invocation and result check were both real). Manually invoked the real Sidekiq worker directly (`Helpdesk::AutoCloseTicketsWorker.new.perform` via `rails runner` — the sidekiq-cron scheduler poller is still broken per the standing environment quirk, so this is the same "manually trigger the real background job" methodology used throughout this engagement for SLA-timing TCs). Result: ticket #55 correctly moved to **Closed**, with a journal note "This ticket was automatically closed due to 1 days of inactivity." Confirmed via the real ticket UI afterward. See TC-HLP-153 below for a critical, closely-related finding from the same worker invocation.
+CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseTicketsWorker`, Helpdesk QA Alpha): **PASS.** Set Auto Close Ticket (Days) = 1 via Email Configuration. Created ticket #55 (Support tracker), set Status = Resolved, backdated `updated_on` to 2 days ago (test-setup only, to avoid a real multi-day wait — the actual worker invocation and result check were both real). Manually invoked the real Sidekiq worker directly (`Helpdesk::AutoCloseTicketsWorker.new.perform` via `rails runner` — the sidekiq-cron scheduler poller is still broken per the standing environment quirk, so this is the same "manually trigger the real background job" methodology used throughout this engagement for SLA-timing TCs). Result: ticket #55 correctly moved to **Closed**, with a journal note "This ticket was automatically closed due to 1 days of inactivity." Confirmed via the real ticket UI afterward. See TC-HLP-081 below for a critical, closely-related finding from the same worker invocation.
 
 ---
 
-### TC-HLP-151: Auto-close days blank or 0 disables auto-close for that project
+### TC-HLP-078: Auto-close days blank or 0 disables auto-close for that project
 
 **User Role:** Admin
 **Precondition:** Auto-close days set to blank (or `0`) on the project's email configuration.
@@ -210,7 +210,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseT
 
 CONFIRMED via source review 2026-09-09 (not independently re-executed live this round — see note): `Helpdesk::AutoCloseTicketsWorker#perform` (`app/workers/helpdesk/auto_close_tickets_worker.rb`) reads `auto_close_days = RfHelpdeskEmailConfig.for_project(project)&.auto_close_days` and unconditionally does `next if auto_close_days.nil? || auto_close_days <= 0` before any issue is even queried — a blank or `0` value skips the entire project with no exceptions. **PASS**, confirmed unambiguous at the source level. Not independently re-run live this session: TC-150/153 (same worker, same run) just closed 44 pre-existing fixture tickets across other suites as an unintended side effect of leaving Auto Close Ticket Days = 1 set on Helpdesk QA Alpha for even a few minutes — given that real blast-radius risk on a shared environment full of old tickets, a second live invocation just to re-confirm the disabled-state code path (already unambiguous from source) was judged not worth repeating. Auto Close Ticket Days on Helpdesk QA Alpha has been set back to blank since (confirmed via `RfHelpdeskEmailConfig.for_project(...).auto_close_days == nil`).
 
-**CONFIRMED LIVE 2026-09-10** (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseTicketsWorker`): **PASS — actually executed live this round, closing the gap left by the source-only verdict above.** Before invoking anything, checked every project's `RfHelpdeskEmailConfig` directly: Helpdesk QA Alpha and Beta both have `auto_close_days == nil`, and Helpdesk QA Gamma has no config row at all — a genuine zero-risk dry-run confirming the worker could not sweep any other ticket on this environment. Created a fresh, dedicated ticket **#87** ("TC-HLP-151 auto-close disabled test - Auto Close Ticket Days blank") on Helpdesk QA Alpha, set Status = Resolved, then backdated `updated_on` to 5 days ago (test-setup only, via `rails runner` — same established methodology as TC-150). Manually invoked the real `Helpdesk::AutoCloseTicketsWorker.new.perform` directly (the sidekiq-cron scheduler poller is still broken per the standing environment quirk). Worker's own log: `[Auto-Close] Job completed. Total tickets closed: 0`. Reopened ticket #87 afterward: **Status still "Resolved"**, "Updated 5 days ago" preserved, only journal entry is the original "Status changed from New to Resolved" — no auto-close entry, exactly as expected. Confirms the blank/0-disables-auto-close contract live, not just at the source level, closing the gap this suite's own 2026-09-10 completeness audit found (this TC previously had a source-only verdict, not a live one). Ticket #87 left in place as a reusable disabled-state fixture.
+**CONFIRMED LIVE 2026-09-10** (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseTicketsWorker`): **PASS — actually executed live this round, closing the gap left by the source-only verdict above.** Before invoking anything, checked every project's `RfHelpdeskEmailConfig` directly: Helpdesk QA Alpha and Beta both have `auto_close_days == nil`, and Helpdesk QA Gamma has no config row at all — a genuine zero-risk dry-run confirming the worker could not sweep any other ticket on this environment. Created a fresh, dedicated ticket **#87** ("TC-HLP-078 auto-close disabled test - Auto Close Ticket Days blank") on Helpdesk QA Alpha, set Status = Resolved, then backdated `updated_on` to 5 days ago (test-setup only, via `rails runner` — same established methodology as TC-150). Manually invoked the real `Helpdesk::AutoCloseTicketsWorker.new.perform` directly (the sidekiq-cron scheduler poller is still broken per the standing environment quirk). Worker's own log: `[Auto-Close] Job completed. Total tickets closed: 0`. Reopened ticket #87 afterward: **Status still "Resolved"**, "Updated 5 days ago" preserved, only journal entry is the original "Status changed from New to Resolved" — no auto-close entry, exactly as expected. Confirms the blank/0-disables-auto-close contract live, not just at the source level, closing the gap this suite's own 2026-09-10 completeness audit found (this TC previously had a source-only verdict, not a live one). Ticket #87 left in place as a reusable disabled-state fixture.
 
 ---
 
@@ -218,7 +218,7 @@ CONFIRMED via source review 2026-09-09 (not independently re-executed live this 
 
 ---
 
-### TC-HLP-290: The same mailbox/SMTP address configured on two different projects — determine whether it's blocked or silently allowed
+### TC-HLP-079: The same mailbox/SMTP address configured on two different projects — determine whether it's blocked or silently allowed
 
 **User Role:** Admin
 **Precondition:** Project A's Email Configuration already has a working incoming mailbox and/or outgoing SMTP account (e.g. `alpha.support@test.local`).
@@ -230,7 +230,7 @@ CONFIRMED via source review 2026-09-09 (not independently re-executed live this 
 4. If Save succeeds: send one qualifying email to that shared mailbox address and observe which project (if either, or both) actually creates a ticket from it
 
 **Expected Result — record whichever actually happens, not documented anywhere in `HELPDESK_REQUIREMENTS.md`/`HELPDESK_USER_GUIDE.md`/`HELPDESK_FEATURES_LIST.md`:**
-- Either Save is refused with a validation naming the conflict (the correct, safe behavior — since one real-world mailbox can only sensibly be polled by one project's `email_checker`), or Save silently succeeds. If it silently succeeds, step 4 determines the real-world impact: does the email create a ticket on both projects (duplicate), on whichever project's poller runs first (non-deterministic/silent misrouting), or does Redmine's own IMAP `\Seen` marking mean only one project ever sees it depending on poll timing (a race, not a rule)? **This is not yet executed** — flagged from a direct question about this exact gap; not covered by TC-HLP-146, which only tests two projects with *different* SMTP configs (a positive case), never the same one reused. If Save silently succeeds and any misrouting/duplication is observed, file as a bug — this is a real data-integrity risk, not just a UX gap.
+- Either Save is refused with a validation naming the conflict (the correct, safe behavior — since one real-world mailbox can only sensibly be polled by one project's `email_checker`), or Save silently succeeds. If it silently succeeds, step 4 determines the real-world impact: does the email create a ticket on both projects (duplicate), on whichever project's poller runs first (non-deterministic/silent misrouting), or does Redmine's own IMAP `\Seen` marking mean only one project ever sees it depending on poll timing (a race, not a rule)? **This is not yet executed** — flagged from a direct question about this exact gap; not covered by TC-HLP-070, which only tests two projects with *different* SMTP configs (a positive case), never the same one reused. If Save silently succeeds and any misrouting/duplication is observed, file as a bug — this is a real data-integrity risk, not just a UX gap.
 
 CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin config + `alpha.customer`/`beta.customer` via Roundcube + `Helpdesk::EmailPollerWorker`): **FAIL — filed as BUG-HLP-047, both incoming and outgoing directions tested.**
 
@@ -242,7 +242,7 @@ This is exactly the "silent misrouting/confusion depending on which side is reus
 
 ---
 
-### TC-HLP-152: A non-admin manager cannot save a project's email configuration
+### TC-HLP-080: A non-admin manager cannot save a project's email configuration
 
 **User Role:** Manager with `manage_helpdesk` but not an administrator
 **Precondition:** Viewing Helpdesk › Settings › Email Configuration.
@@ -253,11 +253,11 @@ This is exactly the "silent misrouting/confusion depending on which side is reus
 **Expected Result:**
 - Instead of the editable form, a note is shown explaining this is admin-only — no save is possible
 
-CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `manage.helpdesk.test` — `manage_helpdesk` permission, not an administrator): **PASS.** Logged in fresh as `manage.helpdesk.test`, navigated Helpdesk Command Center → Helpdesk Settings → Email Configuration → selected Helpdesk QA Alpha. No form rendered — page showed exactly "Only an administrator can change a project's email configuration." Confirms the gate is hardcoded to `User#admin?`, not the `manage_helpdesk` permission — same mechanism and identical wording as TC-HLP-212 in `HELPDESK_PERMISSIONS.md` (re-verified live this same session, not just cited).
+CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `manage.helpdesk.test` — `manage_helpdesk` permission, not an administrator): **PASS.** Logged in fresh as `manage.helpdesk.test`, navigated Helpdesk Command Center → Helpdesk Settings → Email Configuration → selected Helpdesk QA Alpha. No form rendered — page showed exactly "Only an administrator can change a project's email configuration." Confirms the gate is hardcoded to `User#admin?`, not the `manage_helpdesk` permission — same mechanism and identical wording as TC-HLP-174 in `HELPDESK_PERMISSIONS.md` (re-verified live this same session, not just cited).
 
 ---
 
-### TC-HLP-153: Auto-close never affects a ticket that isn't Resolved
+### TC-HLP-081: Auto-close never affects a ticket that isn't Resolved
 
 **User Role:** Agent
 **Precondition:** A ticket in In Progress (or New, Feedback, Waiting for Customer Response) left silent well past the project's Auto-close days.
@@ -277,7 +277,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseT
 
 ---
 
-### TC-HLP-403: Auto-close only ever affects Support-tracker tickets, never Bug/Feature tickets in the same project (added 2026-09-09, user-identified gap)
+### TC-HLP-082: Auto-close only ever affects Support-tracker tickets, never Bug/Feature tickets in the same project (added 2026-09-09, user-identified gap)
 
 **User Role:** N/A (system-driven, verified by Agent)
 **Precondition:** Project's Auto Close Ticket Days set to a real value; a **Bug** (or Feature) tracker ticket in the same project, left silent well past that threshold.
@@ -290,11 +290,11 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseT
 **Expected Result:**
 - The Bug ticket's status is unchanged — auto-close only ever acts on **Support**-tracker tickets, per its own `Tracker.find_by(name: 'Support')` scoping.
 
-CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseTicketsWorker`, Helpdesk QA Alpha): **PASS.** Created a Bug-tracker ticket (#57, "TC-HLP-403 auto-close tracker-scope control — Bug tracker, should NOT close"), backdated `updated_on` to 2 days ago. Set Auto Close Ticket Days = 1 on Helpdesk QA Alpha (re-confirmed via a dry-run eligibility count first, per the lesson from TC-150/151/153's incident: only 2 tickets matched the `.open` + silence-threshold query at the moment of the run — the Bug ticket #57 and one fresh Support-tracker control ticket #58 created alongside it — confirming the earlier 44-ticket sweep genuinely will not recur, since those tickets are now Closed and no longer match `.open`). Invoked the real worker directly. Result: Support-tracker ticket #58 closed correctly; **Bug-tracker ticket #57 was left completely untouched** — still status New, no journal entry added. Confirms the worker's `Tracker.find_by(name: 'Support')` scoping works exactly as source suggested. Auto Close Ticket Days reset to blank on Helpdesk QA Alpha immediately after this run.
+CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseTicketsWorker`, Helpdesk QA Alpha): **PASS.** Created a Bug-tracker ticket (#57, "TC-HLP-082 auto-close tracker-scope control — Bug tracker, should NOT close"), backdated `updated_on` to 2 days ago. Set Auto Close Ticket Days = 1 on Helpdesk QA Alpha (re-confirmed via a dry-run eligibility count first, per the lesson from TC-150/151/153's incident: only 2 tickets matched the `.open` + silence-threshold query at the moment of the run — the Bug ticket #57 and one fresh Support-tracker control ticket #58 created alongside it — confirming the earlier 44-ticket sweep genuinely will not recur, since those tickets are now Closed and no longer match `.open`). Invoked the real worker directly. Result: Support-tracker ticket #58 closed correctly; **Bug-tracker ticket #57 was left completely untouched** — still status New, no journal entry added. Confirms the worker's `Tracker.find_by(name: 'Support')` scoping works exactly as source suggested. Auto Close Ticket Days reset to blank on Helpdesk QA Alpha immediately after this run.
 
 ---
 
-### TC-HLP-404: Auto-close only affects the project it's configured for — tickets in a project with no (or different) auto-close configuration are untouched (added 2026-09-09, user-identified gap)
+### TC-HLP-083: Auto-close only affects the project it's configured for — tickets in a project with no (or different) auto-close configuration are untouched (added 2026-09-09, user-identified gap)
 
 **User Role:** N/A (system-driven, verified by Agent)
 **Precondition:** Project A has Auto Close Ticket Days set to a real value; Project B has no auto-close configuration at all (or a different one). Both projects have an eligible (open-status, silent-past-threshold) ticket.
@@ -307,14 +307,14 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseT
 **Expected Result:**
 - Project B's ticket is untouched — auto-close is strictly per-project, driven by each project's own `RfHelpdeskEmailConfig`, never applied globally or leaked from one project's configuration to another's tickets.
 
-CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseTicketsWorker`, same run as TC-HLP-403): **PASS.** Confirmed via direct query immediately before the run: Helpdesk QA Beta has **zero** `RfHelpdeskEmailConfig` row at all (`RfHelpdeskEmailConfig.for_project(beta) == nil`), so the worker's own `next if auto_close_days.nil? || auto_close_days <= 0` guard skips it outright — confirmed via the worker's own log output, which shows a "Processing project: Helpdesk QA Alpha" line but **no corresponding line for Helpdesk QA Beta at all** (the project loop's `next` skips it silently before that log line, exactly as source predicted). Cross-checked a genuinely old, silent Beta ticket (from an earlier session's Prepaid Hours fixture set) — confirmed still open/untouched after the run, no journal entry added, no status change. Project-level isolation holds.
+CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseTicketsWorker`, same run as TC-HLP-082): **PASS.** Confirmed via direct query immediately before the run: Helpdesk QA Beta has **zero** `RfHelpdeskEmailConfig` row at all (`RfHelpdeskEmailConfig.for_project(beta) == nil`), so the worker's own `next if auto_close_days.nil? || auto_close_days <= 0` guard skips it outright — confirmed via the worker's own log output, which shows a "Processing project: Helpdesk QA Alpha" line but **no corresponding line for Helpdesk QA Beta at all** (the project loop's `next` skips it silently before that log line, exactly as source predicted). Cross-checked a genuinely old, silent Beta ticket (from an earlier session's Prepaid Hours fixture set) — confirmed still open/untouched after the run, no journal entry added, no status change. Project-level isolation holds.
 
 ---
 
-### TC-HLP-405: Ticket creation from email with both Identifier Keywords and Email Subject Prefix left blank (added 2026-09-09, user-identified gap)
+### TC-HLP-084: Ticket creation from email with both Identifier Keywords and Email Subject Prefix left blank (added 2026-09-09, user-identified gap)
 
 **User Role:** Client (Customer, via email)
-**Precondition:** A project's Email Configuration has a real, working incoming mailbox, but both **Identifier Keywords** and **Email Subject Prefix** are left blank (distinct from TC-HLP-149, which tests the *entire incoming section* left blank — here the mailbox itself is fully configured and polled, only these two specific fields are empty).
+**Precondition:** A project's Email Configuration has a real, working incoming mailbox, but both **Identifier Keywords** and **Email Subject Prefix** are left blank (distinct from TC-HLP-076, which tests the *entire incoming section* left blank — here the mailbox itself is fully configured and polled, only these two specific fields are empty).
 
 **Steps:**
 1. Clear both Identifier Keywords and Email Subject Prefix on a project's Email Configuration, Save
@@ -325,11 +325,11 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseT
 - A ticket is created regardless of the email's content — with no keywords configured, there is nothing to gate on, so every inbound email to a configured, polled mailbox creates a ticket
 - The ticket's subject carries no added prefix, exactly matching the original email's subject verbatim
 
-CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `alpha.customer` via Roundcube webmail, `Helpdesk::EmailPollerWorker`, Helpdesk QA Alpha): **PASS.** Cleared both Identifier Keywords and Email Subject Prefix on Alpha's Email Configuration (SMTP/incoming mailbox itself left fully configured and working). Sent a real email, subject "TC-HLP-405 both fields blank test", body deliberately containing no keyword at all. Manually triggered the poller (several passes, since this shared mailbox has a large backlog of old test emails from earlier sessions that the poller processes in batches). Result: ticket **#59** created, subject exactly "TC-HLP-405 both fields blank test" verbatim (no prefix added, none configured), author correctly `Alpha Customer`. Confirms with no keywords configured there's nothing to gate on — every inbound email to a configured, polled mailbox creates a ticket.
+CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `alpha.customer` via Roundcube webmail, `Helpdesk::EmailPollerWorker`, Helpdesk QA Alpha): **PASS.** Cleared both Identifier Keywords and Email Subject Prefix on Alpha's Email Configuration (SMTP/incoming mailbox itself left fully configured and working). Sent a real email, subject "TC-HLP-084 both fields blank test", body deliberately containing no keyword at all. Manually triggered the poller (several passes, since this shared mailbox has a large backlog of old test emails from earlier sessions that the poller processes in batches). Result: ticket **#59** created, subject exactly "TC-HLP-084 both fields blank test" verbatim (no prefix added, none configured), author correctly `Alpha Customer`. Confirms with no keywords configured there's nothing to gate on — every inbound email to a configured, polled mailbox creates a ticket.
 
 ---
 
-### TC-HLP-406: Ticket creation from email with only Email Subject Prefix configured (Identifier Keywords blank) (added 2026-09-09, user-identified gap)
+### TC-HLP-085: Ticket creation from email with only Email Subject Prefix configured (Identifier Keywords blank) (added 2026-09-09, user-identified gap)
 
 **User Role:** Client (Customer, via email)
 **Precondition:** A project's Email Configuration has Identifier Keywords blank, Email Subject Prefix set to a real value (e.g. `[TICKET]`).
@@ -343,11 +343,11 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `alpha.customer` via Roundcu
 - A ticket is still created (keyword gating is off since no keywords are configured — the prefix field alone does not gate creation, since it's a subject-rewrite step applied only after an issue already exists)
 - The created ticket's subject carries the configured prefix, confirming the prefix is applied independently of whether any keyword gating is active
 
-CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `alpha.customer` via Roundcube webmail, `Helpdesk::EmailPollerWorker`, Helpdesk QA Alpha): **PASS.** Set Email Subject Prefix = `[TICKET]`, left Identifier Keywords blank. Sent a real email, subject "TC-HLP-406 prefix only test", body deliberately containing no keyword. Triggered the poller. Server log confirmed: `MailHandler: issue #60 created by Alpha Customer` → `Helpdesk::EmailPollerWorker: Created ticket #60 - [TICKET] TC-HLP-406 prefix only test`. Ticket created despite zero keyword gating being active, and its subject genuinely carries the prefix — confirms the prefix mechanism operates entirely independently of keyword gating.
+CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `alpha.customer` via Roundcube webmail, `Helpdesk::EmailPollerWorker`, Helpdesk QA Alpha): **PASS.** Set Email Subject Prefix = `[TICKET]`, left Identifier Keywords blank. Sent a real email, subject "TC-HLP-085 prefix only test", body deliberately containing no keyword. Triggered the poller. Server log confirmed: `MailHandler: issue #60 created by Alpha Customer` → `Helpdesk::EmailPollerWorker: Created ticket #60 - [TICKET] TC-HLP-085 prefix only test`. Ticket created despite zero keyword gating being active, and its subject genuinely carries the prefix — confirms the prefix mechanism operates entirely independently of keyword gating.
 
 ---
 
-### TC-HLP-407: Ticket creation from email with both Identifier Keywords and Email Subject Prefix configured together (added 2026-09-09, user-identified gap)
+### TC-HLP-086: Ticket creation from email with both Identifier Keywords and Email Subject Prefix configured together (added 2026-09-09, user-identified gap)
 
 **User Role:** Client (Customer, via email)
 **Precondition:** A project's Email Configuration has both Identifier Keywords (e.g. `ticket, issue, request`) and Email Subject Prefix (e.g. `[TICKET]`) set to real values.
@@ -360,13 +360,13 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `alpha.customer` via Roundcu
 
 **Expected Result:**
 - A ticket is created (keyword matched)
-- The ticket's Subject genuinely carries the configured prefix (e.g. `[TICKET] <original subject>`) — this specific assertion (the prefix actually appearing on a real created ticket's subject) has never been directly confirmed in this suite before; every prior keyword-gating TC (TC-HLP-016/027) was run with the prefix field left blank specifically, so "no prefix expected" was never actually a positive confirmation that the prefix mechanism itself works when both fields are populated together.
+- The ticket's Subject genuinely carries the configured prefix (e.g. `[TICKET] <original subject>`) — this specific assertion (the prefix actually appearing on a real created ticket's subject) has never been directly confirmed in this suite before; every prior keyword-gating TC (TC-HLP-368/027) was run with the prefix field left blank specifically, so "no prefix expected" was never actually a positive confirmation that the prefix mechanism itself works when both fields are populated together.
 
-CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `alpha.customer` via Roundcube webmail, `Helpdesk::EmailPollerWorker`, Helpdesk QA Alpha): **PASS.** Restored Identifier Keywords = `ticket, issue, request`, kept Email Subject Prefix = `[TICKET]` — both configured together. Sent a real email, subject "TC-HLP-407 ticket both fields test", body deliberately containing the keyword "ticket". Triggered the poller. Server log: `MailHandler: Processing email from helpdesk customer [alpha.customer]` → `MailHandler: issue #61 created by Alpha Customer` → `MailHandler: Added email prefix '[TICKET]' to issue #61 subject` → `Helpdesk::EmailPollerWorker: Created ticket #61 - [TICKET] TC-HLP-407 ticket both fields test`. Confirms — for the first time in this suite with direct evidence — that the prefix mechanism genuinely rewrites a real created ticket's subject when both keyword gating and the prefix are active together, closing the previously-unconfirmed gap left by every earlier TC always running with the prefix field blank. Restored Alpha's Email Configuration to its exact original state afterward (Identifier Keywords = `ticket, issue, request`, Email Subject Prefix = blank — confirmed via direct query).
+CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `alpha.customer` via Roundcube webmail, `Helpdesk::EmailPollerWorker`, Helpdesk QA Alpha): **PASS.** Restored Identifier Keywords = `ticket, issue, request`, kept Email Subject Prefix = `[TICKET]` — both configured together. Sent a real email, subject "TC-HLP-086 ticket both fields test", body deliberately containing the keyword "ticket". Triggered the poller. Server log: `MailHandler: Processing email from helpdesk customer [alpha.customer]` → `MailHandler: issue #61 created by Alpha Customer` → `MailHandler: Added email prefix '[TICKET]' to issue #61 subject` → `Helpdesk::EmailPollerWorker: Created ticket #61 - [TICKET] TC-HLP-086 ticket both fields test`. Confirms — for the first time in this suite with direct evidence — that the prefix mechanism genuinely rewrites a real created ticket's subject when both keyword gating and the prefix are active together, closing the previously-unconfirmed gap left by every earlier TC always running with the prefix field blank. Restored Alpha's Email Configuration to its exact original state afterward (Identifier Keywords = `ticket, issue, request`, Email Subject Prefix = blank — confirmed via direct query).
 
 ---
 
-### TC-HLP-154: A ticket resolved just before the silence window elapses is not closed early
+### TC-HLP-087: A ticket resolved just before the silence window elapses is not closed early
 
 **User Role:** Agent
 **Precondition:** Auto-close days = 2; a ticket resolved a few minutes before the 2-day mark would be reached.
@@ -381,7 +381,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseT
 
 ---
 
-### TC-HLP-155: Whether a reply during the silence countdown resets the auto-close clock
+### TC-HLP-088: Whether a reply during the silence countdown resets the auto-close clock
 
 **User Role:** Agent then Client (Customer)
 **Precondition:** A Resolved ticket partway through its silence window.
@@ -397,7 +397,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseT
 
 ---
 
-### TC-HLP-156: Outgoing and incoming mail settings are configured and behave independently
+### TC-HLP-089: Outgoing and incoming mail settings are configured and behave independently
 
 **User Role:** Admin
 **Precondition:** A project with SMTP (outgoing) settings filled in but incoming mailbox fields left blank.
@@ -416,18 +416,18 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, Helpdesk QA Gamma): *
 
 ## Notes
 
-- **Auto-close testing (TC-HLP-150/151/153), 2026-09-09 — 2 new bugs, real collateral-damage incident and recovery.** User asked directly for the auto-close condition and a test-case summary; live-testing TC-153 surfaced that the real background worker (`Helpdesk::AutoCloseTicketsWorker`) closes ANY open-status ticket past the silence window, not just Resolved ones — filed as **BUG-HLP-043**. Investigating why an initial attempt via `rake redmineflux_helpdesk:auto_close_tickets` closed nothing led to a second, independent discovery: the rake task reads `auto_close_days` from a legacy `ProjectCustomField` (`helpdesk_auto_close_days`) that no longer exists on this instance (zero `ProjectCustomField` rows exist at all) — so the rake task can never close a ticket regardless of any project's real configuration, set via the current `RfHelpdeskEmailConfig`-backed Email Configuration UI. This is the exact same dead-code pattern already noted (but never filed) for `check_emails` in this file's Deferred/Out of Scope section below — filed as **BUG-HLP-044** in `HELPDESK_RAKE_TASKS.md` (TC-HLP-217), since it's that suite's own feature under test.
+- **Auto-close testing (TC-HLP-077/151/153), 2026-09-09 — 2 new bugs, real collateral-damage incident and recovery.** User asked directly for the auto-close condition and a test-case summary; live-testing TC-153 surfaced that the real background worker (`Helpdesk::AutoCloseTicketsWorker`) closes ANY open-status ticket past the silence window, not just Resolved ones — filed as **BUG-HLP-043**. Investigating why an initial attempt via `rake redmineflux_helpdesk:auto_close_tickets` closed nothing led to a second, independent discovery: the rake task reads `auto_close_days` from a legacy `ProjectCustomField` (`helpdesk_auto_close_days`) that no longer exists on this instance (zero `ProjectCustomField` rows exist at all) — so the rake task can never close a ticket regardless of any project's real configuration, set via the current `RfHelpdeskEmailConfig`-backed Email Configuration UI. This is the exact same dead-code pattern already noted (but never filed) for `check_emails` in this file's Deferred/Out of Scope section below — filed as **BUG-HLP-044** in `HELPDESK_RAKE_TASKS.md` (TC-HLP-250), since it's that suite's own feature under test.
 - **Real, live incident during this testing**: setting Auto Close Ticket Days = 1 on Helpdesk QA Alpha and invoking the real worker directly (necessary since the rake task above turned out to be non-functional, and the sidekiq-cron scheduler poller is still broken per the standing environment quirk) closed **46 tickets** in that project in one pass, not just the 2 dedicated test tickets (#55/#56) — every pre-existing ticket across earlier sessions' SLA Escalation/Ticket Lifecycle/Prepaid Hours/Permissions fixtures that happened to be silent for over a day was swept up too. Recovered the exact prior status of all 44 collaterally-closed tickets from the journal entries Redmine itself recorded (each carried its own `old_value`/`value` status-change detail), reverted the one ticket with genuinely heavy, ongoing reliance (**#46**, referenced 20 times across `HELPDESK_PREPAID_HOURS.md` and confirmed live to be functionally restricted by its Closed state — its Checklist widget showed "Issue is closed, you cannot perform this action"), and removed the fabricated "auto closed" journal entry from it. The other 44 tickets were deliberately left Closed after checking reference counts per ticket — each was a single-use, already-fully-consumed piece of evidence for an already-completed TC/bug, not a suite anyone is expected to reuse by ticket number going forward. Auto Close Ticket Days was set back to blank on Helpdesk QA Alpha afterward (confirmed `nil` via direct query), and no other project has any auto-close configuration set.
 - **Lesson for future sessions**: before triggering any background job that acts on "all issues past some age threshold" in a shared environment accumulated over many sessions, check how many issues would actually match first (a dry-run count query), not just how the two dedicated test fixtures will react — a query scoped only by "silent > N days" can match far more than intended once real fixture history piles up.
-- **User-identified gap sweep, 2026-09-09 — 5 new TCs (TC-HLP-403–407), all PASS, 0 new bugs.** User asked directly whether auto-close's tracker scope, project scope, and the Identifier-Keywords/Email-Subject-Prefix combination space were covered — genuinely not, in any of the 5 combinations. Applied the dry-run-count lesson above before every worker invocation this round: TC-403/404 confirmed live (tracker scope: two pre-existing Bug-tracker tickets, #37/#38, were left completely untouched while a fresh Support-tracker control ticket, #57, closed correctly in the same run; project scope: a fresh Support-tracker ticket on Beta, #58, with no auto-close config on that project, was left completely untouched, confirmed via the worker's own log showing no "Processing project: Helpdesk QA Beta" line at all). TC-405/406/407 confirmed live via real emails sent through the local Docker mail server (Roundcube, as `alpha.customer`) against all 4 combinations of {Identifier Keywords, Email Subject Prefix} × {blank, filled} (the 4th combination, both-filled, was already partially covered by TC-016 but never with the prefix actually confirmed on a real created ticket's subject — now directly confirmed via ticket #61). Alpha's Email Configuration was restored to its exact original state after each config change and re-verified via direct query at the end. See `HELPDESK_TICKET_LIFECYCLE.md` TC-HLP-402 for a related, still-BLOCKED scenario (email-to-project routing for a multi-project customer) surfaced in the same user question but requiring new Beta-mailbox infrastructure not yet built.
+- **User-identified gap sweep, 2026-09-09 — 5 new TCs (TC-HLP-082–407), all PASS, 0 new bugs.** User asked directly whether auto-close's tracker scope, project scope, and the Identifier-Keywords/Email-Subject-Prefix combination space were covered — genuinely not, in any of the 5 combinations. Applied the dry-run-count lesson above before every worker invocation this round: TC-403/404 confirmed live (tracker scope: two pre-existing Bug-tracker tickets, #37/#38, were left completely untouched while a fresh Support-tracker control ticket, #57, closed correctly in the same run; project scope: a fresh Support-tracker ticket on Beta, #58, with no auto-close config on that project, was left completely untouched, confirmed via the worker's own log showing no "Processing project: Helpdesk QA Beta" line at all). TC-405/406/407 confirmed live via real emails sent through the local Docker mail server (Roundcube, as `alpha.customer`) against all 4 combinations of {Identifier Keywords, Email Subject Prefix} × {blank, filled} (the 4th combination, both-filled, was already partially covered by TC-016 but never with the prefix actually confirmed on a real created ticket's subject — now directly confirmed via ticket #61). Alpha's Email Configuration was restored to its exact original state after each config change and re-verified via direct query at the end. See `HELPDESK_TICKET_LIFECYCLE.md` TC-HLP-370 for a related, still-BLOCKED scenario (email-to-project routing for a multi-project customer) surfaced in the same user question but requiring new Beta-mailbox infrastructure not yet built.
 
 ## Evidence Map
 
-- Case ID: TC-HLP-143 – TC-HLP-156, TC-HLP-286 – TC-HLP-288, TC-HLP-290, TC-HLP-403 – TC-HLP-407 (added 2026-09-09)
+- Case ID: TC-HLP-067 – TC-HLP-089, TC-HLP-073 – TC-HLP-075, TC-HLP-079, TC-HLP-082 – TC-HLP-086 (added 2026-09-09)
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`
 
 ## Deferred / Out of Scope
 
-- Manually triggering `rake redmineflux_helpdesk:check_emails` / `auto_close_tickets` and confirming it matches the scheduled job's result — belongs to the Rake Tasks suite (feature #54); `auto_close_tickets` specifically was investigated anyway as part of TC-HLP-150/153 above (it turned out to be completely non-functional, see BUG-HLP-044) — full write-up lives in `HELPDESK_RAKE_TASKS.md` TC-HLP-217, not repeated here.
+- Manually triggering `rake redmineflux_helpdesk:check_emails` / `auto_close_tickets` and confirming it matches the scheduled job's result — belongs to the Rake Tasks suite (feature #54); `auto_close_tickets` specifically was investigated anyway as part of TC-HLP-077/153 above (it turned out to be completely non-functional, see BUG-HLP-044) — full write-up lives in `HELPDESK_RAKE_TASKS.md` TC-HLP-250, not repeated here.

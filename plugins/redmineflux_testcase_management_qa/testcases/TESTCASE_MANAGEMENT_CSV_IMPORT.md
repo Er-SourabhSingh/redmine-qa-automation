@@ -20,7 +20,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-001: Legacy single Steps/Expected column import (backward compatibility)
+### TC-TCM-021: Legacy single Steps/Expected column import (backward compatibility)
 
 **User Role:** QA / Manager (whoever holds testcase-management create permission)
 **Precondition:** A CSV using only the legacy `Steps` / `Expected` column pair (no numbered `Step N` columns).
@@ -38,13 +38,13 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-002: Legacy row with missing Expected Result is skipped, case still created
+### TC-TCM-022: Legacy row with missing Expected Result is skipped, case still created
 
 **User Role:** QA / Manager
 **Precondition:** Legacy-format CSV with one row's `Expected` cell empty but `Steps` cell filled.
 
 **Steps:**
-1. Import the CSV per TC-TCM-001's flow (fixture: `automation/uploads/legacy-missing-expected.csv`)
+1. Import the CSV per TC-TCM-021's flow (fixture: `automation/uploads/legacy-missing-expected.csv`)
 2. Reach the preview step and note the Warning status on the affected row
 3. Confirm import
 4. Open the created test case
@@ -55,7 +55,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-003: Zero-step CSV (no Step section at all)
+### TC-TCM-023: Zero-step CSV (no Step section at all)
 
 **User Role:** QA / Manager
 **Precondition:** CSV with only Title/Description/Priority columns, no Steps/Expected columns of any kind.
@@ -71,7 +71,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-004: 50-step CSV imports fully, correctly numbered and ordered
+### TC-TCM-024: 50-step CSV imports fully, correctly numbered and ordered
 
 **User Role:** QA / Manager
 **Precondition:** CSV with Step 1..Step 50 / Expected Result 1..50, all pairs populated.
@@ -87,7 +87,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-005: Steps-only row and Expected-only row are each skipped with a warning
+### TC-TCM-025: Steps-only row and Expected-only row are each skipped with a warning
 
 **User Role:** QA / Manager
 **Precondition:** New numbered-column CSV where one `Step N` cell has no matching `Expected Result N`, and another row has the reverse.
@@ -103,7 +103,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-006: Varying step counts within one file — no cross-contamination
+### TC-TCM-026: Varying step counts within one file — no cross-contamination
 
 **User Role:** QA / Manager
 **Precondition:** CSV with multiple rows (test cases) of different step counts, including one 30-step row.
@@ -119,7 +119,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-007: Non-sequential step numbering (Step 1 / Step 3 / Step 5) is renumbered on import
+### TC-TCM-027: Non-sequential step numbering (Step 1 / Step 3 / Step 5) is renumbered on import
 
 **User Role:** QA / Manager
 **Precondition:** CSV with columns `Step 1`, `Step 3`, `Step 5` (and matching Expected Result columns) — gaps at 2 and 4.
@@ -135,7 +135,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-008: Special characters, unicode, emoji, and embedded newlines are stored correctly
+### TC-TCM-028: Special characters, unicode, emoji, and embedded newlines are stored correctly
 
 **User Role:** QA / Manager
 **Precondition:** CSV with step/expected text containing unicode text, emoji, and embedded newlines within a quoted CSV cell.
@@ -151,7 +151,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-009: Header missing an entire column family (Step-only or Expected-only headers)
+### TC-TCM-029: Header missing an entire column family (Step-only or Expected-only headers)
 
 **User Role:** QA / Manager
 **Precondition:** CSV whose header row has `Step N` columns but no `Expected Result N` columns at all (or vice versa) — a structural mismatch, not just a per-row gap.
@@ -171,7 +171,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-010: Step text at the 2000-character limit imports successfully
+### TC-TCM-030: Step text at the 2000-character limit imports successfully
 
 **User Role:** QA / Manager
 **Precondition:** CSV with one step's text exactly 2000 characters.
@@ -186,10 +186,10 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-011: Step text over the 2000-character limit (2001 chars) is rejected
+### TC-TCM-031: Step text over the 2000-character limit (2001 chars) is rejected
 
 **User Role:** QA / Manager
-**Precondition:** Same CSV structure as TC-TCM-010, one character over (2001).
+**Precondition:** Same CSV structure as TC-TCM-030, one character over (2001).
 
 **Steps:**
 1. Import the CSV (fixture: `automation/uploads/step-2001-chars.csv`)
@@ -201,7 +201,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-012: Oversized step text (2500 chars) rejects the whole test case, zero imported
+### TC-TCM-032: Oversized step text (2500 chars) rejects the whole test case, zero imported
 
 **User Role:** QA / Manager
 **Precondition:** CSV with one step at 2500 characters.
@@ -216,7 +216,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-013: Empty file / header-only file
+### TC-TCM-033: Empty file / header-only file
 
 **User Role:** QA / Manager
 **Precondition:** One CSV with zero bytes, one CSV with only a header row and no data rows.
@@ -230,7 +230,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-014: Large bulk import (100 test cases × 3 steps each)
+### TC-TCM-034: Large bulk import (100 test cases × 3 steps each)
 
 **User Role:** QA / Manager
 **Precondition:** CSV with 100 data rows, each with 3 populated step/expected pairs.
@@ -250,7 +250,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-015: Step column header with leading/trailing whitespace
+### TC-TCM-035: Step column header with leading/trailing whitespace
 
 **User Role:** QA / Manager
 **Precondition:** CSV with a header like `" Step 1 "` (leading/trailing spaces) instead of `"Step 1"`.
@@ -267,7 +267,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-016: Duplicated column header (Step 1 appears twice)
+### TC-TCM-036: Duplicated column header (Step 1 appears twice)
 
 **User Role:** QA / Manager
 **Precondition:** CSV whose header row has `Step 1` listed twice (two separate columns, same name).
@@ -284,7 +284,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 
 ---
 
-### TC-TCM-017: Wide CSV — all-columns Redmine issue export does not overflow the session cookie
+### TC-TCM-037: Wide CSV — all-columns Redmine issue export does not overflow the session cookie
 
 **User Role:** Admin / QA (testcase-management create permission)
 **Precondition:** A project with many issue custom fields defined, so that an "All Columns" issue export produces a
@@ -366,23 +366,23 @@ UTF-8 and mangles content otherwise.
 
 | TC ID | CSV fixture (in `automation/uploads/`) | Bug reference |
 |---|---|---|
-| TC-TCM-001 | legacy-steps-expected.csv | — |
-| TC-TCM-002 | legacy-missing-expected.csv | — |
-| TC-TCM-003 | zero-steps.csv | — |
-| TC-TCM-004 | fifty-steps.csv | — |
-| TC-TCM-005 | step-only-and-expected-only.csv | — |
-| TC-TCM-006 | varying-step-counts.csv | — |
-| TC-TCM-007 | non-sequential-steps.csv | — |
-| TC-TCM-008 | special-characters.csv | — |
-| TC-TCM-009 | missing-column-family.csv | — |
-| TC-TCM-010 | step-2000-chars.csv | — |
-| TC-TCM-011 | step-2001-chars.csv | — |
-| TC-TCM-012 | step-2500-chars.csv | — |
-| TC-TCM-013 | empty-file.csv, header-only.csv | — |
-| TC-TCM-014 | bulk-100x3.csv | — |
-| TC-TCM-015 | `automation/testdata/csv-test-data/15_header_case_and_whitespace_variations.csv` | BUG-TCM-001 (closed 2026-09-11) |
-| TC-TCM-016 | `automation/testdata/csv-test-data/14_duplicate_step_column_headers.csv` | BUG-TCM-002 (closed 2026-09-11) |
-| TC-TCM-017 | `18_all_columns_export_118789.csv` (R7), `19_..._redmine6.csv` (R6), `20_..._redmine5.csv` (R5) — all in `automation/testdata/csv-test-data/` | production #118789 — retest PASS 2026-09-15 on all three supported Redmine versions |
+| TC-TCM-021 | legacy-steps-expected.csv | — |
+| TC-TCM-022 | legacy-missing-expected.csv | — |
+| TC-TCM-023 | zero-steps.csv | — |
+| TC-TCM-024 | fifty-steps.csv | — |
+| TC-TCM-025 | step-only-and-expected-only.csv | — |
+| TC-TCM-026 | varying-step-counts.csv | — |
+| TC-TCM-027 | non-sequential-steps.csv | — |
+| TC-TCM-028 | special-characters.csv | — |
+| TC-TCM-029 | missing-column-family.csv | — |
+| TC-TCM-030 | step-2000-chars.csv | — |
+| TC-TCM-031 | step-2001-chars.csv | — |
+| TC-TCM-032 | step-2500-chars.csv | — |
+| TC-TCM-033 | empty-file.csv, header-only.csv | — |
+| TC-TCM-034 | bulk-100x3.csv | — |
+| TC-TCM-035 | `automation/testdata/csv-test-data/15_header_case_and_whitespace_variations.csv` | BUG-TCM-001 (closed 2026-09-11) |
+| TC-TCM-036 | `automation/testdata/csv-test-data/14_duplicate_step_column_headers.csv` | BUG-TCM-002 (closed 2026-09-11) |
+| TC-TCM-037 | `18_all_columns_export_118789.csv` (R7), `19_..._redmine6.csv` (R6), `20_..._redmine5.csv` (R5) — all in `automation/testdata/csv-test-data/` | production #118789 — retest PASS 2026-09-15 on all three supported Redmine versions |
 
 ---
 
@@ -394,29 +394,29 @@ TCs in the affected suite). Fixtures: `automation/testdata/csv-test-data/`.
 
 | TC | Fixture | Preview result | Verdict |
 |---|---|---|---|
-| TC-TCM-001 | 01_legacy_single_step_format.csv | 4 correct / 1 warning / 0 errors; legacy `Steps`/`Expected` auto-mapped | PASS |
-| TC-TCM-002 | 01 (row with missing Expected) | row warned & skipped, case still created | PASS |
-| TC-TCM-003 | 02_zero_to_fifty_steps_range.csv | 51 correct / 0 / 0; 0-step row imports with no steps | PASS |
-| TC-TCM-004 | 02 (50-step row) | step count exact for all 50 cases, 0 mismatches, ordered | PASS |
-| TC-TCM-005 | 03_steps_only_no_expected.csv / 04_expected_only_no_steps.csv | 0 correct / 5 warnings / 0 errors each | PASS |
-| TC-TCM-006 | 05_mixed_partial_per_row.csv | 2 correct / 4 warnings / 0 errors; mid-sequence gap skips only that step | PASS |
-| TC-TCM-006 | 06_varying_step_counts_same_file.csv | 5 correct / 0 / 0; step counts exactly 1, 3, 7, 15, 30 | PASS |
-| TC-TCM-007 | 12_non_sequential_step_numbering.csv | 1 correct / 0 / 0; preview shows 1/3/5, saved case #1009 renumbered 1/2/3 with correct content | PASS |
-| TC-TCM-008 | 13_special_characters_and_escaping.csv | 2 correct / 0 / 0; quotes, commas, emoji 🚀, café/naïve/日本語/тест and embedded newlines round-trip exactly | PASS |
-| TC-TCM-009 | 16_step_columns_without_expected_columns_in_header.csv | 1 warning, 3 sub-warnings "Step N is missing its expected result; this step will be skipped" | PASS |
-| TC-TCM-009 | 17_expected_columns_without_step_columns_in_header.csv | mirror: 3 sub-warnings "Step N is missing its step text" | PASS |
-| TC-TCM-010 | 08_boundary_2000_vs_2001_chars.csv (2000-char row) | accepted, 1 correct | PASS |
-| TC-TCM-011 | 08 (2001-char row) | rejected, 1 error | PASS |
-| TC-TCM-012 | 07_oversized_step_text_negative.csv | 0 correct / 0 warnings / 1 error — "Step 1: step content exceeds the maximum length of 2000 characters (got 2500)"; case not imported | PASS |
-| TC-TCM-013 | 10_header_only_no_data_rows.csv | blocked at step 2: "The CSV file contains headers but no data rows." | PASS |
-| TC-TCM-013 | 11_completely_empty_file.csv | blocked at step 2: "The file does not contain any headers or data." | PASS |
-| TC-TCM-014 | 09_large_bulk_import_100_rows.csv | 100 correct / 0 / 0; full wizard in ~544 ms, no timeout | PASS |
-| TC-TCM-015 | 15_header_case_and_whitespace_variations.csv | 1 correct / 0 / 0; padded header's value read correctly (case #1023) | PASS (was FAIL) |
-| TC-TCM-016 | 14_duplicate_step_column_headers.csv | duplicate-header warning shown before confirm; case #1024 matches it | PASS (was FAIL) |
+| TC-TCM-021 | 01_legacy_single_step_format.csv | 4 correct / 1 warning / 0 errors; legacy `Steps`/`Expected` auto-mapped | PASS |
+| TC-TCM-022 | 01 (row with missing Expected) | row warned & skipped, case still created | PASS |
+| TC-TCM-023 | 02_zero_to_fifty_steps_range.csv | 51 correct / 0 / 0; 0-step row imports with no steps | PASS |
+| TC-TCM-024 | 02 (50-step row) | step count exact for all 50 cases, 0 mismatches, ordered | PASS |
+| TC-TCM-025 | 03_steps_only_no_expected.csv / 04_expected_only_no_steps.csv | 0 correct / 5 warnings / 0 errors each | PASS |
+| TC-TCM-026 | 05_mixed_partial_per_row.csv | 2 correct / 4 warnings / 0 errors; mid-sequence gap skips only that step | PASS |
+| TC-TCM-026 | 06_varying_step_counts_same_file.csv | 5 correct / 0 / 0; step counts exactly 1, 3, 7, 15, 30 | PASS |
+| TC-TCM-027 | 12_non_sequential_step_numbering.csv | 1 correct / 0 / 0; preview shows 1/3/5, saved case #1009 renumbered 1/2/3 with correct content | PASS |
+| TC-TCM-028 | 13_special_characters_and_escaping.csv | 2 correct / 0 / 0; quotes, commas, emoji 🚀, café/naïve/日本語/тест and embedded newlines round-trip exactly | PASS |
+| TC-TCM-029 | 16_step_columns_without_expected_columns_in_header.csv | 1 warning, 3 sub-warnings "Step N is missing its expected result; this step will be skipped" | PASS |
+| TC-TCM-029 | 17_expected_columns_without_step_columns_in_header.csv | mirror: 3 sub-warnings "Step N is missing its step text" | PASS |
+| TC-TCM-030 | 08_boundary_2000_vs_2001_chars.csv (2000-char row) | accepted, 1 correct | PASS |
+| TC-TCM-031 | 08 (2001-char row) | rejected, 1 error | PASS |
+| TC-TCM-032 | 07_oversized_step_text_negative.csv | 0 correct / 0 warnings / 1 error — "Step 1: step content exceeds the maximum length of 2000 characters (got 2500)"; case not imported | PASS |
+| TC-TCM-033 | 10_header_only_no_data_rows.csv | blocked at step 2: "The CSV file contains headers but no data rows." | PASS |
+| TC-TCM-033 | 11_completely_empty_file.csv | blocked at step 2: "The file does not contain any headers or data." | PASS |
+| TC-TCM-034 | 09_large_bulk_import_100_rows.csv | 100 correct / 0 / 0; full wizard in ~544 ms, no timeout | PASS |
+| TC-TCM-035 | 15_header_case_and_whitespace_variations.csv | 1 correct / 0 / 0; padded header's value read correctly (case #1023) | PASS (was FAIL) |
+| TC-TCM-036 | 14_duplicate_step_column_headers.csv | duplicate-header warning shown before confirm; case #1024 matches it | PASS (was FAIL) |
 
 **Result: 16/16 TCs PASS, zero new failures.** BUG-TCM-001 and BUG-TCM-002 moved to `bugs/closed/`.
 
-Method note: TC-TCM-015 and TC-TCM-016 (the two retests that gate the bug closures) were executed end-to-end
+Method note: TC-TCM-035 and TC-TCM-036 (the two retests that gate the bug closures) were executed end-to-end
 through the real wizard UI, including performing the import and opening the saved test case. The remaining
 fixtures were driven through the same four wizard endpoints from the authenticated browser session and asserted
 on the rendered step-2 mapping screen and step-4 preview summary.

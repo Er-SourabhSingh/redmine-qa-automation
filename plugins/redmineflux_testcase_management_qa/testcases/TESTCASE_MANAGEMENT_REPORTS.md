@@ -2,7 +2,7 @@
 
 > Source: `docs/TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 9 and the vendor KB "Reporting & Analytics" section.
 >
-> **Status: authored 2026-09-14.** TC-TCM-521 – 526 already carry live evidence from the 2026-09-14 session
+> **Status: authored 2026-09-14.** TC-TCM-098 – 526 already carry live evidence from the 2026-09-14 session
 > (BUG-TCM-005); the rest are not yet executed.
 
 ## Plugin
@@ -18,7 +18,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 **Preconditions:** ≥1 run with executed results; ≥1 requirement with linked cases; ≥1 defect;
 **Redis + Sidekiq running**; for PDF attachment cases, **Node.js + Puppeteer + Chromium installed**
-(Installation step 6) — otherwise TC-TCM-523/525 fail for environment reasons, not product reasons.
+(Installation step 6) — otherwise TC-TCM-100/525 fail for environment reasons, not product reasons.
 
 ---
 
@@ -26,7 +26,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-501: Create a Testcase Summary report
+### TC-TCM-078: Create a Testcase Summary report
 
 **User Role:** QA / Manager
 **Steps:**
@@ -39,7 +39,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-502: Create a Defect Summary report
+### TC-TCM-079: Create a Defect Summary report
 
 **User Role:** QA
 **Steps:**
@@ -50,7 +50,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-503: Create an Activity Summary report with a date range
+### TC-TCM-080: Create an Activity Summary report with a date range
 
 **User Role:** QA
 **Steps:**
@@ -61,7 +61,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-504: Activity Summary requires a date range
+### TC-TCM-081: Activity Summary requires a date range
 
 **User Role:** QA
 **Steps:**
@@ -74,7 +74,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-505: Create a Tester Scorecard report
+### TC-TCM-082: Create a Tester Scorecard report
 
 **User Role:** QA
 **Precondition:** Results recorded by ≥2 different users.
@@ -87,7 +87,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-506: Create a Requirement Coverage report
+### TC-TCM-083: Create a Requirement Coverage report
 
 **User Role:** QA
 **Precondition:** ≥1 requirement with linked test cases.
@@ -100,7 +100,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-507: Requirement Coverage requires a requirement
+### TC-TCM-084: Requirement Coverage requires a requirement
 
 **User Role:** QA
 **Steps:**
@@ -111,7 +111,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-508: Create an Overdue Run Summary report
+### TC-TCM-085: Create an Overdue Run Summary report
 
 **User Role:** QA
 **Precondition:** ≥1 run past its End Date with unexecuted cases.
@@ -124,7 +124,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-509: Report name is mandatory
+### TC-TCM-086: Report name is mandatory
 
 **User Role:** QA
 **Steps:**
@@ -135,7 +135,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-510: Restrict a report to specific test runs
+### TC-TCM-087: Restrict a report to specific test runs
 
 **User Role:** QA
 **Precondition:** ≥2 runs with different results.
@@ -149,7 +149,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-511: Edit a report
+### TC-TCM-088: Edit a report
 
 **User Role:** QA
 **Steps:**
@@ -160,7 +160,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-512: Delete a report
+### TC-TCM-089: Delete a report
 
 **User Role:** Manager / Admin
 **Steps:**
@@ -171,7 +171,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-513: Cancelling report deletion does not delete
+### TC-TCM-090: Cancelling report deletion does not delete
 
 **User Role:** Manager
 **Steps:**
@@ -182,7 +182,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-514: Report reflects data added after creation
+### TC-TCM-091: Report reflects data added after creation
 
 **User Role:** QA
 **Steps:**
@@ -196,7 +196,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-515: Download report as HTML
+### TC-TCM-092: Download report as HTML
 
 **User Role:** QA
 **Steps:**
@@ -208,7 +208,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-516: Download report as PDF (in-app, client-side)
+### TC-TCM-093: Download report as PDF (in-app, client-side)
 
 **User Role:** QA
 **Steps:**
@@ -222,7 +222,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-517: Download report as Excel
+### TC-TCM-094: Download report as Excel
 
 **User Role:** QA
 **Steps:**
@@ -233,7 +233,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-518: Report with no data renders cleanly
+### TC-TCM-095: Report with no data renders cleanly
 
 **User Role:** QA
 **Precondition:** A project with the module enabled but no runs or results.
@@ -246,7 +246,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-519: Report list paginates and sorts
+### TC-TCM-096: Report list paginates and sorts
 
 **User Role:** QA
 **Precondition:** More reports than fit on one page.
@@ -259,7 +259,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-520: Report respects project scope
+### TC-TCM-097: Report respects project scope
 
 **User Role:** QA
 **Steps:**
@@ -274,7 +274,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-521: Email a report as an HTML attachment
+### TC-TCM-098: Email a report as an HTML attachment
 
 **User Role:** QA
 **Precondition:** Sidekiq running; a real checkable mailbox.
@@ -291,24 +291,24 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-522: Emailed HTML attachment content matches the in-app report
+### TC-TCM-099: Emailed HTML attachment content matches the in-app report
 
 **User Role:** QA
 **Steps:**
-1. Open the attachment from TC-TCM-521 and compare against the in-app report.
+1. Open the attachment from TC-TCM-098 and compare against the in-app report.
 
 **Expected Result:**
 - Same figures, same tables, same report type heading.
 
 ---
 
-### TC-TCM-523: Email a report as a PDF attachment
+### TC-TCM-100: Email a report as a PDF attachment
 
 **User Role:** QA
 **Precondition:** Sidekiq running **and Node.js + Puppeteer + Chromium installed** (Installation step 6).
 
 **Steps:**
-1. As TC-TCM-521 but selecting **Email the report as PDF attachment**.
+1. As TC-TCM-098 but selecting **Email the report as PDF attachment**.
 2. Open the mailbox.
 
 **Expected Result:**
@@ -325,14 +325,14 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-524: PDF failure must not produce a misleading email
+### TC-TCM-101: PDF failure must not produce a misleading email
 
 **User Role:** QA / Admin
-**Precondition:** Node.js + Puppeteer + Chromium **installed and working** (verify TC-TCM-523 passes first), plus
+**Precondition:** Node.js + Puppeteer + Chromium **installed and working** (verify TC-TCM-100 passes first), plus
 **shell access** to restart Sidekiq. This TC cannot be executed from the browser alone.
 
 **Steps:**
-1. Verify TC-TCM-523 passes — a normal PDF email delivers a valid attachment. This rules out the environment cause.
+1. Verify TC-TCM-100 passes — a normal PDF email delivers a valid attachment. This rules out the environment cause.
 2. Break PDF generation deliberately: restart Sidekiq with
    `PUPPETEER_EXECUTABLE_PATH=/nonexistent/chrome GROVER_NO_SANDBOX=true`.
 3. Email a report as PDF.
@@ -355,14 +355,14 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
   shared by both formats, so the misleading line is not PDF-specific — only the swallowing `rescue` is. Verify,
   don't assume.
 
-> **Do not confuse this with TC-TCM-523 / BUG-TCM-005.** That pair asserts the PDF is generated and attached on a
+> **Do not confuse this with TC-TCM-100 / BUG-TCM-005.** That pair asserts the PDF is generated and attached on a
 > working server (closed, fixed by completing Installation step 6). This TC asserts a *failed* PDF must not produce
 > a misleading email — a separate defect that only appears once PDF generation is deliberately broken. Running this
 > TC on a server that has no Node.js at all tests neither assertion cleanly.
 
 ---
 
-### TC-TCM-525: Report type does not affect emailing behaviour
+### TC-TCM-102: Report type does not affect emailing behaviour
 
 **User Role:** QA
 **Steps:**
@@ -377,7 +377,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-526: Multiple recipients, one address per line
+### TC-TCM-103: Multiple recipients, one address per line
 
 **User Role:** QA
 **Steps:**
@@ -389,7 +389,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-527: Invalid email address is rejected or reported
+### TC-TCM-104: Invalid email address is rejected or reported
 
 **User Role:** QA
 **Steps:**
@@ -401,7 +401,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-528: Emailing without "Notify me by email" sends nothing
+### TC-TCM-105: Emailing without "Notify me by email" sends nothing
 
 **User Role:** QA
 **Steps:**
@@ -412,7 +412,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-529: Report email with Sidekiq stopped
+### TC-TCM-106: Report email with Sidekiq stopped
 
 **User Role:** Admin / QA
 **Steps:**
@@ -429,7 +429,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-530: Schedule a daily report
+### TC-TCM-107: Schedule a daily report
 
 **User Role:** QA
 **Steps:**
@@ -441,7 +441,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-531: Schedule a weekly report on a chosen weekday
+### TC-TCM-108: Schedule a weekly report on a chosen weekday
 
 **User Role:** QA
 **Steps:**
@@ -452,7 +452,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-532: Schedule a monthly report on a chosen day
+### TC-TCM-109: Schedule a monthly report on a chosen day
 
 **User Role:** QA
 **Steps:**
@@ -464,7 +464,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-533: Cancel a scheduled report
+### TC-TCM-110: Cancel a scheduled report
 
 **User Role:** QA
 **Steps:**
@@ -476,7 +476,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 ---
 
-### TC-TCM-534: Scheduled time is interpreted as UTC
+### TC-TCM-111: Scheduled time is interpreted as UTC
 
 **User Role:** QA
 **Steps:**
@@ -492,11 +492,11 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-501 – 520 | Report creation, viewing, download | — |
-| TC-TCM-521 – 529 | Emailing | **BUG-TCM-005** (prod #120588) — TC-TCM-523/524/525 |
-| TC-TCM-530 – 534 | Scheduling | — |
+| TC-TCM-078 – 520 | Report creation, viewing, download | — |
+| TC-TCM-098 – 529 | Emailing | **BUG-TCM-005** (prod #120588) — TC-TCM-100/524/525 |
+| TC-TCM-107 – 534 | Scheduling | — |
 
-- Existing evidence for TC-TCM-521/523/525: `screenshots/BUG-TCM-005/` and
+- Existing evidence for TC-TCM-098/523/525: `screenshots/BUG-TCM-005/` and
   `logs/BUG-TCM-005-pdf-attachment-evidence.log`.
-- TC-TCM-523 and TC-TCM-529 are **environment-sensitive** — verify Sidekiq and Installation step 6 before
+- TC-TCM-100 and TC-TCM-106 are **environment-sensitive** — verify Sidekiq and Installation step 6 before
   recording a failure against the product.

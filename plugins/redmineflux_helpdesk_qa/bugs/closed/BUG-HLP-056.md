@@ -18,7 +18,7 @@
 
 ## Expected result
 
-Per `HELPDESK_RAKE_TASKS.md` TC-HLP-215 ("The ticket is checked, marked breached if due, and escalated if applicable — identical outcome to what the scheduled SLA monitor would produce"), running this task by hand should escalate an eligible ticket to its next support level exactly as `Helpdesk::SlaMonitorWorker` (the real scheduled job) does.
+Per `HELPDESK_RAKE_TASKS.md` TC-HLP-248 ("The ticket is checked, marked breached if due, and escalated if applicable — identical outcome to what the scheduled SLA monitor would produce"), running this task by hand should escalate an eligible ticket to its next support level exactly as `Helpdesk::SlaMonitorWorker` (the real scheduled job) does.
 
 ## Actual result
 
@@ -80,7 +80,7 @@ Live-verified: ran `bundle exec rake redmineflux_helpdesk:check_sla` for real. O
 
 ## Notes
 
-- Found while executing `HELPDESK_RAKE_TASKS.md` TC-HLP-215 (`check_sla` run by hand).
+- Found while executing `HELPDESK_RAKE_TASKS.md` TC-HLP-248 (`check_sla` run by hand).
 - Unlike BUG-HLP-044/055, this is **not** a dead-code/legacy-migration issue — `check_sla` genuinely reads and writes the real, current `RfIssueSlaStatus` model, and breach detection/marking/notification-sending all work. This is a narrower, single-argument mismatch, but its effect (zero working escalations, ever, via this task) is just as complete a functional failure for the escalation half of the task's job.
 - Severity judged **Medium**: admin-only rake task, breach detection/notification (arguably the more time-sensitive half) still works; but escalation — the mechanism that gets a breached ticket in front of the right tier — silently fails every time this task is used as a manual/backup path instead of waiting for the scheduled worker.
 - Recommend: change the two hardcoded strings in `lib/tasks/helpdesk.rake` to `'response_breach'` and `'resolution_breach'` (matching `sla_monitor_worker.rb` exactly), or better, have the rake task delegate to `Helpdesk::SlaMonitorWorker`'s own logic directly so there is only one implementation to keep in sync — the same recommendation already made for BUG-HLP-044/055.

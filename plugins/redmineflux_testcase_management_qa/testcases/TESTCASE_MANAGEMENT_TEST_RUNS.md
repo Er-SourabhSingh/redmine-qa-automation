@@ -28,7 +28,7 @@ background jobs).
 
 ---
 
-### TC-TCM-401: Create a run with all fields populated
+### TC-TCM-152: Create a run with all fields populated
 
 **User Role:** QA / Manager
 **Precondition:** ≥1 environment and ≥3 test cases exist.
@@ -47,7 +47,7 @@ background jobs).
 
 ---
 
-### TC-TCM-402: Create a run including all test cases
+### TC-TCM-153: Create a run including all test cases
 
 **User Role:** QA
 **Steps:**
@@ -59,7 +59,7 @@ background jobs).
 
 ---
 
-### TC-TCM-403: Create a run with multiple environments
+### TC-TCM-154: Create a run with multiple environments
 
 **User Role:** QA
 **Precondition:** ≥2 environments exist.
@@ -74,7 +74,7 @@ background jobs).
 
 ---
 
-### TC-TCM-404: Run name is mandatory
+### TC-TCM-155: Run name is mandatory
 
 **User Role:** QA
 **Steps:**
@@ -85,7 +85,7 @@ background jobs).
 
 ---
 
-### TC-TCM-405: End date earlier than start date is rejected
+### TC-TCM-156: End date earlier than start date is rejected
 
 **User Role:** QA
 **Steps:**
@@ -97,7 +97,7 @@ background jobs).
 
 ---
 
-### TC-TCM-406: Edit an existing run
+### TC-TCM-157: Edit an existing run
 
 **User Role:** QA / Manager
 **Steps:**
@@ -110,7 +110,7 @@ background jobs).
 
 ---
 
-### TC-TCM-407: Close a run
+### TC-TCM-158: Close a run
 
 **User Role:** QA / Manager
 **Steps:**
@@ -122,11 +122,11 @@ background jobs).
 
 ---
 
-### TC-TCM-408: A closed run cannot be executed against
+### TC-TCM-159: A closed run cannot be executed against
 
 **User Role:** QA
 **Steps:**
-1. Open the run closed in TC-TCM-407 from the **Closed** tab.
+1. Open the run closed in TC-TCM-158 from the **Closed** tab.
 2. Attempt to set a result on any test case.
 
 **Expected Result:**
@@ -135,7 +135,7 @@ background jobs).
 
 ---
 
-### TC-TCM-409: Delete a run
+### TC-TCM-160: Delete a run
 
 **User Role:** Manager / Admin
 **Steps:**
@@ -147,7 +147,7 @@ background jobs).
 
 ---
 
-### TC-TCM-410: Cancelling the delete prompt does not delete
+### TC-TCM-161: Cancelling the delete prompt does not delete
 
 **User Role:** Manager
 **Steps:**
@@ -159,7 +159,7 @@ background jobs).
 
 ---
 
-### TC-TCM-411: Run state values persist and display
+### TC-TCM-162: Run state values persist and display
 
 **User Role:** QA
 **Steps:**
@@ -171,7 +171,7 @@ background jobs).
 
 ---
 
-### TC-TCM-412: Overdue run is flagged
+### TC-TCM-163: Overdue run is flagged
 
 **User Role:** QA
 **Steps:**
@@ -183,7 +183,7 @@ background jobs).
 
 ---
 
-### TC-TCM-413: Watchers receive run notifications
+### TC-TCM-164: Watchers receive run notifications
 
 **User Role:** QA (creator), plus a watcher account with a real mailbox
 **Precondition:** Sidekiq running; **Run Added** / **Run Updated** notifications enabled.
@@ -200,7 +200,7 @@ background jobs).
 
 ---
 
-### TC-TCM-414: Active and Closed tabs partition runs correctly
+### TC-TCM-165: Active and Closed tabs partition runs correctly
 
 **User Role:** QA
 **Steps:**
@@ -211,7 +211,7 @@ background jobs).
 
 ---
 
-### TC-TCM-415: Search a run by name and by ID
+### TC-TCM-166: Search a run by name and by ID
 
 **User Role:** QA
 **Steps:**
@@ -222,7 +222,7 @@ background jobs).
 
 ---
 
-### TC-TCM-416: Run list paginates correctly
+### TC-TCM-167: Run list paginates correctly
 
 **User Role:** QA
 **Precondition:** More runs than one page holds.
@@ -235,7 +235,7 @@ background jobs).
 
 ---
 
-### TC-TCM-417: Test case added to a suite after run creation
+### TC-TCM-168: Test case added to a suite after run creation
 
 **User Role:** QA
 **Steps:**
@@ -250,7 +250,7 @@ background jobs).
 
 ---
 
-### TC-TCM-418: Deleting a test case that belongs to an active run
+### TC-TCM-169: Deleting a test case that belongs to an active run
 
 **User Role:** Admin
 **Steps:**
@@ -267,7 +267,7 @@ background jobs).
 
 ---
 
-### TC-TCM-419: Record a Passed result
+### TC-TCM-170: Record a Passed result
 
 **User Role:** QA
 **Steps:**
@@ -280,7 +280,7 @@ background jobs).
 
 ---
 
-### TC-TCM-420: Record each of the six statuses
+### TC-TCM-171: Record each of the six statuses
 
 **User Role:** QA
 **Steps:**
@@ -293,7 +293,7 @@ background jobs).
 
 ---
 
-### TC-TCM-421: Failed result requires a defect
+### TC-TCM-172: Failed result requires a defect
 
 **User Role:** QA
 **Steps:**
@@ -306,7 +306,7 @@ background jobs).
 
 ---
 
-### TC-TCM-422: Report a new bug from a failed execution
+### TC-TCM-173: Report a new bug from a failed execution
 
 **User Role:** QA
 **Precondition:** Defect Tracker configured.
@@ -321,7 +321,7 @@ background jobs).
 
 ---
 
-### TC-TCM-423: Link an existing defect to a failed execution
+### TC-TCM-174: Link an existing defect to a failed execution
 
 **User Role:** QA
 **Steps:**
@@ -333,18 +333,18 @@ background jobs).
 
 ---
 
-### TC-TCM-424: Blocked result behaves like Failed for defect handling
+### TC-TCM-175: Blocked result behaves like Failed for defect handling
 
 **User Role:** QA
 **Steps:**
-1. Set a case to **Blocked** and repeat TC-TCM-421 / TC-TCM-422.
+1. Set a case to **Blocked** and repeat TC-TCM-172 / TC-TCM-173.
 
 **Expected Result:**
 - Defect handling matches the Failed behaviour documented above.
 
 ---
 
-### TC-TCM-425: Attach a file to an execution result
+### TC-TCM-176: Attach a file to an execution result
 
 **User Role:** QA
 **Steps:**
@@ -356,7 +356,7 @@ background jobs).
 
 ---
 
-### TC-TCM-426: Results are independent per environment
+### TC-TCM-177: Results are independent per environment
 
 **User Role:** QA
 **Precondition:** A run with two environments.
@@ -372,7 +372,7 @@ background jobs).
 
 ---
 
-### TC-TCM-427: Re-executing a case updates the current result and keeps history
+### TC-TCM-178: Re-executing a case updates the current result and keeps history
 
 **User Role:** QA
 **Steps:**
@@ -384,7 +384,7 @@ background jobs).
 
 ---
 
-### TC-TCM-428: Execute from the test case detail page
+### TC-TCM-179: Execute from the test case detail page
 
 **User Role:** QA
 **Steps:**
@@ -397,7 +397,7 @@ background jobs).
 
 ---
 
-### TC-TCM-429: Execution history shows author, timestamp and environment
+### TC-TCM-180: Execution history shows author, timestamp and environment
 
 **User Role:** QA and a second user
 **Steps:**
@@ -409,7 +409,7 @@ background jobs).
 
 ---
 
-### TC-TCM-430: Filter run grid by defect status
+### TC-TCM-181: Filter run grid by defect status
 
 **User Role:** QA
 **Steps:**
@@ -420,7 +420,7 @@ background jobs).
 
 ---
 
-### TC-TCM-431: Filter run grid by run result
+### TC-TCM-182: Filter run grid by run result
 
 **User Role:** QA
 **Steps:**
@@ -431,7 +431,7 @@ background jobs).
 
 ---
 
-### TC-TCM-432: Notes on a result are preserved verbatim
+### TC-TCM-183: Notes on a result are preserved verbatim
 
 **User Role:** QA
 **Steps:**
@@ -443,7 +443,7 @@ background jobs).
 
 ---
 
-### TC-TCM-433: Result triggers the Test Case Result Added notification
+### TC-TCM-184: Result triggers the Test Case Result Added notification
 
 **User Role:** QA, with a watcher mailbox
 **Precondition:** Sidekiq running; the notification enabled.
@@ -456,7 +456,7 @@ background jobs).
 
 ---
 
-### TC-TCM-434: Dashboard statistics reflect execution
+### TC-TCM-185: Dashboard statistics reflect execution
 
 **User Role:** QA
 **Steps:**
@@ -468,7 +468,7 @@ background jobs).
 
 ---
 
-### TC-TCM-435: Execution with Sidekiq stopped
+### TC-TCM-186: Execution with Sidekiq stopped
 
 **User Role:** QA / Admin
 **Steps:**
@@ -483,7 +483,7 @@ background jobs).
 
 ---
 
-### TC-TCM-436: Concurrent execution by two users on the same case
+### TC-TCM-187: Concurrent execution by two users on the same case
 
 **User Role:** two QA users
 **Steps:**
@@ -500,7 +500,7 @@ background jobs).
 
 ---
 
-### TC-TCM-437: Bulk update results for multiple selected cases
+### TC-TCM-188: Bulk update results for multiple selected cases
 
 **User Role:** QA
 **Steps:**
@@ -515,11 +515,11 @@ background jobs).
 
 ---
 
-### TC-TCM-438: Bulk update with execution notes
+### TC-TCM-189: Bulk update with execution notes
 
 **User Role:** QA
 **Steps:**
-1. As TC-TCM-437, entering a note in the **Notes** field before submitting.
+1. As TC-TCM-188, entering a note in the **Notes** field before submitting.
 
 **Expected Result:**
 - The note is applied to every selected case's result.
@@ -527,7 +527,7 @@ background jobs).
 
 ---
 
-### TC-TCM-439: Bulk update applies only to the selected cases
+### TC-TCM-190: Bulk update applies only to the selected cases
 
 **User Role:** QA
 **Steps:**
@@ -540,7 +540,7 @@ background jobs).
 
 ---
 
-### TC-TCM-440: Bulk update status list excludes defect-requiring statuses
+### TC-TCM-191: Bulk update status list excludes defect-requiring statuses
 
 **User Role:** QA
 **Steps:**
@@ -556,9 +556,9 @@ background jobs).
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-401 – 418 | Run lifecycle | — |
-| TC-TCM-419 – 436 | Execution | — |
-| TC-TCM-437 – 440 | Bulk update | **BUG-TCM-003** (prod #120544) |
+| TC-TCM-152 – 418 | Run lifecycle | — |
+| TC-TCM-170 – 436 | Execution | — |
+| TC-TCM-188 – 440 | Bulk update | **BUG-TCM-003** (prod #120544) |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
-- TC-TCM-413, 433 and 435 depend on Sidekiq — confirm it is running before calling any of them a failure.
+- TC-TCM-164, 433 and 435 depend on Sidekiq — confirm it is running before calling any of them a failure.

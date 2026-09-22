@@ -93,7 +93,7 @@
   module enabled**; it was switched on for "test project" via Settings > Modules. Fixtures created there for
   #120436: sprint "SP Sanity Sprint 120436" and issues #1530 (New, 8 SP), #1529 (Resolved, 5 SP), #1528 (New, no
   SP), #1527 (Rejected, 2 SP), #1526 (In Progress, 3 SP) - all in that sprint. "test project" holds ~1180 issues,
-  which also makes it a usable fixture for the lazy-load case TC-AGB-536.
+  which also makes it a usable fixture for the lazy-load case TC-AGB-036.
 
 - **`BUG-AGB-010` (open, Medium - downgraded from an initial High)**: a `query_id` parameter on the Agile
   Board/Backlog controller crashes 500 with `FrozenError (can't modify frozen String: "project_id IS NULL")`
@@ -106,7 +106,7 @@
   button or link that reaches this crash; it requires manually editing the URL, which is why severity was
   revised down after the initial filing. Still a real, intentionally-handled input from the controller's own
   code (not dead code), so worth fixing regardless. Workaround: use `set_filter=1` with explicit `f[]`/`op[]`
-  params instead of `query_id` on these pages. **TC-AGB-541 ("a saved query overrides the setting") is marked N/A, not blocked** - there is no UI feature to load a saved query on the Backlog or Agile Board pages at all, so the TC describes something the product never built; this bug is an independent side-finding, not the reason the TC can't run.
+  params instead of `query_id` on these pages. **TC-AGB-041 ("a saved query overrides the setting") is marked N/A, not blocked** - there is no UI feature to load a saved query on the Backlog or Agile Board pages at all, so the TC describes something the product never built; this bug is an independent side-finding, not the reason the TC can't run.
 - **Fractional Story Points are rejected by design, not a gap.** The Story Point Values input has client-side
   validation ("Story points must be positive integers only (no decimals or negative numbers)"); an invalid
   submission (e.g. "2.5") is safely ignored server-side too, leaving the prior valid config untouched rather
@@ -120,7 +120,7 @@
   them.** The filter panel's own "Apply" button sits right next to the Board Settings panel's "**Apply Settings**"
   button; only the latter submits `board[visible_card_fields][]`. Clicking the wrong one looks identical (both
   reload the Backlog) but never touches card-field visibility, which briefly looked like a persistence bug
-  during TC-AGB-537 until the right button was used — it persists correctly. Once `story_points` is checked
+  during TC-AGB-037 until the right button was used — it persists correctly. Once `story_points` is checked
   and saved via "Apply Settings", every card renders a `[data-points]` button; clicking it inserts a
   `<select class="rf-points-select">` next to the button (`rf_story_points.js`) that creates/updates/removes the
   column badge live, matching a reload exactly. The Kanban board's own settings panel uses a different, separate

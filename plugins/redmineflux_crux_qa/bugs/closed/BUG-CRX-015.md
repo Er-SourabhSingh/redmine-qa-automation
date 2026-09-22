@@ -20,7 +20,7 @@
 
 ## Expected result
 
-- Per TC-CRX-088 ("Link contact [X] to deal [Z]"), this should produce a normal confirm proposal using the real contact/deal names or IDs already established elsewhere in the same session — consistent with every other CRM write action (create contact/company/deal/lead), none of which require a Redmine `project_id`.
+- Per TC-CRX-013 ("Link contact [X] to deal [Z]"), this should produce a normal confirm proposal using the real contact/deal names or IDs already established elsewhere in the same session — consistent with every other CRM write action (create contact/company/deal/lead), none of which require a Redmine `project_id`.
 
 ## Actual result
 
@@ -30,7 +30,7 @@
   - Providing "the current project" — routed (without the "CRM," prefix) to the Project Manager, which said it had no "current project" context either.
   - Providing the production project name "ztflux" — the Sales Agent then said it needs a *numeric* ID, not a name, and asked the user to supply one, offering no way to look it up itself.
 - The capability is therefore practically unusable via chat: a real user has no way to discover what numeric "project ID" the tool wants, since the CRM plugin itself never surfaces or requires one anywhere else.
-- Because of this, TC-CRX-088's "unlink" and later verification-of-link steps could not be reached at all.
+- Because of this, TC-CRX-013's "unlink" and later verification-of-link steps could not be reached at all.
 
 ## Evidence
 
@@ -78,4 +78,4 @@ Dev's `CHANGES.md` handoff updated `agents/crm-sales.md` (the Sales Agent's own 
 
 ## Production report
 
-Reported to production as issue **#120669** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Textile description, no attachments (per updated §4.3a policy). Linked to Run #569, testcase #120490 (`CRUX_AGENT_CRM_SALES.md`, found via TC-CRX-088) — testcase marked Failed.
+Reported to production as issue **#120669** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Textile description, no attachments (per updated §4.3a policy). Linked to Run #569, testcase #120490 (`CRUX_AGENT_CRM_SALES.md`, found via TC-CRX-013) — testcase marked Failed.

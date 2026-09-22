@@ -14,7 +14,7 @@
 
 - **Severity:** High
 - **Status:** Open
-- **Found In TC:** TC-RIT-006, TC-RIT-018
+- **Found In TC:** TC-RIT-095, TC-RIT-107
 - **Feature:** Project Filter Search
 - **Description:** `list_templates` returns 500 for any `project_id` value (identifier or numeric). All other filters (is_global, is_active, tracker_id) work correctly. Blocks project-scoped visibility testing for all users. Reproduced as admin and as test1 user.
 - **File:** [bugs/open/BUG-RIT-001.md](../bugs/open/BUG-RIT-001.md)
@@ -23,7 +23,7 @@
 
 - **Severity:** High
 - **Status:** Open
-- **Found In TC:** TC-RIT-018, TC-RIT-025
+- **Found In TC:** TC-RIT-107, TC-RIT-114
 - **Feature:** Permission-Based Access Control / Project Membership Restriction
 - **Description:** All MCP issue template operations (Create, Edit, Delete, Apply) succeed for a user with **zero** issue template permissions in the target project. The server grants access based on whether the user has permission in **any** project, not the specific project being operated on. Test1 (@Aurora Grace) has all template permissions in ztflux but none in gdaplt — yet can create/edit/delete/apply templates scoped to gdaplt via the ztflux role. All 5 template MCP tools are affected.
 - **Impact:** Complete bypass of project-level permission enforcement. Any user with template access in one project can manage templates for ALL projects they are a member of, regardless of their role in those projects.

@@ -61,7 +61,7 @@ reason.
 
 ---
 
-### TC-RFM-901: Each request is authenticated as its own key's user
+### TC-RFM-031: Each request is authenticated as its own key's user
 
 **User Role:** ScopedKey
 **Steps:**
@@ -75,7 +75,7 @@ reason.
 
 ---
 
-### TC-RFM-902: Two keys on one server stay separate
+### TC-RFM-032: Two keys on one server stay separate
 
 **User Role:** ScopedKey and OtherProjectKey, connected to the same MCP server URL
 **Steps:**
@@ -84,11 +84,11 @@ reason.
 **Expected Result:**
 - Each sees only their own, per FAQ Q2.
 - **Cross-contamination here would be Critical** and is only detectable with two genuinely different keys
-  (paired with TC-RFM-109).
+  (paired with TC-RFM-009).
 
 ---
 
-### TC-RFM-903: Read permissions are enforced
+### TC-RFM-033: Read permissions are enforced
 
 **User Role:** ReadOnlyKey
 **Steps:**
@@ -101,7 +101,7 @@ reason.
 
 ---
 
-### TC-RFM-904: Each listed permission gates its own capability
+### TC-RFM-034: Each listed permission gates its own capability
 
 **User Role:** ScopedKey, reconfigured per step
 **Steps:**
@@ -118,7 +118,7 @@ reason.
 
 ---
 
-### TC-RFM-905: `delete_issues` is genuinely gated
+### TC-RFM-035: `delete_issues` is genuinely gated
 
 **User Role:** ScopedKey without `delete_issues`
 **Steps:**
@@ -127,11 +127,11 @@ reason.
 **Expected Result:**
 - Refused.
 - Deletion is irreversible and reachable in one sentence, so this row deserves its own case rather than being one
-  entry in TC-RFM-904.
+  entry in TC-RFM-034.
 
 ---
 
-### TC-RFM-906: `approve_timesheets` is genuinely gated
+### TC-RFM-036: `approve_timesheets` is genuinely gated
 
 **User Role:** ScopedKey without `approve_timesheets`
 **Steps:**
@@ -143,11 +143,11 @@ reason.
   control with a documented multi-level sequence; an MCP path that performs it without the permission bypasses
   that whole design — and the request is a single plain-English sentence.
 - Also confirm that **with** the permission, the Timesheet plugin's own sequencing rules still apply
-  (TC-RFM-407): holding the permission must not allow approving out of order or at the wrong level.
+  (TC-RFM-065): holding the permission must not allow approving out of order or at the wrong level.
 
 ---
 
-### TC-RFM-907: Project scoping is enforced on reads
+### TC-RFM-037: Project scoping is enforced on reads
 
 **User Role:** OtherProjectKey
 **Preconditions:** **Confirm project B is genuinely private** — a newly created Redmine project has "Public"
@@ -162,7 +162,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-RFM-908: Project scoping is enforced on writes
+### TC-RFM-038: Project scoping is enforced on writes
 
 **User Role:** OtherProjectKey
 **Steps:**
@@ -173,7 +173,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-RFM-909: Issue-visibility-scoped roles
+### TC-RFM-039: Issue-visibility-scoped roles
 
 **User Role:** A key whose role limits issue visibility to issues the user created
 **Steps:**
@@ -187,7 +187,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-RFM-910: Document what an administrator key permits
+### TC-RFM-040: Document what an administrator key permits
 
 **User Role:** AdminKey
 **Steps:**
@@ -208,7 +208,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-RFM-911: The key is stored in plain text in client config
+### TC-RFM-041: The key is stored in plain text in client config
 
 **User Role:** Any
 **Steps:**
@@ -223,20 +223,20 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-RFM-912: A leaked key can be revoked
+### TC-RFM-042: A leaked key can be revoked
 
 **User Role:** Any
 **Steps:**
 1. Reset the key in My Account and retry a request with the old one.
 
 **Expected Result:**
-- The old key stops working immediately (paired with TC-RFM-103).
+- The old key stops working immediately (paired with TC-RFM-003).
 - **Reset is the only revocation path available.** If it does not take effect promptly, a leaked key cannot be
   withdrawn at all — High severity.
 
 ---
 
-### TC-RFM-913: A locked account loses access
+### TC-RFM-043: A locked account loses access
 
 **User Role:** LockedKey
 **Steps:**
@@ -245,11 +245,11 @@ checked by default; uncheck it explicitly or this case falsely passes.
 **Expected Result:**
 - Refused.
 - **Locking is how an organisation offboards someone.** If their key still works through MCP, their access
-  outlives their account — and nothing in Redmine's UI would show it (paired with TC-RFM-212).
+  outlives their account — and nothing in Redmine's UI would show it (paired with TC-RFM-026).
 
 ---
 
-### TC-RFM-914: Key material does not appear in responses or logs
+### TC-RFM-044: Key material does not appear in responses or logs
 
 **User Role:** Any
 **Steps:**
@@ -262,7 +262,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-RFM-915: Permission changes take effect without reconnecting
+### TC-RFM-045: Permission changes take effect without reconnecting
 
 **User Role:** Admin + ScopedKey
 **Steps:**
@@ -276,7 +276,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-RFM-916: Data handling claim
+### TC-RFM-046: Data handling claim
 
 **User Role:** Any
 **Steps:**
@@ -291,7 +291,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-RFM-917: Cross-account isolation
+### TC-RFM-047: Cross-account isolation
 
 **User Role:** A key from Redmineflux account A against account B's MCP URL
 **Steps:**
@@ -300,11 +300,11 @@ checked by default; uncheck it explicitly or this case falsely passes.
 **Expected Result:**
 - Refused.
 - **A key authenticating against another account's MCP server would be a multi-tenancy breach** — one customer's
-  credentials reaching another customer's Redmine. Critical (paired with TC-RFM-214).
+  credentials reaching another customer's Redmine. Critical (paired with TC-RFM-028).
 
 ---
 
-### TC-RFM-918: Least-privilege setup works end to end
+### TC-RFM-048: Least-privilege setup works end to end
 
 **User Role:** A dedicated `mcp-bot` user with only the permissions a team actually needs
 **Steps:**
@@ -314,7 +314,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 **Expected Result:**
 - The intended operations work and the others are refused.
 - This case validates that the vendor's recommended safe configuration is actually viable — if least privilege
-  breaks ordinary use, teams will fall back to the administrator shortcut in TC-RFM-910, and the recommendation
+  breaks ordinary use, teams will fall back to the administrator shortcut in TC-RFM-040, and the recommendation
   is worthless in practice.
 
 ---

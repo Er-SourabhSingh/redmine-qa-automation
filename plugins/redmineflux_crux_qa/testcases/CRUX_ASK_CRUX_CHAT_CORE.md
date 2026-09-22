@@ -2,7 +2,7 @@
 
 > Source: `docs/CRUX_FEATURES_LIST.md` #1, #20; `docs/CRUX_REQUIREMENTS.md` Key Features #1; `redmineflux-crux-core/docs/API.md` `POST /api/chat`, `GET/POST /api/sessions`; RELEASE-NOTES 0.91.0/0.92.0 (CRC-27 domain routing, CRC-30 hand-off confirm card, CRC-31 user identity).
 >
-> **Execution readiness: UNBLOCKED — executed live 2026-09-15.** LLM provider key configured; 10 domain plugins (CRM, Workload, Timesheet, Knowledgebase, Testcase Management, Helpdesk, DevOps, Budget and Audit, Invoice, Agile Board) installed and migrated into the local crux-redmine Docker instance for this run. All of TC-CRX-011 through TC-CRX-021 executed with real tool calls / real LLM replies. TC-CRX-015 remains genuinely inconclusive (see its own section) — two real trigger attempts never produced the documented confirm card. Found BUG-CRX-006 (proxy status-code bug, filed in the prior suite) and BUG-CRX-007 (domain-inference routing gap, filed this suite) along the way.
+> **Execution readiness: UNBLOCKED — executed live 2026-09-15.** LLM provider key configured; 10 domain plugins (CRM, Workload, Timesheet, Knowledgebase, Testcase Management, Helpdesk, DevOps, Budget and Audit, Invoice, Agile Board) installed and migrated into the local crux-redmine Docker instance for this run. All of TC-CRX-102 through TC-CRX-112 executed with real tool calls / real LLM replies. TC-CRX-106 remains genuinely inconclusive (see its own section) — two real trigger attempts never produced the documented confirm card. Found BUG-CRX-006 (proxy status-code bug, filed in the prior suite) and BUG-CRX-007 (domain-inference routing gap, filed this suite) along the way.
 >
 > Execution window: ~2026-09-15 11:39–13:35 local, including a one-time ~97-minute infrastructure detour (adding + migrating the 10 plugins) that unblocks all future suites, not just this one.
 
@@ -18,7 +18,7 @@
 
 ---
 
-### TC-CRX-011: Chat streams a reply via SSE
+### TC-CRX-102: Chat streams a reply via SSE
 
 **User Role:** Logged-in user with `use_ask_crux`.
 **Precondition:** At least one LLM provider key configured.
@@ -38,7 +38,7 @@
 
 ---
 
-### TC-CRX-012: User identity is known without asking (CRC-31)
+### TC-CRX-103: User identity is known without asking (CRC-31)
 
 **User Role:** Any logged-in user with `use_ask_crux`.
 **Precondition:** This user has at least one issue assigned to them in Redmine.
@@ -59,7 +59,7 @@
 
 ---
 
-### TC-CRX-013: Domain-specific question routes to the correct bundled agent
+### TC-CRX-104: Domain-specific question routes to the correct bundled agent
 
 **User Role:** Logged-in user with `use_ask_crux`.
 **Precondition:** None.
@@ -81,7 +81,7 @@
 
 ---
 
-### TC-CRX-014: Explicit `@mention` addresses a named agent directly
+### TC-CRX-105: Explicit `@mention` addresses a named agent directly
 
 **User Role:** Logged-in user with `use_ask_crux`.
 **Precondition:** None.
@@ -100,7 +100,7 @@
 
 ---
 
-### TC-CRX-015: A hand-off between agents requires a confirm card (CRC-30)
+### TC-CRX-106: A hand-off between agents requires a confirm card (CRC-30)
 
 **User Role:** Logged-in user with `use_ask_crux`.
 **Precondition:** A question phrased to trigger a plain-chat hand-off suggestion (not a direct domain match).
@@ -121,7 +121,7 @@
 
 ---
 
-### TC-CRX-016: Domain-matching questions skip the hand-off card entirely
+### TC-CRX-107: Domain-matching questions skip the hand-off card entirely
 
 **User Role:** Logged-in user with `use_ask_crux`.
 **Precondition:** None.
@@ -138,7 +138,7 @@
 
 ---
 
-### TC-CRX-017: Non-English question still routes correctly
+### TC-CRX-108: Non-English question still routes correctly
 
 **User Role:** Logged-in user with `use_ask_crux`.
 **Precondition:** None.
@@ -153,11 +153,11 @@
 
 **Result: PASS — CONFIRMED LIVE 2026-09-15**
 - Sent a French-language domain question containing the loanword "ticket" (with a valid `"CRM,"`/`@crux`-style trigger per BUG-CRX-007's finding) — routed correctly to the matching agent, reply also rendered in French, correctly identifying the real logged-in user (reconfirms CRC-31 across languages).
-- Non-English confirm-attempt leg not independently re-verified this run since TC-CRX-015's confirm card itself was never triggered live (see TC-CRX-015) — the marker-fallback claim specifically could not be exercised.
+- Non-English confirm-attempt leg not independently re-verified this run since TC-CRX-106's confirm card itself was never triggered live (see TC-CRX-106) — the marker-fallback claim specifically could not be exercised.
 
 ---
 
-### TC-CRX-018: Chat sessions — list, create, rename
+### TC-CRX-109: Chat sessions — list, create, rename
 
 **User Role:** Logged-in user with `use_ask_crux`.
 **Precondition:** At least one prior chat session exists for this user.
@@ -179,7 +179,7 @@
 
 ---
 
-### TC-CRX-019: Empty/unavailable plugin data is reported honestly, never guessed
+### TC-CRX-110: Empty/unavailable plugin data is reported honestly, never guessed
 
 **User Role:** Logged-in user with `use_ask_crux`.
 **Precondition:** A plugin with genuinely no data for the question asked (e.g. a project with zero CRM deals).
@@ -200,7 +200,7 @@
 
 ---
 
-### TC-CRX-020: Unreachable plugin tools are reported honestly
+### TC-CRX-111: Unreachable plugin tools are reported honestly
 
 **User Role:** Logged-in user with `use_ask_crux`.
 **Precondition:** A domain whose plugin is not installed/reachable in this deployment (if any exists on the QA stack) — otherwise simulate by temporarily breaking the MCP connection for one tool category, if feasible without disrupting other testing.
@@ -218,7 +218,7 @@
 
 ---
 
-### TC-CRX-021: Chat never fabricates a figure it didn't just read
+### TC-CRX-112: Chat never fabricates a figure it didn't just read
 
 **User Role:** Logged-in user with `use_ask_crux`.
 **Precondition:** Known real data for at least one entity (e.g. a specific deal's value).
@@ -240,7 +240,7 @@
 
 ## Evidence Map
 
-- Case IDs: TC-CRX-011 through TC-CRX-021 — 10/11 executed live 2026-09-15 (PASS: 011, 012, 014, 016, 017, 018, 019, 020, 021; FAIL: 013; INCONCLUSIVE: 015 — not forced to a verdict, real trigger never observed).
+- Case IDs: TC-CRX-102 through TC-CRX-112 — 10/11 executed live 2026-09-15 (PASS: 011, 012, 014, 016, 017, 018, 019, 020, 021; FAIL: 013; INCONCLUSIVE: 015 — not forced to a verdict, real trigger never observed).
 - Screenshots: bugs only — none needed this suite (both findings were behavioral/routing, not rendering defects).
 - Log: transcript-based evidence recorded inline per TC above (SSE streaming, tool-call citations, session-ownership API responses, French-language routing, deal-value cross-checks).
-- Bug reference: BUG-CRX-006 (proxy status-code bug, filed in prior suite, reported to production #120606), BUG-CRX-007 (domain-inference routing gap, filed this suite, found via TC-CRX-013 — not yet reported to production).
+- Bug reference: BUG-CRX-006 (proxy status-code bug, filed in prior suite, reported to production #120606), BUG-CRX-007 (domain-inference routing gap, filed this suite, found via TC-CRX-104 — not yet reported to production).

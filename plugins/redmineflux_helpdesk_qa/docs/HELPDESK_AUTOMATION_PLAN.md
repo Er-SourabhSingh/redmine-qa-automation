@@ -45,7 +45,7 @@ Every step follows the same shape: **check via the list/search UI first, create 
 For each of the 12 test-case suites, in order once provisioning is solid:
 
 1. **Manually re-confirm every TC in that suite live via Playwright MCP** first (the same real-click, real-verification approach used all session) — update each TC's Expected Result with a `CONFIRMED LIVE` note, file bugs for anything that fails. Per `CLAUDE.md` §13, **only a TC with a confirmed manual PASS gets automated** — this is not optional.
-2. Write `automation/tests/<PREFIX>_<suite>.spec.ts`, one `test()` per confirmed-PASS TC, title carrying its TC ID(s) (e.g. `test('TC-HLP-109 - creating a customer flags it as a helpdesk customer', ...)`).
+2. Write `automation/tests/<PREFIX>_<suite>.spec.ts`, one `test()` per confirmed-PASS TC, title carrying its TC ID(s) (e.g. `test('TC-HLP-041 - creating a customer flags it as a helpdesk customer', ...)`).
 3. Reuse existing page objects (`HelpdeskCustomerPage`, `HelpdeskOrganizationPage`, `HelpdeskTicketListPage`, `HelpdeskSlaPage`, etc.) — extend them with new methods only where a real gap exists, following this session's already-established pattern of confirming real locators live before writing them (as just done for Prepaid Hours and Knowledgebase).
 4. No raw selectors in spec files — everything goes through a page object method, per the existing convention.
 
@@ -55,7 +55,7 @@ For each of the 12 test-case suites, in order once provisioning is solid:
 
 ## First suite recommendation (once provisioning is proven)
 
-**Customers & Organizations** — most CRUD/validation-heavy, most foundational (every other suite depends on customers/orgs existing), and already partially live-verified this session (TC-HLP-119, 240, 244, 292, 293/294). Confirm with the user before starting Phase 3, since they haven't picked a suite yet — Phase 1/2 come first regardless.
+**Customers & Organizations** — most CRUD/validation-heavy, most foundational (every other suite depends on customers/orgs existing), and already partially live-verified this session (TC-HLP-060, 240, 244, 292, 293/294). Confirm with the user before starting Phase 3, since they haven't picked a suite yet — Phase 1/2 come first regardless.
 
 ---
 

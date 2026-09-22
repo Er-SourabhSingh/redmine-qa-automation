@@ -7,7 +7,7 @@
 | Status | Open |
 | Severity | High |
 | Redmine Version | Flux (dev-flux.zehntech.com) |
-| Test Case | TC-RIT-006 |
+| Test Case | TC-RIT-095 |
 | Found By | Admin (Sourabh Singh, ID: 683) |
 | Date Found | 2026-06-16 |
 
@@ -80,10 +80,10 @@ The unfiltered list works correctly, indicating the template listing logic itsel
 
 ## Impact
 
-- **Feature "Project Filter Search" (TC-RIT-006) is completely broken**
+- **Feature "Project Filter Search" (TC-RIT-095) is completely broken**
 - Users and admins cannot retrieve templates scoped to a specific project via MCP
 - Affects all projects — not isolated to one project identifier
-- The Project Template Visibility test (TC-RIT-014) is partially impacted
+- The Project Template Visibility test (TC-RIT-103) is partially impacted
 
 ---
 

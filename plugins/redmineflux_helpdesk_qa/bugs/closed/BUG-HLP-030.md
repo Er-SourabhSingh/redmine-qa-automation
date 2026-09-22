@@ -22,7 +22,7 @@
 
 ## Expected result
 
-- Either the 256-char Name is accepted (if 255 isn't the intended limit), or it is refused with a clean, user-facing validation message such as "Name is too long (maximum is 255 characters)" — the same pattern this plugin already uses correctly for Organization Name (TC-HLP-230), Customer Login (TC-HLP-238), and Customer Last name (TC-HLP-335), all of which return a friendly `ActiveRecord::RecordInvalid`-style message instead of crashing.
+- Either the 256-char Name is accepted (if 255 isn't the intended limit), or it is refused with a clean, user-facing validation message such as "Name is too long (maximum is 255 characters)" — the same pattern this plugin already uses correctly for Organization Name (TC-HLP-092), Customer Login (TC-HLP-102), and Customer Last name (TC-HLP-113), all of which return a friendly `ActiveRecord::RecordInvalid`-style message instead of crashing.
 
 ## Actual result
 
@@ -39,7 +39,7 @@
   Causes:
   Mysql2::Error (Data too long for column 'name' at row 1)
   ```
-  This is a systemic pattern, not a one-off: at least two of the plugin's models (`Sla`, `SupportLevel`) are missing a `name` length validation, both correctly capped at 255 by the DB column but both crashing instead of gracefully rejecting past it. Worth checking the plugin's other Name-bearing models (Organization, Customer, Product, Canned Response) for the same gap even where not yet independently confirmed by a TC — Organization Name (TC-HLP-230) and Customer Login/Last name (TC-HLP-238/335) were already confirmed to handle this correctly, so the gap is not universal across the plugin, just present on these two.
+  This is a systemic pattern, not a one-off: at least two of the plugin's models (`Sla`, `SupportLevel`) are missing a `name` length validation, both correctly capped at 255 by the DB column but both crashing instead of gracefully rejecting past it. Worth checking the plugin's other Name-bearing models (Organization, Customer, Product, Canned Response) for the same gap even where not yet independently confirmed by a TC — Organization Name (TC-HLP-092) and Customer Login/Last name (TC-HLP-102/335) were already confirmed to handle this correctly, so the gap is not universal across the plugin, just present on these two.
 - **Broadened 2026-09-03**: reproduces identically on a third model, `RfHelpdeskHoliday#name` — same exact exception:
   ```
   ActiveRecord::ValueTooLong (Mysql2::Error: Data too long for column 'name' at row 1):
@@ -52,7 +52,7 @@
   ActiveRecord::ValueTooLong (Mysql2::Error: Data too long for column 'name' at row 1):     -- Product Name, 256 chars
   ActiveRecord::ValueTooLong (Mysql2::Error: Data too long for column 'code' at row 1):     -- Product Code, 256 chars
   ```
-  Now confirmed on four models (`Sla`, `SupportLevel`, `RfHelpdeskHoliday`, `RfProduct`) and two distinct columns (`name`, `code`) with the identical exception every time. This strongly suggests an install-wide gap — every string column across this plugin's own models likely lacks a matching `length: {maximum: ...}` validation for its DB column width, not just a couple of forgotten `name` fields. Recommend the dev team audit every `validates` block across all `Rf*`/`Sla`/`SupportLevel` models against their actual migration column widths, rather than this QA suite continuing to discover them one TC at a time — Organization Name/Website/Phone, Customer Login/Email/First+Last name, and Canned Response Name (TC-HLP-230/236-244/268) are the only fields *confirmed* handled correctly so far; everything else is unverified.
+  Now confirmed on four models (`Sla`, `SupportLevel`, `RfHelpdeskHoliday`, `RfProduct`) and two distinct columns (`name`, `code`) with the identical exception every time. This strongly suggests an install-wide gap — every string column across this plugin's own models likely lacks a matching `length: {maximum: ...}` validation for its DB column width, not just a couple of forgotten `name` fields. Recommend the dev team audit every `validates` block across all `Rf*`/`Sla`/`SupportLevel` models against their actual migration column widths, rather than this QA suite continuing to discover them one TC at a time — Organization Name/Website/Phone, Customer Login/Email/First+Last name, and Canned Response Name (TC-HLP-092/236-244/268) are the only fields *confirmed* handled correctly so far; everything else is unverified.
 
 ## Evidence
 

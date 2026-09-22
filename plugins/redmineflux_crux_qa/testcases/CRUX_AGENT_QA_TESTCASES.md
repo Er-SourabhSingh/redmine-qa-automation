@@ -2,7 +2,7 @@
 
 > Source: `redmineflux-crux-core/agents/testcases-qa.md` (full file); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
-> **Execution readiness: UNBLOCKED — executed live 2026-09-16.** Read surface (TC-CRX-114) and both negative cases (TC-CRX-119/120) PASS. **Write actions hit the same severe bug found in the Agile suite: BUG-CRX-020** (fabricated-confirm proposals with no real button) — reproduced 2/2 on this agent (`create test suite`, `create environment`), blocking TC-CRX-115/116/117/118.
+> **Execution readiness: UNBLOCKED — executed live 2026-09-16.** Read surface (TC-CRX-053) and both negative cases (TC-CRX-058/120) PASS. **Write actions hit the same severe bug found in the Agile suite: BUG-CRX-020** (fabricated-confirm proposals with no real button) — reproduced 2/2 on this agent (`create test suite`, `create environment`), blocking TC-CRX-054/116/117/118.
 >
 > **Meta note:** this suite tests the QA Agent's ability to manage the *Redmineflux Test Case Management* plugin's own data via chat — a different thing entirely from this QA project's own manual `testcases/*.md` files. Do not confuse the two.
 
@@ -18,7 +18,7 @@
 
 ---
 
-### TC-CRX-114: Read surface — testcases, suites, runs, results, milestones, reports
+### TC-CRX-053: Read surface — testcases, suites, runs, results, milestones, reports
 
 **User Role:** Logged-in user with `use_ask_crux` and Test Case Management plugin access.
 **Precondition:** The Test Case Management plugin installed with real testcases/suites/runs.
@@ -41,9 +41,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-115: Create a test case and a test suite, then organize between them
+### TC-CRX-054: Create a test case and a test suite, then organize between them
 
-**User Role:** Same as TC-CRX-114.
+**User Role:** Same as TC-CRX-053.
 **Precondition:** None.
 
 **Steps:**
@@ -63,10 +63,10 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-116: Create a run, record results, close it, and report a defect
+### TC-CRX-055: Create a run, record results, close it, and report a defect
 
-**User Role:** Same as TC-CRX-114.
-**Precondition:** A test case from TC-CRX-115.
+**User Role:** Same as TC-CRX-053.
+**Precondition:** A test case from TC-CRX-054.
 
 **Steps:**
 1. "Create a run called [X] covering test case [Y]."
@@ -77,13 +77,13 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 **Expected Result:**
 - Each write targets the exact named run/testcase/result. `report_defect` files a real defect ticket — verify it actually exists afterward, correctly linked to the failed result.
 
-**Result: BLOCKED** — precondition (a real test case from TC-CRX-115) does not exist, since TC-CRX-115 could not complete due to BUG-CRX-020. Not attempted.
+**Result: BLOCKED** — precondition (a real test case from TC-CRX-054) does not exist, since TC-CRX-054 could not complete due to BUG-CRX-020. Not attempted.
 
 ---
 
-### TC-CRX-117: Reference-data management (milestone, environment, case status, run status/type, report, email template)
+### TC-CRX-056: Reference-data management (milestone, environment, case status, run status/type, report, email template)
 
-**User Role:** Same as TC-CRX-114.
+**User Role:** Same as TC-CRX-053.
 **Precondition:** None.
 
 **Steps:**
@@ -102,9 +102,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-118: Bulk operations target only the named records
+### TC-CRX-057: Bulk operations target only the named records
 
-**User Role:** Same as TC-CRX-114.
+**User Role:** Same as TC-CRX-053.
 **Precondition:** At least 3 test cases, only 2 of which should be affected.
 
 **Steps:**
@@ -122,9 +122,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-119: No delete (single or bulk) without the user naming the specific record(s)
+### TC-CRX-058: No delete (single or bulk) without the user naming the specific record(s)
 
-**User Role:** Same as TC-CRX-114.
+**User Role:** Same as TC-CRX-053.
 **Precondition:** None.
 
 **Steps:**
@@ -140,9 +140,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-120: `report_defect` is never claimed successful before confirmation
+### TC-CRX-059: `report_defect` is never claimed successful before confirmation
 
-**User Role:** Same as TC-CRX-114.
+**User Role:** Same as TC-CRX-053.
 **Precondition:** A failed test result.
 
 **Steps:**
@@ -154,7 +154,7 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 **Result: PASS (cross-referenced — exact `report_defect` precondition unavailable)**
 
-Evidence (session ses-143, `admin`, 2026-09-16): the literal `report_defect` precondition (a failed test result) could not be constructed since no test case/run exists (blocked upstream by BUG-CRX-020). Substituted the still-pending Test Suite Creation proposal from TC-CRX-115: "QA, was that Login Suite test suite actually created?" → correctly honest: "No, the Login Suite test suite was not created yet. It's still a pending proposal awaiting your confirmation... Since you didn't confirm, the suite exists only as a proposal." No false success claim — the agent never lies about outcome state even when the underlying proposal mechanism itself is broken (BUG-CRX-020). This demonstrates the same honest-pending invariant this TC is testing, on the same agent, just via a different write action.
+Evidence (session ses-143, `admin`, 2026-09-16): the literal `report_defect` precondition (a failed test result) could not be constructed since no test case/run exists (blocked upstream by BUG-CRX-020). Substituted the still-pending Test Suite Creation proposal from TC-CRX-054: "QA, was that Login Suite test suite actually created?" → correctly honest: "No, the Login Suite test suite was not created yet. It's still a pending proposal awaiting your confirmation... Since you didn't confirm, the suite exists only as a proposal." No false success claim — the agent never lies about outcome state even when the underlying proposal mechanism itself is broken (BUG-CRX-020). This demonstrates the same honest-pending invariant this TC is testing, on the same agent, just via a different write action.
 
 ---
 
@@ -162,9 +162,9 @@ Evidence (session ses-143, `admin`, 2026-09-16): the literal `report_defect` pre
 
 ---
 
-### TC-CRX-170: `report_defect` attempted against a Passed testcase result is refused
+### TC-CRX-060: `report_defect` attempted against a Passed testcase result is refused
 
-**User Role:** Same as TC-CRX-114.
+**User Role:** Same as TC-CRX-053.
 **Precondition:** A test result recorded as Passed.
 
 **Steps:**
@@ -179,9 +179,9 @@ No Passed testcase result existed anywhere in project crux-qa/crux-qa-private to
 
 ---
 
-### TC-CRX-171: `remove_testcases_from_suite` fails when the suite is linked to an active run
+### TC-CRX-061: `remove_testcases_from_suite` fails when the suite is linked to an active run
 
-**User Role:** Same as TC-CRX-114.
+**User Role:** Same as TC-CRX-053.
 **Precondition:** A suite linked to an active (not closed) run.
 
 **Steps:**
@@ -190,15 +190,15 @@ No Passed testcase result existed anywhere in project crux-qa/crux-qa-private to
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §6: "Removing cases from a suite fails if the suite is linked to an active run." The removal must fail honestly while the run is active, never silently succeed.
 
-**Result: BLOCKED — same fixture-setup failure as TC-CRX-170**
+**Result: BLOCKED — same fixture-setup failure as TC-CRX-060**
 
-Requires an active run linked to a suite (see TC-CRX-170) — the fixture run (`TC-170 Fixture Run`) could never be created due to the confirm-flow instability documented in TC-CRX-170/BUG-CRX-029. Not attempted independently.
+Requires an active run linked to a suite (see TC-CRX-060) — the fixture run (`TC-170 Fixture Run`) could never be created due to the confirm-flow instability documented in TC-CRX-060/BUG-CRX-029. Not attempted independently.
 
 ---
 
-### TC-CRX-172: Attempting to move a test case out of its suite's immutable scope
+### TC-CRX-062: Attempting to move a test case out of its suite's immutable scope
 
-**User Role:** Same as TC-CRX-114.
+**User Role:** Same as TC-CRX-053.
 **Precondition:** A test case already scoped to suite A.
 
 **Steps:**
@@ -215,7 +215,7 @@ Using testcase #16 ("TC-170 Passed Fixture", scoped to suite #1 "TC-170 Fixture 
 
 ---
 
-### TC-CRX-173: Permission matrix — QA Agent, no-domain-permission probe
+### TC-CRX-063: Permission matrix — QA Agent, no-domain-permission probe
 
 **User Role:** `luna.blossom` (lacks `Create Run` or equivalent).
 **Precondition:** None.
@@ -234,7 +234,7 @@ NOT YET LIVE-VERIFIED — drafted from `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s 
 
 ## Evidence Map
 
-- Case IDs: TC-CRX-114 through TC-CRX-120 — 5/7 reached a definitive verdict (3 PASS: 114, 119, 120; 2 FAIL: 115, 117 — both blocked by BUG-CRX-020; 2 BLOCKED: 116, 118 — precondition unavailable due to the same upstream bug).
+- Case IDs: TC-CRX-053 through TC-CRX-059 — 5/7 reached a definitive verdict (3 PASS: 114, 119, 120; 2 FAIL: 115, 117 — both blocked by BUG-CRX-020; 2 BLOCKED: 116, 118 — precondition unavailable due to the same upstream bug).
 - Screenshots: bugs only (none captured — evidence via live chat transcript text and direct DOM inspection).
 - Log: session ses-143, 2026-09-16.
 - Bug reference: BUG-CRX-020 (fabricated-confirm proposals with no real button, reproduced on a third domain agent — QA Agent, 2/2 for `create test suite` and `create environment`).

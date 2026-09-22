@@ -136,7 +136,7 @@
 
 **Evidence:** `screenshots/BUG-LTS-001/project-sidebar-aufgewendete-zeit-clipped.png`
 
-### TC-LTS-009 — Stage 4: core-Redmine-under-Lotus sweep (Übersicht, Wiki, Roadmap, Kalender, News, Dokumente, Dateien, Aktivität, project Settings tabs)
+### TC-LTS-008 — Stage 4: core-Redmine-under-Lotus sweep (Übersicht, Wiki, Roadmap, Kalender, News, Dokumente, Dateien, Aktivität, project Settings tabs)
 
 **Steps**
 
@@ -154,7 +154,7 @@
 - **Dateien**: "Neue Datei", table headers ("Datei"/"Datum"/"Größe"/"D/L"/"Prüfsumme") — all correctly translated.
 - **Aktivität**: "Datum von/bis", "<<ich>>", "Heute" — all correctly translated.
 - **Project Settings tab bar**: "Projekt"/"Mitglieder"/"Tickets"/"Versionen"/"Ticket-Kategorien"/"Foren"/"Zeiterfassung"/"Sprints" all translated; "Repositories" stays as the English/loanword form (consistent with core Redmine's own German locale convention, not a defect). The "Projekt" tab's own form ("Name", "Beschreibung", "Kennung", "Projekt-Homepage", "Öffentlich" + description, "Unterprojekt von", "Benutzer erben", "Module" + module-name checkboxes) is fully translated except the already-known "Tag list" field (`BUG-TAG-002`, theme-agnostic, reproduces here too — not a new finding).
-- **Found on the "Sprints" project-settings sub-tab** (Agile Board plugin's own extension to this tab bar — also the sprint edit/delete entry point that Agile Board's own TC-AGB-012 had reported as unfindable, now corrected): the "Freigabe" (Sharing) column shows the raw untranslated enum value "not_shared" for 2 of 3 sprints, while a third correctly shows "Nicht geteilt" — confirmed via the Edit form that the underlying value is identical for all three, so this is a list-view-only rendering gap. Confirmed reproducing identically under Default theme too — **filed as `BUG-AGB-007` against the Agile Board plugin, not Lotus**, since the root cause is in that plugin's own view template, not the theme.
+- **Found on the "Sprints" project-settings sub-tab** (Agile Board plugin's own extension to this tab bar — also the sprint edit/delete entry point that Agile Board's own TC-AGB-115 had reported as unfindable, now corrected): the "Freigabe" (Sharing) column shows the raw untranslated enum value "not_shared" for 2 of 3 sprints, while a third correctly shows "Nicht geteilt" — confirmed via the Edit form that the underlying value is identical for all three, so this is a list-view-only rendering gap. Confirmed reproducing identically under Default theme too — **filed as `BUG-AGB-007` against the Agile Board plugin, not Lotus**, since the root cause is in that plugin's own view template, not the theme.
 
 - Also opened the remaining project-settings tabs not covered above: **Mitglieder** ("Neues Mitglied", "Benutzer / Gruppe"/"Rollen", "Bearbeiten"), **Ticket-Kategorien** ("Neue Kategorie", "Nichts anzuzeigen"), **Foren** ("Neues Forum", "Nichts anzuzeigen"), **Zeiterfassung** ("Zurücksetzen", "Administration", "Name"/"System-Aktivität"/"Aktiv") — all correctly translated.
 - Resized to **1280×720** and re-checked the Projekt-settings tab bar (all 9 tabs fit on one row, no wrap/overlap), the Sprints tab's table (clean, `BUG-AGB-007` reproduces identically), and the Roadmap page (version cards + sidebar filter panel render cleanly, "Abgeschlossene Versionen anzeigen" wraps to two lines but stays readable) — no new resolution-specific defects.
@@ -165,7 +165,7 @@
 
 ---
 
-### TC-LTS-010 — Stage 4 continued: My Page, Administration deep pages, New Issue form, Search (explicitly asked: "did you tested all core pages of redmine with theme in german language")
+### TC-LTS-009 — Stage 4 continued: My Page, Administration deep pages, New Issue form, Search (explicitly asked: "did you tested all core pages of redmine with theme in german language")
 
 **Steps**
 
@@ -192,7 +192,7 @@
 
 ---
 
-### TC-LTS-011 — Full coverage pass: Lotus plugin's own Configure page, remaining Administration pages, and remaining core forms (explicitly asked: "please cover all redmine pages do not miss any form also test lotus theme configuration page")
+### TC-LTS-010 — Full coverage pass: Lotus plugin's own Configure page, remaining Administration pages, and remaining core forms (explicitly asked: "please cover all redmine pages do not miss any form also test lotus theme configuration page")
 
 **Steps**
 
@@ -220,13 +220,13 @@
 - **Core Gantt** (`/issues/gantt`, core Redmine's own, not Flux Gantt plugin): "Gantt-Diagramm" heading, "Filter"/"Seitenleiste umschalten" buttons, "Auch abrufbar als: PDF PNG" — all correctly translated.
 - **Core Calendar** (`/issues/calendar`, global): "Kalender" heading, weekday names — all correctly translated.
 
-**Informational finding (not filed as a bug against Lotus or any Redmineflux plugin)**: this session found a recurring pattern of **newer Redmine 7.0.1 core features** whose strings are missing from the upstream community German locale (`de.yml`) — "Apply issues filter" (Search, found in TC-LTS-010), the "Integrations" tab label, "Enable webhooks", "Enable reactions", "Pandoc available (optional)", and "Default queue adapter which is well suited only for dev/test changed" (Admin Info page). All six were confirmed present regardless of active theme (Lotus or Default) and regardless of any Redmineflux plugin, since none of these features are plugin-provided (no DevOps/webhook plugin is installed on this instance) — this is a **core Redmine upstream translation gap**, entirely outside what Redmineflux (theme or plugins) can fix. Documented here for completeness per the explicit request to cover all core pages, not filed as a bug.
+**Informational finding (not filed as a bug against Lotus or any Redmineflux plugin)**: this session found a recurring pattern of **newer Redmine 7.0.1 core features** whose strings are missing from the upstream community German locale (`de.yml`) — "Apply issues filter" (Search, found in TC-LTS-009), the "Integrations" tab label, "Enable webhooks", "Enable reactions", "Pandoc available (optional)", and "Default queue adapter which is well suited only for dev/test changed" (Admin Info page). All six were confirmed present regardless of active theme (Lotus or Default) and regardless of any Redmineflux plugin, since none of these features are plugin-provided (no DevOps/webhook plugin is installed on this instance) — this is a **core Redmine upstream translation gap**, entirely outside what Redmineflux (theme or plugins) can fix. Documented here for completeness per the explicit request to cover all core pages, not filed as a bug.
 
 **Verdict:** One new Medium bug (`BUG-LTS-005`, the broken Configure link) — otherwise every core page and form checked this pass is correctly translated aside from already-known Redmineflux bugs and the informational core-Redmine gaps above.
 
 **Evidence:** `screenshots/BUG-LTS-005/configure-link-404.png`
 
-## TC-LTS-012 — Exhaustive remaining-pages sweep (Settings tabs' own content, Wiki/News/Document/Version detail, Forums, Time entries, Custom queries, Move-issue)
+## TC-LTS-011 — Exhaustive remaining-pages sweep (Settings tabs' own content, Wiki/News/Document/Version detail, Forums, Time entries, Custom queries, Move-issue)
 
 **Precondition:** Lotus theme active, German language active (system default + account level).
 
@@ -258,15 +258,15 @@
 - **Move Issue**: `/issues/move?ids[]=266` returns a genuine 404 — confirms Move functionality has been merged into the bulk-edit form's "Projekt" dropdown (already tested clean) rather than existing as a separate page in this Redmine version. No further action needed.
 - **Theme reversion**: Design-Stil set back to "Standard" and saved; confirmed via `document.querySelector('link[href*="lotus"]')` returning `null` afterward — environment restored to Default theme baseline.
 
-**Informational finding (not filed as a bug against Lotus or any Redmineflux plugin)**: 8 additional newer-Redmine-7.0.1-core strings found missing from the upstream German locale this pass, all confirmed theme-agnostic and not covered by any installed plugin: "Last activity" (Projects list available-columns picker, value `last_activity_date`), "Only for things I watch" (notification option, value `only_my_watches`), "Assignee drop-down display format" plus its 3 options ("Users then groups"/"Groups then users"/"Users by group"), "Enable default due date for new issues" plus "days relative to today", the Done-ratio options interval label, "Accept time logs on closed issues", "Attachment added" (notification event checkbox), and "has been"/"has never been"/"changed from" (Custom Query Status-filter operators). Combined with the 6 gaps found in TC-LTS-010/011, this brings the running total of documented core-Redmine i18n gaps to 14 — see `LOTUS_SCOPE.md` Notes section for the consolidated list. None filed as bugs; all outside Redmineflux's control.
+**Informational finding (not filed as a bug against Lotus or any Redmineflux plugin)**: 8 additional newer-Redmine-7.0.1-core strings found missing from the upstream German locale this pass, all confirmed theme-agnostic and not covered by any installed plugin: "Last activity" (Projects list available-columns picker, value `last_activity_date`), "Only for things I watch" (notification option, value `only_my_watches`), "Assignee drop-down display format" plus its 3 options ("Users then groups"/"Groups then users"/"Users by group"), "Enable default due date for new issues" plus "days relative to today", the Done-ratio options interval label, "Accept time logs on closed issues", "Attachment added" (notification event checkbox), and "has been"/"has never been"/"changed from" (Custom Query Status-filter operators). Combined with the 6 gaps found in TC-LTS-009/011, this brings the running total of documented core-Redmine i18n gaps to 14 — see `LOTUS_SCOPE.md` Notes section for the consolidated list. None filed as bugs; all outside Redmineflux's control.
 
 **Verdict:** No new bugs this pass. Coverage per `LOTUS_SCOPE.md`'s checklist is now exhaustive except a small set of deliberately-deferred items (password-change form, pre-auth login/registration pages, project archive/close/delete, file download/preview, outgoing-email test page, issue right-click context menu) — see that file's "Deliberately deferred" note for the reasoning on each.
 
-## TC-LTS-013 — Edit-form sweep + resolution check for each project section (user asked: "did you tested edit and create form of each sections... also did you tested in both resolution")
+## TC-LTS-012 — Edit-form sweep + resolution check for each project section (user asked: "did you tested edit and create form of each sections... also did you tested in both resolution")
 
 **Precondition:** Lotus theme active, German language active. Started at 1920×1080, resolution check at 1280×720.
 
-**Context:** TC-LTS-012 exercised mostly Create forms. This TC closes the gap by opening each section's own **Edit** form specifically (not just Create), and spot-checks layout at 1280×720 on forms not already covered by the earlier resolution passes (TC-LTS-006/008/009).
+**Context:** TC-LTS-011 exercised mostly Create forms. This TC closes the gap by opening each section's own **Edit** form specifically (not just Create), and spot-checks layout at 1280×720 on forms not already covered by the earlier resolution passes (TC-LTS-006/008/009).
 
 **Steps and Actual Result — PASS, no new bugs**
 
@@ -277,7 +277,7 @@
 - **Versions**: opened the Edit form of an existing, real version (Version 5) — "Name *"/"Beschreibung"/"Status" (options "offen"/"gesperrt"/"abgeschlossen")/"Wiki-Seite"/"Startdatum *"/"Datum *"/"Freigabe" (options "Nicht gemeinsam verwenden"/"Mit Unterprojekten"/"Mit Projekthierarchie"/"Mit Projektbaum") all correctly translated. Also opened the New Version form (viewed only, not submitted — no fixture version created) — same fields minus Status, all correctly translated.
 - **Issue Categories**: created a fresh category ("QA Lotus Test Category") to test both its Create form ("Name *"/"Zugewiesen an"/"Erstellen") and Edit form (same fields, "Speichern") — both correctly translated. Deleted afterward, no residue left.
 - **Members**: opened the "Neues Mitglied" add-member modal — "Nach Benutzer oder Gruppe suchen:"/"Nichtmitglieder"/"Anonyme Benutzer"/"Hinzufügen" all correctly translated (role-name checkboxes are project data, not translatable strings); the modal's own "Close" button reads hardcoded English but is an icon-only close control (confirmed via its class, a decorative accessible-name not visible sighted text) — out of scope per this project's own accessibility-findings policy, not filed. Closed without submitting. Also opened an existing member's inline role-edit form (checkboxes + "Speichern") — correctly translated; not submitted (left unchanged).
-- **Custom Queries**: this time opened the actual **Edit form itself** (`/queries/:id/edit`), not just confirmed the link exists as in TC-LTS-012 — identical to the Create form, "Name *"/"Beschreibung"/role-visibility checkboxes/"Für alle Projekte"/column checkboxes/"Gruppiere Ergebnisse nach"/filter dropdown/"Sortierattribut"×3/"Sortierrichtung"×3/"Speichern" all correctly translated. Created "QA Lotus Edit Test Query" to reach it, deleted afterward via "Abfrage löschen", no residue left.
+- **Custom Queries**: this time opened the actual **Edit form itself** (`/queries/:id/edit`), not just confirmed the link exists as in TC-LTS-011 — identical to the Create form, "Name *"/"Beschreibung"/role-visibility checkboxes/"Für alle Projekte"/column checkboxes/"Gruppiere Ergebnisse nach"/filter dropdown/"Sortierattribut"×3/"Sortierrichtung"×3/"Speichern" all correctly translated. Created "QA Lotus Edit Test Query" to reach it, deleted afterward via "Abfrage löschen", no residue left.
 - **Resolution check (1280×720)**: re-tested the News create form, the Version 5 edit form, and the Members list/role-edit table via `scrollWidth`/`clientWidth` overflow scans — zero overflowing elements found on any of them. The Custom Query edit form's `getComputedStyle` scan flagged 3 "Sortierattribut" labels with `clientWidth: 1` — investigated and confirmed these carry the `hidden-for-sighted` class (a deliberate screen-reader-only label, not a rendering defect); not a bug.
 - **Theme/viewport reverted** to Standard/1920×1080 at the end of this TC, confirmed via DOM.
 

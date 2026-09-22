@@ -61,7 +61,7 @@ correctly-scoped, genuinely-empty read, or (b) the tool not checking `Manage Tim
 just returning an empty result set regardless. **Cannot tell which from this probe alone** — needs
 a real fixture (a submitted timesheet from a different user) before/after granting `Manage
 Timesheet` to `luna.blossom`, to see whether the *same* submission becomes visible only after the
-grant. Flagged as the top candidate for `testcase-gap-writer` + live follow-up once OpenRouter is
+grant. Flagged as the top candidate for a drafted testcase + live follow-up once OpenRouter is
 back.
 
 **With-permission / Admin tiers:** not probed (blocked by the 402 before reaching them).

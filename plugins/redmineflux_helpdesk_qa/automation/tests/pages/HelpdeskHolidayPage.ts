@@ -79,7 +79,7 @@ export class HelpdeskHolidayPage extends BasePage {
 
   /**
    * NOT YET VERIFIED — the exact duplicate-name error wording hasn't been
-   * observed yet. Update this regex the first time TC-HLP-103 runs.
+   * observed yet. Update this regex the first time TC-HLP-347 runs.
    */
   async assertDuplicateNameRefused() {
     await expect(this.page.getByText(/already been taken|has already been taken|must be unique/i)).toBeVisible();

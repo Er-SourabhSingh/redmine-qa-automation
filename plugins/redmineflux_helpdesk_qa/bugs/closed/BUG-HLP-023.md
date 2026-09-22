@@ -20,7 +20,7 @@
 
 ## Expected result
 
-Per `HELPDESK_SLA_ESCALATION.md` TC-HLP-308 (mirroring the already-fixed BUG-HLP-011 pattern for Organization delete): deletion should be refused, or the confirmation modal should identify the dependency ("this holiday is attached to N SLA(s)") before the admin confirms — not a plain generic warning identical to deleting an unattached record.
+Per `HELPDESK_SLA_ESCALATION.md` TC-HLP-364 (mirroring the already-fixed BUG-HLP-011 pattern for Organization delete): deletion should be refused, or the confirmation modal should identify the dependency ("this holiday is attached to N SLA(s)") before the admin confirms — not a plain generic warning identical to deleting an unattached record.
 
 ## Actual result
 
@@ -48,5 +48,5 @@ Deletion succeeded immediately ("Successful deletion.") with the same generic co
 
 ## Notes
 
-- Found while executing `HELPDESK_SLA_ESCALATION.md` TC-HLP-308 (2026-09-01), immediately after confirming the same unattached-holiday-deletes-cleanly half of the same TC (PASS).
+- Found while executing `HELPDESK_SLA_ESCALATION.md` TC-HLP-364 (2026-09-01), immediately after confirming the same unattached-holiday-deletes-cleanly half of the same TC (PASS).
 - Originally filed at Low severity, itself already noting "the SLA gracefully shows 'no holiday' rather than a broken reference, and Holiday was never a required field" — the same reasoning the user's closure decision confirms should have been weighed as a full "not a bug" outcome from the start, not just a severity-lowering note.

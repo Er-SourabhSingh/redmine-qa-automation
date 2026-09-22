@@ -17,7 +17,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 > **Activities are immutable by design.** The KB states there is no edit or update function at all: once saved,
 > content cannot be changed. That makes the timeline a record of what was actually said and when — and it makes
-> TC-CRM-605 a real test of whether an edit path exists anywhere, not a formality.
+> TC-CRM-005 a real test of whether an edit path exists anywhere, not a formality.
 >
 > For the email cases, check Administration → Settings → General → **Host name and path** first, and confirm
 > outgoing mail is configured, or the results are meaningless.
@@ -28,7 +28,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-601: All five activity types on a contact
+### TC-CRM-001: All five activity types on a contact
 
 **User Role:** Member with **Manage CRM Activities**
 **Steps:**
@@ -39,7 +39,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-602: Activities on all four entity types
+### TC-CRM-002: Activities on all four entity types
 
 **User Role:** Member
 **Steps:**
@@ -51,7 +51,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-603: Timeline ordering and attribution
+### TC-CRM-003: Timeline ordering and attribution
 
 **User Role:** Member
 **Steps:**
@@ -63,7 +63,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-604: Activity content validation
+### TC-CRM-004: Activity content validation
 
 **User Role:** Member
 **Steps:**
@@ -81,7 +81,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-605: There is no way to edit an activity
+### TC-CRM-005: There is no way to edit an activity
 
 **User Role:** The activity's author, and an Admin
 **Steps:**
@@ -97,7 +97,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-606: Only the author or an admin can delete
+### TC-CRM-006: Only the author or an admin can delete
 
 **User Role:** Author, a different member with Manage CRM Activities, and an Admin
 **Steps:**
@@ -112,7 +112,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-607: Auto-generated activities are protected
+### TC-CRM-007: Auto-generated activities are protected
 
 **User Role:** Member with Manage CRM Activities
 **Steps:**
@@ -130,7 +130,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-608: Send an email activity
+### TC-CRM-008: Send an email activity
 
 **User Role:** Member with Manage CRM Activities
 **Preconditions:** Working outgoing mail; **Host name and path** verified.
@@ -144,7 +144,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-609: All four email fields are required
+### TC-CRM-009: All four email fields are required
 
 **User Role:** Member
 **Steps:**
@@ -155,7 +155,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-610: Invalid To address
+### TC-CRM-010: Invalid To address
 
 **User Role:** Member
 **Steps:**
@@ -166,7 +166,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-611: Failed delivery is reported honestly
+### TC-CRM-011: Failed delivery is reported honestly
 
 **User Role:** Member
 **Steps:**
@@ -179,7 +179,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-612: The From address cannot be used to impersonate
+### TC-CRM-012: The From address cannot be used to impersonate
 
 **User Role:** Member
 **Steps:**
@@ -189,7 +189,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 - Record the behaviour precisely. The field is editable by design, but sending mail that appears to come from a
   colleague — or from an arbitrary external address — is a spoofing path that leaves the organisation's mail
   server.
-- Whatever the plugin allows, the **audit log must record who actually sent it** (TC-CRM-810), so the real sender
+- Whatever the plugin allows, the **audit log must record who actually sent it** (TC-CRM-033), so the real sender
   is recoverable.
 
 ---
@@ -198,7 +198,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-613: Record creation is logged
+### TC-CRM-013: Record creation is logged
 
 **User Role:** Member
 **Steps:**
@@ -209,7 +209,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-614: Stage, status and conversion changes are logged
+### TC-CRM-014: Stage, status and conversion changes are logged
 
 **User Role:** Member
 **Steps:**
@@ -218,11 +218,11 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 **Expected Result:**
 - Each produces an automatic entry naming the old and new values where applicable.
 - The stage-change entry must appear for a **drag-and-drop** change as well as an edit-form change
-  (paired with TC-CRM-418) — two code paths, one required outcome.
+  (paired with TC-CRM-100) — two code paths, one required outcome.
 
 ---
 
-### TC-CRM-615: Assignee changes are logged
+### TC-CRM-015: Assignee changes are logged
 
 **User Role:** Member
 **Steps:**
@@ -238,7 +238,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-616: All five templates are available
+### TC-CRM-016: All five templates are available
 
 **User Role:** Member
 **Steps:**
@@ -249,7 +249,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-617: A template pre-fills the activity form
+### TC-CRM-017: A template pre-fills the activity form
 
 **User Role:** Member
 **Steps:**
@@ -260,7 +260,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-618: The `%{first_name}` placeholder is substituted
+### TC-CRM-018: The `%{first_name}` placeholder is substituted
 
 **User Role:** Member
 **Steps:**
@@ -279,7 +279,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-619: Template content is not an injection path
+### TC-CRM-019: Template content is not an injection path
 
 **User Role:** Member
 **Steps:**
@@ -288,11 +288,11 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 **Expected Result:**
 - The name is inserted as literal text and **no script executes**.
 - This is the sharpest injection case in the suite: a contact field flows automatically into a form that is then
-  rendered — and the contact may have been created by a CSV import from an external source (TC-CRM-705).
+  rendered — and the contact may have been created by a CSV import from an external source (TC-CRM-118).
 
 ---
 
-### TC-CRM-620: Activities without permission
+### TC-CRM-020: Activities without permission
 
 **User Role:** Member with **View CRM** but without Manage CRM Activities
 **Steps:**
@@ -304,7 +304,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-621: Activities respect record visibility
+### TC-CRM-021: Activities respect record visibility
 
 **User Role:** A member who cannot see a private record
 **Steps:**
@@ -318,7 +318,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 
 ---
 
-### TC-CRM-622: Deleting a record destroys its activities
+### TC-CRM-022: Deleting a record destroys its activities
 
 **User Role:** Member with Delete CRM Data
 **Steps:**
@@ -328,11 +328,11 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 **Expected Result:**
 - Their activities are destroyed, per the documented cascades — and no orphaned entry renders anywhere.
 - Note the tension worth recording: the audit log is described as a permanent record, yet deleting a record
-  destroys its activities. Establish what remains visible in the audit log afterwards (TC-CRM-811).
+  destroys its activities. Establish what remains visible in the audit log afterwards (TC-CRM-034).
 
 ---
 
-### TC-CRM-623: High activity volume
+### TC-CRM-023: High activity volume
 
 **User Role:** Member
 **Steps:**

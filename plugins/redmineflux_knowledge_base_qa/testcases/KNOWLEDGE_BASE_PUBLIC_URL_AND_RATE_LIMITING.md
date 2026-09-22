@@ -19,7 +19,7 @@ The KB states three conditions that silently invalidate results:
    never trigger.
 3. **`rack-attack ~> 6.7` must be installed.**
 
-If any condition fails, mark TC-RKB-611 onward **Not Executed — environment unsuitable** rather than passing them.
+If any condition fails, mark TC-RKB-119 onward **Not Executed — environment unsuitable** rather than passing them.
 A "pass" recorded with the limiter switched off documents protection that is not actually running, which is worse
 than no result. Record the environment, cache store and gem version at the top of every run.
 
@@ -35,7 +35,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-601: Enable public access on a published page
+### TC-RKB-109: Enable public access on a published page
 
 **User Role:** Member with `manage_knowledgebase_pages`
 **Steps:**
@@ -46,7 +46,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-602: Token matches the documented format
+### TC-RKB-110: Token matches the documented format
 
 **User Role:** Member
 **Steps:**
@@ -58,7 +58,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-603: The public URL works unauthenticated
+### TC-RKB-111: The public URL works unauthenticated
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -69,7 +69,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-604: The public view is read-only
+### TC-RKB-112: The public view is read-only
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -77,11 +77,11 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 **Expected Result:**
 - None are present. The KB specifies read-only, no editing and no commenting.
-- Absence in the UI is necessary but not sufficient — TC-RKB-622 tests the endpoints.
+- Absence in the UI is necessary but not sufficient — TC-RKB-130 tests the endpoints.
 
 ---
 
-### TC-RKB-605: Only the published version is served
+### TC-RKB-113: Only the published version is served
 
 **User Role:** Member then unauthenticated visitor
 **Steps:**
@@ -96,7 +96,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-606: Public access cannot be enabled on a page with no published version
+### TC-RKB-114: Public access cannot be enabled on a page with no published version
 
 **User Role:** Member
 **Steps:**
@@ -109,7 +109,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-607: Public access cannot be enabled on an explicitly unpublished page
+### TC-RKB-115: Public access cannot be enabled on an explicitly unpublished page
 
 **User Role:** Member
 **Steps:**
@@ -120,7 +120,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-608: View count is tracked
+### TC-RKB-116: View count is tracked
 
 **User Role:** Member + unauthenticated visitor
 **Steps:**
@@ -132,7 +132,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-609: Browser caching behaves as documented
+### TC-RKB-117: Browser caching behaves as documented
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -141,11 +141,11 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 **Expected Result:**
 - A 10-minute cache window, per the KB.
 - **The response must not be cacheable by shared/intermediary caches in a way that would serve it after
-  revocation** — record the exact directives, since this interacts directly with TC-RKB-610.
+  revocation** — record the exact directives, since this interacts directly with TC-RKB-118.
 
 ---
 
-### TC-RKB-610: Disabling public access revokes the URL immediately
+### TC-RKB-118: Disabling public access revokes the URL immediately
 
 **User Role:** Member, then unauthenticated visitor
 **Steps:**
@@ -166,7 +166,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-611: Per-minute throttle triggers
+### TC-RKB-119: Per-minute throttle triggers
 
 **User Role:** Unauthenticated client
 **Steps:**
@@ -177,7 +177,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-612: Hourly aggressive throttle triggers
+### TC-RKB-120: Hourly aggressive throttle triggers
 
 **User Role:** Unauthenticated client
 **Steps:**
@@ -188,7 +188,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-613: Throttling is per IP
+### TC-RKB-121: Throttling is per IP
 
 **User Role:** Two unauthenticated clients on different IPs
 **Steps:**
@@ -200,19 +200,19 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-614: Non-GET requests to public URLs are blocked
+### TC-RKB-122: Non-GET requests to public URLs are blocked
 
 **User Role:** Unauthenticated client
 **Steps:**
 1. Send POST, PATCH, PUT and DELETE requests to a `/kb/public/*` URL.
 
 **Expected Result:**
-- All blocked automatically, per the KB. Combined with TC-RKB-622, this is the guarantee that a public token is
+- All blocked automatically, per the KB. Combined with TC-RKB-130, this is the guarantee that a public token is
   read-only at the transport level.
 
 ---
 
-### TC-RKB-615: Known bot user agents are blocked
+### TC-RKB-123: Known bot user agents are blocked
 
 **User Role:** Unauthenticated client
 **Steps:**
@@ -227,18 +227,18 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-616: Disabling bot blocking
+### TC-RKB-124: Disabling bot blocking
 
 **User Role:** Admin
 **Steps:**
-1. Disable **Block bots** and repeat TC-RKB-615.
+1. Disable **Block bots** and repeat TC-RKB-123.
 
 **Expected Result:**
 - Those agents are now served, subject to the normal throttles.
 
 ---
 
-### TC-RKB-617: Throttle limits are configurable and take effect within 60 seconds
+### TC-RKB-125: Throttle limits are configurable and take effect within 60 seconds
 
 **User Role:** Admin + unauthenticated client
 **Steps:**
@@ -249,7 +249,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-618: IP allowlist bypasses throttling
+### TC-RKB-126: IP allowlist bypasses throttling
 
 **User Role:** Admin + client on the allowlisted IP
 **Steps:**
@@ -260,7 +260,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-619: IP blocklist always rejects
+### TC-RKB-127: IP blocklist always rejects
 
 **User Role:** Admin + client on the blocklisted IP
 **Steps:**
@@ -269,7 +269,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 **Expected Result:**
 - Rejected immediately, regardless of how few requests were made.
 - Then add the same IP to **both** lists and retry: the precedence must be deterministic, and **blocklist should
-  win** (paired with TC-RKB-118). An allowlist entry silently overriding a block would defeat the blocklist.
+  win** (paired with TC-RKB-092). An allowlist entry silently overriding a block would defeat the blocklist.
 
 ---
 
@@ -277,7 +277,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-620: Invalid token format is rejected before any database lookup
+### TC-RKB-128: Invalid token format is rejected before any database lookup
 
 **User Role:** Unauthenticated client
 **Steps:**
@@ -292,7 +292,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-621: A token for one page does not reach another
+### TC-RKB-129: A token for one page does not reach another
 
 **User Role:** Unauthenticated client
 **Steps:**
@@ -304,7 +304,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-622: The public token confers no write access
+### TC-RKB-130: The public token confers no write access
 
 **User Role:** Unauthenticated client
 **Steps:**
@@ -317,7 +317,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-623: The public view exposes no internal data
+### TC-RKB-131: The public view exposes no internal data
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -333,7 +333,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-624: Public access when the master toggle is off
+### TC-RKB-132: Public access when the master toggle is off
 
 **User Role:** Admin, then unauthenticated visitor
 **Steps:**
@@ -342,11 +342,11 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 **Expected Result:**
 - Refused. The master toggle overrides any per-page token — it is the administrator's kill switch for the entire
-  unauthenticated surface (paired with TC-RKB-111).
+  unauthenticated surface (paired with TC-RKB-085).
 
 ---
 
-### TC-RKB-625: Enabling public access without permission
+### TC-RKB-133: Enabling public access without permission
 
 **User Role:** Member with `view_knowledgebase` only
 **Steps:**
@@ -360,7 +360,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-626: Public URL after the page moves or the project changes state
+### TC-RKB-134: Public URL after the page moves or the project changes state
 
 **User Role:** Member + Admin, then unauthenticated visitor
 **Steps:**
@@ -376,7 +376,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 
 ---
 
-### TC-RKB-627: Indexing exposure
+### TC-RKB-135: Indexing exposure
 
 **User Role:** Unauthenticated visitor
 **Steps:**

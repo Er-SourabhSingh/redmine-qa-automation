@@ -137,7 +137,7 @@ export interface ManagerFixture {
 }
 
 /**
- * Project-scoped Manager fixture, created 2026-08-27 to unblock TC-HLP-121
+ * Project-scoped Manager fixture, created 2026-08-27 to unblock TC-HLP-062
  * (manager scoped to one project cannot disturb another project's customer
  * access). Real Redmine User, role **Manager** (id 3, given manage_helpdesk +
  * export_helpdesk_reports + manage_prepaid_support_hours + view_helpdesk +

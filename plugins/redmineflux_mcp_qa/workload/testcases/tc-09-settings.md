@@ -4,14 +4,14 @@
 |-------|-------|
 | **Plugin** | redmineflux_mcp |
 | **Module** | Settings (Admin only) |
-| **TC Range** | TC-RFM-078 to TC-RFM-081 |
+| **TC Range** | TC-RFM-156 to TC-RFM-159 |
 | **Total TCs** | 4 |
 | **Execution Order** | Suite 9 — Run after Workload Dashboard (tc-08) |
 | **Feature Coverage** | RFM-F078 through RFM-F081 |
 
 ---
 
-## TC-RFM-078 — Admin reads plugin settings via MCP
+## TC-RFM-156 — Admin reads plugin settings via MCP
 
 | Field | Value |
 |-------|-------|
@@ -45,7 +45,7 @@
 
 ---
 
-## TC-RFM-079 — Admin updates plugin settings via MCP
+## TC-RFM-157 — Admin updates plugin settings via MCP
 
 | Field | Value |
 |-------|-------|
@@ -57,14 +57,14 @@
 
 **Preconditions:**
 - MCP session authenticated as Admin.
-- At least one configurable, non-sensitive setting exists (confirm setting name and valid values from TC-RFM-078 output).
+- At least one configurable, non-sensitive setting exists (confirm setting name and valid values from TC-RFM-156 output).
 
 **Test Data:**
 - MCP Prompt: Update a known setting (e.g., `"Update Redmineflux setting [setting_name] to [new_value]"`)
 - Note: Exact prompt format and setting names to be confirmed during first test run.
 
 **Steps:**
-1. First run TC-RFM-078 to identify available settings and their current values.
+1. First run TC-RFM-156 to identify available settings and their current values.
 2. Choose one non-sensitive setting and a valid new value (different from the current value).
 3. Issue MCP prompt to update the chosen setting (e.g., `"Update Redmineflux setting default_allocation_percent to 50"`).
 4. Capture and validate the MCP response:
@@ -81,7 +81,7 @@
 
 ---
 
-## TC-RFM-080 — Admin resets plugin settings via MCP
+## TC-RFM-158 — Admin resets plugin settings via MCP
 
 | Field | Value |
 |-------|-------|
@@ -93,13 +93,13 @@
 
 **Preconditions:**
 - MCP session authenticated as Admin.
-- At least one setting has been changed from its default value (from TC-RFM-079).
+- At least one setting has been changed from its default value (from TC-RFM-157).
 
 **Test Data:**
 - MCP Prompt: `"Reset Redmineflux plugin settings to defaults"`
 
 **Steps:**
-1. Confirm at least one setting is at a non-default value (from TC-RFM-079).
+1. Confirm at least one setting is at a non-default value (from TC-RFM-157).
 2. Issue MCP prompt: `"Reset Redmineflux plugin settings to defaults"`.
 3. Capture and validate the MCP response:
    - Response confirms settings reset to defaults.
@@ -116,7 +116,7 @@
 
 ---
 
-## TC-RFM-081 — Non-admin user cannot access settings via MCP
+## TC-RFM-159 — Non-admin user cannot access settings via MCP
 
 | Field | Value |
 |-------|-------|

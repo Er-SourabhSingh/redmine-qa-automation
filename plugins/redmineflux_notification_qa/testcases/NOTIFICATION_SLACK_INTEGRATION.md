@@ -20,7 +20,7 @@ But it states the privacy rule for **only one of them**:
 > *"Private issues and private notes are not posted to Teams."*
 
 There is **no equivalent statement for Slack.** Either the documentation is incomplete, or the exclusion was
-implemented on one path and not the other. **TC-NTF-515 is the most important case in this entire plugin**, and it
+implemented on one path and not the other. **TC-NTF-093 is the most important case in this entire plugin**, and it
 must be executed before any Slack integration is considered fit for production use.
 
 The consequences are asymmetric: a Slack workspace typically has far wider membership than a Redmine project, and
@@ -40,7 +40,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-501: Enable Slack globally
+### TC-NTF-079: Enable Slack globally
 
 **User Role:** Admin
 **Steps:**
@@ -52,7 +52,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-502: A new issue posts to Slack
+### TC-NTF-080: A new issue posts to Slack
 
 **User Role:** Member
 **Steps:**
@@ -63,7 +63,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-503: Notes and field changes post to Slack
+### TC-NTF-081: Notes and field changes post to Slack
 
 **User Role:** Member
 **Preconditions:** **Post issue updates** enabled.
@@ -77,7 +77,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-504: Message content is complete and correct
+### TC-NTF-082: Message content is complete and correct
 
 **User Role:** Member
 **Steps:**
@@ -91,7 +91,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-505: Verify SSL
+### TC-NTF-083: Verify SSL
 
 **User Role:** Admin
 **Steps:**
@@ -106,7 +106,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-506: Display watchers and Post issue updates
+### TC-NTF-084: Display watchers and Post issue updates
 
 **User Role:** Admin then Member
 **Steps:**
@@ -120,7 +120,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-507: Bot posts only where it is a member
+### TC-NTF-085: Bot posts only where it is a member
 
 **User Role:** Admin
 **Steps:**
@@ -135,7 +135,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-508: Private Slack channels
+### TC-NTF-086: Private Slack channels
 
 **User Role:** Admin
 **Steps:**
@@ -152,7 +152,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-509: Enable the Slack Notifications project module
+### TC-NTF-087: Enable the Slack Notifications project module
 
 **User Role:** Manager
 **Steps:**
@@ -163,7 +163,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-510: Configure a project-specific channel
+### TC-NTF-088: Configure a project-specific channel
 
 **User Role:** Manager
 **Steps:**
@@ -176,7 +176,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-511: Project channel wins over the default
+### TC-NTF-089: Project channel wins over the default
 
 **User Role:** Member
 **Steps:**
@@ -189,7 +189,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-512: Falling back to the default channel
+### TC-NTF-090: Falling back to the default channel
 
 **User Role:** Manager then Member
 **Steps:**
@@ -200,7 +200,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-513: Sub-project behaviour
+### TC-NTF-091: Sub-project behaviour
 
 **User Role:** Member
 **Preconditions:** A parent project with its own Slack channel and a sub-project with none.
@@ -216,7 +216,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-514: No channel configured anywhere
+### TC-NTF-092: No channel configured anywhere
 
 **User Role:** Member
 **Steps:**
@@ -232,7 +232,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-515: Private issues and private notes must not reach Slack
+### TC-NTF-093: Private issues and private notes must not reach Slack
 
 **User Role:** Member
 **Steps:**
@@ -251,7 +251,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-516: Invalid bot token
+### TC-NTF-094: Invalid bot token
 
 **User Role:** Admin
 **Steps:**
@@ -264,7 +264,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-517: Non-existent channel
+### TC-NTF-095: Non-existent channel
 
 **User Role:** Admin
 **Steps:**
@@ -277,7 +277,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-518: Slack disabled globally
+### TC-NTF-096: Slack disabled globally
 
 **User Role:** Admin then Member
 **Steps:**
@@ -289,7 +289,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-519: Slack unreachable
+### TC-NTF-097: Slack unreachable
 
 **User Role:** Member
 **Steps:**
@@ -302,7 +302,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-520: Rate limiting at volume
+### TC-NTF-098: Rate limiting at volume
 
 **User Role:** Member
 **Steps:**
@@ -316,7 +316,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-521: Special characters and markup
+### TC-NTF-099: Special characters and markup
 
 **User Role:** Member
 **Steps:**
@@ -331,7 +331,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-522: Project settings access
+### TC-NTF-100: Project settings access
 
 **User Role:** Non-manager member
 **Steps:**
@@ -345,7 +345,7 @@ a posted message cannot be recalled.
 
 ---
 
-### TC-NTF-523: Disabled project notifications override Slack
+### TC-NTF-101: Disabled project notifications override Slack
 
 **User Role:** Manager then Member
 **Steps:**
@@ -354,7 +354,7 @@ a posted message cannot be recalled.
 **Expected Result:**
 - Nothing is posted to Slack.
 - Confirm the project-level switch really does stop the outbound integration and not only in-app notifications and
-  email (paired with TC-NTF-422).
+  email (paired with TC-NTF-123).
 
 ---
 

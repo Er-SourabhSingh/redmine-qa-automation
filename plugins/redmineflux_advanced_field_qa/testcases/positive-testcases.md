@@ -591,7 +591,7 @@ All source fields (`Estimate`, `Extra Hours`, `Incident Start Time`, `Incident R
 - Dependency saves without error
 - Dependency appears in the Dependency tab list
 - Parent field, parent value, child field, and allowed values (`Server Room`, `Data Center`, `CRM`) are displayed correctly
-- Note: Only 3 of the 9 available Location values are allowed for IT, making filtering detectable in TC-RAF-035
+- Note: Only 3 of the 9 available Location values are allowed for IT, making filtering detectable in TC-RAF-034
 
 ---
 
@@ -890,7 +890,7 @@ Per the plugin guide, formulas are calculated **on issue save/update**. The auth
 
 ## Formula Type Tests Teardown
 
-**Required before proceeding to TC-RAF-034.**
+**Required before proceeding to TC-RAF-033.**
 
 Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF-032). Delete the following formulas to keep the issue form clean for subsequent tests:
 
@@ -901,14 +901,14 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 - Condition LT formula → `Condition LT Result`
 - Condition EQ formula → `Condition EQ Result`
 
-**Retain only these three core formulas for TC-RAF-034 onwards:**
+**Retain only these three core formulas for TC-RAF-033 onwards:**
 1. `Date Difference (minutes)` → `Downtime (minutes)` (Log to history: enabled)
 2. `Date Difference (hours)` → `Duration (hours)`
 3. `Add (A + B)` → `Total Hours` = `Estimate + Extra Hours`
 
 ---
 
-### TC-RAF-034: Journal records formula changes when Log to history is enabled
+### TC-RAF-033: Journal records formula changes when Log to history is enabled
 
 **User Role:** Admin
 **Precondition:** Date Difference (minutes) formula with "Log to history" enabled (updated in TC-RAF-018). Issue exists with `Incident Start Time` and `Incident Resolution Time` values set.
@@ -927,7 +927,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 
 ---
 
-### TC-RAF-035: Child field values filter when parent field is selected
+### TC-RAF-034: Child field values filter when parent field is selected
 
 **User Role:** Admin
 **Precondition:** Dependency rule configured (TC-RAF-021) — `Department = IT` → `Location` allowed values: `Server Room`, `Data Center`, `CRM` only (3 of 9 values). Custom fields enabled on project.
@@ -946,7 +946,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 
 ---
 
-### TC-RAF-036: Child field options update when parent field selection changes
+### TC-RAF-035: Child field options update when parent field selection changes
 
 **User Role:** Admin
 **Precondition:** Two dependency rules configured — `IT → Server Room, Data Center, CRM` and `HR → Branch Office only`.
@@ -968,7 +968,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 
 ---
 
-### TC-RAF-037: Sequence value auto-generates on issue creation
+### TC-RAF-036: Sequence value auto-generates on issue creation
 
 **User Role:** Admin
 **Precondition:** Global sequence rule configured for `Incident ID` with Pad Digits = 3, no tracker/project scope. Custom field enabled on project.
@@ -986,7 +986,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 
 ---
 
-### TC-RAF-038: Sequence increments correctly for subsequent issues
+### TC-RAF-037: Sequence increments correctly for subsequent issues
 
 **User Role:** Admin
 **Precondition:** Sequence rule active. At least one issue already created with a sequence-generated `Incident ID`.
@@ -1004,7 +1004,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 
 ---
 
-### TC-RAF-039: Sequence padding works correctly
+### TC-RAF-038: Sequence padding works correctly
 
 **User Role:** Admin
 **Precondition:** Sequence rule with Pad Digits = 3 active. Note the current counter value from the most recently created issue.
@@ -1022,7 +1022,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 
 ---
 
-### TC-RAF-040: Sequence rule applies only to configured tracker
+### TC-RAF-039: Sequence rule applies only to configured tracker
 
 **User Role:** Admin
 **Precondition:** Sequence rule configured for tracker `Bug` only (re-create the Bug-scoped rule from TC-RAF-026 for this test).
@@ -1041,7 +1041,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 
 ---
 
-### TC-RAF-041: Field shows dynamically when trigger condition matches
+### TC-RAF-040: Field shows dynamically when trigger condition matches
 
 **User Role:** Admin
 **Precondition:** Visibility rule configured (TC-RAF-028) — `Environment = Production` → Show `Components`. Both `Environment` and `Components` custom fields enabled on the test project.
@@ -1059,7 +1059,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 
 ---
 
-### TC-RAF-042: Field hides dynamically when trigger condition matches
+### TC-RAF-041: Field hides dynamically when trigger condition matches
 
 **User Role:** Admin
 **Precondition:** Visibility rule configured (TC-RAF-029) — `Environment = Development` → Hide `Components`. Both fields enabled on project. Components is currently visible.
@@ -1077,7 +1077,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 
 ---
 
-### TC-RAF-043: Visibility rule applies during issue edit
+### TC-RAF-042: Visibility rule applies during issue edit
 
 **User Role:** Admin
 **Precondition:** Visibility rule configured and working on issue create. An existing issue is available with `Environment` field set.
@@ -1095,7 +1095,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 
 ---
 
-### TC-RAF-044: Multiple advanced field rules work together on same issue
+### TC-RAF-043: Multiple advanced field rules work together on same issue
 
 **User Role:** Admin
 **Precondition:** Formula, Dependency, Sequence, and Visibility rules all configured on the same project and tracker. Fields: `Department`, `Location`, `Environment`, `Components`, `Incident Start Time`, `Incident Resolution Time`, `Downtime (minutes)`, `Incident ID`.
@@ -1126,7 +1126,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 
 ---
 
-### TC-RAF-051: Formula recalculates after issue is reopened and edited
+### TC-RAF-044: Formula recalculates after issue is reopened and edited
 
 **User Role:** Admin
 **Precondition:** Formula rule active. An issue in Resolved or Closed status exists with a calculated field value.
@@ -1150,7 +1150,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 
 ---
 
-### TC-RAF-052: Dependency filtering persists after page save and reload
+### TC-RAF-045: Dependency filtering persists after page save and reload
 
 **User Role:** Admin
 **Precondition:** Dependency rule active. Issue created with parent and child field values set.
@@ -1166,7 +1166,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 
 ---
 
-### TC-RAF-053: Sequence does not regenerate on issue edit
+### TC-RAF-046: Sequence does not regenerate on issue edit
 
 **User Role:** Admin
 **Precondition:** Sequence rule active. An issue exists with an auto-generated `Incident ID` (e.g., `2026-05-003`).
@@ -1184,7 +1184,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 
 ---
 
-### TC-RAF-054: Visibility state persists correctly when editing existing issue
+### TC-RAF-047: Visibility state persists correctly when editing existing issue
 
 **User Role:** Admin
 **Precondition:** Visibility rule active (TC-RAF-028: `Environment = Production` → Show `Components`). An issue was saved with `Environment = Production` and a value entered in `Components`.
@@ -1244,9 +1244,10 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 | TC-RAF-030 | — | — | — |
 | TC-RAF-031 | — | — | — |
 | TC-RAF-032 | — | — | — |
+| TC-RAF-033 | — | — | — |
 | TC-RAF-034 | — | — | — |
-| TC-RAF-035 | — | — | — |
-| TC-RAF-036 | — | — | BUG-RAF-001 |
+| TC-RAF-035 | — | — | BUG-RAF-001 |
+| TC-RAF-036 | — | — | — |
 | TC-RAF-037 | — | — | — |
 | TC-RAF-038 | — | — | — |
 | TC-RAF-039 | — | — | — |
@@ -1255,7 +1256,6 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 | TC-RAF-042 | — | — | — |
 | TC-RAF-043 | — | — | — |
 | TC-RAF-044 | — | — | — |
-| TC-RAF-051 | — | — | — |
-| TC-RAF-052 | — | — | — |
-| TC-RAF-053 | — | — | — |
-| TC-RAF-054 | — | — | — |
+| TC-RAF-045 | — | — | — |
+| TC-RAF-046 | — | — | — |
+| TC-RAF-047 | — | — | — |

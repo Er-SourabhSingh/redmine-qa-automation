@@ -15,7 +15,7 @@
 
 1. Log in as Admin. Go to Project (Helpdesk QA Alpha) › Helpdesk › Helpdesk SLA › New SLA (`/projects/1/rf_slas/new`).
 2. Fill SLA Name, First Response Time, Resolution Time as normal.
-3. For "SLA Agreement", choose a file with a `.exe` extension (well under the 5 MB size limit, which IS correctly enforced — see TC-HLP-255).
+3. For "SLA Agreement", choose a file with a `.exe` extension (well under the 5 MB size limit, which IS correctly enforced — see TC-HLP-120).
 4. Save.
 
 ## Expected result
@@ -24,7 +24,7 @@
 
 ## Actual result
 
-- The `.exe` file is accepted with zero restriction — no client-side or server-side file-type check exists (contrast with the file-size limit, which genuinely blocks client-side via a JS `alert()` — see TC-HLP-255). The SLA is created successfully and the file is genuinely stored and downloadable: SLA detail page shows "SLA Agreement: test-file-type.exe" linking to `/attachments/download/7/test-file-type.exe`. A `.docx` file was also accepted with no issue, for contrast (i.e. this isn't specific to `.exe` — no file type appears to be restricted at all).
+- The `.exe` file is accepted with zero restriction — no client-side or server-side file-type check exists (contrast with the file-size limit, which genuinely blocks client-side via a JS `alert()` — see TC-HLP-120). The SLA is created successfully and the file is genuinely stored and downloadable: SLA detail page shows "SLA Agreement: test-file-type.exe" linking to `/attachments/download/7/test-file-type.exe`. A `.docx` file was also accepted with no issue, for contrast (i.e. this isn't specific to `.exe` — no file type appears to be restricted at all).
 - Severity kept at Medium rather than higher because this is an Admin-only, `manage_helpdesk`-gated screen, not customer/agent-facing — but it's still a real arbitrary-file-upload gap: any admin (or compromised admin account) could store and distribute an executable through this attachment mechanism, and Redmine's own attachment storage/serving path has no reason to expect executables here.
 
 ## Evidence

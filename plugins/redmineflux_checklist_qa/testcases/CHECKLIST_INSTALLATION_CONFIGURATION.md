@@ -3,7 +3,7 @@
 > Source: vendor KB https://www.redmineflux.com/knowledge-base/plugins/checklist-plugin/
 > sections "Version Compatibility", "Installation", "Configuration", "How to Enable Block Issue Closing feature",
 > "Troubleshooting", "Uninstallation of Plugin".
-> **Status: authored 2026-09-15. Executed 2026-09-21 — 9 PASS (TC-CHK-101–108, 111), 3 NOT EXECUTED (TC-CHK-109,
+> **Status: authored 2026-09-15. Executed 2026-09-21 — 9 PASS (TC-CHK-054–108, 111), 3 NOT EXECUTED (TC-CHK-063,
 > 110, 112 — each requires a disruptive instance-level action on the shared local Docker instance: renaming the
 > live plugin folder + restart, running with migrations deliberately skipped, or a full plugin uninstall. Skipped
 > pending explicit user approval rather than risking the instance other suites depend on; see notes below each.**
@@ -28,7 +28,7 @@ its *effect* in the issue UI, not by the settings page reporting a successful sa
 
 ---
 
-### TC-CHK-101: Plugin appears in the Administration → Plugins list after installation
+### TC-CHK-054: Plugin appears in the Administration → Plugins list after installation
 
 **User Role:** Admin
 **Preconditions:** Plugin extracted into `/path/to/redmine/plugins` with its original folder name, `bundle install`
@@ -47,7 +47,7 @@ version 7.0.0, Configure link present.
 
 ---
 
-### TC-CHK-102: Database migration created the plugin's tables
+### TC-CHK-055: Database migration created the plugin's tables
 
 **User Role:** Admin
 **Steps:**
@@ -64,7 +64,7 @@ correctly with no table-missing errors.
 
 ---
 
-### TC-CHK-103: Assets load correctly (CSS/JS precompile)
+### TC-CHK-056: Assets load correctly (CSS/JS precompile)
 
 **User Role:** Any
 **Steps:**
@@ -83,7 +83,7 @@ dozens of interactions this session.
 
 ---
 
-### TC-CHK-104: Plugin loads on each supported Redmine version
+### TC-CHK-057: Plugin loads on each supported Redmine version
 
 **User Role:** Admin
 **Steps:**
@@ -98,7 +98,7 @@ dozens of interactions this session.
 
 CONFIRMED LIVE 2026-09-21: **PASS.** Redmine 7.0.0 (Docker) — full create/edit/delete CRUD for checklists and
 items extensively exercised and passing throughout this session's regression (`CHECKLIST_CHECKLIST_MANAGEMENT.md`
-TC-CHK-201–222).
+TC-CHK-058–222).
 
 ---
 
@@ -106,7 +106,7 @@ TC-CHK-201–222).
 
 ---
 
-### TC-CHK-105: Configure page opens and shows both tabs
+### TC-CHK-059: Configure page opens and shows both tabs
 
 **User Role:** Admin
 **Steps:**
@@ -122,7 +122,7 @@ present; current checkbox states read correctly from the DOM.
 
 ---
 
-### TC-CHK-106: "Block issue closing" setting persists across a save/reload
+### TC-CHK-060: "Block issue closing" setting persists across a save/reload
 
 **User Role:** Admin
 **Steps:**
@@ -139,7 +139,7 @@ fresh load — checkbox still checked. Left enabled intentionally (needed by `CH
 
 ---
 
-### TC-CHK-107: "Auto-calculate % done from checklist" setting persists
+### TC-CHK-061: "Auto-calculate % done from checklist" setting persists
 
 **User Role:** Admin
 **Steps:**
@@ -147,14 +147,14 @@ fresh load — checkbox still checked. Left enabled intentionally (needed by `CH
 2. Save and reload.
 
 **Expected Result:**
-- Setting persists. (Its functional effect is covered by TC-CHK-305.)
+- Setting persists. (Its functional effect is covered by TC-CHK-083.)
 
-CONFIRMED LIVE 2026-09-21: **PASS.** Same pattern as TC-CHK-106 — checked, saved, reloaded, still checked. Left
-enabled intentionally (needed by `CHECKLIST_PROGRESS_TRACKING.md`'s TC-CHK-305).
+CONFIRMED LIVE 2026-09-21: **PASS.** Same pattern as TC-CHK-060 — checked, saved, reloaded, still checked. Left
+enabled intentionally (needed by `CHECKLIST_PROGRESS_TRACKING.md`'s TC-CHK-083).
 
 ---
 
-### TC-CHK-108: Settings are instance-wide, not per-project
+### TC-CHK-062: Settings are instance-wide, not per-project
 
 **User Role:** Admin
 **Steps:**
@@ -176,7 +176,7 @@ identical enforcement to `test project`. Setting is genuinely instance-wide, not
 
 ---
 
-### TC-CHK-109: Plugin folder renamed on disk
+### TC-CHK-063: Plugin folder renamed on disk
 
 **User Role:** Admin
 **Steps:**
@@ -195,7 +195,7 @@ only in a dedicated/disposable environment or with the user watching.
 
 ---
 
-### TC-CHK-110: Migration not run
+### TC-CHK-064: Migration not run
 
 **User Role:** Admin
 **Steps:**
@@ -212,7 +212,7 @@ state for every other suite. Skipped pending explicit user approval.
 
 ---
 
-### TC-CHK-111: Configure page is not reachable by a non-admin
+### TC-CHK-065: Configure page is not reachable by a non-admin
 
 **User Role:** Developer / QA (non-admin)
 **Steps:**
@@ -232,7 +232,7 @@ CONFIRMED LIVE 2026-09-21: **PASS.** Logged in as `luna.blossom` (non-admin, Dev
 
 ---
 
-### TC-CHK-112: Clean uninstall
+### TC-CHK-066: Clean uninstall
 
 **User Role:** Admin
 **Preconditions:** Database backup taken.

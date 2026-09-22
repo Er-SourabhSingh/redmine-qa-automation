@@ -17,7 +17,7 @@
 2. Full DOM scan of every `<a>`/`<button>` on the page (`document.querySelectorAll('a, button')`) — the only customer-specific action present is **Edit** (`/rf_customers/16/edit`). No "View portal", "Preview", or equivalent control exists anywhere on the page, in any menu, dropdown, or icon.
 3. Navigate directly to `/rf_customers/16/portal` anyway (the route named in `HELPDESK_USER_GUIDE.md` §11).
 4. Result: the route resolves and renders fully. Shows a banner "You are viewing the portal as **Beta Customer** · beta.customer@test.local. Nothing you do here is visible to the customer.", a **Read only** badge, an **Exit preview** link back to Customer 360, a "My Helpdesk" heading captioned "What Beta Customer sees when they open the helpdesk," and correctly lists the customer's actual entitled project (Helpdesk QA Beta, 3 open) with a `View` link to `/rf_customers/16/portal?project_id=4`.
-5. Also tested entitlement scoping (TC-HLP-124): forced `/rf_customers/16/portal?project_id=3` (Helpdesk QA Alpha — a project `beta.customer` has zero entitlement to) — correctly returns a clean **403 Forbidden**, not an exposed preview.
+5. Also tested entitlement scoping (TC-HLP-066): forced `/rf_customers/16/portal?project_id=3` (Helpdesk QA Alpha — a project `beta.customer` has zero entitlement to) — correctly returns a clean **403 Forbidden**, not an exposed preview.
 
 ## Expected result
 
@@ -29,7 +29,7 @@ Per explicit user product-judgment direction (2026-08-27): **Portal Preview is n
 ## Actual result
 
 - The route is fully reachable and fully functional for any admin/agent session, with no gating at all beyond ordinary login.
-- Its internal logic is genuinely well-built — correct read-only rendering, correct "what does this customer actually see" content, and correct per-project entitlement scoping (403 confirmed on an out-of-entitlement project via TC-HLP-124) — which is notable because it means this isn't leftover/abandoned code; real engineering effort went into it. That's evidence the feature was deliberately built at some point, which is worth surfacing to product/dev even though it doesn't change this bug's expected result.
+- Its internal logic is genuinely well-built — correct read-only rendering, correct "what does this customer actually see" content, and correct per-project entitlement scoping (403 confirmed on an out-of-entitlement project via TC-HLP-066) — which is notable because it means this isn't leftover/abandoned code; real engineering effort went into it. That's evidence the feature was deliberately built at some point, which is worth surfacing to product/dev even though it doesn't change this bug's expected result.
 - Zero discoverable UI path exists to it (no button anywhere on Customer 360) — so in practice today it's only reachable by someone who already knows the exact URL pattern. That accidentally limits exposure, but is not the same as the feature not existing, and is not a substitute for the route itself not existing.
 
 ## Evidence
@@ -56,14 +56,14 @@ Since the route's own internal logic is correct and deliberate, this needs a pro
 
 ## Related
 
-- Corrects TC-HLP-117 and TC-HLP-124's scoring in `HELPDESK_CUSTOMERS_ORGANIZATIONS.md`. TC-HLP-117's expected result was rewritten to match the revised scope call and is now **FAIL** (the route should not be reachable at all, but is). TC-HLP-124 remains a **PASS** for the narrow entitlement-scoping behavior it tests, but is now explicitly secondary — its own correctness doesn't offset TC-117's FAIL once Portal Preview is considered out of scope.
+- Corrects TC-HLP-056 and TC-HLP-066's scoring in `HELPDESK_CUSTOMERS_ORGANIZATIONS.md`. TC-HLP-056's expected result was rewritten to match the revised scope call and is now **FAIL** (the route should not be reachable at all, but is). TC-HLP-066 remains a **PASS** for the narrow entitlement-scoping behavior it tests, but is now explicitly secondary — its own correctness doesn't offset TC-117's FAIL once Portal Preview is considered out of scope.
 
 ## Retest — 2026-08-31, Local (redmine-docker-6), fresh rebuilt environment
 
 - **Context**: retested against `alpha.customer` (Customer ID 6) on the environment rebuilt earlier this session — zero shared history with the original `beta.customer`/Customer ID 16 repro.
 - **Steps**: Customer 360 for `alpha.customer` (`/rf_customers/6`) still shows only an **Edit** action — no "View portal" or equivalent control, matching the original finding. Navigated directly to `/rf_customers/6/portal` (and the query-param variant `/rf_customers/6/portal?project_id=1`) — this is admin route-existence testing, not a customer/agent journey, so direct navigation is the correct method here, same as this bug's own original methodology.
 - **Result**: both URLs now return a genuine **HTTP 404 Not Found**. Confirmed the app itself was up and the admin session valid at the same time (`/rf_customers/6` loads normally immediately before and after) — rules out a broader outage being mistaken for a fix. Screenshot: `retest-2026-08-31-portal-route-404.png`.
-- **Verdict: RETEST PASS.** This matches exactly the first option in this bug's own Recommendation section: the route has been formally removed rather than gaining a new entry point. TC-HLP-117 (which was rewritten to expect a 404) now genuinely passes as written.
+- **Verdict: RETEST PASS.** This matches exactly the first option in this bug's own Recommendation section: the route has been formally removed rather than gaining a new entry point. TC-HLP-056 (which was rewritten to expect a 404) now genuinely passes as written.
 
 ## Closed — 2026-08-31
 

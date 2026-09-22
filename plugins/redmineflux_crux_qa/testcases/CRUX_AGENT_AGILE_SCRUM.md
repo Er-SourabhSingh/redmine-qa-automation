@@ -2,7 +2,7 @@
 
 > Source: `redmineflux-crux-core/agents/agile-scrum.md` (full file); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
-> **Execution readiness: UNBLOCKED — executed live 2026-09-16.** Read surface (TC-CRX-108) and negative gating (TC-CRX-113) both PASS. **Every write action tested (4 distinct types, 6 attempts) hit an identical, severe new bug: BUG-CRX-020** — the Scrum Agent's write proposals render as plain fabricated-confirm markdown text with no real Confirm/Cancel button, completely blocking the entire Agile CRUD surface via chat. TC-CRX-109/110/111/112 all FAIL as a direct result.
+> **Execution readiness: UNBLOCKED — executed live 2026-09-16.** Read surface (TC-CRX-001) and negative gating (TC-CRX-006) both PASS. **Every write action tested (4 distinct types, 6 attempts) hit an identical, severe new bug: BUG-CRX-020** — the Scrum Agent's write proposals render as plain fabricated-confirm markdown text with no real Confirm/Cancel button, completely blocking the entire Agile CRUD surface via chat. TC-CRX-002/110/111/112 all FAIL as a direct result.
 
 ## Plugin
 - Name: redmineflux_crux (Scrum Agent, Agile plugin domain)
@@ -16,7 +16,7 @@
 
 ---
 
-### TC-CRX-108: Read surface — board, backlog, sprints, epics, board config
+### TC-CRX-001: Read surface — board, backlog, sprints, epics, board config
 
 **User Role:** Logged-in user with `use_ask_crux` and Agile plugin access.
 **Precondition:** Agile plugin installed with a real board/backlog/sprint.
@@ -40,9 +40,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-109: Move/update a card across all three board-view variants
+### TC-CRX-002: Move/update a card across all three board-view variants
 
-**User Role:** Same as TC-CRX-108.
+**User Role:** Same as TC-CRX-001.
 **Precondition:** A named card on the project board, the global board, and the "my page" board.
 
 **Steps:**
@@ -56,15 +56,15 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 **Result: FAIL**
 
 Evidence (session ses-143, `admin`, 2026-09-16):
-- Created a real fixture issue (#10, "TC-CRX-109/110 Agile Board Fixture Card") via the real New Issue UI, since chat-based issue creation is itself broken (see TC-CRX-112/BUG-CRX-020).
+- Created a real fixture issue (#10, "TC-CRX-002/110 Agile Board Fixture Card") via the real New Issue UI, since chat-based issue creation is itself broken (see TC-CRX-005/BUG-CRX-020).
 - "Agile, move card #10 to 'In Progress' column on the crux-qa board." → produced a "Proposed Card Move" table (Card: #10, Project: crux-qa, Target Column: In Progress) followed by "Click **Confirm** to move the card" — but direct DOM inspection confirmed no real Confirm/Cancel button was ever rendered (`hasButton: false`). No variant comparison (global/my-page) attempted once the base `move_issue` case was already confirmed broken.
 - **Blocked by BUG-CRX-020** — filed/updated with this occurrence.
 
 ---
 
-### TC-CRX-110: Create a sprint, assign a card to it, then update and delete it
+### TC-CRX-003: Create a sprint, assign a card to it, then update and delete it
 
-**User Role:** Same as TC-CRX-108.
+**User Role:** Same as TC-CRX-001.
 **Precondition:** None.
 
 **Steps:**
@@ -80,13 +80,13 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 Evidence (session ses-143, `admin`, 2026-09-16):
 - "Agile, create a sprint called 'Sprint Alpha' starting 2026-09-16 for project crux-qa." and a rephrased retry ("sprint create: name..., end date 2026-09-30. Do it now.") both produced a "Proposed Sprint Creation" table + "Click **Confirm** to create the sprint" — `hasButton: false` on direct DOM inspection both times. Step 1 could not be completed, so steps 2–4 (assign card, update end date, delete) could not proceed — there is no sprint to target.
-- **Blocked by BUG-CRX-020** — same fabricated-confirm pattern as TC-CRX-109/112, now confirmed on a second write action type (`create_sprint`).
+- **Blocked by BUG-CRX-020** — same fabricated-confirm pattern as TC-CRX-002/112, now confirmed on a second write action type (`create_sprint`).
 
 ---
 
-### TC-CRX-111: Column and board-config management
+### TC-CRX-004: Column and board-config management
 
-**User Role:** Same as TC-CRX-108.
+**User Role:** Same as TC-CRX-001.
 **Precondition:** None.
 
 **Steps:**
@@ -106,9 +106,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-112: Create an issue directly from Agile context
+### TC-CRX-005: Create an issue directly from Agile context
 
-**User Role:** Same as TC-CRX-108.
+**User Role:** Same as TC-CRX-001.
 **Precondition:** None.
 
 **Steps:**
@@ -121,7 +121,7 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 **Result: FAIL**
 
 Evidence (session ses-143, `admin`, 2026-09-16):
-- "Agile, create an issue titled 'TC-CRX-112 Agile Create Test' in project crux-qa from the backlog." → self-contradicted once (BUG-CRX-013 pattern). Rephrased retry ("please create issue... in project 1 now.") produced a "Proposed Issue Creation" table with every field correctly filled (Title exact, Project: crux-qa ID 1, Type/Status/Assigned to/Description all honestly marked default/unspecified) followed by "Click **Confirm** to create the issue in the backlog" — but **direct DOM inspection confirmed no real Confirm/Cancel button exists anywhere in the message** (`hasButton: false`), unlike every genuine write-confirm card seen throughout this entire QA engagement.
+- "Agile, create an issue titled 'TC-CRX-005 Agile Create Test' in project crux-qa from the backlog." → self-contradicted once (BUG-CRX-013 pattern). Rephrased retry ("please create issue... in project 1 now.") produced a "Proposed Issue Creation" table with every field correctly filled (Title exact, Project: crux-qa ID 1, Type/Status/Assigned to/Description all honestly marked default/unspecified) followed by "Click **Confirm** to create the issue in the backlog" — but **direct DOM inspection confirmed no real Confirm/Cancel button exists anywhere in the message** (`hasButton: false`), unlike every genuine write-confirm card seen throughout this entire QA engagement.
 - Reproduced 3/3 across three different phrasings, including one that explicitly said "confirm and create it now" in the same message — correctly refused to skip human confirmation (per policy), but never actually rendered a working confirm mechanism. Replying with the literal word "Confirm" produced a further false claim that a working button exists and just needs to be clicked.
 - **Verified independently** on the real `/projects/crux-qa/issues` page: none of the 3 described issues were ever created.
 - **New Critical bug filed: BUG-CRX-020** (a distinct, more severe defect than BUG-CRX-013 — this produces a confident, fully fabricated proposal that evades the fabricated-confirm guard entirely, rather than an honest "nothing to confirm yet" failure). Reported to production as #120710. Subsequently confirmed to affect the Scrum Agent's *entire* write surface (create_issue, create_sprint, move_issue, create_column — 4 action types, 6/6 reproductions, 100% failure rate), and once on the Budget Agent under an equivalent phrasing.
@@ -133,9 +133,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-113: Deleting a sprint/column/board-config without naming it is refused/not proposed
+### TC-CRX-006: Deleting a sprint/column/board-config without naming it is refused/not proposed
 
-**User Role:** Same as TC-CRX-108.
+**User Role:** Same as TC-CRX-001.
 **Precondition:** None.
 
 **Steps:**
@@ -155,9 +155,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-174: An invalid workflow-transition move is honestly refused, not silently coerced
+### TC-CRX-007: An invalid workflow-transition move is honestly refused, not silently coerced
 
-**User Role:** Same as TC-CRX-108.
+**User Role:** Same as TC-CRX-001.
 **Precondition:** An issue in a status where the intended target status is not a valid workflow transition for the acting user's role.
 
 **Steps:**
@@ -172,9 +172,9 @@ Asked the Scrum Agent to move card #10 to the real, distinct "Rejected" column (
 
 ---
 
-### TC-CRX-175: Story Points question is answered honestly per whether the feature is enabled
+### TC-CRX-008: Story Points question is answered honestly per whether the feature is enabled
 
-**User Role:** Same as TC-CRX-108.
+**User Role:** Same as TC-CRX-001.
 **Precondition:** Confirm (via Administration → Plugins → Agile settings) whether Story Points are enabled on this instance.
 
 **Steps:**
@@ -189,7 +189,7 @@ Confirmed via Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-CRX-176: Permission matrix — Scrum Agent, no-domain-permission probe (core `Edit issues` gate)
+### TC-CRX-009: Permission matrix — Scrum Agent, no-domain-permission probe (core `Edit issues` gate)
 
 **User Role:** `daisy.skye` (has `Add issues` but not `Edit issues` — Agile Board has no dedicated permission group of its own, per `docs/CRUX_AGENT_PERMISSION_MATRIX.md`).
 **Precondition:** A named card the tester can reference.
@@ -212,7 +212,7 @@ Correction to precondition: contrary to the TC's assumption, the Agile Board plu
 
 ## Evidence Map
 
-- Case IDs: TC-CRX-108 through TC-CRX-113 — all 6 reached a definitive verdict (2 PASS: 108, 113; 4 FAIL: 109, 110, 111, 112 — all 4 blocked by the same new bug, BUG-CRX-020).
+- Case IDs: TC-CRX-001 through TC-CRX-006 — all 6 reached a definitive verdict (2 PASS: 108, 113; 4 FAIL: 109, 110, 111, 112 — all 4 blocked by the same new bug, BUG-CRX-020).
 - Screenshots: bugs only (none captured — evidence via live chat transcript text and direct DOM inspection, cross-checked against the real `/projects/crux-qa/issues` page).
 - Log: session ses-143, 2026-09-16.
 - Bug reference: BUG-CRX-020 (new, Critical — fabricated-confirm proposals with no real button, blocking the entire Scrum Agent write surface), BUG-CRX-013 (self-contradiction, reproduced once more on a 4th domain agent — Scrum).

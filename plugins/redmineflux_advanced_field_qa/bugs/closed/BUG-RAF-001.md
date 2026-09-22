@@ -59,6 +59,6 @@ The JavaScript duplicate check in `dependencies.html.erb` compared only `parent_
 - TC-RAF-022: Department=IT rule already present → added HR→Location(Branch Office) → **saved successfully, both rules listed**
 - TC-RAF-023: Added Finance→Location(Branch Office, CRM) scoped to Advanced Fields Demo → **saved successfully**
 - TC-RAF-024: Added Operations→Location(WAN, LAN, VPN) globally → **saved successfully, 4 rules coexist**
-- TC-RAF-036: On New Issue form, Department=IT shows 3 Location options; switching to HR shows only Branch Office — no page reload → **PASS**
+- TC-RAF-035: On New Issue form, Department=IT shows 3 Location options; switching to HR shows only Branch Office — no page reload → **PASS**
 
 - Screenshot: `screenshots/BUG-RAF-001/retest-2026-05-21-finance-location-blocked.png`

@@ -59,7 +59,7 @@ Utilization: 11.1% | Effectiveness: 99.5% | Underutilized: 1 | Unplanned: 5
 
 ## Affected TCs
 
-- TC-RFM-077: FAIL — dashboard data consistency check fails on 5 metrics
+- TC-RFM-155: FAIL — dashboard data consistency check fails on 5 metrics
 
 ## Duplicate check
 

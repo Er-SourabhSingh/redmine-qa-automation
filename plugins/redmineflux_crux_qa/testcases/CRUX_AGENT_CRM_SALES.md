@@ -2,7 +2,7 @@
 
 > Source: `redmineflux-crux-core/agents/crm-sales.md` (full `allowed_tools:` + Identity/How-you-work/What-you-must-never-do sections); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
-> **Execution readiness: UNBLOCKED — fully executed across 2026-09-15 and 2026-09-16, all 8 TCs (TC-CRX-085 through TC-CRX-092) reached a definitive verdict.** Session 1 (2026-09-15): initially blocked by an MCP-connectivity failure (stale MCP session, BUG-CRX-004 recurrence pattern), fixed via user-approved `docker restart crux-core`. TC-CRX-085/086 PASS. TC-CRX-087 FAIL — BUG-CRX-013 (deal-stage-move intent never produces a confirm proposal, reproduced 3/3). TC-CRX-088 FAIL (link step) — BUG-CRX-015 (unresolvable numeric project_id demand + a false "contact doesn't exist" negative); activity-log step and TC-CRX-089–092 BLOCKED first by a second stale-MCP-session recurrence, then by an OpenRouter `402 Payment Required` billing issue (not a plugin defect). Also found and reported BUG-CRX-014 (domain-agent mis-routing to the Project Manager, false "no write tools" claim). Session 2 (2026-09-16): on resume, found a *new* infra issue — the MCP server booted in a degraded 0-plugin state (Redmine wasn't reachable within its 60s startup window) — filed as **BUG-CRX-016 (High)**, fixed via MCP + crux-core restart; the 402 error had also cleared. Completed TC-CRX-088's activity-log step (PASS, after reproducing BUG-CRX-014 once more and BUG-CRX-004 once more along the way). TC-CRX-089 PASS (lead conversion, no data loss) — along the way reproduced BUG-CRX-013's self-contradiction pattern for lead-status updates too, broadening its scope beyond deal-stage-move. TC-CRX-090 PASS (settings read-before-append correctly preserves existing stages). TC-CRX-091 PASS (delete never fires as a side effect; explicit delete works) — reproduced BUG-CRX-013 a third time, for delete. TC-CRX-092 PASS (invalid stage value honestly rejected before proposing, real configured list shown, no coercion).
+> **Execution readiness: UNBLOCKED — fully executed across 2026-09-15 and 2026-09-16, all 8 TCs (TC-CRX-010 through TC-CRX-017) reached a definitive verdict.** Session 1 (2026-09-15): initially blocked by an MCP-connectivity failure (stale MCP session, BUG-CRX-004 recurrence pattern), fixed via user-approved `docker restart crux-core`. TC-CRX-010/086 PASS. TC-CRX-012 FAIL — BUG-CRX-013 (deal-stage-move intent never produces a confirm proposal, reproduced 3/3). TC-CRX-013 FAIL (link step) — BUG-CRX-015 (unresolvable numeric project_id demand + a false "contact doesn't exist" negative); activity-log step and TC-CRX-014–092 BLOCKED first by a second stale-MCP-session recurrence, then by an OpenRouter `402 Payment Required` billing issue (not a plugin defect). Also found and reported BUG-CRX-014 (domain-agent mis-routing to the Project Manager, false "no write tools" claim). Session 2 (2026-09-16): on resume, found a *new* infra issue — the MCP server booted in a degraded 0-plugin state (Redmine wasn't reachable within its 60s startup window) — filed as **BUG-CRX-016 (High)**, fixed via MCP + crux-core restart; the 402 error had also cleared. Completed TC-CRX-013's activity-log step (PASS, after reproducing BUG-CRX-014 once more and BUG-CRX-004 once more along the way). TC-CRX-014 PASS (lead conversion, no data loss) — along the way reproduced BUG-CRX-013's self-contradiction pattern for lead-status updates too, broadening its scope beyond deal-stage-move. TC-CRX-015 PASS (settings read-before-append correctly preserves existing stages). TC-CRX-016 PASS (delete never fires as a side effect; explicit delete works) — reproduced BUG-CRX-013 a third time, for delete. TC-CRX-017 PASS (invalid stage value honestly rejected before proposing, real configured list shown, no coercion).
 
 ## Plugin
 - Name: redmineflux_crux (Sales Agent, CRM plugin domain)
@@ -16,7 +16,7 @@
 
 ---
 
-### TC-CRX-085: Sales Agent read surface — dashboard, pipeline, records, reports, audit log
+### TC-CRX-010: Sales Agent read surface — dashboard, pipeline, records, reports, audit log
 
 **User Role:** Logged-in user with `use_ask_crux` and real CRM plugin access.
 **Precondition:** CRM plugin installed with some real contacts/companies/deals/leads.
@@ -40,9 +40,9 @@ Evidence (session ses-141, `luna.blossom`, 2026-09-15):
 
 ---
 
-### TC-CRX-086: Create a contact, company, deal, and lead — each fully specified
+### TC-CRX-011: Create a contact, company, deal, and lead — each fully specified
 
-**User Role:** Same as TC-CRX-085.
+**User Role:** Same as TC-CRX-010.
 **Precondition:** None.
 
 **Steps:**
@@ -67,9 +67,9 @@ Evidence (session ses-141, `luna.blossom`, 2026-09-15):
 
 ---
 
-### TC-CRX-087: Update a deal's stage via `update_deal_stage`, not a generic update
+### TC-CRX-012: Update a deal's stage via `update_deal_stage`, not a generic update
 
-**User Role:** Same as TC-CRX-085.
+**User Role:** Same as TC-CRX-010.
 **Precondition:** An existing test deal.
 
 **Steps:**
@@ -91,9 +91,9 @@ No confirm card was ever produced for any phrasing — the deal's stage was neve
 
 ---
 
-### TC-CRX-088: Link/unlink a contact and a deal; log an activity
+### TC-CRX-013: Link/unlink a contact and a deal; log an activity
 
-**User Role:** Same as TC-CRX-085.
+**User Role:** Same as TC-CRX-010.
 **Precondition:** An existing contact and deal.
 
 **Steps:**
@@ -109,15 +109,15 @@ No confirm card was ever produced for any phrasing — the deal's stage was neve
 
 Evidence (session ses-141, `luna.blossom`, 2026-09-15):
 - **Link step**: "CRM, link contact Priya Sharma to the Acme Corp Renewal deal." → false negative: "there is no contact named Priya Sharma in the CRM" — demonstrably false, confirmed via the real `/contacts` page showing her row at that exact moment. Retry with explicit IDs got past the false negative but hit an unresolvable "I need the project ID to link a contact to a deal" requirement — no other CRM write action in this entire suite ever required a project ID, and the CRM plugin's own UI never exposes one for contacts/companies/deals/leads. Neither "use the current project" nor naming the production project "ztflux" resolved it (the tool insists on a *numeric* ID it gives no way to discover). See BUG-CRX-015. Link/unlink could not be completed or verified as a result.
-- **Activity-log step**: "CRM, log a call with Priya Sharma about renewal terms." first failed with a stale-MCP-session 404 (BUG-CRX-004 recurrence, triggered by an unrelated ~30-minute stuck browser call mid-session) — recovered via a user-approved `docker restart crux-core`. Retried immediately after and hit a blocker: `provider error: HTTP Error 402: Payment Required` from the OpenRouter LLM key, persisting after a Retry click — an environment/billing constraint, not a plugin defect, **not filed as a bug**. TC-CRX-088's activity-log step and TC-CRX-089 through TC-CRX-092 were BLOCKED for the rest of 2026-09-15.
+- **Activity-log step**: "CRM, log a call with Priya Sharma about renewal terms." first failed with a stale-MCP-session 404 (BUG-CRX-004 recurrence, triggered by an unrelated ~30-minute stuck browser call mid-session) — recovered via a user-approved `docker restart crux-core`. Retried immediately after and hit a blocker: `provider error: HTTP Error 402: Payment Required` from the OpenRouter LLM key, persisting after a Retry click — an environment/billing constraint, not a plugin defect, **not filed as a bug**. TC-CRX-013's activity-log step and TC-CRX-014 through TC-CRX-017 were BLOCKED for the rest of 2026-09-15.
 - **2026-09-16 resume**: on session start, found a *new*, unrelated infra issue — the MCP server had booted in a degraded 0-plugin state (Redmine wasn't reachable within its 60s startup window, a container-ordering race). Filed as **BUG-CRX-016 (High)**. Fixed via MCP + crux-core restart. The 402 error was also gone on retry (day boundary/quota reset). Retried "CRM, log a call with Priya Sharma about renewal terms." — the Sales Agent correctly asked clarifying questions (which record, when, what notes), a follow-up without the "CRM," prefix reproduced BUG-CRX-014 again (no new evidence needed), and the re-prefixed follow-up produced a correct `Crm Log Activity` confirm card (Subject Type: CrmContact, Subject: 1, Activity Type: call, Content, Activity Date: 2026-09-16) → confirmed → "✓ Activity logged on CrmContact #1 (type: call, ID: 7)." Verified independently on the real `/contacts/1` page: "Recent Activities" shows the Call entry with the exact date and content. **Activity-log step: PASS.**
-- **Overall TC-CRX-088 verdict: FAIL** — the link step is blocked by BUG-CRX-015 (unresolvable project_id demand), so unlink was never reachable either. The activity-log step passes independently, consistent with the TC's own expectation that link/unlink and activity-logging work independently.
+- **Overall TC-CRX-013 verdict: FAIL** — the link step is blocked by BUG-CRX-015 (unresolvable project_id demand), so unlink was never reachable either. The activity-log step passes independently, consistent with the TC's own expectation that link/unlink and activity-logging work independently.
 
 ---
 
-### TC-CRX-089: Convert a qualified lead
+### TC-CRX-014: Convert a qualified lead
 
-**User Role:** Same as TC-CRX-085.
+**User Role:** Same as TC-CRX-010.
 **Precondition:** A lead the tester explicitly describes as qualified.
 
 **Steps:**
@@ -138,9 +138,9 @@ Evidence (session ses-142, `luna.blossom`, 2026-09-16):
 
 ---
 
-### TC-CRX-090: Settings — read before update, full-list replacement semantics
+### TC-CRX-015: Settings — read before update, full-list replacement semantics
 
-**User Role:** Same as TC-CRX-085, with Redmine admin (settings update is admin-only per the agent spec).
+**User Role:** Same as TC-CRX-010, with Redmine admin (settings update is admin-only per the agent spec).
 **Precondition:** None.
 
 **Steps:**
@@ -163,9 +163,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-091: Delete requires the user to name the specific record — never a side effect
+### TC-CRX-016: Delete requires the user to name the specific record — never a side effect
 
-**User Role:** Same as TC-CRX-085.
+**User Role:** Same as TC-CRX-010.
 **Precondition:** A named test contact.
 
 **Steps:**
@@ -186,9 +186,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-092: Invalid stage/status/source value is rejected, not silently coerced
+### TC-CRX-017: Invalid stage/status/source value is rejected, not silently coerced
 
-**User Role:** Same as TC-CRX-085.
+**User Role:** Same as TC-CRX-010.
 **Precondition:** A known-invalid stage name (not in the plugin's configured list).
 
 **Steps:**
@@ -201,7 +201,7 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 **Result: PASS**
 
 Evidence (session ses-143, `admin`, 2026-09-16):
-- "CRM, create a deal called 'Bogus Stage Test' worth $1000 at stage Frobnicated." → the agent caught the invalid stage **before** proposing anything: "'Frobnicated' is not a valid deal stage. The configured stages are: New, Qualified, Proposal, Negotiation, Contract Review, Won, Lost" — the real, current list (correctly including "Contract Review" added earlier in TC-CRX-090). It then offered a legitimate choice: pick one of the real stages, or explicitly add "Frobnicated" as a new stage first. No confirm card was produced, nothing was silently coerced to a valid stage, and no fabricated success was reported — no deal named "Bogus Stage Test" exists on the real `/deals` page.
+- "CRM, create a deal called 'Bogus Stage Test' worth $1000 at stage Frobnicated." → the agent caught the invalid stage **before** proposing anything: "'Frobnicated' is not a valid deal stage. The configured stages are: New, Qualified, Proposal, Negotiation, Contract Review, Won, Lost" — the real, current list (correctly including "Contract Review" added earlier in TC-CRX-015). It then offered a legitimate choice: pick one of the real stages, or explicitly add "Frobnicated" as a new stage first. No confirm card was produced, nothing was silently coerced to a valid stage, and no fabricated success was reported — no deal named "Bogus Stage Test" exists on the real `/deals` page.
 
 ---
 
@@ -209,7 +209,7 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-158: Activity deletion is restricted to its own author (non-admins)
+### TC-CRX-018: Activity deletion is restricted to its own author (non-admins)
 
 **User Role:** Two distinct non-admin users, one of whom logged the activity.
 **Precondition:** An activity logged by one user (e.g. `admin`) on a contact/deal.
@@ -227,9 +227,9 @@ As `luna.blossom`, logged a real call activity on Deal #3 ("Zenith Corp Upgrade"
 
 ---
 
-### TC-CRX-159: Moving a deal to Lost stage without a Lost Reason
+### TC-CRX-019: Moving a deal to Lost stage without a Lost Reason
 
-**User Role:** Same as TC-CRX-085.
+**User Role:** Same as TC-CRX-010.
 **Precondition:** An existing test deal not currently in Lost stage.
 
 **Steps:**
@@ -244,9 +244,9 @@ As `admin`, "Sales Agent, move the Zenith Corp Upgrade deal to Lost stage." → 
 
 ---
 
-### TC-CRX-160: Setting lead status to Converted directly is refused (system-reserved)
+### TC-CRX-020: Setting lead status to Converted directly is refused (system-reserved)
 
-**User Role:** Same as TC-CRX-085.
+**User Role:** Same as TC-CRX-010.
 **Precondition:** An existing test lead not yet converted.
 
 **Steps:**
@@ -261,7 +261,7 @@ Created a fresh test lead ("Permission Matrix Test Lead 2", ID 2, status New) as
 
 ---
 
-### TC-CRX-161: CRM privacy visibility from a non-admin's chat session — flagged High
+### TC-CRX-021: CRM privacy visibility from a non-admin's chat session — flagged High
 
 **User Role:** `luna.blossom` (non-admin, has full CRM permissions but is neither creator nor assignee of the target private record).
 **Precondition:** A private contact/deal created by/assigned to a different user (e.g. `admin`), not `luna.blossom`.
@@ -285,7 +285,7 @@ All 3 legs correctly enforce the KB-documented privacy rule ("non-admins see pub
 
 ---
 
-### TC-CRX-162: Permission matrix — Sales Agent, no-domain-permission probe (temp-grant `daisy.skye`)
+### TC-CRX-022: Permission matrix — Sales Agent, no-domain-permission probe (temp-grant `daisy.skye`)
 
 **User Role:** `daisy.skye`, temporarily granted `Use Ask Crux` only (baseline zero-permission user; `luna.blossom` already has full CRM access, so she cannot serve as the "no domain permission" subject for CRM).
 **Precondition:** `daisy.skye`'s role temporarily granted `Use Ask Crux` (revert immediately after the probe — several existing bug repros, e.g. BUG-CRX-012, rely on her staying at zero Crux permissions as a documented baseline, per `docs/CRUX_AGENT_PERMISSION_MATRIX.md`).
@@ -308,7 +308,7 @@ NOT YET LIVE-VERIFIED — drafted from `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s 
 
 ## Evidence Map
 
-- Case IDs: TC-CRX-085 through TC-CRX-092 — all 8 executed, all reached a definitive verdict (5 PASS: 085, 086, 089, 090, 092; 2 FAIL: 087, 088)
+- Case IDs: TC-CRX-010 through TC-CRX-017 — all 8 executed, all reached a definitive verdict (5 PASS: 085, 086, 089, 090, 092; 2 FAIL: 087, 088)
 - Screenshots: bugs only (none captured this suite — all evidence via live chat transcript text cross-checked against real UI pages).
 - Log: —
-- Bug reference: BUG-CRX-013 (#120664, TC-CRX-087, scope broadened 2026-09-16 via TC-CRX-089/091), BUG-CRX-014 (#120665, TC-CRX-086, reproduced again TC-CRX-088), BUG-CRX-015 (#120669, TC-CRX-088), BUG-CRX-016 (#120696, infra, found during 2026-09-16 session resume)
+- Bug reference: BUG-CRX-013 (#120664, TC-CRX-012, scope broadened 2026-09-16 via TC-CRX-014/091), BUG-CRX-014 (#120665, TC-CRX-011, reproduced again TC-CRX-013), BUG-CRX-015 (#120669, TC-CRX-013), BUG-CRX-016 (#120696, infra, found during 2026-09-16 session resume)

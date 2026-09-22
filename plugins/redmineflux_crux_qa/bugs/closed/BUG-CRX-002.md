@@ -47,7 +47,7 @@ This looks like leftover copy from before the #117162 CRUD work landed on these 
 
 ### Screenshot
 
-N/A — not yet captured; this was found reading the accessibility snapshot during TC-CRX-082 (Crux settings page) execution. Capture a screenshot of the "Chat agents" section on retest/regression.
+N/A — not yet captured; this was found reading the accessibility snapshot during TC-CRX-072 (Crux settings page) execution. Capture a screenshot of the "Chat agents" section on retest/regression.
 
 ### Retest screenshot (fill after fix is verified)
 

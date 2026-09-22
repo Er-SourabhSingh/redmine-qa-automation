@@ -24,7 +24,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-801: All sixteen documented metrics are present
+### TC-CRM-024: All sixteen documented metrics are present
 
 **User Role:** Member with **View CRM**
 **Steps:**
@@ -38,7 +38,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-802: Deal counts reconcile
+### TC-CRM-025: Deal counts reconcile
 
 **User Role:** Member
 **Steps:**
@@ -50,7 +50,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-803: Deal values reconcile
+### TC-CRM-026: Deal values reconcile
 
 **User Role:** Member
 **Steps:**
@@ -62,19 +62,19 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-804: Weighted forecast
+### TC-CRM-027: Weighted forecast
 
 **User Role:** Member
 **Steps:**
 1. Compute the forecast by hand for all open deals (amount × probability ÷ 100) and compare.
 
 **Expected Result:**
-- Exact match, and consistent with the pipeline's own weighted forecast (TC-CRM-414).
+- Exact match, and consistent with the pipeline's own weighted forecast (TC-CRM-096).
 - Two surfaces showing different forecasts for the same data is a defect regardless of which is right.
 
 ---
 
-### TC-CRM-805: Win rate
+### TC-CRM-028: Win rate
 
 **User Role:** Member
 **Steps:**
@@ -82,11 +82,11 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 **Expected Result:**
 - 75%, from won ÷ (won + lost). **Open deals are not in the denominator**, per the KB's statement that won and
-  lost both count toward it (paired with TC-CRM-423).
+  lost both count toward it (paired with TC-CRM-105).
 
 ---
 
-### TC-CRM-806: Average deal value and contact metrics
+### TC-CRM-029: Average deal value and contact metrics
 
 **User Role:** Member
 **Steps:**
@@ -101,7 +101,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-807: Period filters
+### TC-CRM-030: Period filters
 
 **User Role:** Member
 **Steps:**
@@ -114,7 +114,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-808: Charts agree with their numbers
+### TC-CRM-031: Charts agree with their numbers
 
 **User Role:** Member
 **Steps:**
@@ -129,7 +129,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-809: The audit log shows cross-record history
+### TC-CRM-032: The audit log shows cross-record history
 
 **User Role:** Member with **View Audit Log**
 **Steps:**
@@ -141,7 +141,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-810: Filter and search
+### TC-CRM-033: Filter and search
 
 **User Role:** Member with View Audit Log
 **Steps:**
@@ -149,11 +149,11 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 **Expected Result:**
 - Both narrow correctly, and entries name the actor, the record and the timestamp.
-- Attribution is what makes the log usable — including for the email-sender question raised in TC-CRM-612.
+- Attribution is what makes the log usable — including for the email-sender question raised in TC-CRM-012.
 
 ---
 
-### TC-CRM-811: Entries survive their source record's deletion
+### TC-CRM-034: Entries survive their source record's deletion
 
 **User Role:** Member with Delete CRM Data, then View Audit Log
 **Steps:**
@@ -168,7 +168,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-812: The audit log is read-only for everyone, including admins
+### TC-CRM-035: The audit log is read-only for everyone, including admins
 
 **User Role:** Admin, and a member with View Audit Log
 **Steps:**
@@ -187,7 +187,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-813: Link a contact and a deal to an issue
+### TC-CRM-036: Link a contact and a deal to an issue
 
 **User Role:** Member with CRM permissions **and** edit-issues on that project
 **Steps:**
@@ -198,7 +198,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-814: One contact and one deal per issue
+### TC-CRM-037: One contact and one deal per issue
 
 **User Role:** Member
 **Steps:**
@@ -211,7 +211,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-815: Unlink
+### TC-CRM-038: Unlink
 
 **User Role:** Member
 **Steps:**
@@ -223,7 +223,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-816: Create a CRM record from an issue
+### TC-CRM-039: Create a CRM record from an issue
 
 **User Role:** Member
 **Steps:**
@@ -235,7 +235,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-817: Linking requires issue-edit permission
+### TC-CRM-040: Linking requires issue-edit permission
 
 **User Role:** A member with full CRM permissions but **without** edit-issues on that project
 **Steps:**
@@ -248,7 +248,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-818: Links respect CRM privacy
+### TC-CRM-041: Links respect CRM privacy
 
 **User Role:** A member who cannot see a private contact
 **Steps:**
@@ -262,7 +262,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-819: Deleting an issue removes its links
+### TC-CRM-042: Deleting an issue removes its links
 
 **User Role:** Manager
 **Steps:**
@@ -277,7 +277,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-820: Custom fields on all four entity types
+### TC-CRM-043: Custom fields on all four entity types
 
 **User Role:** Admin to configure, Member to use
 **Steps:**
@@ -289,7 +289,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-821: Custom field types and validation
+### TC-CRM-044: Custom field types and validation
 
 **User Role:** Member
 **Steps:**
@@ -298,12 +298,12 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 **Expected Result:**
 - Each renders the correct input; invalid values are rejected; required fields are enforced.
-- **Enforcement must hold on the API too** (TC-CRM-918) and during **import**, which has no column for custom
+- **Enforcement must hold on the API too** (TC-CRM-201) and during **import**, which has no column for custom
   fields — record whether imported records can therefore bypass a required custom field.
 
 ---
 
-### TC-CRM-822: Custom fields on the lead conversion form
+### TC-CRM-045: Custom fields on the lead conversion form
 
 **User Role:** Member
 **Steps:**
@@ -312,11 +312,11 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 **Expected Result:**
 - The values are stored on the created deal, per the KB.
 - If a required deal custom field is not offered on the conversion form, conversion would create an invalid deal
-  or fail late — record which (paired with TC-CRM-521).
+  or fail late — record which (paired with TC-CRM-179).
 
 ---
 
-### TC-CRM-823: Custom field visibility
+### TC-CRM-046: Custom field visibility
 
 **User Role:** A member whose role cannot see a restricted custom field
 **Steps:**
@@ -333,7 +333,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-824: Analytics with no data
+### TC-CRM-047: Analytics with no data
 
 **User Role:** Member
 **Steps:**
@@ -345,7 +345,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-825: Analytics respects privacy
+### TC-CRM-048: Analytics respects privacy
 
 **User Role:** A non-admin who cannot see certain private deals
 **Steps:**
@@ -359,7 +359,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-826: Audit log respects record visibility
+### TC-CRM-049: Audit log respects record visibility
 
 **User Role:** A member with View Audit Log who cannot see certain private records
 **Steps:**
@@ -372,7 +372,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-827: Analytics access requires View CRM
+### TC-CRM-050: Analytics access requires View CRM
 
 **User Role:** A user with no CRM permissions
 **Steps:**
@@ -384,7 +384,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 
 ---
 
-### TC-CRM-828: Audit log access requires View Audit Log
+### TC-CRM-051: Audit log access requires View Audit Log
 
 **User Role:** A member with View CRM but without View Audit Log
 **Steps:**

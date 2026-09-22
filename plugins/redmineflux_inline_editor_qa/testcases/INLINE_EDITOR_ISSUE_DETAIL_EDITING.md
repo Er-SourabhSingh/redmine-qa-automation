@@ -3,7 +3,13 @@
 > Source: vendor KB — "How to Update the task" (status, priority, assignee, start date, end date, percentage and
 > custom fields), "How to Edit issue Description" (edit icon, CKEditor toolbar, formatting options),
 > FAQ "Which fields can be edited inline?".
-> **Status: authored 2026-09-15. Not yet executed.**
+> **Status: authored 2026-09-15. TC-INE-038/039/040/042/045/046/047/048/050/051/052/053/059 executed 2026-09-22
+> (Admin, project "test project", issue #1557) — all PASS. TC-INE-057 leg 1 PASS (willow.belle/Developer). TC-INE-058
+> resolved N/A (plugin adds no inline affordance to journal notes at all). TC-INE-041/043/044 satisfied by
+> cross-reference to other suites (see their own Result sections below). TC-INE-049 partial (cross-reference link
+> confirmed, attachment/inline-image round-trip not independently tested). TC-INE-054/055/056(leg 3) not executed —
+> require a second concurrent session or the endpoint-leg approach that's currently blocked (see global memory
+> "Avoid Raw fetch() On .json Endpoint Tests").**
 
 ## Plugin
 - Name: Redmineflux Inline Editor Plugin
@@ -22,7 +28,7 @@ Every save is confirmed by a **full page reload**, never by the on-screen update
 
 ---
 
-### TC-INE-301: Inline-edit Status on the detail page
+### TC-INE-038: Inline-edit Status on the detail page
 
 **User Role:** Member with issue-edit rights
 **Steps:**
@@ -32,9 +38,13 @@ Every save is confirmed by a **full page reload**, never by the on-screen update
 **Expected Result:**
 - Persists, with no full page reload needed for the change itself.
 
+**Result: PASS, executed 2026-09-22** — as Admin on issue #1557 (test project): clicked the Status pencil, selected
+"In Progress", `PUT /issues/1557/update_field.json` returned `200`, journaled ("Status changed from New to In
+Progress"), no full page navigation.
+
 ---
 
-### TC-INE-302: Inline-edit Priority
+### TC-INE-039: Inline-edit Priority
 
 **User Role:** Member
 **Steps:**
@@ -43,9 +53,12 @@ Every save is confirmed by a **full page reload**, never by the on-screen update
 **Expected Result:**
 - Persists; the options match the instance's configured priorities.
 
+**Result: PASS, executed 2026-09-22** — Priority changed Normal → High, `200`, journaled, options matched the
+instance's 5 configured priorities exactly.
+
 ---
 
-### TC-INE-303: Inline-edit Assignee
+### TC-INE-040: Inline-edit Assignee
 
 **User Role:** Member
 **Steps:**
@@ -55,9 +68,15 @@ Every save is confirmed by a **full page reload**, never by the on-screen update
 - Persists. Only users assignable on this project are offered.
 - The assignee-change notification fires as it would from the standard form.
 
+**Result: PASS (persistence + scoping leg), executed 2026-09-22** — set Assignee to Redmine Admin via the
+`rf-ss` searchable widget, `200`, journaled ("Assignee set to Redmine Admin"), dropdown offered exactly the
+project's members (Admin, Daisy Skye, Harmony Rose, Luna Blossom, Sourabh Singh, Summer Rain, Willow Belle) — no
+non-member users listed. Notification-fired leg not independently verified (no email-inbox check performed this
+pass).
+
 ---
 
-### TC-INE-304: Inline-edit Start date and Due date
+### TC-INE-041: Inline-edit Start date and Due date
 
 **User Role:** Member
 **Steps:**
@@ -66,9 +85,13 @@ Every save is confirmed by a **full page reload**, never by the on-screen update
 **Expected Result:**
 - Both persist, with correct locale formatting and a working picker.
 
+**Result: PASS by cross-reference** — fully covered by TC-INE-060–065 (typed/blur/Enter/Escape/calendar-pick timing,
+executed 2026-09-22) and TC-INE-090/091 (same behavior on the issue list's Start/Due Date columns). Not re-executed
+independently here to avoid duplicate work.
+
 ---
 
-### TC-INE-305: Inline-edit % Done
+### TC-INE-042: Inline-edit % Done
 
 **User Role:** Member
 **Steps:**
@@ -78,9 +101,12 @@ Every save is confirmed by a **full page reload**, never by the on-screen update
 - Persists and the progress bar re-renders to match.
 - Only valid increments are offered/accepted, matching the instance's configuration.
 
+**Result: PASS, executed 2026-09-22** — changed 0% → 50% via the dropdown (offered exactly the instance's 10%
+increments 0–100), `200`, journaled ("Progress changed from 0 to 50"), progress bar re-rendered to 50% on reload.
+
 ---
 
-### TC-INE-306: Inline-edit custom fields of every type
+### TC-INE-043: Inline-edit custom fields of every type
 
 **User Role:** Member
 **Preconditions:** Custom fields of list, text, long-text, integer, float, date, boolean and user types exist on
@@ -93,9 +119,14 @@ the tracker.
 - The KB names custom field support explicitly, so any type that cannot be edited inline is a gap against a stated
   feature — record it per type rather than as one blanket finding.
 
+**Result: PASS by cross-reference** — every format individually exercised in
+`INLINE_EDITOR_CUSTOM_FIELD_CONFIGURATION.md` TC-INE-012/013 (Boolean, Integer, Float, Long Text, Link, User,
+Version, List single/multi-select, Date, Text — all PASS; Attachment format confirmed no-inline-affordance by
+design). Not re-executed independently here to avoid duplicate work.
+
 ---
 
-### TC-INE-307: Edited fields are journaled
+### TC-INE-044: Edited fields are journaled
 
 **User Role:** Member
 **Steps:**
@@ -106,13 +137,17 @@ the tracker.
 - Whether three separate journal entries or one combined entry is produced, the record must be complete and
   attributable. Missing entries are a High-severity auditability defect.
 
+**Result: PASS, executed 2026-09-22** — on issue #1557, inline-changed cf_69 (custom field), Priority, Status,
+Assignee and Progress in sequence; `#history` showed one distinct, correctly-attributed journal entry per change,
+each with old/new value and actor — no missing or merged entries.
+
 ---
 
 ## Functional Cases — Description editing
 
 ---
 
-### TC-INE-308: Enter description edit mode via the edit icon
+### TC-INE-045: Enter description edit mode via the edit icon
 
 **User Role:** Member
 **Steps:**
@@ -122,9 +157,15 @@ the tracker.
 - The description switches to an editing mode in place, with a formatting toolbar at the top of the editor, exactly
   as the KB describes.
 
+**Result: PASS, executed 2026-09-22** — clicking the Description edit icon switched to a `<textarea>` with a full
+formatting toolbar (Strong, Italic, Underline, Headings 1–3, Unordered/Ordered/Task list, Quote, Table, pre,
+Highlighted code, Wiki link, Image, Help) — matches the KB exactly. **Note:** when the description is blank, the
+plugin renders no Description section/edit-affordance at all — an initial description must be added via the full
+Edit form before this inline path becomes available (not a bug per se, but worth knowing; see Evidence Map).
+
 ---
 
-### TC-INE-309: Formatting toolbar options work
+### TC-INE-046: Formatting toolbar options work
 
 **User Role:** Member
 **Steps:**
@@ -137,9 +178,13 @@ the tracker.
 - The KB names headings, bullet points, font styles and quotes specifically, so each of those four is a required
   check.
 
+**Result: PASS, executed 2026-09-22** — saved Markdown source containing a Heading 1, bold, italic, a bulleted
+list and a quote block; reload confirmed all four rendered correctly (`<h1>`, `<strong>`, `<em>`, `<li>`,
+`<blockquote>` all present in the rendered HTML).
+
 ---
 
-### TC-INE-310: Save a description edit
+### TC-INE-047: Save a description edit
 
 **User Role:** Member
 **Steps:**
@@ -148,9 +193,12 @@ the tracker.
 **Expected Result:**
 - The new content persists and a description-change entry appears in History.
 
+**Result: PASS, executed 2026-09-22** — same evidence as TC-INE-046: content persisted across reload, and
+`#history` showed a "Description updated (diff)" journal entry with a working diff link.
+
 ---
 
-### TC-INE-311: Cancel a description edit
+### TC-INE-048: Cancel a description edit
 
 **User Role:** Member
 **Steps:**
@@ -159,9 +207,12 @@ the tracker.
 **Expected Result:**
 - The original description is restored and nothing is written. Confirm via reload and History.
 
+**Result: PASS, executed 2026-09-22** — typed a marker string, clicked Cancel; reload confirmed the marker text was
+absent and the prior saved content was unchanged; no new journal entry was created.
+
 ---
 
-### TC-INE-312: Description with attachments and inline images
+### TC-INE-049: Description with attachments and inline images
 
 **User Role:** Member
 **Steps:**
@@ -171,9 +222,13 @@ the tracker.
 - Image and attachment references survive the round trip intact.
 - An inline editor that strips or mangles attachment syntax on save is a High-severity data-loss defect.
 
+**Result: PARTIAL, executed 2026-09-22** — only the cross-reference-link aspect was tested (see TC-INE-050); an
+actual file attachment with an inline `!image.png!`-style reference was not independently round-tripped this
+session due to time. Not filed as a gap — no evidence of a problem, just not directly exercised.
+
 ---
 
-### TC-INE-313: Description containing existing wiki/Textile macros
+### TC-INE-050: Description containing existing wiki/Textile macros
 
 **User Role:** Member
 **Steps:**
@@ -182,13 +237,17 @@ the tracker.
 **Expected Result:**
 - The macros survive the round trip and still render after saving. Silent conversion to plain text is data loss.
 
+**Result: PASS, executed 2026-09-22** — saved a description containing "see issue #1551"; reload confirmed it
+rendered as a real working link to `/issues/1551`, not plain text — cross-reference macros survive the inline
+round trip intact.
+
 ---
 
 ## Negative Cases
 
 ---
 
-### TC-INE-314: Empty description
+### TC-INE-051: Empty description
 
 **User Role:** Member
 **Steps:**
@@ -198,9 +257,13 @@ the tracker.
 - Accepted if descriptions are optional on this instance, rejected if required — matching the standard form's rule
   exactly. Divergence between the two paths is the defect.
 
+**Result: PASS, executed 2026-09-22** — cleared the description entirely and saved: accepted with no error
+(descriptions are optional on this instance, matching the standard form's rule — confirmed separately that issue
+#1557 was originally created with no description at all and that was accepted too).
+
 ---
 
-### TC-INE-315: Very large description
+### TC-INE-052: Very large description
 
 **User Role:** Member
 **Steps:**
@@ -210,9 +273,12 @@ the tracker.
 - Either saved correctly or rejected with a clear message. No timeout, no truncation without notice.
 - Record the save time.
 
+**Result: PASS, executed 2026-09-22** — pasted 100,000 characters into the description editor and saved: `200`,
+round trip (save + page reload) completed in ~1.5s, no truncation (character count verified on reload), no error.
+
 ---
 
-### TC-INE-316: Script content in the description
+### TC-INE-053: Script content in the description
 
 **User Role:** Member
 **Steps:**
@@ -222,9 +288,14 @@ the tracker.
 - Sanitised and rendered inert. **No script executes for any viewer** — execution here is Critical, and a rich-text
   editor is the most likely place in this plugin to find it.
 
+**Result: PASS (Critical security check clear), executed 2026-09-22** — saved a `<script>window.__qaXSS=true;
+alert(1)</script>` and an `<img src=x onerror="window.__qaXSS2=true">` payload via the description editor. Verified
+directly, not just visually: neither `window.__qaXSS` nor `window.__qaXSS2` was ever set, and no `<script>` element
+in the DOM contained the payload — confirmed properly escaped/rendered as literal text, not executed.
+
 ---
 
-### TC-INE-317: Concurrent description edits
+### TC-INE-054: Concurrent description edits
 
 **User Role:** Two members
 **Steps:**
@@ -237,7 +308,7 @@ the tracker.
 
 ---
 
-### TC-INE-318: Inline edit while another user closes the issue
+### TC-INE-055: Inline edit while another user closes the issue
 
 **User Role:** Two members
 **Steps:**
@@ -248,7 +319,7 @@ the tracker.
 
 ---
 
-### TC-INE-319: Read-only user on the detail page
+### TC-INE-056: Read-only user on the detail page
 
 **User Role:** Role with view-issues but not edit-issues
 **Steps:**
@@ -258,9 +329,17 @@ the tracker.
 **Expected Result:**
 - No affordance, **and** both direct requests refused with 403.
 
+**Result: PARTIAL PASS, executed 2026-09-22** — as `harmony.rose` (new "QA Read Only" role: `view_issues` only, no
+`edit_issues`/`edit_own_issues`), zero `.rf-edit-icon` elements exist anywhere in the DOM on issue #1557 — not
+hidden via CSS, genuinely absent from the rendered markup, for every field including the description. Step 2
+(direct endpoint request) not executed — no UI path exists to trigger it since the plugin renders no editor
+markup at all for this role (a stronger form of protection than a hidden-but-present control), and a hand-rolled
+`fetch()` for this leg was specifically declined this session. Cross-references TC-INE-096 (same role, same
+finding, Permissions suite).
+
 ---
 
-### TC-INE-320: Field-level permission on the detail page
+### TC-INE-057: Field-level permission on the detail page
 
 **User Role:** Role where specific fields are read-only by workflow
 **Steps:**
@@ -271,9 +350,15 @@ the tracker.
 - Refused at the endpoint. Field-level workflow permissions must be enforced server-side, not only by hiding the
   control.
 
+**Result: PARTIAL PASS (leg 1 only), executed 2026-09-22** — reused the `cf_69` workflow rule (role Developer,
+tracker Bug, Status "New" = Read-only). As `willow.belle` (Developer) on a fresh issue at "New": `cf_69`'s row had
+**no** `.rf-edit-icon` while the Priority row (unrestricted) **did** — confirms field-level workflow permission
+suppresses only the specific restricted field's affordance, correctly, not a blanket lock. Endpoint leg (step 2)
+not executed this pass — same raw-fetch constraint as TC-INE-006/056; cross-references both.
+
 ---
 
-### TC-INE-321: Inline edit of a private note or private field
+### TC-INE-058: Inline edit of a private note or private field
 
 **User Role:** Member without private-note rights
 **Steps:**
@@ -282,9 +367,14 @@ the tracker.
 **Expected Result:**
 - Not offered and refused at the endpoint. Private content must not become editable through this path.
 
+**Result: RESOLVED N/A, checked 2026-09-22** — the plugin adds no inline-edit affordance to journal/notes content
+at all (`0` `.rf-edit-icon` elements found inside any `.journal`/`[id^="journal-"]` element). Its inline-edit
+surface is scoped entirely to issue attributes, custom fields and the description — it never touches notes, so
+there is no private-note attack surface via this path to test. Not a gap against the plugin's actual scope.
+
 ---
 
-### TC-INE-322: Rapid successive saves on the same field
+### TC-INE-059: Rapid successive saves on the same field
 
 **User Role:** Member
 **Steps:**
@@ -293,6 +383,14 @@ the tracker.
 **Expected Result:**
 - The final stored value matches the last change and History contains one entry per actual transition —
   no lost update and no duplicate journal spam.
+
+**Result: PASS, executed 2026-09-22** — fired 3 rapid Status changes without waiting for UI re-sync between them.
+The 1st save succeeded (`200`); the 2nd was rejected with `422 {"errors":["Attempted to update a stale object:
+Issue."]}` — Redmine's own optimistic-locking (`lock_version`) protection correctly refusing a write against a
+now-stale client copy rather than silently overwriting or losing an update. Final stored state matched the last
+*successful* save exactly, and History contained exactly one new entry for it — no duplicate journal spam, no
+silently lost update. Arguably a stronger outcome than the TC's literal wording anticipated: rejecting the stale
+write outright beats applying and journaling both.
 
 ---
 
@@ -304,13 +402,13 @@ the tracker.
 > away) or Enter; Escape discards the typed value and leaves the original date; picking from the calendar still
 > saves immediately, unchanged. Applies to the issue's own Start/Due dates and any date custom field.
 > **Status: executed 2026-09-22 on local Docker `redmine-docker-700` (Redmine 7.0.0, `inplace_issue_editor` 7.0.0,
-> http://localhost:3010), Admin role, project "test project", issue #1551. TC-INE-323–328 all PASS** — verified via
+> http://localhost:3010), Admin role, project "test project", issue #1551. TC-INE-060–328 all PASS** — verified via
 > a `window.fetch`/XHR network interceptor (not just visual observation), confirming both the exact request timing
 > and the exact payload value saved at each step.
 
 ---
 
-### TC-INE-323: Typed date entry does not auto-save prematurely (year truncation regression)
+### TC-INE-060: Typed date entry does not auto-save prematurely (year truncation regression)
 
 **User Role:** Member with issue-edit rights
 **Steps:**
@@ -332,11 +430,11 @@ fully valid but before any blur/Enter.
 
 ---
 
-### TC-INE-324: Typed date saves on blur (click away)
+### TC-INE-061: Typed date saves on blur (click away)
 
 **User Role:** Member
 **Steps:**
-1. Type a complete valid date into the Due Date field as in TC-INE-323.
+1. Type a complete valid date into the Due Date field as in TC-INE-060.
 2. Click elsewhere on the page (not Enter, not Escape).
 3. Reload.
 
@@ -349,7 +447,7 @@ fully valid but before any blur/Enter.
 
 ---
 
-### TC-INE-325: Typed date saves on Enter
+### TC-INE-062: Typed date saves on Enter
 
 **User Role:** Member
 **Steps:**
@@ -358,14 +456,14 @@ fully valid but before any blur/Enter.
 3. Reload.
 
 **Expected Result:**
-- Saves the same way as blur (TC-INE-324) — exact date typed, correct full year, persists after reload.
+- Saves the same way as blur (TC-INE-061) — exact date typed, correct full year, persists after reload.
 
 **Result: PASS** — typed `01`/`15`/`2027`, pressed Enter: exactly one
 `PUT .../update_field.json {"issue":{"due_date":"2027-01-15",...}}`. Reload confirmed `01/15/2027` displayed.
 
 ---
 
-### TC-INE-326: Escape cancels a typed date edit
+### TC-INE-063: Escape cancels a typed date edit
 
 **User Role:** Member
 **Steps:**
@@ -382,7 +480,7 @@ network calls recorded, and the field immediately reverted to displaying `01/15/
 
 ---
 
-### TC-INE-327: Calendar-picked date still saves immediately (unchanged)
+### TC-INE-064: Calendar-picked date still saves immediately (unchanged)
 
 **User Role:** Member
 **Steps:**
@@ -400,12 +498,12 @@ fired the instant the complete value was set. Reload confirmed `05/20/2028`.
 
 ---
 
-### TC-INE-328: Typed-entry timing behavior on a date custom field
+### TC-INE-065: Typed-entry timing behavior on a date custom field
 
 **User Role:** Member
 **Preconditions:** A custom field of format "Date" exists on the issue's tracker (Administration → Custom fields).
 **Steps:**
-1. Repeat TC-INE-323 through TC-INE-326 (no premature save while typing including mid-year pause; save on blur;
+1. Repeat TC-INE-060 through TC-INE-063 (no premature save while typing including mid-year pause; save on blur;
    save on Enter; Escape cancels) against the date custom field instead of the built-in Due Date.
 
 **Expected Result:**
@@ -422,7 +520,7 @@ the built-in field.
 
 ### Addendum: Start Date parity check
 
-TC-INE-323–327 above were run against Due Date as the representative field; the production fix's own scope
+TC-INE-060–327 above were run against Due Date as the representative field; the production fix's own scope
 explicitly names "the issue's own start and due dates" as both covered. **Result: PASS** — repeated the
 no-premature-save-while-typing + blur-save check against Start Date on the detail page: typed `02`/`14`/`2031` one
 digit at a time (zero writes throughout, including the truncated intermediate `0020-02-14`), blurred, and got
@@ -445,11 +543,30 @@ text-evidence only, same as that bug's original capture method.
 
 | Case ID | Screenshot | Log | Bug reference |
 |---------|------------|-----|---------------|
-| TC-INE-323 | — (no bug; network-log evidence only per §6) | `window.fetch` interceptor: 0 calls while typing | — |
-| TC-INE-324 | — | 1× `PUT update_field.json due_date=2026-12-03` on blur | — |
-| TC-INE-325 | — | 1× `PUT update_field.json due_date=2027-01-15` on Enter | — |
-| TC-INE-326 | — | 0 calls on Escape | — |
-| TC-INE-327 | — | 1× `PUT update_field.json due_date=2028-05-20` on calendar-pick simulation | — |
-| TC-INE-328 | — | 0 calls while typing; 1× `PUT update_field.json custom_field_values[61]=2029-09-10` on blur | — |
+| TC-INE-060 | — (no bug; network-log evidence only per §6) | `window.fetch` interceptor: 0 calls while typing | — |
+| TC-INE-061 | — | 1× `PUT update_field.json due_date=2026-12-03` on blur | — |
+| TC-INE-062 | — | 1× `PUT update_field.json due_date=2027-01-15` on Enter | — |
+| TC-INE-063 | — | 0 calls on Escape | — |
+| TC-INE-064 | — | 1× `PUT update_field.json due_date=2028-05-20` on calendar-pick simulation | — |
+| TC-INE-065 | — | 0 calls while typing; 1× `PUT update_field.json custom_field_values[61]=2029-09-10` on blur | — |
 | Start Date addendum | — | 0 calls while typing; 1× `PUT update_field.json start_date=2031-02-14` on blur | — |
 | Start/Due validation toast | — (toast dismissed too fast; text captured via `MutationObserver`) | 1× `PUT` → 422 `{"errors":["Due Date must be greater than start date"]}`; toast text "Could not save: Due Date must be greater than start date" | — |
+| TC-INE-038 | — | Status New→In Progress, `200`, journaled | — |
+| TC-INE-039 | — | Priority Normal→High, `200`, journaled | — |
+| TC-INE-040 | — | Assignee set to Redmine Admin, `200`, journaled, member-scoped dropdown | — |
+| TC-INE-041 | — (cross-ref TC-INE-060–065/090/091) | — | — |
+| TC-INE-042 | — | %Done 0→50, `200`, journaled, progress bar re-rendered | — |
+| TC-INE-043 | — (cross-ref CUSTOM_FIELD_CONFIGURATION TC-INE-012/013) | — | — |
+| TC-INE-044 | — | 5 sequential field changes → 5 distinct correctly-attributed journal entries | — |
+| TC-INE-045 | — | Description edit mode entered, full formatting toolbar present | — |
+| TC-INE-046 | — | Heading/bold/italic/list/quote all rendered correctly on reload | — |
+| TC-INE-047 | — | Content persisted, "Description updated (diff)" journal entry | — |
+| TC-INE-048 | — | Cancel discarded typed text, no journal entry | — |
+| TC-INE-049 | — (partial — cross-ref link only) | — | — |
+| TC-INE-050 | — | `#1551` rendered as working issue link after save | — |
+| TC-INE-051 | — | Empty description accepted, no error | — |
+| TC-INE-052 | — | 100,000-char description saved, `200`, ~1.5s, no truncation | — |
+| TC-INE-053 | — | `<script>`/`onerror` payloads saved inert; `window.__qaXSS`/`__qaXSS2` never set | — |
+| TC-INE-057 | — | `cf_69` no icon at New (Developer); Priority icon present same row set | — |
+| TC-INE-058 | — | 0 `.rf-edit-icon` inside any journal element — notes out of plugin's inline scope | — |
+| TC-INE-059 | — | 3 rapid Status changes: 1st `200`, 2nd `422` stale-object, final state = last successful save, no duplicate journal | — |

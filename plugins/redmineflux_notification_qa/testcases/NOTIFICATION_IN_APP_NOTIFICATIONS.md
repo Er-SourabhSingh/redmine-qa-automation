@@ -28,7 +28,7 @@
 
 ---
 
-### TC-NTF-201: Issue added
+### TC-NTF-017: Issue added
 
 **User Role:** Actor creates, Watcher observes
 **Preconditions:** **Issue added** enabled in plugin settings.
@@ -40,7 +40,7 @@
 
 ---
 
-### TC-NTF-202: Issue updated
+### TC-NTF-018: Issue updated
 
 **User Role:** Actor updates, Watcher observes
 **Steps:**
@@ -51,7 +51,7 @@
 
 ---
 
-### TC-NTF-203: Issue note added
+### TC-NTF-019: Issue note added
 
 **User Role:** Actor adds a note
 **Steps:**
@@ -62,7 +62,7 @@
 
 ---
 
-### TC-NTF-204: Issue status updated
+### TC-NTF-020: Issue status updated
 
 **User Role:** Actor changes status
 **Steps:**
@@ -73,7 +73,7 @@
 
 ---
 
-### TC-NTF-205: Issue assigned
+### TC-NTF-021: Issue assigned
 
 **User Role:** Actor reassigns
 **Steps:**
@@ -85,7 +85,7 @@
 
 ---
 
-### TC-NTF-206: Issue priority updated
+### TC-NTF-022: Issue priority updated
 
 **User Role:** Actor changes priority
 **Steps:**
@@ -96,7 +96,7 @@
 
 ---
 
-### TC-NTF-207: Issue target version updated
+### TC-NTF-023: Issue target version updated
 
 **User Role:** Actor changes target version
 **Steps:**
@@ -113,7 +113,7 @@
 
 ---
 
-### TC-NTF-208: The actor is never notified of their own change
+### TC-NTF-024: The actor is never notified of their own change
 
 **User Role:** Actor
 **Steps:**
@@ -126,7 +126,7 @@
 
 ---
 
-### TC-NTF-209: Watchers are notified
+### TC-NTF-025: Watchers are notified
 
 **User Role:** Actor + Watcher
 **Steps:**
@@ -137,7 +137,7 @@
 
 ---
 
-### TC-NTF-210: Uninvolved members are not notified
+### TC-NTF-026: Uninvolved members are not notified
 
 **User Role:** Uninvolved member
 **Steps:**
@@ -153,7 +153,7 @@
 
 ---
 
-### TC-NTF-211: Enabling notifications reveals the bell icon
+### TC-NTF-027: Enabling notifications reveals the bell icon
 
 **User Role:** Member
 **Steps:**
@@ -164,7 +164,7 @@
 
 ---
 
-### TC-NTF-212: Disabling notifications hides the bell and stops delivery
+### TC-NTF-028: Disabling notifications hides the bell and stops delivery
 
 **User Role:** Member
 **Steps:**
@@ -177,7 +177,7 @@
 
 ---
 
-### TC-NTF-213: The preference is per user
+### TC-NTF-029: The preference is per user
 
 **User Role:** Two members
 **Steps:**
@@ -188,7 +188,7 @@
 
 ---
 
-### TC-NTF-214: The red dot appears for unread notifications
+### TC-NTF-030: The red dot appears for unread notifications
 
 **User Role:** Watcher
 **Steps:**
@@ -199,7 +199,7 @@
 
 ---
 
-### TC-NTF-215: The red dot clears once notifications are viewed
+### TC-NTF-031: The red dot clears once notifications are viewed
 
 **User Role:** Watcher
 **Steps:**
@@ -216,7 +216,7 @@
 
 ---
 
-### TC-NTF-216: See All Notifications opens the history
+### TC-NTF-032: See All Notifications opens the history
 
 **User Role:** Member
 **Steps:**
@@ -227,7 +227,7 @@
 
 ---
 
-### TC-NTF-217: New Notifications filter
+### TC-NTF-033: New Notifications filter
 
 **User Role:** Member
 **Steps:**
@@ -238,7 +238,7 @@
 
 ---
 
-### TC-NTF-218: Viewed Notifications filter
+### TC-NTF-034: Viewed Notifications filter
 
 **User Role:** Member
 **Steps:**
@@ -251,7 +251,7 @@
 
 ---
 
-### TC-NTF-219: History persists across sessions
+### TC-NTF-035: History persists across sessions
 
 **User Role:** Member
 **Steps:**
@@ -262,7 +262,7 @@
 
 ---
 
-### TC-NTF-220: Mark all as seen
+### TC-NTF-036: Mark all as seen
 
 **User Role:** Member
 **Steps:**
@@ -273,7 +273,7 @@
 
 ---
 
-### TC-NTF-221: Opening a notification marks it viewed and redirects
+### TC-NTF-037: Opening a notification marks it viewed and redirects
 
 **User Role:** Member
 **Steps:**
@@ -289,7 +289,7 @@
 
 ---
 
-### TC-NTF-222: Notifications for an issue the recipient can no longer see
+### TC-NTF-038: Notifications for an issue the recipient can no longer see
 
 **User Role:** Watcher whose project access is then removed
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
@@ -307,7 +307,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-NTF-223: Notification content respects private notes
+### TC-NTF-039: Notification content respects private notes
 
 **User Role:** Watcher without permission to view private notes
 **Steps:**
@@ -319,7 +319,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-NTF-224: Private issues
+### TC-NTF-040: Private issues
 
 **User Role:** Member without access to a private issue
 **Steps:**
@@ -330,7 +330,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-NTF-225: Script content in an issue subject or note
+### TC-NTF-041: Script content in an issue subject or note
 
 **User Role:** Actor
 **Steps:**
@@ -344,7 +344,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-NTF-226: Very high notification volume
+### TC-NTF-042: Very high notification volume
 
 **User Role:** Member
 **Steps:**
@@ -356,7 +356,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-NTF-227: Bulk issue updates
+### TC-NTF-043: Bulk issue updates
 
 **User Role:** Actor
 **Steps:**
@@ -369,7 +369,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-NTF-228: Notification after the issue is deleted
+### TC-NTF-044: Notification after the issue is deleted
 
 **User Role:** Actor + Watcher
 **Steps:**

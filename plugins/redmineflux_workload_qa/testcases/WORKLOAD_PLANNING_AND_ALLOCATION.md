@@ -15,7 +15,7 @@
 
 Workloads → **Create Workload**, then the workload name for its detail page. Do not type URLs.
 
-> **Build the capacity number up one input at a time.** Cases TC-WKL-405 to 409 deliberately isolate each input —
+> **Build the capacity number up one input at a time.** Cases TC-WKL-095 to 409 deliberately isolate each input —
 > base hours, weekends, holidays, leave, custom hours — so that a wrong figure can be attributed to a specific
 > cause. A single "capacity looks right" check would be almost useless for diagnosis, and the KB's own
 > troubleshooting list is exactly this set of inputs.
@@ -26,7 +26,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-401: Create a workload
+### TC-WKL-091: Create a workload
 
 **User Role:** Admin, or a member with **Manage workload** on that team
 **Steps:**
@@ -38,7 +38,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-402: Create a workload with custom working hours per day
+### TC-WKL-092: Create a workload with custom working hours per day
 
 **User Role:** Workload manager
 **Steps:**
@@ -51,7 +51,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-403: Edit a workload
+### TC-WKL-093: Edit a workload
 
 **User Role:** Workload manager
 **Steps:**
@@ -64,7 +64,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-404: Delete a workload
+### TC-WKL-094: Delete a workload
 
 **User Role:** Workload manager
 **Steps:**
@@ -81,7 +81,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-405: Base capacity from working days
+### TC-WKL-095: Base capacity from working days
 
 **User Role:** Workload manager
 **Preconditions:** Global hours/day = 8.0; no holidays or leave in range.
@@ -93,7 +93,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-406: Weekends are excluded
+### TC-WKL-096: Weekends are excluded
 
 **User Role:** Workload manager
 **Steps:**
@@ -104,7 +104,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-407: Active-scheme holidays reduce capacity
+### TC-WKL-097: Active-scheme holidays reduce capacity
 
 **User Role:** Admin + workload manager
 **Steps:**
@@ -112,11 +112,11 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 **Expected Result:**
 - Capacity drops to 72 hours (9 working days × 8).
-- Repeat with the holiday in an **inactive** scheme: capacity stays at 80 (paired with TC-WKL-323).
+- Repeat with the holiday in an **inactive** scheme: capacity stays at 80 (paired with TC-WKL-070).
 
 ---
 
-### TC-WKL-408: Approved leave reduces capacity
+### TC-WKL-098: Approved leave reduces capacity
 
 **User Role:** Approver + workload manager
 **Steps:**
@@ -128,7 +128,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-409: All inputs combine correctly
+### TC-WKL-099: All inputs combine correctly
 
 **User Role:** Workload manager
 **Steps:**
@@ -137,7 +137,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 **Expected Result:**
 - 7 available days × 8 hours = **56 hours**, with each deduction applied exactly once.
-- This is the reconciliation case: if TC-WKL-405 – 408 each pass but this one does not, the inputs are
+- This is the reconciliation case: if TC-WKL-095 – 408 each pass but this one does not, the inputs are
   interacting — most likely a day being deducted twice.
 
 ---
@@ -146,7 +146,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-410: Add issues to a workload
+### TC-WKL-100: Add issues to a workload
 
 **User Role:** Workload manager
 **Steps:**
@@ -159,7 +159,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-411: Allocate planned hours within capacity
+### TC-WKL-101: Allocate planned hours within capacity
 
 **User Role:** Workload manager
 **Steps:**
@@ -172,7 +172,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-412: Overload behaviour follows the setting
+### TC-WKL-102: Overload behaviour follows the setting
 
 **User Role:** Workload manager
 **Steps:**
@@ -181,12 +181,12 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 2. Enable the setting and repeat.
 
 **Expected Result:**
-- Disabled: refused at both legs (paired with TC-WKL-109).
+- Disabled: refused at both legs (paired with TC-WKL-039).
 - Enabled: accepted, with the excess reported as overbooked hours rather than absorbed silently.
 
 ---
 
-### TC-WKL-413: Remove an issue from a workload
+### TC-WKL-103: Remove an issue from a workload
 
 **User Role:** Workload manager
 **Steps:**
@@ -198,7 +198,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-414: Allocate across several members and issues
+### TC-WKL-104: Allocate across several members and issues
 
 **User Role:** Workload manager
 **Steps:**
@@ -210,7 +210,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-415: Update an existing allocation
+### TC-WKL-105: Update an existing allocation
 
 **User Role:** Workload manager
 **Steps:**
@@ -221,7 +221,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-416: Zero and cleared allocations
+### TC-WKL-106: Zero and cleared allocations
 
 **User Role:** Workload manager
 **Steps:**
@@ -233,7 +233,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-417: Recalculate Capacity
+### TC-WKL-107: Recalculate Capacity
 
 **User Role:** Workload manager
 **Steps:**
@@ -244,7 +244,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-418: Recalculation picks up every documented input
+### TC-WKL-108: Recalculation picks up every documented input
 
 **User Role:** Admin + workload manager
 **Steps:**
@@ -263,7 +263,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-419: Send workload email
+### TC-WKL-109: Send workload email
 
 **User Role:** Workload manager
 **Preconditions:** Working mail path; Administration → Settings → General → **Host name and path** verified.
@@ -275,7 +275,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-420: Workload email respects recipient visibility
+### TC-WKL-110: Workload email respects recipient visibility
 
 **User Role:** Workload manager
 **Steps:**
@@ -292,7 +292,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-421: Workload validation
+### TC-WKL-111: Workload validation
 
 **User Role:** Workload manager
 **Steps:**
@@ -306,7 +306,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-422: Invalid planned hours
+### TC-WKL-112: Invalid planned hours
 
 **User Role:** Workload manager
 **Steps:**
@@ -318,7 +318,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-423: Allocating to a member not in the workload
+### TC-WKL-113: Allocating to a member not in the workload
 
 **User Role:** Workload manager
 **Steps:**
@@ -329,7 +329,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-424: Adding the same issue twice
+### TC-WKL-114: Adding the same issue twice
 
 **User Role:** Workload manager
 **Steps:**
@@ -340,7 +340,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-425: Issue deleted or moved after allocation
+### TC-WKL-115: Issue deleted or moved after allocation
 
 **User Role:** Workload manager + Manager
 **Steps:**
@@ -353,7 +353,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-426: Concurrent allocation edits
+### TC-WKL-116: Concurrent allocation edits
 
 **User Role:** Two workload managers
 **Steps:**
@@ -365,7 +365,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 
 ---
 
-### TC-WKL-427: Workload access is scoped
+### TC-WKL-117: Workload access is scoped
 
 **User Role:** A member of team A only
 **Steps:**

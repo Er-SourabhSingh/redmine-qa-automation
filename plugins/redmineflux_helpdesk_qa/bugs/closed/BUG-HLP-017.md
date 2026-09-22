@@ -13,7 +13,7 @@
 
 ## Steps to reproduce
 
-1. Create two Support tickets describing the same underlying problem (reproduced: ticket **#12** "TC-HLP-025 duplicate A - printer not connecting to network" and ticket **#13** "TC-HLP-025 duplicate B - printer offline on office network", both in Helpdesk QA Alpha).
+1. Create two Support tickets describing the same underlying problem (reproduced: ticket **#12** "TC-HLP-379 duplicate A - printer not connecting to network" and ticket **#13** "TC-HLP-379 duplicate B - printer offline on office network", both in Helpdesk QA Alpha).
 2. Open ticket #12 (or #13) individually and look for a **Merge** control anywhere on the page — per `HELPDESK_USER_GUIDE.md` §7.4: "open one ticket and use **Merge** to fold it into the other."
 3. Separately, from the project's core Issues list (`/projects/helpdesk-qa-alpha/issues`), select both tickets' checkboxes and open the multi-select context menu (right-click, or `/issues/context_menu?ids[]=12&ids[]=13` directly).
 
@@ -50,7 +50,7 @@
 
 ## Notes
 
-- Found while executing `testcases/HELPDESK_TICKET_LIFECYCLE.md` TC-HLP-025 (Merge) — this single missing control blocks **three** test cases in that suite that all depend on Merge existing: TC-HLP-025 (basic merge), TC-HLP-032 (merge preserving both tickets' prior reply/note history), and TC-HLP-041 (merging a ticket into itself is rejected/no-effect). All three are recorded as FAIL/blocked in the test case file, cross-referencing this bug, rather than each filing a separate one.
+- Found while executing `testcases/HELPDESK_TICKET_LIFECYCLE.md` TC-HLP-379 (Merge) — this single missing control blocks **three** test cases in that suite that all depend on Merge existing: TC-HLP-379 (basic merge), TC-HLP-393 (merge preserving both tickets' prior reply/note history), and TC-HLP-397 (merging a ticket into itself is rejected/no-effect). All three are recorded as FAIL/blocked in the test case file, cross-referencing this bug, rather than each filing a separate one.
 - Ticket #12 and #13 are left in place (not deleted) as ready-made fixtures for retesting once a Merge control is added or found.
 
 ## Retest — STILL NOT FIXED (2026-09-10)
@@ -69,6 +69,6 @@
 - **Part (1), independently verified:** already confirmed twice this session (original 2026-08-31 pass and the 2026-09-10 retest above, on fresh tickets #81/#82) — no Merge control anywhere, on either the ticket's own Actions menu or the multi-select context menu. This matches the developer's claim exactly.
 - **Part (2), a genuine discrepancy found:** our own local `docs/HELPDESK_USER_GUIDE.md` §7.4 still contained the *old* text promising a Merge button at the time of this retest — it had **not** actually been rewritten on our side, contrary to what a literal reading of the developer's note might suggest. We do not have visibility into whatever document the developer's own note refers to (likely an internal/production-side spec, not necessarily this repo) — that specific claim was not verified as-is, and is not being taken on faith. Instead, our own copy of `HELPDESK_USER_GUIDE.md` §7.4 has been rewritten directly, to match the now-confirmed intended behavior (no Merge control; duplicates handled via auto-matched replies + close-and-reference for genuine dupes), consistent with the independently-verified live behavior. This is a documentation correction on our end, not a claim that we inspected or verified the developer's own referenced document.
 - **Verdict: this is not a technical defect and never was one that got "fixed" by a code change** — the team made a product decision not to build the originally-documented feature, and updated the intended contract instead. Closing as resolved-by-design, matching the pattern already used for BUG-HLP-027/028 in this engagement (a documentation-vs-behavior mismatch resolved by correcting the doc, not by chasing a fix for behavior that was never wrong).
-- Related test cases (`TC-HLP-025`, `TC-HLP-032`, `TC-HLP-041` in `HELPDESK_TICKET_LIFECYCLE.md`) updated with revision notes marking them superseded — there is no Merge feature left to test.
+- Related test cases (`TC-HLP-379`, `TC-HLP-393`, `TC-HLP-397` in `HELPDESK_TICKET_LIFECYCLE.md`) updated with revision notes marking them superseded — there is no Merge feature left to test.
 - Fixture tickets #81/#82 (fresh, open, unassigned) left in place, matching the original bug's own convention of leaving fixtures for future retests.
 - Production issue #119713 synced 2026-09-10: status In QA → **Won't Fix** (not Done, per explicit user decision — "Won't Fix" more accurately reflects that the originally-requested Merge feature was deliberately not built, rather than fixed), % done → 100, with a note explaining the rationale and summarizing this retest's findings.

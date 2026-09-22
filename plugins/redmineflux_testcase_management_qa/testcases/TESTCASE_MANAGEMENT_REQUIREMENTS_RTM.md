@@ -22,7 +22,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-601: Create a requirement document
+### TC-TCM-112: Create a requirement document
 
 **User Role:** QA / Manager
 **Steps:**
@@ -34,7 +34,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-602: Requirement title is mandatory
+### TC-TCM-113: Requirement title is mandatory
 
 **User Role:** QA
 **Steps:**
@@ -45,7 +45,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-603: Link a test case to a requirement at creation
+### TC-TCM-114: Link a test case to a requirement at creation
 
 **User Role:** QA
 **Steps:**
@@ -56,7 +56,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-604: Link an existing test case to a requirement
+### TC-TCM-115: Link an existing test case to a requirement
 
 **User Role:** QA
 **Steps:**
@@ -67,7 +67,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-605: Link multiple test cases to one requirement
+### TC-TCM-116: Link multiple test cases to one requirement
 
 **User Role:** QA
 **Steps:**
@@ -78,7 +78,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-606: Unlink a test case from a requirement
+### TC-TCM-117: Unlink a test case from a requirement
 
 **User Role:** QA
 **Steps:**
@@ -89,7 +89,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-607: Edit a requirement
+### TC-TCM-118: Edit a requirement
 
 **User Role:** QA / Manager
 **Steps:**
@@ -100,7 +100,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-608: Delete an unlinked requirement
+### TC-TCM-119: Delete an unlinked requirement
 
 **User Role:** Manager / Admin
 **Steps:**
@@ -111,7 +111,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-609: Delete a requirement that has linked test cases
+### TC-TCM-120: Delete a requirement that has linked test cases
 
 **User Role:** Admin
 **Steps:**
@@ -125,7 +125,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-610: Requirements are project-scoped
+### TC-TCM-121: Requirements are project-scoped
 
 **User Role:** QA
 **Steps:**
@@ -140,7 +140,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-611: RTM lists requirements against their test cases
+### TC-TCM-122: RTM lists requirements against their test cases
 
 **User Role:** QA
 **Steps:**
@@ -151,7 +151,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-612: RTM reflects execution results
+### TC-TCM-123: RTM reflects execution results
 
 **User Role:** QA
 **Steps:**
@@ -164,7 +164,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-613: RTM shows uncovered requirements
+### TC-TCM-124: RTM shows uncovered requirements
 
 **User Role:** QA
 **Steps:**
@@ -176,7 +176,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-614: RTM shows unlinked test cases
+### TC-TCM-125: RTM shows unlinked test cases
 
 **User Role:** QA
 **Steps:**
@@ -188,7 +188,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-615: RTM coverage agrees with the Requirement Coverage report
+### TC-TCM-126: RTM coverage agrees with the Requirement Coverage report
 
 **User Role:** QA
 **Steps:**
@@ -199,7 +199,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 ---
 
-### TC-TCM-616: RTM with no requirements renders cleanly
+### TC-TCM-127: RTM with no requirements renders cleanly
 
 **User Role:** QA
 **Steps:**
@@ -214,9 +214,9 @@ be cross-checked against the underlying run results, not accepted from the matri
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-601 – 610 | Requirement CRUD and linking | — |
-| TC-TCM-611 – 616 | Traceability matrix | — |
+| TC-TCM-112 – 610 | Requirement CRUD and linking | — |
+| TC-TCM-122 – 616 | Traceability matrix | — |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
-- TC-TCM-609, 613 and 615 are the highest-value cases — data-loss semantics, the RTM's core purpose, and
+- TC-TCM-120, 613 and 615 are the highest-value cases — data-loss semantics, the RTM's core purpose, and
   cross-view consistency respectively.

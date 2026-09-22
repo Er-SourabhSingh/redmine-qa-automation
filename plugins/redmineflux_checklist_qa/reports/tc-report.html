@@ -79,34 +79,34 @@ table below.</p>
   <tbody>
     <tr>
       <td class="suitefile">CHECKLIST_CHECKLIST_MANAGEMENT.md</td>
-      <td class="tcid">TC-CHK-001–222 (incl. 223–228)</td>
+      <td class="tcid">TC-CHK-043–222 (incl. 223–228)</td>
       <td>30</td>
       <td>28</td>
       <td>1</td>
       <td><span class="badge na">1 N/A</span></td>
-      <td class="notes">Full CRUD, block-issue-closing base case, expand-by-default (#120920) feature test — all PASS. Regression on TC-CHK-201–222 (triggered by #120920 touching shared rendering/JS): 1 FAIL → <code>BUG-CHK-002</code> (Critical XSS). TC-CHK-222 N/A (no per-project module toggle exists on this plugin).</td>
+      <td class="notes">Full CRUD, block-issue-closing base case, expand-by-default (#120920) feature test — all PASS. Regression on TC-CHK-015–222 (triggered by #120920 touching shared rendering/JS): 1 FAIL → <code>BUG-CHK-002</code> (Critical XSS). TC-CHK-036 N/A (no per-project module toggle exists on this plugin).</td>
     </tr>
     <tr>
       <td class="suitefile">CHECKLIST_INSTALLATION_CONFIGURATION.md</td>
-      <td class="tcid">TC-CHK-101–112</td>
+      <td class="tcid">TC-CHK-054–112</td>
       <td>12</td>
       <td>9</td>
       <td>0</td>
       <td><span class="badge na">3 not executed</span></td>
-      <td class="notes">TC-CHK-109/110/112 skipped — each requires a disruptive instance-level action (plugin rename, skipped migration, full uninstall) on the shared Docker host; flagged pending explicit user approval, not run.</td>
+      <td class="notes">TC-CHK-063/110/112 skipped — each requires a disruptive instance-level action (plugin rename, skipped migration, full uninstall) on the shared Docker host; flagged pending explicit user approval, not run.</td>
     </tr>
     <tr>
       <td class="suitefile">CHECKLIST_PERMISSIONS.md</td>
-      <td class="tcid">TC-CHK-901–912 (approx.)</td>
+      <td class="tcid">TC-CHK-067–912 (approx.)</td>
       <td>12</td>
       <td>11</td>
       <td>0</td>
       <td><span class="badge na">1 N/A</span></td>
-      <td class="notes">Full 3-leg permission testing (positive UI, negative UI-absence, negative direct-URL) across roles. TC-CHK-906 N/A (feature not applicable in this configuration).</td>
+      <td class="notes">Full 3-leg permission testing (positive UI, negative UI-absence, negative direct-URL) across roles. TC-CHK-072 N/A (feature not applicable in this configuration).</td>
     </tr>
     <tr>
       <td class="suitefile">CHECKLIST_TEMPLATES.md</td>
-      <td class="tcid">TC-CHK-401–423</td>
+      <td class="tcid">TC-CHK-093–423</td>
       <td>23</td>
       <td>23</td>
       <td>0</td>
@@ -115,21 +115,21 @@ table below.</p>
     </tr>
     <tr>
       <td class="suitefile">CHECKLIST_PROGRESS_TRACKING.md</td>
-      <td class="tcid">TC-CHK-301–314</td>
+      <td class="tcid">TC-CHK-079–314</td>
       <td>14</td>
       <td>13</td>
       <td>1</td>
       <td>—</td>
-      <td class="notes">Item status, progress-bar accuracy, auto-calculate integration, per-checklist isolation, Checklist History logging, negative/edge cases — all PASS. TC-CHK-313 (rapid toggling) FAIL → <code>BUG-CHK-004</code> (Medium): a cascading double-AJAX-write duplicates journal entries on every click, not just rapid ones.</td>
+      <td class="notes">Item status, progress-bar accuracy, auto-calculate integration, per-checklist isolation, Checklist History logging, negative/edge cases — all PASS. TC-CHK-091 (rapid toggling) FAIL → <code>BUG-CHK-004</code> (Medium): a cascading double-AJAX-write duplicates journal entries on every click, not just rapid ones.</td>
     </tr>
     <tr>
       <td class="suitefile">CHECKLIST_BLOCK_ISSUE_CLOSING.md</td>
-      <td class="tcid">TC-CHK-501–514</td>
+      <td class="tcid">TC-CHK-001–514</td>
       <td>14</td>
       <td>13</td>
       <td>0</td>
       <td><span class="badge na">1 not executed</span></td>
-      <td class="notes">Full edit form, bulk edit, inline quick-edit, multi-checklist, every closed status, live setting toggle, already-closed-before-enabling, delete-to-unblock, and full German localization of the error message — all PASS. TC-CHK-510 (REST API bypass) not executed — reading a real API key was blocked by this session's own credential-materialization safeguard.</td>
+      <td class="notes">Full edit form, bulk edit, inline quick-edit, multi-checklist, every closed status, live setting toggle, already-closed-before-enabling, delete-to-unblock, and full German localization of the error message — all PASS. TC-CHK-010 (REST API bypass) not executed — reading a real API key was blocked by this session's own credential-materialization safeguard.</td>
     </tr>
   </tbody>
 </table>
@@ -151,13 +151,13 @@ table below.</p>
     <tr>
       <td class="tcid">BUG-CHK-002</td>
       <td><span class="badge fail">Critical</span></td>
-      <td class="suitefile">CHECKLIST_CHECKLIST_MANAGEMENT.md (TC-CHK-217)</td>
+      <td class="suitefile">CHECKLIST_CHECKLIST_MANAGEMENT.md (TC-CHK-031)</td>
       <td class="notes">A <code>&lt;script&gt;</code> tag in a checklist/sub-item title executes on creation — client-side self-XSS in the manual-item creation AJAX handlers (unescaped raw HTML interpolation). Not stored XSS for other viewers.</td>
     </tr>
     <tr>
       <td class="tcid">BUG-CHK-004</td>
       <td><span class="badge fail">Medium</span></td>
-      <td class="suitefile">CHECKLIST_PROGRESS_TRACKING.md (TC-CHK-313)</td>
+      <td class="suitefile">CHECKLIST_PROGRESS_TRACKING.md (TC-CHK-091)</td>
       <td class="notes">Toggling a sub-checklist item's checkbox fires two separate AJAX PATCH requests to two different endpoints for the same state change, duplicating Checklist History journal entries on every click. Audit-trail defect only, not data loss.</td>
     </tr>
     <tr>

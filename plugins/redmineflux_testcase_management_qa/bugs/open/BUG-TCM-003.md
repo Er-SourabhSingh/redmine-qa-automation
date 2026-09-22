@@ -305,7 +305,7 @@ this fix rather than assumed safe.
 
 `SENIOR_QA_STANDARDS.md` §26: BUG-TCM-003 is **High**, so closing requires *all TCs in the affected suite plus
 adjacent feature TCs*, not just this retest. The affected suite is `TESTCASE_MANAGEMENT_TEST_RUNS.md`
-(TC-TCM-401–440), **none of which has been executed yet**. Until that runs, this bug stays in `bugs/open/` with a
+(TC-TCM-152–440), **none of which has been executed yet**. Until that runs, this bug stays in `bugs/open/` with a
 PASS recorded, and production **#120544** is unchanged.
 
 ## Duplicate check

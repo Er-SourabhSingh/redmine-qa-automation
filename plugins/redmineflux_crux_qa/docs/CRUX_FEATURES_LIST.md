@@ -7,38 +7,38 @@
 
 | # | Feature | Description | Covered by TC |
 |---|---------|-------------|---------------|
-| 1 | Ask Crux chat — read | Ask any bundled agent a plain-language question; reply streams via SSE, cites real tool-call data, never invents figures | `CRUX_ASK_CRUX_CHAT_CORE.md` TC-CRX-011–021 |
-| 2 | Ask Crux chat — write proposal + confirm gate | Any write implied by chat becomes a pending proposal (confirm card); executes once, only on explicit human Confirm (CRX-35) | `CRUX_WRITE_CONFIRM_GATE.md` TC-CRX-025–032 |
-| 3 | Governed write path | Every write checked against Work Package autonomy + gate state before executing; suggest-only WP can never write (CRX-9) | `CRUX_WRITE_CONFIRM_GATE.md` TC-CRX-028 |
-| 4 | Per-user Redmine key passthrough | Chat/Improve run under the asking user's own API key when `CRUX_REQUIRE_USER_KEY=1`; refused (401) without one; refused by Redmine itself if the user lacks real permission (CRX-12) | `CRUX_PER_USER_KEY_CRX12.md` TC-CRX-037–042 |
-| 5 | Project creation from chat | "@crux create a project for X" → confirm card → real project (CRX-35 increment 1) | `CRUX_PROJECT_CREATION_AND_IMPROVE_WAND.md` TC-CRX-043–045 |
-| 6 | Improve the description (wand) | Issue-page wand action suggests a rewritten description, before/after preview, one gated write on Apply (CRX-46) | `CRUX_PROJECT_CREATION_AND_IMPROVE_WAND.md` TC-CRX-046, 048–050, 052 |
-| 7 | Improve — work breakdown (wand) | Issue-page wand action suggests subtasks; only the selected ones are created as gated child issues | `CRUX_PROJECT_CREATION_AND_IMPROVE_WAND.md` TC-CRX-047 |
-| 8 | Keep | Pin a chat reply to the chat card | `CRUX_CHAT_CAPABILITIES_KEEP_SHARE_ARTIFACTS.md` TC-CRX-053–054 |
-| 9 | Session Artifacts | Agent-produced output during a turn is saved and can be attached to a project/ticket | `CRUX_CHAT_CAPABILITIES_KEEP_SHARE_ARTIFACTS.md` TC-CRX-055–057 (implementation status itself unconfirmed — TC-CRX-055 exists to determine this) |
-| 10 | Share | A teammate watches a live session read-only; sees confirm cards/outcomes but can never trigger the write themselves | `CRUX_CHAT_CAPABILITIES_KEEP_SHARE_ARTIFACTS.md` TC-CRX-058–060 |
-| 11 | Crux dashboard | Merged Flux + Crux-store snapshot: issues, agents, runs, dispatch, blockers, aggregates, outcomes, Work Packages; scoped by `?project=` | `CRUX_DASHBOARD_GRAPH_PIPELINE.md` TC-CRX-062–064 |
-| 12 | Project work graph | Per-project work graph of nodes/edges (CRX-24) | `CRUX_DASHBOARD_GRAPH_PIPELINE.md` TC-CRX-065 |
-| 13 | Pipeline board | List / author / edit pipeline templates (`crux-pipeline/v1`) | `CRUX_DASHBOARD_GRAPH_PIPELINE.md` TC-CRX-066–069 |
-| 14 | Agent roster + pause | View bundled + customer agent manifests; pause/resume an agent | `CRUX_AGENT_ROSTER_ADMIN.md` TC-CRX-074–076 |
-| 15 | Agent provision identity | Give an agent a real Redmine identity, confirm-gated, honest partial reports (CRX-48) | `CRUX_AGENT_ROSTER_ADMIN.md` TC-CRX-077 |
-| 16 | LLM provider/key admin | CRUD for LLM providers + live credential test; managed model keys, always masked, one default per provider | `CRUX_AGENT_ROSTER_ADMIN.md` TC-CRX-078–080, 084 |
-| 17 | Structured log viewer | Admin-only structured log ring buffer | `CRUX_AGENT_ROSTER_ADMIN.md` TC-CRX-081 |
-| 18 | Crux settings page | Set the core service URL from the Crux nav rail (no Administration section needed), merge-not-replace | `CRUX_AGENT_ROSTER_ADMIN.md` TC-CRX-082 |
-| 19 | Gate approval click | `POST /api/gate` — a human approval `{wp_id, gate_id, approver}`, always attributable | `CRUX_WRITE_CONFIRM_GATE.md` TC-CRX-029–030; `CRUX_NAVIGATION_AND_PERMISSIONS.md` TC-CRX-005 |
-| 20 | @-mention delegation | `@`-mentions in ticket comments act on the ticket, reply-only, visible delegation (CRX-26) | `CRUX_ASK_CRUX_CHAT_CORE.md` TC-CRX-014 (chat `@mention`); ticket-comment `@mention` (CRX-26 specifically) not yet covered — add if distinct from chat addressing |
-| 21 | Frozen rules (object-level write blocks) | Admin-only page + enforcement layer above the standard gate (CRX-39) | `CRUX_WRITE_CONFIRM_GATE.md` TC-CRX-031; `CRUX_NAVIGATION_AND_PERMISSIONS.md` TC-CRX-008 |
-| 22 | Full CRUD — Sales Agent (CRM) | Contacts, companies, deals, leads, activities, settings | `CRUX_AGENT_CRM_SALES.md` TC-CRX-085–092, 158–162 (gap coverage: activity-deletion authorship, Lost Reason, Converted-status lockout, privacy visibility, no-perm chat probe) |
-| 23 | Full CRUD — Capacity Agent (Workload) | Allocations, teams, members, skills, leave, holidays | `CRUX_AGENT_WORKLOAD_CAPACITY.md` TC-CRX-093–100, 153–157 (gap coverage: duplicate-membership rejection, holiday-scheme exclusivity, overload-disabled refusal, admin-only dashboard, permission-denial ✓-prefix regression check) |
-| 24 | Write — DevOps Agent | `trigger_build` only (domain-appropriate single action) | `CRUX_AGENT_DEVOPS_AND_BUDGET.md` TC-CRX-101–103, 107, 177, 179 (gap coverage: vague-trigger clarification, no-perm probe) |
-| 25 | Write — Budget Agent | `set_budget` only (domain-appropriate single action) | `CRUX_AGENT_DEVOPS_AND_BUDGET.md` TC-CRX-104–107, 178, 180 (gap coverage: vague-amount clarification, no-perm probe) |
-| 26 | Full CRUD — Scrum Agent (Agile) | Boards, sprints, columns, cards, board config | `CRUX_AGENT_AGILE_SCRUM.md` TC-CRX-108–113, 174–176 (gap coverage: invalid workflow-transition refusal, Story Points honesty, no-perm probe) |
-| 27 | Full CRUD — QA Agent (Test Case Mgmt) | Test cases, suites, runs, results, reference data, defect reporting | `CRUX_AGENT_QA_TESTCASES.md` TC-CRX-114–120, 170–173 (gap coverage: defect-report status gating, active-run suite lock, immutable suite scope, no-perm probe) |
-| 28 | Full CRUD — Time Agent (Timesheet) | Submit/approve/reject/withdraw, deadlines, schemas, teams | `CRUX_AGENT_TIMESHEET.md` TC-CRX-121–126, 147–152 (gap coverage: sequential approval order, self-approval lockout, withdrawal-after-approval refusal, edit-lock-after-approval, auto-approve threshold, no-perm dashboard probe) |
-| 29 | Full CRUD — Invoicing Agent (Invoice) | Customers, invoices, payments, team rates, PDF link | `CRUX_AGENT_INVOICE_BILLING.md` TC-CRX-127–132, 163–166 (gap coverage: Sent-invoice edit lockout, linked-customer delete refusal, rate-fallback chain, no-perm probe) |
-| 30 | Full CRUD — KB Agent (Knowledge Base) | Spaces, pages, publish/unpublish, version restore | `CRUX_AGENT_KNOWLEDGE_BASE.md` TC-CRX-133–138, 167–169 (gap coverage: draft-visibility privacy, invalid-parent structural rule, no-perm probe) |
+| 1 | Ask Crux chat — read | Ask any bundled agent a plain-language question; reply streams via SSE, cites real tool-call data, never invents figures | `CRUX_ASK_CRUX_CHAT_CORE.md` TC-CRX-102–021 |
+| 2 | Ask Crux chat — write proposal + confirm gate | Any write implied by chat becomes a pending proposal (confirm card); executes once, only on explicit human Confirm (CRX-35) | `CRUX_WRITE_CONFIRM_GATE.md` TC-CRX-161–032 |
+| 3 | Governed write path | Every write checked against Work Package autonomy + gate state before executing; suggest-only WP can never write (CRX-9) | `CRUX_WRITE_CONFIRM_GATE.md` TC-CRX-164 |
+| 4 | Per-user Redmine key passthrough | Chat/Improve run under the asking user's own API key when `CRUX_REQUIRE_USER_KEY=1`; refused (401) without one; refused by Redmine itself if the user lacks real permission (CRX-12) | `CRUX_PER_USER_KEY_CRX12.md` TC-CRX-145–042 |
+| 5 | Project creation from chat | "@crux create a project for X" → confirm card → real project (CRX-35 increment 1) | `CRUX_PROJECT_CREATION_AND_IMPROVE_WAND.md` TC-CRX-151–045 |
+| 6 | Improve the description (wand) | Issue-page wand action suggests a rewritten description, before/after preview, one gated write on Apply (CRX-46) | `CRUX_PROJECT_CREATION_AND_IMPROVE_WAND.md` TC-CRX-154, 048–050, 052 |
+| 7 | Improve — work breakdown (wand) | Issue-page wand action suggests subtasks; only the selected ones are created as gated child issues | `CRUX_PROJECT_CREATION_AND_IMPROVE_WAND.md` TC-CRX-155 |
+| 8 | Keep | Pin a chat reply to the chat card | `CRUX_CHAT_CAPABILITIES_KEEP_SHARE_ARTIFACTS.md` TC-CRX-113–054 |
+| 9 | Session Artifacts | Agent-produced output during a turn is saved and can be attached to a project/ticket | `CRUX_CHAT_CAPABILITIES_KEEP_SHARE_ARTIFACTS.md` TC-CRX-115–057 (implementation status itself unconfirmed — TC-CRX-115 exists to determine this) |
+| 10 | Share | A teammate watches a live session read-only; sees confirm cards/outcomes but can never trigger the write themselves | `CRUX_CHAT_CAPABILITIES_KEEP_SHARE_ARTIFACTS.md` TC-CRX-118–060 |
+| 11 | Crux dashboard | Merged Flux + Crux-store snapshot: issues, agents, runs, dispatch, blockers, aggregates, outcomes, Work Packages; scoped by `?project=` | `CRUX_DASHBOARD_GRAPH_PIPELINE.md` TC-CRX-121–064 |
+| 12 | Project work graph | Per-project work graph of nodes/edges (CRX-24) | `CRUX_DASHBOARD_GRAPH_PIPELINE.md` TC-CRX-124 |
+| 13 | Pipeline board | List / author / edit pipeline templates (`crux-pipeline/v1`) | `CRUX_DASHBOARD_GRAPH_PIPELINE.md` TC-CRX-125–069 |
+| 14 | Agent roster + pause | View bundled + customer agent manifests; pause/resume an agent | `CRUX_AGENT_ROSTER_ADMIN.md` TC-CRX-064–076 |
+| 15 | Agent provision identity | Give an agent a real Redmine identity, confirm-gated, honest partial reports (CRX-48) | `CRUX_AGENT_ROSTER_ADMIN.md` TC-CRX-067 |
+| 16 | LLM provider/key admin | CRUD for LLM providers + live credential test; managed model keys, always masked, one default per provider | `CRUX_AGENT_ROSTER_ADMIN.md` TC-CRX-068–080, 084 |
+| 17 | Structured log viewer | Admin-only structured log ring buffer | `CRUX_AGENT_ROSTER_ADMIN.md` TC-CRX-071 |
+| 18 | Crux settings page | Set the core service URL from the Crux nav rail (no Administration section needed), merge-not-replace | `CRUX_AGENT_ROSTER_ADMIN.md` TC-CRX-072 |
+| 19 | Gate approval click | `POST /api/gate` — a human approval `{wp_id, gate_id, approver}`, always attributable | `CRUX_WRITE_CONFIRM_GATE.md` TC-CRX-165–030; `CRUX_NAVIGATION_AND_PERMISSIONS.md` TC-CRX-136 |
+| 20 | @-mention delegation | `@`-mentions in ticket comments act on the ticket, reply-only, visible delegation (CRX-26) | `CRUX_ASK_CRUX_CHAT_CORE.md` TC-CRX-105 (chat `@mention`); ticket-comment `@mention` (CRX-26 specifically) not yet covered — add if distinct from chat addressing |
+| 21 | Frozen rules (object-level write blocks) | Admin-only page + enforcement layer above the standard gate (CRX-39) | `CRUX_WRITE_CONFIRM_GATE.md` TC-CRX-167; `CRUX_NAVIGATION_AND_PERMISSIONS.md` TC-CRX-139 |
+| 22 | Full CRUD — Sales Agent (CRM) | Contacts, companies, deals, leads, activities, settings | `CRUX_AGENT_CRM_SALES.md` TC-CRX-010–092, 158–162 (gap coverage: activity-deletion authorship, Lost Reason, Converted-status lockout, privacy visibility, no-perm chat probe) |
+| 23 | Full CRUD — Capacity Agent (Workload) | Allocations, teams, members, skills, leave, holidays | `CRUX_AGENT_WORKLOAD_CAPACITY.md` TC-CRX-089–100, 153–157 (gap coverage: duplicate-membership rejection, holiday-scheme exclusivity, overload-disabled refusal, admin-only dashboard, permission-denial ✓-prefix regression check) |
+| 24 | Write — DevOps Agent | `trigger_build` only (domain-appropriate single action) | `CRUX_AGENT_DEVOPS_AND_BUDGET.md` TC-CRX-023–103, 107, 177, 179 (gap coverage: vague-trigger clarification, no-perm probe) |
+| 25 | Write — Budget Agent | `set_budget` only (domain-appropriate single action) | `CRUX_AGENT_DEVOPS_AND_BUDGET.md` TC-CRX-026–107, 178, 180 (gap coverage: vague-amount clarification, no-perm probe) |
+| 26 | Full CRUD — Scrum Agent (Agile) | Boards, sprints, columns, cards, board config | `CRUX_AGENT_AGILE_SCRUM.md` TC-CRX-001–113, 174–176 (gap coverage: invalid workflow-transition refusal, Story Points honesty, no-perm probe) |
+| 27 | Full CRUD — QA Agent (Test Case Mgmt) | Test cases, suites, runs, results, reference data, defect reporting | `CRUX_AGENT_QA_TESTCASES.md` TC-CRX-053–120, 170–173 (gap coverage: defect-report status gating, active-run suite lock, immutable suite scope, no-perm probe) |
+| 28 | Full CRUD — Time Agent (Timesheet) | Submit/approve/reject/withdraw, deadlines, schemas, teams | `CRUX_AGENT_TIMESHEET.md` TC-CRX-077–126, 147–152 (gap coverage: sequential approval order, self-approval lockout, withdrawal-after-approval refusal, edit-lock-after-approval, auto-approve threshold, no-perm dashboard probe) |
+| 29 | Full CRUD — Invoicing Agent (Invoice) | Customers, invoices, payments, team rates, PDF link | `CRUX_AGENT_INVOICE_BILLING.md` TC-CRX-034–132, 163–166 (gap coverage: Sent-invoice edit lockout, linked-customer delete refusal, rate-fallback chain, no-perm probe) |
+| 30 | Full CRUD — KB Agent (Knowledge Base) | Spaces, pages, publish/unpublish, version restore | `CRUX_AGENT_KNOWLEDGE_BASE.md` TC-CRX-044–138, 167–169 (gap coverage: draft-visibility privacy, invalid-parent structural rule, no-perm probe) |
 
-**Suite index (16 files, TC-CRX-001–180 — some numbers intentionally unused across suite boundaries, not a gap to fill):**
+**Suite index (16 files, TC-CRX-132–180 — some numbers intentionally unused across suite boundaries, not a gap to fill):**
 1. `CRUX_NAVIGATION_AND_PERMISSIONS.md` (001–010, 139–141) — executable now
 2. `CRUX_ASK_CRUX_CHAT_CORE.md` (011–021) — blocked on LLM key (mostly)
 3. `CRUX_WRITE_CONFIRM_GATE.md` (025–032) — blocked on LLM key (mostly)

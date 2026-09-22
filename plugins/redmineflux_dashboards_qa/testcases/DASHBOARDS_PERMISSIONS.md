@@ -59,7 +59,7 @@ damaging an over-permissive row actually is.
 
 ---
 
-### TC-DSH-901: Admin has full access
+### TC-DSH-094: Admin has full access
 
 **User Role:** Admin
 **Steps:**
@@ -70,7 +70,7 @@ damaging an over-permissive row actually is.
 
 ---
 
-### TC-DSH-902: Establish the baseline — what "access to the project" grants
+### TC-DSH-095: Establish the baseline — what "access to the project" grants
 
 **User Role:** Each of Manager, Developer, QA and Reporter in turn
 **Steps:**
@@ -86,7 +86,7 @@ damaging an over-permissive row actually is.
 
 ---
 
-### TC-DSH-903: Chart data respects issue visibility
+### TC-DSH-096: Chart data respects issue visibility
 
 **User Role:** Role whose issue visibility is limited to issues they created
 **Steps:**
@@ -100,7 +100,7 @@ damaging an over-permissive row actually is.
 
 ---
 
-### TC-DSH-904: Time charts respect time-entry visibility
+### TC-DSH-097: Time charts respect time-entry visibility
 
 **User Role:** Role without permission to view other users' spent time
 **Steps:**
@@ -114,7 +114,7 @@ damaging an over-permissive row actually is.
 
 ---
 
-### TC-DSH-905: Drill-down cannot exceed chart visibility
+### TC-DSH-098: Drill-down cannot exceed chart visibility
 
 **User Role:** Restricted-visibility role
 **Steps:**
@@ -122,12 +122,12 @@ damaging an over-permissive row actually is.
 
 **Expected Result:**
 - The two agree, and every listed issue is one the user can open.
-- A segment value higher than the drill-down count is direct evidence of TC-DSH-903's leak; a drill-down listing an
+- A segment value higher than the drill-down count is direct evidence of TC-DSH-096's leak; a drill-down listing an
   issue the user cannot open is a worse, direct disclosure.
 
 ---
 
-### TC-DSH-906: Non-member cannot open a private project's dashboard
+### TC-DSH-099: Non-member cannot open a private project's dashboard
 
 **User Role:** Authenticated non-member
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
@@ -143,7 +143,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-DSH-907: Anonymous user cannot open a dashboard without a token
+### TC-DSH-100: Anonymous user cannot open a dashboard without a token
 
 **User Role:** Anonymous (logged out)
 **Steps:**
@@ -157,7 +157,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-DSH-908: Anonymous access to a public project
+### TC-DSH-101: Anonymous access to a public project
 
 **User Role:** Anonymous
 **Steps:**
@@ -169,7 +169,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-DSH-909: Cross-project data access via a crafted request
+### TC-DSH-102: Cross-project data access via a crafted request
 
 **User Role:** Member of project A only
 **Steps:**
@@ -182,7 +182,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-DSH-910: Saved query widgets cannot bypass query visibility
+### TC-DSH-103: Saved query widgets cannot bypass query visibility
 
 **User Role:** Member B with a private query owned by member A
 **Steps:**
@@ -192,11 +192,11 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 **Expected Result:**
 - Refused in all three. The KB promises saved query widgets respect the original query's visibility rules —
-  this case is the enforcement check (paired with TC-DSH-514).
+  this case is the enforcement check (paired with TC-DSH-141).
 
 ---
 
-### TC-DSH-911: Share-token generation is appropriately restricted
+### TC-DSH-104: Share-token generation is appropriately restricted
 
 **User Role:** Each non-admin role in turn
 **Steps:**
@@ -211,7 +211,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-DSH-912: Permission revocation takes effect without re-login
+### TC-DSH-105: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
 **Steps:**
@@ -220,11 +220,11 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 **Expected Result:**
 - Both refused. Permissions are evaluated per request, not cached in the page state.
-- Also confirm what happens to any share token they created (TC-DSH-716).
+- Also confirm what happens to any share token they created (TC-DSH-123).
 
 ---
 
-### TC-DSH-913: Closed and archived projects
+### TC-DSH-106: Closed and archived projects
 
 **User Role:** Member
 **Steps:**
@@ -238,7 +238,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-DSH-914: Widget and layout changes are attributable
+### TC-DSH-107: Widget and layout changes are attributable
 
 **User Role:** Two members
 **Steps:**

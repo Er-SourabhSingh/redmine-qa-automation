@@ -22,7 +22,7 @@ Reach them through real navigation: top menu **Issues** → hover a row, or clic
 
 ---
 
-### TC-INE-101: Plugin appears in Administration → Plugins
+### TC-INE-024: Plugin appears in Administration → Plugins
 
 **User Role:** Admin
 **Preconditions:** ZIP extracted into `plugins/` under its original folder name, `bundle install` and
@@ -35,7 +35,7 @@ Reach them through real navigation: top menu **Issues** → hover a row, or clic
 
 ---
 
-### TC-INE-102: Migration completed cleanly
+### TC-INE-025: Migration completed cleanly
 
 **User Role:** Admin
 **Steps:**
@@ -46,7 +46,7 @@ Reach them through real navigation: top menu **Issues** → hover a row, or clic
 
 ---
 
-### TC-INE-103: Assets load correctly — the plugin is JS-dependent
+### TC-INE-026: Assets load correctly — the plugin is JS-dependent
 
 **User Role:** Any
 **Steps:**
@@ -61,7 +61,7 @@ Reach them through real navigation: top menu **Issues** → hover a row, or clic
 
 ---
 
-### TC-INE-104: Plugin functions on the Redmine version under test
+### TC-INE-027: Plugin functions on the Redmine version under test
 
 **User Role:** Admin
 **Steps:**
@@ -73,7 +73,7 @@ Reach them through real navigation: top menu **Issues** → hover a row, or clic
 
 ---
 
-### TC-INE-105: CKEditor integration
+### TC-INE-028: CKEditor integration
 
 **User Role:** Member
 **Preconditions:** CKEditor configured on the instance. The KB states the plugin is "fully compatible with
@@ -88,7 +88,7 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 
 ---
 
-### TC-INE-106: Behaviour with CKEditor absent
+### TC-INE-029: Behaviour with CKEditor absent
 
 **User Role:** Member
 **Preconditions:** Instance using Redmine's stock text formatting (Textile/Markdown) rather than CKEditor.
@@ -105,7 +105,7 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 
 ---
 
-### TC-INE-107: Cross-browser compatibility
+### TC-INE-030: Cross-browser compatibility
 
 **User Role:** Member
 **Steps:**
@@ -117,7 +117,7 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 
 ---
 
-### TC-INE-108: Behaviour at narrow viewport widths
+### TC-INE-031: Behaviour at narrow viewport widths
 
 **User Role:** Member
 **Steps:**
@@ -129,7 +129,7 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 
 ---
 
-### TC-INE-109: Interaction with other Redmineflux plugins on the same page
+### TC-INE-032: Interaction with other Redmineflux plugins on the same page
 
 **User Role:** Member
 **Steps:**
@@ -148,7 +148,7 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 
 ---
 
-### TC-INE-110: Plugin folder renamed on disk
+### TC-INE-033: Plugin folder renamed on disk
 
 **User Role:** Admin
 **Steps:**
@@ -160,7 +160,7 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 
 ---
 
-### TC-INE-111: Migration not run
+### TC-INE-034: Migration not run
 
 **User Role:** Admin
 **Steps:**
@@ -171,7 +171,7 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 
 ---
 
-### TC-INE-112: JavaScript disabled in the browser
+### TC-INE-035: JavaScript disabled in the browser
 
 **User Role:** Member
 **Steps:**
@@ -183,7 +183,7 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 
 ---
 
-### TC-INE-113: Stale cache after a plugin change
+### TC-INE-036: Stale cache after a plugin change
 
 **User Role:** Admin
 **Steps:**
@@ -199,7 +199,7 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 
 ---
 
-### TC-INE-114: Clean uninstall
+### TC-INE-037: Clean uninstall
 
 **User Role:** Admin
 **Preconditions:** Database backup taken.

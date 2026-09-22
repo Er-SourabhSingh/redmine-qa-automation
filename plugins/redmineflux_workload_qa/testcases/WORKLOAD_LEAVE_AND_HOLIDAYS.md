@@ -25,7 +25,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-301: Request leave
+### TC-WKL-048: Request leave
 
 **User Role:** Any logged-in member
 **Steps:**
@@ -37,7 +37,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-302: Single-day leave
+### TC-WKL-049: Single-day leave
 
 **User Role:** Member
 **Steps:**
@@ -48,7 +48,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-303: Multi-day leave spanning a weekend
+### TC-WKL-050: Multi-day leave spanning a weekend
 
 **User Role:** Member
 **Steps:**
@@ -62,14 +62,14 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-304: Leave spanning a holiday
+### TC-WKL-051: Leave spanning a holiday
 
 **User Role:** Member
 **Steps:**
 1. Request leave across a date that is also a holiday in the active scheme; approve; recalculate.
 
 **Expected Result:**
-- The day is deducted **once**, not twice. The same double-deduction risk as TC-WKL-303 applies here.
+- The day is deducted **once**, not twice. The same double-deduction risk as TC-WKL-050 applies here.
 
 ---
 
@@ -77,7 +77,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-305: Approve leave
+### TC-WKL-052: Approve leave
 
 **User Role:** A user with **Can approve leave** on that member's team
 **Steps:**
@@ -89,7 +89,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-306: Reject leave with a reason
+### TC-WKL-053: Reject leave with a reason
 
 **User Role:** Approver
 **Steps:**
@@ -101,7 +101,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-307: Rejection requires a reason
+### TC-WKL-054: Rejection requires a reason
 
 **User Role:** Approver
 **Steps:**
@@ -112,7 +112,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-308: Admins can approve globally
+### TC-WKL-055: Admins can approve globally
 
 **User Role:** Admin
 **Steps:**
@@ -123,14 +123,14 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-309: Approval queue is scoped to the approver's teams
+### TC-WKL-056: Approval queue is scoped to the approver's teams
 
 **User Role:** Approver with **Can approve leave** on team A only
 **Steps:**
 1. Inspect the approval queue while pending requests exist for both team A and team B members.
 
 **Expected Result:**
-- Only team A requests appear (paired with TC-WKL-213, which tests the endpoint).
+- Only team A requests appear (paired with TC-WKL-130, which tests the endpoint).
 
 ---
 
@@ -138,7 +138,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-310: Cancel a pending leave request
+### TC-WKL-057: Cancel a pending leave request
 
 **User Role:** The requester
 **Steps:**
@@ -149,7 +149,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-311: Cancel an approved leave request
+### TC-WKL-058: Cancel an approved leave request
 
 **User Role:** The requester
 **Steps:**
@@ -162,7 +162,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-312: Approved leave reduces capacity by the right amount
+### TC-WKL-059: Approved leave reduces capacity by the right amount
 
 **User Role:** Member + approver
 **Steps:**
@@ -179,7 +179,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-313: Create a holiday scheme
+### TC-WKL-060: Create a holiday scheme
 
 **User Role:** Admin
 **Steps:**
@@ -190,7 +190,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-314: Edit a scheme
+### TC-WKL-061: Edit a scheme
 
 **User Role:** Admin
 **Steps:**
@@ -201,7 +201,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-315: Delete a scheme
+### TC-WKL-062: Delete a scheme
 
 **User Role:** Admin
 **Steps:**
@@ -215,7 +215,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-316: Activating a scheme deactivates the previous one
+### TC-WKL-063: Activating a scheme deactivates the previous one
 
 **User Role:** Admin
 **Steps:**
@@ -234,7 +234,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-317: Add a single-day holiday
+### TC-WKL-064: Add a single-day holiday
 
 **User Role:** Admin
 **Steps:**
@@ -246,7 +246,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-318: Add a multi-day holiday
+### TC-WKL-065: Add a multi-day holiday
 
 **User Role:** Admin
 **Steps:**
@@ -258,7 +258,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-319: Holiday types
+### TC-WKL-066: Holiday types
 
 **User Role:** Admin
 **Steps:**
@@ -270,18 +270,18 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-320: Recurring holiday flag
+### TC-WKL-067: Recurring holiday flag
 
 **User Role:** Admin
 **Steps:**
 1. Create a holiday with the recurring flag enabled.
 
 **Expected Result:**
-- It is marked recurring and is picked up by the generation step (TC-WKL-321).
+- It is marked recurring and is picked up by the generation step (TC-WKL-068).
 
 ---
 
-### TC-WKL-321: Generate Recurring Holidays for a year
+### TC-WKL-068: Generate Recurring Holidays for a year
 
 **User Role:** Admin
 **Steps:**
@@ -294,7 +294,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-322: Generating twice does not duplicate
+### TC-WKL-069: Generating twice does not duplicate
 
 **User Role:** Admin
 **Steps:**
@@ -307,7 +307,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-323: Only the active scheme reduces capacity
+### TC-WKL-070: Only the active scheme reduces capacity
 
 **User Role:** Admin
 **Steps:**
@@ -325,7 +325,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-324: Leave date validation
+### TC-WKL-071: Leave date validation
 
 **User Role:** Member
 **Steps:**
@@ -339,7 +339,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-325: Overlapping leave requests
+### TC-WKL-072: Overlapping leave requests
 
 **User Role:** Member
 **Steps:**
@@ -352,7 +352,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-326: Retroactive leave
+### TC-WKL-073: Retroactive leave
 
 **User Role:** Member + approver
 **Steps:**
@@ -364,7 +364,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-327: Approving leave without the flag
+### TC-WKL-074: Approving leave without the flag
 
 **User Role:** A plain member, and a workload manager without **Can approve leave**
 **Steps:**
@@ -378,7 +378,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 
 ---
 
-### TC-WKL-328: Holiday and scheme management requires admin
+### TC-WKL-075: Holiday and scheme management requires admin
 
 **User Role:** A user with **Manage teams and skills**, and a plain member
 **Steps:**
@@ -388,11 +388,11 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 **Expected Result:**
 - All refused with 403.
 - **Scheme activation is instance-wide**: a non-admin able to activate a different scheme would change capacity
-  for every team at once (paired with TC-WKL-113).
+  for every team at once (paired with TC-WKL-043).
 
 ---
 
-### TC-WKL-329: Script content in names and reasons
+### TC-WKL-076: Script content in names and reasons
 
 **User Role:** Member and Admin
 **Steps:**

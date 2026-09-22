@@ -47,9 +47,9 @@ The Support Level create/edit form has a separate, **required** "Escalation To" 
 
 ## Notes
 
-- Found while executing `HELPDESK_SLA_ESCALATION.md` TC-HLP-341. The TC's first pass concluded this was intentional, non-redundant design (Escalation To enabling genuine skip-level chains, e.g. L1 → L3 directly). **Per explicit user correction, that is not the issue being raised**: the user is not objecting to skip-level escalation as a capability — the objection is that *when escalation is meant to simply follow Level Order in sequence* (the overwhelmingly common case: L1→L2→L3, one step at a time), the admin still has to manually wire up "Escalation To" for every level, instead of the system deriving "next level by Order" automatically and only asking for manual input in the (presumably rarer) case where a non-sequential/skip-level chain is actually wanted.
+- Found while executing `HELPDESK_SLA_ESCALATION.md` TC-HLP-351. The TC's first pass concluded this was intentional, non-redundant design (Escalation To enabling genuine skip-level chains, e.g. L1 → L3 directly). **Per explicit user correction, that is not the issue being raised**: the user is not objecting to skip-level escalation as a capability — the objection is that *when escalation is meant to simply follow Level Order in sequence* (the overwhelmingly common case: L1→L2→L3, one step at a time), the admin still has to manually wire up "Escalation To" for every level, instead of the system deriving "next level by Order" automatically and only asking for manual input in the (presumably rarer) case where a non-sequential/skip-level chain is actually wanted.
 - Suggested fix direction (not prescriptive — a product/dev decision): default a new/edited level's Escalation To to "the next level by Order" automatically, and make manually overriding it (for a deliberate skip-level chain) optional rather than mandatory — rather than requiring an explicit choice on every level regardless of whether the sequential default was intended.
-- `HELPDESK_SLA_ESCALATION.md` TC-HLP-341 rewritten in the same session to test this corrected requirement directly and re-scored FAIL against it.
+- `HELPDESK_SLA_ESCALATION.md` TC-HLP-351 rewritten in the same session to test this corrected requirement directly and re-scored FAIL against it.
 
 ## Retest — STILL NOT FIXED (2026-09-10)
 

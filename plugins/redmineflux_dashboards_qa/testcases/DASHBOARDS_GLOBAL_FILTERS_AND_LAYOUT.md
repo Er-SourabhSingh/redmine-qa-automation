@@ -3,7 +3,9 @@
 > Source: vendor KB — "How to Apply Global Issue Status Filter", "How to Select the Global Date Range",
 > "How to Set Global Date Range Across All Charts", "How to Resize a Chart", "How to Drag and Drop a Chart",
 > "How to Refresh Charts and Use Full-Screen Mode", "How to Enable Auto Refresh", FAQ Q9, Q10.
-> **Status: authored 2026-09-15. Not yet executed.**
+> Additional source: production issue **#120914** ("Custom Dashboard: Chart Templates and Custom Field Grouping
+> for User-Defined Queries") — TC-DSH-177 onward.
+> **Status: authored 2026-09-15, extended 2026-09-22 for #120914. Not yet executed.**
 
 ## Plugin
 - Name: Redmineflux Analytics Dashboard
@@ -22,7 +24,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-401: Global issue status filter
+### TC-DSH-054: Global issue status filter
 
 **User Role:** Member
 **Steps:**
@@ -36,7 +38,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-402: Global tracker filter
+### TC-DSH-055: Global tracker filter
 
 **User Role:** Member
 **Steps:**
@@ -47,7 +49,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-403: Each global date range preset
+### TC-DSH-056: Each global date range preset
 
 **User Role:** Member
 **Steps:**
@@ -62,7 +64,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-404: Custom global date range
+### TC-DSH-057: Custom global date range
 
 **User Role:** Member
 **Steps:**
@@ -73,7 +75,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-405: The last used date range is remembered
+### TC-DSH-058: The last used date range is remembered
 
 **User Role:** Member
 **Steps:**
@@ -86,7 +88,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-406: Global filters combine
+### TC-DSH-059: Global filters combine
 
 **User Role:** Member
 **Steps:**
@@ -97,7 +99,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-407: Apply Filters is required
+### TC-DSH-060: Apply Filters is required
 
 **User Role:** Member
 **Steps:**
@@ -115,7 +117,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-408: Drag a widget to a new position
+### TC-DSH-061: Drag a widget to a new position
 
 **User Role:** Member
 **Steps:**
@@ -128,7 +130,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-409: Resize a widget
+### TC-DSH-062: Resize a widget
 
 **User Role:** Member
 **Steps:**
@@ -141,7 +143,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-410: Layout persists per project and per user
+### TC-DSH-063: Layout persists per project and per user
 
 **User Role:** Two members
 **Steps:**
@@ -150,12 +152,12 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 **Expected Result:**
 - Record whether the layout is shared per project or stored per user.
-- Whichever it is must be consistent with the settings-scope finding in TC-DSH-326, and project Y must keep its own
+- Whichever it is must be consistent with the settings-scope finding in TC-DSH-026, and project Y must keep its own
   separate layout either way.
 
 ---
 
-### TC-DSH-411: Layout survives adding and deleting widgets
+### TC-DSH-064: Layout survives adding and deleting widgets
 
 **User Role:** Member
 **Steps:**
@@ -166,11 +168,68 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
+### TC-DSH-177: A new chart is appended to the end of the dashboard (#120914)
+
+**User Role:** Member
+**Preconditions:** At least one existing chart already on the grid, in a deliberately-arranged (non-default)
+order.
+**Steps:**
+1. Add another chart (any template/type).
+
+**Expected Result:**
+- The new chart is added **after** every existing chart, at the end of the layout — not inserted at the front, per
+  #120914 ("a dashboard is a layout its owner arranges, and inserting at the front would push their chosen first
+  chart down on every add").
+- The existing charts' order and positions are undisturbed.
+
+---
+
+### TC-DSH-178: Adding a chart renders it in place without a full page reload (#120914)
+
+**User Role:** Member
+**Steps:**
+1. Add a chart and observe the page while it appears.
+
+**Expected Result:**
+- The new chart appears on the grid in place, like every other chart, with **no full page reload** (no
+  navigation/loading-bar flash, other charts' state e.g. scroll position/expanded settings panels stays intact).
+
+---
+
+### TC-DSH-179: A newly added chart is scrolled into view and briefly highlighted (#120914)
+
+**User Role:** Member
+**Preconditions:** A dashboard with enough existing charts that the grid is taller than the viewport, so a chart
+appended at the end would otherwise be off-screen.
+**Steps:**
+1. Add a new chart.
+
+**Expected Result:**
+- The page scrolls so the newly added chart is visible, and the chart is briefly visually highlighted (e.g. a
+  border flash/glow) so it is obvious which one was just added, per #120914 ("adding a chart still shows the
+  chart").
+
+---
+
+### TC-DSH-180: Append/scroll/highlight applies whichever Add Chart tab was used (#120914)
+
+**User Role:** Member
+**Steps:**
+1. Add a chart from the **Our Queries** tab; confirm append-to-end, no-reload and scroll+highlight.
+2. Add a chart from the **Saved Queries** tab (any template, including Statistics card); confirm the same three
+   behaviours.
+
+**Expected Result:**
+- Behaviour is identical regardless of which tab the chart was created from, per #120914 ("This should apply to
+  every chart, whichever tab it was created from").
+
+---
+
 ## Functional Cases — Refresh and full-screen
 
 ---
 
-### TC-DSH-412: Manual refresh reloads all widgets
+### TC-DSH-065: Manual refresh reloads all widgets
 
 **User Role:** Member
 **Steps:**
@@ -181,7 +240,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-413: Dashboard full-screen mode
+### TC-DSH-066: Dashboard full-screen mode
 
 **User Role:** Member
 **Steps:**
@@ -193,7 +252,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-414: Single-chart full-screen mode
+### TC-DSH-067: Single-chart full-screen mode
 
 **User Role:** Member
 **Steps:**
@@ -205,7 +264,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-415: Auto refresh at each interval
+### TC-DSH-068: Auto refresh at each interval
 
 **User Role:** Member
 **Steps:**
@@ -217,7 +276,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-416: Auto refresh picks up new data
+### TC-DSH-069: Auto refresh picks up new data
 
 **User Role:** Member
 **Steps:**
@@ -228,7 +287,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-417: Auto refresh can be turned off
+### TC-DSH-070: Auto refresh can be turned off
 
 **User Role:** Member
 **Steps:**
@@ -244,7 +303,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-418: Auto refresh while interacting
+### TC-DSH-071: Auto refresh while interacting
 
 **User Role:** Member
 **Steps:**
@@ -258,7 +317,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-419: Auto refresh with many widgets
+### TC-DSH-072: Auto refresh with many widgets
 
 **User Role:** Member
 **Steps:**
@@ -271,7 +330,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-420: Invalid custom global date range
+### TC-DSH-073: Invalid custom global date range
 
 **User Role:** Member
 **Steps:**
@@ -282,7 +341,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-421: Filters and layout under a session expiry
+### TC-DSH-074: Filters and layout under a session expiry
 
 **User Role:** Member
 **Steps:**
@@ -294,7 +353,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-422: Network failure during refresh
+### TC-DSH-075: Network failure during refresh
 
 **User Role:** Member
 **Steps:**
@@ -306,7 +365,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 ---
 
-### TC-DSH-423: Global filters do not widen visibility
+### TC-DSH-076: Global filters do not widen visibility
 
 **User Role:** Member with restricted issue visibility
 **Steps:**
@@ -314,11 +373,11 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 **Expected Result:**
 - Totals still count only issues this user may see. A global filter must never become a path to aggregate data
-  from restricted areas (paired with TC-DSH-219).
+  from restricted areas (paired with TC-DSH-045).
 
 ---
 
-### TC-DSH-424: Layout changes without permission
+### TC-DSH-077: Layout changes without permission
 
 **User Role:** Member with view-only project access
 **Steps:**

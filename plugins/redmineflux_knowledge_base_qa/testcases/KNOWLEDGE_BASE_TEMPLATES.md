@@ -16,7 +16,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 > **Note on trust boundary:** template content is **raw HTML authored by an administrator** and injected into pages
 > that are then published — and potentially served to unauthenticated visitors through public URLs. That makes the
-> sanitisation cases below (TC-RKB-513, 514) the most important in this suite.
+> sanitisation cases below (TC-RKB-198, 514) the most important in this suite.
 
 ---
 
@@ -24,7 +24,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-501: All six pre-built templates ship and are usable
+### TC-RKB-186: All six pre-built templates ship and are usable
 
 **User Role:** Admin then Member
 **Steps:**
@@ -39,7 +39,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-502: Create a page from a template
+### TC-RKB-187: Create a page from a template
 
 **User Role:** Member with `manage_knowledgebase_pages`
 **Steps:**
@@ -50,7 +50,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-503: Template content is editable and independent
+### TC-RKB-188: Template content is editable and independent
 
 **User Role:** Member
 **Steps:**
@@ -65,7 +65,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-504: Creating a page without a template
+### TC-RKB-189: Creating a page without a template
 
 **User Role:** Member
 **Steps:**
@@ -76,7 +76,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-505: Template formatting survives into the page
+### TC-RKB-190: Template formatting survives into the page
 
 **User Role:** Member
 **Steps:**
@@ -91,7 +91,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-506: Create a template
+### TC-RKB-191: Create a template
 
 **User Role:** Admin
 **Steps:**
@@ -102,7 +102,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-507: Edit a template
+### TC-RKB-192: Edit a template
 
 **User Role:** Admin
 **Steps:**
@@ -113,7 +113,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-508: Copy a template
+### TC-RKB-193: Copy a template
 
 **User Role:** Admin
 **Steps:**
@@ -125,7 +125,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-509: Delete a template
+### TC-RKB-194: Delete a template
 
 **User Role:** Admin
 **Steps:**
@@ -137,7 +137,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-510: Cancel a template deletion
+### TC-RKB-195: Cancel a template deletion
 
 **User Role:** Admin
 **Steps:**
@@ -148,7 +148,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-511: Deleting a pre-built template
+### TC-RKB-196: Deleting a pre-built template
 
 **User Role:** Admin
 **Steps:**
@@ -165,7 +165,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-512: Template with a blank name or blank content
+### TC-RKB-197: Template with a blank name or blank content
 
 **User Role:** Admin
 **Steps:**
@@ -177,7 +177,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-513: Script content in template HTML
+### TC-RKB-198: Script content in template HTML
 
 **User Role:** Admin, then Member, then unauthenticated visitor
 **Steps:**
@@ -195,7 +195,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-514: Malformed HTML in a template
+### TC-RKB-199: Malformed HTML in a template
 
 **User Role:** Admin
 **Steps:**
@@ -208,7 +208,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-515: Very large template
+### TC-RKB-200: Very large template
 
 **User Role:** Admin
 **Steps:**
@@ -219,7 +219,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-516: Duplicate template names
+### TC-RKB-201: Duplicate template names
 
 **User Role:** Admin
 **Steps:**
@@ -231,7 +231,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-517: Templates are admin-only — non-admins cannot manage them
+### TC-RKB-202: Templates are admin-only — non-admins cannot manage them
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn), including users holding
 `manage_knowledgebase_pages` and `manage_knowledgebase_spaces`
@@ -249,7 +249,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-518: Template list is not readable by non-admins
+### TC-RKB-203: Template list is not readable by non-admins
 
 **User Role:** Non-admin member
 **Steps:**
@@ -262,7 +262,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-519: Template deleted while a New Page form is open
+### TC-RKB-204: Template deleted while a New Page form is open
 
 **User Role:** Admin + Member
 **Steps:**
@@ -274,7 +274,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 
 ---
 
-### TC-RKB-520: Template availability is instance-wide
+### TC-RKB-205: Template availability is instance-wide
 
 **User Role:** Admin then members of two projects
 **Steps:**

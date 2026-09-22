@@ -20,7 +20,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 
 ---
 
-### TC-TCM-201: Create a test suite
+### TC-TCM-192: Create a test suite
 
 **User Role:** QA / Manager
 **Steps:**
@@ -33,7 +33,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 
 ---
 
-### TC-TCM-202: Create a sub-test suite
+### TC-TCM-193: Create a sub-test suite
 
 **User Role:** QA
 **Steps:**
@@ -45,7 +45,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 
 ---
 
-### TC-TCM-203: Multi-level nesting
+### TC-TCM-194: Multi-level nesting
 
 **User Role:** QA
 **Steps:**
@@ -57,7 +57,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 
 ---
 
-### TC-TCM-204: Suite name is mandatory
+### TC-TCM-195: Suite name is mandatory
 
 **User Role:** QA
 **Steps:**
@@ -68,7 +68,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 
 ---
 
-### TC-TCM-205: Duplicate suite name at the same level
+### TC-TCM-196: Duplicate suite name at the same level
 
 **User Role:** QA
 **Steps:**
@@ -80,7 +80,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 
 ---
 
-### TC-TCM-206: Edit a suite name and description
+### TC-TCM-197: Edit a suite name and description
 
 **User Role:** QA / Manager
 **Steps:**
@@ -91,7 +91,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 
 ---
 
-### TC-TCM-207: Delete an empty suite
+### TC-TCM-198: Delete an empty suite
 
 **User Role:** Manager / Admin
 **Steps:**
@@ -102,7 +102,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 
 ---
 
-### TC-TCM-208: Delete a suite containing test cases
+### TC-TCM-199: Delete a suite containing test cases
 
 **User Role:** Admin
 **Steps:**
@@ -117,7 +117,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 
 ---
 
-### TC-TCM-209: Delete a suite containing sub-suites
+### TC-TCM-200: Delete a suite containing sub-suites
 
 **User Role:** Admin
 **Steps:**
@@ -130,7 +130,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 
 ---
 
-### TC-TCM-210: Testcase count display toggle
+### TC-TCM-201: Testcase count display toggle
 
 **User Role:** Admin
 **Precondition:** Suites containing a known number of cases.
@@ -146,7 +146,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 
 ---
 
-### TC-TCM-211: Suite tree state and selection
+### TC-TCM-202: Suite tree state and selection
 
 **User Role:** QA
 **Steps:**
@@ -160,7 +160,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 
 ---
 
-### TC-TCM-212: Suites are project-scoped
+### TC-TCM-203: Suites are project-scoped
 
 **User Role:** QA
 **Steps:**
@@ -175,8 +175,8 @@ since the tree is rendered client-side and a stale view can look like a successf
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-201 – 212 | Suite CRUD, nesting, deletion semantics | — |
+| TC-TCM-192 – 212 | Suite CRUD, nesting, deletion semantics | — |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
-- TC-TCM-208 and TC-TCM-209 are the highest-risk cases — both probe whether deleting a container destroys data
+- TC-TCM-199 and TC-TCM-200 are the highest-risk cases — both probe whether deleting a container destroys data
   it should not own.

@@ -29,7 +29,7 @@
   or consistently allowed, if that's a deliberate design choice — not a mix of the two.
 - Whichever the plugin's actual policy is, a blocked action should give the user clear feedback (a flash message
   or disabled control with an explanatory tooltip — the same pattern already used elsewhere in this plugin for
-  permission-blocked users, see `TC-CHK-314`), not a silent console-only 403 with no visible change on the page.
+  permission-blocked users, see `TC-CHK-092`), not a silent console-only 403 with no visible change on the page.
 
 ## Actual result
 
@@ -55,7 +55,7 @@ responses:
   http://localhost:3010/checklists/new_from_template?issue_id=1533`. A user would have no idea why nothing
   happened.
 - This project's own Checklist History (viewable at `/issues/1533?tab=checklist_history`) already contains
-  numerous successful writes from prior sessions after this project was closed — e.g. "Checklist 'TC-CHK-912
+  numerous successful writes from prior sessions after this project was closed — e.g. "Checklist 'TC-CHK-078
   closed project write attempt' was added by Redmine Admin", multiple status-change entries — confirming this is
   not a one-off fluke of this test but a consistent, reproducible gap.
 - Net effect: the plugin does not apply a uniform `@project.closed?` (or equivalent) guard across its

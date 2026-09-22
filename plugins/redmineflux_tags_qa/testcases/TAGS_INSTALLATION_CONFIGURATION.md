@@ -23,7 +23,7 @@ issue UI, not by the settings page reporting success.
 
 ---
 
-### TC-TAG-101: Plugin appears in Administration → Plugins after installation
+### TC-TAG-028: Plugin appears in Administration → Plugins after installation
 
 **User Role:** Admin
 **Preconditions:** ZIP extracted into `plugins/` under its original folder name, `bundle install` and
@@ -36,7 +36,7 @@ issue UI, not by the settings page reporting success.
 
 ---
 
-### TC-TAG-102: Migration created the tag tables
+### TC-TAG-029: Migration created the tag tables
 
 **User Role:** Admin
 **Steps:**
@@ -47,7 +47,7 @@ issue UI, not by the settings page reporting success.
 
 ---
 
-### TC-TAG-103: Assets load correctly
+### TC-TAG-030: Assets load correctly
 
 **User Role:** Any
 **Steps:**
@@ -60,7 +60,7 @@ issue UI, not by the settings page reporting success.
 
 ---
 
-### TC-TAG-104: Plugin functions on the Redmine version under test
+### TC-TAG-031: Plugin functions on the Redmine version under test
 
 **User Role:** Admin
 **Steps:**
@@ -77,7 +77,7 @@ issue UI, not by the settings page reporting success.
 
 ---
 
-### TC-TAG-105: Configure page opens and shows tag settings
+### TC-TAG-032: Configure page opens and shows tag settings
 
 **User Role:** Admin
 **Steps:**
@@ -89,7 +89,7 @@ issue UI, not by the settings page reporting success.
 
 ---
 
-### TC-TAG-106: Default Tag Color setting persists and applies
+### TC-TAG-033: Default Tag Color setting persists and applies
 
 **User Role:** Admin
 **Steps:**
@@ -103,7 +103,7 @@ issue UI, not by the settings page reporting success.
 
 ---
 
-### TC-TAG-107: Tags with an explicit colour are not overridden by the default
+### TC-TAG-034: Tags with an explicit colour are not overridden by the default
 
 **User Role:** Admin
 **Steps:**
@@ -116,7 +116,7 @@ issue UI, not by the settings page reporting success.
 
 ---
 
-### TC-TAG-108: Colour change is visible everywhere a tag renders
+### TC-TAG-035: Colour change is visible everywhere a tag renders
 
 **User Role:** Admin
 **Steps:**
@@ -132,7 +132,7 @@ issue UI, not by the settings page reporting success.
 
 ---
 
-### TC-TAG-109: Invalid colour value
+### TC-TAG-036: Invalid colour value
 
 **User Role:** Admin
 **Steps:**
@@ -144,7 +144,7 @@ issue UI, not by the settings page reporting success.
 
 ---
 
-### TC-TAG-110: Plugin folder renamed on disk
+### TC-TAG-037: Plugin folder renamed on disk
 
 **User Role:** Admin
 **Steps:**
@@ -155,7 +155,7 @@ issue UI, not by the settings page reporting success.
 
 ---
 
-### TC-TAG-111: Migration not run
+### TC-TAG-038: Migration not run
 
 **User Role:** Admin
 **Steps:**
@@ -167,7 +167,7 @@ issue UI, not by the settings page reporting success.
 
 ---
 
-### TC-TAG-112: Configure page is not reachable by a non-admin
+### TC-TAG-039: Configure page is not reachable by a non-admin
 
 **User Role:** Developer / QA / Reporter
 **Steps:**
@@ -179,7 +179,7 @@ issue UI, not by the settings page reporting success.
 
 ---
 
-### TC-TAG-113: Conflicting plugin check
+### TC-TAG-040: Conflicting plugin check
 
 **User Role:** Admin
 **Steps:**
@@ -196,7 +196,7 @@ issue UI, not by the settings page reporting success.
 
 ---
 
-### TC-TAG-114: Clean uninstall
+### TC-TAG-041: Clean uninstall
 
 **User Role:** Admin
 **Preconditions:** Database backup taken.

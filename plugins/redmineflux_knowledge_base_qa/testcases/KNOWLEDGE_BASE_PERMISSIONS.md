@@ -26,7 +26,7 @@ Two details in that table are easy to get wrong and are tested deliberately:
 - **Folders are governed by `manage_knowledgebase_pages`, not by the spaces permission.** A build that gates folder
   creation on `manage_knowledgebase_spaces` contradicts the documentation.
 - **`view_knowledgebase` defaults to public**, meaning non-member and anonymous access depends entirely on the
-  project's own visibility settings — which makes TC-RKB-908 and 909 essential rather than routine.
+  project's own visibility settings — which makes TC-RKB-102 and 909 essential rather than routine.
 
 ## Methodology — mandatory for every case
 
@@ -74,7 +74,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 
 ---
 
-### TC-RKB-901: Admin has full access
+### TC-RKB-095: Admin has full access
 
 **User Role:** Admin
 **Steps:**
@@ -85,7 +85,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 
 ---
 
-### TC-RKB-902: `view_knowledgebase` grants read access only
+### TC-RKB-096: `view_knowledgebase` grants read access only
 
 **User Role:** Reader
 **Steps:**
@@ -98,7 +98,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 
 ---
 
-### TC-RKB-903: `manage_knowledgebase_spaces` covers spaces only
+### TC-RKB-097: `manage_knowledgebase_spaces` covers spaces only
 
 **User Role:** Spaces manager
 **Steps:**
@@ -112,7 +112,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 
 ---
 
-### TC-RKB-904: `manage_knowledgebase_pages` covers pages **and folders**
+### TC-RKB-098: `manage_knowledgebase_pages` covers pages **and folders**
 
 **User Role:** Pages manager
 **Steps:**
@@ -126,7 +126,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 
 ---
 
-### TC-RKB-905: A member with no KB permissions has no access
+### TC-RKB-099: A member with no KB permissions has no access
 
 **User Role:** No-KB member
 **Steps:**
@@ -140,7 +140,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 
 ---
 
-### TC-RKB-906: Draft visibility — author vs. manage holders vs. readers
+### TC-RKB-100: Draft visibility — author vs. manage holders vs. readers
 
 **User Role:** Author (a Pages manager), a second Pages manager, and the Reader
 **Steps:**
@@ -155,7 +155,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 
 ---
 
-### TC-RKB-907: Unpublished pages are hidden from readers everywhere
+### TC-RKB-101: Unpublished pages are hidden from readers everywhere
 
 **User Role:** Reader
 **Steps:**
@@ -170,7 +170,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 
 ---
 
-### TC-RKB-908: Non-member cannot access a private project's knowledge base
+### TC-RKB-102: Non-member cannot access a private project's knowledge base
 
 **User Role:** Non-member
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
@@ -183,7 +183,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-RKB-909: Anonymous access follows the project's own visibility
+### TC-RKB-103: Anonymous access follows the project's own visibility
 
 **User Role:** Anonymous (logged out)
 **Steps:**
@@ -200,7 +200,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-RKB-910: Public URL creation is limited to `manage_knowledgebase_pages`
+### TC-RKB-104: Public URL creation is limited to `manage_knowledgebase_pages`
 
 **User Role:** Reader and Spaces manager
 **Steps:**
@@ -209,11 +209,11 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 **Expected Result:**
 - Both refused. Anyone who can mint a token can publish internal documentation externally
-  (paired with TC-RKB-625).
+  (paired with TC-RKB-133).
 
 ---
 
-### TC-RKB-911: Templates and plugin settings are admin-only
+### TC-RKB-105: Templates and plugin settings are admin-only
 
 **User Role:** Spaces manager, Pages manager, Reader (each in turn)
 **Steps:**
@@ -224,23 +224,23 @@ checked by default; uncheck it explicitly or this case falsely passes.
 **Expected Result:**
 - All refused with 403.
 - These are outside the role system by design. A Pages manager reaching template management is the most plausible
-  slip, since that permission already covers page content (paired with TC-RKB-517).
+  slip, since that permission already covers page content (paired with TC-RKB-202).
 
 ---
 
-### TC-RKB-912: Inherited content requires permission on the parent
+### TC-RKB-106: Inherited content requires permission on the parent
 
 **User Role:** A member of the sub-project only
 **Steps:**
 1. Check the inherited section, a direct inherited-page URL, and the sidebar payload.
 
 **Expected Result:**
-- Nothing from the parent is visible or retrievable (paired with TC-RKB-708). Sub-project membership must not
+- Nothing from the parent is visible or retrievable (paired with TC-RKB-062). Sub-project membership must not
   confer parent access.
 
 ---
 
-### TC-RKB-913: Permission revocation takes effect without re-login
+### TC-RKB-107: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
 **Steps:**
@@ -250,11 +250,11 @@ checked by default; uncheck it explicitly or this case falsely passes.
 **Expected Result:**
 - Auto-save and publish are both refused, with a visible failure rather than a false **Saved** indicator.
 - Permissions are evaluated per request. This case combines the permission boundary with the auto-save honesty
-  requirement from TC-RKB-309, and it is a realistic scenario when someone changes role mid-session.
+  requirement from TC-RKB-036, and it is a realistic scenario when someone changes role mid-session.
 
 ---
 
-### TC-RKB-914: Closed and archived projects
+### TC-RKB-108: Closed and archived projects
 
 **User Role:** Pages manager
 **Steps:**

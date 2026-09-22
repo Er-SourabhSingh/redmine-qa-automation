@@ -26,7 +26,7 @@
 
 ---
 
-### TC-MEN-401: Mentioned user receives an email
+### TC-MEN-001: Mentioned user receives an email
 
 **User Role:** Member mentions another Member
 **Steps:**
@@ -40,7 +40,7 @@
 
 ---
 
-### TC-MEN-402: Email arrives for a description mention
+### TC-MEN-002: Email arrives for a description mention
 
 **User Role:** Member
 **Steps:**
@@ -51,7 +51,7 @@
 
 ---
 
-### TC-MEN-403: Email arrives for a wiki mention
+### TC-MEN-003: Email arrives for a wiki mention
 
 **User Role:** Member
 **Steps:**
@@ -62,7 +62,7 @@
 
 ---
 
-### TC-MEN-404: Each mentioned user gets exactly one email
+### TC-MEN-004: Each mentioned user gets exactly one email
 
 **User Role:** Member
 **Steps:**
@@ -75,7 +75,7 @@
 
 ---
 
-### TC-MEN-405: Email content links back correctly
+### TC-MEN-005: Email content links back correctly
 
 **User Role:** Member
 **Steps:**
@@ -87,7 +87,7 @@
 
 ---
 
-### TC-MEN-406: Mention email is distinguishable from Redmine's standard notification
+### TC-MEN-006: Mention email is distinguishable from Redmine's standard notification
 
 **User Role:** Member
 **Steps:**
@@ -100,7 +100,7 @@
 
 ---
 
-### TC-MEN-407: Mention email respects the user's language preference
+### TC-MEN-007: Mention email respects the user's language preference
 
 **User Role:** Member with a non-English UI language
 **Steps:**
@@ -116,7 +116,7 @@
 
 ---
 
-### TC-MEN-408: Disabling mention notifications stops the emails
+### TC-MEN-008: Disabling mention notifications stops the emails
 
 **User Role:** Admin
 **Steps:**
@@ -129,7 +129,7 @@
 
 ---
 
-### TC-MEN-409: Re-enabling restores the emails
+### TC-MEN-009: Re-enabling restores the emails
 
 **User Role:** Admin
 **Steps:**
@@ -140,7 +140,7 @@
 
 ---
 
-### TC-MEN-410: Per-user notification preference is honoured
+### TC-MEN-010: Per-user notification preference is honoured
 
 **User Role:** Member
 **Steps:**
@@ -158,7 +158,7 @@
 
 ---
 
-### TC-MEN-411: Mail delivery unavailable
+### TC-MEN-011: Mail delivery unavailable
 
 **User Role:** Member
 **Steps:**
@@ -172,7 +172,7 @@
 
 ---
 
-### TC-MEN-412: Mentioned user has no email address on file
+### TC-MEN-012: Mentioned user has no email address on file
 
 **User Role:** Member
 **Steps:**
@@ -183,7 +183,7 @@
 
 ---
 
-### TC-MEN-413: Mentioned user is locked
+### TC-MEN-013: Mentioned user is locked
 
 **User Role:** Member
 **Steps:**
@@ -194,7 +194,7 @@
 
 ---
 
-### TC-MEN-414: Non-existent username generates no mail
+### TC-MEN-014: Non-existent username generates no mail
 
 **User Role:** Member
 **Steps:**
@@ -205,7 +205,7 @@
 
 ---
 
-### TC-MEN-415: Mention of a user who cannot see the content
+### TC-MEN-015: Mention of a user who cannot see the content
 
 **User Role:** Member
 **Steps:**
@@ -220,7 +220,7 @@
 
 ---
 
-### TC-MEN-416: Repeated edits do not resend
+### TC-MEN-016: Repeated edits do not resend
 
 **User Role:** Member
 **Steps:**
@@ -231,7 +231,7 @@
 
 ---
 
-### TC-MEN-417: Bulk mention volume
+### TC-MEN-017: Bulk mention volume
 
 **User Role:** Member
 **Steps:**
@@ -243,7 +243,7 @@
 
 ---
 
-### TC-MEN-418: Mention inside content that is later deleted
+### TC-MEN-018: Mention inside content that is later deleted
 
 **User Role:** Member + Manager
 **Steps:**

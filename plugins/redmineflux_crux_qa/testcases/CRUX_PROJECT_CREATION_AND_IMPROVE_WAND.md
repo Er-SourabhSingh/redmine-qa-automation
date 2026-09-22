@@ -2,7 +2,7 @@
 
 > Source: `docs/CRUX_REQUIREMENTS.md` Key Features #5, #6, #7; #116773 CRX-35/CRX-46 sections; `redmineflux-crux-core/docs/API.md` `POST /api/improve`, `/api/improve/confirm`.
 >
-> **Execution readiness: UNBLOCKED — executed live 2026-09-15, 10/10 TCs reached a definitive verdict.** TC-CRX-043–049 executed with real chat proposals, real confirm cards, and real independently-verified writes/refusals. TC-CRX-050/052 used a temporary, restored-afterward removal of the Manager role's "Edit issues"/"Edit own issues" permissions (Administration → Roles → Manager) to construct a genuine permission-denied condition, since no UI path exists to make the underlying `update_issue` write fail any other way. **Found a new bug via TC-CRX-050**: the Improve/Apply confirm endpoint (`POST /crux/improve/confirm`) reports `"ok":true` even when the write is silently refused by Redmine's real permission check (`{"ok":true,"result":{"issue_id":6,"updated":false},"run_id":null}`) — the UI shows the user no error at all, just a silently-closing panel. No new bugs from TC-CRX-043–049, 051 (051 confirms the doc is now stale, not a product defect), or TC-CRX-052 (permission boundary correctly enforced on the real write, independent of the reporting defect above).
+> **Execution readiness: UNBLOCKED — executed live 2026-09-15, 10/10 TCs reached a definitive verdict.** TC-CRX-151–049 executed with real chat proposals, real confirm cards, and real independently-verified writes/refusals. TC-CRX-158/052 used a temporary, restored-afterward removal of the Manager role's "Edit issues"/"Edit own issues" permissions (Administration → Roles → Manager) to construct a genuine permission-denied condition, since no UI path exists to make the underlying `update_issue` write fail any other way. **Found a new bug via TC-CRX-158**: the Improve/Apply confirm endpoint (`POST /crux/improve/confirm`) reports `"ok":true` even when the write is silently refused by Redmine's real permission check (`{"ok":true,"result":{"issue_id":6,"updated":false},"run_id":null}`) — the UI shows the user no error at all, just a silently-closing panel. No new bugs from TC-CRX-151–049, 051 (051 confirms the doc is now stale, not a product defect), or TC-CRX-160 (permission boundary correctly enforced on the real write, independent of the reporting defect above).
 
 ## Plugin
 - Name: redmineflux_crux
@@ -16,7 +16,7 @@
 
 ---
 
-### TC-CRX-043: "@crux create a project for X" produces a confirm card and a real project
+### TC-CRX-151: "@crux create a project for X" produces a confirm card and a real project
 
 **User Role:** Logged-in user with `use_ask_crux` and real Redmine permission to create projects (per CRX-12, this now runs under their own key).
 **Precondition:** LLM key configured.
@@ -39,7 +39,7 @@
 
 ---
 
-### TC-CRX-044: A user without project-creation permission cannot create one via chat either
+### TC-CRX-152: A user without project-creation permission cannot create one via chat either
 
 **User Role:** A logged-in user whose real Redmine account lacks project-creation permission.
 **Precondition:** `use_ask_crux` granted, but no Redmine-level project-create permission.
@@ -52,12 +52,12 @@
 - Either no card renders, or confirming it fails honestly (refused by Redmine's own permission check) — chat must not grant a capability the user's real Redmine account doesn't have (same invariant as CRX-12).
 
 **Result: PASS — CONFIRMED LIVE 2026-09-15**
-- As `daisy.skye` (Reporter role — confirmed via Administration → Roles → Reporter that "Create project" is unchecked, a genuine per-role permission gap), asked Crux to create a project the same way as TC-CRX-043.
+- As `daisy.skye` (Reporter role — confirmed via Administration → Roles → Reporter that "Create project" is unchecked, a genuine per-role permission gap), asked Crux to create a project the same way as TC-CRX-151.
 - The attempt was refused by Redmine's own permission check — chat did not grant `daisy.skye` a capability her real Redmine account lacks. No project was created (verified against `/projects`).
 
 ---
 
-### TC-CRX-045: Increment-2 gaps are NOT built — do not file as bugs
+### TC-CRX-153: Increment-2 gaps are NOT built — do not file as bugs
 
 **User Role:** Logged-in user with `use_ask_crux`.
 **Precondition:** None.
@@ -78,7 +78,7 @@
 
 ---
 
-### TC-CRX-046: Improve the description — suggest, preview, apply
+### TC-CRX-154: Improve the description — suggest, preview, apply
 
 **User Role:** Logged-in user with `use_ask_crux` and edit permission on the target issue.
 **Precondition:** LLM key configured; an issue with a description worth rewriting.
@@ -100,9 +100,9 @@
 
 ---
 
-### TC-CRX-047: Improve — work breakdown (subtasks), only selected ones created
+### TC-CRX-155: Improve — work breakdown (subtasks), only selected ones created
 
-**User Role:** Same as TC-CRX-046.
+**User Role:** Same as TC-CRX-154.
 **Precondition:** An issue suitable for breakdown into subtasks.
 
 **Steps:**
@@ -121,9 +121,9 @@
 
 ---
 
-### TC-CRX-048: Improve write is replay-safe and retryable on failure
+### TC-CRX-156: Improve write is replay-safe and retryable on failure
 
-**User Role:** Same as TC-CRX-046.
+**User Role:** Same as TC-CRX-154.
 **Precondition:** A way to induce a transient failure on Apply (e.g. a race, or a value that would 409/422) — exploratory; if not reproducible, note as untested rather than skipped silently.
 
 **Steps:**
@@ -135,15 +135,15 @@
 
 **Result: PASS — CONFIRMED LIVE 2026-09-15**
 - No UI path exists to induce a transient 409/422 directly, so a genuine failure was constructed instead: as admin, temporarily unchecked "Edit issues" and "Edit own issues" on the Manager role (Administration → Roles → Manager), which `luna.blossom` holds on Crux QA.
-- As `luna.blossom`, on issue #6, triggered "Improve the description" → Apply. The underlying `update_issue` write was refused (confirmed via fresh reload: description unchanged — see also TC-CRX-050's finding that the endpoint's own response is misleading here).
+- As `luna.blossom`, on issue #6, triggered "Improve the description" → Apply. The underlying `update_issue` write was refused (confirmed via fresh reload: description unchanged — see also TC-CRX-158's finding that the endpoint's own response is misleading here).
 - As admin, restored "Edit issues"/"Edit own issues" on the Manager role.
 - As `luna.blossom`, retried the exact same Improve → Apply flow on issue #6. This time the write succeeded cleanly: fresh reload showed the new description persisted, with exactly **one** journal entry ("Description updated") — no duplicate or partial write left over from the earlier failed attempt.
 
 ---
 
-### TC-CRX-049: Cancel on the Improve preview writes nothing
+### TC-CRX-157: Cancel on the Improve preview writes nothing
 
-**User Role:** Same as TC-CRX-046.
+**User Role:** Same as TC-CRX-154.
 **Precondition:** None.
 
 **Steps:**
@@ -155,7 +155,7 @@
 - No change to the issue's description or subtasks — Cancel is a true no-op.
 
 **Result: PASS — CONFIRMED LIVE 2026-09-15**
-- On issue #5 (one of TC-CRX-047's two selected subtasks), clicked "Improve with Crux" → "Improve the description →". A real Before/After preview rendered.
+- On issue #5 (one of TC-CRX-155's two selected subtasks), clicked "Improve with Crux" → "Improve the description →". A real Before/After preview rendered.
 - Clicked Cancel (not Apply).
 - Navigated fresh to `/issues/5` (full reload, not just closing the panel) — description was unchanged: "Identify where form state is held (component state, store, or both) and trace what happens when Cancel is clicked." Cancel was a true no-op.
 
@@ -165,9 +165,9 @@
 
 ---
 
-### TC-CRX-050: Improve's own known-fixed bug class — re-verify honest failure reporting
+### TC-CRX-158: Improve's own known-fixed bug class — re-verify honest failure reporting
 
-**User Role:** Same as TC-CRX-046.
+**User Role:** Same as TC-CRX-154.
 **Precondition:** A scenario that would make the underlying `update_issue` write fail (e.g. a permission removed between suggest and apply, or a field value the server rejects).
 
 **Steps:**
@@ -177,18 +177,18 @@
 - Reports an honest failure with the real reason — never records success with no parseable id (per #116773's fixed bug, worth re-confirming specifically on this path since it was one of the two paths originally fixed).
 
 **Result: FAIL — CONFIRMED LIVE 2026-09-15 — new bug, see BUG-CRX-009**
-- Broke the condition needed for a successful apply the same way as TC-CRX-048: as admin, temporarily unchecked "Edit issues"/"Edit own issues" on the Manager role, which `luna.blossom` holds.
+- Broke the condition needed for a successful apply the same way as TC-CRX-156: as admin, temporarily unchecked "Edit issues"/"Edit own issues" on the Manager role, which `luna.blossom` holds.
 - As `luna.blossom`, on issue #6, triggered suggest ("Improve the description") — rendered fine (read-only). Clicked Apply.
 - The UI gave **no error at all** — the Improve panel just silently closed, exactly as it does on a real success, and independently confirmed (fresh reload) that no write occurred.
 - Captured the actual `POST /crux/improve/confirm` response body directly (via `fetch` replay with the real CSRF token and the same `proposal_id`, since the browser MCP's own network-body inspector returned empty for this call): `{"ok":true,"result":{"issue_id":6,"updated":false},"run_id":null}`.
 - This is a dishonest-success response: `"ok":true` on a call that silently did NOT write (`"updated":false"`), with no error/reason surfaced anywhere the user can see. This is the same bug class #116773 says was fixed on two paths — it has resurfaced (or was never covered) on this specific "permission removed between suggest and apply" path. Filed as **BUG-CRX-009** (see `bugs/open/BUG-CRX-009.md`).
-- Restored the Manager role's permissions afterward (see TC-CRX-048, which reused this same before/after state to also confirm clean retry behavior).
+- Restored the Manager role's permissions afterward (see TC-CRX-156, which reused this same before/after state to also confirm clean retry behavior).
 
 ---
 
-### TC-CRX-051: No feedback (thumbs up/down) control exists yet
+### TC-CRX-159: No feedback (thumbs up/down) control exists yet
 
-**User Role:** Same as TC-CRX-046.
+**User Role:** Same as TC-CRX-154.
 **Precondition:** None.
 
 **Steps:**
@@ -198,12 +198,12 @@
 - Not present — explicitly called out as NOT built in #116773. Do not file as a bug; this TC exists to confirm the doc is still accurate, not to find a defect.
 
 **Result: FAIL (doc is stale, not a product defect) — CONFIRMED LIVE 2026-09-15**
-- A "Was this suggestion helpful? 👍 👎" (Helpful / Not helpful) control is present on every Improve suggestion observed this session (TC-CRX-046, 047, 048, 049, 050) — it renders directly under the Before/After preview, next to the Apply/Cancel buttons.
+- A "Was this suggestion helpful? 👍 👎" (Helpful / Not helpful) control is present on every Improve suggestion observed this session (TC-CRX-154, 047, 048, 049, 050) — it renders directly under the Before/After preview, next to the Apply/Cancel buttons.
 - This contradicts #116773's "NOT built" claim. Per this TC's own instruction, **not filed as a bug** — the finding is that `docs/CRUX_FEATURES_LIST.md` / #116773 need their "no feedback control" note updated to reflect that the control now exists. Flagged in `docs/CRUX_HANDOFF.md` for doc owners.
 
 ---
 
-### TC-CRX-052: A user without edit permission on the issue cannot Apply an Improve suggestion
+### TC-CRX-160: A user without edit permission on the issue cannot Apply an Improve suggestion
 
 **User Role:** A logged-in user with `use_ask_crux` but no Edit permission on the specific issue/project.
 **Precondition:** None.
@@ -215,16 +215,16 @@
 - Suggest/preview may still render (read-only), but Apply is refused by the real Redmine edit permission check — chat must not bypass real issue-edit permissions.
 
 **Result: PASS — CONFIRMED LIVE 2026-09-15**
-- Reused TC-CRX-050's constructed state: `luna.blossom`'s Manager role with "Edit issues"/"Edit own issues" temporarily unchecked (no Edit permission on issue #6).
+- Reused TC-CRX-158's constructed state: `luna.blossom`'s Manager role with "Edit issues"/"Edit own issues" temporarily unchecked (no Edit permission on issue #6).
 - Suggest/preview ("Improve the description") rendered fine — read-only access was not blocked.
 - Apply did not perform the real write: independently confirmed via fresh reload of `/issues/6` that the description was unchanged. Chat did not bypass the real Redmine issue-edit permission check.
-- Note: while the *write itself* was correctly refused (this TC's core invariant), the endpoint's response reporting is dishonest about that refusal — see **BUG-CRX-009** under TC-CRX-050. The two are separate concerns: permission enforcement (this TC, PASS) vs. honest failure reporting (TC-CRX-050, FAIL).
+- Note: while the *write itself* was correctly refused (this TC's core invariant), the endpoint's response reporting is dishonest about that refusal — see **BUG-CRX-009** under TC-CRX-158. The two are separate concerns: permission enforcement (this TC, PASS) vs. honest failure reporting (TC-CRX-158, FAIL).
 
 ---
 
 ## Evidence Map
 
-- Case IDs: TC-CRX-043 through TC-CRX-052 — all 10 reached a definitive verdict, executed live 2026-09-15.
+- Case IDs: TC-CRX-151 through TC-CRX-160 — all 10 reached a definitive verdict, executed live 2026-09-15.
 - Screenshots: bugs only.
 - Log: —
-- Bug reference: BUG-CRX-009 (TC-CRX-050)
+- Bug reference: BUG-CRX-009 (TC-CRX-158)

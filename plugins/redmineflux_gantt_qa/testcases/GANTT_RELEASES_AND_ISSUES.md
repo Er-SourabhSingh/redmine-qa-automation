@@ -23,7 +23,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-201: Left panel and timeline render together
+### TC-GNT-110: Left panel and timeline render together
 
 **User Role:** Member with View Flux Gantt
 **Steps:**
@@ -36,7 +36,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-202: Bar position matches the record's dates
+### TC-GNT-111: Bar position matches the record's dates
 
 **User Role:** Member
 **Steps:**
@@ -50,7 +50,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-203: Progress fill reflects the done ratio
+### TC-GNT-112: Progress fill reflects the done ratio
 
 **User Role:** Member
 **Steps:**
@@ -61,7 +61,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-204: Parent progress and dates derive from subtasks
+### TC-GNT-113: Parent progress and dates derive from subtasks
 
 **User Role:** Member
 **Steps:**
@@ -74,7 +74,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-205: Today line is positioned correctly
+### TC-GNT-114: Today line is positioned correctly
 
 **User Role:** Member
 **Steps:**
@@ -89,7 +89,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-206: Add a release
+### TC-GNT-115: Add a release
 
 **User Role:** Member with Manage versions
 **Steps:**
@@ -103,7 +103,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-207: Release name cannot be blank
+### TC-GNT-116: Release name cannot be blank
 
 **User Role:** Member
 **Steps:**
@@ -115,7 +115,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-208: Start date must be on or before the due date
+### TC-GNT-117: Start date must be on or before the due date
 
 **User Role:** Member
 **Steps:**
@@ -126,7 +126,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-209: Edit a release
+### TC-GNT-118: Edit a release
 
 **User Role:** Member with Manage versions
 **Steps:**
@@ -137,7 +137,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-210: Delete a release
+### TC-GNT-119: Delete a release
 
 **User Role:** Member with Manage versions
 **Steps:**
@@ -151,7 +151,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-211: Expand and collapse a release
+### TC-GNT-120: Expand and collapse a release
 
 **User Role:** Member
 **Steps:**
@@ -162,7 +162,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-212: Expand All and Collapse All
+### TC-GNT-121: Expand All and Collapse All
 
 **User Role:** Member
 **Steps:**
@@ -173,7 +173,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-213: Expand/collapse state is saved per user and project
+### TC-GNT-122: Expand/collapse state is saved per user and project
 
 **User Role:** Two members
 **Steps:**
@@ -190,7 +190,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-214: Add an issue from the chart
+### TC-GNT-123: Add an issue from the chart
 
 **User Role:** Member with View Flux Gantt
 **Steps:**
@@ -204,7 +204,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-215: Created issue respects tracker required fields
+### TC-GNT-124: Created issue respects tracker required fields
 
 **User Role:** Member
 **Steps:**
@@ -217,7 +217,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-216: Subtask hierarchy renders
+### TC-GNT-125: Subtask hierarchy renders
 
 **User Role:** Member
 **Steps:**
@@ -228,7 +228,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-217: Issues Without Version panel lists unassigned issues
+### TC-GNT-126: Issues Without Version panel lists unassigned issues
 
 **User Role:** Member
 **Steps:**
@@ -239,7 +239,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-218: Assign an issue to a release from the panel
+### TC-GNT-127: Assign an issue to a release from the panel
 
 **User Role:** Member
 **Steps:**
@@ -251,7 +251,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-219: Empty state when all issues are versioned
+### TC-GNT-128: Empty state when all issues are versioned
 
 **User Role:** Member
 **Steps:**
@@ -266,7 +266,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-220: Release with no dates
+### TC-GNT-129: Release with no dates
 
 **User Role:** Member
 **Steps:**
@@ -278,7 +278,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-221: Issue with a due date before its start date
+### TC-GNT-130: Issue with a due date before its start date
 
 **User Role:** Member
 **Steps:**
@@ -289,7 +289,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-222: Issue dated outside its release's range
+### TC-GNT-131: Issue dated outside its release's range
 
 **User Role:** Member
 **Steps:**
@@ -303,7 +303,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-223: Very long release or issue name
+### TC-GNT-132: Very long release or issue name
 
 **User Role:** Member
 **Steps:**
@@ -315,7 +315,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-224: HTML and script in a name or description
+### TC-GNT-133: HTML and script in a name or description
 
 **User Role:** Member
 **Steps:**
@@ -328,7 +328,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-225: Deleting an issue that others depend on
+### TC-GNT-134: Deleting an issue that others depend on
 
 **User Role:** Member
 **Steps:**
@@ -340,7 +340,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-226: Concurrent structural changes
+### TC-GNT-135: Concurrent structural changes
 
 **User Role:** Two members
 **Steps:**
@@ -352,7 +352,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 
 ---
 
-### TC-GNT-227: Read-only derived parent
+### TC-GNT-136: Read-only derived parent
 
 **User Role:** Member
 **Steps:**

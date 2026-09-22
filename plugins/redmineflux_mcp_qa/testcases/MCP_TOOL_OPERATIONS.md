@@ -31,7 +31,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-301: List projects
+### TC-RFM-049: List projects
 
 **User Role:** MCP user with a scoped key
 **Steps:**
@@ -43,7 +43,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-302: List issues with a filter
+### TC-RFM-050: List issues with a filter
 
 **User Role:** MCP user
 **Steps:**
@@ -55,7 +55,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-303: Critical issues query
+### TC-RFM-051: Critical issues query
 
 **User Role:** MCP user
 **Steps:**
@@ -68,7 +68,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-304: Time entry reporting
+### TC-RFM-052: Time entry reporting
 
 **User Role:** MCP user
 **Steps:**
@@ -80,7 +80,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-305: Agile board read
+### TC-RFM-053: Agile board read
 
 **User Role:** MCP user
 **Preconditions:** Agile Board plugin installed.
@@ -92,7 +92,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-306: Workload read
+### TC-RFM-054: Workload read
 
 **User Role:** MCP user
 **Preconditions:** Workload plugin installed.
@@ -104,7 +104,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-307: Helpdesk read
+### TC-RFM-055: Helpdesk read
 
 **User Role:** MCP user
 **Preconditions:** Helpdesk plugin installed.
@@ -116,7 +116,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-308: Knowledge Base and checklist reads
+### TC-RFM-056: Knowledge Base and checklist reads
 
 **User Role:** MCP user
 **Preconditions:** Those plugins installed.
@@ -129,7 +129,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-309: Responses are formatted, not raw JSON
+### TC-RFM-057: Responses are formatted, not raw JSON
 
 **User Role:** MCP user
 **Steps:**
@@ -140,7 +140,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-310: Large result sets
+### TC-RFM-058: Large result sets
 
 **User Role:** MCP user
 **Steps:**
@@ -157,7 +157,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-401: Create an issue
+### TC-RFM-059: Create an issue
 
 **User Role:** MCP user with `add_issues`
 **Steps:**
@@ -170,7 +170,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-402: Update an issue
+### TC-RFM-060: Update an issue
 
 **User Role:** MCP user with `edit_issues`
 **Steps:**
@@ -183,7 +183,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-403: Workflow rules are honoured on write
+### TC-RFM-061: Workflow rules are honoured on write
 
 **User Role:** MCP user on a restricted-workflow role
 **Steps:**
@@ -196,7 +196,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-404: Required fields are enforced
+### TC-RFM-062: Required fields are enforced
 
 **User Role:** MCP user
 **Steps:**
@@ -209,7 +209,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-405: Log time
+### TC-RFM-063: Log time
 
 **User Role:** MCP user with `log_time`
 **Steps:**
@@ -223,7 +223,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-406: Agile board write
+### TC-RFM-064: Agile board write
 
 **User Role:** MCP user with the board permissions
 **Steps:**
@@ -237,7 +237,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-407: Timesheet approval
+### TC-RFM-065: Timesheet approval
 
 **User Role:** MCP user with `approve_timesheets`
 **Preconditions:** A submitted timesheet awaiting the user's approval level.
@@ -254,7 +254,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-408: Helpdesk write
+### TC-RFM-066: Helpdesk write
 
 **User Role:** MCP user with `manage_helpdesk`
 **Steps:**
@@ -267,7 +267,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-409: Knowledge Base write
+### TC-RFM-067: Knowledge Base write
 
 **User Role:** MCP user with the KB permissions
 **Steps:**
@@ -279,7 +279,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-410: Checklist write
+### TC-RFM-068: Checklist write
 
 **User Role:** MCP user with `edit_issues`
 **Steps:**
@@ -290,7 +290,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-411: Custom fields on write
+### TC-RFM-069: Custom fields on write
 
 **User Role:** MCP user
 **Steps:**
@@ -308,7 +308,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-412: Permission errors are intelligible
+### TC-RFM-070: Permission errors are intelligible
 
 **User Role:** MCP user lacking a permission
 **Steps:**
@@ -321,7 +321,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-413: Non-existent records
+### TC-RFM-071: Non-existent records
 
 **User Role:** MCP user
 **Steps:**
@@ -334,7 +334,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-414: Ambiguous requests
+### TC-RFM-072: Ambiguous requests
 
 **User Role:** MCP user
 **Steps:**
@@ -347,7 +347,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-415: Destructive operations
+### TC-RFM-073: Destructive operations
 
 **User Role:** MCP user with `delete_issues`
 **Steps:**
@@ -361,7 +361,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-416: Transient error retry is bounded
+### TC-RFM-074: Transient error retry is bounded
 
 **User Role:** MCP user
 **Steps:**
@@ -371,11 +371,11 @@ The two failure modes this is designed to catch:
 - The retry the KB describes occurs, and then the call **fails cleanly** rather than hanging indefinitely.
 - **Confirm a retried write is not applied twice.** An automatic retry on a create or a time-log entry that
   actually succeeded server-side would produce duplicate records — the classic retry hazard, and it applies
-  directly to TC-RFM-401 and TC-RFM-405.
+  directly to TC-RFM-059 and TC-RFM-063.
 
 ---
 
-### TC-RFM-417: Concurrent writes
+### TC-RFM-075: Concurrent writes
 
 **User Role:** Two MCP users
 **Steps:**
@@ -386,7 +386,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-418: Malformed or hostile content through MCP
+### TC-RFM-076: Malformed or hostile content through MCP
 
 **User Role:** MCP user
 **Steps:**
@@ -400,7 +400,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-419: Bulk operations
+### TC-RFM-077: Bulk operations
 
 **User Role:** MCP user
 **Steps:**
@@ -415,7 +415,7 @@ The two failure modes this is designed to catch:
 
 ---
 
-### TC-RFM-420: Data attribution and audit
+### TC-RFM-078: Data attribution and audit
 
 **User Role:** MCP user
 **Steps:**

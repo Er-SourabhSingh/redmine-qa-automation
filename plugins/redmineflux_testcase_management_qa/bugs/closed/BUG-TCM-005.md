@@ -24,7 +24,7 @@ The same report emailed as **HTML** works correctly. The PDF option is the only 
 > ## ✅ CLOSED 2026-09-15 — FIXED
 >
 > **Scope of this bug: PDF generation and attachment failure.** That is what the customer reported, what the title
-> states, and what this bug's Expected result (bullet 1) and retest vehicle **TC-TCM-523** assert. It is **fixed**.
+> states, and what this bug's Expected result (bullet 1) and retest vehicle **TC-TCM-100** assert. It is **fixed**.
 >
 > **Root cause: incomplete installation**, not a code defect. Node.js + Puppeteer + Chromium (KB Installation
 > step 6 / the plugin's own `installation.txt` and `initialize.sh`) had never been installed on
@@ -319,7 +319,7 @@ Body still reads: "Please find the attached Testcase Report:"
 
 This is a **different assertion** from the one this bug was raised on. It requires PDF generation to be deliberately
 broken before it can be observed at all — it is not reachable on the working server that Test 1 verified. Tracked
-separately as **[BUG-TCM-006](../open/BUG-TCM-006.md)** (TC-TCM-524).
+separately as **[BUG-TCM-006](../open/BUG-TCM-006.md)** (TC-TCM-101).
 
 ### Verdict — CLOSED, FIXED
 
@@ -333,18 +333,18 @@ Scope verified against the source material before closing:
 | Title of this bug | *"arrives with no attachment at all"* — the *"while the body still says"* clause describes the observed symptom, it is not the defect being asserted |
 | Expected result, bullet 1 | *"The email arrives carrying a `.pdf` attachment… matching the behaviour of the HTML option"* |
 | Expected result, bullet 2 | *"If the PDF genuinely cannot be produced, the user is told so"* — **conditional**, a fallback expectation, not the reported failure |
-| `TESTCASE_MANAGEMENT_REPORTS.md` **TC-TCM-523** — this bug's stated retest vehicle | *"An email arrives as `multipart/mixed` carrying a valid `<name>.pdf` attachment"* — nothing about body text |
+| `TESTCASE_MANAGEMENT_REPORTS.md` **TC-TCM-100** — this bug's stated retest vehicle | *"An email arrives as `multipart/mixed` carrying a valid `<name>.pdf` attachment"* — nothing about body text |
 
 **Test 1 satisfies every one of those.** Root cause was an incomplete installation (KB Installation step 6 never
 run on `redmine-docker-6-redmine-1`), not a product defect — so there is no code change to wait on here.
 
-TC-TCM-524 ("PDF failure must not produce a misleading email") was written *after* this retest, from Test 2's
+TC-TCM-101 ("PDF failure must not produce a misleading email") was written *after* this retest, from Test 2's
 finding. It is therefore not evidence of this bug's original scope, and moves to BUG-TCM-006 as that bug's
 retest vehicle.
 
-**Regression:** the Reports suite was re-run in the same session — TC-TCM-521 (HTML email, all six report types),
-TC-TCM-523 (PDF email) and TC-TCM-525 (report type does not affect emailing) all PASS. The HTML path was
-specifically confirmed not regressed by the installation. Full Reports-suite regression (TC-TCM-501…534) is
+**Regression:** the Reports suite was re-run in the same session — TC-TCM-098 (HTML email, all six report types),
+TC-TCM-100 (PDF email) and TC-TCM-102 (report type does not affect emailing) all PASS. The HTML path was
+specifically confirmed not regressed by the installation. Full Reports-suite regression (TC-TCM-078…534) is
 outstanding and tracked in the handoff.
 
 ![Retest 2026-09-14 — AfterInstall carries an attachment, SilentFail does not](../../screenshots/BUG-TCM-005/07-retest-2026-09-14-install-fixes-pdf-silentfail-remains.png)

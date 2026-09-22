@@ -47,7 +47,7 @@ issue activity is sent**.
 
 ---
 
-### TC-NTF-601: Disable notifications for a project
+### TC-NTF-045: Disable notifications for a project
 
 **User Role:** Manager
 **Steps:**
@@ -58,7 +58,7 @@ issue activity is sent**.
 
 ---
 
-### TC-NTF-602: Both in-app notifications and email are suppressed
+### TC-NTF-046: Both in-app notifications and email are suppressed
 
 **User Role:** Manager then two members
 **Steps:**
@@ -73,7 +73,7 @@ issue activity is sent**.
 
 ---
 
-### TC-NTF-603: Other projects are unaffected
+### TC-NTF-047: Other projects are unaffected
 
 **User Role:** Member
 **Steps:**
@@ -84,7 +84,7 @@ issue activity is sent**.
 
 ---
 
-### TC-NTF-604: Re-enabling restores delivery
+### TC-NTF-048: Re-enabling restores delivery
 
 **User Role:** Manager then Member
 **Steps:**
@@ -95,7 +95,7 @@ issue activity is sent**.
 
 ---
 
-### TC-NTF-605: Existing notifications are not deleted
+### TC-NTF-049: Existing notifications are not deleted
 
 **User Role:** Member
 **Steps:**
@@ -107,7 +107,7 @@ issue activity is sent**.
 
 ---
 
-### TC-NTF-606: The switch overrides every delivery path
+### TC-NTF-050: The switch overrides every delivery path
 
 **User Role:** Manager then Member
 **Preconditions:** The project has a Teams webhook, a Slack channel, and Faye running.
@@ -119,7 +119,7 @@ issue activity is sent**.
 - **Nothing is delivered on any of the five paths.**
 - This is the case that establishes whether the switch is a true kill switch or only covers the two paths its name
   mentions. A project deliberately silenced that still posts to Slack is a defect with an external audience
-  (paired with TC-NTF-422 and TC-NTF-523).
+  (paired with TC-NTF-123 and TC-NTF-101).
 
 ---
 
@@ -127,7 +127,7 @@ issue activity is sent**.
 
 ---
 
-### TC-NTF-607: Project modules gate the integration settings
+### TC-NTF-051: Project modules gate the integration settings
 
 **User Role:** Manager
 **Steps:**
@@ -146,7 +146,7 @@ issue activity is sent**.
 
 ---
 
-### TC-NTF-901: Only admins can change plugin configuration
+### TC-NTF-052: Only admins can change plugin configuration
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
 **Steps:**
@@ -157,11 +157,11 @@ issue activity is sent**.
 - All refused with 403.
 - **The Slack bot token and the Teams webhook URLs are credentials.** A non-admin who can read or change them can
   post into the organisation's channels from outside Redmine entirely, or redirect every project's activity
-  elsewhere. High severity (paired with TC-NTF-110).
+  elsewhere. High severity (paired with TC-NTF-010).
 
 ---
 
-### TC-NTF-902: Project integration settings require project-admin rights
+### TC-NTF-053: Project integration settings require project-admin rights
 
 **User Role:** Developer, QA, Reporter (each in turn)
 **Steps:**
@@ -177,7 +177,7 @@ issue activity is sent**.
 
 ---
 
-### TC-NTF-903: Notifications respect issue visibility
+### TC-NTF-054: Notifications respect issue visibility
 
 **User Role:** A member who can see the project but not certain issues
 **Preconditions:** A role with issue visibility limited to their own issues, or private issues present.
@@ -192,7 +192,7 @@ issue activity is sent**.
 
 ---
 
-### TC-NTF-904: Notifications respect project membership changes
+### TC-NTF-055: Notifications respect project membership changes
 
 **User Role:** A member removed from a project after receiving notifications
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
@@ -202,11 +202,11 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 **Expected Result:**
 - Historic subjects from the now-inaccessible project are no longer displayed, and following one gives 403
-  (paired with TC-NTF-222).
+  (paired with TC-NTF-038).
 
 ---
 
-### TC-NTF-905: Non-members receive nothing
+### TC-NTF-056: Non-members receive nothing
 
 **User Role:** Authenticated non-member
 **Steps:**
@@ -218,7 +218,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-NTF-906: Anonymous users have no access
+### TC-NTF-057: Anonymous users have no access
 
 **User Role:** Anonymous (logged out)
 **Steps:**
@@ -229,7 +229,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-NTF-907: One user cannot read another's notifications
+### TC-NTF-058: One user cannot read another's notifications
 
 **User Role:** Member
 **Steps:**
@@ -244,7 +244,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-NTF-908: Permission revocation takes effect without re-login
+### TC-NTF-059: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
 **Steps:**
@@ -256,7 +256,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-NTF-909: Closed and archived projects
+### TC-NTF-060: Closed and archived projects
 
 **User Role:** Member
 **Steps:**
@@ -272,7 +272,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-NTF-910: Preferences cannot be changed for another user
+### TC-NTF-061: Preferences cannot be changed for another user
 
 **User Role:** Member
 **Steps:**

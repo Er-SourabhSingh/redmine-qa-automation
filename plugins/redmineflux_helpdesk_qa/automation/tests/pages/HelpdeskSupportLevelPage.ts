@@ -43,7 +43,7 @@ import { BasePage } from './BasePage';
  * - A user already assigned to one level in a project is excluded from the
  *   assignee picker for another level in the SAME project (confirmed live:
  *   after assigning Daisy Skye to L1, she no longer appeared in L2's
- *   Support Assignees dropdown on the same project) — matches TC-HLP-102.
+ *   Support Assignees dropdown on the same project) — matches TC-HLP-346.
  */
 export class HelpdeskSupportLevelPage extends BasePage {
   private readonly projectSelect = this.page.locator('select[name="support_level[project_id]"]');

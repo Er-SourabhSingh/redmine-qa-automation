@@ -24,7 +24,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-801: Create a custom board
+### TC-AGB-078: Create a custom board
 
 **User Role:** Member with board-management rights
 **Steps:**
@@ -37,7 +37,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-802: Multiple custom boards coexist for one project
+### TC-AGB-079: Multiple custom boards coexist for one project
 
 **User Role:** Member
 **Steps:**
@@ -52,7 +52,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-803: Edit a custom board
+### TC-AGB-080: Edit a custom board
 
 **User Role:** Member
 **Steps:**
@@ -64,7 +64,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-804: Delete a custom board
+### TC-AGB-081: Delete a custom board
 
 **User Role:** Member
 **Steps:**
@@ -76,7 +76,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-805: Cancel a custom board deletion
+### TC-AGB-082: Cancel a custom board deletion
 
 **User Role:** Member
 **Steps:**
@@ -87,7 +87,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-806: Board visibility and sharing rules
+### TC-AGB-083: Board visibility and sharing rules
 
 **User Role:** Two members with different roles
 **Steps:**
@@ -100,7 +100,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-807: A custom board's filters do not widen visibility
+### TC-AGB-084: A custom board's filters do not widen visibility
 
 **User Role:** Member with restricted issue visibility
 **Steps:**
@@ -113,7 +113,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-808: Custom board survives configuration changes elsewhere
+### TC-AGB-085: Custom board survives configuration changes elsewhere
 
 **User Role:** Admin + Member
 **Steps:**
@@ -130,7 +130,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-809: Board with a blank name
+### TC-AGB-086: Board with a blank name
 
 **User Role:** Member
 **Steps:**
@@ -141,7 +141,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-810: Duplicate board names
+### TC-AGB-087: Duplicate board names
 
 **User Role:** Member
 **Steps:**
@@ -153,7 +153,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-811: Script content in a board name
+### TC-AGB-088: Script content in a board name
 
 **User Role:** Member
 **Steps:**
@@ -165,7 +165,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-812: Editing or deleting another user's board
+### TC-AGB-089: Editing or deleting another user's board
 
 **User Role:** Member who is not the board's owner
 **Steps:**
@@ -179,7 +179,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-813: Very many custom boards
+### TC-AGB-090: Very many custom boards
 
 **User Role:** Member
 **Steps:**
@@ -194,7 +194,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-851: Story Points are disabled by default
+### TC-AGB-091: Story Points are disabled by default
 
 **User Role:** Admin
 **Steps:**
@@ -205,7 +205,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-852: Enabling Story Points exposes the feature everywhere
+### TC-AGB-092: Enabling Story Points exposes the feature everywhere
 
 **User Role:** Admin then Member
 **Steps:**
@@ -219,7 +219,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-853: Only the configured values are selectable
+### TC-AGB-093: Only the configured values are selectable
 
 **User Role:** Member
 **Steps:**
@@ -230,7 +230,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-854: Story Points display on cards
+### TC-AGB-094: Story Points display on cards
 
 **User Role:** Member
 **Steps:**
@@ -242,7 +242,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-855: Story Point totals per column
+### TC-AGB-095: Story Point totals per column
 
 **User Role:** Member
 **Steps:**
@@ -255,7 +255,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-856: Story Points on the Backlog
+### TC-AGB-096: Story Points on the Backlog
 
 **User Role:** Member
 **Steps:**
@@ -267,12 +267,12 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 > **Superseded in detail by Feature #120436.** The Backlog's per-column story point display is specified in
 > full — Closed/Total badge, completed-story visibility, and the two new global settings — in
 > `AGILE_BACKLOG_AND_SPRINTS.md` under "Feature #120436 — Story Points in the Backlog"
-> (**TC-AGB-529 to TC-AGB-553**). Execute those rather than treating this case as the whole of the Backlog
+> (**TC-AGB-029 to TC-AGB-053**). Execute those rather than treating this case as the whole of the Backlog
 > story-point coverage.
 
 ---
 
-### TC-AGB-857: Story Point changes are journaled
+### TC-AGB-097: Story Point changes are journaled
 
 **User Role:** Member
 **Steps:**
@@ -283,7 +283,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-858: Disabling Story Points hides the feature completely
+### TC-AGB-098: Disabling Story Points hides the feature completely
 
 **User Role:** Admin then Member
 **Steps:**
@@ -294,18 +294,18 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 - No Story Point field, no totals, no card field option, no board settings option, and inactive controls —
   the KB lists all four of these consequences explicitly.
 - **Existing Story Point values are retained in the data, not destroyed**, so re-enabling restores them
-  (TC-AGB-859). A disable that silently deletes estimation data would be a Critical defect.
+  (TC-AGB-099). A disable that silently deletes estimation data would be a Critical defect.
 
 ---
 
-### TC-AGB-859: Re-enabling restores previously stored values
+### TC-AGB-099: Re-enabling restores previously stored values
 
 **User Role:** Admin then Member
 **Steps:**
 1. Re-enable Story Points and open an issue that had a value before it was disabled.
 
 **Expected Result:**
-- The original value is still present. This is the confirming half of TC-AGB-858.
+- The original value is still present. This is the confirming half of TC-AGB-098.
 
 ---
 
@@ -313,7 +313,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-860: A stored value outside the configured list
+### TC-AGB-100: A stored value outside the configured list
 
 **User Role:** Admin then Member
 **Steps:**
@@ -327,7 +327,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-861: Empty Story Point values list
+### TC-AGB-101: Empty Story Point values list
 
 **User Role:** Admin
 **Steps:**
@@ -339,7 +339,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-862: Story Points on a parent issue with subtasks
+### TC-AGB-102: Story Points on a parent issue with subtasks
 
 **User Role:** Member
 **Steps:**
@@ -352,7 +352,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 
 ---
 
-### TC-AGB-863: Non-admin cannot change Story Point configuration
+### TC-AGB-103: Non-admin cannot change Story Point configuration
 
 **User Role:** Every non-admin role in turn
 **Steps:**

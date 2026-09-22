@@ -58,9 +58,9 @@ Completing the import produced test case **#1024** with the documented outcome, 
 - **Retested:** 2026-09-11, Docker `localhost:3010`, Redmine 7.0.0, plugin v7.0.0, admin, Chromium 152.
 - **Fixture used:** `automation/testdata/csv-test-data/14_duplicate_step_column_headers.csv`
   (header row carries `Step 1` and `Expected Result 1` twice each).
-- **TC-TCM-016:** FAIL → **PASS**.
+- **TC-TCM-036:** FAIL → **PASS**.
 - **Regression (`SENIOR_QA_STANDARDS.md` §26, Medium → all TCs in the affected suite):** full CSV Import suite
-  re-run on 2026-09-11 — all 17 fixtures / 16 TCs (TC-TCM-001 … TC-TCM-016) **PASS**, zero new failures. See the
+  re-run on 2026-09-11 — all 17 fixtures / 16 TCs (TC-TCM-021 … TC-TCM-036) **PASS**, zero new failures. See the
   Run History row in `docs/TESTCASE_MANAGEMENT_HANDOFF.md`.
 
 ### Console / log
@@ -75,5 +75,5 @@ Completing the import produced test case **#1024** with the documented outcome, 
 
 ## Notes
 
-- Found via `testcases/TESTCASE_MANAGEMENT_CSV_IMPORT.md` TC-TCM-016, fixture `automation/uploads/duplicate-header.csv` (paste in when available).
+- Found via `testcases/TESTCASE_MANAGEMENT_CSV_IMPORT.md` TC-TCM-036, fixture `automation/uploads/duplicate-header.csv` (paste in when available).
 - Related to BUG-TCM-001 in that both stem from header-matching/lookup edge cases in the same column-mapping code path, but the failure mode is distinct (silent overwrite/discard vs. mismatched lookup) — filed separately per the source report.

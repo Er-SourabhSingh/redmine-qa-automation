@@ -37,7 +37,7 @@ for the source evidence, what was tested on the HTML path, and the one HTML case
 | Assertion | PDF is generated and attached to the email | A *failed* PDF must not produce an email claiming an attachment |
 | Trigger | Normal, working server | Only when PDF generation fails |
 | Cause | Incomplete installation (environment) | Code — the `rescue` in `run_mailer.rb` |
-| Retest vehicle | TC-TCM-523 | TC-TCM-524 |
+| Retest vehicle | TC-TCM-100 | TC-TCM-101 |
 | Status | **Fixed / closed 2026-09-15** (retest Test 1 PASS) | **Open** |
 
 BUG-TCM-005 was closed on its original scope after the PDF attachment was verified delivered and valid. This bug
@@ -157,7 +157,7 @@ make the *template* conditional rather than only patching the `rescue`, since th
 
 | Check | Result |
 |---|---|
-| HTML email, normal operation, all six report types (TC-TCM-521) | **PASS** 2026-09-14 — `multipart/mixed`, valid 14–25 KB `.html` attachments |
+| HTML email, normal operation, all six report types (TC-TCM-098) | **PASS** 2026-09-14 — `multipart/mixed`, valid 14–25 KB `.html` attachments |
 | HTML email still works after the Node/Puppeteer install (regression) | **PASS** 2026-09-14 — not regressed |
 | HTML branch source inspected for the same swallowed `rescue` | **Verified absent** — no `begin`/`rescue` in that branch |
 | **HTML email under a *forced* failure** (the parallel of Test 2) | **NOT TESTED** |
@@ -232,8 +232,8 @@ Full evidence: [`logs/BUG-TCM-005-retest-2026-09-14.log`](../../logs/BUG-TCM-005
 
 ## Test case coverage
 
-- **TC-TCM-524** — "PDF failure must not produce a misleading email". This is the retest vehicle for this bug.
-- TC-TCM-523 covers the BUG-TCM-005 assertion (attachment delivered) and already passes.
+- **TC-TCM-101** — "PDF failure must not produce a misleading email". This is the retest vehicle for this bug.
+- TC-TCM-100 covers the BUG-TCM-005 assertion (attachment delivered) and already passes.
 
 ## Duplicate check
 

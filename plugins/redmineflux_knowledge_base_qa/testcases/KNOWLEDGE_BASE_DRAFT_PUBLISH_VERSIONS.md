@@ -27,7 +27,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-401: A new page starts as a draft
+### TC-RKB-001: A new page starts as a draft
 
 **User Role:** Author
 **Steps:**
@@ -38,7 +38,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-402: Publish a page
+### TC-RKB-002: Publish a page
 
 **User Role:** Author
 **Steps:**
@@ -52,7 +52,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-403: Editing a published page keeps it published
+### TC-RKB-003: Editing a published page keeps it published
 
 **User Role:** Author
 **Steps:**
@@ -67,7 +67,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-404: Update publishes the new draft as a new version
+### TC-RKB-004: Update publishes the new draft as a new version
 
 **User Role:** Author
 **Steps:**
@@ -79,7 +79,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-405: Unpublish a page
+### TC-RKB-005: Unpublish a page
 
 **User Role:** Author
 **Steps:**
@@ -92,7 +92,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-406: Re-publishing restores visibility as a new version
+### TC-RKB-006: Re-publishing restores visibility as a new version
 
 **User Role:** Author
 **Steps:**
@@ -103,7 +103,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-407: Publish confirmation can be cancelled
+### TC-RKB-007: Publish confirmation can be cancelled
 
 **User Role:** Author
 **Steps:**
@@ -121,7 +121,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-408: Published page — visible to all with view_knowledgebase
+### TC-RKB-008: Published page — visible to all with view_knowledgebase
 
 **User Role:** Reader
 **Steps:**
@@ -132,7 +132,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-409: Draft with no published version — author and manage holders only
+### TC-RKB-009: Draft with no published version — author and manage holders only
 
 **User Role:** Author, Manager, Reader
 **Steps:**
@@ -145,7 +145,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-410: Draft that has published versions — readers see the last published version
+### TC-RKB-010: Draft that has published versions — readers see the last published version
 
 **User Role:** Author, Reader
 **Steps:**
@@ -160,7 +160,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-411: Explicitly unpublished — author and manage holders only
+### TC-RKB-011: Explicitly unpublished — author and manage holders only
 
 **User Role:** Author, Manager, Reader
 **Steps:**
@@ -169,13 +169,13 @@ cannot verify them.
 
 **Expected Result:**
 - Author and Manager: visible. **Reader: refused**, and the previously published content is no longer served.
-- Contrast with TC-RKB-410 deliberately: a page with a published version that is being *edited* stays readable,
+- Contrast with TC-RKB-010 deliberately: a page with a published version that is being *edited* stays readable,
   while one that is *unpublished* does not. Confusing the two is a real and consequential defect in either
   direction.
 
 ---
 
-### TC-RKB-412: Folders are always visible to all members
+### TC-RKB-012: Folders are always visible to all members
 
 **User Role:** Reader
 **Steps:**
@@ -187,7 +187,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-413: Draft badges are accurate
+### TC-RKB-013: Draft badges are accurate
 
 **User Role:** Author
 **Steps:**
@@ -203,7 +203,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-414: Version history records everything documented
+### TC-RKB-014: Version history records everything documented
 
 **User Role:** Author
 **Steps:**
@@ -217,7 +217,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-415: Snapshots are point-in-time
+### TC-RKB-015: Snapshots are point-in-time
 
 **User Role:** Author
 **Steps:**
@@ -229,7 +229,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-416: Version author attribution is correct
+### TC-RKB-016: Version author attribution is correct
 
 **User Role:** Author then Manager
 **Steps:**
@@ -240,18 +240,18 @@ cannot verify them.
 
 ---
 
-### TC-RKB-417: Only publish actions create versions
+### TC-RKB-017: Only publish actions create versions
 
 **User Role:** Author
 **Steps:**
 1. Count versions; then auto-save many times without publishing; count again.
 
 **Expected Result:**
-- The count is unchanged (paired with TC-RKB-308).
+- The count is unchanged (paired with TC-RKB-035).
 
 ---
 
-### TC-RKB-418: Restore a previous version
+### TC-RKB-018: Restore a previous version
 
 **User Role:** Author
 **Steps:**
@@ -265,7 +265,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-419: Restore is auditable
+### TC-RKB-019: Restore is auditable
 
 **User Role:** Author
 **Steps:**
@@ -277,7 +277,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-420: Restore on an unpublished page
+### TC-RKB-020: Restore on an unpublished page
 
 **User Role:** Author
 **Steps:**
@@ -295,7 +295,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-421: Publishing without permission
+### TC-RKB-021: Publishing without permission
 
 **User Role:** Reader
 **Steps:**
@@ -309,7 +309,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-422: Restore without permission
+### TC-RKB-022: Restore without permission
 
 **User Role:** Reader
 **Steps:**
@@ -321,7 +321,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-423: Restore a version of a deleted page
+### TC-RKB-023: Restore a version of a deleted page
 
 **User Role:** Author
 **Steps:**
@@ -332,7 +332,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-424: Publish an empty page
+### TC-RKB-024: Publish an empty page
 
 **User Role:** Author
 **Steps:**
@@ -344,7 +344,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-425: Very long version history
+### TC-RKB-025: Very long version history
 
 **User Role:** Author
 **Steps:**
@@ -356,7 +356,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-426: Concurrent publish
+### TC-RKB-026: Concurrent publish
 
 **User Role:** Author and Manager
 **Steps:**
@@ -368,7 +368,7 @@ cannot verify them.
 
 ---
 
-### TC-RKB-427: Unpublishing a page with a public URL
+### TC-RKB-027: Unpublishing a page with a public URL
 
 **User Role:** Author, then unauthenticated visitor
 **Steps:**

@@ -10,17 +10,17 @@ import { PROJECTS } from '../testdata/helpdesk.local.fixtures';
  * covers (per CLAUDE.md §13, only a confirmed-PASS TC gets automated).
  *
  * Deliberately NOT automated in this pass (left for a follow-up):
- *  - TC-HLP-293/294 (Edit-customer "Send account information" email) — needs
+ *  - TC-HLP-042/294 (Edit-customer "Send account information" email) — needs
  *    the local mail server (Roundcube) wired into automation, not yet done.
- *  - TC-HLP-121 — needs a 4th auth role (a project-scoped Manager); this
+ *  - TC-HLP-062 — needs a 4th auth role (a project-scoped Manager); this
  *    suite's auth.setup.ts currently only covers Admin/Agent/Customer.
- *  - TC-HLP-298 — needs project-scoped Organization-tab page-object methods
+ *  - TC-HLP-065 — needs project-scoped Organization-tab page-object methods
  *    that don't exist yet.
- *  - TC-HLP-117/120/124 — these TCs' own confirmed result is FAIL/mixed
+ *  - TC-HLP-056/120/124 — these TCs' own confirmed result is FAIL/mixed
  *    (BUG-HLP-013 Portal Preview reachable, BUG-HLP-011 org delete has no
  *    linkage warning) — automating a known-broken behavior as "expected"
  *    isn't appropriate; revisit once those bugs are fixed.
- *  - TC-HLP-110/113/280/334 — straightforward follow-up additions using the
+ *  - TC-HLP-045/113/280/334 — straightforward follow-up additions using the
  *    same page-object methods already built here, deferred only for time.
  *
  * Runs under the `admin` project (see playwright.config.ts) — every TC this
@@ -42,7 +42,7 @@ test.describe('Organizations', () => {
     org = new HelpdeskOrganizationPage(page);
   });
 
-  test('TC-HLP-108 - creating an organization saves name and all optional fields', async () => {
+  test('TC-HLP-037 - creating an organization saves name and all optional fields', async () => {
     const name = 'Automation Org TC108';
     await org.create({
       name,
@@ -50,8 +50,8 @@ test.describe('Organizations', () => {
       phone: '+1 (555) 010-0108',
       address: '108 Automation Street, Testville',
       employeeCount: 108,
-      notes: 'TC-HLP-108 automated fixture.',
-      billingInfo: 'TC-HLP-108 billing info fixture.',
+      notes: 'TC-HLP-037 automated fixture.',
+      billingInfo: 'TC-HLP-037 billing info fixture.',
     });
 
     expect(await org.getName()).toBe(name);
@@ -59,14 +59,14 @@ test.describe('Organizations', () => {
     expect(await org.getPhone()).toContain('+1 (555) 010-0108');
     expect(await org.getEmployeeCount()).toContain('108');
     expect(await org.getAddress()).toContain('108 Automation Street');
-    expect(await org.getNotes()).toContain('TC-HLP-108 automated fixture');
-    expect(await org.getBillingInfo()).toContain('TC-HLP-108 billing info fixture');
+    expect(await org.getNotes()).toContain('TC-HLP-037 automated fixture');
+    expect(await org.getBillingInfo()).toContain('TC-HLP-037 billing info fixture');
 
     await org.openList();
     await org.delete(name);
   });
 
-  test('TC-HLP-324 - creating an organization with only the required Name field succeeds', async () => {
+  test('TC-HLP-038 - creating an organization with only the required Name field succeeds', async () => {
     const name = 'Automation Org TC324';
     await org.create({ name });
 
@@ -82,7 +82,7 @@ test.describe('Organizations', () => {
     await org.delete(name);
   });
 
-  test('TC-HLP-336 - editing only Name leaves already-set optional fields untouched', async () => {
+  test('TC-HLP-039 - editing only Name leaves already-set optional fields untouched', async () => {
     const originalName = 'Automation Org TC336';
     const renamedName = 'Automation Org TC336 (Renamed)';
     await org.create({
@@ -91,8 +91,8 @@ test.describe('Organizations', () => {
       phone: '+1 (555) 033-0336',
       address: '336 Untouched Avenue',
       employeeCount: 336,
-      notes: 'TC-HLP-336 notes must survive a Name-only edit.',
-      billingInfo: 'TC-HLP-336 billing info must survive a Name-only edit.',
+      notes: 'TC-HLP-039 notes must survive a Name-only edit.',
+      billingInfo: 'TC-HLP-039 billing info must survive a Name-only edit.',
     });
 
     await org.openEdit(originalName);
@@ -103,14 +103,14 @@ test.describe('Organizations', () => {
     expect(await org.getPhone()).toContain('+1 (555) 033-0336');
     expect(await org.getEmployeeCount()).toContain('336');
     expect(await org.getAddress()).toContain('336 Untouched Avenue');
-    expect(await org.getNotes()).toContain('TC-HLP-336 notes must survive');
-    expect(await org.getBillingInfo()).toContain('TC-HLP-336 billing info must survive');
+    expect(await org.getNotes()).toContain('TC-HLP-039 notes must survive');
+    expect(await org.getBillingInfo()).toContain('TC-HLP-039 billing info must survive');
 
     await org.openList();
     await org.delete(renamedName);
   });
 
-  test('TC-HLP-337 - editing every field in one Save persists all new values', async () => {
+  test('TC-HLP-040 - editing every field in one Save persists all new values', async () => {
     const originalName = 'Automation Org TC337';
     const newName = 'Automation Org TC337 (Changed)';
     await org.create({ name: originalName, website: 'https://old.example.com', phone: '+1 000', employeeCount: 1 });
@@ -122,8 +122,8 @@ test.describe('Organizations', () => {
       phone: '+44 20 7946 0999',
       address: '337 New Avenue, New Testburg',
       employeeCount: 999,
-      notes: 'TC-HLP-337 all-fields-changed notes.',
-      billingInfo: 'TC-HLP-337 all-fields-changed billing info.',
+      notes: 'TC-HLP-040 all-fields-changed notes.',
+      billingInfo: 'TC-HLP-040 all-fields-changed billing info.',
     });
 
     expect(await org.getName()).toBe(newName);
@@ -138,7 +138,7 @@ test.describe('Organizations', () => {
     await org.delete(newName);
   });
 
-  test('TC-HLP-119 - creating an organization with a duplicate name is refused', async () => {
+  test('TC-HLP-060 - creating an organization with a duplicate name is refused', async () => {
     const name = 'Automation Org TC119';
     await org.create({ name });
     await org.openList();
@@ -150,7 +150,7 @@ test.describe('Organizations', () => {
     await org.delete(name);
   });
 
-  test('TC-HLP-279 - list search, Status filter, Apply/Clear all work correctly', async () => {
+  test('TC-HLP-058 - list search, Status filter, Apply/Clear all work correctly', async () => {
     const activeName = 'Automation Org TC279 Active';
     const inactiveName = 'Automation Org TC279 Inactive';
     await org.create({ name: activeName });
@@ -194,7 +194,7 @@ test.describe('Customers', () => {
     customer = new HelpdeskCustomerPage(page);
   });
 
-  test('TC-HLP-109 - creating a customer creates the account and flags it as a helpdesk customer', async () => {
+  test('TC-HLP-041 - creating a customer creates the account and flags it as a helpdesk customer', async () => {
     const login = 'automation.tc109';
     await customer.createAccount({
       login,
@@ -211,7 +211,7 @@ test.describe('Customers', () => {
     await customer.delete('Automation TC109');
   });
 
-  test('TC-HLP-323 - creating a customer with identity, an explicit password, and Project Access all in one Save', async () => {
+  test('TC-HLP-047 - creating a customer with identity, an explicit password, and Project Access all in one Save', async () => {
     const login = 'automation.tc323';
     await customer.openNew();
     // Fill identity first so the Project Access section (which needs at least
@@ -232,7 +232,7 @@ test.describe('Customers', () => {
     await customer.delete('Automation TC323');
   });
 
-  test('TC-HLP-333 - editing only a customer\'s required Last name leaves Project Access and password untouched', async ({ page }) => {
+  test('TC-HLP-044 - editing only a customer\'s required Last name leaves Project Access and password untouched', async ({ page }) => {
     const login = 'automation.tc333';
     await customer.createAccount({
       login,
@@ -268,7 +268,7 @@ test.describe('Customers', () => {
     await customer.delete('Automation TC333-ReqOnly');
   });
 
-  test('TC-HLP-112 - removing a project-access row removes only that project\'s access', async () => {
+  test('TC-HLP-051 - removing a project-access row removes only that project\'s access', async () => {
     const login = 'automation.tc112';
     await customer.createAccount({
       login,
@@ -291,7 +291,7 @@ test.describe('Customers', () => {
     await customer.delete('Automation TC112');
   });
 
-  test('TC-HLP-122 - a customer can hold more than one project-access row at once (added across two separate Saves)', async () => {
+  test('TC-HLP-063 - a customer can hold more than one project-access row at once (added across two separate Saves)', async () => {
     const login = 'automation.tc122';
     // Step 1: create with only a Project A (Alpha) row, in its own Save.
     await customer.createAccount({
@@ -324,7 +324,7 @@ test.describe('Customers', () => {
     await customer.delete('Automation TC122');
   });
 
-  test('TC-HLP-118 - searching and filtering the customer list works correctly', async () => {
+  test('TC-HLP-057 - searching and filtering the customer list works correctly', async () => {
     const login = 'automation.tc118';
     await customer.createAccount({
       login,
@@ -351,7 +351,7 @@ test.describe('Customers', () => {
     await customer.delete('Automation TC118Unique');
   });
 
-  test('TC-HLP-114/115/116 - eye icon opens Customer 360, showing identity/KPIs, and its Open count matches the list', async ({ page }) => {
+  test('TC-HLP-053/115/116 - eye icon opens Customer 360, showing identity/KPIs, and its Open count matches the list', async ({ page }) => {
     // Uses the long-lived alpha.customer fixture (real ticket history) rather
     // than a freshly-created customer with zero tickets, since TC-115/116
     // specifically care about real KPI/entitlement data being displayed
@@ -386,7 +386,7 @@ test.describe('Project Access dropdown scoping', () => {
   // selected). So the correct assertion for TC-111/283 is each option's
   // disabled state flipping, not the raw label list changing.
 
-  test('TC-HLP-111 - Support Level dropdown only offers the selected project\'s support levels', async () => {
+  test('TC-HLP-048 - Support Level dropdown only offers the selected project\'s support levels', async () => {
     await customer.openNew();
 
     await customer.selectProjectAccessProject(0, PROJECTS.alpha.name);
@@ -398,7 +398,7 @@ test.describe('Project Access dropdown scoping', () => {
     expect(await customer.isProjectAccessOptionDisabled(0, 'supportLevel', 'L1')).toBe(true);
   });
 
-  test('TC-HLP-283 - SLA dropdown only offers the selected project\'s SLAs', async () => {
+  test('TC-HLP-049 - SLA dropdown only offers the selected project\'s SLAs', async () => {
     await customer.openNew();
 
     await customer.selectProjectAccessProject(0, PROJECTS.alpha.name);
@@ -410,7 +410,7 @@ test.describe('Project Access dropdown scoping', () => {
     expect(await customer.isProjectAccessOptionDisabled(0, 'sla', 'Alpha Standard SLA')).toBe(true);
   });
 
-  test('TC-HLP-284 - Organization dropdown is NOT filtered by the selected project (by design)', async () => {
+  test('TC-HLP-050 - Organization dropdown is NOT filtered by the selected project (by design)', async () => {
     await customer.openNew();
     await customer.selectProjectAccessProject(0, PROJECTS.alpha.name);
     const alphaOptions = await customer.getProjectAccessOptionLabels(0, 'organization');

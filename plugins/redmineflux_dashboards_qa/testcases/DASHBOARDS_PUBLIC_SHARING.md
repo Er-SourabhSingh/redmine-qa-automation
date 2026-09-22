@@ -33,7 +33,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-701: Generate a public link
+### TC-DSH-108: Generate a public link
 
 **User Role:** Member with sharing rights
 **Steps:**
@@ -48,7 +48,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-702: Public link opens without authentication
+### TC-DSH-109: Public link opens without authentication
 
 **User Role:** Unauthenticated visitor (use a private window or a separate browser with no Redmine session)
 **Steps:**
@@ -61,7 +61,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-703: Public view shows the same layout and data
+### TC-DSH-110: Public view shows the same layout and data
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -72,7 +72,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-704: Saved preferences and per-chart dates are applied
+### TC-DSH-111: Saved preferences and per-chart dates are applied
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -83,7 +83,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-705: Edit controls, filters and settings are hidden
+### TC-DSH-112: Edit controls, filters and settings are hidden
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -92,11 +92,11 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 **Expected Result:**
 - None are present, per the KB.
-- Absence in the UI is necessary but not sufficient — TC-DSH-711 tests the endpoints behind them.
+- Absence in the UI is necessary but not sufficient — TC-DSH-118 tests the endpoints behind them.
 
 ---
 
-### TC-DSH-706: Auto-refresh works in the public view
+### TC-DSH-113: Auto-refresh works in the public view
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -107,7 +107,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-707: Regenerating the token revokes the old link immediately
+### TC-DSH-114: Regenerating the token revokes the old link immediately
 
 **User Role:** Member, then unauthenticated visitor
 **Steps:**
@@ -123,7 +123,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-708: Invalid token returns not found
+### TC-DSH-115: Invalid token returns not found
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -141,7 +141,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-709: The public view must not leak data beyond its charts
+### TC-DSH-116: The public view must not leak data beyond its charts
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -156,7 +156,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-710: Drill-down must not work unauthenticated
+### TC-DSH-117: Drill-down must not work unauthenticated
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -166,11 +166,11 @@ The KB's stated contract for the public view is precise, and each clause is a te
 **Expected Result:**
 - No issue list is returned. Drill-down turns a summary into full issue disclosure, so it must be unavailable or
   strictly limited here.
-- A working unauthenticated drill-down is **Critical** (paired with TC-DSH-520).
+- A working unauthenticated drill-down is **Critical** (paired with TC-DSH-147).
 
 ---
 
-### TC-DSH-711: The public token must not authorise writes
+### TC-DSH-118: The public token must not authorise writes
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -184,7 +184,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-712: The public token must not reach other projects
+### TC-DSH-119: The public token must not reach other projects
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -198,7 +198,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-713: Charts must not expose data the sharer could not see
+### TC-DSH-120: Charts must not expose data the sharer could not see
 
 **User Role:** Member with restricted visibility, then unauthenticated visitor
 **Steps:**
@@ -213,7 +213,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-714: Sharing requires permission
+### TC-DSH-121: Sharing requires permission
 
 **User Role:** Member with view-only project access
 **Steps:**
@@ -227,7 +227,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-715: Token survival across project state changes
+### TC-DSH-122: Token survival across project state changes
 
 **User Role:** Member + Admin, then unauthenticated visitor
 **Steps:**
@@ -242,7 +242,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-716: Token survival after the sharer loses access
+### TC-DSH-123: Token survival after the sharer loses access
 
 **User Role:** Admin + unauthenticated visitor
 **Steps:**
@@ -256,7 +256,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-717: Token is not discoverable from the authenticated UI by others
+### TC-DSH-124: Token is not discoverable from the authenticated UI by others
 
 **User Role:** Another project member
 **Steps:**
@@ -268,7 +268,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-718: Search engine and referrer exposure
+### TC-DSH-125: Search engine and referrer exposure
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -281,7 +281,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-719: Public view under load
+### TC-DSH-126: Public view under load
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -294,7 +294,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 ---
 
-### TC-DSH-720: Script content reaches the public view
+### TC-DSH-127: Script content reaches the public view
 
 **User Role:** Member, then unauthenticated visitor
 **Steps:**
@@ -302,7 +302,7 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 **Expected Result:**
 - Escaped and inert. **No script executes for the unauthenticated viewer** — this is the most exposed rendering
-  surface in the entire plugin set and execution here would be Critical (paired with TC-DSH-215).
+  surface in the entire plugin set and execution here would be Critical (paired with TC-DSH-041).
 
 ---
 

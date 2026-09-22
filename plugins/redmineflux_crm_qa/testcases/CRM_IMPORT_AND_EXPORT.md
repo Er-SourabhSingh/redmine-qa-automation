@@ -27,7 +27,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-701: Import contacts with all documented columns
+### TC-CRM-114: Import contacts with all documented columns
 
 **User Role:** Member with **Manage Contacts**
 **Preconditions:** A UTF-8 CSV with a header row using exactly: `first_name`, `last_name`, `email`, `phone`,
@@ -41,7 +41,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-702: Duplicate detection by email
+### TC-CRM-115: Duplicate detection by email
 
 **User Role:** Member
 **Steps:**
@@ -50,11 +50,11 @@ CRM → each section → **Import** / **Export**.
 **Expected Result:**
 - Both are skipped and counted as duplicates, not as errors and not as new records.
 - Also test a case variant of an existing email — if the skip is case-sensitive, the import will create duplicate
-  customers that the UI's own uniqueness rule would have refused (paired with TC-CRM-208).
+  customers that the UI's own uniqueness rule would have refused (paired with TC-CRM-059).
 
 ---
 
-### TC-CRM-703: `company_name` links but does not create
+### TC-CRM-116: `company_name` links but does not create
 
 **User Role:** Member
 **Steps:**
@@ -67,7 +67,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-704: `assigned_to` and `is_private`
+### TC-CRM-117: `assigned_to` and `is_private`
 
 **User Role:** Member
 **Steps:**
@@ -83,7 +83,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-705: Imported content is escaped
+### TC-CRM-118: Imported content is escaped
 
 **User Role:** Member
 **Steps:**
@@ -93,7 +93,7 @@ CRM → each section → **Import** / **Export**.
 **Expected Result:**
 - Escaped everywhere and **no script executes**.
 - Import is the realistic route for hostile content, since the file usually comes from outside the organisation —
-  and the imported first name flows straight into the email templates (TC-CRM-619).
+  and the imported first name flows straight into the email templates (TC-CRM-019).
 
 ---
 
@@ -101,7 +101,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-706: Import companies
+### TC-CRM-119: Import companies
 
 **User Role:** Member with **Manage Companies**
 **Steps:**
@@ -110,11 +110,11 @@ CRM → each section → **Import** / **Export**.
 
 **Expected Result:**
 - Valid rows create companies; bare domains in `website` are prefixed with `https://` as in the UI
-  (TC-CRM-307); `employee_count` is numeric.
+  (TC-CRM-078); `employee_count` is numeric.
 
 ---
 
-### TC-CRM-707: Company duplicates are detected by name **or** email
+### TC-CRM-120: Company duplicates are detected by name **or** email
 
 **User Role:** Member
 **Steps:**
@@ -128,7 +128,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-708: Import deals
+### TC-CRM-121: Import deals
 
 **User Role:** Member with **Manage Deals**
 **Steps:**
@@ -142,7 +142,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-709: Deal defaults and stage validation
+### TC-CRM-122: Deal defaults and stage validation
 
 **User Role:** Member
 **Steps:**
@@ -151,13 +151,13 @@ CRM → each section → **Import** / **Export**.
 **Expected Result:**
 - Missing currency defaults to the plugin default; missing stage defaults to the **first configured stage**.
 - An unconfigured stage is reported invalid rather than being created.
-- **Check what happens to a row whose stage is `Lost`** — the UI requires a lost reason (TC-CRM-407), which the
+- **Check what happens to a row whose stage is `Lost`** — the UI requires a lost reason (TC-CRM-089), which the
   import has no column for. Record whether such rows are refused or create a Lost deal with no reason, bypassing a
   documented validation rule.
 
 ---
 
-### TC-CRM-710: Deal duplicate rule is a three-way match
+### TC-CRM-123: Deal duplicate rule is a three-way match
 
 **User Role:** Member
 **Steps:**
@@ -171,7 +171,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-711: Import leads
+### TC-CRM-124: Import leads
 
 **User Role:** Member with **Manage Leads**
 **Steps:**
@@ -181,7 +181,7 @@ CRM → each section → **Import** / **Export**.
 
 **Expected Result:**
 - Missing source defaults to **Other**; missing status defaults to **New**; duplicates are skipped by email.
-- **A row attempting to set `Converted` must be refused** — it is reserved (TC-CRM-508), and an import is the
+- **A row attempting to set `Converted` must be refused** — it is reserved (TC-CRM-166), and an import is the
   easiest way to create the unrecoverable orphan described there.
 
 ---
@@ -190,7 +190,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-712: Missing required fields
+### TC-CRM-125: Missing required fields
 
 **User Role:** Member
 **Steps:**
@@ -202,7 +202,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-713: Wrong header names
+### TC-CRM-126: Wrong header names
 
 **User Role:** Member
 **Steps:**
@@ -216,7 +216,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-714: Non-UTF-8 encoding
+### TC-CRM-127: Non-UTF-8 encoding
 
 **User Role:** Member
 **Steps:**
@@ -229,7 +229,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-715: Malformed CSV structure
+### TC-CRM-128: Malformed CSV structure
 
 **User Role:** Member
 **Steps:**
@@ -244,7 +244,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-716: Large import and counts reconcile
+### TC-CRM-129: Large import and counts reconcile
 
 **User Role:** Member
 **Steps:**
@@ -257,7 +257,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-717: Import requires the matching manage permission
+### TC-CRM-130: Import requires the matching manage permission
 
 **User Role:** Member with **View CRM** only
 **Steps:**
@@ -273,7 +273,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-718: Export each entity to CSV and XLS
+### TC-CRM-131: Export each entity to CSV and XLS
 
 **User Role:** Member with View CRM
 **Steps:**
@@ -284,7 +284,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-719: Exports cover all visible records, not the current page
+### TC-CRM-132: Exports cover all visible records, not the current page
 
 **User Role:** Member
 **Steps:**
@@ -296,7 +296,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-720: Exports respect privacy
+### TC-CRM-133: Exports respect privacy
 
 **User Role:** A non-admin who cannot see certain private records
 **Steps:**
@@ -310,7 +310,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-721: Analytics export to CSV and PDF
+### TC-CRM-134: Analytics export to CSV and PDF
 
 **User Role:** Member with View CRM
 **Steps:**
@@ -321,7 +321,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-722: PDF export renders non-Latin scripts
+### TC-CRM-135: PDF export renders non-Latin scripts
 
 **User Role:** Member
 **Preconditions:** Records containing Japanese, Russian, Polish and other non-Latin text.
@@ -335,18 +335,18 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-723: Dashboard export
+### TC-CRM-136: Dashboard export
 
 **User Role:** Member
 **Steps:**
 1. Export the dashboard to CSV and XLS.
 
 **Expected Result:**
-- Both download and their figures match the dashboard panels for this user (paired with TC-CRM-119).
+- Both download and their figures match the dashboard panels for this user (paired with TC-CRM-157).
 
 ---
 
-### TC-CRM-724: Export file integrity
+### TC-CRM-137: Export file integrity
 
 **User Role:** Member
 **Steps:**
@@ -360,7 +360,7 @@ CRM → each section → **Import** / **Export**.
 
 ---
 
-### TC-CRM-725: Export requires View CRM
+### TC-CRM-138: Export requires View CRM
 
 **User Role:** A user with no CRM permissions
 **Steps:**

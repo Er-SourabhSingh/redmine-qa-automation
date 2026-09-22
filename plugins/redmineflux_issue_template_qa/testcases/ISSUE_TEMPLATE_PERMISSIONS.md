@@ -48,7 +48,7 @@ is a bug, not a matrix entry.
 
 ---
 
-### TC-RIT-901: Admin has full access
+### TC-RIT-059: Admin has full access
 
 **User Role:** Admin
 **Steps:**
@@ -59,7 +59,7 @@ is a bug, not a matrix entry.
 
 ---
 
-### TC-RIT-902: Establish which role gates project template management
+### TC-RIT-060: Establish which role gates project template management
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
 **Steps:**
@@ -74,7 +74,7 @@ is a bug, not a matrix entry.
 
 ---
 
-### TC-RIT-903: Non-admins cannot reach the global template administration page
+### TC-RIT-061: Non-admins cannot reach the global template administration page
 
 **User Role:** Every non-admin role in turn
 **Steps:**
@@ -88,7 +88,7 @@ is a bug, not a matrix entry.
 
 ---
 
-### TC-RIT-904: Non-admins cannot edit or delete a global template from inside a project
+### TC-RIT-062: Non-admins cannot edit or delete a global template from inside a project
 
 **User Role:** Project member with template rights
 **Steps:**
@@ -103,13 +103,13 @@ is a bug, not a matrix entry.
 
 ---
 
-### TC-RIT-905: The Project list restriction holds at the endpoint
+### TC-RIT-063: The Project list restriction holds at the endpoint
 
 **User Role:** Non-admin member of projects A and B, not of private project C
 **Preconditions:** **Confirm project C is genuinely private and this user has no membership path to it.** A newly
 created Redmine project has "Public" checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
-1. Confirm project C is absent from the rendered Project list (this repeats TC-RIT-304).
+1. Confirm project C is absent from the rendered Project list (this repeats TC-RIT-074).
 2. Submit a template-create request that **explicitly includes project C's ID** in the project list parameter.
 3. Check whether the template appears on project C's Issue Template page and in its New Issue form.
 
@@ -121,7 +121,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RIT-906: Non-member cannot open a project's template page
+### TC-RIT-064: Non-member cannot open a project's template page
 
 **User Role:** Authenticated non-member
 **Steps:**
@@ -134,7 +134,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RIT-907: Anonymous user has no access
+### TC-RIT-065: Anonymous user has no access
 
 **User Role:** Anonymous (logged out)
 **Steps:**
@@ -145,7 +145,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RIT-908: Anonymous access to a public project follows that project's rules
+### TC-RIT-066: Anonymous access to a public project follows that project's rules
 
 **User Role:** Anonymous
 **Steps:**
@@ -158,7 +158,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RIT-909: Cross-project template edit via a crafted request
+### TC-RIT-067: Cross-project template edit via a crafted request
 
 **User Role:** Member of project A only
 **Steps:**
@@ -172,7 +172,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RIT-910: Template visibility on New Issue matches project membership
+### TC-RIT-068: Template visibility on New Issue matches project membership
 
 **User Role:** Member of A only
 **Steps:**
@@ -183,7 +183,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RIT-911: Permission revocation takes effect without re-login
+### TC-RIT-069: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
 **Steps:**
@@ -195,7 +195,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 
 ---
 
-### TC-RIT-912: Closed and archived projects
+### TC-RIT-070: Closed and archived projects
 
 **User Role:** Member
 **Steps:**
@@ -205,7 +205,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 **Expected Result:**
 - Closed projects are read-only and archived projects inaccessible, matching Redmine's own semantics, at the
   endpoint as well as in the UI.
-- An archived project must not still be offered as a binding target on the creation form (see TC-RIT-310).
+- An archived project must not still be offered as a binding target on the creation form (see TC-RIT-081).
 
 ---
 

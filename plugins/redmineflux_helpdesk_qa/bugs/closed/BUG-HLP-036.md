@@ -42,7 +42,7 @@ The duplicate is genuinely refused — confirmed via the Support Packages list b
 
 ## Notes
 
-- Found while executing `HELPDESK_PREPAID_HOURS.md` TC-HLP-369 (2026-09-03), on the same newly-discovered Support Packages entity as BUG-HLP-035.
+- Found while executing `HELPDESK_PREPAID_HOURS.md` TC-HLP-208 (2026-09-03), on the same newly-discovered Support Packages entity as BUG-HLP-035.
 - Severity judged **Low**: unlike BUG-HLP-035, there is no functional/data defect here at all — the uniqueness constraint works exactly as intended. This is purely a missing user-feedback gap, but still worth fixing since a user has no way to self-correct without guessing the problem is a duplicate name.
 
 ## Retest — Confirmed FIXED (2026-09-10)

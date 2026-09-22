@@ -16,7 +16,7 @@
 1. On Helpdesk QA Alpha, a chain L1 (Luna Blossom) → L2 (Autumn Grace, Briar Sunset) → L3 (Willow Belle) exists, using "Alpha Escalation Test SLA" (1-minute Response/Resolution Time).
 2. Create a ticket, assign it to Luna Blossom (L1) — SLA starts at L1.
 3. Before the ticket's deadline passes, **deactivate L2** via Project → Helpdesk → Settings → Support Level → uncheck L2's Active checkbox. Confirmed via the list reload: checkbox shows unchecked (screenshot 2).
-4. Confirmed L2 is genuinely excluded from the New Customer form's Support Level dropdown at this point (per TC-HLP-105 Step 2 — the deactivation itself is real and takes effect immediately for that path).
+4. Confirmed L2 is genuinely excluded from the New Customer form's Support Level dropdown at this point (per TC-HLP-349 Step 2 — the deactivation itself is real and takes effect immediately for that path).
 5. Let the ticket's L1 deadline pass, then trigger the SLA monitor (`Helpdesk::SlaMonitorWorker.new.perform`).
 
 ## Expected result
@@ -29,7 +29,7 @@ The ticket escalated normally straight into the deactivated L2, exactly as if L2
 
 ```
 [SLA][ESCALATION] ┌─ PATH A: Escalating to next level
-[SLA][ESCALATION] │  Ticket        : #19 — TC-HLP-105 deactivate-L2-mid-escalation test ticket
+[SLA][ESCALATION] │  Ticket        : #19 — TC-HLP-349 deactivate-L2-mid-escalation test ticket
 [SLA][ESCALATION] │  From Level    : L1
 [SLA][ESCALATION] │  To Level      : L2
 [SLA][ESCALATION] │  Prev Assignee : luna.blossom (luna.blossom@test.local)
@@ -59,7 +59,7 @@ Full Sidekiq monitor cycle output quoted above (Actual result section).
 
 ## Notes
 
-- Found while executing `HELPDESK_SLA_ESCALATION.md` TC-HLP-105 (2026-09-01) — that TC's own Expected Result anticipated needing to "record whatever actually happens, since the guide does not specify the exact fallback." It turns out the guide *does* specify the expected fallback explicitly (Support Level table, Active row) — this was checked directly before filing, per this engagement's standing rule to verify any bug claim against the actual documentation rather than assumption.
+- Found while executing `HELPDESK_SLA_ESCALATION.md` TC-HLP-349 (2026-09-01) — that TC's own Expected Result anticipated needing to "record whatever actually happens, since the guide does not specify the exact fallback." It turns out the guide *does* specify the expected fallback explicitly (Support Level table, Active row) — this was checked directly before filing, per this engagement's standing rule to verify any bug claim against the actual documentation rather than assumption.
 - Severity judged Medium: this is a real, clearly-documented behavior violation with a genuine customer-facing consequence (a ticket lands on an agent who is supposed to have been taken off escalation duty, and that agent gets a real notification), but it requires the specific sequence of deactivating a mid-chain level while a ticket is actively counting down toward breaching into it — not the most common operational scenario.
 - L2 was left deactivated after this test — re-check whether it should be reactivated before further chain-dependent testing in later sessions (Autumn Grace/Briar Sunset's L2 currently won't be offered on new customer project-access rows or Support Level Escalation To dropdowns while inactive, even though escalation *into* it still works per this bug).
 

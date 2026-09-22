@@ -22,7 +22,7 @@ Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-301: Project Issue Template tab loads
+### TC-RIT-071: Project Issue Template tab loads
 
 **User Role:** Project member with template rights
 **Steps:**
@@ -34,7 +34,7 @@ Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-302: Create a project-specific template
+### TC-RIT-072: Create a project-specific template
 
 **User Role:** Project member with template rights
 **Steps:**
@@ -44,11 +44,11 @@ Do not jump to a deep URL.
 
 **Expected Result:**
 - The template is created and appears in this project's list.
-- It does **not** appear in Administration → Issue Template (confirmed from the other side by TC-RIT-206).
+- It does **not** appear in Administration → Issue Template (confirmed from the other side by TC-RIT-030).
 
 ---
 
-### TC-RIT-303: Project page shows both project and global templates
+### TC-RIT-073: Project page shows both project and global templates
 
 **User Role:** Project member
 **Preconditions:** One global template bound to this project, plus one project-specific template.
@@ -63,7 +63,7 @@ Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-304: Project list shows only the user's own projects
+### TC-RIT-074: Project list shows only the user's own projects
 
 **User Role:** Non-admin member of projects A and B, not of C
 **Steps:**
@@ -72,11 +72,11 @@ Do not jump to a deep URL.
 **Expected Result:**
 - Projects A and B are offered. Project C is **not**.
 - This is the KB's explicit claim. Note that this case only covers the rendered form — the endpoint check is
-  TC-RIT-905 and is the one that actually proves the restriction.
+  TC-RIT-075 and is the one that actually proves the restriction.
 
 ---
 
-### TC-RIT-305: Project list auto-scroll on keypress
+### TC-RIT-076: Project list auto-scroll on keypress
 
 **User Role:** Member with many projects
 **Steps:**
@@ -87,7 +87,7 @@ Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-306: Auto-scroll does not fight with typing
+### TC-RIT-077: Auto-scroll does not fight with typing
 
 **User Role:** Member
 **Steps:**
@@ -101,7 +101,7 @@ Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-307: Bind a project template to several of the user's projects
+### TC-RIT-078: Bind a project template to several of the user's projects
 
 **User Role:** Member of A and B
 **Steps:**
@@ -112,7 +112,7 @@ Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-308: A project template is not visible in unrelated projects
+### TC-RIT-079: A project template is not visible in unrelated projects
 
 **User Role:** Member of A, B and C
 **Steps:**
@@ -124,7 +124,7 @@ Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-309: Sub-project behaviour
+### TC-RIT-080: Sub-project behaviour
 
 **User Role:** Member
 **Preconditions:** A parent project with a sub-project.
@@ -142,7 +142,7 @@ Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-310: Project list omits archived and closed projects
+### TC-RIT-081: Project list omits archived and closed projects
 
 **User Role:** Member
 **Steps:**
@@ -154,7 +154,7 @@ Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-311: Create a template with the current project unticked
+### TC-RIT-082: Create a template with the current project unticked
 
 **User Role:** Member
 **Steps:**
@@ -166,7 +166,7 @@ Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-312: Non-member cannot open a project's Issue Template tab
+### TC-RIT-083: Non-member cannot open a project's Issue Template tab
 
 **User Role:** Authenticated non-member
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project defaults to
@@ -179,7 +179,7 @@ public; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-RIT-313: A member without template rights
+### TC-RIT-084: A member without template rights
 
 **User Role:** Reporter or a low-privilege member of the project
 **Steps:**
@@ -193,7 +193,7 @@ public; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-RIT-314: Editing a global template from inside a project
+### TC-RIT-085: Editing a global template from inside a project
 
 **User Role:** Non-admin project member
 **Steps:**
@@ -207,11 +207,11 @@ public; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-RIT-315: Validation on project templates matches global templates
+### TC-RIT-086: Validation on project templates matches global templates
 
 **User Role:** Member
 **Steps:**
-1. Repeat the blank-name, blank-tracker and blank-project submissions from the global suite (TC-RIT-210 – 213) on
+1. Repeat the blank-name, blank-tracker and blank-project submissions from the global suite (TC-RIT-034 – 213) on
    the project form.
 
 **Expected Result:**
@@ -220,7 +220,7 @@ public; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-RIT-316: Script content in a project template
+### TC-RIT-087: Script content in a project template
 
 **User Role:** Non-admin member
 **Steps:**
@@ -229,12 +229,12 @@ public; uncheck it explicitly or this case falsely passes.
 
 **Expected Result:**
 - Escaped and inert everywhere. **No script executes.**
-- This matters more than the equivalent global case (TC-RIT-216) because the author here is an ordinary member, not
+- This matters more than the equivalent global case (TC-RIT-040) because the author here is an ordinary member, not
   a trusted admin — execution would be a Critical stored-XSS path open to any project member.
 
 ---
 
-### TC-RIT-317: Project deletion with templates attached
+### TC-RIT-088: Project deletion with templates attached
 
 **User Role:** Admin
 **Steps:**
@@ -247,7 +247,7 @@ public; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-RIT-318: Removing a user's membership
+### TC-RIT-089: Removing a user's membership
 
 **User Role:** Admin + affected member
 **Steps:**

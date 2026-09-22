@@ -19,7 +19,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-201: Administration → Issue Template page loads
+### TC-RIT-025: Administration → Issue Template page loads
 
 **User Role:** Admin
 **Steps:**
@@ -31,7 +31,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-202: Create a global template with all fields
+### TC-RIT-026: Create a global template with all fields
 
 **User Role:** Admin
 **Steps:**
@@ -45,7 +45,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-203: Tracker dropdown lists all trackers
+### TC-RIT-027: Tracker dropdown lists all trackers
 
 **User Role:** Admin
 **Steps:**
@@ -56,7 +56,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-204: Project list offers all projects to an admin
+### TC-RIT-028: Project list offers all projects to an admin
 
 **User Role:** Admin
 **Steps:**
@@ -69,7 +69,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-205: Create a template bound to several projects
+### TC-RIT-029: Create a template bound to several projects
 
 **User Role:** Admin
 **Steps:**
@@ -80,7 +80,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-206: Administration list shows only global templates
+### TC-RIT-030: Administration list shows only global templates
 
 **User Role:** Admin
 **Steps:**
@@ -95,7 +95,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-207: Clear button resets the form
+### TC-RIT-031: Clear button resets the form
 
 **User Role:** Admin
 **Steps:**
@@ -107,7 +107,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-208: Cancel button discards without saving
+### TC-RIT-032: Cancel button discards without saving
 
 **User Role:** Admin
 **Steps:**
@@ -119,7 +119,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-209: Template name is shown and identifiable in the list
+### TC-RIT-033: Template name is shown and identifiable in the list
 
 **User Role:** Admin
 **Steps:**
@@ -135,7 +135,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-210: Submit with no template name
+### TC-RIT-034: Submit with no template name
 
 **User Role:** Admin
 **Steps:**
@@ -148,7 +148,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-211: Submit with no tracker
+### TC-RIT-035: Submit with no tracker
 
 **User Role:** Admin
 **Steps:**
@@ -160,7 +160,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-212: Submit with no project selected
+### TC-RIT-036: Submit with no project selected
 
 **User Role:** Admin
 **Steps:**
@@ -172,7 +172,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-213: Submit with empty Subject and Description
+### TC-RIT-037: Submit with empty Subject and Description
 
 **User Role:** Admin
 **Steps:**
@@ -184,7 +184,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-214: Duplicate template names on the same tracker
+### TC-RIT-038: Duplicate template names on the same tracker
 
 **User Role:** Admin
 **Steps:**
@@ -192,12 +192,12 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 **Expected Result:**
 - Either rejected with a uniqueness message, or allowed with both distinguishable.
-- If both are allowed and both are eligible defaults for the tracker, TC-RIT-502's pre-selection rule must still be
+- If both are allowed and both are eligible defaults for the tracker, TC-RIT-011's pre-selection rule must still be
   deterministic.
 
 ---
 
-### TC-RIT-215: Very long field values
+### TC-RIT-039: Very long field values
 
 **User Role:** Admin
 **Steps:**
@@ -209,7 +209,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-216: HTML and script in template fields
+### TC-RIT-040: HTML and script in template fields
 
 **User Role:** Admin
 **Steps:**
@@ -223,7 +223,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-217: Special characters in the subject
+### TC-RIT-041: Special characters in the subject
 
 **User Role:** Admin
 **Steps:**
@@ -235,7 +235,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-218: Creating a template while another admin deletes the tracker
+### TC-RIT-042: Creating a template while another admin deletes the tracker
 
 **User Role:** Two admins
 **Steps:**
@@ -246,7 +246,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 
 ---
 
-### TC-RIT-219: Creating a template referencing a project deleted mid-form
+### TC-RIT-043: Creating a template referencing a project deleted mid-form
 
 **User Role:** Two admins
 **Steps:**

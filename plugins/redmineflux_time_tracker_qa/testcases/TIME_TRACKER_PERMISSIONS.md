@@ -24,7 +24,7 @@ Plus core Redmine's **View others' time entries**, which the Troubleshooting sec
 
 **The significant gap: no permission is listed for running the timer or logging time itself.** Presumably that
 follows Redmine's own *Log spent time* permission — but the KB never says so, and that assumption needs confirming
-(TC-TMT-921). If the plugin gates time logging on nothing more than project membership, then a role deliberately
+(TC-TMT-053). If the plugin gates time logging on nothing more than project membership, then a role deliberately
 denied *Log spent time* in core Redmine could still record hours through the tracker, which is a real bypass.
 
 The second thing that makes this plugin's permission testing unusual: **location data**. The map plots where people
@@ -66,7 +66,7 @@ not a matrix entry.
 
 ---
 
-### TC-TMT-911: Admin has full access
+### TC-TMT-043: Admin has full access
 
 **User Role:** Admin
 **Steps:**
@@ -77,7 +77,7 @@ not a matrix entry.
 
 ---
 
-### TC-TMT-912: View Time Tracker Activity gates the activity module
+### TC-TMT-044: View Time Tracker Activity gates the activity module
 
 **User Role:** Member without the permission
 **Steps:**
@@ -91,7 +91,7 @@ not a matrix entry.
 
 ---
 
-### TC-TMT-913: View Time Tracker Reports gates reports **and exports**
+### TC-TMT-045: View Time Tracker Reports gates reports **and exports**
 
 **User Role:** Member without the permission
 **Steps:**
@@ -102,11 +102,11 @@ not a matrix entry.
 **Expected Result:**
 - All refused with 403.
 - **Leg 3 is the decisive one.** An open export endpoint would let any member pull a complete extract of the
-  instance's time data in a single request, and it would never show up in UI testing (paired with TC-TMT-901).
+  instance's time data in a single request, and it would never show up in UI testing (paired with TC-TMT-082).
 
 ---
 
-### TC-TMT-914: Manage Time Tracker Tags gates tag management
+### TC-TMT-046: Manage Time Tracker Tags gates tag management
 
 **User Role:** Member without the permission
 **Steps:**
@@ -121,7 +121,7 @@ not a matrix entry.
 
 ---
 
-### TC-TMT-915: Others' time entries are gated by the core permission
+### TC-TMT-047: Others' time entries are gated by the core permission
 
 **User Role:** Member without core **View others' time entries**
 **Steps:**
@@ -135,7 +135,7 @@ not a matrix entry.
 
 ---
 
-### TC-TMT-916: Editing others' entries is refused
+### TC-TMT-048: Editing others' entries is refused
 
 **User Role:** Member
 **Steps:**
@@ -149,7 +149,7 @@ not a matrix entry.
 
 ---
 
-### TC-TMT-917: Location data is not exposed to other users
+### TC-TMT-049: Location data is not exposed to other users
 
 **User Role:** Member without View Time Tracker Activity, and a member with it but without others'-entries rights
 **Steps:**
@@ -159,11 +159,11 @@ not a matrix entry.
 - No coordinates belonging to other users appear in any payload.
 - **Treat any exposure here as High severity.** This is employee location history; unlike an hours total, it
   cannot be un-disclosed, and a client-side-filtered map leaks it completely while looking correct
-  (paired with TC-TMT-508).
+  (paired with TC-TMT-016).
 
 ---
 
-### TC-TMT-918: Non-member cannot access a private project's data
+### TC-TMT-050: Non-member cannot access a private project's data
 
 **User Role:** Authenticated non-member
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
@@ -177,7 +177,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-TMT-919: Anonymous has no access
+### TC-TMT-051: Anonymous has no access
 
 **User Role:** Anonymous (logged out)
 **Steps:**
@@ -189,7 +189,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-TMT-920: The browser extension's API key confers no extra authority
+### TC-TMT-052: The browser extension's API key confers no extra authority
 
 **User Role:** Member
 **Steps:**
@@ -203,7 +203,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-TMT-921: Establish what gates time logging itself
+### TC-TMT-053: Establish what gates time logging itself
 
 **User Role:** A role with core **Log spent time** removed
 **Steps:**
@@ -217,7 +217,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-TMT-922: Permission revocation takes effect without re-login
+### TC-TMT-054: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
 **Steps:**
@@ -227,11 +227,11 @@ checked by default; uncheck it explicitly or this case falsely passes.
 **Expected Result:**
 - Refused where appropriate and evaluated per request.
 - The user must still be able to **stop their timer and preserve the elapsed work** — revoking a reporting
-  permission should not strand someone with an unstoppable timer (paired with TC-TMT-116).
+  permission should not strand someone with an unstoppable timer (paired with TC-TMT-040).
 
 ---
 
-### TC-TMT-923: Closed and archived projects
+### TC-TMT-055: Closed and archived projects
 
 **User Role:** Member
 **Steps:**
@@ -258,7 +258,7 @@ direct-endpoint sub-steps, remain **not executed** — a future full pass on thi
 
 ---
 
-### TC-TMT-924: Core "Time tracking" module disabled at project level
+### TC-TMT-056: Core "Time tracking" module disabled at project level
 
 **User Role:** Admin (any member)
 **Preconditions:** A project with the plugin's timer previously usable.
@@ -298,4 +298,4 @@ Filed as **BUG-TMT-002** (Medium — misleading dead control + silent failure, n
 
 | Case ID | Screenshot | Log | Bug reference |
 |---------|------------|-----|---------------|
-| TC-TMT-924 | screenshots/BUG-TMT-002/module-disabled-start-timer-visible-silent-fail.png | `start_timer` → 422, "Time tracking is disabled for this project" | BUG-TMT-002 |
+| TC-TMT-056 | screenshots/BUG-TMT-002/module-disabled-start-timer-visible-silent-fail.png | `start_timer` → 422, "Time tracking is disabled for this project" | BUG-TMT-002 |

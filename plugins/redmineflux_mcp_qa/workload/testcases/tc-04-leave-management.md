@@ -4,15 +4,15 @@
 |-------|-------|
 | **Plugin** | redmineflux_mcp |
 | **Module** | Leave Management |
-| **TC Range** | TC-RFM-038 to TC-RFM-047 |
+| **TC Range** | TC-RFM-116 to TC-RFM-125 |
 | **Total TCs** | 10 |
 | **Execution Order** | Suite 4 — Run after Team Management (tc-03) |
 | **Feature Coverage** | RFM-F038 through RFM-F047 |
 
 **Data Dependencies:**
-- "Automation Team" must exist (created in TC-RFM-023, tc-03).
-- john.doe, jane.doe, mike.smith must be members of "Automation Team" (TC-RFM-028 to TC-RFM-032).
-- jane.doe has Manage Leave permission (TC-RFM-035) — she acts as Leave Approver.
+- "Automation Team" must exist (created in TC-RFM-101, tc-03).
+- john.doe, jane.doe, mike.smith must be members of "Automation Team" (TC-RFM-106 to TC-RFM-110).
+- jane.doe has Manage Leave permission (TC-RFM-113) — she acts as Leave Approver.
 
 ---
 
@@ -20,7 +20,7 @@
 
 ---
 
-## TC-RFM-038 — Apply leave via MCP
+## TC-RFM-116 — Apply leave via MCP
 
 | Field | Value |
 |-------|-------|
@@ -31,7 +31,7 @@
 | **User Role** | Admin (on behalf of john.doe) |
 
 **Preconditions:**
-- john.doe is a member of "Automation Team" (from TC-RFM-028/030).
+- john.doe is a member of "Automation Team" (from TC-RFM-106/030).
 - No existing leave for john.doe in the June 16-18 range.
 
 **Test Data:**
@@ -48,7 +48,7 @@
    - Response includes a leave request ID.
    - Response shows status = "Pending".
    - Response shows start_date = 2026-06-16, end_date = 2026-06-18.
-   - Note the leave ID for TC-RFM-039, TC-RFM-040, TC-RFM-041.
+   - Note the leave ID for TC-RFM-117, TC-RFM-118, TC-RFM-119.
 3. Using Playwright, navigate to `/rf_leaves`.
 4. Click "Team Approvals" tab (or filter for john.doe).
 5. Verify the leave request appears with status "Pending" and correct dates.
@@ -59,7 +59,7 @@
 
 ---
 
-## TC-RFM-039 — View leave requests via MCP
+## TC-RFM-117 — View leave requests via MCP
 
 | Field | Value |
 |-------|-------|
@@ -70,7 +70,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- At least one leave request exists for john.doe (from TC-RFM-038).
+- At least one leave request exists for john.doe (from TC-RFM-116).
 
 **Test Data:**
 - User: john.doe (user_id)
@@ -80,7 +80,7 @@
 2. Validate MCP response:
    - Response contains a list of john.doe's leave requests.
    - Each record includes: request ID, leave type, start_date, end_date, status.
-   - The leave from TC-RFM-038 is present with status = "Pending".
+   - The leave from TC-RFM-116 is present with status = "Pending".
 3. Using Playwright, navigate to `/rf_leaves` → "Team Approvals" tab.
 4. Verify the count and details of john.doe's leave requests match the MCP response.
 
@@ -90,7 +90,7 @@
 
 ---
 
-## TC-RFM-040 — Read leave request details via MCP
+## TC-RFM-118 — Read leave request details via MCP
 
 | Field | Value |
 |-------|-------|
@@ -101,13 +101,13 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Leave request from TC-RFM-038 exists (leave ID noted).
+- Leave request from TC-RFM-116 exists (leave ID noted).
 
 **Test Data:**
-- Leave ID from TC-RFM-038.
+- Leave ID from TC-RFM-116.
 
 **Steps:**
-1. Call MCP `leave_show` with leave_id from TC-RFM-038.
+1. Call MCP `leave_show` with leave_id from TC-RFM-116.
 2. Validate MCP response for all detail fields:
    - Request ID
    - Requester: john.doe
@@ -125,7 +125,7 @@
 
 ---
 
-## TC-RFM-041 — Cancel leave request via MCP
+## TC-RFM-119 — Cancel leave request via MCP
 
 | Field | Value |
 |-------|-------|
@@ -136,13 +136,13 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Leave request from TC-RFM-038 is in Pending status (leave ID noted).
+- Leave request from TC-RFM-116 is in Pending status (leave ID noted).
 
 **Test Data:**
-- Leave ID from TC-RFM-038.
+- Leave ID from TC-RFM-116.
 
 **Steps:**
-1. Call MCP `leave_cancel` with leave_id from TC-RFM-038.
+1. Call MCP `leave_cancel` with leave_id from TC-RFM-116.
 2. Validate MCP response:
    - Response confirms leave request cancelled.
    - Response shows status = "Cancelled".
@@ -160,7 +160,7 @@
 
 ---
 
-## TC-RFM-042 — Approve leave request via MCP
+## TC-RFM-120 — Approve leave request via MCP
 
 | Field | Value |
 |-------|-------|
@@ -171,7 +171,7 @@
 | **User Role** | Admin (jane.doe has Manage Leave permission) |
 
 **Preconditions:**
-- A fresh Pending leave request exists for john.doe (create new one since TC-RFM-041 cancelled the previous).
+- A fresh Pending leave request exists for john.doe (create new one since TC-RFM-119 cancelled the previous).
 
 **Test Data:**
 - New leave: john.doe, leave_type = "planned", start_date = "2026-06-23", end_date = "2026-06-24", reason = "Approval test leave"
@@ -192,7 +192,7 @@
 
 ---
 
-## TC-RFM-043 — Reject leave request via MCP
+## TC-RFM-121 — Reject leave request via MCP
 
 | Field | Value |
 |-------|-------|
@@ -225,7 +225,7 @@
 
 ---
 
-## TC-RFM-044 — View pending leave approvals via MCP
+## TC-RFM-122 — View pending leave approvals via MCP
 
 | Field | Value |
 |-------|-------|
@@ -261,7 +261,7 @@
 
 ---
 
-## TC-RFM-045 — Admin can view all leave requests via MCP
+## TC-RFM-123 — Admin can view all leave requests via MCP
 
 | Field | Value |
 |-------|-------|
@@ -272,7 +272,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Multiple leave requests exist for multiple users (from TC-RFM-038 through TC-RFM-044).
+- Multiple leave requests exist for multiple users (from TC-RFM-116 through TC-RFM-122).
 
 **Test Data:**
 - No specific test data — call leaves_list without filters.
@@ -291,7 +291,7 @@
 
 ---
 
-## TC-RFM-046 — Leave calculate days via MCP
+## TC-RFM-124 — Leave calculate days via MCP
 
 | Field | Value |
 |-------|-------|
@@ -302,7 +302,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- India 2026 holiday schema exists (from TC-RFM-001, tc-01).
+- India 2026 holiday schema exists (from TC-RFM-079, tc-01).
 - The active holiday scheme is applied to the system.
 
 **Test Data:**
@@ -321,7 +321,7 @@
 
 ---
 
-## TC-RFM-047 — View team members on leave on a specific date
+## TC-RFM-125 — View team members on leave on a specific date
 
 | Field | Value |
 |-------|-------|
@@ -332,7 +332,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- john.doe has an approved leave for 2026-06-23 to 2026-06-24 (from TC-RFM-042).
+- john.doe has an approved leave for 2026-06-23 to 2026-06-24 (from TC-RFM-120).
 
 **Test Data:**
 - Date to check: 2026-06-23

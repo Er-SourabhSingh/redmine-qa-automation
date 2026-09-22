@@ -21,7 +21,7 @@ environment list.
 
 ---
 
-### TC-TCM-101: Create an environment
+### TC-TCM-038: Create an environment
 
 **User Role:** QA / Manager
 **Steps:**
@@ -34,7 +34,7 @@ environment list.
 
 ---
 
-### TC-TCM-102: A created environment is selectable on a run
+### TC-TCM-039: A created environment is selectable on a run
 
 **User Role:** QA
 **Steps:**
@@ -46,7 +46,7 @@ environment list.
 
 ---
 
-### TC-TCM-103: Environment name is mandatory
+### TC-TCM-040: Environment name is mandatory
 
 **User Role:** QA
 **Steps:**
@@ -57,7 +57,7 @@ environment list.
 
 ---
 
-### TC-TCM-104: Duplicate environment name
+### TC-TCM-041: Duplicate environment name
 
 **User Role:** QA
 **Steps:**
@@ -69,7 +69,7 @@ environment list.
 
 ---
 
-### TC-TCM-105: Edit an environment name
+### TC-TCM-042: Edit an environment name
 
 **User Role:** QA / Manager
 **Steps:**
@@ -82,7 +82,7 @@ environment list.
 
 ---
 
-### TC-TCM-106: Delete an unused environment
+### TC-TCM-043: Delete an unused environment
 
 **User Role:** Manager / Admin
 **Steps:**
@@ -93,7 +93,7 @@ environment list.
 
 ---
 
-### TC-TCM-107: Delete an environment that has recorded results
+### TC-TCM-044: Delete an environment that has recorded results
 
 **User Role:** Admin
 **Steps:**
@@ -108,7 +108,7 @@ environment list.
 
 ---
 
-### TC-TCM-108: Environments are project-scoped
+### TC-TCM-045: Environments are project-scoped
 
 **User Role:** QA
 **Steps:**
@@ -126,8 +126,8 @@ environment list.
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-101 – 108 | Environment CRUD and run integration | — |
+| TC-TCM-038 – 108 | Environment CRUD and run integration | — |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
-- TC-TCM-105 and TC-TCM-107 are the highest-risk cases here — both probe whether recorded results survive changes
+- TC-TCM-042 and TC-TCM-044 are the highest-risk cases here — both probe whether recorded results survive changes
   to the environment they are attached to.

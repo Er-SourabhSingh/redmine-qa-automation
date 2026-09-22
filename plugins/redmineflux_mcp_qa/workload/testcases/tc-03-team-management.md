@@ -4,13 +4,13 @@
 |-------|-------|
 | **Plugin** | redmineflux_mcp |
 | **Module** | Team Management |
-| **TC Range** | TC-RFM-023 to TC-RFM-037 |
+| **TC Range** | TC-RFM-101 to TC-RFM-115 |
 | **Total TCs** | 15 |
 | **Execution Order** | Suite 3 — Run after Skill Management (tc-02) |
 | **Feature Coverage** | RFM-F023 through RFM-F037 |
 
 **Data Dependencies:**
-- Skill "Selenium" must exist (created in TC-RFM-010, tc-02).
+- Skill "Selenium" must exist (created in TC-RFM-088, tc-02).
 - Users: john.doe, jane.doe, mike.smith, alex.brown must exist in Redmine.
 
 ---
@@ -19,7 +19,7 @@
 
 ---
 
-## TC-RFM-023 — Create team via MCP
+## TC-RFM-101 — Create team via MCP
 
 | Field | Value |
 |-------|-------|
@@ -50,7 +50,7 @@
 
 ---
 
-## TC-RFM-024 — Read team via MCP
+## TC-RFM-102 — Read team via MCP
 
 | Field | Value |
 |-------|-------|
@@ -61,13 +61,13 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Team "Automation Team" exists (from TC-RFM-023).
+- Team "Automation Team" exists (from TC-RFM-101).
 
 **Test Data:**
-- Team ID from TC-RFM-023.
+- Team ID from TC-RFM-101.
 
 **Steps:**
-1. Call MCP `team_data` with team ID from TC-RFM-023.
+1. Call MCP `team_data` with team ID from TC-RFM-101.
 2. Validate MCP response:
    - Response contains team name, team ID, description (if any), member list.
 3. Using Playwright, navigate to `/rf_teams` and open "Automation Team" detail.
@@ -79,7 +79,7 @@
 
 ---
 
-## TC-RFM-025 — Edit team via MCP
+## TC-RFM-103 — Edit team via MCP
 
 | Field | Value |
 |-------|-------|
@@ -90,10 +90,10 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Team "Automation Team" exists (from TC-RFM-023).
+- Team "Automation Team" exists (from TC-RFM-101).
 
 **Test Data:**
-- Team ID from TC-RFM-023.
+- Team ID from TC-RFM-101.
 - New description: "Test automation engineers team"
 
 **Steps:**
@@ -108,7 +108,7 @@
 
 ---
 
-## TC-RFM-026 — Delete team via MCP
+## TC-RFM-104 — Delete team via MCP
 
 | Field | Value |
 |-------|-------|
@@ -139,7 +139,7 @@
 
 ---
 
-## TC-RFM-027 — List all teams via MCP
+## TC-RFM-105 — List all teams via MCP
 
 | Field | Value |
 |-------|-------|
@@ -150,7 +150,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- "Automation Team" exists (from TC-RFM-023).
+- "Automation Team" exists (from TC-RFM-101).
 - At least one other team exists in the system.
 
 **Test Data:**
@@ -174,7 +174,7 @@
 
 ---
 
-## TC-RFM-028 — Add member to team via MCP
+## TC-RFM-106 — Add member to team via MCP
 
 | Field | Value |
 |-------|-------|
@@ -185,11 +185,11 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Team "Automation Team" exists (from TC-RFM-023).
+- Team "Automation Team" exists (from TC-RFM-101).
 - john.doe is NOT currently a member of "Automation Team".
 
 **Test Data:**
-- Team ID from TC-RFM-023.
+- Team ID from TC-RFM-101.
 - User: john.doe
 
 **Steps:**
@@ -204,7 +204,7 @@
 
 ---
 
-## TC-RFM-029 — Remove member from team via MCP
+## TC-RFM-107 — Remove member from team via MCP
 
 | Field | Value |
 |-------|-------|
@@ -215,13 +215,13 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- john.doe is a member of "Automation Team" (from TC-RFM-028).
+- john.doe is a member of "Automation Team" (from TC-RFM-106).
 
 **Test Data:**
-- Membership ID from TC-RFM-028.
+- Membership ID from TC-RFM-106.
 
 **Steps:**
-1. Call MCP `member_remove` with the membership ID from TC-RFM-028.
+1. Call MCP `member_remove` with the membership ID from TC-RFM-106.
 2. Validate MCP response — confirms john.doe removed.
 3. Using Playwright, navigate to "Automation Team" detail.
 4. Verify john.doe no longer appears in the member table.
@@ -232,7 +232,7 @@
 
 ---
 
-## TC-RFM-030 — Update member role in team via MCP
+## TC-RFM-108 — Update member role in team via MCP
 
 | Field | Value |
 |-------|-------|
@@ -243,7 +243,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- john.doe is NOT a member of "Automation Team" (removed in TC-RFM-029). Re-add for this TC.
+- john.doe is NOT a member of "Automation Team" (removed in TC-RFM-107). Re-add for this TC.
 
 **Test Data:**
 - Re-add john.doe to "Automation Team" without role first.
@@ -262,7 +262,7 @@
 
 ---
 
-## TC-RFM-031 — Add member to team with role via MCP
+## TC-RFM-109 — Add member to team with role via MCP
 
 | Field | Value |
 |-------|-------|
@@ -273,7 +273,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Team "Automation Team" exists (from TC-RFM-023).
+- Team "Automation Team" exists (from TC-RFM-101).
 - jane.doe is NOT a member of "Automation Team".
 
 **Test Data:**
@@ -292,7 +292,7 @@
 
 ---
 
-## TC-RFM-032 — Add member to team without role via MCP
+## TC-RFM-110 — Add member to team without role via MCP
 
 | Field | Value |
 |-------|-------|
@@ -303,7 +303,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Team "Automation Team" exists (from TC-RFM-023).
+- Team "Automation Team" exists (from TC-RFM-101).
 - mike.smith is NOT a member of "Automation Team".
 
 **Test Data:**
@@ -326,7 +326,7 @@
 
 ---
 
-## TC-RFM-033 — Grant Manage Workload permission to member via MCP
+## TC-RFM-111 — Grant Manage Workload permission to member via MCP
 
 | Field | Value |
 |-------|-------|
@@ -337,7 +337,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- john.doe is a member of "Automation Team" (from TC-RFM-030, membership ID noted).
+- john.doe is a member of "Automation Team" (from TC-RFM-108, membership ID noted).
 
 **Test Data:**
 - john.doe membership ID.
@@ -355,7 +355,7 @@
 
 ---
 
-## TC-RFM-034 — Grant Manage Leave permission to member via MCP
+## TC-RFM-112 — Grant Manage Leave permission to member via MCP
 
 | Field | Value |
 |-------|-------|
@@ -366,7 +366,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- mike.smith is a member of "Automation Team" (from TC-RFM-032, membership ID noted).
+- mike.smith is a member of "Automation Team" (from TC-RFM-110, membership ID noted).
 
 **Test Data:**
 - mike.smith membership ID.
@@ -384,7 +384,7 @@
 
 ---
 
-## TC-RFM-035 — Grant both permissions to member via MCP
+## TC-RFM-113 — Grant both permissions to member via MCP
 
 | Field | Value |
 |-------|-------|
@@ -395,7 +395,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- jane.doe is a member of "Automation Team" (from TC-RFM-031, membership ID noted) with "Team Lead" role.
+- jane.doe is a member of "Automation Team" (from TC-RFM-109, membership ID noted) with "Team Lead" role.
 
 **Test Data:**
 - jane.doe membership ID.
@@ -413,7 +413,7 @@
 
 ---
 
-## TC-RFM-036 — Add member with no permissions via MCP
+## TC-RFM-114 — Add member with no permissions via MCP
 
 | Field | Value |
 |-------|-------|
@@ -424,7 +424,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Team "Automation Team" exists (from TC-RFM-023).
+- Team "Automation Team" exists (from TC-RFM-101).
 - alex.brown is NOT a member.
 
 **Test Data:**
@@ -443,7 +443,7 @@
 
 ---
 
-## TC-RFM-037 — Remove permission from member via MCP
+## TC-RFM-115 — Remove permission from member via MCP
 
 | Field | Value |
 |-------|-------|
@@ -454,7 +454,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- john.doe has Manage Workload permission active in "Automation Team" (from TC-RFM-033).
+- john.doe has Manage Workload permission active in "Automation Team" (from TC-RFM-111).
 
 **Test Data:**
 - john.doe membership ID.
@@ -473,7 +473,7 @@
 
 ---
 
-**End of Suite — Team State After TC-RFM-037:**
+**End of Suite — Team State After TC-RFM-115:**
 - john.doe: member, Team Lead role, no Manage Workload, no Manage Leave
 - jane.doe: member, Team Lead role, Manage Workload ✓, Manage Leave ✓
 - mike.smith: member, no role, no Manage Workload, Manage Leave ✓

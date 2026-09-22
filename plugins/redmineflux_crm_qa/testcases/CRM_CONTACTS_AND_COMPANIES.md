@@ -26,7 +26,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-201: Create a contact with all fields
+### TC-CRM-052: Create a contact with all fields
 
 **User Role:** Member with **Manage Contacts**
 **Steps:**
@@ -38,7 +38,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-202: Create a contact with only the required fields
+### TC-CRM-053: Create a contact with only the required fields
 
 **User Role:** Member with Manage Contacts
 **Steps:**
@@ -49,7 +49,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-203: Contact type Person vs Company
+### TC-CRM-054: Contact type Person vs Company
 
 **User Role:** Member
 **Steps:**
@@ -60,7 +60,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-204: Edit a contact
+### TC-CRM-055: Edit a contact
 
 **User Role:** Member with Manage Contacts
 **Steps:**
@@ -68,11 +68,11 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 **Expected Result:**
 - All changes persist, and an automatic activity records the change where the KB says one is generated
-  (assignee change — see TC-CRM-615).
+  (assignee change — see TC-CRM-015).
 
 ---
 
-### TC-CRM-205: Tags are case-insensitive and comma-separated
+### TC-CRM-056: Tags are case-insensitive and comma-separated
 
 **User Role:** Member
 **Steps:**
@@ -85,14 +85,14 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-206: Assignee is set and searchable
+### TC-CRM-057: Assignee is set and searchable
 
 **User Role:** Member
 **Steps:**
 1. Assign a contact to a user and confirm it appears where assigned records are listed.
 
 **Expected Result:**
-- The assignment persists, and it affects privacy visibility (TC-CRM-904).
+- The assignment persists, and it affects privacy visibility (TC-CRM-187).
 
 ---
 
@@ -100,7 +100,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-207: First name and email are required
+### TC-CRM-058: First name and email are required
 
 **User Role:** Member
 **Steps:**
@@ -111,7 +111,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-208: Email must be unique across all contacts
+### TC-CRM-059: Email must be unique across all contacts
 
 **User Role:** Member
 **Steps:**
@@ -121,12 +121,12 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 **Expected Result:**
 - Refused at both, with a clear uniqueness message.
 - Record the case-sensitivity result: if `A@x.com` and `a@x.com` are both accepted, the import's
-  duplicate-by-email rule (TC-CRM-701) will not catch them either, and the database ends up with duplicate
+  duplicate-by-email rule (TC-CRM-114) will not catch them either, and the database ends up with duplicate
   customers that look distinct.
 
 ---
 
-### TC-CRM-209: Phone and mobile length validation
+### TC-CRM-060: Phone and mobile length validation
 
 **User Role:** Member
 **Steps:**
@@ -139,7 +139,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-210: Invalid email format
+### TC-CRM-061: Invalid email format
 
 **User Role:** Member
 **Steps:**
@@ -151,7 +151,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-211: Long values and script content
+### TC-CRM-062: Long values and script content
 
 **User Role:** Member
 **Steps:**
@@ -169,7 +169,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-212: Upload an avatar
+### TC-CRM-063: Upload an avatar
 
 **User Role:** Member with Manage Contacts
 **Preconditions:** `public/uploads/contacts/avatars` is writable.
@@ -181,7 +181,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-213: Remove an avatar
+### TC-CRM-064: Remove an avatar
 
 **User Role:** Member
 **Steps:**
@@ -192,7 +192,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-214: Avatar size limit and file type
+### TC-CRM-065: Avatar size limit and file type
 
 **User Role:** Member
 **Steps:**
@@ -210,7 +210,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-215: Link a contact to a company
+### TC-CRM-066: Link a contact to a company
 
 **User Role:** Member
 **Steps:**
@@ -221,7 +221,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-216: Create a contact from a company page
+### TC-CRM-067: Create a contact from a company page
 
 **User Role:** Member
 **Steps:**
@@ -232,7 +232,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-217: Helpdesk integration when the plugin is installed
+### TC-CRM-068: Helpdesk integration when the plugin is installed
 
 **User Role:** Member
 **Preconditions:** Redmineflux Helpdesk installed.
@@ -246,7 +246,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-218: Helpdesk integration when the plugin is absent
+### TC-CRM-069: Helpdesk integration when the plugin is absent
 
 **User Role:** Member
 **Steps:**
@@ -261,7 +261,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-219: Deleting a contact follows the documented cascade exactly
+### TC-CRM-070: Deleting a contact follows the documented cascade exactly
 
 **User Role:** Member with **Delete CRM Data**
 **Preconditions:** A contact with activities, an issue link, a linked deal, and a linked company.
@@ -279,7 +279,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-220: Deletion requires Delete CRM Data
+### TC-CRM-071: Deletion requires Delete CRM Data
 
 **User Role:** Member with **Manage Contacts** but without Delete CRM Data
 **Steps:**
@@ -289,7 +289,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 **Expected Result:**
 - Refused at the endpoint.
 - This separation is stated twice in the KB and is the point of the recommended Sales Representative role
-  (paired with TC-CRM-909).
+  (paired with TC-CRM-192).
 
 ---
 
@@ -297,7 +297,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-301: Create a company with all fields
+### TC-CRM-072: Create a company with all fields
 
 **User Role:** Member with **Manage Companies**
 **Steps:**
@@ -309,7 +309,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-302: Employee count accepts numbers only
+### TC-CRM-073: Employee count accepts numbers only
 
 **User Role:** Member
 **Steps:**
@@ -320,7 +320,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-303: Edit a company
+### TC-CRM-074: Edit a company
 
 **User Role:** Member with Manage Companies
 **Steps:**
@@ -331,14 +331,14 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-304: Company detail shows its contacts and deals
+### TC-CRM-075: Company detail shows its contacts and deals
 
 **User Role:** Member
 **Steps:**
 1. Open a company with several linked contacts and deals.
 
 **Expected Result:**
-- Both are listed, and only those the viewer is permitted to see (paired with TC-CRM-906).
+- Both are listed, and only those the viewer is permitted to see (paired with TC-CRM-189).
 
 ---
 
@@ -346,7 +346,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-305: Company name is required
+### TC-CRM-076: Company name is required
 
 **User Role:** Member
 **Steps:**
@@ -357,7 +357,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-306: Company name must be unique
+### TC-CRM-077: Company name must be unique
 
 **User Role:** Member
 **Steps:**
@@ -367,11 +367,11 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 - Refused with a uniqueness message.
 - Record the case behaviour: the import duplicate check and the lead-conversion company lookup both match **by
   name**, so if `Acme` and `acme` can coexist, conversion and import will attach records to the wrong one
-  (TC-CRM-514).
+  (TC-CRM-172).
 
 ---
 
-### TC-CRM-307: Bare domain is normalised to https
+### TC-CRM-078: Bare domain is normalised to https
 
 **User Role:** Member
 **Steps:**
@@ -382,7 +382,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-308: Website values that are already qualified
+### TC-CRM-079: Website values that are already qualified
 
 **User Role:** Member
 **Steps:**
@@ -395,7 +395,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-309: Deleting a company follows the documented cascade exactly
+### TC-CRM-080: Deleting a company follows the documented cascade exactly
 
 **User Role:** Member with **Delete CRM Data**
 **Preconditions:** A company with activities, two linked contacts and two linked deals.
@@ -413,7 +413,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-310: Long values and script content in company fields
+### TC-CRM-081: Long values and script content in company fields
 
 **User Role:** Member
 **Steps:**
@@ -426,7 +426,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 
 ---
 
-### TC-CRM-311: Concurrent edits
+### TC-CRM-082: Concurrent edits
 
 **User Role:** Two members
 **Steps:**

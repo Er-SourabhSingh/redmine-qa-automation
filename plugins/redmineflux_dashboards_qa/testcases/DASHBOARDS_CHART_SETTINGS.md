@@ -3,7 +3,9 @@
 > Source: vendor KB — "How to Change the Chart Legend Position", "How to Show or Hide Data Labels",
 > "How to Change the Chart Color", "How to Apply Data Filters to a Chart",
 > "How to Set a Custom Date Range for a Single Chart", FAQ Q2, Q3, Q8.
-> **Status: authored 2026-09-15. Not yet executed.**
+> Additional source: production issue **#120914** ("Custom Dashboard: Chart Templates and Custom Field Grouping
+> for User-Defined Queries") — TC-DSH-166 onward.
+> **Status: authored 2026-09-15, extended 2026-09-22 for #120914. Not yet executed.**
 
 ## Plugin
 - Name: Redmineflux Analytics Dashboard
@@ -22,7 +24,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-301: Legend position
+### TC-DSH-001: Legend position
 
 **User Role:** Member
 **Steps:**
@@ -34,7 +36,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-302: Show and hide data labels
+### TC-DSH-002: Show and hide data labels
 
 **User Role:** Member
 **Steps:**
@@ -47,7 +49,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-303: Settings persist across reload
+### TC-DSH-003: Settings persist across reload
 
 **User Role:** Member
 **Steps:**
@@ -62,7 +64,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-304: Top accent colour
+### TC-DSH-004: Top accent colour
 
 **User Role:** Member
 **Steps:**
@@ -73,7 +75,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-305: Prebuilt colour palettes
+### TC-DSH-005: Prebuilt colour palettes
 
 **User Role:** Member
 **Steps:**
@@ -85,7 +87,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-306: Individual custom series colours
+### TC-DSH-006: Individual custom series colours
 
 **User Role:** Member
 **Steps:**
@@ -96,7 +98,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-307: Card background and border colour
+### TC-DSH-007: Card background and border colour
 
 **User Role:** Member
 **Steps:**
@@ -109,7 +111,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-308: Appearance settings are per chart
+### TC-DSH-008: Appearance settings are per chart
 
 **User Role:** Member
 **Steps:**
@@ -120,11 +122,166 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
+## Functional Cases — Query-template chart appearance & segment order (#120914)
+
+> Covers issue #120914 parts 3 and 4: appearance controls only make sense once a saved-query widget is drawn as a
+> real chart, and segment order/colour must follow the grouping dimension's own defined order rather than segment
+> size, so a re-ordered/recoloured chart still reads correctly after the underlying counts change.
+
+---
+
+### TC-DSH-166: Appearance settings become available for a chart-template query widget
+
+**User Role:** Member
+**Preconditions:** A saved-query widget added as a Doughnut/Pie/Bar/Line (grouped by any dimension).
+**Steps:**
+1. Open that widget's Settings.
+
+**Expected Result:**
+- Colour palette, legend position and data labels controls are present and functional — per #120914, "it is a real
+  chart and those settings apply."
+
+---
+
+### TC-DSH-167: Appearance settings stay hidden for the statistics card
+
+**User Role:** Member
+**Preconditions:** A saved-query widget left on (or switched back to) the Statistics card template.
+**Steps:**
+1. Open that widget's Settings.
+
+**Expected Result:**
+- Colour palette, legend position and data labels controls remain hidden, exactly as before #120914 — "a grid of
+  numbers has nothing to apply them to."
+
+---
+
+### TC-DSH-168: Segment order follows a list custom field's own defined order
+
+**User Role:** Member
+**Preconditions:** A list custom field with a defined, non-alphabetical value order (e.g. Low, Medium, High,
+Critical).
+**Steps:**
+1. Add a query chart grouped by that field, with issue counts arranged so the values are **not** already in
+   size order (e.g. "Critical" has the fewest issues).
+
+**Expected Result:**
+- Segments appear in the field's defined order (Low → Medium → High → Critical), **not** ordered by count, per
+  #120914 part 4.
+
+---
+
+### TC-DSH-169: Segment order follows configured order for Status/Priority/Tracker/Target version
+
+**User Role:** Member
+**Steps:**
+1. Add a query chart grouped by Status (or Priority/Tracker/Target version), with counts arranged so the largest
+   value is not the one configured first.
+
+**Expected Result:**
+- Segments follow that field's own configured order (e.g. the workflow's status order), not descending count.
+
+---
+
+### TC-DSH-170: Assignee/Author grouping stays largest-first
+
+**User Role:** Member
+**Steps:**
+1. Add a query chart grouped by Assignee (then, separately, by Author).
+
+**Expected Result:**
+- Segments are ordered largest-count-first, since neither dimension has an inherent order of its own, per
+  #120914's explicit exception.
+
+---
+
+### TC-DSH-171: "Not set" segment always trails the real values
+
+**User Role:** Member
+**Steps:**
+1. Add a query chart grouped by a custom field where "Not set" is not the smallest segment (i.e. more issues have
+   no value than have any single defined value).
+
+**Expected Result:**
+- "Not set" is still drawn **last**, after every real value, regardless of its own count.
+
+---
+
+### TC-DSH-172: Order and colour-to-label mapping stay stable when counts change
+
+**User Role:** Member
+**Steps:**
+1. Note the segment order and colours of a chart grouped by a field with a defined order.
+2. Change enough issues' values (or add new issues) that a different value becomes the largest segment.
+3. Refresh the chart.
+
+**Expected Result:**
+- Segment order is unchanged, and each label keeps the same colour it had before — per #120914 scenario 6, a
+  stable order is what keeps a chosen palette lined up with its labels, since colours are applied by position.
+
+---
+
+### TC-DSH-173: Colour-named custom field values are auto-coloured — English
+
+**User Role:** Member
+**Preconditions:** No colour palette explicitly configured for the chart. A custom field whose values are named
+after colours in English (e.g. Green/Yellow/Red).
+**Steps:**
+1. Add a query chart grouped by that field.
+
+**Expected Result:**
+- Segments are drawn in the colours the values name — Green segment green, Yellow segment yellow/amber, Red
+  segment red — with no palette configured, per #120914 scenario 3.
+
+---
+
+### TC-DSH-174: Colour-named custom field values are auto-coloured — German
+
+**User Role:** Member
+**Preconditions:** Same as TC-DSH-173, but the field's values are set up in German (e.g. Grün/Gelb/Rot).
+**Steps:**
+1. Add a query chart grouped by that field on a German-language session.
+
+**Expected Result:**
+- The same colour matching applies in German — Grün → green, Gelb → yellow/amber, Rot → red — per #120914's
+  explicit requirement that colour-name matching work "in English and German, as the values carry whatever
+  language the field was set up in."
+
+---
+
+### TC-DSH-175: Non-colour-named values fall back to the generic palette
+
+**User Role:** Member
+**Preconditions:** No colour palette explicitly configured. A custom field whose values are not colour names (e.g.
+"OK / Warning / Critical").
+**Steps:**
+1. Add a query chart grouped by that field.
+
+**Expected Result:**
+- The chart falls back to the generic palette, per #120914 scenario 4.
+- **No two segments render the same colour** — a palette collision on a field with only 2–3 values is the easiest
+  place for this to go wrong.
+
+---
+
+### TC-DSH-176: An explicit palette overrides automatic colour-name matching
+
+**User Role:** Member
+**Preconditions:** A chart grouped by a colour-named custom field (as in TC-DSH-173).
+**Steps:**
+1. In Chart Settings → Appearance, set an explicit colour palette.
+
+**Expected Result:**
+- The configured palette's colours are used instead of the automatic colour-name match, per #120914 scenario 5 ("a
+  palette set in chart settings should still override it").
+
+---
+
 ## Functional Cases — Per-chart data filters
 
 ---
 
-### TC-DSH-309: Apply each available data filter
+### TC-DSH-009: Apply each available data filter
 
 **User Role:** Member
 **Steps:**
@@ -138,7 +295,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-310: Available filters depend on the chart type
+### TC-DSH-010: Available filters depend on the chart type
 
 **User Role:** Member
 **Steps:**
@@ -151,7 +308,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-311: Multiple filters combine
+### TC-DSH-011: Multiple filters combine
 
 **User Role:** Member
 **Steps:**
@@ -162,7 +319,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-312: Clearing a filter restores the full data
+### TC-DSH-012: Clearing a filter restores the full data
 
 **User Role:** Member
 **Steps:**
@@ -173,7 +330,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-313: Per-chart filters are independent
+### TC-DSH-013: Per-chart filters are independent
 
 **User Role:** Member
 **Steps:**
@@ -188,7 +345,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-314: Set a custom date range on one chart
+### TC-DSH-014: Set a custom date range on one chart
 
 **User Role:** Member
 **Steps:**
@@ -200,7 +357,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-315: A per-chart range overrides the global range
+### TC-DSH-015: A per-chart range overrides the global range
 
 **User Role:** Member
 **Steps:**
@@ -212,7 +369,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-316: Clearing the custom range restores global behaviour
+### TC-DSH-016: Clearing the custom range restores global behaviour
 
 **User Role:** Member
 **Steps:**
@@ -223,14 +380,14 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-317: Per-chart range survives a copy
+### TC-DSH-017: Per-chart range survives a copy
 
 **User Role:** Member
 **Steps:**
 1. Copy a chart that has a custom date range.
 
 **Expected Result:**
-- The copy carries the same custom range and can then be changed independently (paired with TC-DSH-210).
+- The copy carries the same custom range and can then be changed independently (paired with TC-DSH-036).
 
 ---
 
@@ -238,7 +395,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-318: End date before start date
+### TC-DSH-018: End date before start date
 
 **User Role:** Member
 **Steps:**
@@ -250,7 +407,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-319: Only one of the two custom dates set
+### TC-DSH-019: Only one of the two custom dates set
 
 **User Role:** Member
 **Steps:**
@@ -263,7 +420,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-320: Date range with no data
+### TC-DSH-020: Date range with no data
 
 **User Role:** Member
 **Steps:**
@@ -275,7 +432,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-321: Extremely wide date range
+### TC-DSH-021: Extremely wide date range
 
 **User Role:** Member
 **Steps:**
@@ -287,7 +444,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-322: Invalid colour values
+### TC-DSH-022: Invalid colour values
 
 **User Role:** Member
 **Steps:**
@@ -298,7 +455,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-323: Filter values the user cannot see
+### TC-DSH-023: Filter values the user cannot see
 
 **User Role:** Member with restricted visibility
 **Steps:**
@@ -311,7 +468,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-324: Filter referencing a deleted value
+### TC-DSH-024: Filter referencing a deleted value
 
 **User Role:** Admin + Member
 **Steps:**
@@ -323,7 +480,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-325: Settings changes without permission
+### TC-DSH-025: Settings changes without permission
 
 **User Role:** Member with view-only project access
 **Steps:**
@@ -337,7 +494,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 ---
 
-### TC-DSH-326: Settings scope — per user or per project
+### TC-DSH-026: Settings scope — per user or per project
 
 **User Role:** Two members
 **Steps:**

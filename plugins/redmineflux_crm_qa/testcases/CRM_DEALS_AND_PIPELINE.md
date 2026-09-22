@@ -27,7 +27,7 @@ targets.
 
 ---
 
-### TC-CRM-401: Create a deal with all fields
+### TC-CRM-083: Create a deal with all fields
 
 **User Role:** Member with **Manage Deals**
 **Steps:**
@@ -39,7 +39,7 @@ targets.
 
 ---
 
-### TC-CRM-402: Create a deal with only the required fields
+### TC-CRM-084: Create a deal with only the required fields
 
 **User Role:** Member
 **Steps:**
@@ -50,7 +50,7 @@ targets.
 
 ---
 
-### TC-CRM-403: Link a deal to a contact and a company
+### TC-CRM-085: Link a deal to a contact and a company
 
 **User Role:** Member
 **Steps:**
@@ -61,7 +61,7 @@ targets.
 
 ---
 
-### TC-CRM-404: Edit a deal
+### TC-CRM-086: Edit a deal
 
 **User Role:** Member with Manage Deals
 **Steps:**
@@ -69,7 +69,7 @@ targets.
 
 **Expected Result:**
 - All persist, and the documented automatic activities are logged for the stage change and the assignee change
-  (TC-CRM-613 – 615).
+  (TC-CRM-013 – 615).
 
 ---
 
@@ -77,7 +77,7 @@ targets.
 
 ---
 
-### TC-CRM-405: Name and stage are required
+### TC-CRM-087: Name and stage are required
 
 **User Role:** Member
 **Steps:**
@@ -88,7 +88,7 @@ targets.
 
 ---
 
-### TC-CRM-406: Probability must be 0–100
+### TC-CRM-088: Probability must be 0–100
 
 **User Role:** Member
 **Steps:**
@@ -101,7 +101,7 @@ targets.
 
 ---
 
-### TC-CRM-407: Lost reason is required when the stage is Lost
+### TC-CRM-089: Lost reason is required when the stage is Lost
 
 **User Role:** Member
 **Steps:**
@@ -111,11 +111,11 @@ targets.
 **Expected Result:**
 - Refused at both legs — the KB states the requirement plainly.
 - Lost reasons are what a sales team analyses to improve; a lost deal without one is a permanent gap in that
-  analysis, and there is no edit path to add it later once the deal is closed (TC-CRM-423).
+  analysis, and there is no edit path to add it later once the deal is closed (TC-CRM-105).
 
 ---
 
-### TC-CRM-408: Invalid amounts
+### TC-CRM-090: Invalid amounts
 
 **User Role:** Member
 **Steps:**
@@ -127,7 +127,7 @@ targets.
 
 ---
 
-### TC-CRM-409: Currency cannot be changed after creation
+### TC-CRM-091: Currency cannot be changed after creation
 
 **User Role:** Member with Manage Deals
 **Steps:**
@@ -142,7 +142,7 @@ targets.
 
 ---
 
-### TC-CRM-410: Forecast value calculation
+### TC-CRM-092: Forecast value calculation
 
 **User Role:** Member
 **Steps:**
@@ -153,7 +153,7 @@ targets.
 
 ---
 
-### TC-CRM-411: Forecast at the boundaries
+### TC-CRM-093: Forecast at the boundaries
 
 **User Role:** Member
 **Steps:**
@@ -169,7 +169,7 @@ targets.
 
 ---
 
-### TC-CRM-412: Pipeline groups deals by stage
+### TC-CRM-094: Pipeline groups deals by stage
 
 **User Role:** Member with **View Pipeline**
 **Steps:**
@@ -181,7 +181,7 @@ targets.
 
 ---
 
-### TC-CRM-413: Open pipeline value
+### TC-CRM-095: Open pipeline value
 
 **User Role:** Member
 **Steps:**
@@ -192,7 +192,7 @@ targets.
 
 ---
 
-### TC-CRM-414: Weighted forecast
+### TC-CRM-096: Weighted forecast
 
 **User Role:** Member
 **Steps:**
@@ -205,7 +205,7 @@ targets.
 
 ---
 
-### TC-CRM-415: Won revenue
+### TC-CRM-097: Won revenue
 
 **User Role:** Member
 **Steps:**
@@ -216,7 +216,7 @@ targets.
 
 ---
 
-### TC-CRM-416: Territory filter
+### TC-CRM-098: Territory filter
 
 **User Role:** Member
 **Steps:**
@@ -232,7 +232,7 @@ targets.
 
 ---
 
-### TC-CRM-417: Drag a deal to another stage
+### TC-CRM-099: Drag a deal to another stage
 
 **User Role:** Member with Manage Deals
 **Steps:**
@@ -243,7 +243,7 @@ targets.
 
 ---
 
-### TC-CRM-418: A stage change creates an activity note
+### TC-CRM-100: A stage change creates an activity note
 
 **User Role:** Member
 **Steps:**
@@ -254,7 +254,7 @@ targets.
 
 ---
 
-### TC-CRM-419: Won and Lost deals cannot be dragged
+### TC-CRM-101: Won and Lost deals cannot be dragged
 
 **User Role:** Member with Manage Deals
 **Steps:**
@@ -265,7 +265,7 @@ targets.
 
 ---
 
-### TC-CRM-420: The update_stage endpoint rejects closed deals
+### TC-CRM-102: The update_stage endpoint rejects closed deals
 
 **User Role:** Member with Manage Deals
 **Steps:**
@@ -273,13 +273,13 @@ targets.
 
 **Expected Result:**
 - Both refused — the KB states the endpoint rejects changes on closed deals.
-- **This is the case that matters, not TC-CRM-419.** The board can simply disable the card while the endpoint
+- **This is the case that matters, not TC-CRM-101.** The board can simply disable the card while the endpoint
   still accepts the write; if it does, a closed deal can be silently reopened, which corrupts won revenue, the
   open-deal count and the win rate at once. High severity.
 
 ---
 
-### TC-CRM-421: Reopening a closed deal via the edit form
+### TC-CRM-103: Reopening a closed deal via the edit form
 
 **User Role:** Member with Manage Deals
 **Steps:**
@@ -293,7 +293,7 @@ targets.
 
 ---
 
-### TC-CRM-422: Won and Lost are excluded from open counts
+### TC-CRM-104: Won and Lost are excluded from open counts
 
 **User Role:** Member
 **Steps:**
@@ -305,7 +305,7 @@ targets.
 
 ---
 
-### TC-CRM-423: Both Won and Lost feed the win rate
+### TC-CRM-105: Both Won and Lost feed the win rate
 
 **User Role:** Member
 **Steps:**
@@ -317,7 +317,7 @@ targets.
 
 ---
 
-### TC-CRM-424: Territories on the deal form
+### TC-CRM-106: Territories on the deal form
 
 **User Role:** Member
 **Steps:**
@@ -332,7 +332,7 @@ targets.
 
 ---
 
-### TC-CRM-425: Deleting a deal follows the documented cascade exactly
+### TC-CRM-107: Deleting a deal follows the documented cascade exactly
 
 **User Role:** Member with **Delete CRM Data**
 **Preconditions:** A deal with activities, an issue link, a linked contact and a linked company.
@@ -348,18 +348,18 @@ targets.
 
 ---
 
-### TC-CRM-426: Deletion requires Delete CRM Data
+### TC-CRM-108: Deletion requires Delete CRM Data
 
 **User Role:** Member with **Manage Deals** but without Delete CRM Data
 **Steps:**
 1. Confirm no Delete control; send the delete request directly.
 
 **Expected Result:**
-- Refused at the endpoint (paired with TC-CRM-909).
+- Refused at the endpoint (paired with TC-CRM-192).
 
 ---
 
-### TC-CRM-427: Drag-and-drop without permission
+### TC-CRM-109: Drag-and-drop without permission
 
 **User Role:** Member with **View Pipeline** but without Manage Deals
 **Steps:**
@@ -372,7 +372,7 @@ targets.
 
 ---
 
-### TC-CRM-428: Drag-and-drop without JavaScript
+### TC-CRM-110: Drag-and-drop without JavaScript
 
 **User Role:** Member
 **Steps:**
@@ -384,7 +384,7 @@ targets.
 
 ---
 
-### TC-CRM-429: Closed date and due date
+### TC-CRM-111: Closed date and due date
 
 **User Role:** Member
 **Steps:**
@@ -397,7 +397,7 @@ targets.
 
 ---
 
-### TC-CRM-430: Concurrent stage changes
+### TC-CRM-112: Concurrent stage changes
 
 **User Role:** Two members
 **Steps:**
@@ -409,7 +409,7 @@ targets.
 
 ---
 
-### TC-CRM-431: Large pipeline performance
+### TC-CRM-113: Large pipeline performance
 
 **User Role:** Member
 **Steps:**

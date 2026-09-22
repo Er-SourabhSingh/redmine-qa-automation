@@ -33,7 +33,7 @@
 | TC-RAF-022 | Add HR → Location (Branch Office) alongside existing IT rule | **PASS** |
 | TC-RAF-023 | Add Finance → Location (Branch Office, CRM) scoped to Advanced Fields Demo | **PASS** |
 | TC-RAF-024 | Add Operations → Location (WAN, LAN, VPN) globally | **PASS** |
-| TC-RAF-036 | Location dropdown updates live when Department switches IT→HR | **PASS** |
+| TC-RAF-035 | Location dropdown updates live when Department switches IT→HR | **PASS** |
 
 ---
 

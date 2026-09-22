@@ -10,7 +10,7 @@
 
 ---
 
-### TC-CHK-001 — Issue detail Checklist widget (menu, add form, sub-item form, journal message) fully translated in German
+### TC-CHK-043 — Issue detail Checklist widget (menu, add form, sub-item form, journal message) fully translated in German
 
 **Steps**
 
@@ -35,7 +35,7 @@
 
 ---
 
-### TC-CHK-002 — Admin Checklist Templates: create, edit, delete (with confirm modal) fully translated
+### TC-CHK-044 — Admin Checklist Templates: create, edit, delete (with confirm modal) fully translated
 
 **Steps**
 
@@ -56,7 +56,7 @@
 
 ---
 
-### TC-CHK-003 — Issue detail Checklist widget on an Agile-Board-enabled project: no cross-plugin overlap, item Edit/Delete, "Aus Vorlage hinzufügen", Checklisten-Verlauf tab
+### TC-CHK-045 — Issue detail Checklist widget on an Agile-Board-enabled project: no cross-plugin overlap, item Edit/Delete, "Aus Vorlage hinzufügen", Checklisten-Verlauf tab
 
 **Steps**
 
@@ -79,7 +79,7 @@
 
 ---
 
-### TC-CHK-004 — Sub-checklist item creation, including its per-item Status dropdown
+### TC-CHK-046 — Sub-checklist item creation, including its per-item Status dropdown
 
 **Steps**
 
@@ -96,7 +96,7 @@
 
 ---
 
-### TC-CHK-005 — "Block issue closing" enforcement and its error message (functional test, not just label translation)
+### TC-CHK-047 — "Block issue closing" enforcement and its error message (functional test, not just label translation)
 
 **Steps**
 
@@ -113,7 +113,7 @@
 
 ---
 
-### TC-CHK-006 — "Aus Vorlage hinzufügen" journal message
+### TC-CHK-048 — "Aus Vorlage hinzufügen" journal message
 
 **Steps**
 
@@ -136,13 +136,13 @@
 
 ## Stage 2 — Resolution testing (1280×720 and 1920×1080), German + Default theme
 
-### TC-CHK-007 — Layout integrity at 1280×720
+### TC-CHK-049 — Layout integrity at 1280×720
 
 **Pages checked:** Issue detail (Checklist widget, journal/notes tab), admin Checklisten-Vorlagen list, template Delete confirmation modal.
 
 **Result — PASS.** No horizontal overflow, no clipped text, no overlapping elements; modal renders centered and fully visible; table columns fit without wrapping.
 
-### TC-CHK-008 — Layout integrity at 1920×1080
+### TC-CHK-050 — Layout integrity at 1920×1080
 
 **Pages checked:** Same as above.
 
@@ -154,7 +154,7 @@
 
 ## Stages 3–6 — Lotus theme retest (German active), both resolutions
 
-### TC-CHK-009 — Issue detail Checklist widget under Lotus theme
+### TC-CHK-051 — Issue detail Checklist widget under Lotus theme
 
 **Steps**
 
@@ -170,7 +170,7 @@
 
 ---
 
-### TC-CHK-010 — Admin Checklisten-Vorlagen page + Delete modal under Lotus theme
+### TC-CHK-052 — Admin Checklisten-Vorlagen page + Delete modal under Lotus theme
 
 **Steps**
 
@@ -186,7 +186,7 @@
 
 ---
 
-### TC-CHK-011 — Resolution testing under Lotus (1280×720 and 1920×1080)
+### TC-CHK-053 — Resolution testing under Lotus (1280×720 and 1920×1080)
 
 **Steps**
 

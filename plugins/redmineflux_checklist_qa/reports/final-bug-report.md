@@ -14,7 +14,7 @@
 
 - Severity: Critical
 - Production Redmine Issue ID: not yet reported
-- Found during the regression pass for #120920 (TC-CHK-217), not caused by that feature's own changes.
+- Found during the regression pass for #120920 (TC-CHK-031), not caused by that feature's own changes.
 - Client-side self-XSS in `checklist.js`'s creation AJAX handlers (unescaped raw HTML interpolation); not a
   stored XSS for other viewers (server-rendered page loads are safely escaped).
 - Full detail: `bugs/open/BUG-CHK-002.md`
@@ -23,7 +23,7 @@
 
 - Severity: Medium
 - Production Redmine Issue ID: not yet reported
-- Found during `CHECKLIST_PROGRESS_TRACKING.md` TC-CHK-313 (rapid toggling).
+- Found during `CHECKLIST_PROGRESS_TRACKING.md` TC-CHK-091 (rapid toggling).
 - Root cause identified in `checklist_checkbox-0fb4baca.js`: a single click on a sub-item's checkbox fires two
   separate AJAX PATCH requests to two different endpoints (`toggle_completed` and `update_state`) for the same
   state change, each independently writing a journal entry — confirmed via the Network tab on a single click,

@@ -30,7 +30,7 @@
 
 ## Expected result
 
-- All three tab labels render in full, consistent with the Default theme at the identical 1280×720 resolution (confirmed clean there — see `CHECKLIST_GERMAN_LANGUAGE.md` TC-CHK-007).
+- All three tab labels render in full, consistent with the Default theme at the identical 1280×720 resolution (confirmed clean there — see `CHECKLIST_GERMAN_LANGUAGE.md` TC-CHK-049).
 
 ## Actual result
 

@@ -49,7 +49,7 @@ Leg 3 is decisive. A missing button proves nothing about whether the write is ac
 - **Outsider** — a logged-in user in no team
 - **Anonymous**
 
-Without MgrA/ApproverA plus a second team B, TC-WKL-903 and TC-WKL-904 cannot detect the defect they exist for.
+Without MgrA/ApproverA plus a second team B, TC-WKL-079 and TC-WKL-080 cannot detect the defect they exist for.
 
 ---
 
@@ -78,7 +78,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-903 and TC-WKL-904 cannot de
 
 ---
 
-### TC-WKL-901: Admin has full access
+### TC-WKL-077: Admin has full access
 
 **User Role:** Admin
 **Steps:**
@@ -89,7 +89,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-903 and TC-WKL-904 cannot de
 
 ---
 
-### TC-WKL-902: Manage teams and skills covers teams and skills
+### TC-WKL-078: Manage teams and skills covers teams and skills
 
 **User Role:** TeamAdmin
 **Steps:**
@@ -101,7 +101,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-903 and TC-WKL-904 cannot de
 
 ---
 
-### TC-WKL-903: Manage workload is scoped to one team
+### TC-WKL-079: Manage workload is scoped to one team
 
 **User Role:** MgrA
 **Steps:**
@@ -117,7 +117,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-903 and TC-WKL-904 cannot de
 
 ---
 
-### TC-WKL-904: Can approve leave is scoped to one team
+### TC-WKL-080: Can approve leave is scoped to one team
 
 **User Role:** ApproverA
 **Steps:**
@@ -132,7 +132,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-903 and TC-WKL-904 cannot de
 
 ---
 
-### TC-WKL-905: A plain team member has read access only
+### TC-WKL-081: A plain team member has read access only
 
 **User Role:** PlainA
 **Steps:**
@@ -147,7 +147,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-903 and TC-WKL-904 cannot de
 
 ---
 
-### TC-WKL-906: The Workloads menu and pages are closed to anonymous users
+### TC-WKL-082: The Workloads menu and pages are closed to anonymous users
 
 **User Role:** Anonymous (logged out)
 **Steps:**
@@ -162,7 +162,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-903 and TC-WKL-904 cannot de
 
 ---
 
-### TC-WKL-907: An outsider sees no team data
+### TC-WKL-083: An outsider sees no team data
 
 **User Role:** Outsider
 **Steps:**
@@ -176,7 +176,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-903 and TC-WKL-904 cannot de
 
 ---
 
-### TC-WKL-908: Admin-only areas are closed to every non-admin
+### TC-WKL-084: Admin-only areas are closed to every non-admin
 
 **User Role:** TeamAdmin, MgrA, ApproverA, PlainA (each in turn)
 **Steps:**
@@ -194,7 +194,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-903 and TC-WKL-904 cannot de
 
 ---
 
-### TC-WKL-909: Granting the flags is itself gated
+### TC-WKL-085: Granting the flags is itself gated
 
 **User Role:** MgrA and PlainA
 **Steps:**
@@ -208,7 +208,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-903 and TC-WKL-904 cannot de
 
 ---
 
-### TC-WKL-910: Workload data respects Redmine project visibility
+### TC-WKL-086: Workload data respects Redmine project visibility
 
 **User Role:** A team member who is **not** a member of the Redmine projects the workload's issues belong to
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
@@ -225,7 +225,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-WKL-911: Leave records are not exposed to other members
+### TC-WKL-087: Leave records are not exposed to other members
 
 **User Role:** PlainA
 **Steps:**
@@ -239,7 +239,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-WKL-912: Permission revocation takes effect without re-login
+### TC-WKL-088: Permission revocation takes effect without re-login
 
 **User Role:** Admin + MgrA
 **Steps:**
@@ -252,7 +252,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-WKL-913: Removal from a team removes access immediately
+### TC-WKL-089: Removal from a team removes access immediately
 
 **User Role:** Admin + MgrA
 **Steps:**
@@ -262,11 +262,11 @@ checked by default; uncheck it explicitly or this case falsely passes.
 **Expected Result:**
 - Access is withdrawn at once, at the endpoint as well as the UI.
 - Their historical allocations and approvals remain intact — losing access must not erase the record of work they
-  planned (paired with TC-WKL-210).
+  planned (paired with TC-WKL-127).
 
 ---
 
-### TC-WKL-914: Closed and archived projects
+### TC-WKL-090: Closed and archived projects
 
 **User Role:** Workload manager
 **Steps:**

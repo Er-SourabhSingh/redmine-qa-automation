@@ -16,7 +16,7 @@
 ## Confirmed Working
 
 - (none confirmed yet — every planned test case in `testcases/` is still unexecuted; only the ad-hoc
-  `TC-TMT-923` closed-project finding below has been run)
+  `TC-TMT-055` closed-project finding below has been run)
 
 ## Recurring Issues
 
@@ -28,7 +28,7 @@
   increases. Same category of gap as the Checklist plugin's `BUG-CHK-005` found the same session — a plugin
   provides its own write path on the issue detail page that skips the project-closed check Redmine core already
   enforces for its own equivalent action on that page. If retesting after a fix, also check the archived-project
-  half of `TC-TMT-923` and its "edit an existing entry" / direct-endpoint sub-steps, none of which have been run
+  half of `TC-TMT-055` and its "edit an existing entry" / direct-endpoint sub-steps, none of which have been run
   yet.
 - **The plugin registers no project module of its own** — Project Settings → Modules has no "Time Tracker" entry
   (unlike Helpdesk, Invoice, Knowledgebase, etc. on this instance, which each add their own module checkbox).
@@ -40,7 +40,7 @@
   `{"status":"error","message":"Time tracking is disabled for this project"}`. So this one is **not** a real
   data-integrity bypass. The actual defect is that the failure is completely silent — no toast, no inline
   message — so the control looks broken/dead rather than gated. Filed as `BUG-TMT-002` (Medium). Confirmed
-  2026-09-22, `TC-TMT-924`, project `test-project` / issue #1553.
+  2026-09-22, `TC-TMT-056`, project `test-project` / issue #1553.
 
 ## Environment Notes
 

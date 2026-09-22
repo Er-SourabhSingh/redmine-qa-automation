@@ -10,7 +10,7 @@
 
 ---
 
-### TC-TAG-001 — Issue detail "Tags" inline add widget fully translated in German
+### TC-TAG-019 — Issue detail "Tags" inline add widget fully translated in German
 
 **Steps**
 
@@ -34,7 +34,7 @@
 
 ---
 
-### TC-TAG-002 — "Tag list" field fully translated on New/Edit Project, New/Edit Issue, New/Edit Spent Time forms
+### TC-TAG-020 — "Tag list" field fully translated on New/Edit Project, New/Edit Issue, New/Edit Spent Time forms
 
 **Steps**
 
@@ -56,7 +56,7 @@
 
 ---
 
-### TC-TAG-003 — Admin Tag configuration page title renders correctly
+### TC-TAG-021 — Admin Tag configuration page title renders correctly
 
 **Steps**
 
@@ -78,7 +78,7 @@
 
 ---
 
-### TC-TAG-004 — Admin "Manage Tags" list, tabs, and Edit Tag form fully translated
+### TC-TAG-022 — Admin "Manage Tags" list, tabs, and Edit Tag form fully translated
 
 **Steps**
 
@@ -111,7 +111,7 @@
 
 ---
 
-### TC-TAG-005 — Issues list Tags column and filter correctly localized
+### TC-TAG-023 — Issues list Tags column and filter correctly localized
 
 **Steps**
 
@@ -127,7 +127,7 @@
 
 ---
 
-### TC-TAG-006 — Individual tag Delete link is correctly scoped to only its own tag (functional, not language — filed per user direction after reviewing screenshots)
+### TC-TAG-024 — Individual tag Delete link is correctly scoped to only its own tag (functional, not language — filed per user direction after reviewing screenshots)
 
 **Steps**
 
@@ -156,13 +156,13 @@
 
 > Note: the user's original instructions said "1980×1080"; there is no such standard resolution, so this was tested as 1920×1080 (Full HD) instead.
 
-### TC-TAG-007 — Layout integrity at 1280×720
+### TC-TAG-025 — Layout integrity at 1280×720
 
 **Pages checked:** Issue detail (Tags widget open), New Project form, admin Manage Tags table (Project Tags tab), Delete confirmation modal.
 
 **Result — PASS.** No horizontal overflow, no clipped text, no overlapping elements, modal renders centered and fully visible, table columns fit without wrapping. All previously-filed translation bugs (BUG-TAG-001/002/004) reproduce identically at this width — no new *layout* defects found.
 
-### TC-TAG-008 — Layout integrity at 1920×1080
+### TC-TAG-026 — Layout integrity at 1920×1080
 
 **Pages checked:** Same as above.
 
@@ -172,7 +172,7 @@
 
 ---
 
-### TC-TAG-009 — "Add Tags" widget does not overlap Agile Board's Sprint/Story Points fields (found via user-reported screenshot, initially missed)
+### TC-TAG-027 — "Add Tags" widget does not overlap Agile Board's Sprint/Story Points fields (found via user-reported screenshot, initially missed)
 
 **Steps**
 
@@ -188,6 +188,6 @@
 
 - The tag widget visually overlaps the "Story Points:" row. Confirmed via exact bounding boxes: tag widget `x:739–1320, y:435–493` vs. "Story Points:" row `x:665–1044, y:457–482` — genuine overlapping rectangles, not just adjacent. Both elements are in normal document flow; the Sprint/Story Points row simply never gets pushed down to make room.
 
-**Verdict:** FAIL — filed as `BUG-TAG-006` (High, cross-plugin layout conflict with Agile Board). **Note:** this was initially missed because TC-TAG-001 tested on a project without Agile Board enabled — the user caught it from screenshots and it was reproduced and confirmed live afterward.
+**Verdict:** FAIL — filed as `BUG-TAG-006` (High, cross-plugin layout conflict with Agile Board). **Note:** this was initially missed because TC-TAG-019 tested on a project without Agile Board enabled — the user caught it from screenshots and it was reproduced and confirmed live afterward.
 
 **Evidence:** `screenshots/BUG-TAG-006/tag-widget-overlaps-sprint-storypoints.png`

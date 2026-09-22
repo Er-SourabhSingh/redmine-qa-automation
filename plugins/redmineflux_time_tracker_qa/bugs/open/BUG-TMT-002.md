@@ -46,7 +46,7 @@
   point of view, they clicked a live-looking button and nothing happened, with no explanation — this is exactly
   what prompted the original report ("user still able to start time... because start time button available on
   issue detail page").
-- Recorded as `TC-TMT-924` in `testcases/TIME_TRACKER_PERMISSIONS.md`.
+- Recorded as `TC-TMT-056` in `testcases/TIME_TRACKER_PERMISSIONS.md`.
 
 ## Evidence
 

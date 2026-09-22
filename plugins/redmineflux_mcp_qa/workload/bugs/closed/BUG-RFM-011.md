@@ -25,7 +25,7 @@
 **Title:** `team_data` misreports HTTP 403 as "Server error (500)" for deleted team ID  
 **Severity:** Medium  
 **Module:** Team Management — MCP error handler  
-**TC Affected:** TC-RFM-029  
+**TC Affected:** TC-RFM-107  
 
 ### Steps to Reproduce
 1. Create a team via MCP: `team_create(name="Delete Test Team")` → team created (e.g. #32).
@@ -47,7 +47,7 @@ MCP returns `Server error (500): Internal Server Error`.
 **Title:** `workload_show` misreports HTTP 404 as "Server error (500)" for deleted workload ID  
 **Severity:** Medium  
 **Module:** Workload CRUD — MCP error handler  
-**TC Affected:** TC-RFM-051  
+**TC Affected:** TC-RFM-129  
 
 ### Steps to Reproduce
 1. Create a workload via MCP: `workload_create(team_id=27, name="Delete Test", start_date="2026-07-01", end_date="2026-07-31")` → workload created.
@@ -69,7 +69,7 @@ MCP returns `Server error (500): Internal Server Error`.
 **Title:** `dashboard` MCP tool returns incorrect capacity, logged hours, and derived metrics vs UI  
 **Severity:** High  
 **Module:** Workload Dashboard  
-**TC Affected:** TC-RFM-077  
+**TC Affected:** TC-RFM-155  
 
 ### Steps to Reproduce
 1. Call MCP `dashboard(team_id=27, from_date="2026-06-01", to_date="2026-06-30")`.

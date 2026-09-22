@@ -34,7 +34,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-501: Record a manual payment
+### TC-INV-076: Record a manual payment
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -46,7 +46,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-502: Partial payments accumulate
+### TC-INV-077: Partial payments accumulate
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -57,7 +57,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-503: Multiple payment methods
+### TC-INV-078: Multiple payment methods
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -68,7 +68,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-504: Full payment sets the status to Paid
+### TC-INV-079: Full payment sets the status to Paid
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -80,7 +80,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-505: Payment exactly at the boundary
+### TC-INV-080: Payment exactly at the boundary
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -93,7 +93,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-506: Overpayment
+### TC-INV-081: Overpayment
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -109,7 +109,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-507: The payment link appears when Stripe is enabled
+### TC-INV-082: The payment link appears when Stripe is enabled
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -120,7 +120,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-508: The payment page opens without a Redmine account
+### TC-INV-083: The payment page opens without a Redmine account
 
 **User Role:** An unauthenticated visitor (private window, no Redmine session)
 **Steps:**
@@ -132,7 +132,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-509: The payment page discloses only what a payer needs
+### TC-INV-084: The payment page discloses only what a payer needs
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -148,7 +148,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-510: Complete a test payment
+### TC-INV-085: Complete a test payment
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -165,7 +165,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-511: The webhook must verify its signing secret
+### TC-INV-086: The webhook must verify its signing secret
 
 **User Role:** An unauthenticated caller
 **Steps:**
@@ -183,7 +183,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-512: A replayed webhook does not double-record
+### TC-INV-087: A replayed webhook does not double-record
 
 **User Role:** An unauthenticated caller
 **Steps:**
@@ -196,7 +196,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-513: A payment token cannot reach another invoice
+### TC-INV-088: A payment token cannot reach another invoice
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -211,7 +211,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-514: The payment page cannot write anything but a payment
+### TC-INV-089: The payment page cannot write anything but a payment
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -225,7 +225,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-515: A paid invoice cannot be paid again
+### TC-INV-090: A paid invoice cannot be paid again
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -238,7 +238,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-516: Payment link after cancellation
+### TC-INV-091: Payment link after cancellation
 
 **User Role:** User with `manage_invoices`, then an unauthenticated visitor
 **Steps:**
@@ -250,7 +250,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-517: Invalid Stripe credentials
+### TC-INV-092: Invalid Stripe credentials
 
 **User Role:** Admin
 **Steps:**
@@ -263,7 +263,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-518: Gateway unreachable
+### TC-INV-093: Gateway unreachable
 
 **User Role:** Unauthenticated visitor
 **Steps:**
@@ -275,7 +275,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-519: Recording payments requires permission
+### TC-INV-094: Recording payments requires permission
 
 **User Role:** User with `view_invoices` only, and a plain member
 **Steps:**
@@ -289,7 +289,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-520: Payment records are immutable or audited
+### TC-INV-095: Payment records are immutable or audited
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -303,7 +303,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-521: Invalid payment values
+### TC-INV-096: Invalid payment values
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -315,7 +315,7 @@ Everything below follows from those two facts.
 
 ---
 
-### TC-INV-522: Currency consistency
+### TC-INV-097: Currency consistency
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -325,7 +325,7 @@ Everything below follows from those two facts.
 - All three agree.
 - A mismatch between the displayed currency and the charged currency means the client is billed a different amount
   from the one on the document — a material defect, and an easy one to introduce when the symbol is a free-text
-  setting (TC-INV-109).
+  setting (TC-INV-037).
 
 ---
 

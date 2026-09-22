@@ -44,7 +44,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 
 ---
 
-### TC-TAG-901: Admin has full access
+### TC-TAG-042: Admin has full access
 
 **User Role:** Admin
 **Steps:**
@@ -55,7 +55,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 
 ---
 
-### TC-TAG-902: A member with issue-edit rights can assign and remove tags
+### TC-TAG-043: A member with issue-edit rights can assign and remove tags
 
 **User Role:** Developer or equivalent
 **Steps:**
@@ -66,7 +66,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 
 ---
 
-### TC-TAG-903: A read-only member can see tags but not change them
+### TC-TAG-044: A read-only member can see tags but not change them
 
 **User Role:** Role with view-issues but not edit-issues
 **Steps:**
@@ -79,7 +79,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 
 ---
 
-### TC-TAG-904: A non-admin member cannot rename or delete a tag globally
+### TC-TAG-045: A non-admin member cannot rename or delete a tag globally
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
 **Steps:**
@@ -94,7 +94,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 
 ---
 
-### TC-TAG-905: Creating a new tag from the issue form is gated by issue-edit, not by admin
+### TC-TAG-046: Creating a new tag from the issue form is gated by issue-edit, not by admin
 
 **User Role:** Developer
 **Steps:**
@@ -107,7 +107,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 
 ---
 
-### TC-TAG-906: Non-member cannot see tags in a private project
+### TC-TAG-047: Non-member cannot see tags in a private project
 
 **User Role:** Authenticated non-member
 **Preconditions:** Project confirmed **not** public — a newly created Redmine project defaults to public.
@@ -121,18 +121,18 @@ Fill this in from observed behaviour during execution, not from assumption.
 
 ---
 
-### TC-TAG-907: Anonymous user cannot see tags in a private project
+### TC-TAG-048: Anonymous user cannot see tags in a private project
 
 **User Role:** Anonymous (logged out)
 **Steps:**
-1. Repeat TC-TAG-906 with no session.
+1. Repeat TC-TAG-047 with no session.
 
 **Expected Result:**
 - Redirect to login or 403 everywhere. No tag content in any response body.
 
 ---
 
-### TC-TAG-908: Anonymous access to a public project follows that project's rules
+### TC-TAG-049: Anonymous access to a public project follows that project's rules
 
 **User Role:** Anonymous
 **Steps:**
@@ -143,7 +143,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 
 ---
 
-### TC-TAG-909: Tag listing page does not leak across project boundaries
+### TC-TAG-050: Tag listing page does not leak across project boundaries
 
 **User Role:** Member of project A only
 **Preconditions:** Confirm the target tag is genuinely used in two distinct projects and that project B is private
@@ -156,7 +156,7 @@ with no membership path for this user — otherwise a passing result proves noth
 
 ---
 
-### TC-TAG-910: Tag filter dropdown does not leak tag names
+### TC-TAG-051: Tag filter dropdown does not leak tag names
 
 **User Role:** Member of project A only
 **Steps:**
@@ -169,7 +169,7 @@ with no membership path for this user — otherwise a passing result proves noth
 
 ---
 
-### TC-TAG-911: Permission revocation takes effect without re-login
+### TC-TAG-052: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
 **Steps:**
@@ -181,7 +181,7 @@ with no membership path for this user — otherwise a passing result proves noth
 
 ---
 
-### TC-TAG-912: Tag operations on an archived project
+### TC-TAG-053: Tag operations on an archived project
 
 **User Role:** Member
 **Steps:**

@@ -27,7 +27,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-101: Plugin folder name is enforced
+### TC-DSH-078: Plugin folder name is enforced
 
 **User Role:** Admin
 **Preconditions:** Archive extracted to `Redmine/plugins/redmineflux_dashboard`.
@@ -42,7 +42,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-102: Migration completes cleanly
+### TC-DSH-079: Migration completes cleanly
 
 **User Role:** Admin
 **Steps:**
@@ -53,7 +53,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-103: Assets load — the dashboard is entirely JS-driven
+### TC-DSH-080: Assets load — the dashboard is entirely JS-driven
 
 **User Role:** Any
 **Steps:**
@@ -67,7 +67,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-104: Redmine 6 YAML-to-JSON serialization migration
+### TC-DSH-081: Redmine 6 YAML-to-JSON serialization migration
 
 **User Role:** Admin
 **Preconditions:** An instance with saved dashboard settings created on Redmine 5.x, upgraded to Redmine 6.
@@ -88,7 +88,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-105: Dashboard works with REST API enabled
+### TC-DSH-082: Dashboard works with REST API enabled
 
 **User Role:** Admin then Member
 **Steps:**
@@ -100,7 +100,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-106: Behaviour with REST API disabled
+### TC-DSH-083: Behaviour with REST API disabled
 
 **User Role:** Admin then Member
 **Steps:**
@@ -116,7 +116,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-107: Re-enabling the API restores the dashboard
+### TC-DSH-084: Re-enabling the API restores the dashboard
 
 **User Role:** Admin
 **Steps:**
@@ -131,7 +131,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-108: Dashboard tab appears on every project without a module
+### TC-DSH-085: Dashboard tab appears on every project without a module
 
 **User Role:** Member
 **Steps:**
@@ -146,7 +146,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-109: Empty dashboard shows a usable empty state
+### TC-DSH-086: Empty dashboard shows a usable empty state
 
 **User Role:** Member
 **Steps:**
@@ -157,7 +157,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-110: Saved layout loads per project
+### TC-DSH-087: Saved layout loads per project
 
 **User Role:** Member
 **Steps:**
@@ -172,7 +172,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-111: Wrong plugin folder name
+### TC-DSH-088: Wrong plugin folder name
 
 **User Role:** Admin
 **Steps:**
@@ -184,7 +184,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-112: Migration not run
+### TC-DSH-089: Migration not run
 
 **User Role:** Admin
 **Steps:**
@@ -197,7 +197,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-113: Charts on a project with no issues and no time entries
+### TC-DSH-090: Charts on a project with no issues and no time entries
 
 **User Role:** Member
 **Steps:**
@@ -209,7 +209,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-114: Very large project
+### TC-DSH-091: Very large project
 
 **User Role:** Member
 **Steps:**
@@ -222,7 +222,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-115: Stale cache after upgrade
+### TC-DSH-092: Stale cache after upgrade
 
 **User Role:** Admin
 **Steps:**
@@ -237,7 +237,7 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 ---
 
-### TC-DSH-116: Clean uninstall
+### TC-DSH-093: Clean uninstall
 
 **User Role:** Admin
 **Preconditions:** **Database backup taken** — the KB requires this before rollback.

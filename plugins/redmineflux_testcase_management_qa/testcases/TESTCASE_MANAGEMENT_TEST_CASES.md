@@ -16,7 +16,7 @@ Project → **TestCases** → **New Test Case**. Test cases are Redmine issues o
 every save must be re-verified by opening the issue itself, not just the summary grid row.
 
 **Precondition:** the **Testcase Tracker** is configured (Administration → Plugins → Testcase Management →
-Configure). Without it, creation is expected to fail — see TC-TCM-901.
+Configure). Without it, creation is expected to fail — see TC-TCM-001.
 
 ---
 
@@ -24,7 +24,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-301: Create a test case with all fields and one step
+### TC-TCM-128: Create a test case with all fields and one step
 
 **User Role:** QA
 **Steps:**
@@ -40,7 +40,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-302: Create a test case with multiple ordered steps
+### TC-TCM-129: Create a test case with multiple ordered steps
 
 **User Role:** QA
 **Steps:**
@@ -51,7 +51,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-303: Subject is mandatory
+### TC-TCM-130: Subject is mandatory
 
 **User Role:** QA
 **Steps:**
@@ -62,7 +62,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-304: Create a test case with no steps
+### TC-TCM-131: Create a test case with no steps
 
 **User Role:** QA
 **Steps:**
@@ -74,7 +74,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-305: Remove a step during authoring
+### TC-TCM-132: Remove a step during authoring
 
 **User Role:** QA
 **Steps:**
@@ -85,7 +85,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-306: Reorder steps
+### TC-TCM-133: Reorder steps
 
 **User Role:** QA
 **Steps:**
@@ -96,7 +96,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-307: Step content preserves special characters and unicode
+### TC-TCM-134: Step content preserves special characters and unicode
 
 **User Role:** QA
 **Steps:**
@@ -107,7 +107,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-308: Long step text boundary
+### TC-TCM-135: Long step text boundary
 
 **User Role:** QA
 **Steps:**
@@ -120,7 +120,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-309: Edit an existing test case
+### TC-TCM-136: Edit an existing test case
 
 **User Role:** QA
 **Steps:**
@@ -131,7 +131,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-310: Delete a test case
+### TC-TCM-137: Delete a test case
 
 **User Role:** Manager / Admin
 **Steps:**
@@ -142,7 +142,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-311: Delete a test case used in an active run
+### TC-TCM-138: Delete a test case used in an active run
 
 **User Role:** Admin
 **Steps:**
@@ -155,7 +155,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-312: Test case respects Redmine issue permissions
+### TC-TCM-139: Test case respects Redmine issue permissions
 
 **User Role:** a role without issue-edit rights on the Testcase tracker
 **Steps:**
@@ -166,7 +166,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-313: Assignee drives the To-Do list
+### TC-TCM-140: Assignee drives the To-Do list
 
 **User Role:** QA
 **Steps:**
@@ -178,7 +178,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-314: "Hide default status field on issue details page" toggle
+### TC-TCM-141: "Hide default status field on issue details page" toggle
 
 **User Role:** Admin
 **Steps:**
@@ -191,7 +191,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-315: Test case appears in Redmine's own issue list
+### TC-TCM-142: Test case appears in Redmine's own issue list
 
 **User Role:** QA
 **Steps:**
@@ -202,7 +202,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-316: Test case search by subject and ID
+### TC-TCM-143: Test case search by subject and ID
 
 **User Role:** QA
 **Steps:**
@@ -217,7 +217,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-317: Drag and drop a test case into a suite
+### TC-TCM-144: Drag and drop a test case into a suite
 
 **User Role:** QA
 **Steps:**
@@ -228,7 +228,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-318: Drag a test case between suites
+### TC-TCM-145: Drag a test case between suites
 
 **User Role:** QA
 **Steps:**
@@ -239,7 +239,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-319: Add existing test cases to a suite
+### TC-TCM-146: Add existing test cases to a suite
 
 **User Role:** QA
 **Steps:**
@@ -250,7 +250,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-320: Copy test cases to another suite
+### TC-TCM-147: Copy test cases to another suite
 
 **User Role:** QA
 **Steps:**
@@ -262,7 +262,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-321: Remove test cases from a suite
+### TC-TCM-148: Remove test cases from a suite
 
 **User Role:** QA
 **Steps:**
@@ -273,7 +273,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-322: Bulk-assign a requirement to multiple test cases
+### TC-TCM-149: Bulk-assign a requirement to multiple test cases
 
 **User Role:** QA
 **Steps:**
@@ -284,7 +284,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-323: Bulk-assign replaces or adds predictably
+### TC-TCM-150: Bulk-assign replaces or adds predictably
 
 **User Role:** QA
 **Steps:**
@@ -296,7 +296,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 ---
 
-### TC-TCM-324: A test case in multiple suites
+### TC-TCM-151: A test case in multiple suites
 
 **User Role:** QA
 **Steps:**
@@ -312,8 +312,8 @@ Configure). Without it, creation is expected to fail — see TC-TCM-901.
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-301 – 316 | Authoring, editing, deletion | — |
-| TC-TCM-317 – 324 | Suite organisation, requirement assignment | — |
+| TC-TCM-128 – 316 | Authoring, editing, deletion | — |
+| TC-TCM-144 – 324 | Suite organisation, requirement assignment | — |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
-- TC-TCM-311, 321 and 324 are the highest-risk cases — they probe data loss and double counting.
+- TC-TCM-138, 321 and 324 are the highest-risk cases — they probe data loss and double counting.

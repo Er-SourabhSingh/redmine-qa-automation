@@ -16,7 +16,7 @@
 
 ---
 
-### TC-CRX-037: `CRUX_REQUIRE_USER_KEY=1` refuses a request with no per-user key (fail-closed)
+### TC-CRX-145: `CRUX_REQUIRE_USER_KEY=1` refuses a request with no per-user key (fail-closed)
 
 **User Role:** Any logged-in user.
 **Precondition:** `.env` set to `CRUX_REQUIRE_USER_KEY=1`, stack restarted. Simulate/force a request to `/api/chat`, `/api/chat/confirm`, `/api/improve`, or `/api/improve/confirm` without the `X-Redmine-API-Key` header reaching crux-core (may require a direct HTTP call bypassing the plugin's normal header injection, to prove the server-side gate — not just that the UI always sends one).
@@ -38,7 +38,7 @@ Response body confirms it's a genuine per-user-key gate, not a generic auth fail
 
 ---
 
-### TC-CRX-038: A restricted user's own key is honored — and Redmine itself enforces the ceiling
+### TC-CRX-146: A restricted user's own key is honored — and Redmine itself enforces the ceiling
 
 **User Role:** A newly created, deliberately low-privilege Redmine user (e.g. non-member of most projects, minimal role permissions).
 **Precondition:** `CRUX_REQUIRE_USER_KEY=1`; this user's own API key available; a private project this user is NOT a member of.
@@ -53,11 +53,11 @@ Response body confirms it's a genuine per-user-key gate, not a generic auth fail
 
 **2026-09-16 — CONFIRMED LIVE (sub-case 1, private-project refusal).** Logged in as `luna.blossom` (member of `crux-qa` only, not `crux-qa-private`) with `CRUX_REQUIRE_USER_KEY=1`. Asked: "Crux, what is the subject of issue #1 in the crux-qa-private project?" → honest real refusal: "I don't have permission to view issue #1. The Redmine server indicates that you (luna.blossom) don't have access to that issue, likely because you're not a member of the crux-qa-private project or don't have the required role there." — a genuine Redmine-layer 403 surfaced honestly, not a Crux-side guess, not a data leak. Matches #116773's described behavior exactly.
 
-**Sub-case 2 (permission-lacking write within a member project) — not independently executable with existing fixtures.** `luna.blossom` holds all 5 Crux permissions (Manager role, set up for other suites this session) so she cannot demonstrate "use_ask_crux granted but a specific plugin action forbidden"; `daisy.skye` holds zero Crux permissions including `use_ask_crux` itself, so she fails at the chat-bubble-gating layer (per TC-CRX-001/010 in `CRUX_NAVIGATION_AND_PERMISSIONS.md`), not at this specific write-permission layer. No existing seed-pool fixture sits in between. Not filed as a gap — the mechanism (Redmine's own `authorize`/permission check on the underlying write action) is already independently verified via TC-CRX-005/007/009 negative cases elsewhere in this suite family; this sub-case would only be additive confirmation, not new coverage. **Overall verdict: PASS** (sub-case 1 fully confirms the TC's core claim; sub-case 2 has no gap, just no independently-run fixture).
+**Sub-case 2 (permission-lacking write within a member project) — not independently executable with existing fixtures.** `luna.blossom` holds all 5 Crux permissions (Manager role, set up for other suites this session) so she cannot demonstrate "use_ask_crux granted but a specific plugin action forbidden"; `daisy.skye` holds zero Crux permissions including `use_ask_crux` itself, so she fails at the chat-bubble-gating layer (per TC-CRX-132/010 in `CRUX_NAVIGATION_AND_PERMISSIONS.md`), not at this specific write-permission layer. No existing seed-pool fixture sits in between. Not filed as a gap — the mechanism (Redmine's own `authorize`/permission check on the underlying write action) is already independently verified via TC-CRX-136/007/009 negative cases elsewhere in this suite family; this sub-case would only be additive confirmation, not new coverage. **Overall verdict: PASS** (sub-case 1 fully confirms the TC's core claim; sub-case 2 has no gap, just no independently-run fixture).
 
 ---
 
-### TC-CRX-039: Admin key still works normally under `CRUX_REQUIRE_USER_KEY=1`
+### TC-CRX-147: Admin key still works normally under `CRUX_REQUIRE_USER_KEY=1`
 
 **User Role:** Administrator.
 **Precondition:** `CRUX_REQUIRE_USER_KEY=1`.
@@ -68,11 +68,11 @@ Response body confirms it's a genuine per-user-key gate, not a generic auth fail
 **Expected Result:**
 - Works exactly as before — the admin's own key satisfies the per-user requirement; no regression for the admin path.
 
-**2026-09-16 — CONFIRMED LIVE.** Logged in as `admin` with `CRUX_REQUIRE_USER_KEY=1`. Read: "Any gates waiting for my approval?" → real grounded reply (4 gates across wp-001/wp-002 listed), no 401. Write+confirm: "Crux, create a new issue in crux-qa titled 'TC-CRX-039 admin-key write test' as a Bug." → real Confirm/Cancel card, confirmed → `✓ Created #13` (http://localhost:3014/issues/13). No regression for the admin path under enforcement. **PASS.**
+**2026-09-16 — CONFIRMED LIVE.** Logged in as `admin` with `CRUX_REQUIRE_USER_KEY=1`. Read: "Any gates waiting for my approval?" → real grounded reply (4 gates across wp-001/wp-002 listed), no 401. Write+confirm: "Crux, create a new issue in crux-qa titled 'TC-CRX-147 admin-key write test' as a Bug." → real Confirm/Cancel card, confirmed → `✓ Created #13` (http://localhost:3014/issues/13). No regression for the admin path under enforcement. **PASS.**
 
 ---
 
-### TC-CRX-040: `CRUX_REQUIRE_USER_KEY=0` (default) — shared key still used, no per-user enforcement
+### TC-CRX-148: `CRUX_REQUIRE_USER_KEY=0` (default) — shared key still used, no per-user enforcement
 
 **User Role:** Any logged-in user.
 **Precondition:** Default `.env` value (`0`) — this is the current default state of the local stack, executable now without changes.
@@ -83,7 +83,7 @@ Response body confirms it's a genuine per-user-key gate, not a generic auth fail
 **Expected Result:**
 - Requests succeed under the shared service key — no 401, since per-user enforcement is off by default. This TC IS executable now (unlike the rest of this suite) since it's the current default state.
 
-**2026-09-16 — CONFIRMED LIVE.** Logged in as `luna.blossom` (non-admin, Manager role) with `CRUX_REQUIRE_USER_KEY=0` (current default, unmodified). Read: "What are the agents working on?" → real grounded reply (26 agents online, 2 WPs with pending gates), `anthropic/claude-haiku-4.5`, real token/cost usage — no 401. Write+confirm: "Crux, create a new issue in crux-qa titled 'TC-CRX-040 shared-key write test' as a Bug." → real Confirm/Cancel card rendered, confirmed → `✓ Created #12` (http://localhost:3014/issues/12). Both succeeded under the shared service key exactly as expected. **PASS.**
+**2026-09-16 — CONFIRMED LIVE.** Logged in as `luna.blossom` (non-admin, Manager role) with `CRUX_REQUIRE_USER_KEY=0` (current default, unmodified). Read: "What are the agents working on?" → real grounded reply (26 agents online, 2 WPs with pending gates), `anthropic/claude-haiku-4.5`, real token/cost usage — no 401. Write+confirm: "Crux, create a new issue in crux-qa titled 'TC-CRX-148 shared-key write test' as a Bug." → real Confirm/Cancel card rendered, confirmed → `✓ Created #12` (http://localhost:3014/issues/12). Both succeeded under the shared service key exactly as expected. **PASS.**
 
 ---
 
@@ -91,7 +91,7 @@ Response body confirms it's a genuine per-user-key gate, not a generic auth fail
 
 ---
 
-### TC-CRX-041: Write attribution reflects the real acting user, not the shared service account
+### TC-CRX-149: Write attribution reflects the real acting user, not the shared service account
 
 **User Role:** A restricted, non-admin test user.
 **Precondition:** `CRUX_REQUIRE_USER_KEY=1`; a write this user is genuinely permitted to make.
@@ -103,11 +103,11 @@ Response body confirms it's a genuine per-user-key gate, not a generic auth fail
 **Expected Result:**
 - Attribution shows the real restricted user, not the shared/admin service account — this is the entire point of CRX-12 (closing the IDOR where all writes looked like they came from the same service identity).
 
-**2026-09-16 — CONFIRMED LIVE.** As `luna.blossom` with `CRUX_REQUIRE_USER_KEY=1`: "Crux, create a new issue in crux-qa titled 'TC-CRX-041 per-user attribution test' as a Bug." → confirmed → `✓ Created #14`. Opened http://localhost:3014/issues/14 directly: "Added by **Crux Manager**" (luna.blossom's real display name, user #5) — not `admin` or any shared service identity. Real per-user attribution confirmed. **PASS.**
+**2026-09-16 — CONFIRMED LIVE.** As `luna.blossom` with `CRUX_REQUIRE_USER_KEY=1`: "Crux, create a new issue in crux-qa titled 'TC-CRX-149 per-user attribution test' as a Bug." → confirmed → `✓ Created #14`. Opened http://localhost:3014/issues/14 directly: "Added by **Crux Manager**" (luna.blossom's real display name, user #5) — not `admin` or any shared service identity. Real per-user attribution confirmed. **PASS.**
 
 ---
 
-### TC-CRX-042: Toggling `CRUX_REQUIRE_USER_KEY` mid-session does not silently downgrade an in-flight session's security
+### TC-CRX-150: Toggling `CRUX_REQUIRE_USER_KEY` mid-session does not silently downgrade an in-flight session's security
 
 **User Role:** Any logged-in user with an active chat session.
 **Precondition:** Start a session under `CRUX_REQUIRE_USER_KEY=1`, then have an admin flip it to `0` (restart required) mid-testing.
@@ -120,13 +120,13 @@ Response body confirms it's a genuine per-user-key gate, not a generic auth fail
 **Expected Result:**
 - Document actual behavior — this is exploratory since the env var requires a restart to take effect (sessions likely don't survive a `docker compose` restart of crux-core anyway per the MCP reconnect gotcha in `docs/CRUX_MEMORY.md`). Not necessarily a bug either way; the goal is to confirm there's no window where a session silently operates under weaker enforcement than the currently-configured value.
 
-**2026-09-16 — CONFIRMED LIVE, no gap found.** In `luna.blossom`'s active session `ses-022` (already used for TC-CRX-038/041 under `CRUX_REQUIRE_USER_KEY=1`): flipped `.env` to `CRUX_REQUIRE_USER_KEY=0`, recreated `crux-core` (`docker compose up -d crux-core`). Contrary to the TC's own hypothesis, the session **did survive** the recreate (session state is persisted to the mounted volume, same mechanism that lets provider/key rows survive too — see TC-CRX-040/037 evidence). Returned to the exact same browser tab/session and sent: "Crux, create a new issue in crux-qa titled 'TC-CRX-042 toggle mid-session test' as a Bug." → confirmed → `✓ Created #15`, succeeding immediately under the now-downgraded (`0`) enforcement. Combined with TC-CRX-037's confirmation that flipping to `1` refuses immediately on the very next request, this shows the enforcement check is evaluated fresh per-request against the live config, not cached per-session — so there is no window where a session runs under weaker enforcement than currently configured (the opposite risk — a session unexpectedly *downgrading* mid-flight — is exactly what was tested here and did not surface any inconsistent/partial-enforcement state). **No bug.** Environment restored to `CRUX_REQUIRE_USER_KEY=0` (original default) afterward; OpenRouter connectivity re-verified (`ok`).
+**2026-09-16 — CONFIRMED LIVE, no gap found.** In `luna.blossom`'s active session `ses-022` (already used for TC-CRX-146/041 under `CRUX_REQUIRE_USER_KEY=1`): flipped `.env` to `CRUX_REQUIRE_USER_KEY=0`, recreated `crux-core` (`docker compose up -d crux-core`). Contrary to the TC's own hypothesis, the session **did survive** the recreate (session state is persisted to the mounted volume, same mechanism that lets provider/key rows survive too — see TC-CRX-148/037 evidence). Returned to the exact same browser tab/session and sent: "Crux, create a new issue in crux-qa titled 'TC-CRX-150 toggle mid-session test' as a Bug." → confirmed → `✓ Created #15`, succeeding immediately under the now-downgraded (`0`) enforcement. Combined with TC-CRX-145's confirmation that flipping to `1` refuses immediately on the very next request, this shows the enforcement check is evaluated fresh per-request against the live config, not cached per-session — so there is no window where a session runs under weaker enforcement than currently configured (the opposite risk — a session unexpectedly *downgrading* mid-flight — is exactly what was tested here and did not surface any inconsistent/partial-enforcement state). **No bug.** Environment restored to `CRUX_REQUIRE_USER_KEY=0` (original default) afterward; OpenRouter connectivity re-verified (`ok`).
 
 ---
 
 ## Evidence Map
 
-- Case IDs: TC-CRX-037 through TC-CRX-042
+- Case IDs: TC-CRX-145 through TC-CRX-150
 - Screenshots: bugs only.
 - Log: —
 - Bug reference: —

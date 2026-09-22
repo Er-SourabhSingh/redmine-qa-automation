@@ -21,7 +21,7 @@
 
 ## Expected result
 
-- Per the plugin's own intended behavior (this is what the correlated test case, TC-HLP-120, was written to verify): deleting an organization that customers are linked to should either be refused outright, or the confirmation should explicitly warn about the consequence (e.g. "This organization has 1 linked customer — deleting it will remove that association"). At minimum, a real user should not be able to accidentally destroy this link with the same generic confirmation used for an organization with zero customers.
+- Per the plugin's own intended behavior (this is what the correlated test case, TC-HLP-061, was written to verify): deleting an organization that customers are linked to should either be refused outright, or the confirmation should explicitly warn about the consequence (e.g. "This organization has 1 linked customer — deleting it will remove that association"). At minimum, a real user should not be able to accidentally destroy this link with the same generic confirmation used for an organization with zero customers.
 
 ## Actual result
 
@@ -64,6 +64,6 @@
 
 ## Notes
 
-- Found while executing TC-HLP-120 ("An organization linked to customers cannot be silently deleted") — the TC's own name states the requirement this violates.
-- Distinguish from BUG-HLP-010 (Website/Phone uniqueness): that one was filed as a product-judgment call against behavior that matches documented spec. This one is different — TC-HLP-120 explicitly documents the *expected* protective behavior (refusal or consequence-aware confirmation) as the correct behavior per the test suite's own design intent, and the actual behavior falls short of it, making this a more conventional QA-confirmed gap.
+- Found while executing TC-HLP-061 ("An organization linked to customers cannot be silently deleted") — the TC's own name states the requirement this violates.
+- Distinguish from BUG-HLP-010 (Website/Phone uniqueness): that one was filed as a product-judgment call against behavior that matches documented spec. This one is different — TC-HLP-061 explicitly documents the *expected* protective behavior (refusal or consequence-aware confirmation) as the correct behavior per the test suite's own design intent, and the actual behavior falls short of it, making this a more conventional QA-confirmed gap.
 - Recommend Medium severity: not data corruption (the customer record itself stays healthy, and SLA/Support Level survive) but a real, silent loss of a real association with no recovery path once deleted, on a plugin entity users are likely to delete/clean up periodically.

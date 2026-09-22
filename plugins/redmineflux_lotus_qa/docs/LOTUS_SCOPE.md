@@ -37,27 +37,27 @@
 - [ ] Password-change form (linked from My Account, not opened — deliberately deferred)
 - [ ] Login page (pre-authentication — deliberately deferred, would require logging out of the active admin session)
 - [ ] Registration / "forgot password" pages (deliberately deferred, same reason as Login)
-- [x] Custom queries — create/save a query from the issue list (TC-LTS-012)
+- [x] Custom queries — create/save a query from the issue list (TC-LTS-011)
 - [ ] Issue context (right-click) menu (one attempt made, no menu appeared — not a native browser context-menu override in this app; deliberately not pursued further)
 
 ### Projects
 - [x] Projects list — card view (Default theme) and card+list/table view toggle (Lotus-only feature, `?display_type=list`)
 - [x] Project Overview (Übersicht)
 - [x] Project Wiki (new-page form only — project has no existing wiki content)
-- [x] An actual populated Wiki content page (view/edit an existing page) (TC-LTS-012 — created page, viewed history + index/sitemap)
+- [x] An actual populated Wiki content page (view/edit an existing page) (TC-LTS-011 — created page, viewed history + index/sitemap)
 - [x] Project Roadmap
-- [x] A specific Version's own detail page (TC-LTS-012 — Version 5 detail page)
+- [x] A specific Version's own detail page (TC-LTS-011 — Version 5 detail page)
 - [x] Project Calendar
 - [x] Project News (list; empty)
-- [x] A News item's own detail page + comments (TC-LTS-012 — created, viewed, deleted)
+- [x] A News item's own detail page + comments (TC-LTS-011 — created, viewed, deleted)
 - [x] Project Documents (list; empty)
-- [x] A Document's own detail page (TC-LTS-012 — created, viewed, deleted)
+- [x] A Document's own detail page (TC-LTS-011 — created, viewed, deleted)
 - [x] Project Files (list; empty)
 - [ ] File download/preview (no file exists on this project to download; deliberately deferred)
 - [x] Project Activity
 - [x] Project Settings — all 9 tabs opened: Projekt, Mitglieder, Tickets, Versionen, Ticket-Kategorien, Repositories (list only), Foren (list; empty), Zeiterfassung, Sprints (Agile Board's own tab)
-- [x] Repositories tab's own "new repository"/SCM-configuration form content (TC-LTS-012 — form viewed, never submitted, no repo created)
-- [x] Forums — creating an actual topic/message (TC-LTS-012 — "QA Test Forum" + topic created, viewed, replied, deleted)
+- [x] Repositories tab's own "new repository"/SCM-configuration form content (TC-LTS-011 — form viewed, never submitted, no repo created)
+- [x] Forums — creating an actual topic/message (TC-LTS-011 — "QA Test Forum" + topic created, viewed, replied, deleted)
 - [ ] Project copy / archive / close / delete flows (deliberately deferred — destructive/irreversible flows on a shared Forge project, not exercised)
 
 ### Issues
@@ -68,11 +68,11 @@
 - [x] Bulk-edit issues form
 - [x] Issue relations — add (all 8 relation types)
 - [x] Issue watchers — add
-- [x] Move issue (to another project/tracker) — confirmed merged into the bulk-edit form's "Projekt" dropdown; `/issues/move` route itself returns 404, no separate page exists (TC-LTS-012)
+- [x] Move issue (to another project/tracker) — confirmed merged into the bulk-edit form's "Projekt" dropdown; `/issues/move` route itself returns 404, no separate page exists (TC-LTS-011)
 - [x] Issues list — project-level and global, incl. inline-edit entry points
 - [x] Global Gantt (`/issues/gantt`, core Redmine's own — distinct from the Flux Gantt plugin)
 - [x] Global Calendar (`/issues/calendar`)
-- [x] Time entries / Spent time global list and report (TC-LTS-012)
+- [x] Time entries / Spent time global list and report (TC-LTS-011)
 
 ### Administration
 - [x] Projects list (admin)
@@ -87,7 +87,7 @@
 - [x] Settings → Allgemein (General) tab
 - [x] Settings → Anzeige (Display) tab (used throughout to switch themes)
 - [x] Settings → Integrations tab
-- [x] Settings → Authentifizierung, Projekte, Benutzer, Tickets, Zeiterfassung, Dateien, Mailbenachrichtigung, Eingehende E-Mails, Repositories tabs — own field content opened (TC-LTS-012; found 8 core-Redmine i18n gaps, see Notes)
+- [x] Settings → Authentifizierung, Projekte, Benutzer, Tickets, Zeiterfassung, Dateien, Mailbenachrichtigung, Eingehende E-Mails, Repositories tabs — own field content opened (TC-LTS-011; found 8 core-Redmine i18n gaps, see Notes)
 - [x] LDAP-Authentifizierung — list + full "new auth source" form
 - [x] Applikationen (OAuth applications)
 - [x] Plugins list
@@ -103,9 +103,9 @@
 - [x] Inline Editor Plugin — Assignee widget, Description CKEditor, Issues-list inline edit, Projects card/list view
 - [ ] Dashboards Plugin — not yet retested under Lotus (last item on this theme's own to-do list)
 
-## Edit-form + resolution coverage (TC-LTS-013)
+## Edit-form + resolution coverage (TC-LTS-012)
 
-Explicitly confirmed per the user's direct question ("did you tested edit and create form of each sections... also did you tested in both resolution") — both the Create AND Edit form were opened and checked under Lotus for: Wiki (Sidebar + content page), News, Document, Forum, Forum Topic, Version, Issue Category, Member (add-member modal + inline role-edit), Custom Query (actual Edit form page, not just link presence). Resolution spot-checked at 1280×720 via `scrollWidth`/`clientWidth` overflow scans on the News create form, Version edit form, Members table, and Query edit form — no clipping found on any. See `LOTUS_GERMAN_LANGUAGE.md` TC-LTS-013 for full detail.
+Explicitly confirmed per the user's direct question ("did you tested edit and create form of each sections... also did you tested in both resolution") — both the Create AND Edit form were opened and checked under Lotus for: Wiki (Sidebar + content page), News, Document, Forum, Forum Topic, Version, Issue Category, Member (add-member modal + inline role-edit), Custom Query (actual Edit form page, not just link presence). Resolution spot-checked at 1280×720 via `scrollWidth`/`clientWidth` overflow scans on the News create form, Version edit form, Members table, and Query edit form — no clipping found on any. See `LOTUS_GERMAN_LANGUAGE.md` TC-LTS-012 for full detail.
 
 ## Notes
 

@@ -25,7 +25,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-201: Create a customer
+### TC-INV-001: Create a customer
 
 **User Role:** User with `manage_customers`
 **Steps:**
@@ -36,7 +36,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-202: Customer details appear on the invoice
+### TC-INV-002: Customer details appear on the invoice
 
 **User Role:** Manager
 **Steps:**
@@ -48,7 +48,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-203: Edit a customer
+### TC-INV-003: Edit a customer
 
 **User Role:** User with `manage_customers`
 **Steps:**
@@ -64,7 +64,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-204: Customer email drives invoice delivery
+### TC-INV-004: Customer email drives invoice delivery
 
 **User Role:** Manager
 **Steps:**
@@ -76,7 +76,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-205: Customer list and search
+### TC-INV-005: Customer list and search
 
 **User Role:** User with `manage_customers`
 **Steps:**
@@ -87,7 +87,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-206: Delete an unlinked customer
+### TC-INV-006: Delete an unlinked customer
 
 **User Role:** User with `manage_customers`
 **Steps:**
@@ -98,7 +98,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-207: Deactivate a customer
+### TC-INV-007: Deactivate a customer
 
 **User Role:** User with `manage_customers`
 **Steps:**
@@ -113,7 +113,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-208: Reactivate a customer
+### TC-INV-008: Reactivate a customer
 
 **User Role:** User with `manage_customers`
 **Steps:**
@@ -124,7 +124,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-209: A linked customer cannot be deleted
+### TC-INV-009: A linked customer cannot be deleted
 
 **User Role:** User with `manage_customers`
 **Steps:**
@@ -139,7 +139,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-210: One customer per project
+### TC-INV-010: One customer per project
 
 **User Role:** Manager
 **Steps:**
@@ -157,7 +157,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-301: Set the project's billing customer
+### TC-INV-011: Set the project's billing customer
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -168,7 +168,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-302: Set the project hourly rate
+### TC-INV-012: Set the project hourly rate
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -179,7 +179,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-303: Select billing activities
+### TC-INV-013: Select billing activities
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -192,7 +192,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-304: No billing activities selected
+### TC-INV-014: No billing activities selected
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -206,7 +206,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-305: Settings are per project
+### TC-INV-015: Settings are per project
 
 **User Role:** Manager
 **Steps:**
@@ -221,7 +221,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-306: Set a per-user rate
+### TC-INV-016: Set a per-user rate
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -233,7 +233,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-307: Different rates for different users
+### TC-INV-017: Different rates for different users
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -246,7 +246,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-308: Bulk Update
+### TC-INV-018: Bulk Update
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -257,7 +257,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-309: Rate changes do not alter existing invoices
+### TC-INV-019: Rate changes do not alter existing invoices
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -270,7 +270,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-310: Rates are per project
+### TC-INV-020: Rates are per project
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -285,7 +285,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-311: User rate wins over the project rate
+### TC-INV-021: User rate wins over the project rate
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -296,7 +296,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-312: Project rate is used when no user rate exists
+### TC-INV-022: Project rate is used when no user rate exists
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -307,7 +307,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-313: No rate at all yields zero
+### TC-INV-023: No rate at all yields zero
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -326,7 +326,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-314: Invalid rate values
+### TC-INV-024: Invalid rate values
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -342,7 +342,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-315: Customer validation
+### TC-INV-025: Customer validation
 
 **User Role:** User with `manage_customers`
 **Steps:**
@@ -353,11 +353,11 @@ for project billing. Do not type URLs.
 - Blank name and malformed email are rejected — the email is the delivery address for real invoices.
 - Long values do not break the invoice layout or the PDF.
 - **Script content is escaped everywhere it renders**, including the PDF and the outgoing email. No script
-  executes; and in the PDF template context, unescaped content could also break generation entirely (TC-INV-605).
+  executes; and in the PDF template context, unescaped content could also break generation entirely (TC-INV-102).
 
 ---
 
-### TC-INV-316: Rate for a user who is not a project member
+### TC-INV-026: Rate for a user who is not a project member
 
 **User Role:** User with `manage_invoices`
 **Steps:**
@@ -368,7 +368,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-317: Member removed after invoices were generated
+### TC-INV-027: Member removed after invoices were generated
 
 **User Role:** Manager
 **Steps:**
@@ -381,7 +381,7 @@ for project billing. Do not type URLs.
 
 ---
 
-### TC-INV-318: Concurrent rate edits
+### TC-INV-028: Concurrent rate edits
 
 **User Role:** Two users with `manage_invoices`
 **Steps:**

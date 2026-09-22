@@ -27,7 +27,7 @@
 
 ## Expected result
 
-- The journal message should be in German, consistent with every other checklist-related journal message on the same issue (e.g. "Checkliste 'X' wurde von Redmine Admin hinzugefügt." and "Checklisten-Element 'Y' in Checkliste 'X' von Redmine Admin erstellt", both confirmed fully German — see `CHECKLIST_GERMAN_LANGUAGE.md` TC-CHK-001/003).
+- The journal message should be in German, consistent with every other checklist-related journal message on the same issue (e.g. "Checkliste 'X' wurde von Redmine Admin hinzugefügt." and "Checklisten-Element 'Y' in Checkliste 'X' von Redmine Admin erstellt", both confirmed fully German — see `CHECKLIST_GERMAN_LANGUAGE.md` TC-CHK-043/003).
 
 ## Actual result
 

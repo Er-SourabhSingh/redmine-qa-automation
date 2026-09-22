@@ -20,7 +20,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 
 ---
 
-### TC-MEN-301: Enable the Wiki module, then mention a user
+### TC-MEN-070: Enable the Wiki module, then mention a user
 
 **User Role:** Manager (to enable) then Member
 **Steps:**
@@ -35,7 +35,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 
 ---
 
-### TC-MEN-302: Mention on a newly created wiki page
+### TC-MEN-071: Mention on a newly created wiki page
 
 **User Role:** Member with wiki-edit rights
 **Steps:**
@@ -46,7 +46,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 
 ---
 
-### TC-MEN-303: Mention several users on one wiki page
+### TC-MEN-072: Mention several users on one wiki page
 
 **User Role:** Member
 **Steps:**
@@ -57,7 +57,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 
 ---
 
-### TC-MEN-304: Editing a wiki page notifies only newly added mentions
+### TC-MEN-073: Editing a wiki page notifies only newly added mentions
 
 **User Role:** Member
 **Steps:**
@@ -68,7 +68,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 
 ---
 
-### TC-MEN-305: Mention is preserved across wiki versions
+### TC-MEN-074: Mention is preserved across wiki versions
 
 **User Role:** Member
 **Steps:**
@@ -80,7 +80,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 
 ---
 
-### TC-MEN-306: Wiki module disabled after mentions exist
+### TC-MEN-075: Wiki module disabled after mentions exist
 
 **User Role:** Manager
 **Steps:**
@@ -93,7 +93,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 
 ---
 
-### TC-MEN-307: Mention in a wiki page comment / annotation
+### TC-MEN-076: Mention in a wiki page comment / annotation
 
 **User Role:** Member
 **Steps:**
@@ -109,7 +109,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 
 ---
 
-### TC-MEN-308: Mention in wiki markup that should stay literal
+### TC-MEN-077: Mention in wiki markup that should stay literal
 
 **User Role:** Member
 **Steps:**
@@ -121,7 +121,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 
 ---
 
-### TC-MEN-309: Symbol collision with wiki syntax
+### TC-MEN-078: Symbol collision with wiki syntax
 
 **User Role:** Member
 **Steps:**
@@ -135,7 +135,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 
 ---
 
-### TC-MEN-310: Mention a non-existent user on a wiki page
+### TC-MEN-079: Mention a non-existent user on a wiki page
 
 **User Role:** Member
 **Steps:**
@@ -146,7 +146,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 
 ---
 
-### TC-MEN-311: Mention a user with no access to the project
+### TC-MEN-080: Mention a user with no access to the project
 
 **User Role:** Member
 **Steps:**
@@ -161,7 +161,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 
 ---
 
-### TC-MEN-312: Mention on a protected wiki page
+### TC-MEN-081: Mention on a protected wiki page
 
 **User Role:** Member without edit rights on a protected page
 **Steps:**
@@ -172,7 +172,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 
 ---
 
-### TC-MEN-313: Very long wiki page with many mentions
+### TC-MEN-082: Very long wiki page with many mentions
 
 **User Role:** Member
 **Steps:**
@@ -184,7 +184,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 
 ---
 
-### TC-MEN-314: Mention in a wiki page title
+### TC-MEN-083: Mention in a wiki page title
 
 **User Role:** Member
 **Steps:**
@@ -196,7 +196,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 
 ---
 
-### TC-MEN-315: Deleting a wiki page that contained a mention
+### TC-MEN-084: Deleting a wiki page that contained a mention
 
 **User Role:** Manager
 **Steps:**

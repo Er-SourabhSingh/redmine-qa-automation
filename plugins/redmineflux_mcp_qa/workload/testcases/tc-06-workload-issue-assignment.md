@@ -4,19 +4,19 @@
 |-------|-------|
 | **Plugin** | redmineflux_mcp |
 | **Module** | Workload — Issue Assignment |
-| **TC Range** | TC-RFM-055 to TC-RFM-064 |
+| **TC Range** | TC-RFM-133 to TC-RFM-142 |
 | **Total TCs** | 10 |
 | **Execution Order** | Suite 6 — Run after Workload CRUD (tc-05) |
 | **Feature Coverage** | RFM-F055 through RFM-F064 |
 
 **Data Dependencies:**
-- Workload "QA Team June 2026" must exist (TC-RFM-048, tc-05).
+- Workload "QA Team June 2026" must exist (TC-RFM-126, tc-05).
 - "Automation Team" with john.doe and jane.doe as members (tc-03).
 - Valid Redmine issues (RM-101, RM-102, RM-103, RM-104) must exist in the system.
 
 ---
 
-## TC-RFM-055 — Add single issue to workload via MCP
+## TC-RFM-133 — Add single issue to workload via MCP
 
 | Field | Value |
 |-------|-------|
@@ -27,11 +27,11 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Workload "QA Team June 2026" exists (TC-RFM-048).
+- Workload "QA Team June 2026" exists (TC-RFM-126).
 - A valid Redmine issue exists (use the first available issue ID found via `search_issues`).
 
 **Test Data:**
-- Workload ID from TC-RFM-048.
+- Workload ID from TC-RFM-126.
 - Issue: first available issue ID (discover via MCP `search_issues` or `eligible_issues`).
 
 **Steps:**
@@ -47,7 +47,7 @@
 
 ---
 
-## TC-RFM-056 — Add multiple issues to workload via MCP
+## TC-RFM-134 — Add multiple issues to workload via MCP
 
 | Field | Value |
 |-------|-------|
@@ -58,11 +58,11 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Workload "QA Team June 2026" exists (TC-RFM-048).
+- Workload "QA Team June 2026" exists (TC-RFM-126).
 - At least 2 more issues are available (Issue-B and Issue-C).
 
 **Test Data:**
-- Workload ID from TC-RFM-048.
+- Workload ID from TC-RFM-126.
 - Issue-B and Issue-C IDs (discovered via MCP).
 
 **Steps:**
@@ -78,7 +78,7 @@
 
 ---
 
-## TC-RFM-057 — Assign issue to user in workload via MCP
+## TC-RFM-135 — Assign issue to user in workload via MCP
 
 | Field | Value |
 |-------|-------|
@@ -89,11 +89,11 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Issue-A is in the workload (from TC-RFM-055).
+- Issue-A is in the workload (from TC-RFM-133).
 - john.doe is a member of "Automation Team".
 
 **Test Data:**
-- Allocation ID for Issue-A (from TC-RFM-055).
+- Allocation ID for Issue-A (from TC-RFM-133).
 - Assignee: john.doe (user_id from tc-03).
 
 **Steps:**
@@ -108,7 +108,7 @@
 
 ---
 
-## TC-RFM-058 — Assign issue with planned hours via MCP
+## TC-RFM-136 — Assign issue with planned hours via MCP
 
 | Field | Value |
 |-------|-------|
@@ -119,7 +119,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Issue-A is in the workload assigned to john.doe (from TC-RFM-057).
+- Issue-A is in the workload assigned to john.doe (from TC-RFM-135).
 
 **Test Data:**
 - Allocation ID for Issue-A.
@@ -137,7 +137,7 @@
 
 ---
 
-## TC-RFM-059 — Assign issue with start and end dates via MCP
+## TC-RFM-137 — Assign issue with start and end dates via MCP
 
 | Field | Value |
 |-------|-------|
@@ -148,7 +148,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Issue-A is in the workload (from TC-RFM-055).
+- Issue-A is in the workload (from TC-RFM-133).
 
 **Test Data:**
 - Allocation ID for Issue-A.
@@ -167,7 +167,7 @@
 
 ---
 
-## TC-RFM-060 — Update issue workload hours via MCP
+## TC-RFM-138 — Update issue workload hours via MCP
 
 | Field | Value |
 |-------|-------|
@@ -178,7 +178,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Issue-A in workload has 20 planned hours (from TC-RFM-058).
+- Issue-A in workload has 20 planned hours (from TC-RFM-136).
 
 **Test Data:**
 - Allocation ID for Issue-A.
@@ -196,7 +196,7 @@
 
 ---
 
-## TC-RFM-061 — Remove issue from workload via MCP
+## TC-RFM-139 — Remove issue from workload via MCP
 
 | Field | Value |
 |-------|-------|
@@ -207,10 +207,10 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Issue-C is in "QA Team June 2026" workload (from TC-RFM-056).
+- Issue-C is in "QA Team June 2026" workload (from TC-RFM-134).
 
 **Test Data:**
-- Workload ID from TC-RFM-048.
+- Workload ID from TC-RFM-126.
 - Issue-C's ID.
 
 **Steps:**
@@ -227,7 +227,7 @@
 
 ---
 
-## TC-RFM-062 — Reassign issue to another user via MCP
+## TC-RFM-140 — Reassign issue to another user via MCP
 
 | Field | Value |
 |-------|-------|
@@ -238,8 +238,8 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Issue-A is assigned to john.doe in the workload (from TC-RFM-057).
-- jane.doe is a member of "Automation Team" (from TC-RFM-031).
+- Issue-A is assigned to john.doe in the workload (from TC-RFM-135).
+- jane.doe is a member of "Automation Team" (from TC-RFM-109).
 
 **Test Data:**
 - Issue-A allocation ID.
@@ -257,7 +257,7 @@
 
 ---
 
-## TC-RFM-063 — Assign issue with all parameters via MCP
+## TC-RFM-141 — Assign issue with all parameters via MCP
 
 | Field | Value |
 |-------|-------|
@@ -269,7 +269,7 @@
 
 **Preconditions:**
 - Workload "QA Team June 2026" exists.
-- Issue-B is in the workload (from TC-RFM-056).
+- Issue-B is in the workload (from TC-RFM-134).
 - john.doe is a team member.
 
 **Test Data:**
@@ -293,7 +293,7 @@
 
 ---
 
-## TC-RFM-064 — View workload details with all assignments via MCP
+## TC-RFM-142 — View workload details with all assignments via MCP
 
 | Field | Value |
 |-------|-------|
@@ -307,10 +307,10 @@
 - "QA Team June 2026" has Issue-A (assigned to jane.doe, 40h) and Issue-B (assigned to john.doe, 30h).
 
 **Test Data:**
-- Workload ID from TC-RFM-048.
+- Workload ID from TC-RFM-126.
 
 **Steps:**
-1. Call MCP `workload_show` with workload ID from TC-RFM-048.
+1. Call MCP `workload_show` with workload ID from TC-RFM-126.
 2. Record all values: issue list, assignees, planned hours, dates.
 3. Using Playwright, open "QA Team June 2026" workload detail.
 4. Compare every MCP value against the corresponding UI-displayed value.

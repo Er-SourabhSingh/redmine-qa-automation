@@ -24,7 +24,7 @@ The user pointed at a real Redmine `/projects` screenshot showing a **second**, 
 
 ## Expected result
 
-Per `HELPDESK_USER_GUIDE.md` §16 (lines 400–404): *"...the header reads *Helpdesk Support*..."* TC-HLP-061's own Expected Result states the header should read "Helpdesk Support".
+Per `HELPDESK_USER_GUIDE.md` §16 (lines 400–404): *"...the header reads *Helpdesk Support*..."* TC-HLP-148's own Expected Result states the header should read "Helpdesk Support".
 
 ## Actual result
 
@@ -56,7 +56,7 @@ The icon rail (Dashboard/Tickets/Reports/Organization/Customers/Products/Setting
 - **Purely a cosmetic text mismatch, not a functional defect.** Every screen the Command Center promises is reachable and works correctly via the icon rail, and its chrome correctly replaces Redmine's real application menu/project-tab-bar as documented. The only thing that doesn't match the guide is the literal header string.
 - **This engagement's own earlier write-up of this bug was itself wrong** — flagged and corrected the same day after the user pointed at a real screenshot showing the actual `:application_menu` bar, which this session had not distinguished from the always-present `:top_menu` bar. Worth remembering for any future Redmine-chrome test: Redmine core actually registers (at least) two separate named menus — `:top_menu` (universal, every page) and `:application_menu` (contextual — global Projects/Activity/Issues/... when no project is active, a project's own tab bar when one is) — and a claim like "the application menu is hidden" should be checked against the specific menu Redmine itself calls by that name, not assumed to mean the top bar.
 - Suggested fix direction (not prescriptive): change the Command Center's header partial to render "Helpdesk Support" instead of "Helpdesk" for staff users (the `label_helpdesk_command_center` vs `label_my_helpdesk` caption split in `init.rb`'s `menu :top_menu` registration suggests the underlying locale/label infrastructure for a staff-specific string already exists) — **or** update `HELPDESK_USER_GUIDE.md` §16 to describe the real header text, whichever the plugin owner intends as correct.
-- Found while executing `HELPDESK_NAVIGATION_WORKSPACES.md` TC-HLP-061, using a purpose-built fixture (`manage.helpdesk.test`, role "Agent ManageHelpdesk Test") created specifically to test the Command Center as a genuine `manage_helpdesk`-holding Agent rather than admin.
+- Found while executing `HELPDESK_NAVIGATION_WORKSPACES.md` TC-HLP-148, using a purpose-built fixture (`manage.helpdesk.test`, role "Agent ManageHelpdesk Test") created specifically to test the Command Center as a genuine `manage_helpdesk`-holding Agent rather than admin.
 
 ## Closed — 2026-09-02, same day: Rejected, Not a Bug
 
@@ -65,6 +65,6 @@ Closed per explicit user direction, with the fix-direction question from this bu
 - Redmine's application menu is correctly hidden. ✅ (confirmed in this bug's own Revision History above.)
 - The Helpdesk icon rail is correctly displayed. ✅
 - The **"Helpdesk" header is intentional, per Product Owner request.** ✅ — not a rendering defect; the plugin is behaving exactly as designed.
-- **`HELPDESK_USER_GUIDE.md`'s "Helpdesk Support" text is outdated** and has been corrected directly (§16, and TC-HLP-061's Expected Result) to state the real, intended header text — no code change needed, no bug remains open.
+- **`HELPDESK_USER_GUIDE.md`'s "Helpdesk Support" text is outdated** and has been corrected directly (§16, and TC-HLP-148's Expected Result) to state the real, intended header text — no code change needed, no bug remains open.
 
 This closes the "expand the code vs. fix the docs" question this bug's Notes left open — the docs were the side that needed to change, confirmed by the product's own owner rather than inferred.

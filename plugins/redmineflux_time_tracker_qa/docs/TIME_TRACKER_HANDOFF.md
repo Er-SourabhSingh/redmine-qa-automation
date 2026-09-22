@@ -25,7 +25,7 @@ checkbox exists). Confirmed:
   with zero feedback, which reads to a user exactly like "the button is there and does nothing," matching the
   original report.
 
-Recorded as `TC-TMT-924` in `testcases/TIME_TRACKER_PERMISSIONS.md`. Filed **`BUG-TMT-002`** (Medium — misleading
+Recorded as `TC-TMT-056` in `testcases/TIME_TRACKER_PERMISSIONS.md`. Filed **`BUG-TMT-002`** (Medium — misleading
 dead control + silent failure, not a data-integrity bypass). Restored the module setting on `test-project`
 afterward (re-checked "Time tracking", saved). **User explicitly approved reporting it to production** — created
 as **#121076**, assigned to Sheetal Sharma (category "Time tracker web Plugin", matching BUG-TMT-001).
@@ -37,14 +37,14 @@ was confirmed in the Checklist plugin, `BUG-CHK-005`, in the same session): "i h
 tracker user able to log time from start timer button save time to log time, spent time is disabled for closed
 but from issue detail page user able to perform this action."
 
-Investigated live on project `checklist-perm-private` (closed) / issue #1533 — this is `TC-TMT-923` ("Closed and
+Investigated live on project `checklist-perm-private` (closed) / issue #1533 — this is `TC-TMT-055` ("Closed and
 archived projects"), previously authored but not executed:
 
 - Confirmed core Redmine's own "Log time" link is correctly absent on the closed project's issue.
 - Confirmed the plugin's own "Start Timer" control is fully enabled and its entire flow succeeds:
   `POST /time_tracker/start_timer` → 200, `POST /time_tracker/save_time_entry_with_custom_fields` → 200 — and
   the issue's Spent time total genuinely increased (0:02 h → 0:03 h), a real persisted write.
-- Filed **`BUG-TMT-001`** (High). Recorded as the closed-project half of `TC-TMT-923` in
+- Filed **`BUG-TMT-001`** (High). Recorded as the closed-project half of `TC-TMT-055` in
   `testcases/TIME_TRACKER_PERMISSIONS.md` — the archived-project half and the "edit an existing entry" /
   direct-endpoint sub-steps of that TC are still not executed.
 
@@ -62,7 +62,7 @@ with one incidental finding. See `TIME_TRACKER_MEMORY.md` for the two quirks dis
 
 ## In Progress
 
-- Nothing formally executed yet — only the one ad-hoc `TC-TMT-923` (closed-project half) finding above.
+- Nothing formally executed yet — only the one ad-hoc `TC-TMT-055` (closed-project half) finding above.
 
 ## Blockers
 
@@ -72,7 +72,7 @@ with one incidental finding. See `TIME_TRACKER_MEMORY.md` for the two quirks dis
 ## Next Session Start Point
 
 - Start with the installation/configuration suite, then the rest of the permissions suite (it provisions the
-  roles the other suites assume — note `TC-TMT-923`'s closed-project half is already done, pick up from its
+  roles the other suites assume — note `TC-TMT-055`'s closed-project half is already done, pick up from its
   archived-project half and direct-endpoint sub-steps), then the functional suites in file order.
 - `BUG-TMT-001` needs a fix before this plugin can move toward `Complete` in `STATUS.md`. It was reported to
   production this session (as #121063, assigned to Sheetal Sharma) after explicit user approval — any further
@@ -95,5 +95,5 @@ with one incidental finding. See `TIME_TRACKER_MEMORY.md` for the two quirks dis
 | Date | Redmine Version | Environment | Tested By | Summary |
 |------|-----------------|-------------|-----------|---------|
 | 2026-09-15 | — | — | Claude | Authoring only — test cases written from the vendor KB, nothing executed. |
-| 2026-09-22 | 7.0.0 (Docker) | Local (redmine-docker-700, localhost:3010) | Claude (Playwright MCP) | Ad-hoc, user-reported — not a planned pass. Confirmed `TC-TMT-923` (closed-project half): the plugin's "Start Timer" control writes real time entries on a closed/read-only project via `start_timer` (200) and `save_time_entry_with_custom_fields` (200), while core's own "Log time" is correctly blocked. Filed `BUG-TMT-001` (High) — this plugin's first bug. **User explicitly approved reporting it to production** — created as #121063, assigned to Sheetal Sharma. |
-| 2026-09-22 | 7.0.0 (Docker) | Local (redmine-docker-700, localhost:3010) | Claude (Playwright MCP) | Ad-hoc, second user report same session. Confirmed `TC-TMT-924`: with core's "Time tracking" module disabled for a project, the plugin's "Start Timer" control stays visible on the issue detail page (core's "Log time" correctly disappears); clicking it is refused server-side (`start_timer` → 422, "Time tracking is disabled for this project") so no time entry is actually written, but the failure is not surfaced to the user at all. Filed `BUG-TMT-002` (Medium). **User explicitly approved reporting it to production** — created as #121076, assigned to Sheetal Sharma. |
+| 2026-09-22 | 7.0.0 (Docker) | Local (redmine-docker-700, localhost:3010) | Claude (Playwright MCP) | Ad-hoc, user-reported — not a planned pass. Confirmed `TC-TMT-055` (closed-project half): the plugin's "Start Timer" control writes real time entries on a closed/read-only project via `start_timer` (200) and `save_time_entry_with_custom_fields` (200), while core's own "Log time" is correctly blocked. Filed `BUG-TMT-001` (High) — this plugin's first bug. **User explicitly approved reporting it to production** — created as #121063, assigned to Sheetal Sharma. |
+| 2026-09-22 | 7.0.0 (Docker) | Local (redmine-docker-700, localhost:3010) | Claude (Playwright MCP) | Ad-hoc, second user report same session. Confirmed `TC-TMT-056`: with core's "Time tracking" module disabled for a project, the plugin's "Start Timer" control stays visible on the issue detail page (core's "Log time" correctly disappears); clicking it is refused server-side (`start_timer` → 422, "Time tracking is disabled for this project") so no time entry is actually written, but the failure is not surfaced to the user at all. Filed `BUG-TMT-002` (Medium). **User explicitly approved reporting it to production** — created as #121076, assigned to Sheetal Sharma. |

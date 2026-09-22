@@ -24,7 +24,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-101: Install the extension from the Chrome Web Store
+### TC-FSX-024: Install the extension from the Chrome Web Store
 
 **User Role:** Any browser user
 **Steps:**
@@ -35,7 +35,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-102: Pin the extension when the icon is hidden
+### TC-FSX-025: Pin the extension when the icon is hidden
 
 **User Role:** Any
 **Steps:**
@@ -46,7 +46,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-103: Install the Redmine plugin
+### TC-FSX-026: Install the Redmine plugin
 
 **User Role:** Admin
 **Steps:**
@@ -59,7 +59,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-104: Migrations create the templates table
+### TC-FSX-027: Migrations create the templates table
 
 **User Role:** Admin
 **Steps:**
@@ -71,7 +71,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-105: REST API must be enabled
+### TC-FSX-028: REST API must be enabled
 
 **User Role:** Admin, then an extension user
 **Steps:**
@@ -87,7 +87,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-106: `plugin_info.json` confirms installation
+### TC-FSX-029: `plugin_info.json` confirms installation
 
 **User Role:** Any
 **Steps:**
@@ -98,7 +98,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-107: `plugin_info.json` when the plugin is absent
+### TC-FSX-030: `plugin_info.json` when the plugin is absent
 
 **User Role:** Any
 **Steps:**
@@ -112,7 +112,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-108: Browser compatibility
+### TC-FSX-031: Browser compatibility
 
 **User Role:** Any
 **Steps:**
@@ -123,7 +123,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-109: Redmine version range
+### TC-FSX-032: Redmine version range
 
 **User Role:** Admin
 **Steps:**
@@ -140,7 +140,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-201: First-use login modal
+### TC-FSX-033: First-use login modal
 
 **User Role:** New extension user
 **Steps:**
@@ -151,7 +151,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-202: Successful login
+### TC-FSX-034: Successful login
 
 **User Role:** Valid Redmine user
 **Steps:**
@@ -162,7 +162,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-203: Wrong credentials
+### TC-FSX-035: Wrong credentials
 
 **User Role:** Any
 **Steps:**
@@ -174,7 +174,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-204: Wrong or unreachable base URL
+### TC-FSX-036: Wrong or unreachable base URL
 
 **User Role:** Any
 **Steps:**
@@ -186,7 +186,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-205: Locked or inactive Redmine account
+### TC-FSX-037: Locked or inactive Redmine account
 
 **User Role:** A locked account
 **Steps:**
@@ -197,7 +197,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-206: The API key is stored locally
+### TC-FSX-038: The API key is stored locally
 
 **User Role:** Logged-in user
 **Steps:**
@@ -208,7 +208,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-207: The API key is not exposed to web pages
+### TC-FSX-039: The API key is not exposed to web pages
 
 **User Role:** Logged-in user
 **Steps:**
@@ -224,7 +224,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-208: The key is not sent over an insecure connection
+### TC-FSX-040: The key is not sent over an insecure connection
 
 **User Role:** Logged-in user
 **Steps:**
@@ -236,7 +236,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-209: Session persists until logout
+### TC-FSX-041: Session persists until logout
 
 **User Role:** Logged-in user
 **Steps:**
@@ -247,7 +247,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-210: Logout returns to the login screen
+### TC-FSX-042: Logout returns to the login screen
 
 **User Role:** Logged-in user
 **Steps:**
@@ -258,7 +258,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-211: Logout clears the stored credentials
+### TC-FSX-043: Logout clears the stored credentials
 
 **User Role:** Logged-in user
 **Steps:**
@@ -275,7 +275,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-212: Extension works without admin rights on Redmine
+### TC-FSX-044: Extension works without admin rights on Redmine
 
 **User Role:** An ordinary member
 **Steps:**
@@ -286,7 +286,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-213: Plugin folder renamed
+### TC-FSX-045: Plugin folder renamed
 
 **User Role:** Admin
 **Steps:**
@@ -298,7 +298,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-214: Extension disabled or cache stale
+### TC-FSX-046: Extension disabled or cache stale
 
 **User Role:** Any
 **Steps:**
@@ -310,7 +310,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-215: Conflicting extensions
+### TC-FSX-047: Conflicting extensions
 
 **User Role:** Any
 **Steps:**
@@ -326,7 +326,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-110: Remove the Chrome extension
+### TC-FSX-048: Remove the Chrome extension
 
 **User Role:** Any
 **Steps:**
@@ -337,7 +337,7 @@ extension-side, while permission and data problems are almost always server-side
 
 ---
 
-### TC-FSX-111: Remove the Redmine plugin
+### TC-FSX-049: Remove the Redmine plugin
 
 **User Role:** Admin
 **Preconditions:** **Database backup taken** — the KB warns that reverting drops `fluxshot_templates` and every

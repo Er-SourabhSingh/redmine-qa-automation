@@ -29,7 +29,7 @@ trip.
 
 ---
 
-### TC-GNT-301: Drag an issue bar to a new date
+### TC-GNT-137: Drag an issue bar to a new date
 
 **User Role:** Member with View Flux Gantt and editable issue dates
 **Steps:**
@@ -43,7 +43,7 @@ trip.
 
 ---
 
-### TC-GNT-302: Drag preserves duration
+### TC-GNT-138: Drag preserves duration
 
 **User Role:** Member
 **Steps:**
@@ -54,7 +54,7 @@ trip.
 
 ---
 
-### TC-GNT-303: Rejected drag reverts the bar
+### TC-GNT-139: Rejected drag reverts the bar
 
 **User Role:** Member
 **Steps:**
@@ -68,7 +68,7 @@ trip.
 
 ---
 
-### TC-GNT-304: Drag on a derived parent is refused
+### TC-GNT-140: Drag on a derived parent is refused
 
 **User Role:** Member
 **Steps:**
@@ -79,7 +79,7 @@ trip.
 
 ---
 
-### TC-GNT-305: Drag respects release boundaries
+### TC-GNT-141: Drag respects release boundaries
 
 **User Role:** Member
 **Steps:**
@@ -95,7 +95,7 @@ trip.
 
 ---
 
-### TC-GNT-306: Left-edge resize changes the start date only
+### TC-GNT-142: Left-edge resize changes the start date only
 
 **User Role:** Member
 **Steps:**
@@ -106,7 +106,7 @@ trip.
 
 ---
 
-### TC-GNT-307: Right-edge resize changes the due date only
+### TC-GNT-143: Right-edge resize changes the due date only
 
 **User Role:** Member
 **Steps:**
@@ -117,7 +117,7 @@ trip.
 
 ---
 
-### TC-GNT-308: Resize past the opposite edge is rejected
+### TC-GNT-144: Resize past the opposite edge is rejected
 
 **User Role:** Member
 **Steps:**
@@ -129,7 +129,7 @@ trip.
 
 ---
 
-### TC-GNT-309: Subtask resize is constrained by the parent
+### TC-GNT-145: Subtask resize is constrained by the parent
 
 **User Role:** Member
 **Steps:**
@@ -140,7 +140,7 @@ trip.
 
 ---
 
-### TC-GNT-310: Resize a single-day task
+### TC-GNT-146: Resize a single-day task
 
 **User Role:** Member
 **Steps:**
@@ -155,7 +155,7 @@ trip.
 
 ---
 
-### TC-GNT-311: Double-click opens the edit modal
+### TC-GNT-147: Double-click opens the edit modal
 
 **User Role:** Member
 **Steps:**
@@ -166,7 +166,7 @@ trip.
 
 ---
 
-### TC-GNT-312: Edit subject, assignee, dates, progress and custom fields
+### TC-GNT-148: Edit subject, assignee, dates, progress and custom fields
 
 **User Role:** Member
 **Steps:**
@@ -179,7 +179,7 @@ trip.
 
 ---
 
-### TC-GNT-313: Modal validation matches Redmine's own
+### TC-GNT-149: Modal validation matches Redmine's own
 
 **User Role:** Member
 **Steps:**
@@ -192,7 +192,7 @@ trip.
 
 ---
 
-### TC-GNT-314: Cancel the modal
+### TC-GNT-150: Cancel the modal
 
 **User Role:** Member
 **Steps:**
@@ -203,7 +203,7 @@ trip.
 
 ---
 
-### TC-GNT-315: Delete an issue from the modal
+### TC-GNT-151: Delete an issue from the modal
 
 **User Role:** Member with delete rights
 **Steps:**
@@ -215,7 +215,7 @@ trip.
 
 ---
 
-### TC-GNT-316: Workflow rules are enforced in the modal
+### TC-GNT-152: Workflow rules are enforced in the modal
 
 **User Role:** Member on a role with a restricted workflow
 **Steps:**
@@ -230,7 +230,7 @@ trip.
 
 ---
 
-### TC-GNT-317: Drag or resize without edit permission
+### TC-GNT-153: Drag or resize without edit permission
 
 **User Role:** Member whose role lacks View Flux Gantt
 **Steps:**
@@ -244,7 +244,7 @@ trip.
 
 ---
 
-### TC-GNT-318: Network failure mid-drag
+### TC-GNT-154: Network failure mid-drag
 
 **User Role:** Member
 **Steps:**
@@ -256,7 +256,7 @@ trip.
 
 ---
 
-### TC-GNT-319: Session expiry mid-interaction
+### TC-GNT-155: Session expiry mid-interaction
 
 **User Role:** Member
 **Steps:**
@@ -267,7 +267,7 @@ trip.
 
 ---
 
-### TC-GNT-320: Concurrent edits to the same issue
+### TC-GNT-156: Concurrent edits to the same issue
 
 **User Role:** Two members
 **Steps:**
@@ -281,7 +281,7 @@ trip.
 
 ---
 
-### TC-GNT-321: Rapid successive drags
+### TC-GNT-157: Rapid successive drags
 
 **User Role:** Member
 **Steps:**
@@ -293,7 +293,7 @@ trip.
 
 ---
 
-### TC-GNT-322: Drag onto a non-working day in Work Days mode
+### TC-GNT-158: Drag onto a non-working day in Work Days mode
 
 **User Role:** Member
 **Steps:**
@@ -305,7 +305,7 @@ trip.
 
 ---
 
-### TC-GNT-323: Drag an issue in a closed or archived project
+### TC-GNT-159: Drag an issue in a closed or archived project
 
 **User Role:** Member
 **Steps:**
@@ -316,7 +316,7 @@ trip.
 
 ---
 
-### TC-GNT-324: Optimistic update after a server-side validation the client cannot know
+### TC-GNT-160: Optimistic update after a server-side validation the client cannot know
 
 **User Role:** Member
 **Steps:**

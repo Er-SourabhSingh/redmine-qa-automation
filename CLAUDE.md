@@ -364,6 +364,46 @@ work. They are now the codes for the standalone plugins of the same name, which 
 
 ---
 
+## 4a. Test Case ID Convention
+
+Format: `TC-<PLUGIN-CODE>-<NNN>` — e.g. `TC-CHK-001`, `TC-HLP-284`, `TC-AGB-155`.
+
+- **`<PLUGIN-CODE>`** — the same 3-letter code as Section 4 (`HLP`, `CHK`, `CRX`, …).
+- **`<NNN>`** — zero-padded, **one continuous sequence per plugin code**, starting at `001` and running unbroken across *all* of that plugin's suite files, in alphabetical filename order.
+
+So a plugin's suites carve up one sequence rather than each restarting:
+
+```
+CHECKLIST_BLOCK_ISSUE_CLOSING.md          TC-CHK-001 … 014
+CHECKLIST_CHECKLIST_MANAGEMENT.md         TC-CHK-015 … 042
+CHECKLIST_GERMAN_LANGUAGE.md              TC-CHK-043 … 053
+CHECKLIST_INSTALLATION_CONFIGURATION.md   TC-CHK-054 … 066
+CHECKLIST_PERMISSIONS.md                  TC-CHK-067 … 078
+CHECKLIST_PROGRESS_TRACKING.md            TC-CHK-079 … 092
+CHECKLIST_TEMPLATES.md                    TC-CHK-093 … 115
+```
+
+### Adding a new test case — read this first
+
+Because the sequence is **plugin-wide, not per-file**, you must find the plugin's current maximum across *every* suite file before picking a number. Never take "last number in the file I'm editing + 1" — that is exactly how the pre-migration scheme drifted into **204 duplicate IDs** (e.g. `TC-HLP-338` ended up defined as two completely different test cases in two different files).
+
+```bash
+# the only safe way to pick the next number
+grep -rhoE "TC-CHK-[0-9]{3}" plugins/redmineflux_checklist_qa | sort -u | tail -1
+```
+
+Append new cases at the **end of the plugin's range**, even when the case belongs to a suite in the middle of the list — an out-of-order number is fine, a duplicate is not. This matters especially when multiple sessions are running in parallel: two sessions adding cases to different suites of the same plugin will collide unless both check the plugin-wide max.
+
+**One code can span two folders.** `RIT` and `RKB` are each used by a standalone plugin folder *and* by a sub-area of `redmineflux_mcp_qa` (`issuetemplate/`, `knowledgebase/`). The sequence is per **code**, so those share one continuous range across both locations — check both when finding the max.
+
+**Migrated 2026-09-22** — all 3,952 test cases across 176 suite files and 24 plugin codes were renumbered to this format, along with every cross-reference in `bugs/`, `docs/`, `reports/` and `automation/` (445 files, ~9,600 references).
+
+> **Production caveat:** Redmine issues created before this migration still cite the *old* IDs in their descriptions (e.g. `TC-CRX-108–113`). Those were deliberately left untouched — each edit would need its own production approval. To translate an old ID cited on a production issue, look it up in **`scripts/tc-id-migration-map.json`** (old → new).
+>
+> **Two retired numbers were reissued.** `TC-HLP-077` and `TC-LTS-008` referred to cases that had been deleted/deferred before the migration; those numbers now belong to different tests. Their historical mentions are tagged `[legacy pre-2026-09-22 ID, no longer in use]` so they can't be mistaken for live references.
+
+---
+
 ## 5. Bug File Format
 
 Use `templates/bug-template.md` as the format. Save to `bugs/open/<BUG-ID>.md`.
@@ -532,7 +572,7 @@ Each plugin owns its own self-contained Playwright + TypeScript suite under `plu
 
 - **Automate only test cases with a confirmed manual PASS.** Do not write a Playwright spec for a TC that hasn't been executed and passed manually first — automation locks in verified behavior, it does not discover new behavior.
 - **One spec file per test suite**, same base name as the source: `testcases/<PREFIX>_<suite-name>.md` → `automation/tests/<PREFIX>_<suite-name>.spec.ts`.
-- **Every `test()` title must carry the TC ID(s)** it covers, e.g. `test('TC-HLP-003 - agent can close ticket', async ({ page }) => { ... })`, so results stay traceable back to the testcase file.
+- **Every `test()` title must carry the TC ID(s)** it covers, e.g. `test('TC-HLP-178 - agent can close ticket', async ({ page }) => { ... })`, so results stay traceable back to the testcase file.
 - **Page Object Model, self-contained per plugin.** Page objects live in `automation/tests/pages/`, separate from the specs — as plain classes named `<Name>Page.ts` (PascalCase, no `.spec.ts` suffix, so the runner doesn't treat them as tests). A spec file must not contain raw selectors — it calls page object methods. Before adding a new page object, check this plugin's own `automation/tests/pages/` first; don't create a second page object for a screen this plugin's suite already models.
 - **File naming inside `automation/tests/`:** `<suite-name>.spec.ts` for specs and `<name>.setup.ts` for one-time infrastructure (e.g. `auth.setup.ts`, `provision.setup.ts`) live directly in `automation/tests/`; every `<Name>Page.ts` page object lives in `automation/tests/pages/`. Only `.spec.ts` and `.setup.ts` files are runnable tests.
 - **Credentials/base URL only via `automation/utilities/env.ts`**, which reads `QA_CREDENTIALS.md`. Never hardcode a URL, username, or password inside a spec or page object.

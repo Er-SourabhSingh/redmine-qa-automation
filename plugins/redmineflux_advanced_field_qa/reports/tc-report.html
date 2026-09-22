@@ -105,26 +105,26 @@
     <tr><td>TC-RAF-029</td><td>Admin configures visibility rule — Environment=Development → Hide Components</td><td class="pass">PASS</td><td></td></tr>
     <tr><td>TC-RAF-030</td><td>Visibility rule displayed in visibility list with correct settings</td><td class="pass">PASS</td><td></td></tr>
 
-    <tr><td colspan="4" class="section-header">Formula Execution (TC-RAF-031 to TC-RAF-034)</td></tr>
+    <tr><td colspan="4" class="section-header">Formula Execution (TC-RAF-031 to TC-RAF-033)</td></tr>
     <tr><td>TC-RAF-031</td><td>Issue creation calculates all 9 formula types correctly</td><td class="pass">PASS</td><td></td></tr>
     <tr><td>TC-RAF-032</td><td>Issue edit recalculates all formula types after source field changes</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RAF-034</td><td>Journal records formula changes when Log to history is enabled</td><td class="pass">PASS</td><td><span class="note">Duplicate journal entries observed for some calculated fields (investigation pending)</span></td></tr>
+    <tr><td>TC-RAF-033</td><td>Journal records formula changes when Log to history is enabled</td><td class="pass">PASS</td><td><span class="note">Duplicate journal entries observed for some calculated fields (investigation pending)</span></td></tr>
 
-    <tr><td colspan="4" class="section-header">Dependency Filtering (TC-RAF-035 to TC-RAF-036)</td></tr>
-    <tr><td>TC-RAF-035</td><td>Child field values filter when parent field is selected (IT → 3 locations)</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RAF-036</td><td>Child field options update live when parent field selection changes (IT → HR)</td><td class="pass">PASS</td><td><span class="fix-ref">Previously BLOCKED by BUG-RAF-001 — Fixed 2026-05-21, retest PASS. IT shows 3 values; HR shows Branch Office only, no page reload.</span></td></tr>
+    <tr><td colspan="4" class="section-header">Dependency Filtering (TC-RAF-034 to TC-RAF-035)</td></tr>
+    <tr><td>TC-RAF-034</td><td>Child field values filter when parent field is selected (IT → 3 locations)</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-035</td><td>Child field options update live when parent field selection changes (IT → HR)</td><td class="pass">PASS</td><td><span class="fix-ref">Previously BLOCKED by BUG-RAF-001 — Fixed 2026-05-21, retest PASS. IT shows 3 values; HR shows Branch Office only, no page reload.</span></td></tr>
 
-    <tr><td colspan="4" class="section-header">Sequence Execution (TC-RAF-037 to TC-RAF-040)</td></tr>
-    <tr><td>TC-RAF-037</td><td>Sequence value auto-generates on issue creation</td><td class="pass">PASS</td><td><span class="note">Issue #276 → 2026-05-002</span></td></tr>
-    <tr><td>TC-RAF-038</td><td>Sequence increments correctly for subsequent issues</td><td class="pass">PASS</td><td><span class="note">Issue #277 → 2026-05-003</span></td></tr>
-    <tr><td>TC-RAF-039</td><td>Sequence padding works correctly (3-digit zero-pad maintained)</td><td class="pass">PASS</td><td><span class="note">Issues #278–280 → 004, 005, 006 — no zeros dropped</span></td></tr>
-    <tr><td>TC-RAF-040</td><td>Sequence rule applies only to configured tracker (Bug only)</td><td class="pass">PASS</td><td><span class="note">Bug #281 → 2026-05-007; Feature #282 → no sequence</span></td></tr>
+    <tr><td colspan="4" class="section-header">Sequence Execution (TC-RAF-036 to TC-RAF-039)</td></tr>
+    <tr><td>TC-RAF-036</td><td>Sequence value auto-generates on issue creation</td><td class="pass">PASS</td><td><span class="note">Issue #276 → 2026-05-002</span></td></tr>
+    <tr><td>TC-RAF-037</td><td>Sequence increments correctly for subsequent issues</td><td class="pass">PASS</td><td><span class="note">Issue #277 → 2026-05-003</span></td></tr>
+    <tr><td>TC-RAF-038</td><td>Sequence padding works correctly (3-digit zero-pad maintained)</td><td class="pass">PASS</td><td><span class="note">Issues #278–280 → 004, 005, 006 — no zeros dropped</span></td></tr>
+    <tr><td>TC-RAF-039</td><td>Sequence rule applies only to configured tracker (Bug only)</td><td class="pass">PASS</td><td><span class="note">Bug #281 → 2026-05-007; Feature #282 → no sequence</span></td></tr>
 
-    <tr><td colspan="4" class="section-header">Visibility Execution (TC-RAF-041 to TC-RAF-044)</td></tr>
-    <tr><td>TC-RAF-041</td><td>Field shows dynamically when trigger condition matches</td><td class="pass">PASS</td><td><span class="note">SHOW rule fires correctly; field is visible by default (not hidden as spec assumed)</span></td></tr>
-    <tr><td>TC-RAF-042</td><td>Field hides dynamically when trigger condition matches</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RAF-043</td><td>Visibility rule applies during issue edit</td><td class="pass">PASS</td><td></td></tr>
-    <tr><td>TC-RAF-044</td><td>Multiple advanced field rules work together on same issue</td><td class="pass">PASS</td><td><span class="note">Issue #283 — all 4 features fired simultaneously</span></td></tr>
+    <tr><td colspan="4" class="section-header">Visibility Execution (TC-RAF-040 to TC-RAF-043)</td></tr>
+    <tr><td>TC-RAF-040</td><td>Field shows dynamically when trigger condition matches</td><td class="pass">PASS</td><td><span class="note">SHOW rule fires correctly; field is visible by default (not hidden as spec assumed)</span></td></tr>
+    <tr><td>TC-RAF-041</td><td>Field hides dynamically when trigger condition matches</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-042</td><td>Visibility rule applies during issue edit</td><td class="pass">PASS</td><td></td></tr>
+    <tr><td>TC-RAF-043</td><td>Multiple advanced field rules work together on same issue</td><td class="pass">PASS</td><td><span class="note">Issue #283 — all 4 features fired simultaneously</span></td></tr>
 
     <tr><td colspan="4" class="retest-header">Bug Fix Retest (2026-05-21) — Forge: flux-f3txguimh49</td></tr>
     <tr><td>RETEST-BUG-RAF-001</td><td>Fix verification: Multiple dependency rules for same parent+child with different parent values</td><td class="fixed">FIXED ✓</td><td><span class="fix-ref">TC-RAF-022/023/024/036 all PASS. 4 rules coexist (IT, HR, Finance, Operations → Location). No alert fired. Live dropdown filtering confirmed. See bugs/closed/BUG-RAF-001.md</span></td></tr>
@@ -133,7 +133,7 @@
 </table>
 
 <p style="margin-top:20px; font-size:11px; color:#888;">
-  Generated: 2026-05-21 &nbsp;|&nbsp; Suite: positive-testcases.md (TC-RAF-001 – TC-RAF-044) + Bug Fix Retest &nbsp;|&nbsp; All 51 TCs: PASS
+  Generated: 2026-05-21 &nbsp;|&nbsp; Suite: positive-testcases.md (TC-RAF-001 – TC-RAF-043) + Bug Fix Retest &nbsp;|&nbsp; All 51 TCs: PASS
 </p>
 </body>
 </html>

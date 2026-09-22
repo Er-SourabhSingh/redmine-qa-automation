@@ -125,7 +125,7 @@ Retested on a newly-provisioned Forge server (`https://flux-f04qohdte49.forge.ze
 
 ![Chart Settings panel, Appearance section — everything German except the "This color appears..." hint](../../screenshots/BUG-DSH-001/retest-2026-09-09-appearance-hints-still-english.png)
 
-## Additional affected surface — public Share Link view (found 2026-09-09, not part of the original TC-DSH-001–005 sweep)
+## Additional affected surface — public Share Link view (found 2026-09-09, not part of the original TC-DSH-049–005 sweep)
 
 The "Share" feature itself (the "Dashboard teilen" modal, its body text, "Kopieren"/"Schließen" buttons) is fully translated. However, the **public shared dashboard page the link opens** (`/public/analytics_dashboard/<token>`, no login required) has its own, separate set of untranslated strings not covered by the earlier retest of the authenticated view:
 

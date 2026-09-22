@@ -28,7 +28,7 @@
 
 ---
 
-## TC-RIT-001 — Admin creates a global issue template
+## TC-RIT-090 — Admin creates a global issue template
 
 **Feature:** Create Global Template
 **User Role:** Admin (via `redmineflux` MCP server)
@@ -58,11 +58,11 @@ Params:
 
 ---
 
-## TC-RIT-002 — Admin creates a project-scoped issue template
+## TC-RIT-091 — Admin creates a project-scoped issue template
 
 **Feature:** Create Project Template
 **User Role:** Admin (via `redmineflux` MCP server)
-**Precondition:** TC-RIT-001 passed. Project `wiftsep` exists.
+**Precondition:** TC-RIT-090 passed. Project `wiftsep` exists.
 
 **MCP Call:**
 ```
@@ -89,11 +89,11 @@ Params:
 
 ---
 
-## TC-RIT-003 — Admin lists all templates and verifies both templates appear
+## TC-RIT-092 — Admin lists all templates and verifies both templates appear
 
 **Feature:** Project Filter Search / Global vs Project Visibility
 **User Role:** Admin (via `redmineflux` MCP server)
-**Precondition:** TC-RIT-001 and TC-RIT-002 passed. Template IDs from prior TCs noted.
+**Precondition:** TC-RIT-090 and TC-RIT-091 passed. Template IDs from prior TCs noted.
 
 **MCP Call:**
 ```
@@ -111,17 +111,17 @@ Params:
 
 ---
 
-## TC-RIT-004 — Admin retrieves full details of the global template by ID
+## TC-RIT-093 — Admin retrieves full details of the global template by ID
 
 **Feature:** Create Global Template (verify stored data)
 **User Role:** Admin (via `redmineflux` MCP server)
-**Precondition:** TC-RIT-001 passed. Template ID from TC-RIT-001 noted.
+**Precondition:** TC-RIT-090 passed. Template ID from TC-RIT-090 noted.
 
 **MCP Call:**
 ```
 Tool: redmineflux_issue_template_get_template
 Params:
-  template_id: <ID from TC-RIT-001>
+  template_id: <ID from TC-RIT-090>
 ```
 
 **Expected Result:**
@@ -138,17 +138,17 @@ Params:
 
 ---
 
-## TC-RIT-005 — Admin retrieves full details of the project-scoped template
+## TC-RIT-094 — Admin retrieves full details of the project-scoped template
 
 **Feature:** Create Project Template (verify stored data + project assignment)
 **User Role:** Admin (via `redmineflux` MCP server)
-**Precondition:** TC-RIT-002 passed. Template ID from TC-RIT-002 noted.
+**Precondition:** TC-RIT-091 passed. Template ID from TC-RIT-091 noted.
 
 **MCP Call:**
 ```
 Tool: redmineflux_issue_template_get_template
 Params:
-  template_id: <ID from TC-RIT-002>
+  template_id: <ID from TC-RIT-091>
 ```
 
 **Expected Result:**
@@ -162,11 +162,11 @@ Params:
 
 ---
 
-## TC-RIT-006 — Admin filters template list by project
+## TC-RIT-095 — Admin filters template list by project
 
 **Feature:** Project Filter Search
 **User Role:** Admin (via `redmineflux` MCP server)
-**Precondition:** TC-RIT-002 passed. Project-scoped template assigned to `wiftsep`.
+**Precondition:** TC-RIT-091 passed. Project-scoped template assigned to `wiftsep`.
 
 **MCP Call:**
 ```
@@ -185,17 +185,17 @@ Params:
 
 ---
 
-## TC-RIT-007 — Admin edits a template (name + description update)
+## TC-RIT-096 — Admin edits a template (name + description update)
 
 **Feature:** Edit Template / Template Data Persistence After Update
 **User Role:** Admin (via `redmineflux` MCP server)
-**Precondition:** TC-RIT-001 passed. Template ID from TC-RIT-001 noted.
+**Precondition:** TC-RIT-090 passed. Template ID from TC-RIT-090 noted.
 
 **MCP Call:**
 ```
 Tool: redmineflux_issue_template_update_template
 Params:
-  template_id: <ID from TC-RIT-001>
+  template_id: <ID from TC-RIT-090>
   name: "QA Global Bug Template — Updated"
   description: "<p>Updated description. Use this for all bug reports.</p>"
 ```
@@ -209,17 +209,17 @@ Params:
 
 ---
 
-## TC-RIT-008 — Admin verifies data persistence after update
+## TC-RIT-097 — Admin verifies data persistence after update
 
 **Feature:** Template Data Persistence After Update
 **User Role:** Admin (via `redmineflux` MCP server)
-**Precondition:** TC-RIT-007 passed.
+**Precondition:** TC-RIT-096 passed.
 
 **MCP Call:**
 ```
 Tool: redmineflux_issue_template_get_template
 Params:
-  template_id: <ID from TC-RIT-001>
+  template_id: <ID from TC-RIT-090>
 ```
 
 **Expected Result:**
@@ -232,17 +232,17 @@ Params:
 
 ---
 
-## TC-RIT-009 — Admin assigns project-scoped template to multiple projects
+## TC-RIT-098 — Admin assigns project-scoped template to multiple projects
 
 **Feature:** Multiple Project Assignment / Assign Template to Projects
 **User Role:** Admin (via `redmineflux` MCP server)
-**Precondition:** TC-RIT-002 passed. Template ID from TC-RIT-002 noted.
+**Precondition:** TC-RIT-091 passed. Template ID from TC-RIT-091 noted.
 
 **MCP Call:**
 ```
 Tool: redmineflux_issue_template_update_template
 Params:
-  template_id: <ID from TC-RIT-002>
+  template_id: <ID from TC-RIT-091>
   project_ids: "wiftsep,flxcyb"
 ```
 
@@ -255,11 +255,11 @@ Params:
 
 ---
 
-## TC-RIT-010 — Admin verifies template appears in both assigned projects
+## TC-RIT-099 — Admin verifies template appears in both assigned projects
 
 **Feature:** Multiple Project Assignment (verify)
 **User Role:** Admin (via `redmineflux` MCP server)
-**Precondition:** TC-RIT-009 passed.
+**Precondition:** TC-RIT-098 passed.
 
 **MCP Call (check project 1):**
 ```
@@ -284,24 +284,24 @@ Params:
 
 ---
 
-## TC-RIT-011 — Admin applies global template and creates issue with pre-filled values
+## TC-RIT-100 — Admin applies global template and creates issue with pre-filled values
 
 **Feature:** Issue Creation Using Template / Default Template Auto-Selection by Tracker
 **User Role:** Admin (via `redmineflux` MCP server)
-**Precondition:** TC-RIT-001 passed. Global template ID noted.
+**Precondition:** TC-RIT-090 passed. Global template ID noted.
 
 **Step 1 — Apply template:**
 ```
 Tool: redmineflux_issue_template_apply_template
 Params:
-  template_id: <ID from TC-RIT-001>
+  template_id: <ID from TC-RIT-090>
   project_id: 370
   tracker_id: 3
 ```
 
 **Expected Result (Step 1):**
 - Response returns pre-filled: issue_title, description, note, tracker_id
-- Values match what was stored in TC-RIT-007 (updated description)
+- Values match what was stored in TC-RIT-096 (updated description)
 
 **Step 2 — Create issue using pre-filled values:**
 ```
@@ -323,7 +323,7 @@ Params:
 
 ---
 
-## TC-RIT-012 — Admin creates a template with HTML/rich-text description (CKEditor support)
+## TC-RIT-101 — Admin creates a template with HTML/rich-text description (CKEditor support)
 
 **Feature:** CKEditor Content Support
 **User Role:** Admin (via `redmineflux` MCP server)
@@ -359,17 +359,17 @@ Params:
 
 ---
 
-## TC-RIT-013 — Admin deactivates a template (is_active = false)
+## TC-RIT-102 — Admin deactivates a template (is_active = false)
 
 **Feature:** Edit Template (deactivate)
 **User Role:** Admin (via `redmineflux` MCP server)
-**Precondition:** TC-RIT-012 passed. Rich-text template ID noted.
+**Precondition:** TC-RIT-101 passed. Rich-text template ID noted.
 
 **MCP Call:**
 ```
 Tool: redmineflux_issue_template_update_template
 Params:
-  template_id: <ID from TC-RIT-012>
+  template_id: <ID from TC-RIT-101>
   is_active: "false"
 ```
 
@@ -390,7 +390,7 @@ Params:
 
 ---
 
-## TC-RIT-014 — Validation: Admin attempts to create template without required fields
+## TC-RIT-103 — Validation: Admin attempts to create template without required fields
 
 **Feature:** Template Validation Rules
 **User Role:** Admin (via `redmineflux` MCP server)
@@ -422,17 +422,17 @@ Params:
 
 ---
 
-## TC-RIT-015 — Admin deletes a template and verifies it no longer exists
+## TC-RIT-104 — Admin deletes a template and verifies it no longer exists
 
 **Feature:** Delete Template
 **User Role:** Admin (via `redmineflux` MCP server)
-**Precondition:** All prior TCs passed. Using TC-RIT-012 template (rich-text, currently inactive).
+**Precondition:** All prior TCs passed. Using TC-RIT-101 template (rich-text, currently inactive).
 
 **Step 1 — Delete:**
 ```
 Tool: redmineflux_issue_template_delete_template
 Params:
-  template_id: <ID from TC-RIT-012>
+  template_id: <ID from TC-RIT-101>
 ```
 
 **Expected Result (Step 1):**
@@ -442,7 +442,7 @@ Params:
 ```
 Tool: redmineflux_issue_template_get_template
 Params:
-  template_id: <ID from TC-RIT-012>
+  template_id: <ID from TC-RIT-101>
 ```
 
 **Expected Result (Step 2):**
@@ -454,7 +454,7 @@ Params:
 
 ---
 
-## TC-RIT-016 — User WITH permission can list and view templates
+## TC-RIT-105 — User WITH permission can list and view templates
 
 **Feature:** Permission-Based Access Control / Template Visibility Based on Permissions
 **User Role:** User with permission (via `redmineflux_user_perm` MCP server)
@@ -477,11 +477,11 @@ Params:
 
 ---
 
-## TC-RIT-017 — User WITH permission can create a template
+## TC-RIT-106 — User WITH permission can create a template
 
 **Feature:** Permission-Based Access Control (create)
 **User Role:** User with permission (via `redmineflux_user_perm` MCP server)
-**Precondition:** TC-RIT-016 passed. `redmineflux_user_perm` server active.
+**Precondition:** TC-RIT-105 passed. `redmineflux_user_perm` server active.
 
 **MCP Call:**
 ```
@@ -507,7 +507,7 @@ Params:
 
 ---
 
-## TC-RIT-018 — User with NO permission in target project is blocked from all template operations
+## TC-RIT-107 — User with NO permission in target project is blocked from all template operations
 
 **Feature:** Permission-Based Access Control / Project Membership Restriction
 **User Role:** test1 (@Aurora Grace) — has ALL template permissions in ztflux, ZERO template permissions in gdaplt
@@ -526,7 +526,7 @@ Params:
 ```
 Tool: redmineflux_issue_template_create_template
 Params:
-  name: "TC-RIT-018 No-Permission Test in GDA Platform"
+  name: "TC-RIT-107 No-Permission Test in GDA Platform"
   tracker_id: 1
   is_global: false
   project_ids: "gdaplt"
@@ -548,7 +548,7 @@ Params:
 Tool: redmineflux_issue_template_update_template
 Params:
   template_id: 80
-  name: "TC-RIT-018 No-Permission Edit Test (gdaplt)"
+  name: "TC-RIT-107 No-Permission Edit Test (gdaplt)"
 ```
 **Expected:** 403 — user has no edit_issue_templates permission in gdaplt.
 **Actual:** Template #80 updated successfully — FAIL → BUG-RIT-002
@@ -569,7 +569,7 @@ Params:
 
 ---
 
-## TC-RIT-019 — List inactive templates using is_active filter
+## TC-RIT-108 — List inactive templates using is_active filter
 
 **Feature:** Active/Inactive Visibility
 **User Role:** Admin (via `redmineflux` MCP server)
@@ -592,11 +592,11 @@ Params:
 
 ---
 
-## TC-RIT-020 — Reactivate a deactivated template
+## TC-RIT-109 — Reactivate a deactivated template
 
 **Feature:** Active/Inactive Toggle (reactivation)
 **User Role:** Admin (via `redmineflux` MCP server)
-**Precondition:** A template exists. TC-RIT-013 passed (deactivation works).
+**Precondition:** A template exists. TC-RIT-102 passed (deactivation works).
 
 **Step 1 — Create and deactivate:**
 ```
@@ -636,18 +636,18 @@ Tool: redmineflux_issue_template_list_templates — is_active: "true" → templa
 
 ---
 
-## TC-RIT-021 — Permitted user edits a template (Edit permission)
+## TC-RIT-110 — Permitted user edits a template (Edit permission)
 
 **Feature:** Permission-Based Access Control — Edit
 **User Role:** User with permission (@test1 — ztflux role)
-**Precondition:** TC-RIT-017 passed. Template #78 exists.
+**Precondition:** TC-RIT-106 passed. Template #78 exists.
 
 **MCP Call:**
 ```
 Tool: redmineflux_issue_template_update_template
 Params:
   template_id: 78
-  name: "TC-RIT-017 Permission Test Template (Edited by test1)"
+  name: "TC-RIT-106 Permission Test Template (Edited by test1)"
   issue_title: "Bug reported and edited by permitted user"
   description: "Updated by test1. Verifying EDIT permission works correctly."
 ```
@@ -662,7 +662,7 @@ Params:
 
 ---
 
-## TC-RIT-022 — Permitted user applies a template and creates an issue (Apply permission)
+## TC-RIT-111 — Permitted user applies a template and creates an issue (Apply permission)
 
 **Feature:** Permission-Based Access Control — Apply / Issue Creation Using Template
 **User Role:** User with permission (@test1 — ztflux role)
@@ -700,7 +700,7 @@ Params:
 
 ---
 
-## TC-RIT-023 — Permitted user deletes a template (Delete permission)
+## TC-RIT-112 — Permitted user deletes a template (Delete permission)
 
 **Feature:** Permission-Based Access Control — Delete
 **User Role:** User with permission (@test1 — ztflux role)
@@ -723,11 +723,11 @@ Params:
 
 ---
 
-## TC-RIT-024 — Permitted user can access global templates
+## TC-RIT-113 — Permitted user can access global templates
 
 **Feature:** Global vs Project Template Visibility / Template Visibility Based on Permissions
 **User Role:** User with permission (@test1 — ztflux role)
-**Precondition:** TC-RIT-016 passed.
+**Precondition:** TC-RIT-105 passed.
 
 **MCP Call:**
 ```
@@ -746,7 +746,7 @@ Params:
 
 ---
 
-## TC-RIT-025 — Permission boundary: user creates template for project where they have no permission
+## TC-RIT-114 — Permission boundary: user creates template for project where they have no permission
 
 **Feature:** Project Membership Restriction / Permission-Based Access Control
 **User Role:** User with permission in ztflux, NO permission in gdaplt (@test1)
@@ -777,30 +777,30 @@ Params:
 
 | TC ID | Feature | User | Status |
 |-------|---------|------|--------|
-| TC-RIT-001 | Create global template | Admin | PASS |
-| TC-RIT-002 | Create project-scoped template | Admin | PASS |
-| TC-RIT-003 | List all templates | Admin | PASS |
-| TC-RIT-004 | Get global template by ID | Admin | PASS |
-| TC-RIT-005 | Get project template by ID | Admin | PASS |
-| TC-RIT-006 | Filter list by project | Admin | FAIL → BUG-RIT-001 |
-| TC-RIT-007 | Edit template | Admin | PASS |
-| TC-RIT-008 | Verify persistence after update | Admin | PASS |
-| TC-RIT-009 | Assign template to multiple projects | Admin | PASS |
-| TC-RIT-010 | Verify multi-project assignment | Admin | PASS |
-| TC-RIT-011 | Apply template + create issue | Admin | PASS |
-| TC-RIT-012 | CKEditor/HTML content support | Admin | PASS |
-| TC-RIT-013 | Deactivate template | Admin | PASS |
-| TC-RIT-014 | Validation rules (required fields) | Admin | PASS |
-| TC-RIT-015 | Delete template + verify gone | Admin | PASS |
-| TC-RIT-019 | List inactive templates (is_active filter) | Admin | PASS |
-| TC-RIT-020 | Reactivate a deactivated template | Admin | PASS |
-| TC-RIT-016 | Permitted user lists templates (View permission) | User (perm — test1) | PASS |
-| TC-RIT-017 | Permitted user creates template (Create permission) | User (perm — test1) | PASS |
-| TC-RIT-021 | Permitted user edits template (Edit permission) | User (perm — test1) | PASS |
-| TC-RIT-022 | Permitted user applies template + creates issue (Apply permission) | User (perm — test1) | PASS |
-| TC-RIT-023 | Permitted user deletes template (Delete permission) | User (perm — test1) | PASS |
-| TC-RIT-024 | Global template access for permitted user | User (perm — test1) | PASS |
-| TC-RIT-025 | Permission boundary — create template for no-permission project (gdaplt) | test1 | FAIL → BUG-RIT-002 |
-| TC-RIT-018 | No-permission in target project — all ops allowed (should be blocked) | test1 in gdaplt | FAIL → BUG-RIT-002 |
+| TC-RIT-090 | Create global template | Admin | PASS |
+| TC-RIT-091 | Create project-scoped template | Admin | PASS |
+| TC-RIT-092 | List all templates | Admin | PASS |
+| TC-RIT-093 | Get global template by ID | Admin | PASS |
+| TC-RIT-094 | Get project template by ID | Admin | PASS |
+| TC-RIT-095 | Filter list by project | Admin | FAIL → BUG-RIT-001 |
+| TC-RIT-096 | Edit template | Admin | PASS |
+| TC-RIT-097 | Verify persistence after update | Admin | PASS |
+| TC-RIT-098 | Assign template to multiple projects | Admin | PASS |
+| TC-RIT-099 | Verify multi-project assignment | Admin | PASS |
+| TC-RIT-100 | Apply template + create issue | Admin | PASS |
+| TC-RIT-101 | CKEditor/HTML content support | Admin | PASS |
+| TC-RIT-102 | Deactivate template | Admin | PASS |
+| TC-RIT-103 | Validation rules (required fields) | Admin | PASS |
+| TC-RIT-104 | Delete template + verify gone | Admin | PASS |
+| TC-RIT-108 | List inactive templates (is_active filter) | Admin | PASS |
+| TC-RIT-109 | Reactivate a deactivated template | Admin | PASS |
+| TC-RIT-105 | Permitted user lists templates (View permission) | User (perm — test1) | PASS |
+| TC-RIT-106 | Permitted user creates template (Create permission) | User (perm — test1) | PASS |
+| TC-RIT-110 | Permitted user edits template (Edit permission) | User (perm — test1) | PASS |
+| TC-RIT-111 | Permitted user applies template + creates issue (Apply permission) | User (perm — test1) | PASS |
+| TC-RIT-112 | Permitted user deletes template (Delete permission) | User (perm — test1) | PASS |
+| TC-RIT-113 | Global template access for permitted user | User (perm — test1) | PASS |
+| TC-RIT-114 | Permission boundary — create template for no-permission project (gdaplt) | test1 | FAIL → BUG-RIT-002 |
+| TC-RIT-107 | No-permission in target project — all ops allowed (should be blocked) | test1 in gdaplt | FAIL → BUG-RIT-002 |
 | TC-N/A-001 | Clear Form Functionality | — | N/A (UI-only) |
 | TC-N/A-002 | Cancel Functionality | — | N/A (UI-only) |

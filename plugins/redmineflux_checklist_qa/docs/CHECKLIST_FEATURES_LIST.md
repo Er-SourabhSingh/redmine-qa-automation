@@ -7,20 +7,20 @@
 
 | # | Feature | Description | Covered by TC |
 |---|---------|-------------|---------------|
-| 1 | Multiple checklists per issue | Create more than one checklist within a single issue | TC-CHK-001/003 |
-| 2 | Checklist item edit | Edit an existing checklist item | TC-CHK-003 — PASS |
-| 3 | Checklist item delete | Delete a checklist item, with confirmation modal | TC-CHK-003 — PASS (100% translated modal) |
-| 4 | Progress bar | Visual completion percentage per checklist | TC-CHK-001 (seen, 0%, not driven to partial/complete) |
-| 5 | Sub-checklist items | Add sub-items under a checklist item | TC-CHK-001 (form inspected, not submitted) |
+| 1 | Multiple checklists per issue | Create more than one checklist within a single issue | TC-CHK-043/003 |
+| 2 | Checklist item edit | Edit an existing checklist item | TC-CHK-045 — PASS |
+| 3 | Checklist item delete | Delete a checklist item, with confirmation modal | TC-CHK-045 — PASS (100% translated modal) |
+| 4 | Progress bar | Visual completion percentage per checklist | TC-CHK-043 (seen, 0%, not driven to partial/complete) |
+| 5 | Sub-checklist items | Add sub-items under a checklist item | TC-CHK-043 (form inspected, not submitted) |
 | 6 | Checkbox complete/incomplete | Mark items done via checkbox | — (not exercised) |
-| 7 | Per-item Status dropdown | "New" / "In progress" / "Done" status options — exists on **sub-checklist items**, not top-level items (why it was missed earlier) | TC-CHK-004 — PASS, all 3 options ("Neu"/"In Bearbeitung"/"Erledigt") fully translated |
-| 8 | Expand/collapse checklist | Up-arrow icon toggles item visibility; checklists render **expanded by default** since production feature #120920 (2026-09-18), with a manually collapsed checklist remembered per-browser (`localStorage`) across reloads | TC-CHK-212 (toggle) — PASS. TC-CHK-223–228 (default-expanded, multi-checklist, persistence, AJAX re-render survival, per-browser scoping, Member-role) — all PASS, see `CHECKLIST_CHECKLIST_MANAGEMENT.md` |
-| 9 | Checklist Templates (admin) | Create/edit/delete reusable templates, tracker-based, template name field, multi-title support, "Weitere Unter-Checkliste hinzufügen"/"Checkliste hinzufügen" to add more title rows | TC-CHK-002 — PASS, fully re-verified on this server (create, list, delete + confirm modal + success message) |
-| 10 | Apply template to issue | "Aus Vorlage hinzufügen" action, template-picker modal | TC-CHK-003 — PASS |
-| 11 | "Block issue closing" setting | Admin toggle — prevents closing issue until checklist complete | TC-CHK-005 — PASS. Functionally enforced; full-Edit-form error message fully translated. (Inline quick-edit's toast wrapper adds an untranslated English prefix — filed as `BUG-INE-002` against the Inline Editor plugin, not this one.) |
+| 7 | Per-item Status dropdown | "New" / "In progress" / "Done" status options — exists on **sub-checklist items**, not top-level items (why it was missed earlier) | TC-CHK-046 — PASS, all 3 options ("Neu"/"In Bearbeitung"/"Erledigt") fully translated |
+| 8 | Expand/collapse checklist | Up-arrow icon toggles item visibility; checklists render **expanded by default** since production feature #120920 (2026-09-18), with a manually collapsed checklist remembered per-browser (`localStorage`) across reloads | TC-CHK-026 (toggle) — PASS. TC-CHK-037–228 (default-expanded, multi-checklist, persistence, AJAX re-render survival, per-browser scoping, Member-role) — all PASS, see `CHECKLIST_CHECKLIST_MANAGEMENT.md` |
+| 9 | Checklist Templates (admin) | Create/edit/delete reusable templates, tracker-based, template name field, multi-title support, "Weitere Unter-Checkliste hinzufügen"/"Checkliste hinzufügen" to add more title rows | TC-CHK-044 — PASS, fully re-verified on this server (create, list, delete + confirm modal + success message) |
+| 10 | Apply template to issue | "Aus Vorlage hinzufügen" action, template-picker modal | TC-CHK-045 — PASS |
+| 11 | "Block issue closing" setting | Admin toggle — prevents closing issue until checklist complete | TC-CHK-047 — PASS. Functionally enforced; full-Edit-form error message fully translated. (Inline quick-edit's toast wrapper adds an untranslated English prefix — filed as `BUG-INE-002` against the Inline Editor plugin, not this one.) |
 | 12 | Auto-calculate % done from checklist | Admin toggle | Label confirmed translated; functional behavior not exercised |
-| 13 | Checklisten-Verlauf (Checklist History) tab | Dedicated issue-detail tab showing checklist-specific activity | TC-CHK-003 — PASS |
-| 14 | "Apply from template" journal message | Activity-log entry when a template is applied to an issue | TC-CHK-006 — untranslated, unlike every other checklist journal message. Filed as `BUG-CHK-001`, then **closed per user direction** (already independently reported by the user before this session) — not a duplicate of anything else in this repo. |
+| 13 | Checklisten-Verlauf (Checklist History) tab | Dedicated issue-detail tab showing checklist-specific activity | TC-CHK-045 — PASS |
+| 14 | "Apply from template" journal message | Activity-log entry when a template is applied to an issue | TC-CHK-048 — untranslated, unlike every other checklist journal message. Filed as `BUG-CHK-001`, then **closed per user direction** (already independently reported by the user before this session) — not a duplicate of anything else in this repo. |
 
 ## Notes
 

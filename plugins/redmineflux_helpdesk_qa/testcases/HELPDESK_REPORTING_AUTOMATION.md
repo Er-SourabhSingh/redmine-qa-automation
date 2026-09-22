@@ -2,7 +2,7 @@
 
 > Source: `docs/HELPDESK_FEATURES_LIST.md` #48–51 (category I). Grounded in `docs/HELPDESK_USER_GUIDE.md` §18 (Reports), §19 (What runs in the background), §22 (REST API), and tester checklist §26 groups S (Reports), V (Background jobs), W (REST API).
 >
-> Background-job **outcomes** are already covered elsewhere and not repeated here: no-Sidekiq consequences in `HELPDESK_PLUGIN_INSTALLATION.md` (TC-HLP-009), auto-close behavior in `HELPDESK_EMAIL.md` (TC-HLP-150/151/153). This suite adds the job-cadence checks themselves (SLA monitor / email poller actually running on their intervals). REST API cases sample representative entities rather than re-testing every entity's CRUD a second time — the point of this suite's API cases is auth enforcement and permission parity with the UI, not exhaustive endpoint coverage.
+> Background-job **outcomes** are already covered elsewhere and not repeated here: no-Sidekiq consequences in `HELPDESK_PLUGIN_INSTALLATION.md` (TC-HLP-184), auto-close behavior in `HELPDESK_EMAIL.md` (TC-HLP-077/151/153). This suite adds the job-cadence checks themselves (SLA monitor / email poller actually running on their intervals). REST API cases sample representative entities rather than re-testing every entity's CRUD a second time — the point of this suite's API cases is auth enforcement and permission parity with the UI, not exhaustive endpoint coverage.
 
 ## Plugin
 - Name: redmineflux_helpdesk
@@ -16,7 +16,7 @@
 
 ---
 
-### TC-HLP-181: All five report tabs load
+### TC-HLP-261: All five report tabs load
 
 **User Role:** Agent with `view_helpdesk`
 **Precondition:** Some tickets, SLAs, and agents exist with activity to report on.
@@ -28,11 +28,11 @@
 **Expected Result:**
 - All five tabs load without error
 
-CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS, with a precondition correction — see BUG-HLP-057.** First attempted as `luna.blossom` (real Agent fixture, `view_helpdesk` only, no `manage_helpdesk`) exactly as this TC's own "User Role" specifies — she has no "Reports" link anywhere (no global Helpdesk Command Center menu at all, and the project-level Helpdesk sub-nav shows only Dashboard/Tickets/Knowledgebase). Per the standing rule that a hidden UI link never proves the backend is blocked, navigated her directly to `/rf_helpdesk/reports/tickets` — genuine `403 Forbidden`. So `view_helpdesk` alone cannot reach Reports at all, contradicting this TC's own stated role and `HELPDESK_USER_GUIDE.md` §20's permission table ("view_helpdesk: ...tickets and reports"). Re-ran with `manage.helpdesk.test` (`view_helpdesk` + `manage_helpdesk`, confirmed via the role's own checked-checkbox values, no `export_helpdesk_reports`) — all 5 tabs (Ticket Summary, SLA Analytics, Agent Performance, Organizations, Projects) loaded cleanly with real data, no errors. **Corrected User Role for this TC: Agent with `manage_helpdesk` (not `view_helpdesk` alone).** This is the same root-cause investigation that produced BUG-HLP-057 (see TC-HLP-197 below) — filed there rather than duplicating.
+CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS, with a precondition correction — see BUG-HLP-057.** First attempted as `luna.blossom` (real Agent fixture, `view_helpdesk` only, no `manage_helpdesk`) exactly as this TC's own "User Role" specifies — she has no "Reports" link anywhere (no global Helpdesk Command Center menu at all, and the project-level Helpdesk sub-nav shows only Dashboard/Tickets/Knowledgebase). Per the standing rule that a hidden UI link never proves the backend is blocked, navigated her directly to `/rf_helpdesk/reports/tickets` — genuine `403 Forbidden`. So `view_helpdesk` alone cannot reach Reports at all, contradicting this TC's own stated role and `HELPDESK_USER_GUIDE.md` §20's permission table ("view_helpdesk: ...tickets and reports"). Re-ran with `manage.helpdesk.test` (`view_helpdesk` + `manage_helpdesk`, confirmed via the role's own checked-checkbox values, no `export_helpdesk_reports`) — all 5 tabs (Ticket Summary, SLA Analytics, Agent Performance, Organizations, Projects) loaded cleanly with real data, no errors. **Corrected User Role for this TC: Agent with `manage_helpdesk` (not `view_helpdesk` alone).** This is the same root-cause investigation that produced BUG-HLP-057 (see TC-HLP-277 below) — filed there rather than duplicating.
 
 ---
 
-### TC-HLP-182: Date range and filters correctly narrow a report's figures
+### TC-HLP-262: Date range and filters correctly narrow a report's figures
 
 **User Role:** Agent
 **Precondition:** Tickets spanning more than one date range, assignee, status, priority, and project.
@@ -48,7 +48,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** As `manage.helpde
 
 ---
 
-### TC-HLP-183: SLA Analytics shows the full documented figure set
+### TC-HLP-263: SLA Analytics shows the full documented figure set
 
 **User Role:** Agent
 **Precondition:** A mix of on-track, breached, and resolved tickets across priorities and projects.
@@ -63,7 +63,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** As `manage.helpde
 
 ---
 
-### TC-HLP-184: Agent Performance shows the full documented figure set per agent
+### TC-HLP-264: Agent Performance shows the full documented figure set per agent
 
 **User Role:** Agent
 **Precondition:** Multiple agents with varying ticket loads, response times, and escalation history.
@@ -78,7 +78,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** As `manage.helpde
 
 ---
 
-### TC-HLP-185: Exporting a report produces correct CSV, Excel, and PDF files
+### TC-HLP-265: Exporting a report produces correct CSV, Excel, and PDF files
 
 **User Role:** Agent with `export_helpdesk_reports`
 **Precondition:** A report tab with data and filters applied.
@@ -95,7 +95,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS, all three formats.*
 
 ---
 
-### TC-HLP-186: The SLA monitor job picks up a breach within 2 minutes
+### TC-HLP-266: The SLA monitor job picks up a breach within 2 minutes
 
 **User Role:** N/A (system-driven, verified by Agent)
 **Precondition:** Sidekiq and Redis running; a ticket about to breach its SLA.
@@ -111,7 +111,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **FAIL — filed as BUG-HLP
 
 ---
 
-### TC-HLP-187: The email poller collects a new qualifying email within 5 minutes
+### TC-HLP-267: The email poller collects a new qualifying email within 5 minutes
 
 **User Role:** N/A (system-driven, verified by Agent)
 **Precondition:** Sidekiq running; incoming mail configured for a project.
@@ -123,11 +123,11 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **FAIL — filed as BUG-HLP
 **Expected Result:**
 - The ticket exists by the 6-minute check, confirming the poller ran within its 5-minute interval
 
-CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **FAIL by the same root cause as TC-HLP-186 — BUG-HLP-060, not independently re-confirmed via a live email send.** `email_checker` (`Helpdesk::EmailPollerWorker`) is registered on the exact same crashed `Sidekiq::Scheduled::Poller` thread as `sla_monitor` (all 3 cron jobs are logged as "added" via the identical mechanism, seconds before that thread's fatal `ArgumentError`) — since the thread that would fire it is confirmed dead for the life of the process, `email_checker` cannot be running on its cron either. Not re-verified with an actual email round-trip this session (the failure mode is already conclusively demonstrated at the mechanism level for TC-HLP-186); `HELPDESK_MEMORY.md`'s own prior record confirms this exact job worked correctly earlier in this engagement, before whatever gem-version drift introduced this regression — see BUG-HLP-060 for the full analysis.
+CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **FAIL by the same root cause as TC-HLP-266 — BUG-HLP-060, not independently re-confirmed via a live email send.** `email_checker` (`Helpdesk::EmailPollerWorker`) is registered on the exact same crashed `Sidekiq::Scheduled::Poller` thread as `sla_monitor` (all 3 cron jobs are logged as "added" via the identical mechanism, seconds before that thread's fatal `ArgumentError`) — since the thread that would fire it is confirmed dead for the life of the process, `email_checker` cannot be running on its cron either. Not re-verified with an actual email round-trip this session (the failure mode is already conclusively demonstrated at the mechanism level for TC-HLP-266); `HELPDESK_MEMORY.md`'s own prior record confirms this exact job worked correctly earlier in this engagement, before whatever gem-version drift introduced this regression — see BUG-HLP-060 for the full analysis.
 
 ---
 
-### TC-HLP-188: An authenticated REST API request with a valid API key succeeds
+### TC-HLP-268: An authenticated REST API request with a valid API key succeeds
 
 **User Role:** Agent (via API key)
 **Precondition:** REST API enabled at Administration › Settings › API; agent's API key known.
@@ -142,7 +142,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Confirmed `/helpd
 
 ---
 
-### TC-HLP-189: Tickets — full CRUD plus merge via the REST API
+### TC-HLP-269: Tickets — full CRUD plus merge via the REST API
 
 **User Role:** Agent (via API key)
 **Precondition:** Valid API key with helpdesk access.
@@ -151,13 +151,13 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Confirmed `/helpd
 1. `POST` a new ticket, `GET` it back (list + show), `PUT` an update, then `POST` a merge of two tickets, then `DELETE` one
 
 **Expected Result:**
-- Every operation succeeds and matches the equivalent UI behavior (e.g. the created ticket is visible in the UI ticket list; the merge carries history as in TC-HLP-025)
+- Every operation succeeds and matches the equivalent UI behavior (e.g. the created ticket is visible in the UI ticket list; the merge carries history as in TC-HLP-379)
 
 CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Note: the request body must be flat top-level params (`{project_id, subject, ...}`), not nested under a `ticket` key — confirmed via the Swagger spec's own schema description ("Sent as flat top-level params, not nested under a root key"); also discovered the Support tracker's required custom field ("test", cf_5) must be supplied via `custom_field_values: {"5": "..."}." or creation correctly fails with `422`/`field_errors`. Once using the correct shape: `POST /tickets` → `201`, ticket #325 created; `GET /tickets/325` → `200`, correct subject; `PUT /tickets/325` → `200`, subject updated correctly; created a second ticket #326 the same way; `POST /tickets/326/merge {merge_into_id: 325}` → `200`, `{"message":"Tickets merged successfully.","target_id":325}`; `DELETE /tickets/325` → `200`; `GET /tickets/325` afterward → `404`, confirming genuine deletion. Verified the merge via UI on #326: status genuinely "Closed", with a real History entry "Status changed from New to Closed" / "Merged into ticket #325." — a real, meaningful merge action, even though (per BUG-HLP-017) there's no UI control to trigger it manually.
 
 ---
 
-### TC-HLP-190: Conversations — list and create a reply via the REST API
+### TC-HLP-270: Conversations — list and create a reply via the REST API
 
 **User Role:** Agent (via API key)
 **Precondition:** An existing ticket.
@@ -173,7 +173,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PARTIAL FAIL — filed as
 
 ---
 
-### TC-HLP-191: SLA status — show, pause, resume, escalate via the REST API
+### TC-HLP-271: SLA status — show, pause, resume, escalate via the REST API
 
 **User Role:** Agent (via API key)
 **Precondition:** A ticket with an active SLA.
@@ -190,7 +190,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** `GET /tickets/301
 
 ---
 
-### TC-HLP-192: Full CRUD on Organizations and SLAs via the REST API matches UI behavior
+### TC-HLP-272: Full CRUD on Organizations and SLAs via the REST API matches UI behavior
 
 **User Role:** Admin or Agent with `manage_helpdesk` (via API key)
 **Precondition:** Valid API key.
@@ -206,7 +206,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Organization body
 
 ---
 
-### TC-HLP-193: `process_macros` substitutes correctly against a real ticket via the API
+### TC-HLP-273: `process_macros` substitutes correctly against a real ticket via the API
 
 **User Role:** Agent (via API key)
 **Precondition:** A canned response containing macros; a real ticket.
@@ -215,28 +215,28 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Organization body
 1. Call the `process_macros` endpoint with the canned response's body and the target ticket
 
 **Expected Result:**
-- Returns the body with every macro substituted with real values, matching what the UI would produce (TC-HLP-158)
+- Returns the body with every macro substituted with real values, matching what the UI would produce (TC-HLP-002)
 
-CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** `POST /canned_responses/9/process_macros {issue_id: 301}` → `200`, `{"data":{"canned_response_id":9,"original_content":"...","processed_content":"Hi Vikram Reddy,\n\nWe're closing ticket ##301 (\"Webhook retries firing twice for the same event\") as resolved...\nThanks,\nClaire Dubois - NovaCrest Support"}}`. All macros substituted with real ticket #301 data (customer, subject, assignee). The doubled `##301` is not a defect: `{{ticket_id}}` itself expands to `#301` (leading `#` included), exactly matching `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-158's own established/confirmed convention (`{{ticket_id}}` → `#1042`-style) — this canned response's own template text happened to write a literal `#` immediately before the macro (`"ticket #{{ticket_id}}"`), so the doubled hash is a template-authoring artifact, not an API/macro-engine bug. Substitution logic is identical between the UI's Reply-box macro insertion and this API endpoint.
+CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** `POST /canned_responses/9/process_macros {issue_id: 301}` → `200`, `{"data":{"canned_response_id":9,"original_content":"...","processed_content":"Hi Vikram Reddy,\n\nWe're closing ticket ##301 (\"Webhook retries firing twice for the same event\") as resolved...\nThanks,\nClaire Dubois - NovaCrest Support"}}`. All macros substituted with real ticket #301 data (customer, subject, assignee). The doubled `##301` is not a defect: `{{ticket_id}}` itself expands to `#301` (leading `#` included), exactly matching `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-002's own established/confirmed convention (`{{ticket_id}}` → `#1042`-style) — this canned response's own template text happened to write a literal `#` immediately before the macro (`"ticket #{{ticket_id}}"`), so the doubled hash is a template-authoring artifact, not an API/macro-engine bug. Substitution logic is identical between the UI's Reply-box macro insertion and this API endpoint.
 
 ---
 
-### TC-HLP-194: `sla_analytics` returns the SLA report as JSON matching the UI
+### TC-HLP-274: `sla_analytics` returns the SLA report as JSON matching the UI
 
 **User Role:** Agent (via API key)
-**Precondition:** Same dataset as TC-HLP-183.
+**Precondition:** Same dataset as TC-HLP-263.
 
 **Steps:**
-1. Call the `sla_analytics` API endpoint with the same date range/filters as TC-HLP-183
+1. Call the `sla_analytics` API endpoint with the same date range/filters as TC-HLP-263
 
 **Expected Result:**
 - The JSON figures (compliance %, breach counts, etc.) match what the SLA Analytics UI tab shows for the same filters
 
-CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** `GET /sla_analytics` (no filters, defaults to the last 30 days per the Swagger spec) → `200`: `total_breaches: 47`, `resolution.compliance_pct: 66.3` (55/83) — both exactly match TC-HLP-183's UI figures verbatim ("Total Breaches 47", "Resolution SLA 66.3% (55/83 met)"). `total_tickets: 320` (vs. TC-183's 319) and `response.compliance_pct: 71.2`/`47/66 met` (vs. TC-183's `70.8%`/`46/65 met`) both drifted by exactly +1, fully explained by this same session's own intervening TC-HLP-190/191 API testing (the `conversations` reply on #301 triggered one real "First Response Given" event, and the ticket itself already existed) — not an unexplained discrepancy. Re-ran with an explicit wide date range (`2020-01-01`..`2026-12-31`) and got identical figures, confirming the default 30-day window already covers this dataset. `breach_by_priority`/`breach_by_project` arrays match the UI's own tables row-for-row (Normal 290/44, Helpdesk QA Alpha 83/20, etc.).
+CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** `GET /sla_analytics` (no filters, defaults to the last 30 days per the Swagger spec) → `200`: `total_breaches: 47`, `resolution.compliance_pct: 66.3` (55/83) — both exactly match TC-HLP-263's UI figures verbatim ("Total Breaches 47", "Resolution SLA 66.3% (55/83 met)"). `total_tickets: 320` (vs. TC-183's 319) and `response.compliance_pct: 71.2`/`47/66 met` (vs. TC-183's `70.8%`/`46/65 met`) both drifted by exactly +1, fully explained by this same session's own intervening TC-HLP-270/191 API testing (the `conversations` reply on #301 triggered one real "First Response Given" event, and the ticket itself already existed) — not an unexplained discrepancy. Re-ran with an explicit wide date range (`2020-01-01`..`2026-12-31`) and got identical figures, confirming the default 30-day window already covers this dataset. `breach_by_priority`/`breach_by_project` arrays match the UI's own tables row-for-row (Normal 290/44, Helpdesk QA Alpha 83/20, etc.).
 
 ---
 
-### TC-HLP-195: `/helpdesk/swagger` loads for an administrator and "Try it out" works
+### TC-HLP-275: `/helpdesk/swagger` loads for an administrator and "Try it out" works
 
 **User Role:** Administrator
 **Precondition:** REST API enabled.
@@ -249,7 +249,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** `GET /sla_analyti
 - The Swagger UI loads with full endpoint documentation
 - Executing a request via "Try it out" returns a real, correct response
 
-CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** `/helpdesk/swagger` loads a full interactive Swagger UI (all endpoint groups documented: Tickets, Conversations, SLA Status, Organizations, SLAs, Canned Responses, SLA Analytics, etc.), served from `/helpdesk/swagger_spec` which itself required the real admin session (not just an API key — a plain `fetch` with only the API key header, no session cookie, got back the ordinary Redmine HTML shell instead of the OAS JSON — relevant context for TC-HLP-200 below). Expanded `GET /tickets`, clicked **Try it out**: first execution attempt (no auth applied yet) correctly got a real `401` back from the live server, proving Swagger's own session cookie isn't itself sufficient for the actual API endpoints — only the documented `X-Redmine-API-Key` header is. Used the **Authorize** dialog's `ApiKeyHeader` field with the admin key, re-executed: real **200**, curl command shown as `curl -X 'GET' 'http://localhost:3012/helpdesk/api/v1/tickets?page=1&per_page=25' -H 'accept: application/json'`, and the Response body panel showed genuine live data — 25 real tickets (ids 326 down to 301, real subjects/authors/assignees/custom fields) plus `meta: {total_count:320, page:1, per_page:25, total_pages:13}` — not a mocked/static example. "Try it out" is a real, working request executor, not just documentation.
+CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** `/helpdesk/swagger` loads a full interactive Swagger UI (all endpoint groups documented: Tickets, Conversations, SLA Status, Organizations, SLAs, Canned Responses, SLA Analytics, etc.), served from `/helpdesk/swagger_spec` which itself required the real admin session (not just an API key — a plain `fetch` with only the API key header, no session cookie, got back the ordinary Redmine HTML shell instead of the OAS JSON — relevant context for TC-HLP-280 below). Expanded `GET /tickets`, clicked **Try it out**: first execution attempt (no auth applied yet) correctly got a real `401` back from the live server, proving Swagger's own session cookie isn't itself sufficient for the actual API endpoints — only the documented `X-Redmine-API-Key` header is. Used the **Authorize** dialog's `ApiKeyHeader` field with the admin key, re-executed: real **200**, curl command shown as `curl -X 'GET' 'http://localhost:3012/helpdesk/api/v1/tickets?page=1&per_page=25' -H 'accept: application/json'`, and the Response body panel showed genuine live data — 25 real tickets (ids 326 down to 301, real subjects/authors/assignees/custom fields) plus `meta: {total_count:320, page:1, per_page:25, total_pages:13}` — not a mocked/static example. "Try it out" is a real, working request executor, not just documentation.
 
 ---
 
@@ -257,7 +257,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** `/helpdesk/swagge
 
 ---
 
-### TC-HLP-196: The REST API refuses a request with no or an invalid API key
+### TC-HLP-276: The REST API refuses a request with no or an invalid API key
 
 **User Role:** N/A (unauthenticated)
 **Precondition:** None.
@@ -273,7 +273,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** `GET /tickets` wi
 
 ---
 
-### TC-HLP-197: Exporting a report is refused for a role without `export_helpdesk_reports`
+### TC-HLP-277: Exporting a report is refused for a role without `export_helpdesk_reports`
 
 **User Role:** Agent whose role has `view_helpdesk` but not `export_helpdesk_reports`
 **Precondition:** Viewing any report tab.
@@ -285,7 +285,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **investigated in full — 
 
 ---
 
-### TC-HLP-198: The REST API enforces the UI's admin-only rule on Email Config
+### TC-HLP-278: The REST API enforces the UI's admin-only rule on Email Config
 
 **User Role:** Manager with `manage_helpdesk` but not an administrator (via API key)
 **Precondition:** Valid API key for this non-admin user.
@@ -300,7 +300,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Using `manage.hel
 
 ---
 
-### TC-HLP-199: The REST API enforces customer data isolation
+### TC-HLP-279: The REST API enforces customer data isolation
 
 **User Role:** Client (Customer, via API key, if customers have API access — otherwise verify the key is refused entirely)
 **Precondition:** Two customers, each with their own tickets.
@@ -311,13 +311,13 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Using `manage.hel
 
 **Expected Result:**
 - Customer A cannot retrieve Customer B's ticket
-- The tickets list, if accessible at all, contains only Customer A's own tickets — matching the UI's restricted customer view (`HELPDESK_TICKET_LIST_FILTERS_COLUMNS.md` TC-HLP-051)
+- The tickets list, if accessible at all, contains only Customer A's own tickets — matching the UI's restricted customer view (`HELPDESK_TICKET_LIST_FILTERS_COLUMNS.md` TC-HLP-407)
 
 CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **investigated in full — cannot be executed as scoped; root cause filed as BUG-HLP-059.** `alpha.customer`'s own `/my/account` has no "API access key" section at all (present side-by-side for `admin` and for the Agent-role `manage.helpdesk.test`), and `/my/api_key` silently redirects away instead of revealing/generating a key — customers have no self-service way to obtain a key. Tried the documented fallback (session-cookie auth, listed in the Swagger spec's own `info.description` as a valid auth method): `alpha.customer`'s real logged-in session (`credentials:'include'`) got `401 "Unauthorized. Provide a valid X-Redmine-API-Key header."` on her own ticket #1, ticket #301, and the tickets list — all three refused identically. To rule out a customer-specific restriction, retested the exact same session-only call as full **admin** (a real, valid, active session) → same `401` on all endpoints; the identical admin account's API key (header or `?key=` query param) works normally (`200`) on the same URLs. So session-cookie auth is universally broken for every role on these endpoints, not customer-specific — filed as **BUG-HLP-059**. Net effect: there is no way for any customer to invoke the API at all on this instance, so the isolation question this TC asks (does Customer A's key leak Customer B's ticket) has no real key to test with — the TC's own "otherwise verify the key is refused entirely" fallback is satisfied in the strongest possible sense (refused before a key can even exist), but this cannot be called a clean PASS since the underlying access model itself is broken, not intentionally locked down.
 
 ---
 
-### TC-HLP-200: `/helpdesk/swagger` is refused for a non-administrator
+### TC-HLP-280: `/helpdesk/swagger` is refused for a non-administrator
 
 **User Role:** Agent with `manage_helpdesk` but not an administrator
 **Precondition:** REST API enabled.
@@ -328,7 +328,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **investigated in full — 
 **Expected Result:**
 - Access is refused — this page is admin-only regardless of helpdesk role, same as the UI's email configuration rule
 
-CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** As `manage.helpdesk.test` (real `manage_helpdesk`, not an administrator), navigating directly to `/helpdesk/swagger` returned a genuine **403 Forbidden** (page title "403 - Redmine", HTTP status 403) — not a hidden link, an actual refused page load. The underlying `/helpdesk/swagger_spec` JSON endpoint gave the same real `403` when fetched with this user's own session. Confirms swagger docs are gated on Redmine admin status specifically, exactly like the Email Configuration rule in TC-HLP-198 — `manage_helpdesk` does not grant access to either.
+CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** As `manage.helpdesk.test` (real `manage_helpdesk`, not an administrator), navigating directly to `/helpdesk/swagger` returned a genuine **403 Forbidden** (page title "403 - Redmine", HTTP status 403) — not a hidden link, an actual refused page load. The underlying `/helpdesk/swagger_spec` JSON endpoint gave the same real `403` when fetched with this user's own session. Confirms swagger docs are gated on Redmine admin status specifically, exactly like the Email Configuration rule in TC-HLP-278 — `manage_helpdesk` does not grant access to either.
 
 ---
 
@@ -336,7 +336,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** As `manage.helpde
 
 ---
 
-### TC-HLP-201: SLA Analytics' breached-tickets list matches tickets actually breached
+### TC-HLP-281: SLA Analytics' breached-tickets list matches tickets actually breached
 
 **User Role:** Agent
 **Precondition:** A known set of tickets deliberately breached during `HELPDESK_SLA_ESCALATION.md` testing.
@@ -351,7 +351,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** SLA Analytics' "B
 
 ---
 
-### TC-HLP-202: Report charts render without getting stuck on a loading animation
+### TC-HLP-282: Report charts render without getting stuck on a loading animation
 
 **User Role:** Agent
 **Precondition:** Any report tab with data.
@@ -362,11 +362,11 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** SLA Analytics' "B
 **Expected Result:**
 - Charts render their final state promptly — no indefinite loading spinner left on screen (regression check against a known past bug class)
 
-CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Navigated fresh to the SLA Analytics tab (`/rf_helpdesk/reports/sla`) as admin — the accessibility snapshot taken immediately after navigation already shows the full final page content (all figure headings, the "Weekly Compliance Trend" chart heading, and the complete "Breached Tickets (Recent 20)" table with real rows) with no "loading"/spinner text present anywhere in the tree. Consistent with TC-HLP-183/184's own prior confirmation that every report tab loads its full real dataset directly — no stuck-loading regression observed.
+CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Navigated fresh to the SLA Analytics tab (`/rf_helpdesk/reports/sla`) as admin — the accessibility snapshot taken immediately after navigation already shows the full final page content (all figure headings, the "Weekly Compliance Trend" chart heading, and the complete "Breached Tickets (Recent 20)" table with real rows) with no "loading"/spinner text present anywhere in the tree. Consistent with TC-HLP-263/184's own prior confirmation that every report tab loads its full real dataset directly — no stuck-loading regression observed.
 
 ---
 
-### TC-HLP-203: REST API list counts are consistent with the UI's own counts under the same filter
+### TC-HLP-283: REST API list counts are consistent with the UI's own counts under the same filter
 
 **User Role:** Agent (via API key and UI, same session)
 **Precondition:** A known filtered ticket set.
@@ -384,12 +384,12 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** UI: `/projects/he
 
 ## Evidence Map
 
-- Case ID: TC-HLP-181 – TC-HLP-203
+- Case ID: TC-HLP-261 – TC-HLP-283
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`
 
 ## Deferred / Out of Scope
 
-- Independently re-testing full CRUD via the REST API for every remaining entity (Customers, Project customers, Support levels, Products, Holidays, Canned responses, Prepaid support hours) — each follows the same pattern already exercised in TC-HLP-189/192; only sampled here, not exhaustively repeated per entity.
+- Independently re-testing full CRUD via the REST API for every remaining entity (Customers, Project customers, Support levels, Products, Holidays, Canned responses, Prepaid support hours) — each follows the same pattern already exercised in TC-HLP-269/192; only sampled here, not exhaustively repeated per entity.
 - Running background jobs by hand via their rake tasks and confirming parity with the scheduled run — belongs to the Rake Tasks suite (feature #54).

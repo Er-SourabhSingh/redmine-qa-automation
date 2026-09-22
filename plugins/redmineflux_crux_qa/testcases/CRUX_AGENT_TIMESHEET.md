@@ -2,9 +2,9 @@
 
 > Source: `redmineflux-crux-core/agents/timesheet.md` (full file); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
-> **Execution readiness: UNBLOCKED — executed live 2026-09-16.** Read surface (TC-CRX-121) and both negative cases (TC-CRX-125/126 step 1) PASS. **Write actions hit BUG-CRX-020 again** (fabricated-confirm proposals with no real button) — reproduced on `create_schema` and `settings_update`, blocking TC-CRX-122/123/124 and the confirm half of TC-CRX-126.
+> **Execution readiness: UNBLOCKED — executed live 2026-09-16.** Read surface (TC-CRX-077) and both negative cases (TC-CRX-081/126 step 1) PASS. **Write actions hit BUG-CRX-020 again** (fabricated-confirm proposals with no real button) — reproduced on `create_schema` and `settings_update`, blocking TC-CRX-078/123/124 and the confirm half of TC-CRX-082.
 >
-> **2026-09-17 update:** TC-CRX-147–152 (gap cases) BLOCKED mid-session by a platform-wide Ask Crux provider outage (OpenRouter key returning 401 Unauthorized, confirmed via native `/crux/admin/keys` diagnostic — not a plugin defect). A full fixture was built and verified genuine before the outage hit: approval schema "Two-Level Approval" (ID 1, Manager L1 / Developer L2), new user `crux.developer` (id 8, Developer role), team "Retest Squad" assigned the schema. Notably, this schema's create-confirm proposal rendered with 2 real buttons and genuinely persisted — contradicting the 2026-09-16 note below that `create_schema` reliably hit BUG-CRX-020; see TC-CRX-147 for detail. Resume TC-CRX-147 step 2 once a working provider key is restored.
+> **2026-09-17 update:** TC-CRX-083–152 (gap cases) BLOCKED mid-session by a platform-wide Ask Crux provider outage (OpenRouter key returning 401 Unauthorized, confirmed via native `/crux/admin/keys` diagnostic — not a plugin defect). A full fixture was built and verified genuine before the outage hit: approval schema "Two-Level Approval" (ID 1, Manager L1 / Developer L2), new user `crux.developer` (id 8, Developer role), team "Retest Squad" assigned the schema. Notably, this schema's create-confirm proposal rendered with 2 real buttons and genuinely persisted — contradicting the 2026-09-16 note below that `create_schema` reliably hit BUG-CRX-020; see TC-CRX-083 for detail. Resume TC-CRX-083 step 2 once a working provider key is restored.
 
 ## Plugin
 - Name: redmineflux_crux (Time Agent, Timesheet plugin domain)
@@ -18,7 +18,7 @@
 
 ---
 
-### TC-CRX-121: Read surface — list, report, approval dashboard, audit log
+### TC-CRX-077: Read surface — list, report, approval dashboard, audit log
 
 **User Role:** Logged-in user with `use_ask_crux` and Timesheet plugin access.
 **Precondition:** Timesheet plugin installed with real submitted timesheets.
@@ -40,9 +40,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-122: Submit, approve, reject, withdraw — each naming the exact timesheet/user/period
+### TC-CRX-078: Submit, approve, reject, withdraw — each naming the exact timesheet/user/period
 
-**User Role:** Same as TC-CRX-121.
+**User Role:** Same as TC-CRX-077.
 **Precondition:** A named user/period.
 
 **Steps:**
@@ -54,13 +54,13 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 **Expected Result:**
 - Each action targets the exact named timesheet/user/period/team — verify state changes correctly (submitted → approved/rejected/withdrawn) and persists.
 
-**Result: BLOCKED** — precondition (a submittable timesheet) requires a real schema/team first, which could not be created (BUG-CRX-020, see TC-CRX-124). Not attempted.
+**Result: BLOCKED** — precondition (a submittable timesheet) requires a real schema/team first, which could not be created (BUG-CRX-020, see TC-CRX-080). Not attempted.
 
 ---
 
-### TC-CRX-123: Deadline lock/unlock for a specific period
+### TC-CRX-079: Deadline lock/unlock for a specific period
 
-**User Role:** Same as TC-CRX-121.
+**User Role:** Same as TC-CRX-077.
 **Precondition:** None.
 
 **Steps:**
@@ -75,9 +75,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-124: Schema and team management — full lifecycle including assign/unassign
+### TC-CRX-080: Schema and team management — full lifecycle including assign/unassign
 
-**User Role:** Same as TC-CRX-121.
+**User Role:** Same as TC-CRX-077.
 **Precondition:** None.
 
 **Steps:**
@@ -101,9 +101,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-125: `delete` (timesheet) requires the user to name the specific one
+### TC-CRX-081: `delete` (timesheet) requires the user to name the specific one
 
-**User Role:** Same as TC-CRX-121.
+**User Role:** Same as TC-CRX-077.
 **Precondition:** None.
 
 **Steps:**
@@ -119,9 +119,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-126: `settings_update` (plugin-wide) requires clear confirmation of intent
+### TC-CRX-082: `settings_update` (plugin-wide) requires clear confirmation of intent
 
-**User Role:** Same as TC-CRX-121.
+**User Role:** Same as TC-CRX-077.
 **Precondition:** None.
 
 **Steps:**
@@ -143,7 +143,7 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-147: Sequential approval order — a higher-level approver cannot act before the lower level has decided
+### TC-CRX-083: Sequential approval order — a higher-level approver cannot act before the lower level has decided
 
 **User Role:** Logged-in user with `use_ask_crux` and Timesheet plugin access; a schema with 2+ approval levels.
 **Precondition:** A team member whose role exists in a multi-level approval schema; a submitted (not yet approved) timesheet for that member.
@@ -170,7 +170,7 @@ Fixture built and confirmed genuine this session (2026-09-17), then testing halt
 
 ---
 
-### TC-CRX-148: Self-approval is blocked when the submitter is also the final-level approver
+### TC-CRX-084: Self-approval is blocked when the submitter is also the final-level approver
 
 **User Role:** A user configured as both submitter and final-level approver for their own timesheet; separately, admin.
 **Precondition:** A schema where one user's role is the final approval level, and that same user is the submitter.
@@ -190,9 +190,9 @@ Not attempted — the Ask Crux provider outage (see TC-147) halted all chat-base
 
 ---
 
-### TC-CRX-149: Withdrawal is refused once the minimum approval level has already approved
+### TC-CRX-085: Withdrawal is refused once the minimum approval level has already approved
 
-**User Role:** Same as TC-CRX-147.
+**User Role:** Same as TC-CRX-083.
 **Precondition:** A submitted timesheet that has already received its minimum-level approval.
 
 **Steps:**
@@ -208,9 +208,9 @@ Not attempted — halted by the Ask Crux provider outage (see TC-147) before thi
 
 ---
 
-### TC-CRX-150: `Disable Log/Edit After Approval` blocks a chat-driven edit attempt
+### TC-CRX-086: `Disable Log/Edit After Approval` blocks a chat-driven edit attempt
 
-**User Role:** Same as TC-CRX-147.
+**User Role:** Same as TC-CRX-083.
 **Precondition:** The `Disable Log/Edit After Approval` setting is ON; a timesheet already fully approved.
 
 **Steps:**
@@ -226,9 +226,9 @@ Not attempted — halted by the Ask Crux provider outage (see TC-147) before thi
 
 ---
 
-### TC-CRX-151: Auto-Approve Threshold — the agent's `approve` proposal correctly reflects an already-auto-approved timesheet
+### TC-CRX-087: Auto-Approve Threshold — the agent's `approve` proposal correctly reflects an already-auto-approved timesheet
 
-**User Role:** Same as TC-CRX-147.
+**User Role:** Same as TC-CRX-083.
 **Precondition:** `Auto-Approve Threshold` configured to N hours; a timesheet submitted with fewer than N hours logged.
 
 **Steps:**
@@ -244,7 +244,7 @@ Not attempted — halted by the Ask Crux provider outage (see TC-147) before thi
 
 ---
 
-### TC-CRX-152: Permission matrix — Time Agent, no-domain-permission approval-dashboard read, resolved with a real fixture
+### TC-CRX-088: Permission matrix — Time Agent, no-domain-permission approval-dashboard read, resolved with a real fixture
 
 **User Role:** `luna.blossom` (lacks `Manage Timesheet`), before/after a temporary grant.
 **Precondition:** A real submitted timesheet created by a *different* user, in a scope `luna.blossom` is not granted `Manage Timesheet` for.
@@ -269,8 +269,8 @@ Evidence (already-observed-2026-09-16, partial/inconclusive — quoted from `doc
 
 ## Evidence Map
 
-- Case IDs: TC-CRX-121 through TC-CRX-126 — 4/6 reached a definitive verdict (3 PASS: 121, 125, 126-gating; 1 FAIL: 124; 2 BLOCKED: 122, 123 — downstream of the same upstream bug); TC-CRX-126's confirm-mechanism half also FAIL.
-- Case IDs: TC-CRX-147 through TC-CRX-152 (gap cases, drafted 2026-09-16) — all 6 BLOCKED 2026-09-17 by a platform-wide Ask Crux provider outage (OpenRouter key 401 Unauthorized), not a plugin defect. Fixture (schema + team + roles) built and verified genuine before the outage; ready for immediate reuse next session.
+- Case IDs: TC-CRX-077 through TC-CRX-082 — 4/6 reached a definitive verdict (3 PASS: 121, 125, 126-gating; 1 FAIL: 124; 2 BLOCKED: 122, 123 — downstream of the same upstream bug); TC-CRX-082's confirm-mechanism half also FAIL.
+- Case IDs: TC-CRX-083 through TC-CRX-088 (gap cases, drafted 2026-09-16) — all 6 BLOCKED 2026-09-17 by a platform-wide Ask Crux provider outage (OpenRouter key 401 Unauthorized), not a plugin defect. Fixture (schema + team + roles) built and verified genuine before the outage; ready for immediate reuse next session.
 - Screenshots: bugs only (none captured — evidence via live chat transcript text and direct DOM inspection).
 - Log: session ses-143, 2026-09-16; session ses-040, 2026-09-17.
 - Bug reference: BUG-CRX-020 (fabricated-confirm proposals with no real button, reproduced on a fourth domain agent — Time Agent, 2 action types: `create_schema`, `settings_update`). Note: 2026-09-17's `create_schema` retest produced a genuine, real-button proposal that persisted correctly — consistent with this bug's already-documented inconsistent/intermittent behavior across other agents this session, not a contradiction requiring the bug to be closed.

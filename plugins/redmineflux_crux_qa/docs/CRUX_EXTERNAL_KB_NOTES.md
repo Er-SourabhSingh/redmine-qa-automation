@@ -21,7 +21,7 @@ whether the corresponding domain agent's `allowed_tools` (in
 `redmineflux-crux-core/agents/<id>.md`) can even exercise that rule, and whether this suite's
 existing `testcases/CRUX_AGENT_*.md` file already covers it. A "**GAP**" marker means: real
 documented behavior, tool exists to exercise it, but no existing TC does — a genuine candidate for
-`testcase-gap-writer` to draft.
+a new testcase to be drafted (directly in the main session, not via a subagent).
 
 ---
 
@@ -138,7 +138,7 @@ documented behavior, tool exists to exercise it, but no existing TC does — a g
 
 No redmineflux.com KB page exists for this plugin (confirmed via the full 19-plugin index fetch, 2026-09-16). Edge cases can only be sourced internally:
 - `trigger_build` is explicitly called out in the agent's own manifest as needing "the specific repo/branch to build — never speculatively." **No TC exists for a vague trigger request ("kick off a build") being refused/clarified rather than guessed at** — worth drafting directly from the manifest's own stated rule, KB-independent.
-- `CRUX_AGENT_DEVOPS_AND_BUDGET.md`'s TC-CRX-102 (a real build trigger) remains BLOCKED pending a dev-provided safe test repo — still true, not resolved by this pass.
+- `CRUX_AGENT_DEVOPS_AND_BUDGET.md`'s TC-CRX-024 (a real build trigger) remains BLOCKED pending a dev-provided safe test repo — still true, not resolved by this pass.
 
 ## 9. Budget & Audit (`redmineflux_budget_audit_*` — Budget Agent, `budget-audit.md`) — no public KB page
 

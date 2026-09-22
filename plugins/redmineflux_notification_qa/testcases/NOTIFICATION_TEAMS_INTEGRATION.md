@@ -21,7 +21,7 @@ follow, and they shape every case below:
 - **A Teams message cannot be retracted.** Anything posted in error has already been delivered.
 
 The KB states one protective rule explicitly: *"Private issues and private notes are not posted to Teams."*
-TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important cases here.
+TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important cases here.
 
 ## Preconditions
 
@@ -35,7 +35,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-401: Enable Teams globally with a webhook
+### TC-NTF-103: Enable Teams globally with a webhook
 
 **User Role:** Admin
 **Steps:**
@@ -47,7 +47,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-402: A new issue posts to Teams
+### TC-NTF-104: A new issue posts to Teams
 
 **User Role:** Member
 **Steps:**
@@ -58,7 +58,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-403: A note posts to Teams
+### TC-NTF-105: A note posts to Teams
 
 **User Role:** Member
 **Steps:**
@@ -69,7 +69,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-404: Field changes post to Teams
+### TC-NTF-106: Field changes post to Teams
 
 **User Role:** Member
 **Preconditions:** **Post issue updates** enabled.
@@ -82,7 +82,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-405: Post issue updates disabled
+### TC-NTF-107: Post issue updates disabled
 
 **User Role:** Admin then Member
 **Steps:**
@@ -93,7 +93,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-406: Display watchers option
+### TC-NTF-108: Display watchers option
 
 **User Role:** Admin then Member
 **Steps:**
@@ -106,7 +106,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-407: Message content is complete and correct
+### TC-NTF-109: Message content is complete and correct
 
 **User Role:** Member
 **Steps:**
@@ -124,7 +124,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-408: Private issues are not posted to Teams
+### TC-NTF-102: Private issues are not posted to Teams
 
 **User Role:** Member
 **Steps:**
@@ -139,7 +139,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-409: Private notes are not posted to Teams
+### TC-NTF-110: Private notes are not posted to Teams
 
 **User Role:** Member
 **Steps:**
@@ -156,7 +156,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-410: Enable the Teams Notifications project module
+### TC-NTF-111: Enable the Teams Notifications project module
 
 **User Role:** Manager
 **Steps:**
@@ -168,7 +168,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-411: Configure a project-specific webhook
+### TC-NTF-112: Configure a project-specific webhook
 
 **User Role:** Manager
 **Steps:**
@@ -180,7 +180,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-412: Project webhook wins over the global one
+### TC-NTF-113: Project webhook wins over the global one
 
 **User Role:** Member
 **Steps:**
@@ -194,7 +194,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-413: Falling back to the global webhook
+### TC-NTF-114: Falling back to the global webhook
 
 **User Role:** Manager then Member
 **Steps:**
@@ -205,7 +205,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-414: Parent project fallback
+### TC-NTF-115: Parent project fallback
 
 **User Role:** Member
 **Preconditions:** A parent project with its own Teams webhook and a sub-project with none.
@@ -220,7 +220,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-415: No webhook configured anywhere
+### TC-NTF-116: No webhook configured anywhere
 
 **User Role:** Member
 **Steps:**
@@ -236,7 +236,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-416: Invalid webhook URL
+### TC-NTF-117: Invalid webhook URL
 
 **User Role:** Admin
 **Steps:**
@@ -250,7 +250,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-417: Teams disabled globally
+### TC-NTF-118: Teams disabled globally
 
 **User Role:** Admin then Member
 **Steps:**
@@ -264,7 +264,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-418: Teams unreachable
+### TC-NTF-119: Teams unreachable
 
 **User Role:** Member
 **Steps:**
@@ -277,7 +277,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-419: Notification volume
+### TC-NTF-120: Notification volume
 
 **User Role:** Member
 **Steps:**
@@ -290,7 +290,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-420: Script and markup in issue content
+### TC-NTF-121: Script and markup in issue content
 
 **User Role:** Member
 **Steps:**
@@ -302,7 +302,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-421: Project settings access
+### TC-NTF-122: Project settings access
 
 **User Role:** Non-manager member
 **Steps:**
@@ -317,7 +317,7 @@ TC-NTF-408 and TC-NTF-409 exist to verify it, and they are the most important ca
 
 ---
 
-### TC-NTF-422: Disabled project notifications override Teams
+### TC-NTF-123: Disabled project notifications override Teams
 
 **User Role:** Manager then Member
 **Steps:**

@@ -8,7 +8,7 @@
   `_checklist.html.erb`) briefly renders its sub-list with `display: none` in the DOM while it has zero items —
   this file wasn't touched by the #120920 "expanded by default" fix. No visible consequence: an empty `<ul>` looks
   identical either way, and the existing "add first item" handler (`checklist.js` ~line 362) already force-sets
-  `display: block` the moment the first item is added. Not a bug — verified 2026-09-21, see TC-CHK-224 evidence.
+  `display: block` the moment the first item is added. Not a bug — verified 2026-09-21, see TC-CHK-038 evidence.
 
 ## Confirmed Working
 
@@ -18,7 +18,7 @@
   reload and AJAX re-renders triggered by mutations on *other* checklists, and clears correctly on re-expand (no
   stuck/accumulating state). The remembered state is scoped to the browser, not the Redmine account — confirmed
   by switching accounts in the same browser tab; no checklist item data leaked or differed between accounts, only
-  the cosmetic expand/collapse view. Full detail: `testcases/CHECKLIST_CHECKLIST_MANAGEMENT.md` TC-CHK-223–228.
+  the cosmetic expand/collapse view. Full detail: `testcases/CHECKLIST_CHECKLIST_MANAGEMENT.md` TC-CHK-037–228.
 
 - **Checklist Templates suite (23/23 TCs), 2026-09-21:** full CRUD (create/edit/delete/cancel-delete), tracker
   binding and rebinding, apply-to-issue (ordered, nested, additive not destructive, journaled, clean refusal on
@@ -35,11 +35,11 @@
   affect non-closed transitions, doesn't retroactively invalidate issues closed before the setting was enabled,
   re-evaluates live (deleting the blocking item unblocks immediately), and the error message is fully localized
   (confirmed in German: "Ticket kann nicht geschlossen werden, da unvollständige Checklisten vorhanden sind.").
-  **TC-CHK-511 finding:** a parent issue with an open subtask doesn't even offer closed statuses in its Status
+  **TC-CHK-011 finding:** a parent issue with an open subtask doesn't even offer closed statuses in its Status
   dropdown — this is Redmine's own core/workflow-level "no closing a parent with an open child" rule, completely
   independent of this plugin's checklist state (confirmed: the subtask's checklist being complete didn't change
   it, only the subtask itself being closed did). So the Checklist plugin's block-closing feature never gets a
-  chance to interact with that scenario on this instance. **TC-CHK-510 (REST API bypass) not executed** — needs
+  chance to interact with that scenario on this instance. **TC-CHK-010 (REST API bypass) not executed** — needs
   a real API key supplied out-of-band in a future session (see Progress Tracking suite note below for why).
 
 - **The plugin does not apply a uniform "project closed = read-only" guard across its controllers.** Confirmed
@@ -60,7 +60,7 @@
   on creation. Not a stored XSS for other viewers — a normal reload renders it safely escaped via
   `_checklist.html.erb`'s Rails auto-escaping — but a real client-side self-XSS. Check this exact pattern
   (raw-HTML-string + `.append()`/`.html()` vs `.text()`/`.innerText`) in any future `checklist.js` change.
-  Confirmed 2026-09-21 (TC-CHK-419) that the **template name/entries path does not share this bug** — templates
+  Confirmed 2026-09-21 (TC-CHK-111) that the **template name/entries path does not share this bug** — templates
   are fully server-rendered and correctly escaped everywhere (admin list, apply-picker, applied issue checklist,
   journal), including the raw `<script>` payload test. So this is specific to the manual-item creation AJAX
   handlers, not templates.

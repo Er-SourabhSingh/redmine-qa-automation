@@ -22,7 +22,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-301: All documented formatting options work
+### TC-RKB-028: All documented formatting options work
 
 **User Role:** Member with `manage_knowledgebase_pages`
 **Steps:**
@@ -38,7 +38,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-302: Formatting survives an edit round trip
+### TC-RKB-029: Formatting survives an edit round trip
 
 **User Role:** Member
 **Steps:**
@@ -51,7 +51,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-303: Images and links
+### TC-RKB-030: Images and links
 
 **User Role:** Member
 **Steps:**
@@ -63,7 +63,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-304: Code blocks preserve content exactly
+### TC-RKB-031: Code blocks preserve content exactly
 
 **User Role:** Member
 **Steps:**
@@ -74,7 +74,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-305: Large page content
+### TC-RKB-032: Large page content
 
 **User Role:** Member
 **Steps:**
@@ -89,7 +89,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-306: Auto-save indicator behaves as documented
+### TC-RKB-033: Auto-save indicator behaves as documented
 
 **User Role:** Member
 **Steps:**
@@ -101,7 +101,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-307: Auto-saved content survives leaving the page
+### TC-RKB-034: Auto-saved content survives leaving the page
 
 **User Role:** Member
 **Steps:**
@@ -112,7 +112,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-308: Auto-save does not create a version
+### TC-RKB-035: Auto-save does not create a version
 
 **User Role:** Member
 **Steps:**
@@ -126,7 +126,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-309: Auto-save failure is visible
+### TC-RKB-036: Auto-save failure is visible
 
 **User Role:** Member
 **Steps:**
@@ -143,7 +143,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-310: @mention dropdown lists active project members
+### TC-RKB-037: @mention dropdown lists active project members
 
 **User Role:** Member
 **Steps:**
@@ -155,7 +155,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-311: Selecting a user inserts the mention
+### TC-RKB-038: Selecting a user inserts the mention
 
 **User Role:** Member
 **Steps:**
@@ -166,7 +166,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-312: Mention email is sent on publish
+### TC-RKB-039: Mention email is sent on publish
 
 **User Role:** Member
 **Steps:**
@@ -179,7 +179,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-313: No email is sent while the page is only a draft
+### TC-RKB-040: No email is sent while the page is only a draft
 
 **User Role:** Member
 **Steps:**
@@ -191,7 +191,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-314: Re-publishing does not re-notify unchanged mentions
+### TC-RKB-041: Re-publishing does not re-notify unchanged mentions
 
 **User Role:** Member
 **Steps:**
@@ -204,7 +204,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-315: Mention notifications respect the General setting
+### TC-RKB-042: Mention notifications respect the General setting
 
 **User Role:** Admin then Member
 **Steps:**
@@ -219,7 +219,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-316: #issue dropdown lists open project issues
+### TC-RKB-043: #issue dropdown lists open project issues
 
 **User Role:** Member
 **Steps:**
@@ -230,7 +230,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-317: The mention renders as a working issue link
+### TC-RKB-044: The mention renders as a working issue link
 
 **User Role:** Member
 **Steps:**
@@ -241,7 +241,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-318: Linked page appears on the issue
+### TC-RKB-045: Linked page appears on the issue
 
 **User Role:** Member
 **Steps:**
@@ -253,7 +253,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-319: The link is removed automatically when the mention is removed
+### TC-RKB-046: The link is removed automatically when the mention is removed
 
 **User Role:** Member
 **Steps:**
@@ -266,7 +266,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-320: Multiple pages linked to one issue
+### TC-RKB-047: Multiple pages linked to one issue
 
 **User Role:** Member
 **Steps:**
@@ -281,7 +281,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-321: Related pages section respects page visibility
+### TC-RKB-048: Related pages section respects page visibility
 
 **User Role:** Member with `view_knowledgebase` only
 **Preconditions:** A **draft** (never published) page mentions an issue this user can see.
@@ -296,7 +296,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-322: Related pages section respects project boundaries
+### TC-RKB-049: Related pages section respects project boundaries
 
 **User Role:** Member of project A only
 **Preconditions:** A page in **private** project B mentions an issue that is visible in A (or a shared issue).
@@ -309,7 +309,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-323: Mentioning a user who cannot see the page
+### TC-RKB-050: Mentioning a user who cannot see the page
 
 **User Role:** Member
 **Steps:**
@@ -324,7 +324,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-324: Mentioning a non-existent user or issue
+### TC-RKB-051: Mentioning a non-existent user or issue
 
 **User Role:** Member
 **Steps:**
@@ -335,7 +335,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-325: Issue mention referencing an issue the reader cannot see
+### TC-RKB-052: Issue mention referencing an issue the reader cannot see
 
 **User Role:** Member A (can see issue #N) mentions it; Member B cannot see #N
 **Steps:**
@@ -347,7 +347,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-326: Script injection through editor content
+### TC-RKB-053: Script injection through editor content
 
 **User Role:** Member
 **Steps:**
@@ -362,7 +362,7 @@ the links inside the notification emails will be wrong and the results unusable.
 
 ---
 
-### TC-RKB-327: Concurrent editing of one page
+### TC-RKB-054: Concurrent editing of one page
 
 **User Role:** Two members
 **Steps:**

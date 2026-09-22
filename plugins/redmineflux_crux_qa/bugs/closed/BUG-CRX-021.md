@@ -71,4 +71,4 @@ Not part of today's `CHANGES.md`, but resolved nonetheless (likely as a side eff
 
 ## Production report
 
-Reported to production as issue **#120712** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-16. Textile description, no attachments (per updated §4.3a policy). Found via TC-CRX-127/130 (`CRUX_AGENT_INVOICE_BILLING.md`) — testcase marked Failed.
+Reported to production as issue **#120712** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-16. Textile description, no attachments (per updated §4.3a policy). Found via TC-CRX-034/130 (`CRUX_AGENT_INVOICE_BILLING.md`) — testcase marked Failed.

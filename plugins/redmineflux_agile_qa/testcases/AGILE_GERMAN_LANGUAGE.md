@@ -11,7 +11,7 @@
 
 ---
 
-### TC-AGB-001 — Project Agile Board: header, filter bar, and columns fully translated
+### TC-AGB-104 — Project Agile Board: header, filter bar, and columns fully translated
 
 **Steps**
 
@@ -29,7 +29,7 @@
 
 ---
 
-### TC-AGB-002 — Board Settings panel fully translated
+### TC-AGB-105 — Board Settings panel fully translated
 
 **Steps**
 
@@ -47,7 +47,7 @@
 
 ---
 
-### TC-AGB-003 — "Weitere Filter" (More filters) panel fully translated
+### TC-AGB-106 — "Weitere Filter" (More filters) panel fully translated
 
 **Steps**
 
@@ -62,7 +62,7 @@
 
 ---
 
-### TC-AGB-004 — "Einblicke" (Board Insights) panel fully translated
+### TC-AGB-107 — "Einblicke" (Board Insights) panel fully translated
 
 **Steps**
 
@@ -80,7 +80,7 @@
 
 ---
 
-### TC-AGB-005 — Double-click inline "Vorgang bearbeiten" (Edit Issue) modal fully translated
+### TC-AGB-108 — Double-click inline "Vorgang bearbeiten" (Edit Issue) modal fully translated
 
 **Steps**
 
@@ -95,7 +95,7 @@
 
 ---
 
-### TC-AGB-006 — Quick-add issue via column input
+### TC-AGB-109 — Quick-add issue via column input
 
 **Steps**
 
@@ -110,7 +110,7 @@
 
 ---
 
-### TC-AGB-007 — Backlog view (Sprints tab) fully translated
+### TC-AGB-110 — Backlog view (Sprints tab) fully translated
 
 **Steps**
 
@@ -128,7 +128,7 @@
 
 ---
 
-### TC-AGB-008 — Backlog view (Versionen tab) fully translated
+### TC-AGB-111 — Backlog view (Versionen tab) fully translated
 
 **Steps**
 
@@ -141,7 +141,7 @@
 
 **Verdict:** PASS. No bugs found.
 
-### TC-AGB-009 — Global Agile Board (`/agile_board/global`) fully translated
+### TC-AGB-112 — Global Agile Board (`/agile_board/global`) fully translated
 
 **Steps**
 
@@ -150,9 +150,9 @@
 
 **Actual Result — mostly PASS, both known bugs reproduce here**
 
-- "Agile Board" heading, "Tickets suchen", member-filter avatars, "Tracker" button, "Weitere Filter", "Gruppieren nach: Keine", "Board markieren", "Globale Board-Einstellungen" (translated equivalent of the project-level "Board-Einstellungen"), "Schätzung:"/"Aufgewendet:" summary, "Dieses Ticket markieren" tooltip — all correctly translated. Card project-name badges (e.g. "Agile Board Project", "Flux Gantt Project") are project display-name data, not plugin UI strings — correctly not a translation concern, consistent with the sprint/version-name convention established in TC-AGB-007/008.
-- "Globale Board-Einstellungen" panel: identical structure and identical gap to TC-AGB-002 — 6 of 19 "Sichtbare Kartenfelder" checkboxes untranslated. Same root cause as `BUG-AGB-001` (folded in as an additional affected surface).
-- Unassigned-avatar "?" tooltip: same `title="Unassigned"` (English) as TC-AGB-007. Same root cause as `BUG-AGB-003` (folded in as an additional affected surface).
+- "Agile Board" heading, "Tickets suchen", member-filter avatars, "Tracker" button, "Weitere Filter", "Gruppieren nach: Keine", "Board markieren", "Globale Board-Einstellungen" (translated equivalent of the project-level "Board-Einstellungen"), "Schätzung:"/"Aufgewendet:" summary, "Dieses Ticket markieren" tooltip — all correctly translated. Card project-name badges (e.g. "Agile Board Project", "Flux Gantt Project") are project display-name data, not plugin UI strings — correctly not a translation concern, consistent with the sprint/version-name convention established in TC-AGB-110/008.
+- "Globale Board-Einstellungen" panel: identical structure and identical gap to TC-AGB-105 — 6 of 19 "Sichtbare Kartenfelder" checkboxes untranslated. Same root cause as `BUG-AGB-001` (folded in as an additional affected surface).
+- Unassigned-avatar "?" tooltip: same `title="Unassigned"` (English) as TC-AGB-110. Same root cause as `BUG-AGB-003` (folded in as an additional affected surface).
 
 **Verdict:** Mostly PASS — no new bug filed; both gaps are the identical underlying defects already tracked as `BUG-AGB-001` and `BUG-AGB-003`, confirmed to also affect the Global Board.
 
@@ -160,7 +160,7 @@
 
 ---
 
-### TC-AGB-010 — My Page Agile Board block (`/my/page`) fully translated
+### TC-AGB-113 — My Page Agile Board block (`/my/page`) fully translated
 
 **Steps**
 
@@ -179,7 +179,7 @@
 
 ---
 
-### TC-AGB-011 — Custom/saved board config: create, edit, delete flow fully translated
+### TC-AGB-114 — Custom/saved board config: create, edit, delete flow fully translated
 
 **Steps**
 
@@ -203,7 +203,7 @@
 
 ---
 
-### TC-AGB-012 — Sprint create form ("Neuer Sprint") fully translated
+### TC-AGB-115 — Sprint create form ("Neuer Sprint") fully translated
 
 **Steps**
 
@@ -219,13 +219,13 @@
 
 **Verdict:** Mostly PASS — 2 new bugs filed (`BUG-AGB-004`, `BUG-AGB-005`), distinct root causes from each other and from `BUG-AGB-001`'s card-field-checkbox gap, so not folded in.
 
-**Note (superseded — see TC-AGB-018):** no UI entry point for editing or deleting an existing sprint could be located from the Backlog view (no hover/click-revealed controls, no separate sprint-management screen linked from anywhere in the project nav), despite the User Guide's KB research describing a "Sprint management screen — create/edit/delete sprints". ~~This is a functional-completeness question, out of scope for this German-language test cycle~~ — **found later (TC-AGB-018): the entry point exists at the project's Settings/Konfiguration tab bar → "Sprints" sub-tab, not the Backlog view.** The test sprint ("QA German Sprint", id 3) was left in place on the Forge instance as a result (disposable Forge test data).
+**Note (superseded — see TC-AGB-121):** no UI entry point for editing or deleting an existing sprint could be located from the Backlog view (no hover/click-revealed controls, no separate sprint-management screen linked from anywhere in the project nav), despite the User Guide's KB research describing a "Sprint management screen — create/edit/delete sprints". ~~This is a functional-completeness question, out of scope for this German-language test cycle~~ — **found later (TC-AGB-121): the entry point exists at the project's Settings/Konfiguration tab bar → "Sprints" sub-tab, not the Backlog view.** The test sprint ("QA German Sprint", id 3) was left in place on the Forge instance as a result (disposable Forge test data).
 
 **Evidence:** `screenshots/BUG-AGB-004/sprint-create-form-untranslated.png`, `screenshots/BUG-AGB-005/backlog-sprint-dates-english-format.png`, `screenshots/BUG-AGB-005/backlog-version-due-date-english-format.png`
 
 ---
 
-### TC-AGB-013 — Admin plugin Configure page (Administration → Plugins → Redmineflux Agile Board) fully translated
+### TC-AGB-116 — Admin plugin Configure page (Administration → Plugins → Redmineflux Agile Board) fully translated
 
 **Steps**
 
@@ -243,7 +243,7 @@
 
 ---
 
-### TC-AGB-014 — Stage 2: Resolution testing (1280×720 and 1920×1080, Default theme)
+### TC-AGB-117 — Stage 2: Resolution testing (1280×720 and 1920×1080, Default theme)
 
 **Steps**
 
@@ -259,7 +259,7 @@
 
 ---
 
-### TC-AGB-015 — Stage 3/6: Lotus theme retest (default + 1280×720)
+### TC-AGB-118 — Stage 3/6: Lotus theme retest (default + 1280×720)
 
 **Steps**
 
@@ -273,7 +273,7 @@
 - Layout is clean at both 1920×1080 and 1280×720 under Lotus — the Board-Einstellungen panel's "Sichtbare Kartenfelder" checkbox grid reflows from 6 columns down to 3 at the narrower width with no clipping or overlap; the Weitere Filter panel and Backlog board also render without overlap.
 - **Confirmed**: the project sidebar nav's "Aufgewendete Zeit" entry renders clipped as "Aufgewendete ..." under Lotus (scrollWidth 118px > clientWidth 111px, identical numbers to the original finding) — this is `BUG-LTS-001` (the Lotus theme's own bug), reproducing on this Agile Board Project on a third independent Forge server. Documented there as an additional cross-server confirmation, not a new Agile Board bug.
 - **Found**: the project's Story Points feature is now enabled (was off during the original Stage 1 pass) — its "Story Points" checkbox is untranslated English in both the "Sichtbare Kartenfelder" list and the separate "Summen anzeigen" toggle group. Same root defect as `BUG-AGB-001` (reproduces under both Default and Lotus themes, so not theme-specific) — folded in as a 7th affected field rather than filed separately.
-- A new "SPRINT: Alle Sprints" filter row is now visible above the board columns — this appeared because a sprint now exists in the project (created during TC-AGB-012), not because of the theme switch; the label and its "Alle Sprints" (All Sprints) value are both correctly translated.
+- A new "SPRINT: Alle Sprints" filter row is now visible above the board columns — this appeared because a sprint now exists in the project (created during TC-AGB-115), not because of the theme switch; the label and its "Alle Sprints" (All Sprints) value are both correctly translated.
 
 **Verdict:** Mostly PASS — no new Agile-Board-specific bugs from the Lotus theme or the Lotus+1280×720 combination. `BUG-LTS-001` gained a third-server confirmation; `BUG-AGB-001` gained a 7th untranslated field ("Story Points", discovered incidentally due to a project-state change, not the theme).
 
@@ -281,7 +281,7 @@
 
 ---
 
-### TC-AGB-016 — Story Points field on the core-Redmine issue detail page and issue edit form (Lotus + Default theme)
+### TC-AGB-119 — Story Points field on the core-Redmine issue detail page and issue edit form (Lotus + Default theme)
 
 **Steps**
 
@@ -301,7 +301,7 @@
 
 ---
 
-### TC-AGB-017 — Sprint/Story Points visual consistency (font, alignment, layout width) on issue detail page and edit form under Lotus theme
+### TC-AGB-120 — Sprint/Story Points visual consistency (font, alignment, layout width) on issue detail page and edit form under Lotus theme
 
 **Steps**
 
@@ -322,7 +322,7 @@
 
 ---
 
-### TC-AGB-018 — Project Settings → Sprints tab (sprint edit/delete entry point found; new "Freigabe" bug)
+### TC-AGB-121 — Project Settings → Sprints tab (sprint edit/delete entry point found; new "Freigabe" bug)
 
 **Steps**
 
@@ -334,7 +334,7 @@
 **Actual Result — mostly PASS, correction to an earlier finding, 1 new bug**
 
 - "Sprints" tab label, "Neuer Sprint" button, "Nach Status filtern:" + "Alle"/"Offen"/"Aktiv"/"Geschlossen" options, and table headers ("Name", "Startdatum", "Enddatum", "Status", "Freigabe") — all correctly translated. "Bearbeiten"/"Löschen" row-action links — correctly translated.
-- **Correction**: this tab IS the sprint edit/delete entry point that TC-AGB-012 reported could not be found anywhere in the Backlog view or project nav. It's reached via the project's Settings/Konfiguration tab bar specifically, not the Backlog view — the earlier "functional gap" note is retracted; sprint edit/delete has always worked, just via this less-obvious path.
+- **Correction**: this tab IS the sprint edit/delete entry point that TC-AGB-115 reported could not be found anywhere in the Backlog view or project nav. It's reached via the project's Settings/Konfiguration tab bar specifically, not the Backlog view — the earlier "functional gap" note is retracted; sprint edit/delete has always worked, just via this less-obvious path.
 - **Found**: the "Freigabe" column shows the raw untranslated enum value "not_shared" for 2 of 3 sprints ("UI Polish", "Bug Bash" — pre-existing fixtures), while the third ("QA German Sprint", created via the UI form this session) correctly shows "Nicht geteilt". Opening "Bearbeiten" on an affected sprint shows its "Sharing" dropdown correctly pre-selected to "Nicht geteilt" — proving the underlying value is identical to the correctly-displayed sprint's, and the defect is specific to this list view's rendering, not the data or the Edit form. Confirmed identical under both Lotus and Default theme.
 
 **Verdict:** Mostly PASS — filed as `BUG-AGB-007` (Low).
@@ -347,9 +347,9 @@
 
 - Drag-and-drop card movement between columns (including invalid-transition rejection behavior/message).
 - Column reordering.
-- Sprint edit/delete flow — no UI entry point could be located (see TC-AGB-012 note); create flow tested (TC-AGB-012).
+- Sprint edit/delete flow — no UI entry point could be located (see TC-AGB-115 note); create flow tested (TC-AGB-115).
 - Scrum board mode and sprint filtering.
-- Story Points feature UI itself (disabled by default — the plugin Configure page's Story Points toggle/values field and its validation are translated per TC-AGB-013, but the feature has not been enabled and exercised on an actual board).
+- Story Points feature UI itself (disabled by default — the plugin Configure page's Story Points toggle/values field and its validation are translated per TC-AGB-116, but the feature has not been enabled and exercised on an actual board).
 - Grouping options other than "Keine" (None).
 - Permissions/role-gating (tested only as Admin).
-- Stage 2 (resolutions, Default theme) — complete, see TC-AGB-014. Stages 3/6 (Lotus theme, default + 1280×720) — complete, see TC-AGB-015. All resolution/theme combinations for this plugin are now covered.
+- Stage 2 (resolutions, Default theme) — complete, see TC-AGB-117. Stages 3/6 (Lotus theme, default + 1280×720) — complete, see TC-AGB-118. All resolution/theme combinations for this plugin are now covered.

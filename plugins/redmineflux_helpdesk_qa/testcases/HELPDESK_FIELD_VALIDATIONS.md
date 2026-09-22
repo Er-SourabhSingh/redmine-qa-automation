@@ -2,7 +2,7 @@
 
 > Source: field lists confirmed live against the Forge instance and captured in `automation/tests/HelpdeskOrganizationPage.ts`, `HelpdeskCustomerPage.ts`, `HelpdeskSlaPage.ts`, `HelpdeskSupportLevelPage.ts`, `HelpdeskHolidayPage.ts`. Cross-cutting suite — one file for every Settings-entity field, rather than duplicating this shape into each entity's own suite file.
 >
-> **Why this file exists:** `HELPDESK_CUSTOMERS_ORGANIZATIONS.md` and `HELPDESK_SLA_ESCALATION.md` cover CRUD, workflow, and a handful of business-rule negative cases (duplicate names, zero assignees, etc. — TC-HLP-099–103, 119–121, 123). Neither file drills into **per-field** validation: required-empty, character-type accepted, and max-length/boundary behavior for every individual input. This file is that drill-down.
+> **Why this file exists:** `HELPDESK_CUSTOMERS_ORGANIZATIONS.md` and `HELPDESK_SLA_ESCALATION.md` cover CRUD, workflow, and a handful of business-rule negative cases (duplicate names, zero assignees, etc. — TC-HLP-343–103, 119–121, 123). Neither file drills into **per-field** validation: required-empty, character-type accepted, and max-length/boundary behavior for every individual input. This file is that drill-down.
 >
 > **On unknown limits:** none of the max-length/boundary values below have been confirmed against the live server yet — the plugin's own docs never state them. Where a case probes a boundary, the Expected Result says **"record the actual enforced limit/behavior"** rather than asserting a specific number, so execution fills in ground truth instead of a guess. Once a limit is confirmed, update this file's Expected Result with the real number and note it in `HELPDESK_MEMORY.md` under Known Quirks.
 
@@ -20,7 +20,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 
 ---
 
-### TC-HLP-228: Organization Name is required
+### TC-HLP-090: Organization Name is required
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -38,7 +38,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 
 ---
 
-### TC-HLP-229: Organization Name rejects whitespace-only input
+### TC-HLP-091: Organization Name rejects whitespace-only input
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -55,7 +55,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 
 ---
 
-### TC-HLP-230: Organization Name — maximum length boundary
+### TC-HLP-092: Organization Name — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -73,7 +73,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 
 ---
 
-### TC-HLP-231: Organization Name accepts letters, numbers, and common punctuation
+### TC-HLP-093: Organization Name accepts letters, numbers, and common punctuation
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -89,7 +89,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 
 ---
 
-### TC-HLP-232: Website field format is/isn't validated
+### TC-HLP-094: Website field format is/isn't validated
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -105,7 +105,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 
 ---
 
-### TC-HLP-233: Phone Number accepts non-numeric input
+### TC-HLP-095: Phone Number accepts non-numeric input
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -117,11 +117,11 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 **Expected Result:**
 - Record whether letters are accepted (plain text field) or rejected. If accepted, confirm it's a UI/UX gap worth a low-severity note, not necessarily a bug on its own
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **Phone Number IS format-validated server-side too (same discovery as TC-HLP-232 — not a plain text field).** `"call-me-maybe"` (letters, no digits) → refused with **"Phone number is invalid"**. `"+1 (555) 123-4567"` (digits + common punctuation) → accepted. Plain digits `"5551234567"` (no punctuation at all) → also accepted (only the co-submitted Website value errored in that same attempt, confirming Phone itself passed). So the validation allows digits plus common phone punctuation (`+`, spaces, parens, hyphens) and rejects alphabetic characters — not a bug, a real (previously undocumented) format check.
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **Phone Number IS format-validated server-side too (same discovery as TC-HLP-094 — not a plain text field).** `"call-me-maybe"` (letters, no digits) → refused with **"Phone number is invalid"**. `"+1 (555) 123-4567"` (digits + common punctuation) → accepted. Plain digits `"5551234567"` (no punctuation at all) → also accepted (only the co-submitted Website value errored in that same attempt, confirming Phone itself passed). So the validation allows digits plus common phone punctuation (`+`, spaces, parens, hyphens) and rejects alphabetic characters — not a bug, a real (previously undocumented) format check.
 
 ---
 
-### TC-HLP-292: Website, Phone, and other non-Name fields do NOT require uniqueness across organizations
+### TC-HLP-096: Website, Phone, and other non-Name fields do NOT require uniqueness across organizations
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** An organization "Acme Corp" already exists with Website `https://acme.example.com` and Phone `+1 (555) 123-4567`.
@@ -132,12 +132,12 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 
 **Expected Result — per `HELPDESK_USER_GUIDE.md` §3.4 ("Name is required and must be unique. Everything else — website, phone, address, employee count, billing info, notes — is optional"), only Organization Name should be a uniqueness constraint:**
 - Save succeeds — the second organization is created with the identical Website/Phone values, no "already taken" refusal
-- **CONFIRMED LIVE 2026-08-26** (Local, redmine-docker-6, admin): PASS against the current spec. Set Alpha Org's Website to `https://acme.example.com` and Phone to `+1 (555) 123-4567`, then created a second organization "Alpha Org Subsidiary" (id=3) with the exact same Website and Phone values — Save succeeded with no refusal of any kind, and the detail page confirms both fields saved byte-identical to Alpha Org's. Matches the documented spec exactly: only Organization Name is a real uniqueness constraint (TC-HLP-119); Website/Phone/Address/Employee Count/Billing Info/Notes have none.
+- **CONFIRMED LIVE 2026-08-26** (Local, redmine-docker-6, admin): PASS against the current spec. Set Alpha Org's Website to `https://acme.example.com` and Phone to `+1 (555) 123-4567`, then created a second organization "Alpha Org Subsidiary" (id=3) with the exact same Website and Phone values — Save succeeded with no refusal of any kind, and the detail page confirms both fields saved byte-identical to Alpha Org's. Matches the documented spec exactly: only Organization Name is a real uniqueness constraint (TC-HLP-060); Website/Phone/Address/Employee Count/Billing Info/Notes have none.
 - **Filed as BUG-HLP-010 (Low) anyway, per explicit user product-judgment direction**: even though this matches the written spec, real-world organizations essentially never share an identical website/phone, so the lack of even a soft duplicate-warning is a real data-integrity gap worth tracking. This TC's "Expected Result" above documents *today's actual* (permissive) behavior — if BUG-HLP-010 is ever fixed, this TC's expectation should flip to match the new validation, not stay as a record of the old gap.
 
 ---
 
-### TC-HLP-234: Number of Employees rejects non-numeric and negative values
+### TC-HLP-097: Number of Employees rejects non-numeric and negative values
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -152,11 +152,11 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 **Expected Result:**
 - Record the field's actual input type and, for each value: whether it's blocked client-side, refused server-side with a message, silently coerced (e.g. decimal truncated to integer), or accepted as-is. A negative employee count being silently accepted is worth flagging as a data-integrity gap (Low/Medium)
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **Fully client-side blocked at every invalid boundary — no negative, decimal, or non-numeric value can ever reach the server.** `#rf_organization_number_of_employees` is a genuine `type="number"` input with `min="0"` (no `step`, so it defaults to 1 = integers only). `"-5"`: typed successfully into the field but the browser's own `validity.rangeUnderflow` fires ("Value must be greater than or equal to 0.") and blocks submission — page stays on the New form, no server round-trip. `"0"`: accepted, organization created successfully (zero is a valid, non-negative integer). `"3.5"`: typed successfully but `validity.stepMismatch` fires ("Please enter a valid value. The two nearest valid values are 3 and 4.") and blocks submission identically to the negative case. `"abc"`: Playwright itself refused to type it at all (`Cannot type text into input[type=number]`) — the browser structurally never accepts non-numeric keystrokes in a native number input, the strongest possible confirmation this is blocked before it could ever become a value. Server-side enforcement was not separately tested via a maxlength-style bypass (unlike TC-HLP-230's Name field, `type="number"` inputs can't have their native constraint trivially removed via a single DOM attribute the way `maxlength` can) — the client-side guarantee here is already comprehensive across all four probes.
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **Fully client-side blocked at every invalid boundary — no negative, decimal, or non-numeric value can ever reach the server.** `#rf_organization_number_of_employees` is a genuine `type="number"` input with `min="0"` (no `step`, so it defaults to 1 = integers only). `"-5"`: typed successfully into the field but the browser's own `validity.rangeUnderflow` fires ("Value must be greater than or equal to 0.") and blocks submission — page stays on the New form, no server round-trip. `"0"`: accepted, organization created successfully (zero is a valid, non-negative integer). `"3.5"`: typed successfully but `validity.stepMismatch` fires ("Please enter a valid value. The two nearest valid values are 3 and 4.") and blocks submission identically to the negative case. `"abc"`: Playwright itself refused to type it at all (`Cannot type text into input[type=number]`) — the browser structurally never accepts non-numeric keystrokes in a native number input, the strongest possible confirmation this is blocked before it could ever become a value. Server-side enforcement was not separately tested via a maxlength-style bypass (unlike TC-HLP-092's Name field, `type="number"` inputs can't have their native constraint trivially removed via a single DOM attribute the way `maxlength` can) — the client-side guarantee here is already comprehensive across all four probes.
 
 ---
 
-### TC-HLP-235: Notes and Billing Info — maximum length boundary
+### TC-HLP-098: Notes and Billing Info — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -168,14 +168,14 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 **Expected Result:**
 - Record the actual enforced maximum (these are textareas — likely a much higher or unbounded limit than Organization Name, but unconfirmed)
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS — 5,000 characters accepted in both fields with no error.** Neither `#rf_organization_notes` nor `#rf_organization_billing_info` carries a client-side `maxlength` (`el.maxLength === -1` for both). Filled both with exactly 5,000 characters and saved — "Successful creation.", no length-related error from the server either. Confirms these textareas have a materially higher (or effectively unbounded within this range) limit than Organization Name's hard 100-character cap (TC-HLP-230) — matches the expectation that textarea/text-column fields are far less restrictive than the Name field.
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS — 5,000 characters accepted in both fields with no error.** Neither `#rf_organization_notes` nor `#rf_organization_billing_info` carries a client-side `maxlength` (`el.maxLength === -1` for both). Filled both with exactly 5,000 characters and saved — "Successful creation.", no length-related error from the server either. Confirms these textareas have a materially higher (or effectively unbounded within this range) limit than Organization Name's hard 100-character cap (TC-HLP-092) — matches the expectation that textarea/text-column fields are far less restrictive than the Name field.
 
 ---
 
-### TC-HLP-338: Organization Name validation (required-blank, duplicate-name) is enforced on the Edit form too, not just Create
+### TC-HLP-099: Organization Name validation (required-blank, duplicate-name) is enforced on the Edit form too, not just Create
 
 **User Role:** Admin or Agent with `manage_helpdesk`
-**Precondition:** Two organizations exist with distinct names — e.g. "Alpha Org" and "Beta Org", the same fixtures used across TC-HLP-119/279/292.
+**Precondition:** Two organizations exist with distinct names — e.g. "Alpha Org" and "Beta Org", the same fixtures used across TC-HLP-060/279/292.
 
 **Steps:**
 1. Open "Alpha Org"'s Edit form
@@ -184,12 +184,12 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 4. Reopen "Alpha Org"'s Edit form a final time and confirm its stored Name — check whether either rejected attempt above left it changed
 
 **Expected Result:**
-- Step 2: refused with the same required-field "can't be blank" message as TC-HLP-228 (the Create-form equivalent) — a blank Name is not enforced only at creation time
-- Step 3: refused with the same "Name has already been taken" message as TC-HLP-119 (the Create-form duplicate-name check) — renaming an organization into collision with another organization's existing name is blocked identically to creating a fresh duplicate
+- Step 2: refused with the same required-field "can't be blank" message as TC-HLP-090 (the Create-form equivalent) — a blank Name is not enforced only at creation time
+- Step 3: refused with the same "Name has already been taken" message as TC-HLP-060 (the Create-form duplicate-name check) — renaming an organization into collision with another organization's existing name is blocked identically to creating a fresh duplicate
 - Step 4: "Alpha Org" is still named exactly "Alpha Org" in both the organization list and its own detail page — neither rejected Edit attempt left the record blank, renamed, or otherwise corrupted
-- This is the Edit-form counterpart TC-HLP-228/119 never covered — every case in this file's Section A is written against "Open New Organization" only. If either rule turns out to be enforced client-side on Create but not re-validated server-side on Edit, that is a real defect worth filing (Medium: a renamed organization silently colliding with or blanking out over an existing one is a data-integrity gap, not just a UX nit)
+- This is the Edit-form counterpart TC-HLP-090/119 never covered — every case in this file's Section A is written against "Open New Organization" only. If either rule turns out to be enforced client-side on Create but not re-validated server-side on Edit, that is a real defect worth filing (Medium: a renamed organization silently colliding with or blanking out over an existing one is a data-integrity gap, not just a UX nit)
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS — validation parity confirmed, no gap.** Used "Alpha Minimal Fields Test Org" (id 8) and "Alpha Full-Fields Test Org (All Changed)" (id 9) as the two distinct fixtures. **Step 2**: removed the Name field's `required` attribute via `browser_evaluate` (to actually reach the server rather than being blocked client-side like TC-HLP-228) and saved with Name blanked — refused server-side with the exact same **"Name cannot be blank"** message TC-HLP-228/229 confirm at Create. **Step 3**: renamed to "Alpha Full-Fields Test Org (All Changed)" (org 9's exact existing name) — refused with **"Name has already been taken"**, the same message the Create-form's duplicate-name check produces. **Step 4**: reloaded org 8's detail page — still reads exactly "Alpha Minimal Fields Test Org", confirming neither rejected attempt left it blank, renamed, or corrupted. Edit-form validation for Organization Name is fully at parity with Create — no gap found.
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS — validation parity confirmed, no gap.** Used "Alpha Minimal Fields Test Org" (id 8) and "Alpha Full-Fields Test Org (All Changed)" (id 9) as the two distinct fixtures. **Step 2**: removed the Name field's `required` attribute via `browser_evaluate` (to actually reach the server rather than being blocked client-side like TC-HLP-090) and saved with Name blanked — refused server-side with the exact same **"Name cannot be blank"** message TC-HLP-090/229 confirm at Create. **Step 3**: renamed to "Alpha Full-Fields Test Org (All Changed)" (org 9's exact existing name) — refused with **"Name has already been taken"**, the same message the Create-form's duplicate-name check produces. **Step 4**: reloaded org 8's detail page — still reads exactly "Alpha Minimal Fields Test Org", confirming neither rejected attempt left it blank, renamed, or corrupted. Edit-form validation for Organization Name is fully at parity with Create — no gap found.
 
 ---
 
@@ -201,7 +201,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 
 ---
 
-### TC-HLP-236: Login, First name, Last name, and Email are each individually required
+### TC-HLP-100: Login, First name, Last name, and Email are each individually required
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -219,7 +219,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 
 ---
 
-### TC-HLP-237: Login — minimum length boundary
+### TC-HLP-101: Login — minimum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -231,11 +231,11 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 **Expected Result:**
 - Record the actual minimum enforced (the stuck-message text claims "at least 2 characters" — confirm whether a genuine 1-character login is actually refused, independent of BUG-HLP-001's message reliability)
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **A genuine 1-character Login (`"a"`) IS accepted — "Successful creation."** This directly contradicts BUG-HLP-001's stuck message text ("Login must be at least 2 characters long"), confirming that message is indeed unreliable/disconnected from real validation, exactly as BUG-HLP-001 already documents — there is no real 2-character minimum enforced. `#customer_login` has no client-side `minLength` attribute either (`el.minLength === -1`). The real minimum is effectively "not blank" (TC-HLP-236), nothing stricter.
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **A genuine 1-character Login (`"a"`) IS accepted — "Successful creation."** This directly contradicts BUG-HLP-001's stuck message text ("Login must be at least 2 characters long"), confirming that message is indeed unreliable/disconnected from real validation, exactly as BUG-HLP-001 already documents — there is no real 2-character minimum enforced. `#customer_login` has no client-side `minLength` attribute either (`el.minLength === -1`). The real minimum is effectively "not blank" (TC-HLP-100), nothing stricter.
 
 ---
 
-### TC-HLP-238: Login — maximum length boundary
+### TC-HLP-102: Login — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -248,11 +248,11 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 **Expected Result:**
 - Record the actual enforced maximum (Redmine core's default user login limit is commonly 30 characters — confirm whether the Helpdesk customer form inherits that or has its own limit)
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **The real enforced maximum is exactly 60 characters — not the commonly-assumed 30.** `#customer_login` has no client-side `maxLength` attribute (`-1`), so this is a server-side-only check. 60 characters → accepted, "Successful creation." 100 characters → refused with the exact message **"Login is too long (maximum is 60 characters)"**. 256 characters wasn't tested separately — same failure mode as 100, a hard numeric ceiling with a clear message, not a range with different behavior at different overflow amounts (same reasoning as TC-HLP-230's Organization Name boundary).
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **The real enforced maximum is exactly 60 characters — not the commonly-assumed 30.** `#customer_login` has no client-side `maxLength` attribute (`-1`), so this is a server-side-only check. 60 characters → accepted, "Successful creation." 100 characters → refused with the exact message **"Login is too long (maximum is 60 characters)"**. 256 characters wasn't tested separately — same failure mode as 100, a hard numeric ceiling with a clear message, not a range with different behavior at different overflow amounts (same reasoning as TC-HLP-092's Organization Name boundary).
 
 ---
 
-### TC-HLP-239: Login rejects characters Redmine logins don't allow
+### TC-HLP-103: Login rejects characters Redmine logins don't allow
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -267,7 +267,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 
 ---
 
-### TC-HLP-240: Login must be unique — duplicate is refused
+### TC-HLP-104: Login must be unique — duplicate is refused
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** A customer with login `"dupe.test"` already exists.
@@ -278,11 +278,11 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 **Expected Result:**
 - Refused with a clear "already taken" style message — not a silent failure or a generic error
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS.** Reused the real fixture login `"a"` (created live under TC-HLP-237) as the duplicate — attempting to create a second customer with Login `"a"` was refused with the exact message **"Login has already been taken"**, not a silent failure.
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS.** Reused the real fixture login `"a"` (created live under TC-HLP-101) as the duplicate — attempting to create a second customer with Login `"a"` was refused with the exact message **"Login has already been taken"**, not a silent failure.
 
 ---
 
-### TC-HLP-241: First name / Last name — maximum length boundary
+### TC-HLP-105: First name / Last name — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -298,7 +298,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 
 ---
 
-### TC-HLP-242: First name / Last name accept unicode and reject/accept script injection safely
+### TC-HLP-106: First name / Last name accept unicode and reject/accept script injection safely
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -311,11 +311,11 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 - Unicode and apostrophe/hyphen names save and display correctly everywhere (customer list, ticket assignment, etc.)
 - The script-injection name is stored but rendered as inert text everywhere — no execution. Escalate immediately as a Critical XSS bug if this fails
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS, no XSS.** First name `"日本語"` + Last name `"O'Connor-Smith"` — saved and displayed correctly, no corruption. Separately, First name `"<script>alert(1)</script>"` + Last name `"XssTest"` (customer id 25) — inspected the raw customer list `<td>` `innerHTML` directly: `&lt;script&gt;alert(1)&lt;/script&gt; XssTest` — correctly HTML-escaped, `cell.querySelector('script')` returns null, no actual `<script>` element created, no dialog fired on Create or list reload. Same safe-escaping pattern already confirmed for Organization Name under TC-HLP-231.
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS, no XSS.** First name `"日本語"` + Last name `"O'Connor-Smith"` — saved and displayed correctly, no corruption. Separately, First name `"<script>alert(1)</script>"` + Last name `"XssTest"` (customer id 25) — inspected the raw customer list `<td>` `innerHTML` directly: `&lt;script&gt;alert(1)&lt;/script&gt; XssTest` — correctly HTML-escaped, `cell.querySelector('script')` returns null, no actual `<script>` element created, no dialog fired on Create or list reload. Same safe-escaping pattern already confirmed for Organization Name under TC-HLP-093.
 
 ---
 
-### TC-HLP-243: Email format is validated
+### TC-HLP-107: Email format is validated
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -327,11 +327,11 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 - All three malformed values are refused with a clear format-error message
 - The valid control case succeeds
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **Only 2 of the 3 malformed cases are actually refused — `"missing@domain"` (no TLD) is accepted, contradicting this TC's own assumption.** `#customer_mail` is `type="text"` (no native browser email validation), so this is entirely a server-side check. `"notanemail"` (no `@` at all) → refused with **"Email address address is invalid"** (same doubled-word quirk noted under TC-HLP-236). `"missing@domain"` (has `@` and a domain segment, but no TLD) → **accepted**, "Successful creation." — the format check does not require a dot/TLD in the domain part. `"@nouser.com"` (no local part before `@`) → refused with the same "Email address address is invalid" message. `"valid@example.com"` → accepted (already proven via every other customer created this session). Net: the check requires a non-empty local part and a non-empty domain part around a single `@`, but does not require the domain to contain a dot — a real, previously-undocumented leniency worth noting in `HELPDESK_MEMORY.md`, not a bug (a domain without a TLD is technically valid in some contexts, e.g. internal mail servers).
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **Only 2 of the 3 malformed cases are actually refused — `"missing@domain"` (no TLD) is accepted, contradicting this TC's own assumption.** `#customer_mail` is `type="text"` (no native browser email validation), so this is entirely a server-side check. `"notanemail"` (no `@` at all) → refused with **"Email address address is invalid"** (same doubled-word quirk noted under TC-HLP-100). `"missing@domain"` (has `@` and a domain segment, but no TLD) → **accepted**, "Successful creation." — the format check does not require a dot/TLD in the domain part. `"@nouser.com"` (no local part before `@`) → refused with the same "Email address address is invalid" message. `"valid@example.com"` → accepted (already proven via every other customer created this session). Net: the check requires a non-empty local part and a non-empty domain part around a single `@`, but does not require the domain to contain a dot — a real, previously-undocumented leniency worth noting in `HELPDESK_MEMORY.md`, not a bug (a domain without a TLD is technically valid in some contexts, e.g. internal mail servers).
 
 ---
 
-### TC-HLP-244: Email must be unique — duplicate is refused
+### TC-HLP-108: Email must be unique — duplicate is refused
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** A customer with email `"dupe@example.com"` already exists.
@@ -342,11 +342,11 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 **Expected Result:**
 - Refused with a clear "already taken" message referencing the email specifically
 
-- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS.** Reused the real fixture email `alpha.customer@test.local` — refused with the exact message **"Email address address has already been taken"** (same doubled-word "address address" quirk as TC-HLP-236/243's blank/invalid messages — consistently reproduced across every Email-field message on this form).
+- **CONFIRMED LIVE 2026-09-02** (Local, redmine-docker-6, admin): **PASS.** Reused the real fixture email `alpha.customer@test.local` — refused with the exact message **"Email address address has already been taken"** (same doubled-word "address address" quirk as TC-HLP-100/243's blank/invalid messages — consistently reproduced across every Email-field message on this form).
 
 ---
 
-### TC-HLP-245: Email — maximum length boundary
+### TC-HLP-109: Email — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -360,7 +360,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 
 ---
 
-### TC-HLP-246: Password and Confirmation must match
+### TC-HLP-110: Password and Confirmation must match
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** "Generate password automatically" is unchecked.
@@ -374,7 +374,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 
 ---
 
-### TC-HLP-247: Password minimum length is enforced
+### TC-HLP-111: Password minimum length is enforced
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** "Generate password automatically" is unchecked. Check Administration › Settings › Authentication for the configured "Minimum password length" first, so the expected boundary is known rather than assumed.
@@ -390,7 +390,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 
 ---
 
-### TC-HLP-248: "Generate password automatically" correctly disables and bypasses manual password entry
+### TC-HLP-112: "Generate password automatically" correctly disables and bypasses manual password entry
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -407,26 +407,26 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 
 ---
 
-### TC-HLP-335: Customer validation rules (required-blank, duplicate Login/Email, max-length) are enforced on the Edit form, not just at Create
+### TC-HLP-113: Customer validation rules (required-blank, duplicate Login/Email, max-length) are enforced on the Edit form, not just at Create
 
 **User Role:** Admin or Agent with `manage_helpdesk`
-**Precondition:** At least two existing customers, including one matching TC-HLP-240/244's duplicate fixtures (login `dupe.test`, email `dupe@example.com`) and a separate customer to perform the Edit on. Every case in this section (TC-HLP-236–248) exercises only the New Customer form — none opens an existing customer's Edit form and re-triggers these same rules there.
+**Precondition:** At least two existing customers, including one matching TC-HLP-104/244's duplicate fixtures (login `dupe.test`, email `dupe@example.com`) and a separate customer to perform the Edit on. Every case in this section (TC-HLP-100–248) exercises only the New Customer form — none opens an existing customer's Edit form and re-triggers these same rules there.
 
 **Steps:**
-1. Open an existing customer's Edit form; clear the Last name field to blank, Save — record whether it's refused with a required-field message (mirrors TC-HLP-236, but via Edit)
+1. Open an existing customer's Edit form; clear the Last name field to blank, Save — record whether it's refused with a required-field message (mirrors TC-HLP-100, but via Edit)
 2. Repeat, clearing Email to blank instead, Save — record result
-3. On an existing customer's Edit form, change Login to another existing customer's exact Login (e.g. `dupe.test`, per TC-HLP-240's fixture), Save — record whether the duplicate is refused
-4. Repeat, changing Email instead to another existing customer's exact Email (per TC-HLP-244's fixture)
+3. On an existing customer's Edit form, change Login to another existing customer's exact Login (e.g. `dupe.test`, per TC-HLP-104's fixture), Save — record whether the duplicate is refused
+4. Repeat, changing Email instead to another existing customer's exact Email (per TC-HLP-108's fixture)
 5. On the Edit form, save the customer's OWN unchanged Login and Email with no other edits, to confirm the uniqueness check correctly excludes the record's own current values (i.e. it doesn't falsely flag a customer as a duplicate of itself)
-6. On the Edit form, enter a Last name (or First name) of 256+ characters, Save — record whether the same max-length boundary TC-HLP-241 records at Create is enforced here too
+6. On the Edit form, enter a Last name (or First name) of 256+ characters, Save — record whether the same max-length boundary TC-HLP-105 records at Create is enforced here too
 
 **Expected Result:**
-- Steps 1–2: blanking a required field via Edit is refused with the same field-specific required message TC-HLP-236 confirms at Create — an existing record must not be saveable into an invalid state just because validation only ran at creation time
-- Steps 3–4: renaming Login or Email via Edit to collide with a different customer's value is refused with the same "already taken" wording TC-HLP-240/244 confirm at Create
+- Steps 1–2: blanking a required field via Edit is refused with the same field-specific required message TC-HLP-100 confirms at Create — an existing record must not be saveable into an invalid state just because validation only ran at creation time
+- Steps 3–4: renaming Login or Email via Edit to collide with a different customer's value is refused with the same "already taken" wording TC-HLP-104/244 confirm at Create
 - Step 5: saving the customer's own unchanged Login/Email succeeds with no false "already taken" error against itself — confirms the uniqueness check is scoped to "other records", not a naive existence check
-- Step 6: the same maximum-length boundary TC-HLP-241 records at Create is enforced identically via Edit — record the actual behavior (refused vs. silently truncated vs. silently accepted) and confirm it matches Create's behavior rather than diverging
-- Any rule found enforced at Create (TC-HLP-236/240/241/244) but NOT enforced at Edit is a genuine, previously-undocumented gap — this file's own header notes Section B was written and executed only against the New Customer form, so this TC is the first confirmation of whether Edit-time validation actually matches Create-time validation, rather than an assumption carried forward untested
-- CONFIRMED LIVE 2026-09-02 (Local, Admin): PASS — Edit-time validation matches Create-time validation on every rule tested, no gaps found. Using customer `test.genpw` (id 29) as the edit target and `test.pwlen8` (id 28) as the duplicate-collision target: (1) blanking Last name → refused "Lastname cannot be blank"; (2) blanking Email → refused "Email address address cannot be blank" (same doubled-word quirk as Create, TC-236/243/244); (3) changing Login to `test.pwlen8` (existing) → refused "Login has already been taken"; (4) changing Email to `test.pwlen8@test.local` (existing) → refused "Email address address has already been taken"; (5) saving the customer's own unchanged Login/Email with no other edits → succeeded ("Successful update"), confirming the uniqueness check correctly excludes the record's own current values; (6) a 256-char Last name → refused **"Lastname is too long (maximum is 255 characters)"**. Step 6 is a genuinely useful finding beyond just "Edit matches Create": it resolves TC-HLP-241's own open question — that TC found Last name accepted 255 chars with the real limit "unconfirmed beyond 255"; this test confirms the real enforced maximum is exactly **255 characters**, not unbounded.
+- Step 6: the same maximum-length boundary TC-HLP-105 records at Create is enforced identically via Edit — record the actual behavior (refused vs. silently truncated vs. silently accepted) and confirm it matches Create's behavior rather than diverging
+- Any rule found enforced at Create (TC-HLP-100/240/241/244) but NOT enforced at Edit is a genuine, previously-undocumented gap — this file's own header notes Section B was written and executed only against the New Customer form, so this TC is the first confirmation of whether Edit-time validation actually matches Create-time validation, rather than an assumption carried forward untested
+- CONFIRMED LIVE 2026-09-02 (Local, Admin): PASS — Edit-time validation matches Create-time validation on every rule tested, no gaps found. Using customer `test.genpw` (id 29) as the edit target and `test.pwlen8` (id 28) as the duplicate-collision target: (1) blanking Last name → refused "Lastname cannot be blank"; (2) blanking Email → refused "Email address address cannot be blank" (same doubled-word quirk as Create, TC-236/243/244); (3) changing Login to `test.pwlen8` (existing) → refused "Login has already been taken"; (4) changing Email to `test.pwlen8@test.local` (existing) → refused "Email address address has already been taken"; (5) saving the customer's own unchanged Login/Email with no other edits → succeeded ("Successful update"), confirming the uniqueness check correctly excludes the record's own current values; (6) a 256-char Last name → refused **"Lastname is too long (maximum is 255 characters)"**. Step 6 is a genuinely useful finding beyond just "Edit matches Create": it resolves TC-HLP-105's own open question — that TC found Last name accepted 255 chars with the real limit "unconfirmed beyond 255"; this test confirms the real enforced maximum is exactly **255 characters**, not unbounded.
 
 ---
 
@@ -436,7 +436,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 
 ---
 
-### TC-HLP-249: SLA Name is required
+### TC-HLP-114: SLA Name is required
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -450,7 +450,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 
 ---
 
-### TC-HLP-250: SLA Name — maximum length boundary
+### TC-HLP-115: SLA Name — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -464,7 +464,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 
 ---
 
-### TC-HLP-251: First Response Time is required and rejects non-positive values
+### TC-HLP-116: First Response Time is required and rejects non-positive values
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -480,25 +480,25 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 - Blank and negative are refused
 - Record whether zero is accepted (a zero-minute first response target may be semantically valid — "respond immediately" — or may be rejected; either is plausible, confirm which)
 - Record whether decimals are accepted, rejected, or rounded
-- CONFIRMED LIVE 2026-09-02 (Local, Admin): FAIL (Step 1) — filed as **BUG-HLP-031**. Blank First Response Time (client-side `required` removed via JS) is silently **accepted** ("Successful creation."); the resulting SLA's detail page shows "First Response Time: -" (saved as NULL), contradicting the field's own `*` marking. `"0"` and `"-10"` ARE correctly refused server-side with **"First response time must be greater than 0"** (Steps 2–3 PASS). A decimal (`"1.5"`) never reaches the server at all — confirmed via `el.validity.stepMismatch === true` — the native `<input type="number">`'s default `step="1"` blocks it client-side, same pattern as Organization "Number of Employees" (TC-HLP-234). Non-numeric input (`"abc"`) is structurally rejected by the number input itself (`el.value` stays `""`), never becoming a real value to submit.
+- CONFIRMED LIVE 2026-09-02 (Local, Admin): FAIL (Step 1) — filed as **BUG-HLP-031**. Blank First Response Time (client-side `required` removed via JS) is silently **accepted** ("Successful creation."); the resulting SLA's detail page shows "First Response Time: -" (saved as NULL), contradicting the field's own `*` marking. `"0"` and `"-10"` ARE correctly refused server-side with **"First response time must be greater than 0"** (Steps 2–3 PASS). A decimal (`"1.5"`) never reaches the server at all — confirmed via `el.validity.stepMismatch === true` — the native `<input type="number">`'s default `step="1"` blocks it client-side, same pattern as Organization "Number of Employees" (TC-HLP-097). Non-numeric input (`"abc"`) is structurally rejected by the number input itself (`el.value` stays `""`), never becoming a real value to submit.
 
 ---
 
-### TC-HLP-252: Resolution Time is required and rejects non-positive values
+### TC-HLP-117: Resolution Time is required and rejects non-positive values
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
 
 **Steps:**
-1. Repeat the same blank / zero / negative / decimal / non-numeric probes as TC-HLP-251, but for Resolution Time
+1. Repeat the same blank / zero / negative / decimal / non-numeric probes as TC-HLP-116, but for Resolution Time
 
 **Expected Result:**
-- Same as TC-HLP-251, recorded independently for this field (the two fields may not share the same validation rules)
-- CONFIRMED LIVE 2026-09-02 (Local, Admin): FAIL (blank) — same **BUG-HLP-031** gap reproduces identically for Resolution Time: blank is silently accepted (SLA created, "Resolution Time: -"). `"0"` and `"-10"` are correctly refused, though with an extra second error alongside the "greater than 0" one — see TC-HLP-253, since a 0/negative Resolution Time also always fails the cross-field "≥ Response Time" check simultaneously. A decimal (`"2.5"`) is blocked identically client-side via `stepMismatch`, never reaching the server. The two fields share the same validation rules and the same gap — this is not independent Resolution-Time-specific behavior, it's the identical root cause.
+- Same as TC-HLP-116, recorded independently for this field (the two fields may not share the same validation rules)
+- CONFIRMED LIVE 2026-09-02 (Local, Admin): FAIL (blank) — same **BUG-HLP-031** gap reproduces identically for Resolution Time: blank is silently accepted (SLA created, "Resolution Time: -"). `"0"` and `"-10"` are correctly refused, though with an extra second error alongside the "greater than 0" one — see TC-HLP-118, since a 0/negative Resolution Time also always fails the cross-field "≥ Response Time" check simultaneously. A decimal (`"2.5"`) is blocked identically client-side via `stepMismatch`, never reaching the server. The two fields share the same validation rules and the same gap — this is not independent Resolution-Time-specific behavior, it's the identical root cause.
 
 ---
 
-### TC-HLP-253: Resolution Time shorter than First Response Time — is this refused?
+### TC-HLP-118: Resolution Time shorter than First Response Time — is this refused?
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -512,7 +512,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 
 ---
 
-### TC-HLP-254: Working Hours end time before start time
+### TC-HLP-119: Working Hours end time before start time
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -522,11 +522,11 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 
 **Expected Result:**
 - Record whether this is refused, silently accepted (perhaps intentionally supporting overnight shifts, e.g. 18:00–09:00 next day), or produces incorrect SLA-clock behavior on a subsequent ticket
-- CONFIRMED LIVE 2026-09-02 (Local, Admin): PASS (field-validation scope). Working Hours start=18:00, end=09:00 is silently accepted — no refusal, no cross-field check like TC-HLP-253's Response/Resolution comparison. SLA detail page correctly persists and displays it as "18:00 - 09:00 UTC". Whether this actually produces correct SLA-clock behavior on a real ticket spanning the overnight boundary is a clock/escalation-logic question outside this field-validation TC's scope — that's already covered by `HELPDESK_SLA_ESCALATION.md`'s dedicated overnight/working-hours-skip test SLAs (e.g. "Alpha Working-Hours-Skip Test SLA", "Alpha Outside-Hours Intraday Test SLA"), not re-verified here. No bug filed: silent acceptance without any documented spec saying otherwise is consistent with intentionally supporting overnight shifts.
+- CONFIRMED LIVE 2026-09-02 (Local, Admin): PASS (field-validation scope). Working Hours start=18:00, end=09:00 is silently accepted — no refusal, no cross-field check like TC-HLP-118's Response/Resolution comparison. SLA detail page correctly persists and displays it as "18:00 - 09:00 UTC". Whether this actually produces correct SLA-clock behavior on a real ticket spanning the overnight boundary is a clock/escalation-logic question outside this field-validation TC's scope — that's already covered by `HELPDESK_SLA_ESCALATION.md`'s dedicated overnight/working-hours-skip test SLAs (e.g. "Alpha Working-Hours-Skip Test SLA", "Alpha Outside-Hours Intraday Test SLA"), not re-verified here. No bug filed: silent acceptance without any documented spec saying otherwise is consistent with intentionally supporting overnight shifts.
 
 ---
 
-### TC-HLP-255: SLA Agreement file upload — size limit is enforced
+### TC-HLP-120: SLA Agreement file upload — size limit is enforced
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** A file just over 5 MB and a file just under 5 MB are available.
@@ -542,7 +542,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 
 ---
 
-### TC-HLP-256: SLA Agreement file upload — file type is/isn't restricted
+### TC-HLP-121: SLA Agreement file upload — file type is/isn't restricted
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** A `.pdf`, a `.docx`, and an `.exe` (or other non-document type) file are available, each well under 5 MB.
@@ -556,7 +556,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 
 ---
 
-### TC-HLP-314: SLA Description — maximum length boundary
+### TC-HLP-122: SLA Description — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -565,15 +565,15 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 1. Enter a 5,000-character Description, Save
 
 **Expected Result:**
-- Record the actual enforced maximum (parallel to TC-HLP-261's equivalent probe for Support Level's Description field — SLA's own Description, confirmed live 2026-08-31 as a real rich-text field on the New SLA form, has never had its own boundary check)
-- CONFIRMED LIVE 2026-09-02 (Local, Admin): PASS. A 5,000-character Description saved successfully with no truncation and no rejection — confirmed on the SLA's own detail page (`/projects/1/rf_slas/25`) showing the full 5,000-character string intact. No maximum was hit at this length (consistent with a `text`/`longtext` DB column, same pattern as Organization Notes/Billing Info, TC-HLP-235).
+- Record the actual enforced maximum (parallel to TC-HLP-128's equivalent probe for Support Level's Description field — SLA's own Description, confirmed live 2026-08-31 as a real rich-text field on the New SLA form, has never had its own boundary check)
+- CONFIRMED LIVE 2026-09-02 (Local, Admin): PASS. A 5,000-character Description saved successfully with no truncation and no rejection — confirmed on the SLA's own detail page (`/projects/1/rf_slas/25`) showing the full 5,000-character string intact. No maximum was hit at this length (consistent with a `text`/`longtext` DB column, same pattern as Organization Notes/Billing Info, TC-HLP-098).
 
 ---
 
-### TC-HLP-326: Editing an SLA re-triggers required-field and duplicate-name validation, not just Create
+### TC-HLP-123: Editing an SLA re-triggers required-field and duplicate-name validation, not just Create
 
 **User Role:** Admin or Agent with `manage_helpdesk`
-**Precondition:** Two existing, differently-named SLAs (e.g. "Alpha Standard SLA" and "Alpha Priority SLA") — every case in this section so far (TC-HLP-249, 251, 252, 099) only ever exercises these rules via the New SLA form; none confirms Update enforces them too.
+**Precondition:** Two existing, differently-named SLAs (e.g. "Alpha Standard SLA" and "Alpha Priority SLA") — every case in this section so far (TC-HLP-114, 251, 252, 099) only ever exercises these rules via the New SLA form; none confirms Update enforces them too.
 
 **Steps:**
 1. Open the first SLA's ("Alpha Standard SLA") Edit form, clear SLA Name entirely, leave First Response Time and Resolution Time as-is, Save — record result
@@ -583,22 +583,22 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 5. Finally, reopen Edit once more and save the SLA with its own original, unchanged Name (no rename) to confirm a no-op save against itself is NOT refused as a false-positive duplicate
 
 **Expected Result:**
-- Steps 1–3 are each refused with the same required-field message TC-HLP-249 (Name), TC-HLP-251 (First Response Time), and TC-HLP-252 (Resolution Time) already confirm on the New SLA form — a blank required field is rejected on Edit exactly as on Create, not silently accepted just because the record already exists
-- Step 4 is refused with the same duplicate-name message TC-HLP-099 already confirms at Create — renaming an SLA to collide with a different, already-existing SLA's name must be refused on Update just as it is on Create
+- Steps 1–3 are each refused with the same required-field message TC-HLP-114 (Name), TC-HLP-116 (First Response Time), and TC-HLP-117 (Resolution Time) already confirm on the New SLA form — a blank required field is rejected on Edit exactly as on Create, not silently accepted just because the record already exists
+- Step 4 is refused with the same duplicate-name message TC-HLP-343 already confirms at Create — renaming an SLA to collide with a different, already-existing SLA's name must be refused on Update just as it is on Create
 - Step 5 succeeds — the uniqueness check must compare against every OTHER SLA, not against the record's own current row, so re-saving an SLA with its own unchanged name is not mistaken for a duplicate of itself
 - If any of Steps 1–4 succeeds where the equivalent Create-form input would be refused, that is a real edit-path validation gap: this section (HELPDESK_FIELD_VALIDATIONS.md Section C) tests every one of these rules exclusively via the New SLA form, so a validation bypass specific to Update would go completely undetected without this TC
 - After all steps, confirm the SLA under test still holds a valid Name/First Response Time/Resolution Time throughout — none of the refused attempts should leave it in a broken or partially-saved state
-- CONFIRMED LIVE 2026-09-02 (Local, Admin), using "Alpha Standard SLA" (id 1, original values Name/FRT=60min/RT=480min) as the edit target and "Alpha Priority SLA" (id 3) as the duplicate-collision target: Step 1 (blank Name) → refused "Name cannot be blank" (PASS, matches TC-HLP-249). Step 2 (blank First Response Time) → **NOT refused** — "Successful update", saved as NULL ("First Response Time: -" on the detail page). Step 3 (blank Resolution Time) → same gap, also silently accepted. Steps 2–3 are the identical **BUG-HLP-031** gap reproducing via Edit, not a new/separate defect — that bug's scope is broadened to cover both Create and Edit. Step 4 (rename to "Alpha Priority SLA") → refused "Name has already been taken" (PASS, matches TC-HLP-099). Step 5 (save own unchanged Name) → "Successful update", no false duplicate flag (PASS). After all steps, the SLA was explicitly restored and reverified: Name="Alpha Standard SLA", First Response Time=60 minutes, Resolution Time=480 minutes — back to its exact original valid state, no lingering corruption from the refused/gapped attempts.
+- CONFIRMED LIVE 2026-09-02 (Local, Admin), using "Alpha Standard SLA" (id 1, original values Name/FRT=60min/RT=480min) as the edit target and "Alpha Priority SLA" (id 3) as the duplicate-collision target: Step 1 (blank Name) → refused "Name cannot be blank" (PASS, matches TC-HLP-114). Step 2 (blank First Response Time) → **NOT refused** — "Successful update", saved as NULL ("First Response Time: -" on the detail page). Step 3 (blank Resolution Time) → same gap, also silently accepted. Steps 2–3 are the identical **BUG-HLP-031** gap reproducing via Edit, not a new/separate defect — that bug's scope is broadened to cover both Create and Edit. Step 4 (rename to "Alpha Priority SLA") → refused "Name has already been taken" (PASS, matches TC-HLP-343). Step 5 (save own unchanged Name) → "Successful update", no false duplicate flag (PASS). After all steps, the SLA was explicitly restored and reverified: Name="Alpha Standard SLA", First Response Time=60 minutes, Resolution Time=480 minutes — back to its exact original valid state, no lingering corruption from the refused/gapped attempts.
 
 ---
 
 ## D. Support Level (`/rf_support_levels/new`)
 
-Fields: Project\* (select), Support Level Name\* (text), Level Order\* (number), Description (richtext), Support Assignees\* (multiselect — TC-HLP-101 already covers zero-assignee refusal, not repeated here), Escalation To (select).
+Fields: Project\* (select), Support Level Name\* (text), Level Order\* (number), Description (richtext), Support Assignees\* (multiselect — TC-HLP-146 already covers zero-assignee refusal, not repeated here), Escalation To (select).
 
 ---
 
-### TC-HLP-257: Support Level Name is required
+### TC-HLP-124: Support Level Name is required
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** A project is selected.
@@ -612,7 +612,7 @@ Fields: Project\* (select), Support Level Name\* (text), Level Order\* (number),
 
 ---
 
-### TC-HLP-258: Support Level Name — maximum length boundary
+### TC-HLP-125: Support Level Name — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -622,11 +622,11 @@ Fields: Project\* (select), Support Level Name\* (text), Level Order\* (number),
 
 **Expected Result:**
 - Record the actual enforced maximum
-- CONFIRMED LIVE 2026-09-02 (Local, Admin): FAIL — same systemic gap as **BUG-HLP-030** (broadened to cover this). A 255-char Name is accepted normally. A 256-char Name crashes with an unhandled Rails **500 Internal Server Error**; server log confirms the identical root cause as SLA Name (TC-HLP-250): `ActiveRecord::ValueTooLong (Mysql2::Error: Data too long for column 'name' at row 1)` — `SupportLevel` also has no length validation on Name. Not re-tested at 1000 chars given the identical confirmed root cause. See `bugs/open/BUG-HLP-030.md`.
+- CONFIRMED LIVE 2026-09-02 (Local, Admin): FAIL — same systemic gap as **BUG-HLP-030** (broadened to cover this). A 255-char Name is accepted normally. A 256-char Name crashes with an unhandled Rails **500 Internal Server Error**; server log confirms the identical root cause as SLA Name (TC-HLP-115): `ActiveRecord::ValueTooLong (Mysql2::Error: Data too long for column 'name' at row 1)` — `SupportLevel` also has no length validation on Name. Not re-tested at 1000 chars given the identical confirmed root cause. See `bugs/open/BUG-HLP-030.md`.
 
 ---
 
-### TC-HLP-259: Level Order is required and rejects non-positive / non-numeric values
+### TC-HLP-126: Level Order is required and rejects non-positive / non-numeric values
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -646,7 +646,7 @@ Fields: Project\* (select), Support Level Name\* (text), Level Order\* (number),
 
 ---
 
-### TC-HLP-260: Level Order duplicate within the same project is refused (regression of already-confirmed behavior)
+### TC-HLP-127: Level Order duplicate within the same project is refused (regression of already-confirmed behavior)
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** A support level with Level Order = 1 already exists on Project A (already confirmed working via the real "Level order has already been taken" error — see `HELPDESK_MEMORY.md` Known Quirks. This TC formalizes it as a regression check.)
@@ -661,7 +661,7 @@ Fields: Project\* (select), Support Level Name\* (text), Level Order\* (number),
 
 ---
 
-### TC-HLP-261: Description field — maximum length boundary (Support Level)
+### TC-HLP-128: Description field — maximum length boundary (Support Level)
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -671,14 +671,14 @@ Fields: Project\* (select), Support Level Name\* (text), Level Order\* (number),
 
 **Expected Result:**
 - Record the actual enforced maximum (richtext/textarea fields are typically much less restrictive, but unconfirmed)
-- CONFIRMED LIVE 2026-09-02 (Local, Admin): PASS. A 5,000-character Description on a new Support Level saved successfully with "Successful creation." — no truncation, no rejection, same pattern as SLA Description (TC-HLP-314) and Organization Notes/Billing Info (TC-HLP-235).
+- CONFIRMED LIVE 2026-09-02 (Local, Admin): PASS. A 5,000-character Description on a new Support Level saved successfully with "Successful creation." — no truncation, no rejection, same pattern as SLA Description (TC-HLP-122) and Organization Notes/Billing Info (TC-HLP-098).
 
 ---
 
-### TC-HLP-328: Editing a Support Level to a blank Name, duplicate Name, or duplicate Level Order is refused the same as at Create
+### TC-HLP-129: Editing a Support Level to a blank Name, duplicate Name, or duplicate Level Order is refused the same as at Create
 
 **User Role:** Admin or Agent with `manage_helpdesk`
-**Precondition:** Two existing support levels on the same project, e.g. L1 (Level Order 1) and L2 (Level Order 2) from TC-HLP-089's chain. TC-HLP-257 (Name required), TC-HLP-100 (duplicate Name refused), and TC-HLP-260 (duplicate Level Order refused, per-project) each trigger their rule only on the New Support Level form — none has ever opened Edit on an already-saved level to confirm the same server-side validation fires there too.
+**Precondition:** Two existing support levels on the same project, e.g. L1 (Level Order 1) and L2 (Level Order 2) from TC-HLP-301's chain. TC-HLP-124 (Name required), TC-HLP-344 (duplicate Name refused), and TC-HLP-127 (duplicate Level Order refused, per-project) each trigger their rule only on the New Support Level form — none has ever opened Edit on an already-saved level to confirm the same server-side validation fires there too.
 
 **Steps:**
 1. Open L2's Edit form, clear Support Level Name to blank, attempt Save — record result
@@ -686,10 +686,10 @@ Fields: Project\* (select), Support Level Name\* (text), Level Order\* (number),
 3. Reopen L2's Edit form again, change its Level Order to the value already used by L1 within the same project, attempt Save — record result
 
 **Expected Result:**
-- Step 1 is refused with the same required-field message TC-HLP-257 confirms at Create — L2's Name is not saved blank and its prior value is unchanged afterward
-- Step 2 is refused with the same duplicate-name message TC-HLP-100 confirms at Create — L2 does not end up sharing "L1" as its Name
-- Step 3 is refused with the same "Level order has already been taken" message TC-HLP-260 confirms at Create, scoped per-project exactly as TC-HLP-260 already establishes — L2's Level Order is not silently overwritten to collide with L1's
-- If any of the three succeeds where the equivalent Create-time case (TC-HLP-257/100/260) would have refused it, that is a genuine Edit-vs-Create validation-parity gap — Create and Update are often separate code paths (the same reasoning TC-HLP-316 already raised for Create-vs-Update field handling on SLA), and this is the first case anywhere in this suite to test that parity for Support Level specifically
+- Step 1 is refused with the same required-field message TC-HLP-124 confirms at Create — L2's Name is not saved blank and its prior value is unchanged afterward
+- Step 2 is refused with the same duplicate-name message TC-HLP-344 confirms at Create — L2 does not end up sharing "L1" as its Name
+- Step 3 is refused with the same "Level order has already been taken" message TC-HLP-127 confirms at Create, scoped per-project exactly as TC-HLP-127 already establishes — L2's Level Order is not silently overwritten to collide with L1's
+- If any of the three succeeds where the equivalent Create-time case (TC-HLP-124/100/260) would have refused it, that is a genuine Edit-vs-Create validation-parity gap — Create and Update are often separate code paths (the same reasoning TC-HLP-288 already raised for Create-vs-Update field handling on SLA), and this is the first case anywhere in this suite to test that parity for Support Level specifically
 - CONFIRMED LIVE 2026-09-02 (Local, Admin): PASS — full validation parity confirmed, no gaps found (unlike SLA's Edit-path numeric gap in BUG-HLP-031). Using L2 (id 4, Name="L2"/Order=2) as the edit target on Helpdesk QA Alpha: Step 1 (blank Name) → refused "Name cannot be blank". Step 2 (rename to "L1") → refused "Name has already been taken". Step 3 (Level Order → 1, L1's value) → refused "Level order has already been taken". All three match their Create-time TC exactly. L2 was explicitly restored and reverified afterward: Name="L2", Level Order=2 — its original valid state, "Successful update" confirmed with no lingering corruption from the three refused attempts.
 
 ---
@@ -700,7 +700,7 @@ Fields: Holiday Name\* (text), Description (richtext), Start Date\* (date), End 
 
 ---
 
-### TC-HLP-262: Holiday Name is required
+### TC-HLP-130: Holiday Name is required
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -714,7 +714,7 @@ Fields: Holiday Name\* (text), Description (richtext), Start Date\* (date), End 
 
 ---
 
-### TC-HLP-263: Holiday Name — maximum length boundary
+### TC-HLP-131: Holiday Name — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -728,7 +728,7 @@ Fields: Holiday Name\* (text), Description (richtext), Start Date\* (date), End 
 
 ---
 
-### TC-HLP-264: Start Date and End Date are each required
+### TC-HLP-132: Start Date and End Date are each required
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -743,7 +743,7 @@ Fields: Holiday Name\* (text), Description (richtext), Start Date\* (date), End 
 
 ---
 
-### TC-HLP-265: End Date before Start Date is refused
+### TC-HLP-133: End Date before Start Date is refused
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -757,7 +757,7 @@ Fields: Holiday Name\* (text), Description (richtext), Start Date\* (date), End 
 
 ---
 
-### TC-HLP-266: Holiday dates far in the past or far in the future are accepted
+### TC-HLP-134: Holiday dates far in the past or far in the future are accepted
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -772,10 +772,10 @@ Fields: Holiday Name\* (text), Description (richtext), Start Date\* (date), End 
 
 ---
 
-### TC-HLP-330: Editing a Holiday to blank a required field, rename it into another holiday's name, or invert its dates is refused the same as at Create
+### TC-HLP-135: Editing a Holiday to blank a required field, rename it into another holiday's name, or invert its dates is refused the same as at Create
 
 **User Role:** Admin or Agent with `manage_helpdesk`
-**Precondition:** Two existing holidays with distinct names — e.g. Holiday A (the fixture from TC-HLP-319's required-only Create) and Holiday B named "Christmas Day" (the fixture from TC-HLP-103's duplicate-name-refused Create).
+**Precondition:** Two existing holidays with distinct names — e.g. Holiday A (the fixture from TC-HLP-335's required-only Create) and Holiday B named "Christmas Day" (the fixture from TC-HLP-347's duplicate-name-refused Create).
 
 **Steps:**
 1. Open Holiday A's Edit form, clear Name to blank, Save — record result
@@ -786,12 +786,12 @@ Fields: Holiday Name\* (text), Description (richtext), Start Date\* (date), End 
 6. Reopen Edit one final time and check Holiday A's Name, Start Date, and End Date
 
 **Expected Result:**
-- Step 1: refused with a required-field message on Name — the same rule TC-HLP-262 already confirms at Create, now confirmed to hold on Edit too, not only on the very first save
-- Steps 2–3: each refused with a field-specific required message on Start Date / End Date respectively — the same pair TC-HLP-264 confirms at Create. An Edit form that lets a date be cleared to null via a partial update (instead of requiring a valid replacement) would be a distinct defect from anything Create-time testing catches
-- Step 4: refused with a duplicate-name message — the same install-wide uniqueness rule TC-HLP-103 confirms at Create, now confirmed on Edit as well. This is the check most worth running for Holiday specifically: since holiday names are unique across the *whole install*, not per-calendar (per TC-HLP-103), a rename-via-Edit that isn't checked against every other holiday's name could let Holiday A silently collide with or overwrite Holiday B's identity
-- Step 5: refused with the same date-order error TC-HLP-265 confirms at Create — End-before-Start must be rejected consistently at Edit time too, not only enforced at creation and then bypassable by editing an existing holiday into an inconsistent state afterward
+- Step 1: refused with a required-field message on Name — the same rule TC-HLP-130 already confirms at Create, now confirmed to hold on Edit too, not only on the very first save
+- Steps 2–3: each refused with a field-specific required message on Start Date / End Date respectively — the same pair TC-HLP-132 confirms at Create. An Edit form that lets a date be cleared to null via a partial update (instead of requiring a valid replacement) would be a distinct defect from anything Create-time testing catches
+- Step 4: refused with a duplicate-name message — the same install-wide uniqueness rule TC-HLP-347 confirms at Create, now confirmed on Edit as well. This is the check most worth running for Holiday specifically: since holiday names are unique across the *whole install*, not per-calendar (per TC-HLP-347), a rename-via-Edit that isn't checked against every other holiday's name could let Holiday A silently collide with or overwrite Holiday B's identity
+- Step 5: refused with the same date-order error TC-HLP-133 confirms at Create — End-before-Start must be rejected consistently at Edit time too, not only enforced at creation and then bypassable by editing an existing holiday into an inconsistent state afterward
 - Step 6: Holiday A's Name/Start Date/End Date are exactly what they were before Step 1 — none of the five refused submissions in Steps 1–5 partially applied or corrupted the record despite being rejected
-- CONFIRMED LIVE 2026-09-03 (Local, Admin): PASS — full validation parity confirmed, no gaps found. No "Christmas Day" fixture existed from a prior session, so "Alpha Winter Break 2026" (id 2) was substituted as the duplicate-name collision target, and "TC-HLP-084 Holiday-Skip Test Day" (id 4, Start/End both 2026-09-02) as the edit target. Step 1 (blank Name) → refused "Name cannot be blank". Step 2 (blank Start Date) → refused "Start date cannot be blank". Step 3 (blank End Date) → refused "End date cannot be blank". Step 4 (rename to "Alpha Winter Break 2026") → refused "Name has already been taken" — confirms the install-wide uniqueness check fires on Edit too. Step 5 (Start Date 2026-09-10, after the End Date 2026-09-02) → refused "End date must be after the start date". Step 6: Holiday A was explicitly restored and reverified — Name="TC-HLP-084 Holiday-Skip Test Day", Start Date=09/02/2026, End Date=09/02/2026 — its exact original state, confirming none of the five refused attempts left any partial corruption.
+- CONFIRMED LIVE 2026-09-03 (Local, Admin): PASS — full validation parity confirmed, no gaps found. No "Christmas Day" fixture existed from a prior session, so "Alpha Winter Break 2026" (id 2) was substituted as the duplicate-name collision target, and "TC-HLP-296 Holiday-Skip Test Day" (id 4, Start/End both 2026-09-02) as the edit target. Step 1 (blank Name) → refused "Name cannot be blank". Step 2 (blank Start Date) → refused "Start date cannot be blank". Step 3 (blank End Date) → refused "End date cannot be blank". Step 4 (rename to "Alpha Winter Break 2026") → refused "Name has already been taken" — confirms the install-wide uniqueness check fires on Edit too. Step 5 (Start Date 2026-09-10, after the End Date 2026-09-02) → refused "End date must be after the start date". Step 6: Holiday A was explicitly restored and reverified — Name="TC-HLP-296 Holiday-Skip Test Day", Start Date=09/02/2026, End Date=09/02/2026 — its exact original state, confirming none of the five refused attempts left any partial corruption.
 
 ---
 
@@ -803,7 +803,7 @@ Fields: Name\* (text), Author (read-only, auto-set to current user — not a rea
 
 ---
 
-### TC-HLP-267: Name and Content are each required (confirmed: client-side HTML5 validation)
+### TC-HLP-136: Name and Content are each required (confirmed: client-side HTML5 validation)
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -816,7 +816,7 @@ Fields: Name\* (text), Author (read-only, auto-set to current user — not a rea
 
 ---
 
-### TC-HLP-268: Name — maximum length is exactly 255 characters (confirmed, not a guess)
+### TC-HLP-137: Name — maximum length is exactly 255 characters (confirmed, not a guess)
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -830,7 +830,7 @@ Fields: Name\* (text), Author (read-only, auto-set to current user — not a rea
 
 ---
 
-### TC-HLP-269: Duplicate Name is refused (confirmed exact wording — regression check, not a duplicate of TC-HLP-170)
+### TC-HLP-138: Duplicate Name is refused (confirmed exact wording — regression check, not a duplicate of TC-HLP-026)
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** A canned response named "Acknowledge Receipt" already exists.
@@ -839,11 +839,11 @@ Fields: Name\* (text), Author (read-only, auto-set to current user — not a rea
 1. Attempt to create another canned response also named "Acknowledge Receipt"
 
 **Expected Result:**
-- **CONFIRMED LIVE:** refused with the exact message **"Name has already been taken"**. (This is the same scenario as TC-HLP-170 in `HELPDESK_CONTENT_TEMPLATES.md` — recorded here too since this section is where the exact server wording was captured; don't execute both as if independent, they're the same check.)
+- **CONFIRMED LIVE:** refused with the exact message **"Name has already been taken"**. (This is the same scenario as TC-HLP-026 in `HELPDESK_CONTENT_TEMPLATES.md` — recorded here too since this section is where the exact server wording was captured; don't execute both as if independent, they're the same check.)
 
 ---
 
-### TC-HLP-270: Author field is not an editable input — always the current user
+### TC-HLP-139: Author field is not an editable input — always the current user
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -857,10 +857,10 @@ Fields: Name\* (text), Author (read-only, auto-set to current user — not a rea
 
 ---
 
-### TC-HLP-340: Edit-form validation: required fields, duplicate Name, and max-length are enforced the same as Create
+### TC-HLP-140: Edit-form validation: required fields, duplicate Name, and max-length are enforced the same as Create
 
 **User Role:** Admin or Agent with `manage_helpdesk`
-**Precondition:** Two existing canned responses with distinct Names and non-empty Content, e.g. "Acknowledge Receipt" (from TC-HLP-157/267-270) and a second one, e.g. "Follow-up Reminder".
+**Precondition:** Two existing canned responses with distinct Names and non-empty Content, e.g. "Acknowledge Receipt" (from TC-HLP-001/267-270) and a second one, e.g. "Follow-up Reminder".
 
 **Steps:**
 1. Open Edit on "Follow-up Reminder", clear the Name field entirely (leave Content as-is), Save — record result
@@ -869,11 +869,11 @@ Fields: Name\* (text), Author (read-only, auto-set to current user — not a rea
 4. Reopen Edit on "Follow-up Reminder", change its Name to a string of exactly 256 characters, Save — record result
 
 **Expected Result:**
-- Step 1: same client-side block as TC-HLP-267's Create-time check — `#rf_canned_response_name` is confirmed (per TC-HLP-272) to still pre-fill on the Edit form, and if it remains a real HTML5 `required` input there too, the browser should block submission with "Please fill out this field." exactly as on New. If Edit instead allows the request through and either errors server-side or, worse, silently saves with Name blanked, that's a stricter regression than what TC-HLP-267 covers and worth its own bug
+- Step 1: same client-side block as TC-HLP-136's Create-time check — `#rf_canned_response_name` is confirmed (per TC-HLP-005) to still pre-fill on the Edit form, and if it remains a real HTML5 `required` input there too, the browser should block submission with "Please fill out this field." exactly as on New. If Edit instead allows the request through and either errors server-side or, worse, silently saves with Name blanked, that's a stricter regression than what TC-HLP-136 covers and worth its own bug
 - Step 2: same expectation as Step 1, but for `#canned_content` — Content must be equally protected against being blanked out via Edit, not only at Create
-- Step 3: refused with the same exact message confirmed at Create in TC-HLP-269 — "Name has already been taken". Renaming an existing record into collision with a different record's Name must be blocked identically to a brand-new duplicate. Also confirm the negative control implicitly: re-saving "Follow-up Reminder" with its OWN unchanged Name (e.g. after Step 1/2's failed attempts) must never falsely trigger this same-name-as-self false positive
-- Step 4: refused with the same exact message confirmed at Create in TC-HLP-268 — "Name is too long (maximum is 255 characters)". The max-length rule is model-level (`validates :name, length: { maximum: 255 }` per TC-HLP-268's note), so it should apply identically whether the record is new or existing. If 256 characters is accepted here after being rejected at Create in TC-HLP-268, that is a real, reportable Create/Edit validation inconsistency
-- CONFIRMED LIVE 2026-09-03 (Local, Admin): PASS — full validation parity confirmed, no gaps. Using "Follow-up Reminder" (id 3) as the edit target and "Acknowledge Receipt" (id 2) as the duplicate-collision target (both created this session as Local fixtures, none pre-existed): Step 1 (blank Name) → client-side blocked first (`validity.valueMissing === true`, same as Create); with `required` removed via JS to force it through, server independently refuses too with "Name cannot be blank". Step 2 (blank Content) → refused "Content cannot be blank". Step 3 (rename to "Acknowledge Receipt") → refused "Name has already been taken". Step 4 (256-char Name) → refused **"Name is too long (maximum is 255 characters)"** — exact match to TC-HLP-268's Create-time message, no Create/Edit inconsistency. Negative control confirmed as a side effect of restoring the fixture: re-saving "Follow-up Reminder" with its own unchanged Name succeeded ("Successful update"), no false duplicate-of-self flag.
+- Step 3: refused with the same exact message confirmed at Create in TC-HLP-138 — "Name has already been taken". Renaming an existing record into collision with a different record's Name must be blocked identically to a brand-new duplicate. Also confirm the negative control implicitly: re-saving "Follow-up Reminder" with its OWN unchanged Name (e.g. after Step 1/2's failed attempts) must never falsely trigger this same-name-as-self false positive
+- Step 4: refused with the same exact message confirmed at Create in TC-HLP-137 — "Name is too long (maximum is 255 characters)". The max-length rule is model-level (`validates :name, length: { maximum: 255 }` per TC-HLP-137's note), so it should apply identically whether the record is new or existing. If 256 characters is accepted here after being rejected at Create in TC-HLP-137, that is a real, reportable Create/Edit validation inconsistency
+- CONFIRMED LIVE 2026-09-03 (Local, Admin): PASS — full validation parity confirmed, no gaps. Using "Follow-up Reminder" (id 3) as the edit target and "Acknowledge Receipt" (id 2) as the duplicate-collision target (both created this session as Local fixtures, none pre-existed): Step 1 (blank Name) → client-side blocked first (`validity.valueMissing === true`, same as Create); with `required` removed via JS to force it through, server independently refuses too with "Name cannot be blank". Step 2 (blank Content) → refused "Content cannot be blank". Step 3 (rename to "Acknowledge Receipt") → refused "Name has already been taken". Step 4 (256-char Name) → refused **"Name is too long (maximum is 255 characters)"** — exact match to TC-HLP-137's Create-time message, no Create/Edit inconsistency. Negative control confirmed as a side effect of restoring the fixture: re-saving "Follow-up Reminder" with its own unchanged Name succeeded ("Successful update"), no false duplicate-of-self flag.
 
 ---
 
@@ -881,11 +881,11 @@ Fields: Name\* (text), Author (read-only, auto-set to current user — not a rea
 
 Fields: Name\* (text), Code\* (text), Category (text), Description (richtext — confirmed live 2026-08-31, `rf_product[description]`; absent from `HELPDESK_USER_GUIDE.md` §15's field table), Project\* (locked to the current project on the real form, not a selectable dropdown), Active (checkbox).
 
-> This section didn't exist before 2026-08-31 — Product had zero per-field validation coverage anywhere in this suite, unlike every other Settings entity. `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-160/171 cover full-form create and duplicate name/code, but never required-field or max-length boundaries individually.
+> This section didn't exist before 2026-08-31 — Product had zero per-field validation coverage anywhere in this suite, unlike every other Settings entity. `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-008/171 cover full-form create and duplicate name/code, but never required-field or max-length boundaries individually.
 
 ---
 
-### TC-HLP-311: Product Name and Code are each required
+### TC-HLP-141: Product Name and Code are each required
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -901,7 +901,7 @@ Fields: Name\* (text), Code\* (text), Category (text), Description (richtext —
 
 ---
 
-### TC-HLP-312: Product Name and Code — maximum length boundary
+### TC-HLP-142: Product Name and Code — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -916,7 +916,7 @@ Fields: Name\* (text), Code\* (text), Category (text), Description (richtext —
 
 ---
 
-### TC-HLP-313: Product Description — maximum length boundary
+### TC-HLP-143: Product Description — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
 **Precondition:** None.
@@ -926,14 +926,14 @@ Fields: Name\* (text), Code\* (text), Category (text), Description (richtext —
 
 **Expected Result:**
 - Record the actual enforced maximum (richtext fields are typically much less restrictive than Name/Code, but unconfirmed for this entity)
-- CONFIRMED LIVE 2026-09-03 (Local, Admin): PASS. A 5,000-character Description on a new Product saved successfully with "Successful creation." — no truncation, no rejection, no crash (unlike Name/Code on this same entity — TC-HLP-312/BUG-HLP-030). Same pattern as SLA/Support Level Description (TC-HLP-314/261) and Organization Notes/Billing Info (TC-HLP-235) — richtext/textarea fields consistently have no practical length limit, while fixed-width `name`/`code`-style columns are the ones with the crash gap.
+- CONFIRMED LIVE 2026-09-03 (Local, Admin): PASS. A 5,000-character Description on a new Product saved successfully with "Successful creation." — no truncation, no rejection, no crash (unlike Name/Code on this same entity — TC-HLP-142/BUG-HLP-030). Same pattern as SLA/Support Level Description (TC-HLP-122/261) and Organization Notes/Billing Info (TC-HLP-098) — richtext/textarea fields consistently have no practical length limit, while fixed-width `name`/`code`-style columns are the ones with the crash gap.
 
 ---
 
-### TC-HLP-332: Editing a Product to blank a required field, or to rename it into a duplicate Name/Code, is refused
+### TC-HLP-144: Editing a Product to blank a required field, or to rename it into a duplicate Name/Code, is refused
 
 **User Role:** Admin or Agent with `manage_helpdesk`
-**Precondition:** Two existing products with distinct Name/Code — e.g. "Phoenix Core" (Code `PHX-CORE`, per TC-HLP-160) and a second, unrelated product, e.g. "Falcon Suite" (Code `FLC-SUITE`).
+**Precondition:** Two existing products with distinct Name/Code — e.g. "Phoenix Core" (Code `PHX-CORE`, per TC-HLP-008) and a second, unrelated product, e.g. "Falcon Suite" (Code `FLC-SUITE`).
 
 **Steps:**
 1. Open "Falcon Suite"'s Edit form, clear Name only (leave Code as-is), Save — record result
@@ -942,8 +942,8 @@ Fields: Name\* (text), Code\* (text), Category (text), Description (richtext —
 4. Reopen Edit, restore Name to `Falcon Suite`, change Code to `PHX-CORE` (colliding with the other product's Code), Save — record result
 
 **Expected Result:**
-- Steps 1–2: each is refused with the same field-specific required message confirmed at create-time in TC-HLP-311 — this is the Edit-form counterpart of that check, which Section G never exercises (TC-311, TC-312, and TC-313 all open "New Product" in their own Steps, never Edit)
-- Steps 3–4: each collision is refused with the same duplicate-name/duplicate-code message confirmed at create-time in TC-HLP-171 — confirms uniqueness is re-checked on rename via Edit, not only at initial creation. If either save silently succeeds, two products would end up sharing a Name or Code the moment one is renamed through Edit, which the Create-time check alone would never catch
+- Steps 1–2: each is refused with the same field-specific required message confirmed at create-time in TC-HLP-141 — this is the Edit-form counterpart of that check, which Section G never exercises (TC-311, TC-312, and TC-313 all open "New Product" in their own Steps, never Edit)
+- Steps 3–4: each collision is refused with the same duplicate-name/duplicate-code message confirmed at create-time in TC-HLP-027 — confirms uniqueness is re-checked on rename via Edit, not only at initial creation. If either save silently succeeds, two products would end up sharing a Name or Code the moment one is renamed through Edit, which the Create-time check alone would never catch
 - In all four attempts, "Falcon Suite" is left holding its last good saved values — reopening its Edit form or the Product list never shows a blank Name/Code, nor a Name/Code that now collides with "Phoenix Core" — confirming the refused Save didn't partially commit
 - CONFIRMED LIVE 2026-09-03 (Local, Admin): PASS — full validation parity confirmed, no gaps found. Neither "Phoenix Core"/"Falcon Suite" fixture pre-existed on Local, so both were created fresh this session (Phoenix Core id 5, Falcon Suite id 6, both on Helpdesk QA Alpha). Step 1 (blank Name) → refused "Name cannot be blank". Step 2 (blank Code) → refused "Code cannot be blank". Step 3 (rename to "Phoenix Core") → refused **"Name has already been taken for this project"** — notably scoped wording ("for this project"), consistent with Product being a project-scoped entity, unlike SLA/Support Level/Holiday/Canned Response's install-wide or simple "already taken" messages. Step 4 (Code → "PHX-CORE") → refused **"Code has already been taken for this project"**, same per-project scoping. Falcon Suite was explicitly restored and reverified afterward: Product Name="Falcon Suite", Product Code="FLC-SUITE" — its exact original values, confirming none of the four refused attempts partially committed.
 
@@ -953,7 +953,7 @@ Fields: Name\* (text), Code\* (text), Category (text), Description (richtext —
 
 > A Customer is a real Redmine `User` under the hood (`RfCustomersController#create` does `@customer = User.new(customer_params)`), but the Customer create/edit forms only ever expose Login/First name/Last name/Email/Password — never a User custom fields section, unlike Redmine's own core `/users/new`/`/users/:id/edit`, which renders every User custom field automatically. This TC checks what happens when an Administrator makes a User custom field **required** (a routine, supported admin action, e.g. for compliance/reporting reasons) and then tries to create a Customer through the plugin's own form, which has no way to fill that field in.
 
-### TC-HLP-401: Creating a Customer is unconditionally blocked once ANY User custom field is marked required, with no way to satisfy it via the Customer form
+### TC-HLP-145: Creating a Customer is unconditionally blocked once ANY User custom field is marked required, with no way to satisfy it via the Customer form
 
 **User Role:** Admin (or any role with Customer-creation access, e.g. `manage_helpdesk`)
 **Precondition:** A required Text custom field exists on the **Users** custom-field type (Administration → Custom fields → Users → New custom field, "Is required" checked), with no default value.
@@ -974,7 +974,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, Admin): **FAIL — filed as 
 ## Notes
 
 - Every case in Sections A–E above whose Expected Result says "record the actual..." is an **exploratory boundary probe**, not a pass/fail assertion against a known spec — the plugin's docs never state these limits. Fill in the real observed behavior during execution, then promote genuinely surprising findings (accepted script injection, no upload type restriction, illogical SLA time acceptance, etc.) into `HELPDESK_MEMORY.md` and file a bug if the behavior is actually harmful, not merely undocumented. Section F (Canned Response) is the one section where every case has already been executed with real confirmed values, rather than left as an open probe — use it as the template for what "done" looks like once the other sections are run.
-- TC-HLP-101 (Support Level, zero assignees refused), TC-HLP-099/100/103 (duplicate name refusals for SLA/Support Level/Holiday), and TC-HLP-119 (duplicate name refusal for Organization) already exist in their respective suite files and are not duplicated here — see `HELPDESK_SLA_ESCALATION.md` and `HELPDESK_CUSTOMERS_ORGANIZATIONS.md`.
-- **Edit-time validation-parity cases, added 2026-09-01:** every case above (Sections A–G) was originally written and, where executed, confirmed only against the **New/Create** form. A dedicated audit (background workflow, 7 parallel agents) found this was a total, unqualified gap — no case anywhere retested required-blank/duplicate-name/max-length validation on the **Edit** form of any entity. One TC per section now closes this: TC-HLP-338 (Organization), TC-HLP-335 (Customer), TC-HLP-326 (SLA), TC-HLP-328 (Support Level), TC-HLP-330 (Holiday), TC-HLP-340 (Canned Response), TC-HLP-332 (Product).
+- TC-HLP-146 (Support Level, zero assignees refused), TC-HLP-343/100/103 (duplicate name refusals for SLA/Support Level/Holiday), and TC-HLP-060 (duplicate name refusal for Organization) already exist in their respective suite files and are not duplicated here — see `HELPDESK_SLA_ESCALATION.md` and `HELPDESK_CUSTOMERS_ORGANIZATIONS.md`.
+- **Edit-time validation-parity cases, added 2026-09-01:** every case above (Sections A–G) was originally written and, where executed, confirmed only against the **New/Create** form. A dedicated audit (background workflow, 7 parallel agents) found this was a total, unqualified gap — no case anywhere retested required-blank/duplicate-name/max-length validation on the **Edit** form of any entity. One TC per section now closes this: TC-HLP-099 (Organization), TC-HLP-113 (Customer), TC-HLP-123 (SLA), TC-HLP-129 (Support Level), TC-HLP-135 (Holiday), TC-HLP-140 (Canned Response), TC-HLP-144 (Product).
 - **All 55 TCs in this suite carry a `CONFIRMED LIVE` marker as of 2026-09-03** (Local, redmine-docker-6, Admin) — verified via `grep -c '^### TC-HLP-'` = `grep -c 'CONFIRMED LIVE'` = 55, plus an awk state-machine pass confirming every TC section's own marker appears before its next TC header (no orphaned/misattributed markers). Three genuine defects surfaced during this pass: **BUG-HLP-030** (Name/Code length-validation crash, systemic across SLA/Support Level/Holiday/Product — 4 models, 2 columns), **BUG-HLP-031** (SLA First/Resolution Time blank silently accepted on both Create and Edit), **BUG-HLP-032** (SLA Agreement upload has no file-type restriction, `.exe` accepted). Everything else confirmed either a working validation or a documented-as-probe observed behavior, not a defect.
 - Do not automate any of these into `automation/tests/` until each has a confirmed manual PASS, per `CLAUDE.md` §13. Every section now carries confirmed PASS results and is eligible for automation.

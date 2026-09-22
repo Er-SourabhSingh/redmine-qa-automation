@@ -39,7 +39,7 @@
   in-progress attempted change (e.g. a Priority selection) already pre-filled in the fallback form rather than
   discarded. Filling the required fields and submitting completes successfully with all changes applied. This is
   the real, working answer to "what happens with an unmet required field during inline edit" — see
-  `INLINE_EDITOR_CUSTOM_FIELD_CONFIGURATION.md` TC-INE-409 for full evidence.
+  `INLINE_EDITOR_CUSTOM_FIELD_CONFIGURATION.md` TC-INE-009 for full evidence.
 - The instance had **zero** custom fields configured before this plugin's own testing began — every custom field
   used across this plugin's suites (`cf_61`–`cf_69`) is a QA-created fixture, not pre-existing server data. Always
   check Administration → Custom fields first (both the Issues and Projects tabs) before writing a TC precondition
@@ -57,12 +57,12 @@
   inline path), and the plugin then **opens the full Edit form in place** with the attempted status change
   preserved and the field now **editable** (evaluated against the new status), so the user can satisfy the
   requirement the transition just created. After submitting, the field shows an inline pencil at the new status.
-  Same fallback mechanism as the always-required case (TC-INE-409). See
-  `INLINE_EDITOR_CUSTOM_FIELD_CONFIGURATION.md` TC-INE-406/407.
+  Same fallback mechanism as the always-required case (TC-INE-009). See
+  `INLINE_EDITOR_CUSTOM_FIELD_CONFIGURATION.md` TC-INE-006/407.
 - **The Edit-form fallback is one consistent mechanism**, confirmed 2026-09-22 across all three combinations:
-  (a) custom-field-level Required unmet + editing a non-status field (TC-INE-409); (b) workflow-level per-status
-  Required unmet + changing Status (TC-INE-407); (c) custom-field-level Required unmet + changing Status
-  (TC-INE-410). In every case: inline save rejected with the real validation message → full Edit form rendered in
+  (a) custom-field-level Required unmet + editing a non-status field (TC-INE-009); (b) workflow-level per-status
+  Required unmet + changing Status (TC-INE-007); (c) custom-field-level Required unmet + changing Status
+  (TC-INE-010). In every case: inline save rejected with the real validation message → full Edit form rendered in
   place (URL unchanged) → attempted change preserved → field editable → submit completes normally. Also confirmed:
   merely *sitting on* an issue with an unmet required field produces **no error at all** — nothing is being saved,
   so nothing complains. Both rule types coexist correctly on the same issue (a custom-field-Required field stays
@@ -73,7 +73,7 @@
 - Workflow **status transition** rules also apply (separately from field permissions): as Developer, In Progress →
   New was simply absent from the inline Status dropdown. Use admin (exempt) to reset a fixture issue's status.
 - **Still unproven:** whether the *endpoint* enforces a workflow Read-only field, or only the UI hides the pencil.
-  See TC-INE-406 step 3 — and read the global memory note "Avoid Raw fetch() On .json Endpoint Tests" before
+  See TC-INE-006 step 3 — and read the global memory note "Avoid Raw fetch() On .json Endpoint Tests" before
   attempting it, since the obvious approach hangs the browser on a native Basic Auth popup.
 - **Every custom field format's widget, confirmed 2026-09-22 (issue detail page)**: Date/Boolean/User/Version use
   the `rf-ss` single-select searchable dropdown ("Search…" placeholder); List-with-Multiple-selection uses a
@@ -95,7 +95,7 @@
   confirmed 2026-09-22: Boolean uses `rf-ss` on the detail page but a **plain native `<select>`** on the issue
   list. User (`rf-ss` on both) does not have this inconsistency. Both are functionally correct — not a bug, but
   worth knowing before assuming "whatever widget the detail page uses" when writing a list-view TC.
-- **Permission-granularity trio confirmed 2026-09-22 (TC-INE-913/914/915), all PASS — on BOTH the issue detail
+- **Permission-granularity trio confirmed 2026-09-22 (TC-INE-104/914/915), all PASS — on BOTH the issue detail
   page and the issue list view** (user explicitly asked whether the list page specifically had been checked; it
   hadn't at first — always check both surfaces for a permission TC in this plugin, they're separate widget
   implementations and either could diverge):
@@ -112,7 +112,7 @@
     — the inline pencil **incorrectly appeared** on a project where `edit_project` was NOT granted (Helpdesk
     Service Desk), but the actual save correctly got a `403` with zero data corruption. The endpoint is the real
     gate; a *present* pencil is not evidence a write will succeed, same as a missing one isn't evidence it's
-    blocked (TC-INE-905's methodology, now confirmed to run in both directions). Cosmetic-only, not filed.
+    blocked (TC-INE-096's methodology, now confirmed to run in both directions). Cosmetic-only, not filed.
   - **Reporter role had neither `edit_own_issues` nor `edit_project` checked by default on this instance** — do
     not assume stock Redmine role defaults; always check Administration → Roles and permissions first.
   - **Redmine's own "sudo mode"** (a password re-confirmation interstitial) can silently swallow a role-permission
@@ -129,11 +129,52 @@
   Developer can create the issue and make unrelated inline edits at "New" with zero errors; the field only becomes
   enforced once the issue moves to a status where it no longer has a read-only override (at which point the usual
   Edit-form fallback handles it, same as any other newly-required field, even when several such fields trip at
-  once — see TC-INE-411). Always build this exact combination (`is_required` ✓ at creation + a workflow Read-only
+  once — see TC-INE-011). Always build this exact combination (`is_required` ✓ at creation + a workflow Read-only
   rule on the same status) with a **brand-new field created Required from the start** and test via issue
   **creation** by the actual restricted role — retrofitting Required onto an already-existing, already-admin-
   touched field/issue doesn't exercise the same path cleanly (confirmed the hard way: reusing `cf_65`/#1551 after
   earlier admin edits muddied the state before this was redone properly with `cf_70`/#1552 fresh from `daisy.skye`).
+
+- **Server-side optimistic locking (Redmine core, not this plugin) correctly guards rapid successive inline
+  saves**, confirmed 2026-09-22: firing 3 Status changes back-to-back without waiting for UI re-sync got a `200` on
+  the first and a `422 {"errors":["Attempted to update a stale object: Issue."]}` on the second — the stale write is
+  refused outright rather than silently overwriting or losing data. Final state and journal both matched exactly
+  the last *successful* save; no duplicate entries, no lost update.
+- **The plugin's inline-edit surface never touches journal/notes content at all** — confirmed 2026-09-22 via DOM
+  query (`0` `.rf-edit-icon` elements inside any journal element). This resolves the "private notes" permission
+  question cleanly: there's no attack surface to test, because the plugin doesn't expose notes for inline editing
+  in the first place. Relevant to any future TC about notes/private content on this plugin.
+- **When a description is blank, the plugin renders no Description section/edit-affordance at all** — not hidden,
+  genuinely absent from the DOM. An initial description has to be added via the full standard Edit form before the
+  inline path becomes available on that issue. Worth knowing before writing a TC precondition that assumes the
+  inline description pencil is always present.
+- **The "pencil shown but endpoint correctly refuses" cosmetic pattern (first seen in TC-INE-106 for `edit_project`)
+  also holds for closed projects**, confirmed 2026-09-22: a closed project's issue-list Subject pencil still
+  renders, but the actual save attempt gets a clean `403 {"errors":["Forbidden"]}` with zero data corruption. An
+  **archived** project is stronger — the issue list page itself 403s before any inline UI renders at all. Neither
+  is filed as a bug; the server-side check is what actually protects the data in both cases.
+- **Permission-test infrastructure built 2026-09-22, reusable for future sessions on this instance:**
+  - Two new roles: **"QA Read Only"** (`view_issues` only — nothing else) and **"QA Own Visibility"**
+    (`view_issues`+`edit_issues`+`add_issues`, `issues_visibility` = `own`).
+  - `harmony.rose` added to "test project" under "QA Read Only"; `summer.rain` added under "QA Own Visibility";
+    `willow.belle` added under **Developer** (kept separate from `daisy.skye`, who stays on **Reporter** for the
+    TC-INE-104/106 fixtures — don't reuse `daisy.skye` for a Developer-role check without first confirming her
+    current role, since it's been reconfigured multiple times this engagement).
+  - Project **"QA Private Project"** (`qa-private-project`, genuinely private — `is_public` explicitly unchecked
+    and confirmed via DOM read) with issue #1554 (tracker Feature — Bug tracker triggers this instance's
+    Bug-only-tracker/Required custom-field fixtures unnecessarily for a permission-only fixture).
+  - Two throwaway projects for closed/archived testing: **"QA Closed Test Project"** (`qa-closed-test-project`,
+    issue #1555, closed via Actions → Close) and **"QA Archived Test Project"** (`qa-archived-test-project`,
+    issue #1556, archived via Administration → Projects → Actions → Archive). `willow.belle` is a Developer member
+    of both (added before closing/archiving).
+- **Raw `fetch()` for a negative-endpoint leg was explicitly declined by the user mid-session (2026-09-22)** — even
+  though a prior same-session finding (TC-INE-106) showed a *real* 403 doesn't always trigger the native Basic Auth
+  popup risk, the user's preference is to avoid this pattern entirely for now. **Alternative that DOES work and was
+  used successfully instead:** drive the plugin's own real UI editor and let it fire the actual request — this
+  still yields genuine endpoint-level evidence (e.g. TC-INE-088's closed-project `403`) without the popup risk,
+  whenever the affordance renders at all. The only gap this leaves unconfirmed is the narrower case where the
+  affordance is completely absent from the DOM (no UI path exists to trigger a request at all) — that specific
+  server-side check remains unverified for TC-INE-093/094/095/096/097 leg 3 until a safer method is agreed.
 
 ## Recurring Issues
 

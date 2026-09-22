@@ -7,7 +7,7 @@ import { BasePage } from './BasePage';
  * markup, just scoped differently. Locators verified live 2026-08-25 on
  * `flux-fwdq7ydhw49` as admin. Closes a gap flagged in `HELPDESK_MEMORY.md`'s
  * outstanding list ("Still no page object for: ... Dashboard (either global
- * or project)"), and backs TC-HLP-066/067 (basic rendering) and TC-HLP-274/
+ * or project)"), and backs TC-HLP-153/067 (basic rendering) and TC-HLP-155/
  * 275 (KPI "View all" links) in `HELPDESK_NAVIGATION_WORKSPACES.md`.
  *
  * Confirmed differences between the two:
@@ -23,7 +23,7 @@ import { BasePage } from './BasePage';
  *    project's own organizations (no separate "Project" column, since it's
  *    implied). "New issue" goes to `/projects/:id/helpdesk/new`.
  *
- * TC-HLP-274 re-verified live this pass: clicking the global dashboard's
+ * TC-HLP-155 re-verified live this pass: clicking the global dashboard's
  * "Unassigned" KPI card landed on `/rf_helpdesk/issues?assigned_to_id[]=none
  * &status_id[]=open&...`, with the filter panel correctly pre-filled
  * (Status = Any open status, Assignee = Nobody (unassigned)) and the

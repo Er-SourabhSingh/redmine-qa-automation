@@ -154,8 +154,8 @@ value."*
   #120436 introduced. This finding means the earlier regression sign-off ("zero defects in the feature's own
   code") needs to be corrected: this is a real defect in #120436's own delivered functionality, found after the
   ticket had already been marked Done on production.
-- **Not caught during the regression pass** because that pass tested drag operations (TC-AGB-545) and inline
-  point edits (TC-AGB-537) as *separate* scenarios, each followed by a check, rather than performing several
+- **Not caught during the regression pass** because that pass tested drag operations (TC-AGB-045) and inline
+  point edits (TC-AGB-037) as *separate* scenarios, each followed by a check, rather than performing several
   drags and edits back-to-back in the same page load without reloading in between — which is exactly the real
   planning workflow the user was doing.
 - **Suggested fix direction:** either (a) have the sortable `update` handler in `backlog.html.erb` also update
@@ -163,7 +163,7 @@ value."*
   `data-points` value (mirroring what `updateSingleColumnCount` already does for the count), or (b) have
   `rf_story_points.js`'s `updateBadges` re-fetch/recompute the column's true total from the DOM (summing every
   visible card's `data-points`) rather than reading and mutating the badge's currently-displayed text.
-- Recommend re-testing TC-AGB-530–532, 536–537, 539–540, 542–543 as one continuous multi-step session (several
+- Recommend re-testing TC-AGB-030–532, 536–537, 539–540, 542–543 as one continuous multi-step session (several
   drags and point edits without reloading between them) once fixed, since that combined-interaction scenario is
   what actually exposes this and was not covered by the regression suite's TC-by-TC structure.
 
@@ -184,7 +184,7 @@ value."*
   support in Backlog (Feature #120436)", suite #110, environment "Window 11 + Chrome") via
   `redmineflux_testcases_management_report_defect` — that testcase's run-577 result is now **Failed** with
   defect #120990 attached, reflecting this regression against the sanity testcase's own scope. The local
-  per-TC verdicts in `testcases/AGILE_BACKLOG_AND_SPRINTS.md` (TC-AGB-529/530/533/535/539/545) are left as
+  per-TC verdicts in `testcases/AGILE_BACKLOG_AND_SPRINTS.md` (TC-AGB-029/530/533/535/539/545) are left as
   isolated PASS, per this repo's retest-scope rule — see the note added there 2026-09-21.
 
 ## Retest — 2026-09-21 — FIXED

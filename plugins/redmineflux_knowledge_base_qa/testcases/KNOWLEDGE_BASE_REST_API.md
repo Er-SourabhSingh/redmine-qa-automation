@@ -27,7 +27,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-801: List spaces
+### TC-RKB-136: List spaces
 
 **User Role:** Member with `view_knowledgebase`
 **Steps:**
@@ -39,7 +39,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-802: Get a single space
+### TC-RKB-137: Get a single space
 
 **User Role:** Member
 **Steps:**
@@ -50,7 +50,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-803: Create a space
+### TC-RKB-138: Create a space
 
 **User Role:** Member with `manage_knowledgebase_spaces`
 **Steps:**
@@ -61,7 +61,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-804: Update a space
+### TC-RKB-139: Update a space
 
 **User Role:** Member with `manage_knowledgebase_spaces`
 **Steps:**
@@ -72,7 +72,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-805: Delete a space
+### TC-RKB-140: Delete a space
 
 **User Role:** Member with `manage_knowledgebase_spaces`
 **Steps:**
@@ -89,7 +89,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-806: List and get nodes
+### TC-RKB-141: List and get nodes
 
 **User Role:** Member
 **Steps:**
@@ -100,7 +100,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-807: Create, update and delete a node
+### TC-RKB-142: Create, update and delete a node
 
 **User Role:** Member with `manage_knowledgebase_pages`
 **Steps:**
@@ -112,7 +112,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-808: Publish a page via the API
+### TC-RKB-143: Publish a page via the API
 
 **User Role:** Member with `manage_knowledgebase_pages`
 **Steps:**
@@ -126,7 +126,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-809: Unpublish a page via the API
+### TC-RKB-144: Unpublish a page via the API
 
 **User Role:** Member with `manage_knowledgebase_pages`
 **Steps:**
@@ -137,7 +137,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-810: List version history via the API
+### TC-RKB-145: List version history via the API
 
 **User Role:** Member
 **Steps:**
@@ -148,7 +148,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-811: Restore a version via the API
+### TC-RKB-146: Restore a version via the API
 
 **User Role:** Member with `manage_knowledgebase_pages`
 **Steps:**
@@ -160,7 +160,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-812: Response envelope matches the documented format
+### TC-RKB-147: Response envelope matches the documented format
 
 **User Role:** Member
 **Steps:**
@@ -173,7 +173,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-813: Pagination defaults and limits
+### TC-RKB-148: Pagination defaults and limits
 
 **User Role:** Member
 **Steps:**
@@ -191,7 +191,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-814: Unauthenticated requests are rejected
+### TC-RKB-149: Unauthenticated requests are rejected
 
 **User Role:** No credentials
 **Steps:**
@@ -200,11 +200,11 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 **Expected Result:**
 - 401 for every one. The KB states all endpoints require authentication.
 - **No endpoint may be reachable using a public sharing token** — the public token is for `/kb/public/*` only, and
-  a token that also opened the API would be Critical (paired with TC-RKB-622).
+  a token that also opened the API would be Critical (paired with TC-RKB-130).
 
 ---
 
-### TC-RKB-815: Permissions are enforced per endpoint
+### TC-RKB-150: Permissions are enforced per endpoint
 
 **User Role:** Member with `view_knowledgebase` only
 **Steps:**
@@ -219,7 +219,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-816: Space-management and page-management permissions are distinct
+### TC-RKB-151: Space-management and page-management permissions are distinct
 
 **User Role:** Member with `manage_knowledgebase_pages` but **not** `manage_knowledgebase_spaces`
 **Steps:**
@@ -233,7 +233,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-817: Draft pages are not returned to unauthorised readers
+### TC-RKB-152: Draft pages are not returned to unauthorised readers
 
 **User Role:** Reader with `view_knowledgebase` only
 **Steps:**
@@ -248,7 +248,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-818: project_id is authorised, not just accepted
+### TC-RKB-153: project_id is authorised, not just accepted
 
 **User Role:** Member of project A only
 **Preconditions:** **Confirm project B is genuinely private** with no membership path for this user.
@@ -262,7 +262,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-819: Node ID and project_id mismatch
+### TC-RKB-154: Node ID and project_id mismatch
 
 **User Role:** Member of project A
 **Steps:**
@@ -274,7 +274,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-820: Hierarchy constraints are enforced by the API
+### TC-RKB-155: Hierarchy constraints are enforced by the API
 
 **User Role:** Member with `manage_knowledgebase_pages`
 **Steps:**
@@ -283,11 +283,11 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 **Expected Result:**
 - Both refused. The KB's structural rules must be enforced server-side — the UI simply omits the menu option, so
-  the API is the only place this is really tested (paired with TC-RKB-217 and 218).
+  the API is the only place this is really tested (paired with TC-RKB-176 and 218).
 
 ---
 
-### TC-RKB-821: Malformed and hostile payloads
+### TC-RKB-156: Malformed and hostile payloads
 
 **User Role:** Member
 **Steps:**
@@ -302,7 +302,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-822: Non-existent and malformed identifiers
+### TC-RKB-157: Non-existent and malformed identifiers
 
 **User Role:** Member
 **Steps:**
@@ -313,7 +313,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-823: Deleted-record operations
+### TC-RKB-158: Deleted-record operations
 
 **User Role:** Member
 **Steps:**
@@ -324,7 +324,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 
 ---
 
-### TC-RKB-824: Large collection performance
+### TC-RKB-159: Large collection performance
 
 **User Role:** Member
 **Steps:**

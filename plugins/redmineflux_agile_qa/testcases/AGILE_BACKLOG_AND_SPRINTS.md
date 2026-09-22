@@ -22,7 +22,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-501: Create a sprint
+### TC-AGB-001: Create a sprint
 
 **User Role:** Member with manage-sprints rights
 **Steps:**
@@ -35,7 +35,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-502: Edit a sprint
+### TC-AGB-002: Edit a sprint
 
 **User Role:** Member with manage-sprints rights
 **Steps:**
@@ -47,7 +47,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-503: Delete a sprint
+### TC-AGB-003: Delete a sprint
 
 **User Role:** Member with manage-sprints rights
 **Steps:**
@@ -61,7 +61,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-504: Cancel a sprint deletion
+### TC-AGB-004: Cancel a sprint deletion
 
 **User Role:** Member
 **Steps:**
@@ -72,7 +72,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-505: Sprint sharing option behaves as configured
+### TC-AGB-005: Sprint sharing option behaves as configured
 
 **User Role:** Member
 **Steps:**
@@ -85,7 +85,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-506: Sprint status controls its lifecycle
+### TC-AGB-006: Sprint status controls its lifecycle
 
 **User Role:** Member
 **Steps:**
@@ -101,7 +101,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-507: Backlog opens and shows its columns
+### TC-AGB-007: Backlog opens and shows its columns
 
 **User Role:** Member
 **Steps:**
@@ -112,7 +112,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-508: Drag an issue into a sprint column
+### TC-AGB-008: Drag an issue into a sprint column
 
 **User Role:** Member with edit rights
 **Steps:**
@@ -125,7 +125,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-509: Drag an issue into a version column
+### TC-AGB-009: Drag an issue into a version column
 
 **User Role:** Member
 **Steps:**
@@ -137,7 +137,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-510: Move an issue between sprints
+### TC-AGB-010: Move an issue between sprints
 
 **User Role:** Member
 **Steps:**
@@ -148,7 +148,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-511: Remove an issue from a sprint
+### TC-AGB-011: Remove an issue from a sprint
 
 **User Role:** Member
 **Steps:**
@@ -159,7 +159,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-512: Backlog lazy-loads large datasets
+### TC-AGB-012: Backlog lazy-loads large datasets
 
 **User Role:** Member
 **Steps:**
@@ -172,7 +172,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-513: Backlog search and filters
+### TC-AGB-013: Backlog search and filters
 
 **User Role:** Member
 **Steps:**
@@ -183,7 +183,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-514: Backlog card field settings
+### TC-AGB-014: Backlog card field settings
 
 **User Role:** Member
 **Steps:**
@@ -198,7 +198,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-515: Assign from the issue edit form
+### TC-AGB-015: Assign from the issue edit form
 
 **User Role:** Member
 **Steps:**
@@ -210,7 +210,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-516: Bulk-assign issues to a sprint
+### TC-AGB-016: Bulk-assign issues to a sprint
 
 **User Role:** Manager
 **Steps:**
@@ -222,7 +222,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-517: Sprint field appears on the issue form only when relevant
+### TC-AGB-017: Sprint field appears on the issue form only when relevant
 
 **User Role:** Member
 **Steps:**
@@ -238,7 +238,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-518: Sprint with a blank name
+### TC-AGB-018: Sprint with a blank name
 
 **User Role:** Member
 **Steps:**
@@ -249,7 +249,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-519: Sprint end date before start date
+### TC-AGB-019: Sprint end date before start date
 
 **User Role:** Member
 **Steps:**
@@ -260,7 +260,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-520: Overlapping sprints
+### TC-AGB-020: Overlapping sprints
 
 **User Role:** Member
 **Steps:**
@@ -272,7 +272,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-521: Duplicate sprint names
+### TC-AGB-021: Duplicate sprint names
 
 **User Role:** Member
 **Steps:**
@@ -284,7 +284,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-522: Script content in a sprint name or description
+### TC-AGB-022: Script content in a sprint name or description
 
 **User Role:** Member
 **Steps:**
@@ -295,7 +295,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-523: Very long sprint name
+### TC-AGB-023: Very long sprint name
 
 **User Role:** Member
 **Steps:**
@@ -306,7 +306,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-524: Sprint management without permission
+### TC-AGB-024: Sprint management without permission
 
 **User Role:** Member without manage-sprints rights
 **Steps:**
@@ -321,7 +321,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-525: Backlog drag without edit permission
+### TC-AGB-025: Backlog drag without edit permission
 
 **User Role:** Member with view-only issue access
 **Steps:**
@@ -333,7 +333,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-526: Concurrent sprint assignment
+### TC-AGB-026: Concurrent sprint assignment
 
 **User Role:** Two members
 **Steps:**
@@ -344,7 +344,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-527: Issue moved to a project where the sprint does not apply
+### TC-AGB-027: Issue moved to a project where the sprint does not apply
 
 **User Role:** Member
 **Steps:**
@@ -356,7 +356,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-528: Backlog on a project with no sprints and no versions
+### TC-AGB-028: Backlog on a project with no sprints and no versions
 
 **User Role:** Member
 **Steps:**
@@ -392,7 +392,7 @@ sits in the Backlog.
 > requires the existing **Enable Story Points** setting to be on.
 >
 > **Sanity subset** (the smallest set that proves the feature is present and working - run these first, before
-> the full regression): **TC-AGB-529, 530, 533, 535, 539, 545**.
+> the full regression): **TC-AGB-029, 530, 533, 535, 539, 545**.
 
 > ### Execution status
 >
@@ -402,35 +402,35 @@ sits in the Backlog.
 >
 > **2026-09-21 update:** production testcase #120941 (run #577) has been marked **Failed** and linked to
 > **BUG-AGB-011 / production #120990** — the drag-without-reload badge defect regresses this sanity testcase's
-> own scope (the badge display), even though the individual local TCs below (TC-AGB-529/530/533/535/539/545)
+> own scope (the badge display), even though the individual local TCs below (TC-AGB-029/530/533/535/539/545)
 > still each pass in isolation. This is a deliberate divergence: the local per-TC verdicts below reflect
 > isolated execution and are left as-is per `SENIOR_QA_STANDARDS.md`'s retest-scope rule; production run #577's
 > own result now reflects the regression found under the combined drag+edit-without-reload workflow.
 >
 > | TC | Verdict | Evidence |
 > |---|---|---|
-> | TC-AGB-529 | **PASS** | Configure page has a `Backlog` section with exactly the two checkboxes (`settings[backlog_show_closed_issues]`, `settings[backlog_wide_unassigned_column]`), both unchecked on first view, each with its hint text. "Successful update" on save; both still false after reload. |
-> | TC-AGB-530 | **PASS** | Sprint "SP Sanity Sprint 120436" = #1530 (New, 8) + #1529 (Resolved, 5) + #1527 (Rejected, 2) + #1526 (New, 3). Hand sums: total 18, closed 2. Badge rendered `2 / 18 SP`, `title="2 of 18 story points closed"`, shown next to the card count, not replacing it. |
-> | TC-AGB-533 | **PASS** | With Story Points off: 0 badges on the whole page, card counts unchanged. Re-enabled: badge returns as `2 / 18 SP` - identical figures, no stored data destroyed. **Note:** the off/on cycle this case requires exposed a separate defect in the Story Points *configuration* - see `BUG-AGB-009`. TC-AGB-533's own assertions all hold, so the verdict stands. |
-> | TC-AGB-535 | **PASS** | Closing #1526 (3 pts) moved the badge `2 / 18` -> `5 / 18` (+3 exactly, total unchanged); reopening it returned `5 / 18` -> `2 / 18`. The is-closed flag governs, not the name: **Resolved** (5 pts, not flagged closed) is excluded, **Rejected** (2 pts, flagged closed) is counted. Confirmed against Administration > Issue statuses, where only Closed and Rejected carry the flag. |
-> | TC-AGB-539 | **PASS** | Enabling *Show completed issues in Backlog*: #1527 (Rejected) becomes visible in its sprint column, header count 3 -> 4 matching the 4 cards drawn, badge holds `2 / 18 SP` with those closed points being #1527's. Both halves of requirement 3 satisfied together. |
-> | TC-AGB-545 | **PASS** | At 1920px, No Sprint 284px -> **444px** with `.backlog-column-wide`; sprint column unchanged at 280px. Versions tab: No Version 444px, the three version columns stay 280px each, `scrollWidth == clientWidth` (no overflow/clipping). Drag still works: #1528 dragged out of the widened column into the sprint, count 4 -> 5, persisted across reload. |
+> | TC-AGB-029 | **PASS** | Configure page has a `Backlog` section with exactly the two checkboxes (`settings[backlog_show_closed_issues]`, `settings[backlog_wide_unassigned_column]`), both unchecked on first view, each with its hint text. "Successful update" on save; both still false after reload. |
+> | TC-AGB-030 | **PASS** | Sprint "SP Sanity Sprint 120436" = #1530 (New, 8) + #1529 (Resolved, 5) + #1527 (Rejected, 2) + #1526 (New, 3). Hand sums: total 18, closed 2. Badge rendered `2 / 18 SP`, `title="2 of 18 story points closed"`, shown next to the card count, not replacing it. |
+> | TC-AGB-033 | **PASS** | With Story Points off: 0 badges on the whole page, card counts unchanged. Re-enabled: badge returns as `2 / 18 SP` - identical figures, no stored data destroyed. **Note:** the off/on cycle this case requires exposed a separate defect in the Story Points *configuration* - see `BUG-AGB-009`. TC-AGB-033's own assertions all hold, so the verdict stands. |
+> | TC-AGB-035 | **PASS** | Closing #1526 (3 pts) moved the badge `2 / 18` -> `5 / 18` (+3 exactly, total unchanged); reopening it returned `5 / 18` -> `2 / 18`. The is-closed flag governs, not the name: **Resolved** (5 pts, not flagged closed) is excluded, **Rejected** (2 pts, flagged closed) is counted. Confirmed against Administration > Issue statuses, where only Closed and Rejected carry the flag. |
+> | TC-AGB-039 | **PASS** | Enabling *Show completed issues in Backlog*: #1527 (Rejected) becomes visible in its sprint column, header count 3 -> 4 matching the 4 cards drawn, badge holds `2 / 18 SP` with those closed points being #1527's. Both halves of requirement 3 satisfied together. |
+> | TC-AGB-045 | **PASS** | At 1920px, No Sprint 284px -> **444px** with `.backlog-column-wide`; sprint column unchanged at 280px. Versions tab: No Version 444px, the three version columns stay 280px each, `scrollWidth == clientWidth` (no overflow/clipping). Drag still works: #1528 dragged out of the widened column into the sprint, count 4 -> 5, persisted across reload. |
 >
 > **Also confirmed incidentally** (regression-scope cases, not part of the sanity subset):
-> TC-AGB-532 (No Version column carries the badge), TC-AGB-534 (No Sprint column holds no pointed issues and
-> correctly shows **no** badge rather than `0 / 0 SP`), TC-AGB-538 (setting off - closed #1527 not drawn),
-> TC-AGB-544 (setting off - unassigned column same width as the others, 284 vs 280px).
+> TC-AGB-032 (No Version column carries the badge), TC-AGB-034 (No Sprint column holds no pointed issues and
+> correctly shows **no** badge rather than `0 / 0 SP`), TC-AGB-038 (setting off - closed #1527 not drawn),
+> TC-AGB-044 (setting off - unassigned column same width as the others, 284 vs 280px).
 >
 > **Defects found in Feature #120436 itself: none.** All four requirements verified present and correct.
 >
-> **One separate defect found en route: `BUG-AGB-009` (Medium, open).** Toggling Enable Story Points off and on again silently wipes the configured **Story Point Values**, and the issue form then falls back to the built-in default list. It sits in the pre-existing Story Points configuration handling, not in the #120436 Backlog code, and was surfaced by the off/on cycle TC-AGB-533 requires.
+> **One separate defect found en route: `BUG-AGB-009` (Medium, open).** Toggling Enable Story Points off and on again silently wipes the configured **Story Point Values**, and the issue form then falls back to the built-in default list. It sits in the pre-existing Story Points configuration handling, not in the #120436 Backlog code, and was surfaced by the off/on cycle TC-AGB-033 requires.
 >
 > **Fixture strengthened later in the same session.** The Checklist plugin's "block issue closing" option had
 > initially prevented #1528 from being closed; once it was switched off, #1528 was completed as
 > **Closed, 3 SP**, giving a sprint of #1530 (New, 8) + #1529 (Resolved, 5) + #1528 (**Closed**, 3) +
 > #1527 (**Rejected**, 2) + #1526 (In Progress, 3). Hand sums: total **21**, closed **5**. The badge rendered
 > **`5 / 21 SP`** (title="5 of 21 story points closed") with all 5 cards drawn and the header count reading 5.
-> This re-confirms TC-AGB-530, TC-AGB-535 and TC-AGB-539 against **two different closed statuses** (Closed *and*
+> This re-confirms TC-AGB-030, TC-AGB-035 and TC-AGB-039 against **two different closed statuses** (Closed *and*
 > Rejected) while Resolved stays excluded - a stronger proof that the closed split follows the is-closed flag.
 >
 > One behaviour worth recording, not a defect: a sprint column's **card count and its points badge are scoped
@@ -441,7 +441,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-529: The two new Backlog settings exist and default to off
+### TC-AGB-029: The two new Backlog settings exist and default to off
 
 **Sanity:** yes
 **User Role:** Admin
@@ -458,7 +458,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-530: A sprint column header shows Closed / Total story points
+### TC-AGB-030: A sprint column header shows Closed / Total story points
 
 **Sanity:** yes
 **User Role:** Member
@@ -477,7 +477,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-531: A version column header shows Closed / Total story points
+### TC-AGB-031: A version column header shows Closed / Total story points
 
 **User Role:** Member
 **Steps:**
@@ -492,7 +492,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-532: The unassigned column shows Closed / Total story points
+### TC-AGB-032: The unassigned column shows Closed / Total story points
 
 **User Role:** Member
 **Steps:**
@@ -506,7 +506,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-533: No badge when Story Points are disabled
+### TC-AGB-033: No badge when Story Points are disabled
 
 **Sanity:** yes
 **User Role:** Admin then Member
@@ -517,11 +517,11 @@ sits in the Backlog.
 **Expected Result:**
 - No points badge on any column header - sprint, version or unassigned. The card counts are unchanged.
 - Re-enabling Story Points brings the badges back with the same figures, i.e. the stored values were not
-  destroyed (consistent with TC-AGB-858 / TC-AGB-859).
+  destroyed (consistent with TC-AGB-098 / TC-AGB-099).
 
 ---
 
-### TC-AGB-534: A column carrying no points shows no badge at all
+### TC-AGB-034: A column carrying no points shows no badge at all
 
 **User Role:** Member
 **Steps:**
@@ -536,7 +536,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-535: Closed Points counts closed statuses only
+### TC-AGB-035: Closed Points counts closed statuses only
 
 **Sanity:** yes
 **User Role:** Member
@@ -554,7 +554,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-536: Badge totals cover the whole column, not just the loaded cards
+### TC-AGB-036: Badge totals cover the whole column, not just the loaded cards
 
 **User Role:** Member
 **Steps:**
@@ -569,7 +569,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-537: The badge appears, updates and disappears as points are edited
+### TC-AGB-037: The badge appears, updates and disappears as points are edited
 
 **User Role:** Member
 **Steps:**
@@ -591,7 +591,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-538: With the setting off, completed stories drop out of the Backlog
+### TC-AGB-038: With the setting off, completed stories drop out of the Backlog
 
 **User Role:** Member
 **Steps:**
@@ -600,12 +600,12 @@ sits in the Backlog.
 
 **Expected Result:**
 - The card is no longer drawn in the sprint column - the Backlog's existing open-only default is unchanged.
-- This is the baseline TC-AGB-539 is measured against; both directions must be checked, because the ticket
+- This is the baseline TC-AGB-039 is measured against; both directions must be checked, because the ticket
   changes behaviour only when the setting is on.
 
 ---
 
-### TC-AGB-539: With the setting on, completed stories stay visible and count as Closed Points
+### TC-AGB-039: With the setting on, completed stories stay visible and count as Closed Points
 
 **Sanity:** yes
 **User Role:** Admin then Member
@@ -623,7 +623,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-540: An explicit status filter overrides the setting
+### TC-AGB-040: An explicit status filter overrides the setting
 
 **User Role:** Member
 **Steps:**
@@ -638,7 +638,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-541: A saved query overrides the setting — **N/A, feature not built**
+### TC-AGB-041: A saved query overrides the setting — **N/A, feature not built**
 
 **User Role:** Member
 **Steps:**
@@ -655,7 +655,7 @@ sits in the Backlog.
 > at `issues?query_id=N`, never at the Backlog or Agile Board. The Backlog's own "More filters" panel is a
 > filter *builder* (pick a field/operator/value, Apply) with no saved-query selector of any kind — that panel
 > is what the docs' "query-based filters" requirement actually refers to, and it's already covered by
-> TC-AGB-540. There is nothing to test here as written; this is not a gap to fix, it's a TC written against a
+> TC-AGB-040. There is nothing to test here as written; this is not a gap to fix, it's a TC written against a
 > feature the product never built. Marked N/A rather than Blocked.
 >
 > A side-finding surfaced while checking this: the underlying `query_id` **parameter** is still intentionally
@@ -665,7 +665,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-542: Turning the setting back off restores the open-only Backlog immediately
+### TC-AGB-042: Turning the setting back off restores the open-only Backlog immediately
 
 **User Role:** Admin then Member
 **Steps:**
@@ -680,7 +680,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-543: Load-more honours the setting, so counts and cards cannot disagree
+### TC-AGB-043: Load-more honours the setting, so counts and cards cannot disagree
 
 **User Role:** Member
 **Steps:**
@@ -696,7 +696,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-544: With the width setting off, the unassigned column keeps its standard width
+### TC-AGB-044: With the width setting off, the unassigned column keeps its standard width
 
 **User Role:** Member
 **Steps:**
@@ -708,7 +708,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-545: With the width setting on, the unassigned column is widened
+### TC-AGB-045: With the width setting on, the unassigned column is widened
 
 **Sanity:** yes
 **User Role:** Admin then Member
@@ -725,7 +725,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-546: The widened column does not apply on narrow screens
+### TC-AGB-046: The widened column does not apply on narrow screens
 
 **User Role:** Member
 **Steps:**
@@ -737,7 +737,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-547: Both settings are instance-wide
+### TC-AGB-047: Both settings are instance-wide
 
 **User Role:** Admin then Member
 **Steps:**
@@ -750,7 +750,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-548: Story point figures are consistent between the Backlog page and the API
+### TC-AGB-048: Story point figures are consistent between the Backlog page and the API
 
 **User Role:** Member
 **Steps:**
@@ -768,7 +768,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-549: Fractional story points in the badge
+### TC-AGB-049: Fractional story points in the badge
 
 **User Role:** Member
 **Steps:**
@@ -781,7 +781,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-550: The badge respects issue visibility
+### TC-AGB-050: The badge respects issue visibility
 
 **User Role:** A member who cannot see every issue in the project
 **Steps:**
@@ -794,7 +794,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-551: A non-admin cannot change the two new Backlog settings
+### TC-AGB-051: A non-admin cannot change the two new Backlog settings
 
 **User Role:** Every non-admin role in turn
 **Steps:**
@@ -806,7 +806,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-552: The new settings and the badge label are translated
+### TC-AGB-052: The new settings and the badge label are translated
 
 **User Role:** Admin then Member
 **Steps:**
@@ -819,7 +819,7 @@ sits in the Backlog.
 
 ---
 
-### TC-AGB-553: Backlog with the settings on but no sprints, versions or points
+### TC-AGB-053: Backlog with the settings on but no sprints, versions or points
 
 **User Role:** Member
 **Steps:**
@@ -827,45 +827,45 @@ sits in the Backlog.
 
 **Expected Result:**
 - A clean layout - the unassigned column (widened), no badges, no error and no blank page.
-- Extends TC-AGB-528 to cover the new settings; an opt-in setting must not be able to break an empty project.
+- Extends TC-AGB-028 to cover the new settings; an opt-in setting must not be able to break an empty project.
 
 ---
 
 ## Regression execution — Feature #120436 — 2026-09-21
 
-> Full regression of the remaining TC-AGB-531–553 (the sanity subset TC-AGB-529/530/533/535/539/545 was already
+> Full regression of the remaining TC-AGB-031–553 (the sanity subset TC-AGB-029/530/533/535/539/545 was already
 > executed 2026-09-18). Environment: local Docker `redmine-docker-700`, http://localhost:3010, Redmine 7.0.0,
 > Agile Board plugin branch `feature/backlog-sprint-points`, commit `288d293` (post BUG-AGB-009 fix). Admin +
-> `testuser100` (Developer role, granted View Agile Board for the duration of TC-AGB-550 and reverted after).
+> `testuser100` (Developer role, granted View Agile Board for the duration of TC-AGB-050 and reverted after).
 
 | TC | Verdict | Notes |
 |---|---|---|
-| TC-AGB-531 | **PASS** | Version column badge `3 / 8 SP`, exactly matching #1222 (New, 5) + #825 (Rejected, 3). |
-| TC-AGB-532 | **PASS** | Both No Sprint (`3 / 8 SP`) and No Version (`5 / 21 SP`) carried badges, correctly aggregating only the pointed issues each actually contains. |
-| TC-AGB-534 | **PASS** | "No Points Sprint" with 2 unpointed issues showed **no badge**, count still correct (2). |
-| TC-AGB-536 | **PASS** | "Big Sprint" (30 issues): badge read `5 / 13 SP` correctly on first render, from issues #1494/#1495 that were beyond the 25-card initial page and not yet loaded. |
-| TC-AGB-537 | **PASS (corrected — initial "blocked" verdict was tester error, not a product gap).** Re-ran using the Board Settings panel's own **"Apply Settings"** submit button (previously the adjacent filter panel's "Apply" was clicked by mistake, which never touches `visible_card_fields`). With `story_points` enabled as a visible card field, it persists correctly and each card renders a `[data-points]` button. On a clean column (Live Update Sprint 537, 1 unpointed issue): setting 5 via the inline `<select class="rf-points-select">` created the badge live (`NONE` → `0 / 5 SP`); changing to 13 updated it live (`0 / 13 SP`); clearing it removed the badge entirely (back to `NONE`). A subsequent plain reload matched every intermediate state exactly. |
-| TC-AGB-538 | **PASS** | With the setting off, confirmed baseline: Big Sprint total 29 (open-only), closed #1494 excluded. |
-| TC-AGB-539 | **PASS** (reconfirmed) | Toggling the setting on brought the total to 30 immediately. |
-| TC-AGB-540 | **PASS** | Explicit `status_id=open` filter dropped the total to 29 (closed #1494 excluded) even with the setting on, and the choice survived further Backlog navigation without a set_filter re-submit. |
-| TC-AGB-541 | **N/A — feature not built.** No button or link anywhere in the plugin's UI opens the Backlog "through a saved query"; checked every view. The docs' "query-based filters" requirement is satisfied by the filter-builder panel instead, already covered by TC-AGB-540. Not a gap, not blocked — there is nothing here to test as written. Side-finding while checking this: the raw `query_id` parameter still crashes with a 500 if hand-supplied in the URL (`BUG-AGB-010`), tracked as its own independent defect. |
-| TC-AGB-542 | **PASS** | With a clean open-only baseline (29), enabling the setting brought total to 30; disabling it again brought total back to 29 on the very next reload — no logout or manual filter-clear needed. Badge (`5 / 13 SP`) unchanged by either toggle. |
-| TC-AGB-543 | **PASS** | Scrolling Big Sprint to load-more brought in closed #1494; final loaded count (30) matched the header total exactly, badge unchanged. |
-| TC-AGB-544 | **PASS** (reconfirmed) | Unassigned column 284px at 1920px with the width setting off. |
-| TC-AGB-545 | **PASS** (reconfirmed) | Sprints-tab No Sprint and Versions-tab No Version both 444px with the setting on; no clipping. |
-| TC-AGB-546 | **PASS** | At exactly 1024px (the CSS breakpoint boundary), the wide column reverted to standard 284px despite the setting being on. |
-| TC-AGB-547 | **PASS** | Enabled Agile Board module + both settings on "Flux Gantt Project" (a second, unrelated project) — both settings applied there too (wide columns on both unassigned columns), confirming instance-wide scope. |
-| TC-AGB-548 | **INCONCLUSIVE — not completed.** The plugin's `/api/v1/projects/:id/backlog` endpoint requires an `X-Redmine-API-Key`/`?key=` and returned 403 "Filter chain halted as `:check_if_login_required` rendered or redirected" even with a valid admin API key, before the plugin's own `require_api_authentication` before_action had a chance to run. Root cause not conclusively isolated (Redmine core authentication-filter ordering vs. environment/route configuration) in the time available; not filed as a bug on this basis alone. |
-| TC-AGB-549 | **PASS (feature is integer-only by design)** | Attempting `2.5` in Story Point Values triggered a clear client-side message ("Story points must be positive integers only (no decimals or negative numbers)"); the rejected submission left the existing configuration untouched rather than corrupting it. Fractional points are out of scope by design, not a gap. |
-| TC-AGB-550 | **PASS** | Issue #1520 (13 SP) marked Private, not authored/assigned to `testuser100`. Admin saw `0 / 13 SP` and 2 cards; `testuser100` saw **no badge** and only 1 card (#1521) — the hidden issue's points were fully excluded from the total, no leak. |
-| TC-AGB-551 | **PASS** | As `testuser100` (non-admin): GET `/settings/plugin/agile_board` → 403; POST attempting to flip `enable_story_points` to `0` → 403, and the stored setting was confirmed unchanged afterward as admin. |
-| TC-AGB-552 | **PASS** | Switched to German: both setting labels and their hint text render fully in German ("Abgeschlossene Tickets im Backlog anzeigen", "Breitere Spalte für nicht zugeordnete Tickets" + hints), and the badge's hover title reads "5 von 21 Story Points abgeschlossen". |
-| TC-AGB-553 | **PASS** | "Flux Gantt Project" (bare, no sprints/versions/points) with both settings + Story Points on: clean layout, widened unassigned column, no badges, no error. |
+| TC-AGB-031 | **PASS** | Version column badge `3 / 8 SP`, exactly matching #1222 (New, 5) + #825 (Rejected, 3). |
+| TC-AGB-032 | **PASS** | Both No Sprint (`3 / 8 SP`) and No Version (`5 / 21 SP`) carried badges, correctly aggregating only the pointed issues each actually contains. |
+| TC-AGB-034 | **PASS** | "No Points Sprint" with 2 unpointed issues showed **no badge**, count still correct (2). |
+| TC-AGB-036 | **PASS** | "Big Sprint" (30 issues): badge read `5 / 13 SP` correctly on first render, from issues #1494/#1495 that were beyond the 25-card initial page and not yet loaded. |
+| TC-AGB-037 | **PASS (corrected — initial "blocked" verdict was tester error, not a product gap).** Re-ran using the Board Settings panel's own **"Apply Settings"** submit button (previously the adjacent filter panel's "Apply" was clicked by mistake, which never touches `visible_card_fields`). With `story_points` enabled as a visible card field, it persists correctly and each card renders a `[data-points]` button. On a clean column (Live Update Sprint 537, 1 unpointed issue): setting 5 via the inline `<select class="rf-points-select">` created the badge live (`NONE` → `0 / 5 SP`); changing to 13 updated it live (`0 / 13 SP`); clearing it removed the badge entirely (back to `NONE`). A subsequent plain reload matched every intermediate state exactly. |
+| TC-AGB-038 | **PASS** | With the setting off, confirmed baseline: Big Sprint total 29 (open-only), closed #1494 excluded. |
+| TC-AGB-039 | **PASS** (reconfirmed) | Toggling the setting on brought the total to 30 immediately. |
+| TC-AGB-040 | **PASS** | Explicit `status_id=open` filter dropped the total to 29 (closed #1494 excluded) even with the setting on, and the choice survived further Backlog navigation without a set_filter re-submit. |
+| TC-AGB-041 | **N/A — feature not built.** No button or link anywhere in the plugin's UI opens the Backlog "through a saved query"; checked every view. The docs' "query-based filters" requirement is satisfied by the filter-builder panel instead, already covered by TC-AGB-040. Not a gap, not blocked — there is nothing here to test as written. Side-finding while checking this: the raw `query_id` parameter still crashes with a 500 if hand-supplied in the URL (`BUG-AGB-010`), tracked as its own independent defect. |
+| TC-AGB-042 | **PASS** | With a clean open-only baseline (29), enabling the setting brought total to 30; disabling it again brought total back to 29 on the very next reload — no logout or manual filter-clear needed. Badge (`5 / 13 SP`) unchanged by either toggle. |
+| TC-AGB-043 | **PASS** | Scrolling Big Sprint to load-more brought in closed #1494; final loaded count (30) matched the header total exactly, badge unchanged. |
+| TC-AGB-044 | **PASS** (reconfirmed) | Unassigned column 284px at 1920px with the width setting off. |
+| TC-AGB-045 | **PASS** (reconfirmed) | Sprints-tab No Sprint and Versions-tab No Version both 444px with the setting on; no clipping. |
+| TC-AGB-046 | **PASS** | At exactly 1024px (the CSS breakpoint boundary), the wide column reverted to standard 284px despite the setting being on. |
+| TC-AGB-047 | **PASS** | Enabled Agile Board module + both settings on "Flux Gantt Project" (a second, unrelated project) — both settings applied there too (wide columns on both unassigned columns), confirming instance-wide scope. |
+| TC-AGB-048 | **INCONCLUSIVE — not completed.** The plugin's `/api/v1/projects/:id/backlog` endpoint requires an `X-Redmine-API-Key`/`?key=` and returned 403 "Filter chain halted as `:check_if_login_required` rendered or redirected" even with a valid admin API key, before the plugin's own `require_api_authentication` before_action had a chance to run. Root cause not conclusively isolated (Redmine core authentication-filter ordering vs. environment/route configuration) in the time available; not filed as a bug on this basis alone. |
+| TC-AGB-049 | **PASS (feature is integer-only by design)** | Attempting `2.5` in Story Point Values triggered a clear client-side message ("Story points must be positive integers only (no decimals or negative numbers)"); the rejected submission left the existing configuration untouched rather than corrupting it. Fractional points are out of scope by design, not a gap. |
+| TC-AGB-050 | **PASS** | Issue #1520 (13 SP) marked Private, not authored/assigned to `testuser100`. Admin saw `0 / 13 SP` and 2 cards; `testuser100` saw **no badge** and only 1 card (#1521) — the hidden issue's points were fully excluded from the total, no leak. |
+| TC-AGB-051 | **PASS** | As `testuser100` (non-admin): GET `/settings/plugin/agile_board` → 403; POST attempting to flip `enable_story_points` to `0` → 403, and the stored setting was confirmed unchanged afterward as admin. |
+| TC-AGB-052 | **PASS** | Switched to German: both setting labels and their hint text render fully in German ("Abgeschlossene Tickets im Backlog anzeigen", "Breitere Spalte für nicht zugeordnete Tickets" + hints), and the badge's hover title reads "5 von 21 Story Points abgeschlossen". |
+| TC-AGB-053 | **PASS** | "Flux Gantt Project" (bare, no sprints/versions/points) with both settings + Story Points on: clean layout, widened unassigned column, no badges, no error. |
 
-**Result: 23 PASS, 1 N/A (feature not built), 1 inconclusive (API auth).** TC-AGB-537 was initially miscalled
+**Result: 23 PASS, 1 N/A (feature not built), 1 inconclusive (API auth).** TC-AGB-037 was initially miscalled
 "blocked" due to a tester mistake (wrong "Apply" button clicked) rather than a real product gap — corrected
 after the user flagged it, and passes cleanly once the right control is used. One separate, pre-existing
-Medium-severity defect found as a side-finding while checking TC-AGB-541's premise: **`BUG-AGB-010`** — a
+Medium-severity defect found as a side-finding while checking TC-AGB-041's premise: **`BUG-AGB-010`** — a
 code-level crash on the `query_id` parameter, confirmed not reachable via any current UI link (see the bug
 file's own reachability note) — see below.
 
@@ -879,7 +879,7 @@ file's own reachability note) — see below.
 > value. This is squarely inside `backlog_story_points_badge` and the badge display #120436 introduced, not
 > pre-existing plugin code like BUG-AGB-010.
 >
-> **Why TC-by-TC execution missed it:** every drag TC (TC-AGB-545) and every inline-edit TC (TC-AGB-530–539
+> **Why TC-by-TC execution missed it:** every drag TC (TC-AGB-045) and every inline-edit TC (TC-AGB-030–539
 > etc.) was followed by a check and often a reload, in isolation. The bug only shows up when a drag and a
 > point edit happen **back-to-back in the same page load, no reload in between** — the actual shape of live
 > sprint planning, and not a scenario any single TC in this suite exercised. See `BUG-AGB-011` for full
@@ -904,24 +904,24 @@ regression — `STATUS.md` stays `In Progress` pending that broader pass.
 
 | TC | Retest result | Evidence |
 |---|---|---|
-| TC-AGB-529 | **PASS** (reconfirmed) | Configure page's `Backlog` section still has both checkboxes with hint text, unaffected by the fix commits. |
-| TC-AGB-530 | **PASS** (reconfirmed) | "SP Sanity Sprint 120436" badge present and correct (`5 / 29 SP` before the drag test below, matching hand sums of visible + hidden-closed cards). |
-| TC-AGB-531 | **PASS** (reconfirmed, extended to drag) | Version "sadfsadfsad" badge `3 / 8 SP` before, `3 / 13 SP` immediately after dragging in a 5-pt card — **live and correct**, no reload. |
-| TC-AGB-532 | **PASS** (reconfirmed, extended to drag) | "No Version" badge `23 / 199 SP` → `23 / 194 SP` immediately after the same drag (source side, -5) — live and correct. Confirms the fix isn't sprint-only; it covers version columns too, matching the fix commit's own message ("...on every board"). |
-| TC-AGB-533 | Not re-executed | Unrelated to both fix commits (Story Points enable/disable persistence, already fixed separately as BUG-AGB-009 and reconfirmed 2026-09-21 earlier this session). |
-| TC-AGB-534 | Not re-executed | Unrelated code path (badge omission on zero-point columns); not touched by either fix. |
-| TC-AGB-535 | **PASS** (implicitly reconfirmed) | Closed/total split remained arithmetically consistent (5 closed / N total) across every drag+edit step below — the is-closed split was never disturbed by the fix. |
-| TC-AGB-536 | **PASS** (reconfirmed) | "No Version" badge showed its full total (`23 / 199 SP` / `23 / 194 SP`) while only 24–25 of 933–934 cards were loaded — total is not affected by pagination. |
-| TC-AGB-537 | **PASS** (reconfirmed, this is the core fix) | Dragged card #1469 (5 pts) between two Backlog sprint columns — **both badges updated live and correctly, instantly, no reload**: source `13 / 18 SP` → `13 / 13 SP`, destination `5 / 21 SP` → `5 / 26 SP`. Then, still without reloading, edited #1469's points 5 → 8 (+3) — badge updated to `5 / 29 SP`, computed correctly from the now-accurate live base. Reload confirmed `5 / 29 SP` matched exactly, no divergence. This directly closes the gap that let BUG-AGB-011 through originally (drag + edit performed back-to-back, no reload in between). |
-| TC-AGB-538 | **PASS** (reconfirmed) | With the setting OFF, closed cards stay hidden: "SP Sanity Sprint 120436" card count 3 (not 5), "No Points Sprint 120436" card count 0 (not 2) — badges unaffected either way. |
-| TC-AGB-539 | **PASS** (reconfirmed) | Toggled the setting ON and reloaded: "SP Sanity Sprint 120436" count 3 → 5 (hidden closed cards now drawn), "No Points Sprint 120436" count 0 → 2 — badges unchanged in both cases (`5 / 24 SP`, `13 / 13 SP`), since their totals already included the hidden closed points. Both halves of requirement 3 hold. |
-| TC-AGB-540 | Not re-executed | Filter-vs-setting precedence logic untouched by either fix commit; spot-checked that the filter panel still renders its Status filter row correctly (no regression in panel rendering). |
-| TC-AGB-541 | **N/A, reconfirmed** | Still no UI path to reach the Backlog/Agile Board via `query_id` — verdict unchanged. The underlying crash this TC's premise-check surfaced (BUG-AGB-010) is now fixed: `?query_id=1` returns a clean 404 instead of a 500 (see BUG-AGB-010's own retest). |
-| TC-AGB-542 | **PASS** (reconfirmed) | Toggled the setting back OFF and reloaded, same session: closed cards disappeared immediately (count back to 3 and 0 respectively) — no logout or extra step needed. Badges unaffected by the toggle either direction. |
-| TC-AGB-543 | Not re-executed | Load-more-honors-setting logic untouched by either fix commit. |
-| TC-AGB-544 / 546 / 547 | Not re-executed | Column-width logic untouched by either fix commit; TC-545 below incidentally reconfirms the widened-column CSS still applies correctly post-fix. |
-| TC-AGB-545 | **PASS** (reconfirmed) | Versions tab screenshot showed "No Version" visibly wider than the three version columns (setting still ON from earlier testing), matching the original TC-545 result — the JS changes in the fix commits didn't touch the width CSS. |
-| TC-AGB-548 / 549 / 550 / 551 / 552 / 553 | Not re-executed | API consistency, fractional points, visibility, permissions, translation, and empty-project layout are all unrelated to the `retrieve_rf_agile_query` and drag/badge-update code paths the two fix commits touched — no plausible regression vector from these specific changes. |
+| TC-AGB-029 | **PASS** (reconfirmed) | Configure page's `Backlog` section still has both checkboxes with hint text, unaffected by the fix commits. |
+| TC-AGB-030 | **PASS** (reconfirmed) | "SP Sanity Sprint 120436" badge present and correct (`5 / 29 SP` before the drag test below, matching hand sums of visible + hidden-closed cards). |
+| TC-AGB-031 | **PASS** (reconfirmed, extended to drag) | Version "sadfsadfsad" badge `3 / 8 SP` before, `3 / 13 SP` immediately after dragging in a 5-pt card — **live and correct**, no reload. |
+| TC-AGB-032 | **PASS** (reconfirmed, extended to drag) | "No Version" badge `23 / 199 SP` → `23 / 194 SP` immediately after the same drag (source side, -5) — live and correct. Confirms the fix isn't sprint-only; it covers version columns too, matching the fix commit's own message ("...on every board"). |
+| TC-AGB-033 | Not re-executed | Unrelated to both fix commits (Story Points enable/disable persistence, already fixed separately as BUG-AGB-009 and reconfirmed 2026-09-21 earlier this session). |
+| TC-AGB-034 | Not re-executed | Unrelated code path (badge omission on zero-point columns); not touched by either fix. |
+| TC-AGB-035 | **PASS** (implicitly reconfirmed) | Closed/total split remained arithmetically consistent (5 closed / N total) across every drag+edit step below — the is-closed split was never disturbed by the fix. |
+| TC-AGB-036 | **PASS** (reconfirmed) | "No Version" badge showed its full total (`23 / 199 SP` / `23 / 194 SP`) while only 24–25 of 933–934 cards were loaded — total is not affected by pagination. |
+| TC-AGB-037 | **PASS** (reconfirmed, this is the core fix) | Dragged card #1469 (5 pts) between two Backlog sprint columns — **both badges updated live and correctly, instantly, no reload**: source `13 / 18 SP` → `13 / 13 SP`, destination `5 / 21 SP` → `5 / 26 SP`. Then, still without reloading, edited #1469's points 5 → 8 (+3) — badge updated to `5 / 29 SP`, computed correctly from the now-accurate live base. Reload confirmed `5 / 29 SP` matched exactly, no divergence. This directly closes the gap that let BUG-AGB-011 through originally (drag + edit performed back-to-back, no reload in between). |
+| TC-AGB-038 | **PASS** (reconfirmed) | With the setting OFF, closed cards stay hidden: "SP Sanity Sprint 120436" card count 3 (not 5), "No Points Sprint 120436" card count 0 (not 2) — badges unaffected either way. |
+| TC-AGB-039 | **PASS** (reconfirmed) | Toggled the setting ON and reloaded: "SP Sanity Sprint 120436" count 3 → 5 (hidden closed cards now drawn), "No Points Sprint 120436" count 0 → 2 — badges unchanged in both cases (`5 / 24 SP`, `13 / 13 SP`), since their totals already included the hidden closed points. Both halves of requirement 3 hold. |
+| TC-AGB-040 | Not re-executed | Filter-vs-setting precedence logic untouched by either fix commit; spot-checked that the filter panel still renders its Status filter row correctly (no regression in panel rendering). |
+| TC-AGB-041 | **N/A, reconfirmed** | Still no UI path to reach the Backlog/Agile Board via `query_id` — verdict unchanged. The underlying crash this TC's premise-check surfaced (BUG-AGB-010) is now fixed: `?query_id=1` returns a clean 404 instead of a 500 (see BUG-AGB-010's own retest). |
+| TC-AGB-042 | **PASS** (reconfirmed) | Toggled the setting back OFF and reloaded, same session: closed cards disappeared immediately (count back to 3 and 0 respectively) — no logout or extra step needed. Badges unaffected by the toggle either direction. |
+| TC-AGB-043 | Not re-executed | Load-more-honors-setting logic untouched by either fix commit. |
+| TC-AGB-044 / 546 / 547 | Not re-executed | Column-width logic untouched by either fix commit; TC-545 below incidentally reconfirms the widened-column CSS still applies correctly post-fix. |
+| TC-AGB-045 | **PASS** (reconfirmed) | Versions tab screenshot showed "No Version" visibly wider than the three version columns (setting still ON from earlier testing), matching the original TC-545 result — the JS changes in the fix commits didn't touch the width CSS. |
+| TC-AGB-048 / 549 / 550 / 551 / 552 / 553 | Not re-executed | API consistency, fractional points, visibility, permissions, translation, and empty-project layout are all unrelated to the `retrieve_rf_agile_query` and drag/badge-update code paths the two fix commits touched — no plausible regression vector from these specific changes. |
 
 **Result: the specific mechanism behind both bugs is fixed and does not regress the rest of the suite.**
 BUG-AGB-011's core scenario (drag then edit, no reload) now produces correct badges on both sprint and version
@@ -939,10 +939,10 @@ decision for this session.
 
 | Case ID | Screenshot | Log | Bug reference |
 |---------|------------|-----|---------------|
-| TC-AGB-529 | n/a (PASS - no screenshot per CLAUDE.md s6) | 2026-09-18 sanity pass | - |
-| TC-AGB-530 | n/a (PASS) | 2026-09-18 sanity pass | - |
-| TC-AGB-533 | screenshots/BUG-AGB-009/ | 2026-09-18 sanity pass | BUG-AGB-009 (separate defect found en route; TC itself PASS, now FIXED and closed) |
-| TC-AGB-535 | n/a (PASS) | 2026-09-18 sanity pass | - |
-| TC-AGB-539 | n/a (PASS) | 2026-09-18 sanity pass | - |
-| TC-AGB-545 | n/a (PASS) | 2026-09-18 sanity pass | - |
-| TC-AGB-541 | n/a (N/A verdict, feature not built) | 2026-09-21 regression | BUG-AGB-010 (independent side-finding, not blocking this TC's N/A verdict) |
+| TC-AGB-029 | n/a (PASS - no screenshot per CLAUDE.md s6) | 2026-09-18 sanity pass | - |
+| TC-AGB-030 | n/a (PASS) | 2026-09-18 sanity pass | - |
+| TC-AGB-033 | screenshots/BUG-AGB-009/ | 2026-09-18 sanity pass | BUG-AGB-009 (separate defect found en route; TC itself PASS, now FIXED and closed) |
+| TC-AGB-035 | n/a (PASS) | 2026-09-18 sanity pass | - |
+| TC-AGB-039 | n/a (PASS) | 2026-09-18 sanity pass | - |
+| TC-AGB-045 | n/a (PASS) | 2026-09-18 sanity pass | - |
+| TC-AGB-041 | n/a (N/A verdict, feature not built) | 2026-09-21 regression | BUG-AGB-010 (independent side-finding, not blocking this TC's N/A verdict) |

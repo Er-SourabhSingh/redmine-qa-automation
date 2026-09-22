@@ -44,7 +44,7 @@
     <td>list_templates returns 500 when project_id filter is applied</td>
     <td class="high">High</td>
     <td class="open">Open</td>
-    <td>TC-RIT-006, TC-RIT-018</td>
+    <td>TC-RIT-095, TC-RIT-107</td>
     <td>All project_id values (identifier + numeric) return 500. Other filters work. Blocks project-scoped visibility testing.</td>
   </tr>
   <tr>
@@ -52,7 +52,7 @@
     <td>Issue template operations bypass project-level permission check</td>
     <td class="high">High</td>
     <td class="open">Open</td>
-    <td>TC-RIT-018, TC-RIT-025</td>
+    <td>TC-RIT-107, TC-RIT-114</td>
     <td>Server checks ANY-project permission, not per-target-project. test1 (no gdaplt template perms) can create/edit/delete/apply templates in gdaplt via ztflux role. All 5 template operations affected.</td>
   </tr>
 </table>

@@ -2,7 +2,7 @@
 
 > Source: `docs/HELPDESK_FEATURES_LIST.md` #54 (category K — the last feature in the full list). Grounded in `docs/HELPDESK_USER_GUIDE.md` §23 (Rake tasks) and tester checklist §26 group X.
 >
-> These are the manual-trigger equivalents of the scheduled background jobs already covered in `HELPDESK_PLUGIN_INSTALLATION.md` (TC-HLP-004/010), `HELPDESK_EMAIL.md` (TC-HLP-150/151/153), and `HELPDESK_REPORTING_AUTOMATION.md` (TC-HLP-186/187) — this suite checks that running each task **by hand** produces the same outcome as waiting for the scheduled run, not the outcomes themselves a second time.
+> These are the manual-trigger equivalents of the scheduled background jobs already covered in `HELPDESK_PLUGIN_INSTALLATION.md` (TC-HLP-179/010), `HELPDESK_EMAIL.md` (TC-HLP-077/151/153), and `HELPDESK_REPORTING_AUTOMATION.md` (TC-HLP-266/187) — this suite checks that running each task **by hand** produces the same outcome as waiting for the scheduled run, not the outcomes themselves a second time.
 
 ## Plugin
 - Name: redmineflux_helpdesk
@@ -16,7 +16,7 @@
 
 ---
 
-### TC-HLP-215: `check_sla` run by hand does what the scheduled SLA monitor does
+### TC-HLP-248: `check_sla` run by hand does what the scheduled SLA monitor does
 
 **User Role:** System Administrator (server access)
 **Precondition:** A ticket about to breach its SLA; Sidekiq deliberately paused so the scheduled job hasn't run yet.
@@ -26,13 +26,13 @@
 2. Check the ticket's breach status and escalation state immediately after
 
 **Expected Result:**
-- The ticket is checked, marked breached if due, and escalated if applicable — identical outcome to what the scheduled SLA monitor (TC-HLP-186) would produce
+- The ticket is checked, marked breached if due, and escalated if applicable — identical outcome to what the scheduled SLA monitor (TC-HLP-266) would produce
 
 CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6, server access via `docker exec`): **PARTIAL FAIL — filed as BUG-HLP-056.** Ran `bundle exec rake redmineflux_helpdesk:check_sla` against the seeded dataset's mix of breached/near-breach tickets. Breach detection and marking work correctly (console: `[BREACH] Issue #301 — resolution SLA breached`, notification emails attempted — `Notifications sent : 119`), matching the scheduled monitor. But escalation is completely broken: `Escalations : 0`, `Errors : 118`, every one reading `Validation failed: Escalation reason is not included in the list`. Root-caused via source: the rake task passes `'Response SLA breach'`/`'Resolution SLA breach'` (human-readable) to `escalate_to_next_level!`, but `RfIssueSlaEscalationHistory`'s validation only accepts `response_breach`/`resolution_breach`/`manual` — the real scheduled `Helpdesk::SlaMonitorWorker` passes the correct machine-readable value and escalates fine. Verified via UI on ticket #301: SLA Information tab shows the breach was detected ("⚠ Critical", "Overdue 3 days") but no new escalation entry was added to the SLA Journey — it still shows only its earlier pre-existing L1→L2 escalation from the seed data. See `bugs/open/BUG-HLP-056.md`.
 
 ---
 
-### TC-HLP-216: `check_emails` run by hand polls every configured mailbox once
+### TC-HLP-249: `check_emails` run by hand polls every configured mailbox once
 
 **User Role:** System Administrator (server access)
 **Precondition:** A qualifying email waiting in a configured mailbox; Sidekiq paused.
@@ -41,13 +41,13 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6, server access via `docker ex
 1. Run `bundle exec rake redmineflux_helpdesk:check_emails`
 
 **Expected Result:**
-- The mailbox is polled immediately, and the qualifying email produces a ticket exactly as the scheduled poller (TC-HLP-187) would
+- The mailbox is polled immediately, and the qualifying email produces a ticket exactly as the scheduled poller (TC-HLP-267) would
 
 CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6, server access via `docker exec`): **FAIL — filed as BUG-HLP-055.** Ran `bundle exec rake redmineflux_helpdesk:check_emails` with 4 helpdesk-enabled projects present, including Alpha and Beta whose real incoming-mail configuration (`RfHelpdeskEmailConfig`) is genuinely set and confirmed working via the actual scheduled `EmailPollerWorker` in earlier sessions of this engagement. Every single project — Alpha, Beta, Gamma, and the freshly-seeded Redmineflux Helpdesk project — was reported `"Incoming email disabled for this project, skipping..."`, with zero mailboxes actually polled and zero tickets created. Root-caused via source: the task reads a legacy `ProjectCustomField` named `helpdesk_enable_incoming_email` (plus 6 sibling legacy fields for protocol/server/username/password/ssl/tracker) that no longer exists on this instance — the identical dead-code migration-cleanup gap already confirmed for `auto_close_tickets` (BUG-HLP-044), and explicitly predicted for this exact task in that bug's own Notes section and in `HELPDESK_MEMORY.md`. See `bugs/open/BUG-HLP-055.md` for full detail.
 
 ---
 
-### TC-HLP-217: `auto_close_tickets` run by hand closes eligible tickets
+### TC-HLP-250: `auto_close_tickets` run by hand closes eligible tickets
 
 **User Role:** System Administrator (server access)
 **Precondition:** A Resolved ticket already past its project's Auto-close days; Sidekiq paused.
@@ -56,13 +56,13 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6, server access via `docker ex
 1. Run `bundle exec rake redmineflux_helpdesk:auto_close_tickets`
 
 **Expected Result:**
-- The eligible ticket is closed immediately — identical outcome to the scheduled auto-close job (`HELPDESK_EMAIL.md` TC-HLP-150)
+- The eligible ticket is closed immediately — identical outcome to the scheduled auto-close job (`HELPDESK_EMAIL.md` TC-HLP-077)
 
-CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, server access via `docker exec`/`rails runner`): **FAIL — filed as BUG-HLP-044.** Set Auto Close Ticket Days = 1 on Helpdesk QA Alpha via the real Email Configuration UI; created two genuinely eligible tickets (one Resolved, one New — backdated `updated_on` past the threshold). Ran `bundle exec rake redmineflux_helpdesk:auto_close_tickets` from the Redmine root — output was only the start/completion banners, **no project processed, no ticket closed, no error surfaced**. Both tickets remained in their original status. Root-caused via source: the rake task reads `auto_close_days` from a legacy `ProjectCustomField` named `helpdesk_auto_close_days` — confirmed via `rails runner` that **zero `ProjectCustomField` rows exist on this instance at all**, so `next unless auto_close_days_field` fires unconditionally on every project, every run, regardless of any project's real, current configuration (which lives in `RfHelpdeskEmailConfig` and was confirmed correctly set and readable). Confirmed the real worker class (`Helpdesk::AutoCloseTicketsWorker.new.perform`, the actual scheduled-job implementation) closes both eligible tickets correctly against the identical data — proving the rake task's own code path, not the config or the fixtures, is what's broken. Same dead-code migration-cleanup pattern already noted (but never filed) for the sibling `check_emails` rake task in `HELPDESK_MEMORY.md` — recommend auditing both together. See `bugs/open/BUG-HLP-044.md` for full detail, and `HELPDESK_EMAIL.md`'s TC-HLP-150/153 Notes section for the closely related BUG-HLP-043 (a separate, real-worker-side defect: even the *working* implementation closes non-Resolved tickets too) discovered in the same investigation.
+CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, server access via `docker exec`/`rails runner`): **FAIL — filed as BUG-HLP-044.** Set Auto Close Ticket Days = 1 on Helpdesk QA Alpha via the real Email Configuration UI; created two genuinely eligible tickets (one Resolved, one New — backdated `updated_on` past the threshold). Ran `bundle exec rake redmineflux_helpdesk:auto_close_tickets` from the Redmine root — output was only the start/completion banners, **no project processed, no ticket closed, no error surfaced**. Both tickets remained in their original status. Root-caused via source: the rake task reads `auto_close_days` from a legacy `ProjectCustomField` named `helpdesk_auto_close_days` — confirmed via `rails runner` that **zero `ProjectCustomField` rows exist on this instance at all**, so `next unless auto_close_days_field` fires unconditionally on every project, every run, regardless of any project's real, current configuration (which lives in `RfHelpdeskEmailConfig` and was confirmed correctly set and readable). Confirmed the real worker class (`Helpdesk::AutoCloseTicketsWorker.new.perform`, the actual scheduled-job implementation) closes both eligible tickets correctly against the identical data — proving the rake task's own code path, not the config or the fixtures, is what's broken. Same dead-code migration-cleanup pattern already noted (but never filed) for the sibling `check_emails` rake task in `HELPDESK_MEMORY.md` — recommend auditing both together. See `bugs/open/BUG-HLP-044.md` for full detail, and `HELPDESK_EMAIL.md`'s TC-HLP-077/153 Notes section for the closely related BUG-HLP-043 (a separate, real-worker-side defect: even the *working* implementation closes non-Resolved tickets too) discovered in the same investigation.
 
 ---
 
-### TC-HLP-218: `seed_demo_data` creates a fully populated demo project
+### TC-HLP-251: `seed_demo_data` creates a fully populated demo project
 
 **User Role:** System Administrator (server access)
 **Precondition:** No project named "Helpdesk Support" currently exists.
@@ -78,10 +78,10 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS, with a documentatio
 
 ---
 
-### TC-HLP-219: Seeded tickets are spread over past dates, not all stamped "now"
+### TC-HLP-252: Seeded tickets are spread over past dates, not all stamped "now"
 
 **User Role:** System Administrator (server access)
-**Precondition:** TC-HLP-218 completed.
+**Precondition:** TC-HLP-251 completed.
 
 **Steps:**
 1. Inspect the created dates across the seeded tickets
@@ -93,10 +93,10 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Verified via UI o
 
 ---
 
-### TC-HLP-220: Seeded tickets show a spread of SLA states
+### TC-HLP-253: Seeded tickets show a spread of SLA states
 
 **User Role:** System Administrator (server access)
-**Precondition:** TC-HLP-218 completed.
+**Precondition:** TC-HLP-251 completed.
 
 **Steps:**
 1. Check the SLA Status badge across the seeded tickets
@@ -108,7 +108,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Verified via UI o
 
 ---
 
-### TC-HLP-221: `TICKETS=<n>` controls how many tickets the seeder creates
+### TC-HLP-254: `TICKETS=<n>` controls how many tickets the seeder creates
 
 **User Role:** System Administrator (server access)
 **Precondition:** No prior demo data on this instance.
@@ -124,19 +124,19 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Instance already 
 
 ---
 
-### TC-HLP-222: `seed_reports` seeds data sufficient to exercise all five report tabs
+### TC-HLP-255: `seed_reports` seeds data sufficient to exercise all five report tabs
 
 **User Role:** System Administrator (server access)
 **Precondition:** None.
 
 **Steps:**
 1. Run `bundle exec rake redmineflux_helpdesk:seed_reports`
-2. Open each of the five report tabs (`HELPDESK_REPORTING_AUTOMATION.md` TC-HLP-181)
+2. Open each of the five report tabs (`HELPDESK_REPORTING_AUTOMATION.md` TC-HLP-261)
 
 **Expected Result:**
 - Every tab shows meaningful, non-empty data — the seeded dataset is varied enough (dates, agents, priorities, projects, SLA outcomes) to actually exercise each report's figures, not just avoid an empty state
 
-CONFIRMED LIVE 2026-09-09/2026-09-11 (Local, redmine-docker-6): **FAIL — the task does not exist.** `bundle exec rake -T` (listing every rake task the plugin registers) shows exactly 5 `redmineflux_helpdesk:*` tasks: `auto_close_tickets`, `check_emails`, `check_sla`, `hide_custom_fields`, `seed_demo_data`. There is no `seed_reports` task anywhere in the plugin's `lib/tasks/` directory. Attempting `bundle exec rake redmineflux_helpdesk:seed_reports` would fail with Rake's own "Don't know how to build task" error before ever reaching plugin code. This TC and `HELPDESK_FEATURES_LIST.md`/`HELPDESK_USER_GUIDE.md` (wherever they reference `seed_reports`) describe a task that either was never built or was removed — this is a documentation gap, not a code defect to file as a bug (there's no broken behavior to fix; the fix is removing or correcting the doc reference). `HELPDESK_REPORTING_AUTOMATION.md`'s own report-tab test cases (TC-HLP-181 etc.) already get their non-empty data from the real `seed_demo_data` task's own ticket/SLA/time-entry seeding (confirmed via TC-HLP-218/219/220 above), so this gap does not block report-tab coverage in practice.
+CONFIRMED LIVE 2026-09-09/2026-09-11 (Local, redmine-docker-6): **FAIL — the task does not exist.** `bundle exec rake -T` (listing every rake task the plugin registers) shows exactly 5 `redmineflux_helpdesk:*` tasks: `auto_close_tickets`, `check_emails`, `check_sla`, `hide_custom_fields`, `seed_demo_data`. There is no `seed_reports` task anywhere in the plugin's `lib/tasks/` directory. Attempting `bundle exec rake redmineflux_helpdesk:seed_reports` would fail with Rake's own "Don't know how to build task" error before ever reaching plugin code. This TC and `HELPDESK_FEATURES_LIST.md`/`HELPDESK_USER_GUIDE.md` (wherever they reference `seed_reports`) describe a task that either was never built or was removed — this is a documentation gap, not a code defect to file as a bug (there's no broken behavior to fix; the fix is removing or correcting the doc reference). `HELPDESK_REPORTING_AUTOMATION.md`'s own report-tab test cases (TC-HLP-261 etc.) already get their non-empty data from the real `seed_demo_data` task's own ticket/SLA/time-entry seeding (confirmed via TC-HLP-251/219/220 above), so this gap does not block report-tab coverage in practice.
 
 ---
 
@@ -144,7 +144,7 @@ CONFIRMED LIVE 2026-09-09/2026-09-11 (Local, redmine-docker-6): **FAIL — the t
 
 ---
 
-### TC-HLP-223: `check_emails` is a safe no-op when no mailbox is configured anywhere
+### TC-HLP-256: `check_emails` is a safe no-op when no mailbox is configured anywhere
 
 **User Role:** System Administrator (server access)
 **Precondition:** No project has incoming mail settings configured.
@@ -155,11 +155,11 @@ CONFIRMED LIVE 2026-09-09/2026-09-11 (Local, redmine-docker-6): **FAIL — the t
 **Expected Result:**
 - Completes without error — no tickets created, no exception raised, just nothing to do
 
-CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS on its literal wording, but for the wrong reason — see BUG-HLP-055.** The same run used for TC-HLP-216 completed cleanly with no exception and zero tickets created for any project, satisfying this TC's literal expected result. However, this is **not** genuine graceful handling of "no mailbox configured anywhere" — the task is unconditionally broken (BUG-HLP-055) and reports every project as unconfigured regardless of whether it actually has real, working mail settings (confirmed: Alpha and Beta both do). The zero-config precondition this TC describes (no project configured, anywhere) could not actually be distinguished from the "task is just dead code" state on this instance, since the task can no longer tell the difference itself. Recorded as a pass on behavior, with the caveat that it provides no real evidence the task would behave gracefully in a genuinely-unconfigured scenario if the underlying bug were fixed — that would need re-testing once BUG-HLP-055 is resolved.
+CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS on its literal wording, but for the wrong reason — see BUG-HLP-055.** The same run used for TC-HLP-249 completed cleanly with no exception and zero tickets created for any project, satisfying this TC's literal expected result. However, this is **not** genuine graceful handling of "no mailbox configured anywhere" — the task is unconditionally broken (BUG-HLP-055) and reports every project as unconfigured regardless of whether it actually has real, working mail settings (confirmed: Alpha and Beta both do). The zero-config precondition this TC describes (no project configured, anywhere) could not actually be distinguished from the "task is just dead code" state on this instance, since the task can no longer tell the difference itself. Recorded as a pass on behavior, with the caveat that it provides no real evidence the task would behave gracefully in a genuinely-unconfigured scenario if the underlying bug were fixed — that would need re-testing once BUG-HLP-055 is resolved.
 
 ---
 
-### TC-HLP-224: Running `seed_demo_data` when a project already named "Helpdesk Support" exists
+### TC-HLP-257: Running `seed_demo_data` when a project already named "Helpdesk Support" exists
 
 **User Role:** System Administrator (server access)
 **Precondition:** A project named "Helpdesk Support" already exists, created independently of the seeder (e.g. by a real user, unrelated to demo data).
@@ -178,10 +178,10 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **investigated via source (
 
 ---
 
-### TC-HLP-225: Running `seed_demo_data` twice creates nothing twice
+### TC-HLP-258: Running `seed_demo_data` twice creates nothing twice
 
 **User Role:** System Administrator (server access)
-**Precondition:** TC-HLP-218 already run once on this instance.
+**Precondition:** TC-HLP-251 already run once on this instance.
 
 **Steps:**
 1. Run `bundle exec rake redmineflux_helpdesk:seed_demo_data` again
@@ -195,7 +195,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Two independent r
 
 ---
 
-### TC-HLP-226: `TICKETS=0` and a very large `TICKETS` value are handled gracefully
+### TC-HLP-259: `TICKETS=0` and a very large `TICKETS` value are handled gracefully
 
 **User Role:** System Administrator (server access)
 **Precondition:** A clean instance (or accept whatever demo data already exists).
@@ -212,7 +212,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **`TICKETS=0` → PASS. Lar
 
 ---
 
-### TC-HLP-227: Running all three job tasks back-to-back by hand doesn't double-process anything
+### TC-HLP-260: Running all three job tasks back-to-back by hand doesn't double-process anything
 
 **User Role:** System Administrator (server access)
 **Precondition:** A ticket that would be affected by more than one job (e.g. one both breaching and eligible for auto-close-adjacent behavior).
@@ -230,7 +230,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS on the specific doub
 
 ## Evidence Map
 
-- Case ID: TC-HLP-215 – TC-HLP-227
+- Case ID: TC-HLP-248 – TC-HLP-260
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`

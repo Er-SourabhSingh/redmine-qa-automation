@@ -101,7 +101,7 @@ explained where you would meet it.
 4. **Replying to a customer pauses the clock** until they answer.
 5. **Holiday names are unique across the whole install** — prefix them if you
    keep more than one calendar.
-6. **A customer can hold multiple project-access rows at once** — confirmed live on two separate environments (Forge and Local, 2026-08-27) that adding a second row without removing the first persists both correctly across a reload, each with its own SLA/support level/organization. (This entry previously said the opposite — "one row at a time" — which was never actually true; see TC-HLP-122 in `testcases/HELPDESK_CUSTOMERS_ORGANIZATIONS.md`.)
+6. **A customer can hold multiple project-access rows at once** — confirmed live on two separate environments (Forge and Local, 2026-08-27) that adding a second row without removing the first persists both correctly across a reload, each with its own SLA/support level/organization. (This entry previously said the opposite — "one row at a time" — which was never actually true; see TC-HLP-063 in `testcases/HELPDESK_CUSTOMERS_ORGANIZATIONS.md`.)
 
 ---
 
@@ -152,7 +152,7 @@ Three kinds of people use this plugin, and the screens change for each.
 | | Who they are | What they see |
 |---|---|---|
 | **Administrator** | Redmine admin | Everything, plus the only person who can save a project's email configuration |
-| **Agent** | A member with `manage_helpdesk` on a helpdesk project | The full desk: tickets, SLAs, customers, reports — including the top-menu "Helpdesk" link, the cross-project Command Center, and the project-level SLA/Organization/Settings tabs. `view_helpdesk` alone (without `manage_helpdesk`) still lets a member work tickets on a project's own Dashboard/Tickets/Knowledgebase, but does **not** grant the top-menu link or the desk-configuration screens (confirmed live 2026-09-02, see `HELPDESK_NAVIGATION_WORKSPACES.md` TC-HLP-060/065) |
+| **Agent** | A member with `manage_helpdesk` on a helpdesk project | The full desk: tickets, SLAs, customers, reports — including the top-menu "Helpdesk" link, the cross-project Command Center, and the project-level SLA/Organization/Settings tabs. `view_helpdesk` alone (without `manage_helpdesk`) still lets a member work tickets on a project's own Dashboard/Tickets/Knowledgebase, but does **not** grant the top-menu link or the desk-configuration screens (confirmed live 2026-09-02, see `HELPDESK_NAVIGATION_WORKSPACES.md` TC-HLP-147/065) |
 | **Customer** | A Redmine user flagged as a helpdesk customer | Only their own tickets, with a trimmed set of columns and filters |
 
 A **customer** is not a separate account type in Redmine. It is an ordinary user
@@ -349,7 +349,7 @@ This is the whole registration — there is no second step inside the project.
 > a policy they were never sold. (Tickets raised by *agents* do fall back to a
 > project or global SLA.)
 
-> **Corrected 2026-08-27 — this was wrong.** A customer can hold **multiple** project-access rows at once, not just one. Use **Add project** on the customer's Edit form to give the same person access to a second (or third) project — each row keeps its own SLA, support level, and organization independently, and all rows survive a reload. Confirmed live on both Forge and Local; see TC-HLP-122 in `testcases/HELPDESK_CUSTOMERS_ORGANIZATIONS.md` for the repro.
+> **Corrected 2026-08-27 — this was wrong.** A customer can hold **multiple** project-access rows at once, not just one. Use **Add project** on the customer's Edit form to give the same person access to a second (or third) project — each row keeps its own SLA, support level, and organization independently, and all rows survive a reload. Confirmed live on both Forge and Local; see TC-HLP-063 in `testcases/HELPDESK_CUSTOMERS_ORGANIZATIONS.md` for the repro.
 
 ### 3.6 Configure email
 
@@ -997,7 +997,7 @@ Set per role at **Administration › Roles and permissions**, under *Helpdesk*.
 | `view_helpdesk` | See the helpdesk screens, tickets and reports; create and edit tickets |
 | `manage_helpdesk` | Everything in view, plus managing the desk's configuration and exporting reports |
 | `export_helpdesk_reports` | Export reports to CSV/Excel |
-| `manage_prepaid_support_hours` | Set and adjust prepaid budgets, and choose what happens when they run out — **requires `manage_helpdesk` too** (confirmed live 2026-09-07, `HELPDESK_PERMISSIONS.md` TC-HLP-206/210). `manage_helpdesk` is what grants access to the Organization page in the first place; `manage_prepaid_support_hours` then additionally unlocks the modification controls (top-up, run-out mode) on that page. It is not a standalone permission — granted alone, without `manage_helpdesk`, there is no page to use it on |
+| `manage_prepaid_support_hours` | Set and adjust prepaid budgets, and choose what happens when they run out — **requires `manage_helpdesk` too** (confirmed live 2026-09-07, `HELPDESK_PERMISSIONS.md` TC-HLP-168/210). `manage_helpdesk` is what grants access to the Organization page in the first place; `manage_prepaid_support_hours` then additionally unlocks the modification controls (top-up, run-out mode) on that page. It is not a standalone permission — granted alone, without `manage_helpdesk`, there is no page to use it on |
 | `add_kb_page` | Create knowledgebase articles |
 | `edit_kb_page` | Edit them |
 | `delete_kb_page` | Delete them and their attachments |
@@ -1300,7 +1300,7 @@ browsers.
 
 ### B. Navigation and chrome
 
-- [ ] **Helpdesk** appears in the top menu for an agent with `manage_helpdesk` (a `view_helpdesk`-only member does not get this link — confirmed 2026-09-02, see `HELPDESK_NAVIGATION_WORKSPACES.md` TC-HLP-060)
+- [ ] **Helpdesk** appears in the top menu for an agent with `manage_helpdesk` (a `view_helpdesk`-only member does not get this link — confirmed 2026-09-02, see `HELPDESK_NAVIGATION_WORKSPACES.md` TC-HLP-147)
 - [ ] The Command Center hides Redmine's application menu, and the header reads *Helpdesk Support*
 - [ ] The icon rail reaches Dashboard, Tickets, Reports, Organizations, Customers, Products, Settings
 - [ ] A project's Helpdesk tab keeps Redmine's normal project menu and the project name

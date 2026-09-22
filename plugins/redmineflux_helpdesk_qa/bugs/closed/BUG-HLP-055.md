@@ -18,7 +18,7 @@
 
 ## Expected result
 
-Per `HELPDESK_RAKE_TASKS.md` TC-HLP-216 ("The mailbox is polled immediately, and the qualifying email produces a ticket exactly as the scheduled poller would") and `HELPDESK_USER_GUIDE.md` §23, the rake task should poll every project's real, currently-configured mailbox and behave identically to the scheduled `EmailPollerWorker`.
+Per `HELPDESK_RAKE_TASKS.md` TC-HLP-249 ("The mailbox is polled immediately, and the qualifying email produces a ticket exactly as the scheduled poller would") and `HELPDESK_USER_GUIDE.md` §23, the rake task should poll every project's real, currently-configured mailbox and behave identically to the scheduled `EmailPollerWorker`.
 
 ## Actual result
 
@@ -75,7 +75,7 @@ Live-verified: ran `bundle exec rake redmineflux_helpdesk:check_emails` for real
 
 ## Notes
 
-- Found while executing `HELPDESK_RAKE_TASKS.md` TC-HLP-216 (`check_emails` run by hand) — this closes out the audit `HELPDESK_MEMORY.md` had already called for since BUG-HLP-044 was filed.
-- Directly affects TC-HLP-223 in the same suite ("`check_emails` is a safe no-op when no mailbox is configured anywhere") — that TC's literal expected result (completes without error, no tickets created) technically still holds, but only because the task is unconditionally broken, not because it correctly detected an absence of configuration. See that TC's own evidence entry for the distinction.
+- Found while executing `HELPDESK_RAKE_TASKS.md` TC-HLP-249 (`check_emails` run by hand) — this closes out the audit `HELPDESK_MEMORY.md` had already called for since BUG-HLP-044 was filed.
+- Directly affects TC-HLP-256 in the same suite ("`check_emails` is a safe no-op when no mailbox is configured anywhere") — that TC's literal expected result (completes without error, no tickets created) technically still holds, but only because the task is unconditionally broken, not because it correctly detected an absence of configuration. See that TC's own evidence entry for the distinction.
 - Severity judged **Medium**, matching BUG-HLP-044's precedent exactly: no data corruption or security impact, but a complete, silent functional failure of a documented, user-facing rake task, on every project, all the time.
 - Recommend: same fix shape as BUG-HLP-044 — read `RfHelpdeskEmailConfig.for_project(project)` instead of the seven legacy `ProjectCustomField` lookups, or have this task simply invoke the real `EmailPollerWorker`'s logic directly so there is only one implementation to keep correct.

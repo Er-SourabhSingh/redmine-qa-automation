@@ -13,7 +13,7 @@
 
 ## Revision History
 
-- **2026-09-01, revised same day per user pushback ("where does it mention this in the docs?").** The original title/scope also claimed the email should name the *previous assignee*, sourced from `HELPDESK_SLA_ESCALATION.md` TC-HLP-093's own content checklist rather than the actual product documentation. Re-checked `HELPDESK_USER_GUIDE.md` §"What the new assignee is told" directly: it promises **"the previous level and the new level"** — not the previous assignee's name — and the real email genuinely includes both levels correctly. That claim is dropped; it was never a documented requirement, so it doesn't belong in this bug (may be worth a separate UX *suggestion*, not a defect, if raised again). The guide's other promise — **"The SLA name and which deadline was breached — response or resolution"** — is a real, explicit requirement and is genuinely missing from the email. This bug is now scoped to that one confirmed gap only.
+- **2026-09-01, revised same day per user pushback ("where does it mention this in the docs?").** The original title/scope also claimed the email should name the *previous assignee*, sourced from `HELPDESK_SLA_ESCALATION.md` TC-HLP-322's own content checklist rather than the actual product documentation. Re-checked `HELPDESK_USER_GUIDE.md` §"What the new assignee is told" directly: it promises **"the previous level and the new level"** — not the previous assignee's name — and the real email genuinely includes both levels correctly. That claim is dropped; it was never a documented requirement, so it doesn't belong in this bug (may be worth a separate UX *suggestion*, not a defect, if raised again). The guide's other promise — **"The SLA name and which deadline was breached — response or resolution"** — is a real, explicit requirement and is genuinely missing from the email. This bug is now scoped to that one confirmed gap only.
 
 ## Steps to reproduce
 
@@ -52,7 +52,7 @@ Confirmed via the second (L2→L3) escalation on the same ticket too — `willow
 
 ## Notes
 
-- Found while executing `HELPDESK_SLA_ESCALATION.md` TC-HLP-093 (2026-09-01).
+- Found while executing `HELPDESK_SLA_ESCALATION.md` TC-HLP-322 (2026-09-01).
 - **Documentation basis (added on revision):** `HELPDESK_USER_GUIDE.md` §"What the new assignee is told" is the authoritative source — it explicitly lists 6 required email contents, one of which is "The SLA name and which deadline was breached — response or resolution." All 6 were checked individually against the real email; only this one is genuinely missing. The other 5 (ticket ID/subject, project/status, previous+new level, SLA name, escalation count, direct link) are all present and correct.
 - Severity judged Medium: the email is still functional and directionally useful (tells the new assignee they now own the ticket, links straight to it, correctly shows the level change), but the one missing documented field is real information loss for anyone triaging escalations from the inbox alone — they can't tell which SLA clock actually triggered this without opening the ticket.
 

@@ -25,7 +25,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-101: Plugin folder name is enforced
+### TC-TMS-027: Plugin folder name is enforced
 
 **User Role:** Admin
 **Preconditions:** Plugin at `redmine/plugins/redmineflux_timesheet`.
@@ -40,7 +40,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-102: Migrations complete cleanly
+### TC-TMS-028: Migrations complete cleanly
 
 **User Role:** Admin
 **Steps:**
@@ -51,7 +51,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-103: Assets load
+### TC-TMS-029: Assets load
 
 **User Role:** Any
 **Steps:**
@@ -63,7 +63,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-104: Redmine version boundary
+### TC-TMS-030: Redmine version boundary
 
 **User Role:** Admin
 **Steps:**
@@ -79,7 +79,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-105: `timesheet:send_reminders` runs manually
+### TC-TMS-031: `timesheet:send_reminders` runs manually
 
 **User Role:** Admin (shell)
 **Steps:**
@@ -93,7 +93,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-106: `timesheet:validate_deadlines` runs manually
+### TC-TMS-032: `timesheet:validate_deadlines` runs manually
 
 **User Role:** Admin (shell)
 **Steps:**
@@ -105,7 +105,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-107: Tasks are idempotent
+### TC-TMS-033: Tasks are idempotent
 
 **User Role:** Admin (shell)
 **Steps:**
@@ -122,7 +122,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-108: Project Mode
+### TC-TMS-034: Project Mode
 
 **User Role:** Admin then Member
 **Steps:**
@@ -135,7 +135,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-109: Team Mode
+### TC-TMS-035: Team Mode
 
 **User Role:** Admin then Member
 **Steps:**
@@ -151,7 +151,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-110: Weekly submission period
+### TC-TMS-036: Weekly submission period
 
 **User Role:** Admin then Member
 **Steps:**
@@ -164,7 +164,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-111: Monthly submission period
+### TC-TMS-037: Monthly submission period
 
 **User Role:** Admin then Member
 **Steps:**
@@ -175,7 +175,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-112: Submission deadline day
+### TC-TMS-038: Submission deadline day
 
 **User Role:** Admin then Member
 **Steps:**
@@ -192,7 +192,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-113: Allowed past days and cutoff time
+### TC-TMS-039: Allowed past days and cutoff time
 
 **User Role:** Admin then Member
 **Steps:**
@@ -208,7 +208,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-114: Block Edit/Delete After Allowed Period
+### TC-TMS-040: Block Edit/Delete After Allowed Period
 
 **User Role:** Admin then Member
 **Steps:**
@@ -221,7 +221,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-115: Disable Log/Edit After Approval
+### TC-TMS-041: Disable Log/Edit After Approval
 
 **User Role:** Admin, Member, Approver
 **Steps:**
@@ -236,7 +236,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-116: Overtime Threshold, including `0`
+### TC-TMS-042: Overtime Threshold, including `0`
 
 **User Role:** Admin then Member
 **Steps:**
@@ -250,7 +250,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-117: Auto-Approve Threshold, including `0`
+### TC-TMS-043: Auto-Approve Threshold, including `0`
 
 **User Role:** Admin then Member
 **Steps:**
@@ -265,7 +265,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-118: Email on submission
+### TC-TMS-044: Email on submission
 
 **User Role:** Admin, Member, Approver
 **Preconditions:** Working mail path; **Host name and path** verified.
@@ -278,7 +278,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-119: Email on approval/rejection
+### TC-TMS-045: Email on approval/rejection
 
 **User Role:** Approver then Member
 **Steps:**
@@ -294,7 +294,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-120: Settings page is not reachable by a non-admin
+### TC-TMS-046: Settings page is not reachable by a non-admin
 
 **User Role:** Every non-admin role in turn
 **Steps:**
@@ -308,7 +308,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-121: Invalid setting values
+### TC-TMS-047: Invalid setting values
 
 **User Role:** Admin
 **Steps:**
@@ -322,7 +322,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-122: Wrong plugin folder name
+### TC-TMS-048: Wrong plugin folder name
 
 **User Role:** Admin
 **Steps:**
@@ -333,7 +333,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-123: Migrations not run
+### TC-TMS-049: Migrations not run
 
 **User Role:** Admin
 **Steps:**
@@ -345,7 +345,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-124: Settings change with approvals in flight
+### TC-TMS-050: Settings change with approvals in flight
 
 **User Role:** Admin
 **Steps:**
@@ -363,7 +363,7 @@ submission or approval — not by the settings page reporting a successful save.
 
 ---
 
-### TC-TMS-125: Clean uninstall
+### TC-TMS-051: Clean uninstall
 
 **User Role:** Admin
 **Preconditions:** **Database backup taken.**

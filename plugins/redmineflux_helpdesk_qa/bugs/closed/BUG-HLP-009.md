@@ -25,7 +25,7 @@
 ## Expected result
 
 - The Notes tab is **not** meant to be customer-facing at all — this matches the plugin's own established pattern (see `HELPDESK_MEMORY.md` addendum #5): even a genuine Reply Note's text never appears inline in Notes, only via the **Helpdesk Conversion** tab (the actual customer-facing correspondence log, backed by a real outbound email). So a note staying out of the customer's Notes tab is correct, not a defect.
-- **Status should only auto-transition to "Waiting for Customer Response" when a real customer-facing reply happens** — i.e. when the plugin's own Reply mechanism fires, sends an actual email, and logs a Helpdesk Conversion entry (TC-HLP-019/021). Adding a note via the plain Redmine Edit form is not a Helpdesk "reply" — it produces no customer notification through any channel — so it should **not** trigger this status change at all.
+- **Status should only auto-transition to "Waiting for Customer Response" when a real customer-facing reply happens** — i.e. when the plugin's own Reply mechanism fires, sends an actual email, and logs a Helpdesk Conversion entry (TC-HLP-372/021). Adding a note via the plain Redmine Edit form is not a Helpdesk "reply" — it produces no customer notification through any channel — so it should **not** trigger this status change at all.
 
 ## Actual result
 

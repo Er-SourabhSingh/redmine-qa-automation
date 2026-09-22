@@ -24,7 +24,7 @@ This plugin's permission model is unusual and easy to get wrong, so state it pre
 
 The consequence worth testing deliberately: **a role granted View Flux Gantt can mutate issues from the chart.**
 If an administrator grants it expecting read-only access — which the name invites — they have granted write access.
-Confirm this is what actually happens (TC-GNT-902); it is the plugin's most consequential documented behaviour.
+Confirm this is what actually happens (TC-GNT-097); it is the plugin's most consequential documented behaviour.
 
 ## Methodology — mandatory for every case in this suite
 
@@ -63,7 +63,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 
 ---
 
-### TC-GNT-901: Admin has full access
+### TC-GNT-096: Admin has full access
 
 **User Role:** Admin
 **Steps:**
@@ -74,7 +74,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 
 ---
 
-### TC-GNT-902: View Flux Gantt grants write access, not read-only access
+### TC-GNT-097: View Flux Gantt grants write access, not read-only access
 
 **User Role:** A role granted **only** View Flux Gantt (plus basic project access), with no other Gantt permission
 **Steps:**
@@ -91,7 +91,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 
 ---
 
-### TC-GNT-903: Without View Flux Gantt, the chart is inaccessible
+### TC-GNT-098: Without View Flux Gantt, the chart is inaccessible
 
 **User Role:** Member of the project on a role lacking the permission
 **Steps:**
@@ -106,7 +106,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 
 ---
 
-### TC-GNT-904: Settings panel requires core Manage versions
+### TC-GNT-099: Settings panel requires core Manage versions
 
 **User Role:** Member with View Flux Gantt but **without** Manage versions
 **Steps:**
@@ -119,7 +119,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 
 ---
 
-### TC-GNT-905: Baseline management requires core Manage versions
+### TC-GNT-100: Baseline management requires core Manage versions
 
 **User Role:** Member with View Flux Gantt but **without** Manage versions
 **Steps:**
@@ -132,7 +132,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 
 ---
 
-### TC-GNT-906: Granting Manage versions enables settings and baselines without admin rights
+### TC-GNT-101: Granting Manage versions enables settings and baselines without admin rights
 
 **User Role:** Non-admin role granted View Flux Gantt **and** Manage versions
 **Steps:**
@@ -143,7 +143,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 
 ---
 
-### TC-GNT-907: View Global Gantt is independent of View Flux Gantt
+### TC-GNT-102: View Global Gantt is independent of View Flux Gantt
 
 **User Role:** Test both asymmetric combinations
 **Steps:**
@@ -157,7 +157,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 
 ---
 
-### TC-GNT-908: Module disabled overrides the role permission
+### TC-GNT-103: Module disabled overrides the role permission
 
 **User Role:** Member with View Flux Gantt
 **Steps:**
@@ -169,7 +169,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 
 ---
 
-### TC-GNT-909: Non-member cannot reach a private project's chart
+### TC-GNT-104: Non-member cannot reach a private project's chart
 
 **User Role:** Authenticated non-member
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
@@ -182,7 +182,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-910: Anonymous user has no access
+### TC-GNT-105: Anonymous user has no access
 
 **User Role:** Anonymous (logged out)
 **Steps:**
@@ -193,7 +193,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-911: Cross-project dependency requires the permission on both projects
+### TC-GNT-106: Cross-project dependency requires the permission on both projects
 
 **User Role:** Member with View Flux Gantt on A but not B
 **Steps:**
@@ -205,7 +205,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-912: Issue-visibility-scoped roles
+### TC-GNT-107: Issue-visibility-scoped roles
 
 **User Role:** Role whose issue visibility is limited to issues created by the user
 **Steps:**
@@ -219,7 +219,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-913: Permission revocation takes effect without re-login
+### TC-GNT-108: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
 **Steps:**
@@ -231,7 +231,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-914: Closed and archived projects
+### TC-GNT-109: Closed and archived projects
 
 **User Role:** Member with full Gantt permissions
 **Steps:**

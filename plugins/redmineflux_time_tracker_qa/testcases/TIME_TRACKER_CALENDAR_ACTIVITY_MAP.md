@@ -26,7 +26,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-401: Calendar opens and shows existing entries
+### TC-TMT-001: Calendar opens and shows existing entries
 
 **User Role:** Member
 **Steps:**
@@ -40,7 +40,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-402: Add a time entry from the calendar
+### TC-TMT-002: Add a time entry from the calendar
 
 **User Role:** Member
 **Steps:**
@@ -51,7 +51,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-403: Resize an entry by dragging its edges
+### TC-TMT-003: Resize an entry by dragging its edges
 
 **User Role:** Member
 **Steps:**
@@ -64,7 +64,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-404: Double-click to edit an entry
+### TC-TMT-004: Double-click to edit an entry
 
 **User Role:** Member
 **Steps:**
@@ -75,7 +75,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-405: Drag an entry to another date
+### TC-TMT-005: Drag an entry to another date
 
 **User Role:** Member
 **Steps:**
@@ -88,7 +88,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-406: Calendar changes respect validation
+### TC-TMT-006: Calendar changes respect validation
 
 **User Role:** Member
 **Steps:**
@@ -101,7 +101,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-407: Calendar respects the same rules as the list
+### TC-TMT-007: Calendar respects the same rules as the list
 
 **User Role:** Member
 **Steps:**
@@ -114,7 +114,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-408: Calendar across week and month boundaries
+### TC-TMT-008: Calendar across week and month boundaries
 
 **User Role:** Member
 **Steps:**
@@ -129,7 +129,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-501: Activity tab lists logs
+### TC-TMT-009: Activity tab lists logs
 
 **User Role:** Member with **View Time Tracker Activity**
 **Steps:**
@@ -140,7 +140,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-502: Filter by project
+### TC-TMT-010: Filter by project
 
 **User Role:** Member with the permission
 **Steps:**
@@ -151,7 +151,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-503: Filter by user
+### TC-TMT-011: Filter by user
 
 **User Role:** Member with the permission
 **Steps:**
@@ -162,7 +162,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-504: Filter by custom date range
+### TC-TMT-012: Filter by custom date range
 
 **User Role:** Member with the permission
 **Steps:**
@@ -175,7 +175,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-505: Filters combine
+### TC-TMT-013: Filters combine
 
 **User Role:** Member with the permission
 **Steps:**
@@ -190,7 +190,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-506: Map renders locations where data exists
+### TC-TMT-014: Map renders locations where data exists
 
 **User Role:** Member with View Time Tracker Activity
 **Preconditions:** A valid Google Maps API key configured, and entries recorded with location data.
@@ -202,7 +202,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-507: Map without an API key
+### TC-TMT-015: Map without an API key
 
 **User Role:** Member
 **Steps:**
@@ -210,11 +210,11 @@ a visual change that did not persist is the defect this suite targets.
 
 **Expected Result:**
 - A clear message explaining that a Maps API key is required — not a blank panel or a raw Google error
-  (paired with TC-TMT-109).
+  (paired with TC-TMT-033).
 
 ---
 
-### TC-TMT-508: Map shows only locations the viewer is entitled to see
+### TC-TMT-016: Map shows only locations the viewer is entitled to see
 
 **User Role:** A member **without** permission to view others' time entries
 **Steps:**
@@ -229,7 +229,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-509: Entries without location data
+### TC-TMT-017: Entries without location data
 
 **User Role:** Member
 **Steps:**
@@ -241,7 +241,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-510: Location accuracy and attribution
+### TC-TMT-018: Location accuracy and attribution
 
 **User Role:** Member
 **Steps:**
@@ -258,7 +258,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-511: Activity view without the permission
+### TC-TMT-019: Activity view without the permission
 
 **User Role:** Member without **View Time Tracker Activity**
 **Steps:**
@@ -273,7 +273,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-512: Activity view respects issue and project visibility
+### TC-TMT-020: Activity view respects issue and project visibility
 
 **User Role:** Member of project A only
 **Preconditions:** **Confirm project B is genuinely private** — a newly created Redmine project defaults to public.
@@ -287,7 +287,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-513: Activity filters do not enumerate users
+### TC-TMT-021: Activity filters do not enumerate users
 
 **User Role:** Low-privilege member
 **Steps:**
@@ -299,7 +299,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-514: Calendar performance with many entries
+### TC-TMT-022: Calendar performance with many entries
 
 **User Role:** Member
 **Steps:**
@@ -310,7 +310,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-515: Map performance with many markers
+### TC-TMT-023: Map performance with many markers
 
 **User Role:** Member with the permission
 **Steps:**
@@ -322,7 +322,7 @@ a visual change that did not persist is the defect this suite targets.
 
 ---
 
-### TC-TMT-516: Concurrent calendar edits
+### TC-TMT-024: Concurrent calendar edits
 
 **User Role:** Two sessions of the same user
 **Steps:**

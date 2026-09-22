@@ -52,7 +52,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 
 ---
 
-### TC-AGB-901: Admin has full access
+### TC-AGB-170: Admin has full access
 
 **User Role:** Admin
 **Steps:**
@@ -63,7 +63,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 
 ---
 
-### TC-AGB-902: View Agile Board gates board access
+### TC-AGB-171: View Agile Board gates board access
 
 **User Role:** Member of the project on a role lacking the permission
 **Steps:**
@@ -76,7 +76,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 
 ---
 
-### TC-AGB-903: Board viewing and issue editing are separate permissions
+### TC-AGB-172: Board viewing and issue editing are separate permissions
 
 **User Role:** Member with View Agile Board but **without** edit-issues
 **Steps:**
@@ -90,11 +90,11 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 
 ---
 
-### TC-AGB-904: Workflow transitions are enforced at the endpoint
+### TC-AGB-173: Workflow transitions are enforced at the endpoint
 
 **User Role:** Member on a role with a restricted workflow
 **Steps:**
-1. Confirm the board does not apply a forbidden transition by drag (paired with TC-AGB-211).
+1. Confirm the board does not apply a forbidden transition by drag (paired with TC-AGB-195).
 2. Send the forbidden status change **directly** to the board's endpoint.
 
 **Expected Result:**
@@ -104,7 +104,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 
 ---
 
-### TC-AGB-905: Quick-add requires issue-create permission
+### TC-AGB-174: Quick-add requires issue-create permission
 
 **User Role:** Member with edit rights but without create rights
 **Steps:**
@@ -116,7 +116,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 
 ---
 
-### TC-AGB-906: Sprint management requires its own permission
+### TC-AGB-175: Sprint management requires its own permission
 
 **User Role:** Member with full board access but without manage-sprints
 **Steps:**
@@ -129,7 +129,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 
 ---
 
-### TC-AGB-907: Backlog drag is gated by edit permission
+### TC-AGB-176: Backlog drag is gated by edit permission
 
 **User Role:** Member with view-only issue access
 **Steps:**
@@ -141,7 +141,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 
 ---
 
-### TC-AGB-908: Global board does not aggregate permissions
+### TC-AGB-177: Global board does not aggregate permissions
 
 **User Role:** Member who can view project B but not edit its issues, and can edit in project A
 **Steps:**
@@ -154,7 +154,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 
 ---
 
-### TC-AGB-909: My Page block respects visibility as well as assignment
+### TC-AGB-178: My Page block respects visibility as well as assignment
 
 **User Role:** Member assigned an issue in a project they can no longer view
 **Steps:**
@@ -168,7 +168,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 
 ---
 
-### TC-AGB-910: Non-member cannot reach a private project's board or backlog
+### TC-AGB-179: Non-member cannot reach a private project's board or backlog
 
 **User Role:** Authenticated non-member
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
@@ -181,7 +181,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-911: Anonymous user has no access
+### TC-AGB-180: Anonymous user has no access
 
 **User Role:** Anonymous (logged out)
 **Steps:**
@@ -193,7 +193,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-912: Issue-visibility-scoped roles
+### TC-AGB-181: Issue-visibility-scoped roles
 
 **User Role:** Role whose issue visibility is limited to issues they created
 **Steps:**
@@ -208,7 +208,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-913: Board settings and custom boards are permission-gated
+### TC-AGB-182: Board settings and custom boards are permission-gated
 
 **User Role:** Member with view-only board access
 **Steps:**
@@ -221,7 +221,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-914: Permission revocation takes effect without re-login
+### TC-AGB-183: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
 **Steps:**
@@ -234,7 +234,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-AGB-915: Closed and archived projects
+### TC-AGB-184: Closed and archived projects
 
 **User Role:** Member with full board permissions
 **Steps:**

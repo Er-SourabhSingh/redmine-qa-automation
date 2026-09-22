@@ -21,7 +21,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-301: Enable and disable status columns
+### TC-AGB-054: Enable and disable status columns
 
 **User Role:** Member with board-settings rights
 **Steps:**
@@ -29,11 +29,11 @@ effect on the board, not by the panel closing without error.
 
 **Expected Result:**
 - The disabled status's column disappears and the enabled one appears.
-- Cards in a disabled status are no longer shown (see TC-AGB-226 for the consequence).
+- Cards in a disabled status are no longer shown (see TC-AGB-210 for the consequence).
 
 ---
 
-### TC-AGB-302: Column selection persists
+### TC-AGB-055: Column selection persists
 
 **User Role:** Member
 **Steps:**
@@ -44,7 +44,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-303: Set a WIP limit on a column
+### TC-AGB-056: Set a WIP limit on a column
 
 **User Role:** Member
 **Steps:**
@@ -55,7 +55,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-304: Exceeding a WIP limit is made visible
+### TC-AGB-057: Exceeding a WIP limit is made visible
 
 **User Role:** Member
 **Steps:**
@@ -69,18 +69,18 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-305: WIP limit is capped by the plugin-level maximum
+### TC-AGB-058: WIP limit is capped by the plugin-level maximum
 
 **User Role:** Member
 **Steps:**
 1. With the instance maximum set to 5, attempt a column WIP of 10.
 
 **Expected Result:**
-- Capped or rejected with a message naming the instance maximum (paired with TC-AGB-109).
+- Capped or rejected with a message naming the instance maximum (paired with TC-AGB-156).
 
 ---
 
-### TC-AGB-306: Enable Column Reordering and reorder columns
+### TC-AGB-059: Enable Column Reordering and reorder columns
 
 **User Role:** Member
 **Steps:**
@@ -93,7 +93,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-307: Disabling Column Reordering locks the order
+### TC-AGB-060: Disabling Column Reordering locks the order
 
 **User Role:** Member
 **Steps:**
@@ -108,7 +108,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-308: Select card fields and apply
+### TC-AGB-061: Select card fields and apply
 
 **User Role:** Member
 **Steps:**
@@ -119,7 +119,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-309: Every documented card field renders correctly
+### TC-AGB-062: Every documented card field renders correctly
 
 **User Role:** Member
 **Steps:**
@@ -135,7 +135,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-310: Derived counts are accurate
+### TC-AGB-063: Derived counts are accurate
 
 **User Role:** Member
 **Steps:**
@@ -148,7 +148,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-311: Spent time and estimated time totals
+### TC-AGB-064: Spent time and estimated time totals
 
 **User Role:** Member
 **Steps:**
@@ -161,7 +161,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-312: Tags card field integrates with the Tag plugin
+### TC-AGB-065: Tags card field integrates with the Tag plugin
 
 **User Role:** Member
 **Preconditions:** The Redmineflux Tag plugin installed with tags assigned.
@@ -174,7 +174,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-313: Card fields are stored per board configuration
+### TC-AGB-066: Card fields are stored per board configuration
 
 **User Role:** Member
 **Steps:**
@@ -189,7 +189,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-314: Switch the board to Scrum mode
+### TC-AGB-067: Switch the board to Scrum mode
 
 **User Role:** Member
 **Steps:**
@@ -200,7 +200,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-315: Scrum board shows one sprint at a time
+### TC-AGB-068: Scrum board shows one sprint at a time
 
 **User Role:** Member
 **Steps:**
@@ -212,7 +212,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-316: Switch back to Kanban mode
+### TC-AGB-069: Switch back to Kanban mode
 
 **User Role:** Member
 **Steps:**
@@ -229,7 +229,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-317: All columns disabled
+### TC-AGB-070: All columns disabled
 
 **User Role:** Member
 **Steps:**
@@ -242,7 +242,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-318: Invalid WIP values
+### TC-AGB-071: Invalid WIP values
 
 **User Role:** Member
 **Steps:**
@@ -253,7 +253,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-319: WIP limit of zero
+### TC-AGB-072: WIP limit of zero
 
 **User Role:** Member
 **Steps:**
@@ -265,7 +265,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-320: Status deleted while used as a column
+### TC-AGB-073: Status deleted while used as a column
 
 **User Role:** Admin + Member
 **Steps:**
@@ -276,7 +276,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-321: Custom field deleted while used as a card field
+### TC-AGB-074: Custom field deleted while used as a card field
 
 **User Role:** Admin + Member
 **Steps:**
@@ -287,7 +287,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-322: Card fields showing data the user cannot see
+### TC-AGB-075: Card fields showing data the user cannot see
 
 **User Role:** Member with limited custom-field or spent-time visibility
 **Steps:**
@@ -301,7 +301,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-323: Settings changes by one user do not affect another
+### TC-AGB-076: Settings changes by one user do not affect another
 
 **User Role:** Two members
 **Steps:**
@@ -315,7 +315,7 @@ effect on the board, not by the panel closing without error.
 
 ---
 
-### TC-AGB-324: Settings panel without permission
+### TC-AGB-077: Settings panel without permission
 
 **User Role:** Member with view-only board access
 **Steps:**

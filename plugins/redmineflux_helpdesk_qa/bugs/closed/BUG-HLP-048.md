@@ -15,7 +15,7 @@
 
 1. Create a Knowledgebase article ("Resetting your password") on Helpdesk QA Alpha via the "Add Article" ("+") control — becomes page 3.
 2. With that article open/active, look for any control to create a **child** article nested under it — check: the same "Add Article" ("+") control used to create the parent; the article's own toolbar (Search Pages / Share Page / Export Page / Save Page / Delete / Publish / Menu); the "Menu" button's dropdown (Attachments, Page History); a right-click/context menu on the article's sidebar tree entry.
-3. Use whichever control appears closest to a "child" affordance to create a second article ("TC-HLP-163 Child Article - Common reset issues") while the first is open.
+3. Use whichever control appears closest to a "child" affordance to create a second article ("TC-HLP-019 Child Article - Common reset issues") while the first is open.
 4. Inspect the resulting DOM tree structure: is the new article's `<li>` appended inside the parent's own child-container (`<ul id="ul{parent_id}">`), or inside the top-level `<ul id="spaces">`?
 5. Attempt to nest the second article under the first via drag-and-drop within the sidebar tree.
 
@@ -27,7 +27,7 @@ Per `HELPDESK_USER_GUIDE.md` §17 ("Nest | Create the child from the parent arti
 
 **No discoverable, working path to create a nested child article exists anywhere in this build.**
 
-- The "Add Article" ("+") control is the only article-creation entry point found. It behaves identically regardless of which article is currently open: the new article is always appended to `<ul id="spaces">` (the top-level list), never to the currently-open article's own child container (`<ul id="ul{N}">`, confirmed empty both before and after). Created two articles this way with the first ("Resetting your password", page 3) open when creating the second ("TC-HLP-163 Child Article...", page 4) — the second was created as a root-level sibling, not a child.
+- The "Add Article" ("+") control is the only article-creation entry point found. It behaves identically regardless of which article is currently open: the new article is always appended to `<ul id="spaces">` (the top-level list), never to the currently-open article's own child container (`<ul id="ul{N}">`, confirmed empty both before and after). Created two articles this way with the first ("Resetting your password", page 3) open when creating the second ("TC-HLP-019 Child Article...", page 4) — the second was created as a root-level sibling, not a child.
 - The open article's own toolbar offers exactly six actions (confirmed via a full DOM sweep of every visible `<button>`): Search Pages, Share Page, Export Page, Save Page, Delete, Publish, plus a "Menu" dropdown. None create a child article.
 - The "Menu" dropdown's full contents are exactly two items: Attachments, Page History. No child-creation option.
 - No custom right-click/context menu exists on a sidebar tree entry (dispatched a synthetic `contextmenu` event directly at the article's tree-title element; no menu appeared in the DOM).
@@ -55,7 +55,7 @@ data: {
 
 ### Screenshot
 
-![Knowledgebase sidebar tree showing both "Resetting your password" and "TC-HLP-163 Child Article..." as flat, unindented siblings — no nesting occurred despite the parent being open when the second was created](../../screenshots/BUG-HLP-048/bug-hlp-048-no-nesting-both-siblings.png)
+![Knowledgebase sidebar tree showing both "Resetting your password" and "TC-HLP-019 Child Article..." as flat, unindented siblings — no nesting occurred despite the parent being open when the second was created](../../screenshots/BUG-HLP-048/bug-hlp-048-no-nesting-both-siblings.png)
 
 ### Retest screenshot (fill after fix is verified)
 
@@ -87,7 +87,7 @@ data: {
 
 ## Notes
 
-- Found while executing `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-163 ("Creating a child article nests correctly under its parent"), which explicitly requires "From the parent article, create a child article" — this precondition itself could not be satisfied through the UI.
-- **Reproduced twice, independently**: once via a synthetic DOM-dispatched click on the "Add Article" control (page 4, "TC-HLP-163 Child Article - Common reset issues"), and again via a fully genuine Playwright user click on the real element (page 5, "TC-HLP-163 Real Child Test") — both landed as root-level siblings of page 3, not children, ruling out the first attempt being a fluke of the synthetic-event method.
-- All three articles ("Resetting your password" id 3, "TC-HLP-163 Child Article - Common reset issues" id 4, "TC-HLP-163 Real Child Test" id 5) left in place on Helpdesk QA Alpha as ready-made fixtures for retesting once the missing `parent_id` is added to the create-page request.
-- TC-HLP-164 (version history) and TC-HLP-165 (compare/restore versions) do not depend on nesting and can proceed independently using these same fixture articles.
+- Found while executing `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-019 ("Creating a child article nests correctly under its parent"), which explicitly requires "From the parent article, create a child article" — this precondition itself could not be satisfied through the UI.
+- **Reproduced twice, independently**: once via a synthetic DOM-dispatched click on the "Add Article" control (page 4, "TC-HLP-019 Child Article - Common reset issues"), and again via a fully genuine Playwright user click on the real element (page 5, "TC-HLP-019 Real Child Test") — both landed as root-level siblings of page 3, not children, ruling out the first attempt being a fluke of the synthetic-event method.
+- All three articles ("Resetting your password" id 3, "TC-HLP-019 Child Article - Common reset issues" id 4, "TC-HLP-019 Real Child Test" id 5) left in place on Helpdesk QA Alpha as ready-made fixtures for retesting once the missing `parent_id` is added to the create-page request.
+- TC-HLP-020 (version history) and TC-HLP-021 (compare/restore versions) do not depend on nesting and can proceed independently using these same fixture articles.

@@ -128,24 +128,24 @@
   <tbody>
     <tr>
       <td>REST API returns 403 even with a valid admin API key</td>
-      <td>TC-AGB-548</td>
+      <td>TC-AGB-048</td>
       <td>Redmine core's own login-required filter appears to run before the plugin's custom <code>require_api_authentication</code> before_action gets a chance to authenticate the request. Root cause (core filter ordering vs. plugin/route configuration) not conclusively isolated in the time available — left inconclusive rather than filed speculatively.</td>
     </tr>
     <tr>
       <td>Backlog "Board Settings" panel has two similarly-placed submit buttons</td>
-      <td>TC-AGB-537</td>
+      <td>TC-AGB-037</td>
       <td>The filter panel's "Apply" and the Board Settings panel's own "Apply Settings" sit close together in the same form; clicking the wrong one looks identical (page reloads either way) but never touches <code>visible_card_fields</code>. Not a defect once the correct button is used — the inline story-point editor works correctly and was fully re-verified. Recorded as a memory note for future sessions rather than a bug.</td>
     </tr>
     <tr>
       <td>"Open the Backlog through a saved query" has no UI implementation</td>
-      <td>TC-AGB-541</td>
+      <td>TC-AGB-041</td>
       <td>Checked every view in the plugin: no button or link generates a <code>query_id</code>-carrying URL for the Backlog or Agile Board pages. The Issues page's own saved-query sidebar only ever links to <code>issues?query_id=N</code>. Marked the TC N/A rather than a defect, since the product never built this feature; the ticket itself never asked for it either. The underlying crash on manually-supplied <code>query_id</code> is tracked separately as BUG-AGB-010.</td>
     </tr>
   </tbody>
 </table>
 
 <p style="margin-top:20px; font-size:11px; color:#888;">
-  Generated: 2026-09-21 (updated after post-fix regression) &nbsp;|&nbsp; Suite: AGILE_BACKLOG_AND_SPRINTS.md, Feature #120436 (TC-AGB-529–553) &nbsp;|&nbsp;
+  Generated: 2026-09-21 (updated after post-fix regression) &nbsp;|&nbsp; Suite: AGILE_BACKLOG_AND_SPRINTS.md, Feature #120436 (TC-AGB-029–553) &nbsp;|&nbsp;
   Feature #120436 marked Done (100%) on production 2026-09-21, then a High-severity defect (BUG-AGB-011, production #120990) found within its own delivered code shortly after &mdash; #120436 reopened to In QA/90%, its regression has now passed and it's back to Done, 100% &nbsp;|&nbsp;
   <strong>3 bugs fixed &amp; closed this cycle, 0 remain open</strong> &nbsp;|&nbsp; plugin released as 7.1.0
 </p>

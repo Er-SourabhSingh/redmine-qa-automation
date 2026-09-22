@@ -26,7 +26,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-101: Plugin folder name is enforced
+### TC-AGB-148: Plugin folder name is enforced
 
 **User Role:** Admin
 **Preconditions:** Archive extracted to `Redmine/plugins/agile_board`.
@@ -42,7 +42,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-102: Migration completes cleanly
+### TC-AGB-149: Migration completes cleanly
 
 **User Role:** Admin
 **Steps:**
@@ -53,7 +53,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-103: Assets load — the board is entirely JS-driven
+### TC-AGB-150: Assets load — the board is entirely JS-driven
 
 **User Role:** Any
 **Steps:**
@@ -67,7 +67,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-104: Redmine version support boundary
+### TC-AGB-151: Redmine version support boundary
 
 **User Role:** Admin
 **Steps:**
@@ -85,7 +85,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-105: Enabling the module adds both tabs
+### TC-AGB-152: Enabling the module adds both tabs
 
 **User Role:** Admin
 **Steps:**
@@ -99,7 +99,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-106: Global Agile Board appears in the top menu
+### TC-AGB-153: Global Agile Board appears in the top menu
 
 **User Role:** Logged-in member
 **Steps:**
@@ -110,7 +110,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-107: Disabling the module removes access
+### TC-AGB-154: Disabling the module removes access
 
 **User Role:** Manager
 **Steps:**
@@ -128,7 +128,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-108: Configure page loads with all five settings
+### TC-AGB-155: Configure page loads with all five settings
 
 **User Role:** Admin
 **Steps:**
@@ -141,7 +141,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-109: Maximum WIP limit caps per-column WIP values
+### TC-AGB-156: Maximum WIP limit caps per-column WIP values
 
 **User Role:** Admin then Member
 **Steps:**
@@ -155,7 +155,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-110: Tracker icons appear on cards
+### TC-AGB-157: Tracker icons appear on cards
 
 **User Role:** Admin then Member
 **Steps:**
@@ -168,7 +168,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-111: Priority icons appear on cards
+### TC-AGB-158: Priority icons appear on cards
 
 **User Role:** Admin then Member
 **Steps:**
@@ -179,7 +179,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-112: Text-symbol icons accept a colour
+### TC-AGB-159: Text-symbol icons accept a colour
 
 **User Role:** Admin
 **Steps:**
@@ -191,7 +191,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-113: Settings persist across save and reload
+### TC-AGB-160: Settings persist across save and reload
 
 **User Role:** Admin
 **Steps:**
@@ -206,7 +206,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-114: Wrong plugin folder name
+### TC-AGB-161: Wrong plugin folder name
 
 **User Role:** Admin
 **Steps:**
@@ -218,7 +218,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-115: Migration not run
+### TC-AGB-162: Migration not run
 
 **User Role:** Admin
 **Steps:**
@@ -230,7 +230,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-116: Configure page is not reachable by a non-admin
+### TC-AGB-163: Configure page is not reachable by a non-admin
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
 **Steps:**
@@ -242,7 +242,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-117: Invalid maximum WIP value
+### TC-AGB-164: Invalid maximum WIP value
 
 **User Role:** Admin
 **Steps:**
@@ -254,7 +254,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-118: Invalid Story Point values
+### TC-AGB-165: Invalid Story Point values
 
 **User Role:** Admin
 **Steps:**
@@ -266,7 +266,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-119: Removing an icon reverts to a default
+### TC-AGB-166: Removing an icon reverts to a default
 
 **User Role:** Admin
 **Steps:**
@@ -278,7 +278,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-120: Tracker or priority deleted after icons were configured
+### TC-AGB-167: Tracker or priority deleted after icons were configured
 
 **User Role:** Admin
 **Steps:**
@@ -290,7 +290,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-121: Board on a project with no issues
+### TC-AGB-168: Board on a project with no issues
 
 **User Role:** Member
 **Steps:**
@@ -305,7 +305,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 
 ---
 
-### TC-AGB-122: Clean uninstall
+### TC-AGB-169: Clean uninstall
 
 **User Role:** Admin
 **Preconditions:** **Database backup taken** — the KB requires this before rollback.

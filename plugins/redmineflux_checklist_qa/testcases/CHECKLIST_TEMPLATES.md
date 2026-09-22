@@ -21,7 +21,7 @@ Application side: issue detail → Checklist section → **Actions** → **Add f
 
 ---
 
-### TC-CHK-401: Create a checklist template bound to a tracker
+### TC-CHK-093: Create a checklist template bound to a tracker
 
 **User Role:** Admin
 **Steps:**
@@ -36,12 +36,12 @@ Application side: issue detail → Checklist section → **Actions** → **Add f
 - A success message is shown.
 
 CONFIRMED LIVE 2026-09-21 (Configure → Checklist Templates → Add Checklist Template): **PASS.** Created
-"TC-CHK-401 Bug Template" (tracker: Bug, one entry "First checklist title"). Success flash shown, template
+"TC-CHK-093 Bug Template" (tracker: Bug, one entry "First checklist title"). Success flash shown, template
 listed in the tab with correct name and tracker.
 
 ---
 
-### TC-CHK-402: Tracker dropdown lists all active trackers
+### TC-CHK-094: Tracker dropdown lists all active trackers
 
 **User Role:** Admin
 **Steps:**
@@ -56,7 +56,7 @@ none missing.
 
 ---
 
-### TC-CHK-403: Create a template with multiple checklist entries
+### TC-CHK-095: Create a template with multiple checklist entries
 
 **User Role:** Admin
 **Steps:**
@@ -65,13 +65,13 @@ none missing.
 **Expected Result:**
 - All five rows are saved in order and shown when the template is reopened for edit.
 
-CONFIRMED LIVE 2026-09-21: **PASS.** Same "TC-CHK-401 Bug Template" extended to 5 entries ("First" through
+CONFIRMED LIVE 2026-09-21: **PASS.** Same "TC-CHK-093 Bug Template" extended to 5 entries ("First" through
 "Fifth checklist title") via repeated **Add checklist**, saved, reopened for Edit — all 5 rows present, in the
 same order.
 
 ---
 
-### TC-CHK-404: Create a template with nested sub-checklist entries
+### TC-CHK-096: Create a template with nested sub-checklist entries
 
 **User Role:** Admin
 **Steps:**
@@ -86,7 +86,7 @@ nested child both created) when the template was applied to issue #1534 during T
 
 ---
 
-### TC-CHK-405: Multiple templates can target the same tracker
+### TC-CHK-097: Multiple templates can target the same tracker
 
 **User Role:** Admin
 **Steps:**
@@ -96,7 +96,7 @@ nested child both created) when the template was applied to issue #1534 during T
 - Both are created and both are offered when applying a template to a Bug issue.
 
 CONFIRMED LIVE 2026-09-21: **PASS.** This instance already had 3 templates bound to the Bug tracker ("sdafasd"
-pre-existing, "TC-CHK-401 Bug Template", "TC-CHK-404 Nested Template" created this session). Opened the
+pre-existing, "TC-CHK-093 Bug Template", "TC-CHK-096 Nested Template" created this session). Opened the
 Add-from-template picker on issue #1534 — DOM shows all 3 as separate `.template-item` radio rows, all offered
 together, no collision.
 
@@ -106,7 +106,7 @@ together, no collision.
 
 ---
 
-### TC-CHK-406: Edit a template name
+### TC-CHK-098: Edit a template name
 
 **User Role:** Admin
 **Steps:**
@@ -115,12 +115,12 @@ together, no collision.
 **Expected Result:**
 - The new name is shown in the list and in the issue-side template picker.
 
-CONFIRMED LIVE 2026-09-21 (edited template id 4, "TC-CHK-401 Bug Template" → "TC-CHK-406-407 Renamed Template"):
+CONFIRMED LIVE 2026-09-21 (edited template id 4, "TC-CHK-093 Bug Template" → "TC-CHK-098-407 Renamed Template"):
 **PASS.** New name shown in the Checklist Templates admin list immediately after save.
 
 ---
 
-### TC-CHK-407: Edit a template's checklist entries
+### TC-CHK-099: Edit a template's checklist entries
 
 **User Role:** Admin
 **Steps:**
@@ -144,7 +144,7 @@ already-created issue checklists, exactly as expected. No defect.
 
 ---
 
-### TC-CHK-408: Change a template's tracker binding
+### TC-CHK-100: Change a template's tracker binding
 
 **User Role:** Admin
 **Steps:**
@@ -155,16 +155,16 @@ already-created issue checklists, exactly as expected. No defect.
 - The template is now offered on Task issues and no longer on Bug issues.
 
 CONFIRMED LIVE 2026-09-21 (this instance has no "Task" tracker — trackers are Bug, Feature, Support, Test case,
-test — substituted **Feature** as the alternate tracker): **PASS.** Changed template id 4 ("TC-CHK-406-407
+test — substituted **Feature** as the alternate tracker): **PASS.** Changed template id 4 ("TC-CHK-098-407
 Renamed Template") from Bug → Feature and saved. Reopened the Add-from-template picker on Bug issue #1534 — the
-template is gone (only "sdafasd" and "TC-CHK-404 Nested Template" remain, both still Bug-bound). Created a fresh
-Feature issue (#1535) and opened its picker — "TC-CHK-406-407 Renamed Template" is now offered there, alone (no
+template is gone (only "sdafasd" and "TC-CHK-096 Nested Template" remain, both still Bug-bound). Created a fresh
+Feature issue (#1535) and opened its picker — "TC-CHK-098-407 Renamed Template" is now offered there, alone (no
 other template on this instance is Feature-bound). Binding change takes effect immediately and correctly on both
 sides.
 
 ---
 
-### TC-CHK-409: Delete a template
+### TC-CHK-101: Delete a template
 
 **User Role:** Admin
 **Steps:**
@@ -175,16 +175,16 @@ sides.
 - It no longer appears in the issue-side picker.
 - Checklists previously created from it on existing issues remain intact.
 
-CONFIRMED LIVE 2026-09-21 (deleted template id 4, "TC-CHK-406-407 Renamed Template", via the custom Delete
+CONFIRMED LIVE 2026-09-21 (deleted template id 4, "TC-CHK-098-407 Renamed Template", via the custom Delete
 confirmation modal — `#confirmchecklistBtn`): **PASS, all three parts.** Admin list table no longer lists it
 (only the 2 remaining templates shown). Add-from-template picker on issue #1534 no longer offers it (only
-"sdafasd" and "TC-CHK-404 Nested Template" remain). Issue #1534's checklist — originally created from this exact
+"sdafasd" and "TC-CHK-096 Nested Template" remain). Issue #1534's checklist — originally created from this exact
 template — still shows all 5 of its original items (First–Fifth checklist title) fully intact after the source
 template's deletion. No defect.
 
 ---
 
-### TC-CHK-410: Cancel a template deletion
+### TC-CHK-102: Cancel a template deletion
 
 **User Role:** Admin
 **Steps:**
@@ -203,7 +203,7 @@ unaffected by the cancelled delete attempt.
 
 ---
 
-### TC-CHK-411: Apply a template to an issue
+### TC-CHK-103: Apply a template to an issue
 
 **User Role:** Member
 **Steps:**
@@ -217,13 +217,13 @@ unaffected by the cancelled delete attempt.
 CONFIRMED LIVE 2026-09-21 (real UI, native `.template-item` click → `submitTemplateForm(templateId)` →
 `#template-selection-form` native POST — not the raw `fetch`/JSON path, which returns 406 and is not how the
 feature actually works): created a fresh isolated issue #1534 in `test project` specifically for clean testing,
-applied "TC-CHK-401 Bug Template" (5 entries) via **Actions → Add from template**. **PASS.** All 5 entries
+applied "TC-CHK-093 Bug Template" (5 entries) via **Actions → Add from template**. **PASS.** All 5 entries
 created in order (First–Fifth checklist title), all incomplete on creation, nesting from TC-404's template
 reproduced correctly in a separate check.
 
 ---
 
-### TC-CHK-412: Applying a template is journaled
+### TC-CHK-104: Applying a template is journaled
 
 **User Role:** Member
 **Steps:**
@@ -233,12 +233,12 @@ reproduced correctly in a separate check.
 - An entry records that a template was applied, naming the template and the actor.
 
 CONFIRMED LIVE 2026-09-21 (issue #1534, History tab): **PASS.** Journal entry #1 reads: "Applied checklist
-template 'TC-CHK-401 Bug Template' — 5 checklist(s) created by Redmine Admin." — names both the template and the
+template 'TC-CHK-093 Bug Template' — 5 checklist(s) created by Redmine Admin." — names both the template and the
 actor as required.
 
 ---
 
-### TC-CHK-413: Apply a template on top of an existing checklist
+### TC-CHK-105: Apply a template on top of an existing checklist
 
 **User Role:** Member
 **Steps:**
@@ -255,7 +255,7 @@ completed checkbox state were unchanged, not reset or overwritten.
 
 ---
 
-### TC-CHK-414: Apply the same template twice
+### TC-CHK-106: Apply the same template twice
 
 **User Role:** Member
 **Steps:**
@@ -265,7 +265,7 @@ completed checkbox state were unchanged, not reset or overwritten.
 - Behaviour is explicit: either a second copy is created, or the action is refused with a clear message.
 - It must not half-apply, producing a partially duplicated list.
 
-CONFIRMED LIVE 2026-09-21 (issue #1534, "TC-CHK-401 Bug Template" applied a 2nd and 3rd time via the real
+CONFIRMED LIVE 2026-09-21 (issue #1534, "TC-CHK-093 Bug Template" applied a 2nd and 3rd time via the real
 `.template-item` click → native form POST): **PASS.** Checklist item count stayed at 5 across both re-applications
 (no duplicates, DOM-verified via `[id^="checklist-item-"]`), and the "Applied checklist template" journal count
 stayed at 1 (no new journal entry on the 2nd/3rd attempt — the whole submission was refused, not partially
@@ -281,7 +281,7 @@ expected result exactly. No half-apply, no bug.
 
 ---
 
-### TC-CHK-415: Create a template with no name
+### TC-CHK-107: Create a template with no name
 
 **User Role:** Admin
 **Steps:**
@@ -298,7 +298,7 @@ templates). Satisfies "rejected with a validation message naming the missing fie
 
 ---
 
-### TC-CHK-416: Create a template with no checklist entries
+### TC-CHK-108: Create a template with no checklist entries
 
 **User Role:** Admin
 **Steps:**
@@ -315,7 +315,7 @@ true on the checklist-title field) — no entry-less template can be created at 
 
 ---
 
-### TC-CHK-417: Create a template with no tracker selected
+### TC-CHK-109: Create a template with no tracker selected
 
 **User Role:** Admin
 **Steps:**
@@ -332,7 +332,7 @@ unselected is simply not a submittable state.
 
 ---
 
-### TC-CHK-418: Duplicate template names
+### TC-CHK-110: Duplicate template names
 
 **User Role:** Admin
 **Steps:**
@@ -350,7 +350,7 @@ row, unchanged. Best-case outcome from the expected result (rejected, not a look
 
 ---
 
-### TC-CHK-419: HTML and special characters in template name and entries
+### TC-CHK-111: HTML and special characters in template name and entries
 
 **User Role:** Admin
 **Steps:**
@@ -374,7 +374,7 @@ vulnerable. No new bug.
 
 ---
 
-### TC-CHK-420: Template with a very large number of entries
+### TC-CHK-112: Template with a very large number of entries
 
 **User Role:** Admin
 **Steps:**
@@ -394,7 +394,7 @@ console errors beyond the pre-existing unrelated `lastJstPreviewed` collision. N
 
 ---
 
-### TC-CHK-421: Template picker on an issue whose tracker has no templates
+### TC-CHK-113: Template picker on an issue whose tracker has no templates
 
 **User Role:** Member
 **Steps:**
@@ -409,7 +409,7 @@ Add-from-template): **PASS.** Explicit empty-state message rendered: **"No templ
 
 ---
 
-### TC-CHK-422: Templates tab is not reachable by a non-admin
+### TC-CHK-114: Templates tab is not reachable by a non-admin
 
 **User Role:** Non-admin member
 **Steps:**
@@ -427,7 +427,7 @@ action from managing the template catalog itself.)
 
 ---
 
-### TC-CHK-423: Changing an issue's tracker after applying a template
+### TC-CHK-115: Changing an issue's tracker after applying a template
 
 **User Role:** Member
 **Steps:**
@@ -452,7 +452,7 @@ tracker or the template, and survives the change correctly.
 
 | Case ID | Screenshot | Log | Bug reference |
 |---------|------------|-----|---------------|
-| TC-CHK-401–423 | n/a (no bugs found) | inline evidence above | none |
+| TC-CHK-093–423 | n/a (no bugs found) | inline evidence above | none |
 
 ## Summary
 

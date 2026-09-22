@@ -21,7 +21,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-401: Search by issue subject
+### TC-AGB-211: Search by issue subject
 
 **User Role:** Member
 **Steps:**
@@ -34,7 +34,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-402: Clearing the search restores the board
+### TC-AGB-212: Clearing the search restores the board
 
 **User Role:** Member
 **Steps:**
@@ -45,7 +45,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-403: Search with no matches
+### TC-AGB-213: Search with no matches
 
 **User Role:** Member
 **Steps:**
@@ -56,7 +56,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-404: Search is case-insensitive and matches partial words
+### TC-AGB-214: Search is case-insensitive and matches partial words
 
 **User Role:** Member
 **Steps:**
@@ -72,7 +72,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-405: Filter by assigned member
+### TC-AGB-215: Filter by assigned member
 
 **User Role:** Member
 **Steps:**
@@ -83,7 +83,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-406: Apply a query-based filter
+### TC-AGB-216: Apply a query-based filter
 
 **User Role:** Member
 **Steps:**
@@ -94,7 +94,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-407: Combine search and filters
+### TC-AGB-217: Combine search and filters
 
 **User Role:** Member
 **Steps:**
@@ -105,7 +105,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-408: Filters persist appropriately
+### TC-AGB-218: Filters persist appropriately
 
 **User Role:** Member
 **Steps:**
@@ -117,18 +117,18 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-409: Sprint filter on a Scrum board
+### TC-AGB-219: Sprint filter on a Scrum board
 
 **User Role:** Member
 **Steps:**
-1. In Scrum mode, filter by sprint (paired with TC-AGB-315).
+1. In Scrum mode, filter by sprint (paired with TC-AGB-068).
 
 **Expected Result:**
 - Only that sprint's issues are shown, and the filter is combinable with search and member filters.
 
 ---
 
-### TC-AGB-410: Filtered drag still works
+### TC-AGB-220: Filtered drag still works
 
 **User Role:** Member
 **Steps:**
@@ -145,7 +145,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-411: Group by each supported option
+### TC-AGB-221: Group by each supported option
 
 **User Role:** Member
 **Steps:**
@@ -159,7 +159,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-412: Issues with no value for the grouping field
+### TC-AGB-222: Issues with no value for the grouping field
 
 **User Role:** Member
 **Steps:**
@@ -172,7 +172,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-413: Swimlane counts and totals are accurate
+### TC-AGB-223: Swimlane counts and totals are accurate
 
 **User Role:** Member
 **Steps:**
@@ -183,7 +183,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-414: Drag between columns within a swimlane
+### TC-AGB-224: Drag between columns within a swimlane
 
 **User Role:** Member
 **Steps:**
@@ -194,7 +194,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-415: Drag between swimlanes
+### TC-AGB-225: Drag between swimlanes
 
 **User Role:** Member
 **Steps:**
@@ -208,7 +208,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-416: Grouping persists with board configuration
+### TC-AGB-226: Grouping persists with board configuration
 
 **User Role:** Member
 **Steps:**
@@ -223,7 +223,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-417: Grouping with a very large number of distinct values
+### TC-AGB-227: Grouping with a very large number of distinct values
 
 **User Role:** Member
 **Steps:**
@@ -235,7 +235,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-418: Filter results respect issue visibility
+### TC-AGB-228: Filter results respect issue visibility
 
 **User Role:** Member on a role whose issue visibility is limited (e.g. to their own issues)
 **Steps:**
@@ -248,7 +248,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-419: Search does not match content the user cannot see
+### TC-AGB-229: Search does not match content the user cannot see
 
 **User Role:** Member with limited visibility
 **Steps:**
@@ -259,7 +259,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-420: Special characters in the search field
+### TC-AGB-230: Special characters in the search field
 
 **User Role:** Member
 **Steps:**
@@ -271,7 +271,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-421: Very long search string
+### TC-AGB-231: Very long search string
 
 **User Role:** Member
 **Steps:**
@@ -282,7 +282,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-422: Filter referencing a deleted value
+### TC-AGB-232: Filter referencing a deleted value
 
 **User Role:** Member + Admin
 **Steps:**
@@ -294,7 +294,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 
 ---
 
-### TC-AGB-423: Grouping by a field the user cannot see
+### TC-AGB-233: Grouping by a field the user cannot see
 
 **User Role:** Member with restricted custom-field visibility
 **Steps:**

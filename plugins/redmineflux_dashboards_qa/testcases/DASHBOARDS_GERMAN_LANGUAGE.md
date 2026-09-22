@@ -11,7 +11,7 @@
 
 ---
 
-### TC-DSH-001 — Dashboard shell (heading, header controls, global filter bar, empty state) fully translated
+### TC-DSH-049 — Dashboard shell (heading, header controls, global filter bar, empty state) fully translated
 
 **Steps**
 
@@ -30,14 +30,14 @@
 
 ---
 
-### TC-DSH-002 — "Add New Chart" modal fully translated
+### TC-DSH-050 — "Add New Chart" modal fully translated
 
 **Steps**
 
 1. Click "Add Chart".
 2. Inspect the modal heading, subheading, tabs, search field, chart-type list (all 22 "Our Queries" entries), Chart Title field, and footer buttons.
 
-**Actual Result — FAIL (same root cause as TC-DSH-001)**
+**Actual Result — FAIL (same root cause as TC-DSH-049)**
 
 - Modal heading "Add New Chart", subheading "Core Analytics Dashboard" / "22 chart queries + 5 saved queries available", tabs "Our Queries (22)" / "Saved Queries (5)", field label "Query Type:", placeholder "Search query types...", all spot-checked chart type names ("Issues by Status", "Issues by Tracker", "Issues by Priority", "Issues by Assignee", "Issues by Assignee (Stacked by Status)"), field label "Chart Title (optional):", placeholder "Leave empty to use query name", and the "Add" button — all untranslated English.
 - Notably "Abbrechen" (Cancel) IS correctly translated — this modal's one shared-core-component string, everything plugin-specific is not.
@@ -46,7 +46,7 @@
 
 ---
 
-### TC-DSH-003 — Chart card controls and resize handles fully translated
+### TC-DSH-051 — Chart card controls and resize handles fully translated
 
 **Steps**
 
@@ -55,7 +55,7 @@
 
 **Actual Result — FAIL (same root cause)**
 
-- Chart title "Issues by Status" (the query's own name, untranslated — expected, since chart titles are user/query-named, not fixed UI strings, though the "Chart Title" field label itself is also untranslated per TC-DSH-002).
+- Chart title "Issues by Status" (the query's own name, untranslated — expected, since chart titles are user/query-named, not fixed UI strings, though the "Chart Title" field label itself is also untranslated per TC-DSH-050).
 - Icon row: "Copy Chart", "Fullscreen", "Chart Information", "Settings", "Remove" — all untranslated.
 - Resize handles: "Drag to resize width", "Drag to resize height", "Drag to resize both" — all untranslated.
 - Chart legend values ("New", "Feedback", "In Progress", "Resolved") are actual issue-status data records, not plugin UI strings — correctly not a translation concern.
@@ -64,7 +64,7 @@
 
 ---
 
-### TC-DSH-004 — Chart Settings panel (General / Data Filters / Appearance) fully translated
+### TC-DSH-052 — Chart Settings panel (General / Data Filters / Appearance) fully translated
 
 **Steps**
 
@@ -83,7 +83,7 @@
 
 ---
 
-### TC-DSH-005 — Success toasts, validation errors, and info tooltip content fully translated
+### TC-DSH-053 — Success toasts, validation errors, and info tooltip content fully translated
 
 **Steps**
 

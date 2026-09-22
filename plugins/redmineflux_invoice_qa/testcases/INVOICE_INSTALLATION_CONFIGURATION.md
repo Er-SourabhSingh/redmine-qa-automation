@@ -25,7 +25,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-101: Plugin appears after installation
+### TC-INV-029: Plugin appears after installation
 
 **User Role:** Admin
 **Preconditions:** `redmineflux_invoice` copied into `plugins/`, `bundle install` and migrations run, restarted.
@@ -37,7 +37,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-102: Migrations complete cleanly
+### TC-INV-030: Migrations complete cleanly
 
 **User Role:** Admin
 **Steps:**
@@ -48,7 +48,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-103: Assets load
+### TC-INV-031: Assets load
 
 **User Role:** Any
 **Steps:**
@@ -59,7 +59,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-104: A PDF binary is installed
+### TC-INV-032: A PDF binary is installed
 
 **User Role:** Admin
 **Steps:**
@@ -71,7 +71,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 - **Record which binary is present.** If none is, every PDF case is untestable — mark them *Not Executed —
   dependency missing* rather than failing them, and note that this repo has already seen a report silently arrive
   with no attachment because of a missing Grover/Node on another plugin. The same silent-failure risk applies here
-  (TC-INV-606).
+  (TC-INV-103).
 
 ---
 
@@ -79,7 +79,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-105: Company details are saved and appear on invoices
+### TC-INV-033: Company details are saved and appear on invoices
 
 **User Role:** Admin
 **Steps:**
@@ -93,7 +93,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-106: Company logo
+### TC-INV-034: Company logo
 
 **User Role:** Admin
 **Steps:**
@@ -112,7 +112,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-107: Invoice prefix and number format
+### TC-INV-035: Invoice prefix and number format
 
 **User Role:** Admin
 **Steps:**
@@ -126,7 +126,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-108: Invoice numbers are unique and sequential
+### TC-INV-036: Invoice numbers are unique and sequential
 
 **User Role:** Admin
 **Steps:**
@@ -139,7 +139,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-109: Currency symbol
+### TC-INV-037: Currency symbol
 
 **User Role:** Admin
 **Steps:**
@@ -151,7 +151,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-110: Default payment terms
+### TC-INV-038: Default payment terms
 
 **User Role:** Admin
 **Steps:**
@@ -162,7 +162,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-111: Stripe credentials are stored safely
+### TC-INV-039: Stripe credentials are stored safely
 
 **User Role:** Admin
 **Steps:**
@@ -175,7 +175,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
   masked or write-only.
 - These are the most sensitive values in the entire Redmineflux plugin set: a leaked secret key permits charges
   against the organisation's Stripe account, and a leaked webhook secret permits forged payment confirmations
-  (TC-INV-511). Any plain-text exposure is a High-severity finding even on an admin-only page.
+  (TC-INV-086). Any plain-text exposure is a High-severity finding even on an admin-only page.
 
 ---
 
@@ -183,7 +183,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-112: Enabling the module adds the Invoice tab
+### TC-INV-040: Enabling the module adds the Invoice tab
 
 **User Role:** Manager
 **Steps:**
@@ -194,7 +194,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-113: Disabling the module removes access
+### TC-INV-041: Disabling the module removes access
 
 **User Role:** Manager
 **Steps:**
@@ -213,7 +213,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-114: Configure page is not reachable by a non-admin
+### TC-INV-042: Configure page is not reachable by a non-admin
 
 **User Role:** Manager, and a user holding `manage_invoices`, and a user holding `manage_customers`
 **Steps:**
@@ -227,7 +227,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-115: Invalid configuration values
+### TC-INV-043: Invalid configuration values
 
 **User Role:** Admin
 **Steps:**
@@ -241,7 +241,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-116: Settings persist and apply immediately
+### TC-INV-044: Settings persist and apply immediately
 
 **User Role:** Admin
 **Steps:**
@@ -252,7 +252,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-117: Migrations not run
+### TC-INV-045: Migrations not run
 
 **User Role:** Admin
 **Steps:**
@@ -267,7 +267,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 
 ---
 
-### TC-INV-118: Clean uninstall
+### TC-INV-046: Clean uninstall
 
 **User Role:** Admin
 **Preconditions:** **Database backup taken** — the KB requires it.

@@ -24,7 +24,7 @@ A user with no project membership and no helpdesk permission should see no real 
 
 ## Actual result
 
-The "Recent Tickets" table renders **8 real tickets** from Helpdesk QA Alpha — a project this user is not a member of and has no visibility into by any other route — showing genuine subject lines (e.g. "TC-HLP-356 holiday adjacency restricted-days test ticket"), the real project name, priority, status, assignee names (Luna Blossom, Autumn Grace — real agents), SLA status (including "Breached"), and relative creation time. Clicking through to any of these tickets (`/issues/36`, etc.) correctly returns a 403 — so the underlying ticket object is properly protected, but its list-row metadata is not.
+The "Recent Tickets" table renders **8 real tickets** from Helpdesk QA Alpha — a project this user is not a member of and has no visibility into by any other route — showing genuine subject lines (e.g. "TC-HLP-360 holiday adjacency restricted-days test ticket"), the real project name, priority, status, assignee names (Luna Blossom, Autumn Grace — real agents), SLA status (including "Breached"), and relative creation time. Clicking through to any of these tickets (`/issues/36`, etc.) correctly returns a 403 — so the underlying ticket object is properly protected, but its list-row metadata is not.
 
 **Interesting contrast**: the 5 KPI cards above the list (Unassigned/Open/On Hold/SLA Breached/Resolved) all correctly show **0** for this user — so *some* part of the dashboard is properly scoped by visibility, just not the "Recent Tickets" section next to it.
 

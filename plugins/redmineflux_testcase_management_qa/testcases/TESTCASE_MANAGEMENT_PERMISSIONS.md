@@ -36,7 +36,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-801: Create Test Suite — granted role can create
+### TC-TCM-046: Create Test Suite — granted role can create
 
 **User Role:** Admin, Manager, QA
 **Steps:**
@@ -50,7 +50,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-802: Create Test Suite — denied role sees no control
+### TC-TCM-047: Create Test Suite — denied role sees no control
 
 **User Role:** Client, non-member (and Developer if not granted)
 **Steps:**
@@ -62,7 +62,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-803: Create Test Suite — denied role blocked at the endpoint
+### TC-TCM-048: Create Test Suite — denied role blocked at the endpoint
 
 **User Role:** Client, non-member
 **Steps:**
@@ -77,7 +77,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-804: Edit Test Suite — granted vs denied (all three legs)
+### TC-TCM-049: Edit Test Suite — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager/QA) and denied (Client/non-member)
 **Steps:**
@@ -91,7 +91,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-805: Delete Test Suite — granted vs denied (all three legs)
+### TC-TCM-050: Delete Test Suite — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager) and denied (Client/non-member/Developer)
 **Steps:**
@@ -105,7 +105,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-806: Deleting a suite that contains test cases
+### TC-TCM-051: Deleting a suite that contains test cases
 
 **User Role:** Admin
 **Steps:**
@@ -124,7 +124,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-807: Create Run — granted role can create
+### TC-TCM-052: Create Run — granted role can create
 
 **User Role:** Admin, Manager, QA
 **Steps:**
@@ -136,7 +136,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-808: Create Run — denied role, UI and endpoint
+### TC-TCM-053: Create Run — denied role, UI and endpoint
 
 **User Role:** Client, non-member
 **Steps:**
@@ -148,7 +148,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-809: Edit Run — granted vs denied (all three legs)
+### TC-TCM-054: Edit Run — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager/QA) and denied (Client/non-member)
 **Steps:**
@@ -161,7 +161,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-810: Close Run — granted role
+### TC-TCM-055: Close Run — granted role
 
 **User Role:** Admin, Manager, QA
 **Steps:**
@@ -173,7 +173,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-811: Close Run — denied role, UI and endpoint
+### TC-TCM-056: Close Run — denied role, UI and endpoint
 
 **User Role:** Developer, Client, non-member
 **Steps:**
@@ -185,7 +185,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-812: Delete Run — granted vs denied (all three legs)
+### TC-TCM-057: Delete Run — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager) and denied (Developer/Client/non-member)
 **Steps:**
@@ -198,7 +198,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-813: Execution results survive run deletion appropriately
+### TC-TCM-058: Execution results survive run deletion appropriately
 
 **User Role:** Admin
 **Steps:**
@@ -216,7 +216,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-814: Execute Testcase — granted role can record a result
+### TC-TCM-059: Execute Testcase — granted role can record a result
 
 **User Role:** Admin, Manager, Developer, QA
 **Steps:**
@@ -228,7 +228,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-815: Execute Testcase — denied role, UI and endpoint
+### TC-TCM-060: Execute Testcase — denied role, UI and endpoint
 
 **User Role:** Client, non-member
 **Steps:**
@@ -240,7 +240,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-816: Execute permission does not imply run management
+### TC-TCM-061: Execute permission does not imply run management
 
 **User Role:** Developer (Execute only)
 **Steps:**
@@ -257,7 +257,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-817: View Report — granted role can view but not create
+### TC-TCM-062: View Report — granted role can view but not create
 
 **User Role:** Developer (View Report only)
 **Steps:**
@@ -270,7 +270,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-818: Create Report — granted vs denied (all three legs)
+### TC-TCM-063: Create Report — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager/QA) and denied (Client/non-member)
 **Steps:**
@@ -283,7 +283,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-819: Edit Report — granted vs denied (all three legs)
+### TC-TCM-064: Edit Report — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager/QA) and denied (Client/non-member)
 **Steps:**
@@ -296,7 +296,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-820: Delete Report — granted vs denied (all three legs)
+### TC-TCM-065: Delete Report — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager) and denied (Developer/Client/non-member)
 **Steps:**
@@ -309,7 +309,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-821: Report content does not leak cross-project data
+### TC-TCM-066: Report content does not leak cross-project data
 
 **User Role:** QA who is a member of Project A only
 **Steps:**
@@ -326,7 +326,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-822: To-Do shows only own items without "View All To-Do's"
+### TC-TCM-067: To-Do shows only own items without "View All To-Do's"
 
 **User Role:** QA without the permission
 **Steps:**
@@ -338,18 +338,18 @@ not prescribe one.
 
 ---
 
-### TC-TCM-823: "View All To-Do's" widens visibility
+### TC-TCM-068: "View All To-Do's" widens visibility
 
 **User Role:** Manager with the permission
 **Steps:**
-1. With the same data as TC-TCM-822, log in as a role holding **View All To-Do's** and open **To-Do**.
+1. With the same data as TC-TCM-067, log in as a role holding **View All To-Do's** and open **To-Do**.
 
 **Expected Result:**
 - Items assigned to all users are listed.
 
 ---
 
-### TC-TCM-824: To-Do endpoint respects the permission
+### TC-TCM-069: To-Do endpoint respects the permission
 
 **User Role:** QA without **View All To-Do's**
 **Steps:**
@@ -365,7 +365,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-825: Add Requirement — granted vs denied (all three legs)
+### TC-TCM-070: Add Requirement — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager/QA) and denied (Client/non-member)
 **Steps:**
@@ -378,7 +378,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-826: Edit Requirement — granted vs denied (all three legs)
+### TC-TCM-071: Edit Requirement — granted vs denied (all three legs)
 
 **User Role:** granted and denied
 **Steps:**
@@ -391,7 +391,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-827: Delete Requirement — granted vs denied (all three legs)
+### TC-TCM-072: Delete Requirement — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager) and denied (Developer/Client/non-member)
 **Steps:**
@@ -404,7 +404,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-828: Deleting a requirement linked to test cases
+### TC-TCM-073: Deleting a requirement linked to test cases
 
 **User Role:** Admin
 **Steps:**
@@ -423,7 +423,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-829: Non-member cannot reach any plugin area of a private project
+### TC-TCM-074: Non-member cannot reach any plugin area of a private project
 
 **User Role:** logged-in non-member
 **Steps:**
@@ -439,18 +439,18 @@ not prescribe one.
 
 ---
 
-### TC-TCM-830: Anonymous user cannot reach any plugin area
+### TC-TCM-075: Anonymous user cannot reach any plugin area
 
 **User Role:** not logged in
 **Steps:**
-1. Log out. Request the same URL list as TC-TCM-829.
+1. Log out. Request the same URL list as TC-TCM-074.
 
 **Expected Result:**
 - All refused or redirected to login; no project data rendered.
 
 ---
 
-### TC-TCM-831: Permission revocation takes effect immediately
+### TC-TCM-076: Permission revocation takes effect immediately
 
 **User Role:** QA
 **Steps:**
@@ -463,7 +463,7 @@ not prescribe one.
 
 ---
 
-### TC-TCM-832: Module disabled removes all access
+### TC-TCM-077: Module disabled removes all access
 
 **User Role:** Admin, then QA
 **Steps:**
@@ -479,13 +479,13 @@ not prescribe one.
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-801 – 806 | Test Suite Management | — |
-| TC-TCM-807 – 813 | Test Run Management | — |
-| TC-TCM-814 – 816 | Test Execution | — |
-| TC-TCM-817 – 821 | Reporting | — |
-| TC-TCM-822 – 824 | To-Do Management | — |
-| TC-TCM-825 – 828 | Requirement Management | — |
-| TC-TCM-829 – 832 | Negative / cross-cutting | — |
+| TC-TCM-046 – 806 | Test Suite Management | — |
+| TC-TCM-052 – 813 | Test Run Management | — |
+| TC-TCM-059 – 816 | Test Execution | — |
+| TC-TCM-062 – 821 | Reporting | — |
+| TC-TCM-067 – 824 | To-Do Management | — |
+| TC-TCM-070 – 828 | Requirement Management | — |
+| TC-TCM-074 – 832 | Negative / cross-cutting | — |
 
 - Screenshot: capture only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
 - Log: for leg C, capture the HTTP status and response of the direct request as evidence — a screenshot of a

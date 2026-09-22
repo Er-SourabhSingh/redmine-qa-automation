@@ -24,7 +24,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-101: Plugin folder name is enforced
+### TC-WKL-031: Plugin folder name is enforced
 
 **User Role:** Admin
 **Preconditions:** `redmineflux_workload` uploaded to `Redmine/plugins`.
@@ -39,7 +39,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-102: Migrations complete cleanly
+### TC-WKL-032: Migrations complete cleanly
 
 **User Role:** Admin
 **Steps:**
@@ -50,7 +50,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-103: Assets load
+### TC-WKL-033: Assets load
 
 **User Role:** Any
 **Steps:**
@@ -63,7 +63,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-104: Redmine version boundary
+### TC-WKL-034: Redmine version boundary
 
 **User Role:** Admin
 **Steps:**
@@ -77,7 +77,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-105: The Workloads menu is only visible to logged-in users
+### TC-WKL-035: The Workloads menu is only visible to logged-in users
 
 **User Role:** Anonymous, then a logged-in member
 **Steps:**
@@ -87,7 +87,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 **Expected Result:**
 - Absent when anonymous, present when logged in, exactly as the KB states.
 - Also request the Workloads URL directly while anonymous — a hidden menu item is not access control
-  (see TC-WKL-906).
+  (see TC-WKL-082).
 
 ---
 
@@ -95,7 +95,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-106: Working Hours Per Day default
+### TC-WKL-036: Working Hours Per Day default
 
 **User Role:** Admin
 **Steps:**
@@ -106,7 +106,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-107: Working Hours Per Day drives capacity everywhere
+### TC-WKL-037: Working Hours Per Day drives capacity everywhere
 
 **User Role:** Admin
 **Steps:**
@@ -121,7 +121,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-108: Allow Workload Overload enabled
+### TC-WKL-038: Allow Workload Overload enabled
 
 **User Role:** Admin then a workload manager
 **Steps:**
@@ -134,7 +134,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-109: Allow Workload Overload disabled
+### TC-WKL-039: Allow Workload Overload disabled
 
 **User Role:** Admin then a workload manager
 **Steps:**
@@ -150,7 +150,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-110: Settings persist across save and reload
+### TC-WKL-040: Settings persist across save and reload
 
 **User Role:** Admin
 **Steps:**
@@ -165,7 +165,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-111: Invalid Working Hours Per Day
+### TC-WKL-041: Invalid Working Hours Per Day
 
 **User Role:** Admin
 **Steps:**
@@ -181,7 +181,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-112: Fractional working hours
+### TC-WKL-042: Fractional working hours
 
 **User Role:** Admin
 **Steps:**
@@ -194,7 +194,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-113: Settings page is not reachable by a non-admin
+### TC-WKL-043: Settings page is not reachable by a non-admin
 
 **User Role:** A user with **Manage teams and skills**, and a plain member
 **Steps:**
@@ -209,7 +209,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-114: Changing settings mid-plan
+### TC-WKL-044: Changing settings mid-plan
 
 **User Role:** Admin + workload manager
 **Steps:**
@@ -225,7 +225,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-115: Wrong plugin folder name
+### TC-WKL-045: Wrong plugin folder name
 
 **User Role:** Admin
 **Steps:**
@@ -236,7 +236,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-116: Migrations not run
+### TC-WKL-046: Migrations not run
 
 **User Role:** Admin
 **Steps:**
@@ -251,7 +251,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 
 ---
 
-### TC-WKL-117: Clean uninstall
+### TC-WKL-047: Clean uninstall
 
 **User Role:** Admin
 **Preconditions:** **Database backup taken** — the KB warns that uninstalling removes the plugin's tables and data.

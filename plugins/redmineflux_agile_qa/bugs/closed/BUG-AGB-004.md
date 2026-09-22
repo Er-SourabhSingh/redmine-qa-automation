@@ -34,7 +34,7 @@
 
 Confirmed via direct DOM query (`document.querySelectorAll('label')`) that the form shows 6 field labels, of which 3 are hardcoded English:
 
-- **"Description"** (should mirror "Beschreibung", correctly translated elsewhere in this same plugin, e.g. the inline card-edit modal in TC-AGB-005)
+- **"Description"** (should mirror "Beschreibung", correctly translated elsewhere in this same plugin, e.g. the inline card-edit modal in TC-AGB-108)
 - **"End date"** (should mirror "Abgabedatum", correctly translated on the Board Settings and Board-Konfiguration forms)
 - **"Sharing"** (should mirror something like "Weitergabe"/"Freigabe" — notably, this field's own dropdown *options* — "Nicht geteilt", "Mit Unterprojekten", "Mit Projekthierarchie", "Mit Projektbaum", "Mit allen Projekten" — are all correctly German, since those reuse core Redmine's version-sharing i18n keys; only the field's own label was left untranslated)
 

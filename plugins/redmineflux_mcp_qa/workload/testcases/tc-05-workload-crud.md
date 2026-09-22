@@ -4,19 +4,19 @@
 |-------|-------|
 | **Plugin** | redmineflux_mcp |
 | **Module** | Workload — CRUD |
-| **TC Range** | TC-RFM-048 to TC-RFM-054 |
+| **TC Range** | TC-RFM-126 to TC-RFM-132 |
 | **Total TCs** | 7 |
 | **Execution Order** | Suite 5 — Run after Team Management (tc-03) |
 | **Feature Coverage** | RFM-F048 through RFM-F054 |
 
 **Data Dependencies:**
-- "Automation Team" must exist (TC-RFM-023, tc-03).
-- "India 2026" holiday schema must exist (TC-RFM-001, tc-01).
+- "Automation Team" must exist (TC-RFM-101, tc-03).
+- "India 2026" holiday schema must exist (TC-RFM-079, tc-01).
 - john.doe, jane.doe must be members of "Automation Team" (tc-03).
 
 ---
 
-## TC-RFM-048 — Create workload via MCP
+## TC-RFM-126 — Create workload via MCP
 
 | Field | Value |
 |-------|-------|
@@ -27,15 +27,15 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- "Automation Team" exists (TC-RFM-023).
+- "Automation Team" exists (TC-RFM-101).
 - No workload named "QA Team June 2026" exists.
 
 **Test Data:**
 - Workload name: QA Team June 2026
-- Team: Automation Team (team_id from TC-RFM-023)
+- Team: Automation Team (team_id from TC-RFM-101)
 
 **Steps:**
-1. Call MCP `workload_create` with name = "QA Team June 2026" and team_id from TC-RFM-023.
+1. Call MCP `workload_create` with name = "QA Team June 2026" and team_id from TC-RFM-101.
 2. Validate MCP response:
    - Response confirms creation.
    - Response includes workload name "QA Team June 2026" and a workload ID.
@@ -50,7 +50,7 @@
 
 ---
 
-## TC-RFM-049 — Read workload via MCP
+## TC-RFM-127 — Read workload via MCP
 
 | Field | Value |
 |-------|-------|
@@ -61,13 +61,13 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Workload "QA Team June 2026" exists (from TC-RFM-048).
+- Workload "QA Team June 2026" exists (from TC-RFM-126).
 
 **Test Data:**
-- Workload ID from TC-RFM-048.
+- Workload ID from TC-RFM-126.
 
 **Steps:**
-1. Call MCP `workload_show` with workload ID from TC-RFM-048.
+1. Call MCP `workload_show` with workload ID from TC-RFM-126.
 2. Validate MCP response:
    - Response contains workload name "QA Team June 2026".
    - Response contains workload ID.
@@ -81,7 +81,7 @@
 
 ---
 
-## TC-RFM-050 — Edit workload via MCP
+## TC-RFM-128 — Edit workload via MCP
 
 | Field | Value |
 |-------|-------|
@@ -92,10 +92,10 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Workload "QA Team June 2026" exists (from TC-RFM-048).
+- Workload "QA Team June 2026" exists (from TC-RFM-126).
 
 **Test Data:**
-- Workload ID from TC-RFM-048.
+- Workload ID from TC-RFM-126.
 - Updated allocation: 80%
 
 **Steps:**
@@ -110,7 +110,7 @@
 
 ---
 
-## TC-RFM-051 — Delete workload via MCP
+## TC-RFM-129 — Delete workload via MCP
 
 | Field | Value |
 |-------|-------|
@@ -142,7 +142,7 @@
 
 ---
 
-## TC-RFM-052 — Search workload via MCP
+## TC-RFM-130 — Search workload via MCP
 
 | Field | Value |
 |-------|-------|
@@ -153,7 +153,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- "QA Team June 2026" exists (from TC-RFM-048).
+- "QA Team June 2026" exists (from TC-RFM-126).
 - At least one workload without "QA Team" in the name exists.
 
 **Test Data:**
@@ -174,7 +174,7 @@
 
 ---
 
-## TC-RFM-053 — List workloads for team via MCP
+## TC-RFM-131 — List workloads for team via MCP
 
 | Field | Value |
 |-------|-------|
@@ -185,10 +185,10 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- "QA Team June 2026" exists for Automation Team (from TC-RFM-048).
+- "QA Team June 2026" exists for Automation Team (from TC-RFM-126).
 
 **Test Data:**
-- Team ID from TC-RFM-023.
+- Team ID from TC-RFM-101.
 
 **Steps:**
 1. Call MCP `workloads_list` with team_id = Automation Team ID.
@@ -204,7 +204,7 @@
 
 ---
 
-## TC-RFM-054 — View workload details via MCP
+## TC-RFM-132 — View workload details via MCP
 
 | Field | Value |
 |-------|-------|
@@ -219,10 +219,10 @@
 - If no issues are yet assigned, verify the workload header data only.
 
 **Test Data:**
-- Workload ID from TC-RFM-048.
+- Workload ID from TC-RFM-126.
 
 **Steps:**
-1. Call MCP `workload_show` with workload ID from TC-RFM-048.
+1. Call MCP `workload_show` with workload ID from TC-RFM-126.
 2. Validate MCP response for all detail fields:
    - Workload name
    - Team (Automation Team)

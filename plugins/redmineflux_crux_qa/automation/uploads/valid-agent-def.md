@@ -2,7 +2,7 @@
 id: qa-crx146-agent
 name: QA CRX-146 Agent
 description: >
-  A test agent uploaded for TC-CRX-146 to verify the customer-authored agent
+  A test agent uploaded for TC-CRX-076 to verify the customer-authored agent
   upload path parses and registers correctly.
 
 capabilities: [qa-test]

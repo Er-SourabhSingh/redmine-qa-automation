@@ -11,7 +11,7 @@
 - User role: Admin
 - Date: 2026-09-18
 - Severity: Medium
-- Found during: sanity pass on Feature #120436 (local TC-AGB-533 / production testcase #120941, run #577)
+- Found during: sanity pass on Feature #120436 (local TC-AGB-033 / production testcase #120941, run #577)
 
 ## Summary
 
@@ -101,14 +101,14 @@ The admin had configured `1, 2, 3`; the dropdown offers `0`, `5`, `8` … from t
 ## Notes
 
 - **Not a regression introduced by Feature #120436.** This is in the pre-existing Story Points configuration
-  handling, not in the new Backlog code. It was found while executing TC-AGB-533, which requires disabling and
+  handling, not in the new Backlog code. It was found while executing TC-AGB-033, which requires disabling and
   re-enabling Story Points.
-- TC-AGB-533 itself still **passes** on its own assertions: the badge disappears when the feature is disabled,
+- TC-AGB-033 itself still **passes** on its own assertions: the badge disappears when the feature is disabled,
   returns with identical figures when re-enabled, and the per-issue Story Point values are retained. This defect
   concerns the *configured value list*, a separate piece of state.
-- Related existing cases: **TC-AGB-859** ("Re-enabling restores previously stored values" — about per-issue data,
-  which does survive) and **TC-AGB-861** ("Empty Story Point values list"), both in
-  `testcases/AGILE_CUSTOM_BOARDS_AND_STORY_POINTS.md`. TC-AGB-861's expectation that an empty list is either
+- Related existing cases: **TC-AGB-099** ("Re-enabling restores previously stored values" — about per-issue data,
+  which does survive) and **TC-AGB-101** ("Empty Story Point values list"), both in
+  `testcases/AGILE_CUSTOM_BOARDS_AND_STORY_POINTS.md`. TC-AGB-101's expectation that an empty list is either
   rejected or made obvious is also not met here — it is accepted silently and masked by the placeholder.
 - The same shape of defect would affect **Maximum WIP Limit** or any other field if it were ever made conditional
   on a toggle in the same way; worth a look when the fix is made.

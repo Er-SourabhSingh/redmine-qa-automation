@@ -45,14 +45,14 @@ The lookup is **purely by identifier** (`redmineflux-helpdesk`, falling back to 
 
 Concretely: any admin who happens to have created a real project with the identifier `helpdesk-support` (which is exactly what Redmine's own default slug rules produce for a project literally named "Helpdesk Support" — a perfectly ordinary, plausible real project name for an unrelated internal support desk) would have that project **silently renamed to "Redmineflux Helpdesk" and populated with fake demo tickets** the next time anyone runs this task, with zero confirmation prompt and no warning in the task's own output beyond a one-line "renamed existing project #N" message that gives no indication anything unusual or risky just happened.
 
-This was found while investigating `HELPDESK_RAKE_TASKS.md` TC-HLP-224, which originally assumed the collision risk was **name**-based ("a project already named 'Helpdesk Support'"). That's not quite accurate — the real trigger is **identifier**-based — but for the single most natural real-world way to get that identifier (naming a project exactly "Helpdesk Support" and letting Redmine auto-generate the slug), the practical risk TC-224 was pointing at is real and confirmed via source.
+This was found while investigating `HELPDESK_RAKE_TASKS.md` TC-HLP-257, which originally assumed the collision risk was **name**-based ("a project already named 'Helpdesk Support'"). That's not quite accurate — the real trigger is **identifier**-based — but for the single most natural real-world way to get that identifier (naming a project exactly "Helpdesk Support" and letting Redmine auto-generate the slug), the practical risk TC-224 was pointing at is real and confirmed via source.
 
 ## Evidence
 
 ### Console / log
 
 - Source excerpt above (`seed_demo_data.rake` lines 368-390), read directly from the installed plugin copy in `redmine-docker-6-redmine-1` via `docker exec`.
-- Not reproduced end-to-end live this session: the `redmineflux-helpdesk` project already created for TC-HLP-218/219/220 now wins the primary-identifier lookup on this instance, making the legacy-identifier branch unreachable without destroying those already-established fixtures. The defect is confirmed by direct reading of the shipped code path rather than by triggering it end-to-end.
+- Not reproduced end-to-end live this session: the `redmineflux-helpdesk` project already created for TC-HLP-251/219/220 now wins the primary-identifier lookup on this instance, making the legacy-identifier branch unreachable without destroying those already-established fixtures. The defect is confirmed by direct reading of the shipped code path rather than by triggering it end-to-end.
 
 ## Duplicate check
 
@@ -72,7 +72,7 @@ This was found while investigating `HELPDESK_RAKE_TASKS.md` TC-HLP-224, which or
 
 ## Notes
 
-- Found while executing `HELPDESK_RAKE_TASKS.md` TC-HLP-224 (project-name-collision scenario) — see that TC's evidence for the full investigation and the corrected (identifier-based, not name-based) understanding of the actual collision condition.
+- Found while executing `HELPDESK_RAKE_TASKS.md` TC-HLP-257 (project-name-collision scenario) — see that TC's evidence for the full investigation and the corrected (identifier-based, not name-based) understanding of the actual collision condition.
 - Severity judged **Medium**: low likelihood (requires a specific identifier coincidence, and only admins run this task), but real, silent, hard-to-notice impact if triggered — an unrelated project gets renamed and polluted with fake data, bypassing normal Rails validations via `update_columns`.
 - Recommend: before reusing a legacy-identifier match, verify it actually looks like old demo data (e.g. `@project.trackers.exists?(name: 'Support')` or a small marker custom field/description string the seeder itself writes and can check for) — refuse and warn instead of silently renaming when that check fails.
 - This TC/finding is source-verified, not live-UI-verified, per the standing project rule that only actual rake-task *invocations* are exempt from Playwright-only verification — reading shipped source code to understand a code path (as done throughout this suite for TC-217/218/219/220 root-causing) is a different activity from checking live *state*, and no live-state claim is made here beyond "this code path exists as quoted."

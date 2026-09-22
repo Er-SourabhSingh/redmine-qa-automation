@@ -3,8 +3,8 @@
 > Source: vendor KB https://www.redmineflux.com/knowledge-base/plugins/checklist-plugin/ — sections "Configuration",
 > "How to Create Checklist", "How to Edit and Delete the Checklist", "How To Create Sub Checklist item",
 > FAQ "Can I create multiple checklists within a single issue?".
-> **Status: authored 2026-09-15. TC-CHK-201–222 executed 2026-09-21 (regression pass for #120920) — 21 PASS, 1 N/A,
-> 1 FAIL (BUG-CHK-002). TC-CHK-223–228 executed 2026-09-21, all PASS. See per-TC evidence and the consolidated
+> **Status: authored 2026-09-15. TC-CHK-015–222 executed 2026-09-21 (regression pass for #120920) — 21 PASS, 1 N/A,
+> 1 FAIL (BUG-CHK-002). TC-CHK-037–228 executed 2026-09-21, all PASS. See per-TC evidence and the consolidated
 > regression summary at the end of this file.**
 
 ## Plugin
@@ -24,7 +24,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-201: Create a checklist via Actions → New checklist
+### TC-CHK-015: Create a checklist via Actions → New checklist
 
 **User Role:** Member with issue-edit rights
 **Steps:**
@@ -38,11 +38,11 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-202: Create multiple checklists in a single issue
+### TC-CHK-016: Create multiple checklists in a single issue
 
 **User Role:** Member
 **Steps:**
-1. Repeat TC-CHK-201 three times with distinct titles on the same issue.
+1. Repeat TC-CHK-015 three times with distinct titles on the same issue.
 
 **Expected Result:**
 - All three coexist, each with its own item list and its own progress bar.
@@ -51,7 +51,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-203: Create a sub-checklist item under a checklist
+### TC-CHK-017: Create a sub-checklist item under a checklist
 
 **User Role:** Member
 **Steps:**
@@ -65,7 +65,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-204: Add several items to one checklist consecutively
+### TC-CHK-018: Add several items to one checklist consecutively
 
 **User Role:** Member
 **Steps:**
@@ -78,7 +78,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-205: Checklist survives an issue update made from another form
+### TC-CHK-019: Checklist survives an issue update made from another form
 
 **User Role:** Member
 **Steps:**
@@ -94,7 +94,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-206: Edit a checklist title
+### TC-CHK-020: Edit a checklist title
 
 **User Role:** Member
 **Steps:**
@@ -106,7 +106,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-207: Edit a sub-checklist item title
+### TC-CHK-021: Edit a sub-checklist item title
 
 **User Role:** Member
 **Steps:**
@@ -117,7 +117,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-208: Cancel an in-progress edit
+### TC-CHK-022: Cancel an in-progress edit
 
 **User Role:** Member
 **Steps:**
@@ -132,7 +132,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-209: Delete a single checklist item
+### TC-CHK-023: Delete a single checklist item
 
 **User Role:** Member
 **Steps:**
@@ -145,7 +145,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-210: Delete a whole checklist that contains items
+### TC-CHK-024: Delete a whole checklist that contains items
 
 **User Role:** Member
 **Steps:**
@@ -159,7 +159,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-211: Cancel a delete confirmation
+### TC-CHK-025: Cancel a delete confirmation
 
 **User Role:** Member
 **Steps:**
@@ -170,7 +170,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-212: Expand and collapse a checklist
+### TC-CHK-026: Expand and collapse a checklist
 
 **User Role:** Member
 **Steps:**
@@ -182,7 +182,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-213: Checklist History tab records checklist activity
+### TC-CHK-027: Checklist History tab records checklist activity
 
 **User Role:** Member
 **Steps:**
@@ -199,7 +199,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-214: Create a checklist with an empty title
+### TC-CHK-028: Create a checklist with an empty title
 
 **User Role:** Member
 **Steps:**
@@ -211,18 +211,18 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-215: Create a checklist with a whitespace-only title
+### TC-CHK-029: Create a checklist with a whitespace-only title
 
 **User Role:** Member
 **Steps:**
 1. Enter only spaces and tabs, then press Enter.
 
 **Expected Result:**
-- Treated the same as empty (TC-CHK-214) — input is trimmed before validation.
+- Treated the same as empty (TC-CHK-028) — input is trimmed before validation.
 
 ---
 
-### TC-CHK-216: Very long checklist title
+### TC-CHK-030: Very long checklist title
 
 **User Role:** Member
 **Steps:**
@@ -234,7 +234,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-217: Special characters and HTML in a checklist title
+### TC-CHK-031: Special characters and HTML in a checklist title
 
 **User Role:** Member
 **Steps:**
@@ -246,7 +246,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-218: Duplicate checklist titles on one issue
+### TC-CHK-032: Duplicate checklist titles on one issue
 
 **User Role:** Member
 **Steps:**
@@ -258,7 +258,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-219: Checklist edit on a closed issue
+### TC-CHK-033: Checklist edit on a closed issue
 
 **User Role:** Member
 **Steps:**
@@ -271,7 +271,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-220: Concurrent edits from two sessions
+### TC-CHK-034: Concurrent edits from two sessions
 
 **User Role:** Two members in separate browser sessions
 **Steps:**
@@ -284,7 +284,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-221: Deleting the issue removes its checklists
+### TC-CHK-035: Deleting the issue removes its checklists
 
 **User Role:** Manager or Admin
 **Steps:**
@@ -296,7 +296,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 
 ---
 
-### TC-CHK-222: Checklist section on an issue in a project where the plugin is not applicable
+### TC-CHK-036: Checklist section on an issue in a project where the plugin is not applicable
 
 **User Role:** Member
 **Steps:**
@@ -314,15 +314,15 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 > Covers production feature request #120920 "Display checklists in expanded state by default to improve user
 > workflow efficiency" (Checklist Plugin category, In QA, 90% done as of 2026-09-21). Prior behavior: checklists
 > rendered collapsed by default, requiring a manual click to expand every time. Requested/expected new behavior:
-> checklists render expanded by default; the collapse/expand toggle (TC-CHK-212) stays fully functional.
+> checklists render expanded by default; the collapse/expand toggle (TC-CHK-026) stays fully functional.
 
 ---
 
-### TC-CHK-223: Checklist renders expanded by default on a fresh issue view
+### TC-CHK-037: Checklist renders expanded by default on a fresh issue view
 
 **User Role:** Member
 **Steps:**
-1. Create a checklist with two or more items on an issue (TC-CHK-201/TC-CHK-203), or use an existing issue that
+1. Create a checklist with two or more items on an issue (TC-CHK-015/TC-CHK-017), or use an existing issue that
    already has a checklist.
 2. Navigate away from the issue (e.g. back to the Issues list), then open the same issue again as a fresh page
    load.
@@ -342,11 +342,11 @@ result, expanded by default is not admin-only behavior.
 
 ---
 
-### TC-CHK-224: Multiple checklists on one issue all expand by default
+### TC-CHK-038: Multiple checklists on one issue all expand by default
 
 **User Role:** Member
 **Steps:**
-1. Create two or three checklists on the same issue (TC-CHK-202).
+1. Create two or three checklists on the same issue (TC-CHK-016).
 2. Reload the issue page as a fresh page load.
 
 **Expected Result:**
@@ -354,7 +354,7 @@ result, expanded by default is not admin-only behavior.
 - Each checklist's own item list and progress bar are visible without any per-checklist click.
 
 CONFIRMED LIVE 2026-09-21 (Local, redmine-docker-7.0.0, Bug #1530): **PASS.** Created a second checklist
-("Second checklist for TC-CHK-224") on the same issue as TC-CHK-223's checklist. One side note (not a defect,
+("Second checklist for TC-CHK-038") on the same issue as TC-CHK-037's checklist. One side note (not a defect,
 verified): a checklist created via the "New checklist" AJAX flow (`checklist.js`) briefly renders with its sub-list
 `display: none` in the DOM while it has zero items — this JS row-building template wasn't touched by the #120920
 fix (only `_checklist.html.erb` and the collapse-memory code in `checklist_checkbox.js` were). It has no visible
@@ -365,7 +365,7 @@ re-confirmed under the Member-role pass (`luna.blossom`) with a cleared `localSt
 
 ---
 
-### TC-CHK-225: Collapse/expand toggle still works with the new expanded default
+### TC-CHK-039: Collapse/expand toggle still works with the new expanded default
 
 **User Role:** Member
 **Steps:**
@@ -373,16 +373,16 @@ re-confirmed under the Member-role pass (`luna.blossom`) with a cleared `localSt
 2. Click the toggle icon again to expand it.
 
 **Expected Result:**
-- The toggle still hides and reveals items correctly in both directions (regression check against TC-CHK-212).
+- The toggle still hides and reveals items correctly in both directions (regression check against TC-CHK-026).
 - Collapsing/expanding does not corrupt item data or progress.
 
 CONFIRMED LIVE 2026-09-21 (Local, redmine-docker-7.0.0, Bug #1530): **PASS.** Collapsed checklist 50 via its toggle
 icon — `display` became `none`, item count stayed at 1, `localStorage` recorded `["50"]`. Expanded it again —
-`display` back to `block`, item still present, `localStorage` cleared to `[]`. No regression against TC-CHK-212.
+`display` back to `block`, item still present, `localStorage` cleared to `[]`. No regression against TC-CHK-026.
 
 ---
 
-### TC-CHK-226: A manually collapsed checklist stays collapsed across reloads
+### TC-CHK-040: A manually collapsed checklist stays collapsed across reloads
 
 **User Role:** Member
 **Steps:**
@@ -405,7 +405,7 @@ reload cycles.
 
 ---
 
-### TC-CHK-227: Collapsed state survives a checklist mutation re-render
+### TC-CHK-041: Collapsed state survives a checklist mutation re-render
 
 **User Role:** Member
 **Steps:**
@@ -426,7 +426,7 @@ cross-checklist leakage.
 
 ---
 
-### TC-CHK-228: Remembered collapse state is per-browser, not per-user account
+### TC-CHK-042: Remembered collapse state is per-browser, not per-user account
 
 **User Role:** Two different users, same browser
 **Steps:**
@@ -451,43 +451,43 @@ mechanical consequence of `localStorage` never being confirmed within this insta
 
 ---
 
-## Regression Pass — 2026-09-21 (TC-CHK-201–222, triggered by #120920 changes)
+## Regression Pass — 2026-09-21 (TC-CHK-015–222, triggered by #120920 changes)
 
 CONFIRMED LIVE 2026-09-21 (Local, redmine-docker-7.0.0, `test project`, issues #1530/#1531): regression run of this
 entire suite, since #120920 touched `_checklist.html.erb` (the shared rendering partial for every checklist) and
 `checklist_checkbox.js` (global checklist interaction handlers) — see `SENIOR_QA_STANDARDS.md` §26 (shared-code
 scope). These TCs had never been executed before this pass.
 
-- **TC-CHK-201/202/203 — PASS** (satisfied by state already in place from the #120920 sanity-testing session:
+- **TC-CHK-015/202/203 — PASS** (satisfied by state already in place from the #120920 sanity-testing session:
   two independently-created checklists coexisting with their own progress bars, sub-item nested correctly).
-- **TC-CHK-204 — PASS.** Added 5 sub-items consecutively; all persisted in creation order. Note: the "Add" form
+- **TC-CHK-018 — PASS.** Added 5 sub-items consecutively; all persisted in creation order. Note: the "Add" form
   closes after each item (requires re-opening via Actions → Add each time) rather than staying focused — this is
   `checklist.js`'s pre-existing add-item handler, untouched by the #120920 diff, so not a regression; not filed.
-- **TC-CHK-205 — PASS.** Edited the issue's description via the normal Edit form; both checklists and all their
+- **TC-CHK-019 — PASS.** Edited the issue's description via the normal Edit form; both checklists and all their
   items were intact afterward.
-- **TC-CHK-206 — PASS.** Renamed a checklist title; persisted correctly across a fresh reload.
-- **TC-CHK-207 — PASS.** Renamed a sub-item title; sibling items unaffected.
-- **TC-CHK-208 — PASS.** Began an edit, typed junk text, pressed Escape — nothing was saved, original text
+- **TC-CHK-020 — PASS.** Renamed a checklist title; persisted correctly across a fresh reload.
+- **TC-CHK-021 — PASS.** Renamed a sub-item title; sibling items unaffected.
+- **TC-CHK-022 — PASS.** Began an edit, typed junk text, pressed Escape — nothing was saved, original text
   retained. (Escape doesn't visually dismiss the input field itself; a minor UX note, not a data-integrity issue.)
-- **TC-CHK-209 — PASS.** Deleted a single sub-item via its confirm modal; only that item was removed, siblings
+- **TC-CHK-023 — PASS.** Deleted a single sub-item via its confirm modal; only that item was removed, siblings
   intact.
-- **TC-CHK-210 — PASS functionally.** Deleted a whole checklist containing 5 items; all cascaded correctly, other
+- **TC-CHK-024 — PASS functionally.** Deleted a whole checklist containing 5 items; all cascaded correctly, other
   checklists untouched. Usability note (pre-existing, not from #120920): the confirm modal's text is a generic
   "Are you sure you want to delete this checklist?" — it doesn't explicitly warn that child items go too, as this
   TC's own Expected Result flagged as worth recording. Not filed as its own bug this session — flagging for the
   user to decide whether it's worth a Low-severity ticket.
-- **TC-CHK-211 — PASS.** Triggered delete on a checklist, clicked Cancel; nothing deleted, row present after
+- **TC-CHK-025 — PASS.** Triggered delete on a checklist, clicked Cancel; nothing deleted, row present after
   reload.
-- **TC-CHK-212 — PASS** (see TC-CHK-225 above for the detailed toggle regression evidence).
-- **TC-CHK-213 — PASS.** Checklist History tab recorded checklist-added, item-added, and item-status-changed
+- **TC-CHK-026 — PASS** (see TC-CHK-039 above for the detailed toggle regression evidence).
+- **TC-CHK-027 — PASS.** Checklist History tab recorded checklist-added, item-added, and item-status-changed
   entries, each with correct actor/timestamp, one-to-one with the actions actually performed.
-- **TC-CHK-214 — PASS.** Empty title rejected server-side (HTTP 422), clear message "Checklist title cannot be
+- **TC-CHK-028 — PASS.** Empty title rejected server-side (HTTP 422), clear message "Checklist title cannot be
   blank" shown, no blank checklist created.
-- **TC-CHK-215 — PASS.** Whitespace-only title treated identically to empty (trimmed before validation).
-- **TC-CHK-216 — PASS.** A 1000-character title (bypassing the input's client-side `maxlength=256` via direct
+- **TC-CHK-029 — PASS.** Whitespace-only title treated identically to empty (trimmed before validation).
+- **TC-CHK-030 — PASS.** A 1000-character title (bypassing the input's client-side `maxlength=256` via direct
   value assignment, to test server-side enforcement) was rejected: "Checklist title is too long (maximum is 255
   characters)". No layout break, no 500.
-- **TC-CHK-217 — FAIL, filed as `BUG-CHK-002` (Critical).** A `<script>` tag in a checklist or sub-item title
+- **TC-CHK-031 — FAIL, filed as `BUG-CHK-002` (Critical).** A `<script>` tag in a checklist or sub-item title
   **executes immediately** upon creation (confirmed via `window.__xss_fired === true` right after the AJAX
   success callback, with the raw unescaped tag present in the DOM at that moment). Confirmed **not** a stored
   XSS affecting other viewers — a normal page reload renders the same content safely HTML-escaped (Rails'
@@ -495,26 +495,26 @@ scope). These TCs had never been executed before this pass.
   the two AJAX-creation success handlers in `checklist.js` (new checklist, new sub-item), which build raw HTML
   strings via template literals and `.append()` them without escaping — unlike the *edit* success handlers in the
   same file, which correctly use `.innerText`. See `bugs/open/BUG-CHK-002.md` for full root-cause detail.
-- **TC-CHK-218 — PASS** (re-verified after an initial false read on my own part — see below). Duplicate checklist
+- **TC-CHK-032 — PASS** (re-verified after an initial false read on my own part — see below). Duplicate checklist
   titles on one issue are rejected server-side with "Checklist title must be unique within the issue"; the error
   div reliably renders (confirmed by testing `addErrorDiv` directly against the real response body). My first
   attempt at this TC checked the DOM before the AJAX round-trip had actually completed and wrongly read it as "no
   error shown" — re-tested with a short wait and got the correct, passing result. Documented here so a future
   session doesn't waste time re-chasing a phantom defect.
-- **TC-CHK-219 — PASS, and better than the TC's own minimum bar.** Closed the issue, then tried to add a sub-item
+- **TC-CHK-033 — PASS, and better than the TC's own minimum bar.** Closed the issue, then tried to add a sub-item
   to its checklist: the client disables the checklist's Actions menu entirely (`onclick="return false"`, tooltip
   "Issue is closed, you cannot perform this action"), and a direct API bypass attempt (raw `fetch`, no UI) was
   **also** rejected server-side with HTTP 403 "The issue is closed and cannot be modified" — real defense in
   depth, not just a client-side guard. Reopened the issue afterward.
-- **TC-CHK-220 — PASS** (lightweight variant: two genuinely concurrent requests — add a new sub-item, delete an
+- **TC-CHK-034 — PASS** (lightweight variant: two genuinely concurrent requests — add a new sub-item, delete an
   existing one — fired via `Promise.all` rather than two full separate browser sessions, since simulating two
   distinct logged-in users needs two isolated cookie jars). Both resolved correctly with no data loss or
   stale-state error; final state was consistent (deleted item gone, new item present, correct item count).
-- **TC-CHK-221 — PASS.** Created a throwaway issue (#1531) with its own checklist, deleted the issue, and
+- **TC-CHK-035 — PASS.** Created a throwaway issue (#1531) with its own checklist, deleted the issue, and
   confirmed via `rails runner` (no UI surface exists to check for orphaned rows — this is a DB-integrity check by
   nature) that the checklist row was gone (`Checklist.exists?(54) == false`) and no orphaned `Checklist` rows
   remained for that issue ID.
-- **TC-CHK-222 — N/A**, per this TC's own conditional wording ("if such a configuration exists on this instance").
+- **TC-CHK-036 — N/A**, per this TC's own conditional wording ("if such a configuration exists on this instance").
   Checked `test project`'s Modules settings (53 project modules listed) — the Checklist plugin does not register
   a toggleable per-project module at all; it renders on every issue's detail view unconditionally, with no
   module/tracker gate to test against on this instance.

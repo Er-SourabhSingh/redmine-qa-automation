@@ -4,7 +4,7 @@
 |-------|-------|
 | **Plugin** | redmineflux_mcp |
 | **Module** | Workload — Filtering |
-| **TC Range** | TC-RFM-065 to TC-RFM-070 |
+| **TC Range** | TC-RFM-143 to TC-RFM-148 |
 | **Total TCs** | 6 |
 | **Execution Order** | Suite 7 — Run after Workload Issue Assignment (tc-06) |
 | **Feature Coverage** | RFM-F065 through RFM-F070 |
@@ -16,7 +16,7 @@
 
 ---
 
-## TC-RFM-065 — Filter workloads by user via MCP
+## TC-RFM-143 — Filter workloads by user via MCP
 
 | Field | Value |
 |-------|-------|
@@ -46,7 +46,7 @@
 
 ---
 
-## TC-RFM-066 — Filter workloads by team via MCP
+## TC-RFM-144 — Filter workloads by team via MCP
 
 | Field | Value |
 |-------|-------|
@@ -61,7 +61,7 @@
 - At least one workload from a different team exists.
 
 **Test Data:**
-- Team: Automation Team (team_id from TC-RFM-023).
+- Team: Automation Team (team_id from TC-RFM-101).
 
 **Steps:**
 1. Call MCP `workloads_list` with team_id = Automation Team ID.
@@ -77,7 +77,7 @@
 
 ---
 
-## TC-RFM-067 — Filter workloads by date range via MCP
+## TC-RFM-145 — Filter workloads by date range via MCP
 
 | Field | Value |
 |-------|-------|
@@ -107,7 +107,7 @@
 
 ---
 
-## TC-RFM-068 — Filter workloads by issue via MCP
+## TC-RFM-146 — Filter workloads by issue via MCP
 
 | Field | Value |
 |-------|-------|
@@ -118,10 +118,10 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Issue-A is assigned in "QA Team June 2026" (from TC-RFM-055).
+- Issue-A is assigned in "QA Team June 2026" (from TC-RFM-133).
 
 **Test Data:**
-- Issue-A ID (discovered in TC-RFM-055).
+- Issue-A ID (discovered in TC-RFM-133).
 
 **Steps:**
 1. Call MCP `workloads_list` with team_id = Automation Team ID.
@@ -137,7 +137,7 @@
 
 ---
 
-## TC-RFM-069 — Filter workloads by status via MCP
+## TC-RFM-147 — Filter workloads by status via MCP
 
 | Field | Value |
 |-------|-------|
@@ -169,7 +169,7 @@
 
 ---
 
-## TC-RFM-070 — Workload search via MCP
+## TC-RFM-148 — Workload search via MCP
 
 | Field | Value |
 |-------|-------|
@@ -180,7 +180,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- "QA Team June 2026" exists (from TC-RFM-048).
+- "QA Team June 2026" exists (from TC-RFM-126).
 - At least one other workload exists with a different name.
 
 **Test Data:**

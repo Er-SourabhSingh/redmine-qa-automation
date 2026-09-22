@@ -21,7 +21,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-201: Add a new tag while creating an issue
+### TC-TAG-069: Add a new tag while creating an issue
 
 **User Role:** Member with issue-create rights
 **Steps:**
@@ -35,7 +35,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-202: Add an existing tag via autocomplete
+### TC-TAG-070: Add an existing tag via autocomplete
 
 **User Role:** Member
 **Steps:**
@@ -47,7 +47,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-203: Assign multiple tags to one issue
+### TC-TAG-071: Assign multiple tags to one issue
 
 **User Role:** Member
 **Steps:**
@@ -59,7 +59,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-204: Remove a tag from an issue
+### TC-TAG-072: Remove a tag from an issue
 
 **User Role:** Member
 **Steps:**
@@ -71,7 +71,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-205: Remove all tags from an issue
+### TC-TAG-073: Remove all tags from an issue
 
 **User Role:** Member
 **Steps:**
@@ -83,7 +83,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-206: Tag changes are journaled in the issue history
+### TC-TAG-074: Tag changes are journaled in the issue history
 
 **User Role:** Member
 **Steps:**
@@ -95,7 +95,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-207: Tags are visible on the issue detail page
+### TC-TAG-075: Tags are visible on the issue detail page
 
 **User Role:** Member
 **Steps:**
@@ -106,7 +106,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-208: Clicking a tag lists all entities carrying it
+### TC-TAG-076: Clicking a tag lists all entities carrying it
 
 **User Role:** Member
 **Steps:**
@@ -119,7 +119,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-209: Tags survive unrelated issue updates
+### TC-TAG-077: Tags survive unrelated issue updates
 
 **User Role:** Member
 **Steps:**
@@ -130,7 +130,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-210: Bulk tag assignment from the issue list
+### TC-TAG-078: Bulk tag assignment from the issue list
 
 **User Role:** Manager
 **Steps:**
@@ -146,7 +146,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-211: Empty tag name
+### TC-TAG-079: Empty tag name
 
 **User Role:** Member
 **Steps:**
@@ -158,7 +158,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-212: Duplicate tag on the same issue
+### TC-TAG-080: Duplicate tag on the same issue
 
 **User Role:** Member
 **Steps:**
@@ -169,7 +169,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-213: Case sensitivity of tag names
+### TC-TAG-081: Case sensitivity of tag names
 
 **User Role:** Member
 **Steps:**
@@ -182,7 +182,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-214: Very long tag name
+### TC-TAG-082: Very long tag name
 
 **User Role:** Member
 **Steps:**
@@ -194,7 +194,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-215: Special characters and HTML in a tag name
+### TC-TAG-083: Special characters and HTML in a tag name
 
 **User Role:** Member
 **Steps:**
@@ -208,7 +208,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-216: Tag field on an issue the user may view but not edit
+### TC-TAG-084: Tag field on an issue the user may view but not edit
 
 **User Role:** Read-only member
 **Steps:**
@@ -221,7 +221,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-217: Assigning a tag to an issue in a closed or archived project
+### TC-TAG-085: Assigning a tag to an issue in a closed or archived project
 
 **User Role:** Member
 **Steps:**
@@ -233,7 +233,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-218: Deleting an issue removes its tag associations
+### TC-TAG-086: Deleting an issue removes its tag associations
 
 **User Role:** Manager / Admin
 **Steps:**
@@ -246,7 +246,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-219: Concurrent tag edits from two sessions
+### TC-TAG-087: Concurrent tag edits from two sessions
 
 **User Role:** Two members
 **Steps:**
@@ -258,7 +258,7 @@ project. Do not jump straight to a deep URL.
 
 ---
 
-### TC-TAG-220: Tagging is possible on every entity type the plugin claims to support
+### TC-TAG-088: Tagging is possible on every entity type the plugin claims to support
 
 **User Role:** Member
 **Steps:**

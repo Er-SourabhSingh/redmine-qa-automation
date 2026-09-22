@@ -23,7 +23,7 @@ Full retest of all bugs plus controlled BUG-RFM-005 verification:
 
 ## Blockers
 
-- TC-RFM-083, TC-RFM-085, TC-RFM-086: BLOCKED — permission test accounts still not created:
+- TC-RFM-161, TC-RFM-163, TC-RFM-164: BLOCKED — permission test accounts still not created:
   - "permitted.user" with Manage Workload permission
   - "team.manager" with Team Manager role
   - "leave.approver" with Leave Approver role
@@ -54,7 +54,7 @@ After completing the 3 pre-retest steps above:
 3. Retest BUG-RFM-009 — `team_data` missing `created_by` (DB migration fix)
 4. Retest BUG-RFM-010 — overload setting silently clips Gantt hours
 5. Retest BUG-RFM-011 — allocation split DB duplicate-key error
-6. Re-run TC-RFM-083, TC-RFM-085, TC-RFM-086 once permission test accounts are created
+6. Re-run TC-RFM-161, TC-RFM-163, TC-RFM-164 once permission test accounts are created
 
 ## Open Bugs (5 remaining)
 

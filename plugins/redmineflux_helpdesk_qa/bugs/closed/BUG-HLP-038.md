@@ -40,7 +40,7 @@ This is a **different, more narrowly-scoped and reliably reproducible** gap than
 ### Console / log
 
 - Org page confirmed immediately before this action: Approved 1.75h, Used 0.75h, Remaining 1.00h (43% Used), "When hours run out" = "Hard — stop work" selected.
-- Reply form: Time spent set to Custom, 120 minutes, Activity "Technical Support", Comment "TC-HLP-382 crossing-boundary test - 2h entry against 1h remaining."
+- Reply form: Time spent set to Custom, 120 minutes, Activity "Technical Support", Comment "TC-HLP-221 crossing-boundary test - 2h entry against 1h remaining."
 - Post-save: Spent time 0:45h → 2:45h (a clean +2:00h delta, confirming the full request was billed, not partially capped), Prepaid Support Hours "2.75h used · -1.00h left of 1.75h" (0.75h + 2.00h = 2.75h used, exactly matching).
 
 ## Duplicate check
@@ -50,7 +50,7 @@ This is a **different, more narrowly-scoped and reliably reproducible** gap than
 
 ## Notes
 
-- Found while executing `HELPDESK_PREPAID_HOURS.md` TC-HLP-382 (2026-09-03, added from a user gap-analysis of this suite's coverage).
+- Found while executing `HELPDESK_PREPAID_HOURS.md` TC-HLP-221 (2026-09-03, added from a user gap-analysis of this suite's coverage).
 - Severity judged **Medium**: unlike the (now-unconfirmed) BUG-HLP-037, this is cleanly and immediately reproducible on the first attempt, and represents a real, narrower enforcement gap — but the practical business impact is bounded to "one entry's worth" of overage per occurrence, rather than unlimited overage, since once Remaining is negative, BUG-HLP-037's (confirmed-working, per retest) already-negative-blocks-further-entries behavior takes over for any *subsequent* action.
 - Recommend the fix (if made) evaluate `remaining - requested_hours < 0` as the gate condition, not `remaining <= 0` alone, so a single large entry can't slip through when Remaining is still positive but insufficient.
 

@@ -32,7 +32,7 @@
 <h1>Test Case Report — Redmineflux Agile Board</h1>
 <h2 style="margin-top:0; color:#333;">Feature #120436 — Story Points support (Backlog sprint totals, Closed/Total display, completed stories visibility, wider Unassigned column)</h2>
 <p class="meta">
-  Suite: <code>testcases/AGILE_BACKLOG_AND_SPRINTS.md</code> (TC-AGB-529 to TC-AGB-553) | Sanity: 2026-09-18 | Regression: 2026-09-21 | Post-fix regression: 2026-09-21 |
+  Suite: <code>testcases/AGILE_BACKLOG_AND_SPRINTS.md</code> (TC-AGB-029 to TC-AGB-053) | Sanity: 2026-09-18 | Regression: 2026-09-21 | Post-fix regression: 2026-09-21 |
   Environment: Local Docker <code>redmine-docker-700</code> (http://localhost:3010) | Redmine: 7.0.0 | Plugin build: branch <code>master</code> (merged from <code>feature/backlog-sprint-points</code>), release <code>7.1.0</code>, commit <code>50a8a76</code>
 </p>
 
@@ -49,12 +49,12 @@
     <tr><th>TC ID</th><th>Title</th><th>Requirement</th><th>Status</th><th>Notes / Bug Ref</th></tr>
   </thead>
   <tbody>
-    <tr class="pass-row"><td>TC-AGB-529</td><td>The two new Backlog settings exist and default to off</td><td>Config baseline</td><td class="status-pass">PASS</td><td>Both settings present, unchecked by default, persist on save.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-530</td><td>A sprint column header shows Closed / Total story points</td><td>#1, #2</td><td class="status-pass">PASS</td><td>Badge <code>2 / 18 SP</code> exactly matched hand-calculated sums.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-533</td><td>No badge when Story Points are disabled</td><td>#1, #2</td><td class="status-pass">PASS</td><td>0 badges page-wide when off; identical figures on re-enable. <strong>BUG-AGB-009</strong> found here (config wiped by off/on toggle) — fixed &amp; closed, see Defects Summary.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-535</td><td>Closed Points counts closed statuses only</td><td>#2</td><td class="status-pass">PASS</td><td>Closed Points tracked the status's is-closed flag, not its name.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-539</td><td>With the setting on, completed stories stay visible and count as Closed Points</td><td>#3</td><td class="status-pass">PASS</td><td>Finished stories stayed drawn in their sprint; points counted in Closed Points.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-545</td><td>With the width setting on, the unassigned column is widened</td><td>#4</td><td class="status-pass">PASS</td><td>Both unassigned columns widened 284px → 444px above the 1024px breakpoint.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-029</td><td>The two new Backlog settings exist and default to off</td><td>Config baseline</td><td class="status-pass">PASS</td><td>Both settings present, unchecked by default, persist on save.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-030</td><td>A sprint column header shows Closed / Total story points</td><td>#1, #2</td><td class="status-pass">PASS</td><td>Badge <code>2 / 18 SP</code> exactly matched hand-calculated sums.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-033</td><td>No badge when Story Points are disabled</td><td>#1, #2</td><td class="status-pass">PASS</td><td>0 badges page-wide when off; identical figures on re-enable. <strong>BUG-AGB-009</strong> found here (config wiped by off/on toggle) — fixed &amp; closed, see Defects Summary.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-035</td><td>Closed Points counts closed statuses only</td><td>#2</td><td class="status-pass">PASS</td><td>Closed Points tracked the status's is-closed flag, not its name.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-039</td><td>With the setting on, completed stories stay visible and count as Closed Points</td><td>#3</td><td class="status-pass">PASS</td><td>Finished stories stayed drawn in their sprint; points counted in Closed Points.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-045</td><td>With the width setting on, the unassigned column is widened</td><td>#4</td><td class="status-pass">PASS</td><td>Both unassigned columns widened 284px → 444px above the 1024px breakpoint.</td></tr>
   </tbody>
 </table>
 
@@ -64,27 +64,27 @@
     <tr><th>TC ID</th><th>Title</th><th>Requirement</th><th>Status</th><th>Notes / Bug Ref</th></tr>
   </thead>
   <tbody>
-    <tr class="pass-row"><td>TC-AGB-531</td><td>A version column header shows Closed / Total story points</td><td>#1, #2</td><td class="status-pass">PASS</td><td>Badge <code>3 / 8 SP</code> matched exactly.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-532</td><td>The unassigned column shows Closed / Total story points</td><td>#1, #2</td><td class="status-pass">PASS</td><td>Both No Sprint and No Version columns carried correctly-aggregated badges.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-534</td><td>A column carrying no points shows no badge at all</td><td>#1</td><td class="status-pass">PASS</td><td>2-issue unpointed sprint: no badge, count still correct.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-536</td><td>Badge totals cover the whole column, not just the loaded cards</td><td>#1</td><td class="status-pass">PASS</td><td>Badge correct (<code>5 / 13 SP</code>) from first render, before lazily-loaded cards appeared.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-537</td><td>The badge appears, updates and disappears as points are edited</td><td>#1, #2</td><td class="status-pass">PASS</td><td>Live create/update/remove via inline card editor, matched a reload throughout. (Initial mis-test used the wrong "Apply" button — corrected.) <strong>Regression later found here — see Post-fix regression section below.</strong></td></tr>
-    <tr class="pass-row"><td>TC-AGB-538</td><td>With the setting off, completed stories drop out of the Backlog</td><td>#3</td><td class="status-pass">PASS</td><td>Baseline confirmed: open-only default unchanged with setting off.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-539</td><td>With the setting on, completed stories stay visible and count as Closed Points (reconfirmed)</td><td>#3</td><td class="status-pass">PASS</td><td>Fresh toggle cycle, consistent with sanity result.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-540</td><td>An explicit status filter overrides the setting</td><td>#3</td><td class="status-pass">PASS</td><td>Explicit filter excluded closed issues even with the setting on; survived further navigation.</td></tr>
-    <tr class="na-row"><td>TC-AGB-541</td><td>A saved query overrides the setting</td><td>#3</td><td class="status-na">N/A</td><td>No UI feature exists to open the Backlog through a saved query — not a gap, the ticket never asked for it. A separate, unrelated code-level defect (BUG-AGB-010) was found while checking this TC's premise — see Defects Summary.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-542</td><td>Turning the setting back off restores the open-only Backlog immediately</td><td>#3</td><td class="status-pass">PASS</td><td>Reverted on next reload, no session reset needed.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-543</td><td>Load-more honours the setting, so counts and cards cannot disagree</td><td>#3</td><td class="status-pass">PASS</td><td>Load-more brought in closed issues; final count matched header total.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-544</td><td>With the width setting off, the unassigned column keeps its standard width (reconfirmed)</td><td>#4</td><td class="status-pass">PASS</td><td>284px, matching sprint/version columns.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-545</td><td>With the width setting on, the unassigned column is widened (reconfirmed)</td><td>#4</td><td class="status-pass">PASS</td><td>Both tabs, 444px, no clipping, drag still worked.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-546</td><td>The widened column does not apply on narrow screens</td><td>#4</td><td class="status-pass">PASS</td><td>At 1024px exactly, reverted to standard width.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-547</td><td>Both settings are instance-wide</td><td>#3, #4</td><td class="status-pass">PASS</td><td>Confirmed on a second, unrelated project.</td></tr>
-    <tr class="inconc-row"><td>TC-AGB-548</td><td>Story point figures are consistent between the Backlog page and the API</td><td>#1, #2</td><td class="status-inconc">INCONCLUSIVE</td><td>REST API 403'd even with a valid admin key — Redmine core's own login filter appears to run before the plugin's API-key check. Root cause not isolated in the time available; not filed as a bug on this basis alone.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-549</td><td>Fractional story points in the badge</td><td>#2</td><td class="status-pass">PASS</td><td>Integer-only by design (clear client-side validation message); rejected submission left prior config untouched.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-550</td><td>The badge respects issue visibility</td><td>#1, #2</td><td class="status-pass">PASS</td><td>Private, 13-point issue fully excluded from a non-admin's badge total and card list — no data leak.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-551</td><td>A non-admin cannot change the two new Backlog settings</td><td>Config</td><td class="status-pass">PASS</td><td>GET and POST both 403 as a non-admin; stored setting unchanged.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-552</td><td>The new settings and the badge label are translated</td><td>Config, #1</td><td class="status-pass">PASS</td><td>Both labels, hints, and the badge hover-title fully translated to German.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-553</td><td>Backlog with the settings on but no sprints, versions or points</td><td>#4</td><td class="status-pass">PASS</td><td>Clean layout on a bare project, widened column, no error.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-031</td><td>A version column header shows Closed / Total story points</td><td>#1, #2</td><td class="status-pass">PASS</td><td>Badge <code>3 / 8 SP</code> matched exactly.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-032</td><td>The unassigned column shows Closed / Total story points</td><td>#1, #2</td><td class="status-pass">PASS</td><td>Both No Sprint and No Version columns carried correctly-aggregated badges.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-034</td><td>A column carrying no points shows no badge at all</td><td>#1</td><td class="status-pass">PASS</td><td>2-issue unpointed sprint: no badge, count still correct.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-036</td><td>Badge totals cover the whole column, not just the loaded cards</td><td>#1</td><td class="status-pass">PASS</td><td>Badge correct (<code>5 / 13 SP</code>) from first render, before lazily-loaded cards appeared.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-037</td><td>The badge appears, updates and disappears as points are edited</td><td>#1, #2</td><td class="status-pass">PASS</td><td>Live create/update/remove via inline card editor, matched a reload throughout. (Initial mis-test used the wrong "Apply" button — corrected.) <strong>Regression later found here — see Post-fix regression section below.</strong></td></tr>
+    <tr class="pass-row"><td>TC-AGB-038</td><td>With the setting off, completed stories drop out of the Backlog</td><td>#3</td><td class="status-pass">PASS</td><td>Baseline confirmed: open-only default unchanged with setting off.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-039</td><td>With the setting on, completed stories stay visible and count as Closed Points (reconfirmed)</td><td>#3</td><td class="status-pass">PASS</td><td>Fresh toggle cycle, consistent with sanity result.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-040</td><td>An explicit status filter overrides the setting</td><td>#3</td><td class="status-pass">PASS</td><td>Explicit filter excluded closed issues even with the setting on; survived further navigation.</td></tr>
+    <tr class="na-row"><td>TC-AGB-041</td><td>A saved query overrides the setting</td><td>#3</td><td class="status-na">N/A</td><td>No UI feature exists to open the Backlog through a saved query — not a gap, the ticket never asked for it. A separate, unrelated code-level defect (BUG-AGB-010) was found while checking this TC's premise — see Defects Summary.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-042</td><td>Turning the setting back off restores the open-only Backlog immediately</td><td>#3</td><td class="status-pass">PASS</td><td>Reverted on next reload, no session reset needed.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-043</td><td>Load-more honours the setting, so counts and cards cannot disagree</td><td>#3</td><td class="status-pass">PASS</td><td>Load-more brought in closed issues; final count matched header total.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-044</td><td>With the width setting off, the unassigned column keeps its standard width (reconfirmed)</td><td>#4</td><td class="status-pass">PASS</td><td>284px, matching sprint/version columns.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-045</td><td>With the width setting on, the unassigned column is widened (reconfirmed)</td><td>#4</td><td class="status-pass">PASS</td><td>Both tabs, 444px, no clipping, drag still worked.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-046</td><td>The widened column does not apply on narrow screens</td><td>#4</td><td class="status-pass">PASS</td><td>At 1024px exactly, reverted to standard width.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-047</td><td>Both settings are instance-wide</td><td>#3, #4</td><td class="status-pass">PASS</td><td>Confirmed on a second, unrelated project.</td></tr>
+    <tr class="inconc-row"><td>TC-AGB-048</td><td>Story point figures are consistent between the Backlog page and the API</td><td>#1, #2</td><td class="status-inconc">INCONCLUSIVE</td><td>REST API 403'd even with a valid admin key — Redmine core's own login filter appears to run before the plugin's API-key check. Root cause not isolated in the time available; not filed as a bug on this basis alone.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-049</td><td>Fractional story points in the badge</td><td>#2</td><td class="status-pass">PASS</td><td>Integer-only by design (clear client-side validation message); rejected submission left prior config untouched.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-050</td><td>The badge respects issue visibility</td><td>#1, #2</td><td class="status-pass">PASS</td><td>Private, 13-point issue fully excluded from a non-admin's badge total and card list — no data leak.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-051</td><td>A non-admin cannot change the two new Backlog settings</td><td>Config</td><td class="status-pass">PASS</td><td>GET and POST both 403 as a non-admin; stored setting unchanged.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-052</td><td>The new settings and the badge label are translated</td><td>Config, #1</td><td class="status-pass">PASS</td><td>Both labels, hints, and the badge hover-title fully translated to German.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-053</td><td>Backlog with the settings on but no sprints, versions or points</td><td>#4</td><td class="status-pass">PASS</td><td>Clean layout on a bare project, widened column, no error.</td></tr>
   </tbody>
 </table>
 
@@ -102,16 +102,16 @@
     <tr><th>TC ID</th><th>Title</th><th>Retest result</th><th>Notes</th></tr>
   </thead>
   <tbody>
-    <tr class="pass-row"><td>TC-AGB-529</td><td>Settings exist and default correctly</td><td class="status-pass">PASS (reconfirmed)</td><td>Unaffected by either fix commit.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-530</td><td>Sprint column badge</td><td class="status-pass">PASS (reconfirmed)</td><td><code>5 / 29 SP</code>, correct.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-531</td><td>Version column badge</td><td class="status-pass">PASS (reconfirmed, extended to drag)</td><td>Live-updated correctly after a drag: <code>3/8 → 3/13 SP</code> — new coverage beyond the original bug repro.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-532</td><td>Unassigned column badge</td><td class="status-pass">PASS (reconfirmed, extended to drag)</td><td>"No Version" side of the same drag: <code>23/199 → 23/194 SP</code>, correct.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-536</td><td>Badge shows full total regardless of pagination</td><td class="status-pass">PASS (reconfirmed)</td><td>"No Version" badge correct while only 24 of 933 cards were loaded.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-537</td><td>Badge create/update/remove — the core fix</td><td class="status-pass">PASS (BUG-AGB-011 fixed)</td><td>Drag between sprint columns (<code>13/18→13/13</code>, <code>5/21→5/26</code>, live) then inline edit without reload (<code>5/26→5/29</code>, correct) then reload matched exactly. This is the exact combined scenario that exposed the original bug.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-538 / 539 / 542</td><td>Setting toggle (hide/show/restore completed stories)</td><td class="status-pass">PASS (reconfirmed)</td><td>Toggled on then off in the same session; card visibility and badges behaved correctly both directions.</td></tr>
-    <tr class="na-row"><td>TC-AGB-541</td><td>Saved query override</td><td class="status-na">N/A (reconfirmed)</td><td>Verdict unchanged; the underlying <code>query_id</code> crash this TC's premise-check surfaced (BUG-AGB-010) is now a clean 404.</td></tr>
-    <tr class="pass-row"><td>TC-AGB-545</td><td>Widened unassigned column</td><td class="status-pass">PASS (reconfirmed)</td><td>Still visibly wider post-fix; the JS fix didn't touch width CSS.</td></tr>
-    <tr class="na-row"><td>TC-AGB-533/534/540/543/544/546-553</td><td>Unrelated code paths</td><td class="status-na">Not re-executed</td><td>Neither fix commit touches enable/disable persistence, zero-point columns, filter precedence, load-more/setting interaction, column-width CSS, API auth, fractional points, visibility, permissions, or translation — no plausible regression vector.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-029</td><td>Settings exist and default correctly</td><td class="status-pass">PASS (reconfirmed)</td><td>Unaffected by either fix commit.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-030</td><td>Sprint column badge</td><td class="status-pass">PASS (reconfirmed)</td><td><code>5 / 29 SP</code>, correct.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-031</td><td>Version column badge</td><td class="status-pass">PASS (reconfirmed, extended to drag)</td><td>Live-updated correctly after a drag: <code>3/8 → 3/13 SP</code> — new coverage beyond the original bug repro.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-032</td><td>Unassigned column badge</td><td class="status-pass">PASS (reconfirmed, extended to drag)</td><td>"No Version" side of the same drag: <code>23/199 → 23/194 SP</code>, correct.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-036</td><td>Badge shows full total regardless of pagination</td><td class="status-pass">PASS (reconfirmed)</td><td>"No Version" badge correct while only 24 of 933 cards were loaded.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-037</td><td>Badge create/update/remove — the core fix</td><td class="status-pass">PASS (BUG-AGB-011 fixed)</td><td>Drag between sprint columns (<code>13/18→13/13</code>, <code>5/21→5/26</code>, live) then inline edit without reload (<code>5/26→5/29</code>, correct) then reload matched exactly. This is the exact combined scenario that exposed the original bug.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-038 / 539 / 542</td><td>Setting toggle (hide/show/restore completed stories)</td><td class="status-pass">PASS (reconfirmed)</td><td>Toggled on then off in the same session; card visibility and badges behaved correctly both directions.</td></tr>
+    <tr class="na-row"><td>TC-AGB-041</td><td>Saved query override</td><td class="status-na">N/A (reconfirmed)</td><td>Verdict unchanged; the underlying <code>query_id</code> crash this TC's premise-check surfaced (BUG-AGB-010) is now a clean 404.</td></tr>
+    <tr class="pass-row"><td>TC-AGB-045</td><td>Widened unassigned column</td><td class="status-pass">PASS (reconfirmed)</td><td>Still visibly wider post-fix; the JS fix didn't touch width CSS.</td></tr>
+    <tr class="na-row"><td>TC-AGB-033/534/540/543/544/546-553</td><td>Unrelated code paths</td><td class="status-na">Not re-executed</td><td>Neither fix commit touches enable/disable persistence, zero-point columns, filter precedence, load-more/setting interaction, column-width CSS, API auth, fractional points, visibility, permissions, or translation — no plausible regression vector.</td></tr>
   </tbody>
 </table>
 

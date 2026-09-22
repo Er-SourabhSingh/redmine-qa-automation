@@ -25,7 +25,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-201: Time Tracker page renders
+### TC-TMT-085: Time Tracker page renders
 
 **User Role:** Member
 **Steps:**
@@ -37,7 +37,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-202: Entry list shows the user's own entries accurately
+### TC-TMT-086: Entry list shows the user's own entries accurately
 
 **User Role:** Member
 **Steps:**
@@ -52,7 +52,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-203: Start the timer with all fields selected
+### TC-TMT-087: Start the timer with all fields selected
 
 **User Role:** Member with log-time rights
 **Steps:**
@@ -64,7 +64,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-204: Issue list is scoped to the selected project
+### TC-TMT-088: Issue list is scoped to the selected project
 
 **User Role:** Member
 **Steps:**
@@ -77,7 +77,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-205: Start without an issue
+### TC-TMT-089: Start without an issue
 
 **User Role:** Member
 **Steps:**
@@ -89,7 +89,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-206: Only one timer runs at a time
+### TC-TMT-090: Only one timer runs at a time
 
 **User Role:** Member
 **Steps:**
@@ -102,7 +102,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-207: Stop the timer and save the entry
+### TC-TMT-091: Stop the timer and save the entry
 
 **User Role:** Member
 **Steps:**
@@ -116,7 +116,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-208: Required comment and custom fields are enforced
+### TC-TMT-092: Required comment and custom fields are enforced
 
 **User Role:** Member
 **Preconditions:** The instance requires a comment and has a required time-entry custom field.
@@ -130,7 +130,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-209: Cancel a stop
+### TC-TMT-093: Cancel a stop
 
 **User Role:** Member
 **Steps:**
@@ -146,7 +146,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-210: Timer starts when location is granted
+### TC-TMT-094: Timer starts when location is granted
 
 **User Role:** Member subject to the location requirement
 **Steps:**
@@ -157,7 +157,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-211: Timer does not start when location is denied
+### TC-TMT-095: Timer does not start when location is denied
 
 **User Role:** Member subject to the requirement
 **Steps:**
@@ -170,7 +170,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-212: Stopping also requires location
+### TC-TMT-096: Stopping also requires location
 
 **User Role:** Member subject to the requirement
 **Steps:**
@@ -178,11 +178,11 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 **Expected Result:**
 - The documented behaviour applies to stop as well as start — but the user must not be left with an unstoppable
-  timer and unrecoverable hours (paired with TC-TMT-116).
+  timer and unrecoverable hours (paired with TC-TMT-040).
 
 ---
 
-### TC-TMT-213: Behaviour on an insecure origin
+### TC-TMT-097: Behaviour on an insecure origin
 
 **User Role:** Member
 **Steps:**
@@ -199,7 +199,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-214: Timer survives navigation
+### TC-TMT-098: Timer survives navigation
 
 **User Role:** Member
 **Steps:**
@@ -210,7 +210,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-215: Timer survives a page reload
+### TC-TMT-099: Timer survives a page reload
 
 **User Role:** Member
 **Steps:**
@@ -221,7 +221,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-216: Timer survives closing the browser
+### TC-TMT-100: Timer survives closing the browser
 
 **User Role:** Member
 **Steps:**
@@ -234,7 +234,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-217: Timer across session expiry
+### TC-TMT-101: Timer across session expiry
 
 **User Role:** Member
 **Steps:**
@@ -250,7 +250,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-301: Edit each inline field
+### TC-TMT-102: Edit each inline field
 
 **User Role:** Member
 **Steps:**
@@ -264,7 +264,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-302: Editing start/end time recalculates the duration
+### TC-TMT-103: Editing start/end time recalculates the duration
 
 **User Role:** Member
 **Steps:**
@@ -277,7 +277,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-303: Cancel an inline edit
+### TC-TMT-104: Cancel an inline edit
 
 **User Role:** Member
 **Steps:**
@@ -289,7 +289,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-304: Inline edits are journaled
+### TC-TMT-105: Inline edits are journaled
 
 **User Role:** Member
 **Steps:**
@@ -304,7 +304,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-305: Log time manually
+### TC-TMT-106: Log time manually
 
 **User Role:** Member
 **Preconditions:** Manual entry enabled.
@@ -316,7 +316,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-306: Manual entry validation
+### TC-TMT-107: Manual entry validation
 
 **User Role:** Member
 **Steps:**
@@ -328,7 +328,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-307: Manual entry overlapping an existing entry
+### TC-TMT-108: Manual entry overlapping an existing entry
 
 **User Role:** Member
 **Steps:**
@@ -340,7 +340,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-308: Manual entry for a past date
+### TC-TMT-109: Manual entry for a past date
 
 **User Role:** Member
 **Steps:**
@@ -352,7 +352,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-309: Duplicate an entry
+### TC-TMT-110: Duplicate an entry
 
 **User Role:** Member
 **Steps:**
@@ -363,7 +363,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-310: Duplicate that matches an existing same-day entry
+### TC-TMT-111: Duplicate that matches an existing same-day entry
 
 **User Role:** Member
 **Steps:**
@@ -377,7 +377,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-311: Duplicate preserves the tag and activity
+### TC-TMT-112: Duplicate preserves the tag and activity
 
 **User Role:** Member
 **Steps:**
@@ -388,7 +388,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-312: Delete an entry
+### TC-TMT-113: Delete an entry
 
 **User Role:** Member
 **Steps:**
@@ -399,7 +399,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-313: Cancel a deletion
+### TC-TMT-114: Cancel a deletion
 
 **User Role:** Member
 **Steps:**
@@ -414,7 +414,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-314: Script content in a comment
+### TC-TMT-115: Script content in a comment
 
 **User Role:** Member
 **Steps:**
@@ -427,7 +427,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-315: Editing another user's entry
+### TC-TMT-116: Editing another user's entry
 
 **User Role:** Member
 **Steps:**
@@ -439,7 +439,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-316: Concurrent edits from two sessions
+### TC-TMT-117: Concurrent edits from two sessions
 
 **User Role:** Member in two browsers
 **Steps:**
@@ -450,7 +450,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-317: Timer against an issue that is deleted mid-run
+### TC-TMT-118: Timer against an issue that is deleted mid-run
 
 **User Role:** Member + Manager
 **Steps:**
@@ -462,7 +462,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 
 ---
 
-### TC-TMT-318: Timer against a closed or archived project
+### TC-TMT-119: Timer against a closed or archived project
 
 **User Role:** Member
 **Steps:**

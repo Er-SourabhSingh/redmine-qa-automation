@@ -240,7 +240,7 @@ export const CUSTOMERS = {
   },
   /**
    * Multi-project customer — two project-access rows, different org/SLA/support-level
-   * per row. Exercises the TC-HLP-110/122 multi-project-access pattern.
+   * per row. Exercises the TC-HLP-045/122 multi-project-access pattern.
    */
   multiProjectContact: {
     login: 'multiproject.contact',

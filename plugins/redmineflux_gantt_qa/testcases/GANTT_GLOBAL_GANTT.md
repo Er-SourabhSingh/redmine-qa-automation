@@ -22,7 +22,7 @@ clicking the menu entry, not by typing the URL — except in the negative cases,
 
 ---
 
-### TC-GNT-701: Global Flux Gantt opens from the top menu
+### TC-GNT-056: Global Flux Gantt opens from the top menu
 
 **User Role:** Member with View Global Gantt
 **Steps:**
@@ -33,7 +33,7 @@ clicking the menu entry, not by typing the URL — except in the negative cases,
 
 ---
 
-### TC-GNT-702: Only accessible projects are shown
+### TC-GNT-057: Only accessible projects are shown
 
 **User Role:** Member of projects A and B, not of private project C
 **Preconditions:** **Confirm project C is genuinely private** — a newly created Redmine project has "Public"
@@ -48,7 +48,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-703: Only projects with the module enabled are shown
+### TC-GNT-058: Only projects with the module enabled are shown
 
 **User Role:** Member
 **Steps:**
@@ -60,7 +60,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-704: Project rows are paginated
+### TC-GNT-059: Project rows are paginated
 
 **User Role:** Member of many projects
 **Steps:**
@@ -72,7 +72,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-705: Issues lazy-load per project
+### TC-GNT-060: Issues lazy-load per project
 
 **User Role:** Member
 **Steps:**
@@ -83,7 +83,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-706: Expand and collapse state persists per user
+### TC-GNT-061: Expand and collapse state persists per user
 
 **User Role:** Two members
 **Steps:**
@@ -95,7 +95,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-707: Cross-project issue updates where permissions allow
+### TC-GNT-062: Cross-project issue updates where permissions allow
 
 **User Role:** Member with View Flux Gantt on both A and B
 **Steps:**
@@ -107,7 +107,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-708: Cross-project dependency linking
+### TC-GNT-063: Cross-project dependency linking
 
 **User Role:** Member with View Flux Gantt on both projects
 **Steps:**
@@ -120,7 +120,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-709: IssueQuery-based filters narrow issues globally
+### TC-GNT-064: IssueQuery-based filters narrow issues globally
 
 **User Role:** Member
 **Steps:**
@@ -133,7 +133,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-710: Global settings are stored per user
+### TC-GNT-065: Global settings are stored per user
 
 **User Role:** Two members
 **Steps:**
@@ -144,7 +144,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-711: Closed projects follow the plugin setting
+### TC-GNT-066: Closed projects follow the plugin setting
 
 **User Role:** Member
 **Steps:**
@@ -156,7 +156,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-712: Search works across projects
+### TC-GNT-067: Search works across projects
 
 **User Role:** Member
 **Steps:**
@@ -171,7 +171,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-713: Access without View Global Gantt
+### TC-GNT-068: Access without View Global Gantt
 
 **User Role:** Member with View Flux Gantt but **not** View Global Gantt
 **Steps:**
@@ -186,7 +186,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-714: Cross-project dependency without permission on both sides
+### TC-GNT-069: Cross-project dependency without permission on both sides
 
 **User Role:** Member with View Flux Gantt on A but not on B
 **Steps:**
@@ -199,7 +199,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-715: Cross-project drag without edit permission on the target project
+### TC-GNT-070: Cross-project drag without edit permission on the target project
 
 **User Role:** Member who can view B but not edit issues there
 **Steps:**
@@ -211,7 +211,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-716: Global Gantt with no accessible projects
+### TC-GNT-071: Global Gantt with no accessible projects
 
 **User Role:** A user who belongs to no project with the module enabled
 **Steps:**
@@ -222,19 +222,19 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-717: Show Critical Path is not offered here
+### TC-GNT-072: Show Critical Path is not offered here
 
 **User Role:** Member
 **Steps:**
 1. Open the global view's settings panel.
 
 **Expected Result:**
-- No **Show Critical Path** option. The KB states it is project-Gantt only. (Same check as TC-GNT-416, retained
+- No **Show Critical Path** option. The KB states it is project-Gantt only. (Same check as TC-GNT-035, retained
   here because this is where a tester would look for it.)
 
 ---
 
-### TC-GNT-718: Very many projects and issues
+### TC-GNT-073: Very many projects and issues
 
 **User Role:** Member with access to many projects
 **Steps:**
@@ -247,7 +247,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-719: Project archived while the global view is open
+### TC-GNT-074: Project archived while the global view is open
 
 **User Role:** Member + Admin
 **Steps:**
@@ -258,7 +258,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-720: Permission revoked while the global view is open
+### TC-GNT-075: Permission revoked while the global view is open
 
 **User Role:** Admin + affected member
 **Steps:**
@@ -270,7 +270,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
-### TC-GNT-721: Global filters do not widen visibility
+### TC-GNT-076: Global filters do not widen visibility
 
 **User Role:** Member of A and B only
 **Steps:**
@@ -279,6 +279,77 @@ checked by default; uncheck it explicitly or this case falsely passes.
 **Expected Result:**
 - Results are still restricted to A and B. A filter must never become a path to issues in projects the user cannot
   see — this is the classic way an aggregate view leaks, and it would be High severity.
+
+---
+
+## Functional Cases — New view-settings functionality on Global Gantt (new, issue #120913)
+
+> Addendum 2026-09-22: TC-GNT-213 through TC-GNT-216 were added for the Global-Gantt-specific variants of the
+> new-functionality batch shipped per production issue #120913 (ztflux, client JUWI GmbH, tracker Feature, status
+> "In QA"). The project-Gantt versions of Year scale, row sorting, and the other new presets are covered in
+> `GANTT_VIEW_SETTINGS_AND_FILTERS.md` (TC-GNT-191–212); this section covers only what's specific to the global
+> view. **Status: authored 2026-09-22. Not yet executed.**
+
+---
+
+### TC-GNT-213: Year zoom level is available in Global Flux Gantt
+
+**User Role:** Member with View Global Gantt
+**Steps:**
+1. Open Global Flux Gantt (`/global_gantt`) via the top menu.
+2. Open the zoom control and select **Year**.
+
+**Expected Result:**
+- **Year** is available as a zoom option here too, per issue #120913 item 1 ("New 'Year' zoom option added
+  alongside existing Hours/Day/Week/Month, in BOTH the project Gantt and the Global Gantt").
+- Ruler and rendering behave the same as the project-Gantt Year scale (TC-GNT-191/192).
+
+---
+
+### TC-GNT-214: Row sorting works in Global Gantt and reorders rows live, without a manual reload
+
+**User Role:** Member with View Global Gantt
+**Steps:**
+1. Open Global Flux Gantt with at least two projects expanded, each containing issues with differing
+   subjects/priorities.
+2. Open the sort selector and change it to, e.g., **Priority — Descending**.
+
+**Expected Result:**
+- The sort selector and its full field list (Subject, Start date, Due date, Priority, Assignee, Status, Ticket
+  number, each ascending/descending) are present in Global Gantt too, per issue #120913 item 2 ("Must work on the
+  Global Gantt too, not just project Gantt").
+- Rows reorder **immediately** upon selection, with no manual page reload required.
+- This is explicit scenario 5 from issue #120913.
+
+---
+
+### TC-GNT-215: Global Gantt's "Next Quarter" preset is corrected to align with calendar quarters
+
+**User Role:** Member with View Global Gantt
+**Steps:**
+1. Open Global Flux Gantt's date-range picker and select the existing **Next Quarter** preset.
+2. Note the resulting Date From/Date To values and compare them against the actual next calendar quarter's
+   boundaries (not "3 months from today").
+
+**Expected Result:**
+- **Next Quarter** now resolves to the actual next calendar quarter (e.g. if today is in Q2, From = Jul 1,
+  To = Sep 30 of Q3), matching the other quarter/year presets' alignment — per issue #120913 item 6, which
+  explicitly calls this out as a **behavior change**, not merely a new addition: "Global Gantt's EXISTING 'Next
+  Quarter' preset currently means 'next 3 months from today' and must be corrected to align to calendar quarters
+  (like the others) — this is a behavior change to verify, not just a new addition."
+- Treat any result that is still "today + 3 months" as a defect, since the issue explicitly requires the fix.
+
+---
+
+### TC-GNT-216: New date-range presets available in Global Gantt
+
+**User Role:** Member with View Global Gantt
+**Steps:**
+1. Open Global Flux Gantt's date-range picker and open the preset list.
+
+**Expected Result:**
+- **This Quarter**, **Next Quarter** (corrected, TC-GNT-215), **This Year** and **Next Year** are all present, per
+  issue #120913 item 6 ("in both project and Global Gantt").
 
 ---
 

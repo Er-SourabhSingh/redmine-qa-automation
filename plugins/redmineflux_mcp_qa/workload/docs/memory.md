@@ -62,5 +62,5 @@
 ## Permission Testing Notes
 
 - Test accounts "permitted.user", "team.manager", "leave.approver" DO NOT exist in dev environment.
-- TC-RFM-083, TC-RFM-085, TC-RFM-086 are BLOCKED until these accounts are created.
+- TC-RFM-161, TC-RFM-163, TC-RFM-164 are BLOCKED until these accounts are created.
 - Use ajay.joshi (id=14) as proxy for "user without permissions" testing.

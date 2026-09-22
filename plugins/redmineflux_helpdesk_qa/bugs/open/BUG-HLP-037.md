@@ -17,7 +17,7 @@
 
 **Part 1 — customer raises a new ticket:**
 1. As `delta.customer`, from the Helpdesk QA Alpha dashboard, click New issue.
-2. Fill Subject "TC-HLP-138 - Hard mode at zero hours new ticket test", click Create.
+2. Fill Subject "TC-HLP-201 - Hard mode at zero hours new ticket test", click Create.
 
 **Part 2 — agent logs time on an existing ticket:**
 3. As `luna.blossom` (agent), open ticket #46 (already belongs to this organization/project), click Reply.
@@ -34,7 +34,7 @@ Neither action was blocked:
 1. **Part 1:** The new ticket was created normally — flash message **"Successful creation."**, ticket **#48** appeared in the tickets list with no warning, no error, no block of any kind.
 2. **Part 2:** The time log was saved normally — the ticket's own "Spent time" field went from 0:25h to 0:35h, and its "Prepaid Support Hours" line updated to **"0.58h used · -0.16h left of 0.42h"** (the negative figure rendered in red) — the balance was silently allowed to go negative, which is exactly the **documented behavior of No Limit / Soft** mode, not Hard.
 
-Hard mode's "stop work" enforcement appears to have **no effect at all** in either direction it is documented to control. The mode value itself does persist correctly in the UI (confirmed separately in TC-HLP-134's evidence) — the dropdown reads "Hard — stop work" throughout this repro — so this is not a UI/persistence bug, it is the enforcement logic itself never checking the mode (or never being wired to the ticket-creation and time-entry code paths at all).
+Hard mode's "stop work" enforcement appears to have **no effect at all** in either direction it is documented to control. The mode value itself does persist correctly in the UI (confirmed separately in TC-HLP-197's evidence) — the dropdown reads "Hard — stop work" throughout this repro — so this is not a UI/persistence bug, it is the enforcement logic itself never checking the mode (or never being wired to the ticket-creation and time-entry code paths at all).
 
 ## Evidence
 
@@ -45,8 +45,8 @@ Hard mode's "stop work" enforcement appears to have **no effect at all** in eith
 ### Console / log
 
 - Org page ("Alpha Minimal Fields Test Org", `/rf_organizations/8?tab=prepaid_support_hours`) confirmed Approved 0.42h / Used 0.42h / Remaining 0.00h, "When hours run out" dropdown showing "Hard — stop work" selected, immediately before Part 1.
-- Part 1: page navigation after clicking Create landed on the tickets list with flash text "Successful creation." and a new row for ticket #48, subject "TC-HLP-138 - Hard mode at zero hours new ticket test", no error/warning text anywhere on the page.
-- Part 2: ticket #46's own Prepaid Support Hours line read "0.25h used · 19.75h left of 20.00h" before this session's earlier TC-HLP-134 pass, then updated correctly through legitimate top-ups/time-logs across TC-125–137, finally reaching "0.58h used · -0.16h left of 0.42h" right after this Reply — the delta (0.42h → 0.58h, exactly +0.167h ≈ 10 min) confirms the time entry really was accepted and billed against the budget, not merely displayed stale.
+- Part 1: page navigation after clicking Create landed on the tickets list with flash text "Successful creation." and a new row for ticket #48, subject "TC-HLP-201 - Hard mode at zero hours new ticket test", no error/warning text anywhere on the page.
+- Part 2: ticket #46's own Prepaid Support Hours line read "0.25h used · 19.75h left of 20.00h" before this session's earlier TC-HLP-197 pass, then updated correctly through legitimate top-ups/time-logs across TC-125–137, finally reaching "0.58h used · -0.16h left of 0.42h" right after this Reply — the delta (0.42h → 0.58h, exactly +0.167h ≈ 10 min) confirms the time entry really was accepted and billed against the budget, not merely displayed stale.
 
 ## Duplicate check
 
@@ -55,14 +55,14 @@ Hard mode's "stop work" enforcement appears to have **no effect at all** in eith
 
 ## Notes
 
-- Found while executing `HELPDESK_PREPAID_HOURS.md` TC-HLP-138 and TC-HLP-139 (2026-09-03), both against the same precondition (Hard mode, Remaining exactly 0.00h) — filed as one bug since both symptoms share what looks like the same root cause: Hard-mode enforcement not being checked on either the ticket-creation path or the time-entry path.
+- Found while executing `HELPDESK_PREPAID_HOURS.md` TC-HLP-201 and TC-HLP-202 (2026-09-03), both against the same precondition (Hard mode, Remaining exactly 0.00h) — filed as one bug since both symptoms share what looks like the same root cause: Hard-mode enforcement not being checked on either the ticket-creation path or the time-entry path.
 - Originally judged **High** severity (see reasoning below), but see the **Retest — Correction** section: this no longer holds with confidence given the bug did not reproduce on retest.
-- Contrast with `TC-HLP-136` (reducing budget below zero) and `TC-HLP-137` (Comment required) — both of those enforcement paths work correctly and are well-behaved.
+- Contrast with `TC-HLP-199` (reducing budget below zero) and `TC-HLP-200` (Comment required) — both of those enforcement paths work correctly and are well-behaved.
 - Retested (see below) under No Limit and Soft modes via TC-133/135 — both correctly allowed the exhausted-budget actions with the balance going negative, which is their genuine expected behavior (not a sign of the same defect).
 
 ## Retest — Correction (2026-09-03, same-day follow-up)
 
-While executing the newly-added TC-HLP-380/381 (Hard-mode regression tests, added from a user gap-analysis), the exact same scenario — org 8 "Alpha Minimal Fields Test Org", Hard mode, ticket #46, Remaining driven to exactly 0.00h via a budget reduction — was retested **three separate times**, and **all three correctly blocked**:
+While executing the newly-added TC-HLP-219/381 (Hard-mode regression tests, added from a user gap-analysis), the exact same scenario — org 8 "Alpha Minimal Fields Test Org", Hard mode, ticket #46, Remaining driven to exactly 0.00h via a budget reduction — was retested **three separate times**, and **all three correctly blocked**:
 
 1. **Retest 1** (Remaining reduced to 0.75h Approved = 0.75h Used via a single `-3.25h` reduction, reached after several prior top-up/reduction operations in the same session): attempting to log a 5-minute time entry on ticket #46 as `luna.blossom` was refused with a real validation error: **"Time entries is invalid — Prepaid support hours for Alpha Minimal Fields Test Org are used up (-0.00h). Top up the budget to log more time."**
 2. **Retest 2** (same budget state, immediate repeat): blocked identically, same error message.

@@ -45,7 +45,7 @@ Fill in from observed behaviour during execution, not from assumption.
 
 ---
 
-### TC-MEN-901: Admin has full access
+### TC-MEN-058: Admin has full access
 
 **User Role:** Admin
 **Steps:**
@@ -56,7 +56,7 @@ Fill in from observed behaviour during execution, not from assumption.
 
 ---
 
-### TC-MEN-902: Mentioning follows the underlying edit permission
+### TC-MEN-059: Mentioning follows the underlying edit permission
 
 **User Role:** Developer (can edit issues), then a read-only role
 **Steps:**
@@ -71,7 +71,7 @@ Fill in from observed behaviour during execution, not from assumption.
 
 ---
 
-### TC-MEN-903: Wiki mentioning follows the wiki-edit permission
+### TC-MEN-060: Wiki mentioning follows the wiki-edit permission
 
 **User Role:** Role without wiki-edit rights
 **Steps:**
@@ -83,7 +83,7 @@ Fill in from observed behaviour during execution, not from assumption.
 
 ---
 
-### TC-MEN-904: Only an admin can change the mention symbol
+### TC-MEN-061: Only an admin can change the mention symbol
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
 **Steps:**
@@ -97,7 +97,7 @@ Fill in from observed behaviour during execution, not from assumption.
 
 ---
 
-### TC-MEN-905: Mentioning a non-member of a private project does not grant access
+### TC-MEN-062: Mentioning a non-member of a private project does not grant access
 
 **User Role:** Member of private project A mentions a user who is not a member
 **Preconditions:** **Confirm project A is genuinely private.** A newly created Redmine project has "Public"
@@ -113,24 +113,24 @@ checked by default; uncheck it explicitly or this case will falsely pass.
 
 ---
 
-### TC-MEN-906: Notification content does not leak private data
+### TC-MEN-063: Notification content does not leak private data
 
-**User Role:** As TC-MEN-905
+**User Role:** As TC-MEN-062
 **Steps:**
 1. Inspect the **full body and subject** of whatever email the non-member received.
 
 **Expected Result:**
 - No issue subject, description, note text, project name or attachment name from the private project appears in
   the email.
-- This is the case most likely to find a real defect in this plugin, because the UI check in TC-MEN-905 can pass
+- This is the case most likely to find a real defect in this plugin, because the UI check in TC-MEN-062 can pass
   while the email still carries the content.
 
 ---
 
-### TC-MEN-907: Autocomplete (if present) does not enumerate users
+### TC-MEN-064: Autocomplete (if present) does not enumerate users
 
 **User Role:** Reporter or a low-privilege member
-**Preconditions:** Only applicable if TC-MEN-209 established that a picker exists.
+**Preconditions:** Only applicable if TC-MEN-044 established that a picker exists.
 **Steps:**
 1. Type the mention symbol and inspect the suggestion list.
 
@@ -140,7 +140,7 @@ checked by default; uncheck it explicitly or this case will falsely pass.
 
 ---
 
-### TC-MEN-908: Anonymous users cannot mention
+### TC-MEN-065: Anonymous users cannot mention
 
 **User Role:** Anonymous (logged out)
 **Steps:**
@@ -153,7 +153,7 @@ checked by default; uncheck it explicitly or this case will falsely pass.
 
 ---
 
-### TC-MEN-909: Non-member cannot mention into a private project
+### TC-MEN-066: Non-member cannot mention into a private project
 
 **User Role:** Authenticated non-member
 **Steps:**
@@ -164,7 +164,7 @@ checked by default; uncheck it explicitly or this case will falsely pass.
 
 ---
 
-### TC-MEN-910: Permission revocation takes effect without re-login
+### TC-MEN-067: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
 **Steps:**
@@ -176,7 +176,7 @@ checked by default; uncheck it explicitly or this case will falsely pass.
 
 ---
 
-### TC-MEN-911: Mentions in an archived or closed project
+### TC-MEN-068: Mentions in an archived or closed project
 
 **User Role:** Member
 **Steps:**
@@ -188,7 +188,7 @@ checked by default; uncheck it explicitly or this case will falsely pass.
 
 ---
 
-### TC-MEN-912: Mentioning a user across project boundaries
+### TC-MEN-069: Mentioning a user across project boundaries
 
 **User Role:** Member of project A only
 **Preconditions:** Confirm the target user is genuinely a member of project B and not of project A, so the
@@ -197,7 +197,7 @@ scenario is real rather than synthetic.
 1. Mention that user on an issue in project A.
 
 **Expected Result:**
-- Record the behaviour. Mentioning a user who cannot see project A reduces to TC-MEN-905/906 and must satisfy both:
+- Record the behaviour. Mentioning a user who cannot see project A reduces to TC-MEN-062/906 and must satisfy both:
   no access granted, and no project A content in the email.
 
 ---

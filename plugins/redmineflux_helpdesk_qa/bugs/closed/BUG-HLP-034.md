@@ -84,12 +84,12 @@ end
 
 ## Duplicate check
 
-- Duplicate found: No (checked `bugs/_duplicates.md` — empty register; TC-HLP-302 tested the same general "exactly one agent, notification follows that agent" shape on an L1→L2 hop but explicitly left the *rule itself* undetermined, treating "any pick" as acceptable — this bug is a distinct, sharper finding: not just "one agent is picked" but "it is always the *same* one, forever, with no distribution")
+- Duplicate found: No (checked `bugs/_duplicates.md` — empty register; TC-HLP-323 tested the same general "exactly one agent, notification follows that agent" shape on an L1→L2 hop but explicitly left the *rule itself* undetermined, treating "any pick" as acceptable — this bug is a distinct, sharper finding: not just "one agent is picked" but "it is always the *same* one, forever, with no distribution")
 - Existing bug reference (if duplicate): —
 
 ## Notes
 
-- Found while executing `HELPDESK_SLA_ESCALATION.md` TC-HLP-366 (2026-09-03), written specifically to determine the selection rule after the user asked directly whether escalation assignment is random, round-robin, workload-based, or priority-order-based, and pointed out this looked like a real gap.
+- Found while executing `HELPDESK_SLA_ESCALATION.md` TC-HLP-333 (2026-09-03), written specifically to determine the selection rule after the user asked directly whether escalation assignment is random, round-robin, workload-based, or priority-order-based, and pointed out this looked like a real gap.
 - Severity judged **Medium**: this is not a crash or data-loss defect, and no documented contract in the strict sense promises round-robin/workload distribution — but the user guide's own canonical example treats multi-agent levels as the normal configuration, and a support level with 2+ named agents that in practice only ever routes to one of them defeats the visible purpose of configuring more than one assignee at all. This is a real functional/fairness gap a product owner would reasonably want fixed (workload distribution, round-robin, or at minimum some rotation), not a cosmetic issue.
 - New reusable fixture created for this finding, kept for future regression: `aurora.wren` (User ID 30, Agent role, Support Level L3) — see `HELPDESK_USERS_AND_CUSTOMERS.md`'s 2026-09-03 fixture block. L3 is now genuinely 2-agent (Willow Belle + Aurora Wren) going forward.
 

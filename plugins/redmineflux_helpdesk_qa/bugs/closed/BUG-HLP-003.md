@@ -58,7 +58,7 @@ This is the first time the actual Edit-form defect (not the list-toggle workarou
 ## Expected result
 
 - Unchecking Active on an existing entity's Edit form and saving should persist the entity as inactive — matching `HELPDESK_USER_GUIDE.md` §14's explicit documented behavior for Canned Responses: *"Deactivate a response instead of deleting it and it stops being offered while its history stays intact."*
-- The deactivated entity should then be excluded from wherever "active only" listings are offered (e.g. the ticket reply's Canned Response dropdown, per TC-HLP-177).
+- The deactivated entity should then be excluded from wherever "active only" listings are offered (e.g. the ticket reply's Canned Response dropdown, per TC-HLP-033).
 
 ## Actual result
 
@@ -67,7 +67,7 @@ This is the first time the actual Edit-form defect (not the list-toggle workarou
 - **SLA:** identical to Organization — unchecking Active on the Edit form and saving has no effect (confirmed via real repro on "Standard" during re-verification, not just DOM inspection), but the list-level toggle workaround works correctly.
 - **Product:** does NOT reproduce this bug — the Edit form's Active checkbox correctly reflects true state and correctly persists an uncheck on save (confirmed via real repro on a throwaway "Reverify Test Product"). Removed from this bug's scope.
 - **Support Level:** does NOT reproduce this bug either — the Edit form's Active checkbox correctly reflects true state and correctly persists an uncheck on save (confirmed via a clean repro on "L1", reached via its real UI Edit link). An earlier same-session finding suggesting a different, worse defect here was a testing artifact and has been retracted — see the CORRECTION section above.
-- TC-HLP-177 ("Deactivating a canned response removes it from the dropdown but keeps past usage intact") cannot pass as written — Step 1 of that TC ("Deactivate the canned response") never actually succeeds, and there is no workaround for this specific entity.
+- TC-HLP-033 ("Deactivating a canned response removes it from the dropdown but keeps past usage intact") cannot pass as written — Step 1 of that TC ("Deactivate the canned response") never actually succeeds, and there is no workaround for this specific entity.
 
 ## Evidence
 

@@ -25,7 +25,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-501: Create a lead with all fields
+### TC-CRM-159: Create a lead with all fields
 
 **User Role:** Member with **Manage Leads**
 **Steps:**
@@ -37,7 +37,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-502: Create a lead with only the required fields
+### TC-CRM-160: Create a lead with only the required fields
 
 **User Role:** Member
 **Steps:**
@@ -48,7 +48,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-503: Source and status lists match the configuration
+### TC-CRM-161: Source and status lists match the configuration
 
 **User Role:** Member
 **Steps:**
@@ -59,7 +59,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-504: Edit a lead
+### TC-CRM-162: Edit a lead
 
 **User Role:** Member with Manage Leads
 **Steps:**
@@ -74,7 +74,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-505: First name and email are required
+### TC-CRM-163: First name and email are required
 
 **User Role:** Member
 **Steps:**
@@ -85,7 +85,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-506: Email must be unique across all leads
+### TC-CRM-164: Email must be unique across all leads
 
 **User Role:** Member
 **Steps:**
@@ -93,12 +93,12 @@ CRM → **Leads**. Do not type URLs.
 
 **Expected Result:**
 - Refused with a uniqueness message.
-- Record the case behaviour — the import deduplicates by email (TC-CRM-711) and conversion matches contacts by
-  email (TC-CRM-512), so case-insensitivity matters in three places at once.
+- Record the case behaviour — the import deduplicates by email (TC-CRM-124) and conversion matches contacts by
+  email (TC-CRM-170), so case-insensitivity matters in three places at once.
 
 ---
 
-### TC-CRM-507: A lead's email may duplicate a contact's email
+### TC-CRM-165: A lead's email may duplicate a contact's email
 
 **User Role:** Member
 **Steps:**
@@ -106,12 +106,12 @@ CRM → **Leads**. Do not type URLs.
 
 **Expected Result:**
 - Allowed — uniqueness is stated as being **across leads**, not across contacts.
-- This is the normal precursor to conversion reusing that contact (TC-CRM-512), so refusing it would break the
+- This is the normal precursor to conversion reusing that contact (TC-CRM-170), so refusing it would break the
   documented flow. Record whichever applies.
 
 ---
 
-### TC-CRM-508: `Converted` cannot be set manually
+### TC-CRM-166: `Converted` cannot be set manually
 
 **User Role:** Member with Manage Leads
 **Steps:**
@@ -121,7 +121,7 @@ CRM → **Leads**. Do not type URLs.
 **Expected Result:**
 - Refused at the endpoint.
 - **A manually "Converted" lead has no contact, no company and no conversion activity, yet is locked against both
-  re-conversion and deletion** (TC-CRM-518, 519) — an unrecoverable orphan record created in one API call. This is
+  re-conversion and deletion** (TC-CRM-176, 519) — an unrecoverable orphan record created in one API call. This is
   the most valuable negative case in the suite.
 
 ---
@@ -130,7 +130,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-509: Only Qualified leads can be converted
+### TC-CRM-167: Only Qualified leads can be converted
 
 **User Role:** Member with Manage Leads
 **Steps:**
@@ -142,7 +142,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-510: Convert without creating a deal
+### TC-CRM-168: Convert without creating a deal
 
 **User Role:** Member
 **Steps:**
@@ -155,7 +155,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-511: Convert and create a deal
+### TC-CRM-169: Convert and create a deal
 
 **User Role:** Member
 **Steps:**
@@ -168,7 +168,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-512: An existing contact with the same email is reused
+### TC-CRM-170: An existing contact with the same email is reused
 
 **User Role:** Member
 **Steps:**
@@ -180,7 +180,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-513: Merging only fills blank contact fields
+### TC-CRM-171: Merging only fills blank contact fields
 
 **User Role:** Member
 **Steps:**
@@ -198,7 +198,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-514: An existing company with the same name is reused
+### TC-CRM-172: An existing company with the same name is reused
 
 **User Role:** Member
 **Steps:**
@@ -207,11 +207,11 @@ CRM → **Leads**. Do not type URLs.
 **Expected Result:**
 - The existing company is reused; no duplicate is created.
 - Also try a case or whitespace variant and record the result — if matching is exact-only, conversions will
-  quietly create near-duplicate companies (see TC-CRM-306).
+  quietly create near-duplicate companies (see TC-CRM-077).
 
 ---
 
-### TC-CRM-515: A new company is created when none matches
+### TC-CRM-173: A new company is created when none matches
 
 **User Role:** Member
 **Steps:**
@@ -222,7 +222,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-516: Conversion with no company name
+### TC-CRM-174: Conversion with no company name
 
 **User Role:** Member
 **Steps:**
@@ -234,7 +234,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-517: Conversion logs an automatic activity
+### TC-CRM-175: Conversion logs an automatic activity
 
 **User Role:** Member
 **Steps:**
@@ -250,7 +250,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-518: A converted lead cannot be converted again
+### TC-CRM-176: A converted lead cannot be converted again
 
 **User Role:** Member
 **Steps:**
@@ -264,7 +264,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-519: A converted lead cannot be deleted
+### TC-CRM-177: A converted lead cannot be deleted
 
 **User Role:** Member with **Delete CRM Data**
 **Steps:**
@@ -278,18 +278,18 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-520: Conversion when the Qualified status has been removed
+### TC-CRM-178: Conversion when the Qualified status has been removed
 
 **User Role:** Admin + Member
 **Steps:**
-1. Remove `Qualified` from the lead statuses (see TC-CRM-111), then attempt to convert a lead.
+1. Remove `Qualified` from the lead statuses (see TC-CRM-149), then attempt to convert a lead.
 
 **Expected Result:**
 - Conversion is impossible, and the reason is explained rather than the action silently disappearing.
 
 ---
 
-### TC-CRM-521: Conversion failure leaves nothing half-created
+### TC-CRM-179: Conversion failure leaves nothing half-created
 
 **User Role:** Member
 **Steps:**
@@ -304,7 +304,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-522: Conversion respects permissions
+### TC-CRM-180: Conversion respects permissions
 
 **User Role:** Member with **Manage Leads** but without **Manage Contacts** and without **Manage Deals**
 **Steps:**
@@ -313,11 +313,11 @@ CRM → **Leads**. Do not type URLs.
 **Expected Result:**
 - Record the behaviour precisely. Conversion creates records in two other entity types, so it must not become a
   route to create contacts and deals for a user who holds neither permission.
-- Whichever way it falls, the result must be consistent — and never partially applied (TC-CRM-521).
+- Whichever way it falls, the result must be consistent — and never partially applied (TC-CRM-179).
 
 ---
 
-### TC-CRM-523: Conversion with a private lead
+### TC-CRM-181: Conversion with a private lead
 
 **User Role:** Member
 **Steps:**
@@ -329,7 +329,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-524: Concurrent conversion of the same lead
+### TC-CRM-182: Concurrent conversion of the same lead
 
 **User Role:** Two members
 **Steps:**
@@ -341,7 +341,7 @@ CRM → **Leads**. Do not type URLs.
 
 ---
 
-### TC-CRM-525: Long values and script content in lead fields
+### TC-CRM-183: Long values and script content in lead fields
 
 **User Role:** Member
 **Steps:**

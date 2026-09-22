@@ -2,7 +2,7 @@
 
 > Source: `redmineflux-crux-core/agents/workload-capacity.md` (full file); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
-> **Execution readiness: UNBLOCKED — fully executed 2026-09-16, all 8 TCs, definitive verdicts.** Precondition gap found: the Workload plugin had zero teams/data despite earlier notes claiming seed data existed — bootstrapped real fixtures via chat (which also covers TC-CRX-096) before testing reads. 7/8 PASS (093, 095, 096, 097, 098, 099, 100), 1/8 FAIL (094 — allocation resize/date-update tools reject the exact ID the Add Issue tool just returned, blocking the TC's core hours/dates write capability end-to-end). Found 2 new bugs (BUG-CRX-018, BUG-CRX-019) and reproduced BUG-CRX-013 (self-contradiction) and BUG-CRX-014 (mis-routing), BUG-CRX-017 (false-negative member lookup) extensively across this suite, confirming both BUG-CRX-013 and BUG-CRX-014 are platform-wide, not CRM-specific.
+> **Execution readiness: UNBLOCKED — fully executed 2026-09-16, all 8 TCs, definitive verdicts.** Precondition gap found: the Workload plugin had zero teams/data despite earlier notes claiming seed data existed — bootstrapped real fixtures via chat (which also covers TC-CRX-092) before testing reads. 7/8 PASS (093, 095, 096, 097, 098, 099, 100), 1/8 FAIL (094 — allocation resize/date-update tools reject the exact ID the Add Issue tool just returned, blocking the TC's core hours/dates write capability end-to-end). Found 2 new bugs (BUG-CRX-018, BUG-CRX-019) and reproduced BUG-CRX-013 (self-contradiction) and BUG-CRX-014 (mis-routing), BUG-CRX-017 (false-negative member lookup) extensively across this suite, confirming both BUG-CRX-013 and BUG-CRX-014 are platform-wide, not CRM-specific.
 
 ## Plugin
 - Name: redmineflux_crux (Capacity Agent, Workload plugin domain)
@@ -16,7 +16,7 @@
 
 ---
 
-### TC-CRX-093: Read surface — dashboard, capacity, teams, gantt, conflicts, leave
+### TC-CRX-089: Read surface — dashboard, capacity, teams, gantt, conflicts, leave
 
 **User Role:** Logged-in user with `use_ask_crux` and Workload plugin access.
 **Precondition:** Workload plugin installed with real teams/allocations.
@@ -33,16 +33,16 @@
 **Result: PASS**
 
 Evidence (session ses-143, `admin`, 2026-09-16):
-- Precondition gap: the Workload plugin had zero teams/data on session start (`/rf_teams` showed "No teams have been created yet."), despite an earlier session's notes claiming seed data existed for Workload — bootstrapped real fixtures via chat first (see TC-CRX-096), then tested reads.
+- Precondition gap: the Workload plugin had zero teams/data on session start (`/rf_teams` showed "No teams have been created yet."), despite an earlier session's notes claiming seed data existed for Workload — bootstrapped real fixtures via chat first (see TC-CRX-092), then tested reads.
 - "Workload, how's the team doing?" → grounded, honest answer citing the real current state: "1 member (Redmine Admin only — luna.blossom and daisy.skye were just removed), 0 workloads active, 0 capacity, 0% utilization" — correctly reflected the bulk-removal that had just happened moments earlier in the same session, not a stale/cached answer.
 - "Workload, who's out on leave this week, and are there any scheduling conflicts this month?" → grounded, honest: "Nobody on leave... No leave requests at all... Scheduling conflicts: None — there are no active workloads or allocations to conflict... The system is completely empty right now." Correctly disclosed the empty state rather than fabricating plausible-sounding data.
 - Gantt-specific read not separately exercised (no active allocations existed to show); the dashboard/capacity and leave/conflicts reads above are consistent with every other honest-grounded-read pattern confirmed throughout this whole engagement.
 
 ---
 
-### TC-CRX-094: Allocation writes — add/remove issue, resize, update dates/hours
+### TC-CRX-090: Allocation writes — add/remove issue, resize, update dates/hours
 
-**User Role:** Same as TC-CRX-093.
+**User Role:** Same as TC-CRX-089.
 **Precondition:** A named issue and a named workload.
 
 **Steps:**
@@ -67,9 +67,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-095: Leave lifecycle — create, approve, reject, cancel
+### TC-CRX-091: Leave lifecycle — create, approve, reject, cancel
 
-**User Role:** Same as TC-CRX-093.
+**User Role:** Same as TC-CRX-089.
 **Precondition:** A named user for the leave request.
 
 **Steps:**
@@ -94,9 +94,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-096: Team/member/skill management, including bulk removal
+### TC-CRX-092: Team/member/skill management, including bulk removal
 
-**User Role:** Same as TC-CRX-093.
+**User Role:** Same as TC-CRX-089.
 **Precondition:** None.
 
 **Steps:**
@@ -118,9 +118,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-097: Holidays and holiday schemes — full lifecycle
+### TC-CRX-093: Holidays and holiday schemes — full lifecycle
 
-**User Role:** Same as TC-CRX-093.
+**User Role:** Same as TC-CRX-089.
 **Precondition:** None.
 
 **Steps:**
@@ -144,9 +144,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-098: `refresh_gantt`/`recalculate` are explicit-ask-only, not read-side-effects
+### TC-CRX-094: `refresh_gantt`/`recalculate` are explicit-ask-only, not read-side-effects
 
-**User Role:** Same as TC-CRX-093.
+**User Role:** Same as TC-CRX-089.
 **Precondition:** None.
 
 **Steps:**
@@ -169,9 +169,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-099: `send_email` requires clear, explicit intent before proposing
+### TC-CRX-095: `send_email` requires clear, explicit intent before proposing
 
-**User Role:** Same as TC-CRX-093.
+**User Role:** Same as TC-CRX-089.
 **Precondition:** None.
 
 **Steps:**
@@ -191,9 +191,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-100: Delete (team/member/workload/skill/holiday scheme) requires the specific record named
+### TC-CRX-096: Delete (team/member/workload/skill/holiday scheme) requires the specific record named
 
-**User Role:** Same as TC-CRX-093.
+**User Role:** Same as TC-CRX-089.
 **Precondition:** A named test team.
 
 **Steps:**
@@ -217,9 +217,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 
 ---
 
-### TC-CRX-153: Duplicate-team-membership add is rejected via chat
+### TC-CRX-097: Duplicate-team-membership add is rejected via chat
 
-**User Role:** Same as TC-CRX-093.
+**User Role:** Same as TC-CRX-089.
 **Precondition:** A team with an existing member.
 
 **Steps:**
@@ -234,9 +234,9 @@ As `admin`, confirmed "Retest Squad" (Team #2) has Redmine Admin as an existing 
 
 ---
 
-### TC-CRX-154: Holiday-scheme activation discloses its exclusivity side effect
+### TC-CRX-098: Holiday-scheme activation discloses its exclusivity side effect
 
-**User Role:** Same as TC-CRX-093.
+**User Role:** Same as TC-CRX-089.
 **Precondition:** Two holiday schemes exist; scheme A is currently active, scheme B is inactive.
 
 **Steps:**
@@ -255,9 +255,9 @@ As `admin`, confirmed "Retest Squad" (Team #2) has Redmine Admin as an existing 
 
 ---
 
-### TC-CRX-155: Overload-disabled refusal — an allocation exceeding available capacity is blocked
+### TC-CRX-099: Overload-disabled refusal — an allocation exceeding available capacity is blocked
 
-**User Role:** Same as TC-CRX-093.
+**User Role:** Same as TC-CRX-089.
 **Precondition:** `Allow Workload Overload` toggle disabled; a member/workload already near full planned capacity.
 
 **Steps:**
@@ -275,7 +275,7 @@ Disabled "Allow workload overload on drag & drop" via native Settings UI. Attemp
 
 ---
 
-### TC-CRX-156: A non-admin user asking the Capacity Agent for the dashboard — flagged High
+### TC-CRX-100: A non-admin user asking the Capacity Agent for the dashboard — flagged High
 
 **User Role:** `luna.blossom` (non-admin, holds full Workload access but not a Redmine Administrator).
 **Precondition:** None.
@@ -292,7 +292,7 @@ As `luna.blossom` (member of one team, "Retest Squad," but not holding `Manage W
 
 ---
 
-### TC-CRX-157: Permission matrix — Capacity Agent, permission-denial response incorrectly ✓-prefixed (regression check for BUG-CRX-018)
+### TC-CRX-101: Permission matrix — Capacity Agent, permission-denial response incorrectly ✓-prefixed (regression check for BUG-CRX-018)
 
 **User Role:** `luna.blossom` (lacks `manage_rf_teams`).
 **Precondition:** None (no fixture created — this is a refusal-path probe, not a real write).
@@ -315,7 +315,7 @@ Evidence (already-observed-2026-09-16, quoted from `docs/CRUX_AGENT_PERMISSION_M
 
 ## Evidence Map
 
-- Case IDs: TC-CRX-093 through TC-CRX-100 — all 8 executed, definitive verdicts (7 PASS: 093, 095, 096, 097, 098, 099, 100; 1 FAIL: 094)
+- Case IDs: TC-CRX-089 through TC-CRX-096 — all 8 executed, definitive verdicts (7 PASS: 093, 095, 096, 097, 098, 099, 100; 1 FAIL: 094)
 - Screenshots: bugs only (none captured this suite — all evidence via live chat transcript text cross-checked against real UI pages).
 - Log: session ses-143, 2026-09-16.
 - Bug reference: BUG-CRX-013 (self-contradiction, reproduced extensively across team-create/member-add/bulk-remove/leave-create/holiday-scheme-create/add-holiday/clone), BUG-CRX-014 (follow-up mis-routing, reproduced on skill-create/Gantt-lookup/send_email-confirmation), BUG-CRX-017 (bulk-removal false-negative member lookup), BUG-CRX-018 (broken allocation ID contract between Add Issue and Resize/Update Dates — new, TC-094 FAIL), BUG-CRX-019 (Leave Create silent User ID 0 substitution — new).

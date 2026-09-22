@@ -13,7 +13,7 @@
 
 Project → **TestCases** → **To-Do** sidebar icon; activity is on the dashboard's Activity panel and the
 `/testcase_activities` view. To-Do visibility is permission-driven — see `TESTCASE_MANAGEMENT_PERMISSIONS.md`
-TC-TCM-822 – 824 for the permission legs; the cases here cover the functional behaviour.
+TC-TCM-204 – 824 for the permission legs; the cases here cover the functional behaviour.
 
 **Precondition:** ≥2 users with execution work assigned across ≥1 run.
 
@@ -23,7 +23,7 @@ TC-TCM-822 – 824 for the permission legs; the cases here cover the functional 
 
 ---
 
-### TC-TCM-701: To-Do lists work assigned to the current user
+### TC-TCM-205: To-Do lists work assigned to the current user
 
 **User Role:** QA (assignee)
 **Steps:**
@@ -35,7 +35,7 @@ TC-TCM-822 – 824 for the permission legs; the cases here cover the functional 
 
 ---
 
-### TC-TCM-702: Executing a case updates its To-Do state
+### TC-TCM-206: Executing a case updates its To-Do state
 
 **User Role:** QA
 **Steps:**
@@ -48,7 +48,7 @@ TC-TCM-822 – 824 for the permission legs; the cases here cover the functional 
 
 ---
 
-### TC-TCM-703: Reassigning work moves the To-Do item
+### TC-TCM-207: Reassigning work moves the To-Do item
 
 **User Role:** QA / Manager
 **Steps:**
@@ -60,7 +60,7 @@ TC-TCM-822 – 824 for the permission legs; the cases here cover the functional 
 
 ---
 
-### TC-TCM-704: To-Do reflects run closure
+### TC-TCM-208: To-Do reflects run closure
 
 **User Role:** QA
 **Steps:**
@@ -69,11 +69,11 @@ TC-TCM-822 – 824 for the permission legs; the cases here cover the functional 
 
 **Expected Result:**
 - Items from the closed run are removed or clearly marked closed — a closed run must not leave actionable items
-  that cannot be executed (see `TESTCASE_MANAGEMENT_TEST_RUNS.md` TC-TCM-408).
+  that cannot be executed (see `TESTCASE_MANAGEMENT_TEST_RUNS.md` TC-TCM-159).
 
 ---
 
-### TC-TCM-705: To-Do is project-scoped
+### TC-TCM-209: To-Do is project-scoped
 
 **User Role:** QA assigned work in two projects
 **Steps:**
@@ -84,7 +84,7 @@ TC-TCM-822 – 824 for the permission legs; the cases here cover the functional 
 
 ---
 
-### TC-TCM-706: To-Do with no assigned work renders cleanly
+### TC-TCM-210: To-Do with no assigned work renders cleanly
 
 **User Role:** a user with no assignments
 **Steps:**
@@ -99,7 +99,7 @@ TC-TCM-822 – 824 for the permission legs; the cases here cover the functional 
 
 ---
 
-### TC-TCM-707: Executing a case writes an activity entry
+### TC-TCM-211: Executing a case writes an activity entry
 
 **User Role:** QA
 **Steps:**
@@ -112,7 +112,7 @@ TC-TCM-822 – 824 for the permission legs; the cases here cover the functional 
 
 ---
 
-### TC-TCM-708: Activity entries attribute the correct user
+### TC-TCM-212: Activity entries attribute the correct user
 
 **User Role:** two QA users
 **Steps:**
@@ -124,7 +124,7 @@ TC-TCM-822 – 824 for the permission legs; the cases here cover the functional 
 
 ---
 
-### TC-TCM-709: Activity log covers run lifecycle events
+### TC-TCM-213: Activity log covers run lifecycle events
 
 **User Role:** QA
 **Steps:**
@@ -136,7 +136,7 @@ TC-TCM-822 – 824 for the permission legs; the cases here cover the functional 
 
 ---
 
-### TC-TCM-710: Activity log respects project scope and permissions
+### TC-TCM-214: Activity log respects project scope and permissions
 
 **User Role:** QA member of Project A only
 **Steps:**
@@ -153,8 +153,8 @@ TC-TCM-822 – 824 for the permission legs; the cases here cover the functional 
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-701 – 706 | To-Do behaviour | — |
-| TC-TCM-707 – 710 | Activity log | — |
+| TC-TCM-205 – 706 | To-Do behaviour | — |
+| TC-TCM-211 – 710 | Activity log | — |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
-- TC-TCM-710 carries the only security-relevant assertion in this suite and must include the direct-URL leg.
+- TC-TCM-214 carries the only security-relevant assertion in this suite and must include the direct-URL leg.

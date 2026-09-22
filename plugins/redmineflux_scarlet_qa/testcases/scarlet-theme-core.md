@@ -26,21 +26,21 @@
 |-------|-------|--------|---------|
 | TC-RSC-005 | Issues list renders — priority icons visible | FAIL | BUG-RSC-003 |
 | TC-RSC-006 | New Issue form renders — all fields and RTE | PASS | BUG-RSC-002 (console) |
-| TC-RSC-011 | Issue detail page — attributes, tabs, watchers | PASS | BUG-RSC-002 (console) |
+| TC-RSC-007 | Issue detail page — attributes, tabs, watchers | PASS | BUG-RSC-002 (console) |
 
 ### Suite: Administration
 
 | TC ID | Title | Result | Bug Ref |
 |-------|-------|--------|---------|
-| TC-RSC-007 | Administration panel renders | PASS | — |
-| TC-RSC-008 | Settings — General tab renders | PASS | — |
+| TC-RSC-008 | Administration panel renders | PASS | — |
+| TC-RSC-009 | Settings — General tab renders | PASS | — |
 
 ### Suite: Calendar, Roadmap, My Account, Search
 
 | TC ID | Title | Result | Bug Ref |
 |-------|-------|--------|---------|
-| TC-RSC-009 | Core Gantt on ztflux project | INFO | Module disabled on ztflux |
-| TC-RSC-010 | Calendar renders — month grid, navigation | PASS | — |
+| TC-RSC-010 | Core Gantt on ztflux project | INFO | Module disabled on ztflux |
+| TC-RSC-011 | Calendar renders — month grid, navigation | PASS | — |
 | TC-RSC-012 | My Account page renders | PASS | — |
 | TC-RSC-013 | Roadmap renders — versions, progress bars | PASS | — |
 | TC-RSC-014 | Search results page renders | PASS | — |
@@ -83,19 +83,19 @@
 | TC-RSC-027 | Admin Custom Fields renders | PASS | — |
 | TC-RSC-028 | Admin Workflows renders | PASS | — |
 | TC-RSC-029 | Admin Enumerations renders | PASS | — |
-| TC-RSC-035 | Admin Trackers renders | PASS | — |
-| TC-RSC-036 | Admin Issue Statuses renders | PASS | — |
-| TC-RSC-037 | Admin Groups renders | PASS | — |
+| TC-RSC-030 | Admin Trackers renders | PASS | — |
+| TC-RSC-031 | Admin Issue Statuses renders | PASS | — |
+| TC-RSC-032 | Admin Groups renders | PASS | — |
 
 ### Suite: Settings Tabs
 
 | TC ID | Title | Result | Bug Ref |
 |-------|-------|--------|---------|
-| TC-RSC-030 | Settings — Display tab (theme confirmed active) | PASS | — |
-| TC-RSC-031 | Settings — Authentication tab renders | PASS | — |
-| TC-RSC-032 | Settings — API tab renders | PASS | — |
-| TC-RSC-033 | Settings — Issues tab renders | PASS | — |
-| TC-RSC-034 | Settings — Notifications tab renders | PASS | — |
+| TC-RSC-033 | Settings — Display tab (theme confirmed active) | PASS | — |
+| TC-RSC-034 | Settings — Authentication tab renders | PASS | — |
+| TC-RSC-035 | Settings — API tab renders | PASS | — |
+| TC-RSC-036 | Settings — Issues tab renders | PASS | — |
+| TC-RSC-037 | Settings — Notifications tab renders | PASS | — |
 
 ### Suite: Issue Bulk Edit
 

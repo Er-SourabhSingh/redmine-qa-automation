@@ -17,7 +17,7 @@
 
 ---
 
-### TC-CHK-301: Change an item status via the dropdown
+### TC-CHK-079: Change an item status via the dropdown
 
 **User Role:** Member
 **Steps:**
@@ -37,7 +37,7 @@ reloaded the page — value still `in_progress`. Persists correctly.
 
 ---
 
-### TC-CHK-302: Mark an item Done via its checkbox
+### TC-CHK-080: Mark an item Done via its checkbox
 
 **User Role:** Member
 **Steps:**
@@ -53,7 +53,7 @@ disagreement between the two controls.
 
 ---
 
-### TC-CHK-303: Unticking the checkbox reverts the status
+### TC-CHK-081: Unticking the checkbox reverts the status
 
 **User Role:** Member
 **Steps:**
@@ -70,7 +70,7 @@ defect: the checkbox only has two real states (done / not-done), so "not-done" c
 
 ---
 
-### TC-CHK-304: Progress bar percentage is accurate
+### TC-CHK-082: Progress bar percentage is accurate
 
 **User Role:** Member
 **Steps:**
@@ -87,7 +87,7 @@ the displayed number — no rounding artifact (not 99%), matches completed ÷ to
 
 ---
 
-### TC-CHK-305: "Auto-calculate % done from checklist" drives the issue's % Done field
+### TC-CHK-083: "Auto-calculate % done from checklist" drives the issue's % Done field
 
 **User Role:** Admin to configure, Member to execute
 **Steps:**
@@ -108,7 +108,7 @@ Progress field read exactly 50%. Both changes appear as standard journal entries
 
 ---
 
-### TC-CHK-306: Auto-calculate disabled leaves % Done under manual control
+### TC-CHK-084: Auto-calculate disabled leaves % Done under manual control
 
 **User Role:** Admin to configure, Member to execute
 **Steps:**
@@ -127,7 +127,7 @@ of this session's testing).
 
 ---
 
-### TC-CHK-307: Progress is per-checklist, not per-issue, when several checklists exist
+### TC-CHK-085: Progress is per-checklist, not per-issue, when several checklists exist
 
 **User Role:** Member
 **Steps:**
@@ -142,7 +142,7 @@ CONFIRMED LIVE 2026-09-21 (issue #1538: checklist "Progress item A" — 4/4 sub-
 
 ---
 
-### TC-CHK-308: Status changes appear in Checklist History
+### TC-CHK-086: Status changes appear in Checklist History
 
 **User Role:** Member
 **Steps:**
@@ -168,7 +168,7 @@ the Checklist History tab click) — the comment states it's already fixed by re
 
 ---
 
-### TC-CHK-309: Progress on an empty checklist
+### TC-CHK-087: Progress on an empty checklist
 
 **User Role:** Member
 **Steps:**
@@ -184,7 +184,7 @@ a misleading `100%`. No divide-by-zero defect.
 
 ---
 
-### TC-CHK-310: Deleting the only completed item recalculates progress
+### TC-CHK-088: Deleting the only completed item recalculates progress
 
 **User Role:** Member
 **Steps:**
@@ -200,7 +200,7 @@ denominator.
 
 ---
 
-### TC-CHK-311: Adding an item to a 100% checklist
+### TC-CHK-089: Adding an item to a 100% checklist
 
 **User Role:** Member
 **Steps:**
@@ -214,7 +214,7 @@ CONFIRMED LIVE 2026-09-21 (checklist "Progress item A", 4/4 items done = 100%, a
 
 ---
 
-### TC-CHK-312: Auto-calculate with zero checklist items
+### TC-CHK-090: Auto-calculate with zero checklist items
 
 **User Role:** Admin + Member
 **Steps:**
@@ -227,7 +227,7 @@ CONFIRMED LIVE 2026-09-21 (checklist "Progress item A", 4/4 items done = 100%, a
 CONFIRMED LIVE 2026-09-21 (auto-calculate enabled; issue #1541 created with % Done manually set to 40, then one
 empty checklist "Empty checklist test" — 0 sub-items — was added): **PASS, documented/consistent branch.** %
 Done dropped 40 → 0 immediately, journaled "Progress changed from 40 to 0". This is the *intended* mechanism of
-"auto-calculate issue progress from checklists" (TC-CHK-305/306), not silent data loss: once any checklist exists
+"auto-calculate issue progress from checklists" (TC-CHK-083/306), not silent data loss: once any checklist exists
 on the issue and the feature is on, % Done stops being manual and becomes checklist-derived; a freshly-created
 checklist with 0 completed items is 0% complete, so the derived value is 0%. Same formula, same trigger condition
 as every other auto-calculate case in this suite — consistent, not a one-off surprise. **Not a bug**, retracted an
@@ -235,7 +235,7 @@ initial bug filing (BUG-CHK-003) after re-reading the feature's actual contract.
 
 ---
 
-### TC-CHK-313: Rapid toggling of a checkbox
+### TC-CHK-091: Rapid toggling of a checkbox
 
 **User Role:** Member
 **Steps:**
@@ -266,7 +266,7 @@ a fresh item "Rapid toggle repro item" in checklist C): **FAIL — one part pass
 
 ---
 
-### TC-CHK-314: Status change by a user without issue-edit permission
+### TC-CHK-092: Status change by a user without issue-edit permission
 
 **User Role:** Reporter-only or read-only member
 **Steps:**
@@ -290,8 +290,8 @@ control and blocked endpoint agree; no High-severity gap.
 
 | Case ID | Screenshot | Log | Bug reference |
 |---------|------------|-----|---------------|
-| TC-CHK-313 | screenshots/BUG-CHK-004/rapid-toggle-duplicate-journal-entries.png | inline evidence above | BUG-CHK-004 |
-| TC-CHK-301–312, 314 | n/a (no bugs found) | inline evidence above | none |
+| TC-CHK-091 | screenshots/BUG-CHK-004/rapid-toggle-duplicate-journal-entries.png | inline evidence above | BUG-CHK-004 |
+| TC-CHK-079–312, 314 | n/a (no bugs found) | inline evidence above | none |
 
 ## Summary
 

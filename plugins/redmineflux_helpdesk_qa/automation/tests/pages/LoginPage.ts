@@ -77,7 +77,7 @@ export class LoginPage extends BasePage {
 
   /**
    * Reaches the login form. Prefers clicking "Sign in" from the home page
-   * (matches what TC-HLP-060-style navigation tests actually exercise), but
+   * (matches what TC-HLP-147-style navigation tests actually exercise), but
    * this environment's current config (confirmed live 2026-09-14 on
    * localhost:3012, redmine-docker-6) redirects an anonymous goto('/')
    * straight to /login with no home page to click through at all — so fall

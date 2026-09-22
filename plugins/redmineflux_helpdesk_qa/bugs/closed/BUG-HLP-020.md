@@ -8,24 +8,24 @@
 - Plugin version: (installed copy in `redmine-docker-6-redmine-1`, current as of 2026-09-01)
 - Environment: Local (`http://localhost:3012`, container `redmine-docker-6-redmine-1`)
 - Browser: Chromium (Playwright MCP)
-- User role: Admin (performed the unassign/reassign as part of `HELPDESK_SLA_ESCALATION.md` TC-HLP-086)
+- User role: Admin (performed the unassign/reassign as part of `HELPDESK_SLA_ESCALATION.md` TC-HLP-298)
 - Date: 2026-09-01
 
 ## Steps to reproduce
 
-1. Ticket #15 ("TC-HLP-091 mid-level entry test"), on Helpdesk QA Alpha, running "Alpha Escalation Test SLA" (1-minute targets) at Support Level L2, assigned to Autumn Grace, Status "In Progress" (not Waiting for Customer Response). Resolution deadline: 09/01/2026 08:35 AM (UTC), clock running ("✓ On Track").
+1. Ticket #15 ("TC-HLP-308 mid-level entry test"), on Helpdesk QA Alpha, running "Alpha Escalation Test SLA" (1-minute targets) at Support Level L2, assigned to Autumn Grace, Status "In Progress" (not Waiting for Customer Response). Resolution deadline: 09/01/2026 08:35 AM (UTC), clock running ("✓ On Track").
 2. Unassign the ticket (Edit → Assigned to → blank → Submit) at ~08:36 AM UTC. SLA Information tab immediately shows **"⏸ Paused" — "Paused since 09/01/2026 08:36 AM (UTC)"**.
-3. Reassign the ticket back to Autumn Grace (Edit → Assigned to → Autumn Grace → Submit) at ~08:36:40 AM UTC, while Status remained "In Progress" throughout (never entered Waiting for Customer Response, so TC-HLP-086's "stays paused" exception does not apply — this should be a normal resume).
+3. Reassign the ticket back to Autumn Grace (Edit → Assigned to → Autumn Grace → Submit) at ~08:36:40 AM UTC, while Status remained "In Progress" throughout (never entered Waiting for Customer Response, so TC-HLP-298's "stays paused" exception does not apply — this should be a normal resume).
 4. Check the SLA Information tab immediately after reassignment.
 5. Trigger the SLA monitor (`Helpdesk::SlaMonitorWorker.new.perform`) and observe the result.
 
 ## Expected result
 
-Per this session's own confirmed behavior for the equivalent Waiting-for-Customer-Response pause/resume cycle (TC-HLP-085 — customer's reply resumed the clock and the Resolution deadline was pushed from 08:34 AM to 08:35 AM, crediting back the ~1 minute the ticket sat paused), reassigning after an unassign-pause should likewise **extend the deadline by the duration the ticket sat unassigned** — the paused window should not count against the SLA. The ticket should not become instantly overdue the moment it's reassigned.
+Per this session's own confirmed behavior for the equivalent Waiting-for-Customer-Response pause/resume cycle (TC-HLP-297 — customer's reply resumed the clock and the Resolution deadline was pushed from 08:34 AM to 08:35 AM, crediting back the ~1 minute the ticket sat paused), reassigning after an unassign-pause should likewise **extend the deadline by the duration the ticket sat unassigned** — the paused window should not count against the SLA. The ticket should not become instantly overdue the moment it's reassigned.
 
 ## Actual result
 
-The Resolution deadline **never moved from 09/01/2026 08:35 AM (UTC)** — the exact same value it held before the unassign — through the entire unassign → reassign cycle. The SLA Information tab's own Activity Log recorded **zero events** for either the unassign-pause or the reassign-resume (only the original "SLA Started" and "First Response Given" entries from before this cycle are present — compare to TC-HLP-085's cycle, which did leave a clean audit trail). Because real wall-clock time (~08:36:40 reassignment, ~08:37:50 monitor run) had already passed the un-extended 08:35 deadline, the very next SLA monitor cycle found the ticket resolution-breached:
+The Resolution deadline **never moved from 09/01/2026 08:35 AM (UTC)** — the exact same value it held before the unassign — through the entire unassign → reassign cycle. The SLA Information tab's own Activity Log recorded **zero events** for either the unassign-pause or the reassign-resume (only the original "SLA Started" and "First Response Given" entries from before this cycle are present — compare to TC-HLP-297's cycle, which did leave a clean audit trail). Because real wall-clock time (~08:36:40 reassignment, ~08:37:50 monitor run) had already passed the un-extended 08:35 deadline, the very next SLA monitor cycle found the ticket resolution-breached:
 
 ```
 [SLA][BREACH]    SLA Level : L2
@@ -62,6 +62,6 @@ Live-verified end-to-end on a fresh ticket (#404, customer-raised so it genuinel
 
 ## Notes
 
-- Found while executing `HELPDESK_SLA_ESCALATION.md` TC-HLP-086 (2026-09-01), immediately after confirming the sibling TC-HLP-085 (Waiting-for-Customer-Response pause/resume) works correctly and *does* extend the deadline — the direct side-by-side contrast between the two pause mechanisms is what makes this a confident, non-ambiguous finding rather than a timing coincidence.
+- Found while executing `HELPDESK_SLA_ESCALATION.md` TC-HLP-298 (2026-09-01), immediately after confirming the sibling TC-HLP-297 (Waiting-for-Customer-Response pause/resume) works correctly and *does* extend the deadline — the direct side-by-side contrast between the two pause mechanisms is what makes this a confident, non-ambiguous finding rather than a timing coincidence.
 - Severity judged Medium: this is a real, reproducible SLA-accuracy defect with a genuine customer-facing consequence (an unwarranted escalation + notification email), but it requires a fairly specific sequence (unassign, then real wall-clock time crossing the original deadline before reassignment) to trigger, and doesn't affect tickets that are reassigned quickly.
-- TC-HLP-086 itself: recorded as FAIL against this bug — see `HELPDESK_SLA_ESCALATION.md`.
+- TC-HLP-298 itself: recorded as FAIL against this bug — see `HELPDESK_SLA_ESCALATION.md`.

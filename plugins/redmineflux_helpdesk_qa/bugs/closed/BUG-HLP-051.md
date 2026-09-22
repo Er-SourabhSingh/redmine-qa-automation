@@ -49,16 +49,16 @@ Clicking **Edit** as the customer confirms there is no alternate path to see it 
 
 ## Duplicate check
 
-- Duplicate found: No (checked `bugs/_index.md` — no existing entry for Product visibility on the Customer role's ticket view; `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-161's only prior evidence was an Admin editing an existing ticket, never a Customer creating one)
+- Duplicate found: No (checked `bugs/_index.md` — no existing entry for Product visibility on the Customer role's ticket view; `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-014's only prior evidence was an Admin editing an existing ticket, never a Customer creating one)
 - Existing bug reference (if duplicate): —
 
 ## Retest — 2026-09-18 (Local, `redmine-docker-6`, production issue #120475 checked in)
 
 **CONFIRMED FIXED.** Root-caused the fix via source (`assets/stylesheets/customer_menu.css`): the offending CSS rule that unconditionally hid `.product` is now removed entirely, replaced with a comment explaining the original mistake — it was meant to hide a *duplicate* Product row, but that duplication was already prevented server-side (`view_hooks.rb` skips rendering its own Product row on the branded customer ticket view), so the rule was hiding the customer's only Product row, not a real duplicate.
 
-Live-verified end-to-end as `alpha.customer`: created a fresh ticket (#337) via the real customer-facing New Issue form, selecting Product "Falcon Suite". Opened the same ticket as the same customer — `.product.attribute` now resolves to `getComputedStyle(...).display === "block"` (was `"none"`), and the field grid visibly shows "Product: Falcon Suite" between Priority and Organization, exactly matching the documented `HELPDESK_USER_GUIDE.md` §7 promise. `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-161 can now be updated to reflect the customer-side case as passing too.
+Live-verified end-to-end as `alpha.customer`: created a fresh ticket (#337) via the real customer-facing New Issue form, selecting Product "Falcon Suite". Opened the same ticket as the same customer — `.product.attribute` now resolves to `getComputedStyle(...).display === "block"` (was `"none"`), and the field grid visibly shows "Product: Falcon Suite" between Priority and Organization, exactly matching the documented `HELPDESK_USER_GUIDE.md` §7 promise. `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-014 can now be updated to reflect the customer-side case as passing too.
 
 ## Notes
 
 - Found while directly investigating a user question: "does a customer select Product during ticket creation, and can they edit it after?" Selecting during creation: confirmed working. Editing after creation: confirmed customers have no field-editing surface at all post-creation (matches the plugin's documented reduced-customer-model, not itself a bug) — but that investigation surfaced this separate, real finding: the value is asked for, saved, and then permanently invisible to the very role who set it.
-- `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-161 should get a follow-up evidence note pointing at this bug, since its existing PASS only covered the Admin/Agent side of "picking a product on the ticket form saves and displays."
+- `HELPDESK_CONTENT_TEMPLATES.md` TC-HLP-014 should get a follow-up evidence note pointing at this bug, since its existing PASS only covered the Admin/Agent side of "picking a product on the ticket form saves and displays."

@@ -16,7 +16,7 @@
 
 ---
 
-### TC-HLP-042: Filter panel opens with the two default filters: Status and Customer
+### TC-HLP-398: Filter panel opens with the two default filters: Status and Customer
 
 **User Role:** Agent
 **Precondition:** Viewing the global or a project's ticket list.
@@ -31,7 +31,7 @@
 
 ---
 
-### TC-HLP-043: Add filter brings in an additional field, and removing it returns it to the menu
+### TC-HLP-399: Add filter brings in an additional field, and removing it returns it to the menu
 
 **User Role:** Agent
 **Precondition:** Filter panel open.
@@ -45,11 +45,11 @@
 - Step 2: the new filter field appears in the panel and disappears from the Add-filter menu
 - Step 3: the filter row is removed, its value cleared, and the field reappears in the Add-filter menu
 - After removal, the list is no longer narrowed by that field — the filter genuinely stops applying, not just visually hidden
-- CONFIRMED LIVE 2026-09-03 (Local, redmine-docker-6, `luna.blossom`/Agent): PASS. Clicked Add filter → Priority: the row appeared in the panel (Status, Customer, **Priority**) and "Priority" disappeared from the Add-filter menu (14 remaining: Organization Name, Assignee, Author, Updated by, SLA Status, Ticket #, Subject, Description, Created on, Progress, Start date, Due Date, Closed — plus 2 already active = 16 total, matching the known "17-fields-minus-Project-inside-a-project" quirk in `HELPDESK_MEMORY.md`). Set Priority = High, Apply → narrowed to 1 ticket (#6). Clicked the row's own Delete button: the row disappeared from the panel immediately, **but** the list stayed narrowed to 1 ticket and the URL still carried `priority_id[]=3` — the removal is visual-only until Apply is clicked again. Clicking Apply a second time (with Priority now absent from the panel) correctly restored the full 35-ticket list and stripped `priority_id` from the URL; "Priority" also reappeared in the Add-filter menu at that point. Net: the filter genuinely stops applying once Apply is re-clicked, exactly as TC-HLP-058's own wording anticipates ("...without clicking Apply again, if the UI auto-applies on removal — otherwise click Apply") — not a bug, just worth documenting precisely that Delete alone doesn't immediately re-query.
+- CONFIRMED LIVE 2026-09-03 (Local, redmine-docker-6, `luna.blossom`/Agent): PASS. Clicked Add filter → Priority: the row appeared in the panel (Status, Customer, **Priority**) and "Priority" disappeared from the Add-filter menu (14 remaining: Organization Name, Assignee, Author, Updated by, SLA Status, Ticket #, Subject, Description, Created on, Progress, Start date, Due Date, Closed — plus 2 already active = 16 total, matching the known "17-fields-minus-Project-inside-a-project" quirk in `HELPDESK_MEMORY.md`). Set Priority = High, Apply → narrowed to 1 ticket (#6). Clicked the row's own Delete button: the row disappeared from the panel immediately, **but** the list stayed narrowed to 1 ticket and the URL still carried `priority_id[]=3` — the removal is visual-only until Apply is clicked again. Clicking Apply a second time (with Priority now absent from the panel) correctly restored the full 35-ticket list and stripped `priority_id` from the URL; "Priority" also reappeared in the Add-filter menu at that point. Net: the filter genuinely stops applying once Apply is re-clicked, exactly as TC-HLP-414's own wording anticipates ("...without clicking Apply again, if the UI auto-applies on removal — otherwise click Apply") — not a bug, just worth documenting precisely that Delete alone doesn't immediately re-query.
 
 ---
 
-### TC-HLP-044: Applying a filter narrows the list and persists in the URL
+### TC-HLP-400: Applying a filter narrows the list and persists in the URL
 
 **User Role:** Agent
 **Precondition:** Filter panel open with at least one filter set.
@@ -64,7 +64,7 @@
 
 ---
 
-### TC-HLP-045: A filter carried in the URL is shown and the panel opens itself
+### TC-HLP-401: A filter carried in the URL is shown and the panel opens itself
 
 **User Role:** Agent
 **Precondition:** A shareable URL containing a non-default filter (e.g. Priority) for the ticket list.
@@ -80,7 +80,7 @@
 
 ---
 
-### TC-HLP-046: Clear removes every active filter
+### TC-HLP-402: Clear removes every active filter
 
 **User Role:** Agent
 **Precondition:** Multiple filters currently applied.
@@ -94,7 +94,7 @@
 
 ---
 
-### TC-HLP-047: Sorting a column keeps the current filter and stays on the same screen
+### TC-HLP-403: Sorting a column keeps the current filter and stays on the same screen
 
 **User Role:** Agent
 **Precondition:** A filter is applied to the ticket list.
@@ -110,7 +110,7 @@
 
 ---
 
-### TC-HLP-048: Paging preserves both the filter and the sort order
+### TC-HLP-404: Paging preserves both the filter and the sort order
 
 **User Role:** Agent
 **Precondition:** A filtered, sorted list with more than one page of results.
@@ -124,7 +124,7 @@
 
 ---
 
-### TC-HLP-049: Column picker lists 20 columns, 9 ticked by default, and changes the table
+### TC-HLP-405: Column picker lists 20 columns, 9 ticked by default, and changes the table
 
 **User Role:** Agent
 **Precondition:** Viewing the ticket list with default columns.
@@ -141,7 +141,7 @@
 
 ---
 
-### TC-HLP-050: The SLA Status badge shows the correct state for a ticket's SLA condition
+### TC-HLP-406: The SLA Status badge shows the correct state for a ticket's SLA condition
 
 **User Role:** Agent
 **Precondition:** Tickets exist covering a range of SLA conditions (no SLA, comfortably on track, close to deadline, within 2h of deadline, past deadline, paused, resolved).
@@ -157,7 +157,7 @@
 
 ---
 
-### TC-HLP-051: A customer's ticket list shows only their own tickets with a 7-column, 5-filter set
+### TC-HLP-407: A customer's ticket list shows only their own tickets with a 7-column, 5-filter set
 
 **User Role:** Client (Customer)
 **Precondition:** Customer has raised at least one ticket; other tickets exist on the same project raised by others.
@@ -174,7 +174,7 @@
 
 ---
 
-### TC-HLP-052: Inside a project, the Project filter is not offered
+### TC-HLP-408: Inside a project, the Project filter is not offered
 
 **User Role:** Agent
 **Precondition:** Viewing a project's own ticket list (not the Command Center's global list).
@@ -185,7 +185,7 @@
 **Expected Result:**
 - **Project** is not among the offerable filter fields (the project is already decided by context)
 - It **is** offered on the global Command Center ticket list
-- CONFIRMED LIVE 2026-09-03 (Local, redmine-docker-6, `luna.blossom`/Agent): PASS, both directions. Inside Helpdesk QA Alpha's own ticket list, the Add-filter menu lists 14 fields (no Project) — 16 total with the 2 active defaults, matching `HELPDESK_MEMORY.md`'s known "17-fields-minus-Project" quirk (see TC-HLP-043). On the global list (`/rf_helpdesk/issues`), the Add-filter menu lists 15 fields **including Project** — 17 total with the 2 defaults, exactly the undocumented-17th-field count `HELPDESK_MEMORY.md` already flagged for the global screen specifically.
+- CONFIRMED LIVE 2026-09-03 (Local, redmine-docker-6, `luna.blossom`/Agent): PASS, both directions. Inside Helpdesk QA Alpha's own ticket list, the Add-filter menu lists 14 fields (no Project) — 16 total with the 2 active defaults, matching `HELPDESK_MEMORY.md`'s known "17-fields-minus-Project" quirk (see TC-HLP-399). On the global list (`/rf_helpdesk/issues`), the Add-filter menu lists 15 fields **including Project** — 17 total with the 2 defaults, exactly the undocumented-17th-field count `HELPDESK_MEMORY.md` already flagged for the global screen specifically.
 
 ---
 
@@ -193,7 +193,7 @@
 
 ---
 
-### TC-HLP-053: A filter matching nothing shows the filtered-empty state, not the "no tickets yet" state
+### TC-HLP-409: A filter matching nothing shows the filtered-empty state, not the "no tickets yet" state
 
 **User Role:** Agent
 **Precondition:** At least one ticket exists on the project.
@@ -207,7 +207,7 @@
 
 ---
 
-### TC-HLP-054: Redmine's native operator query form is not present anywhere on the ticket screens
+### TC-HLP-410: Redmine's native operator query form is not present anywhere on the ticket screens
 
 **User Role:** Agent
 **Precondition:** Any ticket list — global or project.
@@ -217,11 +217,11 @@
 
 **Expected Result:**
 - It is absent on both the global and project ticket screens — only the plugin's own filter panel is present
-- CONFIRMED LIVE 2026-09-03 (Local, redmine-docker-6, `luna.blossom`/Agent): PASS on both screens. Direct DOM query (`document.querySelector('#query_form, .query-form, select.operator, #options, form[id*="query"]')`) found none of Redmine's standard query-form elements on either the project ticket list (TC-HLP-042) or the global Command Center ticket list (`/rf_helpdesk/issues`) — only the plugin's own Filters/Columns panel exists on either screen.
+- CONFIRMED LIVE 2026-09-03 (Local, redmine-docker-6, `luna.blossom`/Agent): PASS on both screens. Direct DOM query (`document.querySelector('#query_form, .query-form, select.operator, #options, form[id*="query"]')`) found none of Redmine's standard query-form elements on either the project ticket list (TC-HLP-398) or the global Command Center ticket list (`/rf_helpdesk/issues`) — only the plugin's own Filters/Columns panel exists on either screen.
 
 ---
 
-### TC-HLP-055: A customer manipulating the URL cannot expand their result set
+### TC-HLP-411: A customer manipulating the URL cannot expand their result set
 
 **User Role:** Client (Customer)
 **Precondition:** Customer signed in, viewing their own restricted ticket list.
@@ -239,7 +239,7 @@
 
 ---
 
-### TC-HLP-056: The active-filter count stays accurate as filters are added and removed
+### TC-HLP-412: The active-filter count stays accurate as filters are added and removed
 
 **User Role:** Agent
 **Precondition:** Filter panel open.
@@ -254,7 +254,7 @@
 
 ---
 
-### TC-HLP-057: A customer sorting by a column outside their offered set falls back to the default sort
+### TC-HLP-413: A customer sorting by a column outside their offered set falls back to the default sort
 
 **User Role:** Client (Customer)
 **Precondition:** Customer viewing their restricted ticket list.
@@ -268,7 +268,7 @@
 
 ---
 
-### TC-HLP-058: Removing a filter genuinely stops it narrowing results, not just hides its row
+### TC-HLP-414: Removing a filter genuinely stops it narrowing results, not just hides its row
 
 **User Role:** Agent
 **Precondition:** A filter is applied and visibly narrowing the list.
@@ -278,11 +278,11 @@
 
 **Expected Result:**
 - The full result set (minus that filter's effect) is restored — the removed filter is not silently still applied server-side
-- CONFIRMED LIVE 2026-09-03 (Local, redmine-docker-6, `luna.blossom`/Agent): PASS, per this TC's own accommodating wording. Starting from Priority=High (1 result), clicking the row's Delete button removed it from the panel but the list stayed at 1 result until **Apply** was clicked again (the UI does not auto-apply on removal) — clicking Apply then correctly restored the full 35-ticket list with `priority_id` stripped from the URL. Same underlying mechanic already documented in more detail under TC-HLP-043.
+- CONFIRMED LIVE 2026-09-03 (Local, redmine-docker-6, `luna.blossom`/Agent): PASS, per this TC's own accommodating wording. Starting from Priority=High (1 result), clicking the row's Delete button removed it from the panel but the list stayed at 1 result until **Apply** was clicked again (the UI does not auto-apply on removal) — clicking Apply then correctly restored the full 35-ticket list with `priority_id` stripped from the URL. Same underlying mechanic already documented in more detail under TC-HLP-399.
 
 ---
 
-### TC-HLP-059: Apply, Clear, and Add filter controls are visually consistent
+### TC-HLP-415: Apply, Clear, and Add filter controls are visually consistent
 
 **User Role:** Agent
 **Precondition:** Filter panel open.
@@ -296,7 +296,7 @@
 
 ---
 
-### TC-HLP-357: Combining multiple filters narrows to the correct intersection, not a union or a silently-dropped filter
+### TC-HLP-416: Combining multiple filters narrows to the correct intersection, not a union or a silently-dropped filter
 
 **User Role:** Agent
 **Precondition:** Ticket list open, unfiltered (35 tickets total in Helpdesk QA Alpha).
@@ -311,13 +311,13 @@
 - A combination whose two conditions don't overlap in reality must return **zero** tickets, proving both filters are genuinely ANDed together.
 - CONFIRMED LIVE 2026-09-03 (Local, redmine-docker-6, `luna.blossom`/Agent): PASS, confirmed two independent ways:
   - **URL-driven**: navigating directly to `?status_id=1&priority_id[]=3` (Status=New AND Priority=High) returned exactly 1 ticket — #6, Status "New", Priority "High" (the true intersection). Navigating to `?status_id=closed&priority_id[]=3` (Status=Closed AND Priority=High — a combination with zero real overlap, since Closed's only ticket #11 is Priority Normal and High's only ticket #6 is Status New) returned exactly 0 tickets, proving neither filter is silently dropped.
-  - **UI-driven** (the Filters panel itself, not a crafted URL): opened Filters, set Status's value textbox to "New" via its checkbox dropdown, used **Add filter → Priority**, set Priority's value to "High" via its own checkbox dropdown, clicked **Apply**. Resulting URL carried `status_id[]=1&priority_id[]=3` (matching the URL-driven test) and the table showed exactly 1 row: `#6 | TC-HLP-014 retest - project-scoped ticket creation | New | High` — identical result via the real UI flow.
+  - **UI-driven** (the Filters panel itself, not a crafted URL): opened Filters, set Status's value textbox to "New" via its checkbox dropdown, used **Add filter → Priority**, set Priority's value to "High" via its own checkbox dropdown, clicked **Apply**. Resulting URL carried `status_id[]=1&priority_id[]=3` (matching the URL-driven test) and the table showed exactly 1 row: `#6 | TC-HLP-366 retest - project-scoped ticket creation | New | High` — identical result via the real UI flow.
 - Confirms this suite's filter logic is genuine AND/intersection semantics through both the URL contract and the actual Filters-panel-and-Apply-button interaction path.
 - **Follow-up same day, broader field coverage** (the above only ever combined Status + Priority; user asked whether every offered filter field — Organization Name, Assignee, Author, Updated by, SLA Status, Ticket #, Subject, Description, Created on, Progress, Start date, Due Date, Closed — was ever exercised, individually or combined): added **Organization Name** and **Assignee** as two more simultaneous filter rows via Add filter (4 rows total: Status, Customer, Organization Name, Assignee), set Status=New and Assignee=Redmine Admin, left Organization Name at its default "All" (untouched), clicked Apply. Result: exactly **6 tickets** (#26, #24, #19, #18, #17, #14 — every Status=New ticket assigned to Redmine Admin), correctly excluding ticket #15 (also assigned to Redmine Admin but Status=In Progress). URL carried only `status_id[]=1&assigned_to_id[]=1` — the untouched Organization Name row added no param and did not narrow results, confirming a filter left at "All" is inert rather than wrongly restrictive. Separately verified the **Created on** filter (a structurally different date-range type, not a dropdown/checkbox list) by setting its From/To fields to `2026-09-02`–`2026-09-03` and clicking Apply: URL correctly carried `created_from=2026-09-02&created_to=2026-09-03`, narrowing to exactly 3 tickets, all genuinely created in that window. **Scope note**: this confirms the mechanism works correctly across three structurally distinct filter-field types actually exercised (single-select status, multi-value dropdowns like Priority/Assignee, and a date-range field) plus a 4-simultaneous-row combination — it does not individually re-verify all 13 offered fields one-by-one (Author/Updated by/SLA Status/Ticket #/Subject/Description/Progress/Start date/Due Date/Closed were not separately exercised this pass), since they share the same underlying dropdown or text-input mechanism already proven working. No bug found in any field tested.
 
 ---
 
-### TC-HLP-360: Clear removes every added filter row and resets the panel back to its two defaults, not just the URL
+### TC-HLP-417: Clear removes every added filter row and resets the panel back to its two defaults, not just the URL
 
 **User Role:** Agent
 **Precondition:** Multiple filters applied, including at least one non-default row (i.e., beyond the two default Status/Customer rows).
@@ -333,7 +333,7 @@
 
 ---
 
-### TC-HLP-361: The global Command Center dashboard's "Ticket Statistics" bar chart reflects the selected Date Range, consistent with its KPI cards
+### TC-HLP-418: The global Command Center dashboard's "Ticket Statistics" bar chart reflects the selected Date Range, consistent with its KPI cards
 
 **User Role:** Agent
 **Precondition:** Global Command Center Dashboard open (`/helpdesk`, distinct from a project's own Helpdesk Dashboard at `/projects/:id/helpdesk`, which has no chart — only the 5 KPI cards and a Prepaid Support Hours table).
@@ -349,7 +349,7 @@
 
 ---
 
-### TC-HLP-358: An active filter survives a column add/remove, and a column change doesn't reset an applied filter
+### TC-HLP-419: An active filter survives a column add/remove, and a column change doesn't reset an applied filter
 
 **User Role:** Agent
 **Precondition:** Ticket list open with a filter already applied and narrowing the result set.
@@ -368,7 +368,7 @@
 
 ## Evidence Map
 
-- Case ID: TC-HLP-042 – TC-HLP-059, TC-HLP-357 – TC-HLP-358, TC-HLP-360 – TC-HLP-361
+- Case ID: TC-HLP-398 – TC-HLP-415, TC-HLP-416 – TC-HLP-419, TC-HLP-417 – TC-HLP-418
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`

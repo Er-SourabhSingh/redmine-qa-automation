@@ -24,7 +24,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-101: Plugin appears in Administration → Plugins
+### TC-MEN-019: Plugin appears in Administration → Plugins
 
 **User Role:** Admin
 **Preconditions:** ZIP extracted into `plugins/` under its original folder name, `bundle install` and
@@ -37,7 +37,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-102: Migration completed cleanly
+### TC-MEN-020: Migration completed cleanly
 
 **User Role:** Admin
 **Steps:**
@@ -48,7 +48,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-103: Assets load correctly
+### TC-MEN-021: Assets load correctly
 
 **User Role:** Any
 **Steps:**
@@ -60,7 +60,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-104: Plugin functions on the Redmine version under test
+### TC-MEN-022: Plugin functions on the Redmine version under test
 
 **User Role:** Admin
 **Steps:**
@@ -77,7 +77,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-105: Configure page opens and shows the symbol setting
+### TC-MEN-023: Configure page opens and shows the symbol setting
 
 **User Role:** Admin
 **Steps:**
@@ -88,7 +88,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-106: All six documented symbols are offered
+### TC-MEN-024: All six documented symbols are offered
 
 **User Role:** Admin
 **Steps:**
@@ -100,7 +100,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-107: Changing the symbol takes effect after a restart
+### TC-MEN-025: Changing the symbol takes effect after a restart
 
 **User Role:** Admin
 **Steps:**
@@ -116,7 +116,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-108: The setting persists across a save and reload
+### TC-MEN-026: The setting persists across a save and reload
 
 **User Role:** Admin
 **Steps:**
@@ -127,7 +127,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-109: The old symbol stops triggering mentions after a change
+### TC-MEN-027: The old symbol stops triggering mentions after a change
 
 **User Role:** Admin + Member
 **Steps:**
@@ -140,7 +140,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-110: Content written with the old symbol is not retroactively broken
+### TC-MEN-028: Content written with the old symbol is not retroactively broken
 
 **User Role:** Member
 **Steps:**
@@ -159,7 +159,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-111: Plugin folder renamed on disk
+### TC-MEN-029: Plugin folder renamed on disk
 
 **User Role:** Admin
 **Steps:**
@@ -170,7 +170,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-112: Migration not run
+### TC-MEN-030: Migration not run
 
 **User Role:** Admin
 **Steps:**
@@ -182,7 +182,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-113: Configure page is not reachable by a non-admin
+### TC-MEN-031: Configure page is not reachable by a non-admin
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
 **Steps:**
@@ -194,7 +194,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-114: Symbol that collides with existing Redmine syntax
+### TC-MEN-032: Symbol that collides with existing Redmine syntax
 
 **User Role:** Admin + Member
 **Steps:**
@@ -208,7 +208,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-115: Symbol that collides with Redmine's own wiki links
+### TC-MEN-033: Symbol that collides with Redmine's own wiki links
 
 **User Role:** Member
 **Steps:**
@@ -220,7 +220,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-116: Symbol left unset
+### TC-MEN-034: Symbol left unset
 
 **User Role:** Admin
 **Steps:**
@@ -236,7 +236,7 @@ the issue and wiki editors, not by the settings page reporting success.
 
 ---
 
-### TC-MEN-117: Clean uninstall
+### TC-MEN-035: Clean uninstall
 
 **User Role:** Admin
 **Preconditions:** Database backup taken.

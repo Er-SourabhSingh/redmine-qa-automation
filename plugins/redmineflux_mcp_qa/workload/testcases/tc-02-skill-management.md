@@ -4,7 +4,7 @@
 |-------|-------|
 | **Plugin** | redmineflux_mcp |
 | **Module** | Skill Management |
-| **TC Range** | TC-RFM-010 to TC-RFM-022 |
+| **TC Range** | TC-RFM-088 to TC-RFM-100 |
 | **Total TCs** | 13 |
 | **Execution Order** | Suite 2 — Run after Holiday Schema (tc-01) |
 | **Feature Coverage** | RFM-F010 through RFM-F022 |
@@ -15,7 +15,7 @@
 
 ---
 
-## TC-RFM-010 — Create skill via MCP
+## TC-RFM-088 — Create skill via MCP
 
 | Field | Value |
 |-------|-------|
@@ -46,7 +46,7 @@
 
 ---
 
-## TC-RFM-011 — Read skill via MCP
+## TC-RFM-089 — Read skill via MCP
 
 | Field | Value |
 |-------|-------|
@@ -57,13 +57,13 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Skill "Selenium" exists (from TC-RFM-010).
+- Skill "Selenium" exists (from TC-RFM-088).
 
 **Test Data:**
-- Skill ID from TC-RFM-010.
+- Skill ID from TC-RFM-088.
 
 **Steps:**
-1. Call MCP `skill_show` with the skill ID from TC-RFM-010.
+1. Call MCP `skill_show` with the skill ID from TC-RFM-088.
 2. Validate MCP response:
    - Response contains skill name "Selenium", skill ID, description (if any), assigned users list.
 3. Using Playwright, navigate to `/rf_skills` and click "Selenium".
@@ -75,7 +75,7 @@
 
 ---
 
-## TC-RFM-012 — Update skill via MCP
+## TC-RFM-090 — Update skill via MCP
 
 | Field | Value |
 |-------|-------|
@@ -86,10 +86,10 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Skill "Selenium" exists (from TC-RFM-010).
+- Skill "Selenium" exists (from TC-RFM-088).
 
 **Test Data:**
-- Skill ID from TC-RFM-010.
+- Skill ID from TC-RFM-088.
 - New description: "Browser automation testing framework"
 
 **Steps:**
@@ -105,7 +105,7 @@
 
 ---
 
-## TC-RFM-013 — Delete skill via MCP
+## TC-RFM-091 — Delete skill via MCP
 
 | Field | Value |
 |-------|-------|
@@ -141,7 +141,7 @@
 
 ---
 
-## TC-RFM-014 — Assign skill to user with Expert level via MCP
+## TC-RFM-092 — Assign skill to user with Expert level via MCP
 
 | Field | Value |
 |-------|-------|
@@ -152,12 +152,12 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Skill "Selenium" exists (from TC-RFM-010).
+- Skill "Selenium" exists (from TC-RFM-088).
 - User john.doe (user_id to be looked up) does not have "Selenium" assigned.
 - Team "Automation Team" does NOT need to exist yet (assigned at user level, team created in tc-03).
 
 **Test Data:**
-- Skill: Selenium (skill ID from TC-RFM-010)
+- Skill: Selenium (skill ID from TC-RFM-088)
 - User: john.doe
 - Level: 4 (Expert)
 - Team ID: use the Automation Team ID once created in tc-03; for now assign at global level.
@@ -177,7 +177,7 @@
 
 ---
 
-## TC-RFM-015 — Update user skill level via MCP
+## TC-RFM-093 — Update user skill level via MCP
 
 | Field | Value |
 |-------|-------|
@@ -188,7 +188,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- john.doe has Selenium skill at Expert level (from TC-RFM-014).
+- john.doe has Selenium skill at Expert level (from TC-RFM-092).
 
 **Test Data:**
 - User: john.doe
@@ -209,7 +209,7 @@
 
 ---
 
-## TC-RFM-016 — Remove skill from user via MCP
+## TC-RFM-094 — Remove skill from user via MCP
 
 | Field | Value |
 |-------|-------|
@@ -220,7 +220,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- john.doe has Selenium skill assigned (from TC-RFM-015, at Intermediate level).
+- john.doe has Selenium skill assigned (from TC-RFM-093, at Intermediate level).
 
 **Test Data:**
 - User: john.doe
@@ -240,7 +240,7 @@
 
 ---
 
-## TC-RFM-017 — Assign skill at Beginner level via MCP
+## TC-RFM-095 — Assign skill at Beginner level via MCP
 
 | Field | Value |
 |-------|-------|
@@ -251,7 +251,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Skill "Selenium" exists (from TC-RFM-010).
+- Skill "Selenium" exists (from TC-RFM-088).
 - User mike.smith does not have Selenium assigned.
 
 **Test Data:**
@@ -272,7 +272,7 @@
 
 ---
 
-## TC-RFM-018 — Assign skill at Expert level via MCP
+## TC-RFM-096 — Assign skill at Expert level via MCP
 
 | Field | Value |
 |-------|-------|
@@ -283,7 +283,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Skill "Selenium" exists (from TC-RFM-010).
+- Skill "Selenium" exists (from TC-RFM-088).
 - User jane.doe does not have Selenium assigned.
 
 **Test Data:**
@@ -308,7 +308,7 @@
 
 ---
 
-## TC-RFM-019 — View skill matrix via MCP
+## TC-RFM-097 — View skill matrix via MCP
 
 | Field | Value |
 |-------|-------|
@@ -319,10 +319,10 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- Selenium skill has assignments: mike.smith = Beginner (TC-RFM-017), jane.doe = Expert (TC-RFM-018).
+- Selenium skill has assignments: mike.smith = Beginner (TC-RFM-095), jane.doe = Expert (TC-RFM-096).
 
 **Test Data:**
-- Use Automation Team (team_id=25 or discovered during TC-RFM-023 in tc-03; if team not yet created, call `team_skills` globally).
+- Use Automation Team (team_id=25 or discovered during TC-RFM-101 in tc-03; if team not yet created, call `team_skills` globally).
 
 **Steps:**
 1. Call MCP `team_skills` with Automation Team ID (or global if team not yet created).
@@ -338,7 +338,7 @@
 
 ---
 
-## TC-RFM-020 — Filter skill matrix by team via MCP
+## TC-RFM-098 — Filter skill matrix by team via MCP
 
 | Field | Value |
 |-------|-------|
@@ -370,7 +370,7 @@
 
 ---
 
-## TC-RFM-021 — Filter skill matrix by skill level via MCP (Find Team Members)
+## TC-RFM-099 — Filter skill matrix by skill level via MCP (Find Team Members)
 
 | Field | Value |
 |-------|-------|
@@ -381,8 +381,8 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- jane.doe has Selenium at Expert level (TC-RFM-018).
-- mike.smith has Selenium at Beginner level (TC-RFM-017).
+- jane.doe has Selenium at Expert level (TC-RFM-096).
+- mike.smith has Selenium at Beginner level (TC-RFM-095).
 
 **Test Data:**
 - Skill: Selenium
@@ -404,7 +404,7 @@
 
 ---
 
-## TC-RFM-022 — Filter skill matrix by user and skill via MCP
+## TC-RFM-100 — Filter skill matrix by user and skill via MCP
 
 | Field | Value |
 |-------|-------|
@@ -415,7 +415,7 @@
 | **User Role** | Admin |
 
 **Preconditions:**
-- jane.doe has Selenium skill assigned at Expert level (from TC-RFM-018).
+- jane.doe has Selenium skill assigned at Expert level (from TC-RFM-096).
 
 **Test Data:**
 - User: jane.doe

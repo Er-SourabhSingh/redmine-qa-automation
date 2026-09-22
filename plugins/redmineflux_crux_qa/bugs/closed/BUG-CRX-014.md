@@ -8,7 +8,7 @@
 - Plugin version: 0.39.0 (plugin) / crux-core 0.92.0
 - Environment: Local — `http://localhost:3014`
 - Browser: Chromium (Playwright MCP)
-- User role: `luna.blossom` (with real CRM plugin access, per TC-CRX-085 precondition)
+- User role: `luna.blossom` (with real CRM plugin access, per TC-CRX-010 precondition)
 - Date: 2026-09-15
 
 ## Steps to reproduce
@@ -26,7 +26,7 @@
 
 ## Actual result
 
-- Reproduced 3 times in one session (TC-CRX-086), each time on a follow-up turn sent without the "CRM," prefix:
+- Reproduced 3 times in one session (TC-CRX-011), each time on a follow-up turn sent without the "CRM," prefix:
   1. After the Sales Agent asked "Which would you prefer? ... Or just say 'go ahead and create Acme Corp'...", replying "Go ahead and create Acme Corp with minimal info, then create Priya Sharma as a contact linked to it." (no prefix) routed to **"the Project Manager"** instead, which responded: *"The discovery returned only read tools — the CRM write tools (create_company, create_contact, etc.) aren't surfaced through discovery... I can read CRM data, but I cannot create companies or contacts."*
   2. After the Sales Agent's own confirm card failed validation ("Validation error: Email cannot be blank; Email is invalid"), replying "Use priya.sharma@acmecorp.test as her email." (no prefix) again routed to a response claiming: *"there are no CRM write tools (create_contact, update_contact, etc.) discoverable in the CRM group. I cannot create the contact from chat."*
 - Both claims are demonstrably false: the Sales Agent, reached explicitly with a fresh "CRM," prefix immediately afterward, successfully produced real, correctly-filled write confirm cards for the exact same actions (`Crm Create Company`, `Crm Create Contact`) using the exact same tool set — proving the write tools are available and discoverable, just not to whichever agent this mis-routed to.
@@ -86,9 +86,9 @@ users. Skill creation and assignment are not yet supported from chat in this dep
 
 This claim was immediately disproven by re-prefixing with "Workload," which reached the Capacity Agent and produced a correct `Workload Skill Create` confirm card that completed successfully. This confirms the bug is not CRM-specific — it is a platform-wide follow-up-routing defect affecting every domain agent, reproduced now in two structurally unrelated plugin domains (CRM/Sales Agent and Workload/Capacity Agent). Severity and title scope updated accordingly; production issue #120665 still accurately describes the underlying mechanism, just with a CRM-specific example.
 
-### 2026-09-16 update — reproduced a fourth time, specifically on `send_email`'s own text-based confirmation step (TC-CRX-099)
+### 2026-09-16 update — reproduced a fourth time, specifically on `send_email`'s own text-based confirmation step (TC-CRX-095)
 
-While executing TC-CRX-099, the Capacity Agent's own `Workload Send Email` proposal used a non-standard, free-text confirmation format instead of the usual structured `WRITE`/Confirm-Cancel button card every other write tool in this session used:
+While executing TC-CRX-095, the Capacity Agent's own `Workload Send Email` proposal used a non-standard, free-text confirmation format instead of the usual structured `WRITE`/Confirm-Cancel button card every other write tool in this session used:
 
 ```
 C: Workload, yes, workload 1 (Platform Engineering Sprint 1). Send it now.
@@ -109,7 +109,7 @@ I don't have an email-sending tool available -- the workload tools I can call ar
 falls outside what I can propose on your behalf.
 ```
 
-This is a particularly dangerous manifestation of the bug: `send_email` is the one action TC-CRX-099's own spec singles out as needing extra care around explicit, unambiguous confirmation (since it notifies real people) -- yet the agent's own confirmation prompt invites exactly the bare "Y" reply that triggers this mis-routing defect, and the fallback response falsely denies the capability exists at all rather than erroring safely or re-prompting. Re-sending with the "Workload," prefix ("Workload, Y, confirm sending that workload summary email now.") immediately produced the expected structured `Workload Send Email` confirm card (Workload: 1, User Ids: [1]), which completed successfully on confirm ("✓ Workload summary email queued for 1 recipient(s)."). Confirms this defect is not confined to write-intent turns generally -- it also breaks a tool's own bespoke confirmation flow when that flow doesn't repeat the domain prefix.
+This is a particularly dangerous manifestation of the bug: `send_email` is the one action TC-CRX-095's own spec singles out as needing extra care around explicit, unambiguous confirmation (since it notifies real people) -- yet the agent's own confirmation prompt invites exactly the bare "Y" reply that triggers this mis-routing defect, and the fallback response falsely denies the capability exists at all rather than erroring safely or re-prompting. Re-sending with the "Workload," prefix ("Workload, Y, confirm sending that workload summary email now.") immediately produced the expected structured `Workload Send Email` confirm card (Workload: 1, User Ids: [1]), which completed successfully on confirm ("✓ Workload summary email queued for 1 recipient(s)."). Confirms this defect is not confined to write-intent turns generally -- it also breaks a tool's own bespoke confirmation flow when that flow doesn't repeat the domain prefix.
 
 ## 2026-09-16 retest — FIXED (core CRM scenario), confirmed live
 
@@ -123,4 +123,4 @@ Dev's `CHANGES.md` handoff updated `chat.py`'s `_still_awaiting_delegated_action
 
 ## Production report
 
-Reported to production as issue **#120665** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Textile description, no attachments (per updated §4.3a policy). Linked to Run #569, testcase #120490 (`CRUX_AGENT_CRM_SALES.md`, found via TC-CRX-086) — testcase marked Failed.
+Reported to production as issue **#120665** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Textile description, no attachments (per updated §4.3a policy). Linked to Run #569, testcase #120490 (`CRUX_AGENT_CRM_SALES.md`, found via TC-CRX-011) — testcase marked Failed.

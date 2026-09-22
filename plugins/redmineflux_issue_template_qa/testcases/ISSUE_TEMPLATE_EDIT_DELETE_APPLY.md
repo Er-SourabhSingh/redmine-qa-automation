@@ -22,7 +22,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-401: Edit a template via the pencil icon
+### TC-RIT-001: Edit a template via the pencil icon
 
 **User Role:** Admin (global) / permitted member (project)
 **Steps:**
@@ -35,7 +35,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-402: Edit form is pre-populated with current values
+### TC-RIT-002: Edit form is pre-populated with current values
 
 **User Role:** Admin
 **Steps:**
@@ -48,7 +48,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-403: Submitting an unchanged edit is a no-op
+### TC-RIT-003: Submitting an unchanged edit is a no-op
 
 **User Role:** Admin
 **Steps:**
@@ -59,7 +59,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-404: Rebind a template to different projects
+### TC-RIT-004: Rebind a template to different projects
 
 **User Role:** Admin
 **Steps:**
@@ -71,7 +71,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-405: Editing a template does not change issues already created from it
+### TC-RIT-005: Editing a template does not change issues already created from it
 
 **User Role:** Admin + Member
 **Steps:**
@@ -90,7 +90,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-406: Delete a template with confirmation
+### TC-RIT-006: Delete a template with confirmation
 
 **User Role:** Admin
 **Steps:**
@@ -103,7 +103,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-407: Cancel a deletion
+### TC-RIT-007: Cancel a deletion
 
 **User Role:** Admin
 **Steps:**
@@ -114,7 +114,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-408: Deleting a template does not affect issues created from it
+### TC-RIT-008: Deleting a template does not affect issues created from it
 
 **User Role:** Admin
 **Steps:**
@@ -126,7 +126,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-409: Deleting the tracker's only template
+### TC-RIT-009: Deleting the tracker's only template
 
 **User Role:** Admin + Member
 **Steps:**
@@ -142,7 +142,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-501: Default template is pre-selected by tracker
+### TC-RIT-010: Default template is pre-selected by tracker
 
 **User Role:** Member
 **Steps:**
@@ -155,7 +155,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-502: Pre-selection with two templates on the same tracker
+### TC-RIT-011: Pre-selection with two templates on the same tracker
 
 **User Role:** Member
 **Preconditions:** Two templates exist for the same tracker and the same project.
@@ -169,7 +169,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-503: Pre-selection when a global and a project template both match
+### TC-RIT-012: Pre-selection when a global and a project template both match
 
 **User Role:** Member
 **Steps:**
@@ -181,7 +181,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-504: Changing the tracker on the New Issue form switches the template
+### TC-RIT-013: Changing the tracker on the New Issue form switches the template
 
 **User Role:** Member
 **Steps:**
@@ -195,7 +195,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-505: Template content is fully copied onto the created issue
+### TC-RIT-014: Template content is fully copied onto the created issue
 
 **User Role:** Member
 **Steps:**
@@ -207,7 +207,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-506: Pre-filled content can be edited before creating
+### TC-RIT-015: Pre-filled content can be edited before creating
 
 **User Role:** Member
 **Steps:**
@@ -219,7 +219,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-507: Formatting survives from template to issue
+### TC-RIT-016: Formatting survives from template to issue
 
 **User Role:** Member
 **Steps:**
@@ -232,7 +232,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-508: Determine what template validation actually exists
+### TC-RIT-017: Determine what template validation actually exists
 
 **User Role:** Admin + Member
 **Steps:**
@@ -252,7 +252,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-509: New Issue in a project with no templates
+### TC-RIT-018: New Issue in a project with no templates
 
 **User Role:** Member
 **Steps:**
@@ -263,7 +263,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-510: Template deleted while a New Issue form is open
+### TC-RIT-019: Template deleted while a New Issue form is open
 
 **User Role:** Member + Admin
 **Steps:**
@@ -275,7 +275,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-511: Template bound to a project the user cannot see
+### TC-RIT-020: Template bound to a project the user cannot see
 
 **User Role:** Member of A only
 **Steps:**
@@ -287,7 +287,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-512: Applying a template with a subject longer than the field allows
+### TC-RIT-021: Applying a template with a subject longer than the field allows
 
 **User Role:** Member
 **Steps:**
@@ -296,11 +296,11 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 **Expected Result:**
 - A clear validation error on the New Issue form. The user must be able to shorten it and proceed.
 - A template that can never produce a valid issue, with no explanation, is a defect — ideally the length would have
-  been rejected at template creation (TC-RIT-215).
+  been rejected at template creation (TC-RIT-039).
 
 ---
 
-### TC-RIT-513: Required custom fields not covered by the template
+### TC-RIT-022: Required custom fields not covered by the template
 
 **User Role:** Member
 **Steps:**
@@ -312,7 +312,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-514: Rapid tracker switching on the New Issue form
+### TC-RIT-023: Rapid tracker switching on the New Issue form
 
 **User Role:** Member
 **Steps:**
@@ -324,7 +324,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 
 ---
 
-### TC-RIT-515: Template applied via the REST API
+### TC-RIT-024: Template applied via the REST API
 
 **User Role:** Member with API key
 **Steps:**

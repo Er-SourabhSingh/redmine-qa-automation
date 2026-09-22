@@ -890,6 +890,51 @@ file's own reachability note) — see below.
 
 ---
 
+## Post-fix regression — 2026-09-21
+
+Environment: local Docker `redmine-docker-700` (http://localhost:3010), branch **`master`** (merged from
+`feature/backlog-sprint-points`, commit `fda8fb1`), plugin released as **7.1.0**. Fix commits: `f3ba81b`
+("Stop a query_id from crashing the board and the backlog" — BUG-AGB-010) and `32141ba` + `50a8a76`
+("Keep the backlog points badge true while cards are dragged" / "Move story points with a dragged card on
+every board" — BUG-AGB-011). Container + Redis/Sidekiq restarted; no plugin migrations were added, so no
+`rake redmine:plugins:migrate` was needed.
+
+Scope, by explicit user choice: the Feature #120436 suite (this file), not a full plugin-wide final-cycle
+regression — `STATUS.md` stays `In Progress` pending that broader pass.
+
+| TC | Retest result | Evidence |
+|---|---|---|
+| TC-AGB-529 | **PASS** (reconfirmed) | Configure page's `Backlog` section still has both checkboxes with hint text, unaffected by the fix commits. |
+| TC-AGB-530 | **PASS** (reconfirmed) | "SP Sanity Sprint 120436" badge present and correct (`5 / 29 SP` before the drag test below, matching hand sums of visible + hidden-closed cards). |
+| TC-AGB-531 | **PASS** (reconfirmed, extended to drag) | Version "sadfsadfsad" badge `3 / 8 SP` before, `3 / 13 SP` immediately after dragging in a 5-pt card — **live and correct**, no reload. |
+| TC-AGB-532 | **PASS** (reconfirmed, extended to drag) | "No Version" badge `23 / 199 SP` → `23 / 194 SP` immediately after the same drag (source side, -5) — live and correct. Confirms the fix isn't sprint-only; it covers version columns too, matching the fix commit's own message ("...on every board"). |
+| TC-AGB-533 | Not re-executed | Unrelated to both fix commits (Story Points enable/disable persistence, already fixed separately as BUG-AGB-009 and reconfirmed 2026-09-21 earlier this session). |
+| TC-AGB-534 | Not re-executed | Unrelated code path (badge omission on zero-point columns); not touched by either fix. |
+| TC-AGB-535 | **PASS** (implicitly reconfirmed) | Closed/total split remained arithmetically consistent (5 closed / N total) across every drag+edit step below — the is-closed split was never disturbed by the fix. |
+| TC-AGB-536 | **PASS** (reconfirmed) | "No Version" badge showed its full total (`23 / 199 SP` / `23 / 194 SP`) while only 24–25 of 933–934 cards were loaded — total is not affected by pagination. |
+| TC-AGB-537 | **PASS** (reconfirmed, this is the core fix) | Dragged card #1469 (5 pts) between two Backlog sprint columns — **both badges updated live and correctly, instantly, no reload**: source `13 / 18 SP` → `13 / 13 SP`, destination `5 / 21 SP` → `5 / 26 SP`. Then, still without reloading, edited #1469's points 5 → 8 (+3) — badge updated to `5 / 29 SP`, computed correctly from the now-accurate live base. Reload confirmed `5 / 29 SP` matched exactly, no divergence. This directly closes the gap that let BUG-AGB-011 through originally (drag + edit performed back-to-back, no reload in between). |
+| TC-AGB-538 | **PASS** (reconfirmed) | With the setting OFF, closed cards stay hidden: "SP Sanity Sprint 120436" card count 3 (not 5), "No Points Sprint 120436" card count 0 (not 2) — badges unaffected either way. |
+| TC-AGB-539 | **PASS** (reconfirmed) | Toggled the setting ON and reloaded: "SP Sanity Sprint 120436" count 3 → 5 (hidden closed cards now drawn), "No Points Sprint 120436" count 0 → 2 — badges unchanged in both cases (`5 / 24 SP`, `13 / 13 SP`), since their totals already included the hidden closed points. Both halves of requirement 3 hold. |
+| TC-AGB-540 | Not re-executed | Filter-vs-setting precedence logic untouched by either fix commit; spot-checked that the filter panel still renders its Status filter row correctly (no regression in panel rendering). |
+| TC-AGB-541 | **N/A, reconfirmed** | Still no UI path to reach the Backlog/Agile Board via `query_id` — verdict unchanged. The underlying crash this TC's premise-check surfaced (BUG-AGB-010) is now fixed: `?query_id=1` returns a clean 404 instead of a 500 (see BUG-AGB-010's own retest). |
+| TC-AGB-542 | **PASS** (reconfirmed) | Toggled the setting back OFF and reloaded, same session: closed cards disappeared immediately (count back to 3 and 0 respectively) — no logout or extra step needed. Badges unaffected by the toggle either direction. |
+| TC-AGB-543 | Not re-executed | Load-more-honors-setting logic untouched by either fix commit. |
+| TC-AGB-544 / 546 / 547 | Not re-executed | Column-width logic untouched by either fix commit; TC-545 below incidentally reconfirms the widened-column CSS still applies correctly post-fix. |
+| TC-AGB-545 | **PASS** (reconfirmed) | Versions tab screenshot showed "No Version" visibly wider than the three version columns (setting still ON from earlier testing), matching the original TC-545 result — the JS changes in the fix commits didn't touch the width CSS. |
+| TC-AGB-548 / 549 / 550 / 551 / 552 / 553 | Not re-executed | API consistency, fractional points, visibility, permissions, translation, and empty-project layout are all unrelated to the `retrieve_rf_agile_query` and drag/badge-update code paths the two fix commits touched — no plausible regression vector from these specific changes. |
+
+**Result: the specific mechanism behind both bugs is fixed and does not regress the rest of the suite.**
+BUG-AGB-011's core scenario (drag then edit, no reload) now produces correct badges on both sprint and version
+columns; BUG-AGB-010's crash is now a clean 404. Both bugs moved to `bugs/closed/`; both production issues
+(#120986, #120990) and the linked production testcase #120941/run #577 updated accordingly — see the closed
+bug files for the full production-sync record.
+
+A full final-cycle regression (`SENIOR_QA_STANDARDS.md` §27) covering every suite in this plugin — not just
+Feature #120436 — is still required before `STATUS.md` can move to `Complete`, per the user's own scoping
+decision for this session.
+
+---
+
 ## Evidence Map
 
 | Case ID | Screenshot | Log | Bug reference |

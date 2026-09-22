@@ -34,51 +34,26 @@
 <h1>Defects Summary — Redmineflux Agile Board</h1>
 <h2 style="margin-top:0; color:#333;">Feature #120436 test cycle</h2>
 <div class="meta">
-  Plugin: Redmineflux Agile Board 7.0.0 (branch <code>feature/backlog-sprint-points</code>) &nbsp;|&nbsp;
+  Plugin: Redmineflux Agile Board 7.0.0 &rarr; <strong>7.1.0</strong> (branch <code>master</code>, merged from <code>feature/backlog-sprint-points</code>) &nbsp;|&nbsp;
   Redmine: 7.0.0 &nbsp;|&nbsp;
   Environment: Local Docker <code>redmine-docker-700</code> (http://localhost:3010) &nbsp;|&nbsp;
   Sanity: 2026-09-18 &nbsp;|&nbsp;
-  Regression: 2026-09-21
+  Regression: 2026-09-21 &nbsp;|&nbsp;
+  Post-fix regression: 2026-09-21
 </div>
 
 <div class="summary">
-  <div class="stat"><div class="num">2</div><div class="lbl">Total Open</div></div>
+  <div class="stat"><div class="num">0</div><div class="lbl">Total Open</div></div>
   <div class="stat"><div class="num">0</div><div class="lbl">Critical</div></div>
-  <div class="stat high-s"><div class="num">1</div><div class="lbl">High Open</div></div>
-  <div class="stat open-s"><div class="num">1</div><div class="lbl">Medium Open</div></div>
+  <div class="stat"><div class="num">0</div><div class="lbl">High Open</div></div>
+  <div class="stat"><div class="num">0</div><div class="lbl">Medium Open</div></div>
   <div class="stat"><div class="num">0</div><div class="lbl">Low</div></div>
-  <div class="stat closed-s"><div class="num">1</div><div class="lbl">Closed</div></div>
-  <div class="stat"><div class="num" style="color:#2a8a2a">1</div><div class="lbl">Fixed &amp; Confirmed</div></div>
+  <div class="stat closed-s"><div class="num">3</div><div class="lbl">Closed</div></div>
+  <div class="stat"><div class="num" style="color:#2a8a2a">3</div><div class="lbl">Fixed &amp; Confirmed</div></div>
 </div>
 
 <h2>Open Bugs</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Bug ID</th><th>Title</th><th>Severity</th><th>Status</th><th>Found via</th><th>Production</th><th>Affects Feature #120436?</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="open-row">
-      <td><strong>BUG-AGB-011</strong></td>
-      <td>Backlog story-points badge goes wrong (including negative) after dragging a card between sprint/version columns, without a page reload — drag updates the card count live but never the points badge, and a later inline point edit applies its delta on top of the stale value</td>
-      <td class="high">High</td>
-      <td>Open <span class="open-badge">OPEN</span></td>
-      <td>User live-testing after #120436 marked Done on production (2026-09-21); reproduced &amp; root-caused this session</td>
-      <td>#120990 (assigned Prashant Chaurasia)</td>
-      <td><strong>Yes</strong> — within #120436's own delivered badge-display code; corrects the earlier "zero defects" sign-off</td>
-    </tr>
-    <tr class="open-row">
-      <td><strong>BUG-AGB-010</strong></td>
-      <td>A <code>query_id</code> parameter on the Agile Board / Backlog controller crashes with a 500 (FrozenError on a frozen string literal in <code>retrieve_rf_agile_query</code>) — confirmed not reachable via any current UI link</td>
-      <td class="medium">Medium</td>
-      <td>Open <span class="open-badge">OPEN</span></td>
-      <td>Side-finding while checking TC-AGB-541's premise (regression, 2026-09-21)</td>
-      <td>#120986</td>
-      <td>No — pre-existing shared controller code, not touched by #120436's changes; does not block any of the ticket's four requirements</td>
-    </tr>
-  </tbody>
-</table>
+<p class="meta"><em>None. <code>bugs/open/</code> is empty as of 2026-09-21 — both bugs below were retested and confirmed fixed this cycle.</em></p>
 
 <h2>Closed Bugs (this cycle)</h2>
 <table>
@@ -97,6 +72,24 @@
       <td>2026-09-21 — PASS</td>
       <td>#120947 — In QA → Done, 100%</td>
     </tr>
+    <tr class="closed-row">
+      <td><strong>BUG-AGB-010</strong></td>
+      <td>A <code>query_id</code> parameter on the Agile Board / Backlog controller crashed with a 500 (FrozenError in <code>retrieve_rf_agile_query</code>) — not reachable via any current UI link</td>
+      <td class="medium">Medium</td>
+      <td>Closed <span class="fixed-badge">FIXED ✓</span></td>
+      <td>2026-09-21 (commit <code>f3ba81b</code>)</td>
+      <td>2026-09-21 — PASS</td>
+      <td>#120986 — In QA → Done, 100%</td>
+    </tr>
+    <tr class="closed-row">
+      <td><strong>BUG-AGB-011</strong></td>
+      <td>Backlog story-points badge went wrong (including negative) after dragging a card between sprint/version columns without a page reload, compounding further on a subsequent inline edit</td>
+      <td class="high">High</td>
+      <td>Closed <span class="fixed-badge">FIXED ✓</span></td>
+      <td>2026-09-21 (commits <code>32141ba</code> + <code>50a8a76</code>)</td>
+      <td>2026-09-21 — PASS</td>
+      <td>#120990 — In QA → Done, 100%; production testcase #120941/run #577 back to Passed</td>
+    </tr>
   </tbody>
 </table>
 
@@ -111,6 +104,18 @@
       <td>The Story Point Values field was only rendered on the Configure page while Enable Story Points was checked; since a Redmine plugin settings form replaces the whole settings hash on submit, a field not in the page saved as blank the next time the toggle was flipped.</td>
       <td>Field is now always rendered and hidden with CSS instead of being removed from the DOM, so it is always submitted regardless of the checkbox state. Also now reappears live as soon as the checkbox is re-ticked, before any save.</td>
       <td class="fix-ref">Followed the bug's exact repro steps: configured <code>1, 2, 3</code>, toggled off then on, saved each time — the scale survived intact on both the Configure page and the issue form's dropdown. No regression in the Backlog badge feature. See bugs/closed/BUG-AGB-009.md</td>
+    </tr>
+    <tr>
+      <td><strong>BUG-AGB-010</strong></td>
+      <td><code>rf_boards_controller.rb</code> carries <code>#frozen_string_literal: true</code>; <code>retrieve_rf_agile_query</code> built a SQL condition with <code>cond &lt;&lt; " OR ..."</code>, mutating a frozen string literal, raising an unhandled <code>FrozenError</code> the instant <code>query_id</code> was present.</td>
+      <td>The condition is now built without mutating a frozen literal, so a missing/invalid query cleanly raises <code>ActiveRecord::RecordNotFound</code> instead.</td>
+      <td class="fix-ref"><code>?query_id=1</code> on both <code>/backlog</code> and <code>/agile_board</code> now returns a clean 404 ("Page not found"); server log confirms a normal <code>RecordNotFound</code>, no <code>FrozenError</code>. See bugs/closed/BUG-AGB-010.md</td>
+    </tr>
+    <tr>
+      <td><strong>BUG-AGB-011</strong></td>
+      <td>The Backlog's sortable <code>update</code> handler updated the card count on drop but never touched <code>.backlog-column-story-points</code>; a later inline point edit then applied its delta on top of that stale badge, compounding the error.</td>
+      <td>The drag handler now also updates the points badge live on both the source and destination columns, on every board type (not just sprint columns) — matching the fix commit's own message, "on every board".</td>
+      <td class="fix-ref">Dragged a 5-pt card between sprint columns: both badges updated live and correctly (<code>13/18→13/13</code>, <code>5/21→5/26</code>). Extended to version columns: same correct live behavior (<code>3/8→3/13</code>, <code>23/199→23/194</code>). Then edited the moved card's points inline without reloading (<code>5/26→5/29</code>) — correct, and a reload matched exactly. See bugs/closed/BUG-AGB-011.md</td>
     </tr>
   </tbody>
 </table>
@@ -140,9 +145,9 @@
 </table>
 
 <p style="margin-top:20px; font-size:11px; color:#888;">
-  Generated: 2026-09-21 &nbsp;|&nbsp; Suite: AGILE_BACKLOG_AND_SPRINTS.md, Feature #120436 (TC-AGB-529–553) &nbsp;|&nbsp;
-  Feature #120436 marked Done (100%) on production 2026-09-21, then a High-severity defect (BUG-AGB-011, production #120990) found within its own delivered code shortly after &mdash; #120436 reopened to In QA/90% pending the fix &nbsp;|&nbsp;
-  1 bug fixed &amp; closed this cycle, 2 bugs remain open (1 unrelated Medium, 1 new High within #120436's scope)
+  Generated: 2026-09-21 (updated after post-fix regression) &nbsp;|&nbsp; Suite: AGILE_BACKLOG_AND_SPRINTS.md, Feature #120436 (TC-AGB-529–553) &nbsp;|&nbsp;
+  Feature #120436 marked Done (100%) on production 2026-09-21, then a High-severity defect (BUG-AGB-011, production #120990) found within its own delivered code shortly after &mdash; #120436 reopened to In QA/90%, its regression has now passed and it's back to Done, 100% &nbsp;|&nbsp;
+  <strong>3 bugs fixed &amp; closed this cycle, 0 remain open</strong> &nbsp;|&nbsp; plugin released as 7.1.0
 </p>
 </body>
 </html>

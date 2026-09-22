@@ -6,7 +6,38 @@
 - Redmine Version: 7.0.0 (local Docker)
 - Environment: Local Docker `redmine-docker-700` — http://localhost:3010
 
-## Completed This Session (2026-09-21, latest) — BUG-AGB-011 found, correcting the #120436 sign-off
+## Completed This Session (2026-09-21, final) — both bugs retested FIXED, closed, production synced, regressed
+
+Developer merged `feature/backlog-sprint-points` into `master` and released plugin **7.1.0**, with three fix
+commits: `f3ba81b` (BUG-AGB-010's `query_id` FrozenError) and `32141ba` + `50a8a76` (BUG-AGB-011's drag-badge
+desync, generalized to every board type, not just the Backlog's sprint columns).
+
+- Restarted the Redmine 7 Docker container + Redis/Sidekiq to pick up the new branch. No plugin migrations
+  were added between `288d293` and `50a8a76`, so `rake redmine:plugins:migrate` wasn't needed.
+- **BUG-AGB-010 retested — FIXED.** `?query_id=1` on both `/backlog` and `/agile_board` now returns a clean
+  404 (`ActiveRecord::RecordNotFound`) instead of the `FrozenError` 500. Server log confirms the condition is
+  now built correctly.
+- **BUG-AGB-011 retested — FIXED.** Dragged a 5-pt card between two sprint columns: both badges updated live
+  and correctly, instantly, no reload (`13/18→13/13`, `5/21→5/26`). Extended the check to version columns
+  (not part of the original bug repro) — same live-correct behavior (`3/8→3/13`, `23/199→23/194`), confirming
+  the fix's "every board" scope. Then edited the moved card's points inline without reloading — badge updated
+  correctly from the now-accurate base (`5/26→5/29`), and a reload matched exactly. Both mechanisms (drag
+  desync, delta-on-stale-base compounding) are confirmed fixed.
+- Both bugs moved from `bugs/open/` to `bugs/closed/` with full retest evidence (screenshots +
+  before/after numbers). `bugs/open/` is now **empty**.
+- **Production sync** (explicit user approval, both actions): #120986 and #120990 updated In QA → Done, 100%
+  with retest summaries; production testcase #120941 in run #577 updated back to **Passed** (result ID 14287).
+- **Regression on Feature #120436's own suite** (`AGILE_BACKLOG_AND_SPRINTS.md`, TC-AGB-529–553), by the
+  user's explicit scope choice this session (not the full plugin): directly retested the drag/badge-update
+  TCs with fresh evidence (TC-AGB-530–532, 536, 537, 539), spot-reconfirmed the setting-toggle TCs
+  (538/539/542), and left TCs on code paths neither fix touched (width/API/permissions/translation/fractional
+  points) as previously-passing with rationale — see the testcase file's "Post-fix regression" section for
+  the full per-TC table.
+- `STATUS.md` updated: 0 open bugs, but still `In Progress` — a full plugin-wide final-cycle regression
+  (§27) covering every suite is still required before `Complete`, since only #120436's suite was regressed
+  this session by explicit user choice.
+
+## Completed This Session (2026-09-21, earlier) — BUG-AGB-011 found, correcting the #120436 sign-off
 
 After Feature #120436 had already been marked Done on production earlier this same session, the user live-tested
 the Backlog and reported (with a screenshot) a nonsensical negative story-points total (`13 / -74 SP`) after
@@ -153,28 +184,23 @@ Ninth pass this session (found during the Lotus theme's own "full core-Redmine s
 
 ## Next Session Start Point
 
-- `BUG-AGB-011` is reported to production (#120990, assigned Prashant Chaurasia) and #120436 is reopened
-  (In QA / 90%) pending its fix — next session should check #120990's status before assuming it's still open.
-- Once fixed, retest per the bug's own recommendation: TC-AGB-530–532, 536–537, 539–540, 542–543 run as one
-  continuous session (several drags + point edits, no reload in between) rather than as isolated TCs, since that's
-  the only way this class of bug shows up.
-- `bugs/open/` currently has 2 items (BUG-AGB-010, BUG-AGB-011) — the plugin-wide final-cycle regression
-  (SENIOR_QA_STANDARDS.md §27) still cannot run until both are fixed and closed.
-- Older note (translation cycle, superseded by the above for current priority): plugin was marked `Complete` for
-  translation coverage on 2026-09-10 — the untested surfaces below (column reordering, Scrum mode, grouping
-  options, permissions) remain the next-coverage targets once the open bugs are resolved.
+- Both bugs are closed and production-synced. **`bugs/open/` is empty.** Next priority: a **full plugin-wide
+  final-cycle regression** (SENIOR_QA_STANDARDS.md §27, every suite — not just #120436) is what's needed to
+  move `STATUS.md` to `Complete`. This is a large scope (the core TC-AGB-001–018 suite plus the 208 largely
+  unexecuted TCs across 7 suites authored 2026-09-15) — confirm scope/priority with the user before starting.
+- #120436 moved back to **Done / 100%** on production (2026-09-21, per explicit user approval) now that its
+  regression has passed following the BUG-AGB-010/BUG-AGB-011 fixes.
+- Older note (translation cycle): plugin was marked `Complete` for translation coverage on 2026-09-10 — the
+  untested surfaces below (column reordering, Scrum mode, grouping options, permissions) remain candidates for
+  the full final-cycle regression above.
 - Note: this plugin's own bug-code prefix is AGB per `CLAUDE.md` §4; internal plugin name confirmed as `agile_board`, display name "Redmineflux Agile Board", version 7.0.0.
 - Note: "Story Points aktivieren" is a plugin-level feature toggle (Administration → Plugins → Redmineflux Agile Board), NOT a core-Redmine custom field — don't check `/custom_fields` to determine whether it's available; check the plugin's own configuration page instead.
 - Note: the custom/saved board-config form (`board_configs/new`/`edit`) maintains its own separate `c[]`-keyed checkbox list, distinct from the quick-panel/My-Page-block `board[visible_card_fields][]` list — a translation fix to one does not automatically apply to the other; check both independently if this area is ever revisited.
 
 ## Open Bugs Found (this plugin)
 
-- `BUG-AGB-010` (Medium, open, production #120986) — pre-existing `query_id` FrozenError crash, not reachable via
-  any UI link.
-- `BUG-AGB-011` (High, open, production #120990, assigned Prashant Chaurasia) — Backlog story-points badge goes
-  wrong after drag without reload; within Feature #120436's own delivered code. Production #120436 reopened
-  (In QA / 90%) as a companion action pending this fix.
-- (Historical: `bugs/open/` was empty as of 2026-09-10, before Feature #120436 testing began.)
+- **None. `bugs/open/` is empty as of 2026-09-21** (second time — first was 2026-09-10 for the translation
+  cycle). Both `BUG-AGB-010` and `BUG-AGB-011` retested FIXED and closed this session; see Closed Bugs below.
 
 ## Closed Bugs
 
@@ -186,6 +212,9 @@ Ninth pass this session (found during the Lotus theme's own "full core-Redmine s
 - BUG-AGB-006 (Low) — admin Configure page "(Default: ...)" untranslated. **Fixed**, verified 2026-09-09 — now "(Standard: ...)".
 - BUG-AGB-007 (Low) — Sprints settings-tab "Freigabe" column showed raw "not_shared" for some sprints. **Fixed**, verified 2026-09-09 on a new Forge server — both previously-affected sprints ("UI Polish", "Bug Bash") now correctly show "Nicht geteilt".
 - BUG-AGB-008 (Low) — drag-and-drop status-change toast entirely hardcoded English. **Fixed**, verified 2026-09-09 on a new Forge server — now reads "Ticket #259 verschoben nach RESOLVED", fully German.
+- BUG-AGB-009 (Medium) — toggling Enable Story Points off/on silently wiped Story Point Values. **Fixed**, verified 2026-09-21 (commit `288d293`) — value survives the full off/on cycle.
+- BUG-AGB-010 (Medium, production #120986) — `query_id` parameter FrozenError crash on the Backlog/Agile Board controller, not reachable via any UI link. **Fixed**, verified 2026-09-21 (commit `f3ba81b`) — now returns a clean 404 instead of a 500.
+- BUG-AGB-011 (High, production #120990) — Backlog story-points badge went wrong (including negative) after dragging a card between sprint/version columns without reloading; within Feature #120436's own delivered code. **Fixed**, verified 2026-09-21 (commits `32141ba` + `50a8a76`) — badge now updates live and correctly on both sprint and version columns, and stays correct through a subsequent inline edit without reloading.
 
 ## Related Bug Found Against Another Plugin
 
@@ -218,3 +247,5 @@ Ninth pass this session (found during the Lotus theme's own "full core-Redmine s
 | 2026-09-21 | 7.0.0 (local Docker `redmine-docker-700`, http://localhost:3010) | Local Docker - Agile Board plugin 7.0.0, branch `feature/backlog-sprint-points` (`288d293`) | Claude (Playwright MCP) | **Feature #120436 closed on production.** Per user request, updated production #120436: In QA -> Done, 90% -> 100%, with a full QA sign-off comment (requirement-by-requirement results, sanity+regression coverage, both bugs found this cycle). Final tally: sanity (6/6 PASS) + regression (23/25 PASS, 1 N/A - TC-AGB-541 feature not built, 1 inconclusive - TC-AGB-548 API auth). All four requirements verified PASS, zero defects in the feature's own code. Noted in the sign-off that the ticket's own Business Context (purchase-conditional for client Innoval) means a sales/account-owner confirmation may still be needed before communicating delivery - that step is outside QA's scope and was not assumed complete. |
 | 2026-09-21 | 7.0.0 (local Docker `redmine-docker-700`, http://localhost:3010) | Local Docker - Agile Board plugin 7.0.0, branch `feature/backlog-sprint-points` (`288d293`) | Claude (Playwright MCP) | **BUG-AGB-011 found and filed (High) - correction to the sign-off above.** Minutes after Feature #120436 was marked Done on production, the user live-tested the Backlog and reported a screenshot showing a nonsensical negative story-points total (`13 / -74 SP`) after dragging cards between sprint/version columns; separately confirmed "after refresh it show correct value." Reproduced independently (drag a 2-pt card in - badge stays stale at the pre-drag total; then edit another card's points - the edit's delta applies on top of the stale badge, compounding the error) and root-caused to `backlog.html.erb`'s sortable `update` handler only maintaining the card count (`updateSingleColumnCount`), never the `.backlog-column-story-points` badge - confirmed via grep, no live-update call site for the badge exists anywhere in the drag/drop path. Purely a client-side display bug: no stored `story_points` data is corrupted, a reload always shows the true value. Squarely inside #120436's own delivered code (the badge display it introduced), unlike the pre-existing/unrelated BUG-AGB-010. Not caught during the regression pass because TC-AGB-545 (drag) and TC-AGB-537 (inline edit) were each tested as isolated, reload-separated scenarios rather than back-to-back in one page load - the actual real-world planning workflow. Corrected `AGILE_BACKLOG_AND_SPRINTS.md`'s regression Result line accordingly and updated `STATUS.md` (open bugs 1 -> 2). **Not yet reported to production; no action taken on #120436's Done status** - both await the user's explicit direction. |
 | 2026-09-21 | 7.0.0 (local Docker `redmine-docker-700`, http://localhost:3010) | Local Docker - Agile Board plugin 7.0.0, branch `feature/backlog-sprint-points` (`288d293`) | Claude (Playwright MCP + redmineflux MCP) | **BUG-AGB-011 reported to production; #120436 reopened - per explicit user approval** ("Report BUG-AGB-011 + reopen #120436", assignee "Prashant Chaurasia" confirmed via AskUserQuestion). Created production issue **#120990** on ztflux (Priority High, Defect Severity "High-severity", Defect priority "High", category "Agile board plugin", assigned to Prashant Chaurasia/user id 410) with the full root-cause writeup in Textile. Updated production **#120436**: Done/100% -> In QA/90%, with a comment cross-referencing #120990 and explaining the client-side-only nature of the defect; will return to Done once #120990 is fixed and retested. Local `bugs/open/BUG-AGB-011.md` updated with the production issue ID header and a new "Production report" section; `bugs/_index.md`, `STATUS.md`, this handoff file, and `docs/AGILE_MEMORY.md` all updated to match. Follow-up same session: corrected #120990's tracker (had defaulted to "Task" since `create_issue` was called without `tracker_id`) to "Bug" - this reset the Defect Severity/priority custom fields to their tracker defaults, re-set them back to High/High-severity immediately after, confirmed via `get_issue`. Then, per user request, linked #120990 to production **testcase #120941 in run #577** (the sanity testcase this feature was originally tested under) via `report_defect` with `defect_issue_id=120990` - run #577's result for #120941 is now **Failed** with the defect attached, while the local per-TC sanity verdicts stay PASS (isolated-execution scope, not touched) - noted in `AGILE_BACKLOG_AND_SPRINTS.md`. |
+| 2026-09-21 | 7.0.0 (local Docker `redmine-docker-700`, http://localhost:3010) | Local Docker - Agile Board plugin 7.0.0 -> **7.1.0**, branch `master` (merged from `feature/backlog-sprint-points`, commit `50a8a76`) | Claude (Playwright MCP + redmineflux MCP) | **Production #120436 moved back In QA/90% -> Done/100%**, per explicit user approval, now that BUG-AGB-010/BUG-AGB-011 are fixed and the Feature #120436 suite regression has passed. |
+| 2026-09-21 | 7.0.0 (local Docker `redmine-docker-700`, http://localhost:3010) | Local Docker - Agile Board plugin 7.0.0 -> **7.1.0**, branch `master` (merged from `feature/backlog-sprint-points`, commit `50a8a76`) | Claude (Playwright MCP + redmineflux MCP) | **Both BUG-AGB-010 and BUG-AGB-011 retested FIXED, closed, production synced, Feature #120436 suite regressed - per explicit user approval throughout.** Developer merged the feature branch to master and released 7.1.0 with fix commits `f3ba81b` (query_id crash), `32141ba` and `50a8a76` (drag-badge desync, generalized to every board). Restarted container + Redis/Sidekiq (no plugin migrations needed). Retested both bugs against their exact original repro steps - both confirmed fixed with fresh evidence, moved to `bugs/closed/`. Production #120986 and #120990 updated In QA -> Done/100%; production testcase #120941/run #577 updated back to Passed (result ID 14287). Regressed the Feature #120436 suite (TC-AGB-529-553) per the user's explicit scope choice (not the full plugin): drag/badge-update TCs (530-532, 536, 537, 539) directly retested with fresh evidence including an extension to version columns not covered by the original bug repro; setting-toggle TCs (538/539/542) spot-reconfirmed; TCs on code paths neither fix touched left as previously-passing with rationale recorded in the testcase file's "Post-fix regression" section. `bugs/open/` is now empty; `STATUS.md` stays `In Progress` pending a full plugin-wide final-cycle regression (SENIOR_QA_STANDARDS.md s27, every suite) before `Complete`. |

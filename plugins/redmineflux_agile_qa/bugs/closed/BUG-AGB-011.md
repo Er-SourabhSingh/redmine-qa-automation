@@ -186,3 +186,26 @@ value."*
   defect #120990 attached, reflecting this regression against the sanity testcase's own scope. The local
   per-TC verdicts in `testcases/AGILE_BACKLOG_AND_SPRINTS.md` (TC-AGB-529/530/533/535/539/545) are left as
   isolated PASS, per this repo's retest-scope rule — see the note added there 2026-09-21.
+
+## Retest — 2026-09-21 — FIXED
+
+- Environment: same local Docker `redmine-docker-700` (http://localhost:3010), branch **`master`**, commits
+  `32141ba` ("Keep the backlog points badge true while cards are dragged") and `50a8a76` ("Move story points
+  with a dragged card on every board") — `feature/backlog-sprint-points` was merged to master (`fda8fb1`) and
+  released as plugin version **7.1.0**. Container restarted, Redis/Sidekiq restarted; no plugin migrations
+  were added, so no `rake redmine:plugins:migrate` was needed.
+- Repeated the exact repro on the same fixture ("SP Sanity Sprint 120436" / "No Points Sprint 120436", issue
+  #1469): dragged #1469 (5 pts) from "No Points Sprint 120436" into "SP Sanity Sprint 120436" — **both badges
+  updated live, immediately, correctly**: source `13 / 18 SP` → `13 / 13 SP` (5 subtracted), destination
+  `5 / 21 SP` → `5 / 26 SP` (5 added) — matching true totals with no reload needed.
+- Then, still without reloading, edited #1469's points 5 → 8 (+3) via the inline editor: badge updated live to
+  `5 / 29 SP` — computed correctly from the now-accurate post-drag base (26 + 3 = 29), not a stale one.
+- Reloaded the page: badge still read `5 / 29 SP`, an exact match to the live value — no divergence.
+- This directly confirms both the drag-desync and the delta-compounding-on-stale-base mechanisms are fixed.
+- Evidence: `screenshots/BUG-AGB-011/retest-2026-09-21-fixed-live-badge-after-drag.png` (live, post-drag,
+  correct) and `screenshots/BUG-AGB-011/retest-2026-09-21-fixed-matches-after-reload.png` (post-reload,
+  identical).
+- Moved to `bugs/closed/`.
+- Production **#120990** updated: In QA → Done, 100%, with retest summary noted — per explicit user approval.
+- Production **testcase #120941** in **run #577** updated to **Passed** (result ID 14287), noting the fix and
+  that BUG-AGB-010 was confirmed fixed in the same retest pass — per explicit user approval.

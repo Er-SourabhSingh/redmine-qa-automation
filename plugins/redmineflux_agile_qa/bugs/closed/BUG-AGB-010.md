@@ -159,3 +159,22 @@ identical `FrozenError` shape (differing only by the calling line: 505 for `back
 - Duplicate found: No
 - Checked `bugs/_index.md` (BUG-AGB-001 … 009) and `bugs/_duplicates.md` (empty). No prior bug touches saved
   queries or `retrieve_rf_agile_query`.
+
+## Retest — 2026-09-21 — FIXED
+
+- Environment: same local Docker `redmine-docker-700` (http://localhost:3010), branch **`master`**, commit
+  `f3ba81b` ("Stop a query_id from crashing the board and the backlog") — `feature/backlog-sprint-points` was
+  merged to master (`fda8fb1`) and released as plugin version **7.1.0**. Container restarted, Redis/Sidekiq
+  restarted; no plugin migrations were added between `288d293` and this commit, so no `rake
+  redmine:plugins:migrate` was needed.
+- Repeated the exact repro: `GET /projects/test-project/backlog?query_id=1` and
+  `GET /projects/test-project/agile_board?query_id=1`. Both now return a clean **404 Not Found** ("Page not
+  found") instead of a 500.
+- Server log confirms the fix directly: the query is now built as
+  `WHERE "queries"."type" = $1 AND (project_id IS NULL OR project_id = $2)` and raises a normal
+  `ActiveRecord::RecordNotFound` (from `retrieve_rf_agile_query`, `rf_boards_controller.rb:1603`) — no
+  `FrozenError`, no unhandled 500. This matches this bug's own "Expected result" exactly (clean 404/403 instead
+  of a crash).
+- Evidence: `screenshots/BUG-AGB-010/retest-2026-09-21-fixed-clean-404.png`.
+- Moved to `bugs/closed/`.
+- Production **#120986** updated: In QA → Done, 100%, with retest summary noted — per explicit user approval.

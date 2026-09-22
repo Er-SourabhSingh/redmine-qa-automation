@@ -243,10 +243,59 @@ checked by default; uncheck it explicitly or this case falsely passes.
 - An archived project's entries still appearing in the activity view or reports is a defect — archiving is
   expected to remove them from view.
 
+CONFIRMED LIVE 2026-09-22 (**closed-project half only** — ad-hoc investigation prompted by a user report, not a
+full suite pass; the archived-project half is still not executed): **FAIL.** Admin role, project
+`checklist-perm-private` (closed), issue #1533. Core's own "Log time" link is correctly absent (confirms the
+project IS read-only for the standard path). But the plugin's own **"Start Timer"** control on the issue detail
+page (`.issue-start-timer-btn`) is fully enabled — starting a timer, running it past the plugin's 1-minute
+minimum, and saving via "Stop Timer & Log Time" **all succeeded**:
+- `POST /time_tracker/start_timer` → 200 OK
+- `POST /time_tracker/save_time_entry_with_custom_fields` → 200 OK
+- The issue's Spent time total increased (0:02 h → 0:03 h), confirming a real, persisted `TimeEntry` was written
+  to a project explicitly marked "closed and read-only."
+Filed as **BUG-TMT-001** (High). The archived-project half of this TC, and the "edit an existing entry" /
+direct-endpoint sub-steps, remain **not executed** — a future full pass on this suite should cover those.
+
+---
+
+### TC-TMT-924: Core "Time tracking" module disabled at project level
+
+**User Role:** Admin (any member)
+**Preconditions:** A project with the plugin's timer previously usable.
+**Steps:**
+1. Project Settings → Modules → uncheck core Redmine's **Time tracking** module (this plugin registers no
+   module of its own — this core checkbox is the only "time tracking" toggle a project has); Save.
+2. Open any issue in that project and confirm core's own "Log time" link is correctly absent.
+3. Check whether the plugin's own **Start Timer** control is still shown on the issue detail page.
+4. If shown, click it (and satisfy the unassigned-issue "Assignment Notice" interstitial if it appears) and
+   observe both the network response and whether any error is surfaced to the user.
+
+**Expected Result:**
+- With the module disabled, the plugin's **Start Timer** control should not be offered at all — matching how
+  core's own "Log time" link disappears on the same page.
+- If the control is left visible for any reason, clicking it must clearly tell the user why the action did not
+  happen.
+
+CONFIRMED LIVE 2026-09-22 (Admin role, project `test-project`, issue #1553, core "Time tracking" module unchecked
+via Settings → Modules → Save): **FAIL** — the plugin's **Start Timer** control remains fully visible and
+clickable on the issue detail page; core's own "Log time" link is correctly absent, confirming the module really
+is off for this project.
+
+Clicking it proceeds through the usual "Assignment Notice" interstitial (issue unassigned) and then:
+- `POST /time_tracker/start_timer` → **422 Unprocessable Content**, response body
+  `{"status":"error","message":"Time tracking is disabled for this project"}` — so the backend **does** enforce
+  the module correctly; no time entry is written and no real bypass occurs (unlike `BUG-TMT-001`'s closed-project
+  finding, which was a genuine write-through).
+- However **no error is surfaced to the user anywhere in the UI** — no toast, no inline message. The button
+  simply returns to its idle "Start Timer" state with zero feedback, so from the user's perspective the click
+  silently did nothing and they are given no reason why.
+
+Filed as **BUG-TMT-002** (Medium — misleading dead control + silent failure, not a data-integrity bypass).
+
 ---
 
 ## Evidence Map
 
 | Case ID | Screenshot | Log | Bug reference |
 |---------|------------|-----|---------------|
-| | | | |
+| TC-TMT-924 | screenshots/BUG-TMT-002/module-disabled-start-timer-visible-silent-fail.png | `start_timer` → 422, "Time tracking is disabled for this project" | BUG-TMT-002 |

@@ -2,11 +2,130 @@
 
 ## Last Session
 
-- Date: 2026-09-10
-- Redmine Version: 7.0.1.stable
-- Environment: Forge — `https://flux-fhhcov1xf49.forge.zehntech.com/`
+- Date: 2026-09-22
+- Redmine Version: 7.0.0 (local Docker)
+- Environment: Local Docker `redmine-docker-700` — http://localhost:3010
 
-## Completed This Session (2026-09-10, BUG-INE-004 retest + final cycle regression)
+## Completed This Session (2026-09-22, production fix #120919 verification)
+
+Fetched production issue #120919 (Feature, In QA) — inline date editor was auto-saving prematurely while a date was
+still being typed (e.g. year truncated to "0026" mid-entry). Authored TC-INE-323–328
+(`testcases/INLINE_EDITOR_ISSUE_DETAIL_EDITING.md`) and TC-INE-225–226 (`testcases/INLINE_EDITOR_ISSUE_LIST_EDITING.md`)
+against the fix's own QA notes, then executed all 8 on `redmine-docker-700` (Redmine 7.0.0, plugin 7.0.0):
+
+- Created 2 new Date-format custom fields: issue-level "QA Inline Date Field" (`cf_61`, all trackers/projects) and
+  project-level "QA Inline Project Date Field" (`cf_62`). Test fixture: issue #1551 in "test project".
+- Instrumented the page with a `window.fetch`/XHR interceptor so results were judged by actual network requests,
+  not visual state alone.
+- **All 8 TCs PASS** across all 4 surfaces (issue detail built-in date, issue detail custom field, issue-list Due
+  date column, issue-list/project-list custom field columns): zero premature saves at any point while typing,
+  including at truncated-looking zero-padded intermediate years (`0202-12-03`); exactly one correct-value save on
+  blur or Enter; zero saves on Escape (value reverts); calendar-pick (simulated via `.fill()`) still saves
+  immediately, unchanged. The fix genuinely defers the save server-side, not just visually.
+- User asked specifically whether Start Date (not just Due Date) had been tested — it hadn't yet at that point, so
+  ran the same no-premature-save + blur-save checks against Start Date on both the issue detail page and the issue
+  list column: **both PASS**, identical behavior to Due Date. Incidentally reconfirmed the pre-existing Start/Due
+  cross-field validation still works (a genuine `422 "Due Date must be greater than start date"` when testing an
+  invalid combination, no data corruption).
+- User then asked whether that validation error message is actually shown to the user (not just rejected
+  server-side) — set up a `MutationObserver` per this plugin's own established toast-capture method and confirmed
+  **PASS on both surfaces**: detail page toast reads "Could not save: Due Date must be greater than start date",
+  issue-list toast reads just "Due Date must be greater than start date" (no prefix — a minor wording
+  inconsistency between the two, not a bug, both correctly block the save and inform the user).
+- One inconsistent non-finding, **not filed**: the issue-list custom-field column's blur-save fired twice
+  (identical duplicate request) in 2 of 3 attempts, not reproducible on 2 further deliberate retries — treated as a
+  test-harness artifact per this plugin's own 2026-09-08 precedent (a synthetic-event false positive that also
+  wasn't filed). Also created production sanity testcase [#121042](https://flux.zehntech.com/issues/121042) in
+  suite #146 "Inline Issue Editor" pointing at this coverage, per user approval, prior to this execution session.
+- User then asked a broad question: had the plugin's custom-field-configuration and permission-granularity
+  scenarios been tested at all — Required enforcement, tracker/project-scoped fields, List-format multi-select
+  display type, workflow field permissions changing live with Status inside an open inline editor, multiple
+  simultaneously-required fields, "Edit own issues" vs "Edit issues", and per-project "Edit project" gating. They
+  hadn't — checked against every existing suite first, confirmed only generic/adjacent TCs existed (TC-INE-306,
+  TC-INE-320/903, TC-INE-912), then authored 8 new TCs in a new suite
+  `testcases/INLINE_EDITOR_CUSTOM_FIELD_CONFIGURATION.md` (TC-INE-401–408) and 3 new TCs appended to
+  `testcases/INLINE_EDITOR_PERMISSIONS.md` (TC-INE-913–915). **Authoring only — none of these 11 executed yet.**
+- User then asked to explore the instance's real custom fields first and ground the TCs in them, and separately to
+  test and document a specific behavior: inline-editing while a required field is unmet falls back to the full
+  Edit form. Explored Administration → Custom fields (both Issues and Projects tabs) — found **zero** pre-existing
+  fields besides this plugin's own `cf_61`/`cf_62` from the #120919 session. Created 7 new real fixture fields
+  (`cf_63`–`cf_69`) covering every configuration TC-INE-401–408 needs, plus a Workflow → Fields permissions rule on
+  `cf_69` for role Developer/tracker Bug. Rewrote every precondition in TC-INE-401–408 to reference these real
+  fixtures by name/ID. Added and **executed live** TC-INE-409: confirmed the required-field fallback works exactly
+  as the user described — an inline save rejected for unmet required fields renders the full standard Edit form in
+  place (no hard navigation), lists all unmet-field errors together, and preserves the user's in-progress attempted
+  change; completed the flow (filled both required fields, submitted) and confirmed everything persisted
+  correctly. Not a bug — confirmed working as designed. (Along the way, also had to re-authenticate: the browser
+  session had somehow switched to a non-admin seed user, `luna.blossom`, mid-session — signed out and logged back
+  in as `admin` before proceeding; worth a note in case this Playwright profile is shared across concurrent
+  sessions, per `MEMORY.md`'s "Playwright MCP Isolation" reference.)
+- User then asked whether the **Workflow** config had been explored, and to prepare a workflow fixture for testing
+  status-dependent read-only behavior — describing this scenario: a field read-only at one status, which becomes
+  editable when the status moves to In Progress, with the Edit form opening at that transition. Surveyed
+  Administration → Workflow → Fields permissions across **all** role × tracker combinations: **zero** pre-existing
+  rules on the instance. Reconfigured the `cf_69` fixture rule to match the scenario (role Developer, tracker Bug:
+  New = **Read-only**, In Progress = **Required**), and changed `daisy.skye`'s membership on "test project" from
+  Reporter to **Developer** so the rule actually applies to her (admin is exempt from workflow field permissions).
+  **Executed TC-INE-406 (PARTIAL PASS) and TC-INE-407 (PASS)** as `daisy.skye`:
+  - At "New": `cf_69` rendered with **no inline affordance at all** — read-only honored in the UI.
+  - Inline Status "New" → "In Progress" with `cf_69` blank: **rejected** with "Qa workflow field cannot be blank"
+    (the status-dependent Required rule IS enforced on the inline path), then the **full Edit form opened in
+    place** with the attempted status preserved and `cf_69` now **editable** (evaluated against the new status).
+  - Filled `cf_69`, submitted → Status = In Progress, value saved, and `cf_69` now **shows an inline pencil**.
+  - **Outstanding:** TC-INE-406 step 3, the negative *endpoint* leg for the read-only field. First attempt used a
+    hand-rolled `fetch()` to `update_field.json`, got a `401`, which raised the browser's **native Basic Auth
+    dialog** and hung the session (user spotted it from their screen). That 401 is a CSRF/API-auth rejection, not
+    proof of field-permission enforcement — so server-side enforcement of the Read-only rule is **unproven**. Redo
+    via the plugin's own request path; see global memory "Avoid Raw fetch() On .json Endpoint Tests".
+- Local docs updated: both original testcase files (Result lines + Evidence Map), the new custom-field-config
+  suite, the permissions suite, `INLINE_EDITOR_FEATURES_LIST.md` (rows #7, #9, new rows #14/#15, session notes),
+  this handoff, and `INLINE_EDITOR_MEMORY.md`. No screenshots taken (no bugs found — per §6, screenshots are
+  bug-evidence only).
+- User then asked for one more combination: a **custom-field-level** Required field (the `is_required` checkbox,
+  required at every status) tested *together with* the workflow rules — specifically that at "New" **no error**
+  occurs, but attempting a **status change** takes the user to the Edit form. Set `cf_65` to Required ✓ (it was
+  blank on #1551, the realistic "field made required after issues already exist" shape), reset #1551 to "New" as
+  admin, and **executed new TC-INE-410 as `daisy.skye` — PASS**:
+  - At "New": page rendered with **zero error elements**; `cf_65` blank but inline-editable; `cf_69` correctly
+    showing no pencil (workflow Read-only) — both rule types coexisting correctly on one issue.
+  - Inline Status "New" → "In Progress": rejected with "Qa bug-only tracker field cannot be blank" → **full Edit
+    form opened in place** with the status preserved and `cf_65` editable; `cf_69` also editable there because the
+    form evaluates against the *target* status.
+  - Filled `cf_65`, submitted → Status = In Progress, value saved, `cf_69` pencil now present.
+  - This closes the third and last of the three required-field × trigger combinations; all three use the same
+    single fallback mechanism. Not a bug.
+- User then asked the sharpest version of the question: what if a field is **both** Required (from creation) and
+  Read-only-at-New (via workflow) — could that trap a user? Created a brand-new field `cf_70` ("QA Required
+  Readonly Field") with Required ✓ checked at creation, plus a Workflow rule (Developer/Bug: New=Read-only, every
+  other status left blank). Tested as `daisy.skye` starting from **issue creation** (not a retrofitted existing
+  issue) — **new TC-INE-411, PASS, no deadlock:**
+  - `cf_70` is fully **absent** from the New-issue creation form (not disabled — not rendered at all), same as the
+    other two New=Read-only fields (`cf_65`, `cf_69`). Issue #1552 created cleanly with `cf_70` blank, zero errors.
+  - Inline-editing Priority on the fresh issue at "New" **saved directly, no Edit-form fallback needed** — Redmine
+    exempts a read-only field from Required enforcement entirely, on both create and update.
+  - Inline-changing Status to "In Progress" (where `cf_70` has no override, reverting to plain Required)
+    **rejected** with all three now-unmet fields listed together (`cf_65`, `cf_69`, `cf_70`) → Edit form opened in
+    place → filled all three → submitted → Status=In Progress, all three persisted.
+  - Root cause: this is **Redmine core's own semantics**, not plugin-specific — a Read-only field is excluded from
+    Required validation while read-only, full stop. The deadlock the configuration suggests on paper never occurs.
+  - Note for future sessions: my first attempt at this reused `cf_65`/#1551 (already admin-touched from earlier
+    tests) and got confusing results (an admin save unexpectedly blocked by the *same* Required-field validation
+    while resetting Status — a useful side-lesson that admin is exempt from Read-only but **not** from Required).
+    The user correctly redirected me to build a fresh field + a fresh issue created by the actual restricted role,
+    which is what actually produced the clean, unambiguous result above.
+- **Environment changes left in place** (deliberate, for the next run): 8 custom fields `cf_63`–`cf_70` (`cf_65`
+  and `cf_70` now also **Required ✓**); the `cf_69` and `cf_70` Workflow → Fields permissions rules (Developer/Bug:
+  New=Read-only for both, `cf_69` additionally Required at In Progress); `daisy.skye` = Developer on "test
+  project"; issue #1551 at Status **In Progress** with `cf_63`/`cf_64`/`cf_65`/`cf_69` populated; issue **#1552**
+  (new) at Status **In Progress** with `cf_65`/`cf_69`/`cf_70` populated, Priority=High. Note `cf_65` and `cf_70`
+  being Required now affect *any* Bug-tracker issue on this instance — if a later test needs a clean non-required
+  field, use `cf_66` instead.
+- `STATUS.md` updated. `bugs/open/` remains empty; this plugin stays `Complete` per its existing final-cycle
+  regression, with this session adding fresh coverage for a specific production fix rather than reopening the
+  cycle. The 11 newly-authored custom-field-configuration/permission TCs are a genuine coverage gap for next
+  session, not yet reflected in the `Complete` status's own regression baseline.
+
+## Previously Completed (2026-09-10, BUG-INE-004 retest + final cycle regression)
 
 Logged in (admin/12345678 — already past the forced-password-change screen on this server), set German language at both account and system-default level, then retested the sole open bug and ran the full plugin final-cycle regression since it emptied `bugs/open/`:
 
@@ -57,7 +176,16 @@ Retested all 3 open bugs on a newly-provisioned Forge server, German language, S
 
 ## In Progress
 
-- Completely untested: Start/End date inline edit, % complete inline edit, custom fields inline edit, real-time-update behavior beyond the fields already exercised. Not a blocker for `Complete` per `STATUS.md`'s criteria (empty `bugs/open/` + passed final-cycle regression), but a genuine coverage gap if this plugin is revisited.
+- Start/Due date inline edit and every custom field format (Date, Text, Long text, Boolean, Integer, Float, Link,
+  List single/multi-select, User, Version) are now covered and PASS (2026-09-22 — see Run History). Only Key/value
+  list (not creatable via the stock UI) and % complete inline edit remain genuinely untested. Not a blocker for
+  `Complete` per `STATUS.md`'s criteria, but the last real coverage gap if this plugin is revisited.
+- **TC-INE-402–403 (tracker/project scoping)** and **TC-INE-406 step 3** (the negative endpoint leg for the
+  workflow Read-only field) are the only custom-field-configuration TCs left to execute — fixtures for 402/403
+  already exist (`cf_65`/`cf_66`), no new setup needed.
+- `testcases/INLINE_EDITOR_PERMISSIONS.md` TC-INE-913/914/915 executed 2026-09-22, **all PASS** — see Run History.
+  TC-INE-913's negative endpoint leg (step 3) was skipped due to the same raw-`fetch()` popup risk documented for
+  TC-INE-406; still outstanding. TC-INE-901–912 (the rest of this suite's matrix) remain unexecuted.
 - Stage 2 (resolutions, Default theme) not yet formally run as its own pass (though Lotus+1280×720 in TC-INE-008 covered the narrow resolution combination for the surfaces already tested).
 
 ## Blockers
@@ -66,11 +194,18 @@ Retested all 3 open bugs on a newly-provisioned Forge server, German language, S
 
 ## Next Session Start Point
 
-- No open bugs. If revisited, prioritize the untested surfaces noted above (Start/End date, % complete, custom fields inline edit) to close the remaining coverage gap, then add new TCs to `INLINE_EDITOR_GERMAN_LANGUAGE.md` for them.
+- No open bugs. TC-INE-913/914/915 all PASS (2026-09-22) — permission granularity fully closed except one leg.
+  **Start with TC-INE-406 step 3 and TC-INE-913 step 3** — both are the same class of unproven negative-endpoint
+  leg, skipped for the same raw-`fetch()` popup risk (see global memory "Avoid Raw fetch() On .json Endpoint
+  Tests"); drive the plugin's own request path instead of a hand-rolled one. Note issue #1551 is at "In Progress",
+  move it back to "New" first for the 406 leg (as admin — a Developer can't transition backward per the workflow's
+  status-transition rules). **Then TC-INE-402–403** — tracker and project scoping; fixtures (`cf_65`/`cf_66`)
+  already exist. Remaining untested surface beyond that: % complete inline edit, and TC-INE-901–912 (the rest of
+  the permissions matrix, not yet touched).
 
 ## Open Bugs Found
 
-- None. `bugs/open/` is empty as of 2026-09-10.
+- None. `bugs/open/` is empty as of 2026-09-10, still empty as of 2026-09-22.
 
 ## Closed Bugs
 
@@ -93,3 +228,12 @@ Retested all 3 open bugs on a newly-provisioned Forge server, German language, S
 | 2026-09-09 | 7.0.1.stable | Forge (flux-fdrk6suoj49) | Claude (Playwright MCP) | Second retest pass, new Forge server after branch update: **all 3 open bugs confirmed FIXED** and closed — BUG-INE-001 ("Suche"/"Keine"), BUG-INE-002 ("Konnte nicht gespeichert werden:"), BUG-INE-003 ("Erfolgreich gespeichert."/"Abbrechen"/"Speichern"). Found and filed new `BUG-INE-004` (Low) — a previously-undocumented interim "Saving…" loading indicator, still hardcoded English. `bugs/open/` now contains only this one new bug. |
 | 2026-09-10 | 7.0.1.stable | Forge (flux-fhhcov1xf49) | Claude (Playwright MCP) | BUG-INE-004 retested and confirmed FIXED ("Wird gespeichert…"), closed — `bugs/open/` now empty. **Final cycle regression — 9 TCs (TC-INE-001–009) re-run, all PASS**, zero new failures. `STATUS.md` set to `Complete`. |
 | 2026-09-15 | n/a (authoring only) | n/a | Claude | **Test-case authoring pass — nothing executed.** Vendor knowledge base ingested from https://www.redmineflux.com/knowledge-base/plugins/inline-editor-plugin/ and 81 functional, negative and permission test cases written across 4 new suites (TC-INE-101 onward): INLINE_EDITOR_INSTALLATION_CONFIGURATION, ISSUE_LIST_EDITING, ISSUE_DETAIL_EDITING, PERMISSIONS. Existing suites and their execution evidence were left untouched; the new cases start at 101 so they cannot collide with the existing TC-INE-0xx numbering. Next session should start with the installation/configuration suite, then permissions, then the functional suites in file order. |
+| 2026-09-21 | n/a (authoring only) | n/a | Claude | **Test-case authoring pass — nothing executed.** Fetched production feature #120919 (inline date editor auto-save timing fix) and authored TC-INE-323–328 (`ISSUE_DETAIL_EDITING.md`) plus TC-INE-225–226 (`ISSUE_LIST_EDITING.md`) against its own QA notes. Also created production sanity testcase #121042 in suite #146 "Inline Issue Editor", per explicit user approval. |
+| 2026-09-22 | 7.0.0 (local Docker) | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | Executed TC-INE-323–328 and TC-INE-225–226 against production fix #120919. Created 2 new Date-format custom fields (`cf_61` issue-level, `cf_62` project-level). **All 8 TCs PASS** across issue-detail built-in date, issue-detail custom field, issue-list Due-date column, and issue-list/project-list custom-field columns — verified via a `fetch`/XHR network interceptor, not just visual state: zero premature saves while typing (incl. truncated zero-padded years), single correct save on blur/Enter, zero saves on Escape, immediate save on calendar-pick. Followed up on explicit user question ("have you tested start date??") by running the same checks against **Start Date** (detail page + list column) — **both PASS**, identical to Due Date; also incidentally reconfirmed the pre-existing Start/Due cross-field validation (genuine `422`, no data corruption). One intermittent (seen on `cf_61` and `start_date`, not on `due_date`) duplicate-save non-finding on the issue-list view, not reliably reproducible across several retries — treated as a test-harness artifact, not filed. No bugs found this session. |
+| 2026-09-22 | n/a (authoring only) | n/a | Claude | **Test-case authoring pass — nothing executed.** User asked whether a broad list of custom-field-configuration and permission scenarios had been tested (Required enforcement, tracker/project-scoped fields, List-format multi-select display type, workflow field permissions changing live with Status, multiple simultaneously-required fields, "Edit own issues" vs "Edit issues", per-project "Edit project"). Confirmed against every existing suite that only generic/adjacent coverage existed (TC-INE-306, TC-INE-320/903, TC-INE-912) — none of these specific scenarios. Authored 8 new TCs in a new suite `INLINE_EDITOR_CUSTOM_FIELD_CONFIGURATION.md` (TC-INE-401–408) and 3 new TCs appended to `INLINE_EDITOR_PERMISSIONS.md` (TC-INE-913–915). |
+| 2026-09-22 | 7.0.0 (local Docker) | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **Required + Read-only-at-same-status pass.** Created new field `cf_70` (Required ✓ at creation) with a Workflow rule (Developer/Bug: New=Read-only, other statuses blank). Tested as `daisy.skye` from fresh issue creation — **TC-INE-411 PASS, no deadlock**: `cf_70` absent (not disabled) from the New-issue form, issue #1552 created clean; inline Priority edit at "New" saved directly (Redmine exempts read-only fields from Required entirely); Status→In Progress correctly triggered the Edit-form fallback for all 3 now-unmet fields (`cf_65`, `cf_69`, `cf_70`) at once, completed cleanly. Confirmed this is Redmine core semantics, not plugin-specific. No bugs found. |
+| 2026-09-22 | 7.0.0 (local Docker) | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **Workflow field-permissions pass.** Surveyed Workflow → Fields permissions across all role × tracker combos (zero pre-existing rules). Reconfigured `cf_69` (Developer/Bug: New=Read-only, In Progress=Required) and promoted `daisy.skye` to Developer on "test project" (admin is exempt from these rules). Executed **TC-INE-407 PASS** and **TC-INE-406 PARTIAL PASS** as daisy.skye: read-only field shows no inline affordance at "New"; inline Status New→In Progress with the field blank is rejected ("Qa workflow field cannot be blank") and the **full Edit form opens in place** with the attempted status preserved and the field now editable; filling + submitting completed the transition and the field then shows an inline pencil at the new status. Outstanding: TC-INE-406 step 3 (negative endpoint leg) — first attempt via hand-rolled `fetch()` hit a `401` that raised the browser's native Basic Auth popup and hung the session; that 401 is CSRF, not permission evidence, so server-side enforcement of Read-only is unproven. Lesson saved to global memory. No bugs found. |
+| 2026-09-22 | 7.0.0 (local Docker) | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | User asked to explore real custom fields first and ground the TCs above in them, plus test the specific "required field unmet → redirect to Edit form" behavior. Explored Administration → Custom fields: found zero pre-existing fields beyond `cf_61`/`cf_62`. Created 7 new fixture fields (`cf_63`–`cf_69`: 2 Required text fields, 1 Bug-tracker-only field, 1 test-project-only field, 1 multi-select List field, 1 single-select List field, 1 field with a Workflow → Fields permissions rule for role Developer/tracker Bug). Rewrote TC-INE-401–408's preconditions to reference these real fixtures. Authored and **executed** new TC-INE-409: confirmed PASS — an inline save rejected for unmet required fields (`cf_63`+`cf_64` both blank) renders the full standard Edit form in place, lists both field errors together, and preserves the user's in-progress Priority change; completed the flow end-to-end (filled both fields, submitted, all changes persisted). Not a bug. Had to re-authenticate mid-session (browser session had switched to seed user `luna.blossom`, not admin) — signed out and back in as admin. |
+| 2026-09-22 | 7.0.0 (local Docker) | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **Full regression + every remaining custom field format.** Created the last 8 format fixtures (`cf_71`–`cf_78`: Boolean, Integer, Float, Long text, Link, User, Version, Attachment) plus a project-level Text field (`cf_79`). **TC-INE-412/413/414 all PASS.** Mapped every format's actual widget and save-trigger on the issue detail page: `rf-ss` single-select dropdown (Date/Boolean/User/Version), `rf-ms` multi-select with chips (List+Multiple-selection), plain native `<select>` (List without Multiple-selection, matching Priority), plain text input saving on **Enter** (Text/Integer/Float/Link), `<textarea>` saving on **Ctrl+Enter** (Long text — plain Enter inserts a newline, blur alone does not save), and Attachment with **no inline-edit affordance at all** (by design). Two genuine non-bug findings: (1) the multi-select widget silently discards its pending selection on outside-click — confirmed via reload — requiring its own explicit Save button, unique among this plugin's widgets; (2) Boolean uses `rf-ss` on the issue detail page but a **plain native `<select>`** on the issue list — a real, confirmed surface inconsistency, not a defect. Regression-swept all 4 inline-editable surfaces (issue detail, issue list, project list, project board/card) with a representative sample plus full core-field re-confirmation — no regressions found anywhere. Round-tripped the project board's Name field cleanly. No bugs found this session. |
+| 2026-09-22 | 7.0.0 (local Docker) | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | User asked whether TC-INE-913/914 had also been checked on the **issue list** page specifically (not just detail) — they hadn't. Retested both as `daisy.skye` and `luna.blossom` on `/projects/test-project/issues` (both #1553 and #1551 visible in the same list): **identical results confirmed on the list view** — Daisy's own issue (#1553) Priority column has a working pencil (changed to "Low", `200`, persisted); Admin's issue (#1551) has zero pencil for her. Luna (Manager) successfully edited #1553's Priority from the list too ("Immediate", `200`, persisted). No divergence between the two surfaces found. |
+| 2026-09-22 | 7.0.0 (local Docker) | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **Permission-granularity execution pass.** User asked directly whether "Edit own issue"/"Edit issue"/"Edit project" had been tested and regressed — they hadn't (only authored). Checked Administration → Roles and permissions: Reporter had neither `edit_own_issues` nor `edit_project` checked by default on this instance. Reconfigured Reporter (`edit_own_issues=true`, `edit_project=true`, `edit_issues` stayed false) — the first save attempt silently failed due to Redmine's own "sudo mode" password re-confirmation, not noticed until checking the resulting page's own text (lesson saved to global memory). Moved `daisy.skye` to Reporter on "test project"; created issue #1553 authored by her. **TC-INE-913 PASS** (steps 1–2): her own issue (#1553) edits inline successfully; issue #1551 (Redmine Admin's) shows zero inline affordance — negative endpoint leg (step 3) skipped, same raw-`fetch()` popup risk as TC-INE-406. **TC-INE-914 PASS**: `luna.blossom` (Manager, `edit_issues=true`) successfully inline-edited #1553 despite not authoring it. **TC-INE-915 PASS with a genuine cosmetic finding**: on the project list, "test project" (edit_project granted) saved correctly (`204`); "Helpdesk Service Desk" (not granted) showed an inline pencil it shouldn't have, but the actual save attempt correctly got `403` with zero data corruption — the endpoint is the real gate, a present pencil isn't proof a write will succeed, symmetric to TC-INE-905's "absent pencil isn't proof a write is blocked." Not filed. No bugs found this session. |

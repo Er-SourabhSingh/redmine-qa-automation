@@ -62,3 +62,18 @@ Per `HELPDESK_USER_GUIDE.md` §17, both nesting a child and removing a page are 
 - Found while retesting BUG-HLP-048 (KB nesting) this session — the user directly flagged, from a screenshot, that hovering a sub-page shows what looks like a "+" icon and that clicking it opens a delete popup, asking whether this had been noticed. It hadn't yet been investigated to a root cause at that point; this bug documents that root cause.
 - Severity judged **Low**: a real confirm dialog stands between the click and any actual deletion, so this is not a silent-data-loss risk — but it is a genuine, reproducible icon-clarity defect on a destructive action, worth fixing (either scale the Delete icon up to a size where the "×" is legible, or finish wiring up the already-scaffolded `add-child-icon` so a distinct, correctly-shaped icon exists for each action).
 - Recommend: either (a) increase the Delete icon's rendered size (or increase its SVG's stroke contrast at small sizes) so it reads clearly as "×" and not "+", and/or (b) finish implementing the dead `add-child-icon` CSS so each row also gets its own genuine, visually distinct "add child" affordance instead of relying solely on the global heading icon / undocumented `r` shortcut.
+
+## Retest — 2026-09-22 (Local, `redmine-docker-6`, production issue #121011 checked in)
+
+**FIXED — recommendation (b) was implemented in full. Moved to closed/.**
+
+- **Source-level fix**: `loopChild()` and `createAllNodes()` (`rf_knowledgebase.js`) now emit a real, distinct `<span class="kb-icon kb-plus-icon add-child-icon add-child-node ..." id="addchild-<id>">` per row, with tooltip "Add sub-article" — the previously-dead `.add-child-icon` CSS class is now genuinely used. Its SVG is the same "+" glyph already used elsewhere in the KB UI (confirmed a real, correctly-drawn plus sign, not the "×" close glyph), rendered at 12×12px. A new `treeAddParentId` variable is set to the specific row's ID when its own "+" is clicked, and `createNewPage()`'s parent resolution now reads `treeAddParentId !== null ? treeAddParentId : pageId` — meaning the row-specific icon creates a child under *that exact row*, while the global heading "+"/`r` shortcut still falls back to whichever page is currently open, exactly as recommended.
+- **Live confirmation — visual clarity**: screenshotted a sub-page row at its actual rendered size — a clear "+" and a clear "×" now appear side by side, fully distinguishable (see retest screenshot).
+- **Live confirmation — correct row targeting**: with "Resetting your password" (the root article) open, clicked a *child* row's own "+" icon (not the global one) — the resulting new article nested correctly under that specific child (3-level breadcrumb: root → child → new grandchild), not under whichever page happened to be open at the time. This is a stronger, more complete fix than the original bug's minimum ask.
+- Cleanup: the test article created during this retest was deleted via its own delete icon afterward (confirming that icon still works correctly too).
+
+### Retest screenshot
+
+![Sub-page row at actual size — a clear "+" and a clear "×" now render side by side, fully distinguishable](../../screenshots/BUG-HLP-061/retest-2026-09-22-pass.png)
+
+- Production issue #121011 synced 2026-09-22: Status In QA → **Done**, % Done → **100**.

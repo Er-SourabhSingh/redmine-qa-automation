@@ -13,6 +13,127 @@
 - Subject inline edit (both issue detail page and Issues list view): plain text input, no separate Save/Cancel buttons, saves on Enter/cancels on Escape — no translatable strings in this control.
 - Priority inline edit: plain native `<select>`, option values are admin-configured priority names (data, not UI strings).
 - Description CKEditor's tab labels ("Bearbeiten"/"Vorschau"), toolbar tooltips, and the "Zitieren" (Quote) link are all correctly translated.
+- Date fields (built-in Start date AND Due date, plus Date-format custom fields, on the issue detail page, issue
+  list column, and project list column) use a native `<input type="date">`. Confirmed 2026-09-22 against production
+  fix #120919: no save fires while typing (even mid-year, even while paused), save fires once on blur or Enter with
+  the exact typed value, Escape discards the edit, and picking a full date (calendar-pick or programmatic `.fill()`)
+  still saves immediately — all verified via a `window.fetch`/XHR network interceptor, not just visual state. Both
+  Start Date and Due Date were explicitly checked (not just Due Date as a stand-in) since the production fix names
+  both by name.
+- The Start/Due date cross-field validation ("Due Date must be greater than start date") still works correctly
+  under this widget — confirmed via a genuine `422` response when testing an invalid combination. A rejected save
+  reverts the cell with no data corruption; the error toast itself auto-dismisses too fast to catch without a
+  `MutationObserver` set up in advance (same pattern as `BUG-INE-002`'s toast). **Confirmed the error IS actually
+  shown to the user** (not just rejected server-side) on both the issue detail page and the issue list column, via
+  `MutationObserver` text capture. Minor wording inconsistency (not a bug): the detail page wraps it as "Could not
+  save: Due Date must be greater than start date", the issue list shows just "Due Date must be greater than start
+  date" (no prefix) — same underlying error, both correctly block the save.
+- The issue-list view's inline save occasionally (not reliably — seen on `cf_61` and on `start_date`, not on
+  `due_date` in the same session) fires the identical save `PUT` twice instead of once. Both calls succeed (`200`,
+  same value) so no data corruption results, and it could not be reproduced on demand across several retries —
+  logged as an inconclusive, unfiled observation rather than a bug (see `INLINE_EDITOR_ISSUE_LIST_EDITING.md`).
+- **Confirmed working (not a bug), 2026-09-22:** when a user inline-edits any field while one or more Required
+  custom fields on the issue are blank, the inline PATCH is rejected server-side and the plugin gracefully falls
+  back to rendering the full standard Edit form **inline in place** (no hard page navigation, URL stays
+  `/issues/:id`), listing every unmet-required-field error together (not one-at-a-time), with the user's
+  in-progress attempted change (e.g. a Priority selection) already pre-filled in the fallback form rather than
+  discarded. Filling the required fields and submitting completes successfully with all changes applied. This is
+  the real, working answer to "what happens with an unmet required field during inline edit" — see
+  `INLINE_EDITOR_CUSTOM_FIELD_CONFIGURATION.md` TC-INE-409 for full evidence.
+- The instance had **zero** custom fields configured before this plugin's own testing began — every custom field
+  used across this plugin's suites (`cf_61`–`cf_69`) is a QA-created fixture, not pre-existing server data. Always
+  check Administration → Custom fields first (both the Issues and Projects tabs) before writing a TC precondition
+  that assumes a field exists — see `INLINE_EDITOR_CUSTOM_FIELD_CONFIGURATION.md`'s Fixtures table for the current
+  full list and what each one is for. The same is true of **Workflow → Fields permissions**: surveyed across all
+  role × tracker combinations 2026-09-22, it had **zero** pre-existing rules; the only rule on the instance is the
+  `cf_69` fixture (role Developer / tracker Bug: New = Read-only, In Progress = Required).
+- **Admin is exempt from workflow field permissions** — read-only/required-per-status rules have no effect when
+  logged in as `admin`. Any workflow field-permission test must run as a non-admin user holding the exact role the
+  rule targets. Fixture for this: `daisy.skye`'s membership on "test project" was changed from Reporter to
+  **Developer** on 2026-09-22 specifically so the `cf_69` rule applies to her (left in place for future runs).
+- **Confirmed working (not a bug), 2026-09-22 — the full status-dependent field lifecycle:** a field that is
+  Read-only at status A and Required at status B renders with *no inline affordance at all* at A; inline-changing
+  Status A→B while it's blank is **rejected** ("<field> cannot be blank" — the workflow rule IS enforced on the
+  inline path), and the plugin then **opens the full Edit form in place** with the attempted status change
+  preserved and the field now **editable** (evaluated against the new status), so the user can satisfy the
+  requirement the transition just created. After submitting, the field shows an inline pencil at the new status.
+  Same fallback mechanism as the always-required case (TC-INE-409). See
+  `INLINE_EDITOR_CUSTOM_FIELD_CONFIGURATION.md` TC-INE-406/407.
+- **The Edit-form fallback is one consistent mechanism**, confirmed 2026-09-22 across all three combinations:
+  (a) custom-field-level Required unmet + editing a non-status field (TC-INE-409); (b) workflow-level per-status
+  Required unmet + changing Status (TC-INE-407); (c) custom-field-level Required unmet + changing Status
+  (TC-INE-410). In every case: inline save rejected with the real validation message → full Edit form rendered in
+  place (URL unchanged) → attempted change preserved → field editable → submit completes normally. Also confirmed:
+  merely *sitting on* an issue with an unmet required field produces **no error at all** — nothing is being saved,
+  so nothing complains. Both rule types coexist correctly on the same issue (a custom-field-Required field stays
+  inline-editable while a workflow-Read-only field on the same issue shows no pencil).
+- In the fallback Edit form, fields are evaluated against the **target** status, not the current one — so a field
+  that is workflow-Read-only at the current status renders **editable** in the form opened by a transition to a
+  status where it isn't. That's what makes the recovery path actually usable.
+- Workflow **status transition** rules also apply (separately from field permissions): as Developer, In Progress →
+  New was simply absent from the inline Status dropdown. Use admin (exempt) to reset a fixture issue's status.
+- **Still unproven:** whether the *endpoint* enforces a workflow Read-only field, or only the UI hides the pencil.
+  See TC-INE-406 step 3 — and read the global memory note "Avoid Raw fetch() On .json Endpoint Tests" before
+  attempting it, since the obvious approach hangs the browser on a native Basic Auth popup.
+- **Every custom field format's widget, confirmed 2026-09-22 (issue detail page)**: Date/Boolean/User/Version use
+  the `rf-ss` single-select searchable dropdown ("Search…" placeholder); List-with-Multiple-selection uses a
+  distinct `rf-ms` widget with removable chips; List-without-Multiple-selection and Priority/Status use a plain
+  native `<select>`; Text/Integer/Float/Link use a plain text input; Long text uses a `<textarea>`; Attachment has
+  **no inline-edit affordance at all** (by design — a file-upload field doesn't fit a click-to-edit pattern).
+- **Per-format save trigger, confirmed 2026-09-22** — this plugin does NOT use one universal save mechanism:
+  - Native `<select>` and `rf-ss` (single-select): saves instantly on selection/`change`.
+  - Plain text input (Text/Integer/Float/Link): saves on **Enter**; blur alone does **not** save.
+  - `<textarea>` (Long text, and Description's CKEditor separately): saves on **Ctrl+Enter**; plain Enter inserts
+    a newline, blur alone does **not** save. No visible UI hint anywhere that Ctrl+Enter is the shortcut — a minor
+    discoverability gap, not filed as a bug.
+  - `rf-ms` (multi-select): requires clicking an explicit **Save** icon-button (a Cancel button sits next to it);
+    clicking away discards the pending selection **silently, with no warning** — confirmed via reload that an
+    outside-click-only attempt left the field blank in the database. This is the one widget in the whole plugin
+    that behaves this way; every other field type in this plugin either auto-saves or saves on Enter/blur.
+  - Date fields (native `<input type=date>`): saves on blur or Enter (see #120919 fix — `INLINE_EDITOR_ISSUE_DETAIL_EDITING.md`).
+- **Widget choice is not always consistent between issue-detail and issue-list surfaces for the same field**,
+  confirmed 2026-09-22: Boolean uses `rf-ss` on the detail page but a **plain native `<select>`** on the issue
+  list. User (`rf-ss` on both) does not have this inconsistency. Both are functionally correct — not a bug, but
+  worth knowing before assuming "whatever widget the detail page uses" when writing a list-view TC.
+- **Permission-granularity trio confirmed 2026-09-22 (TC-INE-913/914/915), all PASS — on BOTH the issue detail
+  page and the issue list view** (user explicitly asked whether the list page specifically had been checked; it
+  hadn't at first — always check both surfaces for a permission TC in this plugin, they're separate widget
+  implementations and either could diverge):
+  - `edit_own_issues` (without `edit_issues`) genuinely restricts to the user's own issues: no inline affordance
+    at all on someone else's issue, on either surface. Fixture: Reporter role reconfigured
+    (`edit_own_issues=true`, `edit_issues` stayed false), `daisy.skye` moved to Reporter on "test project".
+  - `edit_issues` (Manager, `luna.blossom`) genuinely grants any-issue edit on both surfaces, not silently
+    narrowed to "own".
+  - On the issue list specifically, the own/others distinction was confirmed to hold for **every** editable
+    column (Status, Subject, Assignee, Priority), not just Priority — checked after being asked "all thing
+    working as expected on issue list page??" following an initial check that had only exercised Priority. No
+    console errors observed under the restricted role.
+  - `edit_project`, per-project: on the project **list** view, a real save attempt is the only trustworthy signal
+    — the inline pencil **incorrectly appeared** on a project where `edit_project` was NOT granted (Helpdesk
+    Service Desk), but the actual save correctly got a `403` with zero data corruption. The endpoint is the real
+    gate; a *present* pencil is not evidence a write will succeed, same as a missing one isn't evidence it's
+    blocked (TC-INE-905's methodology, now confirmed to run in both directions). Cosmetic-only, not filed.
+  - **Reporter role had neither `edit_own_issues` nor `edit_project` checked by default on this instance** — do
+    not assume stock Redmine role defaults; always check Administration → Roles and permissions first.
+  - **Redmine's own "sudo mode"** (a password re-confirmation interstitial) can silently swallow a role-permission
+    save that otherwise looks successful — see the dedicated reference memory "Redmine Sudo Mode On Admin Saves".
+    Always reload and re-check the actual checkbox state after saving a role, not just the redirect.
+- **Regression baseline confirmed 2026-09-22 across all 4 inline-editable surfaces** (issue detail, issue list,
+  project list, project board/card): every already-tested field on every surface still works correctly after the
+  extensive custom-field/workflow fixture-building this session — no regressions found. Project board/card view
+  remains Name-only (no custom field columns offered there, only in the project list `?display_type=list` view).
+- **Confirmed working (not a bug), 2026-09-22 — Required + Read-only at the SAME status does not deadlock:** a
+  field created Required from the start, with a workflow rule making it Read-only at Status "New" for a role, is
+  simply **excluded from Required enforcement entirely while it's read-only** — this is Redmine core semantics, not
+  plugin-specific. Concretely: the field is fully absent (not just disabled) from the New-issue creation form; a
+  Developer can create the issue and make unrelated inline edits at "New" with zero errors; the field only becomes
+  enforced once the issue moves to a status where it no longer has a read-only override (at which point the usual
+  Edit-form fallback handles it, same as any other newly-required field, even when several such fields trip at
+  once — see TC-INE-411). Always build this exact combination (`is_required` ✓ at creation + a workflow Read-only
+  rule on the same status) with a **brand-new field created Required from the start** and test via issue
+  **creation** by the actual restricted role — retrofitting Required onto an already-existing, already-admin-
+  touched field/issue doesn't exercise the same path cleanly (confirmed the hard way: reusing `cf_65`/#1551 after
+  earlier admin edits muddied the state before this was redone properly with `cf_70`/#1552 fresh from `daisy.skye`).
 
 ## Recurring Issues
 
@@ -25,3 +146,18 @@
 - 2026-09-09 (second retest, `flux-fdrk6suoj49`, later same date-labeled session): all 3 confirmed FIXED. The final success/error toasts ("Erfolgreich gespeichert.", "Konnte nicht gespeichert werden: ...") are now German, but a previously-unnoticed interim "Saving…" loading indicator shown just before those toasts is still hardcoded English — filed as new `BUG-INE-004`. Worth checking for similarly-adjacent untranslated strings around any toast/indicator when a fix lands, not just the specific string a bug documented.
 - 2026-09-10 (`flux-fhhcov1xf49`): `BUG-INE-004` confirmed fixed — "Wird gespeichert…" now shown, both on Priority and Status changes. Full final-cycle regression across all 9 TCs, all PASS, no new bugs. This closes out the plugin's German-language test cycle.
 - Redmineflux Checklist Plugin's "Ticket-Schließung blockieren" setting defaults to OFF on a fresh Forge server — must be enabled to reproduce/retest BUG-INE-002, then reverted afterward to avoid leaving a global behavior change for unrelated future testing. Confirmed again on `flux-fhhcov1xf49`.
+- 2026-09-22: this plugin's testing has moved off the rotating Forge servers onto the shared local Docker instance
+  `redmine-docker-700` (Redmine 7.0.0, `http://localhost:3010`, admin/12345678) — the same instance other plugins
+  in this repo are currently using (Agile Board, Checklist). Plugin confirmed still installed there at v7.0.0.
+  Verified production fix #120919 (inline date auto-save timing) on this instance — see `INLINE_EDITOR_FEATURES_LIST.md`
+  and the two `testcases/` files for full results. Two new Date-format custom fields created for this cycle and
+  left in place: "QA Inline Date Field" (issue-level, `cf_61`, all trackers/projects) and "QA Inline Project Date
+  Field" (project-level, `cf_62`) — reuse these rather than creating duplicates if this plugin is revisited on this
+  instance. Test fixture: issue #1551 in "test project".
+- **Reproducing "type digit-by-digit into a native `<input type=date>`" via Playwright**: use `browser_press_key`
+  once per digit (not `browser_type`, which fills the whole value atomically and skips the intermediate states this
+  fix cares about). The element's own `.value` getter DOES return a live zero-padded partial value while the year
+  is incomplete (e.g. `0202-12-03` after typing only 3 of 4 year digits) — useful for asserting the exact
+  in-progress state a test needs to check. To simulate a **calendar pick** (as opposed to typing), use
+  `browser_fill_form`/`.fill()` with a complete ISO value — it sets the value atomically and fires `change`
+  immediately, which is what a real calendar selection does, unlike segment-by-segment typing.

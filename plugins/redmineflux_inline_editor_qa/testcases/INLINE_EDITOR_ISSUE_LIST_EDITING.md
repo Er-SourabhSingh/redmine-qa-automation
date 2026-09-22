@@ -321,8 +321,94 @@ inline editor that only updates the DOM is the central failure mode of this plug
 
 ---
 
+## Functional Cases — Date column auto-save timing (regression: production #120919)
+
+> Source: production issue [#120919](https://flux.zehntech.com/issues/120919) — same fix as
+> `INLINE_EDITOR_ISSUE_DETAIL_EDITING.md` TC-INE-323–328, extended per the developer's own QA notes to "the same
+> fields on the issue list, the project list and project cards."
+> **Status: executed 2026-09-22 on local Docker `redmine-docker-700` (Redmine 7.0.0, `inplace_issue_editor` 7.0.0,
+> http://localhost:3010), Admin role, project "test project", issue #1551. TC-INE-225/226 PASS.**
+
+---
+
+### TC-INE-225: Typed date entry in the Due date list column — no premature save, saves on blur/Enter, Escape cancels
+
+**User Role:** Member with issue-edit rights
+**Steps:**
+1. On the issue list, add/show the Due date column, then click its pencil on a row.
+2. Type a full date one segment at a time (day, month, year), pausing mid-way through the year; confirm nothing
+   saves during typing or while paused (not even a truncated year).
+3. Click away from the cell; reload; confirm the exact typed date was saved once.
+4. Repeat, pressing Enter instead of clicking away — same result.
+5. Repeat, pressing Escape after typing — confirm nothing saves and the original date is unchanged after reload.
+6. Pick a date from the calendar instead of typing — confirm it still saves immediately, unchanged.
+
+**Expected Result:**
+- Identical behavior to TC-INE-323–327 on the issue detail page: no premature/truncated save while typing, save
+  only on blur or Enter with the exact value typed, Escape discards the edit, calendar pick still saves instantly.
+
+**Result: PASS** — on issue #1551's Due date list column, typed `03`/`10`/`2033` one digit at a time: zero writes
+recorded, including at the truncated-looking intermediate `0203-03-10`. Blur fired exactly one
+`PUT .../update_field.json {"issue":{"due_date":"2033-03-10"}}`. Reload confirmed the value persisted.
+
+---
+
+### TC-INE-226: Typed date entry in a date custom field column (issue list and project list)
+
+**User Role:** Member
+**Preconditions:** A custom field of format "Date" is added as a visible column on the issue list, and a project
+list/card date custom field is available per the plugin's project-list support (see
+`INLINE_EDITOR_GERMAN_LANGUAGE.md` TC-INE-007).
+**Steps:**
+1. Repeat TC-INE-225's steps (no premature save incl. mid-year pause; save on blur; save on Enter; Escape cancels;
+   calendar pick still immediate) against the date custom field column on the issue list.
+2. Repeat the same on the project list's date custom field column.
+
+**Expected Result:**
+- Both surfaces behave identically to the built-in Due date column — the fix is not scoped to the issue list's
+  built-in date fields only.
+
+**Result: PASS** — added "QA Inline Date Field" (cf_61) as an issue-list column and "QA Inline Project Date Field"
+(cf_62) as a project-list column (Default theme's `?display_type=list` table view — the plugin's own "project
+table" view). Both showed zero premature saves while typing (incl. truncated-looking intermediate years) and saved
+correctly on blur: issue list `PUT .../update_field.json {"issue":{"custom_field_values":{"61":"2040-06-15"}}}`;
+project list `PUT /projects/5.json {"project":{"custom_field_values":{"62":"2032-11-28"}}}`. Both persisted
+correctly after reload.
+- **Non-finding, not filed:** across 3 repeated blur-saves on the issue-list `cf_61` column, 2 of 3 fired the
+  identical save request twice (same URL/method/body) instead of once; the 3rd fired once. Could not get a
+  consistent repro after 2 further deliberate attempts, and the plugin's own history already documents a similar
+  test-instrumentation false positive (see `INLINE_EDITOR_FEATURES_LIST.md` session notes, 2026-09-08) — treated as
+  inconclusive/likely a test-harness artifact rather than a real defect, per that precedent. Not filed. Worth a
+  clean re-check with a fresh interceptor per attempt if this plugin is revisited.
+
+**Addendum — Start Date column parity check:** the production fix explicitly names both start and due dates as
+covered, so the Start Date list column was also checked. **Result: PASS** — typed `01`/`05`/`2033` one digit at a
+time on issue #1551's Start Date column (zero writes throughout, incl. truncated `0020-01-05`), blurred, got a
+`200 OK` `PUT .../update_field.json {"issue":{"start_date":"2033-01-05"}}` (response body echoed the full updated
+issue, confirming a real, accepted save, not just a fired request), persisted correctly on reload. Same intermittent
+double-fire pattern seen on `cf_61` also reproduced once here (2 identical successful calls, same value) and did
+NOT reproduce on a follow-up Due Date column re-check — confirms the double-fire is a general, field-agnostic,
+non-reliably-reproducible list-view quirk, not specific to any one date field. Still not filed for the same
+verify-before-filing reason as above.
+- Separately (test error, not a bug): an earlier attempt set Start Date to a value *after* the current Due Date and
+  got a correct `422 {"errors":["Due Date must be greater than start date"]}` — normal, expected server-side
+  validation, silently reverting the cell with no data corruption. Confirms this existing validation rule still
+  works under the new date-input widget.
+- **Follow-up, explicitly asked: is that validation error actually shown to the user, on this surface too?** Set a
+  `MutationObserver` before the save and repeated the invalid Start/Due combination on the issue-list Start Date
+  column. **Result: PASS, error shown** — toast fired reading **"Due Date must be greater than start date"**, tied
+  to a genuine `422` response; cell reverted with zero data corruption (confirmed on reload).
+- **Minor wording observation, not filed:** the issue-list toast text (`"Due Date must be greater than start
+  date"`) omits the `"Could not save:"` prefix that the same validation error carries on the issue detail page
+  (see `INLINE_EDITOR_ISSUE_DETAIL_EDITING.md`'s addendum) — a small wording inconsistency between the two
+  surfaces for the identical underlying error, not a functional defect (both correctly block the save and inform
+  the user). Worth a look if this plugin's toast component is ever revisited.
+
+---
+
 ## Evidence Map
 
 | Case ID | Screenshot | Log | Bug reference |
 |---------|------------|-----|---------------|
-| | | | |
+| TC-INE-225 | — (no bug; network-log evidence only per §6) | 0 calls while typing; 1× `PUT update_field.json due_date=2033-03-10` on blur | — |
+| TC-INE-226 | — | 0 calls while typing on both cf_61 (issue list) and cf_62 (project list); blur saves confirmed on both — see intermittent double-call non-finding above | — |

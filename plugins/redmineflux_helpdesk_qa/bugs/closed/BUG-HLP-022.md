@@ -86,3 +86,13 @@ Both are genuinely invalid combinations — confirmed via `HELPDESK_SLA_ESCALATI
 - Cleanup: `retest.customer1`'s SLA field restored to "Alpha Escalation Test SLA"; the disposable SLA (id 30) no longer exists (deleted by the bug itself during this retest, not cleanup).
 - A follow-up note was added to production issue #119755 documenting this specific contradiction, so the developer has accurate information the next time this is picked up.
 - Production issue #119755 updated 2026-09-10: status In QA → **Reopen**, since the SLA half of this bug remains confirmed broken and the fix as checked in does not resolve the full scope of the issue. This bug stays in `bugs/open/`.
+
+## Retest — SLA half CONFIRMED FIXED, both halves now resolved (2026-09-21, production issue #119755 checked in again)
+
+**FIXED — the SLA-side dependency check is now genuinely implemented, matching the Support Level half. Moved to closed/.**
+
+- Created a fresh SLA ("BUG-HLP-022 retest v2 - customer-only delete guard", id 35, live via the New SLA form), assigned it to `retest.customer1`'s Helpdesk QA Alpha project-access row via the live Customer Edit form, confirmed User Count read "1" on the SLA list (no ticket references it), then clicked Delete on it.
+- **Result: blocked** — flash message `"This SLA cannot be deleted because it is currently assigned to a customer."`, the exact same message pattern the Support Level half already used. Confirmed directly via `rails runner` (`RfSla.where(id: 35).exists?` → `true`) that the SLA genuinely still exists — this is a real server-side block, not a silently-swallowed error with a misleading success message.
+- Both halves of this bug (Support Level, confirmed fixed 2026-09-10; SLA, confirmed fixed today) now correctly refuse deletion when only referenced by a customer's project-access row, matching the already-fixed BUG-HLP-011 pattern for Organization delete that this bug was always meant to mirror.
+- Cleanup: `retest.customer1`'s SLA field restored to "Alpha Escalation Test SLA" (her original real value); the disposable SLA (id 35) deleted cleanly once no longer referenced (confirmed via `rails runner`, `RfSla.where(id: 35).exists?` → `false`).
+- Production issue #119755 synced 2026-09-21: Status In QA → **Done**, % Done → **100**.

@@ -37,22 +37,39 @@
   looked identical to a populated field at a glance - if a similar always-vs-conditionally-rendered field issue
   ever comes up elsewhere, read `.value`, not the rendered text.
 
-- **`BUG-AGB-011` (open, High) - Backlog story-points badge goes wrong (incl. negative) after a drag, without a
-  reload.** Found within Feature #120436's own delivered code, discovered right after that ticket was marked Done
-  on production. Root cause: `backlog.html.erb`'s sortable `update` handler updates the card count
-  (`updateSingleColumnCount`) on drop but never touches `.backlog-column-story-points` - that badge is only
-  rendered at initial page load (`backlog_story_points_badge`, `rf_boards_helper.rb`). A subsequent inline point
-  edit (`rf_story_points.js`'s `updateBadges`) then applies its delta on top of the stale, drag-desynced badge,
-  compounding the error - repeated drags/edits in one session can drive the number arbitrarily wrong, including
-  negative. **Purely client-side**: a plain reload always shows the correct total, nothing is written wrong to
-  `story_points` server-side. **Testing-methodology lesson**: this only shows up when a drag and an inline point
-  edit happen back-to-back in the same page load, no reload in between - exactly real sprint-planning behavior,
-  but not a scenario this suite's TC-by-TC (each followed by a check/reload) execution ever exercised. If this
-  plugin gets any other "live badge/count" feature in the future, test it the same combined way, not just as
-  isolated single-action TCs. Reported to production 2026-09-21 as **#120990** (assigned Prashant Chaurasia,
-  user id 410 — project memberships list is the reliable way to resolve a numeric user id when `list_users`
-  is permission-blocked for this API key). Companion action: production **#120436** reopened (Done/100% ->
-  In QA/90%) pending this fix and retest.
+- **`BUG-AGB-011` (FIXED, closed 2026-09-21, was High) - Backlog story-points badge went wrong (incl. negative)
+  after a drag, without a reload.** Was found within Feature #120436's own delivered code, discovered right
+  after that ticket was marked Done on production. Root cause: `backlog.html.erb`'s sortable `update` handler
+  updated the card count (`updateSingleColumnCount`) on drop but never touched `.backlog-column-story-points` -
+  that badge was only rendered at initial page load (`backlog_story_points_badge`, `rf_boards_helper.rb`). A
+  subsequent inline point edit (`rf_story_points.js`'s `updateBadges`) then applied its delta on top of the
+  stale, drag-desynced badge, compounding the error. **Purely client-side**: a plain reload always showed the
+  correct total, nothing was ever written wrong to `story_points` server-side. **Testing-methodology lesson**:
+  this only showed up when a drag and an inline point edit happened back-to-back in the same page load, no
+  reload in between - exactly real sprint-planning behavior, but not a scenario this suite's TC-by-TC (each
+  followed by a check/reload) execution ever exercised. If this plugin gets any other "live badge/count"
+  feature in the future, test it the same combined way, not just as isolated single-action TCs.
+  Reported to production as **#120990** (assigned Prashant Chaurasia, user id 410 — project memberships list
+  is the reliable way to resolve a numeric user id when `list_users` is permission-blocked for this API key).
+  Companion action: production **#120436** reopened (Done/100% -> In QA/90%) pending the fix.
+  **Fixed 2026-09-21** (commits `32141ba` + `50a8a76`, "Keep the backlog points badge true while cards are
+  dragged" / "Move story points with a dragged card on every board" - the fix generalizes to every board type,
+  not just the Backlog's sprint columns; confirmed the same live-update behavior on version columns too, which
+  the original bug repro never covered). Retested with the exact drag-then-edit sequence: both badges (source
+  and destination) update live and correctly immediately after a drag, and a subsequent inline edit computes
+  correctly from the now-accurate base. Production #120990 synced to Done/100%; production testcase #120941/
+  run #577 updated back to Passed.
+- **`BUG-AGB-010` (FIXED, closed 2026-09-21, was Medium) - `query_id` FrozenError crash.** See the "side-finding"
+  entry above for the original root cause. **Fixed** in commit `f3ba81b` ("Stop a query_id from crashing the
+  board and the backlog") - `?query_id=N` on the Backlog or Agile Board now returns a clean 404
+  (`ActiveRecord::RecordNotFound`) instead of the unhandled 500. Production #120986 synced to Done/100%.
+- **`feature/backlog-sprint-points` merged to `master` 2026-09-21, released as plugin 7.1.0.** No plugin
+  migrations were added in this merge - a plain container restart (no `rake redmine:plugins:migrate`) was
+  sufficient to pick up both fixes. After a `docker compose restart redmine`, the host port can take a few
+  seconds to actually forward again even though the container itself and Puma are already up internally
+  (confirmed via `docker exec ... wget 127.0.0.1:3000` while the host-side curl/Playwright still gets
+  `ERR_EMPTY_RESPONSE`) - don't conclude the boot failed from one immediate failed request, retry after a
+  few seconds first.
 
 ## Confirmed Working
 

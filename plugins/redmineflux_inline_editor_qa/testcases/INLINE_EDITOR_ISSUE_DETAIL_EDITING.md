@@ -296,8 +296,160 @@ the tracker.
 
 ---
 
+## Functional Cases — Date field auto-save timing (regression: production #120919)
+
+> Source: production issue [#120919](https://flux.zehntech.com/issues/120919) — "Inline editor plugin: inline date
+> editor auto-save issue: manual date entry gets truncated before completion." Fixed behavior per the developer's
+> own QA notes (journal 2026-09-21): nothing saves while typing, however long it takes; save fires on blur (click
+> away) or Enter; Escape discards the typed value and leaves the original date; picking from the calendar still
+> saves immediately, unchanged. Applies to the issue's own Start/Due dates and any date custom field.
+> **Status: executed 2026-09-22 on local Docker `redmine-docker-700` (Redmine 7.0.0, `inplace_issue_editor` 7.0.0,
+> http://localhost:3010), Admin role, project "test project", issue #1551. TC-INE-323–328 all PASS** — verified via
+> a `window.fetch`/XHR network interceptor (not just visual observation), confirming both the exact request timing
+> and the exact payload value saved at each step.
+
+---
+
+### TC-INE-323: Typed date entry does not auto-save prematurely (year truncation regression)
+
+**User Role:** Member with issue-edit rights
+**Steps:**
+1. Open an issue, click the pencil next to Due Date.
+2. Type a full date one digit/segment at a time (day, then month, then year), e.g. `12`, `03`, `2026`.
+3. Pause after each segment, including mid-way through typing the year (e.g. right after typing `202`, before `6`).
+4. Do not click away or press any key yet — just watch the field/page while paused.
+
+**Expected Result:**
+- No save occurs at any point while typing or while paused, no matter how long the pause.
+- In particular, the value is never saved with a truncated year (e.g. `12.03.0026` from an in-progress `2026`) —
+  this was the exact defect in #120919. Saving a wrong/incomplete year at any point during this test is a reopen of
+  that bug, not a new one.
+
+**Result: PASS** — typed `12`→`03`→`2026` one digit at a time; native input's own value passed through the
+truncated intermediate state `0202-12-03` while only 3 of 4 year digits were in, then the full `2026-12-03`. The
+network interceptor recorded **zero** write calls at every checkpoint, including immediately after the date became
+fully valid but before any blur/Enter.
+
+---
+
+### TC-INE-324: Typed date saves on blur (click away)
+
+**User Role:** Member
+**Steps:**
+1. Type a complete valid date into the Due Date field as in TC-INE-323.
+2. Click elsewhere on the page (not Enter, not Escape).
+3. Reload.
+
+**Expected Result:**
+- Exactly one save occurs, on blur, with the exact date typed (correct full year, not truncated).
+- The value persists after reload and a single journal entry records the change.
+
+**Result: PASS** — clicking away fired exactly one `PUT /issues/1551/update_field.json` with
+`{"issue":{"due_date":"2026-12-03","lock_version":"1"}}`. Reload confirmed `12/03/2026` displayed.
+
+---
+
+### TC-INE-325: Typed date saves on Enter
+
+**User Role:** Member
+**Steps:**
+1. Type a complete valid date into the Due Date field.
+2. Press Enter instead of clicking away.
+3. Reload.
+
+**Expected Result:**
+- Saves the same way as blur (TC-INE-324) — exact date typed, correct full year, persists after reload.
+
+**Result: PASS** — typed `01`/`15`/`2027`, pressed Enter: exactly one
+`PUT .../update_field.json {"issue":{"due_date":"2027-01-15",...}}`. Reload confirmed `01/15/2027` displayed.
+
+---
+
+### TC-INE-326: Escape cancels a typed date edit
+
+**User Role:** Member
+**Steps:**
+1. Note the issue's current Due Date.
+2. Click the pencil, type a different date, then press Escape before clicking away or pressing Enter.
+3. Reload.
+
+**Expected Result:**
+- Nothing is saved. The original Due Date is still shown, both immediately and after reload.
+- No journal entry is created for this attempt.
+
+**Result: PASS** — with Due Date at `01/15/2027`, typed a different date (`06/20/2030`) then pressed Escape: zero
+network calls recorded, and the field immediately reverted to displaying `01/15/2027`.
+
+---
+
+### TC-INE-327: Calendar-picked date still saves immediately (unchanged)
+
+**User Role:** Member
+**Steps:**
+1. Click the pencil next to Due Date, but pick a date from the pop-up calendar instead of typing.
+2. Observe whether the save happens immediately, with no blur/Enter needed.
+3. Reload.
+
+**Expected Result:**
+- The calendar-picked date saves immediately, exactly as before the fix — this path must remain unchanged by the
+  typed-entry fix. A regression here (e.g. calendar picks now also waiting for blur) is itself a defect.
+
+**Result: PASS** — simulating a full-date selection (the native `change` event a real calendar pick fires) produced
+an immediate save with no blur/Enter needed: `PUT .../update_field.json {"issue":{"due_date":"2028-05-20",...}}`
+fired the instant the complete value was set. Reload confirmed `05/20/2028`.
+
+---
+
+### TC-INE-328: Typed-entry timing behavior on a date custom field
+
+**User Role:** Member
+**Preconditions:** A custom field of format "Date" exists on the issue's tracker (Administration → Custom fields).
+**Steps:**
+1. Repeat TC-INE-323 through TC-INE-326 (no premature save while typing including mid-year pause; save on blur;
+   save on Enter; Escape cancels) against the date custom field instead of the built-in Due Date.
+
+**Expected Result:**
+- The date custom field behaves identically to the built-in Start/Due dates on every point above — the fix is not
+  scoped to the two built-in fields only.
+
+**Result: PASS** — created custom field "QA Inline Date Field" (Date format, all trackers, all projects) for this
+check. Typed `2029-09-10` one digit at a time on this field: zero premature saves (including the mid-year
+truncated-looking intermediate `0202-09-10`), then exactly one
+`PUT .../update_field.json {"issue":{"custom_field_values":{"61":"2029-09-10"},...}}` on blur. Identical timing to
+the built-in field.
+
+---
+
+### Addendum: Start Date parity check
+
+TC-INE-323–327 above were run against Due Date as the representative field; the production fix's own scope
+explicitly names "the issue's own start and due dates" as both covered. **Result: PASS** — repeated the
+no-premature-save-while-typing + blur-save check against Start Date on the detail page: typed `02`/`14`/`2031` one
+digit at a time (zero writes throughout, including the truncated intermediate `0020-02-14`), blurred, and got
+exactly one `PUT .../update_field.json {"issue":{"start_date":"2031-02-14","lock_version":"9"}}`. Reload confirmed
+`02/14/2031`. Start Date behaves identically to Due Date.
+
+**Follow-up: is the Start/Due validation error actually shown to the user?** (explicitly asked, since the earlier
+`422` was only confirmed at the network level.) Set a `MutationObserver` before the save this time, per this
+plugin's own established toast-capture method. Typed a Start Date after the current Due Date (`2036-01-01` vs Due
+Date `04/15/2034`) and blurred. **Result: PASS, error correctly shown to the user** — a real
+`div.rf-toast.rf-toast--error` appeared reading **"Could not save: Due Date must be greater than start date"**,
+tied 1:1 to a genuine `422 {"errors":["Due Date must be greater than start date"]}` response. The cell reverted to
+the original `01/05/2033` with zero data corruption, confirmed after reload. The toast auto-dismissed before a
+manual screenshot could be taken (same fast-dismiss behavior already known from `BUG-INE-002`), so this is
+text-evidence only, same as that bug's original capture method.
+
+---
+
 ## Evidence Map
 
 | Case ID | Screenshot | Log | Bug reference |
 |---------|------------|-----|---------------|
-| | | | |
+| TC-INE-323 | — (no bug; network-log evidence only per §6) | `window.fetch` interceptor: 0 calls while typing | — |
+| TC-INE-324 | — | 1× `PUT update_field.json due_date=2026-12-03` on blur | — |
+| TC-INE-325 | — | 1× `PUT update_field.json due_date=2027-01-15` on Enter | — |
+| TC-INE-326 | — | 0 calls on Escape | — |
+| TC-INE-327 | — | 1× `PUT update_field.json due_date=2028-05-20` on calendar-pick simulation | — |
+| TC-INE-328 | — | 0 calls while typing; 1× `PUT update_field.json custom_field_values[61]=2029-09-10` on blur | — |
+| Start Date addendum | — | 0 calls while typing; 1× `PUT update_field.json start_date=2031-02-14` on blur | — |
+| Start/Due validation toast | — (toast dismissed too fast; text captured via `MutationObserver`) | 1× `PUT` → 422 `{"errors":["Due Date must be greater than start date"]}`; toast text "Could not save: Due Date must be greater than start date" | — |

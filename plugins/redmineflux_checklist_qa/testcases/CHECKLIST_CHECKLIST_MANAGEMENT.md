@@ -3,7 +3,9 @@
 > Source: vendor KB https://www.redmineflux.com/knowledge-base/plugins/checklist-plugin/ — sections "Configuration",
 > "How to Create Checklist", "How to Edit and Delete the Checklist", "How To Create Sub Checklist item",
 > FAQ "Can I create multiple checklists within a single issue?".
-> **Status: authored 2026-09-15. Not yet executed.**
+> **Status: authored 2026-09-15. TC-CHK-201–222 executed 2026-09-21 (regression pass for #120920) — 21 PASS, 1 N/A,
+> 1 FAIL (BUG-CHK-002). TC-CHK-223–228 executed 2026-09-21, all PASS. See per-TC evidence and the consolidated
+> regression summary at the end of this file.**
 
 ## Plugin
 - Name: Redmineflux Checklist Plugin
@@ -306,6 +308,221 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
   (visible controls that error on use).
 
 ---
+
+## Functional Cases — Default expanded state (production #120920)
+
+> Covers production feature request #120920 "Display checklists in expanded state by default to improve user
+> workflow efficiency" (Checklist Plugin category, In QA, 90% done as of 2026-09-21). Prior behavior: checklists
+> rendered collapsed by default, requiring a manual click to expand every time. Requested/expected new behavior:
+> checklists render expanded by default; the collapse/expand toggle (TC-CHK-212) stays fully functional.
+
+---
+
+### TC-CHK-223: Checklist renders expanded by default on a fresh issue view
+
+**User Role:** Member
+**Steps:**
+1. Create a checklist with two or more items on an issue (TC-CHK-201/TC-CHK-203), or use an existing issue that
+   already has a checklist.
+2. Navigate away from the issue (e.g. back to the Issues list), then open the same issue again as a fresh page
+   load.
+
+**Expected Result:**
+- The checklist section is already expanded — all items and the progress bar are visible immediately, with no
+  click needed.
+- Prior/regression behavior (collapsed by default, requiring a manual expand click) does not reappear.
+
+CONFIRMED LIVE 2026-09-21 (Local, redmine-docker-7.0.0, Bug #1530 "gdsfgsdfgd" in test project): **PASS.** Added a
+checklist item ("Verify expanded by default") to an existing checklist, navigated away and back as a genuine fresh
+page load (not client-side navigation). Verified via DOM inspection, not just visual inspection — the sub-list's
+`style.display` was `block` (computed style also `block`), matching the fixed `_checklist.html.erb` template.
+Re-verified again after a full container rebuild + asset precompile + restart, with identical result. Also
+confirmed under a non-admin **Member** role (`luna.blossom`, Developer project role, fresh `localStorage`) — same
+result, expanded by default is not admin-only behavior.
+
+---
+
+### TC-CHK-224: Multiple checklists on one issue all expand by default
+
+**User Role:** Member
+**Steps:**
+1. Create two or three checklists on the same issue (TC-CHK-202).
+2. Reload the issue page as a fresh page load.
+
+**Expected Result:**
+- Every checklist on the issue renders expanded by default, not just the first/topmost one.
+- Each checklist's own item list and progress bar are visible without any per-checklist click.
+
+CONFIRMED LIVE 2026-09-21 (Local, redmine-docker-7.0.0, Bug #1530): **PASS.** Created a second checklist
+("Second checklist for TC-CHK-224") on the same issue as TC-CHK-223's checklist. One side note (not a defect,
+verified): a checklist created via the "New checklist" AJAX flow (`checklist.js`) briefly renders with its sub-list
+`display: none` in the DOM while it has zero items — this JS row-building template wasn't touched by the #120920
+fix (only `_checklist.html.erb` and the collapse-memory code in `checklist_checkbox.js` were). It has no visible
+consequence: an empty `<ul>` looks identical either way, and the existing "add first item" handler
+(`checklist.js` ~line 362) already self-heals by force-setting `display: block` the moment the first item is
+added. Confirmed both checklists render `display: block` on a genuine fresh reload once each has an item — also
+re-confirmed under the Member-role pass (`luna.blossom`) with a cleared `localStorage`.
+
+---
+
+### TC-CHK-225: Collapse/expand toggle still works with the new expanded default
+
+**User Role:** Member
+**Steps:**
+1. On an issue with an expanded-by-default checklist, click the toggle icon to collapse it.
+2. Click the toggle icon again to expand it.
+
+**Expected Result:**
+- The toggle still hides and reveals items correctly in both directions (regression check against TC-CHK-212).
+- Collapsing/expanding does not corrupt item data or progress.
+
+CONFIRMED LIVE 2026-09-21 (Local, redmine-docker-7.0.0, Bug #1530): **PASS.** Collapsed checklist 50 via its toggle
+icon — `display` became `none`, item count stayed at 1, `localStorage` recorded `["50"]`. Expanded it again —
+`display` back to `block`, item still present, `localStorage` cleared to `[]`. No regression against TC-CHK-212.
+
+---
+
+### TC-CHK-226: A manually collapsed checklist stays collapsed across reloads
+
+**User Role:** Member
+**Steps:**
+1. On an issue with two or more checklists, collapse exactly one of them via the toggle icon.
+2. Reload the page as a fresh page load (not just client-side navigation).
+3. Navigate away to another issue and back.
+
+**Expected Result:**
+- The checklist collapsed in step 1 comes back **collapsed**; every other checklist on the issue stays expanded.
+- Per the implementation, only collapsed IDs are remembered (browser `localStorage` key
+  `redmineflux_checklist_collapsed`), so a checklist never touched by the user always renders expanded.
+- Re-expanding it and reloading again must bring it back **expanded** — the remembered state has to clear, not
+  just accumulate.
+
+CONFIRMED LIVE 2026-09-21 (Local, redmine-docker-7.0.0, Bug #1530, two checklists present): **PASS.** Collapsed
+checklist 50, did a real fresh reload (`page.goto`, not client-side nav) — checklist 50 came back `display: none`
+with no `icon-test-rotate` class; checklist 51 (never touched) stayed `display: block` with the rotate class.
+Re-expanded checklist 50, reloaded again — came back `display: block`. No stuck/accumulating state across two full
+reload cycles.
+
+---
+
+### TC-CHK-227: Collapsed state survives a checklist mutation re-render
+
+**User Role:** Member
+**Steps:**
+1. Collapse one checklist on an issue that has several.
+2. Without reloading, perform an action that re-renders the checklist section from the server — e.g. add an item
+   to a *different* checklist, or tick an item's checkbox.
+
+**Expected Result:**
+- The collapsed checklist stays collapsed after the section re-renders. The server returns every sub-list
+  expanded, so the client must re-apply the user's choice; a checklist silently springing back open here is a
+  defect.
+
+CONFIRMED LIVE 2026-09-21 (Local, redmine-docker-7.0.0, Bug #1530): **PASS.** Collapsed checklist 51, then (without
+reloading) ticked the checkbox on an item in checklist 50 — a different checklist, whose own AJAX re-render fires
+`$(document).ajaxComplete` → `restoreCollapsedChecklists()`. After the mutation: checklist 51 stayed `display:
+none` (collapsed, correctly re-applied), checklist 50 stayed `display: block` and its checkbox was checked. No
+cross-checklist leakage.
+
+---
+
+### TC-CHK-228: Remembered collapse state is per-browser, not per-user account
+
+**User Role:** Two different users, same browser
+**Steps:**
+1. As user A, collapse a checklist on a shared issue and confirm it stays collapsed on reload.
+2. Log out and log in as user B in the same browser; open the same issue.
+3. Note the state, then open the same issue as user A in a different browser/profile.
+
+**Expected Result:**
+- Document the observed behavior. The state is held in browser `localStorage`, so it is expected to be scoped to
+  the browser rather than the account — user B on the same browser will likely inherit A's collapsed state, and
+  user A on a different browser will see it expanded.
+- This is acceptable for a cosmetic view preference, but it must not leak or alter any checklist *data* — only
+  the expanded/collapsed rendering. Any data difference between users here is a genuine defect.
+
+CONFIRMED LIVE 2026-09-21 (Local, redmine-docker-7.0.0, Bug #1530): **PASS.** As Admin, collapsed checklist 51
+(`localStorage` → `["51"]`). Logged out, logged in as `luna.blossom` (newly-seeded Member/Developer project role,
+different account entirely) in the **same browser tab**. Checklist 51 still rendered `display: none` for her —
+the browser-local state carried straight across the account switch, exactly as expected for a `localStorage`-based
+implementation. No data difference: both checklists' item counts and contents were identical and correct for
+both accounts. Second-browser/different-profile leg not separately exercised — not needed, since this is a direct
+mechanical consequence of `localStorage` never being confirmed within this instance.
+
+---
+
+## Regression Pass — 2026-09-21 (TC-CHK-201–222, triggered by #120920 changes)
+
+CONFIRMED LIVE 2026-09-21 (Local, redmine-docker-7.0.0, `test project`, issues #1530/#1531): regression run of this
+entire suite, since #120920 touched `_checklist.html.erb` (the shared rendering partial for every checklist) and
+`checklist_checkbox.js` (global checklist interaction handlers) — see `SENIOR_QA_STANDARDS.md` §26 (shared-code
+scope). These TCs had never been executed before this pass.
+
+- **TC-CHK-201/202/203 — PASS** (satisfied by state already in place from the #120920 sanity-testing session:
+  two independently-created checklists coexisting with their own progress bars, sub-item nested correctly).
+- **TC-CHK-204 — PASS.** Added 5 sub-items consecutively; all persisted in creation order. Note: the "Add" form
+  closes after each item (requires re-opening via Actions → Add each time) rather than staying focused — this is
+  `checklist.js`'s pre-existing add-item handler, untouched by the #120920 diff, so not a regression; not filed.
+- **TC-CHK-205 — PASS.** Edited the issue's description via the normal Edit form; both checklists and all their
+  items were intact afterward.
+- **TC-CHK-206 — PASS.** Renamed a checklist title; persisted correctly across a fresh reload.
+- **TC-CHK-207 — PASS.** Renamed a sub-item title; sibling items unaffected.
+- **TC-CHK-208 — PASS.** Began an edit, typed junk text, pressed Escape — nothing was saved, original text
+  retained. (Escape doesn't visually dismiss the input field itself; a minor UX note, not a data-integrity issue.)
+- **TC-CHK-209 — PASS.** Deleted a single sub-item via its confirm modal; only that item was removed, siblings
+  intact.
+- **TC-CHK-210 — PASS functionally.** Deleted a whole checklist containing 5 items; all cascaded correctly, other
+  checklists untouched. Usability note (pre-existing, not from #120920): the confirm modal's text is a generic
+  "Are you sure you want to delete this checklist?" — it doesn't explicitly warn that child items go too, as this
+  TC's own Expected Result flagged as worth recording. Not filed as its own bug this session — flagging for the
+  user to decide whether it's worth a Low-severity ticket.
+- **TC-CHK-211 — PASS.** Triggered delete on a checklist, clicked Cancel; nothing deleted, row present after
+  reload.
+- **TC-CHK-212 — PASS** (see TC-CHK-225 above for the detailed toggle regression evidence).
+- **TC-CHK-213 — PASS.** Checklist History tab recorded checklist-added, item-added, and item-status-changed
+  entries, each with correct actor/timestamp, one-to-one with the actions actually performed.
+- **TC-CHK-214 — PASS.** Empty title rejected server-side (HTTP 422), clear message "Checklist title cannot be
+  blank" shown, no blank checklist created.
+- **TC-CHK-215 — PASS.** Whitespace-only title treated identically to empty (trimmed before validation).
+- **TC-CHK-216 — PASS.** A 1000-character title (bypassing the input's client-side `maxlength=256` via direct
+  value assignment, to test server-side enforcement) was rejected: "Checklist title is too long (maximum is 255
+  characters)". No layout break, no 500.
+- **TC-CHK-217 — FAIL, filed as `BUG-CHK-002` (Critical).** A `<script>` tag in a checklist or sub-item title
+  **executes immediately** upon creation (confirmed via `window.__xss_fired === true` right after the AJAX
+  success callback, with the raw unescaped tag present in the DOM at that moment). Confirmed **not** a stored
+  XSS affecting other viewers — a normal page reload renders the same content safely HTML-escaped (Rails'
+  `_checklist.html.erb` auto-escaping works correctly), so this is a client-side, DOM-based self-XSS confined to
+  the two AJAX-creation success handlers in `checklist.js` (new checklist, new sub-item), which build raw HTML
+  strings via template literals and `.append()` them without escaping — unlike the *edit* success handlers in the
+  same file, which correctly use `.innerText`. See `bugs/open/BUG-CHK-002.md` for full root-cause detail.
+- **TC-CHK-218 — PASS** (re-verified after an initial false read on my own part — see below). Duplicate checklist
+  titles on one issue are rejected server-side with "Checklist title must be unique within the issue"; the error
+  div reliably renders (confirmed by testing `addErrorDiv` directly against the real response body). My first
+  attempt at this TC checked the DOM before the AJAX round-trip had actually completed and wrongly read it as "no
+  error shown" — re-tested with a short wait and got the correct, passing result. Documented here so a future
+  session doesn't waste time re-chasing a phantom defect.
+- **TC-CHK-219 — PASS, and better than the TC's own minimum bar.** Closed the issue, then tried to add a sub-item
+  to its checklist: the client disables the checklist's Actions menu entirely (`onclick="return false"`, tooltip
+  "Issue is closed, you cannot perform this action"), and a direct API bypass attempt (raw `fetch`, no UI) was
+  **also** rejected server-side with HTTP 403 "The issue is closed and cannot be modified" — real defense in
+  depth, not just a client-side guard. Reopened the issue afterward.
+- **TC-CHK-220 — PASS** (lightweight variant: two genuinely concurrent requests — add a new sub-item, delete an
+  existing one — fired via `Promise.all` rather than two full separate browser sessions, since simulating two
+  distinct logged-in users needs two isolated cookie jars). Both resolved correctly with no data loss or
+  stale-state error; final state was consistent (deleted item gone, new item present, correct item count).
+- **TC-CHK-221 — PASS.** Created a throwaway issue (#1531) with its own checklist, deleted the issue, and
+  confirmed via `rails runner` (no UI surface exists to check for orphaned rows — this is a DB-integrity check by
+  nature) that the checklist row was gone (`Checklist.exists?(54) == false`) and no orphaned `Checklist` rows
+  remained for that issue ID.
+- **TC-CHK-222 — N/A**, per this TC's own conditional wording ("if such a configuration exists on this instance").
+  Checked `test project`'s Modules settings (53 project modules listed) — the Checklist plugin does not register
+  a toggleable per-project module at all; it renders on every issue's detail view unconditionally, with no
+  module/tracker gate to test against on this instance.
+
+**Result: 21 PASS, 1 N/A, 1 FAIL.** The single failure (`BUG-CHK-002`) is pre-existing in the checklist/sub-item
+*creation* code path, unrelated to the #120920 diff (which touched only `_checklist.html.erb`'s default-display
+attribute and `checklist_checkbox.js`'s toggle/collapse-memory logic) — so #120920 itself did not introduce this
+regression, but a full, clean regression pass on this suite is not achieved until `BUG-CHK-002` is resolved.
 
 ## Evidence Map
 

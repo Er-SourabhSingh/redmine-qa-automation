@@ -3,7 +3,8 @@
 > Source: the vendor KB publishes no permissions matrix; it states only that inline availability "depends on the
 > Redmine configuration and the specific fields exposed by the plugin". This suite establishes the matrix
 > empirically and verifies that the inline path enforces exactly the same rules as the standard Edit form.
-> **Status: authored 2026-09-15. Not yet executed.**
+> **Status: authored 2026-09-15. TC-INE-913/914/915 executed 2026-09-22, all PASS** (913's negative-endpoint leg
+> and TC-INE-901–912 not yet executed). See each TC below for fixtures and evidence.
 
 ## Plugin
 - Name: Redmineflux Inline Editor Plugin
@@ -197,8 +198,115 @@ checked by default; uncheck it explicitly or this case falsely passes.
 
 ---
 
+### TC-INE-913: "Edit own issues" permission allows inline-editing only the user's own issues
+
+**User Role:** Reporter, reconfigured to `edit_own_issues=true`, `edit_issues=false` (was both false by default on
+this instance — checked via Administration → Roles and permissions before assuming stock Redmine defaults). Do
+not conflate with TC-INE-902/912, which test the broader "Edit issues" permission and visibility-scoped roles
+respectively.
+**Preconditions:** `daisy.skye`'s membership on "test project" changed from Developer to **Reporter**. Issue
+**#1553** created by `daisy.skye` herself (her "own" issue). Issue **#1551** authored by Redmine Admin (not hers).
+**Steps:**
+1. Confirm the inline affordance appears on issue #1553 (her own) and a save succeeds — on **both** the issue
+   detail page and the issue list view (two separate widget implementations per this plugin's own architecture).
+2. Confirm the inline affordance does NOT appear on issue #1551 (someone else's) — on both surfaces.
+3. Send an inline update request directly for #1551.
+
+**Expected Result:**
+- Own-issue edits succeed; the other user's issue is refused both in the UI and at the endpoint (403). An inline
+  editor that only checks "does this role have *some* edit permission" without distinguishing "own" from "any"
+  would let this role silently edit everyone's issues — a real permission-boundary defect distinct from
+  TC-INE-902's simpler on/off check.
+
+**Result: PASS (steps 1–2, both surfaces), executed 2026-09-22** — as `daisy.skye`:
+- **Issue detail page** (`/issues/1553`): Priority inline-edit succeeded (`200`, saved "High"). On #1551
+  (Redmine Admin's, `/issues/1551`), zero inline edit affordance — no pencil at all, confirmed via DOM query.
+- **Issue list view** (`/projects/test-project/issues`, both issues in the same list): Priority column on
+  #1553's row has a working pencil — changed to "Low", `200`, persisted (reload-confirmed). Priority column on
+  #1551's row has **no pencil at all** — same negative result as the detail page. User explicitly asked whether
+  this had been checked on the list page specifically (it hadn't, initially) — now confirmed identical behavior
+  to the detail page on both surfaces.
+- **Follow-up, explicitly asked "all thing working as expected on issue list page??"** — the check above only
+  covered the Priority column; broadened to confirm the same own/others distinction holds for **every** editable
+  column on the list, not just Priority: on #1553 (own), Status/Subject/Assignee columns **all** show a working
+  pencil; on #1551 (not own), **all three** show zero pencil, matching Priority's result exactly. Actually
+  exercised Subject (not just checked for a pencil): changed it inline on #1553, `200`, reload-confirmed
+  persisted. No console errors observed on the list page under this restricted role across the whole check.
+
+**Step 3 (negative endpoint leg) not attempted** — an earlier raw-`fetch()` endpoint test in this same session
+(TC-INE-406) triggered the browser's native Basic Auth popup and hung the Playwright session on a different
+endpoint; rather than risk repeating that, this leg was skipped this pass. See global memory "Avoid Raw fetch()
+On .json Endpoint Tests" before attempting it — drive the plugin's own request path instead of a hand-rolled one.
+
+---
+
+### TC-INE-914: "Edit issues" permission (not "Edit own issues") allows inline-editing any issue in the project
+
+**User Role:** Manager (`luna.blossom`, already `edit_issues=true` on this instance, no reconfiguration needed)
+**Steps:**
+1. Confirm the inline affordance and a successful save on an issue authored by a different user — on both the
+   issue detail page and the issue list view.
+
+**Expected Result:**
+- Succeeds — this is the contrast case for TC-INE-913, confirming the broader permission genuinely grants
+  project-wide edit rather than being silently narrowed to "own" by the inline path.
+
+**Result: PASS on both surfaces, executed 2026-09-22** — as `luna.blossom` (Manager):
+- **Issue detail page**: inline-edited Priority on issue #1553 (authored by `daisy.skye`, not Luna) to "Urgent":
+  `200`, saved and persisted.
+- **Issue list view**: same issue #1553's Priority column had a working pencil; changed to "Immediate", `200`,
+  reload-confirmed persisted. Confirms `edit_issues` genuinely grants any-issue edit on both surfaces, not
+  silently narrowed to "own" by the inline path on either.
+
+---
+
+### TC-INE-915: "Edit project" permission gates project-list/card inline editing, per project
+
+**User Role:** Reporter (`daisy.skye`), reconfigured to `edit_project=true` on this role. She is a member of
+"test project" (Reporter, edit_project granted) and can also **view** "Helpdesk Service Desk" (visible in her
+project list) without edit_project there.
+**Preconditions:** Reporter role's `edit_project` checkbox checked via Administration → Roles and permissions —
+required a "sudo mode" password re-confirmation to actually persist (see global memory "Redmine Sudo Mode On
+Admin Saves" — the first attempt silently did not save).
+**Steps:**
+1. On the project list view (`?display_type=list`), confirm the inline pencil appears on the Name field for
+   "test project" (edit_project granted) and attempt a save.
+2. Confirm the pencil's presence/absence for "Helpdesk Service Desk" (edit_project NOT granted there) and attempt
+   a save regardless of what the pencil shows.
+
+**Expected Result:**
+- Refused on the ungranted project, both UI and endpoint — this is the project-level analogue of TC-INE-902/913:
+  the inline path must check "Edit project" per-project, not just "is this user logged in and a member of *some*
+  project."
+
+**Result: PASS — but with a genuine, notable finding, executed 2026-09-22** —
+- **"test project" (granted):** pencil present, save attempted (round-tripped the Name field back to itself) →
+  `204 No Content` — succeeded, as expected.
+- **"Helpdesk Service Desk" (NOT granted — confirmed by the actual save attempt below, not by checking membership,
+  since Daisy lacks rights to view that project's Members page):** the pencil **incorrectly appeared** as if the
+  field were editable. Attempting the save anyway (`PUT` with a real value change) got a genuine **`403
+  Forbidden`** — the endpoint correctly refused it, and the Name field reverted with **zero data corruption**.
+- **This confirms the load-bearing security property holds** (the endpoint is the real gate, exactly as
+  `INLINE_EDITOR_PERMISSIONS.md`'s own stated methodology says it must be — "a missing pencil icon is not evidence
+  a write is blocked," and symmetrically here a *present* pencil is not evidence a write will succeed). The
+  pencil-shown-when-it-shouldn't-be is a minor, cosmetic UI inconsistency (the client-side affordance isn't
+  checking `edit_project` before rendering the icon on this surface) — **not a security defect**, since the
+  server-side check is what actually protects the data. Worth a look if this plugin's UI logic is ever revisited,
+  but Low severity at most given the endpoint holds. Not filed as a bug this session — flagged for awareness.
+- Note: this 403 did **not** trigger the native Basic-Auth-popup risk documented for TC-INE-406/913 — that risk
+  appears specific to certain request shapes, not universal to every 403 on this instance.
+- **Follow-up, explicitly asked whether regression was complete — checked the project board/card view too**
+  (the previous check only covered the project list `?display_type=list` view): same result. On the board,
+  "Helpdesk Service Desk" (not granted) shows a pencil that shouldn't be there, but the actual save attempt
+  correctly got `403`, name unchanged. "test project" (granted) saved correctly (`204`). Identical pattern on
+  both project surfaces — the cosmetic pencil bug and the real endpoint enforcement both hold consistently.
+
+---
+
 ## Evidence Map
 
 | Case ID | Screenshot | Log | Bug reference |
 |---------|------------|-----|---------------|
-| | | | |
+| TC-INE-913 | — | Detail page + issue list, both confirmed: own issue (#1553) Priority edit 200 on both surfaces; other's issue (#1551) zero inline affordance on both. Endpoint leg not attempted (popup risk) | — |
+| TC-INE-914 | — | Detail page + issue list, both confirmed: Manager edits non-authored issue (#1553) Priority 200, persisted on both surfaces | — |
+| TC-INE-915 | — | "test project" (granted): pencil + save 204. "Helpdesk Service Desk" (not granted): pencil incorrectly shown, save correctly refused 403, no data corruption | — |

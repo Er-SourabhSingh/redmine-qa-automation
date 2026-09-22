@@ -8,6 +8,7 @@
 | BUG-LTS-004 | Inline Editor's Description-CKEditor "Save" button renders 50px tall vs "Cancel"'s 34px under Lotus theme; both are 28px and matched under Default | Closed | Low | 7.0.1.stable | bugs/closed/BUG-LTS-004.md |
 | BUG-LTS-005 | The plugin's own "Konfigurieren" link on Administration → Plugins leads to a genuine 404 (no settings page/route exists) | Closed | Medium | 7.0.1.stable | bugs/closed/BUG-LTS-005.md |
 | BUG-LTS-006 | [FIXED] Issue detail page's subtask/related-tickets table rendered far wider than its container at 1280×720, overlapping the Historie/Notizen sidebar column — confirmed now scrolling within its own contained wrapper | Closed | N/A | 7.0.1.stable | bugs/closed/BUG-LTS-006.md |
+| BUG-LTS-007 | Project Overview page shows the "closed and read-only" warning twice under the Lotus theme (redundant re-implementation in `show.html.erb`, not theme-selection-dependent) | Open | Medium | 7.0.0 (Docker) | bugs/open/BUG-LTS-007.md |
 
 ## Notes
 - Open bugs: bugs/open/

@@ -346,6 +346,7 @@ Format: `BUG-<PLUGIN-CODE>-<NUMBER>`
 | redmineflux_crm | CRM |
 | redmineflux_mentions | MEN |
 | redmineflux_fluxshot | FSX |
+| redmineflux_shift_management | SFM |
 
 Examples: `BUG-TCM-001`, `BUG-GNT-001`
 

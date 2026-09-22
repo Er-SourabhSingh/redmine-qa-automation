@@ -6,37 +6,40 @@
 
 | Total | Critical | High | Medium | Low |
 |-------|----------|------|--------|-----|
-| 2     | 0        | 1    | 1      | 0   |
+| 0     | 0        | 0    | 0      | 0   |
 
 ## Open Bugs
 
-### BUG-AGB-011 — High
+None. `bugs/open/` is empty as of 2026-09-21.
+
+## Recently Closed (this cycle)
+
+### BUG-AGB-011 — High — Closed 2026-09-21
 
 **Backlog story-points badge goes wrong (including negative) after dragging a card between sprint/version columns, without a page reload**
 
-- **Production Redmine Issue ID:** #120990 (ztflux, assigned to Prashant Chaurasia, reported 2026-09-21). Companion action: production #120436 reopened (Done/100% → In QA/90%) pending this fix and retest.
-- **Found during:** live-testing after Feature #120436 was marked Done on production 2026-09-21; user reported a screenshot showing a nonsensical `13 / -74 SP` total, then confirmed "after refresh it show correct value"
-- **Summary:** Dragging a card between Backlog sprint/version columns updates the card count live but never the story-points badge, which is only rendered at initial page load. A subsequent inline point edit then applies its delta on top of that stale badge value, compounding the error — repeated drags/edits in one session can drive the displayed total arbitrarily wrong, including negative.
-- **Root cause:** `backlog.html.erb`'s jQuery UI Sortable `update` handler only calls `updateSingleColumnCount()` (card count only) on drop; `.backlog-column-story-points` is never read or written anywhere in the drag/drop path. `rf_story_points.js`'s `updateBadges()` is correctly wired to the inline-edit save handler but has no knowledge the badge may already be drag-stale.
-- **Client-side only:** confirmed no stored `story_points` data is corrupted — a plain page reload always shows the correct total.
-- **Relationship to Feature #120436:** squarely within the feature's own delivered code (the `closed/total SP` badge display #120436 introduced) — unlike BUG-AGB-010, which is pre-existing/unrelated infrastructure. This corrects the regression cycle's earlier sign-off, which had reported zero defects in the feature's own code.
-- **Not caught during the regression pass** because drag (TC-AGB-545) and inline-edit (TC-AGB-537) TCs were each tested in isolation with a check/reload in between, rather than back-to-back in one page load — the actual real-world sprint-planning workflow.
-- Full detail, root-cause trace, reproduction table, and evidence: `bugs/open/BUG-AGB-011.md`
+- **Production Redmine Issue ID:** #120990 (ztflux, assigned to Prashant Chaurasia) — synced to In QA → Done, 100%.
+- **Fix:** commits `32141ba` and `50a8a76` ("Keep the backlog points badge true while cards are dragged" / "Move story points with a dragged card on every board"), released as plugin **7.1.0** on branch `master`.
+- **Retest:** dragged a 5-pt card between sprint columns — both badges updated live and correctly, instantly, no reload (`13/18→13/13`, `5/21→5/26`). Extended to version columns — same correct live behavior (`3/8→3/13`, `23/199→23/194`). Then edited the moved card's points inline without reloading (`5/26→5/29`, correct) — a reload matched exactly.
+- Production testcase #120941/run #577 (which had been marked Failed against this bug) updated back to Passed.
+- Full detail, root-cause trace, reproduction table, evidence, and retest record: `bugs/closed/BUG-AGB-011.md`
 
-### BUG-AGB-010 — Medium
+### BUG-AGB-010 — Medium — Closed 2026-09-21
 
-**A `query_id` parameter on the Agile Board / Backlog controller crashes with a 500 (FrozenError on a frozen string literal) — not reachable via any current UI link**
+**A `query_id` parameter on the Agile Board / Backlog controller crashed with a 500 (FrozenError on a frozen string literal) — not reachable via any current UI link**
 
-- **Production Redmine Issue ID:** #120986 (ztflux, assigned to Prashant Chaurasia, reported 2026-09-21)
-- **Found during:** regression pass on Feature #120436, as a side-finding while checking TC-AGB-541's premise (that TC is itself N/A — see below)
-- **Summary:** Every Agile Board controller action that accepts a `query_id` parameter (project Kanban board, Backlog, and — sharing the same code path — almost certainly the Global board and My Page block) crashes with an unhandled 500 (`FrozenError: can't modify frozen String: "project_id IS NULL"`) the moment `query_id` is present, due to a frozen string literal being mutated in `RfBoardsController#retrieve_rf_agile_query`.
-- **Reachability:** checked every view in the plugin — no button or link anywhere generates a `query_id`-carrying URL for the Backlog or Agile Board pages. Reproducing requires manually constructing the URL. Severity was downgraded from an initial High to Medium once this was confirmed. The parameter is still explicitly, intentionally handled elsewhere in the controller, so it is not dead code — just currently code-only.
-- **Relationship to Feature #120436:** pre-existing shared plugin infrastructure, not touched by #120436's own changes (the story-point badge and the two new Backlog settings). Does not block any of #120436's four requirements, all of which are independently verified PASS.
-- **Fix:** trivial — replace the frozen literal with a mutable string (`String.new(...)`, `.dup`, or build with `+`/array-join instead of `<<`).
-- Full detail, stack trace, and evidence: `bugs/open/BUG-AGB-010.md`
+- **Production Redmine Issue ID:** #120986 (ztflux, assigned to Prashant Chaurasia) — synced to In QA → Done, 100%.
+- **Fix:** commit `f3ba81b` ("Stop a query_id from crashing the board and the backlog"), released as plugin **7.1.0** on branch `master`.
+- **Retest:** `?query_id=1` on both `/backlog` and `/agile_board` now returns a clean 404 (`ActiveRecord::RecordNotFound`) instead of the unhandled 500; server log confirms no `FrozenError`.
+- Full detail, stack trace, evidence, and retest record: `bugs/closed/BUG-AGB-010.md`
 
 ## Environment
 
 - Redmine Version: 7.0.0
+- Plugin: Redmineflux Agile Board 7.0.0 → **7.1.0** (branch `master`, merged from `feature/backlog-sprint-points`)
 - Environment: Local Docker `redmine-docker-700` (http://localhost:3010)
-- Test Date: 2026-09-18 (sanity), 2026-09-21 (regression + BUG-AGB-011 found)
+- Test Date: 2026-09-18 (sanity), 2026-09-21 (regression, BUG-AGB-011 found, both bugs fixed and retested, post-fix regression)
+
+## Outstanding
+
+A full plugin-wide final-cycle regression (`SENIOR_QA_STANDARDS.md` §27, every suite — not just Feature #120436) is still required before `STATUS.md` can move to `Complete`. Only the Feature #120436 suite (`AGILE_BACKLOG_AND_SPRINTS.md`) was regressed this session, by explicit user scope choice.

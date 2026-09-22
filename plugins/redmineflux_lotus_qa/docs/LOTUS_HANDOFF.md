@@ -6,6 +6,26 @@
 - Redmine Version: 7.0.1.stable
 - Environment: Forge — `https://flux-fccirp6sk49.forge.zehntech.com/`
 
+## Incidental Finding (2026-09-22, local Docker redmine-docker-700) — BUG-LTS-007 filed
+
+Not a planned Lotus test pass — found while investigating a user-reported UI issue on a Checklist-plugin
+permission-test fixture project ("Checklist Perm Private"):
+
+- The Project Overview page shows "This project is closed and read-only." **twice** for any closed project.
+  Confirmed via DOM: two identical `<p class="warning">` elements. Confirmed via the Issues page for the same
+  project (only 1 copy there) that the duplicate is specific to Overview.
+- Root-caused by reading `redmineflux_lotus/app/views/projects/show.html.erb` (bind-mounted locally at
+  `C:\redmine-docker-7.0.0\plugins\redmineflux_lotus\...`): the file has a top-level
+  `<% unless Setting.ui_theme == 'redmineflux_lotus' %> ... <% else %> ... <% end %>` split (lines 1/161), and
+  **both branches independently reimplement the `@project.active?` closed-warning check** (line 27 in the
+  fallback branch, line 195 in the Lotus-active branch) — duplicating the warning Redmine core already renders
+  once, globally, via the layout.
+- **Confirmed NOT tied to the active Theme setting** — `Setting.ui_theme` on this instance is "Default" (not
+  `redmineflux_lotus`), yet the duplicate still reproduces, since the plugin's view file still wins Rails' view
+  lookup for this page once installed, regardless of the Theme setting's value. Don't assume switching the theme
+  away from Lotus removes this plugin's influence on pages it overrides — see `LOTUS_MEMORY.md`.
+- Filed as `BUG-LTS-007` (Medium). `bugs/open/` for this plugin is no longer empty.
+
 ## Completed This Session (2026-09-18) — BUG-LTS-003 retested again, mixed result: Tags-widget overlap now FIXED, edit-form full-width break REGRESSED
 
 Retested `BUG-LTS-003` at 1280×720, Lotus theme, German language, Admin role, on a new Forge server (issue #260, the same fixture issue this bug's Tags-widget finding originally used — Sprint set to "Bug Bash", Story-Points set to 13):
@@ -73,7 +93,14 @@ TC-LTS-011 (explicitly asked: "please cover all redmine pages do not miss any fo
 
 ## Next Session Start Point
 
-- `bugs/open/` is now **empty** (BUG-LTS-003 closed 2026-09-18, per explicit user judgment that its one remaining sub-finding — the edit-form full-width layout, no overlap — is minor). Per `CLAUDE.md` §10/§12, the next step before `STATUS.md` can be set to `Complete` is the **full final-cycle regression** (`SENIOR_QA_STANDARDS.md` §27): re-execute all 13 TCs in `testcases/LOTUS_GERMAN_LANGUAGE.md` (no automation specs exist yet for this plugin, so this is fully manual). This was not run this session — start here.
+- `bugs/open/` is **no longer empty** — `BUG-LTS-007` (Medium, filed 2026-09-22) needs a fix + retest before the
+  full final-cycle regression matters. When retesting, check the fix holds under **both** branches of
+  `show.html.erb`'s `Setting.ui_theme` split (Default/blank and `redmineflux_lotus` explicitly selected) — the
+  bug was present in both.
+- Once `BUG-LTS-007` is fixed and `bugs/open/` is empty again: per `CLAUDE.md` §10/§12, the next step before
+  `STATUS.md` can be set to `Complete` is the **full final-cycle regression** (`SENIOR_QA_STANDARDS.md` §27):
+  re-execute all 13 TCs in `testcases/LOTUS_GERMAN_LANGUAGE.md` (no automation specs exist yet for this plugin,
+  so this is fully manual). Not yet run — start here once the bug is clear.
 - Note for whoever runs that regression: `BUG-LTS-003`'s sub-findings flipped fixed/unfixed across servers multiple times throughout this bug's history — if the edit-form full-width layout or any of its other 3 sub-findings resurface during the regression pass, that's expected server-dependent behavior, not necessarily a new defect; consult `LOTUS_MEMORY.md`'s Recurring Issues section.
 - Dashboard plugin retest under Lotus is also still pending (see "Not yet covered this session" in the testcase file) — the last plugin-level item for this theme's full cycle.
 - **Before filing a "content is clipped/cut off" finding on any tab strip, carousel, or similarly narrow container, check whether scroll/page controls (arrows, dots, swipe) are present and whether clicking them reveals the content in full** — `BUG-LTS-002` was invalidated because what looked like broken clipping was actually a working "peek of next item" affordance, confirmed by clicking through it.
@@ -88,7 +115,10 @@ TC-LTS-011 (explicitly asked: "please cover all redmine pages do not miss any fo
 
 ## Open Bugs Found
 
-- None — `bugs/open/` is empty as of 2026-09-18.
+- **BUG-LTS-007 (Medium)** — Project Overview page shows the "closed and read-only" warning twice, root-caused
+  to a redundant reimplementation in `show.html.erb`'s own branches, not theme-selection-dependent. Found
+  2026-09-22, local Docker. Reported to production as **#121062**, assigned to Vaishnavi Bhawsar.
+  `plugins/redmineflux_lotus_qa/bugs/open/BUG-LTS-007.md`
 
 ## Closed Bugs (fixed, verified across sessions)
 
@@ -127,3 +157,4 @@ TC-LTS-011 (explicitly asked: "please cover all redmine pages do not miss any fo
 | 2026-09-10 | 7.0.1.stable | Forge (flux-fhhcov1xf49) | Claude (Playwright MCP) | User pushed back on `BUG-LTS-002` via screenshot, pointing out the "<"/">" buttons are a scroll control. Verified by clicking through the tab strip on issue #1 (Lotus, 1280×720): confirmed it's a working paginated "peek of next tab" affordance — earlier tabs are hidden (`display:none`, not scrolled) as you page forward, and each tab renders fully once paged to (final residual overflow ~5px, down from the originally-described 23–174px). **Invalidated — moved to `bugs/closed/`.** `bugs/open/` now has 2 bugs (BUG-LTS-003, BUG-LTS-006). |
 | 2026-09-10 | 7.0.1.stable | Forge (flux-f3lnytazd49) | Claude (Playwright MCP) | Retested both remaining bugs at 1280×720, Lotus theme, fresh test issue (Sprint="Bug Bash", Story-Points=89, plus subtask + related ticket, all deleted afterward). **BUG-LTS-006 confirmed FIXED and closed** — a new `div.rf_issue_section_row` wrapper (`overflow-x: auto`) now scrolls the subtask/related-tickets table within its own bounds (~703px), no longer overlapping the Historie/Notizen sidebar. **BUG-LTS-003 narrowed further**: the Sprint/Story-Points value overlap is now fixed (Sprint value renders single-line, 58.6px, no wrap); font/bullet and edit-form fixes still hold. The Tags-widget overlap still reproduces, but now against the Story-Points *label* rather than the Sprint value (49.4×19.5px confirmed overlap) — bug stays open, narrowed to just this. `bugs/open/` now has only 1 bug (BUG-LTS-003). |
 | 2026-09-18 | 7.0.1.stable | Forge (flux-fccirp6sk49) | Claude (Playwright MCP) | User asked to retest `BUG-LTS-003` and close it. Retested at 1280×720, issue #260 (Sprint="Bug Bash", Story-Points=13). **Mixed result, initially not closed**: Tags-widget overlap (the sub-finding the title was narrowed to) is now FIXED; Sprint/Story-Points value overlap and font/bullet mismatch reconfirmed fixed; but the edit-form full-width break — previously fixed on a different server (2026-09-10) — REGRESSED and still reproduced here. Reported the mixed result to the user. **User reviewed and explicitly directed closure anyway**, judging the remaining width-only (non-overlapping) layout gap as minor/cosmetic. Bug closed, moved to `bugs/closed/`. Production issue #120218 was already Done/100% (updated directly in Redmine by Sourabh Singh same day, outside this session) — no write needed. `bugs/open/` now **empty**. Full final-cycle regression (`SENIOR_QA_STANDARDS.md` §27) not yet run — `STATUS.md` stays `In Progress` pending it. |
+| 2026-09-22 | 7.0.0 (Docker) | Local (redmine-docker-700, localhost:3010) | Claude (Playwright MCP) | Incidental finding, not a planned Lotus pass — user reported a duplicated "closed and read-only" banner on a Checklist-plugin test fixture project's Overview page. Investigated and root-caused: `redmineflux_lotus/app/views/projects/show.html.erb` overrides Redmine core's Overview view and both of the file's internal `Setting.ui_theme` branches independently reimplement the closed-project warning, duplicating what core already renders once globally (confirmed 1 copy on Issues page for the same project vs. 2 on Overview). Confirmed not theme-selection-dependent (reproduces with "Default" theme selected). Filed `BUG-LTS-007` (Medium). **User explicitly approved reporting it to production** — created as #121062, assigned to Vaishnavi Bhawsar. |

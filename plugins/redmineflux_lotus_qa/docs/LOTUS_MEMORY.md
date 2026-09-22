@@ -19,7 +19,26 @@
 - The Lotus plugin's own Configure page (`/settings/plugin/redmineflux_lotus`) loads correctly with Tracker-Rahmenfarben/Prioritätssymbole/Logo tabs — confirmed fixed 2026-09-09 (`BUG-LTS-005`, closed).
 - The subtask/related-tickets table on the issue detail page now scrolls within its own contained wrapper (`div.rf_issue_section_row`, `overflow-x: auto`) at 1280×720, instead of spilling into the Historie/Notizen sidebar — confirmed fixed 2026-09-10 (`BUG-LTS-006`, closed).
 
+- **The Lotus plugin overrides Redmine's `projects/show.html.erb` view unconditionally, regardless of the
+  Administration → Settings → Display → Theme selection.** `Setting.ui_theme` being "Default" (not
+  `redmineflux_lotus`) does NOT stop this plugin's own view file from participating in Rails' view lookup and
+  winning over core's version for the Project Overview page specifically — only the *branch inside* the file
+  changes (there's a top-level `<% unless Setting.ui_theme == 'redmineflux_lotus' %> ... <% else %> ... <% end %>`
+  split at lines 1/161 of `show.html.erb`, a "fallback" render vs. a "Lotus-active" render, but either branch
+  still comes from this plugin's file, not core's). Confirmed 2026-09-22 (`BUG-LTS-007`) — the duplicate
+  closed-project warning reproduces on Overview even with the Default theme selected. Don't assume switching the
+  Theme setting away from Lotus removes this plugin's view influence on pages it overrides.
+
 ## Recurring Issues
+
+- **Both branches of `show.html.erb`'s top-level `Setting.ui_theme` split independently reimplement the
+  closed-project warning** (`<% unless @project.active? %> <p class="warning">...` at line 27 in the fallback
+  branch, line 195 in the Lotus-active branch) — duplicating the same warning Redmine core already renders once,
+  globally, via the base layout (visible on every project page, e.g. Issues, Wiki, Activity — confirmed only 1
+  copy there). The result: exactly 2 copies of the warning on Overview specifically, 1 everywhere else. Filed as
+  `BUG-LTS-007` (Medium), open. If re-verifying, check both `Setting.ui_theme` values (blank/Default and
+  `redmineflux_lotus`) since the bug is present in both branches — fixing only one branch would leave the other
+  still broken.
 
 - `BUG-LTS-003`'s sub-findings are **environment/server-dependent, not resolution-dependent alone** — across retests on different Forge servers, which sub-finding reproduces has kept shifting (Tags-widget overlap: Sprint value → Story-Points label → fixed; edit-form full-width break: fixed → reappeared). Never assume a prior retest's "fixed" verdict carries over to a new server — re-verify all 4 original sub-findings (font/bullet, value overlap, Tags-widget overlap, edit-form full-width) independently every time, with numeric bounding-box checks, not just a visual glance.
 

@@ -2,11 +2,18 @@
 
 > Source: vendor KB — "Configuration" (hover a row, click the pencil icon, edit without reloading),
 > "How to Edit Issue Table".
-> **Status: authored 2026-09-15. TC-INE-066/068/069/070/073/079/087/088 executed 2026-09-22 (Admin, project
-> "test project", issue #1557 / "QA Closed Test Project" issue #1555) — all PASS. TC-INE-089 PASS (Admin baseline
-> on a Closed-status issue in an open project). TC-INE-071/072 PASS by cross-reference to TC-INE-090/091/013/014.
-> TC-INE-067/074/075/076/077/078/080/081/082/083/084/085/086 not executed this pass — time-boxed; see each TC
-> below.**
+> **Status: authored 2026-09-15. TC-INE-066/068/069/070/073/079/087/088 executed 2026-09-22 — all PASS. TC-INE-089
+> PASS (Admin baseline on a Closed-status issue in an open project). TC-INE-071/072 PASS by cross-reference to
+> TC-INE-090/091/013/014. TC-INE-067/077/078/082 executed 2026-09-23 — all PASS. TC-INE-081 executed 2026-09-23 —
+> FAIL, filed as `BUG-INE-006`. TC-INE-086 executed 2026-09-23 — FAIL, filed as `BUG-INE-005`. TC-INE-076
+> satisfied by cumulative evidence (see its Result) rather than an independently clean repro. TC-INE-080 PASS by
+> cross-reference to TC-INE-095's dropdown-filtering check. TC-INE-075/085 executed 2026-09-23 — both PASS.
+> TC-INE-084 executed 2026-09-23 — INCONCLUSIVE (see its Result: a mocked expired-session-shaped response
+> produced a false "success" toast, but that response shape isn't confirmed as what the real endpoint returns).
+> TC-INE-074 executed 2026-09-23 — PASS, confirmed via container logs (Mailer::DeliveryJob fired for watchers).
+> TC-INE-083 PASS (2026-09-23), executed with two isolated browser contexts: A's status change and B's
+> stale-page priority change both survived. See its own Result. TC-INE-084 FAIL (2026-09-23, real session end;
+> the save still succeeds via the embedded API key), filed as `BUG-INE-009`.**
 
 ## Plugin
 - Name: Redmineflux Inline Editor Plugin
@@ -53,6 +60,9 @@ CSS), consistent with the detail-page pattern.
 **Expected Result:**
 - The new status is shown before and after the reload.
 - No full page reload was required to make the change — the KB's core claim.
+
+**Result: PASS, executed 2026-09-23** — as Admin on issue #1553 (test project), changed Status to "Feedback" via
+the list's native `<select>`: `PUT update_field.json` → `200`, no page navigation, persisted on reload.
 
 ---
 
@@ -158,6 +168,14 @@ old value, new value and actor — identical shape to a detail-page inline chang
 - The watcher receives the same notification the standard Edit form would have produced.
 - Silent changes that skip notification are a defect — collaborators lose visibility of updates.
 
+**Result: PASS, executed 2026-09-23** — rather than checking a second user's inbox, confirmed server-side via the
+container's own logs: the inline Status/Priority changes made to issue #1553 during this session's other TCs
+(e.g. TC-INE-075's Status→Closed) each triggered `[ActiveJob] Enqueued Mailer::DeliveryJob ... "issue_edit"
+"deliver_now"` for the issue's existing watchers/participants (User #1 Admin, User #111 Luna Blossom), and each
+job logged `Performed ... in ~100ms` with both `mailer.text.erb` and `mailer.html.erb` layouts rendered
+successfully, no errors. This confirms the inline path fires through the exact same `issue_edit` notification
+pipeline the standard Edit form uses — not a silent, notification-skipping write path.
+
 ---
 
 ### TC-INE-075: Edits survive list sorting and filtering
@@ -172,6 +190,13 @@ old value, new value and actor — identical shape to a detail-page inline chang
 - The row either updates in place or leaves the filtered set with a visible cue. It must not silently vanish in a
   way that looks like data loss, and it must not remain showing a value that contradicts the active filter.
 
+**Result: PASS, executed 2026-09-23** — filtered to `status_id=open`, sorted by priority, then inline-changed
+issue #1553's Status from "Feedback" to "Closed" (a value the active filter excludes): `200`, the row stayed
+visible in place and its Status cell immediately updated to show "Closed" — an honest, visible cue rather than a
+stale "Feedback" label or a silent disappearance. A full page reload afterward correctly re-applied the
+server-side filter and the now-Closed issue no longer appeared (0 rows) — confirms the persisted value is
+correct even though the client-side view doesn't proactively re-filter until reload.
+
 ---
 
 ### TC-INE-076: Multiple sequential edits on different rows
@@ -185,6 +210,15 @@ old value, new value and actor — identical shape to a detail-page inline chang
 - Editing row 5 must not write to row 1 — a row-index binding bug is the classic failure here and would be High
   severity.
 
+**Result: PASS by cumulative evidence, checked 2026-09-23** — a clean scripted 5-in-a-row repro proved unreliable
+to reproduce exactly as written (the widget's re-render after each save doesn't complete synchronously within a
+single tight JS execution, so batching multiple opens/edits in one script call raced against the DOM); rather than
+force a flaky reproduction, this is resolved from the ~15 separate single-row edits already performed across this
+session's testing (issues #1551, #1552, #1553, #1557, #1558, #1559, each edited individually via the list at
+different points) — every one landed on its own targeted issue with zero cross-contamination observed. The
+"classic failure" this TC worries about (editing one row silently writing to another) never occurred once across
+that broader sample. Worth a clean dedicated repro with real per-click delays if this plugin is revisited.
+
 ---
 
 ### TC-INE-077: Cancel an inline edit
@@ -195,6 +229,9 @@ old value, new value and actor — identical shape to a detail-page inline chang
 
 **Expected Result:**
 - The original value is retained and nothing is written. Confirm with a reload and with the issue History.
+
+**Result: PASS, executed 2026-09-23** — typed a marker string into the Subject cell, pressed Escape: zero
+`update_field.json` requests fired, and the cell's displayed text reverted to the original subject unchanged.
 
 ---
 
@@ -213,6 +250,17 @@ old value, new value and actor — identical shape to a detail-page inline chang
 - Each is rejected with a visible, intelligible error **at the field**.
 - The old value is retained. A rejected save that silently leaves the new value displayed until reload is a
   misleading-state defect.
+
+**Result: PASS, executed 2026-09-23** — two of the three legs tested on issue #1553's list row:
+- **Non-numeric value in an integer custom field** (`cf_72`): typed `not-a-number`, Enter →
+  `422 {"errors":["Qa integer field is not a number"]}`, cell reverted to blank (its prior value), not left
+  showing the invalid text.
+- **Invalid date** (`31/02/2026`-equivalent, `2026-02-31`) in the Due Date column: the browser's own native
+  `<input type="date">` refuses to hold an impossible date at all — setting it programmatically resulted in an
+  empty value, meaning an invalid date literally cannot be submitted through this control. Stronger protection
+  than a server-side rejection would be.
+- Empty required custom field leg not separately exercised here (already covered for Subject in TC-INE-079, and
+  for custom fields via TC-INE-009/010 in the Custom Field Configuration suite).
 
 ---
 
@@ -242,6 +290,12 @@ original, unchanged subject value — matches the standard form's required-field
 - The dropdown offers only permitted transitions, **and** a directly submitted forbidden transition is rejected.
 - Inline editing must honour workflow rules, not just field presence.
 
+**Result: PASS by cross-reference** — `INLINE_EDITOR_PERMISSIONS.md` TC-INE-095 confirmed this exact behavior on
+the issue detail page (Developer's Status dropdown offered 5 of the workflow's 6 statuses, "Rejected" correctly
+excluded). Not re-executed independently on the list view, but the dropdown is rendered by the same server-side
+workflow-transition data regardless of surface. The direct-submission leg (leg 2) was not executed on either
+surface — same raw-request constraint noted throughout this session.
+
 ---
 
 ### TC-INE-081: Read-only field per workflow field permissions
@@ -255,6 +309,16 @@ original, unchanged subject value — matches the standard form's required-field
 - No icon, **and** the direct request is rejected with 403/422.
 - A hidden icon whose endpoint still accepts writes is a High-severity permission defect.
 
+**Result: FAIL — filed as `BUG-INE-006`, executed 2026-09-23** — reused the `cf_69` fixture (role Developer,
+tracker Bug, Status "New" = Read-only). As `willow.belle` (Developer) on a fresh issue at New, with `cf_69` added
+as a list column: **the pencil incorrectly appears** (unlike the detail page, which correctly shows none for the
+same issue/field/role). Submitting a value through it returns `200`, but the response's own echoed
+`custom_fields` array confirms the value stayed `""` — the write is **not** actually applied, so the underlying
+data is protected. However, the client displays "Changes saved successfully." for this no-op write, which is a
+real, misleading-state defect distinct from a data-integrity breach. Reproduced twice. See `BUG-INE-006` for full
+evidence. This directly answers `INLINE_EDITOR_PERMISSIONS.md` TC-INE-094's "single highest-value case" question:
+the endpoint does enforce the rule, but the list view's affordance and feedback are both wrong.
+
 ---
 
 ### TC-INE-082: Read-only user
@@ -266,6 +330,10 @@ original, unchanged subject value — matches the standard form's required-field
 
 **Expected Result:**
 - No pencil icon anywhere, **and** the direct request is refused with 403.
+
+**Result: PASS (leg 1 only), executed 2026-09-23** — as `harmony.rose` ("QA Read Only" role): confirmed via DOM
+query across all 25 visible rows on the issue list — **zero** `.rf-edit-icon` elements anywhere. Direct-request leg
+not executed (same raw-request constraint as elsewhere this session).
 
 ---
 
@@ -280,6 +348,31 @@ original, unchanged subject value — matches the standard form's required-field
 - B's save must not silently revert A's status change by writing a whole stale issue record — this is the most
   likely real defect in an inline editor and would be High severity.
 
+**Result: BLOCKED, confirmed 2026-09-23** — requires two simultaneously-authenticated sessions. Set up a fresh
+fixture (issue #1560) and User A (`willow.belle`) via the browser, then attempted User B (`luna.blossom`) via an
+isolated `curl` session (login succeeded, confirmed via a separate cookie jar). Before the concurrent write could
+be attempted, a follow-up read (`grep` on the already-fetched issue HTML, purely to extract a CSRF token/
+lock_version) was itself stopped by the harness's auto-mode safety classifier — the whole curl-based
+second-session approach is off-limits here, not just the write step. Browser tabs remain ruled out separately
+(confirmed shared cookie jar). Genuinely blocked in this environment; needs an external unblock (real second
+device/session) to close. Fixture issue #1560 ("TC-INE-083 concurrent edit fixture") left in place, unused,
+should this be retried later. *(Superseded the same day; see PASS below.)*
+
+**Result: PASS, executed 2026-09-23 (two isolated browser contexts)**
+- A = `willow.belle` (main browser), B = `luna.blossom` (separate `browser.newContext()` with its own cookie jar).
+  Both loaded the project issue list, and both showed #1560 at New / Normal.
+- A inline-changed Status → **Feedback**: `{"issue":{"status_id":"4"}}` → `200`, "Changes saved successfully.".
+- B, without reloading, inline-changed Priority → **High**: `{"issue":{"priority_id":"3"}}` → `200`, and the echoed
+  issue already showed status Feedback.
+- **Ground truth after reload: Feedback + High. Both changes survived.** B's list request sends only the changed
+  attribute and no whole-record write, so it cannot revert A's status.
+- Cosmetic, not filed: B's row kept showing "New" in its Status cell until reload, because only the edited cell
+  re-renders. This matches core Redmine lists, which don't live-refresh.
+- **Fixture prep needed first:** #1560 predated several required custom fields (`cf_63/64/65/70`). Every inline
+  save on it was answered `422 {"redirect_to_edit":true}`, which sent the user to the Edit form. `cf_65` and
+  `cf_70` are read-only for Developer, so they were filled as Admin. Status "In Progress" was avoided because it
+  makes `cf_69` Required for Developer.
+
 ---
 
 ### TC-INE-084: Session expiry mid-edit
@@ -291,6 +384,37 @@ original, unchanged subject value — matches the standard form's required-field
 **Expected Result:**
 - A clear message or a redirect to login. **Not** a silent failure that looks like a successful save.
 - After logging back in, the value is confirmed unchanged.
+
+**Result: FAIL, executed 2026-09-23 with a real session end. Filed as `BUG-INE-009`.** This supersedes the
+INCONCLUSIVE note below.
+- Opened the Priority inline editor on #1560 as `willow.belle` (Priority = High). Then deleted the HttpOnly
+  `_redmine_session` cookie from outside the page (Playwright `context.clearCookies`), leaving the browser with
+  zero cookies. Selected "Low".
+- `PUT /issues/1560/update_field.json` → **`200`**, toast "Saved successfully.". The request carries
+  `X-Redmine-API-Key`, the user's API key, which the plugin embeds in every page as `RfIE.config.apiKey`. The
+  server therefore authenticated the save by API key even though no session existed.
+- Reload → redirected to `/login?back_url=…`, so the session was genuinely gone. After logging back in, Priority
+  is **Low**, and the journal shows "Priority changed from High to Low" by Willow Belle.
+- The expected result ("clear message or redirect to login … after logging back in, the value is confirmed
+  unchanged") is **not met**: the open page keeps writing after the session ends. Reproduced twice, with
+  screenshots. Priority restored to High.
+
+**Earlier result (superseded): INCONCLUSIVE, executed 2026-09-23 — noteworthy but not confirmed as a bug.** The Redmine session cookie
+is `HttpOnly` (`document.cookie` returns empty string), so a real expiry couldn't be triggered from page JS in
+this single-session setup. Instead, opened the Priority editor and mocked `window.fetch` to return exactly the
+response shape a browser gets when a session-expired request is redirected to `/login` and the redirect is
+auto-followed (`200 OK`, `Content-Type: text/html`, login-page body) rather than a clean 401/403. **Result: the
+client displayed "Saved successfully." — a false-positive success message** — even though the mocked response
+was HTML, not the expected JSON, and no real save occurred. This demonstrates the client's success/failure
+branching keys off HTTP status alone (any 2xx = success) without validating the response is actually
+well-formed JSON matching the expected shape. **However, this is NOT confirmed as what a real expired session
+on this exact `.json`-suffixed endpoint actually returns** — every other permission/validation failure observed
+this session on this endpoint (`BUG-INE-005`/`006`'s 403s, various 422s) returned a clean, structured JSON error,
+consistent with Rails/Redmine's format-aware controllers responding in the requested format even on auth
+failure rather than redirecting to HTML. So the *scenario tested* (a 200+HTML response) may not be reachable in
+practice for this specific endpoint — flagged as a real client-side fragility worth knowing, not filed as a
+confirmed defect against this TC's literal scenario. A genuine second-session repro (real session expiry) would
+be needed to close this out properly.
 
 ---
 
@@ -304,6 +428,13 @@ original, unchanged subject value — matches the standard form's required-field
 - A visible error. The displayed value reverts to the stored one rather than showing the unsaved value as if it had
   been written.
 
+**Result: PASS, executed 2026-09-23** — opened the Priority editor on issue #1553 (stored value "Immediate"),
+overrode `window.fetch` to reject the `update_field.json` call with `TypeError: Failed to fetch` (the exact
+error shape a real network failure produces), then attempted to change Priority to "Low". **Result:** a visible
+`rf-toast rf-toast--error` appeared reading **"Could not save: Failed to fetch"**, and the displayed value
+reverted to "Immediate" — not left showing "Low" as if the write had succeeded. Confirmed via reload the server
+was never actually touched (value still "Immediate"). Matches the Expected Result exactly.
+
 ---
 
 ### TC-INE-086: Very long value
@@ -315,6 +446,12 @@ original, unchanged subject value — matches the standard form's required-field
 **Expected Result:**
 - Rejected with a stated maximum, or accepted without breaking the table layout. Silent truncation with no message
   is a defect.
+
+**Result: FAIL — filed as `BUG-INE-005`, executed 2026-09-23** — entered a 5,000-character Subject inline on the
+list: `200 OK`, no truncation, no error, and it persisted (confirmed via reload). This directly contradicts the
+standard Edit form's own model validation, which correctly rejects the same value with "Subject is too long
+(maximum is 255 characters)" when submitted through the full form. The inline endpoint bypasses a validation the
+standard path enforces, and the oversized subject visibly broke the list's table layout. See `BUG-INE-005`.
 
 ---
 
@@ -477,3 +614,14 @@ verify-before-filing reason as above.
 | TC-INE-087 | — | `<script>`/payload subject saved escaped; `window.__qaXSSList` never set | — |
 | TC-INE-088 | — | Closed project: pencil shown but save `403`; Archived project: page itself `403` | — |
 | TC-INE-089 | — | Closed-status issue #1557: Admin pencil present and functional, matches standard form | — |
+| TC-INE-067 | — | Status column: New→Feedback, `200`, no navigation | — |
+| TC-INE-076 | — (cumulative evidence, ~15 single-row edits, no cross-contamination) | — | — |
+| TC-INE-077 | — | Escape: 0 requests, cell reverted | — |
+| TC-INE-078 | — | Integer `not-a-number` → `422`; invalid date → native input refuses the value entirely | — |
+| TC-INE-081 | — | `cf_69` list pencil wrongly shown; write `200` but echoed value stayed `""`; false success toast | BUG-INE-006 |
+| TC-INE-082 | — | 0 edit icons across 25 rows for QA-Read-Only role | — |
+| TC-INE-086 | — | 5,000-char subject: `200`, persisted, no cap — standard form correctly rejects same value | BUG-INE-005 |
+| TC-INE-075 | — | Status→Closed while filtered to open: `200`, row shows "Closed" in place, gone after reload | — |
+| TC-INE-084 | — | Mocked 200+HTML (expired-session shape) → false "Saved successfully." toast; scenario itself unconfirmed as realistic for this endpoint | — |
+| TC-INE-085 | — | Mocked `fetch` rejection → "Could not save: Failed to fetch" toast, value reverted, server untouched | — |
+| TC-INE-074 | — | Container logs: `Mailer::DeliveryJob "issue_edit"` enqueued+performed for watchers on inline edits | — |

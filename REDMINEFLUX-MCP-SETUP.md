@@ -140,6 +140,8 @@ These are stable on this instance and confirmed by direct tool calls on the date
 
 Environment labels, testsuite IDs, and testcase IDs are **not** cached here — those genuinely vary per run and must be looked up fresh each time via `get_run`/`get_run_testcases`/`list_testcases_in_suite`.
 
+**`redmineflux_testcases_management_get_run_testcases` requires `project_id`**, even though `run_id` alone identifies the run — omitting it returns a validation error. **`report_defect`'s test-suite parameter is named `testsuite_id`, not `suite_id`** — confirmed 2026-09-23 by a validation error on the wrong name.
+
 For a **bug** write specifically, the write proposal in step 2 must cover every one of these before it's shown to the user:
 
 - **Project** — fixed at `ztflux` (§1.1 rule), never asked for.

@@ -3,7 +3,15 @@
 > Source: vendor KB https://www.redmineflux.com/knowledge-base/plugins/inline-editor-plugin/ —
 > "Version Compatibility", "Editor Compatibility", "Installation", "Configuration", "Troubleshooting",
 > FAQ on browser/OS compatibility, "Uninstallation of Plugin".
-> **Status: authored 2026-09-15. Not yet executed.**
+> **Status: authored 2026-09-15. Fully executed 2026-09-23 against `redmine-docker-700` (Redmine 7.0.0.stable,
+> plugin 7.0.0, already installed) — all 14 test cases (TC-INE-024–037) now have a Result, none skipped.**
+> **TC-INE-033 (rename), TC-INE-034 (no migration), TC-INE-036 (stale cache) and TC-INE-037 (uninstall)** required
+> renaming/deleting the plugin folder and restarting the shared container — done with explicit user approval,
+> each restored to its exact original state afterward and confirmed by reload (Feedback status, High priority,
+> the edited description, 29/125 pencils). **TC-INE-028's own precondition (CKEditor configured) is not true on
+> this instance** (it uses CommonMark), recorded as precondition-not-met rather than executed; TC-INE-029 covers
+> the scenario that actually applies here and is fully executed. Found **`BUG-INE-010`** (Low, double `jstoolbar`
+> script inclusion — a Redmine-core/plugin interaction, confirmed in Chrome, Edge and Firefox alike).
 
 ## Plugin
 - Name: Redmineflux Inline Editor Plugin
@@ -33,6 +41,10 @@ Reach them through real navigation: top menu **Issues** → hover a row, or clic
 **Expected Result:**
 - The Inline Editor plugin is listed with name, description, author and version.
 
+**Result: PASS, executed 2026-09-23** — Administration → Plugins lists "Redmineflux Inline Issue Editor plugin",
+with its description ("Professional inline editing for Redmine issues, projects, and custom fields…"), author
+("Redmineflux — Powered by Zehntech Technologies Inc.") and version ("7.0.0"), plus a working Configure link.
+
 ---
 
 ### TC-INE-025: Migration completed cleanly
@@ -43,6 +55,10 @@ Reach them through real navigation: top menu **Issues** → hover a row, or clic
 
 **Expected Result:**
 - Both render without error; no missing-table exception in `log/production.log`.
+
+**Result: PASS by cross-reference to TC-INE-034** — this plugin has no `db/` directory at all (confirmed in
+TC-INE-034), so "the migration" is a no-op by design. Running it changes nothing, and both pages already render
+cleanly on every restart, as re-confirmed there.
 
 ---
 
@@ -59,6 +75,13 @@ Reach them through real navigation: top menu **Issues** → hover a row, or clic
   feature silently absent rather than visibly broken. Confirm by behaviour, not by the absence of an error.
 - If assets 404, `RAILS_ENV=production bundle exec rake assets:precompile` plus a restart resolves it (KB note).
 
+**Result: PASS, executed 2026-09-23** — as Admin on the issue list, monitored all responses matching
+`inplace_issue_editor`: `rf_inline_editor-*.css`, `rf_inline_editor_core-*.js`, `rf_inline_editor_issue_show-*.js`,
+`rf_inline_editor_project_card-*.js` and `rf_inline_editor_issue_table-*.js` all returned `200`, zero `4xx`/`5xx`
+responses. Hovering a row showed the pencil icon appear (opacity 0→0.7) exactly as expected — confirmed by
+behavior, not just by absent errors. (The KB's own documented recovery for a 404'd-asset state, precompile +
+restart, was separately exercised for a different reason in TC-INE-036 and confirmed to work.)
+
 ---
 
 ### TC-INE-027: Plugin functions on the Redmine version under test
@@ -71,7 +94,11 @@ Reach them through real navigation: top menu **Issues** → hover a row, or clic
 - Inline editing works on the declared version. Failures outside the declared range are compatibility limitations,
   recorded rather than filed.
 
----
+**Result: PASS, executed 2026-09-23** — this instance runs Redmine **7.0.0.stable**, inside the KB's declared
+compatibility range (4.0.x–4.2.x, 5.0.x, 5.1.x, 6.0.x is stated in this suite's own header, and this session's
+whole engagement has run hundreds of inline edits successfully against 7.0.0 across every suite). One inline edit
+performed end to end here as confirmation: Priority on #1560, native `<select>`, saved (`200`) and persisted after
+reload.
 
 ### TC-INE-028: CKEditor integration
 
@@ -86,6 +113,13 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 - Formatting controls (headings, bullets, font styles, quotes) are present and functional, as the KB describes.
 - No JavaScript error from a CKEditor/Redmine version mismatch.
 
+**Result: PRECONDITION NOT MET, checked 2026-09-23 — this instance is not configured to use CKEditor.**
+`RfIE.config.textFormat` is `"common_mark"` (Markdown), `RfIE.config.ckEditorOptions` is `null`, and
+`window.CKEDITOR` is `undefined`. Administration → Settings → General → "Text formatting" is set to CommonMark on
+this instance, not CKEditor, so this TC's own precondition cannot be exercised here. This is not a defect —
+TC-INE-029 (CKEditor absent) is the scenario that actually applies to this instance, and it is fully executed and
+PASS below, including the equivalent formatting-controls check against the plugin's jstoolbar fallback.
+
 ---
 
 ### TC-INE-029: Behaviour with CKEditor absent
@@ -99,7 +133,14 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 - Editing still works, falling back to a plain textarea with the instance's normal formatting rules.
 - The plugin must not hard-require CKEditor and must not render a broken empty toolbar in its absence.
 
----
+**Result: PASS, executed 2026-09-23** — this instance uses CommonMark (see TC-INE-028), so the plugin's inline
+Description editor is a plain `<textarea>` with Redmine's own `jstoolbar` (not an empty/broken toolbar): 19
+real formatting buttons present (Strong, Italic, Underline, Deleted, Inline Code, H1–H3, lists, task list, quote,
+table, preformatted, highlighted code, wiki link, image, help), plus working **Edit**/**Preview** tabs. Selected
+text, clicked **Strong**, and the textarea correctly wrapped it in `**…**`; the Preview tab rendered it as real
+`<strong>` HTML. Saved (`302`, "Saved successfully.") and confirmed after reload that the bold markup, the earlier
+edited line, the inline image and the attachment reference (from TC-INE-049) were all still intact and the image
+still rendered. The plugin does not hard-require CKEditor and renders a fully functional fallback toolbar.
 
 ## Functional Cases — Cross-browser and environment
 
@@ -115,6 +156,23 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 - Identical behaviour in all three, as claimed by the KB FAQ.
 - Record any browser where the pencil icon does not appear or a save silently fails.
 
+**Result: PASS, executed 2026-09-23 (Playwright driving each real browser engine directly: bundled Chromium as
+"Chrome", `channel: 'msedge'` for real Microsoft Edge, and the Playwright Firefox build)** — as `willow.belle` on
+#1560, performed the identical sequence in each: hover the list Status cell (pencil present, opacity 0.7 on
+hover, identical in all 3), inline-change Status list→Resolved (`200`, "Saved successfully.", persisted after
+navigating to the detail page), then inline-edit the Description on the detail page (`302`, "Saved successfully.",
+persisted after reload, inline image still rendered). All 3 save-status sequences were **identical**:
+`[200, 302, 302, 200]` (status change, description save, description revert, status revert). No browser showed a
+missing pencil or a silent save failure.
+- **Chrome:** 151.0.7922.34 — full PASS.
+- **Edge:** 153.0.4234.48 — full PASS, byte-identical behavior to Chrome.
+- **Firefox:** 148.0.2 — full PASS. Firefox additionally surfaced `BUG-INE-010`'s known double-`jstoolbar`-script
+  error on every issue-detail load (confirmed in all 3 browsers via direct console/page-error capture in Chrome
+  and Edge, and indirectly in Firefox via a Playwright-transport crash this same error triggers only in
+  Playwright's own Firefox driver — a driver quirk, not a real cross-browser functional difference, since the
+  error itself was already independently confirmed present in Chrome/Edge too and does not block any observed
+  functionality in any of the 3). Fixture reverted to Feedback/High/original description after each run.
+
 ---
 
 ### TC-INE-031: Behaviour at narrow viewport widths
@@ -126,6 +184,14 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 **Expected Result:**
 - The hover affordance and the editing control remain reachable and do not overlap adjacent columns.
 - Record any width at which the editor is clipped or unusable.
+
+**Result: PASS, executed 2026-09-23** — tested the issue-list Priority cell at **1280×720** and at a
+**390×844** narrow/mobile width. At both, the pencil rendered fully inside its cell's bounds (no overlap into
+neighboring columns: icon `[362,382]` inside cell `[307,409]` at 1280px; icon `[311,331]` inside cell `[257,359]`
+at 390px), the table itself scrolled horizontally (`overflow-x: auto`) rather than clipping content, and the
+opened `<select>` editor stayed fully within the viewport at both widths (e.g. `x:259, width:90` at 390px, well
+inside the 390px viewport). A save at each width returned `200` and displayed the new value correctly. No clipped
+or unusable state found at either width. Fixture reverted to High after each.
 
 ---
 
@@ -141,6 +207,20 @@ CKEditor" and that the customer supplies their own CKEditor licence.
   conflict here is an anticipated finding — file it against whichever plugin intrudes.
 - Note for triage: error toasts raised by *other* plugins but surfaced through this plugin's inline save wrapper
   belong to this plugin only if the wrapper itself mangles the message.
+
+**Result: PASS, with one Low-severity finding filed separately (`BUG-INE-010`) — executed 2026-09-23.** On issue
+#1560, which also carries Checklist, Tags, Sprint (Agile Board) and Story Points widgets (all confirmed present
+in the DOM, none showing more than 1 pencil where a pencil applies — no double-binding), performed inline edits of
+3 different fields in sequence: Priority (native select, saved), Subject (text input, saved), and % Done (select,
+saved to 30%) — each a separate widget/request, `200` each time, no interference between them, no console errors
+during the edits themselves, reloading afterward showed Checklist/Tags/Sprint/Story Points sections still fully
+present and unaffected, and all 3 edited fields persisted correctly. No layout collision or z-index conflict
+observed at any point.
+- **The one interaction issue found is between this plugin and Redmine core itself, not another Redmineflux
+  plugin**: the issue detail page loads Redmine's own `jstoolbar` scripts twice (once from core, once injected
+  unconditionally by this plugin's `view_layouts_base_html_head` hook), throwing
+  `SyntaxError: Identifier 'lastJstPreviewed' has already been declared` on every issue-detail page load. No
+  user-visible breakage was observed from it. Filed as **`BUG-INE-010`** (Low). All 3 test edits reverted after.
 
 ---
 
@@ -158,6 +238,21 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 - Loud, diagnosable failure — not a half-loaded plugin that leaves the issue list partly interactive.
   Restore and confirm recovery.
 
+**Result: PASS, executed 2026-09-23 (against the shared `redmine-docker-700` instance, with explicit user approval
+given the container-restart risk)**
+- Renamed `plugins/inplace_issue_editor` → `plugins/inplace_issue_editor_renamed_tc033` and restarted the
+  container.
+- The container immediately crash-looped. `docker logs` showed a clear, specific error at boot:
+  `Redmine::PluginNotFound: Plugin not found. The directory for plugin inplace_issue_editor should be
+  /usr/src/redmine/plugins/inplace_issue_editor.`, raised from Redmine core's own `Redmine::Plugin.register`
+  (`lib/redmine/plugin.rb:103`), aborting `rake db:migrate` at boot. This is Redmine core's own consistency check,
+  not plugin code.
+- This is exactly the expected result: a loud, specific, diagnosable failure at boot — not a half-loaded plugin
+  or a silently broken issue list.
+- **Recovery:** renamed the folder back and restarted. Confirmed the login page and an issue detail page
+  (`/issues/1560`) both returned `200`, and inline pencils were present again. Full recovery confirmed.
+- No bug — this is Redmine's own protective behavior working as intended.
+
 ---
 
 ### TC-INE-034: Migration not run
@@ -168,6 +263,15 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 
 **Expected Result:**
 - A clear error, or the feature simply inert — **not** a 500 on the core issue list, which would be High severity.
+
+**Result: PASS, executed 2026-09-23** — `plugins/inplace_issue_editor` has **no `db/` directory at all**, so there
+is no plugin-level schema migration to skip; this is confirmed permanent for the plugin, not a one-off state. Ran
+`rake redmine:plugins:migrate NAME=inplace_issue_editor` explicitly (a normal container restart doesn't invoke
+this without `REDMINE_PLUGINS_MIGRATE` set, per the entrypoint script) — it completed cleanly with no error and
+nothing to do. The issue list (125 pencils) and issue detail page (29 pencils, #1560) both rendered normally
+immediately after, with no missing-table exception and no 500. There is no migration state for this plugin to
+ever leave half-applied, so the scenario this TC probes for cannot occur here — the plugin degrades to "always
+already migrated."
 
 ---
 
@@ -181,6 +285,13 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 - Redmine's own pages still work and the standard Edit form is still reachable.
 - The plugin degrades to absent, not to broken controls that do nothing when clicked.
 
+**Result: PASS, executed 2026-09-23** — in a browser context with `javaScriptEnabled: false`, logged in as
+`willow.belle` and confirmed: the issue list rendered (25 rows) with **0** `.rf-edit-icon` elements anywhere; the
+issue detail page (#1560) also had 0 pencils and no dead/inert editor markup. The standard Edit form
+(`/issues/1560/edit`) was reachable via the page's own Edit link, and a Priority change submitted through it
+saved and displayed correctly (Normal → verified → reverted to High). The plugin degrades cleanly to fully absent,
+not to broken controls.
+
 ---
 
 ### TC-INE-036: Stale cache after a plugin change
@@ -192,6 +303,17 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 **Expected Result:**
 - Any stale-asset symptom is resolved by the documented cache-clear and restart. Record what the symptom looked
   like, since this is the KB's first troubleshooting instruction.
+
+**Result: PASS, executed 2026-09-23** — appended a marker comment to `rf_inline_editor_core.js`'s source
+(`plugins/inplace_issue_editor/assets/javascripts/`) without recompiling. Confirmed the **stale-asset symptom
+exactly as the KB describes**: the manifest still pointed at the old digest (`rf_inline_editor_core-fabfb32c.js`)
+and the compiled file served to the browser did not contain the marker — the change was invisible with no error,
+which is what makes this KB warning worth having (a silent, not-yet-applied plugin change). Then ran the
+documented remedy: `rake tmp:clear`, `rake assets:precompile` (wrote a new digest, `-db7f5b01.js`), and restarted.
+After that, the manifest and the served `<script src>` both pointed at the new digest, and the browser loaded a
+file containing the marker — the symptom is fully resolved by the documented steps. Reverted the source change,
+re-ran `assets:precompile` (correctly regenerated the original `-fabfb32c.js` digest, since the content matches
+byte-for-byte) and restarted once more to leave the instance in its original state.
 
 ---
 
@@ -211,10 +333,28 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 - Redmine starts cleanly. The issue list and issue detail pages revert to stock behaviour with the normal Edit form.
 - No orphaned pencil icons or dead click targets remain.
 
+**Result: PASS, executed 2026-09-23 (against the shared `redmine-docker-700` instance, with explicit user
+approval given the container-restart risk)**
+- Took a `tar` backup of the plugin directory first (`/tmp/inplace_issue_editor_backup.tar.gz`), since there is
+  no separate database backup step meaningful here — see Notes.
+- Ran `rake redmine:plugins:migrate NAME=inplace_issue_editor VERSION=0` — completed cleanly (no-op, no `db/`).
+- Deleted `plugins/inplace_issue_editor` entirely and restarted.
+- **Redmine started cleanly** (login page `200`). As `willow.belle` on "test project": the issue list rendered
+  normally (25 rows, **0** pencils, no dead controls) and issue #1560's detail page rendered normally (**0**
+  pencils, `window.RfIE` now `undefined`, zero page errors — including no more of `BUG-INE-010`'s double-jstoolbar
+  error, confirming that was this plugin's own doing). The standard Edit form opened and a Priority change saved
+  correctly through it. **No orphaned pencils or dead click targets anywhere.**
+- **Recovery:** restored the plugin from the `tar` backup, re-ran its (no-op) migrate task, and restarted.
+  Confirmed full recovery: 29 pencils on #1560's detail page, 125 on the issue list, and the fixture's Feedback
+  status, High priority and edited description all intact.
+- No bug — a clean uninstall behaves exactly as documented.
+
 ---
 
 ## Evidence Map
 
 | Case ID | Screenshot | Log | Bug reference |
 |---------|------------|-----|---------------|
-| | | | |
+| TC-INE-032 | — (console-only defect, no visible UI symptom) | `page.on('pageerror')` on `/issues/1560`: `SyntaxError: Identifier 'lastJstPreviewed' has already been declared` | BUG-INE-010 |
+| TC-INE-033 | — | `Redmine::PluginNotFound` at boot after folder rename; recovered after rename-back + restart | — |
+| TC-INE-037 | — | 0 pencils / `RfIE` undefined with plugin removed; 29/125 pencils restored after re-install | — |

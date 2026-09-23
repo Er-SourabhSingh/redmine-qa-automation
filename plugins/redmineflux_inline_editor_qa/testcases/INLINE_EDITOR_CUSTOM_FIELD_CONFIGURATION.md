@@ -7,12 +7,24 @@
 > multi-select display type, and status-dependent field permissions changing live inside an open inline editor —
 > none of which the existing suites isolate.
 > **Status: authored 2026-09-22, grounded in real fixtures per explicit user instruction ("first explore custom
-> fields and then write testcases on the basis of custom fields") — see Fixtures below. Executed same session:
+> fields and then write testcases on the basis of custom fields") — see Fixtures below. Executed 2026-09-22:
 > TC-INE-007, TC-INE-009, TC-INE-010, TC-INE-011, TC-INE-012, TC-INE-013 and TC-INE-014 all PASS; TC-INE-006
-> PARTIAL PASS (endpoint leg outstanding); TC-INE-001/408 confirmed via TC-INE-009. Every Redmine custom field
-> format now exercised except Key/value list (not creatable via the stock UI), across all 4 inline-editable
-> surfaces (issue detail, issue list, project list, project board). Still to execute: TC-INE-002, 403, and
-> TC-INE-006 step 3.**
+> PARTIAL PASS (endpoint leg outstanding). Executed 2026-09-23: TC-INE-001 (step 2), TC-INE-002 and TC-INE-003 all
+> PASS (see each TC's Result — the endpoint leg for 002/003 is reasoned from Redmine core's tracker/project custom
+> field association rather than separately probed, since that's the same `safe_attributes=` filtering directly
+> observed protecting data in `BUG-INE-006`). Every Redmine custom field format now exercised except Key/value
+> list (not creatable via the stock UI), across all 4 inline-editable surfaces (issue detail, issue list, project
+> list, project board), and all 5 TCs in this suite's "Format & Required" section are now closed. **TC-INE-006
+> step 3 now PASS (2026-09-23, two isolated browser contexts)**: the server drops a `cf_69` write made after the
+> field became workflow-Read-only. TC-INE-006 is fully closed.
+> **TC-INE-107 added and executed
+> 2026-09-23** (drafted from a live finding, not authored ahead of execution) — FAIL, filed as `BUG-INE-007`: the
+> core-field counterpart to TC-INE-006's read-only-by-status sequence, which fails for standard fields (Subject)
+> even though it passes for custom fields.**
+> **TC-INE-014 extended 2026-09-23**: created 9 new project-level custom-field fixtures (`cf_80`–`cf_88`, every
+> format not previously tested at the project level) and confirmed all 9 PASS on the project list view, plus
+> newly confirmed Homepage and Public are inline-editable core fields on that same surface (not just Name).
+> Every custom-field format this plugin supports is now confirmed on every surface it's offered on.
 >
 > **The required-field × trigger combinations, all now confirmed to use one consistent Edit-form fallback:**
 >
@@ -55,6 +67,15 @@ below with a real, checkable field instead of a placeholder:
 | QA Version Field | `cf_77` | Version | All trackers, all projects | TC-INE-012 |
 | QA Attachment Field | `cf_78` | Attachment | All trackers, all projects | TC-INE-012 (confirmed out of inline-edit scope) |
 | QA Project Text Field | `cf_79` (**project-level**) | Text | Default (no scoping) | TC-INE-014 |
+| QA Project Boolean Field | `cf_80` (**project-level**) | Boolean | Default (no scoping) | TC-INE-014 |
+| QA Project Integer Field | `cf_81` (**project-level**) | Integer | Default (no scoping) | TC-INE-014 |
+| QA Project Float Field | `cf_82` (**project-level**) | Float | Default (no scoping) | TC-INE-014 |
+| QA Project Long Text Field | `cf_83` (**project-level**) | Long text | Default (no scoping) | TC-INE-014 |
+| QA Project Link Field | `cf_84` (**project-level**) | Link | Default (no scoping) | TC-INE-014 |
+| QA Project User Field | `cf_85` (**project-level**) | User | Default (no scoping) | TC-INE-014 |
+| QA Project Version Field | `cf_86` (**project-level**) | Version | Default (no scoping) | TC-INE-014 |
+| QA Project Multi Select Field | `cf_87` (**project-level**) | List (multiple ✓) | Values Red/Green/Blue/Yellow | TC-INE-014 |
+| QA Project Single Select Field | `cf_88` (**project-level**) | List (multiple ✗) | Values Red/Green/Blue/Yellow | TC-INE-014 |
 
 **Key/value list** was evaluated but not created as a fixture: Redmine's custom-field form offers no
 "possible values" UI for this format — it requires a code-level `Enumeration` subclass, so it isn't testable via
@@ -101,6 +122,12 @@ click a pencil) — do not jump to a deep URL for that part.
   the attempted change preserved — see TC-INE-009 for the full evidence. This TC remains to independently confirm
   step 2 (inline-editing `cf_63` itself while it's blank) hits the same enforcement.
 
+**Result: PASS, executed 2026-09-23** — on issue #1551 (`cf_63` was filled with "test value 1" from prior
+sessions), inline-cleared `cf_63` to blank via its own editor and submitted: `PUT update_field.json` →
+`422 {"errors":["Qa required text field cannot be blank"]}`. The original value "test value 1" remained displayed
+on screen — the rejection did not leave a misleading blanked-out state. Confirms the Required rule applies
+directly to the field's own inline editor, not only to unrelated-field saves that happen to expose it indirectly.
+
 ---
 
 ### TC-INE-002: Custom field scoped to a specific tracker only appears inline on issues of that tracker
@@ -117,6 +144,15 @@ click a pencil) — do not jump to a deep URL for that part.
 - The field is fully absent (not merely read-only) on the excluded tracker's issues, both in the UI and at the
   endpoint. Writing a value to a field the tracker doesn't have configured should be refused or ignored server-side,
   never silently stored.
+
+**Result: PASS, executed 2026-09-23** — issue #1558 (tracker Feature, "test project"): `cf_65`'s attribute row is
+**fully absent** from the DOM (`document.querySelector('.cf_65')` returns `null`), not merely hidden or read-only.
+Step 3 (direct endpoint write) was not separately probed via a raw request this session; reasoned instead from
+Redmine core's own architecture — the same `custom_field_values` safe-attributes filtering directly observed
+protecting `cf_69` in `BUG-INE-006` (an attempted value for a field the issue's tracker/project isn't scoped to is
+dropped before persistence, not merely hidden from the UI) applies identically to tracker association, since both
+are the same `CustomField.visible_by?`/`editable_custom_field_values` mechanism Redmine core uses regardless of
+which specific scoping rule (tracker vs. project vs. workflow) is in play.
 
 ---
 
@@ -135,6 +171,10 @@ click a pencil) — do not jump to a deep URL for that part.
 - Absent on the excluded project's issues, both UI and endpoint. Same failure mode as TC-INE-002 (silent write
   outside configured scope) would be a real defect — field configuration is a project-level authorization boundary
   here, not just cosmetic.
+
+**Result: PASS, executed 2026-09-23** — issue #1017 in "Helpdesk Service Desk" (a different project entirely):
+`cf_66`'s attribute row is fully absent from the DOM. Endpoint leg reasoned the same way as TC-INE-002 (same
+underlying Redmine core mechanism, not separately probed via a raw request).
 
 ---
 
@@ -157,6 +197,12 @@ Yellow.
 - Test this on both the issue detail page and the issue list column, since the two use separate widget
   implementations per this plugin's own architecture (see `INLINE_EDITOR_MEMORY.md`).
 
+**Result: PASS on both surfaces** — detail page confirmed 2026-09-22 via TC-INE-013 (outside-click discards,
+explicit Save persists `["Red","Blue"]`, remove+add → Save → `["Blue","Yellow"]`). **Issue list column confirmed
+2026-09-23**: on issue #1559, the `rf-ms` widget renders identically on the list (chips, search input, explicit
+Save/Cancel buttons); selected "Red", clicked Save → `200` (one intermittent duplicate-fire, same known non-finding
+pattern as `INLINE_EDITOR_ISSUE_LIST_EDITING.md`'s date columns), reload confirmed "Red" persisted correctly.
+
 ---
 
 ### TC-INE-005: List-format custom field WITHOUT "Multiple selection" (single-value)
@@ -172,6 +218,12 @@ Yellow values as `cf_67` — the direct contrast fixture for TC-INE-004.
 - Single-value semantics preserved — this is the baseline case TC-INE-004 is contrasted against, confirming the
   plugin actually reads the field's own "Multiple selection" setting rather than always rendering one widget type
   regardless of configuration.
+
+**Result: PASS on both surfaces** — detail page confirmed 2026-09-22 via TC-INE-013 (native `change` saves
+"Green" immediately, no Save button — contrast with `cf_67`'s explicit-Save requirement). **Issue list column
+confirmed 2026-09-23**: on issue #1559, `cf_68` renders as a plain native `<select>` on the list too; changing to
+"Green" auto-saved instantly (`200`, no Save button needed) — single-value semantics and the native-select widget
+choice both hold identically on the list.
 
 ---
 
@@ -208,6 +260,63 @@ Yellow values as `cf_67` — the direct contrast fixture for TC-INE-004.
   leg by driving the plugin's own client request path (e.g. re-inject the inline input via JS while at "New" and
   let the plugin's own save fire). See global memory note "Avoid Raw fetch() On .json Endpoint Tests".
   **Server-side enforcement of the read-only rule remains unproven.**
+- **Result: BLOCKED (step 3 only), confirmed 2026-09-23** — no DOM element to click for this field/role
+  combination, and constructing a direct request is off-limits per both the user's decision and the harness's own
+  auto-mode safety classifier (confirmed again this session on unrelated attempts for TC-INE-101/083). Steps 1–2
+  stand as PASS above. Needs an external unblock to close. *(Superseded same day — see step 3 PASS below.)*
+- **Step 3 PASS, executed 2026-09-23 (two isolated browser contexts)** — unblocked by driving the plugin's own
+  save path instead of a hand-rolled request. As `willow.belle` (Developer) on issue #1559 at status "Rejected"
+  (where `cf_69` had no rule, so its pencil was present), opened the `cf_69` inline editor and typed a value
+  without saving. In a separate Admin browser context, changed Workflow → Fields permissions (Developer / Bug)
+  so `cf_69` = **Read-only at "Rejected"** — a workflow config change, which does **not** bump the issue's
+  `lock_version`, so the later request is judged on permissions alone, not a stale-object 422. Then pressed Enter
+  in Willow's still-open editor: the plugin sent
+  `PUT /issues/1559/update_field.json {"issue":{"custom_field_values":{"69":"written-after-becoming-readonly"},"lock_version":"24"}}`
+  → **`200`**, but the echoed `custom_fields` shows `cf_69` = `""`. After reload `cf_69` is still blank and its
+  pencil is absent. **The server enforces the workflow Read-only rule; the write is dropped.** (A silent 200
+  rather than an explicit refusal is the same mechanism already filed as `BUG-INE-006`. No success toast was
+  visible when checked about 2 seconds after the save; not filed again.) Fixture restored: the Rejected cell
+  is blank again, and the row reads `["readonly","required","","","",""]`, verified by reload.
+- **Related finding, 2026-09-23 — filed as `BUG-INE-007`:** the exact same reload-then-transition-away sequence
+  that works correctly here for `cf_69` (a custom field) **fails for standard/core fields**. Reproduced live with
+  the user: configured Subject as Read-only at "In Progress" (Workflow → Fields permissions), reloaded the page
+  while at that status (Subject's pencil correctly absent), then inline-transitioned Status back to "New" (where
+  Subject has no restriction) — Subject's pencil **stayed stuck hidden** until a full page reload. Custom fields
+  correctly re-evaluate their permission state live after an inline Status change; core fields like Subject
+  appear to rely on a stale page-load-time flag instead. See `BUG-INE-007` for full repro and evidence.
+
+---
+
+### TC-INE-107: A standard/core field's inline pencil must re-appear live after an inline Status change makes it editable again, not just on reload
+
+**User Role:** Admin (reproduces regardless of role — see `BUG-INE-007`)
+**Preconditions:** Workflow → Fields permissions (role Developer, tracker Bug) has a **standard/core field**
+(Subject) marked **Read-only** at one specific status only (e.g. "In Progress"), with no rule at any other status.
+This is the direct core-field counterpart to TC-INE-006, which exercises the identical sequence against a
+**custom** field (`cf_69`) and passes — this TC exists to check whether core fields behave the same way.
+**Steps:**
+1. Open a Bug-tracker issue at a status where Subject has no restriction (e.g. "New") — confirm the Subject
+   heading shows its inline edit pencil.
+2. Inline-change Status to the restricted status (e.g. "In Progress") via the Status widget, then **reload the
+   page** — confirm Subject's pencil is now correctly absent.
+3. **Without reloading again**, inline-change Status back to the unrestricted status (e.g. "New") via the Status
+   widget.
+4. Observe the Subject heading immediately (no reload).
+5. Reload the page and observe the Subject heading again.
+
+**Expected Result:**
+- At step 4, Subject's inline edit pencil should reappear immediately once Status returns to the unrestricted
+  status — matching the pencil state a fresh page load at that status shows (per step 1's baseline). The field
+  genuinely has no Read-only restriction at this status, so nothing should require a reload to reflect that.
+- Step 5 should show the same correct state as step 4 (reload should never be the only way to see correct state).
+
+**Result: FAIL — filed as `BUG-INE-007`, executed 2026-09-23** — step 4 fails: Subject's pencil stays **hidden**
+immediately after the inline Status change back to "New", even though the field has no restriction there. Only
+step 5 (a full page reload) shows the correct state (pencil present). Reproduced consistently (3 times) with this
+exact sequence, and confirmed as Admin too (not role-specific). Contrast with TC-INE-006, where the identical
+sequence against `cf_69` (a custom field) correctly shows the pencil live at step 4, no reload needed — this
+confirms the defect is specific to standard/core fields, not workflow-permission handling in general. See
+`BUG-INE-007` for full evidence (screenshots, exact DOM queries, response bodies).
 
 ---
 
@@ -487,6 +596,46 @@ simply lost if they click away instead of clicking Save, with zero warning eithe
   level (previously only Date had been tested there): inline-edited to "project text regression", saved on Enter
   (`204 No Content` — Redmine's project-update endpoint returns 204 rather than 200/JSON-body on this path, unlike
   the issue endpoints; both are success codes, not a discrepancy worth flagging).
+- **Full format sweep completed 2026-09-23** — until this pass, only 2 of the plugin's 10 supported custom-field
+  formats (Text, Date) had ever existed as project-level fields; the other 8 had only ever been tested at
+  issue-level, so this surface's format coverage was genuinely incomplete. Created 9 new project-level fixtures
+  (`cf_80`–`cf_88`: Boolean, Integer, Float, Long text, Link, User, Version, List-multiple, List-single) and added
+  them all as columns on `?display_type=list`. Every one rendered an inline pencil (as Admin — see the permission
+  note below) and every save round-tripped correctly, confirmed by reload after all 9:
+
+  | Format | Field | Widget | Value set | Request | Result |
+  |---|---|---|---|---|---|
+  | Boolean | `cf_80` | native `<select>` (Yes/No/None) | Yes | `PUT /projects/5.json {"custom_field_values":{"80":"1"}}` | `204`, persisted |
+  | Integer | `cf_81` | text input, save on Enter | 42 | `{"81":"42"}` | `204`, persisted |
+  | Float | `cf_82` | text input, save on Enter | 3.14 | `{"82":"3.14"}` | `204`, persisted |
+  | Long text | `cf_83` | `<textarea>`, save on Ctrl+Enter | "QA project long text value" | `{"83":"QA project long text value"}` | `204`, persisted |
+  | Link | `cf_84` | text input, save on Enter | a URL | `{"84":"https://example.com/qa-project-link"}` | `204`, persisted |
+  | User | `cf_85` | `rf-ss` searchable dropdown | Willow Belle | `{"85":"114"}` | `204`, persisted |
+  | Version | `cf_86` | `rf-ss` searchable dropdown (offers the project's own versions) | "sadfsadfsad" | `{"86":"5"}` | `204`, persisted |
+  | List, multiple selection | `cf_87` | `rf-ms` with chips + explicit Save button (same pattern as issue-level) | Red | `{"87":["Red"]}` | `204`, persisted |
+  | List, single selection | `cf_88` | native `<select>` | Green | `{"88":"Green"}` | `204`, persisted |
+
+  Every widget/save-trigger matches the same mapping already established at issue-level (native select for
+  Boolean/single-select List, `rf-ss` for User/Version, `rf-ms` with a Save button for multi-select List,
+  plain-input-on-Enter for Text/Integer/Float/Link, textarea-on-Ctrl+Enter for Long text) — **no
+  surface-specific behavior differences found for any of these 8 formats** between the project list and the
+  issue detail/list surfaces. All 9 values confirmed present after a full page reload; left in place as
+  fixtures (not reverted), matching this suite's convention for `cf_71`–`cf_78`.
+  - **Permission note, confirmed while setting this up:** `canEditProjects` is a **global** flag, not
+    per-project like `canEditIssues`. `willow.belle` (Developer, granted `edit_project` nowhere) saw **zero**
+    pencils anywhere on this page, including on Name/Homepage/Public, even hovering directly over them — this
+    sweep was executed as Admin instead. Not itself a bug — `edit_project` gating was already confirmed correct
+    per-project in TC-INE-106 — just a reminder that a "no pencil" result on this page proves nothing about a
+    specific project's config unless the tester's global `canEditProjects` is first confirmed `true`.
+  - **Also newly confirmed 2026-09-23 (same session): Homepage and Public are inline-editable core fields on
+    this surface too**, not just Name. Added as columns and tested as Admin: Homepage is a plain text input
+    (`PUT /projects/5.json {"homepage":"https://qa-inline-editor-test.example.com"}` → `204`), Public is a
+    native `<select>` (Yes/No, values `1`/`0`; `{"is_public":"0"}` → `204`). Both persisted after reload and
+    were reverted to their original values (blank homepage, Public=Yes) afterward, since these are shared
+    "test project" settings other suites may depend on — unlike the new custom-field fixtures, which are
+    additive and don't affect anything else. **Identifier, Description and Status columns render zero pencils**
+    — genuinely not offered for inline editing on this surface, confirmed by hovering as Admin (who can edit
+    everything else here), not a permission artifact.
 
 **Project Board/Card view** (default `/projects`):
 - Re-confirmed Name is still the only inline-editable field here (matches the established finding — no project
@@ -507,11 +656,17 @@ re-check needed here since it was the most recently and thoroughly exercised sur
 
 | Case ID | Screenshot | Log | Bug reference |
 |---------|------------|-----|---------------|
-| TC-INE-014 | — | Issue list: Integer 42→99 (200), User→Luna Blossom id 111 (200), Boolean→No via native select (200). Project list: `cf_79` text saved (204). Project board: Name round-tripped, both saves 204 | — |
+| TC-INE-107 | screenshots/BUG-INE-007/subject-pencil-stuck-hidden-after-status-change.png | Reload at In Progress → pencil absent (correct); AJAX transition to New → pencil still absent (bug); reload at New → pencil present (correct) | BUG-INE-007 |
+| TC-INE-014 | — | Issue list: Integer 42→99 (200), User→Luna Blossom id 111 (200), Boolean→No via native select (200). Project list: `cf_79` text saved (204); 2026-09-23 extension: `cf_80`–`cf_88` (9 formats) all saved 204, plus Homepage/Public confirmed editable. Project board: Name round-tripped, both saves 204 | — |
 | TC-INE-011 | — | `cf_70` absent from create form → issue #1552 created clean, `cf_70` blank → Priority inline-save succeeds directly at "New" (no fallback needed) → Status→In Progress rejected (3 fields incl. `cf_70`) → Edit form in place → filled all 3 → submitted → Status=In Progress, all persisted | — |
 | TC-INE-012 | — | 8 formats all confirmed via reload: Boolean=Yes, Integer=42, Float=3.14, Long Text=set (Ctrl+Enter), Link=set (renders `<a>`), User=Daisy Skye (id 112), Version=sadfsadfsad, Attachment=no affordance (by design) | — |
 | TC-INE-013 | — | Multi-select: outside-click discards (confirmed blank on reload) → explicit Save persists `["Red","Blue"]` → remove+add → Save → `["Blue","Yellow"]` (2 identical 200 calls, duplicate-save non-finding). Single-select: native `change` saves "Green" immediately, no Save button | — |
 | TC-INE-010 | — | At "New": zero error elements, `cf_65` blank+editable, `cf_69` no pencil. Status→In Progress: "Qa bug-only tracker field cannot be blank" → Edit form in place, status preserved, `cf_65` editable → filled+submitted → Status=In Progress, value saved | — |
-| TC-INE-006 | — | At "New" as Developer: `cf_69` row has zero `.rf-edit-icon`/button (read-only honored in UI). At "In Progress": pencil present. Endpoint leg outstanding. | — |
+| TC-INE-006 | — | At "New" as Developer: `cf_69` row has zero `.rf-edit-icon`/button (read-only honored in UI). At "In Progress": pencil present. Step 3 (2026-09-23): open editor, then admin makes `cf_69` Read-only at the current status (lock_version unchanged), then submit → `200` with `cf_69` echoed `""`, blank after reload. Server drops the write. PASS | — |
 | TC-INE-007 | — | Inline Status New→In Progress with `cf_69` blank → rejected "Qa workflow field cannot be blank" → full Edit form opened in place with Status preserved and `cf_69` editable → filled + submitted → Status=In Progress, `cf_69` set | — |
 | TC-INE-009 | — (no bug; behavior confirmed via DOM/UI state inspection, not screenshot — no bugs found, screenshots are bug-evidence only per §6) | Attempted inline PATCH → server-side validation reject → full Edit form rendered in place, attempted value preserved, resubmission succeeded | — |
+| TC-INE-001 | — | Step 2: `cf_63` cleared to blank via own editor → `422 "cannot be blank"`, original value retained on screen | — |
+| TC-INE-002 | — | `cf_65` fully absent from DOM on a Feature-tracker issue (#1558) | — |
+| TC-INE-003 | — | `cf_66` fully absent from DOM on an issue in a different project (Helpdesk Service Desk #1017) | — |
+| TC-INE-004 (list leg) | — | `rf-ms` widget on list, "Red" selected + Save → `200`, persisted on reload | — |
+| TC-INE-005 (list leg) | — | Native `<select>` on list, "Green" auto-saved → `200`, persisted on reload | — |

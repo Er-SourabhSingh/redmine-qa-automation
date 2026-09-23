@@ -7,9 +7,11 @@
 > (Admin, project "test project", issue #1557) — all PASS. TC-INE-057 leg 1 PASS (willow.belle/Developer). TC-INE-058
 > resolved N/A (plugin adds no inline affordance to journal notes at all). TC-INE-041/043/044 satisfied by
 > cross-reference to other suites (see their own Result sections below). TC-INE-049 partial (cross-reference link
-> confirmed, attachment/inline-image round-trip not independently tested). TC-INE-054/055/056(leg 3) not executed —
-> require a second concurrent session or the endpoint-leg approach that's currently blocked (see global memory
-> "Avoid Raw fetch() On .json Endpoint Tests").**
+> confirmed, attachment/inline-image round-trip not independently tested). **2026-09-23, unblocked via two isolated
+> browser contexts: TC-INE-054 PASS, TC-INE-055 PASS. TC-INE-056 leg 3: field PASS (403), description FAIL, filed
+> as `BUG-INE-008`** (302 plus a false "Saved successfully." after edit permission is revoked). **Also 2026-09-23:
+> TC-INE-049 PASS (full attachment/inline-image round trip). TC-INE-057 step 2 FAIL (silent 200 with a false
+> success toast, `BUG-INE-006` scope). No partial results remain in this suite.**
 
 ## Plugin
 - Name: Redmineflux Inline Editor Plugin
@@ -226,6 +228,20 @@ absent and the prior saved content was unchanged; no new journal entry was creat
 actual file attachment with an inline `!image.png!`-style reference was not independently round-tripped this
 session due to time. Not filed as a gap — no evidence of a problem, just not directly exercised.
 
+**Result: PASS, executed 2026-09-23 (full round trip)**
+- **Setup:** as `willow.belle`, attached `tc049-inline-image.png` and `tc049-attachment.txt` to #1560 through the
+  standard Edit form. Both fixtures are checked in under `automation/uploads/`. The description was set to
+  `TC-INE-049 baseline line` + `![](tc049-inline-image.png)` + `See attachment:tc049-attachment.txt for details.`
+  (CommonMark). The rendered page showed the image (`/attachments/download/57/…`, loaded) and an attachment link
+  (`/attachments/56`).
+- **Inline edit:** the inline Description editor loaded the **raw source** with both references intact. Only the
+  first line was changed, to "TC-INE-049 line edited inline", then saved (`302`, "Saved successfully.").
+- **After reload:** the stored source (read from the standard Edit form's textarea) is byte-identical except for
+  the edited line. `![](tc049-inline-image.png)` and `attachment:tc049-attachment.txt` are both preserved. The
+  image still renders and has loaded; the attachment link still resolves to `/attachments/56`. Both attachments
+  are untouched.
+- No stripping or mangling of attachment syntax.
+
 ---
 
 ### TC-INE-050: Description containing existing wiki/Textile macros
@@ -306,6 +322,25 @@ in the DOM contained the payload — confirmed properly escaped/rendered as lite
 - B is warned of the conflict, or both versions are preserved in History.
 - Silently overwriting A's text with no record is a High-severity data-loss defect.
 
+**Result: BLOCKED, confirmed 2026-09-23** — requires two simultaneously-authenticated sessions. Same constraint
+confirmed across this whole engagement: shared-cookie-jar browser tabs, and a `curl`-based isolated second session
+gets stopped by the harness's auto-mode safety classifier partway through the setup (even a read-only follow-up
+step was blocked in a related attempt for TC-INE-083). Genuinely blocked in this environment; needs an external
+unblock (real second device/session) to close. *(Superseded the same day; see PASS below.)*
+
+**Result: PASS, executed 2026-09-23 (two isolated browser contexts)**
+- A = `willow.belle` and B = `luna.blossom`, each in its own cookie jar, both on issue #1560. The baseline
+  description was added first via the standard Edit form, because a blank description renders no inline
+  Description section.
+- B opened the Description inline editor first.
+- A then opened its editor, typed "Description written by A (willow) first", and clicked Save. The response was
+  `302`, with the toast "Saved successfully.".
+- B, still in the editor it opened before A saved, typed different text and clicked Save. The response was `200`
+  and re-rendered the page, and B got **"Could not save: the issue may have been modified by another user. Please
+  reload the page and try again."**. B's displayed description stayed at the old value.
+- After reload the description is A's text, and History shows A's change as its own journal entry.
+- **B was warned, and A's text was not silently overwritten.** No data loss.
+
 ---
 
 ### TC-INE-055: Inline edit while another user closes the issue
@@ -316,6 +351,22 @@ in the DOM contained the payload — confirmed properly escaped/rendered as lite
 
 **Expected Result:**
 - Resolved deterministically with a clear message. No 500, no partial write.
+
+**Result: BLOCKED, confirmed 2026-09-23** — same two-simultaneous-session constraint as TC-INE-054/083. Not
+executable in this environment without an external unblock. *(Superseded the same day; see PASS below.)*
+
+**Result: PASS, executed 2026-09-23 (two isolated browser contexts)**
+- A (`willow.belle`) opened the Subject inline editor on issue #1560 and typed a value.
+- B (`luna.blossom`) then inline-changed Status to **Closed**:
+  `{"status_id":"5","lock_version":"6"}` → `200`, toast "Saved successfully.".
+- A pressed Enter:
+  `{"subject":"Subject edited by A after B closed","lock_version":"6"}` →
+  **`422 {"errors":["Attempted to update a stale object: Issue."]}`**, toast "Could not save: Attempted to update a
+  stale object: Issue.".
+- After reload: subject unchanged, status Closed. The outcome is deterministic and the message is clear, with no
+  500 and no partial write.
+- Side observation: once an issue is Closed, the plugin renders **no** inline pencils on it at all for Developer,
+  although the core Edit link remains. Consistent and not filed. The fixture was reopened to Feedback afterwards.
 
 ---
 
@@ -337,6 +388,26 @@ markup at all for this role (a stronger form of protection than a hidden-but-pre
 `fetch()` for this leg was specifically declined this session. Cross-references TC-INE-096 (same role, same
 finding, Permissions suite).
 
+**Result: BLOCKED (step 2 / leg 3 only), confirmed 2026-09-23** — step 1 stands as PASS above. Step 2 (direct
+endpoint write) remains genuinely blocked: there is no DOM element to click for this role, and constructing a
+direct request is off-limits per both the user's decision and the harness's own auto-mode safety classifier
+(confirmed again this session on unrelated attempts for TC-INE-101/083). Needs an external unblock to close.
+*(Superseded the same day; see below.)*
+
+**Result (step 2 / leg 3): FAIL, executed 2026-09-23. Field leg PASS, description leg FAIL (`BUG-INE-008`)**
+- **Method:** used a real plugin-issued request from a user without edit rights, with no hand-rolled request.
+  The Developer opens the inline editor while permitted. Admin, in an isolated browser context, then revokes
+  `edit_issues` on the Developer role, leaving view-issues only, which is exactly this TC's role. Then the
+  Developer submits.
+- **Field update:** `PUT /issues/1559/update_field.json` (Subject) → **`403 {"errors":["Forbidden"]}`**, toast
+  "Could not save: HTTP 403", value unchanged. This matches the expected result.
+- **Description update:** `POST /issues/1560` (standard update action, `_method=patch`) → **`302`**, not `403`.
+  The description is unchanged and there is no new journal (7 → 7), so the data is protected. However, the plugin
+  shows **"Saved successfully."**. Reproduced 3 times.
+- The expected result ("both direct requests refused with 403") is not met for the description, and the false
+  success message misleads the user. Filed as **`BUG-INE-008`**.
+- The role was restored after each repro (`edit_issues` ✓ plus All trackers ✓, verified by reload).
+
 ---
 
 ### TC-INE-057: Field-level permission on the detail page
@@ -355,6 +426,17 @@ tracker Bug, Status "New" = Read-only). As `willow.belle` (Developer) on a fresh
 **no** `.rf-edit-icon` while the Priority row (unrestricted) **did** — confirms field-level workflow permission
 suppresses only the specific restricted field's affordance, correctly, not a blanket lock. Endpoint leg (step 2)
 not executed this pass — same raw-fetch constraint as TC-INE-006/056; cross-references both.
+
+**Result (step 2): FAIL, executed 2026-09-23. Data is enforced, but the write is not refused (`BUG-INE-006`)**
+- **Method:** two isolated browser contexts on the detail page. The editor was opened while the field was
+  editable. Admin then made the field workflow-Read-only at the issue's current status, and the editor was
+  submitted.
+- **Core field (Subject, #1559):** `200`, subject echoed unchanged, toast **"Saved successfully."**. Unchanged
+  after reload, and the pencil is now absent.
+- **Custom field (`cf_69`, #1559; see TC-INE-006 step 3):** `200`, `cf_69` echoed `""`, blank after reload.
+- The server enforces the field-level workflow rule on both field types. The expected result, "Refused at the
+  endpoint", is not met: the write is silently dropped and reported as saved. Recorded under `BUG-INE-006`'s
+  extended scope. Workflow rows restored, verified by reload.
 
 ---
 

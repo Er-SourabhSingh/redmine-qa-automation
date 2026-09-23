@@ -2,11 +2,34 @@
 
 ## Last Session
 
-- Date: 2026-09-09
+- Date: 2026-09-23
 - Redmine Version: 7.0.1.stable
-- Environment: Forge — `https://flux-fdrk6suoj49.forge.zehntech.com/` (the prior session's server, `flux-f04qohdte49`, has since expired)
+- Environment: Local Docker `redmine-docker-700` — http://localhost:3010
 
-## Completed This Session (2026-09-09)
+## Completed This Session (2026-09-23)
+
+**Sanity pass on production issue #120914** ("Custom Dashboard: Chart Templates and Custom Field Grouping for User-Defined Queries"), executing against `production testcase #121093` (suite #249 on `ztflux`) on `redmine-docker-700`, project "test project". Confirmed the feature is deployed and largely working:
+
+- Template selector on the Saved Queries tab offers Statistics card (default)/Doughnut/Pie/Bar/Line for issue queries — PASS.
+- Grouping selector appears once a chart template is chosen, offering Status/Priority/Tracker/Assignee/Target version/Author plus project custom fields — PASS.
+- Grouped by Status: segments/counts matched the issue list exactly — PASS.
+- Grouped by a list custom field (`cf_68`): correct value segments plus a trailing "Not set" segment, counts summed to the query total (2 Green + 139 Not set = 141) — PASS.
+- Colour-name auto-matching: the "Green" value rendered in actual green (`#2F9E44`) with no palette configured — PASS.
+- Appearance settings (Palette) available on a chart-template widget, hidden on the statistics card (Accent Color only) — PASS, but see gap below re: Legend/Data Labels.
+- Drill-down: query's own filters expanded into URL params while excluding the grouped-on field (confirmed via the widget-creation response's embedded `drilldown` object and by actually clicking through); "Not set" segment correctly maps to Redmine's `none`/`!*` operator, not an empty value; drill-down count (139) matched the chart segment exactly once a test-fixture precondition (custom field's "Used as a filter") was fixed — PASS.
+- Pointer cursor confirmed on a hovered chart segment via `Chart.getChart()` arc-geometry + synthetic mouse events — PASS.
+- A new chart is always appended to the end of the layout (confirmed 3× across different Add-Chart flows) with no full page reload — PASS.
+- Pre-existing statistics-card widget behavior (4 KPI tiles + Top Statuses + Top Priorities) and its Settings panel (Accent Color only) both completely unchanged — PASS (regression, scenario 12).
+
+**2 bugs found and filed:**
+- `BUG-DSH-002` (Medium) — a chart-template query widget's Settings panel is missing the Legend Position and Data Labels controls #120914 part 3 explicitly requires; only Chart Color Palette + Top Accent Color are present.
+- `BUG-DSH-004` (Low) — the grouping-dimension selector offers "QA Multi Select Field", a genuine multi-select custom field, which #120914's Out-of-scope section explicitly excludes.
+
+**1 unrelated observation, not filed under this plugin:** editing a multi-select custom field's value via the standard issue Edit form didn't persist on this instance (reproduced twice) — looks like a Redmine-core or `redmineflux_inline_editor` interaction, blocking full verification of multi-select grouping's per-value behavior. See `DASHBOARDS_MEMORY.md`.
+
+`bugs/open/` is no longer empty — `STATUS.md` moved back from `Complete` to `In Progress` per CLAUDE.md §10.
+
+## Previously Completed (2026-09-09)
 
 Retested `BUG-DSH-001` (the only open bug, narrowed to 3 remaining strings + the public-share findings) on a newly-provisioned Forge server, German language, Standard theme, on "Flux Gantt Project"'s Dashboard tab:
 
@@ -46,19 +69,20 @@ All five TCs reduce to a single bug (`BUG-DSH-001`) since the failure is systemi
 
 ## Next Session Start Point
 
-- **2026-09-22 authoring pass added 31 new test cases (TC-DSH-150–180) for production issue #120914** ("Custom Dashboard: Chart Templates and Custom Field Grouping for User-Defined Queries", client JUWI GmbH, status In QA, due 2026-09-23) — none of these have been executed yet. Once #120914 ships/is deployed to a test server, execute in this order:
-  1. `DASHBOARDS_SAVED_QUERIES_AND_DRILLDOWN.md` TC-DSH-150–165 (template selector, grouping dimension incl. custom fields, existing-widget regression, drill-down additions, visibility-scoping negative case).
-  2. `DASHBOARDS_CHART_SETTINGS.md` TC-DSH-166–176 (appearance-settings visibility, segment order, colour-name auto-matching EN/DE, palette override).
-  3. `DASHBOARDS_GLOBAL_FILTERS_AND_LAYOUT.md` TC-DSH-177–180 (append-to-end, no-reload, scroll+highlight, across both Add Chart tabs).
-  - Needs at least one project with list/boolean/enumeration custom fields applicable to the query's tracker(s), including one field with colour-named values (English) and one with German colour-named values, to exercise TC-DSH-153–158 and TC-DSH-173–175.
-- All bugs closed and final-cycle regression passed with zero new failures (2026-09-09) — `STATUS.md` for this plugin remains `Complete` for the pre-#120914 scope; the new TCs above will need their own pass before the plugin is "complete" against the expanded feature set.
-- Still untested overall (carried forward, not blocking Complete since no bug covers them): actual drag/resize interaction, drill-down, auto-refresh timer behavior, full-screen mode, "Saved Queries" tab, remaining ~17 of 22 built-in chart types, Data Filters beyond Issue Status, permissions/role-gating, admin REST API precondition, Stage 2 (resolutions) and Stages 3–6 (Lotus theme) not yet run.
+- **Retest `BUG-DSH-002` and `BUG-DSH-004` once the developer addresses them**, then run the affected-feature regression required by `SENIOR_QA_STANDARDS.md` §26 (the Saved Queries/Chart Settings/Global Filters suites, since that's what #120914 touches) before closing either.
+- **Execute the remaining #120914 test cases (TC-DSH-150–180) not yet covered by this session's sanity pass** — this session spot-checked the 13 scenarios but did not run every one of the 31 authored cases individually:
+  1. `DASHBOARDS_SAVED_QUERIES_AND_DRILLDOWN.md` TC-DSH-150–165 — still need: boolean CF grouping (TC-DSH-156) with a genuinely working fixture, enumeration-type CF grouping (TC-DSH-157) if this instance has one, the "only fields visible/applicable" negative case (TC-DSH-166) with a role-restricted or project-inapplicable field, and search/title cases already covered by the pre-existing suite.
+  2. `DASHBOARDS_CHART_SETTINGS.md` TC-DSH-166–176 — segment-order stability under changing counts (TC-DSH-172), German colour-name matching (TC-DSH-174, needs a German-language CF or session), non-colour-value palette fallback (TC-DSH-175), and explicit palette override (TC-DSH-176) are not yet individually executed.
+  3. `DASHBOARDS_GLOBAL_FILTERS_AND_LAYOUT.md` TC-DSH-177–180 — scroll-into-view + highlight behavior (TC-DSH-179) wasn't visually confirmed this session (only append-order and no-reload were), and the cross-tab consistency case (TC-DSH-180, adding from "Our Queries" vs "Saved Queries") wasn't run.
+- Fixture note for next session: this instance's `cf_67`/`cf_68` (QA Multi Select/Single Select Field) now both have colour-named values (Red/Green/Blue/Yellow) — useful for TC-DSH-173–176, but `cf_68` needed "Used as a filter" enabled this session (was off by default) to make its drill-down count correctly; check it's still on.
+- Still untested overall (carried forward, not blocking regression since no bug covers them): actual drag/resize interaction, auto-refresh timer behavior, full-screen mode, remaining ~17 of 22 built-in chart types, Data Filters beyond Issue Status, permissions/role-gating, admin REST API precondition, Stage 2 (resolutions) and Stages 3–6 (Lotus theme) not yet run.
 - The "Chart Information" info-icon popover wasn't independently re-triggered on 2026-09-09's server (click/hover via the automation harness didn't open it) — if a future session needs to re-verify it specifically, try a slower/staged real-mouse hover sequence rather than a single click.
 - Note: plugin confirmed via Administration > Plugins as "Redmineflux Analytics Dashboard" (internal name `redmineflux_dashboard`), version 7.0.0.
 
 ## Open Bugs Found
 
-- None. `bugs/open/` is empty.
+- `BUG-DSH-002` (Medium, open) — chart-template query widget's Settings panel is missing Legend Position and Data Labels controls (#120914 part 3).
+- `BUG-DSH-004` (Low, open) — grouping-dimension selector offers a genuine multi-select custom field, which #120914 explicitly excludes from scope.
 
 ## Closed Bugs
 
@@ -74,3 +98,5 @@ All five TCs reduce to a single bug (`BUG-DSH-001`) since the failure is systemi
 | 2026-09-09 | 7.0.1.stable | Forge (flux-fdrk6suoj49) | Claude (Playwright MCP) | Retest pass, new Forge server after branch update: **all remaining BUG-DSH-001 findings confirmed FIXED** (Add button, both Appearance hints, LIVE badge, both public-share date-range displays). Closed. `bugs/open/` now empty — ran the required full final-cycle regression (§27): 5 TCs re-executed (4 fully, 1 mostly — info-icon popover didn't trigger via automation this pass, already confirmed fixed same-day on the prior server), zero new failures. Plugin is now eligible for `STATUS.md` = `Complete`. |
 | 2026-09-15 | n/a (authoring only) | n/a | Claude | **Test-case authoring pass — nothing executed.** Vendor knowledge base ingested from https://www.redmineflux.com/knowledge-base/plugins/custom-dashboard/ and 149 functional, negative and permission test cases written across 7 new suites (TC-DSH-078 onward): DASHBOARDS_INSTALLATION_AND_ACCESS, CHART_WIDGETS, CHART_SETTINGS, GLOBAL_FILTERS_AND_LAYOUT, SAVED_QUERIES_AND_DRILLDOWN, PUBLIC_SHARING, PERMISSIONS. Existing suites and their execution evidence were left untouched; the new cases start at 101 so they cannot collide with the existing TC-DSH-0xx numbering. Next session should start with the installation/configuration suite, then permissions, then the functional suites in file order. |
 | 2026-09-22 | n/a (authoring only) | n/a | Claude | **Test-case authoring pass for production issue #120914 — nothing executed.** Read #120914 ("Custom Dashboard: Chart Templates and Custom Field Grouping for User-Defined Queries", client JUWI GmbH, In QA, due 2026-09-23) via the redmineflux MCP server and authored 31 new test cases, TC-DSH-150–180, continuing this plugin's existing global TC-DSH-NNN numbering (not yet migrated to the suite-scoped `TC-<PLUGIN>-<SUITE-ABBR>-NNN` format from `CLAUDE.md` §4a): 16 in `DASHBOARDS_SAVED_QUERIES_AND_DRILLDOWN.md` (chart template selector, grouping dimension incl. custom fields, existing-widget regression, drill-down additions, visibility-scoping negative case), 11 in `DASHBOARDS_CHART_SETTINGS.md` (appearance-settings visibility, dimension-ordered segments, colour-name auto-matching in English and German, palette override), 4 in `DASHBOARDS_GLOBAL_FILTERS_AND_LAYOUT.md` (append-to-end, no-reload, scroll+highlight, both Add Chart tabs). `DASHBOARDS_FEATURES_LIST.md` updated with a new row (#19) cross-referencing all three suites. |
+| 2026-09-22 | n/a | n/a | Claude (redmineflux MCP) | **Production sanity testcase created for #120914, per explicit approval.** Created Test Case #121093 ("Custom Dashboard: Sanity check — chart templates and custom field grouping for saved queries (#120914)") in project `ztflux`, suite #249 "Custom Dashboard", category 611 (QA Testing), linked to requirement #120914. Description covers a 13-step sanity walkthrough in Textile, with a Notes section cross-referencing the local TC-DSH-150–180 detailed suite. |
+| 2026-09-23 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **Sanity-tested #120914 live**, executing production testcase #121093's scenarios on "test project". Confirmed working: template selector + default, grouping selector + Status/list-CF grouping with exact count reconciliation, "Not set" → Redmine `none` operator, colour-name auto-match (Green), drill-down filter-expansion excluding the grouped field (no double-filter validation error), pointer cursor, append-to-end with no page reload (3× confirmed), pre-existing statistics-card widget/settings fully unchanged. **2 bugs filed**: `BUG-DSH-002` (Medium) — chart-template widget's Settings panel missing Legend Position + Data Labels controls that #120914 part 3 requires. `BUG-DSH-004` (Low) — grouping selector offers a true multi-select custom field, which #120914's own Out-of-scope section excludes. One unrelated data-persistence issue with a multi-select CF on this instance noted in `DASHBOARDS_MEMORY.md`, not filed under `DSH`. `bugs/open/` no longer empty — `STATUS.md` reopened from `Complete` to `In Progress` per CLAUDE.md §10. Not all 31 authored TC-DSH-150–180 cases were individually executed (see Next Session Start Point) — this was a sanity/spot-check pass, not a full suite run. |

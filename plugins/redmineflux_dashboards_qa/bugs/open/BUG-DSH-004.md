@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-DSH-004
-- Production Redmine Issue ID: <!-- fill after MCP report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #121132 (ztflux, https://flux.zehntech.com/issues/121132) — linked as a defect to Test Case #121093, Run #577, Test Suite #249, Environment "Window 11 + Chrome"
 - Title: Grouping-dimension selector offers a true multi-select custom field, which #120914 explicitly excludes from scope
 - Redmine version: 7.0.1.stable
 - Plugin name: Redmineflux Analytics Dashboard (`redmineflux_dashboard`)
@@ -39,6 +39,15 @@
 
 The "Add New Chart" dialog, Saved Queries tab, an issue query, **Display as: Doughnut chart**, with **Group by: QA Multi Select Field** selected — a real, normally-reachable selection in the dropdown.
 
+### Retest — 2026-09-23 (still failing, not fixed)
+
+User ran the plugin migration and restarted the server (`redmine-docker-700`, localhost:3010) after this bug was
+originally filed. Retested the exact same repro steps: opened Add Chart → Saved Queries → an issue query → Doughnut
+chart → the **Group by:** dropdown still lists **"QA Multi Select Field"** alongside the standard fields and the
+two genuinely single-value custom fields. **Not fixed.**
+
+![Retest — multi-select CF still offered as a grouping dimension after migration+restart](../../screenshots/BUG-DSH-004/retest-2026-09-23-still-failing.png)
+
 ### Retest screenshot (fill after fix is verified)
 
 ![Retest result](../../screenshots/BUG-DSH-004/retest-yyyy-mm-dd-pass.png)
@@ -51,3 +60,9 @@ The "Add New Chart" dialog, Saved Queries tab, an issue query, **Display as: Dou
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): n/a — checked against `bugs/_duplicates.md` and `bugs/_index.md` (only prior bug is `BUG-DSH-001`, closed, unrelated).
+
+## Production report
+
+- Reported on `flux.zehntech.com` (project `ztflux`) as issue **#121132**, 2026-09-23.
+- Linked as a defect to Test Case **#121093**, Run **#577**, Test Suite **#249**, Environment "Window 11 + Chrome" — verified via `get_run_testcases`.
+- Priority: Low | Defect Severity: Low-severity | Defect priority: Low | Defect Type: Functional | Assignee: Prashant Chaurasia.

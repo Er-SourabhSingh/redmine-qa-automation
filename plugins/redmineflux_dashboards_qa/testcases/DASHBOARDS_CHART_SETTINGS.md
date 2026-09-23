@@ -277,6 +277,153 @@ after colours in English (e.g. Green/Yellow/Red).
 
 ---
 
+## Functional Cases — Chart-template widget Settings scope & legend correctness (#120914 follow-up)
+
+> Added 2026-09-23 following live investigation of the Settings panel and chart legends prompted directly by the
+> user. Covers `BUG-DSH-005` (Save Settings breaks live rendering; Data Filters section shouldn't exist),
+> `BUG-DSH-006` (no post-creation Display as/Group by editing), and `BUG-DSH-007` (Bar/Line legend shows the query
+> name instead of the category label). All currently **FAIL** against the live build — see the linked bugs.
+
+---
+
+### TC-DSH-181: Saving Chart Settings with no changes is a true no-op
+
+**User Role:** Member
+**Preconditions:** A chart-template (Doughnut/Pie/Bar/Line) saved-query widget already rendering real data.
+**Steps:**
+1. Open the widget's Settings.
+2. Without changing anything, click **Save Settings**.
+3. Observe the chart card in place (no page reload).
+4. Reload the page and observe the same card again.
+
+**Expected Result:**
+- The chart keeps showing exactly the same data before and after the save, with no visible change at any point.
+- **FAIL, live build**: the chart body is immediately replaced with "No Data Available" right after Save Settings,
+  even though the server's own response carries fully correct data. A page reload recovers it. See `BUG-DSH-005`.
+
+---
+
+### TC-DSH-182: Save Settings preserves an already-set Top Accent Color
+
+**User Role:** Member
+**Preconditions:** A chart-template widget with a custom Top Accent Color already set (not the default `#2196F3`).
+**Steps:**
+1. Open Settings, change nothing, click **Save Settings**.
+2. Reopen Settings and check the Top Accent Color field.
+
+**Expected Result:**
+- The previously-set colour is still shown.
+- **FAIL, live build**: the colour silently reverts to the default `#2196F3`, confirmed both in the save response
+  and after a page reload. See `BUG-DSH-005`.
+
+---
+
+### TC-DSH-183: Issue Status Filter selection is actually sent and applied
+
+**User Role:** Member
+**Preconditions:** A chart-template widget's Settings panel, Data Filters → Issue Status Filter set to "All Issues".
+**Steps:**
+1. Change Issue Status Filter to "Open Issues Only" (or "Closed Issues Only").
+2. Click **Save Settings**.
+3. Inspect the outgoing `PATCH .../widgets/:id/settings` request body.
+4. Reopen Settings and check the field's value.
+
+**Expected Result:**
+- The chosen value is included in the save request and persists on reopening.
+- **FAIL, live build**: the request body never includes an `issue_status_filter` key at all — the selection is
+  silently discarded, and the field always reads back as whatever it was before ("all"). See `BUG-DSH-005`.
+- **Design note**: per the user, the correct fix is to remove this control entirely (not make it work) — see
+  TC-DSH-184.
+
+---
+
+### TC-DSH-184: Chart-template widget's Settings panel has no unrelated Data Filters section
+
+**User Role:** Member
+**Preconditions:** Any chart-template (Doughnut/Pie/Bar/Line) saved-query widget.
+**Steps:**
+1. Open the widget's Settings and read the panel top to bottom.
+
+**Expected Result:**
+- Only **Display as**, **Group by**, and **Chart Color Palette** (plus Accent Color) appear — no separate Data
+  Filters/Issue Status Filter section, since which issues are shown is already fully determined by the saved query
+  itself (per the panel's own banner text: "Which issues are shown is controlled by the saved query itself").
+- **FAIL, live build**: a Data Filters section with an Issue Status Filter dropdown is present (and non-functional
+  — see TC-DSH-183). See `BUG-DSH-005`.
+
+---
+
+### TC-DSH-185: Chart template (Display as) can be changed after creation
+
+**User Role:** Member
+**Preconditions:** A saved-query widget already added as Doughnut.
+**Steps:**
+1. Open the widget's Settings.
+2. Look for a **Display as:** control to change the template to Pie/Bar/Line.
+
+**Expected Result:**
+- A Display as: selector is present in Settings, matching the one in the Add Chart dialog, and changing it updates
+  the widget's rendered chart type without deleting and re-adding the widget.
+- **FAIL, live build**: no Display as control exists anywhere in the Settings panel — confirmed via a full
+  accessibility-tree regex search returning zero matches for `/Display as|Group by|Chart Type|Chart Style/i`. The
+  template is permanently fixed at Add-Chart time. See `BUG-DSH-006`.
+
+---
+
+### TC-DSH-186: Group by can be changed after creation, updating with Display as
+
+**User Role:** Member
+**Preconditions:** A saved-query widget already added and grouped by Status.
+**Steps:**
+1. Open the widget's Settings.
+2. Look for a **Group by:** control, and confirm it updates when Display as is changed (mirroring the Add Chart
+   dialog's behaviour).
+
+**Expected Result:**
+- A Group by: selector is present and editable in Settings, offering the same standard/custom field list as the
+  Add Chart dialog.
+- **FAIL, live build**: no Group by control exists in Settings at all — same investigation as TC-DSH-185. See
+  `BUG-DSH-006`.
+
+---
+
+### TC-DSH-187: Doughnut/Pie chart legend shows the grouped category label
+
+**User Role:** Member
+**Steps:**
+1. Add a saved-query widget as Doughnut (and separately as Pie), grouped by any dimension.
+2. Read the chart's legend.
+
+**Expected Result:**
+- The legend lists the grouped category value(s) (e.g. "Closed", "Not set", "Green") — matching the segment(s).
+- **PASS, live build**: confirmed via `Chart.getChart(canvas).legend.legendItems` — the rendered legend text
+  matches `chart.data.labels` exactly for both Doughnut and Pie.
+
+---
+
+### TC-DSH-188: Bar/Line chart legend shows the grouped category label, not the query name
+
+**User Role:** Member
+**Steps:**
+1. Add the **same** saved-query widget as Bar (and separately as Line), same grouping as TC-DSH-187.
+2. Read the chart's legend and compare against the X-axis category labels.
+3. Repeat with a grouping that produces **multiple** categories (e.g. Priority — Low/Normal/High/Urgent/Immediate),
+   and with a **custom-field** grouping (e.g. a boolean field — Yes/No/Not set), to confirm the defect is
+   independent of category count and of standard- vs custom-field grouping.
+
+**Expected Result:**
+- The legend should list the grouped category value(s), exactly as Doughnut/Pie correctly do (TC-DSH-187) — one
+  entry per category, matching each bar/line point.
+- **FAIL, live build**: Bar and Line always show a single legend entry equal to the saved query's own name (e.g.
+  "Closed Only Query 120436", "Updated issues") instead of the category label(s) — confirmed with 1-category,
+  5-category (Priority), and custom-Boolean-field groupings alike. With multiple categories this leaves no way to
+  tell which bar/line colour corresponds to which category from the legend at all. See `BUG-DSH-007`.
+- **Drill-down is unaffected by this defect** — clicking a Bar segment still opens the correctly-filtered issue
+  list with the exact matching count, confirmed across every grouping combination tested in `BUG-DSH-007`. This is
+  a purely cosmetic/legend-rendering defect, not a data or interaction one.
+
+---
+
 ## Functional Cases — Per-chart data filters
 
 ---

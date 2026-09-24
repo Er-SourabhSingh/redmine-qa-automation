@@ -54,3 +54,20 @@ Medium — same rationale as BUG-GNT-006: this directly contradicts an explicit,
 
 - Found while executing TC-GNT-208 (`testcases/GANTT_VIEW_SETTINGS_AND_FILTERS.md`). The test case's own text warns against the opposite mistake ("Do not treat a shared bar-colour/marker change as a per-user isolation defect — it is the documented, intended behavior") — this bug is the genuine failure mode that warning was guarding against: the setting turned out to be isolated per-user when it should be shared, not the reverse.
 - Unlike BUG-GNT-006, this was reproduced with two users who **both** have Manage versions (Admin and Luna/Developer), so it is not a permission-visibility issue — it's a data-scoping issue in how the setting is persisted.
+
+## Retest — 2026-09-24, FIXED
+
+- Dev build redeployed (same rebuild as BUG-GNT-006's retest). The Settings panel was visibly restructured: "Show Milestone Markers" moved out of the general "Display Fields" list into its own distinct **"Milestone Markers"** section, alongside a new project-level date-field control and a colour-swatch picker (the bar-colour control referenced in issue #120913 item 4 that could not be located before — now found).
+- Differential retest, same methodology as the original finding: as Admin, unchecked "Show Milestone Markers" and confirmed it persisted after reload. Logged in as `luna.blossom` (Developer, has Manage versions) and opened Settings — **her panel shows the same unchecked value Admin set**, not her own independent state. Clean shared-value confirmation, not a same-value coincidence (the prior state before this test was already checked for both, so the unchecked result is a genuine propagated change, not an untouched default).
+- Note: the "Milestone Markers" section (including the toggle) is **not shown at all** to `daisy.skye` (Reporter, no Manage versions) — she can no longer even see the control. This is a change in behavior from before (previously the checkbox appeared for her, just didn't share correctly), but is consistent with the setting now correctly being a shared/project-wide convention: only a user with Manage versions can change a team-wide setting, the same way "+ Add Release" stays gated. This does not reopen BUG-GNT-006 (that bug was about *personal* settings — zoom, sort, columns, critical-path scope — all of which remain reachable for Daisy).
+- **Fixed.** Moving to `bugs/closed/`.
+
+### Retest screenshot
+
+![Retest — Luna's Settings panel shows the same unchecked value Admin set](../../screenshots/BUG-GNT-007/retest-2026-09-24-pass.png)
+
+![Retest — full Settings panel showing new Milestone Markers section structure](../../screenshots/BUG-GNT-007/retest-2026-09-24-settings-full-panel.png)
+
+### Production status sync — 2026-09-24
+
+- Production issue #121142 updated: In QA → **Done**, % done → **100**.

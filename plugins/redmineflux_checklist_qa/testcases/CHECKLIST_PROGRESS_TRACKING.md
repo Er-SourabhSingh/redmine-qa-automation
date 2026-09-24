@@ -306,3 +306,67 @@ sub-checklist item's checkbox writes duplicate Checklist History journal entries
 rapid ones) due to a cascading double-AJAX-write bug, root-caused to source. One initial bug hypothesis
 (BUG-CHK-003, an empty checklist "silently" zeroing a manual % Done) was retracted after user correction —
 re-examined and confirmed as the auto-calculate feature's own documented mechanism, not a defect.
+
+## Regression Pass — 2026-09-24 (post-fix, BUG-CHK-004)
+
+> **Scope note:** this is a user-approved **SCOPED** regression — this suite plus `CHECKLIST_CHECKLIST_MANAGEMENT.md`
+> only, per `SENIOR_QA_STANDARDS.md` §26's Medium-severity minimum ("all TCs in the affected suite"), not a
+> full-plugin regression. Re-run because `checklist_checkbox.js` was patched to fix `BUG-CHK-004`: the
+> `$select.trigger('change')` call that cascaded a checkbox toggle into a second, duplicate `update_state` PATCH
+> was removed from both the single-item and select-all handlers (production #121060).
+
+CONFIRMED LIVE 2026-09-24 (Local, redmine-docker-7.0.0, `test project`, issue #1538 — same fixture as the
+2026-09-21 pass, "Progress item A–D" plus new checklists added this session). All 14 TCs re-executed.
+
+- **TC-CHK-079 — PASS.** Set the pre-existing sub-item "Rapid toggle repro item" (checklist "Progress item C") to
+  **In Progress** via its dropdown (New/In Progress/Done confirmed as the only three options); a fresh reload
+  showed the value still `in_progress`.
+- **TC-CHK-080 — PASS.** Ticked the same item's checkbox; checkbox → checked and its dropdown flipped to `done` in
+  the same action. Network tab showed exactly **one** `PATCH /checklist_items/54/toggle_completed` (200) — no
+  `update_state` follow-up, confirming the fix.
+- **TC-CHK-081 — PASS.** Unticked the same checkbox; reverted to unchecked with dropdown at `new` (not back to
+  `in_progress`), matching the documented "unticking always lands on New" behavior.
+- **TC-CHK-082 — PASS.** Built a fresh 4-item checklist ("Regression progress accuracy"); ticking items one at a
+  time read the bar at exactly 25% → 50% → 100% (P1–P4 all done), `style.width` matching the displayed number each
+  time, no rounding artifact.
+- **TC-CHK-083 — PASS.** With "Auto-calculate issue progress from checklists" confirmed still enabled, toggling
+  checklist items on issue #1538 produced a live stream of "Progress changed from X to Y" journal entries tracking
+  the checklist state in real time — auto-calculate is still driving %Done and it's still fully auditable.
+- **TC-CHK-084 — PASS.** Disabled auto-calculate in Configure → General; issue #1538's %Done (70% at the time) was
+  unchanged after toggling a checklist item's checkbox. Re-enabled auto-calculate afterward (default state
+  restored for the rest of the session, matching the 2026-09-21 convention).
+- **TC-CHK-085 — PASS.** Checklists on issue #1538 continued to show independent percentages throughout the session
+  (e.g. "Progress item A" at 80%, "Progress item B" at 100%, the new "Regression progress accuracy" checklist
+  independently moving 0% → 25% → 50% → 100% → 80% as items were added/completed) — each bar tracks only its own
+  items, confirmed again post-fix.
+- **TC-CHK-086 — PASS, with strong evidence.** Queried `ChecklistHistory` directly for item 54 ("Rapid toggle repro
+  item") after the TC-CHK-079/080/081/084 actions above: exactly 5 history rows for the 5 real transitions
+  performed (one per action, both `status_changed` and `status_changed_to` action types represented, no
+  duplicates), each with actor and timestamp — one-to-one correspondence holds.
+- **TC-CHK-087 — PASS.** Created a fresh empty checklist ("Regression empty checklist"); progress bar read a clean
+  `0%` — not `NaN%`, not `Infinity`.
+- **TC-CHK-088 — PASS.** Built a 2-item checklist, completed one (50%), deleted the completed item via its Delete
+  action — bar recalculated live to `0%` of the 1 remaining item, no stale 50%.
+- **TC-CHK-089 — PASS.** Added a 5th item to the now-100% "Regression progress accuracy" checklist (4/4 done) — bar
+  updated immediately to `80%` (4/5), no reload needed.
+- **TC-CHK-090 — PASS, same documented/consistent branch as before.** With auto-calculate on, issue #1538's %Done
+  tracked down to 50% as additional (partially-empty) checklists were added during this session — deterministic,
+  matches the feature's own intended mechanism (TC-CHK-083/087 combined), not silent/arbitrary zeroing.
+- **TC-CHK-091 — PASS (the core BUG-CHK-004 confirmation).** Two real-UI tests: (1) 5 genuine Playwright clicks on a
+  fresh item's checkbox produced exactly 5 `PATCH .../toggle_completed` requests and exactly 5
+  `ChecklistHistory` rows (960–964, alternating Done/New/Done/New/Done, no duplicates, no `update_state` calls at
+  all) — final state `Done`, matching the last click. (2) A synthetic zero-delay 5-click stress test (5×
+  `element.click()` fired back-to-back in one JS tick, far faster than any real pointer interaction) produced a
+  single extra duplicate pair (6 journal rows for 5 clicks) via a narrower request-overlap race, not the original
+  cascade — network confirmed **zero** `update_state` calls even here. Not filed as a bug: this artificial
+  zero-gap firing pattern isn't reproducible through genuine UI interaction (confirmed clean above), and
+  `SENIOR_QA_STANDARDS.md` §1 calls for real business/user-scenario testing over synthetic edge cases; noted in
+  `CHECKLIST_MEMORY.md` for future awareness rather than filed as a defect.
+- **TC-CHK-092 — PASS, both legs.** Logged in as `daisy.skye` (Reporter, no `edit_issues`): checkbox rendered
+  `disabled` with the same tooltip as 2026-09-21 ("You don't have permission for edit issue and checklist, you
+  cannot perform this action"); a direct `fetch` PATCH to `/checklist_items/54/toggle_completed` returned **403**.
+
+**Result: 14/14 PASS, 0 FAIL.** `BUG-CHK-004` (Medium) is confirmed fixed at the full suite level — the checkbox
+→ dropdown cascade that caused the double-write is gone under realistic UI interaction (verified via both the
+Network tab and direct `ChecklistHistory` row counts), and no other TC in this suite regressed as a side effect.
+No new bugs found during this pass.

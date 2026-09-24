@@ -100,3 +100,20 @@
 - Reported on `flux.zehntech.com` (project `ztflux`) as issue **#121133**, 2026-09-23.
 - Linked as a defect to Test Case **#121093**, Run **#577**, Test Suite **#249**, Environment "Window 11 + Chrome" — verified via `get_run_testcases`.
 - Priority: High | Defect Severity: High-severity | Defect priority: High | Defect Type: Functional | Assignee: Prashant Chaurasia.
+
+## Retest — 2026-09-24 (FIXED, confirmed)
+
+Retested on `redmine-docker-700` (localhost:3010). On the same "Bar by Single Select CF" widget used to retest
+`BUG-DSH-002`:
+
+- Clicked **Save Settings** with the panel open (both with no changes, and after changing Group by to Priority) —
+  the chart **kept rendering its correct data** in place every time (confirmed via `Chart.getChart`, no "No Data
+  Available" state, no `browser_find` match for that text). Changing Group by to Priority live-updated the chart
+  to the new grouping (Low/Normal/High/Urgent/Immediate) in place, no page reload.
+- The **Top Accent Color** (`#9C27B0`) was still set correctly after the save — reopened Settings and confirmed it
+  had not reverted to the default.
+- The **Data Filters / Issue Status Filter section is gone entirely** from the panel — confirmed via the live
+  accessibility tree: General → Appearance only, nothing in between. This matches the design fix requested (see
+  `BUG-DSH-006`'s retest for the corresponding General-section additions).
+
+All three symptoms in this bug (rendering break, colour reset, Data Filters section) are **Fixed**.

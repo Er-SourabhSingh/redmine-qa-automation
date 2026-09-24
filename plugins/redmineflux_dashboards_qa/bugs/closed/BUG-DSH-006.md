@@ -76,3 +76,13 @@ Appearance (Accent Color, Chart Color Palette) sections exist — no way to chan
 - Reported on `flux.zehntech.com` (project `ztflux`) as issue **#121134**, 2026-09-23.
 - Linked as a defect to Test Case **#121093**, Run **#577**, Test Suite **#249**, Environment "Window 11 + Chrome" — verified via `get_run_testcases`.
 - Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional | Assignee: Prashant Chaurasia.
+
+## Retest — 2026-09-24 (FIXED, confirmed)
+
+Retested on `redmine-docker-700` (localhost:3010). Opened Settings on a saved-query Bar widget: the panel now shows
+**Display as** and **Group by** selectors in the General section, matching the Add Chart dialog. Used genuine
+Playwright `browser_select_option` calls (raw DOM value+`change`-event dispatch was unreliable on this form) to
+change **Group by** from a custom field to the standard field **Priority**, then clicked **Save Settings** — the
+chart re-rendered live, in place, with the new grouping (Low/Normal/High/Urgent/Immediate matching data), no page
+reload needed. This is the strongest possible confirmation: not just that the control exists, but that changing it
+actually re-renders the chart correctly. **Fixed.**

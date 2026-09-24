@@ -49,3 +49,19 @@
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): n/a
+
+## Retest — 2026-09-24, FIXED
+
+- Dev build redeployed (same rebuild as BUG-GNT-006/007's retest).
+- Reproduced the exact original repro conditions: resized to a 1280×580 content viewport (simulating real browser chrome inside a 1280×720 window), opened Custom Range.
+- **Cancel/Apply now render fully inside the viewport** — bounding box `top:520, bottom:554`, well within the 580px height (previously `top:615, bottom:649`, entirely below the fold at this same reduced height).
+- Root cause of the fix: the popup now has its **own internal scroll region** (visible scrollbar on the popup's right edge in the screenshot) that caps its total height, rather than relying on the whole page growing taller — exactly the fix recommended in this bug's Expected Result.
+- **Fixed.** Moving to `bugs/closed/`.
+
+### Retest screenshot
+
+![Retest — Cancel/Apply fully visible at reduced 1280x580 content height, popup has its own internal scrollbar](../../screenshots/BUG-GNT-008/retest-2026-09-24-pass.png)
+
+### Production status sync — 2026-09-24
+
+- Production issue #121143 updated: In QA → **Done**, % done → **100**.

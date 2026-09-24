@@ -46,3 +46,21 @@
 
 - Duplicate found: No (same root-cause *pattern* as the closed `BUG-GNT-002`, but a different set of elements — filed separately per that bug's own precedent of documenting same-root-cause variants only when they're the *same* elements/surface)
 - Existing bug reference (if duplicate): n/a — see `BUG-GNT-002` (closed) for the related historical pattern
+
+## Retest — 2026-09-24, FIXED
+
+- Dev build redeployed (same rebuild as the other three retests).
+- Reproduced the exact original repro conditions: real mouse drag on `.rf-gantt-panel-splitter__grip` to widen the left panel to ~1211px (same width as the original repro), same fixture project, same 14 QA custom-field columns enabled.
+- **Headers now show genuine ellipsis dots**: "QA Inline Date F...", "QA Required Te...", "QA Second Req..." — confirmed via a zoomed screenshot crop (same verification method used to catch the original defect), not a compressed/low-res read.
+- DOM check: the fix approach differs slightly from a pure ellipsis-rendering fix — `scrollWidth === clientWidth` for the checked column headers now (no overflow condition left at all at this panel width), suggesting the columns were also widened/reflowed as part of the fix, not just given working ellipsis CSS. Either way, the observable defect (hard mid-word cut, zero "…") is gone.
+- **Fixed.** Moving to `bugs/closed/`.
+
+### Retest screenshot
+
+![Retest — column headers with proper ellipsis, no hard cuts](../../screenshots/BUG-GNT-009/retest-2026-09-24-pass.png)
+
+![Retest — zoomed crop confirming real ellipsis dots](../../screenshots/BUG-GNT-009/retest-2026-09-24-zoomed.png)
+
+### Production status sync — 2026-09-24
+
+- Production issue #121144 updated: In QA → **Done**, % done → **100**.

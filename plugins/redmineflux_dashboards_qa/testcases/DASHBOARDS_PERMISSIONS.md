@@ -3,7 +3,12 @@
 > Source: the vendor KB publishes **no** permission model for this plugin. It states only that "the Dashboard tab
 > is available on all projects without needing to enable a project module" and that "any user with access to the
 > project can open the dashboard." This suite exists to establish what the access model actually is.
-> **Status: authored 2026-09-15. Not yet executed.**
+> **Status: authored 2026-09-15. Partially executed 2026-09-24 (final-cycle regression, first execution) on
+> `redmine-docker-700`.** Tested as Summer Rain (project role "QA Own Visibility", confirmed restricted to 1
+> visible issue). **1 High-severity bug found and filed: `BUG-DSH-013`** — dashboard charts disclose the full
+> unrestricted project total (725) to this maximally-restricted role. Drill-down itself is safe (Redmine core's
+> own issue-list permission check catches it). Full per-role matrix (add/delete/settings/layout/share-token) and
+> the remaining project-state/endpoint-level cases not exhaustively covered this pass — see individual notes.
 
 ## Plugin
 - Name: Redmineflux Analytics Dashboard
@@ -68,6 +73,10 @@ damaging an over-permissive row actually is.
 **Expected Result:**
 - All actions succeed.
 
+**PASS, reconfirmed extensively 2026-09-24**: every action in the matrix (add/delete widgets, change settings,
+drag layout, add saved-query widgets, drill down) was exercised dozens of times as Admin throughout this entire
+session with no permission-related failures.
+
 ---
 
 ### TC-DSH-095: Establish the baseline — what "access to the project" grants
@@ -84,6 +93,11 @@ damaging an over-permissive row actually is.
   Confirm whether "open" also means "modify" — if a Reporter can delete a team's dashboard widgets, that is a real
   finding regardless of whether the plugin intends it.
 
+**PARTIAL, 2026-09-24**: confirmed for the "QA Own Visibility" role (Summer Rain) — can open the dashboard and
+successfully drill down (though drill-down's underlying issue-list correctly restricts to her own visible
+issues). Add/delete/settings/layout-rearrange/share-token generation not individually tested per role this pass
+— deferred for time. Manager/Developer/Reporter/QA-Read-Only roles not tested this pass either.
+
 ---
 
 ### TC-DSH-096: Chart data respects issue visibility
@@ -97,6 +111,11 @@ damaging an over-permissive row actually is.
 - Totals match the user's own visible set exactly.
 - A chart counting issues the user cannot open discloses the existence and volume of restricted work.
   High severity.
+
+**FAIL — High severity, 2026-09-24**: tested as Summer Rain (role "QA Own Visibility", confirmed restricted to 1
+visible issue in "test project" across all statuses). All three named chart types (Issues by Status, Issues by
+Assignee, Issues Trend) showed **725** — the project's full unrestricted total — a 725x over-disclosure. See
+`BUG-DSH-013` for full evidence (exact per-status/per-assignee breakdowns, drill-down mitigation finding).
 
 ---
 
@@ -112,6 +131,10 @@ damaging an over-permissive row actually is.
 - **"Total Spent Hours by Users" is the sharpest case**: it names users and attributes hours to them, so a leak
   here is not merely an aggregate — it is per-person data the user was not entitled to.
 
+**NOT EXECUTED, 2026-09-24** — deferred for time; given `BUG-DSH-013` already confirms the underlying pattern
+(charts not scoping to the viewer's permissions) for issue-based charts, this time-based analogue is a strong
+candidate to also fail and should be prioritized next session.
+
 ---
 
 ### TC-DSH-098: Drill-down cannot exceed chart visibility
@@ -124,6 +147,13 @@ damaging an over-permissive row actually is.
 - The two agree, and every listed issue is one the user can open.
 - A segment value higher than the drill-down count is direct evidence of TC-DSH-096's leak; a drill-down listing an
   issue the user cannot open is a worse, direct disclosure.
+
+**PARTIAL — segment/drill-down mismatch confirmed (evidence of TC-DSH-096's leak), but no direct record
+disclosure, 2026-09-24**: as Summer Rain, the "New" segment displayed `402`, but drilling into it correctly
+listed only her own 1 visible issue (`#1558`) — Redmine core's own issue-list permission check enforces
+correctly at that layer. So: the segment-vs-drilldown **mismatch** (402 shown, 1 actually listed) is exactly the
+"direct evidence of TC-DSH-096's leak" this TC describes — confirmed. The **worse** outcome (a drill-down listing
+an issue she cannot open) did **not** occur — the drill-down itself is safe. See `BUG-DSH-013`.
 
 ---
 
@@ -141,6 +171,9 @@ checked by default; uncheck it explicitly or this case falsely passes.
 - Because there is no module to disable, this endpoint check is the **only** thing standing between a non-member
   and the project's analytics.
 
+**NOT EXECUTED, 2026-09-24** — deferred for time; recommended for next session, high priority given `BUG-DSH-013`
+already shows this plugin's permission scoping has real gaps.
+
 ---
 
 ### TC-DSH-100: Anonymous user cannot open a dashboard without a token
@@ -155,7 +188,18 @@ checked by default; uncheck it explicitly or this case falsely passes.
   anonymously just because the plugin supports anonymous access elsewhere. This is a realistic implementation
   mistake once a token-based bypass exists in the same controller.
 
+**NOT EXECUTED, 2026-09-24** — deferred for time; high priority for next session (covered further in the Public
+Sharing suite pass, which also remains largely unexecuted this session).
+
 ---
+
+**TC-DSH-101 through TC-DSH-107 NOT EXECUTED, 2026-09-24** — all deferred for time given the scale of this
+session's testing. Recommended priority order for next session: `TC-DSH-102` (cross-project crafted request,
+potentially Critical) and `TC-DSH-103` (saved-query widget visibility bypass, pairs with the already-deferred
+`TC-DSH-141`) first, since both are plausible extensions of the pattern `BUG-DSH-013` already confirmed; then
+`TC-DSH-104` (share-token restriction) and `TC-DSH-099`/`100` (non-member/anonymous access) as the other
+highest-severity-potential gaps; `TC-DSH-105`/`106`/`107` (revocation timing, closed/archived projects,
+attribution) are lower urgency.
 
 ### TC-DSH-101: Anonymous access to a public project
 

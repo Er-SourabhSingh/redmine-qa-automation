@@ -12,6 +12,12 @@
 > this instance** (it uses CommonMark), recorded as precondition-not-met rather than executed; TC-INE-029 covers
 > the scenario that actually applies here and is fully executed. Found **`BUG-INE-010`** (Low, double `jstoolbar`
 > script inclusion — a Redmine-core/plugin interaction, confirmed in Chrome, Edge and Firefox alike).
+>
+> **Final-cycle regression, re-executed 2026-09-24 against the post-fix build (commit `f2fe7ef`, session-based
+> auth, deployed via `assets:precompile` + container restart earlier the same session) — all 14 cases
+> (TC-INE-024–037) reconfirmed, zero new failures.** TC-INE-033 and TC-INE-037 were fully repeated end to end,
+> including their destructive rename/delete + restart + recovery cycles (see their own Result sections for the
+> 2026-09-24 evidence). See each TC's Result section below for its individual reconfirmation note.
 
 ## Plugin
 - Name: Redmineflux Inline Editor Plugin
@@ -45,6 +51,9 @@ Reach them through real navigation: top menu **Issues** → hover a row, or clic
 with its description ("Professional inline editing for Redmine issues, projects, and custom fields…"), author
 ("Redmineflux — Powered by Zehntech Technologies Inc.") and version ("7.0.0"), plus a working Configure link.
 
+**Reconfirmed 2026-09-24 (final-cycle regression, post-fix `f2fe7ef`)** — still listed identically after the
+plugin-code update and container restart.
+
 ---
 
 ### TC-INE-025: Migration completed cleanly
@@ -59,6 +68,10 @@ with its description ("Professional inline editing for Redmine issues, projects,
 **Result: PASS by cross-reference to TC-INE-034** — this plugin has no `db/` directory at all (confirmed in
 TC-INE-034), so "the migration" is a no-op by design. Running it changes nothing, and both pages already render
 cleanly on every restart, as re-confirmed there.
+
+**Reconfirmed 2026-09-24** — re-checked directly: `plugins/inplace_issue_editor` still has no `db/` directory
+after the code update, and both pages rendered cleanly on every restart performed during this session's regression
+(including the TC-INE-033/037 restart cycles below).
 
 ---
 
@@ -82,6 +95,10 @@ responses. Hovering a row showed the pencil icon appear (opacity 0→0.7) exactl
 behavior, not just by absent errors. (The KB's own documented recovery for a 404'd-asset state, precompile +
 restart, was separately exercised for a different reason in TC-INE-036 and confirmed to work.)
 
+**Reconfirmed 2026-09-24** — after the auth-mechanism code change (routes moved off `.json`, new
+`rf_inline_editor_*` asset digests from the `assets:precompile` run), re-checked the same asset URLs on
+`/issues/1560` and the issue list: all returned `200`, zero `4xx`/`5xx`, and the pencil still appears on hover.
+
 ---
 
 ### TC-INE-027: Plugin functions on the Redmine version under test
@@ -99,6 +116,9 @@ compatibility range (4.0.x–4.2.x, 5.0.x, 5.1.x, 6.0.x is stated in this suite'
 whole engagement has run hundreds of inline edits successfully against 7.0.0 across every suite). One inline edit
 performed end to end here as confirmation: Priority on #1560, native `<select>`, saved (`200`) and persisted after
 reload.
+
+**Reconfirmed 2026-09-24** — still 7.0.0.stable; this session's whole final-cycle regression (dozens of inline
+edits across every suite, including the new session-auth path from `f2fe7ef`) is itself the reconfirmation.
 
 ### TC-INE-028: CKEditor integration
 
@@ -119,6 +139,9 @@ CKEditor" and that the customer supplies their own CKEditor licence.
 this instance, not CKEditor, so this TC's own precondition cannot be exercised here. This is not a defect —
 TC-INE-029 (CKEditor absent) is the scenario that actually applies to this instance, and it is fully executed and
 PASS below, including the equivalent formatting-controls check against the plugin's jstoolbar fallback.
+
+**Reconfirmed 2026-09-24** — re-checked directly: `RfIE.config.textFormat` is still `"common_mark"`,
+`RfIE.config.ckEditorOptions` is still `null`, `window.CKEDITOR` is still `undefined`. Precondition still not met.
 
 ---
 
@@ -141,6 +164,11 @@ text, clicked **Strong**, and the textarea correctly wrapped it in `**…**`; th
 `<strong>` HTML. Saved (`302`, "Saved successfully.") and confirmed after reload that the bold markup, the earlier
 edited line, the inline image and the attachment reference (from TC-INE-049) were all still intact and the image
 still rendered. The plugin does not hard-require CKEditor and renders a fully functional fallback toolbar.
+
+**Reconfirmed 2026-09-24** — after the auth fix, re-opened the description editor on #1560: still a plain
+`<textarea>` with the real `jstoolbar` (not empty/broken), and the description save/revert cycle used throughout
+this session's BUG-INE-008 retest (Ctrl+Enter save, `302`, persisted after reload) is itself confirmation this
+path still works end to end on the new session-based route.
 
 ## Functional Cases — Cross-browser and environment
 
@@ -173,6 +201,17 @@ missing pencil or a silent save failure.
   error itself was already independently confirmed present in Chrome/Edge too and does not block any observed
   functionality in any of the 3). Fixture reverted to Feedback/High/original description after each run.
 
+**Reconfirmed 2026-09-24 (final-cycle regression, post-fix `f2fe7ef`, the exact code path this TC's own mechanism
+depends on)** — re-ran the identical sequence with a dedicated Node/Playwright script (`xbrowser2.js`) driving
+real Chrome, Edge and Firefox engines directly: as `willow.belle` on #1560, an atomic-dispatch pencil click →
+native `<select>` Priority change → save → revert, capturing the plugin's own `update_field` route responses.
+**Chrome** 151.0.7922.34 — `[200, 200]` (save, revert). **Edge** 153.0.4234.48 — `[200, 200]`, byte-identical to
+Chrome. **Firefox** 148.0.2 — `[200, 200]` after fixing an unrelated Playwright-Firefox launch quirk (explicit
+`viewport: null`). All three browsers correctly authenticate the new non-`.json`, session-based `/update_field`
+route — the specific mechanism `f2fe7ef` changed. Fixture confirmed reverted to Priority = High after the run.
+Console double-`jstoolbar` error from `BUG-INE-010` no longer observed (that bug's own fix, unrelated to this
+TC's cross-browser scope, but noted since it was previously surfaced here).
+
 ---
 
 ### TC-INE-031: Behaviour at narrow viewport widths
@@ -192,6 +231,10 @@ at 390px), the table itself scrolled horizontally (`overflow-x: auto`) rather th
 opened `<select>` editor stayed fully within the viewport at both widths (e.g. `x:259, width:90` at 390px, well
 inside the 390px viewport). A save at each width returned `200` and displayed the new value correctly. No clipped
 or unusable state found at either width. Fixture reverted to High after each.
+
+**Reconfirmed 2026-09-24** — re-checked the Priority cell at 390×844 after the auth fix: pencil `[311,331]` still
+fully inside cell `[257,359]` bounds, `overflow-x: auto` still in effect. No layout regression from the JS
+changes in `f2fe7ef` (route URLs only, no CSS/markup changes).
 
 ---
 
@@ -221,6 +264,10 @@ observed at any point.
   unconditionally by this plugin's `view_layouts_base_html_head` hook), throwing
   `SyntaxError: Identifier 'lastJstPreviewed' has already been declared` on every issue-detail page load. No
   user-visible breakage was observed from it. Filed as **`BUG-INE-010`** (Low). All 3 test edits reverted after.
+
+**Reconfirmed 2026-09-24** — re-checked #1560 (still carrying Checklist/Tags/Sprint/Story Points widgets) after
+the auth fix: `page.on('pageerror')` captured **zero** errors on reload — `BUG-INE-010`'s double-`jstoolbar` error
+is gone, consistent with that bug's own separate fix and retest. No new interaction issue introduced by `f2fe7ef`.
 
 ---
 
@@ -253,6 +300,15 @@ given the container-restart risk)**
   (`/issues/1560`) both returned `200`, and inline pencils were present again. Full recovery confirmed.
 - No bug — this is Redmine's own protective behavior working as intended.
 
+**Reconfirmed 2026-09-24 (final-cycle regression) — fully repeated end to end against the post-fix build.**
+Renamed `plugins/inplace_issue_editor` → `plugins/inplace_issue_editor_RENAMED` and restarted
+`redmine-docker-700-redmine-1`. `docker logs` showed the identical `Redmine::PluginNotFound: Plugin not found.
+The directory for plugin inplace_issue_editor should be /usr/src/redmine/plugins/inplace_issue_editor.` error at
+boot, same failure signature as 2026-09-23 — unaffected by the routing/auth code change, as expected (this is
+Redmine core's own plugin-loader check, not plugin code). Renamed the folder back and restarted; confirmed full
+recovery: login page `200`, `/issues/1560` rendered with `RfIE` loaded, Priority pencil visible on hover, and the
+fixture unchanged (Priority High, Status Feedback).
+
 ---
 
 ### TC-INE-034: Migration not run
@@ -273,6 +329,10 @@ immediately after, with no missing-table exception and no 500. There is no migra
 ever leave half-applied, so the scenario this TC probes for cannot occur here — the plugin degrades to "always
 already migrated."
 
+**Reconfirmed 2026-09-24** — `db/` directory still absent after the code update; the code change in `f2fe7ef` is
+entirely routes/controllers/JS, no schema. No missing-table exception or 500 observed across any of this session's
+several restarts.
+
 ---
 
 ### TC-INE-035: JavaScript disabled in the browser
@@ -291,6 +351,10 @@ issue detail page (#1560) also had 0 pencils and no dead/inert editor markup. Th
 (`/issues/1560/edit`) was reachable via the page's own Edit link, and a Priority change submitted through it
 saved and displayed correctly (Normal → verified → reverted to High). The plugin degrades cleanly to fully absent,
 not to broken controls.
+
+**Reconfirmed 2026-09-24** — repeated with a fresh `javaScriptEnabled: false` context against the post-fix build:
+issue list rendered (25 rows), **0** `.rf-edit-icon` anywhere on the list or on #1560's detail page, and the
+standard Edit link was still visible/reachable. Identical degrade-to-absent behavior after the routing change.
 
 ---
 
@@ -314,6 +378,12 @@ After that, the manifest and the served `<script src>` both pointed at the new d
 file containing the marker — the symptom is fully resolved by the documented steps. Reverted the source change,
 re-ran `assets:precompile` (correctly regenerated the original `-fabfb32c.js` digest, since the content matches
 byte-for-byte) and restarted once more to leave the instance in its original state.
+
+**Reconfirmed 2026-09-24, by the plugin's own real fix deployment** — this exact remedy (`assets:precompile` then
+`docker restart`) is what was used earlier this session to deploy the developer's actual `f2fe7ef` code change
+(new asset digests: `rf_inline_editor_core-e2f0eb93.js` etc.), and again three more times during this session's
+own TC-INE-033/037 restart cycles below. Every time, the new JS took effect cleanly after precompile + restart,
+with no stale-asset symptom surviving the documented remedy.
 
 ---
 
@@ -348,6 +418,14 @@ approval given the container-restart risk)**
   Confirmed full recovery: 29 pencils on #1560's detail page, 125 on the issue list, and the fixture's Feedback
   status, High priority and edited description all intact.
 - No bug — a clean uninstall behaves exactly as documented.
+
+**Reconfirmed 2026-09-24 (final-cycle regression) — fully repeated end to end against the post-fix build.** Moved
+`plugins/inplace_issue_editor` out of the plugins directory entirely and restarted. Redmine started cleanly (login
+`200`, no boot error — unlike TC-INE-033's rename scenario, a clean removal doesn't trip the plugin-loader's
+consistency check). On `/issues/1560`: `window.RfIE` was `undefined` and `.rf-edit-icon` count was **0** — plugin
+fully absent, no orphaned controls. Restored the folder, ran `bundle exec rake assets:precompile
+RAILS_ENV=production`, and restarted again. Confirmed full recovery: Priority pencil visible again on #1560, and
+the fixture unchanged (Priority High, Status Feedback).
 
 ---
 

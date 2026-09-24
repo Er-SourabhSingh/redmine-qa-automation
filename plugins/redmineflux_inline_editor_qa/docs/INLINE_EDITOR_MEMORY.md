@@ -389,6 +389,38 @@
 ## Recurring Issues
 
 - None — all 4 translation gaps found this cycle (BUG-INE-001/002/003/004) are fixed as of 2026-09-10. Plugin marked `Complete` in `STATUS.md`.
+- **Active as of 2026-09-24: `BUG-INE-009` reopened with a regression.** The fix removed the API key that let an
+  expired session keep saving (correct direction), but every inline save now risks hanging on "Saving…" and
+  popping the browser's native Basic-Auth dialog, even on a fully valid session. Consolidated into `BUG-INE-009`
+  rather than filed as a separate bug (BUG-INE-011), per explicit user instruction — same session-vs-API-key
+  authentication mechanism, opposite failure direction. This blocks reliable retesting of the other 5 fixes until
+  it's resolved — see Handoff.
+
+- **Playwright's `.click()` on this plugin's hover-only `.rf-edit-icon` pencils became unreliable after the
+  2026-09-24 code pull/restart** — clicks would resolve without error but the editor simply wouldn't open,
+  intermittently, across multiple locator strategies (`.click()`, `browser_click` via accessible role/label,
+  `mouse.down()+mouse.up()` at the bounding-box center). The one approach that worked every time: dispatch a full
+  synthetic event sequence directly on the element in one atomic `evaluate()` call —
+  `pointerdown → mousedown → pointerup → mouseup → click`, all with `bubbles: true` — rather than relying on
+  Playwright's own higher-level click/hover choreography, which has enough steps (move, then click) that a
+  `mouseleave` can fire on this opacity-0-until-hover icon in between. Likewise, typing into the resulting input
+  and pressing Enter sometimes silently did nothing via `.fill()` + `.press('Enter')`; setting the value through
+  the native `HTMLInputElement` value setter plus a manual `input` event, followed by explicit
+  `keydown`/`keypress`/`keyup` dispatches for Enter, reliably triggered the save. This is a testing-tool
+  reliability issue in this session's browser, not a product defect — confirmed by the same dispatch approach
+  successfully triggering saves that then correctly hit the server (per the request log), just not always via
+  Playwright's normal synthetic input.
+- **A real, non-headless Chromium browser will show its own native OS-level HTTP Basic-Auth dialog** for any
+  request that gets a `401` with a `WWW-Authenticate: Basic` header — this happens automatically whenever
+  Redmine's REST API is enabled and a JSON-format request fails session/API-key authentication (see
+  `check_if_login_required` in the server log). This dialog is **not** a Playwright/JS dialog:
+  `browser_handle_dialog`/`page.on('dialog')` cannot see or dismiss it, and `browser_take_screenshot` cannot
+  capture it either (same class of limitation as the existing "Native Dialog Screenshot Blocked" note, but for a
+  different underlying mechanism). It sits outside the page in browser chrome and can only be dismissed by a real
+  click on the actual browser window — ask the user to cancel it if it appears during automated testing, and
+  cross-check the Rails server's own access log (`docker logs`) for the exact failing request rather than relying
+  on Playwright's `page.on('response')`, since Chromium appears to hold the response back from CDP until the
+  dialog is resolved.
 
 ## Environment Notes
 

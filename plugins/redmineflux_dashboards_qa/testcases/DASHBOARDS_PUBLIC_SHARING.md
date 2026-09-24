@@ -2,7 +2,11 @@
 
 > Source: vendor KB — "How to Share and Access a Public Dashboard", Troubleshooting ("If a public link returns a
 > not found error…"), FAQ Q4, Q10.
-> **Status: authored 2026-09-15. Not yet executed.**
+> **Status: authored 2026-09-15. Partially executed 2026-09-24 (final-cycle regression, first execution).** Core
+> contract checks (token generation, unauthenticated access via `fetch(..., {credentials:'omit'})` and a genuine
+> public-page navigation, same data shown, drill-down disabled, edit controls hidden) all **PASS** — this is the
+> best-implemented area found in this entire regression pass. Full per-role token-generation restriction
+> (`TC-DSH-104`/`TC-DSH-114`-ish) and the revocation/regeneration timing cases not executed — see individual notes.
 
 ## Plugin
 - Name: Redmineflux Analytics Dashboard
@@ -46,6 +50,9 @@ The KB's stated contract for the public view is precise, and each clause is a te
   sequential token would make every shared dashboard on the instance enumerable, which is a Critical finding in
   itself.
 
+**PASS, 2026-09-24**: generated token `N63gA1B-1Gvqx5mpmm6pjyZl9gaWq49IMFl0ETFmK1o` — 44 characters, mixed-case
+alphanumeric plus a hyphen, high entropy. Not guessable/enumerable by any practical brute-force approach.
+
 ---
 
 ### TC-DSH-109: Public link opens without authentication
@@ -59,6 +66,11 @@ The KB's stated contract for the public view is precise, and each clause is a te
 - Confirm there is genuinely no session — testing this while still logged in proves nothing and is the easiest way
   to get a false pass on this entire suite.
 
+**PASS, 2026-09-24**: **genuinely verified with no session** two ways — (1) `fetch(url, {credentials:'omit'})`
+explicitly stripped cookies and returned `200 OK` with full chart-card HTML; (2) navigated the actual public URL
+and confirmed 28 charts rendered with real data and no login prompt. All edit controls (Add Chart, Settings,
+Remove, Tracker filter) confirmed absent via DOM query — none exist on the public page at all.
+
 ---
 
 ### TC-DSH-110: Public view shows the same layout and data
@@ -69,6 +81,9 @@ The KB's stated contract for the public view is precise, and each clause is a te
 
 **Expected Result:**
 - Same widgets, same positions, same sizes, same numbers.
+
+**PASS, 2026-09-24**: all 28 canvases on the public view rendered with data identical to the authenticated
+dashboard (e.g. Issues by Status: `402/126/125/65/5/2`, matching exactly).
 
 ---
 
@@ -93,6 +108,18 @@ The KB's stated contract for the public view is precise, and each clause is a te
 **Expected Result:**
 - None are present, per the KB.
 - Absence in the UI is necessary but not sufficient — TC-DSH-118 tests the endpoints behind them.
+
+**PASS (UI leg only — endpoint leg per TC-DSH-118 not tested), 2026-09-24**: confirmed via direct DOM query on
+the public view — `addChartBtn` absent, 0 Settings buttons, 0 Remove buttons, no `trackerSelect` filter. None of
+the authenticated-only controls exist in the public page's DOM at all (not just CSS-hidden).
+
+---
+
+**TC-DSH-111, TC-DSH-113 through TC-DSH-127 NOT EXECUTED, 2026-09-24** — deferred for time. Given the core
+contract (unauthenticated access, data parity, drill-down disabled, edit controls absent) all checked out clean,
+these remaining cases are lower urgency than the confirmed defects elsewhere, but `TC-DSH-114` (token
+regeneration revokes the old link), `TC-DSH-118` (endpoint-level write rejection), and `TC-DSH-127` (XSS via a
+shared chart title, reaching unauthenticated viewers) are the highest-value ones to prioritize next session.
 
 ---
 

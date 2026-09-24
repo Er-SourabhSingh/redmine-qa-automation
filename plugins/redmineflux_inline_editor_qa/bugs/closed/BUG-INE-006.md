@@ -86,6 +86,17 @@ A permission-revocation variant that goes through a different save path is filed
 **Production note:** production issue #121113 was filed before this extra scope was known. Updating its
 description is a production write and needs explicit approval.
 
+## Retest
+
+**Result: FIXED, confirmed 2026-09-24** — after pulling commit `7657eb2` and precompiling assets. Re-created the
+exact scenario (issue #1560 at status New, `cf_69` workflow-Read-only for Developer/Bug, column added on the
+issue list) and attempted a write as `willow.belle`. `PUT /issues/1560/update_field.json` now returns **`403`**
+with `{"errors":["This field cannot be changed while the issue is at its current status."]}`, and the toast shows
+that exact message — the server's real explanation, not a generic "you do not have permission" placeholder.
+Value stayed blank after reload. Also reconfirmed via `IssueTablesController`'s `read_only_attribute_names`
+check that this covers both custom fields and core fields (see BUG-INE-007's retest, which exercises the Subject
+side of the same underlying mechanism). Fixture reverted: #1560 back to status Feedback.
+
 ## Duplicate check
 
 - Duplicate found: No

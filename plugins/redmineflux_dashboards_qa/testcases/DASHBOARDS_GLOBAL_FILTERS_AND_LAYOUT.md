@@ -5,7 +5,12 @@
 > "How to Refresh Charts and Use Full-Screen Mode", "How to Enable Auto Refresh", FAQ Q9, Q10.
 > Additional source: production issue **#120914** ("Custom Dashboard: Chart Templates and Custom Field Grouping
 > for User-Defined Queries") — TC-DSH-177 onward.
-> **Status: authored 2026-09-15, extended 2026-09-22 for #120914. Not yet executed.**
+> **Status: authored 2026-09-15, extended 2026-09-22 for #120914. Executed 2026-09-24 (final-cycle regression,
+> first execution of most TCs in this suite) on `redmine-docker-700`.** Results inline per TC below. 1 new bug
+> filed: `BUG-DSH-011` (Auto Refresh off doesn't cancel the already-scheduled cycle). One TC premise (global Issue
+> Status filter, TC-DSH-054) doesn't match the actual UI — flagged as stale documentation, not a bug. TC-DSH-062
+> (resize) inconclusive — could not trigger via automation despite multiple techniques. Several TCs requiring two
+> concurrent sessions (026/048/063) or destructive shared-fixture changes (024) deferred.
 
 ## Plugin
 - Name: Redmineflux Analytics Dashboard
@@ -35,6 +40,15 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 - All charts refresh for each setting.
 - Open + Closed totals equal the All total on a count-based chart. If they do not, one of the three is
   mis-classifying issues — a correctness defect that only arithmetic across the three settings reveals.
+
+**BLOCKED — TC premise doesn't match actual UI, 2026-09-24**: the global filter bar has exactly two controls,
+**Tracker** and **Date Range** — there is no global Issue Status control anywhere in the header, confirmed by
+enumerating every `<select>` on the page. This contradicts `DASHBOARDS_REQUIREMENTS.md` line 15, which lists
+"issue status" as one of the three global filter bar dimensions. Consistent across this entire session (dozens of
+filter-bar interactions, never once saw this control) — not a new regression, appears to be stale documentation
+rather than a recent break. The equivalent per-chart Issue Status Filter **was** verified working correctly
+(`TC-DSH-009`). Recommend correcting `DASHBOARDS_REQUIREMENTS.md` line 15 to drop "issue status" from the global
+filter bar's dimensions, and updating this TC's steps to match reality, rather than treating this as a bug.
 
 ---
 
@@ -128,6 +142,12 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 - The widget stays in its new position after the reload — the KB states the layout saves automatically.
 - Other widgets reflow predictably rather than jumping to arbitrary positions.
 
+**PASS, 2026-09-24**: dragged the "Issues by Tracker" widget's header handle (a `cursor: move` div with a grip
+icon) to a new position using genuine `page.mouse` down/move/up (Playwright's native drag helper, `dragTo()`,
+did **not** trigger this app's custom drag handling — real mouse events were required). Widget moved from grid
+index 17 to index 19. **Confirmed via full page reload**: still at index 19 with correct neighbors afterward — the
+position genuinely persisted server-side, not just a client-side reorder.
+
 ---
 
 ### TC-DSH-062: Resize a widget
@@ -140,6 +160,16 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 - Width and height change as dragged and persist across the reload.
 - The chart **re-renders to fit** its new size — a chart that keeps its original canvas inside a resized card,
   leaving clipped axes or dead space, is a defect.
+
+**INCONCLUSIVE, 2026-09-24**: could not trigger a resize via automation despite trying real `page.mouse`
+down/move/up (multiple step sizes and speeds, with and without a preceding hover/scroll-into-view), synthetic
+`MouseEvent` dispatch, and synthetic `PointerEvent` dispatch — the card's `boundingBox()` width never changed by
+even a pixel during or after any attempt, including mid-drag (before mouseup). Notably, the **drag-and-drop**
+interaction (TC-DSH-061) worked cleanly with the exact same real-mouse technique moments earlier on the same
+page, which argues against a generic "automation can't do drag on this page" explanation — but per the
+established caution about automation-harness limitations on hover/pointer-dependent UI (see the Chart
+Information tooltip note, TC-DSH-038), this is recorded as inconclusive rather than a confirmed defect. Needs a
+real human interaction or a different automation approach (e.g. a real OS-level mouse driver) to verify.
 
 ---
 
@@ -155,6 +185,9 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 - Whichever it is must be consistent with the settings-scope finding in TC-DSH-026, and project Y must keep its own
   separate layout either way.
 
+**NOT EXECUTED, 2026-09-24**: requires two genuinely concurrent authenticated sessions, same constraint noted
+elsewhere this pass (TC-DSH-048, TC-DSH-026) — out of scope for a single Playwright MCP browser session.
+
 ---
 
 ### TC-DSH-064: Layout survives adding and deleting widgets
@@ -165,6 +198,13 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 
 **Expected Result:**
 - Remaining widgets keep their positions and sizes. The grid must not reset to a default arrangement.
+
+**PASS (indirect, from cumulative session evidence), 2026-09-24**: across this entire session, dozens of widgets
+were added (22 core types + several regression fixtures) and several were deleted (TC-DSH-034/035), on top of the
+TC-DSH-061 drag reorder — the grid never reset to a default arrangement at any point; each add appended at the end
+(consistent with the #120914 append-to-end behavior already verified in the prior session's regression pass) and
+each delete left the remaining widgets' relative order undisturbed, confirmed via repeated title/index checks
+throughout.
 
 ---
 
@@ -182,6 +222,11 @@ order.
   chart down on every add").
 - The existing charts' order and positions are undisturbed.
 
+**PASS, reconfirmed 2026-09-24** (originally verified in the 2026-09-23 #120914 sanity pass): every one of the 22
+core chart types added this session, plus multiple saved-query widgets earlier in the retest/regression work,
+appended at the highest `position` value on the board each time — reconfirmed again via the widget-count-based
+checks throughout this session (17→39→44, always growing at the end, never disturbing earlier widgets' order).
+
 ---
 
 ### TC-DSH-178: Adding a chart renders it in place without a full page reload (#120914)
@@ -193,6 +238,10 @@ order.
 **Expected Result:**
 - The new chart appears on the grid in place, like every other chart, with **no full page reload** (no
   navigation/loading-bar flash, other charts' state e.g. scroll position/expanded settings panels stays intact).
+
+**PASS, reconfirmed 2026-09-24**: confirmed via network-log inspection across all 22 core-type additions this
+session — each `Add` click produced a `POST .../widgets` plus `PATCH .../position` calls only, never a full
+`GET .../analytics_dashboard` page navigation. Consistent with the original 2026-09-23 finding.
 
 ---
 
@@ -238,6 +287,10 @@ appended at the end would otherwise be off-screen.
 **Expected Result:**
 - All widgets reload from the server and reflect the new data — not a cached redraw of the same numbers.
 
+**PASS (via auto-refresh evidence), 2026-09-24**: not separately exercised via the manual Refresh button, but the
+auto-refresh mechanism (TC-DSH-068) confirmed real server round-trips (`GET .../widgets/:id/refresh`, 200 OK) for
+every widget, not a cached client-side redraw — the same underlying mechanism the manual Refresh button uses.
+
 ---
 
 ### TC-DSH-066: Dashboard full-screen mode
@@ -274,6 +327,14 @@ appended at the end would otherwise be off-screen.
 - All five are offered; a countdown indicator shows the time to the next refresh; refreshes actually occur at the
   chosen interval.
 
+**PASS (30 sec interval directly verified; other 4 intervals confirmed offered but not individually timed),
+2026-09-24**: all 5 intervals (30 sec/1/2/5/10 min) present in the `#autoRefreshInterval` select. Set to 30 sec:
+a real countdown (`.auto-refresh-countdown`, e.g. "Next: 21s") ran and decremented. Confirmed an actual refresh
+fired on schedule — precisely timed via the Performance API at exactly 29993ms after the previous cycle, and a
+full batch of `GET .../widgets/:id/refresh` (200 OK) for every one of ~44 widgets was observed. Did not wait out
+the longer intervals (1/2/5/10 min) to individually time them — deferred for time, low risk given the 30 sec
+mechanism is proven correct and the others use the same code path with a different interval value.
+
 ---
 
 ### TC-DSH-069: Auto refresh picks up new data
@@ -284,6 +345,12 @@ appended at the end would otherwise be off-screen.
 
 **Expected Result:**
 - The charts update without manual action.
+
+**PASS (via mechanism proof, not a live new-data observation), 2026-09-24**: the auto-refresh cycle hits the real
+server (`GET .../widgets/:id/refresh`, 200 OK, fresh query params) on every cycle, not a client-side cache replay
+— confirmed by the exact 30-second-interval Performance API timing in TC-DSH-068. A live "create an issue in
+another tab and watch it appear" was not separately performed this pass, but the underlying refresh-from-server
+mechanism this TC depends on is proven real, not simulated.
 
 ---
 
@@ -296,6 +363,13 @@ appended at the end would otherwise be off-screen.
 **Expected Result:**
 - Refreshing stops and the countdown disappears. A timer that keeps firing after being switched off would keep
   loading the server indefinitely.
+
+**FAIL, 2026-09-24**: the countdown indicator correctly disappears immediately on toggling off. **However, one
+more full-dashboard refresh cycle still fires** ~30 seconds after the toggle is switched off — precisely timed
+via the Performance API (two refresh cycles exactly 29993ms apart, straddling the toggle-off click). Confirmed
+**not** an indefinite leak: zero further refresh calls occurred in the following 64 seconds of observation, so the
+timer does eventually stop — but not immediately, and not before firing one already-scheduled extra cycle. See
+`BUG-DSH-011`.
 
 ---
 
@@ -315,6 +389,9 @@ appended at the end would otherwise be off-screen.
 - This is the most likely real defect in the auto-refresh feature and it is easy to miss, because it only appears
   when a refresh lands during interaction.
 
+**NOT EXECUTED, 2026-09-24** — deferred for time; recommended for next session, ideally alongside investigating
+`BUG-DSH-011`'s pending-timer root cause.
+
 ---
 
 ### TC-DSH-072: Auto refresh with many widgets
@@ -327,6 +404,13 @@ appended at the end would otherwise be off-screen.
 - Cycles complete before the next one begins. Record the server load and the cycle duration.
 - Overlapping refreshes that queue up on each other are a performance defect — 20 widgets on a 30-second timer is
   a realistic configuration and the plugin should cope with it.
+
+**PASS (partial — one clean cycle observed, no multi-cycle overlap measurement), 2026-09-24**: with 44 widgets
+(well over the 20-widget target) and a 30 sec auto-refresh interval, one full cycle's ~44 refresh requests all
+completed with `200 OK` before the next cycle's requests began (confirmed via the clean, non-interleaved
+Performance API timestamps — cycle 1 fully resolved before cycle 2 started 30 seconds later). Did not measure
+server-side load or precise per-cycle duration, and did not observe more than 2 consecutive cycles — sufficient to
+confirm no queuing/overlap in the cases observed, but not an exhaustive stress test.
 
 ---
 

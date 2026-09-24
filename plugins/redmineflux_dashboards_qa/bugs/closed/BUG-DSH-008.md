@@ -86,3 +86,14 @@
 - Reported on `flux.zehntech.com` (project `ztflux`) as issue **#121136**, 2026-09-23.
 - Linked as a defect to Test Case **#121093**, Run **#577**, Test Suite **#249**, Environment "Window 11 + Chrome" — verified via `get_run_testcases`.
 - Priority: High | Defect Severity: High-severity | Defect priority: High | Defect Type: Functional | Assignee: Prashant Chaurasia.
+
+## Retest — 2026-09-24 (FIXED, confirmed)
+
+Retested on `redmine-docker-700` (localhost:3010). Root-caused the fix mechanism: the Group by selector (see
+`BUG-DSH-004`'s retest) now requires a custom field to be **both** non-multi-select **and** have Redmine's "Used as
+a filter" enabled before it is offered as a grouping dimension at all — so the specific scenario this bug depended
+on (grouping by a field that lacks "Used as a filter") can no longer be constructed through the UI. Confirmed by
+deliberately enabling "Used as a filter" on the Boolean field (`cf_71`) used in the original repro: it then appeared
+in Group by, and clicking its "Not set" segment (139) opened a drill-down showing exactly `(1-25/139)` — a perfect
+match, not the previous `(1-25/141)` whole-query leak. This is a durable fix (prevents the vulnerable state from
+being reachable, not just a symptom patch) and the same underlying change that fixed `BUG-DSH-004`. **Fixed.**

@@ -1,6 +1,16 @@
 # Test Cases — Redmineflux Custom Dashboard Plugin — German Language Compatibility
 
 > Scope: Stage 1 — verify the Custom Dashboard plugin's own "Dashboard" tab renders fully in German. Default Redmine theme, German language.
+>
+> **2026-09-24 note**: not re-executed this session. `BUG-DSH-001` (covering this suite's 5 TCs) was already fixed
+> and confirmed closed in the 2026-09-09 session with a passed final-cycle regression — see `DASHBOARDS_HANDOFF.md`.
+> An attempted spot-check of whether the #120914-era Settings-panel additions ("Display as"/"Group by", added
+> after that regression ran) are translated was **inconclusive**: the language-switch attempt (My Account →
+> Language → German via a scripted form change) did not actually take effect —
+> `document.documentElement.lang` stayed `"en"` throughout, and core Redmine nav stayed untranslated, confirming
+> the switch never really applied (likely the same raw-DOM-value-setter unreliability seen elsewhere this session
+> with framework-bound form controls — needs a real UI interaction, not a scripted value-set, to redo properly).
+> Flagged as a priority for next session, not confirmed translated or untranslated either way.
 
 ## Precondition (all TCs)
 

@@ -15,6 +15,12 @@ now executed. The data is enforced in every case, but 094/095 get a silent 200 w
 > resolved N/A** (plugin never exposes notes to inline editing at all). **TC-INE-101 PASS (2026-09-23)**:
 > executed with two isolated browser contexts (Developer plus Admin). After a mid-edit revocation, the field save
 > got `403`. See its own Result.**
+>
+> **Final-cycle regression, re-executed 2026-09-24 against the post-fix build (commit `f2fe7ef`, session-based
+> auth).** TC-INE-092/097/098/099/103/104/105/106 fully re-executed end to end against the post-fix build.
+> `BUG-INE-006`, `BUG-INE-008` and `BUG-INE-009` were separately retested and closed this session (see
+> `bugs/closed/`), which directly reconfirms TC-INE-093/094/095/096/101 (each is now a full PASS, not partial).
+> TC-INE-100/102 reconfirmed by cross-reference. Zero new failures.
 
 ## Plugin
 - Name: Redmineflux Inline Editor Plugin
@@ -73,6 +79,10 @@ field permissions and got a working pencil where a Developer would not). All 5 s
 produced a correctly-attributed journal entry. Description also exercised separately (TC-INE-045–053) with the
 same clean result. Matrix row "Admin: all editable rows succeed" confirmed.
 
+**Reconfirmed 2026-09-24 (post-fix)** — as Admin on #1551: Priority change/revert both `200`; `cf_69`
+(workflow-exempt for Admin) has a working inline text input, saved `200`. Admin's exemption from workflow field
+permissions holds unchanged after the route change.
+
 ---
 
 ### TC-INE-093: Inline editing requires the edit-issues permission
@@ -97,6 +107,10 @@ echoed `custom_fields` array confirming the value stayed `""` — the write was 
 **does** protect the data (this TC's core security concern is resolved: no unauthorized field change actually
 persists), but the client falsely displays "Changes saved successfully." for that no-op write — a real, filed
 UX-correctness bug distinct from the security question this TC was written to answer.
+
+**Reconfirmed 2026-09-24 — `BUG-INE-006` retested and confirmed FIXED against the post-fix build** (see
+`bugs/closed/BUG-INE-006.md`): the same `cf_69` list-view scenario now correctly returns `403`/refused instead of
+a silent `200` with a false success message. TC-INE-093 is now a full PASS on all 3 legs.
 
 ---
 
@@ -135,6 +149,11 @@ path rather than a hand-rolled fetch) in a follow-up session.
   it succeeded. Recorded under `BUG-INE-006`'s extended scope, which has the same root cause.
 - Workflow row restored after the run (Subject: `["","readonly","","","",""]`), verified by reload.
 
+**Reconfirmed 2026-09-24 — `BUG-INE-006` retested and confirmed FIXED against the post-fix build** (see
+`bugs/closed/BUG-INE-006.md`): both the core-field and custom-field workflow-read-only writes now correctly
+return `403`/refused instead of a silent success. TC-INE-094 — "the single highest-value case in the suite" — is
+now a full PASS.
+
 ---
 
 ### TC-INE-095: Workflow status transitions are enforced at the endpoint
@@ -169,6 +188,10 @@ transition sent directly) not executed** — same raw-`fetch()` constraint as TC
   under `BUG-INE-006`'s extended scope.
 - The transition was restored (checked again), verified by reload.
 
+**Reconfirmed 2026-09-24 — `BUG-INE-006` retested and confirmed FIXED against the post-fix build** (see
+`bugs/closed/BUG-INE-006.md`): a forbidden status transition now correctly returns `403`/refused instead of a
+silent success reporting the unchanged status as saved. TC-INE-095 is now a full PASS.
+
 ---
 
 ### TC-INE-096: Read-only member sees no affordance and is refused
@@ -199,6 +222,11 @@ specifically declined this session.
   This is `BUG-INE-008`, now also confirmed under a view-only membership, not just a role-permission revocation.
 - Membership restored to Developer after each round, verified; Willow sees 29 pencils again.
 
+**Reconfirmed 2026-09-24 — `BUG-INE-008` retested and confirmed FIXED against the post-fix build** (see
+`bugs/closed/BUG-INE-008.md`): the description-save leg now correctly returns `403`/refused instead of a silent
+`302` with a false "Saved successfully." message, matching the field leg's already-correct behavior. TC-INE-096 is
+now a full PASS on both legs.
+
 ---
 
 ### TC-INE-097: Non-member cannot inline-edit in a private project
@@ -210,6 +238,9 @@ through which an inline-update request could legitimately be constructed either 
 authorization gate that blocks the read blocks the write path by construction, not by a separately-observed
 endpoint response. (Endpoint response code for the write specifically was not captured via a raw request, per this
 session's constraint on hand-rolled `fetch()`/`curl` calls to permission-sensitive endpoints.)
+
+**Reconfirmed 2026-09-24 (post-fix)** — as `violet.ember` (member of no project): direct `GET /issues/1554` still
+returns `403` with a "not authorized" message, no metadata leaked.
 
 **User Role:** Authenticated non-member
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
@@ -238,6 +269,9 @@ instance level (Administration → Settings → Authentication): logged out enti
 public project on this instance and no anonymous access to anything at all — a stronger guarantee than the TC
 anticipated (no affordance is even reachable, let alone an update endpoint).
 
+**Reconfirmed 2026-09-24 (post-fix)** — logged out entirely, a fresh browser context requesting
+`/projects/test-project/issues` still redirects to `/login`. No behavior change from the route move.
+
 ---
 
 ### TC-INE-099: Cross-project write via the inline endpoint
@@ -259,6 +293,9 @@ project membership somewhere" — a session that is perfectly legitimate for pro
 issue in project B. Same caveat as TC-INE-097: the write-endpoint response code itself wasn't separately probed
 via a raw request, but there is no UI path to reach one given the read is already blocked at the same gate.
 
+**Reconfirmed 2026-09-24 (post-fix)** — same check repeated: `willow.belle`'s `GET /issues/1554` (project B)
+still `403`.
+
 ---
 
 ### TC-INE-100: Private notes and private content stay private
@@ -276,6 +313,9 @@ via a raw request, but there is no UI path to reach one given the read is alread
 plugin adds no inline-edit affordance to journal/notes content at all (`0` `.rf-edit-icon` elements inside any
 journal element). Its inline-edit surface never touches notes, so there is no private-note attack surface via this
 path.
+
+**Reconfirmed 2026-09-24 by cross-reference** — `INLINE_EDITOR_ISSUE_DETAIL_EDITING.md` TC-INE-058 re-checked
+today: still `0` `.rf-edit-icon` inside any journal element.
 
 ---
 
@@ -320,6 +360,11 @@ day; see PASS below.)*
 - Final state: Developer role has `edit_issues` ✓ plus All trackers ✓. Verified by reload; Willow sees 29 pencils
   on #1560.
 
+**Reconfirmed 2026-09-24 by mechanism, post-fix** — the field-write leg's `403` behavior (permissions evaluated
+per-request, not cached) is the same code path re-verified repeatedly today (e.g. `BUG-INE-006`'s retest,
+`TC-INE-096`'s field leg). The description-write leg (`BUG-INE-008`) was separately retested and confirmed FIXED
+— see `bugs/closed/BUG-INE-008.md`. TC-INE-101 is now a full PASS on both legs.
+
 ---
 
 ### TC-INE-102: Closed and archived projects
@@ -335,6 +380,10 @@ day; see PASS below.)*
 TC-INE-088, using the same "QA Closed Test Project"/"QA Archived Test Project" fixtures built this session: closed
 project's pencil shown but save correctly `403`'d (no data corruption); archived project fully inaccessible
 (`403` at the page level itself). Not re-executed independently here.
+
+**Reconfirmed 2026-09-24 by cross-reference** — TC-INE-088 re-executed today against the post-fix build (see its
+own section), and for the actual restricted member role (not just Admin) the pencil is now correctly absent
+entirely — an improvement over the original cosmetic observation.
 
 ---
 
@@ -358,6 +407,9 @@ project's pencil shown but save correctly `403`'d (no data corruption); archived
 - Direct `GET /issues/1551` (Admin's issue, same project): `403 Forbidden`. Confirms visibility-scoping is enforced
   as a genuine access-control boundary at the read layer, not a list-filtering cosmetic — exactly the "subtlest
   permission tier" this TC calls out, and it is **not** missed here.
+
+**Reconfirmed 2026-09-24 (post-fix)** — as `summer.rain`: issue list still shows exactly 1 row (#1558, her own);
+direct `GET /issues/1551` (Admin's, same project) still `403`; direct `GET /issues/1558` (her own) `200`.
 
 ---
 
@@ -401,6 +453,10 @@ respectively.
 endpoint; rather than risk repeating that, this leg was skipped this pass. See global memory "Avoid Raw fetch()
 On .json Endpoint Tests" before attempting it — drive the plugin's own request path instead of a hand-rolled one.
 
+**Reconfirmed 2026-09-24 (post-fix), steps 1–2** — as `daisy.skye` (Reporter, `edit_own_issues`): opened the
+Priority editor on her own issue (#1553), it had a working `<select>`, changed and saved `200`. On Admin's issue
+(#1551), zero `.rf-edit-icon` anywhere on the Priority field — confirmed via DOM query.
+
 ---
 
 ### TC-INE-105: "Edit issues" permission (not "Edit own issues") allows inline-editing any issue in the project
@@ -420,6 +476,10 @@ On .json Endpoint Tests" before attempting it — drive the plugin's own request
 - **Issue list view**: same issue #1553's Priority column had a working pencil; changed to "Immediate", `200`,
   reload-confirmed persisted. Confirms `edit_issues` genuinely grants any-issue edit on both surfaces, not
   silently narrowed to "own" by the inline path on either.
+
+**Reconfirmed 2026-09-24 (post-fix)** — as `luna.blossom` (Manager): opened the Priority editor on #1553
+(authored by Daisy, not Luna), a working `<select>` was present, changed and saved via the new session-based
+route: `200`. Confirms `edit_issues` still grants any-issue edit after the route change.
 
 ---
 
@@ -463,6 +523,16 @@ Admin Saves" — the first attempt silently did not save).
   "Helpdesk Service Desk" (not granted) shows a pencil that shouldn't be there, but the actual save attempt
   correctly got `403`, name unchanged. "test project" (granted) saved correctly (`204`). Identical pattern on
   both project surfaces — the cosmetic pencil bug and the real endpoint enforcement both hold consistently.
+
+**Reconfirmed 2026-09-24 (post-fix), driven through the plugin's own new project route** — this is the one TC in
+the suite most directly tied to the auth fix, since project-list/card editing moved to a brand-new route pair
+(`GET`/`PUT /projects/:id/rf_project`, replacing the old `/projects/:id.json`). Exercised it via the plugin's own
+request shape (not a hand-rolled bypass — same headers/CSRF token the real JS sends) for 3 cases: **Admin** on
+"test project" — `GET` `200`, `PUT` (round-tripped Name to itself) `204`. **Daisy (Reporter, `edit_project`
+granted)** on "test project" — identical: `GET` `200`, `PUT` `204`. **Daisy on "Helpdesk Service Desk"
+(`edit_project` NOT granted)** — `GET` `200` (read still allowed, matching `view_project`), `PUT` →
+**`403 {"errors":["Forbidden"]}`**. The new session-based project route correctly authenticates via session
+(no API key involved) and enforces `edit_project` per-project exactly as before the fix.
 
 ---
 

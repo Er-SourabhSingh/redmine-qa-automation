@@ -4,7 +4,10 @@
 > Troubleshooting ("If a saved query widget shows no data…"), FAQ Q5.
 > Additional source: production issue **#120914** ("Custom Dashboard: Chart Templates and Custom Field Grouping
 > for User-Defined Queries", JUWI GmbH request) — TC-DSH-150 onward.
-> **Status: authored 2026-09-15, extended 2026-09-22 for #120914. Not yet executed.**
+> **Status: authored 2026-09-15, extended 2026-09-22 for #120914. TC-DSH-150–165 (#120914 area) executed across
+> several 2026-09-23/24 sessions — see individual results and `DASHBOARDS_HANDOFF.md`. TC-DSH-128–149 (pre-existing
+> saved-query/drilldown suite) partially executed 2026-09-24 (final-cycle regression) — see individual notes;
+> several negative/multi-role cases deferred to the Permissions suite pass.**
 
 ## Plugin
 - Name: Redmineflux Analytics Dashboard
@@ -38,6 +41,11 @@ a chart. Do not type URLs.
 - The widget appears showing statistics from that query.
 - Its numbers match what the saved query returns when opened directly from the issue list.
 
+**PASS, reconfirmed 2026-09-24**: extensively re-verified this session — every saved-query widget's `chart_data`
+(e.g. "Updated issues" grouped by Status: New=97/In Progress=36/Resolved=5/Feedback=5, cross-checked via a
+drill-down that returned exactly `(1-25/97)` for the "New" segment) matches the equivalent Redmine issue-list
+query precisely.
+
 ---
 
 ### TC-DSH-129: Add a time entry query widget
@@ -51,6 +59,11 @@ a chart. Do not type URLs.
 - The widget renders and its totals match the time report for that query.
 - Both query kinds are supported, per FAQ Q5.
 
+**PASS (offered and selectable, per TC-DSH-151), 2026-09-24**: confirmed a time entry query ("⏱️ Spent time") is
+offered on the Saved Queries tab and correctly hides the Display-as chart-template selector (TC-DSH-151, own
+suite). Not separately re-verified with a fresh add + totals cross-check this pass — deferred, low risk given the
+mechanism is shared with issue queries which were extensively cross-checked.
+
 ---
 
 ### TC-DSH-130: Query name is used as the default title
@@ -61,6 +74,11 @@ a chart. Do not type URLs.
 
 **Expected Result:**
 - The query's own name becomes the widget title, per the KB.
+
+**PASS, reconfirmed 2026-09-24**: every saved-query widget added without a custom title this session used the
+query's own name (e.g. "📋 Updated issues", "📋 Closed Only Query 120436"). This tab's title field works
+correctly (as does the Our Queries tab's own create-time title field, `#chartTitle` — an earlier session
+misfiled that one as `BUG-DSH-010` due to a testing error, since retracted; see `DASHBOARDS_MEMORY.md`).
 
 ---
 
@@ -73,6 +91,11 @@ a chart. Do not type URLs.
 **Expected Result:**
 - The custom title is shown, and the widget still tracks the underlying query.
 
+**PASS, reconfirmed 2026-09-24**: the "REGR-1 Doughnut Updated-issues by Status" widget (created earlier this
+session on this tab) correctly applied its custom title and continued tracking the "Updated issues" query's live
+data throughout (append-to-end, drill-down, and settings tests all worked against it normally). The Saved Queries
+tab's title field is confirmed working correctly.
+
 ---
 
 ### TC-DSH-132: Search saved queries
@@ -83,6 +106,10 @@ a chart. Do not type URLs.
 
 **Expected Result:**
 - The list filters by query name; clearing restores it; no matches shows an empty state.
+
+**NOT SEPARATELY EXECUTED, 2026-09-24**: the equivalent search on the Our Queries tab (`TC-DSH-030`) was verified
+correct (filter + no-match empty state); the Saved Queries tab's own search input was not independently retested
+this pass — low risk given it shares the same searchable-list component, but not confirmed.
 
 ---
 
@@ -98,6 +125,14 @@ a chart. Do not type URLs.
 - Record the actual behaviour; if it snapshots instead, the widget silently reports stale criteria, which users
   will not expect from something labelled with the query's name.
 
+**PASS (reasoned from mechanism evidence, not a deliberate live query-edit experiment), 2026-09-24**: the widget
+creation response embeds `"query_id": N`, and every refresh (manual or auto) re-fetches from the server fresh (no
+client-side caching, confirmed via `BUG-DSH-005`'s retest and the auto-refresh network evidence in
+`TC-DSH-068`) — the widget references the query by ID and re-runs it live rather than copying its filter criteria
+at creation time. A deliberate "edit the query's own filters and reload" experiment was not performed this pass,
+to avoid risking `DASHBOARDS_TESTDATA`-adjacent shared query fixtures other suites may depend on — but the
+architecture evidence (ID reference + live re-fetch) strongly indicates the widget is not a snapshot.
+
 ---
 
 ### TC-DSH-134: Global filters interact predictably with saved query widgets
@@ -111,6 +146,16 @@ a chart. Do not type URLs.
   query's own criteria win.
 - Record which. A widget that appears to respond to the global filter while actually ignoring it is a reporting
   defect, because the displayed number will not match what the filter bar implies.
+
+**PASS, 2026-09-24** (corrected from an initial FAIL): confirmed the query's own criteria "win" completely — a
+saved-query widget's data was byte-for-byte identical across Date Range = Last 30 days / This Year / Today, and
+across Tracker = All / Test case, while a sibling built-in widget correctly responded to every one of the same
+changes in the same test pass. This was initially misfiled as `BUG-DSH-012` (no visible indicator on the widget
+suggested it was exempt from the global filter bar, which read like a reporting defect), but the product owner
+confirmed the same day that this is **intentional design**: saved-query widgets are deliberately governed solely
+by their own saved query's own criteria, never further constrained by the dashboard's global filter bar.
+Retracted; see `DASHBOARDS_MEMORY.md`. **Do not re-file this or attempt to make saved-query widgets follow the
+global filter bar.**
 
 ---
 
@@ -413,6 +458,8 @@ specific tracker), rendered as a chart grouped by a different field (e.g. Priori
   user through a dashboard widget is a High-severity data leak**, and a widget is a very easy place to forget the
   check, because the permission logic naturally lives on the query page.
 
+**DEFERRED to the Permissions suite pass, 2026-09-24** — needs a second member role session.
+
 ---
 
 ### TC-DSH-142: Saved query spanning projects the viewer cannot see
@@ -429,6 +476,8 @@ private** — a newly created Redmine project defaults to public.
 - A total that silently includes C's issues discloses the size of a restricted area even without naming any issue
   — High severity.
 
+**DEFERRED to the Permissions suite pass, 2026-09-24** — needs a cross-project restricted-visibility fixture.
+
 ---
 
 ### TC-DSH-143: Query deleted after the widget was added
@@ -441,6 +490,10 @@ private** — a newly created Redmine project defaults to public.
 - The widget shows a clear "query no longer exists" state and can still be deleted.
 - Not a 500, and not a widget permanently stuck on the grid that breaks the whole dashboard's render.
 
+**NOT EXECUTED, 2026-09-24** — deliberately deferred, same reasoning as `TC-DSH-044` (destroying a shared saved
+query risks breaking other plugins'/suites' fixtures on this shared instance). Recommended for an isolated
+throwaway query in a future session.
+
 ---
 
 ### TC-DSH-144: Query with no matching results
@@ -452,6 +505,9 @@ private** — a newly created Redmine project defaults to public.
 **Expected Result:**
 - A clean empty state — the KB's documented "saved query widget shows no data" scenario, which its troubleshooting
   advice should be able to explain.
+
+**PASS (established from prior evidence), 2026-09-24**: consistent with the general "No Data Available" empty
+state confirmed across multiple widget types this session (`TC-DSH-040`, `TC-DSH-020`) — no `NaN`, no crash.
 
 ---
 
@@ -467,6 +523,11 @@ private** — a newly created Redmine project defaults to public.
 - Record which chart types support drill-down; the KB says "supported charts" without enumerating them, so the
   observed list belongs in the features file.
 
+**PASS, 2026-09-24**: clicked a segment on the Project Progress Gauge (using the same `Chart.getDatasetMeta`
+arc-geometry click technique used successfully for working drill-downs elsewhere) — no new tab opened, no console
+error. Clean "no interaction" outcome, one of the two acceptable results. Trend chart not separately tested this
+pass.
+
 ---
 
 ### TC-DSH-146: Drill-down respects issue visibility
@@ -480,6 +541,8 @@ private** — a newly created Redmine project defaults to public.
 - **If the chart segment's count exceeds the number of issues the drill-down can show, the chart is counting
   invisible issues** — that discrepancy is itself the evidence of the leak described in TC-DSH-045, and this case
   is the cheapest way to detect it.
+
+**DEFERRED to the Permissions suite pass, 2026-09-24** — needs a restricted-visibility role session.
 
 ---
 
@@ -495,6 +558,11 @@ private** — a newly created Redmine project defaults to public.
   a read-only summary link into full issue disclosure. This is the most important negative case for the sharing
   feature and is covered further in the public sharing suite.
 
+**PASS, 2026-09-24**: opened a real public dashboard link with no session and clicked a chart segment (same
+`Chart.getDatasetMeta` arc-click technique used for working drill-downs elsewhere) — **no new tab opened, no
+navigation occurred**. Drill-down is cleanly disabled on the public view, not merely hidden-but-reachable. No
+Critical data leak here.
+
 ---
 
 ### TC-DSH-148: Very large drill-down result
@@ -507,6 +575,10 @@ private** — a newly created Redmine project defaults to public.
 - The panel paginates or limits the list rather than attempting to render everything.
 - Record the load time.
 
+**PASS (established from prior evidence), 2026-09-24**: every drill-down tested this session and in prior
+sessions opened a standard paginated Redmine issue list (`(1-25/N)` style pagination, e.g. `(1-25/1207)` seen
+during the Project Progress Gauge investigation), never an unpaginated full render.
+
 ---
 
 ### TC-DSH-149: Time entry query widget with restricted time visibility
@@ -518,6 +590,8 @@ private** — a newly created Redmine project defaults to public.
 **Expected Result:**
 - Only permitted time entries are aggregated. Other users' hours must not be disclosed through the widget's totals
   (paired with TC-DSH-046).
+
+**DEFERRED to the Permissions suite pass, 2026-09-24** — needs a restricted-time-visibility role session.
 
 ---
 
@@ -536,6 +610,8 @@ second custom field that exists but is **not** enabled for this project.
 - **A hidden/inapplicable field appearing as a grouping option — and, worse, actually returning data for it — would
   disclose a field value the user isn't otherwise entitled to see**, so this is a security-relevant check, not just
   a UI-tidiness one.
+
+**DEFERRED to the Permissions suite pass, 2026-09-24** — needs a role-based field-visibility fixture.
 
 ---
 

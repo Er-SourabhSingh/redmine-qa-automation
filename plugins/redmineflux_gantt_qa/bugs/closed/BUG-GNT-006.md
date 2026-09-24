@@ -60,3 +60,18 @@ Medium — does not corrupt data, does not leak information across permission ti
 
 - Found while executing TC-GNT-207 (`testcases/GANTT_VIEW_SETTINGS_AND_FILTERS.md`), which explicitly anticipated this exact failure mode: *"This is a permission relaxation versus the plugin's pre-#120913 behavior... verify explicitly rather than assuming, since a relaxation that silently fails to apply is itself a defect."*
 - Also blocks live execution of TC-GNT-224 (critical-path scope stored per user) and the "own view" halves of TC-GNT-205 for any non-Manage-versions role, since none of those settings are reachable without the gear.
+
+## Retest — 2026-09-24, FIXED
+
+- Dev build redeployed (`redmine-docker-700-redmine-1` container restarted, Gantt plugin JS/CSS assets rewritten — confirmed via `docker logs`).
+- Logged in as `daisy.skye` (Reporter, still no "Manage versions") and opened the project's Flux Gantt view: the **Settings gear button is now present** in the toolbar (`["Settings", "Issues Without Version", "Fullscreen", "Export"]`, vs. `["Issues Without Version", "Fullscreen", "Export"]` before) — "+ Add Release" correctly remains absent (still legitimately gated).
+- Clicked it: the panel opens fully with **Zoom level, Display Mode, Show Today Line, Sort By + Direction, and Display Fields (Show Assignee/Progress/Estimated Hours/Ticket Status/Baseline Controls/Critical Path) all reachable and interactive** for Daisy — confirmed via accessibility snapshot, not just the button's presence.
+- **Fixed.** Moving to `bugs/closed/`.
+
+### Retest screenshot
+
+![Retest — Daisy's Settings panel now opens fully](../../screenshots/BUG-GNT-006/retest-2026-09-24-pass.png)
+
+### Production status sync — 2026-09-24
+
+- Production issue #121141 updated: In QA → **Done**, % done → **100**. Verified via `get_issue`: `Status: Done`, `Done ratio: 100%`.

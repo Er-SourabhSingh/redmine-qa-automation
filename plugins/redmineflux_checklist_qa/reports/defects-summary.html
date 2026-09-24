@@ -42,21 +42,21 @@
 <body>
 
 <h1>Defects Summary — Redmineflux Checklist Plugin</h1>
-<p class="subtitle">Open bugs only — closed bugs (BUG-CHK-001) tracked in <code>bugs/closed/</code>, not repeated here</p>
+<p class="subtitle">Open bugs only — closed bugs (BUG-CHK-001, BUG-CHK-002, BUG-CHK-004) tracked in <code>bugs/closed/</code>, not repeated here</p>
 
 <div class="meta">
   <div><span class="k">Redmine version</span>7.0.0 (Docker, localhost:3010)</div>
   <div><span class="k">Environment</span>Local Docker (redmine-docker-700-redmine-1)</div>
-  <div><span class="k">Test date</span>2026-09-22</div>
+  <div><span class="k">Test date</span>2026-09-24</div>
   <div><span class="k">Tested by</span>Claude (Playwright MCP)</div>
 </div>
 
 <div class="summary">
-  <div class="stat"><span class="num">3</span><span class="lbl">Total open</span></div>
-  <div class="stat critical"><span class="num">1</span><span class="lbl">Critical</span></div>
-  <div class="stat high"><span class="num">1</span><span class="lbl">High</span></div>
-  <div class="stat medium"><span class="num">1</span><span class="lbl">Medium</span></div>
-  <div class="stat low"><span class="num">0</span><span class="lbl">Low</span></div>
+  <div class="stat"><span class="num">1</span><span class="lbl">Total open</span></div>
+  <div class="stat critical"><span class="num">0</span><span class="lbl">Critical</span></div>
+  <div class="stat high"><span class="num">0</span><span class="lbl">High</span></div>
+  <div class="stat medium"><span class="num">0</span><span class="lbl">Medium</span></div>
+  <div class="stat low"><span class="num">1</span><span class="lbl">Low</span></div>
 </div>
 
 <table>
@@ -72,34 +72,18 @@
   </thead>
   <tbody>
     <tr>
-      <td class="bugid">BUG-CHK-002</td>
-      <td><span class="badge critical">Critical</span></td>
-      <td>Checklist/sub-item title containing a <code>&lt;script&gt;</code> tag executes on creation</td>
-      <td class="notes">Regression pass for #120920, <code>TC-CHK-031</code></td>
-      <td class="notes">Not yet reported</td>
-      <td class="notes">Client-side self-XSS in <code>checklist.js</code>'s creation AJAX handlers (unescaped raw HTML interpolation) — not caused by #120920 itself, pre-existing. Not a stored XSS for other viewers (a normal reload renders it safely escaped). Confirmed the template apply/creation path (<code>_form_modal.html.erb</code>, <code>TC-CHK-111</code>) does <em>not</em> share this bug — fully server-rendered and escaped.</td>
-    </tr>
-    <tr>
-      <td class="bugid">BUG-CHK-004</td>
-      <td><span class="badge medium">Medium</span></td>
-      <td>Toggling a sub-checklist item's checkbox writes duplicate Checklist History journal entries</td>
-      <td class="notes"><code>TC-CHK-091</code> (rapid toggling), root-caused via source read</td>
-      <td class="notes">Not yet reported</td>
-      <td class="notes">A single click already fires two separate AJAX PATCH requests to two different endpoints (<code>toggle_completed</code> and <code>update_state</code>) for the same state change — confirmed via the Network tab, not just under rapid clicking (which compounds it further via unsequenced overlapping requests). Audit-trail / data-integrity defect only — the checkbox's actual final state and completion % are always correct.</td>
-    </tr>
-    <tr>
       <td class="bugid">BUG-CHK-005</td>
-      <td><span class="badge high">High</span></td>
-      <td>Checklist CRUD is not blocked on a closed/read-only project</td>
+      <td><span class="badge low">Low</span></td>
+      <td>Checklist CRUD blocked-action feedback is missing (write-authorization half already fixed)</td>
       <td class="notes">User-reported console 403, investigated live</td>
-      <td class="notes">Not yet reported</td>
-      <td class="notes">On the same closed project/issue: <code>POST /checklists</code> → 201, <code>PATCH /checklists/:id/toggle_completed</code> → 200, <code>DELETE /checklists_delete/:id.json</code> → 200 all succeed; only <code>GET /checklists/new_from_template</code> is blocked (403), with no user-facing feedback. Plugin doesn't apply a uniform "project closed = read-only" guard, unlike Redmine core.</td>
+      <td class="notes">#121061</td>
+      <td class="notes">Retested 2026-09-24: the write-authorization gap is fixed — <code>POST /checklists</code>, <code>PATCH .../toggle_completed</code> (incl. bulk), and <code>DELETE /checklists_delete/:id.json</code> now all correctly return 403 and don't persist on a closed project. Remaining scope: all four checklist-mutating actions still fail completely silently (console-only 403, no visible flash/error) — a UX/feedback gap only, downgraded from High.</td>
     </tr>
   </tbody>
 </table>
 
 <footer>
-  Generated per CLAUDE.md §7 report rules. Full bug files: <code>bugs/open/BUG-CHK-002.md</code>, <code>bugs/open/BUG-CHK-004.md</code>, <code>bugs/open/BUG-CHK-005.md</code>.
+  Generated per CLAUDE.md §7 report rules. Full bug file: <code>bugs/open/BUG-CHK-005.md</code>.
   See <code>reports/final-bug-report.md</code> for the compiled Markdown version.
 </footer>
 

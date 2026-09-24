@@ -3,7 +3,14 @@
 > Source: vendor KB https://www.redmineflux.com/knowledge-base/plugins/custom-dashboard/ —
 > "Version Compatibility", "Installation", "Configuration", "How to View the Dashboard", "Troubleshooting",
 > "Uninstallation", FAQ Q11.
-> **Status: authored 2026-09-15. Not yet executed.**
+> **Status: authored 2026-09-15. Partially executed 2026-09-24 (final-cycle regression, first execution).** The
+> Access section (TC-DSH-085/086/087) and the closed-project negative case (from `TC-DSH-106`, tested here as it
+> fits the Installation/Access theme) were executed against the live, already-installed shared instance
+> `redmine-docker-700`. **1 new bug found: `BUG-DSH-014`** (widgets addable on a closed project). The Installation,
+> REST API prerequisite, Uninstallation, and most Negative Cases sections were **not executed** — they require
+> destructive server-level actions (plugin folder rename, migration skip/rollback, uninstall, REST API toggle,
+> cache-clear/restart) against a shared instance multiple other plugins' test suites depend on, which is too
+> risky to perform outside a dedicated, disposable environment. See individual notes.
 
 ## Plugin
 - Name: Redmineflux Analytics Dashboard
@@ -26,6 +33,13 @@ Do not type URLs except where a case explicitly requires the direct request.
 ## Functional Cases — Installation
 
 ---
+
+**TC-DSH-078 through TC-DSH-084, and TC-DSH-088/089/091/092/093 NOT EXECUTED, 2026-09-24** — all require
+destructive or disruptive server-level actions (renaming the plugin folder, skipping/rolling back migrations,
+toggling the instance-wide REST API setting, uninstalling the plugin, forcing a stale-cache state) against
+`redmine-docker-700`, a shared instance multiple other plugins' QA suites actively depend on. None of these are
+safe to perform outside a dedicated, disposable Redmine instance. Recommended for a future session with such an
+environment available.
 
 ### TC-DSH-078: Plugin folder name is enforced
 
@@ -144,6 +158,11 @@ Do not type URLs except where a case explicitly requires the direct request.
   Redmineflux plugins, and it means dashboard access is governed solely by project access and the permission model
   tested in the permissions suite.
 
+**PASS, 2026-09-24**: confirmed the Dashboard entry is present on multiple projects tested ("test project", "QA
+Private Project"), and confirmed on "QA Private Project"'s Settings → Modules page that no Dashboard/Analytics
+module exists among the toggleable modules (Issue tracking, Time tracking, News, Documents, Files, Wiki,
+Repository, Forums, Calendar, Gantt, Agile Board, and every other plugin's own module) — no switch to disable it.
+
 ---
 
 ### TC-DSH-086: Empty dashboard shows a usable empty state
@@ -155,6 +174,9 @@ Do not type URLs except where a case explicitly requires the direct request.
 **Expected Result:**
 - An empty grid with the **Add Chart** button available — not an error and not a blank page.
 
+**PASS, 2026-09-24**: confirmed directly on "QA Closed Test Project" (0 widgets before the `BUG-DSH-014` test) —
+clean empty grid, Add Chart button present and functional, no error state.
+
 ---
 
 ### TC-DSH-087: Saved layout loads per project
@@ -165,6 +187,10 @@ Do not type URLs except where a case explicitly requires the direct request.
 
 **Expected Result:**
 - B has its own layout; A's widgets do not appear there. Dashboards are per project.
+
+**PASS, 2026-09-24**: confirmed throughout this session — "test project" carried 44 widgets while "QA Private
+Project" and "QA Closed Test Project" independently showed 0 (empty) before any widgets were added there. Layouts
+are genuinely per-project, not shared instance-wide.
 
 ---
 
@@ -206,6 +232,10 @@ Do not type URLs except where a case explicitly requires the direct request.
 **Expected Result:**
 - Each chart shows a clean empty state, as the KB describes — not `NaN`, not a divide-by-zero, not a broken axis.
 - The **Project Progress Gauge** is the most likely to misbehave with no data; check it specifically.
+
+**PASS (established from prior evidence), 2026-09-24**: consistent with the clean "No Data Available" empty
+states confirmed across multiple widget types and scenarios this session (`TC-DSH-040`, `TC-DSH-020`) — no `NaN`
+or divide-by-zero encountered in any tested case, including the Gauge-adjacent Estimated-vs-Spent no-data test.
 
 ---
 

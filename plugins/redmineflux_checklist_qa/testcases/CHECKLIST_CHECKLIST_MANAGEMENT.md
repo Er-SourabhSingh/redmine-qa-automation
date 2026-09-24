@@ -524,6 +524,94 @@ scope). These TCs had never been executed before this pass.
 attribute and `checklist_checkbox.js`'s toggle/collapse-memory logic) — so #120920 itself did not introduce this
 regression, but a full, clean regression pass on this suite is not achieved until `BUG-CHK-002` is resolved.
 
+## Regression Pass — 2026-09-24 (post-fix, BUG-CHK-002)
+
+> **Scope note:** this is a user-approved **SCOPED** regression — this suite plus `CHECKLIST_PROGRESS_TRACKING.md`
+> only, not the full-plugin regression `SENIOR_QA_STANDARDS.md` §26 would otherwise call for at Critical severity.
+> Re-run because `checklist.js`'s two AJAX-creation success handlers (new checklist, new sub-item) were patched to
+> fix `BUG-CHK-002` (self-XSS on creation, production #121059) — both handlers now append an empty `<span>` and set
+> its text via jQuery `.text()` instead of building raw unescaped HTML.
+
+CONFIRMED LIVE 2026-09-24 (Local, redmine-docker-7.0.0, `test project`, issue #1530, plus a throwaway issue #1571
+for the closed-issue/delete-issue cases): re-executed TC-CHK-015–042 against the live instance after the fix.
+Every case matches its original documented Expected Result; evidence is kept concise per case since the underlying
+behavior was already thoroughly characterized in the 2026-09-21 pass above.
+
+- **TC-CHK-015 — PASS.** Created "Regression 2026-09-24 checklist A" via Actions → New checklist; appeared
+  immediately and survived a full page reload.
+- **TC-CHK-016 — PASS.** Issue already carried 7 independently-created checklists (from this and prior sessions),
+  each with its own progress bar; order stable across a fresh reload.
+- **TC-CHK-017 — PASS.** Added a sub-item under the new checklist via Actions → Add; nested correctly under its
+  parent, not created as a sibling top-level checklist.
+- **TC-CHK-018 — PASS.** Added a second sub-item consecutively; both persisted in creation order. Same pre-existing,
+  non-regression UX note as 2026-09-21: the Add form closes after each item rather than staying open.
+- **TC-CHK-019 — PASS.** Edited the issue's Subject via the normal Edit form and saved (worked around this fixture
+  issue's own unrelated required-custom-field validation, not a checklist defect); both the checklist and its
+  sub-items were intact afterward.
+- **TC-CHK-020 — PASS.** Renamed the checklist title via its Edit action; persisted after a fresh reload.
+- **TC-CHK-021 — PASS.** Renamed a sub-item title via its edit icon; sibling item's text was unaffected.
+- **TC-CHK-022 — PASS.** Began editing a sub-item, typed junk text, pressed Escape; original text retained after
+  reload, junk not saved.
+- **TC-CHK-023 — PASS.** Deleted one sub-item via its Delete action + confirm modal; only that item was removed,
+  sibling item and the parent checklist remained.
+- **TC-CHK-024 — PASS functionally**, same pre-existing usability note as before (modal text still doesn't warn
+  that child items go too — not filed, matches 2026-09-21 finding). Deleted the whole checklist (1 remaining
+  sub-item); cascaded correctly, all 7 other checklists on the issue untouched.
+- **TC-CHK-025 — PASS.** Triggered delete on "First checklist title", clicked Cancel; nothing deleted, row present
+  after reload.
+- **TC-CHK-026 — PASS.** Toggled checklist 50's sub-list collapsed (`display: none`) then expanded again
+  (`display: block`); item data and status intact throughout.
+- **TC-CHK-027 — PASS.** Checklist History tab showed one-to-one entries (added/removed/created) for every action
+  performed this session, each with correct actor and relative timestamp.
+- **TC-CHK-028 — PASS.** Empty-title submission was a clean no-op — no blank checklist row created (checklist count
+  stayed at 7).
+- **TC-CHK-029 — PASS.** Whitespace-only title treated identically to empty; count still 7.
+- **TC-CHK-030 — PASS.** A 1000-character title (bypassing the client `maxlength` via direct value assignment) was
+  rejected server-side; no new checklist created, no 500, no layout break.
+- **TC-CHK-031 — PASS (the core BUG-CHK-002 confirmation).** Created a top-level checklist titled
+  `<script>window.__suite_xss_fired=true;</script>` — `window.__suite_xss_fired` stayed `false` and the DOM showed
+  the fully HTML-entity-escaped string immediately after the AJAX success callback (no reload). Repeated for the
+  **sub-item** path (`<script>window.__suite_xss_subitem_fired=true;</script>` as a sub-item description under the
+  same checklist) — same result, script did not fire, escaped on render. Both of `BUG-CHK-002`'s originally-broken
+  paths (new-checklist creation, new-sub-item creation) confirmed fixed at the suite level, matching the bug file's
+  own 2026-09-24 retest.
+- **TC-CHK-032 — PASS.** Created two checklists with an identical title ("Duplicate title regression test"); only
+  one was created (server-side unique-title rejection held), checked after an explicit wait for the AJAX round-trip
+  per the 2026-09-21 session's own false-negative lesson.
+- **TC-CHK-033 — PASS, same defense-in-depth as before.** Used a throwaway issue (#1571, Feature tracker, to avoid
+  this project's unrelated required-custom-field friction on the Bug tracker) with one complete checklist; closed
+  the issue (blocked once by this plugin's own "Block issue closing" feature on issue #1530 since its other
+  checklists were intentionally incomplete fixtures — confirms that feature still works too, not a defect). On
+  #1571: closed the issue, and the checklist's Actions menu was disabled (`onclick="return false"`) with tooltip
+  "Issue is closed, you cannot perform this action"; checkbox also `disabled`. A direct `fetch` PATCH to
+  `/checklist_items/61/toggle_completed` returned **403**. Reopened the issue afterward.
+- **TC-CHK-034 — PASS (lightweight variant, as in the original pass).** On a fresh 2-item checklist: fired a real
+  raw DELETE for one sub-item concurrently with a UI-driven add of a new sub-item. Both resolved without a
+  stale-state exception; after a full reload the final list was exactly the expected 1 item (the deleted one gone,
+  the newly-added one present) — no data loss, no duplicate/orphaned rows.
+- **TC-CHK-035 — PASS.** Deleted throwaway issue #1571 (which had one checklist + one sub-item) via the UI Delete
+  action. Verified via `rails runner` (no UI surface exists to check for orphaned rows, same as the 2026-09-21
+  approach) — `Checklist.where(issue_id: 1571).count == 0` and both the deleted checklist's and sub-item's row IDs
+  no longer exist. No orphaned records.
+- **TC-CHK-036 — N/A, unchanged.** Still no per-project module toggle for this plugin on this instance; this is a
+  static environment fact independent of the fix, not re-verified live.
+- **TC-CHK-037/038 — PASS.** On a fresh page load, every sub-checklist `<ul>` on issue #1530 rendered
+  `display: block` (10 checked, all expanded), confirming #120920's expand-by-default behavior still holds — the
+  creation-handler fix did not touch `_checklist.html.erb` or this rendering path.
+- **TC-CHK-039 — PASS.** Re-toggled checklist 50's collapse icon; both directions worked as in TC-CHK-026 above.
+- **TC-CHK-040 — PASS.** Collapsed checklist 50, did a genuine fresh reload — stayed collapsed
+  (`localStorage` → `["50"]`); checklist 59 (untouched) stayed expanded. Re-expanded for cleanliness.
+- **TC-CHK-041 — PASS.** Collapsed checklist 59, then (without reloading) ticked a checkbox in a *different*
+  checklist (196) to trigger an AJAX re-render — checklist 59 stayed collapsed (`display: none`) after the
+  re-render; no cross-checklist leakage. Re-expanded for cleanliness.
+- **TC-CHK-042 — PASS.** Collapsed checklist 50 as Admin, logged out, logged in as `luna.blossom` in the same
+  browser tab — checklist 50 still rendered collapsed for her (browser-local `localStorage` state, not
+  account-scoped), with identical item data for both accounts. Logged back in as Admin afterward.
+
+**Result: 27 PASS, 1 N/A (TC-CHK-036), 0 FAIL.** `BUG-CHK-002` (Critical) is confirmed fixed at the full suite
+level — both previously-vulnerable creation paths (new checklist, new sub-item) now correctly escape script tags,
+and no other TC in this suite regressed as a side effect of the fix. No new bugs found during this pass.
+
 ## Evidence Map
 
 | Case ID | Screenshot | Log | Bug reference |

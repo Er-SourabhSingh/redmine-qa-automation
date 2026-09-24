@@ -66,6 +66,15 @@
 - Found during TC-INE-032 (interaction with other scripts on the same page: "no … double-binding"). Suggested
   fix: skip the injection on pages that already call `heads_for_wiki_formatter`, or guard the injected scripts.
 
+## Retest
+
+**Result: FIXED, confirmed 2026-09-24** — after pulling commit `1c7e81d` and precompiling assets (fixed in the
+same batch as BUG-INE-005/006/007/008, prior to the BUG-INE-009 regression cycle). Reloaded the issue detail
+page and confirmed exactly one `<script>` each for `jstoolbar/jstoolbar`, `jstoolbar/common_mark` and
+`jstoolbar/lang/jstoolbar-en` — no duplicates — and zero page errors captured via `page.on('pageerror')`. The
+description toolbar/preview/save still work correctly (reconfirmed as part of BUG-INE-008's retest on the same
+page).
+
 ## Duplicate check
 
 - Duplicate found: No

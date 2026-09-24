@@ -2,11 +2,17 @@
 
 ## Last Session
 
-- Date: 2026-09-22
+- Date: 2026-09-24
 - Redmine Version: 7.0.0 (Docker)
 - Environment: Local Docker — `redmine-docker-700-redmine-1`, `http://localhost:3010`
 
-## Completed This Session (2026-09-22) — BUG-CHK-005 filed, closed-project checklist writes not blocked
+## Completed This Session (2026-09-24) — scoped post-fix regression for BUG-CHK-002/BUG-CHK-004
+
+User-approved scoped regression (see Run History below for full detail): executed all 42 TCs across
+`CHECKLIST_CHECKLIST_MANAGEMENT.md` and `CHECKLIST_PROGRESS_TRACKING.md` live, **41 PASS / 1 N/A, 0 FAIL, 0 new
+bugs**. Both `BUG-CHK-002` and `BUG-CHK-004` are now candidates for closure — see "Next Session Start Point" below.
+
+## Completed Previous Session (2026-09-22) — BUG-CHK-005 filed, closed-project checklist writes not blocked
 
 Not a planned test pass — the user reported a console 403 on "Add from template" for a closed project and
 suspected the whole checklist section should be disabled on a closed project. Investigated live on project
@@ -110,15 +116,26 @@ section at the bottom of each.
 
 ## Next Session Start Point
 
+- **BUG-CHK-002 and BUG-CHK-004 are now CLOSED (2026-09-24)** — retested PASS, user-approved scoped regression
+  PASS (see below), user explicitly approved closure, production issues #121059/#121060 synced to Done/100%,
+  local files moved to `bugs/closed/`.
+  - BUG-CHK-002 (Critical): scoped regression PASS — `CHECKLIST_CHECKLIST_MANAGEMENT.md` (27 PASS / 1 N/A) +
+    `CHECKLIST_PROGRESS_TRACKING.md` (14 PASS), 0 new bugs. The full-plugin regression the Critical severity table
+    would otherwise call for was **not** run — user explicitly chose the narrower two-suite scope instead.
+  - BUG-CHK-004 (Medium): scoped regression PASS — `CHECKLIST_PROGRESS_TRACKING.md` (14/14 PASS, its own affected
+    suite) + `CHECKLIST_CHECKLIST_MANAGEMENT.md` alongside it, 0 new bugs.
+- **BUG-CHK-005 remains open** (now the only open bug for this plugin) — the no-feedback half of the original
+  bug is still unresolved (effective severity Low). Re-verify the write-block half again in the same pass if
+  the dev pushes a feedback-message fix.
+- **`bugs/open/` is not yet empty** (BUG-CHK-005 remains), so the full-plugin final-cycle regression
+  (`SENIOR_QA_STANDARDS.md` §27) and a `STATUS.md` move to `Complete` are **not** triggered yet — that gate
+  fires only once BUG-CHK-005 also closes. No `automation/tests/` exist yet for this plugin (empty
+  `automation/` folder) to speed up that future full pass.
 - All functional test suites for this plugin are now executed except German (`CHECKLIST_GERMAN_LANGUAGE.md`,
   explicitly excluded per user instruction this session).
 - **TC-CHK-010** (`CHECKLIST_BLOCK_ISSUE_CLOSING.md`, REST API bypass check) still needs to be run — requires a
   real API key supplied out-of-band by the user (browser-automation credential reads are blocked by this
   session's own safeguard, and an unauthenticated request triggers a disruptive native Basic-Auth popup).
-- Three open bugs need fixes before this plugin can move to `Complete` in `STATUS.md` (see CLAUDE.md §10): once
-  fixed, retest per `SENIOR_QA_STANDARDS.md` §26, and when `bugs/open/` is empty run the full final-cycle
-  regression per §27. **When retesting BUG-CHK-005, check every checklist-mutating endpoint** (create checklist,
-  create item, toggle, delete, update_state), not just "Add from template" — the fix needs applying uniformly.
 - **Update:** the earlier "do not touch production" instruction was superseded later in the same session — the
   user explicitly asked for all 3 open bugs to be reported (assigned to Vaishnavi Bhawsar), done, see below.
   Standing rule still applies for *future* sessions: no production write without fresh, explicit approval each
@@ -126,16 +143,25 @@ section at the bottom of each.
 
 ## Open Bugs Found
 
-- **BUG-CHK-002 (Critical)** — checklist/sub-item title `<script>` tag self-XSS on creation. Reported to
-  production as **#121059**, assigned to Vaishnavi Bhawsar. `plugins/redmineflux_checklist_qa/bugs/open/BUG-CHK-002.md`.
-- **BUG-CHK-004 (Medium)** — toggling a sub-checklist item's checkbox writes duplicate Checklist History journal
-  entries (cascading double-AJAX-write on every click). Reported to production as **#121060**, assigned to
-  Vaishnavi Bhawsar. `plugins/redmineflux_checklist_qa/bugs/open/BUG-CHK-004.md`.
-- **BUG-CHK-005 (High)** — checklist create/toggle/delete are not blocked on a closed/read-only project; only
-  "Add from template" is, with no user-facing feedback. Reported to production as **#121061**, assigned to
-  Vaishnavi Bhawsar. `plugins/redmineflux_checklist_qa/bugs/open/BUG-CHK-005.md`.
-- (BUG-CHK-001 closed — already reported by the user independently, unrelated.) `BUG-TMS-001` was found this
-  session but belongs to the Timesheet plugin, not Checklist — tracked in
+- **BUG-CHK-005 (High → Low, remaining scope)** — checklist create/toggle/delete are not blocked on a
+  closed/read-only project; only "Add from template" was, with no user-facing feedback. Reported to production
+  as **#121061**, assigned to Vaishnavi Bhawsar. **Retested PARTIAL 2026-09-24 — the write-blocking half is
+  fixed (all 4 actions now 403 and don't persist), but the no-user-feedback half is still open** (still silent
+  console-only 403 on all 4 actions, zero visible flash/error). Kept open at effective Low severity for the
+  remaining scope. `plugins/redmineflux_checklist_qa/bugs/open/BUG-CHK-005.md`.
+
+## Closed This Session (2026-09-24)
+
+- **BUG-CHK-002 (Critical)** — checklist/sub-item title `<script>` tag self-XSS on creation. Retested PASS,
+  scoped regression PASS (41 PASS / 1 N/A across both directly-affected suites, 0 new bugs). **User approved
+  closure** — production issue **#121059** synced to status Done, 100% done; local file moved to
+  `bugs/closed/BUG-CHK-002.md`.
+- **BUG-CHK-004 (Medium)** — toggling a sub-checklist item's checkbox wrote duplicate Checklist History journal
+  entries (cascading double-AJAX-write). Retested PASS, scoped regression PASS (14/14 PASS on its own affected
+  suite, 0 new bugs). **User approved closure** — production issue **#121060** synced to status Done, 100%
+  done; local file moved to `bugs/closed/BUG-CHK-004.md`.
+- (BUG-CHK-001 closed 2026-09-07 — already reported by the user independently, unrelated.) `BUG-TMS-001` was
+  found in an earlier session but belongs to the Timesheet plugin, not Checklist — tracked in
   `plugins/redmineflux_timesheet_qa/bugs/`, not here.
 
 ## Run History
@@ -146,3 +172,6 @@ section at the bottom of each.
 | 2026-09-15 | n/a (authoring only) | n/a | Claude | **Test-case authoring pass — nothing executed.** Vendor knowledge base ingested from https://www.redmineflux.com/knowledge-base/plugins/checklist-plugin/ and 108 functional, negative and permission test cases written across 5 new suites (TC-CHK-054 onward): CHECKLIST_INSTALLATION_CONFIGURATION, CHECKLIST_MANAGEMENT, PROGRESS_TRACKING, TEMPLATES, BLOCK_ISSUE_CLOSING, PERMISSIONS. Existing suites and their execution evidence were left untouched; the new cases start at 101 so they cannot collide with the existing TC-CHK-0xx numbering. Next session should start with the installation/configuration suite, then permissions, then the functional suites in file order. |
 | 2026-09-21 | 7.0.0 (Docker) | Local (redmine-docker-700, localhost:3010) | Claude (Playwright MCP) | Sanity-tested production feature #120920 (expand-by-default). 6 new TCs authored and executed (TC-CHK-037–228), all PASS, no bugs. Covered fresh-load default, multi-checklist, toggle regression, reload persistence, AJAX re-render survival, and per-browser (not per-account) scoping — the last confirmed by switching Redmine accounts in the same browser after importing this instance's missing `QA_CREDENTIALS.md` seed-user pool (19 of 20 users; `aurora.wren` skipped, already a real identity here). **Full regression pass on `CHECKLIST_CHECKLIST_MANAGEMENT.md` (TC-CHK-015–222, first-ever execution, triggered by #120920 touching shared rendering/JS files per SENIOR_QA_STANDARDS.md §26): 21 PASS, 1 N/A, 1 FAIL.** Filed `BUG-CHK-002` (Critical, not caused by #120920) — a `<script>` tag in a checklist/sub-item title self-executes on creation via an unescaped client-side AJAX render, confined to the creating user's own session (not stored-XSS for other viewers). Also found and reported an unrelated Timesheet-plugin bug (`BUG-TMS-001` / production #121040) while investigating a live 500 error report. **Same-day, later pass: executed all three remaining previously-authored suites** — `CHECKLIST_TEMPLATES.md` (23/23 PASS, no bugs), `CHECKLIST_PROGRESS_TRACKING.md` (13/14 PASS, 1 FAIL → filed `BUG-CHK-004` Medium, a cascading double-AJAX-write causing duplicate Checklist History journal entries on every checkbox click), `CHECKLIST_BLOCK_ISSUE_CLOSING.md` (13/14 executed all PASS, TC-CHK-010 REST-API-bypass not executed — blocked by a credential-materialization safeguard). Every functional suite except German is now complete. |
 | 2026-09-22 | 7.0.0 (Docker) | Local (redmine-docker-700, localhost:3010) | Claude (Playwright MCP) | Ad-hoc investigation, not a planned pass — user reported a console 403 on "Add from template" for a closed project and suspected checklist writes should be fully disabled there. Confirmed with live network evidence on project `checklist-perm-private` (closed): checklist create (`POST /checklists` → 201), toggle (`PATCH .../toggle_completed` → 200), and delete (`DELETE .../checklists_delete/:id.json` → 200) all succeed on a closed/read-only project; only "Add from template" is blocked (403), with no user-facing feedback even then. Filed `BUG-CHK-005` (High) — the plugin should follow Redmine core's own consistent closed-project read-only enforcement. **Same day, user explicitly approved reporting all 3 open bugs to production**: `BUG-CHK-002` → #121059, `BUG-CHK-004` → #121060, `BUG-CHK-005` → #121061, all assigned to Vaishnavi Bhawsar. **Then linked all 3 as defects on testcase #121037** ("Sanity: Checklists display expanded by default (#120920)") in Run #577, environment "Window 11 + Chrome" — took 3 attempts to get right (see `feedback_defect_ids_needs_issue_relation_too.md` in memory for full detail): (1) `create_status_result` with `defect_ids` saved the data internally but created no visible relation — user reported "bugs are not related"; (2) manual `create_issue_relation(relation_type="relates")` made the relation visible on the issue but still didn't show in the run's testcase-matrix `defects:[...]` badge — user reported it again ("you failed this testcase but bugs are not related"); (3) **the actual fix**: `redmineflux_testcases_management_report_defect` with `defect_issue_id` per existing bug, which creates the relation with the correct type `defect` (not `relates`) — had to first delete the 3 wrong-typed `relates` relations (Redmine only allows one relation per issue pair). Confirmed correct via both `get_run_testcases` (now shows `#121037 [Failed] ... | defects:[121059, 121060, 121061]`, matching the working `#120941 | defects:[120990]` example) and `get_issue(121037, include=relations)` (now shows `defect → #121059/060/061`). Run #577's other 45 testcases were untouched throughout — only `create_status_result`/`report_defect`/`create_issue_relation`/`delete_issue_relation` were used, never `update_run` (the tool that caused this same run's prior data-loss incident). |
+| 2026-09-24 | 7.0.0 (Docker) | Local (redmine-docker-700, localhost:3010) | Claude (Playwright MCP) | Retested all 3 open bugs at the user's request. **BUG-CHK-002 (Critical) — PASS/FIXED**: source now escapes via `.text()` instead of raw-HTML `.append()` (both creation handlers, citing #121059); live retest on issue #1538 confirmed no script execution on either the top-level-checklist or sub-item path. **BUG-CHK-004 (Medium) — PASS/FIXED**: `.trigger('change')` cascade removed from `checklist_checkbox.js` (citing #121060); live retest confirmed a single checkbox click now fires exactly one PATCH (`toggle_completed`, no `update_state` follow-up) and writes exactly one item-level journal entry, not two. **BUG-CHK-005 (High) — PARTIAL**: the write-authorization half is fixed — `POST /checklists`, `PATCH .../toggle_completed` (incl. bulk), and `DELETE /checklists_delete/:id.json` all now correctly return 403 and don't persist on a closed project (verified none of the writes went through); but the no-user-feedback half from the bug's own Expected Result is still unmet — all 4 actions (including the pre-existing "Add from template" block) still fail with a console-only 403 and zero visible flash/error element. Kept CHK-005 open at reduced (Low) effective severity for the remaining scope. **None of the 3 bugs moved to `bugs/closed/` yet** — `SENIOR_QA_STANDARDS.md` §26 requires regression before closure (full-suite for Critical, full-suite-affected-area for Medium), and that regression has not been run this session (no `automation/tests/` exist yet for this plugin, so it would be fully manual). Screenshots: `screenshots/BUG-CHK-00{2,4,5}/retest-2026-09-24-*.png`. |
+| 2026-09-24 | 7.0.0 (Docker) | Local (redmine-docker-700, localhost:3010) | Claude (Playwright MCP) | **Scoped post-fix regression for BUG-CHK-002/BUG-CHK-004** (user-approved narrower scope — 2 directly-affected suites, not the full-plugin regression `SENIOR_QA_STANDARDS.md` §26 would otherwise call for at Critical severity). Executed all 42 TCs live: `CHECKLIST_CHECKLIST_MANAGEMENT.md` (TC-CHK-015–042, 27 PASS / 1 N/A — TC-CHK-036 has no per-project module toggle on this instance) and `CHECKLIST_PROGRESS_TRACKING.md` (TC-CHK-079–092, 14/14 PASS). **0 new bugs.** TC-CHK-031 (script-injection) re-confirmed clean on both the checklist-creation and sub-item-creation paths with fresh payloads. TC-CHK-091 (rapid toggling, the TC that originally caught BUG-CHK-004) re-confirmed clean via 5 genuine Playwright clicks (5 requests, 5 journal entries, zero `update_state` calls); a synthetic zero-delay stress test surfaced one residual, narrower request-overlap race (not reproducible via real UI interaction, not filed — noted in `CHECKLIST_MEMORY.md`). Per-click network verification (single `toggle_completed` PATCH, no cascade) repeated on 4+ independent fresh items across the session. Used a throwaway issue (#1571) for the closed-issue and delete-issue TCs to avoid this project's unrelated required-custom-field friction on the Bug tracker; deleted it afterward and verified via `rails runner` that no orphaned checklist rows remained (TC-CHK-035). **BUG-CHK-002 and BUG-CHK-004 are both now candidates for closure** — not moved to `bugs/closed/` yet, pending the user's explicit go-ahead (local move + production #121059/#121060 status sync). No screenshots taken (regression pass, all results PASS — screenshots are bug-evidence-only per `CLAUDE.md` §6). |
+| 2026-09-24 | 7.0.0 (Docker) | Local (redmine-docker-700, localhost:3010) | Claude (Playwright MCP) | **Closure pass.** User explicitly approved closing both regression-cleared bugs. Production issue #121059 (BUG-CHK-002) and #121060 (BUG-CHK-004) each updated: status In QA → Done, % done → 100. Local files moved `bugs/open/` → `bugs/closed/` for both. `bugs/_index.md`, `reports/final-bug-report.md`, `reports/defects-summary.html`, and `reports/tc-report.html` all regenerated to reflect the new state — only `BUG-CHK-005` (downgraded High → Low for its remaining no-feedback scope) is now open for this plugin. `bugs/open/` is not yet empty, so the full-plugin final-cycle regression (§27) and a `STATUS.md` `Complete` status are still pending BUG-CHK-005's own closure. |

@@ -76,6 +76,18 @@
 - Fixture restored after each repro: Developer role back to `edit_issues` ✓ + All trackers ✓ (verified by reload;
   Willow sees 29 inline pencils on #1560 again).
 
+## Retest
+
+**Result: FIXED, confirmed 2026-09-24** — after pulling commit `515cf45` and precompiling assets. Reproduced the
+exact original sequence: `willow.belle` opened the Description editor on #1560, typed a new value, and Admin
+revoked `edit_issues` while it was still open. Clicking Save now returns `302` as before (Redmine core still
+drops the attribute silently), but the client compares the returned form's own description value against what
+was submitted, finds a mismatch, and shows **"Could not save: You do not have permission to edit this issue."**
+— the editor stays open with the typed text preserved, not lost. After reload: description and journal count
+(48) both unchanged — no data corruption, and this time no false "Saved successfully.". Fixture restored:
+Developer role `edit_issues` ✓ + "All trackers" ✓ (the same gotcha as before — re-checking `edit_issues` cleared
+"All trackers" again; fixed and reverified, 29 pencils back on #1560).
+
 ## Duplicate check
 
 - Duplicate found: No

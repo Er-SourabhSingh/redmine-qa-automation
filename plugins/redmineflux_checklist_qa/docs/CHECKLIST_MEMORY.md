@@ -42,40 +42,53 @@
   chance to interact with that scenario on this instance. **TC-CHK-010 (REST API bypass) not executed** — needs
   a real API key supplied out-of-band in a future session (see Progress Tracking suite note below for why).
 
-- **The plugin does not apply a uniform "project closed = read-only" guard across its controllers.** Confirmed
-  2026-09-22 (`BUG-CHK-005`, High) on project `checklist-perm-private` (closed): `POST /checklists` → 201,
-  `PATCH /checklists/:id/toggle_completed` → 200, `DELETE /checklists_delete/:id.json` → 200 all succeed on a
-  closed/read-only project. **Only** `GET /checklists/new_from_template` enforces the closed-project check (403)
-  — and even that gives no user-facing feedback, just a console-only error. If retesting after a fix, check
-  every checklist-mutating endpoint (create checklist, create item, toggle, delete, update_state), not just the
-  one that already works — the fix needs to be applied consistently, not just to the one endpoint that already
-  had it.
+- **BUG-CHK-005 closed-project write gap — PARTIALLY FIXED 2026-09-24.** Retested: `POST /checklists`,
+  `PATCH /checklists/:id/toggle_completed` (and the bulk variant), `DELETE /checklists_delete/:id.json` now all
+  return 403 on a closed project and don't persist — the write-authorization half is fixed. Oddly, none of the
+  controller source (`checklists_controller.rb`, `checklist_items_controller.rb`, `api/*`) actually checks
+  `@project.closed?` anywhere — every explicit guard there still only checks `issue.status.is_closed?` (the
+  issue's own workflow status, not the project's). So the 403 is coming from somewhere else in the request
+  pipeline (plausibly core's own `allowed_to?(:edit_issues, @project)`/`Issue#editable?` now correctly
+  reflecting the closed project) — not fully root-caused, only confirmed behaviorally. **Still unfixed:** all
+  four actions (create, toggle, delete, add-from-template) still fail with a console-only 403 and zero visible
+  flash/error element on the page — the "give the user clear feedback" half of the original bug remains open at
+  reduced (Low) severity. If retesting again, check both halves independently — the write-block and the
+  feedback — since they're clearly on separate code paths (one moved, one didn't).
 
 ## Recurring Issues
 
-- `assets/javascripts/checklist.js`'s AJAX-*creation* success handlers (new checklist, new sub-item) build the
-  new row as a raw HTML template-literal string and `.append()` it, interpolating the server's own echoed title
-  text **unescaped** — unlike the *edit* success handlers in the same file, which correctly use `.innerText`.
-  Confirmed exploitable (`BUG-CHK-002`, Critical, 2026-09-21): a `<script>` tag in a title executes immediately
-  on creation. Not a stored XSS for other viewers — a normal reload renders it safely escaped via
-  `_checklist.html.erb`'s Rails auto-escaping — but a real client-side self-XSS. Check this exact pattern
-  (raw-HTML-string + `.append()`/`.html()` vs `.text()`/`.innerText`) in any future `checklist.js` change.
-  Confirmed 2026-09-21 (TC-CHK-111) that the **template name/entries path does not share this bug** — templates
-  are fully server-rendered and correctly escaped everywhere (admin list, apply-picker, applied issue checklist,
-  journal), including the raw `<script>` payload test. So this is specific to the manual-item creation AJAX
-  handlers, not templates.
+- `assets/javascripts/checklist.js`'s AJAX-*creation* success handlers (new checklist, new sub-item) used to
+  build the new row as a raw HTML template-literal string and `.append()` it, interpolating the server's own
+  echoed title text **unescaped** — unlike the *edit* success handlers in the same file, which correctly use
+  `.innerText`. Confirmed exploitable (`BUG-CHK-002`, Critical, 2026-09-21): a `<script>` tag in a title
+  executed immediately on creation. **FIXED 2026-09-24** — both handlers now append an empty `<span>` and set
+  its content afterward via jQuery `.text()` (lines 163, 364), citing `#121059` in the fix comment. Retested
+  live: neither path executes an injected `<script>` anymore. Confirmed 2026-09-21 (TC-CHK-111) that the
+  **template name/entries path never shared this bug** — templates are fully server-rendered and correctly
+  escaped everywhere. **Scoped regression (`CHECKLIST_CHECKLIST_MANAGEMENT.md` + `CHECKLIST_PROGRESS_TRACKING.md`,
+  41 PASS / 1 N/A) run 2026-09-24, no new bugs** — bug is a candidate for closure, pending user go-ahead.
 
 - `assets/plugin_assets/redmineflux_checklist/checklist_checkbox-*.js`: clicking a sub-checklist item's checkbox
-  fires **two** separate AJAX PATCH requests for the same state change — the checkbox's own `change` handler
-  PATCHes `/checklist_items/{id}/toggle_completed`, and that request's success callback sets the item's status
-  `<select>` value and calls `$select.trigger('change')`, which independently fires a second handler that
-  PATCHes `/checklist_items/{id}/update_state`. Each write logs its own Checklist History journal entry, so
-  **every single click** (not only rapid ones) writes a duplicate entry; rapid clicking compounds it further via
-  unsequenced overlapping requests. Confirmed via Network tab + journal on 2026-09-21 (`BUG-CHK-004`, Medium —
-  audit-trail only, the checkbox's actual final state is always correct). Note the same file already has a fix
-  for a *different*, closely related race (parallel bulk sub-item toggle vs. parent-checklist toggle, serialized
-  via `.always()` to dodge an optimistic-locking 409 on `Issue#lock_version` — see the file's own code comments)
-  — the checkbox→select cascade above is a separate, still-open path.
+  used to fire **two** separate AJAX PATCH requests for the same state change — the checkbox's own `change`
+  handler PATCHes `/checklist_items/{id}/toggle_completed`, whose success callback set the item's status
+  `<select>` value and called `$select.trigger('change')`, independently firing a second handler that PATCHed
+  `/checklist_items/{id}/update_state`. Confirmed via Network tab + journal on 2026-09-21 (`BUG-CHK-004`,
+  Medium — audit-trail only). **FIXED 2026-09-24** — the `.trigger('change')` call was removed from both the
+  single-item and select-all handlers, each fix comment citing `#121060`. Retested live: a single click on a
+  fresh sub-item now fires only the one `toggle_completed` PATCH, and the journal shows exactly one item-level
+  entry (not two) plus the one checklist-level entry. **Scoped regression run 2026-09-24 (14/14 PASS on
+  `CHECKLIST_PROGRESS_TRACKING.md`)** — candidate for closure, pending user go-ahead.
+
+- **Rapid-click checkbox race, narrower than BUG-CHK-004, observed 2026-09-24, not filed.** Even after the
+  `BUG-CHK-004` fix, firing 5 checkbox clicks as a synthetic zero-delay `element.click()` loop (all in one JS
+  tick — far faster than any real pointer interaction) produced one duplicate consecutive `ChecklistHistory` row
+  (6 entries for 5 real transitions) via an apparent request-overlap race, confirmed via `ChecklistHistory` table
+  query. Critically, **zero** `update_state` calls occurred even in this stress test — the specific cascade
+  mechanism BUG-CHK-004 was about is confirmed gone. The identical 5-click sequence performed as genuine
+  Playwright UI clicks (`locator.click()`, each with normal actionability/network latency between them, the same
+  way a real user or the original bug repro would click) produced a clean 1:1 result — 5 clicks, 5 entries, no
+  duplicates. Not reproducible through real UI interaction, so not filed as a bug; recorded here in case a future
+  session sees inflated history counts under genuinely fast real clicking and wants a starting hypothesis.
 
 - **Progress & Status Tracking (13/14 TCs, 1 FAIL → BUG-CHK-004), 2026-09-21:** item status dropdown (New/In
   Progress/Done) lives on **sub-checklist items**, not top-level items (which only have a checkbox) — checkbox

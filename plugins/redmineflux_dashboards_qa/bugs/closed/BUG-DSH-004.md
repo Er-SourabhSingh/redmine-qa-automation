@@ -48,9 +48,14 @@ two genuinely single-value custom fields. **Not fixed.**
 
 ![Retest — multi-select CF still offered as a grouping dimension after migration+restart](../../screenshots/BUG-DSH-004/retest-2026-09-23-still-failing.png)
 
-### Retest screenshot (fill after fix is verified)
+### Retest — 2026-09-24 (FIXED, confirmed)
 
-![Retest result](../../screenshots/BUG-DSH-004/retest-yyyy-mm-dd-pass.png)
+Retested on `redmine-docker-700` (localhost:3010). The Group by dropdown no longer lists "QA Multi Select Field"
+at all. To rule out this being merely a side-effect of the field not being filterable, deliberately enabled
+Redmine's "Used as a filter" on it (matching the one property that had differed from the in-scope single-select
+field) and rechecked — it **still** does not appear, while "QA Single Select Field" does. This confirms the
+exclusion is genuinely based on the field being multi-select, not an incidental side effect of another fix.
+**Fixed.**
 
 ### Console / log
 

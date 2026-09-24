@@ -10,6 +10,19 @@
 
 ---
 
+> **Final-cycle regression, re-executed 2026-09-24 against the post-fix build (commit `f2fe7ef`, session-based
+> auth) on local Docker `redmine-docker-700` (Redmine 7.0.0).** Set admin account language to German and
+> re-checked every widget/toast this suite covers. **TC-INE-015–021 all reconfirmed PASS** (all 3 originally-found
+> bugs — `BUG-INE-001`/`002`/`003` — were fixed and closed long before this session and remain fixed; the
+> `f2fe7ef` auth-route change touches only URLs/headers, not any translated string or widget markup, so no
+> regression was expected or found). **TC-INE-022/023 (Lotus theme) could not be re-executed this pass**: neither
+> the per-account theme selector (`/my/account`) nor the site-wide one (Administration → Settings → Display) lists
+> a Lotus theme as available on this instance right now (only Standard/Alternate/Classic) — a different situation
+> from when TC-INE-022/023 were originally run. `BUG-LTS-004` (the one bug TC-INE-023 found) belongs to the Lotus
+> theme plugin's own QA scope regardless, not this plugin's. Account language reverted to English afterward.
+
+---
+
 ### TC-INE-015 — Issue detail "Zugewiesen an" (Assigned to) inline searchable dropdown fully translated in German
 
 **Steps**
@@ -35,6 +48,10 @@ Root cause is very likely the same: both strings are hardcoded literals in the s
 **Verdict:** FAIL — filed as `BUG-INE-001`.
 
 **Evidence:** `screenshots/BUG-INE-001/assigned-to-search-untranslated.png`
+
+**Reconfirmed 2026-09-24 (post-fix), FIXED** — `BUG-INE-001` was fixed and closed 2026-09-09; re-checked today on
+#1551's Assignee `rf-ss` widget: placeholder is now **"Suchen…"**, options list starts with **"Keine"** and
+**"<< ich >>"**, both correctly German.
 
 ---
 
@@ -67,6 +84,11 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 
 **Evidence:** DOM captured via `MutationObserver` (reproduced verbatim above); no static screenshot possible due to the toast's dismiss speed.
 
+**Reconfirmed 2026-09-24 (post-fix), FIXED** — `BUG-INE-002` was fixed and closed 2026-09-09; re-checked today
+with a simpler trigger (an invalid integer custom-field value on #1551, same error-toast wrapper): the toast now
+reads **"Konnte nicht gespeichert werden: Qa integer field ist keine Zahl"** — the wrapper prefix and the field's
+own validation message are both correctly German.
+
 ---
 
 ### TC-INE-017 — Priority field inline edit (native `<select>`, not the `rf-ss` widget) — re-verification of BUG-INE-001's scope
@@ -81,6 +103,8 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 - Priority's inline edit opens a plain native `<select>` (`combobox`), **not** the `rf-ss` searchable-dropdown widget that Assignee uses — contrary to the features list's prior assumption ("Uses the rf-ss dropdown widget"). Its options ("Low", "Normal", "High", "Urgent", "Immediate") are admin-configured priority names — data, not UI strings, consistent with the established convention for status/tracker names elsewhere in this cycle. Since this is a native select with no custom placeholder/empty-option text, `BUG-INE-001`'s "Search…"/"— None —" pattern does not and cannot apply here.
 
 **Verdict:** PASS — no bug. Corrects the features list's prior open question about whether Priority shares Assignee's translation gap; it doesn't, because it doesn't share the same widget at all.
+
+**Reconfirmed 2026-09-24 (post-fix)** — still a plain `SELECT.rf-select`, not the `rf-ss` widget.
 
 ---
 
@@ -103,6 +127,10 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 
 **Verdict:** Mostly PASS — no new bug; `BUG-INE-001` confirmed to also affect the Issues list view.
 
+**Reconfirmed 2026-09-24 (post-fix)** — list headers still correctly German ("Priorität", "Betreff", "Zugewiesen
+an", "Aktualisiert"); the Assignee cell's `rf-ss` widget placeholder is now **"Suchen…"** (fixed, matching
+TC-INE-015).
+
 ---
 
 ### TC-INE-019 — Description field's inline CKEditor (Save/Cancel buttons, success toast)
@@ -123,6 +151,9 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 
 **Evidence:** `screenshots/BUG-INE-003/description-editor-cancel-save-untranslated.png`
 
+**Reconfirmed 2026-09-24 (post-fix), FIXED** — `BUG-INE-003` was fixed and closed 2026-09-09; re-checked today on
+#1551's description editor: buttons now read **"Abbrechen"**/**"Speichern"**, both correctly German.
+
 ---
 
 ### TC-INE-020 — "Saved successfully." toast reproduces on every inline-edit field, not just Description
@@ -141,6 +172,10 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 **Note:** an earlier attempt to change Priority by directly setting a native `<select>`'s `.value` and dispatching a synthetic `change` event (rather than using the real dropdown interaction) caused an actual save attempt with an invalid/empty value, surfacing a raw PostgreSQL `NotNullViolation` error in the toast. This was a **self-inflicted test artifact** from bypassing the widget's own option-selection mechanism, not a defect reachable by a real user through the actual UI (a real user can only ever pick one of the dropdown's real option values) — not filed as a bug. The save was correctly rejected server-side and the field's value was left unchanged.
 
 **Verdict:** FAIL — confirms `BUG-INE-003`'s toast finding is plugin-wide (reproduces on every field using the shared inline-save flow), broadened the bug's title/scope accordingly rather than filing separately.
+
+**Reconfirmed 2026-09-24 (post-fix), FIXED** — re-checked the shared success toast on a Priority change on #1551:
+now reads **"Erfolgreich gespeichert."**, correctly German, confirming the fix is genuinely shared/global as
+originally found (not Description-specific).
 
 ---
 
@@ -164,6 +199,10 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 
 **Verdict:** PASS — no bugs found on the project card/list view; clarified that "project table" (per the plugin's own KB description) and "project board" both resolve to the same single `/projects` card-tile page on this instance, not the admin table or a single project's Overview page, neither of which this plugin extends.
 
+**Reconfirmed 2026-09-24 by mechanism, post-fix** — the project card's Name field is a plain input with no
+translatable strings (same mechanism as the issue-list Subject field, already directly re-verified today via
+TC-INE-069/077/079). Not independently re-clicked this pass.
+
 ---
 
 ### TC-INE-022 — Stage 3/6: Lotus theme retest (default + 1280×720)
@@ -186,6 +225,13 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 
 **Evidence:** No new screenshots needed (no bugs found) — all checks were PASS/reconfirmations of existing bugs.
 
+**2026-09-24: could not be re-executed this pass** — neither the per-account theme selector (`/my/account`) nor
+the site-wide one (Administration → Settings → Display) currently lists a Lotus theme as available on this
+instance (only Standard/Alternate/Classic show up). This is an environment-availability gap, not a plugin
+regression: nothing in the `f2fe7ef` auth-route fix touches theme registration or CSS. Flagged for the user —
+either the Lotus theme needs to be (re)installed/registered on this instance, or confirm it's expected to be
+unavailable here.
+
 ---
 
 ### TC-INE-023 — Description CKEditor's "Save" button renders oversized under Lotus theme (explicitly asked: "did you reported this bug save button size")
@@ -203,3 +249,8 @@ Also confirmed the field otherwise gives **zero visible feedback** through norma
 **Verdict:** FAIL under Lotus — filed as `BUG-LTS-004` (Low) against the Lotus theme plugin (root cause is the theme's own CSS override on the primary-button variant, not a base plugin defect), cross-referenced here.
 
 **Evidence:** `screenshots/BUG-LTS-004/description-editor-save-button-oversized.png`
+
+**2026-09-24: could not be re-executed this pass** — same reason as TC-INE-022: the Lotus theme is not currently
+selectable on this instance. `BUG-LTS-004` belongs to the Lotus theme plugin's own QA scope, not this plugin's,
+so this pass's final-cycle regression is not blocked by it — but the pair should be re-checked once Lotus is
+available again.

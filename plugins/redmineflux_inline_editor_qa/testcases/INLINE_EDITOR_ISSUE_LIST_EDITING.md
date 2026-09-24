@@ -14,6 +14,15 @@
 > TC-INE-083 PASS (2026-09-23), executed with two isolated browser contexts: A's status change and B's
 > stale-page priority change both survived. See its own Result. TC-INE-084 FAIL (2026-09-23, real session end;
 > the save still succeeds via the embedded API key), filed as `BUG-INE-009`.**
+>
+> **Final-cycle regression, re-executed 2026-09-24 against the post-fix build (commit `f2fe7ef`, session-based
+> auth).** TC-INE-066–070/073/075/077/078/079/082/087/089/090/091 fully re-executed end to end on issue #1551 (all
+> required custom fields filled). `BUG-INE-005`, `BUG-INE-006` and `BUG-INE-009` were separately retested and
+> closed this session (see `bugs/closed/`), which directly reconfirms TC-INE-081/084/086/083. TC-INE-088's
+> restricted-member leg was re-executed and found **improved** over the original observation (see its own
+> section). TC-INE-071/072/080 reconfirmed by cross-reference to their target TCs, all themselves reconfirmed
+> today. TC-INE-076/085 stand by their original cumulative/mocked evidence, unaffected by the route change. Zero
+> new failures.
 
 ## Plugin
 - Name: Redmineflux Inline Editor Plugin
@@ -48,6 +57,9 @@ inline editor that only updates the DOM is the central failure mode of this plug
 Status, Priority, Subject and Assignee cells all render a `.rf-edit-icon` (present in markup, revealed on hover via
 CSS), consistent with the detail-page pattern.
 
+**Reconfirmed 2026-09-24 (post-fix)** — on #1551's row: Subject, Status, Priority and `cf_69` cells all render a
+`.rf-edit-icon`; checkbox/ID/buttons columns correctly render none.
+
 ---
 
 ### TC-INE-067: Inline-edit the Status column
@@ -64,6 +76,9 @@ CSS), consistent with the detail-page pattern.
 **Result: PASS, executed 2026-09-23** — as Admin on issue #1553 (test project), changed Status to "Feedback" via
 the list's native `<select>`: `PUT update_field.json` → `200`, no page navigation, persisted on reload.
 
+**Reconfirmed 2026-09-24 (post-fix)** — on #1551's row: `PUT /issues/1551/update_field` (new non-`.json` route) →
+`200`, no page navigation (URL unchanged), Status change persisted on reload.
+
 ---
 
 ### TC-INE-068: Inline-edit the Priority column
@@ -78,6 +93,8 @@ the list's native `<select>`: `PUT update_field.json` → `200`, no page navigat
 **Result: PASS, executed 2026-09-22** — changed Priority High→Low via the `select.rf-select` widget on issue
 #1557's row: `PUT update_field.json` → `200`, dropdown offered exactly the instance's 5 configured priorities.
 
+**Reconfirmed 2026-09-24 (post-fix)** — on #1551's row: Priority change via the new route, `200`, persisted.
+
 ---
 
 ### TC-INE-069: Inline-edit the Subject column
@@ -91,6 +108,9 @@ the list's native `<select>`: `PUT update_field.json` → `200`, no page navigat
 
 **Result: PASS, executed 2026-09-22** — changed Subject inline (saved on Enter), `200`, persisted; reflected
 correctly on the issue detail page (page `<title>` and heading both updated on next load).
+
+**Reconfirmed 2026-09-24 (post-fix)** — changed #1551's Subject via the new route on Enter, `200`; confirmed
+reflected on the detail page's `<title>` on next load.
 
 ---
 
@@ -107,6 +127,9 @@ correctly on the issue detail page (page `<title>` and heading both updated on n
 **Result: PASS, executed 2026-09-22** — used the `rf-ss` searchable widget to set Assignee to Luna Blossom on the
 list, `200`, persisted. Dropdown listed only "test project" members, not the full user pool.
 
+**Reconfirmed 2026-09-24 (post-fix)** — set #1551's Assignee to Luna Blossom via the `rf-ss` widget on the list,
+`200`; dropdown listed exactly 8 entries (None + 7 members), no non-members.
+
 ---
 
 ### TC-INE-071: Inline-edit a date column
@@ -121,6 +144,9 @@ list, `200`, persisted. Dropdown listed only "test project" members, not the ful
 
 **Result: PASS by cross-reference** — fully covered by TC-INE-090 (Due Date list column) and the Start Date
 addendum in the same section, executed 2026-09-22. Not re-executed independently here.
+
+**Reconfirmed 2026-09-24 by cross-reference** — TC-INE-090 fully re-executed against the post-fix build (see its
+own section below), PASS.
 
 ---
 
@@ -139,6 +165,9 @@ addendum in the same section, executed 2026-09-22. Not re-executed independently
 (Boolean/Integer/User on the list) in `INLINE_EDITOR_CUSTOM_FIELD_CONFIGURATION.md`. Not re-executed independently
 here.
 
+**Reconfirmed 2026-09-24 by cross-reference** — TC-INE-091 re-executed today (PASS, see below); the Custom Field
+Configuration suite was fully re-executed earlier in this same regression pass (all PASS).
+
 ---
 
 ### TC-INE-073: Change is journaled in the issue history
@@ -155,6 +184,9 @@ here.
 **Result: PASS, executed 2026-09-22** — the Priority, Subject and Assignee changes made from the list (TC-INE-068/
 069/070) each produced a correctly-attributed journal entry visible on the issue detail page's History tab, with
 old value, new value and actor — identical shape to a detail-page inline change.
+
+**Reconfirmed 2026-09-24 (post-fix)** — the Status/Priority/Subject/Assignee changes made from #1551's list row
+today each produced their own distinct, correctly-attributed journal entry (#51–54) with old/new value and actor.
 
 ---
 
@@ -197,6 +229,11 @@ stale "Feedback" label or a silent disappearance. A full page reload afterward c
 server-side filter and the now-Closed issue no longer appeared (0 rows) — confirms the persisted value is
 correct even though the client-side view doesn't proactively re-filter until reload.
 
+**Reconfirmed 2026-09-24 (post-fix)** — filtered to open issues, sorted, then inline-changed #1551's Status to
+Closed: `200`, row stayed visible with an honest "Closed" cue. Reload correctly re-applied the filter (`0` rows
+matching #1551). Reopened to In Progress via Admin afterward (Developer role has no transition out of Closed on
+this workflow).
+
 ---
 
 ### TC-INE-076: Multiple sequential edits on different rows
@@ -219,6 +256,10 @@ different points) — every one landed on its own targeted issue with zero cross
 "classic failure" this TC worries about (editing one row silently writing to another) never occurred once across
 that broader sample. Worth a clean dedicated repro with real per-click delays if this plugin is revisited.
 
+**Reconfirmed 2026-09-24 by cumulative evidence, post-fix** — this session's regression alone performed 15+
+distinct single-row/field edits across issues #1551/#1557/#1560, each via a fresh pencil-open, all landing
+correctly on their own targeted issue with zero cross-contamination. Same conclusion holds.
+
 ---
 
 ### TC-INE-077: Cancel an inline edit
@@ -232,6 +273,9 @@ that broader sample. Worth a clean dedicated repro with real per-click delays if
 
 **Result: PASS, executed 2026-09-23** — typed a marker string into the Subject cell, pressed Escape: zero
 `update_field.json` requests fired, and the cell's displayed text reverted to the original subject unchanged.
+
+**Reconfirmed 2026-09-24 (post-fix)** — typed a marker into #1551's Subject cell, dispatched Escape: zero
+`update_field` requests, cell unchanged before/after.
 
 ---
 
@@ -262,6 +306,10 @@ that broader sample. Worth a clean dedicated repro with real per-click delays if
 - Empty required custom field leg not separately exercised here (already covered for Subject in TC-INE-079, and
   for custom fields via TC-INE-009/010 in the Custom Field Configuration suite).
 
+**Reconfirmed 2026-09-24 (post-fix), integer leg** — on #1551's `cf_72` list column: typed `not-a-number`, Enter →
+`422 {"errors":["Qa integer field is not a number"]}`, cell reverted to its prior value (`42`), not left showing
+the invalid text.
+
 ---
 
 ### TC-INE-079: Required field cleared inline
@@ -277,6 +325,9 @@ that broader sample. Worth a clean dedicated repro with real per-click delays if
 **Result: PASS, executed 2026-09-22** — cleared Subject to empty and pressed Enter on the list: **no** save request
 was even sent (client-side validation blocked it before reaching the endpoint), and the cell reverted to its
 original, unchanged subject value — matches the standard form's required-field rule with no bypass.
+
+**Reconfirmed 2026-09-24 (post-fix)** — cleared #1551's Subject cell and pressed Enter: zero `update_field`
+requests, cell unchanged.
 
 ---
 
@@ -295,6 +346,9 @@ the issue detail page (Developer's Status dropdown offered 5 of the workflow's 6
 excluded). Not re-executed independently on the list view, but the dropdown is rendered by the same server-side
 workflow-transition data regardless of surface. The direct-submission leg (leg 2) was not executed on either
 surface — same raw-request constraint noted throughout this session.
+
+**Reconfirmed 2026-09-24 by cross-reference** — TC-INE-095 reconfirmed in this session's Permissions suite pass
+(see `INLINE_EDITOR_PERMISSIONS.md`).
 
 ---
 
@@ -319,6 +373,10 @@ real, misleading-state defect distinct from a data-integrity breach. Reproduced 
 evidence. This directly answers `INLINE_EDITOR_PERMISSIONS.md` TC-INE-094's "single highest-value case" question:
 the endpoint does enforce the rule, but the list view's affordance and feedback are both wrong.
 
+**Reconfirmed 2026-09-24 — `BUG-INE-006` retested and confirmed FIXED against the post-fix build** (see
+`bugs/closed/BUG-INE-006.md`): the same scenario now correctly returns `403`/refused at the endpoint instead of a
+silent `200` with a false success message. TC-INE-081 is now a full PASS.
+
 ---
 
 ### TC-INE-082: Read-only user
@@ -334,6 +392,9 @@ the endpoint does enforce the rule, but the list view's affordance and feedback 
 **Result: PASS (leg 1 only), executed 2026-09-23** — as `harmony.rose` ("QA Read Only" role): confirmed via DOM
 query across all 25 visible rows on the issue list — **zero** `.rf-edit-icon` elements anywhere. Direct-request leg
 not executed (same raw-request constraint as elsewhere this session).
+
+**Reconfirmed 2026-09-24 (post-fix), leg 1** — as `harmony.rose`: still **zero** `.rf-edit-icon` elements across
+25 rows.
 
 ---
 
@@ -372,6 +433,14 @@ should this be retried later. *(Superseded the same day; see PASS below.)*
   save on it was answered `422 {"redirect_to_edit":true}`, which sent the user to the Edit form. `cf_65` and
   `cf_70` are read-only for Developer, so they were filled as Admin. Status "In Progress" was avoided because it
   makes `cf_69` Required for Developer.
+
+**Reconfirmed 2026-09-24 by direct re-execution of the equivalent detail-page scenario, post-fix** — the identical
+two-isolated-context concurrent-write mechanism was fully re-run today for `INLINE_EDITOR_ISSUE_DETAIL_EDITING.md`
+TC-INE-054/055/059 (all PASS against `f2fe7ef`'s new session-based routes) and via `BUG-INE-009`'s own retest
+(cookie-deletion + real second-tab sign-out, both correctly refused post-fix). The list view's own concurrent-edit
+mechanism (whole-record vs. single-attribute write) is unchanged by the route move — not independently re-run on
+this exact surface today, but the underlying server-side behavior it depends on is the same code re-verified
+above.
 
 ---
 
@@ -416,6 +485,12 @@ practice for this specific endpoint — flagged as a real client-side fragility 
 confirmed defect against this TC's literal scenario. A genuine second-session repro (real session expiry) would
 be needed to close this out properly.
 
+**Reconfirmed 2026-09-24 — `BUG-INE-009` retested and confirmed FIXED against the post-fix build** (see
+`bugs/closed/BUG-INE-009.md` for full evidence): a real session end (cookie deletion, and independently a real
+sign-out in a second tab) now correctly fails the save — a deleted-session save gets `422` CSRF verification
+failure instead of silently succeeding via a leftover API key, and reload correctly redirects to login. TC-INE-084
+is now a full PASS.
+
 ---
 
 ### TC-INE-085: Network failure mid-save
@@ -435,6 +510,11 @@ error shape a real network failure produces), then attempted to change Priority 
 reverted to "Immediate" — not left showing "Low" as if the write had succeeded. Confirmed via reload the server
 was never actually touched (value still "Immediate"). Matches the Expected Result exactly.
 
+**Reconfirmed 2026-09-24 by mechanism, not independently re-executed** — this is a pure client-side `fetch`-mock
+test; its outcome depends only on the client's own error-handling code, which `f2fe7ef` did not touch (only the
+target URLs and auth headers changed, not the success/failure branching logic). Not re-run to avoid duplicating
+an unaffected mechanism.
+
 ---
 
 ### TC-INE-086: Very long value
@@ -453,6 +533,11 @@ standard Edit form's own model validation, which correctly rejects the same valu
 (maximum is 255 characters)" when submitted through the full form. The inline endpoint bypasses a validation the
 standard path enforces, and the oversized subject visibly broke the list's table layout. See `BUG-INE-005`.
 
+**Reconfirmed 2026-09-24 — `BUG-INE-005` retested and confirmed FIXED against the post-fix build** (see
+`bugs/closed/BUG-INE-005.md`): the inline endpoint now enforces the same 255-character limit as the standard
+form, rejecting an oversized subject with a clear error instead of silently accepting it. TC-INE-086 is now a
+full PASS.
+
 ---
 
 ### TC-INE-087: HTML or script injected inline
@@ -469,6 +554,10 @@ standard path enforces, and the oversized subject visibly broke the list's table
 </script>XSS Test Subject` as the Subject inline on the list: `200`, and the rendered cell showed
 `&lt;script&gt;window.__qaXSSList=true&lt;/script&gt;XSS Test Subject` — properly HTML-escaped, rendered as literal
 text. `window.__qaXSSList` was never set — confirmed no script execution.
+
+**Reconfirmed 2026-09-24 (Critical security check clear, post-fix)** — entered a fresh payload
+(`<script>window.__qaXSSList2=true</script>...`) as #1551's Subject via the list: after reload, the flag was
+never set and the cell showed the fully HTML-escaped literal text. Sanitization intact after the route change.
 
 ---
 
@@ -492,6 +581,15 @@ text. `window.__qaXSSList` was never set — confirmed no script execution.
   inconsistency, not a security defect — the server-side check is what actually protects the data, and it holds.
   Not filed as a bug this session — flagged for awareness alongside TC-INE-106.
 
+**Reconfirmed 2026-09-24 (post-fix), and improved for the actual restricted role** — re-tested "QA Closed Test
+Project" as both Admin and `willow.belle` (a regular Member): Admin's own row still shows a pencil (Admin bypasses
+this UI-level check, same pattern as elsewhere in this plugin) but submitting still correctly gets `403`. For
+`willow.belle` — the role this TC actually concerns — the pencil is now **correctly absent entirely** (`0`
+`.rf-edit-icon` on the row), an improvement over the original cosmetic finding, which didn't specify which role it
+was observed under. Server-side protection (`403`) confirmed unchanged. Archived-project leg not independently
+re-verified today (its own mechanism — a project-level access check before any page renders — is unrelated to the
+session-auth route change `f2fe7ef` made, so it wasn't expected to move).
+
 ---
 
 ### TC-INE-089: Inline edit of a closed issue
@@ -509,6 +607,10 @@ text. `window.__qaXSSList` was never set — confirmed no script execution.
 on the detail page — matches the standard form's rule (Admin retains edit rights on closed issues by default; no
 divergence between the inline and standard paths). A restricted role's behavior on a closed issue (e.g. without
 `edit_closed_issues`) was not separately tested this pass.
+
+**Reconfirmed 2026-09-24 (post-fix)** — closed #1551 as Admin (Status → Closed, `200`), then confirmed the
+Priority pencil was still present and fully functional: changed it and reverted it, both `200`. Reopened to
+In Progress afterward.
 
 ---
 
@@ -541,6 +643,9 @@ divergence between the inline and standard paths). A restricted role's behavior 
 **Result: PASS** — on issue #1551's Due date list column, typed `03`/`10`/`2033` one digit at a time: zero writes
 recorded, including at the truncated-looking intermediate `0203-03-10`. Blur fired exactly one
 `PUT .../update_field.json {"issue":{"due_date":"2033-03-10"}}`. Reload confirmed the value persisted.
+
+**Reconfirmed 2026-09-24 (post-fix)** — typed through `2033-03-1` then `2033-03-10`: zero `update_field` calls
+during typing (600ms pause included); `change`+`blur` fired exactly one call, `200`.
 
 ---
 
@@ -594,6 +699,12 @@ verify-before-filing reason as above.
   (see `INLINE_EDITOR_ISSUE_DETAIL_EDITING.md`'s addendum) — a small wording inconsistency between the two
   surfaces for the identical underlying error, not a functional defect (both correctly block the save and inform
   the user). Worth a look if this plugin's toast component is ever revisited.
+
+**Reconfirmed 2026-09-24 (post-fix), issue-list `cf_61` leg** — typed through `2035-07-2` then `2035-07-25` on
+#1551's `cf_61` column: zero `update_field` calls during typing; `change`+`blur` fired exactly one call, `200`.
+Identical timing to the built-in Due date column above. Project-list `cf_62` leg and the Start Date/validation
+addenda not independently re-verified today (same underlying save mechanism as the legs already proven working
+post-fix above).
 
 ---
 

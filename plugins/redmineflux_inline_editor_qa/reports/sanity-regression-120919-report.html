@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sanity & Regression Report — Feature #120919 — Redmineflux Inline Editor</title>
+<style>
+  :root {
+    --pass: #1a7f37;
+    --pass-bg: #dafbe1;
+    --fail: #b91c1c;
+    --fail-bg: #fde2e1;
+    --border: #d0d7de;
+    --muted: #57606a;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+    color: #1f2328;
+    line-height: 1.5;
+  }
+  h1 { font-size: 1.6rem; margin-bottom: 4px; }
+  h2 { font-size: 1.2rem; margin-top: 40px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+  h3 { font-size: 1.02rem; margin-top: 24px; }
+  .subtitle { color: var(--muted); margin-top: 0; }
+  .meta-table { border-collapse: collapse; margin: 16px 0; }
+  .meta-table td { padding: 4px 12px 4px 0; vertical-align: top; }
+  .meta-table td:first-child { font-weight: 600; color: var(--muted); white-space: nowrap; }
+  table.results {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 8px;
+    font-size: 0.92rem;
+  }
+  table.results th, table.results td {
+    border: 1px solid var(--border);
+    padding: 8px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  table.results th { background: #f6f8fa; font-weight: 600; }
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.82rem;
+  }
+  .badge.pass { background: var(--pass-bg); color: var(--pass); }
+  .badge.fail { background: var(--fail-bg); color: var(--fail); }
+  .summary-banner {
+    background: var(--pass-bg);
+    color: var(--pass);
+    border: 1px solid #b4e6c1;
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-weight: 600;
+    margin: 16px 0 24px;
+  }
+  a { color: #0969da; }
+  code {
+    background: #f6f8fa;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+  ul { padding-left: 22px; }
+  .footer {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>Sanity &amp; Regression Report</h1>
+<p class="subtitle">Production Feature #120919 — Inline date editor auto-save timing fix</p>
+
+<table class="meta-table">
+  <tr><td>Plugin</td><td>Redmineflux Inline Editor</td></tr>
+  <tr><td>Production issue</td><td><a href="https://flux.zehntech.com/issues/120919">#120919</a></td></tr>
+  <tr><td>Production testcase</td><td><a href="https://flux.zehntech.com/issues/121042">#121042</a> — "Sanity: Inline date editor auto-save timing fix (#120919)" &mdash; Suite #146 "Inline Issue Editor", Run #577, Environment "Window 11 + Chrome"</td></tr>
+  <tr><td>Local test cases</td><td><code>TC-INE-060</code>&ndash;<code>TC-INE-065</code> (issue detail), <code>TC-INE-090</code>&ndash;<code>TC-INE-091</code> (issue list / project list)</td></tr>
+  <tr><td>Environment</td><td>Redmine 7.0.0, local Docker <code>redmine-docker-700</code> — http://localhost:3010</td></tr>
+  <tr><td>Test dates</td><td>2026-09-22 (sanity), 2026-09-24 (regression)</td></tr>
+</table>
+
+<div class="summary-banner">
+  Overall result: PASS &mdash; 16/16 checks passed (8 sanity + 8 regression), zero new failures. Production testcase #121042 updated Failed &rarr; Passed.
+</div>
+
+<h2>What the fix addresses</h2>
+<p>Before the fix, typing a date manually into an inline date field (e.g. Due Date) could auto-save prematurely mid-entry, truncating the year (e.g. <code>2026</code> saved as <code>0026</code> before the 4th digit was typed). Fixed behavior:</p>
+<ul>
+  <li>Nothing saves while typing, however long the pause, including mid-way through the year.</li>
+  <li>Save fires only on <strong>blur</strong> (click away) or <strong>Enter</strong>, with the exact full value typed.</li>
+  <li><strong>Escape</strong> discards the in-progress edit; the original value is retained.</li>
+  <li>Picking a date from the <strong>calendar</strong> still saves immediately — unchanged by the fix.</li>
+  <li>Applies to both built-in Start/Due Date fields and any date-format custom field.</li>
+</ul>
+
+<h2>Sanity testing — 2026-09-22 (original verification)</h2>
+<p>Executed on local Docker <code>redmine-docker-700</code>, using a <code>window.fetch</code>/XHR network interceptor so results were judged by actual network requests, not visual state.</p>
+<table class="results">
+  <tr><th>TC</th><th>Scenario</th><th>Result</th></tr>
+  <tr><td>TC-INE-060</td><td>No premature save while typing (incl. mid-year pause) — issue detail Due Date</td><td><span class="badge pass">PASS</span></td></tr>
+  <tr><td>TC-INE-061</td><td>Save on blur, exact value</td><td><span class="badge pass">PASS</span></td></tr>
+  <tr><td>TC-INE-062</td><td>Save on Enter, exact value</td><td><span class="badge pass">PASS</span></td></tr>
+  <tr><td>TC-INE-063</td><td>Escape cancels, no save</td><td><span class="badge pass">PASS</span></td></tr>
+  <tr><td>TC-INE-064</td><td>Calendar-pick still saves immediately</td><td><span class="badge pass">PASS</span></td></tr>
+  <tr><td>TC-INE-065</td><td>Same behavior on a date custom field (<code>cf_61</code>)</td><td><span class="badge pass">PASS</span></td></tr>
+  <tr><td>TC-INE-090</td><td>Same checks on the issue-list Due Date column</td><td><span class="badge pass">PASS</span></td></tr>
+  <tr><td>TC-INE-091</td><td>Same checks on issue-list/project-list date custom-field columns</td><td><span class="badge pass">PASS</span></td></tr>
+</table>
+<p>Also covered on explicit request: Start Date parity (identical to Due Date) and the Start/Due cross-field validation error (<code>422 "Due Date must be greater than start date"</code>), confirmed correctly shown to the user via toast on both surfaces.</p>
+
+<h3>Bugs found during the same coverage window</h3>
+<p>Not caused by #120919 itself — found while regression-sweeping around it, and reported against the same production testcase (#121042) per the original scoping instruction.</p>
+<table class="results">
+  <tr><th>Bug</th><th>Title</th><th>Status</th></tr>
+  <tr><td>BUG-INE-005</td><td>Issue-list Subject field bypasses the 255-char length validation</td><td>Fixed, closed</td></tr>
+  <tr><td>BUG-INE-006</td><td>List/detail view shows a pencil for a workflow-read-only field and falsely reports success on a dropped write</td><td>Fixed, closed</td></tr>
+  <tr><td>BUG-INE-007</td><td>A core field's pencil can stay stuck hidden after an inline Status change</td><td>Fixed, closed</td></tr>
+  <tr><td>BUG-INE-008</td><td>Description save reports success after edit rights are revoked mid-edit</td><td>Fixed, closed</td></tr>
+  <tr><td>BUG-INE-009</td><td>Session authentication broken in both directions</td><td>Fixed, closed</td></tr>
+  <tr><td>BUG-INE-010</td><td>Duplicate <code>jstoolbar</code> script load, console error on every issue-detail load</td><td>Fixed, closed</td></tr>
+</table>
+
+<h2>Regression testing — 2026-09-24 (post commit <code>f2fe7ef</code>)</h2>
+<p>The developer's fix for BUG-INE-009 (<code>f2fe7ef</code>, moving the plugin's AJAX calls from <code>.json</code>-format routes onto new session-authenticated routes) changed the request URLs and auth headers used by every inline save, including the date-timing code path. All 8 date-timing TCs were re-executed end to end against this new build.</p>
+<table class="results">
+  <tr><th>TC</th><th>Result</th><th>Evidence</th></tr>
+  <tr><td>TC-INE-060</td><td><span class="badge pass">PASS</span></td><td>Typed through <code>2026-12-0</code> &rarr; <code>2026-12-03</code>, paused 800ms before any blur/Enter — zero <code>update_field</code> calls at any point</td></tr>
+  <tr><td>TC-INE-061</td><td><span class="badge pass">PASS</span></td><td><code>change</code>+<code>blur</code> fired exactly one <code>update_field</code> call, <code>200</code></td></tr>
+  <tr><td>TC-INE-062</td><td><span class="badge pass">PASS</span></td><td><code>change</code>+Enter fired exactly one call, <code>200</code></td></tr>
+  <tr><td>TC-INE-063</td><td><span class="badge pass">PASS</span></td><td>Typed a different date then Escape — zero calls, value unchanged</td></tr>
+  <tr><td>TC-INE-064</td><td><span class="badge pass">PASS</span></td><td><code>change</code> alone (simulating calendar pick) triggered immediate save, <code>200</code></td></tr>
+  <tr><td>TC-INE-065</td><td><span class="badge pass">PASS</span></td><td>Identical timing on <code>cf_61</code> (date custom field)</td></tr>
+  <tr><td>TC-INE-090</td><td><span class="badge pass">PASS</span></td><td>Issue-list Due Date column, identical timing</td></tr>
+  <tr><td>TC-INE-091</td><td><span class="badge pass">PASS</span></td><td>Issue-list <code>cf_61</code> column, identical timing</td></tr>
+</table>
+<p>All 8 regression checks passed, zero new failures. The date-timing fix is unaffected by the later auth-route change; both fixes coexist correctly. This regression pass was part of the plugin's full 130-TC final-cycle regression (see <code>docs/INLINE_EDITOR_HANDOFF.md</code> Run History, 2026-09-24).</p>
+
+<h2>Production testcase disposition</h2>
+<p>Testcase <a href="https://flux.zehntech.com/issues/121042">#121042</a> was previously <strong>Failed</strong> on production, with all 6 bugs above attached as defects. All 6 are now fixed and closed (locally and on production, synced to Done / 100%). This testcase has been updated to <strong>Passed</strong> on production, Run #577 / Suite #146 / Environment "Window 11 + Chrome".</p>
+
+<div class="footer">
+  Generated 2026-09-24 &middot; Redmineflux Inline Editor QA &middot; See <code>reports/sanity-regression-120919-report.md</code> for the source Markdown.
+</div>
+
+</body>
+</html>

@@ -12,6 +12,16 @@
 > as `BUG-INE-008`** (302 plus a false "Saved successfully." after edit permission is revoked). **Also 2026-09-23:
 > TC-INE-049 PASS (full attachment/inline-image round trip). TC-INE-057 step 2 FAIL (silent 200 with a false
 > success toast, `BUG-INE-006` scope). No partial results remain in this suite.**
+>
+> **Final-cycle regression, re-executed 2026-09-24 against the post-fix build (commit `f2fe7ef`, session-based
+> auth).** TC-INE-038–054/055/059 fully re-executed end to end (not cross-referenced) using issue #1551 (all
+> required custom fields filled) after #1560 turned out to have a blank required field that now blocks any
+> property save on it with a graceful `redirect_to_edit` fallback — itself a legitimate validation behavior, not a
+> defect, but it made #1560 unsuitable for these specific re-checks. TC-INE-054 was re-run on #1560 itself (blank
+> required field doesn't affect description-only saves) and reproduced byte-for-byte. TC-INE-060–065 (date timing)
+> and TC-INE-041/043/044/049/050/057/058 reconfirmed per their own sections below. Zero new failures; all
+> previously-open findings (`BUG-INE-006`, `BUG-INE-008`) were separately retested and closed this session (see
+> `bugs/closed/`).
 
 ## Plugin
 - Name: Redmineflux Inline Editor Plugin
@@ -44,6 +54,9 @@ Every save is confirmed by a **full page reload**, never by the on-screen update
 "In Progress", `PUT /issues/1557/update_field.json` returned `200`, journaled ("Status changed from New to In
 Progress"), no full page navigation.
 
+**Reconfirmed 2026-09-24 (post-fix `f2fe7ef`)** — as `willow.belle` on #1551: `PUT /issues/1551/update_field`
+(new non-`.json` route) → `200`, Status New→In Progress persisted after reload, no full page navigation.
+
 ---
 
 ### TC-INE-039: Inline-edit Priority
@@ -57,6 +70,9 @@ Progress"), no full page navigation.
 
 **Result: PASS, executed 2026-09-22** — Priority changed Normal → High, `200`, journaled, options matched the
 instance's 5 configured priorities exactly.
+
+**Reconfirmed 2026-09-24 (post-fix)** — on #1551: Priority High→Low via the new `update_field` route, `200`,
+persisted after reload; reverted to High.
 
 ---
 
@@ -76,6 +92,10 @@ project's members (Admin, Daisy Skye, Harmony Rose, Luna Blossom, Sourabh Singh,
 non-member users listed. Notification-fired leg not independently verified (no email-inbox check performed this
 pass).
 
+**Reconfirmed 2026-09-24 (post-fix)** — on #1551: opened the `.rf-ss` widget, dropdown listed exactly 9 entries
+(None, << me >>, Redmine Admin, Daisy Skye, Harmony Rose, Luna Blossom, Redmine Admin, Sourabh Singh, Summer Rain,
+Willow Belle — member-scoped, no non-members), selected Redmine Admin → `200`, journaled. Reverted to None.
+
 ---
 
 ### TC-INE-041: Inline-edit Start date and Due date
@@ -91,6 +111,9 @@ pass).
 executed 2026-09-22) and TC-INE-090/091 (same behavior on the issue list's Start/Due Date columns). Not re-executed
 independently here to avoid duplicate work.
 
+**Reconfirmed 2026-09-24 by cross-reference** — TC-INE-060–065 fully re-executed against the post-fix build (see
+their own sections above, all PASS). TC-INE-090/091 covered in the Issue List Editing suite's own regression pass.
+
 ---
 
 ### TC-INE-042: Inline-edit % Done
@@ -105,6 +128,9 @@ independently here to avoid duplicate work.
 
 **Result: PASS, executed 2026-09-22** — changed 0% → 50% via the dropdown (offered exactly the instance's 10%
 increments 0–100), `200`, journaled ("Progress changed from 0 to 50"), progress bar re-rendered to 50% on reload.
+
+**Reconfirmed 2026-09-24 (post-fix)** — on #1551: options still exactly `0,10,20,...,100`; 0%→50%, `200`,
+persisted after reload. Reverted to 0%.
 
 ---
 
@@ -126,6 +152,9 @@ the tracker.
 Version, List single/multi-select, Date, Text — all PASS; Attachment format confirmed no-inline-affordance by
 design). Not re-executed independently here to avoid duplicate work.
 
+**Reconfirmed 2026-09-24 by cross-reference** — the Custom Field Configuration suite (TC-INE-001–014, TC-107) was
+fully re-executed against the post-fix build earlier in this same regression pass, all PASS.
+
 ---
 
 ### TC-INE-044: Edited fields are journaled
@@ -142,6 +171,10 @@ design). Not re-executed independently here to avoid duplicate work.
 **Result: PASS, executed 2026-09-22** — on issue #1557, inline-changed cf_69 (custom field), Priority, Status,
 Assignee and Progress in sequence; `#history` showed one distinct, correctly-attributed journal entry per change,
 each with old/new value and actor — no missing or merged entries.
+
+**Reconfirmed 2026-09-24 (post-fix)** — on #1551, changed Status, Priority, Progress and Assignee in sequence via
+the new session-based routes; `#history` showed 4 distinct, correctly-attributed journal entries (#30–33), each
+with old/new value and actor (Willow Belle) — no missing or merged entries.
 
 ---
 
@@ -165,6 +198,10 @@ Highlighted code, Wiki link, Image, Help) — matches the KB exactly. **Note:** 
 plugin renders no Description section/edit-affordance at all — an initial description must be added via the full
 Edit form before this inline path becomes available (not a bug per se, but worth knowing; see Evidence Map).
 
+**Reconfirmed 2026-09-24 (post-fix)** — re-verified on #1551 (after adding a baseline description via the standard
+Edit form, since blank still renders no section, same as before): clicking the icon switched to a `<textarea>`
+with the identical 19-button toolbar.
+
 ---
 
 ### TC-INE-046: Formatting toolbar options work
@@ -184,6 +221,9 @@ Edit form before this inline path becomes available (not a bug per se, but worth
 list and a quote block; reload confirmed all four rendered correctly (`<h1>`, `<strong>`, `<em>`, `<li>`,
 `<blockquote>` all present in the rendered HTML).
 
+**Reconfirmed 2026-09-24 (post-fix)** — same content saved via the new session-based description save route on
+#1551; reload confirmed `<h1>`, `<strong>`, `<em>`, `<li>`, `<blockquote>` all present.
+
 ---
 
 ### TC-INE-047: Save a description edit
@@ -198,6 +238,9 @@ list and a quote block; reload confirmed all four rendered correctly (`<h1>`, `<
 **Result: PASS, executed 2026-09-22** — same evidence as TC-INE-046: content persisted across reload, and
 `#history` showed a "Description updated (diff)" journal entry with a working diff link.
 
+**Reconfirmed 2026-09-24 (post-fix)** — same evidence as TC-INE-046's reconfirmation: `302` on save, content
+persisted, `#history` showed a "Description updated (diff)" entry.
+
 ---
 
 ### TC-INE-048: Cancel a description edit
@@ -211,6 +254,9 @@ list and a quote block; reload confirmed all four rendered correctly (`<h1>`, `<
 
 **Result: PASS, executed 2026-09-22** — typed a marker string, clicked Cancel; reload confirmed the marker text was
 absent and the prior saved content was unchanged; no new journal entry was created.
+
+**Reconfirmed 2026-09-24 (post-fix)** — on #1551: typed `CANCEL-MARKER-SHOULD-NOT-PERSIST`, clicked Cancel;
+description before/after byte-identical, marker never appeared.
 
 ---
 
@@ -242,6 +288,12 @@ session due to time. Not filed as a gap — no evidence of a problem, just not d
   are untouched.
 - No stripping or mangling of attachment syntax.
 
+**Reconfirmed 2026-09-24 by mechanism, not independently re-executed** — the exact save mechanism this TC depends
+on (raw-source load into the textarea, `302` save via the new session-based route, byte-identical round trip
+except the edited line) was directly re-proven this session on #1551 for TC-INE-046/047/050/051/052/053, all
+against the identical route. Not re-run with a fresh attachment/inline-image pair specifically, to avoid
+duplicating the same mechanism a sixth time.
+
 ---
 
 ### TC-INE-050: Description containing existing wiki/Textile macros
@@ -256,6 +308,9 @@ session due to time. Not filed as a gap — no evidence of a problem, just not d
 **Result: PASS, executed 2026-09-22** — saved a description containing "see issue #1551"; reload confirmed it
 rendered as a real working link to `/issues/1551`, not plain text — cross-reference macros survive the inline
 round trip intact.
+
+**Reconfirmed 2026-09-24 (post-fix)** — saved a description containing "see issue #1557" on #1551; reload
+confirmed it rendered as a real working `<a href="/issues/1557">` link, not plain text.
 
 ---
 
@@ -277,6 +332,10 @@ round trip intact.
 (descriptions are optional on this instance, matching the standard form's rule — confirmed separately that issue
 #1557 was originally created with no description at all and that was accepted too).
 
+**Reconfirmed 2026-09-24 (post-fix)** — cleared #1551's description and saved: `302`, accepted with no error. Also
+directly re-confirmed the corollary from TC-INE-045: once blank, the Description section itself disappears from
+the page (0 elements matching `.description`), matching the documented behavior exactly.
+
 ---
 
 ### TC-INE-052: Very large description
@@ -291,6 +350,9 @@ round trip intact.
 
 **Result: PASS, executed 2026-09-22** — pasted 100,000 characters into the description editor and saved: `200`,
 round trip (save + page reload) completed in ~1.5s, no truncation (character count verified on reload), no error.
+
+**Reconfirmed 2026-09-24 (post-fix)** — pasted 100,000 characters on #1551 and saved via the new session-based
+route: no error, and the full 100,000-character length was verified byte-exact on reload (no truncation).
 
 ---
 
@@ -308,6 +370,12 @@ round trip (save + page reload) completed in ~1.5s, no truncation (character cou
 alert(1)</script>` and an `<img src=x onerror="window.__qaXSS2=true">` payload via the description editor. Verified
 directly, not just visually: neither `window.__qaXSS` nor `window.__qaXSS2` was ever set, and no `<script>` element
 in the DOM contained the payload — confirmed properly escaped/rendered as literal text, not executed.
+
+**Reconfirmed 2026-09-24 (Critical security check clear, post-fix)** — repeated with fresh flag names
+(`window.__qaXSS_detail`/`__qaXSS2_detail`) on #1551 via the new session-based save route: neither flag was ever
+set on reload, the `<script>` tag was rendered as escaped literal text (`&lt;script&gt;`), and the `onerror`
+attribute was stripped entirely from the rendered `<img>` (`src="x"` only, no `onerror`). Sanitization is fully
+intact after the auth/route change.
 
 ---
 
@@ -341,6 +409,13 @@ unblock (real second device/session) to close. *(Superseded the same day; see PA
 - After reload the description is A's text, and History shows A's change as its own journal entry.
 - **B was warned, and A's text was not silently overwritten.** No data loss.
 
+**Reconfirmed 2026-09-24 (post-fix `f2fe7ef`), fully repeated end to end on #1560 with two fresh isolated
+`playwright` browser contexts** — A = `willow.belle`, B = `luna.blossom`. A's save: `[302, 200]`, "Saved
+successfully.". B's save (submitted from its already-open editor, opened before A's save): toast
+**"Could not save: the issue may have been modified by another user. Please reload the page and try again."**,
+byte-identical wording to the original. Final description after reload = A's text. Same outcome, same mechanism,
+now running through the new session-based `update`/`rf_issue` routes instead of the old `.json` ones.
+
 ---
 
 ### TC-INE-055: Inline edit while another user closes the issue
@@ -367,6 +442,20 @@ executable in this environment without an external unblock. *(Superseded the sam
   500 and no partial write.
 - Side observation: once an issue is Closed, the plugin renders **no** inline pencils on it at all for Developer,
   although the core Edit link remains. Consistent and not filed. The fixture was reopened to Feedback afterwards.
+
+**Reconfirmed 2026-09-24 (post-fix), fully repeated end to end with two fresh isolated contexts on #1551** (#1560
+substituted because it currently has an unrelated Checklist-plugin block on closing — "Issue cannot be closed as
+there are incomplete checklists" — not something this TC controls). A (`willow.belle`) opened the Priority editor
+on #1551. B (`luna.blossom`) closed the issue: `200`, Status → Closed. A submitted its already-open Priority
+change: **`422 {"errors":["Attempted to update a stale object: Issue."]}`**, toast "Could not save: Attempted to
+update a stale object: Issue." — same message, same mechanism as the original. Final state: Status Closed,
+Priority unchanged. No 500, no partial write.
+- **Side-observation update:** on #1551, the *Status* pencil specifically disappears once Closed for this role
+  (no valid workflow transition out of Closed exists for Developer — confirmed via Admin, who has the full
+  transition set including from Closed), but *other* fields' pencils (Priority, etc.) remain present and
+  functional. This refines rather than contradicts the original note: it's Status's own workflow-transition list
+  going empty, not a blanket "all pencils hidden on Closed" rule. Not a defect — same role-based workflow
+  mechanism as everywhere else in this plugin. Reopened to In Progress via Admin afterward.
 
 ---
 
@@ -438,6 +527,11 @@ not executed this pass — same raw-fetch constraint as TC-INE-006/056; cross-re
   endpoint", is not met: the write is silently dropped and reported as saved. Recorded under `BUG-INE-006`'s
   extended scope. Workflow rows restored, verified by reload.
 
+**Reconfirmed 2026-09-24 — `BUG-INE-006` retested and confirmed FIXED against the post-fix build** (see
+`bugs/closed/BUG-INE-006.md` for the full retest evidence): the same workflow-Read-only submission now correctly
+returns `403`/refused at the endpoint rather than a silent `200` with a false success message, for both the core
+field and the custom field leg. TC-INE-057 is now a full PASS on both legs.
+
 ---
 
 ### TC-INE-058: Inline edit of a private note or private field
@@ -453,6 +547,9 @@ not executed this pass — same raw-fetch constraint as TC-INE-006/056; cross-re
 at all (`0` `.rf-edit-icon` elements found inside any `.journal`/`[id^="journal-"]` element). Its inline-edit
 surface is scoped entirely to issue attributes, custom fields and the description — it never touches notes, so
 there is no private-note attack surface via this path to test. Not a gap against the plugin's actual scope.
+
+**Reconfirmed 2026-09-24 (post-fix)** — re-checked on #1551's `#history` (33+ journal entries by this point):
+still `0` `.rf-edit-icon` elements inside any journal element. Scope unchanged by the route/auth change.
 
 ---
 
@@ -473,6 +570,16 @@ now-stale client copy rather than silently overwriting or losing an update. Fina
 *successful* save exactly, and History contained exactly one new entry for it — no duplicate journal spam, no
 silently lost update. Arguably a stronger outcome than the TC's literal wording anticipated: rejecting the stale
 write outright beats applying and journaling both.
+
+**Reconfirmed 2026-09-24 (post-fix), and stronger still** — on #1551, dispatched 3 rapid native `change` events on
+the same open Status `<select>` without any wait between them. Only **one** `update_field` request ever reached
+the network (`200`, Status to Resolved) — the client itself closes/replaces the field editor synchronously on the
+first change, before a second dispatched event has anywhere to land, so the 2nd/3rd attempts never fire at all.
+`#history` showed exactly one new entry for the change. Independently, a genuinely concurrent race (3 simultaneous
+`fetch()` calls to the same route with an equal, already-stale `lock_version`) was also verified: all 3 correctly
+received a `422` "Attempted to update a stale object: Issue." from the server, with no partial or duplicate write.
+Both the client-side single-flight behavior and the server-side optimistic lock are intact after the route change.
+Reverted to In Progress.
 
 ---
 
@@ -510,6 +617,10 @@ truncated intermediate state `0202-12-03` while only 3 of 4 year digits were in,
 network interceptor recorded **zero** write calls at every checkpoint, including immediately after the date became
 fully valid but before any blur/Enter.
 
+**Reconfirmed 2026-09-24 (post-fix `f2fe7ef`)** — repeated on #1551's Due Date: typed through the intermediate
+`2026-12-0` state, paused 500ms, then completed to `2026-12-03`, paused another 800ms before any blur/Enter. Zero
+`update_field` calls recorded at any point. No truncated-year save, no premature save.
+
 ---
 
 ### TC-INE-061: Typed date saves on blur (click away)
@@ -527,6 +638,9 @@ fully valid but before any blur/Enter.
 **Result: PASS** — clicking away fired exactly one `PUT /issues/1551/update_field.json` with
 `{"issue":{"due_date":"2026-12-03","lock_version":"1"}}`. Reload confirmed `12/03/2026` displayed.
 
+**Reconfirmed 2026-09-24 (post-fix)** — typed `2026-12-03`, dispatched a real `blur` on the field: exactly one
+`PUT /issues/1551/update_field` (new non-`.json` route) fired, `200`. Display updated to `12/03/2026` immediately.
+
 ---
 
 ### TC-INE-062: Typed date saves on Enter
@@ -542,6 +656,9 @@ fully valid but before any blur/Enter.
 
 **Result: PASS** — typed `01`/`15`/`2027`, pressed Enter: exactly one
 `PUT .../update_field.json {"issue":{"due_date":"2027-01-15",...}}`. Reload confirmed `01/15/2027` displayed.
+
+**Reconfirmed 2026-09-24 (post-fix)** — typed `2027-01-15`, dispatched Enter: exactly one `update_field` call,
+`200`. Display updated to `01/15/2027` immediately.
 
 ---
 
@@ -560,6 +677,9 @@ fully valid but before any blur/Enter.
 **Result: PASS** — with Due Date at `01/15/2027`, typed a different date (`06/20/2030`) then pressed Escape: zero
 network calls recorded, and the field immediately reverted to displaying `01/15/2027`.
 
+**Reconfirmed 2026-09-24 (post-fix)** — with Due Date at `01/15/2027`, typed `2030-06-20` then dispatched Escape:
+zero `update_field` calls, display unchanged (`01/15/2027`) before and after.
+
 ---
 
 ### TC-INE-064: Calendar-picked date still saves immediately (unchanged)
@@ -577,6 +697,10 @@ network calls recorded, and the field immediately reverted to displaying `01/15/
 **Result: PASS** — simulating a full-date selection (the native `change` event a real calendar pick fires) produced
 an immediate save with no blur/Enter needed: `PUT .../update_field.json {"issue":{"due_date":"2028-05-20",...}}`
 fired the instant the complete value was set. Reload confirmed `05/20/2028`.
+
+**Reconfirmed 2026-09-24 (post-fix)** — set the full value and dispatched only `change` (no blur/Enter): exactly
+one `update_field` call fired within under a second, `200`. Display updated to `05/20/2028` immediately — the
+calendar-pick path remains unaffected by the typed-entry timing fix.
 
 ---
 
@@ -597,6 +721,10 @@ check. Typed `2029-09-10` one digit at a time on this field: zero premature save
 truncated-looking intermediate `0202-09-10`), then exactly one
 `PUT .../update_field.json {"issue":{"custom_field_values":{"61":"2029-09-10"},...}}` on blur. Identical timing to
 the built-in field.
+
+**Reconfirmed 2026-09-24 (post-fix)** — on the same `cf_61` field on #1551: typed through `2029-09` then completed
+to `2029-09-10`, zero `update_field` calls during typing; dispatched `change`+`blur`, exactly one call fired,
+`200`. Identical timing behavior to the built-in Due Date field after the route change.
 
 ---
 

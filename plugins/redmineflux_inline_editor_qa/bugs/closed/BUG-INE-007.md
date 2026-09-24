@@ -79,6 +79,17 @@
   alongside TC-INE-006 as its direct core-field counterpart) so this "reload-while-restricted, then
   AJAX-transition-away" sequence is covered by the regular suite going forward, not just this bug report.
 
+## Retest
+
+**Result: FIXED, confirmed 2026-09-24** — after pulling commit `b57e71e` and precompiling assets. Reproduced the
+exact original sequence on issue #1559 (Subject Read-only at "In Progress" for Developer/Bug): at "New" (later
+"Feedback", since "New" has no outgoing transition from Developer directly back to it from "In Progress"),
+Subject's pencil is present; inline-transitioned Status to "In Progress" (with `cf_69` filled to satisfy its
+own Required-at-this-status rule) — pencil correctly absent, confirmed by reload; inline-transitioned Status
+back to "Feedback" **without reloading** — the pencil **reappeared immediately**, no reload needed. Reconfirmed
+again after an actual reload for consistency (still present). The new `syncSubjectEditor()` call after each
+inline status-driven form refresh works as intended.
+
 ## Duplicate check
 
 - Duplicate found: No

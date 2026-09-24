@@ -55,6 +55,14 @@
   `maxlength` attribute): `#errorExplanation` text = `Subject is too long (maximum is 255 characters)` — save
   correctly refused.
 
+## Retest
+
+**Result: FIXED, confirmed 2026-09-24** — after pulling commit `1cfa06c` and precompiling assets. As
+`willow.belle` on the issue list, `PUT /issues/1560/update_field.json` (subject) with a 5,000-character value now
+returns `422` with `"Subject is too long (maximum is 255 characters)"`, no truncation attempted, value not
+persisted. A blank subject on the same field returns `"Subject cannot be blank."`, editor closes, previous value
+unchanged after reload. Both refusals match the standard Edit form's own validation exactly.
+
 ## Duplicate check
 
 - Duplicate found: No

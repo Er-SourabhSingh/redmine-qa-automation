@@ -88,6 +88,49 @@ responses:
   Not the same as `BUG-CHK-002` (XSS) or `BUG-CHK-004` (duplicate journal entries) — different mechanism
   entirely (a missing authorization/state check, not an escaping or event-handling bug).
 
+## Retest — 2026-09-24
+
+- **Result: PARTIAL FIX — core authorization gap resolved; user-feedback gap from the original Expected
+  Result is still unresolved.**
+- Source: none of `checklists_controller.rb` / `checklist_items_controller.rb` / their `api/` counterparts
+  check `@project.closed?` (or `issue.project.status`) — every guard added checks `issue.status.is_closed?`
+  (the issue's own workflow status) instead. On this retest's fixture, issue #1533's own status is `New` while
+  its **project** (`checklist-perm-private`) is closed — exactly the scenario this bug reports.
+- Despite the source not showing a project-level guard, the **live behavior has changed** — all three
+  previously-succeeding write paths now return 403 and do not persist:
+  - Create: `POST /checklists` → **403 Forbidden** (was 201). Confirmed the typed checklist was never added
+    (not present in the list afterward).
+  - Toggle: `PATCH /checklists/56/toggle_completed` → **403 Forbidden** (was 200). Also blocked the bulk
+    variant: `PATCH /checklist_items/toggle_completed_bulk` → 403.
+  - Delete: `DELETE /checklists_delete/187.json` → **403 Forbidden** (was 200). Confirmed the "dfsdfsaf"
+    checklist was still present afterward — delete did not go through.
+  - Add from template: already blocked pre-fix, still blocked.
+  (The 403 is likely coming from a broader `edit_issues`/read-only check elsewhere in the request pipeline —
+  possibly core's own `Issue#editable?`/`deny_access` now correctly seeing the project-closed state via the
+  `allowed_to?(:edit_issues, @project)` calls already in these controllers — since no plugin code explicitly
+  checks project status. Not fully root-caused; the point verified live is that the write no longer persists.)
+- **Still broken, matching the original Expected Result's second requirement:** all four actions still fail
+  **completely silently** — no flash message, no on-page error text (`document.querySelectorAll('.flash, .error,
+  .errorExplanation, [class*="error"], [class*="flash"]')` returned zero elements after each blocked attempt).
+  Only trace is a console-only 403, exactly as originally reported, just now happening on all four actions
+  instead of only "Add from template".
+- Retest screenshot: `screenshots/BUG-CHK-005/retest-2026-09-24-partial.png`.
+- **Verdict:** the Critical/High-impact half of this bug (unauthorized writes succeeding on a closed project)
+  is fixed. The remaining half (no user-facing feedback on a blocked action) is a UX/polish gap, not a
+  security or data-integrity issue — effective severity for what remains is **Low**. Keeping this bug **open**
+  rather than closing it, since the original Expected Result explicitly required visible feedback and that
+  part is unmet; not filing a separate bug per `feedback_retest_verdict_against_original_scope` guidance,
+  since this is the same documented expectation from the original filing, not a newly discovered defect.
+
+## Production update — 2026-09-24
+
+Added a note to production issue #121061 summarizing the partial-fix retest (write-authorization half fixed,
+no-feedback half still open) and recommending the Priority/Defect Severity/Defect priority fields be downgraded
+to reflect the reduced remaining scope. Status, priority, and done_ratio were initially left untouched.
+
+**Then reopened** — status changed In QA → Reopen, with a note asking for the remaining no-feedback gap to be
+addressed before moving it back to In QA.
+
 ## Reported by
 
 Raised by the user, who suspected the inconsistency directly from observing the console 403 on "Add from

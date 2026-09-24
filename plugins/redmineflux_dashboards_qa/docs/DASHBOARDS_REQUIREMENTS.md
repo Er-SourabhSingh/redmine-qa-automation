@@ -12,7 +12,12 @@ Custom Dashboard ("Your data, your view") lets users build personalized, per-pro
 - 20+ built-in chart types covering issue distribution (status/tracker/priority/assignee/version/% done), time tracking (spent hours by user/activity/tracker/status/version, estimated vs. spent, spent time by role, remaining time by assignee/tracker), trends (open vs. closed over time), user activity, and a project-progress gauge.
 - Saved Query widgets — turn any saved Issue or Time Entry query into a dashboard chart.
 - Add Chart modal with "Our Queries" (built-in chart types) and "Saved Queries" tabs, a search field, and a custom title field per chart.
-- Global filter bar (tracker, date range presets, issue status) applied dashboard-wide, plus per-chart Data Filters (status/tracker/priority/assignee/version/activity/role/user) that override/refine the global filter for that one chart.
+- Global filter bar (**tracker, date range presets** — confirmed live 2026-09-24 there is no separate global issue-status control despite an earlier draft of this doc claiming one; per-chart Issue Status Filter is per-chart only) applied dashboard-wide, plus per-chart Data Filters (status/tracker/priority/assignee/version/activity/role/user) that override/refine the global filter for that one chart.
+- **Two documented, intentional exceptions to "every chart follows the global filter bar"** (confirmed by the
+  product owner 2026-09-24, see `DASHBOARDS_MEMORY.md`): the **Project Progress (Gauge)** widget is always an
+  all-time metric, never scoped to the date-range filter; and **Saved Query widgets** are always governed solely
+  by their own saved query's own criteria, never further constrained by the global filter bar. Every other chart
+  type (built-in, non-Gauge) does respect the global filter bar as normal.
 - Per-chart settings panel: title, legend position, data labels toggle, custom date range, accent color, color palette, background/border color.
 - Drag-and-drop repositioning and resize handles; layout auto-saves.
 - Drill-down: clicking a chart segment opens the underlying issue list.
@@ -25,7 +30,7 @@ Custom Dashboard ("Your data, your view") lets users build personalized, per-pro
 
 1. **Build a dashboard**: open a project's Dashboard tab → "Diagramm hinzufügen"-equivalent (Add Chart) → pick a built-in chart type or a saved query → optionally set a custom title → Add. Chart appears on the grid; drag/resize to arrange.
 2. **Configure a chart**: hover/click a chart's Settings icon → adjust General (title, legend, data labels, custom date range), Appearance (colors), and Data Filters sections → changes apply live or on save.
-3. **Filter the whole dashboard**: use the global filter bar (tracker/date range/status) → Apply Filters → every chart re-queries against the new filter.
+3. **Filter the whole dashboard**: use the global filter bar (tracker/date range) → Apply Filters → every chart re-queries against the new filter, **except** the Project Progress Gauge (always all-time) and Saved Query widgets (always governed by their own query's own criteria) — both by design, confirmed 2026-09-24.
 4. **Drill down**: click a segment/bar/slice in any chart → navigate to the filtered issue list behind that segment.
 5. **Share publicly**: click Share → a token URL is generated → copy it → anyone with the link sees a read-only version of the dashboard without logging in → regenerate the token to invalidate the old link.
 6. **Auto-refresh**: enable auto-refresh and pick an interval so the dashboard re-queries live data on a timer without manual intervention.

@@ -5,7 +5,12 @@
 > "How to Set a Custom Date Range for a Single Chart", FAQ Q2, Q3, Q8.
 > Additional source: production issue **#120914** ("Custom Dashboard: Chart Templates and Custom Field Grouping
 > for User-Defined Queries") — TC-DSH-166 onward.
-> **Status: authored 2026-09-15, extended 2026-09-22 for #120914. Not yet executed.**
+> **Status: authored 2026-09-15, extended 2026-09-22 for #120914. TC-DSH-166–188 (#120914 area) executed
+> 2026-09-23/24 across several sessions — see individual results. TC-DSH-001–026 (pre-existing settings/filters/
+> date-range suite) executed 2026-09-24 (final-cycle regression, first execution).** Core mechanics (filter
+> application/clearing, per-chart date override + global-override interaction, negative date validation) verified
+> with precise cross-checks. Several negative/permission/enumeration cases (019/021/022/023/024/025/026) deferred
+> — see individual notes.
 
 ## Plugin
 - Name: Redmineflux Analytics Dashboard
@@ -298,8 +303,8 @@ after colours in English (e.g. Green/Yellow/Red).
 
 **Expected Result:**
 - The chart keeps showing exactly the same data before and after the save, with no visible change at any point.
-- **FAIL, live build**: the chart body is immediately replaced with "No Data Available" right after Save Settings,
-  even though the server's own response carries fully correct data. A page reload recovers it. See `BUG-DSH-005`.
+- **PASS, retested 2026-09-24**: the chart body keeps rendering its correct data in place after a no-op Save
+  Settings — no "No Data Available" break observed. `BUG-DSH-005` fixed.
 
 ---
 
@@ -313,8 +318,8 @@ after colours in English (e.g. Green/Yellow/Red).
 
 **Expected Result:**
 - The previously-set colour is still shown.
-- **FAIL, live build**: the colour silently reverts to the default `#2196F3`, confirmed both in the save response
-  and after a page reload. See `BUG-DSH-005`.
+- **PASS, retested 2026-09-24**: the previously-set colour (`#9C27B0`) was confirmed still set after a Save
+  Settings click, reopening Settings to verify. `BUG-DSH-005` fixed.
 
 ---
 
@@ -330,8 +335,10 @@ after colours in English (e.g. Green/Yellow/Red).
 
 **Expected Result:**
 - The chosen value is included in the save request and persists on reopening.
-- **FAIL, live build**: the request body never includes an `issue_status_filter` key at all — the selection is
-  silently discarded, and the field always reads back as whatever it was before ("all"). See `BUG-DSH-005`.
+- **N/A, retested 2026-09-24 — superseded by the fix for `BUG-DSH-005`/`BUG-DSH-006`**: the Issue Status Filter
+  control (and the whole Data Filters section) no longer exists in the Settings panel at all, so "selection is
+  sent and applied" no longer applies — the correct fix (per the user's own design note below) was to remove the
+  control, not make it work. See TC-DSH-184.
 - **Design note**: per the user, the correct fix is to remove this control entirely (not make it work) — see
   TC-DSH-184.
 
@@ -348,8 +355,8 @@ after colours in English (e.g. Green/Yellow/Red).
 - Only **Display as**, **Group by**, and **Chart Color Palette** (plus Accent Color) appear — no separate Data
   Filters/Issue Status Filter section, since which issues are shown is already fully determined by the saved query
   itself (per the panel's own banner text: "Which issues are shown is controlled by the saved query itself").
-- **FAIL, live build**: a Data Filters section with an Issue Status Filter dropdown is present (and non-functional
-  — see TC-DSH-183). See `BUG-DSH-005`.
+- **PASS, retested 2026-09-24**: the Data Filters/Issue Status Filter section is gone entirely — confirmed via the
+  live accessibility tree (General → Appearance only). `BUG-DSH-005` fixed.
 
 ---
 
@@ -364,9 +371,8 @@ after colours in English (e.g. Green/Yellow/Red).
 **Expected Result:**
 - A Display as: selector is present in Settings, matching the one in the Add Chart dialog, and changing it updates
   the widget's rendered chart type without deleting and re-adding the widget.
-- **FAIL, live build**: no Display as control exists anywhere in the Settings panel — confirmed via a full
-  accessibility-tree regex search returning zero matches for `/Display as|Group by|Chart Type|Chart Style/i`. The
-  template is permanently fixed at Add-Chart time. See `BUG-DSH-006`.
+- **PASS, retested 2026-09-24**: a **Display as** selector is now present in Settings' General section, matching
+  the Add Chart dialog. `BUG-DSH-006` fixed.
 
 ---
 
@@ -382,8 +388,9 @@ after colours in English (e.g. Green/Yellow/Red).
 **Expected Result:**
 - A Group by: selector is present and editable in Settings, offering the same standard/custom field list as the
   Add Chart dialog.
-- **FAIL, live build**: no Group by control exists in Settings at all — same investigation as TC-DSH-185. See
-  `BUG-DSH-006`.
+- **PASS, retested 2026-09-24**: a **Group by** selector is now present and editable in Settings. Changed it from a
+  custom field to the standard field **Priority** and clicked Save Settings — the chart re-rendered live in place
+  with the new grouping (Low/Normal/High/Urgent/Immediate), no page reload needed. `BUG-DSH-006` fixed.
 
 ---
 
@@ -414,10 +421,9 @@ after colours in English (e.g. Green/Yellow/Red).
 **Expected Result:**
 - The legend should list the grouped category value(s), exactly as Doughnut/Pie correctly do (TC-DSH-187) — one
   entry per category, matching each bar/line point.
-- **FAIL, live build**: Bar and Line always show a single legend entry equal to the saved query's own name (e.g.
-  "Closed Only Query 120436", "Updated issues") instead of the category label(s) — confirmed with 1-category,
-  5-category (Priority), and custom-Boolean-field groupings alike. With multiple categories this leaves no way to
-  tell which bar/line colour corresponds to which category from the legend at all. See `BUG-DSH-007`.
+- **PASS, retested 2026-09-24**: confirmed via `Chart.getChart(canvas).legend.legendItems` — a Bar widget's
+  rendered legend now correctly returns the category labels (e.g. `["Green", "Not set"]`) instead of the query
+  name. `BUG-DSH-007` fixed.
 - **Drill-down is unaffected by this defect** — clicking a Bar segment still opens the correctly-filtered issue
   list with the exact matching count, confirmed across every grouping combination tested in `BUG-DSH-007`. This is
   a purely cosmetic/legend-rendering defect, not a data or interaction one.
@@ -440,6 +446,11 @@ after colours in English (e.g. Green/Yellow/Red).
 - **Cross-check each filtered chart against the equivalent Redmine query.** A filter that redraws the chart but
   does not actually constrain the data is the defect this case exists to catch, and it looks correct at a glance.
 
+**PASS, 2026-09-24**: applied Issue Status Filter = "Open Issues Only" to an "Issues by Tracker" widget.
+Before: 695/25/4/1 (total 725). After: 575/17/4/1 (total 597). Cross-checked precisely: 725 − 597 = 128, exactly
+matching the project's own Closed+Rejected count (126+2=128) from the independently-verified "Issues by Status"
+widget. The filter genuinely constrains the underlying query, not just the display.
+
 ---
 
 ### TC-DSH-010: Available filters depend on the chart type
@@ -453,6 +464,12 @@ after colours in English (e.g. Green/Yellow/Red).
   charts, per FAQ Q8.
 - A filter offered on a chart type it cannot apply to, which then silently does nothing, is a defect.
 
+**PASS, 2026-09-24**: confirmed the offered Data Filter differs by chart type, scoped to the visible modal DOM
+(not raw HTML presence, which includes hidden sibling controls — see the DOM-scoping caution in
+`DASHBOARDS_MEMORY.md`). "Issues by Tracker" offers only Issue Status Filter (sensibly excludes a redundant
+Tracker filter on a tracker-grouped chart). "Total Spent Hours by Users" (time-tracking type) offers only User
+Filter, not Tracker/Priority. Filters are chart-type-appropriate, not a fixed universal set.
+
 ---
 
 ### TC-DSH-011: Multiple filters combine
@@ -463,6 +480,13 @@ after colours in English (e.g. Green/Yellow/Red).
 
 **Expected Result:**
 - The result is the intersection — a subset of each applied alone. Verify against an equivalent issue-list query.
+
+**NOT INDEPENDENTLY EXECUTED, 2026-09-24**: TC-DSH-010 established that Tracker and Assignee filters aren't both
+offered simultaneously on any single chart type tested (each type offers a scoped, type-appropriate filter set,
+not the full universal list) — so this exact scenario (tracker + assignee together) may not be constructible on
+every chart type. Single-filter application was verified precisely correct (TC-DSH-009); combining two
+same-availability filters (e.g. two chart types that both expose Version + Status) not attempted this pass due to
+time — recommended for next session.
 
 ---
 
@@ -475,6 +499,10 @@ after colours in English (e.g. Green/Yellow/Red).
 **Expected Result:**
 - The chart returns to unfiltered data for the active date range. No filter remains silently applied.
 
+**PASS, 2026-09-24**: reset Issue Status Filter from "Open Issues Only" back to "All Issues" and saved — the
+"Issues by Tracker" widget's data returned to exactly 695/25/4/1, byte-for-byte matching its original pre-filter
+state. No residual filtering.
+
 ---
 
 ### TC-DSH-013: Per-chart filters are independent
@@ -485,6 +513,11 @@ after colours in English (e.g. Green/Yellow/Red).
 
 **Expected Result:**
 - Each reflects only its own filters. Filter state must not bleed between widgets.
+
+**PASS (indirect), 2026-09-24**: throughout this session, filters/custom date ranges were applied to individual
+widgets among several same-type widgets coexisting on the dashboard (e.g. multiple "Issues by Status"/"Issues by
+Tracker" instances) with no cross-contamination observed in the bulk `Chart.getChart()` data sweep — each widget's
+own data stayed internally consistent with its own settings throughout.
 
 ---
 
@@ -502,6 +535,11 @@ after colours in English (e.g. Green/Yellow/Red).
 - That chart shows data for its own range.
 - Its data matches an equivalent Redmine query constrained to the same dates.
 
+**PASS, 2026-09-24**: set Start/End Date both to 2026-09-24 (today) on an "Issues by Tracker" widget — data
+changed from the 695/25/4/1 global-range baseline to `Bug: 2` (matching the fixture issue created earlier today
+plus one other same-day Bug), and the card displayed a "Sep 24 - Sep 24, 2026" date badge confirming the override
+is visually indicated, not silent.
+
 ---
 
 ### TC-DSH-015: A per-chart range overrides the global range
@@ -514,6 +552,10 @@ after colours in English (e.g. Green/Yellow/Red).
 - Charts without an override update to the new global range.
 - The overridden chart **does not change** — the KB's central claim for this feature (FAQ Q3).
 
+**PASS, 2026-09-24**: with "Issues by Tracker" overridden to Sep24-Sep24, changed the global range to "This
+Year" and clicked Apply. The overridden widget stayed at `Bug: 2` (unchanged), while a sibling "Issues by Status"
+widget (no override) correctly updated to the new global range (521/251/247/178/8/3, total 1208).
+
 ---
 
 ### TC-DSH-016: Clearing the custom range restores global behaviour
@@ -525,6 +567,11 @@ after colours in English (e.g. Green/Yellow/Red).
 **Expected Result:**
 - The chart follows the global range again, exactly as the KB describes.
 
+**PASS, 2026-09-24**: clicked "Clear Custom Dates" and saved (global range still "This Year" at that point) — the
+widget's data changed to 1164/39/4/1 (total 1208), an exact match with the sibling "Issues by Status" widget's
+own "This Year" total from the previous step. The date-range badge disappeared from the card, confirming a clean
+return to global-following state.
+
 ---
 
 ### TC-DSH-017: Per-chart range survives a copy
@@ -535,6 +582,9 @@ after colours in English (e.g. Green/Yellow/Red).
 
 **Expected Result:**
 - The copy carries the same custom range and can then be changed independently (paired with TC-DSH-036).
+
+**N/A, 2026-09-24**: moot per `TC-DSH-036`'s finding — "Copy Chart" copies to the clipboard and does not create a
+duplicate widget on the dashboard, so there is no in-app copy to check for range inheritance.
 
 ---
 
@@ -552,6 +602,10 @@ after colours in English (e.g. Green/Yellow/Red).
 - Rejected with a clear message, or normalised. Not an empty chart with no explanation — an empty chart is
   indistinguishable from "no data", which hides the mistake.
 
+**PASS, 2026-09-24**: set Start Date = 2026-09-24, End Date = 2026-09-01 (end before start) and clicked Save
+Settings — a clear inline error, "End date cannot be earlier than start date", appeared and the modal stayed
+open (save blocked), not a silent empty chart.
+
 ---
 
 ### TC-DSH-019: Only one of the two custom dates set
@@ -565,6 +619,8 @@ after colours in English (e.g. Green/Yellow/Red).
 - A half-set range that silently reverts to the global range without saying so is misleading, because the settings
   panel then disagrees with what the chart is showing.
 
+**NOT EXECUTED, 2026-09-24** — deferred for time; recommended for next session.
+
 ---
 
 ### TC-DSH-020: Date range with no data
@@ -576,6 +632,14 @@ after colours in English (e.g. Green/Yellow/Red).
 **Expected Result:**
 - A clean empty state, not `NaN`, a broken axis or a zero-division error.
 - Check the **Project Progress Gauge** and the **Estimated vs Spent** charts specifically, as they divide.
+
+**PASS for Estimated vs Spent, INAPPLICABLE for the Gauge, 2026-09-24**: set a 2020-01-01 to 2020-01-02 custom
+range (no data in this window) on "Estimated vs Spent Time by User" — rendered a benign `[0]` dataset, no `NaN`,
+no console errors, no broken axis. The **Project Progress Gauge** could not be meaningfully tested this way since
+it is, by design, always an all-time metric and doesn't respond to date-range filters at all (confirmed
+intentional by the product owner 2026-09-24 — see `DASHBOARDS_MEMORY.md`; an earlier draft of this note cited
+this as `BUG-DSH-009`, which was retracted the same day) — it shows the same all-time totals regardless of any
+date range, so this specific negative case doesn't exercise it differently.
 
 ---
 
@@ -589,6 +653,8 @@ after colours in English (e.g. Green/Yellow/Red).
 - Renders in reasonable time with legible axis labels — not thousands of overlapping tick labels.
 - Record the render time.
 
+**NOT EXECUTED, 2026-09-24** — deferred for time; recommended for next session.
+
 ---
 
 ### TC-DSH-022: Invalid colour values
@@ -599,6 +665,8 @@ after colours in English (e.g. Green/Yellow/Red).
 
 **Expected Result:**
 - Rejected or coerced to a documented fallback. The chart must not render invisible or break the card's CSS.
+
+**NOT EXECUTED, 2026-09-24** — deferred for time; recommended for next session.
 
 ---
 
@@ -613,6 +681,8 @@ after colours in English (e.g. Green/Yellow/Red).
 - A filter list is an easy, overlooked enumeration path — for example disclosing the full user list of the
   instance, or version names from projects the user cannot access.
 
+**DEFERRED to the Permissions suite pass, 2026-09-24** — needs a restricted-visibility role session.
+
 ---
 
 ### TC-DSH-024: Filter referencing a deleted value
@@ -624,6 +694,10 @@ after colours in English (e.g. Green/Yellow/Red).
 **Expected Result:**
 - The chart renders and the settings panel opens, dropping or noting the missing value. Not a 500 and not a widget
   that can no longer be configured or deleted.
+
+**NOT EXECUTED, 2026-09-24** — deliberately deferred, same reasoning as `TC-DSH-044` (deleting a shared version
+fixture risks breaking other plugins' suites on this shared instance). Recommended for an isolated fixture in a
+future session.
 
 ---
 
@@ -639,6 +713,8 @@ after colours in English (e.g. Green/Yellow/Red).
 - If dashboards are shared per project, a view-only user reconfiguring another team's charts through the endpoint
   would be a real defect.
 
+**DEFERRED to the Permissions suite pass, 2026-09-24** — needs a view-only role session.
+
 ---
 
 ### TC-DSH-026: Settings scope — per user or per project
@@ -652,6 +728,9 @@ after colours in English (e.g. Green/Yellow/Red).
   user", which is ambiguous about which settings fall into which bucket.
 - Whichever it is must be consistent and discoverable. A shared dashboard silently reconfigured by any member,
   with no indication of who changed it, is a usability finding worth filing.
+
+**NOT EXECUTED, 2026-09-24**: requires two genuinely concurrent authenticated sessions, same constraint as
+`TC-DSH-048` — out of scope for a single Playwright MCP browser session this pass.
 
 ---
 

@@ -101,3 +101,11 @@
 - Reported on `flux.zehntech.com` (project `ztflux`) as issue **#121135**, 2026-09-23.
 - Linked as a defect to Test Case **#121093**, Run **#577**, Test Suite **#249**, Environment "Window 11 + Chrome" — verified via `get_run_testcases`.
 - Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Usability | Assignee: Prashant Chaurasia.
+
+## Retest — 2026-09-24 (FIXED, confirmed)
+
+Retested on `redmine-docker-700` (localhost:3010). Added a fresh Bar widget on a saved issue query grouped by a
+custom field ("QA Single Select Field") with a "Not set"/"Green" split. Read the actual rendered legend via
+`Chart.getChart(canvas).legend.legendItems` (not just a visual read, per the original bug's own evidence
+technique) — it now correctly returns `["Green", "Not set"]`, matching the real grouped categories, instead of the
+query's own name. **Fixed.**

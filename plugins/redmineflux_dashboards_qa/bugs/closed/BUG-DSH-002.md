@@ -89,9 +89,13 @@ confirmed the General/Legend/Data-Labels gap is specific to custom-field groupin
 general — narrowing this bug's scope as reflected in the "Corrected" note above and the retitled Steps/Expected/
 Actual sections.
 
-### Retest screenshot (fill after fix is verified)
+### Retest — 2026-09-24 (FIXED, confirmed)
 
-![Retest result](../../screenshots/BUG-DSH-002/retest-yyyy-mm-dd-pass.png)
+Retested on `redmine-docker-700` (localhost:3010). Added a fresh Bar widget on "Updated issues" grouped by "QA
+Single Select Field" (a custom field) and opened Settings: the panel now shows a full **General** section —
+Chart Title, **Display as**, **Group by**, **Legend Position** (Bottom/Top/Left/Right), **Show Data Labels**
+(Hide/Show) — in addition to Appearance. Confirmed via the live accessibility tree, not just a visual read.
+**Fixed.**
 
 ### Console / log
 

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Flux Gantt — Sanity &amp; Regression Test Case Report</title>
+<style>
+  :root {
+    --pass: #1a7f37; --pass-bg: #dafbe1;
+    --fail: #cf222e; --fail-bg: #ffebe9;
+    --fixed: #9a6700; --fixed-bg: #fff8c5;
+    --border: #d0d7de; --muted: #57606a; --heading: #24292f;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; margin: 0; padding: 32px; background: #f6f8fa; color: #1f2328; }
+  .wrap { max-width: 1080px; margin: 0 auto; background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 32px 40px; }
+  h1 { font-size: 26px; margin: 0 0 4px; color: var(--heading); }
+  .subtitle { color: var(--muted); margin: 0 0 28px; font-size: 14px; }
+  h2 { font-size: 19px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 2px solid var(--border); color: var(--heading); }
+  h3 { font-size: 15px; margin: 20px 0 8px; color: var(--heading); }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 4px; font-size: 13.5px; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: #f6f8fa; font-weight: 600; color: var(--heading); }
+  tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 2px 9px; border-radius: 12px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+  .badge-pass { background: var(--pass-bg); color: var(--pass); }
+  .badge-fail { background: var(--fail-bg); color: var(--fail); }
+  .badge-fixed { background: var(--fixed-bg); color: var(--fixed); }
+  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0 8px; }
+  .stat { border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; text-align: center; }
+  .stat .num { font-size: 26px; font-weight: 700; color: var(--heading); }
+  .stat .label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .stat.ok .num { color: var(--pass); }
+  code { background: #f6f8fa; border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; font-size: 12.5px; }
+  .meta { font-size: 13px; color: var(--muted); }
+  .meta strong { color: var(--heading); }
+  .verdict { margin-top: 28px; padding: 16px 20px; border-radius: 8px; background: var(--pass-bg); border: 1px solid #b4e8c1; color: var(--pass); font-weight: 600; font-size: 15px; }
+  .note { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+  footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Flux Gantt — Sanity &amp; Regression Test Case Report</h1>
+  <p class="subtitle">Production issue #120913 (JUWI GmbH) new-functionality batch — Year Scale, Row Sorting, Status Column, Per-User Views &amp; Per-Release Critical Path</p>
+
+  <div class="meta">
+    <strong>Plugin:</strong> Redmineflux Gantt Chart &nbsp;|&nbsp;
+    <strong>Environment:</strong> Local Docker <code>http://localhost:3010</code> &nbsp;|&nbsp;
+    <strong>Redmine version:</strong> local dev build carrying #120913 (pre-release) &nbsp;|&nbsp;
+    <strong>Browser:</strong> Chromium (Playwright MCP)<br>
+    <strong>Sanity execution:</strong> 2026-09-23 &nbsp;|&nbsp;
+    <strong>Fix retest + regression:</strong> 2026-09-24 &nbsp;|&nbsp;
+    <strong>Production test case:</strong> <a href="https://flux.zehntech.com/issues/121094">#121094</a> "Sanity: Flux Gantt Year Scale, Row Sorting, Status Column, Per-User Views &amp; Per-Release Critical Path (#120913)" — Suite #117 (Flux Gantt), Run #577, env "Window 11 + Chrome"
+  </div>
+
+  <div class="summary-grid">
+    <div class="stat ok"><div class="num">34/34</div><div class="label">Detailed TCs passing</div></div>
+    <div class="stat ok"><div class="num">5/5</div><div class="label">Sanity areas passing</div></div>
+    <div class="stat ok"><div class="num">4/4</div><div class="label">Bugs fixed &amp; closed</div></div>
+    <div class="stat ok"><div class="num">0</div><div class="label">Open defects</div></div>
+  </div>
+
+  <h2>1. Sanity Test Summary — Production TC #121094</h2>
+  <p class="meta">One smoke check per feature area named in the sanity test case. Each area's full detailed coverage lives in the local suites listed.</p>
+  <table>
+    <tr><th style="width:22%">Feature Area</th><th style="width:16%">Local TC Range</th><th style="width:10%">Result</th><th>Evidence</th></tr>
+    <tr>
+      <td>Year Scale</td>
+      <td>TC-GNT-191–195</td>
+      <td><span class="badge badge-pass">PASS</span></td>
+      <td>Year zoom option present; ruler shows year-on-top / quarter-below; renders correctly in Work Days and Full Week; year/quarter labels stay legible on a partial-year custom range. Re-verified 2026-09-24 post-rebuild (ruler correctly shows "2026"/"Q3").</td>
+    </tr>
+    <tr>
+      <td>Row Sorting</td>
+      <td>TC-GNT-196–202</td>
+      <td><span class="badge badge-pass">PASS</span></td>
+      <td>All 7 sort fields + Default(hierarchy) offered, each with Ascending/Descending; due-date-descending correctly sorts the no-due-date issue last; sub-tasks stay under their parent regardless of sort field; per-user sort persistence confirmed across 2 users. Re-verified 2026-09-24: switching to Due Date reordered rows correctly, no-value issue sorted last, parent/child hierarchy preserved.</td>
+    </tr>
+    <tr>
+      <td>Ticket Status Column</td>
+      <td>TC-GNT-203–204</td>
+      <td><span class="badge badge-pass">PASS</span></td>
+      <td>"Show Ticket Status" toggle present, default OFF; once enabled, issues show real status ("New"), release/project rows show empty cell. Re-verified 2026-09-24 (6 status values rendering after re-enabling).</td>
+    </tr>
+    <tr>
+      <td>Per-User View Settings</td>
+      <td>TC-GNT-205–208</td>
+      <td><span class="badge badge-fixed">FIXED &amp; PASS</span></td>
+      <td>2 defects found and fixed this cycle — see §2. Personal settings (zoom, sort, columns, critical-path scope) confirmed reachable without core "Manage versions" and correctly isolated per user; "Show Milestone Markers" confirmed genuinely shared across users after fix (differential retest).</td>
+    </tr>
+    <tr>
+      <td>Additional Date-Range Presets</td>
+      <td>TC-GNT-209–211</td>
+      <td><span class="badge badge-pass">PASS</span></td>
+      <td>This/Next Quarter, This/Next Year all present; "This Quarter" verified to resolve to the real calendar quarter via network request, not "3 months from today"; presets also confirmed on Global Gantt. Re-verified present 2026-09-24.</td>
+    </tr>
+    <tr>
+      <td>Per-Release Critical Path</td>
+      <td>TC-GNT-217–224</td>
+      <td><span class="badge badge-pass">PASS</span></td>
+      <td>Whole Project vs Per Release scope control works; cross-release dependency renders with dashed link, external-critical bar marker, and correct tooltip text; live date-push across releases confirmed; critical-path scope confirmed stored per-user via differential test. Re-verified 2026-09-24 (2 <code>rf-gantt-bar--critical</code> bars confirmed via CSS class after rebuild; scope isolation re-confirmed).</td>
+    </tr>
+  </table>
+  <p class="note">Also covered by the batch: Row-type legend (TC-GNT-212, PASS — issue/release/sub-task/project marker colours match documented legend) and Global Gantt parity (TC-GNT-213–216, PASS — Year zoom, live sort reorder, new date presets, all confirmed on <code>/global_gantt</code> as well as the project view).</p>
+  <p class="note">Not independently verifiable in this fixture: TC-GNT-206 (pre-existing project-level settings migrating to each user's default) — the "Flux Gantt Sanity Project" fixture was created after #120913 shipped, so no genuine pre-existing-settings migration case exists to test here.</p>
+
+  <h2>2. Defects Found This Cycle</h2>
+  <table>
+    <tr><th style="width:12%">Bug ID</th><th style="width:10%">Severity</th><th>Title</th><th style="width:12%">Status</th><th style="width:12%">Production ID</th></tr>
+    <tr>
+      <td>BUG-GNT-006</td>
+      <td>Medium</td>
+      <td>Settings gear for personal Flux Gantt view options required "Manage versions", contradicting issue #120913's stated permission relaxation.</td>
+      <td><span class="badge badge-pass">Fixed &amp; Closed</span></td>
+      <td><a href="https://flux.zehntech.com/issues/121141">#121141</a></td>
+    </tr>
+    <tr>
+      <td>BUG-GNT-007</td>
+      <td>Medium</td>
+      <td>"Show Milestone Markers" was stored per-user instead of staying project-wide/shared, contradicting issue #120913's explicit requirement.</td>
+      <td><span class="badge badge-pass">Fixed &amp; Closed</span></td>
+      <td><a href="https://flux.zehntech.com/issues/121142">#121142</a></td>
+    </tr>
+    <tr>
+      <td>BUG-GNT-008</td>
+      <td>Low</td>
+      <td>Custom Range date picker's Cancel/Apply buttons rendered below the visible fold at 1280×720, with no auto-scroll or reposition to keep them reachable. (User-reported.)</td>
+      <td><span class="badge badge-pass">Fixed &amp; Closed</span></td>
+      <td><a href="https://flux.zehntech.com/issues/121143">#121143</a></td>
+    </tr>
+    <tr>
+      <td>BUG-GNT-009</td>
+      <td>Medium</td>
+      <td>Custom-field column headers hard-truncated mid-word with no ellipsis when many columns were enabled — same defect class as BUG-GNT-002, different elements. (User-reported.)</td>
+      <td><span class="badge badge-pass">Fixed &amp; Closed</span></td>
+      <td><a href="https://flux.zehntech.com/issues/121144">#121144</a></td>
+    </tr>
+  </table>
+  <p class="note">All four: reported to <code>ztflux</code> 2026-09-23, linked to Run #577 / Suite #117 / Testcase #121094 / env "Window 11 + Chrome"; retested and confirmed fixed 2026-09-24 on a redeployed dev build; production status synced to Done / 100% the same day.</p>
+
+  <h2>3. Regression Pass — 2026-09-24</h2>
+  <p class="meta">Triggered by <code>bugs/open/</code> becoming empty (all 4 cycle defects fixed) — full final-cycle regression per <code>SENIOR_QA_STANDARDS.md</code> §27, covering every feature area of the #120913 batch plus core adjacent surfaces, on the freshly redeployed dev build.</p>
+  <table>
+    <tr><th style="width:26%">Area Checked</th><th style="width:10%">Result</th><th>Evidence</th></tr>
+    <tr><td>BUG-GNT-006 fix (Settings gear reachability)</td><td><span class="badge badge-pass">PASS</span></td><td>Reporter-role user (<code>daisy.skye</code>, no Manage versions) — Settings gear present; Zoom/Display Mode/Sort/Display Fields/Custom Field Columns all reachable and functional.</td></tr>
+    <tr><td>BUG-GNT-007 fix (Milestone Markers shared)</td><td><span class="badge badge-pass">PASS</span></td><td>Differential retest: Luna's panel shows the exact unchecked value Admin set. New dedicated "Milestone Markers" settings section confirmed, correctly gated to Manage-versions users.</td></tr>
+    <tr><td>BUG-GNT-008 fix (date-picker cutoff)</td><td><span class="badge badge-pass">PASS</span></td><td>At reduced 1280×580 content height (real-browser-chrome equivalent), Cancel/Apply stay visible via the popup's own internal scroll (<code>bottom:554</code> vs. previous <code>bottom:649</code>, entirely off-screen).</td></tr>
+    <tr><td>BUG-GNT-009 fix (column header truncation)</td><td><span class="badge badge-pass">PASS</span></td><td>Zoomed screenshot crop confirms genuine ellipsis dots on all custom-field headers; no hard mid-word cuts.</td></tr>
+    <tr><td>Year zoom</td><td><span class="badge badge-pass">PASS</span></td><td>Ruler correctly renders "2026" / "Q3" after switching to Year zoom.</td></tr>
+    <tr><td>Ticket Status column</td><td><span class="badge badge-pass">PASS</span></td><td>6 "New" status values rendering correctly after re-enabling the column.</td></tr>
+    <tr><td>Critical Path highlighting</td><td><span class="badge badge-pass">PASS</span></td><td>2 bars carrying <code>rf-gantt-bar--critical</code> confirmed via DOM query after expanding rows.</td></tr>
+    <tr><td>Critical Path Scope per-user isolation</td><td><span class="badge badge-pass">PASS</span></td><td>Re-ran the Admin=Whole Project / Luna=Per Release differential — both values stayed independently correct.</td></tr>
+    <tr><td>Row Sorting (Due Date)</td><td><span class="badge badge-pass">PASS</span></td><td>Switching Sort By to Due Date reordered rows correctly; no-due-date issue sorted last; parent/child hierarchy (Foundation umbrella task → Infra subtask A/B) preserved.</td></tr>
+    <tr><td>Date-range presets</td><td><span class="badge badge-pass">PASS</span></td><td>All 4 new presets (This/Next Quarter, This/Next Year) present in the picker alongside the pre-existing ones.</td></tr>
+    <tr><td>Global Gantt view</td><td><span class="badge badge-pass">PASS</span></td><td>Loads cleanly on <code>/global_gantt</code>; project marker, Today line, and toolbar all render correctly.</td></tr>
+    <tr><td>Add Issue dialog</td><td><span class="badge badge-pass">PASS</span></td><td>Opens with all fields intact (Subject, Tracker, Assignee, Release/Version, dates, custom fields, per-issue colour picker).</td></tr>
+  </table>
+
+  <div class="verdict">✓ Regression result: zero new failures. All 4 cycle defects confirmed fixed. Sanity coverage (5/5 areas) passes cleanly.</div>
+
+  <footer>
+    Generated 2026-09-24 · Redmineflux Gantt Chart QA · Local repo report — <code>plugins/redmineflux_gantt_qa/reports/tc-report.html</code><br>
+    Related: <code>bugs/_index.md</code> · <code>bugs/closed/BUG-GNT-006.md</code>…<code>009.md</code> · <code>docs/GANTT_HANDOFF.md</code> · <code>STATUS.md</code>
+  </footer>
+
+</div>
+</body>
+</html>

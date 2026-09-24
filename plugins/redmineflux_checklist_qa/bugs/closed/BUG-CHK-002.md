@@ -78,6 +78,48 @@ The fix should mirror this: either use `.text()`/`.innerText` for the new item's
 raw HTML with the value inline, or explicitly HTML-escape `response.title` / `response.description` before
 interpolating them into the template string.
 
+## Retest — 2026-09-24
+
+- **Result: PASS (FIXED).**
+- Source confirms the fix: `checklist.js` line 128 (top-level checklist) and line 343 (sub-item) now append an
+  **empty** `<span>` node and set its content afterward via jQuery `.text()` (lines 163 and 364), which escapes
+  markup instead of parsing it. Both fix comments explicitly cite `#121059` (this bug's production issue).
+- Live retest via Playwright on issue #1538 (project `test-project`):
+  - Top-level checklist created with title `<script>window.__xss_retest_fired=true;<\/script>` —
+    `window.__xss_retest_fired` remained `false` after creation (no reload). DOM `innerHTML` for the new
+    `.checklist-item-text` span was the escaped string `&lt;script&gt;...&lt;/script&gt;`.
+  - Sub-item created under that checklist with description
+    `<script>window.__xss_subitem_retest_fired=true;<\/script>` — `window.__xss_subitem_retest_fired` remained
+    `false`. Same escaping confirmed.
+- Both previously-vulnerable paths (new-checklist creation, new-sub-item creation) verified safe.
+- Retest screenshot: `screenshots/BUG-CHK-002/retest-2026-09-24-pass.png`.
+- **Regression required before closure** — Critical severity requires a full-suite re-run for the affected
+  plugin area plus related suites (`SENIOR_QA_STANDARDS.md` §26) before this bug can move to `bugs/closed/`.
+  Not yet run as of this retest.
+
+## Regression — 2026-09-24
+
+- **Result: PASS.** Re-ran `testcases/CHECKLIST_CHECKLIST_MANAGEMENT.md` (TC-CHK-015–042, 28 TCs — the suite that
+  owns this bug's creation-path TCs) and `testcases/CHECKLIST_PROGRESS_TRACKING.md` (TC-CHK-079–092, 14 TCs) live
+  against the fixed build: **41 PASS, 1 N/A (TC-CHK-036, no per-project module toggle on this instance), 0 FAIL**
+  across both suites. Full evidence is inline in each suite file under its own "Regression Pass — 2026-09-24"
+  section.
+- TC-CHK-031 (the suite's own script-injection case) was re-confirmed against both previously-vulnerable paths —
+  new-checklist creation and new-sub-item creation — with a fresh script payload on issue #1530; neither executed,
+  both rendered as escaped text immediately on AJAX creation, matching this bug's 2026-09-24 retest above.
+- **This is a user-approved SCOPED regression** — these two suites only (the ones whose features are directly
+  touched by this fix and by the co-fixed `BUG-CHK-004`), not the full-plugin regression this bug's Critical
+  severity would otherwise call for per `SENIOR_QA_STANDARDS.md` §26. Recorded here explicitly so a future reader
+  doesn't mistake the narrower scope for an oversight.
+- No new bugs were found during this regression pass.
+- **This bug is now a candidate for closure** (`bugs/closed/`) — awaiting the user's explicit go-ahead per
+  `CLAUDE.md` §5/§12, since production issue #121059 also needs its status/percent-done synced on close.
+
+## Closed — 2026-09-24
+
+User approved closure. Production issue #121059 synced: status In QA → Done, % done → 100. Local file moved
+from `bugs/open/` to `bugs/closed/`.
+
 ## Duplicate check
 
 - Duplicate found: No

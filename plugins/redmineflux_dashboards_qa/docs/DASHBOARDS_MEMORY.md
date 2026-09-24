@@ -24,11 +24,103 @@
 - **Pointer-cursor-on-hover testing via synthetic `mousemove` dispatch is unreliable across repeated checks — don't file a bug from cursor state alone.** Checking Doughnut/Pie/Bar/Line cursor state in the same session gave contradictory results run to run (e.g. Doughnut read "pointer" once and "default" another time, with no code change in between) — likely because Chart.js's hover-plugin cursor logic depends on synthetic-event ordering/prior-position state in ways a real mouse doesn't hit. **Drill-down itself (the actual click firing and opening the right filtered list) is the reliable signal** — confirmed working correctly on all 4 chart templates (Doughnut/Pie/Bar/Line) with exact count matches every time. If cursor-per-type needs verifying specifically, it would need a real (non-synthetic) mouse move via `browser_hover` on a computed target selector, not `dispatchEvent`.
 - **All 4 chart templates (Doughnut, Pie, Bar, Line) have working drill-down, confirmed 2026-09-23 with exact count matches on each** — closing a real gap from the original sanity pass, which had only tested Bar (3×) and Doughnut (1×), never Pie or Line. An initial "Pie drill-down doesn't fire" reading turned out to be the stale-rect issue above, not a real defect — always double-check a suspected drill-down miss with freshly-recomputed coordinates before concluding a chart type is broken.
 
+- **All 6 open bugs (`BUG-DSH-002/004/005/006/007/008`) were retested 2026-09-24 on `redmine-docker-700` and confirmed FIXED**, each with concrete verification beyond "control is present": `BUG-DSH-002` — General section (Legend Position, Data Labels, Display as, Group by) now renders for custom-field-grouped widgets, confirmed via accessibility tree. `BUG-DSH-004`/`BUG-DSH-008` — same underlying fix: the Group by selector now requires a custom field to be both non-multi-select AND "Used as a filter"-enabled before it's offered at all, closing off the scenario both bugs depended on; confirmed `cf_67` (multi-select) still excluded even after enabling "Used as a filter" on it, and `cf_71`'s "Not set" drill-down now returns an exact 139/139 match. `BUG-DSH-005` — Save Settings no longer breaks live rendering, accent colour persists, Data Filters section removed entirely. `BUG-DSH-006` — Display as/Group by are editable in Settings; changing Group by to Priority + Save live-updated the chart in place. `BUG-DSH-007` — `chart.legend.legendItems` on a Bar widget now correctly returns category labels instead of the query name. **Key technique note carried forward: raw DOM `select.value` + dispatched `change` event became unreliable on the Add-Chart/Settings form's `<select>` controls on this build — use real Playwright `browser_select_option`/`browser_click` instead when retesting form-based settings; canvas-click drill-down via synthetic `dispatchEvent` continued to work fine, so the issue is specific to `<select>` controls, not chart interaction.**
+
+- **A document-wide DOM query for labels/inputs (`document.querySelectorAll`) can pick up OTHER widgets' hidden Settings-panel nodes, not just the currently-open one — always scope to the actually-visible modal element first.** Mid-regression, `document.querySelectorAll('label')` after opening a saved-query widget's Settings appeared to show "Issue Status Filter"/"Assignee Filter"/etc. alongside General/Appearance, looking like `BUG-DSH-005`'s Data Filters removal had regressed. It hadn't — those labels belonged to a different, hidden DOM node (the "Our Queries" widget type's own legitimate, separate Data Filters feature, `TC-DSH-009–026`, which is unrelated and untouched). Fix: find the visible modal via `Array.from(document.querySelectorAll('[class*="modal"]')).filter(m => getComputedStyle(m).display !== 'none' && m.offsetParent !== null)` and query only within it — or better, check each specific control's own `offsetParent`/`getBoundingClientRect()` rather than trusting `textContent` on an ancestor, since `textContent` includes descendants regardless of their own visibility.
+- **Statistics-card widgets (post-#120914) correctly hide Group by/Legend Position/Show Data Labels/Data Filters/Chart Color Palette — only Display as (read-only-ish, shows current type) and Top Accent Color are actually visible**, confirmed via per-control computed-style checks, matching the panel's own banner ("You can only customize the title and border color"). This is intentional, unaffected by the 6 #120914 bug fixes — don't mistake the DOM still *containing* those hidden inputs for a regression.
+
+- **Full final-cycle regression (2026-09-24, triggered by CLAUDE.md §27 when `bugs/open/` went empty) found 6
+  candidate bugs the earlier #120914-focused testing never surfaced**, since it covered suites never touched
+  before (Chart Widgets, the pre-existing half of Chart Settings, Global Filters/Layout, Permissions, Public
+  Sharing). **3 of the 6 were retracted, on two different grounds — a real "true positive rate" lesson for this
+  session**: `BUG-DSH-009`/`BUG-DSH-012` were confirmed **intentional design** by the user (product owner) — see
+  the "INTENTIONAL DESIGN" entries below. `BUG-DSH-010` was a **false positive from my own testing error**, not a
+  design question — the user reported "when i test bug 10 it will not reproduce," and re-investigation found the
+  original test had been typing into the wrong DOM element the whole time (`#chartTitleInput`, a hidden
+  Settings-panel field, instead of the real create-time field, `#chartTitle` — see the dedicated entry below).
+  **Only 3 of the 6 hold up: `BUG-DSH-011`, `013`, `014`.** Most significant: `BUG-DSH-013` — dashboard charts
+  show the full unrestricted project issue count to a role restricted to 1 visible issue (a genuine
+  data-visibility leak, found by actually logging in as a real restricted seed user — Summer Rain, "QA Own
+  Visibility" role — rather than reasoning about permissions abstractly). **Takeaway: a bug that reproduces
+  consistently across multiple automated techniques can still be a testing artifact, not a product defect, if
+  every technique shares the same wrong assumption (here: the same wrong selector) — always sanity-check a
+  suspicious "always fails" result by re-deriving the target element fresh (e.g. `document.querySelectorAll('input')`
+  filtered to `offsetParent !== null`) rather than trusting a previously-used id/selector.**
+- **`#chartTitleInput` and `#chartTitle` are two different elements that are easy to confuse — always verify which
+  one is actually visible before typing.** The real, visible Chart Title field on the "Our Queries" Add Chart tab
+  has `id="chartTitle"`. `#chartTitleInput` is a *different*, normally-hidden element (the Settings-panel/
+  Saved-Queries-tab title field's id) that happens to exist in the DOM even when the Add Chart modal is what's
+  open. Both `document.getElementById('chartTitleInput')` and a Playwright `target: '#chartTitleInput'` will
+  happily resolve to this hidden element without erroring in most cases (raw JS evaluate never complains about
+  writing to a hidden input; even a real Playwright `fill()` can time out with "element is not visible" if you're
+  lucky enough to catch it, but plain `evaluate`-based writes won't). This produced a full, wrongly-confident bug
+  report (`BUG-DSH-010`, retracted 2026-09-24) — 6 "reproductions" that were all quietly writing to the wrong
+  input and then correctly observing that input's value never made it into the real submission. **Before
+  concluding a form field's value "isn't being read," re-derive its live selector from the currently-visible DOM
+  (`Array.from(document.querySelectorAll('input')).filter(i => i.offsetParent !== null)`) rather than reusing an
+  id from memory or from a previous session — this plugin reuses similar ids across its Add Chart and Settings
+  modals.**
+- **Drag-and-drop works via genuine `page.mouse` down/move/up, but Playwright's `dragTo()` helper does not** —
+  this app's widget-reorder handle (`cursor: move` div with grip SVG) isn't `draggable="true"`, so the native
+  HTML5 DnD helper silently no-ops. Real mouse events (with `waitForTimeout` between down/move steps) work
+  reliably and the result persists correctly across a reload.
+- **Resize (the `.resize-handle-right`/`-bottom`/`-corner` divs) could NOT be triggered via any automation
+  technique tried** — real `page.mouse` (multiple speeds/step counts, with/without hover-first or
+  scroll-into-view-first), synthetic `MouseEvent`, and synthetic `PointerEvent` all left the card's
+  `boundingBox()` completely unchanged, including mid-drag before mouseup. Notable because drag-and-drop worked
+  cleanly with the same real-mouse technique on the same page moments earlier — treat as inconclusive (possible
+  harness limitation), not a confirmed defect, consistent with the existing Chart Information tooltip caution.
+- **The global filter bar has exactly two controls (Tracker, Date Range) — there is no global Issue Status
+  filter**, despite `DASHBOARDS_REQUIREMENTS.md` line 15 listing "issue status" as one of the three global filter
+  bar dimensions. Confirmed consistently absent across dozens of interactions this session — treat as stale
+  documentation, not a bug, and update the requirements doc rather than re-flagging this each session.
+- **Saved-query widgets (Add Chart → Saved Queries tab) do not respond to the global filter bar at all** — proven
+  with a clean, repeated test: a saved-query widget's data was byte-for-byte identical across Date Range =
+  Last 30 days / This Year / Today, and across Tracker = All / Test case, while a sibling built-in "Our Queries"
+  widget correctly responded to every one of the same changes in the same test pass. See `BUG-DSH-012`. This is
+  architecturally distinct from `BUG-DSH-009` (one specific built-in chart type, the Gauge) — this one affects
+  the entire saved-query widget category.
+- **A raw `document.querySelectorAll` scoped to `document` (not the visible modal) will pick up OTHER hidden
+  widgets' Settings-panel DOM nodes** — this caused a false "Data Filters section is back" alarm mid-session
+  before being traced to an unrelated widget's hidden panel. Always scope queries to
+  `Array.from(document.querySelectorAll('[class*="modal"]')).find(m => getComputedStyle(m).display !== 'none' &&
+  m.offsetParent !== null)` first, or check each specific control's own `offsetParent`/`getBoundingClientRect()`
+  rather than trusting `textContent` on an ancestor (which includes descendants regardless of their own
+  visibility). See the fuller writeup already in this file from the 2026-09-24 post-fix regression pass.
+- **Changing My Account → Language via a scripted `<select>` value-set + dispatched `change` event did NOT
+  actually switch the session language** — `document.documentElement.lang` stayed `"en"` and core Redmine nav
+  stayed untranslated even after the form was submitted. This form control needs a genuine Playwright
+  `browser_select_option` + real form submit, not a raw value-setter, consistent with the pattern already
+  documented for the Saved-Query Display-as/Group-by selects. Left the planned #120914-era German i18n spot-check
+  (Display as/Group by label translation) unresolved — redo properly next session.
+- **A newly-created issue on this instance fails silently unless 4 specific required custom fields are filled**
+  (QA Required Text Field, QA Second Required Field, QA Bug-Only Tracker Field, QA Required Readonly Field — the
+  last one is editable by Admin despite its name) — the standard `input[name="commit"]` submit just re-renders
+  the form with inline errors at the top; a scripted submit that doesn't check for this will silently "succeed"
+  (page navigates) while creating nothing. Always verify creation by searching for the new issue afterward, not
+  by trusting the redirect alone.
+
 ## Confirmed Working
 
 - As of 2026-09-09 (Forge `flux-fdrk6suoj49`), `BUG-DSH-001` — this plugin's only bug, originally covering a near-total absence of German i18n across almost the entire UI — is fully fixed and closed. A final-cycle regression across all 5 TCs passed with zero new failures.
 - The public Share Link view (`/public/analytics_dashboard/<token>`) mirrors live dashboard state faithfully and is a genuinely separate i18n surface from the authenticated view — always check both when retesting a dashboard-plugin translation bug, not just the one the user mentions.
 - **2026-09-23, production issue #120914 sanity pass** (`redmine-docker-700`, localhost:3010) — confirmed working correctly: template selector default (Statistics card) and options (Doughnut/Pie/Bar/Line); grouping by Status and by a list custom field with counts matching the issue list exactly; "Not set" segment using Redmine's `none` (`!*`) operator, not an empty value; drill-down expanding the saved query's own filters while excluding the grouped-on field (no double-filter validation error, even when the query already filters on the grouped field); pointer cursor on hoverable chart segments; colour-name auto-matching (a "Green" field value rendered in actual green, `#2F9E44`, with no palette configured); a new chart always appended to the end of the layout (confirmed 3× in a row) with no full page reload; the pre-existing statistics-card widget and its Settings panel (Accent Color only, no palette/legend/labels) both completely unchanged. Time-entry queries: the visible "Display as" selector is correctly hidden once a time-entry query is chosen (initial concern about this turned out to be a false alarm from testing via direct DOM manipulation rather than the real UI flow — see note above about not guessing pixel coordinates／state, the same caution applies to not scripting past UI elements that would normally gate a choice).
+
+- **INTENTIONAL DESIGN — Project Progress (Gauge) is deliberately an all-time metric, not scoped to the global
+  date-range filter.** Confirmed by the user (product owner) 2026-09-24 after this was initially misfiled as
+  `BUG-DSH-009` (retracted same day). The Gauge's Closed/Open totals are expected to stay unchanged when the
+  dashboard's Date Range filter changes — this is correct, not a bug. **Do not re-file this or attempt to "fix"
+  the Gauge to follow the date-range filter.** Every other chart type (built-in and saved-query alike, aside from
+  the next point) is still expected to respect the global date-range filter as normal.
+- **INTENTIONAL DESIGN — Saved-query widgets (Add Chart → Saved Queries tab) are deliberately governed solely by
+  their own saved query's own filters/criteria, not by the dashboard's global filter bar (Date Range or
+  Tracker).** Confirmed by the user (product owner) 2026-09-24 after this was initially misfiled as `BUG-DSH-012`
+  (retracted same day). A saved-query widget's data staying byte-for-byte identical across every global filter
+  state is correct, expected behavior, not a defect — the whole point of a saved-query widget is that it tracks
+  its named query's own definition. **Do not re-file this or attempt to make saved-query widgets follow the
+  global filter bar.** This is a real, deliberate difference from built-in ("Our Queries") widgets, which do
+  still respect the global filter bar as normal — the two widget categories have genuinely different, both-
+  correct filtering models, not one bugged and one working.
 
 ## Recurring Issues
 

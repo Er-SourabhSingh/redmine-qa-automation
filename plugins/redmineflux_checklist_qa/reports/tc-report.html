@@ -47,21 +47,24 @@
   <div><span class="k">Plugin version</span>redmineflux_checklist 7.0.0</div>
   <div><span class="k">Environment</span>Local Docker (redmine-docker-700-redmine-1, localhost:3010)</div>
   <div><span class="k">Tested by</span>Claude (Playwright MCP)</div>
-  <div><span class="k">Test date</span>2026-09-21 to 2026-09-22</div>
+  <div><span class="k">Test date</span>2026-09-21 to 2026-09-24</div>
   <div><span class="k">Test cycle</span>All functional suites except German</div>
 </div>
 
 <div class="summary">
   <div class="stat"><span class="num">174</span><span class="lbl">Total TCs (excl. German)</span></div>
-  <div class="stat pass"><span class="num">171</span><span class="lbl">Pass</span></div>
-  <div class="stat fail"><span class="num">2</span><span class="lbl">Fail</span></div>
+  <div class="stat pass"><span class="num">173</span><span class="lbl">Pass</span></div>
+  <div class="stat fail"><span class="num">0</span><span class="lbl">Fail</span></div>
   <div class="stat"><span class="num">1</span><span class="lbl">Not executed</span></div>
-  <div class="stat"><span class="num">3</span><span class="lbl">Open bugs</span></div>
+  <div class="stat"><span class="num">1</span><span class="lbl">Open bugs</span></div>
 </div>
 
-<p class="notes">2026-09-22: one additional bug (<code>BUG-CHK-005</code>, High) was found via an ad-hoc live
-investigation prompted by a user report — not from a numbered test case in any suite above. See the Open bugs
-table below.</p>
+<p class="notes">2026-09-22: one additional bug (<code>BUG-CHK-005</code>, originally High) was found via an
+ad-hoc live investigation prompted by a user report — not from a numbered test case in any suite above.
+<strong>2026-09-24:</strong> BUG-CHK-002 and BUG-CHK-004 were retested PASS, regressed (scoped: the two suites
+below directly touched by their fixes), and closed — production issues #121059/#121060 synced to Done/100%.
+BUG-CHK-005's write-authorization half was also fixed and retested; its remaining no-feedback half stays open
+at downgraded Low severity. See the Open bugs table below.</p>
 
 <h2>Suite breakdown</h2>
 <table>
@@ -81,10 +84,10 @@ table below.</p>
       <td class="suitefile">CHECKLIST_CHECKLIST_MANAGEMENT.md</td>
       <td class="tcid">TC-CHK-043–222 (incl. 223–228)</td>
       <td>30</td>
-      <td>28</td>
-      <td>1</td>
+      <td>29</td>
+      <td>0</td>
       <td><span class="badge na">1 N/A</span></td>
-      <td class="notes">Full CRUD, block-issue-closing base case, expand-by-default (#120920) feature test — all PASS. Regression on TC-CHK-015–222 (triggered by #120920 touching shared rendering/JS): 1 FAIL → <code>BUG-CHK-002</code> (Critical XSS). TC-CHK-036 N/A (no per-project module toggle exists on this plugin).</td>
+      <td class="notes">Full CRUD, block-issue-closing base case, expand-by-default (#120920) feature test — all PASS. Original regression on TC-CHK-015–222 (triggered by #120920): 1 FAIL → <code>BUG-CHK-002</code> (Critical XSS), fixed and retested PASS 2026-09-24, closed (scoped regression on TC-CHK-015–042, 27 PASS/1 N/A, 0 new bugs). TC-CHK-036 N/A (no per-project module toggle exists on this plugin).</td>
     </tr>
     <tr>
       <td class="suitefile">CHECKLIST_INSTALLATION_CONFIGURATION.md</td>
@@ -117,10 +120,10 @@ table below.</p>
       <td class="suitefile">CHECKLIST_PROGRESS_TRACKING.md</td>
       <td class="tcid">TC-CHK-079–314</td>
       <td>14</td>
-      <td>13</td>
-      <td>1</td>
+      <td>14</td>
+      <td>0</td>
       <td>—</td>
-      <td class="notes">Item status, progress-bar accuracy, auto-calculate integration, per-checklist isolation, Checklist History logging, negative/edge cases — all PASS. TC-CHK-091 (rapid toggling) FAIL → <code>BUG-CHK-004</code> (Medium): a cascading double-AJAX-write duplicates journal entries on every click, not just rapid ones.</td>
+      <td class="notes">Item status, progress-bar accuracy, auto-calculate integration, per-checklist isolation, Checklist History logging, negative/edge cases — all PASS. TC-CHK-091 (rapid toggling) originally FAIL → <code>BUG-CHK-004</code> (Medium): a cascading double-AJAX-write duplicated journal entries on every click. Fixed and retested PASS 2026-09-24 (full suite regression, 14/14 PASS), closed.</td>
     </tr>
     <tr>
       <td class="suitefile">CHECKLIST_BLOCK_ISSUE_CLOSING.md</td>
@@ -149,25 +152,17 @@ table below.</p>
   </thead>
   <tbody>
     <tr>
-      <td class="tcid">BUG-CHK-002</td>
-      <td><span class="badge fail">Critical</span></td>
-      <td class="suitefile">CHECKLIST_CHECKLIST_MANAGEMENT.md (TC-CHK-031)</td>
-      <td class="notes">A <code>&lt;script&gt;</code> tag in a checklist/sub-item title executes on creation — client-side self-XSS in the manual-item creation AJAX handlers (unescaped raw HTML interpolation). Not stored XSS for other viewers.</td>
-    </tr>
-    <tr>
-      <td class="tcid">BUG-CHK-004</td>
-      <td><span class="badge fail">Medium</span></td>
-      <td class="suitefile">CHECKLIST_PROGRESS_TRACKING.md (TC-CHK-091)</td>
-      <td class="notes">Toggling a sub-checklist item's checkbox fires two separate AJAX PATCH requests to two different endpoints for the same state change, duplicating Checklist History journal entries on every click. Audit-trail defect only, not data loss.</td>
-    </tr>
-    <tr>
       <td class="tcid">BUG-CHK-005</td>
-      <td><span class="badge fail">High</span></td>
+      <td><span class="badge fail">Low</span></td>
       <td class="suitefile">Ad-hoc, 2026-09-22 (user-reported, not a numbered TC)</td>
-      <td class="notes">Checklist create/toggle/delete all succeed (200/201) on a project marked "closed and read-only" — only "Add from template" is blocked (403), with no user-facing feedback for even that one case. Plugin doesn't apply a uniform closed-project guard, unlike Redmine core.</td>
+      <td class="notes">Retested 2026-09-24: write-authorization half fixed — create/toggle/delete now correctly return 403 and don't persist on a closed project. Remaining: all four actions (incl. "Add from template") still fail with a console-only 403 and zero visible flash/error — a feedback gap only, downgraded from High.</td>
     </tr>
   </tbody>
 </table>
+
+<p class="notes"><strong>Closed this cycle (2026-09-24):</strong> <code>BUG-CHK-002</code> (Critical) and
+<code>BUG-CHK-004</code> (Medium) — both retested PASS, scoped regression PASS, production issues #121059/#121060
+synced to Done/100%. See <code>bugs/closed/</code> and <code>reports/final-bug-report.md</code>.</p>
 
 <footer>
   Generated per CLAUDE.md §7 report rules. Full per-TC evidence lives inline in each suite's own testcase file under <code>testcases/</code> —

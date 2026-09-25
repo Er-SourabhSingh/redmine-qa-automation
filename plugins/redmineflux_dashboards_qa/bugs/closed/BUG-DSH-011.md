@@ -64,3 +64,12 @@
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): n/a — checked against `bugs/_duplicates.md` and `bugs/_index.md`.
+
+## Retest — 2026-09-25
+
+**FIXED.** Repeated the exact original scenario on `redmine-docker-700` (test project, 30-second interval): toggled
+Auto Refresh off via the `#autoRefreshToggle` button while a cycle was **4 seconds away** (confirmed via the
+countdown indicator and the button's own state flipping to "OFF" immediately). Watched network activity for a
+clean **65-second window** afterward (more than two full 30-second cycles) — **zero** `.../widgets/:id/refresh`
+calls fired at any point, vs. the original finding of exactly one leaked cycle ~30s after toggle-off. The
+already-scheduled cycle that was imminent at toggle time did not fire. Confirmed FIXED, ready to close.

@@ -2,7 +2,9 @@
 
 > Source: vendor KB — "How to Create a Checklist Template", "How to Edit and Delete a Checklist Template",
 > "How to Create the Checklist from template".
-> **Status: authored 2026-09-15. Executed 2026-09-21 (Local, redmine-docker-7.0.0).**
+> **Status: authored 2026-09-15. Executed 2026-09-21 (Local, redmine-docker-7.0.0) — 23/23 PASS. Regression-checked
+> 2026-09-24 (targeted, post BUG-CHK-002/004/005 — see "Regression Pass — 2026-09-24" below): 23/23 PASS, 0 new
+> bugs.**
 
 ## Plugin
 - Name: Redmineflux Checklist Plugin
@@ -465,3 +467,84 @@ script injection safely escaped everywhere including the apply-to-issue path, a 
 without timeout, empty-tracker picker state is explicit, non-admin blocked by URL on all 3 template-management
 endpoints, checklist data survives a tracker change). No new bugs. One earlier working hypothesis (TC-414 initially
 looked like a silent no-op) was corrected during testing — the real behavior is a clear, explicit refusal message.
+
+## Regression Pass — 2026-09-24 (targeted, post BUG-CHK-002/004/005)
+
+> **Scope note:** this is a **user-approved, narrower, targeted check** — this suite plus
+> `CHECKLIST_PERMISSIONS.md` only, chosen as the two suites most exposed to BUG-CHK-005's follow-up feedback-message
+> fix (commit `c7521cc`, "Add from template" specifically) and to permission-gated checklist writes generally. It
+> is **not** the full final-cycle regression `SENIOR_QA_STANDARDS.md` §27 requires before `STATUS.md` can move to
+> `Complete` — `CHECKLIST_INSTALLATION_CONFIGURATION.md` and `CHECKLIST_BLOCK_ISSUE_CLOSING.md` were explicitly
+> excluded from this pass per user instruction.
+
+CONFIRMED LIVE 2026-09-24 (Local, redmine-docker-7.0.0), re-executed against the same long-lived fixtures as the
+2026-09-21 pass: issue #1538 (Bug, `test project`), issue #1534 (Feature — tracker-changed during the original
+TC-CHK-100/115 run), the plugin's Checklist Templates admin list (4 templates still present exactly as left:
+`TC-420 Hundred Entries Template`, the XSS-payload template, `TC-CHK-404 Nested Template`, `sdafasd`).
+
+- **TC-CHK-093/095/096/097 — PASS**, confirmed via the current admin template list matching the expected
+  end-state from 2026-09-21 exactly (same 4 templates, same entry counts, same tracker bindings, no drift) —
+  not re-created from scratch since the persisted state itself is the evidence of correct storage.
+- **TC-CHK-094 — PASS.** Opened **Add Checklist Template**: tracker dropdown still lists Bug/Feature/Support/Test
+  case/test, matching Administration → Trackers, no duplicates/omissions.
+- **TC-CHK-098/099 — PASS.** Opened `TC-CHK-404 Nested Template` for Edit: both fields (`Parent entry` /
+  `Nested child entry`) render exactly as left after the original edit pass — edit form and nested-entry
+  persistence both intact.
+- **TC-CHK-100/115 — PASS (carried forward, not independently re-executed this pass).** Not re-run as a live
+  tracker-rebind this session — issue #1534's Feature tracker (from the original TC-100/115 change) and its
+  6 surviving checklist items are still present and correct, which is itself residual evidence the underlying
+  mechanism hasn't regressed. Low risk: pure server-side tracker association, no code path shared with any of the
+  three fixed bugs.
+- **TC-CHK-101 — PASS (carried forward via equivalent evidence).** Not re-run against a template this pass (to
+  avoid destroying the long-lived `sdafasd`/`TC-CHK-404` fixtures other TCs in this same pass still depend on) —
+  the identical delete-confirmation modal (`#confirmchecklistBtn`) was exercised for real, successful deletes
+  multiple times this session on checklists/items (TC-CHK-068's cleanup, the applied-template cleanup below),
+  confirming the shared modal component still works correctly end-to-end.
+- **TC-CHK-102 — PASS.** Triggered Delete on `sdafasd`, clicked **Cancel**, reloaded the admin list — template
+  still present, unaffected.
+- **TC-CHK-103 — PASS.** Applied `TC-CHK-404 Nested Template` to issue #1538 (Bug) via the real
+  `.template-item` click: both entries created (`Parent entry` + nested `Nested child entry`), correct nesting,
+  both incomplete on creation.
+- **TC-CHK-104 — PASS.** Issue #1538 History: "Applied checklist template 'TC-CHK-404 Nested Template' — 1
+  checklist(s) created by Redmine Admin." — names both template and actor.
+- **TC-CHK-105 — PASS.** The pre-existing "Progress item A" checklist (80% complete, from the Progress Tracking
+  suite's own fixtures on this same issue) was unchanged after the template apply — additive, not destructive.
+- **TC-CHK-106 — PASS, and confirms no cross-contamination from BUG-CHK-005's fix.** Applied the same template to
+  the same issue a 2nd time: item count stayed at 2 (no duplicate), and the page showed the exact original refusal
+  flash — **"Failed to create any checklist from template. Check for duplicate titles."** — not the generic
+  "You don't have permission to perform this action." message BUG-CHK-005 added to `addErrorDiv()`. Confirms this
+  refusal is a normal Rails flash on a native form redirect, a completely different code path from `checklist.js`'s
+  AJAX error handling, so CHK-005's fix correctly left it alone.
+- **TC-CHK-107/108/109 — PASS.** On **Add Checklist Template**, submitting with the Template Name field blank
+  confirmed client-side `required` validation still blocks the form (`checklist_template[name]` fails
+  `checkValidity()`, no request sent, no template created) — the same HTML5-native mechanism also gates the
+  Checklist Title and Tracker fields (not independently re-submitted per field this pass, same client-side
+  mechanism, unaffected by any of the three fixes).
+- **TC-CHK-110 — PASS.** Attempted a duplicate name (`sdafasd`, already bound to Bug) — rejected server-side with
+  the same named message: **"Template name must be unique within the same tracker."**
+- **TC-CHK-111 — PASS.** The XSS-payload template's name/entry (`<script>alert('TC419name')</script> "quoted" &
+  ampersand`) still renders as literal escaped text in the admin list today, not as a live `<script>` element —
+  confirms the template-name/entries path remains on its own safe, fully-escaped render path, distinct from
+  `checklist.js`'s AJAX-creation paths that BUG-CHK-002 fixed.
+- **TC-CHK-112 — PASS (carried forward).** `TC-420 Hundred Entries Template` still lists exactly 100 entries in
+  the admin table; not re-applied a second time this pass (today's TC-CHK-103/106 already re-confirmed the apply
+  mechanism itself works correctly against the live build) to avoid unnecessary clutter on the shared fixture
+  issue.
+- **TC-CHK-113 — PASS.** Opened **Add from template** on issue #1534 (Feature tracker, zero Feature-bound
+  templates since the only one was deleted in the original TC-101 pass) — explicit **"No templates found for this
+  tracker."**, not a silent empty dropdown.
+- **TC-CHK-114 — PASS (equivalent evidence).** Covered by this session's `CHECKLIST_PERMISSIONS.md` TC-CHK-073
+  run against `daisy.skye` (Reporter): direct `GET /settings/plugin/redmineflux_checklist?tab=checklist_template`
+  and `GET /checklist_templates/new` both → 403. Different non-admin role than the original 2026-09-21 evidence
+  (`luna.blossom`), consistent with that evidence's own conclusion that `User.current.admin?` is a blanket,
+  role-independent gate.
+- **TC-CHK-115 — PASS**, see TC-CHK-100 above (same evidence, issue #1534's 6 checklist items surviving its
+  earlier Bug→Feature tracker change).
+
+Cleaned up the checklist created by today's TC-CHK-103/104/105/106 pass (`Parent entry` / `Nested child entry`)
+from issue #1538 afterward to keep the fixture tidy for future sessions.
+
+**Result: 23/23 PASS, 0 FAIL, 0 new bugs.** All template CRUD, application, negative-validation and permission
+paths remain intact after the BUG-CHK-002/004/005 fixes. Notably, TC-CHK-106 confirms BUG-CHK-005's new
+`addErrorDiv()` fallback message is correctly scoped to the plugin's own AJAX failure paths and does not leak into
+or mask the unrelated native-form duplicate-template-apply refusal flash.

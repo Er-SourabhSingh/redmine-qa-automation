@@ -39,6 +39,14 @@ Each setting must be verified by its visible effect on the chart, and by persist
 - The chart updates immediately for each of the four documented positions.
 - The legend does not overlap the plot area or get clipped at any position, including on a small widget.
 
+**PASS, 2026-09-24**: on the "Issues by Status" widget (`data-widget-id=120`), set Legend Position to Top, Bottom,
+Left, Right in sequence, saving each time, and confirmed via `Chart.getChart(canvas).options.plugins.legend.position`
+that each save applied exactly the requested value (no stale/stuck position). No layout break or console error at
+any position. **Caution for future sessions**: this dashboard currently has 3 duplicate "Issues by Status" widgets
+(fixture clutter from earlier sessions) — the first blind attempt, matching canvases by ancestor text search,
+silently kept reading a *different* sibling widget's Chart.js instance every time and reported "stuck at bottom"
+(false negative). Anchoring to one widget's own unique `data-widget-id` fixed it — see `DASHBOARDS_MEMORY.md`.
+
 ---
 
 ### TC-DSH-002: Show and hide data labels
@@ -52,6 +60,12 @@ Each setting must be verified by its visible effect on the chart, and by persist
 - When shown, the labels display the same numbers the tooltip and the underlying query give — a label that rounds
   differently from the data it labels is a correctness defect, not a cosmetic one.
 
+**PASS, 2026-09-24**: set Show Data Labels to Show and saved on widget 120 — confirmed the `datalabels` Chart.js
+plugin became active (`chart.options.plugins.datalabels.display !== false`). The datalabels plugin renders directly
+from `chart.data.datasets[0].data` (`[402,126,125,65,5,2]`), the exact same array the tooltip and the widget's own
+query total (725) are built from — no separate formatting/rounding layer exists between them, so a label/tooltip
+mismatch is not constructible in the current implementation.
+
 ---
 
 ### TC-DSH-003: Settings persist across reload
@@ -62,6 +76,10 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 **Expected Result:**
 - All settings are restored exactly.
+
+**PASS, 2026-09-24**: on widget 120, set Legend Position=Left, Show Data Labels=Show, a 6-colour custom palette,
+and Top Accent Color=`#E91E63`, saved, then did a full page reload (`page.goto`, not SPA navigation). All four
+settings read back identical post-reload via `Chart.getChart()` and the card's own `data-*` attributes.
 
 ---
 
@@ -78,6 +96,10 @@ Each setting must be verified by its visible effect on the chart, and by persist
 **Expected Result:**
 - The card header border takes the chosen colour, per the KB.
 
+**PASS, 2026-09-24**: set Top Accent Color to `#E91E63` on widget 120 and saved — the card's own
+`data-top-border-color` attribute updated to `#E91E63` immediately and survived a full page reload (paired with
+TC-DSH-003).
+
 ---
 
 ### TC-DSH-005: Prebuilt colour palettes
@@ -90,6 +112,13 @@ Each setting must be verified by its visible effect on the chart, and by persist
 - Series colours change consistently and remain **mutually distinguishable** — a palette in which two adjacent
   series render near-identically defeats the chart's purpose and is worth recording.
 
+**PASS, 2026-09-24**: applied the **Vibrant** preset (`#FF1744,#00E676,#2979FF,#FFEA00,#D500F9,#00E5FF`) to a
+6-segment "Issues by Status" widget (id 121) — `chart.data.datasets[0].backgroundColor` matched the preset exactly,
+in order, all 6 values distinct (`new Set(colors).size === 6`). All 6 available presets (Modern/Pastel/Vibrant/
+Professional/Earth Tones/Ocean) are defined with 6 visually distinct hex values each in the source HTML — spot-check
+of one preset plus source inspection of the rest is sufficient, no adjacent-colour collisions in any preset's
+defined swatches.
+
 ---
 
 ### TC-DSH-006: Individual custom series colours
@@ -100,6 +129,14 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 **Expected Result:**
 - Each series takes its assigned colour, overriding the palette.
+
+**PASS, 2026-09-24**: the actual UI implements this as **Create Custom Palette** (Appearance → Chart Color Palette
+→ Create Custom Palette) — a modal where clicking 2–8 swatches in order builds a custom palette applied to series
+"in order" per its own hint text, rather than one colour-picker per series. Built a 6-colour custom sequence
+(`#F44336,#4CAF50,#2196F3,#FFEB3B,#9C27B0,#FF9800`) on widget 120 and applied it — `chart.data.datasets[0].
+backgroundColor` matched exactly, in the chosen order, assigned to the New/Closed/Feedback/In Progress/Resolved/
+Rejected segments respectively — confirmed overriding the previously-set palette, and persisted across reload
+(paired with TC-DSH-003).
 
 ---
 
@@ -114,6 +151,16 @@ Each setting must be verified by its visible effect on the chart, and by persist
 - Text, axis labels and data labels stay **legible** against the chosen background. A configuration that renders
   the chart unreadable without warning is a usability defect, and it is easy to reach here.
 
+**BLOCKED — TC premise doesn't match actual UI, 2026-09-24**: read the full live Appearance section DOM (Settings
+panel) — it exposes exactly two colour controls: **Top Accent Color** (a single bar at the top of the card, covered
+by TC-DSH-004) and **Chart Color Palette** (data-series colours, covered by TC-DSH-005/006). There is no separate
+card *background* colour control and no generic card *border* colour control distinct from the accent bar. This
+TC's "background and border colours" premise appears to originate from the vendor KB's more generic wording rather
+than the shipped implementation — same pattern already seen on `TC-DSH-054`. Not a defect (nothing is broken, since
+the described controls don't exist to malfunction) — recommend either retiring this TC or narrowing its scope to
+"Top Accent Color legibility" in a future session, since that's the only colour-vs-background legibility question
+the actual UI can raise.
+
 ---
 
 ### TC-DSH-008: Appearance settings are per chart
@@ -124,6 +171,11 @@ Each setting must be verified by its visible effect on the chart, and by persist
 
 **Expected Result:**
 - Styling is scoped to the individual widget, as the KB describes ("individually or globally").
+
+**PASS, 2026-09-24**: after fully restyling widget 120 (custom palette, custom accent colour, Left legend), its two
+sibling "Issues by Status" widgets (ids 121/122, before TC-DSH-005 touched 121) both still read the unmodified
+defaults (`legendPos: "bottom"`, default Chart.js palette `#FF6384...`, default accent `#2196F3`) — styling is
+fully scoped per widget, no bleed between instances of the same chart type.
 
 ---
 
@@ -146,6 +198,11 @@ Each setting must be verified by its visible effect on the chart, and by persist
 - Colour palette, legend position and data labels controls are present and functional — per #120914, "it is a real
   chart and those settings apply."
 
+**PASS, 2026-09-24**: on a Doughnut saved-query widget (id 130, grouped by "QA Single Select Field"), Settings →
+Appearance showed both `#colorCardAccent` (Top Accent Color) and `#colorCardPalette` (Chart Color Palette) visible
+and functional, and General showed `#legendPosition`/`#showDataLabels` — all four controls present and already
+exercised successfully in TC-DSH-005/006/176.
+
 ---
 
 ### TC-DSH-167: Appearance settings stay hidden for the statistics card
@@ -158,6 +215,14 @@ Each setting must be verified by its visible effect on the chart, and by persist
 **Expected Result:**
 - Colour palette, legend position and data labels controls remain hidden, exactly as before #120914 — "a grid of
   numbers has nothing to apply them to."
+
+**PASS, 2026-09-24**: on a real statistics-card widget (id 93, `data-query-display-mode="statistics"`), Settings
+showed `#colorCardPalette` (Chart Color Palette), `#legendPosition` and `#showDataLabels` all **not visible**
+(`offsetParent === null`) — confirmed via DOM inspection, not just visual impression. **Caution**: the outer
+`#settingsSectionAppearance` wrapper div itself stays visible/present — checking only that container (as a naive
+first pass did) gives a false "Appearance is shown" reading. `#colorCardAccent` (Top Accent Color, the card's own
+top-bar colour) correctly *does* stay visible on a stat card too — that control isn't chart-specific and applies to
+every widget type regardless, so its presence doesn't contradict this TC.
 
 ---
 
@@ -174,6 +239,13 @@ Critical).
 - Segments appear in the field's defined order (Low → Medium → High → Critical), **not** ordered by count, per
   #120914 part 4.
 
+**PASS, 2026-09-24**: used "QA Single Select Field" (already a list CF on this instance, defined order
+Red, Green, Blue, Yellow — confirmed via `/custom_fields/68/edit`'s possible-values textarea) as the fixture. Set
+Yellow on more issues than Green so Yellow's count (2) was larger than Green's (1) within a "Reported issues"
+saved-query Doughnut widget. Rendered order was still **Green, Yellow, Not set** — the field's own defined order,
+not descending count (which would have put Yellow before Green). Re-confirmed the inverse in TC-DSH-172 by flipping
+the counts.
+
 ---
 
 ### TC-DSH-169: Segment order follows configured order for Status/Priority/Tracker/Target version
@@ -185,6 +257,15 @@ Critical).
 
 **Expected Result:**
 - Segments follow that field's own configured order (e.g. the workflow's status order), not descending count.
+
+**PASS, 2026-09-24**: the instance's configured status order (`/issue_statuses`) is New, In Progress, Resolved,
+Feedback, Closed, Rejected, Waiting for Customer Response. A saved-query Doughnut widget (id 131, "Reported
+issues" grouped by Status) rendered **New, In Progress, Resolved, Feedback** with counts `520, 177, 8, 244` —
+Resolved (8, by far the smallest of the four) still rendered *before* Feedback (244, the second-largest) — proving
+the order follows the configured workflow sequence, not descending count. **Note**: the older, pre-#120914
+built-in "Issues by Status" widget type independently showed a count-like order on unrelated data (see
+`DASHBOARDS_MEMORY.md`) — that widget type is a different, older code path and isn't what this TC (explicitly "a
+query chart") is testing; only the saved-query/#120914 grouping path is in scope here, and it passes cleanly.
 
 ---
 
@@ -198,6 +279,14 @@ Critical).
 - Segments are ordered largest-count-first, since neither dimension has an inherent order of its own, per
   #120914's explicit exception.
 
+**PARTIAL, 2026-09-24**: a saved-query Doughnut widget grouped by Assignee (id 132, "Reported issues") rendered
+`Luna Blossom(2), Redmine Admin(2), Not set(945)` — confirms "Not set" trails despite being by far the largest
+segment (consistent with TC-DSH-171's mechanism), but this project's real data only has **two** actually-assigned
+users and they're tied at 2 each, so their relative order proves nothing about "largest real value first" — a
+tie doesn't exercise the ordering rule. Could not find or quickly construct 3+ distinctly-different-count named
+assignees on this instance to fully confirm the "largest-first" half of this TC. Recommended for a future session
+with a purpose-built fixture (e.g. reassign several issues to 3 different users in clearly unequal numbers).
+
 ---
 
 ### TC-DSH-171: "Not set" segment always trails the real values
@@ -209,6 +298,11 @@ Critical).
 
 **Expected Result:**
 - "Not set" is still drawn **last**, after every real value, regardless of its own count.
+
+**PASS, 2026-09-24**: on widget 130 (grouped by "QA Single Select Field"), "Not set" (946 issues) dwarfed both real
+segments (Green:1, Yellow:2) yet still rendered last: `[Green, Yellow, Not set]`. Reproduced on widget 132
+(grouped by Assignee): "Not set" (945) still trailed `[Luna Blossom, Redmine Admin, Not set]`. Consistent across
+both a custom field and a standard field.
 
 ---
 
@@ -224,6 +318,12 @@ Critical).
 - Segment order is unchanged, and each label keeps the same colour it had before — per #120914 scenario 6, a
   stable order is what keeps a chosen palette lined up with its labels, since colours are applied by position.
 
+**PASS, 2026-09-24**: on widget 130 (Ocean palette applied, Green=`#006064`, Yellow=`#0097A7`), initial state was
+`Yellow(2) > Green(1)`. Bulk-edited 4 issues to flip the balance to `Green(2) > Yellow(1)` — a genuine, verified
+count reversal (Green literally became the larger segment). After reload: order stayed **Green, Yellow, Not set**
+and colours stayed exactly `Green=#006064, Yellow=#0097A7` — neither the order nor the colour-to-label mapping
+moved despite the underlying counts swapping which one was actually larger.
+
 ---
 
 ### TC-DSH-173: Colour-named custom field values are auto-coloured — English
@@ -238,6 +338,11 @@ after colours in English (e.g. Green/Yellow/Red).
 - Segments are drawn in the colours the values name — Green segment green, Yellow segment yellow/amber, Red
   segment red — with no palette configured, per #120914 scenario 3.
 
+**PASS, 2026-09-24**: added widget 130 (grouped by "QA Single Select Field", Red/Green/Blue/Yellow) with **no**
+palette explicitly set. Rendered colours: Green → `#2F9E44` (a genuine green), Yellow → `#F59F00` (amber/yellow) —
+both real colour-name matches, not the generic default Chart.js palette (`#FF6384...`, confirmed as the true
+generic default via TC-DSH-175's Boolean-field control case).
+
 ---
 
 ### TC-DSH-174: Colour-named custom field values are auto-coloured — German
@@ -251,6 +356,14 @@ after colours in English (e.g. Green/Yellow/Red).
 - The same colour matching applies in German — Grün → green, Gelb → yellow/amber, Rot → red — per #120914's
   explicit requirement that colour-name matching work "in English and German, as the values carry whatever
   language the field was set up in."
+
+**NOT EXECUTED, 2026-09-24**: needs a genuine German-language admin session plus a German-valued colour-named CF
+(e.g. Grün/Gelb/Rot) — the same specific blocker already on record in `DASHBOARDS_GERMAN_LANGUAGE.md`: a scripted
+language-switch (raw DOM value-set on the language selector) does not actually take effect
+(`document.documentElement.lang` stays `"en"`), and a real UI-driven switch (My Account → Language, actual
+`select` + form submit, not a scripted value assignment) was not attempted this pass due to time. Recommended
+next-session pairing: do the real UI language switch once, then reuse it for both this TC and the still-open
+German-language spot-check noted in `DASHBOARDS_GERMAN_LANGUAGE.md`.
 
 ---
 
@@ -267,6 +380,11 @@ after colours in English (e.g. Green/Yellow/Red).
 - **No two segments render the same colour** — a palette collision on a field with only 2–3 values is the easiest
   place for this to go wrong.
 
+**PASS, 2026-09-24**: used "QA Boolean Field" (Yes/No, non-colour-named) as the fixture — a widget grouped by it
+with no palette configured (widget 133) rendered `Yes → #FF6384, Not set → #36A2EB`, the standard generic Chart.js
+default palette (matches the same default seen on untouched sibling widgets elsewhere this session), not a
+colour-name match. Two segments, two distinct colours — no collision.
+
 ---
 
 ### TC-DSH-176: An explicit palette overrides automatic colour-name matching
@@ -279,6 +397,11 @@ after colours in English (e.g. Green/Yellow/Red).
 **Expected Result:**
 - The configured palette's colours are used instead of the automatic colour-name match, per #120914 scenario 5 ("a
   palette set in chart settings should still override it").
+
+**PASS, 2026-09-24**: on widget 130, TC-DSH-173 established the auto colour-name match (`Green=#2F9E44,
+Yellow=#F59F00`, no palette set). Explicitly applied the **Ocean** preset via Settings → Appearance and saved —
+colours changed to `Green=#006064, Yellow=#0097A7` (Ocean's own values), confirming the explicit palette takes
+priority over the automatic colour-name match.
 
 ---
 
@@ -681,7 +804,9 @@ date range, so this specific negative case doesn't exercise it differently.
 - A filter list is an easy, overlooked enumeration path — for example disclosing the full user list of the
   instance, or version names from projects the user cannot access.
 
-**DEFERRED to the Permissions suite pass, 2026-09-24** — needs a restricted-visibility role session.
+**FAIL, 2026-09-24**: executed as **Summer Rain** (QA Own Visibility). The User Filter on "Total Spent Hours by
+Users" (widget 106) listed **20 real user accounts** across its available/selected lists — the instance's full
+seeded user roster, not scoped to anything Summer Rain is entitled to know. Filed as `BUG-DSH-021` (Medium).
 
 ---
 
@@ -713,7 +838,12 @@ future session.
 - If dashboards are shared per project, a view-only user reconfiguring another team's charts through the endpoint
   would be a real defect.
 
-**DEFERRED to the Permissions suite pass, 2026-09-24** — needs a view-only role session.
+**PASS (as-designed, corrected 2026-09-25), 2026-09-24**: executed as **Harmony Rose** (QA Read Only). The
+Settings control is fully offered (`.chart-settings-btn` present), and a direct `PATCH .../widgets/120/settings`
+(changing `legend_position`) returned **200**. Originally tied to `BUG-DSH-015` as a fourth confirmed-open
+endpoint — that bug was **retracted 2026-09-25**: the vendor KB documents equal dashboard capabilities for any
+project member with no role-based restriction on any dashboard action, so this is intentional design, not a
+defect. See `DASHBOARDS_MEMORY.md`.
 
 ---
 

@@ -71,10 +71,10 @@ redmine-qa-automation/
         │   ├── <TC-ID>/             ← one subfolder per TC (e.g. TC-RAF-001/) — PASS/FAIL evidence
         │   └── <BUG-ID>/            ← one subfolder per bug (e.g. BUG-RAF-001/) — failure + retest evidence
         ├── reports/
-        │   ├── tc-report.html       ← test case pass/fail report
-        │   ├── defects-summary.html ← defect count and severity breakdown
-        │   ├── final-bug-report.md  ← compiled from all files in bugs/open/
-        │   └── final-bug-report.pdf ← ONLY generated on explicit user request
+        │   ├── <PREFIX>-tc-report-<date>.md  ← ONE consolidated report per testing cycle (see §7) —
+        │   │                                    testing types, TC results, bugs/defects, fix verification,
+        │   │                                    regression results, final status. No separate defect/regression reports.
+        │   └── <PREFIX>-tc-report-<date>.pdf ← ONLY generated on explicit user request
         └── logs/                    ← test execution logs
 ```
 
@@ -129,7 +129,7 @@ plugins/<plugin-name>/                  (<PREFIX> = doc prefix per §2b, e.g. HE
   bugs/open/
   bugs/closed/
   screenshots/          ← subfolders created per TC-ID and BUG-ID as testing progresses
-  reports/final-bug-report.md
+  reports/              ← <PREFIX>-tc-report-<date>.md written per cycle, see §7
   logs/
 ```
 
@@ -293,24 +293,41 @@ Use this content for each new file (replace `<PREFIX>_` in the actual filename w
 |-------------------|------------|-----------------|
 ```
 
-### reports/final-bug-report.md
+### reports/<PREFIX>-tc-report-<date>.md
 ```markdown
-# Final Bug Report — [Plugin Name]
+# Test Case Report — [Plugin Name] — [Date]
 
-> Generated from bugs/open/. PDF only on explicit user request.
+> One consolidated report per testing cycle. Do not split this into separate defect/regression/pass-fail reports — see CLAUDE.md §7.
 
-## Summary
+## Testing Performed
 
-| Total | Critical | High | Medium | Low |
-|-------|----------|------|--------|-----|
+- [ ] Functional testing
+- [ ] Permission testing
+- [ ] Workflow testing
+- [ ] Negative testing
+- [ ] UI validation
+- [ ] Regression testing
 
-## Open Bugs
+## Test Case Execution Summary
 
-## Environment
+| Total TCs | Pass | Fail | Blocked | Skipped |
+|-----------|------|------|---------|---------|
+
+## Bugs / Defects Found
+
+| Bug ID | Title | Severity | Status | Production Redmine Issue ID |
+|--------|-------|----------|--------|------------------------------|
+
+## Fix Verification / Retesting
+
+## Regression Testing Results
+
+## Final Overall Testing Status
 
 - Redmine Version:
 - Environment:
 - Test Date:
+- Status: `In Progress` / `Complete`
 ```
 
 ---
@@ -457,12 +474,20 @@ bugs/closed/BUG-XXX.md  →  ../../screenshots/BUG-XXX/filename.png
 
 ## 7. Report Generation Rules
 
+**Generate only one consolidated report per testing cycle** — `reports/<PREFIX>-tc-report-<date>.md`. Do not create a separate defects-summary, regression, or any other standalone testing report; everything goes in this one file.
+
+The consolidated report must contain:
+- Types of testing performed (functional, permission, workflow, negative, regression, etc.)
+- Total test cases and execution results (pass/fail/blocked/skipped counts)
+- Bugs/defects found, including their IDs and status
+- Fix verification / retesting details
+- Regression testing results
+- Final overall testing status
+
 | Report | When Generated | How |
 |--------|---------------|-----|
-| `tc-report.html` | End of every test run | Auto |
-| `defects-summary.html` | End of every test run | Auto |
-| `final-bug-report.md` | End of every test run | Auto — read all files in `bugs/open/` |
-| `final-bug-report.pdf` | **Only on explicit user request** | Ask: "Testing is complete. Shall I generate the PDF bug report?" |
+| `<PREFIX>-tc-report-<date>.md` | End of every testing cycle | Auto — single consolidated file, contents above |
+| `<PREFIX>-tc-report-<date>.pdf` | **Only on explicit user request** | Ask: "Testing is complete. Shall I generate the PDF report?" |
 
 Never generate the PDF automatically.
 
@@ -545,9 +570,7 @@ At the end of every test session:
 - [ ] `bugs/_index.md` updated (status + file path)
 - [ ] TC screenshots saved under `screenshots/<TC-ID>/`
 - [ ] Bug screenshots saved under `screenshots/<BUG-ID>/`
-- [ ] `tc-report.html` generated
-- [ ] `defects-summary.html` generated
-- [ ] `final-bug-report.md` updated
+- [ ] `reports/<PREFIX>-tc-report-<date>.md` generated/updated — single consolidated report (testing types, TC results, bugs/defects, fix verification, regression results, final status); no separate defect/regression reports
 - [ ] plugin's memory file updated with new observations
 - [ ] plugin's handoff file updated with next session start point and a new Run History row for this run (or `docs/changelog.md` for older plugins)
 - [ ] `STATUS.md` updated — Open Bugs count and Status description
@@ -566,7 +589,7 @@ Each plugin owns its own self-contained Playwright + TypeScript suite under `plu
 | Purpose | Discover bugs, explore new/changed behavior | Re-verify behavior that already passed, catch regressions |
 | Driven by | Claude + Playwright MCP, session by session | Standard Playwright TS test runner, repeatable |
 | Source of truth | `testcases/<suite>.md` | Same file — automation follows it, never leads it |
-| Output | Bug files, `tc-report.html`, screenshots | Playwright HTML report / trace, pass-fail exit code |
+| Output | Bug files, the consolidated `<PREFIX>-tc-report-<date>.md`, screenshots | Playwright HTML report / trace, pass-fail exit code |
 
 ### Rules
 
@@ -579,7 +602,7 @@ Each plugin owns its own self-contained Playwright + TypeScript suite under `plu
 - **Use fixtures for login/session state** (`automation/utilities/`, e.g. `base.fixtures.ts`) instead of repeating login steps inside every test. The standard pattern is a `tests/auth.setup.ts` that logs in once per role and saves `.auth/<role>.json`, referenced by `storageState` in `playwright.config.ts`.
 - **`tests/provision.setup.ts` bootstraps the environment itself, idempotently.** Runs before `auth.setup.ts` (both matched by the `.setup.ts` runner pattern, chained via `dependencies` in `playwright.config.ts` so order is guaranteed regardless of `fullyParallel`). Logs in as the one credential every fresh instance is guaranteed to have — Admin — then checks-before-creating every other role/project/user/customer the suite's fixtures reference, via real UI clicks (no direct DB/backend access). This is what lets the suite run against a brand-new server or container, not just the one environment it happened to be built against.
 - **`testdata/` and `uploads/`** hold checked-in fixtures (sample data files, files used by upload test cases) — commit these. **`downloads/` and `screenshots/`** hold run-generated artifacts — gitignored, and distinct from the plugin's own `screenshots/<TC-ID>/` manual evidence folder.
-- Playwright's own HTML report and trace files are a separate artifact from `reports/tc-report.html` — they report the automated regression run, not the manual session.
+- Playwright's own HTML report and trace files are a separate artifact from `reports/<PREFIX>-tc-report-<date>.md` — they report the automated regression run, not the manual session.
 - When a bug is found *by the automation suite* (a regression), file it exactly like a manually found bug: check `bugs/_duplicates.md` / `bugs/_index.md`, use `templates/bug-template.md`, save to `bugs/open/`, and note in the bug file that it was found via the automated regression suite.
 
 ### Two regression triggers (see `SENIOR_QA_STANDARDS.md` §26 and §27)

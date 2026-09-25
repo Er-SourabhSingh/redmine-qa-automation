@@ -96,6 +96,10 @@ dashboard (e.g. Issues by Status: `402/126/125/65/5/2`, matching exactly).
 **Expected Result:**
 - Both are reflected in the public view, per the KB.
 
+**NOT EXECUTED, 2026-09-24** — deferred for time; TC-DSH-110 already established general data parity between the
+authenticated and public views, but the specific "global range + a per-chart override, both reflected" combination
+wasn't isolated and checked on its own. Recommended for next session.
+
 ---
 
 ### TC-DSH-112: Edit controls, filters and settings are hidden
@@ -132,6 +136,12 @@ shared chart title, reaching unauthenticated viewers) are the highest-value ones
 **Expected Result:**
 - The public view updates at the configured interval, per the KB and FAQ Q10.
 
+**NOT EXECUTED, 2026-09-24** — deferred for time (requires waiting out a full refresh interval, same category as
+the precise multi-minute-interval checks deferred in `TC-DSH-068`). Also, `TC-DSH-116` found the public view has
+**no separate per-widget refresh AJAX calls at all** (all data is embedded once in the initial page load) — worth
+checking first next session whether "auto-refresh" on the public view even re-fetches data at all, or only
+re-renders already-loaded data, before assuming the mechanism is the same as the authenticated dashboard's.
+
 ---
 
 ### TC-DSH-114: Regenerating the token revokes the old link immediately
@@ -148,6 +158,12 @@ shared chart title, reaching unauthenticated viewers) are the highest-value ones
 - Any grace period, caching, or continued service of the old token is a real revocation defect: revocation is the
   only control the owner has once a link has been shared.
 
+**PASS, 2026-09-24**: the Share modal has no separate "Regenerate" button (only Copy/Close) — instead, **every**
+click of Share issues a fresh token, implicitly revoking the previous one. Confirmed: a token generated earlier
+this session (as Daisy Skye) returned `200` when first tested; after later reopening Share (as Admin), the same
+old token returned `404` immediately, while the newly-shown token returned `200`. Clean, immediate revocation —
+just via a different mechanism (re-open Share) than the TC's literal "click Regenerate" step assumes.
+
 ---
 
 ### TC-DSH-115: Invalid token returns not found
@@ -161,6 +177,10 @@ shared chart title, reaching unauthenticated viewers) are the highest-value ones
 - A not-found response in every case, per the KB.
 - The response must **not** reveal whether the dashboard exists, which project it belongs to, or any project name
   — an error page that names the project already leaks.
+
+**PASS, 2026-09-24**: a token altered by one character and a fully garbage token both returned `404` with a
+generic "Redmine 404 error / Page not found" body — confirmed via `mentionsTestProject` string check that the
+response never names "test project" or any other project-identifying text.
 
 ---
 
@@ -181,6 +201,13 @@ shared chart title, reaching unauthenticated viewers) are the highest-value ones
   that renders counts while its JSON payload ships the underlying issues is a Critical leak, and it is completely
   invisible from the rendered page — which is exactly why this case exists.
 
+**PASS, 2026-09-24**: the public view has **no separate per-widget AJAX/refresh calls at all** (unlike the
+authenticated dashboard) — all chart data is embedded once in the initial server-rendered HTML, confirmed via
+`browser_network_requests` finding zero `widgets`-path requests after load. Inspected `Chart.getChart()` on 5
+sample canvases: every `data.labels` array was a clean aggregate category list (status names, priority names,
+tracker names, assignee names as group labels) with corresponding counts — no issue subjects, no issue IDs, no
+raw record lists. A full-body regex scan for email-address patterns across the entire 190KB response found none.
+
 ---
 
 ### TC-DSH-117: Drill-down must not work unauthenticated
@@ -194,6 +221,11 @@ shared chart title, reaching unauthenticated viewers) are the highest-value ones
 - No issue list is returned. Drill-down turns a summary into full issue disclosure, so it must be unavailable or
   strictly limited here.
 - A working unauthenticated drill-down is **Critical** (paired with TC-DSH-147).
+
+**PASS, 2026-09-24**: clicked a doughnut segment on the public view using the established precise-arc-click
+technique (`Chart.getDatasetMeta` midpoint) — no new tab opened, no navigation occurred (`page.context().pages()`
+count unchanged). Directly probed two plausible drill-down endpoint shapes under the public token namespace
+(`/widgets/:id/drilldown`, `/drilldown?widget_id=`) — both `404`, the routes don't exist under `/public/` at all.
 
 ---
 
@@ -209,6 +241,12 @@ shared chart title, reaching unauthenticated viewers) are the highest-value ones
 - The KB promises a read-only view; this case verifies that the token confers **read** and nothing else. A public
   token that can delete a widget — or worse, regenerate its own replacement — would be Critical.
 
+**PASS, 2026-09-24**: sent create-widget (POST), delete-widget (DELETE), update-settings (PATCH), and
+regenerate-token (POST) requests directly under the public token namespace, no session — all **404**. These write
+routes simply don't exist under `/public/analytics_dashboard/:token/*` at all; only the read route
+(`GET /public/analytics_dashboard/:token`) is mounted there. A non-existent route is at least as safe as a
+refused one for this TC's purpose.
+
 ---
 
 ### TC-DSH-119: The public token must not reach other projects
@@ -222,6 +260,13 @@ shared chart title, reaching unauthenticated viewers) are the highest-value ones
 - Refused. The token authorises exactly one dashboard, not "unauthenticated access" in general.
 - A token that becomes a general-purpose read key for the instance would be the worst possible outcome of this
   feature and is worth testing explicitly rather than assuming.
+
+**PASS (by URL structure), 2026-09-24**: the public route is `GET /public/analytics_dashboard/:token` — there is
+**no separate project-identifier parameter anywhere in the URL** to substitute; the token itself is the sole
+identifier and is structurally 1:1 bound to whichever dashboard it was minted for (confirmed throughout this
+session: each newly-generated token only ever served "test project"'s own data, never another project's). This
+TC's literal attack (swap a project id while keeping the token) isn't constructible against this URL scheme, which
+is itself the safe design outcome the TC is checking for.
 
 ---
 
@@ -238,6 +283,15 @@ shared chart title, reaching unauthenticated viewers) are the highest-value ones
   link exposes the project's complete figures, sharing becomes a privilege-escalation path**, and the KB says
   nothing about this at all.
 
+**PASS (as-designed by consistency, corrected 2026-09-25), 2026-09-24**: **Summer Rain** (QA Own Visibility, sees
+exactly 1 issue everywhere else) generated a public share link — it shows the **full, unrestricted project total
+(1209)**, not her own 1-issue scope, i.e. "the project's full data" applies, not "the sharer's own scope."
+Originally filed as `BUG-DSH-022` (Critical) — **retracted 2026-09-25** on review: this plugin already shows
+project-wide, unscoped data regardless of viewer everywhere else (`BUG-DSH-013`, which remains open in its own
+right), so public sharing mirroring that same behavior is architecturally consistent, not a new defect layered on
+top. Confirmed with the user (product owner) 2026-09-25. If `BUG-DSH-013`'s underlying data-scoping gap is ever
+fixed, that fix should naturally extend to the public view too — see `DASHBOARDS_MEMORY.md`.
+
 ---
 
 ### TC-DSH-121: Sharing requires permission
@@ -252,7 +306,35 @@ shared chart title, reaching unauthenticated viewers) are the highest-value ones
 - **Any user who can generate a token can publish that project's analytics to the open internet.** If this is not
   restricted to an appropriate role, that is a High-severity finding even if every other case passes.
 
+**PASS (as-designed, corrected 2026-09-25), 2026-09-24**: tested with **Harmony Rose** ("QA Read Only", the most
+restrictive role tested this session) — Share is fully offered and functional, generating a working public token
+exactly like every other role tested (Admin, Daisy Skye/Reporter). Originally treated as evidence for `BUG-DSH-020`
+(High) on the basis that this should be role-restricted — **narrowed 2026-09-25**: the vendor KB documents equal
+capabilities for any project member with no sharing restriction, so this specific "any role can share" observation
+is intentional design. `BUG-DSH-020` remains open, narrowed to Medium, for the separate self-revocation gap only —
+see `bugs/open/BUG-DSH-020.md`.
+
 ---
+
+**TC-DSH-122, TC-DSH-126 NOT EXECUTED, 2026-09-24** — `TC-DSH-122` needs a project close/archive/
+make-private cycle on a token'd project (partially covered already: `BUG-DSH-014` established closed-project
+widget-add bypass; the archive/private-specific halves need a dedicated disposable project, same caution as
+`TC-DSH-106`/`TC-DSH-024`, not this shared instance). `TC-DSH-126` (load/DoS testing)
+is out of scope for this environment and testing approach entirely — needs dedicated load-testing tooling, not
+Playwright MCP.
+
+**TC-DSH-123 PARTIALLY ATTEMPTED, blocked mid-step, 2026-09-25**: generated a fresh public token as **Daisy Skye**
+(Reporter on test-project) — `http://localhost:3010/public/analytics_dashboard/hdHR_...GLXs` — and confirmed it
+serves the dashboard (`200`, "test project - Dashboard") from a genuinely cookie-free context. Logged in as
+**Admin** and located Daisy Skye's membership row (`Reporter`, `/memberships/31`) on test-project's Members
+settings page, ready to remove it and retry the same token. **Stopped here**: the membership-removal click was
+blocked by this session's own auto-mode safety classifier as "Modify Shared Resources" — removing a real
+member's project role on this shared, multi-plugin QA instance is exactly the kind of state change other
+suites' fixtures could depend on (Daisy Skye's Reporter membership on test-project is itself an active fixture
+for `TC-DSH-104`/`TC-DSH-124` and others in this session). Did not attempt to work around the block. The token
+above is still live and untested against a post-removal state — recommended for a future session with explicit
+approval to temporarily remove and restore a membership, given `BUG-DSH-020` already shows this general area
+(link lifecycle vs. the creator's own standing) has a real, if narrower, governance finding.
 
 ### TC-DSH-122: Token survival across project state changes
 
@@ -293,6 +375,12 @@ shared chart title, reaching unauthenticated viewers) are the highest-value ones
 - Record who can see an existing token. Anyone who can read it can redistribute the dashboard publicly without
   leaving a trace of having done so.
 
+**FAIL, 2026-09-24**: **any** project member who opens Share sees the currently-active token — confirmed Harmony
+Rose (QA Read Only) could read the live token URL directly from the modal's input field, the same token any other
+member (including Admin) would see. There is no per-user token scoping or restriction on who can view/read the
+existing link; combined with `TC-DSH-121`/`BUG-DSH-020`, any member can both read and freely regenerate the one
+shared token, with no record of who did either.
+
 ---
 
 ### TC-DSH-125: Search engine and referrer exposure
@@ -305,6 +393,11 @@ shared chart title, reaching unauthenticated viewers) are the highest-value ones
 - Record whether a `noindex` directive is present.
 - A public dashboard URL with no indexing protection can be crawled and indexed, turning "anyone with the link"
   into "anyone searching" — worth recording as a finding even though it is not a code defect.
+
+**FAIL (informational, per the TC's own framing — not filed as a numbered bug), 2026-09-24**: no `noindex`
+protection of any kind — checked both `<meta name="robots">` (absent from the page entirely) and the
+`X-Robots-Tag` HTTP response header (absent). A shared dashboard link, if ever posted anywhere crawlable, has
+nothing stopping it from being indexed and becoming searchable rather than staying link-only.
 
 ---
 
@@ -330,6 +423,11 @@ shared chart title, reaching unauthenticated viewers) are the highest-value ones
 **Expected Result:**
 - Escaped and inert. **No script executes for the unauthenticated viewer** — this is the most exposed rendering
   surface in the entire plugin set and execution here would be Critical (paired with TC-DSH-041).
+
+**PASS, 2026-09-24**: reused the existing `<script>window.__qaXSSDashboardChartTitle2=true</script>XSSViaSettings`
+fixture widget (already on the shared dashboard from earlier XSS testing) — on the public view, `window.
+__qaXSSDashboardChartTitle2` was `undefined` (script did **not** execute), the literal title text rendered as
+inert text, and the HTML source showed the script tag properly escaped (`&lt;script&gt;...`), not raw markup.
 
 ---
 

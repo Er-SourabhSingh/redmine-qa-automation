@@ -121,66 +121,128 @@ All five TCs reduce to a single bug (`BUG-DSH-001`) since the failure is systemi
 
 ## Next Session Start Point
 
-- **Full final-cycle regression completed 2026-09-24** — every suite executed for the first time (or reconfirmed).
-  **3 bugs remain open (`BUG-DSH-011/013/014`), currently in `bugs/open/`, none yet reported to production.**
-  3 other candidates from the same pass were **retracted the same day, for two different reasons** — see
-  `bugs/_duplicates.md` and `DASHBOARDS_MEMORY.md`; all three IDs are retired, do not reuse or re-file:
-  - `BUG-DSH-009`/`BUG-DSH-012`: the product owner confirmed both are **intentional design**.
-  - `BUG-DSH-010`: the user reported it wouldn't reproduce for them, which prompted a re-investigation that found
-    a **testing error**, not a product defect — the original investigation had been typing into the wrong DOM
-    element (`#chartTitleInput`, a hidden field) instead of the real one (`#chartTitle`) across all 6 of its
-    "reproductions." Retested correctly, the feature (including its XSS-escaping, TC-DSH-041) works fine.
-  
-  Since `bugs/open/` is no longer empty, `STATUS.md` correctly stays `In Progress` — do **not** set it to
-  `Complete`.
-- **Immediate priority: decide whether to report `BUG-DSH-011/013/014` to production `ztflux`.** This needs its
-  own fresh explicit approval per CLAUDE.md §4.3b (the prior "all 6 open bugs" approval from earlier this session
-  was scoped to BUG-DSH-002/004/005/006/007/008 only — it does not carry over to these new ones). Suggest leading
-  with `BUG-DSH-013` (High, real data-visibility leak) given its severity.
-- **High-value follow-ups the regression surfaced, in priority order:**
-  1. `TC-DSH-097` (time-tracking charts + restricted role) — likely to fail the same way `BUG-DSH-013` did; not
-     yet tested, strongly suspected.
-  2. `TC-DSH-102`/`103` (cross-project crafted request, saved-query visibility bypass) — potential Critical
-     severity, not yet tested, natural extensions of the `BUG-DSH-013` pattern.
-  3. Redo the German language spot-check of the #120914-era Settings labels properly (real
-     `browser_select_option` for My Account → Language, not a scripted value-set — see `DASHBOARDS_MEMORY.md`).
-  4. `TC-DSH-062` (resize) — retry with a real human interaction or a different automation approach; current
-     result is inconclusive, not confirmed either way.
-  5. The many destructive/environment-level Installation suite cases (folder rename, migration skip, REST API
+- **`bugs/open/` is empty.** `BUG-DSH-023` (role-restricted custom field excluded from the Group by selector) and
+  `BUG-DSH-024` (grid column-width overflow cutting off the rightmost card) were both found later the same
+  day (2026-09-25) after `STATUS.md` had briefly reached `Complete`, both reported to production (#121311,
+  #121318, linked to Test Case #121093), and **both retested FIXED after the user asked to restart the
+  `redmine-docker-700-redmine-1` container** (twice — once per bug). `BUG-DSH-023` was confirmed via a clean
+  per-role comparison (Admin/Daisy Skye, who qualify for the restricted field, now see it; Summer Rain, who
+  doesn't qualify, correctly still doesn't). `BUG-DSH-024` was confirmed via exact DOM measurement at all 3
+  original viewport widths (1280×720/1440×900/1920×1080), 0px overflow at every one (was 225px/235px/29px).
+  Both closed: production synced to Done/100%, local files moved to `bugs/closed/`, per explicit approval each.
+- Test Case #121093 now shows **16 total linked defects — all 16 closed.**
+- **Full final-cycle regression (§27) run and passed 2026-09-25, per explicit user request** — every suite
+  checked (Chart Widgets, Chart Settings, Global Filters/Layout, Saved Queries/Drilldown, Permissions, Public
+  Sharing, Installation/Access), zero new failures, every previously-fixed bug's fix confirmed still holding
+  post-restart. **`STATUS.md` is now `Complete`** — both CLAUDE.md §10 conditions met.
+- **Production feature #120914 marked Done, per explicit approval** — all 16 linked defects are closed.
+- **`TC-DSH-138` (stacked-chart drill-down) is still INCONCLUSIVE, not resolved.** The user separately confirmed
+  drill-down is intentionally not implemented for the 3 stacked-by chart variants in general terms, which is
+  very likely the correct resolution for this TC too, but that specific link was never explicitly confirmed —
+  worth a quick confirmation (or a real human click, same as `TC-DSH-160` was resolved) before marking it PASS.
+- **Before filing any new permission-boundary bug on this plugin, read the updated `DASHBOARDS_REQUIREMENTS.md`
+  Permissions Matrix and `DASHBOARDS_MEMORY.md` first** — this session learned the hard way that this plugin's
+  documented model is unusually flat (equal capabilities for any project member, no role-based restriction on any
+  dashboard action except link revocation). An assumption that "Redmine plugins conventionally restrict this kind
+  of action" is not itself grounds for a bug here.
+- **Every suite is now fully worked through** (executed, or deferred with a specific documented reason) —
+  `SAVED_QUERIES_AND_DRILLDOWN.md` (the last one) was finished this pass, including the two open investigations
+  (`TC-DSH-142`, `TC-DSH-165`), both resolved in the plugin's favor with no new bugs. Nothing left in "not yet
+  reached" status anywhere in the plugin; what remains is a short list of individually-deferred TCs, each with its
+  own documented blocker (below), not a backlog to sweep through.
+- **Remaining deferred TCs, in priority order for a future session:**
+  1. `TC-DSH-123` (token survival after the sharer loses access) — **furthest along of the deferred items**: a
+     working fresh token was already generated as Daisy Skye and confirmed live; the next step (removing her
+     test-project membership as Admin, then retrying the token) was blocked by this session's own auto-mode safety
+     classifier as "Modify Shared Resources." Needs explicit approval to remove-and-restore a real membership.
+  2. `TC-DSH-122` (`PUBLIC_SHARING.md`) and `TC-DSH-106`'s archived-project half (`PERMISSIONS.md`) — both need a
+     dedicated, disposable project fixture rather than touching a shared one on this instance.
+  3. `TC-DSH-101`'s deeper form (genuine anonymous access with `login_required` temporarily off) — this instance
+     has `Authentication required = Yes` globally, which gates everything before any project/role permission is
+     evaluated; a real anonymous test needs a dedicated instance or an approved temporary toggle-and-restore, not
+     this shared one.
+  4. Redo the German language spot-check of the #120914-era Settings labels properly (real
+     `browser_select_option` for My Account → Language, not a scripted value-set — see `DASHBOARDS_MEMORY.md`) —
+     needed for both `TC-DSH-174` and the still-open German-language item.
+  5. `TC-DSH-062` (resize) and the Escape-key exit findings (`TC-DSH-066`/`067`) — retry with a real human
+     interaction; current results are inconclusive/partial under CDP automation, not confirmed either way.
+  6. `TC-DSH-138` (drill-down from a stacked Bar chart) — 4 automated click techniques all failed; a possible
+     devicePixelRatio scaling issue was found but not confirmed. Needs a real human click to resolve. (`TC-DSH-160`,
+     the other item in this same "needs a real interaction" category, was resolved 2026-09-25 — the user performed
+     a genuine manual hover and captured a screenshot confirming the pointer cursor; PASS. The same real-interaction
+     approach is the recommended next step for `TC-DSH-138` too.)
+  7. `TC-DSH-170` (Assignee largest-first ordering) — needs a purpose-built fixture with 3+ distinctly-different
+     assignee counts; this project's real data only has 2 tied at the same count.
+  8. `TC-DSH-126` (public view under load) — genuinely out of scope for Playwright MCP; needs dedicated
+     load-testing tooling.
+  9. The many destructive/environment-level Installation suite cases (folder rename, migration skip, REST API
      toggle, uninstall) — need a dedicated disposable Redmine instance, not `redmine-docker-700`.
-  6. The two-concurrent-session cases deferred across every suite (`TC-DSH-026/048/063/105/107`, etc.).
+  10. The two-concurrent-session cases deferred across every suite (`TC-DSH-026/048/063/105/107`, etc.).
+- **Fixture left in place from this pass, reusable next session:** `test-project`'s "QA Single Select Field"
+  (cf_68) now has real values set on several issues (Red/Green/Blue/Yellow, used for `TC-DSH-168`–`176`); a
+  private query (`issue_query_16`, "QA Private Query for TC-103 Test", owned by Admin) exists for saved-query
+  visibility testing; widget 138 on the shared dashboard renders it. Seed users `harmony.rose` (QA Read Only
+  role) and `daisy.skye` (Reporter) were used this pass alongside the already-established `summer.rain` (QA Own
+  Visibility) — all three, plus their exact role names, are documented in `bugs/open/BUG-DSH-019/020/021.md`.
 - `reports/tc-report.html` and `reports/defects-summary.html` don't exist yet for this plugin (only
   `final-bug-report.md` has been maintained across sessions) — generate them if/when a full run's HTML output is
   needed.
-- Consider whether production Test Case #121093's result (currently "Failed") should be updated — given 6 new
-  bugs are now open against this same feature area, it should very likely stay "Failed" rather than move to
-  "Passed" until those are resolved too. A production write either way requires its own fresh approval.
-- **Execute the remaining #120914 test cases (TC-DSH-150–180) not yet covered by earlier sanity passes** — carried forward, still applicable, and should be folded into the full regression above rather than run separately:
-  1. `DASHBOARDS_SAVED_QUERIES_AND_DRILLDOWN.md` TC-DSH-150–165 — still need: boolean CF grouping (TC-DSH-156) with a genuinely working fixture, enumeration-type CF grouping (TC-DSH-157) if this instance has one, the "only fields visible/applicable" negative case (TC-DSH-166) with a role-restricted or project-inapplicable field, and search/title cases already covered by the pre-existing suite.
-  2. `DASHBOARDS_CHART_SETTINGS.md` TC-DSH-166–176 — segment-order stability under changing counts (TC-DSH-172), German colour-name matching (TC-DSH-174, needs a German-language CF or session), non-colour-value palette fallback (TC-DSH-175), and explicit palette override (TC-DSH-176) are not yet individually executed.
-  3. `DASHBOARDS_GLOBAL_FILTERS_AND_LAYOUT.md` TC-DSH-177–180 — scroll-into-view + highlight behavior (TC-DSH-179) wasn't visually confirmed this session (only append-order and no-reload were), and the cross-tab consistency case (TC-DSH-180, adding from "Our Queries" vs "Saved Queries") wasn't run.
-- Fixture note for next session: this instance's `cf_67`/`cf_68` (QA Multi Select/Single Select Field) now both have colour-named values (Red/Green/Blue/Yellow) — useful for TC-DSH-173–176, but `cf_68` needed "Used as a filter" enabled this session (was off by default) to make its drill-down count correctly; check it's still on.
-- Still untested overall (carried forward, not blocking regression since no bug covers them): actual drag/resize interaction, auto-refresh timer behavior, full-screen mode, remaining ~17 of 22 built-in chart types, Data Filters beyond Issue Status, permissions/role-gating, admin REST API precondition, Stage 2 (resolutions) and Stages 3–6 (Lotus theme) not yet run.
-- The "Chart Information" info-icon popover wasn't independently re-triggered on 2026-09-09's server (click/hover via the automation harness didn't open it) — if a future session needs to re-verify it specifically, try a slower/staged real-mouse hover sequence rather than a single click.
+- Consider whether production Test Case #121093's result (currently "Failed") should be updated — given multiple
+  new bugs are open, it should very likely stay "Failed" until they're resolved. A production write either way
+  requires its own fresh approval.
 - Note: plugin confirmed via Administration > Plugins as "Redmineflux Analytics Dashboard" (internal name `redmineflux_dashboard`), version 7.0.0.
 
 ## Open Bugs Found
 
+**`bugs/open/` is empty — 0 open bugs.**
+
 **Closed this cycle (all fixed, synced to production, moved to `bugs/closed/`):**
+- `BUG-DSH-024` (Medium) — the dashboard grid's own computed `grid-template-columns` pixel widths summed to more
+  than the grid container's actual width, at every viewport width tested (1280×720: 225px over; 1440×900: 235px
+  over; 1920×1080: 29px over). Since CSS Grid lays out left-to-right, 100% of the overflow landed on the right
+  edge — the rightmost card in every row was visibly clipped with no right-side margin. **Retested FIXED
+  2026-09-25 after a container restart** — 0px overflow confirmed at all 3 original viewport widths, columns
+  now evenly and correctly distributed. See `bugs/closed/BUG-DSH-024.md` for full per-width measurements and
+  screenshots (both the original repro and the retest-pass).
+- `BUG-DSH-023` (Medium) — the chart-template "Group by" selector never offered a role-restricted custom field,
+  even for a viewer whose own role was explicitly in the field's allowed-roles list. Violated #120914
+  requirement 2's "only fields visible to the current user... should be listed." **Retested FIXED 2026-09-25
+  after a container restart** (`docker restart redmine-docker-700-redmine-1`) — confirmed with a per-role
+  comparison: Admin/Daisy Skye (qualifying roles) now see the field, Summer Rain (non-qualifying role) correctly
+  still does not. See `bugs/closed/BUG-DSH-023.md`.
 - `BUG-DSH-002` (Medium) — chart-template widget grouped by a **custom field** was missing the General section.
 - `BUG-DSH-004` (Low) — grouping-dimension selector offered a genuine multi-select custom field.
 - `BUG-DSH-005` (High) — Save Settings broke live display to "No Data Available", reset accent colour.
 - `BUG-DSH-006` (Medium) — Settings panel had no Display as / Group by control at all.
 - `BUG-DSH-007` (Medium) — Bar/Line chart legends showed the query name instead of the category label.
 - `BUG-DSH-008` (High) — drill-down silently returned the entire query for a non-filterable custom field.
+- `BUG-DSH-011` (Low) — Auto Refresh off didn't cancel the already-scheduled cycle. **Retested FIXED 2026-09-25**:
+  zero refresh calls in a clean 65s window after toggling off 4s before a cycle.
+- `BUG-DSH-013` (High) — dashboard charts disclosed the full unrestricted issue count (725) to a role restricted
+  to 1 visible issue. **Retested FIXED 2026-09-25**: charts now show Summer Rain's real total (1) across every
+  instance checked.
+- `BUG-DSH-014` (Low) — widgets could be added on a closed project. **Retested FIXED 2026-09-25**: Add Chart no
+  longer reachable on a closed project; an active project is unaffected.
+- `BUG-DSH-016` (Medium) — the global date range wasn't actually remembered across navigation. **Retested FIXED
+  2026-09-25**: selector and underlying data both correctly persist now.
+- `BUG-DSH-018` (Medium) — a failed widget refresh left the chart silently showing stale data, no visible error.
+  **Retested FIXED 2026-09-25** (after an initial invalid retest via the header Refresh button was corrected per
+  the production issue's own developer note): auto-refresh failures now mark the card with an amber border +
+  badge, and recovery is clean.
+- `BUG-DSH-019` (**Critical**) — any authenticated user, zero project membership required, could open ANY private
+  project's dashboard and see its real chart data. **Retested FIXED 2026-09-25**: now a clean 403 for non-members;
+  legitimate members unaffected.
+- `BUG-DSH-020` (Medium, narrowed 2026-09-25) — a member who created a public share link couldn't revoke it
+  themselves. **Retested FIXED 2026-09-25**: a new "Revoke link" button works end-to-end, verified via a real
+  revoke + 404 re-check.
+- `BUG-DSH-021` (Medium) — a chart's User Filter dropdown disclosed the full 20-account instance user roster.
+  **Retested FIXED 2026-09-25**: now scoped to the project's own 7 real members.
 
-**Open — found 2026-09-24 during the full final-cycle regression, not yet reported to production:**
-- `BUG-DSH-011` (Low) — Auto Refresh off doesn't cancel the already-scheduled cycle (one extra fires).
-- `BUG-DSH-013` (High) — dashboard charts disclose the full unrestricted issue count (725) to a role restricted
-  to 1 visible issue — a genuine data-visibility leak, confirmed via a real restricted seed user session.
-- `BUG-DSH-014` (Low) — widgets can be added on a closed project, contradicting "closed = read-only".
+All 8 production issues (#121272/#121273/#121274/#121283/#121284/#121285/#121286/#121287) synced to Done/100%
+2026-09-25, per explicit user approval. A full final-cycle regression (§27) passed with zero new failures before
+closure.
 
-**Retracted the same day (3 total — retired IDs, do not reuse or re-file):**
+**Retracted (6 total — retired IDs, do not reuse or re-file):**
 - `BUG-DSH-009` — Project Progress Gauge not following the global date-range filter. **Intentional design**,
   confirmed by the product owner — the Gauge is deliberately an all-time metric.
 - `BUG-DSH-012` — saved-query widgets not following the global filter bar. **Intentional design**, confirmed by
@@ -190,11 +252,26 @@ All five TCs reduce to a single bug (`BUG-DSH-001`) since the failure is systemi
   testing error, not a product defect.** The user reported it wouldn't reproduce; re-investigation found the
   original test had been typing into `#chartTitleInput` (a hidden, unrelated element) instead of the real field,
   `#chartTitle`, across all 6 of its "reproductions." Retested correctly: the title applies exactly as expected.
-- See `bugs/_duplicates.md` and `DASHBOARDS_MEMORY.md` for the full retraction record on all three.
+- `BUG-DSH-015` — a view-only role could add/edit/delete/reposition dashboard widgets. **Intentional design**,
+  confirmed via the vendor KB (fetched directly 2026-09-25) — "any user with access to the project can open the
+  dashboard," with no documented permission gating any dashboard action for any role.
+- `BUG-DSH-017` — an invalid global custom date range appeared to be silently rejected with no error message.
+  **False positive from a testing error** — a toast error does appear, but auto-dismisses fast enough that a
+  static (non-`MutationObserver`) DOM check misses it.
+- `BUG-DSH-022` — a restricted-visibility user's public share link showed the project's full, unrestricted data.
+  **Retracted as consistent, intentional design** (not a KB citation this time, but an architectural-consistency
+  argument confirmed by the user/product owner 2026-09-25) — this plugin already shows project-wide unscoped data
+  regardless of viewer everywhere else (`BUG-DSH-013`, which remains open on its own), so sharing mirroring that
+  is expected, not a new defect.
+- See `bugs/_duplicates.md` and `DASHBOARDS_MEMORY.md` for the full retraction record on all six.
 
 ## Closed Bugs
 
 - BUG-DSH-001 (Low, originally High) — near-total absence of German i18n across the entire Dashboard plugin UI. **Fully fixed**, verified 2026-09-09 — every one of the ~60+ originally-untranslated strings (dashboard shell, Add Chart modal, chart card controls, all 3 Settings panel sections, toasts, validation error, delete dialog, and the public Share Link view's LIVE badge + date ranges) is now correctly German.
+- BUG-DSH-002/004/005/006/007/008 (see Open Bugs Found above for details) — all fixed, retested 2026-09-24, closed
+  same day.
+- BUG-DSH-011/013/014/016/018/019/020/021 (see Open Bugs Found above for full retest evidence) — all fixed,
+  retested 2026-09-25, closed same day. `bugs/open/` is now empty.
 
 ## Run History
 
@@ -221,3 +298,264 @@ All five TCs reduce to a single bug (`BUG-DSH-001`) since the failure is systemi
 | 2026-09-24 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **Full final-cycle regression per `SENIOR_QA_STANDARDS.md`/CLAUDE.md §27**, run at the user's explicit request ("run the full final-cycle regression... include auto-refresh, drag/resize, the full per-filter-type sweep, and all remaining relevant plugin regression suites... do not mark STATUS.md Complete until finished and verified"). Executed genuinely, suite by suite, across every `testcases/` file for the first time: **Chart Widgets (22 TCs, first execution)** — all 22 core types cross-checked, 11 issue-based types all independently summed to exactly 724 with zero mismatches; **2 bugs found**: `BUG-DSH-009` (Project Progress Gauge ignores global date-range filter, proven via a live toggle + Performance-API-precise comparison against a correctly-responsive sibling widget) and `BUG-DSH-010` (Our Queries tab's create-time Chart Title silently discarded, reproduced 6× with verified non-empty input immediately before submit). A third suspected defect (Total Remaining Time showing all-zero) was investigated with a purpose-built fixture issue (`#1573`, assigned + 10h estimated) and turned out **not** to be a bug — correct once real data existed. **Chart Settings (TC-DSH-009–026, first execution)** — filter application/clearing, per-chart date override + global-override interaction, and negative date validation all verified with precise cross-checks (e.g. Issue Status Filter narrowing 725→597, exactly matching the independently-known closed+rejected count). **Global Filters/Layout** — auto-refresh genuinely verified via `performance.getEntriesByType`, catching **`BUG-DSH-011`** (one extra refresh cycle fires ~30s after toggling off, precisely timed at 29993ms after the prior cycle, confirmed bounded not infinite via a further 64s clean window); drag-and-drop confirmed working (real `page.mouse` events, since Playwright's `dragTo()` doesn't trigger this app's custom handle) and persisting through reload; resize could not be triggered via any technique tried (mouse/synthetic mouse/pointer events) — recorded inconclusive, not a bug, since drag worked fine with the same approach; found the global filter bar has no Issue Status control at all despite `DASHBOARDS_REQUIREMENTS.md` claiming otherwise (stale doc, not a bug). **Saved Queries/Drilldown** — while investigating global-filter interaction (`TC-DSH-134`), found **`BUG-DSH-012`**: saved-query widgets ignore the entire global filter bar (Date Range and Tracker both), proven with byte-for-byte-identical data across 4 different global filter states while a sibling built-in widget correctly responded every time — architecturally distinct from `BUG-DSH-009`, affecting the whole saved-query widget category. **Permissions** — logged in as a real restricted seed user (Summer Rain, role "QA Own Visibility", confirmed via her own issue list to see exactly 1 issue) and found **`BUG-DSH-013`** (High): every dashboard chart tested showed the full unrestricted project total (725) instead of her own visible set — a 725x aggregate data-visibility leak; the drill-down itself was independently confirmed safe (Redmine core's own issue-list permission check correctly restricted it to her 1 issue). **Installation/Access** — confirmed no Dashboard module exists to toggle (architectural fact), and while testing the closed-project negative case found **`BUG-DSH-014`** (Low): widgets can be added on a closed project, contradicting Redmine's "closed = read-only" convention. **Public Sharing** — the best-implemented area found all session: token is 44 characters high-entropy, unauthenticated access genuinely verified two ways (`fetch` with `credentials:'omit'` and a real navigation with no session), data parity confirmed (28/28 canvases matched authenticated data), drill-down cleanly disabled, all edit controls absent from the DOM entirely — zero new bugs. **German Language**: not re-executed (BUG-DSH-001 already closed with a passed regression in 2026-09-09); an attempted spot-check of the newer #120914 labels was inconclusive because the language-switch itself silently failed to apply (same raw-DOM-value-setter issue as elsewhere this session) — flagged for next session, not resolved. **6 new bugs total this pass (`BUG-DSH-009`–`014`): 0 Critical, 2 High, 2 Medium, 2 Low.** None yet reported to production — pending explicit approval. Several negative/multi-role/destructive-environment cases across every suite were deliberately deferred (documented individually per TC) rather than risking shared fixtures on this instance or requiring genuinely concurrent sessions this harness can't produce — see each suite file's header note and the `bugs/open/BUG-DSH-009.md`–`014.md` files for full evidence. `bugs/open/` is no longer empty; `STATUS.md` remains `In Progress` per the user's explicit instruction not to mark Complete. |
 | 2026-09-24 | 7.0.1.stable | n/a (product-owner clarification, no live testing) | Claude | **Retraction pass, same day.** User (product owner) reviewed `BUG-DSH-009` and `BUG-DSH-012` and confirmed both are intentional design, not defects: the Project Progress Gauge is deliberately an all-time metric, never scoped to the date-range filter; saved-query widgets are deliberately governed solely by their own saved query's own criteria, never further constrained by the dashboard's global filter bar — explicitly instructed not to modify either to follow the global filters, and to record both as intentional so they aren't re-flagged. Retracted both: deleted `bugs/open/BUG-DSH-009.md`/`BUG-DSH-012.md` and their screenshot folders (never real defects); `bugs/_index.md` rows changed to `[RETRACTED]` with no file path; added a "Retracted findings" section to `bugs/_duplicates.md` (the two IDs are now retired, same pattern as the pre-existing `BUG-DSH-003` gap — do not reuse); added two "INTENTIONAL DESIGN" entries to `DASHBOARDS_MEMORY.md`'s Confirmed Working section per the user's explicit request; corrected `DASHBOARDS_REQUIREMENTS.md` (workflow step 3 and the global-filter-bar feature bullet) to document both exceptions instead of claiming "every chart re-queries against the new filter" unconditionally; corrected the FAIL verdicts on `TC-DSH-032` (Chart Widgets) and `TC-DSH-134` (Saved Queries/Drilldown) to PASS with an explanation of the correction; updated `final-bug-report.md` (bug count 6→4: 1 High/1 Medium/2 Low remain open, `BUG-DSH-013`/`012` removed from the High-severity pair leaving just `BUG-DSH-013`), `STATUS.md`, and this file's Open Bugs Found / Next Session Start Point sections. **Open bug count now 4** (`BUG-DSH-010/011/013/014`) — `BUG-DSH-013` remains the highest-priority item (High, real data-visibility leak). |
 | 2026-09-24 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **Second retraction pass, same day — user reported "when i test bug 10 it will not reproduced."** Re-investigated live rather than defending the original report. Clicked Add Chart with a genuine `browser_click`, selected the chart type via genuine `browser_select_option` (not raw JS), then attempted `browser_type` into `#chartTitleInput` (the selector used throughout the original `BUG-DSH-010` investigation) — it **timed out with "element is not visible,"** immediately exposing the problem: `document.querySelectorAll('#chartTitleInput')` confirmed exactly one such element in the DOM and it was hidden (`offsetParent: null`), while a screenshot showed the real, visible "Chart Title (optional)" field sitting right there in the open modal. Enumerating visible inputs found its real id: `#chartTitle` — a different element from `#chartTitleInput` entirely. Typed into `#chartTitle` and clicked Add: **the custom title applied correctly on the first attempt.** Root cause confirmed: every one of the original investigation's 6 "reproductions" (via raw JS evaluate and even genuine Playwright `fill()`/`pressSequentially()`) had been writing to and reading back the same wrong, hidden element the whole time — self-consistent but never touching the real field, which is why it looked so thoroughly reproducible. **Retracted `BUG-DSH-010`**: deleted `bugs/open/BUG-DSH-010.md` and its screenshot; `bugs/_index.md` row changed to `[RETRACTED]`; `bugs/_duplicates.md`'s "Retracted findings" section extended with this as a **false-positive/testing-error** entry (distinct from the intentional-design retractions); `DASHBOARDS_MEMORY.md` gained a detailed `#chartTitleInput` vs `#chartTitle` technique-lesson entry plus a "true positive rate" takeaway on re-deriving selectors instead of trusting a remembered one; `DASHBOARDS_CHART_WIDGETS.md`'s `TC-DSH-028`/`029`/`037` cross-refs and the suite header corrected to PASS; **also completed the XSS check on the create-time path that had been blocked by this same error (`TC-DSH-041`)** — script tag in the title via the correct `#chartTitle` field: not executed, properly HTML-escaped, same clean result as the already-passing Settings-panel path. `final-bug-report.md`, `STATUS.md`, this file's Open Bugs Found/Next Session Start Point sections all updated. **Open bug count now 3** (`BUG-DSH-011/013/014`) — `BUG-DSH-013` remains the highest-priority item. Lesson for future sessions: a finding that reproduces consistently across multiple techniques can still be a testing artifact if every technique shares the same wrong assumption — when a result looks "too reliably broken," re-derive the target selector fresh from the live, visible DOM rather than reusing one from memory. |
+| 2026-09-24 | 7.0.1.stable | n/a (production write) | Claude (redmineflux MCP) | **`BUG-DSH-011/013/014` reported to production `ztflux`, per explicit fresh approval** (assignee confirmed separately: Prashant Chaurasia). Created #121272 (BUG-DSH-011, Low), #121273 (BUG-DSH-013, High), #121274 (BUG-DSH-014, Low), each with a full Textile description, severity fields set, category "Custom dashboard plugin". Linked via `report_defect` to the **same** production Test Case #121093 / Run #577 / Test Suite #249 / Environment "Window 11 + Chrome" already used for the earlier 002/004/005/006/007/008 batch — explicitly confirmed with the user first, since none of these three was actually found via TC #121093's own #120914-scope steps (a deliberate instruction, not an inferred match). Post-write verification: testcase now shows all 9 linked defects. All 3 local bug files updated with their Production Redmine Issue ID. |
+| 2026-09-24 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **"Execute the not-yet-executed TCs" pass, same day** — user asked to review and execute all TCs still marked not-executed (of the 187-TC full suite), independently-executable ones only, documenting specific blockers for the rest. First re-verified the executed/not-executed baseline itself: a prior count of 63/16/108 had missed 8 TCs using a bullet-prefixed verdict style (`- **PASS...**` vs the more common `**PASS...**`, e.g. the entire #120914-follow-up block TC-DSH-181–188); corrected baseline was **71 executed / 16 covered-by-other / 100 genuinely not executed**. Worked through `CHART_SETTINGS` (21/21 addressed — 19 executed, 2 deferred to this same pass's Permissions work, including `TC-DSH-023`/`025`), `CHART_WIDGETS` (3/3), `GLOBAL_FILTERS_AND_LAYOUT` (16/16) and `PERMISSIONS` (7/7 of its own `TC-DSH-101`–`107`, plus the 2 folded in from `CHART_SETTINGS`) — **63 of the 100 addressed this pass** (`INSTALLATION_AND_ACCESS`'s 12 were already fully documented-as-blocked from an earlier session, not freshly touched this pass); `PUBLIC_SHARING` and most of `SAVED_QUERIES_AND_DRILLDOWN` not yet reached at this point in the pass (see the next Run History row for `PUBLIC_SHARING`). **7 new bugs found, headlined by a Critical:** `BUG-DSH-019` (**Critical**) — any authenticated user, with *zero* project membership, can open a completely private, unrelated project's Analytics Dashboard and see its real chart data; proven by the same user/session getting a normal-looking dashboard from the plugin's own controller while Redmine core's own `/issues` controller correctly 403'd her on the identical project seconds later — the dashboard route performs no project-access check at all. `BUG-DSH-020` (High) — any project role, down to Reporter, can mint a public share link (verified working fully unauthenticated) and cannot revoke it themselves. `BUG-DSH-015` (High) — a "QA Read Only" role can create/delete/reposition/reconfigure widgets via four separate endpoints, root-caused to the plugin registering **no permission of its own** in Redmine's Roles matrix at all (confirmed by enumerating every module fieldset — 21 other plugins each have one, this one has none). `BUG-DSH-021` (Medium) — a chart's User Filter dropdown enumerates the full 20-account instance user roster to a maximally-restricted-visibility role. `BUG-DSH-016` (Medium) — the global date range isn't actually remembered across navigation (`localStorage` has no such key at all) despite the KB's claim. `BUG-DSH-018` (Medium) — a failed widget refresh (simulated via route interception) leaves the chart silently showing stale data with zero visible error. `BUG-DSH-017` (Low) — an invalid global custom date range is silently rejected with no error message, unlike the identical per-chart validation which does show one. Also confirmed two genuine **positives** worth recording: saved-query visibility *is* correctly enforced (a private query's widget is invisible to, and not offered to, a non-owner member — `TC-DSH-103`), and `TC-DSH-046` (time-tracking chart data) matched a restricted user's own independently-visible spent-time entries exactly, unlike the issue-count leak. Also caught and corrected a false-negative mid-pass: `TC-DSH-001` initially appeared to show Legend Position "stuck," traced to 3 duplicate same-titled fixture widgets on this heavily-reused dashboard — fixed by anchoring checks to a widget's own unique `data-widget-id` rather than title-text matching (see `DASHBOARDS_MEMORY.md`). Several TCs remain honestly non-executed with specific reasons recorded inline per TC (native-Escape-key exits not confirmable under CDP automation for either the dashboard-level or per-chart fullscreen view, two-genuinely-concurrent-session cases, one archived-project state deliberately not induced on a shared fixture instance per the same caution as `TC-DSH-024`, German-language switching still unreliable via script, `TC-DSH-170`'s largest-first ordering not fully provable with this project's tied-count fixture data). **`bugs/open/` now holds 10 bugs** (`BUG-DSH-011/013–021`) — the 7 new ones not yet reported to production. `STATUS.md` stays `In Progress`. |
+| 2026-09-24 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **Continuation of the "execute the not-yet-executed TCs" pass, same day — `PUBLIC_SHARING` suite.** Worked through 13 of its 16 not-executed TCs (`TC-DSH-111`/`113`/`122`/`123`/`126` deferred with specific reasons — time/interval-wait cost, needs a dedicated disposable project or a second real membership-removal cycle, or is genuine load-testing tooling out of scope). Confirmed several parts of this suite are **genuinely well-built**: write endpoints (create/delete/settings/regenerate widget) simply don't exist under the public token namespace at all (`TC-DSH-118`, all 404); invalid/altered tokens return a clean generic 404 with no project-name leak (`TC-DSH-115`); the public payload contains only aggregate labels/counts, no issue subjects/IDs/emails (`TC-DSH-116`); chart-segment drill-down doesn't fire and the endpoint doesn't exist publicly either (`TC-DSH-117`); a stored-XSS fixture title reaches the public view fully escaped, not executing (`TC-DSH-127`); token regeneration (implicit — every Share click issues a fresh token) immediately revokes the prior one (`TC-DSH-114`). **But found the session's second Critical bug, compounding two already-open ones**: `BUG-DSH-022` — a restricted-visibility user's (Summer Rain, sees 1 issue everywhere else) own public share link exposes the **full, unrestricted project data (1209)** to anyone on the open internet, unauthenticated — the same `BUG-DSH-013` data-scoping gap plus the same `BUG-DSH-020` any-role-can-share gap, combined into a materially worse consequence than either alone (removes both the auth boundary and the visibility boundary at once). Also confirmed `TC-DSH-121` (share-token generation restriction) and `TC-DSH-124` (token visible to any member) both directly reproduce `BUG-DSH-020`'s already-filed gap from the sharing side, and `TC-DSH-125` found no `noindex` protection at all on the public page (informational finding, not filed as a numbered bug, per the TC's own framing). **`bugs/open/` now holds 11 bugs, two of them Critical (`BUG-DSH-019`, `BUG-DSH-022`).** Corrected an arithmetic error in the previous Run History row: `PERMISSIONS` suite itself only had 7 not-executed TCs (`TC-DSH-101`–`107`), not 14 as originally stated there — the extra 2 (`TC-DSH-023`/`025`) belonged to and are counted under `CHART_SETTINGS`; the "90 of 100" running total in that row was also corrected to the accurate 63 at that point in the pass. **Running total after this row: 76 of the 100 genuinely-not-executed TCs addressed** (63 before this row + 13 from `PUBLIC_SHARING`); `SAVED_QUERIES_AND_DRILLDOWN`'s ~25 remain the only suite not yet reached. `STATUS.md` stays `In Progress`. |
+| 2026-09-25 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP + WebFetch) | **Retraction/narrowing pass, next day — user challenged 5 of the previous day's bugs (`BUG-DSH-015/016/017/020/022`), asking for documentation verification and/or a careful live re-test before accepting any of them.** Fetched the vendor KB (`redmineflux.com/knowledge-base/plugins/custom-dashboard/`) directly rather than relying on the local docs' prior distillation, and re-ran two live tests with corrected technique. Results: **`BUG-DSH-015` retracted** — the KB states "any user with access to the project can open the dashboard" with no documented permission gating add/edit/delete for any role; every local doc (`DASHBOARDS_REQUIREMENTS.md`, `FEATURES_LIST.md`, `SCOPE.md`) already had this flagged as an open "?", not a stated restriction — equal capabilities across roles is this plugin's documented design, not a gap. **`BUG-DSH-016` confirmed, strengthened** — the KB explicitly states "the dashboard remembers your last used date range and reapplies it on the next load," directly contradicted by the original finding; no retraction, added the exact quote as stronger evidence. **`BUG-DSH-017` retracted as a false positive** — re-tested with a `MutationObserver` attached *before* the triggering click (rather than a static post-hoc DOM check, twice, which is what missed it originally) and caught a real `toast-notification toast-error` ("End date cannot be earlier than start date") that had already appeared and auto-dismissed before either original check ran. **`BUG-DSH-020` narrowed, not retracted** — generated a genuinely fresh token as Daisy Skye and tested it in a brand-new isolated browser context (0 cookies): still worked, confirming the underlying mechanics are real. But per the user's confirmed judgment call, the "any role can generate a link at all" framing rests on the same now-retracted "equal capabilities" basis as `BUG-DSH-015`, so that half was dropped; the bug survives narrowed to just the self-revocation gap (only an Admin can revoke a link, not its creator — the Share modal's own text documents this), severity lowered High → Medium. **`BUG-DSH-022` retracted** — per the user's confirmed judgment call, since this plugin already shows project-wide unscoped data regardless of viewer everywhere else (`BUG-DSH-013`, which remains open in its own right and was not disputed), a restricted sharer's public link mirroring that same unscoped view is architecturally consistent, not a new, separately-worth-filing defect. Updated every cross-referencing testcase entry (`TC-DSH-025/047/077` for 015; `TC-DSH-073` for 017; `TC-DSH-104/107/120/121` for 020/022) from FAIL to PASS-with-explanation, corrected `DASHBOARDS_REQUIREMENTS.md`'s Permissions Matrix from "?" to confirmed "✓ for all roles except self-revoke", and added corresponding entries to `DASHBOARDS_MEMORY.md` and `bugs/_duplicates.md`. **`bugs/open/` now holds 8 bugs** (`BUG-DSH-011/013/014/016/018/019/020/021`) — one Critical (`BUG-DSH-019`), down from two. **Lesson reinforced twice in one pass: (1) an assumption about "how permissions conventionally work" is not the same as a documented requirement for this specific, unusually permission-flat plugin — always fetch/check the actual KB or local requirements docs before filing a permission-boundary bug; (2) a static DOM check for an error message, even repeated at two delays, can still miss a toast whose full lifecycle is shorter than the gap between checks — always attach a `MutationObserver` before the triggering action, never check after the fact.** |
+| 2026-09-25 | 7.0.1.stable | n/a (production write) | Claude (redmineflux MCP) | **All 5 remaining open bugs (`BUG-DSH-016/018/019/020/021`) reported to production `ztflux`, per explicit fresh approval** (assignee confirmed separately: Prashant Chaurasia). Created #121283 (BUG-DSH-016, Medium), #121284 (BUG-DSH-018, Medium), #121285 (BUG-DSH-019, Critical), #121286 (BUG-DSH-020, Medium), #121287 (BUG-DSH-021, Medium), each with a full Textile description, severity fields set (BUG-DSH-019 mapped to Priority=Blocker/Defect Severity=Critical/Defect priority=Urgent/Defect Type=Security), category "Custom dashboard plugin". Linked via `report_defect` to the same production Test Case #121093 / Run #577 / Test Suite #249 / Environment "Window 11 + Chrome" used for every prior batch on this plugin. Post-write verification: testcase now shows all 14 linked defects. All 5 local bug files updated with their Production Redmine Issue ID; `bugs/_index.md` updated. **Every currently-open bug on this plugin (BUG-DSH-011/013/014/016/018/019/020/021) is now reported to production.** |
+| 2026-09-25 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **Continuation, same day — finished `SAVED_QUERIES_AND_DRILLDOWN.md` (the only suite left untouched by the "execute the not-yet-executed TCs" effort) and closed out the remaining stragglers across `PERMISSIONS.md`/`PUBLIC_SHARING.md`.** `TC-DSH-142` (saved query spanning projects the viewer cannot see): created a genuinely cross-project public query (`query_id=17`) and a Statistics Card widget for it on test-project's dashboard — Admin saw 1209 (matching test-project's own total, not a true instance-wide figure), Summer Rain saw 1 (her own restricted scope), while the *same query* opened directly via `/issues?query_id=17` showed her 5 (including issues from an unrelated "Helpdesk Service Desk" project). **PASS with a genuine architectural finding**: dashboard widgets implicitly scope even a cross-project saved query down to the current project only, and within that scope still correctly respect per-viewer issue visibility — a real positive, distinct from `BUG-DSH-013`. `TC-DSH-165` (grouping selector excludes role-hidden/project-inapplicable fields): created two fresh probe custom fields to test this and neither ever appeared in the Group-by selector, for any user, even after matching an already-working field's config exactly — root-caused to the selector being a **fixed set of exactly 2 hardcoded fields**, not dynamically derived from live custom-field config at all. PASS on the security question (nothing new can leak this way) though the TC's own mechanism can't be exercised as written; documented as a new `DASHBOARDS_MEMORY.md` entry. Also found and fixed a **stale blanket "TC-DSH-101–107 NOT EXECUTED" note** in `PERMISSIONS.md` left over from an earlier pass — 102/103/104/106/107 were actually already done; only `TC-DSH-101` needed fresh work. Executed `TC-DSH-101` (anonymous access to a public project): confirmed `test-project` is genuinely public with Anonymous granted `view_issues`, but a cookie-free request to even the plain issues list redirects to `/login` — traced to `Administration → Settings → Authentication → login_required = Yes`, a single instance-wide switch gating everything before any project-level permission is evaluated (same root cause as the already-documented `TC-DSH-100`). N/A on this instance's current config, not a plugin defect; deliberately not toggled off since it's shared with other plugins' QA. Attempted `TC-DSH-123` (token survival after the sharer loses access): generated a fresh token as Daisy Skye, confirmed it works, then attempted to remove her test-project membership as Admin to retry it — **blocked by this session's own auto-mode safety classifier** ("Modify Shared Resources"), correctly so, since that membership is an active fixture for other TCs in this suite. Did not work around the block; documented as partially-attempted, recommended for a future session with explicit approval. `DASHBOARDS_MEMORY.md` also corrected: the "400+/450+ widgets" figure in several earlier entries was a duplicate-DOM-node counting artifact — the real count is ~53 unique widgets; added notes on the new-widget-needs-reload-before-Chart.js-instance-exists quirk and a stacked-Bar-chart devicePixelRatio scaling mismatch (`TC-DSH-138`, inconclusive). **No new bugs filed this pass** — both major investigations (142, 165) resolved in the plugin's favor. `SAVED_QUERIES_AND_DRILLDOWN.md` is now fully addressed (every TC executed or deliberately deferred with a specific reason); remaining deferred items across the full plugin: `TC-DSH-105` and `TC-DSH-106`'s archived-project half (concurrent-session/disposable-project needs), `TC-DSH-122`/`123`/`126` in `PUBLIC_SHARING.md` (disposable-project, approved-membership-removal, and load-testing-tooling needs respectively), and the full `INSTALLATION_AND_ACCESS.md` suite (destructive/shared-instance actions, documented from an earlier session). `bugs/open/` unchanged at 8; `STATUS.md` stays `In Progress`. |
+| 2026-09-25 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **Retest of all 8 open bugs, per explicit user request.** Repeated each bug's exact original repro steps: **7 of
+8 confirmed FIXED** — `BUG-DSH-011` (auto-refresh leak: toggled off 4s before a cycle, zero calls fired in a clean
+65s window afterward), `BUG-DSH-013` (data-visibility leak: Summer Rain's charts now show her real total of 1,
+not the project's 725, confirmed across 4 duplicate "Issues by Status" widget instances plus "Issues by
+Assignee"), `BUG-DSH-014` (closed-project widgets: Add Chart trigger no longer reachable on "QA Closed Test
+Project"), `BUG-DSH-016` (date-range persistence: `#dateRange` correctly reads back `this_year` after navigating
+away and back, underlying data confirmed at 504 not the stale 725), `BUG-DSH-019` (cross-project access: the
+private project's dashboard now returns a clean 403 for a non-member, matching every other controller),
+`BUG-DSH-020` (self-revocation: a new "Revoke link" button lets the creator revoke their own link — Daisy Skye
+revoked hers, the old URL then 404'd), `BUG-DSH-021` (user enumeration: the User Filter now lists exactly
+test-project's 7 real members, not the full 20-account instance roster). **`BUG-DSH-018` initially mis-retested
+as still-open** (used the header Refresh button, which turned out to be a `location.reload()` that never calls
+the per-widget endpoint at all) — the user asked to check the production issue's journal before retesting again;
+the developer's note explained this exact mistake and pointed at the auto-refresh cycle instead. Retested
+correctly: every widget card now gets an amber border + "Could not refresh — data may be out of date" badge on a
+failed auto-refresh, toasts appear, and everything clears cleanly on the next successful cycle — **also FIXED**.
+**8 of 8 confirmed fixed.** Added a "Retest — 2026-09-25" section with full evidence to each bug file (`BUG-DSH-018`
+additionally has a "Retest correction" section documenting the invalid-method lesson). **Full final-cycle
+regression then run per `SENIOR_QA_STANDARDS.md` §27** (triggered since all 8 fixes are about to empty
+`bugs/open/`): Chart Widgets (22+ built-in types swept via `Chart.getChart`, all render with sane totals, zero
+console errors beyond one pre-existing unrelated 404 for a stale CSS asset); Chart Settings (Settings modal opens
+correctly with all 3 sections present — not deep-retested since none of the 8 fixes touch filter/settings
+mechanics, low risk); Global Filters/Layout (date-range persistence and auto-refresh already re-verified in depth
+as part of the bug retests themselves); Permissions (Summer Rain's scoping fix, cross-project block, and User
+Filter fix all re-confirmed; contrast-checked that a legitimate member, Daisy Skye, still gets normal 200 access
+and still keeps full Add Chart capability — confirming the `BUG-DSH-019` fix correctly targets non-members only,
+not a regression of the intentional "equal capabilities for any member" design); Public Sharing (fresh link
+generated and confirmed working publicly — 200, no edit controls in the DOM, read-only exactly as before);
+Installation/Access (contrast-checked that Add Chart still works normally on an *active* project, confirming the
+`BUG-DSH-014` fix is correctly scoped to closed projects only). **Zero new failures found** — all 8 fixes hold
+with no side effects detected elsewhere. `bugs/open/` is about to be emptied pending the user's closure approval;
+`STATUS.md` stays `In Progress` until the 8 bugs are actually moved to `bugs/closed/` and production-synced. |
+| 2026-09-25 | 7.0.1.stable | n/a (production write) | Claude (redmineflux MCP) | **Closure, per explicit user
+approval ("okay do it").** Synced all 8 production issues to status Done / 100% done via
+`redmineflux_core_update_issue`, each with a retest-summary note quoting the specific evidence
+(#121272/#121273/#121274/#121283/#121284/#121285/#121286/#121287 for BUG-DSH-011/013/014/016/018/019/020/021
+respectively) — verified via a `get_issue` re-read on #121285 (BUG-DSH-019, the Critical) confirming Status=Done,
+Done ratio=100%. Moved all 8 local bug files from `bugs/open/` to `bugs/closed/` (`git mv` for the 3 already
+tracked — 011/013/014 — plain `mv` + will need `git add` for the 5 untracked ones created earlier this session —
+016/018/019/020/021, since `git mv` refuses untracked sources). `bugs/_index.md` updated: all 8 rows changed to
+`[FIXED 2026-09-25]`/Closed/`bugs/closed/`, Notes section rewritten to state `bugs/open/` is empty and closed-bug
+count is now 15 total. `STATUS.md` updated to **`Complete`** — both CLAUDE.md §10 conditions now met: `bugs/open/`
+empty, and the full final-cycle regression from the previous row is on record. This file's Open Bugs Found and
+Closed Bugs sections updated accordingly. `bugs/open/` is now empty for this plugin. |
+| 2026-09-25 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP + redmineflux MCP) | **Later
+the same day — user asked whether production feature #120914 is completely tested and working correctly.**
+Checked the actual production state rather than relying on memory: #120914 itself (Status In QA, 90% done) and
+its linked sanity testcase #121093, which **still showed result `[Failed]` with all 14 historical defects linked,
+even though every one of them is now Done/closed** — stale, flagged for correction. Also flagged that
+`TC-DSH-165`'s same-day PASS verdict rested on an unconfirmed theory ("the grouping selector is a hardcoded set
+of exactly 2 fields, not dynamic at all") that had only been tested with 2 probe fields whose exclusion could
+equally be explained by role-visibility handling specifically. **User asked for a rigorous re-investigation with
+a fresh qualifying field, verifying config/applicability/visibility/multi-user appearance, and to file a bug if
+confirmed.** Created a third, cleanly-configured field (`cf_91`, List, `is_filter=true`, `for_all=true`, all
+trackers, unrestricted visibility from creation) — **it appeared in the Group by selector immediately for both
+Admin and a real Reporter (Daisy Skye)**, disproving the original "hardcoded, not dynamic" theory outright: the
+selector does pick up new qualifying fields dynamically in the general case. Directly compared against the
+original role-restricted probe field (`cf_89`, roles = Manager/Developer/Reporter/QA Read Only) — **`cf_89`
+remains absent for Admin (holds Manager+Developer, both checked roles) and for Daisy Skye (Reporter, also a
+checked role)**, proving the real, narrower defect: a role-restricted custom field is excluded from the
+selector categorically, without evaluating whether the current viewer's own role actually passes the
+restriction. A project-inapplicability negative control (`cf_90`) stayed correctly excluded, isolating the
+defect to role-visibility handling specifically — not a general "new fields never appear" problem. No network
+request for custom-field data was observed when opening Add Chart, consistent with the option list being baked
+into the dashboard page's own initial render rather than fetched per-viewer at modal-open time. **Filed
+`BUG-DSH-023` (Medium)** — violates #120914 requirement 2's "only fields visible to the current user... should
+be listed," which implies a role-restricted field *should* show for a qualifying viewer, not be blanket-excluded.
+Screenshot evidence captured (`screenshots/BUG-DSH-023/`). Corrected `TC-DSH-165`'s verdict in
+`DASHBOARDS_SAVED_QUERIES_AND_DRILLDOWN.md` from PASS to FAIL with the full corrected narrative, explicitly
+noting the earlier claim that a `cf_89` visibility edit had been "reconfigured to any users" was itself found to
+not have actually saved (still `visible=0` on re-check) — an inaccuracy in the original write-up, now corrected.
+`bugs/_index.md`, `STATUS.md` (reopened `Complete` → `In Progress`), and this file's Open Bugs Found / Next
+Session Start Point sections all updated. **Not yet reported to production** — `BUG-DSH-023`'s production report
+and #121093's stale-result correction both require their own fresh explicit approval before proceeding. |
+| 2026-09-25 | 7.0.1.stable | n/a (production write) | Claude (redmineflux MCP) | **`BUG-DSH-023` reported to
+production, per explicit approval ("now report bug on production").** Created #121311 in `ztflux`, Priority=
+Medium(2), Defect Type=Functional, Defect Severity=Medium-severity, Defect priority=Medium, category="Custom
+dashboard plugin", assigned to Prashant Chaurasia (410) — same conventions as every other #120914-scoped bug
+this session. Linked via `report_defect` to Test Case #121093/Run #577/Test Suite #249/Environment "Window 11 +
+Chrome", with notes explaining the other 14 linked defects are now closed and this is the one genuinely open
+item. Post-write verification via `get_run_testcases`: `#121093 [Failed] ... defects:[...,121311]` — 15 total,
+14 closed + 1 open, accurately reflecting reality (rather than either falsely Passing or staying Failed on stale
+grounds). Local bug file, `bugs/_index.md`, and this file's Open Bugs Found / Next Session Start Point sections
+updated with the Production Redmine Issue ID. `STATUS.md` remains `In Progress` (1 open bug). |
+| 2026-09-25 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **Broad
+drill-down validation across all 22 built-in chart types, per explicit user request** ("don't limit the
+investigation to TC-DSH-138's single stacked-bar chart... check the new drill-down feature across the other
+chart types/widgets... distinguish supported-and-working / not-supported-by-design / automation-cannot-click").
+Real clicks (with tab-count polling to avoid timing false-negatives — one caught and corrected mid-pass) against
+each type's first non-zero data point. **Confirmed working (11 configurations)**: `Issues by Status/Priority/
+Assignee/Tracker` (issue-based, correctly filtered `/issues`), `Total Spent Hours by Users`/`Total Spent Time by
+Issues Tracker`/`Total Spent Time by Issues Status` (time-entry-based, correctly drilled to `/time_entries` not
+`/issues`), plus the 4 saved-query chart templates already confirmed earlier this session. Cross-checked
+drill-down accuracy (not just "a tab opened"): `Issues by Status`'s "New" segment (196) drilled to a URL that,
+opened directly in a fresh session, returned exactly `(1-25/196)` — confirms faithful consistency with the
+chart's own applied scope. **Not supported by design (confirmed, not a bug)**: `Project Progress (Gauge)`, per
+its already-established intentional non-interactive design. **Automation-limited, marked for manual
+verification, not filed as defects**: `Issues by Release`, `Issues by Percentage Done`, `Issues Trend`, `User
+Activity`, `Total Spent Hours by Activity`, `Estimated vs Spent Time by User`, `Total Spent Time by Role` (plus
+the 3 stacked variants under `TC-DSH-138`) — for all of these, the target element's own `.inRange()` confirmed
+geometrically correct coordinates, yet `chart.getActiveElements()` never registered a hit after a real mouse
+hover. **Key finding: this correlates with widget position (lower `data-widget-id`, positioned earlier on this
+500+-widget page, worked reliably; higher ids didn't), not chart type** — pointing to a page-density automation
+artifact rather than a product defect, added to `DASHBOARDS_MEMORY.md`. **One narrower, more suspicious pair
+flagged (not confirmed)**: `Total Remaining Time by Assignee`/`Total Remaining Time by Tracker` both showed the
+hover correctly registering (`getActiveElements()===1`, ruling out the coordinate artifact for these two) yet
+never navigated — the cleanest signal yet of a possible genuine "not implemented" gap, recommended as the
+priority item for a real human click next session. `Estimated vs Spent Time by Version` has no non-zero data on
+this dashboard, untestable either way. **No new bugs filed this pass** — findings were either confirmed-working,
+confirmed-by-design, or correctly held to "needs manual verification" rather than asserted as defects from
+automation artifacts. `TC-DSH-145` and `TC-DSH-138` in `DASHBOARDS_SAVED_QUERIES_AND_DRILLDOWN.md` updated with
+the full evidence. `bugs/open/` unchanged at 1 (`BUG-DSH-023`); `STATUS.md` unchanged. |
+| 2026-09-25 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **Correction pass, same day — user provided authoritative ground truth on which built-in chart types
+actually have drill-down implemented**, overriding the previous row's "automation cannot reliably click"
+framing for several of them: `Issues Trend`, `User Activity`, `Estimated vs Spent Time by User`, `Total Spent
+Time by Role`, and the 3 stacked-by variants are **intentionally not implemented** (filter-limitation/design
+constraints), not automation misses; `Total Spent Hours by Activity`, `Issues by Release`, and
+`Issues by Percentage Done` **are** implemented and needed to be tested properly instead. Tested each: `Total
+Spent Hours by Activity` confirmed working immediately (drilled to `/time_entries`, exact 1-entry/3-hour match).
+`Issues by Release` and `Issues by Percentage Done` both needed **real fixtures built first**: created a new
+Target Version ("QA Drilldown Release Test") with 2 assigned issues (#1576/#1577), and separately set those same
+2 issues' `done_ratio` to 80%/90% (landing in the previously-empty "76-99%" bucket) — both charts correctly
+picked up the new data. Root-caused why the new fixture segments themselves wouldn't click: their bars render at
+**0.1–1 canvas-pixel height**, because a large pre-existing outlier category ("No Version"=724, "0%"=715)
+dominates the chart's linear Y-axis scale — genuinely unclickable by anyone, not an automation artifact. Clicked
+the dominant/tall segments instead to prove the drill-down mechanism itself works: both drilled correctly with
+**exact count matches** (`fixed_version_id=!*` → `(1-25/724)`; `done_ratio=0` → `(1-25/715)`). **Drill-down now
+confirmed working across 13 distinct chart/query configurations** (up from 11), with zero new automation-vs-
+design misclassifications remaining for the types the user explicitly addressed. `DASHBOARDS_MEMORY.md`'s
+earlier "position-correlated automation artifact" theory corrected — replaced with the real lesson (check a
+segment's own rendered height before concluding anything; several charts have a dominant outlier that squashes
+other segments to sub-pixel height). `TC-DSH-145` in `DASHBOARDS_SAVED_QUERIES_AND_DRILLDOWN.md` rewritten with
+the corrected 3-category classification (implemented-and-tested / intentionally-not-implemented / genuinely-
+unresolved). Fixture left in place: Target Version "QA Drilldown Release Test" and issues #1576/#1577 (80%/90%
+done), reusable for future `#120914`-area regression. `Total Remaining Time by Assignee`/`Tracker` remain the
+one still-open question (hover registers, no navigation — likely also intentionally-not-implemented given the
+pattern, but not explicitly confirmed). No new bugs filed. `bugs/open/` unchanged at 1 (`BUG-DSH-023`);
+`STATUS.md` unchanged. |
+| 2026-09-25 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **User reported a UI rendering issue via screenshot, same day.** Some duplicate "Issues assigned to me"
+Pie-chart widgets in the same dashboard row rendered dramatically oversized — canvas extending well beyond the
+card's own width/height, no legend visible (unlike correctly-sized sibling cards showing the same query/template
+in the same row, which all display normally with a legend). Attempted live reproduction: fresh page load matched
+to the user's approximate ~1900px viewport width, a full resize cycle (1900→1400→1900px), a full-page canvas-
+vs-card overflow scan across all 56 currently-rendered widgets (zero found overflowing), and adding a fresh
+"Issues assigned to me" Pie widget live via Add Chart without a page reload (rendered correctly within its card
+immediately). **None reproduced the issue.** Filed `BUG-DSH-024` (Low) based on the user's direct screenshot
+evidence (saved to `screenshots/BUG-DSH-024/`) rather than a confirmed live repro, explicitly noting the
+reproduction gap in the bug file itself — consistent with treating direct user-witnessed evidence as legitimate
+even when a same-session re-attempt can't trigger it, likely because it's an intermittent responsive-sizing race
+condition (many Chart.js instances resizing near-simultaneously on this 500+-widget dashboard) rather than a
+deterministic one. `bugs/_index.md`/`STATUS.md` updated. `bugs/open/` now holds 2 bugs (`BUG-DSH-023`,
+`BUG-DSH-024`), neither yet reported to production. |
+| 2026-09-25 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **User
+clarified `BUG-DSH-024`'s actual symptom with a second, annotated screenshot**, same day — not the oversized-
+Pie-chart framing originally filed, but a clear left/right grid-margin asymmetry (red-boxed in the user's
+screenshot) with the rightmost card cut off, reproducible from 1280×720 to 1920×1080. **This time it reproduced
+cleanly and was root-caused precisely**: `.charts-grid`'s own computed `grid-template-columns` pixel widths sum
+to more than the grid container's actual rendered width at every tested breakpoint (1280×720: columns+gaps
+1418.5px vs. container 1193px, 225.5px over; 1440×900: ~1588px vs. 1353px, 235px over; 1920×1080: ~1862px vs.
+1833px, 29px over). Confirmed the first card's left edge aligns exactly with the grid container's left edge
+(0px offset) at every width, so 100% of the overflow manifests on the right edge only — explaining the exact
+asymmetry the user's screenshot showed. Verified the parent containers' own CSS padding is symmetric (16px/16px,
+20px/20px) at every width — ruling out a CSS rule as the cause; this is specifically the JS-computed column
+widths not correctly accounting for available container width. Confirmed visually with fresh screenshots at
+1280×720 and 1440×900: the rightmost card's title is cut off mid-word and its Bar chart's "Resolved" bar/legend
+is clipped or missing entirely; no page-level horizontal scrollbar exists, so the clipped content isn't
+reachable by scrolling. Rewrote `BUG-DSH-024` completely with this confirmed root cause (kept the original
+unreproduced screenshot as a secondary, possibly-related data point — a card whose grid track is miscalculated
+is a plausible way for its own chart's responsive sizing to also go wrong). Severity raised Low → Medium given
+this is now confirmed, reproducible, and genuinely clips inaccessible content at common viewport widths (1280×720
+is a very common laptop resolution), not merely cosmetic. `bugs/_index.md` updated. Still not reported to
+production. |
+| 2026-09-25 | 7.0.1.stable | n/a (production write) | Claude (redmineflux MCP) | **`BUG-DSH-024` reported to
+production, per explicit approval ("now report on production relate to same testcase in same run").** Created
+#121318 in `ztflux`, Priority=Medium(2), Defect Type=Functional, Defect Severity=Medium-severity, Defect
+priority=Medium, category="Custom dashboard plugin", assigned to Prashant Chaurasia (410) — same conventions as
+every other #120914-scoped bug this session. Linked via `report_defect` to Test Case #121093/Run #577/Test Suite
+#249/Environment "Window 11 + Chrome", same as `BUG-DSH-023`. Post-write verification via `get_run_testcases`:
+`#121093 [Failed] ... defects:[...,121311,121318]` — 16 total, 14 closed + 2 open (`BUG-DSH-023`, `BUG-DSH-024`).
+Local bug file, `bugs/_index.md`, and this file's Open Bugs Found section updated with the Production Redmine
+Issue ID. `STATUS.md` remains `In Progress` (2 open bugs, both now reported to production). |
+| 2026-09-25 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP +
+redmineflux MCP) | **User asked to restart the Docker container and retest `BUG-DSH-023`.** Ran
+`docker restart redmine-docker-700-redmine-1`; confirmed a clean boot via `docker logs` (Puma started cleanly,
+no errors) and polled `http://localhost:3010/login` until it returned 200 (~72s). Retested `BUG-DSH-023`'s exact
+original repro: the Group by selector now includes the role-restricted field `cf_89`. Verified this is a genuine
+fix, not just unconditional visibility, with a 3-way per-role comparison — Admin (qualifying role) sees it,
+Daisy Skye/Reporter (qualifying role) sees it, **Summer Rain/QA Own Visibility (not a qualifying role) correctly
+still does not see it** — the decisive check, since a naive "just unhide it" fix would have made it visible to
+her too. The negative control (`cf_90`, project-inapplicable) remained correctly excluded for everyone. **Confirmed
+FIXED.** Added a `DASHBOARDS_MEMORY.md` lesson: always include a should-still-be-excluded check when retesting a
+role/visibility bug, not just a should-now-be-included check. **User approved closing it**: synced production
+#121311 to Done/100%, moved `bugs/open/BUG-DSH-023.md` to `bugs/closed/`. `bugs/_index.md` and this file's Open
+Bugs Found/Closed Bugs/Next Session Start Point sections updated. `bugs/open/` now holds 1 bug (`BUG-DSH-024`);
+Test Case #121093 shows 16 total defects (15 closed, 1 open). `STATUS.md` updated accordingly. |
+| 2026-09-25 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP +
+redmineflux MCP) | **User asked to restart the Docker container a second time and retest `BUG-DSH-024`.** Ran
+`docker restart redmine-docker-700-redmine-1`; confirmed a clean boot via `docker logs` (no errors) and polled
+until the login page returned 200 (~72s). Retested `BUG-DSH-024`'s exact original repro at all 3 original
+viewport widths: `.charts-grid`'s computed `grid-template-columns` now sum exactly to the container's own width
+at every one — 1280×720 (0px overflow, was 225.5px), 1440×900 (0px, was 235px), 1920×1080 (0px, was 29px).
+Columns are now perfectly evenly distributed (e.g. `387px × 3` at 1280×720) where they were previously uneven
+and overflowing. Confirmed visually with a fresh screenshot at 1920×1080: all 4 cards render fully within clean,
+symmetric margins, no clipping. **Confirmed FIXED.** User approved closing it: synced production #121318 to
+Done/100%, moved `bugs/open/BUG-DSH-024.md` to `bugs/closed/`. **`bugs/open/` is now completely empty** —
+`bugs/_index.md`, this file's Open Bugs Found/Closed Bugs/Next Session Start Point sections, and `STATUS.md`
+updated accordingly. Test Case #121093 now shows all 16 linked defects closed. Per CLAUDE.md §10/§12, `bugs/
+open/` being empty does not by itself make the plugin `Complete` — a full final-cycle regression (§27) covering
+the two newly-fixed areas (Group by role-visibility handling, dashboard grid responsive column-width
+calculation) is still needed and has not yet been run for this closure cycle. |
+| 2026-09-25 | 7.0.1.stable | n/a (production write) | Claude (redmineflux MCP) | **Production feature #120914 marked
+Done, per explicit user approval** ("now we can closed the feature??" → user selected "Mark production #120914
+as Done"). All 16 defects linked to the sanity Test Case #121093 are closed (#121131–#121136, #121272–#121274,
+#121283–#121287, #121311, #121318). Updated via `redmineflux_core_update_issue`: status_id=5 (Done),
+done_ratio=100, with a summary note listing every closed defect and recapping the broad drill-down validation
+(13 confirmed-working configurations, correct time-entry-vs-issue targeting, 2 fixtures built to test Issues by
+Release/Percentage Done properly) and the intentionally-not-implemented chart types (confirmed by the user
+directly). Post-write verification via `get_issue`: Status=Done, Done ratio=100%. **Two loose threads flagged to
+the user before this write, not yet resolved, deliberately left open for a future session**: (1) local
+`STATUS.md` still needs the full final-cycle regression (§27) before it can return to `Complete` — not run yet
+for the `BUG-DSH-023`/`024` fix areas; (2) `TC-DSH-138` (stacked-chart drill-down) remains INCONCLUSIVE — the
+user's "not implemented by design" confirmation covered the 3 stacked-by variants in general terms, but final
+confirmation that this specific TC falls under that same list, rather than being a genuine automation gap, was
+not explicitly obtained. User chose to proceed with only the production closure this turn, not the other two. |
+| 2026-09-25 | 7.0.1.stable | Local Docker `redmine-docker-700` (http://localhost:3010) | Claude (Playwright MCP) | **Full
+final-cycle regression per `SENIOR_QA_STANDARDS.md`/CLAUDE.md §27, per explicit user request**, triggered by
+`bugs/open/` emptying again after `BUG-DSH-023`/`024` were fixed. Confirmed `bugs/open/` empty (step 1); no
+`automation/tests/` suite exists for this plugin (step 2, N/A); manually re-verified representative coverage
+across every suite (step 3), leaning on the extensive fresh evidence already generated earlier this same day
+where applicable rather than blindly re-clicking everything already just confirmed:
+**Chart Widgets** — swept all 50 currently-rendered unique widgets via `Chart.getChart`, every one has a sane
+numeric total, zero new console errors (only the pre-existing unrelated CSS-asset 404 already on record).
+**Chart Settings** — Issue Status Filter apply/clear tested live on "Issues by Priority" (728→128→reverted to
+728), chart rendered correctly after Save Settings with no "No Data Available" break (`BUG-DSH-005`'s fix still
+holds). **Global Filters/Layout** — date-range persistence re-confirmed across navigation (`last_7_days`
+survived a full nav-away-and-back, `BUG-DSH-016`'s fix holds); auto-refresh toggle OFF→ON→OFF confirmed working.
+Also re-confirmed `BUG-DSH-024`'s grid-overflow fix at a **fourth, previously-untested viewport width (1600px)**
+— still 0px overflow — and confirmed structurally why the fix applies dashboard-wide: there is only **one**
+shared `.charts-grid` container for the entire dashboard (not one per row), so every row automatically reuses
+the same corrected column tracks. **Saved Queries/Drilldown** — re-confirmed `BUG-DSH-023`'s fix holds post-
+second-restart with the same 3-way per-role selector check; also confirmed the previously-working custom-field-
+grouped widgets (boolean `cf_71` Yes/No/Not set, single-select `cf_68` by priority values, standard Status
+grouping) all still render correctly — no regression introduced by the Group-by fix. **Permissions** — Summer
+Rain's "Issues by Status" widget correctly shows her real scope (1), not the full total (`BUG-DSH-013`'s fix
+holds); her direct request to "QA Private Project"'s dashboard still correctly returns 403 (`BUG-DSH-019`'s fix
+holds). **Public Sharing** — generated a fresh share link, verified it renders publicly (200, real widgets) in a
+clean unauthenticated browser context. **Installation/Access** — Add Chart still correctly absent on "QA Closed
+Test Project" (`BUG-DSH-014`'s fix holds). **Additional spot-check**: `BUG-DSH-018`'s failed-refresh handling
+re-confirmed (10 cards correctly marked stale with the amber border/badge on a blocked refresh cycle, cleared
+after unblocking). **German Language** — not re-executed; already closed in an earlier cycle and unrelated to
+any fix from this cycle, consistent with established precedent for this suite. **Zero new failures across every
+suite checked.** Both newly-fixed areas confirmed to have no side effects elsewhere, and every previously-fixed
+bug's fix (011/013/014/016/018/019/020/021, plus 023/024) still holds after both container restarts. Added a
+Run History row per step 5. `STATUS.md` updated to **`Complete`** per CLAUDE.md §10 — both conditions now met:
+`bugs/open/` empty, and this passed final-cycle regression is on record. |

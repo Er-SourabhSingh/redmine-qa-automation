@@ -39,12 +39,20 @@ Custom Dashboard ("Your data, your view") lets users build personalized, per-pro
 
 | Action | Admin | Manager | Developer | QA | Client | Non-member |
 |--------|-------|---------|-----------|-----|--------|------------|
-| View project Dashboard tab | ✓ | ? | ? | ? | ? | ? (depends on project visibility) |
-| Add/configure/delete charts | ✓ | ? | ? | ? | ? | ✗ |
-| Generate/revoke public share link | ✓ | ? | ? | ? | ? | ✗ |
+| View project Dashboard tab | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ (should be — see Known Constraints re: `BUG-DSH-019`) |
+| Add/configure/delete/reposition charts | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ |
+| Generate a public share link | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ |
+| Revoke/regenerate an existing public share link | ✓ | ✗ (per-creator self-revoke not offered — see `BUG-DSH-020`) | ✗ | ✗ | ✗ | ✗ |
 | View a shared public dashboard link | ✓ (no login required) | ✓ | ✓ | ✓ | ✓ | ✓ |
 
-> Permission granularity (which role-level permission gates chart add/edit/delete/share) not yet confirmed live — verify via Roles & Permissions during testing.
+> **Confirmed live 2026-09-24/25, resolving the prior open question**: this plugin registers no Redmine
+> permission of its own (no module/permission section exists on `/roles/<id>/edit` at all). Per the vendor KB,
+> *"any user with access to the project can open the dashboard"*, and there is no documented restriction on
+> add/edit/delete/share — every non-Admin role tested (Manager-adjacent "Reporter", and a dedicated "QA Read
+> Only" role) has identical dashboard capabilities to Admin for every row above except revocation, which the
+> Share modal's own text states is Admin-only ("contact your administrator" — see `BUG-DSH-020`, narrowed
+> 2026-09-25). This flat, no-role-distinction model is the plugin's documented design, not a gap — do not file a
+> new bug for a role being able to fully manage the shared dashboard.
 
 ## Known Constraints
 

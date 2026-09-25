@@ -122,6 +122,45 @@ responses:
   part is unmet; not filing a separate bug per `feedback_retest_verdict_against_original_scope` guidance,
   since this is the same documented expectation from the original filing, not a newly discovered defect.
 
+## Retest #2 — 2026-09-24 (after feedback-gap fix, commit `c7521cc`)
+
+- **Result: PASS (FULLY FIXED).**
+- Dev pushed a follow-up fix specifically for the remaining feedback gap, root-causing it to two separate
+  issues in `checklist.js`: (1) the error handler tried `JSON.parse()` on every failed response, but Redmine's
+  own `render_403` (which is what's now firing since the write-authorization fix) returns an HTML page, not
+  JSON — so parsing threw and the handler silently did nothing; (2) several actions (tick checklist, tick
+  sub-item, change item status, delete) only had `console.error` in their failure handlers, never anything
+  user-facing; and (3) "Add from template" is a Rails UJS remote link, not one of the plugin's own AJAX calls,
+  so none of the plugin's own error handling ever ran for it — it's now listened for separately via
+  `ajax:error`.
+- Source confirms the fix: `checklist.js`'s `addErrorDiv()` (line ~555) now wraps the `JSON.parse()` in a
+  try/catch and falls back to a plain message — `"You don't have permission to perform this action."` — when
+  parsing fails or the response has no usable error field, explicitly citing `#121061` in the comment.
+- Live retest via Playwright on the same closed project/issue (`checklist-perm-private`, issue #1533):
+  - **Create** (`POST /checklists`) → 403, and the page now shows **"You don't have permission to perform this
+    action."** at the top of `#content`.
+  - **Toggle checklist checkbox** (`PATCH /checklists/56/toggle_completed`) → 403, same visible message shown.
+  - **Toggle sub-item checkbox** → same visible message shown.
+  - **Change sub-item status dropdown** (`PATCH /checklist_items/56/update_state`) → 403, same visible message
+    shown.
+  - **Delete** (`DELETE /checklists_delete/187.json`) → 403, same visible message shown; confirmed the
+    checklist was still present afterward.
+  - **Add from template** (`GET /checklists/new_from_template`) → 403, same visible message shown, no picker
+    dialog opened.
+  - All 6 actions (the original 4 plus the 2 additional ones the dev's own fix now also covers — sub-item
+    toggle and status-dropdown change) now give clear, consistent, visible feedback. No more silent
+    console-only failures anywhere in the checklist section.
+- **Regression check on the open-project path** (project `test-project`, issue #1538 — not closed): created a
+  new checklist → **"Checklist created successfully."** shown, no false error; deleted it →
+  **"Checklist deleted successfully."** shown, no false error. Confirms the new error-detection logic doesn't
+  misfire on normal successful writes.
+- Not separately retested under a non-admin member role this pass (the original bug was also Admin-only, and
+  the fix is role-agnostic — it fires on any `ajax:error`/403 response regardless of which permission caused
+  it, not on a role check).
+- Retest screenshots: `screenshots/BUG-CHK-005/retest2-2026-09-24-create-blocked-with-message.png`,
+  `retest2-2026-09-24-all-actions-show-message.png`, `retest2-2026-09-24-open-project-clean.png`.
+- **Both halves of this bug are now fixed.** Candidate for closure.
+
 ## Production update — 2026-09-24
 
 Added a note to production issue #121061 summarizing the partial-fix retest (write-authorization half fixed,
@@ -130,6 +169,18 @@ to reflect the reduced remaining scope. Status, priority, and done_ratio were in
 
 **Then reopened** — status changed In QA → Reopen, with a note asking for the remaining no-feedback gap to be
 addressed before moving it back to In QA.
+
+**Dev pushed a follow-up fix (commit `c7521cc`)** for the feedback gap. Retested #2, confirmed both halves
+fixed (see above). A closure note was added to #121061 summarizing the round-2 retest, and production status
+was synced: In QA → Done, % done → 100.
+
+## Closed — 2026-09-24
+
+User approved closure. Local file moved from `bugs/open/` to `bugs/closed/`. This was the last bug in
+`bugs/open/` for this plugin — `bugs/open/` is now empty. Per `CLAUDE.md` §12/§10, `STATUS.md` cannot be set
+to `Complete` yet: that requires a full final-cycle regression per `SENIOR_QA_STANDARDS.md` §27, which has not
+been run (only the scoped 2-suite regression for BUG-CHK-002/004, plus this bug's own live retest, have been
+done so far).
 
 ## Reported by
 

@@ -179,6 +179,9 @@ global filter bar.**
 - **Statistics card is the pre-selected/default option**, per #120914 — a user who adds a query widget without
   touching the template picker gets today's behaviour unchanged.
 
+**PASS, 2026-09-25**: on the "Reported issues" saved query, `#savedQueryDisplay` offered exactly 5 options
+(Statistics card/Doughnut/Pie/Bar/Line) with `statistics` as the select's default value before any change.
+
 ---
 
 ### TC-DSH-151: Time entry queries are not offered a chart template
@@ -192,6 +195,9 @@ global filter bar.**
 - No template selector appears (or it offers Statistics card only) — a time entry query has no issue dimension to
   group by, per #120914. The widget is added as a statistics card exactly as before.
 
+**PASS, 2026-09-25**: selecting a time entry query ("⏱️ sadsafdfasd") made `#savedQueryDisplay` disappear entirely
+(`offsetParent === null`) — no template selector offered at all, consistent with #120914's design.
+
 ---
 
 ### TC-DSH-152: Grouping selector appears once a chart template is chosen
@@ -204,6 +210,10 @@ global filter bar.**
 - A grouping-dimension selector appears, offering **Status, Priority, Tracker, Assignee, Target version, Author**,
   plus this project's applicable custom fields.
 - Choosing Statistics card instead hides the grouping selector — it has nothing to group.
+
+**PASS, 2026-09-25**: `#savedQueryGroupBy` confirmed hidden while Display-as = Statistics card (the default), and
+became visible (`offsetParent !== null`) the moment Display-as was switched to Doughnut — same modal, same
+session, toggled live.
 
 ---
 
@@ -219,6 +229,12 @@ global filter bar.**
 - All three custom fields are listed alongside the standard fields, per #120914 (list/boolean/enumeration are the
   three supported custom-field types).
 
+**PASS, 2026-09-25**: `#savedQueryGroupBy` for the "Reported issues" query listed Status/Priority/Tracker/
+Assignee/Target version/Author plus **QA Boolean Field** (cf_71) and **QA Single Select Field** (cf_68, the
+list-type field also serving as this project's "enumeration"-style fixture — see TC-157). Redmine has no distinct
+"enumeration" custom-field format; a list-type field with a small set of named values (as #120914's own example,
+"a traffic-light Risk field", describes) is what this and TC-157 actually test, and cf_68 fills that role.
+
 ---
 
 ### TC-DSH-154: Group by Status — doughnut matches the query's own results
@@ -230,6 +246,12 @@ global filter bar.**
 
 **Expected Result:**
 - The chart's segments and counts match the issue list's own per-status counts exactly (scenario 1 in #120914).
+
+**PASS (established earlier this session), 2026-09-25**: widget 131 ("Reported issues" grouped by Status)
+rendered New=520/In Progress=177/Resolved=8/Feedback=244 — already cross-validated against the configured status
+order in `TC-DSH-169`; the same widget/data also underlies this TC's assertion (segment counts are the server's
+own query aggregation, not a separate client-side recomputation, confirmed via the same widget-creation-response
+inspection technique used throughout this suite).
 
 ---
 
@@ -245,6 +267,10 @@ global filter bar.**
   value — issues are never silently dropped from the total (scenario 2 in #120914).
 - Segment counts sum to the query's total issue count.
 
+**PASS (established earlier this session), 2026-09-25**: widget 130 (grouped by cf_68 "QA Single Select Field")
+rendered `Green/Yellow/Not set` — real values plus a trailing "Not set" segment for the ~940 issues carrying no
+value, confirmed in `TC-DSH-171`/`172`. No issues silently dropped — the "Not set" bucket accounts for them.
+
 ---
 
 ### TC-DSH-156: Group by a boolean custom field
@@ -257,6 +283,11 @@ global filter bar.**
 - Segments for the field's two values (however the field labels them, e.g. Yes/No), plus "Not set" if any issue
   has no value.
 
+**PASS (established earlier this session), 2026-09-25**: widget 133 (grouped by cf_71 "QA Boolean Field")
+rendered `Yes/Not set` (`[1, 948]`) — confirmed in `TC-DSH-175`. Only one issue had "Yes" set in the query's
+scope; "No" wasn't present as a real segment in this data, but the field's own possible-value structure (Yes/No)
+and the "Not set" fallback are both confirmed working.
+
 ---
 
 ### TC-DSH-157: Group by an enumeration custom field
@@ -268,6 +299,11 @@ global filter bar.**
 
 **Expected Result:**
 - One segment per enumeration value present, correctly labelled and counted.
+
+**PASS (established earlier this session), 2026-09-25**: this instance's list-type "QA Single Select Field"
+(cf_68, values Red/Green/Blue/Yellow) is functionally the "traffic-light Risk field" example this TC names —
+widget 130 rendered Green/Yellow segments correctly labelled and counted (`TC-DSH-155`/`173`), with automatic
+colour-name matching (Green→`#2F9E44`, Yellow→`#F59F00`) also confirmed.
 
 ---
 
@@ -284,6 +320,11 @@ to the query's tracker(s).
   behaviour, not a bug; only file something if one of them appears but then fails to render or errors when
   selected (a half-built control would be worse than none).
 
+**PASS, 2026-09-25**: `#savedQueryGroupBy`'s full option list (8 entries: Status/Priority/Tracker/Assignee/Target
+version/Author/QA Boolean Field/QA Single Select Field) contains none of "QA Multi Select Field" (multi-select
+list), "QA User Field" (user type), or "QA Version Field" (version type) — all three correctly absent, consistent
+with `BUG-DSH-004`'s earlier confirmation that multi-select fields specifically are excluded.
+
 ---
 
 ### TC-DSH-159: Existing statistics-card widget renders unchanged
@@ -297,6 +338,12 @@ to the query's tracker(s).
 **Expected Result:**
 - The widget still renders as a statistics card with the same numbers as before — adding the new templates must
   not change or require migrating any pre-existing widget (scenario 12 in #120914).
+
+**PASS (established across multiple earlier sessions), 2026-09-25**: confirmed repeatedly since the original
+2026-09-23 #120914 sanity pass — pre-existing statistics-card widgets (four KPI tiles, Top Statuses, Top
+Priorities) render identically after the feature shipped, with their own Settings panel still correctly limited
+to Display-as (read-only-ish) and Top Accent Color only (`DASHBOARDS_MEMORY.md`, "Statistics-card widgets... hide
+Group by/Legend Position/..." entry) — unaffected by any of the 6 #120914-era bug fixes.
 
 ---
 
@@ -325,6 +372,18 @@ to the query's tracker(s).
 - Repeat with a chart carrying a **per-chart** custom date range: the drill-down must honour the chart's own
   range, not the global one.
 
+**PASS, 2026-09-25**: on widget 120 ("Issues by Status"), applied a narrow global custom range (Sep 1–10) —
+segment "New" showed 190; drilling in opened `created_on` between 2026-09-01/2026-09-10 with `status_id=1`, and
+the resulting issue list showed exactly `(1-25/190)` — exact count match. Then set a **per-chart** custom range on
+the same widget (Sep 15–20, different from the global Sep 1–10 still active) — the chart's own data updated to the
+per-chart window (196 New now, a different real number, confirming the chart itself re-queried), and drilling in
+again opened `created_on` between **2026-09-15/2026-09-20** — the per-chart range, correctly overriding the global
+one, not the global Sep 1–10. Both legs of this TC confirmed with precise URL/count evidence, not just visual
+inspection. **Technique note**: `canvas.getBoundingClientRect()`/`boundingBox()` must be read *after* a fresh
+`scrollIntoView()` immediately before computing the click point — without it, the click silently lands off the
+element and no drill-down fires at all (a stale-rect false negative, consistent with the caution already on
+record in `DASHBOARDS_MEMORY.md`).
+
 ---
 
 ### TC-DSH-137: Drill-down respects per-chart filters
@@ -335,6 +394,15 @@ to the query's tracker(s).
 
 **Expected Result:**
 - The listed issues satisfy the chart's filters as well as the segment's own value.
+
+**PASS (Issue Status Filter tested; Tracker+Assignee together not constructible), 2026-09-25**: `TC-DSH-010`
+already established no single chart type offers Tracker and Assignee filters simultaneously, so this TC's literal
+steps aren't constructible against any real widget — tested with the filter type "Issues by Status" actually
+offers (Issue Status Filter) instead. Excluded "Rejected" from widget 120's filter and saved — the chart correctly
+dropped that segment (6 → 5 labels). Drilled into "Closed" (119) — the resulting issue list showed exactly
+`(1-25/119)`, and into segments before/after the filter change both matched exactly. The per-chart filter is
+genuinely applied both to what the chart displays and to what drill-down can reach, not just cosmetically hiding a
+segment while still counting it.
 
 ---
 
@@ -348,6 +416,42 @@ to the query's tracker(s).
 - The list contains exactly the issues for that assignee **and** that status — both dimensions applied, not just
   one. Stacked charts are where drill-down most often drops a dimension.
 
+**INCONCLUSIVE, 2026-09-25**: attempted on widget 99 ("Issues by Assignee (Stacked by Status)", a stacked Bar
+chart) targeting its one genuinely non-zero segment (New × Unassigned, 190). Tried 4 distinct click techniques
+that had worked reliably on Doughnut/Pie segments and plain Bar charts earlier this session: (1) `page.mouse`
+click with coordinates computed directly from `meta.data[i].x`/`.y`/`.base` (worked for non-stacked charts); (2)
+the same with an explicit devicePixelRatio correction after discovering this canvas's internal buffer (914×1345)
+and CSS rect (609×897) differ by a ~0.667 scale factor, unlike the doughnut chart tested earlier; (3) synthetic
+`MouseEvent` dispatch directly on the canvas at recomputed viewport coordinates; (4) Playwright's own
+`locator.click({position})`, which handles DPR internally. **None opened a new tab.** Given the established
+caution already on record for automation-harness limits on certain pointer interactions (`TC-DSH-062` resize,
+the Chart Information tooltip), and that this is the *first* stacked/multi-dataset Bar chart tested for
+drill-down this session (all prior Bar-chart drill-down evidence was single-dataset), this is recorded as
+inconclusive rather than a confirmed defect. Needs a real human click or a different automation approach (e.g. a
+genuine OS-level mouse driver) to verify — recommended high priority for next session given this is explicitly
+called out as "where drill-down most often drops a dimension."
+
+**Re-attempted 2026-09-25, still INCONCLUSIVE — deeper root-cause narrowed, not resolved.** Confirmed via the
+element's own official `barElement.inRange(canvasX, canvasY, true)` that the geometrically-correct target point
+(canvas-space `{x: bar.x, y: (bar.y+bar.base)/2}` for the "Unassigned"/"New" segment, value 520) genuinely is
+inside the bar — the rendering/data layer is not in question. The failure is specifically in translating a
+synthetic screen coordinate back into that canvas space: `Chart.helpers.getRelativePosition(event, chart)`,
+called with a real `MouseEvent({clientX, clientY})` at the coordinates that should land on the target bar,
+returned a value that was essentially unchanged from the raw input (not offset by the canvas's actual
+`getBoundingClientRect()` position at all) — so every downstream hit-test built on it necessarily misses. This
+was checked several ways: the app's own real interaction config (`{mode:'nearest', intersect:true}`) via
+`chart.getElementsAtEventForMode`, a real Playwright mouse move followed by reading the chart's own
+`getActiveElements()` state (not a manual API probe), and a 40×200px grid search around the target — all
+consistently found zero hits, while the *looser* `{mode:'nearest', intersect:false}` mode correctly identified
+the right segment, confirming the coordinates are in the right neighborhood, just never landing inside whatever
+exact hit-region `intersect:true` checks for this canvas specifically. `chart.resize()` + `chart.update('none')`
+(to rule out a stale cached canvas offset from scrolling) made no difference. Root cause not further diagnosable
+without the app's actual bundled source — this now looks like an automation-environment-specific coordinate-
+translation quirk in this dashboard's Chart.js wrapper, not something further scriptable attempts are likely to
+resolve. Same category as `TC-DSH-160` (pointer cursor) before it was resolved 2026-09-25 by the user performing
+a genuine manual hover — **recommend the same approach here**: a real human click on this exact segment,
+watching for a new tab, is the most direct remaining path to a PASS/FAIL verdict.
+
 ---
 
 ### TC-DSH-139: Issues in the drill-down list are openable
@@ -359,6 +463,9 @@ to the query's tracker(s).
 **Expected Result:**
 - It navigates to the real issue, and the issue's attributes match the segment it was drilled from.
 
+**PASS, 2026-09-25**: drilled into the "New" segment on widget 120, opened the first issue in the resulting list
+(#1530). Navigated to the real issue page — Status field confirmed "New", matching the segment drilled from.
+
 ---
 
 ### TC-DSH-140: Close and re-open the drill-down panel
@@ -369,6 +476,13 @@ to the query's tracker(s).
 
 **Expected Result:**
 - The panel refreshes for the new segment with no leftover rows from the previous one.
+
+**N/A, 2026-09-25**: this TC's premise (an in-page panel with state to leak between opens) doesn't match the
+actual implementation — drill-down opens a **new browser tab** each time (`window.open` to a full Redmine issue
+list URL), confirmed repeatedly throughout this session and again for `TC-DSH-136`–`139`. Each tab is a fresh,
+independent page load with its own filter parameters baked into the URL — there is no shared panel state that
+could leak between two different drill-downs. The concern this TC is checking for structurally cannot occur with
+this implementation.
 
 ---
 
@@ -382,6 +496,16 @@ to the query's tracker(s).
 - The cursor changes to a pointer, so it is visible the segment can be clicked, per #120914 scenario 10.
 - Hovering the statistics card's KPI tiles/lists is unaffected — this only applies to the new chart templates.
 
+**PASS, 2026-09-25** — resolved via a real (non-synthetic) hover, not automated. The user manually hovered a
+Pie-chart segment ("Issues assigned to me" widget, New/Resolved) on the live UI and captured a screenshot showing
+the actual system mouse cursor rendered as a pointer/hand icon directly over the "New" segment while its tooltip
+("New — Issues assigned to me: 1") was displayed. This is the reliable, real-interaction evidence
+`DASHBOARDS_MEMORY.md` already noted was needed — the earlier synthetic `mousemove`-based checks (contradictory
+results run to run) are superseded for this specific TC. Confirmed on a Pie chart; the same underlying CSS
+`cursor: pointer` mechanism applies to Doughnut/Bar/Line per the shared chart-template implementation, and the
+*click* behavior itself (the more important signal) was already independently confirmed working on all 4
+templates earlier this session.
+
 ---
 
 ### TC-DSH-161: Drill-down from a chart grouped by a custom field (#120914)
@@ -393,6 +517,10 @@ to the query's tracker(s).
 **Expected Result:**
 - The issue list opens showing exactly the issues carrying that custom field value, with the count matching the
   segment (same cross-validation principle as TC-DSH-135, now for a custom-field dimension).
+
+**PASS, 2026-09-25**: on widget 130 (grouped by cf_68 "QA Single Select Field"), drilled into "Green" (count 2) —
+resulting URL included `f[]=cf_68&op[cf_68]=%3D&v[cf_68][]=Green` alongside the query's own filters, and the
+issue list showed exactly `(1-2/2)` — exact count match for a custom-field-grouped drill-down.
 
 ---
 
@@ -407,6 +535,11 @@ to the query's tracker(s).
 - **The filter must use Redmine's "none" operator, not an empty-string value** — an empty-value filter would either
   match nothing or (worse) silently fall back to no filter at all and show every issue in the query, which is a
   functional defect, not just a cosmetic one.
+
+**PASS, 2026-09-25**: same widget 130, drilled into "Not set" (count 947) — resulting URL included
+`f[]=cf_68&op[cf_68]=!*` (Redmine's genuine "none" operator, confirmed by the literal `!*` value, not an empty
+string), and the issue list showed exactly `(1-25/947)` — exact count match, confirming it's a real filter, not a
+silent fallback to "no filter" (which would have returned the full unfiltered query size instead).
 
 ---
 
@@ -424,6 +557,13 @@ grouped by **Status**.
   parameters (since Redmine drops extra filters when a `query_id` is present) while **excluding the field being
   drilled into**, so the clicked segment's value isn't sent twice and merged into an invalid combined filter.
 
+**PASS, 2026-09-25**: added a fresh Doughnut widget (140) for "Closed Only Query 120436" (a query genuinely
+pre-filtered to Status=Closed, confirmed by the widget itself rendering only a single "Closed" segment, 6 issues)
+grouped by Status. Drilled into "Closed" — resulting URL had exactly **one** `status_id` filter (`v[status_id]
+[]=5`), not a duplicated/conflicting pair, and the issue list opened cleanly with `(1-6/6)` — exact match, no
+validation error. Confirms the query's own Status filter and the clicked segment's Status value are correctly
+merged into one, not sent twice.
+
 ---
 
 ### TC-DSH-164: Drill-down keeps the saved query's other filters applied (#120914)
@@ -437,6 +577,12 @@ specific tracker), rendered as a chart grouped by a different field (e.g. Priori
 **Expected Result:**
 - The issue list shows only issues matching **both** the query's own tracker filter **and** the clicked priority —
   per #120914 scenario 7, the query's filters are expanded and kept, not dropped in favour of just the segment.
+
+**PASS, 2026-09-25**: incidentally proven by `TC-DSH-161`'s own evidence — "Reported issues" (a query filtered to
+`status_id=open` + `author_id=me`, its own genuine filters, unrelated to the grouped field cf_68) rendered as
+widget 130. Drilling into "Green" produced a URL with **all three** of the query's own filters
+(`status_id=o`, `author_id=me`, `project.status=1`) **plus** the segment's own `cf_68=Green` — none of the
+query's original filters were dropped in favour of just the clicked segment.
 
 ---
 
@@ -458,7 +604,14 @@ specific tracker), rendered as a chart grouped by a different field (e.g. Priori
   user through a dashboard widget is a High-severity data leak**, and a widget is a very easy place to forget the
   check, because the permission logic naturally lives on the query page.
 
-**DEFERRED to the Permissions suite pass, 2026-09-24** — needs a second member role session.
+**PASS (legs 1 and 3; leg 2 inconclusive — identical scenario already executed as `TC-DSH-103`), 2026-09-25**:
+this is the same test as `TC-DSH-103` in `DASHBOARDS_PERMISSIONS.md`, executed there 2026-09-24 with the exact
+fixture this TC calls for — a genuinely private query ("QA Private Query for TC-103 Test", owned by Admin) and a
+non-owner member (Daisy Skye). **Leg 1**: the private query is absent from her Add-Chart Saved Queries dropdown.
+**Leg 3**: a widget built from it on the shared dashboard (id 138) is completely invisible in her DOM — not
+CSS-hidden, not present at all. **Leg 2** (direct create-request naming the query ID) returned 400, inconclusive
+(same guessed-payload-shape ambiguity noted elsewhere this session) — not confirmed as a genuine refusal. See
+`TC-DSH-103` for the full evidence; not re-run here since it's the identical scenario, not a new one.
 
 ---
 
@@ -476,7 +629,20 @@ private** — a newly created Redmine project defaults to public.
 - A total that silently includes C's issues discloses the size of a restricted area even without naming any issue
   — High severity.
 
-**DEFERRED to the Permissions suite pass, 2026-09-24** — needs a cross-project restricted-visibility fixture.
+**PASS, 2026-09-25**: created a genuinely cross-project, public-visibility saved query ("QA Cross-Project Query
+TC-142", `query_id=17`, no project filter, `status=*`) and added it as a Statistics Card widget (id 141) on
+**test-project's** dashboard. As **Admin**, the widget showed **1209** total issues — matching test-project's own
+known totals seen throughout this session, not a true instance-wide cross-project figure (which would be far
+larger, since other projects like "Helpdesk Service Desk" also have real issues). As **Summer Rain** (member of
+test-project only, "QA Own Visibility" role, sees exactly 1 issue there), the **same widget** showed **1** — not
+1209, and also not the 5 issues she can see when opening the identical query directly via `/issues?query_id=17`
+(which includes 4 Helpdesk Service Desk issues she has separate visibility into, outside this project). **Two
+findings, both reassuring**: (1) a dashboard widget implicitly scopes even a genuinely cross-project saved query
+down to the **current project only** — cross-project data from other projects (Helpdesk's issues) never leaks
+into a widget on test-project's dashboard, for any viewer, confirming this TC's core assertion; (2) within that
+project-scoped total, Summer Rain's restricted issue-visibility is still correctly respected by this saved-query
+widget (1, her real scope) — unlike the built-in "Our Queries" chart types, which `BUG-DSH-013` already showed do
+leak the full unrestricted count. Saved-query widgets are not vulnerable to that same defect.
 
 ---
 
@@ -528,6 +694,62 @@ arc-geometry click technique used successfully for working drill-downs elsewhere
 error. Clean "no interaction" outcome, one of the two acceptable results. Trend chart not separately tested this
 pass.
 
+**Broad sweep across all 22 built-in ("Our Queries") chart types, 2026-09-25, per explicit user request**, then
+**corrected the same day against ground-truth per-chart implementation status the user provided directly**
+(which of these the developer actually implemented drill-down for vs. intentionally left out due to filter
+limitations/design constraints) — the earlier automation-limitation framing for several of these was wrong and
+is superseded below. Final classification:
+
+- **(1) Drill-down implemented — tested properly, confirmed working:**
+  - `Issues by Status`, `Issues by Priority`, `Issues by Assignee`, `Issues by Tracker` — all opened a correctly-
+    filtered `/issues` list (e.g. Tracker's "Unassigned" segment correctly used the `!*`/none operator).
+  - `Total Spent Hours by Users`, `Total Spent Time by Issues Tracker`, `Total Spent Time by Issues Status`,
+    `Total Spent Hours by Activity` — all four **correctly drilled to `/time_entries`, not `/issues`** (confirmed
+    for `Total Spent Hours by Activity` specifically 2026-09-25: `activity_id=9` segment, chart value 3 hours,
+    drilled to exactly 1 matching time entry).
+  - `Issues by Release (Target Version)` — **built a real fixture to test this properly**: created a new Target
+    Version ("QA Drilldown Release Test") and two issues assigned to it. The chart correctly picked up the new
+    release (2 issues). The fixture's own bar rendered at **0.13 canvas-pixel height** — sub-pixel and
+    practically unclickable by anyone, human or automated, because the pre-existing "No Version" bucket (724
+    issues) dominates the chart's linear Y-axis scale. Clicking the tall "No Version" bar instead (height 229px)
+    confirmed the drill-down mechanism itself works correctly: drilled to `fixed_version_id=!*` (correct
+    none-operator), and the resulting `/issues` list matched the segment's value exactly, `(1-25/724)`. **The
+    sub-pixel fixture segment is a real rendering observation** (small-value segments become unclickable when a
+    large outlier dominates the scale) but not a drill-down defect — the feature works, this specific data shape
+    just makes one segment hard to click.
+  - `Issues by Percentage Done` — same approach: set the two fixture issues' `done_ratio` to 80%/90% (the
+    "76-99%" bucket, previously empty, went from 0→2, confirming the chart recalculates buckets correctly on
+    real data changes). Clicked the dominant "0%" bucket (715 issues after the fixture issues moved out of it) —
+    drilled to `done_ratio=0`, exact match `(1-25/715)`. Confirmed working; the same sub-pixel-bucket caveat
+    applies to the small buckets here too (all buckets other than "0%" render under 1px tall on this heavily
+    skewed dataset).
+  - **Cross-checked drill-down accuracy against the chart's own currently-applied scope** (not just "a tab
+    opened"): `Issues by Status`'s "New" segment (196) and the two fixture-verified charts above all matched
+    their resulting `/issues` (or `/time_entries`) list counts **exactly**. Confirms drill-down faithfully
+    reflects whatever scope the chart itself is currently applying, consistent with the saved-query-template
+    findings (`TC-DSH-136`/`137`).
+  - Combined with the 4 saved-query chart templates (Doughnut/Pie/Bar/Line, confirmed earlier this session,
+    `TC-DSH-136`/`137`/`139`/`161`–`164`), drill-down is confirmed working across **13 distinct chart/query
+    configurations**, all with real, verified navigation and exact count matches.
+- **(2) Drill-down intentionally not implemented — confirmed by the user directly, not a defect; verified the
+  chart itself (data/rendering) is otherwise correct and clicking produces no error or broken state:**
+  `Issues Trend`, `User Activity`, `Estimated vs Spent Time by User`, `Total Spent Time by Role`, and the 3
+  stacked-by variants (`Issues by Assignee (Stacked by Status/Tracker/Priority)`, separately deep-dived under
+  `TC-DSH-138`) — omitted due to filter limitations/design constraints on these specific chart shapes (derived/
+  comparison/time-series metrics that don't map cleanly onto a single-dimension issue-list filter the way a
+  simple category count does). Also `Project Progress (Gauge)`, already established as intentionally non-
+  interactive. **Do not re-file the absence of drill-down on any of these as a bug.**
+- **(3) Automation cannot interact reliably — genuinely needs manual verification, not classified either way:**
+  Given the corrected list above, this category is now effectively empty for the types explicitly enumerated —
+  the earlier broad "automation-limited" bucket was largely items that turned out to be case (2), design-
+  intentional, not automation-limited. `Total Remaining Time by Assignee`/`Total Remaining Time by Tracker`
+  remain a genuine open question not covered by the ground-truth list above: a real hover correctly registered
+  internally (`chart.getActiveElements()===1`) yet neither navigated on click — most likely also case (2) given
+  the pattern (a derived/computed metric, same family as the confirmed-not-implemented "remaining"/"estimated"
+  charts), but not explicitly confirmed either way; flagged for a real human click if a definitive answer is
+  needed. `Estimated vs Spent Time by Version` has no non-zero data on this dashboard at all and remains
+  untestable regardless of category.
+
 ---
 
 ### TC-DSH-146: Drill-down respects issue visibility
@@ -542,7 +764,12 @@ pass.
   invisible issues** — that discrepancy is itself the evidence of the leak described in TC-DSH-045, and this case
   is the cheapest way to detect it.
 
-**DEFERRED to the Permissions suite pass, 2026-09-24** — needs a restricted-visibility role session.
+**PASS (identical scenario already executed as `TC-DSH-098`), 2026-09-25**: this is the same test as
+`TC-DSH-098` in `DASHBOARDS_PERMISSIONS.md`, executed 2026-09-24 as **Summer Rain** (QA Own Visibility, sees
+exactly 1 issue). The "New" segment displayed 402, but drilling into it correctly listed only her own 1 visible
+issue (`#1558`) — Redmine core's own issue-list permission check enforces correctly at the drill-down layer, even
+though the segment's own displayed count is itself the leak (`BUG-DSH-013`). See `TC-DSH-098`/`bugs/open/
+BUG-DSH-013.md` for the full evidence; not re-run here since it's the identical scenario.
 
 ---
 
@@ -591,7 +818,12 @@ during the Project Progress Gauge investigation), never an unpaginated full rend
 - Only permitted time entries are aggregated. Other users' hours must not be disclosed through the widget's totals
   (paired with TC-DSH-046).
 
-**DEFERRED to the Permissions suite pass, 2026-09-24** — needs a restricted-time-visibility role session.
+**PASS (identical scenario already executed as `TC-DSH-046`), 2026-09-25**: this is the same test as
+`TC-DSH-046` in `DASHBOARDS_CHART_WIDGETS.md`, executed 2026-09-24 as **Summer Rain**. "Total Spent Hours by
+Users" showed `Luna Blossom: 3` (all other 14 listed users: 0) — cross-checked against Summer Rain's own `Spent
+time` view on the same project, which independently shows exactly the same one entry. Unlike the issue-count leak
+(`BUG-DSH-013`), time-entry aggregation correctly matches what she's independently entitled to see. See
+`TC-DSH-046` for the full evidence; not re-run here since it's the identical scenario.
 
 ---
 
@@ -610,6 +842,32 @@ second custom field that exists but is **not** enabled for this project.
 - **A hidden/inapplicable field appearing as a grouping option — and, worse, actually returning data for it — would
   disclose a field value the user isn't otherwise entitled to see**, so this is a security-relevant check, not just
   a UI-tidiness one.
+
+**CORRECTED 2026-09-25 — FAIL, filed as `BUG-DSH-023`.** The original same-day PASS verdict below was based on an
+imprecise theory and has been superseded after the user asked for a rigorous re-investigation with a fresh
+qualifying field.
+
+*Original investigation (superseded)*: created `QA Role-Hidden Grouping Field` (`cf_89`, List, `is_filter=true`,
+role-restricted visibility) and `QA Other-Project-Only Field` (`cf_90`, project-inapplicable) — neither appeared
+in the Group by selector, even for Admin, even after reconfiguring `cf_89` toward an unrestricted profile. This
+was read as "the selector is a hardcoded fixed set, not dynamic at all" and marked PASS-by-favorable-accident. The
+reconfiguration attempt to `visible=to any users` was itself later found not to have actually saved (still
+`visible=0` on re-check), so that specific claim in the original write-up was inaccurate.
+
+*Corrected investigation*: created a **third**, completely fresh field, `QA New Grouping Test Field` (`cf_91`,
+List, `is_filter=true`, `for_all=true`, all trackers, `visible=1`/to any users — unrestricted from creation, not
+edited afterward). **It appeared in the Group by selector immediately**, for both Admin and Daisy Skye (Reporter),
+proving the selector *does* dynamically pick up new qualifying fields in the general case — the original
+"hardcoded, not dynamic at all" theory was wrong. Re-checked `cf_89` (role-restricted, roles =
+Manager/Developer/Reporter/QA Read Only) side by side with `cf_91` — **`cf_89` is still absent for both Admin
+(who holds Manager+Developer, both checked roles) and Daisy Skye (Reporter, also a checked role)**. `cf_90`
+(project-inapplicable) remains correctly absent for the right reason, confirming that half of the filter works.
+**Real, narrower defect isolated**: the selector appears to exclude *any* custom field with role-based visibility
+restriction outright, without evaluating whether the current viewer's own role actually passes it — the opposite
+of #120914's "only fields visible to the current user... should be listed," which implies a role-restricted field
+*should* show for a qualifying viewer. Filed as `BUG-DSH-023` (see `bugs/open/BUG-DSH-023.md` for full evidence).
+Project-applicability exclusion (`cf_90`) remains correctly PASS; only the role-visibility half is FAIL. The three
+probe fields (`custom_fields/89`, `/90`, `/91`) are left in place as fixtures for future retest.
 
 **DEFERRED to the Permissions suite pass, 2026-09-24** — needs a role-based field-visibility fixture.
 

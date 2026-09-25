@@ -341,12 +341,10 @@ When a bug is retested and confirmed **FIXED**, the bug file **must** be moved f
 4. **Copy the updated file to `bugs/closed/BUG-<CODE>-XXX.md`**
 5. **Delete the original file from `bugs/open/BUG-<CODE>-XXX.md`** — the open folder must never retain a fixed bug
 6. Update `bugs/_index.md` — change Status to `Closed`, update File Path to `bugs/closed/BUG-<CODE>-XXX.md`
-7. Update `reports/final-bug-report.md` — move bug entry from Open Bugs → Closed Bugs section
-8. Update `reports/defects-summary.html` — decrement Open count, increment Closed count, mark bug FIXED ✓
-9. Update `reports/tc-report.html` — change BLOCKED → PASS for every TC blocked by this bug; add a `fix-ref` note with bug ID and retest date
-10. Update the plugin's changelog (`docs/changelog.md`, or the Run History table in `<PREFIX>_HANDOFF.md` — see `CLAUDE.md` §2b) — add a row for the fix retest session
-11. Update the plugin's handoff file — remove the bug from the Blockers section
-12. Update `STATUS.md` — decrement Open Bugs count, update Status description
+7. Update the plugin's consolidated `reports/<PREFIX>-tc-report-<date>.md` (see `CLAUDE.md` §7) — move the bug's entry to Closed/FIXED in the Bugs/Defects table, and change BLOCKED → PASS for every TC blocked by this bug in the TC Execution Summary, with a fix-ref note (bug ID + retest date)
+8. Update the plugin's changelog (`docs/changelog.md`, or the Run History table in `<PREFIX>_HANDOFF.md` — see `CLAUDE.md` §2b) — add a row for the fix retest session
+9. Update the plugin's handoff file — remove the bug from the Blockers section
+10. Update `STATUS.md` — decrement Open Bugs count, update Status description
 
 ### Bug folder states
 
@@ -501,16 +499,14 @@ screenshots/
 
 ## 23. Reporting Rules
 
-At the end of every test run, generate:
+Generate **one consolidated report per testing cycle** — do not create separate defect, regression, or pass/fail reports:
 
 | Report | Location | Trigger |
 |--------|----------|---------|
-| `tc-report.html` | `plugins/<plugin>/reports/` | Auto — end of every test run |
-| `defects-summary.html` | `plugins/<plugin>/reports/` | Auto — end of every test run |
-| `final-bug-report.md` | `plugins/<plugin>/reports/` | Auto — generated from all files in `bugs/open/` |
-| `final-bug-report.pdf` | `plugins/<plugin>/reports/` | **Manual only** — generated ONLY when user explicitly requests it |
+| `<PREFIX>-tc-report-<date>.md` | `plugins/<plugin>/reports/` | Auto — end of every testing cycle. Contains: testing types performed, TC execution results, bugs/defects found (IDs + status), fix verification/retest details, regression results, final overall status (see `CLAUDE.md` §7) |
+| `<PREFIX>-tc-report-<date>.pdf` | `plugins/<plugin>/reports/` | **Manual only** — generated ONLY when user explicitly requests it |
 
-**Never auto-generate the PDF.** Always ask the user: "Testing is complete. Do you want me to generate the final PDF bug report?"
+**Never auto-generate the PDF.** Always ask the user: "Testing is complete. Do you want me to generate the final PDF report?"
 
 ---
 
@@ -587,7 +583,7 @@ A TC marked **BLOCKED** or **SKIPPED** due to a bug is not considered tested —
 - **BLOCKED TCs** — re-execute from scratch; the previous BLOCKED result is discarded.
 - **SKIPPED TCs** — execute fully for the first time; they were never run due to the bug dependency.
 
-Both must be treated as first-time executions, not retests. Record the result (PASS / FAIL) in `tc-report.html` and replace the BLOCKED/SKIPPED status with the actual outcome.
+Both must be treated as first-time executions, not retests. Record the result (PASS / FAIL) in the plugin's consolidated `reports/<PREFIX>-tc-report-<date>.md` and replace the BLOCKED/SKIPPED status with the actual outcome.
 
 If a previously BLOCKED or SKIPPED TC fails during regression, raise a new bug — do not attribute the failure to the original fixed bug.
 
@@ -612,7 +608,7 @@ If a previously BLOCKED or SKIPPED TC fails during regression, raise a new bug �
 2. Identify all test cases in scope using the table above.
 3. Run the plugin's `automation/tests/` specs that cover any in-scope TC; re-execute the rest manually.
 4. For each TC result:
-   - **PASS** — update the TC status in `tc-report.html`; no further action needed.
+   - **PASS** — update the TC status in the consolidated `reports/<PREFIX>-tc-report-<date>.md`; no further action needed.
    - **NEW FAIL** — raise a new bug immediately; do not reuse the closed bug ID.
 5. After regression, update the plugin's changelog with a regression row (`docs/changelog.md`, or the Run History table in `<PREFIX>_HANDOFF.md`).
 6. If all regression TCs pass, update the plugin's handoff file to note regression complete.
@@ -631,7 +627,7 @@ Add a row to the plugin's changelog (`docs/changelog.md`, or the Run History tab
 |------|-----------------|-------------|-----------|---------|
 | 2026-06-22 | X.X.X | Local / Forge | QA | Regression after BUG-XXX-001 fix — 5 TCs re-run, all PASS |
 
-Update `tc-report.html` to reflect the regression pass results alongside the original run results.
+Update the consolidated `reports/<PREFIX>-tc-report-<date>.md` to reflect the regression pass results alongside the original run results.
 
 ---
 
@@ -654,7 +650,7 @@ Unlike per-bug regression, the final cycle regression covers **every test suite*
 2. Run every spec in `automation/tests/` for the plugin.
 3. Manually re-execute every TC not yet covered by an automation spec.
 4. For each result:
-   - **PASS** — record in `tc-report.html`.
+   - **PASS** — record in the consolidated `reports/<PREFIX>-tc-report-<date>.md`.
    - **NEW FAIL** — raise a new bug (`bugs/open/BUG-<CODE>-XXX.md`), do not reuse a closed bug ID. The plugin is **not** ready for `Complete` — fix, retest, then re-run the final cycle regression from step 1.
 5. Add a row to the plugin's changelog (`docs/changelog.md`, or the Run History table in `<PREFIX>_HANDOFF.md`): `Final cycle regression — N suites / M TCs re-run, all PASS`.
 6. Only after a full pass with zero new failures: update `STATUS.md` to `Complete`.

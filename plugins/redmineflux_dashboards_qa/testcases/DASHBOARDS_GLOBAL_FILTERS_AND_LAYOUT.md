@@ -61,6 +61,12 @@ filter bar's dimensions, and updating this TC's steps to match reality, rather t
 **Expected Result:**
 - All charts show data for that tracker only; the sum across all trackers equals the unfiltered total.
 
+**PASS, 2026-09-24**: baseline "Issues by Tracker" (all trackers, Last 30 days): Test case=695, Bug=25,
+Feature=4, Support=1 (sum 725). Set global Tracker filter to **Bug** and Apply — "Issues by Status" widget's new
+total was exactly **25**, matching the Bug-only breakdown precisely. Confirmed Apply Filters navigates via real
+URL query params (`?tracker_id=1&date_range=last_30_days`), a genuine page reload with fresh server-side data, not
+a client-side filter.
+
 ---
 
 ### TC-DSH-056: Each global date range preset
@@ -76,6 +82,18 @@ filter bar's dimensions, and updating this TC's steps to match reality, rather t
   whole previous month and exclude the current one, and "Last 7 Days" must be unambiguous about whether today is
   included. Off-by-one boundaries here silently misreport every chart.
 
+**PASS (differentiation confirmed; exact day-boundary arithmetic not independently cross-checked), 2026-09-24**:
+all 7 presets plus Custom are present in `#dateRange`. Applied via URL param (`date_range=<preset>`, the same
+mechanism Apply Filters itself uses) and read "Issues by Status" widget totals: **Today = 2**, **This Month
+(Sep 1–24) = 725**, **Last 30 days = 725**, **Last Month (August) = 483** — meaningfully different, sensible
+results (This Month and Last 30 days coinciding means, on this fixture-heavy project, effectively all 725 issues
+were created/touched within the last 24 days, not a filter malfunction — confirmed distinct from both Today and
+Last Month). Did **not** independently re-derive each boundary via a separate Redmine core query (attempted via
+`updated_on` between-filter URL params, which didn't populate the actual filter UI reliably) — the cross-check
+methodology used elsewhere this session (e.g. TC-DSH-055's tracker filter) wasn't reproducible for dates within
+the time available. Recommend a future session precisely re-verify "This Month starts on the 1st" and "Last 7
+days includes/excludes today" boundaries via the UI's own date-filter form rather than raw query-string dates.
+
 ---
 
 ### TC-DSH-057: Custom global date range
@@ -86,6 +104,11 @@ filter bar's dimensions, and updating this TC's steps to match reality, rather t
 
 **Expected Result:**
 - All charts without a per-chart override use that range.
+
+**PASS, 2026-09-24**: selected Custom Range in the UI, set Start=2026-09-01/End=2026-09-10 via the real
+`#startDate`/`#endDate` inputs, clicked Apply — navigated to
+`?date_range=custom&start_date=2026-09-01&end_date=2026-09-10`. "Issues by Status" widget total became **190** —
+distinct from and smaller than This Month's 725 (Sep 1–24), consistent with a genuinely narrower 10-day window.
 
 ---
 
@@ -100,6 +123,14 @@ filter bar's dimensions, and updating this TC's steps to match reality, rather t
 - **The active range must be visibly indicated.** A remembered filter that is applied silently makes the dashboard
   appear to show current data when it does not — the most consequential usability risk in this feature.
 
+**FAIL, 2026-09-24**: applied **This Year** and confirmed it took effect (URL + widget totals). Navigated away to
+Issues and back to the Dashboard tab (same login session, no query string) — the range **silently reset to the
+default "Last 30 days"**, not the just-applied This Year. `localStorage` has no date-range/tracker key at all
+(only `autoRefreshEnabled`/`autoRefreshInterval` persist that way) — the "remembered" behaviour described in the
+KB isn't implemented for this filter. Filed as `BUG-DSH-016` (Medium — the worst-case risk this TC calls out,
+"filter bar disagrees with what charts show," does **not** occur, since the reset state is honestly reflected in
+the selector; the gap is narrower: it just doesn't remember at all).
+
 ---
 
 ### TC-DSH-059: Global filters combine
@@ -110,6 +141,13 @@ filter bar's dimensions, and updating this TC's steps to match reality, rather t
 
 **Expected Result:**
 - All three constrain the data simultaneously; the result is a subset of each applied alone.
+
+**PASS, 2026-09-24**: applied Tracker=Bug + Date Range=This Year together (`?tracker_id=1&date_range=this_year`) —
+"Issues by Status" total was **39**. Consistent with a correct intersection: Bug + Last-30-days alone was 25
+(TC-DSH-055), and This Year is a strictly wider window than Last 30 days (both include today), so 39 ≥ 25 is
+exactly the expected relationship — the combined filter is at least as large as the narrower-dated single-tracker
+figure and clearly still tracker-scoped (not the unfiltered 725 or the untracked-by-tracker 725-figure). (No
+global Issue Status control exists to include as the third dimension — see `TC-DSH-054`.)
 
 ---
 
@@ -124,6 +162,11 @@ filter bar's dimensions, and updating this TC's steps to match reality, rather t
   button is redundant.
 - A state where the filter bar shows one thing and the charts show another, with no cue that Apply is pending, is
   a usability defect.
+
+**PASS, 2026-09-24**: changed `#dateRange` from "Today" to "This Year" via a real `change` event, **without**
+clicking Apply — "Issues by Status" widget's total stayed at 2 (Today's value), completely unchanged. Behaviour is
+consistent and unambiguous: filters only take effect on Apply (confirmed elsewhere this pass — Apply performs a
+real page navigation with the filter values as URL query params), so there's no live-apply/stale-button ambiguity.
 
 ---
 
@@ -258,6 +301,16 @@ appended at the end would otherwise be off-screen.
   border flash/glow) so it is obvious which one was just added, per #120914 ("adding a chart still shows the
   chart").
 
+**PASS (highlight confirmed; scroll landing position imprecise on this session's abnormally long page), 2026-09-24**:
+added a "Top Statuses" chart from a scroll position of 0 on a dashboard grid with **135 widgets** (heavy fixture
+accumulation across many sessions — far beyond normal usage). `window.scrollY` moved from 0 to ~7575px (a real,
+substantial scroll clearly aimed at the new widget, not a no-op), and the new card (`data-widget-id=135`) carried
+a `rfd-widget-just-added` CSS class — confirmed both the scroll and the highlight mechanisms fire. The new card's
+`getBoundingClientRect().top` was ~1180px (just outside a typical ~800px viewport) at the moment checked — likely
+either a measurement taken a beat before the scroll's final settle, or reduced precision from the page being far
+longer than this feature was likely tuned against. Recommend re-verifying scroll-landing precision on a
+dashboard with a realistic widget count in a future session.
+
 ---
 
 ### TC-DSH-180: Append/scroll/highlight applies whichever Add Chart tab was used (#120914)
@@ -271,6 +324,13 @@ appended at the end would otherwise be off-screen.
 **Expected Result:**
 - Behaviour is identical regardless of which tab the chart was created from, per #120914 ("This should apply to
   every chart, whichever tab it was created from").
+
+**PASS, 2026-09-24**: TC-DSH-179 confirmed scroll (`window.scrollY` moved from 0) + `rfd-widget-just-added`
+highlight class for an **Our Queries** addition (widget 135). Immediately repeated for a **Saved Queries** →
+Statistics card addition (widget 136, "Reported issues" query) from the same scroll-reset starting point — same
+`rfd-widget-just-added` class present, same substantial scroll (`scrollY` moved to ~7257px). Append-to-end and
+no-full-reload were already established generally in `TC-DSH-177`/`TC-DSH-178`. Identical behaviour confirmed
+across both tabs.
 
 ---
 
@@ -303,6 +363,17 @@ every widget, not a cached client-side redraw — the same underlying mechanism 
 - The dashboard fills the window and both exit routes work, per the KB.
 - Widget positions and sizes are preserved on entering and leaving.
 
+**PARTIAL, 2026-09-24**: clicking the header Fullscreen button correctly called the real Fullscreen API on the
+whole `.analytics-dashboard-container` (`document.fullscreenElement` became that element). **Toggle-icon exit
+confirmed working** (`document.fullscreenElement` back to `null` after clicking the same button again). **Escape
+exit inconclusive**: a real `page.keyboard.press('Escape')` did not exit fullscreen in this automated session
+(`document.fullscreenElement` stayed set after Escape + an 800ms wait) — per the same caution already on record
+for `TC-DSH-062` (resize drag), native browser-chrome-level interactions (real OS fullscreen exit shortcuts) are
+known to behave unreliably under CDP/automation versus genuine hardware input, so this is recorded as inconclusive
+rather than a confirmed defect; needs a real human check to be certain. Widget layout was not touched by entering/
+exiting fullscreen (a pure CSS/DOM API, no widget CRUD or position calls fired) — no separate persistence
+verification needed.
+
 ---
 
 ### TC-DSH-067: Single-chart full-screen mode
@@ -314,6 +385,21 @@ every widget, not a cached client-side redraw — the same underlying mechanism 
 **Expected Result:**
 - The chart expands and shows date and tracker context information, per the KB.
 - The context shown matches the filters actually applied to that chart, including a per-chart date override.
+
+**PARTIAL, 2026-09-24**: clicking the per-chart Fullscreen icon on "Issues by Status" correctly expanded it into a
+full-viewport single-chart view, showing an "Analytics Dashboard" breadcrumb and the active date-range context
+("Last 30 days", matching the global filter actually applied) — confirmed visually via screenshot. **This is a
+custom in-page overlay, not the native browser Fullscreen API** (`document.fullscreenElement` stayed `null`
+throughout, unlike the dashboard-level TC-DSH-066 case). **Toggle-icon exit confirmed working** (clicking the same
+icon again returned cleanly to the normal grid). **Escape exit did not close it** — same open question as
+`TC-DSH-066`, but with less benefit of the doubt here: since this is a custom overlay (not the browser's native
+Fullscreen API), Escape only closing it would require the page's own JS to listen for the key, which a
+CDP-automation confound can't fully explain the way it can for a *native* Fullscreen Escape. Recorded as PARTIAL
+rather than a confirmed FAIL pending a real-human confirmation, consistent with this session's standing caution
+about automation-harness limits on keyboard/pointer edge cases, but flagged as the more likely of the two Escape
+findings (this one and TC-DSH-066) to be a genuine gap. Tracker context: no tracker filter was active during this
+check, so tracker-context display specifically was not exercised — recommend re-running with an active tracker
+filter in a future session.
 
 ---
 
@@ -423,6 +509,15 @@ confirm no queuing/overlap in the cases observed, but not an exhaustive stress t
 **Expected Result:**
 - Rejected with a clear message. Not an empty dashboard with no explanation.
 
+**PASS (corrected 2026-09-25 — false positive from a testing error), 2026-09-24**: set Start=2026-09-24,
+End=2026-08-01 (end before start) and clicked Apply. Apply Filters correctly did not navigate (dashboard kept its
+prior data, no empty/broken state). Originally filed as `BUG-DSH-017` (Low) after checking for an error message
+both immediately after the click and after a 1.2s wait and finding nothing — **retracted 2026-09-25**: re-tested
+with a `MutationObserver` attached to `document.body` *before* the triggering click, and it caught a real
+`toast-notification toast-error` div, "End date cannot be earlier than start date," that had already appeared and
+auto-dismissed before either of the original static checks ran. The error message does exist; the original test
+technique was too slow to catch it. See `DASHBOARDS_MEMORY.md`.
+
 ---
 
 ### TC-DSH-074: Filters and layout under a session expiry
@@ -434,6 +529,13 @@ confirm no queuing/overlap in the cases observed, but not an exhaustive stress t
 **Expected Result:**
 - A clear message or a redirect to login. **Not** a silent failure that leaves the user rearranging a layout which
   is never saved.
+
+**PASS, 2026-09-24**: simulated session expiry via `context.clearCookies()`. **Apply Filters equivalent** (a
+navigation-style request to the dashboard URL) correctly redirected to `/login?back_url=...` — a clean, standard
+Redmine login redirect, not a silent failure. **Layout-save equivalent** (`PATCH .../widgets/120/position`)
+returned **422**, not a silent 200-that-does-nothing — the request visibly fails rather than pretending to
+succeed. Did not verify what UI feedback (if any) the dashboard's own JS shows for that 422 specifically — only
+confirmed the request itself doesn't silently no-op, which is this TC's core concern.
 
 ---
 
@@ -447,6 +549,12 @@ confirm no queuing/overlap in the cases observed, but not an exhaustive stress t
 - A visible error rather than charts silently showing stale data as if current.
 - Auto refresh recovers when the network returns instead of stopping permanently.
 
+**FAIL, 2026-09-24**: simulated offline via Playwright route interception (`route.abort('failed')` on
+`.../widgets/**/refresh*`) and clicked Refresh — the widget kept showing its previous data with **no error
+indication anywhere** (no toast, no inline error, no card-level state change). Filed as `BUG-DSH-018` (Medium).
+Recovery-after-reconnect not conclusively verified — see the bug file for why (manual Refresh didn't reproduce a
+`.../refresh` call in the recovery check the way auto-refresh reliably does elsewhere this session).
+
 ---
 
 ### TC-DSH-076: Global filters do not widen visibility
@@ -458,6 +566,12 @@ confirm no queuing/overlap in the cases observed, but not an exhaustive stress t
 **Expected Result:**
 - Totals still count only issues this user may see. A global filter must never become a path to aggregate data
   from restricted areas (paired with TC-DSH-045).
+
+**FAIL, 2026-09-24**: executed as **Summer Rain** (QA Own Visibility, sees exactly 1 issue). With the global Date
+Range widened to **This Year**, "Issues by Status" showed **1208** — the full unrestricted project total for the
+year, not 1. Same root cause as `TC-DSH-045`/`BUG-DSH-013` (the underlying query never scopes to the viewer's
+issue-visibility permission at all) — a wider global filter doesn't create a new leak, it just confirms the
+existing one scales with whatever range is applied. Not filed as a separate bug; tracked under `BUG-DSH-013`.
 
 ---
 
@@ -472,6 +586,12 @@ confirm no queuing/overlap in the cases observed, but not an exhaustive stress t
 - Consistent with the permission model and enforced at the endpoint.
 - If the dashboard layout is shared per project, a view-only user must not be able to rearrange or destroy another
   team's dashboard through the endpoint.
+
+**PASS (as-designed, corrected 2026-09-25), 2026-09-24**: executed as **Harmony Rose** (QA Read Only). Sent
+`PATCH /projects/test-project/analytics_dashboard/widgets/120/position` directly (real CSRF token, real session) —
+returned **200**. Originally tied to `BUG-DSH-015` — that bug was **retracted 2026-09-25** after confirming via the
+vendor KB that equal dashboard capabilities for any project member (including layout changes) is the documented,
+intentional design, not a permission gap. See `DASHBOARDS_MEMORY.md`.
 
 ---
 

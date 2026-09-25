@@ -391,9 +391,11 @@ future session, not against shared instance data.
 - An aggregate that silently counts invisible issues leaks information even though no subject is displayed — for
   example revealing how many issues exist in a restricted area. This is a genuine leak and would be High severity.
 
-**DEFERRED to the Permissions suite pass, 2026-09-24**: this needs a restricted-visibility role session, which is
-better exercised together with the dedicated `DASHBOARDS_PERMISSIONS.md` suite's role setup rather than
-duplicated here. See that suite's results for this check.
+**FAIL, 2026-09-24**: executed as **Summer Rain** (role "QA Own Visibility", restricted to own-authored/assigned
+issues — confirmed via her own issue list showing exactly `(1-1/1)`). The "Issues by Status" widget on the same
+project showed **725** — the full unrestricted project total, not 1. Filed as `BUG-DSH-013` (High) — see
+`bugs/open/BUG-DSH-013.md` for the complete cross-check (per-status/per-assignee breakdown, and confirmation that
+drill-down itself is correctly restricted, so the leak is isolated to the chart aggregates).
 
 ---
 
@@ -408,7 +410,13 @@ duplicated here. See that suite's results for this check.
   time report itself would hide them.
 - This is the time-tracking equivalent of TC-DSH-045 and is just as easy to get wrong.
 
-**DEFERRED to the Permissions suite pass, 2026-09-24** — same reasoning as TC-DSH-045.
+**PASS, 2026-09-24**: executed as **Summer Rain** (role "QA Own Visibility"). "Total Spent Hours by Users" widget
+showed `Luna Blossom: 3` (all other 14 listed users: 0). Cross-checked against Summer Rain's own `Spent time`
+view on the same project (`/projects/test-project/time_entries`) — it independently shows exactly the same one
+entry (Luna Blossom, 3:00, issue #828, 2026-09-23). The chart's total matches what she can already see through
+Redmine core's own time-entry permission model exactly — no over-disclosure beyond what she's independently
+entitled to see (unlike `BUG-DSH-013`'s issue-count case, where the dashboard showed 725x more than the user's own
+issue list).
 
 ---
 
@@ -423,7 +431,14 @@ duplicated here. See that suite's results for this check.
 - The behaviour matches the permission model established in the permissions suite, and the endpoint enforces it.
 - A view-only user able to delete another team's dashboard widgets through the endpoint is a High-severity defect.
 
-**DEFERRED to the Permissions suite pass, 2026-09-24** — same reasoning as TC-DSH-045/046.
+**PASS (as-designed, corrected 2026-09-25), 2026-09-24**: executed as **Harmony Rose** (role "QA Read Only").
+Add Chart was fully offered and functional (`POST .../widgets` → 200, new widget persisted across reload); widget
+deletion was fully offered and functional (`DELETE .../widgets/:id` → 200, widget gone immediately). Originally
+filed as `BUG-DSH-015` (High) on the assumption a view-only role should be blocked from this — **retracted
+2026-09-25** after fetching the vendor KB directly: *"any user with access to the project can open the
+dashboard,"* with no documented restriction on add/edit/delete for any role. Every local requirements doc already
+had this marked as an open "?", not a stated restriction. Equal capabilities across all project roles is this
+plugin's documented, intentional design — see `DASHBOARDS_MEMORY.md`.
 
 ---
 

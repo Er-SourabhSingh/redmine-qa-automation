@@ -52,3 +52,11 @@
   is arguably closer to a personal/team viewing preference than project content — but it's a real, reproducible
   inconsistency with the documented "closed = read-only" contract and with how other content types behave on a
   closed project, so it's recorded rather than dismissed.
+
+## Retest — 2026-09-25
+
+**FIXED.** Re-opened "QA Closed Test Project"'s dashboard (still confirmed Closed via its Overview banner "This
+project is closed and read-only.") on `redmine-docker-700`. The **Add Chart** trigger is no longer present in the
+DOM's clickable elements at all — only the modal shell (`#addChartModal`, `#confirmAddChart`) remains, permanently
+hidden (`offsetParent: null`) with no reachable trigger. The plugin now correctly participates in Redmine's
+closed-project read-only convention. Confirmed FIXED, ready to close.

@@ -6,22 +6,19 @@
 
 | Total | Critical | High | Medium | Low |
 |-------|----------|------|--------|-----|
-| 1 | 0 | 0 | 0 | 1 |
+| 0 | 0 | 0 | 0 | 0 |
+
+**`bugs/open/` is empty.** No open bugs for this plugin as of 2026-09-24. Note: this does not by itself mean
+the plugin is `Complete` in `STATUS.md` — per `CLAUDE.md` §10/§12, that also requires a full final-cycle
+regression (`SENIOR_QA_STANDARDS.md` §27) across every suite, which has not yet been run. So far: a scoped
+2-suite regression for BUG-CHK-002/004 (`CHECKLIST_CHECKLIST_MANAGEMENT.md` + `CHECKLIST_PROGRESS_TRACKING.md`,
+42 TCs), live retests for all three bugs, and a second targeted regression (`CHECKLIST_PERMISSIONS.md` +
+`CHECKLIST_TEMPLATES.md`, 35 TCs, 0 new bugs) have been done. `CHECKLIST_INSTALLATION_CONFIGURATION.md` and
+`CHECKLIST_BLOCK_ISSUE_CLOSING.md` remain unregressed against the three fixes.
 
 ## Open Bugs
 
-### BUG-CHK-005 — Checklist CRUD is not blocked on a closed/read-only project (remaining scope: no user feedback)
-
-- Severity: Low (downgraded from High — see below)
-- Production Redmine Issue ID: #121061
-- Found live while investigating a user-reported console 403 on "Add from template" for a closed project.
-- **Retested 2026-09-24 — write-authorization half is FIXED:** `POST /checklists`, `PATCH
-  /checklists/:id/toggle_completed` (and the bulk variant), and `DELETE /checklists_delete/:id.json` now all
-  correctly return 403 and do not persist on a closed project.
-- **Remaining scope:** all four checklist-mutating actions (including the pre-existing "Add from template"
-  block) still fail completely silently — console-only 403, zero visible flash/error message. This is a
-  UX/feedback gap, not a security or data-integrity issue.
-- Full detail: `bugs/open/BUG-CHK-005.md`
+None.
 
 ## Closed This Cycle
 
@@ -31,6 +28,9 @@
 - **BUG-CHK-004** (Medium) — duplicate Checklist History journal entries on checkbox toggle. Fixed, retested
   PASS, scoped regression PASS, production #121060 synced to Done/100%. Closed 2026-09-24.
   `bugs/closed/BUG-CHK-004.md`.
+- **BUG-CHK-005** (Low, originally High) — checklist CRUD not blocked on a closed project, and blocked actions
+  gave no user feedback. Fixed in two rounds (write-authorization, then a feedback-gap follow-up fix), both
+  retested PASS, production #121061 synced to Done/100%. Closed 2026-09-24. `bugs/closed/BUG-CHK-005.md`.
 
 ## Environment
 

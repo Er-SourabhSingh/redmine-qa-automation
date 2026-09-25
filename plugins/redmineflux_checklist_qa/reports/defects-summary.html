@@ -42,7 +42,7 @@
 <body>
 
 <h1>Defects Summary — Redmineflux Checklist Plugin</h1>
-<p class="subtitle">Open bugs only — closed bugs (BUG-CHK-001, BUG-CHK-002, BUG-CHK-004) tracked in <code>bugs/closed/</code>, not repeated here</p>
+<p class="subtitle">Open bugs only — <strong>bugs/open/ is empty</strong>. All bugs (BUG-CHK-001 through BUG-CHK-005) are tracked in <code>bugs/closed/</code>.</p>
 
 <div class="meta">
   <div><span class="k">Redmine version</span>7.0.0 (Docker, localhost:3010)</div>
@@ -52,39 +52,25 @@
 </div>
 
 <div class="summary">
-  <div class="stat"><span class="num">1</span><span class="lbl">Total open</span></div>
+  <div class="stat"><span class="num">0</span><span class="lbl">Total open</span></div>
   <div class="stat critical"><span class="num">0</span><span class="lbl">Critical</span></div>
   <div class="stat high"><span class="num">0</span><span class="lbl">High</span></div>
   <div class="stat medium"><span class="num">0</span><span class="lbl">Medium</span></div>
-  <div class="stat low"><span class="num">1</span><span class="lbl">Low</span></div>
+  <div class="stat low"><span class="num">0</span><span class="lbl">Low</span></div>
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Bug ID</th>
-      <th>Severity</th>
-      <th>Title</th>
-      <th>Found via</th>
-      <th>Production issue</th>
-      <th>Notes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="bugid">BUG-CHK-005</td>
-      <td><span class="badge low">Low</span></td>
-      <td>Checklist CRUD blocked-action feedback is missing (write-authorization half already fixed)</td>
-      <td class="notes">User-reported console 403, investigated live</td>
-      <td class="notes">#121061</td>
-      <td class="notes">Retested 2026-09-24: the write-authorization gap is fixed — <code>POST /checklists</code>, <code>PATCH .../toggle_completed</code> (incl. bulk), and <code>DELETE /checklists_delete/:id.json</code> now all correctly return 403 and don't persist on a closed project. Remaining scope: all four checklist-mutating actions still fail completely silently (console-only 403, no visible flash/error) — a UX/feedback gap only, downgraded from High.</td>
-    </tr>
-  </tbody>
-</table>
+<p class="notes">No open bugs as of 2026-09-24. Note: an empty <code>bugs/open/</code> does not by itself mean
+this plugin is <code>Complete</code> in <code>STATUS.md</code> — per <code>CLAUDE.md</code> §10/§12, that also
+requires a full final-cycle regression (<code>SENIOR_QA_STANDARDS.md</code> §27) across every suite, which has
+not yet been run. So far: a scoped 2-suite regression for BUG-CHK-002/004 (<code>CHECKLIST_CHECKLIST_MANAGEMENT.md</code>
++ <code>CHECKLIST_PROGRESS_TRACKING.md</code>), live retests for all three bugs, and a second targeted regression
+(<code>CHECKLIST_PERMISSIONS.md</code> + <code>CHECKLIST_TEMPLATES.md</code>, 35 TCs, 0 new bugs) have been done.
+<code>CHECKLIST_INSTALLATION_CONFIGURATION.md</code> and <code>CHECKLIST_BLOCK_ISSUE_CLOSING.md</code> remain
+unregressed against the three fixes.</p>
 
 <footer>
-  Generated per CLAUDE.md §7 report rules. Full bug file: <code>bugs/open/BUG-CHK-005.md</code>.
-  See <code>reports/final-bug-report.md</code> for the compiled Markdown version.
+  Generated per CLAUDE.md §7 report rules. See <code>bugs/closed/</code> for full bug files and
+  <code>reports/final-bug-report.md</code> for the compiled Markdown version.
 </footer>
 
 </body>

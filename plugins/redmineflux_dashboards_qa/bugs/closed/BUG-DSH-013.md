@@ -79,3 +79,13 @@
   widget's data) but not the same defect class, and both of those were retracted 2026-09-24 as intentional design
   — see `bugs/_duplicates.md`. This bug is unrelated to filter-bar behavior: it's about the underlying query not
   being scoped to the viewer's issue-visibility permissions at all — a security defect, not a filtering-UX one.
+
+## Retest — 2026-09-25
+
+**FIXED.** Logged in as Summer Rain (QA Own Visibility role) on `redmine-docker-700`: her own issue list still
+shows exactly `(1-1/1)`. Checked the dashboard's "Issues by Status" chart across all 4 duplicate instances of that
+widget present on this heavily-reused dashboard (ids 121/122/135/139, each with a live Chart.js instance) — every
+one now shows `total: 1`, `labels: ["New"]`, `data: [1]`, matching her real visible scope exactly, not the
+project's full 725. Cross-checked "Issues by Assignee" (widget 98) the same way — `total: 1`, `["Unassigned"]:
+[1]` — also correctly scoped now. The 725x aggregate over-disclosure no longer reproduces on any chart type
+checked. Confirmed FIXED, ready to close.

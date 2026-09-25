@@ -56,15 +56,25 @@
   <div class="stat pass"><span class="num">173</span><span class="lbl">Pass</span></div>
   <div class="stat fail"><span class="num">0</span><span class="lbl">Fail</span></div>
   <div class="stat"><span class="num">1</span><span class="lbl">Not executed</span></div>
-  <div class="stat"><span class="num">1</span><span class="lbl">Open bugs</span></div>
+  <div class="stat"><span class="num">0</span><span class="lbl">Open bugs</span></div>
 </div>
 
 <p class="notes">2026-09-22: one additional bug (<code>BUG-CHK-005</code>, originally High) was found via an
 ad-hoc live investigation prompted by a user report — not from a numbered test case in any suite above.
 <strong>2026-09-24:</strong> BUG-CHK-002 and BUG-CHK-004 were retested PASS, regressed (scoped: the two suites
 below directly touched by their fixes), and closed — production issues #121059/#121060 synced to Done/100%.
-BUG-CHK-005's write-authorization half was also fixed and retested; its remaining no-feedback half stays open
-at downgraded Low severity. See the Open bugs table below.</p>
+BUG-CHK-005 was fixed in two rounds (write-authorization, then a feedback-gap follow-up fix after being
+reopened on production), retested PASS both times, and closed — production #121061 synced to Done/100%.
+<strong>All bugs for this plugin are now closed; <code>bugs/open/</code> is empty.</strong>
+<strong>Same day, later pass:</strong> a second, targeted regression re-ran <code>CHECKLIST_PERMISSIONS.md</code>
+(12 TCs) and <code>CHECKLIST_TEMPLATES.md</code> (23 TCs) — the two suites most exposed to BUG-CHK-005's
+feedback-message fix and to permission-gated writes generally — 34 PASS / 1 N/A, 0 FAIL, 0 new bugs. Confirmed
+BUG-CHK-002 and BUG-CHK-004 also hold for a non-admin role, and that BUG-CHK-005's new visible-error-message
+fix is correctly scoped (shows on a non-admin closed-project block, doesn't leak into an unrelated native-form
+flash). This does not by itself make the plugin <code>Complete</code> in <code>STATUS.md</code> — a full
+final-cycle regression (<code>SENIOR_QA_STANDARDS.md</code> §27) across every suite, including
+<code>CHECKLIST_INSTALLATION_CONFIGURATION.md</code> and <code>CHECKLIST_BLOCK_ISSUE_CLOSING.md</code>, is
+still required and has not yet been run.</p>
 
 <h2>Suite breakdown</h2>
 <table>
@@ -100,21 +110,21 @@ at downgraded Low severity. See the Open bugs table below.</p>
     </tr>
     <tr>
       <td class="suitefile">CHECKLIST_PERMISSIONS.md</td>
-      <td class="tcid">TC-CHK-067–912 (approx.)</td>
+      <td class="tcid">TC-CHK-034, 067–078</td>
       <td>12</td>
       <td>11</td>
       <td>0</td>
       <td><span class="badge na">1 N/A</span></td>
-      <td class="notes">Full 3-leg permission testing (positive UI, negative UI-absence, negative direct-URL) across roles. TC-CHK-072 N/A (feature not applicable in this configuration).</td>
+      <td class="notes">Full 3-leg permission testing (positive UI, negative UI-absence, negative direct-URL) across roles. TC-CHK-072 N/A (site-wide <code>login_required=true</code> overrides anonymous access before the plugin ever sees the request). <strong>Regressed 2026-09-24 (targeted, post BUG-CHK-002/004/005):</strong> 9 TCs independently re-verified live, 3 (TC-CHK-071/072/076) carried forward unchanged (environment/sandbox blockers unrelated to the plugin) — 0 new bugs. Confirmed BUG-CHK-002/004 hold for non-admin roles too. TC-CHK-078 confirmed BUG-CHK-005's new visible-message fix (a strict improvement over the original silent-block evidence). TC-CHK-069 confirmed the fix doesn't interfere with raw-<code>fetch()</code> 403s (no plugin AJAX handler involved, so no message — expected, unchanged).</td>
     </tr>
     <tr>
       <td class="suitefile">CHECKLIST_TEMPLATES.md</td>
-      <td class="tcid">TC-CHK-093–423</td>
+      <td class="tcid">TC-CHK-093–115</td>
       <td>23</td>
       <td>23</td>
       <td>0</td>
       <td>—</td>
-      <td class="notes">Full template CRUD, apply-to-issue, duplicate re-apply (clean explicit refusal, not a silent no-op), 100-entry template applies without timeout, script-tag injection safely escaped everywhere (a different, safe code path from <code>BUG-CHK-002</code>), non-admin blocked by direct URL. No bugs.</td>
+      <td class="notes">Full template CRUD, apply-to-issue, duplicate re-apply (clean explicit refusal, not a silent no-op), 100-entry template applies without timeout, script-tag injection safely escaped everywhere (a different, safe code path from <code>BUG-CHK-002</code>), non-admin blocked by direct URL. No bugs. <strong>Regressed 2026-09-24 (targeted, post BUG-CHK-002/004/005):</strong> 23/23 PASS, 0 new bugs. TC-CHK-106 (duplicate template-apply refusal) confirmed BUG-CHK-005's new fallback error message stayed correctly scoped to the plugin's own AJAX paths — didn't leak into or replace this suite's own unrelated native-form flash message.</td>
     </tr>
     <tr>
       <td class="suitefile">CHECKLIST_PROGRESS_TRACKING.md</td>
@@ -140,29 +150,19 @@ at downgraded Low severity. See the Open bugs table below.</p>
 <h2>German (Deutsch) language compatibility — separate suite, Forge (7.0.1.stable), 2026-09-07</h2>
 <p class="notes">Executed in an earlier session against a different environment. Not part of this cycle's scope (user explicitly excluded German this pass). 11/11 PASS at the time; <code>BUG-CHK-001</code> (Low, journal message untranslated) was filed and closed the same session — already independently reported by the user. See <code>testcases/CHECKLIST_GERMAN_LANGUAGE.md</code> for full detail.</p>
 
-<h2>Open bugs (full detail in <code>bugs/open/</code> and <code>reports/final-bug-report.md</code>)</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Bug ID</th>
-      <th>Severity</th>
-      <th>Found in</th>
-      <th>Summary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="tcid">BUG-CHK-005</td>
-      <td><span class="badge fail">Low</span></td>
-      <td class="suitefile">Ad-hoc, 2026-09-22 (user-reported, not a numbered TC)</td>
-      <td class="notes">Retested 2026-09-24: write-authorization half fixed — create/toggle/delete now correctly return 403 and don't persist on a closed project. Remaining: all four actions (incl. "Add from template") still fail with a console-only 403 and zero visible flash/error — a feedback gap only, downgraded from High.</td>
-    </tr>
-  </tbody>
-</table>
+<h2>Open bugs</h2>
+<p class="notes"><strong>None. <code>bugs/open/</code> is empty as of 2026-09-24.</strong></p>
 
-<p class="notes"><strong>Closed this cycle (2026-09-24):</strong> <code>BUG-CHK-002</code> (Critical) and
-<code>BUG-CHK-004</code> (Medium) — both retested PASS, scoped regression PASS, production issues #121059/#121060
-synced to Done/100%. See <code>bugs/closed/</code> and <code>reports/final-bug-report.md</code>.</p>
+<p class="notes"><strong>Closed this cycle (2026-09-24):</strong></p>
+<ul class="notes">
+  <li><code>BUG-CHK-002</code> (Critical) — retested PASS, scoped regression PASS, production #121059 synced to Done/100%.</li>
+  <li><code>BUG-CHK-004</code> (Medium) — retested PASS, scoped regression PASS, production #121060 synced to Done/100%.</li>
+  <li><code>BUG-CHK-005</code> (Low, originally High) — fixed in two rounds (write-authorization, then a feedback-gap follow-up after being reopened on production), retested PASS both times, production #121061 synced to Done/100%.</li>
+</ul>
+<p class="notes">Full detail in <code>bugs/closed/</code> and <code>reports/final-bug-report.md</code>. An empty
+<code>bugs/open/</code> does not by itself make this plugin <code>Complete</code> in <code>STATUS.md</code> —
+a full final-cycle regression (<code>SENIOR_QA_STANDARDS.md</code> §27) across every suite is still required
+and has not yet been run.</p>
 
 <footer>
   Generated per CLAUDE.md §7 report rules. Full per-TC evidence lives inline in each suite's own testcase file under <code>testcases/</code> —

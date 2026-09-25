@@ -171,8 +171,13 @@ checked by default; uncheck it explicitly or this case falsely passes.
 - Because there is no module to disable, this endpoint check is the **only** thing standing between a non-member
   and the project's analytics.
 
-**NOT EXECUTED, 2026-09-24** — deferred for time; recommended for next session, high priority given `BUG-DSH-013`
-already shows this plugin's permission scoping has real gaps.
+**FAIL — Critical, 2026-09-24**: confirmed "QA Private Project" is genuinely private (`project_is_public=false`)
+with **zero members**. As **Summer Rain** (a member of the unrelated "test project" only), requesting
+`/projects/qa-private-project/analytics_dashboard` returned the **full dashboard with real chart data**
+(a widget's `Chart.getChart()` data summed to 1, matching the project's actual issue count) — not refused at all.
+The **same user, same session**, requesting `/projects/qa-private-project/issues` immediately after correctly got
+**403 Forbidden** — proving Redmine core's own membership enforcement works everywhere else, and this is a
+dashboard-controller-specific gap. Filed as `BUG-DSH-019` (**Critical**).
 
 ---
 
@@ -188,18 +193,19 @@ already shows this plugin's permission scoping has real gaps.
   anonymously just because the plugin supports anonymous access elsewhere. This is a realistic implementation
   mistake once a token-based bypass exists in the same controller.
 
-**NOT EXECUTED, 2026-09-24** — deferred for time; high priority for next session (covered further in the Public
-Sharing suite pass, which also remains largely unexecuted this session).
+**PASS, 2026-09-24**: cleared all cookies (genuinely anonymous, no session) and requested
+`/projects/qa-private-project/analytics_dashboard` directly — correctly redirected to
+`/login?back_url=...analytics_dashboard`, not served. Unlike `TC-DSH-099`'s finding, **this specific gap requires
+an authenticated-but-unrelated session** — a fully anonymous request is still gated by Redmine's baseline
+login-required check. The deeper problem is `BUG-DSH-019`: once logged in as *anyone*, that login is sufficient
+regardless of project relationship.
 
 ---
 
-**TC-DSH-101 through TC-DSH-107 NOT EXECUTED, 2026-09-24** — all deferred for time given the scale of this
-session's testing. Recommended priority order for next session: `TC-DSH-102` (cross-project crafted request,
-potentially Critical) and `TC-DSH-103` (saved-query widget visibility bypass, pairs with the already-deferred
-`TC-DSH-141`) first, since both are plausible extensions of the pattern `BUG-DSH-013` already confirmed; then
-`TC-DSH-104` (share-token restriction) and `TC-DSH-099`/`100` (non-member/anonymous access) as the other
-highest-severity-potential gaps; `TC-DSH-105`/`106`/`107` (revocation timing, closed/archived projects,
-attribution) are lower urgency.
+**Note (corrected 2026-09-25): the blanket "101-107 NOT EXECUTED" deferral below is stale.** `TC-DSH-102/103/104/
+106/107` were all executed 2026-09-24 (see each TC's own verdict) — only `TC-DSH-101` (this section) and the
+genuinely-concurrent-session-dependent `TC-DSH-105` remain deferred; the closed-project half of `TC-DSH-106` is
+done (`BUG-DSH-014`), only its archived-project half is still deferred.
 
 ### TC-DSH-101: Anonymous access to a public project
 
@@ -210,6 +216,21 @@ attribution) are lower urgency.
 **Expected Result:**
 - Consistent with that project's own anonymous permissions — and never editable.
 - Anonymous users must not be able to add, delete or reconfigure widgets, nor generate a share token.
+
+**N/A on this instance's current global config, 2026-09-25** — "test project" is confirmed genuinely public
+(`project_is_public=true`) with Anonymous role granted `view_issues` (and `all_trackers_view_issues`), but NOT
+`view_dashboard`. However, a cookie-free request to both `/projects/test-project/issues` **and**
+`/projects/test-project/analytics_dashboard` redirected to `/login` — even the plain issues list, which Anonymous
+is explicitly permitted to view. Checked Administration → Settings → Authentication: **`login_required` = Yes**
+(`#settings_login_required` value `"1"`), a single instance-wide switch that forces login for every request
+before any project- or role-level permission is ever evaluated — same root cause already on record for
+`TC-DSH-100`. This is a shared, instance-wide setting also relied on by other plugins' QA on this environment, so
+it was deliberately not toggled off just to exercise this one TC (same caution as the closed/archived-project
+and shared-fixture cases elsewhere in this suite). **Conclusion: the dashboard is gated exactly as strictly as
+the rest of the instance, not more or less** — it does not weaken Redmine's own anonymous-access model in any
+detectable way, since nothing is anonymously reachable at all right now. Recommend a dedicated, disposable
+instance (or a session willing to flip `login_required` off and back) to genuinely exercise the "anonymous +
+public project" combination in a future pass.
 
 ---
 
@@ -224,6 +245,11 @@ attribution) are lower urgency.
   some dashboard access somewhere.
 - A successful read here is a Critical cross-project defect.
 
+**FAIL — Critical, 2026-09-24**: this is the same underlying scenario as `TC-DSH-099` — Summer Rain (member of
+project A, "test project") successfully read project B's ("QA Private Project") dashboard and real chart data
+using her own valid session, with B's identifier simply named in the URL. The endpoint authorises the session
+(logged in at all) but not the target project. See `BUG-DSH-019` (Critical).
+
 ---
 
 ### TC-DSH-103: Saved query widgets cannot bypass query visibility
@@ -237,6 +263,23 @@ attribution) are lower urgency.
 **Expected Result:**
 - Refused in all three. The KB promises saved query widgets respect the original query's visibility rules —
   this case is the enforcement check (paired with TC-DSH-141).
+
+**PASS (legs 1 and 3 confirmed; leg 2 inconclusive), 2026-09-24**: created a genuinely private query ("QA Private
+Query for TC-103 Test", visibility=only-me) as Admin on "test project", and added it as a Statistics Card widget
+(id 138) to the shared dashboard. Logged in as **Daisy Skye** (a real "Reporter" member of test-project, not the
+query owner):
+- **Leg 1 (Add Chart offering it)**: the private query does **not** appear in her Saved Queries dropdown at all
+  (6 options shown, all her own/shared queries — the private one is absent).
+- **Leg 3 (shared dashboard)**: widget 138 does not exist in her DOM at all
+  (`document.querySelector('[data-widget-id="138"]')` → `null`) — she cannot see Admin's private-query widget on
+  the same shared dashboard she otherwise has full view of.
+- **Leg 2 (direct create request naming query_id=16)**: returned 400, but this is **inconclusive**, not a
+  confirmed refusal — the same guessed JSON payload shape also returned 400 in unrelated contexts this session
+  (see `BUG-DSH-019`'s write-attempt note), so a 400 here is as likely a malformed-request artifact as a genuine
+  authorization refusal. Not confirmed either way.
+- Unlike `BUG-DSH-019` (project-membership), **saved-query visibility is correctly enforced** on the two legs that
+  were conclusively testable — a real positive finding worth recording alongside the several defects found this
+  session.
 
 ---
 
@@ -253,6 +296,18 @@ attribution) are lower urgency.
 - **Anyone who can mint a token can publish the project's analytics to anyone with the link.** If a Reporter can do
   it through the endpoint while the button is hidden, that is a High-severity defect.
 
+**PASS (as-designed, corrected 2026-09-25) for "any role can generate," FAIL (narrower, Medium) for
+self-revocation, 2026-09-24**: as **Daisy Skye** (Reporter, the lowest non-read-only role tested), the Share
+button was offered and fully functional — generated a real public token link, verified working fully
+unauthenticated (cookies cleared, `200`, full dashboard with 104 widgets rendered; re-confirmed 2026-09-25 with a
+completely fresh token in a brand-new isolated browser context). Originally filed as `BUG-DSH-020` (High) on the
+basis that token generation should be role-restricted — **narrowed 2026-09-25**: the vendor KB documents equal
+dashboard capabilities for any project member with no restriction on sharing, so "any role can generate" is
+intentional design, not a defect. The bug **remains open, narrowed to Medium**, for the one part that *is* a real,
+documented-by-the-app-itself limitation: the modal states only an Administrator can revoke a link, so the member
+who created it has no self-service way to undo their own action. See `bugs/open/BUG-DSH-020.md` and
+`DASHBOARDS_MEMORY.md`.
+
 ---
 
 ### TC-DSH-105: Permission revocation takes effect without re-login
@@ -265,6 +320,12 @@ attribution) are lower urgency.
 **Expected Result:**
 - Both refused. Permissions are evaluated per request, not cached in the page state.
 - Also confirm what happens to any share token they created (TC-DSH-123).
+
+**NOT EXECUTED, 2026-09-24**: genuinely requires two truly concurrent authenticated sessions (Admin revoking
+membership in one while the affected member's *already-open* session is held live in another) — the same
+constraint already on record for `TC-DSH-026`/`TC-DSH-048`/`TC-DSH-063`, out of scope for a single Playwright MCP
+browser session that can only hold one login at a time. Recommend for a future session with two parallel browser
+contexts.
 
 ---
 
@@ -280,6 +341,14 @@ attribution) are lower urgency.
 - An archived project's dashboard still serving chart data would be a defect — archiving is expected to remove
   access, and with no module switch this endpoint check is again the only control.
 
+**Closed-project half: FAIL, already fully covered by `BUG-DSH-014`** (widgets can be added on the existing
+"QA Closed Test Project" fixture — `POST .../widgets` succeeds and persists, the plugin doesn't participate in
+Redmine's closed-project read-only convention). **Archived-project half: NOT EXECUTED, 2026-09-24** — deliberately
+not attempted this pass: archiving is a heavier, harder-to-cleanly-reverse state change on a project potentially
+shared with other plugins' fixtures on this instance, same caution already on record for `TC-DSH-024` (declining
+to delete a shared version fixture). Recommend a dedicated, disposable project fixture for this check in a future
+session rather than archiving an existing shared one.
+
 ---
 
 ### TC-DSH-107: Widget and layout changes are attributable
@@ -292,6 +361,17 @@ attribution) are lower urgency.
 - If dashboards are shared per project, record whether there is any record of who changed what.
 - No audit trail on a shared, freely editable dashboard is a governance finding worth raising: a team's reporting
   view can be silently dismantled by any member with no trace.
+
+**FAIL (governance finding, not filed as a numbered bug — informational per the TC's own framing; corrected
+2026-09-25), 2026-09-24**: across this entire session's extensive widget add/delete/reposition/settings activity
+as multiple different users (Admin, Summer Rain, Harmony Rose, Daisy Skye) on the same shared "test project"
+dashboard, **no attribution UI of any kind was observed anywhere** — no "last edited by," no changelog, no tooltip
+on a widget showing its creator. Any project member being able to add/delete/reposition widgets or publish the
+dashboard externally is this plugin's documented, intentional design (see `DASHBOARDS_MEMORY.md` — the earlier
+citation of `BUG-DSH-015` here was retracted 2026-09-25), so the governance concern is narrower than originally
+framed: it's specifically that a shared dashboard can be rearranged, deleted, or shared publicly with **zero
+record of who did it**, not that those actions are possible at all (which is expected). Still worth recording as
+an informational finding, not a numbered bug.
 
 ---
 

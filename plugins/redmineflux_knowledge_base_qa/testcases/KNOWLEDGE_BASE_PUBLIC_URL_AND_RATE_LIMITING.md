@@ -38,6 +38,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-109: Enable public access on a published page
 
 **User Role:** Member with `manage_knowledgebase_pages`
+**Priority:** High
 **Steps:**
 1. Open a published page → **Public URL** → **Enable Public Access**.
 
@@ -49,6 +50,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-110: Token matches the documented format
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Inspect the generated token.
 
@@ -61,6 +63,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-111: The public URL works unauthenticated
 
 **User Role:** Unauthenticated visitor
+**Priority:** High
 **Steps:**
 1. Open the URL in a private window with no Redmine session.
 
@@ -72,6 +75,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-112: The public view is read-only
 
 **User Role:** Unauthenticated visitor
+**Priority:** High
 **Steps:**
 1. Inspect the public page for Edit, Publish, Delete, Versions, commenting, and any sidebar action menus.
 
@@ -84,6 +88,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-113: Only the published version is served
 
 **User Role:** Member then unauthenticated visitor
+**Priority:** High
 **Steps:**
 1. Publish version 1 and share it publicly.
 2. Edit the page so an unpublished draft exists, and let auto-save run.
@@ -99,6 +104,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-114: Public access cannot be enabled on a page with no published version
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. On a never-published draft, look for the Public URL action.
 2. Send the enable-public-access request **directly** for that page.
@@ -112,6 +118,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-115: Public access cannot be enabled on an explicitly unpublished page
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Unpublish a page, then attempt to enable public access through the UI and directly.
 
@@ -123,6 +130,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-116: View count is tracked
 
 **User Role:** Member + unauthenticated visitor
+**Priority:** Low
 **Steps:**
 1. Note the page's view count, load the public URL several times from a fresh session, re-check.
 
@@ -135,6 +143,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-117: Browser caching behaves as documented
 
 **User Role:** Unauthenticated visitor
+**Priority:** Medium
 **Steps:**
 1. Inspect the public response's `Cache-Control` headers.
 
@@ -148,6 +157,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-118: Disabling public access revokes the URL immediately
 
 **User Role:** Member, then unauthenticated visitor
+**Priority:** High
 **Steps:**
 1. Confirm the public URL works.
 2. **Public URL** → **Disable Public Access**.
@@ -169,6 +179,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-119: Per-minute throttle triggers
 
 **User Role:** Unauthenticated client
+**Priority:** High
 **Steps:**
 1. With the limit at its default 30/minute, issue 35 GET requests to a public URL from one IP within a minute.
 
@@ -180,6 +191,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-120: Hourly aggressive throttle triggers
 
 **User Role:** Unauthenticated client
+**Priority:** Medium
 **Steps:**
 1. Stay under the per-minute limit but exceed 100 requests in an hour from one IP.
 
@@ -191,6 +203,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-121: Throttling is per IP
 
 **User Role:** Two unauthenticated clients on different IPs
+**Priority:** Medium
 **Steps:**
 1. Exhaust the limit from IP A, then request from IP B.
 
@@ -203,6 +216,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-122: Non-GET requests to public URLs are blocked
 
 **User Role:** Unauthenticated client
+**Priority:** High
 **Steps:**
 1. Send POST, PATCH, PUT and DELETE requests to a `/kb/public/*` URL.
 
@@ -215,6 +229,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-123: Known bot user agents are blocked
 
 **User Role:** Unauthenticated client
+**Priority:** Medium
 **Steps:**
 1. With **Block bots** enabled, request the public URL with user agents `curl`, `wget`, `python-requests` and
    `scrapy`.
@@ -230,6 +245,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-124: Disabling bot blocking
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Disable **Block bots** and repeat TC-RKB-123.
 
@@ -241,6 +257,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-125: Throttle limits are configurable and take effect within 60 seconds
 
 **User Role:** Admin + unauthenticated client
+**Priority:** Medium
 **Steps:**
 1. Lower the per-minute limit, save, wait 60 seconds, and re-test.
 
@@ -252,6 +269,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-126: IP allowlist bypasses throttling
 
 **User Role:** Admin + client on the allowlisted IP
+**Priority:** Medium
 **Steps:**
 1. Add the test client's IP to the allowlist; exceed the per-minute limit.
 
@@ -263,6 +281,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-127: IP blocklist always rejects
 
 **User Role:** Admin + client on the blocklisted IP
+**Priority:** High
 **Steps:**
 1. Add the client's IP to the blocklist and make a single request.
 
@@ -280,6 +299,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-128: Invalid token format is rejected before any database lookup
 
 **User Role:** Unauthenticated client
+**Priority:** High
 **Steps:**
 1. Request public URLs with: a too-short token, a token containing non-hex characters, an empty token, and a
    64-character token that is valid in form but does not exist.
@@ -295,6 +315,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-129: A token for one page does not reach another
 
 **User Role:** Unauthenticated client
+**Priority:** High
 **Steps:**
 1. With a valid token for page X, attempt to request page Y by substituting identifiers while keeping the token.
 
@@ -307,6 +328,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-130: The public token confers no write access
 
 **User Role:** Unauthenticated client
+**Priority:** High
 **Steps:**
 1. Using the public token and no session, send requests directly for: edit page, publish, unpublish, delete,
    restore version, create node, and regenerate the public token.
@@ -320,6 +342,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-131: The public view exposes no internal data
 
 **User Role:** Unauthenticated visitor
+**Priority:** High
 **Steps:**
 1. Inspect the public page's full HTML source and network responses for: the sidebar tree, other page titles,
    space names, version history, author email addresses, internal user names, issue subjects from `#` mentions,
@@ -336,6 +359,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-132: Public access when the master toggle is off
 
 **User Role:** Admin, then unauthenticated visitor
+**Priority:** High
 **Steps:**
 1. Disable **Enable public access** in plugin settings.
 2. Retry an existing, previously working public URL from a fresh session.
@@ -349,6 +373,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-133: Enabling public access without permission
 
 **User Role:** Member with `view_knowledgebase` only
+**Priority:** High
 **Steps:**
 1. Confirm the Public URL action is not offered.
 2. Send the enable-public-access request **directly**.
@@ -363,6 +388,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-134: Public URL after the page moves or the project changes state
 
 **User Role:** Member + Admin, then unauthenticated visitor
+**Priority:** Medium
 **Steps:**
 1. With a public URL active, in turn: move the page to another folder; close the project; archive the project;
    make a public project private. Retry the link after each.
@@ -379,6 +405,7 @@ Redmine session. Testing while logged in is the easiest way to get a false pass 
 ### TC-RKB-135: Indexing exposure
 
 **User Role:** Unauthenticated visitor
+**Priority:** Low
 **Steps:**
 1. Inspect the public page's response headers and markup for indexing directives.
 

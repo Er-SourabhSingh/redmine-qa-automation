@@ -78,6 +78,16 @@ Not part of today's `CHANGES.md` — no Workload/Capacity agent or tool files we
 
 **Verdict: NOT FIXED.** No change needed to this bug's status; remains open.
 
+## 2026-09-25 retest — FIXED, live-confirmed
+
+Same exact repro shape: fresh session, `admin`, "Workload, create a leave request for luna.blossom from 2026-11-15 to 2026-11-16, leave type sick, reason 'Retest'." (username + all fields combined in one message, the exact trigger condition documented above).
+
+**Result:** the confirm card's field is now labeled `Username: luna.blossom` directly (no numeric ID field shown at proposal time at all — a UI change from the original bug's `User: 0` field). Confirmed it — response: `"✓ Leave created: #4 | Crux Manager | Sick Leave | 2026-11-15 → 2026-11-16 (1.0 days) | Status: pending"`.
+
+**Verified against the real record** (`/rf_leaves`, Team Approvals tab, independent of the chat claim): a real Pending Approvals row shows Employee **Crux Manager** (linking to `/users/5`, luna.blossom's real account) — the correct user, not a placeholder ID 0 or an unrelated account.
+
+**Verdict: FIXED, live-confirmed.** The username no longer silently resolves to an invalid placeholder ID.
+
 ## Production report
 
 Reported to production as issue **#120706** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-16. Textile description, no attachments (per updated §4.3a policy). Found via TC-CRX-091 (`CRUX_AGENT_WORKLOAD_CAPACITY.md`) — testcase marked Passed (with findings).

@@ -25,6 +25,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-001: Edit a template via the pencil icon
 
 **User Role:** Admin (global) / permitted member (project)
+**Priority:** High
 **Steps:**
 1. Click the pencil icon on a template row.
 2. On the Edit/Update page, change the Name, Subject and Description.
@@ -38,6 +39,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-002: Edit form is pre-populated with current values
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Open a template for edit without changing anything, and compare every field with what was saved.
 
@@ -51,6 +53,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-003: Submitting an unchanged edit is a no-op
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Open a template for edit and submit immediately without changes.
 
@@ -62,6 +65,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-004: Rebind a template to different projects
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Edit a template bound to projects A and B: untick B, tick C. Submit.
 2. Check the Issue Template page and New Issue form of A, B and C.
@@ -74,6 +78,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-005: Editing a template does not change issues already created from it
 
 **User Role:** Admin + Member
+**Priority:** High
 **Steps:**
 1. Create an issue from a template.
 2. Edit the template's subject and description substantially.
@@ -93,6 +98,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-006: Delete a template with confirmation
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Click the trash icon on a template row.
 2. Confirm in the dialog.
@@ -106,6 +112,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-007: Cancel a deletion
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Trigger the delete and cancel the confirmation.
 
@@ -117,6 +124,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-008: Deleting a template does not affect issues created from it
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Create an issue from a template, then delete the template.
 2. Reopen the issue.
@@ -129,6 +137,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-009: Deleting the tracker's only template
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. Delete the only template bound to a tracker, then open New Issue and select that tracker.
 
@@ -145,6 +154,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-010: Default template is pre-selected by tracker
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Open **New Issue** in a project bound to a template for tracker T.
 2. Select tracker T.
@@ -158,6 +168,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-011: Pre-selection with two templates on the same tracker
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** Two templates exist for the same tracker and the same project.
 **Steps:**
 1. Open New Issue and select that tracker.
@@ -172,6 +183,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-012: Pre-selection when a global and a project template both match
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With a global template and a project template both bound to the same tracker and project, open New Issue.
 
@@ -184,6 +196,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-013: Changing the tracker on the New Issue form switches the template
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. On New Issue, select tracker T1 (template pre-fills), then switch to T2, which has a different template.
 
@@ -198,6 +211,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-014: Template content is fully copied onto the created issue
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create an issue from a template without editing the pre-filled values.
 2. Open the created issue.
@@ -210,6 +224,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-015: Pre-filled content can be edited before creating
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Modify the pre-filled subject and description, then create.
 
@@ -222,6 +237,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-016: Formatting survives from template to issue
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Use a template whose description contains headings, lists, bold text and a quote block.
 2. Create the issue and view it.
@@ -235,6 +251,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-017: Determine what template validation actually exists
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. Inspect the template creation form for any mandatory-field or validation-rule options.
 2. If any exist, configure one and attempt to create an issue that violates it.
@@ -255,6 +272,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-018: New Issue in a project with no templates
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open New Issue in a project bound to no templates.
 
@@ -266,6 +284,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-019: Template deleted while a New Issue form is open
 
 **User Role:** Member + Admin
+**Priority:** Medium
 **Steps:**
 1. Member opens New Issue with a template pre-filled. Admin deletes that template. Member submits.
 
@@ -278,6 +297,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-020: Template bound to a project the user cannot see
 
 **User Role:** Member of A only
+**Priority:** High
 **Steps:**
 1. Open New Issue in project A and inspect the available templates.
 
@@ -290,6 +310,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-021: Applying a template with a subject longer than the field allows
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Use a template whose subject exceeds Redmine's subject length limit and attempt to create.
 
@@ -303,6 +324,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-022: Required custom fields not covered by the template
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply a template on a tracker that has required custom fields the template does not fill.
 
@@ -315,6 +337,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-023: Rapid tracker switching on the New Issue form
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Switch the tracker five times in quick succession between trackers with different templates, then create.
 
@@ -327,6 +350,7 @@ Applying: header **Issues** → **New Issue**. Do not jump to a deep URL.
 ### TC-RIT-024: Template applied via the REST API
 
 **User Role:** Member with API key
+**Priority:** Low
 **Steps:**
 1. Create an issue through `POST /issues.json` on a tracker with a default template.
 

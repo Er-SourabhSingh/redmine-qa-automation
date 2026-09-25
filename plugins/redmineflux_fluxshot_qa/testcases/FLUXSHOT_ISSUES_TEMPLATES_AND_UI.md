@@ -25,6 +25,7 @@ sessions.
 ### TC-FSX-050: Create an issue with all fields
 
 **User Role:** Logged-in member with issue-create rights
+**Priority:** High
 **Steps:**
 1. On the **Add Issue** tab set Project, Tracker, Subject, Description, Assignee and a parent Issue; click
    **Save**.
@@ -39,6 +40,7 @@ sessions.
 ### TC-FSX-051: Subject is required
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Attempt to save with the Subject blank.
 
@@ -50,6 +52,7 @@ sessions.
 ### TC-FSX-052: Project dropdown lists accessible projects
 
 **User Role:** Member of two projects out of several
+**Priority:** High
 **Steps:**
 1. Open the Project dropdown and compare it against the projects the user can see in Redmine.
 
@@ -61,6 +64,7 @@ sessions.
 ### TC-FSX-053: Tracker list matches the project
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Select a project and check the trackers offered; switch project and re-check.
 
@@ -72,6 +76,7 @@ sessions.
 ### TC-FSX-054: Assignee list matches the project
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Open the Assignee dropdown for a project.
 
@@ -83,6 +88,7 @@ sessions.
 ### TC-FSX-055: Parent issue creates a sub-issue
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Choose a parent issue and save; open the result in Redmine.
 
@@ -94,6 +100,7 @@ sessions.
 ### TC-FSX-056: Required custom fields
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Preconditions:** The tracker has required custom fields the extension form does not collect.
 **Steps:**
 1. Attempt to create an issue on that tracker.
@@ -109,6 +116,7 @@ sessions.
 ### TC-FSX-057: Save & Open navigates to the issue
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Use **Save & Open**.
 
@@ -120,6 +128,7 @@ sessions.
 ### TC-FSX-058: Creation failure is reported
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Take the network offline, or revoke the user's create permission, then attempt to save.
 
@@ -136,6 +145,7 @@ sessions.
 ### TC-FSX-059: Update an existing issue
 
 **User Role:** Logged-in member with edit rights
+**Priority:** High
 **Steps:**
 1. On the **Update Issue** tab select Project, Tracker and an Issue; adjust the pre-filled Subject/Description;
    click **Update**.
@@ -149,6 +159,7 @@ sessions.
 ### TC-FSX-060: Fields pre-fill from the selected issue
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Select an issue and inspect Subject and Description.
 
@@ -162,6 +173,7 @@ sessions.
 ### TC-FSX-061: The issue dropdown is searchable and shows ID and subject
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Type into the Issues dropdown.
 
@@ -173,6 +185,7 @@ sessions.
 ### TC-FSX-062: Tracker filters the issue list
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Change the Tracker and observe the Issues dropdown.
 
@@ -184,6 +197,7 @@ sessions.
 ### TC-FSX-063: Non-admins see only issues assigned to them
 
 **User Role:** A non-admin member
+**Priority:** High
 **Steps:**
 1. Compare the Issues dropdown against the project's full issue list.
 
@@ -197,6 +211,7 @@ sessions.
 ### TC-FSX-064: Update & Open navigates to the issue
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Use **Update & Open**.
 
@@ -208,6 +223,7 @@ sessions.
 ### TC-FSX-065: Update failure is reported
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Attempt to update an issue the user cannot edit, or with the network offline.
 
@@ -224,6 +240,7 @@ sessions.
 ### TC-FSX-066: All formatting controls work
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. In the Description field apply H1, H2, bold, italic, underline, a bullet list, a numbered list and a link.
 
@@ -235,6 +252,7 @@ sessions.
 ### TC-FSX-067: Formatting renders correctly in Redmine
 
 **User Role:** Logged-in member
+**Priority:** High
 **Steps:**
 1. Create an issue with all of that formatting and open it in Redmine.
 
@@ -248,6 +266,7 @@ sessions.
 ### TC-FSX-068: Underline in Markdown
 
 **User Role:** Logged-in member
+**Priority:** Low
 **Steps:**
 1. Apply underline and inspect the rendered issue.
 
@@ -260,6 +279,7 @@ sessions.
 ### TC-FSX-069: Special characters and injection
 
 **User Role:** Logged-in member
+**Priority:** High
 **Steps:**
 1. Enter a script tag, HTML markup and Markdown metacharacters in the Subject and Description; create the issue
    and view it in Redmine as another user.
@@ -277,6 +297,7 @@ sessions.
 ### TC-FSX-070: Create a template
 
 **User Role:** Logged-in member
+**Priority:** High
 **Steps:**
 1. Templates tab → name, subject, description → **Create**.
 
@@ -288,6 +309,7 @@ sessions.
 ### TC-FSX-071: Use a template to pre-fill
 
 **User Role:** Logged-in member
+**Priority:** High
 **Steps:**
 1. On Add Issue, select the template from the dropdown.
 
@@ -299,6 +321,7 @@ sessions.
 ### TC-FSX-072: Edit a template
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Click the pencil (✏) icon, change the values, click **Update**.
 
@@ -311,6 +334,7 @@ sessions.
 ### TC-FSX-073: Delete a template with confirmation
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Click the trash (🗑) icon.
 
@@ -322,6 +346,7 @@ sessions.
 ### TC-FSX-074: Template validation
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Create templates with a blank name, a blank subject, a duplicate name and a 500-character name.
 
@@ -334,6 +359,7 @@ sessions.
 ### TC-FSX-075: Several templates coexist
 
 **User Role:** Logged-in member
+**Priority:** Low
 **Steps:**
 1. Create three templates and switch between them on the Add Issue tab.
 
@@ -345,6 +371,7 @@ sessions.
 ### TC-FSX-076: Templates persist across devices
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Log in on a second browser or machine and open the Templates tab.
 
@@ -356,6 +383,7 @@ sessions.
 ### TC-FSX-077: Templates are private to their owner
 
 **User Role:** Two members
+**Priority:** High
 **Steps:**
 1. User A creates a template; user B opens the Templates tab.
 
@@ -371,6 +399,7 @@ sessions.
 ### TC-FSX-078: Dark mode applies throughout
 
 **User Role:** Logged-in member
+**Priority:** Low
 **Steps:**
 1. ⚙ → toggle **Dark Mode** on, and inspect forms, dropdowns, buttons, modals and toast notifications.
 
@@ -384,6 +413,7 @@ sessions.
 ### TC-FSX-079: Dark mode persists
 
 **User Role:** Logged-in member
+**Priority:** Low
 **Steps:**
 1. Close and reopen the editor, and restart Chrome.
 
@@ -395,6 +425,7 @@ sessions.
 ### TC-FSX-080: Dark mode does not affect the screenshot
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Capture and submit with dark mode on.
 
@@ -406,6 +437,7 @@ sessions.
 ### TC-FSX-081: All five accent colours apply
 
 **User Role:** Logged-in member
+**Priority:** Low
 **Steps:**
 1. Apply Blue, Purple, Green, Orange and Rose in turn.
 
@@ -418,6 +450,7 @@ sessions.
 ### TC-FSX-082: Accent colour persists
 
 **User Role:** Logged-in member
+**Priority:** Low
 **Steps:**
 1. Reopen the editor after restarting Chrome.
 
@@ -429,6 +462,7 @@ sessions.
 ### TC-FSX-083: Accent colour works with dark mode
 
 **User Role:** Logged-in member
+**Priority:** Low
 **Steps:**
 1. Combine each accent colour with dark mode.
 
@@ -440,6 +474,7 @@ sessions.
 ### TC-FSX-084: Resize the sidebar
 
 **User Role:** Logged-in member
+**Priority:** Low
 **Steps:**
 1. Drag the sidebar's left edge wider and narrower.
 
@@ -452,6 +487,7 @@ sessions.
 ### TC-FSX-085: Width limits are enforced
 
 **User Role:** Logged-in member
+**Priority:** Low
 **Steps:**
 1. Drag beyond both extremes.
 
@@ -464,6 +500,7 @@ sessions.
 ### TC-FSX-086: Width persists
 
 **User Role:** Logged-in member
+**Priority:** Low
 **Steps:**
 1. Resize, close the editor, and reopen.
 
@@ -475,6 +512,7 @@ sessions.
 ### TC-FSX-087: Form usability at the minimum width
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. At 260 px, complete a full Add Issue flow including the rich text toolbar and the dropdowns.
 
@@ -491,6 +529,7 @@ sessions.
 ### TC-FSX-088: Issue creation follows the user's own Redmine permissions
 
 **User Role:** A member without issue-create rights on a project
+**Priority:** High
 **Steps:**
 1. Check whether the project appears in the dropdown.
 2. Send the create request **directly** to the plugin's API naming that project.
@@ -503,6 +542,7 @@ sessions.
 ### TC-FSX-089: Templates cannot be read or changed by another user
 
 **User Role:** Two members
+**Priority:** High
 **Steps:**
 1. User A creates a template and notes its ID.
 2. As user B, request that template directly, then attempt to edit and delete it.
@@ -518,6 +558,7 @@ sessions.
 ### TC-FSX-090: The project list does not leak inaccessible projects
 
 **User Role:** Member of two projects
+**Priority:** High
 **Steps:**
 1. Inspect the **response payload** behind the Project dropdown, not just the rendered list.
 
@@ -530,6 +571,7 @@ sessions.
 ### TC-FSX-091: The issue list does not leak inaccessible issues
 
 **User Role:** Non-admin member
+**Priority:** High
 **Steps:**
 1. Inspect the payload behind the Issues dropdown.
 2. Send an update request directly naming an issue the user cannot see.
@@ -544,6 +586,7 @@ sessions.
 ### TC-FSX-092: Non-member cannot reach a private project
 
 **User Role:** Authenticated non-member
+**Priority:** High
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -557,6 +600,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-FSX-093: Unauthenticated API access
 
 **User Role:** No credentials
+**Priority:** High
 **Steps:**
 1. Call the plugin's issue-create, issue-list and template endpoints with no API key.
 
@@ -570,6 +614,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-FSX-094: A revoked API key stops working
 
 **User Role:** Member + Admin
+**Priority:** High
 **Steps:**
 1. Reset the user's Redmine API key while the extension is logged in, then attempt to create an issue.
 
@@ -582,6 +627,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-FSX-095: Permission revocation takes effect immediately
 
 **User Role:** Admin + member
+**Priority:** High
 **Steps:**
 1. Remove the member's create rights while the editor is open, then attempt to save.
 
@@ -593,6 +639,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-FSX-096: Closed and archived projects
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. Check whether closed and archived projects appear in the dropdowns, and send create requests for each directly.
 
@@ -604,6 +651,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-FSX-097: Attachments respect issue visibility
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Attach a screenshot to an issue, then view that issue as a user who cannot see it.
 

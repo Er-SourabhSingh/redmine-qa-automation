@@ -32,6 +32,7 @@ Each setting must be verified by its visible effect on the chart, and by persist
 ### TC-DSH-001: Legend position
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Settings → General → **Legend Position** → set Top, then Bottom, then Left, then Right, saving each time.
 
@@ -52,6 +53,7 @@ silently kept reading a *different* sibling widget's Chart.js instance every tim
 ### TC-DSH-002: Show and hide data labels
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Settings → General → **Show Data Labels** → Show, save; then Hide, save.
 
@@ -71,6 +73,7 @@ mismatch is not constructible in the current implementation.
 ### TC-DSH-003: Settings persist across reload
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Change legend position, data labels and colours; reload the page.
 
@@ -90,6 +93,7 @@ settings read back identical post-reload via `Chart.getChart()` and the card's o
 ### TC-DSH-004: Top accent colour
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Settings → Appearance → set the **Top Accent Color**; save.
 
@@ -105,6 +109,7 @@ TC-DSH-003).
 ### TC-DSH-005: Prebuilt colour palettes
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Apply each available prebuilt palette to a multi-series chart.
 
@@ -124,6 +129,7 @@ defined swatches.
 ### TC-DSH-006: Individual custom series colours
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Set custom colours for individual series; save.
 
@@ -143,6 +149,7 @@ Rejected segments respectively — confirmed overriding the previously-set palet
 ### TC-DSH-007: Card background and border colour
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Set the card background and border colours; save.
 
@@ -166,6 +173,7 @@ the actual UI can raise.
 ### TC-DSH-008: Appearance settings are per chart
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Style one chart distinctively and confirm the others are unaffected.
 
@@ -190,6 +198,7 @@ fully scoped per widget, no bleed between instances of the same chart type.
 ### TC-DSH-166: Appearance settings become available for a chart-template query widget
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** A saved-query widget added as a Doughnut/Pie/Bar/Line (grouped by any dimension).
 **Steps:**
 1. Open that widget's Settings.
@@ -208,6 +217,7 @@ exercised successfully in TC-DSH-005/006/176.
 ### TC-DSH-167: Appearance settings stay hidden for the statistics card
 
 **User Role:** Member
+**Priority:** Low
 **Preconditions:** A saved-query widget left on (or switched back to) the Statistics card template.
 **Steps:**
 1. Open that widget's Settings.
@@ -229,6 +239,7 @@ every widget type regardless, so its presence doesn't contradict this TC.
 ### TC-DSH-168: Segment order follows a list custom field's own defined order
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** A list custom field with a defined, non-alphabetical value order (e.g. Low, Medium, High,
 Critical).
 **Steps:**
@@ -251,6 +262,7 @@ the counts.
 ### TC-DSH-169: Segment order follows configured order for Status/Priority/Tracker/Target version
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add a query chart grouped by Status (or Priority/Tracker/Target version), with counts arranged so the largest
    value is not the one configured first.
@@ -272,6 +284,7 @@ query chart") is testing; only the saved-query/#120914 grouping path is in scope
 ### TC-DSH-170: Assignee/Author grouping stays largest-first
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Add a query chart grouped by Assignee (then, separately, by Author).
 
@@ -292,6 +305,7 @@ with a purpose-built fixture (e.g. reassign several issues to 3 different users 
 ### TC-DSH-171: "Not set" segment always trails the real values
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add a query chart grouped by a custom field where "Not set" is not the smallest segment (i.e. more issues have
    no value than have any single defined value).
@@ -309,6 +323,7 @@ both a custom field and a standard field.
 ### TC-DSH-172: Order and colour-to-label mapping stay stable when counts change
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Note the segment order and colours of a chart grouped by a field with a defined order.
 2. Change enough issues' values (or add new issues) that a different value becomes the largest segment.
@@ -329,6 +344,7 @@ moved despite the underlying counts swapping which one was actually larger.
 ### TC-DSH-173: Colour-named custom field values are auto-coloured — English
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** No colour palette explicitly configured for the chart. A custom field whose values are named
 after colours in English (e.g. Green/Yellow/Red).
 **Steps:**
@@ -348,6 +364,7 @@ generic default via TC-DSH-175's Boolean-field control case).
 ### TC-DSH-174: Colour-named custom field values are auto-coloured — German
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** Same as TC-DSH-173, but the field's values are set up in German (e.g. Grün/Gelb/Rot).
 **Steps:**
 1. Add a query chart grouped by that field on a German-language session.
@@ -370,6 +387,7 @@ German-language spot-check noted in `DASHBOARDS_GERMAN_LANGUAGE.md`.
 ### TC-DSH-175: Non-colour-named values fall back to the generic palette
 
 **User Role:** Member
+**Priority:** Low
 **Preconditions:** No colour palette explicitly configured. A custom field whose values are not colour names (e.g.
 "OK / Warning / Critical").
 **Steps:**
@@ -390,6 +408,7 @@ colour-name match. Two segments, two distinct colours — no collision.
 ### TC-DSH-176: An explicit palette overrides automatic colour-name matching
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** A chart grouped by a colour-named custom field (as in TC-DSH-173).
 **Steps:**
 1. In Chart Settings → Appearance, set an explicit colour palette.
@@ -417,6 +436,7 @@ priority over the automatic colour-name match.
 ### TC-DSH-181: Saving Chart Settings with no changes is a true no-op
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** A chart-template (Doughnut/Pie/Bar/Line) saved-query widget already rendering real data.
 **Steps:**
 1. Open the widget's Settings.
@@ -434,6 +454,7 @@ priority over the automatic colour-name match.
 ### TC-DSH-182: Save Settings preserves an already-set Top Accent Color
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** A chart-template widget with a custom Top Accent Color already set (not the default `#2196F3`).
 **Steps:**
 1. Open Settings, change nothing, click **Save Settings**.
@@ -449,6 +470,7 @@ priority over the automatic colour-name match.
 ### TC-DSH-183: Issue Status Filter selection is actually sent and applied
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** A chart-template widget's Settings panel, Data Filters → Issue Status Filter set to "All Issues".
 **Steps:**
 1. Change Issue Status Filter to "Open Issues Only" (or "Closed Issues Only").
@@ -470,6 +492,7 @@ priority over the automatic colour-name match.
 ### TC-DSH-184: Chart-template widget's Settings panel has no unrelated Data Filters section
 
 **User Role:** Member
+**Priority:** Low
 **Preconditions:** Any chart-template (Doughnut/Pie/Bar/Line) saved-query widget.
 **Steps:**
 1. Open the widget's Settings and read the panel top to bottom.
@@ -486,6 +509,7 @@ priority over the automatic colour-name match.
 ### TC-DSH-185: Chart template (Display as) can be changed after creation
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** A saved-query widget already added as Doughnut.
 **Steps:**
 1. Open the widget's Settings.
@@ -502,6 +526,7 @@ priority over the automatic colour-name match.
 ### TC-DSH-186: Group by can be changed after creation, updating with Display as
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** A saved-query widget already added and grouped by Status.
 **Steps:**
 1. Open the widget's Settings.
@@ -520,6 +545,7 @@ priority over the automatic colour-name match.
 ### TC-DSH-187: Doughnut/Pie chart legend shows the grouped category label
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add a saved-query widget as Doughnut (and separately as Pie), grouped by any dimension.
 2. Read the chart's legend.
@@ -534,6 +560,7 @@ priority over the automatic colour-name match.
 ### TC-DSH-188: Bar/Line chart legend shows the grouped category label, not the query name
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add the **same** saved-query widget as Bar (and separately as Line), same grouping as TC-DSH-187.
 2. Read the chart's legend and compare against the X-axis category labels.
@@ -560,6 +587,7 @@ priority over the automatic colour-name match.
 ### TC-DSH-009: Apply each available data filter
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Settings → **Data Filters** → for each filter the chart type offers — Issue Status, Tracker, Priority,
    Assignee, Version, Activity, Role, User — move values from available to selected and save.
@@ -579,6 +607,7 @@ widget. The filter genuinely constrains the underlying query, not just the displ
 ### TC-DSH-010: Available filters depend on the chart type
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Compare the filter options offered on an issue chart with those on a time-tracking chart.
 
@@ -598,6 +627,7 @@ Filter, not Tracker/Priority. Filters are chart-type-appropriate, not a fixed un
 ### TC-DSH-011: Multiple filters combine
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Apply a tracker filter and an assignee filter to one chart.
 
@@ -616,6 +646,7 @@ time — recommended for next session.
 ### TC-DSH-012: Clearing a filter restores the full data
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Move all values back to the available list and save.
 
@@ -631,6 +662,7 @@ state. No residual filtering.
 ### TC-DSH-013: Per-chart filters are independent
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply different filters to two charts of the same type.
 
@@ -651,6 +683,7 @@ own data stayed internally consistent with its own settings throughout.
 ### TC-DSH-014: Set a custom date range on one chart
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Settings → General → set **Custom Start Date** and **Custom End Date**; save.
 
@@ -668,6 +701,7 @@ is visually indicated, not silent.
 ### TC-DSH-015: A per-chart range overrides the global range
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. With one chart on a custom range, change the **global** date range and Apply Filters.
 
@@ -684,6 +718,7 @@ widget (no override) correctly updated to the new global range (521/251/247/178/
 ### TC-DSH-016: Clearing the custom range restores global behaviour
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Clear both custom date fields and save; then change the global range.
 
@@ -700,6 +735,7 @@ return to global-following state.
 ### TC-DSH-017: Per-chart range survives a copy
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Copy a chart that has a custom date range.
 
@@ -718,6 +754,7 @@ duplicate widget on the dashboard, so there is no in-app copy to check for range
 ### TC-DSH-018: End date before start date
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Set a custom end date earlier than the start date and save.
 
@@ -734,6 +771,7 @@ open (save blocked), not a silent empty chart.
 ### TC-DSH-019: Only one of the two custom dates set
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Set a custom start date but leave the end date blank, and save; then the reverse.
 
@@ -749,6 +787,7 @@ open (save blocked), not a silent empty chart.
 ### TC-DSH-020: Date range with no data
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Set a custom range far in the past or future where no issues or time entries exist.
 
@@ -769,6 +808,7 @@ date range, so this specific negative case doesn't exercise it differently.
 ### TC-DSH-021: Extremely wide date range
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Set a ten-year custom range on a trend chart.
 
@@ -783,6 +823,7 @@ date range, so this specific negative case doesn't exercise it differently.
 ### TC-DSH-022: Invalid colour values
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Enter an invalid colour string for the accent, background or a series colour.
 
@@ -796,6 +837,7 @@ date range, so this specific negative case doesn't exercise it differently.
 ### TC-DSH-023: Filter values the user cannot see
 
 **User Role:** Member with restricted visibility
+**Priority:** High
 **Steps:**
 1. Open the Data Filters section and enumerate the available values for Assignee, User and Version.
 
@@ -813,6 +855,7 @@ seeded user roster, not scoped to anything Summer Rain is entitled to know. File
 ### TC-DSH-024: Filter referencing a deleted value
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. Filter a chart on a specific version; delete that version; reload the dashboard and reopen the chart settings.
 
@@ -829,6 +872,7 @@ future session.
 ### TC-DSH-025: Settings changes without permission
 
 **User Role:** Member with view-only project access
+**Priority:** Medium
 **Steps:**
 1. Confirm whether the chart settings control is offered.
 2. Send a chart-settings update request **directly**.
@@ -850,6 +894,7 @@ defect. See `DASHBOARDS_MEMORY.md`.
 ### TC-DSH-026: Settings scope — per user or per project
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. A changes one chart's colours, filters and custom date range. B opens the same project dashboard.
 

@@ -17,6 +17,7 @@
 ### TC-HLP-176: Fresh install completes end-to-end on a supported Redmine version
 
 **User Role:** System Administrator (server access)
+**Priority:** High
 **Precondition:** A clean Redmine instance on a supported version (5.0.x, 5.1.x, 6.0.x or 6.1.x). Redmine's default data has **not** yet been loaded.
 
 **Steps:**
@@ -41,6 +42,7 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 ### TC-HLP-177: Plugin migration creates the "Waiting for Customer Response" issue status
 
 **User Role:** System Administrator (server access)
+**Priority:** High
 **Precondition:** TC-HLP-176 completed successfully.
 
 **Steps:**
@@ -57,6 +59,7 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 ### TC-HLP-178: A tracker named "Support" is available after install
 
 **User Role:** Administrator
+**Priority:** High
 **Precondition:** TC-HLP-176 completed successfully.
 
 **Steps:**
@@ -72,6 +75,7 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 ### TC-HLP-179: Background jobs run once Redis and Sidekiq are up
 
 **User Role:** System Administrator (server access)
+**Priority:** High
 **Precondition:** Plugin installed per TC-HLP-176; Redis and Sidekiq running.
 
 **Steps:**
@@ -89,6 +93,7 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 ### TC-HLP-180: Upgrade path preserves existing data
 
 **User Role:** System Administrator (server access)
+**Priority:** High
 **Precondition:** An existing install with at least one SLA, one customer, and one ticket already created.
 
 **Steps:**
@@ -113,6 +118,7 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 ### TC-HLP-181: Loading Redmine's default data after the plugin migration is refused
 
 **User Role:** System Administrator (server access)
+**Priority:** Medium
 **Precondition:** The plugin migration (`rake redmine:plugins:migrate`) has already been run on this instance.
 
 **Steps:**
@@ -129,6 +135,7 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 ### TC-HLP-182: Renaming the plugin folder breaks plugin registration
 
 **User Role:** System Administrator (server access)
+**Priority:** Low
 **Precondition:** Plugin installed and working per TC-HLP-176.
 
 **Steps:**
@@ -145,6 +152,7 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`)
 ### TC-HLP-183: Migrating without first running `bundle install` fails
 
 **User Role:** System Administrator (server access)
+**Priority:** Low
 **Precondition:** Plugin folder copied into `redmine/plugins/`; gems from the plugin's Gemfile have not been installed.
 
 **Steps:**
@@ -161,6 +169,7 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 ### TC-HLP-184: Without Redis/Sidekiq running, the desk loads but nothing automated happens
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Plugin installed per TC-HLP-176; Redis and/or Sidekiq deliberately stopped.
 
 **Steps:**
@@ -185,6 +194,7 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`)
 ### TC-HLP-185: Re-running the plugin migration a second time is idempotent
 
 **User Role:** System Administrator (server access)
+**Priority:** Medium
 **Precondition:** Plugin already installed and migrated successfully once (TC-HLP-176).
 
 **Steps:**
@@ -202,6 +212,7 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`,
 ### TC-HLP-186: Running the plugin migration before Redmine's default data produces the documented broken state
 
 **User Role:** System Administrator (server access)
+**Priority:** Medium
 **Precondition:** A completely fresh Redmine instance with no data loaded at all.
 
 **Steps:**
@@ -221,6 +232,7 @@ CONFIRMED LIVE 2026-09-14 (disposable Docker instance, `redmine-install-test:6`)
 ### TC-HLP-187: Setup functions identically on the oldest and newest supported Redmine versions
 
 **User Role:** System Administrator (server access)
+**Priority:** Medium
 **Precondition:** Two clean instances available — one on Redmine 5.0.x, one on 6.1.x.
 
 **Steps:**

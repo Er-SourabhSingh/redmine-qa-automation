@@ -29,6 +29,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-098: Create a team
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Timesheet → **Team** → **New Team** → enter a name → create.
 
@@ -40,6 +41,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-099: Assign an approval schema to a team
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Open the team's details and assign an approval schema.
 
@@ -52,6 +54,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-100: Add members and assign roles
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Add several users to the team, each with a role.
 
@@ -65,6 +68,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-101: Edit a team name
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Use **Edit** to rename the team.
 
@@ -77,6 +81,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-102: Update a member's role
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Change a member's role from the team detail edit action.
 
@@ -90,6 +95,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-103: Remove a member from a team
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Remove a member who has historical timesheets and one pending submission.
 
@@ -104,6 +110,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-104: Delete a team
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Delete a team that has members and historical timesheets; confirm.
 
@@ -117,6 +124,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-105: A user in multiple teams
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Add one user to two teams with different schemas, then have them submit a timesheet.
 
@@ -130,6 +138,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-106: Teams are only meaningful in Team Mode
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. In **Project Mode**, check whether team schema assignments have any effect on routing.
 
@@ -146,6 +155,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-107: Create a schema with multiple levels
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. **Approval Schema** → **New Schema** → name, description, enabled status → add level 1 and level 2, each
    mapped to a role → Save.
@@ -158,6 +168,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-108: Single-level schema
 
 **User Role:** Admin then Submitter
+**Priority:** Medium
 **Steps:**
 1. Create a one-level schema, assign it, and run a submission through it.
 
@@ -170,6 +181,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-109: Level order is respected
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Create a three-level schema and run a submission through it end to end.
 
@@ -181,6 +193,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-110: Edit a schema
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Change the schema's name, description, and a level's role; save.
 
@@ -193,6 +206,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-111: Enabled / disabled status
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Create a schema with the enabled status off; attempt to assign it to a team and a project.
 
@@ -205,6 +219,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-112: Lock (deactivate) a schema in use
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Lock a schema that is assigned to a team with pending approvals.
 
@@ -218,6 +233,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-113: Delete an unused schema
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Create a schema, assign it to nothing, and delete it.
 
@@ -229,6 +245,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-114: A schema in use cannot be deleted
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Attempt to delete a schema assigned to a team, then one assigned to a project — through the UI **and** by
    sending the delete request directly.
@@ -243,6 +260,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-115: A schema with no levels
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Save a schema with no approval levels, then assign it and submit a timesheet against it.
 
@@ -256,6 +274,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-116: Team members whose role is absent from the schema
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Deliberately add a member whose role appears in **no** level of the team's schema.
 2. Have them submit a timesheet.
@@ -275,6 +294,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-117: The project selector appears only in Project Mode
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. In **Project Mode**, open Project → Settings → Timesheet.
 2. Switch to **Team Mode** and re-check.
@@ -287,6 +307,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-118: Assign a schema to a project
 
 **User Role:** Admin then Submitter
+**Priority:** High
 **Steps:**
 1. Select a schema in project settings and save; have a project member submit a timesheet.
 
@@ -298,6 +319,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-119: Schema selection on project creation
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Create a new project and set the Timesheet approval schema during creation.
 
@@ -309,6 +331,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-120: A project with no schema selected
 
 **User Role:** Submitter
+**Priority:** Medium
 **Steps:**
 1. In Project Mode, submit a timesheet in a project with no schema assigned.
 
@@ -326,6 +349,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-121: Validation on names
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Create teams and schemas with: blank names; whitespace-only names; duplicate names; 500-character names; and
    names containing a script tag.
@@ -341,6 +365,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-122: Team and schema management is admin-only
 
 **User Role:** Every non-admin role in turn, including one holding Manage Timesheet
+**Priority:** High
 **Steps:**
 1. Confirm the Team and Approval Schema sections are not offered.
 2. Request their URLs directly.
@@ -357,6 +382,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-123: Concurrent schema edits
 
 **User Role:** Two admins
+**Priority:** Low
 **Steps:**
 1. Both edit the same schema's levels simultaneously and save.
 
@@ -369,6 +395,7 @@ Project → Settings → Timesheet for the project-level schema selector (Projec
 ### TC-TMS-124: Deleting a role used by a schema level
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Delete a Redmine role that a schema level maps to, then open the schema and submit a timesheet against it.
 

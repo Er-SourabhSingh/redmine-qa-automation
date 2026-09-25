@@ -29,6 +29,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-025: Plugin folder name is enforced
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** Plugin folder uploaded to `Redmine/plugins` with its original name.
 **Steps:**
 1. Confirm the folder name is unchanged.
@@ -45,6 +46,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-026: Migrations complete cleanly
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Run the migration, restart, open the Time Tracker page.
 
@@ -56,6 +58,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-027: Assets load
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. Open the Time Tracker page and the Calendar; inspect the console and Network tab.
 
@@ -68,6 +71,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-028: Redmine version boundary
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Record the Redmine version.
 
@@ -83,6 +87,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-029: Location required for a named user
 
 **User Role:** Admin then the named Member
+**Priority:** High
 **Steps:**
 1. Enable **Require Location Permission** and select one specific user; Apply.
 2. As that user, attempt to start the timer and grant location access.
@@ -97,6 +102,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-030: Empty user selection applies to everyone
 
 **User Role:** Admin then several Members
+**Priority:** High
 **Steps:**
 1. Enable **Require Location Permission** but select **no** users; Apply.
 2. Attempt to start the timer as three different users.
@@ -112,6 +118,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-031: Disabling the setting removes the requirement
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Disable **Require Location Permission**; Apply.
 2. Start the timer with browser location **denied**.
@@ -128,6 +135,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-032: Enable Manual Time Entry
 
 **User Role:** Admin then Member
+**Priority:** High
 **Steps:**
 1. Disable the setting; Apply; open the Time Tracker page.
 2. Enable it; Apply; reload.
@@ -144,6 +152,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-033: Google Maps API Key
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Save a valid key; Apply; open Activity → Map View.
 2. Clear the key and reopen Map View.
@@ -159,6 +168,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-034: Page design — Modern Card
 
 **User Role:** Admin then Member
+**Priority:** Low
 **Steps:**
 1. Select **Modern Card**; Apply; open the Time Tracker page.
 
@@ -170,6 +180,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-035: Page design — Compact Layout and Detailed Expanded
 
 **User Role:** Admin then Member
+**Priority:** Low
 **Steps:**
 1. Repeat TC-TMT-034 for each of the other two layouts.
 
@@ -185,6 +196,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-036: Layout preview matches the applied result
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Preview each design, then apply it and compare.
 
@@ -200,6 +212,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-037: Configure page is not reachable by a non-admin
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
+**Priority:** High
 **Steps:**
 1. Request the plugin settings URL directly for each role, and attempt to post a settings change.
 
@@ -214,6 +227,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-038: Invalid configuration values
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Enter a malformed Google Maps API key and a value in any numeric field outside a sensible range; Apply.
 
@@ -226,6 +240,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-039: Settings persist across save and reload
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Change every setting, Apply, reload the Configure page.
 
@@ -238,6 +253,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-040: Location requirement changed while a timer is running
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. Member starts a timer with the requirement off.
 2. Admin enables **Require Location Permission** for that user.
@@ -254,6 +270,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-041: Conflicts with other time-related plugins
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** The Redmineflux Timesheet plugin also installed.
 **Steps:**
 1. Log time through the Time Tracker and confirm it appears in the Timesheet grid and in core Redmine's
@@ -273,6 +290,7 @@ effect on the Time Tracker page, not by the configuration page reporting a succe
 ### TC-TMT-042: Clean uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** **Database backup taken.**
 **Steps:**
 1. Run `bundle exec rake redmine:plugins:migrate NAME=<plugin_name> VERSION=0`.

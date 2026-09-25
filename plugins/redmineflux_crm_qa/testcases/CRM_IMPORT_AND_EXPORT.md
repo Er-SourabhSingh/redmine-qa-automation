@@ -30,6 +30,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-114: Import contacts with all documented columns
 
 **User Role:** Member with **Manage Contacts**
+**Priority:** High
 **Preconditions:** A UTF-8 CSV with a header row using exactly: `first_name`, `last_name`, `email`, `phone`,
 `mobile`, `job_title`, `address`, `company_name`, `notes`, `tags`, `assigned_to`, `is_private`.
 **Steps:**
@@ -44,6 +45,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-115: Duplicate detection by email
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Import a file containing an email that already exists, and a duplicate pair **within** the file.
 
@@ -57,6 +59,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-116: `company_name` links but does not create
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Import rows where `company_name` matches an existing company, and rows where it does not.
 
@@ -70,6 +73,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-117: `assigned_to` and `is_private`
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Use a valid Redmine login in `assigned_to`, an invalid one, and each accepted privacy value (`1`, `true`,
    `yes`, `y`) plus an unrecognised value.
@@ -86,6 +90,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-118: Imported content is escaped
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Import a row whose `first_name` and `notes` contain a script tag; view the contact, the list, the dashboard and
    an email template preview for that contact.
@@ -104,6 +109,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-119: Import companies
 
 **User Role:** Member with **Manage Companies**
+**Priority:** Medium
 **Steps:**
 1. Import using exactly: `name`, `email`, `phone`, `website`, `industry`, `employee_count`, `address`, `notes`,
    `tags`, `assigned_to`, `is_private`.
@@ -117,6 +123,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-120: Company duplicates are detected by name **or** email
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Import a row whose `name` matches an existing company but whose email differs.
 2. Import a row whose `email` matches an existing company but whose name differs.
@@ -131,6 +138,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-121: Import deals
 
 **User Role:** Member with **Manage Deals**
+**Priority:** High
 **Steps:**
 1. Import using exactly: `name`, `amount`, `currency`, `stage`, `probability`, `due_date`, `contact_email`,
    `company_name`, `description`, `tags`, `assigned_to`, `is_private`.
@@ -145,6 +153,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-122: Deal defaults and stage validation
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Import rows omitting `currency` and `stage`, and a row whose `stage` is not configured.
 
@@ -160,6 +169,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-123: Deal duplicate rule is a three-way match
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Import a deal whose name already exists for the **same** contact and company.
 2. Import the same deal name for a **different** contact, and again for a different company.
@@ -174,6 +184,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-124: Import leads
 
 **User Role:** Member with **Manage Leads**
+**Priority:** Medium
 **Steps:**
 1. Import using exactly: `first_name`, `last_name`, `email`, `phone`, `company_name`, `source`, `status`, `notes`,
    `assigned_to`, `is_private`.
@@ -193,6 +204,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-125: Missing required fields
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Import files with rows missing `first_name`, missing `email`, and missing the deal `name`.
 
@@ -205,6 +217,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-126: Wrong header names
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Import a file using `firstname` instead of `first_name`, and one with no header row at all.
 
@@ -219,6 +232,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-127: Non-UTF-8 encoding
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Import a file saved in a non-UTF-8 encoding containing accented and non-Latin characters.
 
@@ -232,6 +246,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-128: Malformed CSV structure
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Import a file with inconsistent column counts, unescaped quotes, embedded newlines inside quoted fields, and a
    value beginning with `=`.
@@ -247,6 +262,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-129: Large import and counts reconcile
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Import 5,000 rows with a known mix of valid, duplicate and invalid rows.
 
@@ -260,6 +276,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-130: Import requires the matching manage permission
 
 **User Role:** Member with **View CRM** only
+**Priority:** High
 **Steps:**
 1. Confirm no Import control appears in any section.
 2. Send each import request **directly**.
@@ -276,6 +293,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-131: Export each entity to CSV and XLS
 
 **User Role:** Member with View CRM
+**Priority:** High
 **Steps:**
 1. Export contacts, companies, deals and leads in both formats.
 
@@ -287,6 +305,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-132: Exports cover all visible records, not the current page
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. With more records than fit one page, export and count the rows.
 
@@ -299,6 +318,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-133: Exports respect privacy
 
 **User Role:** A non-admin who cannot see certain private records
+**Priority:** High
 **Steps:**
 1. Export each entity and search the file for those records.
 
@@ -313,6 +333,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-134: Analytics export to CSV and PDF
 
 **User Role:** Member with View CRM
+**Priority:** Medium
 **Steps:**
 1. Export analytics in both formats and compare against the screen.
 
@@ -324,6 +345,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-135: PDF export renders non-Latin scripts
 
 **User Role:** Member
+**Priority:** Low
 **Preconditions:** Records containing Japanese, Russian, Polish and other non-Latin text.
 **Steps:**
 1. Export analytics to PDF and inspect those characters.
@@ -338,6 +360,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-136: Dashboard export
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Export the dashboard to CSV and XLS.
 
@@ -349,6 +372,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-137: Export file integrity
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Export data containing commas, quotes, newlines in notes, and non-Latin characters; open the CSV in a
    spreadsheet.
@@ -363,6 +387,7 @@ CRM → each section → **Import** / **Export**.
 ### TC-CRM-138: Export requires View CRM
 
 **User Role:** A user with no CRM permissions
+**Priority:** High
 **Steps:**
 1. Request each export endpoint **directly**.
 

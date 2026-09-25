@@ -43,6 +43,7 @@ Every save is confirmed by a **full page reload**, never by the on-screen update
 ### TC-INE-038: Inline-edit Status on the detail page
 
 **User Role:** Member with issue-edit rights
+**Priority:** High
 **Steps:**
 1. Click the Status value, select a new status, confirm.
 2. Reload.
@@ -62,6 +63,7 @@ Progress"), no full page navigation.
 ### TC-INE-039: Inline-edit Priority
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Change Priority inline; reload.
 
@@ -79,6 +81,7 @@ persisted after reload; reverted to High.
 ### TC-INE-040: Inline-edit Assignee
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Change Assignee inline; reload.
 
@@ -101,6 +104,7 @@ Willow Belle — member-scoped, no non-members), selected Redmine Admin → `200
 ### TC-INE-041: Inline-edit Start date and Due date
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Change each date inline; reload.
 
@@ -119,6 +123,7 @@ their own sections above, all PASS). TC-INE-090/091 covered in the Issue List Ed
 ### TC-INE-042: Inline-edit % Done
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Change the percentage inline; reload.
 
@@ -137,6 +142,7 @@ persisted after reload. Reverted to 0%.
 ### TC-INE-043: Inline-edit custom fields of every type
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** Custom fields of list, text, long-text, integer, float, date, boolean and user types exist on
 the tracker.
 **Steps:**
@@ -160,6 +166,7 @@ fully re-executed against the post-fix build earlier in this same regression pas
 ### TC-INE-044: Edited fields are journaled
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Change three different fields inline, then open History.
 
@@ -185,6 +192,7 @@ with old/new value and actor (Willow Belle) — no missing or merged entries.
 ### TC-INE-045: Enter description edit mode via the edit icon
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. On the issue detail page, locate the edit icon to the right of the Description field and click it.
 
@@ -207,6 +215,7 @@ with the identical 19-button toolbar.
 ### TC-INE-046: Formatting toolbar options work
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. In the description editor, apply a heading, a bulleted list, bold/italic, and a quote block.
 2. Save and reload.
@@ -229,6 +238,7 @@ list and a quote block; reload confirmed all four rendered correctly (`<h1>`, `<
 ### TC-INE-047: Save a description edit
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Change the description text and save; reload.
 
@@ -246,6 +256,7 @@ persisted, `#history` showed a "Description updated (diff)" entry.
 ### TC-INE-048: Cancel a description edit
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enter edit mode, change the text, cancel.
 
@@ -263,6 +274,7 @@ description before/after byte-identical, marker never appeared.
 ### TC-INE-049: Description with attachments and inline images
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Inline-edit a description that contains an inline image reference and attachment links.
 
@@ -299,6 +311,7 @@ duplicating the same mechanism a sixth time.
 ### TC-INE-050: Description containing existing wiki/Textile macros
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Inline-edit a description containing macros or cross-references (e.g. an issue link, a wiki link).
 
@@ -321,6 +334,7 @@ confirmed it rendered as a real working `<a href="/issues/1557">` link, not plai
 ### TC-INE-051: Empty description
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Clear the description entirely and save.
 
@@ -341,6 +355,7 @@ the page (0 elements matching `.description`), matching the documented behavior 
 ### TC-INE-052: Very large description
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Paste 100 KB of text into the inline description editor and save.
 
@@ -359,6 +374,7 @@ route: no error, and the full 100,000-character length was verified byte-exact o
 ### TC-INE-053: Script content in the description
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Enter a script tag and an `onerror` image payload via the inline description editor; save; view as another user.
 
@@ -382,6 +398,7 @@ intact after the auth/route change.
 ### TC-INE-054: Concurrent description edits
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. Both open the same issue. A inline-edits the description and saves. B, who opened the editor before A saved,
    saves a different description.
@@ -421,6 +438,7 @@ now running through the new session-based `update`/`rf_issue` routes instead of 
 ### TC-INE-055: Inline edit while another user closes the issue
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. A opens an inline field editor. B closes the issue. A confirms the edit.
 
@@ -462,6 +480,7 @@ Priority unchanged. No 500, no partial write.
 ### TC-INE-056: Read-only user on the detail page
 
 **User Role:** Role with view-issues but not edit-issues
+**Priority:** High
 **Steps:**
 1. Confirm no inline edit affordance appears on any field or on the description.
 2. Send a field update and a description update directly to their endpoints.
@@ -502,6 +521,7 @@ direct request is off-limits per both the user's decision and the harness's own 
 ### TC-INE-057: Field-level permission on the detail page
 
 **User Role:** Role where specific fields are read-only by workflow
+**Priority:** High
 **Steps:**
 1. Confirm no inline affordance on those fields.
 2. Submit updates for them directly.
@@ -537,6 +557,7 @@ field and the custom field leg. TC-INE-057 is now a full PASS on both legs.
 ### TC-INE-058: Inline edit of a private note or private field
 
 **User Role:** Member without private-note rights
+**Priority:** High
 **Steps:**
 1. Attempt to inline-edit any private-visibility content on the issue.
 
@@ -556,6 +577,7 @@ still `0` `.rf-edit-icon` elements inside any journal element. Scope unchanged b
 ### TC-INE-059: Rapid successive saves on the same field
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Change Status inline three times in quick succession; reload.
 
@@ -600,6 +622,7 @@ Reverted to In Progress.
 ### TC-INE-060: Typed date entry does not auto-save prematurely (year truncation regression)
 
 **User Role:** Member with issue-edit rights
+**Priority:** High
 **Steps:**
 1. Open an issue, click the pencil next to Due Date.
 2. Type a full date one digit/segment at a time (day, then month, then year), e.g. `12`, `03`, `2026`.
@@ -626,6 +649,7 @@ fully valid but before any blur/Enter.
 ### TC-INE-061: Typed date saves on blur (click away)
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Type a complete valid date into the Due Date field as in TC-INE-060.
 2. Click elsewhere on the page (not Enter, not Escape).
@@ -646,6 +670,7 @@ fully valid but before any blur/Enter.
 ### TC-INE-062: Typed date saves on Enter
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Type a complete valid date into the Due Date field.
 2. Press Enter instead of clicking away.
@@ -665,6 +690,7 @@ fully valid but before any blur/Enter.
 ### TC-INE-063: Escape cancels a typed date edit
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Note the issue's current Due Date.
 2. Click the pencil, type a different date, then press Escape before clicking away or pressing Enter.
@@ -685,6 +711,7 @@ zero `update_field` calls, display unchanged (`01/15/2027`) before and after.
 ### TC-INE-064: Calendar-picked date still saves immediately (unchanged)
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Click the pencil next to Due Date, but pick a date from the pop-up calendar instead of typing.
 2. Observe whether the save happens immediately, with no blur/Enter needed.
@@ -707,6 +734,7 @@ calendar-pick path remains unaffected by the typed-entry timing fix.
 ### TC-INE-065: Typed-entry timing behavior on a date custom field
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** A custom field of format "Date" exists on the issue's tracker (Administration → Custom fields).
 **Steps:**
 1. Repeat TC-INE-060 through TC-INE-063 (no premature save while typing including mid-year pause; save on blur;

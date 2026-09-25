@@ -22,6 +22,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-160: Create a space
 
 **User Role:** Member with `manage_knowledgebase_spaces`
+**Priority:** High
 **Steps:**
 1. Click **New Space** in the sidebar, enter a name and an optional description, Save.
 
@@ -33,6 +34,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-161: Create a space without a description
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create a space with a name only.
 
@@ -44,6 +46,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-162: Multiple spaces in one project
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create three spaces with distinct names.
 
@@ -56,6 +59,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-163: Edit a space
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Space dropdown → **Edit** → change name and description → Save.
 
@@ -67,6 +71,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-164: Spaces are project-scoped
 
 **User Role:** Member of two projects
+**Priority:** High
 **Steps:**
 1. Create a space in project A, then open project B's Knowledge Base.
 
@@ -78,6 +83,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-165: Delete a space — cascade is warned about before it happens
 
 **User Role:** Member with `manage_knowledgebase_spaces`
+**Priority:** High
 **Preconditions:** The space contains folders, pages, and pages with version history.
 **Steps:**
 1. Space dropdown → **Delete**. **Read the confirmation text before confirming.**
@@ -99,6 +105,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-166: Create a folder inside a space
 
 **User Role:** Member with `manage_knowledgebase_pages`
+**Priority:** High
 **Steps:**
 1. Select a space → its dropdown → **New Folder** → name → Save.
 
@@ -110,6 +117,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-167: Create a nested folder inside a folder
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Folder dropdown → **New Folder** → name → Save.
 
@@ -121,6 +129,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-168: Deep nesting
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Nest folders five levels deep and add a page at the deepest level.
 
@@ -134,6 +143,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-169: Edit a folder
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Folder dropdown → **Edit** → rename → Save.
 
@@ -145,6 +155,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-170: Delete a folder containing pages
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Delete a folder that contains pages and sub-folders; confirm.
 
@@ -162,6 +173,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-171: Create a page inside a space
 
 **User Role:** Member with `manage_knowledgebase_pages`
+**Priority:** High
 **Steps:**
 1. Space dropdown → **New Page** → enter a title → Save.
 
@@ -173,6 +185,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-172: Create a page inside a folder
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Folder dropdown → **New Page** → title → Save.
 
@@ -184,6 +197,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-173: Create a page from a content template
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. On the New Page form, select a template from the dropdown; Save.
 
@@ -195,6 +209,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-174: Edit a page
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Open a page → **Edit** → change the content.
 
@@ -206,6 +221,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-175: Delete a page
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Open a page → **Delete** → confirm.
 
@@ -222,6 +238,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-176: A folder cannot have a page as its parent
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Confirm no **New Folder** action is offered on a page's dropdown.
 2. Send a node-create request **directly** with a page node as the parent (via the REST API).
@@ -235,6 +252,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-177: A page cannot contain children
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Confirm no **New Page** or **New Folder** action is offered on a page.
 2. Send a create request directly naming a page as the parent.
@@ -252,6 +270,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-178: Blank names
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Attempt to create a space, a folder and a page each with an empty name/title; then with whitespace only.
 
@@ -264,6 +283,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-179: Duplicate names at the same level
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create two spaces with the same name; two folders with the same name in one space; two pages with the same
    title in one folder.
@@ -278,6 +298,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-180: Very long names
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create a space, folder and page each with a 500-character name.
 
@@ -290,6 +311,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-181: Script content in a name or title
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Name a space, a folder and a page with a script tag.
 2. View the sidebar, the page header, the version history table, and the issue's Related Knowledge Base Pages
@@ -306,6 +328,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-182: Special characters in names
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Use quotes, ampersands, slashes, emoji and non-Latin characters in names.
 
@@ -317,6 +340,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-183: Concurrent structural edits
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. Both open the Knowledge Base. A deletes a folder; B, without reloading, creates a page inside it.
 
@@ -329,6 +353,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-184: Deleting a space with a publicly shared page inside it
 
 **User Role:** Member, then unauthenticated visitor
+**Priority:** High
 **Steps:**
 1. Enable a public URL on a page, note the link, then delete the space containing it.
 2. Retry the public link from an unauthenticated session.
@@ -343,6 +368,7 @@ Project menu → **Knowledge Base** → the sidebar tree and its per-node dropdo
 ### TC-RKB-185: Node creation without permission
 
 **User Role:** Member with `view_knowledgebase` only
+**Priority:** High
 **Steps:**
 1. Confirm no create/edit/delete actions appear in the sidebar dropdowns.
 2. Send space-create, node-create and node-delete requests **directly**.

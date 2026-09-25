@@ -13,6 +13,8 @@
 
 ### TC-AGB-104 — Project Agile Board: header, filter bar, and columns fully translated
 
+**Priority:** Medium
+
 **Steps**
 
 1. Open the project's "Agile Board" tab.
@@ -30,6 +32,8 @@
 ---
 
 ### TC-AGB-105 — Board Settings panel fully translated
+
+**Priority:** Medium
 
 **Steps**
 
@@ -49,6 +53,8 @@
 
 ### TC-AGB-106 — "Weitere Filter" (More filters) panel fully translated
 
+**Priority:** Medium
+
 **Steps**
 
 1. Click "Weitere Filter".
@@ -63,6 +69,8 @@
 ---
 
 ### TC-AGB-107 — "Einblicke" (Board Insights) panel fully translated
+
+**Priority:** Medium
 
 **Steps**
 
@@ -82,6 +90,8 @@
 
 ### TC-AGB-108 — Double-click inline "Vorgang bearbeiten" (Edit Issue) modal fully translated
 
+**Priority:** Medium
+
 **Steps**
 
 1. Double-click a card's subject text.
@@ -97,6 +107,8 @@
 
 ### TC-AGB-109 — Quick-add issue via column input
 
+**Priority:** Medium
+
 **Steps**
 
 1. Click the "+ Ticket erstellen" input in the NEW column.
@@ -111,6 +123,8 @@
 ---
 
 ### TC-AGB-110 — Backlog view (Sprints tab) fully translated
+
+**Priority:** Medium
 
 **Steps**
 
@@ -130,6 +144,8 @@
 
 ### TC-AGB-111 — Backlog view (Versionen tab) fully translated
 
+**Priority:** Medium
+
 **Steps**
 
 1. Click the "Versionen" tab on the Backlog view.
@@ -142,6 +158,8 @@
 **Verdict:** PASS. No bugs found.
 
 ### TC-AGB-112 — Global Agile Board (`/agile_board/global`) fully translated
+
+**Priority:** Medium
 
 **Steps**
 
@@ -162,6 +180,8 @@
 
 ### TC-AGB-113 — My Page Agile Board block (`/my/page`) fully translated
 
+**Priority:** Medium
+
 **Steps**
 
 1. Navigate to "Meine Seite" (My Page) — the Agile Board block is present by default (no manual block-add step needed).
@@ -180,6 +200,8 @@
 ---
 
 ### TC-AGB-114 — Custom/saved board config: create, edit, delete flow fully translated
+
+**Priority:** Medium
 
 **Steps**
 
@@ -205,6 +227,8 @@
 
 ### TC-AGB-115 — Sprint create form ("Neuer Sprint") fully translated
 
+**Priority:** Medium
+
 **Steps**
 
 1. On the project's "Backlog" tab, click "Sprint erstellen".
@@ -227,6 +251,8 @@
 
 ### TC-AGB-116 — Admin plugin Configure page (Administration → Plugins → Redmineflux Agile Board) fully translated
 
+**Priority:** Medium
+
 **Steps**
 
 1. Administration → Plugins → "Konfigurieren" for Redmineflux Agile Board (re-enter account password at Redmine's security re-auth prompt).
@@ -245,6 +271,8 @@
 
 ### TC-AGB-117 — Stage 2: Resolution testing (1280×720 and 1920×1080, Default theme)
 
+**Priority:** Low
+
 **Steps**
 
 1. Resize viewport to 1280×720. Inspect the project Agile Board (toolbar, columns, card layout), the Board-Einstellungen panel (including scrolling to its footer), the Weitere Filter panel, and the Backlog view (Sprints tab).
@@ -260,6 +288,8 @@
 ---
 
 ### TC-AGB-118 — Stage 3/6: Lotus theme retest (default + 1280×720)
+
+**Priority:** Medium
 
 **Steps**
 
@@ -283,6 +313,8 @@
 
 ### TC-AGB-119 — Story Points field on the core-Redmine issue detail page and issue edit form (Lotus + Default theme)
 
+**Priority:** Medium
+
 **Steps**
 
 1. On issue #259, inspect the issue detail page's field list (`div.label` entries), specifically "Story Points:" and its neighbors, under the Lotus theme.
@@ -302,6 +334,8 @@
 ---
 
 ### TC-AGB-120 — Sprint/Story Points visual consistency (font, alignment, layout width) on issue detail page and edit form under Lotus theme
+
+**Priority:** Low
 
 **Steps**
 
@@ -323,6 +357,8 @@
 ---
 
 ### TC-AGB-121 — Project Settings → Sprints tab (sprint edit/delete entry point found; new "Freigabe" bug)
+
+**Priority:** Medium
 
 **Steps**
 

@@ -21,6 +21,7 @@ Wherever a step says to "open the ticket" (to verify fields after creation, to r
 ### TC-HLP-365: Agent raises a ticket from the global Tickets screen
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** Agent has `view_helpdesk` (or `manage_helpdesk`) on a helpdesk-enabled project.
 
 **Steps:**
@@ -42,6 +43,7 @@ Wherever a step says to "open the ticket" (to verify fields after creation, to r
 ### TC-HLP-366: Agent raises a ticket from a project's Tickets screen
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** Same as TC-HLP-365, working inside one project's Helpdesk tab.
 
 **Steps:**
@@ -59,6 +61,7 @@ Wherever a step says to "open the ticket" (to verify fields after creation, to r
 ### TC-HLP-367: Customer raises a ticket and sees only their own afterward
 
 **User Role:** Client (Customer)
+**Priority:** High
 **Precondition:** Customer has a project-access row for this project (see `HELPDESK_CUSTOMER_MANAGEMENT` setup, or create via Helpdesk › Customers first).
 
 **Steps:**
@@ -77,6 +80,7 @@ Wherever a step says to "open the ticket" (to verify fields after creation, to r
 ### TC-HLP-368: A qualifying customer email creates a ticket correctly
 
 **User Role:** Client (Customer, via email)
+**Priority:** High
 **Precondition:** Incoming mail is configured for the project; the sender's address belongs to a registered helpdesk customer; if identifier keywords are configured, the mail contains one.
 
 **Steps:**
@@ -96,6 +100,7 @@ Wherever a step says to "open the ticket" (to verify fields after creation, to r
 ### TC-HLP-369: A reply to an existing ticket's mail thread lands as a note, not a new ticket
 
 **User Role:** Client (Customer, via email)
+**Priority:** High
 **Precondition:** A ticket already exists that was created by email (TC-HLP-368).
 
 **Steps:**
@@ -113,6 +118,7 @@ Wherever a step says to "open the ticket" (to verify fields after creation, to r
 ### TC-HLP-370: An email-created ticket lands under the correct project for a customer entitled to multiple projects (added 2026-09-09, user-identified gap)
 
 **User Role:** Client (Customer, via email)
+**Priority:** High
 **Precondition:** A customer with project-access rows on **two** different Helpdesk-enabled projects (e.g. Helpdesk QA Alpha and Helpdesk QA Beta), each project with its own distinct, working incoming mailbox configured. The customer's Alpha and Beta rows may carry different SLA/Support Level/Organization values, but both must be real, valid entitlements — not one blocked/missing.
 
 **Steps:**
@@ -132,6 +138,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-371: A newly raised ticket starts in status "New"
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** None beyond a working helpdesk project.
 
 **Steps:**
@@ -148,6 +155,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-372: An agent's reply automatically moves the ticket to "Waiting for Customer Response"
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** An assigned, in-progress ticket.
 
 **Steps:**
@@ -163,6 +171,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-373: A note added via the standard Edit form should not auto-transition status, since it produces no customer-facing communication
 
 **User Role:** Agent (adding the note); Client (Customer) viewing the result
+**Priority:** Medium
 **Precondition:** A ticket in status **New** (or any pre-"Waiting for Customer Response" status).
 
 **Steps:**
@@ -181,6 +190,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-374: A customer's reply automatically moves the ticket back to "In Progress"
 
 **User Role:** Client (Customer)
+**Priority:** High
 **Precondition:** A ticket currently in **Waiting for Customer Response**.
 
 **Steps:**
@@ -196,6 +206,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-375: Replying to the customer emails them, pauses the SLA, and auto-assigns an unassigned ticket
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** An unassigned ticket with an active SLA.
 
 **Steps:**
@@ -215,6 +226,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-376: An internal note stays private and does not touch status or the SLA clock
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** An in-progress ticket with an active (unpaused) SLA.
 
 **Steps:**
@@ -233,6 +245,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-377: Logging reply time with a preset chip creates the correct time entry
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Time tracking module enabled on the project; agent has `log_time`.
 
 **Steps:**
@@ -251,6 +264,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-378: Logging a custom reply time value creates the correct time entry
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Same as TC-HLP-377.
 
 **Steps:**
@@ -269,6 +283,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-379: Merging a duplicate ticket carries its notes and history into the surviving ticket — SUPERSEDED, see revision note
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Two open tickets describing the same issue.
 
 **Steps:**
@@ -292,6 +307,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-380: Email from an unregistered sender does not create a ticket
 
 **User Role:** N/A (external sender)
+**Priority:** High
 **Precondition:** Incoming mail configured for the project; sender's address is **not** a registered helpdesk customer.
 
 **Steps:**
@@ -309,6 +325,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-381: A registered customer without a project-access row for the target project cannot create a ticket there by email
 
 **User Role:** N/A (external sender — a real, registered helpdesk customer, just not for this project)
+**Priority:** High
 **Precondition:** The sender's address belongs to a genuine Customer record whose only project-access row is on **Project A**. Incoming mail is configured on **Project B**, which this customer has no entitlement row for.
 
 **Steps:**
@@ -325,6 +342,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-382: Email missing a required identifier keyword does not create a ticket
 
 **User Role:** Client (Customer, via email)
+**Priority:** Medium
 **Precondition:** The project has identifier keywords configured; sender is a registered customer.
 
 **Steps:**
@@ -341,6 +359,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-383: Logging time with no Activity selected is refused
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** No default Activity marked in Administration › Enumerations.
 
 **Steps:**
@@ -359,6 +378,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-384: A non-numeric custom time value is refused
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Same as TC-HLP-377.
 
 **Steps:**
@@ -376,6 +396,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-385: An agent without helpdesk permission cannot create a ticket
 
 **User Role:** Project member with neither `view_helpdesk` nor `manage_helpdesk`
+**Priority:** High
 **Precondition:** User is a member of a helpdesk-enabled project but has neither permission on their role.
 
 **Steps:**
@@ -394,6 +415,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-386: A customer with no project-access row cannot raise or see a ticket on that project
 
 **User Role:** Client (Customer) — has a project-access row for Project A only
+**Priority:** High
 **Precondition:** A second project (Project B) exists that this customer has no entitlement row for.
 
 **Steps:**
@@ -411,6 +433,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-387: A customer cannot merge tickets
 
 **User Role:** Client (Customer)
+**Priority:** High
 **Precondition:** The customer has two of their own tickets describing the same issue.
 
 **Steps:**
@@ -426,6 +449,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-388: A customer's "Edit" action on their own ticket only allows editing the Subject — nothing else
 
 **User Role:** Client (Customer)
+**Priority:** High
 **Precondition:** A ticket the customer created themselves, viewed on the ticket's own page (not the list).
 
 **Steps:**
@@ -444,6 +468,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-389: A user without `log_time` does not see the reply time-log block at all
 
 **User Role:** Project member with `view_helpdesk` but without Redmine's `log_time` permission on the project
+**Priority:** Medium
 **Precondition:** Time tracking module is enabled on the project.
 
 **Steps:**
@@ -459,6 +484,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-390: A customer's reply box shows no Canned Response, Internal Note, or time-log controls
 
 **User Role:** Client (Customer)
+**Priority:** High
 **Precondition:** Customer viewing one of their own tickets.
 
 **Steps:**
@@ -480,6 +506,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-391: Time-log input methods are mutually exclusive
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Reply box open with the time-log block visible.
 
 **Steps:**
@@ -499,6 +526,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-392: Saving a reply with no time selected creates no time entry
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Reply box open; Time tracking module enabled.
 
 **Steps:**
@@ -516,6 +544,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-393: Merging a ticket that itself already has reply/note history preserves both threads — SUPERSEDED, see revision note
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Two tickets, each with at least one prior reply and one internal note of their own.
 
 **Steps:**
@@ -532,6 +561,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-394: All seven ticket statuses exist and are reachable in the workflow
 
 **User Role:** Admin (for the status list) and Agent (for transitions)
+**Priority:** Medium
 **Precondition:** A ticket that can be moved through manual status changes per the Support tracker's workflow for the agent's role.
 
 **Steps:**
@@ -549,6 +579,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-395: The reply time-log Comment field appears only when Required fields demands it
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Two configurations of Administration › Settings › Time tracking › Required fields — one where "Comment" is not required, one where it is.
 
 **Steps:**
@@ -566,6 +597,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-396: A customer's portal session can never see internal or private notes, under any configuration
 
 **User Role:** Client (Customer) — authenticates through the plugin's own separate portal view (`RfProjectCustomer` entitlement), **not** a core Redmine project Member with a Role. A customer must never be added as a Member with a Role to test this — that isn't how customer access works in this plugin, and doing so doesn't reflect any real, supportable configuration.
+**Priority:** High
 **Precondition:** A ticket exists with both an **Internal Note** (agent-only) and, separately, any note Redmine's own **Private notes** checkbox has marked private.
 
 **Steps:**
@@ -583,6 +615,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `beta.customer` via Roundcub
 ### TC-HLP-397: Attempting to merge a ticket into itself is rejected or has no effect — SUPERSEDED, see revision note
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** A single existing ticket.
 
 **Steps:**

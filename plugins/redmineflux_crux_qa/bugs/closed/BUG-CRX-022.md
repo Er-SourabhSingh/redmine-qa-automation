@@ -49,6 +49,12 @@ Not captured — confirmed via the full rendered page content (agent table rows,
 
 Suggested fix direction: apply the same `authorize_view_dashboard`-style `before_action` (checking `User.current.admin? || User.current.allowed_to_globally?(:view_crux)`) to `crux_agents_controller.rb`'s `index` action, mirroring the fix already shipped for `crux_dashboard_controller.rb` today. Worth checking whether any other sibling Crux controllers (pipelines, runs, etc.) share this same gap while addressing it.
 
+## 2026-09-25 retest — FIXED, live-confirmed
+
+Logged in as `daisy.skye` (Reporter, zero Crux permissions — same fixture as original), navigated directly to `/crux/agents`. **Result: `403 Forbidden`**, confirmed via HTTP status in the page load, not just visual absence of content. (Nav link itself is still visibly shown for this user — a separate, minor cosmetic matter; this bug's contract was about actual data access, which is now correctly blocked, matching the same `view_crux`-style enforcement BUG-CRX-012 already fixed on `/crux`.)
+
+**Verdict: FIXED, live-confirmed.** Ready to close pending user approval (production sync required).
+
 ## Production report
 
 Reported to production as issue **#120720** (`ztflux`, Tracker Bug, Priority **High**, assigned to Prashant Chaurasia — user id 410), 2026-09-16. Textile description, no attachments (per updated §4.3a policy). Linked to Run #569 "Crux QA Run 1", testcase **#120487** (`CRUX_CHAT_CAPABILITIES_KEEP_SHARE_ARTIFACTS.md`, the same testcase BUG-CRX-011/012 were linked to — found while retesting BUG-CRX-012), Environment "Window 11 + Chrome" — testcase marked **Failed**.

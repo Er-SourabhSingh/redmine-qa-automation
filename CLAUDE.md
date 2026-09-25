@@ -22,6 +22,7 @@ redmine-qa-automation/
 ├── SENIOR_QA_STANDARDS.md           ← testing methodology and bug standards
 ├── REDMINEFLUX-MCP-SETUP.md         ← production redmineflux MCP server setup + write-approval policy
 ├── QA_CREDENTIALS.md                ← common QA credentials (all environments/roles)
+├── TIME_LOG.md                      ← global time log — every testing/retest/bug-report activity, per testcase (§14)
 │
 ├── scripts/                         ← utility/seed scripts
 ├── templates/
@@ -577,6 +578,7 @@ At the end of every test session:
 - [ ] If any TC moved to a confirmed PASS this session and is in scope for regression, its `automation/tests/<suite>.spec.ts` is added or updated
 - [ ] If a bug was retested and confirmed FIXED this session, regression has been run for its affected feature/suite (`SENIOR_QA_STANDARDS.md` §26) — not just the single TC
 - [ ] If this session closed the **last** bug in `bugs/open/`, the full final cycle regression has been run (`SENIOR_QA_STANDARDS.md` §27) before `STATUS.md` is set to `Complete`
+- [ ] `TIME_LOG.md` has a row for every testing / retest / bug-reporting / regression activity of this session, its Daily summary row is filled, and the time summary (per testcase, with comments) has been given to the user (§14)
 
 ---
 
@@ -650,3 +652,47 @@ python scripts/gen_testdata_xlsx.py <out_path.xlsx> "<env label>" "<Plugin Displ
 ```
 
 See `scripts/gen_testdata_xlsx.py` for the generator (adapt its `SHEETS` dict per plugin). Re-running it against the same path regenerates a blank template — it does not merge with existing data rows, so day-to-day updates to a workbook's data should be made by opening and editing the file directly, not by re-running the script (only re-run it to create a new environment's file, or to deliberately reset one).
+
+---
+
+## 14. Time Tracking (`TIME_LOG.md`)
+
+Every activity spent on testing has to be logged as time against a testcase in Redmine. So the time is tracked
+**while the work happens**, in one global file at the repo root: `TIME_LOG.md`.
+
+### What is tracked
+
+Testing (TC execution), regression re-runs, bug retesting, bug reporting (local bug MD, screenshots, production
+report, linking to the run), test case writing, and setup/investigation done for a specific TC. This applies to
+narrow standalone actions too — "report BUG-XXX to production" or "retest BUG-XXX" each get their own row, even
+though §11's full reading checklist doesn't apply to them.
+
+### How
+
+1. **Start** — when the activity begins (first read of the TC / bug file), capture the time with
+   `date '+%Y-%m-%d %H:%M'`.
+2. **End** — when the verdict is recorded (PASS/FAIL/BLOCKED, FIXED/NOT FIXED), or the bug file is saved/reported,
+   capture the time again.
+3. **Append the row immediately** to `TIME_LOG.md` → Entries: date, start, end, duration (`h:mm` + decimal hours),
+   activity, plugin, the testcase to log against, bug ID if any, and a comment saying what the time was for.
+   Never reconstruct times afterwards from file timestamps or production data.
+4. **Which testcase** — follow the table at the top of `TIME_LOG.md`. A bug retest and a bug report are logged
+   against the TC the bug is linked to. If the work isn't tied to any TC, write `—` and ask the user which TC to put
+   it on before it is ever logged to production.
+5. **Parallel sessions** — several sessions can append to the same file. Re-read it right before appending and add
+   rows at the end only; never rewrite or reorder other rows.
+
+### Reporting to the user
+
+At the end of every testing session — and whenever the user asks — fill the Daily summary row and give the user a
+short time summary:
+- per testcase: TC ID, total time, and the comment(s) of what it was for;
+- totals per activity (testing / retesting / bug reporting / regression / other) and a grand total.
+
+### Logging to production
+
+Only when the user explicitly says to log the time, and for exactly the testcases they name. It is a production
+write (`redmineflux_core_log_time` on the testcase's production issue) and follows the approval rule in
+`REDMINEFLUX-MCP-SETUP.md` §4 — prepare the exact entries (issue #, hours, date, activity, comment), wait for
+approval, execute. Then fill the row's **Prod TC issue #** and **Logged to prod** columns with the time entry ID so
+nothing is logged twice.

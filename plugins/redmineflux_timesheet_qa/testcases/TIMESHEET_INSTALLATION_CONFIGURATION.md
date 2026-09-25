@@ -28,6 +28,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-027: Plugin folder name is enforced
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** Plugin at `redmine/plugins/redmineflux_timesheet`.
 **Steps:**
 1. Confirm the folder name is unchanged.
@@ -43,6 +44,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-028: Migrations complete cleanly
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Run the migration, restart, open the Timesheet module.
 
@@ -54,6 +56,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-029: Assets load
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. Open the timesheet grid and the Log Time modal; inspect the console and Network tab.
 
@@ -66,6 +69,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-030: Redmine version boundary
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Record the Redmine version.
 
@@ -82,6 +86,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-031: `timesheet:send_reminders` runs manually
 
 **User Role:** Admin (shell)
+**Priority:** Medium
 **Steps:**
 1. With users holding unsubmitted timesheets past the deadline, run
    `bundle exec rake timesheet:send_reminders RAILS_ENV=production`.
@@ -96,6 +101,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-032: `timesheet:validate_deadlines` runs manually
 
 **User Role:** Admin (shell)
+**Priority:** High
 **Steps:**
 1. Run `bundle exec rake timesheet:validate_deadlines RAILS_ENV=production` after a deadline has passed.
 
@@ -108,6 +114,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-033: Tasks are idempotent
 
 **User Role:** Admin (shell)
+**Priority:** Medium
 **Steps:**
 1. Run each task twice in succession without changing any data.
 
@@ -125,6 +132,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-034: Project Mode
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Set Timesheet Mode to **Project Mode**; save.
 2. Open a project's settings and the timesheet grid.
@@ -138,6 +146,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-035: Team Mode
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Switch to **Team Mode**; save.
 2. Re-check project settings and the Team section.
@@ -154,6 +163,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-036: Weekly submission period
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Set the period to **Weekly**; open the timesheet grid.
 
@@ -167,6 +177,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-037: Monthly submission period
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Set the period to **Monthly**; check a 28-day, a 30-day and a 31-day month.
 
@@ -178,6 +189,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-038: Submission deadline day
 
 **User Role:** Admin then Member
+**Priority:** High
 **Steps:**
 1. Set a deadline day; allow it to pass with a timesheet unsubmitted; attempt to submit.
 
@@ -195,6 +207,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-039: Allowed past days and cutoff time
 
 **User Role:** Admin then Member
+**Priority:** High
 **Steps:**
 1. Enable **Allow Past Date Timelog**, set **Allowed Past Days** to 3 and **Allowed Time** to a cutoff already
    passed today.
@@ -211,6 +224,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-040: Block Edit/Delete After Allowed Period
 
 **User Role:** Admin then Member
+**Priority:** High
 **Steps:**
 1. Enable the setting; attempt to edit and then delete an entry outside the allowed window after cutoff.
 2. Send both requests **directly** to their endpoints.
@@ -224,6 +238,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-041: Disable Log/Edit After Approval
 
 **User Role:** Admin, Member, Approver
+**Priority:** High
 **Steps:**
 1. Enable the setting; get a timesheet approved; attempt to add and edit entries in that period, via the UI and
    directly.
@@ -239,6 +254,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-042: Overtime Threshold, including `0`
 
 **User Role:** Admin then Member
+**Priority:** High
 **Steps:**
 1. Set the threshold to 8; log 10 hours in a day and inspect the overtime indication.
 2. Set it to **0** and repeat.
@@ -253,6 +269,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-043: Auto-Approve Threshold, including `0`
 
 **User Role:** Admin then Member
+**Priority:** High
 **Steps:**
 1. Set the threshold to 10; submit a timesheet totalling 6 hours, then one totalling 20.
 2. Set it to **0** and submit a 1-hour timesheet.
@@ -268,6 +285,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-044: Email on submission
 
 **User Role:** Admin, Member, Approver
+**Priority:** Medium
 **Preconditions:** Working mail path; **Host name and path** verified.
 **Steps:**
 1. Enable the setting; submit a timesheet; check the approvers' mailboxes.
@@ -281,6 +299,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-045: Email on approval/rejection
 
 **User Role:** Approver then Member
+**Priority:** Medium
 **Steps:**
 1. Enable the setting; approve a timesheet, then reject another; check the submitter's mailbox.
 
@@ -297,6 +316,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-046: Settings page is not reachable by a non-admin
 
 **User Role:** Every non-admin role in turn
+**Priority:** High
 **Steps:**
 1. Request the Timesheet Settings URL directly and attempt to post a settings change.
 
@@ -311,6 +331,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-047: Invalid setting values
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Enter negative values for Allowed Past Days and both thresholds; a malformed time for the cutoff (`25:99`,
    `abc`); and a deadline day outside a valid range (e.g. 32).
@@ -325,6 +346,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-048: Wrong plugin folder name
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Rename the folder and restart.
 
@@ -336,6 +358,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-049: Migrations not run
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Install files, skip migrations, restart, open Redmine.
 
@@ -348,6 +371,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-050: Settings change with approvals in flight
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. With several timesheets part-way through a multi-level approval, change the submission period type and the
    deadline day.
@@ -366,6 +390,7 @@ submission or approval — not by the settings page reporting a successful save.
 ### TC-TMS-051: Clean uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** **Database backup taken.**
 **Steps:**
 1. Run `bundle exec rails redmine:plugins:migrate NAME=timesheet VERSION=0 RAILS_ENV=production`.

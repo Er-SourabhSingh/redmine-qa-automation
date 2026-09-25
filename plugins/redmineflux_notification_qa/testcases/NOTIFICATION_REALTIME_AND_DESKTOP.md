@@ -33,6 +33,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-062: Faye server starts
 
 **User Role:** Admin (shell)
+**Priority:** Medium
 **Steps:**
 1. Run `rackup plugins/redmineflux_notification/faye.ru -E production`.
 
@@ -46,6 +47,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-063: Configure the Faye address
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Configure → Redmine Notifications → enter the address, e.g. `http://your_server:9292/faye` → **Apply**.
 2. Reload the page.
@@ -58,6 +60,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-064: Notifications arrive in real time
 
 **User Role:** Actor and Watcher, in separate browsers
+**Priority:** High
 **Steps:**
 1. Watcher sits on any Redmine page without reloading.
 2. Actor creates or updates a watched issue.
@@ -72,6 +75,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-065: Real-time delivery reaches only the intended recipient
 
 **User Role:** Actor, Watcher, Uninvolved member (three browsers)
+**Priority:** High
 **Steps:**
 1. Actor updates an issue watched only by Watcher.
 
@@ -87,6 +91,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-066: Real-time survives a reconnect
 
 **User Role:** Watcher
+**Priority:** Medium
 **Steps:**
 1. Interrupt the network briefly, restore it, then have the Actor trigger a notification.
 
@@ -99,6 +104,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-067: Stored notifications work regardless of Faye
 
 **User Role:** Admin + Watcher
+**Priority:** High
 **Steps:**
 1. Stop the Faye server, leaving the address configured; trigger a notification; reload the Watcher's page.
 
@@ -112,6 +118,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-068: Empty Faye address turns real-time off cleanly
 
 **User Role:** Admin + Watcher
+**Priority:** Medium
 **Steps:**
 1. Clear the address field and Apply; trigger a notification.
 
@@ -128,6 +135,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-069: Wrong or unreachable Faye address
 
 **User Role:** Admin + Watcher
+**Priority:** Medium
 **Steps:**
 1. Configure an address that is syntactically valid but unreachable; trigger a notification.
 
@@ -142,6 +150,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-070: Mixed-content blocking
 
 **User Role:** Watcher
+**Priority:** Low
 **Steps:**
 1. Serve Redmine over HTTPS with an `http://` Faye address.
 
@@ -156,6 +165,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-071: Faye endpoint does not leak to unauthenticated clients
 
 **User Role:** Anonymous / an unauthenticated client
+**Priority:** High
 **Steps:**
 1. Connect to the Faye endpoint directly with no Redmine session and subscribe to the available channels.
 
@@ -174,6 +184,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-072: Enable desktop notifications
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. My Account → Preferences → enable **Notifications** and **Use desktop notifications if my browser supports
    it** → Save.
@@ -187,6 +198,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-073: A desktop notification is delivered
 
 **User Role:** Actor and Watcher
+**Priority:** Medium
 **Steps:**
 1. With the Watcher's browser minimised or on another tab, the Actor updates a watched issue.
 
@@ -198,6 +210,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-074: Desktop notifications respect the preference
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Disable **Use desktop notifications** while leaving **Notifications** enabled; trigger a notification.
 
@@ -209,6 +222,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-075: Browser permission denied
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Deny the browser's notification permission for the site while the preference is enabled; trigger a
    notification.
@@ -222,6 +236,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-076: Operating-system notifications disabled
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Disable notifications for the browser at the OS level (the KB documents both Windows and macOS) and trigger a
    notification.
@@ -236,6 +251,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-077: Desktop notification content
 
 **User Role:** Watcher
+**Priority:** High
 **Steps:**
 1. Inspect what a desktop notification actually displays.
 
@@ -250,6 +266,7 @@ operating system's notification setting. All three are documented, and any one s
 ### TC-NTF-078: Desktop notifications at volume
 
 **User Role:** Watcher
+**Priority:** Low
 **Steps:**
 1. Trigger 20 notifications in quick succession.
 

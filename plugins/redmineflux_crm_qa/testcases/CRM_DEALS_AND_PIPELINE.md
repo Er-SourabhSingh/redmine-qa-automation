@@ -30,6 +30,7 @@ targets.
 ### TC-CRM-083: Create a deal with all fields
 
 **User Role:** Member with **Manage Deals**
+**Priority:** High
 **Steps:**
 1. Deals → **New Deal** → name, amount, currency, stage, probability, due date, closed date, contact, company,
    assignee, territory, tags, description, privacy flag, custom fields → Save.
@@ -42,6 +43,7 @@ targets.
 ### TC-CRM-084: Create a deal with only the required fields
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Provide only name and stage.
 
@@ -53,6 +55,7 @@ targets.
 ### TC-CRM-085: Link a deal to a contact and a company
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Set both and Save; open the contact and the company.
 
@@ -64,6 +67,7 @@ targets.
 ### TC-CRM-086: Edit a deal
 
 **User Role:** Member with Manage Deals
+**Priority:** High
 **Steps:**
 1. Change amount, probability, assignee and stage; Save.
 
@@ -80,6 +84,7 @@ targets.
 ### TC-CRM-087: Name and stage are required
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Save with each omitted in turn.
 
@@ -91,6 +96,7 @@ targets.
 ### TC-CRM-088: Probability must be 0–100
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enter `-1`, `0`, `100`, `101` and a non-numeric value.
 
@@ -104,6 +110,7 @@ targets.
 ### TC-CRM-089: Lost reason is required when the stage is Lost
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Set the stage to **Lost** with no lost reason and Save.
 2. Repeat by sending the update **directly** to the endpoint.
@@ -118,6 +125,7 @@ targets.
 ### TC-CRM-090: Invalid amounts
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enter a negative amount, a non-numeric value and a value with many decimal places.
 
@@ -130,6 +138,7 @@ targets.
 ### TC-CRM-091: Currency cannot be changed after creation
 
 **User Role:** Member with Manage Deals
+**Priority:** High
 **Steps:**
 1. Create a deal, then attempt to change its currency through the edit form.
 2. Attempt the same change **directly** at the endpoint.
@@ -145,6 +154,7 @@ targets.
 ### TC-CRM-092: Forecast value calculation
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create a deal of 10,000 at 60% probability.
 
@@ -156,6 +166,7 @@ targets.
 ### TC-CRM-093: Forecast at the boundaries
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create deals at 0% and at 100% probability, and one with no amount.
 
@@ -172,6 +183,7 @@ targets.
 ### TC-CRM-094: Pipeline groups deals by stage
 
 **User Role:** Member with **View Pipeline**
+**Priority:** High
 **Steps:**
 1. Open the pipeline view.
 
@@ -184,6 +196,7 @@ targets.
 ### TC-CRM-095: Open pipeline value
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Compare the open pipeline figure against the sum of the amounts of all **open** deals.
 
@@ -195,6 +208,7 @@ targets.
 ### TC-CRM-096: Weighted forecast
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Compare the weighted forecast against the sum of the forecast values of all open deals, computed by hand.
 
@@ -208,6 +222,7 @@ targets.
 ### TC-CRM-097: Won revenue
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Compare won revenue against the sum of the amounts of all **Won** deals.
 
@@ -219,6 +234,7 @@ targets.
 ### TC-CRM-098: Territory filter
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply a territory filter and re-check the board and the three headline totals.
 
@@ -235,6 +251,7 @@ targets.
 ### TC-CRM-099: Drag a deal to another stage
 
 **User Role:** Member with Manage Deals
+**Priority:** High
 **Steps:**
 1. Drag a card from one column to another; **reload**; open the deal.
 
@@ -246,6 +263,7 @@ targets.
 ### TC-CRM-100: A stage change creates an activity note
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. After the drag, open the deal's Recent Activities.
 
@@ -257,6 +275,7 @@ targets.
 ### TC-CRM-101: Won and Lost deals cannot be dragged
 
 **User Role:** Member with Manage Deals
+**Priority:** High
 **Steps:**
 1. Attempt to drag a Won deal to another column, then a Lost one.
 
@@ -268,6 +287,7 @@ targets.
 ### TC-CRM-102: The update_stage endpoint rejects closed deals
 
 **User Role:** Member with Manage Deals
+**Priority:** High
 **Steps:**
 1. Send `PUT /api/deals/:id/update_stage` **directly** for a Won deal, then for a Lost one.
 
@@ -282,6 +302,7 @@ targets.
 ### TC-CRM-103: Reopening a closed deal via the edit form
 
 **User Role:** Member with Manage Deals
+**Priority:** Medium
 **Steps:**
 1. Open a Won deal's edit form and change the stage back to an open one; Save.
 
@@ -296,6 +317,7 @@ targets.
 ### TC-CRM-104: Won and Lost are excluded from open counts
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Note the dashboard's open-deal count and the pipeline value; move a deal to Won, then another to Lost;
    re-check both.
@@ -308,6 +330,7 @@ targets.
 ### TC-CRM-105: Both Won and Lost feed the win rate
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With a known set of won and lost deals, check the analytics win rate.
 
@@ -320,6 +343,7 @@ targets.
 ### TC-CRM-106: Territories on the deal form
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Select a configured territory, and the custom option if offered; Save; then filter the pipeline by it.
 
@@ -335,6 +359,7 @@ targets.
 ### TC-CRM-107: Deleting a deal follows the documented cascade exactly
 
 **User Role:** Member with **Delete CRM Data**
+**Priority:** High
 **Preconditions:** A deal with activities, an issue link, a linked contact and a linked company.
 **Steps:**
 1. Record the contact, company and issue.
@@ -351,6 +376,7 @@ targets.
 ### TC-CRM-108: Deletion requires Delete CRM Data
 
 **User Role:** Member with **Manage Deals** but without Delete CRM Data
+**Priority:** High
 **Steps:**
 1. Confirm no Delete control; send the delete request directly.
 
@@ -362,6 +388,7 @@ targets.
 ### TC-CRM-109: Drag-and-drop without permission
 
 **User Role:** Member with **View Pipeline** but without Manage Deals
+**Priority:** High
 **Steps:**
 1. Confirm cards are not draggable.
 2. Send the update_stage request directly.
@@ -375,6 +402,7 @@ targets.
 ### TC-CRM-110: Drag-and-drop without JavaScript
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Disable JavaScript and open the pipeline.
 
@@ -387,6 +415,7 @@ targets.
 ### TC-CRM-111: Closed date and due date
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Set a closed date earlier than the creation date and a due date in the past; then close a deal and check
    whether the closed date is set automatically.
@@ -400,6 +429,7 @@ targets.
 ### TC-CRM-112: Concurrent stage changes
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. Both have the pipeline open; each drags the same deal to a different stage.
 
@@ -412,6 +442,7 @@ targets.
 ### TC-CRM-113: Large pipeline performance
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Open the pipeline with several hundred deals across the stages.
 

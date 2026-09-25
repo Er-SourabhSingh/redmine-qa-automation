@@ -110,6 +110,7 @@ click a pencil) — do not jump to a deep URL for that part.
 ### TC-INE-001: Custom field "Required" checkbox is enforced via inline editor
 
 **User Role:** Member with issue-edit rights
+**Priority:** High
 **Preconditions:** "QA Required Text Field" (`cf_63`, Required ✓) blank on issue #1551.
 **Steps:**
 1. On issue #1551, with `cf_63` blank, inline-edit a *different* field (e.g. Priority) and attempt to save.
@@ -133,6 +134,7 @@ directly to the field's own inline editor, not only to unrelated-field saves tha
 ### TC-INE-002: Custom field scoped to a specific tracker only appears inline on issues of that tracker
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** "QA Bug-Only Tracker Field" (`cf_65`) is enabled for the Bug tracker only, on all projects.
 **Steps:**
 1. Open issue #1551 (tracker Bug) — confirm `cf_65` and its inline pencil appear.
@@ -159,6 +161,7 @@ which specific scoping rule (tracker vs. project vs. workflow) is in play.
 ### TC-INE-003: Custom field scoped to specific project(s) — not "For all projects"
 
 **User Role:** Member of two projects
+**Priority:** Medium
 **Preconditions:** "QA Test-Project-Only Field" (`cf_66`) has "For all projects" unchecked, scoped only to
 "test project".
 **Steps:**
@@ -181,6 +184,7 @@ underlying Redmine core mechanism, not separately probed via a raw request).
 ### TC-INE-004: List-format custom field with "Multiple selection" enabled
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** "QA Multi Select Field" (`cf_67`) is List format, Multiple selection ✓, values Red/Green/Blue/
 Yellow.
 **Steps:**
@@ -208,6 +212,7 @@ pattern as `INLINE_EDITOR_ISSUE_LIST_EDITING.md`'s date columns), reload confirm
 ### TC-INE-005: List-format custom field WITHOUT "Multiple selection" (single-value)
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** "QA Single Select Field" (`cf_68`) is List format, Multiple selection ✗, same Red/Green/Blue/
 Yellow values as `cf_67` — the direct contrast fixture for TC-INE-004.
 **Steps:**
@@ -234,6 +239,7 @@ choice both hold identically on the list.
 ### TC-INE-006: A read-only-by-status field shows no inline affordance, and becomes editable once the status changes
 
 **User Role:** Developer (`daisy.skye`) — **not** Admin, who is exempt from workflow field permissions
+**Priority:** High
 **Preconditions:** `cf_69` rule for role Developer / tracker Bug: Status "New" = **Read-only**, "In Progress" =
 **Required**. Issue #1551 at Status "New" with `cf_69` blank.
 **Steps:**
@@ -290,6 +296,7 @@ choice both hold identically on the list.
 ### TC-INE-107: A standard/core field's inline pencil must re-appear live after an inline Status change makes it editable again, not just on reload
 
 **User Role:** Admin (reproduces regardless of role — see `BUG-INE-007`)
+**Priority:** Medium
 **Preconditions:** Workflow → Fields permissions (role Developer, tracker Bug) has a **standard/core field**
 (Subject) marked **Read-only** at one specific status only (e.g. "In Progress"), with no rule at any other status.
 This is the direct core-field counterpart to TC-INE-006, which exercises the identical sequence against a
@@ -323,6 +330,7 @@ confirms the defect is specific to standard/core fields, not workflow-permission
 ### TC-INE-007: A field becomes "Required" at a specific status via workflow, enforced through inline editor
 
 **User Role:** Developer (`daisy.skye`)
+**Priority:** High
 **Preconditions:** Same `cf_69` rule as TC-INE-006 — Status "New" = Read-only, "In Progress" = **Required**. Issue
 #1551 at "New" with `cf_69` blank (it *has* to be blank: it was read-only at "New", so the user could not have
 filled it in beforehand — this is the exact trap the scenario is built around).
@@ -358,6 +366,7 @@ filled it in beforehand — this is the exact trap the scenario is built around)
 ### TC-INE-008: Multiple custom fields required simultaneously
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** "QA Required Text Field" (`cf_63`) and "QA Second Required Field" (`cf_64`), both Required, both
 blank on issue #1551.
 **Steps:**
@@ -383,6 +392,7 @@ resolve to the same underlying behavior TC-INE-009 exercises directly.
 > authored.
 
 **User Role:** Admin (executed as); applies to any role with edit rights
+**Priority:** Medium
 **Preconditions:** `cf_63` ("QA Required Text Field") and `cf_64` ("QA Second Required Field") both Required, both
 blank on issue #1551 (confirmed blank before the test).
 **Steps:**
@@ -415,6 +425,7 @@ blank on issue #1551 (confirmed blank before the test).
 > **workflow-level** Required; **this TC = Status change + custom-field-level Required**.
 
 **User Role:** Developer (`daisy.skye`) — deliberately a non-admin, so the workflow rules on `cf_69` are also live
+**Priority:** Medium
 alongside the custom-field-level Required rule being tested.
 **Preconditions:**
 - `cf_65` ("QA Bug-Only Tracker Field") switched to **Required ✓** at the custom-field level (Administration →
@@ -467,6 +478,7 @@ alongside the custom-field-level Required rule being tested.
 > the user's explicit correction mid-investigation.
 
 **User Role:** Developer (`daisy.skye`) throughout — including issue **creation**, not just editing
+**Priority:** Medium
 **Preconditions:** New field "QA Required Readonly Field" (`cf_70`) created with **Required ✓ checked at creation
 time**, Bug tracker, all projects. Workflow → Fields permissions (Developer/Bug): Status **New = Read-only**, every
 other status **left blank/unselected** (no override — falls back to the field's own blanket Required).
@@ -508,6 +520,7 @@ other status **left blank/unselected** (no override — falls back to the field'
 > field format except Key/value list (not creatable via the stock UI — see Fixtures note above).
 
 **User Role:** Admin (format-behavior only; permission/workflow interactions already covered separately by
+**Priority:** High
 TC-INE-001–411)
 **Steps:** For each format's fixture field on issue #1552, click the inline pencil, enter/select a value using
 whatever the widget offers, save, and confirm the value persists after reload.
@@ -539,6 +552,8 @@ which the vendor KB never documents:
 
 ### TC-INE-013: List format's two widgets, executed (multi-select save mechanism + single-select contrast)
 
+**Priority:** Medium
+
 Extends TC-INE-004/405 (previously authored but not executed) with the actual execution evidence.
 
 **Result: PASS, executed 2026-09-22** —
@@ -568,6 +583,8 @@ simply lost if they click away instead of clicking Save, with zero warning eithe
 ---
 
 ### TC-INE-014: Regression sweep — custom field formats across all 4 inline-editable surfaces
+
+**Priority:** Medium
 
 > Added per explicit user instruction: "now you can perform regression on issue detail issue list project list
 > and project board view, also test custom field each types." Rather than re-running every format on every

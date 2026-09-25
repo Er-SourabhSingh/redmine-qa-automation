@@ -25,6 +25,7 @@ sits in the Backlog.
 ### TC-AGB-001: Create a sprint
 
 **User Role:** Member with manage-sprints rights
+**Priority:** High
 **Steps:**
 1. Project → Settings → **Sprint management** → **New Sprint**.
 2. Enter name, description, start date, end date, duration (if used), status and sharing option. Save.
@@ -38,6 +39,7 @@ sits in the Backlog.
 ### TC-AGB-002: Edit a sprint
 
 **User Role:** Member with manage-sprints rights
+**Priority:** High
 **Steps:**
 1. Select a sprint, change its name and dates, save.
 
@@ -50,6 +52,7 @@ sits in the Backlog.
 ### TC-AGB-003: Delete a sprint
 
 **User Role:** Member with manage-sprints rights
+**Priority:** High
 **Steps:**
 1. Delete a sprint that has issues assigned; confirm.
 2. Open one of those issues.
@@ -64,6 +67,7 @@ sits in the Backlog.
 ### TC-AGB-004: Cancel a sprint deletion
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Trigger the delete and cancel the confirmation.
 
@@ -75,6 +79,7 @@ sits in the Backlog.
 ### TC-AGB-005: Sprint sharing option behaves as configured
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create a sprint with sharing enabled and check whether it is available in sub-projects or other projects,
    according to the sharing value chosen.
@@ -88,6 +93,7 @@ sits in the Backlog.
 ### TC-AGB-006: Sprint status controls its lifecycle
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Set a sprint's status (e.g. open vs closed/completed) and observe the Backlog and Scrum board.
 
@@ -104,6 +110,7 @@ sits in the Backlog.
 ### TC-AGB-007: Backlog opens and shows its columns
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Open a project and click **Backlog**.
 
@@ -115,6 +122,7 @@ sits in the Backlog.
 ### TC-AGB-008: Drag an issue into a sprint column
 
 **User Role:** Member with edit rights
+**Priority:** High
 **Steps:**
 1. Drag an unassigned issue into a sprint column.
 2. Reload, then open the issue.
@@ -128,6 +136,7 @@ sits in the Backlog.
 ### TC-AGB-009: Drag an issue into a version column
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Drag an issue into a version column; confirm on the issue page.
 
@@ -140,6 +149,7 @@ sits in the Backlog.
 ### TC-AGB-010: Move an issue between sprints
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Drag an issue from sprint A's column to sprint B's.
 
@@ -151,6 +161,7 @@ sits in the Backlog.
 ### TC-AGB-011: Remove an issue from a sprint
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Drag an issue from a sprint column back to the unassigned column.
 
@@ -162,6 +173,7 @@ sits in the Backlog.
 ### TC-AGB-012: Backlog lazy-loads large datasets
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open the Backlog on a project with several thousand issues and scroll a large column.
 
@@ -175,6 +187,7 @@ sits in the Backlog.
 ### TC-AGB-013: Backlog search and filters
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply the Backlog's search and filters.
 
@@ -186,6 +199,7 @@ sits in the Backlog.
 ### TC-AGB-014: Backlog card field settings
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Change the Backlog's card field settings.
 
@@ -201,6 +215,7 @@ sits in the Backlog.
 ### TC-AGB-015: Assign from the issue edit form
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Open an issue → Edit → choose a Sprint → Save.
 
@@ -213,6 +228,7 @@ sits in the Backlog.
 ### TC-AGB-016: Bulk-assign issues to a sprint
 
 **User Role:** Manager
+**Priority:** Medium
 **Steps:**
 1. Select several issues in the issue list and apply a sprint update.
 
@@ -225,6 +241,7 @@ sits in the Backlog.
 ### TC-AGB-017: Sprint field appears on the issue form only when relevant
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open the issue form in a project **without** the Agile Board module enabled.
 
@@ -241,6 +258,7 @@ sits in the Backlog.
 ### TC-AGB-018: Sprint with a blank name
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create a sprint leaving the name empty.
 
@@ -252,6 +270,7 @@ sits in the Backlog.
 ### TC-AGB-019: Sprint end date before start date
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enter an end date earlier than the start date and save.
 
@@ -263,6 +282,7 @@ sits in the Backlog.
 ### TC-AGB-020: Overlapping sprints
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create two sprints with overlapping date ranges.
 
@@ -275,6 +295,7 @@ sits in the Backlog.
 ### TC-AGB-021: Duplicate sprint names
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create two sprints with the same name in one project.
 
@@ -287,6 +308,7 @@ sits in the Backlog.
 ### TC-AGB-022: Script content in a sprint name or description
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create a sprint whose name and description contain a script tag; view the Backlog and the sprint selector.
 
@@ -298,6 +320,7 @@ sits in the Backlog.
 ### TC-AGB-023: Very long sprint name
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create a sprint with a 500-character name.
 
@@ -309,6 +332,7 @@ sits in the Backlog.
 ### TC-AGB-024: Sprint management without permission
 
 **User Role:** Member without manage-sprints rights
+**Priority:** High
 **Steps:**
 1. Confirm the Sprint management section is absent from Project Settings.
 2. Request its URL directly.
@@ -324,6 +348,7 @@ sits in the Backlog.
 ### TC-AGB-025: Backlog drag without edit permission
 
 **User Role:** Member with view-only issue access
+**Priority:** High
 **Steps:**
 1. Confirm cards are not draggable in the Backlog.
 2. Send the sprint-assignment request directly.
@@ -336,6 +361,7 @@ sits in the Backlog.
 ### TC-AGB-026: Concurrent sprint assignment
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. Both have the Backlog open. A drags an issue to sprint X; B, without reloading, drags it to sprint Y.
 
@@ -347,6 +373,7 @@ sits in the Backlog.
 ### TC-AGB-027: Issue moved to a project where the sprint does not apply
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Assign an issue to a sprint, then move the issue to a different project where that sprint is not shared.
 
@@ -359,6 +386,7 @@ sits in the Backlog.
 ### TC-AGB-028: Backlog on a project with no sprints and no versions
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Open the Backlog on a bare project.
 
@@ -445,6 +473,7 @@ sits in the Backlog.
 
 **Sanity:** yes
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Administration -> Plugins -> Redmineflux Agile Board -> **Configure**.
 2. Locate the **Backlog** section.
@@ -462,6 +491,7 @@ sits in the Backlog.
 
 **Sanity:** yes
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Enable **Story Points** in the plugin configuration.
 2. On a project with a sprint, put Story Points on several issues in that sprint - some in an open status, some
@@ -480,6 +510,7 @@ sits in the Backlog.
 ### TC-AGB-031: A version column header shows Closed / Total story points
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. With Story Points enabled, put points on issues assigned to a target version and no sprint.
 2. Open the Backlog -> **Versions** tab.
@@ -495,6 +526,7 @@ sits in the Backlog.
 ### TC-AGB-032: The unassigned column shows Closed / Total story points
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. With Story Points enabled, put points on issues that have no sprint (Sprints tab) and on issues that have no
    version (Versions tab).
@@ -510,6 +542,7 @@ sits in the Backlog.
 
 **Sanity:** yes
 **User Role:** Admin then Member
+**Priority:** High
 **Steps:**
 1. With points already set on Backlog issues, **disable** Story Points in the plugin configuration and save.
 2. Reload the Backlog.
@@ -524,6 +557,7 @@ sits in the Backlog.
 ### TC-AGB-034: A column carrying no points shows no badge at all
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With Story Points enabled, open a Backlog containing a sprint whose issues all have an empty Story Points
    field.
@@ -540,6 +574,7 @@ sits in the Backlog.
 
 **Sanity:** yes
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. In one sprint, record the badge.
 2. Move an open issue carrying points into a **closed** status (per Administration -> Issue statuses, "Issue
@@ -557,6 +592,7 @@ sits in the Backlog.
 ### TC-AGB-036: Badge totals cover the whole column, not just the loaded cards
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Build a sprint with more issues than the Backlog loads initially (so the header shows `n / total` and a
    load-more control appears), with points on issues beyond the first page.
@@ -572,6 +608,7 @@ sits in the Backlog.
 ### TC-AGB-037: The badge appears, updates and disappears as points are edited
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. On a Backlog column with **no** points at all, set Story Points on one card without reloading the page.
 2. Change that card's points to a different value.
@@ -594,6 +631,7 @@ sits in the Backlog.
 ### TC-AGB-038: With the setting off, completed stories drop out of the Backlog
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Leave *Show completed issues in Backlog* **off**.
 2. Close an issue that sits in a sprint and reload the Backlog.
@@ -609,6 +647,7 @@ sits in the Backlog.
 
 **Sanity:** yes
 **User Role:** Admin then Member
+**Priority:** High
 **Steps:**
 1. Enable *Show completed issues in Backlog* and save.
 2. Reload the Backlog of a project with closed, pointed issues in a sprint.
@@ -626,6 +665,7 @@ sits in the Backlog.
 ### TC-AGB-040: An explicit status filter overrides the setting
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With *Show completed issues in Backlog* on, use the Backlog filter panel to apply an explicit **Status**
    filter (e.g. Status = open, or Status = one specific status). Apply.
@@ -641,6 +681,7 @@ sits in the Backlog.
 ### TC-AGB-041: A saved query overrides the setting — **N/A, feature not built**
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With the setting on, open the Backlog through a **saved query** that has its own status filter.
 
@@ -668,6 +709,7 @@ sits in the Backlog.
 ### TC-AGB-042: Turning the setting back off restores the open-only Backlog immediately
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. With the setting on, load the Backlog (closed stories visible).
 2. Turn the setting **off** and save, then reload the Backlog in the same browser session.
@@ -683,6 +725,7 @@ sits in the Backlog.
 ### TC-AGB-043: Load-more honours the setting, so counts and cards cannot disagree
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With the setting on, open a sprint column large enough to need load-more and containing closed issues
    beyond the first page.
@@ -699,6 +742,7 @@ sits in the Backlog.
 ### TC-AGB-044: With the width setting off, the unassigned column keeps its standard width
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Leave *Wider column for unassigned issues* **off**, open the Backlog on a wide (>1024px) screen and measure
    the No Sprint / No Version column against a sprint column.
@@ -712,6 +756,7 @@ sits in the Backlog.
 
 **Sanity:** yes
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Enable *Wider column for unassigned issues*, save, and reload the Backlog on a screen wider than 1024px.
 2. Check both the **Sprints** tab (No Sprint column) and the **Versions** tab (No Version column).
@@ -728,6 +773,7 @@ sits in the Backlog.
 ### TC-AGB-046: The widened column does not apply on narrow screens
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. With the setting on, reduce the browser width to 1024px or below and reload the Backlog.
 
@@ -740,6 +786,7 @@ sits in the Backlog.
 ### TC-AGB-047: Both settings are instance-wide
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Turn each setting on and open the Backlog of **two different projects**.
 
@@ -753,6 +800,7 @@ sits in the Backlog.
 ### TC-AGB-048: Story point figures are consistent between the Backlog page and the API
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With Story Points enabled, read a column's badge on the Backlog page.
 2. Request the same project's backlog through the plugin's API v1 backlog endpoint.
@@ -771,6 +819,7 @@ sits in the Backlog.
 ### TC-AGB-049: Fractional story points in the badge
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Set a fractional Story Points value (e.g. 2.5) on a Backlog issue, if the configured values allow it, and
    read the column badge.
@@ -784,6 +833,7 @@ sits in the Backlog.
 ### TC-AGB-050: The badge respects issue visibility
 
 **User Role:** A member who cannot see every issue in the project
+**Priority:** High
 **Steps:**
 1. With points on issues this user may **not** see, open the Backlog as that user.
 
@@ -797,6 +847,7 @@ sits in the Backlog.
 ### TC-AGB-051: A non-admin cannot change the two new Backlog settings
 
 **User Role:** Every non-admin role in turn
+**Priority:** High
 **Steps:**
 1. Request the plugin configuration page directly and attempt to post a change to each new setting.
 
@@ -809,6 +860,7 @@ sits in the Backlog.
 ### TC-AGB-052: The new settings and the badge label are translated
 
 **User Role:** Admin then Member
+**Priority:** Low
 **Steps:**
 1. Switch the interface to German and re-open the plugin configuration and the Backlog.
 
@@ -822,6 +874,7 @@ sits in the Backlog.
 ### TC-AGB-053: Backlog with the settings on but no sprints, versions or points
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Enable both new settings and Story Points, then open the Backlog of a bare project.
 

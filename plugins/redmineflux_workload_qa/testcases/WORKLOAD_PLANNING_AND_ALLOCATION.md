@@ -29,6 +29,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-091: Create a workload
 
 **User Role:** Admin, or a member with **Manage workload** on that team
+**Priority:** High
 **Steps:**
 1. **Create Workload** → select the team, enter a name, set start and end dates, select members → **Create**.
 
@@ -41,6 +42,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-092: Create a workload with custom working hours per day
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Create a workload specifying a custom hours-per-day value different from the global setting.
 
@@ -54,6 +56,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-093: Edit a workload
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Change the name, dates, team, members and working hours; Save; then **Recalculate Capacity**.
 
@@ -67,6 +70,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-094: Delete a workload
 
 **User Role:** Workload manager
+**Priority:** High
 **Steps:**
 1. Delete a workload that has members, issues and allocations; confirm.
 
@@ -84,6 +88,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-095: Base capacity from working days
 
 **User Role:** Workload manager
+**Priority:** High
 **Preconditions:** Global hours/day = 8.0; no holidays or leave in range.
 **Steps:**
 1. Create a workload over a range containing exactly 10 working days and read a member's available capacity.
@@ -96,6 +101,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-096: Weekends are excluded
 
 **User Role:** Workload manager
+**Priority:** High
 **Steps:**
 1. Create a workload over a full 14-calendar-day range containing 10 working days and 4 weekend days.
 
@@ -107,6 +113,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-097: Active-scheme holidays reduce capacity
 
 **User Role:** Admin + workload manager
+**Priority:** High
 **Steps:**
 1. Add one holiday inside the range to the **active** scheme; **Recalculate Capacity**.
 
@@ -119,6 +126,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-098: Approved leave reduces capacity
 
 **User Role:** Approver + workload manager
+**Priority:** High
 **Steps:**
 1. Approve two working days of leave for one member inside the range; recalculate.
 
@@ -131,6 +139,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-099: All inputs combine correctly
 
 **User Role:** Workload manager
+**Priority:** High
 **Steps:**
 1. With 10 working days, one active-scheme holiday, and 2 days of approved leave for one member, read that
    member's capacity.
@@ -149,6 +158,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-100: Add issues to a workload
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Open the workload → use the issue search and the eligible-issues list → select an issue → **Add Issue**.
 
@@ -162,6 +172,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-101: Allocate planned hours within capacity
 
 **User Role:** Workload manager
+**Priority:** High
 **Steps:**
 1. Enter planned hours for a member on an issue, below their available capacity.
 
@@ -175,6 +186,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-102: Overload behaviour follows the setting
 
 **User Role:** Workload manager
+**Priority:** High
 **Steps:**
 1. With **Allow Workload Overload** disabled, allocate beyond capacity through the UI, then send the same
    allocation **directly** to the endpoint.
@@ -189,6 +201,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-103: Remove an issue from a workload
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Remove an issue that has allocated hours.
 
@@ -201,6 +214,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-104: Allocate across several members and issues
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Allocate hours for three members across three issues.
 
@@ -213,6 +227,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-105: Update an existing allocation
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Change a member's planned hours on an issue.
 
@@ -224,6 +239,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-106: Zero and cleared allocations
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Set an allocation to `0`, then clear it entirely.
 
@@ -236,6 +252,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-107: Recalculate Capacity
 
 **User Role:** Workload manager
+**Priority:** High
 **Steps:**
 1. Click **Recalculate Capacity** and review the updated values.
 
@@ -247,6 +264,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-108: Recalculation picks up every documented input
 
 **User Role:** Admin + workload manager
+**Priority:** High
 **Steps:**
 1. Change each input in turn — working hours per day, workload dates, team membership, a holiday, a leave record —
    and recalculate after each.
@@ -266,6 +284,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-109: Send workload email
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Preconditions:** Working mail path; Administration → Settings → General → **Host name and path** verified.
 **Steps:**
 1. Open the workload detail page → the workload email action → review → send.
@@ -278,6 +297,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-110: Workload email respects recipient visibility
 
 **User Role:** Workload manager
+**Priority:** High
 **Steps:**
 1. Send a workload email to a recipient who cannot see some of the referenced issues' projects.
 
@@ -295,6 +315,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-111: Workload validation
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Create workloads with: a blank name; an end date before the start date; no members selected; no team; and a
    range containing no working days at all (e.g. a single weekend).
@@ -309,6 +330,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-112: Invalid planned hours
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Enter negative hours, a non-numeric value, and an implausibly large value.
 
@@ -321,6 +343,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-113: Allocating to a member not in the workload
 
 **User Role:** Workload manager
+**Priority:** High
 **Steps:**
 1. Send an allocation request naming a user who is not a member of the workload.
 
@@ -332,6 +355,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-114: Adding the same issue twice
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Add an issue already present in the workload.
 
@@ -343,6 +367,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-115: Issue deleted or moved after allocation
 
 **User Role:** Workload manager + Manager
+**Priority:** Medium
 **Steps:**
 1. Allocate hours to an issue, then delete it; then repeat with an issue moved to a project the manager cannot
    access.
@@ -356,6 +381,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-116: Concurrent allocation edits
 
 **User Role:** Two workload managers
+**Priority:** Medium
 **Steps:**
 1. Both allocate hours for the same member on the same issue without reloading.
 
@@ -368,6 +394,7 @@ Workloads → **Create Workload**, then the workload name for its detail page. D
 ### TC-WKL-117: Workload access is scoped
 
 **User Role:** A member of team A only
+**Priority:** High
 **Steps:**
 1. Confirm the global Workloads page shows only team A's workloads.
 2. Request a **team B** workload's detail URL directly, and send an allocation request against it.

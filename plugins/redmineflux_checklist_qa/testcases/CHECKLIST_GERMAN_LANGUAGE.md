@@ -12,6 +12,8 @@
 
 ### TC-CHK-043 — Issue detail Checklist widget (menu, add form, sub-item form, journal message) fully translated in German
 
+**Priority:** Medium
+
 **Steps**
 
 1. Log in as admin, confirm German language + Default theme active.
@@ -37,6 +39,8 @@
 
 ### TC-CHK-044 — Admin Checklist Templates: create, edit, delete (with confirm modal) fully translated
 
+**Priority:** Medium
+
 **Steps**
 
 1. Navigate to Administration > Plugins > Redmineflux Checklist Plugin > Checklisten-Vorlagen tab.
@@ -57,6 +61,8 @@
 ---
 
 ### TC-CHK-045 — Issue detail Checklist widget on an Agile-Board-enabled project: no cross-plugin overlap, item Edit/Delete, "Aus Vorlage hinzufügen", Checklisten-Verlauf tab
+
+**Priority:** Medium
 
 **Steps**
 
@@ -81,6 +87,8 @@
 
 ### TC-CHK-046 — Sub-checklist item creation, including its per-item Status dropdown
 
+**Priority:** Medium
+
 **Steps**
 
 1. On an issue with an existing checklist item, open the item's "..." (Aktionen) dropdown → "Hinzufügen" (add sub-item).
@@ -98,6 +106,8 @@
 
 ### TC-CHK-047 — "Block issue closing" enforcement and its error message (functional test, not just label translation)
 
+**Priority:** High
+
 **Steps**
 
 1. Enable "Ticket-Schließung blockieren" in Administration > Plugins > Redmineflux Checklist Plugin.
@@ -114,6 +124,8 @@
 ---
 
 ### TC-CHK-048 — "Aus Vorlage hinzufügen" journal message
+
+**Priority:** Medium
 
 **Steps**
 
@@ -138,11 +150,15 @@
 
 ### TC-CHK-049 — Layout integrity at 1280×720
 
+**Priority:** Low
+
 **Pages checked:** Issue detail (Checklist widget, journal/notes tab), admin Checklisten-Vorlagen list, template Delete confirmation modal.
 
 **Result — PASS.** No horizontal overflow, no clipped text, no overlapping elements; modal renders centered and fully visible; table columns fit without wrapping.
 
 ### TC-CHK-050 — Layout integrity at 1920×1080
+
+**Priority:** Low
 
 **Pages checked:** Same as above.
 
@@ -155,6 +171,8 @@
 ## Stages 3–6 — Lotus theme retest (German active), both resolutions
 
 ### TC-CHK-051 — Issue detail Checklist widget under Lotus theme
+
+**Priority:** Medium
 
 **Steps**
 
@@ -172,6 +190,8 @@
 
 ### TC-CHK-052 — Admin Checklisten-Vorlagen page + Delete modal under Lotus theme
 
+**Priority:** Medium
+
 **Steps**
 
 1. Navigate to `/settings/plugin/redmineflux_checklist?tab=checklist_template` under Lotus.
@@ -187,6 +207,8 @@
 ---
 
 ### TC-CHK-053 — Resolution testing under Lotus (1280×720 and 1920×1080)
+
+**Priority:** Low
 
 **Steps**
 

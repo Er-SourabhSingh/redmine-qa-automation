@@ -26,6 +26,7 @@ Application side: issue detail → Checklist section → **Actions** → **Add f
 ### TC-CHK-093: Create a checklist template bound to a tracker
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Open the Checklist templates tab and click **Add Checklist Template**.
 2. Select a tracker (e.g. Bug) from the dropdown.
@@ -46,6 +47,7 @@ listed in the tab with correct name and tracker.
 ### TC-CHK-094: Tracker dropdown lists all active trackers
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Compare the tracker dropdown contents with Administration → Trackers.
 
@@ -61,6 +63,7 @@ none missing.
 ### TC-CHK-095: Create a template with multiple checklist entries
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Create a template, then use **Add checklist** to add five title rows before saving.
 
@@ -76,6 +79,7 @@ same order.
 ### TC-CHK-096: Create a template with nested sub-checklist entries
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Use the add-sub-checklist control to nest entries under a parent entry, then save.
 
@@ -91,6 +95,7 @@ nested child both created) when the template was applied to issue #1534 during T
 ### TC-CHK-097: Multiple templates can target the same tracker
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Create two differently-named templates both bound to the Bug tracker.
 
@@ -111,6 +116,7 @@ together, no collision.
 ### TC-CHK-098: Edit a template name
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Click **Edit** on an existing template, change its name, save.
 
@@ -125,6 +131,7 @@ CONFIRMED LIVE 2026-09-21 (edited template id 4, "TC-CHK-093 Bug Template" → "
 ### TC-CHK-099: Edit a template's checklist entries
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Edit a template: rename one entry, add one, remove one. Save.
 
@@ -149,6 +156,7 @@ already-created issue checklists, exactly as expected. No defect.
 ### TC-CHK-100: Change a template's tracker binding
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Change an existing template's tracker from Bug to Task and save.
 2. Open a Bug issue and a Task issue and check the template picker in each.
@@ -169,6 +177,7 @@ sides.
 ### TC-CHK-101: Delete a template
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Click **Delete** on a template and confirm.
 
@@ -189,6 +198,7 @@ template's deletion. No defect.
 ### TC-CHK-102: Cancel a template deletion
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Trigger Delete, then cancel the confirmation.
 
@@ -208,6 +218,7 @@ unaffected by the cancelled delete attempt.
 ### TC-CHK-103: Apply a template to an issue
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Open a Bug issue → Checklist section → **Actions** → **Add from template**.
 2. Pick a template bound to Bug and confirm.
@@ -228,6 +239,7 @@ reproduced correctly in a separate check.
 ### TC-CHK-104: Applying a template is journaled
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply a template, then open the issue History and the Checklist History tab.
 
@@ -243,6 +255,7 @@ actor as required.
 ### TC-CHK-105: Apply a template on top of an existing checklist
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. On an issue that already has a checklist with completed items, apply a template.
 
@@ -260,6 +273,7 @@ completed checkbox state were unchanged, not reset or overwritten.
 ### TC-CHK-106: Apply the same template twice
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply the same template to the same issue twice.
 
@@ -286,6 +300,7 @@ expected result exactly. No half-apply, no bug.
 ### TC-CHK-107: Create a template with no name
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Leave the Template Name field blank and submit.
 
@@ -303,6 +318,7 @@ templates). Satisfies "rejected with a validation message naming the missing fie
 ### TC-CHK-108: Create a template with no checklist entries
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Provide a name and tracker but no entries; submit.
 
@@ -320,6 +336,7 @@ true on the checklist-title field) — no entry-less template can be created at 
 ### TC-CHK-109: Create a template with no tracker selected
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Leave the tracker dropdown unselected and submit.
 
@@ -337,6 +354,7 @@ unselected is simply not a submittable state.
 ### TC-CHK-110: Duplicate template names
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Create two templates with the same name on the same tracker.
 
@@ -355,6 +373,7 @@ row, unchanged. Best-case outcome from the expected result (rejected, not a look
 ### TC-CHK-111: HTML and special characters in template name and entries
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Create a template whose name and entries contain a script tag, quotes and an ampersand.
 2. Apply it to an issue.
@@ -379,6 +398,7 @@ vulnerable. No new bug.
 ### TC-CHK-112: Template with a very large number of entries
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Create a template with 100 entries and apply it to an issue.
 
@@ -399,6 +419,7 @@ console errors beyond the pre-existing unrelated `lastJstPreviewed` collision. N
 ### TC-CHK-113: Template picker on an issue whose tracker has no templates
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Open an issue on a tracker with no templates bound and choose **Add from template**.
 
@@ -414,6 +435,7 @@ Add-from-template): **PASS.** Explicit empty-state message rendered: **"No templ
 ### TC-CHK-114: Templates tab is not reachable by a non-admin
 
 **User Role:** Non-admin member
+**Priority:** High
 **Steps:**
 1. Request the plugin configuration URL directly as a non-admin.
 
@@ -432,6 +454,7 @@ action from managing the template catalog itself.)
 ### TC-CHK-115: Changing an issue's tracker after applying a template
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply a Bug-bound template to a Bug issue, then change the issue's tracker to Task.
 

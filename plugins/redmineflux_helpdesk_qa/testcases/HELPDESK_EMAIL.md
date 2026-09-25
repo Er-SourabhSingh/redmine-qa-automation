@@ -19,6 +19,7 @@
 ### TC-HLP-067: An administrator can save a project's email configuration
 
 **User Role:** Administrator
+**Priority:** High
 **Precondition:** A project with the Helpdesk module enabled.
 
 **Steps:**
@@ -36,6 +37,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin): **PASS.** Helpdesk �
 ### TC-HLP-068: A project with its own SMTP settings sends from its configured address
 
 **User Role:** N/A (system-driven, verified via a received email)
+**Priority:** High
 **Precondition:** Project A has SMTP settings configured with **Email from** = `support@acme.example`.
 
 **Steps:**
@@ -52,6 +54,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, Helpdesk QA Alpha, `alpha.su
 ### TC-HLP-069: A project without SMTP settings falls back to Redmine's global mail settings
 
 **User Role:** N/A (system-driven)
+**Priority:** High
 **Precondition:** Project B has no SMTP fields configured.
 
 **Steps:**
@@ -67,6 +70,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, Helpdesk QA Gamma —
 ### TC-HLP-070: Two projects with different SMTP settings send as two distinct senders
 
 **User Role:** N/A (system-driven)
+**Priority:** Medium
 **Precondition:** Project A configured as `support@acme.example`; Project C configured as `help@othercorp.example`.
 
 **Steps:**
@@ -83,6 +87,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, Helpdesk QA Alpha vs Helpdes
 ### TC-HLP-071: Outgoing mail fires on all four documented trigger events
 
 **User Role:** Agent (verified via Email History / received mail)
+**Priority:** High
 **Precondition:** A project with outgoing mail configured (or falling back to global).
 
 **Steps:**
@@ -107,6 +112,7 @@ All 4 documented trigger events independently confirmed to fire real outgoing ma
 ### TC-HLP-072: Email History shows full detail for every message
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** A ticket with at least one inbound and one outbound message recorded.
 
 **Steps:**
@@ -122,6 +128,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, ticket #63 — Helpde
 ### TC-HLP-073: An agent's Reply Note is logged in the Helpdesk Conversion tab, correctly attributed
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** An existing ticket (any origin).
 
 **Steps:**
@@ -137,6 +144,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, ticket #63 — Helpde
 ### TC-HLP-074: A customer's portal Reply is logged in the Helpdesk Conversion tab, correctly attributed
 
 **User Role:** Client (Customer)
+**Priority:** Medium
 **Precondition:** An existing ticket the customer can open (see BUG-HLP-006 for when this is blocked).
 
 **Steps:**
@@ -152,6 +160,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, ticket #63 — Helpde
 ### TC-HLP-075: A customer's real inbound-email reply to an existing ticket is NOT logged in the Helpdesk Conversion tab
 
 **User Role:** Client (Customer), replying by real email — verified from the Agent side
+**Priority:** Medium
 **Precondition:** A ticket that already has at least one agent reply (so an outbound notification email exists for the customer to reply to).
 
 **Steps:**
@@ -168,6 +177,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, ticket #63 — Helpde
 ### TC-HLP-076: Leaving incoming mail settings blank means no mailbox is polled for that project
 
 **User Role:** N/A (system-driven)
+**Priority:** Medium
 **Precondition:** A project's email configuration has all incoming (mailbox) fields left blank.
 
 **Steps:**
@@ -184,6 +194,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::EmailPolle
 ### TC-HLP-077: A resolved ticket auto-closes after the configured silent period
 
 **User Role:** N/A (system-driven, verified by Agent)
+**Priority:** High
 **Precondition:** Project's Auto-close days = 2; a ticket set to Resolved and left untouched.
 
 **Steps:**
@@ -200,6 +211,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseT
 ### TC-HLP-078: Auto-close days blank or 0 disables auto-close for that project
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Auto-close days set to blank (or `0`) on the project's email configuration.
 
 **Steps:**
@@ -221,6 +233,7 @@ CONFIRMED via source review 2026-09-09 (not independently re-executed live this 
 ### TC-HLP-079: The same mailbox/SMTP address configured on two different projects — determine whether it's blocked or silently allowed
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Project A's Email Configuration already has a working incoming mailbox and/or outgoing SMTP account (e.g. `alpha.support@test.local`).
 
 **Steps:**
@@ -245,6 +258,7 @@ This is exactly the "silent misrouting/confusion depending on which side is reus
 ### TC-HLP-080: A non-admin manager cannot save a project's email configuration
 
 **User Role:** Manager with `manage_helpdesk` but not an administrator
+**Priority:** High
 **Precondition:** Viewing Helpdesk › Settings › Email Configuration.
 
 **Steps:**
@@ -260,6 +274,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `manage.helpdesk.test` — `
 ### TC-HLP-081: Auto-close never affects a ticket that isn't Resolved
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** A ticket in In Progress (or New, Feedback, Waiting for Customer Response) left silent well past the project's Auto-close days.
 
 **Steps:**
@@ -280,6 +295,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseT
 ### TC-HLP-082: Auto-close only ever affects Support-tracker tickets, never Bug/Feature tickets in the same project (added 2026-09-09, user-identified gap)
 
 **User Role:** N/A (system-driven, verified by Agent)
+**Priority:** High
 **Precondition:** Project's Auto Close Ticket Days set to a real value; a **Bug** (or Feature) tracker ticket in the same project, left silent well past that threshold.
 
 **Steps:**
@@ -297,6 +313,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseT
 ### TC-HLP-083: Auto-close only affects the project it's configured for — tickets in a project with no (or different) auto-close configuration are untouched (added 2026-09-09, user-identified gap)
 
 **User Role:** N/A (system-driven, verified by Agent)
+**Priority:** High
 **Precondition:** Project A has Auto Close Ticket Days set to a real value; Project B has no auto-close configuration at all (or a different one). Both projects have an eligible (open-status, silent-past-threshold) ticket.
 
 **Steps:**
@@ -314,6 +331,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseT
 ### TC-HLP-084: Ticket creation from email with both Identifier Keywords and Email Subject Prefix left blank (added 2026-09-09, user-identified gap)
 
 **User Role:** Client (Customer, via email)
+**Priority:** Medium
 **Precondition:** A project's Email Configuration has a real, working incoming mailbox, but both **Identifier Keywords** and **Email Subject Prefix** are left blank (distinct from TC-HLP-076, which tests the *entire incoming section* left blank — here the mailbox itself is fully configured and polled, only these two specific fields are empty).
 
 **Steps:**
@@ -332,6 +350,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `alpha.customer` via Roundcu
 ### TC-HLP-085: Ticket creation from email with only Email Subject Prefix configured (Identifier Keywords blank) (added 2026-09-09, user-identified gap)
 
 **User Role:** Client (Customer, via email)
+**Priority:** Medium
 **Precondition:** A project's Email Configuration has Identifier Keywords blank, Email Subject Prefix set to a real value (e.g. `[TICKET]`).
 
 **Steps:**
@@ -350,6 +369,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `alpha.customer` via Roundcu
 ### TC-HLP-086: Ticket creation from email with both Identifier Keywords and Email Subject Prefix configured together (added 2026-09-09, user-identified gap)
 
 **User Role:** Client (Customer, via email)
+**Priority:** Medium
 **Precondition:** A project's Email Configuration has both Identifier Keywords (e.g. `ticket, issue, request`) and Email Subject Prefix (e.g. `[TICKET]`) set to real values.
 
 **Steps:**
@@ -369,6 +389,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, `alpha.customer` via Roundcu
 ### TC-HLP-087: A ticket resolved just before the silence window elapses is not closed early
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Auto-close days = 2; a ticket resolved a few minutes before the 2-day mark would be reached.
 
 **Steps:**
@@ -384,6 +405,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseT
 ### TC-HLP-088: Whether a reply during the silence countdown resets the auto-close clock
 
 **User Role:** Agent then Client (Customer)
+**Priority:** Medium
 **Precondition:** A Resolved ticket partway through its silence window.
 
 **Steps:**
@@ -400,6 +422,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, admin, `Helpdesk::AutoCloseT
 ### TC-HLP-089: Outgoing and incoming mail settings are configured and behave independently
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** A project with SMTP (outgoing) settings filled in but incoming mailbox fields left blank.
 
 **Steps:**

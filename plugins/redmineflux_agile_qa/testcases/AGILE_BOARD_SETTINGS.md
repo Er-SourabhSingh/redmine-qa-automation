@@ -24,6 +24,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-054: Enable and disable status columns
 
 **User Role:** Member with board-settings rights
+**Priority:** High
 **Steps:**
 1. Settings → **Board Columns** → disable one status, enable another → Apply.
 
@@ -36,6 +37,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-055: Column selection persists
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Configure columns, leave the board, return.
 
@@ -47,6 +49,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-056: Set a WIP limit on a column
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Settings → Board Columns → enter a WIP value for one column → Apply.
 
@@ -58,6 +61,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-057: Exceeding a WIP limit is made visible
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Set a WIP of 2 on a column, then drag a third card into it.
 
@@ -72,6 +76,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-058: WIP limit is capped by the plugin-level maximum
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With the instance maximum set to 5, attempt a column WIP of 10.
 
@@ -83,6 +88,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-059: Enable Column Reordering and reorder columns
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Settings → enable **Column Reordering** → Apply.
 2. Drag a status column to a new position.
@@ -96,6 +102,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-060: Disabling Column Reordering locks the order
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Disable Column Reordering and attempt to drag a column.
 
@@ -111,6 +118,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-061: Select card fields and apply
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Settings → **Card Fields** → select several fields → Apply.
 
@@ -122,6 +130,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-062: Every documented card field renders correctly
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enable each of the KB's listed fields in turn and verify its value against the issue page:
    Issue ID, Subject, Tracker, Priority, Assignee, Author, Start date, Due date, Estimated time, Spent time,
@@ -138,6 +147,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-063: Derived counts are accurate
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. On an issue with 3 comments, 2 attachments and 4 subtasks, compare the card's comment count, attachment count
    and subtask count.
@@ -151,6 +161,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-064: Spent time and estimated time totals
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enable estimated and spent time as card fields and as column totals.
 
@@ -164,6 +175,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-065: Tags card field integrates with the Tag plugin
 
 **User Role:** Member
+**Priority:** Low
 **Preconditions:** The Redmineflux Tag plugin installed with tags assigned.
 **Steps:**
 1. Enable the Tags card field.
@@ -177,6 +189,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-066: Card fields are stored per board configuration
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Set different card fields on two saved custom boards of the same project.
 
@@ -192,6 +205,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-067: Switch the board to Scrum mode
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Settings → set **Board Type** to **Scrum** → Apply.
 
@@ -203,6 +217,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-068: Scrum board shows one sprint at a time
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. In Scrum mode, select a sprint.
 
@@ -215,6 +230,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-069: Switch back to Kanban mode
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Set Board Type back to **Kanban** → Apply.
 
@@ -232,6 +248,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-070: All columns disabled
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Disable every status column and Apply.
 
@@ -245,6 +262,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-071: Invalid WIP values
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enter a negative number, a decimal and a non-numeric value as a column WIP.
 
@@ -256,6 +274,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-072: WIP limit of zero
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Set a column WIP to 0.
 
@@ -268,6 +287,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-073: Status deleted while used as a column
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. Enable a status column, then delete that status in Administration, then reopen the board.
 
@@ -279,6 +299,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-074: Custom field deleted while used as a card field
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. Enable a custom field as a card field, delete the custom field, reopen the board.
 
@@ -290,6 +311,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-075: Card fields showing data the user cannot see
 
 **User Role:** Member with limited custom-field or spent-time visibility
+**Priority:** High
 **Steps:**
 1. Enable Spent time and any restricted custom field as card fields.
 
@@ -304,6 +326,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-076: Settings changes by one user do not affect another
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. A changes columns, WIP and card fields on the shared project board; B opens the same board.
 
@@ -318,6 +341,7 @@ effect on the board, not by the panel closing without error.
 ### TC-AGB-077: Settings panel without permission
 
 **User Role:** Member with view-only board access
+**Priority:** High
 **Steps:**
 1. Confirm the Settings icon is absent or the panel will not open.
 2. Send a board-settings update request directly.

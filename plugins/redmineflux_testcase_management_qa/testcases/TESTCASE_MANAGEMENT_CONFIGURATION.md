@@ -27,6 +27,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-001: Testcase Tracker is required for test case creation
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Clear the **Testcase Tracker** setting; save.
 2. In a project, attempt **New Test Case**.
@@ -42,6 +43,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-002: Changing the Testcase Tracker
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. With existing test cases on tracker T1, change **Testcase Tracker** to T2; save.
 2. Open the Testcase Summary and an existing case.
@@ -55,6 +57,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-003: Defect Tracker drives the Report Bug flow
 
 **User Role:** Admin, then QA
+**Priority:** High
 **Steps:**
 1. Set **Defect Tracker** to a specific tracker; save.
 2. As QA, fail a test case and use **Report Bug**.
@@ -68,6 +71,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-004: Feature Tracker drives requirements
 
 **User Role:** Admin, then QA
+**Priority:** Medium
 **Steps:**
 1. Set **Feature Tracker**; save.
 2. Create a requirement and inspect the underlying issue.
@@ -80,6 +84,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-005: Same tracker selected for two roles
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Set Testcase Tracker and Defect Tracker to the **same** tracker; save.
 2. Create a test case, fail it and report a bug.
@@ -97,6 +102,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-006: Show testcase count in test suites
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Enable the setting; reload the suite tree and compare counts against the real number of cases per suite.
 2. Disable; reload.
@@ -110,6 +116,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-007: Hide default status field on issue details page
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Enable; open a test case issue. Disable; reopen.
 
@@ -126,6 +133,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-008: Customise the Run Email Template
 
 **User Role:** Admin, plus a recipient mailbox
+**Priority:** Medium
 **Precondition:** Sidekiq running.
 
 **Steps:**
@@ -140,6 +148,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-009: Customise the Testcase Email Template
 
 **User Role:** Admin, plus a recipient mailbox
+**Priority:** Medium
 **Steps:**
 1. Add a marker to the **Testcase Email Template**; save.
 2. Record a result on a watched run; check the mailbox.
@@ -152,6 +161,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-010: Invalid template content is handled safely
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Enter malformed content in a template (e.g. an unclosed placeholder or tag); save; trigger the notification.
 
@@ -165,6 +175,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-011: Run Added notification
 
 **User Role:** QA, watcher mailbox
+**Priority:** High
 **Steps:**
 1. Create a run with a watcher; check the mailbox.
 
@@ -177,6 +188,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-012: Run Updated notification
 
 **User Role:** QA, watcher mailbox
+**Priority:** Medium
 **Steps:**
 1. Edit a watched run; check the mailbox.
 
@@ -188,6 +200,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-013: Test Case Result Added notification
 
 **User Role:** QA, watcher mailbox
+**Priority:** High
 **Steps:**
 1. Record a result on a watched run; check the mailbox.
 
@@ -199,6 +212,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-014: Email Reminder Frequency for overdue notifications
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** An overdue run; Sidekiq running.
 
 **Steps:**
@@ -217,6 +231,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-015: Add a run type via administration
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Add a new run type in the administration panel; save.
 2. Open **Add Run** in a project.
@@ -229,6 +244,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-016: Delete a run type in use
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Delete a run type already assigned to an existing run.
 2. Open that run and the run list.
@@ -249,6 +265,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-017: Redis stopped — background jobs
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Stop Redis. Trigger any notification-producing action.
 2. Observe the application and the job log. Restart Redis afterwards.
@@ -262,6 +279,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-018: Sidekiq stopped — all notification email
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Stop Sidekiq. Create a run with a watcher and email a report.
 2. Check the mailbox. Restart Sidekiq.
@@ -276,6 +294,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-019: Node/Puppeteer absent — PDF report attachment
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. On an instance where Installation step 6 was not completed (`which node` returns nothing), email a report as
    **PDF**.
@@ -291,6 +310,7 @@ Administration → Plugins → **Testcase Management** → **Configure**. Every 
 ### TC-TCM-020: Node/Puppeteer present — PDF report attachment succeeds
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** Installation step 6 completed — Node.js installed, `npm install` run, and
 `npx puppeteer browsers install chrome` executed.
 

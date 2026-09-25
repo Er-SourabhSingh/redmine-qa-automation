@@ -26,6 +26,7 @@ issue UI, not by the settings page reporting success.
 ### TC-TAG-028: Plugin appears in Administration → Plugins after installation
 
 **User Role:** Admin
+**Priority:** High
 **Preconditions:** ZIP extracted into `plugins/` under its original folder name, `bundle install` and
 `redmine:plugins:migrate` run, server restarted.
 **Steps:**
@@ -39,6 +40,7 @@ issue UI, not by the settings page reporting success.
 ### TC-TAG-029: Migration created the tag tables
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. After migrating and restarting, open the New Issue form.
 
@@ -50,6 +52,7 @@ issue UI, not by the settings page reporting success.
 ### TC-TAG-030: Assets load correctly
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Open the New Issue form and inspect the browser console and Network tab.
 
@@ -63,6 +66,7 @@ issue UI, not by the settings page reporting success.
 ### TC-TAG-031: Plugin functions on the Redmine version under test
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Record the Redmine version from Administration → Information.
 2. Confirm it is inside the KB-declared range and exercise one tag create/assign/remove cycle.
@@ -80,6 +84,7 @@ issue UI, not by the settings page reporting success.
 ### TC-TAG-032: Configure page opens and shows tag settings
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Administration → Plugins → Tag Plugin → Configure.
 
@@ -92,6 +97,7 @@ issue UI, not by the settings page reporting success.
 ### TC-TAG-033: Default Tag Color setting persists and applies
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Set the default Tag Color to a distinctive value; save.
 2. Reload the Configure page.
@@ -106,6 +112,7 @@ issue UI, not by the settings page reporting success.
 ### TC-TAG-034: Tags with an explicit colour are not overridden by the default
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Assign a specific colour to one tag.
 2. Change the instance default colour to something different.
@@ -119,6 +126,7 @@ issue UI, not by the settings page reporting success.
 ### TC-TAG-035: Colour change is visible everywhere a tag renders
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Change a tag's colour, then view it on the issue detail page, in the issue list Tag column, in the filter
    dropdown, and on the tag's own entity-listing page.
@@ -135,6 +143,7 @@ issue UI, not by the settings page reporting success.
 ### TC-TAG-036: Invalid colour value
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Enter an invalid colour (e.g. `notacolour`, `#GGGGGG`, an empty string) as the default and save.
 
@@ -147,6 +156,7 @@ issue UI, not by the settings page reporting success.
 ### TC-TAG-037: Plugin folder renamed on disk
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Rename the plugin directory (the KB explicitly says not to) and restart.
 
@@ -158,6 +168,7 @@ issue UI, not by the settings page reporting success.
 ### TC-TAG-038: Migration not run
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Install files but skip the migration; restart; open an issue.
 
@@ -170,6 +181,7 @@ issue UI, not by the settings page reporting success.
 ### TC-TAG-039: Configure page is not reachable by a non-admin
 
 **User Role:** Developer / QA / Reporter
+**Priority:** High
 **Steps:**
 1. Request `/settings/plugin/<plugin_id>` directly as each non-admin role. Do not rely on the menu being hidden.
 
@@ -182,6 +194,7 @@ issue UI, not by the settings page reporting success.
 ### TC-TAG-040: Conflicting plugin check
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. With other plugins that render on the issue form installed (Checklist, Agile Board, Inline Editor), open an
    issue and inspect the layout of the Tags field.
@@ -199,6 +212,7 @@ issue UI, not by the settings page reporting success.
 ### TC-TAG-041: Clean uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** Database backup taken.
 **Steps:**
 1. Run `bundle exec rake redmine:plugins:migrate NAME=<plugin_name> VERSION=0 RAILS_ENV=production`.

@@ -51,6 +51,7 @@ is a bug, not a matrix entry.
 ### TC-RIT-059: Admin has full access
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Exercise every row of the matrix as Admin, at both the global and project levels.
 
@@ -62,6 +63,7 @@ is a bug, not a matrix entry.
 ### TC-RIT-060: Establish which role gates project template management
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
+**Priority:** High
 **Steps:**
 1. For each role, record whether the project's Issue Template tab is visible.
 2. Request the tab URL directly.
@@ -77,6 +79,7 @@ is a bug, not a matrix entry.
 ### TC-RIT-061: Non-admins cannot reach the global template administration page
 
 **User Role:** Every non-admin role in turn
+**Priority:** High
 **Steps:**
 1. Confirm no Administration → Issue Template entry point is offered.
 2. Request that URL directly.
@@ -91,6 +94,7 @@ is a bug, not a matrix entry.
 ### TC-RIT-062: Non-admins cannot edit or delete a global template from inside a project
 
 **User Role:** Project member with template rights
+**Priority:** High
 **Steps:**
 1. On the project's Issue Template page, locate a global template row.
 2. Attempt to edit it, then delete it, through the UI.
@@ -106,6 +110,7 @@ is a bug, not a matrix entry.
 ### TC-RIT-063: The Project list restriction holds at the endpoint
 
 **User Role:** Non-admin member of projects A and B, not of private project C
+**Priority:** High
 **Preconditions:** **Confirm project C is genuinely private and this user has no membership path to it.** A newly
 created Redmine project has "Public" checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -124,6 +129,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RIT-064: Non-member cannot open a project's template page
 
 **User Role:** Authenticated non-member
+**Priority:** High
 **Steps:**
 1. Request the private project's Issue Template URL directly.
 2. Request the edit URL of one of its templates directly.
@@ -137,6 +143,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RIT-065: Anonymous user has no access
 
 **User Role:** Anonymous (logged out)
+**Priority:** High
 **Steps:**
 1. Request the Administration page, a private project's template page, and a template edit URL with no session.
 
@@ -148,6 +155,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RIT-066: Anonymous access to a public project follows that project's rules
 
 **User Role:** Anonymous
+**Priority:** High
 **Steps:**
 1. On a deliberately public project, request the Issue Template tab and the New Issue form.
 
@@ -161,6 +169,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RIT-067: Cross-project template edit via a crafted request
 
 **User Role:** Member of project A only
+**Priority:** High
 **Steps:**
 1. Obtain the ID of a template scoped to private project B.
 2. Send an edit request and then a delete request for that template ID from A's session.
@@ -175,6 +184,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RIT-068: Template visibility on New Issue matches project membership
 
 **User Role:** Member of A only
+**Priority:** High
 **Steps:**
 1. Open New Issue in project A and enumerate every template offered.
 
@@ -186,6 +196,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RIT-069: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
+**Priority:** High
 **Steps:**
 1. Remove the member's template rights (or their project membership) while they hold a template edit form open.
 2. Have them submit without logging out.
@@ -198,6 +209,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RIT-070: Closed and archived projects
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Close a project, then attempt to view, create and edit its templates, at the UI and the endpoint.
 2. Archive it and repeat.

@@ -28,6 +28,7 @@ for project billing. Do not type URLs.
 ### TC-INV-001: Create a customer
 
 **User Role:** User with `manage_customers`
+**Priority:** High
 **Steps:**
 1. Customer tab → **New Customer** → name, company, email, phone, address, tax ID → Save.
 
@@ -39,6 +40,7 @@ for project billing. Do not type URLs.
 ### TC-INV-002: Customer details appear on the invoice
 
 **User Role:** Manager
+**Priority:** Medium
 **Steps:**
 1. Link the customer to a project and generate an invoice; view it on screen, in the PDF and in the email.
 
@@ -51,6 +53,7 @@ for project billing. Do not type URLs.
 ### TC-INV-003: Edit a customer
 
 **User Role:** User with `manage_customers`
+**Priority:** Medium
 **Steps:**
 1. Change the customer's address and email; Save.
 2. Open an **already-sent** invoice for that customer.
@@ -67,6 +70,7 @@ for project billing. Do not type URLs.
 ### TC-INV-004: Customer email drives invoice delivery
 
 **User Role:** Manager
+**Priority:** High
 **Steps:**
 1. Change the customer's email, then send an invoice.
 
@@ -79,6 +83,7 @@ for project billing. Do not type URLs.
 ### TC-INV-005: Customer list and search
 
 **User Role:** User with `manage_customers`
+**Priority:** Low
 **Steps:**
 1. With several customers, use the list and any search or filter.
 
@@ -90,6 +95,7 @@ for project billing. Do not type URLs.
 ### TC-INV-006: Delete an unlinked customer
 
 **User Role:** User with `manage_customers`
+**Priority:** Medium
 **Steps:**
 1. Create a customer linked to no project and delete it.
 
@@ -101,6 +107,7 @@ for project billing. Do not type URLs.
 ### TC-INV-007: Deactivate a customer
 
 **User Role:** User with `manage_customers`
+**Priority:** Medium
 **Steps:**
 1. Open the customer → Edit → set status **Inactive** → Save.
 2. Attempt to select it as a project's billing customer.
@@ -116,6 +123,7 @@ for project billing. Do not type URLs.
 ### TC-INV-008: Reactivate a customer
 
 **User Role:** User with `manage_customers`
+**Priority:** Low
 **Steps:**
 1. Set the status back to active.
 
@@ -127,6 +135,7 @@ for project billing. Do not type URLs.
 ### TC-INV-009: A linked customer cannot be deleted
 
 **User Role:** User with `manage_customers`
+**Priority:** High
 **Steps:**
 1. Attempt to delete a customer linked to a project, through the UI.
 2. Send the delete request **directly** to the endpoint.
@@ -142,6 +151,7 @@ for project billing. Do not type URLs.
 ### TC-INV-010: One customer per project
 
 **User Role:** Manager
+**Priority:** Medium
 **Steps:**
 1. Attempt to link a second customer to a project that already has one.
 
@@ -160,6 +170,7 @@ for project billing. Do not type URLs.
 ### TC-INV-011: Set the project's billing customer
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Project → Invoice → **Settings** → select the customer → Save.
 
@@ -171,6 +182,7 @@ for project billing. Do not type URLs.
 ### TC-INV-012: Set the project hourly rate
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Set a project hourly rate; Save; generate an invoice for a user with no personal rate.
 
@@ -182,6 +194,7 @@ for project billing. Do not type URLs.
 ### TC-INV-013: Select billing activities
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Select only some activities as billable; Save.
 2. Log time under both a billable and a non-billable activity; open the Billing Report.
@@ -195,6 +208,7 @@ for project billing. Do not type URLs.
 ### TC-INV-014: No billing activities selected
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Clear the billing activities; open the Billing Report over a range that definitely contains logged time.
 
@@ -209,6 +223,7 @@ for project billing. Do not type URLs.
 ### TC-INV-015: Settings are per project
 
 **User Role:** Manager
+**Priority:** Medium
 **Steps:**
 1. Configure different customers, rates and activities on two projects.
 
@@ -224,6 +239,7 @@ for project billing. Do not type URLs.
 ### TC-INV-016: Set a per-user rate
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Project → Invoice → **Team Rates** → set a rate for one member → Save.
 2. Generate an invoice covering that user's time.
@@ -236,6 +252,7 @@ for project billing. Do not type URLs.
 ### TC-INV-017: Different rates for different users
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. Set distinct rates for three members; generate an invoice covering all three.
 
@@ -249,6 +266,7 @@ for project billing. Do not type URLs.
 ### TC-INV-018: Bulk Update
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Team Rates → **Bulk Update** → enter new rates → Save.
 
@@ -260,6 +278,7 @@ for project billing. Do not type URLs.
 ### TC-INV-019: Rate changes do not alter existing invoices
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. Generate an invoice, then change the user's rate, then reopen that invoice.
 
@@ -273,6 +292,7 @@ for project billing. Do not type URLs.
 ### TC-INV-020: Rates are per project
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Set different rates for the same user on two projects; generate an invoice in each.
 
@@ -288,6 +308,7 @@ for project billing. Do not type URLs.
 ### TC-INV-021: User rate wins over the project rate
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. With both a project rate and a user rate set, generate an invoice.
 
@@ -299,6 +320,7 @@ for project billing. Do not type URLs.
 ### TC-INV-022: Project rate is used when no user rate exists
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Remove the user rate, keep the project rate, generate an invoice.
 
@@ -310,6 +332,7 @@ for project billing. Do not type URLs.
 ### TC-INV-023: No rate at all yields zero
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. Remove both rates; generate an invoice for that user's time.
 
@@ -329,6 +352,7 @@ for project billing. Do not type URLs.
 ### TC-INV-024: Invalid rate values
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Enter a negative rate, a non-numeric value, and a value with many decimal places, individually and via
    Bulk Update.
@@ -345,6 +369,7 @@ for project billing. Do not type URLs.
 ### TC-INV-025: Customer validation
 
 **User Role:** User with `manage_customers`
+**Priority:** High
 **Steps:**
 1. Create customers with: a blank name; a malformed email; a 500-character name; a duplicate name; and a name and
    address containing a script tag.
@@ -360,6 +385,7 @@ for project billing. Do not type URLs.
 ### TC-INV-026: Rate for a user who is not a project member
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Attempt to set a team rate for a user who is not a member of the project.
 
@@ -371,6 +397,7 @@ for project billing. Do not type URLs.
 ### TC-INV-027: Member removed after invoices were generated
 
 **User Role:** Manager
+**Priority:** Medium
 **Steps:**
 1. Generate an invoice including a user's time, then remove that user from the project.
 2. Reopen the invoice and the Billing Report.
@@ -384,6 +411,7 @@ for project billing. Do not type URLs.
 ### TC-INV-028: Concurrent rate edits
 
 **User Role:** Two users with `manage_invoices`
+**Priority:** Low
 **Steps:**
 1. Both open Team Rates; one edits a single rate while the other runs a Bulk Update; both save.
 

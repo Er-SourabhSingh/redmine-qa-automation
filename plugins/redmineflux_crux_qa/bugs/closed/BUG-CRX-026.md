@@ -130,6 +130,24 @@ checked -- I don't have real data for this yet.
   from BUG-CRX-020 (fabricated-confirm-with-no-button, already fixed) since this fabricates a
   *read* result, not a write-confirm card.
 
+## 2026-09-25 retest — precondition no longer reproducible; behavior now correct
+
+The original precondition (Agile plugin folder completely empty, MCP tool detection showing `agile` absent from the detected-plugins list) no longer holds — all plugins were freshly re-pulled by the user (2026-09-25), and the Agile Board plugin is genuinely back and detected.
+
+Retested with the same question ("Scrum Agent, show me the backlog for crux-qa", project ID 1 confirmed). **Result:** *"You don't have permission to view the backlog for project 1 (crux-qa). Your Redmine administrator needs to: 1. Enable the Agile Board module for this project... 2. Grant you the view_agile_board permission..."* — with a real `Sources (1)` citation (a genuine tool call was made this time, unlike the original bug's zero-citation fabrication).
+
+This isn't an exact repro of the original scenario (can't currently force the plugin back into a genuinely-undetected state to test), but it's strong indirect evidence the core defect is resolved: the agent now makes a real tool call and produces an honestly-grounded response (with citation) instead of free-associating a plausible-looking "0 items, empty" answer with no backing call. Consistent with the same fix pattern already confirmed live on BUG-CRX-023/024/025.
+
+**Verdict: Cannot be re-confirmed under the exact original precondition (environment has changed), but current behavior is correct and consistent with the fix.** Recommend leaving open for one more genuine retest if the plugin-unreachable state can be deliberately reproduced again, or accepting this as sufficient evidence — user's call.
+
+**Closed 2026-09-25** — user accepted this evidence as sufficient. Production issue #120759 updated to Done/100%.
+
+## 2026-09-25 (continued) — dev journal reviewed: fix is precisely targeted and unit-tested for this exact scenario
+
+Production journal (#120759) confirms the fix is a deterministic short-circuit in `chat.py`'s `reply()`: when a delegated agent's `allowed_tools` is non-empty but the live-matched `schemas` comes back completely empty (this bug's exact precondition), the model is never called at all — it returns the same honest refusal the write path already produced. A dedicated new test (`test_chat_fabrication_and_streaming_fixes.py`) explicitly asserts the model provider is never invoked in this scenario — this is the precise mechanism this bug reported as broken, not a general improvement that happens to cover it.
+
+Combined with the live retest above (agent now makes a real tool call, honest permission refusal, real `Sources(1)` citation instead of a fabricated "0 items" answer), this is strong enough evidence to recommend **FIXED** despite the precondition mismatch — the fix targets the exact code path this bug is about, is unit-tested specifically for it, and the live behavior is consistent with it working. Recommend closing; flagging for final user sign-off given the precondition itself couldn't be forced.
+
 ## Production report
 
 Reported to production as issue **#120759** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-17. Textile description, no attachments. Linked to Run #569 "Crux QA Run 1", testcase **#120493** (`CRUX_AGENT_AGILE_SCRUM.md`), Environment "Window 11 + Chrome" — testcase marked Failed. The empty `agile_board` plugin folder itself is flagged in the issue description for context, not filed as its own production bug.

@@ -47,6 +47,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 ### TC-TAG-042: Admin has full access
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Exercise every row of the matrix as Admin.
 
@@ -58,6 +59,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 ### TC-TAG-043: A member with issue-edit rights can assign and remove tags
 
 **User Role:** Developer or equivalent
+**Priority:** High
 **Steps:**
 1. On an issue in a project they belong to, add a tag, create a brand-new tag, and remove a tag.
 
@@ -69,6 +71,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 ### TC-TAG-044: A read-only member can see tags but not change them
 
 **User Role:** Role with view-issues but not edit-issues
+**Priority:** High
 **Steps:**
 1. Open a tagged issue and confirm tags are visible.
 2. Confirm the Tags field is not editable and no add/remove control is offered.
@@ -82,6 +85,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 ### TC-TAG-045: A non-admin member cannot rename or delete a tag globally
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
+**Priority:** High
 **Steps:**
 1. Confirm no rename/delete control appears anywhere in the project UI.
 2. Request the plugin configuration page directly.
@@ -97,6 +101,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 ### TC-TAG-046: Creating a new tag from the issue form is gated by issue-edit, not by admin
 
 **User Role:** Developer
+**Priority:** Medium
 **Steps:**
 1. As a non-admin with edit rights, type a brand-new tag name on an issue and save.
 
@@ -110,6 +115,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 ### TC-TAG-047: Non-member cannot see tags in a private project
 
 **User Role:** Authenticated non-member
+**Priority:** High
 **Preconditions:** Project confirmed **not** public — a newly created Redmine project defaults to public.
 **Steps:**
 1. Request the issue URL directly.
@@ -124,6 +130,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 ### TC-TAG-048: Anonymous user cannot see tags in a private project
 
 **User Role:** Anonymous (logged out)
+**Priority:** High
 **Steps:**
 1. Repeat TC-TAG-047 with no session.
 
@@ -135,6 +142,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 ### TC-TAG-049: Anonymous access to a public project follows that project's rules
 
 **User Role:** Anonymous
+**Priority:** Medium
 **Steps:**
 1. On a deliberately public project, open a tagged issue and a tag listing.
 
@@ -146,6 +154,7 @@ Fill this in from observed behaviour during execution, not from assumption.
 ### TC-TAG-050: Tag listing page does not leak across project boundaries
 
 **User Role:** Member of project A only
+**Priority:** High
 **Preconditions:** Confirm the target tag is genuinely used in two distinct projects and that project B is private
 with no membership path for this user — otherwise a passing result proves nothing.
 **Steps:**
@@ -159,6 +168,7 @@ with no membership path for this user — otherwise a passing result proves noth
 ### TC-TAG-051: Tag filter dropdown does not leak tag names
 
 **User Role:** Member of project A only
+**Priority:** High
 **Steps:**
 1. Open the tag filter dropdown on the global issue list.
 
@@ -172,6 +182,7 @@ with no membership path for this user — otherwise a passing result proves noth
 ### TC-TAG-052: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
+**Priority:** Medium
 **Steps:**
 1. Remove edit-issues from the member's role while they hold an issue edit form open.
 2. Have them submit a tag change without logging out.
@@ -184,6 +195,7 @@ with no membership path for this user — otherwise a passing result proves noth
 ### TC-TAG-053: Tag operations on an archived project
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Archive a project containing tagged issues.
 2. Attempt to open one of its issues and to open a tag listing that included it.

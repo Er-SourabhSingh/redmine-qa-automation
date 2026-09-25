@@ -28,6 +28,7 @@ Project → Settings → Modules for the module. Reach the knowledge base by cli
 ### TC-RKB-075: Plugin appears in Administration → Plugins
 
 **User Role:** Admin
+**Priority:** High
 **Preconditions:** Plugin placed at `plugins/redmineflux_knowledgebase`, `bundle install` run, migrations run,
 server restarted.
 **Steps:**
@@ -42,6 +43,7 @@ server restarted.
 ### TC-RKB-076: Migrations complete cleanly
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Run `RAILS_ENV=production bundle exec rake redmine:plugins:migrate`, restart, open a project's Knowledge Base.
 
@@ -53,6 +55,7 @@ server restarted.
 ### TC-RKB-077: Assets load
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Open the Knowledge Base view and the page editor; inspect the console and Network tab.
 
@@ -66,6 +69,7 @@ server restarted.
 ### TC-RKB-078: Redmine and Ruby version boundary
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Record the Redmine version (Administration → Information) and the Ruby version.
 
@@ -79,6 +83,7 @@ server restarted.
 ### TC-RKB-079: rack-attack dependency is installed
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Confirm `rack-attack ~> 6.7` is present in the bundle.
 2. Check `log/production.log` at startup for any missing-gem warning.
@@ -98,6 +103,7 @@ server restarted.
 ### TC-RKB-080: Enabling the module adds the project menu entry
 
 **User Role:** Admin or Manager
+**Priority:** High
 **Steps:**
 1. Project → Settings → **Modules** → tick **Knowledge Base** → Save.
 
@@ -110,6 +116,7 @@ server restarted.
 ### TC-RKB-081: Disabling the module removes access
 
 **User Role:** Manager
+**Priority:** High
 **Steps:**
 1. Untick the module and save.
 2. Confirm the menu entry is gone.
@@ -132,6 +139,7 @@ server restarted.
 ### TC-RKB-082: Configure page shows all three tabs
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Open the plugin's Configure page.
 
@@ -144,6 +152,7 @@ server restarted.
 ### TC-RKB-083: "Mention users" toggle controls @mention support
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Disable **Mention users**; save; open the page editor and type `@`.
 2. Re-enable and repeat.
@@ -157,6 +166,7 @@ server restarted.
 ### TC-RKB-084: "Mention issues" toggle controls #issue linking
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Disable **Mention issues**; save; type `#` in the editor.
 2. Publish a page containing an existing `#` reference and check the issue's Related Knowledge Base Pages section.
@@ -171,6 +181,7 @@ server restarted.
 ### TC-RKB-085: Public access master toggle
 
 **User Role:** Admin then external visitor
+**Priority:** High
 **Steps:**
 1. Disable **Enable public access**; save.
 2. Retry an existing public URL from an unauthenticated session.
@@ -186,6 +197,7 @@ server restarted.
 ### TC-RKB-086: Rate-limit settings persist and show documented defaults
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. On a fresh install, record the default **Requests per minute** and **Aggressive limit per hour**.
 2. Change both, save, reload the Configure page.
@@ -199,6 +211,7 @@ server restarted.
 ### TC-RKB-087: Rate-limit changes take effect without a restart
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Change the per-minute limit to a low value, save, and wait 60 seconds.
 2. Exercise a public URL past the new limit.
@@ -217,6 +230,7 @@ server restarted.
 ### TC-RKB-088: Wrong plugin folder name
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Rename the folder away from `redmineflux_knowledgebase` and restart.
 
@@ -228,6 +242,7 @@ server restarted.
 ### TC-RKB-089: Migrations not run
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Install the files, skip the migrations, restart, open a project.
 
@@ -239,6 +254,7 @@ server restarted.
 ### TC-RKB-090: Configure page is not reachable by a non-admin
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
+**Priority:** High
 **Steps:**
 1. Request the plugin settings URL directly for each role.
 
@@ -252,6 +268,7 @@ server restarted.
 ### TC-RKB-091: Invalid rate-limit values
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Enter `0`, a negative number and a non-numeric value for each limit; save.
 
@@ -265,6 +282,7 @@ server restarted.
 ### TC-RKB-092: Malformed IP allowlist / blocklist entries
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Enter a malformed address, a CIDR range, and an overlapping entry present in **both** lists; save.
 
@@ -279,6 +297,7 @@ server restarted.
 ### TC-RKB-093: Rate limiting environment caveats are understood
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Record the Rails environment and the `Rails.cache` store in use.
 
@@ -298,6 +317,7 @@ server restarted.
 ### TC-RKB-094: Clean uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** **Database backup taken** — the KB warns that rollback removes all knowledge base tables and
 data permanently.
 **Steps:**

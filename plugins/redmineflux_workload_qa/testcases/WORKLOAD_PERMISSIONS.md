@@ -81,6 +81,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-079 and TC-WKL-080 cannot de
 ### TC-WKL-077: Admin has full access
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Exercise every row of the matrix, across both teams.
 
@@ -92,6 +93,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-079 and TC-WKL-080 cannot de
 ### TC-WKL-078: Manage teams and skills covers teams and skills
 
 **User Role:** TeamAdmin
+**Priority:** High
 **Steps:**
 1. Create, edit, delete and bulk-delete teams and skills; add and remove members; assign Redmine roles; assign
    skills and proficiency levels.
@@ -104,6 +106,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-079 and TC-WKL-080 cannot de
 ### TC-WKL-079: Manage workload is scoped to one team
 
 **User Role:** MgrA
+**Priority:** High
 **Steps:**
 1. Create and edit a **team A** workload, and allocate hours — expect success.
 2. Confirm no create/edit controls appear for **team B** workloads.
@@ -120,6 +123,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-079 and TC-WKL-080 cannot de
 ### TC-WKL-080: Can approve leave is scoped to one team
 
 **User Role:** ApproverA
+**Priority:** High
 **Steps:**
 1. Approve a team A member's leave — expect success.
 2. Confirm team B requests are absent from the approval queue.
@@ -135,6 +139,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-079 and TC-WKL-080 cannot de
 ### TC-WKL-081: A plain team member has read access only
 
 **User Role:** PlainA
+**Priority:** High
 **Steps:**
 1. Confirm team A's workloads are visible but not editable, and that their own leave can be requested and
    cancelled.
@@ -150,6 +155,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-079 and TC-WKL-080 cannot de
 ### TC-WKL-082: The Workloads menu and pages are closed to anonymous users
 
 **User Role:** Anonymous (logged out)
+**Priority:** High
 **Steps:**
 1. Confirm the Workloads menu is absent.
 2. Request the Workloads page, a workload detail URL, the Dashboard and the leave endpoints with no session.
@@ -165,6 +171,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-079 and TC-WKL-080 cannot de
 ### TC-WKL-083: An outsider sees no team data
 
 **User Role:** Outsider
+**Priority:** High
 **Steps:**
 1. Open the Workloads page.
 2. Request a specific workload's detail URL and its data endpoints directly.
@@ -179,6 +186,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-079 and TC-WKL-080 cannot de
 ### TC-WKL-084: Admin-only areas are closed to every non-admin
 
 **User Role:** TeamAdmin, MgrA, ApproverA, PlainA (each in turn)
+**Priority:** High
 **Steps:**
 1. Confirm the Dashboard and Settings icons are not offered.
 2. Request the dashboard URL, the settings URL and their data endpoints directly.
@@ -197,6 +205,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-079 and TC-WKL-080 cannot de
 ### TC-WKL-085: Granting the flags is itself gated
 
 **User Role:** MgrA and PlainA
+**Priority:** High
 **Steps:**
 1. Attempt to grant themselves **Manage workload** or **Can approve leave** on team B, through the UI and by
    sending the membership-update request directly.
@@ -211,6 +220,7 @@ Without MgrA/ApproverA plus a second team B, TC-WKL-079 and TC-WKL-080 cannot de
 ### TC-WKL-086: Workload data respects Redmine project visibility
 
 **User Role:** A team member who is **not** a member of the Redmine projects the workload's issues belong to
+**Priority:** High
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -228,6 +238,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-WKL-087: Leave records are not exposed to other members
 
 **User Role:** PlainA
+**Priority:** High
 **Steps:**
 1. Inspect what leave information is visible for other team members, in the UI and in the underlying payloads.
 
@@ -242,6 +253,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-WKL-088: Permission revocation takes effect without re-login
 
 **User Role:** Admin + MgrA
+**Priority:** High
 **Steps:**
 1. Remove MgrA's **Manage workload** flag while they have a workload's Gantt open mid-drag.
 2. Have them complete the drag and then submit an allocation change, without logging out.
@@ -255,6 +267,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-WKL-089: Removal from a team removes access immediately
 
 **User Role:** Admin + MgrA
+**Priority:** High
 **Steps:**
 1. Remove MgrA from team A entirely while they have the team's workload open.
 2. Have them attempt to view and then edit it.
@@ -269,6 +282,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-WKL-090: Closed and archived projects
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Archive a project whose issues are allocated in an active workload.
 2. Open the workload and the Gantt; attempt to allocate against one of those issues.

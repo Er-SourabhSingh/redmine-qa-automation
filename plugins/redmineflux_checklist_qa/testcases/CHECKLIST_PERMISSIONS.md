@@ -64,6 +64,7 @@ CONFIRMED LIVE 2026-09-21 (Local, redmine-docker-7.0.0), filled in from this sui
 ### TC-CHK-067: Admin has full access
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Exercise every row of the matrix as Admin.
 
@@ -79,6 +80,7 @@ access, template management access — all succeeded as Admin.
 ### TC-CHK-068: A project member with issue-edit rights can manage checklists
 
 **User Role:** Developer or equivalent
+**Priority:** High
 **Steps:**
 1. Create, edit, delete, and status-change checklist items on an issue in a project they belong to.
 
@@ -94,6 +96,7 @@ non-admin Developer-tier member, no admin rights needed.
 ### TC-CHK-069: A read-only member can view but not modify
 
 **User Role:** Role with view-issues but not edit-issues
+**Priority:** High
 **Steps:**
 1. Open an issue with a checklist. Confirm items and progress are visible.
 2. Confirm add/edit/delete controls are absent.
@@ -114,6 +117,7 @@ issue #1530): **PASS, all 3 legs.**
 ### TC-CHK-070: Non-member cannot see checklists in a private project
 
 **User Role:** Authenticated user who is not a member of the project
+**Priority:** High
 **Steps:**
 1. Confirm the project is **not** public (a newly created Redmine project defaults to public — uncheck it).
 2. Open the issue URL directly.
@@ -132,6 +136,7 @@ checklist title, item text, or count — both were generic Redmine error pages.
 ### TC-CHK-071: Anonymous user cannot see checklists in a private project
 
 **User Role:** Anonymous (logged out)
+**Priority:** High
 **Steps:**
 1. Repeat TC-CHK-070 with no session.
 
@@ -146,6 +151,7 @@ issue) — redirected to `/login?back_url=...issues/1533`, no checklist content 
 ### TC-CHK-072: Anonymous access to a public project follows the project's own rules
 
 **User Role:** Anonymous
+**Priority:** Medium
 **Steps:**
 1. On a deliberately public project, open an issue with a checklist.
 
@@ -167,6 +173,7 @@ reach a public project's issues) simply doesn't hold on an instance with `login_
 ### TC-CHK-073: Only admins can manage checklist templates
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
+**Priority:** High
 **Steps:**
 1. Confirm no template management entry point exists in the project UI.
 2. Request the plugin configuration URL directly for each role.
@@ -185,6 +192,7 @@ it generalizes to every non-admin role rather than needing per-role re-verificat
 ### TC-CHK-074: Applying a template requires issue-edit rights
 
 **User Role:** Read-only member
+**Priority:** High
 **Steps:**
 1. Confirm the **Add from template** action is absent.
 2. Send the apply-template request directly.
@@ -202,6 +210,7 @@ HTTP 403 — satisfies leg 3.
 ### TC-CHK-075: Cross-project isolation of templates and checklists
 
 **User Role:** Member of project A only
+**Priority:** High
 **Steps:**
 1. Note an issue ID in project B that has a checklist.
 2. From project A's session, request that issue and its checklist endpoint directly.
@@ -222,6 +231,7 @@ cross-project isolation, not re-run separately since it's the same request/respo
 ### TC-CHK-076: Permission change takes effect without re-login
 
 **User Role:** Admin + affected member
+**Priority:** Medium
 **Steps:**
 1. Remove edit-issues from the member's role while they have the issue page open.
 2. Have them attempt a checklist edit without logging out.
@@ -242,6 +252,7 @@ and removed the test checklist afterward.
 ### TC-CHK-077: Checklist History respects issue visibility
 
 **User Role:** Non-member / read-only member
+**Priority:** High
 **Steps:**
 1. Attempt to open the Checklist History tab for an issue the user cannot view.
 
@@ -257,6 +268,7 @@ does not bypass the underlying issue-visibility check.
 ### TC-CHK-078: Locked or archived project
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Archive (or close) a project that has issues with checklists.
 2. Attempt to view and to edit a checklist.

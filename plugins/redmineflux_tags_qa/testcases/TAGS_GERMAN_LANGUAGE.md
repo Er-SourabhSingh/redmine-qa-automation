@@ -12,6 +12,8 @@
 
 ### TC-TAG-019 — Issue detail "Tags" inline add widget fully translated in German
 
+**Priority:** Medium
+
 **Steps**
 
 1. Log in as admin, confirm German language + Default theme active.
@@ -36,6 +38,8 @@
 
 ### TC-TAG-020 — "Tag list" field fully translated on New/Edit Project, New/Edit Issue, New/Edit Spent Time forms
 
+**Priority:** Medium
+
 **Steps**
 
 1. Log in as admin, confirm German language + Default theme active.
@@ -58,6 +62,8 @@
 
 ### TC-TAG-021 — Admin Tag configuration page title renders correctly
 
+**Priority:** Medium
+
 **Steps**
 
 1. Log in as admin, confirm German language active.
@@ -79,6 +85,8 @@
 ---
 
 ### TC-TAG-022 — Admin "Manage Tags" list, tabs, and Edit Tag form fully translated
+
+**Priority:** Medium
 
 **Steps**
 
@@ -113,6 +121,8 @@
 
 ### TC-TAG-023 — Issues list Tags column and filter correctly localized
 
+**Priority:** Medium
+
 **Steps**
 
 1. On `/projects/defaultsd/issues`, open "Filter hinzufügen" and the column-options selector; check the "Tags" entries in both.
@@ -128,6 +138,8 @@
 ---
 
 ### TC-TAG-024 — Individual tag Delete link is correctly scoped to only its own tag (functional, not language — filed per user direction after reviewing screenshots)
+
+**Priority:** High
 
 **Steps**
 
@@ -158,11 +170,15 @@
 
 ### TC-TAG-025 — Layout integrity at 1280×720
 
+**Priority:** Low
+
 **Pages checked:** Issue detail (Tags widget open), New Project form, admin Manage Tags table (Project Tags tab), Delete confirmation modal.
 
 **Result — PASS.** No horizontal overflow, no clipped text, no overlapping elements, modal renders centered and fully visible, table columns fit without wrapping. All previously-filed translation bugs (BUG-TAG-001/002/004) reproduce identically at this width — no new *layout* defects found.
 
 ### TC-TAG-026 — Layout integrity at 1920×1080
+
+**Priority:** Low
 
 **Pages checked:** Same as above.
 
@@ -173,6 +189,8 @@
 ---
 
 ### TC-TAG-027 — "Add Tags" widget does not overlap Agile Board's Sprint/Story Points fields (found via user-reported screenshot, initially missed)
+
+**Priority:** Medium
 
 **Steps**
 

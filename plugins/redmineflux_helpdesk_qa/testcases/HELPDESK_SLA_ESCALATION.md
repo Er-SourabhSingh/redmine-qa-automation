@@ -19,6 +19,7 @@
 ### TC-HLP-284: Creating an SLA saves name, response/resolution times, and units
 
 **User Role:** Agent (with `manage_helpdesk`) or Admin
+**Priority:** High
 **Precondition:** None.
 
 **Steps:**
@@ -35,6 +36,7 @@
 ### TC-HLP-285: Working hours, working days, and holidays attached to an SLA are respected by the clock
 
 **User Role:** Agent or Admin
+**Priority:** High
 **Precondition:** An SLA configured 09:00–18:00, Mon–Fri, with at least one holiday attached.
 
 **Steps:**
@@ -52,6 +54,7 @@
 ### TC-HLP-286: Editing an SLA updates every field, not just the one field TC-HLP-290's History check happens to touch
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An existing SLA (e.g. "Alpha Standard SLA").
 
 **Steps:**
@@ -69,6 +72,7 @@
 ### TC-HLP-287: Creating an SLA with only the required fields succeeds
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None. TC-HLP-284 fills Name + First/Resolution Time + units but never explicitly tests the floor — leaving Working Hours, Working Days, Holiday, Description, and SLA Agreement all untouched at Save.
 
 **Steps:**
@@ -87,6 +91,7 @@
 ### TC-HLP-288: Creating an SLA with every field filled in the initial Save, not via a later Edit
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** At least one holiday exists to select. TC-HLP-286 proves every field is editable, but only via **Edit** on an already-existing SLA — Create and Update can be genuinely different code paths (e.g. `Sla#create` vs `Sla#update`, different strong-parameter allow-lists), so this TC exercises the same field set at Create time specifically.
 
 **Steps:**
@@ -104,6 +109,7 @@
 ### TC-HLP-289: Editing only an SLA's required fields leaves its already-set optional fields untouched
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An existing SLA that already has every optional field set to a real value — Description, Working Hours start/end, at least one Working Day, at least one Holiday, and an SLA Agreement file attached (e.g. the SLA left behind by TC-HLP-286 or TC-HLP-288, before any of its fields are touched again).
 
 **Steps:**
@@ -125,6 +131,7 @@
 ### TC-HLP-290: SLA History records every change
 
 **User Role:** Agent or Admin
+**Priority:** Medium
 **Precondition:** An existing SLA.
 
 **Steps:**
@@ -141,6 +148,7 @@
 ### TC-HLP-291: A new unassigned ticket has no SLA clock running
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** A newly raised ticket, not yet assigned.
 
 **Steps:**
@@ -156,6 +164,7 @@
 ### TC-HLP-292: Assigning a customer-raised ticket attaches the SLA from their project-access row, with no reply involved
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** A ticket raised by a customer whose project-access row specifies SLA "Standard".
 
 **Steps:**
@@ -173,6 +182,7 @@
 ### TC-HLP-293: Assigning an agent-raised ticket falls back to the project's (or global) active SLA
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** A ticket raised by an agent (not a customer), on a project with an active project-specific SLA.
 
 **Steps:**
@@ -188,6 +198,7 @@
 ### TC-HLP-294: The resolution deadline is not set until the first response is given
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** A ticket just assigned, with its SLA attached and response deadline set.
 
 **Steps:**
@@ -206,6 +217,7 @@
 ### TC-HLP-295: The clock respects working hours across a weekend
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** An SLA with a 4-hour response time, working hours 09:00–18:00, Mon–Fri.
 
 **Steps:**
@@ -223,6 +235,7 @@
 ### TC-HLP-296: A configured holiday is skipped by the clock
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** An SLA with a holiday attached that falls within the response window that would otherwise apply.
 
 **Steps:**
@@ -238,6 +251,7 @@
 ### TC-HLP-297: Replying pauses the clock; the customer's reply resumes it
 
 **User Role:** Agent then Client (Customer)
+**Priority:** High
 **Precondition:** An assigned ticket with an active SLA.
 
 **Steps:**
@@ -257,6 +271,7 @@
 ### TC-HLP-298: Unassigning pauses the clock; reassigning resumes it
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** An assigned ticket with a running SLA clock, not currently waiting on the customer.
 
 **Steps:**
@@ -275,6 +290,7 @@
 ### TC-HLP-299: Letting a deadline pass marks the ticket breached
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** A ticket whose response or resolution deadline is allowed to pass with the clock running.
 
 **Steps:**
@@ -293,6 +309,7 @@
 ### TC-HLP-300: The SLA Information panel shows the full SLA state
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** A ticket with an SLA attached, at least one escalation having occurred.
 
 **Steps:**
@@ -308,6 +325,7 @@
 ### TC-HLP-301: Creating a support-level chain L1 → L2 → L3
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** A project with at least 3 distinct members available as assignees.
 
 **Steps:**
@@ -326,6 +344,7 @@
 ### TC-HLP-302: The support-level assignee dropdown only offers this project's members
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** Creating/editing a support level on Project A.
 
 **Steps:**
@@ -341,6 +360,7 @@
 ### TC-HLP-303: Creating a Support Level with only the required fields succeeds
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None. TC-HLP-301 fills Name/Project/Level Order/≥1 assignee (and Escalates to, when chaining) but never explicitly proves Description can be left blank.
 
 **Steps:**
@@ -359,6 +379,7 @@
 ### TC-HLP-304: Creating a Support Level with every field filled in the initial Save, not via a later Edit
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A lower-order support level already exists on this project to select as this new level's own Escalation To is not applicable here (a level can't escalate to itself) — instead, create this level as a mid-chain level with an already-existing higher level available to select as Escalation To. Complements TC-HLP-305, which only proves Description is editable via Edit on an already-existing level.
 
 **Steps:**
@@ -377,6 +398,7 @@
 ### TC-HLP-305: Editing a Support Level updates every field, including its undocumented Description
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An existing support level (e.g. L1).
 
 **Steps:**
@@ -395,6 +417,7 @@
 ### TC-HLP-306: Editing a Support Level's required fields only does not wipe its already-set optional fields
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A support level that already has Description, Escalation To, and Active all populated with real (non-default) values — e.g. re-open the level TC-HLP-305 just edited (which set Description, Escalation To, and Active in that same save), or the level TC-HLP-304 created with every field filled at Create time. Neither TC-HLP-305 nor TC-HLP-304 isolates this case: both change every field together in one Save, so a form that fails to pre-populate an untouched optional field would never surface there.
 
 **Steps:**
@@ -416,6 +439,7 @@
 ### TC-HLP-307: Deleting an unused Support Level succeeds
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A support level with no customer project-access rows currently pointing at it (distinct from TC-HLP-362, which covers the in-use/blocked case).
 
 **Steps:**
@@ -432,6 +456,7 @@
 ### TC-HLP-308: A ticket enters at the support level on its customer's project-access row
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** A customer whose project-access row specifies support level L2.
 
 **Steps:**
@@ -447,6 +472,7 @@
 ### TC-HLP-309: An agent's reply on a ticket that entered at a mid/last support level uses that level's own SLA targets, not L1's
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Same as TC-HLP-308 — a customer whose project-access row specifies support level **L2** (mid-chain) or the top level (e.g. L3), so their ticket enters directly at that level rather than L1. A distinct SLA/response-resolution target is configured per level if the plugin supports per-level targets, or the base SLA's own targets if levels share one SLA (record whichever is actually true — see Notes).
 
 **Steps:**
@@ -466,6 +492,7 @@
 ### TC-HLP-310: A ticket that entered directly at a mid-level (not via natural escalation from L1) still escalates to the next level when its own deadline breaches
 
 **User Role:** N/A (system-driven, verified by Agent/Admin)
+**Priority:** High
 **Precondition:** A ticket whose current Support Level is a mid-chain level (e.g. L2) because it **entered there directly** (per TC-HLP-308 — a customer's project-access row specifies L2, or an agent was assigned there directly) — never having been escalated up from L1 by the SLA monitor. That level has a configured Escalation To (e.g. L2 → L3).
 
 **Steps:**
@@ -484,6 +511,7 @@
 ### TC-HLP-311: A ticket that entered directly at the top (last) level does not attempt to climb further — same admin-fallback behavior as one that arrived there via the full chain
 
 **User Role:** N/A (system-driven, verified by Agent/Admin)
+**Priority:** Medium
 **Precondition:** A ticket assigned directly to an agent at the top Support Level (no Escalates To configured — e.g. L3) from the moment it was created/assigned, never having climbed the chain from L1/L2 first.
 
 **Steps:**
@@ -502,6 +530,7 @@
 ### TC-HLP-312: Assigning a lower-level agent to a ticket sitting at a higher Support Level must show a clear warning or indication before the assignment is made
 
 **User Role:** Admin / Agent (any level)
+**Priority:** Medium
 **Precondition:** A customer whose project-access row specifies a high Support Level (e.g. L3), a ticket created by that customer (so the ticket's own Support Level is L3), and an agent who holds a lower level only (e.g. L1, no L2/L3 membership).
 
 **Steps:**
@@ -524,6 +553,7 @@
 ### TC-HLP-313: A fresh ticket created by a customer at a given Support Level is unassigned by default
 
 **User Role:** Customer
+**Priority:** Medium
 **Precondition:** A customer whose project-access row specifies Support Level L2 (e.g. `retest.customer1`, her established baseline).
 
 **Steps:**
@@ -539,6 +569,7 @@
 ### TC-HLP-314: A fresh, unassigned ticket shows no indication of its own Support Level anywhere until an agent takes a first action
 
 **User Role:** Admin / Agent
+**Priority:** Low
 **Precondition:** Ticket #24 (per TC-HLP-313), still unassigned.
 
 **Steps:**
@@ -554,6 +585,7 @@
 ### TC-HLP-315: An L1 agent self-assigning a fresh, unassigned ticket at a higher Support Level (L2) receives no warning
 
 **User Role:** Agent (L1)
+**Priority:** Medium
 **Precondition:** Ticket #24 (per TC-HLP-313), unassigned, Support Level L2 (inherited from `retest.customer1`'s project-access row).
 
 **Steps:**
@@ -570,6 +602,7 @@
 ### TC-HLP-316: An L1 agent replying to (without explicitly assigning) a fresh, unassigned ticket at a higher Support Level (L2) receives no warning, even though the reply itself auto-assigns them
 
 **User Role:** Agent (L1)
+**Priority:** Medium
 **Precondition:** A second fresh, unassigned ticket at Support Level L2 (same setup as TC-HLP-313, a separate ticket).
 
 **Steps:**
@@ -586,6 +619,7 @@
 ### TC-HLP-317: An L2 agent self-assigning an L2 ticket (matching level) does not receive an unnecessary warning
 
 **User Role:** Agent (L2)
+**Priority:** Low
 **Precondition:** A third fresh, unassigned ticket at Support Level L2.
 
 **Steps:**
@@ -602,6 +636,7 @@
 ### TC-HLP-318: Cancel on the (not-yet-implemented) cross-level assignment warning must prevent the assignment
 
 **User Role:** Agent (any lower level)
+**Priority:** Low
 **Precondition:** BUG-HLP-024 fixed and a confirmation dialog implemented.
 
 **Steps:**
@@ -618,6 +653,7 @@
 ### TC-HLP-319: Confirm on the (not-yet-implemented) cross-level assignment warning must allow the assignment to proceed
 
 **User Role:** Agent (any lower level)
+**Priority:** Low
 **Precondition:** BUG-HLP-024 fixed and a confirmation dialog implemented.
 
 **Steps:**
@@ -634,6 +670,7 @@
 ### TC-HLP-320: A new ticket created while its customer's assigned SLA is deactivated gets no SLA attached at all — and manual assignment afterward does not make it escalate
 
 **User Role:** Customer (creates), Admin/Agent (verifies and reassigns)
+**Priority:** Medium
 **Precondition:** A customer's project-access row specifies an SLA that is then deactivated (Active checkbox unchecked) before the customer creates a new ticket.
 
 **Steps:**
@@ -652,6 +689,7 @@
 ### TC-HLP-321: An SLA breach escalates the ticket to the next support level
 
 **User Role:** N/A (system-driven, verified by Agent)
+**Priority:** High
 **Precondition:** A ticket at L1 whose SLA has just breached; L1 escalates to L2.
 
 **Steps:**
@@ -670,6 +708,7 @@
 ### TC-HLP-322: The escalation notification email carries the documented content
 
 **User Role:** N/A (system-driven, verified via mailbox/log)
+**Priority:** Medium
 **Precondition:** TC-HLP-321 just occurred.
 
 **Steps:**
@@ -685,6 +724,7 @@
 ### TC-HLP-323: When a support level has multiple assignees, escalation assigns the ticket to exactly one of them, and notifications follow that one agent
 
 **User Role:** N/A (system-driven, verified by Agent/Admin)
+**Priority:** High
 **Precondition:** A support level (e.g. L2) configured with **two or more** assignees — TC-HLP-301 only requires "≥1 assignee" per level and never exercises this multi-agent case, even though it's a real configuration this engagement's own fixtures use (e.g. an earlier Forge rotation's L2 held both Autumn Grace and Harmony Rose). A ticket about to breach and escalate into this level.
 
 **Steps:**
@@ -704,6 +744,7 @@
 ### TC-HLP-324: A breach at the top support level notifies without escalating further
 
 **User Role:** N/A (system-driven, verified by Admin/Agent)
+**Priority:** High
 **Precondition:** A ticket at the top level (no Escalates to) whose SLA breaches.
 
 **Steps:**
@@ -721,6 +762,7 @@
 ### TC-HLP-325: A ticket that breaches at the top support level with nobody acting eventually reassigns to Admin
 
 **User Role:** N/A (system-driven, verified by Admin/Agent)
+**Priority:** Medium
 **Precondition:** A ticket at the top support level (no Escalates to) whose SLA has just breached — same starting point as TC-HLP-324 — left genuinely untouched afterward (no agent reply, no reassignment, no status change) for a further period.
 
 **Steps:**
@@ -739,6 +781,7 @@
 ### TC-HLP-326: Escalation history records the full detail of each escalation
 
 **User Role:** Agent or Admin
+**Priority:** Medium
 **Precondition:** A ticket that has escalated at least once (TC-HLP-321).
 
 **Steps:**
@@ -754,6 +797,7 @@
 ### TC-HLP-327: Deadlines are recalculated at each escalation using the SLA's working hours
 
 **User Role:** N/A (system-driven, verified by Agent)
+**Priority:** Medium
 **Precondition:** An SLA with working hours 09:00–18:00 Mon–Fri; a ticket escalating at 17:55 on a Friday.
 
 **Steps:**
@@ -771,6 +815,7 @@
 ### TC-HLP-328: A ticket walks the full escalation chain L1 → L2 → L3 across two consecutive breaches
 
 **User Role:** N/A (system-driven, verified by Agent/Admin)
+**Priority:** High
 **Precondition:** A complete chain L1 → L2 → L3 already built (TC-HLP-301); a ticket currently at L1 with its SLA about to breach. This TC is the end-to-end capstone that TC-HLP-321 (one hop) and TC-HLP-324 (arrival at the top) already test in isolation — here they're chained together on the *same* ticket in one continuous run, which neither existing TC does.
 
 **Steps:**
@@ -793,6 +838,7 @@
 ### TC-HLP-329: An agent resolves and closes a ticket within its SLA window — no breach ever occurs, no escalation is ever triggered
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** A ticket raised by a real customer (**must be customer-raised, not created directly by an Agent/Admin** — a ticket created by an Agent or Admin does not go through the customer's project-access-row SLA/Support-Level attachment at all, so it would never enter the real escalation flow this suite tests. Use `retest.customer1`, whose project-access row already carries Alpha Escalation Test SLA / L2). Alpha Escalation Test SLA's targets are 1 minute First Response / 1 minute Resolution — tight enough to control timing without a long real wait.
 
 **Steps:**
@@ -814,6 +860,7 @@
 ### TC-HLP-330: A ticket breaches once, escalates to the next Support Level, and is resolved there — no further breach or escalation follows
 
 **User Role:** Agent (at the escalated-to level)
+**Priority:** Medium
 **Precondition:** A ticket raised by `retest.customer1` (Alpha Escalation Test SLA / L2, escalates to L3 per the existing L1→L2→L3 chain — TC-HLP-301). Left untouched so its 1-minute deadline passes once, triggering the real L2→L3 escalation (mechanism already proven in TC-HLP-321/299).
 
 **Steps:**
@@ -835,6 +882,7 @@
 ### TC-HLP-331: Admin can resolve/close a ticket in either of the above scenarios, with no different behavior than an Agent doing it
 
 **User Role:** Admin
+**Priority:** Low
 **Precondition:** Reproduce either TC-HLP-329 (resolved before any breach) or TC-HLP-330 (resolved immediately after one escalation) on a fresh `retest.customer1` ticket, but have **Admin** — not the assigned Agent — perform the actual resolve/close step.
 
 **Steps:**
@@ -852,6 +900,7 @@
 ### TC-HLP-332: A ticket climbs every level of its escalation chain (all the way to the top/admin-fallback), and Admin then actively resolves it — the full multi-hop history survives, and the final SLA state reflects it correctly
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** A ticket raised by `retest.customer1` (Alpha Escalation Test SLA / L2, chain L2 → L3 → no further level). Left completely untouched through **two** consecutive breaches so it genuinely climbs every level available to it — not just the single hop TC-HLP-330 already covers.
 
 **Steps:**
@@ -875,6 +924,7 @@
 ### TC-HLP-333: Escalating into a Support Level with 2+ eligible agents assigns exactly one, determined by a fixed rule (not random/round-robin), and only that agent is notified
 
 **User Role:** N/A (system-driven, verified by Admin)
+**Priority:** Medium
 **Precondition:** L3 configured with **two** Support Assignees (not the single-agent case) — distinct from TC-HLP-323, which tested a multi-agent level on an L1→L2 hop; this TC specifically targets **L2 → L3** as asked. L3 assignees: `willow.belle` (User ID 11, pre-existing) and a newly-created fixture `aurora.wren` (User ID 30, added to this project as Agent and to L3 specifically for this TC, since no other unassigned agent existed to pair with Willow Belle — everyone else is already on L1 or L2, and a user can only hold one Support Level per project).
 
 **Steps:**
@@ -896,6 +946,7 @@
 ### TC-HLP-334: Creating a holiday — single day and multi-day range — and attaching it to an SLA
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** None.
 
 **Steps:**
@@ -914,6 +965,7 @@
 ### TC-HLP-335: Creating a Holiday with only the required fields succeeds
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None. TC-HLP-334 already fills only Name/Start/End (no Description) so this is largely a formalization of what TC-097 already demonstrates — recorded as its own case so "Description is genuinely optional" is an explicit, traceable claim rather than an inferred side-effect of another TC's steps.
 
 **Steps:**
@@ -932,6 +984,7 @@
 ### TC-HLP-336: Creating a Holiday with Description also filled in the initial Save
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None. Complements TC-HLP-337, which only proves Description is editable via Edit on an already-existing holiday.
 
 **Steps:**
@@ -949,6 +1002,7 @@
 ### TC-HLP-337: Editing a Holiday updates Name, Description, Start Date, and End Date
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An existing holiday.
 
 **Steps:**
@@ -968,6 +1022,7 @@
 ### TC-HLP-338: Editing a Holiday to change only Name/Start/End leaves its already-set Description untouched
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** An existing holiday with a non-empty Description already saved — e.g. the holiday from TC-HLP-336 (Description filled at Create) or the holiday left over from TC-HLP-337's own edit (Description filled via a prior Edit). TC-HLP-337 changes Name, Description, Start Date, and End Date together in the same save, so it can't show whether Description survives a save that never touches it at all — this TC isolates that specific case.
 
 **Steps:**
@@ -988,6 +1043,7 @@
 ### TC-HLP-339: SLA list search, Status filter, Apply Filters, and Clear Filters all work correctly
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** Multiple SLAs exist, at least one Active and at least one Inactive (deactivated via the list-level toggle).
 
 **Steps:**
@@ -1010,6 +1066,7 @@
 ### TC-HLP-340: Support Level list search, Status filter, Apply Filters, and Clear Filters all work correctly
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** Multiple support levels exist on a project, at least one Active and at least one Inactive.
 
 **Steps:**
@@ -1029,6 +1086,7 @@
 ### TC-HLP-341: Holiday list search and Apply/Clear Filters work correctly
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** Multiple holidays exist (single-day and multi-day ranges).
 
 **Steps:**
@@ -1054,6 +1112,7 @@
 ### TC-HLP-342: A customer with no SLA on their project-access row gets no SLA at all
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** A customer whose project-access row has no SLA selected.
 
 **Steps:**
@@ -1069,6 +1128,7 @@
 ### TC-HLP-343: Creating an SLA with a duplicate name is refused
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An SLA named "Standard" already exists.
 
 **Steps:**
@@ -1084,6 +1144,7 @@
 ### TC-HLP-344: Creating a support level with a duplicate name is refused
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A support level named "L1" already exists (names unique across the whole install).
 
 **Steps:**
@@ -1099,6 +1160,7 @@
 ### TC-HLP-345: Creating a support level with zero assignees is refused
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -1114,6 +1176,7 @@
 ### TC-HLP-346: A user already on one support level cannot be added to another level in the same project
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** User X is an assignee on L1 of Project A.
 
 **Steps:**
@@ -1129,6 +1192,7 @@
 ### TC-HLP-347: Creating a holiday with a duplicate name is refused, even across different calendars
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A holiday named "Christmas Day" already exists.
 
 **Steps:**
@@ -1148,6 +1212,7 @@
 ### TC-HLP-348: Deactivating an SLA stops it being offered, but doesn't affect tickets already using it
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** An SLA already in use on at least one ticket.
 
 **Steps:**
@@ -1166,6 +1231,7 @@
 ### TC-HLP-349: Deactivating a support level stops it being offered and stops escalation into it
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** L2 in a chain L1→L2→L3, with L1 escalating to L2.
 
 **Steps:**
@@ -1184,6 +1250,7 @@
 ### TC-HLP-350: A second project's support-level assignee dropdown is independent of the first
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** Support levels already created on Project A with their own assignees.
 
 **Steps:**
@@ -1200,6 +1267,7 @@
 ### TC-HLP-351: "Escalation To" should not need to be manually configured when Level Order already defines a sequential escalation chain
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** An existing Support Level chain with 3+ levels (L1 Order 1 → L2 Order 2 → L3 Order 3).
 
 **Steps:**
@@ -1222,6 +1290,7 @@
 ### TC-HLP-352: A ticket outside SLA working hours/days does not consume SLA time
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** An SLA with working hours 09:00–18:00 Mon–Fri; a ticket sitting assigned overnight or over a weekend with no action taken.
 
 **Steps:**
@@ -1240,6 +1309,7 @@
 ### TC-HLP-353: A locked agent is never assigned a ticket by escalation, even while still listed as a Support Level's assignee — and locking an agent does not automatically remove them from that list
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** A Support Level (L2) with two Support Assignees, `autumn.grace` and `briar.sunset`; an L1→L2 chain (e.g. "Alpha Escalation Test SLA", 1-minute Response Time) that would otherwise pick either of them on escalation.
 
 **Steps:**
@@ -1261,6 +1331,7 @@
 ### TC-HLP-354: A ticket assigned during configured working hours on a selected working day runs a normal same-day countdown
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** An SLA with a genuinely bounded working-hours window (not 00:00–23:59) and a real Working Days selection, assigned to a ticket during that exact window on a day it's configured as a working day.
 
 **Steps:**
@@ -1277,6 +1348,7 @@
 ### TC-HLP-355: A ticket assigned after today's working-hours close (on a day that IS otherwise a working day) consumes zero time today and resumes exactly at tomorrow's window open
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** An SLA where TODAY is checked as a working day, but the current moment is past that SLA's configured Working Hours end time — distinct from TC-HLP-295/107, which only ever tested a non-working **day** (Working Days excluding today entirely), never an **hours** boundary on an otherwise-working day.
 
 **Steps:**
@@ -1293,6 +1365,7 @@
 ### TC-HLP-356: A ticket that has already consumed part of today's working window carries over only the unconsumed remainder to the next occurrence of that working day — not a fresh full allotment
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** An SLA with a Response Time larger than the remaining minutes in today's working window, so assignment now must span into a future occurrence of the same (restricted) working day.
 
 **Steps:**
@@ -1309,6 +1382,7 @@
 ### TC-HLP-357: A genuine multi-day holiday is excluded in its entirety, not just its first day
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** A real multi-day holiday (3 consecutive days) attached to an SLA with otherwise unrestricted hours/days, isolating the holiday as the only variable that could cause a skip.
 
 **Steps:**
@@ -1326,6 +1400,7 @@
 ### TC-HLP-358: A ticket assigned literally on the holiday's own date shows zero consumption for that day and resumes cleanly the next day
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Real wall-clock time advanced, mid-session, to land exactly on a previously-configured holiday date (09/02/2026) — an unplanned but valuable natural occurrence of this exact edge case.
 
 **Steps:**
@@ -1342,6 +1417,7 @@
 ### TC-HLP-359: A ticket assigned a few minutes before working hours close consumes only that tiny remainder today, correctly carrying the rest to tomorrow
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** An SLA whose Working Hours end is set to occur only minutes after the real assignment time — the literal "just before close" edge case the coverage audit found undisclosed-substituted in TC-HLP-295/096 (both admit their own literal Friday-17:55 scenario was never reproduced).
 
 **Steps:**
@@ -1358,6 +1434,7 @@
 ### TC-HLP-360: The working day immediately after a holiday is correctly recognized as a normal working day, not accidentally excluded too
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** A **restricted** Working Days pattern (not "every day except the holiday," which TC-HLP-296/353 already used and which can never reveal an adjacency bug, since every other day is already a working day in that config) — here, only 2 specific days of the week are working days at all, with the holiday landing on one of them.
 
 **Steps:**
@@ -1374,6 +1451,7 @@
 ### TC-HLP-361: An SLA currently selected on a customer's project-access row cannot be silently deleted
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** A customer has a project-access row using this SLA (e.g. `alpha.customer` → Alpha Standard SLA).
 
 **Steps:**
@@ -1391,6 +1469,7 @@
 ### TC-HLP-362: A Support Level currently selected on a customer's project-access row cannot be silently deleted
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** A customer has a project-access row using this Support Level (e.g. `beta.customer` → AB-L1).
 
 **Steps:**
@@ -1409,6 +1488,7 @@
 ### TC-HLP-363: Deleting an unused SLA succeeds
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An SLA with no customer project-access row currently pointing at it, and no ticket currently using it (distinct from TC-HLP-361, which covers the in-use/blocked case).
 
 **Steps:**
@@ -1424,6 +1504,7 @@
 ### TC-HLP-364: A Holiday can be deleted when unused, but not silently when attached to an SLA
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** Two holidays: one attached to an SLA's Holidays field, one not attached to anything. Neither of `HELPDESK_SLA_ESCALATION.md`'s existing delete-protection TCs (TC-HLP-361/297) covers Holiday at all — this is the same class of risk (an entity referenced elsewhere getting silently deleted out from under its reference) never checked for this entity.
 
 **Steps:**

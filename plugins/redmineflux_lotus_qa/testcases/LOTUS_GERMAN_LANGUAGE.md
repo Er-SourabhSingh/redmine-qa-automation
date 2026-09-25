@@ -12,6 +12,8 @@
 
 ### TC-LTS-001 — Home page hero widget and stat tiles fully translated in German under Lotus
 
+**Priority:** High
+
 **Steps**
 
 1. Log in as admin, confirm German (system default AND account) + Lotus theme active.
@@ -29,6 +31,8 @@
 ---
 
 ### TC-LTS-002 — Admin sidebar navigation labels render in full under Lotus
+
+**Priority:** High
 
 **Steps**
 
@@ -51,6 +55,8 @@
 
 ### TC-LTS-003 — Tag Plugin issue-detail widget under Lotus (cross-theme retest)
 
+**Priority:** Medium
+
 **Steps**
 
 1. Open an issue detail page under Lotus theme + German.
@@ -68,6 +74,8 @@
 ---
 
 ### TC-LTS-004 — Admin Manage Tags page under Lotus (cross-theme retest)
+
+**Priority:** Medium
 
 **Steps**
 
@@ -87,6 +95,8 @@
 
 ### TC-LTS-005 — Checklist Plugin under Lotus theme (cross-theme retest)
 
+**Priority:** Medium
+
 **Steps**
 
 1. Open issue #260 under Lotus + German — inspect the Checkliste widget's actions menu, and check for cross-plugin overlap with Sprint/Story Points (the pattern found with Tags, `BUG-TAG-006`).
@@ -102,6 +112,8 @@
 ---
 
 ### TC-LTS-006 — Resolution testing under Lotus (1280×720 and 1920×1080)
+
+**Priority:** Medium
 
 **Steps**
 
@@ -121,6 +133,8 @@
 
 ### TC-LTS-007 — Gantt Plugin under Lotus theme (cross-theme retest, second Forge server flux-f6nlrqpvk49)
 
+**Priority:** Medium
+
 **Steps**
 
 1. Switch active theme to Redmineflux lotus on `flux-f6nlrqpvk49` (German unchanged).
@@ -137,6 +151,8 @@
 **Evidence:** `screenshots/BUG-LTS-001/project-sidebar-aufgewendete-zeit-clipped.png`
 
 ### TC-LTS-008 — Stage 4: core-Redmine-under-Lotus sweep (Übersicht, Wiki, Roadmap, Kalender, News, Dokumente, Dateien, Aktivität, project Settings tabs)
+
+**Priority:** High
 
 **Steps**
 
@@ -167,6 +183,8 @@
 
 ### TC-LTS-009 — Stage 4 continued: My Page, Administration deep pages, New Issue form, Search (explicitly asked: "did you tested all core pages of redmine with theme in german language")
 
+**Priority:** High
+
 **Steps**
 
 1. Under Lotus + German, check "Meine Seite" (My Page) — the blocks already present, and the "Hinzufügen:" (Add block) dropdown's own option list.
@@ -193,6 +211,8 @@
 ---
 
 ### TC-LTS-010 — Full coverage pass: Lotus plugin's own Configure page, remaining Administration pages, and remaining core forms (explicitly asked: "please cover all redmine pages do not miss any form also test lotus theme configuration page")
+
+**Priority:** Medium
 
 **Steps**
 
@@ -227,6 +247,8 @@
 **Evidence:** `screenshots/BUG-LTS-005/configure-link-404.png`
 
 ## TC-LTS-011 — Exhaustive remaining-pages sweep (Settings tabs' own content, Wiki/News/Document/Version detail, Forums, Time entries, Custom queries, Move-issue)
+
+**Priority:** Medium
 
 **Precondition:** Lotus theme active, German language active (system default + account level).
 
@@ -263,6 +285,8 @@
 **Verdict:** No new bugs this pass. Coverage per `LOTUS_SCOPE.md`'s checklist is now exhaustive except a small set of deliberately-deferred items (password-change form, pre-auth login/registration pages, project archive/close/delete, file download/preview, outgoing-email test page, issue right-click context menu) — see that file's "Deliberately deferred" note for the reasoning on each.
 
 ## TC-LTS-012 — Edit-form sweep + resolution check for each project section (user asked: "did you tested edit and create form of each sections... also did you tested in both resolution")
+
+**Priority:** Medium
 
 **Precondition:** Lotus theme active, German language active. Started at 1920×1080, resolution check at 1280×720.
 

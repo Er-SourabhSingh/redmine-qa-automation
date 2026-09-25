@@ -31,6 +31,7 @@
 ### TC-NTF-017: Issue added
 
 **User Role:** Actor creates, Watcher observes
+**Priority:** High
 **Preconditions:** **Issue added** enabled in plugin settings.
 **Steps:**
 1. Actor creates an issue with Watcher as assignee or watcher.
@@ -43,6 +44,7 @@
 ### TC-NTF-018: Issue updated
 
 **User Role:** Actor updates, Watcher observes
+**Priority:** High
 **Steps:**
 1. Actor edits the issue's description.
 
@@ -54,6 +56,7 @@
 ### TC-NTF-019: Issue note added
 
 **User Role:** Actor adds a note
+**Priority:** High
 **Steps:**
 1. Actor adds a note to a watched issue.
 
@@ -65,6 +68,7 @@
 ### TC-NTF-020: Issue status updated
 
 **User Role:** Actor changes status
+**Priority:** High
 **Steps:**
 1. Actor changes only the status.
 
@@ -76,6 +80,7 @@
 ### TC-NTF-021: Issue assigned
 
 **User Role:** Actor reassigns
+**Priority:** High
 **Steps:**
 1. Actor assigns the issue to the Notified user.
 
@@ -88,6 +93,7 @@
 ### TC-NTF-022: Issue priority updated
 
 **User Role:** Actor changes priority
+**Priority:** Medium
 **Steps:**
 1. Actor changes only the priority.
 
@@ -99,6 +105,7 @@
 ### TC-NTF-023: Issue target version updated
 
 **User Role:** Actor changes target version
+**Priority:** Medium
 **Steps:**
 1. Actor changes only the target version.
 
@@ -116,6 +123,7 @@
 ### TC-NTF-024: The actor is never notified of their own change
 
 **User Role:** Actor
+**Priority:** High
 **Steps:**
 1. Actor, who is also a watcher of the issue, makes each kind of change.
 
@@ -129,6 +137,7 @@
 ### TC-NTF-025: Watchers are notified
 
 **User Role:** Actor + Watcher
+**Priority:** High
 **Steps:**
 1. Add Watcher as a watcher only (not assignee); Actor makes a change.
 
@@ -140,6 +149,7 @@
 ### TC-NTF-026: Uninvolved members are not notified
 
 **User Role:** Uninvolved member
+**Priority:** High
 **Steps:**
 1. With notifications enabled but no relationship to the issue, observe after a change.
 
@@ -156,6 +166,7 @@
 ### TC-NTF-027: Enabling notifications reveals the bell icon
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. My Account → Preferences → tick **Notifications** → Save.
 
@@ -167,6 +178,7 @@
 ### TC-NTF-028: Disabling notifications hides the bell and stops delivery
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Untick the preference and Save; have the Actor make a change on a watched issue.
 
@@ -180,6 +192,7 @@
 ### TC-NTF-029: The preference is per user
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. One enables the preference, the other does not; the Actor makes a change affecting both.
 
@@ -191,6 +204,7 @@
 ### TC-NTF-030: The red dot appears for unread notifications
 
 **User Role:** Watcher
+**Priority:** Medium
 **Steps:**
 1. Receive a new notification and observe the bell.
 
@@ -202,6 +216,7 @@
 ### TC-NTF-031: The red dot clears once notifications are viewed
 
 **User Role:** Watcher
+**Priority:** Medium
 **Steps:**
 1. View the notifications, then re-check the bell.
 
@@ -219,6 +234,7 @@
 ### TC-NTF-032: See All Notifications opens the history
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Click the bell → **See All Notifications**.
 
@@ -230,6 +246,7 @@
 ### TC-NTF-033: New Notifications filter
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply the **New Notifications** filter and click **Filter**.
 
@@ -241,6 +258,7 @@
 ### TC-NTF-034: Viewed Notifications filter
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply the **Viewed Notifications** filter.
 
@@ -254,6 +272,7 @@
 ### TC-NTF-035: History persists across sessions
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Log out and back in, then reopen the history.
 
@@ -265,6 +284,7 @@
 ### TC-NTF-036: Mark all as seen
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With several unread notifications, click **Mark all as seen**.
 
@@ -276,6 +296,7 @@
 ### TC-NTF-037: Opening a notification marks it viewed and redirects
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Click an individual notification.
 
@@ -292,6 +313,7 @@
 ### TC-NTF-038: Notifications for an issue the recipient can no longer see
 
 **User Role:** Watcher whose project access is then removed
+**Priority:** High
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -310,6 +332,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-NTF-039: Notification content respects private notes
 
 **User Role:** Watcher without permission to view private notes
+**Priority:** High
 **Steps:**
 1. Actor adds a **private** note to a watched issue.
 
@@ -322,6 +345,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-NTF-040: Private issues
 
 **User Role:** Member without access to a private issue
+**Priority:** High
 **Steps:**
 1. Actor creates and updates a private issue.
 
@@ -333,6 +357,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-NTF-041: Script content in an issue subject or note
 
 **User Role:** Actor
+**Priority:** High
 **Steps:**
 1. Create an issue whose subject contains a script tag and add a note containing one; observe the recipient's
    bell dropdown, history page and desktop notification.
@@ -347,6 +372,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-NTF-042: Very high notification volume
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Generate several hundred notifications for one user, then open the bell dropdown and the history page.
 
@@ -359,6 +385,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-NTF-043: Bulk issue updates
 
 **User Role:** Actor
+**Priority:** Medium
 **Steps:**
 1. Bulk-edit 20 watched issues in one action.
 
@@ -372,6 +399,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-NTF-044: Notification after the issue is deleted
 
 **User Role:** Actor + Watcher
+**Priority:** Medium
 **Steps:**
 1. Generate a notification, then delete the issue, then open the notification.
 

@@ -24,6 +24,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-001: One-click capture
 
 **User Role:** Logged-in user
+**Priority:** High
 **Steps:**
 1. Open a content-rich page and click the Fluxshot icon.
 
@@ -35,6 +36,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-002: The capture matches what was on screen
 
 **User Role:** Logged-in user
+**Priority:** High
 **Steps:**
 1. Capture a page and compare the image against the visible page.
 
@@ -48,6 +50,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-003: Capture on different page types
 
 **User Role:** Logged-in user
+**Priority:** Medium
 **Steps:**
 1. Capture: a long scrolling page, a page with an open modal, a page with video, a PDF rendered in the browser,
    and a page at a high zoom level.
@@ -62,6 +65,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-004: Capture on a restricted page
 
 **User Role:** Logged-in user
+**Priority:** Medium
 **Steps:**
 1. Attempt to capture a `chrome://` page and the Chrome Web Store.
 
@@ -79,6 +83,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-005: All ten Painterro tools work
 
 **User Role:** Logged-in user
+**Priority:** High
 **Steps:**
 1. Apply in turn: text (with font, size, colour), rectangle, ellipse, arrow, pencil/brush, highlighter, crop,
    blur, colour picker, eraser.
@@ -93,6 +98,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-006: Crop changes the image that is submitted
 
 **User Role:** Logged-in user
+**Priority:** High
 **Steps:**
 1. Crop the screenshot to a region, then create an issue and open the attachment in Redmine.
 
@@ -106,6 +112,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-007: The eraser removes annotations, not image content
 
 **User Role:** Logged-in user
+**Priority:** Medium
 **Steps:**
 1. Draw several annotations, erase some, and submit.
 
@@ -117,6 +124,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-008: Blur is burnt into the image, not an overlay
 
 **User Role:** Logged-in user
+**Priority:** High
 **Steps:**
 1. Capture a page containing clearly readable text that stands in for sensitive data.
 2. Blur that region.
@@ -136,6 +144,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-009: The annotated version is what gets attached
 
 **User Role:** Logged-in user
+**Priority:** High
 **Steps:**
 1. Annotate heavily, create an issue, and open the attachment in Redmine.
 
@@ -152,6 +161,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-010: All three delays are offered and work
 
 **User Role:** Logged-in user
+**Priority:** Medium
 **Steps:**
 1. Click the timer icon (⏱) and use **3**, then **5**, then **10** seconds in turn.
 
@@ -163,6 +173,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-011: The countdown overlay appears on the source tab
 
 **User Role:** Logged-in user
+**Priority:** Medium
 **Steps:**
 1. Start a timer capture and watch the original tab.
 
@@ -174,6 +185,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-012: The overlay does not appear in the screenshot
 
 **User Role:** Logged-in user
+**Priority:** Medium
 **Steps:**
 1. Complete a timer capture and inspect the resulting image.
 
@@ -187,6 +199,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-013: Timer captures a transient UI state
 
 **User Role:** Logged-in user
+**Priority:** Medium
 **Steps:**
 1. Start a 5-second timer, then open a dropdown or hover a tooltip and hold it until the capture fires.
 
@@ -198,6 +211,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-014: Cancel aborts the countdown
 
 **User Role:** Logged-in user
+**Priority:** Medium
 **Steps:**
 1. Start a timer and click **Cancel** in the overlay.
 
@@ -209,6 +223,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-015: Timer with the source tab closed or navigating
 
 **User Role:** Logged-in user
+**Priority:** Low
 **Steps:**
 1. Start a timer, then close the source tab; repeat but navigate it to another page before the countdown ends.
 
@@ -226,6 +241,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-016: Copy the annotated screenshot
 
 **User Role:** Logged-in user
+**Priority:** Medium
 **Steps:**
 1. Annotate, click the copy icon (⎘), then paste into another application.
 
@@ -238,6 +254,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-017: The editor stays open after copying
 
 **User Role:** Logged-in user
+**Priority:** Low
 **Steps:**
 1. Copy, then continue annotating and create an issue.
 
@@ -249,6 +266,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-018: Copying creates nothing in Redmine
 
 **User Role:** Logged-in user
+**Priority:** Medium
 **Steps:**
 1. Copy to clipboard, then check the project's issues.
 
@@ -260,6 +278,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-019: Clipboard permission denied
 
 **User Role:** Logged-in user
+**Priority:** Low
 **Steps:**
 1. Block clipboard access for extension pages and click copy.
 
@@ -276,6 +295,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-020: Blank or white screenshot recovery
 
 **User Role:** Logged-in user
+**Priority:** Low
 **Steps:**
 1. If a capture comes out blank, reload the extension at `chrome://extensions` with the ↺ button and retry.
 
@@ -288,6 +308,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-021: Very large captures
 
 **User Role:** Logged-in user
+**Priority:** Medium
 **Steps:**
 1. Capture a very large, high-resolution page, annotate heavily, and create an issue.
 
@@ -302,6 +323,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-022: Rapid successive captures
 
 **User Role:** Logged-in user
+**Priority:** Low
 **Steps:**
 1. Click the Fluxshot icon several times in quick succession.
 
@@ -314,6 +336,7 @@ All of this is browser-side: click the Fluxshot toolbar icon and work in the edi
 ### TC-FSX-023: Annotation performance
 
 **User Role:** Logged-in user
+**Priority:** Low
 **Steps:**
 1. Apply 50 annotations to one screenshot.
 

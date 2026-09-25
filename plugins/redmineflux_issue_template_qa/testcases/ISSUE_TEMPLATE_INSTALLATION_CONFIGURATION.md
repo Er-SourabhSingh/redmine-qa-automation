@@ -25,6 +25,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 ### TC-RIT-044: Plugin appears in Administration → Plugins
 
 **User Role:** Admin
+**Priority:** High
 **Preconditions:** ZIP extracted into `plugins/` under its original folder name, `bundle install` and
 `redmine:plugins:migrate` run, server restarted.
 **Steps:**
@@ -38,6 +39,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 ### TC-RIT-045: Both entry points appear after installation
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Open the Administration area and look for an **Issue Template** section.
 2. Open any project and look for an **Issue Template** tab.
@@ -53,6 +55,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 ### TC-RIT-046: Assets load correctly
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Open the Add Issue Template form and inspect the console and Network tab.
 
@@ -66,6 +69,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 ### TC-RIT-047: Plugin functions on the Redmine version under test
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Record the version from Administration → Information; confirm it is inside the KB range.
 2. Create, apply and delete one template end to end.
@@ -83,6 +87,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 ### TC-RIT-048: CKEditor renders in the Issue description field
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** CKEditor configured on the instance.
 **Steps:**
 1. Open the Add Issue Template form and click into **Issue description**.
@@ -97,6 +102,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 ### TC-RIT-050: Behaviour with CKEditor absent
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** Instance using Redmine's stock Textile/Markdown formatting.
 **Steps:**
 1. Open the Add Issue Template form and enter a description.
@@ -116,6 +122,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 ### TC-RIT-051: Plugin folder renamed on disk
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Rename the plugin directory (the KB says not to) and restart.
 
@@ -128,6 +135,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 ### TC-RIT-052: Migration not run
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Install the files, skip the migration, restart, then open the Issue Template page and the New Issue form.
 
@@ -141,6 +149,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 ### TC-RIT-053: Administration section is not reachable by a non-admin
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
+**Priority:** High
 **Steps:**
 1. Request the Administration → Issue Template URL directly for each role. Do not rely on the menu being hidden.
 
@@ -152,6 +161,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 ### TC-RIT-054: Stale cache after a plugin change
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. After updating the plugin, load a page without clearing caches, then clear caches and restart as the KB advises.
 
@@ -163,6 +173,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 ### TC-RIT-055: Conflicts with other plugins on the New Issue form
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** Checklist, Tags and Inline Editor plugins also installed.
 **Steps:**
 1. Open New Issue and confirm the template pre-selection coexists with the other plugins' fields.
@@ -177,6 +188,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 ### TC-RIT-056: Template data survives a Redmine upgrade path
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. If a minor Redmine upgrade is available in the test environment, re-run the plugin migration afterwards and
    reopen the template list.
@@ -189,6 +201,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 ### TC-RIT-057: Behaviour when all trackers are deleted or renamed
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Rename a tracker that a template is bound to, then reopen the template list and the New Issue form.
 
@@ -206,6 +219,7 @@ Reach the two entry points through real navigation: **Administration → Issue T
 ### TC-RIT-058: Clean uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** Database backup taken.
 **Steps:**
 1. Run `bundle exec rake redmine:plugins:migrate NAME=<plugin_name> VERSION=0 RAILS_ENV=production`.

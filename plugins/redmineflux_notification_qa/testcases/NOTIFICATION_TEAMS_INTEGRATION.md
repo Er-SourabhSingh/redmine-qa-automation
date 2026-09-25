@@ -38,6 +38,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-103: Enable Teams globally with a webhook
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Configure → **Teams Notifications** → enable **Microsoft Teams notifications** → paste the webhook into
    **Global Teams Webhook URL** → **Apply**.
@@ -50,6 +51,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-104: A new issue posts to Teams
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create an issue in a project with no project-specific webhook.
 
@@ -61,6 +63,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-105: A note posts to Teams
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add a note to an existing issue.
 
@@ -72,6 +75,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-106: Field changes post to Teams
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** **Post issue updates** enabled.
 **Steps:**
 1. Change, in separate updates: status, priority, assignee, category, target version, and a custom field.
@@ -85,6 +89,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-107: Post issue updates disabled
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Disable **Post issue updates**; update an existing issue; then create a new one.
 
@@ -96,6 +101,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-108: Display watchers option
 
 **User Role:** Admin then Member
+**Priority:** Low
 **Steps:**
 1. Enable **Display watchers**, trigger a notification on an issue with several watchers; then disable and repeat.
 
@@ -109,6 +115,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-109: Message content is complete and correct
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Inspect a Teams message against the issue it describes.
 
@@ -127,6 +134,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-102: Private issues are not posted to Teams
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create a **private** issue, then update it, then add a note to it.
 
@@ -142,6 +150,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-110: Private notes are not posted to Teams
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Add a **private note** to an otherwise public issue.
 
@@ -159,6 +168,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-111: Enable the Teams Notifications project module
 
 **User Role:** Manager
+**Priority:** Medium
 **Steps:**
 1. Project → Settings → **Modules** → enable **Teams Notifications** → Save.
 
@@ -171,6 +181,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-112: Configure a project-specific webhook
 
 **User Role:** Manager
+**Priority:** Medium
 **Steps:**
 1. Project → Settings → Teams Notifications → enable project-specific Teams → enter the **second** channel's
    webhook → set the two options → Save.
@@ -183,6 +194,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-113: Project webhook wins over the global one
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Trigger a notification in the project.
 2. Check **both** Teams channels.
@@ -197,6 +209,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-114: Falling back to the global webhook
 
 **User Role:** Manager then Member
+**Priority:** Medium
 **Steps:**
 1. Disable project-specific Teams for the project; trigger a notification.
 
@@ -208,6 +221,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-115: Parent project fallback
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** A parent project with its own Teams webhook and a sub-project with none.
 **Steps:**
 1. Trigger a notification in the sub-project.
@@ -223,6 +237,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-116: No webhook configured anywhere
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. With neither a project nor a global webhook, trigger a notification.
 
@@ -239,6 +254,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-117: Invalid webhook URL
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Configure a malformed URL, and separately a valid-looking URL that returns an error; trigger a notification.
 
@@ -253,6 +269,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-118: Teams disabled globally
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Disable **Microsoft Teams notifications** globally while a project still has its own webhook configured;
    trigger a notification.
@@ -267,6 +284,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-119: Teams unreachable
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Block outbound access to the webhook host and trigger a notification.
 
@@ -280,6 +298,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-120: Notification volume
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Bulk-update 20 issues in one action.
 
@@ -293,6 +312,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-121: Script and markup in issue content
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create an issue whose subject and note contain markup, a script tag, and Teams-specific formatting characters.
 
@@ -305,6 +325,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-122: Project settings access
 
 **User Role:** Non-manager member
+**Priority:** High
 **Steps:**
 1. Confirm the project's Teams Notifications settings are not offered.
 2. Request the settings URL directly and attempt to post a webhook change.
@@ -320,6 +341,7 @@ TC-NTF-102 and TC-NTF-110 exist to verify it, and they are the most important ca
 ### TC-NTF-123: Disabled project notifications override Teams
 
 **User Role:** Manager then Member
+**Priority:** High
 **Steps:**
 1. Enable **Disable notifications** for a project that has a Teams webhook; trigger a change.
 

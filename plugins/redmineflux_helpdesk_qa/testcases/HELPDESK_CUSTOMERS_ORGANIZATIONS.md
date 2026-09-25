@@ -25,6 +25,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-037: Creating an organization saves name and all optional fields
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** None.
 
 **Steps:**
@@ -43,6 +44,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-038: Creating an organization with only the required Name field succeeds
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None. Complements TC-HLP-037 (every field filled) — this is the opposite extreme, confirming Name really is the only hard requirement per `HELPDESK_USER_GUIDE.md` §3.4 ("Name is required and must be unique. Everything else... is optional").
 
 **Steps:**
@@ -61,6 +63,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-039: Editing an organization to change only the Name field leaves its already-set optional fields untouched
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An organization exists with every optional field populated (e.g. "Gamma Corp" from TC-HLP-037 — Website, Phone, Address, Number of Employees, Notes, and Billing Info all set).
 
 **Steps:**
@@ -83,6 +86,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-040: Editing an organization to change every field in one Save persists all new values
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An organization exists with an established baseline of field values (e.g. "Gamma Corp" from TC-HLP-037, or any organization with known current values for every field).
 
 **Steps:**
@@ -104,6 +108,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-041: Creating a customer creates the account and flags it as a helpdesk customer
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** None.
 
 **Steps:**
@@ -121,6 +126,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-042: Editing a customer with "Send account information to the user" checked emails them, even with no other field changed
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An existing customer with a real, reachable email address (reproduced: `beta.customer`).
 
 **Steps:**
@@ -138,6 +144,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-043: Editing a customer with "Send account information to the user" left unchecked sends no email, even when a real field is actually changed
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** Same as TC-HLP-042 — an existing customer with a reachable email address.
 
 **Steps:**
@@ -155,6 +162,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-044: Editing only a customer's required Last name leaves the existing Project Access row, Organization, and password untouched
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** An existing customer with an already-set Project Access row (Project/SLA/Support Level/Organization) — e.g. `beta.customer`, whose row holds Beta Standard SLA / AB-L1 / Beta Org per TC-HLP-054. TC-HLP-042/294 already change Last name via Edit but never check whether the Project Access row or password survive the same save — this TC closes that gap.
 
 **Steps:**
@@ -180,6 +188,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-045: Adding a project-access row saves SLA, support level, and organization together
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** A customer exists; an SLA, a support level, and an organization all exist on the target project.
 
 **Steps:**
@@ -196,6 +205,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-046: Editing a customer and changing every field — identity, password, and the Project Access row — in one Save persists all of them
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An existing customer with a Project Access row already set (e.g. from TC-HLP-045). A second eligible project with its own SLA, support level, and organization exists so the Project Access row's Project/SLA/Support Level/Organization can each actually be changed to a different value, not just re-saved unchanged. TC-HLP-047 exercises "everything filled in one Save" but only on the New Customer (Create) form; TC-HLP-045 changes only the Project Access row as a follow-up edit; TC-HLP-042/294 change only Last name plus the notification checkbox. No existing case edits Login, First name, Last name, Email, Password, AND the Project Access row together in a single Edit-form Save.
 
 **Steps:**
@@ -219,6 +229,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-047: Creating a customer with identity, an explicit password, and a Project Access row all filled in a single Save
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An SLA, a support level, and an organization all exist on the target project. TC-HLP-041 deliberately saves without project access ("Save without adding project access yet") and TC-HLP-045 adds project access as a separate follow-up action on an already-existing customer — neither TC ever exercises the New Customer form with everything filled in on the very first Save. Per `HELPDESK_HANDOFF.md`'s own 2026-08-24 note, the Project Access section on the New Customer form is **not** statically absent — it renders conditionally once an eligible project/SLA/organization exists, so this combined flow should be reachable.
 
 **Steps:**
@@ -239,6 +250,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-048: The Support Level dropdown when adding project access only offers that project's support levels
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** Adding project access for Project A; Project B also has its own, different support level(s).
 
 **Steps:**
@@ -256,6 +268,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-049: The SLA Name dropdown when adding project access only offers that project's SLAs
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** Adding project access for Project A; Project B also has its own, different SLA.
 
 **Steps:**
@@ -274,6 +287,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-050: The Organization Name dropdown when adding project access is NOT filtered by the row's Project (by design)
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** At least two organizations exist, neither one linked yet to any customer or prepaid budget on either Project A or Project B.
 
 **Steps:**
@@ -291,6 +305,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-051: Removing a project-access row removes only that project's access
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** A customer with project-access rows on two projects (contingent on TC-HLP-063 confirming this is actually possible — if not, adapt to whatever the real data model supports).
 
 **Steps:**
@@ -307,6 +322,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-052: The customer list shows organization, project count, and open-ticket count
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** At least one customer with an organization, project access, and at least one open ticket.
 
 **Steps:**
@@ -321,6 +337,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-053: The eye icon opens the customer's detail page, not the portal
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Viewing the customer list.
 
 **Steps:**
@@ -335,6 +352,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-054: Customer 360 shows identity, KPIs, entitlements, and recent tickets with SLA badges
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** A customer with tickets in a range of SLA states.
 
 **Steps:**
@@ -349,6 +367,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-055: Customer 360's open-ticket count matches the customer list's count
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** A customer with a known number of open tickets.
 
 **Steps:**
@@ -364,6 +383,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-056: ~~Portal Preview shows the desk exactly as the customer sees it, read-only~~ — Portal Preview should not exist as a reachable route at all
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** A customer with at least one project entitlement and one ticket.
 
 **Steps:**
@@ -380,6 +400,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-057: Searching and filtering the customer list works correctly
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Multiple customers across at least two organizations.
 
 **Steps:**
@@ -396,6 +417,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-058: Organization list search, Status filter, Apply Filters, and Clear Filters all work correctly
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** Multiple organizations exist, at least one Active and at least one Inactive (deactivated via the list-level toggle).
 
 **Steps:**
@@ -417,6 +439,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-059: Customer list's Apply Filters and Clear Filters buttons behave correctly with search + organization filter combined
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Multiple customers across at least two organizations.
 
 **Steps:**
@@ -438,6 +461,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-060: Creating an organization with a duplicate name is refused
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An organization named "Acme Corp" already exists.
 
 **Steps:**
@@ -452,6 +476,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-061: An organization linked to customers cannot be silently deleted
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** An organization with at least one customer linked to it.
 
 **Steps:**
@@ -466,6 +491,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-062: A manager scoped to Project A cannot disturb a customer's access to Project B
 
 **User Role:** Manager whose role only administers Project A (via `manage_helpdesk` on Project A only)
+**Priority:** High
 **Precondition:** A customer has project-access rows on both Project A and Project B (contingent on TC-HLP-063).
 
 **Steps:**
@@ -486,6 +512,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-063: Resolving the one-vs-multiple project-access row contradiction
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A single customer, no existing project access.
 
 **Steps:**
@@ -504,6 +531,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-064: Deactivating an organization keeps historical associations
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An organization with existing customers and ticket history.
 
 **Steps:**
@@ -522,6 +550,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-065: An organization created from within a project's Helpdesk tab does not appear in that project's own Organization view until a customer's project-access row selects it
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** A project with the Helpdesk module enabled (e.g. Helpdesk QA Alpha) and at least one customer with a project-access row on it.
 
 **Steps:**
@@ -542,6 +571,7 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 ### TC-HLP-066: Previewing a project the customer is not linked to is refused
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** A customer entitled to Project A only; Project B exists.
 
 **Steps:**

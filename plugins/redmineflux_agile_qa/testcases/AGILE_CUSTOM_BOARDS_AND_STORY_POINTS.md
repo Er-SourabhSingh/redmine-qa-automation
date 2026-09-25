@@ -27,6 +27,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-078: Create a custom board
 
 **User Role:** Member with board-management rights
+**Priority:** High
 **Steps:**
 1. Open the project Agile Board → the custom board list → create a new board.
 2. Enter board details and select columns, card fields, totals, filters and grouping. Save.
@@ -40,6 +41,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-079: Multiple custom boards coexist for one project
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create three boards for distinct purposes — e.g. bug triage, QA, release monitoring — with different columns,
    filters and grouping.
@@ -55,6 +57,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-080: Edit a custom board
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Select a saved board → Edit → change its columns and filters → Save.
 
@@ -67,6 +70,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-081: Delete a custom board
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Select a board → Delete → confirm.
 
@@ -79,6 +83,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-082: Cancel a custom board deletion
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Trigger the delete and cancel the confirmation.
 
@@ -90,6 +95,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-083: Board visibility and sharing rules
 
 **User Role:** Two members with different roles
+**Priority:** High
 **Steps:**
 1. Create a board with each available visibility/sharing option and check who can see it.
 
@@ -103,6 +109,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-084: A custom board's filters do not widen visibility
 
 **User Role:** Member with restricted issue visibility
+**Priority:** High
 **Steps:**
 1. Open a board created by a user with broader access.
 
@@ -116,6 +123,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-085: Custom board survives configuration changes elsewhere
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. Save a board using a status, a custom field and a target version; then delete each of those in Administration.
 2. Reopen the board.
@@ -133,6 +141,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-086: Board with a blank name
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create a board leaving the name empty.
 
@@ -144,6 +153,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-087: Duplicate board names
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create two boards with the same name in one project.
 
@@ -156,6 +166,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-088: Script content in a board name
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Name a board with a script tag and view the board list.
 
@@ -168,6 +179,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-089: Editing or deleting another user's board
 
 **User Role:** Member who is not the board's owner
+**Priority:** High
 **Steps:**
 1. Confirm whether edit/delete controls are offered on a board owned by someone else.
 2. Send the edit and delete requests directly.
@@ -182,6 +194,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-090: Very many custom boards
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create 50 custom boards on one project and open the list.
 
@@ -197,6 +210,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-091: Story Points are disabled by default
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. On a fresh installation, open the plugin configuration.
 
@@ -208,6 +222,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-092: Enabling Story Points exposes the feature everywhere
 
 **User Role:** Admin then Member
+**Priority:** High
 **Steps:**
 1. Enable Story Points, enter the allowed values, save.
 2. Check the project board, the global board, the My Page block, the Backlog, and the issue form.
@@ -222,6 +237,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-093: Only the configured values are selectable
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Configure the allowed values (e.g. 1, 2, 3, 5, 8, 13) and open the Story Points field on an issue.
 
@@ -233,6 +249,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-094: Story Points display on cards
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Enable Story Points as a card field; set values on several issues.
 
@@ -245,6 +262,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-095: Story Point totals per column
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Enable Story Point totals and compare a column's total against the sum of its cards.
 
@@ -258,6 +276,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-096: Story Points on the Backlog
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. View Story Points on Backlog cards and any sprint totals.
 
@@ -275,6 +294,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-097: Story Point changes are journaled
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Change an issue's Story Points and open its History.
 
@@ -286,6 +306,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-098: Disabling Story Points hides the feature completely
 
 **User Role:** Admin then Member
+**Priority:** High
 **Steps:**
 1. With values already set on issues, disable Story Points and save.
 2. Re-check the project board, global board, My Page block, Backlog, issue form and every board settings panel.
@@ -301,6 +322,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-099: Re-enabling restores previously stored values
 
 **User Role:** Admin then Member
+**Priority:** High
 **Steps:**
 1. Re-enable Story Points and open an issue that had a value before it was disabled.
 
@@ -316,6 +338,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-100: A stored value outside the configured list
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Set an issue to 13, then remove 13 from the allowed values in plugin configuration.
 2. Open that issue and its card.
@@ -330,6 +353,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-101: Empty Story Point values list
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Enable Story Points but leave the allowed values empty; save.
 
@@ -342,6 +366,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-102: Story Points on a parent issue with subtasks
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Set Story Points on subtasks and inspect the parent's card and column totals.
 
@@ -355,6 +380,7 @@ Story Points: Administration → Plugins → Redmineflux Agile Board → Configu
 ### TC-AGB-103: Non-admin cannot change Story Point configuration
 
 **User Role:** Every non-admin role in turn
+**Priority:** High
 **Steps:**
 1. Request the plugin configuration URL directly and attempt to post a Story Points change.
 

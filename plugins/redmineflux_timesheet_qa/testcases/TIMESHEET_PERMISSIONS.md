@@ -76,6 +76,7 @@ Approve button proves nothing.
 ### TC-TMS-052: Admin has full access
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Exercise every row of the matrix.
 
@@ -87,6 +88,7 @@ Approve button proves nothing.
 ### TC-TMS-053: View Timesheet grants own-timesheet access only
 
 **User Role:** Submitter
+**Priority:** High
 **Steps:**
 1. Confirm their own timesheet is viewable and they can log, edit, submit and withdraw their own time.
 2. Confirm the View dropdown offers no other user, team or project.
@@ -101,6 +103,7 @@ Approve button proves nothing.
 ### TC-TMS-054: Manage Timesheet grants visibility, not approval authority
 
 **User Role:** Manager-no-schema
+**Priority:** High
 **Steps:**
 1. Confirm they can view other users' timesheets in their context.
 2. Confirm no Approve/Reject control is offered on any pending submission.
@@ -118,6 +121,7 @@ Approve button proves nothing.
 ### TC-TMS-055: Approval authority is level-specific
 
 **User Role:** Approver L1 and Approver L2
+**Priority:** High
 **Steps:**
 1. Confirm L1 can act at level 1 and L2 at level 2.
 2. Send an approve request as **L1 for level 2**, and as **L2 for level 1**.
@@ -131,6 +135,7 @@ Approve button proves nothing.
 ### TC-TMS-056: A member with no plugin permissions has no access
 
 **User Role:** No-permission member
+**Priority:** High
 **Steps:**
 1. Confirm whether the Timesheet navigation entry appears.
 2. Request the timesheet grid, the Approval Dashboard and the report endpoints directly.
@@ -143,6 +148,7 @@ Approve button proves nothing.
 ### TC-TMS-057: Editing another user's time entries is gated
 
 **User Role:** Approver L1
+**Priority:** High
 **Steps:**
 1. While reviewing a submitted timesheet, attempt to modify the submitter's entries through the UI and directly.
 
@@ -157,6 +163,7 @@ Approve button proves nothing.
 ### TC-TMS-058: Cross-context isolation
 
 **User Role:** Approver L1 of team A
+**Priority:** High
 **Preconditions:** Team B exists with its own schema and pending timesheets.
 **Steps:**
 1. Confirm team B's submissions are absent from A's approval queue.
@@ -170,6 +177,7 @@ Approve button proves nothing.
 ### TC-TMS-059: Non-member cannot access a project's timesheets
 
 **User Role:** Non-member
+**Priority:** High
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -183,6 +191,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-TMS-060: Anonymous has no access
 
 **User Role:** Anonymous (logged out)
+**Priority:** High
 **Steps:**
 1. Request the Timesheet module, the approval endpoint and the report export with no session.
 
@@ -194,6 +203,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-TMS-061: Admin-only areas are closed to every role
 
 **User Role:** Approver L1, Manager-no-schema, Submitter (each in turn)
+**Priority:** High
 **Steps:**
 1. Confirm Settings, Team, Approval Schema, Admin Dashboard and Audit Log are not offered.
 2. Request each URL directly.
@@ -210,6 +220,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-TMS-062: Report and export permissions match the view permissions
 
 **User Role:** Non-admin roles
+**Priority:** High
 **Steps:**
 1. For each role, request the report endpoint and then the **CSV export** endpoint for data outside their scope.
 
@@ -223,6 +234,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-TMS-063: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected approver
+**Priority:** High
 **Steps:**
 1. Remove Manage Timesheet (or the approver's schema role) while they have the Approval Dashboard open with a
    review in progress.
@@ -236,6 +248,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-TMS-064: Closed and archived projects
 
 **User Role:** Submitter and Approver
+**Priority:** High
 **Steps:**
 1. Close a project: attempt to log time, submit and approve, at the UI and the endpoint.
 2. Archive it and repeat, and check whether its timesheets still appear in queues and reports.
@@ -250,6 +263,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-TMS-065: Users cannot approve their own timesheets under any path
 
 **User Role:** Approver L1 and the final-approver account
+**Priority:** High
 **Steps:**
 1. Each submits their own timesheet and then attempts to approve it via the UI, via a crafted direct request, and
    by any bulk or dashboard action available.

@@ -25,6 +25,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-028: All documented formatting options work
 
 **User Role:** Member with `manage_knowledgebase_pages`
+**Priority:** Medium
 **Steps:**
 1. In one page, apply each documented option in turn: **H2, H3, H4**; bold, italic, underline; ordered and
    unordered lists; a table; an inline code span; a multi-line code block; a blockquote; a link; an image; an emoji
@@ -41,6 +42,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-029: Formatting survives an edit round trip
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Publish a page with rich formatting, then re-open it in the editor and Update without changing anything.
 
@@ -54,6 +56,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-030: Images and links
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Insert an image and a hyperlink; publish; view the page, then view it through a public URL.
 
@@ -66,6 +69,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-031: Code blocks preserve content exactly
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Paste code containing angle brackets, ampersands and quotes into a multi-line code block; publish.
 
@@ -77,6 +81,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-032: Large page content
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Build a page of roughly 100 KB of rich content with many tables and images; publish.
 
@@ -92,6 +97,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-033: Auto-save indicator behaves as documented
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Type into the editor and watch the toolbar indicator.
 
@@ -104,6 +110,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-034: Auto-saved content survives leaving the page
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Type content, wait for **Saved**, navigate away without publishing, then re-open the page.
 
@@ -115,6 +122,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-035: Auto-save does not create a version
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Edit a published page repeatedly over several minutes, letting auto-save fire many times.
 2. Open **Versions**.
@@ -129,6 +137,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-036: Auto-save failure is visible
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Take the network offline while typing; then let the session expire and continue typing.
 
@@ -146,6 +155,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-037: @mention dropdown lists active project members
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Type `@` followed by a few characters in the editor.
 
@@ -158,6 +168,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-038: Selecting a user inserts the mention
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Select a user from the dropdown.
 
@@ -169,6 +180,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-039: Mention email is sent on publish
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Mention a user, publish the page, and check that user's mailbox.
 
@@ -182,6 +194,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-040: No email is sent while the page is only a draft
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add a mention and let auto-save run repeatedly, without publishing.
 
@@ -194,6 +207,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-041: Re-publishing does not re-notify unchanged mentions
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Publish a page mentioning user A. Edit it, add a mention of user B, and click Update.
 
@@ -207,6 +221,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-042: Mention notifications respect the General setting
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Disable **Mention users**; publish a page containing a mention.
 
@@ -222,6 +237,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-043: #issue dropdown lists open project issues
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Type `#` followed by digits in the editor.
 
@@ -233,6 +249,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-044: The mention renders as a working issue link
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Insert an issue mention, publish, and click the rendered link.
 
@@ -244,6 +261,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-045: Linked page appears on the issue
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Publish a page mentioning issue #N.
 2. Open issue #N and scroll to the bottom of the details section.
@@ -256,6 +274,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-046: The link is removed automatically when the mention is removed
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Edit the page to remove the issue mention and Update.
 2. Re-check the issue.
@@ -269,6 +288,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-047: Multiple pages linked to one issue
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Mention the same issue from three pages and publish all three.
 
@@ -284,6 +304,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-048: Related pages section respects page visibility
 
 **User Role:** Member with `view_knowledgebase` only
+**Priority:** High
 **Preconditions:** A **draft** (never published) page mentions an issue this user can see.
 **Steps:**
 1. Open the issue as that user and inspect the Related Knowledge Base Pages section.
@@ -299,6 +320,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-049: Related pages section respects project boundaries
 
 **User Role:** Member of project A only
+**Priority:** High
 **Preconditions:** A page in **private** project B mentions an issue that is visible in A (or a shared issue).
 **Confirm project B is genuinely private — a newly created Redmine project defaults to public.**
 **Steps:**
@@ -312,6 +334,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-050: Mentioning a user who cannot see the page
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. On a page in a private project, mention a user who is not a member of that project (if the dropdown allows it,
    or by typing the mention manually). Publish.
@@ -327,6 +350,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-051: Mentioning a non-existent user or issue
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Type `@nosuchuser` and `#999999` manually and publish.
 
@@ -338,6 +362,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-052: Issue mention referencing an issue the reader cannot see
 
 **User Role:** Member A (can see issue #N) mentions it; Member B cannot see #N
+**Priority:** High
 **Steps:**
 1. Publish the page and view it as B.
 
@@ -350,6 +375,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-053: Script injection through editor content
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Insert a script tag, an `onerror` image payload and a `javascript:` link through the editor and through any
    HTML source mode available; publish.
@@ -365,6 +391,7 @@ the links inside the notification emails will be wrong and the results unusable.
 ### TC-RKB-054: Concurrent editing of one page
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. Both open the same page in the editor and type different content; let both auto-save.
 

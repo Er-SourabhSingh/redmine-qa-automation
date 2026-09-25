@@ -24,6 +24,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-069: Add a new tag while creating an issue
 
 **User Role:** Member with issue-create rights
+**Priority:** High
 **Steps:**
 1. Open New issue.
 2. In the **Tags** field type a tag name that does not yet exist and press Enter.
@@ -38,6 +39,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-070: Add an existing tag via autocomplete
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Edit an issue, type the first few characters of an existing tag in the Tags field.
 
@@ -50,6 +52,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-071: Assign multiple tags to one issue
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Add three distinct tags to one issue and save.
 
@@ -62,6 +65,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-072: Remove a tag from an issue
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Remove one of three tags (via the chip's remove control) and save.
 
@@ -74,6 +78,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-073: Remove all tags from an issue
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Clear the Tags field entirely and save.
 
@@ -86,6 +91,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-074: Tag changes are journaled in the issue history
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add one tag and remove another in a single save.
 2. Open the issue History.
@@ -98,6 +104,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-075: Tags are visible on the issue detail page
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Open a tagged issue.
 
@@ -109,6 +116,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-076: Clicking a tag lists all entities carrying it
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Click a tag label on an issue.
 
@@ -122,6 +130,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-077: Tags survive unrelated issue updates
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. On a tagged issue, change status, assignee and description in a normal save.
 
@@ -133,6 +142,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-078: Bulk tag assignment from the issue list
 
 **User Role:** Manager
+**Priority:** Low
 **Steps:**
 1. Select several issues in the issue list and use the context-menu/bulk edit to set a tag, if supported.
 
@@ -149,6 +159,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-079: Empty tag name
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Press Enter in the Tags field with nothing typed; then with only spaces.
 
@@ -161,6 +172,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-080: Duplicate tag on the same issue
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add the same tag twice to one issue.
 
@@ -172,6 +184,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-081: Case sensitivity of tag names
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create a tag `Urgent`, then on another issue type `urgent` and `URGENT`.
 
@@ -185,6 +198,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-082: Very long tag name
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create a 500-character tag name.
 
@@ -197,6 +211,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-083: Special characters and HTML in a tag name
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create tags containing a script tag, quotes, an ampersand, a comma, a leading/trailing space, and an emoji.
 
@@ -211,6 +226,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-084: Tag field on an issue the user may view but not edit
 
 **User Role:** Read-only member
+**Priority:** High
 **Steps:**
 1. Open a tagged issue as a user without edit-issues.
 2. Confirm the Tags field is read-only.
@@ -224,6 +240,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-085: Assigning a tag to an issue in a closed or archived project
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Attempt to tag an issue in a closed project, then in an archived project.
 
@@ -236,6 +253,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-086: Deleting an issue removes its tag associations
 
 **User Role:** Manager / Admin
+**Priority:** Medium
 **Steps:**
 1. Delete a tagged issue.
 2. Open the tag's entity listing and the admin tag list.
@@ -249,6 +267,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-087: Concurrent tag edits from two sessions
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. Both open the same issue. A adds tag X; B, without reloading, adds tag Y and saves.
 
@@ -261,6 +280,7 @@ project. Do not jump straight to a deep URL.
 ### TC-TAG-088: Tagging is possible on every entity type the plugin claims to support
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. For each entity type the installed build exposes a Tags field on (issues at minimum; projects and time entries
    if present), assign and remove a tag.

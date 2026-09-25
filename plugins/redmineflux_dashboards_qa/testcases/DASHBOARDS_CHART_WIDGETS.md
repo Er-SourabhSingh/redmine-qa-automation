@@ -37,6 +37,7 @@ Project → **Dashboard** → **Add Chart** → the **Our Queries** tab. Do not 
 ### TC-DSH-027: Add a chart widget
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Click **Add Chart**, open the **Our Queries** tab, choose a chart type, optionally enter a custom title, Add.
 
@@ -52,6 +53,7 @@ survived a full page reload (widget count persisted at 39 after reload following
 ### TC-DSH-028: Custom title is applied at creation
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add a chart with a custom title.
 
@@ -75,6 +77,7 @@ was already confirmed working correctly and is unaffected either way.
 ### TC-DSH-029: Default title when none is entered
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Add a chart leaving the title blank.
 
@@ -89,6 +92,7 @@ name when no title is entered.
 ### TC-DSH-030: Search the chart type list
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. In the Add Chart modal, type a keyword into the search field.
 
@@ -104,6 +108,7 @@ a nonsense string ("zzznotachart") correctly showed "No matching chart types fou
 ### TC-DSH-031: All documented core chart types are present and render
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** A project with issues across several statuses, trackers, priorities, assignees and versions,
 plus logged time across activities, users and roles.
 **Steps:**
@@ -142,6 +147,7 @@ this is intentional (the Gauge is always an all-time metric) — not a bug, see 
 ### TC-DSH-032: Project Progress Gauge is available in all installations
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Confirm the gauge is offered and add it; compare its value with the project's own progress figures.
 
@@ -161,6 +167,7 @@ deliberately an all-time metric, not scoped to the date-range filter. Retracted;
 ### TC-DSH-033: Chart type cannot be changed after creation
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Open an existing widget's settings and look for a chart-type control.
 
@@ -183,6 +190,7 @@ and removed, see TC-DSH-034/035) and works cleanly.
 ### TC-DSH-034: Delete a chart widget
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Click the remove icon on a chart card and confirm the prompt.
 
@@ -198,6 +206,7 @@ confirmed still 44 after a full page reload (no ghost re-appearance). Other widg
 ### TC-DSH-035: Cancel a widget deletion
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Trigger the delete and cancel the confirmation.
 
@@ -212,6 +221,7 @@ confirmed still 44 after a full page reload (no ghost re-appearance). Other widg
 ### TC-DSH-036: Copy a chart widget
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Configure a chart with distinctive colours, filters and a custom date range.
 2. Click the copy icon.
@@ -232,6 +242,7 @@ is stale TC wording, not a product defect.
 ### TC-DSH-037: Update a chart title
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open chart settings, edit the **Chart Title**, save.
 
@@ -248,6 +259,7 @@ retested against the right selector — see that TC's note.)
 ### TC-DSH-038: Info tooltip shows chart context
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Click the info icon on a chart card; then open the chart in full screen and check again.
 
@@ -266,6 +278,7 @@ evidence of a product defect. Needs a real mouse interaction to re-verify, same 
 ### TC-DSH-039: Many widgets on one dashboard
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add 20 widgets of mixed types to one dashboard.
 
@@ -287,6 +300,7 @@ render were observed.
 ### TC-DSH-040: Chart with no matching data
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Add a chart whose filters and date range select nothing.
 
@@ -303,6 +317,7 @@ No `NaN`, no blank canvas, and console errors count was unchanged (only the pre-
 ### TC-DSH-041: Script content in a chart title
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Set a chart title containing a script tag; view the card, the info tooltip and full-screen mode.
 2. View the same dashboard as another user, and through a public share link if one exists.
@@ -328,6 +343,7 @@ another-user / public-share legs of this TC's steps not separately re-verified t
 ### TC-DSH-042: Very long chart title
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Set a 500-character title.
 
@@ -344,6 +360,7 @@ re-attempted this pass due to time — recommended for next session with a uniqu
 ### TC-DSH-043: Duplicate widgets of the same type
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add three "Issues by Status" widgets with different titles and different per-chart filters.
 
@@ -362,6 +379,7 @@ Settings per-filter-type sweep (TC-DSH-009–026) below, which covers per-chart 
 ### TC-DSH-044: Widget referencing deleted configuration
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. Create a chart filtered on a specific version, tracker and assignee; then delete the version, then the tracker,
    then deactivate the user.
@@ -383,6 +401,7 @@ future session, not against shared instance data.
 ### TC-DSH-045: Chart data respects issue visibility
 
 **User Role:** Member on a role whose issue visibility is limited (e.g. to their own issues)
+**Priority:** High
 **Steps:**
 1. Add "Issues by Status" and compare its total against the issue list as that same user.
 
@@ -402,6 +421,7 @@ drill-down itself is correctly restricted, so the leak is isolated to the chart 
 ### TC-DSH-046: Time-tracking charts respect time-entry visibility
 
 **User Role:** Member without permission to view other users' spent time
+**Priority:** High
 **Steps:**
 1. Add "Total Spent Hours by Users" and "Estimated vs Spent Time by User".
 
@@ -423,6 +443,7 @@ issue list).
 ### TC-DSH-047: Widget creation without permission
 
 **User Role:** Member with view-only project access
+**Priority:** Medium
 **Steps:**
 1. Confirm whether Add Chart is offered.
 2. Send the widget-create and widget-delete requests **directly**.
@@ -445,6 +466,7 @@ plugin's documented, intentional design — see `DASHBOARDS_MEMORY.md`.
 ### TC-DSH-048: Concurrent widget edits
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. Both open the same project dashboard. A adds a widget; B, without reloading, deletes a different widget.
 

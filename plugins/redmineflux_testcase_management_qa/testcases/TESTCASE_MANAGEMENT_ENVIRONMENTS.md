@@ -24,6 +24,7 @@ environment list.
 ### TC-TCM-038: Create an environment
 
 **User Role:** QA / Manager
+**Priority:** High
 **Steps:**
 1. **Environment** tab → **Add Environment**.
 2. Enter an **Environment Name** and select components.
@@ -37,6 +38,7 @@ environment list.
 ### TC-TCM-039: A created environment is selectable on a run
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Create environment `ENV-A`.
 2. **Runs & Results** → **Add Run** and open the Environment selector.
@@ -49,6 +51,7 @@ environment list.
 ### TC-TCM-040: Environment name is mandatory
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. **Add Environment**, leave the name empty, click **Create**.
 
@@ -60,6 +63,7 @@ environment list.
 ### TC-TCM-041: Duplicate environment name
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. Create an environment with a name that already exists in the project.
 
@@ -72,6 +76,7 @@ environment list.
 ### TC-TCM-042: Edit an environment name
 
 **User Role:** QA / Manager
+**Priority:** Medium
 **Steps:**
 1. Edit an existing environment's name; save.
 2. Open a run already assigned to it and check the environment selector and any existing results.
@@ -85,6 +90,7 @@ environment list.
 ### TC-TCM-043: Delete an unused environment
 
 **User Role:** Manager / Admin
+**Priority:** Medium
 **Steps:**
 1. Create an environment, assign it to nothing, delete it; confirm.
 
@@ -96,6 +102,7 @@ environment list.
 ### TC-TCM-044: Delete an environment that has recorded results
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Create a run against environment `ENV-B`, record results on ≥2 cases.
 2. Delete `ENV-B`.
@@ -111,6 +118,7 @@ environment list.
 ### TC-TCM-045: Environments are project-scoped
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Create environment `ENV-P1` in Project A.
 2. Open Project B's Environment list and its **Add Run** environment selector.

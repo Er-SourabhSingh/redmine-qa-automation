@@ -39,6 +39,7 @@ not prescribe one.
 ### TC-TCM-046: Create Test Suite — granted role can create
 
 **User Role:** Admin, Manager, QA
+**Priority:** Medium
 **Steps:**
 1. Log in as the role under test. Open the project → **TestCases** → **Test Suite** sidebar icon.
 2. Click the **Add Test Suite** icon.
@@ -53,6 +54,7 @@ not prescribe one.
 ### TC-TCM-047: Create Test Suite — denied role sees no control
 
 **User Role:** Client, non-member (and Developer if not granted)
+**Priority:** High
 **Steps:**
 1. Log in as the denied role. Open the project → **TestCases** → **Test Suite** sidebar.
 2. Inspect the sidebar and suite tree for an **Add Test Suite** control.
@@ -65,6 +67,7 @@ not prescribe one.
 ### TC-TCM-048: Create Test Suite — denied role blocked at the endpoint
 
 **User Role:** Client, non-member
+**Priority:** High
 **Steps:**
 1. Log in as the denied role.
 2. Request the suite-creation URL directly (`/test_suites/new?project_id=<id>`, and the POST target
@@ -80,6 +83,7 @@ not prescribe one.
 ### TC-TCM-049: Edit Test Suite — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager/QA) and denied (Client/non-member)
+**Priority:** High
 **Steps:**
 1. As a granted role, open a suite's action menu, rename it, save.
 2. As a denied role, confirm the edit control is absent.
@@ -94,6 +98,7 @@ not prescribe one.
 ### TC-TCM-050: Delete Test Suite — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager) and denied (Client/non-member/Developer)
+**Priority:** High
 **Steps:**
 1. As a granted role, delete an empty suite via its action menu and confirm.
 2. As a denied role, confirm the delete control is absent.
@@ -108,6 +113,7 @@ not prescribe one.
 ### TC-TCM-051: Deleting a suite that contains test cases
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Create a suite and add at least two test cases to it.
 2. Delete the suite and confirm.
@@ -127,6 +133,7 @@ not prescribe one.
 ### TC-TCM-052: Create Run — granted role can create
 
 **User Role:** Admin, Manager, QA
+**Priority:** Medium
 **Steps:**
 1. Open **Runs & Results** → **Add Run**.
 2. Complete Run Name, Note, Run State, Start/End Date, Environment, Assignee; select test cases; click **Create**.
@@ -139,6 +146,7 @@ not prescribe one.
 ### TC-TCM-053: Create Run — denied role, UI and endpoint
 
 **User Role:** Client, non-member
+**Priority:** High
 **Steps:**
 1. Confirm **Add Run** is not rendered on Runs & Results.
 2. Request `/runs/new?project_id=<id>` directly, and attempt the POST to `/runs`.
@@ -151,6 +159,7 @@ not prescribe one.
 ### TC-TCM-054: Edit Run — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager/QA) and denied (Client/non-member)
+**Priority:** High
 **Steps:**
 1. Granted: open a run's action menu → edit, change the Note and End Date, save.
 2. Denied: confirm the edit control is absent.
@@ -164,6 +173,7 @@ not prescribe one.
 ### TC-TCM-055: Close Run — granted role
 
 **User Role:** Admin, Manager, QA
+**Priority:** Medium
 **Steps:**
 1. Open **Runs & Results**, locate an Active run, click its **Action Button** → **Close Run**, confirm.
 2. Check the **Closed** tab.
@@ -176,6 +186,7 @@ not prescribe one.
 ### TC-TCM-056: Close Run — denied role, UI and endpoint
 
 **User Role:** Developer, Client, non-member
+**Priority:** High
 **Steps:**
 1. Confirm **Close Run** is absent from the run's action menu.
 2. Issue the close request directly against the run's close endpoint.
@@ -188,6 +199,7 @@ not prescribe one.
 ### TC-TCM-057: Delete Run — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager) and denied (Developer/Client/non-member)
+**Priority:** High
 **Steps:**
 1. Granted: delete a run via its action menu and confirm.
 2. Denied: confirm the delete control is absent.
@@ -201,6 +213,7 @@ not prescribe one.
 ### TC-TCM-058: Execution results survive run deletion appropriately
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Create a run, execute at least two cases with results and notes.
 2. Delete the run.
@@ -219,6 +232,7 @@ not prescribe one.
 ### TC-TCM-059: Execute Testcase — granted role can record a result
 
 **User Role:** Admin, Manager, Developer, QA
+**Priority:** Medium
 **Steps:**
 1. Open a run → select an **Environment** → click the **Result** field for a case.
 2. Choose **Passed**, add a note, click **Save**.
@@ -231,6 +245,7 @@ not prescribe one.
 ### TC-TCM-060: Execute Testcase — denied role, UI and endpoint
 
 **User Role:** Client, non-member
+**Priority:** High
 **Steps:**
 1. Confirm the **Result** field is not actionable (no Add Result modal opens).
 2. Request `/issue_status_results/new?...` directly, and attempt the result-create POST.
@@ -243,6 +258,7 @@ not prescribe one.
 ### TC-TCM-061: Execute permission does not imply run management
 
 **User Role:** Developer (Execute only)
+**Priority:** High
 **Steps:**
 1. As a Developer with **Execute Testcase** but no run permissions, open a run.
 2. Attempt to edit, close and delete the run — via UI, then via direct URLs.
@@ -260,6 +276,7 @@ not prescribe one.
 ### TC-TCM-062: View Report — granted role can view but not create
 
 **User Role:** Developer (View Report only)
+**Priority:** High
 **Steps:**
 1. Open **Reports** and open an existing report.
 2. Look for **+ New report**, edit and delete controls.
@@ -273,6 +290,7 @@ not prescribe one.
 ### TC-TCM-063: Create Report — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager/QA) and denied (Client/non-member)
+**Priority:** High
 **Steps:**
 1. Granted: create a report of any type and confirm it appears in the list.
 2. Denied: confirm **+ New report** is absent.
@@ -286,6 +304,7 @@ not prescribe one.
 ### TC-TCM-064: Edit Report — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager/QA) and denied (Client/non-member)
+**Priority:** High
 **Steps:**
 1. Granted: edit a report's name via the pencil icon and save.
 2. Denied: confirm the pencil icon is absent.
@@ -299,6 +318,7 @@ not prescribe one.
 ### TC-TCM-065: Delete Report — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager) and denied (Developer/Client/non-member)
+**Priority:** High
 **Steps:**
 1. Granted: delete a report via the bin icon and confirm.
 2. Denied: confirm the bin icon is absent.
@@ -312,6 +332,7 @@ not prescribe one.
 ### TC-TCM-066: Report content does not leak cross-project data
 
 **User Role:** QA who is a member of Project A only
+**Priority:** High
 **Steps:**
 1. As Admin, create runs and test cases in Project A and Project B.
 2. As the Project-A-only QA, generate a Testcase Summary and a Defect Summary in Project A.
@@ -329,6 +350,7 @@ not prescribe one.
 ### TC-TCM-067: To-Do shows only own items without "View All To-Do's"
 
 **User Role:** QA without the permission
+**Priority:** High
 **Steps:**
 1. As Admin, assign test execution work to two different users.
 2. Log in as one of them, open the **To-Do** sidebar area.
@@ -341,6 +363,7 @@ not prescribe one.
 ### TC-TCM-068: "View All To-Do's" widens visibility
 
 **User Role:** Manager with the permission
+**Priority:** Medium
 **Steps:**
 1. With the same data as TC-TCM-067, log in as a role holding **View All To-Do's** and open **To-Do**.
 
@@ -352,6 +375,7 @@ not prescribe one.
 ### TC-TCM-069: To-Do endpoint respects the permission
 
 **User Role:** QA without **View All To-Do's**
+**Priority:** High
 **Steps:**
 1. Request `/testcase_todos?project_id=<id>` with any parameter that would widen scope to all users
    (e.g. a user/assignee filter naming another user).
@@ -368,6 +392,7 @@ not prescribe one.
 ### TC-TCM-070: Add Requirement — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager/QA) and denied (Client/non-member)
+**Priority:** High
 **Steps:**
 1. Granted: open **Requirements** → create a requirement document; confirm it lists.
 2. Denied: confirm the add control is absent.
@@ -381,6 +406,7 @@ not prescribe one.
 ### TC-TCM-071: Edit Requirement — granted vs denied (all three legs)
 
 **User Role:** granted and denied
+**Priority:** High
 **Steps:**
 1. Granted: edit a requirement's title/body and save.
 2. Denied: confirm the edit control is absent.
@@ -394,6 +420,7 @@ not prescribe one.
 ### TC-TCM-072: Delete Requirement — granted vs denied (all three legs)
 
 **User Role:** granted (Admin/Manager) and denied (Developer/Client/non-member)
+**Priority:** High
 **Steps:**
 1. Granted: delete a requirement and confirm.
 2. Denied: confirm the delete control is absent.
@@ -407,6 +434,7 @@ not prescribe one.
 ### TC-TCM-073: Deleting a requirement linked to test cases
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Link at least two test cases to a requirement.
 2. Delete the requirement.
@@ -426,6 +454,7 @@ not prescribe one.
 ### TC-TCM-074: Non-member cannot reach any plugin area of a private project
 
 **User Role:** logged-in non-member
+**Priority:** High
 **Steps:**
 1. With the project set **private** (see root `MEMORY.md` — a new project defaults to Public; uncheck it
    explicitly or this test falsely passes).
@@ -442,6 +471,7 @@ not prescribe one.
 ### TC-TCM-075: Anonymous user cannot reach any plugin area
 
 **User Role:** not logged in
+**Priority:** High
 **Steps:**
 1. Log out. Request the same URL list as TC-TCM-074.
 
@@ -453,6 +483,7 @@ not prescribe one.
 ### TC-TCM-076: Permission revocation takes effect immediately
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. As QA with Create Run, confirm **Add Run** is available.
 2. As Admin, revoke Create Run from the QA role.
@@ -466,6 +497,7 @@ not prescribe one.
 ### TC-TCM-077: Module disabled removes all access
 
 **User Role:** Admin, then QA
+**Priority:** High
 **Steps:**
 1. Disable the TestCases module in Project Settings → Modules.
 2. As QA, confirm the **TestCases** tab is gone, then request the plugin URLs directly.

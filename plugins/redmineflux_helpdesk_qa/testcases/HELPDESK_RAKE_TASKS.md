@@ -19,6 +19,7 @@
 ### TC-HLP-248: `check_sla` run by hand does what the scheduled SLA monitor does
 
 **User Role:** System Administrator (server access)
+**Priority:** Medium
 **Precondition:** A ticket about to breach its SLA; Sidekiq deliberately paused so the scheduled job hasn't run yet.
 
 **Steps:**
@@ -35,6 +36,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6, server access via `docker ex
 ### TC-HLP-249: `check_emails` run by hand polls every configured mailbox once
 
 **User Role:** System Administrator (server access)
+**Priority:** Medium
 **Precondition:** A qualifying email waiting in a configured mailbox; Sidekiq paused.
 
 **Steps:**
@@ -50,6 +52,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6, server access via `docker ex
 ### TC-HLP-250: `auto_close_tickets` run by hand closes eligible tickets
 
 **User Role:** System Administrator (server access)
+**Priority:** Medium
 **Precondition:** A Resolved ticket already past its project's Auto-close days; Sidekiq paused.
 
 **Steps:**
@@ -65,6 +68,7 @@ CONFIRMED LIVE 2026-09-09 (Local, redmine-docker-6, server access via `docker ex
 ### TC-HLP-251: `seed_demo_data` creates a fully populated demo project
 
 **User Role:** System Administrator (server access)
+**Priority:** Low
 **Precondition:** No project named "Helpdesk Support" currently exists.
 
 **Steps:**
@@ -81,6 +85,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS, with a documentatio
 ### TC-HLP-252: Seeded tickets are spread over past dates, not all stamped "now"
 
 **User Role:** System Administrator (server access)
+**Priority:** Low
 **Precondition:** TC-HLP-251 completed.
 
 **Steps:**
@@ -96,6 +101,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Verified via UI o
 ### TC-HLP-253: Seeded tickets show a spread of SLA states
 
 **User Role:** System Administrator (server access)
+**Priority:** Low
 **Precondition:** TC-HLP-251 completed.
 
 **Steps:**
@@ -111,6 +117,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Verified via UI o
 ### TC-HLP-254: `TICKETS=<n>` controls how many tickets the seeder creates
 
 **User Role:** System Administrator (server access)
+**Priority:** Low
 **Precondition:** No prior demo data on this instance.
 
 **Steps:**
@@ -127,6 +134,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Instance already 
 ### TC-HLP-255: `seed_reports` seeds data sufficient to exercise all five report tabs
 
 **User Role:** System Administrator (server access)
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -147,6 +155,7 @@ CONFIRMED LIVE 2026-09-09/2026-09-11 (Local, redmine-docker-6): **FAIL — the t
 ### TC-HLP-256: `check_emails` is a safe no-op when no mailbox is configured anywhere
 
 **User Role:** System Administrator (server access)
+**Priority:** Low
 **Precondition:** No project has incoming mail settings configured.
 
 **Steps:**
@@ -162,6 +171,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS on its literal wordi
 ### TC-HLP-257: Running `seed_demo_data` when a project already named "Helpdesk Support" exists
 
 **User Role:** System Administrator (server access)
+**Priority:** Medium
 **Precondition:** A project named "Helpdesk Support" already exists, created independently of the seeder (e.g. by a real user, unrelated to demo data).
 
 **Steps:**
@@ -181,6 +191,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **investigated via source (
 ### TC-HLP-258: Running `seed_demo_data` twice creates nothing twice
 
 **User Role:** System Administrator (server access)
+**Priority:** Medium
 **Precondition:** TC-HLP-251 already run once on this instance.
 
 **Steps:**
@@ -198,6 +209,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Two independent r
 ### TC-HLP-259: `TICKETS=0` and a very large `TICKETS` value are handled gracefully
 
 **User Role:** System Administrator (server access)
+**Priority:** Low
 **Precondition:** A clean instance (or accept whatever demo data already exists).
 
 **Steps:**
@@ -215,6 +227,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **`TICKETS=0` → PASS. Lar
 ### TC-HLP-260: Running all three job tasks back-to-back by hand doesn't double-process anything
 
 **User Role:** System Administrator (server access)
+**Priority:** Medium
 **Precondition:** A ticket that would be affected by more than one job (e.g. one both breaching and eligible for auto-close-adjacent behavior).
 
 **Steps:**

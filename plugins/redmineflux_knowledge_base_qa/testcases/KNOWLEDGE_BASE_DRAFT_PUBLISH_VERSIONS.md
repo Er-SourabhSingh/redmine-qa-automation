@@ -30,6 +30,7 @@ cannot verify them.
 ### TC-RKB-001: A new page starts as a draft
 
 **User Role:** Author
+**Priority:** Medium
 **Steps:**
 1. Create a page and observe the sidebar and page header.
 
@@ -41,6 +42,7 @@ cannot verify them.
 ### TC-RKB-002: Publish a page
 
 **User Role:** Author
+**Priority:** High
 **Steps:**
 1. Open the draft → **Publish** → confirm the prompt.
 
@@ -55,6 +57,7 @@ cannot verify them.
 ### TC-RKB-003: Editing a published page keeps it published
 
 **User Role:** Author
+**Priority:** Medium
 **Steps:**
 1. Open a published page → **Edit** → change the content and let auto-save run.
 2. **Before** clicking Update, check the page as the **Reader**.
@@ -70,6 +73,7 @@ cannot verify them.
 ### TC-RKB-004: Update publishes the new draft as a new version
 
 **User Role:** Author
+**Priority:** High
 **Steps:**
 1. Click **Update**.
 2. Check the page as the Reader, and open Versions.
@@ -82,6 +86,7 @@ cannot verify them.
 ### TC-RKB-005: Unpublish a page
 
 **User Role:** Author
+**Priority:** High
 **Steps:**
 1. Open a published page → **Unpublish** → confirm.
 
@@ -95,6 +100,7 @@ cannot verify them.
 ### TC-RKB-006: Re-publishing restores visibility as a new version
 
 **User Role:** Author
+**Priority:** Medium
 **Steps:**
 1. Publish the unpublished page again.
 
@@ -106,6 +112,7 @@ cannot verify them.
 ### TC-RKB-007: Publish confirmation can be cancelled
 
 **User Role:** Author
+**Priority:** Low
 **Steps:**
 1. Trigger Publish, then cancel the confirmation. Repeat for Unpublish.
 
@@ -124,6 +131,7 @@ cannot verify them.
 ### TC-RKB-008: Published page — visible to all with view_knowledgebase
 
 **User Role:** Reader
+**Priority:** Medium
 **Steps:**
 1. Open a published page from the sidebar and by direct URL.
 
@@ -135,6 +143,7 @@ cannot verify them.
 ### TC-RKB-009: Draft with no published version — author and manage holders only
 
 **User Role:** Author, Manager, Reader
+**Priority:** High
 **Steps:**
 1. Author creates a draft and never publishes it.
 2. Check visibility for all three users, in the sidebar and by direct URL.
@@ -148,6 +157,7 @@ cannot verify them.
 ### TC-RKB-010: Draft that has published versions — readers see the last published version
 
 **User Role:** Author, Reader
+**Priority:** High
 **Steps:**
 1. Publish a page, then edit it so a newer draft exists alongside the published version.
 2. Open the page as the Reader.
@@ -163,6 +173,7 @@ cannot verify them.
 ### TC-RKB-011: Explicitly unpublished — author and manage holders only
 
 **User Role:** Author, Manager, Reader
+**Priority:** High
 **Steps:**
 1. Unpublish a previously published page.
 2. Check all three users in the sidebar and by direct URL.
@@ -178,6 +189,7 @@ cannot verify them.
 ### TC-RKB-012: Folders are always visible to all members
 
 **User Role:** Reader
+**Priority:** High
 **Steps:**
 1. View a folder that contains only draft pages.
 
@@ -190,6 +202,7 @@ cannot verify them.
 ### TC-RKB-013: Draft badges are accurate
 
 **User Role:** Author
+**Priority:** Low
 **Steps:**
 1. Compare badges across a never-published draft, an edited-but-published page, and an unpublished page.
 
@@ -206,6 +219,7 @@ cannot verify them.
 ### TC-RKB-014: Version history records everything documented
 
 **User Role:** Author
+**Priority:** Medium
 **Steps:**
 1. Publish a page three times with different content, adding a publish comment where offered.
 2. Open **Versions**.
@@ -220,6 +234,7 @@ cannot verify them.
 ### TC-RKB-015: Snapshots are point-in-time
 
 **User Role:** Author
+**Priority:** High
 **Steps:**
 1. Open version 1 after publishing version 3.
 
@@ -232,6 +247,7 @@ cannot verify them.
 ### TC-RKB-016: Version author attribution is correct
 
 **User Role:** Author then Manager
+**Priority:** Medium
 **Steps:**
 1. Author publishes version 1; Manager edits and Updates to create version 2.
 
@@ -243,6 +259,7 @@ cannot verify them.
 ### TC-RKB-017: Only publish actions create versions
 
 **User Role:** Author
+**Priority:** Medium
 **Steps:**
 1. Count versions; then auto-save many times without publishing; count again.
 
@@ -254,6 +271,7 @@ cannot verify them.
 ### TC-RKB-018: Restore a previous version
 
 **User Role:** Author
+**Priority:** High
 **Steps:**
 1. Versions → an older entry → **Restore this version** → confirm.
 
@@ -268,6 +286,7 @@ cannot verify them.
 ### TC-RKB-019: Restore is auditable
 
 **User Role:** Author
+**Priority:** Medium
 **Steps:**
 1. After restoring, review the version history.
 
@@ -280,6 +299,7 @@ cannot verify them.
 ### TC-RKB-020: Restore on an unpublished page
 
 **User Role:** Author
+**Priority:** Medium
 **Steps:**
 1. Unpublish a page with several versions, then restore an older one.
 
@@ -298,6 +318,7 @@ cannot verify them.
 ### TC-RKB-021: Publishing without permission
 
 **User Role:** Reader
+**Priority:** High
 **Steps:**
 1. Confirm no Publish/Update/Unpublish controls are offered.
 2. Send the publish and unpublish requests **directly** (the REST API exposes both).
@@ -312,6 +333,7 @@ cannot verify them.
 ### TC-RKB-022: Restore without permission
 
 **User Role:** Reader
+**Priority:** High
 **Steps:**
 1. Send the `restore_version` request directly.
 
@@ -324,6 +346,7 @@ cannot verify them.
 ### TC-RKB-023: Restore a version of a deleted page
 
 **User Role:** Author
+**Priority:** Medium
 **Steps:**
 1. Delete a page, then send a restore request for one of its former versions.
 
@@ -335,6 +358,7 @@ cannot verify them.
 ### TC-RKB-024: Publish an empty page
 
 **User Role:** Author
+**Priority:** Low
 **Steps:**
 1. Publish a page with no content.
 
@@ -347,6 +371,7 @@ cannot verify them.
 ### TC-RKB-025: Very long version history
 
 **User Role:** Author
+**Priority:** Low
 **Steps:**
 1. Publish a page 50 times and open Versions.
 
@@ -359,6 +384,7 @@ cannot verify them.
 ### TC-RKB-026: Concurrent publish
 
 **User Role:** Author and Manager
+**Priority:** Medium
 **Steps:**
 1. Both open the same page. A clicks Update; B, without reloading, clicks Update with different content.
 
@@ -371,6 +397,7 @@ cannot verify them.
 ### TC-RKB-027: Unpublishing a page with a public URL
 
 **User Role:** Author, then unauthenticated visitor
+**Priority:** High
 **Steps:**
 1. Enable a public URL on a published page, confirm it works, then unpublish the page.
 2. Retry the public link from a fresh unauthenticated session (bypassing the 10-minute browser cache).

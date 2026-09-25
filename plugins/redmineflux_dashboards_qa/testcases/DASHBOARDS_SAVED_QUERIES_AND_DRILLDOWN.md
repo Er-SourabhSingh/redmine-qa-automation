@@ -33,6 +33,7 @@ a chart. Do not type URLs.
 ### TC-DSH-128: Add an issue query widget
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** A saved **issue** query exists and is visible to this user.
 **Steps:**
 1. Add Chart → **Saved Queries** tab → choose **Issue Query** → select the query → Add.
@@ -51,6 +52,7 @@ query precisely.
 ### TC-DSH-129: Add a time entry query widget
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** A saved **time entry** query exists and is visible to this user.
 **Steps:**
 1. Add Chart → Saved Queries → choose **Time Entry Query** → select → Add.
@@ -69,6 +71,7 @@ mechanism is shared with issue queries which were extensively cross-checked.
 ### TC-DSH-130: Query name is used as the default title
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Add a saved query widget without entering a custom title.
 
@@ -85,6 +88,7 @@ misfiled that one as `BUG-DSH-010` due to a testing error, since retracted; see 
 ### TC-DSH-131: Custom title overrides the query name
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add the same query with a custom title.
 
@@ -101,6 +105,7 @@ tab's title field is confirmed working correctly.
 ### TC-DSH-132: Search saved queries
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Use the search input on the Saved Queries tab.
 
@@ -116,6 +121,7 @@ this pass — low risk given it shares the same searchable-list component, but n
 ### TC-DSH-133: The widget follows changes to the underlying query
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Add a saved query widget, then edit the underlying query's filters in Redmine.
 2. Refresh the dashboard.
@@ -138,6 +144,7 @@ architecture evidence (ID reference + live re-fetch) strongly indicates the widg
 ### TC-DSH-134: Global filters interact predictably with saved query widgets
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With a saved query widget on the grid, change the global date range and status filter, and Apply.
 
@@ -170,6 +177,7 @@ global filter bar.**
 ### TC-DSH-150: Chart template selector on the Saved Queries tab
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** A saved **issue** query exists and is visible to this user.
 **Steps:**
 1. Add Chart → **Saved Queries** tab → **Issue Query** → select the query.
@@ -187,6 +195,7 @@ global filter bar.**
 ### TC-DSH-151: Time entry queries are not offered a chart template
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** A saved **time entry** query exists and is visible to this user.
 **Steps:**
 1. Add Chart → Saved Queries → **Time Entry Query** → select the query.
@@ -203,6 +212,7 @@ global filter bar.**
 ### TC-DSH-152: Grouping selector appears once a chart template is chosen
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Choose Doughnut (or Pie/Bar/Line) for an issue query widget.
 
@@ -220,6 +230,7 @@ session, toggled live.
 ### TC-DSH-153: Project custom fields appear in the grouping selector
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** The project has at least one custom field of type **list**, one **boolean**, and one
 **enumeration**, all applicable to the tracker(s) the saved query covers.
 **Steps:**
@@ -240,6 +251,7 @@ list-type field also serving as this project's "enumeration"-style fixture — s
 ### TC-DSH-154: Group by Status — doughnut matches the query's own results
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Add the query as a Doughnut grouped by **Status**.
 2. Open the same saved query directly from the issue list, grouped by status.
@@ -258,6 +270,7 @@ inspection technique used throughout this suite).
 ### TC-DSH-155: Group by a list custom field — "Not set" segment included
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** The query's issues include at least one with no value set for the list custom field.
 **Steps:**
 1. Add the query as a chart grouped by that list custom field.
@@ -276,6 +289,7 @@ value, confirmed in `TC-DSH-171`/`172`. No issues silently dropped — the "Not 
 ### TC-DSH-156: Group by a boolean custom field
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add the query as a chart grouped by a boolean custom field.
 
@@ -293,6 +307,7 @@ and the "Not set" fallback are both confirmed working.
 ### TC-DSH-157: Group by an enumeration custom field
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add the query as a chart grouped by an enumeration custom field (e.g. a traffic-light Risk field with values
    Green/Yellow/Red).
@@ -310,6 +325,7 @@ colour-name matching (Green→`#2F9E44`, Yellow→`#F59F00`) also confirmed.
 ### TC-DSH-158: Unsupported custom field types are not offered as grouping dimensions
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** The project has a custom field of type **user**, **version**, or **multi-select** applicable
 to the query's tracker(s).
 **Steps:**
@@ -330,6 +346,7 @@ with `BUG-DSH-004`'s earlier confirmation that multi-select fields specifically 
 ### TC-DSH-159: Existing statistics-card widget renders unchanged
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** A saved-query widget added **before** #120914 shipped, currently showing the statistics card
 (four KPI tiles, Top Statuses, Top Priorities).
 **Steps:**
@@ -364,6 +381,7 @@ Group by/Legend Position/..." entry) — unaffected by any of the 6 #120914-era 
 ### TC-DSH-136: Drill-down respects the active date range
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Apply a narrow date range, then drill into a segment.
 
@@ -389,6 +407,7 @@ record in `DASHBOARDS_MEMORY.md`).
 ### TC-DSH-137: Drill-down respects per-chart filters
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Apply tracker and assignee filters to a chart, then drill into a segment.
 
@@ -409,6 +428,7 @@ segment while still counting it.
 ### TC-DSH-138: Drill-down from a stacked chart
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Drill into one stack segment of an "Issues by Assignee (Stacked by Status)" chart.
 
@@ -457,6 +477,7 @@ watching for a new tab, is the most direct remaining path to a PASS/FAIL verdict
 ### TC-DSH-139: Issues in the drill-down list are openable
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open an issue from the drill-down panel.
 
@@ -471,6 +492,7 @@ watching for a new tab, is the most direct remaining path to a PASS/FAIL verdict
 ### TC-DSH-140: Close and re-open the drill-down panel
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Close the panel and drill into a different segment.
 
@@ -489,6 +511,7 @@ this implementation.
 ### TC-DSH-160: Pointer cursor over a clickable query-template segment (#120914)
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Hover over a segment on a query widget drawn as Doughnut/Pie/Bar/Line.
 
@@ -511,6 +534,7 @@ templates earlier this session.
 ### TC-DSH-161: Drill-down from a chart grouped by a custom field (#120914)
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Click a segment on a query chart grouped by a list or enumeration custom field.
 
@@ -527,6 +551,7 @@ issue list showed exactly `(1-2/2)` — exact count match for a custom-field-gro
 ### TC-DSH-162: Drill-down on a "Not set" segment maps to the "none" operator (#120914)
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Click the "Not set" segment on a chart grouped by a custom field that some issues leave blank.
 
@@ -546,6 +571,7 @@ silent fallback to "no filter" (which would have returned the full unfiltered qu
 ### TC-DSH-163: Drill-down on a field the query already filters on — no validation error (#120914)
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** A saved query that already filters on Status (the common case per #120914), rendered as a chart
 grouped by **Status**.
 **Steps:**
@@ -569,6 +595,7 @@ merged into one, not sent twice.
 ### TC-DSH-164: Drill-down keeps the saved query's other filters applied (#120914)
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** A saved query with at least one filter besides the grouped-on field (e.g. filtered to a
 specific tracker), rendered as a chart grouped by a different field (e.g. Priority).
 **Steps:**
@@ -593,6 +620,7 @@ query's original filters were dropped in favour of just the clicked segment.
 ### TC-DSH-141: Saved query not visible to the current user
 
 **User Role:** Member B, where the query is a **private** query owned by member A
+**Priority:** High
 **Steps:**
 1. Confirm A's private query is not offered to B in the Saved Queries tab.
 2. If A added a widget for it to a shared dashboard, open that dashboard as B.
@@ -618,6 +646,7 @@ CSS-hidden, not present at all. **Leg 2** (direct create-request naming the quer
 ### TC-DSH-142: Saved query spanning projects the viewer cannot see
 
 **User Role:** Member of project A only
+**Priority:** High
 **Preconditions:** A cross-project saved query covering A and private project C. **Confirm C is genuinely
 private** — a newly created Redmine project defaults to public.
 **Steps:**
@@ -649,6 +678,7 @@ leak the full unrestricted count. Saved-query widgets are not vulnerable to that
 ### TC-DSH-143: Query deleted after the widget was added
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add a saved query widget, then delete the underlying query, then reload the dashboard.
 
@@ -665,6 +695,7 @@ throwaway query in a future session.
 ### TC-DSH-144: Query with no matching results
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Add a widget for a query that currently matches nothing.
 
@@ -680,6 +711,7 @@ state confirmed across multiple widget types this session (`TC-DSH-040`, `TC-DSH
 ### TC-DSH-145: Drill-down on an unsupported chart type
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Click a segment on the Project Progress Gauge and on a trend chart.
 
@@ -755,6 +787,7 @@ is superseded below. Final classification:
 ### TC-DSH-146: Drill-down respects issue visibility
 
 **User Role:** Member with restricted issue visibility
+**Priority:** High
 **Steps:**
 1. Drill into a segment and compare the listed issues against the issue list as that same user.
 
@@ -776,6 +809,7 @@ BUG-DSH-013.md` for the full evidence; not re-run here since it's the identical 
 ### TC-DSH-147: Drill-down in the public dashboard view
 
 **User Role:** Unauthenticated visitor holding a public share link
+**Priority:** High
 **Steps:**
 1. Open the public dashboard and attempt to click a chart segment.
 
@@ -795,6 +829,7 @@ Critical data leak here.
 ### TC-DSH-148: Very large drill-down result
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Drill into a segment representing several thousand issues.
 
@@ -811,6 +846,7 @@ during the Project Progress Gauge investigation), never an unpaginated full rend
 ### TC-DSH-149: Time entry query widget with restricted time visibility
 
 **User Role:** Member who may not view other users' spent time
+**Priority:** High
 **Steps:**
 1. Open a time entry query widget covering the whole team.
 
@@ -830,6 +866,7 @@ time` view on the same project, which independently shows exactly the same one e
 ### TC-DSH-165: Grouping selector excludes fields not visible to the user / not applicable to the project (#120914)
 
 **User Role:** Member with a role that hides a specific custom field (via role-based field visibility), plus a
+**Priority:** High
 second custom field that exists but is **not** enabled for this project.
 **Steps:**
 1. Open the grouping selector for a chart-template query widget as this member.

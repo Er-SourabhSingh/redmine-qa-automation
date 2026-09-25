@@ -25,6 +25,7 @@ clicking the menu entry, not by typing the URL — except in the negative cases,
 ### TC-GNT-056: Global Flux Gantt opens from the top menu
 
 **User Role:** Member with View Global Gantt
+**Priority:** High
 **Steps:**
 1. Click **Flux Gantt** in the top menu.
 
@@ -36,6 +37,7 @@ clicking the menu entry, not by typing the URL — except in the negative cases,
 ### TC-GNT-057: Only accessible projects are shown
 
 **User Role:** Member of projects A and B, not of private project C
+**Priority:** High
 **Preconditions:** **Confirm project C is genuinely private** — a newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -51,6 +53,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-058: Only projects with the module enabled are shown
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Disable the Flux Gantt Chart module on one of the user's projects and reload the global view.
 
@@ -63,6 +66,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-059: Project rows are paginated
 
 **User Role:** Member of many projects
+**Priority:** Medium
 **Steps:**
 1. Open Global Gantt with more projects than fit one page and page through them.
 
@@ -75,6 +79,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-060: Issues lazy-load per project
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Watch the Network tab while expanding one project row.
 
@@ -86,6 +91,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-061: Expand and collapse state persists per user
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. User A expands two project rows, leaves and returns.
 2. User B opens the global view.
@@ -98,6 +104,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-062: Cross-project issue updates where permissions allow
 
 **User Role:** Member with View Flux Gantt on both A and B
+**Priority:** High
 **Steps:**
 1. From Global Gantt, drag an issue in A and another in B.
 2. Confirm both on their own issue pages.
@@ -110,6 +117,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-063: Cross-project dependency linking
 
 **User Role:** Member with View Flux Gantt on both projects
+**Priority:** Medium
 **Steps:**
 1. Link an issue in A to an issue in B and confirm the relation on both issue pages.
 
@@ -123,6 +131,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-064: IssueQuery-based filters narrow issues globally
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply an IssueQuery-based filter (e.g. assignee = me, status = open) in Global Gantt.
 
@@ -136,6 +145,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-065: Global settings are stored per user
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. A changes zoom, display fields and colours in the global view; B opens it.
 
@@ -147,6 +157,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-066: Closed projects follow the plugin setting
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With **Show closed projects** off, confirm a closed project is absent; enable it and confirm it appears.
 
@@ -159,6 +170,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-067: Search works across projects
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Search for a keyword matching issues in two different projects.
 
@@ -174,6 +186,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-068: Access without View Global Gantt
 
 **User Role:** Member with View Flux Gantt but **not** View Global Gantt
+**Priority:** High
 **Steps:**
 1. Confirm the top-menu Flux Gantt entry is absent.
 2. Request `/global_gantt` **directly**.
@@ -189,6 +202,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-069: Cross-project dependency without permission on both sides
 
 **User Role:** Member with View Flux Gantt on A but not on B
+**Priority:** High
 **Steps:**
 1. Attempt to link an issue in A to one in B through the UI.
 2. Send the relation-create request **directly**, naming an issue in B.
@@ -202,6 +216,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-070: Cross-project drag without edit permission on the target project
 
 **User Role:** Member who can view B but not edit issues there
+**Priority:** High
 **Steps:**
 1. Confirm drag handles are absent on B's issues in the global view.
 2. Send the date-update request for a B issue directly.
@@ -214,6 +229,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-071: Global Gantt with no accessible projects
 
 **User Role:** A user who belongs to no project with the module enabled
+**Priority:** Low
 **Steps:**
 1. Open Global Flux Gantt.
 
@@ -225,6 +241,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-072: Show Critical Path is not offered here
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Open the global view's settings panel.
 
@@ -237,6 +254,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-073: Very many projects and issues
 
 **User Role:** Member with access to many projects
+**Priority:** Low
 **Steps:**
 1. Open Global Gantt on an instance with 100+ accessible projects and expand several.
 
@@ -250,6 +268,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-074: Project archived while the global view is open
 
 **User Role:** Member + Admin
+**Priority:** Medium
 **Steps:**
 1. Member has Global Gantt open with project A expanded. Admin archives A. Member drags an issue in A.
 
@@ -261,6 +280,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-075: Permission revoked while the global view is open
 
 **User Role:** Admin + affected member
+**Priority:** High
 **Steps:**
 1. Remove View Flux Gantt on project B while the member has the global view open.
 2. Member attempts to drag a B issue without reloading.
@@ -273,6 +293,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-076: Global filters do not widen visibility
 
 **User Role:** Member of A and B only
+**Priority:** High
 **Steps:**
 1. Apply a broad IssueQuery filter (e.g. "all issues") in Global Gantt.
 
@@ -295,6 +316,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-213: Year zoom level is available in Global Flux Gantt
 
 **User Role:** Member with View Global Gantt
+**Priority:** Medium
 **Steps:**
 1. Open Global Flux Gantt (`/global_gantt`) via the top menu.
 2. Open the zoom control and select **Year**.
@@ -309,6 +331,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-214: Row sorting works in Global Gantt and reorders rows live, without a manual reload
 
 **User Role:** Member with View Global Gantt
+**Priority:** Medium
 **Steps:**
 1. Open Global Flux Gantt with at least two projects expanded, each containing issues with differing
    subjects/priorities.
@@ -326,6 +349,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-215: Global Gantt's "Next Quarter" preset is corrected to align with calendar quarters
 
 **User Role:** Member with View Global Gantt
+**Priority:** Medium
 **Steps:**
 1. Open Global Flux Gantt's date-range picker and select the existing **Next Quarter** preset.
 2. Note the resulting Date From/Date To values and compare them against the actual next calendar quarter's
@@ -344,6 +368,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-216: New date-range presets available in Global Gantt
 
 **User Role:** Member with View Global Gantt
+**Priority:** Medium
 **Steps:**
 1. Open Global Flux Gantt's date-range picker and open the preset list.
 

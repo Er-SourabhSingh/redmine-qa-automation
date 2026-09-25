@@ -45,6 +45,7 @@ inline editor that only updates the DOM is the central failure mode of this plug
 ### TC-INE-066: Pencil icon appears on hover
 
 **User Role:** Member with issue-edit rights
+**Priority:** Medium
 **Steps:**
 1. Open the issue list and hover over a row, then over individual cells.
 
@@ -65,6 +66,7 @@ CSS), consistent with the detail-page pattern.
 ### TC-INE-067: Inline-edit the Status column
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Click the pencil on an issue's Status cell, choose a different status.
 2. **Reload the page.**
@@ -84,6 +86,7 @@ the list's native `<select>`: `PUT update_field.json` → `200`, no page navigat
 ### TC-INE-068: Inline-edit the Priority column
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Change Priority inline and reload.
 
@@ -100,6 +103,7 @@ the list's native `<select>`: `PUT update_field.json` → `200`, no page navigat
 ### TC-INE-069: Inline-edit the Subject column
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Change the Subject inline and reload.
 
@@ -117,6 +121,7 @@ reflected on the detail page's `<title>` on next load.
 ### TC-INE-070: Inline-edit the Assignee column
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Change the assignee inline and reload.
 
@@ -135,6 +140,7 @@ list, `200`, persisted. Dropdown listed only "test project" members, not the ful
 ### TC-INE-071: Inline-edit a date column
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Change Start date, then Due date, inline.
 
@@ -153,6 +159,7 @@ own section below), PASS.
 ### TC-INE-072: Inline-edit a custom field column
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** At least one custom field of each type (list, text, integer, date, boolean) added as a column.
 **Steps:**
 1. Inline-edit each custom field type in turn.
@@ -173,6 +180,7 @@ Configuration suite was fully re-executed earlier in this same regression pass (
 ### TC-INE-073: Change is journaled in the issue history
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Make an inline change, then open the issue's History tab.
 
@@ -193,6 +201,7 @@ today each produced their own distinct, correctly-attributed journal entry (#51�
 ### TC-INE-074: Notifications fire as they would from the standard form
 
 **User Role:** Member, with a watcher on the issue
+**Priority:** Medium
 **Steps:**
 1. Inline-change the status of an issue that has a watcher.
 
@@ -213,6 +222,7 @@ pipeline the standard Edit form uses — not a silent, notification-skipping wri
 ### TC-INE-075: Edits survive list sorting and filtering
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply a filter and a sort, then inline-edit a field that the filter depends on (e.g. change Status while
    filtered to open issues).
@@ -239,6 +249,7 @@ this workflow).
 ### TC-INE-076: Multiple sequential edits on different rows
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Inline-edit five different issues in a row without reloading, then reload.
 
@@ -265,6 +276,7 @@ correctly on their own targeted issue with zero cross-contamination. Same conclu
 ### TC-INE-077: Cancel an inline edit
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open an inline editor, change the value, then press Escape or click elsewhere without confirming.
 
@@ -286,6 +298,7 @@ correctly on their own targeted issue with zero cross-contamination. Same conclu
 ### TC-INE-078: Invalid value in a validated field
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Inline-enter an invalid date (e.g. `31/02/2026`), a non-numeric value in an integer custom field, and an empty
    value in a required custom field.
@@ -315,6 +328,7 @@ the invalid text.
 ### TC-INE-079: Required field cleared inline
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Clear the Subject inline and confirm.
 
@@ -334,6 +348,7 @@ requests, cell unchanged.
 ### TC-INE-080: Workflow-forbidden status transition
 
 **User Role:** Member on a role with a restricted workflow
+**Priority:** High
 **Steps:**
 1. Attempt an inline status change that the workflow does not permit for this role.
 
@@ -355,6 +370,7 @@ surface — same raw-request constraint noted throughout this session.
 ### TC-INE-081: Read-only field per workflow field permissions
 
 **User Role:** Member on a role where a field is read-only
+**Priority:** High
 **Steps:**
 1. Confirm no pencil icon is offered on that field.
 2. Send the field update request directly to the endpoint.
@@ -382,6 +398,7 @@ silent `200` with a false success message. TC-INE-081 is now a full PASS.
 ### TC-INE-082: Read-only user
 
 **User Role:** Role with view-issues but not edit-issues
+**Priority:** High
 **Steps:**
 1. Hover rows in the issue list.
 2. Send an inline update request directly.
@@ -401,6 +418,7 @@ not executed (same raw-request constraint as elsewhere this session).
 ### TC-INE-083: Concurrent edit from two sessions
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. Both open the issue list. A inline-changes the status; B, without reloading, inline-changes the priority.
 
@@ -447,6 +465,7 @@ above.
 ### TC-INE-084: Session expiry mid-edit
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open an inline editor, let the session expire, then confirm the edit.
 
@@ -496,6 +515,7 @@ is now a full PASS.
 ### TC-INE-085: Network failure mid-save
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open an inline editor, take the network offline, confirm the edit.
 
@@ -520,6 +540,7 @@ an unaffected mechanism.
 ### TC-INE-086: Very long value
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Inline-enter a 5000-character subject.
 
@@ -543,6 +564,7 @@ full PASS.
 ### TC-INE-087: HTML or script injected inline
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Inline-enter a script tag as a subject and as a text custom field value.
 
@@ -564,6 +586,7 @@ never set and the cell showed the fully HTML-escaped literal text. Sanitization 
 ### TC-INE-088: Inline edit on an issue in a closed or archived project
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Attempt an inline edit in a closed project, then in an archived project.
 
@@ -595,6 +618,7 @@ session-auth route change `f2fe7ef` made, so it wasn't expected to move).
 ### TC-INE-089: Inline edit of a closed issue
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Inline-edit a field on a closed issue.
 
@@ -627,6 +651,7 @@ In Progress afterward.
 ### TC-INE-090: Typed date entry in the Due date list column — no premature save, saves on blur/Enter, Escape cancels
 
 **User Role:** Member with issue-edit rights
+**Priority:** Medium
 **Steps:**
 1. On the issue list, add/show the Due date column, then click its pencil on a row.
 2. Type a full date one segment at a time (day, month, year), pausing mid-way through the year; confirm nothing
@@ -652,6 +677,7 @@ during typing (600ms pause included); `change`+`blur` fired exactly one call, `2
 ### TC-INE-091: Typed date entry in a date custom field column (issue list and project list)
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** A custom field of format "Date" is added as a visible column on the issue list, and a project
 list/card date custom field is available per the plugin's project-list support (see
 `INLINE_EDITOR_GERMAN_LANGUAGE.md` TC-INE-021).

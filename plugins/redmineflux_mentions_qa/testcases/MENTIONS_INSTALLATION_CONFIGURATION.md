@@ -27,6 +27,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-019: Plugin appears in Administration → Plugins
 
 **User Role:** Admin
+**Priority:** High
 **Preconditions:** ZIP extracted into `plugins/` under its original folder name, `bundle install` and
 `redmine:plugins:migrate` run, server restarted.
 **Steps:**
@@ -40,6 +41,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-020: Migration completed cleanly
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Run the migrate command, restart, then open an issue and a wiki page.
 
@@ -51,6 +53,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-021: Assets load correctly
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Open the issue edit form and the wiki editor; inspect the console and Network tab.
 
@@ -63,6 +66,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-022: Plugin functions on the Redmine version under test
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Record the version from Administration → Information; confirm it is within the KB range.
 2. Perform one mention end to end.
@@ -80,6 +84,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-023: Configure page opens and shows the symbol setting
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Administration → Plugins → Mentions → Configure.
 
@@ -91,6 +96,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-024: All six documented symbols are offered
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Open the symbol dropdown and enumerate its options.
 
@@ -103,6 +109,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-025: Changing the symbol takes effect after a restart
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Change the symbol from `@` to `%`; save.
 2. **Before** restarting, mention a user with `%username` on an issue and record what happens.
@@ -119,6 +126,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-026: The setting persists across a save and reload
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Change the symbol, save, reload the Configure page.
 
@@ -130,6 +138,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-027: The old symbol stops triggering mentions after a change
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. With the symbol set to `%` and the server restarted, type `@username` in a new issue note and save.
 
@@ -143,6 +152,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-028: Content written with the old symbol is not retroactively broken
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create an issue note containing `@username` while the symbol is `@`.
 2. Change the symbol to `%`, restart.
@@ -162,6 +172,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-029: Plugin folder renamed on disk
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Rename the plugin directory (the KB says not to) and restart.
 
@@ -173,6 +184,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-030: Migration not run
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Install the files, skip the migration, restart, open an issue.
 
@@ -185,6 +197,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-031: Configure page is not reachable by a non-admin
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
+**Priority:** High
 **Steps:**
 1. Request `/settings/plugin/<plugin_id>` directly for each role. Do not rely on the Administration menu being
    hidden.
@@ -197,6 +210,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-032: Symbol that collides with existing Redmine syntax
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. Set the symbol to `:` — which also opens Redmine's emoji/textile syntax in some versions.
 2. Write content containing `:username`, `:smile:` and a plain time value like `10:30`.
@@ -211,6 +225,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-033: Symbol that collides with Redmine's own wiki links
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Set the symbol to `!` and write wiki content containing `!image.png!` (Textile image syntax) alongside
    `!username`.
@@ -223,6 +238,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-034: Symbol left unset
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. If the dropdown allows a blank selection, save with nothing chosen.
 
@@ -239,6 +255,7 @@ the issue and wiki editors, not by the settings page reporting success.
 ### TC-MEN-035: Clean uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** Database backup taken.
 **Steps:**
 1. Run `bundle exec rake redmine:plugins:migrate NAME=<plugin_name> VERSION=0 RAILS_ENV=production`.

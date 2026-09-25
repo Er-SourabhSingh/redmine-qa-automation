@@ -55,6 +55,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 ### TC-AGB-170: Admin has full access
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Exercise every row of the matrix as Admin, on all four board surfaces.
 
@@ -66,6 +67,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 ### TC-AGB-171: View Agile Board gates board access
 
 **User Role:** Member of the project on a role lacking the permission
+**Priority:** High
 **Steps:**
 1. Confirm no Agile Board tab appears.
 2. Request the project board URL directly.
@@ -79,6 +81,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 ### TC-AGB-172: Board viewing and issue editing are separate permissions
 
 **User Role:** Member with View Agile Board but **without** edit-issues
+**Priority:** High
 **Steps:**
 1. Confirm the board renders read-only: cards visible, no drag handles, no quick-add, no edit modal save.
 2. Send, directly: a status-update request, a quick-add request, and a card-edit request.
@@ -93,6 +96,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 ### TC-AGB-173: Workflow transitions are enforced at the endpoint
 
 **User Role:** Member on a role with a restricted workflow
+**Priority:** High
 **Steps:**
 1. Confirm the board does not apply a forbidden transition by drag (paired with TC-AGB-195).
 2. Send the forbidden status change **directly** to the board's endpoint.
@@ -107,6 +111,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 ### TC-AGB-174: Quick-add requires issue-create permission
 
 **User Role:** Member with edit rights but without create rights
+**Priority:** High
 **Steps:**
 1. Confirm no quick-add control is offered.
 2. Send the quick-add request directly.
@@ -119,6 +124,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 ### TC-AGB-175: Sprint management requires its own permission
 
 **User Role:** Member with full board access but without manage-sprints
+**Priority:** High
 **Steps:**
 1. Confirm Sprint management is absent from Project Settings.
 2. Send sprint create, update and **delete** requests directly.
@@ -132,6 +138,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 ### TC-AGB-176: Backlog drag is gated by edit permission
 
 **User Role:** Member with view-only issue access
+**Priority:** High
 **Steps:**
 1. Confirm Backlog cards are not draggable.
 2. Send the sprint-assignment and version-assignment requests directly.
@@ -144,6 +151,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 ### TC-AGB-177: Global board does not aggregate permissions
 
 **User Role:** Member who can view project B but not edit its issues, and can edit in project A
+**Priority:** High
 **Steps:**
 1. On the global board, confirm A's cards are draggable and B's are not.
 2. Send a status-update request for a B issue directly.
@@ -157,6 +165,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 ### TC-AGB-178: My Page block respects visibility as well as assignment
 
 **User Role:** Member assigned an issue in a project they can no longer view
+**Priority:** High
 **Steps:**
 1. Remove the user's access to that project while leaving them as assignee; reload My Page.
 2. Send a status-update request for that issue directly.
@@ -171,6 +180,7 @@ Fill in from observed behaviour, not assumption. Record the exact permission set
 ### TC-AGB-179: Non-member cannot reach a private project's board or backlog
 
 **User Role:** Authenticated non-member
+**Priority:** High
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -184,6 +194,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-180: Anonymous user has no access
 
 **User Role:** Anonymous (logged out)
+**Priority:** High
 **Steps:**
 1. Request the project board, the global board, the Backlog and My Page with no session.
 2. Send a status-update request with no session.
@@ -196,6 +207,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-181: Issue-visibility-scoped roles
 
 **User Role:** Role whose issue visibility is limited to issues they created
+**Priority:** High
 **Steps:**
 1. Open the project board and confirm which cards render.
 2. Send a status-update request for another user's issue in the same project.
@@ -211,6 +223,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-182: Board settings and custom boards are permission-gated
 
 **User Role:** Member with view-only board access
+**Priority:** High
 **Steps:**
 1. Confirm the Settings icon and custom-board create/edit/delete controls are absent.
 2. Send board-settings and custom-board create/edit/delete requests directly.
@@ -224,6 +237,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-183: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
+**Priority:** High
 **Steps:**
 1. Remove edit-issues while the member has the board open mid-drag.
 2. Member completes the drag without logging out.
@@ -237,6 +251,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-184: Closed and archived projects
 
 **User Role:** Member with full board permissions
+**Priority:** High
 **Steps:**
 1. Close a project: open the board and Backlog, attempt a drag and a quick-add, at the UI and the endpoint.
 2. Archive it and repeat. Also check whether its issues still appear on the global board and the My Page block.

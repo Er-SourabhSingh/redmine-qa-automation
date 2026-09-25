@@ -52,6 +52,12 @@ Sources (1) calling redmineflux_budget_audit_get_budget_status...
 - Duplicate found: No
 - Existing bug reference (if duplicate): — Same defect *class* as BUG-CRX-023/024 (this same session), BUG-CRX-003/012 (fixed), BUG-CRX-022 (open) — missing permission enforcement on a Crux-exposed read, distinct code location (`redmineflux_budget_audit_get_budget_status`). This is the sixth confirmed instance of this exact defect class across the engagement.
 
+## 2026-09-25 retest — FIXED, live-confirmed
+
+Same exact repro: `luna.blossom` (Manager, "Manage approved hours" confirmed still unchecked), same question "Budget Agent, are we over budget on crux-qa (project 1)?". **Result:** honest refusal — *"You don't have permission to view budget status for project 1 (crux-qa). Your Redmine administrator needs to grant you the manage_approved_hours permission for that project."* — with a real `Sources (1)` citation. No real financial figures leaked.
+
+**Verdict: FIXED, live-confirmed.** Ready to close pending user approval (production sync required).
+
 ## Production report
 
 Reported to production as issue **#120758** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-17. Textile description, no attachments. Linked to Run #569 "Crux QA Run 1", testcase **#120492** (`CRUX_AGENT_DEVOPS_AND_BUDGET.md`), Environment "Window 11 + Chrome" — testcase marked Failed.

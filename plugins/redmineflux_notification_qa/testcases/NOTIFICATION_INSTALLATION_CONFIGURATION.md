@@ -27,6 +27,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-001: Plugin folder name is enforced
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** Folder `redmineflux_notification` in `plugins/`.
 **Steps:**
 1. Confirm the folder name is exactly `redmineflux_notification`.
@@ -43,6 +44,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-002: Migrations complete cleanly
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Run the migration, restart, open an issue and the notification page.
 
@@ -54,6 +56,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-003: Assets load
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. With notifications enabled in preferences, inspect the console and Network tab on any page.
 
@@ -66,6 +69,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-004: Redmine version boundary
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Record the Redmine version from Administration → Information.
 
@@ -83,6 +87,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-005: All three configuration tabs are present
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Open the Configure page.
 
@@ -95,6 +100,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-006: All seven notification events are offered
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. On the Redmine Notifications tab, enumerate the event checkboxes.
 
@@ -109,6 +115,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-007: Event selections persist
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Enable a subset of events, Apply, reload the page.
 
@@ -120,6 +127,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-008: Disabling an event stops its notifications
 
 **User Role:** Admin, then two members
+**Priority:** High
 **Steps:**
 1. Disable **Issue priority updated** but leave **Issue updated** enabled; Apply.
 2. As user A, change only the priority of an issue user B watches.
@@ -135,6 +143,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-009: Settings changes take effect without a restart
 
 **User Role:** Admin, then two members
+**Priority:** Medium
 **Steps:**
 1. Change the event selection and immediately trigger a matching change.
 
@@ -152,6 +161,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-010: Configure page is not reachable by a non-admin
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
+**Priority:** High
 **Steps:**
 1. Request the plugin settings URL directly for each role, and attempt to post a settings change.
 
@@ -166,6 +176,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-011: Credentials are not exposed in the rendered page
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. On the Configure page, inspect the HTML source for the Slack bot token, the signing secret and the webhook
    URLs.
@@ -181,6 +192,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-012: Invalid configuration values
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Enter a malformed Faye address, a non-URL Teams webhook, and a Slack token that is not in `xoxb-` form; Apply.
 
@@ -195,6 +207,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-013: No configuration at all
 
 **User Role:** Admin, then members
+**Priority:** High
 **Steps:**
 1. With Teams and Slack disabled and no Faye address, trigger notification events.
 
@@ -207,6 +220,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-014: Plugin conflicts
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. With other plugins that customise issue notifications, issue hooks or project settings installed, trigger a
    notification event.
@@ -221,6 +235,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-015: Migrations not run
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Install the files, skip the migration, restart, open an issue.
 
@@ -237,6 +252,7 @@ the notification it does or does not produce, never by the configuration page re
 ### TC-NTF-016: Clean uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** **Database backup taken** — the KB requires this before rollback.
 **Steps:**
 1. Run `RAILS_ENV=production bundle exec rake redmine:plugins:migrate NAME=redmineflux_notification VERSION=0`.

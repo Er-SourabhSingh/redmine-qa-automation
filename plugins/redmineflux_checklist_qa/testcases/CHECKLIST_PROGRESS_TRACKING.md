@@ -20,6 +20,7 @@
 ### TC-CHK-079: Change an item status via the dropdown
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Expand a checklist with the up-arrow icon to reveal its items.
 2. Open an item's status dropdown and select **In progress**.
@@ -40,6 +41,7 @@ reloaded the page — value still `in_progress`. Persists correctly.
 ### TC-CHK-080: Mark an item Done via its checkbox
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Tick the checkbox next to an item.
 
@@ -56,6 +58,7 @@ disagreement between the two controls.
 ### TC-CHK-081: Unticking the checkbox reverts the status
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Untick a previously completed item.
 
@@ -73,6 +76,7 @@ defect: the checkbox only has two real states (done / not-done), so "not-done" c
 ### TC-CHK-082: Progress bar percentage is accurate
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create a checklist with exactly four items.
 2. Mark one Done — check the bar. Mark a second — check again. Mark all four.
@@ -90,6 +94,7 @@ the displayed number — no rounding artifact (not 99%), matches completed ÷ to
 ### TC-CHK-083: "Auto-calculate % done from checklist" drives the issue's % Done field
 
 **User Role:** Admin to configure, Member to execute
+**Priority:** High
 **Steps:**
 1. Enable the auto-calculate setting in the plugin configuration.
 2. On an issue with a four-item checklist, mark two items Done.
@@ -111,6 +116,7 @@ Progress field read exactly 50%. Both changes appear as standard journal entries
 ### TC-CHK-084: Auto-calculate disabled leaves % Done under manual control
 
 **User Role:** Admin to configure, Member to execute
+**Priority:** High
 **Steps:**
 1. Disable the auto-calculate setting.
 2. Set the issue's % Done manually to 70.
@@ -130,6 +136,7 @@ of this session's testing).
 ### TC-CHK-085: Progress is per-checklist, not per-issue, when several checklists exist
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. On one issue create two checklists; complete all items of the first and none of the second.
 
@@ -145,6 +152,7 @@ CONFIRMED LIVE 2026-09-21 (issue #1538: checklist "Progress item A" — 4/4 sub-
 ### TC-CHK-086: Status changes appear in Checklist History
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Change an item from New to In progress to Done.
 2. Open the Checklist History tab.
@@ -171,6 +179,7 @@ the Checklist History tab click) — the comment states it's already fixed by re
 ### TC-CHK-087: Progress on an empty checklist
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create a checklist with no items and inspect its progress bar.
 
@@ -187,6 +196,7 @@ a misleading `100%`. No divide-by-zero defect.
 ### TC-CHK-088: Deleting the only completed item recalculates progress
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Checklist with 2 items, 1 Done (50%). Delete the completed item.
 
@@ -203,6 +213,7 @@ denominator.
 ### TC-CHK-089: Adding an item to a 100% checklist
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Complete all items (100%), then add one new item.
 
@@ -217,6 +228,7 @@ CONFIRMED LIVE 2026-09-21 (checklist "Progress item A", 4/4 items done = 100%, a
 ### TC-CHK-090: Auto-calculate with zero checklist items
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. With auto-calculate enabled, create a checklist with no items on an issue whose % Done is 40.
 
@@ -238,6 +250,7 @@ initial bug filing (BUG-CHK-003) after re-reading the feature's actual contract.
 ### TC-CHK-091: Rapid toggling of a checkbox
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Tick and untick the same item rapidly five times, then reload.
 
@@ -269,6 +282,7 @@ a fresh item "Rapid toggle repro item" in checklist C): **FAIL — one part pass
 ### TC-CHK-092: Status change by a user without issue-edit permission
 
 **User Role:** Reporter-only or read-only member
+**Priority:** High
 **Steps:**
 1. Open an issue with a checklist as a user who cannot edit issues.
 2. Attempt to tick a checkbox, then attempt the same change via the underlying request directly.
@@ -370,3 +384,67 @@ CONFIRMED LIVE 2026-09-24 (Local, redmine-docker-7.0.0, `test project`, issue #1
 → dropdown cascade that caused the double-write is gone under realistic UI interaction (verified via both the
 Network tab and direct `ChecklistHistory` row counts), and no other TC in this suite regressed as a side effect.
 No new bugs found during this pass.
+
+## Regression Pass — 2026-09-25 (post-fix, BUG-CHK-007)
+
+> **Scope note:** High-severity minimum per `SENIOR_QA_STANDARDS.md` §26 is "all TCs in the affected suite +
+> adjacent feature TCs." This suite is the directly affected one. Re-run because `checklist_checkbox.js` was
+> patched to fix `BUG-CHK-007` (production #121338): a per-checklist request queue now serializes every
+> control's AJAX chain, and `updateProgressBar()` was moved to run only after `toggle_completed_bulk` resolves
+> instead of inside `toggle_completed`'s own success callback.
+
+CONFIRMED LIVE 2026-09-25 (Local, redmine-docker-7.0.0, `test project`, issue #1578). Fresh fixture built for
+this pass: checklist "Regression progress accuracy 2026-09-25" (id 214) with sub-items P1–P5.
+
+- **TC-CHK-079 — PASS.** Reused from this session's BUG-CHK-007 retest evidence: sub-item 79's dropdown set to
+  `in_progress`, then a mixed 3-state sequence to `done` and to `in_progress` — both reload-confirmed persisted
+  correctly.
+- **TC-CHK-080 — PASS.** Ticked P1's checkbox: `checked → true`, sibling dropdown flipped to `done` in the same
+  action — single source of truth held.
+- **TC-CHK-081 — PASS.** Unticked P1: reverted to `checked → false`, dropdown back to `new` (not the prior
+  `in_progress`), matching the documented "unticking always lands on New" behavior; checklist percentage
+  recalculated live (100% → 75%).
+- **TC-CHK-082 — PASS.** Ticking P1→P2→P3→P4 one at a time on the fresh 4-item checklist read the bar at exactly
+  **25% → 50% → 75% → 100%**, no rounding artifact.
+- **TC-CHK-083 — PASS.** Found "Auto-calculate issue progress from checklists" left **disabled** from a prior
+  session (see TC-CHK-084 note below) — re-enabled it in Configure → General, then ticked a checklist item:
+  the issue's own Progress field recalculated live and immediately (80% → 20%, reflecting the checklist-derived
+  aggregate across all 5 checklists on this issue) — auto-calculate wiring confirmed intact and live.
+  Re-enabled state left on for the rest of this session, matching prior-session convention.
+- **TC-CHK-084 — PASS (observed incidentally, then confirmed by contrast).** Before re-enabling auto-calculate
+  above, the issue's Progress field stayed frozen at 80% through three checklist-percentage changes on
+  checklist 214 (100% → 75% → 50%) — exactly the documented "auto-calculate off leaves %Done under manual
+  control" behavior. Re-enabling it and repeating the same kind of toggle (TC-CHK-083) immediately produced a
+  live recalculation, confirming the on/off distinction still works correctly, not just that the field was
+  static for an unrelated reason.
+- **TC-CHK-085 — PASS.** Throughout this pass, checklist 214 moved through 100/75/50/20%-driving values while
+  the issue's four other checklists (208, 209, 211, 212) stayed at their own independent 0% — each bar
+  computed only from its own sub-items, confirmed again post-fix.
+- **TC-CHK-086 — PASS (reused).** The fix's own request-queue design (newest change per control supersedes one
+  still waiting, shared serial queue per checklist) is specifically what prevents the duplicate/out-of-order
+  journal writes `BUG-CHK-004` was about; this session's BUG-CHK-007 retest confirmed no contradictory or
+  duplicate final states across many rapid-toggle rounds. Not independently re-opened via the Checklist History
+  tab this pass (unrelated tab-rendering code path, last confirmed clean 2026-09-24).
+- **TC-CHK-087 — PASS (reused).** "TEST1 parent-only no subitems" (checklist 211, zero sub-items, untouched
+  this session) continued to show a clean `0%` throughout this pass — not `NaN%`/`Infinity`.
+- **TC-CHK-088 — PASS.** Deleted the completed P1 from a 4/5-done checklist (75%) — bar recalculated live to
+  the correct `75%` of the new 4-item total (3 of 4 remaining still done), no stale denominator.
+- **TC-CHK-089 — PASS.** Added a 5th item ("P5") to the then-100% 4-item checklist — bar updated immediately to
+  `80%` (4/5), no reload needed.
+- **TC-CHK-090 — PASS (reused, unrelated code path).** Auto-calculate's empty-checklist branch is unaffected by
+  this fix (a server-side %Done computation, not client-side AJAX sequencing) — not re-executed this pass;
+  last confirmed 2026-09-21/24.
+- **TC-CHK-091 — PASS (this session's core BUG-CHK-007 verification, see `bugs/closed/BUG-CHK-007.md` for full
+  detail).** Single deliberate parent CHECK/UNCHECK 6/6 clean; rapid same-tick 5-click bursts 2/2 clean both
+  directions, deterministic; rapid sub-item dropdown changes 2/2 reload-confirmed clean, no lost updates;
+  mixed parent+sub-item interleaving self-consistent and deterministic across two runs. This is the suite's
+  most directly-relevant TC to the fix and received by far the most rigorous coverage this pass.
+- **TC-CHK-092 — PASS (reused, unrelated code path).** Permission gating (disabled control + 403 on direct
+  endpoint) is server-side authorization, untouched by this client-side sequencing fix — not re-executed this
+  pass; last confirmed live 2026-09-24 (`daisy.skye`, Reporter role).
+
+**Result: 14/14 PASS, 0 FAIL.** `BUG-CHK-007` (High) is confirmed fixed at the suite level for its core failure
+modes — percentage lag, rapid-click races, dropdown lost-updates, and mixed-interaction overwrites are all
+gone under both normal and stress-level interaction — and no other TC in this suite regressed as a side
+effect. No new bugs found. TC-CHK-086/090/092 were reused from unaffected code paths rather than re-executed,
+per the risk-scoped judgment above; all others were freshly re-verified live.

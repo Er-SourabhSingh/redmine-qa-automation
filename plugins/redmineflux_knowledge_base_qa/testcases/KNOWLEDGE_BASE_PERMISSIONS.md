@@ -77,6 +77,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 ### TC-RKB-095: Admin has full access
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Exercise every row of the matrix.
 
@@ -88,6 +89,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 ### TC-RKB-096: `view_knowledgebase` grants read access only
 
 **User Role:** Reader
+**Priority:** High
 **Steps:**
 1. Confirm spaces, folders and published pages are viewable.
 2. Confirm no create/edit/delete/publish controls appear anywhere.
@@ -101,6 +103,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 ### TC-RKB-097: `manage_knowledgebase_spaces` covers spaces only
 
 **User Role:** Spaces manager
+**Priority:** High
 **Steps:**
 1. Create, edit and delete a space — expect success.
 2. Attempt to create a page and a folder, through the UI and directly.
@@ -115,6 +118,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 ### TC-RKB-098: `manage_knowledgebase_pages` covers pages **and folders**
 
 **User Role:** Pages manager
+**Priority:** High
 **Steps:**
 1. Create, edit, delete and publish a page — expect success.
 2. Create, edit and delete a **folder** — expect success.
@@ -129,6 +133,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 ### TC-RKB-099: A member with no KB permissions has no access
 
 **User Role:** No-KB member
+**Priority:** High
 **Steps:**
 1. Confirm whether the Knowledge Base menu entry appears.
 2. Request the knowledge base URL and a published page URL directly.
@@ -143,6 +148,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 ### TC-RKB-100: Draft visibility — author vs. manage holders vs. readers
 
 **User Role:** Author (a Pages manager), a second Pages manager, and the Reader
+**Priority:** High
 **Steps:**
 1. The author creates a never-published draft.
 2. Check all three users in the sidebar, by direct page URL, and via `GET /api/knowledgebase/nodes`.
@@ -158,6 +164,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 ### TC-RKB-101: Unpublished pages are hidden from readers everywhere
 
 **User Role:** Reader
+**Priority:** High
 **Steps:**
 1. On an explicitly unpublished page, check: the sidebar, the direct URL, the API node listing, the sidebar search
    data, the issue's Related Knowledge Base Pages section, and any public URL previously issued for it.
@@ -173,6 +180,7 @@ Testing with fewer accounts cannot distinguish the two manage permissions, which
 ### TC-RKB-102: Non-member cannot access a private project's knowledge base
 
 **User Role:** Non-member
+**Priority:** High
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -186,6 +194,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RKB-103: Anonymous access follows the project's own visibility
 
 **User Role:** Anonymous (logged out)
+**Priority:** High
 **Steps:**
 1. On a private project: request the knowledge base and a page URL.
 2. On a deliberately **public** project where anonymous users hold `view_knowledgebase`: request the same.
@@ -203,6 +212,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RKB-104: Public URL creation is limited to `manage_knowledgebase_pages`
 
 **User Role:** Reader and Spaces manager
+**Priority:** High
 **Steps:**
 1. Confirm neither is offered the Public URL action.
 2. Send the enable-public-access request directly as each.
@@ -216,6 +226,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RKB-105: Templates and plugin settings are admin-only
 
 **User Role:** Spaces manager, Pages manager, Reader (each in turn)
+**Priority:** High
 **Steps:**
 1. Request the plugin configuration URL directly.
 2. Send template create/edit/delete requests directly.
@@ -231,6 +242,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RKB-106: Inherited content requires permission on the parent
 
 **User Role:** A member of the sub-project only
+**Priority:** High
 **Steps:**
 1. Check the inherited section, a direct inherited-page URL, and the sidebar payload.
 
@@ -243,6 +255,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RKB-107: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
+**Priority:** High
 **Steps:**
 1. Remove `manage_knowledgebase_pages` while the member has a page open in the editor with auto-save running.
 2. Have them continue typing and then attempt Publish, without logging out.
@@ -257,6 +270,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RKB-108: Closed and archived projects
 
 **User Role:** Pages manager
+**Priority:** High
 **Steps:**
 1. Close the project: attempt to view, edit and publish, at the UI and the API.
 2. Archive it and repeat, including the API and any public URL.

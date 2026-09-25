@@ -27,6 +27,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-098: The default template produces a valid PDF
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Generate a PDF from an invoice using the shipped default template.
 
@@ -40,6 +41,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-099: Create a custom template
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. PDF Templates → **New Template** → name + HTML/ERB content → Preview → Save.
 2. Generate an invoice PDF using it.
@@ -52,6 +54,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-100: Preview reflects the real output
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Preview a template, then generate a real PDF from the same template.
 
@@ -63,6 +66,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-101: Copy a template
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Click **Copy** on a template; edit the copy; save.
 
@@ -74,6 +78,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-102: ERB templates cannot be used to execute arbitrary code
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Create a template containing an ERB expression that attempts to read a system path, an environment variable, or
    run a shell command.
@@ -92,6 +97,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-103: PDF generation failure is loud, not silent
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Make the PDF binary unavailable and attempt to generate a PDF, and to send an email with the PDF attached.
 
@@ -106,6 +112,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-104: All documented macros resolve
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Use `{{id}}`, `{{year}}`, `{{month}}`, `{{project_identifier}}` and `{{random_digit}}` in a template; generate
    PDFs for invoices in two different projects and two different months.
@@ -125,6 +132,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-105: Create and use an email template
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Email Templates → **New Template** → name, subject, body, footer → Preview → Save.
 2. Send an invoice and inspect the received email.
@@ -137,6 +145,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-106: Placeholders resolve
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Use the client name, invoice number and due date placeholders; send an invoice.
 
@@ -150,6 +159,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-107: Attach the PDF option
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Enable the attach-PDF option and send; then disable it and send again.
 
@@ -163,6 +173,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-108: Preview an email template
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Use **Preview** and compare against a real send.
 
@@ -174,6 +185,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-109: Template validation
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Save templates with a blank name, a blank subject, and a duplicate name.
 
@@ -186,6 +198,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-110: Deleting a template in use
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Delete a template currently selected as the default, then send an invoice.
 
@@ -202,6 +215,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-111: The global view lists invoices across projects
 
 **User Role:** User with `view_invoices` on several projects
+**Priority:** Medium
 **Steps:**
 1. Top navigation → **Invoices**.
 
@@ -213,6 +227,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-112: Global filters
 
 **User Role:** Same
+**Priority:** Medium
 **Steps:**
 1. Filter by status, customer, date range and project, individually and combined.
 
@@ -224,6 +239,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-113: Create and send from the global view
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Create a new invoice and send an existing one from the global view.
 
@@ -235,6 +251,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-114: Dashboard KPIs are accurate
 
 **User Role:** User with `view_invoices`
+**Priority:** High
 **Steps:**
 1. Open the dashboard and compare its three figures against the invoice list:
    total **Paid**, total **awaiting payment (Sent)**, total **unpaid and draft**.
@@ -249,6 +266,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-115: Project and global dashboards agree
 
 **User Role:** User with `view_invoices`
+**Priority:** Medium
 **Steps:**
 1. Compare a single project's dashboard figures against the global dashboard filtered to that project.
 
@@ -260,6 +278,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-116: Partial payments in the KPIs
 
 **User Role:** User with `view_invoices`
+**Priority:** Low
 **Steps:**
 1. With a part-paid invoice, check how it is represented.
 
@@ -277,6 +296,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-117: `view_invoices` is read-only
 
 **User Role:** User with `view_invoices` only
+**Priority:** High
 **Steps:**
 1. Confirm invoices, the billing report and team rates are viewable.
 2. Confirm no create, edit, generate, send, payment or rate-edit controls appear.
@@ -292,6 +312,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-118: `manage_invoices` does not reach plugin configuration
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. Request the plugin configuration URL directly and attempt to read the Stripe keys and edit a PDF template.
 
@@ -306,6 +327,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-119: `manage_customers` is global in scope
 
 **User Role:** User with `manage_customers` but no project invoice permissions
+**Priority:** High
 **Steps:**
 1. Confirm they can create, edit and delete customers.
 2. Confirm they **cannot** view any project's invoices, billing report or team rates — check the endpoints
@@ -321,6 +343,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-120: Project scoping of invoice permissions
 
 **User Role:** User with `manage_invoices` on project A only
+**Priority:** High
 **Steps:**
 1. Confirm project A's invoices are manageable.
 2. Request a project B invoice URL, and send edit, send and payment requests for it **directly**.
@@ -334,6 +357,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-121: Sending requires `manage_invoices`
 
 **User Role:** User with `view_invoices` only
+**Priority:** High
 **Steps:**
 1. Send the send-invoice request directly.
 
@@ -347,6 +371,7 @@ Global view and dashboard: top navigation → **Invoices**.
 ### TC-INV-122: Non-member cannot reach invoices
 
 **User Role:** Authenticated non-member
+**Priority:** High
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -362,6 +387,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-INV-123: Anonymous users reach nothing but the payment link
 
 **User Role:** Anonymous (logged out)
+**Priority:** High
 **Steps:**
 1. Request the invoice list, an invoice detail page, the billing report, the dashboard and the customer list with
    no session.
@@ -377,6 +403,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-INV-124: The global view does not widen visibility
 
 **User Role:** User with `view_invoices` on project A only
+**Priority:** High
 **Steps:**
 1. Open the global view and apply the broadest possible filters.
 
@@ -390,6 +417,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-INV-125: Template and configuration access is admin-only
 
 **User Role:** Every non-admin role in turn
+**Priority:** High
 **Steps:**
 1. Send PDF-template and email-template create, edit and delete requests directly.
 
@@ -403,6 +431,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-INV-126: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected user
+**Priority:** Medium
 **Steps:**
 1. Remove `manage_invoices` while the user has a Draft open in the editor.
 2. Have them save, and then attempt to send, without logging out.
@@ -415,6 +444,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-INV-127: Closed and archived projects
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Close a project: attempt to view, edit, generate and send, at the UI and the endpoint.
 2. Archive it and check whether its invoices still appear in the global view and the dashboard totals, and whether
@@ -430,6 +460,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-INV-128: Audit of who did what
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. After a full cycle — generate, edit, send, record payment, cancel — look for any record of which user performed
    each action.

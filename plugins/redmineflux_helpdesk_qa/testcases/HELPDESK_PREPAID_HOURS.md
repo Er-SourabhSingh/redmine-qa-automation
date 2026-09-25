@@ -19,6 +19,7 @@
 ### TC-HLP-188: Setting an initial budget increases the Approved total, with a required Comment
 
 **User Role:** Manager or Admin with `manage_prepaid_support_hours`
+**Priority:** High
 **Precondition:** An organization with no existing prepaid budget on a given project.
 
 **Steps:**
@@ -36,6 +37,7 @@
 ### TC-HLP-189: Topping up an existing budget adds to the current total, not replaces it
 
 **User Role:** Manager or Admin with `manage_prepaid_support_hours`
+**Priority:** High
 **Precondition:** Budget currently at 40 hours Approved (TC-HLP-188).
 
 **Steps:**
@@ -51,6 +53,7 @@
 ### TC-HLP-190: A negative Package number reduces the budget
 
 **User Role:** Manager or Admin with `manage_prepaid_support_hours`
+**Priority:** Medium
 **Precondition:** Budget currently at 60 hours Approved (TC-HLP-189).
 
 **Steps:**
@@ -66,6 +69,7 @@
 ### TC-HLP-191: Every budget change is kept as a permanent, non-overwriting entry
 
 **User Role:** Manager or Admin
+**Priority:** High
 **Precondition:** At least two prior budget changes exist (TC-HLP-188–127).
 
 **Steps:**
@@ -82,6 +86,7 @@
 ### TC-HLP-192: Logging time against the organization's tickets on this project raises Used immediately
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** A ticket authored by a customer belonging to this organization, on this project; budget has remaining hours.
 
 **Steps:**
@@ -98,6 +103,7 @@
 ### TC-HLP-193: Remaining is correctly recalculated as Approved − Used
 
 **User Role:** Agent or Manager
+**Priority:** High
 **Precondition:** Approved = 35 h, Used = 0.25 h (from TC-HLP-190 and TC-HLP-192).
 
 **Steps:**
@@ -113,6 +119,7 @@
 ### TC-HLP-194: The Ledger lists every contributing time entry, oldest first, with running balance
 
 **User Role:** Manager or Admin
+**Priority:** Medium
 **Precondition:** Multiple time entries have been logged against this organization's tickets over time.
 
 **Steps:**
@@ -129,6 +136,7 @@
 ### TC-HLP-195: The organization page and the project dashboard show matching figures
 
 **User Role:** Agent or Manager
+**Priority:** Medium
 **Precondition:** A budget with some Used hours already logged.
 
 **Steps:**
@@ -145,6 +153,7 @@
 ### TC-HLP-196: No Limit mode blocks nothing once the budget is exhausted
 
 **User Role:** Agent and Client (Customer)
+**Priority:** Medium
 **Precondition:** Run-out mode = **No limit**; budget fully spent (Remaining ≤ 0).
 
 **Steps:**
@@ -161,6 +170,7 @@
 ### TC-HLP-197: Hard mode behaves normally while budget remains
 
 **User Role:** Agent and Client (Customer)
+**Priority:** Medium
 **Precondition:** Run-out mode = **Hard**; budget still has Remaining hours > 0.
 
 **Steps:**
@@ -177,6 +187,7 @@
 ### TC-HLP-198: Soft mode allows work to continue and the balance to go negative
 
 **User Role:** Agent and Client (Customer)
+**Priority:** High
 **Precondition:** Run-out mode = **Soft**; budget fully spent.
 
 **Steps:**
@@ -197,6 +208,7 @@
 ### TC-HLP-199: Reducing a budget below zero is refused, naming the current total
 
 **User Role:** Manager or Admin
+**Priority:** Medium
 **Precondition:** Budget currently at 35 h Approved.
 
 **Steps:**
@@ -213,6 +225,7 @@
 ### TC-HLP-200: Setting a budget change without a Comment is refused
 
 **User Role:** Manager or Admin
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -228,6 +241,7 @@
 ### TC-HLP-201: Hard mode at zero hours blocks the customer from raising a new ticket
 
 **User Role:** Client (Customer)
+**Priority:** High
 **Precondition:** Run-out mode = **Hard**; budget Remaining = 0.
 
 **Steps:**
@@ -243,6 +257,7 @@
 ### TC-HLP-202: Hard mode at zero hours blocks logging time on this organization's tickets
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** Same as TC-HLP-201.
 
 **Steps:**
@@ -262,6 +277,7 @@
 ### TC-HLP-203: An over-budget state is correctly shown as negative Remaining
 
 **User Role:** Agent or Manager
+**Priority:** Medium
 **Precondition:** Run-out mode allows going negative (No Limit or Soft); Used has exceeded Approved.
 
 **Steps:**
@@ -277,6 +293,7 @@
 ### TC-HLP-204: Existing tickets remain repliable in every run-out mode, even when exhausted
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** Budget exhausted, under each of No Limit / Hard / Soft in turn.
 
 **Steps:**
@@ -292,6 +309,7 @@
 ### TC-HLP-205: A budget is scoped to one organization on one project, tracked independently per project
 
 **User Role:** Manager or Admin
+**Priority:** High
 **Precondition:** The same organization has entitlements/tickets on two different projects.
 
 **Steps:**
@@ -315,6 +333,7 @@
 ### TC-HLP-206: Creating a Support Package with only the required field (Name) succeeds
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** No Support Package with this name exists yet.
 
 **Steps:**
@@ -332,6 +351,7 @@
 ### TC-HLP-207: Creating a Support Package with every field filled in the initial Save, not via a later Edit
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -347,6 +367,7 @@
 ### TC-HLP-208: Creating a Support Package with a duplicate Name is refused
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A Support Package with a known name already exists (TC-HLP-206).
 
 **Steps:**
@@ -362,6 +383,7 @@
 ### TC-HLP-209: Editing a Support Package updates every field
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An existing Support Package.
 
 **Steps:**
@@ -378,6 +400,7 @@
 ### TC-HLP-210: A deactivated Support Package is excluded from the prepaid-hours top-up dialog's Package dropdown
 
 **User Role:** Manager or Admin with `manage_prepaid_support_hours`
+**Priority:** Medium
 **Precondition:** Two Support Packages exist — one Active, one deactivated (TC-HLP-209).
 
 **Steps:**
@@ -394,6 +417,7 @@
 ### TC-HLP-211: Selecting a Support Package on a top-up records/labels that budget-history entry
 
 **User Role:** Manager or Admin with `manage_prepaid_support_hours`
+**Priority:** Medium
 **Precondition:** An Active Support Package exists.
 
 **Steps:**
@@ -410,6 +434,7 @@
 ### TC-HLP-212: Deleting a Support Package not referenced by any budget entry succeeds; deleting one that is referenced is checked for the same missing-dependency-warning class as BUG-HLP-022/023
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** One unused Support Package, and one Support Package already referenced by a real budget-history entry (TC-HLP-211).
 
 **Steps:**
@@ -431,6 +456,7 @@
 ### TC-HLP-213: Edit Support Package — change Name, Description, Active status
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** An existing Support Package (e.g. "Standard Support").
 
 **Steps:**
@@ -448,6 +474,7 @@
 ### TC-HLP-214: Reactivate an inactive Support Package
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** A genuinely Inactive Support Package exists.
 
 **Steps:**
@@ -465,6 +492,7 @@
 ### TC-HLP-215: Case/whitespace duplicate name validation for Support Packages
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** A Support Package named "Premium Support" (or similar) already exists.
 
 **Steps:**
@@ -480,6 +508,7 @@
 ### TC-HLP-216: Top-up without selecting a Support Package
 
 **User Role:** Manager or Admin
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -496,6 +525,7 @@
 ### TC-HLP-217: Multiple consecutive top-ups and reductions keep Approved/Used/Remaining correct
 
 **User Role:** Manager or Admin
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -511,6 +541,7 @@
 ### TC-HLP-218: Budget change history preserves full audit detail per entry
 
 **User Role:** Manager or Admin
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -527,6 +558,7 @@
 ### TC-HLP-219: Hard mode blocks new time logging after exhaustion (standing regression test)
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** Run-out mode = Hard; budget Remaining = 0.
 
 **Steps:**
@@ -543,6 +575,7 @@
 ### TC-HLP-220: Hard mode blocks adding time to a ticket that already has prior time entries
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** Run-out mode = Hard; budget Remaining = 0; the target ticket already has one or more time entries logged against it from before exhaustion.
 
 **Steps:**
@@ -558,6 +591,7 @@
 ### TC-HLP-221: Hard mode when a single time entry would cross (not just reach) the remaining balance
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** Run-out mode = Hard; Remaining is a small positive value (e.g. 1h).
 
 **Steps:**
@@ -573,6 +607,7 @@
 ### TC-HLP-222: Soft mode allows crossing from positive Remaining into negative
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Run-out mode = Soft; Remaining is a small positive value.
 
 **Steps:**
@@ -588,6 +623,7 @@
 ### TC-HLP-223: No Limit mode behavior while budget still has a positive Remaining
 
 **User Role:** Agent and Client (Customer)
+**Priority:** Medium
 **Precondition:** Run-out mode = No Limit; Remaining > 0 (not yet exhausted).
 
 **Steps:**
@@ -604,6 +640,7 @@
 ### TC-HLP-224: An unauthorized user cannot change a prepaid budget
 
 **User Role:** Agent without `manage_prepaid_support_hours` (e.g. `luna.blossom`)
+**Priority:** High
 
 **Steps:**
 1. As a user lacking `manage_prepaid_support_hours`, check whether the Add/top-up hours control and the "When hours run out" dropdown are visible/enabled anywhere reachable
@@ -619,6 +656,7 @@
 ### TC-HLP-225: An unauthorized user cannot create/edit/delete Support Packages
 
 **User Role:** Agent without `manage_helpdesk` (e.g. `luna.blossom`)
+**Priority:** High
 
 **Steps:**
 1. As a user lacking `manage_helpdesk`, check whether the Support Packages settings tab/controls are reachable via UI
@@ -634,6 +672,7 @@
 ### TC-HLP-226: Two near-simultaneous budget changes don't silently lose one update
 
 **User Role:** Manager or Admin
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -655,6 +694,7 @@
 ### TC-HLP-227: A budget change landing at exactly 0.00h Approved is accepted and displays correctly
 
 **User Role:** Manager or Admin
+**Priority:** Low
 **Precondition:** A budget with a known positive Approved total.
 
 **Steps:**
@@ -672,6 +712,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, admin, org 8 / Helpdesk QA B
 ### TC-HLP-228: Exact-boundary time logging — Remaining = X, logging exactly X lands the balance at precisely zero
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Run-out mode = Hard; Remaining is a known small positive value (e.g. exactly 1.00h).
 
 **Steps:**
@@ -689,6 +730,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `luna.blossom`, ticket #46 /
 ### TC-HLP-229: A further entry immediately after landing exactly at zero (TC-HLP-228) is correctly blocked under Hard mode
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Immediately following TC-HLP-228 — Remaining is now exactly `0.00h`, Hard mode still active.
 
 **Steps:**
@@ -704,6 +746,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `luna.blossom`, ticket #46, 
 ### TC-HLP-230: Editing a Support Package that already has budget-history entries preserves the historical association
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A Support Package already referenced by at least one real budget-history entry (e.g. via TC-HLP-211).
 
 **Steps:**
@@ -722,6 +765,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, admin): **PASS — confirmed
 ### TC-HLP-231: Deleting an unrelated, unused Support Package leaves other packages' historical references unchanged
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** At least two Support Packages exist — one unused, one referenced by a real budget-history entry.
 
 **Steps:**
@@ -738,6 +782,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, admin): **PASS.** Created a 
 ### TC-HLP-232: Concurrent mixed top-up + reduction (not two additive top-ups) from separate tabs
 
 **User Role:** Manager or Admin
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -755,6 +800,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, admin, org 8 / Helpdesk QA B
 ### TC-HLP-233: Changing run-out mode while already exhausted correctly changes enforcement immediately
 
 **User Role:** Manager or Admin, then Agent
+**Priority:** High
 **Precondition:** Run-out mode = Hard; Remaining = 0 (a real block is confirmed first, e.g. per TC-HLP-219).
 
 **Steps:**
@@ -775,6 +821,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, admin + `luna.blossom`, tick
 ### TC-HLP-234: Run-out mode selection persists across a page reload and a fresh login session
 
 **User Role:** Manager or Admin
+**Priority:** Medium
 **Precondition:** A budget with a known run-out mode set (e.g. Soft).
 
 **Steps:**
@@ -796,6 +843,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, admin, org 8 / Helpdesk QA A
 ### TC-HLP-235: Editing an existing time entry to increase it under Hard mode, past Remaining, — document whether it's blocked or uncapped
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Run-out mode = Hard; an existing time entry logged against this organization's ticket; Remaining is a small positive value smaller than the increase being attempted.
 
 **Steps:**
@@ -813,6 +861,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `luna.blossom`, ticket #46 /
 ### TC-HLP-236: Editing an existing time entry to increase it under Soft mode, past Remaining, is allowed
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Run-out mode = Soft; an existing time entry logged against this organization's ticket; Remaining is a small positive value smaller than the increase being attempted.
 
 **Steps:**
@@ -830,6 +879,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, admin, ticket #46 / org 8 He
 ### TC-HLP-237: Reducing an existing time entry's Hours decreases Used and increases Remaining by the same amount
 
 **User Role:** Agent or Manager
+**Priority:** Medium
 **Precondition:** An existing time entry with a known Hours value logged against this organization's ticket.
 
 **Steps:**
@@ -847,6 +897,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, admin, ticket #46 / org 8 He
 ### TC-HLP-238: Deleting an existing time entry decreases Used and increases Remaining by that entry's full amount
 
 **User Role:** Agent or Manager
+**Priority:** Medium
 **Precondition:** An existing time entry with a known Hours value logged against this organization's ticket.
 
 **Steps:**
@@ -868,6 +919,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, admin, ticket #46 / org 8 He
 ### TC-HLP-239: Creating a brand-new time entry via the core "Log time" link (not the reply box) under Hard mode, past Remaining
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** Run-out mode = Hard on the organization/project; Remaining is a small positive value smaller than the Hours about to be logged.
 
 **Steps:**
@@ -890,6 +942,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `luna.blossom`, ticket #46 /
 ### TC-HLP-240: Portal ticket creation with no budget assigned at all succeeds (never blocked, regardless of mode)
 
 **User Role:** Client (Customer) with no Organization set on their project-access row (a customer who was never put on a prepaid package)
+**Priority:** High
 **Precondition:** Customer's project-access row has Organization = None on the target project — no `rf_helpdesk_prepaid_support_hours` ledger row and no `rf_helpdesk_prepaid_enforcements` row exist for this customer's (non-existent) organization on this project at all.
 
 **Steps:**
@@ -906,6 +959,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `luna.blossom`, ticket #46 /
 ### TC-HLP-241: Email ticket creation with no budget assigned at all succeeds (never blocked, regardless of mode)
 
 **User Role:** Client (Customer) with no Organization set on their project-access row
+**Priority:** Medium
 **Precondition:** Same as TC-HLP-240 — no budget ledger row exists for this customer's (non-existent) organization.
 
 **Steps:**
@@ -922,6 +976,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `luna.blossom`, ticket #46 /
 ### TC-HLP-242: Email ticket creation under No Limit mode with the balance already negative succeeds
 
 **User Role:** Client (Customer) whose organization has a real budget with mode = No Limit
+**Priority:** Medium
 **Precondition:** Organization has a real `rf_helpdesk_prepaid_support_hours` ledger row on this project; mode = No Limit; Remaining is already negative.
 
 **Steps:**
@@ -939,6 +994,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `luna.blossom`, ticket #46 /
 ### TC-HLP-243: Email ticket creation under Soft mode with the balance already negative succeeds
 
 **User Role:** Client (Customer) whose organization has a real budget with mode = Soft
+**Priority:** Medium
 **Precondition:** Same ledger row as TC-HLP-242; mode = Soft; Remaining already negative.
 
 **Steps:**
@@ -956,6 +1012,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `luna.blossom`, ticket #46 /
 ### TC-HLP-244: Email ticket creation under Hard mode while Remaining is still positive succeeds normally
 
 **User Role:** Client (Customer) whose organization has a real budget with mode = Hard
+**Priority:** Medium
 **Precondition:** Organization's budget on this project has mode = Hard; Remaining > 0.
 
 **Steps:**
@@ -973,6 +1030,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `luna.blossom`, ticket #46 /
 ### TC-HLP-245: Email ticket creation under Hard mode once Remaining reaches zero/negative is blocked, with a bounce-back notification sent to the customer
 
 **User Role:** Client (Customer) whose organization has a real budget with mode = Hard, fully exhausted
+**Priority:** High
 **Precondition:** Organization's budget on this project has mode = Hard; Remaining ≤ 0.
 
 **Steps:**
@@ -1020,6 +1078,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `luna.blossom`, ticket #46 /
 ### TC-HLP-246: Logging time on a ticket whose author has no organization succeeds, uncounted, no budget checked anywhere
 
 **User Role:** Agent
+**Priority:** Medium
 
 **Precondition:** A customer with Organization = None on her project-access row (e.g. `alpha.customer` on Helpdesk QA Alpha — confirmed live via the Customers list, Organization column reads "—").
 
@@ -1040,6 +1099,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `luna.blossom`, ticket #46 /
 ### TC-HLP-247: Two different customers on the same organization and project share one combined budget — consumption is per-organization-per-project, not per-customer
 
 **User Role:** Client (Customer) × 2, Agent
+**Priority:** High
 
 **Precondition:** One organization with two real customers, both with a project-access row on the same project, same organization (e.g. `delta.customer` and `beta.customer`, both entitled to "Alpha Minimal Fields Test Org" on Helpdesk QA Alpha — confirmed live via each customer's own detail page before starting).
 

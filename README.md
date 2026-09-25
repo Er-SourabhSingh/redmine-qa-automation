@@ -10,6 +10,7 @@ redmine-qa-automation/
 ├── STATUS.md                          ← cross-plugin test status dashboard
 ├── SENIOR_QA_STANDARDS.md             ← testing methodology and bug standards
 ├── QA_CREDENTIALS.md                  ← common QA credentials (all environments/roles)
+├── TIME_LOG.md                        ← global time log per testcase (testing, retest, bug reporting)
 │
 ├── scripts/                           ← utility scripts
 ├── templates/

@@ -29,6 +29,7 @@
 ### TC-MEN-001: Mentioned user receives an email
 
 **User Role:** Member mentions another Member
+**Priority:** High
 **Steps:**
 1. Mention user B in an issue note and submit.
 2. Open user B's mailbox.
@@ -43,6 +44,7 @@
 ### TC-MEN-002: Email arrives for a description mention
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Mention user B in an issue **description** (not a note) and save.
 
@@ -54,6 +56,7 @@
 ### TC-MEN-003: Email arrives for a wiki mention
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Mention user B on a wiki page and save.
 
@@ -65,6 +68,7 @@
 ### TC-MEN-004: Each mentioned user gets exactly one email
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Mention users B, C and D in one note.
 
@@ -78,6 +82,7 @@
 ### TC-MEN-005: Email content links back correctly
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open the link in the received email while logged in as the mentioned user.
 
@@ -90,6 +95,7 @@
 ### TC-MEN-006: Mention email is distinguishable from Redmine's standard notification
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Trigger a mention on an issue the recipient is already a watcher of.
 
@@ -103,6 +109,7 @@
 ### TC-MEN-007: Mention email respects the user's language preference
 
 **User Role:** Member with a non-English UI language
+**Priority:** Low
 **Steps:**
 1. Set user B's language to a non-English locale and mention them.
 
@@ -119,6 +126,7 @@
 ### TC-MEN-008: Disabling mention notifications stops the emails
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Disable the mention notification in the email notification settings; save.
 2. Trigger a mention.
@@ -132,6 +140,7 @@
 ### TC-MEN-009: Re-enabling restores the emails
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Re-enable the setting and trigger a mention again.
 
@@ -143,6 +152,7 @@
 ### TC-MEN-010: Per-user notification preference is honoured
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Set user B's own notification preference to "no events" (or the narrowest available option).
 2. Mention user B.
@@ -161,6 +171,7 @@
 ### TC-MEN-011: Mail delivery unavailable
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Stop the mail server (or point Redmine at an unreachable SMTP host).
 2. Trigger a mention and save.
@@ -175,6 +186,7 @@
 ### TC-MEN-012: Mentioned user has no email address on file
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Mention a user account with no email address configured.
 
@@ -186,6 +198,7 @@
 ### TC-MEN-013: Mentioned user is locked
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Mention a locked account.
 
@@ -197,6 +210,7 @@
 ### TC-MEN-014: Non-existent username generates no mail
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Mention a username that does not exist.
 
@@ -208,6 +222,7 @@
 ### TC-MEN-015: Mention of a user who cannot see the content
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. On an issue in a **private** project (confirm it is genuinely private — new Redmine projects default to public),
    mention a user who is not a member.
@@ -223,6 +238,7 @@
 ### TC-MEN-016: Repeated edits do not resend
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Save a note mentioning user B, then edit the same note five times without changing the mention.
 
@@ -234,6 +250,7 @@
 ### TC-MEN-017: Bulk mention volume
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Mention 50 users in one save and time the request.
 
@@ -246,6 +263,7 @@
 ### TC-MEN-018: Mention inside content that is later deleted
 
 **User Role:** Member + Manager
+**Priority:** Low
 **Steps:**
 1. Mention a user, then immediately delete the issue before the mail is processed.
 

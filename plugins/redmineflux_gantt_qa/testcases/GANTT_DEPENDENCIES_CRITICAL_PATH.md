@@ -28,6 +28,7 @@ toggled in the settings panel via the gear icon on the right of the toolbar.
 ### TC-GNT-020: Create a dependency between two issues
 
 **User Role:** Member with View Flux Gantt
+**Priority:** High
 **Steps:**
 1. Drag from one issue bar's connector handle to another's.
 2. Confirm the relation type if prompted.
@@ -42,6 +43,7 @@ toggled in the settings panel via the gear icon on the right of the toolbar.
 ### TC-GNT-021: Relation direction is correct
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create a precedes relation from A to B and inspect both issue pages.
 
@@ -54,6 +56,7 @@ toggled in the settings panel via the gear icon on the right of the toolbar.
 ### TC-GNT-022: Remove a dependency
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Select the dependency line, use the delete/remove action, confirm.
 2. Reload and check both issues.
@@ -67,6 +70,7 @@ toggled in the settings panel via the gear icon on the right of the toolbar.
 ### TC-GNT-023: Dependency line re-renders after a reschedule
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Drag one of the two linked issues to a new date.
 
@@ -79,6 +83,7 @@ toggled in the settings panel via the gear icon on the right of the toolbar.
 ### TC-GNT-024: Cross-project dependency in Global Gantt
 
 **User Role:** Member with View Flux Gantt on **both** projects
+**Priority:** Medium
 **Steps:**
 1. In Global Flux Gantt, link an issue in project A to one in project B.
 
@@ -96,6 +101,7 @@ toggled in the settings panel via the gear icon on the right of the toolbar.
 ### TC-GNT-026: An issue cannot depend on itself
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Attempt to link an issue's bar to itself.
 
@@ -107,6 +113,7 @@ toggled in the settings panel via the gear icon on the right of the toolbar.
 ### TC-GNT-027: Parent and child cannot be directly linked
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Attempt to link a parent issue to one of its own subtasks.
 
@@ -120,6 +127,7 @@ toggled in the settings panel via the gear icon on the right of the toolbar.
 ### TC-GNT-028: Circular dependency
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create A precedes B, B precedes C, then attempt C precedes A.
 
@@ -133,6 +141,7 @@ toggled in the settings panel via the gear icon on the right of the toolbar.
 ### TC-GNT-029: Duplicate relation
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create the same relation between the same two issues twice.
 
@@ -144,6 +153,7 @@ toggled in the settings panel via the gear icon on the right of the toolbar.
 ### TC-GNT-030: Dependency creation without permission
 
 **User Role:** Member whose role lacks View Flux Gantt
+**Priority:** High
 **Steps:**
 1. Confirm no connector handles appear.
 2. Send the relation-create request directly.
@@ -160,6 +170,7 @@ toggled in the settings panel via the gear icon on the right of the toolbar.
 ### TC-GNT-031: Enable Show Critical Path
 
 **User Role:** Member with Manage versions (needed to open the settings panel)
+**Priority:** High
 **Preconditions:** Several issues each with a start date, a due date and an assigned version, linked with
 precedes/follows relations.
 **Steps:**
@@ -176,6 +187,7 @@ precedes/follows relations.
 ### TC-GNT-032: Only qualifying issues are included
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add to the chain an issue missing a due date, one with no assigned version, and one linked only by a `blocks`
    relation.
@@ -190,6 +202,7 @@ precedes/follows relations.
 ### TC-GNT-033: Dependency cycle degrades gracefully
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** Relation data containing a cycle (create it directly if the UI refuses).
 **Steps:**
 1. Enable Show Critical Path.
@@ -203,6 +216,7 @@ precedes/follows relations.
 ### TC-GNT-025: Critical path is recalculated, not cached
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With the critical path shown, change a date on a critical issue so the chain shifts.
 2. Disable and re-enable Show Critical Path.
@@ -216,6 +230,7 @@ precedes/follows relations.
 ### TC-GNT-034: Parent issues are not calculated directly
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Build a chain that includes a parent with subtasks.
 
@@ -228,6 +243,7 @@ precedes/follows relations.
 ### TC-GNT-035: Show Critical Path is absent from Global Gantt
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Open Global Flux Gantt and open its settings panel.
 
@@ -242,6 +258,7 @@ precedes/follows relations.
 ### TC-GNT-036: Critical path with no qualifying data
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Enable Show Critical Path on a project whose issues have no precedes/follows relations at all.
 
@@ -254,6 +271,7 @@ precedes/follows relations.
 ### TC-GNT-037: Critical path on a large dependency graph
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Enable it on a project with several hundred linked, dated, versioned issues.
 
@@ -267,6 +285,7 @@ precedes/follows relations.
 ### TC-GNT-038: Critical path highlight survives zoom and display-mode changes
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With the critical path shown, switch zoom levels and toggle Work Days / Full Week.
 
@@ -287,6 +306,7 @@ precedes/follows relations.
 ### TC-GNT-217: Critical-path settings offer a new "Per Release" scope alongside "Whole Project"
 
 **User Role:** Member with Manage versions
+**Priority:** High
 **Steps:**
 1. Open the settings panel (gear icon) and locate the critical-path scope option.
 
@@ -299,6 +319,7 @@ precedes/follows relations.
 ### TC-GNT-218: "Whole Project" mode behaves exactly as before (regression check)
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** Same chained/dated/versioned issue setup as TC-GNT-031.
 **Steps:**
 1. Confirm the scope is set to **Whole Project**.
@@ -314,6 +335,7 @@ precedes/follows relations.
 ### TC-GNT-219: "Per Release" mode computes each release's critical chain against its own finish date
 
 **User Role:** Member with Manage versions
+**Priority:** High
 **Preconditions:** Three releases (R1, R2, R3), each containing its own chain of dated, versioned,
 precedes/follows-linked issues, with no cross-release dependencies for this case.
 **Steps:**
@@ -331,6 +353,7 @@ precedes/follows-linked issues, with no cross-release dependencies for this case
 ### TC-GNT-220: Cross-release dependencies still constrain scheduling dates in Per Release mode
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** An issue in release R2 has a precedes/follows dependency on an issue in release R1 that pushes
 R2's issue's earliest possible start date.
 **Steps:**
@@ -350,6 +373,7 @@ R2's issue's earliest possible start date.
 ### TC-GNT-221: Cross-release critical dependency renders a dashed incoming line, a leading-edge marker, and a tooltip naming the predecessor and its release
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** Scope set to **Per Release**; an issue in release R2 is critical specifically because of a
 predecessor issue in a different release, R1 ("R1 - Foundation").
 **Steps:**
@@ -369,6 +393,7 @@ predecessor issue in a different release, R1 ("R1 - Foundation").
 ### TC-GNT-222: Cross-release tooltip still explains criticality when the driving release is collapsed or scrolled out of view
 
 **User Role:** Member
+**Priority:** Low
 **Preconditions:** Same setup as TC-GNT-221.
 **Steps:**
 1. Collapse the R1 release row (so the predecessor issue's own bar is not directly visible).
@@ -388,6 +413,7 @@ predecessor issue in a different release, R1 ("R1 - Foundation").
 ### TC-GNT-223: Switching critical-path mode updates the chart live, without a manual reload
 
 **User Role:** Member with Manage versions
+**Priority:** Medium
 **Steps:**
 1. With **Show Critical Path** enabled and scope set to **Whole Project**, note the highlighted chain.
 2. Switch the scope to **Per Release** without reloading the page.
@@ -402,6 +428,7 @@ predecessor issue in a different release, R1 ("R1 - Foundation").
 ### TC-GNT-224: Critical-path scope selection is stored per user
 
 **User Role:** Two members (User A, User B), both with Manage versions
+**Priority:** Medium
 **Steps:**
 1. User A sets the critical-path scope to **Per Release** and reloads.
 2. User B opens the same project's Gantt view.

@@ -80,6 +80,7 @@ untestable.
 ### TC-CRM-184: Admin has full access
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Exercise every row of the matrix.
 
@@ -91,6 +92,7 @@ untestable.
 ### TC-CRM-185: View CRM alone is read-only
 
 **User Role:** Viewer
+**Priority:** High
 **Steps:**
 1. Confirm the workspace, lists and detail pages are viewable.
 2. Confirm no create, edit, delete, import, convert or activity controls appear.
@@ -106,6 +108,7 @@ untestable.
 ### TC-CRM-186: The four manage permissions are separate
 
 **User Role:** A role with **Manage Contacts** only
+**Priority:** High
 **Steps:**
 1. Create and update a contact — expect success.
 2. Attempt to create a company, a deal and a lead, through the UI and **directly**.
@@ -119,6 +122,7 @@ untestable.
 ### TC-CRM-187: **Manage does not include delete**
 
 **User Role:** SalesRep (all four manage permissions, **no** Delete CRM Data)
+**Priority:** High
 **Steps:**
 1. Confirm no Delete control appears on any contact, company, deal or lead.
 2. Send the delete request **directly** for each of the four entity types.
@@ -135,6 +139,7 @@ untestable.
 ### TC-CRM-188: Delete CRM Data covers all four entity types
 
 **User Role:** SalesManager
+**Priority:** High
 **Steps:**
 1. Delete a contact, a company, a deal and a lead.
 
@@ -147,6 +152,7 @@ untestable.
 ### TC-CRM-189: Manage CRM Activities permits authoring and own-deletion only
 
 **User Role:** SalesRep and a second member
+**Priority:** High
 **Steps:**
 1. Log an activity — expect success.
 2. Attempt to delete **another user's** activity, through the UI and directly.
@@ -162,6 +168,7 @@ untestable.
 ### TC-CRM-190: View Pipeline and Manage Deals are distinct
 
 **User Role:** A role with **View Pipeline** but not Manage Deals
+**Priority:** High
 **Steps:**
 1. Confirm the pipeline renders but cards are not draggable.
 2. Send the `update_stage` request directly.
@@ -174,6 +181,7 @@ untestable.
 ### TC-CRM-191: View Audit Log is its own permission
 
 **User Role:** SalesRep (no View Audit Log)
+**Priority:** High
 **Steps:**
 1. Confirm the Audit Log entry is absent; request its URL and `/api/crm_audit_logs` directly.
 
@@ -185,6 +193,7 @@ untestable.
 ### TC-CRM-192: The recommended role configurations work as described
 
 **User Role:** SalesRep, SalesManager, Viewer
+**Priority:** High
 **Steps:**
 1. For each, exercise exactly the capabilities the KB lists for that role, and confirm the ones it omits are
    refused.
@@ -203,6 +212,7 @@ untestable.
 ### TC-CRM-193: Admins see all private records
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. With private records created by OwnerA and OwnerB, view each list.
 
@@ -214,6 +224,7 @@ untestable.
 ### TC-CRM-194: Non-admins see public records
 
 **User Role:** OwnerB
+**Priority:** Medium
 **Steps:**
 1. View records that are not marked private.
 
@@ -225,6 +236,7 @@ untestable.
 ### TC-CRM-195: A creator sees their own private records
 
 **User Role:** OwnerA
+**Priority:** Medium
 **Steps:**
 1. Create private records of each type and view the lists.
 
@@ -236,6 +248,7 @@ untestable.
 ### TC-CRM-196: An assignee sees private records assigned to them
 
 **User Role:** OwnerA creates, OwnerB is assigned
+**Priority:** High
 **Steps:**
 1. OwnerA creates a private contact and assigns it to OwnerB.
 2. OwnerB views the contact list and opens the record.
@@ -249,6 +262,7 @@ untestable.
 ### TC-CRM-197: A non-owner, non-assignee cannot see a private record
 
 **User Role:** OwnerB
+**Priority:** High
 **Steps:**
 1. OwnerA creates a private contact, company, deal and lead, assigned to nobody.
 2. As OwnerB: confirm each is absent from the lists; request each **directly** by ID; request its **activities**
@@ -265,6 +279,7 @@ untestable.
 ### TC-CRM-198: Counts reflect only visible records
 
 **User Role:** OwnerA and OwnerB
+**Priority:** High
 **Steps:**
 1. Compare each user's dashboard totals, list counts and analytics figures.
 
@@ -278,6 +293,7 @@ untestable.
 ### TC-CRM-199: Privacy survives edits and reassignment
 
 **User Role:** OwnerA, then OwnerB
+**Priority:** High
 **Steps:**
 1. Toggle a record's privacy off and on; reassign a private record away from OwnerB.
 
@@ -294,6 +310,7 @@ untestable.
 ### TC-CRM-200: The API requires authentication
 
 **User Role:** No credentials
+**Priority:** High
 **Steps:**
 1. Call `GET /api/crm/ping`, then the contacts, deals and audit-log endpoints, with no `X-Redmine-API-Key`.
 
@@ -307,6 +324,7 @@ untestable.
 ### TC-CRM-201: The API enforces the same permissions as the UI
 
 **User Role:** Viewer, then SalesRep
+**Priority:** High
 **Steps:**
 1. As Viewer, attempt `POST` and `PUT` on contacts, companies, deals and leads.
 2. As SalesRep, attempt `DELETE` on each, plus `POST /api/leads/:id/convert` and
@@ -323,6 +341,7 @@ untestable.
 ### TC-CRM-202: API import and export endpoints are gated
 
 **User Role:** Viewer and NoAccess
+**Priority:** High
 **Steps:**
 1. Call the import and export endpoints for contacts, companies, deals and leads directly as each user.
 
@@ -337,6 +356,7 @@ untestable.
 ### TC-CRM-204: API responses respect privacy
 
 **User Role:** OwnerB
+**Priority:** High
 **Steps:**
 1. Call the list endpoints and compare against OwnerA's private records.
 2. Call `GET` on a specific private record's ID, and on its nested activities.
@@ -351,6 +371,7 @@ untestable.
 ### TC-CRM-205: API validation matches the UI
 
 **User Role:** SalesRep
+**Priority:** High
 **Steps:**
 1. Via the API, attempt: a contact with a duplicate email; a deal with probability 150; a Lost deal with no lost
    reason; a lead with status `Converted`; and a required custom field left blank.
@@ -365,6 +386,7 @@ untestable.
 ### TC-CRM-206: API issue-link operations require issue-edit permission
 
 **User Role:** A member with full CRM permissions but no edit-issues on the project
+**Priority:** High
 **Steps:**
 1. Call the link-contact, unlink-contact, link-deal and unlink-deal endpoints directly.
 
@@ -376,6 +398,7 @@ untestable.
 ### TC-CRM-207: An API key cannot act beyond its user
 
 **User Role:** SalesRep's API key
+**Priority:** High
 **Steps:**
 1. Using that key, attempt an action only an admin can perform — deleting a record, or reading the audit log.
 
@@ -389,6 +412,7 @@ untestable.
 ### TC-CRM-208: Permission revocation takes effect without re-login
 
 **User Role:** Admin + SalesRep
+**Priority:** High
 **Steps:**
 1. Remove Manage Deals while SalesRep has a deal edit form open, then have them save, and separately call the API.
 

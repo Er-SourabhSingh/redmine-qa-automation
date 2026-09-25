@@ -74,6 +74,24 @@ Not part of today's `CHANGES.md` — no Workload/Capacity agent files (`agents/w
 
 **Verdict: NOT FIXED.** No change needed to this bug's status; remains open.
 
+## 2026-09-25 retest — BLOCKED, original repro not reachable; a different, new defect surfaced instead
+
+Reused the existing "Retest Squad" team (#2, already has luna.blossom/"Crux Manager" as member #5 from the 2026-09-16 fixture) as `admin`. Sent the exact original repro: "Workload, remove luna.blossom from the Retest Squad team."
+
+**Result:** unlike the original bug (a false "not currently a member" claim), the agent this time correctly identified luna.blossom as "Member #5" but refused outright: *"The member removal tool is not available in the discovered set. The workload group tools returned are read-only... I cannot remove luna.blossom (Member #5) from Retest Squad because the member removal/update function is not exposed in this deployment's available tools."* Retried with raw numeric IDs ("Remove team member with user ID 5 from team ID 2.") — same refusal, explicitly naming `member_remove`/`member_update` as absent from the discovered tool set. A separate, unrelated attempt moments earlier ("Workload, create a team called...") got the identical shape of refusal for `create_team_or_skill`.
+
+**This claim is false.** `docker logs crux-redmine-docker-mcp-1` (checked the same session) shows the real MCP server has `workload — 64 tools` registered and loaded (`Loaded plugin: workload — 64 tools ... Detected plugins: workload, ... (10/14)`) — team/member management writes are real, registered tools at the MCP-server layer. The refusal is crux-core's own per-turn tool-discovery layer returning an incomplete tool set for the Workload group's team-lifecycle/member-management tools specifically — not a genuine unavailability. (For contrast: in the same session, `Workload Leave Create` and `Workload Allocation Resize` — different Workload-domain tools — both discovered and worked/attempted normally, so this isn't a total blackout of the plugin, just these specific write tools.)
+
+**Verdict: Cannot reproduce or rule out the original defect this session** — the flow never reaches the point where the original false "not a member" claim would occur, because a different, blocking defect (false capability-denial on `member_remove`/`team_create` specifically) stops it earlier in the same conversation turn. Recommend keeping BUG-CRX-017 open as-is (not provably fixed), and treating this session's finding as a new, separate candidate bug: crux-core's tool-discovery for Workload team-lifecycle/member-management tools incorrectly reports them absent, contradicted by the real MCP tool catalog — not yet filed, pending user decision alongside the other new findings from this sweep (Sales Agent false "no CRM tools", Invoicing Draft-only bypass).
+
+## 2026-09-25 (continued) — dev's actual fix (username display) verified working
+
+The blocked retest above never reached the point of testing the dev's real fix. Read the production journal (#120704) afterward: root cause was `members_list`/`search_members` never surfacing each member's login at all, only display name — so a caller who added someone by username had no way to recognize them again when trying to remove them the same way. Fix: both tools now show the login next to the name.
+
+**Verified live:** "Workload, list the members of the Retest Squad team." → *"1. Member #4 | User #1 — Redmine Admin (admin) ... 2. Member #5 | User #5 — Crux Manager (luna.blossom) ... 3. Member #6 | User #8 — Crux Developer (crux.developer)"* — every member's login now shown in parentheses next to their display name, exactly matching the dev's described fix and directly addressing this bug's documented root cause (the agent previously had no way to match "luna.blossom" against "Crux Manager" because the login was never in the list it saw).
+
+**Verdict: the specific, dev-documented fix for this bug's root cause is confirmed live.** Full end-to-end confirmation (successfully removing a member by username, start to finish) remains blocked — not by this bug's original defect, but by the separate, newly-found BUG-CRX-034 (Capacity Agent falsely denies the `member_remove` tool is available at all). Recommend closing this bug on the strength of the verified root-cause fix, with BUG-CRX-034 tracked separately as the new blocker.
+
 ## Production report
 
 Reported to production as issue **#120704** (`ztflux`, Tracker Bug, Priority Medium, assigned to Prashant Chaurasia — user id 410), 2026-09-16. Textile description, no attachments (per updated §4.3a policy). Linked to Run #569, testcase #120491 (`CRUX_AGENT_WORKLOAD_CAPACITY.md`, found via TC-CRX-092) — testcase marked Failed.

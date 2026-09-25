@@ -25,6 +25,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-185: Project board opens from the project menu
 
 **User Role:** Member with View Agile Board
+**Priority:** High
 **Steps:**
 1. Open a project and click **Agile Board**.
 
@@ -37,6 +38,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-186: Cards are placed in the correct status column
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Pick five issues of known statuses and locate their cards.
 
@@ -49,6 +51,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-187: Card content matches the issue
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Compare a card's ID, subject, tracker, priority and assignee with the issue page.
 
@@ -60,6 +63,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-188: Column issue counts are accurate
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Compare each column's count with the same status filtered on the issue list.
 
@@ -71,6 +75,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-189: Large columns load more cards
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open a board with a column holding several hundred issues and use the load-more control.
 
@@ -87,6 +92,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-190: Quick-add an issue into a column
 
 **User Role:** Member with issue-create rights
+**Priority:** High
 **Steps:**
 1. Use the quick add control in a column, enter a subject, confirm.
 
@@ -99,6 +105,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-191: Quick-add applies project defaults for unspecified fields
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Quick-add an issue, then open it in full.
 
@@ -111,6 +118,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-192: Quick-add respects required fields
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Quick-add on a tracker whose required custom fields the quick form does not collect.
 
@@ -124,6 +132,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-193: Quick-add into a column whose status is not the default
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Quick-add directly into an "In Progress"-style column rather than the first column.
 
@@ -140,6 +149,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-194: Drag a card to another status column
 
 **User Role:** Member with edit rights
+**Priority:** High
 **Steps:**
 1. Drag a card from one column to another and drop it.
 2. Reload, then open the issue.
@@ -153,6 +163,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-195: A workflow-blocked transition is not applied
 
 **User Role:** Member on a role with a restricted workflow
+**Priority:** High
 **Steps:**
 1. Drag a card into a column whose status the workflow forbids from the current one.
 
@@ -166,6 +177,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-196: Drag respects edit permission
 
 **User Role:** Member with view-only access to issues
+**Priority:** High
 **Steps:**
 1. Confirm cards are not draggable.
 2. Send the status-update request **directly** to the board's endpoint.
@@ -178,6 +190,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-197: Drag within the same column
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Drag a card and drop it back into its own column, at a different vertical position.
 
@@ -190,6 +203,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-198: Drag triggers the same side effects as a normal status change
 
 **User Role:** Member, with a watcher on the issue
+**Priority:** Medium
 **Steps:**
 1. Drag a card to a closed status.
 
@@ -206,6 +220,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-199: Double-click opens the edit modal
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Double-click a card.
 
@@ -217,6 +232,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-200: Saving the modal updates the issue and the board
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Change the subject and description; save.
 2. Reload and open the issue.
@@ -230,6 +246,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-201: Cancelling the modal writes nothing
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open the modal, change both fields, cancel.
 
@@ -241,6 +258,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-202: Modal validation matches the standard form
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Clear the subject and save.
 
@@ -257,6 +275,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-203: Script content in a subject or description
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Via quick add and via the edit modal, enter a script tag as the subject and in the description.
 2. View the board as another user, including in the card's tooltip and any description card field.
@@ -270,6 +289,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-204: Very long subject
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Quick-add an issue with a 1000-character subject.
 
@@ -281,6 +301,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-205: Concurrent moves of the same card
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. Both have the board open. A drags the card to column X; B, without reloading, drags it to column Y.
 
@@ -293,6 +314,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-206: Issue deleted while its card is on screen
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. A has the board open. B deletes the issue. A drags the now-stale card.
 
@@ -304,6 +326,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-207: Network failure mid-drag
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Take the network offline and drag a card.
 
@@ -316,6 +339,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-208: Session expiry mid-action
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Let the session expire, then drag a card and then open the edit modal.
 
@@ -327,6 +351,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-209: Board in a closed or archived project
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Close the project: open the board, attempt a drag and a quick add, at the UI and at the endpoint.
 2. Archive it and repeat.
@@ -340,6 +365,7 @@ central defect class this suite exists to catch.
 ### TC-AGB-210: Issue moved to a status hidden from the board
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Change an issue's status from the issue page to one **not** enabled in the board's column settings.
 2. Reload the board.

@@ -66,6 +66,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 ### TC-GNT-096: Admin has full access
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Exercise every row of the matrix as Admin, in both the project and global views.
 
@@ -77,6 +78,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 ### TC-GNT-097: View Flux Gantt grants write access, not read-only access
 
 **User Role:** A role granted **only** View Flux Gantt (plus basic project access), with no other Gantt permission
+**Priority:** High
 **Steps:**
 1. Open the project chart.
 2. Attempt, in turn: add a release, add an issue, drag a bar, resize a bar, inline-edit and save, delete an issue,
@@ -94,6 +96,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 ### TC-GNT-098: Without View Flux Gantt, the chart is inaccessible
 
 **User Role:** Member of the project on a role lacking the permission
+**Priority:** High
 **Steps:**
 1. Confirm no Flux Gantt entry in the project menu.
 2. Request the project chart URL directly.
@@ -109,6 +112,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 ### TC-GNT-099: Settings panel requires core Manage versions
 
 **User Role:** Member with View Flux Gantt but **without** Manage versions
+**Priority:** High
 **Steps:**
 1. Confirm the gear icon is absent, or the panel refuses to open.
 2. Send a settings-update request directly.
@@ -122,6 +126,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 ### TC-GNT-100: Baseline management requires core Manage versions
 
 **User Role:** Member with View Flux Gantt but **without** Manage versions
+**Priority:** High
 **Steps:**
 1. Confirm baseline create/update/clear/delete controls are absent.
 2. Send each of those four requests directly.
@@ -135,6 +140,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 ### TC-GNT-101: Granting Manage versions enables settings and baselines without admin rights
 
 **User Role:** Non-admin role granted View Flux Gantt **and** Manage versions
+**Priority:** High
 **Steps:**
 1. Open the settings panel and create, display and delete a baseline.
 
@@ -146,6 +152,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 ### TC-GNT-102: View Global Gantt is independent of View Flux Gantt
 
 **User Role:** Test both asymmetric combinations
+**Priority:** High
 **Steps:**
 1. Role with View Flux Gantt but not View Global Gantt: check the top menu and request `/global_gantt` directly.
 2. Role with View Global Gantt but not View Flux Gantt on any project: open the global view.
@@ -160,6 +167,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 ### TC-GNT-103: Module disabled overrides the role permission
 
 **User Role:** Member with View Flux Gantt
+**Priority:** High
 **Steps:**
 1. Disable the Flux Gantt Chart module on the project.
 2. Confirm the menu entry is gone and request the chart URL and its data endpoint directly.
@@ -172,6 +180,7 @@ Fill in from observed behaviour, not from assumption. Record the role's exact pe
 ### TC-GNT-104: Non-member cannot reach a private project's chart
 
 **User Role:** Authenticated non-member
+**Priority:** High
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -185,6 +194,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-105: Anonymous user has no access
 
 **User Role:** Anonymous (logged out)
+**Priority:** High
 **Steps:**
 1. Request the project chart, `/global_gantt`, and a mutation endpoint with no session.
 
@@ -196,6 +206,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-106: Cross-project dependency requires the permission on both projects
 
 **User Role:** Member with View Flux Gantt on A but not B
+**Priority:** High
 **Steps:**
 1. Attempt the link through the Global Gantt UI.
 2. Send the relation-create request directly, naming an issue in B.
@@ -208,6 +219,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-107: Issue-visibility-scoped roles
 
 **User Role:** Role whose issue visibility is limited to issues created by the user
+**Priority:** High
 **Steps:**
 1. Open the chart and confirm which issues are drawn.
 2. Send a date-update request for an issue created by someone else in the same project.
@@ -222,6 +234,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-108: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
+**Priority:** High
 **Steps:**
 1. Remove View Flux Gantt while the member has the chart open mid-drag.
 2. Member completes the drag without logging out.
@@ -234,6 +247,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-GNT-109: Closed and archived projects
 
 **User Role:** Member with full Gantt permissions
+**Priority:** High
 **Steps:**
 1. Close a project: attempt to view the chart and to mutate, at the UI and the endpoint.
 2. Archive it and repeat.

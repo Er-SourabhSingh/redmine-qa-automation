@@ -69,6 +69,7 @@ not a matrix entry.
 ### TC-TMT-043: Admin has full access
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Exercise every row of the matrix.
 
@@ -80,6 +81,7 @@ not a matrix entry.
 ### TC-TMT-044: View Time Tracker Activity gates the activity module
 
 **User Role:** Member without the permission
+**Priority:** High
 **Steps:**
 1. Confirm the Activity tab is not offered.
 2. Request the activity URL, its data endpoint, and the **map data** endpoint directly.
@@ -94,6 +96,7 @@ not a matrix entry.
 ### TC-TMT-045: View Time Tracker Reports gates reports **and exports**
 
 **User Role:** Member without the permission
+**Priority:** High
 **Steps:**
 1. Confirm the Reports section is not offered.
 2. Request each report URL directly.
@@ -109,6 +112,7 @@ not a matrix entry.
 ### TC-TMT-046: Manage Time Tracker Tags gates tag management
 
 **User Role:** Member without the permission
+**Priority:** High
 **Steps:**
 1. Confirm no tag create/edit/delete controls.
 2. Send tag create, edit and delete requests directly.
@@ -124,6 +128,7 @@ not a matrix entry.
 ### TC-TMT-047: Others' time entries are gated by the core permission
 
 **User Role:** Member without core **View others' time entries**
+**Priority:** High
 **Steps:**
 1. Confirm the entry list and calendar show only their own entries.
 2. Request another user's entries directly, and check the Activity view's payload.
@@ -138,6 +143,7 @@ not a matrix entry.
 ### TC-TMT-048: Editing others' entries is refused
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Attempt to edit, duplicate and delete another user's entry — through the list, through the calendar, and by
    sending each request directly.
@@ -152,6 +158,7 @@ not a matrix entry.
 ### TC-TMT-049: Location data is not exposed to other users
 
 **User Role:** Member without View Time Tracker Activity, and a member with it but without others'-entries rights
+**Priority:** High
 **Steps:**
 1. For each, open any view that could carry location data and inspect the **response payloads**.
 
@@ -166,6 +173,7 @@ not a matrix entry.
 ### TC-TMT-050: Non-member cannot access a private project's data
 
 **User Role:** Authenticated non-member
+**Priority:** High
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -180,6 +188,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-TMT-051: Anonymous has no access
 
 **User Role:** Anonymous (logged out)
+**Priority:** High
 **Steps:**
 1. Request the Time Tracker page, the timer start endpoint, the report exports and the map data with no session.
 
@@ -192,6 +201,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-TMT-052: The browser extension's API key confers no extra authority
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Using the extension's API key directly against the plugin's endpoints, attempt an action the same user is
    refused in the web UI — editing another user's entry, or starting a timer in an inaccessible project.
@@ -206,6 +216,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-TMT-053: Establish what gates time logging itself
 
 **User Role:** A role with core **Log spent time** removed
+**Priority:** High
 **Steps:**
 1. Attempt to start the timer, stop it, and create a manual entry — through the UI and directly.
 
@@ -220,6 +231,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-TMT-054: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
+**Priority:** High
 **Steps:**
 1. Remove a permission while the member has the Time Tracker page open with a timer running.
 2. Have them stop the timer and attempt a report export without logging out.
@@ -234,6 +246,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-TMT-055: Closed and archived projects
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Close a project: attempt to start a timer, log manually, and edit an existing entry, at the UI and the endpoint.
 2. Archive it and repeat; also check whether its entries still appear in the Activity view and reports.
@@ -261,6 +274,7 @@ direct-endpoint sub-steps, remain **not executed** — a future full pass on thi
 ### TC-TMT-056: Core "Time tracking" module disabled at project level
 
 **User Role:** Admin (any member)
+**Priority:** High
 **Preconditions:** A project with the plugin's timer previously usable.
 **Steps:**
 1. Project Settings → Modules → uncheck core Redmine's **Time tracking** module (this plugin registers no

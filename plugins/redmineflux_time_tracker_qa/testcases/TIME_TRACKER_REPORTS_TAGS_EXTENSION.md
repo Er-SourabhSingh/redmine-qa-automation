@@ -27,6 +27,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-057: Summary Report groups by Project, User and Activity
 
 **User Role:** Member with **View Time Tracker Reports**
+**Priority:** Medium
 **Steps:**
 1. Run the Summary Report grouped by Project, then by User, then by Activity.
 
@@ -40,6 +41,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-058: Summary totals reconcile with source data
 
 **User Role:** Member with the permission
+**Priority:** High
 **Steps:**
 1. For one project and period, compare the Summary total with the entry list and core Redmine's spent-time report.
 
@@ -51,6 +53,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-059: Charts match the tabular data
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Compare each chart segment against the corresponding row.
 
@@ -63,6 +66,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-060: Export to PDF, CSV and XML
 
 **User Role:** Member with the permission
+**Priority:** High
 **Steps:**
 1. Export the same Summary Report in each of the three documented formats.
 
@@ -76,6 +80,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-061: Export formatting integrity
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Export data containing commas, quotes, newlines in comments, and non-Latin characters.
 
@@ -94,6 +99,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-062: Detailed Report
 
 **User Role:** Member with the permission
+**Priority:** Medium
 **Steps:**
 1. Open the Detailed Report and filter by project, user and activity, individually and combined.
 
@@ -106,6 +112,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-063: Weekly Report
 
 **User Role:** Member with the permission
+**Priority:** Medium
 **Steps:**
 1. Open the Weekly Report and filter by user and project; check a week spanning a month boundary.
 
@@ -118,6 +125,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-064: Reports with no matching data
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Run each report with filters matching nothing, and export the result.
 
@@ -130,6 +138,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-065: Large report volume
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Run the Detailed Report across a year for the whole instance, then export it.
 
@@ -145,6 +154,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-066: Create a tag
 
 **User Role:** Member with **Manage Time Tracker Tags**
+**Priority:** Medium
 **Steps:**
 1. Tags section → enter a name → **Add**.
 
@@ -156,6 +166,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-067: Edit a tag
 
 **User Role:** Member with the permission
+**Priority:** Medium
 **Steps:**
 1. Rename a tag that is in use on several entries.
 
@@ -167,6 +178,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-068: Delete an unused tag
 
 **User Role:** Member with the permission
+**Priority:** Low
 **Steps:**
 1. Delete a tag with no entries against it.
 
@@ -178,6 +190,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-069: Delete a tag that is in use
 
 **User Role:** Member with the permission
+**Priority:** Medium
 **Steps:**
 1. Delete a tag attached to several entries; then open those entries.
 
@@ -191,6 +204,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-070: Used / Unused filter
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Filter the tag list by **Used**, then by **Unused**.
 
@@ -203,6 +217,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-071: Duplicate tag names
 
 **User Role:** Member with the permission
+**Priority:** Low
 **Steps:**
 1. Create two tags with the same name.
 
@@ -215,6 +230,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-072: Tag name validation
 
 **User Role:** Member with the permission
+**Priority:** High
 **Steps:**
 1. Create tags with a blank name, a whitespace-only name, a 500-character name, and one containing a script tag.
 
@@ -228,6 +244,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-073: Tag management requires the permission
 
 **User Role:** Member **without** Manage Time Tracker Tags
+**Priority:** High
 **Steps:**
 1. Confirm no create/edit/delete controls are offered.
 2. Send tag create, edit and delete requests **directly**.
@@ -246,6 +263,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-074: Configure the extension
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open the extension, enter the **Base URL** and **API Key**, click **Test Connection**, then **Save Settings**.
 
@@ -257,6 +275,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-075: Test Connection fails clearly on bad input
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Test with: a wrong Base URL, a valid URL with an invalid API key, and an unreachable host.
 
@@ -269,6 +288,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-076: Start the timer from the extension
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Select a project in the extension and click **Start**; then open the Time Tracker page in Redmine.
 
@@ -280,6 +300,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-077: Timer runs with the extension closed
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Start from the extension, close the extension popup, wait, reopen it.
 
@@ -291,6 +312,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-078: Stop from the extension records the entry
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Reopen the extension and click **Stop**; check the Time Tracker page and core Redmine.
 
@@ -302,6 +324,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-079: Extension and web UI act on the same timer
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Start a timer in the **web UI**, then stop it from the **extension**.
 2. Then start from the extension and stop in the web UI.
@@ -318,6 +341,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-080: Extension respects required fields
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** The instance requires a comment or a custom field on time entries.
 **Steps:**
 1. Stop a timer from the extension.
@@ -333,6 +357,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-081: Extension API key scope
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Configure the extension with user A's API key and confirm entries are attributed to A.
 2. Attempt to start a timer against a project A cannot access.
@@ -351,6 +376,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-082: Reports require View Time Tracker Reports
 
 **User Role:** Member without the permission
+**Priority:** High
 **Steps:**
 1. Confirm the Reports section is not offered.
 2. Request each report URL directly.
@@ -367,6 +393,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-083: Reports respect per-user visibility
 
 **User Role:** Member with report access but without permission to view others' time entries
+**Priority:** High
 **Steps:**
 1. Run each report and check whose data appears; then export.
 
@@ -379,6 +406,7 @@ Time Tracker → **Reports** and **Tags** in the sidebar. The extension is exerc
 ### TC-TMT-084: Reports respect project visibility
 
 **User Role:** Member of project A only
+**Priority:** High
 **Preconditions:** **Confirm project B is genuinely private.**
 **Steps:**
 1. Run each report and attempt to filter to project B.

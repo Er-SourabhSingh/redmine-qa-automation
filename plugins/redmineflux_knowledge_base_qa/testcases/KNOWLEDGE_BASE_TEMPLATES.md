@@ -27,6 +27,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-186: All six pre-built templates ship and are usable
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Open the Templates tab and confirm the six documented templates are present:
    **Meeting Notes**, **Architecture Review**, **Product Requirements Document (PRD)**, **Annual Plan**,
@@ -42,6 +43,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-187: Create a page from a template
 
 **User Role:** Member with `manage_knowledgebase_pages`
+**Priority:** High
 **Steps:**
 1. Sidebar → **New Page** → enter a title → select a template → Save.
 
@@ -53,6 +55,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-188: Template content is editable and independent
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create a page from a template, heavily edit the content, and publish.
 2. Have an Admin then edit that template.
@@ -68,6 +71,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-189: Creating a page without a template
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create a page leaving the template dropdown unselected.
 
@@ -79,6 +83,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-190: Template formatting survives into the page
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Use a template containing headings, tables and lists; publish the resulting page.
 
@@ -94,6 +99,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-191: Create a template
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Templates tab → **New Template** → enter a name and HTML content → Save.
 
@@ -105,6 +111,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-192: Edit a template
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Templates list → **Edit** → change name and content → Save.
 
@@ -116,6 +123,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-193: Copy a template
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Open a template's detail → **Copy**.
 
@@ -128,6 +136,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-194: Delete a template
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Templates list → **Delete** → confirm.
 
@@ -140,6 +149,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-195: Cancel a template deletion
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Trigger Delete and cancel the confirmation.
 
@@ -151,6 +161,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-196: Deleting a pre-built template
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Delete one of the six shipped templates.
 
@@ -168,6 +179,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-197: Template with a blank name or blank content
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Save a template with an empty name; then with a name but no content.
 
@@ -180,6 +192,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-198: Script content in template HTML
 
 **User Role:** Admin, then Member, then unauthenticated visitor
+**Priority:** High
 **Steps:**
 1. Create a template whose HTML contains a script tag, an `onerror` image payload and a `javascript:` link.
 2. Create a page from it, publish it, and view it as a **different** user.
@@ -198,6 +211,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-199: Malformed HTML in a template
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Save a template with unclosed tags and invalid nesting; create a page from it.
 
@@ -211,6 +225,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-200: Very large template
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Create a template of roughly 100 KB and create a page from it.
 
@@ -222,6 +237,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-201: Duplicate template names
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Create two templates with the same name.
 
@@ -234,6 +250,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-202: Templates are admin-only — non-admins cannot manage them
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn), including users holding
+**Priority:** High
 `manage_knowledgebase_pages` and `manage_knowledgebase_spaces`
 **Steps:**
 1. Confirm no template-management entry point exists anywhere in the project UI.
@@ -252,6 +269,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-203: Template list is not readable by non-admins
 
 **User Role:** Non-admin member
+**Priority:** Medium
 **Steps:**
 1. Request the templates listing endpoint directly.
 
@@ -265,6 +283,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-204: Template deleted while a New Page form is open
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. Member opens New Page with a template selected. Admin deletes that template. Member submits.
 
@@ -277,6 +296,7 @@ Knowledge Base sidebar → **New Page** → the template dropdown for consumptio
 ### TC-RKB-205: Template availability is instance-wide
 
 **User Role:** Admin then members of two projects
+**Priority:** Medium
 **Steps:**
 1. Create a template and check the New Page dropdown in two different projects.
 

@@ -22,6 +22,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-025: Administration → Issue Template page loads
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Open Administration → Issue Template.
 
@@ -34,6 +35,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-026: Create a global template with all fields
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Click **Add Issue Template**.
 2. Fill Tracker, Issue Template Name, Issue Subject, Issue description, and tick one project in the Project list.
@@ -48,6 +50,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-027: Tracker dropdown lists all trackers
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Compare the Tracker dropdown with Administration → Trackers.
 
@@ -59,6 +62,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-028: Project list offers all projects to an admin
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Open the Project list on the creation form and compare it with Administration → Projects.
 
@@ -72,6 +76,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-029: Create a template bound to several projects
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Tick three projects in the Project list and submit.
 
@@ -83,6 +88,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-030: Administration list shows only global templates
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Have a project manager create a project-specific template (see the project suite).
 2. Reopen Administration → Issue Template.
@@ -98,6 +104,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-031: Clear button resets the form
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Fill every field on the creation form, then click **Clear**.
 
@@ -110,6 +117,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-032: Cancel button discards without saving
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Fill the form and click **Cancel**.
 2. Return to the template list.
@@ -122,6 +130,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-033: Template name is shown and identifiable in the list
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Create two templates on the same tracker with different names.
 
@@ -138,6 +147,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-034: Submit with no template name
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Leave Issue Template Name blank and submit.
 
@@ -151,6 +161,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-035: Submit with no tracker
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Leave the Tracker unselected and submit.
 
@@ -163,6 +174,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-036: Submit with no project selected
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Leave the Project list empty and submit.
 
@@ -175,6 +187,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-037: Submit with empty Subject and Description
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Provide only a name and tracker; leave Subject and Description blank; submit.
 
@@ -187,6 +200,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-038: Duplicate template names on the same tracker
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Create two templates with the same name and the same tracker.
 
@@ -200,6 +214,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-039: Very long field values
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Enter a 500-character template name and a 100 KB description; submit.
 
@@ -212,6 +227,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-040: HTML and script in template fields
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Put a script tag in the template name, the subject and the description; submit.
 2. View the template list, then create an issue from the template and view it as another user.
@@ -226,6 +242,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-041: Special characters in the subject
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Use quotes, ampersands, emoji and newline characters in the Issue Subject; apply the template.
 
@@ -238,6 +255,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-042: Creating a template while another admin deletes the tracker
 
 **User Role:** Two admins
+**Priority:** Low
 **Steps:**
 1. Admin A has the creation form open with tracker T selected. Admin B deletes tracker T. Admin A submits.
 
@@ -249,6 +267,7 @@ Top menu **Administration** → **Issue Template** → **Add Issue Template**. D
 ### TC-RIT-043: Creating a template referencing a project deleted mid-form
 
 **User Role:** Two admins
+**Priority:** Low
 **Steps:**
 1. Admin A ticks project P. Admin B deletes project P. Admin A submits.
 

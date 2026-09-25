@@ -71,6 +71,18 @@ I'll do this (Crm Create Lead) -- confirm?
 - Duplicate found: No (distinct trigger)
 - Existing bug reference (if duplicate): — Same defect *shape* as BUG-CRX-020 (closed 2026-09-16) — fabricated pending-confirmation text with no real button — but BUG-CRX-020's fix and retest never covered the validation-error-correction-via-follow-up path; this is a different code path (likely the turn that processes a plain-text field correction after a validation failure, which does not re-render through the same proposal-card component the initial write and the Cancel-then-retry path both use).
 
+## 2026-09-25 retest — original defect FIXED, but a different defect now surfaces at the same trigger point
+
+Same exact repro: `luna.blossom`, "Sales Agent, create a lead named 'Retest Validation Lead' with status New, source Website" → real Confirm/Cancel card → Confirm → real validation error ("Email cannot be blank; Email is invalid") with buttons still present, matching the original bug's step 2 exactly.
+
+**Step 3 (the critical one) — corrected via follow-up:** "Use email retest-validation-lead@example.test"
+
+**Result:** the original "Still PENDING — waiting for your confirmation" fabricated-proposal-with-zero-buttons text does **not** reproduce. That specific defect appears fixed.
+
+**However, a different, new-looking defect appears in its place:** the agent responded *"I don't have CRM tools available in this chat. To create a lead, you'll need to ask the Project Manager or a CRM-enabled agent."* — this directly contradicts the same conversation's own successful CRM tool use one turn earlier (the initial proposal + validation error both came from real `Crm Create Lead` tool calls). This is the same fabricated-capability-denial pattern as BUG-CRX-029 (QA Agent, closed-shape defect), now observed on the Sales Agent at the validation-error-correction trigger point specifically.
+
+**Verdict: Original BUG-CRX-027 defect (fabricated pending proposal, zero buttons) is FIXED.** The validation-error-correction path itself is no longer producing a fake "still pending" card. But the same trigger now exposes a new fabrication (false "no CRM tools" claim) — worth its own bug report if the user wants it filed; not the same defect as originally described here, so closing this bug on the original repro is reasonable, with the new finding tracked separately.
+
 ## Production report
 
 Reported to production as issue **#120763** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-17. Textile description, no attachments (per §4.3a policy). Linked to Run #569 "Crux QA Run 1", testcase **#120490** (`CRUX_AGENT_CRM_SALES.md`), Environment "Window 11 + Chrome" — testcase marked Failed.

@@ -24,6 +24,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 ### TC-TAG-001: Add the Tag column to the issue list
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. On the Issues page open **Options**, move **Tags** into the selected columns, click **Apply**.
 
@@ -36,6 +37,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 ### TC-TAG-002: Tag column survives saving a custom query
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With the Tag column and a tag filter applied, save the query.
 2. Reopen the saved query later.
@@ -48,6 +50,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 ### TC-TAG-003: Sort the issue list by the Tag column
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Click the Tags column header, if sortable.
 
@@ -60,6 +63,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 ### TC-TAG-004: Tag column in CSV/PDF export
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With the Tag column applied, export the issue list to CSV and to PDF.
 
@@ -76,6 +80,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 ### TC-TAG-005: Filter issues by a single tag
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Add filter → **Tags** → select one tag → Apply.
 
@@ -88,6 +93,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 ### TC-TAG-006: Filter by multiple tags
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Select two tags in the filter and apply.
 
@@ -101,6 +107,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 ### TC-TAG-007: "None" / "Any" tag filter operators
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply the filter with operator "none" and then "any", if offered.
 
@@ -113,6 +120,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 ### TC-TAG-008: Tag filter combines with other filters
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Combine a tag filter with Status = open and an assignee filter.
 
@@ -128,6 +136,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 ### TC-TAG-009: Clicking a tag opens its entity listing
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Click a tag label on an issue detail page.
 
@@ -140,6 +149,7 @@ Reach the tag listing page by clicking a tag label, not by typing its URL.
 ### TC-TAG-010: Tag listing respects project visibility
 
 **User Role:** Member of project A only
+**Priority:** High
 **Preconditions:** The same tag is used on an issue in project A and on an issue in a **private** project B that
 this user is not a member of. Confirm project B is genuinely private — a new Redmine project defaults to public.
 **Steps:**
@@ -154,6 +164,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 ### TC-TAG-011: Tag listing from the issue list column
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Click a tag label rendered inside the issue list's Tags column.
 
@@ -169,6 +180,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 ### TC-TAG-012: Filter by a tag that has no issues
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create an unused tag and filter by it.
 
@@ -180,6 +192,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 ### TC-TAG-013: Filter by a tag deleted mid-session
 
 **User Role:** Member + Admin
+**Priority:** Medium
 **Steps:**
 1. Apply a tag filter, then have the Admin delete that tag, then re-run the query.
 
@@ -191,6 +204,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 ### TC-TAG-014: Saved query referencing a deleted tag
 
 **User Role:** Member + Admin
+**Priority:** Medium
 **Steps:**
 1. Save a query filtered on a tag, delete the tag, reopen the saved query.
 
@@ -202,6 +216,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 ### TC-TAG-015: Tag filter on the global (cross-project) issue list
 
 **User Role:** Member of several projects
+**Priority:** Medium
 **Steps:**
 1. From the global Issues page (no project context), filter by a tag used in multiple projects.
 
@@ -213,6 +228,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 ### TC-TAG-016: Very many tags on one issue
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Assign 50 tags to one issue and view it in the list with the Tags column applied.
 
@@ -225,6 +241,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 ### TC-TAG-017: Large tag vocabulary in the filter dropdown
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. With several hundred tags on the instance, open the tag filter dropdown.
 
@@ -237,6 +254,7 @@ this user is not a member of. Confirm project B is genuinely private — a new R
 ### TC-TAG-018: Tag search via the global search box
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Search for a tag name in Redmine's global search.
 

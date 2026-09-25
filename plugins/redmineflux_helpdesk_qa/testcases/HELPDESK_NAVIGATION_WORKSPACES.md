@@ -17,6 +17,7 @@
 ### TC-HLP-147: "Helpdesk" appears in the top menu for an agent and opens the Command Center
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** Agent has `view_helpdesk` and `manage_helpdesk` on at least one project.
 
 **Steps:**
@@ -36,6 +37,7 @@
 ### TC-HLP-148: The Command Center hides Redmine's application menu and shows its own header
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Command Center open.
 
 **Steps:**
@@ -52,6 +54,7 @@
 ### TC-HLP-149: The Command Center icon rail reaches all seven sections
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Command Center open.
 
 **Steps:**
@@ -69,6 +72,7 @@
 ### TC-HLP-150: SLAs and Support Levels are reachable directly by URL despite no rail icon
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Command Center open; agent has access to at least one project's SLAs/support levels.
 
 **Steps:**
@@ -87,6 +91,7 @@
 ### TC-HLP-151: A project's Helpdesk tab keeps Redmine's normal project chrome
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Viewing a project's Helpdesk tab.
 
 **Steps:**
@@ -103,6 +108,7 @@
 ### TC-HLP-152: Project-level Helpdesk exposes the correct six tabs
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Viewing a project's Helpdesk tab.
 
 **Steps:**
@@ -118,6 +124,7 @@
 ### TC-HLP-153: Command Center Dashboard shows KPI cards, recent tickets, and charts
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Some tickets exist across at least one project.
 
 **Steps:**
@@ -133,6 +140,7 @@
 ### TC-HLP-154: Project Dashboard shows this project's KPIs and prepaid hours per organization
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Project has tickets and at least one organization with a prepaid-hours budget.
 
 **Steps:**
@@ -149,6 +157,7 @@
 ### TC-HLP-155: Command Center Dashboard's KPI "View all" links navigate with the correct filter already applied
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Command Center Dashboard open, with tickets covering a range of statuses (Unassigned, Open, On Hold, SLA Breached, Resolved).
 
 **Steps:**
@@ -170,6 +179,7 @@
 ### TC-HLP-156: Project Dashboard's KPI "View all" links apply the same filter, scoped to that project only
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** A project's own Helpdesk Dashboard open, with tickets covering a range of statuses.
 
 **Steps:**
@@ -186,6 +196,7 @@
 ### TC-HLP-157: Changing the Dashboard's Date Range (not just accepting the default) carries the new range into a KPI's "View all" redirect
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** A project's own Helpdesk Dashboard open. TC-HLP-155/275 only ever exercised the page's *default* date range (`created_from`/`created_to` reflecting whatever the Date Range picker showed on load) — this TC exercises a range the user deliberately changes.
 
 **Steps:**
@@ -205,6 +216,7 @@
 ### TC-HLP-158: Search on a list screen finds matching records and survives paging
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** A list screen (e.g. Customers, Organizations, Products) with enough records to paginate.
 
 **Steps:**
@@ -223,6 +235,7 @@
 ### TC-HLP-159: Opening a product from the global Products list stays in Command Center chrome
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** At least one product exists.
 
 **Steps:**
@@ -242,6 +255,7 @@
 ### TC-HLP-160: "Helpdesk" does not appear in the top menu for a user with no helpdesk permission anywhere
 
 **User Role:** Redmine user who is not a member of any helpdesk-enabled project, or is a member but with neither `view_helpdesk` nor `manage_helpdesk` on any project
+**Priority:** High
 **Precondition:** As above.
 
 **Steps:**
@@ -272,6 +286,7 @@
 ### TC-HLP-161: Searching for a term matching no records shows a clean empty state
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Any list screen with search.
 
 **Steps:**
@@ -291,6 +306,7 @@
 ### TC-HLP-162: Deep-linking directly to a Command Center URL works without navigating via the menu
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Agent has an active session but has not clicked through the Helpdesk menu this session.
 
 **Steps:**
@@ -306,6 +322,7 @@
 ### TC-HLP-163: Switching between Command Center and a project's Helpdesk tab does not bleed chrome between modes
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Access to both the Command Center and at least one project's Helpdesk tab.
 
 **Steps:**
@@ -323,6 +340,7 @@
 ### TC-HLP-164: Clearing a search term resets the list to its unfiltered state on the current page
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** A search is active on page 2 of a filtered list (per TC-HLP-158).
 
 **Steps:**

@@ -26,6 +26,7 @@ TC-TCM-204 – 824 for the permission legs; the cases here cover the functional 
 ### TC-TCM-205: To-Do lists work assigned to the current user
 
 **User Role:** QA (assignee)
+**Priority:** High
 **Steps:**
 1. As Admin, create a run assigning cases to user X.
 2. Log in as X; open **To-Do**.
@@ -38,6 +39,7 @@ TC-TCM-204 – 824 for the permission legs; the cases here cover the functional 
 ### TC-TCM-206: Executing a case updates its To-Do state
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. From To-Do, note an outstanding item.
 2. Execute that case as **Passed**; return to To-Do.
@@ -51,6 +53,7 @@ TC-TCM-204 – 824 for the permission legs; the cases here cover the functional 
 ### TC-TCM-207: Reassigning work moves the To-Do item
 
 **User Role:** QA / Manager
+**Priority:** Medium
 **Steps:**
 1. Reassign a run (or a case) from user X to user Y.
 2. Check X's and Y's To-Do lists.
@@ -63,6 +66,7 @@ TC-TCM-204 – 824 for the permission legs; the cases here cover the functional 
 ### TC-TCM-208: To-Do reflects run closure
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. With outstanding To-Do items on a run, close that run.
 2. Reopen the assignee's To-Do.
@@ -76,6 +80,7 @@ TC-TCM-204 – 824 for the permission legs; the cases here cover the functional 
 ### TC-TCM-209: To-Do is project-scoped
 
 **User Role:** QA assigned work in two projects
+**Priority:** High
 **Steps:**
 1. Open Project A's To-Do.
 
@@ -87,6 +92,7 @@ TC-TCM-204 – 824 for the permission legs; the cases here cover the functional 
 ### TC-TCM-210: To-Do with no assigned work renders cleanly
 
 **User Role:** a user with no assignments
+**Priority:** Low
 **Steps:**
 1. Open **To-Do** as that user.
 
@@ -102,6 +108,7 @@ TC-TCM-204 – 824 for the permission legs; the cases here cover the functional 
 ### TC-TCM-211: Executing a case writes an activity entry
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Note the current activity feed.
 2. Execute a case as **Failed** with a note and a defect.
@@ -115,6 +122,7 @@ TC-TCM-204 – 824 for the permission legs; the cases here cover the functional 
 ### TC-TCM-212: Activity entries attribute the correct user
 
 **User Role:** two QA users
+**Priority:** Medium
 **Steps:**
 1. Have users X and Y each execute a different case.
 2. Inspect the activity feed.
@@ -127,6 +135,7 @@ TC-TCM-204 – 824 for the permission legs; the cases here cover the functional 
 ### TC-TCM-213: Activity log covers run lifecycle events
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. Create, edit and close a run; inspect the activity feed after each.
 
@@ -139,6 +148,7 @@ TC-TCM-204 – 824 for the permission legs; the cases here cover the functional 
 ### TC-TCM-214: Activity log respects project scope and permissions
 
 **User Role:** QA member of Project A only
+**Priority:** High
 **Steps:**
 1. Open Project A's activity view and inspect entries.
 2. Request the activity URL for Project B directly (`/testcase_activities?project_id=<B>`).

@@ -28,6 +28,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-085: Time Tracker page renders
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open Time Tracker from the navigation.
 
@@ -40,6 +41,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-086: Entry list shows the user's own entries accurately
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Compare the listed entries against core Redmine's spent-time report for the same user.
 
@@ -55,6 +57,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-087: Start the timer with all fields selected
 
 **User Role:** Member with log-time rights
+**Priority:** High
 **Steps:**
 1. Select Project, Issue, Tag and Activity; click **Start**.
 
@@ -67,6 +70,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-088: Issue list is scoped to the selected project
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Select a project and open the issue picker; change the project and re-check.
 
@@ -80,6 +84,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-089: Start without an issue
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Attempt to start with a project but no issue selected.
 
@@ -92,6 +97,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-090: Only one timer runs at a time
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Start a timer, then attempt to start a second one against a different issue.
 
@@ -105,6 +111,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-091: Stop the timer and save the entry
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Let the timer run a measurable interval; click **Stop**; enter a comment and any required custom fields;
    click **Stop** to save.
@@ -119,6 +126,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-092: Required comment and custom fields are enforced
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** The instance requires a comment and has a required time-entry custom field.
 **Steps:**
 1. Stop the timer leaving each required field blank in turn.
@@ -133,6 +141,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-093: Cancel a stop
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Click Stop, then dismiss the prompt without saving.
 
@@ -149,6 +158,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-094: Timer starts when location is granted
 
 **User Role:** Member subject to the location requirement
+**Priority:** High
 **Steps:**
 1. With **Require Location Permission** on, start the timer and grant browser location access.
 
@@ -160,6 +170,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-095: Timer does not start when location is denied
 
 **User Role:** Member subject to the requirement
+**Priority:** High
 **Steps:**
 1. Deny browser location access and attempt to start.
 
@@ -173,6 +184,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-096: Stopping also requires location
 
 **User Role:** Member subject to the requirement
+**Priority:** Medium
 **Steps:**
 1. Start with location granted, then revoke it in the browser and click Stop.
 
@@ -185,6 +197,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-097: Behaviour on an insecure origin
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Access the instance over plain HTTP with the location requirement enabled and attempt to start.
 
@@ -202,6 +215,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-098: Timer survives navigation
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Start a timer, navigate to another Redmine page, and return.
 
@@ -213,6 +227,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-099: Timer survives a page reload
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Start a timer and hard-reload the page.
 
@@ -224,6 +239,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-100: Timer survives closing the browser
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Start a timer, close the browser entirely, wait, reopen and log back in.
 
@@ -237,6 +253,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-101: Timer across session expiry
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Start a timer, let the session expire, log back in and stop it.
 
@@ -253,6 +270,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-102: Edit each inline field
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. On an existing entry, edit in turn: comment, tag, activity, start time, end time and date; press Enter after
    each.
@@ -267,6 +285,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-103: Editing start/end time recalculates the duration
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Change the end time to extend the entry by an hour.
 
@@ -280,6 +299,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-104: Cancel an inline edit
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Begin editing a field, change the value, then click away or press Escape without pressing Enter.
 
@@ -292,6 +312,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-105: Inline edits are journaled
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Make an inline change and check the entry's history or the Activity view.
 
@@ -307,6 +328,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-106: Log time manually
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** Manual entry enabled.
 **Steps:**
 1. **Manual Time Log** → project, issue, required fields, Start Time, End Time, Date → **Add**.
@@ -319,6 +341,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-107: Manual entry validation
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enter an end time **before** the start time; then identical start and end times; then a 30-hour span.
 
@@ -331,6 +354,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-108: Manual entry overlapping an existing entry
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create a manual entry whose time range overlaps one that already exists for the same user.
 
@@ -343,6 +367,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-109: Manual entry for a past date
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create a manual entry dated last week, and one dated next week.
 
@@ -355,6 +380,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-110: Duplicate an entry
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Context menu → **Duplicate** → confirm on an entry whose data differs from every other entry that day.
 
@@ -366,6 +392,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-111: Duplicate that matches an existing same-day entry
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Duplicate an entry so the result is identical to another entry on the same day.
 2. Compare the day's total before and after, and check the core spent-time report.
@@ -380,6 +407,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-112: Duplicate preserves the tag and activity
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Duplicate an entry with a tag and a non-default activity.
 
@@ -391,6 +419,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-113: Delete an entry
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Context menu → **Delete** → confirm.
 
@@ -402,6 +431,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-114: Cancel a deletion
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Trigger the delete and cancel.
 
@@ -417,6 +447,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-115: Script content in a comment
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Save an entry whose comment contains a script tag; view it in the entry list, the Activity view, the reports,
    and each export format.
@@ -430,6 +461,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-116: Editing another user's entry
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Attempt to edit and delete another user's entry through the UI and by sending the requests directly.
 
@@ -442,6 +474,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-117: Concurrent edits from two sessions
 
 **User Role:** Member in two browsers
+**Priority:** Medium
 **Steps:**
 1. Edit the same entry's comment in one session and its duration in the other, without reloading.
 
@@ -453,6 +486,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-118: Timer against an issue that is deleted mid-run
 
 **User Role:** Member + Manager
+**Priority:** Medium
 **Steps:**
 1. Start a timer on an issue; have the issue deleted; then stop the timer.
 
@@ -465,6 +499,7 @@ Top navigation → **Time Tracker**. Do not type URLs.
 ### TC-TMT-119: Timer against a closed or archived project
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Attempt to start a timer in a closed project, then an archived one, via the UI and directly.
 2. Also archive a project while a timer against it is running, then stop.

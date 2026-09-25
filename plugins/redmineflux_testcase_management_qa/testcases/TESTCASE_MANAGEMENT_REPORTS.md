@@ -29,6 +29,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-078: Create a Testcase Summary report
 
 **User Role:** QA / Manager
+**Priority:** High
 **Steps:**
 1. **Reports** → **+ New report** → **Select Type** = `Testcase Summary`.
 2. Enter a **Name**; leave Advanced Options at "Include all test run"; **Right now**; **Create**.
@@ -42,6 +43,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-079: Create a Defect Summary report
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. As above with **Select Type** = `Defect Summary`; open it.
 
@@ -53,6 +55,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-080: Create an Activity Summary report with a date range
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. **Select Type** = `Activity Summary`; set **Activity Date Range** start and end; **Create**; open it.
 
@@ -64,6 +67,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-081: Activity Summary requires a date range
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. **Select Type** = `Activity Summary`, leave **Activity Date Range** empty, **Create**.
 
@@ -77,6 +81,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-082: Create a Tester Scorecard report
 
 **User Role:** QA
+**Priority:** Medium
 **Precondition:** Results recorded by ≥2 different users.
 
 **Steps:**
@@ -90,6 +95,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-083: Create a Requirement Coverage report
 
 **User Role:** QA
+**Priority:** High
 **Precondition:** ≥1 requirement with linked test cases.
 
 **Steps:**
@@ -103,6 +109,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-084: Requirement Coverage requires a requirement
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. **Select Type** = `Requirement Coverage`, leave **Select Requirement** at "Please select", **Create**.
 
@@ -114,6 +121,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-085: Create an Overdue Run Summary report
 
 **User Role:** QA
+**Priority:** Medium
 **Precondition:** ≥1 run past its End Date with unexecuted cases.
 
 **Steps:**
@@ -127,6 +135,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-086: Report name is mandatory
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. Create any report type leaving **Name** empty; **Create**.
 
@@ -138,6 +147,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-087: Restrict a report to specific test runs
 
 **User Role:** QA
+**Priority:** Medium
 **Precondition:** ≥2 runs with different results.
 
 **Steps:**
@@ -152,6 +162,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-088: Edit a report
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Edit an existing report (pencil icon): change its **Name** and **Description**; save; reload the list.
 
@@ -163,6 +174,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-089: Delete a report
 
 **User Role:** Manager / Admin
+**Priority:** Medium
 **Steps:**
 1. Delete a report (bin icon) and confirm; reload the list.
 
@@ -174,6 +186,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-090: Cancelling report deletion does not delete
 
 **User Role:** Manager
+**Priority:** Low
 **Steps:**
 1. Start deletion, cancel at the prompt, reload.
 
@@ -185,6 +198,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-091: Report reflects data added after creation
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Open a Testcase Summary report and note the totals.
 2. Record additional results in a covered run.
@@ -199,6 +213,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-092: Download report as HTML
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Open a report → download menu → **Download HTML**.
 2. Open the downloaded file.
@@ -211,6 +226,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-093: Download report as PDF (in-app, client-side)
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Open a report → download menu → **Download PDF**.
 2. Open the downloaded file.
@@ -225,6 +241,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-094: Download report as Excel
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Open a report → download menu → **Download Excel**; open the file.
 
@@ -236,6 +253,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-095: Report with no data renders cleanly
 
 **User Role:** QA
+**Priority:** Low
 **Precondition:** A project with the module enabled but no runs or results.
 
 **Steps:**
@@ -249,6 +267,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-096: Report list paginates and sorts
 
 **User Role:** QA
+**Priority:** Low
 **Precondition:** More reports than fit on one page.
 
 **Steps:**
@@ -262,6 +281,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-097: Report respects project scope
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Create reports in Project A and Project B; open Project A's report list.
 
@@ -277,6 +297,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-098: Email a report as an HTML attachment
 
 **User Role:** QA
+**Priority:** High
 **Precondition:** Sidekiq running; a real checkable mailbox.
 
 **Steps:**
@@ -294,6 +315,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-099: Emailed HTML attachment content matches the in-app report
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Open the attachment from TC-TCM-098 and compare against the in-app report.
 
@@ -305,6 +327,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-100: Email a report as a PDF attachment
 
 **User Role:** QA
+**Priority:** High
 **Precondition:** Sidekiq running **and Node.js + Puppeteer + Chromium installed** (Installation step 6).
 
 **Steps:**
@@ -328,6 +351,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-101: PDF failure must not produce a misleading email
 
 **User Role:** QA / Admin
+**Priority:** High
 **Precondition:** Node.js + Puppeteer + Chromium **installed and working** (verify TC-TCM-100 passes first), plus
 **shell access** to restart Sidekiq. This TC cannot be executed from the browser alone.
 
@@ -365,6 +389,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-102: Report type does not affect emailing behaviour
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Email all six report types in both HTML and PDF to the same mailbox.
 2. Compare the delivered messages.
@@ -380,6 +405,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-103: Multiple recipients, one address per line
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Enter two different mailbox addresses on separate lines; email the report as HTML.
 2. Check both mailboxes.
@@ -392,6 +418,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-104: Invalid email address is rejected or reported
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. Enter a malformed address (e.g. `not-an-address`) and create the report.
 
@@ -404,6 +431,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-105: Emailing without "Notify me by email" sends nothing
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Create a report leaving **Notify me by email** unticked; check the mailbox.
 
@@ -415,6 +443,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-106: Report email with Sidekiq stopped
 
 **User Role:** Admin / QA
+**Priority:** Medium
 **Steps:**
 1. Stop Sidekiq; create a report with email enabled; check the mailbox and the report list.
 
@@ -432,6 +461,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-107: Schedule a daily report
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Create a report choosing **Schedule this report**, **Every day**, at a time a few minutes ahead (UTC).
 2. Check the **Scheduled Reports** section, then the mailbox after the scheduled time.
@@ -444,6 +474,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-108: Schedule a weekly report on a chosen weekday
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Create a scheduled report with **Every week** and a specific weekday; inspect Scheduled Reports.
 
@@ -455,6 +486,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-109: Schedule a monthly report on a chosen day
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Create a scheduled report with **Every month** and a day-of-month; inspect Scheduled Reports.
 
@@ -467,6 +499,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-110: Cancel a scheduled report
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Cancel the scheduling of an existing scheduled report.
 2. Check the Scheduled Reports section and the mailbox after the previously scheduled time.
@@ -479,6 +512,7 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 ### TC-TCM-111: Scheduled time is interpreted as UTC
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. Schedule a report for a specific UTC time; note the server and local timezone.
 2. Observe actual delivery time.

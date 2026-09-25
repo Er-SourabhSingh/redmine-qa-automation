@@ -25,6 +25,7 @@ URL is the point.
 ### TC-AGB-122: Global board opens from the top menu
 
 **User Role:** Member with the required permission
+**Priority:** High
 **Steps:**
 1. Click **Agile Board** in the top menu.
 
@@ -36,6 +37,7 @@ URL is the point.
 ### TC-AGB-123: Only visible projects' issues appear
 
 **User Role:** Member of projects A and B, not of private project C
+**Priority:** High
 **Preconditions:** **Confirm project C is genuinely private** — a newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -51,6 +53,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-124: Project context is shown on cards
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enable the project context on cards, per the KB.
 
@@ -62,6 +65,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-125: Search by subject across projects
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Search for a keyword matching issues in two different projects.
 
@@ -73,6 +77,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-126: Filter by assigned members
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Filter the global board by one assignee.
 
@@ -84,6 +89,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-127: Group by each supported option globally
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply Group By for Project, Tracker, Priority, Author, Assignee, Category, Target version and Parent task.
 
@@ -96,6 +102,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-128: Drag between statuses on the global board
 
 **User Role:** Member with edit rights on the issue's project
+**Priority:** High
 **Steps:**
 1. Drag a card to another status column; reload; confirm on the issue page.
 
@@ -107,6 +114,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-129: Double-click editing on the global board
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Double-click a card, edit subject and description, save.
 
@@ -122,6 +130,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-130: Add the Agile Board block to My Page
 
 **User Role:** Any logged-in user
+**Priority:** High
 **Steps:**
 1. Open **My Page** → personalisation controls → add the **Agile Board** block → save the layout.
 
@@ -133,6 +142,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-131: The block shows only the user's assigned issues
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Compare the block's cards against the issue list filtered to assignee = me.
 
@@ -146,6 +156,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-132: Only active, visible projects are included
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Close or archive a project containing one of the user's assigned issues; reload My Page.
 
@@ -157,6 +168,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-133: Drag cards on the My Page board
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Drag an assigned card to another status column; reload; confirm on the issue page.
 
@@ -168,6 +180,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-134: Double-click editing on the My Page board
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Double-click a card and edit subject and description.
 
@@ -179,6 +192,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-135: Block settings — visible statuses
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open the block settings and change which statuses are shown.
 
@@ -192,6 +206,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-136: Block settings — card fields, totals and WIP
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Change card fields, enable totals (estimated time, spent time, Story Points) and set WIP limits in the block
    settings.
@@ -205,6 +220,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-137: Block settings are stored per user
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. A configures the block distinctively; B opens their own My Page.
 
@@ -217,6 +233,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-138: Column reordering on the My Page block
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Enable Column Reordering in the block settings and drag a column.
 
@@ -228,6 +245,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-139: Load more in large columns
 
 **User Role:** Member with many assigned issues
+**Priority:** Medium
 **Steps:**
 1. Use the load-more control in a large column.
 
@@ -243,6 +261,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-140: Global board without the required permission
 
 **User Role:** Member lacking the board permission
+**Priority:** High
 **Steps:**
 1. Confirm the top-menu entry is absent.
 2. Request the global board URL **directly**.
@@ -257,6 +276,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-141: Global drag without edit permission on the target project
 
 **User Role:** Member who can view project B but not edit its issues
+**Priority:** High
 **Steps:**
 1. Confirm B's cards are not draggable on the global board.
 2. Send the status-update request for a B issue directly.
@@ -270,6 +290,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-142: My Page board for a user with no assigned issues
 
 **User Role:** A user with nothing assigned
+**Priority:** Low
 **Steps:**
 1. Add the block and view My Page.
 
@@ -282,6 +303,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-143: My Page block for an anonymous visitor
 
 **User Role:** Anonymous (logged out)
+**Priority:** High
 **Steps:**
 1. Attempt to reach My Page and the block's data endpoint with no session.
 
@@ -294,6 +316,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-144: My Page board respects issue visibility, not just assignment
 
 **User Role:** Member assigned an issue in a project their role can no longer view
+**Priority:** High
 **Steps:**
 1. Remove the user's access to that project while keeping them as the assignee; reload My Page.
 
@@ -306,6 +329,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-145: Story Points hidden when disabled at plugin level
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With Story Points disabled in plugin configuration, inspect the global board and the My Page block settings.
 
@@ -318,6 +342,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-146: Global board with a very large dataset
 
 **User Role:** Member with access to many projects
+**Priority:** Medium
 **Steps:**
 1. Open the global board on an instance with 100+ visible projects and thousands of issues.
 
@@ -330,6 +355,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-AGB-147: My Page block after the module is disabled everywhere
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. Disable the Agile Board module on every project, then open a user's My Page with the block added.
 

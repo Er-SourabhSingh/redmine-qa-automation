@@ -29,6 +29,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-148: Plugin folder name is enforced
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** Archive extracted to `Redmine/plugins/agile_board`.
 **Steps:**
 1. Confirm the folder is named exactly `agile_board`.
@@ -45,6 +46,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-149: Migration completes cleanly
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Run the migration, restart, open a project with the module enabled.
 
@@ -56,6 +58,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-150: Assets load — the board is entirely JS-driven
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Open a board and inspect the console and Network tab.
 
@@ -70,6 +73,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-151: Redmine version support boundary
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Record the Redmine version from Administration → Information.
 
@@ -88,6 +92,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-152: Enabling the module adds both tabs
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Project → Settings → **Modules** → tick **Agile Board** → Save.
 
@@ -102,6 +107,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-153: Global Agile Board appears in the top menu
 
 **User Role:** Logged-in member
+**Priority:** Medium
 **Steps:**
 1. With the module enabled somewhere, check the top navigation menu.
 
@@ -113,6 +119,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-154: Disabling the module removes access
 
 **User Role:** Manager
+**Priority:** High
 **Steps:**
 1. Untick the module and save.
 2. Confirm both tabs are gone.
@@ -131,6 +138,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-155: Configure page loads with all five settings
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Administration → Plugins → Redmineflux Agile Board → Configure.
 
@@ -144,6 +152,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-156: Maximum WIP limit caps per-column WIP values
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Set the plugin-level maximum WIP to 5 and save.
 2. On a board, open Settings → Board Columns and attempt to set a column WIP of 10.
@@ -158,6 +167,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-157: Tracker icons appear on cards
 
 **User Role:** Admin then Member
+**Priority:** Low
 **Steps:**
 1. Assign a distinct icon to each tracker and save.
 2. Open a board containing issues of several trackers.
@@ -171,6 +181,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-158: Priority icons appear on cards
 
 **User Role:** Admin then Member
+**Priority:** Low
 **Steps:**
 1. Assign icons to each priority and save; open a board.
 
@@ -182,6 +193,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-159: Text-symbol icons accept a colour
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Choose a text-symbol icon for one tracker and set its colour; save; view a card.
 
@@ -194,6 +206,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-160: Settings persist across save and reload
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Change every setting, save, reload the Configure page.
 
@@ -209,6 +222,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-161: Wrong plugin folder name
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Rename the folder away from `agile_board` and restart.
 
@@ -221,6 +235,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-162: Migration not run
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Install files, skip the migration, restart, open a project.
 
@@ -233,6 +248,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-163: Configure page is not reachable by a non-admin
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
+**Priority:** High
 **Steps:**
 1. Request the plugin settings URL directly for each role. Do not rely on the menu being hidden.
 
@@ -245,6 +261,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-164: Invalid maximum WIP value
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Enter `0`, a negative number, and a non-numeric value as the maximum WIP; save each.
 
@@ -257,6 +274,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-165: Invalid Story Point values
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Enter non-numeric, negative, and duplicate values in the Story Point values list; save.
 
@@ -269,6 +287,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-166: Removing an icon reverts to a default
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Clear a tracker's configured icon and save; view a card.
 
@@ -281,6 +300,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-167: Tracker or priority deleted after icons were configured
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Configure an icon for a tracker, then delete that tracker in Administration.
 2. Reopen the plugin Configure page and a board.
@@ -293,6 +313,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-168: Board on a project with no issues
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Open the Agile Board on an empty project.
 
@@ -308,6 +329,7 @@ Project → Settings → Modules for the module. Reach boards by clicking their 
 ### TC-AGB-169: Clean uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** **Database backup taken** — the KB requires this before rollback.
 **Steps:**
 1. Run `bundle exec rails redmine:plugins:migrate NAME=agile_board VERSION=0 RAILS_ENV=production`.

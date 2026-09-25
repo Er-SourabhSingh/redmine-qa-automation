@@ -50,6 +50,7 @@ issue activity is sent**.
 ### TC-NTF-045: Disable notifications for a project
 
 **User Role:** Manager
+**Priority:** High
 **Steps:**
 1. Project → **Settings** → the **Notifications** section → enable **Disable notifications** → Save.
 
@@ -61,6 +62,7 @@ issue activity is sent**.
 ### TC-NTF-046: Both in-app notifications and email are suppressed
 
 **User Role:** Manager then two members
+**Priority:** High
 **Steps:**
 1. With the setting enabled, trigger every notification event in that project.
 2. Check the recipient's bell and notification history.
@@ -76,6 +78,7 @@ issue activity is sent**.
 ### TC-NTF-047: Other projects are unaffected
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. With project A silenced, trigger events in project B.
 
@@ -87,6 +90,7 @@ issue activity is sent**.
 ### TC-NTF-048: Re-enabling restores delivery
 
 **User Role:** Manager then Member
+**Priority:** Medium
 **Steps:**
 1. Disable the setting and trigger an event.
 
@@ -98,6 +102,7 @@ issue activity is sent**.
 ### TC-NTF-049: Existing notifications are not deleted
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With notifications already in a user's history for project A, silence project A and reload the history.
 
@@ -110,6 +115,7 @@ issue activity is sent**.
 ### TC-NTF-050: The switch overrides every delivery path
 
 **User Role:** Manager then Member
+**Priority:** High
 **Preconditions:** The project has a Teams webhook, a Slack channel, and Faye running.
 **Steps:**
 1. Enable **Disable notifications** and trigger events.
@@ -130,6 +136,7 @@ issue activity is sent**.
 ### TC-NTF-051: Project modules gate the integration settings
 
 **User Role:** Manager
+**Priority:** Medium
 **Steps:**
 1. With the Teams and Slack project modules disabled, confirm neither settings section appears.
 2. Enable each module and confirm its section appears.
@@ -149,6 +156,7 @@ issue activity is sent**.
 ### TC-NTF-052: Only admins can change plugin configuration
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
+**Priority:** High
 **Steps:**
 1. Request the plugin configuration URL directly.
 2. Attempt to post changes to the event list, the Faye address, the Teams webhook and the Slack token.
@@ -164,6 +172,7 @@ issue activity is sent**.
 ### TC-NTF-053: Project integration settings require project-admin rights
 
 **User Role:** Developer, QA, Reporter (each in turn)
+**Priority:** High
 **Steps:**
 1. Confirm the Teams and Slack settings sections and the Notifications section are not offered.
 2. Request the project settings URLs directly.
@@ -180,6 +189,7 @@ issue activity is sent**.
 ### TC-NTF-054: Notifications respect issue visibility
 
 **User Role:** A member who can see the project but not certain issues
+**Priority:** High
 **Preconditions:** A role with issue visibility limited to their own issues, or private issues present.
 **Steps:**
 1. Have another user create and update issues the recipient cannot see.
@@ -195,6 +205,7 @@ issue activity is sent**.
 ### TC-NTF-055: Notifications respect project membership changes
 
 **User Role:** A member removed from a project after receiving notifications
+**Priority:** High
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -209,6 +220,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-NTF-056: Non-members receive nothing
 
 **User Role:** Authenticated non-member
+**Priority:** High
 **Steps:**
 1. Trigger every event in a private project and check the non-member's bell and history.
 2. Request the notification history endpoint directly and inspect the payload.
@@ -221,6 +233,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-NTF-057: Anonymous users have no access
 
 **User Role:** Anonymous (logged out)
+**Priority:** High
 **Steps:**
 1. Request the notification history page, its data endpoint, and the mark-as-seen endpoint with no session.
 
@@ -232,6 +245,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-NTF-058: One user cannot read another's notifications
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Request the notification history endpoint with another user's identifier, and attempt to mark another user's
    notification as seen.
@@ -247,6 +261,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-NTF-059: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
+**Priority:** Medium
 **Steps:**
 1. Remove a member's project access while they have the notification history open.
 2. Have them refresh the list and open a notification from that project without logging out.
@@ -259,6 +274,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-NTF-060: Closed and archived projects
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Close a project and trigger a change where possible; then archive it.
 2. Check whether notifications, emails, Teams and Slack messages are produced, and whether historic notifications
@@ -275,6 +291,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-NTF-061: Preferences cannot be changed for another user
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Attempt to change another user's notification preference by sending the preferences update directly with their
    identifier.

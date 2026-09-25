@@ -50,6 +50,12 @@ Sources (1) calling redmineflux_testcases_management_list_test_suites...
 - Duplicate found: No
 - Existing bug reference (if duplicate): — Same defect *class* as BUG-CRX-023 (this same session), BUG-CRX-003/012 (fixed), BUG-CRX-022 (open) — missing permission enforcement on a Crux-exposed read, distinct code location (`redmineflux_testcases_management_list_test_suites`).
 
+## 2026-09-25 retest — FIXED, live-confirmed
+
+Same exact repro: `luna.blossom` (Manager, zero Testcase Management permissions confirmed unchanged), same question "QA Agent, what test suites exist for crux-qa (project 1)?". **Result:** honest refusal — *"You don't have permission to view test suites for project 1 (crux-qa). Your Redmine administrator needs to grant you the view_test_suite permission for that project."* — with a real `Sources (1)` citation.
+
+**Verdict: FIXED, live-confirmed.** Ready to close pending user approval (production sync required).
+
 ## Production report
 
 Reported to production as issue **#120757** (`ztflux`, Tracker Bug, Priority Medium, assigned to Prashant Chaurasia — user id 410), 2026-09-17. Textile description, no attachments. Linked to Run #569 "Crux QA Run 1", testcase **#120494** (`CRUX_AGENT_QA_TESTCASES.md`), Environment "Window 11 + Chrome" — testcase marked Failed.

@@ -28,6 +28,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-001: Locate the account's MCP server URL
 
 **User Role:** Account owner
+**Priority:** Medium
 **Steps:**
 1. Open the Redmineflux Cloud dashboard → **Integrations → MCP Server**.
 
@@ -41,6 +42,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-002: Retrieve a Redmine API key
 
 **User Role:** Any Redmine user
+**Priority:** Low
 **Steps:**
 1. Redmine → username → **My Account** → **API access key** → **Show**.
 
@@ -52,6 +54,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-003: Reset the API key invalidates the old one
 
 **User Role:** Any Redmine user
+**Priority:** High
 **Steps:**
 1. Connect successfully with the current key.
 2. **Reset** the key in My Account.
@@ -71,6 +74,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-004: Connect Claude Desktop with the documented config
 
 **User Role:** Any
+**Priority:** High
 **Preconditions:** Node.js 18+ installed (`node --version`).
 **Steps:**
 1. Add the `mcpServers.redmineflux` entry exactly as documented, with `npx`, `mcp-remote@0.1.17`, the server URL,
@@ -85,6 +89,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-005: Verification prompt returns data
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. In a new conversation, ask *"Show me my Redmine projects"*.
 
@@ -96,6 +101,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-006: Missing Node.js
 
 **User Role:** Any
+**Priority:** Low
 **Steps:**
 1. On a machine without Node.js 18+, apply the same config and restart.
 
@@ -110,6 +116,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-007: Malformed Desktop config
 
 **User Role:** Any
+**Priority:** Low
 **Steps:**
 1. Introduce, in turn: invalid JSON; a wrong server URL; a missing `--header` argument.
 2. Restart after each.
@@ -126,6 +133,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-008: Connect via Claude.ai Integrations
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. claude.ai → Settings → **Integrations → Model Context Protocol** → **Add Integration** → enter the URL →
    **Connect** → provide the API key when prompted.
@@ -138,6 +146,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-009: Two users share one server URL
 
 **User Role:** Two Redmine users with different permissions
+**Priority:** High
 **Steps:**
 1. Both connect to the **same** MCP server URL, each with their own API key.
 2. Each asks for their own projects and issues.
@@ -157,6 +166,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-010: Add via the CLI for the current project
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Run `claude mcp add redmineflux --transport http <URL> --header "X-Redmine-API-Key: <KEY>"`.
 2. Ask *"List my Redmine projects"*.
@@ -169,6 +179,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-011: Add globally with `--scope user`
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. Repeat with `--scope user` and verify from a **different** project directory.
 
@@ -180,6 +191,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-012: Project scope does not leak into other projects
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. Register project-scoped only, then open an unrelated project directory.
 
@@ -191,6 +203,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-013: Manual config files
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. Configure via `.claude/mcp.json` (project) and `~/.claude.json` (global) using the documented `type: "http"`
    shape.
@@ -203,6 +216,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-014: Verify in VS Code
 
 **User Role:** Any
+**Priority:** Low
 **Steps:**
 1. Open the Claude panel and ask *"List my Redmine projects"*.
 
@@ -218,6 +232,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-015: Only detected plugins' tools are registered
 
 **User Role:** Any
+**Priority:** High
 **Preconditions:** At least one Redmineflux plugin installed and at least one **not** installed.
 **Steps:**
 1. Enumerate the available tools.
@@ -231,6 +246,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-016: Asking about an uninstalled plugin
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. Ask for a capability belonging to a plugin that is not installed, e.g. *"Show pending timesheet approvals"* on
    an instance without the Timesheet plugin.
@@ -244,6 +260,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-017: Installing a plugin registers its tools
 
 **User Role:** Admin + MCP user
+**Priority:** Medium
 **Steps:**
 1. Install and enable a plugin in Redmine.
 2. Reconnect the client and re-check the tool list, allowing a few minutes for detection to refresh.
@@ -258,6 +275,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-018: Module enabled per project
 
 **User Role:** Admin + MCP user
+**Priority:** High
 **Steps:**
 1. With a plugin installed but its module disabled on a project, attempt a plugin operation on that project.
 
@@ -270,6 +288,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-019: Core tools are always available
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. On an instance with **no** Redmineflux plugins, enumerate the tools.
 
@@ -281,6 +300,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-020: `redmineflux_system_version` reports version and plugins
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. Ask *"Show the MCP server version and installed plugins"*.
 
@@ -295,6 +315,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-021: Version reporting is usable for support
 
 **User Role:** Any
+**Priority:** Low
 **Steps:**
 1. Record the exact output.
 
@@ -306,6 +327,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-022: Detection after uninstalling a plugin
 
 **User Role:** Admin + MCP user
+**Priority:** Medium
 **Steps:**
 1. Uninstall a plugin, wait, reconnect, and attempt one of its operations.
 
@@ -319,6 +341,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-023: Detection does not require a client restart to be correct
 
 **User Role:** Any
+**Priority:** Low
 **Steps:**
 1. After a plugin change, note whether the client must be restarted or the integration re-added.
 
@@ -331,6 +354,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-024: Tool count is plausible
 
 **User Role:** Any
+**Priority:** Low
 **Steps:**
 1. Count the registered tools with no plugins, then with several installed.
 
@@ -347,6 +371,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-025: Invalid API key
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Configure a malformed key, then a well-formed but wrong key, and make a request.
 
@@ -359,6 +384,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-026: Locked Redmine account
 
 **User Role:** A locked account's key
+**Priority:** High
 **Steps:**
 1. Lock the Redmine user, then make an MCP request with their key.
 
@@ -372,6 +398,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-027: No API key supplied
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Remove the `X-Redmine-API-Key` header from the config and connect.
 
@@ -384,6 +411,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-028: Wrong server URL
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Point the client at another account's MCP URL using this account's key; then at a non-existent subdomain.
 
@@ -397,6 +425,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-029: No outbound HTTPS access
 
 **User Role:** Any
+**Priority:** Low
 **Steps:**
 1. Block outbound access to the MCP URL and start the client.
 
@@ -409,6 +438,7 @@ which was observed. Record the client and its version alongside each case.
 ### TC-RFM-030: Redmine unreachable from the MCP server
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. With the client connected, make the Redmine instance unavailable and issue a request.
 

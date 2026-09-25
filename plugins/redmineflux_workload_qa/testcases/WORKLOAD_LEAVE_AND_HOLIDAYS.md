@@ -28,6 +28,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-048: Request leave
 
 **User Role:** Any logged-in member
+**Priority:** High
 **Steps:**
 1. Leaves → **Request Leave** → leave type, start date, end date, reason → submit.
 
@@ -40,6 +41,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-049: Single-day leave
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Request leave with the same start and end date.
 
@@ -51,6 +53,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-050: Multi-day leave spanning a weekend
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Request leave from a Friday to the following Monday; have it approved; recalculate capacity.
 
@@ -65,6 +68,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-051: Leave spanning a holiday
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Request leave across a date that is also a holiday in the active scheme; approve; recalculate.
 
@@ -80,6 +84,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-052: Approve leave
 
 **User Role:** A user with **Can approve leave** on that member's team
+**Priority:** High
 **Steps:**
 1. Leaves → approval queue → open a pending request → **Approve** → add notes → confirm.
 
@@ -92,6 +97,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-053: Reject leave with a reason
 
 **User Role:** Approver
+**Priority:** Medium
 **Steps:**
 1. Open a pending request → **Reject** → enter a rejection reason → confirm.
 
@@ -104,6 +110,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-054: Rejection requires a reason
 
 **User Role:** Approver
+**Priority:** Medium
 **Steps:**
 1. Attempt to reject leaving the reason blank.
 
@@ -115,6 +122,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-055: Admins can approve globally
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Approve a leave request for a member of a team the admin holds no flag on.
 
@@ -126,6 +134,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-056: Approval queue is scoped to the approver's teams
 
 **User Role:** Approver with **Can approve leave** on team A only
+**Priority:** High
 **Steps:**
 1. Inspect the approval queue while pending requests exist for both team A and team B members.
 
@@ -141,6 +150,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-057: Cancel a pending leave request
 
 **User Role:** The requester
+**Priority:** Medium
 **Steps:**
 1. My Leaves → **Cancel** → confirm.
 
@@ -152,6 +162,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-058: Cancel an approved leave request
 
 **User Role:** The requester
+**Priority:** High
 **Steps:**
 1. Cancel an already-approved request; then recalculate capacity.
 
@@ -165,6 +176,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-059: Approved leave reduces capacity by the right amount
 
 **User Role:** Member + approver
+**Priority:** High
 **Steps:**
 1. Note a member's capacity over a 10-working-day workload at 8 hours/day (expect 80).
 2. Approve 2 working days of leave inside that range; recalculate.
@@ -182,6 +194,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-060: Create a holiday scheme
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Settings → holiday schemes → **New Holiday Scheme** → name, optional description, **Active** flag → **Create**.
 
@@ -193,6 +206,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-061: Edit a scheme
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Rename a scheme and change its description.
 
@@ -204,6 +218,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-062: Delete a scheme
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Delete a scheme that contains holidays; then delete the **active** scheme.
 
@@ -218,6 +233,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-063: Activating a scheme deactivates the previous one
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. With scheme X active, activate scheme Y.
 2. Re-open the schemes list.
@@ -237,6 +253,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-064: Add a single-day holiday
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Select the active scheme → **Add Holiday** → name, start date, type, description → **Add Holiday**.
 2. Recalculate a workload covering that date.
@@ -249,6 +266,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-065: Add a multi-day holiday
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Add a holiday with a start and an end date spanning several days, including a weekend.
 
@@ -261,6 +279,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-066: Holiday types
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Create a holiday of each available type and observe the capacity effect of each.
 
@@ -273,6 +292,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-067: Recurring holiday flag
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Create a holiday with the recurring flag enabled.
 
@@ -284,6 +304,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-068: Generate Recurring Holidays for a year
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Settings → Holidays → select a target year → **Generate Recurring Holidays**.
 
@@ -297,6 +318,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-069: Generating twice does not duplicate
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Run the generation for the same year twice.
 
@@ -310,6 +332,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-070: Only the active scheme reduces capacity
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Add a holiday to an **inactive** scheme, inside a workload's date range; recalculate.
 2. Activate that scheme and recalculate again.
@@ -328,6 +351,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-071: Leave date validation
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Request leave with the end date before the start date; then a range covering only a weekend; then a range of
    several years.
@@ -342,6 +366,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-072: Overlapping leave requests
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Request leave overlapping an existing approved request; have both approved; recalculate.
 
@@ -355,6 +380,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-073: Retroactive leave
 
 **User Role:** Member + approver
+**Priority:** Medium
 **Steps:**
 1. Request and approve leave for dates already in the past, inside a workload that is already fully allocated.
 
@@ -367,6 +393,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-074: Approving leave without the flag
 
 **User Role:** A plain member, and a workload manager without **Can approve leave**
+**Priority:** High
 **Steps:**
 1. Confirm no approval controls are offered.
 2. Send approve and reject requests **directly** for a pending request.
@@ -381,6 +408,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-075: Holiday and scheme management requires admin
 
 **User Role:** A user with **Manage teams and skills**, and a plain member
+**Priority:** High
 **Steps:**
 1. Confirm Settings is not reachable.
 2. Send holiday-create, holiday-delete and scheme-activate requests **directly**.
@@ -395,6 +423,7 @@ Workloads → **Leaves** icon for leave; Workloads → **Settings** for holiday 
 ### TC-WKL-076: Script content in names and reasons
 
 **User Role:** Member and Admin
+**Priority:** High
 **Steps:**
 1. Enter a script tag as a leave reason, a rejection reason, a holiday name and a scheme name.
 2. View them in the approval queue, the holidays list, the dashboard and any workload email.

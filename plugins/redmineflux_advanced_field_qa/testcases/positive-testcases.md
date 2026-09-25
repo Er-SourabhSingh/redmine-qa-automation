@@ -15,6 +15,7 @@
 ### TC-RAF-001: Admin creates Float custom field for Downtime
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Admin is logged in. Redmineflux Advanced Field plugin is installed and enabled.
 
 **Steps:**
@@ -35,6 +36,7 @@
 ### TC-RAF-002: Admin creates Date & Time custom field for issues
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Admin is logged in.
 
 **Steps:**
@@ -54,6 +56,7 @@
 ### TC-RAF-003: Admin creates second Date & Time custom field for formula source
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Admin is logged in.
 
 **Steps:**
@@ -73,6 +76,7 @@
 ### TC-RAF-004: Admin creates List custom field for dependency parent
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Admin is logged in.
 
 **Steps:**
@@ -93,6 +97,7 @@
 ### TC-RAF-005: Admin creates List custom field for dependency child
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Admin is logged in.
 
 **Steps:**
@@ -113,6 +118,7 @@
 ### TC-RAF-006: Admin creates Text custom field for sequence target
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Admin is logged in.
 
 **Steps:**
@@ -131,6 +137,7 @@
 ### TC-RAF-007: Admin creates Float custom field — Estimate
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Admin is logged in.
 
 **Steps:**
@@ -150,6 +157,7 @@
 ### TC-RAF-007A: Admin creates Float custom field — Extra Hours
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Admin is logged in.
 
 **Steps:**
@@ -169,6 +177,7 @@
 ### TC-RAF-007B: Admin creates Float custom field — Total Hours
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Admin is logged in.
 
 **Steps:**
@@ -188,6 +197,7 @@
 ### TC-RAF-007C: Admin creates Float custom field — Duration (hours)
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Admin is logged in.
 
 **Steps:**
@@ -207,6 +217,7 @@
 ### TC-RAF-007D: Admin creates Float custom fields for formula type tests
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Admin is logged in.
 
 **Steps:**
@@ -230,6 +241,7 @@ Create each of the following Float fields one at a time (repeat New Custom Field
 ### TC-RAF-007E: Admin creates List custom field — Environment
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Admin is logged in.
 
 **Steps:**
@@ -250,6 +262,7 @@ Create each of the following Float fields one at a time (repeat New Custom Field
 ### TC-RAF-007F: Admin creates Text custom field — Components
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Admin is logged in.
 
 **Steps:**
@@ -268,6 +281,7 @@ Create each of the following Float fields one at a time (repeat New Custom Field
 ### TC-RAF-008: Created custom fields appear in Advanced Field Settings
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** Custom fields from TC-RAF-001 through TC-RAF-007F are created.
 
 **Steps:**
@@ -290,6 +304,7 @@ Create each of the following Float fields one at a time (repeat New Custom Field
 ### TC-RAF-009: Admin creates Date Difference (minutes) formula
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** `Incident Start Time`, `Incident Resolution Time` (Date & Time), and `Downtime (minutes)` (Float) custom fields exist.
 
 **Steps:**
@@ -315,6 +330,7 @@ Create each of the following Float fields one at a time (repeat New Custom Field
 ### TC-RAF-010: Admin creates Date Difference (hours) formula for Duration
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** `Incident Start Time`, `Incident Resolution Time` (Date & Time), and `Duration (hours)` (Float) custom fields exist.
 
 **Steps:**
@@ -336,6 +352,7 @@ Create each of the following Float fields one at a time (repeat New Custom Field
 ### TC-RAF-011: Admin creates Add (A + B) formula
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** `Estimate`, `Extra Hours`, and `Total Hours` Float custom fields exist.
 
 **Steps:**
@@ -357,6 +374,7 @@ Create each of the following Float fields one at a time (repeat New Custom Field
 ### TC-RAF-012: Admin creates Subtract (A - B) formula
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** `Estimate` (Float), `Extra Hours` (Float), and `Subtract Result` (Float) custom fields exist.
 
 **Steps:**
@@ -377,6 +395,7 @@ Create each of the following Float fields one at a time (repeat New Custom Field
 ### TC-RAF-013: Admin creates Multiply (A × B) formula
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** `Estimate` (Float), `Extra Hours` (Float), and `Multiply Result` (Float) custom fields exist.
 
 **Steps:**
@@ -397,6 +416,7 @@ Create each of the following Float fields one at a time (repeat New Custom Field
 ### TC-RAF-014: Admin creates Divide (A ÷ B) formula
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** `Estimate` (Float), `Extra Hours` (Float), and `Divide Result` (Float) custom fields exist.
 
 **Steps:**
@@ -417,6 +437,7 @@ Create each of the following Float fields one at a time (repeat New Custom Field
 ### TC-RAF-015: Admin creates If (A - B) > threshold formula
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** `Estimate` (Float), `Extra Hours` (Float), and `Condition GT Result` (Float) custom fields exist.
 
 **Steps:**
@@ -438,6 +459,7 @@ Create each of the following Float fields one at a time (repeat New Custom Field
 ### TC-RAF-016: Admin creates If (A - B) < threshold formula
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** `Estimate` (Float), `Extra Hours` (Float), and `Condition LT Result` (Float) custom fields exist.
 
 **Steps:**
@@ -459,6 +481,7 @@ Create each of the following Float fields one at a time (repeat New Custom Field
 ### TC-RAF-017: Admin creates If (A - B) = threshold formula
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** `Estimate` (Float), `Extra Hours` (Float), and `Condition EQ Result` (Float) custom fields exist.
 
 **Steps:**
@@ -480,6 +503,7 @@ Create each of the following Float fields one at a time (repeat New Custom Field
 ### TC-RAF-018: Admin enables Log to history on an existing formula
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Date Difference (minutes) formula from TC-RAF-009 exists (Downtime (minutes)).
 
 **Steps:**
@@ -499,6 +523,7 @@ Create each of the following Float fields one at a time (repeat New Custom Field
 ### TC-RAF-019: Admin scopes formula to a specific project
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** `Estimate`, `Extra Hours`, and `Total Hours` Float fields exist and are enabled on at least one project (e.g., `Advanced Fields Demo`). Note: the Project dropdown is filtered — only projects where the selected custom fields are enabled will appear.
 
 **Steps:**
@@ -524,6 +549,7 @@ Create each of the following Float fields one at a time (repeat New Custom Field
 ### TC-RAF-020: Admin applies formula to all eligible projects
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** At least two projects exist with `Estimate`, `Extra Hours`, and `Total Hours` Float fields enabled on both.
 
 **Steps:**
@@ -574,6 +600,7 @@ All source fields (`Estimate`, `Extra Hours`, `Incident Start Time`, `Incident R
 ### TC-RAF-021: Admin creates dependency rule for IT department (3 allowed locations)
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** `Department` (List) and `Location` (List) custom fields exist with values.
 
 **Steps:**
@@ -598,6 +625,7 @@ All source fields (`Estimate`, `Extra Hours`, `Incident Start Time`, `Incident R
 ### TC-RAF-022: Admin creates second dependency rule for different parent value
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** `Department` and `Location` custom fields exist. Dependency for IT already created in TC-RAF-021.
 
 **Steps:**
@@ -621,6 +649,7 @@ All source fields (`Estimate`, `Extra Hours`, `Incident Start Time`, `Incident R
 ### TC-RAF-023: Admin scopes dependency to a specific project
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** `Department` and `Location` custom fields exist and are enabled on at least one project (e.g., `Advanced Fields Demo`). Note: the Project dropdown is filtered — only projects where both fields are enabled will appear.
 
 **Steps:**
@@ -646,6 +675,7 @@ All source fields (`Estimate`, `Extra Hours`, `Incident Start Time`, `Incident R
 ### TC-RAF-024: Admin applies dependency to all eligible projects
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** `Department` and `Location` custom fields exist and are enabled on at least two projects.
 
 **Steps:**
@@ -672,6 +702,7 @@ All source fields (`Estimate`, `Extra Hours`, `Incident Start Time`, `Incident R
 ### TC-RAF-025: Admin creates sequence rule with 3-digit padding
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** `Incident ID` (Text) custom field exists.
 
 **Steps:**
@@ -694,6 +725,7 @@ All source fields (`Estimate`, `Extra Hours`, `Incident Start Time`, `Incident R
 ### TC-RAF-026: Admin creates sequence rule scoped to specific tracker
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** `Incident ID` (Text) custom field exists. At least one tracker exists (e.g., Bug). The global sequence rule from TC-RAF-025 must be deleted before creating a tracker-scoped rule to avoid conflicts.
 
 **Steps:**
@@ -716,6 +748,7 @@ All source fields (`Estimate`, `Extra Hours`, `Incident Start Time`, `Incident R
 ### TC-RAF-027: Admin creates sequence rule scoped to specific project
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** `Incident ID` (Text) custom field exists and is enabled on at least one project. The global sequence rule from TC-RAF-025 must be the only active rule. Note: the Project dropdown is filtered — only projects where `Incident ID` is enabled will appear.
 
 **Steps:**
@@ -737,6 +770,7 @@ All source fields (`Estimate`, `Extra Hours`, `Incident Start Time`, `Incident R
 ### TC-RAF-028: Admin creates Show visibility rule
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** `Environment` (List, values: Production/Development/Staging) and `Components` (Text) custom fields exist (created in TC-RAF-007E and TC-RAF-007F).
 
 **Steps:**
@@ -761,6 +795,7 @@ All source fields (`Estimate`, `Extra Hours`, `Incident Start Time`, `Incident R
 ### TC-RAF-029: Admin creates Hide visibility rule
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** `Environment` (List) and `Components` (Text) custom fields exist. Show rule from TC-RAF-028 already configured.
 
 **Steps:**
@@ -782,6 +817,7 @@ All source fields (`Estimate`, `Extra Hours`, `Incident Start Time`, `Incident R
 ### TC-RAF-030: Admin scopes visibility rule to specific project
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** `Environment` (List) and `Components` (Text) custom fields exist and are enabled on at least one project. Note: the Project dropdown is filtered — only projects where both fields are enabled will appear.
 
 **Steps:**
@@ -805,6 +841,7 @@ All source fields (`Estimate`, `Extra Hours`, `Incident Start Time`, `Incident R
 ### TC-RAF-031: All formula types calculate correctly on issue creation
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** All nine formulas from TC-RAF-009 through TC-RAF-017 are active (duplicates deleted per Formula Administration Teardown). Custom fields enabled on a project and tracker.
 
 **Steps:**
@@ -849,6 +886,7 @@ Per the plugin guide, formulas are calculated **on issue save/update**. The auth
 ### TC-RAF-032: All formula types recalculate correctly on issue edit
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** All nine formulas are active. Issue from TC-RAF-031 exists with the values saved in that test.
 
 **Steps:**
@@ -911,6 +949,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 ### TC-RAF-033: Journal records formula changes when Log to history is enabled
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Date Difference (minutes) formula with "Log to history" enabled (updated in TC-RAF-018). Issue exists with `Incident Start Time` and `Incident Resolution Time` values set.
 
 **Steps:**
@@ -930,6 +969,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 ### TC-RAF-034: Child field values filter when parent field is selected
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** Dependency rule configured (TC-RAF-021) — `Department = IT` → `Location` allowed values: `Server Room`, `Data Center`, `CRM` only (3 of 9 values). Custom fields enabled on project.
 
 **Steps:**
@@ -949,6 +989,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 ### TC-RAF-035: Child field options update when parent field selection changes
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** Two dependency rules configured — `IT → Server Room, Data Center, CRM` and `HR → Branch Office only`.
 
 **⚠ BLOCKED: BUG-RAF-001.** The precondition for this test (HR → Branch Office dependency rule) cannot be created due to BUG-RAF-001 blocking a second dependency rule for the same Parent Field + Child Field combination. Skip this test until BUG-RAF-001 is resolved.
@@ -971,6 +1012,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 ### TC-RAF-036: Sequence value auto-generates on issue creation
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** Global sequence rule configured for `Incident ID` with Pad Digits = 3, no tracker/project scope. Custom field enabled on project.
 
 **Steps:**
@@ -989,6 +1031,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 ### TC-RAF-037: Sequence increments correctly for subsequent issues
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** Sequence rule active. At least one issue already created with a sequence-generated `Incident ID`.
 
 **Steps:**
@@ -1007,6 +1050,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 ### TC-RAF-038: Sequence padding works correctly
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Sequence rule with Pad Digits = 3 active. Note the current counter value from the most recently created issue.
 
 **Steps:**
@@ -1025,6 +1069,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 ### TC-RAF-039: Sequence rule applies only to configured tracker
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Sequence rule configured for tracker `Bug` only (re-create the Bug-scoped rule from TC-RAF-026 for this test).
 
 **Steps:**
@@ -1044,6 +1089,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 ### TC-RAF-040: Field shows dynamically when trigger condition matches
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** Visibility rule configured (TC-RAF-028) — `Environment = Production` → Show `Components`. Both `Environment` and `Components` custom fields enabled on the test project.
 
 **Steps:**
@@ -1062,6 +1108,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 ### TC-RAF-041: Field hides dynamically when trigger condition matches
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** Visibility rule configured (TC-RAF-029) — `Environment = Development` → Hide `Components`. Both fields enabled on project. Components is currently visible.
 
 **Steps:**
@@ -1080,6 +1127,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 ### TC-RAF-042: Visibility rule applies during issue edit
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** Visibility rule configured and working on issue create. An existing issue is available with `Environment` field set.
 
 **Steps:**
@@ -1098,6 +1146,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 ### TC-RAF-043: Multiple advanced field rules work together on same issue
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** Formula, Dependency, Sequence, and Visibility rules all configured on the same project and tracker. Fields: `Department`, `Location`, `Environment`, `Components`, `Incident Start Time`, `Incident Resolution Time`, `Downtime (minutes)`, `Incident ID`.
 
 **Steps:**
@@ -1129,6 +1178,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 ### TC-RAF-044: Formula recalculates after issue is reopened and edited
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Formula rule active. An issue in Resolved or Closed status exists with a calculated field value.
 
 **Setup (if no closed issue exists):**
@@ -1153,6 +1203,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 ### TC-RAF-045: Dependency filtering persists after page save and reload
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** Dependency rule active. Issue created with parent and child field values set.
 
 **Steps:**
@@ -1169,6 +1220,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 ### TC-RAF-046: Sequence does not regenerate on issue edit
 
 **User Role:** Admin
+**Priority:** High
 **Precondition:** Sequence rule active. An issue exists with an auto-generated `Incident ID` (e.g., `2026-05-003`).
 
 **Steps:**
@@ -1187,6 +1239,7 @@ Issue-level verification of all formula types is complete (TC-RAF-031 and TC-RAF
 ### TC-RAF-047: Visibility state persists correctly when editing existing issue
 
 **User Role:** Admin
+**Priority:** Medium
 **Precondition:** Visibility rule active (TC-RAF-028: `Environment = Production` → Show `Components`). An issue was saved with `Environment = Production` and a value entered in `Components`.
 
 **Steps:**

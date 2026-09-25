@@ -23,6 +23,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-021: Legacy single Steps/Expected column import (backward compatibility)
 
 **User Role:** QA / Manager (whoever holds testcase-management create permission)
+**Priority:** High
 **Precondition:** A CSV using only the legacy `Steps` / `Expected` column pair (no numbered `Step N` columns).
 
 **Steps:**
@@ -41,6 +42,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-022: Legacy row with missing Expected Result is skipped, case still created
 
 **User Role:** QA / Manager
+**Priority:** Medium
 **Precondition:** Legacy-format CSV with one row's `Expected` cell empty but `Steps` cell filled.
 
 **Steps:**
@@ -58,6 +60,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-023: Zero-step CSV (no Step section at all)
 
 **User Role:** QA / Manager
+**Priority:** Medium
 **Precondition:** CSV with only Title/Description/Priority columns, no Steps/Expected columns of any kind.
 
 **Steps:**
@@ -74,6 +77,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-024: 50-step CSV imports fully, correctly numbered and ordered
 
 **User Role:** QA / Manager
+**Priority:** High
 **Precondition:** CSV with Step 1..Step 50 / Expected Result 1..50, all pairs populated.
 
 **Steps:**
@@ -90,6 +94,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-025: Steps-only row and Expected-only row are each skipped with a warning
 
 **User Role:** QA / Manager
+**Priority:** Medium
 **Precondition:** New numbered-column CSV where one `Step N` cell has no matching `Expected Result N`, and another row has the reverse.
 
 **Steps:**
@@ -106,6 +111,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-026: Varying step counts within one file — no cross-contamination
 
 **User Role:** QA / Manager
+**Priority:** High
 **Precondition:** CSV with multiple rows (test cases) of different step counts, including one 30-step row.
 
 **Steps:**
@@ -122,6 +128,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-027: Non-sequential step numbering (Step 1 / Step 3 / Step 5) is renumbered on import
 
 **User Role:** QA / Manager
+**Priority:** Medium
 **Precondition:** CSV with columns `Step 1`, `Step 3`, `Step 5` (and matching Expected Result columns) — gaps at 2 and 4.
 
 **Steps:**
@@ -138,6 +145,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-028: Special characters, unicode, emoji, and embedded newlines are stored correctly
 
 **User Role:** QA / Manager
+**Priority:** Medium
 **Precondition:** CSV with step/expected text containing unicode text, emoji, and embedded newlines within a quoted CSV cell.
 
 **Steps:**
@@ -154,6 +162,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-029: Header missing an entire column family (Step-only or Expected-only headers)
 
 **User Role:** QA / Manager
+**Priority:** Medium
 **Precondition:** CSV whose header row has `Step N` columns but no `Expected Result N` columns at all (or vice versa) — a structural mismatch, not just a per-row gap.
 
 **Steps:**
@@ -174,6 +183,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-030: Step text at the 2000-character limit imports successfully
 
 **User Role:** QA / Manager
+**Priority:** Medium
 **Precondition:** CSV with one step's text exactly 2000 characters.
 
 **Steps:**
@@ -189,6 +199,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-031: Step text over the 2000-character limit (2001 chars) is rejected
 
 **User Role:** QA / Manager
+**Priority:** Medium
 **Precondition:** Same CSV structure as TC-TCM-030, one character over (2001).
 
 **Steps:**
@@ -204,6 +215,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-032: Oversized step text (2500 chars) rejects the whole test case, zero imported
 
 **User Role:** QA / Manager
+**Priority:** Medium
 **Precondition:** CSV with one step at 2500 characters.
 
 **Steps:**
@@ -219,6 +231,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-033: Empty file / header-only file
 
 **User Role:** QA / Manager
+**Priority:** Low
 **Precondition:** One CSV with zero bytes, one CSV with only a header row and no data rows.
 
 **Steps:**
@@ -233,6 +246,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-034: Large bulk import (100 test cases × 3 steps each)
 
 **User Role:** QA / Manager
+**Priority:** Medium
 **Precondition:** CSV with 100 data rows, each with 3 populated step/expected pairs.
 
 **Steps:**
@@ -253,6 +267,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-035: Step column header with leading/trailing whitespace
 
 **User Role:** QA / Manager
+**Priority:** Low
 **Precondition:** CSV with a header like `" Step 1 "` (leading/trailing spaces) instead of `"Step 1"`.
 
 **Steps:**
@@ -270,6 +285,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-036: Duplicated column header (Step 1 appears twice)
 
 **User Role:** QA / Manager
+**Priority:** Low
 **Precondition:** CSV whose header row has `Step 1` listed twice (two separate columns, same name).
 
 **Steps:**
@@ -287,6 +303,7 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 ### TC-TCM-037: Wide CSV — all-columns Redmine issue export does not overflow the session cookie
 
 **User Role:** Admin / QA (testcase-management create permission)
+**Priority:** Medium
 **Precondition:** A project with many issue custom fields defined, so that an "All Columns" issue export produces a
 wide header. This suite's fixture was produced with **15 custom fields** added, giving **45 columns**.
 **Regression origin:** production issue **#118789** — step 4 returned a 500 (`ActionDispatch::Cookies::CookieOverflow`,

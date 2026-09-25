@@ -58,6 +58,23 @@ Dev's `CHANGES.md` handoff updated `improve.py`'s `_confirm_description()` exact
 
 **Verdict: FIXED at the code level** (high confidence — the fix directly implements the exact verify-then-report pattern this bug asked for, at the exact call site identified in the root cause). **Not independently confirmed live** this session due to the missing Anthropic key. Restored "Edit issues"/"Edit own issues" on the Manager role afterward to avoid leaving other tests affected. Recommend a follow-up live confirmation once an Anthropic (or equivalent) provider key is available.
 
+## 2026-09-25 retest — FIXED, live-confirmed
+
+Environment restored (Ask Crux fully working again after a platform-wide outage fix + a fresh dev drop-in — see `docs/CRUX_MEMORY.md`). The 2026-09-25 `CHANGES.md` batch also explicitly cites this bug: `improve.py`'s CRLF-normalization comparison bug and a separate "Improve with Crux 404'd on every use" fix (unrelated provider-binding issue that was blocking retests, now cleared).
+
+**Retest, live, exact original repro steps:**
+1. As admin, unchecked "Edit issues"/"Edit own issues" on the Manager role (`luna.blossom`'s role on `crux-qa`) — confirmed via reload after save, not just the redirect (sudo-mode password re-confirm required).
+2. As `luna.blossom`, opened issue #6, clicked "Improve with Crux" → "Improve the description →". Preview rendered a real Before/After diff (no provider error this time — the separate 404 bug is also fixed).
+3. Clicked **Apply**.
+
+**Result:** the panel now shows an honest, visible error directly in the UI: *"the write did not take effect — you may not have permission to edit this issue's description"* — no longer silently closing as if it succeeded.
+
+**Independent verification:** reloaded `/issues/6` — description text is still the original ("...was modified", "...what form fields...", not the After suggestion's "...has been modified", "...which form fields..."), no new journal entry (still only the pre-existing entry #1 from 2026-09-15). Confirms the write was genuinely refused server-side, and the refusal is now honestly reported — the exact fix this bug asked for.
+
+Restored "Edit issues"/"Edit own issues" on the Manager role afterward, confirmed via reload.
+
+**Verdict: FIXED, live-confirmed.** Ready to close pending user approval (production sync required — see CLAUDE.md §5).
+
 ## Production report
 
 Reported to production as issue **#120616** (`ztflux`, Tracker Bug, Priority **High**, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Linked to Run #569 "Crux QA Run 1", testcase **#120486** (`CRUX_PROJECT_CREATION_AND_IMPROVE_WAND.md`, where it was found via TC-CRX-158), Environment "Window 11 + Chrome" — testcase marked **Failed**. Attachments: `BUG-CRX-009.pdf` (5.7 KB) and this MD file (5.1 KB), both confirmed size-exact against production.

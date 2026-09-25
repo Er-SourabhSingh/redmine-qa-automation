@@ -64,6 +64,7 @@ reason.
 ### TC-RFM-031: Each request is authenticated as its own key's user
 
 **User Role:** ScopedKey
+**Priority:** High
 **Steps:**
 1. Create an issue and log time via MCP.
 2. Check the author of the issue and the user on the time entry in Redmine.
@@ -78,6 +79,7 @@ reason.
 ### TC-RFM-032: Two keys on one server stay separate
 
 **User Role:** ScopedKey and OtherProjectKey, connected to the same MCP server URL
+**Priority:** High
 **Steps:**
 1. Each asks for their projects, their issues, and their time entries.
 
@@ -91,6 +93,7 @@ reason.
 ### TC-RFM-033: Read permissions are enforced
 
 **User Role:** ReadOnlyKey
+**Priority:** High
 **Steps:**
 1. List issues and time entries — expect success.
 2. Ask to create an issue, update one, log time, and approve a timesheet.
@@ -104,6 +107,7 @@ reason.
 ### TC-RFM-034: Each listed permission gates its own capability
 
 **User Role:** ScopedKey, reconfigured per step
+**Priority:** High
 **Steps:**
 1. For each row of the KB's permission table, remove the permission, attempt the matching MCP action, then restore
    it and retry: `view_issues`, `add_issues`, `edit_issues`, `delete_issues`, `log_time`, `view_time_entries`,
@@ -121,6 +125,7 @@ reason.
 ### TC-RFM-035: `delete_issues` is genuinely gated
 
 **User Role:** ScopedKey without `delete_issues`
+**Priority:** High
 **Steps:**
 1. Ask the assistant to delete an issue.
 
@@ -134,6 +139,7 @@ reason.
 ### TC-RFM-036: `approve_timesheets` is genuinely gated
 
 **User Role:** ScopedKey without `approve_timesheets`
+**Priority:** High
 **Steps:**
 1. Ask *"Approve timesheet for user <name>"* for a real pending submission.
 
@@ -150,6 +156,7 @@ reason.
 ### TC-RFM-037: Project scoping is enforced on reads
 
 **User Role:** OtherProjectKey
+**Priority:** High
 **Preconditions:** **Confirm project B is genuinely private** — a newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -165,6 +172,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RFM-038: Project scoping is enforced on writes
 
 **User Role:** OtherProjectKey
+**Priority:** High
 **Steps:**
 1. Ask to create an issue in project B and to update an existing issue there.
 
@@ -176,6 +184,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RFM-039: Issue-visibility-scoped roles
 
 **User Role:** A key whose role limits issue visibility to issues the user created
+**Priority:** High
 **Steps:**
 1. List issues in a shared project and compare against the Redmine UI as that user.
 2. Attempt to update another user's issue in the same project.
@@ -190,6 +199,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RFM-040: Document what an administrator key permits
 
 **User Role:** AdminKey
+**Priority:** Medium
 **Steps:**
 1. Exercise a representative destructive or sensitive action from each area — delete an issue, approve a
    timesheet, change helpdesk configuration, archive a project.
@@ -211,6 +221,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RFM-041: The key is stored in plain text in client config
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. Inspect `claude_desktop_config.json`, `.claude/mcp.json` and `~/.claude.json` after configuring.
 
@@ -226,6 +237,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RFM-042: A leaked key can be revoked
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Reset the key in My Account and retry a request with the old one.
 
@@ -239,6 +251,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RFM-043: A locked account loses access
 
 **User Role:** LockedKey
+**Priority:** High
 **Steps:**
 1. Lock the Redmine user and retry a previously working request.
 
@@ -252,6 +265,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RFM-044: Key material does not appear in responses or logs
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Inspect assistant responses, error messages and any accessible logs after a failed authentication.
 
@@ -265,6 +279,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RFM-045: Permission changes take effect without reconnecting
 
 **User Role:** Admin + ScopedKey
+**Priority:** High
 **Steps:**
 1. Remove a permission from the key's role mid-session and immediately retry the matching action.
 
@@ -279,6 +294,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RFM-046: Data handling claim
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. Perform a request returning sensitive content, then inspect what the MCP layer retains — session history,
    caches, logs — as far as the hosted service exposes it.
@@ -294,6 +310,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RFM-047: Cross-account isolation
 
 **User Role:** A key from Redmineflux account A against account B's MCP URL
+**Priority:** High
 **Steps:**
 1. Configure the client with account B's server URL and account A's key.
 
@@ -307,6 +324,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-RFM-048: Least-privilege setup works end to end
 
 **User Role:** A dedicated `mcp-bot` user with only the permissions a team actually needs
+**Priority:** Medium
 **Steps:**
 1. Follow the KB's own best-practice setup and exercise the intended operations, then attempt several outside the
    granted set.

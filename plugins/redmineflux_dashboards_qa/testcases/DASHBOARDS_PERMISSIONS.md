@@ -67,6 +67,7 @@ damaging an over-permissive row actually is.
 ### TC-DSH-094: Admin has full access
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Exercise every row of the matrix as Admin.
 
@@ -82,6 +83,7 @@ session with no permission-related failures.
 ### TC-DSH-095: Establish the baseline — what "access to the project" grants
 
 **User Role:** Each of Manager, Developer, QA and Reporter in turn
+**Priority:** Medium
 **Steps:**
 1. For each role, open the Dashboard and attempt: add a widget, delete a widget, change settings, rearrange the
    layout, drill down, and generate a share token.
@@ -103,6 +105,7 @@ issues). Add/delete/settings/layout-rearrange/share-token generation not individ
 ### TC-DSH-096: Chart data respects issue visibility
 
 **User Role:** Role whose issue visibility is limited to issues they created
+**Priority:** High
 **Steps:**
 1. Add "Issues by Status", "Issues by Assignee" and "Issues Trend".
 2. Compare each total against the issue list run as the same user.
@@ -122,6 +125,7 @@ Assignee, Issues Trend) showed **725** — the project's full unrestricted total
 ### TC-DSH-097: Time charts respect time-entry visibility
 
 **User Role:** Role without permission to view other users' spent time
+**Priority:** High
 **Steps:**
 1. Add "Total Spent Hours by Users", "Total Spent Time by Role" and "Estimated vs Spent Time by User".
 2. Compare against the time report run as the same user.
@@ -140,6 +144,7 @@ candidate to also fail and should be prioritized next session.
 ### TC-DSH-098: Drill-down cannot exceed chart visibility
 
 **User Role:** Restricted-visibility role
+**Priority:** High
 **Steps:**
 1. Drill into a segment and count the issues listed against the segment's displayed value.
 
@@ -160,6 +165,7 @@ an issue she cannot open) did **not** occur — the drill-down itself is safe. S
 ### TC-DSH-099: Non-member cannot open a private project's dashboard
 
 **User Role:** Authenticated non-member
+**Priority:** High
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -184,6 +190,7 @@ dashboard-controller-specific gap. Filed as `BUG-DSH-019` (**Critical**).
 ### TC-DSH-100: Anonymous user cannot open a dashboard without a token
 
 **User Role:** Anonymous (logged out)
+**Priority:** High
 **Steps:**
 1. Request a project Dashboard URL and its data endpoints with no session and **no** public token.
 
@@ -210,6 +217,7 @@ done (`BUG-DSH-014`), only its archived-project half is still deferred.
 ### TC-DSH-101: Anonymous access to a public project
 
 **User Role:** Anonymous
+**Priority:** Medium
 **Steps:**
 1. On a deliberately public project that allows anonymous issue viewing, open the Dashboard.
 
@@ -237,6 +245,7 @@ public project" combination in a future pass.
 ### TC-DSH-102: Cross-project data access via a crafted request
 
 **User Role:** Member of project A only
+**Priority:** High
 **Steps:**
 1. From A's session, send a chart-data request naming private project B's identifier.
 
@@ -255,6 +264,7 @@ using her own valid session, with B's identifier simply named in the URL. The en
 ### TC-DSH-103: Saved query widgets cannot bypass query visibility
 
 **User Role:** Member B with a private query owned by member A
+**Priority:** High
 **Steps:**
 1. Attempt to add a widget for A's private query as B.
 2. Send the widget-create request directly naming that query ID.
@@ -286,6 +296,7 @@ query owner):
 ### TC-DSH-104: Share-token generation is appropriately restricted
 
 **User Role:** Each non-admin role in turn
+**Priority:** Medium
 **Steps:**
 1. Record which roles are offered the **Share** button.
 2. Send the token-generation request directly for each role.
@@ -313,6 +324,7 @@ who created it has no self-service way to undo their own action. See `bugs/open/
 ### TC-DSH-105: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
+**Priority:** High
 **Steps:**
 1. Remove the member's project membership while they hold the dashboard open.
 2. Have them trigger a refresh and a widget change without logging out.
@@ -332,6 +344,7 @@ contexts.
 ### TC-DSH-106: Closed and archived projects
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Close a project: open its Dashboard, attempt a widget change, at the UI and the endpoint.
 2. Archive it and repeat, including the data endpoints.
@@ -354,6 +367,7 @@ session rather than archiving an existing shared one.
 ### TC-DSH-107: Widget and layout changes are attributable
 
 **User Role:** Two members
+**Priority:** Low
 **Steps:**
 1. A deletes a shared widget; B reloads the dashboard.
 

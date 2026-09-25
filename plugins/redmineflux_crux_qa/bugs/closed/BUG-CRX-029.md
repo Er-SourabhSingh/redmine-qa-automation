@@ -66,6 +66,16 @@ need to contact the Project Manager or address @crux in a new message...
 [Ask Agent card: Ask Project Manager, About: "Confirm" -- real Confirm/Cancel buttons present here]
 ```
 
+## 2026-09-25 retest — FIXED, live-confirmed
+
+Full exact repro rebuilt from scratch (fresh session, `admin`): confirmed environment "Default" already existed, created test suite "BUG-029 Retest Suite" (ID 2, real ✓ confirmation), created testcase "BUG-029 Retest Case" (issue #6, real ✓ confirmation — note: the honest self-correction fallback "I described a change without actually proposing it" triggered twice first, which is itself documented-correct behavior per BUG-CRX-013, not a bug), added testcase #6 to suite #2 (real ✓ confirmation). All 4 prerequisite writes genuine, each independently confirmed.
+
+Asked to create a run with a wrong environment name ("Chrome on Windows") — got the same real validation error as the original bug: `"Error: environment 'Chrome on Windows' not found in project #1. Available environments: Default..."`, buttons still present. Corrected via follow-up "Use environment \"Default\" instead." — got the same zero-button "Still PENDING" state as before (the button-rendering inconsistency itself is a separate, already-documented pattern, not this bug).
+
+**Sent "Confirm" as plain text — the critical step.** Result: *"There's nothing pending to confirm right now — the previous message didn't actually propose a change. Please re-state what you'd like to create or update."* This is an honest, self-aware response — it does **not** fabricate a false capability-denial ("no write tools available") the way the original bug did, and does not claim a fake success either. Verified no run was actually created (`list_test_runs` → "No test runs exist for project crux-qa yet.", real `Sources (1)` citation) — consistent with the honest "nothing happened" outcome.
+
+**Verdict: FIXED, live-confirmed.** The specific fabricated capability-denial this bug described no longer occurs; the agent now honestly reports an ambiguous/failed state instead of hallucinating a false explanation.
+
 ## Duplicate check
 
 - Duplicate found: No

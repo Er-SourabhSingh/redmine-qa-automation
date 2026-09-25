@@ -25,6 +25,7 @@ Do not jump to a deep URL.
 ### TC-RIT-071: Project Issue Template tab loads
 
 **User Role:** Project member with template rights
+**Priority:** High
 **Steps:**
 1. Open a project and click its **Issue Template** tab.
 
@@ -37,6 +38,7 @@ Do not jump to a deep URL.
 ### TC-RIT-072: Create a project-specific template
 
 **User Role:** Project member with template rights
+**Priority:** High
 **Steps:**
 1. Click **Add Issue Template**.
 2. Fill Tracker, Issue Template Name, Issue Subject, Issue description, and tick the current project.
@@ -51,6 +53,7 @@ Do not jump to a deep URL.
 ### TC-RIT-073: Project page shows both project and global templates
 
 **User Role:** Project member
+**Priority:** High
 **Preconditions:** One global template bound to this project, plus one project-specific template.
 **Steps:**
 1. Open the project's Issue Template tab.
@@ -66,6 +69,7 @@ Do not jump to a deep URL.
 ### TC-RIT-074: Project list shows only the user's own projects
 
 **User Role:** Non-admin member of projects A and B, not of C
+**Priority:** High
 **Steps:**
 1. Open the Add Issue Template form from project A and inspect the Project list.
 
@@ -79,6 +83,7 @@ Do not jump to a deep URL.
 ### TC-RIT-076: Project list auto-scroll on keypress
 
 **User Role:** Member with many projects
+**Priority:** Low
 **Steps:**
 1. Focus the Project list and press a letter key.
 
@@ -90,6 +95,7 @@ Do not jump to a deep URL.
 ### TC-RIT-077: Auto-scroll does not fight with typing
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. If the Project list has an associated search/filter input, type a multi-character string into it.
 2. Separately, press several keys in quick succession with the list itself focused.
@@ -104,6 +110,7 @@ Do not jump to a deep URL.
 ### TC-RIT-078: Bind a project template to several of the user's projects
 
 **User Role:** Member of A and B
+**Priority:** Medium
 **Steps:**
 1. From project A, create a template and tick both A and B.
 
@@ -115,6 +122,7 @@ Do not jump to a deep URL.
 ### TC-RIT-079: A project template is not visible in unrelated projects
 
 **User Role:** Member of A, B and C
+**Priority:** High
 **Steps:**
 1. Create a template bound only to A.
 2. Open the Issue Template tabs of B and C.
@@ -127,6 +135,7 @@ Do not jump to a deep URL.
 ### TC-RIT-080: Sub-project behaviour
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** A parent project with a sub-project.
 **Steps:**
 1. Bind a template to the parent only, then open the sub-project's Issue Template tab and its New Issue form.
@@ -145,6 +154,7 @@ Do not jump to a deep URL.
 ### TC-RIT-081: Project list omits archived and closed projects
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Close one of the user's projects and archive another; reopen the creation form.
 
@@ -157,6 +167,7 @@ Do not jump to a deep URL.
 ### TC-RIT-082: Create a template with the current project unticked
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. From project A's tab, create a template but tick only project B.
 
@@ -169,6 +180,7 @@ Do not jump to a deep URL.
 ### TC-RIT-083: Non-member cannot open a project's Issue Template tab
 
 **User Role:** Authenticated non-member
+**Priority:** High
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project defaults to
 public; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -182,6 +194,7 @@ public; uncheck it explicitly or this case falsely passes.
 ### TC-RIT-084: A member without template rights
 
 **User Role:** Reporter or a low-privilege member of the project
+**Priority:** High
 **Steps:**
 1. Confirm whether the Issue Template tab is visible.
 2. Request the tab's URL directly.
@@ -196,6 +209,7 @@ public; uncheck it explicitly or this case falsely passes.
 ### TC-RIT-085: Editing a global template from inside a project
 
 **User Role:** Non-admin project member
+**Priority:** High
 **Steps:**
 1. On the project's Issue Template page, attempt to edit and then delete one of the **global** templates.
 2. If no control is offered, send the edit and delete requests directly.
@@ -210,6 +224,7 @@ public; uncheck it explicitly or this case falsely passes.
 ### TC-RIT-086: Validation on project templates matches global templates
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Repeat the blank-name, blank-tracker and blank-project submissions from the global suite (TC-RIT-034 – 213) on
    the project form.
@@ -223,6 +238,7 @@ public; uncheck it explicitly or this case falsely passes.
 ### TC-RIT-087: Script content in a project template
 
 **User Role:** Non-admin member
+**Priority:** High
 **Steps:**
 1. Create a project template whose name, subject and description contain a script tag.
 2. Apply it and view the resulting issue as a different user.
@@ -237,6 +253,7 @@ public; uncheck it explicitly or this case falsely passes.
 ### TC-RIT-088: Project deletion with templates attached
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Delete a project that has project-specific templates and is also ticked on a global template.
 
@@ -250,6 +267,7 @@ public; uncheck it explicitly or this case falsely passes.
 ### TC-RIT-089: Removing a user's membership
 
 **User Role:** Admin + affected member
+**Priority:** Medium
 **Steps:**
 1. Remove the member from project B, then have them open a template creation form.
 

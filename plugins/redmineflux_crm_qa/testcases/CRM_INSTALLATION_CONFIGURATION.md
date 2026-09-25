@@ -28,6 +28,7 @@ workspace.
 ### TC-CRM-139: Plugin appears after installation
 
 **User Role:** Admin
+**Priority:** High
 **Preconditions:** Folder copied as `plugins/redmineflux_crm`, `bundle install` and migrations run, restarted.
 **Steps:**
 1. Open Administration → Plugins.
@@ -42,6 +43,7 @@ workspace.
 ### TC-CRM-140: Migrations complete cleanly
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Run the migration, restart, open the CRM workspace.
 
@@ -53,6 +55,7 @@ workspace.
 ### TC-CRM-141: Permissions must be granted before anything works
 
 **User Role:** Admin, then a member with no CRM permissions
+**Priority:** High
 **Steps:**
 1. Without granting any CRM permission, have the member click **CRM** in the top menu.
 2. Grant **View CRM** and retry.
@@ -67,6 +70,7 @@ workspace.
 ### TC-CRM-142: Assets load
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. Open the pipeline board and inspect the console and Network tab.
 
@@ -82,6 +86,7 @@ workspace.
 ### TC-CRM-143: Default values match the documentation
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. On a fresh install, read the Configure page.
 
@@ -95,6 +100,7 @@ workspace.
 ### TC-CRM-144: Default currency applies to new deals
 
 **User Role:** Admin then a deal owner
+**Priority:** Medium
 **Steps:**
 1. Change the default currency; save; create a new deal.
 2. Open a deal created **before** the change.
@@ -109,6 +115,7 @@ workspace.
 ### TC-CRM-145: Add a custom deal stage
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Add a stage; save; create a deal in it and view the pipeline.
 
@@ -120,6 +127,7 @@ workspace.
 ### TC-CRM-146: Territories, lead statuses and lead sources are configurable
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Add a territory, a lead status and a lead source; save.
 2. Check each on the relevant form and filter.
@@ -133,6 +141,7 @@ workspace.
 ### TC-CRM-147: Configuration changes are not retroactive
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. With deals and leads in various stages and statuses, rename a stage and a status.
 2. Reopen the existing records.
@@ -151,6 +160,7 @@ workspace.
 ### TC-CRM-148: Removing the Won or Lost stage
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Remove **Won** from the stages list and save.
 2. Check the dashboard's open-deal count, the pipeline's won revenue, and the analytics win rate.
@@ -166,6 +176,7 @@ workspace.
 ### TC-CRM-149: Removing the Qualified lead status
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Remove **Qualified** from the lead statuses and save.
 2. Attempt to convert a lead.
@@ -181,6 +192,7 @@ workspace.
 ### TC-CRM-150: Adding Converted to the lead statuses
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Add **Converted** manually to the lead statuses and save.
 2. Attempt to set it on a lead, then convert a different lead normally.
@@ -196,6 +208,7 @@ workspace.
 ### TC-CRM-151: Removing a stage or status currently in use
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Remove a stage that deals currently occupy, and a status that leads currently hold.
 2. Open those records, the pipeline and the lead list.
@@ -214,6 +227,7 @@ workspace.
 ### TC-CRM-152: CRM opens from the top menu
 
 **User Role:** Member with View CRM
+**Priority:** High
 **Steps:**
 1. Click **CRM** in the top menu.
 
@@ -226,6 +240,7 @@ workspace.
 ### TC-CRM-153: CRM is global, not project-scoped
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Confirm the entry is in the **top** menu and check whether any project menu or module exists for CRM.
 
@@ -239,6 +254,7 @@ workspace.
 ### TC-CRM-154: Dashboard shows all nine documented panels
 
 **User Role:** Member with View CRM
+**Priority:** Medium
 **Steps:**
 1. Open the Dashboard.
 
@@ -251,6 +267,7 @@ workspace.
 ### TC-CRM-155: Dashboard counts are accurate
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Compare each count against the corresponding list.
 
@@ -264,6 +281,7 @@ workspace.
 ### TC-CRM-156: Quick Create
 
 **User Role:** Member with the manage permissions
+**Priority:** Medium
 **Steps:**
 1. Use Quick Create for a lead, contact, company and deal in turn.
 
@@ -275,6 +293,7 @@ workspace.
 ### TC-CRM-157: Dashboard export
 
 **User Role:** Member with View CRM
+**Priority:** Medium
 **Steps:**
 1. Export the dashboard to CSV, then XLS.
 
@@ -291,6 +310,7 @@ workspace.
 ### TC-CRM-158: Clean uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** **Database backup taken.**
 **Steps:**
 1. Run `bundle exec rake redmine:plugins:migrate NAME=redmineflux_crm VERSION=0 RAILS_ENV=production`.

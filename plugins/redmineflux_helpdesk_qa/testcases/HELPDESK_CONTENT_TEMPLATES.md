@@ -19,6 +19,7 @@
 ### TC-HLP-001: Creating a canned response with a unique name and body
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** None.
 
 **Steps:**
@@ -36,6 +37,7 @@
 ### TC-HLP-002: All nine macros substitute correctly when inserted on a real ticket
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** A canned response body containing all nine macros: `{{customer_name}}`, `{{customer_email}}`, `{{ticket_id}}`, `{{ticket_subject}}`, `{{project_name}}`, `{{assignee_name}}`, `{{current_user}}`, `{{current_date}}`, `{{current_time}}`.
 
 **Steps:**
@@ -51,6 +53,7 @@
 ### TC-HLP-003: Inserting a canned response appends to already-typed text rather than replacing it
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Reply box open.
 
 **Steps:**
@@ -66,6 +69,7 @@
 ### TC-HLP-004: Clicking a macro shortcut link inserts it into Content at the cursor position
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** New or Edit Canned Response form open.
 
 **Steps:**
@@ -81,6 +85,7 @@
 ### TC-HLP-005: Editing a canned response updates Name and Content
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An existing canned response.
 
 **Steps:**
@@ -96,6 +101,7 @@
 ### TC-HLP-006: Editing only Content on an existing canned response leaves Name and the already-checked Active untouched
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An existing, Active canned response with both a distinct Name and non-empty Content already saved (e.g. "Acknowledge Receipt").
 
 **Steps:**
@@ -118,6 +124,7 @@
 ### TC-HLP-007: Deleting a canned response removes it after confirmation
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A canned response not needed for other tests.
 
 **Steps:**
@@ -134,6 +141,7 @@
 ### TC-HLP-008: Creating a product saves its required and optional fields
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** None.
 
 **Steps:**
@@ -152,6 +160,7 @@
 ### TC-HLP-009: Creating a Product with only the required fields succeeds
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None. Per `HELPDESK_USER_GUIDE.md` §15, only Name and Code are required — Category, Description, and Active all have defaults or are optional.
 
 **Steps:**
@@ -170,6 +179,7 @@
 ### TC-HLP-010: Creating a Product with every field filled in the initial Save, not via a later Edit
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None. Complements TC-HLP-011, which only proves Description is editable via Edit on an already-existing product.
 
 **Steps:**
@@ -187,6 +197,7 @@
 ### TC-HLP-011: Editing a Product updates every field, including its undocumented Description
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An existing product (e.g. "Phoenix Core").
 
 **Steps:**
@@ -205,6 +216,7 @@
 ### TC-HLP-012: Editing a Product's required fields only leaves its already-set optional fields untouched
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** An existing product with Category and Description both already populated — any product satisfies this, e.g. one created via TC-HLP-010's single-Save all-fields flow, or "Phoenix Core" (Code `PHX-CORE`) after TC-HLP-011 has given it a Description.
 
 **Steps:**
@@ -226,6 +238,7 @@
 ### TC-HLP-013: Deleting an unused Product succeeds
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A product not currently linked to any ticket (distinct from TC-HLP-028, which covers the linked/blocked case).
 
 **Steps:**
@@ -241,6 +254,7 @@
 ### TC-HLP-014: Picking a product on the ticket form saves and displays on the ticket
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** At least one active product exists for the ticket's project.
 
 **Steps:**
@@ -259,6 +273,7 @@
 ### TC-HLP-015: Product list search, Project filter, Status filter, Apply Filters, and Clear Filters all work correctly
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** Multiple products exist across at least two projects, at least one Active and at least one Inactive.
 
 **Steps:**
@@ -282,6 +297,7 @@
 ### TC-HLP-016: Canned Response list search, Apply Filters, and Clear Filters work correctly
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** Multiple canned responses exist.
 
 **Steps:**
@@ -302,6 +318,7 @@
 ### TC-HLP-017: The Product dropdown on the ticket form only offers this project's own products
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** Project A and Project B each have their own, different active product.
 
 **Steps:**
@@ -328,6 +345,7 @@
   - Fixture article (page id 7) and the 1×1 test PNG (`automation/uploads/tc-editor-blocks-test-image.png`) left in place as reusable evidence/regression fixtures.
 
 **User Role:** Agent with `add_kb_page`
+**Priority:** High
 **Precondition:** Project's Helpdesk module enabled.
 
 **Steps:**
@@ -343,6 +361,7 @@
 ### TC-HLP-019: Creating a child article nests correctly under its parent
 
 **User Role:** Agent with `add_kb_page`
+**Priority:** Medium
 **Precondition:** A parent article exists (TC-HLP-018).
 
 **Steps:**
@@ -358,6 +377,7 @@
 ### TC-HLP-020: Editing a Knowledgebase article keeps a version on every save
 
 **User Role:** Agent with `edit_kb_page`
+**Priority:** High
 **Precondition:** An existing article.
 
 **Steps:**
@@ -375,6 +395,7 @@
 ### TC-HLP-021: Comparing and restoring an older Knowledgebase version works
 
 **User Role:** Agent with `edit_kb_page`
+**Priority:** Medium
 **Precondition:** An article with at least two versions (TC-HLP-020).
 
 **Steps:**
@@ -392,6 +413,7 @@
 ### TC-HLP-022: Adding and removing attachments on a Knowledgebase article
 
 **User Role:** Agent with `edit_kb_page`
+**Priority:** Medium
 **Precondition:** An existing article.
 
 **Steps:**
@@ -409,6 +431,7 @@
 ### TC-HLP-023: Search finds a Knowledgebase article by title and by body content
 
 **User Role:** Agent or Customer with KB view access
+**Priority:** Medium
 **Precondition:** An article whose title contains "password" and whose body separately contains the word "token" nowhere in the title.
 
 **Steps:**
@@ -425,6 +448,7 @@
 ### TC-HLP-024: A generated share link still requires signing in
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** An existing published article.
 
 **Steps:**
@@ -441,6 +465,7 @@
 ### TC-HLP-025: Exporting a Knowledgebase article produces a PDF
 
 **User Role:** Agent or Customer with KB view access
+**Priority:** Medium
 **Precondition:** An existing article.
 
 **Steps:**
@@ -460,6 +485,7 @@
 ### TC-HLP-026: Creating a canned response with a duplicate name is refused
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A canned response named "Acknowledge receipt" already exists.
 
 **Steps:**
@@ -474,6 +500,7 @@
 ### TC-HLP-027: Creating a product with a duplicate name or code is refused
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A product named "Phoenix Core" with code "PHX-CORE" already exists.
 
 **Steps:**
@@ -490,6 +517,7 @@
 ### TC-HLP-028: A product linked to tickets cannot be deleted
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** A product already selected on at least one ticket.
 
 **Steps:**
@@ -505,6 +533,7 @@
 ### TC-HLP-029: A role without `add_kb_page` cannot create a Knowledgebase article
 
 **User Role:** Agent whose role has `view_helpdesk` but not `add_kb_page`
+**Priority:** High
 **Precondition:** Viewing the project's Knowledgebase.
 
 **Steps:**
@@ -520,6 +549,7 @@
 ### TC-HLP-030: A role without `edit_kb_page` cannot edit a Knowledgebase article
 
 **User Role:** Agent whose role lacks `edit_kb_page`
+**Priority:** High
 **Precondition:** An existing article.
 
 **Steps:**
@@ -535,6 +565,7 @@
 ### TC-HLP-031: A role without `delete_kb_page` cannot delete a Knowledgebase article
 
 **User Role:** Agent whose role lacks `delete_kb_page`
+**Priority:** High
 **Precondition:** An existing article.
 
 **Steps:**
@@ -550,6 +581,7 @@
 ### TC-HLP-032: A customer can never create, edit, or delete a Knowledgebase article
 
 **User Role:** Client (Customer)
+**Priority:** High
 **Precondition:** Customer has view access to a project's Knowledgebase.
 
 **Steps:**
@@ -569,6 +601,7 @@
 ### TC-HLP-033: Deactivating a canned response removes it from the dropdown but keeps past usage intact
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A canned response already used in at least one existing reply; then deactivated.
 
 **Steps:**
@@ -587,6 +620,7 @@
 ### TC-HLP-034: Deactivating a product stops new use without touching existing tickets
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A product already assigned to an existing ticket; then deactivated.
 
 **Steps:**
@@ -605,6 +639,7 @@
 ### TC-HLP-035: A customer cannot see a draft (unpublished) Knowledgebase article, even with view access
 
 **User Role:** Client (Customer) whose role can otherwise view KB pages on the project
+**Priority:** High
 **Precondition:** An article saved as a draft, not published.
 
 **Steps:**
@@ -620,6 +655,7 @@
 ### TC-HLP-036: A Knowledgebase share link never bypasses authentication, even for a different, unauthorized account
 
 **User Role:** Agent (generating the link) and a second Redmine user with no access to that project
+**Priority:** High
 **Precondition:** A share link generated for an article on Project A.
 
 **Steps:**

@@ -32,6 +32,7 @@ cannot detect the leak they exist to find.
 ### TC-RKB-055: Parent spaces appear in the sub-project sidebar
 
 **User Role:** Both
+**Priority:** High
 **Steps:**
 1. Open S's Knowledge Base.
 
@@ -44,6 +45,7 @@ cannot detect the leak they exist to find.
 ### TC-RKB-056: Inheritance is enabled by default
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. On a fresh install, check the inheritance setting in Plugin Settings → General.
 
@@ -55,6 +57,7 @@ cannot detect the leak they exist to find.
 ### TC-RKB-057: Inherited content is read-only
 
 **User Role:** Both (with `manage_knowledgebase_pages` on S)
+**Priority:** High
 **Steps:**
 1. In S's sidebar, attempt to use the dropdown menu on an inherited space, folder and page.
 2. Open an inherited page and look for Edit, Publish, Delete and Public URL controls.
@@ -71,6 +74,7 @@ cannot detect the leak they exist to find.
 ### TC-RKB-058: Inherited pages are readable
 
 **User Role:** Both
+**Priority:** Medium
 **Steps:**
 1. Open an inherited published page from S's sidebar.
 
@@ -82,6 +86,7 @@ cannot detect the leak they exist to find.
 ### TC-RKB-059: Inheritance respects the parent's page visibility rules
 
 **User Role:** Both, holding only `view_knowledgebase` on P
+**Priority:** High
 **Preconditions:** P contains a published page, a never-published draft, and an explicitly unpublished page.
 **Steps:**
 1. Inspect what appears in S's inherited section.
@@ -97,6 +102,7 @@ cannot detect the leak they exist to find.
 ### TC-RKB-060: Disabling inheritance removes the section
 
 **User Role:** Admin then Both
+**Priority:** Medium
 **Steps:**
 1. Disable inheritance in Plugin Settings → General; reload S's Knowledge Base.
 2. Request an inherited page's URL from S's context **directly**.
@@ -110,6 +116,7 @@ cannot detect the leak they exist to find.
 ### TC-RKB-061: Multi-level hierarchies
 
 **User Role:** Both
+**Priority:** Medium
 **Preconditions:** A grandparent → parent → child project chain.
 **Steps:**
 1. Open the child project's Knowledge Base.
@@ -129,6 +136,7 @@ cannot detect the leak they exist to find.
 ### TC-RKB-062: A user without parent access sees no inherited content
 
 **User Role:** Sub-only
+**Priority:** High
 **Preconditions:** **Confirm project P is genuinely private and this user has no membership path to it** — a newly
 created Redmine project has "Public" checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -149,6 +157,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RKB-063: Inherited content when the parent's module is disabled
 
 **User Role:** Both
+**Priority:** Medium
 **Steps:**
 1. Disable the Knowledge Base module on P and reload S's Knowledge Base.
 
@@ -160,6 +169,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RKB-064: Parent content deleted while displayed
 
 **User Role:** Both
+**Priority:** Low
 **Steps:**
 1. Delete a space in P while S's Knowledge Base is open, then interact with the inherited section.
 
@@ -171,6 +181,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RKB-065: Inherited pages cannot be shared publicly from the sub-project
 
 **User Role:** Both with `manage_knowledgebase_pages` on S only
+**Priority:** High
 **Steps:**
 1. Attempt to enable a public URL on an inherited page through S, then send the request directly.
 
@@ -187,6 +198,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RKB-066: Search filters the tree live
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Type part of a space name, then a folder name, then a page title into the sidebar Search field.
 
@@ -198,6 +210,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RKB-067: Search is client-side with no page reload
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Watch the Network tab while typing into the search field.
 
@@ -211,6 +224,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RKB-068: Clearing the search restores the full tree
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Clear the field.
 
@@ -222,6 +236,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RKB-069: Search matches partial strings and is case-insensitive
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Search a lowercase fragment of a mixed-case title.
 
@@ -233,6 +248,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RKB-070: No matches shows an empty state
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Search for a string matching nothing.
 
@@ -248,6 +264,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RKB-071: Search cannot reveal hidden pages
 
 **User Role:** Reader with `view_knowledgebase` only
+**Priority:** High
 **Preconditions:** A draft page exists whose title contains a distinctive string.
 **Steps:**
 1. Search for that exact string.
@@ -265,6 +282,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RKB-072: Search does not match inherited content the user cannot see
 
 **User Role:** Sub-only
+**Priority:** High
 **Steps:**
 1. Search for a distinctive string from the parent project's page titles.
 
@@ -276,6 +294,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RKB-073: Special characters in the search field
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Search for a script tag, a percent sign, a backslash and a regular-expression metacharacter such as `.*`.
 
@@ -288,6 +307,7 @@ created Redmine project has "Public" checked by default; uncheck it explicitly o
 ### TC-RKB-074: Search on a very large tree
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. With several hundred nodes, type into the search field and observe responsiveness.
 

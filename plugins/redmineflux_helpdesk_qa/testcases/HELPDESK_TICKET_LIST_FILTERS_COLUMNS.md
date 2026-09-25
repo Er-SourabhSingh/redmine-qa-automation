@@ -19,6 +19,7 @@
 ### TC-HLP-398: Filter panel opens with the two default filters: Status and Customer
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Viewing the global or a project's ticket list.
 
 **Steps:**
@@ -34,6 +35,7 @@
 ### TC-HLP-399: Add filter brings in an additional field, and removing it returns it to the menu
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Filter panel open.
 
 **Steps:**
@@ -52,6 +54,7 @@
 ### TC-HLP-400: Applying a filter narrows the list and persists in the URL
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** Filter panel open with at least one filter set.
 
 **Steps:**
@@ -67,6 +70,7 @@
 ### TC-HLP-401: A filter carried in the URL is shown and the panel opens itself
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** A shareable URL containing a non-default filter (e.g. Priority) for the ticket list.
 
 **Steps:**
@@ -83,6 +87,7 @@
 ### TC-HLP-402: Clear removes every active filter
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Multiple filters currently applied.
 
 **Steps:**
@@ -97,6 +102,7 @@
 ### TC-HLP-403: Sorting a column keeps the current filter and stays on the same screen
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** A filter is applied to the ticket list.
 
 **Steps:**
@@ -113,6 +119,7 @@
 ### TC-HLP-404: Paging preserves both the filter and the sort order
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** A filtered, sorted list with more than one page of results.
 
 **Steps:**
@@ -127,6 +134,7 @@
 ### TC-HLP-405: Column picker lists 20 columns, 9 ticked by default, and changes the table
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Viewing the ticket list with default columns.
 
 **Steps:**
@@ -144,6 +152,7 @@
 ### TC-HLP-406: The SLA Status badge shows the correct state for a ticket's SLA condition
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** Tickets exist covering a range of SLA conditions (no SLA, comfortably on track, close to deadline, within 2h of deadline, past deadline, paused, resolved).
 
 **Steps:**
@@ -160,6 +169,7 @@
 ### TC-HLP-407: A customer's ticket list shows only their own tickets with a 7-column, 5-filter set
 
 **User Role:** Client (Customer)
+**Priority:** High
 **Precondition:** Customer has raised at least one ticket; other tickets exist on the same project raised by others.
 
 **Steps:**
@@ -177,6 +187,7 @@
 ### TC-HLP-408: Inside a project, the Project filter is not offered
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Viewing a project's own ticket list (not the Command Center's global list).
 
 **Steps:**
@@ -196,6 +207,7 @@
 ### TC-HLP-409: A filter matching nothing shows the filtered-empty state, not the "no tickets yet" state
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** At least one ticket exists on the project.
 
 **Steps:**
@@ -210,6 +222,7 @@
 ### TC-HLP-410: Redmine's native operator query form is not present anywhere on the ticket screens
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Any ticket list — global or project.
 
 **Steps:**
@@ -224,6 +237,7 @@
 ### TC-HLP-411: A customer manipulating the URL cannot expand their result set
 
 **User Role:** Client (Customer)
+**Priority:** High
 **Precondition:** Customer signed in, viewing their own restricted ticket list.
 
 **Steps:**
@@ -242,6 +256,7 @@
 ### TC-HLP-412: The active-filter count stays accurate as filters are added and removed
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Filter panel open.
 
 **Steps:**
@@ -257,6 +272,7 @@
 ### TC-HLP-413: A customer sorting by a column outside their offered set falls back to the default sort
 
 **User Role:** Client (Customer)
+**Priority:** Medium
 **Precondition:** Customer viewing their restricted ticket list.
 
 **Steps:**
@@ -271,6 +287,7 @@
 ### TC-HLP-414: Removing a filter genuinely stops it narrowing results, not just hides its row
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** A filter is applied and visibly narrowing the list.
 
 **Steps:**
@@ -285,6 +302,7 @@
 ### TC-HLP-415: Apply, Clear, and Add filter controls are visually consistent
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Filter panel open.
 
 **Steps:**
@@ -299,6 +317,7 @@
 ### TC-HLP-416: Combining multiple filters narrows to the correct intersection, not a union or a silently-dropped filter
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** Ticket list open, unfiltered (35 tickets total in Helpdesk QA Alpha).
 
 **Steps:**
@@ -320,6 +339,7 @@
 ### TC-HLP-417: Clear removes every added filter row and resets the panel back to its two defaults, not just the URL
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Multiple filters applied, including at least one non-default row (i.e., beyond the two default Status/Customer rows).
 
 **Steps:**
@@ -336,6 +356,7 @@
 ### TC-HLP-418: The global Command Center dashboard's "Ticket Statistics" bar chart reflects the selected Date Range, consistent with its KPI cards
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Global Command Center Dashboard open (`/helpdesk`, distinct from a project's own Helpdesk Dashboard at `/projects/:id/helpdesk`, which has no chart — only the 5 KPI cards and a Prepaid Support Hours table).
 
 **Steps:**
@@ -352,6 +373,7 @@
 ### TC-HLP-419: An active filter survives a column add/remove, and a column change doesn't reset an applied filter
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Ticket list open with a filter already applied and narrowing the result set.
 
 **Steps:**

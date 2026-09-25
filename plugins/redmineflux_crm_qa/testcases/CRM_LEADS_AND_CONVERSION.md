@@ -28,6 +28,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-159: Create a lead with all fields
 
 **User Role:** Member with **Manage Leads**
+**Priority:** High
 **Steps:**
 1. Leads → **New Lead** → first name, last name, email, phone, company name, source, status, assignee, notes,
    privacy flag, custom fields → Save.
@@ -40,6 +41,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-160: Create a lead with only the required fields
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Provide only first name and email.
 
@@ -51,6 +53,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-161: Source and status lists match the configuration
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Compare the dropdowns against the plugin settings.
 
@@ -62,6 +65,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-162: Edit a lead
 
 **User Role:** Member with Manage Leads
+**Priority:** High
 **Steps:**
 1. Change the status and the assignee; Save; open the Recent Activities.
 
@@ -77,6 +81,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-163: First name and email are required
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Save with each omitted in turn.
 
@@ -88,6 +93,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-164: Email must be unique across all leads
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create a lead with an existing lead's email, via the UI and the API; then with different capitalisation.
 
@@ -101,6 +107,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-165: A lead's email may duplicate a contact's email
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create a lead whose email matches an existing **contact**.
 
@@ -114,6 +121,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-166: `Converted` cannot be set manually
 
 **User Role:** Member with Manage Leads
+**Priority:** High
 **Steps:**
 1. Confirm it is absent from the status dropdown.
 2. Send an update **directly** setting the status to `Converted`.
@@ -133,6 +141,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-167: Only Qualified leads can be converted
 
 **User Role:** Member with Manage Leads
+**Priority:** High
 **Steps:**
 1. On a lead with status **New**, look for the Convert action, then send the convert request **directly**.
 2. Set the status to **Qualified** and retry.
@@ -145,6 +154,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-168: Convert without creating a deal
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Convert a Qualified lead, choosing not to create a deal.
 
@@ -158,6 +168,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-169: Convert and create a deal
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Convert with the deal option enabled: supply the deal name (required), an amount, a stage (defaults to New) and
    any deal custom field values.
@@ -171,6 +182,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-170: An existing contact with the same email is reused
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create a contact with email `x@y.com`; create a Qualified lead with the same email; convert it.
 
@@ -183,6 +195,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-171: Merging only fills blank contact fields
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. On the existing contact, set a phone number and a job title to known **correct** values.
 2. Create a Qualified lead with the same email but **different** phone data, and leave the contact's address blank
@@ -201,6 +214,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-172: An existing company with the same name is reused
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create a company named `Acme Ltd`; create a Qualified lead with company name `Acme Ltd`; convert.
 
@@ -214,6 +228,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-173: A new company is created when none matches
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Convert a Qualified lead whose company name does not exist.
 
@@ -225,6 +240,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-174: Conversion with no company name
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Convert a Qualified lead that has no company name.
 
@@ -237,6 +253,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-175: Conversion logs an automatic activity
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. After converting, open the lead's Recent Activities.
 
@@ -253,6 +270,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-176: A converted lead cannot be converted again
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Confirm the Convert action is gone from a converted lead.
 2. Send the convert request **directly**.
@@ -267,6 +285,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-177: A converted lead cannot be deleted
 
 **User Role:** Member with **Delete CRM Data**
+**Priority:** High
 **Steps:**
 1. Confirm no Delete control on a converted lead.
 2. Send the delete request **directly**.
@@ -281,6 +300,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-178: Conversion when the Qualified status has been removed
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. Remove `Qualified` from the lead statuses (see TC-CRM-149), then attempt to convert a lead.
 
@@ -292,6 +312,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-179: Conversion failure leaves nothing half-created
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Force a failure mid-conversion — for example supply a deal name that violates a validation rule, or make a
    required custom field invalid.
@@ -307,6 +328,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-180: Conversion respects permissions
 
 **User Role:** Member with **Manage Leads** but without **Manage Contacts** and without **Manage Deals**
+**Priority:** High
 **Steps:**
 1. Attempt a conversion that would create a contact, and one that would also create a deal.
 
@@ -320,6 +342,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-181: Conversion with a private lead
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Convert a lead marked private and inspect the privacy flags of the resulting contact, company and deal.
 
@@ -332,6 +355,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-182: Concurrent conversion of the same lead
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. Both open the same Qualified lead and submit the conversion at nearly the same moment.
 
@@ -344,6 +368,7 @@ CRM → **Leads**. Do not type URLs.
 ### TC-CRM-183: Long values and script content in lead fields
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Use 500-character values and a script tag in name, company name and notes; convert the lead.
 2. View the resulting contact, company and deal, and the conversion activity.

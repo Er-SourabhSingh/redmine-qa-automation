@@ -32,6 +32,7 @@
 
 **Feature:** Create Global Template
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** High
 **Precondition:** Admin API key is configured. Issue template plugin is installed and active.
 
 **MCP Call:**
@@ -62,6 +63,7 @@ Params:
 
 **Feature:** Create Project Template
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** High
 **Precondition:** TC-RIT-090 passed. Project `wiftsep` exists.
 
 **MCP Call:**
@@ -93,6 +95,7 @@ Params:
 
 **Feature:** Project Filter Search / Global vs Project Visibility
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** Medium
 **Precondition:** TC-RIT-090 and TC-RIT-091 passed. Template IDs from prior TCs noted.
 
 **MCP Call:**
@@ -115,6 +118,7 @@ Params:
 
 **Feature:** Create Global Template (verify stored data)
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** Medium
 **Precondition:** TC-RIT-090 passed. Template ID from TC-RIT-090 noted.
 
 **MCP Call:**
@@ -142,6 +146,7 @@ Params:
 
 **Feature:** Create Project Template (verify stored data + project assignment)
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** Medium
 **Precondition:** TC-RIT-091 passed. Template ID from TC-RIT-091 noted.
 
 **MCP Call:**
@@ -166,6 +171,7 @@ Params:
 
 **Feature:** Project Filter Search
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** Medium
 **Precondition:** TC-RIT-091 passed. Project-scoped template assigned to `wiftsep`.
 
 **MCP Call:**
@@ -189,6 +195,7 @@ Params:
 
 **Feature:** Edit Template / Template Data Persistence After Update
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** High
 **Precondition:** TC-RIT-090 passed. Template ID from TC-RIT-090 noted.
 
 **MCP Call:**
@@ -213,6 +220,7 @@ Params:
 
 **Feature:** Template Data Persistence After Update
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** Medium
 **Precondition:** TC-RIT-096 passed.
 
 **MCP Call:**
@@ -236,6 +244,7 @@ Params:
 
 **Feature:** Multiple Project Assignment / Assign Template to Projects
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** Medium
 **Precondition:** TC-RIT-091 passed. Template ID from TC-RIT-091 noted.
 
 **MCP Call:**
@@ -259,6 +268,7 @@ Params:
 
 **Feature:** Multiple Project Assignment (verify)
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** Medium
 **Precondition:** TC-RIT-098 passed.
 
 **MCP Call (check project 1):**
@@ -288,6 +298,7 @@ Params:
 
 **Feature:** Issue Creation Using Template / Default Template Auto-Selection by Tracker
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** High
 **Precondition:** TC-RIT-090 passed. Global template ID noted.
 
 **Step 1 — Apply template:**
@@ -327,6 +338,7 @@ Params:
 
 **Feature:** CKEditor Content Support
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** Low
 **Precondition:** Admin API key configured.
 
 **MCP Call:**
@@ -363,6 +375,7 @@ Params:
 
 **Feature:** Edit Template (deactivate)
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** Medium
 **Precondition:** TC-RIT-101 passed. Rich-text template ID noted.
 
 **MCP Call:**
@@ -394,6 +407,7 @@ Params:
 
 **Feature:** Template Validation Rules
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** Medium
 **Precondition:** Admin API key configured.
 
 **Test A — missing name:**
@@ -426,6 +440,7 @@ Params:
 
 **Feature:** Delete Template
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** High
 **Precondition:** All prior TCs passed. Using TC-RIT-101 template (rich-text, currently inactive).
 
 **Step 1 — Delete:**
@@ -458,6 +473,7 @@ Params:
 
 **Feature:** Permission-Based Access Control / Template Visibility Based on Permissions
 **User Role:** User with permission (via `redmineflux_user_perm` MCP server)
+**Priority:** High
 **Precondition:** `redmineflux_user_perm` MCP server is active (requires session restart after settings.json change).
 
 **MCP Call:**
@@ -481,6 +497,7 @@ Params:
 
 **Feature:** Permission-Based Access Control (create)
 **User Role:** User with permission (via `redmineflux_user_perm` MCP server)
+**Priority:** High
 **Precondition:** TC-RIT-105 passed. `redmineflux_user_perm` server active.
 
 **MCP Call:**
@@ -511,6 +528,7 @@ Params:
 
 **Feature:** Permission-Based Access Control / Project Membership Restriction
 **User Role:** test1 (@Aurora Grace) — has ALL template permissions in ztflux, ZERO template permissions in gdaplt
+**Priority:** High
 **Precondition:** MCP configured with test1 API key. test1 is member of gdaplt but with a role that has no issue template permissions.
 
 **Test A — list templates filtered by gdaplt:**
@@ -573,6 +591,7 @@ Params:
 
 **Feature:** Active/Inactive Visibility
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** Low
 **Precondition:** At least one inactive template exists in the system.
 
 **MCP Call:**
@@ -596,6 +615,7 @@ Params:
 
 **Feature:** Active/Inactive Toggle (reactivation)
 **User Role:** Admin (via `redmineflux` MCP server)
+**Priority:** Low
 **Precondition:** A template exists. TC-RIT-102 passed (deactivation works).
 
 **Step 1 — Create and deactivate:**
@@ -640,6 +660,7 @@ Tool: redmineflux_issue_template_list_templates — is_active: "true" → templa
 
 **Feature:** Permission-Based Access Control — Edit
 **User Role:** User with permission (@test1 — ztflux role)
+**Priority:** High
 **Precondition:** TC-RIT-106 passed. Template #78 exists.
 
 **MCP Call:**
@@ -666,6 +687,7 @@ Params:
 
 **Feature:** Permission-Based Access Control — Apply / Issue Creation Using Template
 **User Role:** User with permission (@test1 — ztflux role)
+**Priority:** High
 **Precondition:** Template #78 exists. @test1 is member of ztflux.
 
 **Step 1 — Apply template:**
@@ -704,6 +726,7 @@ Params:
 
 **Feature:** Permission-Based Access Control — Delete
 **User Role:** User with permission (@test1 — ztflux role)
+**Priority:** High
 **Precondition:** Template #78 exists.
 
 **MCP Call:**
@@ -727,6 +750,7 @@ Params:
 
 **Feature:** Global vs Project Template Visibility / Template Visibility Based on Permissions
 **User Role:** User with permission (@test1 — ztflux role)
+**Priority:** Medium
 **Precondition:** TC-RIT-105 passed.
 
 **MCP Call:**
@@ -750,6 +774,7 @@ Params:
 
 **Feature:** Project Membership Restriction / Permission-Based Access Control
 **User Role:** User with permission in ztflux, NO permission in gdaplt (@test1)
+**Priority:** High
 **Precondition:** @test1 has no issue template permissions in gdaplt.
 
 **MCP Call:**

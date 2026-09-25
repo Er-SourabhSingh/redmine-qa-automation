@@ -26,6 +26,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-110: Left panel and timeline render together
 
 **User Role:** Member with View Flux Gantt
+**Priority:** High
 **Steps:**
 1. Open the project Flux Gantt on a project with releases, issues and subtasks.
 
@@ -39,6 +40,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-111: Bar position matches the record's dates
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Pick three issues with known start and due dates.
 2. Compare each bar's left and right edges against the date grid.
@@ -53,6 +55,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-112: Progress fill reflects the done ratio
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Set an issue's % done to 50 and view its bar.
 
@@ -64,6 +67,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-113: Parent progress and dates derive from subtasks
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. On a parent with two subtasks, set the subtasks' dates and progress.
 2. View the parent row.
@@ -77,6 +81,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-114: Today line is positioned correctly
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Locate the today line at each zoom level.
 
@@ -92,6 +97,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-115: Add a release
 
 **User Role:** Member with Manage versions
+**Priority:** High
 **Steps:**
 1. Click **Add Release**.
 2. Enter a name, a description, a start date and a due date. Save.
@@ -106,6 +112,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-116: Release name cannot be blank
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open Add Release, leave the name blank, save.
 
@@ -118,6 +125,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-117: Start date must be on or before the due date
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enter a start date later than the due date and save.
 
@@ -129,6 +137,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-118: Edit a release
 
 **User Role:** Member with Manage versions
+**Priority:** High
 **Steps:**
 1. Open a release's edit dialog, change its name and dates, save.
 
@@ -140,6 +149,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-119: Delete a release
 
 **User Role:** Member with Manage versions
+**Priority:** High
 **Steps:**
 1. Delete a release that has no issues; confirm the dialog.
 2. Attempt to delete one that **does** have issues.
@@ -154,6 +164,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-120: Expand and collapse a release
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Expand a release row, then collapse it.
 
@@ -165,6 +176,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-121: Expand All and Collapse All
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Use the toolbar's **Expand All**, then **Collapse All**.
 
@@ -176,6 +188,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-122: Expand/collapse state is saved per user and project
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. User A expands releases 1 and 3, then leaves and returns to the chart.
 2. User B opens the same project's chart.
@@ -193,6 +206,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-123: Add an issue from the chart
 
 **User Role:** Member with View Flux Gantt
+**Priority:** High
 **Steps:**
 1. Click **Add Issue**.
 2. Enter subject, tracker, release/version, parent (optional), start and due dates, estimated hours, assignee.
@@ -207,6 +221,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-124: Created issue respects tracker required fields
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create an issue from the chart on a tracker with required custom fields.
 
@@ -220,6 +235,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-125: Subtask hierarchy renders
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create an issue with a parent, then view both rows.
 
@@ -231,6 +247,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-126: Issues Without Version panel lists unassigned issues
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open the **Issues Without Version** panel on a project with some unversioned issues.
 
@@ -242,6 +259,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-127: Assign an issue to a release from the panel
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Drag an issue from the Issues Without Version panel onto a release.
 
@@ -254,6 +272,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-128: Empty state when all issues are versioned
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Assign every issue to a release and reopen the panel.
 
@@ -269,6 +288,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-129: Release with no dates
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create a release leaving the dates blank.
 
@@ -281,6 +301,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-130: Issue with a due date before its start date
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create an issue from the chart with due before start.
 
@@ -292,6 +313,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-131: Issue dated outside its release's range
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add an issue whose dates fall entirely outside the selected release's window.
 
@@ -306,6 +328,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-132: Very long release or issue name
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create a release and an issue with 500-character names.
 
@@ -318,6 +341,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-133: HTML and script in a name or description
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create a release and an issue whose names and descriptions contain a script tag.
 
@@ -331,6 +355,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-134: Deleting an issue that others depend on
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Delete an issue that is the source of a dependency line.
 
@@ -343,6 +368,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-135: Concurrent structural changes
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. Both have the chart open. A deletes a release; B, without reloading, adds an issue to it.
 
@@ -355,6 +381,7 @@ that shows a bar the database does not back is the defect this suite exists to c
 ### TC-GNT-136: Read-only derived parent
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Attempt to change the dates of a parent whose dates are derived from its subtasks, via the chart.
 

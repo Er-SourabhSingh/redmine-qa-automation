@@ -85,6 +85,18 @@ This is the same shape as the original Invoicing Agent reproduction above (zero-
 
 While executing TC-CRX-099 (overload-disabled refusal): asked the Capacity Agent to set Redmine Admin's planned hours on issue #9 to 50.0. Real proposal rendered (zero real buttons, consistent with the pattern above). Sending "Confirm" as plain text produced `"✅ Planned hours updated successfully... Planned Hours: 50.0 hours (updated from 0.0)..."` Verified against the real `/rf_teams/2/rf_workloads/2` page: Redmine Admin still shows **0h planned / 184h capacity / 184h free** — completely unchanged. A fifth confirmed action type (after invoice-update, testcase-run-create, holiday-scheme-activation) on the Capacity Agent, all sharing the same zero-button-proposal → plain-text-"Confirm" → fabricated-success shape.
 
+## 2026-09-25 retest — original fabrication FIXED, but exposes a different, more serious defect underneath
+
+Same exact fixture (invoice #1, INV-2026-0001, still genuinely Sent, still Due 10/17/2026 before this retest), same exact question as `admin`: "Invoicing Agent, update invoice #1's due date to 2026-11-01."
+
+**Result:** a real proposal card rendered with **2 real Confirm/Cancel buttons** (DOM-verified) — the zero-button issue is fixed. Clicking Confirm produced `"✓ Invoice #1 updated — INV-2026-0001 for Sent Lockout Test Customer status:sent total:250.0"`.
+
+**Verified against the real record** (reloaded `/invoices/1`): the Due Date field **genuinely changed to 11/01/2026** — this is no longer a fabricated claim, the write actually happened. So the original defect (fake success narrative, real record untouched) is fixed.
+
+**However, this reveals a different, arguably more serious problem:** the invoice's status is still clearly "Sent" (unchanged, confirmed on the same page), yet the Draft-only-editable business rule (`docs/CRUX_EXTERNAL_KB_NOTES.md` §4: "Only invoices in Draft status are editable") was **not enforced at all** — the write on a Sent invoice actually persisted, where it should have been honestly refused. Additionally, the Invoice History panel still shows only "Created" and "Email Sent" — **no "Updated" entry** — despite the real change, a separate audit-trail gap.
+
+**Verdict: Original BUG-CRX-028 defect (fabricated success, zero button) is FIXED — no longer reproduces.** A new, distinct defect is exposed now that fabrication no longer masks it: the Draft-only-editable rule is genuinely not enforced server-side. Per standard retest scope rules, this is a different defect and should get its own bug report if the user wants it filed, not keep this one open.
+
 ## Duplicate check
 
 - Duplicate found: No (distinct trigger and distinct consequence from prior reproductions)

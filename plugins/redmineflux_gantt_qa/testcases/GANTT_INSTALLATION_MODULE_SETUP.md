@@ -27,6 +27,7 @@ top menu, never by typing the URL.
 ### TC-GNT-077: Plugin folder name is enforced
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** Archive extracted to `Redmine/plugins/redmineflux_gantt_plugin`.
 **Steps:**
 1. Confirm the folder is named exactly `redmineflux_gantt_plugin`.
@@ -44,6 +45,7 @@ top menu, never by typing the URL.
 ### TC-GNT-078: Named migration runs cleanly
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Run `RAILS_ENV=production bundle exec rake redmine:plugins:migrate NAME=redmineflux_gantt_plugin`.
 2. Restart and open a project.
@@ -56,6 +58,7 @@ top menu, never by typing the URL.
 ### TC-GNT-079: Assets load — the chart is entirely JS-driven
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Open a Flux Gantt view and inspect the console and Network tab.
 
@@ -70,6 +73,7 @@ top menu, never by typing the URL.
 ### TC-GNT-080: Redmine version support boundary
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Record the Redmine version from Administration → Information.
 
@@ -87,6 +91,7 @@ top menu, never by typing the URL.
 ### TC-GNT-081: Enable the Flux Gantt Chart module on a project
 
 **User Role:** Admin or a user with project-settings permission
+**Priority:** High
 **Steps:**
 1. Open a project → Settings → **Modules**.
 2. Tick **Flux Gantt Chart** and save.
@@ -100,6 +105,7 @@ top menu, never by typing the URL.
 ### TC-GNT-082: Project Flux Gantt opens from the project menu
 
 **User Role:** Member with View Flux Gantt
+**Priority:** High
 **Steps:**
 1. Click **Flux Gantt** in the project menu.
 
@@ -113,6 +119,7 @@ top menu, never by typing the URL.
 ### TC-GNT-083: Releases load first, issues lazy-load on expand
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open the project Gantt on a project with several releases and many issues.
 2. Watch the Network tab while expanding one release.
@@ -127,6 +134,7 @@ top menu, never by typing the URL.
 ### TC-GNT-084: Flux Gantt does not replace Redmine's native Gantt
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With the module enabled, look for both the native Gantt and the Flux Gantt entries.
 
@@ -138,6 +146,7 @@ top menu, never by typing the URL.
 ### TC-GNT-085: Disabling the module removes access
 
 **User Role:** Manager
+**Priority:** High
 **Steps:**
 1. Untick **Flux Gantt Chart** in Project → Settings → Modules and save.
 2. Confirm the menu entry is gone.
@@ -157,6 +166,7 @@ top menu, never by typing the URL.
 ### TC-GNT-086: Configure page loads and shows "Show closed projects"
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Administration → Plugins → Redmineflux Gantt Plugin → Configure.
 
@@ -170,6 +180,7 @@ top menu, never by typing the URL.
 ### TC-GNT-087: "Show closed projects" controls Global Gantt contents
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** At least one closed project with the module enabled.
 **Steps:**
 1. With the setting off, open Global Flux Gantt and note whether the closed project appears.
@@ -185,6 +196,7 @@ top menu, never by typing the URL.
 ### TC-GNT-088: Setting persists across save and reload
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Toggle the setting, save, reload the Configure page.
 
@@ -200,6 +212,7 @@ top menu, never by typing the URL.
 ### TC-GNT-089: Wrong plugin folder name
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Rename the folder away from `redmineflux_gantt_plugin` and restart.
 
@@ -213,6 +226,7 @@ top menu, never by typing the URL.
 ### TC-GNT-090: Migration not run
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Install the files, skip the migration, restart, open a project and the project Gantt.
 
@@ -225,6 +239,7 @@ top menu, never by typing the URL.
 ### TC-GNT-091: Configure page is not reachable by a non-admin
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
+**Priority:** High
 **Steps:**
 1. Request the plugin settings URL directly for each role. Do not rely on the menu being hidden.
 
@@ -236,6 +251,7 @@ top menu, never by typing the URL.
 ### TC-GNT-092: Module enabled but no releases exist
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Open the Gantt on a project with no versions at all.
 
@@ -248,6 +264,7 @@ top menu, never by typing the URL.
 ### TC-GNT-093: Module enabled but the role lacks View Flux Gantt
 
 **User Role:** Member of a role without the permission
+**Priority:** High
 **Steps:**
 1. Confirm no Flux Gantt menu entry appears.
 2. Request the project Gantt URL directly.
@@ -262,6 +279,7 @@ top menu, never by typing the URL.
 ### TC-GNT-094: Chart on a project with a very large number of issues
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open the Gantt on a project with several thousand issues and expand all releases.
 
@@ -279,6 +297,7 @@ top menu, never by typing the URL.
 ### TC-GNT-095: Clean uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** **Database backup taken** — the KB requires this before rollback.
 **Steps:**
 1. Run `bundle exec rake redmine:plugins:migrate NAME=redmineflux_gantt_plugin VERSION=0 RAILS_ENV=production`.

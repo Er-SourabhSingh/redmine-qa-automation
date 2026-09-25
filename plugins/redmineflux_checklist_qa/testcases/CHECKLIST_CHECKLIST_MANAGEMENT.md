@@ -4,7 +4,8 @@
 > "How to Create Checklist", "How to Edit and Delete the Checklist", "How To Create Sub Checklist item",
 > FAQ "Can I create multiple checklists within a single issue?".
 > **Status: authored 2026-09-15. TC-CHK-015–222 executed 2026-09-21 (regression pass for #120920) — 21 PASS, 1 N/A,
-> 1 FAIL (BUG-CHK-002). TC-CHK-037–228 executed 2026-09-21, all PASS. See per-TC evidence and the consolidated
+> 1 FAIL (BUG-CHK-002). TC-CHK-037–228 executed 2026-09-21, all PASS. TC-CHK-116 authored and executed 2026-09-25
+> (production regression `#121326`/`BUG-CHK-006`) — PASS. See per-TC evidence and the consolidated
 > regression summary at the end of this file.**
 
 ## Plugin
@@ -27,6 +28,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-015: Create a checklist via Actions → New checklist
 
 **User Role:** Member with issue-edit rights
+**Priority:** High
 **Steps:**
 1. Open an issue and scroll to the Checklist section.
 2. Click **Actions** → **New checklist**.
@@ -41,6 +43,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-016: Create multiple checklists in a single issue
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Repeat TC-CHK-015 three times with distinct titles on the same issue.
 
@@ -54,6 +57,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-017: Create a sub-checklist item under a checklist
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Click the action button next to an existing checklist.
 2. Choose **Add**.
@@ -68,6 +72,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-018: Add several items to one checklist consecutively
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add five items in sequence to the same checklist.
 
@@ -81,6 +86,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-019: Checklist survives an issue update made from another form
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create a checklist with items.
 2. Edit the issue subject/description via the normal Edit form and save.
@@ -97,6 +103,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-020: Edit a checklist title
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Open the action menu next to a checklist and choose **Edit**.
 2. Change the title and press Enter.
@@ -109,6 +116,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-021: Edit a sub-checklist item title
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Open the action menu on an item, click the edit icon, change the text, press Enter.
 
@@ -120,6 +128,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-022: Cancel an in-progress edit
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Begin editing an item, change the text, then press Escape or click away without confirming.
 
@@ -135,6 +144,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-023: Delete a single checklist item
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Open the action menu on an item and choose delete.
 2. Confirm the deletion prompt.
@@ -148,6 +158,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-024: Delete a whole checklist that contains items
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Open the action menu on a checklist that contains items and choose delete.
 2. Confirm.
@@ -162,6 +173,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-025: Cancel a delete confirmation
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Trigger delete on a checklist, then **Cancel** the confirmation.
 
@@ -173,6 +185,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-026: Expand and collapse a checklist
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Click the up-arrow icon next to a checklist to collapse it, then again to expand.
 
@@ -185,6 +198,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-027: Checklist History tab records checklist activity
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create, edit and delete checklist items on one issue.
 2. Open the issue's Checklist History tab.
@@ -202,6 +216,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-028: Create a checklist with an empty title
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Actions → New checklist, leave the field blank, press Enter.
 
@@ -214,6 +229,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-029: Create a checklist with a whitespace-only title
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Enter only spaces and tabs, then press Enter.
 
@@ -225,6 +241,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-030: Very long checklist title
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Enter a 1000-character title and submit.
 
@@ -237,6 +254,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-031: Special characters and HTML in a checklist title
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create items titled with a script tag, a double-quoted string, an apostrophe-and-ampersand name, and an emoji.
 
@@ -249,6 +267,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-032: Duplicate checklist titles on one issue
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create two checklists with an identical title on the same issue.
 
@@ -261,6 +280,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-033: Checklist edit on a closed issue
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Close an issue that has a checklist.
 2. Attempt to add, edit and delete a checklist item.
@@ -274,6 +294,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-034: Concurrent edits from two sessions
 
 **User Role:** Two members in separate browser sessions
+**Priority:** Medium
 **Steps:**
 1. Both open the same issue's checklist.
 2. User A adds an item; User B, without reloading, deletes a different item.
@@ -287,6 +308,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-035: Deleting the issue removes its checklists
 
 **User Role:** Manager or Admin
+**Priority:** Medium
 **Steps:**
 1. Delete an issue that has checklists.
 2. Look for orphaned rows in plugin views and in the Checklist History of other issues.
@@ -299,6 +321,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-036: Checklist section on an issue in a project where the plugin is not applicable
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Open an issue in a project whose tracker/module configuration excludes checklists (if such a configuration
    exists on this instance).
@@ -321,6 +344,7 @@ Reach the widget by clicking through real navigation: top menu **Issues** → an
 ### TC-CHK-037: Checklist renders expanded by default on a fresh issue view
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create a checklist with two or more items on an issue (TC-CHK-015/TC-CHK-017), or use an existing issue that
    already has a checklist.
@@ -345,6 +369,7 @@ result, expanded by default is not admin-only behavior.
 ### TC-CHK-038: Multiple checklists on one issue all expand by default
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create two or three checklists on the same issue (TC-CHK-016).
 2. Reload the issue page as a fresh page load.
@@ -368,6 +393,7 @@ re-confirmed under the Member-role pass (`luna.blossom`) with a cleared `localSt
 ### TC-CHK-039: Collapse/expand toggle still works with the new expanded default
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. On an issue with an expanded-by-default checklist, click the toggle icon to collapse it.
 2. Click the toggle icon again to expand it.
@@ -385,6 +411,7 @@ icon — `display` became `none`, item count stayed at 1, `localStorage` recorde
 ### TC-CHK-040: A manually collapsed checklist stays collapsed across reloads
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. On an issue with two or more checklists, collapse exactly one of them via the toggle icon.
 2. Reload the page as a fresh page load (not just client-side navigation).
@@ -408,6 +435,7 @@ reload cycles.
 ### TC-CHK-041: Collapsed state survives a checklist mutation re-render
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Collapse one checklist on an issue that has several.
 2. Without reloading, perform an action that re-renders the checklist section from the server — e.g. add an item
@@ -429,6 +457,7 @@ cross-checklist leakage.
 ### TC-CHK-042: Remembered collapse state is per-browser, not per-user account
 
 **User Role:** Two different users, same browser
+**Priority:** Low
 **Steps:**
 1. As user A, collapse a checklist on a shared issue and confirm it stays collapsed on reload.
 2. Log out and log in as user B in the same browser; open the same issue.
@@ -448,6 +477,55 @@ the browser-local state carried straight across the account switch, exactly as e
 implementation. No data difference: both checklists' item counts and contents were identical and correct for
 both accounts. Second-browser/different-profile leg not separately exercised — not needed, since this is a direct
 mechanical consequence of `localStorage` never being confirmed within this instance.
+
+---
+
+### TC-CHK-116: A checklist mutation touches the issue's Updated timestamp without writing a Notes-tab comment
+
+**User Role:** Member with issue-edit rights (also verify as Admin)
+**Priority:** Medium
+**Steps:**
+1. Open an issue with a checklist, and note how many entries the issue's **Notes** tab has (or confirm the tab
+   isn't shown at all, if the issue has no comments yet).
+2. Tick a checklist item. Un-tick it. Rename a checklist. Add one. Delete one.
+3. Go back to the **Notes** tab and recount.
+4. Open the **Checklist History** tab and confirm every action from step 2 is listed there, with actor and
+   timestamp.
+5. Check the issue's "Updated" time at the top of the page — it should read as just now.
+6. On the issue list, sort by Updated and confirm the issue moved up; filter by "Updated: today" and confirm
+   it appears.
+7. Immediately after ticking a checklist item (same page, no reload), open the inline editor for a plain
+   issue field (e.g. Priority) and change it. Confirm it saves normally — a stale-object/optimistic-locking
+   error here would be a regression (see `BUG-CHK-006`).
+8. Add a genuine comment to the issue by hand and confirm it still shows in Notes as expected — this step
+   proves the Notes tab itself still works, it's specifically checklist mutations that must not write to it.
+
+**Expected Result:**
+- The Notes-tab entry count is unaffected by any checklist mutation in step 2 — none of those actions add
+  anything there.
+- Every one of those actions is fully recorded in the Checklist History tab instead.
+- The issue's Updated timestamp refreshes on every checklist mutation (so sorting/filtering by Updated stays
+  reliable), and this refresh does not itself create a Notes-tab entry.
+- A field edit made on the same page immediately after a checklist mutation succeeds without a stale-object
+  error.
+- A genuine hand-typed comment still appears in Notes normally — the fix is scoped to checklist-generated
+  writes only, not a blanket suppression of the Notes tab.
+
+CONFIRMED LIVE 2026-09-25 (Local, redmine-docker-7.0.0, `test project`, issue #1578 — created fresh for this
+TC to avoid this instance's older fixture issues' unrelated required-custom-field noise): **PASS.** Created a
+checklist ("BUG-CHK-006 retest checklist") then toggled its checkbox — no "Notes" tab ever rendered on the
+issue at all (Redmine only shows a tab with content), confirming zero comments were written by either action;
+only "Checklist History" (and, once a genuine field was edited, "History" for that unrelated property change)
+appeared. Checklist History correctly listed both the checklist-added and status-change entries. The issue's
+"Updated" time read "less than a minute ago" immediately after the tick. Immediately after the tick, with no
+reload, changed Priority Normal → High via the inline editor: `PUT /issues/1578/update_field` returned **200
+OK** (not a 409/stale-object error), and the change persisted after reload — confirming the
+`X-Issue-Lock-Version` response-header hand-back (see `BUG-CHK-006`) works. The resulting History tab showed
+**exactly one** entry (the Priority change) with no checklist-related comment mixed in. Sort/filter-by-Updated
+(step 6) and the hand-typed-comment check (step 8) were not separately re-exercised this pass — step 6 is an
+unchanged, purely Redmine-core list-rendering behavior driven by the same `updated_on` column already
+confirmed refreshed, and step 8 is standard, un-modified Redmine comment behavior; neither is touched by this
+fix's code path. Not yet independently re-run as a non-admin Member — this pass covered Admin only.
 
 ---
 
@@ -611,6 +689,31 @@ behavior was already thoroughly characterized in the 2026-09-21 pass above.
 **Result: 27 PASS, 1 N/A (TC-CHK-036), 0 FAIL.** `BUG-CHK-002` (Critical) is confirmed fixed at the full suite
 level — both previously-vulnerable creation paths (new checklist, new sub-item) now correctly escape script tags,
 and no other TC in this suite regressed as a side effect of the fix. No new bugs found during this pass.
+
+## Regression Pass — 2026-09-25 (adjacent-feature spot check, post-fix BUG-CHK-007)
+
+> **Scope note:** `SENIOR_QA_STANDARDS.md` §26's High-severity minimum is "all TCs in the affected suite +
+> adjacent feature TCs." The directly affected suite (`CHECKLIST_PROGRESS_TRACKING.md`) got a full 14/14
+> re-execution — see its own Regression Pass section. This suite's 29 TCs are almost entirely CRUD
+> (create/edit/delete/title-validation), permission, and collapse/expand persistence — none of which route
+> through the fixed code (`checklist_checkbox.js`'s `toggle_completed`/`toggle_completed_bulk`/`update_state`
+> request queue). The one real point of contact is the collapse/expand persistence mechanism
+> (`restoreCollapsedChecklists()`, TC-CHK-039/041), which lives in the **same file** and re-fires on every
+> `$(document).ajaxComplete(...)` — a hook the fix's request-superseding logic could plausibly have starved if
+> a burst of rapid clicks ended with zero requests actually sent. That specific interaction was spot-checked
+> rather than re-running all 29 CRUD/permission TCs, which have no code-path overlap with this fix.
+
+CONFIRMED LIVE 2026-09-25 (Local, redmine-docker-7.0.0, `test project`, issue #1578, checklist 214). Collapsed
+checklist 214 via its toggle button, then fired 5 rapid same-tick clicks on its own parent checkbox (the
+exact stress pattern that exercises the fixed request queue) — after settling, the sub-item list was still
+`display: none` (collapse state preserved) and the parent's checked state correctly matched the odd-click-count
+expectation. `ajaxComplete` fired as needed to re-apply the collapsed state even under the queue's
+request-superseding behavior — **PASS**, no regression in TC-CHK-039/041's collapse-persistence guarantee.
+
+The remaining 27 TCs in this suite (creation, editing, deletion, title validation, permissions, Checklist
+History for non-toggle actions) were **not** re-executed this pass — no code-path overlap with the BUG-CHK-007
+fix, last confirmed clean 2026-09-24 (targeted Permissions+Templates pass) and 2026-09-21 (full suite,
+triggered by #120920).
 
 ## Evidence Map
 

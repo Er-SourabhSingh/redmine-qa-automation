@@ -13,6 +13,8 @@
 
 ### TC-GNT-039 — Flux Gantt toolbar and column headers fully translated
 
+**Priority:** Medium
+
 **Steps**
 
 1. Enable "Flux Gantt-Diagramm" module on a project; open its "Flux Gantt" tab.
@@ -29,6 +31,8 @@
 ---
 
 ### TC-GNT-040 — Settings panel fully translated
+
+**Priority:** Medium
 
 **Steps**
 
@@ -48,6 +52,8 @@
 
 ### TC-GNT-041 — "Add Issue" (Vorgang hinzufügen) dialog fully translated
 
+**Priority:** Medium
+
 **Steps**
 
 1. Click "+ Vorgang hinzufügen" and inspect every field.
@@ -61,6 +67,8 @@
 ---
 
 ### TC-GNT-042 — "Add Release/Version" (Version hinzufügen) dialog fully translated
+
+**Priority:** Medium
 
 **Steps**
 
@@ -82,6 +90,8 @@ The left-panel "NAME" column truncates even short version names (e.g. "Version 1
 
 ### TC-GNT-043 — Inline "Vorgang bearbeiten" (Edit Issue) modal, opened via double-click on a timeline bar
 
+**Priority:** Medium
+
 **Steps**
 
 1. Create a test issue (via "+ Vorgang hinzufügen") and drag it from "Vorgänge ohne Version" onto a version's timeline bar (drag-and-drop rescheduling).
@@ -100,6 +110,8 @@ The left-panel "NAME" column truncates even short version names (e.g. "Version 1
 
 ### TC-GNT-044 — Delete issue via the Edit Issue modal
 
+**Priority:** Medium
+
 **Steps**
 
 1. From the "Vorgang bearbeiten" modal (TC-GNT-043), click "Vorgang löschen".
@@ -116,6 +128,8 @@ The left-panel "NAME" column truncates even short version names (e.g. "Version 1
 
 ### TC-GNT-045 — "Version bearbeiten" (Edit Version) modal
 
+**Priority:** Medium
+
 **Steps**
 
 1. Double-click an existing version's timeline bar (used the empty "Version 4" fixture).
@@ -130,6 +144,8 @@ The left-panel "NAME" column truncates even short version names (e.g. "Version 1
 ---
 
 ### TC-GNT-046 — Delete a version via the Edit Version modal
+
+**Priority:** Medium
 
 **Steps**
 
@@ -146,6 +162,8 @@ The left-panel "NAME" column truncates even short version names (e.g. "Version 1
 ---
 
 ### TC-GNT-047 — Baseline creation and deletion
+
+**Priority:** Medium
 
 **Steps**
 
@@ -165,6 +183,8 @@ The left-panel "NAME" column truncates even short version names (e.g. "Version 1
 ---
 
 ### TC-GNT-048 — Global Flux Gantt view (`/global_gantt`)
+
+**Priority:** Medium
 
 **Steps**
 
@@ -187,6 +207,8 @@ The left-panel "NAME" column truncates even short version names (e.g. "Version 1
 ---
 
 ### TC-GNT-049 — Error/validation messages across Add/Edit dialogs (Release and Issue)
+
+**Priority:** Medium
 
 **Steps**
 
@@ -219,6 +241,8 @@ While setting up test fixtures for TC-GNT-049 on a second Forge environment, dis
 
 ### TC-GNT-050 — Bar resizing (drag left/right edge to change start/due date)
 
+**Priority:** Medium
+
 **Environment note:** run on the second Forge server (`flux-f6nlrqpvk49`), German + Default theme, after re-establishing the same preconditions (module enabled, German language, test fixtures).
 
 **Steps**
@@ -237,6 +261,8 @@ While setting up test fixtures for TC-GNT-049 on a second Forge environment, dis
 ---
 
 ### TC-GNT-051 — Dependency-link creation (drag from one bar's connector handle to another's)
+
+**Priority:** Medium
 
 **Steps**
 
@@ -257,6 +283,8 @@ While setting up test fixtures for TC-GNT-049 on a second Forge environment, dis
 
 ### TC-GNT-052 — Column header layout with "Gesch. Stunden" (Estimated Hours) column enabled
 
+**Priority:** Medium
+
 **Found via user review of a screenshot from TC-GNT-049.**
 
 **Steps**
@@ -276,6 +304,8 @@ While setting up test fixtures for TC-GNT-049 on a second Forge environment, dis
 
 ### TC-GNT-048 (re-verification) — Global Flux Gantt view on the second Forge server
 
+**Priority:** Medium
+
 **Steps**
 
 1. Navigate via the top-menu "Flux Gantt" link to `/global_gantt` on `flux-f6nlrqpvk49` (the replacement server).
@@ -291,6 +321,8 @@ While setting up test fixtures for TC-GNT-049 on a second Forge environment, dis
 ---
 
 ### TC-GNT-053 — Stage 2: Resolution testing (1280×720 and 1920×1080)
+
+**Priority:** Low
 
 **Steps**
 
@@ -311,6 +343,8 @@ While setting up test fixtures for TC-GNT-049 on a second Forge environment, dis
 
 ### TC-GNT-054 — Stage 3/6: Redmineflux Lotus theme retest
 
+**Priority:** Medium
+
 **Steps**
 
 1. Switch active theme to "Redmineflux lotus" (Administration > Settings > Display), German language unchanged.
@@ -330,6 +364,8 @@ While setting up test fixtures for TC-GNT-049 on a second Forge environment, dis
 ---
 
 ### TC-GNT-055 — Stage 6: Lotus theme + resolution testing combined (1280×720)
+
+**Priority:** Low
 
 **Steps**
 

@@ -12,6 +12,23 @@
 
 ## Confirmed Working
 
+- **Checklist mutations touch the issue without writing a Notes-tab comment — `BUG-CHK-006`, closed
+  2026-09-25.** `lib/redmineflux_checklist/concerns/issue_journal_touch.rb`'s `touch_issue` calls `issue.touch`
+  (bumps `updated_on`/`lock_version` only, no journal) from every checklist-mutating controller action. This
+  is the *second* fix in the same recurring spot — #87932 (original defect: checklist changes appeared as
+  Notes-tab comments) → commit `be748c4` (11 Aug, fixed "checklist activity doesn't touch the issue," but did
+  it via writing a comment, reintroducing #87932) → commit `f51af5b` (fixed again, this time via `.touch`, no
+  comment). **If a future change to this file's `touch_issue` ever switches to `issue.init_journal` or any
+  other comment-creating call, that is this exact regression coming back a third time** — check the Notes tab
+  specifically, not just Checklist History, after any change here.
+- **Stale-object protection on immediate follow-up field edits — same fix (commit `f51af5b`).** Touching the
+  issue bumps `lock_version`, which used to leave the issue page's *cached* `lock_version` stale the instant a
+  checklist mutation ran, so the next inline field edit from that same page failed with Redmine's
+  optimistic-locking "stale object" error until a reload. Fixed via an `X-Issue-Lock-Version` response header
+  (`set_issue_lock_version_header`, an `after_action` in the checklist controllers) that hands the browser the
+  fresh `lock_version` so a subsequent same-page inline edit succeeds without reloading. Retested live
+  2026-09-25 (`TC-CHK-116`): tick a checklist item → immediately edit Priority on the same page, no reload →
+  200, not 409/stale-object.
 - **Expand-by-default (#120920), 2026-09-21:** checklists render expanded on a fresh page load, for every
   checklist on an issue, under both Admin and a non-admin Member role. Collapse/expand toggle still works. A
   manually collapsed checklist is remembered via `localStorage` (`redmineflux_checklist_collapsed`), survives
@@ -100,16 +117,84 @@
   entry (not two) plus the one checklist-level entry. **Scoped regression run 2026-09-24 (14/14 PASS on
   `CHECKLIST_PROGRESS_TRACKING.md`).** **Closed 2026-09-24** — production #121060 synced to Done/100%.
 
-- **Rapid-click checkbox race, narrower than BUG-CHK-004, observed 2026-09-24, not filed.** Even after the
-  `BUG-CHK-004` fix, firing 5 checkbox clicks as a synthetic zero-delay `element.click()` loop (all in one JS
-  tick — far faster than any real pointer interaction) produced one duplicate consecutive `ChecklistHistory` row
-  (6 entries for 5 real transitions) via an apparent request-overlap race, confirmed via `ChecklistHistory` table
-  query. Critically, **zero** `update_state` calls occurred even in this stress test — the specific cascade
-  mechanism BUG-CHK-004 was about is confirmed gone. The identical 5-click sequence performed as genuine
-  Playwright UI clicks (`locator.click()`, each with normal actionability/network latency between them, the same
-  way a real user or the original bug repro would click) produced a clean 1:1 result — 5 clicks, 5 entries, no
-  duplicates. Not reproducible through real UI interaction, so not filed as a bug; recorded here in case a future
-  session sees inflated history counts under genuinely fast real clicking and wants a starting hypothesis.
+- **Rapid-click checkbox race, narrower than BUG-CHK-004, observed 2026-09-24, not filed (superseded, see
+  below).** Even after the `BUG-CHK-004` fix, firing 5 checkbox clicks as a synthetic zero-delay
+  `element.click()` loop (all in one JS tick) produced one duplicate consecutive `ChecklistHistory` row (6
+  entries for 5 real transitions) via an apparent request-overlap race. Critically, **zero** `update_state`
+  calls occurred even in this stress test — the specific cascade mechanism BUG-CHK-004 was about is confirmed
+  gone. The identical 5-click sequence performed as genuine Playwright UI clicks (`locator.click()`, spaced by
+  normal tool round-trip latency) produced a clean 1:1 result. That check only looked at journal-entry counts,
+  not at whether the checklist's own checked state, its sub-items' data, and the progress percentage stayed
+  mutually consistent — see `BUG-CHK-007` (filed 2026-09-25), which checked exactly that and found a real,
+  reproducible mismatch.
+
+- **`BUG-CHK-007` (Closed 2026-09-25, High) — rapid repeated toggling races unsequenced AJAX chains across 6
+  distinct scenario categories. Fixed and retested same day, production #121338 synced to Done/100%.**
+  **Fix:** a per-checklist request queue (`checklistRequestQueues` in `checklist_checkbox.js`) now serializes
+  every AJAX chain for a checklist — the parent checkbox and all its sub-items share one queue, and a newer
+  change to the same control supersedes one still waiting, so only the user's actual latest choice per control
+  is ever sent. `updateProgressBar()` was also moved to run only after `toggle_completed_bulk` resolves
+  instead of inside `toggle_completed`'s own success callback, fixing the premature-fetch race directly.
+  **Retest (2026-09-25):** single deliberate parent CHECK/UNCHECK 6/6 clean at normal pacing; rapid
+  same-tick 5-click bursts 2/2 clean both directions, deterministic; rapid sub-item dropdown changes 2/2
+  reload-confirmed clean (no lost updates); mixed parent+sub-item interleaving self-consistent and
+  deterministic across two runs from different starting states — no recurrence of the original race's
+  last-writer-wins unpredictability. This was the last bug in `bugs/open/` for this plugin.
+  **§26 scoped regression completed 2026-09-25:** `CHECKLIST_PROGRESS_TRACKING.md` (directly affected suite)
+  re-executed 14/14 PASS live with a fresh fixture — exact 25/50/75/100% percentage accuracy, live
+  checkbox↔dropdown sync, delete/add recalculation, and auto-calculate wiring (found left disabled from a
+  prior session, re-enabled and confirmed live). `CHECKLIST_CHECKLIST_MANAGEMENT.md` (adjacent suite) spot-
+  checked at its one real code-overlap point — collapse/expand persistence surviving a 5-rapid-click burst
+  through the fixed request queue — PASS; its other 27 CRUD/permission TCs have no code-path overlap with this
+  fix and were not re-run. A full `SENIOR_QA_STANDARDS.md` §27 final-cycle regression across *every* suite is
+  still needed before `STATUS.md` can move to `Complete`. Investigation history below, kept for reference. User-reported concern
+  ("check/uncheck karne pe checklist pe done percentage properly sync update nahi ho raha"), investigated
+  systematically (not just the original ad-hoc repro) with statistically-meaningful repetition counts per
+  category — full detail and exact numbers in `bugs/open/BUG-CHK-007.md`. Key findings:
+  - **No sub-items → clean (0/6 rounds).** A checklist with zero sub-items never reproduced anything — the
+    `toggle_completed_bulk` cascade has nothing to race against.
+  - **Parent checkbox, WITH sub-items → checkbox/sub-item data always correct (16/16), but the *displayed
+    percentage* lagged stale in 3/16 rounds (~19%), checking direction only.** This specific failure
+    self-corrects (never seen wrong on a later fresh check) — a live/fetch race, not a DB corruption.
+  - **Sub-item dropdown rapid changes (Done/New) → genuine, reload-confirmed lost updates, 2/5 rounds (40%).**
+    This does **not** self-correct — the wrong value is the real, stable, persisted final state. Also
+    reproduces with "In Progress" in the mix (1/3 rounds), so it's not limited to a two-state toggle.
+  - **Mixed parent+sub-item interleaving → most severe.** A single clean repro showed the parent's bulk
+    cascade overwriting a sub-item that was **never touched** by the sequence at all, alongside losing both
+    the parent's and the directly-touched sub-item's intended final states.
+  - **Normal-paced control (≥800ms gaps) → clean, 0/6.** Confirms this needs sub-second-spaced interaction
+    specifically; not a defect in the toggle mechanism generally.
+  - **Methodology gotcha for future retests:** a `<select>`'s live `.value` in the browser is not a reliable
+    signal — nothing in the app JS writes back to the dropdown from an AJAX response (only the sibling
+    checkbox is updated that way), so the dropdown just shows whatever was last set on it. **Always verify via
+    a full page reload**, which re-renders both elements from the same DB record and is therefore always
+    internally self-consistent — this is also why a checkbox and its own dropdown were seen to visually
+    disagree live but never after reload.
+  - **Field-confirmed independently** on an unrelated issue (Feature #1570 "General availability rollout",
+    checklist `sdaf`) — user saw the percentage stuck at 0% with both items checked, in an already-open tab,
+    for ~22h. A fresh load elsewhere showed the correct 100% — matching the "Category 2" pattern: the DB
+    settles correctly, but a tab already open when the race happened does not auto-refresh its display.
+  - **If retesting this area in the future, check per the 6-category matrix in the bug file**, not just one
+    scenario — this bug slipped past the 2026-09-24 regression specifically because that check only counted
+    journal-row totals, not cross-element state agreement.
+  - **CORRECTED 2026-09-25 (third follow-up, network-log evidence) — user's report confirmed right, prior
+    two "clean"/"unconfirmed" verdicts above were false negatives.** Those checks verified against DOM state
+    and this session's own manual `fetch()` calls — both read *after* the real race had already resolved,
+    which says nothing about what the app's own automatic request returned in the moment. Re-checked by
+    reading the actual response body of the app's own `GET /checklists/:id/completion_percentage` (fired
+    automatically by `updateProgressBar()` inside the parent checkbox's `toggle_completed` success handler)
+    via `browser_network_request`. Result: on a **single, deliberate, non-overlapping parent-checkbox CHECK
+    click**, the app's own request returned the stale pre-toggle percentage in **5 of 9 trials** this session
+    — no rapid/overlapping clicking needed. This is because `updateProgressBar()` fires inside
+    `toggle_completed`'s success callback, *before* the `.always()`-chained `toggle_completed_bulk` (which
+    persists each sub-item's actual completion flag) has even been sent — a race against ordinary
+    request/response latency, not against a second click. It is non-deterministic (same action sequence
+    passed in the other trials), which is why earlier smaller-sample checks missed it. **UNCHECK is not
+    affected** (4/4 correct, network-confirmed) — likely because uncompleting doesn't depend on sub-item data.
+    Sub-item-level updates (checkbox or dropdown) call `updateProgressBar()` directly after their own single
+    non-chained PATCH, so they have no second in-flight request to race against — this is exactly why the
+    user observed sub-item updates syncing live while parent-checklist updates did not. Full evidence and the
+    corrected root-cause writeup are in `BUG-CHK-007.md`.
 
 - **Progress & Status Tracking (13/14 TCs, 1 FAIL → BUG-CHK-004), 2026-09-21:** item status dropdown (New/In
   Progress/Done) lives on **sub-checklist items**, not top-level items (which only have a checkbox) — checkbox
@@ -151,3 +236,13 @@
   still work (used earlier the same session to inspect `luna.blossom`'s role before the write attempt). Any future
   TC whose methodology depends on a backend write outside the browser (not just this one) will hit the same
   block; a UI-only equivalent or a relaxed permission would be needed to actually re-run it live.
+- **Issue #1538 (the long-lived `test project` fixture used across most sessions) has unfilled required
+  custom fields** (`QA Required Text Field`, `QA Second Required Field`, `QA Bug-Only Tracker Field`, `QA
+  Required Readonly Field`) — an inline field edit on it can 422 and fall back to the full edit form showing
+  these validation errors, which has nothing to do with whatever is actually being tested. Hit this
+  2026-09-25 while retesting `BUG-CHK-006`'s stale-object claim. Not a plugin bug — a data-quality artifact of
+  that fixture's history. If a TC needs a clean inline-edit test with no unrelated validation noise, create a
+  fresh issue (fill the four required fields with `n/a`) rather than reusing #1538 — see #1578 for the pattern.
+- **`redmine-docker-700-redmine-1` restart takes ~15-20s** from `docker restart` to `localhost:3010/login`
+  serving 200 (2026-09-25) — bundler/Gemfile-lint output and Sidekiq config load first, then Puma boots. Poll
+  rather than assume it's instantly back.

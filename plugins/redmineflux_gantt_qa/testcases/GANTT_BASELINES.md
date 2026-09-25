@@ -24,6 +24,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-001: Baseline controls appear when enabled
 
 **User Role:** Member with Manage versions
+**Priority:** Medium
 **Steps:**
 1. Open the settings panel and enable the baseline controls / baseline display fields.
 
@@ -37,6 +38,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-002: Create a baseline
 
 **User Role:** Member with Manage versions
+**Priority:** High
 **Steps:**
 1. Open baseline controls, click **Create Baseline**, enter a name, save.
 
@@ -49,6 +51,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-003: Baseline captures the timeline as it was at creation
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Note several issues' dates, create a baseline named `B1`.
 2. Reschedule two of those issues by dragging.
@@ -65,6 +68,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-004: Multiple baselines coexist
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create `B1`, reschedule work, create `B2`, reschedule again.
 2. Switch the selection between `B1` and `B2`.
@@ -77,6 +81,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-005: Clear the baseline selection
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With a baseline displayed, clear the selection.
 
@@ -89,6 +94,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-006: Delete a baseline
 
 **User Role:** Member with Manage versions
+**Priority:** High
 **Steps:**
 1. Select a baseline, click **Delete**, confirm.
 
@@ -102,6 +108,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-007: Cancel a baseline deletion
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Trigger the delete and cancel the confirmation.
 
@@ -113,6 +120,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-008: Baseline overlay across zoom levels and display modes
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With a baseline displayed, switch zoom levels and toggle Work Days / Full Week.
 
@@ -125,6 +133,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-009: Baseline is per project
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create a baseline in project A and open project B's chart.
 
@@ -140,6 +149,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-010: Baseline name cannot be blank
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create a baseline leaving the name blank.
 
@@ -152,6 +162,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-011: Duplicate baseline names
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create two baselines with the same name in one project.
 
@@ -165,6 +176,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-012: Very long baseline name
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create a baseline with a 500-character name.
 
@@ -176,6 +188,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-013: Script content in a baseline name
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Name a baseline with a script tag and view it in the selector and any overlay legend.
 
@@ -187,6 +200,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-014: Baseline management without Manage versions
 
 **User Role:** Member with View Flux Gantt but **not** Manage versions
+**Priority:** High
 **Steps:**
 1. Confirm baseline create/delete controls are absent.
 2. Send baseline create, update and delete requests directly to their endpoints.
@@ -202,6 +216,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-015: Baseline on an empty project
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create a baseline on a project with no releases or issues.
 
@@ -214,6 +229,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-016: Baseline after issues are deleted
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create a baseline, then delete some of the issues it captured.
 2. Display the baseline.
@@ -227,6 +243,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-017: Baseline after new issues are added
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create a baseline, add three new issues, then display the baseline.
 
@@ -239,6 +256,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-018: Concurrent baseline operations
 
 **User Role:** Two members with Manage versions
+**Priority:** Low
 **Steps:**
 1. A displays baseline `B1`; B deletes `B1`. A then interacts with the overlay.
 
@@ -250,6 +268,7 @@ Managing baselines requires Redmine's core **Manage versions** permission — gr
 ### TC-GNT-019: Baseline data is removed on plugin uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. With baselines present, roll back the plugin migration (`VERSION=0`) as covered in TC-GNT-095.
 

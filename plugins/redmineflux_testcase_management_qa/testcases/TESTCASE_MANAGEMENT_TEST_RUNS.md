@@ -31,6 +31,7 @@ background jobs).
 ### TC-TCM-152: Create a run with all fields populated
 
 **User Role:** QA / Manager
+**Priority:** High
 **Precondition:** ≥1 environment and ≥3 test cases exist.
 
 **Steps:**
@@ -50,6 +51,7 @@ background jobs).
 ### TC-TCM-153: Create a run including all test cases
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. **Add Run**, complete the mandatory fields, choose the "include all test cases" option.
 2. Click **Create** and open the run.
@@ -62,6 +64,7 @@ background jobs).
 ### TC-TCM-154: Create a run with multiple environments
 
 **User Role:** QA
+**Priority:** High
 **Precondition:** ≥2 environments exist.
 
 **Steps:**
@@ -77,6 +80,7 @@ background jobs).
 ### TC-TCM-155: Run name is mandatory
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. **Add Run**, leave **Run Name** empty, complete everything else, click **Create**.
 
@@ -88,6 +92,7 @@ background jobs).
 ### TC-TCM-156: End date earlier than start date is rejected
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. **Add Run**, set **Start Date** to today and **End Date** to yesterday; **Create**.
 
@@ -100,6 +105,7 @@ background jobs).
 ### TC-TCM-157: Edit an existing run
 
 **User Role:** QA / Manager
+**Priority:** High
 **Steps:**
 1. Open a run's action menu → edit.
 2. Change the **Note**, **End Date** and **Assignee**; save.
@@ -113,6 +119,7 @@ background jobs).
 ### TC-TCM-158: Close a run
 
 **User Role:** QA / Manager
+**Priority:** High
 **Steps:**
 1. **Runs & Results** → run's **Action Button** → **Close Run** → confirm.
 2. Check the **Active** and **Closed** tabs.
@@ -125,6 +132,7 @@ background jobs).
 ### TC-TCM-159: A closed run cannot be executed against
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Open the run closed in TC-TCM-158 from the **Closed** tab.
 2. Attempt to set a result on any test case.
@@ -138,6 +146,7 @@ background jobs).
 ### TC-TCM-160: Delete a run
 
 **User Role:** Manager / Admin
+**Priority:** High
 **Steps:**
 1. Delete a run via its action menu; confirm the prompt.
 2. Check both tabs.
@@ -150,6 +159,7 @@ background jobs).
 ### TC-TCM-161: Cancelling the delete prompt does not delete
 
 **User Role:** Manager
+**Priority:** Low
 **Steps:**
 1. Start the delete, then **cancel** at the confirmation prompt.
 2. Reload the run list.
@@ -162,6 +172,7 @@ background jobs).
 ### TC-TCM-162: Run state values persist and display
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. Create runs covering each available **Run State**.
 2. Inspect the State column on the Runs & Results list.
@@ -174,6 +185,7 @@ background jobs).
 ### TC-TCM-163: Overdue run is flagged
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Create a run whose **End Date** is in the past and whose cases are not all executed.
 2. Open the run and the run list.
@@ -186,6 +198,7 @@ background jobs).
 ### TC-TCM-164: Watchers receive run notifications
 
 **User Role:** QA (creator), plus a watcher account with a real mailbox
+**Priority:** Medium
 **Precondition:** Sidekiq running; **Run Added** / **Run Updated** notifications enabled.
 
 **Steps:**
@@ -203,6 +216,7 @@ background jobs).
 ### TC-TCM-165: Active and Closed tabs partition runs correctly
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. With ≥2 active and ≥2 closed runs, inspect each tab.
 
@@ -214,6 +228,7 @@ background jobs).
 ### TC-TCM-166: Search a run by name and by ID
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. Use **Search by run name or ID** with a full name, a partial name, and the numeric run ID.
 
@@ -225,6 +240,7 @@ background jobs).
 ### TC-TCM-167: Run list paginates correctly
 
 **User Role:** QA
+**Priority:** Low
 **Precondition:** More runs than one page holds.
 
 **Steps:**
@@ -238,6 +254,7 @@ background jobs).
 ### TC-TCM-168: Test case added to a suite after run creation
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Create a run selecting specific cases.
 2. Add a new test case to a suite covered by that run.
@@ -253,6 +270,7 @@ background jobs).
 ### TC-TCM-169: Deleting a test case that belongs to an active run
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Delete a test case that is part of an active run.
 2. Open that run.
@@ -270,6 +288,7 @@ background jobs).
 ### TC-TCM-170: Record a Passed result
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Open a run, select an **Environment**, click the **Result** field of a case.
 2. Choose **Passed**, add a note, click **Save**.
@@ -283,6 +302,7 @@ background jobs).
 ### TC-TCM-171: Record each of the six statuses
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. On six different cases, record **Untested**, **Passed**, **Failed**, **Retest**, **Blocked** and **Skipped**
    respectively (supplying a defect where required).
@@ -296,6 +316,7 @@ background jobs).
 ### TC-TCM-172: Failed result requires a defect
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Set a case's result to **Failed** without reporting or linking a defect; attempt to save.
 
@@ -309,6 +330,7 @@ background jobs).
 ### TC-TCM-173: Report a new bug from a failed execution
 
 **User Role:** QA
+**Priority:** High
 **Precondition:** Defect Tracker configured.
 
 **Steps:**
@@ -324,6 +346,7 @@ background jobs).
 ### TC-TCM-174: Link an existing defect to a failed execution
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Set a case to **Failed** and link an existing issue instead of creating one.
 2. Reload the run grid.
@@ -336,6 +359,7 @@ background jobs).
 ### TC-TCM-175: Blocked result behaves like Failed for defect handling
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Set a case to **Blocked** and repeat TC-TCM-172 / TC-TCM-173.
 
@@ -347,6 +371,7 @@ background jobs).
 ### TC-TCM-176: Attach a file to an execution result
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. While recording a result, attach a file; save.
 2. Reopen the result from execution history.
@@ -359,6 +384,7 @@ background jobs).
 ### TC-TCM-177: Results are independent per environment
 
 **User Role:** QA
+**Priority:** High
 **Precondition:** A run with two environments.
 
 **Steps:**
@@ -375,6 +401,7 @@ background jobs).
 ### TC-TCM-178: Re-executing a case updates the current result and keeps history
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Set a case to **Failed**, then set the same case to **Passed**.
 2. Open the case's execution history.
@@ -387,6 +414,7 @@ background jobs).
 ### TC-TCM-179: Execute from the test case detail page
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Open a test case issue that belongs to a run.
 2. Record a result from the case detail page rather than from the run grid.
@@ -400,6 +428,7 @@ background jobs).
 ### TC-TCM-180: Execution history shows author, timestamp and environment
 
 **User Role:** QA and a second user
+**Priority:** Medium
 **Steps:**
 1. Have two different users record results on the same case in the same run.
 2. Open the execution history.
@@ -412,6 +441,7 @@ background jobs).
 ### TC-TCM-181: Filter run grid by defect status
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. In a run with a mix of cases with and without defects, apply the **With Defects** filter, then **Without Defects**.
 
@@ -423,6 +453,7 @@ background jobs).
 ### TC-TCM-182: Filter run grid by run result
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Apply the **Run result** filter for each status in turn.
 
@@ -434,6 +465,7 @@ background jobs).
 ### TC-TCM-183: Notes on a result are preserved verbatim
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. Record a result with a multi-line note containing formatting and a special character (e.g. `< > & "` and an emoji).
 2. Reopen the result.
@@ -446,6 +478,7 @@ background jobs).
 ### TC-TCM-184: Result triggers the Test Case Result Added notification
 
 **User Role:** QA, with a watcher mailbox
+**Priority:** Medium
 **Precondition:** Sidekiq running; the notification enabled.
 
 **Steps:**
@@ -459,6 +492,7 @@ background jobs).
 ### TC-TCM-185: Dashboard statistics reflect execution
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Note the dashboard's pass percentage and status pie.
 2. Record several results of mixed statuses; reload the dashboard.
@@ -471,6 +505,7 @@ background jobs).
 ### TC-TCM-186: Execution with Sidekiq stopped
 
 **User Role:** QA / Admin
+**Priority:** Medium
 **Steps:**
 1. Stop Sidekiq. Record a result on a watched run.
 2. Check the grid, then the watcher mailbox.
@@ -486,6 +521,7 @@ background jobs).
 ### TC-TCM-187: Concurrent execution by two users on the same case
 
 **User Role:** two QA users
+**Priority:** Medium
 **Steps:**
 1. Both open the same run and the same case in the same environment.
 2. User 1 saves **Passed**; user 2 then saves **Failed** without reloading.
@@ -503,6 +539,7 @@ background jobs).
 ### TC-TCM-188: Bulk update results for multiple selected cases
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Open a run, tick two or more cases.
 2. Click **Bulk Update Result**, choose a **Status**, keep the assigned **Environment**, click **Submit**.
@@ -518,6 +555,7 @@ background jobs).
 ### TC-TCM-189: Bulk update with execution notes
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. As TC-TCM-188, entering a note in the **Notes** field before submitting.
 
@@ -530,6 +568,7 @@ background jobs).
 ### TC-TCM-190: Bulk update applies only to the selected cases
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. In a run of ≥10 cases, select exactly 3 and bulk update them to **Skipped**.
 2. Inspect the remaining cases.
@@ -543,6 +582,7 @@ background jobs).
 ### TC-TCM-191: Bulk update status list excludes defect-requiring statuses
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Open **Bulk Update Result** and inspect the **Status** dropdown.
 

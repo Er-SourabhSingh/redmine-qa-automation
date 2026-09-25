@@ -42,6 +42,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-066: Submit a timesheet
 
 **User Role:** Submitter
+**Priority:** High
 **Steps:**
 1. Verify the period's entries, click **Submit**, confirm the prompt.
 
@@ -54,6 +55,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-067: A submitted timesheet is locked appropriately
 
 **User Role:** Submitter
+**Priority:** High
 **Steps:**
 1. After submitting, attempt to add, edit and delete entries in that period, via the UI and directly.
 
@@ -67,6 +69,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-068: Submitting an empty period
 
 **User Role:** Submitter
+**Priority:** Low
 **Steps:**
 1. Submit a period with no entries.
 
@@ -79,6 +82,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-069: Submitting twice
 
 **User Role:** Submitter
+**Priority:** Medium
 **Steps:**
 1. Submit, then attempt to submit the same period again, via the UI and directly.
 
@@ -90,6 +94,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-070: Late submission shows the deadline message
 
 **User Role:** Submitter
+**Priority:** Medium
 **Steps:**
 1. Let the deadline day pass, then submit the previous period.
 
@@ -102,6 +107,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-072: A blocked late submission can be unlocked by an admin
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. With submission blocked by a missed deadline, use the **Late Submission Unlock Queue** on the Admin Dashboard.
 2. Have the submitter retry.
@@ -116,6 +122,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-073: Submission period boundaries
 
 **User Role:** Submitter
+**Priority:** Medium
 **Steps:**
 1. Submit at the very start and the very end of a period, and across a month/year boundary.
 
@@ -127,6 +134,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-074: Approvers are notified on submission
 
 **User Role:** Submitter then Approver L1
+**Priority:** Medium
 **Preconditions:** Email on submission enabled; **Host name and path** verified.
 **Steps:**
 1. Submit and check the mailboxes of Approver L1 and Approver L2.
@@ -144,6 +152,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-075: Withdraw before any approval
 
 **User Role:** Submitter
+**Priority:** High
 **Steps:**
 1. Submit, then click **Withdraw Timesheet** before any approver acts.
 
@@ -155,6 +164,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-076: Withdrawal is blocked after the minimum approval level approves
 
 **User Role:** Submitter, after Approver L1 approves
+**Priority:** High
 **Steps:**
 1. Have L1 approve, then confirm the Withdraw action is no longer offered.
 2. Send the withdraw request **directly**.
@@ -169,6 +179,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-077: Withdraw after a rejection
 
 **User Role:** Submitter
+**Priority:** Medium
 **Steps:**
 1. Have an approver reject the timesheet, then check the submitter's options.
 
@@ -181,6 +192,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-078: Withdrawal racing an approval
 
 **User Role:** Submitter and Approver L1 simultaneously
+**Priority:** High
 **Steps:**
 1. Submitter opens the withdraw action while L1 opens the approve action; both confirm at nearly the same moment.
 
@@ -198,6 +210,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-079: Approval Dashboard shows the documented sections
 
 **User Role:** Approver L1
+**Priority:** Medium
 **Steps:**
 1. Open **Approval Dashboard**.
 
@@ -209,6 +222,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-080: Pending queue contains only actionable items
 
 **User Role:** Approver L2
+**Priority:** High
 **Steps:**
 1. With a timesheet awaiting L1, check L2's queue.
 
@@ -221,6 +235,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-081: Pending hours total is accurate
 
 **User Role:** Approver
+**Priority:** Medium
 **Steps:**
 1. Compare the pending-hours figure with the sum of the timesheets actually awaiting this approver.
 
@@ -232,6 +247,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-082: Review a timesheet
 
 **User Role:** Approver L1
+**Priority:** Medium
 **Steps:**
 1. Click **Review** on a pending submission.
 
@@ -244,6 +260,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-083: Approve with a comment
 
 **User Role:** Approver L1
+**Priority:** High
 **Steps:**
 1. Approve with a comment and confirm.
 
@@ -256,6 +273,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-084: Reject with a comment
 
 **User Role:** Approver L1
+**Priority:** High
 **Steps:**
 1. Reject with a comment.
 
@@ -267,6 +285,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-085: Final-level approval completes the workflow
 
 **User Role:** Approver L2
+**Priority:** High
 **Steps:**
 1. After L1 approves, have L2 approve.
 
@@ -278,6 +297,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-086: Both Team and Project mode submissions appear in the queue
 
 **User Role:** Approver
+**Priority:** Medium
 **Steps:**
 1. With access to both contexts, check that submissions from each appear according to the KB's statement.
 
@@ -289,6 +309,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-087: Submitter is notified on each decision
 
 **User Role:** Submitter
+**Priority:** Medium
 **Steps:**
 1. Check the mailbox after each approval and each rejection in the chain.
 
@@ -304,6 +325,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-088: A higher level cannot act before a lower level
 
 **User Role:** Approver L2
+**Priority:** High
 **Steps:**
 1. With a timesheet awaiting L1, confirm L2 is offered no Approve/Reject control.
 2. Send the **approve** request directly as L2, naming that timesheet.
@@ -319,6 +341,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-089: No level can be skipped
 
 **User Role:** Approver L2 / Admin
+**Priority:** High
 **Steps:**
 1. Attempt to move a timesheet from submitted straight to fully approved, by crafting a request that targets the
    final level directly.
@@ -331,6 +354,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-090: Auto-approval bypasses the chain only as configured
 
 **User Role:** Admin then Submitter
+**Priority:** High
 **Steps:**
 1. With Auto-Approve Threshold set to 10, submit a 6-hour timesheet.
 2. Inspect the audit log and the approval record.
@@ -346,6 +370,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-091: An approver's own timesheet routes to the next level
 
 **User Role:** Approver L1 acting as submitter
+**Priority:** High
 **Steps:**
 1. Have Approver L1 submit their own timesheet.
 2. Check whether L1 can approve it, through the UI and by sending the request directly.
@@ -360,6 +385,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-092: Final-level approver's own timesheet requires an admin
 
 **User Role:** The user who is both submitter and final-level approver
+**Priority:** High
 **Preconditions:** This exact account must exist; the rule cannot be tested without it.
 **Steps:**
 1. Have them submit their own timesheet.
@@ -377,6 +403,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-093: An unrelated approver cannot act
 
 **User Role:** A member holding Manage Timesheet but whose role is not in this schema
+**Priority:** High
 **Steps:**
 1. Confirm the timesheet is absent from their queue.
 2. Send the approve and reject requests directly.
@@ -390,6 +417,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-094: Approving a withdrawn or already-decided timesheet
 
 **User Role:** Approver
+**Priority:** Medium
 **Steps:**
 1. Send an approve request for a timesheet that has already been withdrawn, and for one already fully approved.
 
@@ -401,6 +429,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-095: Schema changed mid-approval
 
 **User Role:** Admin + Approvers
+**Priority:** Medium
 **Steps:**
 1. With a timesheet pending at level 1, edit the schema to add a level, remove a level, and change a level's role.
 2. Attempt to continue the approval.
@@ -416,6 +445,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-096: Approver removed from the team mid-approval
 
 **User Role:** Admin + Submitter
+**Priority:** Medium
 **Steps:**
 1. Remove the only level-1 approver from the team while a timesheet is pending at level 1.
 
@@ -428,6 +458,7 @@ A UI that hides the Approve button while the endpoint accepts an out-of-order ca
 ### TC-TMS-097: Approval decisions are auditable
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. After a full approve/reject cycle, open the Audit Log.
 

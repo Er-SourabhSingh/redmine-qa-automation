@@ -25,6 +25,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-112: Create a requirement document
 
 **User Role:** QA / Manager
+**Priority:** High
 **Steps:**
 1. **Requirements** → add a requirement.
 2. Enter a title and body; save; reload the list.
@@ -37,6 +38,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-113: Requirement title is mandatory
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. Create a requirement with an empty title; save.
 
@@ -48,6 +50,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-114: Link a test case to a requirement at creation
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Create a test case selecting the requirement from the **Requirement** dropdown; save; open the requirement.
 
@@ -59,6 +62,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-115: Link an existing test case to a requirement
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Edit an existing case and set its requirement; save; open the requirement.
 
@@ -70,6 +74,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-116: Link multiple test cases to one requirement
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Link three cases to requirement R1 (individually or by bulk assign); open R1.
 
@@ -81,6 +86,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-117: Unlink a test case from a requirement
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Clear a case's requirement; save; open the requirement and the RTM.
 
@@ -92,6 +98,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-118: Edit a requirement
 
 **User Role:** QA / Manager
+**Priority:** Medium
 **Steps:**
 1. Change a requirement's title and body; save; reload; check linked cases.
 
@@ -103,6 +110,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-119: Delete an unlinked requirement
 
 **User Role:** Manager / Admin
+**Priority:** Medium
 **Steps:**
 1. Delete a requirement with no linked cases; confirm; reload.
 
@@ -114,6 +122,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-120: Delete a requirement that has linked test cases
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Link two cases to a requirement, then delete it.
 2. Open those cases, the RTM, and a Requirement Coverage report.
@@ -128,6 +137,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-121: Requirements are project-scoped
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Create requirement `REQ-A` in Project A; open Project B's requirement list and the test case Requirement dropdown.
 
@@ -143,6 +153,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-122: RTM lists requirements against their test cases
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. With ≥2 requirements each holding ≥2 linked cases, open the **Traceability (RTM)** view.
 
@@ -154,6 +165,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-123: RTM reflects execution results
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Note a requirement's coverage in the RTM.
 2. Execute one of its linked cases as **Passed** and another as **Failed**.
@@ -167,6 +179,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-124: RTM shows uncovered requirements
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Create a requirement with no linked test cases; open the RTM.
 
@@ -179,6 +192,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-125: RTM shows unlinked test cases
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. With ≥1 case linked to no requirement, open the RTM.
 
@@ -191,6 +205,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-126: RTM coverage agrees with the Requirement Coverage report
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. For the same requirement, compare the RTM's coverage against a freshly generated Requirement Coverage report.
 
@@ -202,6 +217,7 @@ be cross-checked against the underlying run results, not accepted from the matri
 ### TC-TCM-127: RTM with no requirements renders cleanly
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. Open the RTM in a project with the module enabled but no requirements.
 

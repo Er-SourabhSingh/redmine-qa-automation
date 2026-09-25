@@ -23,6 +23,8 @@
 
 ### TC-DSH-049 — Dashboard shell (heading, header controls, global filter bar, empty state) fully translated
 
+**Priority:** Medium
+
 **Steps**
 
 1. Open a project's "Dashboard" tab (e.g. `/projects/fluxganttproject/analytics_dashboard`) on a project with no charts yet.
@@ -42,6 +44,8 @@
 
 ### TC-DSH-050 — "Add New Chart" modal fully translated
 
+**Priority:** Medium
+
 **Steps**
 
 1. Click "Add Chart".
@@ -57,6 +61,8 @@
 ---
 
 ### TC-DSH-051 — Chart card controls and resize handles fully translated
+
+**Priority:** Medium
 
 **Steps**
 
@@ -76,6 +82,8 @@
 
 ### TC-DSH-052 — Chart Settings panel (General / Data Filters / Appearance) fully translated
 
+**Priority:** Medium
+
 **Steps**
 
 1. Click the Settings icon on the "Issues by Status" chart card.
@@ -94,6 +102,8 @@
 ---
 
 ### TC-DSH-053 — Success toasts, validation errors, and info tooltip content fully translated
+
+**Priority:** Medium
 
 **Steps**
 

@@ -75,6 +75,7 @@ Space created: #5 'Admin Test Space' in project 'test-project'.
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_admin__redmineflux_kb_list_spaces` |
 | **Role** | Admin |
+| **Priority** | Medium |
 
 **Actual Result:**
 ```
@@ -91,6 +92,7 @@ KB Spaces — project 'test-project' (1 total):
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_admin__redmineflux_kb_get_space` |
 | **Role** | Admin |
+| **Priority** | Low |
 
 **Actual Result:**
 ```
@@ -109,6 +111,7 @@ Space #5 — Admin Test Space
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_admin__redmineflux_kb_update_space` |
 | **Role** | Admin |
+| **Priority** | Medium |
 
 **Actual Result:**
 ```
@@ -126,6 +129,7 @@ Space #5 updated. Name: 'Admin Test Space (Updated)'.
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_admin__redmineflux_kb_create_node` |
 | **Role** | Admin |
+| **Priority** | Medium |
 
 **Actual Result:**
 ```
@@ -141,6 +145,7 @@ Node created: #9 [folder] 'Admin Folder' in space #5 (slug: admin-folder).
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_admin__redmineflux_kb_create_node` |
 | **Role** | Admin |
+| **Priority** | High |
 
 **Actual Result:**
 ```
@@ -156,6 +161,7 @@ Node created: #10 [page] 'Admin Page' in space #5 (slug: admin-page). — use re
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_admin__redmineflux_kb_list_nodes` |
 | **Role** | Admin |
+| **Priority** | Medium |
 
 **Actual Result:**
 ```
@@ -173,6 +179,7 @@ KB Nodes — project 'test-project' (2 total, page 1):
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_admin__redmineflux_kb_get_node` |
 | **Role** | Admin |
+| **Priority** | Low |
 
 **Actual Result:**
 ```
@@ -191,6 +198,7 @@ Node #10 [page]
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_admin__redmineflux_kb_update_node` |
 | **Role** | Admin |
+| **Priority** | Medium |
 
 **Actual Result:**
 ```
@@ -208,6 +216,7 @@ Node #10 'Admin Page (Revised)' updated. Run redmineflux_kb_publish_node to publ
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_admin__redmineflux_kb_publish_node` |
 | **Role** | Admin |
+| **Priority** | High |
 
 **Actual Result:**
 ```
@@ -223,6 +232,7 @@ Node #10 'Admin Page (Revised)' updated. Run redmineflux_kb_publish_node to publ
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_admin__redmineflux_kb_unpublish_node` |
 | **Role** | Admin |
+| **Priority** | High |
 
 **Actual Result:**
 ```
@@ -238,6 +248,7 @@ Node #10 'Admin Page (Revised)' updated. Run redmineflux_kb_publish_node to publ
 |-------|-------|
 | **MCP Tool** | `update_node` + `publish_node` (sequential) |
 | **Role** | Admin |
+| **Priority** | Medium |
 
 **Steps:** update_node (content change) → publish_node → v2 created.
 
@@ -258,6 +269,7 @@ Node #10 'Admin Page (Revised)' updated.
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_admin__redmineflux_kb_list_versions` |
 | **Role** | Admin |
+| **Priority** | Medium |
 
 **Actual Result:**
 ```
@@ -275,6 +287,7 @@ Version history — node #10 (2 versions, newest first):
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_admin__redmineflux_kb_restore_version` |
 | **Role** | Admin |
+| **Priority** | High |
 
 **Input:** `{ "project_id": "test-project", "node_id": 10, "version_id": 10 }`
 
@@ -294,6 +307,7 @@ Version history — node #10 (2 versions, newest first):
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_admin__redmineflux_kb_delete_node` |
 | **Role** | Admin |
+| **Priority** | Medium |
 
 **Actual Result:** `✓ Node #10 deleted.`
 **Status:** ✅ PASS
@@ -306,6 +320,7 @@ Version history — node #10 (2 versions, newest first):
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_admin__redmineflux_kb_delete_space` |
 | **Role** | Admin |
+| **Priority** | High |
 
 **Actual Result:** `✓ Space deleted. All folders, pages, and version history within the space have been permanently removed.`
 **Status:** ✅ PASS
@@ -320,6 +335,7 @@ Version history — node #10 (2 versions, newest first):
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_manager__redmineflux_kb_create_space` |
 | **Role** | Manager (priya.patel) |
+| **Priority** | High |
 
 **Actual Result:**
 ```
@@ -335,6 +351,7 @@ Space created: #6 'Manager Test Space' in project 'test-project'.
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_manager__redmineflux_kb_list_spaces` |
 | **Role** | Manager |
+| **Priority** | Low |
 
 **Actual Result:**
 ```
@@ -351,6 +368,7 @@ KB Spaces — project 'test-project' (1 total):
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_manager__redmineflux_kb_get_space` |
 | **Role** | Manager |
+| **Priority** | Low |
 
 **Actual Result:**
 ```
@@ -368,6 +386,7 @@ Space #6 — Manager Test Space
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_manager__redmineflux_kb_update_space` |
 | **Role** | Manager |
+| **Priority** | Medium |
 
 **Actual Result:**
 ```
@@ -385,6 +404,7 @@ Space #6 updated. Name: 'Manager Test Space (Updated)'.
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_manager__redmineflux_kb_create_node` |
 | **Role** | Manager |
+| **Priority** | Medium |
 
 **Actual Result:**
 ```
@@ -400,6 +420,7 @@ Node created: #11 [folder] 'Manager Folder' in space #6 (slug: manager-folder).
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_manager__redmineflux_kb_create_node` |
 | **Role** | Manager |
+| **Priority** | Medium |
 
 **Actual Result:**
 ```
@@ -415,6 +436,7 @@ Node created: #12 [page] 'Manager Page' in space #6 (slug: manager-page).
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_manager__redmineflux_kb_list_nodes` |
 | **Role** | Manager |
+| **Priority** | Low |
 
 **Actual Result:**
 ```
@@ -432,6 +454,7 @@ KB Nodes — project 'test-project' (2 total, page 1):
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_manager__redmineflux_kb_get_node` |
 | **Role** | Manager |
+| **Priority** | Low |
 
 **Actual Result:**
 ```
@@ -447,6 +470,7 @@ Node #12 [page]  |  Title: Manager Page  |  Status: draft  |  Author ID: 5  |  V
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_manager__redmineflux_kb_update_node` |
 | **Role** | Manager |
+| **Priority** | Medium |
 
 **Actual Result:**
 ```
@@ -464,6 +488,7 @@ Node #12 'Manager Page (Revised)' updated. Run redmineflux_kb_publish_node to pu
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_manager__redmineflux_kb_publish_node` |
 | **Role** | Manager |
+| **Priority** | Medium |
 
 **Actual Result:**
 ```
@@ -479,6 +504,7 @@ Node #12 'Manager Page (Revised)' updated. Run redmineflux_kb_publish_node to pu
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_manager__redmineflux_kb_unpublish_node` |
 | **Role** | Manager |
+| **Priority** | Medium |
 
 **Actual Result:**
 ```
@@ -496,6 +522,7 @@ Node #12 'Manager Page (Revised)' updated. Run redmineflux_kb_publish_node to pu
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_manager__redmineflux_kb_list_versions` |
 | **Role** | Manager |
+| **Priority** | Low |
 
 **Actual Result:**
 ```
@@ -513,6 +540,7 @@ Version history — node #12 (2 versions, newest first):
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_manager__redmineflux_kb_restore_version` |
 | **Role** | Manager |
+| **Priority** | Medium |
 
 **Input:** `{ "project_id": "test-project", "node_id": 12, "version_id": 13 }`
 
@@ -532,6 +560,7 @@ Version history — node #12 (2 versions, newest first):
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_manager__redmineflux_kb_delete_node` |
 | **Role** | Manager |
+| **Priority** | Medium |
 
 **Actual Result:** `✓ Node #12 deleted.`
 **Status:** ✅ PASS
@@ -544,6 +573,7 @@ Version history — node #12 (2 versions, newest first):
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_manager__redmineflux_kb_delete_space` |
 | **Role** | Manager |
+| **Priority** | Medium |
 
 **Actual Result:** `✓ Space deleted. All folders, pages, and version history within the space have been permanently removed.`
 **Status:** ✅ PASS
@@ -560,6 +590,7 @@ Version history — node #12 (2 versions, newest first):
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_developer__redmineflux_kb_list_spaces` |
 | **Role** | Developer |
+| **Priority** | Medium |
 
 **Expected (revised):** Returns spaces — view_knowledgebase is public.
 
@@ -578,6 +609,7 @@ KB Spaces — project 'test-project' (1 total):
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_developer__redmineflux_kb_create_space` |
 | **Role** | Developer |
+| **Priority** | High |
 
 **Expected:** 403 — no manage_knowledgebase_spaces permission.
 
@@ -596,6 +628,7 @@ To fix this, ask your Redmine administrator to: Grant you the required role/perm
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_developer__redmineflux_kb_get_space` |
 | **Role** | Developer |
+| **Priority** | Low |
 
 **Actual Result:**
 ```
@@ -611,6 +644,7 @@ Space #6 — Manager Test Space (Updated)  |  Nodes: 2
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_developer__redmineflux_kb_list_nodes` |
 | **Role** | Developer |
+| **Priority** | Low |
 
 **Actual Result:**
 ```
@@ -628,6 +662,7 @@ KB Nodes — project 'test-project' (2 total, page 1):
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_developer__redmineflux_kb_create_node` |
 | **Role** | Developer |
+| **Priority** | High |
 
 **Actual Result:**
 ```
@@ -644,6 +679,7 @@ To fix this, ask your Redmine administrator to: Grant you the required role/perm
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_developer__redmineflux_kb_get_node` |
 | **Role** | Developer |
+| **Priority** | Low |
 
 **Actual Result:**
 ```
@@ -659,6 +695,7 @@ Node #12 [page]  |  Title: Manager Page (Revised)  |  Status: published  |  Vers
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_developer__redmineflux_kb_publish_node` |
 | **Role** | Developer |
+| **Priority** | High |
 
 **Actual Result:**
 ```
@@ -675,6 +712,7 @@ To fix this, ask your Redmine administrator to: Grant you the required role/perm
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_developer__redmineflux_kb_list_versions` |
 | **Role** | Developer |
+| **Priority** | High |
 
 **Actual Result:**
 ```
@@ -693,6 +731,7 @@ Version history — node #12 (3 versions, newest first):
 |-------|-------|
 | **MCP Tool** | `mcp__redmineflux_developer__redmineflux_kb_delete_node` |
 | **Role** | Developer |
+| **Priority** | High |
 
 **Actual Result:**
 ```

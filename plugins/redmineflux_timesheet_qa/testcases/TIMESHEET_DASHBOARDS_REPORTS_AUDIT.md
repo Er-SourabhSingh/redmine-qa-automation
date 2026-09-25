@@ -28,6 +28,7 @@ entries in the left sidebar.
 ### TC-TMS-001: View another user's timesheet
 
 **User Role:** Member with **Manage Timesheet**
+**Priority:** Medium
 **Steps:**
 1. Use the **View** dropdown → select a user → **Apply**.
 
@@ -40,6 +41,7 @@ entries in the left sidebar.
 ### TC-TMS-002: View by team
 
 **User Role:** Member with Manage Timesheet
+**Priority:** Medium
 **Steps:**
 1. Select a team in the View dropdown and apply.
 
@@ -52,6 +54,7 @@ entries in the left sidebar.
 ### TC-TMS-003: View by project
 
 **User Role:** Member with Manage Timesheet
+**Priority:** Medium
 **Steps:**
 1. Select a project and apply.
 
@@ -64,6 +67,7 @@ entries in the left sidebar.
 ### TC-TMS-004: Custom date range
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Open the date range picker, select a start and end date, apply.
 2. Repeat with a range spanning a month boundary and one spanning a year boundary.
@@ -82,6 +86,7 @@ entries in the left sidebar.
 ### TC-TMS-005: Dashboard counts are accurate
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open **Dashboard** and compare Total submitted, Approved, Rejected and Total hours with the user's actual
    timesheets.
@@ -95,6 +100,7 @@ entries in the left sidebar.
 ### TC-TMS-006: Segmented tabs list the right items
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open each of the submitted, approved and rejected tabs.
 
@@ -107,6 +113,7 @@ entries in the left sidebar.
 ### TC-TMS-007: Dashboard shows only the current user's data
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Compare the dashboard against another user's timesheets.
 
@@ -123,6 +130,7 @@ entries in the left sidebar.
 ### TC-TMS-008: Submission/Approval Report
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Report → **Submission/Approval Report** → apply filters and a Group By → **Apply**.
 
@@ -134,6 +142,7 @@ entries in the left sidebar.
 ### TC-TMS-009: Timelogs Report
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Report → **Timelogs Report** → apply filters → Apply.
 
@@ -146,6 +155,7 @@ entries in the left sidebar.
 ### TC-TMS-010: Filters constrain results correctly
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Apply user, project, team and date-range filters individually, then in combination.
 
@@ -158,6 +168,7 @@ entries in the left sidebar.
 ### TC-TMS-011: Group By changes grouping, not totals
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Run the same report grouped by user, then by project, then by activity.
 
@@ -171,6 +182,7 @@ entries in the left sidebar.
 ### TC-TMS-012: CSV export matches the on-screen report
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Export the report to CSV and compare row count, column values and totals with the screen.
 
@@ -183,6 +195,7 @@ entries in the left sidebar.
 ### TC-TMS-013: CSV formatting integrity
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Export a report whose data contains commas, quotes, newlines in comments, and non-Latin characters.
 
@@ -202,6 +215,7 @@ entries in the left sidebar.
 ### TC-TMS-014: All documented sections are present
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Open the Admin Dashboard.
 
@@ -214,6 +228,7 @@ entries in the left sidebar.
 ### TC-TMS-015: Summary metrics reconcile
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Compare the summary metrics against the underlying timesheets across several users.
 
@@ -225,6 +240,7 @@ entries in the left sidebar.
 ### TC-TMS-016: Late Submission Unlock Queue is actionable
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. With a user blocked by a missed deadline, confirm they appear in the queue and unlock them.
 
@@ -237,6 +253,7 @@ entries in the left sidebar.
 ### TC-TMS-017: Quick Access links work
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Follow each quick access link.
 
@@ -252,6 +269,7 @@ entries in the left sidebar.
 ### TC-TMS-018: Audit Log records approvals and rejections
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Run a full submit → approve → reject → resubmit → approve cycle, then open the Audit Log.
 
@@ -264,6 +282,7 @@ entries in the left sidebar.
 ### TC-TMS-019: Audit Log filters by context
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Filter by project and by team.
 
@@ -275,6 +294,7 @@ entries in the left sidebar.
 ### TC-TMS-020: Audit entries are immutable
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Look for any edit or delete action on an audit entry; attempt to modify one directly if an endpoint exists.
 
@@ -289,6 +309,7 @@ entries in the left sidebar.
 ### TC-TMS-021: Audit Log is admin-only
 
 **User Role:** Every non-admin role in turn, including one with Manage Timesheet
+**Priority:** High
 **Steps:**
 1. Confirm the Audit Log entry is not offered.
 2. Request its URL directly.
@@ -305,6 +326,7 @@ entries in the left sidebar.
 ### TC-TMS-022: Views respect the permission boundary
 
 **User Role:** Member with **View Timesheet** only
+**Priority:** High
 **Steps:**
 1. Confirm the View dropdown does not offer other users, teams or projects.
 2. Request another user's timesheet **directly** by crafting the request.
@@ -319,6 +341,7 @@ entries in the left sidebar.
 ### TC-TMS-023: Reports respect the permission boundary
 
 **User Role:** Non-admin, including one with Manage Timesheet
+**Priority:** High
 **Steps:**
 1. Confirm which report scopes are offered.
 2. Request the report endpoint directly for a user and a project outside their scope, and attempt a CSV export of
@@ -334,6 +357,7 @@ entries in the left sidebar.
 ### TC-TMS-024: Reports with no matching data
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Run each report with filters that match nothing, and export the result.
 
@@ -345,6 +369,7 @@ entries in the left sidebar.
 ### TC-TMS-025: Large report volume
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Run the Timelogs Report across a year for the whole instance, then export it.
 
@@ -357,6 +382,7 @@ entries in the left sidebar.
 ### TC-TMS-026: Dashboard and report figures agree
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. For one user and one period, compare: the timesheet grid total, My Dashboard total hours, the Timelogs Report
    total, the Admin Dashboard summary, and core Redmine's spent-time report.

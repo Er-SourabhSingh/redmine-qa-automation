@@ -54,6 +54,12 @@ Sources (1) calling redmineflux_kb_list_spaces...
 - Duplicate found: No
 - Existing bug reference (if duplicate): — Same defect *class* as BUG-CRX-003 (fixed), BUG-CRX-012 (fixed), and BUG-CRX-022 (open) — missing permission enforcement on a Crux-exposed read — but a distinct code location (`redmineflux_kb_list_spaces` / the KB plugin's own proxy layer, not the dashboard or agents-page controllers those bugs covered).
 
+## 2026-09-25 retest — FIXED, live-confirmed
+
+Same exact repro: `luna.blossom` (Manager, zero KB permissions confirmed unchanged), same question "KB Agent, what spaces exist for crux-qa (project 1)?". **Result:** honest refusal — *"You don't have permission to view the knowledge base for project 1 (crux-qa). Your Redmine administrator would need to grant you the view_knowledgebase permission for that project."* — with a real `Sources (1)` citation (a real tool call was made and correctly enforced the permission, not a fabricated refusal with no backend check). Matches the same honest-refusal pattern the Invoicing Agent already used correctly in the original bug report.
+
+**Verdict: FIXED, live-confirmed.** Ready to close pending user approval (production sync required).
+
 ## Production report
 
 Reported to production as issue **#120756** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-17. Textile description, no attachments. Linked to Run #569 "Crux QA Run 1", testcase **#120497** (`CRUX_AGENT_KNOWLEDGE_BASE.md`), Environment "Window 11 + Chrome" — testcase marked Failed.

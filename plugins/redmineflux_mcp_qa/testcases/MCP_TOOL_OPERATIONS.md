@@ -34,6 +34,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-049: List projects
 
 **User Role:** MCP user with a scoped key
+**Priority:** High
 **Steps:**
 1. Ask *"Show me my Redmine projects"*.
 2. Compare against the project list in the Redmine UI **as that same user**.
@@ -46,6 +47,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-050: List issues with a filter
 
 **User Role:** MCP user
+**Priority:** High
 **Steps:**
 1. Ask *"Show all open bugs in the <project> project"*.
 2. Run the equivalent filter in the Redmine issue list.
@@ -58,6 +60,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-051: Critical issues query
 
 **User Role:** MCP user
+**Priority:** Medium
 **Steps:**
 1. Ask *"What are my critical issues today?"*.
 
@@ -71,6 +74,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-052: Time entry reporting
 
 **User Role:** MCP user
+**Priority:** High
 **Steps:**
 1. Ask *"Show time entries for the past week in the <project> project"*.
 2. Compare against Redmine's spent-time report for the same range.
@@ -83,6 +87,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-053: Agile board read
 
 **User Role:** MCP user
+**Priority:** Medium
 **Preconditions:** Agile Board plugin installed.
 **Steps:**
 1. Ask *"Show the agile board for project <identifier>"* and *"List all sprints in the <project> project"*.
@@ -95,6 +100,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-054: Workload read
 
 **User Role:** MCP user
+**Priority:** Medium
 **Preconditions:** Workload plugin installed.
 **Steps:**
 1. Ask *"Who is over-allocated this week?"* and *"Show capacity for the <team> team"*.
@@ -107,6 +113,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-055: Helpdesk read
 
 **User Role:** MCP user
+**Priority:** Medium
 **Preconditions:** Helpdesk plugin installed.
 **Steps:**
 1. Ask *"List all open support tickets"* and *"Show SLA status for ticket #<id>"*.
@@ -119,6 +126,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-056: Knowledge Base and checklist reads
 
 **User Role:** MCP user
+**Priority:** Medium
 **Preconditions:** Those plugins installed.
 **Steps:**
 1. Ask *"List all spaces in the knowledge base"* and for an issue's checklists.
@@ -132,6 +140,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-057: Responses are formatted, not raw JSON
 
 **User Role:** MCP user
+**Priority:** Low
 **Steps:**
 1. Inspect several responses.
 
@@ -143,6 +152,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-058: Large result sets
 
 **User Role:** MCP user
+**Priority:** Medium
 **Steps:**
 1. Ask for a list with hundreds of matches.
 
@@ -160,6 +170,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-059: Create an issue
 
 **User Role:** MCP user with `add_issues`
+**Priority:** High
 **Steps:**
 1. Ask *"Create a new issue: 'Fix login timeout' in the <project> project, assign to <user>"*.
 2. **Open the issue in Redmine.**
@@ -173,6 +184,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-060: Update an issue
 
 **User Role:** MCP user with `edit_issues`
+**Priority:** High
 **Steps:**
 1. Ask *"Update issue #<id> status to In Progress"*.
 2. Open the issue.
@@ -186,6 +198,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-061: Workflow rules are honoured on write
 
 **User Role:** MCP user on a restricted-workflow role
+**Priority:** High
 **Steps:**
 1. Ask for a status transition the workflow forbids for that user.
 
@@ -199,6 +212,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-062: Required fields are enforced
 
 **User Role:** MCP user
+**Priority:** Medium
 **Steps:**
 1. Ask to create an issue on a tracker with required custom fields, without supplying them.
 
@@ -212,6 +226,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-063: Log time
 
 **User Role:** MCP user with `log_time`
+**Priority:** High
 **Steps:**
 1. Ask *"Log 2.5 hours on issue #<id> for development"*.
 2. Check the issue's spent time and the user's time entries.
@@ -226,6 +241,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-064: Agile board write
 
 **User Role:** MCP user with the board permissions
+**Priority:** Medium
 **Steps:**
 1. Ask *"Move issue #<id> to Done column"* and *"Create a sprint named 'Sprint 5' for 2 weeks"*.
 2. Verify on the board and in Sprint management.
@@ -240,6 +256,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-065: Timesheet approval
 
 **User Role:** MCP user with `approve_timesheets`
+**Priority:** High
 **Preconditions:** A submitted timesheet awaiting the user's approval level.
 **Steps:**
 1. Ask *"Approve timesheet for user <name>"*.
@@ -257,6 +274,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-066: Helpdesk write
 
 **User Role:** MCP user with `manage_helpdesk`
+**Priority:** Medium
 **Steps:**
 1. Ask *"Create a new ticket from customer@example.com"*.
 2. Verify the ticket, its customer association and whether an SLA attached.
@@ -270,6 +288,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-067: Knowledge Base write
 
 **User Role:** MCP user with the KB permissions
+**Priority:** Medium
 **Steps:**
 1. Ask *"Create a new KB page titled 'API Setup Guide' in the Dev space"*.
 
@@ -282,6 +301,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-068: Checklist write
 
 **User Role:** MCP user with `edit_issues`
+**Priority:** Medium
 **Steps:**
 1. Ask to add a checklist to an issue and to mark its items done.
 
@@ -293,6 +313,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-069: Custom fields on write
 
 **User Role:** MCP user
+**Priority:** Medium
 **Steps:**
 1. Create and then update an issue supplying `custom_fields`, e.g. `[{"id": 5, "value": "Production"}]`.
 2. Verify the stored values.
@@ -311,6 +332,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-070: Permission errors are intelligible
 
 **User Role:** MCP user lacking a permission
+**Priority:** Medium
 **Steps:**
 1. Attempt an action the key's user cannot perform.
 
@@ -324,6 +346,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-071: Non-existent records
 
 **User Role:** MCP user
+**Priority:** High
 **Steps:**
 1. Ask about issue #999999 and a non-existent project.
 
@@ -337,6 +360,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-072: Ambiguous requests
 
 **User Role:** MCP user
+**Priority:** Medium
 **Steps:**
 1. Ask *"Update the login issue"* where several issues match.
 
@@ -350,6 +374,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-073: Destructive operations
 
 **User Role:** MCP user with `delete_issues`
+**Priority:** High
 **Steps:**
 1. Ask to delete an issue.
 
@@ -364,6 +389,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-074: Transient error retry is bounded
 
 **User Role:** MCP user
+**Priority:** Medium
 **Steps:**
 1. Make Redmine intermittently unavailable and issue a request.
 
@@ -378,6 +404,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-075: Concurrent writes
 
 **User Role:** Two MCP users
+**Priority:** Medium
 **Steps:**
 1. Both update the same issue at nearly the same moment through the assistant.
 
@@ -389,6 +416,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-076: Malformed or hostile content through MCP
 
 **User Role:** MCP user
+**Priority:** High
 **Steps:**
 1. Create an issue whose subject and description contain a script tag and markup.
 2. View the issue in Redmine as another user.
@@ -403,6 +431,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-077: Bulk operations
 
 **User Role:** MCP user
+**Priority:** High
 **Steps:**
 1. Ask for a broad multi-record change, e.g. *"Close all issues older than a year in this project"*.
 
@@ -418,6 +447,7 @@ The two failure modes this is designed to catch:
 ### TC-RFM-078: Data attribution and audit
 
 **User Role:** MCP user
+**Priority:** High
 **Steps:**
 1. After a set of MCP-driven changes, review the issue journals and any plugin audit logs.
 

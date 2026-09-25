@@ -43,6 +43,7 @@ a posted message cannot be recalled.
 ### TC-NTF-079: Enable Slack globally
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Configure → **Slack Notifications** → enable → paste the bot token → enter the signing secret if required →
    set the **Default Slack Channel** → leave **Verify SSL** on → **Apply**.
@@ -55,6 +56,7 @@ a posted message cannot be recalled.
 ### TC-NTF-080: A new issue posts to Slack
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create an issue in a project with no project-specific channel.
 
@@ -66,6 +68,7 @@ a posted message cannot be recalled.
 ### TC-NTF-081: Notes and field changes post to Slack
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** **Post issue updates** enabled.
 **Steps:**
 1. Add a note; then change status, priority, assignee, category, target version and a custom field in separate
@@ -80,6 +83,7 @@ a posted message cannot be recalled.
 ### TC-NTF-082: Message content is complete and correct
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Compare a Slack message against the issue it describes.
 
@@ -94,6 +98,7 @@ a posted message cannot be recalled.
 ### TC-NTF-083: Verify SSL
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. With **Verify SSL** enabled, confirm messages post normally.
 2. Disable it and confirm messages still post.
@@ -109,6 +114,7 @@ a posted message cannot be recalled.
 ### TC-NTF-084: Display watchers and Post issue updates
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Toggle each option and trigger the corresponding events.
 
@@ -123,6 +129,7 @@ a posted message cannot be recalled.
 ### TC-NTF-085: Bot posts only where it is a member
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Configure a channel the bot has **not** been invited to and trigger a notification.
 2. Invite the bot and retry.
@@ -138,6 +145,7 @@ a posted message cannot be recalled.
 ### TC-NTF-086: Private Slack channels
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Configure a **private** Slack channel as the target, with the bot invited and `groups:read` granted.
 
@@ -155,6 +163,7 @@ a posted message cannot be recalled.
 ### TC-NTF-087: Enable the Slack Notifications project module
 
 **User Role:** Manager
+**Priority:** Medium
 **Steps:**
 1. Project → Settings → **Modules** → enable **Slack Notifications** → Save.
 
@@ -166,6 +175,7 @@ a posted message cannot be recalled.
 ### TC-NTF-088: Configure a project-specific channel
 
 **User Role:** Manager
+**Priority:** Medium
 **Steps:**
 1. Invite the bot to the second channel.
 2. Project → Settings → Slack Notifications → enable project-specific Slack → enter the channel → set the two
@@ -179,6 +189,7 @@ a posted message cannot be recalled.
 ### TC-NTF-089: Project channel wins over the default
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Trigger a notification in that project and check **both** channels.
 
@@ -192,6 +203,7 @@ a posted message cannot be recalled.
 ### TC-NTF-090: Falling back to the default channel
 
 **User Role:** Manager then Member
+**Priority:** Medium
 **Steps:**
 1. Disable project-specific Slack; trigger a notification.
 
@@ -203,6 +215,7 @@ a posted message cannot be recalled.
 ### TC-NTF-091: Sub-project behaviour
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** A parent project with its own Slack channel and a sub-project with none.
 **Steps:**
 1. Trigger a notification in the sub-project and observe which channel receives it.
@@ -219,6 +232,7 @@ a posted message cannot be recalled.
 ### TC-NTF-092: No channel configured anywhere
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. With neither a project nor a default channel, trigger a notification.
 
@@ -235,6 +249,7 @@ a posted message cannot be recalled.
 ### TC-NTF-093: Private issues and private notes must not reach Slack
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create a **private issue**; update it; add a note to it.
 2. Separately, add a **private note** to a public issue.
@@ -254,6 +269,7 @@ a posted message cannot be recalled.
 ### TC-NTF-094: Invalid bot token
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Configure a malformed token, then a well-formed but revoked one; trigger a notification.
 
@@ -267,6 +283,7 @@ a posted message cannot be recalled.
 ### TC-NTF-095: Non-existent channel
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Configure a channel name that does not exist; trigger a notification.
 
@@ -280,6 +297,7 @@ a posted message cannot be recalled.
 ### TC-NTF-096: Slack disabled globally
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Disable **Slack Notifications** globally while a project still has its own channel configured; trigger a
    notification.
@@ -292,6 +310,7 @@ a posted message cannot be recalled.
 ### TC-NTF-097: Slack unreachable
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Block outbound access to the Slack API and trigger a notification.
 
@@ -305,6 +324,7 @@ a posted message cannot be recalled.
 ### TC-NTF-098: Rate limiting at volume
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Bulk-update 20 issues in one action.
 
@@ -319,6 +339,7 @@ a posted message cannot be recalled.
 ### TC-NTF-099: Special characters and markup
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create an issue whose subject and note contain Slack formatting characters (`*`, `_`, backticks, `<>`), an
    `@here`-style mention, and a script tag.
@@ -334,6 +355,7 @@ a posted message cannot be recalled.
 ### TC-NTF-100: Project settings access
 
 **User Role:** Non-manager member
+**Priority:** High
 **Steps:**
 1. Confirm the project's Slack Notifications settings are not offered.
 2. Request the settings URL directly and attempt to post a channel change.
@@ -348,6 +370,7 @@ a posted message cannot be recalled.
 ### TC-NTF-101: Disabled project notifications override Slack
 
 **User Role:** Manager then Member
+**Priority:** High
 **Steps:**
 1. Enable **Disable notifications** for a project with a Slack channel configured; trigger a change.
 

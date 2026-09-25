@@ -32,6 +32,7 @@ drag and resize must be verified by a **full page reload**, not by what the grid
 ### TC-DSH-054: Global issue status filter
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Set **Issue Status** to **All Issues**, click Apply Filters and record the totals.
 2. Repeat for **Open Issues Only** and **Closed Issues Only**.
@@ -55,6 +56,7 @@ filter bar's dimensions, and updating this TC's steps to match reality, rather t
 ### TC-DSH-055: Global tracker filter
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Select a tracker in the global filter bar and Apply Filters.
 
@@ -72,6 +74,7 @@ a client-side filter.
 ### TC-DSH-056: Each global date range preset
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Apply each documented preset in turn — Today, Last 7 Days, Last 30 Days, Last 90 Days, This Month, Last Month,
    This Year — clicking Apply Filters each time.
@@ -99,6 +102,7 @@ days includes/excludes today" boundaries via the UI's own date-filter form rathe
 ### TC-DSH-057: Custom global date range
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Choose **Custom**, enter a start and end date, Apply Filters.
 
@@ -115,6 +119,7 @@ distinct from and smaller than This Month's 725 (Sep 1–24), consistent with a 
 ### TC-DSH-058: The last used date range is remembered
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply a distinctive range, leave the dashboard, and return later in a new session.
 
@@ -136,6 +141,7 @@ the selector; the gap is narrower: it just doesn't remember at all).
 ### TC-DSH-059: Global filters combine
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply a tracker, a status and a date range together.
 
@@ -154,6 +160,7 @@ global Issue Status control exists to include as the third dimension — see `TC
 ### TC-DSH-060: Apply Filters is required
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Change a global filter but do **not** click Apply Filters.
 
@@ -177,6 +184,7 @@ real page navigation with the filter values as URL query params), so there's no 
 ### TC-DSH-061: Drag a widget to a new position
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Drag a card by its header drag area to a new grid position and release.
 2. **Reload the page.**
@@ -196,6 +204,7 @@ position genuinely persisted server-side, not just a client-side reorder.
 ### TC-DSH-062: Resize a widget
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Drag the right edge, the bottom edge and the corner handle in turn; reload after each.
 
@@ -219,6 +228,7 @@ real human interaction or a different automation approach (e.g. a real OS-level 
 ### TC-DSH-063: Layout persists per project and per user
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. A rearranges project X's dashboard; B opens project X's dashboard.
 2. A opens project Y's dashboard.
@@ -236,6 +246,7 @@ elsewhere this pass (TC-DSH-048, TC-DSH-026) — out of scope for a single Playw
 ### TC-DSH-064: Layout survives adding and deleting widgets
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Arrange several widgets, add one more, then delete a widget from the middle of the grid; reload.
 
@@ -254,6 +265,7 @@ throughout.
 ### TC-DSH-177: A new chart is appended to the end of the dashboard (#120914)
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** At least one existing chart already on the grid, in a deliberately-arranged (non-default)
 order.
 **Steps:**
@@ -275,6 +287,7 @@ checks throughout this session (17→39→44, always growing at the end, never d
 ### TC-DSH-178: Adding a chart renders it in place without a full page reload (#120914)
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add a chart and observe the page while it appears.
 
@@ -291,6 +304,7 @@ session — each `Add` click produced a `POST .../widgets` plus `PATCH .../posit
 ### TC-DSH-179: A newly added chart is scrolled into view and briefly highlighted (#120914)
 
 **User Role:** Member
+**Priority:** Low
 **Preconditions:** A dashboard with enough existing charts that the grid is taller than the viewport, so a chart
 appended at the end would otherwise be off-screen.
 **Steps:**
@@ -316,6 +330,7 @@ dashboard with a realistic widget count in a future session.
 ### TC-DSH-180: Append/scroll/highlight applies whichever Add Chart tab was used (#120914)
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Add a chart from the **Our Queries** tab; confirm append-to-end, no-reload and scroll+highlight.
 2. Add a chart from the **Saved Queries** tab (any template, including Statistics card); confirm the same three
@@ -341,6 +356,7 @@ across both tabs.
 ### TC-DSH-065: Manual refresh reloads all widgets
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Change some issue data in another tab, then click **Refresh** on the dashboard.
 
@@ -356,6 +372,7 @@ every widget, not a cached client-side redraw — the same underlying mechanism 
 ### TC-DSH-066: Dashboard full-screen mode
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Click the Fullscreen icon in the toolbar; then exit with Escape, and again with the toggle icon.
 
@@ -379,6 +396,7 @@ verification needed.
 ### TC-DSH-067: Single-chart full-screen mode
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Click the full-screen button on one chart card; exit with Escape and with the toggle.
 
@@ -406,6 +424,7 @@ filter in a future session.
 ### TC-DSH-068: Auto refresh at each interval
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enable **Auto Refresh** and select each documented interval in turn — 30 seconds, 1, 2, 5 and 10 minutes.
 
@@ -426,6 +445,7 @@ mechanism is proven correct and the others use the same code path with a differe
 ### TC-DSH-069: Auto refresh picks up new data
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. With auto refresh at 30 seconds, create an issue in another tab and wait for the next cycle.
 
@@ -443,6 +463,7 @@ mechanism this TC depends on is proven real, not simulated.
 ### TC-DSH-070: Auto refresh can be turned off
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Turn auto refresh off and confirm no further automatic reloads occur.
 
@@ -466,6 +487,7 @@ timer does eventually stop — but not immediately, and not before firing one al
 ### TC-DSH-071: Auto refresh while interacting
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. With auto refresh at 30 seconds, begin dragging a widget, and separately hold a chart settings panel open,
    across a refresh cycle.
@@ -483,6 +505,7 @@ timer does eventually stop — but not immediately, and not before firing one al
 ### TC-DSH-072: Auto refresh with many widgets
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Enable 30-second auto refresh on a 20-widget dashboard over a large project, and observe for several cycles.
 
@@ -503,6 +526,7 @@ confirm no queuing/overlap in the cases observed, but not an exhaustive stress t
 ### TC-DSH-073: Invalid custom global date range
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enter an end date before the start date, then a malformed date, and Apply.
 
@@ -523,6 +547,7 @@ technique was too slow to catch it. See `DASHBOARDS_MEMORY.md`.
 ### TC-DSH-074: Filters and layout under a session expiry
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Let the session expire, then drag a widget and click Apply Filters.
 
@@ -542,6 +567,7 @@ confirmed the request itself doesn't silently no-op, which is this TC's core con
 ### TC-DSH-075: Network failure during refresh
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Take the network offline and trigger a manual refresh; then leave auto refresh running while offline.
 
@@ -560,6 +586,7 @@ Recovery-after-reconnect not conclusively verified — see the bug file for why 
 ### TC-DSH-076: Global filters do not widen visibility
 
 **User Role:** Member with restricted issue visibility
+**Priority:** High
 **Steps:**
 1. Set the global filter to All Issues and the widest date range.
 
@@ -578,6 +605,7 @@ existing one scales with whatever range is applied. Not filed as a separate bug;
 ### TC-DSH-077: Layout changes without permission
 
 **User Role:** Member with view-only project access
+**Priority:** Medium
 **Steps:**
 1. Confirm whether drag and resize handles are offered.
 2. Send a layout-save request **directly**.

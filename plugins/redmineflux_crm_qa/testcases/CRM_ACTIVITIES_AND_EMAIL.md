@@ -31,6 +31,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-001: All five activity types on a contact
 
 **User Role:** Member with **Manage CRM Activities**
+**Priority:** High
 **Steps:**
 1. On a contact, add one of each type using the pill buttons: **Note, Call, Meeting, Email, Task**.
 
@@ -42,6 +43,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-002: Activities on all four entity types
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add an activity to a contact, a company, a deal and a lead.
 
@@ -54,6 +56,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-003: Timeline ordering and attribution
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Add several activities over time and review the timeline.
 
@@ -66,6 +69,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-004: Activity content validation
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Save an activity with empty content; then with a very long body; then with a script tag.
 
@@ -84,6 +88,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-005: There is no way to edit an activity
 
 **User Role:** The activity's author, and an Admin
+**Priority:** High
 **Steps:**
 1. Confirm no edit control appears on any activity, for either user.
 2. Attempt an update **directly** at the activity endpoint (the API documents list, create and delete only — not
@@ -100,6 +105,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-006: Only the author or an admin can delete
 
 **User Role:** Author, a different member with Manage CRM Activities, and an Admin
+**Priority:** High
 **Steps:**
 1. The author deletes their own — expect success.
 2. The other member attempts to delete the author's activity, through the UI and **directly**.
@@ -115,6 +121,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-007: Auto-generated activities are protected
 
 **User Role:** Member with Manage CRM Activities
+**Priority:** High
 **Steps:**
 1. Attempt to delete a system-generated activity — a stage change or a conversion entry — through the UI and
    directly.
@@ -133,6 +140,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-008: Send an email activity
 
 **User Role:** Member with Manage CRM Activities
+**Priority:** High
 **Preconditions:** Working outgoing mail; **Host name and path** verified.
 **Steps:**
 1. Choose **Email**; confirm **From** is pre-filled with the user's Redmine email; enter subject, a valid To
@@ -147,6 +155,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-009: All four email fields are required
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Save with each of subject, from, to and content omitted in turn.
 
@@ -158,6 +167,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-010: Invalid To address
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enter `notanemail`, then `a@`, as the To address.
 
@@ -169,6 +179,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-011: Failed delivery is reported honestly
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. With mail delivery unavailable (or an unroutable recipient domain), save an email activity.
 
@@ -182,6 +193,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-012: The From address cannot be used to impersonate
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Change the pre-filled **From** address to another user's address, or to an external one, and send.
 
@@ -201,6 +213,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-013: Record creation is logged
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create a contact, company, deal and lead, then open each record's timeline.
 
@@ -212,6 +225,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-014: Stage, status and conversion changes are logged
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Change a deal's stage, change a lead's status, and convert a lead.
 
@@ -225,6 +239,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-015: Assignee changes are logged
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Change the assignee on a contact, a deal and a lead.
 
@@ -241,6 +256,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-016: All five templates are available
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open a contact detail page and find the Email Templates section.
 
@@ -252,6 +268,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-017: A template pre-fills the activity form
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Click a template.
 
@@ -263,6 +280,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-018: The `%{first_name}` placeholder is substituted
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Use a template on a contact whose first name is known.
 
@@ -282,6 +300,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-019: Template content is not an injection path
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. On a contact whose **first name** contains a script tag, load a template and inspect the pre-filled form.
 
@@ -295,6 +314,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-020: Activities without permission
 
 **User Role:** Member with **View CRM** but without Manage CRM Activities
+**Priority:** High
 **Steps:**
 1. Confirm no Add Activity control appears.
 2. Send an activity-create request **directly**, and a delete request for someone else's activity.
@@ -307,6 +327,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-021: Activities respect record visibility
 
 **User Role:** A member who cannot see a private record
+**Priority:** High
 **Steps:**
 1. Request the activities of a private contact **directly** via the nested API path.
 
@@ -321,6 +342,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-022: Deleting a record destroys its activities
 
 **User Role:** Member with Delete CRM Data
+**Priority:** High
 **Steps:**
 1. Delete a contact, a company and a deal that each have activities; then look for orphaned entries in the audit
    log and elsewhere.
@@ -335,6 +357,7 @@ Open a contact, company, deal or lead → **Recent Activities** → **Add Activi
 ### TC-CRM-023: High activity volume
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Add 200 activities to one record and open its timeline.
 

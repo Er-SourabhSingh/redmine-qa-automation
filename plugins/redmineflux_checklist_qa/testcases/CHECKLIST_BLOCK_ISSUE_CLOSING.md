@@ -28,6 +28,7 @@ issue on this instance.
 ### TC-CHK-001: Closing is blocked while checklist items are incomplete
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** Block issue closing **enabled**; issue has a checklist with at least one incomplete item.
 **Steps:**
 1. Open the issue, set Status to a closed status, and save.
@@ -46,6 +47,7 @@ as there are incomplete checklists." Status confirmed still "New" after a fresh 
 ### TC-CHK-002: Closing succeeds once every item is complete
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Mark all checklist items Done.
 2. Set the status to a closed status and save.
@@ -61,6 +63,7 @@ CONFIRMED LIVE 2026-09-21 (issue #1542, marked "Block-close checklist A"'s item 
 ### TC-CHK-003: Issues with no checklist at all are unaffected
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. With the setting enabled, close an issue that has no checklist.
 
@@ -75,6 +78,7 @@ normally, no block — the rule doesn't apply globally to every issue on the ins
 ### TC-CHK-004: Disabling the setting removes the block
 
 **User Role:** Admin + Member
+**Priority:** High
 **Steps:**
 1. Disable **Block issue closing** and save.
 2. Retry closing an issue that has incomplete checklist items.
@@ -91,6 +95,7 @@ needed. Re-enabled the setting afterward (default state for the rest of this ses
 ### TC-CHK-005: Block applies across all closed statuses
 
 **User Role:** Admin + Member
+**Priority:** High
 **Steps:**
 1. Identify every status flagged "issue closed" in Administration → Issue statuses.
 2. With incomplete items, attempt each one in turn (e.g. Closed, Rejected).
@@ -108,6 +113,7 @@ incomplete checklists." No closed status slips through.
 ### TC-CHK-006: Block applies to multiple checklists on one issue
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Issue with checklist A fully complete and checklist B incomplete. Attempt to close.
 
@@ -123,6 +129,7 @@ with the same message — confirms the rule requires *every* checklist on the is
 ### TC-CHK-007: Non-closed status transitions are unaffected
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With incomplete items, change the status from New to In Progress.
 
@@ -141,6 +148,7 @@ Save succeeded, status confirmed "In Progress" — only closed-status transition
 ### TC-CHK-008: Bulk edit bypass
 
 **User Role:** Manager
+**Priority:** High
 **Steps:**
 1. Select several issues with incomplete checklists in the issue list.
 2. Use right-click bulk edit to set them all to a closed status.
@@ -160,6 +168,7 @@ silently closed. No bulk-edit bypass.
 ### TC-CHK-009: Inline / quick edit bypass
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Close the issue using any inline or quick status editor available on this instance
    (issue list context menu, inline editor plugin, board drag-to-done).
@@ -181,6 +190,7 @@ not a Checklist plugin defect) — per this TC's own note, that belongs to the o
 ### TC-CHK-010: REST API bypass
 
 **User Role:** Member with API key
+**Priority:** High
 **Steps:**
 1. `PUT /issues/<id>.json` setting `status_id` to a closed status while items are incomplete.
 
@@ -199,6 +209,7 @@ key out-of-band (not read it via browser automation) and pass it as the `X-Redmi
 ### TC-CHK-011: Closing a parent issue whose subtask has an incomplete checklist
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Parent issue with no checklist; subtask has an incomplete checklist. Close the parent.
 
@@ -223,6 +234,7 @@ not a defect in this plugin (a generic Redmine workflow-transition guard, not ch
 ### TC-CHK-012: Issue already closed before the setting was enabled
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. Close an issue while the setting is off and its checklist incomplete.
 2. Enable the setting.
@@ -243,6 +255,7 @@ against current state, correctly.
 ### TC-CHK-013: Deleting the incomplete item unblocks closing
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With one incomplete item blocking the close, delete that item.
 2. Retry the close.
@@ -259,6 +272,7 @@ Delete, retried Status → Closed): **PASS.** Close succeeded immediately after 
 ### TC-CHK-014: Error message is specific and localized
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Trigger the block and read the message. Repeat with the UI language set to a non-English locale.
 

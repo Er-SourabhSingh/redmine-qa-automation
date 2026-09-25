@@ -29,6 +29,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-052: Create a contact with all fields
 
 **User Role:** Member with **Manage Contacts**
+**Priority:** High
 **Steps:**
 1. Contacts → **New Contact** → fill first name, last name, email, phone, mobile, job title, address, contact
    type, company, assignee, tags, notes, privacy flag, avatar and any custom fields → Save.
@@ -41,6 +42,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-053: Create a contact with only the required fields
 
 **User Role:** Member with Manage Contacts
+**Priority:** Medium
 **Steps:**
 1. Provide only first name and email; Save.
 
@@ -52,6 +54,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-054: Contact type Person vs Company
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create one contact of each type.
 
@@ -63,6 +66,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-055: Edit a contact
 
 **User Role:** Member with Manage Contacts
+**Priority:** High
 **Steps:**
 1. Change several fields and Save.
 
@@ -75,6 +79,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-056: Tags are case-insensitive and comma-separated
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enter `Sales, VIP` on one contact and `sales, vip` on another.
 
@@ -88,6 +93,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-057: Assignee is set and searchable
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Assign a contact to a user and confirm it appears where assigned records are listed.
 
@@ -103,6 +109,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-058: First name and email are required
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Save with each omitted in turn.
 
@@ -114,6 +121,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-059: Email must be unique across all contacts
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create a contact with an email that already exists — through the UI **and** through the API.
 2. Also try the same email with different capitalisation.
@@ -129,6 +137,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-060: Phone and mobile length validation
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enter 6 digits, 7 digits, 15 digits and 16 digits in each field.
 
@@ -142,6 +151,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-061: Invalid email format
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enter `notanemail`, `a@`, and `a@b`.
 
@@ -154,6 +164,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-062: Long values and script content
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Enter 500-character values in name, job title and notes, and a script tag in the name and notes.
 2. View the contact in the list, detail page, dashboard panels, exports and any email template preview.
@@ -172,6 +183,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-063: Upload an avatar
 
 **User Role:** Member with Manage Contacts
+**Priority:** Medium
 **Preconditions:** `public/uploads/contacts/avatars` is writable.
 **Steps:**
 1. Upload an image via Profile Photo and Save.
@@ -184,6 +196,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-064: Remove an avatar
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Enable the remove-avatar option and Save.
 
@@ -195,6 +208,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-065: Avatar size limit and file type
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Upload a file just under 2 MB, one just over, and a non-image file (e.g. a renamed `.exe`).
 
@@ -213,6 +227,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-066: Link a contact to a company
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Select a company on the contact form and Save; open the company and look for the contact.
 
@@ -224,6 +239,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-067: Create a contact from a company page
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. From a company, use the create-contact flow.
 
@@ -235,6 +251,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-068: Helpdesk integration when the plugin is installed
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** Redmineflux Helpdesk installed.
 **Steps:**
 1. Link a contact to a helpdesk customer user and open the contact.
@@ -249,6 +266,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-069: Helpdesk integration when the plugin is absent
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. On an instance without Helpdesk, open a contact.
 
@@ -264,6 +282,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-070: Deleting a contact follows the documented cascade exactly
 
 **User Role:** Member with **Delete CRM Data**
+**Priority:** High
 **Preconditions:** A contact with activities, an issue link, a linked deal, and a linked company.
 **Steps:**
 1. Record the deal ID, the company and the issue.
@@ -282,6 +301,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-071: Deletion requires Delete CRM Data
 
 **User Role:** Member with **Manage Contacts** but without Delete CRM Data
+**Priority:** High
 **Steps:**
 1. Confirm no Delete control appears.
 2. Send the delete request **directly**.
@@ -300,6 +320,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-072: Create a company with all fields
 
 **User Role:** Member with **Manage Companies**
+**Priority:** Medium
 **Steps:**
 1. Companies → **New Company** → name, email, phone, website, address, industry, employee count, assignee, tags,
    notes, privacy flag, custom fields → Save.
@@ -312,6 +333,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-073: Employee count accepts numbers only
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Enter a non-numeric value, a negative number and a decimal.
 
@@ -323,6 +345,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-074: Edit a company
 
 **User Role:** Member with Manage Companies
+**Priority:** High
 **Steps:**
 1. Change several fields and Save.
 
@@ -334,6 +357,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-075: Company detail shows its contacts and deals
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open a company with several linked contacts and deals.
 
@@ -349,6 +373,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-076: Company name is required
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Save with the name blank, then with whitespace only.
 
@@ -360,6 +385,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-077: Company name must be unique
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Create a second company with an existing name, via the UI and the API; then try a different capitalisation.
 
@@ -374,6 +400,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-078: Bare domain is normalised to https
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enter `acmecorp.com` in Website and Save.
 
@@ -385,6 +412,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-079: Website values that are already qualified
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Enter `http://acmecorp.com`, `https://acmecorp.com`, `www.acmecorp.com`, and a `javascript:` URL.
 
@@ -398,6 +426,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-080: Deleting a company follows the documented cascade exactly
 
 **User Role:** Member with **Delete CRM Data**
+**Priority:** High
 **Preconditions:** A company with activities, two linked contacts and two linked deals.
 **Steps:**
 1. Record the contact and deal IDs.
@@ -416,6 +445,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-081: Long values and script content in company fields
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Use 500-character values and a script tag in name, industry and notes; view in the list, detail page,
    dashboard, pipeline cards and exports.
@@ -429,6 +459,7 @@ CRM → **Contacts** / **Companies**. Do not type URLs.
 ### TC-CRM-082: Concurrent edits
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. Both edit the same contact, and then the same company, without reloading.
 

@@ -27,6 +27,7 @@ But `export_helpdesk_reports` is listed as its own distinct permission in the sa
 ### TC-HLP-166: `view_helpdesk` alone grants full visibility and ticket create/edit
 
 **User Role:** Role granted `view_helpdesk` only (no `manage_helpdesk`)
+**Priority:** High
 **Precondition:** Role is a member of a helpdesk-enabled project.
 
 **Steps:**
@@ -45,6 +46,7 @@ But `export_helpdesk_reports` is listed as its own distinct permission in the sa
 ### TC-HLP-167: `manage_helpdesk` grants desk configuration management
 
 **User Role:** Role granted `manage_helpdesk`
+**Priority:** High
 **Precondition:** None.
 
 **Steps:**
@@ -64,6 +66,7 @@ But `export_helpdesk_reports` is listed as its own distinct permission in the sa
 > **Permission model, clarified 2026-09-07** (supersedes this TC's original framing, which tested `manage_prepaid_support_hours` in isolation without `manage_helpdesk` and treated the resulting block as a bug — see BUG-HLP-040's Closed section): **`manage_helpdesk` is required to access the Organization management area. `manage_prepaid_support_hours` is required, in addition to `manage_helpdesk`, to modify prepaid support hours.** `manage_prepaid_support_hours` is not a standalone, `manage_helpdesk`-independent permission — it is an additive grant on top of `manage_helpdesk`, matching how the write path's own permission check (confirmed via source) is layered on top of the page-access check, not a substitute for it. Do not treat "`manage_prepaid_support_hours` without `manage_helpdesk` can't reach the Organization page" as a functional failure — that combination is intentionally never usable, by design.
 
 **User Role:** Role granted `view_helpdesk` + `manage_helpdesk` + `manage_prepaid_support_hours`
+**Priority:** High
 **Precondition:** An organization with a prepaid budget on a project.
 
 **Steps:**
@@ -85,6 +88,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `perm.test.agent` — custom
 ### TC-HLP-169: All three Knowledgebase permissions together grant full KB CRUD
 
 **User Role:** Role granted `add_kb_page`, `edit_kb_page`, and `delete_kb_page` together
+**Priority:** High
 **Precondition:** None.
 
 **Steps:**
@@ -104,6 +108,7 @@ CONFIRMED LIVE 2026-09-07 (Local, custom role "Permission Test Role" holding `ad
 ### TC-HLP-170: Neither `view_helpdesk` nor `manage_helpdesk` — no access at all (canonical reference)
 
 **User Role:** Role with neither permission on any project
+**Priority:** High
 **Precondition:** None.
 
 **Steps:**
@@ -121,6 +126,7 @@ CONFIRMED LIVE 2026-09-07 (Local, `zero.perm.user` — zero project memberships 
 ### TC-HLP-171: `view_helpdesk` only cannot manage desk configuration
 
 **User Role:** Role granted `view_helpdesk`, explicitly **not** `manage_helpdesk`
+**Priority:** High
 **Precondition:** None.
 
 **Steps:**
@@ -136,6 +142,7 @@ CONFIRMED LIVE 2026-09-07 (Local, `luna.blossom` — role Agent, `view_helpdesk`
 ### TC-HLP-172: `manage_helpdesk` without `manage_prepaid_support_hours` cannot touch budgets
 
 **User Role:** Role granted `view_helpdesk` + `manage_helpdesk`, explicitly **not** `manage_prepaid_support_hours`
+**Priority:** High
 **Precondition:** An organization with a prepaid budget on a project.
 
 **Steps:**
@@ -157,6 +164,7 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `manage.helpdesk.test` — `
 ### TC-HLP-173: Missing an individual KB permission blocks exactly that action (canonical reference)
 
 **User Role:** Role granted `view_helpdesk` and exactly one of `add_kb_page`/`edit_kb_page`/`delete_kb_page` at a time
+**Priority:** High
 **Precondition:** An existing article.
 
 **Steps:**
@@ -179,6 +187,7 @@ All three KB permissions confirmed fully independent — each gates exactly its 
 ### TC-HLP-174: Saving a project's email configuration is refused for every non-admin role
 
 **User Role:** A role granted `manage_helpdesk` (the highest non-admin helpdesk permission)
+**Priority:** High
 **Precondition:** None.
 
 **Steps:**
@@ -198,6 +207,7 @@ All three KB permissions confirmed fully independent — each gates exactly its 
 ### TC-HLP-165: Resolving whether `manage_helpdesk` alone grants report export
 
 **User Role:** Role A — granted `manage_helpdesk`, explicitly **without** `export_helpdesk_reports`. Role B — granted both.
+**Priority:** High
 **Precondition:** A report tab with data.
 
 **Steps:**
@@ -216,6 +226,7 @@ All three KB permissions confirmed fully independent — each gates exactly its 
 ### TC-HLP-175: Both admin-only actions are refused together for the same non-admin role
 
 **User Role:** A single role granted `manage_helpdesk` **and** `export_helpdesk_reports` **and** `manage_prepaid_support_hours` — i.e. every non-admin helpdesk permission at once
+**Priority:** High
 **Precondition:** None.
 
 **Steps:**

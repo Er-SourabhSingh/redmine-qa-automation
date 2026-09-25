@@ -19,6 +19,7 @@
 ### TC-HLP-261: All five report tabs load
 
 **User Role:** Agent with `view_helpdesk`
+**Priority:** High
 **Precondition:** Some tickets, SLAs, and agents exist with activity to report on.
 
 **Steps:**
@@ -35,6 +36,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS, with a precondition
 ### TC-HLP-262: Date range and filters correctly narrow a report's figures
 
 **User Role:** Agent
+**Priority:** High
 **Precondition:** Tickets spanning more than one date range, assignee, status, priority, and project.
 
 **Steps:**
@@ -51,6 +53,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** As `manage.helpde
 ### TC-HLP-263: SLA Analytics shows the full documented figure set
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** A mix of on-track, breached, and resolved tickets across priorities and projects.
 
 **Steps:**
@@ -66,6 +69,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** As `manage.helpde
 ### TC-HLP-264: Agent Performance shows the full documented figure set per agent
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** Multiple agents with varying ticket loads, response times, and escalation history.
 
 **Steps:**
@@ -81,6 +85,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** As `manage.helpde
 ### TC-HLP-265: Exporting a report produces correct CSV, Excel, and PDF files
 
 **User Role:** Agent with `export_helpdesk_reports`
+**Priority:** High
 **Precondition:** A report tab with data and filters applied.
 
 **Steps:**
@@ -98,6 +103,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS, all three formats.*
 ### TC-HLP-266: The SLA monitor job picks up a breach within 2 minutes
 
 **User Role:** N/A (system-driven, verified by Agent)
+**Priority:** High
 **Precondition:** Sidekiq and Redis running; a ticket about to breach its SLA.
 
 **Steps:**
@@ -114,6 +120,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **FAIL — filed as BUG-HLP
 ### TC-HLP-267: The email poller collects a new qualifying email within 5 minutes
 
 **User Role:** N/A (system-driven, verified by Agent)
+**Priority:** High
 **Precondition:** Sidekiq running; incoming mail configured for a project.
 
 **Steps:**
@@ -130,6 +137,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **FAIL by the same root cau
 ### TC-HLP-268: An authenticated REST API request with a valid API key succeeds
 
 **User Role:** Agent (via API key)
+**Priority:** High
 **Precondition:** REST API enabled at Administration › Settings › API; agent's API key known.
 
 **Steps:**
@@ -145,6 +153,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Confirmed `/helpd
 ### TC-HLP-269: Tickets — full CRUD plus merge via the REST API
 
 **User Role:** Agent (via API key)
+**Priority:** Medium
 **Precondition:** Valid API key with helpdesk access.
 
 **Steps:**
@@ -160,6 +169,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Note: the request
 ### TC-HLP-270: Conversations — list and create a reply via the REST API
 
 **User Role:** Agent (via API key)
+**Priority:** Medium
 **Precondition:** An existing ticket.
 
 **Steps:**
@@ -176,6 +186,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PARTIAL FAIL — filed as
 ### TC-HLP-271: SLA status — show, pause, resume, escalate via the REST API
 
 **User Role:** Agent (via API key)
+**Priority:** Medium
 **Precondition:** A ticket with an active SLA.
 
 **Steps:**
@@ -193,6 +204,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** `GET /tickets/301
 ### TC-HLP-272: Full CRUD on Organizations and SLAs via the REST API matches UI behavior
 
 **User Role:** Admin or Agent with `manage_helpdesk` (via API key)
+**Priority:** Medium
 **Precondition:** Valid API key.
 
 **Steps:**
@@ -209,6 +221,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Organization body
 ### TC-HLP-273: `process_macros` substitutes correctly against a real ticket via the API
 
 **User Role:** Agent (via API key)
+**Priority:** Low
 **Precondition:** A canned response containing macros; a real ticket.
 
 **Steps:**
@@ -224,6 +237,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** `POST /canned_res
 ### TC-HLP-274: `sla_analytics` returns the SLA report as JSON matching the UI
 
 **User Role:** Agent (via API key)
+**Priority:** Medium
 **Precondition:** Same dataset as TC-HLP-263.
 
 **Steps:**
@@ -239,6 +253,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** `GET /sla_analyti
 ### TC-HLP-275: `/helpdesk/swagger` loads for an administrator and "Try it out" works
 
 **User Role:** Administrator
+**Priority:** Medium
 **Precondition:** REST API enabled.
 
 **Steps:**
@@ -260,6 +275,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** `/helpdesk/swagge
 ### TC-HLP-276: The REST API refuses a request with no or an invalid API key
 
 **User Role:** N/A (unauthenticated)
+**Priority:** High
 **Precondition:** None.
 
 **Steps:**
@@ -276,6 +292,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** `GET /tickets` wi
 ### TC-HLP-277: Exporting a report is refused for a role without `export_helpdesk_reports`
 
 **User Role:** Agent whose role has `view_helpdesk` but not `export_helpdesk_reports`
+**Priority:** Medium
 **Precondition:** Viewing any report tab.
 
 **Expected Result (after attempting Export):**
@@ -288,6 +305,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **investigated in full — 
 ### TC-HLP-278: The REST API enforces the UI's admin-only rule on Email Config
 
 **User Role:** Manager with `manage_helpdesk` but not an administrator (via API key)
+**Priority:** High
 **Precondition:** Valid API key for this non-admin user.
 
 **Steps:**
@@ -303,6 +321,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Using `manage.hel
 ### TC-HLP-279: The REST API enforces customer data isolation
 
 **User Role:** Client (Customer, via API key, if customers have API access — otherwise verify the key is refused entirely)
+**Priority:** High
 **Precondition:** Two customers, each with their own tickets.
 
 **Steps:**
@@ -320,6 +339,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **investigated in full — 
 ### TC-HLP-280: `/helpdesk/swagger` is refused for a non-administrator
 
 **User Role:** Agent with `manage_helpdesk` but not an administrator
+**Priority:** High
 **Precondition:** REST API enabled.
 
 **Steps:**
@@ -339,6 +359,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** As `manage.helpde
 ### TC-HLP-281: SLA Analytics' breached-tickets list matches tickets actually breached
 
 **User Role:** Agent
+**Priority:** Medium
 **Precondition:** A known set of tickets deliberately breached during `HELPDESK_SLA_ESCALATION.md` testing.
 
 **Steps:**
@@ -354,6 +375,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** SLA Analytics' "B
 ### TC-HLP-282: Report charts render without getting stuck on a loading animation
 
 **User Role:** Agent
+**Priority:** Low
 **Precondition:** Any report tab with data.
 
 **Steps:**
@@ -369,6 +391,7 @@ CONFIRMED LIVE 2026-09-11 (Local, redmine-docker-6): **PASS.** Navigated fresh t
 ### TC-HLP-283: REST API list counts are consistent with the UI's own counts under the same filter
 
 **User Role:** Agent (via API key and UI, same session)
+**Priority:** Medium
 **Precondition:** A known filtered ticket set.
 
 **Steps:**

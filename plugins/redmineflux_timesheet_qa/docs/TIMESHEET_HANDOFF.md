@@ -2,35 +2,44 @@
 
 ## Last Session
 
-- Date: 2026-09-15
-- Redmine Version: n/a (authoring session only — no execution)
-- Environment: n/a
+- Date: 2026-09-25
+- Redmine Version: 7.0.0 (Docker)
+- Environment: Local Docker (redmine-docker-700-redmine-1, http://localhost:3010)
 
 ## Completed This Session
 
-- Folder structure scaffolded per CLAUDE.md §3.
-- Vendor knowledge base ingested from https://www.redmineflux.com/knowledge-base/plugins/timesheet/
-- `TIMESHEET_REQUIREMENTS.md`, `TIMESHEET_FEATURES_LIST.md` and `TIMESHEET_USER_GUIDE.md` populated from the KB, clearing the
-  §11 pre-test blocker.
-- Functional, negative and permission test suites authored in `testcases/`.
+- Restarted Docker 7 (localhost:3010). Discovered the container restart does not auto-run plugin migrations;
+  ran `rake redmine:plugins:migrate NAME=redmineflux_timesheet` by hand (applied migration 019) and restarted again.
+- Retested **BUG-TMS-001** (bulk-deleting a user with a timesheet submission crashed with a 500) — **PASS**.
+  Confirmed fix in `user_patch.rb` source, reproduced the original crash scenario end-to-end via the UI with
+  throwaway fixture users, confirmed clean cascade + no error.
+- Closed BUG-TMS-001: moved `bugs/open/BUG-TMS-001.md` → `bugs/closed/BUG-TMS-001.md`, synced production issue
+  #121040 to Status: Done, % done: 100 (approved by user), updated `bugs/_index.md`, `reports/final-bug-report.md`,
+  and `docs/TIMESHEET_MEMORY.md`.
 
 ## In Progress
 
-- Nothing executed yet.
+- No test case in `testcases/` has been executed yet. BUG-TMS-001 was found/retested ad-hoc, outside the authored
+  TC-TMS-1xx suite.
 
 ## Blockers
 
-- None. Execution requires a running instance with the plugin installed and the roles named in the permissions
-  suite provisioned.
+- None currently open. `bugs/open/` is empty.
 
 ## Next Session Start Point
 
 - Start with the installation/configuration suite, then the permissions suite (it provisions the roles the other
   suites assume), then the functional suites in file order.
+- Because `bugs/open/` just became empty, before `STATUS.md` can be marked `Complete` a full final-cycle regression
+  (`SENIOR_QA_STANDARDS.md` §27) is required — but that rule assumes an existing suite of passed TCs to re-run,
+  and none exist yet here. Treat the upcoming first full execution pass over `testcases/` as satisfying that gate
+  once it completes with zero new failures.
+- Local team-mode fixture note: adding a user to a Timesheet team requires setting a **team role** (not just a
+  project role) for the "Timesheet" top-menu entry to appear — see `TIMESHEET_MEMORY.md`.
 
 ## Open Bugs Found
 
-- None yet.
+- None open. BUG-TMS-001 closed this session (see `bugs/closed/BUG-TMS-001.md`).
 
 ## Run History
 
@@ -39,3 +48,4 @@
 | Date | Redmine Version | Environment | Tested By | Summary |
 |------|-----------------|-------------|-----------|---------|
 | 2026-09-15 | — | — | Claude | Authoring only — test cases written from the vendor KB, nothing executed. |
+| 2026-09-25 | 7.0.0 (Docker) | Local Docker (localhost:3010) | Claude | Retest of BUG-TMS-001 (bulk user delete crash) — PASS, fix confirmed, bug closed and synced to production #121040 (Done, 100%). No suite-wide regression run (no TCs executed yet this cycle). |

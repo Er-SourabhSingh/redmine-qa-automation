@@ -44,6 +44,7 @@ environment available.
 ### TC-DSH-078: Plugin folder name is enforced
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** Archive extracted to `Redmine/plugins/redmineflux_dashboard`.
 **Steps:**
 1. Confirm the folder name is exactly `redmineflux_dashboard`.
@@ -59,6 +60,7 @@ environment available.
 ### TC-DSH-079: Migration completes cleanly
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Run the migration, restart, open a project's Dashboard.
 
@@ -70,6 +72,7 @@ environment available.
 ### TC-DSH-080: Assets load — the dashboard is entirely JS-driven
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Open a dashboard with widgets and inspect the console and Network tab.
 
@@ -84,6 +87,7 @@ environment available.
 ### TC-DSH-081: Redmine 6 YAML-to-JSON serialization migration
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** An instance with saved dashboard settings created on Redmine 5.x, upgraded to Redmine 6.
 **Steps:**
 1. After upgrading, re-run the plugin migrations as the KB instructs.
@@ -105,6 +109,7 @@ environment available.
 ### TC-DSH-082: Dashboard works with REST API enabled
 
 **User Role:** Admin then Member
+**Priority:** High
 **Steps:**
 1. Administration → Settings → **API** → enable **REST API** → Save.
 2. Open a project's Dashboard and add a chart.
@@ -117,6 +122,7 @@ environment available.
 ### TC-DSH-083: Behaviour with REST API disabled
 
 **User Role:** Admin then Member
+**Priority:** Medium
 **Steps:**
 1. Disable REST API and save.
 2. Open a dashboard that previously worked.
@@ -133,6 +139,7 @@ environment available.
 ### TC-DSH-084: Re-enabling the API restores the dashboard
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Re-enable REST API and reload the dashboard.
 
@@ -148,6 +155,7 @@ environment available.
 ### TC-DSH-085: Dashboard tab appears on every project without a module
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Open several projects, including one with most modules disabled, and check the project menu.
 2. Confirm in Project → Settings → Modules that no dashboard module exists to enable or disable.
@@ -168,6 +176,7 @@ Repository, Forums, Calendar, Gantt, Agile Board, and every other plugin's own m
 ### TC-DSH-086: Empty dashboard shows a usable empty state
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Open the Dashboard on a project with no widgets added.
 
@@ -182,6 +191,7 @@ clean empty grid, Add Chart button present and functional, no error state.
 ### TC-DSH-087: Saved layout loads per project
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Build a dashboard in project A, then open project B's dashboard.
 
@@ -201,6 +211,7 @@ are genuinely per-project, not shared instance-wide.
 ### TC-DSH-088: Wrong plugin folder name
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Rename the folder away from `redmineflux_dashboard` and restart.
 
@@ -213,6 +224,7 @@ are genuinely per-project, not shared instance-wide.
 ### TC-DSH-089: Migration not run
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Install files, skip the migration, restart, open a project.
 
@@ -226,6 +238,7 @@ are genuinely per-project, not shared instance-wide.
 ### TC-DSH-090: Charts on a project with no issues and no time entries
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Add several chart types on an empty project.
 
@@ -242,6 +255,7 @@ or divide-by-zero encountered in any tested case, including the Gauge-adjacent E
 ### TC-DSH-091: Very large project
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open a dashboard with 15+ widgets on a project with tens of thousands of issues and time entries.
 
@@ -255,6 +269,7 @@ or divide-by-zero encountered in any tested case, including the Gauge-adjacent E
 ### TC-DSH-092: Stale cache after upgrade
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. After a plugin upgrade, load the dashboard without clearing caches, then clear and restart as the KB advises.
 
@@ -270,6 +285,7 @@ or divide-by-zero encountered in any tested case, including the Gauge-adjacent E
 ### TC-DSH-093: Clean uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** **Database backup taken** — the KB requires this before rollback.
 **Steps:**
 1. Run `bundle exec rake redmine:plugins:migrate NAME=redmineflux_dashboard VERSION=0 RAILS_ENV=production`.

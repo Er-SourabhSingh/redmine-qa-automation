@@ -28,6 +28,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-001: Timeline renders allocations across the workload range
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Open the Gantt view on a workload with several members and issues.
 
@@ -41,6 +42,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-002: Weekends, holidays and leave are visible as unavailable
 
 **User Role:** Workload manager
+**Priority:** High
 **Steps:**
 1. With a holiday and an approved leave record inside the range, inspect the timeline.
 
@@ -55,6 +57,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-003: Drag an allocation to new dates
 
 **User Role:** Workload manager
+**Priority:** High
 **Steps:**
 1. Drag an allocation later by a week; **reload**; re-check the allocation data.
 
@@ -66,6 +69,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-004: Resize an allocation
 
 **User Role:** Workload manager
+**Priority:** High
 **Steps:**
 1. Drag one edge to extend the allocation, then the other to shorten it; reload after each.
 
@@ -79,6 +83,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-005: Reorder a user's allocations
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Reorder allocations within one user's row; reload.
 
@@ -90,6 +95,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-006: Daily allocation distribution
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Review the daily distribution for a member with several overlapping allocations.
 
@@ -104,6 +110,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-007: Overlapping conflicts are identified
 
 **User Role:** Workload manager
+**Priority:** High
 **Steps:**
 1. Create allocations that overlap in time for the same user.
 
@@ -115,6 +122,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-008: Rejected drags revert
 
 **User Role:** Workload manager
+**Priority:** High
 **Steps:**
 1. With overload disabled, drag an allocation onto a period where it would exceed available capacity.
 2. Drag one outside the workload's date range.
@@ -129,6 +137,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-009: Split an allocation
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Use the split action on an allocation, choose the split point, save; reload.
 
@@ -143,6 +152,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-010: Edit the halves of a split independently
 
 **User Role:** Workload manager
+**Priority:** Medium
 **Steps:**
 1. Move and resize each half separately.
 
@@ -154,6 +164,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-011: Split at a boundary
 
 **User Role:** Workload manager
+**Priority:** Low
 **Steps:**
 1. Attempt to split a single-day allocation, and to split exactly at the first or last day.
 
@@ -165,6 +176,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-012: Cross-workload conflicts
 
 **User Role:** Workload manager
+**Priority:** High
 **Steps:**
 1. Allocate the same user in two different workloads over overlapping dates.
 
@@ -183,6 +195,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-013: Dashboard is available to administrators
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Workloads → **Dashboard**.
 
@@ -194,6 +207,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-014: All documented sections are present
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Inspect the dashboard for each documented section.
 
@@ -207,6 +221,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-015: KPI figures reconcile with the workloads
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. For one team and date range, compare the dashboard KPIs against the sum of the underlying workloads' capacity
    and planned hours.
@@ -221,6 +236,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-016: Team capacity distribution
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Compare the distribution chart against each team's calculated capacity.
 
@@ -232,6 +248,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-017: User availability heatmap
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Check a user with known leave and holidays against the heatmap.
 
@@ -243,6 +260,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-018: Cross-workload conflicts on the dashboard
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. With a user allocated in two overlapping workloads, check the dashboard's conflicts section.
 
@@ -254,6 +272,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-019: Workload matrix
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Review the matrix against the actual workloads and their members.
 
@@ -265,6 +284,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-020: Allocation drilldown
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Drill into a summary figure to see the allocations behind it.
 
@@ -278,6 +298,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-021: Forecast
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Enable forecast and review the projected data.
 
@@ -290,6 +311,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-022: Trends over a date range
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Review capacity and planned-work trends over a multi-month range.
 
@@ -305,6 +327,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-023: Each filter narrows the data
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Apply the date range, team, workload, user and status filters individually.
 
@@ -317,6 +340,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-024: Filters combine
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Apply several filters together.
 
@@ -329,6 +353,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-025: Active filters are clearly indicated
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Apply filters, navigate away and return.
 
@@ -346,6 +371,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-026: Dashboard is not reachable by non-admins
 
 **User Role:** A user with **Manage teams and skills**, a workload manager, and a plain member
+**Priority:** High
 **Steps:**
 1. Confirm the Dashboard icon is not offered to any of them.
 2. Request the dashboard URL and its data endpoints **directly** for each.
@@ -361,6 +387,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-027: Dashboard with no data
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Open the dashboard with filters that match nothing, and on an instance with no workloads.
 
@@ -373,6 +400,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-028: Gantt changes without permission
 
 **User Role:** A member of the team **without** the Manage workload flag
+**Priority:** High
 **Steps:**
 1. Confirm allocations are not draggable.
 2. Send drag, resize, reorder and **split** requests directly.
@@ -386,6 +414,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-029: Dashboard and workload figures agree
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. For one team and period, compare: the workload detail capacity, the Gantt daily distribution totals, the
    dashboard KPI, and the allocation drilldown.
@@ -400,6 +429,7 @@ Gantt: workload detail page → the timeline. Dashboard: Workloads → **Dashboa
 ### TC-WKL-030: Large-scale performance
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Open the Gantt on a workload with 20 members and several hundred allocations, then the dashboard across a
    year with many teams.

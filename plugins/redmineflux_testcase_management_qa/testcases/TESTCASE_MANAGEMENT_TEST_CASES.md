@@ -27,6 +27,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-128: Create a test case with all fields and one step
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. **New Test Case**.
 2. Complete **Subject**, **Description**, **Assignee**, **Category**, **Priority**.
@@ -43,6 +44,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-129: Create a test case with multiple ordered steps
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Create a case adding five steps with distinct descriptions and expected results; save; open the issue.
 
@@ -54,6 +56,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-130: Subject is mandatory
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Create a test case leaving **Subject** empty; save.
 
@@ -65,6 +68,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-131: Create a test case with no steps
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. Create a case with a Subject but no steps; save; open it.
 
@@ -77,6 +81,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-132: Remove a step during authoring
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Add three steps, delete the middle one, save; open the issue.
 
@@ -88,6 +93,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-133: Reorder steps
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Create a case with three steps, reorder them, save; reopen.
 
@@ -99,6 +105,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-134: Step content preserves special characters and unicode
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Create a case whose step and expected result contain `< > & " '`, an emoji, and an embedded newline; save; reopen.
 
@@ -110,6 +117,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-135: Long step text boundary
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Enter a step of exactly 2000 characters; save.
 2. Repeat with 2001 characters.
@@ -123,6 +131,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-136: Edit an existing test case
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Open an existing case, change Subject, Priority and one step's Expected Result; save; reload.
 
@@ -134,6 +143,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-137: Delete a test case
 
 **User Role:** Manager / Admin
+**Priority:** Medium
 **Steps:**
 1. Delete a test case not used in any run; confirm; reload the summary.
 
@@ -145,6 +155,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-138: Delete a test case used in an active run
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Delete a case that belongs to an active run with recorded results.
 2. Open that run, its grid, and any report covering it.
@@ -158,6 +169,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-139: Test case respects Redmine issue permissions
 
 **User Role:** a role without issue-edit rights on the Testcase tracker
+**Priority:** High
 **Steps:**
 1. Attempt to edit a test case as that role, in the UI and via the issue edit URL directly.
 
@@ -169,6 +181,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-140: Assignee drives the To-Do list
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Create a case assigned to user X.
 2. Log in as X and open the **To-Do** area.
@@ -181,6 +194,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-141: "Hide default status field on issue details page" toggle
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Enable the setting in plugin configuration; open a test case issue.
 2. Disable it; reopen the issue.
@@ -194,6 +208,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-142: Test case appears in Redmine's own issue list
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Create a case, then open the project's **Issues** list filtered to the Testcase tracker.
 
@@ -205,6 +220,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-143: Test case search by subject and ID
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Use **Search by subject or ID** on the Testcase Summary with a full subject, a partial subject and the issue ID.
 
@@ -220,6 +236,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-144: Drag and drop a test case into a suite
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Drag an unassigned case onto a suite in the tree; release; reload.
 
@@ -231,6 +248,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-145: Drag a test case between suites
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Drag a case from suite A to suite B; reload; check both suites.
 
@@ -242,6 +260,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-146: Add existing test cases to a suite
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Use the add-to-suite action, select two unassigned cases, confirm; reload.
 
@@ -253,6 +272,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-147: Copy test cases to another suite
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Copy two cases from suite A to suite B; inspect both suites and the copies.
 
@@ -265,6 +285,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-148: Remove test cases from a suite
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Remove a case from a suite; reload; search for the case in the Testcase Summary and the Redmine issue list.
 
@@ -276,6 +297,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-149: Bulk-assign a requirement to multiple test cases
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Select three cases, bulk-assign a requirement; reload; open each case and the RTM.
 
@@ -287,6 +309,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-150: Bulk-assign replaces or adds predictably
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. Bulk-assign requirement R1 to a case that already has requirement R2; open the case.
 
@@ -299,6 +322,7 @@ Configure). Without it, creation is expected to fail — see TC-TCM-001.
 ### TC-TCM-151: A test case in multiple suites
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. Add the same case to two suites, if permitted, and run a report covering both.
 

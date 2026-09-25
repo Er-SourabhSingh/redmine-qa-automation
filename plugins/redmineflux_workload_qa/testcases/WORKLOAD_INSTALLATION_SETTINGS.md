@@ -27,6 +27,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-031: Plugin folder name is enforced
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** `redmineflux_workload` uploaded to `Redmine/plugins`.
 **Steps:**
 1. Confirm the folder name is unchanged.
@@ -42,6 +43,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-032: Migrations complete cleanly
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Run the migration, restart, open Workloads.
 
@@ -53,6 +55,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-033: Assets load
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. Open a workload detail page with its Gantt timeline; inspect the console and Network tab.
 
@@ -66,6 +69,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-034: Redmine version boundary
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Record the Redmine version from Administration → Information.
 
@@ -80,6 +84,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-035: The Workloads menu is only visible to logged-in users
 
 **User Role:** Anonymous, then a logged-in member
+**Priority:** Medium
 **Steps:**
 1. Visit Redmine logged out and inspect the top menu.
 2. Log in and re-check.
@@ -98,6 +103,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-036: Working Hours Per Day default
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. On a fresh install, open Settings and read **Working Hours Per Day**.
 
@@ -109,6 +115,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-037: Working Hours Per Day drives capacity everywhere
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Note a member's available capacity for a workload spanning exactly 5 working days — expect 40 hours at 8.0/day.
 2. Change the setting to `6.0`, save, and **Recalculate Capacity** on the workload.
@@ -124,6 +131,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-038: Allow Workload Overload enabled
 
 **User Role:** Admin then a workload manager
+**Priority:** High
 **Steps:**
 1. Enable **Allow Workload Overload**; save.
 2. Allocate planned hours exceeding a member's available capacity.
@@ -137,6 +145,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-039: Allow Workload Overload disabled
 
 **User Role:** Admin then a workload manager
+**Priority:** High
 **Steps:**
 1. Disable the setting; save.
 2. Attempt to allocate planned hours exceeding available capacity, through the UI.
@@ -153,6 +162,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-040: Settings persist across save and reload
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Change both settings, save, reload the Settings page.
 
@@ -168,6 +178,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-041: Invalid Working Hours Per Day
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Enter `0`, a negative number, a non-numeric value, and an implausible value such as `30`; save each.
 
@@ -184,6 +195,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-042: Fractional working hours
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Set `7.5` and verify a five-day capacity figure.
 
@@ -197,6 +209,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-043: Settings page is not reachable by a non-admin
 
 **User Role:** A user with **Manage teams and skills**, and a plain member
+**Priority:** High
 **Steps:**
 1. Confirm the Settings icon is not offered.
 2. Request the settings URL directly and attempt to post a change, as each user.
@@ -212,6 +225,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-044: Changing settings mid-plan
 
 **User Role:** Admin + workload manager
+**Priority:** Medium
 **Steps:**
 1. With workloads fully allocated to exactly 100% utilization, reduce Working Hours Per Day.
 2. Review those workloads before and after **Recalculate Capacity**.
@@ -228,6 +242,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-045: Wrong plugin folder name
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Rename the folder and restart.
 
@@ -239,6 +254,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-046: Migrations not run
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Install the files, skip the migration, restart, open Redmine.
 
@@ -254,6 +270,7 @@ effect on a **calculated capacity figure**, not by the settings page reporting a
 ### TC-WKL-047: Clean uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** **Database backup taken** — the KB warns that uninstalling removes the plugin's tables and data.
 **Steps:**
 1. Run `RAILS_ENV=production bundle exec rails redmine:plugins:migrate NAME=redmineflux_workload VERSION=0`.

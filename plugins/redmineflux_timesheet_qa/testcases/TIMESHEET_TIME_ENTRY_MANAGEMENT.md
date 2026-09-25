@@ -28,6 +28,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-125: The weekly grid renders the correct period
 
 **User Role:** Member with View Timesheet
+**Priority:** Medium
 **Steps:**
 1. Open Timesheet and inspect the default view.
 
@@ -41,6 +42,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-126: Totals are accurate
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Compare the grid's daily and period totals against the sum of the individual entries, and against core
    Redmine's spent-time report for the same range.
@@ -57,6 +59,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-127: Log time via the Log Time modal
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Click **Log Time**; select a date and activity, enter hours, add a comment; **Save Time Entry**.
 
@@ -69,6 +72,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-128: Log time by hovering a task cell
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Hover the relevant task cell and log time through that route.
 
@@ -80,6 +84,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-129: Activity list matches the project's configuration
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Compare the activity dropdown against Administration → Enumerations and the project's own activity overrides.
 
@@ -91,6 +96,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-130: Required fields are enforced
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** The instance requires a comment on time entries, and/or has required time-entry custom fields.
 **Steps:**
 1. Attempt to save an entry omitting each required field.
@@ -109,6 +115,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-131: Expand a task row to see its entries
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Double-click a task row; hover a target date cell.
 
@@ -120,6 +127,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-132: Update an entry's fields
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Change the date, activity, hours and comment; click **Update Time Entry**; reload.
 
@@ -133,6 +141,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-133: Multiple entries for the same issue and activity
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create two entries for the same issue, activity and date; then edit one.
 
@@ -146,6 +155,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-134: Cancelling an update writes nothing
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Begin an update, change values, then cancel.
 
@@ -161,6 +171,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-135: Delete an entry
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Expand the task, select the entry, click **Delete**, confirm.
 
@@ -172,6 +183,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-136: Cancel a deletion
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Trigger the delete and cancel the confirmation.
 
@@ -187,6 +199,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-137: Logging outside the allowed past-date window
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** Allowed Past Days = 3.
 **Steps:**
 1. Log time 3 days back (boundary, expect allowed), 4 days back (expect refused).
@@ -202,6 +215,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-138: Logging after the daily cutoff time
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With a cutoff of, say, 18:00, attempt a past-date log before and after that moment.
 
@@ -214,6 +228,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-139: Past-date logging disabled entirely
 
 **User Role:** Admin then Member
+**Priority:** High
 **Steps:**
 1. Disable **Allow Past Date Timelog**; attempt to log any past date, through the UI and directly.
 
@@ -225,6 +240,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-140: Future-dated entries
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Attempt to log time for tomorrow and for next month.
 
@@ -238,6 +254,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-141: Editing and deleting outside the allowed window
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** **Block Edit/Delete After Allowed Period** enabled.
 **Steps:**
 1. Attempt to edit, then delete, an entry outside the window, through the UI and directly.
@@ -250,6 +267,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-142: Editing after approval
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** **Disable Log/Edit After Approval** enabled; the period is approved.
 **Steps:**
 1. Attempt to add, edit and delete entries in the approved period, through the UI and directly.
@@ -264,6 +282,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-143: Overtime is flagged at the threshold boundary
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** Overtime Threshold = 8.
 **Steps:**
 1. Log exactly 8 hours in a day, then 8.25.
@@ -277,6 +296,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-144: Invalid hours values
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enter `0`, a negative number, `abc`, `25` hours in one day, and a value with excessive decimal places.
 
@@ -290,6 +310,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-145: Script content in a comment
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Save an entry whose comment contains a script tag; view it in the grid, in the approver's review view, in the
    reports, and in the CSV export.
@@ -304,6 +325,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-146: Editing another user's entries
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Attempt to edit and delete another user's time entry through the grid and by sending the requests directly.
 
@@ -317,6 +339,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-147: Concurrent edits to the same entry
 
 **User Role:** Two users with rights over the same entry
+**Priority:** Medium
 **Steps:**
 1. Both open it; A changes the hours; B, without reloading, changes the comment and saves.
 
@@ -328,6 +351,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-148: Logging against an issue in a closed or archived project
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Attempt to log time in a closed project, then an archived one, through the UI and directly.
 
@@ -340,6 +364,7 @@ Main navigation → **Timesheet**. Do not type URLs.
 ### TC-TMS-149: Entries persist correctly across a period boundary
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Log time on the last day of one period and the first day of the next; view both periods.
 

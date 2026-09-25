@@ -76,6 +76,20 @@ Upgrade -- and the correct total pipeline value of $76,250]
 
 Suggested fix direction for dev: make plugin detection retryable rather than a one-shot startup check — e.g. lazily re-attempt detection for a plugin the first time one of its tools is actually invoked and found "not loaded" (mirroring how `tools/list` is called fresh per session anyway), or run a low-frequency background retry for some bounded window after a degraded start, so a slow Redmine boot doesn't permanently disable plugin tools for the container's entire remaining lifetime.
 
+## 2026-09-25 retest — FIXED, source-verified (not live-reproduced)
+
+Not live-reproduced: forcing the exact original race (whole stack cold-booting with Redmine losing to MCP by >60s) requires restarting every container in the stack simultaneously, which would disrupt the fixture state the rest of this retest sweep depends on — verified via source instead, which is a direct, reliable check for a structural startup-timing defect like this one.
+
+`src/server.py`'s `_startup_self_test()` now explicitly cites this bug by ID in its own docstring/comments ("BUG-CRX-016 found live 2026-09-16: 60s was tight enough that a normal, unremarkable cold multi-container boot... lost the race outright"). The fix:
+- `max_wait` default raised from 60s → **120s**.
+- After a late (retry-required) success, a **3s settle pause** before plugin detection starts, addressing a second, adjacent race the same investigation surfaced (Redmine answering `/users/current.json` but still buckling under 13 concurrent plugin probes fired immediately after).
+- `src/plugin_registry.py` now retries each individual plugin's detection probe up to 4 times (~13s backoff) on connection failure/timeout or 502/503/504, rather than a single one-shot probe per plugin.
+- Two dedicated new test files exist: `tests/unit/test_startup_self_test_retry.py` and `tests/unit/test_plugin_detection_cold_boot_retry.py`.
+
+This directly targets the documented root cause (60s was empirically not enough on a normal boot) with a substantially longer window plus retry at both the self-test and per-plugin-probe layers — matching this bug's own "Note for triage" suggested fix direction closely.
+
+**Verdict: FIXED, source-verified.** Live confirmation would require a full-stack cold-boot race, not attempted here for token/time reasons; recommend accepting source evidence or flagging for a dedicated live re-test in a future session if the user wants full live confirmation.
+
 ## Production report
 
 Reported to production as issue **#120696** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-16. Textile description, no attachments (per updated §4.3a policy). Linked to Run #569, testcase #120490 (`CRUX_AGENT_CRM_SALES.md`) — testcase marked Failed.

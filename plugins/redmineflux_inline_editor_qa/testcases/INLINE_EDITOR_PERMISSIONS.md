@@ -67,6 +67,7 @@ Fill in from observed behaviour, not from assumption. Record separately, per rol
 ### TC-INE-092: Admin can inline-edit every exposed field
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Exercise every row of the matrix as Admin, on the issue list and the detail page.
 
@@ -88,6 +89,7 @@ permissions holds unchanged after the route change.
 ### TC-INE-093: Inline editing requires the edit-issues permission
 
 **User Role:** Developer (has it), then a role without it
+**Priority:** High
 **Steps:**
 1. As Developer, inline-edit a field — expect success.
 2. As the role without edit-issues, confirm no affordance appears.
@@ -117,6 +119,7 @@ a silent `200` with a false success message. TC-INE-093 is now a full PASS on al
 ### TC-INE-094: Workflow field permissions are enforced at the endpoint
 
 **User Role:** Role with a field marked read-only in the workflow
+**Priority:** High
 **Steps:**
 1. Confirm no affordance on that field.
 2. Send an inline update for it directly.
@@ -159,6 +162,7 @@ now a full PASS.
 ### TC-INE-095: Workflow status transitions are enforced at the endpoint
 
 **User Role:** Role with a restricted status workflow
+**Priority:** High
 **Steps:**
 1. Note which transitions the inline dropdown offers.
 2. Send a forbidden transition directly to the inline endpoint.
@@ -197,6 +201,7 @@ silent success reporting the unchanged status as saved. TC-INE-095 is now a full
 ### TC-INE-096: Read-only member sees no affordance and is refused
 
 **User Role:** Role with view-issues only
+**Priority:** High
 **Steps:**
 1. Hover rows in the list and fields on the detail page.
 2. Send inline update requests for a simple field and for the description.
@@ -243,6 +248,7 @@ session's constraint on hand-rolled `fetch()`/`curl` calls to permission-sensiti
 returns `403` with a "not authorized" message, no metadata leaked.
 
 **User Role:** Authenticated non-member
+**Priority:** High
 **Preconditions:** **Confirm the project is genuinely private** — a newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case falsely passes.
 **Steps:**
@@ -256,6 +262,7 @@ checked by default; uncheck it explicitly or this case falsely passes.
 ### TC-INE-098: Anonymous user cannot inline-edit
 
 **User Role:** Anonymous (logged out)
+**Priority:** High
 **Steps:**
 1. On a public project that allows anonymous viewing, hover rows.
 2. Send an inline update request with no session.
@@ -277,6 +284,7 @@ anticipated (no affordance is even reachable, let alone an update endpoint).
 ### TC-INE-099: Cross-project write via the inline endpoint
 
 **User Role:** Member of project A only
+**Priority:** High
 **Preconditions:** Confirm the target issue really is in a private project B with no membership path for this user.
 **Steps:**
 1. Send an inline update request naming an issue ID in project B.
@@ -301,6 +309,7 @@ still `403`.
 ### TC-INE-100: Private notes and private content stay private
 
 **User Role:** Member without private-note rights
+**Priority:** High
 **Steps:**
 1. Confirm no inline affordance on private content.
 2. Request the inline edit form/data for it directly.
@@ -322,6 +331,7 @@ today: still `0` `.rf-edit-icon` inside any journal element.
 ### TC-INE-101: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
+**Priority:** High
 **Steps:**
 1. Remove edit-issues from the member's role while they have an inline editor open.
 2. Have them confirm the edit without logging out.
@@ -370,6 +380,7 @@ per-request, not cached) is the same code path re-verified repeatedly today (e.g
 ### TC-INE-102: Closed and archived projects
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Attempt an inline edit in a closed project, then in an archived one, at both the UI and the endpoint.
 
@@ -390,6 +401,7 @@ entirely — an improvement over the original cosmetic observation.
 ### TC-INE-103: Inline edit respects issue visibility rules
 
 **User Role:** Role whose issue visibility is limited to "issues created by the user"
+**Priority:** High
 **Steps:**
 1. Confirm the affordance appears only on that user's own issues.
 2. Send an inline update for an issue created by someone else in the same project.
@@ -416,6 +428,7 @@ direct `GET /issues/1551` (Admin's, same project) still `403`; direct `GET /issu
 ### TC-INE-104: "Edit own issues" permission allows inline-editing only the user's own issues
 
 **User Role:** Reporter, reconfigured to `edit_own_issues=true`, `edit_issues=false` (was both false by default on
+**Priority:** High
 this instance — checked via Administration → Roles and permissions before assuming stock Redmine defaults). Do
 not conflate with TC-INE-093/912, which test the broader "Edit issues" permission and visibility-scoped roles
 respectively.
@@ -462,6 +475,7 @@ Priority editor on her own issue (#1553), it had a working `<select>`, changed a
 ### TC-INE-105: "Edit issues" permission (not "Edit own issues") allows inline-editing any issue in the project
 
 **User Role:** Manager (`luna.blossom`, already `edit_issues=true` on this instance, no reconfiguration needed)
+**Priority:** High
 **Steps:**
 1. Confirm the inline affordance and a successful save on an issue authored by a different user — on both the
    issue detail page and the issue list view.
@@ -486,6 +500,7 @@ route: `200`. Confirms `edit_issues` still grants any-issue edit after the route
 ### TC-INE-106: "Edit project" permission gates project-list/card inline editing, per project
 
 **User Role:** Reporter (`daisy.skye`), reconfigured to `edit_project=true` on this role. She is a member of
+**Priority:** High
 "test project" (Reporter, edit_project granted) and can also **view** "Helpdesk Service Desk" (visible in her
 project list) without edit_project there.
 **Preconditions:** Reporter role's `edit_project` checkbox checked via Administration → Roles and permissions —

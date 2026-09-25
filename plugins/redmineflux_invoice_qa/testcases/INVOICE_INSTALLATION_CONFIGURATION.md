@@ -28,6 +28,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-029: Plugin appears after installation
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** `redmineflux_invoice` copied into `plugins/`, `bundle install` and migrations run, restarted.
 **Steps:**
 1. Open Administration → Plugins.
@@ -40,6 +41,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-030: Migrations complete cleanly
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Run the migration, restart, open a project's Invoice tab.
 
@@ -51,6 +53,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-031: Assets load
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. Open the invoice edit form and the Billing Report; inspect the console and Network tab.
 
@@ -62,6 +65,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-032: A PDF binary is installed
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Confirm at least one of `wkhtmltopdf`, PDFKit, Grover (Chromium) or Prawn is available on the server.
 2. Generate one invoice PDF.
@@ -82,6 +86,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-033: Company details are saved and appear on invoices
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Enter company name, full address, billing email, phone, tax ID and GST number; save.
 2. Generate an invoice and view it on screen and as a PDF.
@@ -96,6 +101,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-034: Company logo
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Upload a logo; view the invoice on screen and as a PDF.
 2. Repeat with a very large image and a non-image file.
@@ -115,6 +121,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-035: Invoice prefix and number format
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Confirm the default prefix is `INV`; create an invoice and read its number.
 2. Change the prefix and create another.
@@ -129,6 +136,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-036: Invoice numbers are unique and sequential
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Create several invoices in one project, then in another, then two simultaneously from two sessions.
 
@@ -142,6 +150,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-037: Currency symbol
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Set the currency symbol; view an invoice on screen, in the PDF, in the email, in the dashboard and in the
    global list.
@@ -154,6 +163,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-038: Default payment terms
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Confirm the default is `Net 30`; change it and create an invoice.
 
@@ -165,6 +175,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-039: Stripe credentials are stored safely
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Enable Stripe and enter the Publishable Key, Secret Key and Webhook Secret; save and reload.
 2. **Inspect the page source** for each of the three values.
@@ -186,6 +197,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-040: Enabling the module adds the Invoice tab
 
 **User Role:** Manager
+**Priority:** Medium
 **Steps:**
 1. Project → Settings → **Modules** → enable **Invoice** → Save.
 
@@ -197,6 +209,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-041: Disabling the module removes access
 
 **User Role:** Manager
+**Priority:** High
 **Steps:**
 1. Disable the module; confirm the tab is gone.
 2. Request the project invoice list URL and an individual invoice URL **directly**.
@@ -216,6 +229,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-042: Configure page is not reachable by a non-admin
 
 **User Role:** Manager, and a user holding `manage_invoices`, and a user holding `manage_customers`
+**Priority:** High
 **Steps:**
 1. Request the plugin configuration URL directly for each, and attempt to post a change.
 
@@ -230,6 +244,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-043: Invalid configuration values
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Enter an empty company name; a prefix containing spaces or slashes; a non-numeric payment term; and a malformed
    Stripe key. Save each.
@@ -244,6 +259,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-044: Settings persist and apply immediately
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Change every setting, save, reload, then create a new invoice.
 
@@ -255,6 +271,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-045: Migrations not run
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Install the files, skip the migration, restart, open a project.
 
@@ -270,6 +287,7 @@ Administration → Plugins → **Redmineflux Invoice** → **Configure**; Projec
 ### TC-INV-046: Clean uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** **Database backup taken** — the KB requires it.
 **Steps:**
 1. Run `bundle exec rake redmine:plugins:migrate NAME=redmineflux_invoice VERSION=0 RAILS_ENV=production`.

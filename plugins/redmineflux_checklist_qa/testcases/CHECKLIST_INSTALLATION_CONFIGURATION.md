@@ -31,6 +31,7 @@ its *effect* in the issue UI, not by the settings page reporting a successful sa
 ### TC-CHK-054: Plugin appears in the Administration → Plugins list after installation
 
 **User Role:** Admin
+**Priority:** High
 **Preconditions:** Plugin extracted into `/path/to/redmine/plugins` with its original folder name, `bundle install`
 and `redmine:plugins:migrate` run, server restarted.
 **Steps:**
@@ -50,6 +51,7 @@ version 7.0.0, Configure link present.
 ### TC-CHK-055: Database migration created the plugin's tables
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. After running `RAILS_ENV=production bundle exec rails redmine:plugins:migrate`, restart the server.
 2. Open any issue and scroll to the Checklist section.
@@ -67,6 +69,7 @@ correctly with no table-missing errors.
 ### TC-CHK-056: Assets load correctly (CSS/JS precompile)
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Open an issue with a checklist.
 2. Inspect the browser console and Network tab.
@@ -86,6 +89,7 @@ dozens of interactions this session.
 ### TC-CHK-057: Plugin loads on each supported Redmine version
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Record the Redmine version under test (Administration → Information).
 2. Confirm it falls inside the KB-declared support range.
@@ -109,6 +113,7 @@ TC-CHK-058–222).
 ### TC-CHK-059: Configure page opens and shows both tabs
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Administration → Plugins → Redmineflux Checklist Plugin → **Configure**.
 
@@ -125,6 +130,7 @@ present; current checkbox states read correctly from the DOM.
 ### TC-CHK-060: "Block issue closing" setting persists across a save/reload
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. On the General tab, check **Block issue closing**.
 2. Save.
@@ -142,6 +148,7 @@ fresh load — checkbox still checked. Left enabled intentionally (needed by `CH
 ### TC-CHK-061: "Auto-calculate % done from checklist" setting persists
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. On the General tab, toggle the auto-calculate progress setting.
 2. Save and reload.
@@ -157,6 +164,7 @@ enabled intentionally (needed by `CHECKLIST_PROGRESS_TRACKING.md`'s TC-CHK-083).
 ### TC-CHK-062: Settings are instance-wide, not per-project
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Enable **Block issue closing**.
 2. Open issues in two different projects.
@@ -179,6 +187,7 @@ identical enforcement to `test project`. Setting is genuinely instance-wide, not
 ### TC-CHK-063: Plugin folder renamed on disk
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Rename the plugin directory under `plugins/` (the KB explicitly says *do not* change it).
 2. Restart the server.
@@ -198,6 +207,7 @@ only in a dedicated/disposable environment or with the user watching.
 ### TC-CHK-064: Migration not run
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Install the plugin files but skip `redmine:plugins:migrate`.
 2. Restart and open an issue.
@@ -215,6 +225,7 @@ state for every other suite. Skipped pending explicit user approval.
 ### TC-CHK-065: Configure page is not reachable by a non-admin
 
 **User Role:** Developer / QA (non-admin)
+**Priority:** High
 **Steps:**
 1. As a non-admin, request the plugin's settings URL directly
    (`/settings/plugin/<plugin_id>`) — do not rely on the Administration menu being hidden.
@@ -235,6 +246,7 @@ CONFIRMED LIVE 2026-09-21: **PASS.** Logged in as `luna.blossom` (non-admin, Dev
 ### TC-CHK-066: Clean uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** Database backup taken.
 **Steps:**
 1. Run `bundle exec rake redmine:plugins:migrate NAME=<plugin_name> VERSION=0 RAILS_ENV=production`.

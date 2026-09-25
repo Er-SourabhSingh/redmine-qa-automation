@@ -25,6 +25,8 @@
 
 ### TC-INE-015 — Issue detail "Zugewiesen an" (Assigned to) inline searchable dropdown fully translated in German
 
+**Priority:** Medium
+
 **Steps**
 
 1. Log in as admin, confirm German language + Default theme active.
@@ -56,6 +58,8 @@ Root cause is very likely the same: both strings are hardcoded literals in the s
 ---
 
 ### TC-INE-016 — Inline-edit error toast is fully translated when a save is rejected by another plugin's validation (cross-plugin: Redmineflux Checklist)
+
+**Priority:** Medium
 
 **Steps**
 
@@ -93,6 +97,8 @@ own validation message are both correctly German.
 
 ### TC-INE-017 — Priority field inline edit (native `<select>`, not the `rf-ss` widget) — re-verification of BUG-INE-001's scope
 
+**Priority:** Medium
+
 **Steps**
 
 1. On issue #259, click the Edit icon next to "Priorität:".
@@ -109,6 +115,8 @@ own validation message are both correctly German.
 ---
 
 ### TC-INE-018 — Issues LIST view inline editing (Subject, Zugewiesen an) and surrounding list-page chrome
+
+**Priority:** Medium
 
 **Steps**
 
@@ -135,6 +143,8 @@ TC-INE-015).
 
 ### TC-INE-019 — Description field's inline CKEditor (Save/Cancel buttons, success toast)
 
+**Priority:** Medium
+
 **Steps**
 
 1. On an issue with a non-empty Description (added test content to issue #259 for this check, removed afterward), click the Edit icon next to "Beschreibung".
@@ -158,6 +168,8 @@ TC-INE-015).
 
 ### TC-INE-020 — "Saved successfully." toast reproduces on every inline-edit field, not just Description
 
+**Priority:** Medium
+
 **Steps** (explicitly asked: "save successfully toaster message not translated when we change each field")
 
 1. On issue #259, inject a `MutationObserver` before each change to capture the toast (it dismisses too fast for a manual screenshot).
@@ -180,6 +192,8 @@ originally found (not Description-specific).
 ---
 
 ### TC-INE-021 — Project card/list view and single-project Overview page (explicitly asked: "did you tested on issue list page and project board and project list page")
+
+**Priority:** Medium
 
 **Steps**
 
@@ -206,6 +220,8 @@ TC-INE-069/077/079). Not independently re-clicked this pass.
 ---
 
 ### TC-INE-022 — Stage 3/6: Lotus theme retest (default + 1280×720)
+
+**Priority:** Medium
 
 **Steps**
 
@@ -235,6 +251,8 @@ unavailable here.
 ---
 
 ### TC-INE-023 — Description CKEditor's "Save" button renders oversized under Lotus theme (explicitly asked: "did you reported this bug save button size")
+
+**Priority:** Low
 
 **Steps**
 

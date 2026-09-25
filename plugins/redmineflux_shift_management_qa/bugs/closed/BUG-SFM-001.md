@@ -79,9 +79,9 @@ true)` was called once — the dialog was confirmed still open/blocking afterwar
 after which the page finally navigated and the deletion completed, shown in the attached screenshot of the
 resulting Custom Fields list.)_
 
-### Retest screenshot (fill after fix is verified)
+### Retest screenshot
 
-![Retest result](../../screenshots/BUG-SFM-001/retest-yyyy-mm-dd-pass.png)
+![Retest 2026-09-25 PASS — custom field deleted after a single accept](../../screenshots/BUG-SFM-001/retest-2026-09-25-pass.png)
 
 ### Console / log
 
@@ -100,6 +100,35 @@ resulting Custom Fields list.)_
 - Priority: High (3); Defect Severity: High-severity; Defect priority: High; Defect Type: Functional.
 - Category: Shift Management (5888).
 - Assigned to: Sheetal Sharma (397).
+
+## Retest — 2026-09-25 — PASS (FIXED)
+
+- Environment: localhost:3010 (redmine-docker-700-redmine-1), Redmine 7.0.0, Chromium (Playwright MCP), Admin.
+- Fix under test: plugin commit `d29e480` "rsm-093: fix site-wide confirm dialogs requiring two clicks"
+  (Sheetal Sharma, 2026-09-22), which removes the unscoped `document.querySelectorAll('[data-confirm]')` handler
+  from `assets/javascripts/shift_management.js` entirely and relies on Rails UJS.
+- Deployed-asset check: the served asset is now `shift_management-c2dd912b.js` (was `-02242f4f.js`), and its
+  content no longer contains `querySelectorAll('[data-confirm]')` — the running server serves the fixed build.
+
+| # | Check | Result |
+|---|-------|--------|
+| 1 | Original repro — Administration → Custom fields → Issues, created disposable field "QA SFM-001 Retest Disposable" (#92), clicked Delete, **dismissed once** | Dialog closed after one dismiss, no reappearance; field still present — PASS |
+| 2 | Same Delete link, **accepted once** | Page navigated immediately, flash "Successful deletion.", field gone — PASS |
+| 3 | Plugin's own `data-confirm` link (the only one — Attendance detail → Delete, "Delete this record?") on a disposable manual attendance entry (#1, Redmine Admin, 2026-09-24): **dismissed once** | Dialog still appears (UJS covers it), closed after one dismiss, record kept — PASS |
+| 4 | Same Attendance Delete link, **accepted once** | Redirected to Attendance, flash "Successful deletion." — PASS |
+
+- Regression note (SENIOR_QA_STANDARDS §26): checks 3–4 cover the side of the fix most at risk — that removing
+  the handler didn't leave the plugin's own delete link without a confirm. The plugin's other delete actions
+  (departments, teams, holidays, holiday schemas) use their own in-page modals, not `data-confirm`, so they
+  are unaffected by this change.
+- The Attendance detail page (`/shift_management/attendance/:id`) has no inbound link anywhere in the UI
+  (the calendar only opens an edit modal), so it was reached by direct URL — the only way to reach it.
+- Both disposable fixtures (custom field #92, attendance #1) were deleted during the retest itself.
+
+## Closure — 2026-09-25
+
+- Production #121065 updated In QA → **Done**, % done 0 → **100** (user-approved 2026-09-25).
+- Local file moved `bugs/open/` → `bugs/closed/`.
 
 ## Duplicate check
 

@@ -24,6 +24,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-211: Search by issue subject
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Enter a keyword matching some issue subjects in the board search field.
 
@@ -37,6 +38,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-212: Clearing the search restores the board
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Clear the search field.
 
@@ -48,6 +50,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-213: Search with no matches
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Search for a string that matches nothing.
 
@@ -59,6 +62,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-214: Search is case-insensitive and matches partial words
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Search for a lowercase fragment of a mixed-case subject.
 
@@ -75,6 +79,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-215: Filter by assigned member
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Filter the board by one assignee.
 
@@ -86,6 +91,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-216: Apply a query-based filter
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open the filter section, set conditions (e.g. tracker = Bug, priority = High), Apply.
 
@@ -97,6 +103,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-217: Combine search and filters
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply an assignee filter and a subject search together.
 
@@ -108,6 +115,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-218: Filters persist appropriately
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Apply filters, navigate away, return to the board.
 
@@ -120,6 +128,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-219: Sprint filter on a Scrum board
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. In Scrum mode, filter by sprint (paired with TC-AGB-068).
 
@@ -131,6 +140,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-220: Filtered drag still works
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With a filter applied, drag a card to another column.
 
@@ -148,6 +158,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-221: Group by each supported option
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Apply **Group By** in turn for: None, Project, Tracker, Priority, Author, Assignee, Category, Target version,
    Parent task.
@@ -162,6 +173,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-222: Issues with no value for the grouping field
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Group by Target version with some issues unversioned; repeat grouping by Category and Parent task.
 
@@ -175,6 +187,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-223: Swimlane counts and totals are accurate
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With grouping applied, compare each lane's per-column counts against the equivalent issue-list filter.
 
@@ -186,6 +199,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-224: Drag between columns within a swimlane
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With grouping applied, drag a card to another status column inside the same lane.
 
@@ -197,6 +211,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-225: Drag between swimlanes
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Attempt to drag a card from one swimlane into another (e.g. from one assignee's lane to another's).
 
@@ -211,6 +226,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-226: Grouping persists with board configuration
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Set grouping, leave the board, return.
 
@@ -226,6 +242,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-227: Grouping with a very large number of distinct values
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Group by Assignee on a project with 100+ distinct assignees.
 
@@ -238,6 +255,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-228: Filter results respect issue visibility
 
 **User Role:** Member on a role whose issue visibility is limited (e.g. to their own issues)
+**Priority:** High
 **Steps:**
 1. Apply a broad filter intended to match everything.
 
@@ -251,6 +269,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-229: Search does not match content the user cannot see
 
 **User Role:** Member with limited visibility
+**Priority:** High
 **Steps:**
 1. Search for a keyword that appears only in the subject of an issue the user cannot view.
 
@@ -262,6 +281,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-230: Special characters in the search field
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Search for a percent sign, an underscore, a single quote and a script tag.
 
@@ -274,6 +294,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-231: Very long search string
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Search with a 5000-character string.
 
@@ -285,6 +306,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-232: Filter referencing a deleted value
 
 **User Role:** Member + Admin
+**Priority:** Medium
 **Steps:**
 1. Filter by a target version, have the Admin delete it, then reapply the board.
 
@@ -297,6 +319,7 @@ issue list disagree about the same query, the board is misreporting, and that is
 ### TC-AGB-233: Grouping by a field the user cannot see
 
 **User Role:** Member with restricted custom-field visibility
+**Priority:** High
 **Steps:**
 1. Check whether a restricted field is offered as a grouping option.
 

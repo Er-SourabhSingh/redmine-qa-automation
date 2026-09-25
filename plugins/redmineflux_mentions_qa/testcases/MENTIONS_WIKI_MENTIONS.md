@@ -23,6 +23,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 ### TC-MEN-070: Enable the Wiki module, then mention a user
 
 **User Role:** Manager (to enable) then Member
+**Priority:** High
 **Steps:**
 1. Confirm the project has no Wiki tab.
 2. Project → Settings → Modules → tick **Wiki** → Save.
@@ -38,6 +39,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 ### TC-MEN-071: Mention on a newly created wiki page
 
 **User Role:** Member with wiki-edit rights
+**Priority:** High
 **Steps:**
 1. Create a brand-new wiki page whose initial content contains a mention; save.
 
@@ -49,6 +51,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 ### TC-MEN-072: Mention several users on one wiki page
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Mention three users in one page body and save.
 
@@ -60,6 +63,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 ### TC-MEN-073: Editing a wiki page notifies only newly added mentions
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. A page already mentions user A. Edit it to also mention user B; save.
 
@@ -71,6 +75,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 ### TC-MEN-074: Mention is preserved across wiki versions
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Save a page with a mention, edit it again, then view the page History and an older version.
 
@@ -83,6 +88,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 ### TC-MEN-075: Wiki module disabled after mentions exist
 
 **User Role:** Manager
+**Priority:** Medium
 **Steps:**
 1. Disable the Wiki module on a project whose pages contain mentions.
 2. Re-enable it and reopen the page.
@@ -96,6 +102,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 ### TC-MEN-076: Mention in a wiki page comment / annotation
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. If the build supports wiki page comments, add one containing a mention.
 
@@ -112,6 +119,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 ### TC-MEN-077: Mention in wiki markup that should stay literal
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Save a page containing a mention inside a code block, inside `<pre>`, and inside a Textile link label.
 
@@ -124,6 +132,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 ### TC-MEN-078: Symbol collision with wiki syntax
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With the symbol set to `!`, save a page containing `!attached.png!` alongside `!username`.
 2. Repeat with the symbol set to `:` and page content containing `http://host:8080` and `:username`.
@@ -138,6 +147,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 ### TC-MEN-079: Mention a non-existent user on a wiki page
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Mention a username that does not exist and save.
 
@@ -149,6 +159,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 ### TC-MEN-080: Mention a user with no access to the project
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. On a **private** project's wiki page, mention a user who is not a member. Confirm the project is genuinely
    private first — a new Redmine project defaults to public.
@@ -164,6 +175,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 ### TC-MEN-081: Mention on a protected wiki page
 
 **User Role:** Member without edit rights on a protected page
+**Priority:** High
 **Steps:**
 1. Attempt to add a mention to a protected page through the UI, then send the update request directly.
 
@@ -175,6 +187,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 ### TC-MEN-082: Very long wiki page with many mentions
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Save a page of several thousand words containing 50 mentions.
 
@@ -187,6 +200,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 ### TC-MEN-083: Mention in a wiki page title
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Create a wiki page whose **title** contains the mention symbol plus a username.
 
@@ -199,6 +213,7 @@ Project → **Wiki** tab → **Edit**. If the Wiki tab is absent, enable it firs
 ### TC-MEN-084: Deleting a wiki page that contained a mention
 
 **User Role:** Manager
+**Priority:** Medium
 **Steps:**
 1. Delete a page containing mentions and check for orphaned notification or reference records.
 

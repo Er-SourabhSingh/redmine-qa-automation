@@ -23,6 +23,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 ### TC-TCM-192: Create a test suite
 
 **User Role:** QA / Manager
+**Priority:** High
 **Steps:**
 1. **Test Suite** sidebar → **Add Test Suite** icon.
 2. Enter **Test Suite Name** and **Description**; click **Create**.
@@ -36,6 +37,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 ### TC-TCM-193: Create a sub-test suite
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Click the **action icon** next to an existing suite → **Add Sub-folder**.
 2. Enter a name and description; **Create**; reload.
@@ -48,6 +50,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 ### TC-TCM-194: Multi-level nesting
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. Create a sub-suite inside a sub-suite (three levels deep); reload.
 
@@ -60,6 +63,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 ### TC-TCM-195: Suite name is mandatory
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. **Add Test Suite**, leave the name empty, **Create**.
 
@@ -71,6 +75,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 ### TC-TCM-196: Duplicate suite name at the same level
 
 **User Role:** QA
+**Priority:** Low
 **Steps:**
 1. Create two suites with identical names under the same parent.
 
@@ -83,6 +88,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 ### TC-TCM-197: Edit a suite name and description
 
 **User Role:** QA / Manager
+**Priority:** Medium
 **Steps:**
 1. Edit an existing suite; change name and description; save; reload.
 
@@ -94,6 +100,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 ### TC-TCM-198: Delete an empty suite
 
 **User Role:** Manager / Admin
+**Priority:** Medium
 **Steps:**
 1. Delete a suite containing no cases and no sub-suites; confirm; reload.
 
@@ -105,6 +112,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 ### TC-TCM-199: Delete a suite containing test cases
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Create a suite, add ≥2 test cases to it.
 2. Delete the suite; confirm.
@@ -120,6 +128,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 ### TC-TCM-200: Delete a suite containing sub-suites
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Delete a parent suite that has sub-suites; confirm.
 2. Inspect the tree.
@@ -133,6 +142,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 ### TC-TCM-201: Testcase count display toggle
 
 **User Role:** Admin
+**Priority:** Low
 **Precondition:** Suites containing a known number of cases.
 
 **Steps:**
@@ -149,6 +159,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 ### TC-TCM-202: Suite tree state and selection
 
 **User Role:** QA
+**Priority:** Medium
 **Steps:**
 1. Expand several nodes and select a suite.
 2. Confirm the case grid filters to that suite's cases.
@@ -163,6 +174,7 @@ since the tree is rendered client-side and a stale view can look like a successf
 ### TC-TCM-203: Suites are project-scoped
 
 **User Role:** QA
+**Priority:** High
 **Steps:**
 1. Create suite `SUITE-A` in Project A; open Project B's suite tree.
 

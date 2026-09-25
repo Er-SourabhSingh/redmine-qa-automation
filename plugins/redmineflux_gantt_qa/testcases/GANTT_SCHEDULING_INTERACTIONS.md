@@ -32,6 +32,7 @@ trip.
 ### TC-GNT-137: Drag an issue bar to a new date
 
 **User Role:** Member with View Flux Gantt and editable issue dates
+**Priority:** High
 **Steps:**
 1. Drag an issue bar two weeks to the right and drop it.
 2. Reload the chart, then open the issue page.
@@ -46,6 +47,7 @@ trip.
 ### TC-GNT-138: Drag preserves duration
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Note an issue's duration in days, drag it, and re-measure.
 
@@ -57,6 +59,7 @@ trip.
 ### TC-GNT-139: Rejected drag reverts the bar
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Drag a subtask outside its parent's date range — a violation the KB names explicitly.
 
@@ -71,6 +74,7 @@ trip.
 ### TC-GNT-140: Drag on a derived parent is refused
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Drag a parent bar whose dates are derived from its subtasks.
 
@@ -82,6 +86,7 @@ trip.
 ### TC-GNT-141: Drag respects release boundaries
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Drag an issue past the end of its release window.
 
@@ -98,6 +103,7 @@ trip.
 ### TC-GNT-142: Left-edge resize changes the start date only
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Drag the left edge of a bar earlier by a week; reload; open the issue.
 
@@ -109,6 +115,7 @@ trip.
 ### TC-GNT-143: Right-edge resize changes the due date only
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Drag the right edge later by a week; reload; open the issue.
 
@@ -120,6 +127,7 @@ trip.
 ### TC-GNT-144: Resize past the opposite edge is rejected
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Drag the right edge to a date before the start date.
 
@@ -132,6 +140,7 @@ trip.
 ### TC-GNT-145: Subtask resize is constrained by the parent
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Resize a subtask so it would extend beyond its parent's dates.
 
@@ -143,6 +152,7 @@ trip.
 ### TC-GNT-146: Resize a single-day task
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Resize an issue whose start and due date are the same day, in both directions.
 
@@ -158,6 +168,7 @@ trip.
 ### TC-GNT-147: Double-click opens the edit modal
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Double-click an issue bar, then an issue row in the left panel.
 
@@ -169,6 +180,7 @@ trip.
 ### TC-GNT-148: Edit subject, assignee, dates, progress and custom fields
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Change each of those fields in the modal and save.
 2. Reload and open the issue page.
@@ -182,6 +194,7 @@ trip.
 ### TC-GNT-149: Modal validation matches Redmine's own
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Clear a required field and save; enter an invalid date; enter a progress value outside the allowed increments.
 
@@ -195,6 +208,7 @@ trip.
 ### TC-GNT-150: Cancel the modal
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open the modal, change several fields, cancel.
 
@@ -206,6 +220,7 @@ trip.
 ### TC-GNT-151: Delete an issue from the modal
 
 **User Role:** Member with delete rights
+**Priority:** High
 **Steps:**
 1. Use the modal's delete action and confirm.
 
@@ -218,6 +233,7 @@ trip.
 ### TC-GNT-152: Workflow rules are enforced in the modal
 
 **User Role:** Member on a role with a restricted workflow
+**Priority:** High
 **Steps:**
 1. Attempt a status transition the workflow forbids, and edit a field the workflow marks read-only.
 
@@ -233,6 +249,7 @@ trip.
 ### TC-GNT-153: Drag or resize without edit permission
 
 **User Role:** Member whose role lacks View Flux Gantt
+**Priority:** High
 **Steps:**
 1. Confirm drag handles and mutation buttons are absent, as the KB states they are hidden.
 2. Send the date-update request **directly** to the chart's endpoint.
@@ -247,6 +264,7 @@ trip.
 ### TC-GNT-154: Network failure mid-drag
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Take the network offline, then drag a bar and drop it.
 
@@ -259,6 +277,7 @@ trip.
 ### TC-GNT-155: Session expiry mid-interaction
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Let the session expire, then drag a bar.
 
@@ -270,6 +289,7 @@ trip.
 ### TC-GNT-156: Concurrent edits to the same issue
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. Both have the chart open on the same issue. A drags the bar; B, without reloading, edits the dates in the modal
    and saves.
@@ -284,6 +304,7 @@ trip.
 ### TC-GNT-157: Rapid successive drags
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Drag the same bar three times in quick succession, then reload.
 
@@ -296,6 +317,7 @@ trip.
 ### TC-GNT-158: Drag onto a non-working day in Work Days mode
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. In **Work Days** display mode, drop a bar so it would start on a weekend.
 
@@ -308,6 +330,7 @@ trip.
 ### TC-GNT-159: Drag an issue in a closed or archived project
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Attempt a drag in a closed project, then in an archived project, and send the update directly in each case.
 
@@ -319,6 +342,7 @@ trip.
 ### TC-GNT-160: Optimistic update after a server-side validation the client cannot know
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Configure a workflow rule that blocks a date change for this role, then drag the bar.
 

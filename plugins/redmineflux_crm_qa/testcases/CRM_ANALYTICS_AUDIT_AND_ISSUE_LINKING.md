@@ -27,6 +27,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-024: All sixteen documented metrics are present
 
 **User Role:** Member with **View CRM**
+**Priority:** Medium
 **Steps:**
 1. Open Analytics and enumerate the metrics.
 
@@ -41,6 +42,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-025: Deal counts reconcile
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Compare total, open, won and lost deal counts against the deal list filtered accordingly.
 
@@ -53,6 +55,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-026: Deal values reconcile
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Compare total, open and won deal value against the sums of the matching deals' amounts.
 
@@ -65,6 +68,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-027: Weighted forecast
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Compute the forecast by hand for all open deals (amount × probability ÷ 100) and compare.
 
@@ -77,6 +81,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-028: Win rate
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. With a known set — e.g. 3 won, 1 lost, 5 open — check the win rate.
 
@@ -89,6 +94,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-029: Average deal value and contact metrics
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Check average deal value; then contacts with deals, contacts without deals, and active contacts in the last
    30 days.
@@ -104,6 +110,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-030: Period filters
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply **This Week**, **This Month**, **This Quarter**, **This Year** in turn.
 
@@ -117,6 +124,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-031: Charts agree with their numbers
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Compare pipeline by stage, deal momentum, win/loss mix and top deal owners against the underlying data.
 
@@ -132,6 +140,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-032: The audit log shows cross-record history
 
 **User Role:** Member with **View Audit Log**
+**Priority:** Medium
 **Steps:**
 1. Perform a mix of manual activities, automatic events and an email activity; open the Audit Log.
 
@@ -144,6 +153,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-033: Filter and search
 
 **User Role:** Member with View Audit Log
+**Priority:** Medium
 **Steps:**
 1. Filter by activity type; search by content.
 
@@ -156,6 +166,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-034: Entries survive their source record's deletion
 
 **User Role:** Member with Delete CRM Data, then View Audit Log
+**Priority:** Medium
 **Steps:**
 1. Note an audit entry for a contact, delete the contact, then re-check the audit log.
 
@@ -171,6 +182,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-035: The audit log is read-only for everyone, including admins
 
 **User Role:** Admin, and a member with View Audit Log
+**Priority:** High
 **Steps:**
 1. Confirm no edit or delete control appears for either user.
 2. Send edit and delete requests **directly** for an audit entry, as both users.
@@ -190,6 +202,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-036: Link a contact and a deal to an issue
 
 **User Role:** Member with CRM permissions **and** edit-issues on that project
+**Priority:** High
 **Steps:**
 1. Open an issue → the CRM panel → link a contact, then a deal.
 
@@ -201,6 +214,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-037: One contact and one deal per issue
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Link a second contact, then a second deal, to the same issue.
 
@@ -214,6 +228,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-038: Unlink
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Use Unlink beside the linked contact, then the linked deal; confirm.
 
@@ -226,6 +241,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-039: Create a CRM record from an issue
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Use **New Contact** and **New Deal** in the issue's CRM panel; fill and save each.
 
@@ -238,6 +254,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-040: Linking requires issue-edit permission
 
 **User Role:** A member with full CRM permissions but **without** edit-issues on that project
+**Priority:** High
 **Steps:**
 1. Confirm no link/unlink controls appear in the CRM panel.
 2. Send the link and unlink requests **directly**.
@@ -251,6 +268,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-041: Links respect CRM privacy
 
 **User Role:** A member who cannot see a private contact
+**Priority:** High
 **Steps:**
 1. Open an issue that another user linked to that private contact.
 
@@ -265,6 +283,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-042: Deleting an issue removes its links
 
 **User Role:** Manager
+**Priority:** Medium
 **Steps:**
 1. Delete an issue that has linked CRM records, then open those records.
 
@@ -280,6 +299,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-043: Custom fields on all four entity types
 
 **User Role:** Admin to configure, Member to use
+**Priority:** Medium
 **Steps:**
 1. Configure Redmine custom fields for contacts, companies, deals and leads.
 2. Enter values on each form and view the detail pages.
@@ -292,6 +312,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-044: Custom field types and validation
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Use list, text, date, integer and boolean custom fields; enter an invalid value for each typed field; and leave
    a required one blank.
@@ -306,6 +327,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-045: Custom fields on the lead conversion form
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Convert a lead with the deal option enabled and fill the deal custom fields on the conversion form.
 
@@ -319,6 +341,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-046: Custom field visibility
 
 **User Role:** A member whose role cannot see a restricted custom field
+**Priority:** High
 **Steps:**
 1. Open a CRM record with that field populated, and check the exports and the API response.
 
@@ -336,6 +359,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-047: Analytics with no data
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Open Analytics on an instance with no deals, and with a period filter matching nothing.
 
@@ -348,6 +372,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-048: Analytics respects privacy
 
 **User Role:** A non-admin who cannot see certain private deals
+**Priority:** High
 **Steps:**
 1. Compare the analytics totals against the same figures computed by an admin.
 
@@ -362,6 +387,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-049: Audit log respects record visibility
 
 **User Role:** A member with View Audit Log who cannot see certain private records
+**Priority:** High
 **Steps:**
 1. Search the audit log for content belonging to a private record they cannot access.
 
@@ -375,6 +401,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-050: Analytics access requires View CRM
 
 **User Role:** A user with no CRM permissions
+**Priority:** High
 **Steps:**
 1. Request the analytics page, its data endpoint and both export endpoints **directly**.
 
@@ -387,6 +414,7 @@ CRM → **Analytics** / **Audit Log**; and the CRM panel on a Redmine issue for 
 ### TC-CRM-051: Audit log access requires View Audit Log
 
 **User Role:** A member with View CRM but without View Audit Log
+**Priority:** High
 **Steps:**
 1. Confirm the Audit Log entry is absent; request its URL and the `/api/crm_audit_logs` endpoint directly.
 

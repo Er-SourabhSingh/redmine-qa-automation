@@ -27,6 +27,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-024: Install the extension from the Chrome Web Store
 
 **User Role:** Any browser user
+**Priority:** High
 **Steps:**
 1. Chrome Web Store → search **Fluxshot** → **Add to Chrome** → confirm **Add Extension**.
 
@@ -38,6 +39,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-025: Pin the extension when the icon is hidden
 
 **User Role:** Any
+**Priority:** Low
 **Steps:**
 1. Click the puzzle (🧩) icon, find Fluxshot, pin it.
 
@@ -49,6 +51,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-026: Install the Redmine plugin
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Copy `redmineflux_fluxshot` into `plugins/` **without renaming the folder**.
 2. `bundle install`; `RAILS_ENV=production bundle exec rails redmine:plugins:migrate`; restart.
@@ -62,6 +65,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-027: Migrations create the templates table
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. After migrating, create a template from the extension (see the templates suite).
 
@@ -74,6 +78,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-028: REST API must be enabled
 
 **User Role:** Admin, then an extension user
+**Priority:** High
 **Steps:**
 1. Disable **Enable REST web service** in Administration → Settings → API.
 2. Attempt to log in from the extension.
@@ -90,6 +95,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-029: `plugin_info.json` confirms installation
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Visit `https://<redmine>/plugin_info.json`.
 
@@ -101,6 +107,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-030: `plugin_info.json` when the plugin is absent
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. With the plugin removed, request the same URL, then attempt to log in from the extension.
 
@@ -115,6 +122,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-031: Browser compatibility
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. Repeat one full capture-and-create cycle in Chrome, Edge and Brave.
 
@@ -126,6 +134,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-032: Redmine version range
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Record the Redmine version.
 
@@ -143,6 +152,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-033: First-use login modal
 
 **User Role:** New extension user
+**Priority:** High
 **Steps:**
 1. Click the Fluxshot icon on any page.
 
@@ -154,6 +164,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-034: Successful login
 
 **User Role:** Valid Redmine user
+**Priority:** High
 **Steps:**
 1. Enter the correct base URL and credentials; click **Login**.
 
@@ -165,6 +176,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-035: Wrong credentials
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Enter a valid base URL with a wrong password.
 
@@ -177,6 +189,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-036: Wrong or unreachable base URL
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. Enter a malformed URL; then a valid URL pointing at a host that is not Redmine; then an unreachable host.
 
@@ -189,6 +202,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-037: Locked or inactive Redmine account
 
 **User Role:** A locked account
+**Priority:** High
 **Steps:**
 1. Attempt to log in.
 
@@ -200,6 +214,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-038: The API key is stored locally
 
 **User Role:** Logged-in user
+**Priority:** Medium
 **Steps:**
 1. After logging in, inspect `chrome.storage.local` for the extension.
 
@@ -211,6 +226,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-039: The API key is not exposed to web pages
 
 **User Role:** Logged-in user
+**Priority:** High
 **Steps:**
 1. On an ordinary web page, check whether the key is reachable from page scripts, `window`, `localStorage`, or
    the DOM.
@@ -227,6 +243,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-040: The key is not sent over an insecure connection
 
 **User Role:** Logged-in user
+**Priority:** High
 **Steps:**
 1. Configure an `http://` base URL and inspect the request.
 
@@ -239,6 +256,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-041: Session persists until logout
 
 **User Role:** Logged-in user
+**Priority:** Medium
 **Steps:**
 1. Close the editor tab, close Chrome, reopen and capture again.
 
@@ -250,6 +268,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-042: Logout returns to the login screen
 
 **User Role:** Logged-in user
+**Priority:** Medium
 **Steps:**
 1. Click the logout icon (→).
 
@@ -261,6 +280,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-043: Logout clears the stored credentials
 
 **User Role:** Logged-in user
+**Priority:** High
 **Steps:**
 1. After logging out, inspect `chrome.storage.local` again.
 
@@ -278,6 +298,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-044: Extension works without admin rights on Redmine
 
 **User Role:** An ordinary member
+**Priority:** Medium
 **Steps:**
 1. Log in and create an issue.
 
@@ -289,6 +310,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-045: Plugin folder renamed
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Rename the plugin folder, restart, and check `plugin_info.json` and extension login.
 
@@ -301,6 +323,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-046: Extension disabled or cache stale
 
 **User Role:** Any
+**Priority:** Low
 **Steps:**
 1. Disable the extension at `chrome://extensions` and click the toolbar icon.
 2. Re-enable, then reload the extension with the ↺ button as the KB advises.
@@ -313,6 +336,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-047: Conflicting extensions
 
 **User Role:** Any
+**Priority:** Low
 **Steps:**
 1. With other screenshot or ad-blocking extensions active, run a full capture-and-create cycle.
 
@@ -329,6 +353,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-048: Remove the Chrome extension
 
 **User Role:** Any
+**Priority:** Medium
 **Steps:**
 1. Right-click the icon → **Remove from Chrome** → confirm.
 
@@ -340,6 +365,7 @@ extension-side, while permission and data problems are almost always server-side
 ### TC-FSX-049: Remove the Redmine plugin
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** **Database backup taken** — the KB warns that reverting drops `fluxshot_templates` and every
 saved template.
 **Steps:**

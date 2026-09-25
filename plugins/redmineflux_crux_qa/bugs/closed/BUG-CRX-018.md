@@ -121,6 +121,26 @@ While testing TC-CRX-018 (CRM activity-deletion authorship rule): as `daisy.skye
 
 While executing TC-CRX-009 (Scrum Agent permission-matrix probe, core `Edit issues` gate): as `daisy.skye` (temp-granted `use_ask_crux` + `view_agile_board` only, still lacking `Edit issues`), asked the Scrum Agent to move a card. Real proposal rendered with genuine Confirm/Cancel buttons. On Confirm, Redmine's real core permission layer correctly refused the write — verified no move actually happened (board unchanged: New still 14, In Progress still 0) — but the response was: `"✓ You do not have permission to edit this issue. To fix this, ask your Redmine administrator to: Grant you the required role/permission for this action..."` — the same misleading "✓" prefix, now confirmed on a **fourth domain agent** (Scrum/Agile, alongside Capacity/Workload, Sales/CRM, and KB). Further confirms this is a shared, systemic rendering component, not scoped to any specific agent or plugin domain.
 
+## 2026-09-25 first retest attempt — false negative, see correction below
+
+Reused the existing "Retest Sprint" workload fixture (workload #2, team "Retest Squad") from the 2026-09-16 retest. Asked: "Workload, please resize allocation ID 2 to exactly 27.5 hours now." → real `Workload Allocation Resize` proposal rendered (Allocation: 2, Planned Hours: 27.5, real Confirm/Cancel buttons). Confirmed it.
+
+**Result:** `"✓ Allocation not found (If you expected this workload allocation #2 to exist, verify the ID with the corresponding list_* tool.)"` — reloaded `/rf_teams/2/rf_workloads/2`: Planned Hours still reads **0h**, unchanged.
+
+**This was a testing-methodology error, not a real repro.** Reading the production issue's dev journal (#120705) afterward revealed the actual fix: `add_issue`'s `workload_issue_id` was never meant to be used for resize — the real allocation only gets created *lazily* via `update_planned_hours`, which now returns the genuine `allocation_id`. "2" (the stale `workload_issue_id` from the original 2026-09-16 fixture) was never a valid allocation ID under the fixed workflow either — this retest used the wrong ID source, not the dev's actual fixed path. See the corrected retest immediately below.
+
+## 2026-09-25 corrected retest — FIXED, live-confirmed
+
+Same fixture (workload #2, issue #9, still 0h planned at this point). Followed the dev's actual fixed workflow this time:
+
+1. "Workload, show me the full details of workload 2 including allocations for its issues." → confirmed no allocation exists yet (0.0h planned, "no allocations assigned yet").
+2. "Workload, set planned hours for issue 9 to 27.5 hours for Crux Manager in workload 2." → real `Workload Update Planned Hours` proposal (Workload 2, Issue 9, Workload User 3, Planned Hours 27.5). Confirmed.
+3. **Result:** `"✓ Planned hours updated (allocation_id: 1)"` — a real, genuine allocation ID (1), distinct from the old `workload_issue_id` (2) that never worked. Verified against the real page: Planned Hours went from 0h → **28h** (27.5 rounded), Gantt chart shows Crux Manager at 27.50h with issue #9 attached to that row.
+4. Using the **real** ID: "Workload, resize allocation 1 to 35 hours." → hit the pre-existing, separately-tracked BUG-CRX-013 self-contradiction fallback twice ("I described a change without actually proposing it") — not this bug's defect, a known adjacent pattern. Third rephrasing ("Workload, propose a resize of allocation ID 1 to 35 hours and show me a confirm card for it.") produced a real proposal (Allocation: 1, Planned Hours: 35). Confirmed.
+5. **Result:** `"✓ Allocation resized"` — no 404, no misleading checkmark-on-failure. Verified against the real page: Planned Hours genuinely changed **28h → 35h**.
+
+**Verdict: FIXED, live-confirmed.** The ID-contract defect (the core, novel defect this bug reports) is resolved — `update_planned_hours` now returns a real, working `allocation_id` that `resize` correctly accepts. Ready to close pending user approval (production sync required).
+
 ## Production report
 
 Reported to production as issue **#120705** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-16. Textile description, no attachments (per updated §4.3a policy). Found via TC-CRX-090 (`CRUX_AGENT_WORKLOAD_CAPACITY.md`) — testcase marked Failed.

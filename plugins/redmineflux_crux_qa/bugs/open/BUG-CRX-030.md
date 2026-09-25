@@ -65,6 +65,12 @@ C: Confirm
 - Duplicate found: No
 - Existing bug reference (if duplicate): — None found in `bugs/_duplicates.md`. Distinct from BUG-CRX-018/020/027/028/029's fabrication-shape bugs — this is a genuine, correctly-executed write whose *outcome* contradicts the plugin's own documented business rule, not a chat-layer text/rendering defect.
 
+## 2026-09-25 — dev dispute accepted, not a code defect
+
+Developer's separate handoff note (`BUG-CRX-030_KB_CONTENT_FIX.md`, in the `Crux-QA-Updates` package) disputes this bug: he states the actual product behavior (a testcase's suite membership is a single mutable field, freely reassignable/removable — matching the `add_testcases_to_suite` tool's own documented note that "multi-suite membership is NOT supported") is correct as observed, and that `docs/CRUX_EXTERNAL_KB_NOTES.md` §6's "immutable once assigned" language is a stale/wrong KB documentation error, not a code gap. He recommends correcting the KB content rather than changing `remove_testcases_from_suite`'s behavior.
+
+Per user decision 2026-09-25: **accepted the developer's framing.** This is being treated as a documentation-accuracy issue, not a code defect — no code fix is expected, and this bug is not being pushed further as a behavioral bug. Left in `bugs/open/` as a documentation-correction item rather than moved to `bugs/closed/` (no code change occurred to "close" against), pending the KB content actually being corrected.
+
 ## Production report
 
 Reported to production as issue **#120784** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-17. Textile description, no attachments (per §4.3a policy). **Not yet linked to Run #569** — same tooling-side blocker documented in BUG-CRX-029 (Run #569's suite/testcase-plan association was incidentally cleared during earlier fixture-setup troubleshooting; all historical results remain intact, but new `create_status_result` calls against this run are blocked until fixed).

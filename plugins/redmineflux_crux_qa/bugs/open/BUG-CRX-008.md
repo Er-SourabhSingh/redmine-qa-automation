@@ -68,6 +68,26 @@ Dev's `CHANGES.md` handoff added `write_policy.evaluate_autonomy(wp)` (factored 
 
 **Verdict: FIXED**, for the confirmed original repro (`update_issue`, gate-unapproved case). Not separately re-verified: the gate-approved case (original bug's second scenario) — not re-tested live this session, but the fix's `evaluate_autonomy()` call is unconditional on gate state (checks `autonomy == "suggest-only"` before ever looking at `gates.can_advance()`), so the same refusal applies structurally regardless of gate approval. **Known, dev-documented remaining gap** (not a regression, pre-existing and explicitly scoped out): the fix is `update_issue`-only, same as the adjacent frozen-rule check — the 9 domain-plugin write kinds (CRM, Timesheet, Invoice, Helpdesk, Workload, KB, Testcase, Agile, Budget) and `create_issue` are NOT covered by this specific fix and likely still share the original gap. Recommend flagging this to the dev as a follow-up scope, not blocking this bug's closure (which was filed and fixed specifically against the `update_issue` reproduction).
 
+## 2026-09-25 (continued) — reopened on production (#120613 → Reopen status)
+
+Reported the domain-plugin gap confirmation plus the Agile counter-example below to production as a journal note, and set the issue's status to **Reopen** (id 9) — the dev had left it at "In QA" pending a broader fix per his own 2026-09-16 note; since our retest confirms that broader fix still hasn't landed, Reopen is the correct status to kick it back to him rather than leaving it in QA limbo.
+
+## 2026-09-25 (continued) — dev's own scope argument does not hold for the Agile plugin
+
+The dev's first journal entry (#120613, 2026-09-15) argues the 9 domain-plugin write kinds structurally can't be vulnerable, since Work Package membership (`wp["members"]`) is a list of **Redmine issue ids**, and plugin-domain writes (a CRM contact id, an invoice id, ...) have no relationship to a Redmine issue id — so there's no `iid` to look a WP up against.
+
+**This argument doesn't hold for the Agile plugin.** `Agile Move Issue` (the exact tool BUG-CRX-031 exercises, confirmed FIXED 2026-09-25) targets a real Redmine issue by its real issue ID — moving card #10 is `move_issue(issue_id=10, ...)`. A suggest-only WP bound to issue #10 would have a real `iid` to look up, exactly like `update_issue` does — but `proposals.py`'s `confirm()` only checks `wp_for_issue`/`evaluate_autonomy` when `kind == "update_issue"`, so an Agile board-column move against a suggest-only WP's member ticket would still bypass the sacred-rule holdout entirely, contrary to the dev's blanket claim that only `update_issue`/`create_issue` were ever at risk.
+
+Not independently live-tested this session (would require creating a fresh suggest-only WP bound to a real issue via the raw API, same precondition constraint the original bug documents). Recommend raising this specific counter-example (Agile `move_issue`) back to the dev rather than accepting the "structurally can't apply" framing as final — it's likely also true for other plugin write kinds that target real Redmine issues (e.g. Checklist, Tags, or any plugin whose writes reference `issue_id` directly rather than a plugin-internal record id).
+
+## 2026-09-25 retest — update_issue scope still fixed; domain-plugin gap still NOT fixed, source-verified
+
+Re-checked `proposals.py`'s `confirm()` directly (source, not live UI) rather than re-running the full live repro, since the 2026-09-16 retest already live-confirmed the `update_issue` refusal and the open question was specifically whether the known remaining gap (the 9 domain-plugin write kinds + `create_issue`) had since been closed.
+
+The `write_policy.wp_for_issue()` / `evaluate_autonomy()` call (lines ~1169–1182) is still nested **inside `if kind == "update_issue":`** (line 1139) — unchanged since the 2026-09-16 fix. No equivalent check exists anywhere else in the file for CRM, Timesheet, Invoice, Helpdesk, Workload, KB, Testcase, Agile, or Budget write kinds, nor for `create_issue`.
+
+**Verdict: No change.** `update_issue` remains correctly fixed (per the 2026-09-16 live retest). The documented remaining gap — a `suggest-only` Work Package's member ticket is still writable via any of the 9 domain-plugin agents' chat-confirm path — remains open and unaddressed. Recommend keeping this bug open (or filing the domain-plugin gap as its own follow-up) until that scope is covered.
+
 ## Note for triage
 
 - No UI path was found for setting a Work Package's autonomy to `suggest-only` at creation (tested via the API directly, per the same limitation noted in TC-CRX-128/TC-CRX-164's own precondition text: "If suggest-only WPs aren't independently creatable via UI yet, test via the underlying endpoints"). This doesn't reduce the severity of the finding — any WP created via the documented `POST /api/workpackage` API with `autonomy: "suggest-only"` is vulnerable the moment a user reaches it through chat, regardless of how it was created.

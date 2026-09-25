@@ -30,6 +30,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-136: List spaces
 
 **User Role:** Member with `view_knowledgebase`
+**Priority:** Medium
 **Steps:**
 1. `GET /api/knowledgebase/spaces?project_id=X`.
 
@@ -42,6 +43,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-137: Get a single space
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. `GET /api/knowledgebase/spaces/:id?project_id=X`.
 
@@ -53,6 +55,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-138: Create a space
 
 **User Role:** Member with `manage_knowledgebase_spaces`
+**Priority:** Medium
 **Steps:**
 1. `POST /api/knowledgebase/spaces?project_id=X` with a name and description.
 
@@ -64,6 +67,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-139: Update a space
 
 **User Role:** Member with `manage_knowledgebase_spaces`
+**Priority:** Medium
 **Steps:**
 1. `PATCH /api/knowledgebase/spaces/:id?project_id=X` changing the name.
 
@@ -75,6 +79,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-140: Delete a space
 
 **User Role:** Member with `manage_knowledgebase_spaces`
+**Priority:** High
 **Steps:**
 1. `DELETE /api/knowledgebase/spaces/:id?project_id=X` on a space containing folders, pages and versions.
 
@@ -92,6 +97,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-141: List and get nodes
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. `GET /api/knowledgebase/nodes?project_id=X`, then `GET /api/knowledgebase/nodes/:id?project_id=X`.
 
@@ -103,6 +109,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-142: Create, update and delete a node
 
 **User Role:** Member with `manage_knowledgebase_pages`
+**Priority:** Medium
 **Steps:**
 1. `POST` a page node, `PATCH` its title and content, then `DELETE` it.
 
@@ -115,6 +122,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-143: Publish a page via the API
 
 **User Role:** Member with `manage_knowledgebase_pages`
+**Priority:** High
 **Steps:**
 1. `POST /api/knowledgebase/nodes/:id/publish?project_id=X`.
 
@@ -129,6 +137,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-144: Unpublish a page via the API
 
 **User Role:** Member with `manage_knowledgebase_pages`
+**Priority:** Medium
 **Steps:**
 1. `POST /api/knowledgebase/nodes/:id/unpublish?project_id=X`.
 
@@ -140,6 +149,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-145: List version history via the API
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. `GET /api/knowledgebase/nodes/:id/versions?project_id=X`.
 
@@ -151,6 +161,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-146: Restore a version via the API
 
 **User Role:** Member with `manage_knowledgebase_pages`
+**Priority:** Medium
 **Steps:**
 1. `POST /api/knowledgebase/nodes/:id/restore_version?project_id=X` naming an older version.
 
@@ -163,6 +174,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-147: Response envelope matches the documented format
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Inspect the body of a list response.
 
@@ -176,6 +188,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-148: Pagination defaults and limits
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Request a collection with no pagination parameters; then `per_page=100`; then `per_page=500`; then `page=2`.
 
@@ -194,6 +207,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-149: Unauthenticated requests are rejected
 
 **User Role:** No credentials
+**Priority:** High
 **Steps:**
 1. Call each endpoint with no API key and no session.
 
@@ -207,6 +221,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-150: Permissions are enforced per endpoint
 
 **User Role:** Member with `view_knowledgebase` only
+**Priority:** High
 **Steps:**
 1. Call, in turn: create space, update space, delete space, create node, update node, delete node, publish,
    unpublish, restore_version.
@@ -222,6 +237,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-151: Space-management and page-management permissions are distinct
 
 **User Role:** Member with `manage_knowledgebase_pages` but **not** `manage_knowledgebase_spaces`
+**Priority:** High
 **Steps:**
 1. Create and delete a page node — expect success.
 2. Create and delete a **space** — expect refusal.
@@ -236,6 +252,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-152: Draft pages are not returned to unauthorised readers
 
 **User Role:** Reader with `view_knowledgebase` only
+**Priority:** High
 **Steps:**
 1. `GET /api/knowledgebase/nodes?project_id=X` on a project containing never-published drafts and an explicitly
    unpublished page.
@@ -251,6 +268,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-153: project_id is authorised, not just accepted
 
 **User Role:** Member of project A only
+**Priority:** High
 **Preconditions:** **Confirm project B is genuinely private** with no membership path for this user.
 **Steps:**
 1. Call each endpoint with `project_id=B`, including a create and a delete.
@@ -265,6 +283,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-154: Node ID and project_id mismatch
 
 **User Role:** Member of project A
+**Priority:** High
 **Steps:**
 1. Call `GET /api/knowledgebase/nodes/:id?project_id=A` where `:id` actually belongs to private project B.
 
@@ -277,6 +296,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-155: Hierarchy constraints are enforced by the API
 
 **User Role:** Member with `manage_knowledgebase_pages`
+**Priority:** High
 **Steps:**
 1. `POST` a folder node whose parent is a **page**.
 2. `POST` a page node whose parent is a **page**.
@@ -290,6 +310,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-156: Malformed and hostile payloads
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Send: malformed JSON; a missing required field; a wrong data type for a field; an unknown extra field; and a
    node body containing a script tag.
@@ -305,6 +326,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-157: Non-existent and malformed identifiers
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Request a non-existent node ID, a non-numeric ID, and a negative ID.
 
@@ -316,6 +338,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-158: Deleted-record operations
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Delete a node, then attempt to update it, publish it and restore one of its versions.
 
@@ -327,6 +350,7 @@ API key or session as appropriate, using an HTTP client rather than the browser 
 ### TC-RKB-159: Large collection performance
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. List nodes on a project with several thousand nodes at `per_page=100`.
 

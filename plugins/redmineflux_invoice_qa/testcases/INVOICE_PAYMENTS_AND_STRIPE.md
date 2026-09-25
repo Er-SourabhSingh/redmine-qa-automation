@@ -37,6 +37,7 @@ Everything below follows from those two facts.
 ### TC-INV-076: Record a manual payment
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. Open a Sent invoice → **Payments** → enter amount, date and method → Save.
 
@@ -49,6 +50,7 @@ Everything below follows from those two facts.
 ### TC-INV-077: Partial payments accumulate
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. On a 1000 invoice, record 400, then 350.
 
@@ -60,6 +62,7 @@ Everything below follows from those two facts.
 ### TC-INV-078: Multiple payment methods
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Record payments using each available method.
 
@@ -71,6 +74,7 @@ Everything below follows from those two facts.
 ### TC-INV-079: Full payment sets the status to Paid
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. Record a final payment bringing the total to exactly the invoice amount.
 
@@ -83,6 +87,7 @@ Everything below follows from those two facts.
 ### TC-INV-080: Payment exactly at the boundary
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. On an invoice whose total has decimals (e.g. 1080.55), pay the exact amount in two parts.
 
@@ -96,6 +101,7 @@ Everything below follows from those two facts.
 ### TC-INV-081: Overpayment
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Record a payment exceeding the invoice total.
 
@@ -112,6 +118,7 @@ Everything below follows from those two facts.
 ### TC-INV-082: The payment link appears when Stripe is enabled
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. With Stripe enabled, open a Sent invoice; then disable Stripe and re-check.
 
@@ -123,6 +130,7 @@ Everything below follows from those two facts.
 ### TC-INV-083: The payment page opens without a Redmine account
 
 **User Role:** An unauthenticated visitor (private window, no Redmine session)
+**Priority:** High
 **Steps:**
 1. Open the payment link.
 
@@ -135,6 +143,7 @@ Everything below follows from those two facts.
 ### TC-INV-084: The payment page discloses only what a payer needs
 
 **User Role:** Unauthenticated visitor
+**Priority:** High
 **Steps:**
 1. Inspect the page's **full HTML source and network responses**, not only what is rendered.
 
@@ -151,6 +160,7 @@ Everything below follows from those two facts.
 ### TC-INV-085: Complete a test payment
 
 **User Role:** Unauthenticated visitor
+**Priority:** High
 **Steps:**
 1. Using a Stripe **test** card, complete checkout.
 2. Return to Redmine and open the invoice.
@@ -168,6 +178,7 @@ Everything below follows from those two facts.
 ### TC-INV-086: The webhook must verify its signing secret
 
 **User Role:** An unauthenticated caller
+**Priority:** High
 **Steps:**
 1. Send a well-formed payment-succeeded webhook payload to the endpoint **with no signature**.
 2. Repeat with an **invalid** signature.
@@ -186,6 +197,7 @@ Everything below follows from those two facts.
 ### TC-INV-087: A replayed webhook does not double-record
 
 **User Role:** An unauthenticated caller
+**Priority:** High
 **Steps:**
 1. Capture a legitimate webhook event and deliver it twice.
 
@@ -199,6 +211,7 @@ Everything below follows from those two facts.
 ### TC-INV-088: A payment token cannot reach another invoice
 
 **User Role:** Unauthenticated visitor
+**Priority:** High
 **Steps:**
 1. With a valid payment link for invoice A, alter the identifier to target invoice B while keeping the token.
 2. Try a malformed token, a truncated one, and a well-formed but non-existent one.
@@ -214,6 +227,7 @@ Everything below follows from those two facts.
 ### TC-INV-089: The payment page cannot write anything but a payment
 
 **User Role:** Unauthenticated visitor
+**Priority:** High
 **Steps:**
 1. Using the payment context and no session, send requests to edit the invoice, change its amount, alter the
    customer, cancel it, and regenerate its link.
@@ -228,6 +242,7 @@ Everything below follows from those two facts.
 ### TC-INV-090: A paid invoice cannot be paid again
 
 **User Role:** Unauthenticated visitor
+**Priority:** High
 **Steps:**
 1. Open the payment link for an already-Paid invoice and attempt checkout.
 
@@ -241,6 +256,7 @@ Everything below follows from those two facts.
 ### TC-INV-091: Payment link after cancellation
 
 **User Role:** User with `manage_invoices`, then an unauthenticated visitor
+**Priority:** High
 **Steps:**
 1. Cancel an invoice, then open its payment link.
 
@@ -253,6 +269,7 @@ Everything below follows from those two facts.
 ### TC-INV-092: Invalid Stripe credentials
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Configure an invalid secret key and open a payment link.
 
@@ -266,6 +283,7 @@ Everything below follows from those two facts.
 ### TC-INV-093: Gateway unreachable
 
 **User Role:** Unauthenticated visitor
+**Priority:** Low
 **Steps:**
 1. Block outbound access to Stripe and open the payment link.
 
@@ -278,6 +296,7 @@ Everything below follows from those two facts.
 ### TC-INV-094: Recording payments requires permission
 
 **User Role:** User with `view_invoices` only, and a plain member
+**Priority:** High
 **Steps:**
 1. Confirm no Payments controls are offered.
 2. Send the payment-create request **directly**.
@@ -292,6 +311,7 @@ Everything below follows from those two facts.
 ### TC-INV-095: Payment records are immutable or audited
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Attempt to edit and then delete a recorded payment, through the UI and directly.
 
@@ -306,6 +326,7 @@ Everything below follows from those two facts.
 ### TC-INV-096: Invalid payment values
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Record payments of zero, a negative amount, a non-numeric value, and a far-future date.
 
@@ -318,6 +339,7 @@ Everything below follows from those two facts.
 ### TC-INV-097: Currency consistency
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Compare the currency shown on the invoice, on the payment page, and in the amount charged by Stripe.
 

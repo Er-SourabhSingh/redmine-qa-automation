@@ -31,6 +31,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-047: Billing Report shows billable hours by user
 
 **User Role:** User with `view_invoices`
+**Priority:** Medium
 **Steps:**
 1. Project → Invoice → **Billing Report** → select a date range covering known time entries.
 
@@ -44,6 +45,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-048: Only billable activities are counted
 
 **User Role:** User with `view_invoices`
+**Priority:** High
 **Steps:**
 1. With some activities marked non-billable, compare the report against the full spent-time total.
 
@@ -55,6 +57,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-049: Date range boundaries are inclusive
 
 **User Role:** User with `view_invoices`
+**Priority:** Medium
 **Steps:**
 1. Log time on the first and last day of a range; run the report for exactly that range.
 
@@ -68,6 +71,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-050: Amounts use the correct rate per user
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. With distinct team rates set, check each user's amount in the report.
 
@@ -83,6 +87,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-051: Generate an invoice from the Billing Report
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. From the Billing Report, click **Generate Invoice**.
 
@@ -95,6 +100,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-052: Generated totals reconcile across three sources
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. Compare the invoice subtotal against (a) the Billing Report total and (b) the sum of hours × rate computed by
    hand from core Redmine's spent-time report.
@@ -109,6 +115,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-053: Overlapping date ranges
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Generate an invoice for a range, then generate another for an overlapping range.
 
@@ -123,6 +130,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-054: Generating with no billable time
 
 **User Role:** User with `manage_invoices`
+**Priority:** Low
 **Steps:**
 1. Generate for a range containing no billable entries.
 
@@ -135,6 +143,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-055: Create an invoice manually
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Invoice tab → **New Invoice** → fill in details and line items → Save.
 
@@ -146,6 +155,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-056: Manual line item arithmetic
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. Add three line items with differing quantities and rates.
 
@@ -161,6 +171,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-057: Draft invoices are editable
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Edit a Draft's line items, rates and details; Save.
 
@@ -172,6 +183,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-058: Non-Draft invoices are locked
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. For an invoice in **Sent**, then **Paid**, then **Cancelled**: confirm no Edit control is offered, and send the
    update request **directly** to the endpoint.
@@ -187,6 +199,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-059: Add a tax adjustment
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. On a Draft with a subtotal of 1000, add a tax row labelled VAT at 20%.
 
@@ -198,6 +211,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-060: Tax is applied after the discount
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. On a subtotal of 1000, add a **10% discount** and a **20% tax**.
 
@@ -212,6 +226,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-061: Multiple adjustments
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. Add two discounts and two taxes and compute the expected total by hand first.
 
@@ -225,6 +240,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-062: Remove an adjustment
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Delete an adjustment row from a Draft.
 
@@ -240,6 +256,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-063: Send an invoice
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Preconditions:** Working mail path; **Host name and path** verified; the customer's email is a test mailbox.
 **Steps:**
 1. Open a Draft → **Send Email**.
@@ -254,6 +271,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-064: Sending locks the invoice
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. After sending, attempt to edit (UI and endpoint).
 
@@ -265,6 +283,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-065: Sending is confirmed before it happens
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Trigger **Send Email** and observe whether a confirmation is required.
 
@@ -279,6 +298,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-066: Email send failure
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. With mail delivery unavailable, attempt to send.
 
@@ -292,6 +312,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-067: Mark an invoice Cancelled
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Cancel a Draft, then attempt to cancel a Sent invoice and a Paid one.
 
@@ -304,6 +325,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-068: Status transitions follow the documented lifecycle
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. Walk an invoice through Draft → Sent → Paid, then attempt backwards transitions (Paid → Draft, Sent → Draft)
    through the UI and directly.
@@ -318,6 +340,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-069: Deleting an invoice
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Delete a Draft; then attempt to delete a Sent and a Paid invoice, at the UI and the endpoint.
 
@@ -331,6 +354,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-070: Concurrent send
 
 **User Role:** Two users with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Both open the same Draft and click Send Email at nearly the same moment.
 
@@ -348,6 +372,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-071: Invalid adjustment values
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Enter a negative percentage, a non-numeric value, a 200% discount, and a blank label.
 
@@ -360,6 +385,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-072: Rounding consistency
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. Use hours and rates that produce repeating decimals (e.g. 3.33 hours at 66.67), with a percentage tax.
 
@@ -373,6 +399,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-073: Very large invoices
 
 **User Role:** User with `manage_invoices`
+**Priority:** Low
 **Steps:**
 1. Generate an invoice from a range covering several thousand time entries across 50 users.
 
@@ -384,6 +411,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-074: Script content in line items and labels
 
 **User Role:** User with `manage_invoices`
+**Priority:** High
 **Steps:**
 1. Enter a script tag in a line-item description and an adjustment label; view the invoice on screen, in the PDF
    and in the sent email.
@@ -398,6 +426,7 @@ Project → **Invoice** tab → **New Invoice** or **Billing Report**. Do not ty
 ### TC-INV-075: Invoice for a project whose customer is unset
 
 **User Role:** User with `manage_invoices`
+**Priority:** Medium
 **Steps:**
 1. Generate an invoice on a project with no billing customer, then attempt to send it.
 

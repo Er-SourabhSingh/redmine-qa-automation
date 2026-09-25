@@ -61,6 +61,20 @@ WRITE: Agile Move Issue | Project: Crux QA | Issue: 10 | Status: Waiting for Cus
 - Duplicate found: No
 - Existing bug reference (if duplicate): — Related in spirit to BUG-CRX-021 (wrong project ID resolution) and BUG-CRX-019 (unrecognized username silently resolved to user ID 0) — a recurring class of "the agent resolves a named entity to the wrong internal ID/value" defects, now confirmed a fourth time, on the Scrum Agent's status-name resolution specifically. Not folded into either of those (different agent, different entity type — status names, not project IDs or usernames).
 
+## 2026-09-25 retest — FIXED, live-confirmed
+
+Same fixture card #10, same board (6 real columns confirmed unchanged: New, In Progress, Resolved, Feedback, Closed, Rejected), as `admin`.
+
+**Attempt 1:** "Scrum Agent, move card #10 to Rejected." → real proposal correctly resolved **Column Name: Rejected** (not "Closed" as the original bug got). Cancelled to preserve fixture integrity before testing consistency.
+
+**Attempt 2 (reworded):** "Scrum Agent, move card #10 to the Rejected column." → same correct resolution, **Column Name: Rejected** again — consistent across both wordings, unlike the original bug's two different wrong answers ("Closed" then the non-existent "Waiting for Customer Response"). Confirmed this one.
+
+**Result:** *"✓ Issue #10 moved to 'Rejected' (status #6) in project crux-qa."*
+
+**Verified against the real record** (navigated to `/issues/10` directly, independent of the chat claim): the issue's real Status field reads **Rejected**, and the real journal shows a genuine entry: *"Status changed from New to Rejected"* with note *"Status changed via Agile Board API"* — the write genuinely happened and genuinely matches what both proposals and the confirmation claimed.
+
+**Verdict: FIXED, live-confirmed.** The "Rejected" column now resolves consistently and correctly to the right backing status on every attempt; no wrong-status guessing observed.
+
 ## Production report
 
 Reported to production as issue **#120785** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-17. Textile description, no attachments (per §4.3a policy).

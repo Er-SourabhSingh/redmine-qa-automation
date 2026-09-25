@@ -48,6 +48,7 @@ Fill in from observed behaviour during execution, not from assumption.
 ### TC-MEN-058: Admin has full access
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Exercise every row of the matrix as Admin, including the plugin configuration page.
 
@@ -59,6 +60,7 @@ Fill in from observed behaviour during execution, not from assumption.
 ### TC-MEN-059: Mentioning follows the underlying edit permission
 
 **User Role:** Developer (can edit issues), then a read-only role
+**Priority:** High
 **Steps:**
 1. As Developer, add a note containing a mention — expect success.
 2. As the read-only role, confirm no Edit/Add-notes control is offered.
@@ -74,6 +76,7 @@ Fill in from observed behaviour during execution, not from assumption.
 ### TC-MEN-060: Wiki mentioning follows the wiki-edit permission
 
 **User Role:** Role without wiki-edit rights
+**Priority:** High
 **Steps:**
 1. Confirm no wiki Edit control is offered.
 2. Send the wiki update request directly.
@@ -86,6 +89,7 @@ Fill in from observed behaviour during execution, not from assumption.
 ### TC-MEN-061: Only an admin can change the mention symbol
 
 **User Role:** Manager, Developer, QA, Reporter (each in turn)
+**Priority:** High
 **Steps:**
 1. Confirm no symbol setting is reachable from the project UI.
 2. Request the plugin settings URL directly for each role.
@@ -100,6 +104,7 @@ Fill in from observed behaviour during execution, not from assumption.
 ### TC-MEN-062: Mentioning a non-member of a private project does not grant access
 
 **User Role:** Member of private project A mentions a user who is not a member
+**Priority:** High
 **Preconditions:** **Confirm project A is genuinely private.** A newly created Redmine project has "Public"
 checked by default; uncheck it explicitly or this case will falsely pass.
 **Steps:**
@@ -116,6 +121,7 @@ checked by default; uncheck it explicitly or this case will falsely pass.
 ### TC-MEN-063: Notification content does not leak private data
 
 **User Role:** As TC-MEN-062
+**Priority:** High
 **Steps:**
 1. Inspect the **full body and subject** of whatever email the non-member received.
 
@@ -130,6 +136,7 @@ checked by default; uncheck it explicitly or this case will falsely pass.
 ### TC-MEN-064: Autocomplete (if present) does not enumerate users
 
 **User Role:** Reporter or a low-privilege member
+**Priority:** High
 **Preconditions:** Only applicable if TC-MEN-044 established that a picker exists.
 **Steps:**
 1. Type the mention symbol and inspect the suggestion list.
@@ -143,6 +150,7 @@ checked by default; uncheck it explicitly or this case will falsely pass.
 ### TC-MEN-065: Anonymous users cannot mention
 
 **User Role:** Anonymous (logged out)
+**Priority:** High
 **Steps:**
 1. On a public project that allows anonymous issue viewing, attempt to add a note with a mention.
 2. Send the request directly with no session.
@@ -156,6 +164,7 @@ checked by default; uncheck it explicitly or this case will falsely pass.
 ### TC-MEN-066: Non-member cannot mention into a private project
 
 **User Role:** Authenticated non-member
+**Priority:** High
 **Steps:**
 1. Send a note-create request containing a mention directly to an issue in a private project.
 
@@ -167,6 +176,7 @@ checked by default; uncheck it explicitly or this case will falsely pass.
 ### TC-MEN-067: Permission revocation takes effect without re-login
 
 **User Role:** Admin + affected member
+**Priority:** High
 **Steps:**
 1. Remove the member's edit rights while they hold an open Add-notes form containing a mention.
 2. Have them submit without logging out.
@@ -179,6 +189,7 @@ checked by default; uncheck it explicitly or this case will falsely pass.
 ### TC-MEN-068: Mentions in an archived or closed project
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Close a project and attempt a mention; then archive it and repeat.
 
@@ -191,6 +202,7 @@ checked by default; uncheck it explicitly or this case will falsely pass.
 ### TC-MEN-069: Mentioning a user across project boundaries
 
 **User Role:** Member of project A only
+**Priority:** High
 **Preconditions:** Confirm the target user is genuinely a member of project B and not of project A, so the
 scenario is real rather than synthetic.
 **Steps:**

@@ -23,6 +23,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 ### TC-HLP-090: Organization Name is required
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -41,6 +42,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 ### TC-HLP-091: Organization Name rejects whitespace-only input
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -58,6 +60,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 ### TC-HLP-092: Organization Name — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -76,6 +79,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 ### TC-HLP-093: Organization Name accepts letters, numbers, and common punctuation
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -92,6 +96,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 ### TC-HLP-094: Website field format is/isn't validated
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -108,6 +113,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 ### TC-HLP-095: Phone Number accepts non-numeric input
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -124,6 +130,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 ### TC-HLP-096: Website, Phone, and other non-Name fields do NOT require uniqueness across organizations
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** An organization "Acme Corp" already exists with Website `https://acme.example.com` and Phone `+1 (555) 123-4567`.
 
 **Steps:**
@@ -140,6 +147,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 ### TC-HLP-097: Number of Employees rejects non-numeric and negative values
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -159,6 +167,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 ### TC-HLP-098: Notes and Billing Info — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -175,6 +184,7 @@ Fields: Organization Name\* (text), Website (text), Phone Number (text), Organiz
 ### TC-HLP-099: Organization Name validation (required-blank, duplicate-name) is enforced on the Edit form too, not just Create
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** Two organizations exist with distinct names — e.g. "Alpha Org" and "Beta Org", the same fixtures used across TC-HLP-060/279/292.
 
 **Steps:**
@@ -204,6 +214,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 ### TC-HLP-100: Login, First name, Last name, and Email are each individually required
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -222,6 +233,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 ### TC-HLP-101: Login — minimum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -238,6 +250,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 ### TC-HLP-102: Login — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -255,6 +268,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 ### TC-HLP-103: Login rejects characters Redmine logins don't allow
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -270,6 +284,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 ### TC-HLP-104: Login must be unique — duplicate is refused
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A customer with login `"dupe.test"` already exists.
 
 **Steps:**
@@ -285,6 +300,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 ### TC-HLP-105: First name / Last name — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -301,6 +317,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 ### TC-HLP-106: First name / Last name accept unicode and reject/accept script injection safely
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** High
 **Precondition:** None.
 
 **Steps:**
@@ -318,6 +335,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 ### TC-HLP-107: Email format is validated
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -334,6 +352,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 ### TC-HLP-108: Email must be unique — duplicate is refused
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A customer with email `"dupe@example.com"` already exists.
 
 **Steps:**
@@ -349,6 +368,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 ### TC-HLP-109: Email — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -363,6 +383,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 ### TC-HLP-110: Password and Confirmation must match
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** "Generate password automatically" is unchecked.
 
 **Steps:**
@@ -377,6 +398,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 ### TC-HLP-111: Password minimum length is enforced
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** "Generate password automatically" is unchecked. Check Administration › Settings › Authentication for the configured "Minimum password length" first, so the expected boundary is known rather than assumed.
 
 **Steps:**
@@ -393,6 +415,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 ### TC-HLP-112: "Generate password automatically" correctly disables and bypasses manual password entry
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -410,6 +433,7 @@ Fields: Login\* (text), First name\* (text), Last name\* (text), Email\* (text),
 ### TC-HLP-113: Customer validation rules (required-blank, duplicate Login/Email, max-length) are enforced on the Edit form, not just at Create
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** At least two existing customers, including one matching TC-HLP-104/244's duplicate fixtures (login `dupe.test`, email `dupe@example.com`) and a separate customer to perform the Edit on. Every case in this section (TC-HLP-100–248) exercises only the New Customer form — none opens an existing customer's Edit form and re-triggers these same rules there.
 
 **Steps:**
@@ -439,6 +463,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 ### TC-HLP-114: SLA Name is required
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -453,6 +478,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 ### TC-HLP-115: SLA Name — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -467,6 +493,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 ### TC-HLP-116: First Response Time is required and rejects non-positive values
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -487,6 +514,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 ### TC-HLP-117: Resolution Time is required and rejects non-positive values
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -501,6 +529,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 ### TC-HLP-118: Resolution Time shorter than First Response Time — is this refused?
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -515,6 +544,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 ### TC-HLP-119: Working Hours end time before start time
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -529,6 +559,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 ### TC-HLP-120: SLA Agreement file upload — size limit is enforced
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A file just over 5 MB and a file just under 5 MB are available.
 
 **Steps:**
@@ -545,6 +576,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 ### TC-HLP-121: SLA Agreement file upload — file type is/isn't restricted
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A `.pdf`, a `.docx`, and an `.exe` (or other non-document type) file are available, each well under 5 MB.
 
 **Steps:**
@@ -559,6 +591,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 ### TC-HLP-122: SLA Description — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -573,6 +606,7 @@ Fields: SLA Name\* (text), Description (richtext), First Response Time\* (number
 ### TC-HLP-123: Editing an SLA re-triggers required-field and duplicate-name validation, not just Create
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** Two existing, differently-named SLAs (e.g. "Alpha Standard SLA" and "Alpha Priority SLA") — every case in this section so far (TC-HLP-114, 251, 252, 099) only ever exercises these rules via the New SLA form; none confirms Update enforces them too.
 
 **Steps:**
@@ -601,6 +635,7 @@ Fields: Project\* (select), Support Level Name\* (text), Level Order\* (number),
 ### TC-HLP-124: Support Level Name is required
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A project is selected.
 
 **Steps:**
@@ -615,6 +650,7 @@ Fields: Project\* (select), Support Level Name\* (text), Level Order\* (number),
 ### TC-HLP-125: Support Level Name — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -629,6 +665,7 @@ Fields: Project\* (select), Support Level Name\* (text), Level Order\* (number),
 ### TC-HLP-126: Level Order is required and rejects non-positive / non-numeric values
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -649,6 +686,7 @@ Fields: Project\* (select), Support Level Name\* (text), Level Order\* (number),
 ### TC-HLP-127: Level Order duplicate within the same project is refused (regression of already-confirmed behavior)
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A support level with Level Order = 1 already exists on Project A (already confirmed working via the real "Level order has already been taken" error — see `HELPDESK_MEMORY.md` Known Quirks. This TC formalizes it as a regression check.)
 
 **Steps:**
@@ -664,6 +702,7 @@ Fields: Project\* (select), Support Level Name\* (text), Level Order\* (number),
 ### TC-HLP-128: Description field — maximum length boundary (Support Level)
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -678,6 +717,7 @@ Fields: Project\* (select), Support Level Name\* (text), Level Order\* (number),
 ### TC-HLP-129: Editing a Support Level to a blank Name, duplicate Name, or duplicate Level Order is refused the same as at Create
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** Two existing support levels on the same project, e.g. L1 (Level Order 1) and L2 (Level Order 2) from TC-HLP-301's chain. TC-HLP-124 (Name required), TC-HLP-344 (duplicate Name refused), and TC-HLP-127 (duplicate Level Order refused, per-project) each trigger their rule only on the New Support Level form — none has ever opened Edit on an already-saved level to confirm the same server-side validation fires there too.
 
 **Steps:**
@@ -703,6 +743,7 @@ Fields: Holiday Name\* (text), Description (richtext), Start Date\* (date), End 
 ### TC-HLP-130: Holiday Name is required
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -717,6 +758,7 @@ Fields: Holiday Name\* (text), Description (richtext), Start Date\* (date), End 
 ### TC-HLP-131: Holiday Name — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -731,6 +773,7 @@ Fields: Holiday Name\* (text), Description (richtext), Start Date\* (date), End 
 ### TC-HLP-132: Start Date and End Date are each required
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -746,6 +789,7 @@ Fields: Holiday Name\* (text), Description (richtext), Start Date\* (date), End 
 ### TC-HLP-133: End Date before Start Date is refused
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -760,6 +804,7 @@ Fields: Holiday Name\* (text), Description (richtext), Start Date\* (date), End 
 ### TC-HLP-134: Holiday dates far in the past or far in the future are accepted
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -775,6 +820,7 @@ Fields: Holiday Name\* (text), Description (richtext), Start Date\* (date), End 
 ### TC-HLP-135: Editing a Holiday to blank a required field, rename it into another holiday's name, or invert its dates is refused the same as at Create
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** Two existing holidays with distinct names — e.g. Holiday A (the fixture from TC-HLP-335's required-only Create) and Holiday B named "Christmas Day" (the fixture from TC-HLP-347's duplicate-name-refused Create).
 
 **Steps:**
@@ -806,6 +852,7 @@ Fields: Name\* (text), Author (read-only, auto-set to current user — not a rea
 ### TC-HLP-136: Name and Content are each required (confirmed: client-side HTML5 validation)
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -819,6 +866,7 @@ Fields: Name\* (text), Author (read-only, auto-set to current user — not a rea
 ### TC-HLP-137: Name — maximum length is exactly 255 characters (confirmed, not a guess)
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -833,6 +881,7 @@ Fields: Name\* (text), Author (read-only, auto-set to current user — not a rea
 ### TC-HLP-138: Duplicate Name is refused (confirmed exact wording — regression check, not a duplicate of TC-HLP-026)
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** A canned response named "Acknowledge Receipt" already exists.
 
 **Steps:**
@@ -846,6 +895,7 @@ Fields: Name\* (text), Author (read-only, auto-set to current user — not a rea
 ### TC-HLP-139: Author field is not an editable input — always the current user
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -860,6 +910,7 @@ Fields: Name\* (text), Author (read-only, auto-set to current user — not a rea
 ### TC-HLP-140: Edit-form validation: required fields, duplicate Name, and max-length are enforced the same as Create
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** Two existing canned responses with distinct Names and non-empty Content, e.g. "Acknowledge Receipt" (from TC-HLP-001/267-270) and a second one, e.g. "Follow-up Reminder".
 
 **Steps:**
@@ -888,6 +939,7 @@ Fields: Name\* (text), Code\* (text), Category (text), Description (richtext —
 ### TC-HLP-141: Product Name and Code are each required
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** None.
 
 **Steps:**
@@ -904,6 +956,7 @@ Fields: Name\* (text), Code\* (text), Category (text), Description (richtext —
 ### TC-HLP-142: Product Name and Code — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -919,6 +972,7 @@ Fields: Name\* (text), Code\* (text), Category (text), Description (richtext —
 ### TC-HLP-143: Product Description — maximum length boundary
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Low
 **Precondition:** None.
 
 **Steps:**
@@ -933,6 +987,7 @@ Fields: Name\* (text), Code\* (text), Category (text), Description (richtext —
 ### TC-HLP-144: Editing a Product to blank a required field, or to rename it into a duplicate Name/Code, is refused
 
 **User Role:** Admin or Agent with `manage_helpdesk`
+**Priority:** Medium
 **Precondition:** Two existing products with distinct Name/Code — e.g. "Phoenix Core" (Code `PHX-CORE`, per TC-HLP-008) and a second, unrelated product, e.g. "Falcon Suite" (Code `FLC-SUITE`).
 
 **Steps:**
@@ -956,6 +1011,7 @@ Fields: Name\* (text), Code\* (text), Category (text), Description (richtext —
 ### TC-HLP-145: Creating a Customer is unconditionally blocked once ANY User custom field is marked required, with no way to satisfy it via the Customer form
 
 **User Role:** Admin (or any role with Customer-creation access, e.g. `manage_helpdesk`)
+**Priority:** High
 **Precondition:** A required Text custom field exists on the **Users** custom-field type (Administration → Custom fields → Users → New custom field, "Is required" checked), with no default value.
 
 **Steps:**

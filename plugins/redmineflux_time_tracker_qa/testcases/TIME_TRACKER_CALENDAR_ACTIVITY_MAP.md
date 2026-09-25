@@ -29,6 +29,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-001: Calendar opens and shows existing entries
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open the Calendar from the sidebar.
 
@@ -43,6 +44,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-002: Add a time entry from the calendar
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Click **Add Time Entry**, fill the required fields, and click **Log Time** for the selected range.
 
@@ -54,6 +56,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-003: Resize an entry by dragging its edges
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Drag the **end** of an entry to extend it by an hour; reload.
 2. Drag the **start** to shorten it; reload.
@@ -67,6 +70,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-004: Double-click to edit an entry
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Double-click a calendar entry and change its fields; save; reload.
 
@@ -78,6 +82,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-005: Drag an entry to another date
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Drag an entry from one date to another; reload; check the list view.
 
@@ -91,6 +96,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-006: Calendar changes respect validation
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Resize an entry to zero length; drag one so it would end before it starts; extend one past midnight.
 
@@ -104,6 +110,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-007: Calendar respects the same rules as the list
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Attempt, from the calendar, an action the list view refuses — editing another user's entry, or logging into a
    closed project.
@@ -117,6 +124,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-008: Calendar across week and month boundaries
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Navigate across a week boundary, a month boundary and a year boundary; drag an entry across each.
 
@@ -132,6 +140,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-009: Activity tab lists logs
 
 **User Role:** Member with **View Time Tracker Activity**
+**Priority:** Medium
 **Steps:**
 1. Open the Activity tab.
 
@@ -143,6 +152,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-010: Filter by project
 
 **User Role:** Member with the permission
+**Priority:** Medium
 **Steps:**
 1. Apply a project filter.
 
@@ -154,6 +164,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-011: Filter by user
 
 **User Role:** Member with the permission
+**Priority:** Medium
 **Steps:**
 1. Apply a user filter.
 
@@ -165,6 +176,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-012: Filter by custom date range
 
 **User Role:** Member with the permission
+**Priority:** Medium
 **Steps:**
 1. Apply a custom date range, including one spanning a month boundary.
 
@@ -178,6 +190,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-013: Filters combine
 
 **User Role:** Member with the permission
+**Priority:** Medium
 **Steps:**
 1. Apply project, user and date-range filters together.
 
@@ -193,6 +206,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-014: Map renders locations where data exists
 
 **User Role:** Member with View Time Tracker Activity
+**Priority:** Medium
 **Preconditions:** A valid Google Maps API key configured, and entries recorded with location data.
 **Steps:**
 1. Switch to **Map View**.
@@ -205,6 +219,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-015: Map without an API key
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Clear the API key and open Map View.
 
@@ -217,6 +232,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-016: Map shows only locations the viewer is entitled to see
 
 **User Role:** A member **without** permission to view others' time entries
+**Priority:** High
 **Steps:**
 1. Open Map View and enumerate the markers.
 2. Inspect the **underlying response payload**, not only the rendered map.
@@ -232,6 +248,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-017: Entries without location data
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. View a period containing entries logged without location (manual entries, or with the requirement disabled).
 
@@ -244,6 +261,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-018: Location accuracy and attribution
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Start a timer with location granted; compare the recorded marker against the actual location.
 2. Confirm the marker is attributed to the correct user and entry.
@@ -261,6 +279,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-019: Activity view without the permission
 
 **User Role:** Member without **View Time Tracker Activity**
+**Priority:** High
 **Steps:**
 1. Confirm the Activity tab is not offered.
 2. Request the activity URL and its data endpoint **directly**.
@@ -276,6 +295,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-020: Activity view respects issue and project visibility
 
 **User Role:** Member of project A only
+**Priority:** High
 **Preconditions:** **Confirm project B is genuinely private** — a newly created Redmine project defaults to public.
 **Steps:**
 1. Open the Activity view and look for any project B activity.
@@ -290,6 +310,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-021: Activity filters do not enumerate users
 
 **User Role:** Low-privilege member
+**Priority:** High
 **Steps:**
 1. Open the user filter dropdown.
 
@@ -302,6 +323,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-022: Calendar performance with many entries
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Open the calendar on a month containing several hundred entries.
 
@@ -313,6 +335,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-023: Map performance with many markers
 
 **User Role:** Member with the permission
+**Priority:** Low
 **Steps:**
 1. Open Map View over a range containing several hundred located entries.
 
@@ -325,6 +348,7 @@ a visual change that did not persist is the defect this suite targets.
 ### TC-TMT-024: Concurrent calendar edits
 
 **User Role:** Two sessions of the same user
+**Priority:** Medium
 **Steps:**
 1. Drag the same entry to different dates in each session without reloading.
 

@@ -26,6 +26,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-161: Search filters visible rows
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enter a keyword matching some issue subjects in the search field.
 
@@ -38,6 +39,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-162: Search with no matches shows an empty state
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Search for a string that matches nothing.
 
@@ -49,6 +51,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-163: Type filter narrows rows
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply the type filter and confirm which row kinds remain.
 
@@ -61,6 +64,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-164: Date range controls focus the timeline
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Set Date From and Date To to a one-month window and apply.
 
@@ -74,6 +78,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-165: Clearing filters restores everything
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Apply a search, a type filter and a date range together, then clear all three.
 
@@ -90,6 +95,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-166: All four zoom levels render
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Switch between **Hours**, **Day**, **Week** and **Month**.
 
@@ -103,6 +109,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-167: Bar positions stay accurate across zoom levels
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Note an issue's dates, then read its bar edges at each zoom level.
 
@@ -115,6 +122,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-168: Work Days vs Full Week
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Switch between **Work Days** and **Full Week**.
 
@@ -132,6 +140,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-169: Toggle each display field
 
 **User Role:** Member with Manage versions
+**Priority:** Medium
 **Steps:**
 1. In the settings panel, toggle **Show Assignee**, **Show Progress %**, **Show Estimated Hours**, **Show Task ID**
    independently.
@@ -146,6 +155,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-170: Bar colour customisation
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Set distinct colours for release bars, issue bars and subtask bars.
 
@@ -158,6 +168,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-171: Per-issue colour overrides the type colour
 
 **User Role:** Member
+**Priority:** Low
 **Preconditions:** The issue colour field is available on this instance.
 **Steps:**
 1. Set a colour on one issue and compare it with its siblings.
@@ -170,6 +181,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-172: Settings are stored per user
 
 **User Role:** Two members
+**Priority:** Medium
 **Steps:**
 1. User A enables Show Assignee and sets a custom bar colour, then reloads.
 2. User B opens the same chart.
@@ -187,6 +199,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-173: Enable a milestone marker from a project Date custom field
 
 **User Role:** Member with Manage versions
+**Priority:** Medium
 **Preconditions:** At least one **project-level** custom field of type **Date**, with a value set.
 **Steps:**
 1. Settings panel → **Milestone Markers** → enable **Show Milestone Markers**.
@@ -200,6 +213,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-174: Marker follows the field value automatically
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Change the project custom field's date value.
 2. Reopen the chart.
@@ -213,6 +227,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-175: A field with no value produces no marker and no error
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Enable a marker for a date custom field that has no value set.
 
@@ -224,6 +239,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-176: Master toggle hides all markers
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. With several markers enabled, turn off **Show Milestone Markers**.
 
@@ -235,6 +251,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-177: Only project-level Date custom fields are offered
 
 **User Role:** Member
+**Priority:** Low
 **Preconditions:** The instance also has issue-level date fields and project fields of other types.
 **Steps:**
 1. Inspect the list of fields offered in the Milestone Markers section.
@@ -248,6 +265,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-178: Marker outside the visible date range
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Set a date range that excludes the marker's date.
 
@@ -264,6 +282,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-179: Add custom field columns
 
 **User Role:** Member with Manage versions
+**Priority:** Medium
 **Steps:**
 1. Settings panel → **Custom Field Columns** → tick several fields.
 
@@ -276,6 +295,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-180: All documented field types are supported
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** Custom fields of selection-list, text, date, yes/no, user and version types exist.
 **Steps:**
 1. Enable one column of each type and compare each value with the issue page.
@@ -289,6 +309,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-181: Values update when changed elsewhere in Redmine
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Change a custom field value on the issue page, then reopen the chart.
 
@@ -300,6 +321,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-182: Column selection is retained for the next visit
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Enable two custom field columns, leave the chart, return.
 
@@ -311,6 +333,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-183: Only permitted and applicable fields are listed
 
 **User Role:** Member with limited custom-field visibility
+**Priority:** High
 **Steps:**
 1. Compare the offered field list against the fields this role may see and that apply to the project's trackers.
 
@@ -324,6 +347,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-184: Panel divider widens a clipped column
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Enable enough columns to clip the left panel, then drag the divider between the table and the timeline.
 
@@ -340,6 +364,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-185: Settings panel without Manage versions
 
 **User Role:** Member with View Flux Gantt but **not** Manage versions
+**Priority:** Medium
 **Steps:**
 1. Confirm the gear icon is absent or the panel will not open.
 2. Send a settings-update request directly.
@@ -353,6 +378,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-186: Invalid date range
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Set Date From later than Date To and apply.
 
@@ -364,6 +390,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-187: Extreme date range
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Set a ten-year range at **Hours** zoom.
 
@@ -376,6 +403,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-188: Marker label with script content
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Enter a script tag as a milestone marker label.
 
@@ -387,6 +415,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-189: Custom field deleted while used as a column
 
 **User Role:** Admin + Member
+**Priority:** Medium
 **Steps:**
 1. Enable a custom field column, then delete that custom field in Administration, then reopen the chart.
 
@@ -399,6 +428,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-190: Settings persistence survives a session change
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Configure settings, log out, log back in, reopen the chart.
 
@@ -420,6 +450,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-191: Year zoom level is available alongside Hours/Day/Week/Month
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Open the project's Flux Gantt view.
 2. Open the zoom/display-mode control used for TC-GNT-166 and select **Year**.
@@ -433,6 +464,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-192: Year scale ruler shows years on the upper row and quarters on the lower row
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With **Year** zoom selected, inspect the two header rows of the timeline ruler.
 
@@ -445,6 +477,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-193: Year scale in Work Days mode excludes weekends and keeps the ruler correct
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With **Year** zoom selected, switch display mode to **Work Days** (same control exercised by TC-GNT-168).
 2. Inspect the ruler and bar rendering.
@@ -461,6 +494,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-194: Year scale in Full Week mode
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. With **Year** zoom selected, switch display mode to **Full Week**.
 2. Inspect the ruler and bar rendering.
@@ -474,6 +508,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-195: Year/quarter labels stay visible when the selected date range covers only part of a year
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. With **Year** zoom selected, set the date range (Date From/Date To) to a window covering only part of one year
    (e.g. April–September of the current year).
@@ -493,6 +528,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-196: Sort selector offers all seven documented fields, each ascending/descending
 
 **User Role:** Member with Manage versions
+**Priority:** High
 **Steps:**
 1. Open the settings panel (gear icon).
 2. Locate the new sort selector.
@@ -507,6 +543,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-197: Default sort value is "Default (hierarchy)" with no behavior change on upgrade
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** A project that has never had its sort field changed (i.e. simulating pre-upgrade state).
 **Steps:**
 1. Open the Gantt view without changing the sort selector.
@@ -521,6 +558,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-198: Sort by Subject, ascending and descending
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Select **Subject — Ascending** in the sort selector.
 2. Note the row order, then select **Subject — Descending**.
@@ -533,6 +571,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-199: Sort by Due date descending — issues with no due date sort last, not first
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** At least one issue in the project has no due date set; others have due dates.
 **Steps:**
 1. Select **Due date — Descending** in the sort selector.
@@ -550,6 +589,7 @@ suite, or every case here will fail for the wrong reason.
 ### TC-GNT-200: Sub-tasks stay directly beneath their parent regardless of sort field
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** At least one parent issue with two or more sub-tasks, all with differing values for the field
 being sorted (e.g. differing priorities).
 **Steps:**
@@ -566,6 +606,7 @@ being sorted (e.g. differing priorities).
 ### TC-GNT-201: Release rows follow the chosen field where applicable, otherwise keep Redmine's own order
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** Two or more release/version rows exist, with differing start dates.
 **Steps:**
 1. Select **Start date — Ascending**, and observe release row order.
@@ -583,6 +624,7 @@ being sorted (e.g. differing priorities).
 ### TC-GNT-202: Sort selection is stored per user, applied server-side, and survives reload
 
 **User Role:** Two members (User A, User B)
+**Priority:** Medium
 **Steps:**
 1. User A selects **Assignee — Ascending** and reloads the page.
 2. User B opens the same project's Gantt view.
@@ -601,6 +643,7 @@ being sorted (e.g. differing priorities).
 ### TC-GNT-203: "Ticket status" display column toggle, default OFF
 
 **User Role:** Member with Manage versions
+**Priority:** Medium
 **Steps:**
 1. Open the settings panel and locate the new **Ticket status** on/off toggle among the display columns (alongside
    Show Assignee, Show Progress %, etc.).
@@ -617,6 +660,7 @@ being sorted (e.g. differing priorities).
 ### TC-GNT-204: Release and project rows render an empty cell for the status column
 
 **User Role:** Member
+**Priority:** Low
 **Preconditions:** The **Ticket status** column is enabled (TC-GNT-203).
 **Steps:**
 1. Inspect the status column's cell for a release/version row and for the project's own summary row, if shown.
@@ -635,6 +679,7 @@ being sorted (e.g. differing priorities).
 ### TC-GNT-205: Zoom, display mode, today line, columns, date range and critical-path mode are stored per user
 
 **User Role:** Two members (User A, User B)
+**Priority:** High
 **Steps:**
 1. User A opens the project's Flux Gantt view and changes: zoom level (e.g. to Week), display mode (Work Days),
    toggles the today-line marker off, enables an additional display column, sets a custom date range, and (if
@@ -655,6 +700,7 @@ being sorted (e.g. differing priorities).
 ### TC-GNT-206: Existing project-level settings become each user's starting default post-upgrade
 
 **User Role:** Member
+**Priority:** High
 **Preconditions:** A project whose Flux Gantt settings were configured before #120913 shipped (project-level
 zoom/columns/date range already set), and a user who has never personally saved a view on it.
 **Steps:**
@@ -672,6 +718,7 @@ zoom/columns/date range already set), and a user who has never personally saved 
 ### TC-GNT-207: Saving a personal view no longer requires "Manage versions" permission
 
 **User Role:** Member with **View Flux Gantt** but explicitly **without** core **Manage versions**
+**Priority:** High
 **Steps:**
 1. Confirm this role lacks Manage versions (check Roles administration, or attempt an action that requires it —
    e.g. TC-GNT-185's settings-panel-access check for the plugin's pre-#120913 behavior).
@@ -691,6 +738,7 @@ zoom/columns/date range already set), and a user who has never personally saved 
 ### TC-GNT-208: Bar colours and milestone markers remain shared/project-wide, not per-user
 
 **User Role:** Two members (User A, User B), at least one with Manage versions
+**Priority:** Medium
 **Steps:**
 1. User A (with sufficient permission) changes a bar colour and/or a milestone marker configuration and reloads.
 2. User B opens the same project's Flux Gantt view.
@@ -712,6 +760,7 @@ zoom/columns/date range already set), and a user who has never personally saved 
 ### TC-GNT-209: New calendar-quarter/year presets are available in the project Gantt's date-range picker
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Open the date range picker (Date From/Date To control).
 2. Open its list of predefined presets.
@@ -725,6 +774,7 @@ zoom/columns/date range already set), and a user who has never personally saved 
 ### TC-GNT-210: "This Year" preset with Year scale active shows the full year sensibly
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Select **Year** zoom (TC-GNT-191).
 2. Select the **This Year** preset from the date-range picker.
@@ -740,6 +790,7 @@ zoom/columns/date range already set), and a user who has never personally saved 
 ### TC-GNT-211: Quarter-based presets align to actual calendar quarters
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Select **This Quarter** and note the resulting Date From/Date To values.
 2. Compare them against the actual calendar-quarter boundaries for today's date (e.g. if today is in Q3,

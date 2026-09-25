@@ -24,6 +24,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-036: Mention a user in an issue description
 
 **User Role:** Member with issue-edit rights
+**Priority:** High
 **Steps:**
 1. Open an issue and click **Edit**.
 2. In the description, type the mention symbol immediately followed by an existing username.
@@ -39,6 +40,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-037: Mention a user in an issue note
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. On an issue, click **Add notes**, type the mention symbol plus a username, submit.
 
@@ -51,6 +53,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-038: Mention a user while creating a new issue
 
 **User Role:** Member with issue-create rights
+**Priority:** High
 **Steps:**
 1. On the New issue form, include a mention in the description and create the issue.
 
@@ -62,6 +65,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-039: Mention renders as a link to the user
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. View a saved mention and click it, if it is rendered as a link.
 
@@ -75,6 +79,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-040: Editing a description to add a mention notifies only the newly mentioned user
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Issue description already mentions user A. Edit it to also mention user B.
 
@@ -88,6 +93,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-041: Mention typed through the Inline Editor plugin
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** Inline Editor plugin installed and active.
 **Steps:**
 1. Add a note containing a mention using the inline editor rather than the standard form.
@@ -102,6 +108,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-042: Several users mentioned in one save
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Mention three different users in a single note and submit.
 
@@ -113,6 +120,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-043: Mention a username containing dots, hyphens or underscores
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Create users with account names such as `first.last`, `first-last`, `first_last` and mention each.
 
@@ -125,6 +133,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-044: Determine whether a user picker / autocomplete exists
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Type the mention symbol in the notes field and pause.
 
@@ -138,6 +147,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-045: Mention in a private note
 
 **User Role:** Member with private-note rights
+**Priority:** High
 **Steps:**
 1. Add a **private** note mentioning a user who cannot see private notes.
 
@@ -154,6 +164,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-046: Mention a non-existent username
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Type the symbol followed by a username that does not exist and save.
 
@@ -166,6 +177,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-047: Symbol with nothing after it
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Save a note containing only the bare mention symbol, and another with the symbol followed by a space.
 
@@ -177,6 +189,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-048: Username containing the mention symbol itself
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. With the symbol set to `@`, mention a user whose account name contains `@` (for instance an email-style login).
 
@@ -191,6 +204,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-049: Ambiguous prefix matching
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. With users `john` and `johnsmith` both existing, mention `@john`.
 
@@ -204,6 +218,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-050: Mention embedded in other text without whitespace
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Save content containing `email me at name@example.com`, `a@b`, and `see@username` with the symbol set to `@`.
 
@@ -217,6 +232,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-051: Mention inside a code block or preformatted text
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Put a mention inside a `<pre>` / code block in the description and save.
 
@@ -229,6 +245,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-052: Mention a locked or registered-but-inactive user
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Mention a locked user account, then a registered-not-yet-activated account.
 
@@ -241,6 +258,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-053: Mention a group name
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Mention a Redmine **group** rather than a user.
 
@@ -254,6 +272,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-054: Self-mention
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Mention yourself in your own note.
 
@@ -266,6 +285,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-055: Very many mentions in one save
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Mention 50 users in a single note and submit.
 
@@ -279,6 +299,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-056: HTML or script in place of a username
 
 **User Role:** Member
+**Priority:** High
 **Steps:**
 1. Save content where the symbol is followed by a script tag.
 
@@ -290,6 +311,7 @@ The active mention symbol is whatever the plugin configuration currently holds â
 ### TC-MEN-057: Mention removed by a later edit
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Save a note mentioning user A, then edit the note to remove the mention.
 

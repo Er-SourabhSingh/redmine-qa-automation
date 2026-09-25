@@ -39,6 +39,7 @@ Reach them through real navigation: top menu **Issues** → hover a row, or clic
 ### TC-INE-024: Plugin appears in Administration → Plugins
 
 **User Role:** Admin
+**Priority:** High
 **Preconditions:** ZIP extracted into `plugins/` under its original folder name, `bundle install` and
 `redmine:plugins:migrate` run, server restarted.
 **Steps:**
@@ -59,6 +60,7 @@ plugin-code update and container restart.
 ### TC-INE-025: Migration completed cleanly
 
 **User Role:** Admin
+**Priority:** High
 **Steps:**
 1. Run the migration, restart, then open the issue list and an issue detail page.
 
@@ -78,6 +80,7 @@ after the code update, and both pages rendered cleanly on every restart performe
 ### TC-INE-026: Assets load correctly — the plugin is JS-dependent
 
 **User Role:** Any
+**Priority:** High
 **Steps:**
 1. Open the issue list and inspect the console and Network tab.
 2. Hover an issue row.
@@ -104,6 +107,7 @@ restart, was separately exercised for a different reason in TC-INE-036 and confi
 ### TC-INE-027: Plugin functions on the Redmine version under test
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Record the version; confirm it is inside the KB range; perform one inline edit end to end.
 
@@ -123,6 +127,7 @@ edits across every suite, including the new session-auth path from `f2fe7ef`) is
 ### TC-INE-028: CKEditor integration
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** CKEditor configured on the instance. The KB states the plugin is "fully compatible with
 CKEditor" and that the customer supplies their own CKEditor licence.
 **Steps:**
@@ -148,6 +153,7 @@ PASS below, including the equivalent formatting-controls check against the plugi
 ### TC-INE-029: Behaviour with CKEditor absent
 
 **User Role:** Member
+**Priority:** Medium
 **Preconditions:** Instance using Redmine's stock text formatting (Textile/Markdown) rather than CKEditor.
 **Steps:**
 1. Inline-edit a description.
@@ -177,6 +183,7 @@ path still works end to end on the new session-based route.
 ### TC-INE-030: Cross-browser compatibility
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Perform the same inline edit (a status change and a description edit) in Chrome, Firefox and Edge.
 
@@ -217,6 +224,7 @@ TC's cross-browser scope, but noted since it was previously surfaced here).
 ### TC-INE-031: Behaviour at narrow viewport widths
 
 **User Role:** Member
+**Priority:** Low
 **Steps:**
 1. Repeat an inline edit on the issue list at 1280×720 and at a narrow/mobile width.
 
@@ -241,6 +249,7 @@ changes in `f2fe7ef` (route URLs only, no CSS/markup changes).
 ### TC-INE-032: Interaction with other Redmineflux plugins on the same page
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. On an issue that also carries Checklist, Tags and Agile Board widgets, perform inline edits of several fields.
 
@@ -278,6 +287,7 @@ is gone, consistent with that bug's own separate fix and retest. No new interact
 ### TC-INE-033: Plugin folder renamed on disk
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. Rename the plugin directory (the KB says not to) and restart.
 
@@ -314,6 +324,7 @@ fixture unchanged (Priority High, Status Feedback).
 ### TC-INE-034: Migration not run
 
 **User Role:** Admin
+**Priority:** Medium
 **Steps:**
 1. Install the files, skip the migration, restart, open the issue list.
 
@@ -338,6 +349,7 @@ several restarts.
 ### TC-INE-035: JavaScript disabled in the browser
 
 **User Role:** Member
+**Priority:** Medium
 **Steps:**
 1. Disable JavaScript and open the issue list and an issue.
 
@@ -361,6 +373,7 @@ standard Edit link was still visible/reachable. Identical degrade-to-absent beha
 ### TC-INE-036: Stale cache after a plugin change
 
 **User Role:** Admin
+**Priority:** Low
 **Steps:**
 1. After updating the plugin, load a page without clearing caches, then clear and restart as the KB advises.
 
@@ -394,6 +407,7 @@ with no stale-asset symptom surviving the documented remedy.
 ### TC-INE-037: Clean uninstall
 
 **User Role:** Admin
+**Priority:** Medium
 **Preconditions:** Database backup taken.
 **Steps:**
 1. Run `bundle exec rake redmine:plugins:migrate NAME=<plugin_name> VERSION=0 RAILS_ENV=production`.

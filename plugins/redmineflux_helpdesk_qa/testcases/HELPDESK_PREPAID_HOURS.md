@@ -130,6 +130,7 @@
 - Each row shows the running balance immediately after that entry — the full "where did the hours go" trail is reconstructable
 - **Partially confirmed live 2026-08-26** (Local): the Ledger view itself is real and reachable via a per-project-row "Ledger" link (`?ledger_project_id=N&tab=prepaid_support_hours`), with its own Approved/Used/Remaining summary, an "Export as CSV" link (`/rf_organizations/:id/prepaid_ledger_export?project_id=N`), and empty state "No hours logged yet." Not yet exercised with actual logged time (needs a customer ticket + reply time-log on the same project) — the row-by-row content/running-balance format itself remains unverified. `openLedger()` added to `HelpdeskOrganizationPage.ts`.
 - **Completed 2026-09-03** (Local, redmine-docker-6, admin): **PASS.** With ticket #46's 15-min reply time-log now real (TC-HLP-192), reopened the Ledger: **"1 entries"**, row reads exactly `09/03/2026 | #46 TC-HLP-192 prepaid hours time-logging test ticket | Luna Blossom | Technical Support | — (Support Package) | — (Comment) | −0.25h (Logged) | 14.75h (Balance Left)` — the full row-by-row format (Date/Issue/User/Activity/Support Package/Comment/Logged/Balance Left) is genuinely populated with real data, oldest-first (only one entry so far, so trivially "oldest first"), with the correct post-entry running balance (14.75h, matching Approved 15.00h − Used 0.25h). Fully closes the gap left open in the earlier partial confirmation.
+- **Cross-reference added 2026-09-28** (per HD-7, production issue #121289): this per-project **Ledger** drill-down itself is explicitly unchanged by HD-7 — still reachable via the same "Ledger" link, same row format. HD-7 only added a separate, organization-wide **"Budget history"** section (see TC-HLP-424) that merges Top-up/Reduction rows with the same Deduction data across all of an organization's projects into one timeline; the Ledger stays the place for a single project's per-entry running balance.
 
 ---
 
@@ -1124,9 +1125,141 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `luna.blossom`, ticket #46 /
 
 ---
 
+## Additional Coverage, round 7 (HD-4/HD-5/HD-6/HD-7 Prepaid Support Hours feature bundle — production issue #121289, 2026-09-28)
+
+> Production issue #121289 documents four specs, all merged to `master` (branch `helpdesk_budget`, commit `74c4ed0`): HD-4 (org top-up modal project-scoping fix), HD-5 (deduction rules — billable activities + minimum charge per ticket), HD-6 (Support Packages linked to a Global SLA, with propagation/override), HD-7 (unified Budget history + CSV export). Full specs read from `backlog/specification/HD-{4,5,6,7}-spec-*.md` inside the plugin source. See also `HELPDESK_SLA_ESCALATION.md` (Global SLAs management screen) and `HELPDESK_CUSTOMERS_ORGANIZATIONS.md` (customer project-access Support Package selector, override, propagation) for the rest of HD-6's surface.
+
+### TC-HLP-420: Org "Add / top up hours" modal's Project dropdown is scoped to only this organization's own linked projects (HD-4)
+
+**User Role:** Admin or Manager with `manage_prepaid_support_hours`
+**Priority:** High
+**Precondition:** An organization linked (via `RfProjectCustomer`) to at least two helpdesk-enabled projects — e.g. "Alpha Minimal Fields Test Org" (org id 8), linked to both Helpdesk QA Alpha and Helpdesk QA Beta (confirmed via the "Budget by project" table listing both, each with its own Ledger link).
+
+**Steps:**
+1. Open the organization's Prepaid Support Hours tab
+2. Click **Add / top up hours**
+3. Inspect every option offered in the **Project** dropdown
+
+**Expected Result:**
+- Per HD-4 spec: a flat list of every project that is helpdesk-enabled, has an `RfProjectCustomer` row for this organization, and the current user is allowed to manage prepaid hours on — no "Other projects" optgroup, and (this is the regression HD-4 was written to fix) no project belonging to a different organization either.
+- For org 8 specifically: **both** Helpdesk QA Alpha and Helpdesk QA Beta must appear.
+
+- **CONFIRMED LIVE 2026-09-28** (Local, redmine-docker-6, admin): **FAIL.** No "Other projects" group and no foreign-organization project leaked in (the original HD-4 defect class is genuinely fixed) — but the dropdown now under-offers instead: `document.querySelector('select[name*="project"]').options` returns a single option, `Helpdesk QA Alpha` (value `1`) — **Helpdesk QA Beta is completely missing**, despite being visibly linked to the same organization one section above and confirmed helpdesk-enabled (`/projects/helpdesk-qa-beta/settings/modules` → Redmineflux Helpdesk checked). Reproduced twice (fresh page load + re-open). Filed as **BUG-HLP-062**.
+
+---
+
+### TC-HLP-421: A direct POST to top up a project the organization has no link to is rejected server-side (HD-4)
+
+**User Role:** Admin or Manager with `manage_prepaid_support_hours`
+**Priority:** Medium
+**Precondition:** A project that exists on the instance but has no `RfProjectCustomer` row for the organization under test (e.g. Helpdesk QA Gamma, which the modal itself never offers for org 8).
+
+**Steps:**
+1. Submit a POST to `RfHelpdeskPrepaidSupportHoursController#create` for this organization with a `project_id` for the unlinked project, bypassing the UI dropdown entirely
+2. Check whether a budget row is created for that project/organization pair
+
+**Expected Result:**
+- Per HD-4 spec's server-side guard: the request is rejected outright — no row is created for the unlinked project, regardless of what `project_id` the request claims.
+
+- **NOT YET EXECUTED** — this needs a direct authenticated POST outside the modal's own UI flow (raw `fetch`/form submission bypassing the dropdown), not yet attempted this session. Needs a dedicated pass; do not assume PASS from TC-HLP-420's UI-level finding alone, since that TC only shows the dropdown under-offers, not that the guard behind it is absent.
+
+---
+
+### TC-HLP-422: Per-project "Deduction rules" control offers a billable-activity checklist and a minimum-time-per-ticket field (HD-5)
+
+**User Role:** Admin or Manager with `manage_prepaid_support_hours`
+**Priority:** High
+**Precondition:** An organization with at least one budgeted project (e.g. org 8 / Helpdesk QA Alpha).
+
+**Steps:**
+1. On the organization's Prepaid Support Hours tab, click **Configure** under the "Deduction rules" column for a project row
+2. Inspect the dialog's contents
+
+**Expected Result:**
+- Per HD-5 spec: a "Billable activities" checklist of every `TimeEntryActivity` on the instance, a "Minimum time per ticket (minutes)" numeric field, and explanatory copy matching the spec's documented text.
+
+- **CONFIRMED LIVE 2026-09-28** (Local, redmine-docker-6, admin): **PASS.** Dialog "Deduction rules — Helpdesk QA Alpha" opened with: intro copy **"Only time logged under these activities counts against the budget. Leave none selected to count every activity, as today."**, warning copy **"Changing billable activities recalculates usage for the whole budget, including time already logged."**, a 12-checkbox Billable activities list (Design, Development, Customer Call, Remote Support, Technical Support, Email Support, Live Chat Support, First Response, Investigation & Diagnosis, Follow-up Reply, Escalation Handling, Resolution & Closure — every `TimeEntryActivity` on the instance), a "Minimum time per ticket (minutes)" spinbutton with copy **"When a ticket closes with less time logged than this, the difference is logged automatically so the budget always reflects at least this much per ticket. Leave blank for no minimum."**, and Cancel/Save buttons. All copy matches the spec verbatim.
+
+---
+
+### TC-HLP-423: Saving a Deduction rule persists and displays as a read-only summary on the Budget-by-project row (HD-5)
+
+**User Role:** Admin or Manager with `manage_prepaid_support_hours`
+**Priority:** High
+**Precondition:** TC-HLP-422's dialog reachable for a project row currently showing "— Configure" (no rule set).
+
+**Steps:**
+1. Open Deduction rules for a project row, check two billable activities (e.g. Technical Support, Email Support), set Minimum time per ticket = 15, Save
+2. Check the flash message and the Deduction rules cell's new contents
+3. Reopen the dialog for the same row
+
+**Expected Result:**
+- Save succeeds with a confirmation flash naming the organization and project
+- The cell replaces "— Configure" with a read-only summary of the rule plus an Edit control
+- Reopening shows the same activities/minimum still selected (round-trips correctly)
+
+- **CONFIRMED LIVE 2026-09-28** (Local, redmine-docker-6, admin): **PASS.** Checked Technical Support + Email Support, set Minimum = 15, Save → flash **"Deduction rules for 'Alpha Minimal Fields Test Org' on 'Helpdesk QA Alpha' have been updated."**; the Deduction rules cell now reads **"Technical Support, Email Support · min 15m"** with an "Edit" button, replacing the prior "— Configure". (Rule left in place as a reusable fixture — Alpha's deduction rule is now genuinely configured; a future TC covering the actual deduction-filtering/auto-log-on-close computation should account for this.) **Not yet exercised**: whether logging time under a non-billable activity (e.g. Design) on this project is now correctly excluded from Used, and the auto-log-on-close minimum-charge behavior — both need a dedicated live pass with a real ticket, not yet done this session.
+
+---
+
+### TC-HLP-424: "Budget history" is a single unified, newest-first timeline of Top-up/Reduction/Deduction rows with a working CSV export (HD-7)
+
+**User Role:** Admin or Manager with `manage_prepaid_support_hours`
+**Priority:** High
+**Precondition:** An organization with a mix of top-up/reduction history (admin-made) and deduction history (real time entries logged against its tickets) — org 8 qualifies (51 total rows across both kinds).
+
+**Steps:**
+1. Open the organization's Prepaid Support Hours tab
+2. Inspect the "Budget history" section's table and its "Export as CSV" link
+
+**Expected Result:**
+- Per HD-7 spec: one merged table (columns S.No / Updated / Project / Type / Issue / Support Package / Comment / Change / Approved By), Top-up/Reduction/Deduction rows correctly interleaved by date (not grouped/segregated), newest-first, paginated; deduction rows link their Issue; a CSV export streams the same merged data.
+
+- **CONFIRMED LIVE 2026-09-28** (Local, redmine-docker-6, admin): **PASS.** Section heading reads "Budget history" (renamed from the old "Budget change history"), table has exactly the spec's 9 columns, 51 total rows across 4 pages (15/page). Rows genuinely interleave by date, not grouped by type — e.g. row 6 is a **Deduction** linked to `#85 Budget Scenario 2 - Customer A (delta.customer) shared-org ticket` (-0.25h, by Luna Blossom) sitting between Reduction/Top-up rows on either side; row 15 is a **Deduction** linked to `#46 TC-HLP-129 prepaid hours time-logging test ticket` (-0.08h). "Export as CSV" link present at `/rf_organizations/8/prepaid_history_export`. **Not yet verified**: the CSV's actual downloaded contents (full-set streaming beyond the visible page, `old_total`/`new_total` columns present only on budget rows) and cross-viewer scoping symmetry (a manager who can't see a project's top-ups also can't see its deductions in the merged view) — both flagged in the spec as the two critical holdout tests, neither exercised live this session.
+
+---
+
+### TC-HLP-425: Support Package list shows a linked SLA per package; pre-existing Active packages without one are flagged but not retroactively broken (HD-6)
+
+**User Role:** Admin or Manager with `manage_helpdesk`
+**Priority:** High
+**Precondition:** Existing Support Packages created before HD-6 (e.g. "Standard Support", "Premium Support" — all currently Active, none with an SLA, since the field didn't exist when they were created).
+
+**Steps:**
+1. Open Helpdesk Settings → Support Packages
+2. Inspect the list's columns and any banner text
+3. Edit one pre-existing Active package and try to Save without picking an SLA, then again after picking one
+
+**Expected Result:**
+- Per HD-6 spec: the list gains an "SLA" column; `validates :rf_sla_id, presence: true, if: :active?` applies going forward, but does not retroactively invalidate existing Active/no-SLA rows (no forced migration/lockout).
+
+- **CONFIRMED LIVE 2026-09-28** (Local, redmine-docker-6, admin): **PASS.** List shows a new "SLA" column, reading "—" for all 5 pre-existing packages, alongside a banner: **"These active Support Packages have no SLA yet, so they carry no guaranteed response/resolution time: Premium Support (Renamed), Standard Support (Edited v2 - TC-HLP-391), Basic Support, Standard Support, Premium Support. Edit each one to pick an SLA."** — confirms grandfathering (no forced break) plus a clear nudge. Edited "Standard Support" (id 7), SLA dropdown offers only Global SLAs (`-- No SLA --`, `API Test SLA TC192`, and a newly created `QA Global SLA TC-HLP-420`) — no project-scoped SLA leaked in, confirming HD-6's `rf_slas.project_id IS NULL` constraint. Selected `QA Global SLA TC-HLP-420`, Saved → "Successful update", list now shows "Standard Support" linked to that SLA (as a clickable link) and the banner's package list correctly dropped "Standard Support" from its no-SLA callout.
+
+---
+
+### TC-HLP-433: One organization + project has exactly one Support Package in force
+
+**User Role:** Admin or Manager with `manage_prepaid_support_hours`
+**Priority:** Medium
+**Precondition:** An organization with a budget on a project, and a customer of that organization with access to the same project (e.g. org 8 / Helpdesk QA Alpha / `delta.customer`); at least two Active Support Packages exist.
+
+**Steps:**
+1. Add / top up hours on the project selecting Support Package A, Save
+2. Add / top up hours on the same project selecting a different Support Package B, Save
+3. Check the Budget by project row and Budget history for which package is in force
+4. Check the Support Package on the customer's own row for the same project
+
+**Expected Result:**
+- The package is a single, mandatory property of the organization + project budget (like "When hours run out" and "Deduction rules"), shown on the Budget by project row. Step 2 either changes that one package explicitly or is refused, and two packages are never both in effect.
+- The customer's SLA on that project comes from that one package; the customer row doesn't hold its own independent package
+
+- **CONFIRMED LIVE 2026-09-28** (Local, redmine-docker-6, admin): **FAIL.** Both top-ups (Basic Support, then Premium Support, +0.25h each on Helpdesk QA Alpha) were accepted with the normal "updated" flash, and Budget history lists them as separate rows with different packages. Budget by project has no package column at all. The package is optional ("-- No package --" default). `delta.customer`'s Alpha row separately carries "Standard Support" and gets its SLA from that. The result is three conflicting packages for one org + project. Test top-ups reversed with a −0.50h reduction (Alpha back to 21.67h / 14.92h / 6.75h). Raised by the user during a UX review. Filed as **BUG-HLP-065** (Medium).
+
+---
+
 ## Evidence Map
 
-- Case ID: TC-HLP-188 – TC-HLP-205, TC-HLP-206 – TC-HLP-212 (Support Packages, newly discovered entity, added 2026-09-03), TC-HLP-213 – TC-HLP-226 (user-identified coverage gaps, added 2026-09-03), TC-HLP-227 – TC-HLP-234 (user-identified coverage gaps round 2, added 2026-09-07), TC-HLP-235 – TC-HLP-238 (editing/deleting an existing time entry, round 3, added 2026-09-07), TC-HLP-239 (core "Log time" link, a third distinct code path, round 4, added 2026-09-07), TC-HLP-240 – TC-HLP-245 (budget configuration × ticket-creation channel matrix, round 5, added 2026-09-09), TC-HLP-246 – TC-HLP-247 (customer-without-organization time-logging + multi-customer shared-organization budget, round 6, added 2026-09-10)
+- Case ID: TC-HLP-188 – TC-HLP-205, TC-HLP-206 – TC-HLP-212 (Support Packages, newly discovered entity, added 2026-09-03), TC-HLP-213 – TC-HLP-226 (user-identified coverage gaps, added 2026-09-03), TC-HLP-227 – TC-HLP-234 (user-identified coverage gaps round 2, added 2026-09-07), TC-HLP-235 – TC-HLP-238 (editing/deleting an existing time entry, round 3, added 2026-09-07), TC-HLP-239 (core "Log time" link, a third distinct code path, round 4, added 2026-09-07), TC-HLP-240 – TC-HLP-245 (budget configuration × ticket-creation channel matrix, round 5, added 2026-09-09), TC-HLP-246 – TC-HLP-247 (customer-without-organization time-logging + multi-customer shared-organization budget, round 6, added 2026-09-10), TC-HLP-420 – TC-HLP-425 (HD-4/HD-5/HD-6/HD-7 Prepaid Support Hours feature bundle, production issue #121289, round 7, added 2026-09-28), TC-HLP-433 (one Support Package in force per org + project, from a user UX review, added 2026-09-28)
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`

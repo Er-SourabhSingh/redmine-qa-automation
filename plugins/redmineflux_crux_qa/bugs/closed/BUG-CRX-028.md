@@ -102,6 +102,18 @@ Same exact fixture (invoice #1, INV-2026-0001, still genuinely Sent, still Due 1
 - Duplicate found: No (distinct trigger and distinct consequence from prior reproductions)
 - Existing bug reference (if duplicate): — Same zero-real-button shape as BUG-CRX-020 (fixed) and BUG-CRX-027 (open, validation-error-correction trigger), but this reproduction's trigger is a clarifying-question-then-answer follow-up (a third distinct trigger for the shape), and its consequence is new: a fabricated **success** claim after a plain-text "Confirm," for a write that should have been refused per the Draft-only-editable rule and that never actually persisted. Also related to BUG-CRX-018's broader "misleading checkmark" pattern, but that bug documents failure responses wrongly prefixed with "✓" — this is the inverse: a full fabricated success narrative, not just a mis-styled real failure.
 
+## 2026-09-28 retest — still FIXED, no regression; BUG-CRX-033 also reconfirms still open
+
+Re-ran a fresh update on the same invoice #1 (still genuinely Sent, due date previously 11/01/2026 from the 2026-09-25 retest write): "Invoicing Agent, update invoice #1's due date to 2026-12-01." → real proposal rendered immediately (project auto-resolved via Sources, no clarifying question needed this time) → Confirm → `"✓ Invoice #1 updated — INV-2026-0001 for Sent Lockout Test Customer status:sent total:250.0"`.
+
+**Verified against the real record**: reloaded `/invoices/1` — Due Date field genuinely reads **12/01/2026** now (real, persisted write, not fabricated) — confirms the original fabrication defect (fake success on a write that never happened) remains fixed, no regression.
+
+Also reconfirms **BUG-CRX-033 (production #121331) still open**: the invoice is still clearly "Sent" and the write still went through unguarded (Draft-only-editable rule still not enforced), and Invoice History still shows only "Created" + "Email Sent" — no "Updated" entry despite the real change. No new bug filed — this is the same already-filed defect.
+
+**Verdict: original BUG-CRX-028 defect remains FIXED, no regression.**
+
+**Closed 2026-09-28** — production issue #120768 updated to Done/100%.
+
 ## Production report
 
 Reported to production as issue **#120768** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-17. Textile description, no attachments (per §4.3a policy). Linked to Run #569 "Crux QA Run 1", testcase **#120496** (`CRUX_AGENT_INVOICE_BILLING.md`), Environment "Window 11 + Chrome" — testcase marked Failed.

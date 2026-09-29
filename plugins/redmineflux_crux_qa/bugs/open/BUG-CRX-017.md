@@ -92,6 +92,36 @@ The blocked retest above never reached the point of testing the dev's real fix. 
 
 **Verdict: the specific, dev-documented fix for this bug's root cause is confirmed live.** Full end-to-end confirmation (successfully removing a member by username, start to finish) remains blocked — not by this bug's original defect, but by the separate, newly-found BUG-CRX-034 (Capacity Agent falsely denies the `member_remove` tool is available at all). Recommend closing this bug on the strength of the verified root-cause fix, with BUG-CRX-034 tracked separately as the new blocker.
 
+## 2026-09-28 retest — dev's 034 fix improves honesty but doesn't resolve the underlying gap; still can't complete this bug's original repro
+
+Dev's 2026-09-28 fix for BUG-CRX-034 (a bounded retry pre-supplying the agent's own discoverable tool schemas before falling back to an honest "couldn't confirm" message) is live. Retested this bug's exact repro on the same "Retest Squad" fixture (still 3 members, luna.blossom present as "Crux Manager").
+
+"Workload, remove luna.blossom from the Retest Squad team." → *"I apologize — I'm unable to access the member_remove tool at this moment. The tool group discovery isn't returning the workload management write tools (like member_remove)... Ensure the workload management tools are available in this deployment, or remove the member through the Redmineflux UI directly."* (2 real tool calls per `Sources (2)`).
+
+This is an improvement in honesty over BUG-CRX-034's original finding — no longer a confident, unhedged "not available in this deployment" claim — but the practical outcome is unchanged: retried with "Please remove luna.blossom..." (hit the BUG-CRX-013-style self-contradiction) and with raw numeric IDs ("Remove team member with user ID 5 from team ID 2.") — same self-contradiction. **No successful proposal was ever produced across 3 attempts.**
+
+Independently confirmed via `docker logs crux-redmine-docker-mcp-1` that the real MCP server still has all 64 workload tools genuinely registered right now (`Loaded plugin: workload — 64 tools`), same as during the original finding — so this remains a discovery-mechanism gap, not a real backend absence.
+
+**Verdict: this bug's original repro (false "not currently a member" claim) still cannot be reached** — the flow is blocked earlier by the same class of issue BUG-CRX-034 documents, and that fix's retry mechanism did not actually surface `member_remove` to the model in 3 separate attempts this session, despite the tool being genuinely registered. Recommend keeping this bug open, and updating BUG-CRX-034 to reflect that its fix only improved the failure's honesty, not its underlying functionality.
+
+## 2026-09-28 post-restart retest — still blocked by BUG-CRX-034, confirmed not stale code
+
+Restarted `crux-core`/`crux-redmine` properly (same procedure as BUG-CRX-008/032/033/034) to rule out stale code before re-attempting this bug's own repro. Re-ran BUG-CRX-034's identical blocking flow directly (same "Retest Squad" team, luna.blossom/"Crux Manager" fixture, new session): "Workload, remove luna.blossom from the Retest Squad team." → hit a tool-call-limit abort mid-discovery, then on retry the honest-degrade message ("I couldn't confirm whether this action is actually available here..."). See BUG-CRX-034's matching 2026-09-28 post-restart section for the full transcript — this is the same flow this bug's own repro depends on, so it was not repeated a third time.
+
+**Verdict: still blocked, no change.** Unlike BUG-CRX-008/032/033 (all of which reversed post-restart, proving those were stale-code artifacts), BUG-CRX-034's blocking gap persists identically after a proper restart — so this bug's original repro (the false "not currently a member" claim) remains unreachable for the same genuine, non-stale reason as the pre-restart retest. No status change from the 2026-09-25 recommendation: keep open, blocked by BUG-CRX-034.
+
+## 2026-09-28 second confirmation — dev's fresh-build question answered, still blocked
+
+Production #120704 has its own journal entry (611925) from the earlier post-restart retest, already noting the block. Since then, BUG-CRX-034's own production issue (#121332) got a follow-up from the dev (08:42:23Z) asking to confirm the retest ran against a genuinely fresh, restarted build before treating the finding as a real functional gap. Answered that directly on #121332 (see BUG-CRX-034's matching section) with two more fresh-session confirmations covering both `team_create` and `member_remove` — both still fail to produce a working proposal, and `docker ps` independently confirms the containers were restarted this session, not stale.
+
+Since this bug's own original repro (false "not currently a member" claim) is gated entirely behind BUG-CRX-034's `member_remove` gap, that same confirmation applies here: still blocked, not a stale-build artifact.
+
+## 2026-09-28 third confirmation — second independent restart, still blocked
+
+Per explicit user instruction to restart and retest again, a second independent restart was performed (see BUG-CRX-034's matching section for full detail — no real update package found in Downloads, mcp image rebuild fully cached, `crux-core`/`crux-redmine` restarted again, OpenRouter reconfirmed working). The blocking flow (`Workload, remove luna.blossom from the Retest Squad team.`) was retested fresh and again failed to produce a real `Workload Member Remove` proposal — this time via a describe-without-proposing self-contradiction rather than the earlier tool-call-limit or honest-fallback shapes.
+
+**Verdict: still blocked, third consecutive confirmation today.** This bug's own original repro (false "not currently a member" claim) remains unreachable — not from stale code, but because BUG-CRX-034's `member_remove` discovery gap genuinely persists across three independent fresh-session attempts, two of them following separate restarts.
+
 ## Production report
 
 Reported to production as issue **#120704** (`ztflux`, Tracker Bug, Priority Medium, assigned to Prashant Chaurasia — user id 410), 2026-09-16. Textile description, no attachments (per updated §4.3a policy). Linked to Run #569, testcase #120491 (`CRUX_AGENT_WORKLOAD_CAPACITY.md`, found via TC-CRX-092) — testcase marked Failed.

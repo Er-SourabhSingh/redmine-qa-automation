@@ -1520,9 +1520,67 @@
 
 ---
 
+## Additional Coverage, round (HD-6 Global SLAs management screen — production issue #121289, 2026-09-28)
+
+> HD-6 links a Support Package to an SLA, but only a **Global SLA** (`rf_slas.project_id IS NULL`) may be selected — every existing SLA creation route was project-nested (since BUG-HLP-005's hardening), so HD-6 had to build a brand-new management screen for Global SLAs specifically. See `HELPDESK_PREPAID_HOURS.md` round 7 for the rest of HD-6 (Support Package↔SLA link) and `HELPDESK_CUSTOMERS_ORGANIZATIONS.md` for the customer-row package selector/override/propagation.
+
+### TC-HLP-426: A new "Global SLAs" screen exists under Helpdesk Settings, reusing the standard SLA form with Project forced blank
+
+**User Role:** Admin or Manager with `manage_helpdesk`
+**Priority:** High
+**Precondition:** None.
+
+**Steps:**
+1. Open Helpdesk Settings — confirm a "Global SLAs" nav item exists alongside Support Packages
+2. Click it, then click "New Global SLA"
+3. Check the create form's fields (in particular, confirm there is no Project field to fill in)
+4. Create one with Name + First Response Time + Resolution Time
+
+**Expected Result:**
+- Per HD-6 spec: a dedicated list + create/edit screen, reusing the existing SLA form partials, with `project_id` forced to NULL server-side (no Project field exposed to pick).
+
+- **CONFIRMED LIVE 2026-09-28** (Local, redmine-docker-6, admin): **PASS.** "Global SLAs" nav item present at `/rf_helpdesk/setting?tab=global_slas`, list columns: S.No / SLA Name / First Response Time / Resolution Time / Active / Action, with a "New Global SLA" link → `/rf_helpdesk_global_slas/new`. Create form is the same rich SLA form used elsewhere (Name, Description with a full markdown toolbar, First/Resolution Time + unit dropdowns, Working Hours, working-day checkboxes, Holidays multi-select, Active checkbox) — genuinely no Project field anywhere on it. Created "QA Global SLA TC-HLP-420" (First Response 4, Resolution 24 — left the unit dropdowns at their default "Minutes" rather than switching to Hours, a test-input choice on my part, not a defect) → "Successful creation.", appears in the list as row 2, "Active".
+
+---
+
+### TC-HLP-427: The Support Package "SLA" dropdown offers only Global SLAs, never a project-scoped one
+
+**User Role:** Admin or Manager with `manage_helpdesk`
+**Priority:** High
+**Precondition:** At least one Global SLA (TC-HLP-426) and at least one ordinary project-scoped SLA both exist on the instance (e.g. "Alpha Standard SLA", a normal per-project SLA).
+
+**Steps:**
+1. Edit any Support Package
+2. Inspect every option in its "SLA" dropdown
+
+**Expected Result:**
+- Only Global SLAs appear (`rf_slas.project_id IS NULL`); no project-scoped SLA is offered, since a package must apply uniformly across whichever project it's assigned to.
+
+- **CONFIRMED LIVE 2026-09-28** (Local, redmine-docker-6, admin): **PASS.** Editing "Standard Support" (id 7), the SLA dropdown offered exactly `-- No SLA --`, `API Test SLA TC192`, `QA Global SLA TC-HLP-420` — both genuinely global, no project-scoped SLA (e.g. "Alpha Standard SLA", visibly used elsewhere on this same instance) leaked into the list.
+
+---
+
+### TC-HLP-431: New/Edit Global SLA forms use the same branded layout and Settings sub-navigation as the Global SLAs list page
+
+**User Role:** Admin or Manager with `manage_helpdesk`
+**Priority:** Low
+**Precondition:** At least one Global SLA exists (TC-HLP-426).
+
+**Steps:**
+1. Open Helpdesk Settings → Global SLAs (note the page's H1 and left-sidebar Settings sub-navigation)
+2. Click "New Global SLA", inspect the resulting page's H1 and sidebar
+3. Click "Edit" on an existing Global SLA, inspect the same
+
+**Expected Result:**
+- Both forms should stay inside the same Helpdesk-branded layout (H1 "Helpdesk") as the list page, ideally with the Settings sub-navigation still visible so the user doesn't lose their place.
+
+- **CONFIRMED LIVE 2026-09-28** (Local, redmine-docker-6, admin): **FAIL — found from a user screenshot of the New Global SLA form.** Both `/rf_helpdesk_global_slas/new` and `/rf_helpdesk_global_slas/:id/edit` render with H1 **"Redmine"** (the generic layout) instead of "Helpdesk", and the Settings sub-navigation (Holiday/Products/Email Configuration/Canned Responses/Support Packages/Global SLAs) is completely absent on both. Checked for scope: `Edit Support Package` and `New Holiday` also drop the Settings sub-nav on their own forms (a pre-existing, plugin-wide pattern, not new), but both correctly keep H1 "Helpdesk" — so the wrong "Redmine" layout specifically is a genuine HD-6 regression, unique to Global SLA's own forms. Filed as **BUG-HLP-063** (Low).
+
+---
+
 ## Evidence Map
 
-- Case ID: TC-HLP-284 – TC-HLP-352 (excluding TC-HLP-077 [legacy pre-2026-09-22 ID, no longer in use], moved to Deferred/Out of Scope 2026-09-01 — no reachable UI path to test it), plus TC-HLP-339–278 (SLA/Support Level/Holiday list search & filter, added 2026-08-24), TC-HLP-361–297 (SLA/Support Level delete-while-linked-to-customer, added 2026-08-27 — mirrors TC-HLP-061's Organization version), TC-HLP-328–302 (escalation-chain capstone, mid/last-level SLA start on reply, no-one-resolves admin reassignment, multi-agent level assignment, added 2026-08-31), TC-HLP-286–308 (SLA/Support Level/Holiday Edit-all-fields and Delete CRUD gap closure, added 2026-08-31 after live form exploration — see `HELPDESK_FIELD_VALIDATIONS.md` for the per-field validation cases these complement), TC-HLP-287–320 (SLA/Support Level/Holiday Create-time required-fields-only and all-fields-in-one-Save cases, added 2026-09-01 — distinct from TC-HLP-286/305/307 which only prove the same fields are editable via a later Update), TC-HLP-289/327/329 (SLA/Support Level/Holiday edit-required-fields-only-leaves-optional-fields-untouched, added 2026-09-01 after a background audit workflow — the specific partial-update-doesn't-clobber-data risk neither the edit-all-fields nor create-time cases can expose; see `HELPDESK_FIELD_VALIDATIONS.md` TC-HLP-123/328/330 for these same three entities' edit-time validation-error counterparts), TC-HLP-329–364 (resolved/closed without ever breaching, resolved immediately after one escalation with no further breach, and Admin performing the resolve/close in either scenario — added and executed 2026-09-03 per explicit user question, all 3 customer-raised via `retest.customer1` per explicit user correction that Agent/Admin-created tickets never attach an SLA), TC-HLP-332 (full-chain escalation through every level to admin-fallback, then Admin actively resolves — added and executed 2026-09-03, written before execution per explicit user direction), TC-HLP-333 (escalation into a 2-agent Support Level at the L2→L3 pairing specifically — determines the actual selection rule via source code plus a live 2-ticket comparison, added and executed 2026-09-03)
+- Case ID: TC-HLP-284 – TC-HLP-352 (excluding TC-HLP-077 [legacy pre-2026-09-22 ID, no longer in use], moved to Deferred/Out of Scope 2026-09-01 — no reachable UI path to test it), plus TC-HLP-339–278 (SLA/Support Level/Holiday list search & filter, added 2026-08-24), TC-HLP-361–297 (SLA/Support Level delete-while-linked-to-customer, added 2026-08-27 — mirrors TC-HLP-061's Organization version), TC-HLP-328–302 (escalation-chain capstone, mid/last-level SLA start on reply, no-one-resolves admin reassignment, multi-agent level assignment, added 2026-08-31), TC-HLP-286–308 (SLA/Support Level/Holiday Edit-all-fields and Delete CRUD gap closure, added 2026-08-31 after live form exploration — see `HELPDESK_FIELD_VALIDATIONS.md` for the per-field validation cases these complement), TC-HLP-287–320 (SLA/Support Level/Holiday Create-time required-fields-only and all-fields-in-one-Save cases, added 2026-09-01 — distinct from TC-HLP-286/305/307 which only prove the same fields are editable via a later Update), TC-HLP-289/327/329 (SLA/Support Level/Holiday edit-required-fields-only-leaves-optional-fields-untouched, added 2026-09-01 after a background audit workflow — the specific partial-update-doesn't-clobber-data risk neither the edit-all-fields nor create-time cases can expose; see `HELPDESK_FIELD_VALIDATIONS.md` TC-HLP-123/328/330 for these same three entities' edit-time validation-error counterparts), TC-HLP-329–364 (resolved/closed without ever breaching, resolved immediately after one escalation with no further breach, and Admin performing the resolve/close in either scenario — added and executed 2026-09-03 per explicit user question, all 3 customer-raised via `retest.customer1` per explicit user correction that Agent/Admin-created tickets never attach an SLA), TC-HLP-332 (full-chain escalation through every level to admin-fallback, then Admin actively resolves — added and executed 2026-09-03, written before execution per explicit user direction), TC-HLP-333 (escalation into a 2-agent Support Level at the L2→L3 pairing specifically — determines the actual selection rule via source code plus a live 2-ticket comparison, added and executed 2026-09-03), TC-HLP-426 – TC-HLP-427, TC-HLP-431 (HD-6 Global SLAs management screen, production issue #121289, added 2026-09-28)
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`

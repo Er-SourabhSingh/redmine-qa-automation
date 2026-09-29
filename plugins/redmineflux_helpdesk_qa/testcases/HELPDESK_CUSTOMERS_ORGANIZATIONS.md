@@ -584,9 +584,89 @@ These two statements are mutually exclusive. **TC-HLP-063** below exists specifi
 
 ---
 
+## Additional Coverage, round (HD-6 customer project-access Support Package selector, override, propagation — production issue #121289, 2026-09-28)
+
+> See `HELPDESK_PREPAID_HOURS.md` round 7 for the Support Package↔SLA link itself and `HELPDESK_SLA_ESCALATION.md` for the new Global SLAs screen. This section covers HD-6's customer-facing half: assigning a package on a customer's project-access row, the auto-fill/lock/override mechanism, and propagation when a package's SLA changes later.
+
+### TC-HLP-428: Assigning a Support Package to a customer's project-access row auto-fills and locks that row's SLA
+
+**User Role:** Admin or Manager with `manage_helpdesk`
+**Priority:** High
+**Precondition:** A customer with a project-access row on a project belonging to an organization; a Support Package linked to a Global SLA (e.g. "Standard Support" → "QA Global SLA TC-HLP-420", per `HELPDESK_PREPAID_HOURS.md` TC-HLP-425).
+
+**Steps:**
+1. Edit the customer, locate the project-access row
+2. Select the Support Package from its "Support Package" dropdown
+3. Observe the SLA Name and Support Level fields on the same row
+
+**Expected Result:**
+- Per HD-6 spec (copy-on-assign): the SLA Name field is immediately overwritten with the package's linked SLA and becomes disabled/locked (no longer directly editable) — Support Level only changes if the package has a Default Support Level configured (this package had none, so Support Level should remain whatever it already was).
+- An "Override with a different SLA/level" control appears.
+
+- **CONFIRMED LIVE 2026-09-28** (Local, redmine-docker-6, admin): **PASS.** On `delta.customer`'s (customer id 14) Helpdesk QA Alpha row (previously SLA "Alpha Standard SLA", Support Level "L2", no package), selecting Support Package "Standard Support" immediately: set SLA Name to **"QA Global SLA TC-HLP-420"** (Standard Support's linked SLA) and **disabled** that dropdown; left Support Level at "L2" unchanged (Standard Support has no Default Support Level configured, matching the spec's conditional-override rule); and revealed a new **"Override with a different SLA/level"** button.
+
+---
+
+### TC-HLP-429: "Override with a different SLA/level" unlocks the SLA field, and the override persists distinctly from the package's own SLA
+
+**User Role:** Admin or Manager with `manage_helpdesk`
+**Priority:** High
+**Precondition:** TC-HLP-428's state (a project-access row with a package assigned and its SLA locked).
+
+**Steps:**
+1. Click "Override with a different SLA/level"
+2. Pick a different SLA than the one the package set, Save
+3. Reopen the customer's Edit form and re-check this row
+
+**Expected Result:**
+- Per HD-6 spec: clicking Override unlocks the SLA field for direct editing; saving a different value sets `sla_overridden = true` and persists the manually chosen SLA (not silently reverted to the package's own SLA on the next load); the package linkage itself (`rf_helpdesk_support_package_id`) is retained, not cleared.
+
+- **CONFIRMED LIVE 2026-09-28** (Local, redmine-docker-6, admin): **PASS.** Clicking Override unlocked the SLA dropdown; selected "Alpha Priority SLA" (different from the package's "QA Global SLA TC-HLP-420"), Saved. Customer details page (read-only "Projects & entitlements" table) immediately showed **"Alpha Priority SLA"** for this row — the overridden value, not the package default. Reopening Edit confirmed: Support Package dropdown still shows **"Standard Support"** selected (linkage retained), SLA dropdown shows **"Alpha Priority SLA"** and is unlocked, and a new label **"Overrides Standard Support"** appears next to the Override button — the persisted `sla_overridden` flag is genuinely surfaced in the UI, not just stored silently.
+
+---
+
+### TC-HLP-430: Changing a Support Package's SLA prompts a propagation sweep that updates only non-overridden customer rows
+
+**User Role:** Admin or Manager with `manage_helpdesk`
+**Priority:** High
+**Precondition:** A Support Package assigned to at least two customer project-access rows — one overridden (TC-HLP-429's `delta.customer` / Helpdesk QA Alpha row), one not (a second customer/project row with the same package and no override).
+
+**Steps:**
+1. Assign the same Support Package to a second customer's row, leaving its SLA at the package default (no override)
+2. Edit the Support Package, change its SLA to a different Global SLA, Save
+3. Read the resulting confirmation dialog's wording and choose to apply
+4. Check both customer rows afterward
+
+**Expected Result:**
+- Per HD-6 spec (Gate 2 finding — propagation must be an explicit, audited, opt-in sweep): a confirmation dialog states how many customers/projects are affected and asks whether to apply the new SLA to non-overridden rows; choosing to apply updates only rows where `sla_overridden = false`; the already-overridden row is left untouched; the response reports how many rows were actually changed.
+
+- **CONFIRMED LIVE 2026-09-28** (Local, redmine-docker-6, admin): **PASS, precisely.** Assigned "Standard Support" to `beta.customer`'s Helpdesk QA Beta row (id 71) with no override (SLA auto-filled to the package's then-current "QA Global SLA TC-HLP-420"). Edited "Standard Support", changed its SLA to "API Test SLA TC192", Save → confirmation modal read exactly: **"'Standard Support' is assigned to 2 customer(s) on 2 project(s). Apply the new SLA/support level to their non-overridden rows?"** with buttons "Apply to 2 customer(s)" / "Save without applying" / "Cancel". Clicked "Apply to 2 customer(s)" → flash **"Successful update Applied to 1 customer(s)."** (correctly excluding the overridden row from the count). Verified after: `beta.customer`'s Beta row now shows SLA **"API Test SLA TC192"** (propagated); `delta.customer`'s Alpha row still shows **"Alpha Priority SLA"** (untouched, correctly skipped as overridden).
+
+---
+
+### TC-HLP-432: A customer belongs to exactly one, mandatory organization
+
+**User Role:** Admin or Manager with `manage_helpdesk`
+**Priority:** Medium
+**Precondition:** A customer with project access on two projects (e.g. `delta.customer` on Helpdesk QA Alpha and Helpdesk QA Beta); two different organizations exist.
+
+**Steps:**
+1. Edit the customer and look for an Organization field in the customer's own details section (next to Login/Name/Email)
+2. In Project access, set a different organization on each project row, Save
+3. Set a row's organization to "None", Save
+
+**Expected Result:**
+- Organization is one mandatory field for the customer, not a separate choice per project row, because prepaid budgets are held per organization
+- Step 2 is refused: one customer can't be charged to two different organizations' budgets
+- Step 3 is refused, or at least clearly warns that the customer's tickets won't be charged to any budget
+
+- **CONFIRMED LIVE 2026-09-28** (Local, redmine-docker-6, admin): **FAIL.** No Organization field exists in the customer's own details; it only appears inside each Project access row, with no `*` and a "None" option. Step 2 saved with no warning: the Projects & entitlements table read Alpha → "Alpha Minimal Fields Test Org", Beta → "Sakura Mobility KK". `delta.customer`'s Beta row already sits on "None" today. Test change reverted afterwards. Raised by the user during a UX review of the Customer / Organization / Package / SLA model. Filed as **BUG-HLP-064** (Medium). Also confirmed in the same pass: each row's Support Level dropdown **is** correctly limited to that project's own levels.
+
+---
+
 ## Evidence Map
 
-- Case ID: TC-HLP-037 – TC-HLP-066, plus TC-HLP-058–280 (Organization list filter, Customer list Apply/Clear combined-filter, added 2026-08-24), TC-HLP-049 (SLA dropdown project-scoping in Customer form), TC-HLP-050 (Organization dropdown NOT project-scoped, by design), TC-HLP-042–294 (Edit Customer "Send account information" checkbox gates the update-notification email), TC-HLP-361–297 (SLA/Support Level delete-while-linked-to-customer, in `HELPDESK_SLA_ESCALATION.md`), TC-HLP-065 (an organization's project-scoped Organization-tab visibility is derived from customer project-access selection, not creation origin), TC-HLP-047 (Customer create with identity+password+project-access all in one Save, added 2026-09-01), TC-HLP-038 (Organization create with only required Name, added 2026-09-01), TC-HLP-044/334 (Customer edit-required-only and edit-all-fields, added 2026-09-01 after a background audit workflow), TC-HLP-039/337 (Organization edit-required-only and edit-all-fields, same pass — Organization previously had ZERO Edit-form coverage of any kind); see `HELPDESK_FIELD_VALIDATIONS.md` TC-HLP-113/TC-HLP-312 for these two entities' edit-time validation-error counterparts
+- Case ID: TC-HLP-037 – TC-HLP-066, plus TC-HLP-058–280 (Organization list filter, Customer list Apply/Clear combined-filter, added 2026-08-24), TC-HLP-049 (SLA dropdown project-scoping in Customer form), TC-HLP-050 (Organization dropdown NOT project-scoped, by design), TC-HLP-042–294 (Edit Customer "Send account information" checkbox gates the update-notification email), TC-HLP-361–297 (SLA/Support Level delete-while-linked-to-customer, in `HELPDESK_SLA_ESCALATION.md`), TC-HLP-065 (an organization's project-scoped Organization-tab visibility is derived from customer project-access selection, not creation origin), TC-HLP-047 (Customer create with identity+password+project-access all in one Save, added 2026-09-01), TC-HLP-038 (Organization create with only required Name, added 2026-09-01), TC-HLP-044/334 (Customer edit-required-only and edit-all-fields, added 2026-09-01 after a background audit workflow), TC-HLP-039/337 (Organization edit-required-only and edit-all-fields, same pass — Organization previously had ZERO Edit-form coverage of any kind); see `HELPDESK_FIELD_VALIDATIONS.md` TC-HLP-113/TC-HLP-312 for these two entities' edit-time validation-error counterparts, TC-HLP-428 – TC-HLP-430 (HD-6 customer project-access Support Package selector/override/propagation, production issue #121289, added 2026-09-28), TC-HLP-432 (one mandatory organization per customer, from a user UX review, added 2026-09-28)
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`

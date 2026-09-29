@@ -71,6 +71,18 @@ Developer's separate handoff note (`BUG-CRX-030_KB_CONTENT_FIX.md`, in the `Crux
 
 Per user decision 2026-09-25: **accepted the developer's framing.** This is being treated as a documentation-accuracy issue, not a code defect — no code fix is expected, and this bug is not being pushed further as a behavioral bug. Left in `bugs/open/` as a documentation-correction item rather than moved to `bugs/closed/` (no code change occurred to "close" against), pending the KB content actually being corrected.
 
+## 2026-09-28 retest — mechanism reconfirmed, dev's "not a code defect" conclusion still holds
+
+Reused testcase #6 (already scoped to suite #2 "BUG-029 Retest Suite" from an earlier fixture). Asked: "QA Agent, remove testcase 6 from suite 2 so it's no longer scoped to any suite." → real `Testcases Management Remove Testcases From Suite` proposal (Suite 2, Testcase Ids [6]), real Confirm/Cancel buttons. Confirmed it.
+
+**Result:** `"✓ 1 testcase(s) removed from suite #2 'BUG-029 Retest Suite'."` — verified against the real backend: `/test_suites?project_id=crux-qa&testsuite_id=2` now shows "No data" — testcase #6 genuinely has no suite, identical mechanism to the original 2026-09-17 finding.
+
+This reconfirms the behavior is real and repeatable, consistent with the dev's 2026-09-17 root-cause conclusion (three independent layers — Ruby API, data model, native UI — all agree a testcase can have zero suites by design; the "immutable scope" claim exists only in a KB article, not in code). No new evidence contradicting that conclusion.
+
+**Verdict: no change.** Still accepted as a documentation-accuracy issue per the 2026-09-25 user decision, not a code defect.
+
+**Closed 2026-09-28** — production issue #120784 updated to **Won't Fix**/100% (not "Done" — no code was changed; the KB article content fix the dev provided still needs to be applied separately to the live KB page).
+
 ## Production report
 
 Reported to production as issue **#120784** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-17. Textile description, no attachments (per §4.3a policy). **Not yet linked to Run #569** — same tooling-side blocker documented in BUG-CRX-029 (Run #569's suite/testcase-plan association was incidentally cleared during earlier fixture-setup troubleshooting; all historical results remain intact, but new `create_status_result` calls against this run are blocked until fixed).

@@ -117,6 +117,5 @@
 Filed and retested PASS in the same session — the fix (commit `f51af5b`) was already live on this instance
 before this bug file was written, confirmed via source inspection and live retest. Filed directly to
 `bugs/closed/` rather than `bugs/open/` → `bugs/closed/`, since no window existed where this was open-and-unfixed
-locally. **Production issue #121326 was NOT touched this session** (still "In QA" on production, 90% done,
-with the dev's own verification table already attached) — no status/percent-done sync was made, pending
-explicit direction on whether to do so.
+locally. **Production issue #121326 synced 2026-09-28** — status In QA → Done, % done → 100 (verified via
+`get_issue`), per explicit user instruction, with a closing note summarizing the local retest evidence.

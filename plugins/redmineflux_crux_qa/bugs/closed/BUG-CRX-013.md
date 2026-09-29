@@ -143,6 +143,16 @@ While executing `CRUX_AGENT_KNOWLEDGE_BASE.md`, the self-contradictory response 
 - Duplicate found: No
 - Existing bug reference (if duplicate): — (related to, but distinct from, the domain-routing issue tracked as BUG-CRX-014 — that bug is about reaching the WRONG agent; this bug is about the CORRECT agent, the Sales Agent, failing to produce a real proposal for this specific intent)
 
+## 2026-09-28 retest — still does NOT reproduce (3rd consecutive clean result)
+
+Fresh session, `admin`: "CRM, create a deal called BUG-CRX-013 Retest 0928 worth $5000 at stage Qualified." → real `Crm Create Deal` proposal, confirmed, real success (Deal ID 5). Same session: "CRM, move the BUG-CRX-013 Retest 0928 deal to the Proposal stage." → real `Crm Update Deal Stage` proposal rendered immediately — **no self-contradiction, no "nothing to confirm yet" fabrication.**
+
+This is a 3rd consecutive clean result (after the dev's own 2/2 on 2026-09-28), on top of the original code-level fix (`c4d4a80`, bounded retry) being confirmed unregressed by today's other changes. Confirming produced an unrelated, minor validation quirk ("Stage cannot be blank" despite the proposal explicitly showing Stage: Proposal) — not investigated further, out of scope for this bug (which is specifically about the self-contradiction/no-proposal defect), noting only for awareness.
+
+**Verdict: original defect does not reproduce.** Consistent with the dev's own probabilistic-fix caveat (a small sample can't prove 0% forever), but 3/3 clean across two independent sessions today is strong evidence. Recommend closing.
+
+**Closed 2026-09-28** — production issue #120664 updated to Done/100%.
+
 ## Production report
 
 Reported to production as issue **#120664** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Textile description, no attachments (per updated §4.3a policy). Linked to Run #569, testcase #120490 (`CRUX_AGENT_CRM_SALES.md`, found via TC-CRX-012) — testcase marked Failed.

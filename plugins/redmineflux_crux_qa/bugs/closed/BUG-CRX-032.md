@@ -57,6 +57,32 @@ Manager or a CRM-enabled agent.
 - Duplicate found: No
 - Existing bug reference (if duplicate): — Same defect *pattern* as BUG-CRX-029 (QA Agent, fabricated "no write tools available in this deployment" claim, fixed 2026-09-25) but a fresh, independent reproduction on a different domain agent (Sales/CRM) after that fix shipped, and via a different trigger (validation-error correction rather than a zero-button "Still PENDING" proposal state). Also distinct from BUG-CRX-027 (that bug's original "Still PENDING, zero button" defect is fixed — this new claim appeared in its place at the exact same trigger point during the 2026-09-25 retest).
 
+## 2026-09-28 retest — STILL REPRODUCES (contradicts dev's claimed fix)
+
+Dev's 2026-09-28 journal claims a fix (`redmineflux-crux-core master @ 17bea5c`): the fast-path's stored turn now carries `agent_id` forward, plus a `still_pending` field, so `_still_awaiting_delegated_action` correctly recognizes a follow-up after a failed-but-retryable confirm.
+
+**Retest, exact original repro, fresh session:** "Sales Agent, create a lead named 'Retest 0928b Lead' with status New, source Website." → real `Crm Create Lead` proposal, confirmed → real validation error ("Email cannot be blank; Email is invalid"), buttons still present — proves a real tool call executed. Corrected via plain follow-up: "Use email retest-0928b-lead@example.test"
+
+**Result:** *"I don't have tools available in this plain chat to create leads or interact with a CRM. I can't make this change myself. To create a lead, you'll need to reach an agent with CRM write access. You can: Ask me again starting your message with @crux..."* — the exact same false capability-denial this bug reports, directly contradicting the same session's own successful `Crm Create Lead` tool call one turn earlier.
+
+**Verdict: STILL REPRODUCES.** The dev's fix does not resolve this. Reopening with this fresh, fully-verified reproduction.
+
+## 2026-09-28 post-restart retest — FIXED, reverses same-day "still reproduces" finding (stale code confirmed as root cause)
+
+Same stale-container situation as BUG-CRX-008 (containers running since 05:04:51 UTC, before the dev's 05:39–06:44 UTC fix commits). Restarted `crux-core`/`crux-redmine` properly (see BUG-CRX-008's matching section for the full restart procedure) and re-ran the exact original repro from a fresh chat session.
+
+**Retest steps (identical to the original repro):**
+1. New session. "Sales Agent, create a lead named 'Restart Retest 0928 Lead' with status New, source Website." → real `Crm Create Lead` proposal, confirmed → real validation error (`Validation error: Email cannot be blank; Email is invalid`), buttons still present — proves a real tool call executed, same as the original repro.
+2. Follow-up: "Use email restart-retest-0928@example.test"
+
+**Result:** No false denial this time. The follow-up correctly built a **new real `Crm Create Lead` proposal**, now including the corrected `Email` field alongside the original `First Name`/`Status`/`Source` values, with genuine Confirm/Cancel buttons — not the "I don't have CRM tools available" text. Confirmed it: `"✓ Lead 'Restart Retest 0928 Lead' created (ID: 3)."` Verified independently: CRM dashboard's Leads count is now 2 (was 1 before this session), consistent with a real Lead #3 having been created — not a fabricated success claim.
+
+**Verdict: FIXED.** This reverses the "STILL REPRODUCES" verdict recorded earlier the same day — that finding was a stale-code artifact. **Recommend correcting the production issue** (#121330, currently Medium/open from the stale-code finding) with a note explaining the correction, pending user approval before any further production write.
+
+## Closed 2026-09-28 — production issue #121330 updated to Done/100%
+
+Production corrected with a note explaining the stale-container correction (see notes on the issue). Closed locally per the confirmed post-restart FIXED verdict.
+
 ## Production report
 
 Reported to production as issue **#121330** (`ztflux`, Tracker Bug, Priority Medium, Defect Severity Medium-severity, Defect priority Medium, assigned to Prashant Chaurasia — user id 410), 2026-09-25. Textile description, no attachments. Linked to Run #569 "Crux QA Run 1", testcase #120490 (`CRUX_AGENT_CRM_SALES.md`), Environment "Window 11 + Chrome" — testcase marked Failed.

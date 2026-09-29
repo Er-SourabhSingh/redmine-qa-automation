@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-HLP-037
 - Production Redmine Issue ID: 120076
-- Title: [RECONFIRMED 2026-09-22, re-scoped — see Retest below] Hard mode ("stop work") does not reliably block new-ticket creation at zero remaining hours (majority of independent attempts fail to block) — the time-log path, by contrast, is reliably and correctly enforced
+- Title: [FIXED 2026-09-28 — see Retest below] Hard mode ("stop work") does not reliably block new-ticket creation at zero remaining hours (majority of independent attempts fail to block) — the time-log path, by contrast, is reliably and correctly enforced
 - Redmine version: 6 (local Docker, `redmine-docker-6`)
 - Plugin name: Redmineflux Helpdesk
 - Plugin version: (installed copy in `redmine-docker-6-redmine-1`, current as of 2026-09-03)
@@ -85,3 +85,24 @@ While executing the newly-added TC-HLP-219/381 (Hard-mode regression tests, adde
 - This materially changes the bug's own prior "unconfirmed, does not currently reproduce" conclusion — the new-ticket-creation half of the original finding is real and reproducible more often than not, while the time-log half was likely a one-off (possibly explained by whatever made the *original* full-bug observation happen, since both paths failed together only that one time). **Recommend re-scoping this bug going forward to cover the new-ticket-creation path only** (retitle away from "Unconfirmed"), and treating the time-log enforcement as confirmed working, not part of this bug's remaining scope.
 - Cleanup: ticket #407 left in place as evidence (same convention as the original finding's ticket #48, also left in place, closed); the org's budget restored to its exact pre-test baseline (21.67h Approved / 6.75h Remaining) via a real UI top-up, logged with a comment explaining the restoration.
 - Production issue #120076 synced 2026-09-22: Status In QA → **Reopen**, with a note detailing the reconfirmed new-ticket-creation failure, the correctly-blocked time-log path, and the recommendation to re-scope this bug going forward.
+
+## Retest — 2026-09-28 (Local, `redmine-docker-6`) — CONFIRMED FIXED, both paths
+
+**Source check first.** `lib/redmineflux_helpdesk/patches/issue_patch.rb` now has a real, unconditional model validation:
+
+```ruby
+validate :rf_helpdesk_prepaid_hours_available, on: :create
+```
+
+covering *every* write path (the plugin's own ticket form, core Redmine's `/issues/new`, the REST API, and MailHandler), since it's a model-level `on: :create` validation, not a controller-specific check. The actual blocking logic, `Helpdesk::PrepaidEnforcement.block_reason`, gained a fix with its own comment explicitly naming this bug: the balance is now rounded to 6 decimal places before the zero/negative check, specifically to eliminate the floating-point noise this bug's own history documented ("blocked 3 times, then let one through").
+
+**First live attempt appeared to still reproduce the bug — but this was a test-methodology error on my own part, not a defect.** I reduced Alpha's budget by exactly `-6.75h`, matching the previously-displayed rounded "Used: 14.92h", and as `delta.customer` a new ticket (**#411**) was created successfully despite the panel showing "0.00h Remaining" / 100% Used. Investigating directly (not trusting the rounded UI, per the standing lesson from `TC-HLP-413`): the *true* underlying `spent` value was `14.916666679084301`, not exactly `14.92` — leaving a genuine (not epsilon-scale) `+0.0033h` positive remaining balance. This is correctly *not* blocked per the fix's own logic (`left > 0`) — it is not the floating-point-noise pattern the fix targets, just a real small positive balance from my own imprecise reduction. Ticket #411 is left in place, but is **not** evidence of a defect — see the corrected retest below.
+
+**Corrected retest — genuinely FIXED.** Reduced the budget by a further `-1.00h` (Approved → 13.92h against the same true `spent` of ~14.9167h), giving a confirmed, unambiguous **true remaining balance of −0.9967h** (verified directly via `Helpdesk::PrepaidSupportHour.status_for_organization` before testing, not via the rounded display).
+- **New-ticket-creation, as `delta.customer`**: attempting to create ticket "BUG-HLP-037 retest 2026-09-28 attempt 2 - Hard mode with true negative balance" was **correctly refused**, staying on the New-issue form with: *"Alpha Minimal Fields Test Org has no prepaid support hours left on this project, so a new ticket cannot be raised. Please contact your account manager to top up."* No ticket was created.
+- **Time-log, as `luna.blossom` on ticket #46 (sanity re-check)**: a 5-minute Technical Support time entry was **correctly refused**: *"Time entries is invalid — Prepaid support hours for Alpha Minimal Fields Test Org are used up (-1.00h). Top up the budget to log more time."* — confirms the already-reliable time-log path is unaffected by this fix.
+
+Screenshot: `screenshots/BUG-HLP-037/retest-2026-09-28-pass-both-paths-blocked.png`. Cleanup: ticket #411 (the false-negative artifact) and ticket from the corrected attempt left in place as evidence, consistent with this bug's own established convention; org budget restored to its exact baseline (21.67h Approved) via a real UI top-up with a comment explaining both the correction and the restoration.
+
+**Verdict: FIXED. Both the new-ticket-creation path (the bug's actual re-scoped subject) and the time-log path are correctly enforced under Hard mode with a genuinely exhausted/negative balance.** The one caveat for future retests of prepaid-hours enforcement: always verify the *true* balance via the model/DB before concluding a block did or didn't fire — the UI's 2-decimal rounding can present a state that looks like "exactly zero" while the real value is a small, real, non-epsilon positive number that legitimately should not block.
+- Production issue #120076 synced 2026-09-28 (per explicit user approval): Status → **Done**, % Done → **100**.

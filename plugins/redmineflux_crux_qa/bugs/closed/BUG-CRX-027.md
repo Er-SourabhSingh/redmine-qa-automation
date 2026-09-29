@@ -83,6 +83,18 @@ Same exact repro: `luna.blossom`, "Sales Agent, create a lead named 'Retest Vali
 
 **Verdict: Original BUG-CRX-027 defect (fabricated pending proposal, zero buttons) is FIXED.** The validation-error-correction path itself is no longer producing a fake "still pending" card. But the same trigger now exposes a new fabrication (false "no CRM tools" claim) — worth its own bug report if the user wants it filed; not the same defect as originally described here, so closing this bug on the original repro is reasonable, with the new finding tracked separately.
 
+## 2026-09-28 retest — still FIXED, no regression
+
+Re-ran the exact original repro fresh (new session, `luna.blossom` role not required this time — reproduced as `admin`): "Sales Agent, create a lead named 'Retest 0928 Lead' with status New, source Website." → real Confirm/Cancel proposal → Confirm → real validation error ("Email cannot be blank; Email is invalid") with buttons still present, matching the original bug's step 2 exactly.
+
+Corrected via follow-up: "Use email retest-0928-lead@example.test" — the original fabricated "Still PENDING" zero-button proposal does **not** reproduce (confirms the 2026-09-25 fix still holds, 3 days later, no regression).
+
+In its place, the same BUG-CRX-032 pattern reproduced again: *"The CRM group has read tools only — no write tools available here. I cannot create a lead in this chat."* — a fresh instance of the already-filed, not-yet-fixed BUG-CRX-032 (production #121330). No new bug filed — this is the same defect, not a new one.
+
+**Verdict: original BUG-CRX-027 defect remains FIXED, no regression.** The residual issue at this trigger point is tracked separately as BUG-CRX-032.
+
+**Closed 2026-09-28** — production issue #120763 updated to Done/100%.
+
 ## Production report
 
 Reported to production as issue **#120763** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-17. Textile description, no attachments (per §4.3a policy). Linked to Run #569 "Crux QA Run 1", testcase **#120490** (`CRUX_AGENT_CRM_SALES.md`), Environment "Window 11 + Chrome" — testcase marked Failed.

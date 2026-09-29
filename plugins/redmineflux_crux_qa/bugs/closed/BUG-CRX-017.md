@@ -122,6 +122,22 @@ Per explicit user instruction to restart and retest again, a second independent 
 
 **Verdict: still blocked, third consecutive confirmation today.** This bug's own original repro (false "not currently a member" claim) remains unreachable — not from stale code, but because BUG-CRX-034's `member_remove` discovery gap genuinely persists across three independent fresh-session attempts, two of them following separate restarts.
 
+## 2026-09-29 retest — still blocked, dev's real fix (5ea35e3) pulled and confirmed loaded but BUG-CRX-034's gap persists
+
+Dev's 2026-09-28 journal on #121332 explicitly asked to retest this bug's own original scenario ("add by username, remove by the same username") now that the path should be clear, per a second-layer fix (commit `5ea35e3`) shipped for the `member_remove` discovery gap. See BUG-CRX-034's matching 2026-09-29 section for the full process finding: the local `redmineflux-crux-core` git checkout was still on the pre-fix commit `dd29656` going into this session (every prior restart-only retest was running stale source, not just a stale process) — `git pull origin master` brought it to `5ea35e3`, confirmed genuinely loaded in the running container via a direct `grep` inside it.
+
+Re-ran BUG-CRX-034's blocking flow fresh against this confirmed-loaded fix: still no working `Workload Member Remove` proposal — first attempt hit a tool-call-limit abort, retry produced a fresh confident false capability denial. Since this bug's own original repro (add luna.blossom/daisy.skye by username, then remove by the same usernames) requires `member_remove` to actually work at all before the username-matching behavior this bug reports can even be observed, it remains unreachable.
+
+**Verdict: still blocked.** Not attempted again as its own independent repro this session, since BUG-CRX-034's blocking gap is confirmed to persist with the real fix loaded — no point re-running this bug's specific scenario until that's cleared.
+
+## 2026-09-29 (continued) — original repro fully re-run, CONFIRMED FIXED now that BUG-CRX-034's blocking gap is resolved
+
+BUG-CRX-034 was root-caused to a missing deployment config (`CRUX_DISCOVERY_WRITE_GROUPS` unset on this QA stack — see BUG-CRX-034's matching section), now fixed permanently (dev-confirmed, `docker-compose.yml`/`.env` updated, `crux-core` recreated). With `member_remove` now genuinely reachable, re-ran this bug's own original scenario directly (not just the blocking flow) — same "Retest Squad" fixture, luna.blossom present as Member #5/"Crux Manager" from the original 2026-09-16 fixture, never removed since.
+
+"Capacity Agent, remove luna.blossom from the Retest Squad team." → **correctly resolved by username on the first attempt**: *"Found Member #5 (User #5 Crux Manager, luna.blossom) in the Retest Squad team. Confirm removal: I'm about to remove Crux Manager (Member #5, luna.blossom) from the Retest Squad team. Is this correct?"* — no false "not currently a member" claim, exactly the behavior this bug's Expected Result section calls for. (Confirming the write itself then hit BUG-CRX-013's unrelated self-contradiction pattern 2 more times before a working proposal rendered — tracked separately, not this bug's defect.) Once a real `Workload Member Remove` proposal appeared and was confirmed, **independently verified via the native `/rf_teams/2` page**: "Retest Squad" now genuinely shows 2 members (Admin, Crux Developer) — luna.blossom genuinely removed from the real backend.
+
+**Verdict: CONFIRMED FIXED.** The username-matching defect this bug reports (agent unable to recognize "luna.blossom" as the member it had just added/would remove) does not reproduce — the dev's 2026-09-25 fix (showing login alongside display name in `members_list`/`search_members`) is confirmed working end-to-end, not just at the listing level. **Closing this bug.**
+
 ## Production report
 
 Reported to production as issue **#120704** (`ztflux`, Tracker Bug, Priority Medium, assigned to Prashant Chaurasia — user id 410), 2026-09-16. Textile description, no attachments (per updated §4.3a policy). Linked to Run #569, testcase #120491 (`CRUX_AGENT_WORKLOAD_CAPACITY.md`, found via TC-CRX-092) — testcase marked Failed.

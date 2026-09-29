@@ -153,6 +153,22 @@ This is a 3rd consecutive clean result (after the dev's own 2/2 on 2026-09-28), 
 
 **Closed 2026-09-28** — production issue #120664 updated to Done/100%.
 
+## 2026-09-29 — regressed/recurring during unrelated QA Agent fixture-building work, reopening
+
+While building a fresh test-suite/testcase fixture for a separate, unrelated retest pass (TC-CRX-055/057/060/061, QA Testcases suite), hit this bug's exact self-contradiction pattern **3 separate times** across roughly 10 consecutive write attempts in the same chat session, `admin`, session ses-010:
+
+1. "Create a test case titled 'CRX-Gap Fixture Case B'... then add it to test suite 'CRX-Gap-Fixture Suite'." → *"I described a change without actually proposing it, so there's nothing to confirm yet..."* — no real proposal, no button.
+2. Immediate retry, identical phrasing → this time produced a real proposal shape but only as **plain text** ("Proposal: 1. Create testcase... 2. Add testcase... Confirm to proceed?"), no actual Confirm/Cancel button element in the DOM. Replying "Confirm" → *"There's nothing pending to confirm right now — the previous message didn't actually propose a change."* Only a 3rd rephrasing ("QA Agent, please create test case ... now, ...") finally produced a real button-backed proposal.
+3. Separately, "Add test case 'CRX-Gap Fixture Case B' to test suite 'CRX-Gap-Fixture Suite'." → same plain-text-only "Proposal: ... Confirm to proceed?" pattern, no real button. A rephrase to a shorter, more direct form ("QA Agent, please add testcase #19 to suite #3 now.") finally produced a real button-backed proposal.
+
+In every case, the *exact same underlying action* (create testcase, add to suite) had already succeeded cleanly with a real button on a prior or adjacent call in the same session (testcase A's creation and suite-add both worked first try) — so this isn't a capability gap, it's the same intermittent self-contradiction this bug originally reported.
+
+This is consistent with the dev's own stated caveat at closure ("a small sample can't prove 0% forever" — the original fix was a bounded-retry mitigation, not a deterministic guarantee) and with yesterday's 3/3 clean sample simply having been lucky. 3 recurrences in ~10 attempts today is a meaningfully worse hit rate than 0/3 yesterday, though still not universal (multiple retries with varied phrasing did eventually get through each time).
+
+**Update — now 5 occurrences across ~12 write attempts in the same session** (continuing to build the same fixture): the run-creation step alone hit the identical self-contradiction twice in a row after successfully collecting all required run details (state/dates/assignee) — first as a text-only "Proposal: ... Confirm to proceed?" with no real button, then again on a direct "please create the run now with those exact values" retry, both times "I described a change without actually proposing it." This is now roughly a 40-50% failure rate on write actions in this session, well beyond an occasional flake.
+
+**Verdict: reopening.** Not a regression in the sense of new code breaking it — more likely the probabilistic retry's failure rate is still non-trivial and today's session simply drew a worse sample. Recommend the dev revisit whether the retry bound/strategy can be made more reliable, or at minimum re-confirm the current failure rate with a larger sample than the 3-5 checks either side has run so far. Given today's ~40-50% hit rate, this is now a severe reliability problem, not a rare edge case.
+
 ## Production report
 
 Reported to production as issue **#120664** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Textile description, no attachments (per updated §4.3a policy). Linked to Run #569, testcase #120490 (`CRUX_AGENT_CRM_SALES.md`, found via TC-CRX-012) — testcase marked Failed.

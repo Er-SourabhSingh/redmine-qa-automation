@@ -96,6 +96,8 @@
 **Expected Result:**
 - Per the requirements, consumer plugins at `master` presumably predate the hard-dependency check entirely (that check only exists on the `redmineflux_platform` branch of each consumer plugin) — so this step should NOT break anything; the platform plugin loads alongside the still-independent master-branch consumer plugins with no interaction yet. If this assumption is wrong (i.e. the platform plugin's mere presence changes master-branch consumer plugin behavior), that is itself a notable finding — document actual behavior here.
 
+- **EXECUTED DIFFERENTLY LIVE 2026-09-29** — the platform plugin was cloned and all 6 consumer plugins were switched to `redmineflux_platform` together in one pass (not staged platform-first per this TC's original steps), so this TC and TC-PLT-021 were effectively executed as one combined step. See TC-PLT-021 below for the full result — **FAILED**.
+
 ---
 
 ### TC-PLT-021: Switch all 6 consumer plugins to `redmineflux_platform` branch (the actual upgrade)
@@ -115,6 +117,22 @@
 - Migrations complete without error — including the 8 old duplicate-table drops.
 - No data-loss warnings in migration output (or if there are any, they are legitimate — cross-check against `PLATFORM_DATA_MIGRATION_INTEGRITY.md` immediately).
 - This is the single most important TC in this suite — a clean pass here is the precondition for every TC in `PLATFORM_DATA_MIGRATION_INTEGRITY.md` and `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md`.
+
+- **CONFIRMED LIVE 2026-09-29** (Local, `redmine-docker-6-platform` localhost:3013, admin): **FAILED — two blocking bugs found, both filed.**
+  - Precondition confirmed: all 7 plugin folders (`redmineflux_platform` + 6 consumer plugins) verified on `redmineflux_platform` branch via `git rev-parse --abbrev-ref HEAD`, clean working trees, before touching anything.
+  - Step 2 (restart to bundle install): completed cleanly — "Bundle complete! 73 Gemfile dependencies, 126 gems now installed", no missing-gem errors.
+  - Step 3 (`rake redmine:plugins:migrate RAILS_ENV=production`): **aborted** at the platform plugin's own migration `004_create_rf_organizations.rb` — `Mysql2::Error: Key column 'is_private' doesn't exist in table`, "all later migrations canceled" per Rails' own message. Reran the identical command a second time — failed at the identical line, 100% reproducible. Filed as **`BUG-PLT-003`** (High) — full root cause (migration-ordering bug: `add_index :is_private`/`:email` runs before the upgrade-only column top-up in migration 010 adds them) in the bug file.
+  - Step 5 (container logs for boot errors): after the container was restarted (as part of retrying the migration), Puma **never finished booting at all** — every request to `localhost:3013` connection-refused. Logs show a repeating crash: `NameError: uninitialized constant RedminefluxPlatform::WillPaginate` in `pagination_renderer.rb`, triggered by Zeitwerk eager-loading in `RAILS_ENV=production` bypassing `init.rb`'s own `if defined?(WillPaginate::ActionView::LinkRenderer)` guard. Filed as **`BUG-PLT-004`** (Critical) — this is a second, independent defect from BUG-PLT-003, not a consequence of the half-migrated DB; it reproduces on plain boot regardless of migration state.
+  - **Net result: the upgrade path is completely blocked by two separate, unrelated defects before any schema-integrity or data-survival check could even be attempted.** `PLATFORM_DATA_MIGRATION_INTEGRITY.md` and `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md` cannot proceed until both are fixed — this TC's own note that "a clean pass here is the precondition" for those suites is now the actual blocker.
+  - No data loss from BUG-PLT-003's partial migration: `rf_organizations` still holds its 1 pre-existing row untouched. The environment is currently left in this half-migrated, non-booting state pending a decision on how to proceed (dev fix, or a QA-side workaround to unblock further testing).
+
+- **RETESTED 2026-09-29 (after 4 dev fix rounds) — PASS.** Both `BUG-PLT-003` and `BUG-PLT-004` went through further fix/retest rounds (see `bugs/closed/BUG-PLT-003.md` and `bugs/closed/BUG-PLT-004.md` for the full history — 3 rounds and 2 rounds respectively before each genuinely resolved), and a third bug (`BUG-PLT-005`, migration 019 crashing on MySQL's `execute(...).cmd_tuples`) was found immediately downstream once 003/004 cleared, also now fixed and closed (`bugs/closed/BUG-PLT-005.md`). With all three fixed (commit `5db0312`, `redmineflux_platform` branch), reran steps 2–5 in full on this same environment (no DB reset at any point across the whole investigation):
+  - Step 2 (restart): completed cleanly.
+  - Step 3 (`rake redmine:plugins:migrate RAILS_ENV=production`): **exit code 0**, migration chain completed through migration 38 (the last one) with zero errors.
+  - Step 4 (duplicate-table-drop guard, migration 34): ran cleanly — `rf_holidays_management`, `rf_holiday_schemas`, `rf_audit_logs` all dropped, each explicitly confirmed "all present" in its replacement table first (no data-loss warning, and this one was legitimate — a real, guarded drop).
+  - Step 5 (boot errors): none. Confirmed live via an authenticated Playwright session — `GET /redmineflux_platform` (previously 500ing due to `BUG-PLT-005`'s downstream effect) now loads correctly.
+  - Schema spot-checks: `rf_organizations.active`/`is_private` both `NOT NULL` with correct defaults; `rf_leave_types.code` present.
+  - **This TC now PASSes.** It took 3 bugs and roughly 5-6 fix/retest cycles total across the session, but the primary scenario this entire QA cycle exists to verify now genuinely works end to end on a MySQL-backed environment with real pre-upgrade data. Data-loss/integrity claims themselves are NOT yet verified in detail — that's `PLATFORM_DATA_MIGRATION_INTEGRITY.md`'s job, next.
 
 ---
 

@@ -31,6 +31,19 @@
 - Per the requirements ("existing ids preserved, no FK rewrite needed"), both plugins should resolve to one shared row. Document precisely which original ID (CRM's or Helpdesk's) became the surviving `rf_organizations` ID, and whether any field value was silently lost in the merge (the ticket does not specify a field-level merge strategy — this may be a real finding, not just a checkbox).
 - **If any field entered in either original record is missing/wrong post-merge, file a bug** — this is exactly the kind of lossy-merge defect this TC exists to catch.
 
+- **CONFIRMED LIVE 2026-09-29** (Local, `redmine-docker-6-platform` localhost:3013, admin): **FAIL — no merge happened at all; two separate duplicate rows exist.**
+  - `/companies/1` (CRM's own "Companies"/Organizations view) resolves to `rf_organizations` id **1** — but this row holds **Helpdesk's** field values (Phone `+44 20 7946 0958`, Website `acme-helpdesk.example.net`, Employee Count `500`, Address `42 Helpdesk Fixture Lane, London, UK`, Notes = Helpdesk's fixture note), with CRM's own Email/Industry/Assigned To all blank (`—`).
+  - `/companies/2` resolves to a **second, separate** `rf_organizations` row holding CRM's original values (Email `acme-crm@example.com`, Phone `+1 415 555 2671`, Website `acme-crm-fixture.example.com`, Industry `Technology`, Employee Count `250`, Assigned To `Redmine Admin`, Address `100 CRM Fixture Ave, San Francisco, CA`, CRM's own Notes).
+  - Confirmed via direct DB query — `SELECT id, name, phone_number, website, number_of_employees, email, industry, source_crm_company_id FROM rf_organizations WHERE name LIKE '%Acme%'` returns **two rows**, both named exactly `PLT-BASELINE-Acme Corp`:
+    ```
+    id  name                       phone_number         website                              employees  email                  industry    source_crm_company_id
+    1   PLT-BASELINE-Acme Corp     +44 20 7946 0958     https://acme-helpdesk.example.net    500        NULL                   NULL        NULL
+    2   PLT-BASELINE-Acme Corp     +1 415 555 2671      https://acme-crm-fixture.example.com  250       acme-crm@example.com  Technology  1
+    ```
+  - Root cause (from migration `011_data_merge_crm_companies.rb`, read directly): the migration's dedup logic is `attrs[:id] = company.id unless Organization.exists?(company.id)` — it only avoids **ID collisions**. It never checks whether an Organization with the **same name** already exists. Since Helpdesk's pre-existing Organization already occupied id `1` (the same id CRM's Company happened to have, `1`), the migration inserted CRM's company as a brand-new row at id `2` instead of merging it into Helpdesk's id-`1` row — even though both rows are indisputably the same real-world entity (`PLT-BASELINE-Acme Corp`, deliberately created with that exact matching name specifically to test this merge). The migration log itself said as much at the time: `-- company #1 -> organization #2`.
+  - One thing that DID work correctly: `remap_references` updated `rf_crm_contacts.company_id` for `PLT-BASELINE-Jane Doe` from `1` to `2`, so CRM's own contact-to-company link survived correctly pointing at CRM's row. But this only papers over the FK-remapping half of the problem — the actual entities were never merged.
+  - **This is the exact pre-consolidation problem the ticket describes ("CRM's Company and Helpdesk's Organization were the same record under two names") still existing after the "consolidation" — just now as two rows in one table instead of two rows in two tables.** This is a High-severity finding, not a minor field-loss nuance — the whole point of this merge did not happen for this fixture. Filed as **`BUG-PLT-006`** — see `bugs/open/BUG-PLT-006.md`.
+
 ---
 
 ### TC-PLT-041: Contact/Customer merge — record survives, correct ID preserved

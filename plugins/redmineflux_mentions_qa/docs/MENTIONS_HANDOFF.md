@@ -2,21 +2,20 @@
 
 ## Last Session
 
-- Date: 2026-09-15
-- Redmine Version: n/a (authoring session only — no execution)
-- Environment: n/a
+- Date: 2026-09-29
+- Redmine Version: (not recorded — check Administration → Information on next full session)
+- Environment: Forge (`flux-fxly6nkbd49.forge.zehntech.com`)
 
 ## Completed This Session
 
-- Folder structure scaffolded per CLAUDE.md §3.
-- Vendor knowledge base ingested from https://www.redmineflux.com/knowledge-base/plugins/mentions-plugin/
-- `MENTIONS_REQUIREMENTS.md`, `MENTIONS_FEATURES_LIST.md` and `MENTIONS_USER_GUIDE.md` populated from the KB, clearing the
-  §11 pre-test blocker.
-- Functional, negative and permission test suites authored in `testcases/`.
+- Ad hoc verification (not the authored suite) of a developer-reported performance fix: N+1 `email_addresses`
+  query in `app/views/wiki/_form.html.erb`, reported by customer Simon Goličnik. Confirmed functionally correct
+  on a fresh Forge instance — see `MENTIONS_MEMORY.md` "Confirmed Working" for full detail. No defect found.
 
 ## In Progress
 
-- Nothing executed yet.
+- The authored suite (`testcases/MENTIONS_*.md`, TC-MEN-019 onward) is still fully unexecuted — this session only
+  touched the wiki-mention path narrowly, for the specific fix reported.
 
 ## Blockers
 
@@ -26,7 +25,7 @@
 ## Next Session Start Point
 
 - Start with the installation/configuration suite, then the permissions suite (it provisions the roles the other
-  suites assume), then the functional suites in file order.
+  suites assume), then the functional suites in file order — the full authored suite is still unexecuted.
 
 ## Open Bugs Found
 
@@ -39,3 +38,4 @@
 | Date | Redmine Version | Environment | Tested By | Summary |
 |------|-----------------|-------------|-----------|---------|
 | 2026-09-15 | — | — | Claude | Authoring only — test cases written from the vendor KB, nothing executed. |
+| 2026-09-29 | — | Forge (flux-fxly6nkbd49) | Claude | Ad hoc: verified dev-reported wiki mentions N+1 query fix (`_form.html.erb`) functionally — autocomplete, save, and rendering all correct on a 21-user project. Environment too small to confirm the query-count reduction itself. No defect found; authored suite still unexecuted. |

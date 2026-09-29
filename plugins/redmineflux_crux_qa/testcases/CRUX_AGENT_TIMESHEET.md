@@ -267,6 +267,102 @@ Evidence (already-observed-2026-09-16, partial/inconclusive — quoted from `doc
 
 ---
 
+### TC-CRX-171: Permission tier — "View timesheets" only (no `Manage timesheet`) can view but not approve/act on others
+
+**User Role:** A user whose team role grants `view_timesheets` but not `manage_timesheet` (e.g. Reporter role, if configured that way — or any role with `view_timesheets` alone).
+**Precondition:** A submitted timesheet exists for a different team member.
+
+**Steps:**
+1. "Time Agent, show me the approval dashboard for pending timesheets." (or "whose timesheets are pending approval?")
+2. "Time Agent, approve [other user]'s timesheet for [period]."
+
+**Expected Result:**
+- Step 1: the agent can see/report real data (View permission holds) — no fabricated empty result and no false permission denial.
+- Step 2: the agent must honestly refuse — this user has `view_timesheets` but not `manage_timesheet`, so acting on someone else's timesheet is out of scope. No fabricated success, and the refusal message should not be prefixed with a misleading "✓" (see BUG-CRX-018/040's pattern — verify this specific case doesn't reproduce it).
+
+**Result: Not yet executed**
+
+---
+
+### TC-CRX-172: Permission tier — `Manage timesheet` holder can approve/act on a real submission within scope
+
+**User Role:** A user whose team role grants `manage_timesheet` (e.g. Manager/Developer role, per this instance's config) — not an Administrator.
+**Precondition:** A real submitted timesheet from a different team member, awaiting this user's approval level.
+
+**Steps:**
+1. "Time Agent, approve [user]'s timesheet for [period]."
+2. Confirm.
+
+**Expected Result:**
+- A real `Timesheet Approve` (or equivalent) proposal is produced, confirms, and genuinely persists — verified via the native Approver Dashboard / Audit Log, not just the chat claim. This is the positive-permission complement to TC-CRX-171.
+
+**Result: Not yet executed**
+
+---
+
+### TC-CRX-173: Basic withdraw — user withdraws their own submitted (not yet approved) timesheet
+
+**User Role:** Any team member with a submitted, not-yet-approved timesheet of their own.
+**Precondition:** A real submission in "submitted" state, before any approval level has acted.
+
+**Steps:**
+1. "Time Agent, withdraw my timesheet for [period]." (or naming the user/period explicitly)
+2. Confirm.
+
+**Expected Result:**
+- The withdrawal succeeds and genuinely reverts the submission out of the approval queue — verified via the native Approver Dashboard (no longer pending) and Audit Log (a real WITHDRAW entry). This is the happy-path complement to TC-CRX-085, which only covers the refusal case after approval.
+
+**Result: Not yet executed**
+
+---
+
+### TC-CRX-174: Edit-after-approval is allowed when `Disable Log/Edit After Approval` is OFF
+
+**User Role:** Same as TC-CRX-086.
+**Precondition:** The `Disable Log/Edit After Approval` setting is OFF (disabled); a timesheet already fully approved.
+
+**Steps:**
+1. Confirm the setting is genuinely disabled in the real Timesheet plugin settings (native UI).
+2. As the timesheet's owner, attempt to add/edit a time entry within the already-approved period via the native Redmine time-tracking UI (not chat — see TC-CRX-176 for why).
+
+**Expected Result:**
+- Per the KB, this setting being OFF means edits ARE allowed after approval. The edit should genuinely succeed via the native UI — the complement to TC-CRX-086, which only tests the ON/blocked case. Confirms the setting is a real toggle, not a permanently-enforced lock regardless of its value.
+
+**Result: Not yet executed**
+
+---
+
+### TC-CRX-175: Permission boundary on `submit` specifically — a team member lacking `manage_timesheet` cannot submit for a different user
+
+**User Role:** A user with `view_timesheets` only (no `manage_timesheet`), and separately a user with neither permission.
+**Precondition:** A real time-logged, unsubmitted period for a different user.
+
+**Steps:**
+1. As the view-only user: "Time Agent, submit [other user]'s timesheet for [period]."
+2. As the no-permission user: same request.
+
+**Expected Result:**
+- Submitting one's own timesheet is a normal team-member action (no special permission beyond team membership + a schema-recognized role — see BUG-CRX-039 for the Administrator-specific exception). Submitting *someone else's* timesheet should require `manage_timesheet` (or be refused entirely, per the plugin's actual authorization model) — the agent must honestly refuse for both users here if the plugin's real permission model disallows submitting on another user's behalf, never silently succeed or silently no-op.
+
+**Result: Not yet executed**
+
+---
+
+### TC-CRX-176: Time Agent has no tool to log or edit a time entry via chat — architecture boundary, not a missing feature
+
+**User Role:** Any user with `use_ask_crux`.
+**Precondition:** None.
+
+**Steps:**
+1. "Time Agent, please log 3 hours on [project] for today." (or "edit my Monday time entry to 5 hours")
+
+**Expected Result:**
+- Per the plugin's own architecture (`timesheets_controller.rb`: "time entries are logged directly through Redmine's native time tracking, and this controller only reads and submits them" — there is no `log_time`/`edit_time_entry` tool in the Time Agent's tool list), the agent should honestly state that logging/editing individual time entries isn't something it can do via chat, and direct the user to the native Timesheet grid — never fabricate a fake success or hallucinate a tool call that doesn't exist.
+
+**Result: Not yet executed**
+
+---
+
 ## Evidence Map
 
 - Case IDs: TC-CRX-077 through TC-CRX-082 — 4/6 reached a definitive verdict (3 PASS: 121, 125, 126-gating; 1 FAIL: 124; 2 BLOCKED: 122, 123 — downstream of the same upstream bug); TC-CRX-082's confirm-mechanism half also FAIL.

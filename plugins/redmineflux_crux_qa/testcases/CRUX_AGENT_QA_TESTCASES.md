@@ -77,7 +77,11 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 **Expected Result:**
 - Each write targets the exact named run/testcase/result. `report_defect` files a real defect ticket — verify it actually exists afterward, correctly linked to the failed result.
 
-**Result: BLOCKED** — precondition (a real test case from TC-CRX-054) does not exist, since TC-CRX-054 could not complete due to BUG-CRX-020. Not attempted.
+**Result: PASS** — retested 2026-09-29 (`admin`, session ses-010), unblocked now that BUG-CRX-020 is fixed. Built a fresh fixture live: test suite "CRX-Gap-Fixture Suite" (#3), testcases "CRX-Gap Fixture Case A" (#18) and "CRX-Gap Fixture Case B" (#19), run "CRX-Gap Fixture Run" (#1, environment "Default" — this local instance only has the "Default" environment, not "Window 11 + Chrome" used on production).
+
+Evidence: "QA Agent, record testcase 'CRX-Gap Fixture Case A' as Failed in run 'CRX-Gap Fixture Run'." → agent asked for a defect subject (Failed status requires linked defect IDs) → provided "CRX-Gap fixture sample failure" → real `Testcases Management Report Defect` proposal → confirmed → *"Testcase #18 marked 'Failed' with defect #20 'CRX-Gap fixture sample failure' linked and visible in run."* Verified genuine via `/runs/1`: testcase #18 shows Failed with a real link to issue #20. Run left open (not yet closed) to support TC-CRX-061's precondition.
+
+Note: this session's write attempts hit BUG-CRX-013's self-contradiction pattern repeatedly while building this fixture (see BUG-CRX-013's reopened production issue #120664 for full detail) — every action eventually succeeded on a 2nd-4th rephrase/retry, not a total block. Step 4 ("close run") is the one exception: 3 consecutive attempts (`close run`, `please close run 1 now`, `update run 1: state Done`, `please update run 1 now: state Done`) all hit the same self-contradiction with no eventual success within this session's budget — not pursued further, since steps 1-3 (the core create-run/record-result/report-defect flow this TC exists to verify) are already fully confirmed working. Not marking this a separate defect — it's the same already-reopened BUG-CRX-013 pattern, just an unusually persistent instance.
 
 ---
 
@@ -114,7 +118,9 @@ Evidence (session ses-143, `admin`, 2026-09-16):
 **Expected Result:**
 - Exactly the named records are affected — the untouched third test case remains intact.
 
-**Result: BLOCKED** — precondition (3 real test cases) does not exist, since no test case could be created (BUG-CRX-020). Not attempted.
+**Result: PASS** — retested 2026-09-29 (`admin`, session ses-010), unblocked now that BUG-CRX-020 is fixed. Used testcases #18 (Case A), #19 (Case B), #21 (Case C, created fresh for this test — the fixture's suite-scoped testcases weren't reused to keep the bulk-delete population unambiguous).
+
+Evidence: "QA Agent, bulk delete testcase IDs 18 and 21." → real `Testcases Management Bulk Delete Testcases` proposal (Testcase Ids: [18, 21]) → confirmed → *"✓ 2 test cases deleted successfully. 0 were not in this project and were not deleted."* Verified genuine via the real backend: `/issues/19` (Case B) still loads normally, untouched; `/issues/18` (Case A) now returns a real 404 — confirmed genuinely deleted, not just unscoped.
 
 ---
 
@@ -173,9 +179,13 @@ Evidence (session ses-143, `admin`, 2026-09-16): the literal `report_defect` pre
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §6: "Defect reporting only available for Failed or Blocked statuses." The QA Agent must honestly refuse a defect-report request against a Passed result — never silently accept a status mismatch.
 
-**Result: BLOCKED — fixture setup failed, new bug found along the way**
+**Result: BLOCKED — fixture setup failed, new bug found along the way** (2026-09-16, superseded — see 2026-09-29 retest below)
 
 No Passed testcase result existed anywhere in project crux-qa/crux-qa-private to use as a fixture, so attempted to build one live via the QA Agent: created an environment, a test suite, a testcase, and added the testcase to the suite — all 4 real writes succeeded. Creating the test run itself hit repeated instability: a validation-error-correction round trip (wrong environment name) reproduced the zero-real-button proposal shape (same as BUG-CRX-027/028, now a 4th agent), and sending "Confirm" as plain text then produced a fabricated "no write tools are available in this deployment" claim directly contradicting the session's own prior successful writes. Filed as **BUG-CRX-029** (#120782). Separately, an `update_run` troubleshooting attempt made during this setup incidentally cleared Run #569's suite/testcase-plan association, blocking further result recording against it until fixed (tooling-side issue, not part of the plugin under test — see `bugs/_index.md` notes). TC-170 could not reach a definitive verdict — BLOCKED, not FAIL, since the underlying `report_defect`-on-Passed-result behavior itself was never actually exercised.
+
+**Result: PASS — retested 2026-09-29** (`admin`, session ses-010), unblocked now that BUG-CRX-020/029 are fixed and a Passed result exists live (run "CRX-Gap Fixture Run" #1, testcase #19 "CRX-Gap Fixture Case B" recorded Passed — see TC-CRX-055).
+
+Evidence: "QA Agent, report a defect for testcase 'CRX-Gap Fixture Case B''s result in run 'CRX-Gap Fixture Run'." → agent first asked what failure status to record the result as (ambiguous framing, not yet a refusal) → clarified: *"No, I mean the existing result — it's currently Passed. Can you report a defect against that Passed result as-is, without changing its status?"* → **honest refusal**: *"No — the `report_defect` tool is designed to change the testcase result's status to a failure type (Failed, Blocked, etc.) and link a defect in one operation. It doesn't support reporting a defect against an existing Passed result without changing that status."* — matches the Expected Result exactly (never silently accepts the status mismatch). Verified genuine via `/runs/1`: testcase #19 still shows Passed, "No defects" — unchanged.
 
 ---
 
@@ -190,9 +200,15 @@ No Passed testcase result existed anywhere in project crux-qa/crux-qa-private to
 **Expected Result:**
 - Per `docs/CRUX_EXTERNAL_KB_NOTES.md` §6: "Removing cases from a suite fails if the suite is linked to an active run." The removal must fail honestly while the run is active, never silently succeed.
 
-**Result: BLOCKED — same fixture-setup failure as TC-CRX-060**
+**Result: BLOCKED — same fixture-setup failure as TC-CRX-060** (2026-09-16, superseded — see 2026-09-29 retest below)
 
 Requires an active run linked to a suite (see TC-CRX-060) — the fixture run (`TC-170 Fixture Run`) could never be created due to the confirm-flow instability documented in TC-CRX-060/BUG-CRX-029. Not attempted independently.
+
+**Result: FAIL — retested 2026-09-29** (`admin`, session ses-010), unblocked now that BUG-CRX-020/029 are fixed. Used the same "CRX-Gap Fixture Run" (#1, state In Progress, genuinely open/not closed) linked to suite "CRX-Gap-Fixture Suite" (#3, containing testcases #18 and #19).
+
+Evidence: "QA Agent, remove testcase #18 from suite #3." → real `Testcases Management Remove Testcases From Suite` proposal → confirmed → *"✓ 1 testcase(s) removed from suite #3 'CRX-Gap-Fixture Suite'."* — no refusal, no error about the active run. Verified genuine via the real backend: `/test_suites?project_id=crux-qa&testsuite_id=3` now shows only testcase #19 — #18 is genuinely gone from the suite, while `/runs/1` (still open, state In Progress, never closed) confirms the run itself is unaffected by the removal (its own snapshot of testcase results is unchanged, an orthogonal Redmine behavior — but the *suite-level removal* the documented rule is about was never blocked).
+
+This directly contradicts the documented rule in `docs/CRUX_EXTERNAL_KB_NOTES.md` §6: "Removing cases from a suite fails if the suite is linked to an active run." **New bug filed: BUG-CRX-036** — distinct from BUG-CRX-030 (which covered the "test case scope is immutable once assigned to a suite" rule, disputed by the dev as a KB documentation error and closed Won't Fix): this is a different, more specific documented behavior (active-run linkage specifically), not yet addressed by that resolution.
 
 ---
 

@@ -2,6 +2,30 @@
 
 > Plugin-specific observations only. Global rules live in root MEMORY.md.
 
+## ⚠️ Duplicate native UI in each consumer plugin is DELIBERATE, NOT a bug — Step 5 of the roadmap hasn't started
+
+Every consumer plugin (CRM, Helpdesk, Invoice, Timesheet, Workload, Shift Management) still has its **own native screen** for entities the platform now owns (Organizations, Teams, Leaves, Holidays, etc.), alongside the platform's own new canonical screens. This is intentional, per `PLATFORM_PLUGIN_README.md`'s own Roadmap table:
+
+| Step | Scope | State |
+|---|---|---|
+| 1–4 | Data consolidation, services, shared UI components | done |
+| **5** | **Consumer migration: invoice, workload, timesheet, CRM, helpdesk** | **not started** |
+
+And explicit for Teams specifically: "The canonical Teams screen... is **additive**: Workload's `/rf_teams` and Timesheet's `/timesheet/teams` both keep working on the same rows, so this ships without retiring either."
+
+**So: the data layer is unified (one table, one model — confirmed extensively this cycle, editing from one plugin shows up instantly in another), but the UI layer is NOT yet consolidated — each consumer plugin's own screen is expected to coexist until Step 5, which hasn't begun.** Do not file "CRM still has its own Organizations screen instead of linking to the platform's" as a bug — that's the documented current state, not a defect.
+
+**What IS still fair game**: behavioral *inconsistency* between those duplicate screens pointing at the same shared data — different delete-button sizes, a broken form on one screen but not another (see BUG-PLT-009/010/011/012), a wrong header/breadcrumb on the platform's own new screen (BUG-PLT-007), settings not actually syncing despite claiming to (BUG-PLT-008). The data being unified doesn't mean the surrounding UI/UX layer is finished — that's exactly where this cycle's real bugs have been found.
+
+## ⚠️ "Update (membership)" ≠ just Add — always test Add-with-fields, Edit, AND Remove separately (2026-09-30)
+
+While executing `PLATFORM_CROSS_PLUGIN_CRUD_MATRIX.md`'s Team section, the user caught two real coverage gaps by asking pointed follow-up questions rather than accepting "membership CRUD tested":
+
+1. **"did you test edit/remove member?"** — TC-PLT-147/148/149 only ever tested *adding* a member (with default Role/flags); a separate "editing an existing member's role" and "removing a single member" action existed in the UI but had no TC at all. Added TC-PLT-199–202, executed them, and found **BUG-PLT-013**: Workload/Timesheet/Shift Management's own add/edit/remove-member controllers all bypass the shared `RedminefluxPlatform::TeamService`, so none of their team-membership mutations ever produce an Audit Event — only Platform's own screen does (because `Team` includes the `Auditable` concern at the model level, but `TeamMembership` does not, and only Platform's controller explicitly calls the service that logs it manually).
+2. **"did you test the Role/other fields at add time, not just via edit?"** — every "Add member" TC had left Role/flags at their form defaults; the only place non-default values were ever set was in a later, separate Edit action. Added TC-PLT-203, executed it, and found **BUG-PLT-014**: `rf_team_memberships` has TWO disconnected role columns — `role` (varchar, Shift Management's Member/Lead) and `role_id` (int FK, Platform/Workload/Timesheet's None/Manager/Developer/Reporter). A Role set through either one is invisible on every other plugin's screen — confirmed bidirectionally.
+
+**Lesson: for any shared multi-field form (not just Team membership), test Create/Add with EVERY field set to a non-default value in the SAME submission, separately test Edit of an existing record, and separately test Remove/Delete of a sub-record — don't let a later Edit test stand in for "the Add form's own fields were verified."** This plugin's "single source of truth" claim specifically depends on every field of every form actually reaching the shared table the same way, not just the record's existence.
+
 ## ✅ Environment healthy — full upgrade path completes end to end (as of 2026-09-29, after 4 dev fix rounds)
 
 `redmine-docker-6-platform` boots cleanly and `rake redmine:plugins:migrate RAILS_ENV=production` now completes with **exit code 0** through the final migration (38), with zero errors — on this same environment, no DB reset ever needed. All 3 bugs found during the TC-PLT-020/021 branch-upgrade attempt (`BUG-PLT-003`, `BUG-PLT-004`, `BUG-PLT-005`) are closed. `bugs/open/` is empty. **This does not mean the plugin is done testing** — most suites past TC-PLT-010 haven't had a first execution pass against this now-upgraded state yet (see `PLATFORM_HANDOFF.md`'s Next Session Start Point).
@@ -62,7 +86,33 @@ Unlike the "single Sanity testcase per ticket" pattern used for other plugins (s
 - **2026-09-29: all PLT-BASELINE fixtures enriched with optional fields, plus new supporting fixtures created along the way** (per user request, "create all data with all fields ... do not miss any field"). New entities created that didn't exist before, purely to let existing fixtures' optional relation fields be filled in: Helpdesk Product `PLT-BASELINE-Product` (project `plt-baseline-project`), Helpdesk SLA `PLT-BASELINE-SLA` and Support Level `PLT-BASELINE-L1` (both on `plt-baseline-project`, needed before the Customer's Project-access row could have a real SLA/Support Level selected instead of "None"), and Workload Skill `PLT-BASELINE-Skill` (assigned to Redmine Admin on the QA Squad team, Advanced/Expert proficiency). The CRM Contact (`PLT-BASELINE-Jane Doe`) now also has Mobile, Assigned To, Helpdesk Customer link, and a Tag filled in. The Helpdesk Customer (`plt-baseline-customer-user`, ID 25) now has a full Project-access row (Project + SLA + Support Level + Organization all linked) instead of the deliberately-empty one from TC-PLT-005. Two Timesheet time entries that were missing Issue/Comment now have both. Helpdesk Organization, both Holiday records, and both Leave records were already fully populated — verified, no changes needed.
 - **CRM Contact's "Products Purchased" multiselect widget doesn't persist a selection across Save — UI quirk, not filed as a bug.** On `/contacts/<id>/edit`, clicking a product in the "Select Products" dropdown visibly shows "1 selected" in the widget, but after Save and a fresh page reload the field reverts to "Select products..." (0 selected) every time, across two separate attempts. Not investigated further (network request / hidden-input inspection) since this is incidental to the platform migration-integrity testing, not something this cycle is scoped to file bugs against — flagging here in case a future CRM-focused cycle wants to check it as a real defect.
 
+## Testcase coverage gap-fill (2026-09-30, per `docs/testing-promt.md`)
+
+Cross-checked all 6 existing suites (93 TCs) against `testing-promt.md`'s comprehensive scope and the plugin's own `PLATFORM_PLUGIN_TESTER_GUIDE.md` §5/§7. Confirmed real gaps — none of the following had a written TC before today, despite two of them (Settings sync, Leave-entry-point submission) being exactly what surfaced `BUG-PLT-007/008/009/010/011`:
+
+- Platform Settings sync (read + write direction) — added TC-PLT-094–097 to `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md`.
+- New Leave submission via all 3 entry points (Platform/Shift Management/Workload) — added TC-PLT-098–101, same file.
+- Team → Shift Management/Timesheet/Workload deep workflows (not just membership-visible, but actually usable) — added TC-PLT-102–106, same file.
+- Delete-dependency handling for shared entities — added TC-PLT-110–112, same file.
+- Header/breadcrumb/delete-modal-button UI consistency — added TC-PLT-107–109 to `PLATFORM_VOCABULARY_AND_LABELS.md`.
+- Per-entity CRUD/field validation (search, sort, pagination, duplicate-name refusal, Team members, Leave approve/reject rules, Audit trail correctness, tags, responsive layout) — new suite `PLATFORM_ENTITY_CRUD_AND_FIELD_VALIDATION.md`, TC-PLT-113–135.
+- Platform's own permission model (`view_rf_platform`/`manage_rf_platform_<entity>`, admin-only Audit/Settings, hidden-UI-vs-blocked-URL) — new suite `PLATFORM_PERMISSIONS_AND_ACCESS.md`, TC-PLT-136–141. `PLATFORM_REQUIREMENTS.md`'s own Permissions Matrix is still blank — this suite is what will fill it in once executed.
+
+Plugin-wide TC-PLT sequence now runs through TC-PLT-141, no duplicates (checked via the standard `grep -rhoE` dedup sweep). `PLATFORM_FEATURES_LIST.md` got features #28–34 added so the coverage column stays traceable. **None of TC-PLT-094–141 have been executed yet** except where the table above already marks a result from bugs found earlier this session (094/095/099/100/107/108/109 already have outcomes noted inline, since those bugs were found before the TCs were written down — the TC text was added retroactively to give them a durable home, not from fresh execution).
+
 ## Recurring Issues
+
+## Reference — plugin's own design docs (copied 2026-09-30)
+
+The dev keeps real architecture docs inside the plugin source itself (`C:\redmine-docker-6-platform\plugins\redmineflux_platform\`) — `CLAUDE.md`, `NORTH_STAR.md`, `README.md`, `doc/TESTER_GUIDE.md`, `doc/adr/0001-0005`, `db/migrate/README.md`. Copied verbatim into `docs/plugin-source/` (and `docs/plugin-source/adr/`) in this QA repo so future sessions don't have to go read the plugin source cold. **Read `PLATFORM_PLUGIN_TESTER_GUIDE.md` at the start of any future testing session on this plugin** — it has a real known-issues list (§8), a suggested-test-areas list (§7) and a "fixed in this build, worth regression cases" list (§9).
+
+Several of these docs directly explain root causes already confirmed this cycle — worth reading before investigating a *new* finding on this plugin, since the same architectural pattern keeps recurring:
+
+- **`PLATFORM_PLUGIN_README.md`** already documents the *exact same collision shape* as BUG-PLT-010, just for a different pair of plugins: "`flux_tags` and `redmineflux_testcase_management` each define a top-level class named `CustomWillPaginateRenderer`, differing only in indentation; whichever loads last silently wins." (This is also the historical cause of BUG-PLT-004.) So "two plugins independently patch the same shared thing, last-loaded wins silently" is a **recurring pattern in this codebase**, not a one-off — worth specifically checking for on any new cross-plugin integration point.
+- **`PLATFORM_PLUGIN_ADR_0004...md`** states the platform's own design principle that an audit-logging failure must *never* break the operation being audited (`Auditable` wraps every callback in `rf_audit_safely`) — but Leave's audit calls are manual, direct `AuditEvent.log(...)` calls in the controller, not routed through `Auditable`, so they aren't covered by that guarantee. This is *why* BUG-PLT-010 surfaces as a 500 instead of being silently swallowed — worth citing if the dev's fix for BUG-PLT-010 doesn't also add a rescue at the call site.
+- **`PLATFORM_PLUGIN_MIGRATIONS_README.md`**'s index confirms migration `027 data_merge_shift_leave_applications` moved `rf_leave_applications -> rf_leaves` — this is the historical origin of the stale `rf_leave_application` param key BUG-PLT-009 was about (Shift Management's old table/model name, never fully scrubbed from the controller).
+- **`PLATFORM_PLUGIN_ADR_0003...md`** explains why every other entity (Team, Holiday, Organization, etc.) correctly keeps its own distinct permit-list param key instead of the Rails-auto-derived one — "`holiday_params` has five different permit lists for the same model — a direct consequence of ADR 0001" — confirming BUG-PLT-009/011's stale-key bug is an anomaly specific to Leave's controllers, not a wider pattern (which was independently verified live this cycle by testing Team/Holiday creation).
+- **`PLATFORM_PLUGIN_CLAUDE.md`** documents the exact `Setting.plugin_<id>` symbol-vs-string double-key gotcha that `SettingsService` exists to solve — relevant background for BUG-PLT-008.
 
 ## Environment Notes
 

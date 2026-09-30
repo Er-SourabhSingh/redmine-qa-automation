@@ -1,5 +1,10 @@
 # BUG-TCM-003
 
+> **CLOSED — 2026-09-30**, accepting production evidence (see "Closing gate" below): the §26 affected-suite
+> regression (`TESTCASE_MANAGEMENT_TEST_RUNS.md`) has still never been executed in this repo. Closed on the
+> strength of another QA tester's (Nidhi Singh) live 2026-09-28 retest on 2 Redmine versions on production, per
+> explicit user decision, not on a regression run here.
+
 - Bug ID: BUG-TCM-003
 - Production Redmine Issue ID: #120544 (https://flux.zehntech.com/issues/120544) — created 2026-09-11, assigned to Sheetal Sharma, Priority High
 - Title: Bulk update result fails for every browser user because the bulk endpoint rejects the logged-in session and treats the request as an unauthenticated API call
@@ -301,12 +306,35 @@ this defect by a different route than the bulk_create fix took. **That is a code
 Bulk delete of a test run and of test cases has not been exercised, and should be covered in the regression for
 this fix rather than assumed safe.
 
-## Closing gate — regression still required
+## Closing gate — regression still required (superseded, see below)
 
 `SENIOR_QA_STANDARDS.md` §26: BUG-TCM-003 is **High**, so closing requires *all TCs in the affected suite plus
 adjacent feature TCs*, not just this retest. The affected suite is `TESTCASE_MANAGEMENT_TEST_RUNS.md`
-(TC-TCM-152–440), **none of which has been executed yet**. Until that runs, this bug stays in `bugs/open/` with a
-PASS recorded, and production **#120544** is unchanged.
+(TC-TCM-152–440), **none of which has been executed yet in this repo**. This gate kept the bug in `bugs/open/`
+through 2026-09-15/2026-09-29 sessions.
+
+## Closed 2026-09-30 — on production evidence, not a local regression run
+
+While checking production status of the open TCM bugs (in the course of retesting BUG-TCM-006), found that
+production issue **#120544 was already Status: Done, 100%** — retested by **Nidhi Singh** on 2026-09-28, evidence
+recorded in the issue journal:
+
+- **Redmine 6.0.11.stable** (forge `flux-f0fbf2zmk28.forge.zehntech.com`): route check confirms
+  `form#bulk-result-form action=/issue_status_results/bulk_create` (no `.json` anywhere on the page); two submits
+  both return `201`, no 401/`WWW-Authenticate` challenge; grid read back before/after shows only the two selected
+  rows changed status and were correctly restored — proving the rows were actually written, not just that the
+  request returned success.
+- **Redmine 7.0.1.stable** (forge `flux-ff3u8ejta28.forge.zehntech.com`): identical evidence, same route, same
+  201s, same before/after grid proof.
+
+This is the same shape of evidence this bug's own 2026-09-15 retest used (route change, network status, DB/grid
+state before-and-after) — just gathered by a different tester on different (forge) instances than this repo's
+local Docker fleet. **Per explicit user decision (2026-09-30), this is accepted as satisfying the §26 gate**,
+rather than re-running the `TESTCASE_MANAGEMENT_TEST_RUNS.md` suite locally first. Production **#120544** was
+already Done/100% (no write needed); this local file and `bugs/_index.md` are now brought in sync with it.
+
+**Not verified by this session:** the sibling `.json` routes question (bulk delete of test cases/runs, bulk
+test case create — `routes.rb:163, 167, 168, 175`) is still open, per the section above.
 
 ## Duplicate check
 

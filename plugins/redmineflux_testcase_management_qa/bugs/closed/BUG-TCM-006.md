@@ -1,5 +1,8 @@
 # BUG-TCM-006
 
+> **CLOSED — 2026-09-30.** Retest PASS on `localhost:3010` (Redmine 7.0.0, plugin v7.0.0, git HEAD `97449b9`,
+> includes fix commits `dee611e`/`58c68d2`/`9e82662`). Full evidence in "Retest — 2026-09-30" below.
+
 - Bug ID: BUG-TCM-006
 - Production Redmine Issue ID: #120658 (https://flux.zehntech.com/issues/120658) — created 2026-09-15, assigned to Sheetal Sharma, Priority Medium, Defect Severity Medium-severity
 - Title: Failed PDF generation still sends an email whose body promises an attachment that is not there, with nothing surfaced in the UI
@@ -250,3 +253,69 @@ Full evidence: [`logs/BUG-TCM-005-retest-2026-09-14.log`](../../logs/BUG-TCM-005
 - Severity assessed **Medium**, lower than BUG-TCM-005's High: it requires a PDF-generation failure to trigger, so
   it does not affect a healthy server's normal operation. It remains genuine because the failure is invisible —
   a user believes a report was delivered when it was not.
+
+## Retest — 2026-09-30 (PASS — closing as FIXED)
+
+**Environment:** Docker `localhost:3010` (container `redmine-docker-700-redmine-1`, project `test-project`),
+Redmine **7.0.0**, Redmineflux Testcase Management **v7.0.0**, git HEAD `97449b9` on `master` — confirmed the
+developer-reported fix commits `dee611e`, `58c68d2`, `9e82662` are all ancestors of HEAD (previously "reported,
+not pushed"; now merged and deployed here).
+
+**Setup performed this session** (this instance had never had Installation step 6 completed):
+- Installed Node.js v20.19.2 / npm 9.2.0 + Chromium runtime libs; `npm install puppeteer@^22.8.2` +
+  `npx puppeteer browsers install chrome` under `/usr/src/redmine` (Chrome 127.0.6533.88).
+- Configured SMTP (`config/configuration.yml`) against the local Docker mail server (`host.docker.internal:2587`,
+  account `qa@test.local`), since this instance had no outgoing mail configured at all.
+- Corrected `Setting.host_name` (`localhost:3000` → `localhost:3010`) per the standing email-testing precondition.
+- Set `admin`'s account email to `admin@test.local` and seed user `luna.blossom`'s to `qa@test.local` so both had
+  real, checkable mailboxes.
+
+**Test 1 — baseline (Puppeteer working):** Sidekiq restarted with a valid `PUPPETEER_EXECUTABLE_PATH` and
+`GROVER_NO_SANDBOX=true`. Emailed report #7 ("BUG-TCM-006-Baseline2-PDF-Working") as PDF.
+Result: **genuine, valid PDF** — 1,001,291 bytes, `%PDF-1.4` header, `startxref`/`%%EOF` trailer intact, **32 of 32
+compressed content streams inflate cleanly** (verified with a Python zlib check against the raw decoded bytes, not
+just a size/header check). Mail body reads normally, no failure warning. This rules out an environment/incomplete-
+install explanation for anything that follows.
+
+**Test 2 — failure cause 1 (missing `--no-sandbox`), found incidentally:** Before deliberately breaking anything,
+the very first attempt on this fresh container failed with Chromium's `No usable sandbox!` (root user, no
+`--no-sandbox` flag applied because `GROVER_NO_SANDBOX` was unset at the time). The plugin's own
+`config/initializers/grover.rb` reads that env var to decide whether to pass `--no-sandbox` — this is a real,
+naturally-occurring failure trigger, not contrived. **The fix's fallback fired correctly even here**: report #6
+delivered a `.html` attachment with the red warning banner, not a silent "PDF attached" claim.
+
+**Test 3 — failure cause 2 (bad `PUPPETEER_EXECUTABLE_PATH`), the bug's own documented repro steps:** Sidekiq
+restarted with `PUPPETEER_EXECUTABLE_PATH=/nonexistent/chrome GROVER_NO_SANDBOX=true`. Emailed report #8
+("BUG-TCM-006-Retest-PDF-Fail-BadExecPath") as PDF to `qa@test.local`.
+- Sidekiq log: `Error generating PDF: Tried to find the browser at the configured path (/nonexistent/chrome), but
+  no executable was found.` — the **exact** error class originally reported.
+- UI: report created, listed as if successful (same as originally reported — no UI-level error).
+- **Delivered email now carries a real `BUG-TCM-006-Retest-PDF-Fail-BadExecPath.html` attachment (~193 KB)**, and
+  the body opens with: **"The PDF version of this report could not be generated, so an HTML version is attached
+  instead."** in red, before the generic "Please find the attached..." line. This matches `send_report.html.erb`'s
+  new `@pdf_generation_failed` conditional exactly.
+- Job completed cleanly (`Performed ActionMailer::MailDeliveryJob ... in 5565.95ms`, no crash, no retry).
+
+**Test 4 — spot-check a second report type under the same failure (verification plan step 5):** Report #9,
+type **Defect Summary**, same broken `PUPPETEER_EXECUTABLE_PATH`. Identical correct behaviour — HTML attachment
+delivered, same warning banner, "Report Type: Defect Summary" correctly reflected in the body. Confirms the fix
+applies through the shared `send_report` code path, not just the one type originally tested.
+
+**Test 5 — HTML format regression check (verification plan step 4):** Report #10, **HTML** format, same broken
+`PUPPETEER_EXECUTABLE_PATH` still in effect. Sidekiq log shows **no** "Error generating PDF" line at all (the HTML
+branch never touches Grover/Puppeteer) — delivered normally as a genuine `.html` attachment (~193 KB), no warning
+banner (correctly absent, since nothing failed). HTML path confirmed **not regressed**.
+
+**Verdict: FIXED.** All observed failure modes (two independent causes) produce an email that plainly states the
+PDF could not be generated and carries a real HTML attachment instead — never a silent claim of an attachment that
+isn't there. Acceptance criterion from the bug's own verification plan is met.
+
+**Still not executed — honest gap, not assumed safe:** verification-plan step 6, *the HTML fallback's own failure
+mode* (HTML generation failing while PDF generation has already failed). Nothing observed this session speaks to
+that case either way.
+
+**Regression note:** this bug's fix lives in the same `send_report`/`run_mailer.rb` path as BUG-TCM-005 (closed)
+and the whole Reports feature. Per `SENIOR_QA_STANDARDS.md` §26, a Medium-severity fix calls for regression of the
+directly affected suite; the full `TESTCASE_MANAGEMENT_REPORTS.md` suite (TC-TCM-078…534) has still never been
+executed end-to-end — only TC-TCM-098/100/101/102/523/525 have live evidence across sessions. That full-suite run
+is a separate, larger piece of outstanding work (already flagged in the plugin handoff before this bug existed).

@@ -127,3 +127,21 @@ end
 ## Production report
 
 Reported to production 2026-09-29 as **#121556** (subject shortened to fit the 255-char limit: "Shift Management \"Apply Leave\" always fails with 400 — controller expects stale rf_leave_application param key"; project `ztflux`, tracker Bug, Priority Blocker, Defect Type Functional, Defect Severity Critical, Defect priority Urgent, assigned Prashant Chaurasia). Linked via `report_defect` to testcase **#121476** (`Cross-Plugin Consistency`, Feature #120043) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121556 attached (in addition to #121548 and #121551 from BUG-PLT-007/008, all three on the same testcase).
+
+## Retest 2026-09-30 — NOT RESOLVED (feature still broken end-to-end)
+
+Fix commit `5874fa0` (redmineflux_shift_management) does genuinely fix the originally-reported crash: `leave_params`/`update_leave_params`/`determine_target_user_id` now use `redmineflux_platform_leave`, confirmed via server log — the `ActionController::ParameterMissing: rf_leave_application` exception is gone, and a submission now reaches `@leave.save` successfully (confirmed: leave record was created and auto-approved in the DB).
+
+**However, the feature is still not usable end-to-end.** The same repro steps (Apply Leave → fill form → Submit) now crash on a *different* exception, immediately after the successful save, on the `auto_approve_eligible?` branch's audit-logging call:
+```
+ArgumentError (missing keywords: :entity, :performed_by):
+plugins/redmineflux_timesheet/lib/redmineflux_timesheet/patches/platform_audit_patch.rb:109:in 'log'
+plugins/redmineflux_shift_management/app/controllers/leave_controller.rb:78:in 'LeaveController#create'
+```
+Root cause: `redmineflux_shift_management` and `redmineflux_timesheet` each independently monkey-patch `RedminefluxPlatform::AuditEvent.log` with incompatible keyword signatures (`user_id:/resource_type:/resource_id:/ip_address:` vs. `entity:/performed_by:/metadata:`). Whichever plugin's `init.rb` applies its patch last silently overwrites the other's version — confirmed via source: `plugins/redmineflux_shift_management/lib/redmineflux_shift_management/patches/platform_audit_patch.rb:48` defines one signature, `plugins/redmineflux_timesheet/lib/redmineflux_timesheet/patches/platform_audit_patch.rb:109` defines the other, and Timesheet's is the one active on this environment.
+
+**User-visible result is unchanged from the original report**: the modal gets stuck on "Saving..." with no error shown, and the request fails (500 instead of 400) — even though the leave record itself is now silently created behind the crash. Confirmed via DB query that the record exists and is approved, invisible in the UI until a manual page reload.
+
+This is a genuinely different root cause than the one originally reported here (stale param key vs. a cross-plugin monkey-patch collision on a shared audit model), so per this repo's retest convention it gets its own bug rather than being folded back into this one — see **BUG-PLT-010**. **This bug (BUG-PLT-009) stays OPEN**: its own originally-reported symptom is fixed, but "Apply Leave works" as a whole is still false, and closing this one without linking to what's actually still blocking it would misrepresent the feature as usable when it is not.
+
+Impact scope of the new defect (BUG-PLT-010) is much wider than just Leave — confirmed ~30 call sites across nearly all of `redmineflux_shift_management` (attendance, leave, shift assignments, shift change requests, user band assignments, a background auto-punch-out service, and the whole API v1 layer) use the same now-broken `AuditEvent.log(user_id: ...)` signature.

@@ -375,9 +375,20 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 - **CONFIRMED FAIL 2026-09-14 — BUG-TCM-006:** with `PUPPETEER_EXECUTABLE_PATH=/nonexistent/chrome`, the delivered
   email was 1,767 B bare `text/html` with **no attachment MIME part**, body still reading *"Please find the
   attached Testcase Report:"*, and nothing surfaced in the UI. Retest vehicle for that bug.
-- **Step 6 (HTML under failure) is NOT YET EXECUTED.** The body text lives in `send_report.html.erb`, which is
-  shared by both formats, so the misleading line is not PDF-specific — only the swallowing `rescue` is. Verify,
-  don't assume.
+- **CONFIRMED PASS 2026-09-30** on `localhost:3010` (Redmine 7.0.0, plugin v7.0.0, git HEAD `97449b9` — includes
+  fix commits `dee611e`/`58c68d2`/`9e82662`). Step 1 baseline: genuine 1,001,291 B PDF, valid `%PDF-1.4`/`%%EOF`,
+  32/32 streams inflate cleanly (report #7). Step 2/5 — **two independent failure causes**, both correctly falling
+  back: (a) `PUPPETEER_EXECUTABLE_PATH=/nonexistent/chrome` → exact documented error reproduced
+  (`Tried to find the browser at the configured path...`), delivered email carries a real `.html` attachment and a
+  red warning banner *"The PDF version of this report could not be generated, so an HTML version is attached
+  instead."* (report #8); (b) a missing `--no-sandbox` flag (`GROVER_NO_SANDBOX` unset) → Chromium's
+  `No usable sandbox!` error, same correct fallback+warning observed incidentally before cause (a) was deliberately
+  induced. Spot-checked a second report type (Defect Summary, report #9) under cause (a) — identical correct
+  behaviour. HTML-format regression check (report #10) — unaffected, no warning, real `.html` attachment, normal
+  body. **Acceptance criterion met: in no observed failure mode does a delivered email claim an attachment it does
+  not carry.**
+- **Step 6 (HTML fallback itself failing) is STILL NOT EXECUTED.** This is the fallback's own failure mode — HTML
+  generation failing *while* PDF has already failed — and remains an honest gap, not assumed safe.
 
 > **Do not confuse this with TC-TCM-100 / BUG-TCM-005.** That pair asserts the PDF is generated and attached on a
 > working server (closed, fixed by completing Installation step 6). This TC asserts a *failed* PDF must not produce

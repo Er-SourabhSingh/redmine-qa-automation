@@ -46,13 +46,47 @@
 
 ## Recurring Issues
 
+- **Test Suite Management, Reporting, and Requirement Management controllers have zero authorization checks on
+  create/edit/delete** (`test_suites_controller.rb`, `testcase_reports_controller.rb`,
+  `requirements_controller.rb` — BUG-TCM-007, found 2026-09-30). Any logged-in project member can create/edit/
+  delete regardless of their granted permissions; the UI hides the controls correctly in most cases but that's
+  the only thing stopping a denied user, not an actual server-side check. **Contrast with the correct pattern**
+  in `runs_controller.rb` (`create_run`/`edit_run`/`close_run`/`delete_run` all properly gated),
+  `issue_status_results_controller.rb` (`execute_testcase`, plus a sensible assignee carve-out), and
+  `testcase_todos_controller.rb` (`view_all_todos`) — when checking whether a *new* permission is actually
+  enforced on this plugin, don't assume it is just because the UI hides the button; grep the actual controller
+  action for `allowed_to?` before asserting a permission works.
+- **No role on a fresh instance has any Testcase Management permission granted by default** — confirmed via
+  `Role#permissions` in the Rails console on `localhost:3010` before this session's setup. The KB doesn't
+  prescribe a role→permission mapping (per `docs/TESTCASE_MANAGEMENT_REQUIREMENTS.md`), and apparently nobody had
+  ever configured one on this instance either. If a "Manager/QA can do X but Client can't" test fails oddly on a
+  never-before-permission-tested instance, check the actual role checkboxes first — it may simply be
+  unconfigured, not broken.
+- **The Roles & Permissions "Save" button can silently fail to persist a permission group if you set multiple
+  checkboxes via a bulk JS mutation right before clicking Save** (observed live 2026-09-30 setting up the role
+  mapping above — an initial bulk grant for Manager/QA Own Visibility/Developer showed "success" (redirect to
+  `/roles/N`) but the Rails console showed zero permissions actually saved). A single real UI click immediately
+  followed by Save persisted correctly every time afterward. Root cause not fully isolated (likely a stale
+  element reference after DOM mutation, not a plugin/Redmine bug) — but the takeaway is: **always verify a
+  Roles & Permissions save via the Rails console or the `/roles/permissions` report**, don't trust the redirect
+  alone, especially after any bulk/scripted checkbox manipulation.
+- **This plugin's "Add X" UI controls are often bound via a raw `onclick` on an `<svg>`/`<span>`, not a normal
+  `<a>`/`<button>`,** and the click handler can be re-used across multiple list rows with the SAME element `id`
+  (invalid but present — e.g. every suite row's menu icon shares `id="testsuite-menu-icon"`). `getElementById`
+  silently grabs the *first* matching row, not the one you meant, if you're driving these via JS rather than a
+  real Playwright click scoped by a more specific selector (e.g. `[data-testsuite-id="5"]`). Cost real time once
+  (opened "workload"'s edit modal instead of a freshly-created suite's) before switching to the scoped selector.
+
 - **"Emailed PDF report has no attachment" has two completely different causes — diagnose before filing.**
   (1) **Incomplete installation** — Node.js/Puppeteer/Chromium absent (KB Installation step 6 / `initialize.sh`
   never run). This was BUG-TCM-005 and the original customer report; it is an *environment* gap, not a code
   defect. (2) **The swallowed `rescue`** in `run_mailer.rb`, which sends the mail anyway when PDF generation fails
-  for any reason — BUG-TCM-006, a real code defect, only reachable once generation is deliberately broken.
-  **Decision rule:** if `node -v` works *and* the **Sidekiq worker process** has `PUPPETEER_EXECUTABLE_PATH` set,
-  it is (2). Checking only whether `node` exists on the host is not enough — the env vars must be in the worker.
+  for any reason — this was BUG-TCM-006, **fixed and closed 2026-09-30** (commits `dee611e`/`58c68d2`/`9e82662`,
+  confirmed merged to `master`). The rescue now falls back to attaching the HTML report and sets
+  `@pdf_generation_failed`, which `send_report.html.erb` renders as a visible red warning. **Decision rule
+  updated:** if `node -v` works *and* the **Sidekiq worker process** has `PUPPETEER_EXECUTABLE_PATH` set, a "no PDF
+  attachment" symptom on a fixed build should now show an **HTML attachment + warning banner** instead of a bare,
+  misleading email — a silent PDF-less email on a build that includes these commits would itself be a regression.
 - **`send_report.html.erb` is one template shared by both email formats**, and its *"Please find the attached
   Testcase Report"* line is unconditional — it has no knowledge of whether an attachment was produced. Only the
   **PDF** branch of `send_report` (`run_mailer.rb:291-303`) wraps generation in a `begin`/`rescue` that still calls
@@ -68,6 +102,14 @@
   descriptive clause in a title ("…while the body still says X") records a symptom; it does not widen the scope.
 
 - **Plugin routes declared with a literal `.json` path + `defaults: { format: 'json' }` cannot be called from the browser session.** This has now bitten once for real (BUG-TCM-003). Whenever a UI action posts to such a route, it will 401 as anonymous regardless of who is logged in. When testing any new bulk/AJAX action in this plugin, check `config/routes.rb` for a `.json` suffix first — it predicts the failure.
+- **Almost every plugin controller resolves `@project = Project.find(params[:project_id])` and never checks anything after it** — neither `allowed_to?(:view_project, @project)` (project membership) nor `@project.module_enabled?('testcase_management')` (module gating). Confirmed 2026-09-30 (BUG-TCM-009) across `test_suites_controller.rb`, `testcase_reports_controller.rb`, `requirements_controller.rb`, `traceability_rtms_controller.rb`, `testcase_todos_controller.rb`, and `runs_controller.rb`'s `new`/`index`/`show`. Plain Redmine's own `/projects/<id>` and the project's top-nav tab both correctly gate on membership/module — only this plugin's own routes don't. When testing ANY new plugin URL for access control, test it against a genuine non-member (not just a denied-role member) and against a module-disabled project — both are unguarded even where role-permission checks (BUG-TCM-007) are eventually fixed.
+- **Redmine's internal module name for this plugin is `testcase_management`, not `redmineflux_testcase_management`.** The module *checkbox label* is "Redmineflux Testcase Management" and the plugin *identifier* used elsewhere (bugs, gem name) is `redmineflux_testcase_management`, but `Project#module_enabled?` and `Project#enabled_modules.pluck(:name)` use the shorter `testcase_management`. Calling `module_enabled?('redmineflux_testcase_management')` silently returns `false` even when the module **is** enabled — don't mistake that for a bug in the module toggle itself; verify with `enabled_modules.pluck(:name)` first.
+- **The Testcase Tracker / Defect Tracker settings have two independent, serious gaps** (both found 2026-09-30 in the Configuration suite): (1) **BUG-TCM-010** — clearing the Testcase Tracker setting doesn't block "New Test Case," it silently creates the issue on the project's first tracker (`Bug` here) instead, with zero error; the misfiled issue is then permanently invisible to every plugin view. (2) **BUG-TCM-011** — setting either tracker to anything other than `Bug` breaks "Report Defect"/"New Test Case" entirely if the project has a Bug-only required custom field (very ordinary setup): the field is never rendered on the form for the other tracker but is still enforced as required on submit, an unsatisfiable validation state. Both reproduce reliably; a *valid, different* tracker choice (TC-002's scenario) is fine and shows an honest "Tracker not enabled for this project" message instead — it's specifically the **blank** setting and the **Bug-only-custom-field** interaction that are broken.
+- **`TestcaseEmailTemplates` is the actual model name** (plural, no `s` before `Templates`... it IS `TestcaseEmailTemplates` with the trailing s) backing both Run and Testcase email templates, distinguished by `email_type: 'run_email'` / `'testcase_email'` and an `active` boolean (only one template per type can usefully be active — the mailer does `.where(email_type: ..., active: true).first`). When none is active, both `run_added` and `testcase_result_added` fall back to a built-in view template (`app/views/run_mailer/*.html.erb`) — confirmed this fallback works correctly for `run_added`, but the `testcase_result_added` fallback has a bug (below).
+- **This instance had `run_added`/`run_updated`/`testcase_result_added` notification events entirely unchecked** in Administration → Settings → Notifications before 2026-09-30 — same "nothing pre-configured" pattern as the Permissions suite's role→permission gap. Enabled all three this session (a real fix, not a test-only toggle — left enabled). **Gotcha:** the "Testcase result added" checkbox has `data-parent-notifiable="run_updated"` and stayed `disabled` in the UI even after "Run updated" was checked and the page reloaded — had to enable it via `Setting.notified_events` in the Rails console instead; the UI's parent/child enable-on-check JS did not un-disable it as expected.
+- **`RunMailer#testcase_result_added`'s default (no-active-template) view has a copy-paste bug** — `app/views/run_mailer/testcase_result_added.html.erb`'s heading interpolates `@run.name` where `@issue.subject` belongs, so the body shows the run's name mislabeled as if it were the test case identifier (email subject line itself is correct). **BUG-TCM-012.**
+- **A single "Add Result" submission sends the "Test Case Result Added" email twice** — reproduced on two different test cases/templates, each time with only one `IssueStatusResult` DB row created (so it's not a duplicate form submission). `run_added` did not show this pattern (only one `sadfsa` email per run created). Root cause not fully isolated — suspect a Sidekiq retry against the local mail server, but `Sidekiq::RetrySet`/`DeadSet` were both empty when checked a few minutes later. **BUG-TCM-013.**
+- **Creating a run auto-seeds one "Untested" `IssueStatusResult` baseline row per linked test case** at run-creation time (confirmed: 117 rows created simultaneously for a run linking 117 test cases across 3 suites) — this is normal, expected behavior representing the "0 of N tested" starting state, not a bug. It does **not** trigger a `testcase_result_added` email (good — would be a flood otherwise). Don't mistake these pre-existing `case_status_id=1` rows for a duplicate-submission artifact when investigating result-related timestamps.
 
 ## Environment Notes
 
@@ -84,6 +126,18 @@
 
 - CSV import testing was done against Docker `localhost:3010` (project `test-project`), plugin v7.0.0.
 - `localhost:3010` = container `redmine-docker-700-redmine-1`, Redmine 7.0.0, plugin v7.0.0, Postgres. Note this is **not** the default Local base URL in `QA_CREDENTIALS.md` (which points at `localhost:3006`) — this plugin's testing uses 3010.
+- **`localhost:3010` had never had Installation step 6 completed until 2026-09-30** (no Node/Puppeteer/Chromium,
+  and no SMTP configured at all — `config/configuration.yml` didn't exist, only `.example`). Set up this session:
+  Node v20.19.2/npm 9.2.0/Chrome 127.0.6533.88 installed under `/usr/src/redmine`; SMTP wired to the local Docker
+  mail server via `host.docker.internal:2587` (this container is on its own `redmine-docker-700_default` network,
+  not `local_mailtest_net`, so it must reach the mail server through the host's published port, not a container
+  name); `Setting.host_name` corrected from the `localhost:3000` default to `localhost:3010`. **This container's
+  default entrypoint does not export `PUPPETEER_EXECUTABLE_PATH`/`GROVER_NO_SANDBOX` for Sidekiq** — a plain
+  `docker restart` brings Sidekiq back with neither set, so PDF generation fails with Chromium's `No usable
+  sandbox!` even on an otherwise-working install. Confirmed live 2026-09-30 while trying to establish a PDF
+  baseline. To get a real working baseline, kill the auto-started Sidekiq and start a replacement in the same
+  container with both env vars exported (see BUG-TCM-006's closed retest for the exact commands) — this does not
+  persist across a container restart/recreate.
 - Instance settings relevant to auth-path bugs: `login_required = true`, `rest_api_enabled = true`. With this combination a 401 on an `accept_api_auth` action is returned as a bare `head :unauthorized` carrying `WWW-Authenticate: Basic realm="Redmine API"`, which a browser holds open for a native credential prompt — so a failing XHR appears to hang rather than showing an error. On an instance with `rest_api_enabled = false` the same failure returns 403, and with `login_required = false` it reaches the action and returns a 401 JSON body. Worth knowing when a customer's error text does not match what is seen locally.
 - Fixture data in `test-project` run #4 `reyer` (suite `workload`, 15 TCs) was written to during 2026-09-11 testing: TC #434 set to Passed (single Add Result), TC #435 set to Passed (API-auth control probe, note "control probe - API auth").
 - The 2026-09-11 CSV Import regression created test cases in `test-project` from the fixtures, including #1023 (padded-header retest) and #1024 (duplicate-header retest). Earlier imports from the same fixtures are still present (#1009, #1012, #1014, #1018) and are useful as before-the-fix comparisons — do not delete them.

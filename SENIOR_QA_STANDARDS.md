@@ -63,6 +63,11 @@ The framework must cover:
 - Integration testing
 - Negative testing
 - Upgrade compatibility testing
+- Security testing (§28)
+- Performance testing (§29)
+- Code quality review (§30)
+
+**Security, Performance and Code Quality are mandatory for every plugin, every cycle** — not optional extras to run only when time permits. See §28–§30 for what each one covers.
 
 ---
 
@@ -341,7 +346,7 @@ When a bug is retested and confirmed **FIXED**, the bug file **must** be moved f
 4. **Copy the updated file to `bugs/closed/BUG-<CODE>-XXX.md`**
 5. **Delete the original file from `bugs/open/BUG-<CODE>-XXX.md`** — the open folder must never retain a fixed bug
 6. Update `bugs/_index.md` — change Status to `Closed`, update File Path to `bugs/closed/BUG-<CODE>-XXX.md`
-7. Update the plugin's consolidated `reports/<PREFIX>-tc-report-<date>.md` (see `CLAUDE.md` §7) — move the bug's entry to Closed/FIXED in the Bugs/Defects table, and change BLOCKED → PASS for every TC blocked by this bug in the TC Execution Summary, with a fix-ref note (bug ID + retest date)
+7. Update that day's `reports/<PREFIX>-Retest-<date>.md` (see `CLAUDE.md` §7) — move the bug's entry to Closed/FIXED in the Bugs/Defects table, and change BLOCKED → PASS for every TC blocked by this bug in the Test Case Execution table, with a fix-ref note (bug ID + retest date)
 8. Update the plugin's changelog (`docs/changelog.md`, or the Run History table in `<PREFIX>_HANDOFF.md` — see `CLAUDE.md` §2b) — add a row for the fix retest session
 9. Update the plugin's handoff file — remove the bug from the Blockers section
 10. Update `STATUS.md` — decrement Open Bugs count, update Status description
@@ -395,6 +400,9 @@ Execution reports must include:
 - Screenshot references
 - Failure summaries
 - Environment details
+- Security/performance/code-quality findings for the cycle (§28–§30), even when the answer is "nothing found"
+
+Reports are generated **daily, per testing type, per plugin** (target 7:15 PM) — see `CLAUDE.md` §7.
 
 ---
 
@@ -419,6 +427,7 @@ These rules are mandatory for all future plugin testing:
 - Always validate real business workflows
 - Always validate permissions
 - Always validate workflows
+- Always validate security, performance and code quality (§28–§30) — every plugin, every cycle
 - Always validate browser console errors
 - Always validate network failures
 - Always attach screenshots to bugs
@@ -503,8 +512,8 @@ Generate **one consolidated report per testing cycle** — do not create separat
 
 | Report | Location | Trigger |
 |--------|----------|---------|
-| `<PREFIX>-tc-report-<date>.md` | `plugins/<plugin>/reports/` | Auto — end of every testing cycle. Contains: testing types performed, TC execution results, bugs/defects found (IDs + status), fix verification/retest details, regression results, final overall status (see `CLAUDE.md` §7) |
-| `<PREFIX>-tc-report-<date>.pdf` | `plugins/<plugin>/reports/` | **Manual only** — generated ONLY when user explicitly requests it |
+| `<PREFIX>-<TestingType>-<date>.md` | `plugins/<plugin>/reports/` | Auto — end of each day that testing type was performed on this plugin (target 7:15 PM). One file per plugin/type/day: TC execution results, bugs/defects found (IDs + status), fix verification/regression details where applicable (see `CLAUDE.md` §7) |
+| `<PREFIX>-<TestingType>-<date>.pdf` | `plugins/<plugin>/reports/` | **Manual only** — generated ONLY when user explicitly requests it |
 
 **Never auto-generate the PDF.** Always ask the user: "Testing is complete. Do you want me to generate the final PDF report?"
 
@@ -583,7 +592,7 @@ A TC marked **BLOCKED** or **SKIPPED** due to a bug is not considered tested —
 - **BLOCKED TCs** — re-execute from scratch; the previous BLOCKED result is discarded.
 - **SKIPPED TCs** — execute fully for the first time; they were never run due to the bug dependency.
 
-Both must be treated as first-time executions, not retests. Record the result (PASS / FAIL) in the plugin's consolidated `reports/<PREFIX>-tc-report-<date>.md` and replace the BLOCKED/SKIPPED status with the actual outcome.
+Both must be treated as first-time executions, not retests. Record the result (PASS / FAIL) in that day's `reports/<PREFIX>-Regression-<date>.md` and replace the BLOCKED/SKIPPED status with the actual outcome.
 
 If a previously BLOCKED or SKIPPED TC fails during regression, raise a new bug — do not attribute the failure to the original fixed bug.
 
@@ -608,7 +617,7 @@ If a previously BLOCKED or SKIPPED TC fails during regression, raise a new bug �
 2. Identify all test cases in scope using the table above.
 3. Run the plugin's `automation/tests/` specs that cover any in-scope TC; re-execute the rest manually.
 4. For each TC result:
-   - **PASS** — update the TC status in the consolidated `reports/<PREFIX>-tc-report-<date>.md`; no further action needed.
+   - **PASS** — update the TC status in that day's `reports/<PREFIX>-Regression-<date>.md`; no further action needed.
    - **NEW FAIL** — raise a new bug immediately; do not reuse the closed bug ID.
 5. After regression, update the plugin's changelog with a regression row (`docs/changelog.md`, or the Run History table in `<PREFIX>_HANDOFF.md`).
 6. If all regression TCs pass, update the plugin's handoff file to note regression complete.
@@ -627,7 +636,7 @@ Add a row to the plugin's changelog (`docs/changelog.md`, or the Run History tab
 |------|-----------------|-------------|-----------|---------|
 | 2026-06-22 | X.X.X | Local / Forge | QA | Regression after BUG-XXX-001 fix — 5 TCs re-run, all PASS |
 
-Update the consolidated `reports/<PREFIX>-tc-report-<date>.md` to reflect the regression pass results alongside the original run results.
+Update that day's `reports/<PREFIX>-Regression-<date>.md` to reflect the regression pass results alongside the original run results.
 
 ---
 
@@ -650,7 +659,7 @@ Unlike per-bug regression, the final cycle regression covers **every test suite*
 2. Run every spec in `automation/tests/` for the plugin.
 3. Manually re-execute every TC not yet covered by an automation spec.
 4. For each result:
-   - **PASS** — record in the consolidated `reports/<PREFIX>-tc-report-<date>.md`.
+   - **PASS** — record in that day's `reports/<PREFIX>-Regression-<date>.md`.
    - **NEW FAIL** — raise a new bug (`bugs/open/BUG-<CODE>-XXX.md`), do not reuse a closed bug ID. The plugin is **not** ready for `Complete` — fix, retest, then re-run the final cycle regression from step 1.
 5. Add a row to the plugin's changelog (`docs/changelog.md`, or the Run History table in `<PREFIX>_HANDOFF.md`): `Final cycle regression — N suites / M TCs re-run, all PASS`.
 6. Only after a full pass with zero new failures: update `STATUS.md` to `Complete`.
@@ -658,3 +667,62 @@ Unlike per-bug regression, the final cycle regression covers **every test suite*
 ### Rule
 
 **`STATUS.md` must never show a plugin as `Complete` without a passed final cycle regression on record in the plugin's changelog / Run History.** `In Progress` is correct any time bugs remain open or the final regression hasn't been run yet.
+
+---
+
+## 28. Security Testing Approach
+
+Security testing is **mandatory for every plugin, every cycle** — not something to skip when time is short.
+
+Validate:
+
+- Authentication requirements on every route — no page or action reachable without a valid session
+- Authorization/permission enforcement at the **endpoint**, not just hidden in the UI (a hidden button/menu link is not evidence access is actually blocked — always send the request directly too)
+- Cross-project / cross-tenant data isolation — a user in project A cannot read or write project B's data via a crafted request, even when the two look similar (same plugin, same feature)
+- Input sanitization — script tags, HTML, and SQL-meta characters in every free-text field render as literal text on every surface (list, detail, export, email), never execute
+- Sensitive data exposure — API keys, tokens, and passwords are never echoed into rendered pages, API responses, or logs
+- Direct object reference checks — sequential/guessable IDs (issue #, bug #, share token) cannot be used to reach another user's or project's data by substitution
+- Session handling — an expired or revoked session is rejected on the next request, not silently honored
+- Rate limiting / brute-force protection where the plugin itself claims to have it (e.g. public share links, login)
+- File upload validation — type/size limits enforced server-side, not only in client-side JS
+
+### Rule
+
+Every plugin's test cycle must include a security pass covering, at minimum: unauthenticated access, cross-role authorization at the endpoint, cross-project isolation, and script-injection on every user-editable text field. Record what was covered under the report's "Testing Performed" section (`CLAUDE.md` §7).
+
+---
+
+## 29. Performance Testing Approach
+
+Performance testing is **mandatory for every plugin, every cycle**.
+
+Validate:
+
+- Page load time for the plugin's primary screens (list views, dashboards, detail pages) under realistic data volume
+- Behavior under large datasets — hundreds/thousands of records — list pagination, search and filters stay responsive rather than hanging or timing out
+- Bulk operations — bulk update/delete/export on a large selection completes without timing out
+- Symptoms of N+1-style query patterns — a page that visibly slows down as record count grows is worth flagging even without server-side query logs
+- Auto-refresh / polling features do not degrade the page over time (memory or DOM growth on a long-open tab)
+- Report/export generation time for large date ranges or datasets
+
+### Rule
+
+For each plugin, exercise at least one "large data" scenario per major list or report screen and record the observed load time. Flag anything that degrades noticeably as data grows — log borderline cases in `<PREFIX>_MEMORY.md`, file a bug for anything that times out or hangs.
+
+---
+
+## 30. Code Quality Review Approach
+
+Code quality review complements black-box testing. Apply it whenever the plugin's source is actually available to read — most often while investigating a bug's root cause or verifying a developer's fix.
+
+Validate:
+
+- Error handling — no unhandled exceptions or raw 500s surfacing to the user; failures degrade gracefully with a clear message
+- Consistent validation — the same rule (a required field, a uniqueness constraint) is enforced identically in the UI and at the API/endpoint level
+- No dead or orphaned code paths left behind by a fix (an old code path never removed, a flag that can no longer do anything)
+- Defensive handling of external dependencies (mail server, Redis/Sidekiq, a PDF binary, a third-party API) — a missing dependency fails loudly and diagnosably, not silently
+- Migration safety — a fix or plugin migration does not silently skip an already-recorded step, and one bad migration step does not abort the entire chain with no partial-recovery path
+
+### Rule
+
+Code quality review is not a separate suite with its own dedicated TCs — fold it into every root-cause investigation where source is read. When source is read to confirm a bug's cause or a fix, also check the list above and file a bug for anything found there that the original investigation didn't already cover.

@@ -117,3 +117,15 @@ id  name                     phone_number         website                       
 ## Production report
 
 Reported to production 2026-09-29 as **#121543** (project `ztflux`, tracker Bug, Priority High, Defect Type Functional, Defect Severity High-severity, Defect priority High, assigned Prashant Chaurasia). Linked via `report_defect` to testcase **#121475** (`Data Migration Integrity`, Feature #120043 — the testcase that actually contains TC-PLT-040) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121543 attached. (An initial `report_defect` call mistakenly linked this to testcase #121473 — "Installation & Branch Upgrade" — before being corrected to #121475 and #121473 restored to `Passed`; #121473's defect list still shows #121543 for historical reasons even though it no longer affects that testcase's Passed status.)
+
+## Closed 2026-09-30
+
+Retested — confirmed FIXED. `PLT-BASELINE-Acme Corp` now resolves to a single `rf_organizations` row (id 1) with both CRM's and Helpdesk's fields correctly merged (CRM's Email/Industry/Assigned To/Tags filled in, Helpdesk's Phone/Website/Employee Count/Address/Notes preserved), and the CRM Contact remains correctly linked. Confirmed at the DB level:
+```sql
+SELECT id, name, phone_number, website, number_of_employees, email, industry, assigned_to_id, source_crm_company_id
+FROM rf_organizations WHERE name LIKE '%Acme%';
+
+id  name                     phone_number       website                             employees  email                  industry    assigned_to_id  source_crm_company_id
+1   PLT-BASELINE-Acme Corp   +44 20 7946 0958   https://acme-helpdesk.example.net   500        acme-crm@example.com   Technology  1               1
+```
+Production issue #121543 updated: In QA → Done, 100%.

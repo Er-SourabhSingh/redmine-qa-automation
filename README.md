@@ -41,9 +41,9 @@ redmine-qa-automation/
     │   │   ├── <TC-ID>/               ← one subfolder per TC — PASS/FAIL evidence
     │   │   └── <BUG-ID>/              ← one subfolder per bug — failure + retest evidence
     │   ├── reports/
-    │   │   ├── <PREFIX>-tc-report-<date>.md   ← ONE consolidated report per cycle (types tested, TC results,
-    │   │   │                                     bugs/defects, fix verification, regression, final status)
-    │   │   └── <PREFIX>-tc-report-<date>.pdf  ← ONLY on explicit user request
+    │   │   ├── <PREFIX>-<TestingType>-<date>.md   ← one report per testing type per day (e.g.
+    │   │   │                                         HLP-Functional-2026-09-30.md, HLP-Security-2026-10-01.md)
+    │   │   └── <PREFIX>-<TestingType>-<date>.pdf  ← ONLY on explicit user request
     │   └── logs/
     │
     ├── redmineflux_advanced_field/    ← 51 PASS, 0 bugs open (same structure as _template)

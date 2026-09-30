@@ -1,5 +1,8 @@
 # BUG-TCM-004
 
+> **CLOSED — 2026-09-30**, on production evidence (see end of file): production issue #120546 was already Done,
+> 100%, per another QA tester's (Nidhi Singh) live 2026-09-28 retest. Accepted per explicit user decision.
+
 - Bug ID: BUG-TCM-004
 - Production Redmine Issue ID: #120546 (https://flux.zehntech.com/issues/120546) — created 2026-09-11, assigned to Sheetal Sharma, Priority Low
 - Title: Bulk Update Result modal shows raw HTML markup in its "Apply to N testcase(s)" line
@@ -107,12 +110,20 @@ noted in the original analysis. Worth keeping in mind if that argument ever beco
 
 ### Verdict
 
-**PASS. Ready to close pending regression.** Severity **Low**, so `SENIOR_QA_STANDARDS.md` §26 requires only the
-directly affected TCs — a much lighter gate than BUG-TCM-003's. It shares a modal with that bug, so closing them
-together after the Test Runs suite regression is the tidier path. Production **#120546** unchanged so far.
+**PASS.** Severity **Low**, so `SENIOR_QA_STANDARDS.md` §26 requires only the directly affected TCs — a much
+lighter gate than BUG-TCM-003's. It shares a modal with that bug.
 
 > Checked in the same session as BUG-TCM-003's retest — both defects live on this one modal, so one pass covers
 > both. The functional blocker (BUG-TCM-003) now also passes.
+
+## Closed 2026-09-30 — on production evidence
+
+While checking production status of the open TCM bugs, found production issue **#120546 already Status: Done,
+100%** — retested by **Nidhi Singh** on 2026-09-28 on both Redmine 6.0.11.stable and 7.0.1.stable (forge
+instances), journal evidence checked the DOM directly (`innerHTML`/`innerText`, confirming a real `<strong>`
+element with no literal or escaped tag anywhere on the page) rather than judging by eye — the same rigor this
+bug's own 2026-09-15 retest used. **Per explicit user decision (2026-09-30), accepted as closing this bug**;
+production was already Done/100% (no write needed). This file and `bugs/_index.md` brought in sync with it.
 
 ## Duplicate check
 

@@ -2,11 +2,142 @@
 
 ## Last Session
 
-- Date: 2026-09-15
-- Redmine Version: 6.1.3 / 7.0.0 / 5.1.12 (three instances)
-- Environment: Docker `localhost:3010`, `localhost:3011`, `localhost:3012`, plugin v7.0.0; production `ztflux`
+- Date: 2026-09-30
+- Redmine Version: 7.0.0
+- Environment: Docker `localhost:3010`, plugin v7.0.0 (git HEAD `97449b9`)
 
-## Completed This Session (2026-09-15) — BUG-TCM-005 rescoped and closed, BUG-TCM-006 split out
+## Completed This Session (2026-09-30, continued further) — Configuration suite, 4 more bugs found
+
+**Continuing the final-cycle regression into `TESTCASE_MANAGEMENT_CONFIGURATION.md`** (20 TCs, entirely
+unexecuted before this session). 18/20 resolved, 2 deferred:
+
+- **TC-TCM-001** (Testcase Tracker cleared) — **FAIL, found BUG-TCM-010 (High):** clearing the setting doesn't
+  block "New Test Case," it silently creates the issue on the project's first tracker (`Bug`) with zero error;
+  permanently invisible to every plugin view afterward. Setting restored, verified.
+- **TC-TCM-002** (valid-but-different tracker) — PASS: shows an honest "Tracker not enabled for this project"
+  message, no data loss. Contrasts cleanly with TC-001/BUG-TCM-010.
+- **TC-TCM-003** (Defect Tracker drives Report Bug) — PASS on the core mechanism (issue correctly lands on the
+  configured tracker); side-observed a validation issue with a non-Bug tracker that turned out to be BUG-TCM-011.
+- **TC-TCM-004** (Feature Tracker) — corrected premise: `Requirement` is a standalone model with no tracker
+  column at all; the setting actually scopes which second tracker's issues can be linked to a requirement — PASS
+  on the real mechanism.
+- **TC-TCM-005** (same tracker for two roles) — **FAIL, found BUG-TCM-011 (High):** setting Testcase/Defect
+  Tracker to any non-Bug tracker breaks Report Defect/New Test Case entirely when the project has a Bug-only
+  required custom field (this project has two) — the field is never rendered for the other tracker but still
+  enforced on submit. Root-caused to `issue_testcase_controller.rb`'s `new` action resolving the tracker
+  explicitly before render, while `create` never applies that same resolution before validation runs.
+- **TC-TCM-006/007** (display settings) — both PASS; TC-007's "hide default status field" premise corrected to
+  the real control, "Hide Testcase Execution section."
+- **TC-TCM-008–013** (email templates/notifications) — precondition fix: `run_added`/`run_updated`/
+  `testcase_result_added` were entirely unchecked in Administration → Settings → Notifications (same
+  "nothing pre-configured" pattern as the Permissions suite). Enabled all three (real fix, left enabled). Verified
+  live via Roundcube (`qa@test.local`): both Run and Testcase Email Template marker/macro substitution work
+  correctly (TC-008/009 PASS). **Found BUG-TCM-012 (Low):** the default Testcase Result Added email's heading
+  shows the run's name instead of the test case's own subject (`@run.name` vs `@issue.subject` in the view).
+  **Found BUG-TCM-013 (Medium):** every single Add Result submission sends the Test Case Result Added email
+  **twice** (confirmed only one DB row created each time — not a duplicate submission); root cause not fully
+  isolated, suspect a Sidekiq retry. TC-TCM-010 (invalid template) confirmed safe via source (plain regex
+  substitution, no parser to raise on malformed syntax). TC-TCM-014 (reminder frequency) deferred — needs a real
+  scheduled-interval wait.
+- **TC-TCM-015/016** (run types) — both PASS: new type appears in Add Run dropdown; deleting an in-use type
+  leaves existing runs rendering fine with a cleanly blank Run Type (no error).
+- **TC-TCM-017** (Redis stopped) — deferred, shared-instance risk (Sidekiq queue + other plugins' Redis use).
+- **TC-TCM-018/019/020** (Sidekiq/Node prerequisites) — already had confirmed evidence from earlier sessions.
+
+All settings touched this session were restored to baseline and verified via Rails console (tracker=4, defected_
+tracker=1, feature_tracker=2, hide_testcase_execution=nil, show_issue_count=true, 0 active email templates).
+The three notification events and the role→permission mapping from the Permissions suite are the only
+deliberately-lasting configuration changes.
+
+`bugs/open/` now holds 7 bugs: BUG-TCM-007 (#121645), BUG-TCM-008 (#121698), BUG-TCM-009 (#121699), BUG-TCM-010
+(#121700), BUG-TCM-011 (#121701), BUG-TCM-012 (#121702), BUG-TCM-013 (#121703) — **all 7 now reported to
+production as of 2026-09-30**, all assigned to Sheetal Sharma, linked to a dedicated production Test Case #121697
+and Run #592 (see the new Run History row below).
+
+## Completed This Session (2026-09-30, continued) — Permissions suite finished, BUG-TCM-009 filed
+
+**Continuing the final-cycle regression's Permissions suite** (from 20/32 TCs to effectively complete, minus 5
+deliberately deferred cases):
+
+- **TC-TCM-074/075** (non-member / anonymous access): built a dedicated brand-new **Private** project
+  (`tcm-permissions-private-test`) specifically to isolate this from the shared `test-project` fixture. Confirmed
+  via Rails console `daisy.skye` had zero membership/role on it. **Found BUG-TCM-009 (High):** every plugin
+  controller's read actions (`test_suites`, `testcase_reports`, `requirements`, `traceability_rtms`,
+  `testcase_todos`, `runs#new/index/show`) render fully for a genuine non-member, while plain Redmine's own
+  `/projects/<id>` correctly 403s. Anonymous access (TC-075) correctly redirects to login — PASS, but only because
+  of the instance-wide "Authentication required" setting, unrelated to per-project isolation.
+- **TC-TCM-077** (module disabled): disabled the module on `test-project`, confirmed the tab vanishes but
+  `/test_suites` and `/runs/new` still fully render for a real project member — same missing-guard root cause,
+  folded into BUG-TCM-009 rather than filed separately. Module re-enabled and verified restored immediately after.
+- **TC-TCM-058** (run deletion vs execution history): created run #8, executed 2 cases, deleted the run via Rails
+  console (`Run.destroy`) — confirmed a real cascade delete (`IssueStatusResult` count 119→0), no orphaned
+  references on reload. PASS.
+- **TC-TCM-061** (Execute permission independence): created run #8 assigned to `willow.belle` (Developer:
+  view_test_suite/execute_testcase/view_report only). Execute worked; no Edit/Close/Delete Run controls in the UI;
+  direct `GET /runs/8/edit` rendered no data. PASS.
+- **TC-TCM-062** (View Report granted, Create denied): Reports list/detail render correctly for `willow.belle`, no
+  create/edit/delete controls shown, but `GET /projects/test-project/testcase_reports/new` renders the full form —
+  same defect as BUG-TCM-007, no new bug needed.
+- **TC-TCM-066** (report cross-project leakage): confirmed via source (`testcase_reports_controller.rb:65`) that
+  both branches of the run-selection ternary constrain to `project_id: @project.id`, including the branch that
+  takes attacker-controllable `run_ids` — correctly scoped. PASS.
+- **TC-TCM-076** (permission revocation takes effect immediately): revoked Create Run from QA Own Visibility
+  (`/roles/19`), verified via Rails console it actually persisted (guards against the bulk-save silent-failure
+  gotcha), confirmed the Add Run button disappeared immediately for `summer.rain` on the next request — no stale
+  grace period. **Restored the permission afterward** to avoid leaving the shared role fixture altered.
+- **TC-TCM-073** (deleting a requirement with linked test cases): identified the live fixture (Requirement #2
+  "gsdfgdf" → test cases #434/#471) but the actual delete was **blocked mid-workflow by the session's auto-mode
+  permission classifier** ("Irreversible Deletion"), which also blocked a follow-up screenshot in the same flow.
+  **Deferred, not executed** — needs the user's explicit go-ahead via whatever path they prefer.
+- **Still deliberately deferred from earlier in this suite:** TC-TCM-051 (suite deletion with linked cases — no
+  working case↔suite linking method found), TC-TCM-067/068/069 (To-Do visibility — needs cleaner multi-user
+  assigned-work fixtures).
+
+**Permissions suite is now checkpoint-complete** per the user's "checkpoint after each suite" pacing decision.
+`bugs/open/` now has 3 bugs: BUG-TCM-007, BUG-TCM-008, BUG-TCM-009. Next suite per the original priority order:
+`TESTCASE_MANAGEMENT_CONFIGURATION.md`.
+
+## Completed This Session (2026-09-30) — BUG-TCM-006 retested and closed as FIXED
+
+**Trigger:** production issue #120658 (BUG-TCM-006) was moved to **In QA** by the developer — the fix commits
+`dee611e`/`58c68d2`/`9e82662` (previously "reported, not pushed") are confirmed merged into `master` (HEAD
+`97449b9`) on `localhost:3010`.
+
+**This instance had never had Installation step 6 completed** (no Node/Puppeteer/Chromium, no SMTP configured at
+all). Set up from scratch this session: Node v20.19.2/npm 9.2.0/Chrome 127.0.6533.88; SMTP wired to the local
+Docker mail server (`host.docker.internal:2587`, since this container sits on its own `redmine-docker-700_default`
+network, not `local_mailtest_net`); `Setting.host_name` corrected `localhost:3000` → `localhost:3010`; `admin`'s
+account email set to `admin@test.local` and seed user `luna.blossom`'s to `qa@test.local` for real checkable
+mailboxes.
+
+**Found live (not from a manual/deliberate break) that this container's default entrypoint does not export
+`PUPPETEER_EXECUTABLE_PATH`/`GROVER_NO_SANDBOX` for Sidekiq** — a plain restart leaves Chromium unable to launch
+(`No usable sandbox!`). This incidentally became a real second failure cause for BUG-TCM-006's retest (see below).
+
+**Retest performed** (full detail in `bugs/closed/BUG-TCM-006.md`):
+1. Baseline with a working Puppeteer path — genuine 1,001,291-byte PDF, valid header/trailer, 32/32 streams inflate.
+2. Failure cause 1 (missing `--no-sandbox`, found incidentally) — HTML fallback + red warning banner delivered correctly.
+3. Failure cause 2 (`PUPPETEER_EXECUTABLE_PATH=/nonexistent/chrome`, the bug's own documented repro) — exact
+   original error reproduced, HTML fallback + warning delivered correctly.
+4. Spot-checked a second report type (Defect Summary) under failure cause 2 — same correct behaviour.
+5. HTML-format regression check under failure cause 2 still in effect — unaffected, no warning, normal delivery.
+
+**Verdict: FIXED.** BUG-TCM-006 moved to `bugs/closed/`; `bugs/_index.md`, `TC-TCM-101` (in
+`testcases/TESTCASE_MANAGEMENT_REPORTS.md`) and the plugin memory file all updated with the evidence.
+**Still not executed:** verification-plan step 6 (HTML fallback itself failing while PDF has already failed) — an
+honest gap carried forward, not assumed safe.
+
+**Production write still pending approval:** sync **#120658 → Done / 100%** (`CLAUDE.md` §5) — prepared, not yet
+executed.
+
+**Discrepancy found and flagged, not acted on:** while checking BUG-TCM-006's production status, found that
+**#120544 (BUG-TCM-003) and #120546 (BUG-TCM-004) are already Status: Done, 100%** on production — retested and
+closed by **Nidhi Singh** on 2026-09-28 (forge instances, Redmine 6.0.11 and 7.0.1, real Playwright evidence). This
+repo's local `bugs/open/BUG-TCM-003.md` / `BUG-TCM-004.md` still read Open, deliberately kept that way pending the
+Test Runs suite regression (`SENIOR_QA_STANDARDS.md` §26). Not resolved this session — flagged in `bugs/_index.md`
+for a decision on whether the other tester's evidence satisfies §26 or the regression still needs running here.
+
+## Completed Previous Session (2026-09-15) — BUG-TCM-005 rescoped and closed, BUG-TCM-006 split out
 
 **Trigger:** the user challenged the "stays OPEN" verdict from the 2026-09-14 retest, on the grounds that the
 original scope of BUG-TCM-005 was *PDF generation and attachment failure*, and that the hardcoded "Please find the
@@ -143,6 +274,34 @@ id (**397**) must be carried forward from here rather than looked up.
 
 ## Next Session Start Point
 
+- **Final-cycle regression (§27) in progress, started 2026-09-30.** Working suite by suite; user chose "full
+  regression, all 10 suites, same rigor, checkpoint after each suite" when asked about pacing.
+- **`TESTCASE_MANAGEMENT_PERMISSIONS.md` is checkpoint-complete.** Only 5 TCs remain deliberately deferred:
+  TC-TCM-051 (no working case↔suite linking method found), TC-TCM-067/068/069 (needs cleaner multi-user
+  assigned-work fixtures), TC-TCM-073 (blocked by the auto-mode permission classifier mid-delete — needs user
+  input on how to proceed). Every other TC in the suite has live evidence. Role→permission mapping established
+  for Manager/QA Own Visibility/Developer/Reporter (see the suite file's own header note) — reuse it, don't
+  re-derive.
+- **BUG-TCM-007 (High)** — Test Suite Management, Reporting, and Requirement Management (9 of 17 permissions)
+  have zero authorization check at all in their controllers. **Reported to production as #121645.**
+- **BUG-TCM-009 (High) found this session** — almost the entire plugin has no project-membership or
+  module-enabled check on its *read* actions (distinct from BUG-TCM-007, which is about *write* actions missing a
+  role-permission check). A genuine non-member, or a member of a project with the module disabled, can still view
+  test suites, requirements, reports, traceability, to-dos and runs by direct URL. Not yet reported to production.
+- `bugs/open/` now has 7 bugs, **all reported to production as of 2026-09-30**: BUG-TCM-007 (#121645), BUG-TCM-008
+  (#121698), BUG-TCM-009 (#121699), BUG-TCM-010 (#121700), BUG-TCM-011 (#121701), BUG-TCM-012 (#121702),
+  BUG-TCM-013 (#121703) — all assigned Sheetal Sharma, linked to Test Case #121697 / Run #592. `STATUS.md` stays
+  `In Progress` (awaiting fixes, not a reporting gap anymore).
+- **Next: continue the final-cycle regression into `TESTCASE_MANAGEMENT_TEST_RUNS.md`** (the plugin's core
+  workflow, genuinely unexecuted), then the remaining suites (cases/requirements/RTM/reports/to-do). TC-TCM-011/012
+  in the Configuration suite still need a written-up verdict (notification events were enabled as a precondition
+  fix, but no evidence block was recorded for these two specific TCs this session).
+- **`TESTCASE_MANAGEMENT_CONFIGURATION.md` is checkpoint-complete** (18/20 TCs resolved). Deferred: TC-TCM-014
+  (needs a real scheduled-interval wait — shortest cadence is daily), TC-TCM-017 (stopping Redis is a
+  shared-instance risk with other concurrent QA sessions).
+- **Next suite per the original priority order: `TESTCASE_MANAGEMENT_TEST_RUNS.md`** (TC-TCM-152–440 in the old
+  range notation — the plugin's core workflow, genuinely unexecuted), then suites/cases/requirements/RTM/
+  reports/to-do.
 - **One production write is still queued and needs approval:** sync **#120588 → Done / 100%** with a rescoping
   note (BUG-TCM-006 is now reported as #120658, so that half is done). Until this runs, `bugs/closed/BUG-TCM-005.md`
   and production #120588 are out of sync. Do it first.
@@ -185,11 +344,41 @@ id (**397**) must be carried forward from here rather than looked up.
 
 ## Open Bugs Found
 
-- BUG-TCM-006 (Medium, prod **#120658**) — A *failed* PDF generation still sends an email whose body promises an attachment, with nothing surfaced in the UI. Split out of BUG-TCM-005 on 2026-09-15. Found on `localhost:3012`. Reported to `ztflux` 2026-09-15, assigned to Sheetal Sharma.
-- BUG-TCM-003 (High) — Bulk update result always fails with 401; bulk endpoint rejects the logged-in browser session.
-- BUG-TCM-004 (Low) — Bulk Update Result modal shows raw `<strong>` tags in its "Apply to N testcase(s)" line.
+- **BUG-TCM-007 (High)** — Create/Edit/Delete for Test Suites, Reports, and Requirements have no permission
+  check at all. Found 2026-09-30 while executing `TESTCASE_MANAGEMENT_PERMISSIONS.md`. **Reported to production
+  as #121645.**
+- **BUG-TCM-008 (Medium)** — Run detail page crashes with an unhandled 500 whenever the run's environment-assignee
+  user has been deleted. Found 2026-09-30. **Reported to production as #121698.**
+- **BUG-TCM-009 (High)** — Almost the entire plugin has no project-membership or module-enabled check on its read
+  actions — a non-member (or a member of a project where the module is disabled) can still view test suites,
+  requirements, reports, traceability, to-dos and runs. Found 2026-09-30. **Reported to production as #121699.**
+- **BUG-TCM-010 (High)** — Clearing the Testcase Tracker setting silently misfiles "New Test Case" onto the
+  project's first tracker instead of failing with a config error. Found 2026-09-30 in
+  `TESTCASE_MANAGEMENT_CONFIGURATION.md`. **Reported to production as #121700.**
+- **BUG-TCM-011 (High)** — Report Defect/New Test Case cannot be completed at all when Defect/Testcase Tracker is
+  set to any non-Bug tracker, if the project has a Bug-only required custom field. Found 2026-09-30. **Reported to
+  production as #121701.**
+- **BUG-TCM-012 (Low)** — Default "Test Case Result Added" email heading shows the run's name instead of the test
+  case's own subject. Found 2026-09-30. **Reported to production as #121702.**
+- **BUG-TCM-013 (Medium)** — A single Add Result submission sends the "Test Case Result Added" email twice. Found
+  2026-09-30. **Reported to production as #121703.**
 
-## Closed This Session (2026-09-15)
+All 7 bugs above are assigned to **Sheetal Sharma** and linked to production Test Case **#121697** ("Sanity:
+Redmineflux Testcase Management — Final-Cycle Regression 2026-09-30") and Run **#592**, environment
+"Window 11 + Chrome".
+
+## Closed This Session (2026-09-30)
+
+- **BUG-TCM-006 (Medium)** — Failed PDF generation still sends a misleading email. Retested PASS on `localhost:3010`
+  (Redmine 7.0.0, git HEAD `97449b9`): two independent PDF-failure causes both correctly fall back to an HTML
+  attachment with a visible warning banner, never a silent PDF-less claim. Full evidence in
+  `bugs/closed/BUG-TCM-006.md`. Production **#120658 synced to Done / 100%** (`CLAUDE.md` §5, approved).
+- **BUG-TCM-003 (High)** and **BUG-TCM-004 (Low)** — closed on the strength of another QA tester's (Nidhi Singh)
+  live 2026-09-28 production retest (2 Redmine versions, forge instances, real evidence), accepted per explicit
+  user decision rather than running the `TESTCASE_MANAGEMENT_TEST_RUNS.md` suite locally first. Production was
+  already Done/100% for both (#120544, #120546) — no write needed, local files brought in sync.
+
+## Closed Previous Session (2026-09-15)
 
 - **BUG-TCM-005 (High)** — Report emailed as PDF arrives with no attachment. Retest PASS 2026-09-14 (TC-TCM-100):
   after completing KB Installation step 6, the PDF email delivers a valid 53,446-byte attachment. Root cause was
@@ -209,6 +398,11 @@ id (**397**) must be carried forward from here rather than looked up.
 
 | Date | Redmine Version | Environment | Tested By | Summary |
 |------|-----------------|-------------|-----------|---------|
+| 2026-09-30 | n/a | production `ztflux` (flux.zehntech.com) | Claude (redmineflux MCP, approved write) | **Production reporting batch — testcase + run created, all 6 remaining open bugs reported.** Per explicit user instruction, created Test Case **#121697** ("Sanity: Redmineflux Testcase Management — Final-Cycle Regression 2026-09-30", suite #6 "Testcase plugin") and Run **#592** ("TCM Final-Cycle Regression 2026-09-30", environment "Window 11 + Chrome"), following the established Sanity-testcase pattern rather than reusing an unrelated prior fixture. Reported BUG-TCM-008 → **#121698** (Medium), BUG-TCM-009 → **#121699** (High), BUG-TCM-010 → **#121700** (High), BUG-TCM-011 → **#121701** (High), BUG-TCM-012 → **#121702** (Low), BUG-TCM-013 → **#121703** (Medium) via `report_defect`, all assigned **Sheetal Sharma**, each with the 4 Defect custom fields (Type/Severity/Priority via IDs 43/44/45) mirroring local severity. All 6 local bug MDs (Production Redmine Issue ID + Production report section) and `bugs/_index.md` updated. `bugs/open/` now has all 7 bugs reported to production (BUG-TCM-007 was reported earlier the same day). |
+| 2026-09-30 | 7.0.0 | Docker `localhost:3010` (project `test-project`) | Claude (Playwright MCP headed, admin) | **Final-cycle regression — `TESTCASE_MANAGEMENT_CONFIGURATION.md` checkpoint-complete** (18/20 TCs, 2 deferred: TC-TCM-014 needs a real scheduled-interval wait, TC-TCM-017 is a shared-instance risk from stopping Redis). **Found 4 new bugs:** BUG-TCM-010 (High — clearing Testcase Tracker silently misfiles new test cases onto the wrong tracker with zero error, instead of failing cleanly), BUG-TCM-011 (High — Report Defect/New Test Case totally broken on any non-Bug tracker when a Bug-only required custom field exists, root-caused to a GET/POST tracker-resolution asymmetry in `issue_testcase_controller.rb`), BUG-TCM-012 (Low — default Test Case Result Added email shows the run's name instead of the test case's subject), BUG-TCM-013 (Medium — every Add Result submission sends its notification email twice, confirmed via DB row count it's not a duplicate submission). Also fixed a real precondition gap: `run_added`/`run_updated`/`testcase_result_added` notification events were entirely unconfigured on this instance, enabled all three (lasting fix). Live-verified Run and Testcase Email Template marker/macro substitution via Roundcube (`qa@test.local`). Corrected two TCs whose written premise didn't match the plugin's actual architecture (TC-004: Requirements aren't Issues; TC-007: no "hide status field" setting exists, only "Hide Testcase Execution section"). All settings restored to baseline and verified. `bugs/open/` now holds 7 bugs (BUG-TCM-007 through BUG-TCM-013), only #121645 (BUG-TCM-007) reported to production so far. |
+| 2026-09-30 | 7.0.0 | Docker `localhost:3010` (projects `test-project`, `tcm-permissions-private-test`) | Claude (Playwright MCP headed, multi-role: admin/Manager/QA Own Visibility/Developer/Reporter) | **Final-cycle regression — `TESTCASE_MANAGEMENT_PERMISSIONS.md` checkpoint-complete** (all TCs executed except 5 deliberately deferred: TC-TCM-051, 067, 068, 069, 073). Built a dedicated Private project to isolate the non-member/anonymous checks. **Found BUG-TCM-009 (High):** almost the entire plugin has no project-membership or module-enabled check on its read actions — a non-member, or a member of a module-disabled project, can still view test suites, requirements, reports, traceability, to-dos and runs by direct URL; only plain Redmine's own `/projects/<id>` and the top-nav tab correctly gate. Confirmed TC-TCM-058 (run deletion cascades results cleanly, no orphans), TC-TCM-061 (Execute permission independent of run management), TC-TCM-062/066 (report view/create-scoping correct except the already-known BUG-TCM-007 gap), TC-TCM-076 (permission revocation takes effect immediately, verified via Rails console, permission restored afterward). TC-TCM-073 blocked mid-delete by the session's auto-mode permission classifier — deferred pending user input. `bugs/open/` now holds 3 bugs (BUG-TCM-007 #121645, BUG-TCM-008, BUG-TCM-009 not yet reported). |
+| 2026-09-30 | 7.0.0 | Docker `localhost:3010` (project `test-project`) | Claude (Playwright MCP headed, multi-role: admin/Manager/QA Own Visibility/Developer/Reporter) | **Final-cycle regression started — `TESTCASE_MANAGEMENT_PERMISSIONS.md` in progress (20/32 TCs).** Established a real role→permission mapping (none existed live before this session — every non-admin role had zero Testcase Management permissions granted). Executed Test Suite/Run/Execution/Reporting/Requirement Management granted-role legs (all PASS) and denied-role legs for Test Suites/Runs/Reports/Requirements. **Found BUG-TCM-007 (High):** Test Suite Management, Reporting, and Requirement Management controllers (`test_suites_controller.rb`, `testcase_reports_controller.rb`, `requirements_controller.rb`) have zero authorization checks on create/edit/delete — live-confirmed a zero-permission Reporter-role user could create+edit+delete a test suite, create a requirement (201, real DB row), and create a report ("successfully" + real DB row), all via direct URL/endpoint even though the corresponding UI controls were correctly hidden in most cases. Test Run Management, Test Execution, and To-Do Management spot-checked as a control and confirmed correctly protected (`allowed_to?` guards present and working). Filed `bugs/open/BUG-TCM-007.md`, updated `bugs/_index.md`, `STATUS.md`. Not yet reported to production. |
+| 2026-09-30 | 7.0.0 | Docker `localhost:3010` (project `test-project`, git HEAD `97449b9`) | Claude (Playwright MCP headed, admin + shell access) | **BUG-TCM-006 retest — PASS, closed as FIXED.** Instance had never had Installation step 6 completed: installed Node/npm/Chromium, wired SMTP to the local Docker mail server, corrected `Setting.host_name`, set `admin`/`luna.blossom` emails to real checkable mailboxes. Baseline PDF verified genuine (1,001,291 B, 32/32 streams inflate). Two independent PDF-failure causes (missing `--no-sandbox`, found incidentally; bad `PUPPETEER_EXECUTABLE_PATH`, the bug's own repro) both correctly produced an HTML-fallback attachment with a visible warning banner — never a silent misleading email. Spot-checked a second report type (Defect Summary) and confirmed the HTML format path is not regressed. `TC-TCM-101` updated with full evidence. **While checking production status, found #120544/#120546 (BUG-TCM-003/004) already Done on production** per another tester's (Nidhi Singh) 2026-09-28 retest. Production #120658 synced to Done/100% (approved). **Per explicit user follow-up approval, also closed BUG-TCM-003/BUG-TCM-004 locally** on that other tester's production evidence rather than running the Test Runs suite here — `bugs/open/` is now empty, though `STATUS.md` stays In Progress (§10) pending a full final-cycle regression (§27). |
 | 2026-09-15 | 7.0.0 | Docker `localhost:3010` (project `test-project`, run #4 `reyer`) | Claude (Playwright MCP headed, admin) | **Retest pass 2, after the developer switched branch and restarted the container — BUG-TCM-003 and BUG-TCM-004 both PASS.** Redis and Sidekiq were down after the restart and were started by QA first (`redis-server --daemonize`, `bundle exec sidekiq`) — neither comes back with the container. **BUG-TCM-003:** the bulk form now posts to `/issue_status_results/bulk_create` (new non-`.json` route, `routes.rb:191-195`; `@bulk_url` re-pointed at `issue_status_results_controller.rb:26`); `Current user: admin (id=1)`, **201 Created**, rows 859/860 written for #437/#448 with environment `chrome`, modal closed and grid refreshed. The `.json` route at `routes.rb:162` is deliberately retained for API clients. **BUG-TCM-004:** view line 16 now `.html_safe`; DOM shows a real `<strong>` element, `textContent` reads "Apply to 2 testcase(s)." **Trap noted:** the grid appeared to still show `Untested` after the save because it is filtered per environment (`fdsgsdf`) while the save targeted `chrome` — switching the filter shows both cases `Passed`. **Both stay in `bugs/open/` pending the Test Runs suite regression (§26, High severity).** Sibling `.json` routes (163/167/168/175) unchanged; `testrun.js:345` calls bulk_delete with `?key=api_key`, which would sidestep the defect — code reading only, untested. |
 | 2026-09-15 | 7.0.0 | Docker `localhost:3010` (project `test-project`, run #4 `reyer`) | Claude (Playwright MCP headed, admin) | **Retest pass 1, previous branch — BUG-TCM-003 and BUG-TCM-004 both FAIL.** Bulk Update Result on test cases #434/#435 still returns **401 Unauthorized** with `Current user: anonymous` and `Filter chain halted as :check_if_login_required`; Submit stuck on "Saving…", nothing saved. "Nothing saved" verified in the DB, not the grid — the grid already showed `Passed` from 2026-09-11, which would have read as a false pass. Control: single Add Result on #436 in the same session → `Current user: admin (id=1)`, 200 OK, row 858 created, confirming the `.json`-vs-non-`.json` asymmetry is intact. BUG-TCM-004's count line still renders `&lt;strong&gt;` escaped (`hasStrongEl: false`). Source on the container confirms **no fix applied**: `routes.rb:162` unchanged, no `prepend_before_action` anywhere, `en.yml:927` and `_new_result_form.html.erb:16` unchanged. |
 | 2026-09-15 | n/a | production `ztflux` (flux.zehntech.com) | Claude (redmineflux MCP, approved write) | Reported BUG-TCM-006 as **#120658** (Bug, category Testcase Management Plugin, Priority Medium, assigned to Sheetal Sharma), description linking back to #120588 and stating the split. **Custom fields set successfully in the same call** — Defect Type Functional / Defect Severity Medium-severity / Defect priority Medium (IDs 43/44/45; `list_custom_fields` is still permission-blocked but direct IDs work). Evidence JPEG attached as id 93611, **checksum-verified byte-exact**. The bug PDF (13.4 KB) and MD (14.4 KB) were deliberately **not** uploaded — above the ~4 KB safe ceiling for this channel — and need manual attachment. |

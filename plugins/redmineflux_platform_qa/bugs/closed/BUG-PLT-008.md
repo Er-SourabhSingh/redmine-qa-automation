@@ -136,3 +136,7 @@ Raised from initial assessment (blank-field display issue) to **High** after con
 ## Production report
 
 Reported to production 2026-09-29 as **#121551** (project `ztflux`, tracker Bug, Priority High, Defect Type Functional, Defect Severity High-severity, Defect priority High, assigned Prashant Chaurasia). Linked via `report_defect` to testcase **#121476** (`Cross-Plugin Consistency`, Feature #120043) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121551 attached (in addition to #121548 from BUG-PLT-007, both on the same testcase).
+
+## Closed 2026-09-30
+
+Retested — confirmed FIXED as originally reported. Both "Working hours per day" and "Company name" now correctly pre-fill with the resolved value from the source plugin (`9.0` from Workload, `Testers Pvt. Ltd.` from Invoice), and the Company Name hint now shows the value in parens too, matching the Working Hours pattern. Noted and accepted the dev's explicit scope decision that reverse write-back (Platform → Workload/Invoice) was not implemented — flagged as separate future work if wanted, not a defect against this bug's own reported scope (which only asked that Platform correctly display/read the source's value). Production issue #121551 updated: In QA → Done, 100%.

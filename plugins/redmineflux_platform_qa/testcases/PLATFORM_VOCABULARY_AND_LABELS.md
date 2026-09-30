@@ -149,9 +149,57 @@
 
 ---
 
+## Functional Cases — Header/Breadcrumb Consistency (added 2026-09-30, per testing-promt.md — no TC existed for this before BUG-PLT-007 was found ad hoc)
+
+---
+
+### TC-PLT-107: Platform's own header banner reads "Redmineflux Platform" consistently on every one of its sections
+
+**User Role:** Admin.
+**Precondition:** TC-PLT-021 PASS.
+
+**Steps:**
+1. Visit every Platform section (Overview, Teams, Holiday Schemes, Holidays, Leave Types, Leaves, Organizations, Contacts, Audit events, Platform Settings).
+2. Check the header banner directly below the top navbar on each.
+
+**Expected Result:**
+- Consistently reads "Redmineflux Platform" everywhere.
+- **CONFIRMED FAIL 2026-09-30** — Overview shows plain "Redmine"; every other section shows a completely blank banner. Filed as part of `BUG-PLT-007` (reopened).
+
+---
+
+### TC-PLT-108: A shared screen reused by two plugins does not leak the other plugin's page-title/menu context
+
+**User Role:** Admin.
+**Precondition:** TC-PLT-021 PASS.
+
+**Steps:**
+1. Visit Platform's Teams screen (`/redmineflux_platform/teams`) — a screen the Team consolidation makes reachable via both Platform's own routes and Shift Management's controller-name collision.
+2. Compare its header/title against Shift Management's own native pages.
+
+**Expected Result:**
+- Platform's Teams page should show Platform's own identity, not Shift Management's. **CONFIRMED FAIL 2026-09-30** — root-caused to `controller_name` stripping the module namespace, so both controllers render body class `controller-teams`, and Shift Management's CSS keys its own header text off that class. Part of `BUG-PLT-007`.
+
+---
+
+### TC-PLT-109: Delete-confirmation modal buttons are visually consistent between Platform's own modal and each consumer plugin's native equivalent
+
+**User Role:** Admin.
+**Precondition:** TC-PLT-021 PASS.
+
+**Steps:**
+1. Open Platform's delete-confirmation modal (`#rf_platform_confirm_modal`) on any entity.
+2. Compare button size (height, font, padding, border-radius) against Shift Management's own native delete modal and Helpdesk's own native delete modal.
+
+**Expected Result:**
+- Same button dimensions across all three, since it's visually the same modal component.
+- **CONFIRMED PARTIAL FAIL 2026-09-30** — height/font now match after a first fix round, but width is still roughly half of both comparison targets, and border-radius overshoots both. Part of `BUG-PLT-007` (reopened).
+
+---
+
 ## Evidence Map
 
-- Case ID: TC-PLT-080 … TC-PLT-089
+- Case ID: TC-PLT-080 … TC-PLT-089, TC-PLT-107 … TC-PLT-109
 - Screenshot: (bugs only)
 - Log: —
-- Bug reference: —
+- Bug reference: TC-PLT-107/108/109 → `BUG-PLT-007` (reopened)

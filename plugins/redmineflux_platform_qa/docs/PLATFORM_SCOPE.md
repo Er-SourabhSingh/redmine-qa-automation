@@ -2,12 +2,15 @@
 
 ## In Scope
 
-- [ ] Functional testing
-- [ ] Permission testing
+- [x] Functional testing
+- [x] Permission testing
 - [ ] Workflow testing
 - [ ] Negative testing
-- [ ] UI validation
+- [x] UI validation
 - [ ] Multi-language testing
+- [x] Security testing (mandatory — see `SENIOR_QA_STANDARDS.md` §28, `testcases/PLATFORM_SECURITY.md`)
+- [x] Performance testing (mandatory — see `SENIOR_QA_STANDARDS.md` §29, `testcases/PLATFORM_PERFORMANCE.md`)
+- [x] Code quality review (mandatory — see `SENIOR_QA_STANDARDS.md` §30 — folded into root-cause investigations, not a separate suite)
 
 ## Out of Scope
 

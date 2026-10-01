@@ -2,9 +2,101 @@
 
 ## Last Session
 
-- Date: 2026-09-30
+- Date: 2026-10-01
 - Redmine Version: 7.0.0
-- Environment: Docker `localhost:3010`, plugin v7.0.0 (git HEAD `97449b9`)
+- Environment: Docker `localhost:3010` (container `redmine-docker-700-redmine-1`), plugin v7.0.0
+
+## Completed This Session (2026-10-01, continued) — TEST_SUITES.md complete, TEST_CASES.md in progress
+
+After `TEST_RUNS.md` finished (below), continued the final-cycle regression into
+`testcases/TESTCASE_MANAGEMENT_TEST_SUITES.md` (all 12 TCs, 192–203) and then
+`testcases/TESTCASE_MANAGEMENT_TEST_CASES.md` (13 of 24 TCs, 128–140). **Six new bugs found, one filed-then-
+retracted:**
+
+- **BUG-TCM-017 (Low)** — Test Suite Create and Edit modals have no Description field at all, despite
+  `TESTCASE_MANAGEMENT_USER_GUIDE.md` Workflow 2 documenting one; a leftover JS hook assuming a `.ql-editor`
+  exists throws a console error on every modal open.
+- **BUG-TCM-018 (Medium)** — "Add Sub Test Suite" from an already-nested (level-2) suite silently creates an
+  orphaned top-level suite instead of a 3rd nesting level — the hidden `parent-id-field` only populates
+  correctly one level deep.
+- **BUG-TCM-019 — filed then retracted same day.** Originally claimed deleting a suite retrackers its contained
+  test cases from Test case to Bug, based on the suite's "Testcase Summary" grid showing them as Test case
+  before deletion. That grid turned out **not to filter by tracker at all** — confirmed by finding known
+  Bug-tracker issues still listed in it. Retracted and deleted; see BUG-TCM-022 below for the real defect this
+  pointed at.
+- **BUG-TCM-021 (High)** — any re-render of the New Test Case form (a Category change, or simply the
+  near-guaranteed first-attempt validation failure from BUG-TCM-011) silently destroys already-entered Steps
+  and removes the Steps/Requirements UI entirely. Confirmed via DOM check that the Bug-only required fields are
+  genuinely absent from the form on first GET — there is currently **no UI path to successfully save a test
+  case with any step content at all**.
+- **BUG-TCM-022 (Critical)** — every test case created this session via the New Test Case form lands on the
+  **Bug** tracker instead of the correctly-configured Test case tracker (confirmed on 7 consecutive creates,
+  #1587–#1593; a pre-existing older case, #434, correctly shows Test case). Both the global plugin setting and
+  the project's tracker enablement were re-verified correct. **This is currently active and affects any session
+  creating test cases on this instance right now** — see
+  `memory/project_tcm_bug_022_all_new_testcases_land_on_bug_tracker.md`.
+- **BUG-TCM-023 (Low)** — the inline pencil-icon Subject editor on a test case's detail page (only shown when
+  Status = New) accepts typed text but has no working save mechanism (Enter and blur both discard it silently).
+  The full `/edit` form's own Subject field works fine, so this is specific to the inline affordance.
+
+`TESTCASE_MANAGEMENT_TEST_SUITES.md` is now fully checkpoint-complete (12/12 TCs). `TESTCASE_MANAGEMENT_TEST_
+CASES.md` is in progress: TC-128–140 done (TC-129/132/133/134/135 blocked by BUG-TCM-021/011; TC-140 deferred to
+`TESTCASE_MANAGEMENT_TODO.md` TC-205–210, which covers its exact mechanism — assigning a case via the issue's own
+Assignee field did not populate the user's To-Do list, and `FEATURES_LIST.md`'s own wording suggests the list
+tracks run-level assignment instead). TC-141–151 remain.
+
+A concurrent session also worked this plugin's `TESTCASE_MANAGEMENT_ENVIRONMENTS.md` suite today and found
+**BUG-TCM-020 (Medium)** — renaming an Environment updates the Environment list and new-run forms correctly, but
+every already-created run still shows the old name everywhere on its own page.
+
+`bugs/open/` now holds 15 bugs: BUG-TCM-007 through BUG-TCM-015 (skipping retracted 016), BUG-TCM-017, 018, 020,
+021, 022, 023 (skipping retracted 019). None of the six new ones reported to production yet.
+
+## Completed This Session (2026-10-01) — TESTCASE_MANAGEMENT_TEST_RUNS.md checkpoint-complete
+
+Finished executing `testcases/TESTCASE_MANAGEMENT_TEST_RUNS.md` (TC-TCM-152–191), continuing from a prior session
+segment that had completed TC-152–180/182 plus BUG-TCM-014/015. This session's portion:
+
+- **TC-TCM-181** (filter run grid by defect status) — **PASS, after a self-corrected false-FAIL.** First check
+  only read the top-level "Add Filter" dropdown (`Subject/Priority/Run result/Test case/Created at/Updated at`),
+  saw no defect-named option, and filed **BUG-TCM-016**. While setting up TC-TCM-188 minutes later on the same
+  run page, discovered selecting **"Test case" as the filter field reveals a second-level sub-filter** —
+  `Without Defects` / `With Defects` — that works correctly (live-verified: "With Defects" on run #22 correctly
+  returned 0 of 17 with no linked defects yet; "Without Defects" correctly returned all 17). **BUG-TCM-016
+  retracted and deleted** (never reported to production); TC-TCM-181 corrected to PASS. Lesson: drill into every
+  sub-level of a compound filter control before concluding a documented option is missing.
+- **TC-TCM-183** (notes preserved verbatim) — PASS. A 3-line note with special characters, an emoji, and a raw
+  `<script>` tag round-tripped character-for-character, safely HTML-escaped (rendered as inert text, no
+  execution).
+- **TC-TCM-184** (result triggers notification) — PASS. Reused the existing `daisy.skye` watcher setup on run
+  #22 (`TC-TCM-164 Watcher Notification Run`); confirmed the "Test Case Result Added" email via her Roundcube
+  inbox with correct case/status/note/environment. Also reconfirmed **BUG-TCM-013** (the email still arrives
+  twice per single result).
+- **TC-TCM-185** (dashboard stats reflect execution) — PASS. Run #22's top summary and pie chart advanced exactly
+  from "1 of 17 tested (5.88%)" to "3 of 17 tested (17.65%)" with the correct Passed/Skipped/Retest/Untested
+  breakdown after recording two more mixed results.
+- **TC-TCM-186** (execution with Sidekiq stopped) — **PASS on "result still saves," corrected premise on the
+  Sidekiq dependency.** Killed Sidekiq inside `redmine-docker-700-redmine-1` (confirmed gone via `ps aux`),
+  recorded a result (saved and displayed correctly), but the "Test Case Result Added" email **arrived anyway** —
+  this environment's mail delivery for this notification is not actually gated by Sidekiq (most likely
+  synchronous ActionMailer delivery, not an ActiveJob-backed async queue). Not filed as a bug — a corrected test
+  premise, not a product defect. Sidekiq restarted immediately after.
+- **TC-TCM-187** (concurrent execution by two users) — **BLOCKED, tooling constraint.** Playwright MCP's tabs
+  share a single browser context/cookie jar (confirmed via `page.context().cookies()`), so a second tab cannot
+  hold an independent second user's session — there's no way to drive two genuinely simultaneous authenticated UI
+  sessions with this session's tooling. Not faked with a sequential single-user workaround. Needs either two
+  separate browser profiles/processes or the Playwright TS automation suite (which can open two independent
+  browser contexts) to execute properly.
+- **TC-TCM-188–191** (Bulk Update section) — **all PASS**, now that BUG-TCM-003 is closed. TC-188: 2 selected
+  cases both correctly updated, no 401. TC-189: a note applied identically to both selected cases' results,
+  verified independently on each issue. TC-190: selected exactly 3 of 17 cases, before/after diff confirms only
+  those 3 changed, zero bleed-over to the other 14. TC-191: the Status dropdown still correctly offers only
+  Passed/Retest/Skipped (Failed/Blocked absent) — confirmed deliberate design now that the endpoint actually
+  persists, not a side-effect of the endpoint being broken.
+
+**`TESTCASE_MANAGEMENT_TEST_RUNS.md` is now checkpoint-complete**: 39 of 40 TCs resolved (PASS/FAIL-with-bug),
+1 blocked (TC-TCM-187, tooling). Two new bugs this session: **BUG-TCM-015** (missing file-attachment control on
+Add Result, found in the prior segment) stays open; BUG-TCM-016 was filed and retracted same day (see above).
 
 ## Completed This Session (2026-09-30, continued further) — Configuration suite, 4 more bugs found
 
@@ -274,6 +366,83 @@ id (**397**) must be carried forward from here rather than looked up.
 
 ## Next Session Start Point
 
+- **`TESTCASE_MANAGEMENT_ENVIRONMENTS.md` is now fully executed as of 2026-10-01 (8/8 TCs)**, per user instruction
+  to find and execute every unexecuted suite. A grep audit of all 10 suite files (status-marker count per file)
+  found `ENVIRONMENTS.md` (0/8), `REQUIREMENTS_RTM.md` (0/16), `TEST_CASES.md` (0/24), `TODO.md` (0/10) fully
+  unexecuted, plus `TEST_SUITES.md` and `REPORTS.md` partially done — see each suite's own file for the live
+  count, since other sessions may be concurrently adding bugs there (BUG-TCM-017/018/019 appeared mid-session from
+  a different concurrent run on `TEST_SUITES.md`, not this one). **ENVIRONMENTS.md result: 7 PASS, 1 FAIL.** Found
+  **BUG-TCM-020**: renaming an Environment updates the Environment list and all future Add Run forms correctly,
+  but any run already created against that environment keeps showing the *old* name everywhere on its own page
+  (filter tab, summary line, every link's query string) — the recorded result itself is not lost, only the
+  displayed name is stale; inferred root cause is the run storing the environment as a copied name string rather
+  than a live FK. The sibling case (deleting an *in-use* environment, TC-044) correctly PASSes — deletion succeeds
+  with no block, and every dependent view (the run, a generated Testcase Summary report) still renders fully with
+  no dangling reference, independent of BUG-TCM-020's separate stale-name issue. ~~Next: continue down the
+  remaining fully-unexecuted suites in order — REQUIREMENTS_RTM.md next, then TEST_CASES.md, then TODO.md, then
+  finish TEST_SUITES.md/REPORTS.md.~~ **Superseded same day, see below — `TEST_SUITES.md` finished first (another
+  session's work landed concurrently) and `TEST_CASES.md` is now the one in progress.**
+- **UPDATE 2026-10-01, later same day: `TESTCASE_MANAGEMENT_TEST_SUITES.md` is now fully checkpoint-complete**
+  (12/12 TCs, 192–203) — BUG-TCM-017/018 confirmed real; BUG-TCM-019 was filed then retracted (its evidence relied
+  on a suite grid that turned out not to be tracker-scoped) and replaced by the broader **BUG-TCM-022 (Critical)**
+  — every test case created via the New Test Case form currently lands on the **Bug** tracker instead of Test
+  case, confirmed on 7 consecutive creates, config verified correct both globally and per-project. **This is
+  active right now and will affect any fixture any session creates on this instance** — check a new test case's
+  own page title before trusting its tracker.
+- **UPDATE 2026-10-01, later still: `TESTCASE_MANAGEMENT_TEST_CASES.md` is now fully complete** (all 24 TCs,
+  TC-TCM-128–151). Found **BUG-TCM-021 (High)** — any New Test Case form re-render (a Category change, or simply
+  the near-guaranteed first-attempt validation failure from BUG-TCM-011) destroys already-entered
+  Steps/Requirements content; there is currently **no UI path to save a test case with step content in one
+  sitting** (blocked TC-129/132/133/134/135). **BUG-TCM-023 (Low)** — the inline pencil-icon Subject editor has no
+  working save. **BUG-TCM-024 (Medium)** — the Testcase Summary's "Search by subject or ID" box doesn't actually
+  search by ID. **BUG-TCM-025 (Critical, escalated from an initial drag-and-drop-only finding)** — there is no
+  working UI path at all to associate an already-existing test case with a suite: drag-and-drop has zero
+  draggable behaviour, no "add existing cases" action exists in the suite's Actions menu (only CSV import), the
+  issue's own Edit form has no Suite field, and even the Copy action's result lands suite-less with no way to fix
+  it — a case's suite is permanently fixed at creation time only (blocked TC-144/145/146/151). **BUG-TCM-026
+  (High)** — "Remove Testcase" (found via a `class="submenu"` trigger revealing a separate confirmation popup)
+  fires the correct request and gets 200 OK, but the case silently stays in the suite, reproduced twice. TC-140
+  remains deferred to `TODO.md` TC-205–210 (assigning via the issue's own Assignee field did not populate the
+  To-Do list; likely tracks run-level assignment instead per `FEATURES_LIST.md`'s wording).
+- ~~`TESTCASE_MANAGEMENT_REQUIREMENTS_RTM.md` (16 TCs, next) → `TODO.md` → finish `REPORTS.md`~~ **—
+  REQUIREMENTS_RTM.md is now also complete, see below.**
+- **UPDATE 2026-10-01, later still: `TESTCASE_MANAGEMENT_REQUIREMENTS_RTM.md` is now fully complete** (all 16
+  TCs, TC-112–127; TC-112/113 had already been done by a prior session). Mostly PASS. **Found BUG-TCM-027
+  (Medium)** — removing a Requirement link via the issue Edit form's select2 chip doesn't persist, reproduced 3
+  times including via `form.requestSubmit()` to rule out a click-registration artifact. TC-114 compounds the
+  already-known BUG-TCM-021/022 (Requirement selection, not just Steps, also gets wiped on the New Test Case
+  form's re-render). **Key structural discovery for TC-123/126**: the RTM view itself has **no Status column at
+  all** — it's purely Requirement/Testcases/Defects. Execution results only show on the separate **Requirement
+  Coverage report**, confirmed to update live (recorded a fresh Passed result, the already-generated report
+  reflected it immediately without regeneration). Not filed as a bug — the two screens together satisfy
+  `FEATURES_LIST.md`'s "and their results" wording — but important context for any future TC that assumes the
+  RTM itself shows status. TC-120 (delete a requirement with 3 linked cases) confirmed clean: not blocked, cases
+  survive with the link cleared, RTM and Coverage Report both stay clean afterward. ~~Next suite priority:
+  `TESTCASE_MANAGEMENT_TODO.md` (10 TCs) → finish `REPORTS.md` (34 TCs, only ~5 touched so far via BUG-TCM-005/006
+  context).~~ **Superseded, see below — `TODO.md` is now also complete.**
+- **UPDATE 2026-10-01, later still: `TESTCASE_MANAGEMENT_TODO.md` is now fully complete** (all 10 TCs,
+  TC-205–214). TC-205/206/207/208/210 PASS (To-Do is driven by a run's `run_assignments_attributes[...]
+  [assignee_id]` — set via the Add Run modal's Environment/Assignee fields — not the issue's own Assignee field;
+  **this resolves TC-140's deferred question**. Execution doesn't clear a run from To-Do but updates its
+  completion %; reassignment moves the item to the new assignee's own-scoped list; closing a run with
+  outstanding items fully removes it; an empty To-Do renders an explicit "No data" state). TC-211/212/213 PASS
+  (activity feed entries correctly identify actor/case/timestamp for a Failed-with-defect execution — note:
+  the literal Passed/Failed value is not shown inline in the feed row itself, only via drill-down, not a bug;
+  two different executing users correctly attributed; Run create/update/close are all logged alongside
+  executions, not execution-only). **TC-209 BLOCKED**: setting up a cross-project fixture hit BUG-TCM-022 and
+  then found an extension of it — a genuine `/issues/bulk_edit` Tracker change to "Test case" also silently
+  fails to persist, so a Testcase-Management-created issue is **permanently** stuck on Bug tracker, not just
+  wrong at creation; appended to `BUG-TCM-022.md` rather than filed separately. **TC-214 FAIL — extends
+  BUG-TCM-009**: a non-member (`harmony.rose`) can view a private project's activity feed directly via
+  `/testcase_activities?project_id=...` even though the base `/projects/<id>` page correctly 403s her — the
+  same already-documented missing-membership-guard pattern, just a 9th affected endpoint; appended to
+  `BUG-TCM-009.md` rather than filed separately. **Next and last remaining suite: `TESTCASE_MANAGEMENT_REPORTS.md`
+  (34 TCs, only ~5 touched so far via BUG-TCM-005/006 context)** — all other 9 of 10 suites are now
+  checkpoint-complete.
+- ~~`TESTCASE_MANAGEMENT_TEST_RUNS.md` checkpoint-complete, bugs/open/ has 9 bugs, next: continue into the
+  remaining suites~~ — **superseded, see the two updated entries above for current bug count (15) and suite
+  status.** TC-TCM-187 (concurrent execution) should be revisited once the automation suite exists (it can open
+  two genuinely independent browser contexts, which this session's manual Playwright MCP tooling cannot).
 - **Final-cycle regression (§27) in progress, started 2026-09-30.** Working suite by suite; user chose "full
   regression, all 10 suites, same rigor, checkpoint after each suite" when asked about pacing.
 - **`TESTCASE_MANAGEMENT_PERMISSIONS.md` is checkpoint-complete.** Only 5 TCs remain deliberately deferred:
@@ -398,6 +567,11 @@ Redmineflux Testcase Management — Final-Cycle Regression 2026-09-30") and Run 
 
 | Date | Redmine Version | Environment | Tested By | Summary |
 |------|-----------------|-------------|-----------|---------|
+| 2026-10-01 | 7.0.0 | Docker `localhost:3010` (projects `test-project`, `tcm-permissions-private-test`) | Claude (Playwright MCP headed, admin + `harmony.rose`/`summer.rain`/`willow.belle`) | **Final-cycle regression — `TESTCASE_MANAGEMENT_TODO.md` now fully complete** (10/10 TCs, TC-205–214) — the plugin's 9th of 10 suites. TC-205 PASS: confirmed the To-Do list is driven by a run's `run_assignments_attributes[...][assignee_id]` (set via Add Run's own Environment/Assignee fields), not the issue's general Assignee field — resolves TC-140's deferred question from `TEST_CASES.md`. TC-206 PASS: executing a case doesn't clear the run from To-Do but updates its completion % (0%→100%); incidentally confirmed a `QA Read Only` role genuinely cannot execute (client-side `notAuthorize()` stub), correct behavior not a bug. TC-207 PASS: reassigning a run's assignee via Edit Run moves the item to the new assignee's own-scoped To-Do. TC-208 PASS: closing a run with outstanding items fully removes it from the assignee's To-Do. TC-210 PASS: an empty To-Do renders an explicit "No data" state. TC-211/212/213 PASS: a Failed execution (which requires a linked defect via a hidden-until-selected required field, satisfied via the inline Report Defect flow) writes an activity entry correctly identifying actor/case/timestamp (though not the literal result value inline — not a bug); two different users correctly attributed; Run create/update/close are all logged alongside executions. **TC-209 BLOCKED**: building a cross-project fixture hit BUG-TCM-022 (new case lands on Bug tracker) and then found a broader extension — a genuine `/issues/bulk_edit` Tracker change to "Test case" also silently fails to persist, so the tracker is **permanently** stuck, not just wrong at creation; appended to `BUG-TCM-022.md`. **TC-214 FAIL — extends BUG-TCM-009**: `/testcase_activities?project_id=<private-project>` renders a non-member's full activity feed even though the base `/projects/<id>` page correctly 403s her — a 9th confirmed instance of the same missing-membership-guard pattern; appended to `BUG-TCM-009.md` rather than filed separately. No new bug files this session (two existing bugs extended instead). `bugs/open/` still holds 19 bugs. **9 of 10 suites checkpoint-complete — only `TESTCASE_MANAGEMENT_REPORTS.md` (34 TCs, ~5 touched) remains.** |
+| 2026-10-01 | 7.0.0 | Docker `localhost:3010` (project `test-project`) | Claude (Playwright MCP headed, admin) | **Final-cycle regression — `TESTCASE_MANAGEMENT_REQUIREMENTS_RTM.md` now fully complete** (16/16 TCs, TC-112–127; TC-112/113 already done by a prior session). TC-115/116 PASS (single and bulk requirement linking confirmed on both sides and in the RTM, no duplicates). TC-118 PASS (found the real edit control — a pencil-icon triggering a `contenteditable` Editor.js title with autosave-on-blur; existing case links unaffected). TC-119/120 PASS: deleted an unlinked requirement cleanly, and deleted a requirement with 3 real links — not blocked, cases survive with the link cleanly cleared, RTM and a fresh Requirement Coverage report both stay clean. TC-121/124/127 PASS (project-scoped; uncovered requirements correctly listed not omitted; empty-project RTM renders a clean "No data" state). **TC-114 FAIL, compounds existing BUG-TCM-021/022** — Requirement selection (not just Steps) also gets wiped on the New Test Case form's re-render; no new bug, already covered by BUG-TCM-021's own scope. **TC-117 FAIL — found BUG-TCM-027** (Medium): removing a Requirement via the issue Edit form's select2 chip, then submitting, does not persist — reproduced 3 times, including via `form.requestSubmit()` to rule out a Playwright click-registration artifact. **TC-123/126 revealed a key structural fact, not a bug**: the RTM view itself has no Status column at all — execution results only show on the separate Requirement Coverage report (confirmed live: recording a fresh Passed result updated the already-generated report immediately, no regeneration needed). TC-125 PASS by design (no unlinked-case section, but reasonably self-evident from the view's own requirement-centric structure). `bugs/open/` now holds 19 bugs. **8 of 10 suites checkpoint-complete overall** — only `TESTCASE_MANAGEMENT_TODO.md` (10 TCs, fully untouched) and finishing `REPORTS.md` (34 TCs, ~5 touched) remain. |
+| 2026-10-01 | 7.0.0 | Docker `localhost:3010` (project `test-project`) | Claude (Playwright MCP headed, admin) | **Final-cycle regression — `TESTCASE_MANAGEMENT_TEST_CASES.md` now fully complete** (24/24 TCs, TC-128–151). Finished the Organisation section (144–151). TC-141 corrected premise (no "hide status field" setting exists; tested the real "Hide Testcase Execution section" setting, PASS). TC-142/149/150 PASS (standard Issues-list filtering; bulk-assign requirement to 3 cases confirmed on each issue and in the Traceability Matrix; a second bulk-assigned requirement adds rather than replaces). **TC-143 found BUG-TCM-024** (Medium) — the "Search by subject or ID" box's own label promises ID search but a real case's exact ID returns zero results (subject/partial-subject/negative-term all correct). **TC-144/145/146 found BUG-TCM-025**, escalated to **Critical**: drag-and-drop has zero draggable behaviour at all, and investigating further found there is no working UI path whatsoever to associate an existing case with a suite — no add-existing action, no Suite field on Edit, and even TC-147's Copy action (which otherwise works correctly — new issue created, steps carried over, correctly stays on the Test case tracker unlike BUG-TCM-022) lands its result suite-less with no fix available. A case's suite is fixed permanently at creation only. **TC-148 found BUG-TCM-026** (High) — "Remove Testcase" (behind a `class="submenu"` trigger revealing a separate confirmation popup, not an inline one) fires the correct `POST /remove_issues_to_test_suite` and gets 200 OK, but the case silently remains in the suite, reproduced twice. TC-151 BLOCKED by BUG-TCM-025. `bugs/open/` now holds 18 bugs. `TESTCASE_MANAGEMENT_TEST_CASES.md` fully checkpoint-complete — 7 of 10 suites done overall. |
+| 2026-10-01 | 7.0.0 | Docker `localhost:3010` (project `test-project`) | Claude (Playwright MCP headed, admin + `harmony.rose`) | **Final-cycle regression — `TESTCASE_MANAGEMENT_TEST_SUITES.md` checkpoint-complete** (12/12 TCs), `TESTCASE_MANAGEMENT_TEST_CASES.md` in progress (13/24, TC-128–140). TEST_SUITES: create/sub-suite/3-level-nesting/mandatory-name/duplicate-name/edit/delete-empty/delete-with-cases/cascade-delete/count-toggle/parent-shows-descendants/project-scoping all executed. Found **BUG-TCM-017** (Low, Test Suite modals missing a documented Description field) and **BUG-TCM-018** (Medium, 3rd-level sub-suite nesting silently orphans instead). Initially filed **BUG-TCM-019** (suite delete retrackers contained cases) on TC-199, then **retracted it** after discovering the suite's own case grid isn't tracker-scoped at all — replaced with the real, broader finding **BUG-TCM-022 (Critical)**: every test case created via the New Test Case form lands on the **Bug** tracker instead of Test case, confirmed on 7 consecutive creates with both the global setting and project tracker-enablement re-verified correct — **this is active right now and affects any fixture created on this instance**. TEST_CASES: found **BUG-TCM-021** (High, any form re-render — a Category change or the near-guaranteed first-attempt BUG-TCM-011 validation failure — destroys already-entered Steps/Requirements; currently no UI path to save a test case with step content) and **BUG-TCM-023** (Low, inline pencil-icon Subject editor has no working save). TC-129/132/133/134/135 blocked by BUG-TCM-021. TC-137/138/139 PASS (clean delete, delete-with-results, permission-restricted edit correctly refused for `harmony.rose` via both UI and direct URL). TC-140 deferred to `TODO.md` TC-205–210. A concurrent session completed `TESTCASE_MANAGEMENT_ENVIRONMENTS.md` the same day and found **BUG-TCM-020**. `bugs/open/` now holds 15 bugs. |
+| 2026-10-01 | 7.0.0 | Docker `localhost:3010` (container `redmine-docker-700-redmine-1`, project `test-project`) | Claude (Playwright MCP headed, admin + watcher `daisy.skye` via Roundcube) | **Final-cycle regression — `TESTCASE_MANAGEMENT_TEST_RUNS.md` checkpoint-complete** (39/40 TCs, TC-TCM-187 blocked by a tooling constraint). TC-183 PASS (notes round-trip exactly, special chars/emoji/script-tag safely escaped). TC-184 PASS (notification confirmed via watcher mailbox; also reconfirmed BUG-TCM-013's duplicate-send). TC-185 PASS (dashboard stats advance exactly with mixed results). TC-186 PASS on "result still saves," but corrected the TC's own Sidekiq-dependency premise — the notification email arrived even with Sidekiq confirmed killed, so this plugin's mail delivery isn't actually gated by the Sidekiq queue in this environment; not a bug, a corrected test premise. TC-187 BLOCKED — Playwright MCP's tabs share one browser context, so a genuinely concurrent two-user test isn't achievable with this session's tooling. TC-188–191 (Bulk Update) all PASS now that BUG-TCM-003 is closed: single + bulk-with-note + exactly-3-of-N-selected + status-dropdown-excludes-Failed/Blocked, all independently verified. **TC-181 self-corrected mid-session**: an initial false-FAIL (filed as BUG-TCM-016 — the Add Filter dropdown's top-level options don't name a defect filter) was retracted after discovering the "Test case" filter field reveals a working second-level `Without Defects`/`With Defects` sub-filter; BUG-TCM-016 deleted, never reported to production. `bugs/open/` holds 9 bugs: BUG-TCM-007 through BUG-TCM-015. |
 | 2026-09-30 | n/a | production `ztflux` (flux.zehntech.com) | Claude (redmineflux MCP, approved write) | **Production reporting batch — testcase + run created, all 6 remaining open bugs reported.** Per explicit user instruction, created Test Case **#121697** ("Sanity: Redmineflux Testcase Management — Final-Cycle Regression 2026-09-30", suite #6 "Testcase plugin") and Run **#592** ("TCM Final-Cycle Regression 2026-09-30", environment "Window 11 + Chrome"), following the established Sanity-testcase pattern rather than reusing an unrelated prior fixture. Reported BUG-TCM-008 → **#121698** (Medium), BUG-TCM-009 → **#121699** (High), BUG-TCM-010 → **#121700** (High), BUG-TCM-011 → **#121701** (High), BUG-TCM-012 → **#121702** (Low), BUG-TCM-013 → **#121703** (Medium) via `report_defect`, all assigned **Sheetal Sharma**, each with the 4 Defect custom fields (Type/Severity/Priority via IDs 43/44/45) mirroring local severity. All 6 local bug MDs (Production Redmine Issue ID + Production report section) and `bugs/_index.md` updated. `bugs/open/` now has all 7 bugs reported to production (BUG-TCM-007 was reported earlier the same day). |
 | 2026-09-30 | 7.0.0 | Docker `localhost:3010` (project `test-project`) | Claude (Playwright MCP headed, admin) | **Final-cycle regression — `TESTCASE_MANAGEMENT_CONFIGURATION.md` checkpoint-complete** (18/20 TCs, 2 deferred: TC-TCM-014 needs a real scheduled-interval wait, TC-TCM-017 is a shared-instance risk from stopping Redis). **Found 4 new bugs:** BUG-TCM-010 (High — clearing Testcase Tracker silently misfiles new test cases onto the wrong tracker with zero error, instead of failing cleanly), BUG-TCM-011 (High — Report Defect/New Test Case totally broken on any non-Bug tracker when a Bug-only required custom field exists, root-caused to a GET/POST tracker-resolution asymmetry in `issue_testcase_controller.rb`), BUG-TCM-012 (Low — default Test Case Result Added email shows the run's name instead of the test case's subject), BUG-TCM-013 (Medium — every Add Result submission sends its notification email twice, confirmed via DB row count it's not a duplicate submission). Also fixed a real precondition gap: `run_added`/`run_updated`/`testcase_result_added` notification events were entirely unconfigured on this instance, enabled all three (lasting fix). Live-verified Run and Testcase Email Template marker/macro substitution via Roundcube (`qa@test.local`). Corrected two TCs whose written premise didn't match the plugin's actual architecture (TC-004: Requirements aren't Issues; TC-007: no "hide status field" setting exists, only "Hide Testcase Execution section"). All settings restored to baseline and verified. `bugs/open/` now holds 7 bugs (BUG-TCM-007 through BUG-TCM-013), only #121645 (BUG-TCM-007) reported to production so far. |
 | 2026-09-30 | 7.0.0 | Docker `localhost:3010` (projects `test-project`, `tcm-permissions-private-test`) | Claude (Playwright MCP headed, multi-role: admin/Manager/QA Own Visibility/Developer/Reporter) | **Final-cycle regression — `TESTCASE_MANAGEMENT_PERMISSIONS.md` checkpoint-complete** (all TCs executed except 5 deliberately deferred: TC-TCM-051, 067, 068, 069, 073). Built a dedicated Private project to isolate the non-member/anonymous checks. **Found BUG-TCM-009 (High):** almost the entire plugin has no project-membership or module-enabled check on its read actions — a non-member, or a member of a module-disabled project, can still view test suites, requirements, reports, traceability, to-dos and runs by direct URL; only plain Redmine's own `/projects/<id>` and the top-nav tab correctly gate. Confirmed TC-TCM-058 (run deletion cascades results cleanly, no orphans), TC-TCM-061 (Execute permission independent of run management), TC-TCM-062/066 (report view/create-scoping correct except the already-known BUG-TCM-007 gap), TC-TCM-076 (permission revocation takes effect immediately, verified via Rails console, permission restored afterward). TC-TCM-073 blocked mid-delete by the session's auto-mode permission classifier — deferred pending user input. `bugs/open/` now holds 3 bugs (BUG-TCM-007 #121645, BUG-TCM-008, BUG-TCM-009 not yet reported). |

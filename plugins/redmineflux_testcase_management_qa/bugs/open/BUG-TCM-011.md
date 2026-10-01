@@ -94,6 +94,25 @@ as well, **before** any validation runs, so the tracker used for custom-field re
 form actually rendered and the issue is ultimately saved under. This removes the asymmetry between the GET and
 POST code paths that's the likely source of the mismatch.
 
+## Reconfirmation — 2026-10-01 (scope escalation: affects the project's own standing configuration, not just a
+deliberately-altered one)
+
+While executing `TESTCASE_MANAGEMENT_TEST_RUNS.md` TC-TCM-168 (add a test case to a suite after run creation),
+a completely ordinary **New Test Case** submission — under this project's *current, restored baseline* settings
+(Testcase Tracker = "Test case" id 4, Defect Tracker = "Bug" id 1, confirmed live via Administration → Plugins →
+Redmineflux Testcase Management → Configure) — failed with the exact same two errors: *"Qa bug-only tracker field
+cannot be blank"*, *"Qa required readonly field cannot be blank"*. Neither field is rendered on the "Add Testcase"
+form. Re-verified the two custom fields' scoping is unchanged (`QA Bug-Only Tracker Field` id 65: `tracker_ids:
+["1"]` i.e. Bug only, `is_required: true` — confirmed via Administration → Custom fields → edit page, not altered
+since the original finding).
+
+**This means the defect isn't conditional on someone deliberately picking a non-Bug tracker** — it fires under
+the project's own default, currently-configured Testcase Tracker, any time at least one Bug-only required custom
+field exists (an ordinary, supported Redmine configuration). The project's 1,164 pre-existing "Test case"-tracker
+issues almost certainly predate these two QA fixture fields (added specifically to test this scenario) or were
+created via CSV import (a different code path, not this controller) — new test cases created through the "New
+Test Case" UI form are blocked going forward. TC-TCM-168 is **BLOCKED** by this bug as a direct consequence.
+
 ## Evidence
 
 ### Console / log

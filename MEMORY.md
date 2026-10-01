@@ -45,6 +45,17 @@ Persistent rules that apply to ALL plugin test runs. Plugin-specific observation
 - `final-bug-report.md` is auto-generated from `bugs/open/`.
 - `final-bug-report.pdf` is generated ONLY when user explicitly asks.
 
+## Security / Performance / Code Quality Sequencing
+
+Per `SENIOR_QA_STANDARDS.md` §28–30 these three are **mandatory every plugin, every cycle** — not optional extras. The standards don't fix a strict order, but the practical sequence to follow per suite is:
+
+1. **Functional + Permission testing first**, suite by suite — you need the real screens/fields/endpoints confirmed working before attacking them.
+2. **Security pass immediately after**, on that same suite — auth-on-every-route, authorization at the endpoint (not just hidden UI), cross-project/tenant isolation, script-injection on every text field, direct-object-reference checks. See §28 for the full checklist.
+3. **Performance pass after that** — reuses the same suite's fixtures/CRUD paths for a "large data" scenario (hundreds/thousands of records) per major list/report screen. Testing performance on a still-functionally-broken feature wastes the effort, so it goes last.
+4. **Code Quality is not a separate phase** — per §30, fold it into every root-cause investigation where plugin source is actually read (most often while diagnosing a bug or verifying a fix), throughout all of the above, not as its own standalone pass.
+
+These three need to be tested with the same rigor as functional TCs — write real test cases for them (not a token/placeholder check), execute live, and file bugs for anything found, exactly like any other defect.
+
 ## Test Case Design Rules
 
 - **Never write test cases without first reading the plugin's requirements, features-list, and user-guide files** (`docs/<PREFIX>_REQUIREMENTS.md` / `_FEATURES_LIST.md` / `_USER_GUIDE.md`, or the lowercase equivalents for older plugins).

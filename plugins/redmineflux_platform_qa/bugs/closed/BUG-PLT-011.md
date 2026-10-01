@@ -111,3 +111,14 @@ lib/redmine/sudo_mode.rb:78:in 'Redmine::SudoMode::Controller#sudo_mode'
 ## Production report
 
 Reported to production 2026-09-30 as **#121589** (project `ztflux`, tracker Bug, Priority Blocker, Defect Type Functional, Defect Severity Critical, Defect priority Urgent, assigned Prashant Chaurasia). Linked via `report_defect` to testcase **#121476** (`Cross-Plugin Consistency`, Feature #120043) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121589 attached.
+
+## Retest 2026-10-01 — CONFIRMED FIXED, closed
+
+Pulled commit `2367e7d` (redmineflux_workload — confirmed in current `git log`), ran pending migrations, restarted, retested the exact original repro live: Workloads → Leaves → + Request Leave → From/To 2026-11-23 (a Monday, to avoid the dev's own noted "weekend has no working days" validation, not a regression), Leave Type "Planned Leave", Reason → Request.
+
+- `POST /rf_leaves` → **200** confirmed via server log (`Completed 200 OK`), no `ParameterMissing: rf_leave` anywhere in the trace (was 400 originally).
+- Leave record created and visible in the list immediately, auto-approved — confirmed via DB: `status: "approved"`, `days: 1.0` computed correctly, `approved_by_id: 1`.
+- The fix derives the param key from the model (`RedminefluxPlatform::Leave.model_name.param_key`, falling back to the legacy `:rf_leave` key only if that's what actually arrived) rather than a hardcoded literal — matching the same hardening pattern applied to BUG-PLT-009/012.
+- **One minor, non-blocking observation, not a regression of this bug**: a browser console `SyntaxError` ("Failed to execute 'appendChild'... Unexpected token ':'" in `rails-ujs`) appeared during the JS-format response handling, but the server-side request still completed with `200 OK` and the record was created and displayed correctly regardless — a cosmetic client-side quirk in how the UJS response is parsed, not the `ActionController::ParameterMissing` this bug was about. Not filed separately given the feature works correctly end-to-end despite it.
+
+Fixed. Test fixture leave record deleted after verification. Closed — moving to `bugs/closed/`.

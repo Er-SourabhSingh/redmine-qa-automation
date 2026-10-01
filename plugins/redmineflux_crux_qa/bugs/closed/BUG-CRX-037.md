@@ -67,3 +67,7 @@ is locked -- this only marks it retired (stops dispatch for good). There is no u
 
 Reported to production 2026-09-29 as **#121510** (project `ztflux`, tracker Bug, Priority Low, Defect Type Usability, Defect Severity Low-severity, Defect priority Low, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #120489 (`CRUX_AGENT_ROSTER_ADMIN`) / Run #569 / environment "Window 11 + Chrome" — testcase result marked Failed with defect #121510 attached, confirmed via `get_issue`.
 - Existing bug reference (if duplicate): BUG-CRX-035 (related pattern, not a duplicate)
+
+## 2026-10-01 retest — CONFIRMED FIXED
+
+Dev's fix (`redmineflux_crux`, branch `master`, commit `fb6b639` — `retire()` now closes `crux-retire-panel` and shows the success line via the page-level `crux-agents-msg` banner instead of inside the dialog; confirmed present in the local git checkout). Retested the original repro exactly: created a fresh throwaway agent ("BUG-CRX-037 Retest Agent 2"), clicked Retire, checked "I understand this is permanent", clicked "Retire agent". Verified via direct DOM inspection: the `#crux-retire-panel` dialog is genuinely closed (`display: none`) immediately after the action, and the success text *"Retired — no Redmine user was paired, so nothing needed locking."* now renders in the page-level banner, not stranded inside the dialog. Fleet table confirms the agent's Status is genuinely "retired". Screenshot captured. **Verdict: CONFIRMED FIXED.** Recommend closing.

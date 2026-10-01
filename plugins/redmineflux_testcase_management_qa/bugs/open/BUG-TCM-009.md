@@ -62,6 +62,24 @@ the same missing-guard pattern as the membership gap above (no check runs before
 renders project data), just against a different precondition (`@project.module_enabled?('testcase_management')`
 instead of `allowed_to?(:view_project, ...)`) — both belong on the same proposed shared guard.
 
+## Update 2026-10-01 — a ninth affected endpoint confirmed: `testcase_activities` (Activity log)
+
+While executing `testcases/TESTCASE_MANAGEMENT_TODO.md` TC-TCM-214 (Activity log respects project scope and
+permissions), found the exact same missing-membership-check pattern on one more endpoint not in the original
+enumerated list: `/testcase_activities?project_id=<id>` (the plugin's Activity tab).
+
+As `harmony.rose` — confirmed genuinely **not a member** of `tcm-permissions-private-test` (only `willow.belle`
+is a member; checked live via Settings → Members) on this same still-Private project (`Public` checkbox
+re-verified unchecked) — requesting `/projects/tcm-permissions-private-test` directly correctly returns **403
+Forbidden** (core Redmine, same control baseline as the rest of this bug). But
+`GET /testcase_activities?project_id=tcm-permissions-private-test` returns **200** and renders the project's real
+activity feed content in full: `"Created by Redmine Admin | Test Suite | QA-SCOPE-TEST-203-PROJECTB | 2026-01-10
+11:25 AM"`. Reproduced twice in the same session (once immediately, once after a fresh logout/login cycle) with
+identical results. Same root cause as the rest of this bug — `testcase_activities_controller.rb` resolves
+`@project = Project.find(params[:project_id])` and renders without a `view_project`/membership guard, same as the
+other eight controllers already documented above. Adds `testcase_activities` to the list of affected endpoints;
+not filed as a separate bug.
+
 ## Steps to reproduce
 
 1. Create a new **Private** project (e.g. `tcm-permissions-private-test`) with the Testcase Management module

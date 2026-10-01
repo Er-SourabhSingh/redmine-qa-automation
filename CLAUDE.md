@@ -40,6 +40,8 @@ redmine-qa-automation/
         │   ├── <PREFIX>_FEATURES_LIST.md   ← full feature list for test coverage (READ BEFORE WRITING TEST CASES)
         │   ├── <PREFIX>_USER_GUIDE.md      ← end-user guide — real UI flows and behavior (READ BEFORE WRITING TEST CASES)
         │   ├── <PREFIX>_SCOPE.md           ← what is and is not being tested this cycle
+        │   ├── <PREFIX>_TEST_PLAN.md       ← objective, approach, entry/exit criteria, deliverables (see §2c)
+        │   ├── <PREFIX>_TRACEABILITY_MATRIX.md ← requirement/feature → TC coverage map, kept current (see §2c)
         │   ├── <PREFIX>_FLOW.md            ← key user flows for test design
         │   ├── <PREFIX>_HANDOFF.md         ← session handoff notes + Run History (test run/regression log, replaces changelog.md)
         │   └── <PREFIX>_MEMORY.md          ← plugin-specific observations (persist across sessions)
@@ -100,6 +102,71 @@ This is the standard for every plugin scaffolded **from now on**. Existing plugi
 
 ---
 
+## 2c. Test Plan and Traceability Matrix
+
+Every plugin gets two more docs, written **after** `<PREFIX>_REQUIREMENTS.md`, `<PREFIX>_FEATURES_LIST.md` and
+`<PREFIX>_USER_GUIDE.md` have actually been read — not guessed from the plugin name or skipped.
+
+| File | When written | What it's for |
+|---|---|---|
+| `<PREFIX>_TEST_PLAN.md` | Once, right after scoping (`<PREFIX>_SCOPE.md`), before any test case is written | The fuller approach document — objective, test types, entry/exit criteria, deliverables, roles, risks. `SCOPE.md` stays the quick in/out-of-scope checklist; this is the narrative plan built from it. |
+| `<PREFIX>_TRACEABILITY_MATRIX.md` | Started once the first test suite exists; **kept current** as test cases are added or `FEATURES_LIST.md` grows | Maps every requirement/feature to the TC ID(s) that cover it, with each TC's current result. This is the one place to check "is anything still uncovered" — `FEATURES_LIST.md`'s own "Covered by TC" column is a quick pointer, not a substitute; it has drifted stale on more than one plugin already. |
+
+**Rule:** a plugin cannot be marked `Complete` in `STATUS.md` (§10) while its Traceability Matrix shows any
+requirement/feature with zero TC coverage, unless that gap is explicitly recorded in `<PREFIX>_SCOPE.md`'s Out of
+Scope section.
+
+### <PREFIX>_TEST_PLAN.md template
+
+```markdown
+# Test Plan — [Plugin Name]
+
+> Written after REQUIREMENTS.md, FEATURES_LIST.md and USER_GUIDE.md have been read, and after SCOPE.md is filled in.
+
+## Objective
+
+## Test Approach
+
+- Testing types to be performed this cycle (mirror `<PREFIX>_SCOPE.md`'s checklist — Functional, Permission,
+  Workflow, Negative, UI, Multi-Language, Security, Performance, Code Quality, Regression)
+- Environments to be used (see `QA_CREDENTIALS.md`)
+
+## Entry Criteria
+
+## Exit Criteria
+
+## Test Deliverables
+
+- Test cases — `testcases/<PREFIX>_<SUITE-NAME>.md`
+- Bug reports — `bugs/open/`, `bugs/closed/`
+- Reports — `reports/<PREFIX>-<TestingType>-<date>.md` (see §7)
+- Traceability Matrix — `<PREFIX>_TRACEABILITY_MATRIX.md`
+
+## Roles & Responsibilities
+
+## Risks & Assumptions
+
+## Test Cycle / Schedule
+```
+
+### <PREFIX>_TRACEABILITY_MATRIX.md template
+
+```markdown
+# Traceability Matrix — [Plugin Name]
+
+> Maps every requirement/feature to the TC(s) covering it. Update whenever `FEATURES_LIST.md` gains a row or a new
+> TC is written — this file, not `FEATURES_LIST.md`'s own "Covered by TC" column, is the source of truth for
+> coverage gaps.
+
+| # | Requirement / Feature | Source | Covered by TC(s) | Latest Result | Coverage Status |
+|---|------------------------|--------|-------------------|----------------|------------------|
+
+> Coverage Status: `Covered` / `Partial` / `Not Covered`. Anything `Not Covered` must either get a TC or be moved
+> to `<PREFIX>_SCOPE.md`'s Out of Scope section — it cannot just sit here unaddressed.
+```
+
+---
+
 ## 3. Adding a New Plugin
 
 When the user asks to add or test a new plugin, create this structure:
@@ -110,6 +177,8 @@ plugins/<plugin-name>/                  (<PREFIX> = doc prefix per §2b, e.g. HE
   docs/<PREFIX>_FEATURES_LIST.md
   docs/<PREFIX>_USER_GUIDE.md
   docs/<PREFIX>_SCOPE.md
+  docs/<PREFIX>_TEST_PLAN.md        ← written after Requirements/Features/User Guide are read, see §2c
+  docs/<PREFIX>_TRACEABILITY_MATRIX.md ← started once the first suite exists, kept current, see §2c
   docs/<PREFIX>_FLOW.md
   docs/<PREFIX>_HANDOFF.md          ← includes a Run History table (replaces changelog.md)
   docs/<PREFIX>_MEMORY.md
@@ -218,6 +287,11 @@ Use this content for each new file (replace `<PREFIX>_` in the actual filename w
 
 ## Test Cycle
 ```
+
+### docs/<PREFIX>_TEST_PLAN.md and docs/<PREFIX>_TRACEABILITY_MATRIX.md
+
+Templates and rules for both are in §2c — use those verbatim. Fill in `<PREFIX>_TEST_PLAN.md` right after this
+`SCOPE.md`; start `<PREFIX>_TRACEABILITY_MATRIX.md` once the first testcase suite file exists.
 
 ### docs/<PREFIX>_FLOW.md
 ```markdown
@@ -551,11 +625,12 @@ Update `STATUS.md` after every test run:
 
 Status values: `Not Started` / `In Progress` / `Complete`
 
-**`Complete` requires two things, not just zero open bugs:**
+**`Complete` requires three things, not just zero open bugs:**
 1. `bugs/open/` is empty (all bugs fixed and moved to `bugs/closed/`).
 2. A full final cycle regression has been run and passed (see `SENIOR_QA_STANDARDS.md` §27) with a matching row in the plugin's Run History (in `<PREFIX>_HANDOFF.md`, or `docs/changelog.md` for older plugins).
+3. `<PREFIX>_TRACEABILITY_MATRIX.md` (§2c) shows no requirement/feature with zero TC coverage, except ones explicitly recorded in `<PREFIX>_SCOPE.md`'s Out of Scope section. (Plugins scaffolded before §2c and not yet backfilled are exempt until backfilled.)
 
-Until both are true, keep the status as `In Progress`.
+Until all three are true, keep the status as `In Progress`.
 
 ---
 
@@ -572,11 +647,13 @@ At the start of every test session, read in this order:
 7. `plugins/<name>/docs/<PREFIX>_FEATURES_LIST.md`
 8. `plugins/<name>/docs/<PREFIX>_USER_GUIDE.md`
 9. `plugins/<name>/docs/<PREFIX>_SCOPE.md`
-10. `plugins/<name>/docs/<PREFIX>_MEMORY.md`
-11. `plugins/<name>/docs/<PREFIX>_HANDOFF.md`
-12. `plugins/<name>/testcases/<PREFIX>_<suite>.md`
+10. `plugins/<name>/docs/<PREFIX>_TEST_PLAN.md`
+11. `plugins/<name>/docs/<PREFIX>_TRACEABILITY_MATRIX.md` (see §2c — this is where to check for coverage gaps before writing a new TC)
+12. `plugins/<name>/docs/<PREFIX>_MEMORY.md`
+13. `plugins/<name>/docs/<PREFIX>_HANDOFF.md`
+14. `plugins/<name>/testcases/<PREFIX>_<suite>.md`
 
-(For plugins scaffolded before §2b, these are the lowercase `requirements.md` / `features-list.md` / etc. instead.)
+(For plugins scaffolded before §2b, these are the lowercase `requirements.md` / `features-list.md` / etc. instead. A plugin scaffolded before §2c may not have a Test Plan / Traceability Matrix yet — see §2c's rollout note on whether to backfill it.)
 
 Do not begin testing until all of the above are read.
 

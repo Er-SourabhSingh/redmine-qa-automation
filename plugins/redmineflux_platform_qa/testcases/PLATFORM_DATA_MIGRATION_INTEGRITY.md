@@ -107,6 +107,12 @@
 **Expected Result:**
 - Single shared Holiday row, visible/editable from both plugins, correct date preserved.
 
+**Status:** **EXECUTED 2026-10-01 — PASS.** TC-PLT-007 deliberately created *two separate* Holiday Scheme fixtures pre-upgrade (Workload's own `PLT-BASELINE-Holiday Scheme` with "Founders Day" + "Recurring Holiday"; Shift Management's own separate `PLT-BASELINE-Shift Holiday Scheme` with its own independent "Founders Day", same date) — these are two legitimately distinct schemes/holidays, not duplicates of the same real-world entity (unlike Organization/Contact, nothing here is expected to *merge into one row*). What this TC actually verifies is whether the underlying storage is now genuinely shared — confirmed bidirectionally, live:
+- From **Workload's own** `/rf_settings` Holiday Management panel: both schemes are listed (Workload-origin 3 holidays, Shift-Management-origin 1 holiday) — opening the Shift-Management-origin scheme's "Holidays" popup shows its "PLT-BASELINE-Founders Day" (Nov 15, 2026, Company Holiday) with working **Edit Holiday**/**Delete** controls.
+- From **Shift Management's own** `/shift_management/holiday_schemas`: both schemes are listed too — opening the Workload-origin scheme (`/shift_management/holiday_schemas/1`) shows its "PLT-BASELINE-Founders Day" (11/15/2026) AND "PLT-BASELINE-Recurring Holiday" (12/25/2026), both with working **Edit**/**Remove** controls.
+
+Both dates preserved exactly as created. Confirms the Holiday/Holiday-Scheme tables are genuinely unified — every scheme and every holiday, regardless of which plugin originally created it, is now visible and editable from either plugin's own native screen. (Noted in passing, not in scope for this TC: a stray `test` holiday fixture (09/29/2026) exists in the Workload-origin scheme from earlier ad-hoc testing this cycle — harmless, not cleaned up.)
+
 ---
 
 ### TC-PLT-045: Recurring holiday correctly evaluated via WorkingCalendar post-upgrade

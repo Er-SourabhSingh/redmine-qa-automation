@@ -107,3 +107,14 @@ See **BUG-PLT-016** for the cumulative end-user-experience impact of this bug to
 ## Production report
 
 Reported to production 2026-09-30 as **#121622** (project `ztflux`, tracker Bug, Priority Medium, Defect Type Functional, Defect Severity Medium-severity, Defect priority Medium, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #121476 (`Cross-Plugin Consistency`, Feature #120043) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121622 attached.
+
+## Retest 2026-10-01 — CONFIRMED FIXED, closed
+
+Dev went with the "more robust" fix option this bug's own report suggested: auditing is now driven from the shared `TeamMembership` model itself (`after_commit` hooks for create/update/destroy), not from `TeamService` — so it's origin-independent regardless of which consumer plugin's controller performs the mutation. Pulled commit `7012219` (redmineflux_platform — confirmed in current `git log`, same commit also fixes BUG-PLT-014/015), ran pending migrations, restarted, retested live:
+
+- Noted `rf_audit_events MAX(id) = 192` before the test.
+- Added a member ("Sage Willow") to `PLT-BASELINE-QA Squad` via **Workload's own** `/rf_teams/1` screen (not Platform's) — confirmed a new audit row was written: `id: 193, action: "team_member_added", auditable_type: "RedminefluxPlatform::Team", metadata: {"user_id"=>18, "role_id"=>nil}`.
+- Removed the same member via **Platform's own** Teams screen — confirmed a second new row: `id: 194, action: "team_member_removed"`.
+- Both actions previously produced **zero** new audit rows when performed from any consumer plugin's own screen (only Platform's own screen was ever audited) — now confirmed working from a non-Platform origin (Workload) too, exactly the gap this bug reported.
+
+Team restored to its original 5-member baseline afterward. Fixed. Closed — moving to `bugs/closed/`.

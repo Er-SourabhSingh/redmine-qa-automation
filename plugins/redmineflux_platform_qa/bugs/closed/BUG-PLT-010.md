@@ -128,3 +128,15 @@ SELECT id, reason, status FROM rf_leaves WHERE reason LIKE '%BUG-PLT-010%';
 ## Production report
 
 Reported to production 2026-09-30 as **#121588** (project `ztflux`, tracker Bug, Priority Blocker, Defect Type Functional, Defect Severity Critical, Defect priority Urgent, assigned Prashant Chaurasia). Linked via `report_defect` to testcase **#121476** (`Cross-Plugin Consistency`, Feature #120043) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121588 attached.
+
+## Retest 2026-10-01 — CONFIRMED FIXED, closed
+
+Dev's fix moves `AuditEvent.log` off both plugins' monkey-patches entirely and onto the platform model itself (`app/models/redmineflux_platform/audit_event.rb`), dispatching to `log_entity`/`log_resource` based on which keyword shape is passed — so no load order can take the method away from either plugin again. Pulled all 3 required commits (`bb4d6d5` platform, `8ee8cdc` shift_management, `9f89f1e` timesheet — confirmed all present in current `git log` on disk), ran pending migrations, restarted, retested the exact original repro live:
+
+Shift Management → Leave → Apply Leave → Admin (auto-approve path) → Planned Leave → a conflict-free date → Reason → Submit:
+- `POST /shift_management/leave` → **200** (was 500/`ArgumentError: missing keywords: :entity, :performed_by`).
+- "Leave approved successfully." shown, modal closed cleanly.
+- Confirmed via direct DB query the audit row writes successfully with Shift Management's own call shape intact: `action: "auto_approve_leave"`, `performed_by: 1`, `ip_address: "172.18.0.1"` all populated — the exact call site from this bug's original stack trace (`leave_controller.rb:78`).
+- Zero `ArgumentError`/`ParameterMissing`/`Completed 500` anywhere in the server log across the retest.
+
+Fixed. Test fixture leave record deleted after verification. Closed — moving to `bugs/closed/`.

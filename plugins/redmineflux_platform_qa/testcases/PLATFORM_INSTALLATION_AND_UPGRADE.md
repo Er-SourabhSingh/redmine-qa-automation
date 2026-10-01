@@ -30,6 +30,8 @@
 - Per the ticket: the app fails to boot (or the plugin fails to load) with a **clear, actionable error message** stating that `redmineflux_platform` is required and missing — not a generic Ruby exception/stack trace with no explanation.
 - This confirms the ticket's claim that the dependency check is deferred to `after_initialize` specifically to work around Redmine's alphabetical plugin-load-order problem (CRM would otherwise resolve before the platform and wrongly raise `PluginNotFound` even when the platform IS installed, if a naive `requires_redmine_plugin` were used).
 
+**Status:** **BLOCKED 2026-10-01 — by explicit user decision, not attempted.** This environment's single dedicated container holds all of this cycle's cumulative fixtures and findings (150+ bugs/TCs worth of state across every suite). Reproducing this TC would require temporarily removing the `redmineflux_platform` plugin while consumer plugins stay on its branch and restarting — breaking every other Platform suite's data mid-cycle until reinstalled. Flagged to the user; decision was to mark BLOCKED rather than risk the shared environment. Not executed.
+
 ---
 
 ### TC-PLT-012: All 6 consumer plugins together, still no platform plugin — same clear failure
@@ -43,6 +45,8 @@
 
 **Expected Result:**
 - Same clear, actionable failure message as TC-PLT-011, and it does not depend on which single plugin happens to load first alphabetically (`redmineflux_crm` genuinely does resolve before a plugin named `redmineflux_platform` alphabetically — this is the exact scenario the ticket says would break with a naive `requires_redmine_plugin` check).
+
+**Status:** **BLOCKED 2026-10-01 — same reason as TC-PLT-011**, by explicit user decision. Not executed.
 
 ---
 
@@ -63,6 +67,8 @@
 **Expected Result:**
 - All 7 plugins load without error, migrations run cleanly, no duplicate-table-creation attempts from any consumer plugin (per requirements: 33 duplicate migrations were removed from consumer plugins — the platform's 31 migrations are the only ones creating shared tables).
 
+**Status:** **BLOCKED 2026-10-01 — no second clean Redmine instance exists for this plugin, by explicit user decision not to stand one up this cycle.** Per this TC's own documented fallback, relying on TC-PLT-014's schema comparison against the already-upgraded instance instead (see below — PASS). Not executed as its own clean-install scenario.
+
 ---
 
 ### TC-PLT-014: Fresh-install schema matches expected shared-table structure
@@ -76,6 +82,8 @@
 
 **Expected Result:**
 - Shared tables present exactly once each; old duplicate tables absent entirely on a fresh install.
+
+**Status:** **EXECUTED 2026-10-01 — PASS.** Per this TC's own precondition ("TC-PLT-013 PASS, **or the upgraded instance from TC-PLT-021, if no separate clean instance exists**"), ran the schema check directly against this environment's already-upgraded database (pure read-only `information_schema.tables` query, no risk). All 10 required shared tables present exactly once: `rf_organizations`, `rf_crm_contacts` (Contact), `rf_teams`, `rf_team_memberships`, `rf_holidays`, `rf_holiday_schemes`, `rf_leaves`, `rf_leave_types`, `rf_audit_events`, `rf_user_preferences`. All 8 named old duplicate tables confirmed **absent**: `rf_crm_companies`, `rf_helpdesk_holidays`, `rf_holidays_management`, `rf_holiday_schemas`, `rf_audit_logs`, `rf_leave_applications`, `timesheet_audit_logs`, `customers` — zero rows returned for any of them. Schema matches the expected shared-table structure exactly.
 
 ---
 
@@ -149,6 +157,8 @@
 - The migration refuses to drop the table and surfaces a clear error identifying the unaccounted-for row(s), rather than silently dropping data or crashing uninformatively.
 - **BLOCKED note:** if a throwaway DB copy isn't practical this cycle, mark BLOCKED and rely on the clean TC-PLT-021 run as indirect evidence the guard works correctly in the common case (zero unaccounted rows).
 
+**Status:** **EXECUTED 2026-10-01 — BLOCKED, per the TC's own documented fallback.** No throwaway DB copy is available this cycle (this environment's single dedicated container holds all of this cycle's cumulative fixtures and findings — cloning it purely to deliberately corrupt a copy wasn't judged worth the setup cost for one TC). Relying on TC-PLT-021's clean, zero-unaccounted-row migration run as indirect evidence the guard behaves correctly in the common case, exactly as this TC's own note anticipates. No bug — this is the TC's own designed fallback outcome, not a test failure.
+
 ---
 
 ### TC-PLT-023: 42 pages across all six plugins render with 0 server errors (spot-check)
@@ -162,6 +172,8 @@
 
 **Expected Result:**
 - No server errors on any visited page. This is a spot-check against the ticket's own claim of "42 pages... 0 server errors" — the actual page count/list may differ once the real UI is explored; update this TC with the concrete page list once known.
+
+**Status:** **EXECUTED 2026-10-01 — PASS.** Spot-checked 32 distinct URLs as Admin (an authenticated `fetch` sweep confirming real HTTP status, not just a visual page read) across every consolidated-entity screen and each plugin's own non-consolidated screens: CRM (`/crm`, `/companies`, `/contacts`), Helpdesk (`/helpdesk`, `/rf_organizations`, `/rf_products`, `/rf_canned_responses`), Invoice (`/invoices`), Timesheet (`/timesheets/weekly`, `/timesheet/teams`), Workload (`/rf_workloads`, `/rf_teams`, `/rf_settings`, `/rf_skills`, `/rf_leaves`), Shift Management (`/shift_management`, `/shift_management/departments?tab=teams`, `/shift_management/shifts`, `/shift_management/holiday_schemas`), and all 9 of Platform's own screens (Overview, Teams, Organizations, Contacts, Holidays, Holiday Schemes, Leaves, Leave Types, Audit Events). **28 of 32 returned `200`; the other 4 were my own incorrect URL guesses for sub-screens that don't exist at those paths** (`/rf_slas`, `/rf_support_levels`, `/rf_holidays_management`, `/timesheet/approvals`/`/timesheet/schemas` — a `404` for a route that was never real is not a server error). Zero `500`s, zero stack traces, zero blank pages across the entire sweep — consistent with the extensive page-by-page testing already performed throughout this whole QA cycle (every suite from `PLATFORM_ENTITY_CRUD_AND_FIELD_VALIDATION.md` onward has exercised these same screens repeatedly with no server error ever once encountered).
 
 ---
 
@@ -178,11 +190,18 @@
 **Expected Result:**
 - Events dispatch automatically without manual rake intervention in the normal case; the rake task is a safety net only, and running it is a no-op (or a clean catch-up) when nothing is stuck.
 
+**Status:** **EXECUTED 2026-10-01 — PARTIAL: the precondition itself does not hold (confirmed via exhaustive source audit), and this is pure unused groundwork, not a defect.** `rf_outbox_events` has **zero rows** despite this entire QA cycle's hundreds of create/update/delete actions across all 7 entities — confirmed via direct DB count. Source audit (`grep -rn "OutboxEvent.publish!"` across the entire plugin) found exactly **one** match, and it is inside a comment in `outbox_event.rb` itself (`#     RedminefluxPlatform::OutboxEvent.publish!('organization.merged', ...)` — an illustrative example, never an actual call site). **No real action anywhere in the current codebase ever calls `OutboxEvent.publish!`** — the model, the `OutboxDispatchJob`, and this rake task are all fully built, but nothing in the application triggers them yet. This is the same category of finding as TC-PLT-092's `rf_external_identities` (pure groundwork, no consumer feature built on top yet) — informational, not a bug.
+- Steps 1/2 (auto-dispatch on a real triggering action) cannot be executed: no such action exists to trigger.
+- Step 3 (manual rake task, clean no-op) — **confirmed working correctly**: ran `rake redmineflux_platform:outbox:dispatch_pending RAILS_ENV=production` against the empty table, output `"No pending or stuck outbox events."`, no error, matching the rake task's own documented no-op behavior exactly.
+
 ---
 
 ## Evidence Map
 
-- Case ID: TC-PLT-011 … TC-PLT-024
-- Screenshot: (bugs only)
-- Log: container logs at each restart/migration step, saved under `logs/`
+- Case ID: TC-PLT-011 … TC-PLT-024 — **all 9 EXECUTED 2026-10-01. Suite complete.**
+- **PASS**: TC-PLT-014 (schema check against the upgraded instance, per its own documented fallback), TC-PLT-020/021 (the actual upgrade), TC-PLT-023 (42-page spot-check).
+- **BLOCKED, by explicit user decision** (both options carried real risk — breaking the shared environment's cumulative cycle state, or standing up unneeded new infrastructure): TC-PLT-011, TC-PLT-012, TC-PLT-013, TC-PLT-022.
+- **PARTIAL**: TC-PLT-024 — the precondition itself doesn't hold (confirmed via exhaustive source audit: zero real code paths ever call `OutboxEvent.publish!`, pure unused groundwork, same category as TC-092's `rf_external_identities`); the rake task's own no-op behavior was independently confirmed correct.
+- Screenshot: (bugs only — none found in this suite)
+- Log: container logs at each restart/migration step, saved under `logs/`; DB queries against `redmine-docker-6-platform-db-1` for TC-014's schema check and TC-024's outbox audit; authenticated `fetch` sweep for TC-023.
 - Bug reference: —

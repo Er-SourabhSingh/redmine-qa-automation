@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-041
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #121827
 - Title: Time Agent's `submit` doesn't auto-infer the team/project context from the user's own filled, unsubmitted time entries — instead demands a numeric team ID an ordinary team member has no legitimate way to discover, making "submit my timesheet" unusable end-to-end
 - Redmine version: 7.0.0 (local Docker)
 - Plugin name: redmineflux_crux (Time Agent, Timesheet plugin domain)
@@ -82,3 +82,7 @@ This is conclusive: in the very same turn, the agent correctly read and reported
 
 - Duplicate found: No — related to BUG-CRX-038 (same underlying team-name-resolution gap in `submit`) but a distinct, broader finding: BUG-CRX-038 is about the agent *fabricating* a wrong value when a name is given; this bug is about the complete, real-world absence of *any* legitimate path — chat or native UI — for an ordinary team member to discover their own team's ID at all, making the feature unusable end-to-end for this common user tier.
 - Existing bug reference (if duplicate): BUG-CRX-038 (same root gap — no team-name lookup — different, narrower symptom)
+
+## Production report
+
+Reported to production 2026-10-01 as **#121827** (Priority High, Defect Type Functional, Defect Severity High-severity, Defect priority High, Category Crux Plugin, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #120495 (`CRUX_AGENT_TIMESHEET`) / Run #569 "Crux QA Run 1" / Suite #374, Environment "Window 11 + Chrome" — testcase marked Failed.

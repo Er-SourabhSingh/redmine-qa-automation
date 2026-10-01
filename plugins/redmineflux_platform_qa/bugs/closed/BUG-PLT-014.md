@@ -85,3 +85,12 @@ See **BUG-PLT-016** for the cumulative end-user-experience impact of this bug to
 ## Production report
 
 Reported to production 2026-09-30 as **#121623** (project `ztflux`, tracker Bug, Priority Medium, Defect Type Functional, Defect Severity Medium-severity, Defect priority Medium, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #121476 (`Cross-Plugin Consistency`, Feature #120043) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121623 attached.
+
+## Retest 2026-10-01 — CONFIRMED FIXED, closed
+
+Pulled commit `7012219` (redmineflux_platform — same commit also fixes BUG-PLT-013/015, confirmed in current `git log`), ran pending migrations, restarted, retested live on Platform's own Teams screen (`/redmineflux_platform/teams/1`):
+
+- The member table now shows **two distinct columns**, "Redmine role" and "Team role", side by side — not one column silently overwritten by the other. Confirmed real, non-blank values on the same row: Redmine Admin → Redmine role **"Manager"**, Team role **"Member"** — genuinely different values for the same person, both visible simultaneously.
+- Opened the new "Edit member" dialog (also part of this same fix, see BUG-PLT-015) — both fields are independently editable there too, each with its own explanatory text ("A Redmine role. Team permissions are resolved through it..." vs. "Whether this person leads the team. Separate from the Redmine role above...").
+
+The two role systems no longer silently clobber each other — both are now visible and independently settable from every screen. Fixed. Closed — moving to `bugs/closed/`.

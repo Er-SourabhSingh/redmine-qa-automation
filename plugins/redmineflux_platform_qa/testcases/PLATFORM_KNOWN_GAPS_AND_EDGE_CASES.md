@@ -32,6 +32,13 @@
 - **If any of the 3 fixtures is missing, wrong, or silently dropped post-upgrade: this confirms the known gap and should be filed as a bug** (Severity: High — real data loss on upgrade, not just a cosmetic issue), even though the dev ticket already "knows" about it — a filed, reproducible bug with concrete before/after evidence is more actionable than a paragraph in a feature ticket's known-gaps section, and confirms whether it's still true as of the branch HEAD actually installed.
 - If all 3 fixtures DO survive correctly, that means this gap has since been fixed and quietly not mentioned in a later journal update — note this explicitly in the plugin's `PLATFORM_MEMORY.md` and update `PLATFORM_REQUIREMENTS.md`'s Known Constraints section accordingly.
 
+**Status:** **EXECUTED 2026-10-01 — PASS. Gap is FIXED — all 3 fixtures survived the upgrade correctly, with no data loss.** Used the pre-upgrade (2026-09-28) Shift Management fixtures from `PLATFORM_OLD_ARCHITECTURE_BASELINE.md` TC-PLT-007/009 (explicitly permitted by this TC's own precondition note) rather than creating separate `PLT-GAP090-*` fixtures, since real, non-empty, distinctly-named pre-upgrade Shift Management data already existed:
+- **Holiday scheme**: Shift Management's `PLT-BASELINE-Shift Holiday Scheme` (its own id 1, pre-upgrade, `created_at` 2026-09-28 12:53:32) → confirmed as `rf_holiday_schemes` id 2, `imported=1`, `source_shift_schema_id=1`, `is_active=1`, **`created_at` still the original 2026-09-28 timestamp** (not a new row created post-upgrade).
+- **Holiday**: Shift Management's `PLT-BASELINE-Founders Day` (2026-11-15) → confirmed as `rf_holidays` id 3, `source_shift_holiday_id=1`, correctly linked to the migrated scheme (`rf_holiday_scheme_id=2`), `active=1`.
+- **Audit entry**: Shift Management's `rf_audit_logs` id 1 (`auto_approve_leave`, `RfLeaveApplication` id 1, 2026-09-28 13:03:44) → confirmed as `rf_audit_events` id 2, `source_shift_audit_log_id=1`, **identical `created_at` timestamp preserved** (2026-09-28 13:03:44), `auditable_type='RfLeaveApplication'`, `auditable_id=1`.
+
+All 3 rows carry explicit source-tracking columns (`source_shift_schema_id`, `source_shift_holiday_id`, `source_shift_audit_log_id`) pointing at the exact pre-upgrade Shift Management IDs, and all 3 preserve their original pre-upgrade `created_at` timestamps — this is conclusive evidence of a genuine migrated row, not a coincidental name match or a fresh post-upgrade recreation. **The ticket's own admitted "no data migration written, verified empty only on the dev's own instance" gap has since been fixed and not mentioned in any later journal update.** Per this TC's own instruction, `PLATFORM_MEMORY.md` and `PLATFORM_REQUIREMENTS.md`'s Known Constraints are being updated accordingly — no bug filed.
+
 ---
 
 ### TC-PLT-091: `contact_type` internal value still stores `"company"` despite the "Organization" label
@@ -46,6 +53,8 @@
 **Expected Result (per the ticket's admitted gap):**
 - Internal value is still `"company"` — this is a documented, accepted-as-not-yet-fixed gap requiring "a small data migration." **This is informational, not a bug to file** unless it causes an actual user-visible defect (e.g. a broken filter, a wrong value in an export a user relies on) — if it does, file that specific symptom as a bug rather than the internal value itself.
 
+**Status:** **EXECUTED 2026-10-01 — PASS. Gap is FIXED.** Found the dedicated data migration via source audit: `redmineflux_platform/db/migrate/032_data_rename_company_contact_type.rb` explicitly rewrites `rf_crm_contacts.contact_type` from `'company'` to `'organization'` for every existing row (`UPDATE rf_crm_contacts SET contact_type = 'organization' WHERE contact_type = 'company'`), with the model's `CONTACT_TYPE_ALIASES` still accepting the old spelling on input so no API client/bookmarked form breaks. Confirmed live: `SELECT contact_type, COUNT(*) FROM rf_crm_contacts GROUP BY contact_type` returns only `person` (2 rows) — zero rows anywhere with the literal string `'company'`. The small data migration the ticket said this gap "requires" has since been written and applied — not mentioned in any later journal update. No bug filed (informational gap, and it's resolved).
+
 ---
 
 ### TC-PLT-092: External identity mapping (`rf_external_identities`) — smoke test only
@@ -59,6 +68,8 @@
 
 **Expected Result:**
 - Table exists, no UI-visible errors anywhere related to it. This is explicitly "groundwork" per the ticket — no functional UI flow exists to test yet. Update this TC once a consumer feature is built on top of it.
+
+**Status:** **EXECUTED 2026-10-01 — PASS.** `rf_external_identities` confirmed present via `DESCRIBE` with the expected generic structure (`record_type`, `record_id`, `source_system`, `source_object`, `source_id`, timestamps). Loaded the Platform Overview page (`/redmineflux_platform`) as Admin — loads cleanly (200, correct page title), zero console errors, nothing on the page references this table. Still pure groundwork, no consumer feature built on it yet, matching the ticket's own description.
 
 ---
 
@@ -77,11 +88,14 @@
 **Expected Result:**
 - Either the migration should have refused to run / raised a visible error (protecting the data by blocking the upgrade until resolved), or the data should have migrated correctly. **Silent, no-error data loss is the worst-case outcome and the one this TC exists to explicitly rule out** — if TC-PLT-090 shows silent loss with no migration warning at all, note that specifically in the bug filed for TC-PLT-090 as an aggravating factor (not just "data lost" but "data lost with zero warning").
 
+**Status:** **EXECUTED 2026-10-01 — PASS (via the TC-PLT-090 fallback, as instructed).** TC-PLT-022 remains BLOCKED (no throwaway DB copy available this cycle), so per this TC's own precondition, the verdict rests on TC-PLT-090's real-data outcome: all 3 Shift Management fixtures (Holiday Scheme, Holiday, Audit entry) migrated correctly with explicit source-tracking columns and preserved timestamps — **no silent loss occurred**, so there is no aggravating "lost with zero warning" scenario to flag. The worst-case outcome this TC exists to rule out did not happen. No bug filed.
+
 ---
 
 ## Evidence Map
 
-- Case ID: TC-PLT-090 … TC-PLT-093
-- Screenshot: bug evidence only, `screenshots/<BUG-ID>/` (TC-PLT-090 is the most likely candidate to actually produce a bug this cycle)
-- Log: migration output/logs from the TC-PLT-021 run, cross-referenced here
-- Bug reference: —
+- Case ID: TC-PLT-090 … TC-PLT-093 — **all 4 EXECUTED 2026-10-01, all PASS.**
+- **Suite complete.** All 3 of the ticket's admitted known gaps are confirmed FIXED on this branch HEAD (not previously verified or mentioned in any journal update): Shift Management pre-platform data genuinely survives the upgrade (TC-090, via DB-level source-tracking columns and preserved timestamps), `contact_type` no longer stores the stale `'company'` value (TC-091, migration 032), and `rf_external_identities` is inert groundwork with no UI errors (TC-092). TC-093's worst-case silent-data-loss scenario did not occur.
+- Screenshot: none needed — no bugs found, and this repo's rule is screenshots for bugs only.
+- Log: DB queries against `redmine-docker-6-platform-db-1` (`rf_holiday_schemes`, `rf_holidays`, `rf_audit_events`, `rf_crm_contacts`), source read of `db/migrate/032_data_rename_company_contact_type.rb`.
+- Bug reference: — (none; see `PLATFORM_MEMORY.md` for the "gaps fixed, not yet in the ticket" note per TC-090's own instruction)

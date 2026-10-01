@@ -542,10 +542,16 @@ Only update root `MEMORY.md` when a rule applies globally across all plugins.
 | Requirements | `docs/<PREFIX>_REQUIREMENTS.md` (or `docs/requirements.md` for plugins scaffolded before `CLAUDE.md` §2b) | Understand what the plugin does, its features, workflows, and permission matrix |
 | Features list | `docs/<PREFIX>_FEATURES_LIST.md` (or `docs/features-list.md`) | Full list of plugin features to ensure complete test coverage |
 | User guide | `docs/<PREFIX>_USER_GUIDE.md` (or `docs/user-guide.md`) | Understand real end-user behavior, UI flows, and edge cases |
+| Test Plan | `docs/<PREFIX>_TEST_PLAN.md` | The approach for this cycle — which testing types, entry/exit criteria — built from the three files above (see `CLAUDE.md` §2c) |
+
+Before writing a new test case, also check **`docs/<PREFIX>_TRACEABILITY_MATRIX.md`** (`CLAUDE.md` §2c) for whether
+the requirement/feature it covers already has a TC — don't write a duplicate, and update the matrix once the new
+TC exists.
 
 ### Rules
 
-- **Do not write a single test case** until all three files have been read.
+- **Do not write a single test case** until Requirements, Features List and User Guide have been read, and the
+  Test Plan exists.
 - If the requirements file is missing, stop and ask:
   > "The plugin requirements file is missing. Please provide it before I can write test cases."
 - If the features-list file is missing, stop and ask:

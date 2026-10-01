@@ -72,3 +72,11 @@ TOTAL SUBMISSIONS: 1 | PENDING APPROVALS: 1 | Approval Status -> Submitted: 1
 ## Production report
 
 Reported to production 2026-09-29 as **#121511** (project `ztflux`, tracker Bug, Priority Medium, Defect Type Functional, Defect Severity Medium-severity, Defect priority Medium, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #120495 (`CRUX_AGENT_TIMESHEET`) / Run #569 / environment "Window 11 + Chrome" — testcase result marked Failed with defect #121511 attached, confirmed via `get_issue`.
+
+## 2026-10-01 retest — CONFIRMED FIXED
+
+Dev's fix (`redmineflux-crux-core`, branch `master`, commit `501a075` — widened `agents/timesheet.md`'s Rule 1 to explicitly cover `submit`/`approve`/`reject`/`withdraw`/`withdraw_bulk`, not just the read tools; confirmed present in the local git checkout). A prompt-only change, so re-verified against a live model exactly as the dev requested.
+
+Re-ran the exact original repro, fresh chat session, naming the team by display name only: "Time Agent, please submit Redmine Admin's timesheet for the Retest Squad team, week of Sep 28 to Oct 4 2026, now." The resulting proposal showed **Context: `2`** — the real numeric team ID, not a fabricated slug. Expanding "Sources (1)" confirmed the agent genuinely called `redmineflux_timesheet_team_list` before proposing, exactly matching the fix's intent. **Verdict: CONFIRMED FIXED.** Recommend closing.
+
+(Confirming this proposal also surfaced BUG-CRX-039's retest result — see that bug file for the Admin self-submission refusal, and the new `✓`-on-refusal observation cross-referenced to BUG-CRX-040.)

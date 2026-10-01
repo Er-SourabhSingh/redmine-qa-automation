@@ -84,3 +84,11 @@ Two independent, unconfounded reproductions in one session — the defect is con
 ## Production report
 
 Reported to production 2026-09-29 as **#121484** (project `ztflux`, tracker Bug, Priority Medium, Defect Type Functional, Defect Severity Medium-severity, Defect priority Medium, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #120494 (`CRUX_AGENT_QA_TESTCASES`) / Run #569 / environment "Window 11 + Chrome" — testcase result marked Failed with defect #121484 attached, confirmed via `get_issue`.
+
+## 2026-10-01 retest — CONFIRMED FIXED (real chat click-through, the dev's own flagged gap)
+
+Dev's fix (`redmineflux-testcase-management`, branch `master`, commit `5941614` — added an active-run guard in `remove_testcases_from_suite`, returning a 422 naming the open run(s) before touching the suite/issue link; confirmed present in the local git checkout). Dev's own journal flagged an honest verification gap: the fix was only verified by calling the API endpoint directly, not through the real Ask Crux chat flow, and asked for that specific path to be exercised before closing.
+
+Built a fresh, unconfounded fixture (suite #3 was left empty by the prior session's reproductions): created a brand-new testcase (#23, "BUG-CRX-036 Retest Fixture 1001") directly inside suite #3 via the native "New Test Case" form, confirmed run #1 ("CRX-Gap Fixture Run") was still genuinely "In progress" (open) and linked to suite #3. In Ask Crux chat: "QA Agent, remove testcase #23 from suite #3 now." → real `Testcases Management Remove Testcases From Suite` proposal (Suite: 3, Testcase Ids: [23]) → confirmed → **"Validation error: Cannot remove testcases: suite #3 'CRX-Gap-Fixture Suite' is linked to 1 active run(s) (CRX-Gap Fixture Run). Close those runs first."** — the exact rule now honestly enforced through the real chat path, naming the specific blocking run. Verified via `/test_suites?project_id=crux-qa&testsuite_id=3`: testcase #23 is still genuinely listed as a suite member — no silent removal. Run #1 confirmed still open throughout.
+
+**Verdict: CONFIRMED FIXED**, including the dev's own flagged chat-flow gap. Recommend closing.

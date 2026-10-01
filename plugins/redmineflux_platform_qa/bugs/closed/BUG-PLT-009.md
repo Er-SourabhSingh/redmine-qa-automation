@@ -145,3 +145,13 @@ Root cause: `redmineflux_shift_management` and `redmineflux_timesheet` each inde
 This is a genuinely different root cause than the one originally reported here (stale param key vs. a cross-plugin monkey-patch collision on a shared audit model), so per this repo's retest convention it gets its own bug rather than being folded back into this one — see **BUG-PLT-010**. **This bug (BUG-PLT-009) stays OPEN**: its own originally-reported symptom is fixed, but "Apply Leave works" as a whole is still false, and closing this one without linking to what's actually still blocking it would misrepresent the feature as usable when it is not.
 
 Impact scope of the new defect (BUG-PLT-010) is much wider than just Leave — confirmed ~30 call sites across nearly all of `redmineflux_shift_management` (attendance, leave, shift assignments, shift change requests, user band assignments, a background auto-punch-out service, and the whole API v1 layer) use the same now-broken `AuditEvent.log(user_id: ...)` signature.
+
+## Retest 2026-10-01 — second fix round (commits `8ee8cdc` shift_management, `bb4d6d5` platform, `9f89f1e` timesheet) — CONFIRMED FIXED END-TO-END, closed
+
+With BUG-PLT-010 fixed in the same push, retested the exact original repro live: Shift Management → Leave → Apply Leave → employee (Admin, auto-approve path), Leave Type "Planned Leave", a free date (2026-11-25, to avoid an unrelated same-day conflict with existing fixture data), Reason → Submit.
+
+- `POST /shift_management/leave` → **200**, confirmed via both the UI ("Leave approved successfully." message shown, modal closed cleanly — not stuck) and the server log (no `ParameterMissing`, no `ArgumentError`, no `Completed 400`/`500` anywhere in the request's trace).
+- Confirmed via DB that the leave record was created and auto-approved cleanly, and — importantly — that the audit event this bug's retest history was blocked on now also writes successfully (`action: "auto_approve_leave"`, `ip_address` populated from Shift Management's own call shape).
+- Also confirmed the param key is now **derived from the model** (`RedminefluxPlatform::Leave.model_name.param_key`), not a hardcoded literal — per the dev's journal, this closes the exact class of regression that caused this bug's own first "fix" to only partially work (literal key vs. model drifting apart again).
+
+Feature now genuinely works end-to-end, not just the originally-reported symptom. Test fixture leave record deleted after verification. Closed — moving to `bugs/closed/`.

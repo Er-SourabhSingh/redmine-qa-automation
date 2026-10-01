@@ -117,3 +117,14 @@ The dev's first fix round (journal, 2026-09-29 14:38:20) addressed the garbled-d
 - **D — Partially fixed.** Height/font size now match; width and border-radius still don't.
 
 Reopening — none of the four items are fully resolved to the corrected scope above.
+
+## Retest 2026-10-01 — second fix round (commits `bb4d6d5` platform, `8ee8cdc` shift_management) — CONFIRMED FIXED, closed
+
+Pulled both commits (already on disk, confirmed via `git log`), ran pending plugin migrations (platform now at migration 40, all applied), restarted the container, retested all four parts live via `browser_evaluate` against the real DOM/CSS (not just a visual read):
+
+- **A — FIXED.** `/shift_management`: `getComputedStyle(h1, '::after').content` → `"Shift Management"` only; core `<h1>` computed `font-size: 0px` (genuinely hidden, not just visually overlapped). No "Redmineflux" prefix anywhere.
+- **B — FIXED.** Confirmed on both Overview (`/redmineflux_platform`) and Teams (`/redmineflux_platform/teams`): `::after` content is `"Redmineflux Platform"` on both, consistently.
+- **C — FIXED.** `document.querySelector('.rf_platform_crumb')` → `null` on the Teams page (and Overview, which never had one). Breadcrumb fully removed.
+- **D — FIXED.** Measured Cancel/Delete buttons on the real `#rf_platform_confirm_modal` (Platform's own Teams delete confirmation): **190 × 45.8px**, 15px font, 8px border-radius, 14px 24px padding — within the 193–201px reference band the dev cited (CRM/Shift Management/Helpdesk's own modals), confirmed via `getBoundingClientRect()`/`getComputedStyle()` directly on the rendered buttons, not estimated.
+
+All four parts genuinely fixed. Closed — moving to `bugs/closed/`.

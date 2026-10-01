@@ -220,9 +220,9 @@ Evidence: TC-CRX-023's "DevOps, check crux-qa." exchange already demonstrates th
 **Expected Result:**
 - Per `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s planned-probe table: this probe must distinguish two outcomes that could look similar — (a) a genuine permission refusal (lacks `Trigger builds`), vs. (b) the pre-existing "no safe test repo" infra blocker already tracked as TC-CRX-024 (BLOCKED). Record which one actually occurs; do not conflate them.
 
-**Result: NOT YET EXECUTED**
+**Result: PASS — CONFIRMED LIVE 2026-10-01**
 
-NOT YET LIVE-VERIFIED — drafted from `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s planned-probe table (row: DevOps Agent).
+As `luna.blossom` (session ses-029), asked "DevOps Agent, trigger a build for the crux-qa repo on the main branch." Agent asked to clarify the project, then replied: *"I don't have permission to view the repositories or builds for the crux-qa project. Your Redmine administrator needs to grant you (or the role you're using) the required permissions to access DevOps plugin data."* — outcome (a), a genuine permission refusal, correctly distinguished from TC-CRX-024's infra blocker (no mention of a missing repo/build-trigger infra gap; the refusal fired at the view-permission layer before any repo lookup could occur). No silent success, no fabricated repo/build data.
 
 ---
 
@@ -237,15 +237,16 @@ NOT YET LIVE-VERIFIED — drafted from `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s 
 **Expected Result:**
 - Per `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s 3-way framing: honest refusal at the real Budget/Audit permission layer, no silent success, no fabricated result.
 
-**Result: NOT YET EXECUTED**
+**Result: PASS — CONFIRMED LIVE 2026-10-01**
 
-NOT YET LIVE-VERIFIED — drafted from `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s planned-probe table (row: Budget Agent).
+As `luna.blossom` (session ses-029), asked "Budget Agent, set the budget cap for crux-qa to $10,000." Agent correctly clarified it needed a numeric project ID + category ID + hours (the Budget/Audit plugin doesn't take dollars or project-wide caps) — honestly stated it has no project-identifier-lookup tool rather than guessing one. Once given the real numeric project ID (1, confirmed via direct navigation to `/projects/1`) and category ID 6, it produced a normal governed-write confirm card ("Budget Audit Set Budget" — Project Crux QA, Category Development - QA & Testing, Hours 100). Clicking **Confirm** returned: *"Permission denied: you do not have manage_approved_hours permission in this project. To fix this, ask your Redmine administrator to: • Grant you the required role/permission for this action • Check: Administration → Roles and Permissions → [your role]."* — the real permission layer refused the write at confirm-time; no budget was silently set, no fabricated success.
 
 ---
 
 ## Evidence Map
 
-- Case IDs: TC-CRX-023 through TC-CRX-029 — 6/7 reached a definitive verdict (6 PASS: 101, 103, 104, 105, 106, 107; 1 BLOCKED: 102, pending dev-provided safe test repo).
-- Screenshots: bugs only (none captured — evidence via live chat transcript cross-checked against the real `/projects/crux-qa/settings/approved_hours_settings` page).
-- Log: session ses-143, 2026-09-16.
+- Case IDs: TC-CRX-023 through TC-CRX-033 — 11/11 reached a definitive verdict (10 PASS: 023, 025, 026, 027, 028, 029, 030, 031, 032, 033; 1 BLOCKED: 024, pending dev-provided safe test repo).
+- TC-CRX-032/033 executed 2026-10-01 (session ses-029, `luna.blossom`) — both PASS, both honest permission-layer refusals, no bugs found.
+- Screenshots: bugs only (none captured — evidence via live chat transcript cross-checked against the real `/projects/crux-qa/settings/approved_hours_settings` page, and against `/projects/1` for the numeric project ID).
+- Log: session ses-143 (2026-09-16), session ses-029 (2026-10-01, TC-CRX-032/033).
 - Bug reference: BUG-CRX-013 (self-contradiction, reproduced on Budget Agent — third distinct domain agent confirmed).

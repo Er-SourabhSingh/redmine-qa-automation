@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-042
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #121828
 - Title: Time Agent's `submit` on an empty (no time logged) week returns a misleading error claiming "a corrupted approval schema" and tells the user to contact an administrator, for a completely normal, everyday situation
 - Redmine version: 7.0.0 (local Docker)
 - Plugin name: redmineflux_crux (Time Agent, Timesheet plugin domain)
@@ -67,3 +67,7 @@ no data corruption, genuinely just an empty week.
 
 - Duplicate found: No — a distinct message-quality defect, found while investigating BUG-CRX-041 (empty-timesheet submission scenario, tested per explicit user request).
 - Existing bug reference (if duplicate): —
+
+## Production report
+
+Reported to production 2026-10-01 as **#121828** (Priority Medium, Defect Type Functional, Defect Severity Medium-severity, Defect priority Medium, Category Crux Plugin, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #120495 (`CRUX_AGENT_TIMESHEET`) / Run #569 "Crux QA Run 1" / Suite #374, Environment "Window 11 + Chrome" — testcase marked Failed.

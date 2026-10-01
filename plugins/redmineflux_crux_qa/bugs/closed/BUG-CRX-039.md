@@ -70,3 +70,13 @@ RA Redmine Admin | 28 Sep - 4 Oct 2026, Wk 40 | TEAM Retest Squad | 4.00h | Leve
 ## Production report
 
 Reported to production 2026-09-29 as **#121513** (project `ztflux`, tracker Bug, Priority High, Defect Type Functional, Defect Severity High-severity, Defect priority High, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #120495 (`CRUX_AGENT_TIMESHEET`) / Run #569 / environment "Window 11 + Chrome" — testcase result marked Failed with defect #121513 attached, confirmed via `get_issue`.
+
+## 2026-10-01 retest — CONFIRMED FIXED (original defect), new ✓-on-refusal observation cross-referenced to BUG-CRX-040
+
+Dev's fix (`redmineflux_timesheet`, branch `master`, commit `3e9fde7` — `Api::TimesheetSubmissionsController#create` now refuses immediately with a real 403 when `User.current.admin?`, before any context/period validation; confirmed present in the local git checkout, plus its one new migration `019_allow_null_approver_id_on_approval_actions.rb` run).
+
+Re-ran the exact original repro: "Time Agent, please submit Redmine Admin's timesheet for the Retest Squad team, week of Sep 28 to Oct 4 2026, now." (this run also doubled as BUG-CRX-038's retest — the team resolved honestly to numeric ID `2` via `team_list`). Confirming the proposal produced: *"✓ The Administrator account cannot submit its own timesheet — it sits above the entire approval chain as the fallback approver, so there is no one positioned to approve this submission. This matches the native UI, which hides the Submit control for this account for the same reason."* — text matches the dev's cited 403 response verbatim. Verified via `/admin_dashboard`: Total Submissions 0, Pending Approvals 0 — no phantom submission, genuine refusal, no silent bypass.
+
+**Verdict: original defect (Admin self-submission silently succeeding) CONFIRMED FIXED.**
+
+**New observation, not a continuation of this bug**: the refusal text above is prefixed with a misleading **`✓`** checkmark — identical defect pattern to the already-open **BUG-CRX-040** (Time Agent's `settings_update` prefixing a genuine "Permission denied" failure with "✓"), just surfacing here on the `submit` tool instead. Not filing a new bug for this — noting it here as a second confirmed instance of BUG-CRX-040's pattern, to fold into that bug's own retest (see `BUG-CRX-040.md`).

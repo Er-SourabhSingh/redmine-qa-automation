@@ -95,3 +95,13 @@ Server log: see Actual result above (full trace already included there).
 ## Production report
 
 Reported to production 2026-09-30 as **#121621** (project `ztflux`, tracker Bug, Priority Blocker, Defect Type Functional, Defect Severity Critical, Defect priority Urgent, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #121476 (`Cross-Plugin Consistency`, Feature #120043) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121621 attached.
+
+## Retest 2026-10-01 — CONFIRMED FIXED, closed
+
+Pulled commit `0d8946f` (redmineflux_shift_management — confirmed in current `git log`), ran pending migrations, restarted, retested the exact original repro live: Shift Management → Leave → Leave Types tab → New Leave Type → Name "PLT-BUG012-Retest" → Create.
+
+- `POST /shift_management/leave_types` → **302** (was 400), "Leave type created successfully." shown, new type appears in the list.
+- Confirmed via DB the record was created cleanly (`RedminefluxPlatform::LeaveType`, `active: true`).
+- Per the dev's journal, this fix also included a full sweep of every consolidated-entity form across all 6 consumer plugins (tracing the instance-variable each `form_for` is built from into every view it renders) to confirm no fourth instance of this defect class remains — every other form pins its param key explicitly via `as:`, this was the only one (plus the two Leave forms) that didn't.
+
+Fixed. Test fixture leave type deleted after verification. Closed — moving to `bugs/closed/`.

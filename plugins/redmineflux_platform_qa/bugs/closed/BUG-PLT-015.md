@@ -64,3 +64,13 @@ The user's recommendation: rather than patching each consumer plugin's own scree
 ## Production report
 
 Reported to production 2026-09-30 as **#121624** (project `ztflux`, tracker Bug, Priority Low, Defect Type Usability, Defect Severity Low-severity, Defect priority Low, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #121476 (`Cross-Plugin Consistency`, Feature #120043) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121624 attached.
+
+## Retest 2026-10-01 — CONFIRMED FIXED, closed
+
+Pulled commit `7012219` (redmineflux_platform — same commit also fixes BUG-PLT-013/014, confirmed in current `git log`), ran pending migrations, restarted, retested live on Platform's own Teams screen (`/redmineflux_platform/teams/1`):
+
+- Every member row now has a working **"Edit member"** button alongside "Remove from team" — not just Remove.
+- Clicked it: a real dialog opens (not a dead button) with both "Redmine role" and "Team role" as independently editable fields, plus "Manage workload"/"Approve leave" checkboxes, and working Save/Cancel buttons.
+- Confirmed this closes the gap this bug reported precisely — previously Platform's own Teams screen (and Shift Management's) had no way to change a member's role after adding them, only Remove-and-re-add; Workload/Timesheet already had this (not what this bug was about). Platform's screen now matches.
+
+Fixed. Closed — moving to `bugs/closed/`.

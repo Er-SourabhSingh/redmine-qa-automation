@@ -172,3 +172,17 @@ This is consistent with the dev's own stated caveat at closure ("a small sample 
 ## Production report
 
 Reported to production as issue **#120664** (`ztflux`, Tracker Bug, Priority High, assigned to Prashant Chaurasia — user id 410), 2026-09-15. Textile description, no attachments (per updated §4.3a policy). Linked to Run #569, testcase #120490 (`CRUX_AGENT_CRM_SALES.md`, found via TC-CRX-012) — testcase marked Failed.
+
+## 2026-10-01 retest — self-contradiction CONFIRMED FIXED (2/2 clean), but exposed a new, distinct defect (filed separately as BUG-CRX-043)
+
+Retested against dev commit `d09d123` (crux-core — added a narrow "confirm to proceed/continue/execute/apply" detection pattern to the existing bounded-retry mitigation, specifically targeting the fabricated-text shape seen in the 2026-09-29 reopening above).
+
+1. Fresh chat session, `admin`: "CRM, create a deal called BUG-013 Retest 1001 worth $5000 at stage Qualified." → real `Crm Create Deal` proposal, confirmed, real success (Deal ID: 6).
+2. Same session: "CRM, move the BUG-013 Retest 1001 deal to the Proposal stage." → real `Crm Update Deal Stage` proposal rendered immediately, genuine Confirm/Cancel buttons — **no self-contradiction, no "nothing to confirm yet" fabrication.**
+3. Confirming the proposal failed with a *different* error: "Validation error: Stage cannot be blank. Correct the value(s) above and try again." — despite the proposal table clearly showing Stage: "Proposal". Verified via native `/deals` page: deal 6's real stage is still QUALIFIED (no silent write bypass). Retried the exact same confirm click again on the same proposal — identical failure.
+4. Fresh second chat session, re-ran "CRM, move deal 6 to the Proposal stage." → fresh proposal with real buttons → confirmed → **identical "Stage cannot be blank" failure again** — 2/2 reproducible, ruling out a one-off glitch.
+5. Root-caused via source inspection: `redmineflux-mcp/src/tools/crm.py`'s `redmineflux_crm_update_deal_stage` sends `PUT /api/deals/{id}/update_stage.json` with a **nested** `{"crm_deal": {"stage": ..., "lost_reason": ...}}` body (per an inline comment citing a *different*, prior bug "BUG-CRM-011"). But `redmineflux_crm/app/controllers/api/deals_controller.rb`'s `update_stage` action reads `params[:stage]` directly — a **flat, top-level** param, not nested — unlike the sibling `update` action which correctly uses `params.require(:crm_deal).permit(...)`. The nested payload never reaches the flat lookup, so `params[:stage]` is always `nil` → `""` → Rails model validation rejects it.
+
+**Verdict: the original self-contradiction defect (this bug) is CONFIRMED FIXED** — 2/2 clean real proposals with genuine buttons, consistent with the dev's fix for the specific fabricated-text pattern. Per the "retest a different defect found while retesting gets its own bug" rule, the new "Stage cannot be blank" API-contract-mismatch defect found while confirming step 2 above is **not** a continuation of this bug and has been filed separately as **BUG-CRX-043**.
+
+**Recommend closing this bug** (self-contradiction defect only) once production sync is approved.

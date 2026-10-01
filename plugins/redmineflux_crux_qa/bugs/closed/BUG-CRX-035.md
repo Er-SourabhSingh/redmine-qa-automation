@@ -35,7 +35,7 @@ Because the message pushes the table down and looks like just another row of tex
 
 ### Retest screenshot (fill after fix is verified)
 
-![Retest result](../../screenshots/BUG-CRX-035/retest-yyyy-mm-dd-pass.png)
+![Retest result](../../screenshots/BUG-CRX-035/retest-2026-10-01-pass.png)
 
 ### Console / log
 
@@ -50,3 +50,7 @@ Because the message pushes the table down and looks like just another row of tex
 ## Production report
 
 Reported to production as issue **#121482** (`ztflux`, Tracker Bug, Priority Low, Defect Severity Low-severity, Defect priority Low, Defect Type Usability, Category Crux Plugin, assigned to Prashant Chaurasia — user id 410), 2026-09-29. Textile description, no attachments. Linked to Run #569 "Crux QA Run 1", testcase #120489 (`CRUX_AGENT_ROSTER_ADMIN.md` — closest fit, covers both the Fleet and Providers & keys admin pages), Environment "Window 11 + Chrome" — testcase marked Failed.
+
+## 2026-10-01 retest — CONFIRMED FIXED (real browser click-through)
+
+Dev's fix (`redmineflux_crux`, branch `master`, commit `c92c693` — new `.crux-success` CSS class, confirmed present in the local git checkout) had an "honest gap" per the dev's own journal: not independently verified via a real browser click-through (Playwright unavailable in the dev's session). Retested exactly that gap: opened the Fleet page (`/crux/agents`), clicked Edit on "Builder 1" (a non-bundled test agent), made no field changes, clicked "Save agent". Confirmed via `getComputedStyle` that the confirmation element is genuinely `class="crux-success"` with a real soft-green background (`rgb(220, 252, 231)`) and a visible border — not the old plain unstyled text. Screenshot captured. **Verdict: CONFIRMED FIXED.** Recommend closing.

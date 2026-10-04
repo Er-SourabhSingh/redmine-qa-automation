@@ -6,7 +6,12 @@ This file defines how Claude must work in this repository. Read this before ever
 
 ## 1. What This Repository Is
 
-AI-driven QA testing framework for Redmine plugins using Claude + MCP (Playwright).
+AI-driven, **automation-first** QA framework for Redmine plugins. Approved test cases and requirements are
+turned directly into Playwright + TypeScript specs, run natively via `npx playwright test` — this is the sole
+source of test execution and of every PASS/FAIL/blocked result that reaches a report (§7) — with an automated
+fix-loop that triages every failure as a test bug or an application bug (see §13). Claude + Playwright MCP is
+**not used for routine test execution**; it is reserved for special cases only — reproducing a reported bug or
+debugging a failure the fix-loop couldn't resolve — never as a substitute for running the spec suite.
 Each plugin gets its own isolated folder under `plugins/`. Global rules live at root level.
 
 ---
@@ -47,7 +52,7 @@ redmine-qa-automation/
         │   └── <PREFIX>_MEMORY.md          ← plugin-specific observations (persist across sessions)
         ├── testcases/
         │   └── <PREFIX>_<SUITE-NAME>.md    ← one file per test suite (e.g. HELPDESK_SLA_WORKFLOW.md)
-        ├── automation/               ← Playwright + TypeScript regression suite for THIS plugin
+        ├── automation/               ← Playwright + TypeScript suite for THIS plugin — PRIMARY test execution (§13)
         │   ├── playwright.config.ts
         │   ├── package.json
         │   ├── tsconfig.json
@@ -64,7 +69,7 @@ redmine-qa-automation/
         │   ├── uploads/               ← checked-in sample files used by upload test cases
         │   ├── downloads/             ← files captured during a run (gitignored)
         │   └── screenshots/           ← automation-run screenshots (gitignored — separate from the
-        │                                 plugin's own screenshots/<TC-ID>/ manual evidence folder)
+        │                                 plugin's own screenshots/<TC-ID>/ bug-evidence folder)
         ├── bugs/
         │   ├── _index.md            ← master bug tracker for this plugin
         │   ├── _duplicates.md       ← duplicate prevention register
@@ -202,7 +207,8 @@ plugins/<plugin-name>/                  (<PREFIX> = doc prefix per §2b, e.g. HE
   logs/
 ```
 
-`automation/` is created empty at plugin setup — do not scaffold Playwright specs until at least one test case in that suite has a confirmed manual PASS (see Section 13).
+`automation/` is created empty at plugin setup. Specs are scaffolded as soon as a test suite's test cases exist
+and are approved — there is no manual-pass gate before automating (see Section 13).
 
 Then add a row to `STATUS.md`.
 
@@ -572,8 +578,10 @@ bugs/closed/BUG-XXX.md  →  ../../screenshots/BUG-XXX/filename.png
 
 - Plugin name and the testing type this report covers
 - Test cases executed that day for this type, with individual results (pass/fail/blocked/skipped) and a summary
-  count
-- Bugs/defects found that day under this type — IDs, severity, status
+  count — **sourced directly from that day's `npx playwright test` run(s)** (§13): the TC ID(s) each `test()`
+  carries, its result, and for any failure the test name, expected vs. actual, and whether the fix-loop
+  categorized it as a test bug (fixed in the spec) or an app bug (filed below). Not a manually-recalled tally.
+- Bugs/defects found that day under this type — IDs, severity, status, and which spec/TC caught it
 - Fix verification / retesting details (Retest-type reports only)
 - Regression results (Regression-type reports only)
 
@@ -677,37 +685,57 @@ At the end of every test session:
 - [ ] plugin's memory file updated with new observations
 - [ ] plugin's handoff file updated with next session start point and a new Run History row for this run (or `docs/changelog.md` for older plugins)
 - [ ] `STATUS.md` updated — Open Bugs count and Status description
-- [ ] If any TC moved to a confirmed PASS this session and is in scope for regression, its `automation/tests/<suite>.spec.ts` is added or updated
+- [ ] Every TC executed this session has a corresponding `automation/tests/<PREFIX>_<suite>.spec.ts` test (added or updated) and its run result (pass/fail/blocked) is recorded against the TC — see §13
 - [ ] If a bug was retested and confirmed FIXED this session, regression has been run for its affected feature/suite (`SENIOR_QA_STANDARDS.md` §26) — not just the single TC
 - [ ] If this session closed the **last** bug in `bugs/open/`, the full final cycle regression has been run (`SENIOR_QA_STANDARDS.md` §27) before `STATUS.md` is set to `Complete`
 - [ ] `TIME_LOG.md` has a row for every testing / retest / bug-reporting / regression activity of this session, its Daily summary row is filled, and the time summary (per testcase, with comments) has been given to the user (§14)
 
 ---
 
-## 13. Playwright Automation Framework (Regression)
+## 13. Playwright Automation Framework (Automation-First)
 
-Each plugin owns its own self-contained Playwright + TypeScript suite under `plugins/<name>/automation/`. This is separate from the manual/exploratory testing done with Claude + Playwright MCP:
+Each plugin owns its own self-contained Playwright + TypeScript suite under `plugins/<name>/automation/`. This is
+**the actual test execution source** for this repo — every TC result that reaches a report or the Traceability
+Matrix comes from an `npx playwright test` run, never from a manual or live-browser pass. Claude + Playwright MCP
+is kept **only** for special cases: reproducing a bug report, or debugging a failure the fix-loop (below) couldn't
+resolve in 3 attempts. MCP is never used to execute or re-execute a test case in place of its spec.
 
-| | Manual / MCP testing | `automation/` regression suite |
+| | `automation/` suite (execution) | Claude + MCP (special cases only) |
 |---|---|---|
-| Purpose | Discover bugs, explore new/changed behavior | Re-verify behavior that already passed, catch regressions |
-| Driven by | Claude + Playwright MCP, session by session | Standard Playwright TS test runner, repeatable |
-| Source of truth | `testcases/<suite>.md` | Same file — automation follows it, never leads it |
-| Output | Bug files, that day's `<PREFIX>-<TestingType>-<date>.md` report(s), screenshots | Playwright HTML report / trace, pass-fail exit code |
+| Purpose | Execute every approved test case, discover bugs, catch regressions | Reproduce a reported bug; debug a failure the fix-loop couldn't resolve |
+| Driven by | Standard Playwright TS test runner, repeatable, zero AI tokens per run | Claude driving a live browser, one-off |
+| Source of truth | `testcases/<PREFIX>_<suite-name>.md` | Same file — never a substitute for the spec run |
+| Output | Playwright HTML report / trace, pass-fail exit code, bug files for app bugs found, screenshots | Investigation notes / bug repro details, folded back into the bug file or the spec fix, not into TC results |
 
 ### Rules
 
-- **Automate only test cases with a confirmed manual PASS.** Do not write a Playwright spec for a TC that hasn't been executed and passed manually first — automation locks in verified behavior, it does not discover new behavior.
+- **Automation-first — write specs directly from approved test cases/requirements.** A TC does **not** need a
+  prior manual PASS before it is automated. Once a test case is written in `testcases/<PREFIX>_<suite-name>.md`
+  and approved (not just drafted), write its Playwright spec and run it natively — the spec run itself is the
+  verdict (pass/fail/blocked), recorded against the TC the same way a manual run would be.
 - **One spec file per test suite**, same base name as the source: `testcases/<PREFIX>_<suite-name>.md` → `automation/tests/<PREFIX>_<suite-name>.spec.ts`.
 - **Every `test()` title must carry the TC ID(s)** it covers, e.g. `test('TC-HLP-178 - agent can close ticket', async ({ page }) => { ... })`, so results stay traceable back to the testcase file.
-- **Page Object Model, self-contained per plugin.** Page objects live in `automation/tests/pages/`, separate from the specs — as plain classes named `<Name>Page.ts` (PascalCase, no `.spec.ts` suffix, so the runner doesn't treat them as tests). A spec file must not contain raw selectors — it calls page object methods. Before adding a new page object, check this plugin's own `automation/tests/pages/` first; don't create a second page object for a screen this plugin's suite already models.
+- **Page Object Model, self-contained per plugin.** Page objects live in `automation/tests/pages/`, separate from the specs — as plain classes named `<Name>Page.ts` (PascalCase, no `.spec.ts` suffix, so the runner doesn't treat them as tests). A spec file must not contain raw selectors — it calls page object methods. Before adding a new page object, check this plugin's own `automation/tests/pages/` first; don't create a second page object for a screen this plugin's suite already models. Prefer resilient locators (`getByRole()`, `getByLabel()`, `getByText()`) over raw CSS/XPath selectors.
 - **File naming inside `automation/tests/`:** `<suite-name>.spec.ts` for specs and `<name>.setup.ts` for one-time infrastructure (e.g. `auth.setup.ts`, `provision.setup.ts`) live directly in `automation/tests/`; every `<Name>Page.ts` page object lives in `automation/tests/pages/`. Only `.spec.ts` and `.setup.ts` files are runnable tests.
 - **Credentials/base URL only via `automation/utilities/env.ts`**, which reads `QA_CREDENTIALS.md`. Never hardcode a URL, username, or password inside a spec or page object.
 - **Use fixtures for login/session state** (`automation/utilities/`, e.g. `base.fixtures.ts`) instead of repeating login steps inside every test. The standard pattern is a `tests/auth.setup.ts` that logs in once per role and saves `.auth/<role>.json`, referenced by `storageState` in `playwright.config.ts`.
 - **`tests/provision.setup.ts` bootstraps the environment itself, idempotently.** Runs before `auth.setup.ts` (both matched by the `.setup.ts` runner pattern, chained via `dependencies` in `playwright.config.ts` so order is guaranteed regardless of `fullyParallel`). Logs in as the one credential every fresh instance is guaranteed to have — Admin — then checks-before-creating every other role/project/user/customer the suite's fixtures reference, via real UI clicks (no direct DB/backend access). This is what lets the suite run against a brand-new server or container, not just the one environment it happened to be built against.
-- **`testdata/` and `uploads/`** hold checked-in fixtures (sample data files, files used by upload test cases) — commit these. **`downloads/` and `screenshots/`** hold run-generated artifacts — gitignored, and distinct from the plugin's own `screenshots/<TC-ID>/` manual evidence folder.
-- Playwright's own HTML report and trace files are a separate artifact from `reports/<PREFIX>-Regression-<date>.md` — they report the automated regression run, not the manual session.
-- When a bug is found *by the automation suite* (a regression), file it exactly like a manually found bug: check `bugs/_duplicates.md` / `bugs/_index.md`, use `templates/bug-template.md`, save to `bugs/open/`, and note in the bug file that it was found via the automated regression suite.
+- **`testdata/` and `uploads/`** hold checked-in fixtures (sample data files, files used by upload test cases) — commit these. **`downloads/` and `screenshots/`** hold run-generated artifacts — gitignored, and distinct from the plugin's own `screenshots/<TC-ID>/` bug-evidence folder.
+- Playwright's own HTML report and trace files are a separate artifact from `reports/<PREFIX>-<TestingType>-<date>.md` — they report the automated run itself, not the day's QA report.
+- When a bug is found by a spec run, file it exactly like any other bug: check `bugs/_duplicates.md` / `bugs/_index.md`, use `templates/bug-template.md`, save to `bugs/open/`, and note in the bug file that it was found via the automated suite (which spec/TC caught it).
+- Run the full suite with `npx playwright test --reporter=line`. Use `--project=chromium` for a fast dev pass, all configured browsers before a cycle is called complete, and `--trace on` to re-run a confusing failure with a full trace.
+
+### Fix Loop (failure triage)
+
+When a spec fails, diagnose before changing anything — max 3 fix attempts per failure in a given run:
+
+1. **Read the failure output** — Playwright's error includes expected vs. actual, the failing selector/assertion, and a page-state snippet. Re-run with `--trace on` if it's still unclear.
+2. **Categorize explicitly, every time:**
+   - **Test bug** — wrong selector, timing issue, stale test data, incorrect expected value → fix the spec or page object.
+   - **App bug** — the plugin is actually behaving incorrectly → **do not edit the spec to make it pass.** File it per §5 (check duplicates, use the bug template, save to `bugs/open/`) and leave the spec asserting the correct expected behavior, so it keeps failing (red) until the app is fixed.
+3. **Re-run after every fix** and report the re-run command and result, even when it now passes.
+4. **If a failure is still unresolved after 3 attempts**, stop — report what's failing, what's been tried, and whether it looks like a test issue or an app issue, and ask the user before continuing. Don't keep burning cycles patching a spec that may be testing the wrong thing.
+5. Every run's result (pass/fail/blocked per TC ID) is what gets recorded in that day's `reports/<PREFIX>-<TestingType>-<date>.md` (§7) and in `<PREFIX>_TRACEABILITY_MATRIX.md` (§2c) — there is no separate "manual result" to reconcile it against.
 
 ### Two regression triggers (see `SENIOR_QA_STANDARDS.md` §26 and §27)
 
@@ -716,7 +744,7 @@ Each plugin owns its own self-contained Playwright + TypeScript suite under `plu
 | A bug is retested and confirmed FIXED | The affected feature/suite, plus adjacent features per the severity table in §26 | Bug can be moved to `bugs/closed/` only after this regression passes |
 | `bugs/open/` becomes empty (all bugs fixed for the cycle) | The **entire plugin** — every suite, not just the fixed ones | `STATUS.md` can only be set to `Complete` after this passes |
 
-Run the plugin's `automation/tests/` specs first for whichever TCs they cover; manually re-run anything not yet automated.
+Run the plugin's `automation/tests/` specs for whichever TCs they cover. If a failure can't be resolved within the fix-loop's 3 attempts, Claude + MCP may be used to debug that specific failure (§13's special-case use), but the recorded result still comes from the spec's next `npx playwright test` run, not from the MCP session.
 
 ---
 

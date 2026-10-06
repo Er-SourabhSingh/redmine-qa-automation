@@ -1,0 +1,4 @@
+Subject,Priority,Step 1,Expected Result 1,Step 2,Expected Result 2
+Verify logout clears session,Normal,Click the logout link,User is redirected to the login page,Try to access a protected page,User is redirected to login again
+Verify password strength meter,Normal,Type a weak password,A weak-strength indicator is shown,Type a strong password,A strong-strength indicator is shown
+Verify remember-me checkbox,Low,Check Remember Me and log in,A long-lived session cookie is set,Close and reopen the browser,The user is still logged in

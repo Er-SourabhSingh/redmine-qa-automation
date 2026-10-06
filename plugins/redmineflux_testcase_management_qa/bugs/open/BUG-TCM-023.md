@@ -1,7 +1,7 @@
 # BUG-TCM-023
 
 - Bug ID: BUG-TCM-023
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #121989
 - Title: The inline pencil-icon Subject editor on a test case's detail page has no way to save a change — Enter and blur both silently discard it
 - Redmine version: 7.0.0
 - Plugin name: Redmineflux Testcase Management
@@ -86,3 +86,11 @@ control that silently does nothing).
 - Duplicate found: No
 - Checked `bugs/_duplicates.md` and `bugs/_index.md` — no existing bug covers Subject editability. Distinct from
   BUG-TCM-017 (Test Suite's own missing Description field — a different object entirely).
+
+## Production report
+
+- Reported to `ztflux` as **#121989** on 2026-10-05, assigned to Sheetal Sharma. Priority: Low | Defect Severity:
+  Low-severity | Defect priority: Low | Defect Type: Functional. Linked via `report_defect` to Test Case
+  **#121697** ("Sanity: Redmineflux Testcase Management — Final-Cycle Regression 2026-09-30"), Run **#592**,
+  environment **"Window 11 + Chrome"** — confirmed via `get_run_testcases` showing #121989 in the testcase's
+  linked defects list.

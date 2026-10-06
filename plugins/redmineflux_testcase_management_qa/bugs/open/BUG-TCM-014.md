@@ -109,6 +109,26 @@ Found while executing `testcases/TESTCASE_MANAGEMENT_TEST_RUNS.md`:
   mechanism. Distinct from BUG-TCM-011 (that's about Bug-only custom-field validation on tracker mismatch; this
   is the Defects multi-select never having any searchable data at all).
 
+## Reconfirmation (2026-10-05, different instance/version)
+
+Reproduced identically on `localhost:3015` (project `qa-demo`, plugin **v7.1.0** — a newer version than the
+`localhost:3010`/v7.0.0 instance this bug was originally filed against), while executing TC-EXEC-01-02
+(`docs/qa/V1-TEST-CYCLE-7.1.0.md`, a separate 235-case cycle — see `TESTCASE_MANAGEMENT_HANDOFF.md`'s note on
+this being a different test cycle/environment from the rest of this file). Set Status to Failed on a real Add
+Result form (issue 14, run 1, Safari environment); typing "17" (an existing defect's exact numeric id, same
+project) into the Defects* search box produced "No results found" with **zero network requests fired** — same
+symptom as originally documented. Confirmed via DOM: `#issue_status_result_defect_ids` has 0 `<option>`
+elements. This bug is **not fixed in 7.1.0** either. The single-result API path (`POST
+/issue_status_result/create.json` with `defect_ids` set directly) still works correctly as a workaround,
+confirmed separately this same session.
+
+**Extends further than originally scoped**, found while executing TC-EXEC-06-01: even when a testcase already
+has a genuine linked defect (a real `IssueRelation(relation_type:'defect')` row, confirmed via Rails console),
+opening its Add Result form (`GET /issue_status_results/new`) does **not** pre-populate that existing defect into
+the Defects select either — `@selected_defects` renders zero options regardless of whether any defect is
+already linked. So this bug covers both halves of the field: it can't search for new defects AND it can't show
+already-linked ones.
+
 ## Production report
 
 Reported to production `ztflux` as **#121836** on 2026-10-01, assigned to Sheetal Sharma. Linked via

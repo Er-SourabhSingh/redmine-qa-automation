@@ -76,13 +76,13 @@ These three need to be tested with the same rigor as functional TCs — write re
 
 - When a bug is retested and confirmed FIXED, run regression on its affected feature/suite (not just the one TC) before moving it to `bugs/closed/`. Scope depends on bug severity — see `SENIOR_QA_STANDARDS.md` §26.
 - When `bugs/open/` becomes empty (all bugs for the cycle fixed), run a full final regression across **every** test suite for the plugin — not just the ones touched by fixes — before marking the plugin `Complete` in `STATUS.md`. See `SENIOR_QA_STANDARDS.md` §27.
-- For both, run the plugin's `automation/tests/` specs first where coverage exists, then manually re-run any TC not yet automated.
+- For both, run the plugin's `automation/tests/` specs — per `CLAUDE.md` §13 (updated, automation-first) this is now the sole execution source, so "run the specs" covers the whole regression; there is no separate manual re-run step for TCs not yet automated — write the missing spec(s) first instead.
 - A `NEW FAIL` found during either regression gets its own new bug — never reuse a closed bug ID, and the gate it was feeding (bug closure / `Complete` status) is not satisfied until it's resolved.
 
 ## Automation Rules (Playwright + TypeScript)
 
+- **Automation-first (CLAUDE.md §13, updated 2026-10-05):** a TC does NOT need a prior manual PASS before it is automated. Once a test case is written and approved in `testcases/<suite>.md`, write its spec directly and run it natively — the spec run itself is the verdict (pass/fail/blocked), the same way a manual run used to be. The line that used to live here ("only automate after a confirmed manual PASS") is the OLD rule and no longer applies — automation is the primary discovery/execution tool now, not a re-verification-only step. Claude + Playwright MCP is reserved for two special cases only: reproducing a reported bug, or debugging a failure the fix-loop (3 attempts) couldn't resolve.
 - Automation lives per plugin under `plugins/<plugin-name>/automation/` — self-contained, not shared across plugins.
-- Only automate a test case after it has a confirmed manual PASS. The automation suite re-verifies known-good behavior; it is not a discovery tool.
 - One spec file per test suite, same base name as `testcases/<suite-name>.md`.
 - Every automated test title must include the TC ID(s) it covers, for traceability back to the testcase file.
 - Follow Page Object Model: no raw selectors inside spec files — only inside page object classes (`<Name>Page.ts`) living in `automation/tests/pages/`. Reuse an existing page object in that plugin's `automation/tests/pages/` before writing a new one.

@@ -16,11 +16,29 @@
 | BUG-TCM-020 | Renaming an Environment updates the Environment list and new-run forms correctly, but every already-created run still shows the old environment name everywhere on its own page | Open | Medium | 7.0.0 | #121841 | bugs/open/BUG-TCM-020.md |
 | BUG-TCM-021 | Any re-render of the New Test Case form (a Category change, or simply a failed validation submit) silently destroys already-entered Steps and removes the Steps/Requirements sections entirely | Open | High | 7.0.0 | #121842 | bugs/open/BUG-TCM-021.md |
 | BUG-TCM-022 | Every "New Test Case" created via the plugin's own creation form lands on the Bug tracker instead of the correctly-configured Test case tracker | Open | Critical | 7.0.0 | #121843 | bugs/open/BUG-TCM-022.md |
-| BUG-TCM-023 | The inline pencil-icon Subject editor on a test case's detail page has no way to save a change — Enter and blur both silently discard it | Open | Low | 7.0.0 | | bugs/open/BUG-TCM-023.md |
+| BUG-TCM-023 | The inline pencil-icon Subject editor on a test case's detail page has no way to save a change — Enter and blur both silently discard it | Open | Low | 7.0.0 | #121989 | bugs/open/BUG-TCM-023.md |
 | BUG-TCM-024 | The Testcase Summary's "Search by subject or ID" box does not actually search by ID — searching a real issue's exact numeric ID returns no results | Open | Medium | 7.0.0 | #121845 | bugs/open/BUG-TCM-024.md |
 | BUG-TCM-025 | There is no working UI path at all to associate an already-existing test case with a suite — drag-and-drop doesn't work, no "add existing cases" action exists, and the issue's own Edit form has no Suite field | Open | Critical | 7.0.0 | #121846 | bugs/open/BUG-TCM-025.md |
 | BUG-TCM-026 | "Remove Testcase" from a suite returns 200 OK with the correct payload but does not actually remove the case — it silently remains in the suite's grid | Open | High | 7.0.0 | #121847 | bugs/open/BUG-TCM-026.md |
 | BUG-TCM-027 | Removing a Requirement link via the issue Edit form's select2 widget does not persist — the requirement remains linked after submit | Open | Medium | 7.0.0 | #121848 | bugs/open/BUG-TCM-027.md |
+| BUG-TCM-028 | A project with zero Runs cannot create any report at all — "Runs must have at least one selected" blocks creation even with "Include all test run" selected (the default) | Open | Medium | 7.0.0 | #121990 | bugs/open/BUG-TCM-028.md |
+| BUG-TCM-029 | A rejected duplicate-name suite create leaves a stale "ghost" node in the suite tree until the page is reloaded | Open | Low | 6.x | #122071 | bugs/open/BUG-TCM-029.md |
+| BUG-TCM-030 | Opening the "Add Test Suite" modal throws a JS TypeError (`Cannot read properties of null (reading 'addEventListener')`) every time | Open | Low | 6.x | #122072 | bugs/open/BUG-TCM-030.md |
+| BUG-TCM-031 | Creating a Run scoped to a test suite that has zero test cases fails with the misleading message "Testsuite is not selected" | Open | Low | 6.x | #122073 | bugs/open/BUG-TCM-031.md |
+| BUG-TCM-032 | The documented "one-command automation runner" (run-demo-tests.sh) always fails at Step 4 — it parses for a RUN_ID= line the current client tool no longer prints | Open | High | 6.x | #122074 | bugs/open/BUG-TCM-032.md |
+| BUG-TCM-033 | The single-row drag "Copy Testcase"/"Move Testcase" popup is completely non-functional — it calls a TestcasesController that has never existed in the codebase | Open | Medium | 6.x | #122075 | bugs/open/BUG-TCM-033.md |
+| BUG-TCM-034 | Switching the suite-tree chart's dimension never actually updates the chart — the real data refresh is chained inside a save call that always 404s | Open | High | 6.x | #122076 | bugs/open/BUG-TCM-034.md |
+| BUG-TCM-035 | Test Environment "Select Components" picker is hardcoded to 3 generic placeholder values with no way to enter real component values, despite the model fully supporting free text | Open | Medium | 6.x | #122077 | bugs/open/BUG-TCM-035.md |
+| BUG-TCM-036 | The execution_defects backfill migration (20261001000002) crashes immediately on MySQL whenever there is real defect_ids data to backfill — insert_all(unique_by:) is unsupported on this adapter | Open | High | 6.x | #122092 | bugs/open/BUG-TCM-036.md |
+| BUG-TCM-037 | Traceability Matrix (TraceabilityRtmsController#index) has no permission or membership check at all — fully accessible to completely anonymous, unauthenticated callers | Open | Critical | 6.x | #122093 | bugs/open/BUG-TCM-037.md |
+| BUG-TCM-038 | QA Milestone update/delete have no server-side permission check at all — any project member can edit or delete a milestone regardless of role | Open | High | 6.x | #122094 | bugs/open/BUG-TCM-038.md |
+| BUG-TCM-039 | The Runs & Results "Closed" tab is unreachable whenever the project has at least one Active run — @current_tab always resolves to "Active" regardless of the requested tab param | Open | High | 6.x | #122095 | bugs/open/BUG-TCM-039.md |
+| BUG-TCM-040 | bulk_testcase_create crashes with a 500 whenever steps_and_results is omitted, even though steps are clearly meant to be optional | Open | Medium | 6.x | #122096 | bugs/open/BUG-TCM-040.md |
+| BUG-TCM-041 | GET /get_testcase/:id returns a 404 with a completely empty body, contradicting API.md's documented JSON error schema | Open | Low | 6.x | #122097 | bugs/open/BUG-TCM-041.md |
+| BUG-TCM-042 | GET /projects/:project_id/get_testcases.json ignores :project_id entirely — any authenticated user can read every test case on the instance | Open | Critical | 6.x | #122098 | bugs/open/BUG-TCM-042.md |
+| BUG-TCM-043 | bulk_testcase_create crashes with a raw 500 (not the documented 422) when the plugin tracker was never configured at all | Open | Medium | 7.0.0 | #122099 | bugs/open/BUG-TCM-043.md |
+| BUG-TCM-044 | rftc-008 "link an existing defect" UI (picker, bulk-link action, per-execution display) is never integrated into the Run execution view — feature is API-only | Open | Critical | 6.x | #122104 | bugs/open/BUG-TCM-044.md |
+| BUG-TCM-045 | link_defect/unlink_defect permission denial reuses bulk_create's assignee-specific error message, describing a check these actions don't perform | Open | Low | 6.x | #122105 | bugs/open/BUG-TCM-045.md |
 | BUG-TCM-005 | Report emailed as PDF arrives with no attachment at all, while the body still says "Please find the attached Testcase Report" | Closed | High | 6.1.3 | #120588 | bugs/closed/BUG-TCM-005.md |
 | BUG-TCM-003 | Bulk update result fails for every browser user because the bulk endpoint rejects the logged-in session and treats the request as an unauthenticated API call | Closed | High | 7.0.0 | #120544 | bugs/closed/BUG-TCM-003.md |
 | BUG-TCM-004 | Bulk Update Result modal shows raw HTML markup in its "Apply to N testcase(s)" line | Closed | Low | 7.0.0 | #120546 | bugs/closed/BUG-TCM-004.md |
@@ -45,6 +63,64 @@
   auto-mode permission classifier ("External System Writes"); per the tool's own guidance not to keep retrying
   past a denial, it was left for the user to approve/retry directly. All 11 other bugs in `bugs/open/` are now
   reported to production; only BUG-TCM-023 remains unreported.
+
+- **BUG-TCM-023 and BUG-TCM-028 (the two remaining unreported open TCM bugs) reported to production `ztflux` on
+  2026-10-05**, per explicit user approval: BUG-TCM-023 → **#121989** (Low), BUG-TCM-028 → **#121990** (Medium),
+  both assigned to Sheetal Sharma. Linked via `report_defect` against the established production Sanity testcase
+  **#121697** / Run **#592**, environment "Window 11 + Chrome" — confirmed via `get_run_testcases` showing both
+  new IDs in the testcase's linked defects list. **Every bug in `bugs/open/` is now reported to production.**
+- **BUG-TCM-028 (Medium) found 2026-10-05** while building the automation-first Playwright spec for
+  `TESTCASE_MANAGEMENT_REPORTS.md` (TC-TCM-095): a project with zero Runs cannot create **any** report type at
+  all — "Runs must have at least one selected" blocks creation even with the default "Include all test run"
+  option selected (reproduced 4/4 report types tried). Contradicts TC-095's own expected "renders an explicit
+  empty state" behavior. Not yet reported to production.
+
+- **BUG-TCM-029, 030, 031 (all Low) found 2026-10-05** while executing the scoped V1 7.1.0 release cycle
+  (`docs/qa/V1-TEST-CYCLE-7.1.0.md`) on a **different, freshly re-seeded Docker instance** (`localhost:3015`,
+  project `qa-demo`) than the rest of this file's `localhost:3010` entries — environment field says so per bug.
+  029: a rejected duplicate-name suite create leaves a stale ghost node in the tree until reload (DB confirms no
+  real duplicate). 030: the Add Test Suite modal throws a harmless-but-real JS TypeError on every open. 031:
+  scoping a new Run to a suite with zero test cases fails with "Testsuite is not selected" — initially
+  misdiagnosed as a structural "checkboxes live outside the form" defect (true, but not the actual blocker);
+  double-checked by scoping a Run to a non-empty suite (succeeded, Run #7) and to a dedicated empty probe suite
+  (failed identically), isolating the real trigger to suite emptiness, not the picker mechanism. None yet
+  reported to production.
+
+- **BUG-TCM-033 corrected 2026-10-05**, same day it was filed: originally claimed TC-SUITE-05-01/05-02's
+  checkbox-multi-select move/copy was broken. It is not — only the *separate* single-row drag "Copy
+  Testcase"/"Move Testcase" popup (`copyTestcase()`/`moveTestcase()` → dead `TestcasesController`) is broken,
+  exactly as the team's own `docs/qa/areas/SUITE-CASE.md` (TC-CASE-03-03, "Finding 1") already predicted. Caught
+  after the user reported successfully moving a test case manually; re-scoped and re-executing TC-SUITE-05-01
+  against the real mechanism (`TestSuitesController#add_issues`/`#copy_issues`).
+- **BUG-TCM-032 (automation runner), BUG-TCM-033 (single-row drag, corrected), BUG-TCM-034 (chart dimension
+  switch) found 2026-10-05** on the same `localhost:3015`/`qa-demo` 7.1.0 cycle — see each bug file for full
+  root-cause detail (CI script's stale `RUN_ID=` parsing, dead `TestcasesController`, and the chart save call's
+  `project_id` lookup always 404ing, respectively). None yet reported to production.
+- **BUG-TCM-014 reconfirmed 2026-10-05** on `localhost:3015` (v7.1.0, the separate V1 7.1.0 cycle) while
+  executing TC-EXEC-01-02: the Defects* field on a Failed Add Result form still has zero searchable options and
+  fires no network request — identical symptom to the original v7.0.0 finding, confirming it's not fixed in
+  7.1.0. Extended further the same day (TC-EXEC-06-01): it also fails to pre-populate an *already*-linked
+  defect, not just search for a new one. See the bug file's "Reconfirmation" section.
+- **BUG-TCM-036 (High) found 2026-10-05** while executing TC-DEFECT-05-03: the `execution_defects` backfill
+  migration (`20261001000002`) calls `insert_all(rows, unique_by:)`, an option Rails' MySQL adapter does not
+  support — it crashes with `ArgumentError` the moment any real `defect_ids` data exists to backfill. It shows as
+  "already run" in `schema_migrations` only because it first ran against an empty table. TC-DEFECT-05-04 is
+  blocked by this same bug. Not yet reported to production.
+- **BUG-TCM-029 through BUG-TCM-035 (all 7) reported to production `ztflux` on 2026-10-05**, per explicit user
+  instruction, assigned to **Vaishnavi Bhawsar** (id 192), Category Testcase Management Plugin, Target Version
+  **"Testcase Management plugin Release 7.1.0 [07-10-2026]"** (version id 2066): BUG-TCM-029 → **#122071** (Low),
+  030 → **#122072** (Low), 031 → **#122073** (Low), 032 → **#122074** (High), 033 → **#122075** (Medium), 034 →
+  **#122076** (High), 035 → **#122077** (Medium). Priority/Defect Severity/Defect priority mapped from local
+  severity per the standard table; Defect Type Functional for all 7. **Per explicit user instruction, none of
+  these 7 were linked to a production Test Case or Run** — a deliberate deviation from the established
+  Sanity-testcase+Run linking pattern used for this plugin's other bugs. Every bug from the V1 7.1.0 cycle
+  (029–035) is now on production.
+- **BUG-TCM-035 (Medium) found 2026-10-05** while executing TC-RUN-03-01: the Test Environment "Select
+  Components" picker only offers 3 hardcoded generic options (Hardware/Software/Configuration) via a plain
+  (non-tagging) select2 widget, even though `TestcaseEnvironment#components=` fully supports arbitrary free-text
+  strings — confirmed directly via Rails console. Makes it impossible to record real environment descriptors
+  (browser/OS versions) through the UI. TC-RUN-03-01 completed with a workaround (Hardware/Software substituted
+  for the intended "Chrome 129"/"Windows 11") so dependent cases could proceed. Not yet reported to production.
 
 ## Notes
 - Open bugs: bugs/open/
@@ -93,3 +169,31 @@
 - BUG-TCM-001 and BUG-TCM-002 were closed on 2026-09-11 after a retest PASS on their original fixtures plus a full
   CSV Import suite regression (16/16 TCs PASS). Neither had a Production Redmine Issue ID, so there was no
   production status to sync on close (`CLAUDE.md` §5).
+- **BUG-TCM-036 through BUG-TCM-043 (the last 8 open bugs, all previously un-reported) reported to production
+  `ztflux` on 2026-10-06**, per explicit user request: #122092 (TCM-036), #122093 (TCM-037), #122094 (TCM-038),
+  #122095 (TCM-039), #122096 (TCM-040), #122097 (TCM-041), #122098 (TCM-042), #122099 (TCM-043). All assigned to
+  **Vaishnavi Bhawsar**, target version **"Testcase Management plugin Release 7.1.0"** (id=2066), tracker Bug
+  (id=3), Defect Type/Severity/priority custom fields mapped from each bug's local severity (Critical→Blocker
+  priority/"Critical"/"Urgent"; High→High/"High-severity"/"High"; Medium→Medium/"Medium-severity"/"Medium";
+  Low→Low/"Low-severity"/"Low" — matching the exact convention already used on BUG-TCM-009/017/022). Created as
+  **standalone bug issues via `redmineflux_core_create_issue`** — per explicit user instruction, no production
+  Run or Testcase was created to link these via `report_defect`, unlike the earlier Sanity-testcase pattern used
+  for BUG-TCM-008–013. Every bug in `bugs/open/` is now reported to production.
+- **BUG-TCM-044 (Critical) and BUG-TCM-045 (Low) found 2026-10-06** while comprehensively testing production
+  feature **#121875 (rftc-008, "Defect ↔ execution many-to-one linking")** at the user's explicit request. The
+  entire backend (3 new JSON endpoints, the `ExecutionDefect` join, all-or-nothing bulk transaction, every
+  permission/visibility/cross-project/self-link/gate/batch-cap rule, legacy-write-path reconciliation via
+  `after_save`, cascade cleanup on destroy, and the reverse "Linked Test Executions" panel on the defect's own
+  issue page) was verified live and works **correctly** — a genuinely thorough pass (effectively the full F1–F15
+  functional matrix + several edge cases from the feature's own spec). But **BUG-TCM-044** found the actual
+  forward-facing UI (the "Link defect" picker, the bulk-link multi-select action, the per-execution linked-defect
+  chip list) was never wired into the Run execution view at all — the partial files exist on disk but are never
+  rendered by any view or referenced by any JS, so the feature (INECO's #1-ranked request) is reachable only via
+  the raw JSON API today, not through the product UI. Also surfaced, as context: the **pre-existing** legacy
+  "Defect ID's" column on the Run view can never show any defect regardless of rftc-008, because its query
+  requires the defect issue's own `run_id`/`environment` columns to match the viewed run — fields no defect ever
+  has set. **BUG-TCM-045** is a minor, unrelated finding from the same pass: `link_defect`/`unlink_defect`'s 403
+  denial reuses `bulk_create`'s assignee-specific error wording even though these actions don't check assignee at
+  all. **Both reported to production `ztflux` on 2026-10-06**: #122104 (TCM-044) and #122105 (TCM-045), assigned
+  to Vaishnavi Bhawsar, target version "Testcase Management plugin Release 7.1.0", standalone bug issues (no
+  production Run/Testcase created), same convention as BUG-TCM-036–043.

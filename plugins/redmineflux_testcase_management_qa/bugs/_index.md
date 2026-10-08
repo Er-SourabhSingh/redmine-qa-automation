@@ -54,6 +54,8 @@
 | BUG-TCM-059 | The API silently accepts a cross-project defect_ids value — returns 201 Created but never actually links the defect | Closed | Medium | 6.x | #122779 | bugs/closed/BUG-TCM-059.md |
 | BUG-TCM-060 | Run page's "Testcase" filter (With Defects/Without Defects) matches on a defect's stale scalar columns, not the real ExecutionDefect link | Closed | Medium | 6.x | #122800 | bugs/closed/BUG-TCM-060.md |
 | BUG-TCM-061 | Deleting a defect issue entirely leaves its ExecutionDefect join row behind — Total Defects / Defect Count keep counting a defect that no longer exists | Closed | Medium | 6.x | #122803 | bugs/closed/BUG-TCM-061.md |
+| BUG-TCM-062 | Edit Test Suite ("Edit Folder") and Edit Requirement fail with 403 Forbidden on .json AJAX routes | Closed | High | Forge (7.1.0) | #122902 | bugs/closed/BUG-TCM-062.md |
+| BUG-TCM-063 | Clicking the Add-Requirement "+" icon throws an uncaught JS TypeError (reading 'add_requirement') | Closed | Medium | Forge (7.1.0) | #122903 | bugs/closed/BUG-TCM-063.md |
 | BUG-TCM-005 | Report emailed as PDF arrives with no attachment at all, while the body still says "Please find the attached Testcase Report" | Closed | High | 6.1.3 | #120588 | bugs/closed/BUG-TCM-005.md |
 | BUG-TCM-003 | Bulk update result fails for every browser user because the bulk endpoint rejects the logged-in session and treats the request as an unauthenticated API call | Closed | High | 7.0.0 | #120544 | bugs/closed/BUG-TCM-003.md |
 | BUG-TCM-004 | Bulk Update Result modal shows raw HTML markup in its "Apply to N testcase(s)" line | Closed | Low | 7.0.0 | #120546 | bugs/closed/BUG-TCM-004.md |

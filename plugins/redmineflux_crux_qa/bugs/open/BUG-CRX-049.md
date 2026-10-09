@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-049
-- Production Redmine Issue ID: (not yet reported — pending approval)
+- Production Redmine Issue ID: #123059
 - Title: Success/error flash message on the Crux Settings page renders with its bottom border cut off / not fully visible, unlike the identical flash style on core Redmine pages
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux

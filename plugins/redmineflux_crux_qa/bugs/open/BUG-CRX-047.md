@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-047
-- Production Redmine Issue ID: (not yet reported — pending approval)
+- Production Redmine Issue ID: #123057
 - Title: Top-menu "Crux"/"Agents" links are shown to every logged-in user regardless of the `view_crux` permission, even though both controllers now correctly 403 anyone who lacks it — a dead-end left behind by the BUG-CRX-012/022 fixes
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux

@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-048
-- Production Redmine Issue ID: (not yet reported — pending approval)
+- Production Redmine Issue ID: #123058
 - Title: Agent registration/edit is completely broken — the server-side agent-ID validation regex can never match a real ID, so every "Register an agent" (create or edit) submission fails with a false "Use lowercase letters, numbers and dashes" error, for every agent, every time
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux

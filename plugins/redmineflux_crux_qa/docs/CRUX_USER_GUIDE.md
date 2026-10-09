@@ -62,6 +62,16 @@ Crux has **no dedicated "Ask Crux" menu entry** — the floating chat bubble IS 
 1. On any chat reply, use the **Keep** action to pin it to the session for later reference.
 2. When an agent turn produces a durable output (e.g. a generated report), it can be saved as a **Session Artifact** and attached to the relevant project/ticket.
 
+### Workflow 6: `@crux` mention-verb inside an issue comment (CRX-26)
+
+> Added 2026-10-09 — this is distinct from Workflow 1's in-chat `@mention` (which addresses a chat AGENT); this is a mention VERB typed directly into a Redmine issue's comment box, e.g. `@crux summarize` or `@crux research <question>`.
+
+1. On an issue's comment box, type `@crux <verb>` (known verbs: `summarize` → routes to the **Digest** agent, `research` → routes to the **Research** agent) followed by whatever context/question is relevant, and submit the comment.
+2. Crux replies **as a new comment on the same ticket** — this is a reply-only, visible-delegation mechanism (per CRX-26's design intent), not a chat session; there is no confirm card because Digest/Research both have an empty tool list (`allowed_tools: []`) and never write to Redmine.
+3. The reply is grounded only in the material actually present on the ticket/comment thread — it must never fabricate a "finding" or an "open question" that isn't actually there (see `CRUX_AGENT_CAPABILITIES_REFERENCE.md` § digest / § research for the exact grounding rule each agent is held to).
+
+**Not yet walked through live** — exact trigger syntax (is it only at the start of a comment line? case-sensitive? other verbs beyond `summarize`/`research`?) needs confirming against the running instance before TCs are finalized; this workflow was reconstructed from the `digest.md`/`research.md` agent spec files, not from an actual UI pass.
+
 ## UI Elements Reference
 
 - **Chat bubble**: position/size/icon/greeting/starter-prompts/default-agent are all plugin-setting driven (Administration → Plugins → Redmineflux Crux, or the in-app Crux settings page).
@@ -75,3 +85,4 @@ Crux has **no dedicated "Ask Crux" menu entry** — the floating chat bubble IS 
 - `use_ask_crux` does not require project membership (see [CRUX_REQUIREMENTS.md](CRUX_REQUIREMENTS.md) Permissions Matrix) — a logged-in non-member may still be able to open chat; what data they can actually retrieve/write should still be scoped by their own Redmine permissions.
 - Chat only returns a canned echo-provider reply until at least one LLM provider key (`ANTHROPIC_API_KEY`/`OPENAI_API_KEY`/`GEMINI_API_KEY`) is configured — see [CRUX_MEMORY.md](CRUX_MEMORY.md).
 - This guide is drafted from source code, not a live walkthrough — expect some drift from actual rendered UI (exact button labels, wand icon location, bubble copy) and correct this file the first time each workflow is actually executed.
+- **2026-10-09**: this guide previously had no coverage at all of the `@crux <verb>` issue-comment mention feature (CRX-26, Workflow 6 above) — found missing during a full agent-spec research pass. No suite currently exercises Digest or Research; add one (or fold into whichever suite ends up covering Ask-Crux-chat-core) before calling CRX-26 covered in the Traceability Matrix.

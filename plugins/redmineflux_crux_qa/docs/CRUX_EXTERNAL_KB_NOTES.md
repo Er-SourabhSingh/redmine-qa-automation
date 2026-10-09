@@ -19,7 +19,7 @@
 For each of the 9 domain plugins: the KB's own documented rules, then **Crux cross-reference** —
 whether the corresponding domain agent's `allowed_tools` (in
 `redmineflux-crux-core/agents/<id>.md`) can even exercise that rule, and whether this suite's
-existing `testcases/CRUX_AGENT_*.md` file already covers it. A "**GAP**" marker means: real
+existing `testcases/old_suites/CRUX_AGENT_*.md` file already covers it (moved there 2026-10-09; was a flat `testcases/` path when this doc was written). A "**GAP**" marker means: real
 documented behavior, tool exists to exercise it, but no existing TC does — a genuine candidate for
 a new testcase to be drafted (directly in the main session, not via a subagent).
 
@@ -164,4 +164,4 @@ No redmineflux.com KB page exists for this plugin either. From the agent's own m
 
 These 25 candidate TCs, plus the live per-domain-agent permission matrix (see
 `CRUX_AGENT_PERMISSION_MATRIX.md`, being built alongside this), are the input for
-`testcase-gap-writer` to draft into the existing `testcases/CRUX_AGENT_*.md` suite files.
+`testcase-gap-writer` to draft into the existing `testcases/old_suites/CRUX_AGENT_*.md` suite files.

@@ -1,5 +1,8 @@
 # Test Cases — Redmineflux Crux — Keep, Session Artifacts, Share (regression coverage per #117162)
 
+> **⚠ Historical — Redmine 7.0.0 environment.** This suite was executed entirely against the OLD local Docker instance (`C:/Crux-Redmine-Docker`, Redmine 7.0.0, `localhost:3014`). A **new Crux testing cycle began 2026-10-09** on a freshly built Redmine 6 instance (`C:/crux-redmine`, `localhost:3015`, plugin v0.62.0) — see `CRUX_AGENT_PROJECT_MANAGER.md` for the first suite written against it. Results below remain the historical record for the 7.0.0 build; they have **not** been re-verified against Redmine 6.
+
+
 > Source: #117162 "Regression coverage for existing chat capabilities"; #116773 journal entry 2026-07-18 (Keep + Share completed); `docs/CRUX_FEATURES_LIST.md` #8, #9, #10.
 >
 > **Execution readiness: UNBLOCKED — executed live 2026-09-15.** TC-CRX-113/054/055/058/059/060 all reached a definitive verdict; TC-CRX-116/057 remain out of scope per the 2026-09-11 scope correction below. **Found BUG-CRX-011 (Critical) via TC-CRX-119**: a shared read-only session's viewer can click Confirm on the owner's still-pending write proposal and genuinely execute it, attributed to the viewer's own identity — the exact "ownership-only confirm" invariant #117162 calls out as the most important thing to try to break. **Found BUG-CRX-010 (Medium) via TC-CRX-115**: a write-confirmed turn's Session Artifact/Keep snapshot captures only the pre-execution proposal text, omitting the real outcome — contrasted against a plain read-turn, whose artifact snapshot is faithful and complete.

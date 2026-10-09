@@ -606,6 +606,14 @@ With connectivity fixed, walked through every admin page via Playwright, trigger
 
 **Also in progress (separate, parked mid-conversation):** the user raised a business-context discussion (Crux repositioned as an AI *capability* across workflows, not a plugin — Origination/Storage/Context/Reasoning/Action + Governance framing) and a concrete testing-process gap: existing Ask Crux testing used clean/structured prompts, never realistic human phrasing, and never evaluated whether success/error messages are understandable to a non-technical user. Recommended treating this as a new testing dimension (message-clarity audit + natural-prompt pass) — **awaiting the user's decision** on whether to formalize it as its own category in `CRUX_SCOPE.md` or fold it into existing suites, and where to start. BUG-CRX-047 is itself a good first concrete example of this exact gap (a non-technical user has no way to know a 403 means "you're missing the Crux permission").
 
+## 2026-10-09 (later) — old 16 suites marked historical, separated from the new Redmine 6 cycle
+
+Per explicit user request ("separate the remaining test suites, stating that Crux testing is starting [fresh]"), added a prominent banner to the top of all 16 pre-existing suite files (the ones executed against the OLD Redmine 7.0.0 instance, `CRUX_NAVIGATION_AND_PERMISSIONS.md` through `CRUX_AGENT_KNOWLEDGE_BASE.md`), marking them as historical and pointing to the new Redmine 6 cycle. (First attempt at the banner text had a `sed` backslash-escaping bug that mangled the Windows paths — caught and fixed before confirming, verified clean across all 16 files.)
+
+**Followed by a physical move, per explicit user follow-up request**: all 16 banner'd files moved into a new `testcases/old_suites/` subfolder — `testcases/` root now holds only the new Redmine-6-cycle suite(s) (`CRUX_AGENT_PROJECT_MANAGER.md`). Updated the 2 known cross-references to the old flat path (`bugs/open/BUG-CRX-047.md`, `docs/CRUX_SCOPE.md`) to `testcases/old_suites/...`. Note for future sessions: the plugin-wide TC-CRX numbering sequence (CLAUDE.md §4a) still spans BOTH `testcases/old_suites/*.md` and `testcases/*.md` — when finding the current max TC-CRX number, grep both locations, not just the root.
+
+`CRUX_AGENT_PROJECT_MANAGER.md` (TC-CRX-177–190) is the first suite written for the new Redmine 6 cycle — see its own header for the full 3-permission-tier setup. Still blocked on an LLM provider key for actual execution.
+
 ## Run History
 
 > One row per test run / regression pass. Replaces the old changelog.md.

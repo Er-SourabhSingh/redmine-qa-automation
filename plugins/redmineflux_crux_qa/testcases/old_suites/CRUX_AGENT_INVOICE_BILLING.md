@@ -1,5 +1,8 @@
 # Test Cases — Redmineflux Crux — Invoicing Agent (Invoice) Full CRUD (#117162)
 
+> **⚠ Historical — Redmine 7.0.0 environment.** This suite was executed entirely against the OLD local Docker instance (`C:/Crux-Redmine-Docker`, Redmine 7.0.0, `localhost:3014`). A **new Crux testing cycle began 2026-10-09** on a freshly built Redmine 6 instance (`C:/crux-redmine`, `localhost:3015`, plugin v0.62.0) — see `CRUX_AGENT_PROJECT_MANAGER.md` for the first suite written against it. Results below remain the historical record for the 7.0.0 build; they have **not** been re-verified against Redmine 6.
+
+
 > Source: `redmineflux-crux-core/agents/invoice-billing.md` (full file); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
 > **Execution readiness: UNBLOCKED — executed live 2026-09-16, extended 2026-09-17.** Read surface (TC-CRX-034) and negative gating (TC-CRX-039) PASS. Original write actions (TC-128/129/130/131) hit BUG-CRX-020 (fixed) and BUG-CRX-021 (fixed) on 2026-09-16 — not re-executed pending a full suite regression pass. Gap-coverage cases (TC-163-166) executed 2026-09-17 using real native-UI fixtures (contact + Sent invoice): TC-163 FAIL (new bug **BUG-CRX-028** — fabricated update-success on a Sent invoice), TC-164 PASS (delete-lockout honestly enforced), TC-165 BLOCKED (no project-level rate concept exists on this plugin version), TC-166 PASS (permission-matrix probe).

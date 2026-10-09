@@ -1,5 +1,8 @@
 # Test Cases — Redmineflux Crux — Navigation, Entry Points & Permission Matrix
 
+> **⚠ Historical — Redmine 7.0.0 environment.** This suite was executed entirely against the OLD local Docker instance (`C:/Crux-Redmine-Docker`, Redmine 7.0.0, `localhost:3014`). A **new Crux testing cycle began 2026-10-09** on a freshly built Redmine 6 instance (`C:/crux-redmine`, `localhost:3015`, plugin v0.62.0) — see `CRUX_AGENT_PROJECT_MANAGER.md` for the first suite written against it. Results below remain the historical record for the 7.0.0 build; they have **not** been re-verified against Redmine 6.
+
+
 > Source: `docs/CRUX_REQUIREMENTS.md` Permissions Matrix, `docs/CRUX_USER_GUIDE.md` Getting Started/Key Screens, `docs/CRUX_FEATURES_LIST.md` #11, #13, #14, #17, #18, #19.
 >
 > **Scope note:** this suite is deliberately the first one written because it is fully executable today on the local QA stack (`C:\Crux-Redmine-Docker`, `crux-redmine` on `localhost:3014`) without either of the two current blockers — no LLM provider key is needed (nothing here depends on a real chat reply), and no second restricted-privilege test user is needed (role/permission setup can use existing or newly-created roles). Suites that need a real Ask Crux chat response (CRX-46 wand content, CRM/Workload/etc. write proposals) or the CRX-12 fail-closed per-user key path wait on those two environment items — see `docs/CRUX_HANDOFF.md`.

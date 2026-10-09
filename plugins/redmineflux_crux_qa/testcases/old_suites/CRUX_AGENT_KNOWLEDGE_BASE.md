@@ -1,5 +1,8 @@
 # Test Cases — Redmineflux Crux — KB Agent (Knowledge Base) Full CRUD (#117162)
 
+> **⚠ Historical — Redmine 7.0.0 environment.** This suite was executed entirely against the OLD local Docker instance (`C:/Crux-Redmine-Docker`, Redmine 7.0.0, `localhost:3014`). A **new Crux testing cycle began 2026-10-09** on a freshly built Redmine 6 instance (`C:/crux-redmine`, `localhost:3015`, plugin v0.62.0) — see `CRUX_AGENT_PROJECT_MANAGER.md` for the first suite written against it. Results below remain the historical record for the 7.0.0 build; they have **not** been re-verified against Redmine 6.
+
+
 > Source: `redmineflux-crux-core/agents/knowledge-base.md` (full file); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
 > **Execution readiness: UNBLOCKED — fully executed live 2026-09-16, all 6 TCs PASS.** Precondition gap found and fixed: the Knowledge Base module wasn't enabled for `crux-qa` (fixed via the real Settings > Project UI). Unlike every other suite tested this session, **BUG-CRX-020 (fabricated-confirm) did NOT block this agent's writes** — every write action (create_space, create_node, update_node, publish_node, unpublish_node, restore_version) eventually succeeded with a real confirm card, after the usual BUG-CRX-013 self-contradiction retry. This is the first suite in this round where every TC reached a clean PASS.

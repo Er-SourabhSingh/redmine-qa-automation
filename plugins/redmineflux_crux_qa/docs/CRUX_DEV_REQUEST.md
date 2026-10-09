@@ -1,6 +1,6 @@
 # Dev Request — Redmineflux Crux QA (#116773, #117162)
 
-> Compiled 2026-09-11 by QA (Sourabh Singh). Purpose: everything currently blocking or limiting test execution across the 138 test cases already written in `testcases/CRUX_*.md` (see `docs/CRUX_FEATURES_LIST.md` Suite Index). Send this to Prashant Chaurasia (assignee on both tickets) — it supersedes the informal note already left on #116773/#117162 on 2026-09-10, which is still unanswered as of this document.
+> Compiled 2026-09-11 by QA (Sourabh Singh). Purpose: everything currently blocking or limiting test execution across the 138 test cases already written in `testcases/old_suites/CRUX_*.md` (moved there 2026-10-09; was a flat `testcases/` path at time of writing — see `docs/CRUX_FEATURES_LIST.md` Suite Index). Send this to Prashant Chaurasia (assignee on both tickets) — it supersedes the informal note already left on #116773/#117162 on 2026-09-10, which is still unanswered as of this document.
 
 ---
 

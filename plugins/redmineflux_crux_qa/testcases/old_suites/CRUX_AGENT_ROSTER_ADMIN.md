@@ -1,5 +1,8 @@
 # Test Cases — Redmineflux Crux — Agent Roster, Provider/Key Admin, Logs, Settings
 
+> **⚠ Historical — Redmine 7.0.0 environment.** This suite was executed entirely against the OLD local Docker instance (`C:/Crux-Redmine-Docker`, Redmine 7.0.0, `localhost:3014`). A **new Crux testing cycle began 2026-10-09** on a freshly built Redmine 6 instance (`C:/crux-redmine`, `localhost:3015`, plugin v0.62.0) — see `CRUX_AGENT_PROJECT_MANAGER.md` for the first suite written against it. Results below remain the historical record for the 7.0.0 build; they have **not** been re-verified against Redmine 6.
+
+
 > Source: `docs/CRUX_FEATURES_LIST.md` #14, #15, #16, #17, #18; `redmineflux-crux-core/docs/API.md` `GET/POST /api/agents`, `/api/agent/pause`, `/api/agent/provision_identity` (CRX-48), `GET/POST /api/providers`, `GET/POST /api/llm_keys`, `GET /api/logs`; `redmineflux_crux/init.rb` admin menu entries.
 >
 > **Execution readiness: Executable now** — these are plugin-native admin pages and direct agent-registry operations, not chat-mediated, so the missing LLM key does not block this suite (though adding a real provider key IS literally part of TC-CRX-064's own subject matter).

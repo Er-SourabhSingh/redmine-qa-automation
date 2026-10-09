@@ -1,5 +1,8 @@
 # Test Cases — Redmineflux Crux — Ask Crux Chat (Core)
 
+> **⚠ Historical — Redmine 7.0.0 environment.** This suite was executed entirely against the OLD local Docker instance (`C:/Crux-Redmine-Docker`, Redmine 7.0.0, `localhost:3014`). A **new Crux testing cycle began 2026-10-09** on a freshly built Redmine 6 instance (`C:/crux-redmine`, `localhost:3015`, plugin v0.62.0) — see `CRUX_AGENT_PROJECT_MANAGER.md` for the first suite written against it. Results below remain the historical record for the 7.0.0 build; they have **not** been re-verified against Redmine 6.
+
+
 > Source: `docs/CRUX_FEATURES_LIST.md` #1, #20; `docs/CRUX_REQUIREMENTS.md` Key Features #1; `redmineflux-crux-core/docs/API.md` `POST /api/chat`, `GET/POST /api/sessions`; RELEASE-NOTES 0.91.0/0.92.0 (CRC-27 domain routing, CRC-30 hand-off confirm card, CRC-31 user identity).
 >
 > **Execution readiness: UNBLOCKED — executed live 2026-09-15.** LLM provider key configured; 10 domain plugins (CRM, Workload, Timesheet, Knowledgebase, Testcase Management, Helpdesk, DevOps, Budget and Audit, Invoice, Agile Board) installed and migrated into the local crux-redmine Docker instance for this run. All of TC-CRX-102 through TC-CRX-112 executed with real tool calls / real LLM replies. TC-CRX-106 remains genuinely inconclusive (see its own section) — two real trigger attempts never produced the documented confirm card. Found BUG-CRX-006 (proxy status-code bug, filed in the prior suite) and BUG-CRX-007 (domain-inference routing gap, filed this suite) along the way.

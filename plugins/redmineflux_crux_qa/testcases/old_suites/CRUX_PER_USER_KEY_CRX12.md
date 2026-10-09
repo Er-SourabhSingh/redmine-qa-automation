@@ -1,5 +1,8 @@
 # Test Cases — Redmineflux Crux — Per-User Redmine Key Enforcement (CRX-12)
 
+> **⚠ Historical — Redmine 7.0.0 environment.** This suite was executed entirely against the OLD local Docker instance (`C:/Crux-Redmine-Docker`, Redmine 7.0.0, `localhost:3014`). A **new Crux testing cycle began 2026-10-09** on a freshly built Redmine 6 instance (`C:/crux-redmine`, `localhost:3015`, plugin v0.62.0) — see `CRUX_AGENT_PROJECT_MANAGER.md` for the first suite written against it. Results below remain the historical record for the 7.0.0 build; they have **not** been re-verified against Redmine 6.
+
+
 > Source: `docs/CRUX_REQUIREMENTS.md` Key Features #4, Business Workflows "Per-user key enforcement"; #116773 CRX-12 section.
 >
 > **Execution readiness: UNBLOCKED, fully executed 2026-09-16.** `CRUX_REQUIRE_USER_KEY` flipped to `1` in `.env`, `crux-core` recreated via `docker compose up -d crux-core` (a plain `docker restart` does not pick up a changed env var), `luna.blossom`'s own Redmine API key used as the restricted-privilege test user (already fits the fixture requirements: non-admin, member of `crux-qa` only, not `crux-qa-private`) — no new user needed. All 6 TCs reached a definitive result; see each TC's own evidence block below. Reverted to `CRUX_REQUIRE_USER_KEY=0` (default) afterward and re-confirmed OpenRouter connectivity, leaving the environment in its original state.

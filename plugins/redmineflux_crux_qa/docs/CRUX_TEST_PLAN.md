@@ -198,7 +198,7 @@ Full per-TC results and defect linkage: [`CRUX_TRACEABILITY_MATRIX.md`](CRUX_TRA
 
 ## 12. Deliverables
 
-- Test cases: `testcases/CRUX_*.md` (16 files, 176 TCs)
+- Test cases: `testcases/old_suites/CRUX_*.md` (16 files, 176 TCs, Redmine 7.0.0 historical cycle) + `testcases/CRUX_*.md` (new Redmine 6 cycle, started 2026-10-09)
 - Bug reports: `bugs/open/`, `bugs/closed/`, `bugs/_index.md`
 - Daily/per-type reports: `reports/CRX-<TestingType>-<date>.md`
 - This test plan: `docs/CRUX_TEST_PLAN.md`

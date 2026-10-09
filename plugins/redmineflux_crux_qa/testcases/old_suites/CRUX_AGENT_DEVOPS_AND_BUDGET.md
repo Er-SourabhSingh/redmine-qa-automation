@@ -1,5 +1,8 @@
 # Test Cases — Redmineflux Crux — DevOps Agent & Budget Agent (#117162)
 
+> **⚠ Historical — Redmine 7.0.0 environment.** This suite was executed entirely against the OLD local Docker instance (`C:/Crux-Redmine-Docker`, Redmine 7.0.0, `localhost:3014`). A **new Crux testing cycle began 2026-10-09** on a freshly built Redmine 6 instance (`C:/crux-redmine`, `localhost:3015`, plugin v0.62.0) — see `CRUX_AGENT_PROJECT_MANAGER.md` for the first suite written against it. Results below remain the historical record for the 7.0.0 build; they have **not** been re-verified against Redmine 6.
+
+
 > Source: `redmineflux-crux-core/agents/devops.md`, `agents/budget-audit.md` (both full files); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
 > **Execution readiness: PARTIALLY UNBLOCKED — executed live 2026-09-16.** The original "not installed" blocker no longer applies: both `devops` and `budget_audit` now show up in the MCP server's own plugin-detection log (confirmed immediately before this session), and both agents route correctly and make real tool calls. **Budget Agent is fully testable** — a real category-scoped budget cap was set, read back, and verified exactly on the real Redmine UI. **DevOps Agent's read/negative-gating behavior is testable, but there is still no repository connected to any local project**, so TC-CRX-023's "cite the real repo/build/PR" requirement can't be fully satisfied — the agent instead correctly and honestly reports "not wired" rather than fabricating data, which is itself valid evidence. **TC-CRX-024 (trigger a real build) remains BLOCKED** — still needs a dev-confirmed safe test repository/branch per the original note; do not improvise one given the real infrastructure cost/effect.

@@ -1,5 +1,8 @@
 # Test Cases — Redmineflux Crux — Capacity Agent (Workload) Full CRUD (#117162)
 
+> **⚠ Historical — Redmine 7.0.0 environment.** This suite was executed entirely against the OLD local Docker instance (`C:/Crux-Redmine-Docker`, Redmine 7.0.0, `localhost:3014`). A **new Crux testing cycle began 2026-10-09** on a freshly built Redmine 6 instance (`C:/crux-redmine`, `localhost:3015`, plugin v0.62.0) — see `CRUX_AGENT_PROJECT_MANAGER.md` for the first suite written against it. Results below remain the historical record for the 7.0.0 build; they have **not** been re-verified against Redmine 6.
+
+
 > Source: `redmineflux-crux-core/agents/workload-capacity.md` (full file); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
 > **Execution readiness: UNBLOCKED — fully executed 2026-09-16, all 8 TCs, definitive verdicts.** Precondition gap found: the Workload plugin had zero teams/data despite earlier notes claiming seed data existed — bootstrapped real fixtures via chat (which also covers TC-CRX-092) before testing reads. 7/8 PASS (093, 095, 096, 097, 098, 099, 100), 1/8 FAIL (094 — allocation resize/date-update tools reject the exact ID the Add Issue tool just returned, blocking the TC's core hours/dates write capability end-to-end). Found 2 new bugs (BUG-CRX-018, BUG-CRX-019) and reproduced BUG-CRX-013 (self-contradiction) and BUG-CRX-014 (mis-routing), BUG-CRX-017 (false-negative member lookup) extensively across this suite, confirming both BUG-CRX-013 and BUG-CRX-014 are platform-wide, not CRM-specific.

@@ -1,5 +1,8 @@
 # Test Cases — Redmineflux Crux — QA Agent (Test Case Management) Full CRUD (#117162)
 
+> **⚠ Historical — Redmine 7.0.0 environment.** This suite was executed entirely against the OLD local Docker instance (`C:/Crux-Redmine-Docker`, Redmine 7.0.0, `localhost:3014`). A **new Crux testing cycle began 2026-10-09** on a freshly built Redmine 6 instance (`C:/crux-redmine`, `localhost:3015`, plugin v0.62.0) — see `CRUX_AGENT_PROJECT_MANAGER.md` for the first suite written against it. Results below remain the historical record for the 7.0.0 build; they have **not** been re-verified against Redmine 6.
+
+
 > Source: `redmineflux-crux-core/agents/testcases-qa.md` (full file); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
 > **Execution readiness: UNBLOCKED — executed live 2026-09-16.** Read surface (TC-CRX-053) and both negative cases (TC-CRX-058/120) PASS. **Write actions hit the same severe bug found in the Agile suite: BUG-CRX-020** (fabricated-confirm proposals with no real button) — reproduced 2/2 on this agent (`create test suite`, `create environment`), blocking TC-CRX-054/116/117/118.

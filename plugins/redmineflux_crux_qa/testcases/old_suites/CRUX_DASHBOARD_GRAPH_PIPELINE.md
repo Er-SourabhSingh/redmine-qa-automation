@@ -1,5 +1,8 @@
 # Test Cases — Redmineflux Crux — Dashboard, Project Graph & Pipeline Board
 
+> **⚠ Historical — Redmine 7.0.0 environment.** This suite was executed entirely against the OLD local Docker instance (`C:/Crux-Redmine-Docker`, Redmine 7.0.0, `localhost:3014`). A **new Crux testing cycle began 2026-10-09** on a freshly built Redmine 6 instance (`C:/crux-redmine`, `localhost:3015`, plugin v0.62.0) — see `CRUX_AGENT_PROJECT_MANAGER.md` for the first suite written against it. Results below remain the historical record for the 7.0.0 build; they have **not** been re-verified against Redmine 6.
+
+
 > Source: `docs/CRUX_FEATURES_LIST.md` #11, #12, #13; `redmineflux-crux-core/docs/API.md` `GET /api/dashboard`, `GET /api/graph`, `GET /api/pipelines`/`POST /api/pipeline`/`POST /api/pipeline/delete`.
 >
 > **Execution readiness: Mostly executable now** — these are direct dashboard/API reads and plugin-native CRUD (pipeline templates), not chat-mediated, so the missing LLM key does not block this suite. Requires some real Work Packages/runs/agents to exist in the seeded data (`db.seed.production.json`) for the dashboard to show non-empty content — confirm seed data first.

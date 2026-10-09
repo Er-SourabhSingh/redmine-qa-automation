@@ -1,6 +1,6 @@
 # Traceability Matrix — Redmineflux Crux
 
-> Companion to [`CRUX_TEST_PLAN.md`](CRUX_TEST_PLAN.md). Maps every documented feature to its covering test suite(s), and every individual test case to its result and any linked defect(s). Source: `testcases/CRUX_*.md` (16 files), `docs/CRUX_FEATURES_LIST.md`, `bugs/_index.md`. Compiled 2026-10-01.
+> Companion to [`CRUX_TEST_PLAN.md`](CRUX_TEST_PLAN.md). Maps every documented feature to its covering test suite(s), and every individual test case to its result and any linked defect(s). Source: `testcases/old_suites/CRUX_*.md` (16 files, Redmine 7.0.0 historical cycle, moved 2026-10-09) + `testcases/CRUX_*.md` (new Redmine 6 cycle), `docs/CRUX_FEATURES_LIST.md`, `bugs/_index.md`. Compiled 2026-10-01, suite-location note added 2026-10-09.
 >
 > **Result legend**: PASS · FAIL · CRITICAL-FAIL (Critical-severity defect) · BLOCKED (precondition/environment, not a defect) · INCONCLUSIVE · NOT EXECUTED.
 > Where a TC's own file text and `bugs/_index.md` disagree on which bug a finding was filed as, `bugs/_index.md` is treated as authoritative (it is the master bug ledger) and a footnote explains the discrepancy.
@@ -326,9 +326,11 @@ Maps each of the 30 documented features (`CRUX_FEATURES_LIST.md`) to its coverin
 **Open items requiring follow-up** (beyond the 6 open bugs tracked in `CRUX_TEST_PLAN.md` §8.3):
 - TC-CRX-101's own file text contains a self-contradictory Result line (says "NOT YET EXECUTED" directly above a paragraph describing full live execution) — needs a documentation fix in `CRUX_AGENT_WORKLOAD_CAPACITY.md` itself, independent of the matrix.
 
+**2026-10-09 — new suite added, not yet executed:** `testcases/CRUX_AGENT_PROJECT_MANAGER.md` (TC-CRX-177–190, 14 TCs) covers the Project Manager agent — previously a documented coverage gap (explicitly "out of scope for #117162", never had a suite). Written on the new Redmine 6 instance (`localhost:3015`) with a genuine 3-permission-tier setup (admin / `luna.blossom` permitted / `aurora.wren` no-permission) under `CRUX_REQUIRE_USER_KEY=1`. All 14 TCs are currently **PENDING — blocked on an LLM provider key** (none configured on this instance yet); not counted in the summary stats table above until executed. Total TCs across the plugin once this suite runs: 190 (176 prior + 14 new), across 17 suite files.
+
 ## References
 
 - [`CRUX_TEST_PLAN.md`](CRUX_TEST_PLAN.md)
 - [`CRUX_FEATURES_LIST.md`](CRUX_FEATURES_LIST.md)
 - [`bugs/_index.md`](../bugs/_index.md)
-- `testcases/CRUX_*.md` (16 source files)
+- `testcases/old_suites/CRUX_*.md` (16 historical source files, Redmine 7.0.0 cycle) + `testcases/CRUX_*.md` (new Redmine 6 cycle)

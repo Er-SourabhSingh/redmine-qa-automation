@@ -37,4 +37,4 @@ Tickets under test: **#116773** (CRX-9/12/35/46 write chain) and **#117162** (fu
 
 ## Test Cycle
 
-Cycle 1 — started 2026-09-10. First suite: `testcases/CRUX_NAVIGATION_AND_PERMISSIONS.md` (execution-ready now, no env gaps). Remaining suites (agent CRUD via chat, Improve wand, CRX-12) to follow once the two env gaps above are resolved and the dev team responds to the outstanding QA note on #116773/#117162.
+Cycle 1 — started 2026-09-10. First suite: `testcases/old_suites/CRUX_NAVIGATION_AND_PERMISSIONS.md` (execution-ready now, no env gaps). Remaining suites (agent CRUD via chat, Improve wand, CRX-12) to follow once the two env gaps above are resolved and the dev team responds to the outstanding QA note on #116773/#117162.

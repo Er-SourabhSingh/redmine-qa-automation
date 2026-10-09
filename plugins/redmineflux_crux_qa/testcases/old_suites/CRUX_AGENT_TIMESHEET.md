@@ -1,5 +1,8 @@
 # Test Cases — Redmineflux Crux — Time Agent (Timesheet) Full CRUD (#117162)
 
+> **⚠ Historical — Redmine 7.0.0 environment.** This suite was executed entirely against the OLD local Docker instance (`C:/Crux-Redmine-Docker`, Redmine 7.0.0, `localhost:3014`). A **new Crux testing cycle began 2026-10-09** on a freshly built Redmine 6 instance (`C:/crux-redmine`, `localhost:3015`, plugin v0.62.0) — see `CRUX_AGENT_PROJECT_MANAGER.md` for the first suite written against it. Results below remain the historical record for the 7.0.0 build; they have **not** been re-verified against Redmine 6.
+
+
 > Source: `redmineflux-crux-core/agents/timesheet.md` (full file); `docs/CRUX_FEATURES_LIST.md` per-agent table.
 >
 > **Execution readiness: UNBLOCKED — executed live 2026-09-16.** Read surface (TC-CRX-077) and both negative cases (TC-CRX-081/126 step 1) PASS. **Write actions hit BUG-CRX-020 again** (fabricated-confirm proposals with no real button) — reproduced on `create_schema` and `settings_update`, blocking TC-CRX-078/123/124 and the confirm half of TC-CRX-082.

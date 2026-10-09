@@ -242,7 +242,7 @@ Maps each of the 30 documented features (`CRUX_FEATURES_LIST.md`) to its coverin
 | TC-CRX-138 | `manage_crux_agents`/`manage_crux_pipelines` are global permissions | PASS | — |
 | TC-CRX-139 | Admin-only Crux pages are Administrator-gated regardless of role | PASS | — |
 | TC-CRX-140 | Crux settings page (core URL) reachable outside Administration | PASS | — |
-| TC-CRX-141 | A user with no Crux permissions sees no Ask Crux bubble/wand | PASS | — |
+| TC-CRX-141 | A user with no Crux permissions sees no Ask Crux bubble/wand | FAIL (bubble/wand sub-check still PASS; its "dashboard click succeeds" sub-check is now stale post BUG-CRX-012/022) | BUG-CRX-047 |
 | TC-CRX-142 | Bubble/wand/mention-poll/WP badge visibility, consistent across surfaces | PASS | — |
 | TC-CRX-143 | `crux_ask`'s page action and JSON actions fail differently when unauth | PASS | — |
 | TC-CRX-144 | `crux/gate_evidence` requires the same check as `approve_gate` | PASS | — |

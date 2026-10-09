@@ -1,0 +1,64 @@
+name: qa-mail-server
+
+networks:
+  default:
+    name: qa-mail-server_default
+  redmine6_default:
+    external: true
+
+volumes:
+  mail-data:
+  mail-state:
+  mail-logs:
+  roundcube-www:
+  roundcube-db:
+
+services:
+  mailserver:
+    image: docker.io/mailserver/docker-mailserver:latest
+    container_name: qa-mail-server
+    hostname: mail
+    domainname: test.local
+    env_file: mailserver.env
+    ports:
+      - "127.0.0.1:2525:25"    # SMTP (incoming, server-to-server)
+      - "127.0.0.1:2587:587"   # SMTP submission (outgoing, Redmine -> here)
+      - "127.0.0.1:2993:993"   # IMAPS (incoming poll, Redmine <- here)
+    volumes:
+      # mail-data/state/logs use NAMED volumes, not host bind-mounts: Postfix's queue
+      # relies on real Unix file locking/fsync which breaks on Windows bind-mounted
+      # dirs (Docker Desktop virtiofs/9p translation) - caused "queue file write error".
+      - mail-data:/var/mail/
+      - mail-state:/var/mail-state/
+      - mail-logs:/var/log/mail/
+      - ./docker-data/dms/config/:/tmp/docker-mailserver/
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    stop_grace_period: 1m
+    cap_add:
+      - NET_ADMIN
+    healthcheck:
+      test: "ss -lnt | grep -q :25"
+      timeout: 3s
+      retries: 0
+    networks:
+      - default
+      - redmine6_default
+
+  webmail:
+    image: roundcube/roundcubemail:latest
+    container_name: qa-mail-webmail
+    depends_on:
+      - mailserver
+    ports:
+      - "127.0.0.1:8081:80"
+    environment:
+      - ROUNDCUBEMAIL_DEFAULT_HOST=ssl://mailserver
+      - ROUNDCUBEMAIL_DEFAULT_PORT=993
+      - ROUNDCUBEMAIL_SMTP_SERVER=tls://mailserver
+      - ROUNDCUBEMAIL_SMTP_PORT=587
+      - ROUNDCUBEMAIL_SKIN=elastic
+    volumes:
+      - roundcube-www:/var/www/html
+      - roundcube-db:/var/roundcube/db
+    restart: unless-stopped

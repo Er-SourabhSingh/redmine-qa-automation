@@ -675,6 +675,7 @@ Do not begin testing until all of the above are read.
 
 At the end of every test session:
 
+- [ ] **Commit and push every testing-related file change made this session, directly to `master`** (testcases/, bugs/, docs/, reports/, screenshots/, STATUS.md, TIME_LOG.md, automation/, scripts/, etc.) — do not end a session with uncommitted/unpushed work sitting only in the local working tree. This is mandatory, not optional: a prior session's local-only work was lost this way once already. Review `git status`/`git diff` before committing (per the repo-wide git safety rules), use a clear commit message, and push to `origin master` (this repo works directly off `master`, no feature-branch/PR workflow).
 - [ ] All bugs saved to `bugs/open/` with correct format
 - [ ] Fixed bugs moved from `bugs/open/` to `bugs/closed/` and open copy deleted
 - [ ] For each bug closed this session that has a Production Redmine Issue ID, the production issue's status is updated In QA → Done and % done → 100 (Section 5, write-approval required)

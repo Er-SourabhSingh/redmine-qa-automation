@@ -651,8 +651,113 @@ Side observation (not a new finding): the top-nav "Crux" link is still rendered 
 
 ---
 
+## Positive/Negative Cases — Project Settings → Members tab CRUD (admin tier)
+
+> First coverage of the Members tab via chat, per explicit user request to test every Project Settings tab's CRUD, not just the Project tab. `luna.blossom` used as the test member throughout (already has her own fixture role history from TC-CRX-189-192's permission matrix, unrelated to this).
+
+### TC-CRX-207: Members CRUD — Create (add a member)
+
+**User Role:** `admin`.
+**Precondition:** `luna.blossom` is not currently a member of "Crux PM Agent Test Project". Confirmed via `/projects/crux-pm-agent-test-project/settings/members` → "No data".
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Add luna.blossom as a Developer to the Crux PM Agent Test Project."
+2. If the reply stalls or cuts off, click "Ask again" once to check whether it's a one-off or reproducible.
+
+**Expected Result:**
+- A genuine confirm card proposing a real member-creation tool, with a detail table (project, user, role) and real Confirm/Cancel buttons.
+
+**Result: FAIL, 2/2 reproduction — CONFIRMED LIVE 2026-10-10. New bug filed: BUG-CRX-060 (High).**
+
+- Attempt 1: reply cuts off mid-sentence — *"Great — the core group has 37 write tools. Let me load them to find the `create_project_membership` tool:(Stopped: this turn's token budget was reached...)"*
+- Attempt 2 ("Ask again"): identical stall on a different sentence — *"Now let me load the core group write tools:(Stopped: this turn's token budget was reached...)"*
+- crux-core log confirms both turns burn their entire per-turn budget (`tool_calls=7`, 6 LLM round-trips each) without ever reaching `create_project_membership` — only `list_projects`/`list_users` actually executed.
+- Verified independently: Members tab still shows "No data" after both attempts — no stray write, but also zero usable outcome. The Members-tab Create path via chat is completely non-functional.
+
+---
+
+### TC-CRX-208: Members CRUD — Read (list members + roles)
+
+**User Role:** `admin`.
+**Precondition:** `luna.blossom` added as **Reporter** to "Crux PM Agent Test Project" via native UI (membership id=3) — required as a fixture since TC-CRX-207 proved Create via chat doesn't work.
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Who are the members of the Crux PM Agent Test Project and what are their roles?"
+
+**Expected Result:**
+- Crux correctly reports Luna Blossom as a member with the Reporter role, matching the native UI exactly.
+
+**Result: PASS — CONFIRMED LIVE 2026-10-10.**
+
+- Crux: *"## Crux PM Agent Test Project Membership — **1 member assigned to the project:** | Member | Type | Role(s) | | Luna Blossom | User | Reporter |"* — exact match to native UI. No bug.
+
+---
+
+### TC-CRX-209: Members CRUD — Update (change a member's role)
+
+**User Role:** `admin`.
+**Precondition:** `luna.blossom` is Reporter on "Crux PM Agent Test Project" (membership id=3, from TC-CRX-208's fixture).
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Change luna.blossom's role on the Crux PM Agent Test Project from Reporter to Developer."
+
+**Expected Result:**
+- Since the exact membership id and target role are both unambiguous, a genuine confirm card for `Core Update Project Membership` (or equivalent), with real Confirm/Cancel buttons.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-10. New bug filed: BUG-CRX-061 (High).**
+
+- Crux's tool trace (crux-core log) shows it successfully called `list_users`, `list_projects`, `list_project_memberships` (resolving membership id=3), and `list_roles` (resolving Developer's role id) — i.e., it gathered everything the real `redmineflux_core_update_project_membership` tool needs.
+- Then it replied: *"I couldn't confirm whether this action is actually available here — please try again, or ask an administrator to check this deployment's tool configuration."*
+- Independently confirmed via MCP server source (`core.py:2129`) that `redmineflux_core_update_project_membership(membership_id, role_ids)` is fully implemented and registered — this is a **false capability denial**, not an honest architectural gap.
+- Verified independently: `/memberships/3/edit` still shows "Reporter" — no write occurred, consistent with the refusal, but the refusal's stated reason is false.
+
+---
+
+### TC-CRX-210: Members CRUD — Delete (remove a member)
+
+**User Role:** `admin`.
+**Precondition:** `luna.blossom` is still Reporter on "Crux PM Agent Test Project" (membership id=3, role update blocked by BUG-CRX-061 above, so role is unchanged from TC-CRX-208).
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Remove luna.blossom from the Crux PM Agent Test Project."
+
+**Expected Result:**
+- Since Crux can resolve the exact membership id, a genuine confirm card for `Core Delete Project Membership` with real Confirm/Cancel buttons.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-10. New bug filed: BUG-CRX-062 (High).**
+
+- Crux correctly found "Luna Blossom in the project as a Reporter (membership id=3)" — then stated: *"However, **removing a user from a project membership is not yet supported through this chat interface**. The available tools cover reading project memberships and creating new ones, but deletion of an existing membership requires direct Redmineflux admin access or a different interface."* — followed by manual native-UI steps.
+- Independently confirmed via MCP source (`core.py:2156`) that `redmineflux_core_delete_project_membership` is fully implemented — this claim is false.
+- The same reply is also wrong on its second half: it claims membership *creation* works via chat ("creating new ones"), directly contradicted by this session's own TC-CRX-207/BUG-CRX-060 finding that creation doesn't work either.
+- Verified independently: Members tab still lists Luna Blossom as Reporter — no write occurred.
+
+**Net finding across TC-CRX-207–210 (Members tab CRUD): 1/4 PASS (Read only). Create stalls on a token-budget ceiling (BUG-CRX-060); Update and Delete both get a confident but false "not available" denial despite the real tools existing and being one call away (BUG-CRX-061/062). The Members tab's entire write surface is non-functional via chat, for three distinct reasons.**
+
+---
+
+## Positive/Negative Cases — Project Settings → Issue tracking tab (admin tier)
+
+### TC-CRX-211: Issue tracking tab — enable a tracker
+
+**User Role:** `admin`.
+**Precondition:** "Testcase" tracker is unchecked for "Crux PM Agent Test Project" (confirmed via `/projects/crux-pm-agent-test-project/settings/issues`).
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Enable the Testcase tracker for the Crux PM Agent Test Project."
+
+**Expected Result:**
+- A genuine confirm card naming a real update tool, with a detail table and real Confirm/Cancel buttons.
+
+**Result: FAIL — 4th reproduction of BUG-CRX-056, CONFIRMED LIVE 2026-10-10.**
+
+- Identical fabricated "I'll create this issue — confirm?" text, no real Confirm/Cancel buttons, no table — under "Checked 3 things."
+- Verified independently: `/projects/crux-pm-agent-test-project/settings/issues` — "Testcase" checkbox still unchecked.
+- This confirms BUG-CRX-056 isn't scoped to the Project/Info sub-tab alone — the Issue tracking sub-tab's tracker list hits the exact same failure, since both map to the same underlying `update_project` write. No new bug filed; BUG-CRX-056 updated to 4/4 reproductions and its title/severity note broadened accordingly.
+
+---
+
 ## Evidence Map
 
-- LLM-key blocker resolved 2026-10-09 — see header note. TC-CRX-177–182, 195–206 executed and recorded inline above. TC-CRX-183–187 executed earlier. This session also executed TC-CRX-188 (zero-permission control, aurora.wren — PASS), TC-CRX-193–194 (administration-boundary — PASS on core safety), and TC-CRX-198 (project close lifecycle — PASS on close, 2 bugs found). **TC-CRX-199 and TC-CRX-200 both FAILED 2026-10-10 — same bug, BUG-CRX-056, now Critical** (3/3 reproduction across field update, plugin-module enable, and core-module disable — every `update_project`-shaped write tried has produced the identical fabricated "I'll create this issue — confirm?" text with no real Confirm/Cancel button). **TC-CRX-201 and TC-CRX-202 both FAILED — BUG-CRX-057, now Critical** (issue-count/listing questions silently exclude Closed issues, 3/3 reproduction incl. a whole-project type breakdown). **TC-CRX-203 FAILED — BUG-CRX-058, Critical** (time-spent question falsely claims zero entries + wrongly speculates time tracking is disabled, despite 10.5h of real logged time spanning open AND closed issues). **TC-CRX-204 PASS on the core action, FAIL on message clarity — BUG-CRX-059** (Reopen's confirm-card headline is word-for-word identical to Close's — "Core Set Project Closed" — regardless of direction; only the detail table's True/False distinguishes them). **TC-CRX-205 and TC-CRX-206 both PASS, no bugs** (Archive and Unarchive — both genuine confirm cards with correctly distinct tool names, genuine execution, genuine native-UI-independent verification via the explicit "archived" status filter and the active-listing round-trip; no message-clarity ambiguity, unlike Close/Reopen). **Project-entity CRUD status after this session**: Create ✅ PASS, Read ✅ PASS, Update ❌ FAIL (BUG-CRX-056), Close ✅ PASS, Reopen ✅ PASS (message-clarity bug noted), Archive ✅ PASS, Unarchive ✅ PASS, **Delete — still not tested, next up**. **Still PENDING: TC-CRX-189–192** (the luna.blossom incremental permission matrix) — paused mid-session to run the admin-tier CRUD coverage sweep and analytics-question sweep instead; pick these up next, starting with TC-CRX-189 (Manager role baseline already reconfirmed: `view_issues` genuinely false, `view_crux`/`approve_crux_gates`/`use_ask_crux` genuinely true).
-- Screenshots: `screenshots/TC-CRX-<NNN>/` per CLAUDE.md §6 (bug evidence only) — this session's bug screenshots are filed under `screenshots/BUG-CRX-<NNN>/` instead, per the bug template's own convention. TC-CRX-205/206 are clean PASSes with no bug, so per §6 no screenshots were taken for them.
-- Bug references so far: BUG-CRX-050 through BUG-CRX-059 (050–053 reported to production; 054–059 not yet reported — see `bugs/_index.md`).
+- LLM-key blocker resolved 2026-10-09 — see header note. TC-CRX-177–182, 195–211 executed and recorded inline above. TC-CRX-183–187 executed earlier. This session also executed TC-CRX-188 (zero-permission control, aurora.wren — PASS), TC-CRX-193–194 (administration-boundary — PASS on core safety), and TC-CRX-198 (project close lifecycle — PASS on close, 2 bugs found). **TC-CRX-199 and TC-CRX-200 both FAILED 2026-10-10 — same bug, BUG-CRX-056, now Critical** (4/4 reproduction across field update, plugin-module enable, core-module disable, and tracker enable — every `update_project`-shaped write tried has produced the identical fabricated "I'll create this issue — confirm?" text with no real Confirm/Cancel button). **TC-CRX-201 and TC-CRX-202 both FAILED — BUG-CRX-057, now Critical** (issue-count/listing questions silently exclude Closed issues, 3/3 reproduction incl. a whole-project type breakdown). **TC-CRX-203 FAILED — BUG-CRX-058, Critical** (time-spent question falsely claims zero entries + wrongly speculates time tracking is disabled, despite 10.5h of real logged time spanning open AND closed issues). **TC-CRX-204 PASS on the core action, FAIL on message clarity — BUG-CRX-059** (Reopen's confirm-card headline is word-for-word identical to Close's — "Core Set Project Closed" — regardless of direction; only the detail table's True/False distinguishes them). **TC-CRX-205 and TC-CRX-206 both PASS, no bugs** (Archive and Unarchive — both genuine confirm cards with correctly distinct tool names, genuine execution, genuine native-UI-independent verification via the explicit "archived" status filter and the active-listing round-trip; no message-clarity ambiguity, unlike Close/Reopen). **TC-CRX-207–210 (Members tab CRUD, first coverage of this sub-tab): 1/4 PASS.** Create (TC-207) stalls on a per-turn token-budget ceiling, 2/2 — new bug **BUG-CRX-060**. Read (TC-208) PASS, exact match to native UI. Update (TC-209) FAILED with a false "couldn't confirm whether this action is actually available here" — new bug **BUG-CRX-061** — despite `redmineflux_core_update_project_membership` genuinely existing (confirmed via MCP source) and the agent having already resolved the exact membership id + role id. Delete (TC-210) FAILED with an explicit false "not yet supported through this chat interface" claim — new bug **BUG-CRX-062** — despite `redmineflux_core_delete_project_membership` genuinely existing, and that same reply also wrongly claimed Create works (contradicted by BUG-CRX-060). **TC-CRX-211 (Issue tracking tab, enable a tracker): FAILED, 4th reproduction of BUG-CRX-056** — same fabricated-confirm text, confirming the bug spans both the Project/Info and Issue tracking sub-tabs (both are `update_project` under the hood). **Project-entity CRUD status after this session**: Create ✅ PASS, Read ✅ PASS, Update ❌ FAIL (BUG-CRX-056), Close ✅ PASS, Reopen ✅ PASS (message-clarity bug noted), Archive ✅ PASS, Unarchive ✅ PASS, Delete — still not tested. **Members-tab CRUD status**: Create ❌ (BUG-CRX-060), Read ✅ PASS, Update ❌ (BUG-CRX-061), Delete ❌ (BUG-CRX-062). **Issue tracking tab**: tracker-enable ❌ (BUG-CRX-056, 4th repro) — custom-field enable, default version/assignee/query still untested. **Still PENDING: TC-CRX-189–192** (the luna.blossom incremental permission matrix) — paused mid-session to run the admin-tier CRUD coverage sweep instead; pick these up next (Manager role baseline already reconfirmed: `view_issues` genuinely false, `view_crux`/`approve_crux_gates`/`use_ask_crux` genuinely true). Also still pending: Project entity Delete, and the remaining Project Settings sub-tabs (Versions, Issue categories, Repositories, Forums, Time tracking — Approved Hours deferred to its own plugin's scope per user instruction) via chat CRUD.
+- Screenshots: `screenshots/TC-CRX-<NNN>/` per CLAUDE.md §6 (bug evidence only) — this session's bug screenshots are filed under `screenshots/BUG-CRX-<NNN>/` instead, per the bug template's own convention. TC-CRX-205/206/208 are clean PASSes with no bug, so per §6 no screenshots were taken for them.
+- Bug references so far: BUG-CRX-050 through BUG-CRX-062 (050–053 reported to production; 054–062 not yet reported — see `bugs/_index.md`).

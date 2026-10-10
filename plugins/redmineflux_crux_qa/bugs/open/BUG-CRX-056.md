@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-056
 - Production Redmine Issue ID:
-- Title: Every `update_project`-shaped write request (field update, module enable, module disable) produces the identical fabricated "I'll create this issue — confirm?" proposal with no real Confirm/Cancel button or detail table at all — 3/3 reproductions
+- Title: Every `update_project`-shaped write request (field update, module enable, module disable, tracker enable) produces the identical fabricated "I'll create this issue — confirm?" proposal with no real Confirm/Cancel button or detail table at all — 4/4 reproductions
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)
 - Plugin version: 0.62.0
@@ -31,6 +31,11 @@
 2. Reproduced the exact same "I'll create this issue — confirm?" text again, under "Checked 2 things" — no Confirm/Cancel buttons, no table.
 3. Independently checked `/projects/crux-pm-agent-test-project/settings/info` — the "Forums" checkbox is still checked, confirming no silent execution.
 
+**Repro 4 — Issue tracking tab, enabling a tracker (different Project Settings sub-tab entirely, not Project/Info):**
+1. New chat, same project. Send: "Enable the Testcase tracker for the Crux PM Agent Test Project." (Testcase is one of the 4 trackers available — Bug, Feature, Support, Testcase — and was confirmed unchecked beforehand on `/projects/crux-pm-agent-test-project/settings/issues`.)
+2. Reproduced the exact same "I'll create this issue — confirm?" text again, under "Checked 3 things" — no Confirm/Cancel buttons, no table.
+3. Independently checked `/projects/crux-pm-agent-test-project/settings/issues` — the "Testcase" checkbox is still unchecked, confirming no silent execution. This confirms the bug isn't scoped only to the Project/Info sub-tab's fields+modules — the Issue tracking sub-tab's tracker list hits the identical failure, since both are ultimately the same `update_project` API call under the hood.
+
 ## Expected result
 
 - A genuine, real-tool-backed confirm card naming the actual tool (`Core Update Project` or equivalent) and a table listing exactly the 3 requested field changes (Description, Homepage, Public→false), with real Confirm/Cancel buttons — the same shape every other successful write proposal in this suite has shown (e.g. TC-CRX-182's "Create issue" card, TC-CRX-198's "Core Set Project Closed" card).
@@ -50,6 +55,7 @@
 ![Fabricated "create this issue" text with no real confirm/cancel buttons, for a project-update request](../../screenshots/BUG-CRX-056/fabricated-create-issue-text-no-real-buttons.png)
 ![Second reproduction — identical fabricated text on a module-enable request](../../screenshots/BUG-CRX-056/repro-2-module-enable-same-fabricated-text.png)
 ![Third reproduction — identical fabricated text disabling a genuine core Redmine module](../../screenshots/BUG-CRX-056/repro-3-core-module-disable-same-fabricated-text.png)
+![Fourth reproduction — identical fabricated text enabling a tracker on the Issue tracking sub-tab](../../screenshots/BUG-CRX-056/repro-4-tracker-enable-same-fabricated-text.png)
 
 ### Console / log
 
@@ -58,7 +64,7 @@
 
 ## Note for triage
 
-The identical exact string "I'll create this issue — confirm?" appeared on **3 completely unrelated operations** in 3 separate fresh chats: a 3-field project update (description/homepage/public), enabling a plugin module (Agile Board), and disabling a genuine core Redmine module (Forums) — covering both directions (enable/disable) and both module categories (core/plugin), plus a non-module field update. This strongly suggests a hardcoded placeholder/fallback confirm-text string somewhere in the proposal-rendering path that isn't being replaced with the actual proposed action/tool — likely the same code path that should be producing a real tool-specific card (as it correctly does for `create_issue`, `update_issue`, `Core Set Project Closed`, etc.) but falls through to this generic literal for **every** `update_project`-shaped write, without ever actually building the real proposal or its Confirm/Cancel buttons. Given 3/3 reproduction across every variant tried, this is very likely a 100%-reproducible, total failure of the `update_project` write path via chat — not an intermittent issue.
+The identical exact string "I'll create this issue — confirm?" appeared on **4 completely unrelated operations** in 4 separate fresh chats: a 3-field project update (description/homepage/public), enabling a plugin module (Agile Board), disabling a genuine core Redmine module (Forums), and enabling a tracker on the separate Issue tracking sub-tab (Testcase) — covering both directions (enable/disable), both module categories (core/plugin), a non-module field update, and now a different Project Settings sub-tab entirely. This strongly suggests a hardcoded placeholder/fallback confirm-text string somewhere in the proposal-rendering path that isn't being replaced with the actual proposed action/tool — likely the same code path that should be producing a real tool-specific card (as it correctly does for `create_issue`, `update_issue`, `Core Set Project Closed`, etc.) but falls through to this generic literal for **every** `update_project`-shaped write, without ever actually building the real proposal or its Confirm/Cancel buttons. Given 4/4 reproduction across every variant tried — spanning both Project Settings sub-tabs whose fields map onto `update_project` — this is very likely a 100%-reproducible, total failure of the `update_project` write path via chat — not an intermittent issue.
 
 ## Duplicate check
 

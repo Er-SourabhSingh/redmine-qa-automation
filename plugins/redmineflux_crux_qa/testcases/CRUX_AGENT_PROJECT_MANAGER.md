@@ -603,8 +603,56 @@ Side observation (not a new finding): the top-nav "Crux" link is still rendered 
 
 ---
 
+### TC-CRX-205: Project lifecycle CRUD — Archive a project
+
+**User Role:** `admin`.
+**Precondition:** The `test` project is active (reopened via TC-CRX-204). Independently confirmed via `/admin/projects` default (active) filter before this TC ran — `test` listed, clickable.
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Archive the 'test' project."
+2. Review the confirm card for a genuine tool name, real detail table, and real Confirm/Cancel buttons (distinct from the fabricated-confirm pattern seen in BUG-CRX-056).
+3. Confirm the action.
+4. Independently verify via native UI: `/admin/projects` with Status filter set to "archived" (not just absence from the default/active view, which alone would be inconclusive).
+
+**Expected Result:**
+- Genuine confirm card naming a real archive-specific tool, with a real detail table and real Confirm/Cancel buttons.
+- On confirm, a genuine success message, and the project becomes genuinely archived — confirmed by it appearing under the explicit "archived" status filter (not just missing from "active"), with its name no longer a clickable link (expected Redmine behavior for archived projects).
+
+**Result: PASS — CONFIRMED LIVE 2026-10-10.**
+
+- Genuine confirm card: "I'll do this (Core Archive Project) — confirm?" with table `Project: test`, real Confirm/Cancel buttons — correctly distinct tool name from the Close/Reopen tool (no repeat of BUG-CRX-059's headline-reuse issue here).
+- On Confirm: "✓ Archived project 'test'."
+- Verified independently: `/admin/projects` default (active) filter dropped from 3 projects to 2 (`test` no longer listed). Then explicitly set Status filter to "archived" and clicked Apply — `test` appears alone under that filter (`1-1/1`), rendered as plain text (not a link), matching Redmine's native behavior for archived projects (not independently accessible).
+- No bug — this is the first Project-entity lifecycle action tested this session with a clean PASS on both the write path and the message clarity (no close/reopen-style headline ambiguity, since Archive and Unarchive use distinctly-named tools).
+
+---
+
+### TC-CRX-206: Project lifecycle CRUD — Unarchive a project
+
+**User Role:** `admin`.
+**Precondition:** The `test` project is archived (via TC-CRX-205). Independently confirmed via the "archived" status filter on `/admin/projects` before this TC ran.
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Unarchive the 'test' project."
+2. Review the confirm card for a genuine tool name, real detail table, and real Confirm/Cancel buttons.
+3. Confirm the action.
+4. Independently verify via native UI: `/admin/projects` default (active) filter shows `test` again as a clickable link.
+
+**Expected Result:**
+- Genuine confirm card naming a real unarchive-specific tool, with a real detail table and real Confirm/Cancel buttons.
+- On confirm, a genuine success message, and the project becomes genuinely active again — confirmed via the default active-projects listing, not just the chat reply text.
+
+**Result: PASS — CONFIRMED LIVE 2026-10-10.**
+
+- Genuine confirm card: "I'll do this (Core Unarchive Project) — confirm?" with table `Project: test`, real Confirm/Cancel buttons.
+- On Confirm: "✓ Unarchived project 'test'."
+- Verified independently: navigated to `/admin/projects` (default active filter) — count back to `1-3/3`, with `test` listed again as a clickable link to `/projects/test`.
+- No bug — clean PASS, same as TC-CRX-205. **Archive/Unarchive round-trip complete: both directions genuine confirm cards, genuine execution, genuine native-UI-independent verification, no message-clarity ambiguity (unlike the Close/Reopen pair's BUG-CRX-059).**
+
+---
+
 ## Evidence Map
 
-- LLM-key blocker resolved 2026-10-09 — see header note. TC-CRX-177–182, 195–204 executed and recorded inline above. TC-CRX-183–187 executed earlier. This session also executed TC-CRX-188 (zero-permission control, aurora.wren — PASS), TC-CRX-193–194 (administration-boundary — PASS on core safety), and TC-CRX-198 (project close lifecycle — PASS on close, 2 bugs found). **TC-CRX-199 and TC-CRX-200 both FAILED 2026-10-10 — same bug, BUG-CRX-056, now Critical** (3/3 reproduction across field update, plugin-module enable, and core-module disable — every `update_project`-shaped write tried has produced the identical fabricated "I'll create this issue — confirm?" text with no real Confirm/Cancel button). **TC-CRX-201 and TC-CRX-202 both FAILED — BUG-CRX-057, now Critical** (issue-count/listing questions silently exclude Closed issues, 3/3 reproduction incl. a whole-project type breakdown). **TC-CRX-203 FAILED — BUG-CRX-058, Critical** (time-spent question falsely claims zero entries + wrongly speculates time tracking is disabled, despite 10.5h of real logged time spanning open AND closed issues). **TC-CRX-204 PASS on the core action, FAIL on message clarity — BUG-CRX-059** (Reopen's confirm-card headline is word-for-word identical to Close's — "Core Set Project Closed" — regardless of direction; only the detail table's True/False distinguishes them). **Project-entity CRUD status after this session**: Create ✅ PASS, Read ✅ PASS, Update ❌ FAIL (BUG-CRX-056), Close ✅ PASS, Reopen ✅ PASS (message-clarity bug noted), **Delete/Archive/Unarchive — still not tested, next up**. **Still PENDING: TC-CRX-189–192** (the luna.blossom incremental permission matrix) — paused mid-session to run the admin-tier CRUD coverage sweep and analytics-question sweep instead; pick these up next, starting with TC-CRX-189 (Manager role baseline already reconfirmed: `view_issues` genuinely false, `view_crux`/`approve_crux_gates`/`use_ask_crux` genuinely true).
-- Screenshots: `screenshots/TC-CRX-<NNN>/` per CLAUDE.md §6 (bug evidence only) — this session's bug screenshots are filed under `screenshots/BUG-CRX-<NNN>/` instead, per the bug template's own convention.
+- LLM-key blocker resolved 2026-10-09 — see header note. TC-CRX-177–182, 195–206 executed and recorded inline above. TC-CRX-183–187 executed earlier. This session also executed TC-CRX-188 (zero-permission control, aurora.wren — PASS), TC-CRX-193–194 (administration-boundary — PASS on core safety), and TC-CRX-198 (project close lifecycle — PASS on close, 2 bugs found). **TC-CRX-199 and TC-CRX-200 both FAILED 2026-10-10 — same bug, BUG-CRX-056, now Critical** (3/3 reproduction across field update, plugin-module enable, and core-module disable — every `update_project`-shaped write tried has produced the identical fabricated "I'll create this issue — confirm?" text with no real Confirm/Cancel button). **TC-CRX-201 and TC-CRX-202 both FAILED — BUG-CRX-057, now Critical** (issue-count/listing questions silently exclude Closed issues, 3/3 reproduction incl. a whole-project type breakdown). **TC-CRX-203 FAILED — BUG-CRX-058, Critical** (time-spent question falsely claims zero entries + wrongly speculates time tracking is disabled, despite 10.5h of real logged time spanning open AND closed issues). **TC-CRX-204 PASS on the core action, FAIL on message clarity — BUG-CRX-059** (Reopen's confirm-card headline is word-for-word identical to Close's — "Core Set Project Closed" — regardless of direction; only the detail table's True/False distinguishes them). **TC-CRX-205 and TC-CRX-206 both PASS, no bugs** (Archive and Unarchive — both genuine confirm cards with correctly distinct tool names, genuine execution, genuine native-UI-independent verification via the explicit "archived" status filter and the active-listing round-trip; no message-clarity ambiguity, unlike Close/Reopen). **Project-entity CRUD status after this session**: Create ✅ PASS, Read ✅ PASS, Update ❌ FAIL (BUG-CRX-056), Close ✅ PASS, Reopen ✅ PASS (message-clarity bug noted), Archive ✅ PASS, Unarchive ✅ PASS, **Delete — still not tested, next up**. **Still PENDING: TC-CRX-189–192** (the luna.blossom incremental permission matrix) — paused mid-session to run the admin-tier CRUD coverage sweep and analytics-question sweep instead; pick these up next, starting with TC-CRX-189 (Manager role baseline already reconfirmed: `view_issues` genuinely false, `view_crux`/`approve_crux_gates`/`use_ask_crux` genuinely true).
+- Screenshots: `screenshots/TC-CRX-<NNN>/` per CLAUDE.md §6 (bug evidence only) — this session's bug screenshots are filed under `screenshots/BUG-CRX-<NNN>/` instead, per the bug template's own convention. TC-CRX-205/206 are clean PASSes with no bug, so per §6 no screenshots were taken for them.
 - Bug references so far: BUG-CRX-050 through BUG-CRX-059 (050–053 reported to production; 054–059 not yet reported — see `bugs/_index.md`).

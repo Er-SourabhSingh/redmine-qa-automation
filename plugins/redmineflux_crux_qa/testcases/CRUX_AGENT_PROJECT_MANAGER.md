@@ -582,8 +582,29 @@ Side observation (not a new finding): the top-nav "Crux" link is still rendered 
 
 ---
 
+### TC-CRX-204: Project lifecycle CRUD — Reopen a closed project
+
+**User Role:** `admin`.
+**Precondition:** The `test` project (identifier `test`) is currently closed — set via TC-CRX-198 and left that way deliberately. Independently confirmed via `/projects?status=5` (closed-projects filter) before this TC ran.
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Reopen the 'test' project — it's currently closed."
+
+**Expected Result:**
+- A genuine confirm card naming the real tool (`Core Set Project Closed`, with `Closed: False` — the same tool as TC-CRX-198's close action, just inverted), with real Confirm/Cancel buttons, and on confirm, the project genuinely becomes active again.
+
+**Result: PASS on the core action (genuine confirm, genuine success, genuinely persisted); FAIL on message clarity — CONFIRMED LIVE 2026-10-10. New bug filed: BUG-CRX-059.**
+
+- Genuine confirm card: "I'll do this (Core Set Project Closed) — confirm?" with table Project=test / Closed=False, real Confirm/Cancel buttons.
+- On Confirm: "✓ Reopened project 'test'." — and this time the ✓ is honest (unlike BUG-CRX-054's misleading-✓-on-failure finding from TC-CRX-198, since this action genuinely succeeded).
+- Verified independently: `test` project now appears again in the default active-projects listing (`/projects`, default open-status filter) — confirms the reopen genuinely persisted, not just a chat-text claim.
+- **FAIL (BUG-CRX-059), caught on review of the confirm-card screenshot**: the headline text — "I'll do this (Core Set Project Closed) — confirm?" — is **word-for-word identical** to TC-CRX-198's close-action headline. Only the detail table underneath (`Closed: True` in TC-198 vs `Closed: False` here) actually distinguishes close from reopen; the bold headline a user reads first gives no indication of direction, and for Reopen specifically reads as if the project is about to be closed, not reopened.
+- This closes out the Close/Reopen pair of TC-CRX-198/204 — the underlying action is correct and genuine both directions, but the headline-clarity gap is a real, reproducible finding worth fixing. Still untested on the Project entity itself: Delete, Archive, Unarchive (see Evidence Map note).
+
+---
+
 ## Evidence Map
 
-- LLM-key blocker resolved 2026-10-09 — see header note. TC-CRX-177–182, 195–203 executed and recorded inline above. TC-CRX-183–187 executed earlier. This session also executed TC-CRX-188 (zero-permission control, aurora.wren — PASS), TC-CRX-193–194 (administration-boundary — PASS on core safety), and TC-CRX-198 (project close lifecycle — PASS on close, 2 bugs found). **TC-CRX-199 and TC-CRX-200 both FAILED 2026-10-10 — same bug, BUG-CRX-056, now Critical** (3/3 reproduction across field update, plugin-module enable, and core-module disable — every `update_project`-shaped write tried has produced the identical fabricated "I'll create this issue — confirm?" text with no real Confirm/Cancel button). **TC-CRX-201 and TC-CRX-202 both FAILED — BUG-CRX-057, now Critical** (issue-count/listing questions silently exclude Closed issues, 3/3 reproduction incl. a whole-project type breakdown). **TC-CRX-203 FAILED — BUG-CRX-058, Critical** (time-spent question falsely claims zero entries + wrongly speculates time tracking is disabled, despite 10.5h of real logged time spanning open AND closed issues). **Still PENDING: TC-CRX-189–192** (the luna.blossom incremental permission matrix) — paused mid-session to run the admin-tier CRUD coverage sweep and analytics-question sweep instead; pick these up next, starting with TC-CRX-189 (Manager role baseline already reconfirmed: `view_issues` genuinely false, `view_crux`/`approve_crux_gates`/`use_ask_crux` genuinely true).
+- LLM-key blocker resolved 2026-10-09 — see header note. TC-CRX-177–182, 195–204 executed and recorded inline above. TC-CRX-183–187 executed earlier. This session also executed TC-CRX-188 (zero-permission control, aurora.wren — PASS), TC-CRX-193–194 (administration-boundary — PASS on core safety), and TC-CRX-198 (project close lifecycle — PASS on close, 2 bugs found). **TC-CRX-199 and TC-CRX-200 both FAILED 2026-10-10 — same bug, BUG-CRX-056, now Critical** (3/3 reproduction across field update, plugin-module enable, and core-module disable — every `update_project`-shaped write tried has produced the identical fabricated "I'll create this issue — confirm?" text with no real Confirm/Cancel button). **TC-CRX-201 and TC-CRX-202 both FAILED — BUG-CRX-057, now Critical** (issue-count/listing questions silently exclude Closed issues, 3/3 reproduction incl. a whole-project type breakdown). **TC-CRX-203 FAILED — BUG-CRX-058, Critical** (time-spent question falsely claims zero entries + wrongly speculates time tracking is disabled, despite 10.5h of real logged time spanning open AND closed issues). **TC-CRX-204 PASS on the core action, FAIL on message clarity — BUG-CRX-059** (Reopen's confirm-card headline is word-for-word identical to Close's — "Core Set Project Closed" — regardless of direction; only the detail table's True/False distinguishes them). **Project-entity CRUD status after this session**: Create ✅ PASS, Read ✅ PASS, Update ❌ FAIL (BUG-CRX-056), Close ✅ PASS, Reopen ✅ PASS (message-clarity bug noted), **Delete/Archive/Unarchive — still not tested, next up**. **Still PENDING: TC-CRX-189–192** (the luna.blossom incremental permission matrix) — paused mid-session to run the admin-tier CRUD coverage sweep and analytics-question sweep instead; pick these up next, starting with TC-CRX-189 (Manager role baseline already reconfirmed: `view_issues` genuinely false, `view_crux`/`approve_crux_gates`/`use_ask_crux` genuinely true).
 - Screenshots: `screenshots/TC-CRX-<NNN>/` per CLAUDE.md §6 (bug evidence only) — this session's bug screenshots are filed under `screenshots/BUG-CRX-<NNN>/` instead, per the bug template's own convention.
-- Bug references so far: BUG-CRX-050 through BUG-CRX-058 (050–053 reported to production; 054–058 not yet reported — see `bugs/_index.md`).
+- Bug references so far: BUG-CRX-050 through BUG-CRX-059 (050–053 reported to production; 054–059 not yet reported — see `bugs/_index.md`).

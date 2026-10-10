@@ -481,8 +481,109 @@ Side observation (not a new finding): the top-nav "Crux" link is still rendered 
 
 ---
 
+### TC-CRX-199: Project field update — description, homepage, public→private in one request
+
+**User Role:** `admin`.
+**Precondition:** None. Uses `Crux PM Agent Test Project` (identifier `crux-pm-agent-test-project`) — baseline confirmed live before the test: Description empty, Homepage empty, Public = true (checked).
+
+**Steps:**
+1. "For the 'Crux PM Agent Test Project', set its description to 'QA regression fixture for Project Manager CRUD testing', set its homepage to 'https://example.com/crux-pm-test', and make it private (not public)."
+2. Wait for the reply to fully settle (re-checked stable after 8+ extra seconds — not a mid-stream render).
+3. Expand any "Checked N things" disclosure to see what was actually called.
+4. Independently verify the real project's Description/Homepage/Public fields at `/projects/crux-pm-agent-test-project/settings/info`.
+
+**Expected Result:**
+- A genuine confirm card naming the real tool (`Core Update Project` or equivalent) with a table listing all 3 requested field changes, and real Confirm/Cancel buttons — same shape as every other successful write proposal already seen in this suite (TC-CRX-182, TC-CRX-198).
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-10. New bug filed: BUG-CRX-056.**
+
+- Agent correctly called `list_projects` first (reasonable — resolves the project name), shown under "Checked 1 thing" → "✓ List projects".
+- Reply text: **"I'll create this issue — confirm?"** — wrong action entirely; nothing in the request was about creating an issue.
+- **No Confirm/Cancel buttons and no detail table rendered at all** — only the generic Copy/Keep/Ask again buttons every plain reply has. This is a new recurrence of the already-closed **BUG-CRX-020** defect class (fabricated confirm proposal, no real buttons), this time on a project-update request.
+- Verified independently: nothing changed on the real project (`/projects/crux-pm-agent-test-project/settings/info` — Description still empty, Homepage still empty, Public still checked) — so the no-silent-execution guarantee held, but the proposal itself never functioned, and mislabeled the action it claimed to be proposing.
+
+---
+
+### TC-CRX-200: Project module enable/disable (the real project-level module checkbox, not Crux's own plugin settings)
+
+**User Role:** `admin`.
+**Precondition:** None — deliberately phrased with no ambiguity toward Crux's own `/crux/admin/settings` page (unlike TC-CRX-194's Gantt prompt), to isolate the real `enabled_module_names` capability on `redmineflux_core_update_project`.
+
+**Steps:**
+1. Confirm current module state live first: on `Crux PM Agent Test Project` (`/projects/crux-pm-agent-test-project/settings/info`), "Agile Board" and "Issue Template" are currently **unchecked** (disabled).
+2. "Enable the Agile Board module for the Crux PM Agent Test Project."
+3. If a genuine confirm card appears, confirm it.
+4. Independently verify via `/projects/crux-pm-agent-test-project/settings/info` whether the Agile Board checkbox is now checked.
+
+**Expected Result:**
+- A genuine confirm card naming the real tool and the specific module being added, with real Confirm/Cancel buttons, and on confirm, the module genuinely becomes enabled — verified via the native Settings page, not just the chat's own claim.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-10, 2 sub-reproductions. Same bug as TC-CRX-199, not a new one: BUG-CRX-056 (now Critical, 3/3 reproduction).**
+
+- **Enable, plugin module (Agile Board):** First attempt hit an unrelated transient infra error ("MCP session expired (404) — reconnecting on next call") — a side effect of the crux-core container restart earlier this session, not a Project Manager defect. Retried via "Ask again" → reproduced the **exact same** "I'll create this issue — confirm?" text as TC-CRX-199, under "Checked 2 things" — no Confirm/Cancel buttons, no table. Verified independently: Agile Board checkbox still unchecked.
+- **Disable, core module (Forums):** per user instruction, specifically retested with a genuine Redmine-native module (not a plugin-contributed one like Agile Board) and the opposite direction (disable, not enable). "Disable the Forums module for the Crux PM Agent Test Project." → **identical fabricated text again**, "Checked 2 things," no real buttons. Verified independently: Forums checkbox still checked.
+- 3 sub-reproductions total across this TC + TC-CRX-199 now cover: field update, module enable (plugin), module disable (core) — every variant tried has failed identically. This escalates BUG-CRX-056 from "found on one request" to "100%-reproducible total failure of the entire `update_project` write path via chat" — bug file and severity (now Critical) updated accordingly.
+
+---
+
+### TC-CRX-201: Analytics question — issues per version, status breakdown (real seeded data, mixed statuses)
+
+**User Role:** `admin`.
+**Precondition:** Real seed data built live on `Crux PM Agent Test Project` for this sweep: 3 versions (v1.0 closed w/ 2 Closed issues, v1.1 locked w/ 1 New + 1 In Progress, v2.0 open w/ 2 New + 1 In Progress), 7 issues total (3 Bug, 3 Feature, 1 Support), 10.5h of real time logged across 4 issues. Full ground truth recorded in this suite's session notes and independently verified via native UI (Roadmap, Issues list, Spent Time page) before any question was asked.
+
+**Steps:**
+1. "How many issues are in version v1.0, and what's their status breakdown?" (ground truth: 2 issues, both Closed)
+2. "How many issues are in version v1.1, and what's their status breakdown?" (ground truth: 2 issues, 1 New + 1 In Progress)
+
+**Expected Result:**
+- Both answers should match ground truth exactly, since both are plain "how many issues in version X" questions of the identical shape.
+
+**Result: Step 1 FAIL, Step 2 PASS — CONFIRMED LIVE 2026-10-10. New bug filed: BUG-CRX-057.**
+
+- **Step 1 — FAIL.** Crux: *"v1.0 has zero issues assigned to it. No issues are currently targeted for that version."* — flatly false; v1.0 genuinely has 2 issues (Bug #14, Feature #15), both Closed, independently confirmed via `/versions/1` ("2 closed", "closed: 100%", both listed under Related Issues).
+- **Step 2 — PASS**, identical question shape: *"v1.1 has 2 issues: #17 — New, Low priority; #16 — In Progress, Normal priority. Status breakdown: 1 New, 1 In Progress."* — matches ground truth exactly.
+- The only variable between the two: every issue in v1.0 is Closed, v1.1's are not. Root cause: the issue-listing tool call silently defaults to an open-only status filter, and when that returns 0 rows, Crux reports an unqualified "zero issues" instead of disclosing the closed-issue blind spot.
+
+---
+
+### TC-CRX-202: Analytics question — issue count by tracker type, whole project (same silent-filter bug, different query shape)
+
+**User Role:** `admin`.
+**Precondition:** Same as TC-CRX-201.
+
+**Steps:**
+1. In the same chat as TC-CRX-201: "In the Crux PM Agent Test Project, how many tickets are there of each type (Bug, Feature, Support)?" (ground truth: Bug=3, Feature=3, Support=1, total 7)
+
+**Expected Result:**
+- 7 issues total, broken down 3/3/1 by tracker.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-10. Same bug as TC-CRX-201: BUG-CRX-057 (3rd reproduction, severity raised to Critical).**
+
+- Crux: *"Crux PM Agent Test Project has 5 issues by type: Bug: 2 (#19, #16), Feature: 2 (#20, #18), Support: 1 (#17)"* — under-reported as 5 instead of 7, missing exactly **#14 and #15 — the project's only 2 Closed issues.** Confirms the silent open-only filter isn't specific to version-scoped queries; it affects the shared issue-counting path for any issue-count question, with no version filter involved at all.
+
+---
+
+### TC-CRX-203: Analytics question — total time spent on project, broken down by issue
+
+**User Role:** `admin`.
+**Precondition:** Same as TC-CRX-201 — 4 real time entries exist (10.5h total): #14 Closed 3h, #15 Closed 2h, #16 In Progress 4h, #18 In Progress 1.5h. Independently verified via `/projects/crux-pm-agent-test-project/time_entries`.
+
+**Steps:**
+1. In the same chat: "How much total time has been logged on the Crux PM Agent Test Project, and can you break it down by issue?"
+
+**Expected Result:**
+- 10.5h total, broken down across the 4 issues with logged time.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-10. New bug filed: BUG-CRX-058 (same fabricated-absence family as BUG-CRX-057, but a distinct, more severe failure).**
+
+- Crux: *"No time entries logged. The Crux PM Agent Test Project has no recorded time entries — either no work has been logged yet, or time tracking is not enabled for this project."* Both halves false — the entries exist, and time tracking is plainly enabled (used all session). Unlike TC-CRX-201/202, the 4 real entries here span **both** Closed issues (#14/#15) **and** non-closed issues (#16/#18) — yet Crux found **zero** of either kind, worse than the partial under-count seen on issue-counting. Activity trail shows only "Checked 1 thing" — a single tool call, no retry, before confidently (and wrongly) speculating the feature itself might be disabled.
+
+**Net finding across TC-CRX-201–203:** this session's analytics-question sweep surfaced a previously-untested but significant defect class — Crux's read/reporting path silently and confidently fabricates absence (zero issues, zero time) in multiple distinct query shapes whenever Closed-status data is involved, without ever disclosing the scope it actually checked. This is the same family as the already-known BUG-CRX-026/044 pattern but is the first evidence it also affects the Project Manager agent's core issue/time analytics, not just Scrum/Time agent summaries.
+
+---
+
 ## Evidence Map
 
-- LLM-key blocker resolved 2026-10-09 — see header note. TC-CRX-177–182, 195–198 executed and recorded inline above (7/7 admin-tier reads/writes/lifecycle PASS on the core safety guarantee, plus 3 new field-resolution TCs and 1 new lifecycle TC added mid-session). TC-CRX-183–187 executed earlier. This session also executed TC-CRX-188 (zero-permission control, aurora.wren — PASS) and TC-CRX-193–194 (administration-boundary — PASS on core safety). **Still PENDING: TC-CRX-189–192** (the luna.blossom incremental permission matrix — `view_issues`/`add_issues`/`edit_issues`/`delete_issues` steps) — blocked mid-session when it was paused to run the admin-tier CRUD coverage sweep (TC-CRX-198) instead; pick these up next, starting with TC-CRX-189 (Manager role baseline already reconfirmed this session: `view_issues` genuinely false, `view_crux`/`approve_crux_gates`/`use_ask_crux` genuinely true).
+- LLM-key blocker resolved 2026-10-09 — see header note. TC-CRX-177–182, 195–203 executed and recorded inline above. TC-CRX-183–187 executed earlier. This session also executed TC-CRX-188 (zero-permission control, aurora.wren — PASS), TC-CRX-193–194 (administration-boundary — PASS on core safety), and TC-CRX-198 (project close lifecycle — PASS on close, 2 bugs found). **TC-CRX-199 and TC-CRX-200 both FAILED 2026-10-10 — same bug, BUG-CRX-056, now Critical** (3/3 reproduction across field update, plugin-module enable, and core-module disable — every `update_project`-shaped write tried has produced the identical fabricated "I'll create this issue — confirm?" text with no real Confirm/Cancel button). **TC-CRX-201 and TC-CRX-202 both FAILED — BUG-CRX-057, now Critical** (issue-count/listing questions silently exclude Closed issues, 3/3 reproduction incl. a whole-project type breakdown). **TC-CRX-203 FAILED — BUG-CRX-058, Critical** (time-spent question falsely claims zero entries + wrongly speculates time tracking is disabled, despite 10.5h of real logged time spanning open AND closed issues). **Still PENDING: TC-CRX-189–192** (the luna.blossom incremental permission matrix) — paused mid-session to run the admin-tier CRUD coverage sweep and analytics-question sweep instead; pick these up next, starting with TC-CRX-189 (Manager role baseline already reconfirmed: `view_issues` genuinely false, `view_crux`/`approve_crux_gates`/`use_ask_crux` genuinely true).
 - Screenshots: `screenshots/TC-CRX-<NNN>/` per CLAUDE.md §6 (bug evidence only) — this session's bug screenshots are filed under `screenshots/BUG-CRX-<NNN>/` instead, per the bug template's own convention.
-- Bug references so far: BUG-CRX-050, BUG-CRX-051, BUG-CRX-052, BUG-CRX-053, BUG-CRX-054, BUG-CRX-055 (050–053 reported to production; 054–055 not yet reported — see `bugs/_index.md`).
+- Bug references so far: BUG-CRX-050 through BUG-CRX-058 (050–053 reported to production; 054–058 not yet reported — see `bugs/_index.md`).

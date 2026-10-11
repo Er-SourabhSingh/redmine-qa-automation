@@ -1203,9 +1203,131 @@ Side observation (not a new finding): the top-nav "Crux" link is still rendered 
 
 ---
 
+## Positive/Negative Cases — Closed/archived project write-matrix (Update/Delete, plus a second Create repro on archived)
+
+> Prompted by an explicit user follow-up asking whether Update/Create/Delete had been checked against both a **closed** and an **archived** project — until this sweep, only closed-project Create had been tested (TC-CRX-198). This section fills the remaining 5 cells of the 2×3 (closed/archived × Create/Update/Delete) matrix, using `Crux PM Agent Test Project` (identifier `crux-pm-agent-test-project`) as a second throwaway fixture so `test` (already left closed by TC-CRX-198) didn't need disturbing.
+
+### TC-CRX-234: Closed-project write matrix — Update an issue in a closed project
+
+**User Role:** `admin`.
+**Precondition:** `Crux PM Agent Test Project` closed via Ask Crux ("Close the Crux PM Agent Test Project.") — genuine confirm card, genuine "✓ Closed project 'crux-pm-agent-test-project'." success. Issue #16 exists in the project from earlier session seeding.
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Rename issue #16 to 'Closed project update test'."
+2. Review the confirm card for a genuine tool name, real detail table, and real Confirm/Cancel buttons.
+3. Confirm the action.
+4. Observe the resulting chat bubble's icon and text together (specifically checking for the misleading-✓ pattern already found on closed-project Create, BUG-CRX-054).
+
+**Expected Result:**
+- Since the project is closed, the update should genuinely fail at the Redmine permission layer, and the failure should be rendered honestly — no checkmark on a failure message.
+
+**Result: PASS (genuine confirm, genuine honest failure, no misleading icon) — CONFIRMED LIVE 2026-10-11.**
+
+- Genuine update confirm card shown before any write.
+- On Confirm, final bubble reads (red failure text, no checkmark): *"write failed: tool 'redmineflux_core_update_issue' failed: Error executing tool redmineflux_core_update_issue: You do not have permission to update issue #16. To fix this, ask your Redmineflux administrator to: • Grant you the required role/permission for this action • Check: Administration → Roles and Permissions → [your role]"*
+- No bug — this is the **first honest failure rendering** found on a closed-project write this session, in direct contrast to Create's misleading ✓ on the identical trigger condition (BUG-CRX-054). Confirms the misleading-checkmark defect is isolated to Create's error path, not shared by Update's.
+
+---
+
+### TC-CRX-235: Closed-project write matrix — Delete an issue in a closed project
+
+**User Role:** `admin`.
+**Precondition:** Same closed `Crux PM Agent Test Project` as TC-CRX-234. Issue #16 still exists (the TC-CRX-234 update genuinely failed, so no rename took effect).
+
+**Steps:**
+1. In the same or a fresh Ask Crux chat: "Delete issue #16 from project crux-pm-agent-test-project."
+2. Crux first asks a plain-text safety confirmation (delete-specific extra gate, distinct from the standard write-confirm card) — reply "Yes, confirm."
+3. Review the resulting genuine confirm card (real tool name "Core Delete Issue", real table, real Confirm/Cancel buttons).
+4. Confirm the action.
+5. Observe the resulting chat bubble's icon and text together.
+
+**Expected Result:**
+- Delete should genuinely fail at the Redmine permission layer (same as Update), rendered honestly with no misleading checkmark.
+
+**Result: PASS (genuine two-step confirm, genuine honest failure, no misleading icon) — CONFIRMED LIVE 2026-10-11.**
+
+- Plain-text delete safety question shown first, as expected for any delete (irreversibility warning), distinct from and in addition to the standard write-confirm card.
+- Genuine "Core Delete Issue" confirm card shown next, with a real Issue=16 table and real Confirm/Cancel buttons.
+- On Confirm, final bubble reads (red failure text, no checkmark): *"write failed: tool 'redmineflux_core_delete_issue' failed: Error executing tool redmineflux_core_delete_issue: You do not have permission to delete issue #16."* (same role/permission guidance as TC-CRX-234).
+- No bug — Delete's failure path on a closed project is also honestly rendered, matching Update (TC-CRX-234) and contrasting with Create (BUG-CRX-054).
+
+---
+
+### TC-CRX-236: Archived-project write matrix — Create an issue in an archived project (BUG-CRX-054, Repro 2)
+
+**User Role:** `admin`.
+**Precondition:** `Crux PM Agent Test Project` archived via Ask Crux. Since the project was already closed (not in Crux's active-project list), the first archive attempt got an honest "I don't see a project named..." response rather than a fabrication — resolved by explicitly supplying "It's closed right now, identifier crux-pm-agent-test-project. Archive it anyway.", after which Crux produced a genuine archive confirm card ("Core Archive Project") and, on confirm, "✓ Archived project 'crux-pm-agent-test-project'." Independently verified via `/admin/projects?status=9` (archived-status filter) — listed, name not a clickable link.
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Create an issue in the crux-pm-agent-test-project project called 'Archived project create test'."
+2. Review the confirm card for a genuine tool name, real detail table, and real Confirm/Cancel buttons.
+3. Confirm the action.
+4. Observe the resulting chat bubble's icon and text together.
+5. Independently verify via native UI that archived is more restrictive than closed: `/issues/16` as admin.
+
+**Expected Result:**
+- The create should genuinely fail (archived is more restrictive than closed), and the failure should be rendered honestly — no misleading checkmark.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-11. Same bug as TC-CRX-198: BUG-CRX-054, now 2/2 reproductions.**
+
+- Genuine create-issue confirm card shown before any write (real tool, real table, real Confirm/Cancel) — no fabricated-confirm issue here.
+- On Confirm, final bubble reads: **✓** *"Project 'crux-pm-agent-test-project' not found or you don't have permission to create issues in it. Use list_projects to find valid project IDs/identifiers."* — **word-for-word identical template** to BUG-CRX-054's original closed-project finding (TC-CRX-198), just a different project identifier. The leading ✓ is the same misleading success glyph on a genuine failure.
+- Independently verified archived is strictly more restrictive than closed: `/issues/16` as admin returns a genuine native **403 Forbidden** — a closed project's issues remain viewable (only writes blocked), but an archived project blocks even admin reads.
+- Not a new bug — folded into BUG-CRX-054 as Repro 2, since the exact same error-rendering code path fires regardless of *why* the project is inaccessible (closed vs. archived). Bug file, `bugs/_index.md`, and `bugs/_duplicates.md` updated to reflect 2/2.
+
+---
+
+### TC-CRX-237: Archived-project write matrix — Update an issue in an archived project
+
+**User Role:** `admin`.
+**Precondition:** Same archived `Crux PM Agent Test Project` as TC-CRX-236. Issue #16 still resolvable by ID despite the project being archived (Crux's own project-level lookup is what fails in TC-CRX-236, not issue-ID resolution).
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Rename issue #16 to 'Archived project update test'."
+2. Review the confirm card for a genuine tool name, real detail table, and real Confirm/Cancel buttons.
+3. Confirm the action.
+4. Observe the resulting chat bubble's icon and text together.
+
+**Expected Result:**
+- Same as the closed-project case (TC-CRX-234): genuine honest failure, no misleading checkmark.
+
+**Result: PASS (genuine confirm, genuine honest failure, no misleading icon) — CONFIRMED LIVE 2026-10-11.**
+
+- Genuine update confirm card shown before any write.
+- On Confirm, final bubble reads (red failure text, no checkmark) — same wording pattern as TC-CRX-234's closed-project Update failure: permission-denied on issue #16, with the same administrator-guidance footer.
+- No bug — confirms Update's honest-failure rendering holds for archived projects too, not just closed ones. BUG-CRX-054 remains isolated to Create.
+
+---
+
+### TC-CRX-238: Archived-project write matrix — Delete an issue in an archived project
+
+**User Role:** `admin`.
+**Precondition:** Same archived `Crux PM Agent Test Project` as TC-CRX-236/237. Issue #16 still exists (TC-CRX-237's rename genuinely failed).
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Delete issue #16 from project crux-pm-agent-test-project."
+2. Crux first asks the plain-text delete safety confirmation — reply "Yes, confirm."
+3. Review the resulting genuine "Core Delete Issue" confirm card.
+4. Confirm the action.
+5. Observe the resulting chat bubble's icon and text together.
+
+**Expected Result:**
+- Same as the closed-project case (TC-CRX-235): genuine honest failure, no misleading checkmark.
+
+**Result: PASS (genuine two-step confirm, genuine honest failure, no misleading icon) — CONFIRMED LIVE 2026-10-11.**
+
+- Plain-text delete safety question shown first, same as TC-CRX-235.
+- Genuine "Core Delete Issue" confirm card shown next, real Issue=16 table, real Confirm/Cancel buttons.
+- On Confirm, final bubble reads (red failure text, no checkmark): *"write failed: tool 'redmineflux_core_delete_issue' failed: Error executing tool redmineflux_core_delete_issue: You do not have permission to delete issue #16."* — identical wording to TC-CRX-235's closed-project Delete failure.
+- No bug — Delete's honest-failure rendering holds for archived projects too. **Closed/archived × Create/Update/Delete matrix now fully covered: Create fails with a misleading ✓ on both trigger states (BUG-CRX-054, 2/2); Update and Delete fail honestly on both trigger states (4/4 clean, no bug).**
+- **Cleanup:** `Crux PM Agent Test Project` was restored to active state immediately after this TC — unarchived via native UI (`/admin/projects?status=9` → Actions → Unarchive, since Crux's own project list couldn't resolve a closed-then-archived project by name for a reopen request) and reopened via Ask Crux ("Reopen the Crux PM Agent Test Project... It is currently closed." → genuine "Core Set Project Closed" / Closed=False confirm card → "✓ Reopened project 'crux-pm-agent-test-project'."). Independently verified back in the default active-projects listing (`/admin/projects`, count `1-3/3`) before ending this sweep.
+
+---
+
 ## Evidence Map
 
 - LLM-key blocker resolved 2026-10-09 — see header note. TC-CRX-177–182, 195–225 executed and recorded inline above. TC-CRX-183–187 executed earlier. This session also executed TC-CRX-188 (zero-permission control, aurora.wren — PASS), TC-CRX-193–194 (administration-boundary — PASS on core safety), and TC-CRX-198 (project close lifecycle — PASS on close, 2 bugs found). **TC-CRX-199, TC-CRX-200, TC-CRX-211, TC-CRX-218, TC-CRX-221, TC-CRX-224 all FAILED — same bug, BUG-CRX-056, now Critical, 7/7 reproduction** (field update, plugin-module enable, core-module disable, tracker enable, a Repositories-tab request resolved to a homepage-field write, tracker remove, and the Issue tracking tab's remaining fields — custom-field enable + default version/assignee, combined — every `update_project`-shaped write tried has produced the identical fabricated "I'll create this issue — confirm?" text with no real Confirm/Cancel button; the Issue tracking sub-tab's entire field set is now covered and fails identically). **TC-CRX-201 and TC-CRX-202 both FAILED — BUG-CRX-057, now Critical** (issue-count/listing questions silently exclude Closed issues, 3/3 reproduction incl. a whole-project type breakdown). **TC-CRX-203 FAILED — BUG-CRX-058, Critical** (time-spent question falsely claims zero entries + wrongly speculates time tracking is disabled, despite 10.5h of real logged time spanning open AND closed issues). **TC-CRX-204 PASS on the core action, FAIL on message clarity — BUG-CRX-059** (Reopen's confirm-card headline is word-for-word identical to Close's). **TC-CRX-205 and TC-CRX-206 both PASS, no bugs** (Archive and Unarchive, correctly distinct tool names, genuine execution, native-UI-independent verification). **TC-CRX-209, 213, 214, 215, 216, 222, 223 all FAILED with the same generic false denial — BUG-CRX-061, now Critical, 8/8 reproduction across 3 entity domains with confirmed genuinely-existing tools** (Membership role-update, Version create/update/delete, Issue Category create/update/delete — TC-213 contributes 2 of the 8 repros, a first confounded attempt and a later clean retry), **6 of the 8 confirmed under a freshly-restarted, verified-healthy 495-tool MCP catalog** (TC-CRX-207 and TC-CRX-210 are explicitly NOT part of this bucket — they got different, distinctly-worded failures, BUG-CRX-060 and BUG-CRX-062 respectively, as their own TC write-ups describe) — ruling out the morning's separately-filed MCP degraded-state issue (**BUG-CRX-063**, also found and fixed this session: the MCP server never retries its plugin-detection pass after a slow Redmine boot, silently serving only 98/498 tools for 0/14 plugins until manually restarted) as the explanation. **Issue Categories is now the first entity domain with its entire CRUD set (Create/Update/Delete) independently confirmed broken** — per explicit user follow-up asking whether category Update/Delete had been tested (they had not initially; only Create and Read were covered in the first pass). **TC-CRX-210 (Members Delete) got an even sharper, unhedged false "not yet supported" claim — BUG-CRX-062** — which also wrongly asserted Create works, contradicted by BUG-CRX-060 (Members Create stalling on a per-turn token-budget ceiling, 2/2, never reaching a confirm card). **TC-CRX-220 (Time tracking "disable") was initially filed as BUG-CRX-061's Repro 7, then corrected after TC-CRX-225 (Time tracking "enable," the reverse direction) got a completely different, detailed, honest reply for the same genuinely-nonexistent capability** — MCP source confirmed no project-level activity-toggle tool exists at all, so TC-220's failure wasn't a false denial of a real tool like the other BUG-CRX-061 repros; **re-filed as its own new bug, BUG-CRX-064** (Medium — same missing capability gets a vague "try again" non-answer in one phrasing and a correct detailed explanation in the other). **TC-CRX-208, 212, 217, 219 all PASS** — Read operations (Members, Versions, Issue Categories) all matched native UI exactly, and the Forums-tab request (TC-219) got a genuinely honest, well-reasoned refusal (names the tool groups checked, correctly concludes none fit, suggests native UI/admin) — proving Crux *can* produce a correct "truly not available" response, which argues BUG-CRX-061's false denials are a resolution-logic defect, not a deliberate restriction. **Project-entity CRUD status after this session**: Create ✅, Read ✅, Update ❌ (BUG-CRX-056), Close ✅, Reopen ✅ (message-clarity bug noted), Archive ✅, Unarchive ✅, Delete — still not tested. **Project Settings sub-tab CRUD status, now complete except Approved Hours**: Members (1/4 PASS — Read only), Issue tracking (every field tested — trackers, custom fields, defaults — all FAIL, BUG-CRX-056, 7/7 repro), Versions (1/4 PASS — Read only), Issue categories (1/4 PASS — Read only, full CRUD confirmed broken), Repositories (FAILs via BUG-CRX-056's homepage substitution), Forums (PASS — honest refusal), Time tracking (disable gets a vague non-answer, enable gets a detailed honest one — BUG-CRX-064; the underlying per-project activity toggle genuinely doesn't exist either way), Approved Hours (explicitly deferred to Budget Audit plugin's own scope, not tested). **Still PENDING: TC-CRX-189–192** (the luna.blossom incremental permission matrix) — paused mid-session to run the admin-tier CRUD coverage sweep instead; pick these up next (Manager role baseline already reconfirmed: `view_issues` genuinely false, `view_crux`/`approve_crux_gates`/`use_ask_crux` genuinely true). Also still pending: Project entity Delete.
 - **Session extended further into the project's overview tabs** (Spent time, News, Documents, Wiki, Files, Gantt — per explicit user request to cover every tab on the project nav bar, not just Project Settings). **TC-CRX-226–228 (Spent time CRUD): 0/3 PASS on write** — Create (`log_time`), Update, and Delete all fail identically, folded into **BUG-CRX-061 as Repros 10-12**, making Time Entries the second entity domain (after Issue Categories) with its entire write surface confirmed broken. **TC-CRX-229 (News create), TC-CRX-230 (Documents create), and TC-CRX-231 (Wiki create, a retest of the earlier-inconclusive TC-CRX-187) all FAILED identically — folded into BUG-CRX-061 as Repros 13-15**, bringing the bug to **15/15 reproductions across 7 entity domains** (Membership, Version, Issue Category, Time Entry, News, Document, Wiki) — effectively every "list-then-write" entity type tried this session has failed via this one shared defect. **TC-CRX-232 (Files — list uploaded files) surfaced a new, distinct bug: BUG-CRX-065** — Crux burned **10 tool calls** (fetching all 8 project issues individually looking for attachments) without ever calling `redmineflux_core_list_project_files`, the tool purpose-built for exactly this question, then falsely claimed no such capability exists; the real, cheap, one-call answer ("no files uploaded," confirmed via native UI) was available the whole time — a read-path false denial, distinct from BUG-CRX-061's write-path pattern, and unusually costly before giving up. **TC-CRX-233 (Gantt — reschedule an issue's dates) PASSED cleanly** — genuine confirm card, genuine execution, genuinely persisted dates — an important positive data point alongside Archive/Unarchive and the Forums honest-refusal, confirming the write pipeline *can* work correctly for some tools. **Files Create/Update/Delete weren't testable via chat text alone** (the real tool requires a `token` from a prior file-upload call, i.e. actual file bytes, which plain chat text can't provide). **2 new/updated bugs this extension: BUG-CRX-061 (grown from 9 to 15 reproductions across 3 new domains) and BUG-CRX-065 (new)** — none yet reported to production.
-- Screenshots: `screenshots/TC-CRX-<NNN>/` per CLAUDE.md §6 (bug evidence only) — this session's bug screenshots are filed under `screenshots/BUG-CRX-<NNN>/` instead, per the bug template's own convention. TC-CRX-205/206/208/212/217/219/233 are clean PASSes with no bug, so per §6 no screenshots were taken for them.
-- Bug references so far: BUG-CRX-050 through BUG-CRX-065 (050–053 reported to production; 054–065 not yet reported — see `bugs/_index.md`).
+- **Closed/archived project write-matrix sweep (2026-10-11), prompted by explicit user follow-up** ("did we check Update/Create/Delete by closing/archiving the project?"): **TC-CRX-234–238 cover the remaining 5 cells of the 2×3 (closed/archived × Create/Update/Delete) matrix**, using `Crux PM Agent Test Project` as a second throwaway fixture. **TC-CRX-236 (archived + Create) FAILED — folded into BUG-CRX-054 as Repro 2** (word-for-word identical misleading-✓-on-failure template as the original closed-project finding, TC-CRX-198, just a different project identifier — confirms the defect is a shared Create error-rendering path triggered by any non-active project state, not closed-specific). **TC-CRX-234, 235, 237, 238 (closed+Update, closed+Delete, archived+Update, archived+Delete) all PASSED clean, no bug** — all 4 render genuine confirm cards and then **honest, correctly-styled red failure text with no checkmark** on the inevitable permission-denied result, in direct contrast to Create's misleading ✓ on the identical trigger conditions. This is a useful scoping result: the misleading-checkmark defect (BUG-CRX-054) is isolated to `create_issue`'s specific error-rendering code, not a platform-wide issue affecting every write tool's failure path. Also independently confirmed archived is strictly more restrictive than closed: a closed project's issues remain viewable by admin (only writes blocked), while an archived project returns a genuine native 403 Forbidden on any page, reads included. **Project-entity CRUD status, closed/archived dimension now fully covered**: Create ❌ (BUG-CRX-054, 2/2 — closed and archived), Update ✅ (honest failure, both states), Delete ✅ (honest failure, both states). `Crux PM Agent Test Project` was restored to active (unarchive via native UI, reopen via Ask Crux) before ending this sweep — independently verified back in the default active listing.
+- Screenshots: `screenshots/TC-CRX-<NNN>/` per CLAUDE.md §6 (bug evidence only) — this session's bug screenshots are filed under `screenshots/BUG-CRX-<NNN>/` instead, per the bug template's own convention. TC-CRX-205/206/208/212/217/219/233/234/235/237/238 are clean PASSes with no bug, so per §6 no screenshots were taken for them. TC-CRX-236's screenshot filed as `screenshots/BUG-CRX-054/misleading-checkmark-on-failure-archived-project.png`.
+- Bug references so far: BUG-CRX-050 through BUG-CRX-065 (050–053 reported to production; 054–065 not yet reported — see `bugs/_index.md`). BUG-CRX-054 updated 2026-10-11 to 2/2 reproductions (closed + archived).

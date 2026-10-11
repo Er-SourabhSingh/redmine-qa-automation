@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-061
 - Production Redmine Issue ID:
-- Title: Project Manager falsely claims it "couldn't confirm whether this action is actually available here" — 7/7 reproductions across 4 entity domains (membership role-update, version create ×2/update/delete, issue-category create, time-tracking-activity disable) — 5 of the 7 under a freshly-restarted, confirmed-healthy 495-tool MCP catalog — even though the real tools genuinely exist and the agent had already resolved every id it needed
+- Title: Project Manager falsely claims it "couldn't confirm whether this action is actually available here" — 9/9 reproductions across 4 entity domains (membership role-update, version create ×2/update/delete, issue-category create/update/delete, time-tracking-activity disable) — 7 of the 9 under a freshly-restarted, confirmed-healthy 495-tool MCP catalog — even though the real tools genuinely exist and the agent had already resolved every id it needed; Issue Categories is the first entity type where the entire CRUD set fails identically
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)
 - Plugin version: 0.62.0
@@ -56,6 +56,17 @@
 
 **Net result across all 7 repros**: this false "couldn't confirm whether this action is actually available here" denial fires on every Version write operation tried (create — twice; update; delete), one Membership write operation (update), one Issue Category write operation (create), and now one Time Tracking Activity write operation (disable) — **4 completely distinct entity domains**. 5 of the 7 (Repro 3, 4, 5, 6, 7) are confirmed under a freshly-verified, fully-healthy 495-tool MCP catalog. Repro 5 closes the loop on Repro 2's original confound — the same request, retried once the degraded-MCP issue (BUG-CRX-063) was fixed, fails identically. This is clearly a systemic defect in the write-proposal pipeline, not scoped to any one entity type — worth the dev team checking whether every entity type's write path reuses the same resolution/proposal logic that's failing here, rather than treating each domain as a separate fix.
 
+**Repro 8 — Issue Category Update (rename), same confirmed-healthy MCP:**
+1. In a fresh chat: "Rename the issue category 'Development - Chrome Extention' to 'Development - Chrome Extension' for the Crux PM Agent Test Project." Log confirms `tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, ending in the identical false denial text.
+2. Native UI confirms the category is still named "Development - Chrome Extention" (typo intact) — unchanged.
+
+**Repro 9 — Issue Category Delete, same confirmed-healthy MCP:**
+1. Fixture: created a disposable category "zz-delete-me-category" via native UI.
+2. In a fresh chat: "Delete the issue category 'zz-delete-me-category' from the Crux PM Agent Test Project." Log confirms `tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, ending in the identical false denial text — `delete_issue_category` never called despite being implemented (`core.py:1776`).
+2. Native UI confirms "zz-delete-me-category" is still listed — unchanged.
+
+**Updated net result across all 9 repros**: the false denial now covers the **complete CRUD set** on the Issue Category domain (Create — Repro 6, Update — Repro 8, Delete — Repro 9), in addition to Version create/update/delete and Membership update, and Time Tracking Activity disable — **4 entity domains, 7 of 9 repros under a confirmed-healthy 495-tool MCP catalog.** Issue Categories is now the first entity type where every single write operation (not just one) has been independently confirmed to fail identically.
+
 **For contrast — not every Project Settings tab fails this way**: the same session's Repositories- and Forums-tab requests (see `CRUX_AGENT_PROJECT_MANAGER.md` TC-CRX-216/217) got **honest, well-reasoned refusals** instead of this generic false denial — Crux correctly explained no matching tool exists, named the tool groups it checked, and suggested the native UI/admin as alternatives. This shows the agent *is* capable of a correct "genuinely not available" response when the capability truly doesn't exist; the false-denial pattern here specifically affects entity types that *do* have real tools, which argues against this being a deliberate/by-design restriction and toward a resolution-logic defect in the write pipeline.
 
 ## Expected result
@@ -83,6 +94,8 @@ No write occurred — native UI confirms the membership is still Reporter, so th
 ![Repro 5 — Version create retried under confirmed-healthy MCP, same false denial, closing the loop on Repro 2's confound](../../screenshots/BUG-CRX-061/repro-5-version-create-healthy-mcp-still-false-denial.png)
 ![Repro 6 — Issue category create, a third entity domain, same healthy MCP, same false denial](../../screenshots/BUG-CRX-061/repro-6-issue-category-create-healthy-mcp-still-false-denial.png)
 ![Repro 7 — Time-tracking activity disable, a fourth entity domain, same healthy MCP, same false denial](../../screenshots/BUG-CRX-061/repro-7-time-tracking-activity-disable-healthy-mcp-still-false-denial.png)
+![Repro 8 — Issue category rename (Update), same healthy MCP, same false denial](../../screenshots/BUG-CRX-061/repro-8-issue-category-rename-healthy-mcp-still-false-denial.png)
+![Repro 9 — Issue category delete, same healthy MCP, same false denial — completes the full CRUD failure set for this entity domain](../../screenshots/BUG-CRX-061/repro-9-issue-category-delete-healthy-mcp-still-false-denial.png)
 
 ### Console / log
 
@@ -95,6 +108,8 @@ No write occurred — native UI confirms the membership is still Reporter, so th
 - Repro 5: `mcp call tool=tools/list ... tools=495`, `redmineflux_core_list_projects ok=true`, `chat turn ... tool_calls=3 outcome=success`, same false denial text. Native UI: no "v4.0" version exists.
 - Repro 6: `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI (`/projects/crux-pm-agent-test-project/settings/categories`) confirms no "Security Testing" category exists.
 - Repro 7: `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI (`/projects/crux-pm-agent-test-project/settings/activities`) confirms "Design" activity still checked/enabled.
+- Repro 8: `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI confirms category still named "Development - Chrome Extention" — unchanged.
+- Repro 9: `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI confirms "zz-delete-me-category" still exists — unchanged.
 
 ## Duplicate check
 

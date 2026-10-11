@@ -308,6 +308,8 @@ See `bugs/open/BUG-CRX-052.md` for full activity-log evidence and screenshot. Pr
 
 **Result: PASS on the no-fabrication guarantee, INCONCLUSIVE on the discovery mechanism itself — CONFIRMED LIVE 2026-10-09.** Reply (after a "Checked 3 things" tool-call sequence, `tool_calls=3` per the Activity Log): *"I couldn't confirm whether this action is actually available here — please try again, or ask an administrator to check this deployment's tool configuration."* No fabricated confirm card was ever shown, and it did not flatly refuse without attempting anything first (3 real tool calls were made, including a genuine `tools/list ok=true tools=95`) — satisfies the core "never fake success, never refuse without trying" bar. **However**, the response itself is a hedge rather than a clean, confident verdict either way (neither "yes, here's the proposal" nor a definitive "no, this deployment has no wiki-page write capability") — the discovery mechanism's exact behavior (did `crux_discover_tool_groups`/`crux_discover_group_tools` get called and return nothing, or did something else cause the uncertainty?) wasn't fully traceable from the Activity Log's paginated view in this session. Cost note: this single turn used 105K input tokens / $0.07 — by far the most expensive turn in this suite, likely due to the multi-round discovery attempt. Worth a focused re-test with full Activity Log tracing (not just the chat's own summary) if this agent's discovery path becomes a priority.
 
+**Update 2026-10-11 — retested as TC-CRX-231, definitive verdict reached: FAIL, folded into BUG-CRX-061 (Repro 15).** The identical request, retested under a confirmed-healthy 495-tool MCP catalog once the systemic false-denial pattern was well-established, produced the same hedge text with no fabricated confirm card — this was never an ambiguous discovery-mechanism question, it's a clean instance of BUG-CRX-061 like 14 other entity domains this session. See TC-CRX-231 for the full retest.
+
 ---
 
 ## Permission Cases — zero-permission control, then incremental matrix
@@ -1042,8 +1044,168 @@ Side observation (not a new finding): the top-nav "Crux" link is still rendered 
 
 ---
 
+## Positive/Negative Cases — Project overview tabs (Spent time, News, Documents, Wiki, Files, Gantt)
+
+> Per explicit user request to cover every tab shown on the project navigation bar, not just Project Settings sub-tabs. Precondition for this sub-suite: "Crux PM Agent Test Project" has 4 existing time entries (10.5h total, the TC-CRX-201–203 fixture), 0 news posts, 0 documents, an empty wiki (no pages beyond the default home), and 0 uploaded files.
+
+### TC-CRX-226: Spent time — Create (log time)
+
+**User Role:** `admin`.
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Log 2 hours of Development time on issue #16 in the Crux PM Agent Test Project, dated today, with a comment 'testing time log via chat'."
+
+**Expected Result:**
+- A genuine confirm card for `Core Log Time` with real Confirm/Cancel buttons.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-11, under a verified-healthy 495-tool MCP. Folded into BUG-CRX-061 (Repro 10) — a 4th entity domain.**
+
+- Log confirms `tools=495`, `tool_calls=2 outcome=success`, ending in the identical false denial text (chip `#16`, confirming the issue was resolved).
+- Verified independently: `/projects/crux-pm-agent-test-project/time_entries` still shows exactly 4 entries, 10.5h total — no new entry created.
+
+---
+
+### TC-CRX-227: Spent time — Update (edit a time entry's comment)
+
+**User Role:** `admin`.
+**Precondition:** Time entry #4 (1:30h, Design, issue #18) has an empty Comment field.
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Change the comment on time entry #4 in the Crux PM Agent Test Project to 'updated via chat test'."
+
+**Expected Result:**
+- A genuine confirm card for `Core Update Time Entry` with real Confirm/Cancel buttons.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-11, under the same verified-healthy MCP. Folded into BUG-CRX-061 (Repro 11).**
+
+- Log confirms `tools=495`, `tool_calls=2 outcome=success`, same false denial text (chip `#4`).
+- Verified independently: `/time_entries/4/edit` — Comment field still empty, Hours/Issue unchanged.
+
+---
+
+### TC-CRX-228: Spent time — Delete
+
+**User Role:** `admin`.
+**Precondition:** Disposable fixture time entry #5 (0:30h, Development, issue #16, comment "disposable fixture for delete test") created via native UI.
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Delete time entry #5 from the Crux PM Agent Test Project."
+
+**Expected Result:**
+- A genuine confirm card for `Core Delete Time Entry` with real Confirm/Cancel buttons.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-11, under the same verified-healthy MCP. Folded into BUG-CRX-061 (Repro 12) — completes the full CRUD failure set for this entity domain.**
+
+- Log confirms `tools=495`, `tool_calls=2 outcome=success`, same false denial text (chip `#5`).
+- Verified independently: time entry #5 still listed, unchanged.
+
+**Net finding across TC-CRX-226–228 (Spent time CRUD): 0/3 PASS on write — Create/Update/Delete all fail identically. Read was already confirmed working via TC-CRX-203's analytics question (though that one separately hit BUG-CRX-058's fabricated-absence defect on certain phrasings — a distinct issue from this one).**
+
+---
+
+### TC-CRX-229: News — Create
+
+**User Role:** `admin`.
+**Precondition:** No news posts exist for "Crux PM Agent Test Project".
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Create a news post in the Crux PM Agent Test Project titled 'Sprint kickoff' with the text 'We are starting the new sprint today.'"
+
+**Expected Result:**
+- A genuine confirm card for `Core Create News` with real Confirm/Cancel buttons.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-11, under a verified-healthy 495-tool MCP. Folded into BUG-CRX-061 (Repro 13) — a 5th entity domain.**
+
+- Log confirms `tools=495`, `tool_calls=2 outcome=success`, same false denial text.
+- Verified independently: `/projects/crux-pm-agent-test-project/news` shows "No data" — no post created.
+
+---
+
+### TC-CRX-230: Documents — Create
+
+**User Role:** `admin`.
+**Precondition:** No documents exist for "Crux PM Agent Test Project".
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Create a document in the Crux PM Agent Test Project titled 'Project Charter' with description 'Initial scope document'."
+
+**Expected Result:**
+- A genuine confirm card for `Core Create Document` with real Confirm/Cancel buttons.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-11, under the same verified-healthy MCP. Folded into BUG-CRX-061 (Repro 14) — a 6th entity domain.**
+
+- Log confirms `tools=495`, `tool_calls=2 outcome=success`, same false denial text.
+- Verified independently: `/projects/crux-pm-agent-test-project/documents` shows "No data" — no document created.
+
+---
+
+### TC-CRX-231: Wiki — Create (retest of TC-CRX-187)
+
+> TC-CRX-187 (2026-10-09) tried the identical request and got the same hedge text, but at the time the discovery mechanism's exact behavior "wasn't fully traceable" and the result was recorded as inconclusive. Retested now that the systemic false-denial pattern (BUG-CRX-061) is well-established, to get a definitive verdict.
+
+**User Role:** `admin`.
+**Precondition:** No wiki pages exist for "Crux PM Agent Test Project" beyond the default empty home.
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Create a wiki page in the Crux PM Agent Test Project called 'Team Norms' with the text 'Be kind, ship often.'"
+
+**Expected Result:**
+- A genuine confirm card for `Core Create Or Update Wiki Page` with real Confirm/Cancel buttons.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-11, under the same verified-healthy MCP. Folded into BUG-CRX-061 (Repro 15) — a 7th entity domain. Supersedes TC-CRX-187's inconclusive verdict.**
+
+- Log confirms `tools=495`, `tool_calls=2 outcome=success`, same false denial text.
+- Verified independently: `/projects/crux-pm-agent-test-project/wiki` shows only the default empty wiki-home editor — no "Team Norms" page exists.
+
+---
+
+### TC-CRX-232: Files — Read (list uploaded files)
+
+**User Role:** `admin`.
+**Precondition:** No files uploaded to "Crux PM Agent Test Project" (confirmed via `/projects/crux-pm-agent-test-project/files` — empty table).
+
+**Steps:**
+1. In a fresh Ask Crux chat: "What files are uploaded to the Crux PM Agent Test Project?"
+
+**Expected Result:**
+- A single call to `redmineflux_core_list_project_files` and a correct, honest "no files uploaded" answer.
+
+**Result: FAIL — CONFIRMED LIVE 2026-10-11, under a verified-healthy 495-tool MCP. New bug filed: BUG-CRX-065 (High).**
+
+- Crux burned **10 tool calls** (`list_projects`, `list_issues`, then `get_issue` ×8 — one per issue in the project, checking each individually for inline attachment data) and never once called `redmineflux_core_list_project_files` — the tool whose own docstring names this exact question as its use case.
+- Final answer falsely claimed: *"the core Redmineflux tools available to me don't have a dedicated endpoint to list ALL project-level attachments..."* — false, confirmed via MCP source.
+- Verified independently: `/projects/crux-pm-agent-test-project/files` genuinely has zero files — the correct, cheap, one-call answer (`list_project_files` would have returned "No files found") was available the whole time.
+- **Note on Files — Create**: `redmineflux_core_create_project_file` requires a `token` from a prior `redmineflux_core_upload_file` call (i.e. real file bytes) — not achievable from a plain chat text message without a file-attach mechanism in the Ask Crux UI, so Create/Update/Delete on this domain weren't tested this session; Read was the only operation practically testable via chat alone.
+
+---
+
+### TC-CRX-233: Gantt — Reschedule an issue's dates
+
+**User Role:** `admin`.
+**Precondition:** Issue #16 has Start Date 10/10/2026, no Due Date set.
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Reschedule issue #16 in the Crux PM Agent Test Project to start 2026-11-01 and due 2026-11-10 using the Gantt tool."
+2. Confirm the resulting card.
+3. Independently verify via `/issues/16` and the Gantt view.
+
+**Expected Result:**
+- A genuine confirm card with real Issue/Start Date/Due Date fields and real Confirm/Cancel buttons, and on confirm, the issue's dates genuinely change.
+
+**Result: PASS — CONFIRMED LIVE 2026-10-11.**
+
+- Genuine confirm card: "I'll change #16 — confirm?" with a real table (`Issue: #16`, `Start Date: 2026-11-01`, `Due Date: 2026-11-10`) and real Confirm/Cancel buttons — labeled "Update issue / Change #16" (resolved via the standard `update_issue` tool's date fields rather than a dedicated Gantt-specific tool, but functionally correct either way).
+- On Confirm: "✓ #16 updated: Start Date: 2026-11-01, Due Date: 2026-11-10."
+- Verified independently: `/issues/16` now shows Start Date 11/01/2026, Due Date 11/10/2026 (Due in 30 days) — genuinely persisted, not just a chat-text claim.
+- No bug — clean PASS. This is a useful positive contrast alongside TC-CRX-205/206 (Archive/Unarchive) and TC-CRX-219 (Forums honest refusal): the write-proposal pipeline clearly *can* work correctly for some entity types/tools, which continues to support BUG-CRX-061 being a resolution-logic defect scoped to specific tools, not a platform-wide outage.
+
+**Net finding across TC-CRX-226–233 (project overview tabs): 1/8 PASS (Gantt only). Spent time, News, Documents, and Wiki all fail identically via BUG-CRX-061 (now spanning 7 entity domains total); Files-Read hits a new, distinct false-denial bug (BUG-CRX-065, 10 wasted tool calls); Files-Create/Update/Delete weren't testable via chat text alone.**
+
+---
+
 ## Evidence Map
 
 - LLM-key blocker resolved 2026-10-09 — see header note. TC-CRX-177–182, 195–225 executed and recorded inline above. TC-CRX-183–187 executed earlier. This session also executed TC-CRX-188 (zero-permission control, aurora.wren — PASS), TC-CRX-193–194 (administration-boundary — PASS on core safety), and TC-CRX-198 (project close lifecycle — PASS on close, 2 bugs found). **TC-CRX-199, TC-CRX-200, TC-CRX-211, TC-CRX-218, TC-CRX-221, TC-CRX-224 all FAILED — same bug, BUG-CRX-056, now Critical, 7/7 reproduction** (field update, plugin-module enable, core-module disable, tracker enable, a Repositories-tab request resolved to a homepage-field write, tracker remove, and the Issue tracking tab's remaining fields — custom-field enable + default version/assignee, combined — every `update_project`-shaped write tried has produced the identical fabricated "I'll create this issue — confirm?" text with no real Confirm/Cancel button; the Issue tracking sub-tab's entire field set is now covered and fails identically). **TC-CRX-201 and TC-CRX-202 both FAILED — BUG-CRX-057, now Critical** (issue-count/listing questions silently exclude Closed issues, 3/3 reproduction incl. a whole-project type breakdown). **TC-CRX-203 FAILED — BUG-CRX-058, Critical** (time-spent question falsely claims zero entries + wrongly speculates time tracking is disabled, despite 10.5h of real logged time spanning open AND closed issues). **TC-CRX-204 PASS on the core action, FAIL on message clarity — BUG-CRX-059** (Reopen's confirm-card headline is word-for-word identical to Close's). **TC-CRX-205 and TC-CRX-206 both PASS, no bugs** (Archive and Unarchive, correctly distinct tool names, genuine execution, native-UI-independent verification). **TC-CRX-209, 213, 214, 215, 216, 222, 223 all FAILED with the same generic false denial — BUG-CRX-061, now Critical, 8/8 reproduction across 3 entity domains with confirmed genuinely-existing tools** (Membership role-update, Version create/update/delete, Issue Category create/update/delete — TC-213 contributes 2 of the 8 repros, a first confounded attempt and a later clean retry), **6 of the 8 confirmed under a freshly-restarted, verified-healthy 495-tool MCP catalog** (TC-CRX-207 and TC-CRX-210 are explicitly NOT part of this bucket — they got different, distinctly-worded failures, BUG-CRX-060 and BUG-CRX-062 respectively, as their own TC write-ups describe) — ruling out the morning's separately-filed MCP degraded-state issue (**BUG-CRX-063**, also found and fixed this session: the MCP server never retries its plugin-detection pass after a slow Redmine boot, silently serving only 98/498 tools for 0/14 plugins until manually restarted) as the explanation. **Issue Categories is now the first entity domain with its entire CRUD set (Create/Update/Delete) independently confirmed broken** — per explicit user follow-up asking whether category Update/Delete had been tested (they had not initially; only Create and Read were covered in the first pass). **TC-CRX-210 (Members Delete) got an even sharper, unhedged false "not yet supported" claim — BUG-CRX-062** — which also wrongly asserted Create works, contradicted by BUG-CRX-060 (Members Create stalling on a per-turn token-budget ceiling, 2/2, never reaching a confirm card). **TC-CRX-220 (Time tracking "disable") was initially filed as BUG-CRX-061's Repro 7, then corrected after TC-CRX-225 (Time tracking "enable," the reverse direction) got a completely different, detailed, honest reply for the same genuinely-nonexistent capability** — MCP source confirmed no project-level activity-toggle tool exists at all, so TC-220's failure wasn't a false denial of a real tool like the other BUG-CRX-061 repros; **re-filed as its own new bug, BUG-CRX-064** (Medium — same missing capability gets a vague "try again" non-answer in one phrasing and a correct detailed explanation in the other). **TC-CRX-208, 212, 217, 219 all PASS** — Read operations (Members, Versions, Issue Categories) all matched native UI exactly, and the Forums-tab request (TC-219) got a genuinely honest, well-reasoned refusal (names the tool groups checked, correctly concludes none fit, suggests native UI/admin) — proving Crux *can* produce a correct "truly not available" response, which argues BUG-CRX-061's false denials are a resolution-logic defect, not a deliberate restriction. **Project-entity CRUD status after this session**: Create ✅, Read ✅, Update ❌ (BUG-CRX-056), Close ✅, Reopen ✅ (message-clarity bug noted), Archive ✅, Unarchive ✅, Delete — still not tested. **Project Settings sub-tab CRUD status, now complete except Approved Hours**: Members (1/4 PASS — Read only), Issue tracking (every field tested — trackers, custom fields, defaults — all FAIL, BUG-CRX-056, 7/7 repro), Versions (1/4 PASS — Read only), Issue categories (1/4 PASS — Read only, full CRUD confirmed broken), Repositories (FAILs via BUG-CRX-056's homepage substitution), Forums (PASS — honest refusal), Time tracking (disable gets a vague non-answer, enable gets a detailed honest one — BUG-CRX-064; the underlying per-project activity toggle genuinely doesn't exist either way), Approved Hours (explicitly deferred to Budget Audit plugin's own scope, not tested). **Still PENDING: TC-CRX-189–192** (the luna.blossom incremental permission matrix) — paused mid-session to run the admin-tier CRUD coverage sweep instead; pick these up next (Manager role baseline already reconfirmed: `view_issues` genuinely false, `view_crux`/`approve_crux_gates`/`use_ask_crux` genuinely true). Also still pending: Project entity Delete.
-- Screenshots: `screenshots/TC-CRX-<NNN>/` per CLAUDE.md §6 (bug evidence only) — this session's bug screenshots are filed under `screenshots/BUG-CRX-<NNN>/` instead, per the bug template's own convention. TC-CRX-205/206/208/212/217/219 are clean PASSes with no bug, so per §6 no screenshots were taken for them.
-- Bug references so far: BUG-CRX-050 through BUG-CRX-064 (050–053 reported to production; 054–064 not yet reported — see `bugs/_index.md`).
+- **Session extended further into the project's overview tabs** (Spent time, News, Documents, Wiki, Files, Gantt — per explicit user request to cover every tab on the project nav bar, not just Project Settings). **TC-CRX-226–228 (Spent time CRUD): 0/3 PASS on write** — Create (`log_time`), Update, and Delete all fail identically, folded into **BUG-CRX-061 as Repros 10-12**, making Time Entries the second entity domain (after Issue Categories) with its entire write surface confirmed broken. **TC-CRX-229 (News create), TC-CRX-230 (Documents create), and TC-CRX-231 (Wiki create, a retest of the earlier-inconclusive TC-CRX-187) all FAILED identically — folded into BUG-CRX-061 as Repros 13-15**, bringing the bug to **15/15 reproductions across 7 entity domains** (Membership, Version, Issue Category, Time Entry, News, Document, Wiki) — effectively every "list-then-write" entity type tried this session has failed via this one shared defect. **TC-CRX-232 (Files — list uploaded files) surfaced a new, distinct bug: BUG-CRX-065** — Crux burned **10 tool calls** (fetching all 8 project issues individually looking for attachments) without ever calling `redmineflux_core_list_project_files`, the tool purpose-built for exactly this question, then falsely claimed no such capability exists; the real, cheap, one-call answer ("no files uploaded," confirmed via native UI) was available the whole time — a read-path false denial, distinct from BUG-CRX-061's write-path pattern, and unusually costly before giving up. **TC-CRX-233 (Gantt — reschedule an issue's dates) PASSED cleanly** — genuine confirm card, genuine execution, genuinely persisted dates — an important positive data point alongside Archive/Unarchive and the Forums honest-refusal, confirming the write pipeline *can* work correctly for some tools. **Files Create/Update/Delete weren't testable via chat text alone** (the real tool requires a `token` from a prior file-upload call, i.e. actual file bytes, which plain chat text can't provide). **2 new/updated bugs this extension: BUG-CRX-061 (grown from 9 to 15 reproductions across 3 new domains) and BUG-CRX-065 (new)** — none yet reported to production.
+- Screenshots: `screenshots/TC-CRX-<NNN>/` per CLAUDE.md §6 (bug evidence only) — this session's bug screenshots are filed under `screenshots/BUG-CRX-<NNN>/` instead, per the bug template's own convention. TC-CRX-205/206/208/212/217/219/233 are clean PASSes with no bug, so per §6 no screenshots were taken for them.
+- Bug references so far: BUG-CRX-050 through BUG-CRX-065 (050–053 reported to production; 054–065 not yet reported — see `bugs/_index.md`).

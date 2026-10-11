@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-061
 - Production Redmine Issue ID:
-- Title: Project Manager falsely claims it "couldn't confirm whether this action is actually available here" — 8/8 reproductions across 3 entity domains with confirmed genuinely-existing tools (membership role-update, version create ×2/update/delete, issue-category create/update/delete) — 6 of the 8 under a freshly-restarted, confirmed-healthy 495-tool MCP catalog — even though the real tools genuinely exist and the agent had already resolved every id it needed; Issue Categories is the first entity type where the entire CRUD set fails identically. (A 4th apparent domain, Time Tracking Activities, was found on closer inspection to be a genuinely-unavailable capability, not a false denial — split out as BUG-CRX-064.)
+- Title: Project Manager falsely claims it "couldn't confirm whether this action is actually available here" — 15/15 reproductions across 7 entity domains with confirmed genuinely-existing tools (membership role-update, version create ×2/update/delete, issue-category create/update/delete, time-entry create/update/delete, news create, document create, wiki-page create) — 12 of the 15 under a freshly-restarted, confirmed-healthy 495-tool MCP catalog — even though the real tools genuinely exist and the agent had already resolved every id it needed; Issue Categories and Time Entries are both entity types where the entire CRUD set fails identically. (An 8th apparent domain, Time Tracking Activities, was found on closer inspection to be a genuinely-unavailable capability, not a false denial — split out as BUG-CRX-064.)
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)
 - Plugin version: 0.62.0
@@ -68,6 +68,36 @@
 
 **Updated net result across the 8 in-scope repros (1, 3, 4, 5, 6, 8, 9, plus Repro 2 as confounded supporting color)**: the false denial covers the **complete CRUD set** on the Issue Category domain (Create — Repro 6, Update — Repro 8, Delete — Repro 9), in addition to Version create/update/delete and Membership update — **3 entity domains with confirmed genuinely-existing tools, 6 of 8 repros under a confirmed-healthy 495-tool MCP catalog.** Issue Categories is the first entity type where every single write operation (not just one) has been independently confirmed to fail identically. (Time Tracking Activities, Repro 7, is excluded from this count after the correction above — see **BUG-CRX-064** for the distinct issue it actually demonstrates.)
 
+**Repro 10 — a fourth entity domain, Time Entries ("Spent time" tab), Create (`log_time`):**
+1. In a fresh chat: "Log 2 hours of Development time on issue #16 in the Crux PM Agent Test Project, dated today, with a comment 'testing time log via chat'." Log confirms `tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, ending in the identical false denial text (chip referencing `#16`, confirming the issue was resolved first).
+2. Native UI (`/projects/crux-pm-agent-test-project/time_entries`) confirms still exactly 4 entries (10.5h total, from the TC-CRX-201–203 fixture) — no 5th entry for today/issue #16 was created.
+3. Independently confirmed via MCP source (`/app/src/tools/core.py:596`, `redmineflux_core_log_time`) that the time-entry creation tool is fully implemented and registered — this is a genuine entity domain with a real tool, not a Time-Tracking-Activity-style absence (BUG-CRX-064).
+
+**Repro 11 — Time Entry Update:**
+1. In a fresh chat: "Change the comment on time entry #4 in the Crux PM Agent Test Project to 'updated via chat test'." Log confirms `tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text (chip `#4`).
+2. Native UI (`/time_entries/4/edit`) confirms the Comment field is still empty and Hours/Issue unchanged (1:30, issue #18). Independently confirmed via MCP source (`core.py:821`, `redmineflux_core_update_time_entry`) that the tool exists.
+
+**Repro 12 — Time Entry Delete:**
+1. Fixture: created a disposable time entry (#5, 0:30 Development on issue #16, comment "disposable fixture for delete test") via native UI.
+2. In a fresh chat: "Delete time entry #5 from the Crux PM Agent Test Project." Log confirms `tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text (chip `#5`).
+3. Native UI confirms time entry #5 is still listed — unchanged. Independently confirmed via MCP source (`core.py:881`, `redmineflux_core_delete_time_entry`) that the tool exists.
+
+**Net result after Repros 10-12**: Time Entries joins Issue Categories as a second entity domain where the **entire CRUD set** (Create/Update/Delete) fails identically — Read was already independently confirmed working in `CRUX_AGENT_PROJECT_MANAGER.md` TC-CRX-203 (the "how much time logged" analytics question, albeit that one separately hit the unrelated fabricated-absence bug BUG-CRX-058 — a different defect on the read side, not this one). This brings the total to **12/12 reproductions across 4 entity domains** (Membership, Version, Issue Category, Time Entry), all independently confirmed to have the real tool genuinely registered in the MCP catalog.
+
+**Repro 13 — a fifth entity domain, News, Create:**
+1. In a fresh chat: "Create a news post in the Crux PM Agent Test Project titled 'Sprint kickoff' with the text 'We are starting the new sprint today.'" Log confirms `tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, ending in the identical false denial text.
+2. Native UI (`/projects/crux-pm-agent-test-project/news`) confirms "No data" — no news post was created. Independently confirmed via MCP source (`core.py:2885`, `redmineflux_core_create_news`) that the tool exists.
+
+**Repro 14 — a sixth entity domain, Documents, Create:**
+1. In a fresh chat: "Create a document in the Crux PM Agent Test Project titled 'Project Charter' with description 'Initial scope document'." Log confirms `tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, ending in the identical false denial text.
+2. Native UI (`/projects/crux-pm-agent-test-project/documents`) confirms "No data" — no document was created. Independently confirmed via MCP source (`core.py:3728`, `redmineflux_core_create_document`) that the tool exists.
+
+**Repro 15 — a seventh entity domain, Wiki, Create:**
+1. In a fresh chat: "Create a wiki page in the Crux PM Agent Test Project called 'Team Norms' with the text 'Be kind, ship often.'" Log confirms `tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, ending in the identical false denial text.
+2. Native UI (`/projects/crux-pm-agent-test-project/wiki`) shows only the default empty wiki-home editor — no "Team Norms" page exists. Independently confirmed via MCP source (`core.py:2748`, `redmineflux_core_create_or_update_wiki_page`) that the tool exists. **This also resolves TC-CRX-187's earlier "inconclusive" result from the same suite (2026-10-09), where the identical request produced the same hedge text but the discovery mechanism couldn't be fully traced at the time — now confirmed as a clean instance of this same systemic false-denial pattern, not a discovery-mechanism ambiguity.**
+
+**Updated net result after Repros 13-15**: the false denial now spans **7 entity domains** (Membership, Version, Issue Category, Time Entry, News, Documents, Wiki) — **15/15 reproductions**, all independently confirmed to have the real, purpose-built tool genuinely registered in the MCP catalog. By this point in the session, every "list-then-write" entity type tried has failed identically, with the sole exceptions being Repositories/Forums (genuinely no tool exists — honest refusal, see contrast note below) and Time Tracking Activities (genuinely no tool exists — BUG-CRX-064's inconsistent-messaging issue, not this bug).
+
 **For contrast — not every Project Settings tab fails this way**: the same session's Repositories- and Forums-tab requests (see `CRUX_AGENT_PROJECT_MANAGER.md` TC-CRX-216/217) got **honest, well-reasoned refusals** instead of this generic false denial — Crux correctly explained no matching tool exists, named the tool groups it checked, and suggested the native UI/admin as alternatives. This shows the agent *is* capable of a correct "genuinely not available" response when the capability truly doesn't exist; the false-denial pattern here specifically affects entity types that *do* have real tools, which argues against this being a deliberate/by-design restriction and toward a resolution-logic defect in the write pipeline.
 
 ## Expected result
@@ -97,6 +127,12 @@ No write occurred — native UI confirms the membership is still Reporter, so th
 ![Repro 7 — Time-tracking activity disable (later reclassified — no tool genuinely exists for this; see BUG-CRX-064)](../../screenshots/BUG-CRX-061/repro-7-time-tracking-activity-disable-healthy-mcp-still-false-denial.png)
 ![Repro 8 — Issue category rename (Update), same healthy MCP, same false denial](../../screenshots/BUG-CRX-061/repro-8-issue-category-rename-healthy-mcp-still-false-denial.png)
 ![Repro 9 — Issue category delete, same healthy MCP, same false denial — completes the full CRUD failure set for this entity domain](../../screenshots/BUG-CRX-061/repro-9-issue-category-delete-healthy-mcp-still-false-denial.png)
+![Repro 10 — Time entry create (log_time), a fourth entity domain, same healthy MCP, same false denial](../../screenshots/BUG-CRX-061/repro-10-time-entry-log-time-healthy-mcp-still-false-denial.png)
+![Repro 11 — Time entry update, same healthy MCP, same false denial](../../screenshots/BUG-CRX-061/repro-11-time-entry-update-healthy-mcp-still-false-denial.png)
+![Repro 12 — Time entry delete, same healthy MCP, same false denial — completes the full CRUD failure set for a second entity domain](../../screenshots/BUG-CRX-061/repro-12-time-entry-delete-healthy-mcp-still-false-denial.png)
+![Repro 13 — News create, a fifth entity domain, same healthy MCP, same false denial](../../screenshots/BUG-CRX-061/repro-13-news-create-healthy-mcp-still-false-denial.png)
+![Repro 14 — Document create, a sixth entity domain, same healthy MCP, same false denial](../../screenshots/BUG-CRX-061/repro-14-document-create-healthy-mcp-still-false-denial.png)
+![Repro 15 — Wiki page create, a seventh entity domain, same healthy MCP, same false denial — also resolves TC-CRX-187's earlier inconclusive result](../../screenshots/BUG-CRX-061/repro-15-wiki-create-healthy-mcp-still-false-denial.png)
 
 ### Console / log
 
@@ -111,6 +147,12 @@ No write occurred — native UI confirms the membership is still Reporter, so th
 - Repro 7 (reclassified, see BUG-CRX-064): `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI (`/projects/crux-pm-agent-test-project/settings/activities`) confirms "Design" activity still checked/enabled. MCP source confirms no project-level activity-toggle tool exists at all (`core.py` has only `list_time_entry_activities`/`get_activity`; `update_project`'s full parameter list has no activity field) — so unlike Repros 1/3/4/5/6/8/9, this is not a false denial of an existing tool.
 - Repro 8: `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI confirms category still named "Development - Chrome Extention" — unchanged.
 - Repro 9: `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI confirms "zz-delete-me-category" still exists — unchanged.
+- Repro 10: `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI (`/projects/crux-pm-agent-test-project/time_entries`) confirms still exactly 4 entries, 10.5h total. MCP source (`core.py:596`), `redmineflux_core_log_time` — fully implemented.
+- Repro 11: `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI (`/time_entries/4/edit`) confirms Comment still empty, unchanged. MCP source (`core.py:821`), `redmineflux_core_update_time_entry` — fully implemented.
+- Repro 12: `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI confirms time entry #5 still listed, unchanged. MCP source (`core.py:881`), `redmineflux_core_delete_time_entry` — fully implemented.
+- Repro 13: `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI (`/projects/crux-pm-agent-test-project/news`) shows "No data". MCP source (`core.py:2885`), `redmineflux_core_create_news` — fully implemented.
+- Repro 14: `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI (`/projects/crux-pm-agent-test-project/documents`) shows "No data". MCP source (`core.py:3728`), `redmineflux_core_create_document` — fully implemented.
+- Repro 15: `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI (`/projects/crux-pm-agent-test-project/wiki`) shows only the default empty wiki-home editor. MCP source (`core.py:2748`), `redmineflux_core_create_or_update_wiki_page` — fully implemented.
 
 ## Duplicate check
 

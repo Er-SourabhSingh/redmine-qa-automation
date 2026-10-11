@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-056
 - Production Redmine Issue ID:
-- Title: Every `update_project`-shaped write request (field update, module enable, module disable, tracker enable) produces the identical fabricated "I'll create this issue — confirm?" proposal with no real Confirm/Cancel button or detail table at all — 4/4 reproductions
+- Title: Every `update_project`-shaped write request (field update, module enable, module disable, tracker enable, repository-link-via-homepage) produces the identical fabricated "I'll create this issue — confirm?" proposal with no real Confirm/Cancel button or detail table at all — 5/5 reproductions
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)
 - Plugin version: 0.62.0
@@ -36,6 +36,12 @@
 2. Reproduced the exact same "I'll create this issue — confirm?" text again, under "Checked 3 things" — no Confirm/Cancel buttons, no table.
 3. Independently checked `/projects/crux-pm-agent-test-project/settings/issues` — the "Testcase" checkbox is still unchecked, confirming no silent execution. This confirms the bug isn't scoped only to the Project/Info sub-tab's fields+modules — the Issue tracking sub-tab's tracker list hits the identical failure, since both are ultimately the same `update_project` API call under the hood.
 
+**Repro 5 — Repositories tab (no genuine repository-link tool exists at all; Crux correctly identifies this and substitutes the project homepage field instead):**
+1. New chat. Send: "Add a repository link for the Crux PM Agent Test Project." Crux responds with a genuine, reasonable clarifying question: it correctly found the project and asked for the URL, noting *"I'll propose adding it to the project's homepage or as a dedicated repository field."* — an honest, sensible substitution, since no MCP tool exists for Redmine's actual Repository entity (confirmed via source: only `redmineflux_devops_list_repositories`, a read-only DevOps-domain tool, exists anywhere in the codebase — nothing for creating a project-settings repository link).
+2. Replied with a URL: `https://github.com/zehntech/crux-pm-test`.
+3. Reproduced the exact same "I'll create this issue — confirm?" text — no Confirm/Cancel buttons, no table — since this resolved to the same `update_project`-shaped homepage-field write underneath.
+4. Independently checked `/projects/crux-pm-agent-test-project/settings/info` — Homepage field is still empty, confirming no silent execution.
+
 ## Expected result
 
 - A genuine, real-tool-backed confirm card naming the actual tool (`Core Update Project` or equivalent) and a table listing exactly the 3 requested field changes (Description, Homepage, Public→false), with real Confirm/Cancel buttons — the same shape every other successful write proposal in this suite has shown (e.g. TC-CRX-182's "Create issue" card, TC-CRX-198's "Core Set Project Closed" card).
@@ -56,6 +62,7 @@
 ![Second reproduction — identical fabricated text on a module-enable request](../../screenshots/BUG-CRX-056/repro-2-module-enable-same-fabricated-text.png)
 ![Third reproduction — identical fabricated text disabling a genuine core Redmine module](../../screenshots/BUG-CRX-056/repro-3-core-module-disable-same-fabricated-text.png)
 ![Fourth reproduction — identical fabricated text enabling a tracker on the Issue tracking sub-tab](../../screenshots/BUG-CRX-056/repro-4-tracker-enable-same-fabricated-text.png)
+![Fifth reproduction — identical fabricated text on a Repositories-tab request resolved to a homepage-field update](../../screenshots/BUG-CRX-056/repro-5-repositories-tab-homepage-workaround-same-fabricated-text.png)
 
 ### Console / log
 
@@ -64,7 +71,7 @@
 
 ## Note for triage
 
-The identical exact string "I'll create this issue — confirm?" appeared on **4 completely unrelated operations** in 4 separate fresh chats: a 3-field project update (description/homepage/public), enabling a plugin module (Agile Board), disabling a genuine core Redmine module (Forums), and enabling a tracker on the separate Issue tracking sub-tab (Testcase) — covering both directions (enable/disable), both module categories (core/plugin), a non-module field update, and now a different Project Settings sub-tab entirely. This strongly suggests a hardcoded placeholder/fallback confirm-text string somewhere in the proposal-rendering path that isn't being replaced with the actual proposed action/tool — likely the same code path that should be producing a real tool-specific card (as it correctly does for `create_issue`, `update_issue`, `Core Set Project Closed`, etc.) but falls through to this generic literal for **every** `update_project`-shaped write, without ever actually building the real proposal or its Confirm/Cancel buttons. Given 4/4 reproduction across every variant tried — spanning both Project Settings sub-tabs whose fields map onto `update_project` — this is very likely a 100%-reproducible, total failure of the `update_project` write path via chat — not an intermittent issue.
+The identical exact string "I'll create this issue — confirm?" appeared on **5 completely unrelated operations** in 5 separate fresh chats: a 3-field project update (description/homepage/public), enabling a plugin module (Agile Board), disabling a genuine core Redmine module (Forums), enabling a tracker on the separate Issue tracking sub-tab (Testcase), and a Repositories-tab request that Crux reasonably substituted into a homepage-field update — covering both directions (enable/disable), both module categories (core/plugin), a non-module field update, and 3 different Project Settings sub-tabs. This strongly suggests a hardcoded placeholder/fallback confirm-text string somewhere in the proposal-rendering path that isn't being replaced with the actual proposed action/tool — likely the same code path that should be producing a real tool-specific card (as it correctly does for `create_issue`, `update_issue`, `Core Set Project Closed`, etc.) but falls through to this generic literal for **every** `update_project`-shaped write, without ever actually building the real proposal or its Confirm/Cancel buttons. Given 5/5 reproduction across every variant tried — spanning 3 Project Settings sub-tabs whose fields all map onto `update_project` — this is very likely a 100%-reproducible, total failure of the `update_project` write path via chat — not an intermittent issue. Notably, this is a *different* failure mode from BUG-CRX-061 (the "couldn't confirm available" false denial affecting Versions/Memberships/Categories) — `update_project` fails by fabricating a wrong confirm card, while those other entity types fail by denying availability outright. Both appear to share the same root symptom (the write-proposal pipeline not correctly building a real tool-specific card) but manifest differently depending on the entity type.
 
 ## Duplicate check
 

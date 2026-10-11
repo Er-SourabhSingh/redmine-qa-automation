@@ -756,6 +756,49 @@ Side observation (not a new finding): the top-nav "Crux" link is still rendered 
 
 ---
 
+### TC-CRX-221: Issue tracking tab — remove a tracker (reverse direction of TC-CRX-211)
+
+> Per explicit user clarification: the Issue tracking tab's tracker list is an include/exclude toggle on the project, not tracker creation — TC-CRX-211 only tested the include (enable) direction; this TC covers remove (exclude) to complete the pair, the same way Close/Reopen and Archive/Unarchive were each tested both directions earlier in this suite.
+
+**User Role:** `admin`.
+**Precondition:** "Support" tracker is enabled (checked) for "Crux PM Agent Test Project", alongside Bug and Feature — confirmed via `/projects/crux-pm-agent-test-project/settings/issues`.
+
+**Steps:**
+1. In a fresh Ask Crux chat: "Remove the Support tracker from the Crux PM Agent Test Project."
+
+**Expected Result:**
+- A genuine confirm card naming a real update tool, with a detail table and real Confirm/Cancel buttons.
+
+**Result: FAIL — 6th reproduction of BUG-CRX-056, CONFIRMED LIVE 2026-10-11.**
+
+- Identical fabricated "I'll create this issue — confirm?" text, no real Confirm/Cancel buttons, no table — under "Checked 2 things."
+- Verified independently: `/projects/crux-pm-agent-test-project/settings/issues` — "Support" checkbox still checked.
+- Combined with TC-CRX-211, this confirms the Issue tracking tab's tracker toggle fails identically in **both** directions (include and remove) — no new bug filed; BUG-CRX-056 updated to 6/6 reproductions.
+
+---
+
+### TC-CRX-224: Issue tracking tab — custom field enable + defaults (combined)
+
+> Added per explicit user follow-up to finish the Issue tracking tab's remaining fields: custom-field enable/disable and default version/assignee/query.
+
+**User Role:** `admin`.
+**Precondition:** "Issue Category" custom field is unchecked; Default version and Default assignee are both "None" for "Crux PM Agent Test Project".
+
+**Steps:**
+1. In a fresh Ask Crux chat: "For the Crux PM Agent Test Project, enable the Issue Category custom field on issue tracking, set the default version to v2.0, and set the default assignee to admin."
+
+**Expected Result:**
+- A genuine confirm card for `Core Update Project` listing all 3 changes, with real Confirm/Cancel buttons.
+
+**Result: FAIL — 7th reproduction of BUG-CRX-056, CONFIRMED LIVE 2026-10-11.**
+
+- Identical fabricated "I'll create this issue — confirm?" text, no real Confirm/Cancel buttons, no table — under "Checked 5 things."
+- Verified independently: "Issue Category" checkbox still unchecked, Default version still "None", Default assignee still "None". This completes coverage of every field on the Issue tracking sub-tab — no new bug filed; BUG-CRX-056 updated to 7/7 reproductions.
+
+**Net finding across TC-CRX-211, 221, 224 (Issue tracking tab, every field): 0/3 PASS — trackers (both directions), custom fields, and defaults all fail identically via BUG-CRX-056. This sub-tab has zero functional write capability via chat.**
+
+---
+
 ## Positive/Negative Cases — Project Settings → Versions tab CRUD (admin tier)
 
 > Session note: partway through this sub-suite, `tools/list` was found returning only 95 tools (vs. the normal ~495) because `mcp-1` had started before Redmine was reachable that morning and never retried its plugin-detection pass — filed as **BUG-CRX-063**. `mcp-1` was restarted once Redmine was confirmed healthy (recovered to 498 tools, 13/14 plugins). TC-CRX-213's first attempt happened during the degraded window; it was deliberately re-run afterward (see its Result) once the catalog was confirmed healthy, to separate the two defects cleanly.
@@ -979,26 +1022,6 @@ Side observation (not a new finding): the top-nav "Crux" link is still rendered 
 
 ---
 
-### TC-CRX-224: Issue tracking tab — custom field enable + defaults (combined)
-
-> Added per explicit user follow-up to finish the Issue tracking tab's remaining fields: custom-field enable/disable and default version/assignee/query.
-
-**User Role:** `admin`.
-**Precondition:** "Issue Category" custom field is unchecked; Default version and Default assignee are both "None" for "Crux PM Agent Test Project".
-
-**Steps:**
-1. In a fresh Ask Crux chat: "For the Crux PM Agent Test Project, enable the Issue Category custom field on issue tracking, set the default version to v2.0, and set the default assignee to admin."
-
-**Expected Result:**
-- A genuine confirm card for `Core Update Project` listing all 3 changes, with real Confirm/Cancel buttons.
-
-**Result: FAIL — 7th reproduction of BUG-CRX-056, CONFIRMED LIVE 2026-10-11.**
-
-- Identical fabricated "I'll create this issue — confirm?" text, no real Confirm/Cancel buttons, no table — under "Checked 5 things."
-- Verified independently: "Issue Category" checkbox still unchecked, Default version still "None", Default assignee still "None". This completes coverage of every field on the Issue tracking sub-tab — no new bug filed; BUG-CRX-056 updated to 7/7 reproductions.
-
----
-
 ### TC-CRX-225: Time tracking tab — enable an activity (reverse direction of TC-CRX-220, important correction)
 
 **User Role:** `admin`.
@@ -1019,29 +1042,8 @@ Side observation (not a new finding): the top-nav "Crux" link is still rendered 
 
 ---
 
-### TC-CRX-221: Issue tracking tab — remove a tracker (reverse direction of TC-CRX-211)
-
-> Per explicit user clarification: the Issue tracking tab's tracker list is an include/exclude toggle on the project, not tracker creation — TC-CRX-211 only tested the include (enable) direction; this TC covers remove (exclude) to complete the pair, the same way Close/Reopen and Archive/Unarchive were each tested both directions earlier in this suite.
-
-**User Role:** `admin`.
-**Precondition:** "Support" tracker is enabled (checked) for "Crux PM Agent Test Project", alongside Bug and Feature — confirmed via `/projects/crux-pm-agent-test-project/settings/issues`.
-
-**Steps:**
-1. In a fresh Ask Crux chat: "Remove the Support tracker from the Crux PM Agent Test Project."
-
-**Expected Result:**
-- A genuine confirm card naming a real update tool, with a detail table and real Confirm/Cancel buttons.
-
-**Result: FAIL — 6th reproduction of BUG-CRX-056, CONFIRMED LIVE 2026-10-11.**
-
-- Identical fabricated "I'll create this issue — confirm?" text, no real Confirm/Cancel buttons, no table — under "Checked 2 things."
-- Verified independently: `/projects/crux-pm-agent-test-project/settings/issues` — "Support" checkbox still checked.
-- Combined with TC-CRX-211, this confirms the Issue tracking tab's tracker toggle fails identically in **both** directions (include and remove) — no new bug filed; BUG-CRX-056 updated to 6/6 reproductions.
-
----
-
 ## Evidence Map
 
-- LLM-key blocker resolved 2026-10-09 — see header note. TC-CRX-177–182, 195–225 executed and recorded inline above. TC-CRX-183–187 executed earlier. This session also executed TC-CRX-188 (zero-permission control, aurora.wren — PASS), TC-CRX-193–194 (administration-boundary — PASS on core safety), and TC-CRX-198 (project close lifecycle — PASS on close, 2 bugs found). **TC-CRX-199, TC-CRX-200, TC-CRX-211, TC-CRX-218, TC-CRX-221, TC-CRX-224 all FAILED — same bug, BUG-CRX-056, now Critical, 7/7 reproduction** (field update, plugin-module enable, core-module disable, tracker enable, a Repositories-tab request resolved to a homepage-field write, tracker remove, and the Issue tracking tab's remaining fields — custom-field enable + default version/assignee, combined — every `update_project`-shaped write tried has produced the identical fabricated "I'll create this issue — confirm?" text with no real Confirm/Cancel button; the Issue tracking sub-tab's entire field set is now covered and fails identically). **TC-CRX-201 and TC-CRX-202 both FAILED — BUG-CRX-057, now Critical** (issue-count/listing questions silently exclude Closed issues, 3/3 reproduction incl. a whole-project type breakdown). **TC-CRX-203 FAILED — BUG-CRX-058, Critical** (time-spent question falsely claims zero entries + wrongly speculates time tracking is disabled, despite 10.5h of real logged time spanning open AND closed issues). **TC-CRX-204 PASS on the core action, FAIL on message clarity — BUG-CRX-059** (Reopen's confirm-card headline is word-for-word identical to Close's). **TC-CRX-205 and TC-CRX-206 both PASS, no bugs** (Archive and Unarchive, correctly distinct tool names, genuine execution, native-UI-independent verification). **TC-CRX-207, 209, 210, 213, 214, 215, 216, 222, 223 all FAILED with the same generic false denial — BUG-CRX-061, now Critical, 8/8 reproduction across 3 entity domains with confirmed genuinely-existing tools** (Membership role-update, Version create/update/delete, Issue Category create/update/delete), **6 of the 8 confirmed under a freshly-restarted, verified-healthy 495-tool MCP catalog** — ruling out the morning's separately-filed MCP degraded-state issue (**BUG-CRX-063**, also found and fixed this session: the MCP server never retries its plugin-detection pass after a slow Redmine boot, silently serving only 98/498 tools for 0/14 plugins until manually restarted) as the explanation. **Issue Categories is now the first entity domain with its entire CRUD set (Create/Update/Delete) independently confirmed broken** — per explicit user follow-up asking whether category Update/Delete had been tested (they had not initially; only Create and Read were covered in the first pass). **TC-CRX-210 (Members Delete) got an even sharper, unhedged false "not yet supported" claim — BUG-CRX-062** — which also wrongly asserted Create works, contradicted by BUG-CRX-060 (Members Create stalling on a per-turn token-budget ceiling, 2/2, never reaching a confirm card). **TC-CRX-220 (Time tracking "disable") was initially filed as BUG-CRX-061's Repro 7, then corrected after TC-CRX-225 (Time tracking "enable," the reverse direction) got a completely different, detailed, honest reply for the same genuinely-nonexistent capability** — MCP source confirmed no project-level activity-toggle tool exists at all, so TC-220's failure wasn't a false denial of a real tool like the other BUG-CRX-061 repros; **re-filed as its own new bug, BUG-CRX-064** (Medium — same missing capability gets a vague "try again" non-answer in one phrasing and a correct detailed explanation in the other). **TC-CRX-208, 212, 217, 219 all PASS** — Read operations (Members, Versions, Issue Categories) all matched native UI exactly, and the Forums-tab request (TC-219) got a genuinely honest, well-reasoned refusal (names the tool groups checked, correctly concludes none fit, suggests native UI/admin) — proving Crux *can* produce a correct "truly not available" response, which argues BUG-CRX-061's false denials are a resolution-logic defect, not a deliberate restriction. **Project-entity CRUD status after this session**: Create ✅, Read ✅, Update ❌ (BUG-CRX-056), Close ✅, Reopen ✅ (message-clarity bug noted), Archive ✅, Unarchive ✅, Delete — still not tested. **Project Settings sub-tab CRUD status, now complete except Approved Hours**: Members (1/4 PASS — Read only), Issue tracking (every field tested — trackers, custom fields, defaults — all FAIL, BUG-CRX-056, 7/7 repro), Versions (1/4 PASS — Read only), Issue categories (1/4 PASS — Read only, full CRUD confirmed broken), Repositories (FAILs via BUG-CRX-056's homepage substitution), Forums (PASS — honest refusal), Time tracking (disable gets a vague non-answer, enable gets a detailed honest one — BUG-CRX-064; the underlying per-project activity toggle genuinely doesn't exist either way), Approved Hours (explicitly deferred to Budget Audit plugin's own scope, not tested). **Still PENDING: TC-CRX-189–192** (the luna.blossom incremental permission matrix) — paused mid-session to run the admin-tier CRUD coverage sweep instead; pick these up next (Manager role baseline already reconfirmed: `view_issues` genuinely false, `view_crux`/`approve_crux_gates`/`use_ask_crux` genuinely true). Also still pending: Project entity Delete.
+- LLM-key blocker resolved 2026-10-09 — see header note. TC-CRX-177–182, 195–225 executed and recorded inline above. TC-CRX-183–187 executed earlier. This session also executed TC-CRX-188 (zero-permission control, aurora.wren — PASS), TC-CRX-193–194 (administration-boundary — PASS on core safety), and TC-CRX-198 (project close lifecycle — PASS on close, 2 bugs found). **TC-CRX-199, TC-CRX-200, TC-CRX-211, TC-CRX-218, TC-CRX-221, TC-CRX-224 all FAILED — same bug, BUG-CRX-056, now Critical, 7/7 reproduction** (field update, plugin-module enable, core-module disable, tracker enable, a Repositories-tab request resolved to a homepage-field write, tracker remove, and the Issue tracking tab's remaining fields — custom-field enable + default version/assignee, combined — every `update_project`-shaped write tried has produced the identical fabricated "I'll create this issue — confirm?" text with no real Confirm/Cancel button; the Issue tracking sub-tab's entire field set is now covered and fails identically). **TC-CRX-201 and TC-CRX-202 both FAILED — BUG-CRX-057, now Critical** (issue-count/listing questions silently exclude Closed issues, 3/3 reproduction incl. a whole-project type breakdown). **TC-CRX-203 FAILED — BUG-CRX-058, Critical** (time-spent question falsely claims zero entries + wrongly speculates time tracking is disabled, despite 10.5h of real logged time spanning open AND closed issues). **TC-CRX-204 PASS on the core action, FAIL on message clarity — BUG-CRX-059** (Reopen's confirm-card headline is word-for-word identical to Close's). **TC-CRX-205 and TC-CRX-206 both PASS, no bugs** (Archive and Unarchive, correctly distinct tool names, genuine execution, native-UI-independent verification). **TC-CRX-209, 213, 214, 215, 216, 222, 223 all FAILED with the same generic false denial — BUG-CRX-061, now Critical, 8/8 reproduction across 3 entity domains with confirmed genuinely-existing tools** (Membership role-update, Version create/update/delete, Issue Category create/update/delete — TC-213 contributes 2 of the 8 repros, a first confounded attempt and a later clean retry), **6 of the 8 confirmed under a freshly-restarted, verified-healthy 495-tool MCP catalog** (TC-CRX-207 and TC-CRX-210 are explicitly NOT part of this bucket — they got different, distinctly-worded failures, BUG-CRX-060 and BUG-CRX-062 respectively, as their own TC write-ups describe) — ruling out the morning's separately-filed MCP degraded-state issue (**BUG-CRX-063**, also found and fixed this session: the MCP server never retries its plugin-detection pass after a slow Redmine boot, silently serving only 98/498 tools for 0/14 plugins until manually restarted) as the explanation. **Issue Categories is now the first entity domain with its entire CRUD set (Create/Update/Delete) independently confirmed broken** — per explicit user follow-up asking whether category Update/Delete had been tested (they had not initially; only Create and Read were covered in the first pass). **TC-CRX-210 (Members Delete) got an even sharper, unhedged false "not yet supported" claim — BUG-CRX-062** — which also wrongly asserted Create works, contradicted by BUG-CRX-060 (Members Create stalling on a per-turn token-budget ceiling, 2/2, never reaching a confirm card). **TC-CRX-220 (Time tracking "disable") was initially filed as BUG-CRX-061's Repro 7, then corrected after TC-CRX-225 (Time tracking "enable," the reverse direction) got a completely different, detailed, honest reply for the same genuinely-nonexistent capability** — MCP source confirmed no project-level activity-toggle tool exists at all, so TC-220's failure wasn't a false denial of a real tool like the other BUG-CRX-061 repros; **re-filed as its own new bug, BUG-CRX-064** (Medium — same missing capability gets a vague "try again" non-answer in one phrasing and a correct detailed explanation in the other). **TC-CRX-208, 212, 217, 219 all PASS** — Read operations (Members, Versions, Issue Categories) all matched native UI exactly, and the Forums-tab request (TC-219) got a genuinely honest, well-reasoned refusal (names the tool groups checked, correctly concludes none fit, suggests native UI/admin) — proving Crux *can* produce a correct "truly not available" response, which argues BUG-CRX-061's false denials are a resolution-logic defect, not a deliberate restriction. **Project-entity CRUD status after this session**: Create ✅, Read ✅, Update ❌ (BUG-CRX-056), Close ✅, Reopen ✅ (message-clarity bug noted), Archive ✅, Unarchive ✅, Delete — still not tested. **Project Settings sub-tab CRUD status, now complete except Approved Hours**: Members (1/4 PASS — Read only), Issue tracking (every field tested — trackers, custom fields, defaults — all FAIL, BUG-CRX-056, 7/7 repro), Versions (1/4 PASS — Read only), Issue categories (1/4 PASS — Read only, full CRUD confirmed broken), Repositories (FAILs via BUG-CRX-056's homepage substitution), Forums (PASS — honest refusal), Time tracking (disable gets a vague non-answer, enable gets a detailed honest one — BUG-CRX-064; the underlying per-project activity toggle genuinely doesn't exist either way), Approved Hours (explicitly deferred to Budget Audit plugin's own scope, not tested). **Still PENDING: TC-CRX-189–192** (the luna.blossom incremental permission matrix) — paused mid-session to run the admin-tier CRUD coverage sweep instead; pick these up next (Manager role baseline already reconfirmed: `view_issues` genuinely false, `view_crux`/`approve_crux_gates`/`use_ask_crux` genuinely true). Also still pending: Project entity Delete.
 - Screenshots: `screenshots/TC-CRX-<NNN>/` per CLAUDE.md §6 (bug evidence only) — this session's bug screenshots are filed under `screenshots/BUG-CRX-<NNN>/` instead, per the bug template's own convention. TC-CRX-205/206/208/212/217/219 are clean PASSes with no bug, so per §6 no screenshots were taken for them.
 - Bug references so far: BUG-CRX-050 through BUG-CRX-064 (050–053 reported to production; 054–064 not yet reported — see `bugs/_index.md`).

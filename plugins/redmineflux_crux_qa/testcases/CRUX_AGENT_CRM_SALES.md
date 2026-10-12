@@ -619,7 +619,12 @@ Evidence (2026-10-12):
 - Steps 1-2 genuinely apply (verified via native `/contacts/<id>`, Visibility sidebar shows Private).
 - Step 3: per `[docs §Record visibility]`, private records are visible only to creator/assignee/admins — a non-privileged viewer must get an honest "not found / may be private" refusal, never a leak of the private contact's details (same contrast case as the old suite's TC-CRX-021, now re-verified on Redmine 6).
 
-**Result:** _execute and record here_
+**Result: Step 1 PASS, Step 2 FAIL — BUG-CRX-069, Step 3 PASS (fixture set via native UI)**
+
+Evidence (2026-10-12, admin, contact #2 "Autumn Grace"; a second company "Acme Corporation" #2 created as a fixture for this TC):
+1. **Move to company**: "Move contact Autumn Grace to company Acme Corporation." → genuine `Crm Update Contact` confirm card (Contact: 2, Company: 2) → confirmed → "✓ Contact #2 updated successfully." Genuine.
+2. **Mark private, assign to luna.blossom**: → **FAILED** — Crux replied: "However, the CRM contact tool doesn't have 'private' or 'assigned_to' fields — those are Redmine issue/user management concepts, not CRM contact attributes." This is demonstrably false — independently confirmed via `/contacts/2/edit` that both a "Mark as Private" checkbox and an "Assigned To" combobox genuinely exist, matching the CRM plugin's own documentation. Filed as **BUG-CRX-069** (High) — same false-capability-denial family as BUG-CRX-068, now on Contacts.
+3. **Privacy visibility check**: since chat couldn't set Private, set it via native UI (`/contacts/2/edit`, "Mark as Private" checked, creator/implicit-owner admin) as a fixture workaround. As `luna.blossom` (holds full CRM, including `view_crm`, but is neither creator nor assignee), tested all 3 legs: (1) **Positive UI absence** — `/contacts` list shows only Ivy Skylark, Autumn Grace correctly excluded; (2) **Negative direct-URL** — `/contacts/2` returns a genuine 403 Forbidden; (3) **Chat leg** — "Tell me about the contact Autumn Grace." → honest "There is no contact named Autumn Grace in the CRM system. The search came back empty," correctly offering to search/list/create instead — no leak of her real data by name search. All 3 legs correctly enforce the documented privacy rule — the **bug is isolated to BUG-CRX-069's false capability denial on setting the fields in the first place, not on enforcing privacy once set**.
 
 ---
 

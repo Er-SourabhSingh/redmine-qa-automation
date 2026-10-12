@@ -930,7 +930,15 @@ As admin (fresh chat), the same request: "I couldn't find a tool for this here, 
 
 **Expected Result:** Each either succeeds with a genuine confirm card, or is honestly refused for a real, checkable reason (permission, validation) — never the generic "I couldn't find a tool for this here" / "couldn't confirm whether this action is actually available" text for an operation whose underlying tool actually exists (per the CRM plugin's own REST API table in `[docs §REST API]`: Contacts/Companies/Deals/Leads all get "Full CRUD").
 
-**Result:** _execute and record here_
+**Result:** PARTIAL — no false-capability-denials found (meets this TC's stated expectation), but a genuine silent-write-failure defect was uncovered and filed as **BUG-CRX-073**.
+
+Precondition verified: `docker logs crux-redmine6-mcp-1` shows `Redmineflux MCP v0.2.2: 498 tools (98 core + 398 plugin + 2 crux). Detected plugins: ... crm ... (13/14)` — healthy catalog, no BUG-CRX-061-style confound.
+
+1. **Update a deal's territory**: "Update deal 'NovaTech Solutions Rollout' to set its territory to North America." → genuine `Crm Update Deal` confirm card (`Deal: 1`, `Custom Field Values: {'territory': 'North America'}`); Confirmed → "✓ Deal #1 updated successfully." Independently verified via native UI (`/deals/1`, `/deals/1/edit`): **Territory is still unset** ("—" / default "Select Territory" dropdown) — the write genuinely did not persist despite the clean success claim. Filed as **BUG-CRX-073**.
+2. **Update a company's industry**: "Update company 'TechFlow Dynamics' to set its industry to Healthcare." → genuine `Crm Update Company` confirm card (`Company: 3`, `Industry: Healthcare`); Confirmed → "✓ Company #3 updated successfully." Independently verified via native UI (`/companies/3`): real activity trail shows `Industry: "Technology" → "Healthcare"` — genuinely persisted.
+3. **Update a lead's source**: "Update lead Priya Sharma to set her source to Referral." → genuine `Crm Update Lead` confirm card (`Lead: 1`, `Source: Referral` — correctly resolved Priya Sharma to the real lead ID 1, confirmed via the native `/leads` list's own edit-link URLs, not the display-only S.No. column); Confirmed → "✓ Lead #1 updated successfully." Independently verified via native UI (`/leads/1`): real activity trail shows `Source: "Website" → "Referral"` — genuinely persisted.
+
+No instance of the generic "I couldn't find a tool for this here" / false-capability-denial text anywhere in this sweep — all 3 tools exist and were correctly invoked. However, comparing the one failing case (Territory) against the two working cases (Industry, Source) shows a clear pattern: both working cases pass their value as a **top-level confirm-card field**, while the failing case is the only one routed through a `Custom Field Values` map — isolating the defect to that specific code path on `Crm Update Deal`, not a general Update-tool or false-denial problem.
 
 ---
 

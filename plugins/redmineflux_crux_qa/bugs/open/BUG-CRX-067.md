@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-067
 - Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
-- Title: A genuine "Forbidden" permission-denial message on the Sales Agent's write confirm cards is rendered with a misleading success ✓ checkmark — reproduced across `Crm Create Lead`, `Crm Create Contact`, `Crm Create Company`, `Crm Create Deal` (all 4 core create tools) and `Crm Update Deal Stage` — identical to BUG-CRX-054's pattern on the Project Manager agent, confirmed independent of a real write actually being blocked
+- Title: A genuine "Forbidden" permission-denial message on the Sales Agent's write confirm cards is rendered with a misleading success ✓ checkmark — reproduced across `Crm Create Lead`, `Crm Create Contact`, `Crm Create Company`, `Crm Create Deal` (all 4 core create tools), `Crm Update Deal Stage`, and `Crm Delete Activity` — identical to BUG-CRX-054's pattern on the Project Manager agent, confirmed independent of a real write actually being blocked
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)
 - Plugin version: 0.62.0
@@ -52,6 +52,10 @@ As the same `daisy.skye`, zero CRM permissions, in a fresh chat: "Create a deal 
 ## Repro 6 — same pattern on Update Deal Stage (TC-CRX-261)
 
 A `view_pipeline`-only user (no `manage_deals`): "Move deal 'NovaTech Solutions Rollout' to Proposal." → genuine `Crm Update Deal Stage` confirm card proposed (`Deal: 1`, `Stage: Proposal`), then on Confirm: the exact same "✓ Forbidden" text. Independently verified via native UI (`/deals/1`, as the same user, since this account does hold `view_crm`/`view_pipeline`): Stage field still reads "New" — the write genuinely did not execute, confirming real enforcement. This is the first instance of the defect on an *update* tool rather than a *create* tool, and the first on a permission split specifically tied to a secondary action-gate (`view_pipeline` vs `manage_deals`) rather than CRM access as a whole — strengthening the case that this is one shared rendering component covering every write-confirm failure path on the Sales Agent, not scoped to Create tools.
+
+## Repro 7 — same pattern on Delete Activity (TC-CRX-262), authorship-check refusal
+
+As `luna.blossom` (holds `manage_crm_activities` but is neither the activity's author nor admin): "Delete the call activity admin just logged on Ivy Skylark's contact" → after the agent asked for and was given the numeric activity ID (39), a genuine `Crm Delete Activity` confirm card was proposed (`Activity: 39`); on Confirm: the exact same "✓ Forbidden" text. Independently verified via native UI (`/contacts/3`): the "Call — Contract renewal discussion" activity is still present on the timeline — the delete genuinely did not execute, confirming the author-only delete restriction (`[docs §Activities and email]`) is enforced correctly server-side. This is the first instance on a **delete** tool, and the first triggered by an authorship check rather than a CRM-access-level permission gate — further evidence this is one shared rendering component covering every write-confirm failure on the Sales Agent, regardless of the specific reason for the refusal.
 
 ## Evidence
 

@@ -848,7 +848,12 @@ Reverted the temporary grant after this TC: removed the "Pipeline Viewer Test" r
 
 **Expected Result:** Step 1 succeeds, real activity on the record's timeline. Step 2 is honestly refused (authorship check) — re-verifies the old suite's TC-CRX-018 finding on the new stack, and specifically watch for BUG-CRX-018's previously-tracked misleading-✓-on-refusal pattern recurring here.
 
-**Result:** _execute and record here_
+**Result:** PASS, BUG-CRX-067 Repro 7 (misleading checkmark recurrence confirmed).
+
+**Setup note**: the first contact tried (Autumn Grace, ID 2) turned out to be marked **Private** (confirmed via `/contacts/2/edit`: "Mark as Private" checked) — `luna.blossom` genuinely cannot see this record at all (`/contacts/2` → 403, absent from her `/contacts` list), so Crux's reply "No contact named 'Autumn Grace' exists in the CRM" to her delete-activity request was actually an honest reflection of her restricted visibility, not a bug, and not a useful test of the authorship check this TC is actually about. Re-ran with **Ivy Skylark (ID 3)**, a non-private contact `luna.blossom` can see, to properly isolate the authorship restriction.
+
+1. As admin, fresh chat: "Log a call with Ivy Skylark about contract renewal, dated today." → genuine `Crm Log Activity` confirm card (`Subject Type: CrmContact`, `Subject: 3`, `Activity Type: call`, `Content: Contract renewal discussion`, `Activity Date: 2026-10-12`); Confirmed → "✓ Activity logged on CrmContact #3 (type: call, ID: 39)." Independently verified via native UI (`/contacts/3`): real "Call — Contract renewal discussion" entry present on the timeline.
+2. As `luna.blossom`: "Delete the call activity admin just logged on Ivy Skylark's contact." → the agent correctly noted the CRM tools don't expose a way to list a contact's activities by name, and asked for the numeric activity ID (an honest gap, not a false denial — consistent with this suite's established finding that Crux can't resolve record names to IDs for every lookup type). Supplied "The activity ID is 39." → genuine `Crm Delete Activity` confirm card (`Activity: 39`) proposed; on Confirm, the real permission gate fired: "✓ Forbidden..." — same misleading-checkmark defect as BUG-CRX-067, filed as **Repro 7** (first instance on a delete tool, and first triggered by an authorship check rather than a CRM-access-level permission gate). Independently verified via native UI (`/contacts/3`): the call activity is still present — the delete genuinely did not execute, confirming `luna.blossom` (neither the activity's author nor admin) is correctly blocked per `[docs §Activities and email]`.
 
 ---
 

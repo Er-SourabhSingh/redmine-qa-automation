@@ -447,6 +447,27 @@ Evidence (2026-10-12):
 
 ---
 
+### TC-CRX-247b: Read — filter by company, filter/query by Assignee, direct by-name lookup
+
+**User Role:** Admin.
+**Precondition:** Celeste Dawn (#2) assigned to Redmine Admin via native UI (chat-driven assignment is blocked by BUG-CRX-068); Priya Sharma (#1) left unassigned.
+
+**Steps:**
+1. "Show me leads for company NovaTech Solutions."
+2. "Which leads are assigned to admin?"
+3. "Tell me about Priya Sharma." (direct by-name lookup, full profile)
+
+**Expected Result:** All 3 should return accurate, correctly-filtered/grounded answers matching native ground truth — company filter returns only the real match, assignee filter returns only leads genuinely assigned to that user, direct-name lookup returns the real record's fields.
+
+**Result: Step 1 PASS, Step 2 FAIL — BUG-CRX-068 Repro 3, Step 3 PASS**
+
+Evidence (2026-10-12, admin):
+1. **Company filter**: "Show me leads for company NovaTech Solutions." → correctly returned exactly 1 lead (Celeste Dawn), matching native ground truth. Clean.
+2. **Assignee filter**: "Which leads are assigned to admin?" → **FAILED** — replied "You have 2 leads in the CRM: 1. Celeste Dawn... 2. Priya Sharma... Both leads are in the system." The filter was completely ignored; Priya Sharma (genuinely unassigned) was wrongly included, and the Assignee value was never even shown per-lead in the listing. Folded into **BUG-CRX-068 as Repro 3** — same root cause as the write-side finding (the agent doesn't model the Assigned To field's existence at all, on either read or write).
+3. **Direct by-name lookup**: "Tell me about Priya Sharma." → correct, complete, human-readable full profile (Email, Company, Status, Source, Created date), plus a sensible contextual follow-up suggestion. Clean.
+
+---
+
 ### TC-CRX-248: Update a lead — status transition rules (`[docs §Leads]` status table)
 
 **User Role:** Admin or `luna.blossom`.

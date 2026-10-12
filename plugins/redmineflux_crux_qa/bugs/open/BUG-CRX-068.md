@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-068
 - Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
-- Title: A multi-field lead update silently drops one of the requested fields (Assigned To) with zero disclosure anywhere — confirm card never mentions it, final "updated successfully" message doesn't flag it as skipped
+- Title: Sales Agent falsely claims leads have no "assign to user" field at all ("the CRM lead system doesn't have an assign to user field") — demonstrably false, the native lead form has a real, editable Assigned To combobox and the lead list has its own Assignee column — and the same false belief causes a multi-field update to silently drop Assigned To with zero disclosure
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)
 - Plugin version: 0.62.0
@@ -13,11 +13,25 @@
 
 ## Steps to reproduce
 
+### Repro 1 — multi-field update silently drops Assigned To
+
 1. As admin, on an existing lead (e.g. "Celeste Dawn", lead #2), in Ask Crux (Sales Agent): "For lead Celeste Dawn, update her phone to +1-555-0142, her company name to NovaTech Solutions, and assign her to admin." — three distinct field changes requested in one message.
 2. Observe the resulting `Crm Update Lead` confirm card's detail table.
 3. Click Confirm.
 4. Observe the final success message.
 5. Independently verify via native UI (`/leads/2`): check all 3 fields — Phone, Company Name, and Assigned To.
+
+### Repro 2 — standalone assignment request gets an explicit false capability denial (root cause confirmed)
+
+1. As admin, in a fresh chat, in isolation: "Assign lead Celeste Dawn to admin."
+2. Observe the reply.
+3. Independently confirm via native UI (`/leads/2/edit`) that an "Assigned To" combobox genuinely exists on the lead edit form, and that the leads list page (`/leads`) has its own "ASSIGNEE" column — both real, visible, functional UI elements for this exact field.
+
+### Repro 3 — read-side: an "assigned to X" question is silently ignored as a filter
+
+1. Set Celeste Dawn's Assigned To to "Redmine Admin" via native UI (`/leads/2/edit`, since the chat-driven path is blocked by Repro 2). Priya Sharma (lead #1) remains unassigned.
+2. As admin, in a fresh chat: "Which leads are assigned to admin?"
+3. Observe the reply.
 
 ## Expected result
 
@@ -25,10 +39,13 @@
 
 ## Actual result
 
-- The confirm card's detail table showed only 2 rows: `Phone: +1-555-0142` and `Company Name: NovaTech Solutions`. **No "Assigned To" row at all**, and no text anywhere in the reply — before or after the table — acknowledging that the assignment request was being skipped, deferred, or needed clarification.
-- After Confirm, the final message read: **"✓ Lead #2 updated successfully."** — an unqualified success claim with no caveat, despite only 2 of the 3 requested changes actually being included in the write.
-- Independently verified via `/leads/2`: Phone and Company Name are genuinely updated (confirmed via the lead's own activity trail: `Lead updated by Redmine Admin Phone: "—" → "+1-555-0142" Company Name: "Nova Tech" → "NovaTech Solutions"`) — but **Assigned To is still blank ("—")**, exactly as it was before the request. The activity trail itself only logs the 2 fields that were actually changed, with no record anywhere (chat or audit trail) that an assignment was ever requested.
-- A user reading "✓ Lead #2 updated successfully." after asking for 3 specific changes has no way to know — without manually re-checking the record themselves — that 1 of the 3 never happened. This is a trust/completeness defect: the chat's own success claim is accurate only for a strict subset of what was actually asked, and nothing in the reply discloses the gap.
+**Repro 1.** The confirm card's detail table showed only 2 rows: `Phone: +1-555-0142` and `Company Name: NovaTech Solutions`. **No "Assigned To" row at all**, and no text anywhere in the reply — before or after the table — acknowledging that the assignment request was being skipped, deferred, or needed clarification. After Confirm, the final message read: **"✓ Lead #2 updated successfully."** — an unqualified success claim with no caveat, despite only 2 of the 3 requested changes actually being included in the write. Independently verified via `/leads/2`: Phone and Company Name are genuinely updated (confirmed via the lead's own activity trail: `Lead updated by Redmine Admin Phone: "—" → "+1-555-0142" Company Name: "Nova Tech" → "NovaTech Solutions"`) — but **Assigned To is still blank ("—")**, exactly as it was before the request. A user reading "✓ Lead #2 updated successfully." after asking for 3 specific changes has no way to know — without manually re-checking the record themselves — that 1 of the 3 never happened.
+
+**Repro 2 — the root cause.** Asked in isolation, Crux replied: *"I found lead Celeste Dawn (ID: 2). However, **the CRM lead system doesn't have an 'assign to user' field** in the way that Redmine issues do. Leads in the Redmineflux CRM are tracked as prospect records without a direct assignment field. You have a few options: 1. Convert this lead into a contact... 2. Create a Redmine issue or work item... 3. Log an activity..."* — a confident, specific, **false** factual claim. Independently confirmed via native UI: `/leads/2/edit` has a real `Assigned To` combobox (same form as Phone/Company Name/Source/Status, all of which Crux handles correctly elsewhere in this suite), and the `/leads` list page has its own dedicated "ASSIGNEE" column. This is the **direct root cause of Repro 1**: the agent doesn't believe this field exists at all, so it silently strips any "assign" instruction out of a multi-field request rather than erroring, asking, or including it.
+
+This is the same **false-capability-denial** shape already tracked across BUG-CRX-029/032/034/050/061/062/066/067 (an agent confidently asserting a real, working capability doesn't exist) — now confirmed on the Sales Agent's lead-assignment field specifically, and notably the first instance where the false belief also causes a *silent write-time omission* (Repro 1) rather than just an outright refusal.
+
+**Repro 3 — the same blind spot on the read side.** With Celeste Dawn (lead #2) genuinely assigned to Redmine Admin via native UI and Priya Sharma (lead #1) genuinely unassigned, "Which leads are assigned to admin?" got: *"You have 2 leads in the CRM: 1. Celeste Dawn... 2. Priya Sharma... Both leads are in the system."* — the assignee filter was **silently ignored entirely**: both leads were listed (including the one that is demonstrably NOT assigned to admin), the Assignee field was never even shown per-lead in the listing, and the closing line ("Both leads are in the system") doesn't answer the question asked at all. This confirms the agent's blind spot for this field spans read and write: it neither applies "assigned to X" as a filter nor surfaces the real assignee value when listing leads, consistent with it genuinely not modeling this field's existence anywhere in its lead-handling logic. (For contrast: filtering by Company — "Show me leads for company NovaTech Solutions" — worked correctly, returning only the 1 real match, confirming other filter dimensions are fine; this gap is specific to Assigned To.)
 
 ## Evidence
 
@@ -36,6 +53,8 @@
 
 ![Confirm card shows only Phone and Company Name — no Assigned To row, no mention of skipping it](../../screenshots/BUG-CRX-068/confirm-card-missing-assigned-to.png)
 ![Native UI confirms Assigned To is still blank after the "updated successfully" message](../../screenshots/BUG-CRX-068/native-assigned-to-still-blank.png)
+![Repro 2 — explicit false claim that leads have no assign-to-user field at all](../../screenshots/BUG-CRX-068/repro-2-false-denial-assign-field-doesnt-exist.png)
+![Repro 3 — "Which leads are assigned to admin?" lists both leads, ignoring the filter entirely](../../screenshots/BUG-CRX-068/repro-3-assignee-filter-ignored-lists-both-leads.png)
 
 ### Retest screenshot (fill after fix is verified)
 
@@ -49,4 +68,4 @@
 
 ## Duplicate check
 
-- Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Distinct from the false-capability-denial family (BUG-CRX-029/032/034/050/061/062/066/067) — those are about the agent wrongly claiming a capability doesn't exist; this is about a capability that genuinely works (Assigned To is a real, editable field on this same form) being silently omitted from a multi-field proposal with the overall write still reported as fully, unqualifiedly successful. Also distinct from BUG-CRX-052 (wrong/hallucinated field *values* on `create_issue`) — this is a field being dropped entirely, not mis-resolved.
+- Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same **false-capability-denial family** as BUG-CRX-029/032/034/050/061/062/066/067 (Repro 2: a confident, specific, checkable false claim that a real, working field doesn't exist) — filed as a new bug per the repo's own precedent for new domains/tools (this is the first instance on the Sales Agent's lead-assignment field). Distinguishing feature from the rest of that family: here the false belief doesn't just produce an outright refusal — it also causes a *silent write-time omission* when assignment is bundled into a multi-field request (Repro 1), rather than the request failing or asking for clarification. Also distinct from BUG-CRX-052 (wrong/hallucinated field *values*, not a field dropped entirely because the agent believes it doesn't exist).

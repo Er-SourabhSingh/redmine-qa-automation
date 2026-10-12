@@ -797,7 +797,15 @@ This confirms the Lost Reason requirement is enforced **twice over** — the age
 
 **Expected Result:** Both honestly refused — per docs, Won/Lost (deal stages) and Qualified (lead status) are protected: "shown with a lock and cannot be removed or renamed." The agent should explain why, not silently drop the request or silently succeed against a protected value.
 
-**Result:** _execute and record here_
+**Result:** PASS (protection itself confirmed intact), with a new bug filed on a separate, narrower defect — BUG-CRX-072.
+
+As admin, in a fresh Ask Crux chat: "Remove the Lost stage from CRM settings." → reply: "I couldn't find a tool for this here, so I can't do it from this chat. It can be done directly in Redmineflux; if you expected Crux to do it, an administrator can check this deployment's tool setup." No confirm card, no silent success.
+
+To establish ground truth on whether this denial is honest (no Settings tool reachable at all) or a false capability denial (a real tool exists but was mis-routed — the pattern already confirmed for BUG-CRX-061/062/065/066-069), the **same session** was then given a legitimate, non-protected request: "Add a new deal stage called 'Contract Review'." The reply: "I'm hitting a discovery issue. However, my instructions mention that `redmineflux_crm_settings_update` should exist for this kind of change — it would replace the full deal-stages list with the current list plus your new 'Contract Review' stage," followed by a fully correct computed diff (`New, Qualified, Proposal, Negotiation, Won, Lost` → same + `Contract Review`), then: "Unfortunately, I don't currently have direct access to the `settings_update` tool in this session."
+
+This confirms the underlying Settings tool genuinely exists (the agent's own instructions name it, and it correctly computes what the change would be) but is not actually invokable in this session for *any* Settings change, protected or not — so "Remove the Lost stage" was an honest (if uninformative) refusal, not a bypass risk. Filed as **BUG-CRX-072**: a tool-discovery/routing defect scoped to Settings specifically (plus an inconsistency — the protected-removal attempt got a generic denial with zero detail, while the legitimate-addition attempt leaked internal tool-naming detail a user-facing reply shouldn't normally show).
+
+Since chat cannot reach Settings at all, the actual protected-value question (TC-CRX-260's real subject) was verified independently via native UI (`/crm/settings`, as admin): Deal Stages **Won** and **Lost**, and Lead Status **Qualified**, each render with no "Delete" button and an image with alt text "Required value — can't be removed or renamed," plus explanatory paragraphs ("'Won' and 'Lost' are required for pipeline reporting and can't be removed or renamed." / "'Qualified' is required for lead conversion and can't be removed or renamed."). All other stages/statuses (New, Proposal, Negotiation, Contacted, Unqualified) render with a working Delete button. **The protected-value invariant itself is genuinely and correctly enforced** — confirmed via the native UI/backend, independent of the chat path's inability to reach Settings at all. Screenshot: `screenshots/BUG-CRX-072/native-settings-won-lost-qualified-protected.png`.
 
 ---
 

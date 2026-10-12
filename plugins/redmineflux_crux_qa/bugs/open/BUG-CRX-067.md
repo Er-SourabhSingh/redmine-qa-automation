@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-067
 - Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
-- Title: A genuine permission-denial message on the Sales Agent (CRM) is rendered with a misleading success ✓ checkmark — reproduced on both a write (Create Lead, "Forbidden") and 3 separate reads (List/filter leads, "You don't have permission") — identical to BUG-CRX-054's pattern on the Project Manager agent, confirmed independent of a real write/read actually being blocked
+- Title: A genuine "Forbidden" permission-denial message on the Sales Agent's `Crm Create Lead` is rendered with a misleading success ✓ checkmark, identical to BUG-CRX-054's pattern on the Project Manager agent — confirmed independent of a real write actually being blocked
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)
 - Plugin version: 0.62.0
@@ -33,22 +33,16 @@ The leading **✓** prefixes a message that is unambiguously reporting a failure
 
 **No data-integrity issue**: the real permission check genuinely fired server-side and no lead was created (independently confirmed via native `/leads`, still exactly 2 rows) — this is purely a misleading-icon rendering defect on an otherwise-correct refusal, not a permission bypass.
 
-## Repro 2 — same pattern on 3 separate read-path refusals (TC-CRX-247)
+## Checked and ruled out — read-path refusals do NOT share this defect (correction, TC-CRX-247)
 
-As the same `daisy.skye`, in a fresh chat, 3 separate read questions all hit the identical shape:
-
-1. "List all leads." → `✓ I don't have permission to list all leads. Your Redmineflux administrator needs to grant you access to the CRM leads view. ...`
-2. "Show me leads with status New." → `✓ You don't have permission to view leads in Redmineflux. ...`
-3. "Show me leads from source Website." → `✓ You don't have permission to view leads in Redmineflux. ...`
-
-All 3 are honest, correctly-scoped refusals (no leak of the real lead data — `daisy.skye` lacks `view_crm`) — but every single one carries the same leading **✓**. This confirms the defect isn't scoped to the write/confirm-card path alone (Repro 1, Create Lead) — it affects the Sales Agent's plain read-question replies too, consistent with BUG-CRX-054's own working theory that the chat bubble renderer checkmarks any completed tool-call turn regardless of the tool result's actual success/failure status, not something specific to confirm-card flows.
+During TC-CRX-247, `daisy.skye`'s 3 plain read-question refusals ("List all leads.", "Show me leads with status New.", "Show me leads from source Website.") were initially suspected of carrying the same misleading checkmark, based on the accessibility snapshot showing a `✓` character near each reply. **Visual inspection of the actual rendered page (screenshots, not just the accessibility tree) shows this was a false positive**: that `✓` belongs to the separate, collapsed "▸ Checked N things" tool-call disclosure — a small technical indicator that the step's tool call completed without a transport error, not a visible part of the reply bubble itself. The actual refusal text in all 3 cases renders in plain black, with no checkmark, no green styling, nothing success-like — correctly distinguishable from a real success. This is a different, unrelated UI element from Repro 1 below, which genuinely prefixes a success-styled "✓ Forbidden" directly into the single rendered reply. Retracted after re-checking with real screenshots rather than relying on the flattened accessibility-tree text layout alone — recorded here so a future session doesn't re-flag the same false positive.
 
 ## Evidence
 
 ### Screenshot
 
-![Misleading checkmark prefixing a genuine Forbidden refusal on a lead-create attempt](../../screenshots/BUG-CRX-067/misleading-checkmark-on-forbidden-lead-create.png)
-![Repro 2 — same misleading checkmark on 3 read-path "no permission" refusals](../../screenshots/BUG-CRX-067/repro-2-read-path-list-leads-checkmark-refusal.png)
+![Misleading checkmark prefixing a genuine Forbidden refusal on a lead-create attempt — visually green, styled as success](../../screenshots/BUG-CRX-067/misleading-checkmark-on-forbidden-lead-create.png)
+![For contrast — a read-path refusal, visually confirmed plain black text, no checkmark, not a bug](../../screenshots/BUG-CRX-067/repro-2-read-path-list-leads-checkmark-refusal.png)
 
 ### Retest screenshot (fill after fix is verified)
 

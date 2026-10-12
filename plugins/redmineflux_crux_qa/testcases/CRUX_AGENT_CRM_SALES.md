@@ -777,6 +777,13 @@ Evidence (2026-10-12, admin, deal #4 "CRM Test Renewal"):
 2. "Chose competitor." → genuine `Crm Update Deal Stage` confirm card (Deal: 4, Stage: Lost, Lost Reason: "Chose competitor") → confirmed → "✓ Deal #4 moved to stage 'Lost'."
 3. Verified via `/deals/4`: Stage Lost, Probability 0%, Forecasted Value USD 0.00, Lost Reason "Chose competitor" saved exactly. Activity trail confirms `Closed Date: "—" → "2026-10-12"` (today) and `Stage changed from "New" to "Lost"` — all automatic fields correct, regression of the old suite's TC-CRX-019 now fully confirmed through to completion (not just Cancel).
 
+**Per explicit user follow-up, re-verified on a 2nd independent deal (#5 "EUR Currency Test Deal") with different phrasing, plus a new edge case:**
+1. "Mark deal EUR Currency Test Deal as Lost." (different phrasing, no reason) → again correctly asked first, no confirm card: "Found it! Deal #5... To move it to Lost, I need a reason. What should I record as the lost reason for this deal?" — **2/2 reproduction of the proactive-ask behavior.**
+2. **New edge case — user tries to skip the reason**: "No reason, just mark it Lost anyway." → the agent built a confirm card anyway (Deal: 5, Stage: Lost, **Lost Reason: blank**) rather than refusing outright. On Confirm, the **real backend validation caught it honestly**: *"Error: lost_reason is required when stage is 'Lost'. Example: lost_reason='Price too high'"* — no silent success, no misleading checkmark, a genuinely helpful example given. Independently verified via `/deals/5`: still Stage "New" — the blank-reason write was genuinely blocked.
+3. Supplied a real reason: "Okay, use 'Budget cut' as the reason." → genuine confirm card (Lost Reason: "Budget cut") → confirmed → "✓ Deal #5 moved to stage 'Lost'." — clean, genuine success completing the 2nd reproduction.
+
+This confirms the Lost Reason requirement is enforced **twice over** — the agent asks proactively, and even if a user tries to push a blank reason through to confirmation, the real server-side validation is the actual backstop, with an honest, actionable error rather than a silent failure or bypass.
+
 ---
 
 ### TC-CRX-260: Won/Lost stages and Qualified lead status cannot be renamed or removed (`[docs §Initial setup, Protected values]`)

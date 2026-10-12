@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-067
 - Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
-- Title: A genuine "Forbidden" permission-denial message on the Sales Agent's write confirm cards is rendered with a misleading success ✓ checkmark — reproduced across `Crm Create Lead`, `Crm Create Contact`, and `Crm Create Company` (3 entity types) — identical to BUG-CRX-054's pattern on the Project Manager agent, confirmed independent of a real write actually being blocked
+- Title: A genuine "Forbidden" permission-denial message on the Sales Agent's write confirm cards is rendered with a misleading success ✓ checkmark — reproduced across `Crm Create Lead`, `Crm Create Contact`, `Crm Create Company`, and `Crm Create Deal` (all 4 core entity types) — identical to BUG-CRX-054's pattern on the Project Manager agent, confirmed independent of a real write actually being blocked
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)
 - Plugin version: 0.62.0
@@ -44,6 +44,10 @@ As the same `daisy.skye`, zero CRM permissions, in a fresh chat: "Create a conta
 ## Repro 4 — same pattern on Create Company (TC-CRX-255)
 
 As the same `daisy.skye`, zero CRM permissions, in a fresh chat: "Create a company called Horizon Ventures, industry Investment." → genuine `Crm Create Company` confirm card proposed, then on Confirm: the exact same "✓ Forbidden" text. Independently verified via native UI (`/companies`, as admin): still exactly 4 real companies (NovaTech Solutions, Acme Corporation, TechFlow Dynamics, Zenith Partners) — no "Horizon Ventures" created, confirming genuine enforcement. This is now confirmed across 3 entity types (Lead, Contact, Company) on the Sales Agent's write-confirm failure path.
+
+## Repro 5 — same pattern on Create Deal (TC-CRX-257)
+
+As the same `daisy.skye`, zero CRM permissions, in a fresh chat: "Create a deal called 'Horizon Ventures Pilot' worth $3000, stage New." → genuine `Crm Create Deal` confirm card proposed, then on Confirm: the exact same "✓ Forbidden" text. Independently verified via native UI (`/deals`, as admin): no "Horizon Ventures Pilot" deal exists, confirming genuine enforcement. This completes confirmation across **all 4 core CRM entity types** (Lead, Contact, Company, Deal) on the Sales Agent's write-confirm failure path — strongly suggesting one shared rendering component rather than a per-entity issue.
 
 ## Evidence
 

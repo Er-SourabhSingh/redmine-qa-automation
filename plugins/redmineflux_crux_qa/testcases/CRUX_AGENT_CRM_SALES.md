@@ -725,7 +725,15 @@ Evidence (2026-10-12): Created a disposable company ("Disposable Company Test", 
 - Step 1: genuine success, correct fields, Currency shows the real configured Default Currency (not assumed — check Settings first).
 - Step 2: honestly rejected for the duplicate name; separately, if a currency other than Default was requested anywhere in this TC, confirm Crux either declines to promise a non-default currency or honestly explains the currency is fixed by Settings — it must never claim to have set EUR when the real record will show the Default Currency (a believable but false claim, the deal-level analogue of BUG-CRX-052's wrong-field-resolution pattern).
 
-**Result:** _execute and record here_
+**Result: PASS (core behavior correct), 2 bugs found — 1 new (BUG-CRX-071), 1 repro (BUG-CRX-067)**
+
+Evidence (2026-10-12):
+- **Admin**: "Create a deal called 'CRM Test Renewal', amount $25000, stage New, linked to contact Autumn Grace, due date 2027-01-15." → genuine confirm card (Contact correctly resolved to real id 2) → confirmed → "✓ Deal 'CRM Test Renewal' created in stage 'New' (ID: 4)." Verified via `/deals/4`: Amount USD 25,000.00, Currency USD (Default), Due Date 01/15/2027, Contact Autumn Grace — all correct.
+- **Duplicate name + non-default currency**: "Create a deal called 'CRM Test Renewal' worth $500 in EUR." → confirm card correctly showed `Currency: EUR` (not caught/challenged) → on Confirm: honestly rejected for the duplicate name — "Validation error: Name has already been taken." The currency question was left unresolved by this collision, so retested with a unique name.
+- **Currency immutability test (unique name)**: "Create a deal called 'EUR Currency Test Deal' worth $500 in EUR." → confirm card again showed `Currency: EUR` → confirmed → "✓ Deal 'EUR Currency Test Deal' created in stage 'New' (ID: 5)." **FAILED** — independently verified via `/deals/5`: the deal is genuinely saved with **Currency: EUR, Amount: EUR 500.00** — not auto-corrected to the Default (USD). For contrast, the native "New Deal" form (`/deals/new`) shows Currency as a disabled, read-only field locked to USD with explicit text "Currency can be changed from CRM settings only." Filed as **BUG-CRX-071** (Medium-High) — the chat write path bypasses a documented data-integrity invariant the Dashboard/Analytics USD-conversion totals depend on.
+- **`luna.blossom`** (full CRM): "Create a deal called 'Zenith Partners Pilot' worth $8000, stage New." → genuine confirm card → confirmed → "✓ Deal 'Zenith Partners Pilot' created in stage 'New' (ID: 6)."
+- **`daisy.skye`** (zero CRM): "Create a deal called 'Horizon Ventures Pilot' worth $3000, stage New." → genuine confirm card proposed, but on Confirm the real permission layer correctly blocked it: "Forbidden..." Verified via native `/deals` (as admin): no "Horizon Ventures Pilot" exists, confirming genuine enforcement.
+- **1 new repro of BUG-CRX-067** (not a new bug): `daisy.skye`'s Forbidden refusal carried the same misleading ✓ checkmark — added as Repro 5, now confirming the defect spans **all 4 core CRM entity types** (Lead, Contact, Company, Deal).
 
 ---
 

@@ -680,7 +680,9 @@ Evidence (2026-10-12):
 - **`daisy.skye`** (zero CRM): "Create a company called Horizon Ventures, industry Investment." → genuine confirm card proposed, but on Confirm the real permission layer correctly blocked it: "Forbidden..." Verified via native `/companies` (as admin): still exactly 4 real companies — no "Horizon Ventures" created, confirming genuine enforcement.
 - **1 new repro of BUG-CRX-067** (not a new bug): `daisy.skye`'s Forbidden refusal carried the same misleading ✓ checkmark seen on Create Lead/Create Contact — added as Repro 4, now confirming the defect spans 3 entity types on the Sales Agent's write-confirm path.
 
-**Result:** _execute and record here_
+**Per explicit user follow-up, also tested minimal-field (mandatory-only) and full-field (every documented field) company creation**, admin:
+- **Minimal**: "Create a company called Minimal Fields Co." → confirm card correctly showed only `Name` — no fabricated/guessed values for any other field → confirmed → "✓ Company 'Minimal Fields Co.' created (ID: 5)." Verified via `/companies/5`: every other field (Email, Phone, Website, Industry, Employee Count, Assigned To, Address) genuinely blank — clean.
+- **Full-field**: "Create a company called Full Fields Enterprises, email..., phone..., website..., industry Healthcare, employee count 250, **assigned to admin**, address..., notes..." → confirm card correctly included 7 of 8 fields (Name, Email, Phone, Website, Industry, Employee Count, Address, Notes) but **silently omitted Assigned To entirely**, no disclosure → confirmed → "✓ Company 'Full Fields Enterprises' created (ID: 6)." Verified via `/companies/6`: all 7 other fields genuinely applied exactly as requested (Website correctly auto-`https://`-prefixed), but Assigned To still blank. **Folded into BUG-CRX-068 as Repro 4** — confirms the Assigned-To blind spot now spans 3 entity types (Lead, Contact, Company), strongly suggesting one shared root cause rather than a per-entity issue.
 
 ---
 

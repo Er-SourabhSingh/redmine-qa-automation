@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-068
 - Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
-- Title: Sales Agent falsely claims leads have no "assign to user" field at all ("the CRM lead system doesn't have an assign to user field") — demonstrably false, the native lead form has a real, editable Assigned To combobox and the lead list has its own Assignee column — and the same false belief causes a multi-field update to silently drop Assigned To with zero disclosure
+- Title: Sales Agent has a systematic blind spot for the "Assigned To" field across every CRM entity (Leads, and now also Companies on Create) — falsely claims leads have no "assign to user" field at all, silently drops Assigned To from multi-field Lead updates AND from a full-field Company creation with zero disclosure either time, and ignores "assigned to X" entirely as a read-side filter
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)
 - Plugin version: 0.62.0
@@ -65,6 +65,10 @@ This is the same **false-capability-denial** shape already tracked across BUG-CR
 - Confirm card table (captured via accessibility snapshot): `Lead: 2`, `Phone: +1-555-0142`, `Company Name: NovaTech Solutions` — no `Assigned To` row.
 - Final reply: `✓ Lead #2 updated successfully.`
 - Native UI (`/leads/2`) activity trail: `Lead updated by Redmine Admin Phone: "—" → "+1-555-0142" Company Name: "Nova Tech" → "NovaTech Solutions"` — Assigned To not mentioned because it was never part of the actual write.
+
+## Repro 4 — same silent-drop on Company Create (TC-CRX-255/256)
+
+As admin, a full-field company-create request naming all 8 documented fields at once: "Create a company called Full Fields Enterprises, email..., phone..., website..., industry Healthcare, employee count 250, **assigned to admin**, address..., notes..." → the resulting confirm card correctly included all 7 other fields (Name, Email, Phone, Website, Industry, Employee Count, Address, Notes) but **silently omitted Assigned To entirely** — no row, no mention. Confirmed → "✓ Company 'Full Fields Enterprises' created (ID: 6)." Independently verified via `/companies/6`: all 7 other fields genuinely applied exactly as requested (Website correctly auto-`https://`-prefixed too), but **Assigned To is still blank ("—")**. This is the 3rd entity type (after Lead's write+read paths and Contact's explicit denial) confirmed to share this exact blind spot — strongly suggesting one shared root cause in how the agent's tool-calling layer resolves "assign/assigned to" across the whole CRM domain, not a per-entity issue.
 
 ## Duplicate check
 

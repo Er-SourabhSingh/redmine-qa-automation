@@ -407,6 +407,22 @@ Independently verified via `/leads`: still exactly 2 rows (Celeste Dawn, Priya S
 
 ---
 
+### TC-CRX-246b: Create a lead with a Source value not in the configured list
+
+**User Role:** Admin.
+**Precondition:** Confirmed via `/crm/settings` the real configured Lead Sources list: Website, Referral, Cold Call, Email Campaign, Social Media, Other.
+
+**Steps:**
+1. "Create a lead named Marigold Rayne, email marigold.rayne@testco2-crmtest.local, source TikTok Ad." ("TikTok Ad" is not a configured source.)
+
+**Expected Result:** Per the same principle as the old suite's TC-CRX-017 (invalid deal stage) — the agent should catch the invalid value before proposing anything (ideally by actually checking the real configured list first), tell the user the real valid options, and not silently coerce or fabricate success.
+
+**Result: PASS — excellent handling, no bug**
+
+Evidence (2026-10-12, admin): Crux caught the invalid source **before building any confirm card** and replied: *"The lead source 'TikTok Ad' is not in the valid list. The available sources are:"* followed by the exact real list (Website, Referral, Cold Call, Email Campaign, Social Media, Other — matching `/crm/settings` exactly). It then went a step further than the minimum bar: *"'TikTok Ad' would fall under 'Social Media' since TikTok is a social media platform. Should I create the lead with source 'Social Media', or would you prefer a different source from the list?"* — a genuinely helpful, correct suggestion, still phrased as a question requiring the user's explicit choice rather than silently substituting. No confirm card was ever shown for the invalid value, and no lead was created with a bad or substituted source without asking first. This is a clean positive result — flagging it specifically because it's a good example of the kind of response quality this whole suite is checking for (human-readable, grounded in the real settings, no silent coercion).
+
+---
+
 ### TC-CRX-247: Read / list / filter leads
 
 **User Role:** Admin, `luna.blossom`, and `daisy.skye`.

@@ -1,6 +1,34 @@
 # Test Cases — Redmineflux Crux — Sales Agent (CRM) Full CRUD (#117162)
 
-> **⚠ Historical — Redmine 7.0.0 environment.** This suite was executed entirely against the OLD local Docker instance (`C:/Crux-Redmine-Docker`, Redmine 7.0.0, `localhost:3014`). A **new Crux testing cycle began 2026-10-09** on a freshly built Redmine 6 instance (`C:/crux-redmine`, `localhost:3015`, plugin v0.62.0) — see `CRUX_AGENT_PROJECT_MANAGER.md` for the first suite written against it. Results below remain the historical record for the 7.0.0 build; they have **not** been re-verified against Redmine 6.
+> **⚠ TC-CRX-010 through TC-CRX-022 below are the historical record of the OLD Redmine 7.0.0 environment** (`C:/Crux-Redmine-Docker`, `localhost:3014`, crux-core 0.92.0). They have **not** been re-verified against the new Redmine 6 stack and are kept as-is for reference (bug discovery context, phrasing patterns that worked/failed). **Active retest work for the new Redmine 6 stack (`C:/crux-redmine`, `localhost:3015`) starts at TC-CRX-245 below** — moved out of `testcases/old_suites/` into this active file on 2026-10-12, per explicit user instruction, rather than creating a second file, so the CRM agent's full history lives in one place (the same convention already used for `BUG-CRX-*.md` retest sections).
+
+## 2026-10-12 — New Redmine 6 cycle: scope, fixtures, and methodology
+
+Read before writing/executing anything below: `docs/CRUX_REQUIREMENTS.md`/`CRUX_FEATURES_LIST.md` (Sales Agent rows), and the CRM plugin's own in-app documentation at `http://localhost:3015/crm/docs` (Version 7.0.0, commit `fb5359a`) — the latter is the authoritative, up-to-date source for every business rule referenced below (permissions table, protected stage/status values, lead-conversion mapping, deal-currency behavior, delete-cascade behavior, etc.). Citations below use `[docs §X]` to point at that page's section anchors.
+
+**All testing in this cycle is performed through Crux (Ask Crux chat), not the native CRM UI** — the native UI is used only for (a) precondition/fixture setup where a clean starting state is needed, and (b) independent verification of what Crux's chat claims to have done. This matches the methodology already used for `CRUX_AGENT_PROJECT_MANAGER.md`.
+
+### Permission model (from `[docs §Permissions]`)
+
+CRM data and permissions are **global, not per-project** (except `link_crm_to_issues`, checked on the issue's own project) — a user who holds a role with a CRM permission in *any* project has that permission across the whole CRM. 10 permissions total: `view_crm` (gate for every CRM page/menu entry), `manage_leads`, `manage_contacts`, `manage_companies`, `manage_deals`, `view_pipeline`, `manage_crm_activities`, `delete_crm_data` (deletion is granted separately from "manage"), `view_audit_log`, `link_crm_to_issues`. **CRM Settings and `/crm/swagger` are restricted to Redmine administrators regardless of role** — no permission unlocks them for a non-admin.
+
+### Fixtures created this session
+
+- **Roles reconfigured** (`/roles`): **Manager** (role id 3) — all 10 CRM permissions checked (previously had none). **Reporter** (role id 5) — `Use Ask Crux` checked, all CRM permissions left unchecked (previously had neither).
+- **New project**: `Crux CRM Agent Test Project` (identifier `crux-crm-agent-test-project`) — dedicated fixture project, mirroring the existing `Crux PM Agent Test Project` convention, so CRM's issue-linking tests (`link_crm_to_issues`, checked per-project) have a clean home that doesn't collide with the Project Manager suite's own fixtures.
+- **Members added**: `luna.blossom` as **Manager** (→ full CRM access, all 10 permissions, globally) — the "with permission" user. `daisy.skye` as **Reporter** (→ `Use Ask Crux` only, zero CRM permissions, globally) — the "without permission" user, able to open an Ask Crux chat but with every CRM capability honestly gated.
+- **Verified via native UI** (`/projects/crux-crm-agent-test-project/settings/members`): both memberships show the correct role. CRM data confirmed completely empty on this instance before any fixture work began (`/companies` → "No companies yet").
+
+### 3-tier testing pattern for every CRUD operation below
+
+1. **Admin** — baseline, should always succeed (admin bypasses role permissions entirely).
+2. **`luna.blossom` (full CRM permission)** — should succeed identically to admin for every permission she holds (all 10).
+3. **`daisy.skye` (zero CRM permission)** — should get an honest, correctly-scoped refusal naming the real missing permission (or a clean absence of the CRM menu/capability) — never a leak, never a silent success, and never a crash/stall.
+
+### What to scrutinize on every single turn (explicit instruction this session)
+
+- **Human-readable language**: does Crux's reply read like something a non-technical salesperson would understand, or does it leak raw tool/field/error internals? Flag anything that reads like a stack trace or an unexplained code/enum value.
+- **Success and error message wording**: read every word, not just the headline. Check for the already-known defect shapes from the Project Manager suite — a misleading ✓ on a failure (BUG-CRX-054 pattern), a fabricated confirm card with no real buttons (BUG-CRX-020/056 pattern), a false "couldn't confirm whether this is available" denial for a tool that actually exists (BUG-CRX-061/062 pattern), a per-turn token-budget stall (BUG-CRX-060 pattern), or a hallucinated/wrong ID when the user only gave a name (stage, currency, company, contact — BUG-CRX-050/052 pattern, "deal stage" being the CRM-specific analogue of the Project Manager suite's "priority"/"category" find).
 
 
 > Source: `redmineflux-crux-core/agents/crm-sales.md` (full `allowed_tools:` + Identity/How-you-work/What-you-must-never-do sections); `docs/CRUX_FEATURES_LIST.md` per-agent table.
@@ -309,9 +337,432 @@ NOT YET LIVE-VERIFIED — drafted from `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s 
 
 ---
 
-## Evidence Map
+## Evidence Map (historical, 7.0.0 cycle)
 
 - Case IDs: TC-CRX-010 through TC-CRX-017 — all 8 executed, all reached a definitive verdict (5 PASS: 085, 086, 089, 090, 092; 2 FAIL: 087, 088)
 - Screenshots: bugs only (none captured this suite — all evidence via live chat transcript text cross-checked against real UI pages).
 - Log: —
 - Bug reference: BUG-CRX-013 (#120664, TC-CRX-012, scope broadened 2026-09-16 via TC-CRX-014/091), BUG-CRX-014 (#120665, TC-CRX-011, reproduced again TC-CRX-013), BUG-CRX-015 (#120669, TC-CRX-013), BUG-CRX-016 (#120696, infra, found during 2026-09-16 session resume)
+
+---
+---
+
+# New Redmine 6 cycle (2026-10-12 onward) — TC-CRX-245+
+
+> All TCs below run against `Crux CRM Agent Test Project` on `localhost:3015`, via Ask Crux chat, per the methodology and fixtures described at the top of this file.
+
+## Leads — Create / Read / Update / Delete
+
+---
+
+### TC-CRX-245: Create a lead — admin, full-permission, and no-permission tiers
+
+**User Role:** Admin; `luna.blossom` (full CRM); `daisy.skye` (zero CRM).
+**Precondition:** None. Per `[docs §Leads]`, only First Name and Email are required.
+
+**Steps:**
+1. As admin, in Ask Crux: "Create a lead named Priya Sharma, email priya.sharma@acmecorp-crmtest.local, from Acme Corp, source Website."
+2. As `luna.blossom`, same request with a distinct name/email.
+3. As `daisy.skye`, same request with a distinct name/email.
+4. For each, confirm (if a confirm card appears) and independently verify via native `/leads`.
+
+**Expected Result:**
+- Admin and `luna.blossom` (holds `manage_leads`): genuine confirm card naming every field exactly as given, confirms successfully, real lead row appears in `/leads` with exactly those fields, status "New".
+- `daisy.skye` (lacks `manage_leads` and `view_crm`): an honest, human-readable refusal naming the real missing capability — never a fabricated success, never a crash, never the generic "couldn't confirm whether this is available" non-answer for a tool that genuinely requires a permission she's missing (that phrasing is only a bug when the tool exists and no permission issue is the real cause — here a real permission gate is the correct explanation, so the refusal should say so, not hedge).
+- No new lead for the no-permission attempt in `/leads`.
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-246: Create a lead — missing required field, invalid email, duplicate email
+
+**User Role:** Admin or `luna.blossom`.
+**Precondition:** TC-CRX-245's lead(s) exist (for the duplicate-email check).
+
+**Steps:**
+1. "Create a lead with only the name John Smith, no email."
+2. "Create a lead named Jane Doe with email 'not-an-email'."
+3. "Create a lead named Priya Sharma 2 with email priya.sharma@acmecorp-crmtest.local" (same email as TC-245's lead — `[docs §Leads]`: each email can belong to only one lead).
+
+**Expected Result:**
+- All 3 should fail honestly — either caught before the confirm card (the agent asks for the missing/corrected field) or a real Redmine/plugin validation error on confirm — never a fabricated success, never silently dropping the conflicting field.
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-247: Read / list / filter leads
+
+**User Role:** Admin, `luna.blossom`, and `daisy.skye`.
+**Precondition:** At least 2 leads with different statuses/sources exist.
+
+**Steps:**
+1. "List all leads."
+2. "Show me leads with status New."
+3. "Show me leads from source Website."
+4. As `daisy.skye`: same 3 questions.
+
+**Expected Result:**
+- Admin/`luna.blossom` (both hold `view_crm`): accurate, grounded answers matching native `/leads` filters exactly — real names/emails/statuses, never invented rows, never silently dropping real ones.
+- `daisy.skye` (lacks `view_crm`): honest refusal/empty — the CRM menu and every CRM read path should be consistently gated, not leaking record data through chat even though the UI itself would 403.
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-248: Update a lead — status transition rules (`[docs §Leads]` status table)
+
+**User Role:** Admin or `luna.blossom`.
+**Precondition:** A lead in status New.
+
+**Steps:**
+1. "Set lead [name]'s status to Contacted."
+2. "Set lead [name]'s status to Converted" (direct, not via conversion — system-reserved per `[docs §Leads]`: "Set automatically by conversion. It cannot be selected by hand").
+3. "Set lead [name]'s status to Qualified."
+
+**Expected Result:**
+- Step 1: genuine success, status genuinely Contacted on `/leads`.
+- Step 2: honestly refused — real validation error naming the real reason (status is system-reserved), not a fabricated success and not a vague/generic denial.
+- Step 3: genuine success, status genuinely Qualified (sets up TC-CRX-250's conversion precondition).
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-249: Delete a lead — permission-gated, converted-lead exception
+
+**User Role:** Admin/`luna.blossom` (full) and `daisy.skye` (none).
+**Precondition:** One disposable, unconverted lead; one already-converted lead (from TC-CRX-250, run this TC after it, or create a second disposable lead and convert it first).
+
+**Steps:**
+1. As `daisy.skye` (lacks `delete_crm_data`): "Delete lead [disposable name]."
+2. As admin/`luna.blossom`: "Delete lead [disposable name]."
+3. As admin/`luna.blossom`: "Delete the converted lead [converted name]" — per `[docs §Converting a lead]`: "A converted lead can no longer be converted again or deleted."
+
+**Expected Result:**
+- Step 1: honest refusal naming the real missing permission (`delete_crm_data` — note `manage_leads` alone is NOT enough per the permissions table, a useful distinction to verify Crux gets right rather than conflating "manage" and "delete").
+- Step 2: genuine success, lead gone from `/leads`.
+- Step 3: honestly refused with the real documented reason (converted leads are delete-protected), not silently succeeding and not a generic error.
+
+**Result:** _execute and record here_
+
+---
+
+## Lead Conversion
+
+---
+
+### TC-CRX-250: Convert a qualified lead — full conversion, with deal
+
+**User Role:** Admin or `luna.blossom`.
+**Precondition:** A lead in status Qualified with a company name set (from TC-CRX-248).
+
+**Steps:**
+1. "Convert lead [name] — create a deal too, called '[Deal Name]', amount $[X]."
+2. Confirm.
+3. Independently verify: new Contact exists with the lead's name/email; new Company exists (if the lead had a company name) or an existing one is reused, never duplicated (`[docs §Converting a lead]`); new Deal exists, linked to both, in the Default Currency; the lead's own page shows status Converted and a Conversion Results card.
+
+**Expected Result:**
+- All 3 new/reused records exist exactly as documented, no data loss, no duplicate company if one with that name already existed.
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-251: Convert a non-Qualified lead — refused
+
+**User Role:** Admin or `luna.blossom`.
+**Precondition:** A lead in status New or Contacted (not Qualified).
+
+**Steps:**
+1. "Convert lead [name]."
+
+**Expected Result:**
+- Honestly refused — per `[docs §FAQ]`, "Only leads with status Qualified can be converted" — real validation error, not a fabricated success, not silently auto-advancing the status to Qualified first.
+
+**Result:** _execute and record here_
+
+---
+
+## Contacts — Create / Read / Update / Delete
+
+---
+
+### TC-CRX-252: Create a contact — admin, full-permission, no-permission tiers
+
+**User Role:** Admin; `luna.blossom`; `daisy.skye`.
+**Precondition:** None. Per `[docs §Contacts]`, First Name and Email required; a contact belongs to at most one company.
+
+**Steps:**
+1. As admin: "Create a contact named Celeste Dawn, email celeste.dawn@crmtest.local, job title Sales Director, company [a company from TC-CRX-250 or create one inline]."
+2. As `luna.blossom`: same pattern, distinct contact.
+3. As `daisy.skye`: same pattern.
+
+**Expected Result:** Same 3-tier pattern as TC-CRX-245 — admin/`luna.blossom` succeed with exact fields, `daisy.skye` honestly refused (lacks `manage_contacts`).
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-253: Update a contact — reassign company, mark private
+
+**User Role:** Admin or `luna.blossom`.
+**Precondition:** A contact and two companies.
+
+**Steps:**
+1. "Move contact [name] to company [other company]."
+2. "Mark contact [name] as private, assigned to [some user]."
+3. As a 3rd user who is neither the creator nor the assignee but DOES hold `view_crm` (if available) or as `daisy.skye`: "Tell me about contact [name]."
+
+**Expected Result:**
+- Steps 1-2 genuinely apply (verified via native `/contacts/<id>`, Visibility sidebar shows Private).
+- Step 3: per `[docs §Record visibility]`, private records are visible only to creator/assignee/admins — a non-privileged viewer must get an honest "not found / may be private" refusal, never a leak of the private contact's details (same contrast case as the old suite's TC-CRX-021, now re-verified on Redmine 6).
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-254: Delete a contact — cascade behavior (deals survive, unlinked)
+
+**User Role:** Admin/`luna.blossom` (full) and `daisy.skye` (none).
+**Precondition:** A disposable contact linked to at least one deal.
+
+**Steps:**
+1. As `daisy.skye`: "Delete contact [name]."
+2. As admin/`luna.blossom`: "Delete contact [name]."
+3. Independently verify the deal that was linked to this contact still exists, per `[docs §Deleting a contact]`: "Its deals are kept, but they are no longer linked to a contact."
+
+**Expected Result:**
+- Step 1 honestly refused (missing `delete_crm_data`).
+- Step 2 genuinely succeeds; the linked deal is independently confirmed to still exist and now shows no contact — this is the specific data-integrity behavior worth checking (a wrong implementation might cascade-delete the deal, or leave a dangling/broken reference instead of cleanly unlinking it).
+
+**Result:** _execute and record here_
+
+---
+
+## Companies — Create / Read / Update / Delete
+
+---
+
+### TC-CRX-255: Create a company — uniqueness, auto-https, admin/full/no-permission tiers
+
+**User Role:** Admin; `luna.blossom`; `daisy.skye`.
+**Precondition:** None. Per `[docs §Companies]`: Company Name required and must be unique; a website without `https://` gets it added automatically.
+
+**Steps:**
+1. As admin: "Create a company called Acme Dynamics, website acmedynamics-crmtest.local, industry Manufacturing."
+2. Immediately retry with the exact same name — per `[docs §Companies]`, name must be unique.
+3. As `luna.blossom`: a distinct company.
+4. As `daisy.skye`: a distinct company.
+
+**Expected Result:**
+- Step 1: genuine success; the website field on `/companies/<id>` shows `https://acmedynamics-crmtest.local` (auto-prefixed), not the raw value typed.
+- Step 2: honestly rejected as a duplicate (real validation error), not silently creating a second identical company.
+- Steps 3-4: same 3-tier pattern as TC-CRX-245/252.
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-256: Delete a company — cascade behavior (contacts/deals survive, unlinked)
+
+**User Role:** Admin/`luna.blossom` (full) and `daisy.skye` (none).
+**Precondition:** A disposable company with at least one contact and one deal attached.
+
+**Steps:**
+1. As `daisy.skye`: "Delete company [name]."
+2. As admin/`luna.blossom`: "Delete company [name]."
+3. Independently verify the attached contact and deal both still exist, per `[docs §Deleting a company]`: "Its contacts and deals are not deleted; they remain in the CRM without a company."
+
+**Expected Result:** Same shape as TC-CRX-254 — honest refusal without permission, clean unlink (not cascade-delete, not a dangling reference) with it.
+
+**Result:** _execute and record here_
+
+---
+
+## Deals — Create / Read / Update / Delete, Stage Rules, Currency
+
+---
+
+### TC-CRX-257: Create a deal — name uniqueness, currency is never user-settable
+
+**User Role:** Admin; `luna.blossom`; `daisy.skye`.
+**Precondition:** A contact and company from earlier TCs. Per `[docs §Deals]`: Deal Name required and unique; Currency field is read-only, always stamped with the Default Currency from Settings regardless of what's asked.
+
+**Steps:**
+1. As admin: "Create a deal called 'CRM Test Renewal', amount $25000, stage New, linked to contact [X] and company [Y], due date [+30 days]."
+2. "Create a deal called 'CRM Test Renewal' worth $500 in EUR" (same name — uniqueness check; also deliberately asks for a different currency than the Default — per docs this should be silently ignored/stamped with Default, not honored).
+3. As `luna.blossom`/`daisy.skye`: same 3-tier Create pattern.
+
+**Expected Result:**
+- Step 1: genuine success, correct fields, Currency shows the real configured Default Currency (not assumed — check Settings first).
+- Step 2: honestly rejected for the duplicate name; separately, if a currency other than Default was requested anywhere in this TC, confirm Crux either declines to promise a non-default currency or honestly explains the currency is fixed by Settings — it must never claim to have set EUR when the real record will show the Default Currency (a believable but false claim, the deal-level analogue of BUG-CRX-052's wrong-field-resolution pattern).
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-258: Move a deal to Won — automatic probability/closed-date behavior
+
+**User Role:** Admin or `luna.blossom`.
+**Precondition:** An open deal not yet Won/Lost.
+
+**Steps:**
+1. "Move deal [name] to Won."
+2. Independently verify on `/deals/<id>`: probability automatically 100%, closed date automatically today (per `[docs §Closing a deal]`), **and that the deal can no longer be moved to another stage from the pipeline** (`[docs §Pipeline view]`: "Once a deal is Won or Lost, it can no longer be dragged to another stage on the board" — try "Move deal [name] back to New" via chat too, should be honestly refused or require an explicit edit path, not a silent success).
+
+**Expected Result:** Automatic fields correct; the Won→other-stage block (if real) is honestly reported, not silently bypassed.
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-259: Move a deal to Lost — Lost Reason mandatory (regression of old-suite TC-CRX-019, now with an actual confirm instead of Cancel)
+
+**User Role:** Admin or `luna.blossom`.
+**Precondition:** A second open deal.
+
+**Steps:**
+1. "Move deal [name] to Lost." (no reason given)
+2. Supply a Lost Reason when asked.
+3. Confirm this time (the old-suite TC-CRX-019 stopped at Cancel to protect a shared fixture — this is a disposable deal, so confirm through to completion).
+
+**Expected Result:**
+- Step 1: the agent must ask for Lost Reason before proposing/confirming — never silently move to Lost with a blank reason.
+- Step 3: genuine success; `/deals/<id>` shows stage Lost, probability 0%, closed date today, and the Lost Reason text saved.
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-260: Won/Lost stages and Qualified lead status cannot be renamed or removed (`[docs §Initial setup, Protected values]`)
+
+**User Role:** Admin (Settings is admin-only).
+**Precondition:** None.
+
+**Steps:**
+1. "Remove the Lost stage from CRM settings."
+2. "Rename the Won stage to 'Closed-Won'."
+
+**Expected Result:** Both honestly refused — per docs, Won/Lost (deal stages) and Qualified (lead status) are protected: "shown with a lock and cannot be removed or renamed." The agent should explain why, not silently drop the request or silently succeed against a protected value.
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-261: Pipeline view — read requires `view_pipeline`, move requires `manage_deals` separately
+
+**User Role:** `luna.blossom` (has both) and a 4th permission combination: temporarily grant a throwaway/seed user `view_crm` + `view_pipeline` only (NOT `manage_deals`), to test the split documented at `[docs §Pipeline view]`: "Viewing the board requires `view_pipeline`; moving cards also requires `manage_deals`."
+
+**Steps:**
+1. As the `view_pipeline`-only user: "Show me the deal pipeline." (should work — read-only)
+2. Same user: "Move deal [name] to Proposal." (should be honestly refused — missing `manage_deals`)
+
+**Expected Result:** Confirms Crux enforces this specific two-permission split correctly, not conflating "can view the pipeline" with "can move cards on it" — a distinction the chat interface could plausibly get wrong since both map to the same visual action from a user's perspective. Revert the temporary grant after this TC.
+
+**Result:** _execute and record here_
+
+---
+
+## Activities, Audit Log, Settings
+
+---
+
+### TC-CRX-262: Log an activity — type-specific fields, author-only delete restriction (regression of old-suite TC-CRX-018)
+
+**User Role:** Admin and `luna.blossom` (both hold `manage_crm_activities`).
+**Precondition:** A contact or deal.
+
+**Steps:**
+1. As admin: "Log a call with [contact] about contract renewal, dated today."
+2. As `luna.blossom`: "Delete the call activity admin just logged." — per `[docs §Activities and email]`: "You can delete your own activities; administrators can delete any" — `luna.blossom` is neither.
+
+**Expected Result:** Step 1 succeeds, real activity on the record's timeline. Step 2 is honestly refused (authorship check) — re-verifies the old suite's TC-CRX-018 finding on the new stack, and specifically watch for BUG-CRX-018's previously-tracked misleading-✓-on-refusal pattern recurring here.
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-263: Send an email activity — required fields, delivery status surfaced honestly
+
+**User Role:** Admin or `luna.blossom`.
+**Precondition:** A contact with a real email address.
+
+**Steps:**
+1. "Send an email to [contact] with subject 'Following up' and body 'Just checking in.'"
+2. Check the activity timeline afterward.
+
+**Expected Result:** Per `[docs §Activities and email]`, Subject/From/To are all required — the agent should ask if any are missing, not guess a From address. The timeline should honestly show Sent/Pending/Failed — if Redmine's own mail isn't configured on this instance, Failed is an acceptable, honestly-reported outcome; a fabricated "Sent" would not be.
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-264: Audit Log — permission-gated, accurate
+
+**User Role:** Admin/`luna.blossom` (hold `view_audit_log`) and `daisy.skye` (doesn't).
+**Precondition:** A few activities logged from earlier TCs.
+
+**Steps:**
+1. As admin/`luna.blossom`: "Show me the CRM audit log for [contact/deal]."
+2. As `daisy.skye`: same question.
+
+**Expected Result:** Admin/`luna.blossom` get accurate entries matching `/crm_audit_logs`. `daisy.skye` is honestly refused (missing `view_audit_log`) — distinct permission from `view_crm`, worth confirming Crux doesn't conflate "can see CRM at all" with "can see the audit log."
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-265: Settings — admin-only regardless of role permissions, read-before-append (regression of old-suite TC-CRX-015)
+
+**User Role:** Admin, and `luna.blossom` (holds all 10 CRM role-permissions, but Settings is documented as admin-only "regardless of role configuration").
+
+**Steps:**
+1. As `luna.blossom`: "Add a new deal stage called 'Contract Review'."
+2. As admin: same request.
+3. Verify the full existing stage list is preserved plus the new one (settings_update replaces the whole list — the specific failure mode TC-CRX-015 was designed to catch).
+
+**Expected Result:**
+- Step 1: honestly refused — Settings genuinely requires Redmine admin, not just full CRM role-permissions; this is the one place in the whole CRM where "full permission" ≠ "can do everything," worth confirming Crux gets this subtlety right rather than assuming manage-everything implies settings access.
+- Step 2: succeeds, full list preserved (not just the new value) — re-verifies TC-CRX-015's finding on the new stack.
+
+**Result:** _execute and record here_
+
+---
+
+## Known-pattern regression sweep (cross-entity)
+
+---
+
+### TC-CRX-266: False-capability-denial sweep — one write op per entity, healthy MCP catalog confirmed first
+
+**User Role:** Admin.
+**Precondition:** Confirm the MCP tool catalog is healthy (`docker logs crux-redmine6-mcp-1`, expect 13/14 plugins, `crm` listed) before starting, per the BUG-CRX-061 lesson that a degraded catalog can produce a confounded false-denial-looking result.
+
+**Steps:** In fresh chats, one write op per entity type not already covered by a Create/Update/Delete TC above: update a deal's territory, update a company's industry, update a lead's source.
+
+**Expected Result:** Each either succeeds with a genuine confirm card, or is honestly refused for a real, checkable reason (permission, validation) — never the generic "I couldn't find a tool for this here" / "couldn't confirm whether this action is actually available" text for an operation whose underlying tool actually exists (per the CRM plugin's own REST API table in `[docs §REST API]`: Contacts/Companies/Deals/Leads all get "Full CRUD").
+
+**Result:** _execute and record here_
+
+---
+
+### TC-CRX-267: Misleading-checkmark sweep — force a few known failure conditions per entity
+
+**User Role:** Admin.
+**Precondition:** None specific — deliberately trigger failures (duplicate name, invalid email, protected-value edit) already exercised in TC-CRX-246/255/260.
+
+**Steps:** Re-read each of those TCs' failure-path replies specifically for a leading ✓ (or any success-looking glyph/color) on text that is actually reporting a failure.
+
+**Expected Result:** No instance of a checkmark (or equivalent) prefixing a failure message, anywhere in this suite's failure-path replies — the BUG-CRX-054 pattern, not yet seen on the CRM agent, should be actively hunted for rather than assumed absent.
+
+**Result:** _execute and record here_
+
+---
+
+## Evidence Map (2026-10-12 cycle)
+
+- Case IDs: TC-CRX-245 through TC-CRX-267 — drafted, not yet executed.
+- Fixtures: `Crux CRM Agent Test Project` (new), Manager role (CRM-permission-complete), Reporter role (`Use Ask Crux` only), `luna.blossom` (full CRM), `daisy.skye` (zero CRM).
+- Next step: execute in order, filing a `BUG-CRX-0NN` for each confirmed defect per `CLAUDE.md` §5, cross-referencing the Project Manager suite's bug numbers wherever the same systemic pattern recurs (false denial, fabricated confirm, misleading checkmark, token-budget stall, wrong/hallucinated ID resolution).

@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-072
 - Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
-- Title: Sales Agent's CRM Settings tool (`redmineflux_crm_settings_update`) is undiscoverable/uninvokable from chat for even a legitimate, non-protected change (adding a new deal stage) — the agent names the real tool and builds the correct proposed change internally, but never produces a confirm card, confirming a genuine tool-routing/discovery defect rather than an honest capability gap
+- Title: Sales Agent's own instructions incorrectly reference a CRM Settings-update tool (`redmineflux_crm_settings_update`) that should not exist from chat at all — CRM Settings is administration-level and correctly inaccessible via chat (not itself a bug), but the agent leaks the internal tool name and a fully-computed proposed diff before failing, and gives an inconsistent "I couldn't find a tool" vs. "I'm hitting a discovery issue" message for the same underlying (by-design) restriction
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)
 - Plugin version: 0.62.0
@@ -20,7 +20,7 @@
 
 ## Expected result
 
-A legitimate, non-protected Settings change (adding a new deal stage) should either succeed via a genuine confirm card (if a Settings-update tool is actually wired up for this agent) or be refused with an honest, consistent explanation. It should not produce a response that names a specific real tool as something that "should exist" per the agent's own instructions, builds out the fully correct proposed change, and then fails anyway due to an internal "discovery issue" — that is a tool-wiring defect, not a legitimate business refusal.
+**Note (corrected after initial filing):** CRM Settings is administration-level configuration and should **never** be changeable via the Sales Agent chat, by design — that part of the original refusal (Settings requests being blocked) is correct behavior, not a defect. The actual issue is narrower: the agent should give one consistent, clean refusal for *any* Settings request (protected or not) — e.g. "Settings changes aren't available through this chat; please use Administration → CRM → Settings" — without ever referencing an internal tool name, and without first computing and displaying a full proposed diff it then can't execute. The agent's own instructions apparently reference a `redmineflux_crm_settings_update` tool as something that "should exist," which itself is the root inconsistency worth fixing (the agent's prompt/instructions imply a chat-capability that, per the intended design, should never have been implied at all) — not the absence of a working settings-update tool.
 
 ## Actual result
 
@@ -38,6 +38,8 @@ Two distinct problems here:
 2. **Inconsistent failure messaging for the same underlying gap**: step 1 ("Remove the Lost stage") got a generic, uninformative denial with no tool name at all, while step 2 ("Add a new deal stage") — same session, same underlying missing capability — got a detailed technical disclosure instead. A user attempting the protected removal in step 1 has no way to know a real tool was ever in scope, while a user attempting the legitimate addition in step 2 is shown internal tool-naming details that shouldn't normally surface in a user-facing chat reply.
 
 **Native UI cross-check (`/crm/settings`)**: confirms Deal Stages Won and Lost, and Lead Status Qualified, each render with no "Delete" button and an explicit "Required value — can't be removed or renamed" indicator, with explanatory text below each list ("Won" and "Lost" are required for pipeline reporting and can't be removed or renamed." / "'Qualified' is required for lead conversion and can't be removed or renamed."). The protected-value invariant itself (TC-CRX-260's actual subject) is correctly enforced at the native-UI/backend level — this bug is scoped only to the chat tool's inability to reach Settings at all, for protected or unprotected changes alike, not to a bypass of the protection itself.
+
+**Scope correction**: Settings being completely unreachable via chat is itself the *correct, intended* behavior (CRM Settings = administration-level, should not be chat-editable at all, regardless of role). This bug is **not** "Settings should work via chat but doesn't" — it is scoped only to (a) the agent's own instructions incorrectly referencing a tool name that implies chat-based Settings access was ever intended, and (b) the inconsistent messaging/internal-detail leakage between the two near-identical requests in steps 1 and 2.
 
 ## Evidence
 

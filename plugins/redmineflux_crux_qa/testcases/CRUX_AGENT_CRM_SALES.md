@@ -698,7 +698,12 @@ Evidence (2026-10-12):
 
 **Expected Result:** Same shape as TC-CRX-254 — honest refusal without permission, clean unlink (not cascade-delete, not a dangling reference) with it.
 
-**Result:** _execute and record here_
+**Result: PASS (core behavior correct), recurrence of BUG-CRX-070 confirmed**
+
+Evidence (2026-10-12): Created a disposable company ("Disposable Company Test", #7) with 1 linked contact (#6) and 1 linked deal (#3) via chat as admin first.
+1. As `daisy.skye`: "Delete company Disposable Company Test." → honestly refused: "I don't have permission to list or delete companies in this deployment... your Redmineflux administrator needs to grant you the required permission for CRM data deletion" — correct, no leak.
+2. As admin, by name: "Delete company Disposable Company Test." → self-contradictory failure (BUG-CRX-070 recurrence). By ID in the same chat ("Delete company ID 7.") → **still failed identically** (unlike the Contact case, ID alone didn't fix it here). A fresh chat with "Please delete company with ID 7." → finally succeeded: genuine `Crm Delete` confirm card → confirmed → **"✓ Company 'Disposable Company Test' (#7) deleted. ⚠️ Linked records orphaned: 1 contact(s), 1 deal(s))."** — folded into **BUG-CRX-070 as Repro 2**, now confirmed on a 2nd entity type (Company) and showing the failure isn't purely name-vs-ID (a fresh chat was needed even with the correct ID).
+3. Independently verified: the linked contact (`/contacts/6`) and deal (`/deals/3`) both survive, Company field cleanly cleared to "—" on each — not cascade-deleted, not a dangling reference. The documented cascade behavior itself is correct.
 
 ---
 

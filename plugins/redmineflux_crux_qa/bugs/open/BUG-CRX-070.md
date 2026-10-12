@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-070
 - Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
-- Title: Recurrence of the historical, already-fixed self-contradiction pattern (BUG-CRX-013, closed 2026-09-25 on the Redmine 7.0.0 stack) on the Sales Agent's Delete Contact path — deleting a contact by name produces "I described a change without actually proposing it," 2/2, while the identical request by numeric ID works correctly
+- Title: Recurrence of the historical, already-fixed self-contradiction pattern (BUG-CRX-013, closed 2026-09-25 on the Redmine 7.0.0 stack) on the Sales Agent's Delete path — reproduced on both Contact and Company deletes; name-based requests (and, for Company, even some ID-based retries) produce "I described a change without actually proposing it," while persistence with the numeric ID eventually works
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)
 - Plugin version: 0.62.0
@@ -45,6 +45,15 @@
 - Attempt 1 exact reply (captured via accessibility snapshot): "I described a change without actually proposing it, so there's nothing to confirm yet — please tell me again exactly what to change and I'll make it a real, confirmable proposal."
 - Attempt 2 (different phrasing, "Please delete the contact named..."): identical reply, word-for-word.
 - Attempt 3 (by ID): "I'll do this (Crm Delete) — confirm?" with a real detail table (Entity Type: contact, Entity: 4) and real Confirm/Cancel buttons. Confirmed → "✓ Contact 'Disposable Contact Test' (#4) deleted. ⚠️ Linked records orphaned: 1 deal(s)." — genuine, independently verified via `/deals/2` (the linked deal survives, Contact field cleared to "—", not cascade-deleted).
+
+## Repro 2 — same pattern on Company delete, worse persistence (TC-CRX-256)
+
+As admin, with a disposable company "Disposable Company Test" (ID 7, with 1 linked contact and 1 linked deal):
+1. "Delete company Disposable Company Test." (by name) → identical self-contradiction: "I described a change without actually proposing it..."
+2. "Delete company ID 7." (by ID, same chat) → **still** the identical self-contradiction — unlike the Contact case, the ID-based retry did NOT immediately fix it this time.
+3. New fresh chat, "Please delete company with ID 7." (3rd attempt overall, 2nd by ID) → finally succeeded: genuine `Crm Delete` confirm card → confirmed → **"✓ Company 'Disposable Company Test' (#7) deleted. ⚠️ Linked records orphaned: 1 contact(s), 1 deal(s)."** Independently verified: the linked contact (`/contacts/6`) and deal (`/deals/3`) both survive, Company field cleanly cleared to "—" on each, not cascade-deleted.
+
+This confirms the defect isn't just "name resolution fails, ID always works" — on Company delete, even the ID-based path required a fresh chat session before succeeding, suggesting the self-contradiction may also be sensitive to some session/conversation state, not purely the identifier format. Worth the dev team investigating whether this correlates with the original historical BUG-CRX-013's own note about a possible conversation-state leak contributing to some of its reproductions.
 
 ## Duplicate check
 

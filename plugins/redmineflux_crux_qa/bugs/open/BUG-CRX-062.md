@@ -44,6 +44,17 @@ So in one short message, Crux makes two confident, specific, and both-false clai
 - MCP source (`/app/src/tools/core.py:2156-2173`), `redmineflux_core_delete_project_membership` — fully implemented, calls `DELETE /memberships/{membership_id}.json`.
 - Native UI: `/projects/crux-pm-agent-test-project/settings/members` still lists Luna Blossom as Reporter after this exchange — confirms no write was attempted, consistent with the chat's own (false) claim that it can't do this.
 
+## Retest — 2026-10-12 (STILL BROKEN)
+
+Retested live after the Crux stack rebuild (fresh `mcp`/`crux-core` builds, confirmed healthy catalog).
+
+- Re-sent "Remove luna.blossom from the Crux PM Agent Test Project." — still gets a false denial, now reworded to the same generic **"I couldn't find a tool for this here, so I can't do it from this chat..."** text seen on BUG-CRX-061's current wording (rather than the original "not yet supported through this chat interface").
+- Confirmed via source grep that `redmineflux_core_delete_project_membership` still exists (`core.py:2182`) — the denial is still false.
+
+![Retest — still a false denial, reworded text, tool confirmed to exist](../../screenshots/BUG-CRX-062/retest-2026-10-12-stillbroken.png)
+
+Not reported as fixed — left in `bugs/open/`, no production status sync performed.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same false-capability-denial family as BUG-CRX-029/032/034/050/061, but this is the sharpest instance yet: a specific, confident, unhedged "not yet supported" assertion (not a vague "couldn't confirm" like BUG-CRX-061) for a tool that is not only present but was one call away from being used correctly (the agent had already found the right membership id). Also notable for being self-contradictory alongside BUG-CRX-060 in the same breath, claiming create "works" when this session already proved it doesn't.

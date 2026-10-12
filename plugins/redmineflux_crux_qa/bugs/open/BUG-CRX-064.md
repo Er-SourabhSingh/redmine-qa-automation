@@ -43,6 +43,17 @@ Neither response fabricates success and neither silently executes a write (confi
 - Both turns ran under the same confirmed-healthy MCP catalog (`tools/list ... tools=495`), ruling out BUG-CRX-063's degraded-state issue as an explanation for the difference.
 - MCP source (`/app/src/tools/core.py`): confirmed no write tool exists for project-level time-entry-activity toggling in either direction — the capability gap itself is real and identical for enable and disable.
 
+## Retest — 2026-10-12 (STILL BROKEN)
+
+Retested live after the Crux stack rebuild (fresh `mcp`/`crux-core` builds, confirmed healthy catalog).
+
+- "Disable the Design time-tracking activity for the Crux PM Agent Test Project." → still gets the terse, generic boilerplate: **"I couldn't find a tool for this here, so I can't do it from this chat..."**
+- "Enable the Live Chat Support time-tracking activity for the Crux PM Agent Test Project." → still gets a detailed, honest, correct explanation naming the real tool it has, explaining activities are a system-wide enumeration, and giving native-UI steps.
+- The exact wording of both replies has changed since the original repro, but **the core inconsistency — same genuinely-missing capability, two very different quality answers depending only on phrasing — is unchanged.**
+![Retest — "Enable" still gets a detailed, honest answer](../../screenshots/BUG-CRX-064/retest-2026-10-12-stillbroken-enable.png)
+
+Not reported as fixed — left in `bugs/open/`, no production status sync performed.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Originally logged as Repro 7 of **BUG-CRX-061** (the "false denial of an existing tool" pattern) before the follow-up Enable test revealed the tool genuinely doesn't exist in either direction — re-filed here as a distinct issue since the root cause is different (a genuine capability gap communicated inconsistently, not a false denial of a real tool). Related to, but distinct from, the Forums/Repositories honest-refusal precedent (TC-CRX-218/219) — those get the *same* honest treatment every time they're asked; this is the first instance where the *same* genuinely-absent capability gets two different quality levels of answer depending purely on phrasing.

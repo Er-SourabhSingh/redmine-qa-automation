@@ -94,6 +94,16 @@ This bug was reproduced with a Text field and a List field, but the underlying g
 
 The core fix is for the agent to call `redmineflux_core_list_custom_fields` (filtered to the relevant tracker/project) to get each involved field's real `id`, `name`, and `format`-appropriate constraint (`possible_values` for List/Key-value, `min_length`/`max_length`/`regexp` for Text, etc.) **before** constructing `custom_field_values` for a create/update proposal — not just when a field happens to be missing/blank, but proactively for any field the user names, regardless of which of the 11 formats it is. This also fixes the false-capability-denial half of this bug (the tool to answer "what are my options" already exists) and the ID-hallucination half (the real id would come from this same lookup instead of being guessed).
 
+## Retest — 2026-10-12 (FIXED)
+
+Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `396843b` "CRC-46 + CRC-47: issue field check; PM tool reach and honest results (BUG-CRX-050..065)").
+
+- Asked Crux directly for a custom field's valid options on `crux-qa`.
+- Agent no longer claims the lookup tool doesn't exist — it correctly calls `redmineflux_core_list_custom_fields` and returns the real field id and its real possible values.
+- Re-ran the original multi-field create scenario (naming "Text required feild" and "list required feilds" by name with values) — the resulting proposal correctly targeted the real field ids (4 and 5), not the unrelated "Crux Capability" (id 1) or a fabricated id (45).
+
+Status: Closed — fixed, confirmed via live retest.
+
 ## Duplicate check
 
 - Duplicate found: No

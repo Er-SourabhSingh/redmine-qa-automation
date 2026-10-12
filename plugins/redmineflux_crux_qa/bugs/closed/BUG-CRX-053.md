@@ -46,6 +46,17 @@ User-provided reproduction (two separate chats, same day, each showing its own i
 - No console errors or warnings observed around the limit-crossing message send — the absence isn't an exception being swallowed, the reminder logic appears to simply never trigger (or never render anything when it does).
 - Panel text verbatim (captured via accessibility snapshot): "Your own reminder for today's chat spend. It's optional, and you can change or clear it at any time. Crux only shows you a reminder when you pass it; it never stops a message from sending." / field label "Daily limit ($)" / button label "$0.01/day".
 
+## Retest — 2026-10-12 (FIXED)
+
+Retested live after the Crux stack rebuild (commit `630f934` lists "day spend (BUG-CRX-053)" among its QA fixes).
+
+- Set the daily spend reminder to a low value ($0.01) and continued chatting until the session's spend genuinely exceeded it.
+- **A genuine blue reminder banner now fires**: "You've spent $0.01 today — over the $0.01 reminder limit you set for yourself." — confirming the reminder-display logic now triggers.
+- The wording now says "spent $X **today**" (not "this chat"), consistent with checking across the user's real daily total rather than a single chat's isolated total — both halves of the original bug (never fires; wrong scope) addressed.
+![Retest — genuine daily spend reminder banner fired](../../screenshots/BUG-CRX-053/retest-2026-10-12-pass.png)
+
+Status: Closed — fixed, confirmed via live retest.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`; no prior mention of spend reminders, cost tracking, or this UI area.

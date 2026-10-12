@@ -53,6 +53,15 @@
 
 **Actual result — FAIL, same root cause.** Crux replied: *"Crux PM Agent Test Project has 5 issues by type: Bug: 2 (#19, #16), Feature: 2 (#20, #18), Support: 1 (#17)"* — **missing exactly #14 and #15, the project's only two Closed issues.** Total under-reported as 5 instead of 7. This is not an isolated per-version bug — the same silent open-only default affects a plain whole-project type-count question with no version filter involved at all, confirming the root cause is in the shared issue-listing/counting path itself, not something specific to version-scoped queries.
 
+## Retest — 2026-10-12 (FIXED)
+
+Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `396843b` — "issue field check; PM tool reach and honest results").
+
+- Asked the same version/issue-count questions against a version whose only issues are Closed.
+- Crux now correctly includes Closed issues in both the per-version count and the whole-project type breakdown — no silent open-only default, matching native UI ground truth.
+
+Status: Closed — fixed, confirmed via live retest.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Related in spirit to the already-fixed fabricated-absence pattern (BUG-CRX-026, BUG-CRX-044 — both on different agents claiming "nothing exists" when data was simply inaccessible/unchecked) but a new instance on the Project Manager agent's version/issue-count reporting path, with a clear, reproducible root cause (status filter defaults to open-only, silently, for this specific query shape).

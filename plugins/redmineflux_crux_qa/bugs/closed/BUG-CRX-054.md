@@ -84,6 +84,16 @@ This is not a "fabricated confirm card" or "claimed success in text" in the sens
 - Repro 2 exact final bubble text (captured via accessibility snapshot): `✓ Project 'crux-pm-agent-test-project' not found or you don't have permission to create issues in it. Use list_projects to find valid project IDs/identifiers.`
 - Repro 3 exact final bubble text (captured via accessibility snapshot): `✓ Project 'crux-qa' not found or you don't have permission to create issues in it. Use list_projects to find valid project IDs/identifiers.`
 
+## Retest — 2026-10-12 (FIXED)
+
+Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `396843b`).
+
+- Closed a throwaway project, then asked Crux to create an issue in it.
+- Crux now **correctly refuses upfront, honestly**, before ever attempting the write — no misleading ✓ checkmark on a failure message (the same underlying fix also resolved BUG-CRX-055's false affirmation; both bugs shared one root cause — the agent now checks/refuses before attempting the create instead of attempting it and mis-rendering the failure).
+![Retest — honest upfront refusal, no misleading checkmark](../../screenshots/BUG-CRX-054/retest-2026-10-12-pass.png)
+
+Status: Closed — fixed, confirmed via live retest.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`; no prior mention of the chat UI's success/failure iconography. Repro 2 and Repro 3 (both 2026-10-11) are same-root-cause reproductions of this same bug on different trigger conditions (archived project; plain permission denial), not new bugs — folded in here rather than filed separately.

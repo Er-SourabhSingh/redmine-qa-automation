@@ -46,6 +46,16 @@ Project `crux-qa` has 3 trackers enabled: **Bug, Feature, Support** (Bug is firs
 - Confirm card (session `ses-007`, 2026-10-09T11:51:51Z): table rows `Project: Crux QA`, `Tracker: (project default)`, `Subject: Dark mode support`, `Description: Implement dark mode support for the application UI.` — no tracker ever proposed as Feature despite the request's own wording.
 - Real issues list (`/projects/crux-qa/issues`) after both reproductions: issue #6 "Dark mode support" → Tracker column = Bug; issue #5 "feature login" → Tracker column = Bug. Neither matches the user's stated intent.
 
+## Retest — 2026-10-12 (FIXED)
+
+Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `396843b`, same batch as BUG-CRX-050/052).
+
+- Asked Crux: "Create a feature in crux-qa called 'BUG-051 retest'." (equivalent phrasing to the original repro).
+- Confirm card's Tracker row correctly showed **Feature**, not "(project default)".
+- Confirmed the resulting real issue was created with tracker Feature via native UI issue list.
+
+Status: Closed — fixed, confirmed via live retest.
+
 ## Duplicate check
 
 - Duplicate found: No

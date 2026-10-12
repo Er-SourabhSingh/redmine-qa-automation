@@ -87,6 +87,16 @@
 
 The identical exact string "I'll create this issue — confirm?" appeared on **7 completely unrelated operations** in 7 separate fresh chats: a 3-field project update (description/homepage/public), enabling a plugin module (Agile Board), disabling a genuine core Redmine module (Forums), enabling a tracker on the separate Issue tracking sub-tab (Testcase), a Repositories-tab request that Crux reasonably substituted into a homepage-field update, removing a tracker (Support) — the reverse direction of the earlier tracker-enable — and a combined custom-field-enable + default-version + default-assignee request (also on the Issue tracking sub-tab) — covering both directions on 2 separate axes (module enable/disable, tracker include/remove), both module categories (core/plugin), a non-module field update, every remaining Issue-tracking-tab field, and 3 different Project Settings sub-tabs. This strongly suggests a hardcoded placeholder/fallback confirm-text string somewhere in the proposal-rendering path that isn't being replaced with the actual proposed action/tool — likely the same code path that should be producing a real tool-specific card (as it correctly does for `create_issue`, `update_issue`, `Core Set Project Closed`, etc.) but falls through to this generic literal for **every** `update_project`-shaped write, without ever actually building the real proposal or its Confirm/Cancel buttons. Given 7/7 reproduction across every variant tried, including every field on the Issue tracking sub-tab — this is very likely a 100%-reproducible, total failure of the `update_project` write path via chat — not an intermittent issue. Notably, this is a *different* failure mode from BUG-CRX-061 (the "couldn't confirm available" false denial affecting Versions/Memberships/Categories) — `update_project` fails by fabricating a wrong confirm card, while those other entity types fail by denying availability outright. Both appear to share the same root symptom (the write-proposal pipeline not correctly building a real tool-specific card) but manifest differently depending on the entity type.
 
+## Retest — 2026-10-12 (FIXED)
+
+Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `396843b`).
+
+- Re-sent an `update_project`-shaped request ("set the description of the Crux PM Agent Test Project to ...") in a fresh chat.
+- Crux now produces a **genuine, tool-specific confirm card** (naming the real tool, a real detail table, real Confirm/Cancel buttons) — no fabricated "I'll create this issue — confirm?" text.
+- Confirmed the resulting write genuinely applied via native UI (`/projects/.../settings/info`).
+
+Status: Closed — fixed, confirmed via live retest.
+
 ## Duplicate check
 
 - Duplicate found: No, but same defect **class** as the already-closed **BUG-CRX-020** (fabricated-confirm proposals with no real Confirm/Cancel button) — recorded as a new, separate bug per the repo's own precedent (BUG-CRX-027/028 were filed the same way as new recurrences of BUG-CRX-020's pattern on new trigger paths, rather than reopening 020). Also distinct from BUG-CRX-054/055 (those were about a failure being mislabeled as a checkmark success, and a false capability claim) — this is the proposal never forming correctly in the first place, and describing the wrong action entirely.

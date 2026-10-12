@@ -91,6 +91,16 @@ Out of 11 fields given, **8 resolved correctly** (Tracker: Feature ✓, Assignee
   - `mcp call tool=redmineflux_core_list_trackers duration_ms=28.8 ok=true` — this one resolved correctly (Tracker: Feature), another case of the list-then-match approach working when used.
 - Activity `93fce7376fca` (confirm attempt, `/crux/admin/logs`): `POST /api/chat/confirm status=400`, `proposal confirm produced no issue id ... raw=Validation error: Target version is not included in the list; Category is not included in the list Correct the value(s) above and try again.`
 
+## Retest — 2026-10-12 (FIXED)
+
+Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `396843b`).
+
+- Re-sent a create-issue request naming Priority "High" explicitly (the specific High→Urgent mapping error this bug documented across 3/3 prior reproductions).
+- The resulting confirm card correctly showed **Priority: High** — no substitution to Urgent.
+- Also re-checked Category and Target Version resolution by name on the same multi-field request — both resolved to the real, correctly-named records this time, not a guessed/wrong/404'd id.
+
+Status: Closed — fixed, confirmed via live retest.
+
 ## Duplicate check
 
 - Duplicate found: No

@@ -41,6 +41,17 @@ This is a **false capability denial** distinct from BUG-CRX-061 (which affects w
 - MCP source (`/app/src/tools/core.py:3259-3287`), `redmineflux_core_list_project_files(project_id)` — fully implemented, calls `GET /projects/{project_id}/files.json`, returns `"No files found for project '{project_id}'."` when empty.
 - Native UI: `/projects/crux-pm-agent-test-project/files` — table present, zero rows, confirming "no files" is the correct ground truth the dedicated tool would have given directly.
 
+## Retest — 2026-10-12 (FIXED)
+
+Retested live after the Crux stack rebuild (`redmineflux-mcp` commit `ae436b6` "Crux QA fixes: plugin re-detection, honest list pages, custom field values").
+
+- "What files are uploaded to the Crux PM Agent Test Project?" → Crux now replies directly and correctly: **"No files are currently uploaded to the Crux PM Agent Test Project."**
+- Tool trace shows only 2 checks this time (down from the original 10 tool calls spanning `list_projects`/`list_issues`/8×`get_issue`) — consistent with the dedicated `redmineflux_core_list_project_files` tool now being used instead of the wrong issue-by-issue search.
+- Matches native UI ground truth (`/projects/.../files` — zero rows).
+![Retest — correct, concise "No files are currently uploaded" answer](../../screenshots/BUG-CRX-065/retest-2026-10-12-pass.png)
+
+Status: Closed — fixed, confirmed via live retest.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same false-capability-denial *family* as BUG-CRX-029/032/034/050/061, but a new, distinct shape: those are write-path false denials where the agent gives up quickly (1-2 tool calls); this is a **read-path** false denial where the agent tries unusually hard (10 tool calls, going issue-by-issue) in entirely the wrong direction before concluding the capability doesn't exist, missing the one tool whose own docstring names this exact question as its intended use.

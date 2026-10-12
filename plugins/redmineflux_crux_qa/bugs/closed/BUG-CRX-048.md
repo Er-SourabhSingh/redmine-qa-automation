@@ -46,6 +46,17 @@
 - DOM inspection at the moment of the second failed submit: `[{"placeholder":"e.g. hyper-agent-3","value":"builder-1","valueLength":9}, ...]` — confirms the Id field's real value was the clean string `builder-1`.
 - Source: `crux_agents_controller.rb:73` — `params[:id].to_s.match?(/A[a-z0-9][a-z0-9-]*z/)`, under the `# CRP-18` comment block (so this appears to be a recent regression introduced by the CRP-18 change, not a long-standing defect).
 
+## Retest — 2026-10-12 (FIXED)
+
+Retested live after the Crux stack rebuild (plugin source pulled fresh; confirmed via `redmineflux_crux` repo commit `630f934` "CRP-29: QA fixes ... agent id check ... (BUG-CRX-047/048/049/053)").
+
+- Opened `/crux/agents`, created a brand-new agent registration with id `bug-048-retest-agent` and a filled "Capabilities" field.
+- Clicked "Save agent" — result: **"✓ Agent 'Bug 048 Retest Agent' saved."** — genuine success, no false regex rejection.
+- (Note: an initial attempt produced no visible result at all; traced via `browser_evaluate` to a different, unrelated required HTML field — "Capabilities" — being left empty by the tester, not a server round-trip. Once filled, the save succeeded cleanly — confirming this was a test-setup mistake, not a recurrence of the bug.)
+![Retest — "✓ Agent 'Bug 048 Retest Agent' saved."](../../screenshots/BUG-CRX-048/retest-2026-10-12-pass.png)
+
+Status: Closed — fixed, confirmed via live retest.
+
 ## Duplicate check
 
 - Duplicate found: No — searched `bugs/_duplicates.md`, `bugs/_index.md`, and the exact error text ("Use lowercase letters, numbers and dashes" / "support-helper") across all bug/testcase/doc files; no prior mention.

@@ -43,6 +43,15 @@ Notably, the 4 real entries span **both** closed issues (#14, #15 — 5h) **and*
 - Activity trail: "Checked 1 thing" — a single tool call, result apparently empty/unparsed, with no retry or second tool attempted before the confident false-absence conclusion.
 - Native ground truth (`/projects/crux-pm-agent-test-project/time_entries`): 4 rows — Bug #14 (3:00, Development), Feature #15 (2:00, Development), Bug #16 (4:00, Development), Feature #18 (1:30, Design).
 
+## Retest — 2026-10-12 (FIXED)
+
+Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `396843b`).
+
+- Asked "How much total time has been logged on the Crux PM Agent Test Project" against a project with genuine, mixed-status time entries.
+- Crux now correctly reports the real total time and per-issue breakdown — no false "no time entries logged" / "time tracking not enabled" claim.
+
+Status: Closed — fixed, confirmed via live retest.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same fabricated-absence family as BUG-CRX-026/044/057, but a distinct instance: BUG-CRX-057 was a partial under-count (closed issues silently dropped from a count that otherwise worked); this is a total, unqualified false negative (zero found when 10.5h real, mixed-status data exists) on an entirely different data type (time entries, not issues), and compounded by an unfounded, wrong speculation about the feature being disabled.

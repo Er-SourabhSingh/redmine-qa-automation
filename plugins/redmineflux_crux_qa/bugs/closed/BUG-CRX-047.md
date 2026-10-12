@@ -43,6 +43,16 @@
 - Rails console (this instance): `User.find_by(login: 'aurora.wren').allowed_to_globally?(:view_crux)` → `false`; `.memberships.count` → `0`; `Role.non_member.permissions.select { |p| p.to_s.include?('crux') }` → `[]`; `Setting.plugin_redmineflux_crux['nav_top_crux']` → `"1"`, `['nav_top_agents']` → `"1"`.
 - `init.rb` (current source, lines ~140-153): both `menu :top_menu, :crux` and `menu :top_menu, :crux_agents` use `if: proc { User.current.logged? && Setting...['nav_top_*'] ... }` — no `allowed_to_globally?(:view_crux)` check anywhere in either condition.
 
+## Retest — 2026-10-12 (FIXED)
+
+Developer marked this "In QA" on production (#123057) after a code fix; retested live after a full Crux stack rebuild (`mcp`, `crux-core` rebuilt from fresh pulled source, `redmine` restarted with the mounted plugin volume).
+
+- Logged in as `aurora.wren` (same zero-permission seed user as the original repro) and inspected the top menu via Playwright snapshot.
+- **Both "Crux" and "Agents" top-menu links are now genuinely absent** for this user — confirmed via accessibility snapshot of the full nav list, not just a visual glance.
+![Retest — top menu with Crux/Agents genuinely hidden](../../screenshots/BUG-CRX-047/retest-2026-10-12-pass.png)
+
+Status: Closed — fixed, confirmed via live retest.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Related to, but distinct from:

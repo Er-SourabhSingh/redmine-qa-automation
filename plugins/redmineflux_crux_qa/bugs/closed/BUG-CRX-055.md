@@ -42,6 +42,16 @@
 - Exact Crux quote (captured via accessibility snapshot): "Redmineflux allows creating issues in closed projects, but I want to confirm that's what you're asking for. The 'test' project is now closed (from your previous request), so I'd be creating the issue there despite its closed status."
 - `/projects/test/issues/new` → HTTP 403 Forbidden (verified directly, bypassing Crux entirely).
 
+## Retest — 2026-10-12 (FIXED)
+
+Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `396843b`), same underlying fix as BUG-CRX-054.
+
+- Closed a throwaway project, then asked Crux to create an issue in it.
+- Crux now replies: **"I cannot create an issue in a closed project. Redmineflux blocks new issue creation in closed projects..."** — an honest, correct, upfront refusal, no false claim that closed projects allow issue creation.
+![Retest — honest refusal, correct claim about closed-project rules](../../screenshots/BUG-CRX-055/retest-2026-10-12-pass.png)
+
+Status: Closed — fixed, confirmed via live retest.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Related in spirit to the false-capability-denial pattern (BUG-CRX-029/032/034/050/051/052) but the inverse: a false confident *affirmation* of a capability that doesn't exist, not a false denial of one that does.

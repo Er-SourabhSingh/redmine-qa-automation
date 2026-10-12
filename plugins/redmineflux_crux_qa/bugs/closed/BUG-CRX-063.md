@@ -43,6 +43,17 @@ Once the 120-second/27-attempt self-test window elapses without success, the ser
 - Confirmed still degraded ~6 minutes later, well after Redmine was healthy, via 3 separate `tools/list` calls in `crux-core`'s own log, each `tools=95`.
 - Manual restart with Redmine already healthy (`docker restart crux-redmine6-mcp-1`): `Redmineflux MCP v0.2.2: 498 tools (98 core + 398 plugin + 2 crux). Detected plugins: ... (13/14)` — full recovery, confirming the only defect is the lack of a retry/re-detection path.
 
+## Retest — 2026-10-12 (FIXED)
+
+Retested via source inspection (appropriate for an infra/startup-race bug — not practical to force-recreate a slow-Redmine-boot race live). Confirmed in `redmineflux-mcp` `src/server.py`, explicitly citing this bug:
+
+- `_redetect_plugins_later()` (line 86) — a daemon background thread that, when the initial startup/plugin-detection pass comes back degraded, retries plugin detection every 15s for up to 1 hour, re-registers tools, and logs "The server is no longer degraded" on success.
+- `_startup_self_test()` (line 128) now retries connection failures/502-504s with backoff up to `max_wait` (120s), with an explicit comment citing this exact cold-boot race.
+- `create_server()` (line 316) also retries plugin detection with backoff (2s/4s/8s) if the self-test succeeds but 0 plugins were found — covering a narrower, faster version of the same race.
+- Together these directly address the originally-reported defect: a cold boot where Redmine takes longer than ~120s no longer permanently commits the server to a degraded 98-tool/0-plugin state — it keeps retrying in the background until Redmine responds.
+
+Status: Closed — fixed, confirmed via source inspection of the fix.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Related in theme to the already-closed **BUG-CRX-016** ("MCP plugin-detection race") but a distinct mechanism: BUG-CRX-016 was about a race *during* detection producing an incomplete result; this is about the server never *retrying* detection at all after an initial failure, persisting in a maximally-degraded (0/14 plugins) state indefinitely with no self-healing, which is a more severe and more easily-triggered variant (any sufficiently slow Redmine boot reproduces it). Also distinct from BUG-CRX-004 (closed — stale MCP *session* never recovering) since this is about the *tool catalog/plugin registration*, not a session token.

@@ -39,6 +39,15 @@ This is not a fabrication or a false-success issue — the table detail is hones
 - Close-action headline (captured via accessibility snapshot, TC-CRX-198): "I'll do this (Core Set Project Closed) — confirm?" — table `Project: test` / `Closed: True`.
 - Reopen-action headline (captured via accessibility snapshot, TC-CRX-204): "I'll do this (Core Set Project Closed) — confirm?" — table `Project: test` / `Closed: False`. Word-for-word identical to the close-action headline.
 
+## Retest — 2026-10-12 (FIXED)
+
+Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `396843b`).
+
+- Closed, then reopened, a throwaway project via Crux, comparing both confirm-card headlines.
+- The Reopen confirm card's headline is now direction-specific — no longer identical, word-for-word, to the Close headline.
+
+Status: Closed — fixed, confirmed via live retest.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Ties into the same parked "message clarity for non-technical users" theme already raised in `CRUX_HANDOFF.md` (e.g. TC-CRX-193/194's generic-hedge findings), but this is the first concrete instance of a confirm-card *headline* (not a refusal message) being direction-ambiguous for a toggle-style action.

@@ -62,6 +62,16 @@ This makes "add a member" and "create a version" via chat **completely non-funct
 - Both Repro 1 calls' tool trace shows only `redmineflux_core_list_projects` and `redmineflux_core_list_users` actually executing — never reaching a membership-creation tool call before the budget cutoff.
 - Repro 2: all 4 attempts (2 without `manage_versions`, 2 with) produced the same `(Stopped: this turn's token budget was reached...)` cutoff text, each on a different partial sentence. Native UI (`/projects/luna-permission-test-project/settings/versions`) confirmed "No data" both before and after granting the permission — no version was ever created in any of the 4 attempts.
 
+## Retest — 2026-10-12 (STILL BROKEN)
+
+Retested live after the Crux stack rebuild (fresh `mcp`/`crux-core` builds, confirmed healthy via 498-tool catalog).
+
+- Re-sent "Add luna.blossom as a Developer to the Crux PM Agent Test Project." — stalled again with the same per-turn token-budget cutoff before ever reaching a confirm card, reproduced 2/2.
+- Independently confirmed via native UI that no membership was created.
+![Retest — still stalls on per-turn token budget, no confirm card](../../screenshots/BUG-CRX-060/retest-2026-10-12-stillbroken.png)
+
+Not reported as fixed — left in `bugs/open/`, no production status sync performed.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Not the same as the cost/day-level spend-reminder issue (BUG-CRX-053, which is about a *daily* spend threshold never firing) — this is a *per-turn* token-budget ceiling being hit during tool discovery, a different mechanism and a different, more severe symptom (the action never completes at all, regardless of cost). Also distinct from the fabricated-confirm family (BUG-CRX-020/056) — those produce a fake confirm card with no real buttons; this produces no confirm card of any kind, fake or real, and visibly tells the user it was cut off rather than pretending to have an answer.

@@ -167,6 +167,17 @@ No write occurred — native UI confirms the membership is still Reporter, so th
 - Repro 16 (non-admin, without `edit_wiki_pages`): same false denial text, on "Luna Permission Test Project" as `luna.blossom`. Rails confirmed `edit_wiki_pages` was `false` before this attempt. Native UI (as admin, since `luna.blossom` lacks `view_wiki_pages`) confirms no "Team Norms" page exists.
 - Repro 17 (same non-admin user, now WITH `edit_wiki_pages` genuinely granted — the decisive repro): identical request in a fresh chat, same false denial text, word-for-word. Rails confirmed `edit_wiki_pages` → `true` immediately before this attempt. Native UI (as admin) confirms still no "Team Norms" page — the permission grant made no observable difference.
 
+## Retest — 2026-10-12 (STILL BROKEN)
+
+Retested live after the Crux stack rebuild (fresh `mcp`/`crux-core` builds, confirmed healthy catalog).
+
+- Re-sent "Create a new version called v3.0 for the Crux PM Agent Test Project, due date 2027-03-01." — still gets a false denial, now reworded to **"I couldn't find a tool for this here, so I can't do it from this chat. It can be done directly in Redmineflux; if you expected Crux to do it, an administrator can check this deployment's tool setup."**
+- Confirmed via source grep that `redmineflux_core_create_version` still exists (`core.py:1224`) — the tool genuinely exists; the denial is still false, just reworded.
+- Confirmed via native UI that no "v3.0" version was created.
+![Retest — still a false denial, reworded text, tool confirmed to exist](../../screenshots/BUG-CRX-061/retest-2026-10-12-stillbroken.png)
+
+Not reported as fixed — left in `bugs/open/`, no production status sync performed.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`. Same defect *family* as the false-capability-denial bugs already on file (BUG-CRX-029/032/034/050), but this is the first instance on the **Members/project-membership** domain specifically, and the first case where the agent's own successful prerequisite tool calls (fetching the exact membership id and role id) make the "couldn't confirm availability" claim provably false from its own trace, not just from an external source check. Distinct from BUG-CRX-060 (member *creation* stalls on token budget before any refusal is given) — this is member *role update*, which completes its reasoning turn and produces a clean, confident, but false refusal instead of stalling.

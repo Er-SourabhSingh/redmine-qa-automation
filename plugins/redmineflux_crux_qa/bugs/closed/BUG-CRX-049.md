@@ -48,6 +48,17 @@ Comparison (core Redmine page, same style, border renders correctly):
 - Matched CSS rule (Redmine core, `application.css`): `#errorExplanation, div.flash, .nodata, .warning, .conflict { padding: 6px 4px 6px 30px; margin-bottom: 12px; font-size: 1.1em; border: 1px solid; border-radius: 3px; }` plus `div.flash.notice { background-color: rgb(223, 255, 223); border-color: rgb(159, 207, 159); color: rgb(0, 95, 0); }` — nothing Crux-specific found overriding border-width.
 - No overlapping sibling element found (the flash's `nextElementSibling` was an inert `<script>` tag, not visually overlapping).
 
+## Retest — 2026-10-12 (FIXED)
+
+Retested live after the Crux stack rebuild (plugin source pulled fresh; commit `630f934` lists this bug among the QA fixes).
+
+- Saved a settings change on `/crux/admin/settings`, compared the resulting flash message's border against a core Redmine page's flash message (project settings save) side by side.
+- Both now render with a complete, even border on all four sides — bottom edge no longer cut off/thin.
+![Retest — Crux settings flash message, border now complete](../../screenshots/BUG-CRX-049/retest-2026-10-12-crux-settings-pass.png)
+![Retest — core Redmine page flash message, for comparison](../../screenshots/BUG-CRX-049/retest-2026-10-12-core-comparison.png)
+
+Status: Closed — fixed, confirmed via live retest.
+
 ## Duplicate check
 
 - Duplicate found: No — checked `bugs/_duplicates.md` and `bugs/_index.md`; not related to BUG-CRX-035 (that was about the message rendering as plain unstyled text — this message IS properly styled/colored, just has a rendering glitch on one edge).

@@ -422,7 +422,12 @@ Independently verified via `/leads`: still exactly 2 rows (Celeste Dawn, Priya S
 - Admin/`luna.blossom` (both hold `view_crm`): accurate, grounded answers matching native `/leads` filters exactly — real names/emails/statuses, never invented rows, never silently dropping real ones.
 - `daisy.skye` (lacks `view_crm`): honest refusal/empty — the CRM menu and every CRM read path should be consistently gated, not leaking record data through chat even though the UI itself would 403.
 
-**Result:** _execute and record here_
+**Result: PASS (core behavior correct), 1 bug repro added (BUG-CRX-067)**
+
+Evidence (2026-10-12):
+- **Admin**: "List all leads." → correctly listed both real leads with exact Status/Company/Source (Celeste Dawn — New/Nova Tech/Referral; Priya Sharma — Contacted/Acme Corp/Website, status updated via native UI as a fixture step for this TC). "Show me leads with status New." → correctly returned only Celeste Dawn. "Show me leads from source Website." → correctly returned only Priya Sharma. All 3 grounded, zero invented/dropped rows.
+- **`daisy.skye`** (zero CRM): all 3 identical questions correctly and honestly refused — "I don't have permission to list all leads..." / "You don't have permission to view leads in Redmineflux..." (×2) — no leak of either lead's data, consistent with her lacking `view_crm`.
+- **1 new repro of BUG-CRX-067** (not a new bug): all 3 of `daisy.skye`'s honest refusals above carried the same misleading ✓ checkmark seen on the write-path Forbidden message in TC-CRX-245 — added as Repro 2 to BUG-CRX-067, broadening it to cover read-path refusals too, not just the write/confirm-card path.
 
 ---
 

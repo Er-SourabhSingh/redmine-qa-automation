@@ -642,7 +642,12 @@ Evidence (2026-10-12, admin, contact #2 "Autumn Grace"; a second company "Acme C
 - Step 1 honestly refused (missing `delete_crm_data`).
 - Step 2 genuinely succeeds; the linked deal is independently confirmed to still exist and now shows no contact — this is the specific data-integrity behavior worth checking (a wrong implementation might cascade-delete the deal, or leave a dangling/broken reference instead of cleanly unlinking it).
 
-**Result:** _execute and record here_
+**Result: PASS (core behavior correct), 1 new bug found — BUG-CRX-070**
+
+Evidence (2026-10-12): Created a disposable contact ("Disposable Contact Test", #4) and a deal linked to it ("Disposable Contact Deal", #2) via chat as admin first.
+1. As `daisy.skye`: "Delete contact Disposable Contact Test." → honestly refused: "I don't have permission to list or search for contacts in the CRM... ask your Redmineflux administrator to grant you the required CRM permissions" — correct, no leak.
+2. As admin, by name: "Delete contact Disposable Contact Test." → **FAILED** with the self-contradictory "I described a change without actually proposing it..." (reproduced 2/2 with 2 different phrasings) — filed as **BUG-CRX-070** (High, recurrence of the historical closed BUG-CRX-013 on a new trigger path). Retried with the numeric ID instead ("Delete contact ID 4.") → genuine `Crm Delete` confirm card → confirmed → **"✓ Contact 'Disposable Contact Test' (#4) deleted. ⚠️ Linked records orphaned: 1 deal(s)."** — a notably good proactive disclosure.
+3. Independently verified via `/deals/2`: the deal still exists ("Disposable Contact Deal"), Contact field cleanly cleared to "—" — not cascade-deleted, not a dangling reference. The documented cascade behavior itself is correct; the only defect is the name-based delete path being completely non-functional.
 
 ---
 

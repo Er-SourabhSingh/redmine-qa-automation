@@ -819,7 +819,17 @@ Since chat cannot reach Settings at all, the actual protected-value question (TC
 
 **Expected Result:** Confirms Crux enforces this specific two-permission split correctly, not conflating "can view the pipeline" with "can move cards on it" — a distinction the chat interface could plausibly get wrong since both map to the same visual action from a user's perspective. Revert the temporary grant after this TC.
 
-**Result:** _execute and record here_
+**Result:** PASS (permission split correctly enforced), BUG-CRX-067 Repro 6.
+
+Created a temporary role "Pipeline Viewer Test" (`View CRM` + `View Pipeline` only, no `Manage Deals`) via Administration → Roles, and added it to `daisy.skye`'s existing membership on `Crux CRM Agent Test Project` (alongside her existing Reporter role, which holds zero CRM permissions — so the net CRM permission set is exactly `View CRM` + `View Pipeline`).
+
+As `daisy.skye` with this combination, in Ask Crux (Sales Agent):
+1. "Show me the deal pipeline." → succeeded, real pipeline data returned (all 6 stages, correct deal counts/values per stage, including the New/Won/Lost deals from earlier TCs) — confirms `view_pipeline` alone is sufficient for the read.
+2. "Move deal 'NovaTech Solutions Rollout' to Proposal." → genuine `Crm Update Deal Stage` confirm card proposed (`Deal: 1`, `Stage: Proposal`); on Confirm, the real permission gate fired honestly: the final bubble read "✓ Forbidden..." (same misleading-checkmark pattern as BUG-CRX-067, filed as Repro 6). Independently verified via native UI (`/deals/1`): Stage field still reads "New" — the stage change genuinely did not execute, confirming `manage_deals` is a real, separately-enforced gate from `view_pipeline`, not conflated with it.
+
+This confirms Crux correctly distinguishes "can view the pipeline" from "can move cards on it" at the real backend level — the only defect found is the already-tracked cosmetic checkmark issue on the refusal message itself, not a permission-split failure.
+
+Reverted the temporary grant after this TC: removed the "Pipeline Viewer Test" role from `daisy.skye`'s membership (back to Reporter only) and deleted the temporary role from Administration → Roles.
 
 ---
 

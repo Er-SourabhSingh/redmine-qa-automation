@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-067
 - Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
-- Title: A genuine "Forbidden" permission-denial message on the Sales Agent's write confirm cards is rendered with a misleading success ✓ checkmark — reproduced across `Crm Create Lead`, `Crm Create Contact`, `Crm Create Company`, and `Crm Create Deal` (all 4 core entity types) — identical to BUG-CRX-054's pattern on the Project Manager agent, confirmed independent of a real write actually being blocked
+- Title: A genuine "Forbidden" permission-denial message on the Sales Agent's write confirm cards is rendered with a misleading success ✓ checkmark — reproduced across `Crm Create Lead`, `Crm Create Contact`, `Crm Create Company`, `Crm Create Deal` (all 4 core create tools) and `Crm Update Deal Stage` — identical to BUG-CRX-054's pattern on the Project Manager agent, confirmed independent of a real write actually being blocked
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)
 - Plugin version: 0.62.0
@@ -48,6 +48,10 @@ As the same `daisy.skye`, zero CRM permissions, in a fresh chat: "Create a compa
 ## Repro 5 — same pattern on Create Deal (TC-CRX-257)
 
 As the same `daisy.skye`, zero CRM permissions, in a fresh chat: "Create a deal called 'Horizon Ventures Pilot' worth $3000, stage New." → genuine `Crm Create Deal` confirm card proposed, then on Confirm: the exact same "✓ Forbidden" text. Independently verified via native UI (`/deals`, as admin): no "Horizon Ventures Pilot" deal exists, confirming genuine enforcement. This completes confirmation across **all 4 core CRM entity types** (Lead, Contact, Company, Deal) on the Sales Agent's write-confirm failure path — strongly suggesting one shared rendering component rather than a per-entity issue.
+
+## Repro 6 — same pattern on Update Deal Stage (TC-CRX-261)
+
+A `view_pipeline`-only user (no `manage_deals`): "Move deal 'NovaTech Solutions Rollout' to Proposal." → genuine `Crm Update Deal Stage` confirm card proposed (`Deal: 1`, `Stage: Proposal`), then on Confirm: the exact same "✓ Forbidden" text. Independently verified via native UI (`/deals/1`, as the same user, since this account does hold `view_crm`/`view_pipeline`): Stage field still reads "New" — the write genuinely did not execute, confirming real enforcement. This is the first instance of the defect on an *update* tool rather than a *create* tool, and the first on a permission split specifically tied to a secondary action-gate (`view_pipeline` vs `manage_deals`) rather than CRM access as a whole — strengthening the case that this is one shared rendering component covering every write-confirm failure path on the Sales Agent, not scoped to Create tools.
 
 ## Evidence
 

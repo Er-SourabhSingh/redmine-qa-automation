@@ -462,7 +462,13 @@ Evidence (2026-10-12):
 - Step 2: honestly refused — real validation error naming the real reason (status is system-reserved), not a fabricated success and not a vague/generic denial.
 - Step 3: genuine success, status genuinely Qualified (sets up TC-CRX-250's conversion precondition).
 
-**Result:** _execute and record here_
+**Result: PASS — no bugs, 1 minor phrasing nitpick noted (not filed)**
+
+Evidence (2026-10-12, admin, on lead #2 "Celeste Dawn"):
+1. **New → Contacted**: genuine `Crm Update Lead` confirm card (Lead: 2, Status: Contacted) → confirmed → "✓ Lead #2 updated successfully." Verified via `/leads/2`'s own activity trail: "Status changed from 'New' to 'Contacted' by Redmine Admin."
+2. **Contacted → Converted (direct)**: correctly refused **before any confirm card** — "'Converted' is not a valid lead status in the CRM. The valid lead statuses are: New, Contacted, Qualified, Unqualified" — then correctly offered the real alternative (set to Qualified, or use the separate `convert_lead` action) and asked which was intended. No write attempted, no fabricated success.
+   - **Minor phrasing nitpick, not filed as a bug**: per `[docs §Leads]`, Converted *is* a real, valid status ("a system status and is always available"), just not one settable by hand — Crux's wording ("not a valid lead status") slightly overstates this (implies it doesn't exist at all, rather than "exists but is system-set-only"). The practical behavior is still correct (refuses the direct set, redirects to the real mechanism), so this doesn't reach the bar of a defect — captured here for awareness in case it compounds with something else later.
+3. **Contacted → Qualified**: genuine confirm card (Lead: 2, Status: Qualified) → confirmed → "✓ Lead #2 updated successfully." Verified via `/leads/2`: Status now genuinely "Qualified," activity trail shows "Status changed from 'Contacted' to 'Qualified' by Redmine Admin." Sets up TC-CRX-250's conversion precondition.
 
 ---
 

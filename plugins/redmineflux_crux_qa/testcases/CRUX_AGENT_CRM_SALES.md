@@ -526,7 +526,12 @@ Evidence (2026-10-12, admin): Confirm card showed only 2 of the 3 requested fiel
 - Step 2: genuine success, lead gone from `/leads`.
 - Step 3: honestly refused with the real documented reason (converted leads are delete-protected), not silently succeeding and not a generic error.
 
-**Result:** _execute and record here_
+**Result: PASS — all 3 steps, no bugs**
+
+Evidence (2026-10-12): Created a disposable lead ("Disposable Test Lead", #3) via chat as admin first.
+1. As `daisy.skye`: "Delete lead Disposable Test Lead." → honestly refused: *"I don't have permission to list or delete leads in this Redmineflux deployment... likely `delete_crm_data`..."* — correctly named the real, specific permission (not a vague generic denial).
+2. As admin: same request → genuine `Crm Delete` confirm card (Entity Type: lead, Entity: 3) → confirmed → "✓ Lead #3 deleted." Verified via `/leads`: only Celeste Dawn and Priya Sharma remain, lead #3 genuinely gone.
+3. As admin, after converting Celeste Dawn in TC-CRX-250: "Delete the converted lead Celeste Dawn." → genuine confirm card proposed, but on Confirm the real validation layer honestly refused: *"Validation error: Cannot delete a Converted lead (contact #1 was created from this lead). Convert leads are part of the audit trail."* Verified via `/leads/2`: lead still exists, genuinely protected.
 
 ---
 
@@ -547,7 +552,13 @@ Evidence (2026-10-12, admin): Confirm card showed only 2 of the 3 requested fiel
 **Expected Result:**
 - All 3 new/reused records exist exactly as documented, no data loss, no duplicate company if one with that name already existed.
 
-**Result:** _execute and record here_
+**Result: PASS — no bugs**
+
+Evidence (2026-10-12, admin): "Convert lead Celeste Dawn — create a deal too, called 'NovaTech Solutions Rollout', amount $12000." → genuine `Crm Convert Lead` confirm card (Lead: 2, Create Deal: True, Deal Name: NovaTech Solutions Rollout, Deal Amount: 12000) → confirmed → "✓ Lead 'Celeste Dawn' (#2) converted to contact #1 and deal #1." Independently verified all 3 records:
+- **Lead #2**: heading now "Celeste Dawn Converted", Status genuinely Converted, Conversion Results card present, activity trail logs "Status changed from 'Qualified' to 'Converted'" and "Lead converted to Contact 'Celeste Dawn' and Deal 'NovaTech Solutions Rollout'".
+- **Contact #1**: exact name/email carried over from the lead, linked to Company "NovaTech Solutions".
+- **Company**: only 1 "NovaTech Solutions" company exists on `/companies` — created fresh since none existed with that name before conversion (no duplicate).
+- **Deal #1**: Amount USD 12,000.00, Stage New, Currency USD (Default), Contact Celeste Dawn, Company NovaTech Solutions — all exactly as requested, no data loss.
 
 ---
 

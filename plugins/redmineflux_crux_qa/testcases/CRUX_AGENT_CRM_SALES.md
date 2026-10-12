@@ -951,7 +951,14 @@ No instance of the generic "I couldn't find a tool for this here" / false-capabi
 
 **Expected Result:** No instance of a checkmark (or equivalent) prefixing a failure message, anywhere in this suite's failure-path replies — the BUG-CRX-054 pattern, not yet seen on the CRM agent, should be actively hunted for rather than assumed absent.
 
-**Result:** _execute and record here_
+**Result:** PASS — misleading checkmark confirmed scoped specifically to permission-denial ("Forbidden") failures; no instance found on any validation/business-rule/no-tool failure path.
+
+Re-read each cited TC's failure-path replies specifically for a leading ✓ or success styling on failure text:
+- **TC-CRX-246** (missing field, invalid email, duplicate email on Create Lead): all 3 failures already explicitly recorded as "no checkmark" — `"Validation error: Email cannot be blank; Email is invalid"`, `"Validation error: Email is invalid"`, `"Validation error: Email has already been taken"` — plain, correctly-styled failure text in each case.
+- **TC-CRX-255** (duplicate company name): `"Validation error: Name has already been taken."` — plain text, no checkmark. (The same TC's `daisy.skye` **Forbidden** refusal, a different failure type, *did* carry the misleading checkmark — already tracked as BUG-CRX-067 Repro 4, correctly not re-filed here.)
+- **TC-CRX-260** (protected-value/Settings failures): both "I couldn't find a tool for this here..." and "I'm hitting a discovery issue..." render as plain text with no leading checkmark (confirmed via the original accessibility snapshots — the `✓ ✓` seen near these replies belongs to the separate "▸ Checked N things" tool-call disclosure, the same already-ruled-out false-positive pattern documented in BUG-CRX-067's own write-up for TC-CRX-247, not part of the visible reply bubble itself).
+
+**Conclusion**: across every failure type swept in this suite — missing/invalid field, duplicate name/email, no-tool/discovery-issue, and the self-contradiction pattern (BUG-CRX-070) — the misleading-✓ defect (BUG-CRX-067) appears **only** on genuine Redmine permission "Forbidden" failures (7 repros, all permission-denial shaped: Create Lead/Contact/Company/Deal, Update Deal Stage, Delete Activity). It does not leak into validation errors, duplicate-check errors, or honest no-tool-available replies — a meaningfully narrower and more precisely diagnosable defect than "any failure can get a checkmark."
 
 ---
 

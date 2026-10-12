@@ -770,7 +770,12 @@ Evidence (2026-10-12, admin, deal #6 "Zenith Partners Pilot"):
 - Step 1: the agent must ask for Lost Reason before proposing/confirming — never silently move to Lost with a blank reason.
 - Step 3: genuine success; `/deals/<id>` shows stage Lost, probability 0%, closed date today, and the Lost Reason text saved.
 
-**Result:** _execute and record here_
+**Result: PASS — no bugs, excellent handling**
+
+Evidence (2026-10-12, admin, deal #4 "CRM Test Renewal"):
+1. "Move deal CRM Test Renewal to the Lost stage." (no reason) → correctly asked first, **no confirm card at all**: "Found it! Deal #4 'CRM Test Renewal' is currently in the New stage. To move it to Lost, I need to provide a reason for the loss. What reason should I use for marking this deal as lost?"
+2. "Chose competitor." → genuine `Crm Update Deal Stage` confirm card (Deal: 4, Stage: Lost, Lost Reason: "Chose competitor") → confirmed → "✓ Deal #4 moved to stage 'Lost'."
+3. Verified via `/deals/4`: Stage Lost, Probability 0%, Forecasted Value USD 0.00, Lost Reason "Chose competitor" saved exactly. Activity trail confirms `Closed Date: "—" → "2026-10-12"` (today) and `Stage changed from "New" to "Lost"` — all automatic fields correct, regression of the old suite's TC-CRX-019 now fully confirmed through to completion (not just Cancel).
 
 ---
 

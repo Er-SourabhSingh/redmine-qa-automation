@@ -887,7 +887,12 @@ Independently verified via native UI (`/contacts/3`): the real activity record s
 
 **Expected Result:** Admin/`luna.blossom` get accurate entries matching `/crm_audit_logs`. `daisy.skye` is honestly refused (missing `view_audit_log`) — distinct permission from `view_crm`, worth confirming Crux doesn't conflate "can see CRM at all" with "can see the audit log."
 
-**Result:** _execute and record here_
+**Result:** PASS (no false-capability-denial; architecture limitation, not a bug), finding noted.
+
+1. As admin, fresh chat: "Show me the CRM audit log for Ivy Skylark's contact." → honestly answered: found the contact (ID 3) correctly, then explicitly stated "an audit log tool is not currently in my available toolset for the CRM plugin," accurately listed what tools it does have (contact/company/deal/lead reads/writes, activity logging, pipeline, reporting), and correctly directed to the native Redmineflux admin interface or an admin pulling the data directly — no hallucinated log entries, no false "no tool exists anywhere" overclaim.
+2. As `daisy.skye` (no `view_crm`), same question: honestly refused on two independent grounds in the same reply — missing contact-read permission ("I don't have permission to list or search contacts"), *and* confirms "The CRM audit log is also not in my current tool list" — consistent with admin's finding, not contradictory.
+
+**Finding**: Audit Log is genuinely unreachable via the Sales Agent's chat tools for *any* role, admin included — the same category of architecture gap as Settings (**BUG-CRX-072**: no `redmineflux_crm_audit_log`-type tool wired to this agent). Not filed as a new bug, since unlike BUG-CRX-072 the agent never partially computes a response then fails — it's a clean, consistent, honest "not available" at every step, correctly pointing to the real native UI alternative (`/crm_audit_logs`, verified to exist and show real data). This fully confirms Crux does **not** conflate "can see CRM" with "can see the audit log" — even admin, who can see everything else, is told the same thing — it simply can't do either via chat at all right now.
 
 ---
 

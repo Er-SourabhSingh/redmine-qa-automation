@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-061
 - Production Redmine Issue ID: #123103
-- Title: Project Manager falsely claims it "couldn't confirm whether this action is actually available here" — 15/15 reproductions across 7 entity domains with confirmed genuinely-existing tools (membership role-update, version create ×2/update/delete, issue-category create/update/delete, time-entry create/update/delete, news create, document create, wiki-page create) — 12 of the 15 under a freshly-restarted, confirmed-healthy 495-tool MCP catalog — even though the real tools genuinely exist and the agent had already resolved every id it needed; Issue Categories and Time Entries are both entity types where the entire CRUD set fails identically. (An 8th apparent domain, Time Tracking Activities, was found on closer inspection to be a genuinely-unavailable capability, not a false denial — split out as BUG-CRX-064.)
+- Title: Project Manager falsely claims it "couldn't confirm whether this action is actually available here" — 17/17 reproductions across 7 entity domains with confirmed genuinely-existing tools (membership role-update, version create ×2/update/delete, issue-category create/update/delete, time-entry create/update/delete, news create, document create, wiki-page create ×2) — 12 of the first 15 under a freshly-restarted, confirmed-healthy 495-tool MCP catalog, and confirmed independent of permission state (non-admin repro both without and with the real permission genuinely granted, Wiki) — even though the real tools genuinely exist and the agent had already resolved every id it needed; Issue Categories and Time Entries are both entity types where the entire CRUD set fails identically. (An 8th apparent domain, Time Tracking Activities, was found on closer inspection to be a genuinely-unavailable capability, not a false denial — split out as BUG-CRX-064.)
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)
 - Plugin version: 0.62.0
@@ -98,6 +98,17 @@
 
 **Updated net result after Repros 13-15**: the false denial now spans **7 entity domains** (Membership, Version, Issue Category, Time Entry, News, Documents, Wiki) — **15/15 reproductions**, all independently confirmed to have the real, purpose-built tool genuinely registered in the MCP catalog. By this point in the session, every "list-then-write" entity type tried has failed identically, with the sole exceptions being Repositories/Forums (genuinely no tool exists — honest refusal, see contrast note below) and Time Tracking Activities (genuinely no tool exists — BUG-CRX-064's inconsistent-messaging issue, not this bug).
 
+**Repros 16-17 — Wiki Create, non-admin, both without AND with the real permission genuinely granted (2026-10-12, `CRUX_AGENT_PROJECT_MANAGER.md` TC-CRX-244):**
+
+Run as a spot-check after BUG-CRX-056 was found to be permission-independent (TC-242), to check whether this bug's false-denial pattern shares that same characteristic.
+
+1. As a non-admin user (`luna.blossom`, Manager role, `edit_wiki_pages` confirmed `false` via Rails) on her own project: "Create a wiki page in the Luna Permission Test Project called 'Team Norms' with the text 'Be kind, ship often.'" → identical false-denial text: *"I couldn't confirm whether this action is actually available here — please try again, or ask an administrator to check this deployment's tool configuration."*
+2. Granted `edit_wiki_pages` on the Manager role (verified via Rails `allowed_to?` → `true`).
+3. Identical request, fresh chat → **the exact same false-denial text appeared again, word-for-word**, despite the real permission now genuinely present.
+4. Independently verified via native UI (as admin, since `luna.blossom` can't view the wiki index without the separate `view_wiki_pages` permission — an unrelated, correctly-behaving Redmine access rule, not part of this bug) both before and after granting the permission: no "Team Norms" page exists either time.
+
+**This is decisive evidence that BUG-CRX-061, like BUG-CRX-056, has zero dependency on Redmine's permission system** — granting the exact permission the agent's own error message implies might be the problem made no observable difference. Combined with BUG-CRX-060's Repro 2 (Version Create also tested non-admin without/with permission, though that one stalls on the token budget instead of reaching this false-denial text) — 3 of this session's write-pipeline bugs (056, 060, 061) have now all been confirmed permission-independent across 3 entity domains, strongly suggesting one shared upstream defect in the write-proposal/tool-resolution pipeline rather than 3 unrelated bugs.
+
 **For contrast — not every Project Settings tab fails this way**: the same session's Repositories- and Forums-tab requests (see `CRUX_AGENT_PROJECT_MANAGER.md` TC-CRX-216/217) got **honest, well-reasoned refusals** instead of this generic false denial — Crux correctly explained no matching tool exists, named the tool groups it checked, and suggested the native UI/admin as alternatives. This shows the agent *is* capable of a correct "genuinely not available" response when the capability truly doesn't exist; the false-denial pattern here specifically affects entity types that *do* have real tools, which argues against this being a deliberate/by-design restriction and toward a resolution-logic defect in the write pipeline.
 
 ## Expected result
@@ -153,6 +164,8 @@ No write occurred — native UI confirms the membership is still Reporter, so th
 - Repro 13: `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI (`/projects/crux-pm-agent-test-project/news`) shows "No data". MCP source (`core.py:2885`), `redmineflux_core_create_news` — fully implemented.
 - Repro 14: `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI (`/projects/crux-pm-agent-test-project/documents`) shows "No data". MCP source (`core.py:3728`), `redmineflux_core_create_document` — fully implemented.
 - Repro 15: `mcp call tool=tools/list ... tools=495`, `chat turn ... tool_calls=2 outcome=success`, same false denial text. Native UI (`/projects/crux-pm-agent-test-project/wiki`) shows only the default empty wiki-home editor. MCP source (`core.py:2748`), `redmineflux_core_create_or_update_wiki_page` — fully implemented.
+- Repro 16 (non-admin, without `edit_wiki_pages`): same false denial text, on "Luna Permission Test Project" as `luna.blossom`. Rails confirmed `edit_wiki_pages` was `false` before this attempt. Native UI (as admin, since `luna.blossom` lacks `view_wiki_pages`) confirms no "Team Norms" page exists.
+- Repro 17 (same non-admin user, now WITH `edit_wiki_pages` genuinely granted — the decisive repro): identical request in a fresh chat, same false denial text, word-for-word. Rails confirmed `edit_wiki_pages` → `true` immediately before this attempt. Native UI (as admin) confirms still no "Team Norms" page — the permission grant made no observable difference.
 
 ## Duplicate check
 

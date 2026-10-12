@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-066
-- Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #123223
 - Title: Answering-agent picker shows the raw internal slug "crm-sales" instead of the human-friendly "Sales Agent" label, for a user who holds `Use Ask Crux` but lacks `view_crux` (the separate Agent Fleet permission) — root-caused to a silently-failing `/crux/agents.json` 403
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI)

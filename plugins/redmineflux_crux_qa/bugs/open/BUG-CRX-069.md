@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-069
-- Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #123226
 - Title: Sales Agent falsely claims the CRM contact tool has no "private" or "assigned_to" fields at all — demonstrably false, the native contact form has both a real "Mark as Private" checkbox and a real "Assigned To" combobox, matching the plugin's own documentation
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)

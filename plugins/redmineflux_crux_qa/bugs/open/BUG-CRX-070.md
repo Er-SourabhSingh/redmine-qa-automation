@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-070
-- Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #123227
 - Title: Recurrence of the historical, already-fixed self-contradiction pattern (BUG-CRX-013, closed 2026-09-25 on the Redmine 7.0.0 stack) on the Sales Agent — reproduced on Contact/Company Delete (name-based, and for Company even some ID-based retries) and on a Settings Add-Deal-Stage request from a non-admin user; "I described a change without actually proposing it" repeats across all of them, 2/2 where retried
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)

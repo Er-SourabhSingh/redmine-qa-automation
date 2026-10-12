@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-068
-- Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #123225
 - Title: Sales Agent has a systematic blind spot for the "Assigned To" field across every CRM entity (Leads, and now also Companies on Create) — falsely claims leads have no "assign to user" field at all, silently drops Assigned To from multi-field Lead updates AND from a full-field Company creation with zero disclosure either time, and ignores "assigned to X" entirely as a read-side filter
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)

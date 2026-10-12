@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-071
-- Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #123228
 - Title: `Crm Create Deal` lets a chat user set an arbitrary deal currency (e.g. EUR), genuinely persisted — directly contradicting the CRM plugin's own documented and native-UI-enforced invariant that every deal always uses the instance's Default Currency, never a per-deal value
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)

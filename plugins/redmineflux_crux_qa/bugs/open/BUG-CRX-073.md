@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-073
-- Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #123230
 - Title: `Crm Update Deal`'s custom-field write (Territory) silently fails to persist despite a false "✓ Deal #N updated successfully" confirmation — the real record's Territory remains unset; the same tool's standard-field writes (and the equivalent custom-field-style writes on Company/Lead) work correctly
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)

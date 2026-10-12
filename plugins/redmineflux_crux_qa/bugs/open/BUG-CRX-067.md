@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-067
-- Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #123224
 - Title: A genuine "Forbidden" permission-denial message on the Sales Agent's write confirm cards is rendered with a misleading success ✓ checkmark — reproduced across `Crm Create Lead`, `Crm Create Contact`, `Crm Create Company`, `Crm Create Deal` (all 4 core create tools), `Crm Update Deal Stage`, and `Crm Delete Activity` — identical to BUG-CRX-054's pattern on the Project Manager agent, confirmed independent of a real write actually being blocked
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)

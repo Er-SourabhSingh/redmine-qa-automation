@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-072
-- Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #123229
 - Title: Sales Agent's own instructions incorrectly reference a CRM Settings-update tool (`redmineflux_crm_settings_update`) that should not exist from chat at all — CRM Settings is administration-level and correctly inaccessible via chat (not itself a bug), but the agent leaks the internal tool name and a fully-computed proposed diff before failing, and gives an inconsistent "I couldn't find a tool" vs. "I'm hitting a discovery issue" message for the same underlying (by-design) restriction
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)

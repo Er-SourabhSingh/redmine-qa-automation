@@ -193,6 +193,32 @@ Do not proceed to the write proposal until all of the above are known — ask fo
 
 **The rule going forward:** every `mcp__redmineflux__*` write tool — not just the ones in §4.1's list — writes to **production**, full stop, regardless of which plugin or instance is under test. There is no "local mode" for this MCP server. If a session is testing against a local/Docker Redmine instance (a different port, e.g. `localhost:3006` or `localhost:3014`), **fixtures for that instance must be built exclusively through the local instance's own native UI (Playwright)**, never through any `redmineflux_*` MCP tool call — even ones that look like harmless test-data setup (`create_testcase`, `create_test_suite`, `create_run`, `create_environment`, etc.). The only legitimate use of these write tools in a local-testing session is reporting a confirmed bug to `ztflux` per the approval workflow above — nothing else. Before calling any `redmineflux_*` write tool, confirm the action is actually a production bug report, not a fixture for whatever instance is currently under test.
 
+### 4.3d ⚠️ Linking an *already-created* defect to a testcase/run — use `report_defect`, not `bulk_create_status_results` or a manual `create_issue_relation`
+
+**Incident (2026-10-12):** after creating 8 bugs on `ztflux` via `redmineflux_core_create_issue` (the standard bug-creation flow, §4.3a), the next step was linking all 8 to testcase #123215's result in Run #607. Two approaches were tried first and **both looked like they worked, but silently failed to show up in the production UI**:
+
+1. `redmineflux_testcases_management_bulk_create_status_results` with `defect_ids` set to all 8 issue IDs — `list_testcase_results` confirmed the result record genuinely stored `Defect IDs: 123223,...,123230`, but the real run page in the browser showed **"No defects"** for that testcase, and the run's own Defect Count at the top didn't move.
+2. Manually calling `redmineflux_core_create_issue_relation` with `relation_type="defect"` (reverse-engineered from inspecting an existing testcase's real relations, e.g. `#123056 defect #123060`) — `redmineflux_core_list_issue_relations` confirmed the relations were genuinely created, **but the browser still showed "No defects"**.
+
+**Root cause:** the Testcase Management plugin's run-page UI does not read live from generic Redmine issue relations or from a result record's own `defect_ids` field. It expects the **defect issue itself** to carry `run_id` and `environment` values matching the run/testcase it's being shown under — and a brand-new `IssueStatusResult` row per defect (one result row ↔ one defect, not one row holding many `defect_ids`). This is exactly the shape a real existing testcase's defect history has (e.g. #123056 had **17** separate `IssueStatusResult` rows for 16 defects, not 1 row listing 16 IDs — confirmed via `list_testcase_results`).
+
+**The fix / correct tool:** `redmineflux_testcases_management_report_defect` is the one tool that does this correctly, including for an **already-existing** issue (not just newly-created ones) — pass `defect_issue_id` instead of `defect_subject`:
+
+```
+report_defect(
+  project_id=<numeric>, testcase_id=<testcase issue id>, run_id=<run id>,
+  testsuite_id=<suite id>, environment="<exact run environment string>",
+  case_status_id=3,  # Failed — from list_case_statuses
+  defect_issue_id=<existing bug's issue id>  # NOT defect_subject
+)
+```
+
+Its own docstring says this directly: *"To link an EXISTING issue as the defect: provide `defect_issue_id`. The existing issue will have `run_id` and `environment` set on it so the browser can display it correctly."* — that `run_id`/`environment` stamping on the defect issue is exactly the step the other two approaches skip.
+
+**Call it once per defect**, not once with a list — each call creates its own `IssueStatusResult` row, matching the real pattern every other already-working testcase in this project uses. If a wrong approach was already tried first (as happened here), clean up before switching: delete any manually-created relations (`redmineflux_core_delete_issue_relation`) so the testcase doesn't end up with duplicate/orphaned relations alongside the correct ones `report_defect` creates.
+
+**Verify with `get_run_testcases`** (not `list_testcase_results` alone) before declaring it done — `list_testcase_results` can look correct (right `defect_ids` on a result row) while the actual run-page/browser view still shows nothing, since the two read different underlying state. `get_run_testcases` is the same matrix the browser renders, so it's the one that actually confirms a fix.
+
 ### 4.4 What does NOT count as approval
 
 Statements like the following must **never** be treated as permission to write to production:

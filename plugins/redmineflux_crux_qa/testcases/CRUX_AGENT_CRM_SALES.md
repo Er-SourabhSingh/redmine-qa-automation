@@ -472,6 +472,24 @@ Evidence (2026-10-12, admin, on lead #2 "Celeste Dawn"):
 
 ---
 
+### TC-CRX-248b: Update a lead — non-status fields, multi-field request in one message
+
+**User Role:** Admin.
+**Precondition:** An existing lead (Celeste Dawn, #2). Per `[docs §Contacts]`-equivalent lead form fields: First Name, Last Name, Email, Phone, Company Name, Source, Status, Assigned To, Notes are all independently editable.
+
+**Steps:**
+1. "For lead Celeste Dawn, update her phone to +1-555-0142, her company name to NovaTech Solutions, and assign her to admin." — 3 distinct field changes in one request.
+2. Confirm.
+3. Independently verify all 3 fields via `/leads/2`.
+
+**Expected Result:** All 3 requested changes apply, or any that can't are explicitly disclosed — never a silent, undisclosed partial completion reported as a full, unqualified success.
+
+**Result: FAIL — BUG-CRX-068**
+
+Evidence (2026-10-12, admin): Confirm card showed only 2 of the 3 requested fields (`Phone: +1-555-0142`, `Company Name: NovaTech Solutions`) — **no `Assigned To` row, and no text anywhere disclosing that the assignment request was being skipped**. After Confirm: `✓ Lead #2 updated successfully.` — an unqualified success claim. Independently verified via `/leads/2`: Phone and Company Name genuinely updated (confirmed in the lead's own activity trail), but **Assigned To is still blank** — exactly as before, with zero record anywhere that it was ever requested. Filed as **BUG-CRX-068** (Medium-High) — a user has no way to know, without manually re-checking, that 1 of their 3 explicit requests silently never happened.
+
+---
+
 ### TC-CRX-249: Delete a lead — permission-gated, converted-lead exception
 
 **User Role:** Admin/`luna.blossom` (full) and `daisy.skye` (none).

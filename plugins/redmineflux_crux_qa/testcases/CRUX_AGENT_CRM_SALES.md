@@ -371,7 +371,15 @@ NOT YET LIVE-VERIFIED — drafted from `docs/CRUX_AGENT_PERMISSION_MATRIX.md`'s 
 - `daisy.skye` (lacks `manage_leads` and `view_crm`): an honest, human-readable refusal naming the real missing capability — never a fabricated success, never a crash, never the generic "couldn't confirm whether this is available" non-answer for a tool that genuinely requires a permission she's missing (that phrasing is only a bug when the tool exists and no permission issue is the real cause — here a real permission gate is the correct explanation, so the refusal should say so, not hedge).
 - No new lead for the no-permission attempt in `/leads`.
 
-**Result:** _execute and record here_
+**Result: PASS (core behavior correct), 2 new bugs found**
+
+Evidence (2026-10-12):
+- **Admin**: "Create a lead named Priya Sharma, email priya.sharma@acmecorp-crmtest.local, from Acme Corp, source Website." → genuine confirm card (`Crm Create Lead`, exact fields) → confirmed → "✓ Lead 'Priya Sharma' created (ID: 1)." Verified via `/leads`: row matches exactly.
+- **`luna.blossom`** (full CRM): "Create a lead named Celeste Dawn, email celeste.dawn@novatech-crmtest.local, from Nova Tech, source Referral." → genuine confirm card, exact fields → confirmed → "✓ Lead 'Celeste Dawn' created (ID: 2)." Verified via `/leads`.
+- **`daisy.skye`** (zero CRM): "Create a lead named Ember Lilac, email ember.lilac@testco-crmtest.local, from TestCo, source Cold Call." → Crux produced a genuine confirm card first (the agent doesn't pre-check permission before proposing — acceptable, consistent with how other entity types in the Project Manager suite behave) → on Confirm, the real permission layer correctly fired: `✓ Forbidden To fix this, ask your Redmineflux administrator to: ...` — **no lead was created** (verified via `/leads` as admin, still exactly 2 rows) — the permission enforcement itself is genuinely correct, no bypass.
+- **2 new bugs found during this TC, neither a permission-bypass or data-integrity issue**:
+  - **BUG-CRX-066** (Low-Medium): before even sending the message, `daisy.skye`'s agent-picker showed the raw internal slug "crm-sales" instead of "Sales Agent" — traced to `/crux/agents.json` returning 403 for her (she holds `Use Ask Crux` but not the separate `view_crux` permission) and the frontend falling back to the raw slug.
+  - **BUG-CRX-067** (Medium): the genuine "Forbidden" refusal above is prefixed with a misleading ✓ checkmark — the same already-known-and-previously-fixed pattern as BUG-CRX-018 (this same Sales Agent, 7.0.0 cycle) and BUG-CRX-054 (Project Manager agent, fixed earlier today), now recurring on this specific agent/tool combination on the new stack.
 
 ---
 

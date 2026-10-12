@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-061
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #123103
 - Title: Project Manager falsely claims it "couldn't confirm whether this action is actually available here" — 15/15 reproductions across 7 entity domains with confirmed genuinely-existing tools (membership role-update, version create ×2/update/delete, issue-category create/update/delete, time-entry create/update/delete, news create, document create, wiki-page create) — 12 of the 15 under a freshly-restarted, confirmed-healthy 495-tool MCP catalog — even though the real tools genuinely exist and the agent had already resolved every id it needed; Issue Categories and Time Entries are both entity types where the entire CRUD set fails identically. (An 8th apparent domain, Time Tracking Activities, was found on closer inspection to be a genuinely-unavailable capability, not a false denial — split out as BUG-CRX-064.)
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

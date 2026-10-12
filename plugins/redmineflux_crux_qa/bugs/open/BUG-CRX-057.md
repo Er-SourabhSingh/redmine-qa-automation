@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-057
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #123099
 - Title: Issue-count/listing questions silently default to open-only and under-report whenever Closed issues exist — confirmed on both a per-version count (false "zero issues") and a whole-project type breakdown (silently dropped 2 of 7 issues) — 3/3 reproductions, all missing exactly the Closed issues
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-058
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #123100
 - Title: "How much time has been logged on this project" falsely claims zero time entries and speculates "time tracking is not enabled" — 4 real time entries totaling 10.5h genuinely exist, spanning both open and closed issues
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

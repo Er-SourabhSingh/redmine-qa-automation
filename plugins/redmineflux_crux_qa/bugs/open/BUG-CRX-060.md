@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-060
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #123102
 - Title: "Add a project member" request never reaches a confirm card — stalls 2/2 times mid tool-discovery, stopped by the turn's own token budget before `create_project_membership` is ever found
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

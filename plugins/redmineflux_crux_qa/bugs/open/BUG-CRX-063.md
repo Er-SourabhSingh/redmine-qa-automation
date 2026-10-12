@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-063
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #123105
 - Title: MCP server never retries after a failed startup self-test — if Redmine takes longer than ~120s to become reachable (e.g. a fresh container stack boot), it silently and permanently falls back to a severely degraded tool catalog (98 tools, 0/14 plugins detected) instead of self-healing once Redmine becomes available
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux-mcp (the MCP server component of the Crux stack, not the `redmineflux_crux` Redmine plugin itself)

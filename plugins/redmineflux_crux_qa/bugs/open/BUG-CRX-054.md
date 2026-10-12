@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-054
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #123096
 - Title: A genuine Redmine-side failure ("not found or no permission") is rendered with a success ✓ checkmark, identical to a real success message — reproduced on closed/archived projects AND a plain permission denial on an active project (3/3)
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

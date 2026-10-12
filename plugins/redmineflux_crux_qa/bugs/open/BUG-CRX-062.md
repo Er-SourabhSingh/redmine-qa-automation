@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-062
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #123104
 - Title: Project Manager explicitly and confidently claims "removing a user from a project membership is not yet supported through this chat interface" — false; `redmineflux_core_delete_project_membership` is fully implemented in the MCP tool catalog
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

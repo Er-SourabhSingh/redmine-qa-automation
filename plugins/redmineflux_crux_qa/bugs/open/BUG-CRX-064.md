@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-064
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #123106
 - Title: For the same genuinely-unavailable capability (a project-level time-entry activity toggle), Project Manager gives a vague, unhelpful "couldn't confirm available" non-answer for "disable" but a detailed, honest, correct explanation for "enable" — same entity, same project, same session's tool catalog
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

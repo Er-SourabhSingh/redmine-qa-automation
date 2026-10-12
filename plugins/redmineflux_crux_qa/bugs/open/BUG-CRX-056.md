@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-056
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #123098
 - Title: Every `update_project`-shaped write request (field update, module enable, module disable, tracker enable/remove, repository-link-via-homepage, custom-field enable, default version/assignee) produces the identical fabricated "I'll create this issue — confirm?" proposal with no real Confirm/Cancel button or detail table at all — 7/7 reproductions
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

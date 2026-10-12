@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-055
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #123097
 - Title: Project Manager confidently asserts "Redmineflux allows creating issues in closed projects" — factually false, and contradicted by its own next tool call
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

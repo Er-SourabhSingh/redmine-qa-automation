@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-059
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #123101
 - Title: Confirm-card headline for Reopen a project says "(Core Set Project Closed)" — identical to the headline for actually closing it — direction only visible in the detail table below, not the headline
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

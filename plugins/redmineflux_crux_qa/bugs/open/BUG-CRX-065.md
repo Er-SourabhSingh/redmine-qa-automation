@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-CRX-065
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #123107
 - Title: "What files are uploaded to this project" burns 10 tool calls (list_projects, list_issues, then 8× get_issue checking each issue individually for attachments) yet never calls `redmineflux_core_list_project_files` — the one tool built exactly for this question — then falsely claims "the core Redmineflux tools available to me don't have a dedicated endpoint to list ALL project-level attachments"
 - Redmine version: 6.0-bookworm (new local Docker instance)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Project Manager agent)

@@ -748,7 +748,11 @@ Evidence (2026-10-12):
 
 **Expected Result:** Automatic fields correct; the Won→other-stage block (if real) is honestly reported, not silently bypassed.
 
-**Result:** _execute and record here_
+**Result: PASS — no bugs**
+
+Evidence (2026-10-12, admin, deal #6 "Zenith Partners Pilot"):
+1. "Move deal Zenith Partners Pilot to Won." → genuine confirm card correctly using the specific `Crm Update Deal Stage` tool (Deal: 6, Stage: Won), not a generic update → confirmed → "✓ Deal #6 moved to stage 'Won'." Verified via `/deals/6`: Probability 0%→100%, Forecasted Value correctly recalculated (USD 8,000.00 = Amount × 100%), activity trail confirms `Closed Date: "—" → "2026-10-12"` (today) and `Stage changed from "New" to "Won"` — all automatic fields correct.
+2. "Move deal Zenith Partners Pilot back to New." → genuine confirm card proposed (no pre-check), but on Confirm: honestly refused by real backend validation — "Validation error: Cannot change the stage of a closed (Won/Lost) deal." Confirms the Won/Lost lock is enforced at the data layer itself, not just the pipeline board's drag-and-drop UI — no silent bypass.
 
 ---
 

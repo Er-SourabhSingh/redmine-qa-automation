@@ -868,7 +868,11 @@ Reverted the temporary grant after this TC: removed the "Pipeline Viewer Test" r
 
 **Expected Result:** Per `[docs §Activities and email]`, Subject/From/To are all required — the agent should ask if any are missing, not guess a From address. The timeline should honestly show Sent/Pending/Failed — if Redmine's own mail isn't configured on this instance, Failed is an acceptable, honestly-reported outcome; a fabricated "Sent" would not be.
 
-**Result:** _execute and record here_
+**Result:** PASS.
+
+As admin, fresh chat: "Send an email to Ivy Skylark with subject 'Following up' and body 'Just checking in.'" → genuine `Crm Log Activity` confirm card (routed through the same activity-logging tool, with `Activity Type: email`) correctly populated all required fields without guessing: `Email Subject: Following up`, `Email From: admin@zehntech.com` (the real logged-in admin's own address, not a fabricated or hardcoded one), `Email To: ivy.skylark@crmtest.local` (correctly resolved from the contact record), `Content: Just checking in.`. On Confirm: "✓ Activity logged on CrmContact #3 (type: email, ID: 40)."
+
+Independently verified via native UI (`/contacts/3`): the real activity record shows `Status: Sent at 10/12/2026 12:38 PM`, with the same Subject/From/To/Content as the chat's confirm card — Crux's reported outcome is pulled directly from the real backend record (the plugin's own send-email code path set this status), not independently fabricated by the chat layer. No way to verify from the UI alone whether real SMTP delivery occurred, but that's outside what the chat tool controls — the QA-relevant check (chat's claim matches the actual persisted record) passes.
 
 ---
 

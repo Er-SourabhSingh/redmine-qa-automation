@@ -595,7 +595,13 @@ Evidence (2026-10-12, admin): "Convert lead Priya Sharma." (status Contacted, no
 
 **Expected Result:** Same 3-tier pattern as TC-CRX-245 — admin/`luna.blossom` succeed with exact fields, `daisy.skye` honestly refused (lacks `manage_contacts`).
 
-**Result:** _execute and record here_
+**Result: PASS (core behavior correct), 1 bug repro added (BUG-CRX-067)**
+
+Evidence (2026-10-12):
+- **Admin**: "Create a contact named Autumn Grace, email autumn.grace@crmtest.local, job title Sales Director, company NovaTech Solutions." → genuine confirm card, Company correctly resolved to the real company id (1) → confirmed → "✓ Contact 'Autumn Grace' created (ID: 2)."
+- **`luna.blossom`** (full CRM): "Create a contact named Ivy Skylark, email ivy.skylark@crmtest.local, job title Account Manager." → genuine confirm card → confirmed → "✓ Contact 'Ivy Skylark' created (ID: 3)."
+- **`daisy.skye`** (zero CRM): "Create a contact named Nova Starling, email nova.starling@crmtest.local." → genuine confirm card proposed (agent doesn't pre-check), but on Confirm the real permission layer correctly blocked it: "Forbidden..." Verified via native `/contacts` (as admin): still exactly 2 real contacts — no "Nova Starling" created, confirming genuine enforcement.
+- **1 new repro of BUG-CRX-067** (not a new bug): `daisy.skye`'s Forbidden refusal above carried the same visually-green, success-styled ✓ checkmark seen on Create Lead — added as Repro 3, confirming the misleading-checkmark defect spans at least 2 entity types (Lead, Contact) on the Sales Agent's write-confirm path.
 
 ---
 

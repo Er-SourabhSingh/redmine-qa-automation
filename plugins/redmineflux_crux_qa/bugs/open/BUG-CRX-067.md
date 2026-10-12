@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-067
 - Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
-- Title: A genuine "Forbidden" permission-denial message on the Sales Agent's `Crm Create Lead` is rendered with a misleading success ✓ checkmark, identical to BUG-CRX-054's pattern on the Project Manager agent — confirmed independent of a real write actually being blocked
+- Title: A genuine "Forbidden" permission-denial message on the Sales Agent's write confirm cards is rendered with a misleading success ✓ checkmark — reproduced on both `Crm Create Lead` and `Crm Create Contact` — identical to BUG-CRX-054's pattern on the Project Manager agent, confirmed independent of a real write actually being blocked
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)
 - Plugin version: 0.62.0
@@ -37,12 +37,17 @@ The leading **✓** prefixes a message that is unambiguously reporting a failure
 
 During TC-CRX-247, `daisy.skye`'s 3 plain read-question refusals ("List all leads.", "Show me leads with status New.", "Show me leads from source Website.") were initially suspected of carrying the same misleading checkmark, based on the accessibility snapshot showing a `✓` character near each reply. **Visual inspection of the actual rendered page (screenshots, not just the accessibility tree) shows this was a false positive**: that `✓` belongs to the separate, collapsed "▸ Checked N things" tool-call disclosure — a small technical indicator that the step's tool call completed without a transport error, not a visible part of the reply bubble itself. The actual refusal text in all 3 cases renders in plain black, with no checkmark, no green styling, nothing success-like — correctly distinguishable from a real success. This is a different, unrelated UI element from Repro 1 below, which genuinely prefixes a success-styled "✓ Forbidden" directly into the single rendered reply. Retracted after re-checking with real screenshots rather than relying on the flattened accessibility-tree text layout alone — recorded here so a future session doesn't re-flag the same false positive.
 
+## Repro 3 — same pattern on Create Contact (TC-CRX-252)
+
+As the same `daisy.skye`, zero CRM permissions, in a fresh chat: "Create a contact named Nova Starling, email nova.starling@crmtest.local." → genuine `Crm Create Contact` confirm card proposed, then on Confirm: the exact same visually-green, success-styled **"✓ Forbidden"** box, word-for-word the same remediation text as Repro 1. Independently verified via native UI (`/contacts`, as admin): still exactly 2 real contacts (Autumn Grace, Ivy Skylark) — no "Nova Starling" was created, confirming the real permission check genuinely fired. This confirms the misleading-checkmark defect isn't scoped to Create Lead alone — it affects the Sales Agent's write-confirm-card failure path generally, across at least 2 entity types so far.
+
 ## Evidence
 
 ### Screenshot
 
 ![Misleading checkmark prefixing a genuine Forbidden refusal on a lead-create attempt — visually green, styled as success](../../screenshots/BUG-CRX-067/misleading-checkmark-on-forbidden-lead-create.png)
 ![For contrast — a read-path refusal, visually confirmed plain black text, no checkmark, not a bug](../../screenshots/BUG-CRX-067/repro-2-read-path-list-leads-checkmark-refusal.png)
+![Repro 3 — same visually-green "✓ Forbidden" on a Create Contact attempt](../../screenshots/BUG-CRX-067/repro-3-create-contact-forbidden-checkmark.png)
 
 ### Retest screenshot (fill after fix is verified)
 

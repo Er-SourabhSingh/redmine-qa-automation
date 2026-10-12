@@ -95,7 +95,7 @@ Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `3968
 - Crux now produces a **genuine, tool-specific confirm card** (naming the real tool, a real detail table, real Confirm/Cancel buttons) — no fabricated "I'll create this issue — confirm?" text.
 - Confirmed the resulting write genuinely applied via native UI (`/projects/.../settings/info`).
 
-Status: Closed — fixed, confirmed via live retest.
+Status: Closed — fixed, confirmed via live retest. Production issue #123098 synced to Done/100% on 2026-10-12.
 
 ## Duplicate check
 

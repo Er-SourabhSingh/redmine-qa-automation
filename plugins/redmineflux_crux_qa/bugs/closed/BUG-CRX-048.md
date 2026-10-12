@@ -55,7 +55,7 @@ Retested live after the Crux stack rebuild (plugin source pulled fresh; confirme
 - (Note: an initial attempt produced no visible result at all; traced via `browser_evaluate` to a different, unrelated required HTML field — "Capabilities" — being left empty by the tester, not a server round-trip. Once filled, the save succeeded cleanly — confirming this was a test-setup mistake, not a recurrence of the bug.)
 ![Retest — "✓ Agent 'Bug 048 Retest Agent' saved."](../../screenshots/BUG-CRX-048/retest-2026-10-12-pass.png)
 
-Status: Closed — fixed, confirmed via live retest.
+Status: Closed — fixed, confirmed via live retest. Production issue #123058 synced to Done/100% on 2026-10-12.
 
 ## Duplicate check
 

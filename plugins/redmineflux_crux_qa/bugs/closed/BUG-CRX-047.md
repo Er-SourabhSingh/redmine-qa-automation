@@ -51,7 +51,7 @@ Developer marked this "In QA" on production (#123057) after a code fix; retested
 - **Both "Crux" and "Agents" top-menu links are now genuinely absent** for this user — confirmed via accessibility snapshot of the full nav list, not just a visual glance.
 ![Retest — top menu with Crux/Agents genuinely hidden](../../screenshots/BUG-CRX-047/retest-2026-10-12-pass.png)
 
-Status: Closed — fixed, confirmed via live retest.
+Status: Closed — fixed, confirmed via live retest. Production issue #123057 synced to Done/100% on 2026-10-12.
 
 ## Duplicate check
 

@@ -99,7 +99,7 @@ Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `3968
 - The resulting confirm card correctly showed **Priority: High** — no substitution to Urgent.
 - Also re-checked Category and Target Version resolution by name on the same multi-field request — both resolved to the real, correctly-named records this time, not a guessed/wrong/404'd id.
 
-Status: Closed — fixed, confirmed via live retest.
+Status: Closed — fixed, confirmed via live retest. Production issue #123062 synced to Done/100% on 2026-10-12.
 
 ## Duplicate check
 

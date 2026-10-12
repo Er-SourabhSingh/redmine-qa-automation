@@ -50,7 +50,7 @@ Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `3968
 - Crux now replies: **"I cannot create an issue in a closed project. Redmineflux blocks new issue creation in closed projects..."** — an honest, correct, upfront refusal, no false claim that closed projects allow issue creation.
 ![Retest — honest refusal, correct claim about closed-project rules](../../screenshots/BUG-CRX-055/retest-2026-10-12-pass.png)
 
-Status: Closed — fixed, confirmed via live retest.
+Status: Closed — fixed, confirmed via live retest. Production issue #123097 synced to Done/100% on 2026-10-12.
 
 ## Duplicate check
 

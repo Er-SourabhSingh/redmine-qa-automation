@@ -60,7 +60,7 @@ Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `3968
 - Asked the same version/issue-count questions against a version whose only issues are Closed.
 - Crux now correctly includes Closed issues in both the per-version count and the whole-project type breakdown — no silent open-only default, matching native UI ground truth.
 
-Status: Closed — fixed, confirmed via live retest.
+Status: Closed — fixed, confirmed via live retest. Production issue #123099 synced to Done/100% on 2026-10-12.
 
 ## Duplicate check
 

@@ -92,7 +92,7 @@ Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `3968
 - Crux now **correctly refuses upfront, honestly**, before ever attempting the write — no misleading ✓ checkmark on a failure message (the same underlying fix also resolved BUG-CRX-055's false affirmation; both bugs shared one root cause — the agent now checks/refuses before attempting the create instead of attempting it and mis-rendering the failure).
 ![Retest — honest upfront refusal, no misleading checkmark](../../screenshots/BUG-CRX-054/retest-2026-10-12-pass.png)
 
-Status: Closed — fixed, confirmed via live retest.
+Status: Closed — fixed, confirmed via live retest. Production issue #123096 synced to Done/100% on 2026-10-12.
 
 ## Duplicate check
 

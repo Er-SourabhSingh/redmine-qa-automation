@@ -57,7 +57,7 @@ Retested live after the Crux stack rebuild (plugin source pulled fresh; commit `
 ![Retest — Crux settings flash message, border now complete](../../screenshots/BUG-CRX-049/retest-2026-10-12-crux-settings-pass.png)
 ![Retest — core Redmine page flash message, for comparison](../../screenshots/BUG-CRX-049/retest-2026-10-12-core-comparison.png)
 
-Status: Closed — fixed, confirmed via live retest.
+Status: Closed — fixed, confirmed via live retest. Production issue #123059 synced to Done/100% on 2026-10-12.
 
 ## Duplicate check
 

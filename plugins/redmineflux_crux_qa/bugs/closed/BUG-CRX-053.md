@@ -55,7 +55,7 @@ Retested live after the Crux stack rebuild (commit `630f934` lists "day spend (B
 - The wording now says "spent $X **today**" (not "this chat"), consistent with checking across the user's real daily total rather than a single chat's isolated total — both halves of the original bug (never fires; wrong scope) addressed.
 ![Retest — genuine daily spend reminder banner fired](../../screenshots/BUG-CRX-053/retest-2026-10-12-pass.png)
 
-Status: Closed — fixed, confirmed via live retest.
+Status: Closed — fixed, confirmed via live retest. Production issue #123064 synced to Done/100% on 2026-10-12.
 
 ## Duplicate check
 

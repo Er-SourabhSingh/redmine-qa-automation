@@ -52,7 +52,7 @@ Retested via source inspection (appropriate for an infra/startup-race bug — no
 - `create_server()` (line 316) also retries plugin detection with backoff (2s/4s/8s) if the self-test succeeds but 0 plugins were found — covering a narrower, faster version of the same race.
 - Together these directly address the originally-reported defect: a cold boot where Redmine takes longer than ~120s no longer permanently commits the server to a degraded 98-tool/0-plugin state — it keeps retrying in the background until Redmine responds.
 
-Status: Closed — fixed, confirmed via source inspection of the fix.
+Status: Closed — fixed, confirmed via source inspection of the fix. Production issue #123105 synced to Done/100% on 2026-10-12.
 
 ## Duplicate check
 

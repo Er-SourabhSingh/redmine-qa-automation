@@ -50,7 +50,7 @@ Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `3968
 - Asked "How much total time has been logged on the Crux PM Agent Test Project" against a project with genuine, mixed-status time entries.
 - Crux now correctly reports the real total time and per-issue breakdown — no false "no time entries logged" / "time tracking not enabled" claim.
 
-Status: Closed — fixed, confirmed via live retest.
+Status: Closed — fixed, confirmed via live retest. Production issue #123100 synced to Done/100% on 2026-10-12.
 
 ## Duplicate check
 

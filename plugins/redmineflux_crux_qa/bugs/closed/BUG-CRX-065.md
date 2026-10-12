@@ -50,7 +50,7 @@ Retested live after the Crux stack rebuild (`redmineflux-mcp` commit `ae436b6` "
 - Matches native UI ground truth (`/projects/.../files` — zero rows).
 ![Retest — correct, concise "No files are currently uploaded" answer](../../screenshots/BUG-CRX-065/retest-2026-10-12-pass.png)
 
-Status: Closed — fixed, confirmed via live retest.
+Status: Closed — fixed, confirmed via live retest. Production issue #123107 synced to Done/100% on 2026-10-12.
 
 ## Duplicate check
 

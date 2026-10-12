@@ -102,7 +102,7 @@ Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `3968
 - Agent no longer claims the lookup tool doesn't exist — it correctly calls `redmineflux_core_list_custom_fields` and returns the real field id and its real possible values.
 - Re-ran the original multi-field create scenario (naming "Text required feild" and "list required feilds" by name with values) — the resulting proposal correctly targeted the real field ids (4 and 5), not the unrelated "Crux Capability" (id 1) or a fabricated id (45).
 
-Status: Closed — fixed, confirmed via live retest.
+Status: Closed — fixed, confirmed via live retest. Production issue #123060 synced to Done/100% on 2026-10-12.
 
 ## Duplicate check
 

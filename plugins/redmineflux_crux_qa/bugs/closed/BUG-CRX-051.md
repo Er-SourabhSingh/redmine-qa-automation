@@ -54,7 +54,7 @@ Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `3968
 - Confirm card's Tracker row correctly showed **Feature**, not "(project default)".
 - Confirmed the resulting real issue was created with tracker Feature via native UI issue list.
 
-Status: Closed — fixed, confirmed via live retest.
+Status: Closed — fixed, confirmed via live retest. Production issue #123061 synced to Done/100% on 2026-10-12.
 
 ## Duplicate check
 

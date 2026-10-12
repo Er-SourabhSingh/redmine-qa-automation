@@ -46,7 +46,7 @@ Retested live after the Crux stack rebuild (`redmineflux-crux-core` commit `3968
 - Closed, then reopened, a throwaway project via Crux, comparing both confirm-card headlines.
 - The Reopen confirm card's headline is now direction-specific — no longer identical, word-for-word, to the Close headline.
 
-Status: Closed — fixed, confirmed via live retest.
+Status: Closed — fixed, confirmed via live retest. Production issue #123101 synced to Done/100% on 2026-10-12.
 
 ## Duplicate check
 

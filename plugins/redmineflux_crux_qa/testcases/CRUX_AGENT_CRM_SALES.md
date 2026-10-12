@@ -671,6 +671,15 @@ Evidence (2026-10-12): Created a disposable contact ("Disposable Contact Test", 
 - Step 2: honestly rejected as a duplicate (real validation error), not silently creating a second identical company.
 - Steps 3-4: same 3-tier pattern as TC-CRX-245/252.
 
+**Result: PASS (core behavior correct), 1 bug repro added (BUG-CRX-067)**
+
+Evidence (2026-10-12):
+- **Admin**: "Create a company called TechFlow Dynamics, website techflow-dynamics-crmtest.local, industry Technology." → genuine confirm card → confirmed → "✓ Company 'TechFlow Dynamics' created (ID: 3)." Verified via `/companies/3`: Website shows `https://techflow-dynamics-crmtest.local` — correctly auto-prefixed, not the raw value.
+- **Duplicate name**: "Create a company called TechFlow Dynamics, industry Finance." → genuine confirm card built, but on Confirm: honestly rejected — "Validation error: Name has already been taken." No second company created.
+- **`luna.blossom`** (full CRM): "Create a company called Zenith Partners, industry Consulting." → genuine confirm card → confirmed → "✓ Company 'Zenith Partners' created (ID: 4)."
+- **`daisy.skye`** (zero CRM): "Create a company called Horizon Ventures, industry Investment." → genuine confirm card proposed, but on Confirm the real permission layer correctly blocked it: "Forbidden..." Verified via native `/companies` (as admin): still exactly 4 real companies — no "Horizon Ventures" created, confirming genuine enforcement.
+- **1 new repro of BUG-CRX-067** (not a new bug): `daisy.skye`'s Forbidden refusal carried the same misleading ✓ checkmark seen on Create Lead/Create Contact — added as Repro 4, now confirming the defect spans 3 entity types on the Sales Agent's write-confirm path.
+
 **Result:** _execute and record here_
 
 ---

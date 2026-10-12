@@ -2,7 +2,7 @@
 
 - Bug ID: BUG-CRX-067
 - Production Redmine Issue ID: <!-- fill after report_defect/create_issue is approved and executed -->
-- Title: A genuine "Forbidden" permission-denial message on the Sales Agent's write confirm cards is rendered with a misleading success ✓ checkmark — reproduced on both `Crm Create Lead` and `Crm Create Contact` — identical to BUG-CRX-054's pattern on the Project Manager agent, confirmed independent of a real write actually being blocked
+- Title: A genuine "Forbidden" permission-denial message on the Sales Agent's write confirm cards is rendered with a misleading success ✓ checkmark — reproduced across `Crm Create Lead`, `Crm Create Contact`, and `Crm Create Company` (3 entity types) — identical to BUG-CRX-054's pattern on the Project Manager agent, confirmed independent of a real write actually being blocked
 - Redmine version: 6.0-bookworm (new local Docker instance, localhost:3015)
 - Plugin name: redmineflux_crux (Ask Crux chat UI, Sales Agent)
 - Plugin version: 0.62.0
@@ -40,6 +40,10 @@ During TC-CRX-247, `daisy.skye`'s 3 plain read-question refusals ("List all lead
 ## Repro 3 — same pattern on Create Contact (TC-CRX-252)
 
 As the same `daisy.skye`, zero CRM permissions, in a fresh chat: "Create a contact named Nova Starling, email nova.starling@crmtest.local." → genuine `Crm Create Contact` confirm card proposed, then on Confirm: the exact same visually-green, success-styled **"✓ Forbidden"** box, word-for-word the same remediation text as Repro 1. Independently verified via native UI (`/contacts`, as admin): still exactly 2 real contacts (Autumn Grace, Ivy Skylark) — no "Nova Starling" was created, confirming the real permission check genuinely fired. This confirms the misleading-checkmark defect isn't scoped to Create Lead alone — it affects the Sales Agent's write-confirm-card failure path generally, across at least 2 entity types so far.
+
+## Repro 4 — same pattern on Create Company (TC-CRX-255)
+
+As the same `daisy.skye`, zero CRM permissions, in a fresh chat: "Create a company called Horizon Ventures, industry Investment." → genuine `Crm Create Company` confirm card proposed, then on Confirm: the exact same "✓ Forbidden" text. Independently verified via native UI (`/companies`, as admin): still exactly 4 real companies (NovaTech Solutions, Acme Corporation, TechFlow Dynamics, Zenith Partners) — no "Horizon Ventures" created, confirming genuine enforcement. This is now confirmed across 3 entity types (Lead, Contact, Company) on the Sales Agent's write-confirm failure path.
 
 ## Evidence
 

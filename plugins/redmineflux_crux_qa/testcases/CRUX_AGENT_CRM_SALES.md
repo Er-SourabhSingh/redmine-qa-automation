@@ -396,7 +396,14 @@ Evidence (2026-10-12):
 **Expected Result:**
 - All 3 should fail honestly — either caught before the confirm card (the agent asks for the missing/corrected field) or a real Redmine/plugin validation error on confirm — never a fabricated success, never silently dropping the conflicting field.
 
-**Result:** _execute and record here_
+**Result: PASS — no bugs**
+
+Evidence (2026-10-12, admin):
+1. **Missing email**: confirm card correctly built with only First/Last Name (no Email row) — Confirm → honest failure: "Validation error: Email cannot be blank; Email is invalid" — no checkmark.
+2. **Invalid email ('not-an-email')**: confirm card correctly carried the invalid value verbatim (no silent correction) — Confirm → honest failure: "Validation error: Email is invalid" — no checkmark.
+3. **Duplicate email**: confirm card built normally (First: Priya, Last: "Sharma 2", Email: priya.sharma@acmecorp-crmtest.local) — Confirm → honest failure: "Validation error: Email has already been taken" — no checkmark.
+
+Independently verified via `/leads`: still exactly 2 rows (Celeste Dawn, Priya Sharma) after all 3 attempts — no partial/duplicate/stray record created. All 3 failure messages were real, specific, and human-readable — no instance of the misleading-✓ pattern (BUG-CRX-067) on this TC's failure paths.
 
 ---
 

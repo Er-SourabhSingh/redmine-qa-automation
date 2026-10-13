@@ -313,15 +313,34 @@ a manager performs.
 
 **Status:** Not yet executed.
 
-### TC-PLT-258 — Member with "Manage workload" can create and manage a workload for that team
+### TC-PLT-258 — Member with "Manage workload" can create and manage a workload, but only for THAT team
 
-**Preconditions:** Same team, a different member with "Manage workload" **checked**.
+**Preconditions:** A team member with "Manage workload" **checked** on Team A, and **not** a member of Team B
+at all.
 
-1. Log in as that member, create a workload for the team (name, start/end dates, members).
-2. Add an issue to the workload, adjust an allocation, and click "Recalculate Capacity".
+1. Log in as that member, create a workload for **Team A** (name, start/end dates, members).
+2. Add an issue to the workload, adjust an allocation, and click "Recalculate Capacity" — all on Team A's
+   workload.
+3. Attempt to create a workload for **Team B**, which this member does not belong to.
 
-**Expected:** All of these actions succeed — "Manage workload" is exactly the flag the User Guide says gates
-"create and manage workloads for this team."
+**Expected:** Step 1–2 succeed — "Manage workload" is exactly the flag the User Guide says gates "create and
+manage workloads for this team." Step 3 fails: the permission only reaches the team(s) where this member
+actually holds "Manage workload" — it does not grant workload-creation rights over every team in the
+installation.
+
+**Status:** Not yet executed.
+
+### TC-PLT-258a — Admin can create a workload for any team without being a member of it at all
+
+**Preconditions:** A Platform Team where the Admin user holds **no membership row** whatsoever (not added as a
+member, so no "Manage workload" flag exists for them on this team either).
+
+1. Log in as Admin and create a workload for this team.
+
+**Expected (per product owner, 2026-10-13):** Unlike a regular team member (TC-PLT-257/258, gated by the
+per-membership "Manage workload" flag), **Admin has no such restriction** — Admin can create a workload for
+any team without first being added to it. The "Manage workload" flag only constrains ordinary team members;
+it is not a gate Admin has to pass through.
 
 **Status:** Not yet executed.
 
@@ -411,7 +430,7 @@ be rejected or silently a no-op — not a duplicate membership row.
 | TC-PLT-245 | FAIL | BUG-PLT-041 | `screenshots/BUG-PLT-041/platform-departments-screen-404.png` |
 | TC-PLT-246 – TC-PLT-255 | Not yet executed | — | Timesheet Team-Mode approval flow — written 2026-10-13, pending first live execution pass |
 | TC-PLT-256 | FAIL | BUG-PLT-042 | `screenshots/BUG-PLT-042/autumn-skills-access-granted-via-platform-team-permission.png`, `screenshots/BUG-PLT-042/autumn-skills-403-with-only-legacy-workload-permission.png` |
-| TC-PLT-257, TC-PLT-257a, TC-PLT-258 – TC-PLT-261, TC-PLT-263 | Not yet executed | — | Workload "Manage workload" team flow — written 2026-10-13, pending first live execution pass |
+| TC-PLT-257, TC-PLT-257a, TC-PLT-258, TC-PLT-258a, TC-PLT-259 – TC-PLT-261, TC-PLT-263 | Not yet executed | — | Workload "Manage workload" team flow — written 2026-10-13, pending first live execution pass |
 | TC-PLT-262 | Cross-reference only | BUG-PLT-030 (already filed) | — |
 
 ## Summary (2026-10-13)

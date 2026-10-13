@@ -81,3 +81,9 @@ Looks like `label_rf_platform_public` was added later (it sits ~140 lines furthe
 ## Production report
 
 Reported to production `ztflux` as **#121858** on 2026-10-01, assigned to Prashant Chaurasia. Linked via `report_defect` against testcase #121477 ("Vocabulary & Labels", Feature #120043) and run #586, environment "Win + Chrome + Ver6" — testcase marked Failed. Priority: Low (priority_id 1); Defect custom fields: Type=Usability, Severity=Low-severity, Priority=Low.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_platform` branch, commit `edd1ba4` (2026-10-05): Organizations filter now names `:label_rf_platform_visible_to_all`; the rival `label_rf_platform_public` key deleted outright. A new regression-class test (not instance-specific) also caught and removed 3 more orphaned keys in the same documented vocabulary block.
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Pulled commit `edd1ba4`. Live-tested: the Organizations "Visibility" filter now reads Private/Visible to all; the orphaned "Public" key is gone entirely. Closed on production (status: Done).

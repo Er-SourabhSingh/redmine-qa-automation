@@ -73,3 +73,9 @@
 ## Production report
 
 Reported to production `ztflux` as **#121860** on 2026-10-01, assigned to Prashant Chaurasia. Priority: Blocker (priority_id 4); Defect custom fields: Type=Security, Severity=Critical, Priority=Urgent. **Not yet linked to a testcase/run** — production suite #397 has no "Security" testcase yet; two attempts to create one this session (`create_testcase`, subject "Security (Feature #120043)") were both blocked by the Claude Code auto-mode classifier ("External System Writes"), while the sibling "Performance (Feature #120043)" testcase succeeded in the same batch. The issue exists standalone on production; `report_defect` against the Security testcase/run #586 is still pending once that testcase exists.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_platform` branch, commit `829544a` (2026-10-05): both call sites now build the `title` attribute via `tag.div`/`tag.td` instead of hand-built `#inspect` + `html_safe`, so Rails escapes the value. Verified against 3 payload shapes (quote-escape, single-quote+`onerror`, tag-close) on all 3 screens that render the calendar partial, via `assert_select` against the parsed DOM (not a raw body grep, which cannot distinguish escaped from live markup).
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED (Critical XSS).** Pulled commit `829544a`. Live-retested with the exact original attack shape planted fresh on a new holiday. No alert fired. Confirmed via raw DOM inspection (`document.querySelectorAll`) that the title attribute now reads fully HTML-entity-escaped (`&quot;&gt;&lt;script&gt;...&lt;/script&gt;`) and that zero script elements containing the payload exist anywhere on the page. Closed on production (status: Done).

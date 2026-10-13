@@ -65,3 +65,9 @@ It only ever matches 3 columns: `action` (e.g. `"created"`), `auditable_type` (e
 ## Production report
 
 Reported to production `ztflux` as **#121864** on 2026-10-01, assigned to Prashant Chaurasia. Linked via `report_defect` against testcase #121856 ("Performance", Feature #120043 — newly created this session) and run #586, environment "Win + Chrome + Ver6" — testcase marked Failed. Priority: High (priority_id 3); Defect custom fields: Type=Functional, Severity=High-severity, Priority=High.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_platform` branch, commit `eb46e87` (2026-10-05) — same commit as BUG-PLT-021 (#121711), since both are one defect seen from two sides (metadata populated only by the destroy hook). Writing the identity on all 3 lifecycle hooks fixes both: search can now match a live record's created/updated row, and that row survives deletion with its name intact. **Deliberately no backfill** of rows written before this build.
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Same commit as #121711 (`eb46e87`) — `rf_audit_creation`/`rf_audit_changes` now populate metadata the same way the destroy hook always did. Live-tested via the real UI: created a fresh, never-deleted Organization and searched Audit Events for its exact name — found exactly 1 result, the created row (previously "No record matches" for any live record). Closed on production (status: Done).

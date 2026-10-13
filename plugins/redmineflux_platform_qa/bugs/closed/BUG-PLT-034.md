@@ -64,3 +64,9 @@ Reproduced twice on the same contact (id 504); a CRM-created contact (id 505) wi
 ## Production report
 
 Reported to production `ztflux` as **#121867** on 2026-10-01, assigned to Prashant Chaurasia. Linked via `report_defect` against testcase #121704 ("Cross-Plugin CRUD Matrix", Feature #120043) and run #586, environment "Win + Chrome + Ver6" — testcase marked Failed. Priority: High (priority_id 3); Defect custom fields: Type=Functional, Severity=High-severity, Priority=High.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_platform` (commit `8d1909e`) and `redmineflux_crm` (commit `78e931a`) branches `redmineflux_platform`, 2026-10-05: every entity's own ownership column(s) are now stamped on create by the shared `EntitiesController` (Contact `author_id`, Organization `created_by`/`updated_by`, Holiday `created_by_id` — 2 more entities had the same hole beyond Contact). CRM's view side also hardened against nil `author`/`assigned_to` across 4 detail pages, since a user can be deleted after the fact regardless of how the row was created.
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Pulled commit `8d1909e` — the shared create path now fills every entity's own ownership column(s) when blank (Contact author_id, Organization created_by/updated_by, Holiday created_by_id), each named explicitly per entity. Live-tested the exact original repro: created a fresh Contact from Platform's own screen, opened it via CRM's native /contacts/<id> — renders fully, no 500, "Created by: Redmine Admin" shown. Confirmed via DB: author_id is now 1 (was NULL). Closed on production (status: Done).

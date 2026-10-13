@@ -57,3 +57,9 @@ The Contact edit form's Organization-selection section is headed **"Company"** (
 ## Production report
 
 Reported to production `ztflux` as **#121859** on 2026-10-01, assigned to Prashant Chaurasia. Linked via `report_defect` against testcase #121476 ("Cross-Plugin Consistency", Feature #120043) and run #586, environment "Win + Chrome + Ver6" — testcase marked Failed. Priority: Medium (priority_id 2); Defect custom fields: Type=Functional, Severity=Medium-severity, Priority=Medium.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_platform` branch, commit `1abf4a1` (2026-10-05): exposed via the shared entity registry rather than a new controller — organization/contact dropdowns, free-text role filter built from roles actually in use, Current/Ended status, full CRUD including a second bug found while verifying (Edit/Delete 404'd until `detail` was declared). Sub-finding (Contact form's "Company"/"Company Identity" wording) fixed in the same commit — traced to 17 leftover `company_*` locale keys, all removed.
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Pulled commit `1abf4a1`. Live-tested the full lifecycle via the new "Contact links" nav item: created a real Organization-Contact link with a role, confirmed the detail page rendered correctly, then deleted it — all via the real UI, confirmed via DB that no fixture was left behind. Sub-finding also confirmed fixed — now reads "Organization"/"Organization name". Closed on production (status: Done).

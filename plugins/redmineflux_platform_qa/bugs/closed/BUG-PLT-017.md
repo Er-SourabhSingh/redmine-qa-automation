@@ -72,3 +72,9 @@ This is a Contact-specific gap: every other entity currently using this same `Se
 ## Production report
 
 Reported to production 2026-09-30 as **#121707** (project `ztflux`, tracker Bug, Priority Medium, Defect Type Functional, Defect Severity Medium-severity, Defect priority Medium, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #121706 (`Entity CRUD and Field Validation`, Feature #120043) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121707 attached.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_platform` branch, commit `ccd64ca` (2026-10-05): search term now splits on whitespace and every word must match some column (not all the same one), so both name orders work and a second word narrows rather than widens. Fixed in `Entry#search`, not just the model's `rf_search`, since every entity's list calls the registry lambda.
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Pulled commit `ccd64ca`. Live-tested: searching Contacts for the exact displayed full name "PLT-BASELINE-Jane Doe" now narrows 2 contacts to exactly 1, the correct record. Closed on production (status: Done).

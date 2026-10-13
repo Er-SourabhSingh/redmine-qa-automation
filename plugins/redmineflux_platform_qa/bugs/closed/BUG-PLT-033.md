@@ -72,3 +72,9 @@ DB confirms the row (`rf_holidays` id 515) never changed across either attempt �
 ## Production report
 
 Reported to production `ztflux` as **#121866** on 2026-10-01, assigned to Prashant Chaurasia. Linked via `report_defect` against testcase #121704 ("Cross-Plugin CRUD Matrix", Feature #120043) and run #586, environment "Win + Chrome + Ver6" — testcase marked Failed. Priority: High (priority_id 3); Defect custom fields: Type=Functional, Severity=High-severity, Priority=High.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_platform` branch, commit `720db51` (2026-10-05), fixed on the shared model rather than Shift Management's controller (every consumer edits this model the same single-field way; Workload/Helpdesk's forms only looked fine because they happen to pass `end_date` through too): when `date` changes and `end_date` was untouched and equalled the *old* date, `end_date` now moves with it — but only for the single-day case, so a genuine multi-day holiday whose start moves past its end is still correctly rejected.
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Pulled commit `720db51` (fixed on the shared model, not the controller). Live-tested via Shift Management's own Add/Edit Holiday UI: moved a disposable holiday's date later — "Holiday updated successfully" (previously 422 "End date is invalid"); moved the same holiday's date earlier, past another holiday — "Holiday updated successfully", no false-positive overlap (previously rejected). Both original failure modes gone. Closed on production (status: Done).

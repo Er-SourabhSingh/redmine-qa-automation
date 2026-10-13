@@ -61,3 +61,9 @@ This is a real, reachable, and arguably severe usability+accuracy gap: once any 
 ## Production report
 
 Reported to production `ztflux` as **#121862** on 2026-10-01, assigned to Prashant Chaurasia. Linked via `report_defect` against testcase #121476 ("Cross-Plugin Consistency", Feature #120043) and run #586, environment "Win + Chrome + Ver6" — testcase marked Failed. Priority: Medium (priority_id 2); Defect custom fields: Type=Functional, Severity=Medium-severity, Priority=Medium.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_workload` branch, commit `d9d6f46` (2026-10-05): a `TeamMembership` callback (catching all 4 team-edit screens plus team/user deletion) now syncs `rf_workload_users` on removal — a leaver with no allocations is deleted outright; a leaver who still holds allocations keeps their row (so the allocation isn't silently destroyed) but is excluded from every capacity figure via `RfWorkloadUser.current`/`.former` scopes, and marked on the board as "No longer on this team."
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Pulled commit `d9d6f46` (redmineflux_workload). Verified via `rails runner` with a disposable team/workload/2-member fixture: removing a member with no allocations now deletes their `rf_workload_users` row outright; removing a member holding a real allocation against a properly-assigned issue correctly keeps their row and allocation intact (excluded from capacity, not deleted or left stale). Closed on production (status: Done).

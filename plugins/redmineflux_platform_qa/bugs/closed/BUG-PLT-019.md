@@ -79,3 +79,9 @@ This means Teams' sortable headers are not a shared platform capability at all â
 ## Production report
 
 Reported to production 2026-09-30 as **#121709** (project `ztflux`, tracker Bug, Priority Low, Defect Type Functional, Defect Severity Low-severity, Defect priority Low, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #121706 (`Entity CRUD and Field Validation`, Feature #120043) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121709 attached.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_platform` branch, commit `8100939` (2026-10-05): Teams' one-off sort support generalized into the shared `EntitiesController`, so 24 columns across all 7 lists are now sortable (association/computed columns deliberately excluded). `sort_update` only honours declared keys, so a hand-edited `?sort=` is not a SQL injection vector.
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Pulled commit `8100939`. Live-tested on Organizations: Name/Industry/Email/Status column headers are now real sort links; clicking "Name" changed the URL to `?sort=c0:desc` and genuinely reversed the row order. Closed on production (status: Done).

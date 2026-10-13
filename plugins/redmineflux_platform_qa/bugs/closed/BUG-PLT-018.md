@@ -69,3 +69,9 @@ So the model-level search capability (`rf_searchable_on :reason`) was built but 
 ## Production report
 
 Reported to production 2026-09-30 as **#121708** (project `ztflux`, tracker Bug, Priority Low, Defect Type Functional, Defect Severity Low-severity, Defect priority Low, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #121706 (`Entity CRUD and Field Validation`, Feature #120043) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121708 attached.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_platform` branch, commit `ccd64ca` (2026-10-05): added the missing `search:` lambda to the `leaves` entry (matching the Name search BUG-PLT-017 fixed), searching both the Reason field and the leave-taker's name. Every entity now declares a search, guarded by a new test.
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Same commit as #121707 (`ccd64ca`). Live-tested: Leaves list now has a "Search Leaves" box (previously absent); searching "Luna Blossom" narrowed 19 leaves to exactly 2, both correctly hers. Closed on production (status: Done).

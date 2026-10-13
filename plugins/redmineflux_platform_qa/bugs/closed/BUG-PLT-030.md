@@ -69,3 +69,9 @@ This also creates a real inconsistency with `BUG-PLT-029`/TC-PLT-105's own estab
 ## Production report
 
 Reported to production `ztflux` as **#121863** on 2026-10-01, assigned to Prashant Chaurasia. Linked via `report_defect` against testcase #121476 ("Cross-Plugin Consistency", Feature #120043) and run #586, environment "Win + Chrome + Ver6" — testcase marked Failed. Priority: Medium (priority_id 2); Defect custom fields: Type=Functional, Severity=Medium-severity, Priority=Medium.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_platform` branch, commit `806e39a` (2026-10-05) — the same mechanism that fixed BUG-PLT-032. Took the warning, not a refusal (the `dependent: :destroy` cascade is deliberate design): the confirmation dialog now reads Rails' own reflections at render time and names the count of records that will also be destroyed, grouped by underlying table (not by association alias, which had initially triple-counted Team's own membership aliases).
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Pulled commit `806e39a`. Live-tested: Team delete confirmation now reads "This will also permanently delete 1 team member" (read from ActiveRecord's own reflections, grouped by table) instead of the old generic-only text. Closed on production (status: Done).

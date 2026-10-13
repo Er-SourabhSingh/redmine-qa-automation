@@ -93,3 +93,9 @@ end
 ## Production report
 
 Reported to production 2026-09-30 as **#121711** (project `ztflux`, tracker Bug, Priority Medium, Defect Type Functional, Defect Severity Medium-severity, Defect priority Medium, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #121706 (`Entity CRUD and Field Validation`, Feature #120043) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121711 attached.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_platform` branch, commit `eb46e87` (2026-10-05) — same commit that fixed BUG-PLT-031 (#121864), since both share one root cause. `rf_audit_identity` is now called from all 3 lifecycle hooks (create/update/destroy), not just destroy, so every row can name itself whether or not its record still exists. **Deliberately no backfill** — rows written before this build keep "ClassName #ID"; only newly-created records are expected to show correctly post-fix.
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Pulled commit `eb46e87`. Verified via `rails runner`: created, renamed, then destroyed a disposable Team and read back all 3 of its audit rows — created/updated/deleted all now show the real name (previously created/updated regressed to "Team #ID" after deletion). Closed on production (status: Done).

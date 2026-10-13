@@ -89,3 +89,9 @@ Not yet swept: CRM's list page (`/companies`), create form (`/companies/new`), e
 ## Production report
 
 Reported to production `ztflux` as **#121857** on 2026-10-01, assigned to Prashant Chaurasia. Linked via `report_defect` against testcase #121477 ("Vocabulary & Labels", Feature #120043) and run #586, environment "Win + Chrome + Ver6" — testcase marked Failed. Priority: Low (priority_id 1); Defect custom fields: Type=Usability, Severity=Low-severity, Priority=Low.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_crm` (commit `aa131e2`) and `redmineflux_platform` (commit `edd1ba4`) branches `redmineflux_platform`, 2026-10-05: full sweep (not just the 3 reported strings) — 16 locale values reworded, all 20 CRM screens confirmed clean live, both API message strings fixed, plus a deeper pre-existing bug found while tracing the activity-log inconsistency: `CrmAutoActivity#crm_model_display_name` was leaking the full namespaced class name (`RedminefluxPlatform::Organization`) into 7 existing timeline rows; writer now demodulizes and the reader accepts all 3 historical token shapes.
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Pulled commit `aa131e2` (redmineflux_crm) — a full sweep, not just the 3 reported strings (16 locale values, API messages, and a deeper pre-existing namespace-leak bug in the activity writer). Live-tested /companies/1: all 3 originally-reported empty states now read "organization". Confirmed via source that `api/companies_controller.rb`'s message strings now say "Organization created/updated/deleted". Closed on production (status: Done).

@@ -93,3 +93,9 @@ Confirmed the underlying record was never affected — the form was cancelled (n
 ## Production report
 
 Reported to production 2026-09-30 as **#121712** (project `ztflux`, tracker Bug, Priority Low, Defect Type Functional, Defect Severity Low-severity, Defect priority Low, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #121706 (`Entity CRUD and Field Validation`, Feature #120043) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121712 attached.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_platform` branch, commit `05de366` (2026-10-05, same commit as BUG-PLT-020): `mousedown` on the remove button now calls `preventDefault()` so focus never leaves the entry (no blur, no re-render mid-click); a matching `relatedTarget`/`host.contains` guard fixes the identical defect on the keyboard (Tab) path, which the original report hadn't covered. The deliberate blur-commits-typed-text behavior is unchanged.
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Same commit as #121710 (`05de366`). Live-tested: typed uncommitted text into the tag entry box, then clicked a different chip's × — the clicked chip was genuinely removed and the uncommitted text stayed in the box, with no phantom tag added. Closed on production (status: Done).

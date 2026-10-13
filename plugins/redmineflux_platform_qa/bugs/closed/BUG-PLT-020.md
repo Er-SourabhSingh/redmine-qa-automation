@@ -53,3 +53,9 @@ So the "no results" detection logic runs correctly (it knows when nothing matche
 ## Production report
 
 Reported to production 2026-09-30 as **#121710** (project `ztflux`, tracker Bug, Priority Low, Defect Type Functional, Defect Severity Low-severity, Defect priority Low, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #121706 (`Entity CRUD and Field Validation`, Feature #120043) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121710 attached.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_platform` branch, commit `05de366` (2026-10-05): root cause was `platform.css`'s `.rf_platform_picker_option { display: flex !important; }` beating the browser's built-in `[hidden] { display: none }` rule — the JS `hidden` toggle was executing correctly all along. Fixed with a `[hidden][hidden] { display: none !important; }` override high enough specificity to win regardless of source order, applied to the shared `hidden` mechanism (picker menus, empty states, prompt wrappers), not just this one picker.
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Pulled commit `05de366`. Live-tested on a team's Add Members picker: typing "Sel" narrowed the 21-option listbox to exactly 2 genuine substring matches; typing a no-match term now renders a genuinely empty listbox (previously the full unfiltered list stayed visible above the "no match" message). Closed on production (status: Done).

@@ -47,3 +47,9 @@
 ## Production report
 
 Reported to production `ztflux` as **#121861** on 2026-10-01, assigned to Prashant Chaurasia. Priority: Low (priority_id 1); Defect custom fields: Type=Usability, Severity=Low-severity, Priority=Low. **Not yet linked to a testcase/run** — same reason as `BUG-PLT-027`: production suite #397 has no "Security" testcase yet, and two attempts to create one were blocked by the Claude Code auto-mode classifier. The issue exists standalone on production; `report_defect` is still pending.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_platform` (commit `edd1ba4`) and `redmineflux_crm` (commit `aa131e2`) branches `redmineflux_platform`, 2026-10-05, after confirming the assignee carve-out is real/intended backend behavior (`Organization.visible`/`Contact.visible` both carry an `OR assigned_to_id = ?` branch) — the copy was wrong, not the behavior. New hint: "A private record is visible only to you, to anyone it is assigned to, and to administrators." Also found and fixed a worse gap while checking scope: CRM's own `/companies/new` and `/contacts/new` had no helper text at all; both now render the same shared locale key as Platform's forms.
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Same commit as #121858 (`edd1ba4`). Live-verified the "Mark as Private" hint now reads "...visible only to you, to anyone it is assigned to, and to administrators" on 3 separate forms across 2 plugins (Platform Contact/Organization edit forms, CRM Organization edit form). Closed on production (status: Done).

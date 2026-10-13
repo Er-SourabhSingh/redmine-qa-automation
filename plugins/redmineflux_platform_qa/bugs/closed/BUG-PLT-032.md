@@ -59,3 +59,9 @@ No guard exists anywhere in the class. This is the identical architectural gap a
 ## Production report
 
 Reported to production `ztflux` as **#121865** on 2026-10-01, assigned to Prashant Chaurasia. Linked via `report_defect` against testcase #121704 ("Cross-Plugin CRUD Matrix", Feature #120043) and run #586, environment "Win + Chrome + Ver6" — testcase marked Failed. Priority: Medium (priority_id 2); Defect custom fields: Type=Functional, Severity=Medium-severity, Priority=Medium.
+
+## Fix Verification
+
+Dev fixed on `redmineflux_platform` branch, commit `806e39a` (2026-10-05) — same mechanism as BUG-PLT-030, since both are the same unguarded-cascade pattern on a different entity pair. Confirmation dialog now names the specific, correctly-counted number of dependent records (e.g. "This will also permanently delete 7 holidays"), read generically from ActiveRecord reflections rather than a hand-kept per-entity list.
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Same commit as #121863 (`806e39a`). Live-tested: built a disposable scheme with 1 holiday attached, clicked Delete — dialog now reads "This will also permanently delete 1 holiday" (generic line plus a specific, correct count). Closed on production (status: Done).

@@ -62,3 +62,9 @@ Standardize on Platform's own screen and shared services (`TeamService`, `AuditS
 ## Production report
 
 Reported to production 2026-09-30 as **#121629** (project `ztflux`, tracker Bug, Priority Medium, Defect Type Functional, Defect Severity Medium-severity, Defect priority Medium, assigned Prashant Chaurasia). Linked via `report_defect` to testcase #121476 (`Cross-Plugin Consistency`, Feature #120043) / Run #586 / environment `Win + Chrome + Ver6`; testcase result marked Failed with defect #121629 attached. Cross-references BUG-PLT-013 (#121622), BUG-PLT-014 (#121623), BUG-PLT-015 (#121624), BUG-PLT-009/010/011 (#121556/#121588/#121589), and BUG-PLT-012 (#121621) in its Description.
+
+## Fix Verification
+
+Dev fixed in 3 stages on `redmineflux_platform` branch: entity→consumer-plugin declaration (commit `f8347b6`), then the concrete per-consumer defaulting/ownership gaps this bug's thesis predicted — Shift Management's new-holiday-scheme silently deactivating the active scheme, and Platform's own required dropdowns pre-selecting the first option instead of forcing a real choice (commits `8ff4329` platform + `9e05b5b` shift_management).
+
+**QA retest 2026-10-06 (Sourabh Singh): CONFIRMED FIXED.** Pulled commit `8ff4329`. Live-tested: creating a new Holiday Scheme from Shift Management's screen without checking "Active" no longer deactivates the baseline active scheme (confirmed via DB); New Holiday form now opens genuinely blank (no pre-filled date/type). Closed on production (status: Done).

@@ -45,7 +45,11 @@ Logged in as each in turn: Role A got full, unrestricted access to `/rf_skills` 
 - Leave Policy Bands and "Assign Leave Band" have zero Platform representation at all — no nav entry, no route, no deferred write path (unlike Leave Types). Worse than Department's gap (`BUG-PLT-041`), since Platform doesn't even consume this data. Filed **`BUG-PLT-044`** (Medium).
 - Concrete, live-confirmed consequence: logged in as `aurora.wren` (confirmed "Unassigned" on Shift Management's own Assign Leave Band screen) and successfully submitted an Emergency Leave request through Workload's Apply Leave — no Policy Band check anywhere. Exactly the scope `BUG-PLT-036`'s own closure notes deliberately excluded, confirmed still the live, current state. Did **not** reopen `BUG-PLT-036` (its own scope is genuinely fixed) — filed **`BUG-PLT-043`** (Medium) as the separate, tracked gap instead. Fixture leave cancelled afterward.
 
-9 bugs open now (037–045), all local-only. `bugs/_index.md`, `STATUS.md` updated.
+9 bugs open now (037–045), all local-only. `bugs/_index.md`, `STATUS.md` updated. New dedicated suite
+`PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md` created (TC-PLT-264–271) mirroring `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md`'s
+structure — 5 PASS (Leave Types' partial deferral, Helpdesk/Timesheet out-of-scope confirmation, shared
+`rf_leaves` data layer, Shift Management's own Policy Band gate still correct in isolation), 3 FAIL tied to
+`BUG-PLT-043`/`044`/`045`.
 
 **Next session**: this was explicitly step 1 of a multi-entity audit the user wants done one at a time. **Holiday / Holiday Scheme is next** (Helpdesk's standalone Holiday tab vs. Workload's scheme-nested pattern — the user's own stated example). After that, revisit whether `bugs/open/`'s pre-existing emptiness requirement (full-plugin regression before `Complete`) should now also account for these 9 new bugs before that status is ever set.
 

@@ -40,6 +40,7 @@
 | BUG-PLT-039 | Three separate, overlapping "who leads/approves" concepts on the Team screen (team-level Team Lead, per-member Team role, per-member Approve leave), plus a 9-column Member table that overflows horizontally — Team screen UI overall flagged as due for a design pass once these are consolidated | Open | Low | 6 | (not yet reported) | bugs/open/BUG-PLT-039.md |
 | BUG-PLT-040 | Shift Management has its own standalone "Teams" list duplicating Platform's own canonical Teams list, even though per-record View/Edit/Delete already correctly redirect to Platform | Open | Low | 6 | (not yet reported) | bugs/open/BUG-PLT-040.md |
 | BUG-PLT-041 | "Department" is a shared entity consumed by Platform's own Team form, but Platform has zero management screen for it — Shift Management is the sole CRUD owner, the inverse of Platform's own consolidation standard | Open | Medium | 6 | (not yet reported) | bugs/open/BUG-PLT-041.md |
+| BUG-PLT-042 | Workload's own "Manage teams and skills" permission is completely dead — Skills management (`/rf_skills`) is actually gated by Platform's "Create, edit and delete teams" permission instead, with no dedicated Skills permission of its own | Open | Medium | 6 | (not yet reported) | bugs/open/BUG-PLT-042.md |
 
 ## Retracted
 

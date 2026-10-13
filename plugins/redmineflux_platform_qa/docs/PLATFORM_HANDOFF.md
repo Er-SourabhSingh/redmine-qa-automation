@@ -28,7 +28,16 @@ All 3 are local-only (`bugs/open/`), not yet reported to production. Screenshots
 
 5 bugs open now (037/038/039/040/041), all local-only. `bugs/_index.md`, `STATUS.md` updated.
 
-**Next session**: this was explicitly step 1 of a multi-entity audit the user wants done one at a time. **Holiday / Holiday Scheme is next** (Helpdesk's standalone Holiday tab vs. Workload's scheme-nested pattern — the user's own stated example). After that, revisit whether `bugs/open/`'s pre-existing emptiness requirement (full-plugin regression before `Complete`) should now also account for these 5 new bugs before that status is ever set.
+**Continued same day — permission consolidation check (Team vs. Skills), 1 more bug (042).** The user asked directly whether the legacy Workload permission "manage team and skill" should now be controlled by Platform instead, since Team is consolidated there — explicitly asked for this to be tested live, not just reasoned about. Built two dedicated test roles rather than guessing:
+
+- **Role A** ("Platform-Team-Permission-Test"): Platform's `View the RedmineFlux Platform section` + `View teams` + `Create, edit and delete teams`, deliberately **without** Workload's `Manage teams and skills`. Assigned to `aurora.wren`.
+- **Role B** ("Workload-Legacy-Permission-Test"): Workload's `Manage teams and skills` only, **without** any Platform Team permission. Assigned to `autumn.grace`.
+
+Logged in as each in turn: Role A got full, unrestricted access to `/rf_skills` (created a test skill with zero permission error) despite never holding the Workload permission. Role B stayed a flat 403 on `/rf_skills` even after incrementally adding `View the RedmineFlux Platform section` and `View teams` — only unlocked once `Create, edit and delete teams` was added too. Conclusion: **Workload's own "Manage teams and skills" permission is completely dead** (toggling it has zero effect on anything found so far — not Skills, not Team), and `/rf_skills` is actually, incorrectly, gated by Platform's Team permission instead of its own. Filed **`BUG-PLT-042`** (Medium). Added TC-PLT-256 to `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md`.
+
+6 bugs open now (037/038/039/040/041/042), all local-only. `bugs/_index.md`, `STATUS.md` updated. Test roles `Platform-Team-Permission-Test` (id likely 4) and `Workload-Legacy-Permission-Test` (id 5) and skill fixture "Skill-Permission-Test" left in place on `redmine-docker-6-platform` / `PLT-DelCheck-Project` as reproduction fixtures for retest — not random names, per this session's own naming rule.
+
+**Next session**: this was explicitly step 1 of a multi-entity audit the user wants done one at a time. **Holiday / Holiday Scheme is next** (Helpdesk's standalone Holiday tab vs. Workload's scheme-nested pattern — the user's own stated example). After that, revisit whether `bugs/open/`'s pre-existing emptiness requirement (full-plugin regression before `Complete`) should now also account for these 6 new bugs before that status is ever set.
 
 ## Next Session Start Point (2026-10-13, continued — `bugs/open/` now empty)
 

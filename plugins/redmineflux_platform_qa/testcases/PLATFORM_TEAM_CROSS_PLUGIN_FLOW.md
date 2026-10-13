@@ -240,6 +240,29 @@ requires manual approval when the threshold is `0`, regardless of how few hours 
 
 **Status:** Not yet executed.
 
+## Functional Cases — Permission consolidation (Team vs. Skills authorization)
+
+### TC-PLT-256 — Workload's "Manage teams and skills" permission is dead; Skills is actually gated by Platform's Team permission
+
+**Preconditions:** Two roles on a test project — Role A (`View the RedmineFlux Platform section`, `View teams`,
+`Create, edit and delete teams`, **no** `Manage teams and skills`) and Role B (`Manage teams and skills` only,
+**no** Platform Team permissions).
+
+1. As a user with Role A, open `/rf_skills` and attempt to create a skill.
+2. As a user with Role B, open `/rf_skills`.
+3. Incrementally add `View the RedmineFlux Platform section`, then `View teams`, then `Create, edit and delete
+   teams` to Role B, re-testing `/rf_skills` after each addition.
+
+**Expected:** Skills management should be controlled by a Workload-owned permission (the existing `Manage
+teams and skills`, or a dedicated Skills-only permission) — a role holding only Platform's Team permissions
+should not automatically gain Skills access, and a role holding the Workload permission should not be
+blocked.
+
+**Actual:** Role A got full Skills access (including creating a skill) despite never holding `Manage teams
+and skills`. Role B stayed 403 Forbidden through every addition except the last — only once `Create, edit and
+delete teams` (Platform's own Team permission) was added did Skills access unlock. `Manage teams and skills`
+itself had zero observable effect throughout. **Status: FAIL — filed `BUG-PLT-042`.**
+
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
@@ -253,6 +276,7 @@ requires manual approval when the threshold is `0`, regardless of how few hours 
 | TC-PLT-244 | FAIL | BUG-PLT-041 | `screenshots/BUG-PLT-041/shift-management-owns-department-crud.png`, `screenshots/BUG-PLT-041/platform-team-form-consumes-department-no-own-crud.png` |
 | TC-PLT-245 | FAIL | BUG-PLT-041 | `screenshots/BUG-PLT-041/platform-departments-screen-404.png` |
 | TC-PLT-246 – TC-PLT-255 | Not yet executed | — | Timesheet Team-Mode approval flow — written 2026-10-13, pending first live execution pass |
+| TC-PLT-256 | FAIL | BUG-PLT-042 | `screenshots/BUG-PLT-042/autumn-skills-access-granted-via-platform-team-permission.png`, `screenshots/BUG-PLT-042/autumn-skills-403-with-only-legacy-workload-permission.png` |
 
 ## Summary (2026-10-13)
 

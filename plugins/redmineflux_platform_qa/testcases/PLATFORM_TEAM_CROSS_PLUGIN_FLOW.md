@@ -11,7 +11,9 @@
 > with Team role = Lead / Approve leave = No (see `BUG-PLT-037`).
 >
 > This suite also covers Timesheet's **Team-Mode, team-wise Approval Schema flow** (see the dedicated section
-> below) — how a Platform-managed Team's per-member roles drive Timesheet's sequential approval routing.
+> below) — how a Platform-managed Team's per-member roles drive Timesheet's sequential approval routing — and
+> Workload's **"Manage workload" team flow** — how the per-membership "Manage workload" flag set on Platform's
+> own Team screen gates workload creation/management per team.
 
 ## Functional Cases — Team nav-link consolidation (per consumer plugin)
 
@@ -263,6 +265,110 @@ and skills`. Role B stayed 403 Forbidden through every addition except the last 
 delete teams` (Platform's own Team permission) was added did Skills access unlock. `Manage teams and skills`
 itself had zero observable effect throughout. **Status: FAIL — filed `BUG-PLT-042`.**
 
+## Functional Cases — Workload's "Manage workload" Team Flow
+
+> Mirrors the Timesheet Team-Mode section above, this time for Workload's own per-member "Manage workload"
+> flag. Source: Workload's own `WORKLOAD_USER_GUIDE.md` (Workflow 2, "Notes & Known Behaviour") — ingested
+> from https://www.redmineflux.com/knowledge-base/plugins/workload-plugin/ — plus the product owner's
+> consolidation direction, 2026-10-13. Not yet executed — written this session, pending a dedicated live
+> pass (status recorded per case below).
+>
+> Per the User Guide: "Manage workload" and "Can approve leave" are **per-membership** flags set on a team
+> member row (Platform's own Add/Edit Member dialog, per `BUG-PLT-013`/`014`'s consolidation) — "may create
+> and manage workloads for this team," independent of any other team the same user belongs to.
+
+### TC-PLT-257 — Member without "Manage workload" cannot create a workload for that team
+
+**Preconditions:** A Platform Team with at least one member whose "Manage workload" flag is **unchecked**.
+
+1. Log in as that member, open Workloads → "Create Workload".
+2. Attempt to select this team and create a workload.
+
+**Expected:** Without "Manage workload" on this team, the member should not be able to create a workload for
+it — either the team/action is unavailable, or the attempt is rejected server-side.
+
+**Status:** Not yet executed.
+
+### TC-PLT-258 — Member with "Manage workload" can create and manage a workload for that team
+
+**Preconditions:** Same team, a different member with "Manage workload" **checked**.
+
+1. Log in as that member, create a workload for the team (name, start/end dates, members).
+2. Add an issue to the workload, adjust an allocation, and click "Recalculate Capacity".
+
+**Expected:** All of these actions succeed — "Manage workload" is exactly the flag the User Guide says gates
+"create and manage workloads for this team."
+
+**Status:** Not yet executed.
+
+### TC-PLT-259 — "Manage workload" is per-team-membership, not per-user
+
+**Preconditions:** One user who is a member of two different Platform Teams — "Manage workload" **checked**
+on Team A's membership, **unchecked** on Team B's membership.
+
+1. Log in as that user. Attempt to create/manage a workload for Team A.
+2. Attempt the same for Team B.
+
+**Expected:** Per the User Guide ("these are team-specific — the same user may have them in one team and not
+another"), the user can manage Team A's workload but not Team B's, confirming the flag is scoped to the
+membership row, not globally to the user.
+
+**Status:** Not yet executed.
+
+### TC-PLT-260 — Member without "Manage workload" cannot edit/delete an existing workload for their own team
+
+**Preconditions:** A workload already exists for a team; a member of that team has "Manage workload"
+**unchecked** but is included as a workload member (someone capacity is planned for).
+
+1. Log in as that member and open the team's existing workload.
+2. Attempt to edit its dates/members, or delete it.
+
+**Expected:** Being a workload *member* (someone whose capacity is tracked) is independent of being able to
+*manage* the workload — without "Manage workload", edit/delete should be unavailable even though this
+person's own capacity appears on the workload.
+
+**Status:** Not yet executed.
+
+### TC-PLT-261 — "Manage workload" set on Platform's Team dialog is the single source Workload reads (no separate Workload-only flag)
+
+**Preconditions:** A team member's "Manage workload" flag is toggled from Platform's own Add/Edit Member
+dialog (`/redmineflux_platform/teams/<id>`), not from any Workload-specific screen.
+
+1. Toggle "Manage workload" for a member on Platform's own dialog.
+2. Confirm the effective permission in Workload (per TC-PLT-257/258) changes accordingly, with no separate
+   Workload-side flag to also update.
+3. Check Workload's own duplicate Team page (`/rf_teams/<id>`, per `BUG-PLT-038`) for whether it reads/writes
+   the same flag or maintains an independent copy.
+
+**Expected:** Exactly one flag, owned by Platform's `rf_team_memberships.manage_workload` column, read
+everywhere — consistent with the consolidation direction already applied elsewhere on Team.
+
+**Status:** Not yet executed.
+
+### TC-PLT-262 — Deleting a Team cascades to its Workload data without warning
+
+**Preconditions:** A Platform Team with at least one associated Workload.
+
+1. Delete the Team from Platform's own Teams screen.
+2. Check whether the Team's Workload(s) and their allocation data still exist.
+
+**Expected/Actual:** Per the User Guide's own warning ("deleting a team removes its related team data — review
+associated workloads before deleting a team") this is documented, expected cascade behavior, already filed
+and tracked as `BUG-PLT-030` (confirmation dialog never mentions this specific consequence) — this TC exists
+here only to confirm the cascade still reproduces from Platform's own (consolidated) delete action, not a new
+finding. **Status: cross-reference only — see `BUG-PLT-030`.**
+
+### TC-PLT-263 — A user can join a team only once (uniqueness constraint)
+
+**Preconditions:** A user already a member of a Platform Team.
+
+1. Attempt to add the same user to the same team a second time (via "Add members").
+
+**Expected:** Per the User Guide ("a user can join many teams but only once per team"), the second add should
+be rejected or silently a no-op — not a duplicate membership row.
+
+**Status:** Not yet executed.
+
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
@@ -277,6 +383,8 @@ itself had zero observable effect throughout. **Status: FAIL — filed `BUG-PLT-
 | TC-PLT-245 | FAIL | BUG-PLT-041 | `screenshots/BUG-PLT-041/platform-departments-screen-404.png` |
 | TC-PLT-246 – TC-PLT-255 | Not yet executed | — | Timesheet Team-Mode approval flow — written 2026-10-13, pending first live execution pass |
 | TC-PLT-256 | FAIL | BUG-PLT-042 | `screenshots/BUG-PLT-042/autumn-skills-access-granted-via-platform-team-permission.png`, `screenshots/BUG-PLT-042/autumn-skills-403-with-only-legacy-workload-permission.png` |
+| TC-PLT-257 – TC-PLT-261, TC-PLT-263 | Not yet executed | — | Workload "Manage workload" team flow — written 2026-10-13, pending first live execution pass |
+| TC-PLT-262 | Cross-reference only | BUG-PLT-030 (already filed) | — |
 
 ## Summary (2026-10-13)
 

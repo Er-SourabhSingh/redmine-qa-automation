@@ -20,7 +20,15 @@ Later the same day, the user (product owner / team lead) raised a delivery-drive
 
 All 3 are local-only (`bugs/open/`), not yet reported to production. Screenshots captured for all 3 (see each bug file). `bugs/_index.md`, `STATUS.md` updated.
 
-**Next session**: this was explicitly step 1 of a multi-entity audit the user wants done one at a time. **Holiday / Holiday Scheme is next** (Helpdesk's standalone Holiday tab vs. Workload's scheme-nested pattern — the user's own stated example). After that, revisit whether `bugs/open/`'s pre-existing emptiness requirement (full-plugin regression before `Complete`) should now also account for these 3 new bugs before that status is ever set.
+**Continued same day — cross-plugin Team flow suite, 2 more bugs (040, 041).** The user asked for a single dedicated suite testing Team's flow as experienced from Timesheet, Workload, and Shift Management (not just Platform's own screen already covered above) — `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md` created, TC-PLT-238–245:
+
+- Confirmed Timesheet's and Workload's own "Teams" nav links already correctly `href` straight to `/redmineflux_platform/teams` (PASS, TC-PLT-238/239) — no duplicate list in either. In-grid team links in both plugins still land on the duplicate detail pages already documented in `BUG-PLT-038` (TC-PLT-242/243 — same bug, confirmed reachable natively, not only via Platform's redirect buttons).
+- Shift Management's own "Teams & Departments" page (`/shift_management/departments`) renders its own independent Teams list, duplicating Platform's — filed **`BUG-PLT-040`** (Low). Partial mitigation: its own View/Edit/Delete actions already correctly redirect to Platform's canonical pages (PASS, TC-PLT-241) — no duplicate detail page here, unlike Timesheet/Workload.
+- Per the user's follow-up question ("department bhi sayad platform ke ek section me ye chiz bhi vo hi ana chiye"), created a fixture Department ("Department-Testing") via Shift Management's own "Departments" tab, then confirmed live that it appears immediately in Platform's own Team-create form's "Department" dropdown with zero sync action — Department is already shared data. But Platform has **no** owning screen for it anywhere: no nav entry, and `/redmineflux_platform/list/departments` 404s. Filed **`BUG-PLT-041`** (Medium) — the inverse problem from Team/037/038/039: here one plugin (Shift Management) is the sole CRUD owner while Platform, the supposed consolidation owner, only consumes.
+
+5 bugs open now (037/038/039/040/041), all local-only. `bugs/_index.md`, `STATUS.md` updated.
+
+**Next session**: this was explicitly step 1 of a multi-entity audit the user wants done one at a time. **Holiday / Holiday Scheme is next** (Helpdesk's standalone Holiday tab vs. Workload's scheme-nested pattern — the user's own stated example). After that, revisit whether `bugs/open/`'s pre-existing emptiness requirement (full-plugin regression before `Complete`) should now also account for these 5 new bugs before that status is ever set.
 
 ## Next Session Start Point (2026-10-13, continued — `bugs/open/` now empty)
 

@@ -38,6 +38,8 @@
 | BUG-PLT-037 | Per-member "Team role" (Member/Lead) grants no permission by itself — confirmed to leave "Approve leave" at No even when set to Lead, a direct continuation of BUG-PLT-014 | Open | Medium | 6 | (not yet reported) | bugs/open/BUG-PLT-037.md |
 | BUG-PLT-038 | "Timesheet Approval" and "Workload & Skills" buttons on Platform's Team page route to a full duplicate Team page in another plugin instead of the one relevant inline action | Open | Medium | 6 | (not yet reported) | bugs/open/BUG-PLT-038.md |
 | BUG-PLT-039 | Three separate, overlapping "who leads/approves" concepts on the Team screen (team-level Team Lead, per-member Team role, per-member Approve leave), plus a 9-column Member table that overflows horizontally | Open | Low | 6 | (not yet reported) | bugs/open/BUG-PLT-039.md |
+| BUG-PLT-040 | Shift Management has its own standalone "Teams" list duplicating Platform's own canonical Teams list, even though per-record View/Edit/Delete already correctly redirect to Platform | Open | Low | 6 | (not yet reported) | bugs/open/BUG-PLT-040.md |
+| BUG-PLT-041 | "Department" is a shared entity consumed by Platform's own Team form, but Platform has zero management screen for it — Shift Management is the sole CRUD owner, the inverse of Platform's own consolidation standard | Open | Medium | 6 | (not yet reported) | bugs/open/BUG-PLT-041.md |
 
 ## Retracted
 

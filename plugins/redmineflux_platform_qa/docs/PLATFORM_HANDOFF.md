@@ -37,7 +37,17 @@ Logged in as each in turn: Role A got full, unrestricted access to `/rf_skills` 
 
 6 bugs open now (037/038/039/040/041/042), all local-only. `bugs/_index.md`, `STATUS.md` updated. Test roles `Platform-Team-Permission-Test` (id likely 4) and `Workload-Legacy-Permission-Test` (id 5) and skill fixture "Skill-Permission-Test" left in place on `redmine-docker-6-platform` / `PLT-DelCheck-Project` as reproduction fixtures for retest — not random names, per this session's own naming rule.
 
-**Next session**: this was explicitly step 1 of a multi-entity audit the user wants done one at a time. **Holiday / Holiday Scheme is next** (Helpdesk's standalone Holiday tab vs. Workload's scheme-nested pattern — the user's own stated example). After that, revisit whether `bugs/open/`'s pre-existing emptiness requirement (full-plugin regression before `Complete`) should now also account for these 6 new bugs before that status is ever set.
+**Continued same day — full Leave functionality audit (Platform/Workload/Shift Management/Helpdesk), 3 more bugs (043, 044, 045).** The user asked for the same kind of structured audit already done for Team, applied to Leave: verify Workload's Apply Leave routes through Platform, check Shift Management/Helpdesk for duplicate screens, verify Leave Types/Policy Bands share data, check approval/permission consistency, and review `BUG-PLT-011`/`013`/`014`/`016`/`036` first for context.
+
+- Confirmed Helpdesk and Timesheet have zero Leave-related screens at all (checked full nav on both) — out of scope.
+- Leave Types are mostly consolidated: Shift Management's own "Leave Types" tab renders its own list, but "New"/"Edit" links correctly point to Platform's URLs — same partial pattern already seen with Team (`BUG-PLT-040`). Positive finding, not filed.
+- Leave records (`rf_leaves`) are a genuinely shared model (confirmed: a leave created via Workload appeared correctly in Platform's own Leaves list with the right ID), but three fully independent Apply/Approve UIs exist — Platform's own Leaves screen, Workload's own Leave Management + "Team Approvals" tab, Shift Management's own Apply Leave + "Applications" tab — none defer to another, unlike Team's nav links. Filed **`BUG-PLT-045`** (Low).
+- Leave Policy Bands and "Assign Leave Band" have zero Platform representation at all — no nav entry, no route, no deferred write path (unlike Leave Types). Worse than Department's gap (`BUG-PLT-041`), since Platform doesn't even consume this data. Filed **`BUG-PLT-044`** (Medium).
+- Concrete, live-confirmed consequence: logged in as `aurora.wren` (confirmed "Unassigned" on Shift Management's own Assign Leave Band screen) and successfully submitted an Emergency Leave request through Workload's Apply Leave — no Policy Band check anywhere. Exactly the scope `BUG-PLT-036`'s own closure notes deliberately excluded, confirmed still the live, current state. Did **not** reopen `BUG-PLT-036` (its own scope is genuinely fixed) — filed **`BUG-PLT-043`** (Medium) as the separate, tracked gap instead. Fixture leave cancelled afterward.
+
+9 bugs open now (037–045), all local-only. `bugs/_index.md`, `STATUS.md` updated.
+
+**Next session**: this was explicitly step 1 of a multi-entity audit the user wants done one at a time. **Holiday / Holiday Scheme is next** (Helpdesk's standalone Holiday tab vs. Workload's scheme-nested pattern — the user's own stated example). After that, revisit whether `bugs/open/`'s pre-existing emptiness requirement (full-plugin regression before `Complete`) should now also account for these 9 new bugs before that status is ever set.
 
 ## Next Session Start Point (2026-10-13, continued — `bugs/open/` now empty)
 

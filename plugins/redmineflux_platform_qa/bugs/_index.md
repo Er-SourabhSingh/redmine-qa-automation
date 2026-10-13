@@ -35,6 +35,9 @@
 | BUG-PLT-034 | Any Contact created from Platform's own screen crashes CRM's native Contact detail page with a 500 — author_id is never set on Platform's create path, and CRM's view calls @contact.author.name with no nil guard | Closed | High | 6 | #121867 | bugs/closed/BUG-PLT-034.md |
 | BUG-PLT-035 | A Redmine user who has filed or approved anything cannot be deleted — foreign keys across multiple plugins block it (production issue mislabeled "BUG-PLT-017" in its title; unrelated to the real BUG-PLT-017) | Closed | Medium | 6/7 | #121652 | bugs/closed/BUG-PLT-035.md |
 | BUG-PLT-036 | A user with no Leave Policy Band assigned can apply for any of the 6 leave types, instead of being blocked | Closed | High | 6 | #122728 | bugs/closed/BUG-PLT-036.md |
+| BUG-PLT-037 | Per-member "Team role" (Member/Lead) grants no permission by itself — confirmed to leave "Approve leave" at No even when set to Lead, a direct continuation of BUG-PLT-014 | Open | Medium | 6 | (not yet reported) | bugs/open/BUG-PLT-037.md |
+| BUG-PLT-038 | "Timesheet Approval" and "Workload & Skills" buttons on Platform's Team page route to a full duplicate Team page in another plugin instead of the one relevant inline action | Open | Medium | 6 | (not yet reported) | bugs/open/BUG-PLT-038.md |
+| BUG-PLT-039 | Three separate, overlapping "who leads/approves" concepts on the Team screen (team-level Team Lead, per-member Team role, per-member Approve leave), plus a 9-column Member table that overflows horizontally | Open | Low | 6 | (not yet reported) | bugs/open/BUG-PLT-039.md |
 
 ## Retracted
 

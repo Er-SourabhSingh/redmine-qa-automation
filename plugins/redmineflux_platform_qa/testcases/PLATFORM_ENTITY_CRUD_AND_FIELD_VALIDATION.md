@@ -395,11 +395,101 @@
 
 ---
 
+## Functional Cases — Team Full Flow (consolidation UX)
+
+> Added 2026-10-13, per explicit user direction to audit the Team screen end-to-end for the architectural consolidation work (`BUG-PLT-016`'s "Step 5"): does Platform's own Team page let an admin do everything relevant to a team without being routed back into each consumer plugin's own duplicate screen? Fixture used throughout: `Team-Testing` (explicit name given by the user — not a random string, per this session's own fixture-naming correction).
+
+---
+
+### TC-PLT-233: Create a Team from Platform's own screen, including the team-level "Team Lead" field
+
+**User Role:** Admin.
+**Precondition:** TC-PLT-021 PASS.
+
+**Steps:**
+1. Go to `/redmineflux_platform/teams/new`.
+2. Note every field offered: Team name, Department, **Team Lead** (single-person dropdown), Description, Active.
+3. Create a team named `Team-Testing` with Team Lead left at "None".
+
+**Expected Result:**
+- Team is created successfully and its detail page loads.
+
+**Status:** **EXECUTED 2026-10-13 — PASS (functional), with an architectural observation filed as `BUG-PLT-039`.** Team `Team-Testing` (id 3) created successfully. The "Team Lead" field's own helper text reads *"The one person who leads this team. They can approve leave and manage shifts for it"* — this is a **team-level, single-person** leadership concept that turns out to be the first of three separate, overlapping "who leads/approves" fields found across this flow (see TC-PLT-234's finding and `BUG-PLT-039`).
+
+---
+
+### TC-PLT-234: Add a member with "Team role = Lead" but "Approve leave" left unchecked — confirm whether "Lead" grants approval on its own
+
+**User Role:** Admin.
+**Precondition:** TC-PLT-233 PASS.
+
+**Steps:**
+1. On `Team-Testing`'s detail page, click "Add members".
+2. Select a user (Aurora Wren), set **Team role = "Lead"**, leave **"Approve leave" unchecked**, leave Redmine role at "None", submit.
+3. Read the resulting member row.
+
+**Expected Result:**
+- Either "Lead" should itself grant leave-approval (matching its own tooltip and its historical meaning in Shift Management, pre-consolidation), or the UI should not offer "Lead" and "Approve leave" as if they were independent, unrelated settings.
+
+**Status:** **EXECUTED 2026-10-13 — FAIL, filed as `BUG-PLT-037`.** Member added with `Team role: Lead`, `Approve leave: No` — confirmed via the rendered member row immediately after submission (no save/reload discrepancy). "Lead" grants **no permission whatsoever** on its own; the dialog's own tooltip already concedes this ("Separate from the Redmine role above, which is what grants permissions"). This is a direct, confirmed continuation of `BUG-PLT-014` (whose fix made the two disconnected role columns visible side-by-side rather than consolidating them) — an admin has every reason, given the field's name and tooltip, to believe "Lead" alone is sufficient for someone to approve the team's leave, and it is not.
+
+---
+
+### TC-PLT-235: "Timesheet Approval" button — does it let the admin assign a schema inline, or route them away?
+
+**User Role:** Admin.
+**Precondition:** TC-PLT-233 PASS.
+
+**Steps:**
+1. From `Team-Testing`'s Platform detail page, click "Timesheet Approval".
+2. Observe the destination page in full — note every control present, and whether a schema can actually be assigned from it.
+
+**Expected Result:**
+- Either an inline assignment control on Platform's own page (no navigation), or — failing that — a focused destination offering just the one relevant action, not a second full Team-management page.
+
+**Status:** **EXECUTED 2026-10-13 — FAIL, filed as `BUG-PLT-038`.** Button navigates to `/timesheet/teams/3` — Timesheet's own **complete Team detail page**, with its own Delete/Edit/"Manage Members" controls (all three already present, functioning, on the Platform page the admin just left) and its own separately-rendered (empty) Members list with its own search box. The actual "Timesheet Approval Schema" shows "Not Assigned" with no assignment control on this page at all — only a link to a *third* page (`/approval_schemas/new`) to create one, since none exist yet on this environment. Screenshot captured.
+
+---
+
+### TC-PLT-236: "Workload & Skills" button — does it let the admin assign a skill inline, or route them away with no Skills UI at all?
+
+**User Role:** Admin.
+**Precondition:** TC-PLT-233 PASS.
+
+**Steps:**
+1. From `Team-Testing`'s Platform detail page, click "Workload & Skills".
+2. Observe the destination page in full, specifically checking for any Skills-related control (the button's own label implies one should be reachable).
+
+**Expected Result:**
+- Some way to assign a Skill to a team member reachable from (or directly on) this destination, matching the button's "& Skills" label.
+
+**Status:** **EXECUTED 2026-10-13 — FAIL, filed as `BUG-PLT-038`.** Button navigates to `/rf_teams/3` — Workload's own complete Team detail page (same Delete/Edit/Manage-Members duplication as TC-235, plus a "Team Availability" widget). **No Skills UI exists anywhere on this page.** Separately checked Workload's global "Skills" nav item (`/rf_skills`) — this is a flat catalog of skill *definitions* (List/Matrix view, "New Skill"), not a per-member assignment screen, and it is not linked from the Team page in either direction. An admin clicking "Workload & Skills" expecting to assign a skill to this team's member has no path to do so from where the button actually lands.
+
+---
+
+### TC-PLT-237: Member table — column count and layout at normal desktop width
+
+**User Role:** Admin.
+**Precondition:** TC-PLT-234 PASS (at least one member present).
+
+**Steps:**
+1. On `Team-Testing`'s Platform detail page, count every column in the Members table.
+2. Check whether the full table (through the Actions column) is visible without horizontal scrolling at a normal (≥1280px) desktop width.
+
+**Expected Result:**
+- A scannable table with no redundant columns and no horizontal scroll needed at normal width.
+
+**Status:** **EXECUTED 2026-10-13 — FAIL, filed as `BUG-PLT-039`.** 9 columns confirmed: checkbox, S.No., User, Redmine role, Team role, Manage workload, Approve leave, Joined on, Actions. User-supplied screenshot (this session) of a separate team (`dfgsdfg`, Aurora Wren as Lead) shows the table's own horizontal scrollbar, with "Approve Leave"/Actions sitting at the visible edge. Two of the 9 columns are low-value for everyday scanning: S.No. duplicates the row's own position, and "Team role" is the field TC-PLT-234/`BUG-PLT-037` confirms does nothing — removing both per `BUG-PLT-037`'s and `BUG-PLT-039`'s recommendations would bring this to 7 columns.
+
+---
+
 ## Evidence Map
 
-- Case ID: TC-PLT-113 … TC-PLT-135
-- Screenshot: (bugs only) — BUG-PLT-017 (contacts-search-full-name-fails.png), BUG-PLT-019 (organizations-no-sortable-headers.png), BUG-PLT-020 (user-picker-filter-not-applied.png), BUG-PLT-022 (tag-remove-swallowed-phantom-tag-added.png)
+- Case ID: TC-PLT-113 … TC-PLT-135, TC-PLT-233 … TC-PLT-237
+- Screenshot: (bugs only) — BUG-PLT-017 (contacts-search-full-name-fails.png), BUG-PLT-019 (organizations-no-sortable-headers.png), BUG-PLT-020 (user-picker-filter-not-applied.png), BUG-PLT-022 (tag-remove-swallowed-phantom-tag-added.png), BUG-PLT-037 (team-role-lead-no-approve-leave.png), BUG-PLT-038 (timesheet-approval-redirects-to-duplicate-team-page.png, workload-skills-redirects-no-skills-ui.png), BUG-PLT-039 (team-level-team-lead-dropdown-third-concept.png, member-table-column-clutter-and-team-lead-overlap.png)
 - Log: —
-- Bug reference: BUG-PLT-017, BUG-PLT-018, BUG-PLT-019, BUG-PLT-020, BUG-PLT-021, BUG-PLT-022
+- Bug reference: BUG-PLT-017, BUG-PLT-018, BUG-PLT-019, BUG-PLT-020, BUG-PLT-021, BUG-PLT-022, BUG-PLT-037, BUG-PLT-038, BUG-PLT-039
 
 **Suite summary (2026-09-30):** 23 TCs (TC-PLT-113–135) executed. 17 clean PASS, 6 MIXED (partial PASS/FAIL within the same TC across entities) — TC-113, TC-115, TC-122, TC-130, TC-131, TC-134 — none fully FAIL. 6 new bugs found and filed this session: BUG-PLT-017 (Contacts search misses full-name), BUG-PLT-018 (Leaves has no search at all), BUG-PLT-019 (only Teams has sortable headers), BUG-PLT-020 (member-picker search doesn't filter), BUG-PLT-021 (deleted record's create/update audit rows lose their name), BUG-PLT-022 (tag chip × swallowed by a blur/click race). All 6 are still local-only (`bugs/open/`), not yet reported to production.
+
+**Team Full Flow addendum (2026-10-13):** 5 TCs (TC-PLT-233–237) executed end-to-end on a fresh Team (`Team-Testing`), covering creation through member add, the two cross-plugin action buttons, and the member table layout. 1 clean PASS (TC-233), 4 FAIL — 3 new bugs filed: `BUG-PLT-037` (per-member "Team role"/Lead grants no permission — a direct, confirmed continuation of `BUG-PLT-014`), `BUG-PLT-038` ("Timesheet Approval"/"Workload & Skills" buttons route to full duplicate Team pages instead of the one relevant inline action), `BUG-PLT-039` (a third, team-level "Team Lead" concept plus the resulting 9-column member table overflow). All three are local-only (`bugs/open/`), not yet reported to production, and all three trace back to the same root cause this suite's TC-PLT-233 restates: `BUG-PLT-016`'s "Step 5, Consumer migration" has not started, so Team-related settings remain split across Platform/Timesheet/Workload screens instead of being manageable in one place.

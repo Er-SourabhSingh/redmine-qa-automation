@@ -315,18 +315,19 @@ a manager performs.
 
 ### TC-PLT-258 — Member with "Manage workload" can create and manage a workload, but only for THAT team
 
-**Preconditions:** A team member with "Manage workload" **checked** on Team A, and **not** a member of Team B
-at all.
+**Preconditions:** A user who is a member of **both** Team A and Team B — "Manage workload" **checked** on
+Team A's membership, but **unchecked** on Team B's membership (member of Team B, just without the flag).
 
 1. Log in as that member, create a workload for **Team A** (name, start/end dates, members).
 2. Add an issue to the workload, adjust an allocation, and click "Recalculate Capacity" — all on Team A's
    workload.
-3. Attempt to create a workload for **Team B**, which this member does not belong to.
+3. Attempt to create a workload for **Team B**, where this member is present but does not hold "Manage
+   workload".
 
 **Expected:** Step 1–2 succeed — "Manage workload" is exactly the flag the User Guide says gates "create and
-manage workloads for this team." Step 3 fails: the permission only reaches the team(s) where this member
-actually holds "Manage workload" — it does not grant workload-creation rights over every team in the
-installation.
+manage workloads for this team." Step 3 fails: being a member of Team B is not enough on its own — the
+permission only reaches the team(s) where this member's membership row specifically has "Manage workload"
+checked.
 
 **Status:** Not yet executed.
 
@@ -344,17 +345,20 @@ it is not a gate Admin has to pass through.
 
 **Status:** Not yet executed.
 
-### TC-PLT-259 — "Manage workload" is per-team-membership, not per-user
+### TC-PLT-259 — "Manage workload" is per-team-membership: managing an EXISTING workload, not just creating one
 
-**Preconditions:** One user who is a member of two different Platform Teams — "Manage workload" **checked**
-on Team A's membership, **unchecked** on Team B's membership.
+**Preconditions:** Same user as TC-PLT-258 (member of both Team A and Team B, "Manage workload" checked on A,
+unchecked on B). Both teams already have an existing workload (Team A's created by this user in TC-PLT-258;
+Team B's created by a different, Team-B-authorized member).
 
-1. Log in as that user. Attempt to create/manage a workload for Team A.
-2. Attempt the same for Team B.
+1. Log in as that user. On **Team A's** existing workload, edit its dates/members and click "Recalculate
+   Capacity".
+2. Attempt the same whole-workload edit actions on **Team B's** existing workload.
 
 **Expected:** Per the User Guide ("these are team-specific — the same user may have them in one team and not
-another"), the user can manage Team A's workload but not Team B's, confirming the flag is scoped to the
-membership row, not globally to the user.
+another"), the user can administer Team A's existing workload but not Team B's — confirming the flag gates
+ongoing management of an already-created workload the same way it gates creating one (TC-PLT-258), scoped to
+the membership row rather than globally to the user.
 
 **Status:** Not yet executed.
 

@@ -8,12 +8,14 @@
 
 > Note: the "Completed This Session" / "Open Bugs Found" / "Closed Bugs" sections below are the original 2026-09-28/29 narrative and were not fully rewritten on later sessions (2026-09-30, 2026-10-01, 2026-10-13) — treat `bugs/_index.md` as the current source of truth for bug status (36 bugs total as of 2026-10-13, 1 retracted, 2 open), and the **Next Session Start Point** + **Run History** below as the up-to-date continuation pointer.
 
-## Next Session Start Point (2026-10-13)
+## Next Session Start Point (2026-10-13, continued — live retest)
 
-This was a **sync session, not a testing session** — no new TCs executed. Production had moved ahead of this local repo; see the matching Run History row above for full detail. Two things to pick up next:
+Later the same day, `redmine-docker-6-platform` came back online (freshly recreated — 0 users, 0 Policy Bands, plugins pre-installed). Re-imported the 20 seed users via Administration → Users → Import, then retested both bugs live:
 
-1. **QA retest `BUG-PLT-035`** (#121652, production-mislabeled "BUG-PLT-017") and **`BUG-PLT-036`** (#122728) against the dev's current fix commits (`eb46e87`-era work for 035's latest round; `d943ef5` for 036) — both still `In QA` on production, neither independently re-verified by QA yet. `BUG-PLT-035`'s own local file documents all 3 prior rounds in full; start from its "What remains deliberately unfixed" section. `BUG-PLT-036`'s own local file has the dev's exact suggested retest (log in as `luna.blossom`, confirm the dropdown and a raw POST are both blocked).
-2. Once those two are confirmed and closed, `bugs/open/` will be empty for this plugin for the first time this cycle — triggers the full-plugin regression requirement (CLAUDE.md §13/§10) before `STATUS.md` can move to `Complete`. The Traceability Matrix gate (§2c) should also be rechecked at that point.
+1. **`BUG-PLT-036`: CONFIRMED FIXED, closed.** Rebuilt the precondition (1 Policy Band assigned to `nova.starling` only), logged in as `luna.blossom` (unassigned) — Apply Leave dropdown now shows 0 leave types, and a crafted raw POST bypassing the UI is refused server-side with a 422. Synced production issue #122728 to Done/100% with retest evidence (user approved). Full detail in `bugs/closed/BUG-PLT-036.md`.
+2. **`BUG-PLT-035`: partially retested, stays Open.** Confirmed the ticket's own core repro fixed — created a disposable user, had them submit a real self-service leave via Workload, then deleted them via Admin UI: "Successful deletion.", no FK error. **Not yet retested**: round 3's newly-fixed columns (3 in Invoice, 2 in Helpdesk, 1 in Workload) — this environment has no fixture data in those tables and building it was out of scope for this pass; and the `agile_board`/`redmineflux_knowledgebase` exceptions, which aren't even installed on this environment so can't be tested here regardless. Full detail and a concrete plan for the next pass is in `bugs/open/BUG-PLT-035.md`'s own "QA partial retest" section. **Production issue #121652 was NOT touched** — do not close it until the round-3 columns are actually verified.
+
+**Next session**: build the Invoice/Helpdesk/Workload fixtures `BUG-PLT-035.md` describes (one disposable user, one row per table, deleted one table at a time — matching the dev's own 2026-10-07 verification method) to finish this bug's retest. Once it's closed, `bugs/open/` will be empty for this plugin for the first time this cycle — triggers the full-plugin regression requirement (CLAUDE.md §13/§10) before `STATUS.md` can move to `Complete`. The Traceability Matrix gate (§2c) should also be rechecked at that point.
 
 ## Completed This Session
 

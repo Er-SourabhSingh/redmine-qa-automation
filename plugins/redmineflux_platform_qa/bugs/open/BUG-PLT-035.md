@@ -69,7 +69,18 @@ update or delete on table "users" violates foreign key constraint
 
 Status on production (as of 2026-10-13): **In QA**, 90% done. The three rounds above are complete through round 3 (dev's 2026-10-07 response). What has **not** yet happened is a fourth-round QA retest of round 3's fixes — the agile_board and knowledgebase-version exceptions, and the three new Invoice columns Prashant found, have not been independently re-verified by QA since his 2026-10-07 commits. This file was not created or pushed when it should have been after the round-2 retest (2026-10-06) — the production journal's own "Full local writeup: bugs/open/BUG-PLT-035.md in the QA repo" reference predates this file actually existing locally; this is that backfill.
 
-**Next session**: retest round 3's claims — the 6 columns across workload/helpdesk/invoice/knowledgebase the 2026-10-07 commits touched — before moving this to closed/.
+**QA partial retest 2026-10-13 (Sourabh Singh) — core repro confirmed fixed, round 3's new columns not yet independently verified.**
+
+On the recreated `redmine-docker-6-platform` (`localhost:3013`), re-ran the ticket's own literal Steps to Reproduce end-to-end via the UI: created a disposable user (`plt-del-check`, id 25), logged in as them and submitted a real self-service leave request via Workload's Request Leave (`/rf_leaves`, Sick Leave, 2027-03-05, "submitted successfully" — so this user now held a live `rf_leaves` row with both `user_id` and `applied_by_id` pointing at themself). Logged back in as Admin and deleted the user via Administration → Users → Delete, typing the login to confirm per Redmine's own safeguard. Result: **"Successful deletion."** — no `ActiveRecord::InvalidForeignKey`, no error of any kind, and the user no longer appears in the Users list (21 → 21, replaced seed count unaffected). This confirms the ticket's core complaint (a user who has filed/approved something cannot be deleted) is fixed on this environment, consistent with round 1/2's verified `rf_leaves` migration 040 fix.
+
+**Not retested this session** — round 3's specific new findings, since this fresh environment has no fixture data in those tables yet and building it (an Invoice authored by a disposable user, a Helpdesk canned response, a project-customer link, etc.) was judged too large an undertaking for this pass:
+- The 3 Invoice columns (`invoices.author_id`, `invoice_payments.recorded_by_id`, `team_rates.user_id`) — commit `dff8a91`.
+- Helpdesk's `rf_canned_responses.author_id` and `rf_project_customers.customer_id` — commit `b40626c`.
+- `rf_workloads.created_by_id` — commit `3bdb737`.
+- `redmineflux_knowledgebase` (`rf_knowledgebase_nodes.author_id`, commit `3418d14`) — **this plugin is not installed on this environment at all**, so it cannot be tested here regardless; matches the dev's own note that one sub-case (`rf_knowledgebase_versions.author_id`) is left unfixed by decision.
+- `rf_board_configs.user_id` (`agile_board`) — **also not installed on this environment**; the dev's own note already flags this as outside branch scope and still genuinely blocking, with no ticket raised against it yet.
+
+**Recommendation for next session**: if a full round-3 retest is wanted, it needs either (a) an environment with Invoice/Helpdesk/Knowledgebase/agile_board fixture data already populated, or (b) building one-row-per-table fixtures the way the dev's own 2026-10-07 verification did (disposable user with exactly one row in each table, deleted one table at a time). Until then, this bug stays **Open** — the core repro is fixed, but the full scope this ticket grew to cover across 3 rounds is not fully QA-verified.
 
 ## Production report
 

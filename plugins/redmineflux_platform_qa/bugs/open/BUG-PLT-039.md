@@ -37,6 +37,22 @@ A team can therefore have: a `team_lead` set to User A ("can approve leave"), a 
 
 **Member table has 9 columns**, confirmed via live rendering: checkbox, S.No., User, Redmine role, Team role, Manage workload, Approve leave, Joined on, Actions. At a normal desktop width this requires horizontal scrolling to see the Actions column — confirmed in the user-supplied screenshot, where the table's own scrollbar is visible and "Approve Leave" sits at the very edge of the visible area. Several of the 9 columns duplicate information or are low-value for everyday scanning (S.No. is a plain row counter already available from the row's position; Team role is the field `BUG-PLT-037` shows does nothing).
 
+## Additional observation — Team screen UI is inconsistent / due for a broader design pass
+
+Beyond the three overlapping concepts and the 9-column overflow above, the Team screen's UI as a whole would
+benefit from a dedicated design pass rather than only removing the 2 redundant fields:
+
+- The "Team Lead" field, the "Add members" dialog's Team role/Approve leave/Manage workload checkboxes, and
+  the Member table are three visually disconnected areas with no consistent grouping — a user has to piece
+  together "who leads/approves this team" from three different parts of the screen rather than one clear
+  section.
+- Once `BUG-PLT-037`'s and this bug's own recommendations are applied (dropping "Team role" and the
+  team-level "Team Lead" field), the Member table and the Add-member dialog should be visually redesigned
+  together — not just shrunk from 9 to 7 columns — so that "Approve leave" and "Manage workload" read as the
+  two actual per-member permissions they are, rather than two checkboxes buried among unrelated columns.
+- This is a design-quality observation, not a separate functional defect — tracked here rather than as its
+  own bug since it depends on the same two field removals this bug already recommends.
+
 ## Evidence
 
 ### Screenshot

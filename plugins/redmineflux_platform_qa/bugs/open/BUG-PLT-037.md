@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-PLT-037
-- Production Redmine Issue ID: (not yet reported — pending approval)
+- Production Redmine Issue ID: #123283
 - Title: Per-member "Team role" (Member/Lead) grants no permission by itself — confirmed live to leave "Approve leave" at "No" even when set to "Lead", making the field purely decorative and misleading next to the checkbox that actually controls leave-approval
 - Redmine version: 6 (Rails 7.2.3.1)
 - Plugin name: redmineflux_platform (shared `rf_team_memberships` table/UI — both Add Members and Edit Member dialogs on Platform's own Teams screen)
@@ -62,4 +62,4 @@ Retire the `role` (Member/Lead) column and its "Team role" field entirely from e
 
 ## Production report
 
-Not yet reported to production — pending approval per `REDMINEFLUX-MCP-SETUP.md` §4.
+Reported to production as **#123283**, linked to Testcase #121706 ("Entity CRUD and Field Validation") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.

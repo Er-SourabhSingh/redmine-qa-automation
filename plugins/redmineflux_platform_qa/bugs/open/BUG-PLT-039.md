@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-PLT-039
-- Production Redmine Issue ID: (not yet reported — pending approval)
+- Production Redmine Issue ID: #123285
 - Title: Three separate, overlapping "who leads / who approves" concepts on the Team screen — team-level "Team Lead" single-person dropdown, per-member "Team role" (Member/Lead), and per-member "Approve leave" checkbox — plus a 9-column Member table that overflows horizontally at normal widths
 - Redmine version: 6 (Rails 7.2.3.1)
 - Plugin name: redmineflux_platform
@@ -81,4 +81,4 @@ benefit from a dedicated design pass rather than only removing the 2 redundant f
 
 ## Production report
 
-Not yet reported to production — pending approval per `REDMINEFLUX-MCP-SETUP.md` §4.
+Reported to production as **#123285**, linked to Testcase #121706 ("Entity CRUD and Field Validation") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Low | Defect Severity: Low-severity | Defect priority: Low | Defect Type: Usability.

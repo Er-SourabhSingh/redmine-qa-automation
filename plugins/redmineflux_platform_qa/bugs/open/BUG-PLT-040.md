@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-PLT-040
-- Production Redmine Issue ID: (not yet reported — pending approval)
+- Production Redmine Issue ID: #123286
 - Title: Shift Management has its own standalone "Teams" list ("Teams & Departments" → Teams tab) duplicating Platform's own canonical Teams list, even though per-record View/Edit/Delete already correctly redirect to Platform
 - Redmine version: 6 (Rails 7.2.3.1)
 - Plugin name: redmineflux_shift_management (consumer of redmineflux_platform's Team entity)
@@ -51,4 +51,4 @@ Replace Shift Management's own "Teams" tab content with either (a) a direct link
 
 ## Production report
 
-Not yet reported to production — pending approval per `REDMINEFLUX-MCP-SETUP.md` §4.
+Reported to production as **#123286**, linked to Testcase #123276 ("Team Cross-Plugin Flow") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Low | Defect Severity: Low-severity | Defect priority: Low | Defect Type: Usability.

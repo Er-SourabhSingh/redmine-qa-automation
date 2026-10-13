@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-PLT-038
-- Production Redmine Issue ID: (not yet reported — pending approval)
+- Production Redmine Issue ID: #123284
 - Title: "Timesheet Approval" and "Workload & Skills" buttons on Platform's own Team page navigate away to a full duplicate Team-management screen in another plugin — instead of surfacing just the one relevant inline action (assign an Approval Schema / assign a Skill) — defeating the point of Platform being the canonical screen
 - Redmine version: 6 (Rails 7.2.3.1)
 - Plugin name: redmineflux_platform (the two buttons) / redmineflux_timesheet / redmineflux_workload (the pages they link to)
@@ -64,4 +64,4 @@ This matches the same consolidation direction as `BUG-PLT-037`/`BUG-PLT-039`: Pl
 
 ## Production report
 
-Not yet reported to production — pending approval per `REDMINEFLUX-MCP-SETUP.md` §4.
+Reported to production as **#123284**, linked to Testcase #121706 ("Entity CRUD and Field Validation") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.

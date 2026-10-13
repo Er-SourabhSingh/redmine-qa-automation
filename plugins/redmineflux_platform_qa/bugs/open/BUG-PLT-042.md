@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-PLT-042
-- Production Redmine Issue ID: (not yet reported — pending approval)
+- Production Redmine Issue ID: #123288
 - Title: Workload's own "Manage teams and skills" permission is completely dead — Skills management (`/rf_skills`) is actually gated by Platform's "Create, edit and delete teams" permission instead, with no dedicated Skills permission of its own
 - Redmine version: 6 (Rails 7.2.3.1)
 - Plugin name: redmineflux_workload (Skills feature) / redmineflux_platform (the permission actually doing the gating)
@@ -110,4 +110,4 @@ Team permission. Concretely:
 
 ## Production report
 
-Not yet reported to production — pending approval per `REDMINEFLUX-MCP-SETUP.md` §4.
+Reported to production as **#123288**, linked to Testcase #123276 ("Team Cross-Plugin Flow") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Security.

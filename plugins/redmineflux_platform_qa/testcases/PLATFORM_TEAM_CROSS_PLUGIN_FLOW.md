@@ -13,7 +13,9 @@
 > This suite also covers Timesheet's **Team-Mode, team-wise Approval Schema flow** (see the dedicated section
 > below) — how a Platform-managed Team's per-member roles drive Timesheet's sequential approval routing — and
 > Workload's **"Manage workload" team flow** — how the per-membership "Manage workload" flag set on Platform's
-> own Team screen gates workload creation/management per team.
+> own Team screen gates workload creation/management per team — and Shift Management's own **documented
+> Team-scoped business rules** (team lead auto-sync, automatic scoped approval rights, department/team
+> constraints), sourced from `Shift-Management-Knowledgebase.md`.
 
 ## Functional Cases — Team nav-link consolidation (per consumer plugin)
 
@@ -420,6 +422,174 @@ be rejected or silently a no-op — not a duplicate membership row.
 
 **Status:** Not yet executed.
 
+## Functional Cases — Shift Management's Team-Scoped Business Rules (per original plugin design)
+
+> Source: `Shift-Management-Knowledgebase.md` (user-supplied, 2026-10-13), sections "Permissions", "How to
+> Create a Department", "How to Create a Team and Add Members", "How to Approve or Reject a Leave
+> Application"/"Shift Change Request"/"Attendance Correction", "How to Use the Shift Calendar", "How to View
+> the Dashboard". This section tests whether Shift Management's own **documented, pre-consolidation business
+> rules** for Team still hold correctly now that Team lives on Platform — distinct from the UI-duplication
+> findings above (`BUG-PLT-038`/`040`/`041`), this section is about **behavior**, not screens.
+>
+> **Critical cross-reference:** the KB states *"Team leads get automatic, scoped approval rights without any
+> extra permission: a user marked `role: 'lead'` on a team can approve/reject leave... for members of their
+> own team only."* This is the plugin's own original intent for exactly the field `BUG-PLT-037` found to be
+> functionally inert on Platform's own screen. TC-PLT-273 below is written specifically to reconcile this —
+> either `BUG-PLT-037`'s finding is confirmed as a genuine regression (the auto-approval business rule broke
+> during consolidation), or there is a scope distinction not yet understood (e.g. the rule only ever applied
+> within Shift Management's own approval screens, never surfaced as Platform's "Approve leave" checkbox). Not
+> yet executed — this distinction matters enough that it should not be assumed either way before a live pass.
+
+### TC-PLT-272 — Setting a Team's "Team Lead" auto-syncs the per-member "Team role"
+
+**Preconditions:** A team with at least two members, neither currently marked as the team-level "Team Lead".
+
+1. On Platform's own Team screen, set the team-level "Team Lead" dropdown to Member A. Check Member A's
+   per-member "Team role" value.
+2. Change "Team Lead" to Member B. Check both Member A's and Member B's "Team role" values afterward.
+
+**Expected (per KB):** *"Setting or changing a team's Lead automatically keeps the team membership role in
+sync — the new lead is added/promoted to `role: lead`, and the previous lead is demoted to `role: member`."*
+Step 1: Member A's Team role should become "Lead". Step 2: Member B's Team role should become "Lead" AND
+Member A's should be demoted back to "Member" — not left stale as "Lead".
+
+**Status:** Not yet executed. If confirmed working, this would mean two of `BUG-PLT-039`'s three "overlapping
+concepts" (team-level Team Lead, per-member Team role) are at least kept in sync with each other — narrowing
+that bug's scope to the third, genuinely orphaned one (Approve leave) rather than three fully independent
+fields.
+
+### TC-PLT-273 — Team Lead's automatic leave-approval rights, scoped to own team only (reconciles with `BUG-PLT-037`)
+
+**Preconditions:** A team with a member marked "Lead" (via the sync in TC-PLT-272, or directly), and at least
+one other member of the same team with a pending leave application. A second team exists with a different
+pending leave application from a non-member of the first team.
+
+1. Log in as the team's Lead (per KB: should need **no extra permission** — `approve_leave` is not required).
+2. Open Shift Management's own Leave → Pending queue.
+3. Attempt to approve/reject the pending application from the Lead's own team member.
+4. Attempt the same for the second team's pending application (not the Lead's team).
+
+**Expected (per KB):** Step 3 succeeds — a team lead has automatic, scoped approval rights for their own
+team's members, with no `approve_leave` permission needed. Step 4 is refused/not visible — team leads "only
+see requests from members of their own team" (documented explicitly for shift-change requests, and by the
+same automatic-scoped-rights rule for leave).
+
+**Actual (if this contradicts `BUG-PLT-037`):** `BUG-PLT-037` found that a member with Team role = Lead and
+"Approve leave" left unchecked could **not** approve leave on Platform's own screen. If this TC confirms Team
+Leads genuinely cannot approve team members' leave via Shift Management's own queue either, that upgrades
+`BUG-PLT-037` from "a confusing, functionally-inert label" to "a genuine regression of a documented, intended
+feature" — the severity and recommendation would need revisiting. If this TC instead confirms the automatic
+approval **does** work via Shift Management's own screen (just not reflected as Platform's "Approve leave"
+checkbox), that's a different, narrower finding: the checkbox is misleading UI, not a broken permission.
+
+**Status:** Not yet executed — flagged as the highest-priority case in this section given the direct
+contradiction with already-filed `BUG-PLT-037`.
+
+### TC-PLT-274 — Team Lead's automatic shift-change-request approval, scoped to own team only
+
+**Preconditions:** Same team-lead setup as TC-PLT-273. A pending shift change request exists from a member of
+the Lead's own team, and a separate one from a non-member.
+
+1. Log in as the team's Lead and open Shifts → Shift Requests tab.
+2. Attempt to approve the own-team member's pending request.
+3. Check whether the non-member's pending request is even visible in this queue.
+
+**Expected (per KB):** *"Team leads only see requests from members of their own team; administrators and
+users with `approve_shift_changes` see every pending request."* The Lead should see and be able to act on
+step 2's request, and should not see step 3's request at all (not merely blocked from acting on it).
+
+**Status:** Not yet executed.
+
+### TC-PLT-275 — Team Lead's automatic attendance-correction approval, scoped to own team only
+
+**Preconditions:** Same team-lead setup. A pending attendance correction request exists from a member of the
+Lead's own team, and a separate one from a non-member.
+
+1. Log in as the team's Lead and open Attendance Corrections.
+2. Check which pending requests are visible and actionable.
+
+**Expected (per KB):** *"Approvers (HR/Admin see all; team leads see only their team's requests)."* Same
+team-scoping as TC-PLT-274, for a different approval queue.
+
+**Status:** Not yet executed.
+
+### TC-PLT-276 — "Apply for Leave on Behalf of" is scoped to the team lead's own team members
+
+**Preconditions:** Same team-lead setup. The Lead's team has at least one other member; at least one employee
+exists who is not a member of the Lead's team.
+
+1. Log in as the team's Lead and open Leave → New Leave Application → "Apply For" dropdown.
+2. Check which employees are selectable.
+
+**Expected (per KB):** *"team leads only see their own team's members"* in this dropdown — the non-member
+employee should not be selectable (unlike admin/HR, who "see everyone").
+
+**Status:** Not yet executed.
+
+### TC-PLT-277 — Shift Calendar's "Team" filter reads Platform's consolidated Team membership
+
+**Preconditions:** A Platform Team with known members, each with an assigned shift.
+
+1. Open Shift Management's own Shift Calendar (`/shift_management/calendar`).
+2. Apply the "Team" filter for this team.
+
+**Expected:** The calendar narrows to exactly this team's current member list, as recorded on Platform's own
+Team screen — confirming the calendar reads live from the shared/consolidated membership, not a stale or
+separately-maintained copy.
+
+**Status:** Not yet executed.
+
+### TC-PLT-278 — Dashboard's "Team on leave today" widget reflects Platform Team membership
+
+**Preconditions:** A Platform Team with a member on approved leave today.
+
+1. Log in as a different member of the same team and open Shift Management's own Dashboard.
+2. Check the "Team on leave today" panel.
+
+**Expected:** The teammate on approved leave appears, confirming this widget also reads from the same
+consolidated Team membership rather than a separate source.
+
+**Status:** Not yet executed.
+
+### TC-PLT-279 — A Department cannot be deleted while it still has teams
+
+**Preconditions:** A Department with at least one Team assigned to it (via the Team's "Department" dropdown —
+see `BUG-PLT-041`).
+
+1. Attempt to delete the Department from Shift Management's own Departments tab.
+
+**Expected (per KB):** *"A department cannot be deleted while it still has teams — deactivate it instead, or
+move/delete its teams first."* The delete should be refused with a message to that effect, not silently
+cascade-delete the teams (the inverse risk already seen for Team→Workload in `BUG-PLT-030`).
+
+**Status:** Not yet executed. Directly relevant to `BUG-PLT-041`'s recommendation to migrate Department fully
+onto Platform — this constraint needs to survive that migration.
+
+### TC-PLT-280 — Shift Management's own "Manage Teams & Members" permission: is it still functional, or a second dead permission?
+
+**Preconditions:** Per the KB's permission table, `manage_teams` ("Create and manage teams and team members")
+is a distinct Shift-Management permission from Platform's own "Create, edit and delete teams" and from
+Workload's "Manage teams and skills" (confirmed dead in `BUG-PLT-042`). On the Redmine role-edit page, this
+corresponds to the Shift Management module's own "Manage Teams & Members" checkbox (seen during the
+`BUG-PLT-042` investigation).
+
+1. Create a test role with Shift Management's "Manage Teams & Members" checked, but **without** Platform's
+   "Create, edit and delete teams".
+2. As a user with this role, attempt to create/edit a team via Shift Management's own "Organization → Teams"
+   tab (which, per `BUG-PLT-040`, redirects per-record actions to Platform).
+3. Separately, create a role with Platform's "Create, edit and delete teams" but **without** Shift
+   Management's "Manage Teams & Members", and repeat.
+
+**Expected:** Since Team CRUD now lives on Platform, exactly one of these two permissions should actually gate
+it — ideally Platform's own.
+
+**Actual (prediction worth testing, not assumed):** Given `BUG-PLT-042` already found Workload's analogous
+legacy permission to be completely dead, there is a real chance Shift Management's "Manage Teams & Members" is
+in the same state — a third orphaned permission checkbox that does nothing, left over from before Team moved
+to Platform. This TC exists to confirm or refute that prediction live, rather than assume it.
+
+**Status:** Not yet executed.
+
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
@@ -436,6 +606,7 @@ be rejected or silently a no-op — not a duplicate membership row.
 | TC-PLT-256 | FAIL | BUG-PLT-042 | `screenshots/BUG-PLT-042/autumn-skills-access-granted-via-platform-team-permission.png`, `screenshots/BUG-PLT-042/autumn-skills-403-with-only-legacy-workload-permission.png` |
 | TC-PLT-257, TC-PLT-257a, TC-PLT-258, TC-PLT-258a, TC-PLT-259 – TC-PLT-261, TC-PLT-263 | Not yet executed | — | Workload "Manage workload" team flow — written 2026-10-13, pending first live execution pass |
 | TC-PLT-262 | Cross-reference only | BUG-PLT-030 (already filed) | — |
+| TC-PLT-272 – TC-PLT-280 | Not yet executed | — | Shift Management's own Team-scoped business rules (per KB) — written 2026-10-13, TC-PLT-273 flagged as highest priority (direct reconciliation needed against `BUG-PLT-037`), pending first live execution pass |
 
 ## Summary (2026-10-13)
 

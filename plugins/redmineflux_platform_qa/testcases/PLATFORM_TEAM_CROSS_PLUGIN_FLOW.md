@@ -9,6 +9,9 @@
 >
 > Fixture used throughout: Team **"Team-Testing"** (created in Platform, id 3), member **Aurora Wren** added
 > with Team role = Lead / Approve leave = No (see `BUG-PLT-037`).
+>
+> This suite also covers Timesheet's **Team-Mode, team-wise Approval Schema flow** (see the dedicated section
+> below) — how a Platform-managed Team's per-member roles drive Timesheet's sequential approval routing.
 
 ## Functional Cases — Team nav-link consolidation (per consumer plugin)
 
@@ -87,6 +90,156 @@
 
 **Actual:** Confirmed no "Departments" entry exists anywhere in Platform's nav, despite the Team form depending on it. **Status: FAIL — filed `BUG-PLT-041`** (same root cause as TC-PLT-244, listed separately since this is the nav-completeness angle rather than the data-flow angle).
 
+## Functional Cases — Timesheet Team-Mode, Team-Wise Approval Flow
+
+> Ties Platform's Team/role consolidation directly to Timesheet's own approval engine — a team member's role
+> (assigned on Platform's own Team screen, consumed by Timesheet per `BUG-PLT-014`'s already-closed finding)
+> is what Timesheet's Approval Schema levels match against to route approvals. Source: Timesheet's own
+> `TIMESHEET_USER_GUIDE.md` (Workflows 4–6, "Notes & Known Behaviour") plus the scenarios supplied by the
+> product owner, 2026-10-13. Not yet executed — written this session, pending a dedicated live pass (status
+> recorded per case below).
+>
+> **Precondition for this whole section:** Timesheet → Settings → **Timesheet Mode = Team Mode** (not Project
+> Mode — in Project Mode the Approval Schema is selected per-project instead of per-team, which is out of
+> scope for this Team-focused suite).
+
+### TC-PLT-246 — Team member's role must carry "View Timesheet" permission
+
+**Preconditions:** Timesheet Mode = Team Mode.
+
+1. On Platform, open a Team and add a member, assigning them a Redmine role that does **not** grant the
+   Timesheet "View Timesheet" permission.
+2. Confirm in Administration → Roles that the assigned role lacks this permission.
+3. Have that member attempt to open the Timesheet module / submit a timesheet.
+
+**Expected:** A team member needs a role with "View Timesheet" permission to participate in the team's
+Timesheet flow at all (view their own grid, be selectable as an approval-schema level, etc.) — a member whose
+role lacks it should not be able to use Timesheet, and should not be eligible as an approver for any schema
+level mapped to that role on this team.
+
+**Status:** Not yet executed.
+
+### TC-PLT-247 — No Approval Schema assigned to the team → submission goes straight to Admin
+
+**Preconditions:** Timesheet Mode = Team Mode. Team has members with "View Timesheet" permission. **No**
+Approval Schema assigned to the team.
+
+1. As a team member, log time for the period and click **Submit**.
+2. Check Timesheet's Approval Dashboard as Admin.
+
+**Expected:** With no schema assigned, the submitted timesheet routes directly to the Administrator for
+Approve/Reject — there being no configured approval level to send it to first.
+
+**Status:** Not yet executed.
+
+### TC-PLT-248 — Schema assigned, Level 1 approver role present in the team → routes to that approver
+
+**Preconditions:** Timesheet Mode = Team Mode. An Approval Schema exists with at least one level mapped to a
+role (e.g. "Level 1 = Team Lead"). That same role is held by at least one other member of the team. Schema is
+assigned to the team.
+
+1. As a regular team member (not holding the Level 1 role), submit a timesheet.
+2. Check the Approval Dashboard as the team member holding the Level-1-mapped role.
+
+**Expected:** The timesheet appears under that member's Pending Approvals — not Admin's — since a member
+holding the schema's Level 1 role exists on this team.
+
+**Status:** Not yet executed.
+
+### TC-PLT-249 — Schema level role has no matching member on the team → falls back to Admin
+
+**Preconditions:** Same schema as TC-PLT-248, but assigned to a **different** team where nobody currently
+holds the role mapped to Level 1 (or any level).
+
+1. A member of this team submits a timesheet.
+2. Check the Approval Dashboard as Admin.
+
+**Expected:** Since no team member holds a role matching any configured approval level, the timesheet falls
+back to the Administrator for Approve/Reject, the same as the no-schema case (TC-PLT-247).
+
+**Status:** Not yet executed.
+
+### TC-PLT-250 — Two-level schema: a Level 1 approver's own submission routes to Level 2
+
+**Preconditions:** Timesheet Mode = Team Mode. Approval Schema has two levels (e.g. Level 1 = Team Lead,
+Level 2 = Manager), both roles held by different members of the team, schema assigned to the team.
+
+1. Log in as the member holding the Level 1 role and submit **their own** timesheet.
+2. Check the Approval Dashboard as the member holding the Level 2 role.
+
+**Expected:** Per the Level 1 approver being the submitter here (not the final level), their timesheet still
+routes through the normal sequence — to Level 2 — rather than skipping to Admin, since a higher level exists
+on this team.
+
+**Status:** Not yet executed.
+
+### TC-PLT-251 — Last-level approver's own submission routes to Admin (self-approval deadlock prevention)
+
+**Preconditions:** Same two-level schema/team as TC-PLT-250.
+
+1. Log in as the member holding the **final** level's role (Level 2) and submit **their own** timesheet.
+2. Check the Approval Dashboard as Admin.
+
+**Expected:** Per `TIMESHEET_USER_GUIDE.md`'s documented rule ("An approver's own timesheet routes to the next
+level... if the submitter is the final-level approver, only an administrator can complete the approval") —
+the timesheet goes to Admin, since there is no level above the submitter's own.
+
+**Status:** Not yet executed.
+
+### TC-PLT-252 — Withdraw ("unsubmit") is available only before the minimum approval level acts
+
+**Preconditions:** Timesheet Mode = Team Mode, schema assigned, timesheet submitted and still at Level 1,
+not yet approved.
+
+1. As the submitter, open the submitted timesheet before Level 1 has approved it and click **Withdraw
+   Timesheet**.
+2. Repeat the scenario, but this time have the Level 1 approver approve it first, then check whether
+   **Withdraw Timesheet** is still available to the submitter.
+
+**Expected:** Withdraw succeeds in step 1 (timesheet returns to editable/unsubmitted state). In step 2, once
+Level 1 has approved, Withdraw Timesheet is no longer available — matching the documented "narrow window"
+behavior.
+
+**Status:** Not yet executed.
+
+### TC-PLT-253 — Rejection at any level restarts approval from Level 1 on resubmission
+
+**Preconditions:** Same two-level schema/team as TC-PLT-250.
+
+1. Submitter submits a timesheet; Level 1 approves it, advancing it to Level 2.
+2. Level 2 **rejects** it.
+3. Submitter edits and resubmits the same period's timesheet.
+4. Check which level's Pending Approvals the resubmission appears under.
+
+**Expected:** Regardless of which level rejected it (here, Level 2), a resubmission restarts the approval
+sequence from **Level 1** again — it does not resume from the rejecting level.
+
+**Status:** Not yet executed.
+
+### TC-PLT-254 — Auto-Approve Threshold = 0 disables auto-approval (manual approval required for all)
+
+**Preconditions:** Timesheet → Settings → **Auto-Approve Threshold = 0**.
+
+1. Submit a timesheet with a very small total (e.g. 1 hour).
+2. Check whether it is auto-approved or enters the normal approval workflow.
+
+**Expected:** Per the documented rule ("`0` disables... it does not mean zero hours"), every timesheet
+requires manual approval when the threshold is `0`, regardless of how few hours it totals.
+
+**Status:** Not yet executed.
+
+### TC-PLT-255 — Auto-Approve Threshold > 0: timesheet below threshold bypasses the workflow
+
+**Preconditions:** Timesheet → Settings → **Auto-Approve Threshold** set to a nonzero value (e.g. 5 hours).
+
+1. Submit a timesheet whose total hours are **below** the threshold.
+2. Submit a separate timesheet (different period/user) whose total hours are **at or above** the threshold.
+
+**Expected:** The below-threshold timesheet is automatically approved on submission, bypassing Level
+1/Level 2/Admin entirely. The at-or-above-threshold timesheet enters the normal approval workflow as usual.
+
+**Status:** Not yet executed.
+
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
@@ -99,6 +252,7 @@
 | TC-PLT-243 | FAIL | BUG-PLT-038 | `screenshots/BUG-PLT-038/workload-skills-redirects-no-skills-ui.png` |
 | TC-PLT-244 | FAIL | BUG-PLT-041 | `screenshots/BUG-PLT-041/shift-management-owns-department-crud.png`, `screenshots/BUG-PLT-041/platform-team-form-consumes-department-no-own-crud.png` |
 | TC-PLT-245 | FAIL | BUG-PLT-041 | `screenshots/BUG-PLT-041/platform-departments-screen-404.png` |
+| TC-PLT-246 – TC-PLT-255 | Not yet executed | — | Timesheet Team-Mode approval flow — written 2026-10-13, pending first live execution pass |
 
 ## Summary (2026-10-13)
 

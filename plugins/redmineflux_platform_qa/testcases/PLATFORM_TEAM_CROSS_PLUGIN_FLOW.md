@@ -277,15 +277,39 @@ itself had zero observable effect throughout. **Status: FAIL — filed `BUG-PLT-
 > member row (Platform's own Add/Edit Member dialog, per `BUG-PLT-013`/`014`'s consolidation) — "may create
 > and manage workloads for this team," independent of any other team the same user belongs to.
 
-### TC-PLT-257 — Member without "Manage workload" cannot create a workload for that team
+### TC-PLT-257 — Member without "Manage workload" cannot create a NEW workload for that team
 
-**Preconditions:** A Platform Team with at least one member whose "Manage workload" flag is **unchecked**.
+**Preconditions:** A Platform Team with at least one member whose "Manage workload" flag is **unchecked**, and
+**no** workload yet exists for this team.
 
 1. Log in as that member, open Workloads → "Create Workload".
-2. Attempt to select this team and create a workload.
+2. Attempt to select this team and create a workload from scratch.
 
-**Expected:** Without "Manage workload" on this team, the member should not be able to create a workload for
-it — either the team/action is unavailable, or the attempt is rejected server-side.
+**Expected:** Without "Manage workload" on this team, the member should not be able to originate a new
+workload for it — either the team/action is unavailable, or the attempt is rejected server-side. This gate is
+specifically about **creating/administering the workload record itself** — see TC-PLT-257a for what this same
+member can still do once a "Manage workload" member has already created one.
+
+**Status:** Not yet executed.
+
+### TC-PLT-257a — Member without "Manage workload" can still manage their OWN entries inside an already-created workload
+
+**Preconditions:** A "Manage workload" member has already created a workload for the team (per TC-PLT-258)
+and included the non-manager member from TC-PLT-257 among its members.
+
+1. Log in as the member **without** "Manage workload" and open that existing workload.
+2. Attempt actions scoped to their own participation — e.g. viewing their own allocation/capacity, logging
+   time or updating their own planned hours if the UI exposes that to a plain member, interacting with issues
+   assigned to them within the workload.
+3. Separately attempt actions scoped to the workload as a whole — editing the workload's dates/membership
+   list, adding/removing other members, deleting the workload — to confirm those stay unavailable (see
+   TC-PLT-260).
+
+**Expected:** Per the product owner's correction (2026-10-13): "Manage workload" gates **originating and
+administering** a workload (TC-PLT-257/258), not a member's ability to interact with their **own** portion of
+a workload someone else already created. A non-manager team member should be able to work within an existing
+workload (their own allocation/entries) while still being blocked from the whole-workload management actions
+a manager performs.
 
 **Status:** Not yet executed.
 
@@ -315,17 +339,21 @@ membership row, not globally to the user.
 
 **Status:** Not yet executed.
 
-### TC-PLT-260 — Member without "Manage workload" cannot edit/delete an existing workload for their own team
+### TC-PLT-260 — Member without "Manage workload" cannot edit the workload's own dates/membership or delete it
 
 **Preconditions:** A workload already exists for a team; a member of that team has "Manage workload"
-**unchecked** but is included as a workload member (someone capacity is planned for).
+**unchecked** but is included as a workload member (someone capacity is planned for) — same setup as
+TC-PLT-257a.
 
 1. Log in as that member and open the team's existing workload.
-2. Attempt to edit its dates/members, or delete it.
+2. Attempt **whole-workload** actions: edit its overall dates, add/remove other members from it, or delete it
+   entirely. (This is distinct from the member's own in-workload actions already covered in TC-PLT-257a,
+   which are expected to succeed.)
 
 **Expected:** Being a workload *member* (someone whose capacity is tracked) is independent of being able to
-*manage* the workload — without "Manage workload", edit/delete should be unavailable even though this
-person's own capacity appears on the workload.
+*administer* the workload as a whole — without "Manage workload", these whole-workload actions should be
+unavailable even though this person's own capacity appears on the workload and they can interact with their
+own entries in it (TC-PLT-257a).
 
 **Status:** Not yet executed.
 
@@ -383,7 +411,7 @@ be rejected or silently a no-op — not a duplicate membership row.
 | TC-PLT-245 | FAIL | BUG-PLT-041 | `screenshots/BUG-PLT-041/platform-departments-screen-404.png` |
 | TC-PLT-246 – TC-PLT-255 | Not yet executed | — | Timesheet Team-Mode approval flow — written 2026-10-13, pending first live execution pass |
 | TC-PLT-256 | FAIL | BUG-PLT-042 | `screenshots/BUG-PLT-042/autumn-skills-access-granted-via-platform-team-permission.png`, `screenshots/BUG-PLT-042/autumn-skills-403-with-only-legacy-workload-permission.png` |
-| TC-PLT-257 – TC-PLT-261, TC-PLT-263 | Not yet executed | — | Workload "Manage workload" team flow — written 2026-10-13, pending first live execution pass |
+| TC-PLT-257, TC-PLT-257a, TC-PLT-258 – TC-PLT-261, TC-PLT-263 | Not yet executed | — | Workload "Manage workload" team flow — written 2026-10-13, pending first live execution pass |
 | TC-PLT-262 | Cross-reference only | BUG-PLT-030 (already filed) | — |
 
 ## Summary (2026-10-13)

@@ -590,6 +590,65 @@ to Platform. This TC exists to confirm or refute that prediction live, rather th
 
 **Status:** Not yet executed.
 
+## Functional Cases — Department, additional (per Shift Management KB)
+
+> TC-PLT-244/245 above already cover Department's ownership gap (`BUG-PLT-041`) and the delete-guard
+> (`TC-PLT-279`). Re-reading `Shift-Management-Knowledgebase.md`'s own "How to Create a Department" section
+> surfaced what Department is actually *for* in the plugin's own design — worth testing on its own terms, not
+> just as a side-effect of Team's Department dropdown. Key quotes: *"Departments are optional top-level
+> organizational groupings for teams"*; creation fields are *"a name, optional description, and manager"*; the
+> Reports page's own filter list includes *"team, department"* alongside others. The KB does **not** say the
+> Department's own "Manager" field grants any functional capability (unlike Team Lead, which the KB explicitly
+> documents as granting automatic scoped approval rights) — this needs a live check given this plugin family's
+> recurring pattern of fields that look functional but are actually inert labels (`BUG-PLT-037`). Not yet
+> executed.
+
+### TC-PLT-296 — Does a Department's own "Manager" field grant any functional capability, or is it an inert label?
+
+**Preconditions:** A Department exists with its "Manager" field set to a user who is **not** a Team Lead on any
+team within that department, and has no other elevated permission.
+
+1. Log in as that user (the Department's designated Manager) and attempt the same kinds of team-scoped actions
+   Team Lead gets automatically (per TC-PLT-273/274/275): approve a pending leave/attendance-correction/
+   shift-change request from an employee on a team under this department.
+
+**Expected:** The KB documents automatic scoped approval rights for **Team Lead** explicitly, but says nothing
+of the kind for a Department's "Manager" field — so the honest expectation going in is that this field likely
+does **nothing** functionally, the same way "Team role" (`BUG-PLT-037`) turned out to be a label. Don't assume
+either outcome; this TC exists specifically to confirm it live rather than let the field's name imply a
+capability the KB never actually promises.
+
+**Status:** Not yet executed. If confirmed inert, this is a new, distinct finding from `BUG-PLT-037` (a
+different field on a different entity) but the same defect *shape* — worth filing together under the same
+"inert label field" pattern if confirmed, rather than as something newly surprising.
+
+### TC-PLT-297 — Reports' "Department" filter actually scopes results to that department's teams/employees
+
+**Preconditions:** Two Departments exist, each with at least one Team and employees, with distinct leave/
+attendance/shift data recorded for each.
+
+1. Open Shift Management's own Reports page, pick any tab (per the KB: Summary/Attendance/Leave/Shift/Holiday),
+   and apply the **Department** filter for one of the two departments.
+
+**Expected:** Per the KB (*"Apply the available filters (date range, employee, team, department, status, leave
+type, or shift)"*), only data belonging to employees/teams under the selected department should appear — the
+other department's data should be excluded.
+
+**Status:** Not yet executed.
+
+### TC-PLT-298 — A Department with NO teams can be deleted cleanly (contrast to TC-PLT-279)
+
+**Preconditions:** A Department exists with **zero** teams assigned to it.
+
+1. Attempt to delete this Department from Shift Management's own Departments tab.
+
+**Expected:** Per the KB (*"A department cannot be deleted while it still has teams — deactivate it instead, or
+move/delete its teams first"*), the restriction is specifically about having teams — a Department with none
+should delete cleanly, confirming the guard found in TC-PLT-279 is correctly scoped to "has teams," not a
+blanket block on deleting any Department at all.
+
+**Status:** Not yet executed.
+
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
@@ -607,6 +666,7 @@ to Platform. This TC exists to confirm or refute that prediction live, rather th
 | TC-PLT-257, TC-PLT-257a, TC-PLT-258, TC-PLT-258a, TC-PLT-259 – TC-PLT-261, TC-PLT-263 | Not yet executed | — | Workload "Manage workload" team flow — written 2026-10-13, pending first live execution pass |
 | TC-PLT-262 | Cross-reference only | BUG-PLT-030 (already filed) | — |
 | TC-PLT-272 – TC-PLT-280 | Not yet executed | — | Shift Management's own Team-scoped business rules (per KB) — written 2026-10-13, TC-PLT-273 flagged as highest priority (direct reconciliation needed against `BUG-PLT-037`), pending first live execution pass |
+| TC-PLT-296 – TC-PLT-298 | Not yet executed | — | Department additional cases (Manager field inert-label check, Reports filter scoping, no-teams delete contrast) — written 2026-10-13, pending first live execution pass |
 
 ## Summary (2026-10-13)
 

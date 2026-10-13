@@ -44,7 +44,7 @@
 | BUG-PLT-043 | Workload's "Apply Leave" has zero Policy Band enforcement — a user with no Policy Band assigned can still successfully submit any leave type | Open | Medium | 6 | #123304 | bugs/open/BUG-PLT-043.md |
 | BUG-PLT-044 | "Leave Policy Band" and "Assign Leave Band" have zero Platform representation — entirely owned by Shift Management, unlike every other Leave concept | Open | Medium | 6 | #123305 | bugs/open/BUG-PLT-044.md |
 | BUG-PLT-045 | Three independent "Apply Leave" screens and three independent approval surfaces exist for the single shared Leave entity, instead of one canonical Platform screen | Open | Low | 6 | #123306 | bugs/open/BUG-PLT-045.md |
-| BUG-PLT-046 | Holiday Scheme and Holiday split across two separate Platform nav sections instead of one, and Helpdesk still renders its own standalone, non-nested "Holiday" tab — the original consolidation example from this cycle's start, still unresolved | Open | Low | 6 | (not yet reported) | bugs/open/BUG-PLT-046.md |
+| BUG-PLT-046 | Holiday Scheme and Holiday split across two separate Platform nav sections instead of one, and Helpdesk still renders its own standalone, non-nested "Holiday" tab — the original consolidation example from this cycle's start, still unresolved | Open | Low | 6 | #123344 | bugs/open/BUG-PLT-046.md |
 
 ## Retracted
 

@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-PLT-046
-- Production Redmine Issue ID: (not yet reported — pending approval)
+- Production Redmine Issue ID: #123344
 - Title: Holiday Scheme and Holiday are split across two separate Platform nav sections instead of one (should exist ONLY in Platform, with zero Holiday-specific UI in any consumer plugin); Helpdesk still renders its own standalone, non-nested "Holiday" tab; and Helpdesk's SLA "Holiday" picker ignores Holiday Scheme active/inactive status entirely
 - Redmine version: 6 (Rails 7.2.3.1)
 - Plugin name: redmineflux_platform (nav structure) / redmineflux_helpdesk (standalone tab)
@@ -70,4 +70,4 @@
 
 ## Production report
 
-Not yet reported to production — pending approval per `REDMINEFLUX-MCP-SETUP.md` §4.
+Reported to production as **#123344**, linked to Testcase #123343 ("Holiday Cross-Plugin Flow") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Low | Defect Severity: Low-severity | Defect priority: Low | Defect Type: Usability.

@@ -77,7 +77,21 @@ Dev's own re-verification (2026-10-12, against Redmine 7 — a different environ
 
 Moved to **In QA** rather than closed by the dev specifically because the original scenario was driven through the UI as `luna.blossom`, and that re-run is explicitly left for QA to do.
 
-**Status on production (as of 2026-10-13): In QA, 90% done. QA retest against the original UI repro (log in as `luna.blossom`, confirm the dropdown and a raw POST are both blocked) has not yet been performed.**
+**QA retest 2026-10-13 (Sourabh Singh): CONFIRMED FIXED.** `redmine-docker-6-platform` (`localhost:3013`) had been recreated since this bug was filed (fresh DB, 0 Policy Bands, 0 users imported) — re-imported the 20 seed users via Administration → Users → Import (`scripts/qa_seed_users_import.csv`, `luna.blossom` confirmed re-seeded as id 5, matching the original report), then rebuilt the exact precondition: created a disposable Policy Band (`PLT-QA-fresher`, Comp-Off 5d/year) and assigned it to `nova.starling` only, leaving `luna.blossom` and 19 others unassigned (board showed "1 Assigned / 20 Unassigned / 21 Total Users" — same shape as the original "1 Assigned / 21 Unassigned" state).
+
+Logged in as `luna.blossom` (no band) and reran the original repro:
+
+| Check | Before fix | After fix (this retest) |
+|---|---|---|
+| Apply Leave → Leave Type dropdown | all 6 types selectable | **0 types** — only the "Select Leave Type" placeholder; a red banner reads "No leave band assigned yet. Please contact your HR/Admin." |
+| Crafted raw POST to `/shift_management/leave` with `leave_type_id=3` (Emergency Leave), bypassing the UI entirely via `fetch()` with a valid CSRF token | succeeded ("Leave application submitted successfully", ids 288/289 in the original report) | **refused**, HTTP 422, JSON body `{"success":false,"errors":["No leave band assigned yet. Please contact your HR/Admin."]}` |
+| Leave Applications list after the refused POST | — | "No Leave Applications Found" — confirmed no fixture was created |
+
+Both halves of the original defect are fixed: the dropdown is empty for an unassigned user once a band exists in the installation, and — the half that actually mattered, per the original report's own finding that the raw submission succeeded regardless of the dropdown — the server-side gate now independently refuses the exact same crafted request. Cleaned up the disposable Policy Band afterward (its UI "Delete" issued a `DELETE /shift_management/leave_policy_bands/1 → 200`, though the list still showed the row on a later reload — a possible unrelated UI-refresh quirk, not re-investigated since it doesn't affect this bug's verdict; flagged in `PLATFORM_MEMORY.md` for whoever next touches Policy Bands).
+
+Workload's Request Leave was not re-tested this session (out of scope per the bug's own original note and the dev's response — Workload has no band-awareness by design).
+
+Moving to **Closed**.
 
 ## Production report
 

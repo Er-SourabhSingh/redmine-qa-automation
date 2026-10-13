@@ -34,7 +34,7 @@
 | BUG-PLT-033 | Shift Management's own Edit Holiday form can never successfully change a holiday's date, in either direction — it never submits end_date, so editing date alone fails validation ("End date is invalid" or a false-positive overlap) | Closed | High | 6 | #121866 | bugs/closed/BUG-PLT-033.md |
 | BUG-PLT-034 | Any Contact created from Platform's own screen crashes CRM's native Contact detail page with a 500 — author_id is never set on Platform's create path, and CRM's view calls @contact.author.name with no nil guard | Closed | High | 6 | #121867 | bugs/closed/BUG-PLT-034.md |
 | BUG-PLT-035 | A Redmine user who has filed or approved anything cannot be deleted — foreign keys across multiple plugins block it (production issue mislabeled "BUG-PLT-017" in its title; unrelated to the real BUG-PLT-017) | Open | Medium | 6/7 | #121652 | bugs/open/BUG-PLT-035.md |
-| BUG-PLT-036 | A user with no Leave Policy Band assigned can apply for any of the 6 leave types, instead of being blocked | Open | High | 6 | #122728 | bugs/open/BUG-PLT-036.md |
+| BUG-PLT-036 | A user with no Leave Policy Band assigned can apply for any of the 6 leave types, instead of being blocked | Closed | High | 6 | #122728 | bugs/closed/BUG-PLT-036.md |
 
 ## Retracted
 

@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-PLT-047
-- Production Redmine Issue ID: (not yet reported — pending approval)
+- Production Redmine Issue ID: #123347
 - Title: Shift Management's own role-permission list still exposes 5 permissions for entities now owned by Platform — "Manage Teams & Members", "Manage Departments", "Manage Policy Bands & Assignments", "Manage Leave Types", and "Manage Holidays" — a second permission source for capabilities Platform's own permissions already govern
 - Redmine version: 6 (Rails 7.2.3.1)
 - Plugin name: redmineflux_shift_management (the 5 leftover permissions) / redmineflux_platform (should be the sole permission owner for these entities)
@@ -70,4 +70,4 @@ Per the pattern already confirmed for Workload's analogous permission in `BUG-PL
 
 ## Production report
 
-Not yet reported to production — pending approval per `REDMINEFLUX-MCP-SETUP.md` §4.
+Reported to production as **#123347**, linked to Testcase #123276 ("Team Cross-Plugin Flow", since `TC-PLT-280` lives in `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md`) inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.

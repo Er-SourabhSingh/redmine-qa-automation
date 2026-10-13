@@ -212,6 +212,28 @@ One TC (152, team deletion with real cross-plugin dependents) was resolved by cr
 
 With this suite done, **every suite in `redmineflux_platform_qa` has now had a first full execution pass** — `PLATFORM_PERMISSIONS_AND_ACCESS.md`, `PLATFORM_VOCABULARY_AND_LABELS.md`, `PLATFORM_SECURITY.md`, `PLATFORM_DATA_MIGRATION_INTEGRITY.md`, `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md`, `PLATFORM_ENTITY_CRUD_AND_FIELD_VALIDATION.md`, `PLATFORM_KNOWN_GAPS_AND_EDGE_CASES.md`, `PLATFORM_PERFORMANCE.md`, `PLATFORM_INSTALLATION_AND_UPGRADE.md`, `PLATFORM_OLD_ARCHITECTURE_BASELINE.md`, and now `PLATFORM_CROSS_PLUGIN_CRUD_MATRIX.md`. **This does NOT mean `STATUS.md` can be set to `Complete`** — per CLAUDE.md §10, that also requires `bugs/open/` to be empty (currently has 4 fresh bugs from today alone, plus any carried over) and a full-plugin regression pass once it is.
 
+## ⚠️ Two parallel permission systems coexist for Team/Department/Policy-Band/Leave-Type — and Shift Management's own role-permission list still exposes 4 that should now be Platform's job (not yet filed, 2026-10-13)
+
+User flagged confusion from Shift Management's own Role-edit screen (screenshot), which still lists `Manage Teams & Members`, `Manage Departments`, `Manage Policy Bands & Assignments`, and `Manage Leave Types` as its own project-level permissions, alongside genuinely Shift-Management-exclusive ones (`View Dashboard`, `Manage Attendance`, `Approve/Reject Shift Change Requests`, etc.). Asked for the flow to be explained: does a permission apply at Project level or Team level, and should these specific ones even still exist here.
+
+**The two systems, and how they actually differ:**
+
+1. **Redmine's own Role + Project-membership permissions** (what the screenshot shows) — assigned to a Role in Administration → Roles, then that Role is given to a user via Project → Settings → Members. Checked via `user.allowed_to?(:permission, project)`. This is **project-scoped**, has nothing to do with Team membership at all.
+2. **`rf_team_memberships`' own per-row custom columns** — `role` (Member/Lead, confirmed dead per `BUG-PLT-037`), `can_approve_leave`, `manage_workload`. These are plain data columns on one specific team-membership row, checked directly by plugin business logic for "does this user have this flag, for this one team" — not a Redmine permission at all.
+
+Per the user-supplied `Shift-Management-Knowledgebase.md` (read in full this session, see `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md` TC-PLT-272–280's header), the plugin's own original design deliberately layers both: project-level permissions (`approve_leave`, etc. — Manager/HR/Admin) grant **broad** capability across every team, while the team-membership `role: 'lead'` column grants **automatic, scoped-to-this-team-only** capability with no separate permission needed. That two-tier design isn't inherently wrong — but it predates Team/Department/Policy-Band/Leave-Type moving to Platform, and 4 of Shift Management's own project-permissions now plainly duplicate entities Platform is supposed to own:
+
+| Shift Management's own permission | Overlaps with |
+|---|---|
+| `Manage Teams & Members` | Platform's "Create, edit and delete teams" — Team is now Platform's (`BUG-PLT-040`/`041`) |
+| `Manage Departments` | Should be Platform's per `BUG-PLT-044`'s recommendation |
+| `Manage Policy Bands & Assignments` | Should be Platform's per `BUG-PLT-044` |
+| `Manage Leave Types` | Already partially Platform's (Leave Types mostly consolidated, `PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md` TC-PLT-264) |
+
+Given `BUG-PLT-042` already found Workload's analogous legacy permission (`Manage teams and skills`) to be **completely dead** — toggling it has zero effect, Platform's own permission silently does the real gating instead — there's a real chance `Manage Teams & Members` is in the exact same orphaned state. `TC-PLT-280` (already written, not yet executed) exists specifically to test this live rather than assume it.
+
+**Not yet filed as a bug** — user asked to note this down first, file later. When filed: should likely be one bug covering all 4 permissions together (same root cause/recommendation: retire each once its entity's own Platform-consolidation bug — `040`/`041`/`044` — lands, don't leave a second permission source for the same capability), cross-referenced with `BUG-PLT-042`'s already-established pattern.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

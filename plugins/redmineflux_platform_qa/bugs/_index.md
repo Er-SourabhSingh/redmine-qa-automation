@@ -45,6 +45,7 @@
 | BUG-PLT-044 | "Leave Policy Band" and "Assign Leave Band" have zero Platform representation — entirely owned by Shift Management, unlike every other Leave concept | Open | Medium | 6 | #123305 | bugs/open/BUG-PLT-044.md |
 | BUG-PLT-045 | Three independent "Apply Leave" screens and three independent approval surfaces exist for the single shared Leave entity, instead of one canonical Platform screen | Open | Low | 6 | #123306 | bugs/open/BUG-PLT-045.md |
 | BUG-PLT-046 | Holiday Scheme and Holiday split across two separate Platform nav sections instead of one, and Helpdesk still renders its own standalone, non-nested "Holiday" tab — the original consolidation example from this cycle's start, still unresolved | Open | Low | 6 | #123344 | bugs/open/BUG-PLT-046.md |
+| BUG-PLT-047 | Shift Management's own role-permission list still exposes 5 permissions for entities now owned by Platform — Manage Teams & Members, Manage Departments, Manage Policy Bands & Assignments, Manage Leave Types, Manage Holidays | Open | Medium | 6 | (not yet reported) | bugs/open/BUG-PLT-047.md |
 
 ## Retracted
 

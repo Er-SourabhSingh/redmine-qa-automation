@@ -51,7 +51,18 @@ structure — 5 PASS (Leave Types' partial deferral, Helpdesk/Timesheet out-of-s
 `rf_leaves` data layer, Shift Management's own Policy Band gate still correct in isolation), 3 FAIL tied to
 `BUG-PLT-043`/`044`/`045`.
 
-**Next session**: this was explicitly step 1 of a multi-entity audit the user wants done one at a time. **Holiday / Holiday Scheme is next** (Helpdesk's standalone Holiday tab vs. Workload's scheme-nested pattern — the user's own stated example). After that, revisit whether `bugs/open/`'s pre-existing emptiness requirement (full-plugin regression before `Complete`) should now also account for these 9 new bugs before that status is ever set.
+**Continued same day — Holiday Scheme/Holiday UX finding (user-flagged), 1 more bug (046).** User directly flagged: Platform splits Holiday Scheme and Holiday into two separate nav sections instead of one, and if they're genuinely shared, consumer plugins (Workload/Shift Management/Helpdesk) shouldn't duplicate them — specifically questioned whether Helpdesk's SLA creation (which needs to select a holiday) is actually integrated. Tested live rather than assuming:
+
+- Created Holiday Scheme "Holiday-Scheme-Testing" and Holiday "Holiday-Testing" via Platform's own screens.
+- **Positive finding**: the new Holiday immediately appeared, zero sync needed, in Helpdesk's own SLA creation form (`Project → Helpdesk → SLA → New SLA`)'s Holiday multi-select — data sharing and SLA integration already work correctly, contrary to the user's worry.
+- Workload's own "Holiday Management" widget (`/rf_settings`) only has a "Manage" link into Platform, no duplicate CRUD. Shift Management's own "Holidays" nav link goes straight to Platform, no screen of its own at all. Both already correct.
+- Helpdesk's own "Holiday" tab (Helpdesk Settings) is still a flat, standalone list — not nested inside a Holiday Scheme — exactly the example given at the very start of this whole testing cycle, confirmed still unresolved. Platform's own nav also still fragments "Holiday Schemes"/"Holidays" into two sections, same pattern as Leave Types/Leaves (`BUG-PLT-044`).
+
+Filed **`BUG-PLT-046`** (Low — pure navigation/IA fix, not a data defect, since the underlying sharing already works). 10 bugs open now (037–046). `bugs/_index.md`, `STATUS.md` updated.
+
+**Also noted, not yet filed**: user flagged confusion from Shift Management's own role-permission screen (`Manage Teams & Members`, `Manage Departments`, `Manage Policy Bands & Assignments`, `Manage Leave Types` all still exposed there) — explained the two parallel permission systems (Redmine project-role permissions vs. `rf_team_memberships`' own per-row flags) and recorded the finding in `PLATFORM_MEMORY.md` for a bug to be filed in a future session, per explicit user request to note it first.
+
+**Next session**: this was explicitly step 1 of a multi-entity audit the user wants done one at a time, now covering Team, Leave, and Holiday Scheme/Holiday. Still pending: (1) file the "4 overlapping Shift Management permissions" bug noted in `PLATFORM_MEMORY.md`, (2) revisit whether `bugs/open/`'s pre-existing emptiness requirement (full-plugin regression before `Complete`) should now also account for these 10 new bugs before that status is ever set.
 
 ## Next Session Start Point (2026-10-13, continued — `bugs/open/` now empty)
 

@@ -50,7 +50,13 @@ This is a more complete version of the gap already found in `BUG-PLT-041` (Depar
 ## Recommendation (consolidation direction, 2026-10-13)
 
 1. Add "Leave Policy Bands" and "Assign Leave Band" as Platform-managed entities, following the same pattern as Team/Organizations/Holiday Schemes: `redmineflux_platform/list/leave_policy_bands` (+ an assignment screen or section).
-2. **Do not add these as yet another scattered top-level Platform nav entry.** Platform's current nav already fragments Leave across two separate items ("Leave Types" and "Leaves"); adding Policy Bands as a third separate entry repeats the same mistake. Instead, consolidate **Leave Types + Leaves + Policy Bands + Assign Leave Band into one single "Leave" section** on Platform — mirroring the tabbed layout Shift Management's own `/shift_management/leave` page already uses well (Applications / Leave Types / Policy Bands / Assign Leave Band as tabs under one heading). Everything to do with Leave should be one place to go, not four.
+2. **Do not add these as yet another scattered top-level Platform nav entry.** Platform's current nav already fragments Leave across two separate items ("Leave Types" and "Leaves"); adding Policy Bands as a third separate entry repeats the same mistake. Instead, consolidate everything Leave-related into **one single "Leave" section** on Platform, with one nav entry and tabs underneath it — mirroring the tabbed layout Shift Management's own `/shift_management/leave` page already uses well:
+   - **Apply Leave / Applications tab** — submit a leave request, and the full approval queue (Pending/Approved/Rejected/Cancelled), with **Approve and Reject fully functional end-to-end** here — not a partial or read-only view. This tab is what `BUG-PLT-045` designates as the one canonical apply-and-approve surface; it belongs inside this same unified section, not as Platform's separate pre-existing "Leaves" list.
+   - **Leave Types tab**
+   - **Policy Bands tab**
+   - **Assign Leave Band tab**
+
+   Everything to do with Leave should be one section to go to, not four scattered places.
 3. Migrate Shift Management's existing Policy Band and assignment records into Platform's tables.
 4. Shift Management's own "Policy Bands"/"Assign Leave Band" tabs should then either redirect to Platform or become read-only views sourced from Platform's data, matching the pattern already recommended for Team (`BUG-PLT-040`) and Department (`BUG-PLT-041`).
 5. This is also the prerequisite for fixing `BUG-PLT-043` cleanly — the gate can only be moved onto the shared `Leave` model once Policy Band data itself is reachable from that shared layer, not locked inside Shift Management's own tables/controllers.

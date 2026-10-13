@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-PLT-045
-- Production Redmine Issue ID: (not yet reported — pending approval)
+- Production Redmine Issue ID: #123306
 - Title: Three independent "Apply Leave" screens and three independent approval surfaces exist for the single shared Leave entity, instead of one canonical Platform screen consumer plugins defer to
 - Redmine version: 6 (Rails 7.2.3.1)
 - Plugin name: redmineflux_platform / redmineflux_workload / redmineflux_shift_management
@@ -57,4 +57,4 @@ This matters beyond pure duplication because the three screens do not enforce th
 
 ## Production report
 
-Not yet reported to production — pending approval per `REDMINEFLUX-MCP-SETUP.md` §4.
+Reported to production as **#123306**, linked to Testcase #123303 ("Leave Cross-Plugin Flow") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Low | Defect Severity: Low-severity | Defect priority: Low | Defect Type: Usability.

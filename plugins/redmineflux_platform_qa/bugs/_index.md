@@ -41,9 +41,9 @@
 | BUG-PLT-040 | Shift Management has its own standalone "Teams" list duplicating Platform's own canonical Teams list, even though per-record View/Edit/Delete already correctly redirect to Platform | Open | Low | 6 | #123286 | bugs/open/BUG-PLT-040.md |
 | BUG-PLT-041 | "Department" is a shared entity consumed by Platform's own Team form, but Platform has zero management screen for it — Shift Management is the sole CRUD owner, the inverse of Platform's own consolidation standard | Open | Medium | 6 | #123287 | bugs/open/BUG-PLT-041.md |
 | BUG-PLT-042 | Workload's own "Manage teams and skills" permission is completely dead — Skills management (`/rf_skills`) is actually gated by Platform's "Create, edit and delete teams" permission instead, with no dedicated Skills permission of its own | Open | Medium | 6 | #123288 | bugs/open/BUG-PLT-042.md |
-| BUG-PLT-043 | Workload's "Apply Leave" has zero Policy Band enforcement — a user with no Policy Band assigned can still successfully submit any leave type | Open | Medium | 6 | (not yet reported) | bugs/open/BUG-PLT-043.md |
-| BUG-PLT-044 | "Leave Policy Band" and "Assign Leave Band" have zero Platform representation — entirely owned by Shift Management, unlike every other Leave concept | Open | Medium | 6 | (not yet reported) | bugs/open/BUG-PLT-044.md |
-| BUG-PLT-045 | Three independent "Apply Leave" screens and three independent approval surfaces exist for the single shared Leave entity, instead of one canonical Platform screen | Open | Low | 6 | (not yet reported) | bugs/open/BUG-PLT-045.md |
+| BUG-PLT-043 | Workload's "Apply Leave" has zero Policy Band enforcement — a user with no Policy Band assigned can still successfully submit any leave type | Open | Medium | 6 | #123304 | bugs/open/BUG-PLT-043.md |
+| BUG-PLT-044 | "Leave Policy Band" and "Assign Leave Band" have zero Platform representation — entirely owned by Shift Management, unlike every other Leave concept | Open | Medium | 6 | #123305 | bugs/open/BUG-PLT-044.md |
+| BUG-PLT-045 | Three independent "Apply Leave" screens and three independent approval surfaces exist for the single shared Leave entity, instead of one canonical Platform screen | Open | Low | 6 | #123306 | bugs/open/BUG-PLT-045.md |
 
 ## Retracted
 

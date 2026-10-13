@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-PLT-044
-- Production Redmine Issue ID: (not yet reported — pending approval)
+- Production Redmine Issue ID: #123305
 - Title: "Leave Policy Band" and "Assign Leave Band" have zero Platform representation — entirely owned and implemented by Shift Management, unlike every other Leave concept (Leave Type is at least partially shared); fix should also fold Leave Types/Leaves/Policy Bands into ONE Platform "Leave" section, not scatter them as separate nav entries
 - Redmine version: 6 (Rails 7.2.3.1)
 - Plugin name: redmineflux_shift_management (sole owner) / redmineflux_platform (should be the consolidation owner)
@@ -63,4 +63,4 @@ This is a more complete version of the gap already found in `BUG-PLT-041` (Depar
 
 ## Production report
 
-Not yet reported to production — pending approval per `REDMINEFLUX-MCP-SETUP.md` §4.
+Reported to production as **#123305**, linked to Testcase #123303 ("Leave Cross-Plugin Flow") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.

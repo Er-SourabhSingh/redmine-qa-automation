@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-PLT-043
-- Production Redmine Issue ID: (not yet reported — pending approval)
+- Production Redmine Issue ID: #123304
 - Title: Workload's "Apply Leave" has zero Policy Band enforcement — a user with no Policy Band assigned can still successfully submit any leave type, bypassing the gate Shift Management enforces for the same shared Leave entity
 - Redmine version: 6 (Rails 7.2.3.1)
 - Plugin name: redmineflux_workload (gap) / redmineflux_shift_management (where the gate exists) / redmineflux_platform (shared `rf_leaves` model)
@@ -56,4 +56,4 @@ Move the Policy Band gate (`leave_type_permitted?`/`refuse_leave_type`, currentl
 
 ## Production report
 
-Not yet reported to production — pending approval per `REDMINEFLUX-MCP-SETUP.md` §4.
+Reported to production as **#123304**, linked to Testcase #123303 ("Leave Cross-Plugin Flow") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Security.

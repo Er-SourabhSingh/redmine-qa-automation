@@ -100,6 +100,161 @@ indication anywhere in the picker that it belongs to an inactive scheme. **Statu
 (a distinct defect from TC-PLT-285, found while verifying the data-sharing claim, not previously tested or
 filed anywhere else).
 
+## Functional Cases — Workload: holidays visible in capacity/timeline, active-scheme-only
+
+> Source: https://www.redmineflux.com/knowledge-base/plugins/workload-plugin/ (fetched 2026-10-13). Key quotes:
+> *"Weekends, holidays, and approved leave reduce available hours"*; *"Holidays in inactive schemes are not used
+> for capacity calculations"*; *"Capacity, approved leave, holidays, and weekends are considered when reviewing
+> timeline availability"* (the Gantt chart's own timeline-availability view). The docs do not describe a visual
+> holiday marker on the Gantt chart itself (no shading/color/label documented) — only that the underlying
+> capacity numbers factor holidays in. Not yet executed.
+
+### TC-PLT-287 — A holiday in the ACTIVE scheme reduces a Workload's available capacity
+
+**Preconditions:** A Workload exists for a team with at least one member. The active Holiday Scheme has no
+holiday yet falling inside the Workload's date range.
+
+1. Note the Workload's current available capacity (hours) for a day inside its range.
+2. Add a Holiday to the **active** scheme, dated on that same day, then click "Recalculate Capacity" on the
+   Workload detail page (per the KB: *"run Recalculate Capacity from the workload detail page"* after a holiday
+   change).
+3. Re-check the available capacity for that day.
+
+**Expected:** The day's available capacity drops (per the KB, holidays "reduce available hours") — confirming
+the active scheme's holiday is actually factored into the capacity engine, not just displayed somewhere inert.
+
+**Status:** Not yet executed.
+
+### TC-PLT-288 — A holiday in an INACTIVE scheme does NOT reduce capacity (contrast case)
+
+**Preconditions:** Same Workload as TC-PLT-287. A second Holiday Scheme exists, left **Inactive**, with a
+holiday dated on a different day inside the Workload's range that currently has no holiday.
+
+1. Note that day's available capacity before the inactive scheme's holiday is added.
+2. Add the holiday to the **inactive** scheme, Recalculate Capacity.
+3. Re-check that day's available capacity.
+
+**Expected:** Per the KB (*"Holidays in inactive schemes are not used for capacity calculations"*), the
+capacity for that day should be **unchanged** — this is the Workload-specific instance of the same
+active-scheme-only rule `TC-PLT-286` found Helpdesk's SLA picker violating; this TC checks whether Workload's
+own capacity engine honors it correctly where SLA did not.
+
+**Status:** Not yet executed.
+
+### TC-PLT-289 — Gantt/timeline availability reflects the same holiday-adjusted capacity
+
+**Preconditions:** Same setup as TC-PLT-287, holiday already added to the active scheme and capacity
+recalculated.
+
+1. Open the Workload's Gantt/timeline view and review the day the holiday falls on.
+
+**Expected:** Per the KB (*"Capacity, approved leave, holidays, and weekends are considered when reviewing
+timeline availability"*), the timeline's own availability figures for that day should match the
+holiday-reduced capacity confirmed in TC-PLT-287 — whether or not the day is visually marked (the KB does not
+document a specific visual treatment, so don't assume shading/color exists; check the underlying availability
+numbers the timeline shows, not just appearance).
+
+**Status:** Not yet executed.
+
+## Functional Cases — Helpdesk: SLA clock, holiday selection, and escalation
+
+> Source: https://www.redmineflux.com/knowledge-base/plugins/helpdesk-plugin/ (fetched 2026-10-13). Key quotes:
+> *"select any holidays this SLA should skip"*; *"A holiday on its own excludes nothing"* — it only takes
+> effect once explicitly selected in that SLA's own Holidays field; *"holidays only take effect on SLAs that
+> also have Working Hours set... an SLA without a working-hours window ignores holidays entirely."* The KB does
+> not explicitly state whether escalation is suppressed on a holiday — this needs a live check, not an
+> assumption either way. Not yet executed.
+
+### TC-PLT-290 — A holiday NOT selected on the SLA has no effect, even if genuinely active
+
+**Preconditions:** An active Holiday Scheme has a holiday dated today or within the SLA's open ticket window.
+An SLA exists with Working Hours set, but this holiday is **not** added to that SLA's own Holiday field.
+
+1. Open/create a ticket under this SLA on the holiday date and check whether the SLA clock still counts that
+   day normally (not skipped).
+
+**Expected:** Per the KB (*"a holiday on its own excludes nothing"*), the clock should run normally through
+this day — the holiday existing in the active scheme is not sufficient on its own; it must be explicitly
+selected on this specific SLA.
+
+**Status:** Not yet executed.
+
+### TC-PLT-291 — A holiday selected on the SLA is skipped by the clock, but only with Working Hours set
+
+**Preconditions:** Two SLAs: SLA-A has Working Hours set AND this holiday added to its own Holidays field.
+SLA-B has the same holiday added to its Holidays field, but has **no** Working Hours window configured at all.
+
+1. Open/create a ticket under SLA-A on the holiday date — check whether the clock skips that day.
+2. Open/create a ticket under SLA-B on the same holiday date — check whether the clock skips that day.
+
+**Expected:** Per the KB, SLA-A's clock should skip the holiday (the intended behavior). SLA-B's clock should
+**not** skip it — per *"an SLA without a working-hours window ignores holidays entirely"* and instead uses
+plain time addition for its deadline.
+
+**Status:** Not yet executed.
+
+### TC-PLT-292 — Does escalation trigger on a day the SLA treats as a holiday? (undocumented — needs a live answer, not an assumption)
+
+**Preconditions:** SLA-A from TC-PLT-291 (Working Hours set, holiday correctly selected and skipped). A ticket
+under SLA-A whose response/resolution deadline, absent the holiday skip, would fall exactly on the holiday
+date.
+
+1. Let the escalation background job run (checks every 2 minutes per the KB) while the ticket's un-adjusted
+   deadline would be the holiday date.
+2. Check whether the ticket is marked breached/escalated on that date, or whether the deadline correctly
+   pushes past the holiday with no escalation.
+
+**Expected (per the user's own expectation, 2026-10-13):** No escalation should occur on the holiday — the
+clock should have already excluded that day from the deadline calculation entirely, so the deadline itself
+should land on the next non-holiday working day, never triggering a breach check against the holiday date.
+
+**Status:** Not yet executed. **This is the one case in this section the KB itself does not document — treat
+the live result as the actual finding, not a confirmation of something already known.** If escalation fires
+anyway on the holiday date, that is a new, distinct defect from everything else in this suite.
+
+## Functional Cases — Shift Management: calendar and dashboard reflect active-scheme holidays only
+
+> Source: `Shift-Management-Knowledgebase.md` (already read in full this session). Key quotes: *"Review each
+> day cell for shift assignment, overlaid approved leave, and holiday highlighting"* (Shift Calendar); *"the
+> active schema's holidays are the only ones used by attendance calculations, the dashboard, the shift
+> calendar, and the Holiday report tab"*; Dashboard's *"Upcoming holidays — next holidays from the active
+> holiday schema."* Not yet executed.
+
+### TC-PLT-293 — Shift Calendar highlights a holiday from the ACTIVE scheme on the correct date
+
+**Preconditions:** A holiday exists in the currently active Holiday Scheme, dated within the visible month.
+
+1. Open Shift Management's own Shift Calendar (`/shift_management/calendar`) for that month.
+2. Check the day cell for the holiday's date.
+
+**Expected:** The cell shows holiday highlighting, per the KB's documented calendar behavior.
+
+**Status:** Not yet executed.
+
+### TC-PLT-294 — Shift Calendar does NOT highlight a holiday from an INACTIVE scheme
+
+**Preconditions:** A second Holiday Scheme, left Inactive, has a holiday dated on a different day in the same
+visible month, with no holiday from the active scheme on that day.
+
+1. Check that day's cell on the Shift Calendar.
+
+**Expected:** Per the "only the active schema's holidays are used" rule, this day should show **no** holiday
+highlighting — confirming the calendar correctly respects active-scheme-only, unlike Helpdesk's SLA picker
+(`TC-PLT-286`).
+
+**Status:** Not yet executed.
+
+### TC-PLT-295 — Dashboard's "Upcoming holidays" panel only lists the active scheme's holidays
+
+**Preconditions:** Same two-scheme setup as TC-PLT-293/294, both with upcoming holidays.
+
+1. Open Shift Management's own Dashboard and check the "Upcoming holidays" panel.
+
+**Expected:** Only the active scheme's upcoming holiday(s) should be listed — the inactive scheme's holiday
+should not appear, consistent with TC-PLT-294.
+
+**Status:** Not yet executed.
+
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
@@ -110,12 +265,25 @@ filed anywhere else).
 | TC-PLT-284 | FAIL | BUG-PLT-046 | `screenshots/BUG-PLT-046/helpdesk-standalone-holiday-tab-flat-list.png` |
 | TC-PLT-285 | PASS | — | `screenshots/BUG-PLT-046/sla-holiday-dropdown-after-create.png` |
 | TC-PLT-286 | FAIL | BUG-PLT-046 | `screenshots/BUG-PLT-046/workload-scheme-inactive-status.png` |
+| TC-PLT-287 – TC-PLT-289 | Not yet executed | — | Workload: active-scheme holiday effect on capacity/timeline — written 2026-10-13, pending first live execution pass |
+| TC-PLT-290 – TC-PLT-292 | Not yet executed | — | Helpdesk: SLA holiday-selection nuance and escalation-on-holiday check — written 2026-10-13, TC-PLT-292 is undocumented by the KB and needs a genuine live answer, not an assumption |
+| TC-PLT-293 – TC-PLT-295 | Not yet executed | — | Shift Management: calendar/dashboard active-scheme-only holiday display — written 2026-10-13, pending first live execution pass |
 
 ## Summary (2026-10-13)
 
-Of 6 cases: 2 PASS, 4 FAIL — all 4 filed under the single `BUG-PLT-046` (one root cause/recommendation set:
-consolidate Holiday Scheme+Holiday into one Platform section, strip Holiday-specific UI from every consumer
-plugin down to a plain link at most, and make the SLA picker scheme-aware). Shift Management (TC-PLT-282) is
-the only plugin already meeting the strictest standard — a bare link, nothing rendered locally — and is the
-reference pattern the other two should be brought in line with. The data layer itself (TC-PLT-285) is correct;
-every FAIL in this suite is about UI placement or a picker's filtering logic, not data sharing.
+Of the original 6 cases: 2 PASS, 4 FAIL — all 4 filed under the single `BUG-PLT-046` (one root cause/
+recommendation set: consolidate Holiday Scheme+Holiday into one Platform section, strip Holiday-specific UI
+from every consumer plugin down to a plain link at most, and make the SLA picker scheme-aware). Shift
+Management (TC-PLT-282) is the only plugin already meeting the strictest standard — a bare link, nothing
+rendered locally — and is the reference pattern the other two should be brought in line with. The data layer
+itself (TC-PLT-285) is correct; every FAIL in this suite is about UI placement or a picker's filtering logic,
+not data sharing.
+
+**9 further cases added the same day** (TC-PLT-287–295, sourced from the Workload and Helpdesk knowledge-base
+pages plus the already-read Shift Management KB), covering the *functional* side of Holiday the first 6 cases
+didn't touch: whether holidays actually change Workload's capacity numbers and Gantt timeline availability,
+whether Helpdesk's SLA clock genuinely skips a holiday (and only when explicitly selected on that SLA, with
+Working Hours set — a documented nuance easy to miss), whether escalation is suppressed on a holiday day (the
+one point none of the three plugins' own docs actually state — flagged as a genuine open question, not an
+assumed PASS), and whether Shift Management's calendar/dashboard correctly respect active-scheme-only the way
+TC-PLT-286 found Helpdesk's SLA picker failing to. All 9 not yet executed.

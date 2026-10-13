@@ -51,7 +51,7 @@ This matters beyond pure duplication because the three screens do not enforce th
 
 ## Recommendation (consolidation direction, 2026-10-13)
 
-1. Designate Platform's own Leaves screen as canonical for both applying and approving.
+1. Designate Platform's own Leaves screen as canonical for both applying and approving — and, per `BUG-PLT-044`'s own recommendation, that canonical screen should itself be one unified "Leave" section (Leave Types + Leave requests + Policy Bands + Assign Leave Band together, tabbed the way Shift Management's own `/shift_management/leave` already does it well), not left split across Platform's current separate "Leave Types" and "Leaves" nav entries.
 2. Replace Workload's and Shift Management's own native Apply/Approve UIs with either a direct link to Platform's screen, or an inline widget that reads live from Platform's data and routes the actual submission/approval through Platform's own shared logic (once `BUG-PLT-043`/`044`'s Policy Band consolidation is done) — not independently-implemented forms and queues.
 3. Until this is done, any fix to one screen's business rules (e.g. Policy Band enforcement) must be manually replicated to the other two, which is exactly the maintenance risk `BUG-PLT-016` warned about generically and `BUG-PLT-043` now demonstrates concretely.
 

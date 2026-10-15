@@ -47,6 +47,8 @@
 
 **Actual:** Shift Management renders its own independent table (columns: Team, Department, Lead, Members, Status, Actions) listing the same teams Platform's own list shows. **Status: FAIL — filed `BUG-PLT-040`.**
 
+**Retest 2026-10-15 — PASS.** `/shift_management/departments` now redirects entirely to Platform's own Teams list. `BUG-PLT-040` confirmed fixed, closed.
+
 ### TC-PLT-241 — Shift Management's per-team View/Edit/Delete actions (within its own duplicate list)
 
 1. From Shift Management's Teams & Departments → Teams tab, click "View Team" / "Edit" / "Delete" on the "Team-Testing" row.
@@ -65,6 +67,8 @@
 
 **Actual:** Opens `/timesheet/teams/<id>` — Timesheet's own complete Team page, with duplicate Delete/Edit/Manage-Members controls and an unassignable "Timesheet Approval Schema: Not Assigned" (only a link to create one elsewhere). **Status: FAIL — filed `BUG-PLT-038`** (this is the same defect BUG-PLT-038 documents via Platform's "Timesheet Approval" button; this TC confirms the identical duplicate page is also reachable natively from inside Timesheet itself, not only via Platform's redirect button).
 
+**Retest 2026-10-15 — PASS.** Replaced by an inline Timesheet Approval section on Platform's own Team page. `BUG-PLT-038` confirmed fixed, closed.
+
 ### TC-PLT-243 — Workload: clicking a team name from Workload's own grid
 
 1. Open Workloads (`/rf_workloads`).
@@ -73,6 +77,8 @@
 **Expected:** Same as TC-PLT-242 — Platform's own Team page, or a Workload-specific view limited to the relevant action (capacity/skills), not a full duplicate.
 
 **Actual:** Opens `/rf_teams/<id>` — Workload's own complete Team page, with duplicate Delete/Edit/Manage-Members plus a "Team Availability" widget, and **zero Skills UI** despite Platform's own button for this destination being labeled "Workload & Skills". **Status: FAIL — filed `BUG-PLT-038`** (same underlying defect, confirmed reachable natively from Workload's own grid, not only via Platform's redirect button).
+
+**Retest 2026-10-15 — PASS.** `/rf_teams/<id>` is now a pure read-only "Team Availability" view, no duplicate CRUD. `BUG-PLT-038` confirmed fixed, closed.
 
 ## Functional Cases — Department (surfaced via Team, owned by Shift Management only)
 
@@ -86,6 +92,8 @@
 
 **Actual:** The new department appears in Platform's dropdown immediately (confirmed: shared data, correctly read). However, Platform has **no** owning screen for Department at all — no nav link, and `/redmineflux_platform/list/departments` returns a 404. Shift Management is the sole CRUD owner. **Status: FAIL — filed `BUG-PLT-041`.**
 
+**Retest 2026-10-15 — PASS.** `/redmineflux_platform/list/departments` now exists as a genuine Platform-owned screen. `BUG-PLT-041` confirmed fixed, closed.
+
 ### TC-PLT-245 — Platform has no "Departments" nav entry despite depending on Department data
 
 1. Open Platform (`/redmineflux_platform`) and inspect the full left nav: Overview, Teams, Organizations, Contacts, Contact links, Holiday Schemes, Holidays, Leave Types, Leaves, Audit events, Platform Settings.
@@ -93,6 +101,8 @@
 **Expected:** Every entity type a Platform form depends on (per the plugin's own stated purpose — "the records your plugins all work from... enter something once and it is the same everywhere") has a corresponding Platform-owned screen.
 
 **Actual:** Confirmed no "Departments" entry exists anywhere in Platform's nav, despite the Team form depending on it. **Status: FAIL — filed `BUG-PLT-041`** (same root cause as TC-PLT-244, listed separately since this is the nav-completeness angle rather than the data-flow angle).
+
+**Retest 2026-10-15 — PASS.** A "Teams & Departments" nav entry now exists, with Departments reachable from it. `BUG-PLT-041` confirmed fixed, closed.
 
 ## Functional Cases — Timesheet Team-Mode, Team-Wise Approval Flow
 
@@ -266,6 +276,8 @@ blocked.
 and skills`. Role B stayed 403 Forbidden through every addition except the last — only once `Create, edit and
 delete teams` (Platform's own Team permission) was added did Skills access unlock. `Manage teams and skills`
 itself had zero observable effect throughout. **Status: FAIL — filed `BUG-PLT-042`.**
+
+**Retest 2026-10-15 — PASS.** A dedicated, decoupled "Manage skills" permission now gates `/rf_skills`; Platform's Team permission no longer grants Skills access as a side effect. `BUG-PLT-042` confirmed fixed, closed.
 
 ## Functional Cases — Workload's "Manage workload" Team Flow
 
@@ -655,17 +667,17 @@ blanket block on deleting any Department at all.
 |-------|--------|-----------|------------|
 | TC-PLT-238 | PASS | — | — |
 | TC-PLT-239 | PASS | — | — |
-| TC-PLT-240 | FAIL | BUG-PLT-040 | `screenshots/BUG-PLT-040/shift-management-duplicate-teams-list.png` |
+| TC-PLT-240 | PASS (Retest 2026-10-15) | BUG-PLT-040 (Closed) | `screenshots/BUG-PLT-040/shift-management-duplicate-teams-list.png` |
 | TC-PLT-241 | PASS | — | — |
-| TC-PLT-242 | FAIL | BUG-PLT-038 | `screenshots/BUG-PLT-038/timesheet-approval-redirects-to-duplicate-team-page.png` |
-| TC-PLT-243 | FAIL | BUG-PLT-038 | `screenshots/BUG-PLT-038/workload-skills-redirects-no-skills-ui.png` |
-| TC-PLT-244 | FAIL | BUG-PLT-041 | `screenshots/BUG-PLT-041/shift-management-owns-department-crud.png`, `screenshots/BUG-PLT-041/platform-team-form-consumes-department-no-own-crud.png` |
-| TC-PLT-245 | FAIL | BUG-PLT-041 | `screenshots/BUG-PLT-041/platform-departments-screen-404.png` |
+| TC-PLT-242 | PASS (Retest 2026-10-15) | BUG-PLT-038 (Closed) | `screenshots/BUG-PLT-038/timesheet-approval-redirects-to-duplicate-team-page.png` |
+| TC-PLT-243 | PASS (Retest 2026-10-15) | BUG-PLT-038 (Closed) | `screenshots/BUG-PLT-038/workload-skills-redirects-no-skills-ui.png` |
+| TC-PLT-244 | PASS (Retest 2026-10-15) | BUG-PLT-041 (Closed) | `screenshots/BUG-PLT-041/shift-management-owns-department-crud.png`, `screenshots/BUG-PLT-041/platform-team-form-consumes-department-no-own-crud.png` |
+| TC-PLT-245 | PASS (Retest 2026-10-15) | BUG-PLT-041 (Closed) | `screenshots/BUG-PLT-041/platform-departments-screen-404.png` |
 | TC-PLT-246 – TC-PLT-255 | Not yet executed | — | Timesheet Team-Mode approval flow — written 2026-10-13, pending first live execution pass |
-| TC-PLT-256 | FAIL | BUG-PLT-042 | `screenshots/BUG-PLT-042/autumn-skills-access-granted-via-platform-team-permission.png`, `screenshots/BUG-PLT-042/autumn-skills-403-with-only-legacy-workload-permission.png` |
+| TC-PLT-256 | PASS (Retest 2026-10-15) | BUG-PLT-042 (Closed) | `screenshots/BUG-PLT-042/autumn-skills-access-granted-via-platform-team-permission.png`, `screenshots/BUG-PLT-042/autumn-skills-403-with-only-legacy-workload-permission.png` |
 | TC-PLT-257, TC-PLT-257a, TC-PLT-258, TC-PLT-258a, TC-PLT-259 – TC-PLT-261, TC-PLT-263 | Not yet executed | — | Workload "Manage workload" team flow — written 2026-10-13, pending first live execution pass |
 | TC-PLT-262 | Cross-reference only | BUG-PLT-030 (already filed) | — |
-| TC-PLT-272 – TC-PLT-280 | Not yet executed | — | Shift Management's own Team-scoped business rules (per KB) — written 2026-10-13, TC-PLT-273 flagged as highest priority (direct reconciliation needed against `BUG-PLT-037`), pending first live execution pass |
+| TC-PLT-272 – TC-PLT-280 | Not yet executed | — | Shift Management's own Team-scoped business rules (per KB) — written 2026-10-13, TC-PLT-273 flagged as highest priority (direct reconciliation needed against `BUG-PLT-037`, now Closed), pending first live execution pass. **TC-PLT-280 is specifically how `BUG-PLT-047` (5 leftover Shift Management permissions, still open as of 2026-10-15) should finally be executed.** |
 | TC-PLT-296 – TC-PLT-298 | Not yet executed | — | Department additional cases (Manager field inert-label check, Reports filter scoping, no-teams delete contrast) — written 2026-10-13, pending first live execution pass |
 
 ## Summary (2026-10-13)

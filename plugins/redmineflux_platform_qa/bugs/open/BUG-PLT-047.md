@@ -68,6 +68,16 @@ Per the pattern already confirmed for Workload's analogous permission in `BUG-PL
 3. Any role currently relying on one of these 5 permissions must be migrated to the equivalent Platform permission before retirement, so no existing role silently loses access.
 4. Do not touch `Approve / Reject Leave`, `View Leave Applications`, `Manage Leave Balances`, `Approve Attendance Corrections`, `Approve / Reject Shift Change Requests`, or any of Shift Management's other genuinely exclusive permissions (Dashboard, Shift Calendar, Attendance, Shifts & Assignments, Reports) — these are correctly Shift-Management-owned and out of scope for this bug.
 
+## Retest (2026-10-15) — NOT FIXED
+
+Retested live against the rebuilt `redmineflux_platform` environment (`redmine-docker-6-platform`, `localhost:3013`).
+
+Re-ran the same full scan of every permission group on the role-edit page (`/roles/permissions`) this bug's own original finding used. All 5 Shift Management permissions this bug names — **"Manage Teams & Members"**, **"Manage Departments"**, **"Manage Policy Bands & Assignments"**, **"Manage Leave Types"**, and **"Manage Holidays"** — are still present, unretired, exactly as originally reported.
+
+The recommended retirement (per this bug's own Recommendation section — retire each permission once its entity's own Platform-consolidation work lands) has **not** landed, even though the underlying entities it depends on (Team, Department, Policy Bands, Leave Types, Holidays — `BUG-PLT-040/041/044/046`) have all now been confirmed fixed in this same retest session. The leftover-permission cleanup itself is still outstanding.
+
+**Still NOT FIXED.** Production issue #123347 left as-is (not synced — a retest note was added to the production issue; status unchanged). Staying in `bugs/open/`.
+
 ## Production report
 
 Reported to production as **#123347**, linked to Testcase #123276 ("Team Cross-Plugin Flow", since `TC-PLT-280` lives in `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md`) inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.

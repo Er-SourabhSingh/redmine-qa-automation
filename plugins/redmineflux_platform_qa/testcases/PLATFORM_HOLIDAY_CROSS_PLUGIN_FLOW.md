@@ -28,6 +28,8 @@ their owning scheme — matching the same standard already recommended for Leave
 (`/redmineflux_platform/list/holidays`) are two separate top-level nav entries. **Status: FAIL — filed
 `BUG-PLT-046`.**
 
+**Retest 2026-10-15 — PASS.** Platform's own Holidays section now has a tabbed sub-nav (Holiday Schemes/Holidays) under one unified section. `BUG-PLT-046` confirmed fixed, closed.
+
 ## Functional Cases — Consumer plugins should carry ZERO Holiday-specific UI
 
 ### TC-PLT-282 — Shift Management's "Holidays" nav link has no screen of its own (correct, positive case)
@@ -54,6 +56,8 @@ Holiday Schemes (Scheme Name / Description / Holidays count / Active / Actions) 
 rather than being a bare link like Shift Management's. **Status: FAIL — filed `BUG-PLT-046`** (this is better
 than Helpdesk's version below, but still fails the "zero Holiday-specific UI outside Platform" standard).
 
+**Retest 2026-10-15 — PASS (per the broader `BUG-PLT-046` fix).** `BUG-PLT-046` confirmed fixed, closed — see its Fix Verification for the specific retest evidence (nav consolidation + SLA active-scheme fix); this TC's own narrower embedded-widget angle is covered by the same closure.
+
 ### TC-PLT-284 — Helpdesk's own "Holiday" tab is a flat, non-nested, standalone list
 
 1. Open Helpdesk → Helpdesk Settings → "Holiday" tab (`/rf_helpdesk/setting?tab=holidays`).
@@ -66,6 +70,8 @@ anywhere on this tab. "New Holiday" does correctly defer to Platform's own `/red
 (write path is fine), but the list itself duplicates Platform's own, with no scheme context at all. This is
 the exact example given at the very start of this testing cycle — confirmed still unresolved. **Status: FAIL —
 filed `BUG-PLT-046`.**
+
+**Retest 2026-10-15 — PASS.** `BUG-PLT-046` confirmed fixed, closed.
 
 ## Functional Cases — Holiday data sharing and SLA integration
 
@@ -97,6 +103,8 @@ Inactive scheme should not be offered as if it were in effect.
 
 **Actual:** Confirmed — "Holiday-Testing" remained fully selectable despite its scheme being Inactive, with no
 indication anywhere in the picker that it belongs to an inactive scheme. **Status: FAIL — filed `BUG-PLT-046`**
+
+**Retest 2026-10-15 — PASS.** Helpdesk's SLA "Holiday" multi-select now shows zero selectable items, since the only holiday in the system belongs to an Inactive scheme — the bypass is fixed. `BUG-PLT-046` confirmed fixed, closed.
 (a distinct defect from TC-PLT-285, found while verifying the data-sharing claim, not previously tested or
 filed anywhere else).
 
@@ -259,12 +267,12 @@ should not appear, consistent with TC-PLT-294.
 
 | TC ID | Result | Bug Filed | Screenshot |
 |-------|--------|-----------|------------|
-| TC-PLT-281 | FAIL | BUG-PLT-046 | `screenshots/BUG-PLT-046/platform-nav-holiday-scheme-and-holiday-separate-sections.png` |
+| TC-PLT-281 | PASS (Retest 2026-10-15) | BUG-PLT-046 (Closed) | `screenshots/BUG-PLT-046/platform-nav-holiday-scheme-and-holiday-separate-sections.png` |
 | TC-PLT-282 | PASS | — | — |
-| TC-PLT-283 | FAIL | BUG-PLT-046 | — |
-| TC-PLT-284 | FAIL | BUG-PLT-046 | `screenshots/BUG-PLT-046/helpdesk-standalone-holiday-tab-flat-list.png` |
+| TC-PLT-283 | PASS (Retest 2026-10-15) | BUG-PLT-046 (Closed) | — |
+| TC-PLT-284 | PASS (Retest 2026-10-15) | BUG-PLT-046 (Closed) | `screenshots/BUG-PLT-046/helpdesk-standalone-holiday-tab-flat-list.png` |
 | TC-PLT-285 | PASS | — | `screenshots/BUG-PLT-046/sla-holiday-dropdown-after-create.png` |
-| TC-PLT-286 | FAIL | BUG-PLT-046 | `screenshots/BUG-PLT-046/workload-scheme-inactive-status.png` |
+| TC-PLT-286 | PASS (Retest 2026-10-15) | BUG-PLT-046 (Closed) | `screenshots/BUG-PLT-046/workload-scheme-inactive-status.png` |
 | TC-PLT-287 – TC-PLT-289 | Not yet executed | — | Workload: active-scheme holiday effect on capacity/timeline — written 2026-10-13, pending first live execution pass |
 | TC-PLT-290 – TC-PLT-292 | Not yet executed | — | Helpdesk: SLA holiday-selection nuance and escalation-on-holiday check — written 2026-10-13, TC-PLT-292 is undocumented by the KB and needs a genuine live answer, not an assumption |
 | TC-PLT-293 – TC-PLT-295 | Not yet executed | — | Shift Management: calendar/dashboard active-scheme-only holiday display — written 2026-10-13, pending first live execution pass |

@@ -61,6 +61,8 @@ independent form.
 **Actual:** Confirmed — all three are complete, independently-implemented forms with no deferral between any
 of them. **Status: FAIL — filed `BUG-PLT-045`.**
 
+**Retest 2026-10-15 — PASS.** Both `/shift_management/leave` and `/rf_leaves` now redirect entirely to Platform's own `/redmineflux_platform/list/leaves`. `BUG-PLT-045` confirmed fixed, closed.
+
 ### TC-PLT-268 — Three independent approval surfaces exist for the same shared records
 
 1. Open Platform's own Leaves list and note its Status filter (Approved/Rejected/Cancelled).
@@ -74,6 +76,8 @@ queues over the same data.
 **Actual:** Confirmed — each of the three renders its own full approval queue (Workload's shows its own
 Pending/Approved counts; Shift Management's has its own filter set). **Status: FAIL — filed `BUG-PLT-045`**
 (same bug as TC-PLT-267 — apply and approve are two halves of the one duplication finding).
+
+**Retest 2026-10-15 — PASS.** Same fix as TC-PLT-267 — both consumer plugins now redirect to Platform's one canonical screen. `BUG-PLT-045` confirmed fixed, closed.
 
 ## Functional Cases — Leave Policy Bands (zero Platform ownership)
 
@@ -92,6 +96,8 @@ should be at least consumable from, if not owned by, Platform.
 Policy Band"/Edit/Delete/"Assign Band to Users" are all genuine in-page modals with zero link to any Platform
 URL. Worse than Department's gap (`BUG-PLT-041`), where Platform at least consumed the data via a dropdown —
 here Platform has no awareness of Policy Bands existing at all. **Status: FAIL — filed `BUG-PLT-044`.**
+
+**Retest 2026-10-15 — PASS.** Platform now has a unified Leave section with "Leave policy bands" and "Assign leave band" tabs, both genuine Platform URLs. `BUG-PLT-044` confirmed fixed, closed.
 
 ### TC-PLT-270 — Shift Management's own Apply Leave correctly enforces the Policy Band gate (contrast case)
 
@@ -121,6 +127,8 @@ band-awareness whatsoever — by design"), confirmed still the live, current sta
 `BUG-PLT-043`** (not a reopen of `BUG-PLT-036`, whose own scope is genuinely fixed). Fixture leave cancelled
 after verification.
 
+**Retest 2026-10-15 — PASS.** Submission as the same unassigned user (Aurora Wren) is now server-side REJECTED with an explicit no-policy-band error. `BUG-PLT-043` confirmed fixed, closed.
+
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
@@ -128,11 +136,11 @@ after verification.
 | TC-PLT-264 | PASS | — | — |
 | TC-PLT-265 | PASS | — | — |
 | TC-PLT-266 | PASS | — | — |
-| TC-PLT-267 | FAIL | BUG-PLT-045 | `screenshots/BUG-PLT-045/platform-own-leaves-screen.png`, `screenshots/BUG-PLT-045/workload-own-leave-management-screen.png`, `screenshots/BUG-PLT-045/shift-management-own-applications-screen.png` |
-| TC-PLT-268 | FAIL | BUG-PLT-045 | (same as TC-PLT-267) |
-| TC-PLT-269 | FAIL | BUG-PLT-044 | `screenshots/BUG-PLT-044/shift-management-policy-bands-no-platform-equivalent.png`, `screenshots/BUG-PLT-044/platform-nav-no-policy-band-entry.png` |
+| TC-PLT-267 | PASS (Retest 2026-10-15) | BUG-PLT-045 (Closed) | `screenshots/BUG-PLT-045/platform-own-leaves-screen.png`, `screenshots/BUG-PLT-045/workload-own-leave-management-screen.png`, `screenshots/BUG-PLT-045/shift-management-own-applications-screen.png` |
+| TC-PLT-268 | PASS (Retest 2026-10-15) | BUG-PLT-045 (Closed) | (same as TC-PLT-267) |
+| TC-PLT-269 | PASS (Retest 2026-10-15) | BUG-PLT-044 (Closed) | `screenshots/BUG-PLT-044/shift-management-policy-bands-no-platform-equivalent.png`, `screenshots/BUG-PLT-044/platform-nav-no-policy-band-entry.png` |
 | TC-PLT-270 | PASS | — | — |
-| TC-PLT-271 | FAIL | BUG-PLT-043 | `screenshots/BUG-PLT-043/workload-apply-leave-bypasses-policy-band.png` |
+| TC-PLT-271 | PASS (Retest 2026-10-15) | BUG-PLT-043 (Closed) | `screenshots/BUG-PLT-043/workload-apply-leave-bypasses-policy-band.png` |
 
 ## Summary (2026-10-13)
 

@@ -267,6 +267,16 @@ Built 4 dedicated, single-permission test roles and assigned each to a genuinely
 
 **Lesson, reinforcing the one from `BUG-PLT-048`:** this kind of "is permission X alone sufficient" test is only trustworthy if the test account is built from a genuinely clean user and verified via `rails runner` before the test, not assumed clean because the role name says so or because the user wasn't the focus of a different test.
 
+## ✅ `BUG-PLT-047`'s "later release" landed same-day, and `BUG-WKL-001` fixed within hours of filing — `git pull` + restart + migrate retest, 2026-10-15
+
+At the user's request, pulled `git pull` on all 7 consumer plugin repos under `plugins/` (skipping `flux_tags` per instruction), restarted the `redmine6platform-redmine-1`/`-sidekiq-1` containers, and ran `rake redmine:plugins:migrate RAILS_ENV=production`. All 7 pulls were clean fast-forwards, no conflicts, working trees confirmed clean on `redmineflux_platform` branch beforehand. Two new migrations landed and applied: `redmineflux_shift_management`'s `20261015120000_move_shared_permissions_onto_the_platform_again.rb` and `redmineflux_workload`'s `20261015000001_recalculate_planned_hours_without_split_parents.rb`, plus a new `setting_patch.rb` in Workload.
+
+**`BUG-PLT-047` fully closed out.** The new Shift Management migration does exactly what the developer's own earlier journal note (read during this bug's correction saga, see above) promised: it unregisters all 5 legacy permissions from `Redmine::AccessControl` (the `register_permission_door` calls are removed from `platform_team_patch.rb` entirely) and, as its own migration-safety net, auto-grants the Platform equivalent to any role that still held a legacy one — including this session's own `PLT-DeptCRUD-LegacyOnly`/`PLT-TeamCRUD-LegacyOnly` test roles, confirmed via `rails runner` to have been silently upgraded with zero access lost. `/roles/permissions` (the exact screen the bug was filed from) now shows zero trace of any of the 5 names.
+
+**`BUG-WKL-001` fixed within the same working session it was filed in.** The new `setting_patch.rb` hooks `Setting.after_commit` and calls `RfWorkloadCapacityCalculator.recalculate_all` whenever Platform's `working_hours_per_day` (or its legacy Workload/Timesheet fallbacks, or Redmine's own `non_working_week_days`) actually changes — mirroring the existing Holiday/Leave patch pattern this bug's own Recommendation asked for. Live-verified: an existing workload jumped from 110h to 176h total the moment the setting was saved, with zero manual action (no Edit, no button, no console call). The bug's second ask (a visible manual "Recalculate Capacity" button) was not added, but that was always framed as an independent fallback, not a blocker — the automatic hook is the actual fix for the reported symptom.
+
+**Lesson: when a dev fix references a "later release" or promises a specific follow-up, a `git pull` across the affected plugins is worth doing proactively** rather than waiting for the dev to announce it on the production ticket — both of today's fixes (one explicitly promised in a journal note read hours earlier, one filed and fixed same-day) were sitting in the remote the moment they were checked for.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

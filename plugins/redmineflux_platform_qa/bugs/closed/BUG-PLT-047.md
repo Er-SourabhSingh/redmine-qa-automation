@@ -123,6 +123,33 @@ entity, with zero existing role losing access** — which is exactly what this b
 this same fix (per the developer's own stated plan to remove them "in a later release"), not a separate
 outstanding defect to track here.
 
+## Update (2026-10-15, later same day) — the "later release" landed; all 5 permissions now fully retired
+
+Pulled the dev's own promised follow-up: migration `20261015120000_move_shared_permissions_onto_the_platform_again.rb`
+unregisters all 5 legacy permissions (`manage_teams`, `manage_departments`, `manage_policy_bands`,
+`manage_leave_types`, `manage_holidays`) from `Redmine::AccessControl` — `register_permission_door` calls for them
+are fully removed from `platform_team_patch.rb`. As a migration-safety net for any role that came to hold one of
+the five *between* the two releases (not just the ones already mapped by the first migration), this one restates
+the same old→new permission mapping and grants the Platform equivalent to any role still missing it, so nobody's
+access silently breaks the moment the doors close.
+
+**Live-verified, both halves:**
+1. `Redmine::AccessControl.permissions.map(&:name)` confirms all 5 names are gone — `rails runner` reports
+   "unregistered (retired)" for each.
+2. `/roles/permissions` (the exact screen this bug was originally filed from) now shows **zero** matches for
+   "Manage Teams & Members", "Manage Departments", "Manage Policy Bands & Assignments", "Manage Leave Types", or
+   "Manage Holidays" anywhere on the page — the checkboxes are gone, not just inert.
+3. Two test roles from this same session's permission-CRUD testing (`PLT-DeptCRUD-LegacyOnly`,
+   `PLT-TeamCRUD-LegacyOnly`), which held *only* the legacy permission and nothing else, were confirmed via
+   `rails runner` to have been automatically granted the Platform equivalent (`view_rf_platform_departments` +
+   `manage_rf_platform_departments`, and `view_rf_platform_teams` + `manage_rf_platform_teams` respectively) by
+   this migration — live UI access for `summer.rain` (the user on the Dept-legacy-only role) confirmed unaffected,
+   she still sees the full Departments screen. Zero access lost for any role across this transition.
+
+This is the clean end state the original bug and its Recommendation asked for — not just the repoint fix
+(confirmed earlier the same day), but the full retirement of the leftover permission surface, with the
+migration-safety net now proven to work on a second release boundary too.
+
 ## Production report
 
 Reported to production as **#123347**, linked to Testcase #123276 ("Team Cross-Plugin Flow", since `TC-PLT-280` lives in `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md`) inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.

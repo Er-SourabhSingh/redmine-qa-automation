@@ -112,9 +112,33 @@ aurora.wren:  available_hours = 99.0
    what the plugin's own User Guide/KB already documents, so a user has a manual fallback even before/without (1)
    landing.
 
+## Retest (2026-10-15) — CONFIRMED FIXED
+
+Dev pushed a fix (`lib/redmineflux_workload/patches/setting_patch.rb`, pulled this session) — a `Setting.after_commit`
+hook that calls `RfWorkloadCapacityCalculator.recalculate_all` whenever any of the watched settings actually
+change: Platform's `working_hours_per_day`, the legacy Workload/Timesheet equivalents it falls back to, or
+Redmine's own `non_working_week_days`. Hooked on `::Setting` directly (not the Platform's settings controller), so
+a save from Administration → Plugins → Configure, a legacy screen, or a console all trigger it the same way.
+
+**Live-verified, clean repro:** noted Workload #3 ("TC-258 Aurora Workload", Team-Retest, 2 members) at the
+then-current 5.0h/day setting — 50h capacity for Autumn Grace, 60h for Aurora Wren, 110h total. Changed Platform
+Settings' "Working hours per day" to 8.0 and saved. Reloaded the **existing** workload with **zero** manual
+action (no Edit, no "Update Workload" click, no console command) — capacity had already recalculated to **80h /
+96h / 176h total**, exactly matching the new rate (50×8/5=80, 60×8/5=96). Confirms the automatic hook genuinely
+fires and the existing workload no longer goes stale.
+
+The second half of the original Recommendation (a visible "Recalculate Capacity" button as a manual fallback) was
+**not** added — no match for "Recalculate Capacity" anywhere in `app/views/`. Not a blocker: the automatic hook is
+the actual fix for the reported symptom (silent staleness), and the manual button was always framed as an
+independent, optional fallback, not a requirement for closing this bug.
+
+**CONFIRMED FIXED.** Production issue **#123498** synced In QA/reported → Done, 100%.
+
 ## Production report
 
 Reported to production as **#123498** on `flux.zehntech.com`, project `ztflux`. Not linked to any Test Run/Test
 Case (per explicit instruction — no production Run/Suite exists yet for the Workload plugin). Category: Workload
 Plugin. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority:
 Medium | Defect Type: Functional.
+
+**Closed 2026-10-15** — status synced to production: Done, 100% (confirmed fixed — see Retest section above).

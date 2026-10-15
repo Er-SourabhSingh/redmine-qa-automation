@@ -45,7 +45,7 @@
 | — | Security testing (mandatory, `SENIOR_QA_STANDARDS.md` §28) | — | `PLATFORM_SECURITY.md` TC-PLT-210–222 (13 TCs) | 11 PASS, 1 **FAIL** (TC-PLT-218 — confirmed stored XSS, `BUG-PLT-027`, **Critical, Open**), 1 BLOCKED (TC-PLT-221) | Partial — Critical open bug blocks Exit Criteria |
 | — | Performance testing (mandatory, §29) | — | `PLATFORM_PERFORMANCE.md` TC-PLT-223–232 (10 TCs) | 9 PASS, 1 MIXED (TC-PLT-227, Audit Events) | Covered (no bug filed from this suite) |
 | — | Code Quality review (mandatory, §30) | — | — | Not yet run as a dedicated pass | **Not Covered** |
-| 36 | Team cross-plugin consolidation (UI dedup + Timesheet/Workload/Shift Mgmt flows) | `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md` TC-PLT-238–280, 296–298 | `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md` | Fully executed as of 2026-10-15 across all three consumer plugins. UI-dedup (238–245, 256), Timesheet Team-Mode (246–255), and Workload "Manage workload" (257–263) all PASS, zero defects; `BUG-PLT-037/038/039/040/041/042` all Closed. Shift Management KB business-rule cases (272–280, 296, 298) PASS/CONFIRMED-FIXED/moot; `BUG-PLT-047` CONFIRMED FIXED via TC-PLT-280. TC-PLT-275 FAILED — new High-severity `BUG-PLT-048` (attendance-correction approval has no authorization scoping, confirmed via two independent non-approver accounts), **Open**. TC-PLT-297 Not Covered — Shift Management's Reports page has no Department filter at all, contradicting its own KB. | Partial — one open High-severity bug (`BUG-PLT-048`) and one Not-Covered gap (TC-PLT-297, KB/UI mismatch) remain |
+| 36 | Team cross-plugin consolidation (UI dedup + Timesheet/Workload/Shift Mgmt flows) | `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md` TC-PLT-238–280, 296–298 | `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md` | Fully executed as of 2026-10-15 across all three consumer plugins, zero genuine defects. UI-dedup (238–245, 256), Timesheet Team-Mode (246–255), and Workload "Manage workload" (257–263) all PASS; `BUG-PLT-037/038/039/040/041/042` all Closed. Shift Management KB business-rule cases (272–280, 296, 298) all PASS/CONFIRMED-FIXED/moot; `BUG-PLT-047` CONFIRMED FIXED via TC-PLT-280. TC-PLT-275's first pass produced a false-positive candidate bug (`BUG-PLT-048`) caused by both "control" accounts holding a legitimate broad permission via a shared test role — retested with a genuinely zero-permission user and confirmed PASS; retracted, never a real defect. TC-PLT-297 Not Covered — Shift Management's Reports page has no Department filter at all, contradicting its own KB (a documentation gap, not a scoping defect). | Partial — only the TC-PLT-297 Not-Covered gap (KB/UI mismatch) remains on this row |
 
 ## Gaps requiring action before this plugin can be marked `Complete`
 
@@ -68,11 +68,7 @@
    read `Complete`, per `CLAUDE.md` §10.
 6. **This matrix predates (2026-10-01) the plugin's own cross-plugin flow suites** (`PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md`,
    `PLATFORM_HOLIDAY_CROSS_PLUGIN_FLOW.md`, `PLATFORM_ORGANIZATION_CONTACT_CROSS_PLUGIN_FLOW.md`, and most of
-   `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md`), all written/executed 2026-10-13 onward, and the `BUG-PLT-037`–`048` series.
+   `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md`), all written/executed 2026-10-13 onward, and the `BUG-PLT-037`–`047` series.
    Row 36 (added 2026-10-15) now reflects the Team suite's full execution, but the Leave/Holiday/Organization-Contact
    suites are still not reconciled against this matrix — not just a Timesheet-flow gap anymore, but still a
    matrix-wide one for those three suites.
-7. **`BUG-PLT-048` (row 36, High, Open)** — Shift Management's attendance-correction approval queue has no
-   authorization scoping at all; any authenticated user can approve any other employee's pending correction.
-   Found 2026-10-15 while executing TC-PLT-296/TC-PLT-275. Blocks `STATUS.md` from `Complete` until fixed,
-   retested, and regressed.

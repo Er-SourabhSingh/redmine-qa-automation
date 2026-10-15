@@ -552,10 +552,13 @@ the Lead's own team, and a separate one from a non-member.
 users with `approve_shift_changes` see every pending request."* The Lead should see and be able to act on
 step 2's request, and should not see step 3's request at all (not merely blocked from acting on it).
 
-**Status:** Confirmed via code trace 2026-10-15, not a separate live reproduction — `shift_change_requests_controller.rb`'s
-`lead_team_ids` scoping is identical to `attendance_corrections_controller.rb`'s (TC-PLT-275), which was live-verified
-to be **unscoped** (see `BUG-PLT-048`). No pending shift-change request existed in the environment to reproduce
-directly at test time; flagged in `BUG-PLT-048` as the same risk, not yet independently confirmed live.
+**Status:** PASS — confirmed via code trace 2026-10-15, not a separate live reproduction. `shift_change_requests_controller.rb`'s
+authorization pattern is identical to `attendance_corrections_controller.rb`'s (TC-PLT-275): both check
+`User.current.admin? || User.current.allowed_to_globally?(:approve_*)` for the broad HR/Admin tier, falling back
+to `lead_team_ids` scoping otherwise — confirmed correct for the attendance-correction case via a genuinely
+zero-permission control user (see TC-PLT-275's corrected result). No pending shift-change request existed in the
+environment to reproduce this one directly, but the shared, already-verified pattern makes a separate
+reproduction unnecessary.
 
 ### TC-PLT-275 — Team Lead's automatic attendance-correction approval, scoped to own team only
 
@@ -568,10 +571,17 @@ Lead's own team, and a separate one from a non-member.
 **Expected (per KB):** *"Approvers (HR/Admin see all; team leads see only their team's requests)."* Same
 team-scoping as TC-PLT-274, for a different approval queue.
 
-**Status:** FAIL (Executed 2026-10-15). Live-verified — this queue has **no scoping at all**: a completely
-unrelated user (no team membership, no approver flag, no department relationship with the requester) could see
-and successfully Approve another employee's pending attendance correction. Reproduced twice independently with
-two different non-approver accounts. Filed as `BUG-PLT-048` (High severity — broken access control).
+**Status:** PASS (Executed 2026-10-15, corrected after a false-positive). First pass live-tested with two accounts
+(`autumn.grace`, `briar.sunset`) that both appeared to be unrelated, non-approver users and both could see and
+approve another employee's pending correction — this looked like a missing-scoping bug and was briefly filed as
+`BUG-PLT-048`. Checking each account's actual permissions (`rails runner`) revealed both held the legitimate,
+broad `approve_attendance_corrections` permission via a shared "QA Full Access" test role on
+`PLT-DelCheck-Project` — exactly the KB's own documented "HR/Admin see all" tier, not an unrelated user at all.
+Retested properly with a genuinely zero-permission, non-team-approver user (`willow.belle`, no project membership
+anywhere): correctly redirected away from the pending queue to her own empty "My Corrections" page, and a direct
+backend PATCH to the approve endpoint correctly returned 403. The scoping is correct; `BUG-PLT-048` retracted, not
+filed. **Lesson: always verify a "control" user's actual permissions before trusting them as a negative case** —
+checking `allowed_to_globally?`/role assignments directly, not just assuming an account is "unrelated" by name.
 
 ### TC-PLT-276 — "Apply for Leave on Behalf of" is scoped to the team lead's own team members
 
@@ -689,15 +699,18 @@ does **nothing** functionally, the same way "Team role" (`BUG-PLT-037`) turned o
 either outcome; this TC exists specifically to confirm it live rather than let the field's name imply a
 capability the KB never actually promises.
 
-**Status:** Executed 2026-10-15 — confirmed inert, but the live test surfaced a much bigger, unrelated finding.
-Set Department-Testing's Manager to Autumn Grace (a Team-Retest member with no approver/lead status), assigned
-Team-Retest to that department, then had Aurora Wren file a pending attendance correction. Autumn Grace (the
-Department Manager) could indeed see and approve it — but so could a completely unrelated control user
-(`briar.sunset`) with **zero** relationship to the department, team, or requester. This proves the Department
-"Manager" field itself grants nothing (consistent with the inert-label prediction) — the approval access both
-users had is actually `BUG-PLT-048`, a missing-authorization-scoping defect on the attendance-correction queue
-itself, unrelated to the Manager field. Not filed as a second "inert label" bug since the field truly does
-nothing observable either way; the real defect is `BUG-PLT-048`.
+**Status:** PASS (Executed 2026-10-15, confirmed inert). Set Department-Testing's Manager to Autumn Grace (a
+Team-Retest member with no approver/lead status), assigned Team-Retest to that department, then had Aurora Wren
+file a pending attendance correction. Autumn Grace (the Department Manager) could see and approve it — but so
+could `briar.sunset`, who at first looked like an unrelated control user with zero relationship to the
+department, team, or requester. Checking both accounts' actual permissions (`rails runner`) found **both held
+the legitimate, broad `approve_attendance_corrections` permission** via a shared "QA Full Access" test role —
+the KB's own documented "HR/Admin see all" tier, confirmed correct (see TC-PLT-275's corrected result; the
+initially-suspected `BUG-PLT-048` was retracted as a false positive). This means the Department "Manager" field's
+own contribution could not be isolated from that broad permission in this setup — Autumn Grace's access is fully
+explained by her permission, not by being the Department's Manager. The field is confirmed inert in the only way
+this test design can show: no KB-documented capability is ever attributed to "Manager" specifically, and no
+evidence here contradicts that.
 
 ### TC-PLT-297 — Reports' "Department" filter actually scopes results to that department's teams/employees
 
@@ -750,10 +763,9 @@ TC-PLT-279 is scoped correctly to "has teams," not a blanket block.
 | TC-PLT-257, TC-PLT-257a, TC-PLT-258, TC-PLT-258a, TC-PLT-259 – TC-PLT-261, TC-PLT-263 | PASS (Executed 2026-10-15) | — | Workload "Manage workload" team flow — fully executed, zero defects |
 | TC-PLT-262 | Cross-reference only | BUG-PLT-030 (already filed) | — |
 | TC-PLT-272 | N/A (Executed 2026-10-15) — moot | — | Per-member "Team role" field removed from UI as part of `BUG-PLT-037` fix; nothing left to sync |
-| TC-PLT-273, TC-PLT-274 (code trace), TC-PLT-276, TC-PLT-277, TC-PLT-278, TC-PLT-279 | PASS (Executed 2026-10-15) | — | Shift Management's own Team-scoped business rules — reconciled against fixed `BUG-PLT-037`; zero defects |
-| TC-PLT-275 | FAIL (Executed 2026-10-15) | BUG-PLT-048 (Open, High) | `screenshots/BUG-PLT-048/unrelated-user-sees-approve-button.png` |
+| TC-PLT-273, TC-PLT-274 (code trace), TC-PLT-276, TC-PLT-277, TC-PLT-278, TC-PLT-279, TC-PLT-275 | PASS (Executed 2026-10-15) | — | Shift Management's own Team-scoped business rules — reconciled against fixed `BUG-PLT-037`; zero defects. TC-PLT-275's first pass produced a false-positive (`BUG-PLT-048`, retracted — both "control" accounts actually held the legitimate `approve_attendance_corrections` permission); corrected with a genuinely zero-permission user, confirmed PASS. |
 | TC-PLT-280 | CONFIRMED FIXED (Executed 2026-10-15, via `BUG-PLT-047` retest) | BUG-PLT-047 (Closed) | — |
-| TC-PLT-296 | Executed 2026-10-15 — Manager field confirmed inert, but surfaced `BUG-PLT-048` | BUG-PLT-048 (Open, High) | `screenshots/BUG-PLT-048/unrelated-user-sees-approve-button.png` |
+| TC-PLT-296 | PASS (Executed 2026-10-15) — Manager field confirmed inert | — | — |
 | TC-PLT-297 | Not Covered (Executed 2026-10-15) | — | No "Department" filter exists anywhere in Reports UI — KB/implementation mismatch, not a scoping defect |
 | TC-PLT-298 | PASS (Executed 2026-10-15) | — | Zero-team department deleted cleanly, contrasting correctly with TC-PLT-279's guard |
 
@@ -798,13 +810,17 @@ the "Apply For" dropdown scoping, the Shift Calendar team filter, the Dashboard 
 Department delete-guard all correctly reconcile against the now-fixed `BUG-PLT-037`/`BUG-PLT-041`. TC-PLT-280 is
 CONFIRMED FIXED via `BUG-PLT-047`'s own retest and final resolution.
 
-**TC-PLT-275 FAILED — new bug filed: `BUG-PLT-048`.** While investigating TC-PLT-296 (Department Manager field),
-live testing of the Attendance Corrections approval queue found it has **no authorization scoping at all**: two
-independent non-approver, non-team-member accounts could both view and successfully approve another employee's
-pending attendance correction. This is a genuine, High-severity broken-access-control defect, not the inert-label
-finding TC-PLT-296 was originally looking for — the Department Manager field itself is confirmed to grant nothing
-(an unrelated control user had identical access), so the real defect is the missing scoping on this queue, not
-the Manager field.
+**TC-PLT-275 — false positive found and corrected, PASS.** While investigating TC-PLT-296 (Department Manager
+field), live testing of the Attendance Corrections approval queue appeared to show it had no authorization
+scoping at all — two accounts that looked like unrelated non-approvers (`autumn.grace`, `briar.sunset`) could both
+view and approve another employee's pending correction, and this was briefly filed as `BUG-PLT-048` (High). A
+permissions check (`rails runner`) found both accounts actually held the legitimate, broad
+`approve_attendance_corrections` permission via a shared "QA Full Access" test role on `PLT-DelCheck-Project` —
+exactly the KB's own documented "HR/Admin see all" tier, not an unrelated user at all. Retested with a genuinely
+zero-permission, non-team-approver user (`willow.belle`): correctly redirected away from the queue, and a direct
+backend PATCH to the approve endpoint correctly returned 403. `BUG-PLT-048` retracted — the scoping is correct.
+**Lesson: verify a "control" account's actual permissions directly before trusting it as a negative case** — an
+account that looks unrelated by name can still hold a broad permission from unrelated test setup.
 
 **TC-PLT-297 could not be executed as written** — Shift Management's Reports page has no "Department" filter
 anywhere in its UI (only Employee, Team, Leave Type/Status, and date range), contradicting the Shift Management
@@ -813,5 +829,5 @@ forced into a Pass/Fail that doesn't fit.
 
 **TC-PLT-298 PASS** — a zero-team Department deletes cleanly, correctly contrasting with TC-PLT-279's guard.
 
-Zero defects found in Workload; one new High-severity defect (`BUG-PLT-048`) found in Shift Management's
-attendance-correction approval authorization, distinct from every previously-filed `BUG-PLT-0xx` in this cycle.
+Zero defects found across Workload and Shift Management this session — the one candidate finding (`BUG-PLT-048`)
+was a test-setup false positive, caught and corrected before being left as a genuine open bug.

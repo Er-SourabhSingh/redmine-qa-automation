@@ -1257,9 +1257,30 @@ CONFIRMED LIVE 2026-09-07 (Local, redmine-docker-6, `luna.blossom`, ticket #46 /
 
 ---
 
+### TC-HLP-434: "Minimum time per ticket" deduction-rule enforcement on ticket close — observed, not yet confirmed as a defect (HD-5, the holdout TC-HLP-423 explicitly left untested)
+
+**User Role:** Admin
+**Priority:** High
+**Precondition:** An organization/project budget with a Deduction rule configured — Billable activities = Technical Support, Minimum time per ticket = 30 minutes (configured via Platform's Organization detail page, `TC-PLT-302-Test-Org` / `PLT-DelCheck-Project`).
+
+**Steps:**
+1. Log 0:10 (10 minutes) against a ticket in the covered project under the billable activity (Technical Support).
+2. Confirm the normal per-entry deduction appears in Budget history (it did: `-0.17h`).
+3. Close the ticket (Status → Closed).
+4. Re-check Budget history / Used / Remaining for any additional auto-generated entry covering the 20-minute shortfall to reach the configured 30-minute minimum.
+
+**Expected Result:**
+- Per the Deduction rules dialog's own help text (quoted verbatim in TC-HLP-422): "When a ticket closes with less time logged than this, the difference is logged automatically so the budget always reflects at least this much per ticket."
+
+**Observed 2026-10-15** (Local, redmine-docker-6-platform, admin): No additional Budget history row appeared after closing the ticket — Used/Remaining stayed exactly as they were after the original 10-minute deduction (no shortfall top-up to reach 30 min). Checked the container's Sidekiq (`redmine6platform-sidekiq-1`) cron schedule to rule out a missed-background-job explanation — only `email_checker`, `sla_monitor`, and `auto_close_tickets` are registered, no job for this rule, so if the feature exists it would have to fire synchronously on status change, not async.
+
+**Status: NOT FILED AS A BUG — holding pending clarification.** A bug was initially drafted (would have been BUG-PLT-051) but retracted at the user's instruction: the only source for the "auto-log the shortfall on close" expectation is the dialog's own UI copy, not a separate confirmed requirements document, and the user flagged that asserting it as a firm spec requirement was not justified. TC-HLP-423's own note from 2026-09-28 already flagged this exact behavior as the one holdout never exercised live — it still is. Needs the actual intended behavior clarified (what "logged automatically" is supposed to produce, and where) before this can be scored PASS/FAIL.
+
+---
+
 ## Evidence Map
 
-- Case ID: TC-HLP-188 – TC-HLP-205, TC-HLP-206 – TC-HLP-212 (Support Packages, newly discovered entity, added 2026-09-03), TC-HLP-213 – TC-HLP-226 (user-identified coverage gaps, added 2026-09-03), TC-HLP-227 – TC-HLP-234 (user-identified coverage gaps round 2, added 2026-09-07), TC-HLP-235 – TC-HLP-238 (editing/deleting an existing time entry, round 3, added 2026-09-07), TC-HLP-239 (core "Log time" link, a third distinct code path, round 4, added 2026-09-07), TC-HLP-240 – TC-HLP-245 (budget configuration × ticket-creation channel matrix, round 5, added 2026-09-09), TC-HLP-246 – TC-HLP-247 (customer-without-organization time-logging + multi-customer shared-organization budget, round 6, added 2026-09-10), TC-HLP-420 – TC-HLP-425 (HD-4/HD-5/HD-6/HD-7 Prepaid Support Hours feature bundle, production issue #121289, round 7, added 2026-09-28), TC-HLP-433 (one Support Package in force per org + project, from a user UX review, added 2026-09-28)
+- Case ID: TC-HLP-188 – TC-HLP-205, TC-HLP-206 – TC-HLP-212 (Support Packages, newly discovered entity, added 2026-09-03), TC-HLP-213 – TC-HLP-226 (user-identified coverage gaps, added 2026-09-03), TC-HLP-227 – TC-HLP-234 (user-identified coverage gaps round 2, added 2026-09-07), TC-HLP-235 – TC-HLP-238 (editing/deleting an existing time entry, round 3, added 2026-09-07), TC-HLP-239 (core "Log time" link, a third distinct code path, round 4, added 2026-09-07), TC-HLP-240 – TC-HLP-245 (budget configuration × ticket-creation channel matrix, round 5, added 2026-09-09), TC-HLP-246 – TC-HLP-247 (customer-without-organization time-logging + multi-customer shared-organization budget, round 6, added 2026-09-10), TC-HLP-420 – TC-HLP-425 (HD-4/HD-5/HD-6/HD-7 Prepaid Support Hours feature bundle, production issue #121289, round 7, added 2026-09-28), TC-HLP-433 (one Support Package in force per org + project, from a user UX review, added 2026-09-28), TC-HLP-434 (minimum-time-per-ticket auto-log-on-close holdout from TC-HLP-423, observed not yet confirmed as a defect, added 2026-10-15)
 - Screenshot: `screenshots/<TC-ID>/` (only if a bug is found — see `CLAUDE.md` §6)
 - Log: `logs/`
 - Bug reference: see `bugs/_index.md`

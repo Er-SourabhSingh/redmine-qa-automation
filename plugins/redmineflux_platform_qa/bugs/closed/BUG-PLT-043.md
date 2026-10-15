@@ -54,6 +54,18 @@ This is not a new defect in the sense of unexpected behavior — `BUG-PLT-036`'s
 
 Move the Policy Band gate (`leave_type_permitted?`/`refuse_leave_type`, currently only in Shift Management's `leave_controller.rb`) onto the shared `RedminefluxPlatform::Leave` model's own validation/callback, the same way leave balance accounting was already moved there in `BUG-PLT-036`'s fix. This way every consumer (Workload's controller, Platform's own New Leave Request form, and any future one) inherits the gate automatically instead of each needing its own copy — directly enabled by, and dependent on, resolving `BUG-PLT-044` first (Policy Bands need to be queryable from a place all three plugins can reach).
 
+## Fix Verification (Retest 2026-10-15)
+
+Retested live against the rebuilt `redmineflux_platform` environment (`redmine-docker-6-platform`, `localhost:3013`), repeating this bug's exact original repro.
+
+**Fix**: submitted a Workload "Apply Leave" request as Aurora Wren, who is unassigned to any leave policy band — the submission was **server-side REJECTED** with an explicit error: *"You have no leave policy band for this year, so no leave type can be chosen. Ask an administrator to assign you one."* The gate this bug reported as missing from Workload's own Apply Leave is now genuinely enforced, matching the gate Shift Management already had (per `BUG-PLT-036`'s fix) — confirming the Recommendation's direction (move the gate onto the shared model) has landed.
+
+**Minor residual, not blocking**: the Leave Type dropdown still visually lists all 5 types despite none being valid for her — a cosmetic leftover, not a functional gap, since the actual submission is correctly refused regardless of which type is picked.
+
+**CONFIRMED FIXED.** Production issue #123304 synced: status In QA → Done, % done → 100.
+
+Moving to **Closed**.
+
 ## Production report
 
 Reported to production as **#123304**, linked to Testcase #123303 ("Leave Cross-Plugin Flow") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Security.

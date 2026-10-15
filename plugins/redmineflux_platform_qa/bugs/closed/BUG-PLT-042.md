@@ -108,6 +108,16 @@ Team permission. Concretely:
 3. Either way, `/rf_skills` must stop checking Platform's `Create, edit and delete teams` permission — that
    coupling is accidental, not intentional design.
 
+## Fix Verification (Retest 2026-10-15)
+
+Retested live against the rebuilt `redmineflux_platform` environment (`redmine-docker-6-platform`, `localhost:3013`), repeating this bug's own dual-role test method.
+
+**Fix**: confirmed a role holding Platform's Team permission alone (`View the RedmineFlux Platform section` + `View teams` + `Create, edit and delete teams`), with **no** Workload-specific Skills permission, now gets a clean **403** on `/rf_skills` — Platform's Team permission no longer accidentally gates Skills access. A dedicated, genuinely separate **"Manage skills"** permission now exists and gates `/rf_skills` on its own, fully decoupled from Platform's Team permission — exactly per this bug's Recommendation (option 2: a new dedicated permission).
+
+**CONFIRMED FIXED.** Production issue #123288 synced: status In QA → Done, % done → 100.
+
+Moving to **Closed**.
+
 ## Production report
 
 Reported to production as **#123288**, linked to Testcase #123276 ("Team Cross-Plugin Flow") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Security.

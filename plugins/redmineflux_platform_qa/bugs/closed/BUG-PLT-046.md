@@ -68,6 +68,18 @@
 4. Fix the SLA "Holiday" picker to respect Holiday Scheme active/inactive status: either let the SLA form select the **Holiday Scheme** itself (so the SLA automatically uses whichever holidays that scheme currently defines, staying in sync as the scheme changes) rather than individual Holiday records, or at minimum filter the multi-select to only the holidays belonging to the currently **active** scheme.
 5. No change is needed to the underlying data-sharing itself — `rf_holidays`/`rf_holiday_schemes` are already correctly shared; every fix here is about which UI is allowed to exist, and which records a consumer's own picker is allowed to offer.
 
+## Fix Verification (Retest 2026-10-15)
+
+Retested live against the rebuilt `redmineflux_platform` environment (`redmine-docker-6-platform`, `localhost:3013`). Both halves of this bug's finding were re-checked.
+
+**(1) Nav fragmentation — fixed.** Platform's own Holidays section now has a tabbed sub-nav (Holiday Schemes / Holidays) under one unified section, rather than two separate top-level nav entries — matching this bug's Recommendation of merging the two into one section.
+
+**(2) SLA active-scheme bypass — fixed.** Helpdesk's SLA "Holiday" multi-select (`/projects/1/rf_slas/new`) now shows **zero selectable items**, since the only holiday in the system ("Holiday-Testing") belongs to the **Inactive** "Holiday-Scheme-Testing" scheme — confirming inactive-scheme holidays are now correctly excluded from the SLA picker, resolving the bypass this bug originally found.
+
+**CONFIRMED FIXED.** Production issue #123344 synced: status In QA → Done, % done → 100.
+
+Moving to **Closed**.
+
 ## Production report
 
 Reported to production as **#123344**, linked to Testcase #123343 ("Holiday Cross-Plugin Flow") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Low | Defect Severity: Low-severity | Defect priority: Low | Defect Type: Usability.

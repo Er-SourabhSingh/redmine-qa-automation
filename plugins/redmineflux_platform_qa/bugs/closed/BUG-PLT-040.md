@@ -49,6 +49,16 @@ Shift Management renders its **own independent "all teams" list** at `/shift_man
 
 Replace Shift Management's own "Teams" tab content with either (a) a direct link out to Platform's `/redmineflux_platform/teams`, or (b) if Shift Management needs an in-context view, keep rendering a read-only table sourced live from Platform's Team data (no independent list logic) — but remove View/Edit/Delete entry points that imply this is Shift Management's own screen, since they already redirect to Platform anyway.
 
+## Fix Verification (Retest 2026-10-15)
+
+Retested live against the rebuilt `redmineflux_platform` environment (`redmine-docker-6-platform`, `localhost:3013`).
+
+**Fix**: `/shift_management/departments` (Shift Management's own "Teams & Departments" page, including its `?tab=teams` default) now **redirects entirely** to Platform's own Teams list (`/redmineflux_platform/teams`) — Shift Management no longer renders its own independent Teams table at all. The duplicate list this bug reported is gone; there is now exactly one list screen for Team, matching the Recommendation.
+
+**CONFIRMED FIXED.** Production issue #123286 synced: status In QA → Done, % done → 100.
+
+Moving to **Closed**.
+
 ## Production report
 
 Reported to production as **#123286**, linked to Testcase #123276 ("Team Cross-Plugin Flow") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Low | Defect Severity: Low-severity | Defect priority: Low | Defect Type: Usability.

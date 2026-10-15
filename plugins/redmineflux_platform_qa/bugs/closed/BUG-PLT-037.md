@@ -60,6 +60,25 @@ This is a direct continuation of `BUG-PLT-014` ("Team member Role is two disconn
 
 Retire the `role` (Member/Lead) column and its "Team role" field entirely from every screen (Platform, and anywhere else it is still exposed). Use **`can_approve_leave`** as the single, sole source of truth for "can this person approve this team's leave" — the same flag Workload and Timesheet already rely on. One-time data migration: for any existing row where `role='lead'`, set `can_approve_leave=true` so no team silently loses its approver when the field is removed. This removes one of the three overlapping "who leads/approves" concepts currently on this screen (see also `BUG-PLT-039` for the other two: the team-level `Team Lead` single-person field, and the member-table clutter this trio causes).
 
+## Fix Verification (Retest 2026-10-15)
+
+Retested live against the rebuilt `redmineflux_platform` environment (`redmine-docker-6-platform`, `localhost:3013`, fresh Docker image with the dev's fixes pulled in).
+
+**Fix**: the per-member "Team role" (Member/Lead) dropdown documented above has been **removed entirely** from both the Add Members and Edit Member dialogs. In its place is a functional per-member "Approve leave" checkbox — the field this bug's own Recommendation named as the single source of truth.
+
+**Retest steps**:
+1. Created a new Team, "Team-Retest" (id 19), from Platform's own Teams screen.
+2. Added member Aurora Wren with **Approve leave = Yes**.
+3. Added member Autumn Grace as a plain member (Approve leave left unchecked), and assigned her the 2026 leave policy band `PLT-QA-fresher`.
+4. Logged in as Autumn Grace and filed a Comp-Off leave request (leave id 4) — status Pending.
+5. Logged in as Aurora Wren and opened the pending request: clicked **Approve** → confirmed the dialog → leave status changed from **Pending to Approved**.
+
+No "Team role" field is present anywhere on either dialog any more, so the dead-label/contradicting-checkbox problem this bug reported no longer exists, and the "Approve leave" flag is now confirmed to be a real, working permission end-to-end (not just a checkbox with no observed effect).
+
+**CONFIRMED FIXED.** Production issue #123283 synced: status In QA → Done, % done → 100.
+
+Moving to **Closed**.
+
 ## Production report
 
 Reported to production as **#123283**, linked to Testcase #121706 ("Entity CRUD and Field Validation") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.

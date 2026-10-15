@@ -62,6 +62,20 @@ Replace both buttons with inline sections on Platform's own Team page:
 
 This matches the same consolidation direction as `BUG-PLT-037`/`BUG-PLT-039`: Platform's Team page should be able to do everything relevant to a team without routing the admin through each consumer plugin's own duplicate screen.
 
+## Fix Verification (Retest 2026-10-15)
+
+Retested live against the rebuilt `redmineflux_platform` environment (`redmine-docker-6-platform`, `localhost:3013`).
+
+**Fix**: both redirect buttons have been replaced with inline sections directly on Platform's own Team page, exactly per this bug's own Recommendation:
+- "Timesheet Approval" is no longer a navigate-away button — it is now an inline section on the Team page itself.
+- "Workload & Skills" is no longer a navigate-away button either — Workload's `/rf_teams/<id>` destination has been reduced to a pure, read-only **"Team Availability"** view, with no duplicate Delete/Edit/Manage-Members CRUD anywhere on it any more.
+
+Confirmed live: opening a Team's detail page on Platform no longer routes to a second, full Team-management screen in either Timesheet or Workload for these two actions — the duplication (own Delete/Edit/Manage-Members controls, separately-rendered Members list) that was the core of this bug's finding is gone.
+
+**CONFIRMED FIXED.** Production issue #123284 synced: status In QA → Done, % done → 100.
+
+Moving to **Closed**.
+
 ## Production report
 
 Reported to production as **#123284**, linked to Testcase #121706 ("Entity CRUD and Field Validation") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.

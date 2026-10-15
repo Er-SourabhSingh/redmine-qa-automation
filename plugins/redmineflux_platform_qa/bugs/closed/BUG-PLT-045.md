@@ -55,6 +55,16 @@ This matters beyond pure duplication because the three screens do not enforce th
 2. Replace Workload's and Shift Management's own native Apply/Approve UIs with either a direct link to Platform's screen, or an inline widget that reads live from Platform's data and routes the actual submission/approval through Platform's own shared logic (once `BUG-PLT-043`/`044`'s Policy Band consolidation is done) — not independently-implemented forms and queues.
 3. Until this is done, any fix to one screen's business rules (e.g. Policy Band enforcement) must be manually replicated to the other two, which is exactly the maintenance risk `BUG-PLT-016` warned about generically and `BUG-PLT-043` now demonstrates concretely.
 
+## Fix Verification (Retest 2026-10-15)
+
+Retested live against the rebuilt `redmineflux_platform` environment (`redmine-docker-6-platform`, `localhost:3013`).
+
+**Fix**: both `/shift_management/leave` and `/rf_leaves` now **redirect entirely** to Platform's own `/redmineflux_platform/list/leaves` — neither Shift Management nor Workload renders its own independent Apply/Approve Leave UI any more. Platform's own Leaves screen is now the one canonical apply-and-approve surface this bug's Recommendation called for.
+
+**CONFIRMED FIXED.** Production issue #123306 synced: status In QA → Done, % done → 100.
+
+Moving to **Closed**.
+
 ## Production report
 
 Reported to production as **#123306**, linked to Testcase #123303 ("Leave Cross-Plugin Flow") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Low | Defect Severity: Low-severity | Defect priority: Low | Defect Type: Usability.

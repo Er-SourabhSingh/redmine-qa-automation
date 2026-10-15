@@ -56,6 +56,16 @@
 2. Migrate Shift Management's existing Department records into Platform's table (same migration shape as the Team/Organization consolidations already completed).
 3. Shift Management's own "Departments" tab should then either be removed in favor of linking to Platform, or kept as a read-only view sourced from Platform's data — matching the recommendation already made for Shift Management's Teams tab in `BUG-PLT-040`.
 
+## Fix Verification (Retest 2026-10-15)
+
+Retested live against the rebuilt `redmineflux_platform` environment (`redmine-docker-6-platform`, `localhost:3013`).
+
+**Fix**: `/redmineflux_platform/list/departments` now exists as a genuine Platform-owned screen, under a proper "Teams & Departments" tab in Platform's own nav — following the same pattern already used for Team/Organizations/Holiday Schemes, exactly per this bug's Recommendation #1. The 404 this bug originally reported is gone; Platform is now the owning screen for Department, not just a silent consumer of Shift Management's data.
+
+**CONFIRMED FIXED.** Production issue #123287 synced: status In QA → Done, % done → 100.
+
+Moving to **Closed**.
+
 ## Production report
 
 Reported to production as **#123287**, linked to Testcase #123276 ("Team Cross-Plugin Flow") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.

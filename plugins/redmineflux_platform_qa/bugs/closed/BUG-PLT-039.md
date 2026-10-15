@@ -79,6 +79,24 @@ benefit from a dedicated design pass rather than only removing the 2 redundant f
 2. Drop the per-member "Team role" (Member/Lead) field per `BUG-PLT-037`'s recommendation.
 3. After both removals, the Member table drops to 7 columns (checkbox, User, Redmine role, Manage workload, Approve leave, Joined on, Actions) — re-measure against this repo's own phone-width/overflow standard (`PLATFORM_ENTITY_CRUD_AND_FIELD_VALIDATION.md` TC-PLT-135) once implemented, since removing 2 columns may resolve the overflow without any further layout change.
 
+## Fix Verification (Retest 2026-10-15)
+
+Retested live against the rebuilt `redmineflux_platform` environment (`redmine-docker-6-platform`, `localhost:3013`).
+
+**Fix, per this bug's own Recommendation**:
+1. The team-level "Team Lead" single-person field has been **removed** from the New Team form — confirmed live at `/redmineflux_platform/teams/new`, which now only offers Team name, Department, Description, Active.
+2. The per-member "Team role" field has been removed as well, per `BUG-PLT-037`'s fix.
+
+**Member table re-measured** on `Team-Retest` (id 19): now **8 columns** (checkbox, User, Redmine role, Manage workload, Approve leave, Joined on, Skills, Actions) — down from the original 9 (S.No. and Team role both dropped, as recommended). The one column beyond the 7 this bug's own Recommendation predicted is a legitimate new "Skills" column (unrelated to this bug, not a regression).
+
+Re-measured against this suite's own phone-width/overflow standard: screenshot captured at 1366×900 — no horizontal overflow, no scrollbar on the Members table.
+
+All three of this bug's findings (the team-level Team Lead field, the per-member Team role field, and the resulting column overflow) are resolved.
+
+**CONFIRMED FIXED.** Production issue #123285 synced: status In QA → Done, % done → 100.
+
+Moving to **Closed**.
+
 ## Production report
 
 Reported to production as **#123285**, linked to Testcase #121706 ("Entity CRUD and Field Validation") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Low | Defect Severity: Low-severity | Defect priority: Low | Defect Type: Usability.

@@ -61,6 +61,16 @@ This is a more complete version of the gap already found in `BUG-PLT-041` (Depar
 4. Shift Management's own "Policy Bands"/"Assign Leave Band" tabs should then either redirect to Platform or become read-only views sourced from Platform's data, matching the pattern already recommended for Team (`BUG-PLT-040`) and Department (`BUG-PLT-041`).
 5. This is also the prerequisite for fixing `BUG-PLT-043` cleanly — the gate can only be moved onto the shared `Leave` model once Policy Band data itself is reachable from that shared layer, not locked inside Shift Management's own tables/controllers.
 
+## Fix Verification (Retest 2026-10-15)
+
+Retested live against the rebuilt `redmineflux_platform` environment (`redmine-docker-6-platform`, `localhost:3013`).
+
+**Fix**: Platform now has a unified **Leave** section with "Leave policy bands" and "Assign leave band" tabs, both genuine `/redmineflux_platform/...` URLs — not a Shift-Management-only screen with no Platform equivalent any more. This matches this bug's Recommendation both for adding Platform ownership of Policy Bands/Assign Leave Band, and for folding Leave-related concepts into one section rather than scattering them across separate nav entries.
+
+**CONFIRMED FIXED.** Production issue #123305 synced: status In QA → Done, % done → 100.
+
+Moving to **Closed**.
+
 ## Production report
 
 Reported to production as **#123305**, linked to Testcase #123303 ("Leave Cross-Plugin Flow") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.

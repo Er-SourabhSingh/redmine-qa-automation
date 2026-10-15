@@ -293,6 +293,12 @@ The actual mechanism is a **project-scoped** screen only visible once you're ins
 
 **Lesson: this is the SAME root cause as the TC-PLT-303 false positive above — twice in one day. Before concluding a cross-plugin integration "doesn't work" or "doesn't exist," check for a project-scoped settings/config screen (reached only via a project's own nav, not the plugin's top-level nav) in addition to the record's own edit form and any related record's linking UI. A plugin's global top-nav screen and its per-project screen can have completely different field sets and behavior.**
 
+## ✅ Contact Links, Deal creation, and Invoice creation all confirmed fully working with Platform's Contact/Organization (TC-PLT-310–312, 2026-10-15)
+
+At the user's direct request to close out remaining untested Contact consumption points: `BUG-PLT-026`'s original finding ("the `rf_organization_contact_links` feature has a fully built data model but zero UI") is now fully resolved — `/redmineflux_platform/list/organization_contact_links/new` exists, works end to end (Organization, Contact, Role, From/Until, Primary contact all persist), and correctly surfaces on the Contact's own page under "Other organizations". CRM's Deal creation from a Contact (`/deals/new?contact_id=<id>`) correctly pre-fills and locks the Contact field, auto-selects the Contact's own Organization, and both fields on the created Deal are real hyperlinks back to Platform's screens — not copied data — with Forecasted Value correctly auto-calculating as Amount × Probability. Full Invoice creation (not just the New Invoice form's field auto-population already covered by TC-PLT-305) was also carried through to a real submitted invoice, confirming Bill To/line items/Subtotal/Total all work correctly end to end. Zero defects found across all three.
+
+**One false-alarm moment worth flagging for future sessions:** mid-test, a project's Billing Settings Contact appeared to change on its own between two page loads. Before concluding this was a bug, checked with the user directly — they had made the change themselves concurrently. Lesson: an unexplained state change on a screen you didn't touch is a prompt to ask before filing, not just a prompt to investigate further — especially late in a session with multiple tabs/background navigations open, where it's easy to lose track of exactly what you yourself did.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

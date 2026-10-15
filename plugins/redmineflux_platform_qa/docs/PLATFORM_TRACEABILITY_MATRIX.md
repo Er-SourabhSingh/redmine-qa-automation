@@ -29,7 +29,7 @@
 | 20 | Vocabulary consolidation | Features List #20 | `PLATFORM_VOCABULARY_AND_LABELS.md` | 1 FAIL + 1 PARTIAL FAIL out of 13 TCs — `BUG-PLT-024` (leftover "Company" wording in CRM, Open, Low) and `BUG-PLT-025` (wrong Private/Visible-to-all vocabulary, Open, Low) | Partial |
 | 21 | UX pass — dedicated pages | Features List #21 | `PLATFORM_VOCABULARY_AND_LABELS.md` | PASS | Covered |
 | 22 | UX pass — button order/alignment | Features List #22 | `PLATFORM_VOCABULARY_AND_LABELS.md` TC-PLT-088 | PASS — `BUG-PLT-023` originally filed against this then **retracted** 2026-10-01 (wrong reference standard; Primary-first/left-aligned confirmed as the actual intended convention) | Covered |
-| 23 | Organization–Contact linking | Features List #23 | `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md` | **No coverage possible** — `BUG-PLT-026` (Open, Medium): the `rf_organization_contact_links` feature has a data model but zero UI/controller/API to exercise | **Not Covered** — feature is unimplemented, not merely untested |
+| 23 | Organization–Contact linking | Features List #23 | `PLATFORM_ORGANIZATION_CONTACT_CROSS_PLUGIN_FLOW.md` TC-PLT-310 | **Resolved** — `BUG-PLT-026` is Closed; the `rf_organization_contact_links` UI (`/redmineflux_platform/list/organization_contact_links/new`) now exists and was independently re-verified end to end 2026-10-15 (all fields persist, surfaces correctly on the Contact's own page) | Covered |
 | 24 | Outbox dispatcher | Features List #24 | `PLATFORM_INSTALLATION_AND_UPGRADE.md` TC-PLT-024 | PASS (42 pages, 0 server errors spot-check; dispatcher processes without manual intervention) | Covered |
 | 25 | External identity mapping (groundwork, no consumer yet) | Features List #25 | `PLATFORM_KNOWN_GAPS_AND_EDGE_CASES.md` | Smoke/no-error check only, by design (no consumer feature exists yet per the ticket) | Covered (scope-limited, by design) |
 | 26 | `contact_type` internal value (KNOWN GAP) | Features List #26 | `PLATFORM_KNOWN_GAPS_AND_EDGE_CASES.md` | **Confirmed fixed** 2026-10-01 (previously a known gap) | Covered |
@@ -46,6 +46,7 @@
 | — | Performance testing (mandatory, §29) | — | `PLATFORM_PERFORMANCE.md` TC-PLT-223–232 (10 TCs) | 9 PASS, 1 MIXED (TC-PLT-227, Audit Events) | Covered (no bug filed from this suite) |
 | — | Code Quality review (mandatory, §30) | — | — | Not yet run as a dedicated pass | **Not Covered** |
 | 36 | Team cross-plugin consolidation (UI dedup + Timesheet/Workload/Shift Mgmt flows) | `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md` TC-PLT-238–280, 296–298 | `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md` | Fully executed as of 2026-10-15 across all three consumer plugins, zero genuine defects. UI-dedup (238–245, 256), Timesheet Team-Mode (246–255), and Workload "Manage workload" (257–263) all PASS; `BUG-PLT-037/038/039/040/041/042` all Closed. Shift Management KB business-rule cases (272–280, 296, 298) all PASS/CONFIRMED-FIXED/moot; `BUG-PLT-047` CONFIRMED FIXED via TC-PLT-280. TC-PLT-275's first pass produced a false-positive candidate bug (`BUG-PLT-048`) caused by both "control" accounts holding a legitimate broad permission via a shared test role — retested with a genuinely zero-permission user and confirmed PASS; retracted, never a real defect. TC-PLT-297 Not Covered — Shift Management's Reports page has no Department filter at all, contradicting its own KB (a documentation gap, not a scoping defect). | Partial — only the TC-PLT-297 Not-Covered gap (KB/UI mismatch) remains on this row |
+| 37 | Organization/Contact cross-plugin consolidation (CRM/Helpdesk/Invoice flows, Contact Links, Deal creation) | Features List #23 (Contact Links) + live confirmation | `PLATFORM_ORGANIZATION_CONTACT_CROSS_PLUGIN_FLOW.md` TC-PLT-299–305, 310–312 | Fully executed 2026-10-15, zero genuine defects across all 10 TCs (TC-PLT-304 is an accepted, undecided-by-design asymmetry, not a bug). CRM's native routes now redirect to Platform (positive finding, TC-299). Organization/Contact delete correctly clears references without cascading (301/302). Contact↔Helpdesk Customer link, Contact Links (multi-org), Deal creation, and Invoice creation all work correctly — two candidate findings (303, 305) were filed as bugs then retracted same session after a missed manual-linking screen was found in each case (`BUG-PLT-049`/`BUG-PLT-050`, see `PLATFORM_MEMORY.md`). | Covered |
 
 ## Gaps requiring action before this plugin can be marked `Complete`
 
@@ -57,9 +58,9 @@
    an unexecuted 12/62 slice is a real, non-trivial coverage hole, not a rounding error. Identify exactly which
    entity/origin-plugin/action combinations those 12 are and either execute them or record a specific, named
    exemption in `PLATFORM_SCOPE.md`.
-3. **Row 23 — Organization–Contact linking is unimplemented, not just untested** (`BUG-PLT-026`). No TC can cover
-   a feature with no UI/controller/API; this needs a product decision (build it, or formally descope Feature #23)
-   before the matrix can show it as anything but `Not Covered`.
+3. ~~**Row 23 — Organization–Contact linking is unimplemented, not just untested** (`BUG-PLT-026`).~~ **RESOLVED
+   2026-10-15** — `BUG-PLT-026` is Closed, the UI exists, and TC-PLT-310 independently re-verified it end to end.
+   Row 23 now reads `Covered`.
 4. **Code Quality** (`SENIOR_QA_STANDARDS.md` §30) has no row-level coverage at all yet on this plugin — same gap
    already flagged in `PLATFORM_TEST_PLAN.md`'s Risks section.
 5. **9 open bugs beyond the Critical XSS** (`BUG-PLT-016/017/018/019/020/021/022/024/025/026/028/029/030/031/032/033`
@@ -69,6 +70,6 @@
 6. **This matrix predates (2026-10-01) the plugin's own cross-plugin flow suites** (`PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md`,
    `PLATFORM_HOLIDAY_CROSS_PLUGIN_FLOW.md`, `PLATFORM_ORGANIZATION_CONTACT_CROSS_PLUGIN_FLOW.md`, and most of
    `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md`), all written/executed 2026-10-13 onward, and the `BUG-PLT-037`–`047` series.
-   Row 36 (added 2026-10-15) now reflects the Team suite's full execution, but the Leave/Holiday/Organization-Contact
-   suites are still not reconciled against this matrix — not just a Timesheet-flow gap anymore, but still a
-   matrix-wide one for those three suites.
+   Row 36 (added 2026-10-15) reflects the Team suite's full execution, and Row 37 (added 2026-10-15) now reflects
+   the Organization/Contact suite's full execution too — only the Leave and Holiday cross-plugin flow suites remain
+   unreconciled against this matrix.

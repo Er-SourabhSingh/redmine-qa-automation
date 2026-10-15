@@ -252,6 +252,21 @@ While executing `TC-PLT-296` (checking whether a Department's "Manager" field gr
 
 **Lesson, corrected from the original write-up of this entry: before trusting an account as a "control"/"unrelated user" negative case, check its actual permissions directly (`allowed_to_globally?`, role/membership listing) — never infer "unrelated" from the account's name, its role in an earlier unrelated test, or the absence of an obvious relationship to the current test setup.** This plugin's shared seed-user pool accumulates test roles across sessions (`PLT-DelCheck-Project`'s "QA Full Access" role, created for earlier Skills-permission testing, was still assigned to multiple users used as "control" accounts here) — a user who looks unrelated to *this* test's setup can still hold a broad permission left over from a *different* test's setup.
 
+## ✅ Department and Team CRUD independently confirmed correctly gated by BOTH the Platform permission pair AND the legacy door, zero-permission users correctly blocked (2026-10-15)
+
+Directly prompted by the user asking whether Department CRUD (and separately, Team CRUD) had actually been tested **with its permissions**, not just exercised as Admin or as a user who already held broad access. All earlier Department/Team CRUD testing this cycle (TC-PLT-279/296/298, the original Team walkthrough from `BUG-PLT-037`–`039`) was done with a user already holding multiple roles — never isolated to exactly one permission at a time.
+
+Built 4 dedicated, single-permission test roles and assigned each to a genuinely zero-permission seed user (confirmed via `rails runner` before assignment — the direct lesson from the same-session `BUG-PLT-048` false positive, where a "control" user turned out to hold a broad permission from unrelated earlier test setup):
+
+- `PLT-DeptCRUD-PlatformOnly` → `harmony.rose`: Platform's `view_rf_platform_departments` + `manage_rf_platform_departments` only.
+- `PLT-DeptCRUD-LegacyOnly` → `summer.rain`: Shift Management's legacy `manage_departments` only.
+- `Platform-Team-Permission-Test` (pre-existing, from `BUG-PLT-042`) → `violet.ember`: Platform's `view_rf_platform_teams` + `manage_rf_platform_teams` only.
+- `PLT-TeamCRUD-LegacyOnly` → `celeste.dawn`: Shift Management's legacy `manage_teams` only.
+
+**Result: all 4 roles independently got full Create/Edit/Delete on their respective entity** — both the Platform-only pair and the legacy-only permission work on their own, confirming `BUG-PLT-047`'s `register_permission_door` migration-safety net genuinely covers the full CRUD lifecycle (not just a generic index/manage check). A fifth user (`serenity.bloom`, zero project membership anywhere) was correctly blocked with a real 403 on both `/redmineflux_platform/teams/new` and `/redmineflux_platform/list/departments/new` — confirming the door is additive to the two registered permissions, not a blanket authenticated-user bypass. See `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md` TC-PLT-306–309 for full detail. Zero defects found. All 4 test roles and their assigned users left in place on `PLT-DelCheck-Project` as reproduction fixtures.
+
+**Lesson, reinforcing the one from `BUG-PLT-048`:** this kind of "is permission X alone sufficient" test is only trustworthy if the test account is built from a genuinely clean user and verified via `rails runner` before the test, not assumed clean because the role name says so or because the user wasn't the focus of a different test.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

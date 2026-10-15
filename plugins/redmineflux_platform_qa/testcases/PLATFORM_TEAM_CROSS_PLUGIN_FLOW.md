@@ -745,6 +745,92 @@ blanket block on deleting any Department at all.
 (`TC-PLT-298-NoTeams`) and deleted it successfully ("Successful deletion."), confirming the guard from
 TC-PLT-279 is scoped correctly to "has teams," not a blanket block.
 
+## Functional Cases — Team/Department CRUD, authorization only (per-permission, not per-role-name)
+
+> Prompted directly by the user asking whether Department CRUD (and, separately, Team CRUD) had actually been
+> tested **with its permissions** — i.e. does a user holding only Platform's own permission get full CRUD, does a
+> user holding only Shift Management's legacy permission also get full CRUD via the `register_permission_door`
+> migration-safety net confirmed in `BUG-PLT-047`, and is a user with **neither** permission correctly blocked.
+> All earlier Department/Team CRUD testing this cycle (TC-PLT-279/296/298, the original Team walkthrough) was done
+> as Admin or as a user already holding broad permissions — never isolated to exactly one permission at a time.
+> Four dedicated, single-permission test roles were created for this (`PLT-DeptCRUD-PlatformOnly`,
+> `PLT-DeptCRUD-LegacyOnly`, `PLT-TeamCRUD-LegacyOnly`, plus the already-existing `Platform-Team-Permission-Test`
+> from `BUG-PLT-042`'s investigation), each assigned to a dedicated, previously **zero-permission** seed user on
+> `PLT-DelCheck-Project` — confirmed via `rails runner` before assignment, learning directly from the `BUG-PLT-048`
+> false-positive earlier this session that a "control" user must be checked, not assumed, to genuinely hold no
+> other permission.
+
+### TC-PLT-306 — Department CRUD, Platform's own permission alone, no legacy permission
+
+**Preconditions:** A role holding only `View the RedmineFlux Platform section` + `View departments` +
+`Create, edit and delete departments` (Platform's own pair), with **no** Shift Management "Manage Departments"
+permission at all. Assigned to a user (`harmony.rose`) with no other role/permission anywhere.
+
+1. Log in as that user. Create a new Department, Edit it, then Delete it.
+
+**Expected:** All three actions succeed — Platform's own permission pair is sufficient on its own for full
+Department CRUD, with no dependency on the legacy Shift Management permission.
+
+**Status:** PASS (Executed 2026-10-15). Confirmed live — Create (`PLT-DeptCRUD-Test-PlatformOnly`, department #3),
+Edit, and Delete ("Successful deletion.") all succeeded with zero errors.
+
+### TC-PLT-307 — Department CRUD, Shift Management's legacy permission alone, no Platform permission
+
+**Preconditions:** A role holding only Shift Management's legacy "Manage Departments" permission, with **no**
+Platform `view_rf_platform_departments`/`manage_rf_platform_departments` at all. Assigned to a user
+(`summer.rain`) with no other role/permission anywhere.
+
+1. Log in as that user. Create a new Department, Edit it, then Delete it.
+
+**Expected (per `BUG-PLT-047`'s Final Resolution):** All three actions should still succeed, via the deliberate,
+time-boxed `register_permission_door` migration-safety net — the legacy permission is still a valid alternate door
+into Platform's own Department screen for this release.
+
+**Status:** PASS (Executed 2026-10-15). Confirmed live — Create (`PLT-DeptCRUD-Test-LegacyOnly`, department #4),
+Edit, and Delete ("Successful deletion.") all succeeded with zero errors, confirming the door mechanism covers the
+full CRUD lifecycle for Department, not just a generic "manage" check.
+
+### TC-PLT-308 — Team CRUD, Platform's own permission alone, no legacy permission
+
+**Preconditions:** A role holding only `View teams` + `Create, edit and delete teams` (Platform's own pair; this
+is the pre-existing `Platform-Team-Permission-Test` role from `BUG-PLT-042`'s investigation), with **no** Shift
+Management "Manage Teams & Members" permission at all. Assigned to a user (`violet.ember`) with no other
+role/permission anywhere.
+
+1. Log in as that user. Create a new Team, Edit it, then Delete it.
+
+**Expected:** All three actions succeed — Platform's own permission pair is sufficient on its own for full Team
+CRUD, with no dependency on the legacy Shift Management permission.
+
+**Status:** PASS (Executed 2026-10-15). Confirmed live — Create (`PLT-TeamCRUD-Test-PlatformOnly`, team #22),
+Edit, and Delete (confirmation dialog + redirect to the Teams list) all succeeded with zero errors.
+
+### TC-PLT-309 — Team CRUD, Shift Management's legacy permission alone, no Platform permission; plus a zero-permission negative control for both Department and Team
+
+**Preconditions:** A role holding only Shift Management's legacy "Manage Teams & Members" permission, with
+**no** Platform `view_rf_platform_teams`/`manage_rf_platform_teams` at all. Assigned to a user (`celeste.dawn`)
+with no other role/permission anywhere. Separately, a genuinely zero-permission user (`serenity.bloom`, no
+project membership anywhere, confirmed via `rails runner`) for the negative control.
+
+1. Log in as the legacy-only user. Create a new Team, Edit it, then Delete it.
+2. Log in as the zero-permission control user. Attempt `GET /redmineflux_platform/teams/new` and
+   `GET /redmineflux_platform/list/departments/new` directly.
+
+**Expected:** Step 1 succeeds via the same `register_permission_door` safety net confirmed for Department
+(TC-PLT-307). Step 2 is refused outright (403) for both entities — a user with neither the Platform permission nor
+the legacy door permission gets no access at all, confirming the door mechanism is additive, not a general bypass.
+
+**Status:** PASS (Executed 2026-10-15). Step 1 confirmed live — Create (`PLT-TeamCRUD-Test-LegacyOnly`, team #23),
+Edit, and Delete all succeeded with zero errors. Step 2 confirmed live — both URLs correctly returned a **403
+Forbidden** page for `serenity.bloom`, proving the door is scoped to the two permissions it's actually registered
+for, not a blanket "any authenticated user" bypass.
+
+**Summary (2026-10-15):** Team and Department CRUD are both now independently confirmed to be gated correctly by
+exactly the two expected permission paths (Platform's own pair, or the time-boxed legacy door) for every one of
+Create/Edit/Delete — not just a generic "manage" check assumed to cover all three. Zero defects found. The 4 test
+roles and 4 test users are left in place on `PLT-DelCheck-Project` as reproduction fixtures for any future
+retest, per this repo's own naming convention (not random names).
+
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
@@ -768,6 +854,8 @@ TC-PLT-279 is scoped correctly to "has teams," not a blanket block.
 | TC-PLT-296 | PASS (Executed 2026-10-15) — Manager field confirmed inert | — | — |
 | TC-PLT-297 | Not Covered (Executed 2026-10-15) | — | No "Department" filter exists anywhere in Reports UI — KB/implementation mismatch, not a scoping defect |
 | TC-PLT-298 | PASS (Executed 2026-10-15) | — | Zero-team department deleted cleanly, contrasting correctly with TC-PLT-279's guard |
+| TC-PLT-306, TC-PLT-307 | PASS (Executed 2026-10-15) | — | Department CRUD (Create/Edit/Delete) confirmed working via Platform's own permission alone AND via Shift Management's legacy permission alone (migration-safety door) |
+| TC-PLT-308, TC-PLT-309 | PASS (Executed 2026-10-15) | — | Team CRUD (Create/Edit/Delete) confirmed working via Platform's own permission alone AND via Shift Management's legacy permission alone; zero-permission user correctly 403'd on both entities |
 
 ## Summary (2026-10-13)
 

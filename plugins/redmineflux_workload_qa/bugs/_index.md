@@ -3,6 +3,7 @@
 | Bug ID | Title | Status | Severity | Redmine Version | Production Redmine Issue ID | File Path |
 |--------|-------|--------|----------|-----------------|------------------------------|-----------|
 | BUG-WKL-001 | Existing workloads' capacity numbers go silently stale when Platform's shared "Working Hours Per Day" setting changes — no automatic recalculation and no UI button to trigger one manually — CONFIRMED FIXED 2026-10-15 (Setting.after_commit hook now recalculates all workloads automatically) | Closed | Medium | 6 | #123498 | bugs/closed/BUG-WKL-001.md |
+| BUG-WKL-002 | Workload Gantt chart's own data service (`rf_workload_gantt_data_service.rb` + client-side `gantt_optimized.js`) re-implements holiday detection without recurrence support — a recurring holiday never highlights or reduces capacity past its creation year, unlike the Dashboard's correct `capacity_aggregator.rb`/`WorkingCalendar`-based figures. Same root-cause class as `BUG-SFM-002`/`BUG-HLP-071` filed the same day. | Open | Medium | 6 | #123757 | bugs/open/BUG-WKL-002.md |
 
 ## Notes
 - Bug ID format: `BUG-WKL-NNN`

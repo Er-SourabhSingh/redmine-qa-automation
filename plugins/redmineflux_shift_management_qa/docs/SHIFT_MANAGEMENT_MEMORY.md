@@ -21,6 +21,20 @@
 
 ## Recurring Issues
 
+### ⚠️ Shift Calendar bypasses the plugin's own `HolidayEngine` — recurring holidays never highlight past their creation year (`BUG-SFM-002`, 2026-10-15)
+
+Tested at the user's direct request: a Platform Holiday dated in a past year (`2025-12-25`), marked Recurring,
+correctly highlights on the Shift Calendar for that literal year, but the exact same date one year later
+(`2026-12-25`) shows no highlighting at all — plain `sm-shift-off`, not `sm-shift-holiday`. Root-caused from
+source: `shift_dashboard_controller.rb`'s `calendar` action queries
+`active_schema.rf_holiday_managements.active.where(holiday_date: @start_date..@end_date)`, a literal date-range
+match with no `recurring` awareness, instead of calling the plugin's own `HolidayEngine` service
+(`app/services/holiday_engine.rb`), which already implements correct recurrence (`holiday_on?`,
+`holidays_for_year`, `generate_recurring`) and is what the Dashboard's "Upcoming Holidays" panel correctly uses.
+**Lesson: this plugin has two independent, disagreeing code paths for "is this date a holiday" — don't assume
+one screen's correct recurrence handling means another screen using the same underlying Holiday data gets it
+right too.** Filed `BUG-SFM-002`.
+
 ## Environment Notes
 
 - Manual attendance entry (Attendance → + Manual Entry) requires Employee, Date, Punch In AND Punch Out; the

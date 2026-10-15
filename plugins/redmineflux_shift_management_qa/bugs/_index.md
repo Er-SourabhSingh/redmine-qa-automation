@@ -3,6 +3,7 @@
 | Bug ID | Title | Status | Severity | Redmine Version | Production Redmine Issue ID | File Path |
 |--------|-------|--------|----------|-----------------|------------------------------|-----------|
 | BUG-SFM-001 | Global JS double-binds confirm dialogs site-wide, requiring two clicks to accept/dismiss | Closed — retest PASS 2026-09-25; prod #121065 Done / 100% | High | 7.0.0 | #121065 | bugs/closed/BUG-SFM-001.md |
+| BUG-SFM-002 | Shift Calendar never highlights a recurring Holiday's occurrence in any year but the one it was originally created in — Dashboard's own "Upcoming Holidays" correctly computes the recurrence, Calendar controller bypasses it with a raw literal-date query | Open | Medium | 6 | #123755 | bugs/open/BUG-SFM-002.md |
 
 ## Notes
 - Open bugs: bugs/open/

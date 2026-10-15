@@ -263,6 +263,100 @@ should not appear, consistent with TC-PLT-294.
 
 **Status:** Not yet executed.
 
+## Functional Cases — Recurring holidays: does "Recurring" actually project into future years?
+
+> At the user's direct request: a Holiday dated in a past year, marked Recurring, inside the active scheme — does
+> it correctly apply (highlight/skip) in the *current* year, in both Shift Management and Helpdesk? Added
+> 2026-10-15.
+
+### TC-PLT-316 — A recurring holiday dated in a past year is NOT highlighted by Shift Management's Shift Calendar in the current year
+
+**Preconditions:** Active Holiday Scheme ("Holiday-Scheme-Testing"). A Holiday inside it dated `12/25/2025`
+("TC-Recurring-Holiday-XMas", National, **Recurring = Yes**).
+
+**Steps:**
+1. Open the Shift Calendar for the holiday's literal month (`/shift_management/calendar?month=2025-12`) — confirm
+   the Dec 25, 2025 cell shows holiday highlighting (baseline).
+2. Open the Shift Calendar for the same date one year later (`/shift_management/calendar?month=2026-12`) — check
+   the Dec 25, 2026 cell.
+3. Separately check the Dashboard's "Upcoming Holidays → View All → All Holidays (2026)" for the same holiday.
+
+**Expected:** Per the Holiday's own "Recurring — Repeats every year on this date" setting, Dec 25 should be
+highlighted on the Shift Calendar in 2026 as well as 2025.
+
+**CONFIRMED LIVE 2026-10-15** (Local, `redmine6platform`, admin): **FAIL.** Dec 25, 2025 correctly shows
+`sm-shift-cell sm-shift-holiday` with the holiday badge. Dec 25, 2026 shows plain `sm-shift-cell sm-shift-off` —
+no highlighting at all. The Dashboard's "All Holidays (2026)" view, however, *correctly* lists
+"25 DEC TC-Recurring-Holiday-XMas" — proving the recurrence is computed correctly elsewhere in the same plugin.
+Root-caused from source: `shift_dashboard_controller.rb`'s `calendar` action queries
+`active_schema.rf_holiday_managements.active.where(holiday_date: @start_date..@end_date)` — a literal date-range
+match with zero awareness of `recurring`/`recurrence_type` — instead of using the plugin's own `HolidayEngine`
+service (`holiday_on?`/`holidays_for_year`/`generate_recurring`), which already implements correct recurrence and
+is what the Dashboard panel uses. Filed **BUG-SFM-002** (Medium).
+
+**Status:** FAIL — `BUG-SFM-002`.
+
+### TC-PLT-317 — A recurring holiday dated in a past year is NOT skipped by Helpdesk's SLA clock in the current year
+
+**Preconditions:** Same Holiday as TC-PLT-316 (`TC-Recurring-Holiday-XMas`, Recurring = Yes, dated `12/25/2025`).
+
+**Steps:**
+1. Open a Global SLA create form (`/rf_helpdesk_global_slas/new`) with Working Hours — confirm the Holiday picker
+   offers "TC-Recurring-Holiday-XMas" with no year qualifier (implying it should apply regardless of year).
+2. Inspect the plugin's own SLA deadline calculator (`lib/redmineflux_helpdesk/sla_calculator.rb`) for how
+   `is_holiday?` decides whether a given date counts as a holiday for a selected SLA.
+
+**Expected:** A ticket's SLA deadline landing on `12/25/2026` (the holiday's recurring date) should be skipped by
+the clock, the same as it would be on `12/25/2025`.
+
+**CONFIRMED LIVE 2026-10-15** (Local, `redmine6platform`, admin): **FAIL — confirmed from source, not just
+black-box.** `SlaCalculator#is_holiday?` is:
+```ruby
+def is_holiday?(date_time)
+  return false if sla.holiday_ids_array.empty?
+  date = date_time.to_date
+  @holidays ||= sla.holidays.to_a
+  @holidays.any? { |h| h.start_date <= date && h.end_date >= date }
+end
+```
+This is a pure literal date-range check — `h.start_date <= date && h.end_date >= date` can never be true for any
+date after the holiday's own `end_date` (`2025-12-25`, since no end date was set), regardless of the `recurring`
+flag. A ticket due on `2026-12-25` would NOT have that day skipped. Same root-cause class as `BUG-SFM-002` — a
+second, independent place that ignores Platform's `recurring` flag and does a naive date match instead of
+delegating to the shared recurrence logic. Filed **BUG-HLP-071** (Medium).
+
+**Status:** FAIL — `BUG-HLP-071`.
+
+### TC-PLT-318 — A recurring holiday dated in a past year is NOT highlighted or capacity-adjusted by Workload's own Gantt chart in the current year (distinct from TC-PLT-289, a third independent bug)
+
+**Preconditions:** Same Holiday as TC-PLT-316/317. A Workload (`WHPD-Test-New-Workload`) extended to cover both
+the non-recurring "Holiday-Testing" (`11/20/2026`) and the recurring holiday's current-year date (`12/25/2026`).
+
+**Steps:**
+1. Open the Workload's detail page (`/rf_teams/19/rf_workloads/4`) and inspect its Gantt chart.
+2. Compare the cell at `11/20/2026` against `12/25/2026` and `12/26/2026` (the following Saturday).
+3. Cross-check against the plugin's own Dashboard-level capacity numbers (`capacity_aggregator.rb`), which read
+   recurring holidays correctly via Platform's `WorkingCalendar`, to confirm this is Gantt-specific.
+
+**Expected:** `12/25/2026` should show the same "H" highlighting and capacity reduction as `11/20/2026`,
+consistent with TC-PLT-287–289's own expectation that Workload's capacity engine honors recurring holidays.
+
+**CONFIRMED LIVE 2026-10-15** (Local, `redmine6platform`, admin): **FAIL.** `11/20/2026` correctly shows
+`gantt-timeline-bg-cell holiday` with the "H" label (confirmed via exact pixel-offset DOM inspection, `left:
+2520px` → column 36 → Nov 20). `12/26/2026` correctly shows the `weekend` class (`left: 5040px`). `12/25/2026`
+(`left: 4970px`, the column immediately before) shows neither — plain `gantt-timeline-cell gantt-day-cell`.
+Root-caused from source: unlike `capacity_aggregator.rb` and `rf_workload_timeline_service.rb` — both of which
+correctly delegate to `RedminefluxPlatform::WorkingCalendar` (confirmed via its own source, which properly
+implements `is_recurring` via month/day-of-month projection) — the Gantt-specific
+`rf_workload_gantt_data_service.rb` has its own independent, naive `holiday?(date)` doing a literal date-range
+check with zero `is_recurring` awareness, duplicated again client-side in `gantt_optimized.js`'s `isHoliday()`.
+This means the Gantt's own hour totals, not just its visual marker, likely also fail to deduct the recurring
+holiday — a third independent occurrence of the exact bug class found in Shift Management (`BUG-SFM-002`) and
+Helpdesk (`BUG-HLP-071`) the same day, this time inside Workload itself despite that plugin's *other* two holiday
+consumers (Dashboard capacity, Timeline service) already being correct. Filed **BUG-WKL-002** (Medium).
+
+**Status:** FAIL — `BUG-WKL-002`.
+
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
@@ -276,6 +370,27 @@ should not appear, consistent with TC-PLT-294.
 | TC-PLT-287 – TC-PLT-289 | Not yet executed | — | Workload: active-scheme holiday effect on capacity/timeline — written 2026-10-13, pending first live execution pass |
 | TC-PLT-290 – TC-PLT-292 | Not yet executed | — | Helpdesk: SLA holiday-selection nuance and escalation-on-holiday check — written 2026-10-13, TC-PLT-292 is undocumented by the KB and needs a genuine live answer, not an assumption |
 | TC-PLT-293 – TC-PLT-295 | Not yet executed | — | Shift Management: calendar/dashboard active-scheme-only holiday display — written 2026-10-13, pending first live execution pass |
+| TC-PLT-316 | FAIL | BUG-SFM-002 (Open, prod #123755) | `screenshots/BUG-SFM-002/` |
+| TC-PLT-317 | FAIL | BUG-HLP-071 (Open, prod #123756) | `screenshots/BUG-HLP-071/` |
+| TC-PLT-318 | FAIL | BUG-WKL-002 (Open, prod #123757) | `screenshots/BUG-WKL-002/` |
+
+## Summary (2026-10-15 addendum — recurring holidays)
+
+At the user's direct request, tested whether a Holiday marked **Recurring** (dated in a past year, `12/25/2025`)
+actually applies in the *current* year across Shift Management, Helpdesk, **and Workload** (the user caught that
+Workload — the third plugin the Holiday itself shows as a "Read by" consumer — hadn't been checked yet). **All
+three FAIL, 3 new bugs filed, all reported to production and assigned to Prashant Chaurasia (410)**:
+`BUG-SFM-002` (#123755 — Shift Calendar never highlights the recurring occurrence — the Calendar controller runs
+its own literal-date DB query instead of using the plugin's own already-correct `HolidayEngine` recurrence
+service, which the Dashboard's "Upcoming Holidays" panel does use correctly), `BUG-HLP-071` (#123756 — the SLA
+deadline calculator's `is_holiday?` ignores the `recurring` flag entirely, comparing only literal
+`start_date`/`end_date`, so a recurring holiday is never skipped in any year after the one it was created in),
+and `BUG-WKL-002` (#123757 — Workload's own Gantt chart has a third, independent naive holiday check that also
+ignores `recurring`, even though this same plugin's Dashboard capacity numbers and Timeline service both
+correctly delegate to Platform's `WorkingCalendar`). All three confirmed from source code, not just black-box UI
+observation — same root-cause *class* in three independent plugins (a feature re-implementing its own naive date
+match instead of delegating to Platform's shared recurrence logic), via three completely unrelated code paths,
+so filed as three separate bugs rather than one shared one.
 
 ## Summary (2026-10-13)
 

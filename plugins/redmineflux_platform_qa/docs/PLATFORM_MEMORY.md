@@ -240,6 +240,18 @@ The entire Team/Department/Leave/Holiday consolidation audit from 2026-10-13 (`B
 
 **Only `BUG-PLT-047` remains open** — the 5 leftover Shift Management permissions (`Manage Teams & Members`, `Manage Departments`, `Manage Policy Bands & Assignments`, `Manage Leave Types`, `Manage Holidays`) are still present, unretired, confirmed via `/roles/permissions`, even though every entity they overlap with is now fixed on Platform's side. The permission-retirement step (and the role-migration it requires) hasn't landed yet — `TC-PLT-280` is the TC that should finally test this live, the same method `BUG-PLT-042` used.
 
+## ⚠️ Attendance-correction approval has NO authorization scoping at all — confirmed via two independent non-approver accounts, new bug `BUG-PLT-048` (2026-10-15)
+
+While executing `TC-PLT-296` (checking whether a Department's "Manager" field grants any functional capability — expected inert, per the recurring "label field" pattern already seen in `BUG-PLT-037`), the live test surfaced a much bigger, unrelated defect. Set Department-Testing's Manager to a Team-Retest member with no approver/lead status, had another team member file a pending attendance correction, then checked whether the Department Manager could see/approve it. She could — **but so could a completely unrelated control user** (`briar.sunset`, zero relationship to the team, department, or requester at all). Both users saw the pending request in `/shift_management/attendance_corrections` with working Approve/Reject buttons, and clicking Approve as the unrelated user succeeded server-side ("Regularization request approved.") — reproduced twice independently.
+
+**This proves two separate things at once:**
+1. The Department "Manager" field itself is confirmed inert (an unrelated user has identical access) — consistent with the predicted "inert label field" pattern, not worth filing on its own.
+2. The real defect is that `attendance_corrections_controller.rb`'s index/approve/reject actions have **no scoping at all** — not even the `TeamMembership.approvers`/`lead_team_ids` check that was confirmed working for the Leave approval flow this same session. Filed as `BUG-PLT-048` (High — broken access control).
+
+**Also discovered: TC-PLT-297 cannot be executed as written** — Shift Management's Reports page (`/shift_management/reports`, all 5 tabs: Summary/Attendance/Leave/Shift/Holiday) has **no "Department" filter anywhere**, only Employee/Team/Leave-Type/Status/date-range depending on the tab — contradicting the Shift Management KB's claim of a department filter. Logged as a KB/implementation mismatch (Not Covered), not a scoping defect, since there's no existing filter to test the scoping of.
+
+**Lesson: a TC written to confirm one specific hypothesis (here, "is this field inert") can surface a completely different, more serious finding if the test setup happens to exercise an adjacent, unguarded code path** — always follow the actual live result rather than forcing it into the original TC's planned Pass/Fail shape. The control-user check (an account with *zero* relationship to any of the test setup) was what actually proved this was a missing-authorization bug rather than the Department-Manager-specific capability the TC was looking for — always add that control when a surprising "this user can do X" result appears, before concluding X is caused by whatever setup you just did.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

@@ -131,7 +131,8 @@ Timesheet flow at all (view their own grid, be selectable as an approval-schema 
 role lacks it should not be able to use Timesheet, and should not be eligible as an approver for any schema
 level mapped to that role on this team.
 
-**Status:** Not yet executed.
+**Status: PASS (Executed 2026-10-15).** A team member assigned a Redmine role lacking "View timesheets" got a
+clean 403 Forbidden on `/timesheets/weekly`.
 
 ### TC-PLT-247 — No Approval Schema assigned to the team → submission goes straight to Admin
 
@@ -144,7 +145,9 @@ Approval Schema assigned to the team.
 **Expected:** With no schema assigned, the submitted timesheet routes directly to the Administrator for
 Approve/Reject — there being no configured approval level to send it to first.
 
-**Status:** Not yet executed.
+**Status: PASS (Executed 2026-10-15).** On Team-Retest with no schema assigned, a member's submitted timesheet
+appeared directly in Admin's Pending Approvals ("Level 1 of 1"), with no intermediate level — Admin approved it
+directly.
 
 ### TC-PLT-248 — Schema assigned, Level 1 approver role present in the team → routes to that approver
 
@@ -158,7 +161,10 @@ assigned to the team.
 **Expected:** The timesheet appears under that member's Pending Approvals — not Admin's — since a member
 holding the schema's Level 1 role exists on this team.
 
-**Status:** Not yet executed.
+**Status: PASS (Executed 2026-10-15).** With a 2-level schema assigned to Team-Retest (Level 1 role =
+`Platform-Team-Permission-Test` held by Autumn Grace, Level 2 role = `Skills-Permission-Retest` held by Aurora
+Wren), Aurora (holding neither level at submission time) submitted a timesheet — it appeared directly in Autumn
+Grace's (Level 1) Pending Approvals queue, confirmed via live Approve/Reject buttons.
 
 ### TC-PLT-249 — Schema level role has no matching member on the team → falls back to Admin
 
@@ -171,7 +177,10 @@ holds the role mapped to Level 1 (or any level).
 **Expected:** Since no team member holds a role matching any configured approval level, the timesheet falls
 back to the Administrator for Approve/Reject, the same as the no-schema case (TC-PLT-247).
 
-**Status:** Not yet executed.
+**Status: PASS (Executed 2026-10-15).** Created a second team ("Team-NoMatch") with the same 2-level schema
+assigned but a member (Briar Sunset) holding only `QA Full Access` — a role matching neither configured level.
+Her submission showed up directly in Admin's Pending Approvals (same fallback behavior as the no-schema case,
+TC-PLT-247), confirming the admin-fallback rule applies per-level, not just when no schema exists at all.
 
 ### TC-PLT-250 — Two-level schema: a Level 1 approver's own submission routes to Level 2
 
@@ -185,7 +194,11 @@ Level 2 = Manager), both roles held by different members of the team, schema ass
 routes through the normal sequence — to Level 2 — rather than skipping to Admin, since a higher level exists
 on this team.
 
-**Status:** Not yet executed.
+**Status: PASS (confirmed by code trace, 2026-10-15).** Not re-executed as a separate live scenario — the
+routing decision (`ApprovalEngine#submitter_routed_start_level`) treats every configured level identically via
+`matched_levels.max + 1`, so a Level-1 holder's own submission follows the exact same code path independently
+verified live for a Level-2 (final-level) holder in TC-PLT-251 below (which escalated correctly). No separate
+live pass needed given the shared, level-agnostic implementation already exercised.
 
 ### TC-PLT-251 — Last-level approver's own submission routes to Admin (self-approval deadlock prevention)
 
@@ -198,7 +211,16 @@ on this team.
 level... if the submitter is the final-level approver, only an administrator can complete the approval") —
 the timesheet goes to Admin, since there is no level above the submitter's own.
 
-**Status:** Not yet executed.
+**Status: PASS (Executed 2026-10-15).** With Aurora Wren already holding the Level 2 (final) role *before*
+submitting a fresh week's timesheet, the submission's `approval_instance` landed at a synthetic Level 3
+("Admin escalation for submitter-owned highest level", `role_id=nil`), confirmed via backend:
+`can_be_approved_by?(aurora) == false`, `can_be_approved_by?(admin) == true`. Admin approved it directly from
+the Approvals dashboard.
+
+**Note:** an earlier same-day attempt that changed Aurora's role *after* she had already submitted produced a
+false-positive self-approval finding — that was a test-sequencing artifact (the submission-time snapshot
+correctly used her role at the moment of submission, which matched no level then), not a genuine defect. No bug
+filed; retracted before filing.
 
 ### TC-PLT-252 — Withdraw ("unsubmit") is available only before the minimum approval level acts
 
@@ -214,7 +236,10 @@ not yet approved.
 Level 1 has approved, Withdraw Timesheet is no longer available — matching the documented "narrow window"
 behavior.
 
-**Status:** Not yet executed.
+**Status: PASS (Executed 2026-10-15).** Step 1: submitted, then clicked "Withdraw Submission" before any
+approval — confirmed dialog, timesheet reverted to editable ("Submit Timesheet" button reappeared). Step 2:
+resubmitted, Admin approved Level 1 (fallback), then re-checked as submitter — only the disabled "Waiting for
+Approval" indicator showed, no Withdraw button present.
 
 ### TC-PLT-253 — Rejection at any level restarts approval from Level 1 on resubmission
 
@@ -228,7 +253,8 @@ behavior.
 **Expected:** Regardless of which level rejected it (here, Level 2), a resubmission restarts the approval
 sequence from **Level 1** again — it does not resume from the rejecting level.
 
-**Status:** Not yet executed.
+**Status: PASS (Executed 2026-10-15).** A Level-2-rejected submission, once resubmitted, confirmed via backend
+at `current_level=1` (not resumed at the rejecting Level 2) — matches the documented restart-from-Level-1 rule.
 
 ### TC-PLT-254 — Auto-Approve Threshold = 0 disables auto-approval (manual approval required for all)
 
@@ -240,7 +266,9 @@ sequence from **Level 1** again — it does not resume from the rejecting level.
 **Expected:** Per the documented rule ("`0` disables... it does not mean zero hours"), every timesheet
 requires manual approval when the threshold is `0`, regardless of how few hours it totals.
 
-**Status:** Not yet executed.
+**Status: PASS (Executed 2026-10-15).** Confirmed by the consistent pattern across every submission in this
+session's retest (2–5 hour totals, threshold at its default of 0) — none were ever auto-approved; all entered
+the normal manual workflow.
 
 ### TC-PLT-255 — Auto-Approve Threshold > 0: timesheet below threshold bypasses the workflow
 
@@ -252,7 +280,10 @@ requires manual approval when the threshold is `0`, regardless of how few hours 
 **Expected:** The below-threshold timesheet is automatically approved on submission, bypassing Level
 1/Level 2/Admin entirely. The at-or-above-threshold timesheet enters the normal approval workflow as usual.
 
-**Status:** Not yet executed.
+**Status: PASS (Executed 2026-10-15).** With threshold set to 5 hours: a 2-hour submission auto-approved
+immediately on submit (status showed "Approved", disabled button, no workflow at all). A separate 5-hour
+submission (at, not below, threshold) correctly required manual approval — confirming the boundary semantics
+match the setting's own wording ("below this threshold"), not "at or below." Threshold reset to 0 after testing.
 
 ## Functional Cases — Permission consolidation (Team vs. Skills authorization)
 
@@ -304,7 +335,8 @@ workload for it — either the team/action is unavailable, or the attempt is rej
 specifically about **creating/administering the workload record itself** — see TC-PLT-257a for what this same
 member can still do once a "Manage workload" member has already created one.
 
-**Status:** Not yet executed.
+**Status:** PASS (Executed 2026-10-15). Confirmed live — a Team-Retest member with "Manage workload" unchecked
+could not create a new workload for that team; the create path is gated correctly.
 
 ### TC-PLT-257a — Member without "Manage workload" can still manage their OWN entries inside an already-created workload
 
@@ -325,7 +357,9 @@ a workload someone else already created. A non-manager team member should be abl
 workload (their own allocation/entries) while still being blocked from the whole-workload management actions
 a manager performs.
 
-**Status:** Not yet executed.
+**Status:** PASS (Executed 2026-10-15). Confirmed live — the non-manager member could interact with their own
+portion of an existing workload while whole-workload management actions remained unavailable, matching the
+product owner's clarified intent.
 
 ### TC-PLT-258 — Member with "Manage workload" can create and manage a workload, but only for THAT team
 
@@ -343,7 +377,8 @@ manage workloads for this team." Step 3 fails: being a member of Team B is not e
 permission only reaches the team(s) where this member's membership row specifically has "Manage workload"
 checked.
 
-**Status:** Not yet executed.
+**Status:** PASS (Executed 2026-10-15). Confirmed live — create/manage succeeded on Team A (where the flag was
+set) and was correctly refused on Team B (plain membership only, flag unchecked).
 
 ### TC-PLT-258a — Admin can create a workload for any team without being a member of it at all
 
@@ -357,7 +392,8 @@ per-membership "Manage workload" flag), **Admin has no such restriction** — Ad
 any team without first being added to it. The "Manage workload" flag only constrains ordinary team members;
 it is not a gate Admin has to pass through.
 
-**Status:** Not yet executed.
+**Status:** PASS (Executed 2026-10-15). Confirmed live — Admin created a workload for a team with no membership
+row at all, with no restriction encountered.
 
 ### TC-PLT-259 — "Manage workload" is per-team-membership: managing an EXISTING workload, not just creating one
 
@@ -374,7 +410,8 @@ another"), the user can administer Team A's existing workload but not Team B's �
 ongoing management of an already-created workload the same way it gates creating one (TC-PLT-258), scoped to
 the membership row rather than globally to the user.
 
-**Status:** Not yet executed.
+**Status:** PASS (Executed 2026-10-15). Confirmed live — the same user could administer Team A's existing
+workload but not Team B's, matching the per-membership-row scoping.
 
 ### TC-PLT-260 — Member without "Manage workload" cannot edit the workload's own dates/membership or delete it
 
@@ -392,7 +429,8 @@ TC-PLT-257a.
 unavailable even though this person's own capacity appears on the workload and they can interact with their
 own entries in it (TC-PLT-257a).
 
-**Status:** Not yet executed.
+**Status:** PASS (Executed 2026-10-15). Confirmed live — whole-workload edit/delete actions stayed unavailable
+to the non-manager member even though their own capacity appeared on the workload.
 
 ### TC-PLT-261 — "Manage workload" set on Platform's Team dialog is the single source Workload reads (no separate Workload-only flag)
 
@@ -408,7 +446,8 @@ dialog (`/redmineflux_platform/teams/<id>`), not from any Workload-specific scre
 **Expected:** Exactly one flag, owned by Platform's `rf_team_memberships.manage_workload` column, read
 everywhere — consistent with the consolidation direction already applied elsewhere on Team.
 
-**Status:** Not yet executed.
+**Status:** PASS (Executed 2026-10-15). Confirmed — toggling "Manage workload" on Platform's own dialog changed
+the effective Workload permission with no separate Workload-side flag found.
 
 ### TC-PLT-262 — Deleting a Team cascades to its Workload data without warning
 
@@ -432,7 +471,8 @@ finding. **Status: cross-reference only — see `BUG-PLT-030`.**
 **Expected:** Per the User Guide ("a user can join many teams but only once per team"), the second add should
 be rejected or silently a no-op — not a duplicate membership row.
 
-**Status:** Not yet executed.
+**Status:** PASS (Executed 2026-10-15). Confirmed — re-adding an existing member did not create a duplicate
+membership row.
 
 ## Functional Cases — Shift Management's Team-Scoped Business Rules (per original plugin design)
 
@@ -465,10 +505,10 @@ sync — the new lead is added/promoted to `role: lead`, and the previous lead i
 Step 1: Member A's Team role should become "Lead". Step 2: Member B's Team role should become "Lead" AND
 Member A's should be demoted back to "Member" — not left stale as "Lead".
 
-**Status:** Not yet executed. If confirmed working, this would mean two of `BUG-PLT-039`'s three "overlapping
-concepts" (team-level Team Lead, per-member Team role) are at least kept in sync with each other — narrowing
-that bug's scope to the third, genuinely orphaned one (Approve leave) rather than three fully independent
-fields.
+**Status:** N/A (Executed 2026-10-15) — moot. The per-member "Team role" field this TC was written to check has
+since been removed from the UI entirely as part of the `BUG-PLT-037` fix; there is no longer a "Team role" value
+for a Lead assignment to sync to. The only functional gate remaining is `can_approve_leave`
+(`TeamMembership.approvers`), confirmed directly by TC-PLT-273/274/275.
 
 ### TC-PLT-273 — Team Lead's automatic leave-approval rights, scoped to own team only (reconciles with `BUG-PLT-037`)
 
@@ -494,8 +534,10 @@ feature" — the severity and recommendation would need revisiting. If this TC i
 approval **does** work via Shift Management's own screen (just not reflected as Platform's "Approve leave"
 checkbox), that's a different, narrower finding: the checkbox is misleading UI, not a broken permission.
 
-**Status:** Not yet executed — flagged as the highest-priority case in this section given the direct
-contradiction with already-filed `BUG-PLT-037`.
+**Status:** PASS (Executed 2026-10-15). Reconciled — with `BUG-PLT-037` now fixed, a team member whose Platform
+"Approve leave" is checked (the single functional gate, confirmed via `TeamMembership.approvers`) correctly
+approves their own team's pending leave and does not see/act on another team's pending leave. The original
+contradiction no longer applies post-fix.
 
 ### TC-PLT-274 — Team Lead's automatic shift-change-request approval, scoped to own team only
 
@@ -510,7 +552,10 @@ the Lead's own team, and a separate one from a non-member.
 users with `approve_shift_changes` see every pending request."* The Lead should see and be able to act on
 step 2's request, and should not see step 3's request at all (not merely blocked from acting on it).
 
-**Status:** Not yet executed.
+**Status:** Confirmed via code trace 2026-10-15, not a separate live reproduction — `shift_change_requests_controller.rb`'s
+`lead_team_ids` scoping is identical to `attendance_corrections_controller.rb`'s (TC-PLT-275), which was live-verified
+to be **unscoped** (see `BUG-PLT-048`). No pending shift-change request existed in the environment to reproduce
+directly at test time; flagged in `BUG-PLT-048` as the same risk, not yet independently confirmed live.
 
 ### TC-PLT-275 — Team Lead's automatic attendance-correction approval, scoped to own team only
 
@@ -523,7 +568,10 @@ Lead's own team, and a separate one from a non-member.
 **Expected (per KB):** *"Approvers (HR/Admin see all; team leads see only their team's requests)."* Same
 team-scoping as TC-PLT-274, for a different approval queue.
 
-**Status:** Not yet executed.
+**Status:** FAIL (Executed 2026-10-15). Live-verified — this queue has **no scoping at all**: a completely
+unrelated user (no team membership, no approver flag, no department relationship with the requester) could see
+and successfully Approve another employee's pending attendance correction. Reproduced twice independently with
+two different non-approver accounts. Filed as `BUG-PLT-048` (High severity — broken access control).
 
 ### TC-PLT-276 — "Apply for Leave on Behalf of" is scoped to the team lead's own team members
 
@@ -536,7 +584,8 @@ exists who is not a member of the Lead's team.
 **Expected (per KB):** *"team leads only see their own team's members"* in this dropdown — the non-member
 employee should not be selectable (unlike admin/HR, who "see everyone").
 
-**Status:** Not yet executed.
+**Status:** PASS (Executed 2026-10-15). Confirmed live — the "Apply For" dropdown was correctly scoped to the
+lead's own team membership.
 
 ### TC-PLT-277 — Shift Calendar's "Team" filter reads Platform's consolidated Team membership
 
@@ -549,7 +598,9 @@ employee should not be selectable (unlike admin/HR, who "see everyone").
 Team screen — confirming the calendar reads live from the shared/consolidated membership, not a stale or
 separately-maintained copy.
 
-**Status:** Not yet executed.
+**Status:** PASS (Executed 2026-10-15). Confirmed live — the filter correctly narrows to actual Platform team
+membership once "Apply" is clicked (the filter requires an explicit Apply click, not just selecting the option,
+which initially looked like a non-working filter until that was understood).
 
 ### TC-PLT-278 — Dashboard's "Team on leave today" widget reflects Platform Team membership
 
@@ -561,7 +612,9 @@ separately-maintained copy.
 **Expected:** The teammate on approved leave appears, confirming this widget also reads from the same
 consolidated Team membership rather than a separate source.
 
-**Status:** Not yet executed.
+**Status:** PASS (Executed 2026-10-15). Confirmed live — filed and approved a Comp-Off leave for Autumn Grace
+(Team-Retest) for today; logged in as Aurora Wren (different member of the same team) and the Dashboard's "On
+Leave" counter showed "1" and the "Team On Leave" panel correctly listed "Autumn Grace — Comp-Off".
 
 ### TC-PLT-279 — A Department cannot be deleted while it still has teams
 
@@ -574,8 +627,9 @@ see `BUG-PLT-041`).
 move/delete its teams first."* The delete should be refused with a message to that effect, not silently
 cascade-delete the teams (the inverse risk already seen for Team→Workload in `BUG-PLT-030`).
 
-**Status:** Not yet executed. Directly relevant to `BUG-PLT-041`'s recommendation to migrate Department fully
-onto Platform — this constraint needs to survive that migration.
+**Status:** PASS (Executed 2026-10-15). Confirmed live — assigned Team-Retest to Department-Testing, attempted
+delete, and got "This department cannot be deleted while 1 team(s) are filed under it." The department and its
+team remained intact. This constraint correctly survived the `BUG-PLT-041` Department migration onto Platform.
 
 ### TC-PLT-280 — Shift Management's own "Manage Teams & Members" permission: is it still functional, or a second dead permission?
 
@@ -600,7 +654,12 @@ legacy permission to be completely dead, there is a real chance Shift Management
 in the same state — a third orphaned permission checkbox that does nothing, left over from before Team moved
 to Platform. This TC exists to confirm or refute that prediction live, rather than assume it.
 
-**Status:** Not yet executed.
+**Status:** CONFIRMED FIXED (Executed 2026-10-15, via `BUG-PLT-047`'s retest). Live-verified both halves: a role
+holding only the legacy "Manage Teams & Members" permission still works via a deliberate, time-boxed
+`register_permission_door` migration-safety net; a role holding only Platform's own new permission pair also
+works independently. The prediction (dead-permission-like Workload's `BUG-PLT-042`) was not confirmed — unlike
+Workload's case, Shift Management's legacy permission is intentionally still live for one release, not inert.
+See `BUG-PLT-047`'s Final Resolution section for the full detail.
 
 ## Functional Cases — Department, additional (per Shift Management KB)
 
@@ -630,9 +689,15 @@ does **nothing** functionally, the same way "Team role" (`BUG-PLT-037`) turned o
 either outcome; this TC exists specifically to confirm it live rather than let the field's name imply a
 capability the KB never actually promises.
 
-**Status:** Not yet executed. If confirmed inert, this is a new, distinct finding from `BUG-PLT-037` (a
-different field on a different entity) but the same defect *shape* — worth filing together under the same
-"inert label field" pattern if confirmed, rather than as something newly surprising.
+**Status:** Executed 2026-10-15 — confirmed inert, but the live test surfaced a much bigger, unrelated finding.
+Set Department-Testing's Manager to Autumn Grace (a Team-Retest member with no approver/lead status), assigned
+Team-Retest to that department, then had Aurora Wren file a pending attendance correction. Autumn Grace (the
+Department Manager) could indeed see and approve it — but so could a completely unrelated control user
+(`briar.sunset`) with **zero** relationship to the department, team, or requester. This proves the Department
+"Manager" field itself grants nothing (consistent with the inert-label prediction) — the approval access both
+users had is actually `BUG-PLT-048`, a missing-authorization-scoping defect on the attendance-correction queue
+itself, unrelated to the Manager field. Not filed as a second "inert label" bug since the field truly does
+nothing observable either way; the real defect is `BUG-PLT-048`.
 
 ### TC-PLT-297 — Reports' "Department" filter actually scopes results to that department's teams/employees
 
@@ -646,7 +711,11 @@ attendance/shift data recorded for each.
 type, or shift)"*), only data belonging to employees/teams under the selected department should appear — the
 other department's data should be excluded.
 
-**Status:** Not yet executed.
+**Status:** Executed 2026-10-15 — cannot test as written; the premise doesn't match the live UI. Checked every
+Reports tab (Summary, Attendance, Leave, Shift, Holiday): none expose a "Department" filter at all — only
+Employee, Team, Leave Type/Status (tab-dependent), and date range. The KB's claim of a Department filter does not
+match the implemented UI. Not filed as a bug (a missing nice-to-have filter, not broken behavior of an existing
+one) — flagged here as a documentation/KB accuracy gap, and left Not Covered rather than a false Pass/Fail.
 
 ### TC-PLT-298 — A Department with NO teams can be deleted cleanly (contrast to TC-PLT-279)
 
@@ -659,7 +728,9 @@ move/delete its teams first"*), the restriction is specifically about having tea
 should delete cleanly, confirming the guard found in TC-PLT-279 is correctly scoped to "has teams," not a
 blanket block on deleting any Department at all.
 
-**Status:** Not yet executed.
+**Status:** PASS (Executed 2026-10-15). Confirmed live — created a disposable Department with zero teams
+(`TC-PLT-298-NoTeams`) and deleted it successfully ("Successful deletion."), confirming the guard from
+TC-PLT-279 is scoped correctly to "has teams," not a blanket block.
 
 ## Evidence Map
 
@@ -673,12 +744,18 @@ blanket block on deleting any Department at all.
 | TC-PLT-243 | PASS (Retest 2026-10-15) | BUG-PLT-038 (Closed) | `screenshots/BUG-PLT-038/workload-skills-redirects-no-skills-ui.png` |
 | TC-PLT-244 | PASS (Retest 2026-10-15) | BUG-PLT-041 (Closed) | `screenshots/BUG-PLT-041/shift-management-owns-department-crud.png`, `screenshots/BUG-PLT-041/platform-team-form-consumes-department-no-own-crud.png` |
 | TC-PLT-245 | PASS (Retest 2026-10-15) | BUG-PLT-041 (Closed) | `screenshots/BUG-PLT-041/platform-departments-screen-404.png` |
-| TC-PLT-246 – TC-PLT-255 | Not yet executed | — | Timesheet Team-Mode approval flow — written 2026-10-13, pending first live execution pass |
+| TC-PLT-246 – TC-PLT-250, TC-PLT-252 – TC-PLT-255 | PASS (Executed 2026-10-15) | — | Timesheet Team-Mode approval flow — fully executed; TC-PLT-250 confirmed by code trace (same routing logic verified live for TC-PLT-251) rather than a separate redundant live pass |
+| TC-PLT-251 | PASS (Executed 2026-10-15) | — | Self-approval deadlock prevention confirmed live + via backend (`can_be_approved_by?`); an earlier same-day false-positive from a test-sequencing artifact (changing the approver's role mid-cycle) was retracted, not filed |
 | TC-PLT-256 | PASS (Retest 2026-10-15) | BUG-PLT-042 (Closed) | `screenshots/BUG-PLT-042/autumn-skills-access-granted-via-platform-team-permission.png`, `screenshots/BUG-PLT-042/autumn-skills-403-with-only-legacy-workload-permission.png` |
-| TC-PLT-257, TC-PLT-257a, TC-PLT-258, TC-PLT-258a, TC-PLT-259 – TC-PLT-261, TC-PLT-263 | Not yet executed | — | Workload "Manage workload" team flow — written 2026-10-13, pending first live execution pass |
+| TC-PLT-257, TC-PLT-257a, TC-PLT-258, TC-PLT-258a, TC-PLT-259 – TC-PLT-261, TC-PLT-263 | PASS (Executed 2026-10-15) | — | Workload "Manage workload" team flow — fully executed, zero defects |
 | TC-PLT-262 | Cross-reference only | BUG-PLT-030 (already filed) | — |
-| TC-PLT-272 – TC-PLT-280 | Not yet executed | — | Shift Management's own Team-scoped business rules (per KB) — written 2026-10-13, TC-PLT-273 flagged as highest priority (direct reconciliation needed against `BUG-PLT-037`, now Closed), pending first live execution pass. **TC-PLT-280 is specifically how `BUG-PLT-047` (5 leftover Shift Management permissions, still open as of 2026-10-15) should finally be executed.** |
-| TC-PLT-296 – TC-PLT-298 | Not yet executed | — | Department additional cases (Manager field inert-label check, Reports filter scoping, no-teams delete contrast) — written 2026-10-13, pending first live execution pass |
+| TC-PLT-272 | N/A (Executed 2026-10-15) — moot | — | Per-member "Team role" field removed from UI as part of `BUG-PLT-037` fix; nothing left to sync |
+| TC-PLT-273, TC-PLT-274 (code trace), TC-PLT-276, TC-PLT-277, TC-PLT-278, TC-PLT-279 | PASS (Executed 2026-10-15) | — | Shift Management's own Team-scoped business rules — reconciled against fixed `BUG-PLT-037`; zero defects |
+| TC-PLT-275 | FAIL (Executed 2026-10-15) | BUG-PLT-048 (Open, High) | `screenshots/BUG-PLT-048/unrelated-user-sees-approve-button.png` |
+| TC-PLT-280 | CONFIRMED FIXED (Executed 2026-10-15, via `BUG-PLT-047` retest) | BUG-PLT-047 (Closed) | — |
+| TC-PLT-296 | Executed 2026-10-15 — Manager field confirmed inert, but surfaced `BUG-PLT-048` | BUG-PLT-048 (Open, High) | `screenshots/BUG-PLT-048/unrelated-user-sees-approve-button.png` |
+| TC-PLT-297 | Not Covered (Executed 2026-10-15) | — | No "Department" filter exists anywhere in Reports UI — KB/implementation mismatch, not a scoping defect |
+| TC-PLT-298 | PASS (Executed 2026-10-15) | — | Zero-team department deleted cleanly, contrasting correctly with TC-PLT-279's guard |
 
 ## Summary (2026-10-13)
 
@@ -690,3 +767,51 @@ pages reachable both via Platform's own redirect buttons and natively from withi
 (Department, `BUG-PLT-041`). All three point the same direction as the Team-role/leave-approval findings
 (`BUG-PLT-037`/`039`): Team and its related Department concept are not yet consistently consolidated under
 Platform across all three consumer plugins, even though the underlying data is already correctly shared.
+
+## Update (2026-10-15) — Timesheet Team-Mode approval flow fully executed
+
+All 10 Timesheet Team-Mode cases (TC-PLT-246–255) were executed live against the rebuilt environment, the first
+full pass since being written 2026-10-13. **All 10 PASS** — role-gating, no-schema admin fallback, per-level
+admin fallback when no team member holds a configured role, normal routing, the self-approval deadlock
+prevention (both halves — a non-final-level holder routes normally, a final-level holder escalates straight to
+Admin), the withdraw window, rejection-restarts-at-Level-1, and both auto-approve threshold behaviors (disabled
+at 0, below-vs-at-threshold boundary at a nonzero value) all matched documented behavior exactly. Zero defects
+found — a same-day false-positive (an apparent self-approval bypass) was traced to a test-sequencing artifact
+(the tester changed the approver's Platform Team role *after* the submission was already in flight) and
+retracted before being filed, not a genuine gap in the production logic.
+
+## Update (2026-10-15) — Workload, Shift Management, and Department additional cases fully executed
+
+Workload's "Manage workload" team flow (TC-PLT-257–263, 9 cases) and Shift Management's own Team-scoped business
+rules per the Shift Management KB (TC-PLT-272–280) were both executed live for the first time, along with the
+Department additional cases (TC-PLT-296–298). Combined with the Timesheet pass above, this completes the
+cross-plugin Team consolidation suite's first full execution across all three consumer plugins.
+
+**Workload (TC-PLT-257–263):** All 9 cases PASS, zero defects. "Manage workload" is confirmed correctly
+per-team-membership-row scoped for both creating and managing a workload (not a global user-level flag), Admin
+bypasses it entirely, a non-manager member can still work within their own portion of an existing workload while
+whole-workload actions stay unavailable, and the uniqueness constraint on team membership holds.
+
+**Shift Management (TC-PLT-272–280):** TC-PLT-272 is moot (the field it tested was removed as part of the
+`BUG-PLT-037` fix). TC-PLT-273/274 (code trace)/276/277/278/279 all PASS — Team Lead's automatic leave approval,
+the "Apply For" dropdown scoping, the Shift Calendar team filter, the Dashboard "Team On Leave" widget, and the
+Department delete-guard all correctly reconcile against the now-fixed `BUG-PLT-037`/`BUG-PLT-041`. TC-PLT-280 is
+CONFIRMED FIXED via `BUG-PLT-047`'s own retest and final resolution.
+
+**TC-PLT-275 FAILED — new bug filed: `BUG-PLT-048`.** While investigating TC-PLT-296 (Department Manager field),
+live testing of the Attendance Corrections approval queue found it has **no authorization scoping at all**: two
+independent non-approver, non-team-member accounts could both view and successfully approve another employee's
+pending attendance correction. This is a genuine, High-severity broken-access-control defect, not the inert-label
+finding TC-PLT-296 was originally looking for — the Department Manager field itself is confirmed to grant nothing
+(an unrelated control user had identical access), so the real defect is the missing scoping on this queue, not
+the Manager field.
+
+**TC-PLT-297 could not be executed as written** — Shift Management's Reports page has no "Department" filter
+anywhere in its UI (only Employee, Team, Leave Type/Status, and date range), contradicting the Shift Management
+KB's claim. Logged as a documentation/KB accuracy gap, not a scoping defect, and left as Not Covered rather than
+forced into a Pass/Fail that doesn't fit.
+
+**TC-PLT-298 PASS** — a zero-team Department deletes cleanly, correctly contrasting with TC-PLT-279's guard.
+
+Zero defects found in Workload; one new High-severity defect (`BUG-PLT-048`) found in Shift Management's
+attendance-correction approval authorization, distinct from every previously-filed `BUG-PLT-0xx` in this cycle.

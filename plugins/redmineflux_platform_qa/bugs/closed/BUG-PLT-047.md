@@ -78,6 +78,55 @@ The recommended retirement (per this bug's own Recommendation section — retire
 
 **Still NOT FIXED.** Production issue #123347 left as-is (not synced — a retest note was added to the production issue; status unchanged). Staying in `bugs/open/`.
 
+## First correction (2026-10-15, later superseded below) — do not trust this section on its own
+
+An earlier pass at this point concluded "Working as Designed, close as Won't Fix," reasoning that
+`RedminefluxPlatform::SharedEntities.register_permission_door` meant the 5 old permissions were a *permanent*
+design choice. **That conclusion was wrong** — reached without first reading the developer's own "In QA" journal
+note on the production issue, which explains the actual fix and plan. See the real resolution below.
+
+## Final resolution (2026-10-15) — CONFIRMED FIXED; old permissions are a deliberate, time-boxed transition aid, not permanent
+
+Reading the developer's original "In QA" note (journal entry on #123347, 2026-10-13) made the actual fix and
+intent explicit, which neither of this session's two live retest passes had checked for before today:
+
+**What the fix actually was:** all 8 REST API controllers and 4 HTML gates that used to check the 5 old Shift
+Management permissions were *repointed* to check Platform's own equivalent permissions instead
+(`manage_teams` → `manage_rf_platform_teams`, etc.). A migration (`20261013120000`) granted every role that held
+an old permission the new equivalent too, *before* any gate started asking for it, verified by the developer on
+a probe role. Confirmed by 767 passing tests across both plugins.
+
+**Why the old permissions are still visible and still work:** by deliberate choice, not oversight. The
+developer's own words: *"The old permissions stay on their roles and stay registered for one release... They can
+come out in a later release once this one has been deployed and the mapping has been seen to hold."* This is
+exactly what `register_permission_door` implements — a time-boxed safety net so no role silently loses access
+during the transition, not a permanent architecture decision. This is why the developer left the issue status at
+**In QA** rather than Closed: the tester was meant to verify the *new* gate works, not to check whether the old
+checkboxes had been deleted (they were never supposed to be, yet).
+
+**Live-verified today, correctly this time** (the first attempt tested only half of this and drew the wrong
+conclusion from it):
+
+1. A role holding *only* the legacy `manage_teams` (no Platform permission at all) still gets full management
+   access via the door — confirms the migration-safety net works.
+2. A role holding *only* Platform's own new pair (`view_rf_platform_teams` + `manage_rf_platform_teams`, no
+   legacy permission at all) **also** gets full management access — confirms the actual repoint fix works
+   correctly and independently, exactly as the developer described.
+
+Both (1) and (2) are expected to be true at the same time during this transitional release — that is the whole
+point of the fix. Neither "the old checkboxes are still there" (this bug's and this session's earlier, mistaken
+readings) nor "therefore nothing was fixed" nor "therefore this is permanent and not a bug" are correct framings.
+The real, verifiable fact is: **the new permission pair now correctly and independently gates every repointed
+entity, with zero existing role losing access** — which is exactly what this bug asked for.
+
+**CONFIRMED FIXED.** The 5 old permissions remaining visible is an acknowledged, intentional, time-boxed part of
+this same fix (per the developer's own stated plan to remove them "in a later release"), not a separate
+outstanding defect to track here.
+
 ## Production report
 
 Reported to production as **#123347**, linked to Testcase #123276 ("Team Cross-Plugin Flow", since `TC-PLT-280` lives in `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md`) inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6`. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.
+
+**Closed 2026-10-15** — status synced to production: Done, 100% (confirmed fixed — see Final resolution above).
+An earlier same-day sync incorrectly set this to Won't Fix before the developer's own "In QA" note had been read;
+corrected to Done once the actual fix was understood and properly verified.

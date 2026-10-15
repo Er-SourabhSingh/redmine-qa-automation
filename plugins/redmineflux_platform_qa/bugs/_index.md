@@ -45,7 +45,8 @@
 | BUG-PLT-044 | "Leave Policy Band" and "Assign Leave Band" have zero Platform representation — entirely owned by Shift Management, unlike every other Leave concept | Closed | Medium | 6 | #123305 | bugs/closed/BUG-PLT-044.md |
 | BUG-PLT-045 | Three independent "Apply Leave" screens and three independent approval surfaces exist for the single shared Leave entity, instead of one canonical Platform screen | Closed | Low | 6 | #123306 | bugs/closed/BUG-PLT-045.md |
 | BUG-PLT-046 | Holiday Scheme and Holiday split across two separate Platform nav sections instead of one, and Helpdesk still renders its own standalone, non-nested "Holiday" tab — the original consolidation example from this cycle's start, still unresolved | Closed | Low | 6 | #123344 | bugs/closed/BUG-PLT-046.md |
-| BUG-PLT-047 | Shift Management's own role-permission list still exposes 5 permissions for entities now owned by Platform — Manage Teams & Members, Manage Departments, Manage Policy Bands & Assignments, Manage Leave Types, Manage Holidays | Open | Medium | 6 | #123347 | bugs/open/BUG-PLT-047.md |
+| BUG-PLT-047 | Shift Management's own role-permission list still exposes 5 permissions for entities now owned by Platform — Manage Teams & Members, Manage Departments, Manage Policy Bands & Assignments, Manage Leave Types, Manage Holidays — final resolution 2026-10-15: repointed to Platform's own permissions (confirmed working independently), old permissions deliberately kept 1 release as a migration-safety net per the developer's own plan; CONFIRMED FIXED | Closed | Medium | 6 | #123347 | bugs/closed/BUG-PLT-047.md |
+| BUG-PLT-048 | Attendance correction (regularization) approval has no authorization scoping at all — any authenticated user can view and approve/reject any other employee's pending correction, regardless of team membership or approver status | Open | High | 6 | | bugs/open/BUG-PLT-048.md |
 
 ## Retracted
 

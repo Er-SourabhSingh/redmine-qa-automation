@@ -277,6 +277,22 @@ At the user's request, pulled `git pull` on all 7 consumer plugin repos under `p
 
 **Lesson: when a dev fix references a "later release" or promises a specific follow-up, a `git pull` across the affected plugins is worth doing proactively** rather than waiting for the dev to announce it on the production ticket — both of today's fixes (one explicitly promised in a journal note read hours earlier, one filed and fixed same-day) were sitting in the remote the moment they were checked for.
 
+## ✅ Contact→Customer ticket surfacing works, but only via a SEPARATE manual link — not automatically from "Support portal login" alone (TC-PLT-303, 2026-10-15)
+
+Setting a Contact's "Support portal login" field to a Helpdesk Customer user links the Contact to that customer for **organization/SLA details only** — the Contact page's "Helpdesk Customer Information" panel correctly shows Organization/SLA Level/Response Time/Resolution Time/Support Level immediately from that field alone. It does **not** automatically surface that customer's tickets.
+
+To get a ticket to show under the Contact's "Linked Redmine Issues", you must separately open the ticket itself and use its own "CRM Links" panel → Contact → "Add Link" → select the Contact → Link. This is a per-ticket manual action, not a consequence of the customer-login link. Initially mis-read this as a bug (two-part KB promise with only half built) and filed `BUG-PLT-049`; the user caught it by pointing at the issue page's own CRM Links panel screenshot, and linking the specific ticket there did make it appear — retracted same session, never reported to production.
+
+**Lesson: before filing a "promised feature doesn't render" bug, check every related screen's own linking UI (not just the record's own edit form) for a manual action that might be the actual intended mechanism.**
+
+## ⚠️ Invoice DOES consume Platform's Contact data — via a per-project "Billing Settings" tab, not the global `/invoices/new` form alone (TC-PLT-305, 2026-10-15, second false-positive of the day)
+
+Checked `/invoices/new` (reached via the top-nav "Invoices" link, with no project context) and found Client Name/Address/Email as plain empty free-text fields regardless of which project was selected — concluded Invoice had zero integration with Platform's Organization/Contact despite Platform's own Overview page claiming "Customers ... Read by CRM, Helpdesk, Invoice", and filed `BUG-PLT-050`.
+
+The actual mechanism is a **project-scoped** screen only visible once you're inside a project's own Invoice section: `Invoice → Billing Settings` (`/projects/<id>/invoices/billing`), with its own "Contact *" dropdown — *"Select the contact for this project. Contact details will be used in invoices."* Setting a Contact there, then opening `/projects/<id>/invoices/new` (not the global `/invoices/new`), correctly auto-populated Client Name and Client Email from that Contact. The user caught this by screenshotting the Billing Configuration panel directly. Retracted same session, never reported to production.
+
+**Lesson: this is the SAME root cause as the TC-PLT-303 false positive above — twice in one day. Before concluding a cross-plugin integration "doesn't work" or "doesn't exist," check for a project-scoped settings/config screen (reached only via a project's own nav, not the plugin's top-level nav) in addition to the record's own edit form and any related record's linking UI. A plugin's global top-nav screen and its per-project screen can have completely different field sets and behavior.**
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

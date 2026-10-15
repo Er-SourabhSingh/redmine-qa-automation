@@ -34,8 +34,12 @@
 started), CRM's own native screens are expected to still exist and function, duplicating Platform's — this is
 documented, accepted current state, not itself a new defect to file.
 
-**Status:** Not yet executed. This case exists to give the rest of this suite a confirmed baseline, not to
-produce a new FAIL.
+**Status:** Executed 2026-10-15 — **premise superseded, positive finding.** CRM's own native `/contacts` and
+`/companies` routes now redirect directly to Platform's consolidated screens (`/redmineflux_platform/list/contacts`
+and `/redmineflux_platform/list/organizations`) — CRM has evidently progressed further in Step 5 "Consumer
+migration" than this suite's original 2026-10-13 write-up assumed. Not a defect; the opposite of one. Worth a
+positive note in `PLATFORM_MEMORY.md` and a re-check of whether `PLATFORM_MEMORY.md`'s top-level "Step 5 hasn't
+started" note still holds for CRM specifically.
 
 ### TC-PLT-300 — A bare website domain gets an auto https:// prefix on Platform's own Organization form too
 
@@ -48,8 +52,9 @@ produce a new FAIL.
 prefix"*), Platform's own consolidated form — which is meant to be the canonical screen for this entity —
 should apply the same normalization, not just CRM's own native form.
 
-**Status:** Not yet executed. If Platform's own form does NOT normalize the URL the way CRM's native one does,
-that is a parity gap between the canonical screen and the one it's meant to replace.
+**Status:** PASS (2026-10-15). Platform's own New Organization form shows the hint "https:// is added if you
+leave it out," and live-verified: entering `example-tc300.com` saved as `https://example-tc300.com` on the
+Organization's detail page. Test fixture ("TC-PLT-300-Verify-Org") created and deleted in the same pass.
 
 ## Functional Cases — Deleting an Organization/Contact: reference-clearing, not cascade
 
@@ -70,7 +75,11 @@ cleared (not deleted itself) — this is the **opposite** pattern from Team's ow
 behavior (`BUG-PLT-030`), so don't assume the same cascade risk applies here without checking; confirm which
 pattern Platform's consolidated Organization delete actually follows.
 
-**Status:** Not yet executed.
+**Status:** PASS (2026-10-15). Deleted "TC-PLT-300-Test-Org" with a linked Contact ("TC301 Contact") attached;
+the Contact survived the delete with its Organization reference correctly cleared — confirmed via the delete
+confirmation dialog's own generic wording ("This record will be removed permanently. If another module still
+depends on it, nothing is deleted and you are told why.") and by reopening the Contact afterward. Matches CRM's
+documented "clear reference, don't cascade" behavior, the opposite of Team's cascade pattern.
 
 ### TC-PLT-302 — Deleting a Contact does not affect its Organization
 
@@ -82,7 +91,9 @@ pattern Platform's consolidated Organization delete actually follows.
 **Expected:** Per CRM's documented behavior (*"The company record is not affected"*), the Organization should
 remain exactly as it was.
 
-**Status:** Not yet executed.
+**Status:** PASS (2026-10-15). Deleted "TC301 Contact" (linked to "TC-PLT-302-Test-Org"); the Organization
+record was unaffected — confirmed by reopening it afterward, still present with all its own fields intact and
+contact count correctly decremented.
 
 ## Functional Cases — Contact ↔ Helpdesk Customer link
 
@@ -104,7 +115,15 @@ remain exactly as it was.
 **Expected:** The linked ticket/organization/SLA information should actually appear on the Contact — not just
 accept the link silently with no visible effect.
 
-**Status:** Not yet executed.
+**Status:** PASS, with a mechanism clarification (2026-10-15). Setting a Contact's "Support portal login" field
+to a Helpdesk Customer immediately surfaces that customer's Organization/SLA Level/Response Time/Resolution
+Time/Support Level in a "Helpdesk Customer Information" panel — confirmed live. Surfacing the customer's actual
+*tickets*, however, is a **separate manual step**: open the ticket itself and use its own "CRM Links" panel →
+Contact → "Add Link" → select the Contact. Once that link was made (ticket #2, raised by "TC303 Customer"),
+it correctly appeared under the Contact's "Linked Redmine Issues." Initially mis-read the two-part KB promise as
+a bug (half built) and filed `BUG-PLT-049`; retracted same session once the ticket-side CRM Links panel was
+pointed out — see `PLATFORM_MEMORY.md` for the full writeup. Net result: the full KB promise does hold, it's just
+two independent actions, not one.
 
 ### TC-PLT-304 — The Contact↔Customer link has no reciprocal entry point from the Customer side
 
@@ -119,8 +138,13 @@ whether this is a gap worth filing (a Helpdesk admin creating a Customer first, 
 that person, has no way to create/link the Contact from here) or acceptable given Contact is optional. Flag for
 discussion rather than auto-filing — re-confirm this TC's result during execution before deciding.
 
-**Status:** Not yet executed (live confirmation of the asymmetry itself already done; the open question is
-whether it rises to a bug).
+**Status:** Confirmed, decided NOT a bug (2026-10-15). Re-confirmed live: neither Helpdesk's New Customer nor
+Edit Customer form has any field to link to an existing Contact — the link can only be initiated from the
+Contact's own "Support portal login" field. Decision: accepted design asymmetry, not filed. Contact is explicitly
+optional (per this suite's own intro), and creating/linking a Contact afterward is a cheap, one-field action from
+the Contact side — the asymmetry doesn't block any workflow, it just means a Helpdesk admin who creates a
+Customer first has to remember to also create a Contact if they want the CRM-side view. Worth a low-severity UX
+suggestion if this plugin ever gets a dedicated UX-polish pass, but not worth a bug report on its own.
 
 ## Functional Cases — Invoice's own Customer/Organization touchpoint (needs live resolution — KB doesn't say)
 
@@ -149,22 +173,45 @@ Organization/Contact/Contact Links), Invoice should be reading Platform's shared
 maintaining a separate one — if so, this would mean Invoice is actually **further along** in Step 5 migration
 than CRM or Shift Management, worth noting as a positive finding rather than assumed.
 
-**Status:** Not yet executed — this live search was started but not completed this session (Invoice's own
-`/projects/<id>/settings/invoice` route did not resolve as expected on this instance; the correct path needs
-to be found live, not guessed).
+**Status:** PASS, confirmed 2026-10-15 — Platform's claim holds, via a screen this session initially missed. No
+standalone "Customer" nav screen exists in Invoice (confirmed again this session), and the project-scoped route
+guessed earlier (`/projects/<id>/settings/invoice`) still doesn't resolve — but the real mechanism is Invoice's
+own **"Billing Settings"** tab (`/projects/<id>/invoices/billing`, linked from the project's own Invoice nav, not
+Redmine's generic Project Settings), which has a "Contact \*" dropdown: *"Select the contact for this project.
+Contact details will be used in invoices."* Setting a project's Billing Settings Contact to a Platform Contact,
+then opening that project's own New Invoice form (`/projects/<id>/invoices/new`, not the global `/invoices/new`),
+correctly auto-populated Client Name and Client Email from that Contact. Initially missed this screen, concluded
+Invoice was fully disconnected from Platform's Organization/Contact data, and filed `BUG-PLT-050`; retracted
+same session once the user pointed at the Billing Configuration panel. See `PLATFORM_MEMORY.md` for the full
+writeup and the lesson (check project-scoped config screens, not just a plugin's global top-nav form, before
+concluding an integration doesn't exist).
 
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
 |-------|--------|-----------|------------|
-| TC-PLT-299 – TC-PLT-305 | Not yet executed | — | Organization/Contact/Customer cross-plugin flow — written 2026-10-13, pending first live execution pass |
+| TC-PLT-299 | PASS (positive finding — premise superseded) | — | CRM's native Contact/Company routes now redirect to Platform's screens |
+| TC-PLT-300 | PASS | — | `https://example-tc300.com` auto-prefixed on Platform's own form |
+| TC-PLT-301 | PASS | — | Organization delete clears Contact's reference, doesn't delete it |
+| TC-PLT-302 | PASS | — | Contact delete leaves Organization untouched |
+| TC-PLT-303 | PASS (mechanism clarified) | Filed then retracted (`BUG-PLT-049`) | Org/SLA auto-surfaces; tickets need a separate manual CRM Links step |
+| TC-PLT-304 | Confirmed, not filed (accepted asymmetry) | — | No reciprocal Contact-link field on Customer forms |
+| TC-PLT-305 | PASS (mechanism clarified) | Filed then retracted (`BUG-PLT-050`) | Invoice reads Platform's Contact via per-project Billing Settings |
 
-## Summary (2026-10-13)
+## Summary (2026-10-15)
 
-7 cases written, none yet executed. Unlike the Team/Leave/Holiday suites, this one starts from a corrected
-premise raised directly by the user: Contact and Customer are deliberately separate entities (one a plain
-record, one a login-capable Redmine User), linked optionally rather than meant to merge — so the right
-questions here are whether that link actually works end-to-end (TC-PLT-303), whether it's unfairly one-sided
-(TC-PLT-304), and whether Organization/Contact deletion follows the gentler "clear reference" pattern CRM's own
-KB documents rather than Team's cascade-delete pattern (TC-PLT-301/302) — not whether the two entities should
-be forced into one.
+All 7 cases executed. Net result: **0 bugs** — six clean PASSes plus one accepted, undecided-by-design asymmetry
+(TC-PLT-304). Two findings (TC-PLT-303, TC-PLT-305) were initially mis-read as bugs and filed (`BUG-PLT-049`,
+`BUG-PLT-050`), then retracted the same session once a screen this session had missed was pointed out in each
+case — both times, the real mechanism turned out to be a *separate, manual* linking step (the ticket's own CRM
+Links panel; the project's own Billing Settings tab) rather than something automatic. See `PLATFORM_MEMORY.md`
+for both writeups and the shared lesson: check every related screen — including project-scoped config tabs, not
+just a plugin's global top-nav form or the record's own edit form — before concluding a documented integration
+doesn't work.
+
+Unlike the Team/Leave/Holiday suites, this one started from a corrected premise raised directly by the user:
+Contact and Customer are deliberately separate entities (one a plain record, one a login-capable Redmine User),
+linked optionally rather than meant to merge. That premise held up throughout — the link works end-to-end
+(TC-PLT-303), the one-sidedness (TC-PLT-304) is an acceptable, low-cost gap rather than a blocker, and
+Organization/Contact deletion follows the gentler "clear reference" pattern CRM's own KB documents, the opposite
+of Team's cascade-delete pattern (TC-PLT-301/302).

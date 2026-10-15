@@ -260,6 +260,73 @@ all the way through actual invoice creation, not just the New Invoice form's fie
 > defect — confirmed by the user directly and by the Billing Settings page's own "Contact ... added to project"
 > success banner showing a real, intentional save. No bug filed.
 
+## Permission Isolation Cases — Contact Links, Deal creation, Invoice creation
+
+> Added 2026-10-15 at the user's direct request ("ab permission wise testing bhi kr lo"). Follows the same
+> isolated-single-permission method as `PLATFORM_PERMISSIONS_AND_ACCESS.md` TC-PLT-204–209: a dedicated role with
+> exactly the permission(s) under test, assigned to a user confirmed to have zero other relevant permissions,
+> tested view-only then +manage where applicable, with isolation re-confirmed against unrelated screens.
+
+### TC-PLT-313 — Contact Links permission (`view_rf_platform_organization_contact_links` / `manage_rf_platform_organization_contact_links`) — not previously isolated-tested
+
+**User Role:** `PLT-ContactLinksOnly` — `view_rf_platform` + `view_rf_platform_organization_contact_links` only,
+then + `manage_rf_platform_organization_contact_links`. Assigned to `willow.belle` (confirmed zero other
+permissions) on `PLT-DelCheck-Project`.
+
+**Steps:** Same method as TC-PLT-204/208/209: view-only first (confirm list renders, no New button, 403 on
+Organizations/Contacts/every other `rf_platform` entity), then add manage and confirm Create/Edit/Delete work.
+
+**Status:** **EXECUTED 2026-10-15 — PASS, both legs, fully isolated.** View-only: `/redmineflux_platform/list/organization_contact_links`
+opened with the existing link visible (names of the related Organization/Contact resolved and displayed even
+without `view_organizations`/`view_contacts` — expected, same pattern as a foreign-key display, not a leak of
+the full Organization/Contact lists elsewhere), no "New Contact link" button; direct nav to `/new` returned a
+genuine 403, as did Organizations and Contacts. Added the manage permission: "New Contact link" appeared, a new
+link was successfully created and deleted. Re-checked Teams still 403 — no cross-entity leak. One false alarm
+caught and self-corrected mid-test: the Create button appeared to do nothing for two attempts — turned out to be
+the Organization dropdown silently reverting to its blank placeholder option (native HTML5 "Please select an
+item in the list" validation, invisible until a screenshot was taken), not a permission problem; explicitly
+re-selecting the Organization fixed it. No bug filed.
+
+### TC-PLT-314 — Deal creation permission (CRM's own `Manage Deals`, independent of Platform's permissions)
+
+**User Role:** `PLT-DealsOnly` — CRM's `View CRM` + `Manage Deals` only, no `rf_platform` permissions at all.
+Assigned to `daisy.skye` (confirmed zero other permissions) on `PLT-DelCheck-Project`.
+
+**Steps:** Confirm whether CRM's own permission set (separate from Platform's `view_organizations`/`view_contacts`)
+is sufficient on its own to view and create a Deal referencing a Platform Contact/Organization, and whether
+`View CRM` alone grants broader access than expected.
+
+**Status:** **EXECUTED 2026-10-15 — PASS, with one notable (not a bug) finding.** `Manage Deals` alone correctly
+let this user view the Deals list, open New Deal, and successfully create "Permission Test Deal" (Contact
+pre-filled from the URL/relationship, deal detail page correctly shows it). **Finding:** `View CRM` alone also
+granted this user full *view* access to `/redmineflux_platform/list/contacts` and `/redmineflux_platform/list/organizations`
+(200 OK, full list rendered) despite holding neither `view_rf_platform` nor `view_rf_platform_contacts`/
+`view_rf_platform_organizations` — confirmed this is view-only (direct nav to `.../contacts/new` correctly 403'd,
+no "New Contact" button). This is a deliberate OR-permission design (CRM users can see the shared Contact/
+Organization data CRM itself displays), not a leak — manage-level actions still require the dedicated Platform
+permission. Isolation re-confirmed: Teams screen still 403. Deal's own "Delete" link is correctly hidden for a
+user without `Delete CRM Data` (confirmed when re-opening as admin, who did see Delete) — a third, independently
+gated action beyond View/Manage. Test deal deleted by admin after verification.
+
+### TC-PLT-315 — Invoice creation permission (`Manage invoices` alone, without `View invoices`)
+
+**User Role:** `PLT-InvoiceOnly` — Redmineflux Invoice's `Manage invoices` only (deliberately NOT `View invoices`,
+to test whether manage implies view). Assigned to `serenity.bloom` (confirmed zero other permissions) on
+`PLT-DelCheck-Project`.
+
+**Steps:** Confirm whether `Manage invoices` alone (without the paired `View invoices`) is sufficient to view the
+Invoice List and create a full invoice end to end, and confirm isolation from Platform's own screens.
+
+**Status:** **EXECUTED 2026-10-15 — PASS.** `Manage invoices` alone correctly granted full access: Invoice List
+(all 3 invoices visible, with Edit/Delete on each), New Invoice (Client Name auto-populated from the project's
+Billing Settings Contact as expected), and a full invoice (#INV-2026-0003) was successfully created end to end
+(project selection, line item, correct "must have at least one line item" server-side validation when the item
+was initially incomplete — not a permission issue). Confirms "Manage" implies "View" for this permission pair, a
+reasonable and consistent design (same pattern Redmine core itself uses for most manage/view permission pairs).
+Isolation re-confirmed: `/redmineflux_platform/teams` and `/redmineflux_platform/list/contacts` both correctly
+403'd — unlike TC-PLT-314's CRM finding, Invoice's own permission grants no incidental Platform access. Test
+invoice deleted by admin after verification.
+
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
@@ -274,10 +341,13 @@ all the way through actual invoice creation, not just the New Invoice form's fie
 | TC-PLT-310 | PASS | — | Contact Link (multi-organization) created and verified on both sides |
 | TC-PLT-311 | PASS | — | Deal created from Contact, Forecasted Value auto-calculated correctly |
 | TC-PLT-312 | PASS | — | Invoice #INV-2026-0002 created end to end using Contact's billing info |
+| TC-PLT-313 | PASS | — | Contact Links permission isolated: view-only + manage both correct, no leaks |
+| TC-PLT-314 | PASS (1 design finding, not a bug) | — | `View CRM` alone grants view (not manage) access to Contacts/Organizations |
+| TC-PLT-315 | PASS | — | `Manage invoices` alone (no `View invoices`) grants full access, correctly isolated |
 
 ## Summary (2026-10-15)
 
-All 10 cases executed. Net result: **0 bugs** — nine clean PASSes plus one accepted, undecided-by-design
+All 13 cases executed. Net result: **0 bugs** — twelve clean PASSes plus one accepted, undecided-by-design
 asymmetry (TC-PLT-304). Two findings (TC-PLT-303, TC-PLT-305) were initially mis-read as bugs and filed
 (`BUG-PLT-049`, `BUG-PLT-050`), then retracted the same session once a screen this session had missed was
 pointed out in each case — both times, the real mechanism turned out to be a *separate, manual* linking step
@@ -291,6 +361,14 @@ creation, and full Invoice creation) all PASS with zero defects — Contact Link
 "data model with zero UI" finding) is now fully built and working; Deal creation correctly reads Platform's
 live Contact/Organization via real hyperlinks, not a copy; Invoice creation end-to-end confirms TC-PLT-305's
 auto-population finding holds all the way through a real submitted invoice.
+
+TC-PLT-313–315 (added the same day, at the user's direct request for permission-wise testing of this same
+surface area) all PASS, closing the one remaining gap `PLATFORM_PERMISSIONS_AND_ACCESS.md` had left — Contact
+Links' own permission pair had never been isolated-tested before. One design finding worth remembering rather
+than filing (TC-PLT-314): CRM's `View CRM` permission grants view-only access to Platform's Contacts/
+Organizations screens independently of Platform's own `view_rf_platform_contacts`/`view_rf_platform_organizations`
+— a deliberate OR-permission pattern, not a leak, since manage-level actions still require the dedicated
+Platform permission.
 
 Unlike the Team/Leave/Holiday suites, this one started from a corrected premise raised directly by the user:
 Contact and Customer are deliberately separate entities (one a plain record, one a login-capable Redmine User),

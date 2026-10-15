@@ -173,6 +173,14 @@
 
 **Status:** **EXECUTED 2026-09-30 — PASS, all legs.** Created role `PLT-QA-ContactsOnly` (`view_rf_platform` + `view_rf_platform_contacts` only), assigned to `marigold.rayne`. View-only: `/redmineflux_platform/list/contacts` opens with no "New Contact" link; direct nav to all 6 other entities returned genuine 403s. Added `manage_rf_platform_contacts`, confirmed saved. Re-logged in: "New Contact" present, genuinely created `PLT-PERM-TC209` (id 2, with email) and deleted it — confirmed gone. Re-checked Teams still 403 — no leak. **This completes exhaustive per-entity permission verification for all 7 entities (Team already covered in TC-138/139) — all 15 `rf_platform` permissions now individually confirmed working, isolated, and non-leaking, closing the gap the user flagged.**
 
+> **Update 2026-10-15 — the "15 permissions" count above is now stale.** The `rf_platform_organization_contact_links`
+> feature (`BUG-PLT-026`, fully built after this session) added a further `view_rf_platform_organization_contact_links`
+> / `manage_rf_platform_organization_contact_links` pair that didn't exist when this TC was written, and was never
+> isolated-tested until `PLATFORM_ORGANIZATION_CONTACT_CROSS_PLUGIN_FLOW.md` TC-PLT-313 (2026-10-15, PASS, both legs,
+> fully isolated — no cross-entity leak). See that suite for the full writeup, and also TC-PLT-314/315 for the
+> equivalent isolation tests on CRM's `Manage Deals` and Invoice's `Manage invoices` (both outside `rf_platform`
+> entirely, so not part of this suite's own 15/17-permission count, but closing the same kind of gap).
+
 ---
 
 ### TC-PLT-140: Audit events and Settings stay admin-only regardless of any manage permission granted

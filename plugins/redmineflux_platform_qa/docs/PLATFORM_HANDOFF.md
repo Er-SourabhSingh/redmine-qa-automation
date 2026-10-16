@@ -293,3 +293,28 @@ not yet reported to production.
 4. Fixture state added this session: zero-permission test user `marigold.rayne` (no project membership on
    `PLT-DelCheck-Project`); roles `PLT-SchemesOnly-20261016` (→ `nova.starling`) and `PLT-HolidaysOnly-20261016`
    (→ `opal.sparrow`) on `PLT-DelCheck-Project`, kept for future reuse.
+
+| 2026-10-16 | 6 | `redmine v6 - platform` (`redmine6platform-redmine-1`, localhost:3013) | Sourabh Singh | **At the user's direct request, re-tested Leave's cross-plugin consolidation (`PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md` TC-PLT-270/271) against the now-consolidated form, found and filed `BUG-PLT-053`.** The single consolidated "New Leave Request" form (`/redmineflux_platform/list/leaves/new`, the sole survivor of `BUG-PLT-045`'s consolidation) has zero Leave Policy Band enforcement — confirmed with the environment at zero Leave band assignments system-wide and a zero-band test user (`aurora.wren`): the Leave Type dropdown lists every Active type unfiltered, and submission succeeds outright (Leave #9, Pending). This is a regression on the one remaining form against `BUG-PLT-036` (Shift Management) and `BUG-PLT-043` (Workload), both already closed on their own now-retired forms. New TC-PLT-319 added to the suite and marked FAIL. Filed locally (`bugs/open/BUG-PLT-053.md`), not yet reported to production. |
+
+## Next Session Start Point (2026-10-16, continued — BUG-PLT-053 found and filed)
+
+At the user's direct request, re-tested `PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md`'s Policy Band gate coverage
+(TC-PLT-270/271) against the now-fully-consolidated Leave flow (`BUG-PLT-045`, closed 2026-10-15). Found
+**`BUG-PLT-053`**: the single remaining `/redmineflux_platform/list/leaves/new` form enforces no Policy Band
+gate at all — a zero-band user (`aurora.wren`, confirmed against an environment with zero Leave band assignments
+system-wide) can select and submit any Active Leave Type with no block, a regression against both `BUG-PLT-036`
+(Shift Management, closed) and `BUG-PLT-043` (Workload, closed), neither of whose gate logic was carried into
+the new consolidated path. New TC-PLT-319 added and marked FAIL. Filed locally, not yet reported to production.
+
+**Next session options**:
+1. Decide whether/when to report `BUG-PLT-053` to production, and which Testcase to link it under (likely Run
+   #586, Testcase #123304-area "Leave Cross-Plugin Flow" or similar — confirm the exact testcase before calling
+   `report_defect`, per the lesson in `PLATFORM_MEMORY.md`'s "one testcase per local suite file" section).
+2. `PLATFORM_SECURITY.md` still has 2 tooling-blocked items and no production Test Case issue.
+3. `bugs/open/` now has 2 bugs (`BUG-PLT-052`, `BUG-PLT-053`) — not empty, so `STATUS.md` cannot move toward
+   `Complete` until both are resolved.
+4. Fixture state added this session: Leave #9 (Aurora Wren, Emergency Leave, 10/20/2026, Pending) deliberately
+   left in place as the bug's live evidence record, not cleaned up. Leave Types list is now down to 2 entries
+   only (`Emergency Leave`, `Comp-Off`) and all Leave band assignments were deleted — both the result of the
+   user's own parallel cleanup session, not this investigation; any future TC needing a 3rd+ Leave Type or an
+   existing band assignment will need to recreate it first.

@@ -129,6 +129,29 @@ after verification.
 
 **Retest 2026-10-15 — PASS.** Submission as the same unassigned user (Aurora Wren) is now server-side REJECTED with an explicit no-policy-band error. `BUG-PLT-043` confirmed fixed, closed.
 
+## Regression Cases — Consolidated form (post-`BUG-PLT-045`)
+
+### TC-PLT-319 — Consolidated "New Leave Request" form re-checked for the Policy Band gate after consolidation
+
+**Preconditions:** `BUG-PLT-045` closed — Shift Management's and Workload's own Apply Leave screens now both
+redirect to Platform's single `/redmineflux_platform/list/leaves/new`. Environment currently has **zero** Leave
+band assignments at all (confirmed via `/redmineflux_platform/list/user_band_assignments` showing "0").
+
+1. Log in as `aurora.wren` (zero Policy Band assignment, confirmed).
+2. Open the single consolidated `/redmineflux_platform/list/leaves/new`.
+3. Open the "Leave Type *" dropdown (helper text: "Only the types their band allows are listed.").
+4. Select "Emergency Leave", fill Start/End Date and Reason, click Create.
+
+**Expected:** Per the same rule already confirmed fixed on both predecessor screens (TC-PLT-270's Shift
+Management contrast case and TC-PLT-271's now-closed Workload fix), a zero-band user should see no selectable
+Leave Types, or be blocked from submitting.
+
+**Actual:** Regression confirmed — the dropdown lists every Active Leave Type unfiltered, and submission
+succeeds outright (Leave #9 created, Status Pending, Leave Type "Emergency Leave", no error). The Policy Band
+gate that both `BUG-PLT-036` (Shift Management) and `BUG-PLT-043` (Workload) fixed independently, each inside
+its own now-retired form, was not carried over into the single form `BUG-PLT-045`'s consolidation introduced in
+its place. **Status: FAIL — filed `BUG-PLT-053`.**
+
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
@@ -141,6 +164,7 @@ after verification.
 | TC-PLT-269 | PASS (Retest 2026-10-15) | BUG-PLT-044 (Closed) | `screenshots/BUG-PLT-044/shift-management-policy-bands-no-platform-equivalent.png`, `screenshots/BUG-PLT-044/platform-nav-no-policy-band-entry.png` |
 | TC-PLT-270 | PASS | — | — |
 | TC-PLT-271 | PASS (Retest 2026-10-15) | BUG-PLT-043 (Closed) | `screenshots/BUG-PLT-043/workload-apply-leave-bypasses-policy-band.png` |
+| TC-PLT-319 | FAIL (2026-10-16) | BUG-PLT-053 (Open) | `screenshots/BUG-PLT-053/BUG-PLT-053-zero-band-assignments.png`, `screenshots/BUG-PLT-053/BUG-PLT-053-leave-type-dropdown-unrestricted.png`, `screenshots/BUG-PLT-053/BUG-PLT-053-form-filled-before-submit.png`, `screenshots/BUG-PLT-053/BUG-PLT-053-leave-created-no-band-gate.png` |
 
 ## Summary (2026-10-13)
 
@@ -150,3 +174,15 @@ The FAILs show the same architectural pattern already found for Team: a shared e
 consolidated but whose **UI, approval workflow, and governance rules** are independently re-implemented per
 consumer plugin, with no enforcement guarantee that a rule added to one (Shift Management's Policy Band gate)
 reaches the others (Workload's Apply Leave, confirmed live to bypass it entirely).
+
+## Summary addendum (2026-10-16 — regression found on the consolidated form)
+
+Re-tested at the user's request, now that `BUG-PLT-045`'s consolidation (closed 2026-10-15) has replaced all
+three independent Apply Leave forms with the single `/redmineflux_platform/list/leaves/new`. TC-PLT-319 found
+that this single remaining form has **lost** the Policy Band gate entirely — a regression against both
+`BUG-PLT-036` (Shift Management, closed) and `BUG-PLT-043` (Workload, closed), neither of which had this
+coverage carried forward into the consolidated path. Filed as `BUG-PLT-053`. This is a cautionary example for
+future consolidation work in this plugin: merging duplicate UI/forms (the right fix for `BUG-PLT-045`'s own
+finding) must also re-verify that every per-form business rule the old forms enforced independently was ported
+into the single replacement — consolidation closed the duplication gap but silently reopened the enforcement
+gap it had separately fixed.

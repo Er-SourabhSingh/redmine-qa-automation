@@ -306,12 +306,13 @@ system-wide) can select and submit any Active Leave Type with no block, a regres
 (Shift Management, closed) and `BUG-PLT-043` (Workload, closed), neither of whose gate logic was carried into
 the new consolidated path. New TC-PLT-319 added and marked FAIL. Filed locally, not yet reported to production.
 
+**`BUG-PLT-053` reported to production same day as #123786** — assigned Prashant Chaurasia, linked via
+`report_defect` to Testcase #123303 ("Leave Cross-Plugin Flow") inside Run #586, Suite #397, environment
+`Win + Chrome + Ver6` — testcase marked Failed, verified visible via `get_run_testcases`.
+
 **Next session options**:
-1. Decide whether/when to report `BUG-PLT-053` to production, and which Testcase to link it under (likely Run
-   #586, Testcase #123304-area "Leave Cross-Plugin Flow" or similar — confirm the exact testcase before calling
-   `report_defect`, per the lesson in `PLATFORM_MEMORY.md`'s "one testcase per local suite file" section).
-2. `PLATFORM_SECURITY.md` still has 2 tooling-blocked items and no production Test Case issue.
-3. `bugs/open/` now has 2 bugs (`BUG-PLT-052`, `BUG-PLT-053`) — not empty, so `STATUS.md` cannot move toward
+1. `PLATFORM_SECURITY.md` still has 2 tooling-blocked items and no production Test Case issue.
+2. `bugs/open/` now has 2 bugs (`BUG-PLT-052`, `BUG-PLT-053`) — not empty, so `STATUS.md` cannot move toward
    `Complete` until both are resolved.
 4. Fixture state added this session: Leave #9 (Aurora Wren, Emergency Leave, 10/20/2026, Pending) deliberately
    left in place as the bug's live evidence record, not cleaned up. Leave Types list is now down to 2 entries

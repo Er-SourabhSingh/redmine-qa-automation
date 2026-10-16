@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-PLT-053
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #123786
 - Title: Consolidated "New Leave Request" form has zero Leave Policy Band enforcement — a user with no band assigned can submit any existing Leave Type, a regression on the single form that replaced BUG-PLT-036/BUG-PLT-043's fixes
 - Redmine version: 6
 - Plugin name: redmineflux_platform
@@ -57,4 +57,4 @@
 
 ## Production report
 
-- Not yet reported — pending approval for which production Run/Testcase to link it to (likely Run #586, linked either to the "Leave Cross-Plugin Flow" testcase or "Permissions and Access", per the same workflow used for `BUG-PLT-052`).
+Reported to production as **#123786**, assigned to Prashant Chaurasia, linked to Testcase **#123303** ("Leave Cross-Plugin Flow", `PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md`) inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6` — testcase marked Failed. Verified visible in the run via `get_run_testcases`. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.

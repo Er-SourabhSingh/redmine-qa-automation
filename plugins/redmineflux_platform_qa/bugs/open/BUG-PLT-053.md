@@ -58,3 +58,41 @@
 ## Production report
 
 Reported to production as **#123786**, assigned to Prashant Chaurasia, linked to Testcase **#123303** ("Leave Cross-Plugin Flow", `PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md`) inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6` — testcase marked Failed. Verified visible in the run via `get_run_testcases`. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.
+
+## Correction (2026-10-16, same day — narrowed scope after testing the assigned-band case)
+
+At the user's request, the full Leave module (Apply/Cancel/Approve, Leave Type CRUD, Policy Band CRUD, Band
+assignment CRUD) was retested end to end, including — for the first time — the case this bug's original
+write-up never actually tried: **a user who DOES have a Policy Band assigned.**
+
+Created Policy Band `QA-Band-EmergencyOnly` (allows only "Emergency Leave", not "Comp-Off") and assigned it to
+`aurora.wren` for 2026. Result, tested live:
+
+- **Submitting the disallowed type ("Comp-Off") as this banded user is correctly REJECTED** server-side, with an
+  explicit inline error: *"Leave Type is not one your leave policy band (QA-Band-EmergencyOnly) allows"* — and
+  the form, once re-rendered after the error, correctly narrows the Leave Type dropdown to only "Emergency
+  Leave".
+- **Submitting the allowed type ("Emergency Leave") as this banded user succeeds correctly** (Leave #10
+  created, approved without issue).
+
+**This means the Policy Band gate genuinely works at the validation layer for any user who has a band
+assigned** — it was never "zero enforcement" in the way the original title claimed. The two defects that
+actually exist, both confirmed, are narrower:
+
+1. **The real bug (unchanged, still confirmed):** a user with **no band assignment at all** bypasses validation
+   entirely — there is no "you have no band, contact HR" rejection the way a disallowed-type rejection fires for
+   a banded user. The zero-band case and the banded-with-wrong-type case should both be rejected by the same
+   rule; only the zero-band case silently isn't.
+2. **A separate, less severe UX gap:** the Leave Type dropdown does not pre-filter to the current user's allowed
+   types on initial page load — it always lists every Active Leave Type, for both zero-band and banded users
+   alike, and only reveals the restriction via a validation error after a failed submit attempt. Since the
+   server-side check does correctly catch a banded user's disallowed choice, this is cosmetic/UX for a banded
+   user (extra round-trip, not a security gap) — it only becomes a real security gap in combination with defect
+   1 above (a zero-band user, where no server check exists at all).
+
+**Title stands as filed** (the zero-band bypass is real and still the core finding) but the "zero Leave Policy
+Band enforcement" phrasing in the Expected/Actual sections above should be read as "zero enforcement
+specifically for the no-band-assigned case" — enforcement for an assigned-but-wrong-type case works correctly.
+Evidence for this correction: `TC-PLT-323-banded-user-disallowed-type-rejected.png`,
+`TC-PLT-323-banded-user-allowed-type-succeeds.png`,
+`BUG-PLT-053-banded-user-dropdown-also-unfiltered.png` (all in this bug's screenshot folder).

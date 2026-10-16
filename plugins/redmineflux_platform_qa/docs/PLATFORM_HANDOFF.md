@@ -319,3 +319,33 @@ the new consolidated path. New TC-PLT-319 added and marked FAIL. Filed locally, 
    only (`Emergency Leave`, `Comp-Off`) and all Leave band assignments were deleted — both the result of the
    user's own parallel cleanup session, not this investigation; any future TC needing a 3rd+ Leave Type or an
    existing band assignment will need to recreate it first.
+
+| 2026-10-16 | 6 | `redmine v6 - platform` (`redmine6platform-redmine-1`, localhost:3013) | Sourabh Singh | **At the user's explicit request, ran a full Leave-module pass covering Apply/Cancel/Approve, Leave Type CRUD, Policy Band CRUD, Band Assignment CRUD, and the Workload/Shift Management capacity cross-check (TC-PLT-320–327).** Policy Band + Band Assignment CRUD all PASS. Testing the assigned-band case (never tried before) corrected `BUG-PLT-053`'s scope — the gate works server-side for a banded user; the real defect is narrower (zero-band bypass + cosmetic dropdown pre-filtering). Found and filed a new bug in `redmineflux_workload` (`BUG-WKL-003`) — its Gantt service treats a Pending leave like an Approved one, confirmed via direct service call and contrasted against Shift Management's correct behavior. |
+
+## Next Session Start Point (2026-10-16, continued — full Leave-module pass, BUG-PLT-053 corrected, BUG-WKL-003 filed)
+
+At the user's explicit request ("leave wal me 4 section he... please check proper scenarios then check flow
+after assigning policy band to user"), ran a full live pass over every area of the Leave module
+(`PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md` TC-PLT-320–327):
+
+- **Policy Band CRUD** (Create/Edit) and **Band Assignment CRUD** (Create/Edit-reassign/Delete-unassign) — all
+  PASS, no defects.
+- **The assigned-band case, tested live for the first time** (every prior session only tested the zero-band
+  case): the Policy Band gate genuinely works server-side — a disallowed type is rejected with a clear inline
+  error, an allowed type succeeds. This **corrected `BUG-PLT-053`'s scope** (not retracted — the zero-band
+  bypass is still real and confirmed) and a clarifying comment was added to production #123786.
+- **New bug found in `redmineflux_workload`**: `rf_workload_gantt_data_service.rb` treats a still-Pending leave
+  identically to an Approved one for capacity/scheduling purposes — confirmed via direct `rails runner` call
+  (10 vs. 11 working days) and contrasted against Shift Management's own calendar (correct). Filed as
+  `BUG-WKL-003`, not yet reported to production.
+
+**Next session options**:
+1. Decide whether/when to report `BUG-WKL-003` to production (needs its own Run/Testcase lookup for the
+   Workload plugin, following the same workflow already used for Platform's own bugs).
+2. `PLATFORM_SECURITY.md` still has 2 tooling-blocked items and no production Test Case issue.
+3. `bugs/open/` has 2 bugs on Platform (`BUG-PLT-052`, `BUG-PLT-053` — scope corrected) and now 1 on Workload
+   (`BUG-WKL-003`) — none of these plugins can move toward `Complete` until resolved.
+4. Fixture state added this session: Policy Band `QA-Band-EmergencyOnly` (id 2, allows only Emergency Leave,
+   5 days/year) and Band Assignment id 4 (Aurora Wren · QA-Band-EmergencyOnly · 2026) both left in place for
+   future regression retesting of TC-PLT-325/326/327 once either bug is fixed. Leave #10 (Aurora Wren, Emergency
+   Leave, 10/22/2026, now Approved) also left in place as evidence.

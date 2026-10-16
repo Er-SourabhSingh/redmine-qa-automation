@@ -20,7 +20,30 @@ Found 2026-10-15 while testing Platform's `PLATFORM_HOLIDAY_CROSS_PLUGIN_FLOW.md
 
 **Lesson: a plugin can have one correct, shared recurrence-aware calculation service (`WorkingCalendar`) and still have a second, completely independent screen that silently reinvents the same logic badly** — don't assume a fix or a correct result in one part of a plugin (Dashboard capacity) means an adjacent part (Gantt) reads from the same code path. Worth spot-checking every *consumer* of a shared data type, not just the data type's own service.
 
-- (none recorded yet)
+### `BUG-WKL-003` — the SAME file (`rf_workload_gantt_data_service.rb`) has a second, independent bug: Pending leave treated as Approved (2026-10-16)
+
+Found the same day as the `BUG-WKL-002` retest closed, while the user asked for a full Leave-module pass on
+Platform including "test leave is visible and calculation is proper in workload, shift management" after a
+Policy Band is assigned. `fetch_user_leaves` (same file as `BUG-WKL-002`'s fix, line 88) queries
+`RedminefluxPlatform::Leave.where(user_id: user_id, status: ['pending', 'approved'])` — explicitly including
+`'pending'`. This same leave list feeds `working_day?`/`count_working_days`, which drives both the Gantt's "L"
+marker and the member's actual available-capacity count for that workload. Confirmed via direct `rails runner`
+call: counting working days with a Pending leave included gives 10; counting with only the Approved leave (the
+correct scope) gives 11 — a full day (8h) wrongly deducted before any approver has acted.
+
+**Second confirmed instance of the exact same architectural pattern as `BUG-WKL-002`**: this file keeps
+re-implementing logic a separate, correct service already gets right — there it was holiday recurrence vs.
+`WorkingCalendar`; here it's leave-approval-status scoping vs. `Workload::Dashboard::CapacityAggregator` (which
+correctly scopes `status: 'approved'` only, confirmed in source at the same investigation). Cross-checked
+against Shift Management's own Shift Calendar with the identical two leave records (one Pending, one Approved)
+— it correctly shows "On Leave" only for the Approved date, proving the intended behavior is already
+implemented correctly elsewhere in this same codebase.
+
+**Lesson, sharpened from `BUG-WKL-002`'s own lesson above: a single file that reimplements shared logic once is
+worth treating as a standing risk for reimplementing it AGAIN, elsewhere in the same file, for a different
+shared concept.** Don't consider a service "cleaned up" just because one specific defect in it (holidays) was
+fixed — check every other query/filter it independently re-derives (here, leave status) against whichever
+service is supposed to be the canonical source for that same filter.
 
 ## Environment Notes
 

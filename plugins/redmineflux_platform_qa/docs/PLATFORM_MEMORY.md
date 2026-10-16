@@ -389,6 +389,44 @@ At the user's request, re-tested `PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md`'s TC-PLT-
 
 **Lesson, generalizing the one already written for `BUG-PLT-013`/`014`/`015` ("duplicate UI pointing at shared data drifts")**: the inverse direction is just as real a risk. **Collapsing N duplicate forms into one (the correct fix for a `BUG-PLT-045`-style finding) must separately re-verify that every per-form business rule each of the N old forms enforced independently survived the merge** — consolidation fixes the duplication defect but can silently reopen whatever enforcement gap had already been separately, individually fixed on each of the forms being merged away. A "the UI is now unified" retest is not the same test as "the old form's specific validation still fires on the new one" — both need their own pass.
 
+## ⚠️ `BUG-PLT-053` corrected (not retracted) after testing the opposite edge of the same condition — and a genuinely new bug found doing it (2026-10-16, same day)
+
+At the user's explicit request, ran a full live pass over every area of the Leave module in one session
+(`PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md` TC-PLT-320–327): Policy Band CRUD, Band Assignment CRUD, and — critically
+— **the assigned-band case**, which no prior session (including the one that filed `BUG-PLT-053` itself earlier
+the same day) had ever actually tried. Only the zero-band case had been tested.
+
+Created Policy Band `QA-Band-EmergencyOnly` (allows only "Emergency Leave"), assigned it to `aurora.wren`, then
+submitted both a disallowed type and an allowed type as that now-banded user. Result: the disallowed type was
+correctly rejected server-side with an explicit error, and the allowed type succeeded — **the Policy Band gate
+genuinely works for a banded user.** `BUG-PLT-053`'s own title ("zero Leave Policy Band enforcement") had
+overstated the defect to the whole feature, when only two narrower things are actually broken: (1) a user with
+**no** band assigned at all bypasses validation entirely (the real, still-valid defect), and (2) the Leave Type
+dropdown never pre-filters on initial page load for *anyone*, zero-band or banded (a separate, more cosmetic UX
+gap, since the server-side check still catches a banded user's wrong choice at submit time). Corrected the local
+bug file with a dated "Correction" section and added a clarifying comment to production #123786 rather than
+closing/reopening — the core finding (zero-band bypass) was never wrong, just the stated scope.
+
+**The same pass, checking the natural next question ("does the resulting Leave calculate correctly in
+Workload/Shift Management"), surfaced an unrelated, genuinely new bug — this time in `redmineflux_workload`, not
+Platform.** Comparing a still-Pending leave against an Approved one on the same Workload's own Gantt chart,
+both showed identically as "on leave" with no visual distinction. A direct `rails runner` call into
+`RfWorkloadGanttDataService#count_working_days` proved this isn't just a display quirk: the Pending leave was
+already being excluded from the member's available working days (10 vs. 11, a full day/8h), weeks before any
+approver had acted. Shift Management's own calendar, given the exact same two records, correctly distinguished
+Approved-only. Filed as `BUG-WKL-003` (see `WORKLOAD_MEMORY.md` for the full write-up) — a second, independent
+instance of the same file's `BUG-WKL-002` pattern (reimplementing a shared concept, here leave-approval-status
+scoping, instead of delegating to the already-correct `CapacityAggregator`).
+
+**Lesson, stacking directly on the one above about consolidation**: **testing only one edge of a two-sided
+condition (zero-band / pending) can go wrong in either direction** — it can make an existing bug look broader
+than it is (here, overstating `BUG-PLT-053` to "zero enforcement" when enforcement works for the other edge), or
+it can hide a completely different bug sitting on the untested edge (here, `BUG-WKL-003`, invisible if only the
+zero-band Leave had ever been checked against Workload's capacity math). **Whenever a finding is framed around
+one specific state of a toggle/flag/assignment ("has none", "is pending"), explicitly test the opposite state
+too before either scoping or closing the investigation** — both directions here needed their own pass, and
+neither could be inferred from the other.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

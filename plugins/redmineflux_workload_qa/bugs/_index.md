@@ -4,6 +4,7 @@
 |--------|-------|--------|----------|-----------------|------------------------------|-----------|
 | BUG-WKL-001 | Existing workloads' capacity numbers go silently stale when Platform's shared "Working Hours Per Day" setting changes — no automatic recalculation and no UI button to trigger one manually — CONFIRMED FIXED 2026-10-15 (Setting.after_commit hook now recalculates all workloads automatically) | Closed | Medium | 6 | #123498 | bugs/closed/BUG-WKL-001.md |
 | BUG-WKL-002 | Workload Gantt chart's own data service (`rf_workload_gantt_data_service.rb` + client-side `gantt_optimized.js`) re-implements holiday detection without recurrence support — a recurring holiday never highlights or reduces capacity past its creation year, unlike the Dashboard's correct `capacity_aggregator.rb`/`WorkingCalendar`-based figures. Same root-cause class as `BUG-SFM-002`/`BUG-HLP-071` filed the same day. CONFIRMED FIXED 2026-10-16 (dev fix pulled, `rf_workload_gantt_data_service.rb` now uses Platform's shared `WorkingCalendar`) | Closed | Medium | 6 | #123757 | bugs/closed/BUG-WKL-002.md |
+| BUG-WKL-003 | `rf_workload_gantt_data_service.rb` queries Leave with `status: ['pending', 'approved']` instead of `'approved'`-only (unlike the correctly-scoped `CapacityAggregator`) — a still-Pending, unapproved leave already reduces a member's available capacity and blocks scheduling, confirmed via direct service call (10 vs 11 working days) | Open | Medium | 6 | — | bugs/open/BUG-WKL-003.md |
 
 ## Notes
 - Bug ID format: `BUG-WKL-NNN`

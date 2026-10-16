@@ -431,3 +431,29 @@ confirmed admin's Create dropdown lists exactly 11 creatable entities matching 1
 exactly like the Create dropdown option does (same `manage?` gate), and confirmed every redirect link loads a
 real working page. The one place the "+" icon doesn't track `manage?` is Leaves — already `BUG-PLT-054`, not new.
 `marigold.rayne` was temporarily re-added and removed again afterward. Suite now 9/9 PASS.
+
+| 2026-10-16 | 6 | `redmine v6 - platform` (`redmine6platform-redmine-1`, localhost:3013) | Sourabh Singh | **The user's direct follow-up ("tume one by one platform ki sari permission de kar overview page test nhi kiya he") caught that the Overview sweep only tested 9 of Platform's 24 total permissions (every `view_*`, none of the `manage_*`) — completing the sweep found and filed `BUG-PLT-055`.** 7 of 11 "Create, edit and delete X" permissions (Departments/Organizations/Contacts/Contact Links/Leave Types/Leave Policy Bands/Leave Band Assignments) are completely non-functional on their own: `Entry#manage?` requires `visible_to?` as a precondition, and manage alone never satisfies it for these 7, producing a full 403 on both Overview and each entity's own dedicated screen. Teams is deliberately exempt via a documented `holder:` permission door; Holiday Schemes/Holidays/Leaves are only incidentally exempt via the already-filed `BUG-PLT-052`/`054`. TC-PLT-340 added, suite now 9/10 PASS. |
+
+## Next Session Start Point (2026-10-16, continued — full 24-permission sweep complete, `BUG-PLT-055` found)
+
+At the user's direct insistence that every single Platform permission be tested one by one (not a representative
+sample), completed the sweep from 9 to all 24 registered permissions. Found a genuine, previously-missed defect:
+7 of 11 "manage" permissions do nothing at all without their matching "view" permission also granted — confirmed
+on both the Overview widget and each entity's dedicated list/manage screen (full 403, not reduced access). Filed
+as `BUG-PLT-055`. Also confirmed, and worth remembering for any future permission sweep: a `rails runner` loop
+that reuses one fetched `User` object across multiple `Role#save!` calls can return a stale, false `manage?`
+result due to Redmine's in-process permission memoization — always re-fetch the user fresh after each role
+change (documented in `PLATFORM_MEMORY.md`).
+
+**Next session options**:
+1. No production Test Case issue exists yet for `PLATFORM_OVERVIEW.md` — ask the user whether to create one.
+2. Decide whether/when to report `BUG-PLT-055` to production (likely links to the same Testcase/Run once
+   `PLATFORM_OVERVIEW.md`'s own production Test Case exists, or to `PLATFORM_PERMISSIONS_AND_ACCESS.md`'s
+   Testcase #121705 if not — confirm before calling `report_defect`).
+3. Decide whether/when to report `BUG-WKL-003` to production (needs its own Run/Testcase lookup for Workload).
+4. `PLATFORM_SECURITY.md` still has 2 tooling-blocked items and no production Test Case issue.
+5. `bugs/open/` now has 4 bugs on Platform (`BUG-PLT-052`, `BUG-PLT-053`, `BUG-PLT-054`, `BUG-PLT-055`) and 1 on
+   Workload (`BUG-WKL-003`).
+6. Fixture state: role `PLT-OverviewIncremental` (id 18) reset to zero `rf_platform` permissions, left in place
+   for future reuse. `marigold.rayne`'s temporary project membership was removed again, restored to her
+   documented zero-permission reference state.

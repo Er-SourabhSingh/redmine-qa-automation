@@ -219,6 +219,46 @@ confirmed explicitly rather than inferred) — the one place it doesn't track co
 `BUG-PLT-054`, not a new defect. Screenshot:
 `screenshots/TC-PLT-OVERVIEW/view-only-org-no-plus-icon.png`.
 
+## TC-PLT-340 — Complete sweep: all 24 Platform permissions, one at a time, not just a representative sample
+
+> Per the user's direct follow-up ("tume one by one platform ki sari permission de kar overview page test nhi
+> kiya he" — you haven't tested the Overview page giving every single Platform permission one by one), this TC
+> completes the sweep TC-PLT-333/336 only partially covered (9 `view_*` permissions). Platform registers exactly
+> **24** permissions in total (confirmed via `Redmine::AccessControl.permissions`): `view_rf_platform`,
+> `manage_rf_teams` (legacy, Timesheet-facing), 11 `view_rf_platform_<key>`/`manage_rf_platform_<key>` pairs.
+> This TC tests the remaining 15 not yet individually isolated: `view_rf_platform` alone, `manage_rf_teams`
+> alone, and all 11 `manage_rf_platform_<key>` permissions alone (without their matching `view_`).
+
+| Permission (alone) | Overview section | Entity screen | Notes |
+|---|---|---|---|
+| `view_rf_platform` | Loads — shows only the 3 `open_to_all` entities (Leaves/Holiday Schemes/Holidays), nothing else | n/a | Correct — section gate only, each card still needs its own permission |
+| `manage_rf_teams` (legacy) | 403 | n/a | Correct — this permission gates Timesheet's own views + Platform's Teams-management actions directly, not the section/Overview card |
+| `manage_rf_platform_teams` | Loads — Teams card shows (3) | Reachable | Correct, via a documented `holder:` door (`TeamService.can_manage?`) — the one entity where manage alone is sufficient by design |
+| `manage_rf_platform_departments` | **403** | **403** | **Bug — filed `BUG-PLT-055`** |
+| `manage_rf_platform_organizations` | **403** | **403** | **Bug — filed `BUG-PLT-055`** |
+| `manage_rf_platform_contacts` | **403** (confirmed via service call) | **403** (confirmed via service call) | **Bug — filed `BUG-PLT-055`** |
+| `manage_rf_platform_organization_contact_links` | **403** (service call) | **403** (service call) | **Bug — filed `BUG-PLT-055`** |
+| `manage_rf_platform_holiday_schemes` | Loads — card shows | Reachable | Exempt from the bug — `open_to_all: :view` already makes `visible_to?` true regardless |
+| `manage_rf_platform_holidays` | Loads — card shows | Reachable | Exempt — same reason |
+| `manage_rf_platform_leave_types` | **403** (service call) | **403** (service call) | **Bug — filed `BUG-PLT-055`** |
+| `manage_rf_platform_leave_policy_bands` | **403** (service call) | **403** (service call) | **Bug — filed `BUG-PLT-055`** |
+| `manage_rf_platform_user_band_assignments` | **403** (service call) | **403** (service call) | **Bug — filed `BUG-PLT-055`** |
+| `view_rf_platform_leaves` | Loads — card shows (already always true regardless, `open_to_all: true`) | Reachable | Already `BUG-PLT-054`'s territory — this permission's grant/non-grant makes no difference either way |
+
+**Result: a genuine new defect, filed as `BUG-PLT-055`.** For 7 of the plugin's 11 entity-permission pairs,
+`Entry#manage?` requires `visible_to?(user)` to already be true as a precondition — and `visible_to?` is never
+satisfied by the manage permission itself, only by the matching view permission, a registered door, or
+`open_to_all`. A role holding only "Create, edit and delete departments" (a completely reasonable, common way to
+configure a role) is silently locked out of Departments entirely — not just on Overview, but on the dedicated
+`/redmineflux_platform/list/departments` screen too — with no indication anywhere that "View departments" must
+also be checked. Confirmed exempt: Teams (has a `holder:` door making manage imply view, the one entity designed
+this way), and Holiday Schemes/Holidays/Leaves (exempt only because `open_to_all` already makes `visible_to?`
+unconditionally true, a side effect of the already-filed `BUG-PLT-052`/`054`, not a deliberate exemption from
+this specific gap).
+
+**Status: FAIL for 7 of the 10 newly-tested `manage_rf_platform_<key>` permissions (all except Teams, Holiday
+Schemes, Holidays) — `BUG-PLT-055` filed.**
+
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
@@ -232,15 +272,29 @@ confirmed explicitly rather than inferred) — the one place it doesn't track co
 | TC-PLT-337 | PASS (confirmed intentional, documentation note only) | — | — |
 | TC-PLT-338 | PASS (confirms existing BUG-PLT-052/054/027 scope) | — | — |
 | TC-PLT-339 | PASS | — | `screenshots/TC-PLT-OVERVIEW/view-only-org-no-plus-icon.png` |
+| TC-PLT-340 | FAIL (7 of 10 manage-alone combinations) | BUG-PLT-055 (Open) | — |
 
 ## Summary (2026-10-16)
 
-9/9 PASS. The Overview page's own claim to be fully permission-aware, widget by widget, held up under live
-incremental testing — every "Your records" card, and the view-vs-manage distinction in both the attention band
-and the Create dropdown, correctly tracks the exact permission granted, with no cross-entity leakage found
-anywhere. The two already-known `open_to_all` bugs (`BUG-PLT-052`, `BUG-PLT-054`) do reach this page too, as
-expected, and no *new* defect was found — including a specific look for the inverse failure mode (a permission
-that's supposed to grant access but doesn't), found once (`audit_events`'s `admin_only` flag) and confirmed
-intentional/safe rather than a bug. The one standing severity note worth carrying forward is that `BUG-PLT-027`'s
+9/10 PASS, 1 FAIL. The Overview page's own claim to be fully permission-aware held up for every `view_*`
+permission tested individually and for the view-vs-manage distinction in the attention band/Create dropdown —
+but completing the sweep to all 24 of Platform's own registered permissions (not just the 9 `view_*` ones
+originally tested) surfaced a genuine new defect: **7 of 11 "Create, edit and delete X" permissions are entirely
+non-functional when granted without their matching "View X"** — `Entry#manage?` requires `visible_to?` to already
+be true, and the manage permission itself is never one of the ways `visible_to?` can become true for these 7
+entities. Filed as `BUG-PLT-055`. Teams is the one entity deliberately exempt (a documented `holder:` door makes
+its manage permission imply view); Holiday Schemes/Holidays/Leaves are incidentally exempt only because their
+`open_to_all` flag already satisfies `visible_to?` regardless of any permission — a side effect of the
+already-filed `BUG-PLT-052`/`054`, not a sign this gap was avoided by design for those three.
+
+The two already-known `open_to_all` bugs (`BUG-PLT-052`, `BUG-PLT-054`) do reach this page too, as expected. One
+inverse-direction finding (`audit_events`'s `admin_only` flag making its own permission inert) was confirmed
+intentional/safe, not filed. The one standing severity note worth carrying forward is that `BUG-PLT-027`'s
 still-open Critical XSS sits in a widget every single logged-in user with platform access renders on login,
 which is a wider blast radius than "the Overview page" alone might suggest.
+
+**Lesson directly from this round**: a "representative sample" of permissions (9 of 24, covering every entity's
+`view_*` but none of the `manage_*`) looked thorough and passed cleanly, but the untested half contained the one
+real defect this suite found. When a user asks for "every permission, one by one," treat it literally — a
+sampled subset can look complete right up until the untested remainder turns out to be exactly where the bug
+was.

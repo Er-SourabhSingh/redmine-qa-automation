@@ -103,3 +103,17 @@ Category "Workload Plugin", Defect Type Security, Defect Severity Medium-severit
 Priority Medium. Not linked to any Test Run/Test Case — same as `BUG-WKL-001`/`002`/`003`, no production
 Run/Suite exists yet for this plugin's own test case set. Filed as a fresh issue (not a reopen of `BUG-PLT-054`)
 per explicit user instruction, since the broken code lives in this plugin's own controller, not Platform's.
+
+## Retest (2026-10-16, same day) — CONFIRMED FIXED
+
+`git pull` landed commit `c2c8e79` ("Leave API follows the Platform's leave permission (BUG-WKL-004)"), citing
+this bug by number. `Apis::WorkloadLeavesController#create` now checks
+`leaves_entry.create?(User.current)` (the same Platform `Entry` interface the web form itself uses) before
+building the record at all, returning 403 if it's false; `update`/`cancel` similarly now go through
+`leaves_entry.manage_record?(leave, User.current)` instead of their own ad hoc owner/approver check.
+
+**Retested live**: `POST /api/workload/leaves` with `marigold.rayne`'s own API key (confirmed zero
+`manage_rf_platform_leaves`) now returns **403 Forbidden** — `{"error":"You do not have permission to request
+leave"}` — instead of succeeding. Confirmed via `rails runner` that no Leave record was created.
+
+**Status: CONFIRMED FIXED.** Moving to `bugs/closed/`.

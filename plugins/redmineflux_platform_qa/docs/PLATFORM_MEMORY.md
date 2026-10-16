@@ -782,6 +782,18 @@ screens) no longer exists to test — re-creating it would cost real setup effor
 right response to "this was never properly recorded" is not always "go test it now" — sometimes it's "confirm the
 scenario is gone and say so," which is itself a real, completed piece of work, not a shortcut.
 
+## ✅ All 3 remaining open bugs fixed same day, confirmed via the same "test every entry point" discipline that found them (2026-10-16)
+
+Within the same session as the Security pass that found `BUG-PLT-053`'s residual dropdown gap, `BUG-WKL-004`, and
+`BUG-SFM-003`, a `git pull` landed fixes for all 3. The dropdown fix (`76cfecc`) makes the Leave Type list respect
+the requester's band on first render, not just at validation time. Both API fixes (`c2c8e79` for Workload,
+`59cd3af` for Shift Management) route their respective `create`/`update`/`cancel` actions through the Platform
+leaves entry's own `create?`/`manage_record?` checks — exactly the fix direction this repo's own Code Quality
+report recommended (`reports/PLT-Code-Quality-2026-10-16.md`), rather than each plugin hand-rolling its own
+duplicate permission logic. Retested all 3 the same way they were found — live, direct requests/UI checks against
+the exact repro, not just re-reading the diff — and all 3 confirmed. `bugs/open/` is empty across Platform,
+Workload, and Shift Management simultaneously for the first time this cycle.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

@@ -228,6 +228,20 @@ All three linked to production Testcase #121473 ("Installation & Branch Upgrade"
 
 | 2026-10-16 | 6 | `redmine v6 - platform` (`redmine6platform-redmine-1`, localhost:3013) | Sourabh Singh | **Full-cycle TC audit after the user pushed back on an incomplete "only 5 TCs remain" answer.** Walked every suite file comparing TC header count against recorded-result count (not a keyword grep) and found 2 real gap categories: `TC-PLT-001`/`002` (`PLATFORM_OLD_ARCHITECTURE_BASELINE.md`) had literally no result ever recorded; `TC-PLT-098/099/100/101` (`PLATFORM_CROSS_PLUGIN_CONSISTENCY.md`) had stale 2026-09-30 FAIL/BLOCKED results citing bugs now closed, for a 3-entry-point leave-filing scenario `BUG-PLT-045`'s later consolidation retired entirely. All 6 marked `Superseded` (not re-executed) — their original scenarios no longer exist to test; current behavior is covered by `PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md` and this same day's `BUG-WKL-004`/`BUG-SFM-003` findings. `PLATFORM_TRACEABILITY_MATRIX.md` rows 1 and 29 corrected to match. `PLATFORM_MEMORY.md` given a new lesson entry on the header-vs-result audit technique. |
 
+| 2026-10-16 | 6 | `redmine v6 - platform` (`redmine6platform-redmine-1`, localhost:3013) | Sourabh Singh | **`git pull` on all 7 consumer plugins (branch `redmineflux_platform`) per the user's instruction to retest dev-fixed bugs — all 3 remaining open items (`BUG-PLT-053`'s dropdown gap, `BUG-WKL-004`, `BUG-SFM-003`) CONFIRMED FIXED and closed same day. `bugs/open/` is now empty for Platform, Workload, AND Shift Management simultaneously — the first time this cycle.** Commit `76cfecc` ("Leave type list honours the requester's band on first render (#123786)") fixes the dropdown: a zero-band user now sees zero selectable types plus an explicit inline alert on page load (no longer waits for a failed submit); a banded user now sees only the type(s) their band allows. Commits `c2c8e79` (Workload) and `59cd3af` (Shift Management) both route their leave-creation REST APIs through the Platform leaves entry's own `create?`/`manage_record?` checks instead of their own ad hoc logic — retested live with `marigold.rayne`'s API key, both now correctly 403. All 3 production issues (#123786 Reopen→Done, #123833 and #123834 In QA→Done) synced to 100%. `bugs/_index.md`, `PLATFORM_MEMORY.md`, `STATUS.md` all updated across all 3 plugins. |
+
+## Next Session Start Point (2026-10-16, continued — all 3 plugins simultaneously at 0 open bugs)
+
+For the first time this cycle, Platform, Workload, and Shift Management all have empty `bugs/open/` at the same
+time. Per CLAUDE.md §10/§13, none is yet eligible for `STATUS.md` = `Complete` without a full-plugin regression
+pass run since `bugs/open/` last emptied — but this is the closest all 3 have been to that milestone together.
+
+**Next session options**:
+1. Run a full-plugin regression pass for Platform (and/or Workload/Shift Management) to work toward `Complete`.
+2. No production Test Case issue exists yet for `PLATFORM_FILTERS.md` or `PLATFORM_OVERVIEW.md`.
+3. The `C:\redmine-upgrade-test` instance (real old DB dump, no plugins mounted yet) is standing by for the
+   next step of adding plugins on top and verifying pre-existing data migrates/displays correctly.
+
 ## Next Session Start Point (2026-10-16, continued — Security/Performance/Code-Quality pass found a real API-layer gap)
 
 The dedicated pass the user asked for found a genuine, live defect: the permission `BUG-PLT-054` was just fixed

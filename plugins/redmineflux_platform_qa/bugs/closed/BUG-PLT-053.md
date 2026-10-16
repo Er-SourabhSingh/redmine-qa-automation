@@ -125,3 +125,24 @@ production rather than closed and split**, so the local file stays open too and 
 **Status: CORE FINDING CONFIRMED FIXED; bug kept OPEN for the residual dropdown pre-filtering gap.** Reported to
 production as a Reopen (status `Reopen`, done ratio 100%) with a full note on exactly what's fixed vs. what
 remains — see the Production report section below.
+
+## Retest (2026-10-16, same day — dropdown gap CONFIRMED FIXED)
+
+`git pull` on `redmineflux_platform` landed commit `76cfecc` ("Leave type list honours the requester's band on
+first render (#123786)"), citing this bug's production issue number directly.
+
+**Retested live**:
+- `briar.sunset` (zero band, full leave permission) — `/redmineflux_platform/list/leaves/new` now shows the Leave
+  Type dropdown with **zero selectable types** (only the blank option) plus an explicit inline alert on initial
+  page load: *"No leave band is assigned to Briar Sunset. Ask an administrator to assign one before requesting
+  leave."* No longer waits for a failed submit to reveal this.
+- `aurora.wren` (band `QA-Band-EmergencyOnly` for 2026, temporarily given full leave permission via `QA Full
+  Access` purely to isolate this check from the permission gate) — the dropdown now shows **only "Emergency Leave
+  (3 of 5 days left)"**, correctly excluding `Comp-Off` and the unrelated `PLT-FilterTest-LeaveType-Unpaid`
+  fixture. The temporary role grant was removed immediately after confirming this.
+
+Both the zero-band and banded cases now correctly pre-filter on initial render, matching the dropdown's own
+stated rule for the first time. No incorrect leave can be created via either path (server-side enforcement was
+already correct per this bug's original Retest section).
+
+**Status: FULLY CONFIRMED FIXED — both the core finding and the residual dropdown gap.** Moving to `bugs/closed/`.

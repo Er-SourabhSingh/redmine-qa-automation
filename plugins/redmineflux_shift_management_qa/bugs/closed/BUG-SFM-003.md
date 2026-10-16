@@ -86,3 +86,15 @@ Category "Shift Management", Defect Type Security, Defect Severity Medium-severi
 Priority Medium. Not linked to any Test Run/Test Case — no production Run/Suite exists yet for this plugin's own
 test case set. Filed as a fresh issue (not a reopen of `BUG-PLT-054`) per explicit user instruction, since the
 broken code lives in this plugin's own controller, not Platform's.
+
+## Retest (2026-10-16, same day) — CONFIRMED FIXED
+
+`git pull` landed commit `59cd3af` ("Leave API follows the Platform's leave permission (BUG-SFM-003)"), citing
+this bug by number — `ShiftManagementApi::V1::LeaveController#create` now checks the Platform leaves entry's
+permission before saving, the same pattern as Workload's own fix (`BUG-WKL-004`).
+
+**Retested live**: `POST /shift_management/api/v1/leave` with `marigold.rayne`'s own API key (confirmed zero
+`manage_rf_platform_leaves`) now returns **403 Forbidden** (`{"error":"Forbidden"}`) instead of succeeding.
+Confirmed via `rails runner` that no Leave record was created.
+
+**Status: CONFIRMED FIXED.** Moving to `bugs/closed/`.

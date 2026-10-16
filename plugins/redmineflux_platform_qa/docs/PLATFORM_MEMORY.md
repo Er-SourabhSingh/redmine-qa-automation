@@ -715,8 +715,15 @@ re-running the original bug's own repro steps.
 
 **One residual, already-known issue was NOT touched by this fix and correctly wasn't expected to be**: the Leave
 Type dropdown's lack of initial-load pre-filtering to the viewer's band (documented as a separate, lower-severity
-item in `BUG-PLT-053`'s own 2026-10-16 Correction section) is still present — split out as its own bug,
-`BUG-PLT-056`, rather than left bundled under a bug whose actual title defect is now fixed.
+item in `BUG-PLT-053`'s own 2026-10-16 Correction section) is still present. It was initially split out as its own
+local bug (`BUG-PLT-056`), but the user explicitly asked for whichever bug wasn't fully resolved to be **reopened
+on production with a note**, rather than closed and split into a new issue — so `BUG-PLT-056` was folded back
+into `BUG-PLT-053` and deleted, and `BUG-PLT-053` itself was synced to production as `Reopen` (not `Done`), with
+a note distinguishing the now-fixed core finding from the still-open gap. **Lesson: when retesting a bug whose
+fix is only partial, ask (or infer from standing instruction) whether the production record should stay one
+reopened issue carrying both the fix history and the remaining gap, or split cleanly into a new issue — don't
+default to splitting just because that's the locally tidier option; it can leave the local tracker and the
+production tracker telling different stories about the same defect.**
 
 ## Recurring Issues
 

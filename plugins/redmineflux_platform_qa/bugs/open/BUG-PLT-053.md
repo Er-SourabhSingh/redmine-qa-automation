@@ -118,9 +118,10 @@ CONFIRMED FIXED.**
 **The secondary, already-documented cosmetic gap is still present, unchanged**: the Leave Type dropdown on initial
 page load still lists every Active Leave Type (including, in this retest, the new `PLT-FilterTest-LeaveType-Unpaid`
 fixture) regardless of the viewer's band — it does not pre-filter, and the only signal a zero-band user gets is the
-post-submit error. Since this item was always scoped in this bug's own 2026-10-16 Correction as a *separate*,
-lower-severity defect from the core enforcement gap (which is now fixed), it has been split out and filed on its
-own as **`BUG-PLT-056`** (Low) rather than keeping this now-fixed bug open for an unrelated cosmetic issue.
+post-submit error. This item was always scoped in this bug's own 2026-10-16 Correction as a *separate*,
+lower-severity defect from the core enforcement gap, but per the user's decision this bug is being **reopened on
+production rather than closed and split**, so the local file stays open too and carries both findings together.
 
-**Status: CORE FINDING CONFIRMED FIXED.** Moving to `bugs/closed/`. See `BUG-PLT-056` for the remaining dropdown
-pre-filtering gap.
+**Status: CORE FINDING CONFIRMED FIXED; bug kept OPEN for the residual dropdown pre-filtering gap.** Reported to
+production as a Reopen (status `Reopen`, done ratio 100%) with a full note on exactly what's fixed vs. what
+remains — see the Production report section below.

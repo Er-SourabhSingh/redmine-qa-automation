@@ -273,6 +273,70 @@ elsewhere in the very same codebase. Shift Management's own dashboard "Pending A
 surfaced the Oct 20 Pending request with working Approve/Reject buttons, confirming the cross-plugin approval
 surface consolidation (`BUG-PLT-045`) still holds for this entry point too. **Status: PASS.**
 
+## Permission Checks — Leave approve/view authorization (2026-10-16)
+
+> At the user's explicit request ("leave wala permission ke sath check kr lo" — check Leave together with
+> permissions), checked the Leave module's authorization model directly, beyond the view-vs-decide split already
+> confirmed in TC-PLT-207. Found that Shift Management's own, separately-listed "Approve / Reject Leave"
+> permission on the Permissions report is not a leftover `BUG-PLT-047`-style dead duplicate — it is a live,
+> deliberately-honoured alternate authorization path.
+
+### TC-PLT-328 — Shift Management's legacy global `approve_leave` permission is honoured by Platform's own Leave authorization, by design
+
+**Preconditions:** Created role `PLT-LeaveApprovalLegacyOnly` with **only** the Shift Management "Approve /
+Reject Leave" permission checked (no Platform "File and decide leave requests", no team membership of any
+kind), assigned it to `willow.belle` on `PLT-DelCheck-Project` (a project unrelated to Aurora Wren's own team).
+
+1. Log in as `willow.belle`, open Aurora Wren's still-Pending Leave #9 (`/redmineflux_platform/list/leaves/9`).
+2. Observe whether Approve/Reject controls appear, and whether clicking Approve actually succeeds server-side
+   (not just a visible-but-blocked button).
+
+**Expected:** Unclear going in — could go either way: a genuine `BUG-PLT-047`-style dead leftover permission
+(no effect), or a real but undocumented access-control gap (should require Platform's own permission or a team
+relationship, per TC-PLT-207's documented 2-layer model).
+
+**Actual:** Approve succeeded — "Decided By: Willow Belle" recorded on Aurora's leave, Status → Approved — despite
+zero Platform Leave permission and zero team relationship to Aurora. **Confirmed via source this is intentional,
+not a bug**: `RedminefluxPlatform::Leave#can_be_approved_by?`/`#visible?` and `TeamService.approves_leave_globally?`
+explicitly call `user.allowed_to?(:approve_leave, nil, global: true)` — Shift Management's own legacy permission
+symbol — as a deliberate second, equally-valid path alongside the team-approver mechanism. The model's own code
+comment states the rationale directly: *"A user can hold the global permission with no approver membership, or
+the reverse, and each grants access somebody relies on today — so both are honoured. Dropping either here would
+silently revoke live access."* This exact design is also the subject of a dedicated ADR,
+`doc/adr/0002-union-not-narrowest-permission.md` ("union not narrowest permission"). **Status: PASS (confirmed
+working as designed) — not a bug, no defect filed.**
+
+**One documentation/UX observation worth a future look, not filed as a defect**: the check is a true Redmine
+*global* permission (`global: true` in both the registration and the `allowed_to?` call) — holding "Approve /
+Reject Leave" via a role on **any single project** grants approval authority over **every** employee's leave
+company-wide, not scoped to that project or the approver's own team. The Permissions report's own checkbox for
+this permission carries no hint of that company-wide scope, unlike Platform's Leave Policy Band form which does
+spell out its own scope in helper text. An administrator skimming the Permissions report could reasonably assume
+a Shift-Management-grouped permission only affects shift-related data for the project it's granted on.
+
+### TC-PLT-329 — The other two legacy Shift Management Leave permissions, checked for the same pattern
+
+1. Check source for `:view_leave` ("View Leave Applications") and `:manage_leave_balances` ("Manage Leave
+   Balances") — the two other Leave-adjacent permissions still listed separately under Shift Management on the
+   Permissions report, alongside `:approve_leave`.
+
+**Actual:**
+- `:manage_leave_balances` genuinely, correctly gates a still-active, Shift-Management-owned `LeaveBalances`
+  controller (index/show/new/create/edit/update/destroy/bulk_assign/bulk_create) — the same "Leave Balance"
+  feature visible (currently empty) on Shift Management's own Dashboard widget. **Not dead, not a duplicate** —
+  this is a feature Platform has never claimed ownership of.
+- `:view_leave` gates Shift Management's own `LeaveController#index`/`#show`/`#my_leaves` — but all three actions
+  are now pure one-line redirects to Platform's own Leave screens (confirmed in source,
+  `app/controllers/leave_controller.rb`), a leftover of `BUG-PLT-045`'s consolidation. Since Platform's own Leave
+  screen is itself `open_to_all` (any logged-in user, confirmed in `BUG-PLT-052`'s investigation), gating this
+  redirect has no real security effect either way — a user denied `:view_leave` simply can't reach Platform's
+  screen *through this one old URL*, but can reach the identical data by navigating to
+  `/redmineflux_platform/list/leaves` directly. **Low-impact redundant gate, not worth filing** — unlike
+  `BUG-PLT-047`'s five retired permissions, this one still technically does something (blocks one specific old
+  URL), it just doesn't block the data itself.
+
+**Status: PASS (both confirmed intentional/harmless, not duplicates needing retirement) — no defect filed.**
+
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
@@ -294,6 +358,8 @@ surface consolidation (`BUG-PLT-045`) still holds for this entry point too. **St
 | TC-PLT-325 | PASS (2026-10-16) | — (refines BUG-PLT-053's scope) | `screenshots/BUG-PLT-053/TC-PLT-323-banded-user-disallowed-type-rejected.png`, `screenshots/BUG-PLT-053/TC-PLT-323-banded-user-allowed-type-succeeds.png` |
 | TC-PLT-326 | FAIL (Pending-leave half only, 2026-10-16) | BUG-WKL-003 (Open) | `screenshots/BUG-PLT-053/TC-PLT-324-workload-gantt-leave-marker.png` |
 | TC-PLT-327 | PASS (2026-10-16) | — (contrast evidence for BUG-WKL-003) | `screenshots/BUG-PLT-053/TC-PLT-325-shift-calendar-leave-visibility.png` |
+| TC-PLT-328 | PASS (confirmed working as designed, 2026-10-16) | — | — |
+| TC-PLT-329 | PASS (confirmed intentional/harmless, 2026-10-16) | — | — |
 
 ## Summary (2026-10-13)
 
@@ -342,3 +408,23 @@ genuinely new bug found:
   one edge of a condition (zero-band only; approved-leave-only) — the opposite edge (banded; pending) can behave
   completely differently, and testing it either narrows an overstated bug or surfaces a real one that the first
   pass never would have found.
+
+## Summary addendum 3 (2026-10-16, same day — Leave authorization/permission checks, TC-PLT-328/329)
+
+At the user's explicit follow-up request to check Leave specifically together with its permission model, tested
+whether Shift Management's own, separately-listed "Approve / Reject Leave" permission (visible on the
+Permissions report under Shift Management, distinct from Platform's own "File and decide leave requests") is
+another `BUG-PLT-047`-style dead leftover, or something still live. It is live, and deliberately so: a brand-new
+test role holding **only** that one legacy permission — no Platform Leave permission, no team relationship to the
+leave's owner — successfully approved another employee's Pending leave. Source confirms this is intentional,
+backed by a dedicated architecture decision record (`doc/adr/0002-union-not-narrowest-permission.md`) and explicit
+code comments explaining the rationale (dropping either path "would silently revoke live access" for whoever
+already relies on it). **Not filed as a bug.** The two sibling legacy permissions ("View Leave Applications",
+"Manage Leave Balances") were checked the same way and are also confirmed not duplicates needing retirement —
+one gates a still-genuinely-Shift-Management-owned Leave Balances feature, the other gates a now-pure-redirect
+action with no real security effect either way (Leave is `open_to_all` regardless).
+
+**Lesson**: not every two permissions that look alike, or that sit in two different plugins' sections of the
+Permissions report, are the `BUG-PLT-047` duplication pattern — sometimes a second-looking permission is a
+deliberately-preserved alternate authorization path with its own ADR, and the way to tell the difference is
+the same way every time: read the model/service source directly rather than assuming from the UI grouping.

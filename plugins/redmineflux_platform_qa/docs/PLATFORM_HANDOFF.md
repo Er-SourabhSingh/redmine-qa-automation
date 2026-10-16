@@ -349,3 +349,30 @@ after assigning policy band to user"), ran a full live pass over every area of t
    5 days/year) and Band Assignment id 4 (Aurora Wren · QA-Band-EmergencyOnly · 2026) both left in place for
    future regression retesting of TC-PLT-325/326/327 once either bug is fixed. Leave #10 (Aurora Wren, Emergency
    Leave, 10/22/2026, now Approved) also left in place as evidence.
+
+| 2026-10-16 | 6 | `redmine v6 - platform` (`redmine6platform-redmine-1`, localhost:3013) | Sourabh Singh | **At the user's explicit follow-up request to check Leave together with its permission model, confirmed Shift Management's legacy global `approve_leave` permission is a deliberate, documented alternate Leave-approval authorization path (ADR 0002), not a `BUG-PLT-047`-style dead duplicate — no bug filed.** Created role `PLT-LeaveApprovalLegacyOnly` (only that one permission, no Platform permission, no team relationship) and confirmed live that holding it alone is sufficient to approve any employee's leave company-wide. Also checked `:view_leave`/`:manage_leave_balances`, both confirmed legitimate/harmless. TC-PLT-328/329 added to `PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md`. |
+
+## Next Session Start Point (2026-10-16, continued — Leave permission model checked, confirmed intentional)
+
+At the user's request ("leave wala permission ke sath check kr lo"), checked the Leave module's authorization
+model beyond TC-PLT-207's already-known view-vs-decide split. Found that Shift Management's own "Approve /
+Reject Leave" permission — listed separately on the Permissions report — is a deliberately-preserved,
+documented (ADR 0002) alternate path to approve ANY employee's leave company-wide, confirmed live with a
+purpose-built test role holding only that permission. **Not a bug.** One documentation/UX observation logged
+(not filed): the permission's global scope isn't hinted at anywhere in the Permissions report UI itself. The
+other two Shift-Management-grouped Leave permissions (`view_leave`, `manage_leave_balances`) were also checked
+and confirmed legitimate — one still genuinely owns a feature (Leave Balances), the other is a harmless redirect
+leftover.
+
+**Next session options**:
+1. Decide whether/when to report `BUG-WKL-003` to production (needs its own Run/Testcase lookup for Workload).
+2. `PLATFORM_SECURITY.md` still has 2 tooling-blocked items and no production Test Case issue.
+3. `bugs/open/` unchanged at 2 on Platform (`BUG-PLT-052`, `BUG-PLT-053`) and 1 on Workload (`BUG-WKL-003`).
+4. Fixture state added this session: role `PLT-LeaveApprovalLegacyOnly` (id 17, only "Approve / Reject Leave"
+   checked) assigned to both `daisy.skye` and `willow.belle` on `PLT-DelCheck-Project`, alongside their existing
+   roles — kept for future regression retesting of this exact authorization path. `willow.belle`'s password was
+   reset to the standard `12345678` via `rails runner` after login repeatedly failed with the documented
+   credential (account existed, was unlocked, but the stored hash didn't match — root cause not further
+   investigated, flag for a future session if other seed users show the same symptom). Leave #9 (Aurora Wren,
+   10/20/2026) is now Approved (was Pending), approved by `willow.belle` as the live proof for TC-PLT-328 — left
+   in this state as the evidence record rather than reverted.

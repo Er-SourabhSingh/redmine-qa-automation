@@ -427,6 +427,50 @@ one specific state of a toggle/flag/assignment ("has none", "is pending"), expli
 too before either scoping or closing the investigation** — both directions here needed their own pass, and
 neither could be inferred from the other.
 
+## ⚠️ Not every "two similar-looking permissions in two plugins" is `BUG-PLT-047`'s pattern — Leave's global `approve_leave` is a deliberately-preserved alternate path, confirmed via a dedicated ADR (2026-10-16)
+
+At the user's explicit request to check Leave together with its permission model, tested whether Shift
+Management's own "Approve / Reject Leave" permission (listed separately on the Permissions report, under Shift
+Management, alongside Platform's own "File and decide leave requests") is another leftover duplicate like
+`BUG-PLT-047`'s five retired ones. It is not — it is live and intentional.
+
+**Live proof**: created role `PLT-LeaveApprovalLegacyOnly` holding *only* that one Shift Management permission
+(no Platform Leave permission, no team relationship whatsoever to the leave's owner), assigned it to
+`willow.belle` on a project unrelated to the leave owner's own team, and had her successfully approve
+`aurora.wren`'s Pending leave (`Decided By: Willow Belle` recorded, status → Approved).
+
+**Confirmed deliberate in source**: `RedminefluxPlatform::Leave#can_be_approved_by?`/`#visible?` and
+`TeamService.approves_leave_globally?` explicitly call `user.allowed_to?(:approve_leave, nil, global: true)` —
+Shift Management's own permission symbol — as a second, equally-valid authorization path alongside the
+team-approver mechanism. This isn't an oversight: it has its own architecture decision record,
+`redmineflux_platform/doc/adr/0002-union-not-narrowest-permission.md`, and the model's own comment states the
+reasoning directly: *"A user can hold the global permission with no approver membership, or the reverse, and
+each grants access somebody relies on today — so both are honoured. Dropping either here would silently revoke
+live access."*
+
+**Worth flagging, not filing**: the permission is a true Redmine *global* check (`global: true`), so granting it
+via a role on any single project gives that user approval authority over every employee's leave company-wide —
+not scoped to that project, not scoped to a team. The Permissions report's own checkbox carries no hint of that
+scope. An admin reading "Approve / Reject Leave" under a Shift-Management-grouped role could reasonably assume
+project/team scoping that doesn't exist. Not a functional defect (everything works as the ADR intends), but a
+real trap for an administrator configuring roles without having read the ADR.
+
+**The other two Shift Management Leave-adjacent permissions were checked the same way and are both genuinely
+fine, for two different reasons**: `:manage_leave_balances` correctly gates a still-active, genuinely
+Shift-Management-owned Leave Balances feature Platform has never claimed (seen as the, currently-empty, "Leave
+Balance" widget on Shift Management's Dashboard); `:view_leave` gates a controller whose `index`/`show`/`my_leaves`
+actions are now pure one-line redirects to Platform's own screen (a `BUG-PLT-045` leftover) — gating it has no
+real security effect since Platform's own Leave screen is itself `open_to_all` regardless (see `BUG-PLT-052`),
+so it's a redundant speed bump on one old URL, not a duplicate worth retiring.
+
+**Lesson, as a direct counterpoint to the `BUG-PLT-047` pattern this plugin keeps surfacing**: seeing two
+similarly-named permissions split across two plugins' sections of the Permissions report is not, by itself,
+evidence of a leftover duplicate needing retirement. The only reliable way to tell a genuine `BUG-PLT-047`-style
+dead duplicate apart from a deliberately-preserved alternate path (like this one) or a still-legitimately-owned
+feature (like Leave Balances) is to read the model/service source directly — and specifically to check whether
+there's a dedicated ADR or code comment explaining *why* a second path exists, since a team that deliberately
+keeps dual authorization paths usually also documents the reason, the way this one did.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-PLT-052
-- Production Redmine Issue ID: <!-- #NNNN on flux.zehntech.com, filled after MCP report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #123775
 - Title: "View holiday schemes" and "View holidays" permission checkboxes have no effect — both screens are viewable by every logged-in user regardless of role
 - Redmine version: 6
 - Plugin name: redmineflux_platform
@@ -52,3 +52,7 @@
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): — (historically, `PLATFORM_PERMISSIONS_AND_ACCESS.md` TC-PLT-137/204/205 recorded these same screens correctly 403ing for a zero/narrow-permission user on 2026-09-30, against a different environment/commit — this is a behavior change since then, not a previously-known issue)
+
+## Production report
+
+Reported to production as **#123775**, linked to Testcase #121705 ("Permissions and Access", `PLATFORM_PERMISSIONS_AND_ACCESS.md`) inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6` — testcase marked Failed. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.

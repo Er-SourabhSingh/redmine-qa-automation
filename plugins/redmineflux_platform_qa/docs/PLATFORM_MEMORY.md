@@ -503,6 +503,46 @@ permission on the same screen or the same entity stand in for it. For any `share
 value for `open_to_all` bypasses `manage?` entirely (as found here), while `:view` only bypasses `visible_to?`
 (as found in `BUG-PLT-052`) — the two are not interchangeable guarantees.
 
+## ✅ Overview page audited widget-by-widget against the permission model, 0 new defects — `PLATFORM_OVERVIEW.md` created (2026-10-16)
+
+At the user's explicit request ("platform ka overview ek bar admin se test kr lo or then ek user lo usko bari
+bari permission de ke check kro... kuch bhi miss mat krna kiu ki yaha pe data show hota he"), built a new suite
+testing the Overview page (`/redmineflux_platform`) against the permission model directly — a gap that existed
+even after the extensive `BUG-PLT-052`/`053`/`054` investigations this session, since all of those checked
+individual entity list screens, never this specific landing page's own widgets.
+
+**Method**: one dedicated role (`PLT-OverviewIncremental`), one test user (`marigold.rayne`, the repo's standing
+zero-permission reference account, temporarily given a project membership for this suite and **removed again
+afterward**), permissions toggled directly via `rails runner` between checks (no re-login needed — Redmine
+re-evaluates `allowed_to?` per request) for speed across ~9 single-permission combinations.
+
+**Result: the page's own claim to be fully permission-aware held up.** Every "Your records" card
+(Teams/Departments/Leave Types/Leave Policy Bands/Leave Band Assignments/Organizations/Contacts/Contact Links)
+tracked exactly its own `view_rf_platform_<key>` permission with zero cross-entity leakage. The attention
+band's view-vs-manage distinction held too — the "duplicate organizations" tile correctly stayed hidden for a
+view-only Organizations permission (confirmed from source: `manage?` gates it before the duplicate scan even
+runs). The Create dropdown's `manage?`-only filter correctly excluded "New Organization" for a view-only grant.
+Leave's own pending-count widget, despite `leaves` being `open_to_all`, correctly showed only the viewer's own
+leave (`Leave.visible` scoping is untouched by `BUG-PLT-054`'s separate `manage?` bug) — confirmed this is NOT a
+third leak, just the same two known bugs (`BUG-PLT-052`/`054`) reaching this page too, which TC-PLT-338 records
+explicitly so a future fix-retest knows to check here as well as each entity's own list URL.
+
+**One genuinely new, but not-a-bug finding**: `audit_events` carries `admin_only: true`, so granting its view
+permission to a non-admin role has **zero effect** under any circumstance — `Entry#visible_to?` refuses a
+non-admin unconditionally for this one entity, before the permission is even read. If it's the *only* permission
+a role holds, the entire Overview page 403s (no entity ends up visible, so the section gate itself fails). This
+is the **safe-direction** counterpart to `BUG-PLT-052`/`054` (denies access that might have been intended, rather
+than granting access that shouldn't exist) — confirmed intentional via source, not filed as a defect, but logged
+as a "this checkbox can never do anything for a non-admin" trap worth remembering if a future admin complains
+"I gave this role View Audit Events and it still can't see anything."
+
+**Lesson for any future "test page X with a permission matrix" request**: toggling permissions via
+`Role#add_permission!`/`#remove_permission!` directly (rather than clicking through `/roles/<id>/edit` each
+time) and reloading the already-logged-in test user's page is dramatically faster for an N-permission sweep than
+a UI click + logout/login cycle per combination, and is equally valid evidence since the live page still renders
+through the real controller/view — reserve the UI-click method for the one or two combinations worth a
+screenshot, not for the whole sweep.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

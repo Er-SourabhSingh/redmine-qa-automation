@@ -307,6 +307,40 @@ At the user's direct request ("ab permission wise testing bhi kr lo"), closed th
 
 **One more false alarm caught before being misdiagnosed as a permission bug:** while testing Contact Links' manage permission, the "Create" button appeared completely non-functional for two attempts (zero network requests sent). A screenshot revealed the real cause — a native HTML5 "Please select an item in the list" validation popup, because the Organization dropdown had silently reverted to its blank placeholder option. Not a permission issue at all; explicitly re-selecting the Organization fixed it immediately. **Lesson: when a button "does nothing" with zero network activity and no console error, take a screenshot before suspecting the permission system — a native browser validation tooltip is invisible in the accessibility-tree snapshot alone.**
 
+## ⚠️ `BUG-PLT-052`: "View holiday schemes"/"View holidays" permission checkboxes have no effect — a regression against 2026-09-30's own PASS results (2026-10-16)
+
+At the user's direct request ("user ko ke roles and permission check kr lo ek bar" — go check the user's roles
+and permissions once), retested `PLATFORM_PERMISSIONS_AND_ACCESS.md`'s TC-PLT-137/204/205 on this environment
+(`redmine6platform`), which originally PASSed 2026-09-30 on a different Docker instance
+(`redmine-docker-6-platform`). The result is no longer the same: a genuinely zero-permission user
+(`marigold.rayne`, no project membership, confirmed via her own nav missing "Redmineflux Platform" entirely) can
+open both `/redmineflux_platform/list/holiday_schemes` and `/redmineflux_platform/list/holidays` directly and see
+the full real list. A dedicated single-permission test role (`PLT-SchemesOnly-20261016`, only
+`view_rf_platform_holiday_schemes` granted) leaks the same way into Holidays too. Teams/Leave Types/Organizations/
+Contacts all still correctly 403 for both accounts — the regression is isolated to these two entities.
+
+**Root cause (confirmed from source):** `lib/redmineflux_platform/shared_entities.rb` declares both
+`holiday_schemes` and `holidays` with `open_to_all: :view`, which makes `Entry#visible_to?` return `true`
+unconditionally for any logged-in user, before the entity's own `view_permission` is ever consulted. The
+Permissions report (`/roles/permissions`) still shows "View holiday schemes"/"View holidays" as ordinary,
+unchecked, role-scoped checkboxes for roles that don't have them — nothing on that screen hints they're
+non-functional. An administrator unchecking either believes they've restricted access; they haven't.
+
+**Checked Leave too, before assuming it was the same bug — it isn't.** `leaves` is also `open_to_all` (`: true`
+this time), but the user specifically asked whether Leave even has/needs a view permission, which led to
+checking the actual *scope* of what opens, not just whether it opens. `marigold.rayne`'s own Leaves list shows
+"0 — No Leaves yet", hardcoded to her own requests only, with no "Whose" filter to broaden it (unlike an
+approver's view, which offers "Everything I can see"). This exactly matches the entity's own documented design
+intent (the code comment: "every employee files their own leave" — mirroring redmineflux_shift_management's and
+redmineflux_workload's pre-consolidation behavior, which required no permission for this either). Holiday
+Schemes/Holidays have no equivalent per-record scoping — they're shared, unscoped reference data — so the same
+`open_to_all` mechanism produces a real over-exposure there that it does not produce for Leave.
+
+**Lesson: when the same code mechanism (`open_to_all`) governs multiple entities, don't assume they all behave
+identically** — one may be a correct, scoped design and an adjacent one may be a genuine gap, depending entirely
+on whether the underlying data is per-user or shared. Checking the actual rendered *content*, not just the
+HTTP status, is what told them apart here. Filed as `BUG-PLT-052`.
+
 ## ✅ `PLATFORM_HOLIDAY_CROSS_PLUGIN_FLOW.md` fully executed — last 9 TCs (TC-PLT-287–295), 0 bugs, admin + non-admin confirmed (2026-10-16)
 
 At the user's direct request ("execute them from starting test with admin and non admin user"), closed out this

@@ -46,6 +46,8 @@
 
 **Status:** **EXECUTED 2026-09-30 — PASS.** Confirmed via Permissions Report (`/roles/permissions`) that no existing role (Manager/Developer/Reporter/Non member) had any `rf_platform` permission granted, so any user with no project membership (or membership only via those roles) qualifies. Logged in as `opal.sparrow` (no project membership at all — resolves to the Non-member role, confirmed 0 platform permissions). Navigated directly to all 8 Platform URLs: `/redmineflux_platform`, `/redmineflux_platform/teams`, `/redmineflux_platform/list/holiday_schemes`, `/redmineflux_platform/list/holidays`, `/redmineflux_platform/list/leave_types`, `/redmineflux_platform/list/leaves`, `/redmineflux_platform/list/organizations`, `/redmineflux_platform/list/contacts`, `/redmineflux_platform/list/audit_events`. Every single one returned a genuine HTTP 403, not a partial render or redirect.
 
+**REGRESSION FOUND 2026-10-16 — Holiday Schemes and Holidays no longer 403.** Retested with a different zero-permission user (`marigold.rayne`, no project membership, confirmed via her own nav missing "Redmineflux Platform" entirely) on this same environment: `/redmineflux_platform/list/holiday_schemes` and `/redmineflux_platform/list/holidays` both now return the full real list instead of 403 — `shared_entities.rb` declares both `open_to_all: :view`, bypassing the permission check entirely for any logged-in user. Leave Types, Organizations, Contacts, Teams, and Audit Events all still correctly 403. Filed as `BUG-PLT-052`. (Leaves is also `open_to_all`, but confirmed separately to be correctly scoped to the user's own records only — not part of this bug, see `PLATFORM_MEMORY.md`.)
+
 ---
 
 ## Functional Cases — Per-Entity View/Manage
@@ -98,6 +100,8 @@
 
 **Status:** **EXECUTED 2026-09-30 — PASS, all legs.** Created role `PLT-QA-SchemesOnly` (`view_rf_platform` + `view_rf_platform_holiday_schemes` only), assigned to `briar.sunset`. View-only: `/redmineflux_platform/list/holiday_schemes` opens with no "New Holiday scheme" link; direct nav to Teams/Holidays/Leave Types/Leaves/Organizations/Contacts all returned genuine 403s (6/6). Added `manage_rf_platform_holiday_schemes` to the same role, confirmed saved. Re-logged in as `briar.sunset`: "New Holiday scheme" now present, genuinely created `PLT-PERM-TC204-Scheme` (id 6) and deleted it via Delete + confirm — confirmed gone afterward. Re-checked Teams (representative of the other 6) still returns 403 even with Schemes' manage permission granted — no cross-entity leak.
 
+**REGRESSION FOUND 2026-10-16 — the "all 6 return 403" leg no longer holds for Holidays or Leaves.** Retested with a fresh role (`PLT-SchemesOnly-20261016`, `view_rf_platform` + `view_rf_platform_holiday_schemes` only) assigned to `nova.starling`: Teams and Leave Types/Organizations/Contacts still correctly 403, but `/redmineflux_platform/list/holidays` and `/redmineflux_platform/list/leaves` both now open fully — same `open_to_all: :view`/`true` root cause as TC-PLT-137's regression. Filed as `BUG-PLT-052` (Holiday Schemes + Holidays only; Leaves confirmed separately as correctly scoped per-user, not a bug).
+
 ---
 
 ### TC-PLT-205: Holidays — view-only then +manage, isolated from every other entity
@@ -110,6 +114,8 @@
 **Expected Result:** Same as TC-PLT-204.
 
 **Status:** **EXECUTED 2026-09-30 — PASS, all legs.** Created role `PLT-QA-HolidaysOnly` (`view_rf_platform` + `view_rf_platform_holidays` only), assigned to `celeste.dawn`. View-only: `/redmineflux_platform/list/holidays` opens with no "New Holiday" link; direct nav to all 6 other entities returned genuine 403s. Added `manage_rf_platform_holidays`, confirmed saved. Re-logged in: "New Holiday" now present and reachable; the create form's "Holiday scheme" dropdown populates correctly (a cross-entity data dependency, not gated by the Holiday Schemes view permission — expected, since a Holiday intrinsically needs a scheme regardless of whether this user can separately manage schemes). Genuinely created `PLT-PERM-TC205-Holiday` (id 7) and deleted it — confirmed gone. Re-checked Teams still 403 — no leak from Holidays' manage permission.
+
+**REGRESSION FOUND 2026-10-16 — the view-only leg's own screen no longer gates correctly.** The underlying premise of this TC (that `view_rf_platform_holidays` is required to see `/redmineflux_platform/list/holidays` at all) no longer holds — confirmed any logged-in user, with or without this permission, can view it (`BUG-PLT-052`). The manage leg (create/edit/delete genuinely requiring `manage_rf_platform_holidays`) was not retested today and is not known to be affected — only the view gate.
 
 ---
 
@@ -223,6 +229,27 @@
 - Screenshot: none needed — every check passed, and this repo's rule is screenshots for bugs only.
 - Log: —
 - Bug reference: none — Platform's permission model (`view_rf_platform` top-level gate + per-entity view/manage for all 7 entities, admin-only Audit/Settings, and the team-approver-flag layer on top of the Leaves permission) held up correctly on every single one of the 15 individual permissions, tested in isolation, including every direct-URL verification and every cross-entity non-leak check. This is the only fully-clean suite this cycle with zero findings — but it only reached that state after the user directly challenged an earlier, premature "6/6 PASS, no findings" claim that had only actually exercised 2 of 15 permissions (Team's) plus one representative negative check; see the correction note at the top of this file.
+
+## Summary addendum (2026-10-16 — regression found on a different environment, `BUG-PLT-052` filed)
+
+Retested TC-PLT-137/204/205 on the current environment (`redmine6platform`, `localhost:3013` — a different
+Docker instance from the `redmine-docker-6-platform` these TCs were originally executed against on 2026-09-30)
+after the user asked to double-check Holiday/Leave permissions directly. **Holiday Schemes and Holidays no
+longer gate their own view permission at all** — confirmed with a genuinely zero-permission user
+(`marigold.rayne`) and a dedicated single-permission test role (`PLT-SchemesOnly-20261016` on `nova.starling`):
+both screens open fully regardless of whether `view_rf_platform_holiday_schemes`/`view_rf_platform_holidays` is
+granted. Root-caused to `shared_entities.rb` declaring both `open_to_all: :view`, bypassing the permission check
+entirely. The Permissions report itself still shows both as normal, unchecked, role-scoped checkboxes for roles
+that don't have them — actively misleading, since unchecking them has zero effect. Filed as `BUG-PLT-052`.
+
+**Leaves checked too, confirmed NOT part of this bug.** Leaves is declared `open_to_all: true` as well, but its
+list is correctly scoped to the viewer's own requests only (`marigold.rayne` saw "0 — No Leaves yet", no way to
+broaden the scope without an approver permission) — this matches the deliberate, documented intent ("every
+employee files their own leave, no permission needed") and is working as designed, unlike Holiday
+Schemes/Holidays, which are unscoped shared reference data with no per-user filtering at all.
+
+Teams, Leave Types, Organizations, and Contacts were all re-confirmed still correctly 403 for both test accounts
+— the regression is isolated to Holiday Schemes and Holidays specifically.
 
 ## Test infrastructure created this run (kept for future reuse, not cleaned up)
 

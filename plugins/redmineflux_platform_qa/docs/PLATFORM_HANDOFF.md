@@ -273,3 +273,23 @@ is now fully executed — every TC in it (281–295, 316–318) has a result.**
 3. Fixture state added this session: Holiday Scheme "TC-PLT-288-Inactive-Scheme" (id 2, Inactive) with holiday
    "TC-PLT-288-Inactive-Holiday" (Dec 15, 2026); Holiday "TC-PLT-287-Active-Capacity-Test" (id 3, Dec 10, 2026,
    Company, in the active scheme); SLA "TC-PLT-292-Escalation-SLA" (id 2) on `PLT-DelCheck-Project`.
+
+| 2026-10-16 | 6 | `redmine v6 - platform` (`redmine6platform-redmine-1`, localhost:3013) | Sourabh Singh | **At the user's direct request to re-check Holiday/Leave permissions, found and filed `BUG-PLT-052`.** "View holiday schemes"/"View holidays" permission checkboxes have zero effect — `shared_entities.rb`'s `open_to_all: :view` lets any logged-in user view both regardless of role, confirmed with a genuinely zero-permission user (`marigold.rayne`) and a narrow single-permission test role (`nova.starling`). This is a regression against `PLATFORM_PERMISSIONS_AND_ACCESS.md`'s own 2026-09-30 PASS results (TC-PLT-137/204/205, both updated with this finding). Leave's identical `open_to_all` mechanism was checked separately and confirmed correctly scoped to the viewer's own requests only — not part of this bug. Filed locally (`bugs/open/BUG-PLT-052.md`), `STATUS.md` and `PLATFORM_MEMORY.md` updated, not yet reported to production. |
+
+## Next Session Start Point (2026-10-16, continued — BUG-PLT-052 found and filed)
+
+At the user's direct request, re-checked Holiday/Leave roles and permissions on this environment. Found
+**`BUG-PLT-052`**: "View holiday schemes"/"View holidays" permission checkboxes have zero effect —
+`shared_entities.rb`'s `open_to_all: :view` lets any logged-in user view both screens regardless of role, a
+regression against `PLATFORM_PERMISSIONS_AND_ACCESS.md`'s own 2026-09-30 PASS results (TC-PLT-137/204/205,
+re-tested and updated with this finding). Leave's identical mechanism was checked and confirmed NOT part of this
+bug — it's correctly scoped to the viewer's own requests only, matching its documented intent. Filed locally,
+not yet reported to production.
+
+**Next session options**:
+1. Decide whether/when to report `BUG-PLT-052` to production — not yet done.
+2. `PLATFORM_SECURITY.md` still has 2 tooling-blocked items and no production Test Case issue.
+3. `bugs/open/` now has 1 bug (`BUG-PLT-052`) — not empty, so `STATUS.md` cannot move toward `Complete` until it's resolved.
+4. Fixture state added this session: zero-permission test user `marigold.rayne` (no project membership on
+   `PLT-DelCheck-Project`); roles `PLT-SchemesOnly-20261016` (→ `nova.starling`) and `PLT-HolidaysOnly-20261016`
+   (→ `opal.sparrow`) on `PLT-DelCheck-Project`, kept for future reuse.

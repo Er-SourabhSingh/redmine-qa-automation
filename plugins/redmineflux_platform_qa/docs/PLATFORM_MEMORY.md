@@ -754,6 +754,34 @@ path.** A model-level validation (like the Policy Band check) being correct ever
 controller-level permission check is too — they are enforced at different layers and have to be verified
 separately, at every entry point, every time.
 
+## ⚠️ "Are you sure?" led to a real audit technique: count TC headers vs. recorded results per file, don't trust a keyword grep (2026-10-16)
+
+User pushed back on a "only 5 TCs remain unexecuted" answer that was based on grepping for keywords like `NOT
+EXECUTED`/`BLOCKED`/`Not Covered`. That search missed two real categories of gap because they don't use those
+words at all:
+
+1. **Zero-result TCs** — `TC-PLT-001`/`TC-PLT-002` in `PLATFORM_OLD_ARCHITECTURE_BASELINE.md` had Steps and an
+   Expected Result but genuinely never got a PASS/FAIL/anything written after them — not even a placeholder. A
+   plain `grep -c "^### TC-PLT"` vs `grep -c "result marker"` per file surfaced the mismatch immediately; the
+   keyword search alone never would have, since there was no keyword to find.
+2. **Stale-but-present results** — `TC-PLT-098/099/100/101` in `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md` all have a
+   confident, specific 2026-09-30 result (`CONFIRMED FAIL`, citing `BUG-PLT-009/010/011`) — but those bugs are now
+   closed, *and* the whole 3-entry-point scenario those TCs tested was later retired by `BUG-PLT-045`'s
+   consolidation. A result that looks complete and specific can still be describing an architecture that no longer
+   exists.
+
+**The reusable technique, worth repeating on any suite file going forward**: `awk` (or equivalent) walking the
+file, tracking "have I seen a TC header since the last result marker," flags every TC with literally nothing
+after it — a mechanical check a keyword grep for known failure-words cannot do, since it doesn't require guessing
+which word a gap would use. Running it across *every* suite file in one pass (not just the ones already suspected)
+is what turned up `TC-PLT-001`/`002` — neither was on anyone's radar as a suspected gap beforehand.
+
+**Resolution, not re-testing**: all 6 flagged TCs were marked `Superseded` rather than executed fresh, since in
+every case the original scenario (a pre-platform-plugin environment state, or three independent leave-filing
+screens) no longer exists to test — re-creating it would cost real setup effort for zero remaining signal. The
+right response to "this was never properly recorded" is not always "go test it now" — sometimes it's "confirm the
+scenario is gone and say so," which is itself a real, completed piece of work, not a shortcut.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

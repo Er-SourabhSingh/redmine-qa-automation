@@ -303,6 +303,8 @@
 **Expected Result:**
 - Leave created successfully. **Confirmed PASS 2026-09-30** — this is the one entry point of the three that works correctly.
 
+**Status: Superseded 2026-10-16.** Platform's own screen is now the *only* entry point — see below.
+
 ---
 
 ### TC-PLT-099: Shift Management's "Apply Leave" actually submits and saves
@@ -315,6 +317,15 @@
 **Expected Result:** Same as TC-PLT-098.
 - **CONFIRMED FAIL 2026-09-30** — two rounds of failure: originally 400 (`ActionController::ParameterMissing: rf_leave_application`, filed as `BUG-PLT-009`); after that fix, now fails with a 500 (`AuditEvent.log` signature collision, filed as `BUG-PLT-010`). Neither the original symptom's full user-facing impact (a working Apply Leave) nor the underlying feature is actually fixed yet — retest against both bugs before marking PASS.
 
+**Status: Superseded 2026-10-16 (found during a full-cycle TC audit).** `BUG-PLT-009`/`BUG-PLT-010` were both
+confirmed fixed and closed (2026-10-01/2026-10-06 retest cycles) — but before this TC could be re-executed as
+written, `BUG-PLT-045`'s later consolidation (2026-10-15) retired Shift Management's own "Apply Leave" screen
+entirely in favor of a redirect to Platform's single canonical `/redmineflux_platform/list/leaves/new` form (per
+`PLATFORM_ENTITY_CRUD_AND_FIELD_VALIDATION.md` and `PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md`'s own routing notes — the
+web-UI route for Shift Management's leave controller is deliberately `only: [:index, :show, :new]`, no `:create`).
+This TC's original scenario (a direct, independent submission through that screen) no longer exists to test. Not
+re-executed; see `PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md` for the current, consolidated behavior's own coverage.
+
 ---
 
 ### TC-PLT-100: Workload's "Request Leave" actually submits and saves
@@ -326,6 +337,15 @@
 
 **Expected Result:** Same as TC-PLT-098.
 - **CONFIRMED FAIL 2026-09-30** — 400 (`ActionController::ParameterMissing: rf_leave`), filed as `BUG-PLT-011`. Same defect class as TC-PLT-099/`BUG-PLT-009`, different plugin/controller, never touched by any fix.
+
+**Status: Superseded 2026-10-16, same reasoning as TC-PLT-099.** `BUG-PLT-011` was confirmed fixed and closed,
+but `BUG-PLT-045`'s consolidation then retired Workload's own standalone "Request Leave" web form too — Workload's
+own leave-filing UI now redirects to Platform's one screen. **Important caveat found during this same 2026-10-16
+cycle**: Workload's own REST API (`POST /api/workload/leaves`) is a *separate* code path that still creates a
+`RedminefluxPlatform::Leave` directly and was found to bypass a different permission check entirely
+(`BUG-WKL-004`) — so "the web form is consolidated" does not mean every way Workload can create a Leave is. Not
+re-executed as originally written; see `PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md` for the web-UI behavior and
+`BUG-WKL-004`/`reports/PLT-Security-2026-10-16.md` for the REST API finding.
 
 ---
 
@@ -340,6 +360,12 @@
 
 **Expected Result:**
 - Same single record, same field values, visible from all three screens immediately, no separate sync step. **BLOCKED pending TC-PLT-099/100's bugs being fixed** for the reverse directions (filed-via-Shift-Management/Workload-visible-elsewhere) — only the Platform→others direction is currently testable.
+
+**Status: Superseded 2026-10-16.** There is no longer a "reverse direction" to test — Shift Management and
+Workload no longer have their own independent leave-filing screens to file *via*, per `BUG-PLT-045`'s
+consolidation (see TC-PLT-099/100 above). A leave filed on Platform's one screen being visible on Shift
+Management's and Workload's own Leave *list* screens (read-only consumption, not a separate filing path) is
+already covered live in `PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md`. Not re-executed as originally written.
 
 ---
 

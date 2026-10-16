@@ -34,6 +34,15 @@
 - Migrations for all 6 run without error.
 - No exceptions in `docker logs redmine-docker-6-platform-redmine-1` referencing any of the 6 plugins.
 
+**Status: Superseded, no explicit result ever recorded (found during a 2026-10-16 audit of every TC in this cycle).**
+No dedicated PASS/FAIL was ever written for this specific TC at the time. Its premise — 6 consumer plugins
+installed and booting cleanly at `master`, pre-platform-plugin — is the starting state every later TC in this same
+file (TC-PLT-003 onward) was built on top of and executed successfully against, so it was implicitly true. The
+environment has since moved permanently onto the `redmineflux_platform` branch and has been running continuously
+for weeks with thousands of subsequent operations — re-creating the old `master`-only state purely to backfill
+this one record would have no remaining test value. Not re-executed; marked Superseded rather than left silently
+blank.
+
 ---
 
 ### TC-PLT-002: Each consumer plugin's own admin/settings screen opens without error
@@ -46,6 +55,11 @@
 
 **Expected Result:**
 - All 6 settings pages render with no 500/exception, and show plugin-specific options only (no shared-platform UI exists yet at this stage — that's expected, since the platform plugin isn't installed).
+
+**Status: Superseded, same reasoning as TC-PLT-001.** No dedicated PASS/FAIL was ever recorded; every later TC in
+this baseline suite that used these same settings/admin screens (to create fixtures, check configuration, etc.)
+executed successfully, which implicitly confirms this TC's premise. Not re-executed this cycle — the pre-platform
+state this TC describes no longer exists on this environment and recreating it has no remaining test value.
 
 ---
 
@@ -218,7 +232,9 @@
 
 ## Evidence Map
 
-- Case ID: TC-PLT-001 … TC-PLT-010
+- Case ID: TC-PLT-001 … TC-PLT-010 — **TC-PLT-001/002 marked Superseded 2026-10-16** (no dedicated result was ever
+  recorded; their premise is implicitly confirmed by every later TC in this file executing successfully against
+  the same pre-platform state, and the state itself no longer exists on this environment — not re-executed)
 - Screenshot: (bugs only, per CLAUDE.md §6 — not required for these baseline creation steps unless a bug is found)
 - Log: `docker logs redmine-docker-6-platform-redmine-1` at time of TC-PLT-001
 - Fixture registry: to be added to `automation/testdata/PLATFORM_TESTDATA_LOCAL.xlsx` once created (per CLAUDE.md §13a) — until then, record every fixture's ID/name/field values directly in this file's steps as they're executed

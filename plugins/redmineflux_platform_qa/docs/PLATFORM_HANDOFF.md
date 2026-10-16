@@ -245,3 +245,12 @@ All 3 local bug files moved to `closed/`, all 3 production issues (#123755/#1237
 2. Clarify with the user what the Deduction rules dialog's "minimum time per ticket" setting is actually supposed to do on ticket close, so TC-HLP-434 can be scored PASS/FAIL (still open from 2026-10-15).
 3. `bugs/open/` is empty across Platform/Shift Management/Helpdesk/Workload — a full-plugin regression pass is the remaining requirement before any of these can move to `Complete` (CLAUDE.md §10/§13).
 4. Fixture state: Holiday Scheme "Holiday-Scheme-Testing" remains Active with 2 holidays ("Holiday-Testing" non-recurring Nov 20, "TC-Recurring-Holiday-XMas" recurring Dec 25); `WHPD-Test-New-Workload` extended through 12/28/2026; admin login on `redmine6platform` is `admin`/`12345678` (changed from the earlier default at some point — record this for future sessions).
+
+## Next Session Start Point (2026-10-16, continued — production Test Case gap found and partially closed)
+
+User asked whether all Platform test suites have a corresponding production Test Case issue under Feature #120043. Checked via `list_issues` (tracker=Test Case, subject "Feature #120043") — 13 of 15 local suites had one; `PLATFORM_ORGANIZATION_CONTACT_CROSS_PLUGIN_FLOW.md` and `PLATFORM_SECURITY.md` did not. Created **#123767** for the Organization/Contact suite (matching the existing pattern: Tracker Test Case, Status In Progress, Priority High, Category "Development - Quality Assurance & Testing", System Component "Development - Web Application - Frontend", assigned Sourabh Singh), per explicit user approval.
+
+**Next session options**:
+1. `PLATFORM_SECURITY.md` still has no production Test Case issue — ask the user whether to create it too (same pattern, #123767 as the template).
+2. Continue the still-outstanding Holiday suite TCs (TC-PLT-287–289, 293–295 — the active/inactive-scheme contrast cases, not yet executed; 316–318 are done).
+3. `bugs/open/` is empty across Platform/Shift Management/Helpdesk/Workload — a full-plugin regression pass is the remaining requirement before any of these can move to `Complete` (CLAUDE.md §10/§13).

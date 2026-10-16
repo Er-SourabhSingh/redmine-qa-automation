@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-WKL-003
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #123791
 - Title: Workload's own Gantt/capacity service treats a still-Pending (unapproved) Leave identically to an Approved one — reduces a member's available capacity and blocks scheduling before any approval decision
 - Redmine version: 6
 - Plugin name: redmineflux_workload
@@ -80,4 +80,7 @@
 
 ## Production report
 
-- Not yet reported — pending approval for which production Run/Testcase to link it to.
+Reported to production as **#123791** on `flux.zehntech.com`, project `ztflux`, assigned to Prashant Chaurasia.
+Not linked to any Test Run/Test Case — same as `BUG-WKL-001` and `BUG-WKL-002`, no production Run/Suite exists
+yet for the Workload plugin's own test case set. Category: Workload Plugin. Priority: Medium | Defect Severity:
+Medium-severity | Defect priority: Medium | Defect Type: Functional.

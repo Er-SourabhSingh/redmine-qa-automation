@@ -294,7 +294,7 @@ match with zero awareness of `recurring`/`recurrence_type` — instead of using 
 service (`holiday_on?`/`holidays_for_year`/`generate_recurring`), which already implements correct recurrence and
 is what the Dashboard panel uses. Filed **BUG-SFM-002** (Medium).
 
-**Status:** FAIL — `BUG-SFM-002`.
+**Status:** FAIL, then **PASS (Retest 2026-10-16)** — `BUG-SFM-002` confirmed fixed after a dev pull (`shift_dashboard_controller.rb`/`holiday_engine.rb` now use Platform's shared recurrence logic); Dec 25, 2026 now correctly highlighted, 0 regressions (Dec 25 2025 baseline, Nov 20 non-recurring holiday, Dec 26 weekend all unaffected). Closed, production #123755 synced to Done/100%.
 
 ### TC-PLT-317 — A recurring holiday dated in a past year is NOT skipped by Helpdesk's SLA clock in the current year
 
@@ -325,7 +325,7 @@ flag. A ticket due on `2026-12-25` would NOT have that day skipped. Same root-ca
 second, independent place that ignores Platform's `recurring` flag and does a naive date match instead of
 delegating to the shared recurrence logic. Filed **BUG-HLP-071** (Medium).
 
-**Status:** FAIL — `BUG-HLP-071`.
+**Status:** FAIL, then **PASS (Retest 2026-10-16)** — `BUG-HLP-071` confirmed fixed after a dev pull (`sla_calculator.rb`). Verified directly via `rails runner` against the real `SlaCalculator` code path: a deadline now correctly rolls past the recurring holiday + weekend to the next working day. 0 regressions (non-recurring holiday, holiday-not-selected, and no-Working-Hours cases all unaffected). Closed, production #123756 synced to Done/100%.
 
 ### TC-PLT-318 — A recurring holiday dated in a past year is NOT highlighted or capacity-adjusted by Workload's own Gantt chart in the current year (distinct from TC-PLT-289, a third independent bug)
 
@@ -355,7 +355,7 @@ holiday — a third independent occurrence of the exact bug class found in Shift
 Helpdesk (`BUG-HLP-071`) the same day, this time inside Workload itself despite that plugin's *other* two holiday
 consumers (Dashboard capacity, Timeline service) already being correct. Filed **BUG-WKL-002** (Medium).
 
-**Status:** FAIL — `BUG-WKL-002`.
+**Status:** FAIL, then **PASS (Retest 2026-10-16)** — `BUG-WKL-002` confirmed fixed after a dev pull (`rf_workload_gantt_data_service.rb` now uses Platform's shared `WorkingCalendar`). Dec 25, 2026 now shows the holiday label on the Gantt, matching Nov 20. 0 regressions (Nov 20 label, Dec 26 weekend, and the plugin's own capacity-aggregation totals all unaffected). Closed, production #123757 synced to Done/100%.
 
 ## Evidence Map
 
@@ -370,9 +370,9 @@ consumers (Dashboard capacity, Timeline service) already being correct. Filed **
 | TC-PLT-287 – TC-PLT-289 | Not yet executed | — | Workload: active-scheme holiday effect on capacity/timeline — written 2026-10-13, pending first live execution pass |
 | TC-PLT-290 – TC-PLT-292 | Not yet executed | — | Helpdesk: SLA holiday-selection nuance and escalation-on-holiday check — written 2026-10-13, TC-PLT-292 is undocumented by the KB and needs a genuine live answer, not an assumption |
 | TC-PLT-293 – TC-PLT-295 | Not yet executed | — | Shift Management: calendar/dashboard active-scheme-only holiday display — written 2026-10-13, pending first live execution pass |
-| TC-PLT-316 | FAIL | BUG-SFM-002 (Open, prod #123755) | `screenshots/BUG-SFM-002/` |
-| TC-PLT-317 | FAIL | BUG-HLP-071 (Open, prod #123756) | `screenshots/BUG-HLP-071/` |
-| TC-PLT-318 | FAIL | BUG-WKL-002 (Open, prod #123757) | `screenshots/BUG-WKL-002/` |
+| TC-PLT-316 | PASS (Retest 2026-10-16) | BUG-SFM-002 (Closed, prod #123755 Done/100%) | `screenshots/BUG-SFM-002/` |
+| TC-PLT-317 | PASS (Retest 2026-10-16) | BUG-HLP-071 (Closed, prod #123756 Done/100%) | `screenshots/BUG-HLP-071/` |
+| TC-PLT-318 | PASS (Retest 2026-10-16) | BUG-WKL-002 (Closed, prod #123757 Done/100%) | `screenshots/BUG-WKL-002/` |
 
 ## Summary (2026-10-15 addendum — recurring holidays)
 

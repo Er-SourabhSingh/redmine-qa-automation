@@ -228,3 +228,20 @@ All three linked to production Testcase #121473 ("Installation & Branch Upgrade"
 2. Continue the still-outstanding Platform test cases: `PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md`/`PLATFORM_HOLIDAY_CROSS_PLUGIN_FLOW.md`'s remaining not-yet-executed TCs (e.g. TC-PLT-287–292).
 3. Since `bugs/open/` is empty, a full-plugin regression pass is the remaining requirement before `STATUS.md` can move to `Complete` (CLAUDE.md §10/§13).
 4. Fixtures left in place from this session: ticket #3 ("TC-MinTime fixture ticket - minimum deduction test", Closed, 10 min logged), prepaid budget on `PLT-DelCheck-Project` currently at Approved 13.00h / Used 3.42h / Remaining 9.58h, Deduction rule configured as Technical Support · min 30m.
+
+| 2026-10-16 | 6 | `redmine v6 - platform` (`redmine6platform-redmine-1`, localhost:3013) | Sourabh Singh | **At the user's direct instruction, pulled `redmineflux_platform`/`redmineflux_shift_management`/`redmineflux_helpdesk`/`redmineflux_workload` (branch `redmineflux_platform`, `flux_tags` excluded) and restarted the container + Sidekiq to pick up the dev's recurring-holiday fixes.** Retested TC-PLT-316–318 — all 3 bugs (`BUG-SFM-002`, `BUG-HLP-071`, `BUG-WKL-002`) CONFIRMED FIXED, 0 regressions (non-recurring holiday, weekend, no-holiday-selected SLA, no-Working-Hours SLA, and Workload's existing capacity-aggregation totals all unaffected across all 3 plugins). All 3 local bug files closed, all 3 production issues (#123755/#123756/#123757) synced to Done/100% (user-approved). `PLATFORM_HOLIDAY_CROSS_PLUGIN_FLOW.md`, `STATUS.md` (4 plugin rows), and the 3 plugin-specific `bugs/_index.md` files all updated. |
+
+## Next Session Start Point (2026-10-16 — recurring-holiday bugs retested and closed)
+
+**At the user's direct instruction, pulled `redmineflux_platform`/`redmineflux_shift_management`/`redmineflux_helpdesk`/`redmineflux_workload` (branch `redmineflux_platform`, `flux_tags` excluded) and restarted the container + Sidekiq.** All 3 recurring-holiday bugs (TC-PLT-316–318) retested and **CONFIRMED FIXED**, 0 regressions:
+- `BUG-SFM-002`: Shift Calendar now correctly highlights Dec 25, 2026.
+- `BUG-HLP-071`: verified directly via `rails runner` against the real `SlaCalculator` — deadline now correctly rolls past the holiday + weekend.
+- `BUG-WKL-002`: Workload Gantt now shows the holiday label on Dec 25, 2026.
+
+All 3 local bug files moved to `closed/`, all 3 production issues (#123755/#123756/#123757) synced to Done/100% (user-approved). `PLATFORM_HOLIDAY_CROSS_PLUGIN_FLOW.md` TC-PLT-316–318 updated to PASS.
+
+**Next session options**:
+1. Continue the still-outstanding Holiday suite TCs (TC-PLT-287–289, TC-PLT-290–292 minus the recurring-specific ones already covered, TC-PLT-293–295) — these are the original active/inactive-scheme contrast cases, not yet executed.
+2. Clarify with the user what the Deduction rules dialog's "minimum time per ticket" setting is actually supposed to do on ticket close, so TC-HLP-434 can be scored PASS/FAIL (still open from 2026-10-15).
+3. `bugs/open/` is empty across Platform/Shift Management/Helpdesk/Workload — a full-plugin regression pass is the remaining requirement before any of these can move to `Complete` (CLAUDE.md §10/§13).
+4. Fixture state: Holiday Scheme "Holiday-Scheme-Testing" remains Active with 2 holidays ("Holiday-Testing" non-recurring Nov 20, "TC-Recurring-Holiday-XMas" recurring Dec 25); `WHPD-Test-New-Workload` extended through 12/28/2026; admin login on `redmine6platform` is `admin`/`12345678` (changed from the earlier default at some point — record this for future sessions).

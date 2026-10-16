@@ -69,9 +69,9 @@ alongside `BUG-SFM-002` (Shift Management) and `BUG-HLP-071` (Helpdesk) filed th
 
 ![Gantt shows no highlight at all for 12/25/2026, the recurring holiday's current-year date](../../screenshots/BUG-WKL-002/BUG-WKL-002-gantt-dec25-missing-holiday.png)
 
-### Retest screenshot (fill after fix is verified)
+### Retest screenshot
 
-![Retest result](../../screenshots/BUG-WKL-002/retest-yyyy-mm-dd-pass.png)
+![Retest 2026-10-16 PASS — Dec 25, 2026 now shows the holiday label on the Gantt](../../screenshots/BUG-WKL-002/retest-2026-10-16-pass.png)
 
 ### Console / log
 
@@ -85,3 +85,17 @@ alongside `BUG-SFM-002` (Shift Management) and `BUG-HLP-071` (Helpdesk) filed th
 - Duplicate found: No
 - Existing bug reference (if duplicate): — (same root-cause *class* as `BUG-SFM-002`/`BUG-HLP-071`, filed
   separately since all three are independent code paths in three different plugins)
+
+## Retest — 2026-10-16 — PASS (FIXED)
+
+- Environment: Local Docker (redmine6platform-redmine-1, localhost:3013), Redmine 6, Chromium (Playwright MCP), Admin.
+- Fix under test: `git pull` on `redmineflux_workload` (branch `redmineflux_platform`, `bb04d8f..3ef2b9c`) touching `rf_workload_gantt_data_service.rb`, plus the shared `redmineflux_platform` fix (`working_calendar.rb`, `holiday.rb`). Container restarted after pull (no new DB migration in either diff).
+
+| # | Check | Result |
+|---|-------|--------|
+| 1 | 12/25/2026 (the recurring holiday's current-year date) on the Gantt | Now shows the holiday label (`.gantt-day-type-label.holiday` present at the Dec 25 column, `left: 4970px`), matching 11/20 — PASS |
+| 2 | 11/20/2026 ("Holiday-Testing", non-recurring) on the Gantt | Still shows the holiday label (`left: 2520px`) — PASS, no regression |
+| 3 | 12/26/2026 (Saturday) on the Gantt | Still correctly `weekend` class, not mistakenly marked holiday — PASS, no regression |
+| 4 | Workload's top-level "Available Hours" (792h) and per-member capacity totals (384h/408h) | Unchanged from the pre-fix values — expected, since those figures were already computed correctly via `capacity_aggregator.rb`/`WorkingCalendar` (never part of this bug); confirms the fix didn't introduce a new discrepancy between the Gantt's visual marker and the aggregate numbers | PASS |
+
+- Regression note (SENIOR_QA_STANDARDS §26): confirmed the fix didn't break the non-recurring-holiday label (check 2), weekend detection (check 3), or the plugin's separate, already-correct capacity-aggregation figures (check 4).

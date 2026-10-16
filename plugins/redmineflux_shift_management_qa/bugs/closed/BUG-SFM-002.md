@@ -46,9 +46,9 @@ This never considers the `recurring`/`recurrence_type` flag at all — it only m
 
 ![Dashboard "All Holidays (2026)" correctly lists the recurrence](../../screenshots/BUG-SFM-002/BUG-SFM-002-dashboard-correctly-shows-recurrence.png)
 
-### Retest screenshot (fill after fix is verified)
+### Retest screenshot
 
-![Retest result](../../screenshots/BUG-SFM-002/retest-yyyy-mm-dd-pass.png)
+![Retest 2026-10-16 PASS — Dec 25, 2026 now correctly highlighted](../../screenshots/BUG-SFM-002/retest-2026-10-16-pass.png)
 
 ### Console / log
 
@@ -58,3 +58,17 @@ This never considers the `recurring`/`recurrence_type` flag at all — it only m
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
+
+## Retest — 2026-10-16 — PASS (FIXED)
+
+- Environment: Local Docker (redmine6platform-redmine-1, localhost:3013), Redmine 6, Chromium (Playwright MCP), Admin.
+- Fix under test: `git pull` on `redmineflux_shift_management` (branch `redmineflux_platform`, `ceed44a..b798f47`) touching `shift_dashboard_controller.rb` and `holiday_engine.rb`, plus the shared `redmineflux_platform` fix (`working_calendar.rb`, `holiday.rb`, `f4f7fbf..f91f233`). Container + Sidekiq restarted after pull (no new DB migration in either diff).
+
+| # | Check | Result |
+|---|-------|--------|
+| 1 | Dec 25, 2026 (the recurring year) | Now correctly shows `sm-shift-cell sm-shift-holiday` with the "TC-R..." badge — PASS |
+| 2 | Dec 25, 2025 (original/baseline year) | Still correctly `sm-shift-cell sm-shift-holiday` — PASS, no regression |
+| 3 | Nov 20, 2026 ("Holiday-Testing", non-recurring holiday) | Still correctly `sm-shift-cell sm-shift-holiday` — PASS, no regression |
+| 4 | Dec 26, 2026 (Saturday) | Still correctly `sm-weekend sm-shift-off`, not mistakenly marked holiday — PASS, no regression |
+
+- Regression note (SENIOR_QA_STANDARDS §26): confirmed the fix didn't break the non-recurring-holiday code path (check 3) or weekend detection (check 4) — both unaffected.

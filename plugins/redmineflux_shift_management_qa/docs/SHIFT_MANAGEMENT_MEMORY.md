@@ -35,6 +35,8 @@ match with no `recurring` awareness, instead of calling the plugin's own `Holida
 one screen's correct recurrence handling means another screen using the same underlying Holiday data gets it
 right too.** Filed `BUG-SFM-002`.
 
+**CONFIRMED FIXED 2026-10-16** after `git pull` (branch `redmineflux_platform`) touched `shift_dashboard_controller.rb` and `holiday_engine.rb` — Dec 25, 2026 now correctly shows `sm-shift-holiday`. Closed, production #123755 synced to Done/100%.
+
 ## Environment Notes
 
 - Manual attendance entry (Attendance → + Manual Entry) requires Employee, Date, Punch In AND Punch Out; the

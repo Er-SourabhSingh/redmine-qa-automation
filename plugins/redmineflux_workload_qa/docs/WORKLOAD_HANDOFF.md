@@ -39,3 +39,4 @@
 | Date | Redmine Version | Environment | Tested By | Summary |
 |------|-----------------|-------------|-----------|---------|
 | 2026-09-15 | — | — | Claude | Authoring only — test cases written from the vendor KB, nothing executed. |
+| 2026-10-16 | 6 | `redmine6platform`, localhost:3013 | Sourabh Singh | Retested `BUG-WKL-002` (Workload Gantt never highlighting a recurring Holiday's current-year occurrence) after pulling the dev's fix (`rf_workload_gantt_data_service.rb`, branch `redmineflux_platform`) + the shared `redmineflux_platform` fix, and restarting the container. Gantt now shows the holiday label on Dec 25, 2026, matching Nov 20. Regression: Nov 20 label, Dec 26 weekend class, and the plugin's own (already-correct) capacity-aggregation totals (792h/384h/408h, unchanged) all confirmed unaffected — PASS. Closed; production #123757 synced to Done/100%. `bugs/open/` now empty for this plugin. |

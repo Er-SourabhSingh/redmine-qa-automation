@@ -42,9 +42,9 @@ end
 
 ![SLA Holiday picker offers the recurring holiday with no year qualifier](../../screenshots/BUG-HLP-071/BUG-HLP-071-sla-holiday-picker.png)
 
-### Retest screenshot (fill after fix is verified)
+### Retest screenshot
 
-![Retest result](../../screenshots/BUG-HLP-071/retest-yyyy-mm-dd-pass.png)
+- N/A — the retest exercises `SlaCalculator` directly via `rails runner` against the real fixture data (see Retest section below), not a UI screen, so there is no visual artifact to capture. This is a deliberate choice for precision (exact deadline-minute verification) over a slower UI-timing reconstruction, not a shortcut around live verification — the calculator runs the exact same production code path a live ticket would.
 
 ### Console / log
 
@@ -54,3 +54,17 @@ end
 
 - Duplicate found: No
 - Existing bug reference (if duplicate): —
+
+## Retest — 2026-10-16 — PASS (FIXED)
+
+- Environment: Local Docker (redmine6platform-redmine-1, localhost:3013), Redmine 6, `bundle exec rails runner` against the real `redmine6platform` database (exact production `SlaCalculator` code path, real fixture Holiday id=2), Admin.
+- Fix under test: `git pull` on `redmineflux_helpdesk` (branch `redmineflux_platform`, `25dc026..4e1214f`) touching `lib/redmineflux_helpdesk/sla_calculator.rb` + a new `test/unit/sla_calculator_recurring_holiday_test.rb`, plus the shared `redmineflux_platform` fix (`working_calendar.rb`, `holiday.rb`). Container restarted after pull (no new DB migration).
+
+| # | Check | Result |
+|---|-------|--------|
+| 1 | SLA with Working Hours + the recurring holiday selected, resolution deadline forced to roll past `2026-12-24 16:45 UTC` (15 min left in the working day, 60 min resolution time needed) | Deadline now correctly lands on `2026-12-28 09:45 UTC` (Monday) — skips the holiday (Dec 25) **and** the weekend (Dec 26–27) — PASS |
+| 2 | Non-recurring holiday ("Holiday-Testing", Nov 20) on an SLA, same rollover setup | Still correctly skipped — deadline lands on `2026-11-23 09:45 UTC` (Monday) — PASS, no regression |
+| 3 | SLA with the recurring holiday **not** selected (`holiday_ids_array = []`), same rollover setup | Deadline correctly lands exactly on `2026-12-25 09:45 UTC`, i.e. NOT skipped, per TC-PLT-290's "a holiday on its own excludes nothing unless explicitly selected on this SLA" rule — PASS, no regression |
+| 4 | SLA with the recurring holiday selected but **no** Working Hours configured, plain `+60 min` from `2026-12-24 16:45 UTC` | Correctly ignores the holiday entirely, landing on `2026-12-24 17:45 UTC` — matches TC-PLT-291's "an SLA without a working-hours window ignores holidays entirely" rule — PASS, no regression |
+
+- Regression note (SENIOR_QA_STANDARDS §26): checks 2–4 cover the three adjacent rules this calculator also enforces (non-recurring holidays, explicit per-SLA holiday selection, and the Working-Hours gate) — all three confirmed unaffected by the fix.

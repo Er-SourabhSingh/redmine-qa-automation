@@ -22,11 +22,11 @@
 | 13 | Recurring-holiday calendar correctness | Features List #13 | `PLATFORM_DATA_MIGRATION_INTEGRITY.md` | PASS | Covered |
 | 14 | Shift Management pre-platform data carry-over (KNOWN GAP) | Features List #14 | `PLATFORM_KNOWN_GAPS_AND_EDGE_CASES.md` TC-PLT-093 | **Confirmed fixed** 2026-10-01 (previously a known gap) | Covered |
 | 15 | Duplicate-table-drop guard | Features List #15 | `PLATFORM_INSTALLATION_AND_UPGRADE.md` | PASS (covered as part of upgrade-path migration testing) | Covered |
-| 16 | Single-source-of-truth cross-plugin visibility | Features List #16 | `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md` | Mostly PASS — 1 of 28 TCs in this suite recorded a plain FAIL (name-regression on delete-audit path, overlaps `BUG-PLT-021`) and 1 more was re-executed and still FAIL | Partial |
+| 16 | Single-source-of-truth cross-plugin visibility | Features List #16 | `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md` | **Resolved 2026-10-16** (stale row) — `BUG-PLT-021` (the name-regression on delete-audit path this row cited) is Closed, confirmed via `bugs/closed/`. Mostly PASS across all 28 TCs | Covered |
 | 17 | Single-source-of-truth cross-plugin writes | Features List #17 | `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md` | PASS (edits from one plugin's UI reflect immediately elsewhere) | Covered |
 | 18 | Real form submission post-model-swap | Features List #18 | `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md` | Resolved — `BUG-PLT-009`, `BUG-PLT-011`, `BUG-PLT-012` (all Critical, stale pre-consolidation param keys) all Closed | Covered (post 3 Critical fixes, same defect class 3×) |
 | 19 | Deliberately-not-merged entities stay separate | Features List #19 | `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md` | PASS | Covered |
-| 20 | Vocabulary consolidation | Features List #20 | `PLATFORM_VOCABULARY_AND_LABELS.md` | 1 FAIL + 1 PARTIAL FAIL out of 13 TCs — `BUG-PLT-024` (leftover "Company" wording in CRM, Open, Low) and `BUG-PLT-025` (wrong Private/Visible-to-all vocabulary, Open, Low) | Partial |
+| 20 | Vocabulary consolidation | Features List #20 | `PLATFORM_VOCABULARY_AND_LABELS.md` | **Resolved 2026-10-16** (stale row) — both `BUG-PLT-024` and `BUG-PLT-025` are Closed, confirmed via `bugs/closed/` | Covered |
 | 21 | UX pass — dedicated pages | Features List #21 | `PLATFORM_VOCABULARY_AND_LABELS.md` | PASS | Covered |
 | 22 | UX pass — button order/alignment | Features List #22 | `PLATFORM_VOCABULARY_AND_LABELS.md` TC-PLT-088 | PASS — `BUG-PLT-023` originally filed against this then **retracted** 2026-10-01 (wrong reference standard; Primary-first/left-aligned confirmed as the actual intended convention) | Covered |
 | 23 | Organization–Contact linking | Features List #23 | `PLATFORM_ORGANIZATION_CONTACT_CROSS_PLUGIN_FLOW.md` TC-PLT-310 | **Resolved** — `BUG-PLT-026` is Closed; the `rf_organization_contact_links` UI (`/redmineflux_platform/list/organization_contact_links/new`) now exists and was independently re-verified end to end 2026-10-15 (all fields persist, surfaces correctly on the Contact's own page) | Covered |
@@ -36,12 +36,12 @@
 | 27 | Demo data rake task | Features List #27 | — | Explicitly out of scope this cycle per `PLATFORM_SCOPE.md`/Features List Notes (dev/ops tooling, not UI-testable) | Out of Scope (documented) |
 | 28 | Layered Settings sync (`SettingsService`) | Features List #28 | `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md` TC-PLT-094–097 | Resolved — `BUG-PLT-008` (neither-direction sync failure, High) Closed | Covered |
 | 29 | Real Leave form submission across all 3 entry points | Features List #29 | `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md` TC-PLT-098–101 | Resolved — same `BUG-PLT-009`/`BUG-PLT-011` Critical fixes as #8/#18 | Covered |
-| 30 | Team → consumer-plugin deep workflows | Features List #30 | `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md` TC-PLT-102–106 | PASS on the deep-workflow legs themselves, but 2 related bugs remain **Open**: `BUG-PLT-029` (Workload capacity list is a stale snapshot after Team removal, Medium) and `BUG-PLT-030` (deleting a Team with active Workloads silently cascade-deletes them, unguarded, Medium) | Partial |
-| 31 | Delete-dependency handling for shared entities | Features List #31 | `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md` TC-PLT-110–112 | Mixed — some deletes correctly refused with a clear reason (PASS), but `BUG-PLT-030` and `BUG-PLT-032` (Holiday Scheme → Holidays cascade, same unguarded pattern, Medium) remain **Open** | Partial |
+| 30 | Team → consumer-plugin deep workflows | Features List #30 | `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md` TC-PLT-102–106 | **Resolved 2026-10-16** (stale row) — both `BUG-PLT-029` and `BUG-PLT-030` are Closed, confirmed via `bugs/closed/`. PASS on all deep-workflow legs | Covered |
+| 31 | Delete-dependency handling for shared entities | Features List #31 | `PLATFORM_CROSS_PLUGIN_CONSISTENCY.md` TC-PLT-110–112 | **Resolved 2026-10-16** (stale row) — both `BUG-PLT-030` and `BUG-PLT-032` are Closed, confirmed via `bugs/closed/` | Covered |
 | 32 | Header/breadcrumb/modal-button UI consistency | Features List #32 | `PLATFORM_VOCABULARY_AND_LABELS.md` TC-PLT-107–109 | Resolved — `BUG-PLT-007` (wrong/missing header text, stray breadcrumb, undersized modal buttons, Low) Closed | Covered |
-| 33 | Entity CRUD & field validation | Features List #33 | `PLATFORM_ENTITY_CRUD_AND_FIELD_VALIDATION.md` TC-PLT-113–135 (23 TCs) | Mostly PASS, with several MIXED results — `BUG-PLT-017` (name-concat search), `BUG-PLT-018` (no Leaves search), `BUG-PLT-019` (no sortable headers except Teams), `BUG-PLT-020` (user-picker search doesn't filter), `BUG-PLT-021` (deleted-record audit name regression), `BUG-PLT-022` (tag-chip × race condition) — all **Open**, Medium/Low | Partial |
+| 33 | Entity CRUD & field validation | Features List #33 | `PLATFORM_ENTITY_CRUD_AND_FIELD_VALIDATION.md` TC-PLT-113–135 (23 TCs) | **Resolved 2026-10-16** (stale row) — all 6 referenced bugs (`BUG-PLT-017/018/019/020/021/022`) are Closed, confirmed via `bugs/closed/`. Mostly PASS | Covered |
 | 34 | Platform's own permission model | Features List #34 | `PLATFORM_PERMISSIONS_AND_ACCESS.md` TC-PLT-136–141 (12 TCs) | 12/12 PASS, all legs (hidden-UI + blocked-URL both verified per role) | Covered |
-| 35 | Complete cross-plugin CRUD propagation matrix | Features List #35 | `PLATFORM_CROSS_PLUGIN_CRUD_MATRIX.md` TC-PLT-142–202 (62 TCs) | Large majority PASS all legs; 1 CONFIRMED FAIL (`BUG-PLT-012`, Closed); **12 TCs recorded as NOT EXECUTED** (6 + 3 + 1 + 1 + 1 across distinct notes) | Partial — real gap, see below |
+| 35 | Complete cross-plugin CRUD propagation matrix | Features List #35 | `PLATFORM_CROSS_PLUGIN_CRUD_MATRIX.md` TC-PLT-142–202 (62 TCs) | **CORRECTED 2026-10-16** — this row's own "12 TCs NOT EXECUTED" claim was stale: the suite's own banner already recorded "all 62 TCs... now have a result" as of 2026-10-01, and a direct grep for a literal `Status: NOT EXECUTED` found exactly one leftover placeholder line (TC-PLT-199), immediately superseded by a real `EXECUTED` result for the same TC right below it. 0 TCs are actually unexecuted. Large majority PASS all legs; 1 CONFIRMED FAIL (`BUG-PLT-012`, Closed). This suite's "test every origin plugin separately" design remains genuinely necessary, not obsolete — Team membership CRUD (TC-PLT-199) and Leave creation (via the newly-found `BUG-WKL-004`/`BUG-SFM-003` REST APIs) both still have real, independent origin-plugin paths that don't route through Platform | Covered |
 | — | Security testing (mandatory, `SENIOR_QA_STANDARDS.md` §28) | — | `PLATFORM_SECURITY.md` TC-PLT-210–222, 354–356 (16 TCs) | `BUG-PLT-027` (Critical XSS, TC-PLT-218) CONFIRMED FIXED and closed. 2026-10-16 follow-up pass (TC-PLT-354–356) found `manage_rf_platform_leaves` unenforced on two consumer-plugin REST APIs — filed as `BUG-WKL-004`/`BUG-SFM-003` (Medium, against Workload/Shift Management, not Platform itself, since the broken code lives there). 1 still BLOCKED (TC-PLT-221, tooling). See `reports/PLT-Security-2026-10-16.md` | Covered (no Platform-owned open security bug; the 2 new findings are tracked against the consumer plugins whose code is actually broken) |
 | — | Performance testing (mandatory, §29) | — | `PLATFORM_PERFORMANCE.md` TC-PLT-223–232, 357 (11 TCs) | 9 PASS, 1 MIXED (TC-PLT-227, Audit Events, closed via `BUG-PLT-031`). 2026-10-16 follow-up (TC-PLT-357) confirmed the new 32-filter Filters suite introduced no regression at current data volume. See `reports/PLT-Performance-2026-10-16.md` | Covered (no bug filed from this suite) |
 | — | Code Quality review (mandatory, §30) | — | — | Run as a dedicated pass 2026-10-16, folded into the `BUG-PLT-052/053/054`/`BUG-WKL-003` fix retests and the `BUG-WKL-004`/`BUG-SFM-003` investigation, per §30's own rule that it is not a separate TC suite. Found the consistent-validation gap behind `BUG-WKL-004`/`BUG-SFM-003`; confirmed migration `048`'s safety properties and a clean `open_to_all` removal with no dead code left behind. See `reports/PLT-Code-Quality-2026-10-16.md` (and `reports/PLT-Code-Quality-2026-10-01.md` for the original pass that found `BUG-PLT-027`'s root cause) | Covered |
@@ -53,24 +53,20 @@
 
 ## Gaps requiring action before this plugin can be marked `Complete`
 
-1. **`BUG-PLT-027` (row "Security", Critical, Open)** — confirmed stored XSS on the Overview's Holiday Calendar
-   widget. This alone blocks `STATUS.md` from ever reading `Complete` for this plugin until fixed, retested, and
-   regressed (`SENIOR_QA_STANDARDS.md` §26's Critical-severity regression scope applies).
-2. **Row 35 — 12 TCs in the CRUD propagation matrix were never executed.** This is the plugin's single largest
-   suite (62 TCs) and the one place the architectural risk flagged in `BUG-PLT-016` is most likely to surface again;
-   an unexecuted 12/62 slice is a real, non-trivial coverage hole, not a rounding error. Identify exactly which
-   entity/origin-plugin/action combinations those 12 are and either execute them or record a specific, named
-   exemption in `PLATFORM_SCOPE.md`.
+1. ~~**`BUG-PLT-027` (row "Security", Critical, Open)** — confirmed stored XSS on the Overview's Holiday Calendar
+   widget.~~ **RESOLVED** — `BUG-PLT-027` is Closed, confirmed via `bugs/closed/`. No longer blocks `Complete`.
+2. ~~**Row 35 — 12 TCs in the CRUD propagation matrix were never executed.**~~ **RESOLVED 2026-10-16 — this was
+   a stale claim, not a real gap.** The suite's own banner already recorded "all 62 TCs... now have a result" as
+   of 2026-10-01; a direct grep found 0 TCs with no executed result. Row 35 now reads `Covered`.
 3. ~~**Row 23 — Organization–Contact linking is unimplemented, not just untested** (`BUG-PLT-026`).~~ **RESOLVED
    2026-10-15** — `BUG-PLT-026` is Closed, the UI exists, and TC-PLT-310 independently re-verified it end to end.
    Row 23 now reads `Covered`.
 4. ~~**Code Quality** (`SENIOR_QA_STANDARDS.md` §30) has no row-level coverage at all yet on this plugin.~~
    **RESOLVED 2026-10-16** — run as a dedicated pass, see `reports/PLT-Code-Quality-2026-10-16.md`. Row now reads
    `Covered`.
-5. **9 open bugs beyond the Critical XSS** (`BUG-PLT-016/017/018/019/020/021/022/024/025/026/028/029/030/031/032/033`
-   — 16 total open as of 2026-10-01) span rows 11, 16, 20, 30, 31, 33 above. None individually blocks marking a
-   *feature* Covered (the underlying flow works), but `bugs/open/` must still reach empty before `STATUS.md` can
-   read `Complete`, per `CLAUDE.md` §10.
+5. ~~**9 open bugs beyond the Critical XSS**~~ **RESOLVED 2026-10-16** — every bug in that 2026-10-01 list is now
+   Closed, confirmed via `bugs/closed/`. The only bug actually open on this plugin today is `BUG-PLT-053` (core
+   fix confirmed, residual dropdown pre-filtering gap kept open) — `bugs/open/` has exactly 1 entry.
 6. **This matrix predates (2026-10-01) the plugin's own cross-plugin flow suites** (`PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md`,
    `PLATFORM_HOLIDAY_CROSS_PLUGIN_FLOW.md`, `PLATFORM_ORGANIZATION_CONTACT_CROSS_PLUGIN_FLOW.md`, and most of
    `PLATFORM_TEAM_CROSS_PLUGIN_FLOW.md`), all written/executed 2026-10-13 onward, and the `BUG-PLT-037`–`047` series.

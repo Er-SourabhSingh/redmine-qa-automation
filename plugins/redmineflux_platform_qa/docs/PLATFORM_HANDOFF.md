@@ -445,15 +445,21 @@ that reuses one fetched `User` object across multiple `Role#save!` calls can ret
 result due to Redmine's in-process permission memoization — always re-fetch the user fresh after each role
 change (documented in `PLATFORM_MEMORY.md`).
 
+**`BUG-PLT-055` retracted the same session.** The user asked directly whether the relevant source had actually
+been read before filing ("tumne document read kiya tha na issue bana se phle?"). Re-reading `shared_entities.rb`
+found the exact answer in the comment immediately above the already-quoted `manage?` method body: *"Managing
+implies seeing: a role given manage without view could save a record on a tab it cannot open, which is not a
+state worth supporting."* The 403-without-view behavior is explicit, deliberate design — not a defect. Local bug
+file removed, never reported to production. `PLATFORM_OVERVIEW.md` TC-PLT-340 and its Summary corrected to
+reflect this. The `rails runner` User-object caching lesson from the same investigation was kept in
+`PLATFORM_MEMORY.md` regardless, since it's independently true and useful for future sweeps.
+
 **Next session options**:
 1. No production Test Case issue exists yet for `PLATFORM_OVERVIEW.md` — ask the user whether to create one.
-2. Decide whether/when to report `BUG-PLT-055` to production (likely links to the same Testcase/Run once
-   `PLATFORM_OVERVIEW.md`'s own production Test Case exists, or to `PLATFORM_PERMISSIONS_AND_ACCESS.md`'s
-   Testcase #121705 if not — confirm before calling `report_defect`).
-3. Decide whether/when to report `BUG-WKL-003` to production (needs its own Run/Testcase lookup for Workload).
-4. `PLATFORM_SECURITY.md` still has 2 tooling-blocked items and no production Test Case issue.
-5. `bugs/open/` now has 4 bugs on Platform (`BUG-PLT-052`, `BUG-PLT-053`, `BUG-PLT-054`, `BUG-PLT-055`) and 1 on
-   Workload (`BUG-WKL-003`).
-6. Fixture state: role `PLT-OverviewIncremental` (id 18) reset to zero `rf_platform` permissions, left in place
+2. Decide whether/when to report `BUG-WKL-003` to production (needs its own Run/Testcase lookup for Workload).
+3. `PLATFORM_SECURITY.md` still has 2 tooling-blocked items and no production Test Case issue.
+4. `bugs/open/` back to 3 bugs on Platform (`BUG-PLT-052`, `BUG-PLT-053`, `BUG-PLT-054`) and 1 on Workload
+   (`BUG-WKL-003`) — `BUG-PLT-055` retracted, no longer open.
+5. Fixture state: role `PLT-OverviewIncremental` (id 18) reset to zero `rf_platform` permissions, left in place
    for future reuse. `marigold.rayne`'s temporary project membership was removed again, restored to her
    documented zero-permission reference state.

@@ -556,45 +556,60 @@ broader existing test already exercises the same underlying logic** — "the log
 element is confirmed" read as the same claim but aren't, and the user's phrasing is a signal about what they
 actually want documented as checked, not just what's technically true.
 
-## ⚠️ `BUG-PLT-055`: a "representative sample" of permissions passed cleanly — the untested half held the real bug (2026-10-16, same session)
+## ⚠️⚠️ `BUG-PLT-055`: filed, then retracted the same session — two real lessons, in the opposite direction from each other (2026-10-16)
 
-Right after the Overview permission audit concluded 9/9 PASS, the user pushed back directly: "tume one by one
-platform ki sari permission de kar overview page test nhi kiya he" (you haven't given every single Platform
-permission one by one) — correctly identifying that the original sweep tested only the 9 `view_rf_platform_<key>`
-permissions, never the matching `manage_rf_platform_<key>` ones. Platform registers **24 permissions in total**
+**Part 1 — a "representative sample" of permissions passed cleanly, and the untested half held what looked like
+a bug.** Right after the Overview permission audit concluded 9/9 PASS, the user pushed back directly: "tume one
+by one platform ki sari permission de kar overview page test nhi kiya he" — correctly identifying that the
+original sweep tested only the 9 `view_rf_platform_<key>` permissions, never the matching
+`manage_rf_platform_<key>` ones. Platform registers **24 permissions in total**
 (`Redmine::AccessControl.permissions`, confirmed by name): `view_rf_platform`, the legacy `manage_rf_teams`
-(Timesheet-facing), and 11 `view_*`/`manage_*` pairs.
-
-Completing the sweep to all 24 found a genuine new defect: **7 of the 11 `manage_rf_platform_<key>` permissions
-do nothing at all when granted without their matching `view_rf_platform_<key>`** — `Entry#manage?` requires
+(Timesheet-facing), and 11 `view_*`/`manage_*` pairs. Completing the sweep found that 7 of the 11 manage
+permissions produce a full 403 when granted without their matching view permission — `Entry#manage?` requires
 `visible_to?(user)` as a precondition, and the manage permission is never itself one of the ways `visible_to?`
 can become true for Departments, Organizations, Contacts, Contact Links, Leave Types, Leave Policy Bands, or
-Leave Band Assignments. A role holding only "Create, edit and delete departments" — an entirely ordinary way to
-configure a role — gets a full 403 on Departments everywhere, not a reduced-but-working view. Filed as
-`BUG-PLT-055`.
+Leave Band Assignments. This was filed as `BUG-PLT-055`.
 
-**Teams is the one deliberate exception**, via a documented `holder:` permission door
-(`register_permission_door('teams', :rf_team_membership, holder: ->(user) { TeamService.can_manage?(user) })`) —
-confirmed this is intentional, not a second accidental exemption. **Holiday Schemes/Holidays/Leaves are exempt
-too, but only incidentally** — their `open_to_all` flag already satisfies `visible_to?` regardless of any
-permission at all, which is itself the already-filed `BUG-PLT-052`/`054`, not evidence this gap was deliberately
-avoided for those three.
+**Part 2 — the bug was wrong, and the user caught it with a single direct question: "tumne document read kiya
+tha na issue bana se phle?"** (did you read the document before creating the issue?). Re-reading
+`shared_entities.rb` found the answer sitting in the comment **directly above** the very `manage?` method body
+already quoted in the bug report — not a separate doc, not an ADR, the comment immediately preceding the code
+that had already been read and pasted into the bug:
 
-**A testing-methodology trap worth flagging on its own**: midway through the sweep, one batch of `rails runner`
-checks ran inside a single process with a `User` object fetched once and reused across a loop of role-permission
-changes — this produced a false `manage?=false` result for Holiday Schemes (contradicted by a clean, freshly-run
-single check moments later). Redmine memoizes a `User`'s resolved permissions in-process; a role change made
-*after* the user object was first used for a permission check does not retroactively invalidate that memoization
-within the same loop. **Always fetch a fresh `User.find_by` (or run as a separate process) after every
-`Role#save!` during a permission sweep** — reusing one object across a loop of permission changes risks exactly
-this kind of stale-cache false result, and it would have gone unnoticed here if the two results hadn't happened
-to visibly contradict each other.
+> "Managing implies seeing: a role given manage without view could save a record on a tab it cannot open, which
+> is not a state worth supporting."
 
-**Lesson, stated the way the user's own correction implied it**: a sampled subset of a permission matrix (here,
-9 of 24 — every entity's view permission, none of its manage permission) can look exhaustive and pass completely
-clean, right up until the untested remainder is exactly where the real defect lives. When asked to test "every
-permission, one by one," treat that literally rather than extrapolating from a representative-looking subset —
-the two are not the same claim, and this session is now direct proof they can diverge.
+This is explicit, deliberate design. The 403 is the system correctly *refusing* to support an inherently broken
+state (edit rights with no way to see what's being edited) — not an accidental gap. `BUG-PLT-055` was retracted
+same-session, local file removed, never reported to production. Teams' `holder:` door
+(`register_permission_door('teams', :rf_team_membership, holder: ->(user) { TeamService.can_manage?(user) })`)
+and Holiday Schemes/Holidays/Leaves' `open_to_all` exemption are additional mechanisms layered on top of this
+same "manage requires view" rule (giving those 4 entities a second way past it) — not evidence the rule itself
+was meant to differ for the other 7.
+
+A note on process: a background subagent was separately asked to verify whether any doc described this as
+intentional, and it found nothing — but it explicitly had no Docker exec access and could not read the live
+plugin source at all, only the QA repo's own copied docs. Its "not found" was a scope limitation, not
+counter-evidence; the comment was read directly from the live container by this session, with the full file
+path and surrounding line numbers, which is the authoritative source here.
+
+**A testing-methodology trap hit along the way, worth keeping regardless of the retraction**: midway through the
+sweep, one batch of `rails runner` checks ran inside a single process with a `User` object fetched once and
+reused across a loop of role-permission changes — this produced a false `manage?=false` result for Holiday
+Schemes (contradicted by a clean, freshly-run single check moments later). Redmine memoizes a `User`'s resolved
+permissions in-process; a role change made *after* the user object was first used for a permission check does not
+retroactively invalidate that memoization within the same loop. **Always fetch a fresh `User.find_by` (or run as
+a separate process) after every `Role#save!` during a permission sweep.**
+
+**Two lessons, both correct, both from the same investigation**:
+1. A sampled subset of a permission matrix (9 of 24) can look exhaustive and pass cleanly right up until the
+   untested remainder turns out to hold something real — when asked for "every permission, one by one," treat it
+   literally.
+2. An unexpected result (a 403 that looks like a gap) is not automatically a bug the moment the code explains
+   *how* it happens — the code was quoted correctly here, but the comment stating *why*, sitting in the exact
+   same block, was skipped. **Before filing a bug from source code, read the comment immediately surrounding the
+   exact lines already being quoted, not just those lines** — the "why" is very often written right next to the
+   "what," and skipping it is how a correct technical observation turns into a wrong bug report.
 
 ## Recurring Issues
 

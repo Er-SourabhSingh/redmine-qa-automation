@@ -234,30 +234,37 @@ confirmed explicitly rather than inferred) — the one place it doesn't track co
 | `view_rf_platform` | Loads — shows only the 3 `open_to_all` entities (Leaves/Holiday Schemes/Holidays), nothing else | n/a | Correct — section gate only, each card still needs its own permission |
 | `manage_rf_teams` (legacy) | 403 | n/a | Correct — this permission gates Timesheet's own views + Platform's Teams-management actions directly, not the section/Overview card |
 | `manage_rf_platform_teams` | Loads — Teams card shows (3) | Reachable | Correct, via a documented `holder:` door (`TeamService.can_manage?`) — the one entity where manage alone is sufficient by design |
-| `manage_rf_platform_departments` | **403** | **403** | **Bug — filed `BUG-PLT-055`** |
-| `manage_rf_platform_organizations` | **403** | **403** | **Bug — filed `BUG-PLT-055`** |
-| `manage_rf_platform_contacts` | **403** (confirmed via service call) | **403** (confirmed via service call) | **Bug — filed `BUG-PLT-055`** |
-| `manage_rf_platform_organization_contact_links` | **403** (service call) | **403** (service call) | **Bug — filed `BUG-PLT-055`** |
-| `manage_rf_platform_holiday_schemes` | Loads — card shows | Reachable | Exempt from the bug — `open_to_all: :view` already makes `visible_to?` true regardless |
-| `manage_rf_platform_holidays` | Loads — card shows | Reachable | Exempt — same reason |
-| `manage_rf_platform_leave_types` | **403** (service call) | **403** (service call) | **Bug — filed `BUG-PLT-055`** |
-| `manage_rf_platform_leave_policy_bands` | **403** (service call) | **403** (service call) | **Bug — filed `BUG-PLT-055`** |
-| `manage_rf_platform_user_band_assignments` | **403** (service call) | **403** (service call) | **Bug — filed `BUG-PLT-055`** |
+| `manage_rf_platform_departments` | 403 | 403 | Confirmed intentional — see below |
+| `manage_rf_platform_organizations` | 403 | 403 | Confirmed intentional — see below |
+| `manage_rf_platform_contacts` | 403 (service call) | 403 (service call) | Confirmed intentional — see below |
+| `manage_rf_platform_organization_contact_links` | 403 (service call) | 403 (service call) | Confirmed intentional — see below |
+| `manage_rf_platform_holiday_schemes` | Loads — card shows | Reachable | `open_to_all: :view` already makes `visible_to?` true regardless |
+| `manage_rf_platform_holidays` | Loads — card shows | Reachable | Same reason |
+| `manage_rf_platform_leave_types` | 403 (service call) | 403 (service call) | Confirmed intentional — see below |
+| `manage_rf_platform_leave_policy_bands` | 403 (service call) | 403 (service call) | Confirmed intentional — see below |
+| `manage_rf_platform_user_band_assignments` | 403 (service call) | 403 (service call) | Confirmed intentional — see below |
 | `view_rf_platform_leaves` | Loads — card shows (already always true regardless, `open_to_all: true`) | Reachable | Already `BUG-PLT-054`'s territory — this permission's grant/non-grant makes no difference either way |
 
-**Result: a genuine new defect, filed as `BUG-PLT-055`.** For 7 of the plugin's 11 entity-permission pairs,
-`Entry#manage?` requires `visible_to?(user)` to already be true as a precondition — and `visible_to?` is never
-satisfied by the manage permission itself, only by the matching view permission, a registered door, or
-`open_to_all`. A role holding only "Create, edit and delete departments" (a completely reasonable, common way to
-configure a role) is silently locked out of Departments entirely — not just on Overview, but on the dedicated
-`/redmineflux_platform/list/departments` screen too — with no indication anywhere that "View departments" must
-also be checked. Confirmed exempt: Teams (has a `holder:` door making manage imply view, the one entity designed
-this way), and Holiday Schemes/Holidays/Leaves (exempt only because `open_to_all` already makes `visible_to?`
-unconditionally true, a side effect of the already-filed `BUG-PLT-052`/`054`, not a deliberate exemption from
-this specific gap).
+**Result: initially filed as a defect (`BUG-PLT-055`), then retracted the same session after the user asked
+directly whether the relevant source had actually been read before filing.** For 7 of the plugin's 11
+entity-permission pairs, `Entry#manage?` requires `visible_to?(user)` to already be true as a precondition, and
+holding only the manage permission produces a full 403 everywhere — Overview and the entity's own dedicated
+screen alike. On the first pass this was reported as a gap. Re-reading `shared_entities.rb` more carefully (the
+comment block *directly above* `manage?`, not just the method body already quoted) found the explicit, deliberate
+rationale:
 
-**Status: FAIL for 7 of the 10 newly-tested `manage_rf_platform_<key>` permissions (all except Teams, Holiday
-Schemes, Holidays) — `BUG-PLT-055` filed.**
+> "Managing implies seeing: a role given manage without view could save a record on a tab it cannot open, which
+> is not a state worth supporting."
+
+The 403 is the system correctly *refusing* an unsupported state (edit access with no way to see what's being
+edited) — not an accidental gap. Teams' `holder:` door and Holiday Schemes/Holidays/Leaves' `open_to_all`
+exemption are incidental side effects of other mechanisms, not evidence the other 7 entities were meant to behave
+differently; all 11 share the same intended rule ("manage requires view"), and 7 of them simply have no
+*additional* door/bypass on top of that rule the way Teams and the three `open_to_all` entities do.
+
+**Status: PASS for all 24 permissions — behavior confirmed correct/intentional, no defect. `BUG-PLT-055` retracted,
+not filed.** See the dedicated `PLATFORM_MEMORY.md` entry for the full retraction writeup and the lesson about
+reading the comment immediately surrounding quoted code, not just the code itself.
 
 ## Evidence Map
 
@@ -272,20 +279,22 @@ Schemes, Holidays) — `BUG-PLT-055` filed.**
 | TC-PLT-337 | PASS (confirmed intentional, documentation note only) | — | — |
 | TC-PLT-338 | PASS (confirms existing BUG-PLT-052/054/027 scope) | — | — |
 | TC-PLT-339 | PASS | — | `screenshots/TC-PLT-OVERVIEW/view-only-org-no-plus-icon.png` |
-| TC-PLT-340 | FAIL (7 of 10 manage-alone combinations) | BUG-PLT-055 (Open) | — |
+| TC-PLT-340 | PASS (confirmed intentional after retracting an initial misreading) | — (BUG-PLT-055 filed then retracted) | — |
 
 ## Summary (2026-10-16)
 
-9/10 PASS, 1 FAIL. The Overview page's own claim to be fully permission-aware held up for every `view_*`
-permission tested individually and for the view-vs-manage distinction in the attention band/Create dropdown —
-but completing the sweep to all 24 of Platform's own registered permissions (not just the 9 `view_*` ones
-originally tested) surfaced a genuine new defect: **7 of 11 "Create, edit and delete X" permissions are entirely
-non-functional when granted without their matching "View X"** — `Entry#manage?` requires `visible_to?` to already
-be true, and the manage permission itself is never one of the ways `visible_to?` can become true for these 7
-entities. Filed as `BUG-PLT-055`. Teams is the one entity deliberately exempt (a documented `holder:` door makes
-its manage permission imply view); Holiday Schemes/Holidays/Leaves are incidentally exempt only because their
-`open_to_all` flag already satisfies `visible_to?` regardless of any permission — a side effect of the
-already-filed `BUG-PLT-052`/`054`, not a sign this gap was avoided by design for those three.
+10/10 PASS. The Overview page's own claim to be fully permission-aware held up across all 24 of Platform's
+registered permissions, not just the 9 `view_*` ones originally tested — including the view-vs-manage
+distinction in the attention band/Create dropdown. Completing the sweep to the remaining 15 (`view_rf_platform`
+alone, legacy `manage_rf_teams`, and all 11 `manage_rf_platform_<key>` permissions alone) found that 7 of those
+11 manage permissions produce a full 403 when granted without their matching view permission — **initially
+misread as a defect (`BUG-PLT-055`), then retracted the same session** once a more careful re-read of
+`shared_entities.rb` found the explicit design comment directly above `Entry#manage?`: *"Managing implies seeing:
+a role given manage without view could save a record on a tab it cannot open, which is not a state worth
+supporting."* The 403 is the documented, intended enforcement of that rule, not an accidental gap. Teams' extra
+`holder:` door and Holiday Schemes/Holidays/Leaves' `open_to_all` exemption are additional mechanisms layered on
+top of the same underlying "manage requires view" rule, not evidence the rule itself was meant to differ for
+those four versus the other 7.
 
 The two already-known `open_to_all` bugs (`BUG-PLT-052`, `BUG-PLT-054`) do reach this page too, as expected. One
 inverse-direction finding (`audit_events`'s `admin_only` flag making its own permission inert) was confirmed
@@ -293,8 +302,10 @@ intentional/safe, not filed. The one standing severity note worth carrying forwa
 still-open Critical XSS sits in a widget every single logged-in user with platform access renders on login,
 which is a wider blast radius than "the Overview page" alone might suggest.
 
-**Lesson directly from this round**: a "representative sample" of permissions (9 of 24, covering every entity's
-`view_*` but none of the `manage_*`) looked thorough and passed cleanly, but the untested half contained the one
-real defect this suite found. When a user asks for "every permission, one by one," treat it literally — a
-sampled subset can look complete right up until the untested remainder turns out to be exactly where the bug
-was.
+**Two lessons from this round, in tension with each other and both worth keeping**: first, a "representative
+sample" of permissions (9 of 24) can look thorough and pass cleanly while the untested half still needs its own
+pass — when asked for "every permission, one by one," treat it literally. Second, and just as important: an
+unexpected result (a 403 that looks like a gap) is not automatically a bug — the very next thing to do before
+filing is re-read the comment immediately surrounding the code already being quoted in the report, not just the
+method body itself. Both corrections came from the same user noticing two different, equally real gaps in the
+same investigation.

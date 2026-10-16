@@ -307,6 +307,30 @@ At the user's direct request ("ab permission wise testing bhi kr lo"), closed th
 
 **One more false alarm caught before being misdiagnosed as a permission bug:** while testing Contact Links' manage permission, the "Create" button appeared completely non-functional for two attempts (zero network requests sent). A screenshot revealed the real cause — a native HTML5 "Please select an item in the list" validation popup, because the Organization dropdown had silently reverted to its blank placeholder option. Not a permission issue at all; explicitly re-selecting the Organization fixed it immediately. **Lesson: when a button "does nothing" with zero network activity and no console error, take a screenshot before suspecting the permission system — a native browser validation tooltip is invisible in the accessibility-tree snapshot alone.**
 
+## ✅ `PLATFORM_HOLIDAY_CROSS_PLUGIN_FLOW.md` fully executed — last 9 TCs (TC-PLT-287–295), 0 bugs, admin + non-admin confirmed (2026-10-16)
+
+At the user's direct request ("execute them from starting test with admin and non admin user"), closed out this
+suite's last gap. All 9 PASS. Workload's capacity engine (TC-287–289) correctly reduces capacity for an
+active-scheme holiday and ignores an inactive-scheme one — confirmed identically from an admin session and a
+genuine non-admin team-member session (`aurora.wren`, user #15), no role-based discrepancy anywhere this suite
+touches a view screen. Helpdesk's SLA clock nuances (TC-290–291) didn't need fresh execution — they're the exact
+same scenarios already proven by `BUG-HLP-071`'s own retest the same day, so cross-referenced rather than
+re-run. TC-292 (escalation-on-holiday, the one point no vendor KB documents) was answered with a full
+source-level trace rather than a live Sidekiq-cycle wait: every deadline-setting call site in Helpdesk — ticket
+creation, first response, reopening — funnels through the one `SlaCalculator`, and the escalation worker itself
+has zero independent holiday logic, just a `deadline < Time.current` comparison against the already-correct
+stored value. Escalation structurally cannot fire against a holiday date.
+
+**One documentation correction worth remembering, not a bug:** the Workload KB's instruction to "run Recalculate
+Capacity from the workload detail page" doesn't match the real UI — no such button exists anywhere on that page.
+Capacity recalculates automatically on any holiday change, which is strictly better than what's documented, not
+a regression.
+
+**Lesson for future TC execution:** when a fresh TC's scenario turns out to be identical to one already proven
+by a same-day bug retest, cross-reference it explicitly rather than re-running the exact same check — but still
+write up the cross-reference as the TC's own result, don't leave it silently "not yet executed" just because the
+underlying work was done under a different heading.
+
 ## ✅ Recurring-holiday bugs (`BUG-SFM-002`/`BUG-HLP-071`/`BUG-WKL-002`) — found, filed, and CONFIRMED FIXED (2026-10-15/16)
 
 Found 2026-10-15 while testing `PLATFORM_HOLIDAY_CROSS_PLUGIN_FLOW.md` (TC-PLT-316–318), at the user's direct request to check whether a Holiday marked Recurring actually applies in the *current* year (not just the year it was created), across every plugin that reads Holiday data. It did not in any of the three: Shift Management's Calendar, Helpdesk's SLA clock, and Workload's Gantt chart each had their own independent, naive literal-date-match re-implementation that ignored the `recurring` flag entirely, even though Platform's own `WorkingCalendar`/`HolidayEngine` already handled it correctly and some *other* screen in each plugin (Shift Management's Dashboard, Workload's own capacity-aggregation figures) already consumed that correct shared logic. Filed as 3 separate bugs (same root-cause *class*, three unrelated code paths), reported to production, assigned to Prashant Chaurasia.

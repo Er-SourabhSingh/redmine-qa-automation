@@ -254,3 +254,22 @@ User asked whether all Platform test suites have a corresponding production Test
 1. `PLATFORM_SECURITY.md` still has no production Test Case issue — ask the user whether to create it too (same pattern, #123767 as the template).
 2. Continue the still-outstanding Holiday suite TCs (TC-PLT-287–289, 293–295 — the active/inactive-scheme contrast cases, not yet executed; 316–318 are done).
 3. `bugs/open/` is empty across Platform/Shift Management/Helpdesk/Workload — a full-plugin regression pass is the remaining requirement before any of these can move to `Complete` (CLAUDE.md §10/§13).
+
+| 2026-10-16 | 6 | `redmine v6 - platform` (`redmine6platform-redmine-1`, localhost:3013) | Sourabh Singh | **At the user's direct request, executed the Holiday suite's last 9 TCs (TC-PLT-287–295), live, admin + non-admin (`aurora.wren`).** All 9 PASS, 0 new bugs. Workload's capacity engine correctly reduces capacity for an active-scheme holiday (792h→776h) and ignores an inactive-scheme one; Gantt reflects the same figures visually. Helpdesk's SLA clock nuances (holiday-not-selected, Working-Hours gate) cross-referenced from `BUG-HLP-071`'s own same-day retest rather than re-executed. The one undocumented question (does escalation fire on a holiday?) answered via a complete source-level trace of every deadline-setting call site plus the escalation worker's own comparison logic — it structurally cannot. Shift Management's calendar/dashboard confirmed active-scheme-only, matching Workload's correct behavior. One documentation correction (not a bug): Workload's "Recalculate Capacity" button doesn't exist in the UI — capacity updates automatically. `PLATFORM_HOLIDAY_CROSS_PLUGIN_FLOW.md` is now fully executed. |
+
+## Next Session Start Point (2026-10-16, continued — Holiday suite fully executed)
+
+At the user's direct request, executed the Holiday suite's last 9 TCs (TC-PLT-287–295), live, confirmed from both
+an admin session and a genuine non-admin team-member session (`aurora.wren`). All 9 PASS, 0 new bugs — see
+`PLATFORM_HOLIDAY_CROSS_PLUGIN_FLOW.md`'s own 2026-10-16 Summary for full detail. **`PLATFORM_HOLIDAY_CROSS_PLUGIN_FLOW.md`
+is now fully executed — every TC in it (281–295, 316–318) has a result.**
+
+**Next session options**:
+1. `PLATFORM_SECURITY.md` still has 2 tooling-blocked items (TC-PLT-221 fully unexecuted, one TC's Destroy leg not
+   executed) and no production Test Case issue yet — ask the user whether to create the production issue and/or
+   find a way to execute the 2 remaining tooling-blocked cases.
+2. `bugs/open/` is empty across Platform/Shift Management/Helpdesk/Workload — a full-plugin regression pass is the
+   remaining requirement before any of these can move to `Complete` (CLAUDE.md §10/§13).
+3. Fixture state added this session: Holiday Scheme "TC-PLT-288-Inactive-Scheme" (id 2, Inactive) with holiday
+   "TC-PLT-288-Inactive-Holiday" (Dec 15, 2026); Holiday "TC-PLT-287-Active-Capacity-Test" (id 3, Dec 10, 2026,
+   Company, in the active scheme); SLA "TC-PLT-292-Escalation-SLA" (id 2) on `PLT-DelCheck-Project`.

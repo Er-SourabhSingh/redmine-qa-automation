@@ -725,6 +725,35 @@ reopened issue carrying both the fix history and the remaining gap, or split cle
 default to splitting just because that's the locally tidier option; it can leave the local tracker and the
 production tracker telling different stories about the same defect.**
 
+## ⚠️ A web-form permission fix proved nothing about its REST API siblings — always test every entry point into the same model, not just the one the bug report used (2026-10-16)
+
+User asked for a fresh Security/Performance/Code-Quality pass immediately after `BUG-PLT-052`/`053`/`054` were
+confirmed fixed and closed on production the same day. Rather than re-deriving the already-fixed web-form
+behavior, applied `SENIOR_QA_STANDARDS.md` §28's own rule literally: "always send the request directly too" —
+checked every other known way to create a `Leave` record, not just Platform's own web form.
+
+**Found a real, live gap within minutes**: both `redmineflux_workload`'s `/api/workload/leaves` and
+`redmineflux_shift_management`'s `/shift_management/api/v1/leave` POST endpoints build and save a
+`RedminefluxPlatform::Leave` directly, with zero check of `manage_rf_platform_leaves` anywhere in either
+controller — only `before_action :require_login`. Proved it live with `curl` + a zero-permission user's own API
+key: the request failed only on the already-fixed Policy Band check (confirming that part is genuinely
+model-level and entry-point-independent), and succeeded outright, `201 Created`, once a band was temporarily
+assigned — with `manage_rf_platform_leaves` still confirmed `false` at the time. Filed `BUG-WKL-004`/`BUG-SFM-003`
+against the two consumer plugins whose controllers actually skip the check, not against Platform itself (whose
+model-level enforcement is correct — the permission check was simply never added to these two independent
+controllers in the first place).
+
+**This is the second time this exact lesson has surfaced on this plugin** (the first being the 9-of-24-permission
+sampling gap on Overview, and the data-accuracy-vs-visibility gap on TC-PLT-341) — a fix or a test that only
+covers the one surface a bug report happened to use can look completely resolved while an equally-reachable
+sibling surface still has the identical defect. **Lesson, sharpened: whenever a permission/authorization fix
+lands, before calling it closed, grep for every other controller action that can create/update/delete the same
+model** (`grep -rn "ModelName.new\|ModelName.create" app/controllers` across every plugin, not just the one the
+fix shipped in) **and test each one directly, with a real request, not just by re-reading the already-fixed UI
+path.** A model-level validation (like the Policy Band check) being correct everywhere does not mean a
+controller-level permission check is too — they are enforced at different layers and have to be verified
+separately, at every entry point, every time.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

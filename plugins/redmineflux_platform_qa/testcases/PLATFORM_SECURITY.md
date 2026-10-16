@@ -243,9 +243,113 @@
 
 ---
 
+---
+
+## Security Cases — API Endpoint Authorization, follow-up to the 2026-10-16 permission fixes
+
+> Added per the user's instruction to run a fresh Security/Performance/Code-Quality pass after `BUG-PLT-052`,
+> `BUG-PLT-053`, and `BUG-PLT-054` were fixed and closed on production the same day. Per `SENIOR_QA_STANDARDS.md`
+> §28's own rule ("Authorization/permission enforcement at the **endpoint**, not just hidden in the UI"), the
+> same permission these fixes just enforced on the web form was checked against every other entry point that can
+> reach the same model — not re-derived from the web UI alone.
+
+### TC-PLT-354: `manage_rf_platform_leaves` is enforced identically on every entry point that can create a Leave, not just the Platform web form
+
+**User Role:** `marigold.rayne` (zero `rf_platform` permissions, confirmed via `allowed_to?` and zero global role).
+
+**Steps:**
+1. Confirm the web form (`/redmineflux_platform/list/leaves/new`) now correctly 403s for this user — already
+   reconfirmed as part of `BUG-PLT-054`'s retest the same day.
+2. Fetch the user's own Redmine API key and confirm `Setting.rest_api_enabled?` is `true`.
+3. `POST /api/workload/leaves` (Workload plugin's own REST API) with a valid leave body and her API key.
+4. `POST /shift_management/api/v1/leave` (Shift Management plugin's own REST API) with a valid leave body and
+   her API key.
+5. For both, isolate the Policy Band check (`BUG-PLT-053`'s fix, which correctly fires regardless of entry point)
+   from the permission check by temporarily assigning her a real Leave Policy Band via `rails runner`, then
+   repeating the request.
+
+**Expected Result:**
+- All three entry points (web form, Workload API, Shift Management API) should refuse the request identically
+  for a user without `manage_rf_platform_leaves`, per `SENIOR_QA_STANDARDS.md` §30's "the same rule... enforced
+  identically in the UI and at the API/endpoint level."
+
+**Actual Result:** **FAIL — confirmed on both REST APIs.**
+- The web form correctly 403s (per `BUG-PLT-054`'s fix).
+- `POST /api/workload/leaves`: with no band assigned, fails only on the band check (`422`, "No leave band is
+  assigned to Marigold Rayne...") — **no permission error at all**. Once a band was temporarily assigned, the
+  identical request succeeded outright: `201 Created`, Leave `#14`, with `manage_rf_platform_leaves` still
+  confirmed `false`.
+- `POST /shift_management/api/v1/leave`: once a band was assigned, succeeded outright: `201 Created`, Leave
+  `#15`, with `manage_rf_platform_leaves` still confirmed `false`.
+- Root cause: `Apis::WorkloadLeavesController#create` and `ShiftManagementApi::V1::LeaveController#create` both
+  build and save a `RedminefluxPlatform::Leave` directly, with no call into `Entry#manage?` or any
+  `manage_rf_platform_leaves` check at all — only `before_action :require_login` (or equivalent) gates them.
+  `BUG-PLT-054`'s fix only changed behavior reached through Platform's own `EntitiesController`, which these two
+  standalone REST controllers never route through.
+- Test fixtures (Leave #14, #15, the temporary band assignment) deleted immediately after confirming the finding.
+
+**Status:** **FAIL.** Filed as **`BUG-WKL-004`** (Workload) and **`BUG-SFM-003`** (Shift Management) — two separate
+bugs since the broken code lives in each consumer plugin's own controller, not in Platform itself, even though the
+root permission and the user-facing defect shape are identical. Not yet reported to production pending the user's
+decision on whether to reopen `BUG-PLT-054` again or track these as their own fresh issues.
+
+### TC-PLT-355: Free-text `:select` filter parameters resist SQL injection
+
+**User Role:** Admin.
+
+**Steps:**
+1. Submit `role=Billing' OR '1'='1` to `/redmineflux_platform/list/organization_contact_links` — the `role`
+   filter is a free-text field value (not a fixed enum), making it the filter most likely to be built with raw
+   string interpolation if one of the 32 filters added this session were ever to regress that way.
+2. Confirm no 500 error, no SQL error leak, and the result set behaves as a literal (non-matching) string search
+   would — not as a widened/bypassed query.
+
+**Expected Result:** The injection payload is treated as a literal string value with no special meaning; the
+query returns zero matching rows and no error.
+
+**Actual Result:** Confirmed — 0 rows returned, no error, no 500. `Entry#apply_filters` passes every filter value
+through `rel.where(column: value)`, which Rails/ActiveRecord always parameterizes regardless of the filter's
+`type:` declaration — the same protection already confirmed for the `search` box (TC-PLT-219) extends to every
+dropdown filter, free-text-backed or not.
+
+**Status:** **PASS.**
+
+### TC-PLT-356: A non-privileged, non-owner/assignee user still cannot reach a Private Organization by direct ID (regression check after the `open_to_all` removal)
+
+**User Role:** `marigold.rayne` (zero `rf_platform` permissions).
+
+**Steps:**
+1. Confirm `PLT-FilterTest-Org-Private` (id 6, created this session for filter testing) is marked Private and
+   assigned to Admin, not to this user.
+2. Navigate directly to `/redmineflux_platform/list/organizations/6` as this user.
+
+**Expected Result:** 403, same as `TC-PLT-213`'s original finding — the `open_to_all` removal (`BUG-PLT-052`'s
+fix) should not have loosened or otherwise changed Organizations'/Contacts' own pre-existing private-record
+isolation, which was never `open_to_all` in the first place.
+
+**Actual Result:** Confirmed 403 — this user has zero `view_rf_platform_organizations` of any kind, so she cannot
+reach any Organization record, private or not, consistent with both the original `TC-PLT-213` finding and the
+stricter baseline the 2026-10-16 permission fixes now enforce elsewhere.
+
+**Status:** **PASS.** No regression in private-record isolation from the `open_to_all` removal.
+
+---
+
 ## Evidence Map
 
 - Case ID: TC-PLT-210 … TC-PLT-222 — 12 of 13 executed 2026-10-01 (TC-PLT-221 blocked, tooling limitation — see its own Status)
-- Screenshot: `screenshots/BUG-PLT-027/`, `screenshots/BUG-PLT-028/` (bugs only, per this repo's screenshot rule)
-- Log: —
-- Bug reference: `BUG-PLT-027` (Critical, confirmed stored XSS, TC-PLT-218), `BUG-PLT-028` (Low, documentation accuracy, TC-PLT-214)
+- Case ID: TC-PLT-354 … TC-PLT-356 — 3 of 3 executed 2026-10-16 (1 FAIL, 2 PASS)
+- Screenshot: `screenshots/BUG-PLT-027/`, `screenshots/BUG-PLT-028/` (bugs only, per this repo's screenshot rule) — TC-PLT-354 has no screenshot (pure REST API finding, see `BUG-WKL-004.md`/`BUG-SFM-003.md` console evidence)
+- Log: see `BUG-WKL-004.md`/`BUG-SFM-003.md` Console/log sections for the raw `curl` request/response pairs
+- Bug reference: `BUG-PLT-027` (Critical, confirmed stored XSS, TC-PLT-218), `BUG-PLT-028` (Low, documentation accuracy, TC-PLT-214), `BUG-WKL-004`/`BUG-SFM-003` (Medium, leave-permission API bypass, TC-PLT-354)
+
+## Summary (2026-10-16)
+
+15/16 executed, 1 blocked (tooling, unchanged from 2026-10-01). **1 new FAIL found this round**: `TC-PLT-354`
+confirmed that `manage_rf_platform_leaves` — the very permission `BUG-PLT-054` was just fixed for — is completely
+unenforced on two separate REST API endpoints (Workload's and Shift Management's own leave-creation routes),
+proving the fix only covers the web form, not "the same rule enforced identically everywhere" `SENIOR_QA_STANDARDS.md`
+§30 requires. This is exactly the kind of gap §28's own rule ("not just hidden in the UI... send the request
+directly too") exists to catch — a web-UI-only retest of `BUG-PLT-054` would have reported it fully fixed. The
+other 2 new checks (filter SQL-injection resistance, private-record isolation regression check) both PASS, with
+no indication the `open_to_all` removal introduced any new exposure.

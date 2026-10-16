@@ -46,3 +46,17 @@ right too.** Filed `BUG-SFM-002`.
 
 - Plugin source (read-only from this QA session) at
   `C:/redmine-docker-7.0.0/plugins/redmineflux_shift_management/` on the Docker host.
+
+## ⚠️ This plugin's own REST API (`/shift_management/api/v1/leave`) doesn't go through Platform's permission model at all — `BUG-SFM-003` (2026-10-16)
+
+`ShiftManagementApi::V1::LeaveController#create` builds `RedminefluxPlatform::Leave.new(leave_params)` and calls
+`.save` directly — it never routes through `RedminefluxPlatform::SharedEntities.find('leaves').manage?`, so
+`redmineflux_platform`'s `manage_rf_platform_leaves` permission (just fixed on Platform's own web form via
+`BUG-PLT-054`) has zero effect here. Any logged-in, API-enabled user can file their own leave through this
+endpoint regardless of that permission, confirmed live with a zero-permission user's own API key. The Leave
+Policy Band check (`BUG-PLT-053`'s fix) correctly fires here too, since that one lives on the model itself and
+is therefore entry-point-independent — this bug is specifically about the permission check, which is
+controller-level and was only ever added to Platform's web controller. **Lesson: when this plugin's own REST API
+controllers touch a shared Platform model directly, they need their own explicit permission check mirroring
+whatever Platform's own controller enforces — being a thin wrapper around a shared model does not inherit that
+model's caller's authorization for free.**

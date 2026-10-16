@@ -44,7 +44,10 @@
 
 ## Open Bugs Found
 
-- None open. BUG-SFM-001 (High, prod #121065) closed 2026-09-25.
+- `BUG-SFM-003` (Medium) — `POST /shift_management/api/v1/leave` never checks `manage_rf_platform_leaves`; a
+  zero-permission user can still create their own leave via this REST API, bypassing the just-fixed
+  `redmineflux_platform` web-form gate (`BUG-PLT-054`). Found 2026-10-16 via a Platform-driven Security pass,
+  proven live via direct `curl` with a zero-permission user's own API key. Not yet reported to production.
 
 ## Run History
 
@@ -55,3 +58,4 @@
 | 2026-09-22 | 7.0.0 | localhost:3010 | Sheetal Sharma (AI-assisted) | Folder scaffolded ad hoc; one bug (BUG-SFM-001) found and filed via root-cause investigation prompted by a Checklist-plugin session. No dedicated test cycle run yet. |
 | 2026-09-25 | 7.0.0 | localhost:3010 | Sourabh Singh (AI-assisted) | Retest BUG-SFM-001 against fix commit d29e480 — PASS. Regression: core Custom Fields delete + plugin Attendance delete, accept-once and dismiss-once — all PASS. BUG-SFM-001 closed; prod #121065 → Done / 100%. |
 | 2026-10-16 | 6 | `redmine6platform`, localhost:3013 | Sourabh Singh | Retested `BUG-SFM-002` (Shift Calendar never highlighting a recurring Holiday's current-year occurrence) after pulling the dev's fix (`shift_dashboard_controller.rb`/`holiday_engine.rb`, branch `redmineflux_platform`) + the shared `redmineflux_platform` fix, and restarting the container/Sidekiq. Dec 25, 2026 now correctly shows `sm-shift-cell sm-shift-holiday`. Regression: Dec 25 2025 baseline, Nov 20 2026 non-recurring holiday, and Dec 26 2026 weekend all unaffected — PASS. Closed; production #123755 synced to Done/100%. `bugs/open/` now empty for this plugin. |
+| 2026-10-16 | 6 | `redmine6platform-redmine-1`, localhost:3013 | Sourabh Singh | **Found `BUG-SFM-003`** during a `redmineflux_platform`-driven Security pass (TC-PLT-354, `SENIOR_QA_STANDARDS.md` §28 — "always send the request directly too" after `BUG-PLT-054`'s web-form fix). `ShiftManagementApi::V1::LeaveController#create` builds and saves a `RedminefluxPlatform::Leave` directly with no check of `manage_rf_platform_leaves` anywhere — only plain login. Proved live: `marigold.rayne` (zero permission, confirmed via `rails runner`) successfully created Leave #15 via `POST /shift_management/api/v1/leave` with her own API key, once a Policy Band was temporarily assigned to isolate the already-fixed band check. Same root cause and same day as Workload's own `BUG-WKL-004`. Fixture cleaned up immediately after confirming the finding. Not yet reported to production. `bugs/open/` count: 0 → 1. |

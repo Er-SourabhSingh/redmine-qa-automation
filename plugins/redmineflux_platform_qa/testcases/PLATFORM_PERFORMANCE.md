@@ -217,9 +217,35 @@ All 3 are comparable to Platform's own Teams list (warm load ~321–425ms in thi
 
 ---
 
+---
+
+## TC-PLT-357: The newest list-screen feature (32 dropdown filters, `PLATFORM_FILTERS.md`) introduces no performance regression at current data volume
+
+**User Role:** Admin.
+
+**Steps:**
+1. Load the heaviest single-entity filter combination added this cycle — Holidays' full 5-way combination
+   (`scheme`+`year`+`holiday_type`+`recurring`+`status`) — and record `performance.timing`'s load time.
+2. Load Audit Events (the largest single dataset on this plugin, 175 rows) at `per_page=100`.
+
+**Expected Result:** Both well under 1 second — consistent with the 2026-10-01 Performance suite's own finding
+that no list screen on this plugin showed a problem up to 2,423 rows, and these filters are plain single-column
+`WHERE` clauses (`Entry#apply_filters`), not joins or N+1-prone lookups.
+
+**Actual Result:** Holidays' 5-way combination: **122ms**. Audit Events, 100 rows: **320ms**. Both comfortably
+within the already-established baseline; no degradation from adding 32 filters across 12 entities this cycle.
+
+**Status:** **PASS.** No performance regression from the new Filters suite. Current data volumes (max 175 rows,
+Audit Events) remain far below the 2026-10-01 suite's own 2,423-row stress-test ceiling, so this is a
+regression/sanity check at today's realistic volume, not a fresh large-N stress test — the large-N scenario
+itself was already covered and remains valid.
+
+---
+
 ## Evidence Map
 
 - Case ID: TC-PLT-223 … TC-PLT-232 — **all 10 EXECUTED 2026-10-01.** 9/10 PASS outright; TC-PLT-227 PASS on performance but FAIL on correctness (new bug).
+- Case ID: TC-PLT-357 — EXECUTED 2026-10-16, PASS (no regression from the new Filters suite at current data volume).
 - **Suite complete.** No list screen showed a performance problem at realistic large-N volumes (150–2,423 rows): worst observed load time was ~1.1s (Teams, cold), with one one-time 2000ms cold-start outlier on Holiday Schemes that did not reproduce on a warm reload. Bulk delete of 99 Teams completed cleanly with zero orphaned rows. No N+1 pattern detected across any of the 7 entities. The 3 consumer-plugin Team screens (Workload/Timesheet/Shift Management) perform comparably to Platform's own.
 - **One new bug found**, discovered via this suite's own correctness side-check rather than its primary performance focus: **`BUG-PLT-031`** (High) — Audit Events search-by-name is fundamentally broken for any record that hasn't been deleted (the overwhelming majority of real-world rows), not just the narrower "label regresses after deletion" case already covered by `BUG-PLT-021`.
 - Screenshot: `screenshots/BUG-PLT-031/` only (bugs-only rule).

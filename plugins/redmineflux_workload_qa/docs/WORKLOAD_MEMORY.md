@@ -55,6 +55,22 @@ Pending leave on the same workload the original repro used and confirming via `r
 excluded from the new scope while still genuinely existing as a record. `bugs/open/` is empty again for this
 plugin.
 
+## ⚠️ This plugin's own REST API (`/api/workload/leaves`) doesn't go through Platform's permission model at all — `BUG-WKL-004` (2026-10-16)
+
+`Apis::WorkloadLeavesController#create` builds `RedminefluxPlatform::Leave.new(leave_create_params)` and calls
+`.save` directly — it never routes through `RedminefluxPlatform::SharedEntities.find('leaves').manage?`, so
+`redmineflux_platform`'s `manage_rf_platform_leaves` permission (just fixed on Platform's own web form via
+`BUG-PLT-054`) has zero effect here. `WorkloadBaseController`'s only gate is `before_action :require_login`; the
+controller's own `has_leave_approval_for_user?` check only applies when filing *for somebody else*, never for
+filing your own leave. Any logged-in, API-enabled user can file their own leave through this endpoint regardless
+of the permission, confirmed live with a zero-permission user's own API key. The Leave Policy Band check
+(`BUG-PLT-053`'s fix) correctly fires here too, since it lives on the model itself and is therefore
+entry-point-independent — this bug is specifically about the controller-level permission check, which was only
+ever added to Platform's own web controller. Same root cause, found the same day, as Shift Management's own
+`BUG-SFM-003`. **Lesson: any plugin's own REST API controller that touches a shared Platform model directly needs
+its own explicit permission check mirroring Platform's — it does not inherit that model's authorization for
+free just by calling `.save` on it.**
+
 ## Environment Notes
 
 - Vendor KB source: https://www.redmineflux.com/knowledge-base/plugins/workload-plugin/

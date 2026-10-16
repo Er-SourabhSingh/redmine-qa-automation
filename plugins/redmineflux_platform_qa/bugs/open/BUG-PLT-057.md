@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-PLT-057
-- Production Redmine Issue ID: <!-- filled after MCP report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #123878
 - Title: Platform permission labels need two fixes — (1) Organization Contact Links' pair is a raw, unhumanized permission symbol instead of a proper label, and (2) 9 other entities' "Create, edit and delete X" wording should be shortened to "Manage X" to match Redmine core's own naming convention and this same plugin's other "Manage X"-style labels
 - Redmine version: 6
 - Plugin name: redmineflux_platform
@@ -125,4 +125,4 @@ $ grep -n "^  permission_view_rf_platform_teams\|^  permission_manage_rf_platfor
 
 ## Production report
 
-Not yet reported to production — pending user approval.
+Reported to production as **#123878**, linked to Testcase #121705 ("Permissions and Access", `PLATFORM_PERMISSIONS_AND_ACCESS.md`) inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6` — testcase marked Failed. Assigned to Prashant Chaurasia. Priority: Low | Defect Severity: Low-severity | Defect priority: Low | Defect Type: Usability.

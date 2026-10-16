@@ -491,12 +491,47 @@
 
 ---
 
+### TC-PLT-358: Edit member — uncheck an already-checked "Manage workload"/"Approve leave" permission and confirm it actually persists after Save
+
+**User Role:** Admin.
+**Precondition:** A team member whose "Manage workload" and "Approve leave" are both currently "Yes" (e.g. `Team-Retest`, member Aurora Wren).
+
+**Steps:**
+1. Open the member's "Edit member" dialog from Platform's own Team detail page.
+2. Uncheck "Manage workload", then uncheck "Approve leave" (confirm both are visibly unchecked before saving).
+3. Click Save.
+4. Read the Members table row's "Manage workload"/"Approve leave" values, and re-open the Edit dialog to check the checkboxes' actual state.
+
+**Expected Result:** Page shows a success message, and the row/dialog both now show "No"/unchecked for whichever box(es) were unchecked.
+
+**Status:** **EXECUTED 2026-10-16 — FAIL, filed as `BUG-PLT-058`.** Page shows "Successful update.", but the Members table row still shows "Yes"/"Yes" for both, and re-opening the dialog shows both checkboxes still checked — the uncheck is silently lost, with no error or indication anything went wrong. Found while reproducing an issue the tester had hit manually on this exact team/member before the browser session was lost.
+
+---
+
+### TC-PLT-359: Organizations and Contacts — Export (CSV) and Import (CSV) round-trip, dedup, and validation refusal
+
+**User Role:** Admin.
+**Precondition:** At least a few existing Organizations and Contacts, some with real field data.
+
+**Steps:**
+1. On the Organizations list, click Export — confirm the downloaded CSV has one row per organization with every documented field correctly populated.
+2. On the Organizations list, click Import, upload a CSV containing: (a) a row duplicating an existing organization's name+email, (b) a new valid organization with every field filled, (c) a row with a blank required field (name).
+3. Confirm the import result message reports imported/skipped/failed counts and the specific per-row validation error, then confirm the new organization's detail page shows every field correctly.
+4. Repeat steps 1–3 for Contacts, including a contact imported with a `company_id` linking it to an existing Organization.
+5. After importing a contact with a real `company_id`, check its organization link on: (a) its own detail page, (b) the Contacts list's "Organization name" column, (c) a fresh CSV export.
+
+**Expected Result:** Export includes all documented fields; import correctly creates valid rows, skips exact duplicates, and refuses/report invalid rows with a clear per-row reason; a contact's organization link is shown consistently everywhere (detail page, list column, export).
+
+**Status:** **EXECUTED 2026-10-16 — MIXED, per the user's direct request to properly test Organization/Contact export-import.** Export/Import mechanics themselves are solid on both entities: Organizations export included all 12 documented fields correctly (including a multi-line `billing_info` value, properly CSV-quoted); import of a 3-row test file correctly reported "Imported 1, skipped 1 already here, 1 could not be imported" with the exact message "row 3: Name cannot be blank", and the new organization's every field (industry, employee count, tag, address, notes, is_private) matched the source CSV exactly on its detail page. Contacts behaved identically (dedup by email instead of name+email, "row 3: First name cannot be blank", new contact's full field set correct) — **except** a genuine, confirmed defect found along the way: the Contacts list's "Organization name" column shows "—" for every contact, including ones with a real `company_id` link (confirmed via 3 separate contacts: a pre-existing fixture, an older fixture, and the just-imported one) — the contact's own detail page and the CSV export's `company_id` column both correctly show the real link, so this is a list-column display defect, not an import-path defect. Filed as `BUG-PLT-059`. Note (not filed as a bug — by design, since Import's own purpose is "add records", not full field round-trip): neither entity's CSV export/import has a `status`/`active` column at all, so an organization or contact's Active/Inactive state cannot be set via import; every imported record defaults Active.
+
+---
+
 ## Evidence Map
 
-- Case ID: TC-PLT-113 … TC-PLT-135, TC-PLT-233 … TC-PLT-237
-- Screenshot: (bugs only) — BUG-PLT-017 (contacts-search-full-name-fails.png), BUG-PLT-019 (organizations-no-sortable-headers.png), BUG-PLT-020 (user-picker-filter-not-applied.png), BUG-PLT-022 (tag-remove-swallowed-phantom-tag-added.png), BUG-PLT-037 (team-role-lead-no-approve-leave.png), BUG-PLT-038 (timesheet-approval-redirects-to-duplicate-team-page.png, workload-skills-redirects-no-skills-ui.png), BUG-PLT-039 (team-level-team-lead-dropdown-third-concept.png, member-table-column-clutter-and-team-lead-overlap.png)
+- Case ID: TC-PLT-113 … TC-PLT-135, TC-PLT-233 … TC-PLT-237, TC-PLT-358, TC-PLT-359
+- Screenshot: (bugs only) — BUG-PLT-017 (contacts-search-full-name-fails.png), BUG-PLT-019 (organizations-no-sortable-headers.png), BUG-PLT-020 (user-picker-filter-not-applied.png), BUG-PLT-022 (tag-remove-swallowed-phantom-tag-added.png), BUG-PLT-037 (team-role-lead-no-approve-leave.png), BUG-PLT-038 (timesheet-approval-redirects-to-duplicate-team-page.png, workload-skills-redirects-no-skills-ui.png), BUG-PLT-039 (team-level-team-lead-dropdown-third-concept.png, member-table-column-clutter-and-team-lead-overlap.png), BUG-PLT-058 (edit-dialog-both-unchecked-before-save.png, member-table-still-yes-after-save.png), BUG-PLT-059 (contacts-list-organization-column-always-dash.png, contact-detail-shows-real-organization.png)
 - Log: —
-- Bug reference: BUG-PLT-017, BUG-PLT-018, BUG-PLT-019, BUG-PLT-020, BUG-PLT-021, BUG-PLT-022, BUG-PLT-037 (Closed 2026-10-15), BUG-PLT-038 (Closed 2026-10-15), BUG-PLT-039 (Closed 2026-10-15)
+- Bug reference: BUG-PLT-017, BUG-PLT-018, BUG-PLT-019, BUG-PLT-020, BUG-PLT-021, BUG-PLT-022, BUG-PLT-037 (Closed 2026-10-15), BUG-PLT-038 (Closed 2026-10-15), BUG-PLT-039 (Closed 2026-10-15), BUG-PLT-058 (Open), BUG-PLT-059 (Open)
 
 **Suite summary (2026-09-30):** 23 TCs (TC-PLT-113–135) executed. 17 clean PASS, 6 MIXED (partial PASS/FAIL within the same TC across entities) — TC-113, TC-115, TC-122, TC-130, TC-131, TC-134 — none fully FAIL. 6 new bugs found and filed this session: BUG-PLT-017 (Contacts search misses full-name), BUG-PLT-018 (Leaves has no search at all), BUG-PLT-019 (only Teams has sortable headers), BUG-PLT-020 (member-picker search doesn't filter), BUG-PLT-021 (deleted record's create/update audit rows lose their name), BUG-PLT-022 (tag chip × swallowed by a blur/click race). All 6 are still local-only (`bugs/open/`), not yet reported to production.
 

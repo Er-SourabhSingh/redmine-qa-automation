@@ -389,12 +389,15 @@ Checking it found `manage_rf_platform_leaves` ("File and decide leave requests")
 Confirmed via a full `open_to_all:` grep that no other entity shares this exact bypass variant (only `leaves`
 uses `open_to_all: true`; Holiday Schemes/Holidays use `:view`, which only bypasses the view check, not manage).
 
+**`BUG-PLT-054` reported to production same day as #123795** — assigned Prashant Chaurasia, linked via
+`report_defect` to Testcase #123303 ("Leave Cross-Plugin Flow" — the suite TC-PLT-330 actually lives in, not
+#121705's Permissions suite, per this repo's own linking rule) inside Run #586, Suite #397, environment
+`Win + Chrome + Ver6` — testcase marked Failed, verified visible via `get_run_testcases`.
+
 **Next session options**:
-1. Decide whether/when to report `BUG-PLT-054` to production (likely same Testcase/Run as `BUG-PLT-052`, since
-   both are found via the Permissions suite's own methodology — confirm before calling `report_defect`).
-2. Decide whether/when to report `BUG-WKL-003` to production (needs its own Run/Testcase lookup for Workload).
-3. `PLATFORM_SECURITY.md` still has 2 tooling-blocked items and no production Test Case issue.
-4. `bugs/open/` now has 3 bugs on Platform (`BUG-PLT-052`, `BUG-PLT-053`, `BUG-PLT-054`) and 1 on Workload
+1. Decide whether/when to report `BUG-WKL-003` to production (needs its own Run/Testcase lookup for Workload).
+2. `PLATFORM_SECURITY.md` still has 2 tooling-blocked items and no production Test Case issue.
+3. `bugs/open/` now has 3 bugs on Platform (`BUG-PLT-052`, `BUG-PLT-053`, `BUG-PLT-054`) and 1 on Workload
    (`BUG-WKL-003`).
-5. Fixture state: Leave #12 (Marigold Rayne, 10/26/2026, Emergency Leave, Pending) left in place as the
+4. Fixture state: Leave #12 (Marigold Rayne, 10/26/2026, Emergency Leave, Pending) left in place as the
    `BUG-PLT-054` evidence record.

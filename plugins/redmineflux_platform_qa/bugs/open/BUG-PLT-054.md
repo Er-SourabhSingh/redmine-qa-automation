@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-PLT-054
-- Production Redmine Issue ID:
+- Production Redmine Issue ID: #123795
 - Title: "File and decide leave requests" (`manage_rf_platform_leaves`) permission has zero effect — a genuinely zero-permission user can fully file a leave request, same `open_to_all` root cause as `BUG-PLT-052`
 - Redmine version: 6
 - Plugin name: redmineflux_platform
@@ -62,4 +62,4 @@ Leave #12 created live in the browser as confirming end-to-end proof, not just t
 
 ## Production report
 
-- Not yet reported — pending approval for which production Run/Testcase to link it to.
+Reported to production as **#123795**, assigned to Prashant Chaurasia, linked to Testcase **#123303** ("Leave Cross-Plugin Flow", `PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md` — the suite TC-PLT-330 actually lives in) inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6` — testcase marked Failed. Verified visible in the run via `get_run_testcases`. Priority: Low | Defect Severity: Low-severity | Defect priority: Low | Defect Type: Functional.

@@ -1,7 +1,7 @@
 # Bug Report Template
 
 - Bug ID: BUG-WKL-004
-- Production Redmine Issue ID: <!-- filled after MCP report_defect/create_issue is approved and executed -->
+- Production Redmine Issue ID: #123833
 - Title: `POST /api/workload/leaves` never checks `manage_rf_platform_leaves` — a user with zero leave-filing permission can still create their own leave via the REST API, bypassing the just-fixed web-form gate (BUG-PLT-054)
 - Redmine version: 6
 - Plugin name: redmineflux_workload
@@ -98,5 +98,8 @@ confirming the finding.
 
 ## Production report
 
-Not yet reported to production — pending user decision on how to track this (reopen `BUG-PLT-054` again, or file
-fresh).
+Reported to production as **#123833** on `flux.zehntech.com`, project `ztflux`, assigned to Prashant Chaurasia,
+Category "Workload Plugin", Defect Type Security, Defect Severity Medium-severity, Defect priority Medium,
+Priority Medium. Not linked to any Test Run/Test Case — same as `BUG-WKL-001`/`002`/`003`, no production
+Run/Suite exists yet for this plugin's own test case set. Filed as a fresh issue (not a reopen of `BUG-PLT-054`)
+per explicit user instruction, since the broken code lives in this plugin's own controller, not Platform's.

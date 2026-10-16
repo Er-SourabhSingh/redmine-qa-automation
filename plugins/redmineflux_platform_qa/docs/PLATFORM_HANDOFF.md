@@ -233,18 +233,18 @@ for on the web form is completely bypassable through two separate consumer-plugi
 most important open item on this plugin.
 
 **Next session options, in order of priority**:
-1. **Decide how to track `BUG-WKL-004`/`BUG-SFM-003` against production** — report them fresh (same pattern as
-   most other bugs this cycle), or fold the finding into a reopened `BUG-PLT-054` note on production even though
-   the broken code isn't in Platform's own repo. Not yet reported pending this decision.
-2. Once reported, the natural fix direction (documented in `reports/PLT-Code-Quality-2026-10-16.md`) is routing
-   both REST controllers' `create` actions through the same `Entry#manage?` check Platform's own web controller
-   uses, or adding an equivalent explicit permission check to each.
+1. **Resolved**: per explicit user instruction, `BUG-WKL-004` (#123833) and `BUG-SFM-003` (#123834) were both
+   reported fresh to production (not a reopen of `BUG-PLT-054`), each with Defect Type Security, Medium
+   severity/priority, assigned Prashant Chaurasia.
+2. The natural fix direction (documented in `reports/PLT-Code-Quality-2026-10-16.md`) is routing both REST
+   controllers' `create` actions through the same `Entry#manage?` check Platform's own web controller uses, or
+   adding an equivalent explicit permission check to each.
 3. `BUG-PLT-053` remains open on Platform (core fixed, dropdown pre-filtering gap unchanged) — no new action
    needed until the dropdown itself is addressed.
 4. **Regression consideration**: Platform's `bugs/open/` count is unchanged by this pass (still 1, `BUG-PLT-053`)
-   — the 2 new bugs are tracked against Workload/Shift Management instead. Workload's `bugs/open/` just went from
-   0 back to 1 (`BUG-WKL-004`); Shift Management's own count also increased by 1 (`BUG-SFM-003`) — check each
-   plugin's own STATUS.md row before assuming either is still regression-ready.
+   — the 2 new bugs are tracked against Workload/Shift Management instead. Workload's `bugs/open/` and Shift
+   Management's own `bugs/open/` each went from 0 back to 1 — check each plugin's own STATUS.md row before
+   assuming either is still regression-ready.
 
 ## Next Session Start Point (2026-10-16, continued — production sync done, `BUG-PLT-053` reopened not split)
 

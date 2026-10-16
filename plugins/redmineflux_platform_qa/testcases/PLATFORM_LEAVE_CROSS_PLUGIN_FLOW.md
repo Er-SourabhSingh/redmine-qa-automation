@@ -337,6 +337,31 @@ a Shift-Management-grouped permission only affects shift-related data for the pr
 
 **Status: PASS (both confirmed intentional/harmless, not duplicates needing retirement) — no defect filed.**
 
+### TC-PLT-330 — Does Platform's OWN "File and decide leave requests" permission (`manage_rf_platform_leaves`) actually gate anything?
+
+**Preconditions:** `marigold.rayne`, confirmed zero `rf_platform` permissions (same account as `BUG-PLT-052`).
+Confirmed via `rails runner`: `marigold.rayne.allowed_to?(:manage_rf_platform_leaves, nil, global: true)` → `false`.
+
+1. Log in as `marigold.rayne`, navigate directly to `/redmineflux_platform/list/leaves/new`.
+2. Fill out and submit the form.
+
+**Expected:** Per the Permissions report's own presentation of "File and decide leave requests" as a normal,
+independently-togglable permission, a user without it should not be able to reach or submit this form.
+
+**Actual:** Regression/gap confirmed — the form opens with no 403, and submission succeeds outright (Leave #12
+created, "Marigold Rayne 10/26/2026", Emergency Leave, Pending). Root cause confirmed in source: `Entry#manage?`
+(`lib/redmineflux_platform/shared_entities.rb`) returns `true` unconditionally once `@open_to_all == true` —
+which `leaves` is — **before it ever consults `manage_permission` at all**. Confirmed via direct service call:
+`entry.manage?(marigold_rayne)` → `true` despite her confirmed-false permission. This is the exact same defect
+shape as `BUG-PLT-052` (there, `visible_to?` bypassed by `open_to_all: :view`; here, `manage?` bypassed by
+`open_to_all: true`), just for a different entity/permission pair. **Status: FAIL — filed `BUG-PLT-054`.**
+
+Scope note carried into the bug file: this is distinct from `can_be_approved_by?` (TC-PLT-328's subject, acting
+on *someone else's* leave) — this is specifically about the gate for filing *your own* leave at all, which this
+plugin's own source comment says is intentionally open to everyone ("Every employee files their own leave"). If
+that is genuinely the intended end state, the Permissions report checkbox should not exist implying otherwise —
+the same user-facing contradiction already flagged for Holiday Schemes/Holidays in `BUG-PLT-052`.
+
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
@@ -360,6 +385,7 @@ a Shift-Management-grouped permission only affects shift-related data for the pr
 | TC-PLT-327 | PASS (2026-10-16) | — (contrast evidence for BUG-WKL-003) | `screenshots/BUG-PLT-053/TC-PLT-325-shift-calendar-leave-visibility.png` |
 | TC-PLT-328 | PASS (confirmed working as designed, 2026-10-16) | — | — |
 | TC-PLT-329 | PASS (confirmed intentional/harmless, 2026-10-16) | — | — |
+| TC-PLT-330 | FAIL (2026-10-16) | BUG-PLT-054 (Open) | `screenshots/BUG-PLT-052/BUG-PLT-052-leave-manage-permission-bypassed.png` |
 
 ## Summary (2026-10-13)
 
@@ -428,3 +454,22 @@ action with no real security effect either way (Leave is `open_to_all` regardles
 Permissions report, are the `BUG-PLT-047` duplication pattern — sometimes a second-looking permission is a
 deliberately-preserved alternate authorization path with its own ADR, and the way to tell the difference is
 the same way every time: read the model/service source directly rather than assuming from the UI grouping.
+
+## Summary addendum 4 (2026-10-16, same day — the user's own follow-up catches a real gap: `manage_rf_platform_leaves` is dead too)
+
+Immediately after Summary addendum 3 concluded "the Leave permission model is fine, nothing more to find here,"
+the user asked directly whether Platform's **own** leave permissions had actually been verified working — not
+just the Shift Management legacy ones. They had not: the investigation above (TC-PLT-328/329) only tested the
+*approve/decide* authorization path (`can_be_approved_by?`), never the *file your own leave* gate
+(`manage_rf_platform_leaves`, "File and decide leave requests") that the user's question specifically asked
+about. Checking it (TC-PLT-330) found it is exactly as inert as `BUG-PLT-052`'s Holiday Schemes/Holidays
+finding — `Entry#manage?` returns `true` unconditionally for any logged-in user once `open_to_all == true`,
+before the permission itself is ever consulted. Confirmed with a genuinely zero-permission user successfully
+creating a real leave record. Filed as `BUG-PLT-054`.
+
+**Lesson, worth remembering specifically**: concluding "the permission model is fine" after checking one
+authorization path (here, *deciding* a leave) does not mean every OTHER permission touching the same entity is
+also fine — Leave has at least two independent gates (`manage?` for filing, `can_be_approved_by?` for deciding),
+and this session tested only one of them until asked directly about the other. When a user asks "did you check
+X is working," the honest answer requires having actually exercised X's specific code path, not a related one
+that merely sits near it on the same screen.

@@ -471,6 +471,38 @@ feature (like Leave Balances) is to read the model/service source directly — a
 there's a dedicated ADR or code comment explaining *why* a second path exists, since a team that deliberately
 keeps dual authorization paths usually also documents the reason, the way this one did.
 
+## ⚠️ `BUG-PLT-054`: "the permission model is fine" after checking ONE auth path on an entity doesn't mean every path is — caught because the user asked directly (2026-10-16, same session)
+
+Right after the entry above concluded the Leave permission model was fully checked and fine, the user asked
+directly: "did you check platform leave permission are working or not??" That question exposed a real gap —
+the investigation above (now TC-PLT-328/329) had only exercised `can_be_approved_by?` (deciding someone else's
+leave); it never touched `manage?` (filing your own leave at all), which is what Platform's own "File and decide
+leave requests" permission (`manage_rf_platform_leaves`) is supposed to gate.
+
+Checking it (TC-PLT-330) found the exact same defect shape as `BUG-PLT-052`: `Entry#manage?` in
+`shared_entities.rb` returns `true` unconditionally the moment `@open_to_all == true` — which `leaves` is —
+**before `manage_permission` is ever consulted**. A genuinely zero-permission user (`marigold.rayne`, same
+account `BUG-PLT-052` used) opened `/redmineflux_platform/list/leaves/new` with no 403 and created a real leave
+record. Confirmed via direct service call too: `entry.manage?(marigold_rayne)` → `true` while
+`marigold_rayne.allowed_to?(:manage_rf_platform_leaves, ...)` → `false`. Filed as `BUG-PLT-054`.
+
+**This is a different gate from the one `BUG-PLT-048`'s investigation taught a similar lesson about** (that one
+was about *scope* — team vs. global — not about whether a permission did anything at all), but the shape of the
+mistake is the same family: an entity can have **multiple independent permission checks** gating different
+actions (here: `manage?` for filing, `can_be_approved_by?` for deciding, `visible_to?`/`visible` for viewing),
+and confirming one of them works correctly says nothing about the others. `BUG-PLT-052` already established that
+`visible_to?` for Holiday Schemes/Holidays was broken; this session separately had to re-discover that `manage?`
+for Leave has the identical defect shape, on a different entity, because testing `can_be_approved_by?` first
+didn't surface it.
+
+**Lesson, stated plainly for next time**: when asked "does permission X work," identify the exact
+method/action X is supposed to gate and test THAT path specifically — don't let a nearby, successfully-tested
+permission on the same screen or the same entity stand in for it. For any `shared_entities.rb` entity with
+`open_to_all` set to anything other than `false`, check **both** `visible_to?`/`visible` (view permission) and
+`manage?` (manage permission) independently before concluding either one's checkbox has real effect — a `true`
+value for `open_to_all` bypasses `manage?` entirely (as found here), while `:view` only bypasses `visible_to?`
+(as found in `BUG-PLT-052`) — the two are not interchangeable guarantees.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

@@ -376,3 +376,25 @@ leftover.
    investigated, flag for a future session if other seed users show the same symptom). Leave #9 (Aurora Wren,
    10/20/2026) is now Approved (was Pending), approved by `willow.belle` as the live proof for TC-PLT-328 — left
    in this state as the evidence record rather than reverted.
+
+| 2026-10-16 | 6 | `redmine v6 - platform` (`redmine6platform-redmine-1`, localhost:3013) | Sourabh Singh | **The user's direct follow-up question ("did you check platform leave permission are working or not??") caught a real gap the prior pass had missed — found and filed `BUG-PLT-054`.** Platform's own "File and decide leave requests" permission (`manage_rf_platform_leaves`) has zero effect: `Entry#manage?` short-circuits true via `open_to_all: true` before ever consulting the permission, confirmed with a genuinely zero-permission user (`marigold.rayne`) fully filing a real leave (Leave #12). Same root-cause shape as `BUG-PLT-052`, different entity/permission pair. Confirmed this is the only other entity affected by this specific `manage?`-bypass variant (Holiday Schemes/Holidays use `open_to_all: :view`, which doesn't trigger it). TC-PLT-330 added. |
+
+## Next Session Start Point (2026-10-16, continued — `BUG-PLT-054` found via direct user follow-up)
+
+Immediately after concluding the Leave permission model was fully checked (TC-PLT-328/329, both confirmed
+working-as-designed, no bug), the user asked directly whether Platform's own leave permission specifically had
+been verified. It had not — only the *approve/decide* path had been tested, never the *file your own leave* gate.
+Checking it found `manage_rf_platform_leaves` ("File and decide leave requests") has zero actual effect, same
+`open_to_all`-bypass defect shape as `BUG-PLT-052`. Filed as `BUG-PLT-054`, not yet reported to production.
+Confirmed via a full `open_to_all:` grep that no other entity shares this exact bypass variant (only `leaves`
+uses `open_to_all: true`; Holiday Schemes/Holidays use `:view`, which only bypasses the view check, not manage).
+
+**Next session options**:
+1. Decide whether/when to report `BUG-PLT-054` to production (likely same Testcase/Run as `BUG-PLT-052`, since
+   both are found via the Permissions suite's own methodology — confirm before calling `report_defect`).
+2. Decide whether/when to report `BUG-WKL-003` to production (needs its own Run/Testcase lookup for Workload).
+3. `PLATFORM_SECURITY.md` still has 2 tooling-blocked items and no production Test Case issue.
+4. `bugs/open/` now has 3 bugs on Platform (`BUG-PLT-052`, `BUG-PLT-053`, `BUG-PLT-054`) and 1 on Workload
+   (`BUG-WKL-003`).
+5. Fixture state: Leave #12 (Marigold Rayne, 10/26/2026, Emergency Leave, Pending) left in place as the
+   `BUG-PLT-054` evidence record.

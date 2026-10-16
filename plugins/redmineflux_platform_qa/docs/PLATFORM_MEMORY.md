@@ -543,6 +543,19 @@ a UI click + logout/login cycle per combination, and is equally valid evidence s
 through the real controller/view — reserve the UI-click method for the one or two combinations worth a
 screenshot, not for the whole sweep.
 
+**Addendum (same day): the user caught that two specific UI elements hadn't been explicitly named as their own
+check** — the "+" (New X) icon beside each "Your records" row, and the redirect links themselves (attention
+cards, calendar/holiday links, "Away next" user links, row links). The underlying logic (`manage?` for the "+"
+icon, same method the Create dropdown already used) had technically been exercised by TC-PLT-333/336, but never
+called out by name or confirmed with an explicit href-level check. Added TC-PLT-339: confirmed the "+" icon
+tracks `manage?` identically to the Create dropdown (absent for a view-only Organizations grant, present for
+Leaves due to the already-known `BUG-PLT-054`), and confirmed every redirect link on the page loads a real,
+working page rather than erroring. **Lesson: when a user names a specific UI element directly ("+ icon",
+"redirect link"), it's worth adding an explicit, separately-labeled test for that exact element even if a
+broader existing test already exercises the same underlying logic** — "the logic is covered" and "that specific
+element is confirmed" read as the same claim but aren't, and the user's phrasing is a signal about what they
+actually want documented as checked, not just what's technically true.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

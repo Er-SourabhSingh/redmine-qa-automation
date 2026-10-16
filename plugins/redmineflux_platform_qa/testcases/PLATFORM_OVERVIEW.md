@@ -179,6 +179,46 @@ reachable by **any logged-in user with any single `rf_platform` permission**, no
 noting if `BUG-PLT-027`'s own severity/scope is ever revisited. **Status: PASS** (confirms existing bugs' scope,
 files no new defect).
 
+## TC-PLT-339 — The "+" (New X) icon beside each "Your records" row, and every redirect link on the page, checked explicitly
+
+> Added after the user pointed out these two specific UI elements by name (the "+" icons next to each
+> "Your records" row, and the redirect arrows on the attention cards/calendar/activity links) hadn't been
+> explicitly called out as their own check in TC-PLT-333/336, even though that testing technically exercised the
+> same underlying `manage?`/`entry_visible?` logic.
+
+1. As admin, open the Create dropdown and record its exact contents by href, and record the href of every "+"
+   icon beside each "Your records" row.
+2. As a user holding only `view_rf_platform_organizations` (view, not manage), reload Overview and check: does
+   the Organizations row still carry a "+"/"New Organization" link? Click through the "organization with no
+   e-mail" attention card and the "Organizations" row link itself to confirm both actually load (not just that
+   they're present in the DOM).
+
+**Expected:** The "+" icon is governed by the same `entry.manage?(user)` check as the Create dropdown (confirmed
+in source — both read from `@creatable`/the same per-entity `manage?` method), so it should disappear for a
+view-only grant exactly like the Create dropdown option does. Every redirect link (attention cards, "Coming up"
+holiday links, "Away next" user-profile links, "Your records" row links, "Recent changes"/"Audit events" link)
+should navigate to a real, already-functioning page — none of these are new screens, all are the same list/detail
+pages covered by this plugin's other suites.
+
+**Actual:** Confirmed on both counts.
+- **Admin's Create dropdown** lists exactly 11 creatable entities by href: Team, Department, Organization,
+  Contact, Contact link, Holiday scheme, Holiday, Leave Type, Leave policy band, Band assignment, Leave Request
+  — matching "Your records"' own 11 non-Audit-events rows one-to-one. Every one of those 11 rows also carries its
+  own matching "+" icon (`href=".../new"`) beside it; **Audit events is the sole exception**, correctly carrying
+  no "+" icon at all (read-only entity, no `fields`/`own_route`).
+- **View-only Organizations user**: the "Organizations 1" row's "+" icon is **genuinely absent** — confirmed by
+  extracting every `<a>` on the page by href; only `/redmineflux_platform/list/organizations` appears, never
+  `/redmineflux_platform/list/organizations/new`. Clicking through to that list, and through the "organization
+  with no e-mail" attention card, both load the real Organizations list cleanly (200, correct content, no error).
+  For contrast, the **same user's "Leaves 1" row still carries its "+" icon** (`/redmineflux_platform/list/leaves/new`)
+  — this is `BUG-PLT-054`'s already-filed bypass showing up here too, not a new finding, and is the one entity
+  where the "+"-icon-tracks-manage? rule doesn't hold, for the already-documented reason.
+
+**Status: PASS** (the `manage?` gate on the "+" icon behaves identically to the Create dropdown's own gate,
+confirmed explicitly rather than inferred) — the one place it doesn't track correctly is the already-known
+`BUG-PLT-054`, not a new defect. Screenshot:
+`screenshots/TC-PLT-OVERVIEW/view-only-org-no-plus-icon.png`.
+
 ## Evidence Map
 
 | TC ID | Result | Bug Filed | Screenshot |
@@ -191,10 +231,11 @@ files no new defect).
 | TC-PLT-336 | PASS | — | — |
 | TC-PLT-337 | PASS (confirmed intentional, documentation note only) | — | — |
 | TC-PLT-338 | PASS (confirms existing BUG-PLT-052/054/027 scope) | — | — |
+| TC-PLT-339 | PASS | — | `screenshots/TC-PLT-OVERVIEW/view-only-org-no-plus-icon.png` |
 
 ## Summary (2026-10-16)
 
-8/8 PASS. The Overview page's own claim to be fully permission-aware, widget by widget, held up under live
+9/9 PASS. The Overview page's own claim to be fully permission-aware, widget by widget, held up under live
 incremental testing — every "Your records" card, and the view-vs-manage distinction in both the attention band
 and the Create dropdown, correctly tracks the exact permission granted, with no cross-entity leakage found
 anywhere. The two already-known `open_to_all` bugs (`BUG-PLT-052`, `BUG-PLT-054`) do reach this page too, as

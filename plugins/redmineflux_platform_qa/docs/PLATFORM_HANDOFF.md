@@ -402,12 +402,12 @@ uses `open_to_all: true`; Holiday Schemes/Holidays use `:view`, which only bypas
 4. Fixture state: Leave #12 (Marigold Rayne, 10/26/2026, Emergency Leave, Pending) left in place as the
    `BUG-PLT-054` evidence record.
 
-| 2026-10-16 | 6 | `redmine v6 - platform` (`redmine6platform-redmine-1`, localhost:3013) | Sourabh Singh | **At the user's explicit request, built a new suite `PLATFORM_OVERVIEW.md` auditing the Overview page (`/redmineflux_platform`) widget-by-widget against the permission model (TC-PLT-331–338), 8/8 PASS.** Admin baseline captured; a genuinely zero-permission user correctly 403s at the Overview URL itself (confirmed why: `section_visible_to?` deliberately excludes `open_to_all` entities from section access); ~9 single-permission combinations swept via direct `rails runner` role-permission toggling (no re-login needed) confirmed every "Your records" card, the attention band's view-vs-manage split, and the Create dropdown's manage-only filter all track their own permission correctly with zero cross-entity leakage. One not-a-bug finding: `audit_events` is `admin_only`, so its view permission has zero effect for a non-admin under any combination — confirmed intentional, fails safe, logged as a documentation note. Confirmed `BUG-PLT-052`/`054` both also manifest on this page (not new findings, scope note only), and that `BUG-PLT-027`'s still-open Critical XSS sits in a widget rendered for every permissioned user. |
+| 2026-10-16 | 6 | `redmine v6 - platform` (`redmine6platform-redmine-1`, localhost:3013) | Sourabh Singh | **At the user's explicit request, built a new suite `PLATFORM_OVERVIEW.md` auditing the Overview page (`/redmineflux_platform`) widget-by-widget against the permission model (TC-PLT-331–339), 9/9 PASS.** Admin baseline captured; a genuinely zero-permission user correctly 403s at the Overview URL itself (confirmed why: `section_visible_to?` deliberately excludes `open_to_all` entities from section access); ~9 single-permission combinations swept via direct `rails runner` role-permission toggling (no re-login needed) confirmed every "Your records" card, the attention band's view-vs-manage split, and the Create dropdown's manage-only filter all track their own permission correctly with zero cross-entity leakage. One not-a-bug finding: `audit_events` is `admin_only`, so its view permission has zero effect for a non-admin under any combination — confirmed intentional, fails safe, logged as a documentation note. Confirmed `BUG-PLT-052`/`054` both also manifest on this page (not new findings, scope note only), and that `BUG-PLT-027`'s still-open Critical XSS sits in a widget rendered for every permissioned user. |
 
 ## Next Session Start Point (2026-10-16, continued — Overview page permission audit, new suite, 0 new bugs)
 
 At the user's explicit request to test the Overview page thoroughly against the permission model (admin
-baseline, then one user with permissions granted incrementally), built `PLATFORM_OVERVIEW.md` (TC-PLT-331–338).
+baseline, then one user with permissions granted incrementally), built `PLATFORM_OVERVIEW.md` (TC-PLT-331–339).
 Result: the page's own design claim to be fully permission-aware held up under live testing, 8/8 PASS, no new
 bugs. The two already-known `open_to_all` bugs (`BUG-PLT-052`/`054`) were confirmed to also reach this page, and
 one new-but-intentional behavior was found and documented (not filed): `audit_events`'s `admin_only` flag makes
@@ -423,3 +423,11 @@ its own permission checkbox inert for any non-admin role.
 5. Fixture state: role `PLT-OverviewIncremental` (id 18) left in place, currently holding only
    `view_rf_platform_organizations`, for future reuse. `marigold.rayne`'s temporary project membership was
    removed after the suite to restore her documented zero-permission reference state.
+
+**Follow-up same day**: the user pointed out two specific elements (the "+" new-record icons beside each "Your
+records" row, and the page's redirect links) hadn't been explicitly named as their own check. Added TC-PLT-339:
+confirmed admin's Create dropdown lists exactly 11 creatable entities matching 11 "+"-icon rows one-to-one
+(Audit events correctly has neither), confirmed the "+" icon disappears for a view-only Organizations grant
+exactly like the Create dropdown option does (same `manage?` gate), and confirmed every redirect link loads a
+real working page. The one place the "+" icon doesn't track `manage?` is Leaves — already `BUG-PLT-054`, not new.
+`marigold.rayne` was temporarily re-added and removed again afterward. Suite now 9/9 PASS.

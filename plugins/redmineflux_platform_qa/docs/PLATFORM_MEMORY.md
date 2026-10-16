@@ -638,6 +638,48 @@ already was — this is the third distinct gap this one Overview investigation s
 entry above for the other two), each only found because the user asked a pointed follow-up rather than accepting
 "tested" at face value.
 
+## ✅ Full filter sweep (32 filters, 12 entities) — zero defects, 8 fixture gaps filled (2026-10-16)
+
+User asked for every dropdown filter on every Platform list screen to be tested one by one, plus every
+combination of filters, not just single filters in isolation ("jitne filters he platform pages pe unhe test kr
+lena kuch bhi chodna mat please / filter wise pura test krlena or filter ke combination wise bhi"). Grepped
+`shared_entities.rb` for every `filters: [` block first (rather than clicking through the UI to discover what
+exists) and found **32 filters across 12 entities** — only `search`/sort/pagination had any TC coverage before
+this (`PLATFORM_ENTITY_CRUD_AND_FIELD_VALIDATION.md` TC-PLT-113–116); the actual `:select` filters had zero.
+
+**Real, recurring coverage problem found along the way**: on roughly a third of these entities, the existing
+fixture data only had ONE value for a given filter — e.g. only one Department (no manager), both Organizations
+without a second tag/assignee pairing, both Leave Types Paid+Active, one Leave Policy Band, one Band Assignment,
+all 8 Holidays Active, both Organization Contact Links "Current". A filter whose other value has nothing to match
+against is not actually tested by selecting it and seeing an empty result — that's indistinguishable from the
+filter being broken and matching nothing. **Created 8 disposable `PLT-FilterTest-*` fixtures** specifically to
+give each such filter's missing value something real to match (an Inactive holiday, an Ended contact link, an
+Unpaid leave type, a Department with a manager, etc.) — each logged in its own TC in `PLATFORM_FILTERS.md` rather
+than silently assumed to already exist.
+
+**Result: 12/12 TCs PASS, 0 new bugs.** Every filter's individual values, every AND-combination (confirmed
+2-way through the full 5-way on Holidays), and every deliberately-constructed contradictory combination (two
+filters that can't both be true for any record) behaved exactly right — contradictions returned a clean empty
+state, never an error or a silently-wrong unfiltered list. `Entry#apply_filters`'s "plain data, one generic method"
+design (filters are declared as `{name, label, type, choices, apply}` hashes, applied by reducing a lambda over
+the relation — see the big comment block above `Entry#filters` in `shared_entities.rb`) meant there was
+structurally very little per-entity filter logic to get wrong in the first place; this is a genuinely clean sweep,
+not a thin one.
+
+**One filter verified by source read instead of live data**: Audit Events' `period` filter (Last 7/30/90/365 days)
+couldn't be live-tested for its boundary because every one of this environment's 175 audit rows happens to be
+less than 7 days old — `period=7` and no-filter both returned the same 175. Rather than mark it untested, read
+`SharedEntities.in_period` directly (`scope.where(column => days.days.ago..)`, backed by a plain `PERIODS` hash) —
+confirmed correct. **Lesson: when live data can't exercise a filter's actual boundary, say so explicitly and
+verify the mechanism from source — don't silently skip it, and don't claim a live PASS you didn't actually see.**
+
+**Lesson for future filter/fixture-gap sweeps on this or any plugin**: before testing a multi-value filter,
+check that the environment actually HAS a record for every value the dropdown offers — a dropdown with 3 options
+and only 1 real matching record means 2 of those 3 options are structurally untestable until a fixture is built
+for them. This is the same category of gap as the Overview "9 of 24 permissions" sampling miss (see above) and
+the TC-PLT-341 data-accuracy gap: a test that only exercises the data that happens to already exist, rather than
+every value the UI actually offers, can look complete while quietly skipping real coverage.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

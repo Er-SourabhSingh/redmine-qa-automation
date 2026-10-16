@@ -56,3 +56,25 @@
 ## Production report
 
 Reported to production as **#123775**, linked to Testcase #121705 ("Permissions and Access", `PLATFORM_PERMISSIONS_AND_ACCESS.md`) inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6` — testcase marked Failed. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.
+
+## Retest (2026-10-16) — CONFIRMED FIXED
+
+Dev pushed commit `d8a224d` ("Calendar and leave permissions take effect; no band blocks leave; one time-off
+rule") citing this bug by number in the code's own comments. Pulled `redmineflux_platform` (branch
+`redmineflux_platform`), restarted the container, ran the new migration
+`048_grant_calendar_and_leave_permissions_to_working_roles.rb` (confirmed applied — `schema_migrations` now
+includes version 48).
+
+**Source confirms the fix**: `shared_entities.rb`'s `open_to_all:`/`open_to_all?` mechanism is removed entirely.
+`holiday_schemes` and `holidays` are now granted like every other entity — `view_rf_platform_holiday_schemes` and
+`view_rf_platform_holidays` are consulted for real. The migration backfills these two permissions onto any role
+already holding a Shift Management/Workload/Timesheet/Helpdesk/Platform permission, so nobody already using the
+suite loses calendar access as a side effect of the fix.
+
+**Retested live**: logged in as `marigold.rayne` (confirmed zero `rf_platform` permissions and zero global role,
+via `rails runner`) — both `/redmineflux_platform/list/holiday_schemes` and `/redmineflux_platform/list/holidays`
+now correctly return **403 Forbidden** (previously both returned 200 with the full real list). Cross-checked a
+backfilled role (`Platform-Team-Permission-Test`, which the migration correctly granted the calendar permissions
+to) — a user holding only that role can now see Holidays, exactly as the migration's own backfill logic intends.
+
+**Status: CONFIRMED FIXED.** Moving to `bugs/closed/`.

@@ -96,3 +96,31 @@ specifically for the no-band-assigned case" — enforcement for an assigned-but-
 Evidence for this correction: `TC-PLT-323-banded-user-disallowed-type-rejected.png`,
 `TC-PLT-323-banded-user-allowed-type-succeeds.png`,
 `BUG-PLT-053-banded-user-dropdown-also-unfiltered.png` (all in this bug's screenshot folder).
+
+## Retest (2026-10-16) — CORE FINDING CONFIRMED FIXED; cosmetic dropdown gap split out as `BUG-PLT-056`
+
+Dev pushed commit `d8a224d` ("Calendar and leave permissions take effect; no band blocks leave; one time-off
+rule"), citing this bug by number in `leave.rb`'s own comments: `leave_type_is_one_the_band_permits` now returns
+`errors.add(:base, no_band_message(user))` when `UserBandAssignment.band_for` finds no band for the user/year,
+instead of silently returning (the original bypass).
+
+**Retested live** with a freshly-confirmed zero-band user (`briar.sunset`, id 22 — confirmed via
+`UserBandAssignment.pluck(:user_id).uniq` not containing her id, and holding full `view`/`manage` leave
+permission via role `QA Full Access` so the permission layer doesn't mask the band check). Submitted
+`/redmineflux_platform/list/leaves/new` with Leave Type "Emergency Leave", a valid date, and a reason — the
+submission was **correctly refused** with the exact named error: *"No leave band is assigned to Briar Sunset.
+Ask an administrator to assign one before requesting leave."* Confirmed via `rails runner` that **no** Leave
+record was created for her (`Leave.where(user_id: 22).count` → `0`).
+
+**The core, originally-filed defect — a zero-band user's submission silently succeeding with no gate at all — is
+CONFIRMED FIXED.**
+
+**The secondary, already-documented cosmetic gap is still present, unchanged**: the Leave Type dropdown on initial
+page load still lists every Active Leave Type (including, in this retest, the new `PLT-FilterTest-LeaveType-Unpaid`
+fixture) regardless of the viewer's band — it does not pre-filter, and the only signal a zero-band user gets is the
+post-submit error. Since this item was always scoped in this bug's own 2026-10-16 Correction as a *separate*,
+lower-severity defect from the core enforcement gap (which is now fixed), it has been split out and filed on its
+own as **`BUG-PLT-056`** (Low) rather than keeping this now-fixed bug open for an unrelated cosmetic issue.
+
+**Status: CORE FINDING CONFIRMED FIXED.** Moving to `bugs/closed/`. See `BUG-PLT-056` for the remaining dropdown
+pre-filtering gap.

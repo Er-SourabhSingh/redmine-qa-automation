@@ -45,6 +45,16 @@ shared concept.** Don't consider a service "cleaned up" just because one specifi
 fixed — check every other query/filter it independently re-derives (here, leave status) against whichever
 service is supposed to be the canonical source for that same filter.
 
+## ✅ `BUG-WKL-003` CONFIRMED FIXED — the fix is exactly "stop reimplementing, defer to the shared scope" the bug's own write-up asked for (2026-10-16)
+
+Dev commit `1fcc816` makes both `rf_workload_gantt_data_service.rb` and `rf_workload_capacity_calculator.rb` call
+a single new `RedminefluxPlatform::Leave.taking_time_off` scope (`approved`-only) instead of each independently
+deriving its own status filter — directly realizing the lesson from this bug's own filing (above): a file that
+reimplements shared logic once is a standing risk for reimplementing it again. Retested live by creating a fresh
+Pending leave on the same workload the original repro used and confirming via `rails runner` it's correctly
+excluded from the new scope while still genuinely existing as a record. `bugs/open/` is empty again for this
+plugin.
+
 ## Environment Notes
 
 - Vendor KB source: https://www.redmineflux.com/knowledge-base/plugins/workload-plugin/

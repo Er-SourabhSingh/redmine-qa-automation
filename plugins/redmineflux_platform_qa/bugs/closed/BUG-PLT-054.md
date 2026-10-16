@@ -63,3 +63,19 @@ Leave #12 created live in the browser as confirming end-to-end proof, not just t
 ## Production report
 
 Reported to production as **#123795**, assigned to Prashant Chaurasia, linked to Testcase **#123303** ("Leave Cross-Plugin Flow", `PLATFORM_LEAVE_CROSS_PLUGIN_FLOW.md` — the suite TC-PLT-330 actually lives in) inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6` — testcase marked Failed. Verified visible in the run via `get_run_testcases`. Priority: Low | Defect Severity: Low-severity | Defect priority: Low | Defect Type: Functional.
+
+## Retest (2026-10-16) — CONFIRMED FIXED
+
+Same commit (`d8a224d`) that fixed `BUG-PLT-052` removes the `open_to_all` mechanism entirely —
+`Entry#manage?` no longer short-circuits `true` for `leaves` before consulting `manage_rf_platform_leaves`.
+`view_rf_platform_leaves`/`manage_rf_platform_leaves` are now both consulted for real, and the migration
+(`048_grant_calendar_and_leave_permissions_to_working_roles.rb`) backfills both onto any role already holding a
+Shift Management or Workload permission (the plugins whose employees actually filed leave before this release),
+so existing working users don't lose the ability to file their own leave as a side effect.
+
+**Retested live**: logged back in as `marigold.rayne` (same zero-permission user from the original repro) —
+`/redmineflux_platform/list/leaves/new` now correctly returns **403 Forbidden** (previously it opened the form and
+let her create Leave #12 outright). Her plain `/redmineflux_platform/list/leaves` (view) is now also correctly
+403, since `view_rf_platform_leaves` is consulted the same way. No leave was created.
+
+**Status: CONFIRMED FIXED.** Moving to `bugs/closed/`.

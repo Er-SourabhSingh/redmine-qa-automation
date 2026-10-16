@@ -680,6 +680,44 @@ for them. This is the same category of gap as the Overview "9 of 24 permissions"
 the TC-PLT-341 data-accuracy gap: a test that only exercises the data that happens to already exist, rather than
 every value the UI actually offers, can look complete while quietly skipping real coverage.
 
+## ✅ 3 of 4 open bugs fixed in one dev pull — `open_to_all` removed entirely, backward-compatibility handled via a backfill migration, not a feature flag (2026-10-16)
+
+`git pull` on `redmineflux_platform` (branch `redmineflux_platform`) brought in commit `d8a224d`, which removes
+the `open_to_all`/`open_to_all?` mechanism from `shared_entities.rb` entirely — the exact root cause behind
+`BUG-PLT-052` (Holidays/Holiday Schemes always-visible) and `BUG-PLT-054` (Leave filing always-permitted), both
+cited by bug number in the commit's own code comments. `Leave#leave_type_is_one_the_band_permits` was also fixed
+to refuse a zero-band submission with a named error, closing `BUG-PLT-053`'s core finding. All 3 retested live
+and confirmed fixed same session (see each bug's own Retest section).
+
+**The interesting part isn't the fix itself — it's how the dev handled "removing an over-permissive bypass could
+silently under-permission everyone who relied on it."** A naive fix (just delete `open_to_all`) would have taken
+the holiday calendar and leave filing away from every real employee whose role was never explicitly granted
+`view_rf_platform_holidays`/`manage_rf_platform_leaves`, because nobody ever had to grant it while the bypass
+existed. Instead of a feature flag, a gradual rollout, or asking every customer to re-grant permissions manually,
+the fix ships with migration `048_grant_calendar_and_leave_permissions_to_working_roles.rb` — a one-time,
+idempotent, ADD-ONLY backfill that grants the two new calendar permissions to any role already holding a Shift
+Management/Workload/Timesheet/Helpdesk/Platform permission (i.e., any role actually in use), and the two new leave
+permissions to any role already holding a Shift Management/Workload permission or any Platform leave/band
+permission. Roles with zero related permissions (QA test fixtures built specifically to be zero-permission, in
+this environment's case) correctly get nothing. Confirmed by directly checking `Role#allowed_to?` across all 14
+non-builtin roles on this environment and finding the grant pattern matches the migration's own documented
+criteria exactly, then independently confirmed live: a zero-permission user still correctly 403s everywhere, and
+a role the migration did backfill (`Platform-Team-Permission-Test`) correctly gained calendar access without
+anyone touching it by hand.
+
+**Lesson for retesting any future "close a permission bypass" fix on this plugin**: check whether the fix shipped
+its own backward-compatible migration before assuming a tighter permission check is purely a win — a correct
+security fix that silently breaks every existing user's access is its own regression, just a different one. The
+right way to verify this is NOT to just retest the originally-reported zero-permission case (that only proves the
+bug is fixed) — it's to also check that a role which legitimately relied on the old, looser behavior still works,
+which here meant reading the migration's own grant criteria and spot-checking real roles against it, not just
+re-running the original bug's own repro steps.
+
+**One residual, already-known issue was NOT touched by this fix and correctly wasn't expected to be**: the Leave
+Type dropdown's lack of initial-load pre-filtering to the viewer's band (documented as a separate, lower-severity
+item in `BUG-PLT-053`'s own 2026-10-16 Correction section) is still present — split out as its own bug,
+`BUG-PLT-056`, rather than left bundled under a bug whose actual title defect is now fixed.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

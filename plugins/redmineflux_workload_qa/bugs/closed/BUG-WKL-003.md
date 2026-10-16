@@ -84,3 +84,25 @@ Reported to production as **#123791** on `flux.zehntech.com`, project `ztflux`, 
 Not linked to any Test Run/Test Case — same as `BUG-WKL-001` and `BUG-WKL-002`, no production Run/Suite exists
 yet for the Workload plugin's own test case set. Category: Workload Plugin. Priority: Medium | Defect Severity:
 Medium-severity | Defect priority: Medium | Defect Type: Functional.
+
+## Retest (2026-10-16) — CONFIRMED FIXED
+
+Dev pushed commit `1fcc816` ("Only approved leave reduces capacity or shows on the Gantt (BUG-WKL-003)") to
+`redmineflux_workload`, citing this bug by number. Pulled the branch (`redmineflux_platform`), restarted the
+container. The companion `redmineflux_platform` commit `d8a224d` adds a new `Leave.taking_time_off` scope
+(`scope :taking_time_off, -> { approved }`) explicitly for this purpose — "the leave that takes days out of
+someone's working time: approved, and nothing else (BUG-WKL-003)."
+
+**Confirmed from source**: both `rf_workload_gantt_data_service.rb` (line 91) and
+`rf_workload_capacity_calculator.rb` (line 136) now call `RedminefluxPlatform::Leave.taking_time_off`/
+`taking_time_off_between` instead of their own ad hoc status list — the exact fix this bug asked for (stop
+re-implementing the status filter locally, defer to one shared, correct scope).
+
+**Retested live**: created a fresh Pending leave for `aurora.wren` (Leave #13, Dec 1 2026, status `pending`) on
+the same Workload (#3) this bug's original repro used. Confirmed via `rails runner`:
+`Leave.taking_time_off_between(Date.new(2026,12,1), Date.new(2026,12,1)).where(user_id: aurora.id).count` → `0`,
+while the leave itself does exist for that date (`Leave.where(user_id: ..., status: 'pending')...exists?` → `true`)
+— the Gantt/capacity service's own scope now correctly excludes it. Cancelled the retest fixture leave afterward
+(`status: 'cancelled'`) to avoid leaving a stray Pending record in the environment.
+
+**Status: CONFIRMED FIXED.** Moving to `bugs/closed/`.

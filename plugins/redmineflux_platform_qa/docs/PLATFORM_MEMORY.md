@@ -611,6 +611,33 @@ a separate process) after every `Role#save!` during a permission sweep.**
    exact lines already being quoted, not just those lines** — the "why" is very often written right next to the
    "what," and skipping it is how a correct technical observation turns into a wrong bug report.
 
+## ✅ Overview's displayed counts independently verified against the live database — permission-visibility and data-accuracy are two separate claims (2026-10-16)
+
+User's direct follow-up after the full 24-permission sweep ("jo details or count show hote he vo correct he vo
+check kiya kya tumne" — did you check the shown details/counts are actually correct) surfaced a real gap: every
+TC-PLT-331–340 in `PLATFORM_OVERVIEW.md` tested whether a widget correctly *appears or disappears* for a given
+permission, never whether the *number it displays* is factually true. Added TC-PLT-341 to close this specifically
+for the admin baseline — ran three independent `rails runner` queries directly against the live container and
+compared against what the page actually rendered:
+
+- All 12 "Your records" card counts (Teams, Departments, Leave Types, Leave Policy Bands, Leave Band Assignments,
+  Leaves, Organizations, Contacts, Contact Links, Holiday Schemes, Holidays, Audit Events) matched their model's
+  own `.count` exactly.
+- All 3 "Needs you" attention-band counts (pending leaves, empty team, organization with no e-mail) matched
+  independently-run versions of the controller's own queries exactly.
+- The October 2026 calendar's working/weekend/holiday day split (21/9/1) was independently recomputed via
+  `WorkingCalendar.for` and confirmed to both match the display and sum to the month's real 31 days.
+
+Zero discrepancies found — no new defect.
+
+**Lesson: "the widget shows for the right permission" and "the number on the widget is true" are two independent
+claims, and a suite that only tests the first can pass completely clean while silently never checking the
+second.** A dashboard-style page (counts, aggregates, computed figures) earns a dedicated data-accuracy pass
+against the real DB/model layer, separate from and in addition to however thorough the permission-visibility sweep
+already was — this is the third distinct gap this one Overview investigation surfaced (see the 24-permission-sweep
+entry above for the other two), each only found because the user asked a pointed follow-up rather than accepting
+"tested" at face value.
+
 ## Recurring Issues
 
 ## Reference — plugin's own design docs (copied 2026-09-30)

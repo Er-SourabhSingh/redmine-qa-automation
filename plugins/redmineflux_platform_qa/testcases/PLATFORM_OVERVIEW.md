@@ -280,10 +280,48 @@ reading the comment immediately surrounding quoted code, not just the code itsel
 | TC-PLT-338 | PASS (confirms existing BUG-PLT-052/054/027 scope) | — | — |
 | TC-PLT-339 | PASS | — | `screenshots/TC-PLT-OVERVIEW/view-only-org-no-plus-icon.png` |
 | TC-PLT-340 | PASS (confirmed intentional after retracting an initial misreading) | — (BUG-PLT-055 filed then retracted) | — |
+| TC-PLT-341 | PASS (data accuracy confirmed, no defect) | — | — |
+
+## TC-PLT-341 — Data accuracy: every displayed count/number cross-checked against the actual database, not just permission visibility
+
+> Per the user's direct follow-up ("jo details or count show hote he vo correct he vo check kiya kya tumne" —
+> did you check that the shown details/counts are actually correct), every TC up to this point tested whether a
+> widget correctly *appears or disappears* for a given permission, never whether the *number it displays* is
+> factually correct against the real data. This TC closes that gap for the admin baseline (TC-PLT-331).
+
+1. For each of the 12 "Your records" card counts (Teams, Departments, Leave Types, Leave Policy Bands, Leave
+   Band Assignments, Leaves, Organizations, Contacts, Contact Links, Holiday Schemes, Holidays, Audit Events),
+   independently query the underlying model's own `.count` via `rails runner` and compare to the number rendered
+   on the page.
+2. For each of the 3 admin-visible "Needs you" attention items, independently re-run the exact query the
+   controller itself uses (`Leave.visible(admin).pending.count`, the empty-team join, `Organization.where(email:
+   [nil, ''])`) and compare.
+3. For the calendar band (October 2026: "21 working days... 1 holidays", plus the implied 9 weekend days),
+   independently recompute the month's working/weekend/holiday day split via `WorkingCalendar` directly, and
+   confirm the three figures sum to the month's real total day count (31).
+
+**Expected:** Every displayed number should exactly match its independently-recomputed counterpart; the
+calendar's three categories should sum to the actual number of days in the month.
+
+**Actual:** Confirmed exact matches on every count, with no exceptions:
+
+| Check | Displayed | Independently verified |
+|---|---|---|
+| Teams / Departments / Leave Types / Leave Policy Bands / Leave Band Assignments / Leaves / Organizations / Contacts / Contact Links / Holiday Schemes / Holidays / Audit Events | 3 / 1 / 2 / 1 / 1 / 9 / 2 / 3 / 2 / 3 / 8 / 165 | All 12 matched their model's own `.count` exactly |
+| "2 leave requests waiting" | 2 | `Leave.visible(admin).pending.count` → 2 |
+| "1 team with no members" | 1 | Empty-team join query → 1 |
+| "1 organization with no e-mail" | 1 | `Organization.where(email: [nil,''])` → 1 |
+| Calendar: 21 working + 9 weekend + 1 holiday | sums to 31 | Independently recomputed via `WorkingCalendar.for` → 21/9/1, sum 31 == October's actual 31 days |
+
+**Status: PASS — no data-accuracy defects found.** This TC is a necessary complement to every permission-visibility
+TC above it, not a replacement: TC-PLT-333 etc. establish that a card shows/hides *correctly for the right user*;
+this TC establishes that, once shown, *the number on it is actually true*. A page could pass every permission
+check above and still show a stale or miscounted figure — this round rules that out specifically for the admin
+baseline.
 
 ## Summary (2026-10-16)
 
-10/10 PASS. The Overview page's own claim to be fully permission-aware held up across all 24 of Platform's
+11/11 PASS. The Overview page's own claim to be fully permission-aware held up across all 24 of Platform's
 registered permissions, not just the 9 `view_*` ones originally tested — including the view-vs-manage
 distinction in the attention band/Create dropdown. Completing the sweep to the remaining 15 (`view_rf_platform`
 alone, legacy `manage_rf_teams`, and all 11 `manage_rf_platform_<key>` permissions alone) found that 7 of those
@@ -309,3 +347,9 @@ unexpected result (a 403 that looks like a gap) is not automatically a bug — t
 filing is re-read the comment immediately surrounding the code already being quoted in the report, not just the
 method body itself. Both corrections came from the same user noticing two different, equally real gaps in the
 same investigation.
+
+A third, independent gap was closed by TC-PLT-341: every TC above establishes that a widget shows or hides for the
+*right* permission, which says nothing about whether the *number on it* is actually true. Direct `rails runner`
+cross-checks against the live database confirmed every displayed count (12 "Your records" cards, 3 "Needs you"
+attention items, the calendar's 3-way day split) exactly matches its independently-recomputed value — permission
+correctness and data correctness are two separate claims, and both are now verified for the admin baseline.

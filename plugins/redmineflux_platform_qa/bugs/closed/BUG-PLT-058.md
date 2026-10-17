@@ -52,3 +52,7 @@
 ## Production report
 
 Reported to production as **#123877**, linked to Testcase #121706 ("Entity CRUD and Field Validation") inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6` — testcase marked Failed. Assigned to Prashant Chaurasia. Priority: Medium | Defect Severity: Medium-severity | Defect priority: Medium | Defect Type: Functional.
+
+## Retest (2026-10-17) — CONFIRMED FIXED
+
+Dev pushed commit `4f40f18` ("Member flags can be unticked; permission labels; contact org column") on `redmineflux_platform` after `git pull`. Retested live on the exact original repro: Team-Retest, Aurora Wren, Edit member dialog — unchecked "Manage workload" and "Approve leave", clicked Save. The row now correctly shows **"No" / "No"**, and re-opening the Edit member dialog confirms both checkboxes are genuinely unchecked (not just the row display). Moving to `bugs/closed/`.

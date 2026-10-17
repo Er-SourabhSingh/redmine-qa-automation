@@ -126,3 +126,13 @@ $ grep -n "^  permission_view_rf_platform_teams\|^  permission_manage_rf_platfor
 ## Production report
 
 Reported to production as **#123878**, linked to Testcase #121705 ("Permissions and Access", `PLATFORM_PERMISSIONS_AND_ACCESS.md`) inside Run #586 ("Redmineflux Platform QA - Feature #120043"), Suite #397, environment `Win + Chrome + Ver6` — testcase marked Failed. Assigned to Prashant Chaurasia. Priority: Low | Defect Severity: Low-severity | Defect priority: Low | Defect Type: Usability.
+
+## Retest (2026-10-17) — CONFIRMED FIXED
+
+Dev pushed commit `4f40f18` ("Member flags can be unticked; permission labels; contact org column") on `redmineflux_platform` after `git pull`. Retested live on `/roles/permissions`:
+
+- **Part 1**: Organization Contact Links now shows **"View contact links"** / **"Manage contact links"** — proper humanized labels, no more raw symbol text.
+- **Part 2**: All 9 proposed entities now use the short "Manage X" wording — confirmed "Manage teams", "Manage departments", "Manage organizations", "Manage contacts", "Manage holidays", "Manage leave types", "Manage leave policy bands" all live on the Permissions report.
+- Confirmed the 2 deliberately-excluded entities were **not** generically renamed — "Assign people to a leave band" (Leave Band Assignments) still reads exactly as proposed, precision preserved.
+
+Both parts fully match the proposed wording table. Moving to `bugs/closed/`.

@@ -38,6 +38,10 @@
 
 ![Elena Marsh's contact detail page shows "Organization: 57" — the raw company_id, not a name](../../screenshots/BUG-PLT-060/contact-shows-raw-org-id-57.png)
 
+### Retest screenshot (2026-10-17) — PASS
+
+![Elena Marsh's page now shows "Organization: Meridian Logistics Group"](../../screenshots/BUG-PLT-060/retest-2026-10-17-pass.png)
+
 ### Console / log
 
 ```
@@ -62,3 +66,13 @@
 ## Production report
 
 Reported to production by **reusing and repurposing existing issue #123491** per explicit instruction from the developer (relayed by the user) — that issue had been mistakenly created under the Agile Board plugin (Tracker: Feature, unrelated Innoval Agile Board request). Tracker changed to Bug, subject and description replaced with this finding's content, category cleared (no Platform-specific category exists yet in `ztflux`), Defect Type/Severity/Priority custom fields set. Assignee unchanged (already Prashant Chaurasia). Not linked to a QA Run/Testcase, since this finding came from an ad-hoc upgrade-path verification environment (`redmine-upgrade-test`), not the standard `redmine-docker-6-platform` QA cycle.
+
+## Retest (2026-10-17) — CONFIRMED FIXED
+
+`git pull` on `redmineflux_platform` (commit `fbade94`, "Merge CRM companies left after the first merge; never show a raw id (BUG-PLT-060)") and `redmineflux_crm` (commit `695141d`, "Catch-up merge of companies left by standalone CRM") on `redmine v6 - platform`, then copied the updated plugin source into `redmine-upgrade-test` and restarted. New migrations `MergeCrmCompaniesCreatedAfterTheFirstMerge` (Platform, #49) and `MergeCrmCompaniesLeftByStandaloneCrm` (CRM) both ran clean, zero errors.
+
+**DB confirmation**: `rf_organizations` now has rows for both previously-orphaned legacy companies — id 57 "Meridian Logistics Group" and id 58 "Atlas Workflow Partners", both with `source_crm_company_id` correctly set to their own id. Organization count went from 27 → 29. The legacy `rf_crm_companies` table itself no longer exists at all (the fix also finished dropping it once every row was confirmed merged, via an updated `021_drop_superseded_legacy_tables.rb`).
+
+**UI confirmation**: Both previously-affected contacts now show the real organization name instead of the raw id — Elena Marsh's page reads "Organization: Meridian Logistics Group" (was "Organization: 57"), and Marcus Delgado's page reads "Organization: Atlas Workflow Partners" (was "Organization: 58"). No more raw internal IDs exposed anywhere.
+
+Both the data-migration gap and the raw-id display defect are fully resolved. Moving to `bugs/closed/`.

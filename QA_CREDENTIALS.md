@@ -66,6 +66,18 @@ A shared pool of persona names/logins, reused across both Local and Forge testin
 
 ---
 
+## Google Test Account
+
+A reusable Google account for any testing that needs a real Google sign-in (e.g. Google OAuth flows, Google
+Workspace/Drive integrations, "Sign in with Google" checks). Not tied to any single plugin — use wherever a
+real Google account is needed across any QA work in this repo.
+
+| Name | Email | Password |
+|---|---|---|
+| sourabh z | sourabh.zehntech01@gmail.com | Sourabh@01 |
+
+---
+
 ## Session Storage Rules
 
 ```

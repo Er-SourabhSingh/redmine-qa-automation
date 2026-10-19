@@ -136,3 +136,5 @@ Dev pushed commit `4f40f18` ("Member flags can be unticked; permission labels; c
 - Confirmed the 2 deliberately-excluded entities were **not** generically renamed — "Assign people to a leave band" (Leave Band Assignments) still reads exactly as proposed, precision preserved.
 
 Both parts fully match the proposed wording table. Moving to `bugs/closed/`.
+
+**Production sync (2026-10-19):** #123878 updated In QA → Done, 100%, with a retest-confirmation note.

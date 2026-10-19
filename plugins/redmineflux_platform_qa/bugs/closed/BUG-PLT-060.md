@@ -76,3 +76,5 @@ Reported to production by **reusing and repurposing existing issue #123491** per
 **UI confirmation**: Both previously-affected contacts now show the real organization name instead of the raw id — Elena Marsh's page reads "Organization: Meridian Logistics Group" (was "Organization: 57"), and Marcus Delgado's page reads "Organization: Atlas Workflow Partners" (was "Organization: 58"). No more raw internal IDs exposed anywhere.
 
 Both the data-migration gap and the raw-id display defect are fully resolved. Moving to `bugs/closed/`.
+
+**Production sync (2026-10-19):** #123491 updated In QA → Done, 100%, with a retest-confirmation note.

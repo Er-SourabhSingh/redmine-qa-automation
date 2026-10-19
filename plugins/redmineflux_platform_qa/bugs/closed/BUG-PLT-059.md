@@ -60,3 +60,5 @@ Reported to production as **#123882**, linked to Testcase #121706 ("Entity CRUD 
 ## Retest (2026-10-17) — CONFIRMED FIXED
 
 Dev pushed commit `4f40f18` ("Member flags can be unticked; permission labels; contact org column") on `redmineflux_platform` after `git pull`. Retested live on the Contacts list (`/redmineflux_platform/list/contacts`) — the "Organization name" column now correctly shows the real linked organization's name for every contact with one: "FullField Contact" → "TC-PLT-FULLFIELD-Org", "PLT-FilterTest-Contact1" / "TC-PLT-ImportTest NewContact" / "TC303 Contact" → "TC-PLT-302-Test-Org". No more "—" for linked contacts. Moving to `bugs/closed/`.
+
+**Production sync (2026-10-19):** #123882 updated In QA → Done, 100%, with a retest-confirmation note.

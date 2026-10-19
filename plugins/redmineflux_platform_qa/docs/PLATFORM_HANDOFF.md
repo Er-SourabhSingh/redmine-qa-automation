@@ -574,3 +574,20 @@ verified clean (see `PLATFORM_MEMORY.md`).
 1. Production sync for all 4 closed bugs — #123877 (`BUG-PLT-058`), #123878 (`BUG-PLT-057`), #123882 (`BUG-PLT-059`), #123491 (`BUG-PLT-060`) all need In QA/New → Done, 100%, pending explicit user approval.
 2. Two minor `PLATFORM_TRACEABILITY_MATRIX.md` gaps remain `Partial` (not `Not Covered`, so not a hard blocker per §2c, but worth closing out): Row 3 (hard-dependency-enforcement needs a dedicated standalone TC) and Row 36 (TC-PLT-297, Shift Management Reports page Department-filter documentation mismatch — not a defect, just an unresolved KB/UI note).
 3. Decide whether `PLATFORM_CROSS_PLUGIN_CRUD_MATRIX.md` should be formally retired/rewritten now that its "test creation from each consumer plugin's own native screen" premise is obsolete (native screens now redirect to Platform) — flagged by the user this session.
+
+## Next Session Start Point (2026-10-19 — production sync done, `STATUS.md` now `Complete`)
+
+`redmineflux` MCP reconnected (the company's own production server is intentionally shut down between sessions,
+not a Claude-side outage). Synced all 4 bugs to production: #123877 (`BUG-PLT-058`), #123878 (`BUG-PLT-057`),
+#123882 (`BUG-PLT-059`), #123491 (`BUG-PLT-060`) all moved In QA → Done, 100%, each with a retest-confirmation
+note citing the exact fix commit and what was re-verified. All three of `STATUS.md` §10's gates are now met
+simultaneously for the first time this cycle, and `STATUS.md`'s Platform row has been moved to **`Complete`**.
+
+**Remaining housekeeping (does not block `Complete`, per §2c — both rows have real TC coverage already, just not
+100% polished):**
+1. `PLATFORM_TRACEABILITY_MATRIX.md` Row 3 — hard-dependency-enforcement needs a dedicated standalone TC.
+2. `PLATFORM_TRACEABILITY_MATRIX.md` Row 36 (TC-PLT-297) — Shift Management's Reports page has no Department
+   filter despite its own KB claiming one exists; a documentation mismatch, not a product defect.
+3. Whether to formally retire/rewrite `PLATFORM_CROSS_PLUGIN_CRUD_MATRIX.md` now that its own premise (testing
+   creation from each consumer plugin's native screen) is obsolete — still an open question from 2026-10-17,
+   not yet decided.

@@ -120,3 +120,13 @@ DETAIL:  Key (id)=(5) is still referenced from table "testcase_reports".
   stale, unconstrained `assignee_id` reference (the delete itself succeeded); this bug is a *delete-time* crash
   caused by a real, unhandled DB foreign-key constraint on `testcase_reports` (the delete itself fails). No
   existing bug covers the user-deletion flow colliding with Testcase Reports.
+
+---
+
+## Retest — 2026-10-19
+
+**CONFIRMED FIXED.** Migration `20261015000000_nullify_testcase_reports_user_fks_on_delete.rb` applied; restarted
+container. Deleted user id=5 (`test`, the same user from the original repro, still linked as `created_by_id` on
+`testcase_reports` id=2). Deletion succeeded cleanly (redirected to `/users`, no 500). DB-confirmed:
+`testcase_reports.id=2` now has `created_by_id = NULL`, `updated_by_id = NULL`; `users` table confirms id=5 no
+longer exists. Closing.

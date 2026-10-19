@@ -125,3 +125,12 @@ valid YAML via `yaml.safe_load` — the defect is semantic (wrong install source
 - Checked `bugs/_index.md` and `bugs/_duplicates.md` — no existing bug covers the CI platform recipes
   (`redmineflux-tcm-ci`'s `rftc-038`) at all; `BUG-TCM-065` is the only other bug filed against this companion
   repo, and is unrelated (a different packaging gap, in the Python package itself, not the CI recipes).
+
+---
+
+## Retest — 2026-10-19
+
+**CONFIRMED FIXED.** `.github/workflows/tcm.yml`/`tcm-full.yml` now install via
+`pip install "redmineflux-tcm @ git+https://github.com/zehntech/redmineflux-tcm-ci@v0.1.0"`, matching every other
+platform. Re-ran `scripts/lint_recipes.sh`: `ALL RECIPE LINT CHECKS PASSED` (sections 1–4 all OK, including the
+GitHub step-scoped-secret check that previously had no output). Closing.

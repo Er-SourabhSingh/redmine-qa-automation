@@ -119,6 +119,8 @@ Every production write follows this sequence:
 
 Why attachments were dropped: each `upload_file` call carries the same ~6-7 second fixed latency tax as any other redmineflux MCP call, so 2 attachments meant 2 extra calls (and extra wait) for every bug. It also turned out to be the less reliable path — see the corruption findings kept below for the record. Since the Description field is plain text sent inline with the single `create_issue` call (no separate upload, no base64, never observed to corrupt), **all bug detail now lives in the Description itself**, not in an attached file.
 
+> **Rule — Test Case status at creation: always leave it at `New`, never set it to `In Progress`.** When creating a Test Case (`redmineflux_testcases_management_create_testcase`, tracker_id=7), do not pass a `status_id` that sets it to `In Progress` (`2`) at creation time — a freshly-created test case has not been executed yet, so `New` (`7`) is the correct starting status. Only move a test case to `In Progress` (or further) later, as an explicit, separate update once execution genuinely begins. This applies to every test case creation going forward, not just bug-related ones.
+
 ### 4.3b Cached reference IDs — check here before calling a list_*/get_* lookup tool
 
 These are stable on this instance and confirmed by direct tool calls on the dates noted. Re-fetching any of these via a lookup tool wastes a call (~6-7s + tokens) for no new information — use the cached value instead, and only re-verify if something here stops matching reality.

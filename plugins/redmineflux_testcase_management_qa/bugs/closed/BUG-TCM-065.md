@@ -118,3 +118,12 @@ E   ModuleNotFoundError: No module named 'client'
 - Checked `bugs/_index.md` and `bugs/_duplicates.md` — no existing bug covers `redmineflux-tcm-ci`/rftc-017 at
   all; this is the first bug filed against this companion tool (as opposed to the `redmineflux_testcase_management`
   plugin itself).
+
+---
+
+## Retest — 2026-10-19
+
+**CONFIRMED FIXED.** `pyproject.toml` now lists `packages = ["redmineflux_tcm", "client"]`. Fresh `pip install -e
+.` (forced reinstall) then `python -m client --version` → prints `DeprecationWarning: \`client\` is deprecated;
+use \`redmineflux-tcm\` / \`python -m redmineflux_tcm\` (removed in 0.2.0).` followed by `redmineflux-tcm 0.1.0`.
+Exactly the documented behavior. Closing.

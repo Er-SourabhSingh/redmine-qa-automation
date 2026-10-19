@@ -65,6 +65,15 @@ These three need to be tested with the same rigor as functional TCs — write re
 - If multiple files are missing → ask for all of them in one message. Do not proceed until all are supplied.
 - Never infer or guess plugin behavior from the plugin name alone.
 
+## Git / Repo Identity Rules
+
+- `redmine-qa-automation`'s remote is `https://github.com/Er-SourabhSingh/redmine-qa-automation.git`, and its
+  git commit identity must always stay `Er-SourabhSingh` / `er.sourabh.singh0601@gmail.com`.
+- **Never run `git config user.name`/`user.email` (global or local) to change this identity** — even if a
+  session is logged into Claude under a different account (the user sometimes borrows someone else's Claude
+  account/session). The git commit identity for this repo stays `Er-SourabhSingh` regardless of which account
+  is driving the Claude session at the time.
+
 ## Structure Rules
 
 - Keep this QA repository separate from plugin source code.

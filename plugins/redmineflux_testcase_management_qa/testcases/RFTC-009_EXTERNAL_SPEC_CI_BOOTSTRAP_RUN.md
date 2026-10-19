@@ -327,11 +327,237 @@ description.
 
 ---
 
-## Not Executed (impractical at this scale, not security-relevant)
+## Gap-Closure Follow-up (2026-10-19) — against the spec's own full Test Cases table
 
-- **Test 17 / SI-13 (DoS cap, 2000-testcase ceiling)** — would require creating 2000+ real test case issues;
-  skipped given the low additional confidence versus setup cost. The equivalent cap on `link_defect` (500) WAS
-  tested and passed (see rftc-008's `RFTC008-Edge9`), giving reasonable confidence the same pattern holds here.
-- **Test 14 functional / concurrent-duplicate-name race** — true concurrent-request timing is impractical to
-  simulate meaningfully via sequential tool calls; the idempotency mechanics (reuse/error/suffix) were otherwise
-  fully verified (RFTC009-U5/U6/U7).
+A full re-read of `backlog/planning/rftc-009-feature-api-ci-create-run.md`'s own Test Cases section (22 Unit + 14
+Functional + 6 Edge + 4 Integration) found 15 scenarios genuinely not covered by the original pass above, despite
+the feature's "done" status. All 15 were executed against the current working instance (Docker
+`redmine6-redmine-1`, project `rftc-016-ci-qa`, id=2) — the original `tcm-share-redmine`/`qa-demo` environment no
+longer exists.
+
+---
+
+### RFTC009-U2: Caller-supplied values override every CI default
+
+**Priority:** P1
+**Steps:** `POST bootstrap_run.json` with explicit `state: 5`, custom `start_date`/`due_date`, and
+`run_assignments: [{environment: "Staging", assignee_id: 1}]`.
+**Expected Result:** All caller values used; no `"CI"` assignment or default dates injected.
+**Actual Result:** PASS. `state: 5`, dates `2026-11-01`/`2026-11-15`, `environment: "Staging"` — none overridden.
+
+---
+
+### RFTC009-U8: `testcase_selection: "ids"` — each selected id gets a non-nil `testsuite_id`
+
+**Priority:** P1
+**Steps:** `testcase_selection: "ids"`, `testcase_ids: [23, 24]` (both real cases, both in suite 3).
+**Expected Result:** Both become `run_issues`, each with a valid (non-nil) `testsuite_id`.
+**Actual Result:** PASS. DB-confirmed: both rows have `testsuite_id = 3`.
+
+---
+
+### RFTC009-U13: A half-made run (new suite + invalid state) rolls back completely — no orphan suite
+
+**Priority:** P1
+**Steps:** `POST bootstrap_run.json` naming a brand-new suite AND `state: 9` (invalid) in the same call.
+**Expected Result:** No suite created, no run created — the whole transaction rolls back.
+**Actual Result:** PASS. Suite count confirmed 0 before and after; clean 422; zero orphan rows.
+
+---
+
+### RFTC009-U15: An id from the wrong tracker (not Testcase) is rejected
+
+**Priority:** P2
+**Steps:** `testcase_selection: "ids"` with `testcase_ids: [29]` — a real issue, but on the Bug tracker, not Testcase.
+**Expected Result:** 422, same cross-project-style rejection message; no run created.
+**Actual Result:** PASS. `"One or more testcase_ids are not valid test cases in this project (wrong project,
+tracker, visibility, or not in any suite)."`
+
+---
+
+### RFTC009-U19: `state`/dates as JSON strings are coerced, not rejected
+
+**Priority:** P2
+**Steps:** `run.state: "2"` (quoted string, not integer), string dates.
+**Expected Result:** Coerced to the correct types; run saves (does not fail the integer `inclusion` check).
+**Actual Result:** PASS. `state` saved as integer `2`; run created successfully.
+
+---
+
+### RFTC009-U21: `Testsuite#track_activity` resolves the identifier-string project — no `RecordNotFound`
+
+**Priority:** P1 — guards the exact fix this spec made to `testsuite.rb`
+**Steps:** Bootstrap a genuinely new suite; inspect `testcase_activities` for a row referencing it.
+**Expected Result:** A `TestcaseActivity` row exists (`action: "Created"`, correct numeric `project_id`), no 500.
+**Actual Result:** PASS. Row confirmed: `action=Created, trackable_type=Testsuite, trackable_id=5, project_id=2`
+— the identifier string (`"rftc-016-ci-qa"`) was correctly resolved back to the numeric project id.
+
+---
+
+### RFTC009-F8: Nonexistent `project_id` returns a clean 404
+
+**Priority:** P2
+**Steps:** `POST bootstrap_run.json` with `project_id: 999999`.
+**Expected Result:** 404, clear message, no run created.
+**Actual Result:** PASS. `{"error":"Project not found for the given project_id."}`.
+
+---
+
+### RFTC009-F11 (holdout): No auth/CSRF skip anywhere in the controller
+
+**Priority:** P1 — code-level security holdout
+**Steps:** Grep `app/controllers/apis/ci_test_run_controller.rb` for `skip_before_action`, `before_action
+:require_login`, `protect_from_forgery`.
+**Expected Result:** None present; only `accept_api_auth`.
+**Actual Result:** PASS. Confirmed absent — matches the spec's own documented pattern (and its own code comment
+saying exactly this).
+
+---
+
+### RFTC009-Edge1: Empty `testcase_ids` array with `ids` selection
+
+**Priority:** P2
+**Steps:** `testcase_selection: "ids"`, `testcase_ids: []`.
+**Expected Result:** 422 "no test cases selected"; no run.
+**Actual Result:** PASS. `{"status":"error","errors":["No test cases were selected for the run."]}`.
+
+---
+
+### RFTC009-Edge2: Two suites in one call — one existing, one new — order preserved
+
+**Priority:** P2
+**Steps:** `suites: ["CI Ingest", "Edge2 Brand New Suite"]` (first exists, second does not).
+**Expected Result:** First reused (`created:false`), second created (`created:true`); both ids returned, request
+order preserved.
+**Actual Result:** PASS. `testsuite_ids: [3, 6]`, in the requested order; correct `created` flags on each.
+
+---
+
+### RFTC009-Edge3: Suite name with whitespace/case variation matches the existing suite
+
+**Priority:** P2
+**Steps:** `suites: ["  ci ingest  "]` vs. the existing `"CI Ingest"`.
+**Expected Result:** Matched to the existing suite (stripped + case-insensitive); no duplicate.
+**Actual Result:** PASS. Resolved to the existing suite id 3, `created: false`.
+
+---
+
+### RFTC009-Edge4: Duplicate environments in `run_assignments` rejected
+
+**Priority:** P2
+**Steps:** `run_assignments: [{environment:"CI",...}, {environment:"CI",...}]` (same environment twice).
+**Expected Result:** 422, clear "environments must be unique" message.
+**Actual Result:** PASS. `{"status":"error","errors":["Environments must be unique"]}`.
+
+---
+
+### RFTC009-Edge5: `on_existing: "suffix"` skips already-used suffixes and picks the next free one
+
+**Priority:** P2
+**Steps:** Create a base run, then call `on_existing: "suffix"` four times in a row for the same base name.
+**Expected Result:** Produces `#2`, `#3`, `#4`, then `#5` — never collides, never reuses a taken suffix.
+**Actual Result:** PASS. Exactly `#2 → #3 → #4 → #5` in order.
+
+---
+
+### RFTC009-E1: The full CI loop in one explicit test — bootstrap, then submit BOTH a Pass and a Failed-with-defect together
+
+**Priority:** P1
+**Steps:** Bootstrap a run against 2 real test cases, then one `bulk_create` call submitting `#23 Passed` and
+`#24 Failed` (with `defect_ids: "29"`) together.
+**Expected Result:** Both results land in one call; no UI step anywhere in the loop.
+**Actual Result:** PASS. Both results written successfully in the same `bulk_create` response.
+
+---
+
+### RFTC009-E4: Bootstrap → (simulated drop) → re-bootstrap (`reuse`) → submit completes with no duplication
+
+**Priority:** P1
+**Steps:** Bootstrap a run (simulating a dropped connection before submission); re-bootstrap the same name with
+default `on_existing`; then `bulk_create` against the returned run.
+**Expected Result:** Second bootstrap returns `reused: true` with the SAME `run.id`; submission succeeds; only
+one run row exists for that name.
+**Actual Result:** PASS. `reused: true`, same `run.id = 24`; `bulk_create` succeeded; DB-confirmed exactly 1 run
+row for that name.
+
+---
+
+## Final Two Gaps Closed (2026-10-19, same day)
+
+### RFTC009-Test17 (SACRED/DoS cap): Exactly `MAX_TESTCASES` (2000) succeeds, 2001 is rejected, nothing orphaned
+
+**Priority:** P1 — the spec's own DoS guard
+**Steps:**
+1. Bulk-created 2001 real Testcase-tracker issues directly in the project (`project_id=2, tracker_id=4`), added
+   all to suite #3 so they pass the suite-membership gate.
+2. `POST bootstrap_run.json`, `testcase_selection: "ids"`, all 2001 ids.
+3. Repeat with exactly the first 2000 ids.
+
+**Expected Result:** 2001 → 422 "too many test cases" (max 2000), no run created. 2000 → 201, run created
+normally — the cap is inclusive at 2000, exclusive at 2001.
+**Actual Result:** PASS, in full. 2001 ids: `{"errors":["Too many test cases selected (max 2000). Narrow the
+selection by suite or ids."]}`, confirmed zero orphan run in the DB. Exactly 2000 ids: `201`, run created
+successfully with no errors. All 2001 fixture issues and their suite-membership rows cleaned up after the test.
+
+---
+
+### RFTC009-F14 (SACRED, race): Two genuinely concurrent bootstrap calls with the same run name never produce a duplicate
+
+**Priority:** P1 — the spec's own TOCTOU/unique-index guard
+**Steps:** Fired two `bootstrap_run.json` POSTs for the identical run name as true background/parallel shell jobs
+(not sequential), both racing to create `"Race Condition Test"`.
+**Expected Result:** Exactly one run row ever exists; the loser resolves via the `RecordNotUnique` rescue to
+`reused: true` pointing at the winner's id — never a 500, never a silent duplicate.
+**Actual Result:** PASS. Response 1: `201, reused: false, run.id: 25`. Response 2: `201, reused: true, run.id:
+25` (same id). DB-confirmed: exactly one row named `"Race Condition Test"` exists.
+
+## Structural Coverage (2026-10-19) — multiple suites, sub-suites, multiple environments
+
+Not explicit spec test numbers, but genuine structural combinations worth proving beyond the single-suite/
+single-environment happy path used throughout the rest of this file.
+
+---
+
+### RFTC009-Struct1: Multiple environments in one `run_assignments` array — each gets its own assignment and its own full set of seeded Untested rows
+
+**Priority:** P1
+**Steps:** `POST bootstrap_run.json` with `run_assignments: [{environment:"CI",...}, {environment:"Staging",...},
+{environment:"Production",...}]` against a 9-case suite.
+**Expected Result:** 3 separate `run_assignments` rows; each environment independently seeded with all 9 Untested
+rows (27 total, not merged/deduped across environments).
+**Actual Result:** PASS. DB-confirmed: `CI=9, Staging=9, Production=9` — fully independent per-environment seeding.
+
+---
+
+### RFTC009-Struct2: Multiple suites combined in one call — each suite's cases map to their own correct `testsuite_id`
+
+**Priority:** P1
+**Steps:** `suites: ["CI Ingest", "U21 Brand New Suite", "Edge2 Brand New Suite"]` (9-case, 1-case, 1-case suites
+respectively), `testcase_selection: "suites"`.
+**Expected Result:** All 3 suites attached; `run_issues` correctly partitioned by suite (9/1/1), no case assigned
+to the wrong `testsuite_id`.
+**Actual Result:** PASS. `testsuite_ids: [3,5,6]`; DB-confirmed row counts per `testsuite_id`: `3→9, 5→1, 6→1`.
+
+---
+
+### RFTC009-Struct3: A sub-suite (nested under a parent via `parent_id`) resolves and scopes independently of its parent
+
+**Priority:** P2
+**Steps:** Created a sub-suite (`parent_id = 3`, the "CI Ingest" suite) with its own single test case; bootstrapped
+a run naming only the sub-suite.
+**Expected Result:** The sub-suite resolves by name like any other suite (`testsuite_ids` contains the sub-suite's
+own id, not the parent's); only the sub-suite's own test case is pulled in — the parent's 9 cases do not leak in
+via the `parent_id` relationship.
+**Actual Result:** PASS. `testsuite_ids: [7]` (the sub-suite, not `3`); DB-confirmed `run_issues` for this run
+contains exactly 1 row (`testsuite_id=7`), not 10 — suite nesting has no effect on bootstrap's name-based
+resolution or case scoping, confirming suites are treated as flat, independently-addressable units regardless of
+their `parent_id`.
+
+## Coverage Summary
+
+**Against the spec's own full Test Cases table (22 Unit + 14 Functional + 6 Edge + 4 Integration = 46 scenarios):
+46/46 executed, all PASS, zero bugs found.** Every scenario the spec itself defines has now been verified,
+including the two previously-deferred ones: the exact DoS-cap boundary (2000 succeeds, 2001 rejected, nothing
+orphaned) and a genuine concurrent-request race on the same run name (resolved cleanly via the unique-index
+rescue, no duplicate, no 500). rftc-009 is exhaustively verified against its own spec — not just its headline
+behaviors, and not with any scenario left on the table for practicality reasons.

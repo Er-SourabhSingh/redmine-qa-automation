@@ -59,6 +59,45 @@
 - **Redmine caps a custom field name at 30 characters.** Creating one with a longer name fails validation and re-renders the form — and because that re-render returns HTTP 200, a scripted POST loop will report success while silently creating nothing. Always verify the resulting list, not the response status. (Hit this creating fixtures for TC-TCM-037: 10 of 25 names were silently rejected.)
 - **Redmine's CSV export separator AND encoding vary by instance/locale** — `localhost:3010`: comma + Windows-1252; `localhost:3012`: comma + UTF-8; `localhost:3011` (German locale): **semicolon** + cp1252, because Redmine uses `;` where the locale's decimal separator is a comma. Import step 1's **Field Separator** and **Encoding** must both match the file or the wizard misreads it. The testcase import wizard defaults to UTF-8, so a freshly exported issue CSV must have **Encoding** switched to Windows-1252 on import step 1 or the content mangles. The "All Columns" export option is `c[]=all_inline` (`columns=all` does nothing).
 
+- **rftc-042 (TCM Testing Harness) and rftc-043 (static/dynamic security + discovery testing) are internal
+  dev-tooling tickets, not plugin features** — they build/extend the `redmineflux-tcm-ci` repo's own QA automation
+  (k6 load/chaos, Brakeman/Semgrep SAST, bundler-audit/Trivy/pip-audit, gitleaks, mutation testing, an authz-matrix
+  generator, an AI exploratory agent). Per established convention, these get light verification only (spot-check
+  the plugin-side side effects their journals claim), never full harness re-verification, in this plugin's own QA
+  cycle. **One real finding from rftc-043 worth tracking even though it's out of our testing scope: a dependency
+  scan (`bundler-audit`, cross-confirmed by `trivy fs`) found 81 real CVEs in this plugin's Ruby `Gemfile.lock`
+  (3+ CRITICAL, e.g. `rack-session` CVE-2026-39324 "unauthorized access via crafted session cookies", `rubyzip`
+  path-traversal CVE-2026-85396) — not something this plugin caused or can fix itself, it needs a wider Redmine/
+  Rack/Rails upgrade. Surface this if a Redmine-upgrade or dependency-upgrade discussion ever comes up.** Also
+  noted as a genuine, still-unaddressed gap from the same work: **A09 (Security Logging/Monitoring)** — no
+  centralized security-event log for failed-authz/rejected-URL-key-auth/CSRF-rejection attempts exists yet.
+  Source: `documents/owasp-top-10-coverage.md` + `documents/cohort-review-testing-strategy-2026-10-02.md` in the
+  plugin dev repo (`C:\redmine v6\plugins\redmineflux_testcase_management\documents\`).
+
+- **CI/CD (rftc-009/016/017/038) auto-creates a Run per build — it does NOT auto-create Test Suites or Test
+  Cases.** Those must already exist in the project before any pipeline runs; the CLI only matches existing
+  testcases (via each issue's **Automation Key** field, falling back to id/subject) and writes execution results
+  against them inside the new run. Concretely:
+  - `bootstrap --project <id> --name "<build name>" --suites "<existing suite name>" --on-existing reuse` →
+    creates (or reuses) **only the Run**, scoped to the named suite(s), which must already exist with their
+    testcases already created and their **Automation Key** fields already set to match the real test function
+    names (e.g. `test_login_valid`).
+  - `ingest --junit report.xml --project <id> --run <run_id> --env "<env>" [--auto-defect]` (or `submit` with a
+    `--mapping` JSON for PHASE 1) → parses the JUnit report, matches each test by Automation Key, and writes a
+    Pass/Fail/Blocked/Skipped result onto the matching **existing** testcase in that run. A test name with no
+    matching Automation Key comes back `UNMATCHED` (warning, not an error, unless `--strict`) — it does **not**
+    create a new testcase on the fly.
+  - `--auto-defect` auto-creates a **Bug** issue (not a testcase) and links it to a Failed/Blocked result.
+  - Real confirmed example (RFTC038-6, a genuine live Jenkins run against `redmine6-redmine-1`): `bootstrap` made
+    **Run #8** from the pre-existing "CI Ingest" suite; pytest produced 4 pass/1 fail/1 skip against 6
+    pre-existing testcases whose Automation Keys had been aligned beforehand; `ingest --auto-defect` wrote all 6
+    results into Run #8 and auto-created **Defect #37** for the one failure — confirmed independently in the real
+    TCM UI (`/runs/8`), not just the pipeline's own log.
+  - Practical implication for QA/dev setup: before wiring a project into CI, someone must manually (or via a
+    one-time provisioning script) create the Test Suite(s) and every Test Case inside them, and set each
+    testcase's Automation Key to the exact test function/method name the suite will run — only then will CI
+    results land on the right testcase instead of coming back unmatched.
+
 ## Confirmed Working
 
 - CSV import — **full suite re-verified 2026-09-11, 16/16 TCs PASS** (see the Regression Run table at the bottom of `testcases/TESTCASE_MANAGEMENT_CSV_IMPORT.md`): legacy single `Steps`/`Expected` columns, 0–50 step range, varying step counts per row (1/3/7/15/30 with no cross-contamination), non-sequential step numbering (preview shows 1/3/5, saved case renumbers 1/2/3), unicode/emoji/embedded-newline content round-tripping exactly, the 2000 vs 2001-char boundary, oversized-text rejection with a precise error, 100×3-step bulk import in ~0.5 s, header-only and empty-file handling, and whole-column-family-absent handling in both directions.

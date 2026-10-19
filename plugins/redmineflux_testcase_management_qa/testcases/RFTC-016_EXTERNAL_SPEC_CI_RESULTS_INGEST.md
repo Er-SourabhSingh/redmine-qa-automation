@@ -314,6 +314,310 @@ back to the original `execute_testcase=false / add_issues=true(all trackers)` st
 
 ---
 
+## Third Follow-up (2026-10-19) — authorization matrix: member/non-member, assignee vs permission, auth method
+
+Prompted by a direct question about which user/permission combinations had actually been exercised. All tests
+below used Run #5 (environment `CI`, sole pre-existing assignee: `admin`), project `rftc-016-ci-qa` (id=2,
+**private**, global `login_required`=Yes — confirmed via DB, same baseline as every earlier scenario in this
+file). All temporary role/membership/assignment changes were reverted immediately after each test.
+
+---
+
+### RFTC016-19: Admin API key (`X-Redmine-API-Key` header) works identically to HTTP Basic Auth
+
+**Priority:** P2
+**Steps:** `POST ingest_results.json` with `X-Redmine-API-Key: <admin's token>` instead of Basic Auth.
+**Expected Result:** Same success response as Basic Auth — the endpoint's `accept_api_auth` should accept either.
+**Actual Result:** PASS. Identical `"status":"success"` response, HTTP 200.
+
+---
+
+### RFTC016-20: Admin who is NOT a project member still succeeds (global admin bypasses project membership)
+
+**Priority:** P2
+**Steps:** Temporarily removed admin's `members`/`member_roles` rows for project 2 (admin stays a Redmine
+instance-wide admin); repeated RFTC016-1's happy-path call.
+**Expected Result:** Documented behavior — `User.current.admin?` short-circuits the permission check in
+`Apis::CiTestRunController#ingest_results` (`app/controllers/apis/ci_test_run_controller.rb:85`), so project
+membership is irrelevant for an admin caller.
+**Actual Result:** PASS (as expected) — HTTP 200, succeeded with no membership row at all. Admin membership
+restored immediately after (confirmed identical: project_id=2, role_id=3/Manager).
+
+---
+
+### RFTC016-21 (SACRED/negative): Non-admin, non-member (effectively "Non member" role) — denied, but with a misleading message → **BUG-TCM-067**
+
+**Priority:** P1
+**Steps:** `qanonadmin` (non-admin, not a project member at all) calls `ingest_results.json` against run #5.
+**Expected Result:** Denied (the "Non member" role has no `execute_testcase`), with a message naming the actual
+reason (missing permission).
+**Actual Result:** FAIL (message-accuracy bug, not a security hole — see BUG-TCM-067). HTTP 403 as expected, but
+`{"error":"You cannot create the result because you are not the assignee."}` — wrong reason given. Filed as
+**BUG-TCM-067** (Low severity — denial itself is correct, only the message text is wrong).
+
+---
+
+### RFTC016-22: Non-admin member WITH `execute_testcase` (Reporter role, default grant) — succeeds, even when NOT the run's assignee
+
+**Priority:** P1
+**Steps:** `qanonadmin` added as project member with **Reporter** role (has `execute_testcase` by default, not
+toggled manually this time); NOT added to `run_assignments` at all; same ingest call.
+**Expected Result:** Succeeds — confirms (per the controller code read this session) that `ingest_results`'
+authorization is **permission-only** (`execute_testcase` or admin); being the run's recorded assignee is not
+part of the gate at all, unlike what the shared error string implies.
+**Actual Result:** PASS. HTTP 200, `"status":"success"` — proves the assignee concept is irrelevant to this
+endpoint's authorization, confirming the root cause behind BUG-TCM-067.
+
+---
+
+### RFTC016-23 (SACRED/negative): Non-admin member WITHOUT `execute_testcase` (Developer role, default) — denied even when made the run's actual assignee
+
+**Priority:** P1 — the exact negative-control test proving assignee status has zero authorization weight
+**Steps:** Switched `qanonadmin` to **Developer** role (no `execute_testcase` by default); additionally inserted
+a real `run_assignments` row making `qanonadmin` the assignee of run #5 / `CI` (so the user is genuinely, provably
+an assignee); same ingest call.
+**Expected Result:** Still denied — since only `execute_testcase`/admin grants access, genuinely being the
+assignee must not help.
+**Actual Result:** PASS (denial confirmed correct) — HTTP 403, same `error_permission_create_result` string. This
+is the definitive proof for BUG-TCM-067: the user **was** the assignee and was still denied, so "you are not the
+assignee" is categorically the wrong explanation for any denial on this endpoint.
+
+All temporary state (qanonadmin's membership, role, and the extra `run_assignments` row) was deleted immediately
+after RFTC016-23; project 2 and run #5 were confirmed back to their original state (admin-only member, admin-only
+`CI` assignee).
+
+---
+
+## Fourth Follow-up (2026-10-19, same day) — remaining gaps closed: exact cap boundary, project visibility, global auth setting
+
+---
+
+### RFTC016-24: Exactly `MAX_RESULTS` (1000) results — the boundary itself, not just one-over
+
+**Priority:** P2 — RFTC016-16 only proved 1001 is rejected; the boundary value itself was never separately
+confirmed to succeed.
+**Steps:** `POST ingest_results.json` with a generated, exactly-1000-element `results` array (verified by
+counting `"key"` occurrences in the payload before sending).
+**Expected Result:** HTTP 200 — `MAX_RESULTS = 1000` should mean "1000 is fine, 1001 is too many," not an
+off-by-one that rejects 1000 as well.
+**Actual Result:** PASS. HTTP 200, `"message":"Ingested 1000 results (1000 matched, 0 unmatched)"`. Confirms the
+cap is inclusive at exactly 1000, consistent with RFTC016-16's 1001-rejected result.
+
+---
+
+### RFTC016-25: Project visibility (public vs. private) has no effect on this endpoint's authorization
+
+**Priority:** P2
+**Steps:** Temporarily set `rftc-016-ci-qa` (project 2) to **public** (`is_public=true`); repeated (a) the
+anonymous-caller test (RFTC016-6) and (b) the non-member logged-in-user test (RFTC016-21), both against the
+now-public project.
+**Expected Result:** Since `ingest_results` never checks `@project.is_public` or calls a visibility-gated
+authorize method (only `User.current.anonymous?` inline, then `execute_testcase`/admin), making the project
+public should change nothing.
+**Actual Result:** PASS — identical results to the private-project versions: anonymous caller still HTTP 401;
+non-member logged-in user (`qanonadmin`) still HTTP 403 with the same (BUG-TCM-067) message. Project visibility is
+confirmed irrelevant to this endpoint. Reverted `is_public` back to `false` immediately after.
+
+---
+
+### RFTC016-26 (SACRED/security): Global "Authentication required = No" setting does not weaken the anonymous reject
+
+**Priority:** P1 — the scenario directly raised: does disabling Redmine's instance-wide login requirement, on a
+public project, let an anonymous caller through?
+**Steps:** Set the global `login_required` setting to `0` ("No, allow anonymous access to public projects") AND
+made project 2 public at the same time (the combination needed for anonymous access to even be a possibility);
+repeated the anonymous-caller call (no credentials at all) against `ingest_results.json`.
+**Expected Result:** Still denied — the controller's anonymous check (`User.current.anonymous?`, inline, "exactly
+like bulk_create," per its own code comment citing SEC-004/005) does not depend on `before_action :require_login`
+or the global setting at all, so it should reject regardless.
+**Actual Result:** PASS. HTTP 401, identical to every other anonymous-caller test in this file — confirms the
+endpoint's own hardcoded anonymous-reject is independent of, and does not get weakened by, the instance-wide
+authentication setting. Both the global setting and project visibility were reverted immediately after
+(`login_required` back to `1`, project 2 back to private) — confirmed via direct DB check.
+
+---
+
+## Fifth Follow-up (2026-10-19) — full spec re-read (833-line `backlog/planning/rftc-016-feature-ci-results-ingest.md`), closing every remaining Unit/Functional/Edge gap
+
+A full read of the source spec (not just the production ticket's short description) surfaced 17 scenarios genuinely
+not covered above: status-map mechanics, the critical cross-run defect-reuse isolation guarantee, multi-suite
+grouping/ambiguity, semantic status resolution, cross-project key matching, email suppression, and five Edge
+Cases (`skip` mode, in-project-not-in-run, SQL injection, non-integer duration, stored XSS, transactional
+defect-rollback). **One genuine bug was found** (RFTC016-32/BUG-TCM-069).
+
+---
+
+### RFTC016-27 (spec Unit 1): All 6 default CI-status → `case_status_id` mappings in one call
+
+**Priority:** P1
+**Steps:** One `ingest_results.json` call with one result per status: `passed`, `failed`, `error`, `blocked`,
+`skipped`, `retest` (auto_defect:false with caller-supplied `defect_ids` for the failure-class ones).
+**Expected Result:** `passed→2, failed→3, error→3, blocked→5, skipped→6, retest→4` exactly.
+**Actual Result:** PASS. All six mapped exactly as spec'd in one response.
+
+---
+
+### RFTC016-28 (spec Unit 2/3/20): `status_map` caller override, unknown status rejected, invalid override target rejected
+
+**Priority:** P1
+**Steps:** (a) `status_map: {"flaky": 4}`, result `status: "flaky"` alongside a normal `"passed"`. (b) A result
+`status: "exploded"` (in neither default nor override). (c) `status_map: {"passed": 999}` (nonexistent
+`case_status_id`).
+**Expected Result:** (a) `"flaky"` → Retest(4), `"passed"` still default-mapped. (b)/(c) 422, nothing written.
+**Actual Result:** PASS on all three. (a) `{"key":"26",...,"case_status_id":4}` + `{"key":"27",...,"case_status_id":2}`
+in the same call. (b) `"Unknown or unavailable CI status 'exploded'..."`, 422. (c) same error message, 422 —
+confirms an invalid *override target* is rejected exactly like an unmapped status.
+
+---
+
+### RFTC016-29 (spec Unit 13b, SACRED/CRITICAL): Auto-defect reuse is scoped to `(run_id, environment)` — a failure in a DIFFERENT run never reuses a stale defect
+
+**Priority:** P1 — the single most safety-critical guarantee in this feature; a failed version of this would
+silently cross-contaminate unrelated runs/branches with the wrong defect
+**Steps:** Fresh testcase; bootstrap Run A, ingest a failure → defect created (#2049). Bootstrap Run B (same
+testcase), ingest a failure for it in Run B, same environment `CI`. Then re-ingest the SAME failure again in
+Run A.
+**Expected Result:** Run B gets a brand-new defect (not #2049) — reuse must never cross a run boundary. Re-ingesting
+in Run A reuses #2049 (`defect_reused: true`) — same-run reuse must still work.
+**Actual Result:** PASS, fully confirmed. Run A → defect #2049 created. Run B → defect **#2050** created (a
+genuinely new issue, NOT #2049) — cross-run isolation holds. Re-ingest in Run A → `defect_id: 2049,
+defect_reused: true` — same-run reuse confirmed working. Both halves of the guarantee hold simultaneously.
+
+---
+
+### RFTC016-30 (spec Unit 15/16): `blocked` also auto-defects; results spanning two suites are grouped under their own correct `testsuite_id`
+
+**Priority:** P1
+**Steps:** (a) Ingest a `blocked` result with `auto_defect: true` (default) for a fresh testcase. (b) Bootstrap a
+run with 2 suites (`CI Ingest` id=3, `Edge2 Brand New Suite` id=6), ingest one result per suite's testcase in one
+call.
+**Expected Result:** (a) Blocked is treated as failure-class — a defect is auto-created. (b) Each result lands
+under its OWN suite's `testsuite_id`, never cross-mapped.
+**Actual Result:** PASS on both. (a) `case_status_id:5, defect_id:2052, defect created:[2052]`. (b)
+`{"key":"23",...,"testsuite_id":3}` and `{"key":"2046",...,"testsuite_id":6}` — correctly separated.
+
+---
+
+### RFTC016-31 (spec Unit 18, SACRED): A testcase in TWO suites within the same run is `ambiguous_suite_membership` unless disambiguated
+
+**Priority:** P1 — the spec's own "easy silent-wrong-suite bug" callout
+**Steps:** Add issue `#23` to a second suite (id=6); bootstrap a run containing both suites (so `#23` now has 2
+`run_issue` rows in this one run); ingest a result for `#23` with no per-result `testsuite_id`. Then repeat WITH
+an explicit `testsuite_id: 6`.
+**Expected Result:** Without disambiguation: unmatched, `reason: "ambiguous_suite_membership"`, never guessed.
+With explicit `testsuite_id`: written under that named suite.
+**Actual Result:** PASS on both parts. Part 1: `{"unmatched":[{"key":"23",...,"reason":"ambiguous_suite_membership"}]}`.
+Part 2: `{"matched":[{"key":"23","testsuite_id":6,...}]}` — explicit disambiguation correctly resolves it. Extra
+suite membership cleaned up after the test.
+
+---
+
+### RFTC016-32 (spec Edge Case 2) — **FAIL → BUG-TCM-069**: `on_unmatched: "skip"` is accepted but behaves identically to `"report"`
+
+**Priority:** P2
+**Steps:** Same payload (one matched + one unmatched key) sent twice, only `on_unmatched` changed between
+`"report"` and `"skip"`.
+**Expected Result:** Per the spec, `"skip"` should omit unmatched entries from the response's error accounting
+(logged only) — observably different from `"report"`.
+**Actual Result:** **FAIL.** The two responses are byte-for-byte identical — same `unmatched` array, same
+`counts.unmatched`. Code-confirmed root cause: `on_unmatched` is only ever branched on for `'error'`
+(`ci_result_ingest_service.rb:88`); `'skip'` is accepted into the value whitelist (`:126`) but never consulted
+again anywhere, including in `success_payload` (`:466-491`) which unconditionally includes the full `unmatched`
+array regardless of mode. Filed as **BUG-TCM-069** (Medium).
+
+---
+
+### RFTC016-33 (spec Unit 19): Default status map resolves by CaseStatus semantics (`is_success`/`is_failure`/name), not hardcoded seed ids
+
+**Priority:** P2 — code-level verification (changing live `CaseStatus` ids on a shared instance to test this
+black-box would be too invasive/risky)
+**Steps:** Read `CiResultIngestService#default_status_for`.
+**Expected Result:** `passed`→`is_success` flag, `failed`/`error`→`is_failure` flag, `blocked`/`skipped`/`retest`→
+matched by `name`, not by literal `2/3/5/6/4`.
+**Actual Result:** PASS, code-confirmed. All five branches use `CaseStatus.where(is_enabled: true, is_success:
+true)` / `is_failure: true` / `name: 'Blocked'|'Skipped'|'Retest'` — zero hardcoded literal ids anywhere in the
+resolution function, exactly matching the spec's non-negotiable build condition.
+
+---
+
+### RFTC016-34 (spec Functional F7): A numeric `key` pointing at a DIFFERENT project's issue is never matched
+
+**Priority:** P1 — SEC-001/IDOR class
+**Steps:** Created a Testcase-tracker issue in a different project (`bug-121896-retest`, id=1); ingested with its
+numeric id as `key` against our run.
+**Expected Result:** Unmatched (`no_match`) — never pulled in as a foreign issue.
+**Actual Result:** PASS. `{"unmatched":[{"key":"<foreign-id>","status":"passed","reason":"no_match"}]}`.
+
+---
+
+### RFTC016-35 (spec Functional F12): Zero result emails on the CI ingest path
+
+**Priority:** P1
+**Steps:** Code-check the service's call into the shared writer; grep server logs across the dozens of ingest
+calls made this session for any `RunMailer`/`testcase_result_added` activity.
+**Expected Result:** The service passes `notify: false`; zero mailer log hits.
+**Actual Result:** PASS. Code-confirmed `ci_result_ingest_service.rb:325` passes `notify: false` explicitly; zero
+`RunMailer` log hits across the entire session's ingest calls.
+
+---
+
+### RFTC016-36 (spec Edge Case 1): A key matching an issue in the project but NOT in this run is unmatched
+
+**Priority:** P2
+**Steps:** Created a fresh testcase in-project, deliberately never added to the target run's suites; ingested
+using its id.
+**Expected Result:** Unmatched — the base match scope intersects `@run.issues`, so in-project-but-not-in-run
+cases are correctly excluded.
+**Actual Result:** PASS. `{"unmatched":[{"key":"<id>","status":"passed","reason":"no_match"}]}`.
+
+---
+
+### RFTC016-37 (spec Edge Case 5): SQL injection attempt in `key` and `status_map` treated as literal text
+
+**Priority:** P1 — security
+**Steps:** `status_map: {"1 OR 1=1": 2}`, result `key: "1 OR 1=1"`, `status: "1 OR 1=1"`.
+**Expected Result:** Treated as a literal string; no injection; no extra/corrupted rows.
+**Actual Result:** PASS. Cleanly unmatched (`no_match`); `issue_status_results` row count unaffected; no SQL
+error, no injection.
+
+---
+
+### RFTC016-38 (spec Edge Case 6): Non-integer `duration_ms` is safely ignored, not stored as garbage
+
+**Priority:** P2
+**Steps:** `duration_ms: "not-a-number"` on an otherwise-valid result.
+**Expected Result:** No error; `duration_ms` omitted/null in the DB, not the literal garbage string.
+**Actual Result:** PASS. Result written successfully; DB-confirmed `duration_ms` is `NULL`, notes text contains
+no bogus duration value.
+
+---
+
+### RFTC016-39 (spec Edge Case 7): HTML/script in `message` is stored as untrusted text and rendered safely (no stored XSS)
+
+**Priority:** P1 — security
+**Steps:** `message: "<img src=x onerror=alert(1)>"` on a failing result; checked both the raw DB value and the
+live-rendered issue page (`/issues/<id>?tab=results_and_comments`) in-browser.
+**Expected Result:** Stored as-is (untrusted text is fine at rest); rendered escaped, never as live executable
+markup.
+**Actual Result:** PASS. DB stores the raw string (`notes = "CI: failed — <img src=x onerror=alert(1)>"`,
+expected — storage doesn't need to escape). Live page: `document.body.innerHTML` contains **no** live
+`<img onerror>` tag, text appears HTML-escaped (`&lt;img`) — confirmed no stored XSS reaches the rendered page.
+
+---
+
+### RFTC016-40 (spec Edge Case 8, SACRED): `on_unmatched: "error"` rolls back auto-created defects too, not just result rows
+
+**Priority:** P1 — a partial-rollback here would leave an orphan defect Issue with no linked execution
+**Steps:** Fresh testcase; ingest ONE failing result (would auto-create a defect) together with ONE unmatched key,
+`on_unmatched: "error"`. Counted Bug-tracker issues before and after.
+**Expected Result:** 422; the whole transaction — including the defect that would have been created for the
+failure — rolls back; defect count unchanged.
+**Actual Result:** PASS. Defect count: **11 before, 11 after** — confirms the auto-defect creation (which happens
+inside the same transaction as the write) is genuinely rolled back along with everything else, not committed
+separately.
+
+---
+
 ## Still Not Executed (genuine tooling/environment blockers)
 
 - **`automation_key` unconfigured** (`error_ci_ingest_automation_key_unconfigured`) and **defect tracker
@@ -326,11 +630,27 @@ back to the original `execute_testcase=false / add_issues=true(all trackers)` st
 
 ## Coverage Summary
 
-**18/18 executed scenarios — 18/18 PASS, zero bugs found** in `ingest_results.json` itself. Every core functional
-path, matching strategy (`id`/`subject`/`automation_key`, happy + ambiguous), BOTH permission boundaries
-(anonymous rejection AND the non-admin `:execute_testcase`/`:add_issues` split), validation edges, the
-idempotency guarantee, the DoS cap, and the `duration_ms` structured-column cross-check all behave exactly per
-spec. Only the two unconfigured-setting error branches remain untested, deliberately, to avoid destabilizing a
-shared instance. (Separately, this same session's exploratory testing around user deletion surfaced a real,
-unrelated defect — `BUG-TCM-064`, reported to production as #123501 — in the Testcase Reports feature, not in
-this endpoint.)
+**40/40 executed scenarios — 38/40 PASS, 2 bugs found**, now checked against the full 833-line source spec's own
+Unit (1-22)/Functional (F1-F13)/Edge (1-9)/Integration (E1-E4) tables, not just the production ticket's short
+description. Every core functional path, matching strategy (`id`/`subject`/`automation_key`, happy + ambiguous +
+multi-suite grouping/ambiguity), the full default + caller-override status-map mechanics, semantic (non-hardcoded)
+status resolution, permission boundaries (anonymous rejection, non-admin member with/without permission,
+admin-non-member bypass, API key vs Basic Auth, cross-project run AND cross-project key rejection), the
+**safety-critical cross-run defect-reuse isolation guarantee** (RFTC016-29 — a failure in a different run never
+silently reuses a stale defect), project visibility/global-auth-setting independence, validation edges (exact
+1000/1001 boundary, SQL injection attempt, non-integer duration, stored-XSS safety, transactional rollback
+including auto-created defects), the idempotency guarantee, and the `duration_ms` structured-column cross-check
+all behave exactly per spec.
+
+**Two defects found:**
+- **BUG-TCM-067** (Low) — message-accuracy issue: denial correctly gated by `execute_testcase` only, but the
+  error string wrongly says "not the assignee" (RFTC016-21/23).
+- **BUG-TCM-069** (Medium) — `on_unmatched: "skip"` is accepted but never actually implemented; produces an
+  identical response to `"report"` (RFTC016-32).
+
+Only the two unconfigured-setting error branches (`automation_key`/defect tracker) remain untested, deliberately,
+to avoid destabilizing a shared instance. Every scenario the spec itself defines as Wave-applicable to this
+endpoint has now been executed — this endpoint is exhaustively verified against its own spec, with BUG-TCM-067
+and BUG-TCM-069 as the two known outstanding issues. (Separately, this same session's exploratory testing around
+user deletion surfaced a real, unrelated defect — `BUG-TCM-064`, reported to production as #123501 — in the
+Testcase Reports feature, not in this endpoint.)

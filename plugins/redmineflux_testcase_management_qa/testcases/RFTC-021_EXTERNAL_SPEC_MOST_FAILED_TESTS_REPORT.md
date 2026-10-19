@@ -71,17 +71,159 @@ cross-project data visible.
 
 ---
 
+## Second Follow-up (2026-10-19) — full 438-line source spec re-read, closing correctness/security gaps + a confirmed XSS
+
+A full read of `backlog/planning/rftc-021-feature-most-failed-tests-metric.md` surfaced a critical through-
+association dedup bug class, a determinism guarantee, the private-issue visibility boundary, and — critically —
+a genuine, reproducible **XSS vulnerability in the report's bar chart**, found by directly executing the spec's
+own Functional Test 5 security holdout (which the original pass never ran).
+
+---
+
+### RFTC021-5 (spec Unit 13, G1-1): A test case in TWO suites of the same run is counted ONCE, not twice
+
+**Priority:** P1 — `run.issues` is a `has_many :through`, so without `.distinct` a multi-suite issue's failure
+would be double-counted, corrupting the ranking
+**Steps:** Added issue `#23` to a second suite within a run where it already belonged to another suite (so it has
+2 `run_issue` rows in that one run); wrote one Failed result for it; created a Most Failed report scoped to only
+that run.
+**Expected Result:** `failed == 1`, not 2 — the `.distinct` on the issue scope must collapse the duplicate.
+**Actual Result:** PASS. `#23: 1 failure / 1 executed / 100%`, with exactly one drill-down cell — confirms the
+dedup guard works correctly.
+
+---
+
+### RFTC021-6 (spec Unit 3): "Latest wins" — a cell whose history is Fail → Retest → Pass is NOT counted as a failure
+
+**Priority:** P1 — proves the metric reads only the latest state per cell, never sums history
+**Steps:** Wrote three sequential results for one fresh test case: Failed, then Retest, then Passed (same cell).
+**Expected Result:** The case does not appear in the Most Failed ranking at all (latest state is Pass).
+**Actual Result:** PASS. The fixture was absent from the ranking entirely, despite having a real Failed row in its
+history — confirms latest-wins, not cumulative failure counting.
+
+---
+
+### RFTC021-7 (spec Functional 7, SEC-001-adjacent, SACRED): A private issue in the SAME project is excluded from a non-privileged viewer's ranking
+
+**Priority:** P1 — cross-project isolation (RFTC021-4) is a different boundary than same-project private-issue
+visibility; both must independently hold
+**Steps:** Created a private (`is_private: true`) failing test case in the same project; logged in as a real
+non-admin member (Reporter role, no special private-issue visibility) via a fresh session and fetched the same
+Most Failed report.
+**Expected Result:** The private issue's subject/count never appears for the non-admin viewer, while the other
+(non-private) failing cases still do.
+**Actual Result:** PASS. The non-admin session's response contained **zero** occurrences of the private issue's
+subject, while all 4 other genuinely-failing cases were visible — `Issue.visible` scoping holds for the
+same-project private-issue boundary, not just cross-project.
+
+---
+
+### RFTC021-8 (spec Functional 11): The report-builder form shows the Failed/Failed+Blocked `criteria` control only for Most Failed Tests
+
+**Priority:** P2
+**Steps:** Opened the New Report form, selected "Most Failed Tests" as the type.
+**Expected Result:** A "Count as failure" dropdown (Failed only / Failed + Blocked) appears.
+**Actual Result:** PASS. The control appeared immediately on selecting the Most Failed Tests type, defaulting to
+"Failed only" — confirms the toggle is reachable from the UI, not raw-param-only.
+
+---
+
+### RFTC021-9 (spec Functional 5, SACRED/CRITICAL) — **FAIL → BUG-TCM-070**: The bar chart executes injected HTML/script from a test case subject — a genuine, reproducible XSS
+
+**Priority:** P1 — this is the exact "script-context sink" the spec's Gate 2 review flagged as a HIGH/MED finding
+and built a dedicated holdout test for; running that holdout test for the first time this session immediately
+caught a real vulnerability
+**Steps:** Created a test case with subject `<img src=x onerror=alert(1)>`, a run with `<svg onload=alert(2)>` as
+its name, and an environment named `<b onmouseover=alert(3)>`; recorded a Failed execution; opened a Most Failed
+report scoped to that run.
+**Expected Result:** All three fields render as inert, HTML-escaped text in both the ranked table and the bar
+chart; the code's own comment claims "ApexCharts renders labels as SVG text (no HTML sink)."
+**Actual Result:** **FAIL, confirmed exploitable.** The ranked **table** correctly escaped all three fields (the
+raw HTTP response shows `&lt;img`/`&lt;svg`/`&lt;b ` with no live tags — table is safe). The **bar chart**,
+however, genuinely executed the payload: opening the report triggered real `alert()` dialogs in the browser,
+requiring repeated dismissal. Root-caused: the server-side encoding is actually correct (the chart's data is
+JSON-encoded into a `data-mostfailed` attribute, exactly the safe pattern the spec prescribes), but the inline
+`<script>` block `JSON.parse()`s that data back to the literal string and hands it to ApexCharts as an
+`xaxis.categories` label — and this ApexCharts build/configuration renders that label as live HTML, not plain SVG
+text, contradicting the code's own safety assumption. Filed as **BUG-TCM-070** (High — confirmed, reproducible
+XSS, not a theoretical finding).
+
+---
+
+## Third Follow-up (2026-10-19) — export formats were missing from both the original pass and the spec summary; now checked
+
+A follow-up question ("did you check export reports and its data") surfaced that **none of the 9 scenarios above
+ever exercised the report's own Download menu** (HTML/PDF/Excel) — not because export was out of scope, but
+because it was simply never looked at. The on-screen ranked table/chart is not the only place this report's data
+reaches a user.
+
+### RFTC021-10 (ad hoc, prompted by the above question) — **FAIL → BUG-TCM-071**: Excel export doesn't recognize the Most Failed Tests report type at all; HTML and PDF exports are correct
+
+**Priority:** P1 — the Download menu offers HTML/PDF/Excel identically for every report type, so a user has no
+way to know in advance that Excel silently fails for this one
+**Steps:** Created a fresh Most Failed Tests report (#13, "Export XSS Check", include-all-runs) containing a test
+case (#35) whose subject carries the same XSS-shaped payload as RFTC021-9 (`<img src=x onerror=alert('export-xss')>
+Remove item from cart`), confirmed it ranks correctly in the on-screen table/chart, then downloaded all three
+formats (HTML, PDF, Excel) and inspected each file's actual contents (not just that a file arrived).
+**Expected Result:** All three exports contain the same ranked data (Rank/Test Case/Failures/Executed/Failure
+Rate/Failing Runs) as the on-screen report.
+**Actual Result:** **HTML — PASS, and incidentally confirms BUG-TCM-070 doesn't propagate into this export.** The
+downloaded HTML is a static DOM snapshot (zero `<script>` tags), so the `data-mostfailed` → `JSON.parse` →
+ApexCharts re-render path that causes the live chart's XSS is entirely absent; the payload appears only as inert,
+HTML-escaped text (`&lt;img src=x onerror=alert('export-xss'...`). **PDF — PASS**, payload renders as plain
+unexecuted text (PDF viewers don't interpret HTML). **Excel — FAIL.** The entire worksheet is 5 cells: a generic
+"Testcase Summary" header, the report name, a blank row, "Unknown Report Type", and "The report type 'most_failed'
+is not recognized." No ranked data at all — not wrong/empty data like the already-filed BUG-TCM-068 (Slow Tests'
+Excel export), but an explicit non-recognition of this report type by the Excel exporter. Filed as **BUG-TCM-071**
+(High — same underlying gap class as BUG-TCM-068: a new rftc-020/021 report type wired into `show`/HTML/PDF but
+not into the Excel exporter's type dispatch).
+
 ## Not Executed
 
 - **100-run cap** — not exercised; would require generating 100+ runs, impractical for this session (same
   low-risk judgment as other numeric DoS-shaped caps already accepted by inspection elsewhere in this release).
-- **Private-issue visibility scoping** specifically (as opposed to cross-project scoping) — not independently
-  exercised; RFTC021-4 covers the project-boundary case, which is the stronger and more directly testable form of
-  the same claim.
-- **Secondary sort by rate** when failure counts tie — not exercised; only 2–3 distinct test cases were available
-  this session, none with tied failure counts.
+- **Secondary sort by rate** when failure counts tie — not exercised; no two test cases with tied failure counts
+  were available this session.
+- **Timestamp-tie determinism (Unit 14)** and **cross-project run-NAME leak specifically (Functional 6, distinct
+  from RFTC021-4's issue-level check)** — not independently exercised; lower priority given RFTC021-4 and
+  RFTC021-7 already cover the stronger/more directly testable forms of the visibility boundary.
+- **Excel export's formula-injection escaping** (leading `=`, `+`, `-`, `@` in a test case subject) — moot for now
+  since Excel export doesn't produce any data rows to inject into (BUG-TCM-071); re-test once that bug is fixed,
+  alongside the equivalent still-blocked check on Slow Tests (RFTC020-17/BUG-TCM-068).
+
+## Production Test Suite & Test Cases (created 2026-10-19)
+
+Per explicit user approval, a production test suite and 4 consolidated test cases were created on `ztflux`
+(`flux.zehntech.com`), mirroring the RFTC-020 suite's grouping convention (thematically consolidated, not one
+testcase per granular scenario):
+
+- Test Suite **#446** "RFTC-021 — Most Failed Tests Report (Release 7.2.0)" (parent: suite #6 "Testcase plugin")
+- Test Case **#123981** "Most Failed Tests report core ranking, Failed/Failed+Blocked criteria toggle, and
+  latest-wins semantics" — covers RFTC021-1, 2, 3, 6, 8
+- Test Case **#123982** "Most Failed Tests report dedup guard and visibility boundaries (cross-project +
+  private-issue scoping)" — covers RFTC021-4, 5, 7
+- Test Case **#123983** "Most Failed Tests report bar chart must not execute injected HTML/script from ranked
+  labels (XSS)" — covers RFTC021-9, linked to BUG-TCM-070
+- Test Case **#123984** "Most Failed Tests report export formats: HTML, PDF and Excel" — covers RFTC021-10,
+  linked to BUG-TCM-071
+
+All 4 assigned to Sourabh Singh (id 683), status `New`, priority `High`.
+
+**Run #612 linkage (2026-10-19):** all 4 testcases added to Run #612 (environment "Win + Chrome + Ver6", same run
+as the sibling RFTC-016/017/020 suites). #123981/#123982 pending execution recording in that run. #123983 and
+#123984 marked Failed with their defects linked via `report_defect`:
+
+- **BUG-TCM-070 → production #123985** (https://flux.zehntech.com/issues/123985, assigned Vaishnavi Bhawsar,
+  Security/High-severity/High), linked to testcase #123983.
+- **BUG-TCM-071 → production #123986** (https://flux.zehntech.com/issues/123986, assigned Vaishnavi Bhawsar,
+  Functional/High-severity/High), linked to testcase #123984.
 
 ## Coverage Summary
 
-**4/4 executed scenarios PASS, zero bugs found.** The Failed/+Blocked toggle genuinely changes the query (not
-just a UI label), and cross-project isolation holds cleanly.
+**10/10 executed scenarios — 8/10 PASS, 2 bugs found (BUG-TCM-070 High confirmed chart XSS; BUG-TCM-071 High Excel
+export not recognizing the report type).** The core ranking logic (failure count, latest-wins, multi-suite dedup),
+both visibility boundaries (cross-project AND same-project private-issue), the Failed/+Blocked toggle (including
+its UI control), and the ranked table's own escaping are all correct. Of the two defects: one is isolated to the
+chart partial's interaction with the ApexCharts library on the live page (does not propagate into the HTML or PDF
+exports); the other is isolated to the Excel exporter never having been wired up for this report type at all
+(HTML and PDF both work correctly, including correctly escaping the same XSS-shaped payload as inert text).

@@ -97,6 +97,21 @@
     one-time provisioning script) create the Test Suite(s) and every Test Case inside them, and set each
     testcase's Automation Key to the exact test function/method name the suite will run — only then will CI
     results land on the right testcase instead of coming back unmatched.
+  - **Three ways to pre-create that Test Suite/Test Case structure, besides clicking through the UI**: (1) the
+    plugin's own JSON API — `POST /testcase_mcp/create_test_suite.json`, `POST /create_testcase.json`, or
+    `POST /testcase/bulk_testcase_create.json` for bulk-with-steps — callable via curl/Postman against the
+    user's own instance with their own API key, entirely separate from this repo's redmineflux MCP (which only
+    ever writes to production `flux.zehntech.com`); (2) the plugin's built-in CSV Import wizard for bulk
+    creation with steps; (3) manual UI (Add Test Suite / Add Sub Test Suite, then New Test Case per case).
+  - **Deferred test idea (2026-10-19, not yet executed): a dedicated RFTC-016/017/038 scenario for a user who
+    creates their OWN multiple test suites + nested sub-test-suites + testcases (via API, CSV, or UI) and then
+    runs CI against that self-built structure**, rather than reusing the existing `rftc-016-ci-qa` fixture
+    project. User's explicit call: for the current GitHub/GitLab/CircleCI/Bitbucket RFTC-038 live-platform pass,
+    **do not** build new/multiple suites per platform — reuse the single existing project (`rftc-016-ci-qa`,
+    suite "CI Ingest", id=3) across all 4 platforms, exactly like the already-verified Jenkins run (Run #8). The
+    multi-suite/sub-suite structural matching itself is already covered by RFTC016-30/31 (multi-suite grouping,
+    ambiguous suite membership — both PASS). The "user builds their own suite tree from scratch, then CI runs
+    against it" angle is a separate, not-yet-covered scenario explicitly saved for a **later** session.
 
 ## Confirmed Working
 
@@ -121,6 +136,51 @@
 - **Conversely, a status already showing in the grid is not proof your action worked.** The same retest showed
   #434/#435 as `Passed` *before* the submit, from results four days old. Verify by `created_at` and environment,
   not by what the cell reads.
+
+- **(2026-10-19) `bootstrap_run.json` DOES auto-create a new, empty Test Suite when a `--suites` name doesn't
+  match any existing suite** — contradicting this file's own earlier, incomplete note above ("CI/CD... does NOT
+  auto-create Test Suites or Test Cases"). `API.md:1147` already documents this precisely:
+  "`create_test_suite` when a suite is created (each `|| admin`)". Reproduced by accident: a Jenkins shell script
+  passed `--suites "Login" "Cart" "Operations" "Discounts"` (a bash `read -a` word-splitting bug turned the
+  intended 3-name list, one of which contained a space — `"Cart Operations"` — into 4 single-word tokens) and
+  `bootstrap_run` silently created two brand-new empty suites literally named `Cart` and `Operations` rather than
+  erroring or ignoring the unmatched names. **Practical implication**: when scripting multiple `--suites` names
+  and any one of them contains a space, do NOT join them with plain spaces into one string and re-split on
+  whitespace — use an unambiguous delimiter (e.g. `|`) end to end, or the CLI will silently create unintended
+  suites instead of failing loudly on a typo.
+- **(2026-10-19) "Delete Test Suite" is a silent no-op (no error shown) when the suite is referenced by an
+  active Run** — confirmed live: deleting a suite via the tree's own "Delete Test Suite" action returned no
+  error, the confirm dialog closed normally, but the suite was still present in `test_suites.json` on reload,
+  twice in a row. The actual blocker was an active Run (`bootstrap_run`'s own-created run) still referencing that
+  suite's `testsuite_id` — deleting that Run first made the suite delete immediately succeed. Same family as
+  BUG-TCM-026 (a Testcase Management delete/remove action silently doing nothing instead of surfacing a clear
+  reason), but for Test Suite deletion specifically, not yet filed as its own bug — worth a dedicated repro/filing
+  if this plugin's QA cycle revisits suite-management negative tests.
+- **(2026-10-19) The Test Suite-auto-creates / Test Case-never-auto-creates asymmetry is a deliberate,
+  spec-documented design decision, NOT a bug — confirmed by reading the full source specs, not just API.md's
+  permission table.** Live-verified via a real Jenkins build (`run_pipeline.sh`, build #9, Run #46): a brand-new
+  `--suites "Experimental Suite"` name that matched nothing caused `bootstrap_run` to auto-create a new empty
+  suite (id=15) — but the same build's `ingest` call then reported **all 6 results UNMATCHED**, creating **zero**
+  new testcase issues, even though every unmatched pytest test name had no corresponding Automation Key anywhere
+  in the project. This looks inconsistent at first glance ("if suites can auto-create, why can't testcases?"),
+  but it is explicitly intentional per two separate spec documents:
+  - `backlog/planning/rftc-016-feature-ci-results-ingest.md`, "Out of Scope" (line 130): "Creating test cases
+    from unmatched CI tests (`on_unmatched` reports them; case creation stays `create_testcase` /
+    `bulk_testcase_create`). **A future option can add it.**"
+  - `backlog/planning/rftc-009-feature-api-ci-create-run.md`, "Out of Scope" (line 67): "Auto-creating test cases
+    (issues). Bootstrap selects from existing test cases; creating test cases remains
+    `create_testcase`/`bulk_testcase_create`."
+  - Same rftc-009 spec, line 26, gives the rationale for why suite auto-create IS in scope: **"competitor
+    parity (TestRail, Xray, Zephyr all do exactly this)"** — a Suite is treated as a lightweight CI-convenience
+    container (safe to spring into existence from a CI call), while a Test Case is treated as a curated,
+    first-class QA artifact that must go through an explicit human/process creation path
+    (`create_testcase`/`bulk_testcase_create`/CSV import/UI) so CI runs can't silently flood the registry with
+    unreviewed test cases just because a developer wrote a new test function.
+  - Both specs carry `Quality Gates: PASS-WITH-CONDITIONS` (a formal 3-gate + cross-model adversarial review),
+    so this was a reviewed, conscious scope call, not an oversight — though the spec's own "A future option can
+    add it" phrasing means a genuine, legitimate product-enhancement request exists here (auto-create test cases
+    from unmatched CI results) — just not a defect against current documented behavior. Not filed as a bug;
+    flagged here only as a product-enhancement note in case the question resurfaces in a later session.
 
 ## Recurring Issues
 

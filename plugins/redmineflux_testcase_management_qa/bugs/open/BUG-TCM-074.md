@@ -133,3 +133,47 @@ Per user request, ran a full regression pass covering every content-editor tool 
 - Clicking the Requirement's title (sidebar tree item) still re-triggers the onboarding tour and fires a "Saved" request — expected, since the earlier unrelated tour-removal edit (requested, then undone, in this same session) was reverted per user instruction. This by itself did not cause any further data loss in this pass.
 
 **Verdict: reopened.** Not safe to close as fully fixed — the core "requirement content can silently lose blocks on save" defect class is still present under this reproduction, just with a narrower trigger. Production issue #124053 reopened (status Reopen, 50% done) with this evidence on 2026-10-20.
+
+---
+
+## Retest #2 — 2026-10-20 (reopen fix verification)
+
+**Root cause (per Vaishnavi Bhawsar, production journal on #124053, 2026-10-20T11:35:31Z):** when several edits were made to a Requirement in quick succession, each one saved itself independently in the background; if a slower save finished after a faster one, it could overwrite it, so the next reload would randomly be missing whichever item (block, attachment, or mention link) lost that race. Purely a network-timing race, not tied to any specific block type.
+
+**Fix:** saves now happen one at a time, in the same order the edits were made, instead of racing in parallel — removing the non-determinism entirely.
+
+**Retested** on the fixed `C:\crux-redmine` build after a container restart (`docker compose restart redmine`) to pick up the fix, following the dev's own QA steps verbatim (quickly add several different items without pausing, reload 3-4 times, confirm nothing is missing):
+
+1. Created a fresh Requirement (`BUG-TCM-074 Retest - Reopen Fix Verification`, #7).
+2. **Burst 1** (no pauses): typed a paragraph → Enter → typed a second paragraph → Enter → typed a third paragraph ending mid-word in a `#`-mention, selected test case #28 (`TC-01 Verify login with valid credentials`) from the dropdown → Enter → typed a fourth paragraph immediately after.
+3. Reloaded the page **4 times in a row**, reading `#page-content .ce-block` contents each time via `document.querySelectorAll` — all 3 text blocks and the `#28` mention link (rendered as a real `<a href="/issues/28">` link, not dropped text) were present, identical, and in the same order on every single reload.
+4. **Burst 2** (no pauses, same page): opened the block tool menu → Attachment → uploaded a file → immediately (without waiting for the upload to finish) typed a fifth paragraph right after.
+5. Reloaded the page **4 more times in a row** — all 5 blocks (3 original paragraphs + mention paragraph + new paragraph) plus the attachment block were present, in the correct order, every time. Attachment block neither vanished nor reordered (both of which were the original reopening symptoms).
+6. Cross-checked the backend relation on **Traceability Matrix** (`/traceability_rtms?project_id=test`) — requirement #7 ↔ testcase #28 link correctly recorded, consistent with the content-level mention.
+7. Checked **Page History** — still shows "No data." This is the same pre-existing audit-trail gap noted in the original report and in Retest #1; the developer's fix for this reopening was scoped to the save-race/data-loss issue only and was never claimed to also add version recording. Not a regression, not re-blocking closure, but still an open minor gap worth a follow-up ticket if an audit trail is ever required.
+
+**Evidence:**
+
+![Final state after 8 total reloads across two rapid-edit bursts — all text, the mention link, and the attachment are intact and in order](../../screenshots/BUG-TCM-074/retest-2026-10-20-fixed-reload-4-all-content-intact.png)
+
+**Verdict: FIXED.** Zero data loss and zero reordering across 8 consecutive reloads spanning two separate rapid multi-block edit bursts (text+mention, then text+attachment) — the exact reproduction that caused the reopening. Recommend closing BUG-TCM-074 and syncing production issue #124053 to Done/100%, pending the user's go-ahead per this repo's production write-approval policy.
+
+---
+
+## Retest #3 — 2026-10-20 (single-burst full-editor + link/unlink/rename/delete)
+
+Per further user request, ran one additional scenario covering everything in a single continuous rapid burst (instead of two separate bursts), plus explicit linking, unlinking, requirement-name-edit and delete checks that weren't covered in Retest #2.
+
+**Setup:** created a fresh Requirement (`BUG-TCM-074 Retest - Full Editor Single-Burst Verification`, #8). In one continuous burst with no pauses: paragraph → Heading → List → Delimiter → Attachment (upload) → immediately (before upload settled) a `#`-mention to test case #30, all added back-to-back.
+
+**Result — 4 reloads:** all blocks (paragraph, heading, list, delimiter, attachment, mention) present, correct content, correct order, every time. No loss, no reordering — same result as Retest #2's two-burst test, now also covering Delimiter and a List block in the same burst as the mention and attachment.
+
+**Linking:** confirmed via Traceability Matrix — requirement #8 correctly showed linked to testcase #30 after the mention was added.
+
+**Unlinking (mention removal) — first attempt gave a false alarm, resolved:** deleting the mention block's text via a scripted `execCommand('delete')` appeared to persist (Traceability Matrix briefly showed no link), but on the next reload the mention text reappeared in the content even though the backend relation stayed removed. Investigated this as a possible new content-revert bug. **Root cause: test-script artifact, not an app bug** — the scripted deletion never actually committed to the backend (confirmed by checking the live DOM immediately after: the `contenteditable="false"` mention `<a>` was still physically present). Redone with **real keyboard input** (click into block, `End`, two real `Backspace` key presses) — this time the block was correctly removed from both the live DOM and persisted correctly across a reload, with the Traceability Matrix also confirming the relation was gone. Unlinking via mention-text removal works correctly; the false alarm was this session's own synthetic-event limitation, not a product defect.
+
+**Requirement name edit:** used the pencil icon (`#edit-title`) to rename the requirement twice. Each rename persisted correctly, and — critically — did **not** revert or otherwise affect the already-saved content/blocks on reload (checked immediately after each rename). This directly tests the suspicion raised by the false alarm above (that an unrelated save like a title edit might restore stale content) — confirmed **not reproducible** once the unlink itself was done via a real edit rather than a synthetic one.
+
+**Delete:** deleted requirement #8 via the delete icon → confirmation dialog ("Are you sure?") → Delete. Requirement correctly removed from the sidebar list and from the Traceability Matrix, with no stale rows left behind.
+
+**Verdict: FIXED, confirmed from a third independent angle.** Combined with Retest #2, the fix has now been verified under: two separate rapid bursts, one single combined rapid burst covering 6 different block types + mention + attachment together, and the full link/unlink/rename/delete lifecycle — all clean. No regressions found. Still recommending closure of BUG-TCM-074 and production sync, pending user approval.

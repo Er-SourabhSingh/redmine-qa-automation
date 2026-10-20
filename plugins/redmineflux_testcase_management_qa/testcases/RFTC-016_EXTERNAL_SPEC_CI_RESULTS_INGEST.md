@@ -618,6 +618,64 @@ separately.
 
 ---
 
+## Third Follow-up (2026-10-19, same day) — multi-environment Run scenarios, live via a real Jenkins pipeline
+
+Prompted by a direct question: can a single Run hold results from multiple test environments (e.g. Chrome,
+Edge, Firefox), added either via parallel CI jobs or one sequential job — and is either approach safe? Executed
+live against `rftc-038-multisuite-qa` (project 3, suites Login/Cart Operations/Discounts), not simulated.
+
+---
+
+### RFTC016-41 (new, real Jenkins build #13): Multiple environments added to one Run in a single `update_run`
+call, then ingested in PARALLEL — no race condition, no data loss
+
+**Priority:** P1 — this is the exact shape a real multi-browser CI matrix would use
+**Steps:** `bootstrap` created Run #50. One `PUT /runs/update_run/50.json` call added all three environments
+(`Chrome`, `Edge`→actually `Firefox` third slot, i.e. `[Chrome, Firefox, Safari]`) in one request. A Jenkins
+`parallel()` block then ran three branches **simultaneously**, each calling `ingest --env <X> --auto-defect`
+against the same `run_id`, same JUnit report, different `--env`.
+**Expected Result:** All three branches succeed independently; no result from one environment overwrites or
+corrupts another's.
+**Actual Result:** **PASS.** All 3 parallel branches (`Chrome`, `Firefox`, `Safari`) returned `HTTP 200`,
+each independently reporting `"Ingested 6 results (6 matched, 0 unmatched)"`. Confirmed in the real TCM UI
+(`/runs/50`): environment dropdown correctly lists all three, each with its own independent 6-result set.
+
+---
+
+### RFTC016-42 (new, real Jenkins build #14): Multiple environments added to one Run, then ingested
+SEQUENTIALLY (Chrome → Edge → Firefox) — also safe, as expected
+
+**Priority:** P2 — the simpler, no-concurrency counterpart to RFTC016-41
+**Steps:** `bootstrap` created Run #51 (suites Login/Cart Operations/Discounts). One `update_run` call added
+`Chrome`, `Edge`, `Firefox` together. A single shell script then called `ingest --env Chrome`, then
+`ingest --env Edge`, then `ingest --env Firefox` — one after another, same `run_id`, same JUnit report.
+**Expected Result:** Each call succeeds independently; later calls do not disturb earlier environments' results.
+**Actual Result:** **PASS.** All three sequential calls returned `HTTP 200` with `"Ingested 6 results (6 matched,
+0 unmatched)"` each. Confirmed live in the TCM UI (`/runs/51`): environment dropdown lists `Chrome`, `Edge`,
+`Firefox`, each independently populated with its own 6 results — 18 total result-rows in one Run.
+
+---
+
+### RFTC016-43 (FINDING — doc/behavior mismatch, not a defect): `update_run`'s `run_assignments` field actually
+MERGES/APPENDS new environments rather than replacing the array, contradicting `API.md`'s own documented
+"Replace all environment/assignee pairs"
+
+**Priority:** P3 — documentation accuracy, not a bug; the actual behavior is safer than what's documented
+**Steps:** Deliberately raced two `update_run` calls against the same Run (#50), each supplying a request body
+naming only ONE new environment (`{"run_assignments":[{"environment":"Edge",...}]}` and
+`{"run_assignments":[{"environment":"Opera",...}]}` respectively) — the documented "replace" semantics would
+predict whichever call lands last wins, silently discarding the other's environment.
+**Expected Result (per `API.md`'s own docs):** Last-write-wins; one of `Edge`/`Opera` should be lost.
+**Actual Result:** **Both survived.** The second call's own response body showed
+`"run_assignments":[{"environment":"Edge","assignee":1},{"environment":"Opera","assignee":1}]` — the
+previously-added `Edge` was still present even though that request's payload named only `Opera`. The endpoint's
+real behavior is additive/merge, not a wholesale replace. **Not filed as a bug** (the real behavior is strictly
+safer than the documented one — no scenario loses data), but `API.md`'s own wording ("Replace all
+environment/assignee pairs") should be corrected to describe the actual merge semantics, so a future caller
+doesn't build defensive re-send-everything logic around a replace contract that isn't real.
+
+---
+
 ## Still Not Executed (genuine tooling/environment blockers)
 
 - **`automation_key` unconfigured** (`error_ci_ingest_automation_key_unconfigured`) and **defect tracker
@@ -630,17 +688,26 @@ separately.
 
 ## Coverage Summary
 
-**40/40 executed scenarios — 38/40 PASS, 2 bugs found**, now checked against the full 833-line source spec's own
-Unit (1-22)/Functional (F1-F13)/Edge (1-9)/Integration (E1-E4) tables, not just the production ticket's short
-description. Every core functional path, matching strategy (`id`/`subject`/`automation_key`, happy + ambiguous +
-multi-suite grouping/ambiguity), the full default + caller-override status-map mechanics, semantic (non-hardcoded)
-status resolution, permission boundaries (anonymous rejection, non-admin member with/without permission,
-admin-non-member bypass, API key vs Basic Auth, cross-project run AND cross-project key rejection), the
-**safety-critical cross-run defect-reuse isolation guarantee** (RFTC016-29 — a failure in a different run never
-silently reuses a stale defect), project visibility/global-auth-setting independence, validation edges (exact
-1000/1001 boundary, SQL injection attempt, non-integer duration, stored-XSS safety, transactional rollback
-including auto-created defects), the idempotency guarantee, and the `duration_ms` structured-column cross-check
-all behave exactly per spec.
+**43/43 executed scenarios — 41/43 PASS, 2 bugs found + 1 doc/behavior mismatch flagged**, now checked against
+the full 833-line source spec's own Unit (1-22)/Functional (F1-F13)/Edge (1-9)/Integration (E1-E4) tables, not
+just the production ticket's short description. Every core functional path, matching strategy
+(`id`/`subject`/`automation_key`, happy + ambiguous + multi-suite grouping/ambiguity), the full default +
+caller-override status-map mechanics, semantic (non-hardcoded) status resolution, permission boundaries
+(anonymous rejection, non-admin member with/without permission, admin-non-member bypass, API key vs Basic Auth,
+cross-project run AND cross-project key rejection), the **safety-critical cross-run defect-reuse isolation
+guarantee** (RFTC016-29 — a failure in a different run never silently reuses a stale defect), project
+visibility/global-auth-setting independence, validation edges (exact 1000/1001 boundary, SQL injection attempt,
+non-integer duration, stored-XSS safety, transactional rollback including auto-created defects), the idempotency
+guarantee, and the `duration_ms` structured-column cross-check all behave exactly per spec.
+
+**Third Follow-up (2026-10-19, same day): multi-environment Run scenarios (RFTC016-41/42/43), 3/3 executed,
+2/2 functional PASS + 1 doc/behavior mismatch flagged.** Verified live via two real Jenkins pipeline builds
+(not simulated) that a single Run can safely hold results from multiple environments (e.g. Chrome/Edge/Firefox)
+added either via **parallel** CI jobs (RFTC016-41) or a **sequential** single job (RFTC016-42) — both proven
+safe, no race condition, no data loss, confirmed independently in the real TCM UI. A side-experiment deliberately
+racing two `update_run` calls to probe for a last-write-wins data-loss risk instead surfaced RFTC016-43: the
+endpoint's real behavior **merges/appends** environments rather than replacing the array as `API.md` currently
+documents — a documentation-accuracy gap, not a defect (the real behavior is strictly safer than documented).
 
 **Two defects found:**
 - **BUG-TCM-067** (Low) — message-accuracy issue: denial correctly gated by `execute_testcase` only, but the

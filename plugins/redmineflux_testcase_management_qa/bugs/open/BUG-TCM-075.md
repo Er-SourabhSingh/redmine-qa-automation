@@ -1,7 +1,7 @@
 # BUG-TCM-075
 
 - Bug ID: BUG-TCM-075
-- Production Redmine Issue ID: (not yet reported — awaiting approval)
+- Production Redmine Issue ID: #124054 (https://flux.zehntech.com/issues/124054) — assigned to Vaishnavi Bhawsar, priority Medium, Defect Type Functional / Defect Severity Medium-severity / Defect priority Medium, target version Testcase Management plugin Release 7.2.0.
 - Title: PDF export of Testcase Reports drops the "Run Name (Environment)" heading that is correctly shown on the live page and in HTML/Excel exports
 - Severity: Medium
 - Redmine version: 6.x (Docker)
@@ -193,6 +193,7 @@ run-name/environment heading's presence in each format. This bug (BUG-TCM-075) c
 
 ## Production report
 
-Not yet reported. Will prepare the exact issue payload (title, description, severity, screenshots/PDF excerpts)
-and ask for explicit approval before calling `redmineflux_testcases_management_report_defect` against `ztflux`,
-per `REDMINEFLUX-MCP-SETUP.md` §4.
+Reported 2026-10-20 as issue #124054 on `ztflux`, via `redmineflux_core_create_issue`
+(tracker_id=3/Bug, category_id=2085/Testcase Management Plugin, fixed_version_id=2067/Release 7.2.0,
+priority_id=2/Medium, assigned_to_id=192/Vaishnavi Bhawsar, custom fields Defect Type=Functional,
+Defect Severity=Medium-severity, Defect priority=Medium), per explicit user approval.

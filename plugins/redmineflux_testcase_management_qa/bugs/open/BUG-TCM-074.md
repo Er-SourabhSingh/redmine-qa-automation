@@ -1,7 +1,7 @@
 # BUG-TCM-074
 
 - Bug ID: BUG-TCM-074
-- Production Redmine Issue ID: (not yet reported — pending approval)
+- Production Redmine Issue ID: #124053 (https://flux.zehntech.com/issues/124053) — created 2026-10-20, assigned to Vaishnavi Bhawsar, Priority Blocker, Defect Severity Critical, Defect priority Urgent, Defect Type Functional, standalone bug (no production Run/Testcase link)
 - Title: Requirement content (description) is silently discarded on save — reload shows an empty editor even though "Updated by/at" changes and no Page History version is ever recorded
 - Severity: Critical
 - Redmine version: 6.x (Docker)
@@ -89,4 +89,4 @@ from their instance to pin down — flagged for the user, not filed as a separat
 
 ## Production report
 
-Not yet reported to production `ztflux` — pending explicit write-approval per `REDMINEFLUX-MCP-SETUP.md` §4.
+Reported to production `ztflux` as #124053 on 2026-10-20, assigned to Vaishnavi Bhawsar, Priority Blocker / Defect Severity Critical / Defect priority Urgent / Defect Type Functional, category "Testcase Management Plugin". Created as a standalone bug issue (no production Run/Testcase created), same convention as BUG-TCM-072/073.

@@ -90,3 +90,20 @@ from their instance to pin down — flagged for the user, not filed as a separat
 ## Production report
 
 Reported to production `ztflux` as #124053 on 2026-10-20, assigned to Vaishnavi Bhawsar, Priority Blocker / Defect Severity Critical / Defect priority Urgent / Defect Type Functional, category "Testcase Management Plugin". Created as a standalone bug issue (no production Run/Testcase created), same convention as BUG-TCM-072/073.
+
+---
+
+## Retest — 2026-10-20
+
+**Root cause (per Vaishnavi Bhawsar, production journal on #124053):** opening a Requirement to view its saved content was itself quietly triggering two separate background save attempts — one with the content wiped blank (the editor resetting itself before loading the real text back in) and one with the real content moments later. Depending on network/server timing, the blank save could finish *after* the real one and silently overwrite it. This explains every original symptom: the "Saved" toast and updated timestamp looked correct (a save genuinely happened), yet the content vanished on reload with zero trace in Page History (the content was wiped, not a rendering/versioning issue). A file attachment survived because it's a separate Redmine attachment record, not part of this content blob.
+
+**Fix:** viewing a Requirement no longer triggers any save at all — only genuine user edits do.
+
+**Retested locally** on the fixed `C:\crux-redmine` plugin build (`assets/javascripts/script.js` updated, `docker compose restart redmine` to pick it up):
+1. Opened requirement #1 (`BUG-REPRO Requirement Description Save Test`), added a new line "RETEST after fix: this line should survive a page reload."
+2. Reloaded the page (`/requirements?project_id=test&page_id=1`) — **content persisted**, visible exactly as typed, `Updated by/at` genuinely updated.
+3. Page History still shows "No data" — this part of the original Expected Result (a version should be recorded per save) is **not** fixed, only the data-loss itself is. Minor/cosmetic compared to the original critical defect; not re-opening over it, but worth a follow-up note if an audit trail is ever needed.
+
+**Second symptom (test case creation server error):** confirmed by the dev's retest (journal entry 2) as a downstream effect of the content-corruption bug, not an independent defect — matches this session's own earlier finding that it didn't reproduce once tested directly.
+
+**Verdict: FIXED** — critical data-loss bug confirmed resolved. Production issue #124053 is at status **In QA**, 90% done; developer-reported retest also passed. Local retest independently confirms this.

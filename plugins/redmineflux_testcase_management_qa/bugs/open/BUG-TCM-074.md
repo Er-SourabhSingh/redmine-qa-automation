@@ -1,7 +1,7 @@
 # BUG-TCM-074
 
 - Bug ID: BUG-TCM-074
-- Production Redmine Issue ID: #124053 (https://flux.zehntech.com/issues/124053) — created 2026-10-20, assigned to Vaishnavi Bhawsar, Priority Blocker, Defect Severity Critical, Defect priority Urgent, Defect Type Functional, standalone bug (no production Run/Testcase link)
+- Production Redmine Issue ID: #124053 (https://flux.zehntech.com/issues/124053) — created 2026-10-20, assigned to Vaishnavi Bhawsar, Priority Blocker, Defect Severity Critical, Defect priority Urgent, Defect Type Functional, standalone bug (no production Run/Testcase link). **Reopened 2026-10-20** (was In QA/90%, now Reopen/50%) after a full-editor regression pass found a residual, same-root-cause-class data-loss issue — see "Reopened — further regression findings" below.
 - Title: Requirement content (description) is silently discarded on save — reload shows an empty editor even though "Updated by/at" changes and no Page History version is ever recorded
 - Severity: Critical
 - Redmine version: 6.x (Docker)
@@ -106,4 +106,30 @@ Reported to production `ztflux` as #124053 on 2026-10-20, assigned to Vaishnavi 
 
 **Second symptom (test case creation server error):** confirmed by the dev's retest (journal entry 2) as a downstream effect of the content-corruption bug, not an independent defect — matches this session's own earlier finding that it didn't reproduce once tested directly.
 
-**Verdict: FIXED** — critical data-loss bug confirmed resolved. Production issue #124053 is at status **In QA**, 90% done; developer-reported retest also passed. Local retest independently confirms this.
+**Verdict at this point: FIXED** for the originally reported scenario — critical data-loss bug (view-triggered phantom save) confirmed resolved. Production issue #124053 was at status **In QA**, 90% done; developer-reported retest also passed. Local retest independently confirmed this.
+
+---
+
+## Reopened — further regression findings, 2026-10-20
+
+Per user request, ran a full regression pass covering every content-editor tool and every Requirement↔Testcase linking path before agreeing to close this bug. Found a residual issue in the same save/load pipeline, distinct trigger condition from the original report:
+
+**Setup:** created a fresh Requirement (`RFTC-074 Regression - Full Editor Test`, #5) and added one block of every available EditorJS tool in quick succession: paragraph with Bold/Italic/Underline/Strikethrough/Link, Heading, List, Quote, Code, Delimiter, Table, Warning, Checklist, Raw HTML, Image (uploaded), Attachment (uploaded), plus two `#`-mention links to test cases #26 and #27.
+
+**Result across three consecutive reloads:**
+- Reload 1: all basic blocks (paragraph/heading/list/quote) persisted correctly, but the **Delimiter block vanished**, and the **Attachment block** was present but **reordered** (moved from last position to right after the Code block).
+- Reload 2 and reload 3 (state then stable): the **Attachment block vanished permanently**, replaced by a stray empty paragraph at the end. The Delimiter was present this time.
+- Both `#`-mention links (to test cases #26 and #27) that were inserted into the content were **silently dropped** from the rendered content on a later reload.
+
+**Important nuance:** the backend `RequirementIssue` relation for the #26 mention **survived** (confirmed via Traceability Matrix — requirement #5 still shows linked to #26) even though the visible mention text was gone from the content. So this is not an exact repeat of the original full-wipe bug — it's the same root-cause *class* (a save/render race dropping part of the content non-deterministically), now shown to persist for rapid multi-block edits even after the view-triggered-save fix.
+
+**Page History still shows "No data"** throughout all of this — the audit-trail gap from the original report is unresolved.
+
+### Other regression findings (all PASS, for completeness)
+
+- Requirement↔Testcase linking confirmed working via all tested paths: testcase creation form's Requirements multi-select, testcase list → open → Edit → Requirements field, and Requirement page's `#`-mention.
+- Unlinking via the testcase Edit form (removing the requirement chip, "x" button, Submit) correctly removes the relation — confirmed via Traceability Matrix updating immediately. (First attempt appeared not to take effect — likely a timing issue with the click before Submit, not reproduced on a careful retry.)
+- Traceability Matrix accurately reflects every link/unlink performed during this pass.
+- Clicking the Requirement's title (sidebar tree item) still re-triggers the onboarding tour and fires a "Saved" request — expected, since the earlier unrelated tour-removal edit (requested, then undone, in this same session) was reverted per user instruction. This by itself did not cause any further data loss in this pass.
+
+**Verdict: reopened.** Not safe to close as fully fixed — the core "requirement content can silently lose blocks on save" defect class is still present under this reproduction, just with a narrower trigger. Production issue #124053 reopened (status Reopen, 50% done) with this evidence on 2026-10-20.

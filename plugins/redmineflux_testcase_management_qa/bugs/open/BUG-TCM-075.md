@@ -156,6 +156,26 @@ all 6 report types → download HTML/PDF/Excel → verify data/graphs). Not yet 
 PDF-export heading fidelity is not currently covered in `testcases/`; should be added as a dedicated TC once this
 is fixed (Traceability Matrix gap).
 
+## Excel export re-verified (NOT affected)
+
+Per explicit follow-up request, re-checked all 6 Excel exports specifically for the run-name/environment heading
+(not just table data/charts as in the original pass), by unzipping each `.xlsx` and reading its raw
+`xl/worksheets/sheet1.xml` (these exports use inline strings, no `sharedStrings.xml`):
+
+- Testcase Summary (`report_2.xlsx`): `Run: RFTC-074 Reports Regression Run (Win + Chrome)` — present, correct.
+- Defect Summary (`report_3.xlsx`): `Run: RFTC-074 Reports Regression Run (Win + Chrome)` — present, correct
+  (unlike its PDF, which drops the `(Win + Chrome)` suffix).
+- Activity Summary (`report_4.xlsx`): `Run: RFTC-074 Reports Regression Run (Win + Chrome)` — present, correct.
+- Tester Scorecard (`report_5.xlsx`): `Run Name` / `Environment` columns both present and populated
+  (`RFTC-074 Reports Regression Run` / `Win + Chrome`).
+- Requirement Coverage (`requirement_coverage.xlsx`): `Run` / `Environment` columns both present and populated for
+  every row.
+- Overdue Run Summary (`report_7.xlsx`): `Run: RFTC-074 Reports Regression Run (Win + Chrome) - Overdue by 1 days`
+  — present, correct, including the overdue text that the PDF for this report type drops entirely.
+
+**Conclusion: Excel export is not affected by this bug at all** — the heading/run-name/environment data is complete
+and correct in every Excel export, for every report type. This bug is PDF-export-only.
+
 ## Duplicate check
 
 - Checked `bugs/_duplicates.md` and `bugs/_index.md` — no existing bug covers a missing run-name/environment

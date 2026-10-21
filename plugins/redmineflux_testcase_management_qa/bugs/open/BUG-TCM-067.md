@@ -127,9 +127,18 @@ stack was restarted (`docker compose restart redmine sidekiq`).
   `l(:error_execute_testcase_permission_required)` at `app/controllers/apis/ci_test_run_controller.rb:50,96` and
   `app/controllers/issue_status_results_controller.rb:200,203` — confirmed via `grep` inside
   `redmine6-redmine-1`. The misleading "not the assignee" wording is gone from the code path.
-- **But the new key was never added to `config/locales/en.yml`** — confirmed via recursive grep across every
+- **But the new key is missing from `config/locales/en.yml`** — confirmed via recursive grep across every
   locale file in the container (zero matches, exit code 1). The old `error_permission_create_result` string (line
   583, shifted from 611) is still present but no longer referenced by these call sites.
+- **Correction, found later the same session:** the key was NOT "never added" — it genuinely was added, correctly,
+  by this bug's own fix commit (`78f4f0c`). A **later, unrelated commit** (`ebeda18`, the commit that fixed
+  `BUG-TCM-079`'s CSV-import character limit) silently removed it again, along with 40 other unrelated locale
+  keys across 4 other feature areas (Quality HQ, the Run Show suite-picker, the donut chart, and the Test Suite
+  tree panel) — evidently committed from a stale, out-of-date local copy of `en.yml` that predated all of those
+  additions. Confirmed via `git log`/`git show` inside the container. **Filed as the much broader `BUG-TCM-082`
+  (Critical)** — see that bug for the full root-cause writeup and the complete list of 41 affected keys. This
+  bug (067) is being left open as-is since its own specific symptom is still live, but the actual fix needed is
+  "restore the 41 deleted keys," not "add a key that was never added."
 - Confirmed the actual rendered text live, read-only, inside the running container:
   ```
   $ docker exec -e SECRET_KEY_BASE=<REDMINE_SECRET_KEY_BASE> redmine6-redmine-1 \

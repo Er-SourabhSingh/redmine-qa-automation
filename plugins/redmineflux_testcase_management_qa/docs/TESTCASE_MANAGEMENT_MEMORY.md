@@ -433,3 +433,23 @@
     when a bug's original environment is just "whatever stack happened to be running that day," and the
     defect's root cause isn't plugin-instance-specific, prefer retesting on the currently-running stack over
     starting a second one — ask/clarify scope rather than assuming the original environment is load-bearing.**
+
+- **(2026-10-21) The user spotted "Translation missing" strings in a screenshot of the Quality HQ page and the
+  Test Suite tree's search dropdown that this session's own retest pass had not caught.** Investigated via the
+  plugin's own `git log`/`git show` inside the container and found the real root cause went far beyond
+  BUG-TCM-067's single symptom: commit `ebeda18` (the very commit that correctly fixed BUG-TCM-079's CSV-import
+  2000→40000-char limit) was evidently authored against a stale local copy of `config/locales/en.yml` that
+  predated several already-shipped features, and when it saved that file it silently reverted 41 unrelated
+  locale keys — the entire Quality HQ dashboard (`rftc-044`), the Run Show suite-picker dropdown and donut chart
+  (`rtc-019`), the Test Suite tree panel's search placeholder, and (critically) BUG-TCM-067's own fix key from
+  commit `78f4f0c`. This explains why BUG-TCM-067's retest found a "Translation missing" placeholder instead of
+  either the old or the intended new message — the key genuinely was added correctly by its own fix commit, then
+  un-added by this completely unrelated later commit. Filed as `BUG-TCM-082` (Critical), and corrected
+  BUG-TCM-067's retest note to point to the true root cause rather than the misleading "key was never added"
+  conclusion reached earlier in the session.
+  - **Lesson: a locale-file diff that only shows additions relevant to the commit's stated purpose is not proof
+    the commit is safe** — when a commit's diff for a shared config file (locale strings, a settings schema, an
+    enum list) touches many lines, check whether it was generated from a sufficiently up-to-date base (e.g.
+    compare the file's key count before/after, or scan the diff for `-` lines that don't match the commit's own
+    stated intent). A commit can be internally correct about what it adds while still being destructively wrong
+    about what it silently removes.

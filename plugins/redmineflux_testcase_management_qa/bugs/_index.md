@@ -59,7 +59,7 @@
 | BUG-TCM-064 | Deleting a user who authored/updated a Testcase Report crashes with an unhandled 500 (foreign key violation on testcase_reports) | Closed | Medium | master (pre-7.2.0) | #123501 | bugs/closed/BUG-TCM-064.md |
 | BUG-TCM-065 | redmineflux-tcm-ci 0.1.0: documented `python -m client` backward-compat shim is unimportable on a real pip install (packaging gap, not in `pyproject.toml` packages list) | Closed | Low | N/A (CLI tool, rftc-017) | #123559 | bugs/closed/BUG-TCM-065.md |
 | BUG-TCM-066 | GitHub Actions recipes (rftc-038) install the CLI via unpinned `pip install .` instead of the pinned git URL every other platform uses — broken for an actual copy-paste consumer | Closed | Medium | N/A (CI recipes, rftc-038) | #123563 | bugs/closed/BUG-TCM-066.md |
-| BUG-TCM-067 | CI ingest (rftc-016) and the manual Add Result form deny with "you are not the assignee" even though the real gate is `execute_testcase` permission only — code now references a new locale key that was never defined, so the denial renders as a raw "Translation missing" placeholder instead (retested 2026-10-21, still broken, in a worse form) | Open | Low | master (post-pull, pre-7.2.0) | #123955 | bugs/open/BUG-TCM-067.md |
+| BUG-TCM-067 | CI ingest (rftc-016) and the manual Add Result form deny with "you are not the assignee" even though the real gate is `execute_testcase` permission only — the fix commit correctly added a new locale key, but a later unrelated commit silently deleted it (and 40 other keys — see BUG-TCM-082), so the denial renders as a raw "Translation missing" placeholder instead | Open | Low | master (post-pull, pre-7.2.0) | #123955 | bugs/open/BUG-TCM-067.md |
 | BUG-TCM-068 | Slow Tests report's Excel export is completely empty — no Rank column, no data rows, wrong "No timing data yet: 0" (PDF/HTML exports of the same report are correct) | Closed | High | master (pre-7.2.0) | #123979 | bugs/closed/BUG-TCM-068.md |
 | BUG-TCM-069 | CI ingest's `on_unmatched: "skip"` option is accepted but never implemented — identical response to `"report"` | Closed | Medium | master (pre-7.2.0) | #123980 | bugs/closed/BUG-TCM-069.md |
 | BUG-TCM-070 | Most Failed Tests report's bar chart executes injected HTML/script from a test case subject — ApexCharts renders xaxis.categories labels as HTML, not plain SVG text (confirmed reproducible XSS, alert() genuinely fires) | Closed | High | master (pre-7.2.0) | #123985 | bugs/closed/BUG-TCM-070.md |
@@ -74,6 +74,7 @@
 | BUG-TCM-079 | CSV Import still hard-rejects any step/expected-result content over 2000 characters — including exactly 40000 chars, the new column limit itself — defeating the fix's actual purpose of migrating long Jira/Zephyr test cases via CSV (fix now reads the limit dynamically from the column definition; retest PASS at every length up to 40000) | Closed | High | 7.1.0 | #124155 | bugs/closed/BUG-TCM-079.md |
 | BUG-TCM-080 | Emailed PDF attachments now contain the raw HTML/CSS/JavaScript page source as literal visible text instead of a rendered document — a severe new regression in the mailer's PDF-generation pipeline, found 2026-10-21 while retesting BUG-TCM-077/078 against freshly-pulled plugin code; affects every report type | Open | Critical | master (post-pull, pre-7.2.0) | #124159 | bugs/open/BUG-TCM-080.md |
 | BUG-TCM-081 | Most Failed Tests report's "Download PDF" button export has a table-layout glitch — the "Failing Runs" drilldown column's rows overlap and misalign the Failures/Executed/Failure Rate columns, found 2026-10-21 while retesting BUG-TCM-076's chart-missing fix | Open | Low | master (post-pull, pre-7.2.0) | #124160 | bugs/open/BUG-TCM-081.md |
+| BUG-TCM-082 | The BUG-TCM-079 fix commit (`ebeda18`) silently deleted ~41 unrelated locale keys — Quality HQ's entire dashboard, the Run Show suite-picker, the donut chart, the Test Suite tree panel, and BUG-TCM-067's own fix key all broke at once, found 2026-10-21 after the user spotted "Translation missing" strings in a screenshot | Open | Critical | master (post-pull, pre-7.2.0) | (not yet reported) | bugs/open/BUG-TCM-082.md |
 | BUG-TCM-005 | Report emailed as PDF arrives with no attachment at all, while the body still says "Please find the attached Testcase Report" | Closed | High | 6.1.3 | #120588 | bugs/closed/BUG-TCM-005.md |
 | BUG-TCM-003 | Bulk update result fails for every browser user because the bulk endpoint rejects the logged-in session and treats the request as an unauthenticated API call | Closed | High | 7.0.0 | #120544 | bugs/closed/BUG-TCM-003.md |
 | BUG-TCM-004 | Bulk Update Result modal shows raw HTML markup in its "Apply to N testcase(s)" line | Closed | Low | 7.0.0 | #120546 | bugs/closed/BUG-TCM-004.md |
@@ -274,5 +275,13 @@
     time, and — per the user's own correction — the defect is not actually tied to that instance). Both symptom
     categories confirmed FIXED on Run #5/environment CI: Testcase Summary's PDF now shows the full heading
     (previously completely absent), Defect Summary's PDF now includes the previously-dropped environment suffix.
-    Production #124054 synced to Done/100%, local file moved to `bugs/closed/`. **Net open-bug count now 5**
-    (BUG-TCM-067, 071, 078, 080, 081).
+    Production #124054 synced to Done/100%, local file moved to `bugs/closed/`.
+  - **BUG-TCM-082 found 2026-10-21**, after the user spotted "Translation missing: en.label_quality_hq" and
+    related placeholders in a screenshot. Root-caused via `git log`/`git show` inside the container: commit
+    `ebeda18` (BUG-TCM-079's own fix commit) was evidently authored against a stale local copy of
+    `config/locales/en.yml` and silently deleted 41 unrelated keys when it saved that file — the entire Quality
+    HQ dashboard, the Run Show suite-picker dropdown, the donut chart, the Test Suite tree panel's search
+    placeholder, and (critically) `BUG-TCM-067`'s own fix key, all at once. BUG-TCM-067's retest note corrected
+    to reflect this true root cause (the key wasn't "never added" — it was added correctly, then un-added by
+    this unrelated commit). Filed as BUG-TCM-082 (Critical), not yet reported to production. **Net open-bug
+    count now 6** (BUG-TCM-067, 071, 078, 080, 081, 082).

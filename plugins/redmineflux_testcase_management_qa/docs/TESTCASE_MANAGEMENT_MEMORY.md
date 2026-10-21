@@ -505,3 +505,41 @@
     cover at minimum: CSV Import suite, Reports suite (all 3 export formats × Slow Tests/Most Failed Tests/
     Testcase Summary/Defect Summary), CI ingest permission/skip-mode scenarios, Quality HQ dashboard, Run Show
     suite-picker, and Test Suite tree — not just the 6 bugs' own narrow repro steps.
+
+- **(2026-10-21) Full final-cycle regression run (CLAUDE.md §27), triggered by `bugs/open/` becoming empty.**
+  First confirmed the complete Release 7.2.0 feature list against production (26 issues under fixed_version
+  2067) and found 2 genuine coverage gaps the user asked to be closed before regression: `rftc-011` (UI
+  modernization) had only Wave 0 deeply tested, with Waves 2/4/5/6/7/8 covered only by a shallow "regression
+  floor" check; `rftc-042`/`rftc-043` (testing harness, security scanning) remained explicitly out of scope per
+  an earlier session decision.
+  - **rftc-011 Waves 2/4/5/6/7/8 — all 6 individually regressed against their own spec's acceptance criteria**
+    (read each wave's own `backlog/planning/rftc-011-wave-*.md` file for its exact checklist, not assumed):
+    - Wave 2 (Runs & Results list): Sr.No. column present, native `<button type=submit>` search (no fake
+      `span[role=button]`), action-icon `title`/`aria-label` present — PASS.
+    - Wave 4 (Requirements + Traceability RTM): token-based `rf_testcase_management_table_cell_divider` class
+      present, rowspan/defect-pairing correct, no XSS regression on Requirements — PASS.
+    - Wave 5 (Milestones + Test Plans): native search buttons on both screens, no fake-submit spans — PASS.
+    - Wave 6 (Todos + Environment + Activity): native Todos search button, Environment Edit/Delete icons have
+      title/aria-label, Activity renders with token-based background — PASS.
+    - Wave 7 (Settings + Result forms): Settings run-type list icons have title/aria-label, Add Result popup's
+      submit button uses the correct `#0094ff` token color, opened via a real click on a Run's result link (not
+      a raw URL) — PASS.
+    - Wave 8 (Import Wizard): shared `rf_testcase_management_btn rf_testcase_management_btn_secondary` button
+      classes confirmed on the Next/Import controls; full wizard flow (step1→2→3→4→perform_import) exercised
+      end-to-end with a real CSV upload, genuinely imported 1 real testcase — PASS functionally, but **found a
+      new bug**: the page title accumulates "Redmineflux Testcase - " once per suite-tree node on step1 (5x for
+      a 3-suite project) because the recursive `_suite_tree.html.erb` partial carries its own copy of a
+      title-mutating script that should only exist once, in the page shell. Filed as **BUG-TCM-083** (Low).
+  - **Same CSV upload also closed the CSV Import regression** (BUG-TCM-079's fix, previously only verified on
+    `C:\crux-redmine`/localhost:3015): the 40000/40001-char boundary file was run through the full wizard on
+    `localhost:3000` for the first time — confirmed the 40000-char row imports OK and the 40001-char row is
+    correctly rejected with "Step 1: step content exceeds the maximum length of 40000 characters (got 40001)."
+    (the corrected message, not the old "2000 characters" one), and the OK row's testcase was genuinely created
+    (issue #2093) after clicking through to the real `perform_import` step.
+  - **Reports spot-check** (Testcase Summary, not deeply touched today): report #29 (reused from BUG-TCM-075's
+    retest) still shows the correct run-name heading, 2 data rows, zero "Translation missing", and its Excel
+    export responds 200 — no regression from today's broader locale/report fixes.
+  - **Net result: full regression PASS across all newly-checked areas, with 1 new bug found (BUG-TCM-083, Low,
+    not yet reported to production — pending approval).** This closes the CLAUDE.md §27 gate — `STATUS.md` can
+    now be considered for `Complete`, contingent on how BUG-TCM-083 is handled (either fixed/closed, or
+    explicitly accepted as a known residual issue per user instruction).

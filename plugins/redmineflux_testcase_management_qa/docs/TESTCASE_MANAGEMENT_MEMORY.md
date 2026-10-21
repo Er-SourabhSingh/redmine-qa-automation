@@ -620,3 +620,19 @@
     authz-matrix generator genuinely works as designed — it found a real, previously-unknown hole the
     moment it was given the full persona roster it was built to use. Production suites #452/#453 + 22
     testcases created in Run #612 for both rftc-042 and rftc-043; BUG-TCM-086 reported as production #124227.
+  - **UPDATE, same session: RFTC038-25 (Bitbucket job-completion) RESOLVED, after an account lockout detour.**
+    The original shared Bitbucket workspace's account (from `QA_CREDENTIALS.md`'s Google test account) hit a
+    genuine, real **24-hour account-recovery lockout** mid-login (triggered by Bitbucket's own security hold,
+    not anything this investigation did wrong) — logging into it is now impossible until that window passes.
+    Rather than block on that, the user logged into their own **personal** Bitbucket account (already an
+    authenticated session, so no password entry was needed from this side — avoiding the credential-
+    materialization boundary entirely) and created a throwaway private repo
+    (`sourabhworkspace/devops-plugin-test/tcm-bitbucket-test`). Enabling Pipelines via the UI's own
+    "Starter pipeline" template produced a real, hosted (not self-hosted-runner) Bitbucket Cloud Pipelines run
+    that completed with real green-checkmark evidence across Build/Lint/Security-scan/Deploy-to-Staging steps
+    (Deploy-to-Production correctly `Waiting` on its own declared manual trigger). **Lesson: when one specific
+    account/workspace is blocked (locked out, rate-limited, mid-recovery), a second, independently-created
+    workspace on the SAME platform is an equally valid way to prove "this platform's pipelines genuinely run
+    to completion" — the goal was confirming Bitbucket Pipelines' real behavior, not re-using one specific
+    account.** This is a good repeatable pattern for any future platform-lockout situation: don't wait out an
+    external security hold if an alternative real account/workspace can establish the same evidence faster.

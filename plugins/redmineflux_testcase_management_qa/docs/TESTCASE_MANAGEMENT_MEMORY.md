@@ -552,3 +552,35 @@
   not in the run's scope. **Full final-cycle regression (CLAUDE.md §27) is now complete**: rftc-011 Waves 2-8,
   CSV Import, Reports spot-check, and CI ingest happy-path all PASS, with only BUG-TCM-083 (Low, reported to
   production as #124202) found as a new residual issue.
+
+- **(2026-10-21) rftc-042/rftc-043 gap-closing — corrected a premature "the harness doesn't exist" conclusion.**
+  Production tickets #121885 (rftc-042, TCM Testing Harness) and #121886 (rftc-043, Security/discovery testing)
+  both show 90%/"In QA". An earlier draft of `RFTC-042_EXTERNAL_SPEC_TCM_TESTING_HARNESS.md` concluded the
+  harness's deliverable "does not exist anywhere" — that was WRONG, caught by the user's own instruction to
+  read every file both tickets' descriptions reference before writing anything. **The harness is real**: it
+  lives inside the existing companion repo `C:\redmine v6\plugins\redmineflux-tcm-ci\harness\` (not a brand-new
+  sibling repo, which is what the earlier search was looking for) — a substantial, non-stub implementation of
+  every layer (api/cli/browser/load/chaos/security/dogfood), a dated and honest `feature-matrix.yml`, and a
+  working flake-quarantine mechanism (`flaky.yml`). **Lesson: when a strategy doc names a prospective new
+  sibling-repo path for a deliverable, always check whether the team actually built it inside an EXISTING
+  companion repo instead before concluding it doesn't exist at all — directory-name search alone is not
+  sufficient evidence of absence.**
+  - What's genuinely still missing/unproven (both tracked, not papered over): the harness's own headline
+    deliverable — a complete, successful `harness/run.py` end-to-end execution producing JUnit + exit code —
+    has **never been run by anyone**, in this environment or (per the absence of any `harness/reports/`
+    artifacts) anywhere else. Filed as **BUG-TCM-085**. The literal `prosopite` per-PR N+1 gate named in the
+    strategy doc also genuinely does not exist (a different, load-layer-embedded EXPLAIN/seqscan checker exists
+    instead, `harness/harness/dbexplain.py` — narrower in scope, not a standalone PR gate).
+  - **New environment-specific finding: this sandbox's own credential-materialization safeguard blocks both
+    `rails runner`-based API-key generation AND the Redmine UI's My Account → API key → "Show" link** — both
+    were denied by the auto-mode permission classifier when attempting to get a persona API key to run the
+    harness live against `localhost:3000`. This is a legitimate, correctly-functioning guardrail, not a bug to
+    work around — any future session needing to run this harness (or anything else requiring a live API key)
+    should ask the user to supply one directly rather than retrying generation/reveal through automation.
+  - **What WAS genuinely executed live this session** (no credential needed): the harness's
+    `fuzz_junit_parser.py` + `property_tests_junit_parser.py` pytest modules, installed and run directly inside
+    `redmine6-redmine-1` — 17/18 passed; 1 failure was a brittle Hypothesis-generated property assertion (a
+    fuzzed message string happened to contain the literal substring the test checked for), triaged as a test
+    bug in the harness's own code, not a plugin regression. This is a good repeatable pattern: when a sibling
+    repo's security/property tests need no live server connection, they can and should be re-run directly
+    rather than only read/reviewed.

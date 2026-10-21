@@ -76,6 +76,7 @@
 | BUG-TCM-081 | Most Failed Tests report's "Download PDF" button export has a table-layout glitch — the "Failing Runs" drilldown column's rows overlap and misalign the Failures/Executed/Failure Rate columns, found 2026-10-21 while retesting BUG-TCM-076's chart-missing fix; retested 2026-10-21 after the dev's fix — confirmed FIXED | Closed | Low | master (post-pull, pre-7.2.0) | #124160 | bugs/closed/BUG-TCM-081.md |
 | BUG-TCM-082 | The BUG-TCM-079 fix commit (`ebeda18`) silently deleted ~41 unrelated locale keys — Quality HQ's entire dashboard, the Run Show suite-picker, the donut chart, the Test Suite tree panel, and BUG-TCM-067's own fix key all broke at once, found 2026-10-21 after the user spotted "Translation missing" strings in a screenshot; retested 2026-10-21 after the dev's fix (same commit as BUG-TCM-067) — confirmed FIXED | Closed | Critical | master (post-pull, pre-7.2.0) | #124178 | bugs/closed/BUG-TCM-082.md |
 | BUG-TCM-083 | Import Wizard's Step 1 page title accumulates "Redmineflux Testcase - " once per suite-tree node — the recursive `_suite_tree.html.erb` partial carries its own copy of a title-mutating script that should only run once, found 2026-10-21 while regression-testing rftc-011 Wave 8 | Open | Low | master (post-pull, pre-7.2.0) | #124202 | bugs/open/BUG-TCM-083.md |
+| BUG-TCM-085 | rftc-042 TCM Testing Harness's own stated deliverable (`harness/run.py` end-to-end execution producing JUnit + exit code) has never been successfully run by anyone, despite production ticket #121885 showing 90% done / "In QA" — found 2026-10-21 while writing/executing RFTC-042 and RFTC-043 external-spec testcases | Open | Medium | master (post-pull, pre-7.2.0) | *(not yet reported)* | bugs/open/BUG-TCM-085.md |
 | BUG-TCM-005 | Report emailed as PDF arrives with no attachment at all, while the body still says "Please find the attached Testcase Report" | Closed | High | 6.1.3 | #120588 | bugs/closed/BUG-TCM-005.md |
 | BUG-TCM-003 | Bulk update result fails for every browser user because the bulk endpoint rejects the logged-in session and treats the request as an unauthenticated API call | Closed | High | 7.0.0 | #120544 | bugs/closed/BUG-TCM-003.md |
 | BUG-TCM-004 | Bulk Update Result modal shows raw HTML markup in its "Apply to N testcase(s)" line | Closed | Low | 7.0.0 | #120546 | bugs/closed/BUG-TCM-004.md |
@@ -306,3 +307,26 @@
   - **All 6 moved to `bugs/closed/`, all 6 synced to production Done/100%.** `bugs/open/` is now **completely
     empty** for this plugin. Per `CLAUDE.md` §10/§27, a full final-cycle regression must be run before
     `STATUS.md` can read `Complete` — not yet run as of this update.
+
+- **rftc-042/rftc-043 gap-closing session, 2026-10-21 (same day):** per explicit user instruction, read every
+  file referenced by production tickets #121885 (rftc-042) and #121886 (rftc-043) in full before writing
+  anything — including `documents/TESTING-STRATEGY-AND-HARNESS.md`, its cohort review,
+  `documents/security-review-2026-10-02.md`, `documents/security-rules.md`,
+  `documents/owasp-top-10-coverage.md`, `documents/efficiency-review-2026-10-02.md`,
+  `documents/testmo-tcm-feature-gap-2026-10-02.html`, `.mutant.yml`, `.semgrep.yml`, `config/brakeman.yml`, and
+  every file under `documents/security-reports/`. This **corrected an earlier premature draft** of
+  `RFTC-042_EXTERNAL_SPEC_TCM_TESTING_HARNESS.md` (never committed) which had wrongly concluded the harness
+  "doesn't exist" — it was searching for the wrong directory name. The real harness lives in
+  `redmineflux-tcm-ci/harness/` and is substantially real (api/cli/browser/load/chaos/security/dogfood layers,
+  a dated honest `feature-matrix.yml`, a working flake-quarantine mechanism). Live-executed the harness's
+  no-credential-needed security pytest modules inside `redmine6-redmine-1` (17/18 passed; 1 brittle-assertion
+  test bug found and triaged, not a plugin regression). Attempted a full live `harness/run.py` run against
+  `localhost:3000` — blocked by this sandbox's own credential-materialization safeguard when minting/revealing
+  a persona API key, so the harness's own headline deliverable (a complete, successful end-to-end run producing
+  JUnit + exit code) remains unproven by anyone to date, despite the ticket's 90%/"In QA" status. **Filed as
+  BUG-TCM-085** (not yet reported to production, pending approval). Note: an earlier unfiled draft referenced
+  a "BUG-TCM-084" for its own incorrect conclusion — that ID was never actually created as a bug file and is
+  intentionally not reused; BUG-TCM-085 is the first real bug filed from this corrected investigation. Wrote
+  `RFTC-043_EXTERNAL_SPEC_SECURITY_DISCOVERY_TESTING.md` fresh, covering OWASP Top-10 coverage, SAST/dependency/
+  secret-scan regression-net re-runs (all clean against today's code), and honestly-reported gaps (A09 logging,
+  A10 Grover-specific SAST rule, the same live-DAST-execution gap as BUG-TCM-085).

@@ -103,6 +103,40 @@
 
 ---
 
+### TC-TCM-278: A genuine REST API client (HTTP Basic, API key as username) is NOT CSRF-rejected on a `.json` mutation
+
+**User Role:** Any authenticated user, via a real API key (not a browser session)
+**Priority:** High
+**Steps:**
+1. Using a valid API key, send `POST /test_suites.json?project_id=<id>` with HTTP Basic auth, the API key as the
+   username and any password (Redmine's documented REST API auth convention) — e.g.
+   `curl -u "<api_key>:dummy" -X POST ".../test_suites.json?project_id=<id>" -d '{"testsuite":{"name":"...","parent_id":0}}'`.
+2. Repeat with the API key passed as a `?key=<api_key>` URL parameter instead.
+3. Check the response status/body and the server log for a `Filter chain halted as :rftc_verify_session_csrf!`
+   entry.
+
+**Expected Result:**
+- Both requests succeed (`201 Created`, the test suite is actually created) — a real API-key-authenticated client
+  must never be CSRF-rejected. The server log should show the resolved user (e.g. `Current user: admin`), not
+  `anonymous`, and no `Filter chain halted` line for the CSRF filter.
+- This is the API-parity companion to TC-TCM-218 (anonymous bulk-create correctly rejected) and the inverse
+  failure mode: here a *genuinely credentialed* request must NOT be rejected, whereas TC-218 is about a
+  *genuinely uncredentialed* request correctly being rejected. Both guard the same `restore_session_user_for_api`
+  / `rftc_verify_session_csrf!` pair (SEC-004, production #121896-era hardening) from opposite directions.
+
+**Status: EXECUTED 2026-10-21 — PASS.** Client-reported regression (customer `lnastev`): the same filter pair had
+previously rejected this exact scenario with a false `422 {"error":"Invalid form authenticity token."}`, because
+an earlier version couldn't distinguish a real API client from a cookie-authenticated browser session. Verified
+on the dev-fixed `C:\crux-redmine` build: both the HTTP-Basic-key-as-username and `?key=` variants returned `201
+Created` with no CSRF rejection, confirmed via server log (`Current user: admin`, no `Filter chain halted` line).
+Fix mechanism: `restore_session_user_for_api` only sets `@rftc_session_cookie_authenticated` when it itself had to
+resolve `User.current` from the session (i.e. it was still anonymous going in) — any request where Redmine core
+already resolved a user via a real credential never gets flagged, so `rftc_verify_session_csrf!` exits immediately
+via `return true unless @rftc_session_cookie_authenticated`. See `docs/TESTCASE_MANAGEMENT_MEMORY.md` (2026-10-21
+entry) for full detail.
+
+---
+
 ## Authorization enforcement at the endpoint (beyond role — zero-permission member)
 
 ---

@@ -191,6 +191,31 @@ pass as fully passing with "no bug found" across all 6 report types/3 formats. T
 it verified table data and chart rendering matched across formats, but did not specifically check for the
 run-name/environment heading's presence in each format. This bug (BUG-TCM-075) corrects that record.
 
+## Retest — 2026-10-21 (FIXED, on `localhost:3000` instead of the original environment)
+
+This bug was originally found on a different Docker instance (`localhost:3015`/`C:\crux-redmine`). That stack was
+not running at the time of this session's broader retest pass, and — per the user's own correction — this defect
+is not actually tied to that specific environment (it is a generic Testcase Reports PDF-export behavior), so it
+was retested directly against the already-running `localhost:3000` stack (project `rftc-016-ci-qa`, Run #5
+"RFTC-016 QA run", environment `CI`) instead of starting the other stack.
+
+- **Testcase Summary** (the "completely missing" case — the most severe symptom originally reported): created
+  report #29 scoped to Run #5, confirmed the live page's heading (`<a href="/runs/5?environment=CI...">RFTC-016
+  QA run</a> (CI)`), downloaded the PDF via the "Download PDF" button, and confirmed via `pdftotext -layout` that
+  the heading `RFTC-016 QA run (CI)` now appears correctly in the PDF, directly above the data table — previously
+  absent entirely.
+- **Defect Summary** (the "environment suffix only missing" case): created report #31 scoped to the same run,
+  confirmed the live page's heading, downloaded its PDF, and confirmed the full `RFTC-016 QA run (CI)` text
+  (including the previously-dropped `(CI)` suffix) is now present in the extracted PDF text.
+- Both PDFs saved as evidence: `screenshots/BUG-TCM-075/retest-2026-10-21-testcase-summary-localhost3000.pdf`,
+  `screenshots/BUG-TCM-075/retest-2026-10-21-defect-summary-localhost3000.pdf`.
+- Activity Summary and Overdue Run Summary (the other two "completely missing" report types from the original
+  report) were not separately re-verified this session — Testcase Summary already exercises the identical
+  "completely missing" code path per the original bug's own evidence, so this is treated as sufficient coverage
+  for that symptom class; Tester Scorecard was already confirmed unaffected in the original report (different
+  layout, table columns not a heading) and Requirement Coverage has no such heading at all.
+- **Verdict: FIXED.** Moving this bug to `bugs/closed/`.
+
 ## Production report
 
 Reported 2026-10-20 as issue #124054 on `ztflux`, via `redmineflux_core_create_issue`

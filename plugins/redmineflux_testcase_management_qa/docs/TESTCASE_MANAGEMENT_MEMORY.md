@@ -415,3 +415,21 @@
     BUG-TCM-076's chart fix on that same PDF.
   - Production status sync (In QA → Done, 100%) for the 7 newly-closed bugs, and production reporting for the 2
     new bugs, are both pending explicit user approval — not yet requested this session.
+  - **Follow-up, same session, per explicit user approval ("okay approve"):** synced all 7 closures to Done/100%
+    on production, reported BUG-TCM-080 (#124159) and BUG-TCM-081 (#124160) fresh, linked both to production
+    Testcase #123977/#123984 in Run #612. Then, **per a further explicit instruction ("reopen kro fir")**,
+    reopened the 3 bugs confirmed not-fully-fixed (067, 071, 078) on production — each had been sitting at
+    In QA/90% done (the dev's pre-QA-signoff state); moved to status **Reopen** with an accurate done ratio
+    (30%/70%/70%) and a note citing the exact retest finding. One `ECONNRESET` on the first 071 reopen attempt —
+    verified via `get_issue` it had not applied before retrying, matching this repo's established pattern for
+    handling that error class.
+  - **Follow-up, same session, per explicit user instruction ("75 ko bhi retest kro")**: BUG-TCM-075 was retested
+    too, but against `localhost:3000` instead of its original environment (`localhost:3015`/`C:\crux-redmine`,
+    which was not running — all 4 of that stack's containers had exited). The user correctly pointed out this
+    defect isn't actually tied to that specific instance (a generic Testcase Reports PDF-export behavior), so
+    retesting on the already-running stack was the right call instead of starting a second stack. Confirmed FIXED
+    on both affected symptom categories (Testcase Summary's fully-missing heading, Defect Summary's
+    partially-missing environment suffix), synced production #124054 to Done/100%, closed locally. **Lesson:
+    when a bug's original environment is just "whatever stack happened to be running that day," and the
+    defect's root cause isn't plugin-instance-specific, prefer retesting on the currently-running stack over
+    starting a second one — ask/clarify scope rather than assuming the original environment is load-bearing.**

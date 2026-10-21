@@ -1,7 +1,7 @@
 # BUG-TCM-079
 
 - Bug ID: BUG-TCM-079
-- Production Redmine Issue ID: (not yet reported — awaiting approval)
+- Production Redmine Issue ID: #124155 (https://flux.zehntech.com/issues/124155) — created 2026-10-21, assigned to Vaishnavi Bhawsar, Priority High, Defect Type Functional, Defect Severity High-severity, Defect priority High, category Testcase Management Plugin. Standalone bug (no production Run/Testcase link), same convention as BUG-TCM-072/073/074.
 - Title: CSV Import still hard-rejects any step/expected-result content over 2000 characters, even though the
   `step`/`expected` columns were migrated to a 40000-char limit
 - Severity: High
@@ -103,5 +103,6 @@ testcases/ TC — should be added to `testcases/TESTCASE_MANAGEMENT_CSV_IMPORT.m
 
 ## Production report
 
-Not yet reported. Will prepare the exact issue payload and ask for explicit approval before calling
-`redmineflux_testcases_management_report_defect` against `ztflux`, per `REDMINEFLUX-MCP-SETUP.md` §4.
+Reported to production `ztflux` as #124155 on 2026-10-21, assigned to Vaishnavi Bhawsar, Priority High / Defect
+Severity High-severity / Defect priority High / Defect Type Functional, category "Testcase Management Plugin".
+Created as a standalone bug issue (no production Run/Testcase created), same convention as BUG-TCM-072/073/074.

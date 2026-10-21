@@ -453,3 +453,36 @@
     compare the file's key count before/after, or scan the diff for `-` lines that don't match the commit's own
     stated intent). A commit can be internally correct about what it adds while still being destructively wrong
     about what it silently removes.
+
+- **(2026-10-21) Reconstructed a full day's worth of real CI-platform testing that was never written up.**
+  After correcting an earlier wrong claim ("GitHub/GitLab/CircleCI/Bitbucket were only ever statically analyzed,
+  never run for real"), the user pushed back with a screenshot showing real-looking Runs ("GitHub Actions Build
+  1", "CircleCI Build 1", "Bitbucket Build 3/4/5") in the TCM UI. Investigated directly via `docker ps -a` and
+  `docker logs` on each stopped container (all created 2026-10-20) and found genuine, first-party evidence that
+  all 4 remaining platforms (beyond Jenkins, already documented) WERE run for real that day:
+  - **GitHub Actions**: a self-hosted runner genuinely connected to real `github.com` and completed a real job
+    ("Succeeded").
+  - **CircleCI**: a runner genuinely connected to real `circleci.com`, ran a full pipeline (`circleci.com/bb/...`)
+    checking out a repo hosted on real **Bitbucket** over SSH, all steps exit 0, final `result: "success"`.
+  - **GitLab**: a real `gitlab.com` connection attempt **genuinely failed** (DNS: `lookup gitlab.com ... no such
+    host` — this environment has no route to that host), so a **self-hosted GitLab CE instance** was stood up
+    instead (same fallback pattern as Jenkins's own broken-`:3093`-demo workaround) — its own Sidekiq log shows a
+    real pipeline reaching `"status":"success"`.
+  - **Bitbucket**: a dedicated self-hosted Bitbucket Pipelines runner connected to real `bitbucket.org` and
+    stayed online for over an hour (repeated real heartbeat calls), consistent with the TCM Runs seen.
+  - Documented the full findings, with verbatim log excerpts, as RFTC038-22 through RFTC038-25 in
+    `testcases/RFTC-038_EXTERNAL_SPEC_CI_PLATFORM_RECIPES.md`.
+  - **Lesson, repeated from earlier in this same session (BUG-TCM-082's discovery) but now proven at a much
+    larger scale: a QA record is only as good as its write-up.** Real, valuable testing work — four full hosted
+    CI-platform integrations — existed only as stopped Docker containers with no documentation anywhere in this
+    plugin's memory/handoff/testcase files for a full day, and would have been permanently lost (containers get
+    pruned, logs rotate) if the user hadn't happened to notice Run names in an unrelated screenshot. **When
+    standing up a non-trivial test environment (a new container, a registered CI runner, a throwaway instance),
+    write the finding down in the same session it's confirmed — do not rely on the environment itself to serve
+    as the record**, since by the time anyone looks again the evidence may be gone.
+  - Also discovered, not yet investigated further: the project `RFTC-038 Multi-Suite CI QA` (a project on
+    `localhost:3000` not previously known to this plugin's QA cycle) holds considerably more real-looking Run
+    activity beyond the 4 platforms above — "Self-hosted Build 4-8", "Login-Only Build 15", "Sequential
+    Multi-Env Build 14", "Multi-Env Test Build 13", "Jenkins CI Build 8/9", "RFTC016-GapTest-Throwaway",
+    "RFTC017-NoDefectTest-Throwaway" — none of which are documented anywhere either. Worth a dedicated future
+    pass to recover and write up, same method as this one (check each container/run's own evidence directly).

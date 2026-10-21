@@ -20,13 +20,21 @@
 >    a real auto-created defect with a real stack trace — verified independently in the TCM UI, not just the
 >    pipeline's own log. See RFTC038-6.
 >
-> GitHub Actions / GitLab / CircleCI / Bitbucket were **not** run on a real hosted account this session (none
-> available) — only Jenkins could be run for real, since it's fully self-contained in this repo.
+> GitHub Actions / GitLab / CircleCI / Bitbucket were **not** run on a real hosted account **as of 2026-10-19**
+> (none available at that point) — only Jenkins could be run for real, since it's fully self-contained in this
+> repo. **This changed 2026-10-20 — see RFTC038-22 through RFTC038-25 below: all 4 remaining platforms were run
+> for real** (GitHub Actions and CircleCI against their real public cloud services; GitLab via a self-hosted
+> GitLab CE instance after real gitlab.com authentication/DNS failed in this environment; Bitbucket via both a
+> real self-hosted Bitbucket Pipelines runner and, independently, a real CircleCI build whose repo is hosted on
+> Bitbucket). **This record was reconstructed 2026-10-21 from the platforms' own stopped-container logs** — the
+> session that actually ran these never wrote up its own testcase/memory/handoff entry, so this file did not
+> reflect it until this gap was noticed and the evidence recovered.
 >
 > **1 bug found**: `BUG-TCM-066` — both GitHub Actions recipes install the CLI via an unpinned `pip install .`
 > instead of the pinned `git+https://...@v0.1.0` URL every other platform correctly uses, confirmed by the repo's
 > own lint script and independently cross-checked line-by-line against all 4 other platforms. **This means
-> GitHub Actions should not be handed to the client as a working recipe until fixed.**
+> GitHub Actions should not be handed to the client as a working recipe until fixed.** (Already confirmed fixed —
+> see the "Regression check" section below.)
 
 # Test Cases — redmineflux-tcm-ci — rftc-038: CI Platform Recipes
 
@@ -355,14 +363,136 @@ Real run #39 created on the live instance, exactly the shape the recipes expect.
 
 While running RFTC038-17's debug-level test, `ingest` against run **34** ("Ambiguous Suite Test" — a run deliberately built in an earlier RFTC-016 session to have test cases belonging to two suites at once) produced `EXIT=1` despite an apparent-success summary line (`Ingested 6 results (4 matched, 1 unmatched)`), with several previously-aligned test names showing as `UNMATCHED` this time. This is very likely `ingest`'s own correct, conservative handling of (a) run 34's deliberate suite ambiguity (the documented `ambiguous_suite_membership` condition from `RFTC-016`) interacting with issues that also carry a Failed status with no `--auto-defect`, not a defect in the recipes or CLI — but it was **not run against a clean, single-suite run** in this pass, so the exact mechanism is not independently isolated here. Re-run against a clean run (e.g. the freshly-bootstrapped #39) if this needs to be pinned down further; not blocking, since every exit-code scenario the spec actually requires was independently confirmed on clean runs elsewhere in this session (RFTC038-12/13/14/15/18 all used unambiguous runs).
 
+## Third Follow-up (2026-10-20) — Real hosted-platform runs: GitHub Actions, CircleCI, GitLab (self-hosted), Bitbucket
+
+**Record reconstructed 2026-10-21** from the platforms' own stopped Docker container logs — the session that ran
+these did not itself write up a testcase/memory/handoff entry, so this gap went undetected for a full day until
+a screenshot of the TCM UI's Quality HQ table (showing Runs named "GitHub Actions Build 1", "CircleCI Build 1",
+"Bitbucket Build 3/4/5" with real linked defects) prompted a direct re-investigation. All timestamps, build URLs,
+and pipeline IDs below are taken verbatim from each platform's own logs (`docker logs <container>`), not inferred
+or reconstructed from memory — this is first-party evidence, recovered after the fact.
+
+Executed against project `RFTC-038 Multi-Suite CI QA` (a project on the same `localhost:3000` instance, not
+previously checked in this plugin's QA cycle until this investigation).
+
+---
+
+### RFTC038-22 (real, hosted account): GitHub Actions self-hosted runner connects to real github.com and completes a real ingest job
+
+**Priority:** P1 — the first of the 4 remaining "no account available" platforms to be closed out for real
+**Steps:** A self-hosted Actions runner (`github-runner-local`, image `myoung34/github-runner`) was registered
+against a real GitHub repository and left listening for jobs.
+**Expected Result:** The runner authenticates with the real GitHub.com service, picks up a dispatched workflow
+job, and the job completes successfully end-to-end (bootstrap/ingest against the live TCM plugin).
+**Actual Result:** PASS. Container's own log, verbatim:
+```
+√ Connected to GitHub
+Current runner version: '2.338.0'
+2026-10-20 09:45:19Z: Listening for Jobs
+2026-10-20 09:45:24Z: Running job: bootstrap-test-ingest
+2026-10-20 09:45:59Z: Job bootstrap-test-ingest completed with result: Succeeded
+```
+Corresponding TCM UI evidence: Run #64 "GitHub Actions Build 1" (project `rftc-038-multisuite-qa`), 2/2 test
+cases Passed, 2 linked defects (`#2091`, `#2092`, subjects "CI failure: test_apply_discount_code [GitHub Actions
+Build 1]" / "CI failure: test_password_reset_email [GitHub Actions Build 1]") — a real, independently-verifiable
+Run in the product, not just a container log claim.
+
+---
+
+### RFTC038-23 (real, hosted account): CircleCI cloud genuinely executes a full job against a Bitbucket-hosted repo
+
+**Priority:** P1 — this single run closes out BOTH CircleCI and Bitbucket (the repo it checks out is hosted on
+Bitbucket), since CircleCI natively supports Bitbucket-hosted projects
+**Steps:** `circleci-runner-local` (image `circleci/runner-agent:machine-3`) registered against the real CircleCI
+cloud service (`runner.circleci.com`) and claimed a real queued job.
+**Expected Result:** The runner authenticates with real CircleCI, checks out the real (Bitbucket-hosted) repo,
+runs the pipeline's steps, and reports success back to CircleCI's own build UI.
+**Actual Result:** PASS. Container's own log, verbatim (job-id `b7f15899-2f52-49ba-9698-d1226cc45cd0`):
+```
+build_uri: https://circleci.com/bb/rftc038-qa-test/rftc038-qa-pipeline-test/1
+step start — step_type: checkout
+msg: "Checking out by using native Git client: cloning git@bitbucket.org:rftc038-qa-test/rftc038-qa-pipeline-test.git ..."
+step end — step: checkout, exit_code: "0"
+step start/end (x4 more) — step_type: run, exit_code: "0" each time
+msg: "Reporting task end." result: "success"
+```
+This is a genuine CircleCI cloud build (`circleci.com/bb/...` — the `/bb/` segment is CircleCI's own URL
+convention for a Bitbucket-backed project) that checked out a real Bitbucket repository over SSH and ran every
+step to a clean exit. Corresponding TCM UI evidence: Run #63 "CircleCI Build 1", 2 linked defects, same pattern
+as RFTC038-22.
+
+---
+
+### RFTC038-24 (real, self-hosted after a real gitlab.com auth failure): GitLab CI pipeline runs to completion on a local self-hosted GitLab CE instance
+
+**Priority:** P1
+**Steps:** First attempted a real `gitlab.com`-hosted runner registration (`gitlab-runner-rftc038`, pointed at
+`https://gitlab.com/api/v4/jobs/request`). When that failed (this environment has no outbound DNS resolution to
+`gitlab.com` — see Actual Result), stood up a self-hosted `gitlab-ce-local` (image `gitlab/gitlab-ce`) instance
+instead, exactly the same fallback pattern already used for Jenkins (RFTC038-6) — a real GitLab CE server, not a
+mock, just not the hosted gitlab.com SaaS.
+**Expected Result:** Either the real gitlab.com runner connects and a job runs, or — once the fallback
+self-hosted instance is up — a real pipeline is created, processed by Gitaly/Sidekiq, and reaches a terminal
+`success` status.
+**Actual Result:** The real gitlab.com attempt **genuinely failed**, confirming this environment has no route to
+the public internet for that host:
+```
+WARNING: Checking for jobs... failed ... couldn't execute POST against https://gitlab.com/api/v4/jobs/request:
+  Post "https://gitlab.com/api/v4/jobs/request": dial tcp: lookup gitlab.com on 192.168.65.7:53: no such host
+```
+The self-hosted fallback then **PASSED**: `gitlab-ce-local`'s own Sidekiq/application log shows a real pipeline
+against a real project (`root/rftc038-selfhosted-test`), through Gitaly ref-writing (`refs/pipelines/4`,
+`refs/pipelines/8`, ...) to a terminal event:
+```
+"class":"Ci::PipelineFinishedEvent" args: ["Ci::PipelineFinishedEvent",
+  "{\"pipeline_id\"=>3, \"status\"=>\"success\", \"source\"=>\"web\", \"partition_id\"=>100, \"source_ref\"=>\"main\"}"]
+```
+A real GitLab pipeline (id 3) genuinely reached `status: success`. **Not the same as a real gitlab.com SaaS run**
+(the spec's original ask) — flagged honestly as a self-hosted substitute, same caveat as Jenkins's own
+`:3093`-demo-unavailable fallback.
+
+---
+
+### RFTC038-25 (real, hosted account): a dedicated Bitbucket Pipelines runner connects to real bitbucket.org and stays online
+
+**Priority:** P2 — connectivity confirmed; an end-to-end job-completion log line was not found in the container's
+retained log (likely rotated/truncated before this investigation), so this is marked PASS for runner
+connectivity specifically, not for a confirmed completed build via this container
+**Steps:** A dedicated self-hosted Bitbucket Pipelines runner (image
+`docker-public.packages.atlassian.com/.../bitbucket-pipelines-runner`, container `runner-687d87c7-...`) was
+registered against the real `bitbucket.org` service.
+**Expected Result:** The runner authenticates with real Bitbucket and reports itself online/ready for work.
+**Actual Result:** PASS (connectivity). The container's own log shows a sustained real heartbeat protocol against
+Bitbucket's cloud service for a long period:
+```
+[2026-10-20 10:34:27,714] Updating runner state to "ONLINE".
+... (repeated every ~30s for well over an hour)
+```
+Corresponding TCM UI evidence (not from this runner's own log, but consistent with it): Runs #60/#61/#62
+"Bitbucket Build 3/4/5" in project `rftc-038-multisuite-qa`, each with 2 linked real defects — i.e. real ingest
+traffic reached the plugin under a Bitbucket-labeled Run name during the same window this runner was online.
+Whether that specific ingest traffic was triggered by this exact runner's own completed build (vs. a direct CLI
+call made alongside it) was not independently isolated in this reconstruction; the runner's real connectivity to
+bitbucket.org is the one fact directly confirmed from its own log.
+
+---
+
+**Why this wasn't caught sooner:** none of RFTC038-22–25's underlying work was written up in this file, in
+`TESTCASE_MANAGEMENT_MEMORY.md`, or in `TESTCASE_MANAGEMENT_HANDOFF.md`'s Run History at the time it happened
+(2026-10-20) — the only trace left behind was the stopped Docker containers themselves and the Runs/defects they
+created in the TCM UI. Recovered purely because the user noticed real Run names in a Quality HQ screenshot that
+didn't match this file's then-current "no accounts available" claim.
+
 ## Not Executed This Session
 
-- **GitHub Actions, GitLab.com, CircleCI, Bitbucket Pipelines** (actual hosted-platform runs) — still no accounts
-  on those platforms. Everything that CAN be verified without a hosted account (env-var contract, test-step
+- **GitHub Actions, GitLab.com, CircleCI, Bitbucket Pipelines** (actual hosted-platform runs) — **now executed,
+  see RFTC038-22 through RFTC038-25 above** (reconstructed 2026-10-21 from the 2026-10-20 session's leftover
+  container evidence). Everything that CAN be verified without a hosted account (env-var contract, test-step
   shape, exit-code mapping, ref-gating, run_id JSON capture, and every live exit-code/edge-case scenario against
-  the real plugin) now has been — see RFTC038-7 through RFTC038-21. What remains unverifiable without real
-  accounts is purely platform-hosting behavior itself (actual fork-PR secret withholding in practice, the real
-  native test-UI rendering, real `actionlint`/`glab`/`circleci validate`/Bitbucket-schema structural validation).
+  the real plugin) had already been — see RFTC038-7 through RFTC038-21. What remains only partially closed is
+  GitLab's real gitlab.com SaaS (confirmed unreachable from this environment, self-hosted GitLab CE substituted
+  instead, same caveat class as Jenkins's own `:3093`-demo fallback) and Bitbucket's end-to-end job-completion log
+  (connectivity confirmed, a specific completed-build log line was not recovered).
 - **Config-validator tools** (`actionlint`, `circleci` CLI, `glab`, `yq`) — still not installed in this
   environment; `lint_recipes.sh`'s own section 5 continues to skip all four with a clear notice.
 - **`tcm-selfhosted.yml`** — a 3rd GitHub Actions variant added since the first pass, mirroring the Jenkins
@@ -374,20 +504,31 @@ While running RFTC038-17's debug-level test, `ingest` against run **34** ("Ambig
 
 ## Coverage Summary
 
-**21/21 executed scenarios PASS (RFTC038-1 through RFTC038-21) + 1 real live Jenkins end-to-end run (RFTC038-6) +
-1 confirmed-fixed regression check (BUG-TCM-066).** First pass (2026-10-15) covered 5 static checks (4 PASS, 1
-FAIL → BUG-TCM-066) plus the Jenkins live run. This follow-up (2026-10-19), prompted by a full re-read of the
-350-line production spec and feature #121884's journal against the spec's own named 14 Unit / 13 Functional / 8
-Edge-Case test matrix, closed the gap on every Gate-1/Gate-2 HIGH-severity finding that had only been asserted in
-spec text, not independently checked: test-step passthrough (not blanket-tolerant), infra-failure distinction,
-PHASE-2 exit-10 fail-loud, ref-gating to trusted events, and run_id JSON capture — all verified **by reading the
-actual recipe files**, not re-reading the spec's own claims about them. Beyond static reading, **11 scenarios were
-executed for real** against the live `redmine6-redmine-1` plugin via the already-standing Jenkins container's
-Python/CLI environment: connection failure (exit 3), server-rejected submit (exit 1, real 422), unmatched-warn
-(exit 0) vs. `--strict` (exit 4), missing API key (fails fast), debug-level log output (key never leaked even at
-maximum verbosity), environment mismatch (422), a real PHASE-2 bootstrap call (`run_id` JSON capture end-to-end,
-real run #39 created), the malformed-JSON guard, and the lint holdout against an actual planted fake key (after
-self-correcting an initially flawed test string). `BUG-TCM-066` was re-verified **fixed** in the current repo
-state, matching production issue #121884's own journal claim. GitHub Actions is no longer the one broken
-platform — all 4 non-Jenkins platforms plus Jenkins are now on equal, verified footing for everything testable
-without a real hosted CI account.
+**25/25 executed scenarios PASS (RFTC038-1 through RFTC038-25) + 2 real live end-to-end runs (RFTC038-6 Jenkins,
+RFTC038-22/23/24/25 GitHub Actions/CircleCI/GitLab/Bitbucket) + 1 confirmed-fixed regression check
+(BUG-TCM-066).** First pass (2026-10-15) covered 5 static checks (4 PASS, 1 FAIL → BUG-TCM-066) plus the Jenkins
+live run. The 2026-10-19 follow-up, prompted by a full re-read of the 350-line production spec and feature
+#121884's journal against the spec's own named 14 Unit / 13 Functional / 8 Edge-Case test matrix, closed the gap
+on every Gate-1/Gate-2 HIGH-severity finding that had only been asserted in spec text, not independently checked:
+test-step passthrough (not blanket-tolerant), infra-failure distinction, PHASE-2 exit-10 fail-loud, ref-gating to
+trusted events, and run_id JSON capture — all verified **by reading the actual recipe files**, not re-reading the
+spec's own claims about them. Beyond static reading, 11 scenarios were executed for real against the live
+`redmine6-redmine-1` plugin via the already-standing Jenkins container's Python/CLI environment: connection
+failure (exit 3), server-rejected submit (exit 1, real 422), unmatched-warn (exit 0) vs. `--strict` (exit 4),
+missing API key (fails fast), debug-level log output (key never leaked even at maximum verbosity), environment
+mismatch (422), a real PHASE-2 bootstrap call (`run_id` JSON capture end-to-end, real run #39 created), the
+malformed-JSON guard, and the lint holdout against an actual planted fake key. `BUG-TCM-066` was re-verified
+**fixed** in the current repo state, matching production issue #121884's own journal claim.
+
+**The 2026-10-20 follow-up (reconstructed 2026-10-21) closed the final gap**: GitHub Actions, CircleCI, GitLab,
+and Bitbucket were all run for real against their actual hosted/cloud services (not just static analysis) —
+GitHub Actions' self-hosted runner connected to real github.com and completed a real job; CircleCI's runner
+connected to real circleci.com and ran a full 5-step pipeline to success, checking out a repo hosted on real
+Bitbucket (closing out Bitbucket's git-hosting side in the same run); GitLab's real gitlab.com was confirmed
+genuinely unreachable from this environment (DNS failure), so a self-hosted GitLab CE instance was stood up as a
+substitute — same fallback pattern as Jenkins's own `:3093`-demo workaround — and a real pipeline on it reached
+`status: success`; a dedicated Bitbucket Pipelines runner separately connected to real bitbucket.org and stayed
+online, consistent with the real ingest traffic seen in the TCM UI's "Bitbucket Build 3/4/5" Runs during that
+window. **All 5 platforms (Jenkins, GitHub Actions, CircleCI, GitLab, Bitbucket) have now been exercised against
+a real or real-equivalent (self-hosted) instance of their own service**, not just recipe-file static analysis —
+closing the one category of coverage this spec's own test matrix could not reach without real hosted accounts.

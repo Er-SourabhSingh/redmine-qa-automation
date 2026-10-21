@@ -127,6 +127,23 @@ missing" strings appear across a fixed list of key pages, specifically to catch 
   067's single denial-message symptom, and the two have genuinely different fixes (067 would only need its one
   key restored; this bug covers all 41).
 
+## Retest — 2026-10-21 (FIXED)
+
+Though this bug's production status was never moved out of New/0% (only its sibling BUG-TCM-067, which shares
+the same root cause, was marked In QA), it was retested anyway after the developer's general fix pull and
+`localhost:3000` restart, since the fix for 067 was expected to restore the same 41 locale keys together.
+
+- `/quality_hq` — page title is now "Quality HQ - Redmine" (was "Translation missing: en.label_quality_hq -
+  Redmine"); zero "Translation missing" strings found anywhere via `document.body.innerText` scan.
+- `/runs/5?project_id=rftc-016-ci-qa` — zero "Translation missing" strings found via the same scan (previously
+  showed `label_suite_colon`/`label_all_suites` placeholders).
+- `/test_suites?project_id=rftc-016-ci-qa` — the suite-search input's placeholder is no longer "Translation
+  missing: en.label_find_a_suite"; it now reads "Search" (a simplified label, but not a broken placeholder).
+- Direct grep confirmation: a combined pattern for the key families (`label_quality_hq`, `label_qhq_*`,
+  `label_find_a_suite`, `label_all_suites_in_run`, `label_to_run`, `label_suite_colon`, `chart_total_label`) now
+  returns 26 matches in the live `en.yml` (was 0).
+- **Verdict: FIXED.** Moving this bug to `bugs/closed/`.
+
 ## Production report
 
 Reported 2026-10-21 as issue #124178 on `ztflux`, via `redmineflux_core_create_issue`, per explicit user approval.

@@ -486,3 +486,22 @@
     Multi-Env Build 14", "Multi-Env Test Build 13", "Jenkins CI Build 8/9", "RFTC016-GapTest-Throwaway",
     "RFTC017-NoDefectTest-Throwaway" — none of which are documented anywhere either. Worth a dedicated future
     pass to recover and write up, same method as this one (check each container/run's own evidence directly).
+
+- **(2026-10-21) Second retest pass, same day — developer moved bugs to In QA, user pulled the fix, all 6
+  remaining bugs confirmed FIXED.** After the earlier same-day retest/reopen cycle left 6 bugs open (067, 071,
+  078, 080, 081, 082), the developer fixed and moved 5 of them to production status In QA/90% (082 was left at
+  New/0% but shares 067's fix commit for the underlying locale-key restoration). Per the user's instruction,
+  restarted `redmine6-redmine-1`/`redmine6-sidekiq-1` after their code pull and retested all 6 — **all 6
+  confirmed FIXED**: 067 (I18n key resolves correctly now), 071 (Excel sheet-title cosmetic gap also fixed),
+  078 (all 3 symptoms fixed), 080 (emailed PDF genuinely rendered again, not raw source), 081 (Download-PDF
+  table renders cleanly), 082 (zero "Translation missing" anywhere, confirming the same fix commit restored all
+  41 keys). All 6 moved to `bugs/closed/`, all 6 synced to production Done/100%. **`bugs/open/` is now completely
+  empty for this plugin.**
+  - **Per CLAUDE.md §10/§27: a full final-cycle regression across every suite must be run before `STATUS.md` can
+    read `Complete`.** This has NOT been run yet as of this note — it is the next required step before this
+    plugin's QA cycle can be considered done. Given the breadth of what's changed this cycle (CSV import limits,
+    CI ingest permission messages, 3 report-export pipelines — Download button, mailer PDF, mailer HTML — across
+    2 report types, Quality HQ, Run Show, Test Suite tree, and the locale file as a whole), the regression should
+    cover at minimum: CSV Import suite, Reports suite (all 3 export formats × Slow Tests/Most Failed Tests/
+    Testcase Summary/Defect Summary), CI ingest permission/skip-mode scenarios, Quality HQ dashboard, Run Show
+    suite-picker, and Test Suite tree — not just the 6 bugs' own narrow repro steps.

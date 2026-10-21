@@ -119,3 +119,16 @@ unzipped and inspected `xl/worksheets/sheet1.xml` directly:
   not a new symptom requiring a separate bug.
 - **Verdict: PARTIALLY FIXED.** The core defect (no data at all) is resolved; the cosmetic sheet-title defect
   remains. Leaving this bug open; not moved to `bugs/closed/`.
+
+## Second Retest — 2026-10-21 (FIXED)
+
+Developer moved this bug to production status In QA/90%. Retested against `localhost:3000` after the user pulled
+the dev's latest fix and restarted `redmine6-redmine-1`/`redmine6-sidekiq-1`.
+
+- Downloaded report #13's Excel export live (`screenshots/BUG-TCM-071/retest-2026-10-21-second-fix-most-failed-excel.xlsx`),
+  unzipped and inspected `xl/worksheets/sheet1.xml` directly.
+- Cell `A1` now reads `"Most Failed Tests"` — the correct, specific report-type title — instead of the generic
+  `"Testcase Summary"` fallback this bug's residual cosmetic finding flagged.
+- Ranked data (all 5 rows, Rank/Test Case/Failures/Executed/Failure Rate/Failing Runs) remains correct, same as
+  the first retest.
+- **Verdict: FIXED (fully).** Moving this bug to `bugs/closed/`.

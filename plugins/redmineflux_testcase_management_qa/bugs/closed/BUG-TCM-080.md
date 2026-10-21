@@ -124,6 +124,22 @@ pattern as BUG-TCM-075/076/077/078).
   the first place, discovered only because the retest for those two bugs required opening the PDFs directly.
   Not a duplicate of either.
 
+## Retest — 2026-10-21 (FIXED)
+
+Developer moved this bug to production status In QA/90%. Retested against `localhost:3000` after the user pulled
+the dev's latest fix and restarted `redmine6-redmine-1`/`redmine6-sidekiq-1`. Created a fresh Slow Tests report
+emailed as PDF (same report used to confirm `BUG-TCM-078`'s fix) and inspected the downloaded PDF
+(`screenshots/BUG-TCM-078/retest-2026-10-21-round2-slow-tests-pdf.pdf`):
+
+- `pdftotext -layout` extraction is now 41 lines total — a normal, compact rendered page (title, chart axis
+  labels, table rows, footer) — not the ~340-line raw HTML/CSS/`<script>` source dump this bug originally
+  reported.
+- Zero occurrences of `<meta charset`, `<script src`, or any other raw markup fragment anywhere in the extracted
+  text.
+- The report's real data is present in a genuinely rendered table, with a genuinely rendered chart above it —
+  the PDF is a usable, readable document again.
+- **Verdict: FIXED.** Moving this bug to `bugs/closed/`.
+
 ## Production report
 
 Reported 2026-10-21 as issue #124159 on `ztflux`, via `redmineflux_core_create_issue`, per explicit user approval.

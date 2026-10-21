@@ -186,6 +186,24 @@ pipeline-wide rendering failure, not a continuation of this bug's three specific
 individually identifiable and gradeable against the original report, as above, even though the PDF as a whole is
 now also unusable for the new reason).
 
+## Second Retest — 2026-10-21 (FIXED)
+
+Developer moved this bug to production status In QA/90%. Retested against `localhost:3000` after the user pulled
+the dev's latest fix and restarted `redmine6-redmine-1`/`redmine6-sidekiq-1`. Created a fresh Slow Tests report
+("Retest 078 round 2 - Slow Tests PDF", PDF attachment, scoped to Run #5) and downloaded its emailed PDF
+(`screenshots/BUG-TCM-078/retest-2026-10-21-round2-slow-tests-pdf.pdf`):
+
+- **Menu-leak: FIXED.** No "Download HTML/PDF/Excel" text anywhere in the extracted PDF content.
+- **Missing chart: FIXED.** The PDF now shows the bar chart (axis labels/values visibly present in the extracted
+  text layout, consistent with a genuinely rendered chart area, not an absent one).
+- **Mojibake: FIXED, confirmed at the byte level.** The footer's "·" character is encoded as the correct UTF-8
+  bytes `0xC2 0xB7` (confirmed via `od -c` on the extracted text) — genuinely correct, not the previous
+  `0xC3 0x82 0xC2 0xB7` ("Â·") double-encoding artifact. (`pdftotext`'s terminal rendering of `0xC2 0xB7` as `�`
+  in this shell is a display-only quirk of the terminal's font/locale, not a defect in the PDF's actual bytes.)
+- The PDF is also a normal, compact 41-line rendered page (not the ~340-line raw-markup-dump symptom from
+  `BUG-TCM-080`) — see that bug's own retest section for the explicit confirmation.
+- **Verdict: FIXED (all 3 symptoms).** Moving this bug to `bugs/closed/`.
+
 ## Production report
 
 Reported 2026-10-21 as issue #124109 on `ztflux`, via `redmineflux_core_create_issue`, per explicit user approval.

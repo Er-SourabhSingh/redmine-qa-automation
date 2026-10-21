@@ -90,6 +90,28 @@ BUG-TCM-075/076/077/078/080).
   PDF exports. `BUG-TCM-076` is the chart being completely absent (now fixed); this bug is the table's own
   layout breaking for a specific column type, a different symptom in the same export pipeline. Not a duplicate.
 
+## Retest — 2026-10-21 (FIXED)
+
+Developer moved this bug to production status In QA/90%. Retested against `localhost:3000` after the user pulled
+the dev's latest fix and restarted `redmine6-redmine-1`/`redmine6-sidekiq-1`. Clicked "Download PDF" on report
+#13 (Most Failed Tests) and extracted the result
+(`screenshots/BUG-TCM-081/retest-2026-10-21-round2-most-failed-pdf-button.pdf`):
+
+```
+Rank  Test Case                                                          Failures  Executed  Failure Rate  Failing Runs
+1     #2048 Cross-run reuse fixture                                      2         2         100.0%        2
+2     #24 Apply valid discount code at checkout                          2         4         50.0%         2
+3     #2055 XSS test fixture                                             1         1         100.0%        1
+4     #34 Add item to cart                                               1         3         33.33%        1
+5     #35 <img src=x onerror=alert('export-xss')> Remove item from cart  1         3         33.33%        1
+```
+
+All 5 rows render cleanly, each on its own line with correctly-aligned columns — no overlap or interleaving
+between the "Failing Runs" column and adjacent Failures/Executed/Failure Rate values. The chart image
+(`/Width 1774 /Height 547`) is still present too, confirming `BUG-TCM-076`'s own fix hasn't regressed.
+
+**Verdict: FIXED.** Moving this bug to `bugs/closed/`.
+
 ## Production report
 
 Reported 2026-10-21 as issue #124160 on `ztflux`, via `redmineflux_core_create_issue`, per explicit user approval.

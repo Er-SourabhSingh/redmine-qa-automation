@@ -160,3 +160,20 @@ stack was restarted (`docker compose restart redmine sidekiq`).
 - **Fix suggestion unchanged from original report**: add `error_execute_testcase_permission_required: "You do not
   have the Execute testcase permission for this project."` to `config/locales/en.yml`. Leaving `BUG-TCM-067` open;
   not moved to `bugs/closed/`.
+
+## Second Retest — 2026-10-21 (FIXED)
+
+Developer moved this bug (and 4 others sharing a root cause with BUG-TCM-082) to production status In QA/90%.
+Retested against `localhost:3000` after the user pulled the dev's latest fix and restarted
+`redmine6-redmine-1`/`redmine6-sidekiq-1`.
+
+- Direct, read-only `I18n.t(:error_execute_testcase_permission_required)` evaluation inside the container now
+  returns: `"You do not have the Execute testcase permission for this project."` — the intended, correct message,
+  no longer a "Translation missing" placeholder.
+- Confirmed the fix is broad, not narrow: a combined `grep` for the BUG-TCM-082 key families
+  (`label_quality_hq`, `label_qhq_*`, `label_find_a_suite`, `label_all_suites_in_run`, `label_to_run`,
+  `label_suite_colon`, `chart_total_label`) now returns 26 matches (was 0), and live navigation to `/quality_hq`,
+  `/runs/5?project_id=rftc-016-ci-qa`, and `/test_suites?project_id=rftc-016-ci-qa` shows zero "Translation
+  missing" text anywhere — confirming the same fix (restoring the 41 keys commit `ebeda18` deleted) closed both
+  this bug and BUG-TCM-082 together.
+- **Verdict: FIXED.** Moving this bug to `bugs/closed/`.

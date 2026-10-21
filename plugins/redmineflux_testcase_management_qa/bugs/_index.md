@@ -74,7 +74,7 @@
 | BUG-TCM-079 | CSV Import still hard-rejects any step/expected-result content over 2000 characters — including exactly 40000 chars, the new column limit itself — defeating the fix's actual purpose of migrating long Jira/Zephyr test cases via CSV (fix now reads the limit dynamically from the column definition; retest PASS at every length up to 40000) | Closed | High | 7.1.0 | #124155 | bugs/closed/BUG-TCM-079.md |
 | BUG-TCM-080 | Emailed PDF attachments now contain the raw HTML/CSS/JavaScript page source as literal visible text instead of a rendered document — a severe new regression in the mailer's PDF-generation pipeline, found 2026-10-21 while retesting BUG-TCM-077/078 against freshly-pulled plugin code; affects every report type | Open | Critical | master (post-pull, pre-7.2.0) | #124159 | bugs/open/BUG-TCM-080.md |
 | BUG-TCM-081 | Most Failed Tests report's "Download PDF" button export has a table-layout glitch — the "Failing Runs" drilldown column's rows overlap and misalign the Failures/Executed/Failure Rate columns, found 2026-10-21 while retesting BUG-TCM-076's chart-missing fix | Open | Low | master (post-pull, pre-7.2.0) | #124160 | bugs/open/BUG-TCM-081.md |
-| BUG-TCM-082 | The BUG-TCM-079 fix commit (`ebeda18`) silently deleted ~41 unrelated locale keys — Quality HQ's entire dashboard, the Run Show suite-picker, the donut chart, the Test Suite tree panel, and BUG-TCM-067's own fix key all broke at once, found 2026-10-21 after the user spotted "Translation missing" strings in a screenshot | Open | Critical | master (post-pull, pre-7.2.0) | (not yet reported) | bugs/open/BUG-TCM-082.md |
+| BUG-TCM-082 | The BUG-TCM-079 fix commit (`ebeda18`) silently deleted ~41 unrelated locale keys — Quality HQ's entire dashboard, the Run Show suite-picker, the donut chart, the Test Suite tree panel, and BUG-TCM-067's own fix key all broke at once, found 2026-10-21 after the user spotted "Translation missing" strings in a screenshot | Open | Critical | master (post-pull, pre-7.2.0) | #124178 | bugs/open/BUG-TCM-082.md |
 | BUG-TCM-005 | Report emailed as PDF arrives with no attachment at all, while the body still says "Please find the attached Testcase Report" | Closed | High | 6.1.3 | #120588 | bugs/closed/BUG-TCM-005.md |
 | BUG-TCM-003 | Bulk update result fails for every browser user because the bulk endpoint rejects the logged-in session and treats the request as an unauthenticated API call | Closed | High | 7.0.0 | #120544 | bugs/closed/BUG-TCM-003.md |
 | BUG-TCM-004 | Bulk Update Result modal shows raw HTML markup in its "Apply to N testcase(s)" line | Closed | Low | 7.0.0 | #120546 | bugs/closed/BUG-TCM-004.md |
@@ -283,5 +283,9 @@
     HQ dashboard, the Run Show suite-picker dropdown, the donut chart, the Test Suite tree panel's search
     placeholder, and (critically) `BUG-TCM-067`'s own fix key, all at once. BUG-TCM-067's retest note corrected
     to reflect this true root cause (the key wasn't "never added" — it was added correctly, then un-added by
-    this unrelated commit). Filed as BUG-TCM-082 (Critical), not yet reported to production. **Net open-bug
-    count now 6** (BUG-TCM-067, 071, 078, 080, 081, 082).
+    this unrelated commit). Filed as BUG-TCM-082 (Critical). **Net open-bug count now 6**
+    (BUG-TCM-067, 071, 078, 080, 081, 082).
+  - **BUG-TCM-082 reported to production 2026-10-21, per explicit user approval ("bug production pe bana do"):**
+    filed as #124178, assigned to Vaishnavi Bhawsar, target version Release 7.2.0. Linked to production
+    Testcase #124143 (Quality HQ) and #123951 (CI ingest authorization — the same testcase BUG-TCM-067 is
+    linked to, since this bug is the true root cause behind that one's symptom) in Run #612.

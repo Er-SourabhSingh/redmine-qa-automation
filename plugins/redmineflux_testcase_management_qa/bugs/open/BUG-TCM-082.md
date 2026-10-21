@@ -1,7 +1,7 @@
 # BUG-TCM-082
 
 - Bug ID: BUG-TCM-082
-- Production Redmine Issue ID: (not yet reported — pending user approval)
+- Production Redmine Issue ID: #124178 (https://flux.zehntech.com/issues/124178) — assigned to Vaishnavi Bhawsar, priority Urgent, Defect Type Functional / Defect Severity Critical / Defect priority Urgent, target version Testcase Management plugin Release 7.2.0. Linked to production Testcase #124143 (Quality HQ) and #123951 (CI ingest authorization, same testcase as BUG-TCM-067) in Run #612, environment Win + Chrome + Ver6.
 - Title: The BUG-TCM-079 fix commit silently deleted ~41 unrelated locale keys — Quality HQ, the Run Show suite-picker, the donut chart, and BUG-TCM-067's own fix all broke at once
 - Severity: Critical
 - Redmine version: 6.x (Docker)
@@ -129,4 +129,6 @@ missing" strings appear across a fixed list of key pages, specifically to catch 
 
 ## Production report
 
-Not yet reported — pending explicit user approval per `REDMINEFLUX-MCP-SETUP.md` §4.
+Reported 2026-10-21 as issue #124178 on `ztflux`, via `redmineflux_core_create_issue`, per explicit user approval.
+Linked to production Testcase #124143 (Quality HQ) and #123951 (CI ingest authorization, same testcase as
+BUG-TCM-067) in Run #612 via `report_defect`.

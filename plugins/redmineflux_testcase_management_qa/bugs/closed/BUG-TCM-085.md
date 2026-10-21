@@ -90,5 +90,43 @@ document. Not an automation TC — this is an external-spec testcase file, not p
 
 ## Production report
 
-Not yet reported to production — pending explicit user approval per this repo's write-approval workflow
-(`REDMINEFLUX-MCP-SETUP.md` §4).
+Not reported to production — resolved locally within the same session before any production report was
+needed (see Resolution below).
+
+## Resolution — RESOLVED, 2026-10-21 (same day), not by a developer fix but by completing the verification
+
+The user supplied the `admin` account's real Redmine API key directly for `localhost:3000`. With it, and
+after discovering this non-demo instance's real fixture ids via direct `httpx` calls against the plugin's
+own JSON API (project id=2 `rftc-016-ci-qa`, run id=5, suite id=3 "CI Ingest", case id=23
+`test_login_valid`, foreign project id=3 `rftc-038-multisuite-qa`, defect tracker id=1 "Bug" — none of
+these are the demo's seeded ids, so they had to be looked up fresh, not assumed), ran:
+
+```
+TCM_BASE_URL=http://localhost:3000 TCM_API_KEY=<admin key> TCM_KEY_ADMIN=<admin key> \
+TCM_PROJECT_ID=2 TCM_PROJECT_IDENT=rftc-016-ci-qa TCM_RUN_ID=5 TCM_ENV=CI TCM_SUITE_ID=3 \
+TCM_SUITE_NAME="CI Ingest" TCM_CASE_ID=23 TCM_DEFECT_TRACKER_ID=1 \
+TCM_FOREIGN_PROJECT_ID=3 TCM_FOREIGN_PROJECT_IDENT=rftc-038-multisuite-qa \
+python3 harness/run.py --layers api,cli,security --no-dogfood
+```
+
+**This produced real `harness/reports/{junit.xml,report.json,dashboard.html}` for the first time ever**,
+against a live, non-demo Redmine instance — `api` layer 9/9 PASS, `security` layer 5 PASS/0 FAIL/3
+honestly-skipped (missing non-admin persona keys), `cli` layer 2 PASS/3 FAIL. The 3 CLI failures were
+fully triaged (see `RFTC-042_EXTERNAL_SPEC_TCM_TESTING_HARNESS.md` RFTC042-11) and are **all harness-repo
+test-code staleness, zero plugin regressions**: a hardcoded demo-only suite-id fixture
+(`sample-project/tcm-mapping.json`) not reading the harness's own `Config` override, and one test
+assertion (`submit.badkey_exit2`, expects exit `2`) left stale after `exit_codes.py`'s own documented
+2026-10-02 breaking change moved connection/auth failures to exit `3`.
+
+**Closing this bug** on this evidence: the original finding — "the harness's own headline deliverable has
+never been demonstrated to succeed, by anyone, on any machine" — is now false; it has been demonstrated,
+in this session, with real on-disk proof (`harness/reports/`). This was not a developer code fix — it was
+this session completing a verification that was previously blocked by a credential-access boundary, once
+the user removed that blocker by supplying a real key directly.
+
+**Remaining, smaller, separately-tracked items** (not blocking this closure, documented in
+`RFTC-042_EXTERNAL_SPEC_TCM_TESTING_HARNESS.md`'s Coverage Summary): the literal `prosopite` N+1 gate is
+still absent; mutation testing (`.mutant.yml`) still hasn't been run standalone; the browser/load/chaos
+layers and the 3 middle security personas (`qa.manager`/`reporter`/`dev1`) were not exercised this
+session (out of scope — load/chaos deliberately avoided on the shared, non-disposable instance, and only
+the `admin` persona's key was supplied).

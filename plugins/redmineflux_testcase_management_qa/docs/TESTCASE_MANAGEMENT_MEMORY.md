@@ -584,3 +584,20 @@
     bug in the harness's own code, not a plugin regression. This is a good repeatable pattern: when a sibling
     repo's security/property tests need no live server connection, they can and should be re-run directly
     rather than only read/reviewed.
+  - **UPDATE, same session: BUG-TCM-085 RESOLVED after the user supplied a real admin API key directly.**
+    Once unblocked, ran `harness/run.py --layers api,cli,security` live against `localhost:3000` for the
+    first time ever — needed real, non-demo fixture ids looked up fresh via direct `httpx` calls against the
+    plugin's own JSON API (project id=2 `rftc-016-ci-qa`, run id=5, suite id=3, case id=23, foreign project
+    id=3 `rftc-038-multisuite-qa`), since the harness's `Config` defaults are hardcoded to the `:3091` demo's
+    seeded ids (project 1 `alpha-web`, etc.) and are silently wrong on any other target. Produced real
+    `harness/reports/{junit.xml,report.json,dashboard.html}`: `api` 9/9 PASS, `security` 5/8 PASS (3 honest
+    skips — no `qa.manager`/`reporter`/`dev1` keys supplied), `cli` 2/5 PASS. **All 3 CLI failures triaged as
+    the harness's own test-code staleness, not plugin bugs**: (1) `sample-project/tcm-mapping.json` hardcodes
+    `testsuite_id: 1` for its demo fixtures regardless of the harness's own `TCM_SUITE_ID` override — a
+    demo-environment-coupled test fixture, not reading its own config; (2) same root cause cascading into a
+    second check; (3) one assertion (`submit.badkey_exit2`, expects exit code `2` for a bad API key) is stale
+    against `exit_codes.py`'s own documented 2026-10-02 BREAKING change, which moved "connection/auth failure"
+    from exit `2` to exit `3`. **Lesson: when a harness/test tool ships config defaults seeded for ONE demo
+    environment, always look up the TARGET environment's own real fixture ids via its API first — never assume
+    the tool's defaults apply, and don't mistake a config-mismatch 404 for a plugin regression.** Full detail
+    in `RFTC-042_EXTERNAL_SPEC_TCM_TESTING_HARNESS.md` RFTC042-7/7a/11 and `bugs/closed/BUG-TCM-085.md`.

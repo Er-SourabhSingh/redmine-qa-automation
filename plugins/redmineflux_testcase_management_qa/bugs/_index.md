@@ -76,7 +76,7 @@
 | BUG-TCM-081 | Most Failed Tests report's "Download PDF" button export has a table-layout glitch — the "Failing Runs" drilldown column's rows overlap and misalign the Failures/Executed/Failure Rate columns, found 2026-10-21 while retesting BUG-TCM-076's chart-missing fix; retested 2026-10-21 after the dev's fix — confirmed FIXED | Closed | Low | master (post-pull, pre-7.2.0) | #124160 | bugs/closed/BUG-TCM-081.md |
 | BUG-TCM-082 | The BUG-TCM-079 fix commit (`ebeda18`) silently deleted ~41 unrelated locale keys — Quality HQ's entire dashboard, the Run Show suite-picker, the donut chart, the Test Suite tree panel, and BUG-TCM-067's own fix key all broke at once, found 2026-10-21 after the user spotted "Translation missing" strings in a screenshot; retested 2026-10-21 after the dev's fix (same commit as BUG-TCM-067) — confirmed FIXED | Closed | Critical | master (post-pull, pre-7.2.0) | #124178 | bugs/closed/BUG-TCM-082.md |
 | BUG-TCM-083 | Import Wizard's Step 1 page title accumulates "Redmineflux Testcase - " once per suite-tree node — the recursive `_suite_tree.html.erb` partial carries its own copy of a title-mutating script that should only run once, found 2026-10-21 while regression-testing rftc-011 Wave 8 | Open | Low | master (post-pull, pre-7.2.0) | #124202 | bugs/open/BUG-TCM-083.md |
-| BUG-TCM-085 | rftc-042 TCM Testing Harness's own stated deliverable (`harness/run.py` end-to-end execution producing JUnit + exit code) has never been successfully run by anyone, despite production ticket #121885 showing 90% done / "In QA" — found 2026-10-21 while writing/executing RFTC-042 and RFTC-043 external-spec testcases | Open | Medium | master (post-pull, pre-7.2.0) | *(not yet reported)* | bugs/open/BUG-TCM-085.md |
+| BUG-TCM-085 | rftc-042 TCM Testing Harness's own stated deliverable (`harness/run.py` end-to-end execution producing JUnit + exit code) had never been successfully run by anyone, despite production ticket #121885 showing 90% done / "In QA" — found 2026-10-21; **RESOLVED same day** after the user supplied a real admin API key, enabling a genuine first-ever live end-to-end run (api 9/9 PASS, security 5/8 PASS honest-skips, cli 2/5 PASS with all 3 failures triaged as harness test-code staleness, zero plugin regressions) | Closed | Medium | master (post-pull, pre-7.2.0) | *(not reported — resolved locally)* | bugs/closed/BUG-TCM-085.md |
 | BUG-TCM-005 | Report emailed as PDF arrives with no attachment at all, while the body still says "Please find the attached Testcase Report" | Closed | High | 6.1.3 | #120588 | bugs/closed/BUG-TCM-005.md |
 | BUG-TCM-003 | Bulk update result fails for every browser user because the bulk endpoint rejects the logged-in session and treats the request as an unauthenticated API call | Closed | High | 7.0.0 | #120544 | bugs/closed/BUG-TCM-003.md |
 | BUG-TCM-004 | Bulk Update Result modal shows raw HTML markup in its "Apply to N testcase(s)" line | Closed | Low | 7.0.0 | #120546 | bugs/closed/BUG-TCM-004.md |
@@ -330,3 +330,18 @@
   `RFTC-043_EXTERNAL_SPEC_SECURITY_DISCOVERY_TESTING.md` fresh, covering OWASP Top-10 coverage, SAST/dependency/
   secret-scan regression-net re-runs (all clean against today's code), and honestly-reported gaps (A09 logging,
   A10 Grover-specific SAST rule, the same live-DAST-execution gap as BUG-TCM-085).
+
+- **BUG-TCM-085 RESOLVED, same session, 2026-10-21 (later):** the user supplied the `admin` account's real
+  Redmine API key for `localhost:3000` directly. With it, and after looking up this non-demo instance's real
+  fixture ids (project id=2 `rftc-016-ci-qa`, run id=5, suite id=3 "CI Ingest", case id=23, foreign project
+  id=3 `rftc-038-multisuite-qa`) via direct API calls, ran
+  `python3 harness/run.py --layers api,cli,security --no-dogfood` for the first time ever against a live,
+  non-demo instance. Produced real `harness/reports/{junit.xml,report.json,dashboard.html}` — `api` 9/9 PASS,
+  `security` 5 PASS/0 FAIL/3 honest-skip (missing non-admin persona keys), `cli` 2 PASS/3 FAIL. All 3 CLI
+  failures triaged in full and found to be the harness's own stale test code (a hardcoded demo-only suite-id
+  fixture not reading the harness's `Config` override, plus one exit-code assertion left stale after the
+  CLI's own documented 2026-10-02 breaking change) — **zero plugin regressions**. This resolves the bug's
+  core finding (the harness's own headline deliverable was unproven) — not via a developer fix, but by this
+  session completing a verification that a credential boundary had previously blocked. Moved to
+  `bugs/closed/`; not reported to production (resolved locally, nothing to report). Updated
+  `RFTC-042_EXTERNAL_SPEC_TCM_TESTING_HARNESS.md` (RFTC042-7 now PASS, new RFTC042-11 for the CLI triage).

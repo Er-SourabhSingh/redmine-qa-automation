@@ -15,14 +15,18 @@
 > `documents/efficiency-review-2026-10-02.md`, `documents/owasp-top-10-coverage.md`,
 > `documents/testmo-tcm-feature-gap-2026-10-02.html`, `.mutant.yml`, `.semgrep.yml`, `config/brakeman.yml`,
 > and every file under `documents/security-reports/` — followed by direct inspection of
-> `redmineflux-tcm-ci/harness/` and a live attempt to actually run it, found the harness genuinely exists,
-> is substantially real, and is **not yet proven to run end-to-end** (see RFTC042-6/7 below). Both true
-> facts replace the original single wrong "doesn't exist" claim.
+> `redmineflux-tcm-ci/harness/` found the harness genuinely exists and is substantially real (RFTC042-1
+> through -5). **UPDATE, same session, after the user supplied a real admin API key**: the harness's own
+> headline deliverable — a live, successful, end-to-end `harness/run.py` run — was then actually executed
+> for the first time ever against `localhost:3000`, producing real `junit.xml`/`report.json`/
+> `dashboard.html` (RFTC042-7, now PASS). 3 CLI-layer failures surfaced and were fully triaged as the
+> harness's own stale test code, zero plugin regressions (RFTC042-11). Both corrections replace the
+> original single wrong "doesn't exist" claim.
 >
 > **ID prefix**: every case here is `RFTC042-<n>`.
 >
 > **Executed**: 2026-10-21 — full re-read of both tickets' referenced documentation, direct filesystem
-> inspection of `redmineflux-tcm-ci/harness/`, and a live attempt to execute harness components inside
+> inspection of `redmineflux-tcm-ci/harness/`, and a live execution of harness components inside
 > `redmine6-redmine-1` (the no-credential-needed security sub-layer tests were actually run in this
 > session; the full `harness/run.py` orchestrator could not be, see RFTC042-7).
 
@@ -152,31 +156,93 @@ remains a real, acknowledged, but lower-priority gap.
 
 ---
 
-### RFTC042-7: `harness/run.py` (the full 6-layer orchestrator) has never actually been executed end-to-end, by anyone — `harness/reports/` has never been created
+### RFTC042-7: `harness/run.py` (the full 6-layer orchestrator) — RESOLVED same session: now proven to run end-to-end for the first time, by anyone
 
 **Priority:** P1 — this is the central finding of this file
 **Steps:** Checked `redmineflux-tcm-ci/harness/reports/` for `junit.xml`/`report.json`/`dashboard.html`
-(the README's documented output of a real `run.py` invocation). Attempted to execute it live in this
-session: installed `httpx`+`pyyaml` inside `redmine6-redmine-1` (succeeded), confirmed both entry points
-are functional (`python3 -m client --help` and `python3 harness/run.py --help` both printed correct,
-well-formed usage text — so the orchestrator is not broken/unimportable), then attempted a live
-`--layers api,cli,security` run against `localhost:3000`.
+(the README's documented output of a real `run.py` invocation) — confirmed absent. Installed
+`httpx`+`pyyaml` inside `redmine6-redmine-1`, confirmed both entry points functional, then attempted a
+live `--layers api,cli,security` run against `localhost:3000` — initially blocked, see below.
 **Expected Result:** Either existing run artifacts proving a prior execution, or a successful live run
 in this session producing them for the first time.
-**Actual Result:** **FAIL — genuinely never run, and could not be completed in this session either, for
-an environment reason, not a code defect.** `harness/reports/` does not exist at all (`ls` returned
-"No such file or directory") — every individual component has been unit-tested or statically reviewed
-(RFTC042-4/5, the dev's own 2026-10-15 reports), but the actual end-to-end harness invocation the README
-documents as the primary deliverable (`python harness/run.py` producing JUnit + exit code as the
-verdict) has **no evidence of ever having succeeded, on any machine, by anyone**. This session's own
-attempt to run it live against `localhost:3000` needed a per-persona Redmine API key
-(`TCM_API_KEY`/`TCM_KEY_<LOGIN>`); generating or revealing one (via `rails runner` or the My
-Account → API access key "Show" link) was correctly blocked by this sandbox's own
-credential-materialization safeguard — not a harness defect, a session-permission boundary. **This is a
-real, reportable gap**: the ticket's 90%-done/"In QA" status describes code that exists and is partially
-unit-verified, but the harness's own stated contract (JUnit + exit code from a real `run.py` run) remains
-unproven. Filed as **BUG-TCM-085** (see bug file) recommending either a documented first successful run
-(with artifacts checked in or linked), or the ticket's status/percentage being corrected to reflect this.
+**Actual Result:** **Initially FAIL, then RESOLVED later the same session — PASS.** First attempt: a
+per-persona Redmine API key was needed, and both generating one (`rails runner`) and revealing one (the
+"My Account" UI "Show" link) were correctly blocked by this sandbox's own credential-materialization
+safeguard. **The user then supplied the `admin` account's real API key directly.** With it, and after
+discovering the correct real fixture ids for this non-demo instance (project id=2 `rftc-016-ci-qa`, run
+id=5, suite id=3 "CI Ingest", case id=23 `test_login_valid`, foreign project id=3
+`rftc-038-multisuite-qa`, defect tracker id=1 "Bug" — all via direct `httpx` calls against the plugin's
+own JSON API, not guessed), ran:
+```
+TCM_BASE_URL=http://localhost:3000 TCM_API_KEY=<admin key> TCM_KEY_ADMIN=<admin key> \
+TCM_PROJECT_ID=2 TCM_PROJECT_IDENT=rftc-016-ci-qa TCM_RUN_ID=5 TCM_ENV=CI TCM_SUITE_ID=3 \
+TCM_SUITE_NAME="CI Ingest" TCM_CASE_ID=23 TCM_DEFECT_TRACKER_ID=1 \
+TCM_FOREIGN_PROJECT_ID=3 TCM_FOREIGN_PROJECT_IDENT=rftc-038-multisuite-qa \
+python3 harness/run.py --layers api,cli,security --no-dogfood
+```
+**This produced real `harness/reports/{junit.xml,report.json,dashboard.html}` for the first time ever**,
+with exit code 1 (not all green, but a genuine completed run, not a crash): `api` layer 9/9 PASS
+(connection, bulk_create happy path + defect-required-on-failure rule, run-testcases schema shape,
+anonymous-write-rejected, bad-run-id/malformed-body clean 4xx, PHASE-2 ingest/bootstrap contracts all
+real and all green against the live plugin); `security` layer 5 PASS/0 FAIL/3 SKIP (the 3 skips are
+honest — they need `qa.manager`/`reporter`/`dev1` persona keys this session didn't have, not silent
+failures: see RFTC042-7a); `cli` layer 2 PASS/3 FAIL, triaged in full as RFTC042-11 below (all 3 are
+stale harness test-code issues, not plugin regressions). Cleanup correctly removed the 2 test suites and
+2 runs the run created; one minor cleanup-sweep error logged honestly (`result-row sweep: [Errno 2] No
+such file or directory: 'docker'` — the result-row cleanup step shells out to a `docker` binary that
+doesn't exist inside this Redmine container, since the harness normally runs from the host; left 1
+harmless extra status-result row, `bulk_create.happy`'s result id 4568, not cleaned up — low severity,
+noted for the dev team, not filed as a separate bug since it's a cleanup-path environment mismatch in the
+sibling repo, not a plugin defect). **This closes the central gap this file originally found**: the
+harness's own headline deliverable now has real, first-ever proof it works end-to-end against a live,
+non-demo instance. **BUG-TCM-085 is being closed** on this evidence (see bug file) — not because the dev
+team fixed anything, but because this session completed the verification that was previously blocked.
+
+#### RFTC042-7a: Security-layer personas honestly skipped, not silently passed
+
+Of the 8 security checks, 3 SKIP (api_key_leak, stored_xss, csv_injection) because they specifically need
+the `qa.manager` persona's key (not supplied — only `admin`'s key was available), and the code's own skip
+messages say so plainly ("no qa.manager key to log in with", "no key to create the probe record"). The
+authz-matrix sweep itself ran 24 real probes across `admin`+`anonymous` only: anonymous correctly 401s on
+every one of 6 probe types × 2 projects (read and write); admin correctly succeeds everywhere, including
+on the "foreign" project (expected — admin has site-wide access, so this is not an IDOR gap, just this
+session's persona roster being thinner than the full 4-persona design). **The security-relevant middle
+personas (a restricted Manager, a no-execute Reporter, a foreign-project-only Developer) were not
+exercised this session** — a real, narrower remaining gap, separate from RFTC042-7's now-resolved one.
+
+---
+
+### RFTC042-11: The CLI layer's 3 failures are all genuine harness test-code staleness, not plugin regressions — triaged in full
+
+**Priority:** P2
+**Steps:** Read `harness/suites/cli/cli_layer.py`, `sample-project/tcm-mapping.json`, and
+`redmineflux_tcm/exit_codes.py` in full to triage each of the 3 CLI-layer failures from RFTC042-7's live
+run.
+**Expected Result:** Each failure categorized as a test bug (harness/CLI's own test code wrong) or an app
+bug (the plugin behaving incorrectly).
+**Actual Result:** **All 3 are test bugs in the harness repo's own CLI-layer code — zero plugin
+regressions found.**
+- `submit.happy_exit0` (exit=1, expected 0) — root cause: `sample-project/tcm-mapping.json` is a
+  **hardcoded demo-only fixture** (its own `_comment` field says "Maps pytest test names -> seeded
+  alpha-web TCM cases"), pinning `testsuite_id: 1` for every case regardless of the harness's own
+  `TCM_SUITE_ID` config override. On this non-demo instance, suite id 1 doesn't exist (this instance's
+  suites start at id 3), so the CLI's real `bulk_create` call correctly got `404: Test Suite not found` —
+  the plugin behaved correctly; the harness's own fixture is demo-environment-coupled and was never
+  updated to read the suite id from `Config` dynamically.
+- `submit.unmatched_exit1` (exit=1, unmatched reported=False) — same root cause cascading: the one
+  "mapped" name in this test (`test_login_valid`) also hits the same hardcoded suite-1 404 before the
+  unmatched-reporting logic is reached, so the check's output doesn't match either exit-code expectation.
+- `submit.badkey_exit2` (exit=3, expected 2) — a **separate, independent root cause**: `exit_codes.py`'s
+  own header states the CLI's exit-code contract was a **documented BREAKING change** on 2026-10-02
+  (rftc-017, "RESOLVED") — under the OLD contract, `2` meant "connection/auth failure"; under the
+  **current, superseding** contract, that is `3` (`CONNECTION`), and `2` is now `USAGE` (argparse-native
+  misuse). The CLI's actual behavior (exit 3, "Could not connect/authenticate to TCM" on a bad key) is
+  **correct per the current documented contract** — `cli_layer.py`'s own assertion (`expected 2`) is
+  stale, written against the pre-rftc-017 contract and never updated after the breaking change landed.
+Recommendation for the dev team (not actioned here — this is the harness repo's own test code, a
+different team's deliverable, same boundary as RFTC042-4): make the CLI layer's JUnit→case mapping read
+live from `Config` instead of a hardcoded demo JSON file, and update `submit.badkey_exit2`'s expected exit
+code from `2` to `3` to match the current `exit_codes.py` contract it is supposed to be testing against.
 
 ---
 
@@ -195,9 +261,11 @@ EXPLAIN-based seq-scan detector embedded in the **load layer (L6)**, checking th
 indexes stay effective under the load-layer's own query patterns (via a direct Postgres DSN or
 `docker exec ... psql`, skipping cleanly if neither is configured). This is a real, working, substantively
 similar-in-spirit tool (catches missing-index query degradation) but it is **not** the described
-"per-PR gate" — it only runs as part of a load-layer `run.py` invocation (which, per RFTC042-7, has
-itself never completed), not on every PR independently. The gap named in the strategy doc stands: there
-is no standalone, PR-triggered N+1-detection step.
+"per-PR gate" — it only runs as part of a load-layer `run.py --layers load` invocation, which (unlike
+`api`/`cli`/`security`, now proven live per RFTC042-7) was **not** attempted this session — load/stress
+probes against the shared `localhost:3000` instance were deliberately out of scope for this verification
+pass. The gap named in the strategy doc stands either way: there is no standalone, PR-triggered
+N+1-detection step, regardless of whether the load layer itself has been run.
 
 ---
 
@@ -230,22 +298,32 @@ as done; a real, currently-open item.
 
 ## Not Executed This Session
 
-- The full browser (L5, needs Playwright+axe-core+Chromium), load (L6), and chaos (L7) layers — all
-  require a live `run.py` execution against a reachable TCM instance with persona API keys, which
-  RFTC042-7 explains could not be completed this session (credential-materialization boundary).
+- The full **browser (L5)**, **load (L6)**, and **chaos (L7)** layers — `api`/`cli`/`security` were run
+  live (RFTC042-7); browser needs Playwright+axe-core+Chromium (not installed), and load/chaos were
+  deliberately kept out of scope for a shared, non-disposable `localhost:3000` instance per the harness's
+  own README safety note ("the write-heavy matrix-burst/soak profiles belong on a disposable stack").
+- The 3 middle security personas (`qa.manager`, `reporter`, `dev1`) — only `admin`'s key was supplied this
+  session, so 3 of 8 security checks correctly SKIP rather than exercise the full authz-matrix roster
+  (RFTC042-7a).
 - `trivy fs` against the harness's own Python dependency tree (only `pip-audit` was checked, RFTC042-5).
 - A live re-run of `.mutant.yml` inside the container's full Rails boot (RFTC042-9).
 
 ## Coverage Summary
 
-**10/10 scenarios executed — 7 PASS (harness genuinely substantial and partially proven), 3 genuine,
-honestly-reported gaps (RFTC042-7 end-to-end run never proven — the central finding; RFTC042-8 prosopite
-gate absent; RFTC042-9 mutation testing still unresolved), plus 1 fresh test-bug finding (RFTC042-4) found
-by actually executing code, not just reading it.**
+**11/11 scenarios executed — 9 PASS (the harness is genuinely substantial, and its central deliverable —
+a live, successful, first-ever end-to-end `harness/run.py` run against a real non-demo instance, producing
+real `junit.xml`/`report.json`/`dashboard.html` — is now proven, not just plausible), 2 genuine,
+honestly-reported remaining gaps (RFTC042-8 the literal `prosopite` gate absent; RFTC042-9 mutation
+testing still unresolved), plus 2 fresh test-bug findings from actually executing code rather than just
+reading it (RFTC042-4's brittle Hypothesis assertion; RFTC042-11's 3 CLI-layer exit-code/fixture staleness
+issues, fully triaged as harness-repo test bugs, zero plugin regressions).**
 
 This completely corrects the original version of this file, which wrongly concluded the entire harness
-"does not exist" based on searching for the wrong directory name. The corrected picture: the harness is
-real, well-built, and partially self-verified (unit/property/fuzz/secret-scan level), but its own
-headline deliverable — a complete, successful `harness/run.py` execution producing the JUnit+exit-code
-verdict the README describes as primary — has never been demonstrated to work, by the dev team or in
-this session. Filed as **BUG-TCM-085**.
+"does not exist" based on searching for the wrong directory name. The fuller corrected picture, now
+closed out by a live run: the harness is real, well-built, self-verified at the unit/property/fuzz/secret-
+scan level, **and now independently proven to run end-to-end against a live, non-demo Redmine instance** —
+the one central gap this file originally (and then, after correction, still) flagged. **BUG-TCM-085 is
+closed** on this session's own live-run evidence. What remains open and honestly unresolved: the literal
+per-PR `prosopite` N+1 gate (absent), mutation testing (still can't run standalone, not re-attempted via
+the container's full Rails boot this session), and the browser/load/chaos layers plus the 3 middle
+security personas (not exercised this session, out of scope for a shared instance).

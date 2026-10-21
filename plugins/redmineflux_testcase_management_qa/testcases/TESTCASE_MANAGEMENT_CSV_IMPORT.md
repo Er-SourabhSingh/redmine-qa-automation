@@ -193,6 +193,10 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 **Expected Result:**
 - Imports successfully at the boundary
 - **CONFIRMED (external session)**: PASS.
+- **Superseded 2026-10-21 (not a regression):** since the `steps.step`/`steps.expected` limit was raised from 2000
+  to 40000 chars (see BUG-TCM-079, closed), 2000 is no longer the real boundary — it's just a normal, well-under-
+  limit value now. Re-ran `08_boundary_2000_vs_2001_chars.csv`'s 2000-char row post-fix: still correctly **OK**.
+  The real boundary is now covered by TC-TCM-276 (40000 vs 40001).
 
 ---
 
@@ -209,6 +213,11 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 **Expected Result:**
 - Import is rejected with a specific error message identifying the length violation
 - **CONFIRMED (external session)**: PASS.
+- **Superseded 2026-10-21 (not a regression, behavior intentionally changed):** post-fix, 2001 chars is now well
+  under the new 40000-char limit, so this row is **no longer rejected** — re-ran `08_boundary_2000_vs_2001_chars.csv`'s
+  2001-char row and it now correctly imports as **OK**. This is the *correct*, intended outcome of BUG-TCM-079's
+  fix (the client's whole point was that content in this range should import), not a defect in this TC or the
+  product. The real "just over the limit" rejection case is now TC-TCM-276's 40001-char row.
 
 ---
 
@@ -225,6 +234,10 @@ All cases below go through the plugin's own CSV Import wizard (Testcase Manageme
 **Expected Result:**
 - "No testcases to import" — the entire test case is rejected, zero created
 - **CONFIRMED (external session)**: PASS.
+- **Superseded 2026-10-21 (not a regression, behavior intentionally changed):** 2500 chars is now well under the
+  new 40000-char limit. Re-ran `07_oversized_step_text_negative.csv` post-fix: the row now correctly imports as
+  **OK** (0 errors), instead of being rejected. Same reasoning as TC-TCM-031 — this is the fix working as intended
+  for the client's use case, not a defect. "Oversized" now means "over 40000," covered by TC-TCM-276.
 
 ---
 
@@ -443,6 +456,38 @@ BUG-TCM-079 is isolated to the length-validation check itself, not a wider impor
 
 ---
 
+### TC-TCM-279: CSV Import succeeds (with a warning, not an error) when a required custom field is missing from the file
+
+**User Role:** QA / Manager
+**Priority:** High
+**Precondition:** The project's Testcase tracker has a required custom field (e.g. created as Format=Text,
+Required=yes, applied to the Testcase tracker). The CSV file being imported does not contain a column for it at
+all.
+
+**Steps:**
+1. Import a CSV with no column for the required custom field (fixture:
+   `automation/testdata/csv-test-data/01_legacy_single_step_format.csv` — any file with no custom-field columns
+   works for this check).
+2. Check the step 4 preview result for each row.
+3. Confirm the import and open a created test case.
+
+**Expected Result:**
+- The row is flagged with a **Warning** ("Required custom field '<name>' is missing or empty; importing without
+  it."), not an Error — the required-field check must never block import, since CSV import is a bulk/legacy-data
+  path where not every source system will have an equivalent value for every custom field. The test case is still
+  created successfully, just without that field populated.
+
+**Status: EXECUTED 2026-10-21 — PASS.** Created a required custom field (`QA Import Required Field`, Text format,
+required, applied to the Testcase tracker, for all projects) and re-imported
+`01_legacy_single_step_format.csv` (which has no column for it). Step 4 preview showed **0 correct / 5 warnings /
+0 errors** — every row warned with the exact expected message, none blocked. Completed the import: all 5 test
+cases were created normally (confirmed via the issues list and opening one directly), with the required field
+simply left blank. Matches `TestcaseImportController`'s own documented design (required custom fields are
+warning-only during import, never enforced as a hard error — see the comment at
+`app/controllers/testcase_import_controller.rb` around the `required_custom_fields.each` loop).
+
+---
+
 ## Notes (non-bug observations)
 
 - **Preview vs. final step numbering mismatch**: when a step is skipped, the final saved test case renumbers surviving steps contiguously (1, 2, 3...), while the import preview still shows them under their original CSV column numbers with a visible gap. Not incorrect, but could read as confusing to someone reviewing the preview before confirming. No TC/bug filed for this — tracked here and in `docs/TESTCASE_MANAGEMENT_MEMORY.md`.
@@ -471,6 +516,7 @@ BUG-TCM-079 is isolated to the length-validation check itself, not a wider impor
 | TC-TCM-275 | `21_boundary_40000_vs_40001_chars.csv`, `22_jira_zephyr_migration_long_expected.csv` | **BUG-TCM-079 (open)** |
 | TC-TCM-276 | `21_boundary_40000_vs_40001_chars.csv` | **BUG-TCM-079 (open)** |
 | TC-TCM-277 | `01_legacy_single_step_format.csv` (regression re-run) | — |
+| TC-TCM-279 | `01_legacy_single_step_format.csv` (with a required custom field added to the project, missing from the CSV) | — |
 
 ---
 
@@ -508,3 +554,45 @@ Method note: TC-TCM-035 and TC-TCM-036 (the two retests that gate the bug closur
 through the real wizard UI, including performing the import and opening the saved test case. The remaining
 fixtures were driven through the same four wizard endpoints from the authenticated browser session and asserted
 on the rendered step-2 mapping screen and step-4 preview summary.
+
+---
+
+## Regression Run — 2026-10-21 (post BUG-TCM-079 fix, 2000→40000-char limit)
+
+Environment: Docker `localhost:3015` (`C:\crux-redmine`), project `test`, user `admin`. Full-suite regression per
+`SENIOR_QA_STANDARDS.md` §26 (High severity → all TCs in the affected suite), triggered by BUG-TCM-079's fix.
+Fixtures: `automation/testdata/csv-test-data/`.
+
+| TC | Fixture | Preview result | Verdict |
+|---|---|---|---|
+| TC-TCM-021 | 01_legacy_single_step_format.csv | 4 correct / 1 warning / 0 errors — unchanged from baseline | PASS |
+| TC-TCM-023 | 02_zero_to_fifty_steps_range.csv | 51 correct / 0 / 0 | PASS |
+| TC-TCM-025 | 03_steps_only_no_expected.csv | 0 correct / 5 warnings / 0 errors | PASS |
+| TC-TCM-025 | 04_expected_only_no_steps.csv | 0 correct / 5 warnings / 0 errors | PASS |
+| TC-TCM-026 | 05_mixed_partial_per_row.csv | 2 correct / 4 warnings / 0 errors | PASS |
+| TC-TCM-026 | 06_varying_step_counts_same_file.csv | 5 correct / 0 / 0 | PASS |
+| TC-TCM-031/032 | 07_oversized_step_text_negative.csv (2500 chars) | **Now OK** (was rejected pre-fix) — correct, 2500 < 40000 | PASS (behavior intentionally changed, see TC-TCM-032) |
+| TC-TCM-030/031 | 08_boundary_2000_vs_2001_chars.csv | **Both rows now OK** (2001 was rejected pre-fix) — correct, both < 40000 | PASS (behavior intentionally changed, see TC-TCM-030/031) |
+| TC-TCM-034 | 09_large_bulk_import_100_rows.csv | 100 correct / 0 / 0 | PASS |
+| TC-TCM-033 | 10_header_only_no_data_rows.csv | blocked at step 2, same message as baseline | PASS |
+| TC-TCM-033 | 11_completely_empty_file.csv | blocked at step 2, same message as baseline | PASS |
+| TC-TCM-027 | 12_non_sequential_step_numbering.csv | 1 correct / 0 / 0 | PASS |
+| TC-TCM-028 | 13_special_characters_and_escaping.csv | 2 correct / 0 / 0 | PASS |
+| TC-TCM-036 | 14_duplicate_step_column_headers.csv | duplicate-header warning banner present, 1 correct / 0 / 0 | PASS |
+| TC-TCM-035 | 15_header_case_and_whitespace_variations.csv | 1 correct / 0 / 0 | PASS |
+| TC-TCM-029 | 16_step_columns_without_expected_columns_in_header.csv | 0 correct / 1 warning (3 sub-warnings) / 0 errors | PASS |
+| TC-TCM-029 | 17_expected_columns_without_step_columns_in_header.csv | 0 correct / 1 warning (3 sub-warnings) / 0 errors | PASS |
+| TC-TCM-037 | 18_all_columns_export_118789.csv | 500 rows, 0 errors (warnings only) | PASS |
+| TC-TCM-037 | 19_all_columns_export_118789_redmine6.csv | 0 correct / 5 warnings / 0 errors | PASS |
+| TC-TCM-275 | 22_jira_zephyr_migration_long_expected.csv | 4/4 OK, DB-verified zero truncation (5000/15000/35000/12000 chars) | PASS |
+| TC-TCM-276 | 21_boundary_40000_vs_40001_chars.csv | 40000 OK (DB-verified), 40001 rejected with corrected "40000 characters" message | PASS |
+| TC-TCM-277 | 01_legacy_single_step_format.csv (baseline re-check) | unchanged | PASS |
+| TC-TCM-279 | 01_legacy_single_step_format.csv + a required custom field added to the Testcase tracker, missing from the CSV | 0 correct / 5 warnings ("Required custom field '...' is missing or empty; importing without it.") / 0 errors — all 5 test cases still created successfully | PASS |
+
+**Result: 23/23 TCs checked PASS, zero new failures.** BUG-TCM-079 confirmed fixed with no regression anywhere in
+the CSV Import suite. Three pre-existing TCs (TC-TCM-030/031/032) have an intentionally changed outcome at their
+original 2000/2001/2500-char fixture values (now all comfortably under the new 40000-char limit, so all now
+import successfully instead of being rejected) — documented inline on each TC, not a defect. TC-TCM-020 (encoding-
+dependent Redmine 5 export variant, file 20) was spot-checked and showed an existing, unrelated encoding-selection
+behavior from an earlier session, not touched by this fix — not re-investigated as part of this regression since
+it's orthogonal to the length-limit change.

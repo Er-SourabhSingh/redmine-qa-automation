@@ -636,3 +636,14 @@
     to completion" — the goal was confirming Bitbucket Pipelines' real behavior, not re-using one specific
     account.** This is a good repeatable pattern for any future platform-lockout situation: don't wait out an
     external security hold if an alternative real account/workspace can establish the same evidence faster.
+  - **UPDATE, same session: RFTC038-22 through RFTC038-25 (the 4 real-platform-run findings) were documented
+    locally but NEVER actually created as production testcases.** The user caught this ("inke testcase
+    production pe bana rahe ho") while I was creating them — a legitimate catch, since the local
+    `RFTC-038_EXTERNAL_SPEC_CI_PLATFORM_RECIPES.md` file had claimed "25/25 executed scenarios" for a while
+    without 4 of those 25 ever existing in production or Run #612 (confirmed via `core_search` returning zero
+    hits for "RFTC038-22"/"RFTC038-23" before this fix, and the suite's own `get_run_testcases` dump earlier
+    this session only showing up through RFTC038-21). **Lesson: "documented in the local QA file" is not the
+    same as "exists in production" — always spot-check with `core_search`/`get_run_testcases` before trusting
+    a local file's own claimed count, especially for scenarios recovered after the fact (via log forensics)
+    rather than executed in the normal write-local-then-create-production-then-execute order.** Created all 4
+    (#124252/124253/124249/124250), added to suite #449, recorded Passed in Run #612.

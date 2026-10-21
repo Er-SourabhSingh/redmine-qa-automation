@@ -319,13 +319,120 @@ an explicit **"No data"** message in place of the table. No blank page, no error
 
 ---
 
+## Functional Cases — Requirement Content Editor (round-trip persistence)
+
+---
+
+### TC-TCM-269: Requirement content persists across reload for every content-editor block type
+
+**User Role:** Administrator
+**Priority:** Critical
+**Steps:**
+1. Create a fresh requirement.
+2. Add one block of each available content-editor tool in turn: paragraph (with Bold/Italic/Underline/
+   Strikethrough/Link), Heading, List, Quote, Code, Delimiter, Table, Warning, Checklist, Raw HTML, Image
+   (upload), Attachment (upload).
+3. Save, reload the page, and check every block is present, with the same content, in the same order.
+
+**Expected Result:**
+- Every block added is present, unmodified, and in order after reload. Regression target for BUG-TCM-074 (the
+  original view-triggered phantom-save defect).
+
+**Status: EXECUTED 2026-10-20 — PASS** (fix verification pass for BUG-TCM-074, both as a two-separate-burst test
+and as one single combined burst covering paragraph/heading/list/delimiter/attachment/mention together). Confirmed
+clean across 8+ consecutive reloads on the fixed `C:\crux-redmine` build. See `bugs/closed/BUG-TCM-074.md`
+("Retest #2" / "Retest #3") for full evidence.
+
+---
+
+### TC-TCM-270: Rapid, back-to-back multi-block edits do not race/lose content across reloads
+
+**User Role:** Administrator
+**Priority:** Critical
+**Steps:**
+1. Open a requirement.
+2. Without pausing between them, add several different blocks in quick succession (e.g. a paragraph, a
+   `#`-mention link to an existing test case, an attachment upload, another paragraph immediately after the
+   upload starts).
+3. Reload the page 3–4 times in a row, checking the full block list each time.
+
+**Expected Result:**
+- Nothing is dropped or reordered on any of the reloads, regardless of save timing. Regression target for
+  BUG-TCM-074's reopened finding (a save-race that could non-deterministically drop a block added in a rapid
+  edit burst).
+
+**Status: EXECUTED 2026-10-20 — PASS.** Reproduced the exact reopening scenario (rapid multi-block bursts,
+including a block added immediately after starting an attachment upload, before it finished) across two separate
+bursts (8 reloads total) and one single combined burst (4 more reloads) — zero loss, zero reordering every time.
+See `bugs/closed/BUG-TCM-074.md`.
+
+---
+
+### TC-TCM-271: Link a test case to a requirement via a `#`-mention in its content
+
+**User Role:** Administrator
+**Priority:** High
+**Steps:**
+1. In a requirement's content, type `#` followed by an existing test case's subject/ID; select it from the
+   suggestion list.
+2. Save, reload, and check: the content shows a real link to that test case's issue, and the Traceability Matrix
+   shows the relation.
+
+**Expected Result:**
+- The mention renders as a clickable link to the test case's issue page, and the backing requirement↔testcase
+  relation is created and visible on the Traceability Matrix.
+
+**Status: EXECUTED 2026-10-20 — PASS.** Confirmed both the rendered `<a href="/issues/N">` link persisting across
+reloads and the Traceability Matrix showing the relation (requirement ↔ test case) immediately after linking.
+
+---
+
+### TC-TCM-272: Unlink a test case from a requirement by deleting its `#`-mention text
+
+**User Role:** Administrator
+**Priority:** Medium
+**Steps:**
+1. On a requirement already linked to a test case via a `#`-mention, delete the mention text from the content
+   using real keyboard input (click into the block, place cursor after the mention, Backspace).
+2. Save, reload, and check the content and the Traceability Matrix.
+
+**Expected Result:**
+- The mention is gone from the content on reload, and the Traceability Matrix no longer shows the relation.
+
+**Status: EXECUTED 2026-10-20 — PASS**, with a caveat recorded for future sessions: a **scripted** deletion (DOM
+`execCommand`/`textContent` manipulation instead of real keyboard events) can appear to remove the mention from
+the Traceability Matrix immediately, while the content itself silently fails to persist the deletion and the
+mention reappears on the next reload — this is a **test-tooling artifact** (the synthetic edit never actually
+reached the app's save pipeline), not a product defect. Confirmed clean when redone with real `Backspace`
+keypresses: content and Traceability Matrix both correctly reflect the unlink after reload. See
+`bugs/closed/BUG-TCM-074.md` ("Retest #3") for the full investigation.
+
+---
+
+### TC-TCM-273: Renaming a requirement's title does not affect its already-saved content
+
+**User Role:** Administrator
+**Priority:** Medium
+**Steps:**
+1. On a requirement with existing content (multiple blocks), use the pencil icon to rename its title.
+2. Save, reload, and check both the new title and the content blocks.
+
+**Expected Result:**
+- The new title persists, and every content block from before the rename is still present, unchanged.
+
+**Status: EXECUTED 2026-10-20 — PASS.** Renamed twice in the same retest session; content (6 blocks including a
+mention and an attachment) was unaffected both times, confirmed on reload after each rename.
+
+---
+
 ## Evidence Map
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-112 – 610 | Requirement CRUD and linking | — |
-| TC-TCM-122 – 616 | Traceability matrix | — |
+| TC-TCM-112 – 121 | Requirement CRUD and linking | BUG-TCM-021, BUG-TCM-022, BUG-TCM-027 |
+| TC-TCM-122 – 127 | Traceability matrix | — |
+| TC-TCM-269 – 273 | Requirement content editor round-trip persistence, link/unlink/rename | BUG-TCM-074 |
 
 - Screenshots only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
-- TC-TCM-120, 613 and 615 are the highest-value cases — data-loss semantics, the RTM's core purpose, and
-  cross-view consistency respectively.
+- TC-TCM-120, 269 and 270 are the highest-value cases — data-loss semantics, the content editor's core save
+  guarantee, and the save-race regression target respectively.

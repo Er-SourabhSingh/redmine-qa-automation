@@ -221,6 +221,11 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 **Expected Result:**
 - A file downloads and opens showing the report content, including its tables.
 
+**Status: EXECUTED 2026-10-20 — PASS.** Verified across all 6 report types (Testcase Summary, Defect Summary,
+Activity Summary, Tester Scorecard, Requirement Coverage, Overdue Run Summary) against a real run (`RFTC-074
+Reports Regression Run`, environment `Win + Chrome`). All produced correctly-populated HTML matching the live
+page's data, charts, and the `Run Name (Environment)` heading.
+
 ---
 
 ### TC-TCM-093: Download report as PDF (in-app, client-side)
@@ -236,6 +241,15 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 - **Note:** this path renders in the browser (html2pdf.js/jsPDF) and does **not** depend on Node/Puppeteer, so it
   is expected to work even where emailed PDF fails (BUG-TCM-005).
 
+**Status: EXECUTED 2026-10-20 — PASS for table data/charts, FAIL for the Run Name/Environment heading — filed as
+BUG-TCM-075 (Medium).** The PDF downloads cleanly and its table data/charts match the live page for all 6 report
+types. However, text-extracting the PDF (`pdftotext -layout`) shows the `Run Name (Environment)` heading that the
+live page and HTML export both render is **dropped** in the PDF: completely missing for Testcase Summary,
+Activity Summary and Overdue Run Summary (the latter also losing its "Overdue by N day(s)" text); only the
+`(Environment)` suffix is dropped for Defect Summary. Tester Scorecard is unaffected (Run Name/Environment are
+separate table columns there, not this heading). See the dedicated assertion in TC-TCM-274 and
+`bugs/open/BUG-TCM-075.md` for full per-report-type evidence.
+
 ---
 
 ### TC-TCM-094: Download report as Excel
@@ -247,6 +261,37 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 **Expected Result:**
 - A valid `.xlsx` downloads and opens with the report's tabular data intact.
+
+**Status: EXECUTED 2026-10-20 — PASS, including the Run Name/Environment heading.** Verified across all 6 report
+types by unzipping each `.xlsx` and reading its raw `xl/worksheets/sheet1.xml` (these exports use inline strings,
+no `sharedStrings.xml`) — every report's heading/Run/Environment data is present and correct, including the
+`Overdue by N days` text for Overdue Run Summary that the PDF (TC-TCM-093 / BUG-TCM-075) drops. Excel is **not**
+affected by BUG-TCM-075 at all. One pre-existing cosmetic naming inconsistency noted (not a defect): Requirement
+Coverage's Excel downloads as `requirement_coverage.xlsx` instead of the `report_<id>.xlsx` pattern every other
+report type uses.
+
+---
+
+### TC-TCM-274: PDF export shows the same Run Name (Environment) heading as the live page and HTML export
+
+**User Role:** QA
+**Priority:** Medium
+**Steps:**
+1. Create a run with a non-blank Environment, with at least one executed test case result.
+2. Create each of the 6 report types against that run.
+3. For each report type that shows a `<h3 id="report_run_name">` heading on its live page, download the PDF and
+   check the same heading (run name + environment, and for Overdue Run Summary the "Overdue by N day(s)" text) is
+   present.
+
+**Expected Result:**
+- The PDF shows the identical Run Name (Environment) heading that the live page and HTML export both show, for
+  every report type that has one.
+
+**Status: EXECUTED 2026-10-20 — FAIL, filed as BUG-TCM-075 (Medium).** Testcase Summary, Activity Summary and
+Overdue Run Summary PDFs drop the heading entirely; Defect Summary's PDF keeps the run name but drops the
+`(Environment)` suffix. Tester Scorecard and Requirement Coverage are not applicable (different layout / no such
+heading). Underlying data is correct — this is a PDF-rendering-pipeline-specific gap, not a data defect; HTML and
+Excel exports of the same reports are both unaffected (TC-TCM-092, TC-TCM-094). See `bugs/open/BUG-TCM-075.md`.
 
 ---
 
@@ -537,9 +582,10 @@ checkable mailbox (local Docker mail server, Roundcube at `127.0.0.1:8081`) — 
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-078 – 520 | Report creation, viewing, download | — |
-| TC-TCM-098 – 529 | Emailing | **BUG-TCM-005** (prod #120588) — TC-TCM-100/524/525 |
-| TC-TCM-107 – 534 | Scheduling | — |
+| TC-TCM-078 – 097 | Report creation, viewing, download | BUG-TCM-075 (TC-TCM-093) |
+| TC-TCM-098 – 106 | Emailing | **BUG-TCM-005** (prod #120588) — TC-TCM-100 |
+| TC-TCM-107 – 111 | Scheduling | — |
+| TC-TCM-274 | PDF Run Name/Environment heading parity | BUG-TCM-075 |
 
 - Existing evidence for TC-TCM-098/523/525: `screenshots/BUG-TCM-005/` and
   `logs/BUG-TCM-005-pdf-attachment-evidence.log`.

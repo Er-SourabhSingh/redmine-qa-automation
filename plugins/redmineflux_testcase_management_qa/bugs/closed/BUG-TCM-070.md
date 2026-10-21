@@ -118,3 +118,19 @@ Code reference: `app/views/testcase_reports/_most_failed_report_graph.html.erb:1
 - Checked `bugs/_index.md` and `bugs/_duplicates.md` — no existing bug covers XSS in any chart/graph partial in
   this plugin. Not the same class as any previously-fixed SEC-002 sink (those were `raw`/`.html_safe` in ERB
   templates; this is a client-side charting-library rendering behavior, a different mechanism).
+
+## Retest — 2026-10-21 (FIXED)
+
+Retested against `localhost:3000` after the user pulled updated plugin code into `C:\redmine v6\plugins` and the
+stack was restarted. Opened report #26 (a current Most Failed Tests report whose ranked data includes the
+XSS-fixture test case `#35 <img src=x onerror=alert('export-xss')>`):
+
+- Navigated to the report's live page — **no `alert()` dialog fired** (confirmed no dialog needed handling
+  during or after navigation, and `browser_console_messages` showed zero errors/warnings).
+- Inspected the chart's rendered DOM directly: `document.getElementById('mostFailedChart').querySelectorAll('text')`
+  shows the payload's label as literal SVG `<text>` node content — `"#35 &lt;img src=x onerr...` — i.e. genuinely
+  escaped/inert text, not live markup.
+- Confirmed **zero** live `<img>` elements exist anywhere inside the chart container
+  (`el.querySelector('img')` → `null`).
+- **Verdict: FIXED.** ApexCharts now renders the label as safe SVG text instead of executing it as HTML. Moving
+  this bug to `bugs/closed/`.

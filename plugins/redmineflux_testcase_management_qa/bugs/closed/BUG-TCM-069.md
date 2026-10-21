@@ -85,3 +85,22 @@ Code references:
 - Duplicate found: No
 - Checked `bugs/_index.md` and `bugs/_duplicates.md` — no existing bug covers `on_unmatched` behavior for this
   endpoint.
+
+## Retest — 2026-10-21 (FIXED)
+
+Retested against `localhost:3000` after the user pulled updated plugin code into `C:\redmine v6\plugins` and the
+stack was restarted. Re-ran the exact same side-by-side comparison as the original report:
+
+```
+$ curl ... -d '{"run_id":6,...,"on_unmatched":"report","results":[{"key":"24","status":"passed"},{"key":"999999","status":"failed"}]}'
+{"status":"success","message":"Ingested 2 results (1 matched, 1 unmatched)",...,
+ "counts":{...,"unmatched":1},"unmatched":[{"key":"999999","status":"failed","reason":"no_match"}],...}
+
+$ curl ... -d '{"run_id":6,...,"on_unmatched":"skip","results":[{"key":"24","status":"passed"},{"key":"999999","status":"failed"}]}'
+{"status":"success","message":"Ingested 2 results (1 matched, 0 unmatched)",...,
+ "counts":{...,"unmatched":0},"unmatched":[],...}
+```
+
+`"skip"` now produces a genuinely different response — `counts.unmatched` is `0` and the `unmatched` array is
+empty, exactly matching the spec's intended "logged only, not surfaced in the response" behavior — while
+`"report"` still surfaces the unmatched entry as before. **Verdict: FIXED.** Moving this bug to `bugs/closed/`.

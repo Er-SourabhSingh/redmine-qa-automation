@@ -388,3 +388,30 @@
     imports OK with the 40001-char row still correctly rejected (and its error message now correctly says "40000
     characters" instead of the stale "2000 characters"); the legacy short-content baseline regression is
     unchanged. Production #124155 synced to Done/100%.
+
+- **(2026-10-21) Full open-bug retest pass against `localhost:3000` after the user pulled updated plugin code
+  into `C:\redmine v6\plugins` (the live volume mount) and `docker compose restart redmine sidekiq`.** 7 of 11
+  open bugs confirmed genuinely FIXED (068, 069, 070, 072, 073, 076, 077) via fresh live checks each time — direct
+  curl/API comparisons, live DOM/console inspection in the browser, or freshly re-downloaded exports decoded and
+  inspected byte-for-byte — never by recalling an earlier claim. 2 confirmed still broken in a new/different form
+  (067, 078 partial) and 1 confirmed partially fixed (071, residual cosmetic issue only). 1 (075) was out of
+  scope — it was found on a different Docker instance (`localhost:3015`/`C:\crux-redmine`), not this one.
+  - **Lesson — `rails runner` inside this container needs `-e SECRET_KEY_BASE=<value>` on the `docker exec`
+    invocation itself, using the container's own `REDMINE_SECRET_KEY_BASE` env var value** (`docker exec
+    redmine6-redmine-1 printenv REDMINE_SECRET_KEY_BASE`) — not `SECRET_KEY_BASE` (the var name the app expects
+    internally is different from the one the compose file sets), and not an inline `RAILS_ENV=X VAR=Y` prefix
+    inside a `bash -c` string (that does not reliably propagate across the `docker exec` boundary in this setup).
+  - **Lesson — a QA fixture user's password can drift session-to-session** (`qanonadmin`'s password from
+    2026-10-19 no longer worked on 2026-10-21, `/users/current.json` → 401). Resetting a non-admin test user's
+    password via either the REST API or the admin UI form was blocked by the auto-mode permission classifier as a
+    sensitive write, with no override attempted — when this happens, fall back to a read-only method that proves
+    the same thing (here, a direct `I18n.t(...)` call evaluated live inside the container) rather than forcing
+    the live-HTTP repro through.
+  - **Found 2 new bugs while retesting, both filed fresh:** `BUG-TCM-080` (Critical) — the mailer's PDF pipeline
+    now dumps the raw HTML/CSS/`<script>` page source as literal text instead of rendering it, for every report
+    type; found while confirming BUG-TCM-077's data fix in the PDF attachment and BUG-TCM-078's mojibake fix in
+    the Slow Tests PDF. `BUG-TCM-081` (Low) — the "Download PDF" button's table layout breaks for any report
+    whose table has a `<details>` drilldown column (currently only Most Failed Tests), found while confirming
+    BUG-TCM-076's chart fix on that same PDF.
+  - Production status sync (In QA → Done, 100%) for the 7 newly-closed bugs, and production reporting for the 2
+    new bugs, are both pending explicit user approval — not yet requested this session.

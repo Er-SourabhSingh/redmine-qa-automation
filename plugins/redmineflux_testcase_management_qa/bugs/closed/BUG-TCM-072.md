@@ -88,3 +88,18 @@ GET /x → 404 Not Found   (the broken <img src="x"> the injected payload create
 
 - Duplicate found: No
 - Checked `bugs/_index.md` and `bugs/_duplicates.md` — BUG-TCM-070 covers an XSS in the Most Failed Tests report's bar chart (a different page, different trigger — requires opening a specific report scoped to a run containing the payload). This bug is on the Requirements page's issue-mention dropdown, triggers automatically on every page load regardless of report/run scope, and is a distinct code path (`script.js`'s `createIssues()`, not the ApexCharts chart partial). Not a duplicate, though the same root-cause *class* (client-side JS re-parsing already-safe server data into an unescaped HTML sink) as BUG-TCM-070 — worth fixing both with the same discipline (prefer `textContent`/escaping helpers over template-string HTML building wherever user-controlled data reaches a client-side render path).
+
+## Retest — 2026-10-21 (FIXED)
+
+Retested against `localhost:3000` after the user pulled updated plugin code into `C:\redmine v6\plugins` and the
+stack was restarted. Navigated to `/requirements?project_id=2` — **no `alert()` dialog fired on page load**
+(confirmed no dialog needed handling during or after navigation). Inspected the live DOM directly
+(`document.getElementById('user-list').innerHTML`):
+
+```html
+<li class="mention-issue" id="issue-2063">#2063 &lt;img src=x onerror=alert('export-xss')&gt; export check</li>
+<li class="mention-issue" id="issue-35">#35 &lt;img src=x onerror=alert('export-xss')&gt; Remove item from cart</li>
+```
+
+Both entries are now HTML-escaped text, not live markup — confirmed **zero** live `<img>` elements anywhere
+inside `#user-list` (`el.querySelector('img')` → `null`). **Verdict: FIXED.** Moving this bug to `bugs/closed/`.

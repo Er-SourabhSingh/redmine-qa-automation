@@ -1,7 +1,7 @@
 # BUG-TCM-076
 
 - Bug ID: BUG-TCM-076
-- Production Redmine Issue ID: (not yet reported — awaiting approval)
+- Production Redmine Issue ID: #124110 (https://flux.zehntech.com/issues/124110) — assigned to Vaishnavi Bhawsar, priority Medium, Defect Type Functional / Defect Severity Medium-severity / Defect priority Medium, target version Testcase Management plugin Release 7.2.0. Linked to production Testcase #123977 (Slow Tests export formats) and #123984 (Most Failed Tests export formats) in Run #612, environment Win + Chrome + Ver6.
 - Title: PDF export of Slow Tests and Most Failed Tests reports completely omits the bar chart that is correctly shown on the live page and in the HTML export
 - Severity: Medium
 - Redmine version: 6.x (Docker)
@@ -117,7 +117,31 @@ is fixed (Traceability Matrix gap, same as BUG-TCM-075).
   exports. BUG-TCM-075 is heading-only (different report types, different symptom). BUG-TCM-068/071 are
   Excel-export defects for these same two report types — not duplicates, different format and different symptom.
 
+## Retest — 2026-10-21 (FIXED)
+
+Retested against `localhost:3000` after the user pulled updated plugin code into `C:\redmine v6\plugins` and the
+stack was restarted. Used the live "Download PDF" button (not the mailer — this bug is specifically about that
+pipeline) on both original reports:
+
+- **Slow Tests (report #3):** clicked Download PDF, inspected the resulting PDF (`screenshots/BUG-TCM-076/retest`
+  not needed — table text confirmed via `pdftotext`, all 8 rows correct). Confirmed an embedded JPEG image
+  (`/Subtype /Image`, `/Width 1774 /Height 547` — a wide, chart-shaped aspect ratio) is now present in the PDF,
+  consistent with the bar chart being captured (likely via `html2canvas`, matching the `html2canvas.min.js`
+  script this plugin's report pages load). **Chart is no longer missing.**
+- **Most Failed Tests (report #13):** same confirmation — `screenshots/BUG-TCM-076/retest-2026-10-21-most-failed-pdf-button.pdf`
+  contains the same `/Width 1774 /Height 547` embedded image. **Chart is no longer missing.**
+- **Verdict: FIXED.** Moving this bug to `bugs/closed/`.
+- **New finding during this retest, filed separately as `BUG-TCM-081`:** the Most Failed Tests PDF's **table**
+  (not the chart) now has a layout/overlap glitch — the "Failing Runs" drilldown column's expandable rows bleed
+  into adjacent cells, misaligning several rows' Failures/Executed/Failure Rate values. This is a new,
+  table-rendering-only defect, unrelated to this bug's chart-specific scope (the Slow Tests PDF, which has no
+  drilldown column, renders its table cleanly) — see `BUG-TCM-081` for the full write-up.
+
 ## Production report
 
-Not yet reported. Will prepare the exact issue payload (title, description, severity) and ask for explicit
-approval before calling `redmineflux_core_create_issue` against `ztflux`, per `REDMINEFLUX-MCP-SETUP.md` §4.
+Reported 2026-10-21 as issue #124110 on `ztflux`, via `redmineflux_core_create_issue`, per explicit user approval.
+Linked to production Testcase #123977 and #123984 in Run #612 via `report_defect`.
+
+**Production status sync pending** — this bug has a Production Redmine Issue ID (#124110), so per CLAUDE.md §5
+the production issue's status (In QA → Done) and % done (→ 100) must also be updated. This write requires
+explicit user approval before execution (REDMINEFLUX-MCP-SETUP.md §4.3) — not yet requested/granted.

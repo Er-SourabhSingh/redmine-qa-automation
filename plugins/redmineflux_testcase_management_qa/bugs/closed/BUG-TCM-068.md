@@ -129,3 +129,18 @@ Code references:
 - Duplicate found: No
 - Checked `bugs/_index.md` and `bugs/_duplicates.md` — no existing bug covers report export functionality for
   any report type in this plugin.
+
+## Retest — 2026-10-21 (FIXED)
+
+Retested against `localhost:3000` after the user pulled updated plugin code into `C:\redmine v6\plugins` and the
+stack was restarted. Downloaded report #3's Excel export live via the browser session (`fetch()` to
+`/testcase_reports/3/export_excel?project_id=2`, base64-decoded to a real `.xlsx`, unzipped and inspected
+`xl/worksheets/sheet1.xml` directly — `screenshots/BUG-TCM-068/retest-2026-10-21-slow-tests-excel.xlsx`):
+
+- **Rank column now present** — header row is the full 7 columns (`Rank, Test Case, Samples, Avg, Max, p95,
+  Flag`), not the previous 6.
+- **All 8 data rows present**, matching the live page and PDF export exactly (same test case subjects, same
+  Avg/Max/p95 values, including the XSS-fixture test case's subject correctly inline-escaped as inert text).
+- **Footer now correct** — `No timing data yet: 4` (an accurate count reflecting this report's current data, not
+  a hardcoded value), not the previous always-`0`.
+- **Verdict: FIXED.** Moving this bug to `bugs/closed/`.

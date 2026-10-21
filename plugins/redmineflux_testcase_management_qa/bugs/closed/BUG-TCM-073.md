@@ -47,3 +47,17 @@ Convert `test_suites/index.html.erb`'s search `<span role="button" tabindex="-1"
 
 - Duplicate found: No
 - Checked `bugs/_index.md` and `bugs/_duplicates.md` — no existing bug covers this specific remaining instance. This is the same underlying anti-pattern class the rftc-011 waves already fixed 6 other instances of this release, just never reached on this one screen.
+
+## Retest — 2026-10-21 (FIXED)
+
+Retested against `localhost:3000` after the user pulled updated plugin code into `C:\redmine v6\plugins` and the
+stack was restarted. Opened `/test_suites?project_id=rftc-016-ci-qa` and inspected the search control directly:
+
+```js
+document.querySelectorAll('button')  // filtered to "Search" text
+→ [{ tag: "BUTTON", type: "submit", text: "Search" }]
+```
+
+The Search control is now a genuine `<button type="submit">`, not a `<span role="button" tabindex="-1">` — no
+`tabindex` override, keyboard-reachable by default like the other 6 already-converted screens. **Verdict:
+FIXED.** Moving this bug to `bugs/closed/`.

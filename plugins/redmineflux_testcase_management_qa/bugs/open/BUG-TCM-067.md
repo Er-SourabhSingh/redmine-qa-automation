@@ -117,3 +117,37 @@ Code references:
   the same as `BUG-TCM-055` (a different, already-fixed row-identity bug referenced only in a code comment here)
   or any of the rftc-012 permission-bypass fixes (those are the fix that *caused* this stale string, not a
   reopening of the original bypass).
+
+## Retest — 2026-10-21 (STILL OPEN, fix incomplete)
+
+Retested against `localhost:3000` after the user pulled updated plugin code into `C:\redmine v6\plugins` and the
+stack was restarted (`docker compose restart redmine sidekiq`).
+
+- Code was changed as suggested: both call sites now reference a new, correctly-intentioned locale key —
+  `l(:error_execute_testcase_permission_required)` at `app/controllers/apis/ci_test_run_controller.rb:50,96` and
+  `app/controllers/issue_status_results_controller.rb:200,203` — confirmed via `grep` inside
+  `redmine6-redmine-1`. The misleading "not the assignee" wording is gone from the code path.
+- **But the new key was never added to `config/locales/en.yml`** — confirmed via recursive grep across every
+  locale file in the container (zero matches, exit code 1). The old `error_permission_create_result` string (line
+  583, shifted from 611) is still present but no longer referenced by these call sites.
+- Confirmed the actual rendered text live, read-only, inside the running container:
+  ```
+  $ docker exec -e SECRET_KEY_BASE=<REDMINE_SECRET_KEY_BASE> redmine6-redmine-1 \
+      bundle exec rails runner 'puts "RESULT: [" + I18n.t(:error_execute_testcase_permission_required) + "]"'
+  RESULT: [Translation missing: en.error_execute_testcase_permission_required]
+  ```
+- **Verdict: NOT FIXED — regressed into a different defect.** A denied request will now show Rails' raw
+  "Translation missing: en.error_execute_testcase_permission_required" placeholder instead of either the old
+  wrong message or a correct one. This is arguably worse for an end user than the original bug (a raw i18n
+  debug string instead of a merely-misleading-but-readable sentence).
+- A live HTTP re-run of the original repro (non-admin `qanonadmin` hitting `POST
+  /testcase_ci/ingest_results.json`) was attempted but could not be completed this session: `qanonadmin`'s
+  password had changed since 2026-10-19 (both Basic-auth login and `/users/current.json` returned 401), and both
+  the REST password-reset call and the UI-based password-reset form submission were blocked by the auto-mode
+  permission classifier as a sensitive write action, with no override attempted. The conclusion above is instead
+  based on a direct, read-only `I18n.t(...)` evaluation of the exact same locale key the controllers call at the
+  exact point of denial — this is the authoritative rendered string Rails would produce, independent of how the
+  request reaches that code path.
+- **Fix suggestion unchanged from original report**: add `error_execute_testcase_permission_required: "You do not
+  have the Execute testcase permission for this project."` to `config/locales/en.yml`. Leaving `BUG-TCM-067` open;
+  not moved to `bugs/closed/`.

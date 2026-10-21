@@ -99,3 +99,23 @@ release (BUG-TCM-068).
   type's Excel export not recognizing the type at all. Different report type, different failure mode (silent
   wrong data vs. explicit non-recognition) — not a duplicate, but likely the same class of gap (new rftc-020/021
   report types never wired into the Excel exporter), worth fixing together.
+
+## Retest — 2026-10-21 (PARTIALLY FIXED — core defect fixed, one residual cosmetic issue remains)
+
+Retested against `localhost:3000` after the user pulled updated plugin code into `C:\redmine v6\plugins` and the
+stack was restarted. Downloaded report #13's Excel export live (`screenshots/BUG-TCM-071/retest-2026-10-21-most-failed-excel.xlsx`),
+unzipped and inspected `xl/worksheets/sheet1.xml` directly:
+
+- **"Unknown Report Type" error is gone.** The sheet now contains the full, correct 6-column header (`Rank,
+  Test Case, Failures, Executed, Failure Rate, Failing Runs`) and all 5 ranked data rows, matching the live page
+  and HTML/PDF exports exactly — including the XSS-fixture test case's subject correctly inline-escaped as inert
+  text (`&lt;img src=x onerror=alert(&#39;export-xss&#39;)&gt;`, no live tag). **The type-not-recognized defect
+  is fixed.**
+- **Residual cosmetic issue (same one the original bug already flagged, not a new finding):** cell `A1` still
+  reads `"Testcase Summary"` — the generic fallback sheet title — instead of a title reflecting the actual report
+  type ("Most Failed Tests"). The original bug's own "Actual result" section already called this out as a
+  secondary defect alongside the main one ("A1's 'Testcase Summary' header is itself wrong — it's the generic
+  fallback sheet title, not anything related to Most Failed Tests"), so this is within this bug's existing scope,
+  not a new symptom requiring a separate bug.
+- **Verdict: PARTIALLY FIXED.** The core defect (no data at all) is resolved; the cosmetic sheet-title defect
+  remains. Leaving this bug open; not moved to `bugs/closed/`.

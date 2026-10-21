@@ -1,0 +1,151 @@
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr@1.8.0/dist/themes/classic.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr@1.8.0/dist/pickr.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<link rel="stylesheet" href="/assets/plugin_assets/redmineflux_testcase_management/report-baa3eee1.css" media="screen" />
+<link rel="stylesheet" href="/assets/plugin_assets/redmineflux_testcase_management/testcase_style-e2bd3251.css" media="screen" />
+<script src="/assets/plugin_assets/redmineflux_testcase_management/testcase-c25a9787.js" defer="defer"></script>
+<script src="/assets/plugin_assets/redmineflux_testcase_management/report-ae1a2e39.js" defer="defer"></script>
+<link rel="stylesheet" href="/assets/plugin_assets/redmineflux_testcase_management/testsuite-adeecf23.css" media="screen" />
+
+<div id="loader-overlay"></div>
+<div id="loader" style="display: none;">Loading...</div>
+
+<div class="report_div">
+
+
+<div class="rf_testcase_management_page_header" id="parent_name_export">
+  <div class="rf_testcase_management_page_header_main">
+      <h3 class="rf_testcase_management_page_title">Most Failed Tests</h3>
+  </div>
+  <div class="rf_testcase_management_page_actions">
+    <div class="download-options">
+      <div id="download-dropdown" class="dropdown-toggle" style="display:none"></div>
+      <ul id="download-menu" class="dropdown-menu" style="display:none">
+        <li class="dropdown-item">
+          Download HTML
+        </li>
+        <li class="dropdown-menu-separator"></li>
+        <li class="dropdown-item" >
+          
+            Download PDF
+        </li>
+         <li class="dropdown-menu-separator"></li>
+        <li class="dropdown-item">
+          Download Excel
+      </li>
+      </ul>
+    </div>
+  </div>
+</div>
+  <h2 id="report_name">Email Verify - Most Failed Only HTML</h2>
+<div id="color-picker_graph_label"></div>
+<div id="color-picker"></div>
+<div id="report_graphs" style="display:flex">
+  <div class="report_parent_div" id="report_parent_div"> 
+    <div id="report_graph_label"></div>
+    <div id="report_graph"></div>
+  </div>
+  <div class="report_parent_div">
+    <div id="report_line_graph_label"></div>
+    <div id="report_line_graph"></div>
+  </div>
+</div>
+<div class="run_progress_pie_chart" id="run_progress_pie_chart_id" style="display:none">
+  <div class="tescases_graph">
+  <div id="milestoneChart"></div>
+  </div>
+  <div class="total_percentage_graph">
+    <div class="Total_percentage_value_run" id="Total_percentage_value_run"></div>
+    <div id="total_data"></div>
+  </div>
+</div>
+  
+<div id="mostFailedChart"
+     data-mostfailed="{&quot;labels&quot;:[],&quot;values&quot;:[]}"
+     data-series-label="Failures"></div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var el = document.getElementById('mostFailedChart');
+    if (!el) { return; }
+    var payload = JSON.parse(el.dataset.mostfailed || '{"labels":[],"values":[]}');
+    if (!payload.labels.length) { return; }
+    var options = {
+      chart: { type: 'bar', height: 350, animations: { enabled: false }, toolbar: { show: false } },
+      series: [{ name: el.dataset.seriesLabel, data: payload.values }],
+      plotOptions: { bar: { horizontal: true } },
+      colors: ['#b00020'],
+      dataLabels: { enabled: false },
+      xaxis: { categories: payload.labels }
+    };
+    new ApexCharts(el, options).render();
+  });
+</script>
+
+  
+
+  <div class="rf_testcase_management_empty_state">
+    <div class="rf_testcase_management_empty_state_icon">
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"></circle><path d="M9 9l6 6M15 9l-6 6"></path></svg>
+    </div>
+    <h3 class="rf_testcase_management_empty_state_title">No failing test cases in the selected runs</h3>
+  </div>
+
+</div>
+
+
+<script>
+  document.title = "Redmineflux Testcase - " + document.title;
+  document.addEventListener('DOMContentLoaded', function() {
+          let firstTabFocusDone = false;
+          $(document).on('keydown', function(event) {
+              if (event.key === 'Tab') {
+                  if (!firstTabFocusDone) {
+                      event.preventDefault(); // Prevent default tab behavior
+                      $('#content > table> tbody > tr > td:nth-child(2) > a:first').focus(); // Focus on the target element
+                      firstTabFocusDone = true; // Mark that the first focus has been handled
+                  }
+              }    
+              });
+      // const link = document.querySelector('a[data-toggle="loader"]');
+      // const loader = document.getElementById('loader');
+      // const loaderOverlay = document.getElementById('loader-overlay');
+      // if (link && loader) {
+      //   link.addEventListener('click', async function (event) {
+      //     event.preventDefault(); 
+      //     loader.style.display = 'block';
+      //     loaderOverlay.classList.add('show-loader-overlay');
+      //     try {
+      //       const response = await fetch(link.href, { method: 'GET' });
+      //       if (!response.ok) {
+      //         throw new Error('Failed to download file');
+      //       }
+
+      //       const blob = await response.blob();
+      //       const url = window.URL.createObjectURL(blob);
+
+      //       // Create a temporary link to download the file
+      //       const tempLink = document.createElement('a');
+      //       tempLink.href = url;
+      //       tempLink.download = link.href.split('/').pop();
+      //       document.body.appendChild(tempLink);
+      //       tempLink.click();
+      //       tempLink.remove();
+      //       window.URL.revokeObjectURL(url);
+      //     } catch (error) {
+      //       alert('Error downloading file: ' + error.message);
+      //     } finally {
+      //       loader.style.display = 'none';
+      //       loaderOverlay.classList.remove('show-loader-overlay');
+      //     }
+      //   });
+      // }
+    });
+</script>

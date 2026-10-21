@@ -124,16 +124,32 @@
   *genuinely uncredentialed* request correctly being rejected. Both guard the same `restore_session_user_for_api`
   / `rftc_verify_session_csrf!` pair (SEC-004, production #121896-era hardening) from opposite directions.
 
-**Status: EXECUTED 2026-10-21 — PASS.** Client-reported regression (customer `lnastev`): the same filter pair had
-previously rejected this exact scenario with a false `422 {"error":"Invalid form authenticity token."}`, because
-an earlier version couldn't distinguish a real API client from a cookie-authenticated browser session. Verified
-on the dev-fixed `C:\crux-redmine` build: both the HTTP-Basic-key-as-username and `?key=` variants returned `201
-Created` with no CSRF rejection, confirmed via server log (`Current user: admin`, no `Filter chain halted` line).
+**Status: EXECUTED 2026-10-21 — PASS, verified across every endpoint in the plugin using this filter pattern, not
+just `test_suites.json`.** Client-reported regression (customer `lnastev`): the same filter pair had previously
+rejected this exact scenario with a false `422 {"error":"Invalid form authenticity token."}`, because an earlier
+version couldn't distinguish a real API client from a cookie-authenticated browser session. Verified on the
+dev-fixed `C:\crux-redmine` build: both the HTTP-Basic-key-as-username and `?key=` variants returned `201 Created`
+with no CSRF rejection on `test_suites.json`, confirmed via server log (`Current user: admin`, no `Filter chain
+halted` line). **Per explicit follow-up request, re-verified the same HTTP-Basic-key-as-username method against
+every other controller/action that declares this same `rftc_verify_session_csrf!` before_action** (grepped the
+full codebase for it): `RequirementsController#create`, `RunsController#create`, `IssueStatusResultsController`
+(`#create`, `#bulk_create`, `#link_defect`, `#unlink_defect`), `RequirementIssuesController` (`#create`,
+`#destroy`), and `Apis::CiTestRunController#bootstrap_run`. **Zero CSRF rejections anywhere** — every single
+request resolved `Current user: admin` with no `Filter chain halted :rftc_verify_session_csrf!` line; the various
+404s encountered along the way were unrelated, pre-existing param-shape/authorization quirks on unfamiliar
+endpoints (wrong nesting, project_id as identifier vs numeric id, etc.), confirmed via log inspection to not be
+CSRF-related. `RunsController` and `IssueStatusResultsController` each carry their own identical copy of
+`restore_session_user_for_api` instead of relying solely on the shared `RftcAccessControl` concern (per that
+file's own comment, "for historical reasons") — both copies were checked line-by-line and match the fixed guard
+logic exactly, so the fix is **consistently applied everywhere**, not just in the shared concern.
+
 Fix mechanism: `restore_session_user_for_api` only sets `@rftc_session_cookie_authenticated` when it itself had to
 resolve `User.current` from the session (i.e. it was still anonymous going in) — any request where Redmine core
 already resolved a user via a real credential never gets flagged, so `rftc_verify_session_csrf!` exits immediately
 via `return true unless @rftc_session_cookie_authenticated`. See `docs/TESTCASE_MANAGEMENT_MEMORY.md` (2026-10-21
-entry) for full detail.
+entry) for full detail, including a minor unrelated observation (`IssueStatusResultsController#create` 500s on a
+flat/non-nested params body instead of a clean validation error — not a CSRF issue, not filed as a bug, noted for
+a future input-robustness pass).
 
 ---
 

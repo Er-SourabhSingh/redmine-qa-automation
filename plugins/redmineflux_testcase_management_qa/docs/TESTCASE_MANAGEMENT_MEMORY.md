@@ -337,6 +337,27 @@
   `Current user: anonymous` in the log before even reaching the CSRF filter — inconclusive on that specific
   question, not investigated further since it isn't what the customer reported and nothing suggests a new hole;
   worth a cleaner follow-up check only if a cookie-based CSRF regression is ever specifically in scope.)
+  - **(2026-10-21 follow-up, per explicit request) Re-verified the same fix across every other controller/action
+    using the identical `rftc_verify_session_csrf!` pattern, not just `test_suites.json`.** Grepped the whole
+    plugin for the before_action and tested each one live with the same HTTP-Basic-key-as-username method:
+    `RequirementsController#create`, `RunsController#create`, `IssueStatusResultsController#create`,
+    `#bulk_create`, `#link_defect`, `#unlink_defect`, `RequirementIssuesController#create`/`#destroy`, and
+    `Apis::CiTestRunController#bootstrap_run`. **Every single one resolved `Current user: admin` with zero CSRF
+    rejections** — the various 404s hit along the way (wrong param nesting, `project_id` as identifier string vs
+    numeric id, etc.) were confirmed via log inspection to be unrelated pre-existing quirks on endpoints this
+    session hadn't driven via raw API before, not CSRF. `RunsController` and `IssueStatusResultsController` each
+    carry their own **locally duplicated** copy of `restore_session_user_for_api` (per that file's own comment,
+    "for historical reasons," rather than relying solely on the shared `RftcAccessControl` concern) — both copies
+    were read in full and match the fixed guard logic (`return unless User.current.anonymous?` before setting
+    `@rftc_session_cookie_authenticated`) exactly, so there was no risk of the duplicate having silently drifted
+    out of sync with the concern's fix. **Minor unrelated observation, not filed as a bug:**
+    `IssueStatusResultsController#create` crashes with an unhandled 500 (`NoMethodError: undefined method '[]' for
+    nil` at `issue_status_results_controller.rb:56`, `Run.find(params[:issue_status_result][:run_id])`) when the
+    request body omits the `issue_status_result` nesting wrapper and sends the fields flat instead — same class of
+    defensive-coding gap as BUG-TCM-040/043 (`bulk_testcase_create` crashing instead of returning a clean 422 on a
+    malformed/incomplete body). Works correctly (`201 Created`) with the properly-nested body. Worth a dedicated
+    input-validation pass across this controller's actions if one is ever scoped, but out of scope for this CSRF
+    check specifically.
 
 - **(2026-10-21) The `steps.step`/`steps.expected` 2000→40000-char fix is correctly applied at the DB/model/view
   layer, but NOT at the CSV Import layer — confirmed via source read + live repro, filed as BUG-TCM-079 (High).**

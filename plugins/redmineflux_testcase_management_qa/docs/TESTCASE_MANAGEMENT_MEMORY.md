@@ -601,3 +601,22 @@
     environment, always look up the TARGET environment's own real fixture ids via its API first — never assume
     the tool's defaults apply, and don't mistake a config-mismatch 404 for a plugin regression.** Full detail
     in `RFTC-042_EXTERNAL_SPEC_TCM_TESTING_HARNESS.md` RFTC042-7/7a/11 and `bugs/closed/BUG-TCM-085.md`.
+  - **UPDATE, same session: a FULL 4-persona security run found a genuine, real production bug —
+    BUG-TCM-086 (High), a cross-project IDOR.** This instance's "Reporter" role already carries
+    `execute_testcase` (same permission set as Manager) — using it for the harness's `reporter` persona
+    (which needs a NO-execute member to test unpermitted-write rejection) would have silently defeated that
+    probe. Used the existing "Developer" role instead (confirmed empty of all TCM permissions via
+    `GET /roles/:id.json`), on both the "reporter" persona (member of the primary project) and the "dev1"
+    persona (member of the FOREIGN project only, via a freshly created user). **Lesson: before reusing an
+    existing role for a security persona, verify its actual permission set via the API — a role's NAME
+    (e.g. "Reporter") does not guarantee it matches the persona's INTENDED permission profile on a given
+    instance.** With the full roster, the harness's authz-matrix `run_test_cases` probe returned 200 with
+    real execution data for `dev1` (a non-member) against the primary project's run — independently
+    reproduced by hand via direct `httpx` calls before trusting it. Root cause:
+    `RunsController#get_testcases` (`app/controllers/runs_controller.rb:1030-1046`) loads `@run` by raw id
+    with zero project scoping or permission check — the exact SEC-001/C3 pattern, already fixed for
+    `update`/`destroy`/`close_run` and separately for the sibling action `get_testcases_attribute` in the
+    SAME controller, but missed for this specific action. This is strong validation that the rftc-043 DAST
+    authz-matrix generator genuinely works as designed — it found a real, previously-unknown hole the
+    moment it was given the full persona roster it was built to use. Production suites #452/#453 + 22
+    testcases created in Run #612 for both rftc-042 and rftc-043; BUG-TCM-086 reported as production #124227.

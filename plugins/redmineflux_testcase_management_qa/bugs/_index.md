@@ -77,6 +77,7 @@
 | BUG-TCM-082 | The BUG-TCM-079 fix commit (`ebeda18`) silently deleted ~41 unrelated locale keys — Quality HQ's entire dashboard, the Run Show suite-picker, the donut chart, the Test Suite tree panel, and BUG-TCM-067's own fix key all broke at once, found 2026-10-21 after the user spotted "Translation missing" strings in a screenshot; retested 2026-10-21 after the dev's fix (same commit as BUG-TCM-067) — confirmed FIXED | Closed | Critical | master (post-pull, pre-7.2.0) | #124178 | bugs/closed/BUG-TCM-082.md |
 | BUG-TCM-083 | Import Wizard's Step 1 page title accumulates "Redmineflux Testcase - " once per suite-tree node — the recursive `_suite_tree.html.erb` partial carries its own copy of a title-mutating script that should only run once, found 2026-10-21 while regression-testing rftc-011 Wave 8 | Open | Low | master (post-pull, pre-7.2.0) | #124202 | bugs/open/BUG-TCM-083.md |
 | BUG-TCM-085 | rftc-042 TCM Testing Harness's own stated deliverable (`harness/run.py` end-to-end execution producing JUnit + exit code) had never been successfully run by anyone, despite production ticket #121885 showing 90% done / "In QA" — found 2026-10-21; **RESOLVED same day** after the user supplied a real admin API key, enabling a genuine first-ever live end-to-end run (api 9/9 PASS, security 5/8 PASS honest-skips, cli 2/5 PASS with all 3 failures triaged as harness test-code staleness, zero plugin regressions) | Closed | Medium | master (post-pull, pre-7.2.0) | *(not reported — resolved locally)* | bugs/closed/BUG-TCM-085.md |
+| BUG-TCM-086 | `RunsController#get_testcases` (`GET /projects/:project_id/runs/:run_id/test-cases.json`) has zero authorization — any authenticated user of ANY project can read another project's full run execution grid (subjects, Pass/Fail results, assignees, linked defect ids) by guessing a `run_id`; the `:project_id` URL segment is loaded but never checked. Found live via the rftc-043 DAST authz-matrix generator once a real 3-persona project-membership roster was set up (`qa.limited`→Manager/primary, `qanonadmin`→Developer/primary, `dev1`→Developer/foreign-only) — the exact SEC-001/C3 pattern, missed by both the original fix and a later sibling-action fix in the same controller | Open | High | master (post-pull, pre-7.2.0) | #124227 | bugs/open/BUG-TCM-086.md |
 | BUG-TCM-005 | Report emailed as PDF arrives with no attachment at all, while the body still says "Please find the attached Testcase Report" | Closed | High | 6.1.3 | #120588 | bugs/closed/BUG-TCM-005.md |
 | BUG-TCM-003 | Bulk update result fails for every browser user because the bulk endpoint rejects the logged-in session and treats the request as an unauthenticated API call | Closed | High | 7.0.0 | #120544 | bugs/closed/BUG-TCM-003.md |
 | BUG-TCM-004 | Bulk Update Result modal shows raw HTML markup in its "Apply to N testcase(s)" line | Closed | Low | 7.0.0 | #120546 | bugs/closed/BUG-TCM-004.md |
@@ -345,3 +346,28 @@
   session completing a verification that a credential boundary had previously blocked. Moved to
   `bugs/closed/`; not reported to production (resolved locally, nothing to report). Updated
   `RFTC-042_EXTERNAL_SPEC_TCM_TESTING_HARNESS.md` (RFTC042-7 now PASS, new RFTC042-11 for the CLI triage).
+
+- **BUG-TCM-086 found 2026-10-21 (later same session) — a genuine, real cross-project IDOR, not a harness
+  artifact.** The user set up a real 3-persona project-membership roster specifically to let the rftc-043
+  DAST authz-matrix generator run with its full intended roster: `qa.limited` (Manager, primary project
+  `rftc-016-ci-qa` only), `qanonadmin` (Developer, same project — chosen because this instance's actual
+  "Reporter" role already carries `execute_testcase`, so "Developer" was used instead to get a genuinely
+  no-execute persona), `dev1` (a brand-new user, Developer role, member of the foreign project
+  `rftc-038-multisuite-qa` ONLY). With all 4 personas (admin/qa.manager/reporter/dev1) resolved, the live
+  `harness/run.py --layers security` run's `run_test_cases` authz-matrix probe returned `200` with real
+  data for `dev1` — a user with zero relationship to the primary project — on both project-id path
+  variants. Independently reproduced by hand via direct `httpx` calls (not just trusting the harness's own
+  verdict). Root-caused via source read: `RunsController#get_testcases` (the action behind
+  `GET /projects/:project_id/runs/:run_id/test-cases.json`, which powers the Run Execution view's
+  test-case grid) checks only `User.current.anonymous?` — the `:project_id` it loads is never actually
+  used to scope or validate `@run`, which is loaded by raw id alone. This is the exact SEC-001/C3 pattern,
+  confirmed to have been fixed for `update`/`destroy`/`close_run` and separately for the sibling action
+  `get_testcases_attribute` (whose own inline comment cites this exact bug class) — but **missed** for
+  `get_testcases` itself. Filed as **BUG-TCM-086 (High)**.
+- **BUG-TCM-086 reported to production 2026-10-21, per explicit user approval ("okay create bug on
+  production"):** filed as #124227, assigned to Vaishnavi Bhawsar, target version Release 7.2.0. Before
+  this, created production test suites `RFTC-042 TCM Testing Harness` (#452) and
+  `RFTC-043 Security Discovery Testing` (#453) — both nested under parent suite #6 "Testcase plugin" —
+  and all 22 corresponding testcases (RFTC042-1 through RFTC042-11 incl. 7a; RFTC043-1 through RFTC043-10),
+  mirroring both local external-spec testcase files in full. Added all 22 to Run #612 and recorded results:
+  21 Passed, 1 Failed (RFTC043-9, linked to #124227 via `report_defect`).

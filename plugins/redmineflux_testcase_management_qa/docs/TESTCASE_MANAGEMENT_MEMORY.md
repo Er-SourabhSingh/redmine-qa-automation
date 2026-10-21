@@ -543,3 +543,12 @@
     not yet reported to production — pending approval).** This closes the CLAUDE.md §27 gate — `STATUS.md` can
     now be considered for `Complete`, contingent on how BUG-TCM-083 is handled (either fixed/closed, or
     explicitly accepted as a known residual issue per user instruction).
+
+- **(2026-10-21) CI ingest happy-path regression, completing the full final-cycle regression pass**: ran a real
+  `POST /testcase_ci/ingest_results.json` against `localhost:3000` Run #5 with one Passed and one Failed result —
+  confirmed 2/2 matched, the Failed result correctly reused the existing defect #25 (`defect_reused: true`, no
+  duplicate created). Re-ran the identical payload — confirmed idempotent (identical response, no duplicate
+  side effects). Separately confirmed clean unmatched handling (`reason: "no_match"`, no crash) for a testcase
+  not in the run's scope. **Full final-cycle regression (CLAUDE.md §27) is now complete**: rftc-011 Waves 2-8,
+  CSV Import, Reports spot-check, and CI ingest happy-path all PASS, with only BUG-TCM-083 (Low, reported to
+  production as #124202) found as a new residual issue.

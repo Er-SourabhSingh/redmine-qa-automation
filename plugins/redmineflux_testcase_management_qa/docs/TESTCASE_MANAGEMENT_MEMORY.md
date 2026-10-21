@@ -312,6 +312,32 @@
 - **Plugin quirk confirmed**: `create_testcase`'s `steps` field has a **hard 255-character limit per step's `expected` text** — exceeding it throws `Error: step N's 'expected' text is too long`. Work around it by keeping Steps/Expected short and moving full detail into the testcase's own `description` field (Textile headers work fine there, no length limit hit in this session up to ~1500 chars).
 - **`list_test_suites` is permission-denied for this API key** (`Permission denied: view_test_suite permission required`) even though `create_test_suite`, `create_testcase`, `add_testcases_to_suite`, and `report_defect` all work fine — an asymmetric permission gap worth knowing before assuming you can browse the suite tree via MCP. `core_search` (titles_only, project-scoped) is the reliable way to find a just-created testcase's issue ID instead (searching its subject text), since `create_testcase`'s own return value doesn't include the new issue ID.
 
+- **(2026-10-21) Client-reported REST API "Invalid form authenticity token" (422) on `POST test_suites.json` —
+  CONFIRMED FIXED on the `C:\crux-redmine` build.** Customer (`lnastev`) reported that a genuine, documented
+  Redmine REST API client — authenticating via HTTP Basic with their API key as the username, exactly as Redmine's
+  own docs describe — got a 422 `{"error":"Invalid form authenticity token."}` from `TestSuitesController#create`,
+  with the server log showing `Filter chain halted as :rftc_verify_session_csrf!`. Root cause (per the code's own
+  comment in `app/controllers/concerns/rftc_access_control.rb:221-236`, itself written in response to this exact
+  customer report): the SEC-004 (#121896-era) hardening added `restore_session_user_for_api` (re-authenticates a
+  `.json` request from the browser session cookie, since Redmine core skips session auth for api-format requests)
+  paired with `rftc_verify_session_csrf!` (re-imposes CSRF checking for *that* cookie-restored path only, since
+  Redmine also auto-skips its own CSRF check for api-format requests). The bug was an earlier version of this pair
+  that couldn't distinguish "a real API client authenticating via HTTP Basic with the key as username" from "a
+  genuine cookie-authenticated browser session" — both looked the same from inside the filter — and wrongly CSRF-
+  blocked the former. **Fixed version** gates the CSRF check behind a dedicated `@rftc_session_cookie_authenticated`
+  flag that `restore_session_user_for_api` only sets when it *itself* had to resolve the user from the session
+  (i.e. `User.current` was still anonymous going in) — any request where Redmine core already resolved a user via
+  a real credential (URL/header api_key, HTTP Basic incl. key-as-username, OAuth) never gets flagged, so
+  `rftc_verify_session_csrf!`'s `return true unless @rftc_session_cookie_authenticated` exits immediately. Verified
+  live on `C:\crux-redmine` (`localhost:3015`) by reproducing the client's exact method: `POST test_suites.json`
+  with `-u "<api_key>:dummy"` (HTTP Basic, key as username) → **201 Created**, no CSRF error, server log shows
+  `Current user: admin` with no `Filter chain halted` line. Also confirmed the alternate `?key=<api_key>` URL-param
+  auth method works the same way. (A same-origin `fetch()` from an authenticated browser tab to the same endpoint,
+  attempted as a sanity check on whether genuine cookie-only CSRF protection still holds, came back `403` with
+  `Current user: anonymous` in the log before even reaching the CSRF filter — inconclusive on that specific
+  question, not investigated further since it isn't what the customer reported and nothing suggests a new hole;
+  worth a cleaner follow-up check only if a cookie-based CSRF regression is ever specifically in scope.)
+
 - **(2026-10-21) The `steps.step`/`steps.expected` 2000→40000-char fix is correctly applied at the DB/model/view
   layer, but NOT at the CSV Import layer — confirmed via source read + live repro, filed as BUG-TCM-079 (High).**
   Migration `20261021000000_increase_step_and_expected_column_length_in_steps.rb` (on `C:\crux-redmine`, a fresh

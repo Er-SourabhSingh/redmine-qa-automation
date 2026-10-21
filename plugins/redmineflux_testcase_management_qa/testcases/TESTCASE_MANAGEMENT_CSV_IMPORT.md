@@ -392,12 +392,13 @@ the client-reported "expected field limited to 2000 chars, blocking Jira/Zephyr 
 - All rows import successfully — this is the exact client-motivating scenario (migrating long Jira/Zephyr test
   case content via CSV).
 
-**Status: EXECUTED 2026-10-21 — FAIL, filed as BUG-TCM-079 (High).** All 4 rows (5k/15k/35k-char expected, plus a
-12k-char step) were rejected with "Step N: expected/step content exceeds the maximum length of 2000 characters" —
-`TestcaseImportController#step3` still hard-codes the old 2000-char ceiling independently of the column migration,
-so the CSV import path (the client's actual use case) remains completely blocked for any migrated content over
-2000 chars, even though manual UI entry of the same content works correctly (verified separately: a 35,000-char
-expected result typed directly into a test case's Steps field saves and persists with zero truncation).
+**Status: EXECUTED 2026-10-21 — FAIL, filed as BUG-TCM-079 (High). RETESTED 2026-10-21 — PASS, fix confirmed.**
+Originally, all 4 rows (5k/15k/35k-char expected, plus a 12k-char step) were rejected with "Step N: expected/step
+content exceeds the maximum length of 2000 characters" — `TestcaseImportController#step3` hard-coded the old
+2000-char ceiling independently of the column migration. **Fixed**: the controller now reads
+`Step.columns_hash['step'].limit` / `['expected'].limit` dynamically instead of hard-coding a number. Retest: all
+4 rows show OK, import completed, and the DB confirms every value persisted at its exact original length (5000,
+15000, 35000, 12000) with zero truncation.
 
 ---
 
@@ -416,9 +417,12 @@ expected result typed directly into a test case's Steps field saves and persists
 - The 40000-char row imports successfully (exactly at the new limit); the 40001-char row is rejected with an error
   message correctly citing the new 40000-char limit.
 
-**Status: EXECUTED 2026-10-21 — FAIL, filed as BUG-TCM-079 (High).** Both rows were rejected — even the exact
-40000-char row, which the migration was specifically built to allow. Both error messages still cite "2000
-characters" rather than the actual new 40000-char limit. Same root cause as TC-TCM-275.
+**Status: EXECUTED 2026-10-21 — FAIL, filed as BUG-TCM-079 (High). RETESTED 2026-10-21 — PASS, fix confirmed.**
+Originally both rows were rejected — even the exact 40000-char row, which the migration was specifically built to
+allow — with both error messages wrongly citing "2000 characters." Retest on the fixed build: the 40000-char row
+is now **OK** (DB-confirmed `length(step) = 40000` on the saved issue), and the 40001-char row is still correctly
+**rejected**, now with the corrected message: "Step 1: step content exceeds the maximum length of 40000 characters
+(got 40001)."
 
 ---
 

@@ -106,3 +106,38 @@ testcases/ TC — should be added to `testcases/TESTCASE_MANAGEMENT_CSV_IMPORT.m
 Reported to production `ztflux` as #124155 on 2026-10-21, assigned to Vaishnavi Bhawsar, Priority High / Defect
 Severity High-severity / Defect priority High / Defect Type Functional, category "Testcase Management Plugin".
 Created as a standalone bug issue (no production Run/Testcase created), same convention as BUG-TCM-072/073/074.
+
+---
+
+## Retest — 2026-10-21
+
+**Fix:** `TestcaseImportController#step3` no longer hard-codes `2000` — it now reads the real limit dynamically
+from the column definition:
+
+```ruby
+step_limit = Step.columns_hash['step'].limit
+expected_limit = Step.columns_hash['expected'].limit
+```
+
+and uses `step_limit`/`expected_limit` in both the `> 2000` comparisons and the error message text. This exactly
+matches this bug's own Suggested Fix (read the limit from the column rather than hard-coding it a second time), so
+it can never drift out of sync with the migration again.
+
+**Retested** on the fixed `C:\crux-redmine` build after a container restart (`docker compose restart redmine`):
+
+1. **Re-ran TC-TCM-275** (`22_jira_zephyr_migration_long_expected.csv` — 5,000/15,000/35,000-char expected, plus a
+   12,000-char step): all 4 rows now show **OK**, 0 errors. Completed the import and confirmed via direct DB query
+   (`length(step)`/`length(expected)`) that every value was saved at its exact original length — 5000, 15000,
+   35000, and 12000 respectively — zero truncation.
+2. **Re-ran TC-TCM-276** (`21_boundary_40000_vs_40001_chars.csv`): the exactly-40,000-char row is now **OK**
+   (confirmed via DB: `length(step) = 40000` on the saved issue), and the 40,001-char row is still correctly
+   **rejected** — but now with the corrected message: `Step 1: step content exceeds the maximum length of 40000
+   characters (got 40001).` (previously incorrectly said "2000 characters" even for this exact scenario).
+3. **Re-ran TC-TCM-277** (baseline regression, `01_legacy_single_step_format.csv`): unchanged — 4 correct / 1
+   expected warning / 0 errors, identical to the pre-fix and original 2026-09-11 baseline. No regression.
+
+**Verdict: FIXED.** The client's actual motivating use case (migrating long Jira/Zephyr test cases via CSV import)
+now works end to end, at every length tested from 5,000 up to and including the exact new 40,000-char ceiling,
+with zero truncation and zero regression to ordinary short-content imports.
+
+Production issue #124155 synced to **Done / 100%** on 2026-10-21 with this retest summary.

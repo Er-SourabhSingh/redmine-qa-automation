@@ -380,3 +380,11 @@
   to the existing Python `generate_test_csvs.py` — Python itself isn't available in this environment's Bash/
   PowerShell, Node.js is). Baseline CSV import regression (legacy short-content format, file `01_...`) re-run and
   confirmed still clean — the bug is isolated to the length check, not a wider import regression.
+  - **Retested 2026-10-21 — FIXED, closed.** Dev updated `TestcaseImportController#step3` to read
+    `Step.columns_hash['step'].limit` / `['expected'].limit` dynamically instead of hard-coding a number —
+    exactly the fix this bug's own "Suggested fix" asked for, so it can't drift out of sync with the column again.
+    Retest confirmed all three angles clean: the Jira/Zephyr migration CSV (5k/15k/35k-char expected, 12k-char
+    step) now imports with 0 errors and zero-truncation DB-verified lengths; the exact 40000-char boundary now
+    imports OK with the 40001-char row still correctly rejected (and its error message now correctly says "40000
+    characters" instead of the stale "2000 characters"); the legacy short-content baseline regression is
+    unchanged. Production #124155 synced to Done/100%.

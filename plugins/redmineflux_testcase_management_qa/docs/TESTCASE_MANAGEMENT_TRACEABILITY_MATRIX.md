@@ -8,7 +8,7 @@
 
 | # | Requirement / Feature | Source | Covered by TC(s) | Latest Result | Coverage Status |
 |---|------------------------|--------|-------------------|----------------|------------------|
-| 1 | CSV Import — Steps & Expected Results | Features List #1 | TC-TCM-021–037, 275–277 | 16/16 PASS (regression 2026-09-11); re-executed 2026-10-21 against the 2000→40000-char column migration — TC-TCM-275/276 FAIL (CSV import's own length check was never updated to match, filed BUG-TCM-079, High), TC-TCM-277 PASS (baseline regression unaffected) | Covered (with 1 open bug) |
+| 1 | CSV Import — Steps & Expected Results | Features List #1 | TC-TCM-021–037, 275–277 | 16/16 PASS (regression 2026-09-11); re-executed 2026-10-21 against the 2000→40000-char column migration — TC-TCM-275/276 initially FAIL (CSV import's own length check was never updated to match, filed BUG-TCM-079, High), TC-TCM-277 PASS (baseline regression unaffected). **Retested 2026-10-21 after fix (reads the limit dynamically from the column definition) — TC-TCM-275/276 now PASS, zero truncation at every length up to 40000, TC-TCM-277 still PASS (no regression). BUG-TCM-079 closed.** | Covered |
 | 2 | Environment management | Features List #2 | TC-TCM-038–045 | All resolved (checkpoint 2026-09-30/10-01) | Covered |
 | 3 | Test suite management | Features List #3 | TC-TCM-192–203 | 12/12 resolved (checkpoint) | Covered |
 | 4 | Test case authoring | Features List #4 | TC-TCM-128–143 | Resolved PASS/FAIL/BLOCKED (checkpoint) | Covered |

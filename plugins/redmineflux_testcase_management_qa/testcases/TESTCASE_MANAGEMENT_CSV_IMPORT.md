@@ -375,6 +375,70 @@ UTF-8 and mangles content otherwise.
 
 ---
 
+### TC-TCM-275: Step/expected text between 2001 and 40000 chars imports successfully (new 40000-char limit)
+
+**User Role:** QA / Manager
+**Priority:** High
+**Precondition:** The `steps.step`/`steps.expected` columns have been migrated to `varchar(40000)` (per the fix for
+the client-reported "expected field limited to 2000 chars, blocking Jira/Zephyr migration" request).
+
+**Steps:**
+1. Import a CSV with expected-result (and/or step) text well above the old 2000-char limit but within the new
+   40000-char one — e.g. 5,000 / 15,000 / 35,000 chars (fixture:
+   `automation/testdata/csv-test-data/22_jira_zephyr_migration_long_expected.csv`).
+2. Check the step 4 preview result for each row.
+
+**Expected Result:**
+- All rows import successfully — this is the exact client-motivating scenario (migrating long Jira/Zephyr test
+  case content via CSV).
+
+**Status: EXECUTED 2026-10-21 — FAIL, filed as BUG-TCM-079 (High).** All 4 rows (5k/15k/35k-char expected, plus a
+12k-char step) were rejected with "Step N: expected/step content exceeds the maximum length of 2000 characters" —
+`TestcaseImportController#step3` still hard-codes the old 2000-char ceiling independently of the column migration,
+so the CSV import path (the client's actual use case) remains completely blocked for any migrated content over
+2000 chars, even though manual UI entry of the same content works correctly (verified separately: a 35,000-char
+expected result typed directly into a test case's Steps field saves and persists with zero truncation).
+
+---
+
+### TC-TCM-276: Step/expected text at the new 40000-char boundary (40000 valid / 40001 invalid)
+
+**User Role:** QA / Manager
+**Priority:** Medium
+**Precondition:** Same migration as TC-TCM-275.
+
+**Steps:**
+1. Import a CSV with one row at exactly 40000 chars and another at exactly 40001 chars (fixture:
+   `automation/testdata/csv-test-data/21_boundary_40000_vs_40001_chars.csv`).
+2. Check the step 4 preview result for each row.
+
+**Expected Result:**
+- The 40000-char row imports successfully (exactly at the new limit); the 40001-char row is rejected with an error
+  message correctly citing the new 40000-char limit.
+
+**Status: EXECUTED 2026-10-21 — FAIL, filed as BUG-TCM-079 (High).** Both rows were rejected — even the exact
+40000-char row, which the migration was specifically built to allow. Both error messages still cite "2000
+characters" rather than the actual new 40000-char limit. Same root cause as TC-TCM-275.
+
+---
+
+### TC-TCM-277: Baseline CSV import regression is unaffected by the 40000-char column migration
+
+**User Role:** QA / Manager
+**Priority:** Medium
+**Steps:**
+1. Re-import a pre-existing short-content CSV (fixture: `01_legacy_single_step_format.csv`) on the migrated build.
+2. Confirm the import completes and the created test cases are correct.
+
+**Expected Result:**
+- No regression in ordinary (short-content) CSV import behavior as a side effect of the column-length migration.
+
+**Status: EXECUTED 2026-10-21 — PASS.** 4 correct / 1 expected warning / 0 errors, matching the original
+2026-09-11 regression result exactly; all 5 created test cases confirmed present and correctly titled. Confirms
+BUG-TCM-079 is isolated to the length-validation check itself, not a wider import regression.
+
+---
+
 ## Notes (non-bug observations)
 
 - **Preview vs. final step numbering mismatch**: when a step is skipped, the final saved test case renumbers surviving steps contiguously (1, 2, 3...), while the import preview still shows them under their original CSV column numbers with a visible gap. Not incorrect, but could read as confusing to someone reviewing the preview before confirming. No TC/bug filed for this — tracked here and in `docs/TESTCASE_MANAGEMENT_MEMORY.md`.
@@ -400,6 +464,9 @@ UTF-8 and mangles content otherwise.
 | TC-TCM-035 | `automation/testdata/csv-test-data/15_header_case_and_whitespace_variations.csv` | BUG-TCM-001 (closed 2026-09-11) |
 | TC-TCM-036 | `automation/testdata/csv-test-data/14_duplicate_step_column_headers.csv` | BUG-TCM-002 (closed 2026-09-11) |
 | TC-TCM-037 | `18_all_columns_export_118789.csv` (R7), `19_..._redmine6.csv` (R6), `20_..._redmine5.csv` (R5) — all in `automation/testdata/csv-test-data/` | production #118789 — retest PASS 2026-09-15 on all three supported Redmine versions |
+| TC-TCM-275 | `21_boundary_40000_vs_40001_chars.csv`, `22_jira_zephyr_migration_long_expected.csv` | **BUG-TCM-079 (open)** |
+| TC-TCM-276 | `21_boundary_40000_vs_40001_chars.csv` | **BUG-TCM-079 (open)** |
+| TC-TCM-277 | `01_legacy_single_step_format.csv` (regression re-run) | — |
 
 ---
 

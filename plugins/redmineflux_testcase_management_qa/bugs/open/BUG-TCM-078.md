@@ -1,7 +1,7 @@
 # BUG-TCM-078
 
 - Bug ID: BUG-TCM-078
-- Production Redmine Issue ID: #124109 (https://flux.zehntech.com/issues/124109) — assigned to Vaishnavi Bhawsar, priority Medium, Defect Type Functional / Defect Severity Medium-severity / Defect priority Medium, target version Testcase Management plugin Release 7.2.0. Linked to production Testcase #123977 and #123984 in Run #612, environment Win + Chrome + Ver6.
+- Production Redmine Issue ID: #124109 (https://flux.zehntech.com/issues/124109) — assigned to Vaishnavi Bhawsar, priority Medium, Defect Type Functional / Defect Severity Medium-severity / Defect priority Medium, target version Testcase Management plugin Release 7.2.0. Linked to production Testcase #123977 and #123984 in Run #612, environment Win + Chrome + Ver6. **Reopened on production 2026-10-21** (status → Reopen, done ratio 90% → 70%) after this session's retest confirmed only the mojibake symptom is fixed; menu-leak and missing-chart remain.
 - Title: Emailed report attachments (PDF and HTML) leak the page's "Download HTML/PDF/Excel" navigation menu into the report content, omit the bar chart, and (PDF only) mis-encode non-ASCII punctuation
 - Severity: Medium
 - Redmine version: 6.x (Docker)

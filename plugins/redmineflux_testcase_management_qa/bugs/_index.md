@@ -265,3 +265,9 @@
     In QA → Done, 100%, each with a retest-confirmation note. BUG-TCM-080 reported fresh as #124159 (Critical,
     linked to production Testcase #123977 and #123984 in Run #612) and BUG-TCM-081 as #124160 (Low, linked to
     production Testcase #123984 in Run #612), both assigned to Vaishnavi Bhawsar, target version Release 7.2.0.
+  - **Production reopened 2026-10-21, per explicit user instruction ("reopen kro"):** the 3 bugs confirmed
+    not-fully-fixed were each sitting at production status In QA / 90% done (the dev's pre-QA-signoff state) —
+    moved to status **Reopen** with an accurate done ratio and a note explaining the retest finding: #123955
+    (BUG-TCM-067) → Reopen, 30%; #123986 (BUG-TCM-071) → Reopen, 70%; #124109 (BUG-TCM-078) → Reopen, 70%.
+    BUG-TCM-075 was deliberately NOT touched on production — it was not retested this session (different
+    environment), so there is no new evidence to justify a status change either way.

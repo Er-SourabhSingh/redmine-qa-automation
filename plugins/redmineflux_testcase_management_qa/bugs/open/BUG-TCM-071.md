@@ -1,7 +1,7 @@
 # BUG-TCM-071
 
 - Bug ID: BUG-TCM-071
-- Production Redmine Issue ID: #123986 (https://flux.zehntech.com/issues/123986) — assigned to Vaishnavi Bhawsar, priority High, Defect Type Functional / Defect Severity High-severity / Defect priority High. Linked to production Testcase #123984 ("Most Failed Tests report export formats: HTML, PDF and Excel") in Run #612, environment Win + Chrome + Ver6.
+- Production Redmine Issue ID: #123986 (https://flux.zehntech.com/issues/123986) — assigned to Vaishnavi Bhawsar, priority High, Defect Type Functional / Defect Severity High-severity / Defect priority High. Linked to production Testcase #123984 ("Most Failed Tests report export formats: HTML, PDF and Excel") in Run #612, environment Win + Chrome + Ver6. **Reopened on production 2026-10-21** (status → Reopen, done ratio 90% → 70%) after this session's retest confirmed it is only partially fixed.
 - Title: Most Failed Tests report's Excel export doesn't recognize the report type at all — produces a 5-row error sheet ("Unknown Report Type" / "The report type 'most_failed' is not recognized") instead of the ranked data, unlike the working HTML and PDF exports
 - Redmine version: 6.x (Docker `localhost:3000`, Postgres)
 - Plugin name: redmineflux_testcase_management

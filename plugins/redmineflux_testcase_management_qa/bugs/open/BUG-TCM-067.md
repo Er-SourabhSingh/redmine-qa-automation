@@ -1,7 +1,7 @@
 # BUG-TCM-067
 
 - Bug ID: BUG-TCM-067
-- Production Redmine Issue ID: #123955 (https://flux.zehntech.com/issues/123955) — assigned to Vaishnavi Bhawsar, target version Testcase Management plugin Release 7.2.0. Linked to production Testcase #123951 ("CI ingest authorization and auth-method matrix") in Run #612, environment Win + Chrome + Ver6.
+- Production Redmine Issue ID: #123955 (https://flux.zehntech.com/issues/123955) — assigned to Vaishnavi Bhawsar, target version Testcase Management plugin Release 7.2.0. Linked to production Testcase #123951 ("CI ingest authorization and auth-method matrix") in Run #612, environment Win + Chrome + Ver6. **Reopened on production 2026-10-21** (status → Reopen, done ratio 90% → 30%) after this session's retest confirmed it is not fixed.
 - Title: CI ingest (`rftc-016`) and the manual "Add Result" form deny with "you are not the assignee" even though the actual gate is `execute_testcase` permission — the message names the wrong reason for the denial
 - Redmine version: 6.x (Docker `localhost:3000`, Postgres)
 - Plugin name: redmineflux_testcase_management

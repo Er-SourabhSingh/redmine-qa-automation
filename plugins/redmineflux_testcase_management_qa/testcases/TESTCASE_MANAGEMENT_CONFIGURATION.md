@@ -8,9 +8,13 @@
 > without a multi-day wait). TC-TCM-019/020 (Node/Puppeteer PDF prerequisite) still reference their original
 > 2026-09-14/2026-09-30 evidence, not re-executed this cycle (BUG-TCM-005, the only defect either ever found,
 > stays closed). TC-TCM-012 (Run Updated notification) is PASS on mechanism but carries an open defect on
-> content accuracy — see **BUG-TCM-088**. TC-TCM-004 and TC-TCM-018 both carry a **corrected-premise** finding
-> (not a bug) — the TC's original wording didn't match this plugin's actual architecture; the real underlying
-> mechanism was verified instead and passes.
+> content accuracy — see **BUG-TCM-088**. TC-TCM-018 carries a **corrected-premise** finding (not a bug) — the
+> TC's original wording didn't match this plugin's actual architecture; the real underlying mechanism was
+> verified instead and passes. **TC-TCM-004 surfaced a reopened defect (BUG-TCM-072)** — the mention-linking
+> mechanism itself is PASS, but the same dropdown it exercises carries the still-open XSS, found live and
+> reopened both locally and on production 2026-10-22. **This suite's coverage is complete (all 20 TCs
+> addressed), but not clean — 4 open bugs remain tied to it: BUG-TCM-013 (reopened), BUG-TCM-072 (reopened),
+> BUG-TCM-087 (new), BUG-TCM-088 (new). Plugin-wide `Complete` per CLAUDE.md §10 still requires all 4 fixed.**
 
 ## Plugin
 - Name: Redmineflux Testcase Management

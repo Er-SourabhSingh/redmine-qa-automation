@@ -84,7 +84,8 @@
 | BUG-TCM-006 | Failed PDF generation still sends an email whose body promises an attachment that is not there, with nothing surfaced in the UI | Closed | Medium | 6.1.3 | #120658 | bugs/closed/BUG-TCM-006.md |
 | BUG-TCM-001 | CSV import silently drops the value of a step column whose header has leading/trailing whitespace | Closed | Medium | 7.0.0 | | bugs/closed/BUG-TCM-001.md |
 | BUG-TCM-002 | CSV import silently discards the second occurrence of a duplicated column header with no warning | Closed | Medium | 7.0.0 | | bugs/closed/BUG-TCM-002.md |
-| BUG-TCM-088 | "Run Updated" notification email consistently shows the run's name from one edit ago, not the name just saved — DB save itself is correct, only the email content is stale (reproduced 3/3 consecutive edits) | Open | Medium | master (post-pull, pre-7.2.0) | | bugs/open/BUG-TCM-088.md |
+| BUG-TCM-087 | "Run Added" email can never be sent for a run created via the normal web UI — hardcoded `from=API` in `runs/new.html.erb` always triggers the CI-run email-suppression guard | Open | High | master (post-pull, pre-7.2.0) | #124272 | bugs/open/BUG-TCM-087.md |
+| BUG-TCM-088 | "Run Updated" notification email consistently shows the run's name from one edit ago, not the name just saved — DB save itself is correct, only the email content is stale (reproduced 3/3 consecutive edits); extended to cover all run-derived fields (Name/State/Environment/Assignee) and confirmed timing-sensitive | Open | Medium | master (post-pull, pre-7.2.0) | #124273 | bugs/open/BUG-TCM-088.md |
 
 - **BUG-TCM-009 extended 2026-10-01** while executing `TESTCASE_MANAGEMENT_TODO.md` TC-TCM-214: a 9th affected
   endpoint confirmed, `testcase_activities` (Activity log) — a non-member can view a private project's activity
@@ -421,4 +422,11 @@
   entirely correctly, but an immediate follow-up edit ~15 seconds later reproduced the staleness across Name,
   State, Environment AND Assignee in the email's summary box — while the separately-computed "Changes:" diff
   line stayed correct. Confirms the bug is timing-sensitive (rapid repeat edits) and affects every field read
-  off the `run` object, not just name. Not yet reported to production.
+  off the `run` object, not just name.
+
+- **BUG-TCM-087 and BUG-TCM-088 reported to production `ztflux` on 2026-10-22**, per explicit user instruction
+  ("bug production pe report kr do"): BUG-TCM-087 → **#124272** (High), BUG-TCM-088 → **#124273** (Medium), both
+  assigned to **Vaishnavi Bhawsar**, category Testcase Management Plugin, standard severity mapping (High →
+  priority High/High-severity/High; Medium → priority Medium/Medium-severity/Medium; Defect Type Functional for
+  both). Created as **standalone bug issues via `redmineflux_core_create_issue`** — per explicit user instruction
+  ("inko run me nhi dalna he"), neither was linked to a production Test Run or Test Case.

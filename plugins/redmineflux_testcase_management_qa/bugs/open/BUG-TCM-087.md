@@ -1,7 +1,7 @@
 # BUG-TCM-087
 
 - Bug ID: BUG-TCM-087
-- Production Redmine Issue ID: *(not yet reported — pending user approval)*
+- Production Redmine Issue ID: #124272
 - Title: "Run Added" email notification can never be sent for a run created through the normal web UI — the
   Add Run form itself hardcodes `from=API`, which the model's CI-suppression logic treats as "don't email"
 - Severity: High
@@ -124,5 +124,6 @@ updated to explicitly assert `from` is never `'API'` on a UI-created run once th
 
 ## Production report
 
-Not yet reported to production — pending explicit user approval per this repo's write-approval workflow
-(`REDMINEFLUX-MCP-SETUP.md` §4).
+Reported to production `ztflux` on 2026-10-22 as **#124272**, assigned to Vaishnavi Bhawsar, Priority High /
+Defect Severity High-severity / Defect priority High / Defect Type Functional, category Testcase Management
+Plugin. Standalone bug issue (no production Test Run/Test Case link), per explicit user instruction.

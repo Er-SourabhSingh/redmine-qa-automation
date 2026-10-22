@@ -1,7 +1,7 @@
 # Bug Report
 
 - Bug ID: BUG-TCM-088
-- Production Redmine Issue ID: <!-- not yet reported -->
+- Production Redmine Issue ID: #124273
 - Title: "Run Updated" notification email shows stale (one-edit-behind) values for every Run-derived field — name, State, Environment, Assignee — when the same run is edited again in quick succession; only the separately-computed "Changes:" diff line stays current
 - Redmine version: master (post-pull, pre-7.2.0)
 - Plugin name: redmineflux_testcase_management
@@ -102,6 +102,12 @@ I, [2026-10-22T06:30:42...] Performed ActionMailer::MailDeliveryJob ... in 118.1
 # rails runner readback immediately after:
 Run.find(70).name => "TC-TCM-016 Run Type Delete Test [run-updated-reenabled-check]"   # DB is correct; only the email was stale
 ```
+
+## Production report
+
+Reported to production `ztflux` on 2026-10-22 as **#124273**, assigned to Vaishnavi Bhawsar, Priority Medium /
+Defect Severity Medium-severity / Defect priority Medium / Defect Type Functional, category Testcase Management
+Plugin. Standalone bug issue (no production Test Run/Test Case link), per explicit user instruction.
 
 ## Duplicate check
 

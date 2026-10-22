@@ -444,6 +444,12 @@ wait, which is a narrower, lower-risk residual gap than the original full deferr
 → Testcase Management → Testcase Run Types. Opened Add Run in `test-project`: the new type appears in the Run
 Type dropdown alongside the 6 defaults and is selectable.
 
+**REGRESSION + full CRUD — 2026-10-22 — PASS.** Re-ran against `localhost:3000`, project `rftc-016-ci-qa`
+(7 default run types here, not 6). **Create**: "TC-TCM-015 Regression Run Type" added cleanly, Enabled=Yes.
+**Read**: Edit form reloads with the saved name. **Update**: renamed to add `[edited]` — list immediately
+reflects it. Selected it in **Add Run**'s Run Type dropdown — appeared alongside all 7 defaults, selectable,
+and a real run (#70) was created and saved with it.
+
 ---
 
 ### TC-TCM-016: Delete a run type in use
@@ -463,6 +469,12 @@ Reloaded the run list: run #11's Run Type column is now cleanly blank (not "Dele
 `/runs/11` directly — renders completely normally, no 500, no dangling reference anywhere. Delete is allowed and
 the existing run survives gracefully with a blank type, matching the "record which — blank is acceptable" branch
 of this TC.
+
+**REGRESSION — 2026-10-22 — PASS.** Re-ran against `localhost:3000`: created run #70 using "TC-TCM-015
+Regression Run Type [edited]", deleted that run type via the real confirmation modal ("Delete Run Type? Are
+you sure you want to delete this run type? This action cannot be undone."). Run #70's Run Type column in the
+list is cleanly blank; opening `/runs/70?project_id=rftc-016-ci-qa` directly renders completely normally — no
+500, no dangling reference. Same graceful-blank behavior confirmed on this build.
 
 ---
 

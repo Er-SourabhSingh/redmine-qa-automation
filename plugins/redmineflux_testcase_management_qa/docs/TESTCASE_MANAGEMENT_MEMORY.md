@@ -692,3 +692,12 @@
     own suite tree AND the New Test Case ("Add Testcase") form's left-side suite-picker panel both show the
     same count data from the same setting; checking only one is an incomplete regression for this TC (caught
     by the user after the first pass only covered the Test Cases section).
+  - **Completed full CRUD on both Email Templates and Run Types, confirming all macros substitute correctly
+    in real delivered emails.** All 9 Testcase Email Template macros (`{author_name}`, `{project_name}`,
+    `{issue_id}`, `{issue_subject}`, `{issue_priority}`, `{issue_url}`, `{environment}`, `{result}`,
+    `{result_notes}`) plus Footer plus subject-line macros confirmed correct in one single test — write a
+    template using every macro at once rather than one TC per macro, it's faster and still catches a broken
+    one. Default-template fallback (after deleting the only active template) also confirmed working.
+  - **`TESTCASE_MANAGEMENT_CONFIGURATION.md` is now the first suite fully regressed this cycle** — useful
+    reference point for how thorough a §27 regression pass should be per suite (every TC gets a dated
+    execution block, not just the ones that changed).

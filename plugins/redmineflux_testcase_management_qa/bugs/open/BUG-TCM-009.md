@@ -1,6 +1,10 @@
 # BUG-TCM-009
 
-> **CLOSED — 2026-10-07.** Production #121699 (https://flux.zehntech.com/issues/121699) is **Done**, 100% done.
+> **REOPENED — 2026-10-22.** A narrower surviving gap found while regressing the Permissions suite: Test Suites
+> specifically never got the `module_enabled?` check the other 8 sibling endpoints now correctly have — see
+> "Reopened" section below. Production #121699 reopen pending explicit user approval (currently Done/100%).
+
+> **Previously CLOSED — 2026-10-07.** Production #121699 (https://flux.zehntech.com/issues/121699) is **Done**, 100% done.
 > Closed on production by Sourabh Singh after retest — see "Production history" below. Local file synced from production on 2026-10-08.
 
 - Bug ID: BUG-TCM-009
@@ -277,3 +281,83 @@ For QA:
 ### 2026-10-07 05:51 UTC — Sourabh Singh
 
 Retested on master `9958491`. All nine originally-affected endpoints (test_suites, runs/new, requirements, traceability_rtms, testcase_todos, testcase_reports, test_suites/releases, testcase_environment, and testcase_activities -- the last one fixed by today's pull) now correctly block a genuine non-member, confirmed via a real browser session against a freshly-verified non-member user (zero membership, allowed_to?(:view_project) == false) on a private project. Each returns 403 or 404 instead of rendering the project's real data, matching core Redmine's own access-control baseline. Legitimate (admin) access confirmed unaffected via a control check. Closing.
+
+---
+
+## REOPENED — 2026-10-22 — Test Suites still skips the module-enabled check (narrower than the original)
+
+Found while regressing the Permissions suite (`TESTCASE_MANAGEMENT_PERMISSIONS.md`, TC-TCM-077 — "Module
+disabled removes all access"). **The non-member sub-case (this bug's main scope) remains genuinely fixed** —
+re-verified live: `dev1` (confirmed non-member of the still-enabled-module private project `rftc-016-ci-qa`)
+was correctly refused on all 8 original URLs (404/403, zero project data rendered). **But the separate
+module-disabled sub-case (TC-TCM-077, folded into this bug on 2026-09-30) only holds for 8 of 9 endpoints —
+Test Suites itself was never actually fixed for this specific sub-case.**
+
+### Live reproduction
+
+Disabled the "Redmineflux Testcase Management" module on `rftc-016-ci-qa` (`Project#enabled_module_names -=
+['testcase_management']`), then requested each plugin URL as a genuine project **member** (`qa.limited`,
+Manager role):
+
+```
+GET /test_suites?project_id=rftc-016-ci-qa            -> 200 (real suite tree data: "CI Ingest" suite,
+                                                           real /issues/ links — genuinely rendered, not an
+                                                           empty/error state)
+GET /test_suites/releases?project_id=rftc-016-ci-qa    -> 200 (same gap, the Overview/dashboard variant)
+GET /runs/new?project_id=rftc-016-ci-qa                -> 404  (correctly blocked)
+GET /requirements?project_id=rftc-016-ci-qa            -> 404  (correctly blocked)
+GET /projects/rftc-016-ci-qa/testcase_reports          -> 403  (correctly blocked)
+GET /traceability_rtms?project_id=rftc-016-ci-qa       -> 404  (correctly blocked)
+GET /testcase_todos?project_id=rftc-016-ci-qa          -> 404  (correctly blocked)
+GET /projects/rftc-016-ci-qa/testcase_environment      -> 404  (correctly blocked)
+GET /testcase_activities?project_id=rftc-016-ci-qa     -> 404  (correctly blocked)
+```
+
+Only Test Suites (both the plain listing and the `/releases` dashboard variant, same `TestSuitesController`)
+still renders fully with the module disabled. Module re-enabled immediately after, confirmed restored.
+
+### Root cause (precise, source-confirmed)
+
+`app/controllers/concerns/rftc_access_control.rb` has **two** similarly-named but different helpers:
+
+```ruby
+# Used by 8 of 9 controllers (the ones this bug's original fix touched) -- checks BOTH
+# project visibility AND the module being enabled:
+def rftc_authorize_project_read!(project, not_found_message = nil)
+  return false unless rftc_require_login!
+  return rftc_not_found(not_found_message) if project.nil?
+  return true if User.current.admin?
+  return rftc_not_found(not_found_message) unless project.visible?(User.current)
+  return rftc_not_found(not_found_message) unless project.module_enabled?('testcase_management')
+  true
+end
+
+# Used ONLY by test_suites_controller.rb's rftc_authorize_suite_read -- checks ONLY
+# visibility, never the module:
+def rftc_project_readable?(project)
+  return false if project.nil?
+  User.current.admin? || project.visible?(User.current)
+end
+```
+
+`test_suites_controller.rb#rftc_authorize_suite_read` (covers `:index, :releases, :chart_data,
+:save_testcase_graph_filter`) calls `rftc_project_readable?`, not `rftc_authorize_project_read!` — so it
+correctly catches a non-member (since `project.visible?` is false for them) but has no way to catch a
+module-disabled project, since that check simply isn't in the helper it uses. This was apparently missed
+when the 2026-10-06/07 fix wave rolled out `rftc_authorize_project_read!` to the other 8 controllers — the
+2026-10-07 closing note's own "For QA" repro steps never actually listed Test Suites as something to
+re-verify (only Requirements/Traceability/To-Dos/Runs/Environments), even though the prose claimed it was
+"confirmed fixed" — this sub-case was never actually re-tested for this specific controller.
+
+### Suggested fix
+
+Switch `test_suites_controller.rb#rftc_authorize_suite_read` to call `rftc_authorize_project_read!` (or add
+the same `module_enabled?('testcase_management')` check to `rftc_project_readable?`/its caller), matching the
+pattern already correctly used by the other 8 controllers.
+
+### Verdict
+
+**Reopened**, narrower than the original: the non-member sub-case stays fixed (verified live this session);
+only the module-disabled sub-case for Test Suites specifically is still open. Severity: Medium (requires an
+admin to have deliberately disabled the module on an otherwise-accessible project — a real but less common
+precondition than the original's "any random non-member on a private project").

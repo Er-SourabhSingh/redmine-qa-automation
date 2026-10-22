@@ -4,7 +4,7 @@
 |--------|-------|--------|----------|-----------------|------------------------------|-----------|
 | BUG-TCM-007 | Create/Edit/Delete for Test Suites, Reports, and Requirements have no permission check at all — any project member can create, edit or delete them regardless of role | Closed | High | 7.0.0 | #121645 | bugs/closed/BUG-TCM-007.md |
 | BUG-TCM-008 | Run detail page crashes with an unhandled 500 error whenever the run's environment-assignee user has been deleted | Closed | Medium | 7.0.0 | #121698 | bugs/closed/BUG-TCM-008.md |
-| BUG-TCM-009 | Almost the entire plugin has no project-membership check at all — any logged-in user can view test suites, requirements, reports, traceability, to-dos and runs for a private project they are not a member of | Closed | High | 7.0.0 | #121699 | bugs/closed/BUG-TCM-009.md |
+| BUG-TCM-009 | Almost the entire plugin has no project-membership check at all — any logged-in user can view test suites, requirements, reports, traceability, to-dos and runs for a private project they are not a member of — REOPENED 2026-10-22 (narrower): non-member sub-case stays fixed, but Test Suites alone still skips the module-enabled check (uses `rftc_project_readable?`, not `rftc_authorize_project_read!` like the other 8 endpoints) | Open | Medium | master (post-pull, pre-7.2.0) | #121699 | bugs/open/BUG-TCM-009.md |
 | BUG-TCM-010 | With the Testcase Tracker setting cleared, "New Test Case" silently creates a Bug instead of failing with a configuration error — the issue is invisible to every Testcase Management view from then on | Closed | High | 7.0.0 | #121700 | bugs/closed/BUG-TCM-010.md |
 | BUG-TCM-011 | Report Defect (and New Test Case) cannot be completed at all when Defect/Testcase Tracker is set to anything other than "Bug" — two Bug-only required custom fields are enforced but never rendered | Closed | High | 7.0.0 | #121701 | bugs/closed/BUG-TCM-011.md |
 | BUG-TCM-012 | Default "Test Case Result Added" notification email shows the run's name instead of the test case's own subject in its heading | Closed | Low | 7.0.0 | #121702 | bugs/closed/BUG-TCM-012.md |
@@ -443,3 +443,16 @@
   the crafted XSS-payload test fixtures — the sink itself is universal, not project-scoped. Moved back to
   `bugs/open/`. **Production #124008 reopened 2026-10-22, per explicit user approval** — moved Done/100% →
   Reopen/30%, with a full note explaining the second, never-patched Tribute.js rendering path.
+
+- **BUG-TCM-009 REOPENED 2026-10-22 (narrower)**, found while regressing the Permissions suite on this build.
+  The non-member sub-case (this bug's main original scope) stays genuinely fixed — re-verified live with `dev1`
+  (confirmed non-member of `rftc-016-ci-qa`), correctly refused on all 8 original URLs. But the separate
+  module-disabled sub-case (TC-TCM-077, folded into this bug 2026-09-30) only holds for 8 of 9 endpoints —
+  **Test Suites alone was never actually fixed for this sub-case**: disabling the module on the project still
+  leaves `GET /test_suites?project_id=...` and `/test_suites/releases?project_id=...` rendering full real suite
+  data for a genuine member. Root-caused precisely: `test_suites_controller.rb`'s `rftc_authorize_suite_read`
+  calls `rftc_project_readable?` (checks visibility only), while the other 8 controllers correctly use
+  `rftc_authorize_project_read!` (checks visibility AND `module_enabled?`) — the 2026-10-06/07 fix wave rolled
+  the comprehensive helper out everywhere except this one controller, and its own closing note's "For QA" repro
+  steps never actually listed Test Suites to re-verify. Production #121699 reopen pending explicit user
+  approval (currently Done/100%).

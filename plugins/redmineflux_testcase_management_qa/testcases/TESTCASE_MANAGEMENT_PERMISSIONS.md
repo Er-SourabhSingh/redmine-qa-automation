@@ -3,8 +3,39 @@
 > Source: `docs/TESTCASE_MANAGEMENT_REQUIREMENTS.md` (Permissions Matrix) and the vendor KB Roles & Permissions
 > section. Covers all 16 plugin permissions across 6 groups.
 >
-> **Status: execution started 2026-09-30** (final-cycle regression). Role→permission mapping established this
-> session since none existed live (see note below). Execution in progress — see individual TCs for evidence.
+> **Status: execution started 2026-09-30, regressed against the current build 2026-10-22.** Role→permission
+> mapping below is from the original `localhost:3010` instance; the 2026-10-22 regression used
+> `localhost:3000`/`rftc-016-ci-qa` with its own real roles instead (see note below the mapping table).
+>
+> **2026-10-22 regression summary:** BUG-TCM-007 (Test Suite/Report/Requirement create+edit+delete missing
+> authorization) is now **confirmed fixed across all 3 controllers, all CRUD actions** — re-verified live for
+> create (both directions) and via source for edit/delete (all now use unified `before_action` guards).
+> TC-TCM-067–069 (To-Do scoping) executed live for the first time, all PASS. TC-TCM-074 (non-member access to
+> a private, module-enabled project) reconfirmed PASS. **BUG-TCM-009 REOPENED (narrower)** — TC-TCM-077
+> (module-disabled) found Test Suites is the one controller that never got the `module_enabled?` check the
+> other 8 sibling endpoints now correctly have (`rftc_authorize_suite_read` still uses the older
+> `rftc_project_readable?`, not `rftc_authorize_project_read!`). TC-TCM-073 remains deferred (irreversible
+> deletion, needs explicit approval); TC-TCM-051 remains deferred (case↔suite association setup unresolved);
+> TC-TCM-066 (report cross-project scoping) and TC-TCM-075 (anonymous access) not re-executed this cycle —
+> source logic for both is unchanged since 2026-09-30 and not implicated by anything found this cycle.
+
+## 2026-10-22 regression — role mapping on the current instance
+
+`localhost:3000` has only 5 roles (Manager, Developer, Reporter, Non member, Anonymous) — no "QA Own
+Visibility"/"Client" equivalents from the original mapping. Used real project members instead:
+
+| Role used as | Redmine role | Grants |
+|---|---|---|
+| "Manager"/granted (`qa.limited`) | Manager | all Testcase Management permissions (confirmed: full create/edit/delete/view set) |
+| "Developer"/denied-but-member (`qanonadmin`) | Developer | **zero** Testcase Management permissions on this instance (confirmed via `Role.find_by(name:'Developer').permissions`) |
+| Non-member (`dev1`) | Developer, member of `rftc-038-multisuite-qa` ONLY | not a member of `rftc-016-ci-qa` at all — genuine non-member fixture |
+
+`rftc-016-ci-qa` is itself already a **Private** project (`is_public? == false`), so no separate throwaway
+private-project fixture was needed for TC-TCM-074 this cycle. Leg C (direct endpoint) checks used `curl` with
+real per-user session cookies (password-reset via `rails runner` for `qanonadmin`/`dev1`/`qa.limited` — local
+Docker instance only) rather than browser automation, since leg C is literally "request the URL/endpoint
+directly" per this suite's own methodology — curl gives the precise HTTP status without any UI rendering in
+the way. Leg A/B (UI-visible controls) used real Playwright sessions.
 
 ## Role→permission mapping established 2026-09-30
 
@@ -71,6 +102,11 @@ not prescribe one.
 **CONFIRMED PASS 2026-09-30** as `luna.blossom` (Manager, granted): "Add Test Suite" icon present, suite
 "TC-TCM-046-Manager-Created" created and appeared in the tree at `testsuite_id=5`.
 
+**REGRESSION — 2026-10-22 — PASS.** As `qa.limited` (Manager, granted) on `rftc-016-ci-qa`: `POST
+/test_suites?project_id=rftc-016-ci-qa` with `testsuite[name]=TC-TCM-046-Granted-Check` returned **201
+Created**; confirmed via `rails runner` the suite genuinely exists (`Testsuite.where(name:
+'TC-TCM-046-Granted-Check').first` → real row, `project_id` correct). Cleaned up after.
+
 ---
 
 ### TC-TCM-047: Create Test Suite — denied role sees no control
@@ -86,6 +122,11 @@ not prescribe one.
 
 **CONFIRMED PASS 2026-09-30** as `daisy.skye` (Reporter, denied): `h5.new-testsuite-txt` (the Add Test Suite
 control) is absent from the DOM entirely.
+
+**REGRESSION — 2026-10-22 — PASS.** As `qanonadmin` (Developer, zero Testcase Management permissions) via a
+real Playwright session on `rftc-016-ci-qa`: no "Add Test Suite" control found anywhere in the DOM
+(`grep "Add Test Suite"` against the full accessibility snapshot — zero matches, consistent across repeated
+checks).
 
 ---
 
@@ -109,6 +150,13 @@ form was submitted and **a real test suite was created** (`testsuite_id=6`). Roo
 has no `authorize`/`allowed_to?` check anywhere in `new`/`create`/`edit`/`update`/`destroy`. Full evidence, root
 cause and suggested fix in `bugs/open/BUG-TCM-007.md`.
 
+**REGRESSION — 2026-10-22 — PASS, BUG-TCM-007 confirmed fixed for this controller/action.** As `qanonadmin`
+(Developer, zero permissions): `GET /test_suites/new?project_id=rftc-016-ci-qa` → **403 Forbidden** (not a
+rendered form). `POST /test_suites?project_id=rftc-016-ci-qa` with the correct `testsuite[name]`/
+`testsuite[description]` params → **403**, confirmed via `rails runner` that **zero** rows matching the
+attempted name exist (`Testsuite.where(name: 'HACK...').count == 0`). Source-confirmed:
+`test_suites_controller.rb` now has `before_action :rftc_authorize_suite_create, only: [:new, :create]`.
+
 ---
 
 ### TC-TCM-049: Edit Test Suite — granted vs denied (all three legs)
@@ -130,6 +178,13 @@ cause and suggested fix in `bugs/open/BUG-TCM-007.md`.
 /test_suites/6/edit?project_id=test-project` rendered the full edit form normally (no refusal). Not a new root
 cause — same missing-authorization defect as TC-TCM-048.
 
+**REGRESSION — 2026-10-22 — PASS, both legs fixed.** Granted leg: `qa.limited`'s `GET /test_suites/21/edit`
+rendered 200 (correct). Denied leg: `qanonadmin`'s `GET /test_suites/21/edit` → **403**; `PUT
+/test_suites/21?project_id=rftc-016-ci-qa` with a rename payload → **403**. Source-confirmed:
+`test_suites_controller.rb` now has `before_action :rftc_authorize_suite_record, only: [:show, :edit,
+:update, :destroy, :add_issues, :copy_issues, :remove_issues]` — one unified guard covering edit/update
+alongside show/destroy.
+
 ---
 
 ### TC-TCM-050: Delete Test Suite — granted vs denied (all three legs)
@@ -150,6 +205,10 @@ cause — same missing-authorization defect as TC-TCM-048.
 **Denied leg CONFIRMED FAIL 2026-09-30 — same BUG-TCM-007.** As `daisy.skye`: a direct `POST /test_suites/6` with
 `_method=delete` returned 200 and **genuinely deleted** `testsuite_id=6` (confirmed absent from the list
 afterward) — not merely reachable, the write succeeded end-to-end.
+
+**REGRESSION — 2026-10-22 — PASS, fixed.** As `qanonadmin`: `POST /test_suites/3` with `_method=delete` →
+**403**; confirmed suite id=3 ("CI Ingest") still exists afterward via `rails runner`. Same unified
+`rftc_authorize_suite_record` guard as TC-TCM-049 covers `:destroy` too.
 
 ---
 
@@ -442,6 +501,15 @@ returned **"Report created successfully"** — confirmed in the Rails console as
 (`TestcaseReport id=12, created_by_id=112` — Daisy's own user id). `testcase_reports_controller.rb` has no
 `allowed_to?` check in `new`/`create`, only `before_action :require_login`.
 
+**REGRESSION — 2026-10-22 — PASS, BUG-TCM-007 confirmed fixed.** As `qanonadmin` (Developer, no
+`create_report`): `POST /projects/rftc-016-ci-qa/testcase_reports` with `testcase_report[name]=HACK...` →
+**403**; confirmed via `rails runner` zero matching rows created. As `qa.limited` (granted): same POST
+returned 200 (no permission error), confirming the permission check itself is correctly scoped to the denied
+role only — not independently verified whether that specific minimal POST satisfied all required report
+fields (unrelated to permissions; the create form has several schedule/criteria fields not sent in this
+minimal probe). Source-confirmed: `testcase_reports_controller.rb` now has `before_action
+:rftc_authorize_report_collection, only: [:index, :new, :create]`.
+
 ---
 
 ### TC-TCM-064: Edit Report — granted vs denied (all three legs)
@@ -462,6 +530,11 @@ persisted correctly.
 and `#update` have no `allowed_to?(:edit_report, ...)` check, same pattern as `new`/`create`. Not independently
 live-POSTed (redundant with the create/destroy legs already live-confirmed for this controller).
 
+**REGRESSION — 2026-10-22 — PASS, fixed.** Source-confirmed: `testcase_reports_controller.rb` now has
+`before_action :rftc_authorize_report_record, only: [:show, :edit, :update, :export_excel, :export_pdf1,
+:destroy]` — one unified guard covering edit/update alongside show/export/destroy, same pattern already
+live-verified for Test Suites and Requirements this cycle.
+
 ---
 
 ### TC-TCM-065: Delete Report — granted vs denied (all three legs)
@@ -481,6 +554,9 @@ confirmed removed.
 **Denied leg CONFIRMED FAIL via source inspection — same BUG-TCM-007.**
 `testcase_reports_controller.rb#destroy` (~line 397) looks up the report by id from params and destroys it
 unconditionally for any logged-in user — no permission check at all.
+
+**REGRESSION — 2026-10-22 — PASS, fixed.** Same `rftc_authorize_report_record` guard from TC-TCM-064 covers
+`:destroy` too — confirmed present in source, same unified pattern as the other two controllers.
 
 ---
 
@@ -523,6 +599,13 @@ create/edit/delete actions themselves) — this specific data-scoping logic is c
 **Expected Result:**
 - Only that user's own assigned items are listed; the other user's items are absent.
 
+**CONFIRMED LIVE — 2026-10-22 — PASS (executed for the first time; never previously run).** Assigned run #70 to
+`qanonadmin` (Developer, `view_all_todos == false`, confirmed via `allowed_to?`). As `qanonadmin`: `GET
+/testcase_todos?project_id=rftc-016-ci-qa` lists **only run 70** (`grep "runs/[0-9]*"` → single match,
+`runs/70`) — confirmed via source too: `testcase_todos_controller.rb#index` branches on
+`User.current.allowed_to?(:view_all_todos, @project)`; when false, scopes
+`RunAssignment.where(..., assignee_id: User.current.id)`.
+
 ---
 
 ### TC-TCM-068: "View All To-Do's" widens visibility
@@ -534,6 +617,12 @@ create/edit/delete actions themselves) — this specific data-scoping logic is c
 
 **Expected Result:**
 - Items assigned to all users are listed.
+
+**CONFIRMED LIVE — 2026-10-22 — PASS (executed for the first time).** With the same run #70 assigned to
+`qanonadmin` (not to `qa.limited`), logged in as `qa.limited` (Manager, `view_all_todos == true`): `GET
+/testcase_todos?project_id=rftc-016-ci-qa` lists **5 different runs** (40, 67, 68, 69, 70) — including run 70,
+which belongs to a different user entirely, confirming the widened scope genuinely includes everyone's
+assignments, not just the viewer's own.
 
 ---
 
@@ -547,6 +636,14 @@ create/edit/delete actions themselves) — this specific data-scoping logic is c
 
 **Expected Result:**
 - The response still contains only the requesting user's items — the filter must not override the permission.
+
+**CONFIRMED via source + live — 2026-10-22 — PASS (executed for the first time).** Source-confirmed this is
+structurally impossible to violate: `testcase_todos_controller.rb#index` never reads any
+`params[:user_id]`/`params[:assignee_id]`/widening parameter at all — the branch is purely
+`User.current.allowed_to?(:view_all_todos, @project)` vs. a hardcoded `assignee_id: User.current.id`. Live
+double-check: requesting `/testcase_todos?project_id=rftc-016-ci-qa&assignee_id=1&user_id=1` as `qanonadmin`
+produced an identical scoped result to the plain request (still only run 70, never admin's own items) —
+confirming the parameters have no effect on the query.
 
 ---
 
@@ -574,6 +671,16 @@ however a direct `POST /requirements` with `requirement[title]=...` returned **2
 `id=4` in the response body. `requirements_controller.rb#create` has no permission check; the `allowed_to?`
 calls elsewhere in that file only compute UI flags, they never guard `create`/`update`/`destroy`.
 
+**REGRESSION — 2026-10-22 — PASS, BUG-TCM-007 confirmed fixed.** Note: `project_id` must be sent **nested**
+as `requirement[project_id]` (the numeric project id, not the identifier) — `rftc_authorize_requirement_create`
+reads `params.dig(:requirement, :project_id)`, not a top-level query param; sending it the old way produces a
+404 that looks like a block but is actually just a missing-project lookup, not a permission refusal. With the
+correct param: as `qa.limited` (granted), `POST /requirements` with `requirement[title]=...,
+requirement[project_id]=2` → **201 Created**, real row (`id=8`) confirmed via the JSON response. As
+`qanonadmin` (denied): the identical request → **403**, body `{"error":"Unauthorized access"}`. Source-
+confirmed: `requirements_controller.rb` now has `before_action :rftc_authorize_requirement_create, only:
+[:create]`.
+
 ---
 
 ### TC-TCM-071: Edit Requirement — granted vs denied (all three legs)
@@ -593,6 +700,9 @@ editor; autosave fired ("Saved" indicator shown).
 **Denied leg CONFIRMED FAIL via source inspection — same BUG-TCM-007.** `requirements_controller.rb#update`
 has no `allowed_to?(:edit_requirement, ...)` guard.
 
+**REGRESSION — 2026-10-22 — PASS, fixed.** Source-confirmed: `before_action :rftc_authorize_requirement_edit,
+only: [:update]` now present.
+
 ---
 
 ### TC-TCM-072: Delete Requirement — granted vs denied (all three legs)
@@ -611,6 +721,9 @@ has no `allowed_to?(:edit_requirement, ...)` guard.
 icon, confirmed removed.
 **Denied leg CONFIRMED FAIL via source inspection — same BUG-TCM-007.**
 `requirements_controller.rb#destroy` (~line 62) calls `@requirement.destroy` with no permission check.
+
+**REGRESSION — 2026-10-22 — PASS, fixed.** As `qanonadmin`: `POST /requirements/6` with `_method=delete` →
+**403**. Source-confirmed: `before_action :rftc_authorize_requirement_delete, only: [:destroy]` now present.
 
 ---
 
@@ -673,6 +786,15 @@ Root cause (source-confirmed across `test_suites_controller.rb`, `testcase_repor
 `runs_controller.rb`, whose own `create`/`edit`/`close`/`delete` actions *do* correctly check permissions,
 proving this is a gap on the read side specifically, not a general unfamiliarity with the pattern. Screenshot:
 `screenshots/BUG-TCM-009/non-member-daisy-views-private-project-test-suites.png`. Full write-up: `bugs/open/BUG-TCM-009.md`.
+
+**REGRESSION — 2026-10-22 — PASS, confirmed genuinely fixed for this sub-case.** `rftc-016-ci-qa` is already
+Private (`is_public? == false`); `dev1` is a genuine non-member (member of a different project only). All 8
+URLs (and the plain `/projects/rftc-016-ci-qa` core page as a baseline control) returned the correct refusal:
+7 of 8 → 404, 1 (`testcase_reports`) → 403, core project page → 403. Zero project data rendered in any
+response. Source-confirmed: the 8 fixed controllers now use `rftc_authorize_project_read!` (checks visibility
+AND module-enabled), explaining why this exact sub-case — a non-member of a module-ENABLED private project —
+is solid. (The one remaining gap found this cycle, TC-TCM-077 below, is a *different* sub-case — a *member* of
+a module-*disabled* project — see BUG-TCM-009's reopening.)
 
 ---
 
@@ -742,19 +864,33 @@ instead of `view_project` — added to that bug rather than filed separately. Mo
 (`Project#module_enabled?('testcase_management') == true`) immediately after this test to avoid leaving the shared
 `test-project` fixture altered.
 
+**REGRESSION — 2026-10-22 — PARTIAL FAIL, BUG-TCM-009 REOPENED (narrower).** Disabled the module on
+`rftc-016-ci-qa`, requested all 9 plugin URLs as a genuine member (`qa.limited`, Manager). **8 of 9 now
+correctly refuse** (Runs, Requirements, Reports, Traceability Matrix, To-Do, Environment, Activity all
+404/403) — but **Test Suites alone still renders fully**: both `/test_suites?project_id=...` and
+`/test_suites/releases?project_id=...` returned 200 with real data (a genuine "CI Ingest" suite, real
+`/issues/` links — confirmed not an empty/error state). Root-caused precisely:
+`test_suites_controller.rb#rftc_authorize_suite_read` calls `rftc_project_readable?` (checks project
+visibility only), while the 8 fixed controllers use `rftc_authorize_project_read!` (checks visibility **and**
+`module_enabled?`) — the 2026-10-06/07 fix wave never actually reached this one controller, even though its
+own closing note's prose claimed it was fixed (the note's own "For QA" repro steps never listed Test Suites to
+re-verify). **Reopened BUG-TCM-009** with this narrower scope — the non-member sub-case (TC-TCM-074 above)
+stays genuinely fixed; only this module-disabled sub-case, and only for Test Suites, remains open. Module
+re-enabled and restored immediately after.
+
 ---
 
 ## Evidence Map
 
 | TC range | Area | Bug reference |
 |---|---|---|
-| TC-TCM-046 – 806 | Test Suite Management | BUG-TCM-007 |
+| TC-TCM-046 – 806 | Test Suite Management | BUG-TCM-007 (confirmed fixed 2026-10-22) |
 | TC-TCM-052 – 813 | Test Run Management | — |
 | TC-TCM-059 – 816 | Test Execution | — |
-| TC-TCM-062 – 821 | Reporting | BUG-TCM-007 |
-| TC-TCM-067 – 824 | To-Do Management | — |
-| TC-TCM-070 – 828 | Requirement Management | BUG-TCM-007 |
-| TC-TCM-074 – 832 | Negative / cross-cutting | BUG-TCM-009 |
+| TC-TCM-062 – 821 | Reporting | BUG-TCM-007 (confirmed fixed 2026-10-22) |
+| TC-TCM-067 – 824 | To-Do Management | — (first-ever execution 2026-10-22, all PASS) |
+| TC-TCM-070 – 828 | Requirement Management | BUG-TCM-007 (confirmed fixed 2026-10-22) |
+| TC-TCM-074 – 832 | Negative / cross-cutting | **BUG-TCM-009 (reopened 2026-10-22 — narrower: non-member sub-case stays fixed, Test Suites' module-disabled sub-case still open)** |
 
 - Screenshot: capture only on failure, to `screenshots/<BUG-ID>/` (`CLAUDE.md` §6).
 - Log: for leg C, capture the HTTP status and response of the direct request as evidence — a screenshot of a

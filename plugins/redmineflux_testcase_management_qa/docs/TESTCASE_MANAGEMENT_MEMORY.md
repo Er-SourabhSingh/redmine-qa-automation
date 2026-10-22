@@ -115,6 +115,28 @@
 
 ## Methodology Lessons
 
+- **For Permissions-suite "leg C" (direct endpoint) checks, `curl` with real per-user session cookies is the
+  right tool, not Playwright** — the TC methodology itself says "request the URL directly," which is a raw
+  HTTP status check, not a UI interaction. Use `rails runner` to reset a test user's password to a known value
+  (local Docker instance only), log in via curl with a cookie jar, then GET/POST directly. **Critical gotcha**:
+  do the login + grab-a-fresh-token + make-the-request sequence **inside a single Bash call** — session state
+  (and the CSRF token tied to it) does not reliably survive across separate tool-call invocations in this
+  sandbox, producing misleading 422 (invalid CSRF)/302 (session expired) results that look like real findings
+  but are just tooling artifacts. Always verify a session is alive (`GET /my/account` returns `<title>My
+  account - Redmine</title>`, not a login-page title) before trusting any status code from it.
+- **A form's actual param names rarely match the TC description's casing** — this plugin's forms use
+  `testsuite[name]` (not `test_suite[name]`), `requirement[title]` with `requirement[project_id]` **nested**
+  inside the same hash (not a top-level `project_id` query param), `testcase_report[name]`, etc. Scrape the
+  real `name="..."` attributes from a GET of the actual form (as a role that CAN load it) before constructing
+  any direct POST — guessing param names produces 400/404/422 responses that look like permission refusals but
+  are actually just malformed requests, risking a false "PASS" (denied) or false negative.
+- **`rftc_project_readable?` vs `rftc_authorize_project_read!` are NOT interchangeable** — the former checks
+  only project visibility/membership; the latter (the correct, comprehensive one, added specifically for
+  BUG-TCM-009) also checks `module_enabled?('testcase_management')`. `test_suites_controller.rb` is the one
+  controller still using the older, incomplete helper (see BUG-TCM-009's reopening) — check which helper a
+  controller actually calls, not just whether a `before_action` exists at all, since two have confusingly
+  similar names and very different guarantees.
+
 - **Never trust an accessibility-tree snapshot to rule out XSS — always check `element.innerHTML` directly.**
   2026-10-22: dismissed a real `alert('export-xss')` from the Requirements page's `#`-mention dropdown as a
   "stale duplicate-tab artifact" because the Playwright accessibility snapshot showed the dangerous item as

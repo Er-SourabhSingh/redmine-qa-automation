@@ -897,8 +897,20 @@ as before. Confirmed via `rails runner`: `allowed_to?(:view_test_suite, project)
 candidate authorization helpers (`rftc_project_readable?`/`rftc_authorize_project_read!`) ever checks
 `view_test_suite` or any other Testcase Management permission at all — this is a **second, independent** gap
 on top of the module-enabled one, matching BUG-TCM-007's missing-role-permission-check pattern but now
-confirmed on this controller's *read* side. **Severity upgraded to High.** Role permissions restored
-immediately after.
+confirmed on this controller's *read* side. **Severity upgraded to High.**
+
+**Both affected URLs precisely re-confirmed per user follow-up** (`view_test_suite == false`,
+`module_enabled? == true` simultaneously, isolating from the module sub-case):
+1. `GET /test_suites?project_id=rftc-016-ci-qa` — full suite tree renders. Screenshot:
+   `screenshots/BUG-TCM-009/test-suites-no-view-permission.png`.
+2. `GET /projects/rftc-016-ci-qa/issue_testcase/new` (the "New Test Case" form reached via that listing's own
+   button) — **also renders in full**, "Add Testcase" page with the complete form. Screenshot:
+   `screenshots/BUG-TCM-009/issue-testcase-new-no-permission-check.png`. Source-confirmed:
+   `issue_testcase_controller.rb#new` has **zero** authorization check of any kind (unlike `#create`, which at
+   least checks the generic Redmine `add_issues` permission) — a **second controller** sharing this same
+   missing-permission shape, not just Test Suites' own listing.
+
+Role permissions restored immediately after.
 
 ---
 

@@ -463,6 +463,11 @@
   `rails runner`: `allowed_to?(:view_test_suite, project) == false`, yet the page rendered fully regardless.
   Neither `rftc_project_readable?` nor `rftc_authorize_project_read!` ever checks `view_test_suite` (or any
   Testcase Management permission) at all — this is a second, independent gap on top of the module-enabled one,
-  same class of defect as BUG-TCM-007 but on the *read* side of this one controller. **Severity upgraded to
-  High.** Role permissions restored immediately after. Production #121699 reopen pending explicit user
-  approval (currently Done/100%).
+  same class of defect as BUG-TCM-007 but on the *read* side of this one controller. **Per further user
+  follow-up, re-confirmed both affected URLs precisely**: `GET /test_suites?project_id=...` AND
+  `GET /projects/.../issue_testcase/new` (the "New Test Case" form itself) — both render in full with
+  `view_test_suite == false`. The second URL is a **separate controller** (`IssueTestcaseController#new`,
+  distinct from `TestSuitesController`) with the exact same missing-permission shape — it has zero
+  authorization of any kind, unlike its own `#create` action which at least checks the generic Redmine
+  `add_issues` permission. **Severity upgraded to High.** Role permissions restored immediately after.
+  Production #121699 reopen pending explicit user approval (currently Done/100%).

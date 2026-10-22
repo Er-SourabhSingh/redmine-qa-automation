@@ -357,8 +357,26 @@ module-disabled sub-case. `rftc_authorize_suite_read`/`rftc_project_readable?` n
 literally zero Testcase Management permissions of any kind can still fully browse (and, per the Add Testcase
 form being reachable, potentially act on) the Test Suites area — this is the same missing-permission-check
 shape as BUG-TCM-007 (which only ever covered *write* actions in 3 *other* controllers), now confirmed on
-Test Suites' own *read* side too, on top of the module-enabled gap already documented above. Permissions
-restored on the `Manager` role immediately after this check (`view_test_suite`, `create_test_suite`, and the
+Test Suites' own *read* side too, on top of the module-enabled gap already documented above.
+
+**Re-verified a second time, precisely confirming BOTH affected URLs the user asked about:**
+
+1. `GET /test_suites?project_id=rftc-016-ci-qa` (the suite tree/listing page) — renders in full. Screenshot:
+   `screenshots/BUG-TCM-009/test-suites-no-view-permission.png`.
+2. `GET /projects/rftc-016-ci-qa/issue_testcase/new` (the "New Test Case" / "Add Testcase" form, reached via
+   that listing's own "+ New Test Case" button) — **also renders in full**, page title "Add Testcase -
+   RFTC-016 CI Ingest QA - Redmine", complete form (Tracker/Subject/Description/Status/Priority/Assignee/Start
+   date all present and interactive). Screenshot:
+   `screenshots/BUG-TCM-009/issue-testcase-new-no-permission-check.png`.
+
+Both confirmed with `view_test_suite == false` and `module_enabled?('testcase_management') == true`
+simultaneously (isolating this from the module-disabled sub-case entirely). Source-confirmed for #2:
+`app/controllers/issue_testcase_controller.rb#new` has **zero** `before_action`/`allowed_to?` check of any
+kind — not even the `add_issues` check that `#create` (the actual POST) has. This is a **second controller**
+with the same missing-permission shape, not just `test_suites_controller.rb` — `IssueTestcaseController#new`
+never checks any permission before rendering the form, only `#create` does (and even there, it checks the
+generic Redmine `add_issues` permission with `global: true`, not anything Testcase-Management-specific like
+`view_test_suite`/`create_test_suite`). Permissions restored on the `Manager` role immediately after this check (`view_test_suite`, `create_test_suite`, and the
 rest of the original Testcase Management permission set re-added).
 
 ### Root cause (precise, source-confirmed)
@@ -404,12 +422,16 @@ confirmed on this controller's *read* side, where BUG-TCM-007 only ever covered 
 
 ### Suggested fix
 
-Two changes needed, not one:
+Three changes needed, across two controllers:
 1. Switch `test_suites_controller.rb#rftc_authorize_suite_read` to call `rftc_authorize_project_read!` instead
    of `rftc_project_readable?` (closes the module-disabled sub-case, matching the other 8 controllers).
 2. **Additionally** add an explicit `allowed_to?(:view_test_suite, @project)` check (or equivalent) to that
    same guard — neither existing helper checks this permission at all, so switching helpers alone only fixes
    the module gap, not the permission gap the user found.
+3. `issue_testcase_controller.rb#new` needs its own `before_action` added — it currently has **zero**
+   authorization of any kind (not membership, not module-enabled, not any permission), unlike `#create` in the
+   same controller which at least checks `add_issues`. Add the same `view_test_suite`/module-enabled guard to
+   `#new` as well, so the form itself is gated the same way the eventual write already partially is.
 
 ### Verdict
 

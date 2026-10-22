@@ -11,10 +11,12 @@
 > authorization) is now **confirmed fixed across all 3 controllers, all CRUD actions** — re-verified live for
 > create (both directions) and via source for edit/delete (all now use unified `before_action` guards).
 > TC-TCM-067–069 (To-Do scoping) executed live for the first time, all PASS. TC-TCM-074 (non-member access to
-> a private, module-enabled project) reconfirmed PASS. **BUG-TCM-009 REOPENED (narrower)** — TC-TCM-077
-> (module-disabled) found Test Suites is the one controller that never got the `module_enabled?` check the
-> other 8 sibling endpoints now correctly have (`rftc_authorize_suite_read` still uses the older
-> `rftc_project_readable?`, not `rftc_authorize_project_read!`). TC-TCM-073 remains deferred (irreversible
+> a private, module-enabled project) reconfirmed PASS. **BUG-TCM-009 REOPENED (High, broader than first
+> found)** — TC-TCM-077 (module-disabled) found Test Suites is the one controller that never got the
+> `module_enabled?` check the other 8 sibling endpoints now correctly have; **the user then found independently
+> that `view_test_suite` itself is never checked either** (tested live by stripping the permission from a real
+> role with the module left enabled) — a project member with zero Testcase Management permissions can still
+> fully browse Test Suites regardless of module state. TC-TCM-073 remains deferred (irreversible
 > deletion, needs explicit approval); TC-TCM-051 remains deferred (case↔suite association setup unresolved);
 > TC-TCM-066 (report cross-project scoping) and TC-TCM-075 (anonymous access) not re-executed this cycle —
 > source logic for both is unchanged since 2026-09-30 and not implicated by anything found this cycle.
@@ -885,6 +887,18 @@ to `/test_suites?project_id=rftc-016-ci-qa` renders the complete, normal page �
 "CI Ingest Sub-Suite", "U21 Brand New Suite", "Edge2 Brand New Suite"), a real Testcase Summary grid with real
 rows, and a working "+ New Test Case" button — visually indistinguishable from the module being enabled.
 Screenshot: `screenshots/BUG-TCM-009/module-disabled-test-suites-still-renders.png`.
+
+**Extended further by the user — the gap is broader than the module toggle.** Removed every Testcase
+Management permission from the `Manager` role (`qa.limited`'s role), leaving `view_test_suite` explicitly
+unchecked, **with the module left fully enabled** this time — isolating the permission check from the module
+check entirely. `qa.limited` could still browse the full suite tree and reach the "Add Testcase" form exactly
+as before. Confirmed via `rails runner`: `allowed_to?(:view_test_suite, project) == false`,
+`module_enabled?('testcase_management') == true` — yet the page rendered in full. Neither of Test Suites'
+candidate authorization helpers (`rftc_project_readable?`/`rftc_authorize_project_read!`) ever checks
+`view_test_suite` or any other Testcase Management permission at all — this is a **second, independent** gap
+on top of the module-enabled one, matching BUG-TCM-007's missing-role-permission-check pattern but now
+confirmed on this controller's *read* side. **Severity upgraded to High.** Role permissions restored
+immediately after.
 
 ---
 

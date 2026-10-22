@@ -4,7 +4,7 @@
 |--------|-------|--------|----------|-----------------|------------------------------|-----------|
 | BUG-TCM-007 | Create/Edit/Delete for Test Suites, Reports, and Requirements have no permission check at all — any project member can create, edit or delete them regardless of role | Closed | High | 7.0.0 | #121645 | bugs/closed/BUG-TCM-007.md |
 | BUG-TCM-008 | Run detail page crashes with an unhandled 500 error whenever the run's environment-assignee user has been deleted | Closed | Medium | 7.0.0 | #121698 | bugs/closed/BUG-TCM-008.md |
-| BUG-TCM-009 | Almost the entire plugin has no project-membership check at all — any logged-in user can view test suites, requirements, reports, traceability, to-dos and runs for a private project they are not a member of — REOPENED 2026-10-22 (narrower): non-member sub-case stays fixed, but Test Suites alone still skips the module-enabled check (uses `rftc_project_readable?`, not `rftc_authorize_project_read!` like the other 8 endpoints) | Open | Medium | master (post-pull, pre-7.2.0) | #121699 | bugs/open/BUG-TCM-009.md |
+| BUG-TCM-009 | Almost the entire plugin has no project-membership check at all — any logged-in user can view test suites, requirements, reports, traceability, to-dos and runs for a private project they are not a member of — REOPENED 2026-10-22, broader than first found: non-member sub-case stays fixed, but Test Suites' read actions skip BOTH the module-enabled check AND the `view_test_suite` permission check itself — a project member with zero Testcase Management permissions can still fully browse Test Suites regardless of module state | Open | High | master (post-pull, pre-7.2.0) | #121699 | bugs/open/BUG-TCM-009.md |
 | BUG-TCM-010 | With the Testcase Tracker setting cleared, "New Test Case" silently creates a Bug instead of failing with a configuration error — the issue is invisible to every Testcase Management view from then on | Closed | High | 7.0.0 | #121700 | bugs/closed/BUG-TCM-010.md |
 | BUG-TCM-011 | Report Defect (and New Test Case) cannot be completed at all when Defect/Testcase Tracker is set to anything other than "Bug" — two Bug-only required custom fields are enforced but never rendered | Closed | High | 7.0.0 | #121701 | bugs/closed/BUG-TCM-011.md |
 | BUG-TCM-012 | Default "Test Case Result Added" notification email shows the run's name instead of the test case's own subject in its heading | Closed | Low | 7.0.0 | #121702 | bugs/closed/BUG-TCM-012.md |
@@ -454,5 +454,15 @@
   calls `rftc_project_readable?` (checks visibility only), while the other 8 controllers correctly use
   `rftc_authorize_project_read!` (checks visibility AND `module_enabled?`) — the 2026-10-06/07 fix wave rolled
   the comprehensive helper out everywhere except this one controller, and its own closing note's "For QA" repro
-  steps never actually listed Test Suites to re-verify. Production #121699 reopen pending explicit user
+  steps never actually listed Test Suites to re-verify. **Confirmed live via a real Playwright browser session**
+  (not just curl) — the TestCases nav tab correctly disappears, but navigating directly to the Test Suites page
+  still renders the full suite tree and a working "New Test Case" button. **Extended further, found by the
+  user directly testing the actual role**: removed every Testcase Management permission from the `Manager`
+  role (leaving `view_test_suite` explicitly unchecked) with the module left fully **enabled** this time —
+  `qa.limited` could still browse the entire suite tree and reach the "Add Testcase" form. Confirmed via
+  `rails runner`: `allowed_to?(:view_test_suite, project) == false`, yet the page rendered fully regardless.
+  Neither `rftc_project_readable?` nor `rftc_authorize_project_read!` ever checks `view_test_suite` (or any
+  Testcase Management permission) at all — this is a second, independent gap on top of the module-enabled one,
+  same class of defect as BUG-TCM-007 but on the *read* side of this one controller. **Severity upgraded to
+  High.** Role permissions restored immediately after. Production #121699 reopen pending explicit user
   approval (currently Done/100%).

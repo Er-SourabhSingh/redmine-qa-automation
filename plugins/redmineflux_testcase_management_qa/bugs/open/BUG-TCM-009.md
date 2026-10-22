@@ -1,8 +1,12 @@
 # BUG-TCM-009
 
-> **REOPENED — 2026-10-22.** A narrower surviving gap found while regressing the Permissions suite: Test Suites
-> specifically never got the `module_enabled?` check the other 8 sibling endpoints now correctly have — see
-> "Reopened" section below. Production #121699 reopen pending explicit user approval (currently Done/100%).
+> **REOPENED — 2026-10-22.** Test Suites' read actions (`index`/`releases`/`chart_data`) are missing **two**
+> separate checks: the `module_enabled?` check the other 8 sibling endpoints correctly have (found first via
+> TC-TCM-077), and — found directly by the user testing the actual role — the `view_test_suite` permission
+> check itself, which neither of this controller's candidate authorization helpers ever verifies at all. A
+> project member with zero Testcase Management permissions can still fully browse Test Suites regardless of
+> module state. Severity upgraded to **High**. See "Reopened" section below. Production #121699 reopen pending
+> explicit user approval (currently Done/100%).
 
 > **Previously CLOSED — 2026-10-07.** Production #121699 (https://flux.zehntech.com/issues/121699) is **Done**, 100% done.
 > Closed on production by Sourabh Singh after retest — see "Production history" below. Local file synced from production on 2026-10-08.
@@ -284,7 +288,8 @@ Retested on master `9958491`. All nine originally-affected endpoints (test_suite
 
 ---
 
-## REOPENED — 2026-10-22 — Test Suites still skips the module-enabled check (narrower than the original)
+## REOPENED — 2026-10-22 — Test Suites skips BOTH the module-enabled check AND the view_test_suite permission
+itself — broader than first found
 
 Found while regressing the Permissions suite (`TESTCASE_MANAGEMENT_PERMISSIONS.md`, TC-TCM-077 — "Module
 disabled removes all access"). **The non-member sub-case (this bug's main scope) remains genuinely fixed** —
@@ -329,6 +334,33 @@ genuine project member) with the module disabled:
   and a fully-functional "+ New Test Case" button — visually indistinguishable from the module being enabled.
   Screenshot: `screenshots/BUG-TCM-009/module-disabled-test-suites-still-renders.png`.
 
+### Found live by the user — the gap is broader than "module disabled": `view_test_suite` itself is never checked
+
+**User directly tested the actual role permission** (not the module toggle): removed **every** Testcase
+Management permission from the `Manager` role (the role `qa.limited` holds on this project) via Administration
+→ Roles and permissions, leaving `view_test_suite` explicitly unchecked — **with the module still fully
+enabled** this time, isolating the permission check from the module check entirely. Screenshot shows `qa.limited`
+still browsing the full suite tree ("CI Ingest", "U21 Brand New Suite", "Edge2 Brand New Suite") and reaching
+the "Add Testcase" form (Tracker/Subject/Description/Status/Priority/Assignee/Start date, all fully
+interactive), as if the permission had never been revoked.
+
+**Re-verified independently, live:**
+```
+u.allowed_to?(:view_test_suite, project)   => false   (confirmed via rails runner, BEFORE restoring)
+u.allowed_to?(:create_test_suite, project) => false
+project.module_enabled?('testcase_management') => true   (module left ON for this check)
+```
+Yet `GET /test_suites?project_id=rftc-016-ci-qa` as this same user (real Playwright session) still rendered
+the full suite tree and a working "New Test Case" link — confirming the gap is **not** limited to the
+module-disabled sub-case. `rftc_authorize_suite_read`/`rftc_project_readable?` never calls `allowed_to?` for
+**any** Testcase Management permission at all — only `admin? || project.visible?(user)`. A project member with
+literally zero Testcase Management permissions of any kind can still fully browse (and, per the Add Testcase
+form being reachable, potentially act on) the Test Suites area — this is the same missing-permission-check
+shape as BUG-TCM-007 (which only ever covered *write* actions in 3 *other* controllers), now confirmed on
+Test Suites' own *read* side too, on top of the module-enabled gap already documented above. Permissions
+restored on the `Manager` role immediately after this check (`view_test_suite`, `create_test_suite`, and the
+rest of the original Testcase Management permission set re-added).
+
 ### Root cause (precise, source-confirmed)
 
 `app/controllers/concerns/rftc_access_control.rb` has **two** similarly-named but different helpers:
@@ -362,15 +394,29 @@ when the 2026-10-06/07 fix wave rolled out `rftc_authorize_project_read!` to the
 re-verify (only Requirements/Traceability/To-Dos/Runs/Environments), even though the prose claimed it was
 "confirmed fixed" — this sub-case was never actually re-tested for this specific controller.
 
+**Extended by the user's own test**: neither `rftc_project_readable?` *nor* `rftc_authorize_project_read!`
+ever calls `allowed_to?(:view_test_suite, ...)` (or any other Testcase Management permission) at all — both
+helpers only ever check project visibility (and, for the latter, module-enabled). So even switching to
+`rftc_authorize_project_read!` alone would **not** fully close this — the read actions (`index`, `releases`,
+`chart_data`) need an *additional* `allowed_to?(:view_test_suite, @project)` check that neither existing
+helper provides. This is the same class of gap as BUG-TCM-007 (missing role-permission check), just newly
+confirmed on this controller's *read* side, where BUG-TCM-007 only ever covered *write* actions.
+
 ### Suggested fix
 
-Switch `test_suites_controller.rb#rftc_authorize_suite_read` to call `rftc_authorize_project_read!` (or add
-the same `module_enabled?('testcase_management')` check to `rftc_project_readable?`/its caller), matching the
-pattern already correctly used by the other 8 controllers.
+Two changes needed, not one:
+1. Switch `test_suites_controller.rb#rftc_authorize_suite_read` to call `rftc_authorize_project_read!` instead
+   of `rftc_project_readable?` (closes the module-disabled sub-case, matching the other 8 controllers).
+2. **Additionally** add an explicit `allowed_to?(:view_test_suite, @project)` check (or equivalent) to that
+   same guard — neither existing helper checks this permission at all, so switching helpers alone only fixes
+   the module gap, not the permission gap the user found.
 
 ### Verdict
 
-**Reopened**, narrower than the original: the non-member sub-case stays fixed (verified live this session);
-only the module-disabled sub-case for Test Suites specifically is still open. Severity: Medium (requires an
-admin to have deliberately disabled the module on an otherwise-accessible project — a real but less common
-precondition than the original's "any random non-member on a private project").
+**Reopened, broader than first found.** The non-member sub-case (TC-TCM-074) stays genuinely fixed (verified
+live this session). But Test Suites' read actions (`index`/`releases`/`chart_data`) have **two** separate
+missing checks: the module-enabled check (found first, TC-TCM-077) and the `view_test_suite` role-permission
+check itself (found by the user directly testing the role). Severity: **High** (upgraded from Medium) — unlike
+the module-disabled precondition, a project member simply not being granted `view_test_suite` on their role is
+an entirely ordinary, common admin configuration, not an edge case; this makes the practical exposure much
+wider than originally scoped.
